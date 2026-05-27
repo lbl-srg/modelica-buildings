@@ -121,7 +121,7 @@ partial model PartialCoolerGroup
       iconTransformation(extent={{-20,280},{20,320}})));
   BoundaryConditions.WeatherData.Bus busWea
     "Weather data bus"
-    annotation(Placement(transformation(extent={{-80,80},{-40,120}}),
+    annotation(Placement(transformation(extent={{-100,80},{-60,120}}),
       iconTransformation(extent={{-320,280},{-280,320}})));
   Buildings.Controls.OBC.CDL.Routing.RealScalarReplicator repSpe(
     final nout=nCoo)
@@ -129,69 +129,92 @@ partial model PartialCoolerGroup
     "Replicate signal in case of common unique commanded speed"
     annotation(Placement(transformation(extent={{-10,-10},{10,10}},
       rotation=-90,
-      origin={0,70})));
+      origin={0,60})));
   Modelica.Blocks.Routing.RealPassThrough pasSpe[nCoo]
     if not have_varCom
     "Direct pass through for dedicated speed signal"
     annotation(Placement(transformation(extent={{-10,-10},{10,10}},
       rotation=-90,
-      origin={40,70})));
-  Modelica.Blocks.Routing.BooleanPassThrough pasSta[nCoo]
-    "Direct pass through for Start/Stop signal"
+      origin={30,60})));
+  // The pass-through blocks pasEna and pasSta are required for proper expansion
+  // of expandable connector variables. Compiler inference fails by simply
+  // connecting busCoo.y1 to busCooUni.y1.
+  Buildings.Controls.OBC.CDL.Routing.BooleanExtractSignal pasEna(
+    nin=nCoo,
+    final nout=nCoo)
+    "Pass-through for enable signal"
     annotation(Placement(transformation(extent={{-10,-10},{10,10}},
       rotation=-90,
-      origin={-40,70})));
+      origin={-30,60})));
+  Buildings.Controls.OBC.CDL.Routing.BooleanExtractSignal pasSta(
+    nin=nCoo,
+    final nout=nCoo)
+    "Pass-through for status signal"
+    annotation(Placement(transformation(extent={{10,-10},{-10,10}},
+      rotation=-90,
+      origin={60,60})));
   protected
-  Buildings.Templates.Components.Interfaces.Bus busCoo[nCoo]
-    "Cooler control bus"
-    annotation(Placement(transformation(extent={{-20,20},{20,60}}),
+  Buildings.Templates.Components.Interfaces.Bus busCoo
+    "Cooler group control bus"
+    annotation(Placement(transformation(extent={{-20,60},{20,100}}),
       iconTransformation(extent={{-350,6},{-310,46}})));
+  Buildings.Templates.Components.Interfaces.Bus busCooUni[nCoo]
+    "Cooler control bus – Each unit"
+    annotation(Placement(transformation(extent={{-20,10},{20,50}}),
+      iconTransformation(extent={{-350,6},{-310,46}})));
+  Buildings.Templates.Components.Interfaces.Bus busValCooInlIso[nCoo]
+    if typValCooInlIso <> Buildings.Templates.Components.Types.Valve.None
+    "Cooler inlet isolation valve control bus"
+    annotation(Placement(transformation(extent={{-80,60},{-40,100}}),
+      iconTransformation(extent={{-756,150},{-716,190}})));
+  Buildings.Templates.Components.Interfaces.Bus busValCooOutIso[nCoo]
+    if typValCooOutIso <> Buildings.Templates.Components.Types.Valve.None
+    "Cooler outlet isolation valve control bus"
+    annotation(Placement(transformation(extent={{60,60},{100,100}}),
+      iconTransformation(extent={{-756,150},{-716,190}})));
 equation
-  connect(repSpe.y, busCoo.y)
-    annotation(Line(points={{0,58},{0,40}},
-      color={0,0,127}));
-  connect(pasSpe.y, busCoo.y)
-    annotation(Line(points={{40,59},{40,50},{0,50},{0,40}},
-      color={0,0,127}));
-  connect(bus.yCoo, repSpe.u)
-    annotation(Line(points={{0,100},{0,82}},
-      color={255,204,51},
-      thickness=0.5),
-      Text(string="%first",
-        index=-1,
-        extent={{-3,6},{-3,6}},
-        horizontalAlignment=TextAlignment.Right));
-  connect(bus.yCoo, pasSpe.u)
-    annotation(Line(points={{0,100},{0,90},{40,90},{40,82}},
-      color={255,204,51},
-      thickness=0.5),
-      Text(string="%first",
-        index=-1,
-        extent={{-3,6},{-3,6}},
-        horizontalAlignment=TextAlignment.Right));
   connect(busCoo, bus.coo)
-    annotation(Line(points={{0,40},{80,40},{80,96},{6,96},{6,100},{0,100}},
+    annotation(Line(points={{0,80},{0,100}},
       color={255,204,51},
       thickness=0.5),
       Text(string="%second",
         index=-1,
         extent={{6,3},{6,3}},
         horizontalAlignment=TextAlignment.Left));
-  connect(bus.y1Coo, pasSta.u)
-    annotation(Line(points={{0,100},{0,90},{-40,90},{-40,82}},
+  connect(repSpe.u, busCoo.y)
+    annotation(Line(points={{0,72},{0,80}},
+      color={0,0,127}));
+  connect(pasSpe.u, busCoo.y)
+    annotation(Line(points={{30,72},{30,80},{0,80}},
+      color={0,0,127}));
+  connect(repSpe.y, busCooUni.y)
+    annotation(Line(points={{0,48},{0,30}},
+      color={0,0,127}));
+  connect(pasSpe.y, busCooUni.y)
+    annotation(Line(points={{30,49},{30,30},{0,30}},
+      color={0,0,127}));
+  connect(bus.valCooInlIso, busValCooInlIso)
+    annotation(Line(points={{0,100},{-60,100},{-60,80}},
       color={255,204,51},
-      thickness=0.5),
-      Text(string="%first",
-        index=-1,
-        extent={{-3,6},{-3,6}},
-        horizontalAlignment=TextAlignment.Right));
-  connect(pasSta.y, busCoo.y1)
-    annotation(Line(points={{-40,59},{-40,40},{0,40}},
-      color={255,0,255}),
-      Text(string="%second",
-        index=1,
-        extent={{-3,-6},{-3,-6}},
-        horizontalAlignment=TextAlignment.Right));
+      thickness=0.5));
+  connect(bus.valCooOutIso, busValCooOutIso)
+    annotation(Line(points={{0,100},{80,100},{80,80}},
+      color={255,204,51},
+      thickness=0.5));
+  connect(busCoo.y1, pasEna.u)
+    annotation(Line(points={{0,80},{-30,80},{-30,72}},
+      color={255,204,51},
+      thickness=0.5));
+  connect(pasEna.y, busCooUni.y1)
+    annotation(Line(points={{-30,48},{-30,30},{0,30}},
+      color={255,0,255}));
+  connect(pasSta.y, busCoo.y1_actual)
+    annotation(Line(points={{60,72},{60,80},{0,80}},
+      color={255,0,255}));
+  connect(busCooUni.y1_actual, pasSta.u)
+    annotation(Line(points={{0,30},{60,30},{60,48}},
+      color={255,204,51},
+      thickness=0.5));
 annotation(Icon(coordinateSystem(preserveAspectRatio=false,
   extent={{-820,-300},{820,300}})),
   Diagram(coordinateSystem(preserveAspectRatio=false,
@@ -208,32 +231,40 @@ annotation(Icon(coordinateSystem(preserveAspectRatio=false,
 </p>
 <ul>
   <li>
-    Cooler Start/Stop command (VFD Run) <code>y1Coo</code>: DO signal
-    dedicated to each unit, with a dimensionality of one
-  </li>
-  <li>
-    Cooler speed command (VFD Speed) <code>yCoo</code>:
+    Connector <code>bus.coo</code>, with a dimensionality of zero,
+    storing the following cooler control points.
     <ul>
       <li>
-        If <code>have_varCom</code>: AO signal common to all units, with a
-        dimensionality of zero
+        Start/Stop command (VFD Run): <code>y1</code> DO signal dedicated to
+        each unit, with a dimensionality of one
       </li>
       <li>
-        If <code>not have_varCom</code>: AO signal dedicated to each unit,
-        with a dimensionality of one
+        Speed command (VFD Speed): <code>y</code>
+        <ul>
+          <li>
+            If <code>have_varCom</code>: AO signal common to all units, with a
+            dimensionality of zero
+          </li>
+          <li>
+            If <code>not have_varCom</code>: AO signal dedicated to each unit,
+            with a dimensionality of one
+          </li>
+        </ul>
+      </li>
+      <li>
+        Status (VFD status): <code>y1_actual</code>, DI signal dedicated to
+        each unit, with a dimensionality of one
       </li>
     </ul>
   </li>
   <li>
-    Sub-bus <code>coo</code> storing all signals dedicated to each unit, with
-    a dimensionality of one
-    <ul>
-      <li>
-        At least the cooler status (through VFD interface, VFD status contact,
-        or current switch) should be available as <code>coo.y1_actual</code>:
-        DI signal dedicated to each unit, with a dimensionality of one
-      </li>
-    </ul>
+    Connector <code>bus.valCooInlIso</code> (respectively
+    <code>bus.valCooOutIso</code>), with a dimensionality of one, storing
+    each unit's inlet (respectively outlet) isolation valve control points as
+    specified in the documentation of
+    <a href=\"modelica://Buildings.Templates.Components.Actuators.Valve\">
+      Buildings.Templates.Components.Actuators.Valve</a> for
+    two-position valves.
   </li>
 </ul>
 </html>",

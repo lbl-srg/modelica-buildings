@@ -50,7 +50,7 @@ model CoolingTower
     final allowFlowReversal=allowFlowReversal,
     final energyDynamics=energyDynamics,
     final tau=tau,
-    icon_pipe=Buildings.Templates.Components.Types.IntegrationPoint.None)
+    final icon_pipe=Buildings.Templates.Components.Types.IntegrationPoint.None)
     "Cooler group inlet manifold"
     annotation(Placement(transformation(extent={{-90,-10},{-70,10}})));
   Buildings.Templates.Components.Routing.MultipleToSingle outCoo(
@@ -61,23 +61,11 @@ model CoolingTower
     final allowFlowReversal=allowFlowReversal,
     final energyDynamics=energyDynamics,
     final tau=tau,
-    icon_pipe=Buildings.Templates.Components.Types.IntegrationPoint.None)
+    final icon_pipe=Buildings.Templates.Components.Types.IntegrationPoint.None)
     "Cooling tower group outlet manifold"
     annotation(Placement(transformation(extent={{70,-10},{90,10}})));
 equation
   /* Control point connection - start */
-  connect(busCoo, coo.bus);
-  /*
-   * HACK: The following clauses should be removed at translation if typVal*==*.None`
-   * but Dymola fails to do so.
-   * Hence, explicit `if then` statements are used.
-   */
-  if typValCooInlIso <> Buildings.Templates.Components.Types.Valve.None then
-    connect(bus.valCooInlIso, valCooInlIso.bus);
-  end if;
-  if typValCooOutIso <> Buildings.Templates.Components.Types.Valve.None then
-    connect(bus.valCooOutIso, valCooOutIso.bus);
-  end if;
   for i in 1:nCoo loop
     connect(busWea, coo[i].busWea);
   end for;
@@ -100,6 +88,18 @@ equation
   connect(valCooOutIso.port_b, outCoo.ports_a)
     annotation(Line(points={{50,0},{70,0}},
       color={0,127,255}));
+  connect(busCooUni, coo.bus)
+    annotation(Line(points={{0,30},{0,10}},
+      color={255,204,51},
+      thickness=0.5));
+  connect(busValCooInlIso, valCooInlIso.bus)
+    annotation(Line(points={{-40,80},{-40,10}},
+      color={255,204,51},
+      thickness=0.5));
+  connect(busValCooOutIso, valCooOutIso.bus)
+    annotation(Line(points={{80,80},{80,20},{40,20},{40,10}},
+      color={255,204,51},
+      thickness=0.5));
 annotation(defaultComponentName="coo",
   Documentation(
     info="<html>

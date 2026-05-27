@@ -510,7 +510,8 @@ equation
 annotation(Diagram(coordinateSystem(extent={{-200,-240},{200,200}})),
   Icon(coordinateSystem(preserveAspectRatio=false,
     extent={{-400,-1000},{400,1000}}),
-    graphics={Text(extent={{-151,-1008},{149,-1048}},
+    graphics={
+              Text(extent={{-151,-1008},{149,-1048}},
       textColor={0,0,255},
       textString="%name"),
     Line(points={{180,840},{400,840}},
@@ -1221,16 +1222,10 @@ annotation(Diagram(coordinateSystem(extent={{-200,-240},{200,200}})),
 </p>
 <ul>
   <li>
-    Sub-bus <code>bus.chi=busChi</code> storing all signals dedicated to each
-    unit, with a dimensionality of one
-    <ul>
-      <li>
-        See the class
+    Connector <code>bus.chi</code>, with a dimensionality of one, storing all 
+   signals dedicated to each chiller as specified in the documentation of 
         <a href=\"modelica://Buildings.Templates.Components.Chillers.Compression\">
-          Buildings.Templates.Components.Chillers.Compression</a> for
-        the control signals typically included in this sub-bus.
-      </li>
-    </ul>
+          Buildings.Templates.Components.Chillers.Compression</a>.
   </li>
 </ul>
 </html>",

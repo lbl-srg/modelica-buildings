@@ -212,136 +212,100 @@ partial block PartialController
   protected
   Buildings.Templates.Components.Interfaces.Bus busChi[cfg.nChi]
     "Chiller control bus"
-    annotation(Placement(transformation(extent={{-260,180},{-220,220}}),
+    annotation(Placement(transformation(extent={{-260,260},{-220,300}}),
       iconTransformation(extent={{-756,150},{-716,190}})));
-  Buildings.Templates.Components.Interfaces.Bus busCoo[cfg.nCoo]
+  Buildings.Templates.Components.Interfaces.Bus busCoo
     if cfg.typCoo <> Buildings.Templates.Components.Types.Cooler.None
-    "Cooler control bus"
-    annotation(Placement(transformation(extent={{-260,-120},{-220,-80}}),
+    "Cooler group control bus"
+    annotation(Placement(transformation(extent={{-260,-100},{-220,-60}}),
       iconTransformation(extent={{-756,150},{-716,190}})));
   Buildings.Templates.Components.Interfaces.Bus busValCooInlIso[cfg.nCoo]
     if cfg.typValCooInlIso <> Buildings.Templates.Components.Types.Valve.None
     "Cooler inlet isolation valve control bus"
-    annotation(Placement(transformation(extent={{-260,-160},{-220,-120}}),
+    annotation(Placement(transformation(extent={{-260,-140},{-220,-100}}),
       iconTransformation(extent={{-756,150},{-716,190}})));
   Buildings.Templates.Components.Interfaces.Bus busValCooOutIso[cfg.nCoo]
     if cfg.typValCooOutIso <> Buildings.Templates.Components.Types.Valve.None
     "Cooler outlet isolation valve control bus"
-    annotation(Placement(transformation(extent={{-260,-200},{-220,-160}}),
+    annotation(Placement(transformation(extent={{-260,-180},{-220,-140}}),
       iconTransformation(extent={{-756,150},{-716,190}})));
   Buildings.Templates.Components.Interfaces.Bus busValChiWatChiIso[cfg.nChi]
     if cfg.typValChiWatChiIso <> Buildings.Templates.Components.Types.Valve.None
     "Chiller CHW isolation valve control bus"
-    annotation(Placement(transformation(extent={{-260,140},{-220,180}}),
+    annotation(Placement(transformation(extent={{-260,220},{-220,260}}),
       iconTransformation(extent={{-756,150},{-716,190}})));
   Buildings.Templates.Components.Interfaces.Bus busValConWatChiIso[cfg.nChi]
     if cfg.typValConWatChiIso <> Buildings.Templates.Components.Types.Valve.None
     "Chiller CW isolation valve control bus"
-    annotation(Placement(transformation(extent={{-260,100},{-220,140}}),
-      iconTransformation(extent={{-756,150},{-716,190}})));
-  Buildings.Templates.Components.Interfaces.Bus busValChiWatChiBypSer[cfg.nChi] if cfg.typArrChi
-     == Buildings.Templates.Plants.Chillers.Types.ChillerArrangement.Series
-    "Chiller CHW bypass valve control bus - Series chillers"
     annotation(Placement(transformation(extent={{-260,60},{-220,100}}),
+      iconTransformation(extent={{-756,150},{-716,190}})));
+  Buildings.Templates.Components.Interfaces.Bus busValChiWatChiBypSer[cfg.nChi]
+    if cfg.typArrChi ==
+      Buildings.Templates.Plants.Chillers.Types.ChillerArrangement.Series
+    "Chiller CHW bypass valve control bus - Series chillers"
+    annotation(Placement(transformation(extent={{-260,180},{-220,220}}),
       iconTransformation(extent={{-422,198},{-382,238}})));
   Buildings.Templates.Components.Interfaces.Bus busPumChiWatPri
     "Primary CHW pump control bus"
-    annotation (Placement(transformation(extent={{-200,180},{-160,220}}),
+    annotation(Placement(transformation(extent={{-260,20},{-220,60}}),
       iconTransformation(extent={{-466,50},{-426,90}})));
   Buildings.Templates.Components.Interfaces.Bus busPumConWat
-    if cfg.nPumConWat > 0 "CW pump control bus" annotation (Placement(
-        transformation(extent={{-200,100},{-160,140}}), iconTransformation(
-          extent={{-466,50},{-426,90}})));
+    if cfg.nPumConWat > 0
+    "CW pump control bus"
+    annotation(Placement(transformation(extent={{-260,-60},{-220,-20}}),
+      iconTransformation(extent={{-466,50},{-426,90}})));
   Buildings.Templates.Components.Interfaces.Bus busPumChiWatSec
-    if cfg.have_pumChiWatSec "Secondary CHW pump control bus" annotation (
-      Placement(transformation(extent={{-200,140},{-160,180}}),
-        iconTransformation(extent={{-466,50},{-426,90}})));
-  Buildings.Templates.Components.Interfaces.Bus busPumChiWatEco if cfg.typEco
-     == Buildings.Templates.Plants.Chillers.Types.Economizer.HeatExchangerWithPump
-    "WSE CHW HX pump control bus" annotation (Placement(transformation(extent={
-            {-200,-40},{-160,0}}), iconTransformation(extent={{-466,50},{-426,
-            90}})));
-  Buildings.Templates.Components.Interfaces.Bus busValChiWatEcoByp if cfg.typEco
-     == Buildings.Templates.Plants.Chillers.Types.Economizer.HeatExchangerWithValve
-    "WSE CHW bypass valve control bus" annotation (Placement(transformation(
-          extent={{-220,-60},{-180,-20}}), iconTransformation(extent={{-466,50},
-            {-426,90}})));
+    if cfg.have_pumChiWatSec
+    "Secondary CHW pump control bus"
+    annotation(Placement(transformation(extent={{-260,-20},{-220,20}}),
+      iconTransformation(extent={{-466,50},{-426,90}})));
+  Buildings.Templates.Components.Interfaces.Bus busPumChiWatEco
+    if cfg.typEco ==
+      Buildings.Templates.Plants.Chillers.Types.Economizer.HeatExchangerWithPump
+    "WSE CHW HX pump control bus"
+    annotation(Placement(transformation(extent={{-260,-300},{-220,-260}}),
+      iconTransformation(extent={{-466,50},{-426,90}})));
+  Buildings.Templates.Components.Interfaces.Bus busValChiWatEcoByp
+    if cfg.typEco ==
+      Buildings.Templates.Plants.Chillers.Types.Economizer.HeatExchangerWithValve
+    "WSE CHW bypass valve control bus"
+    annotation(Placement(transformation(extent={{-260,-260},{-220,-220}}),
+      iconTransformation(extent={{-466,50},{-426,90}})));
   Buildings.Templates.Components.Interfaces.Bus busValChiWatChiBypPar
     if cfg.have_valChiWatChiBypPar
     "Chiller CHW bypass valve control bus – Parallel chillers with WSE in primary-only plants"
-    annotation (Placement(transformation(extent={{-180,60},{-140,100}}),
-        iconTransformation(extent={{-422,198},{-382,238}})));
-  Buildings.Templates.Components.Interfaces.Bus busValChiWatMinByp if cfg.typDisChiWat
-     == Buildings.Templates.Plants.Chillers.Types.Distribution.Variable1Only
-    "CHW minimum flow bypass valve control bus" annotation (Placement(
-        transformation(extent={{-160,40},{-120,80}}), iconTransformation(extent
-          ={{-422,198},{-382,238}})));
-  Buildings.Templates.Components.Interfaces.Bus busValConWatEcoIso if cfg.typEco
-     == Buildings.Templates.Plants.Chillers.Types.Economizer.HeatExchangerWithValve
-    "WSE HX CW isolation valve control bus" annotation (Placement(
-        transformation(extent={{-200,-80},{-160,-40}}), iconTransformation(
-          extent={{-466,50},{-426,90}})));
+    annotation(Placement(transformation(extent={{-260,140},{-220,180}}),
+      iconTransformation(extent={{-422,198},{-382,238}})));
+  Buildings.Templates.Components.Interfaces.Bus busValChiWatMinByp
+    if cfg.typDisChiWat ==
+      Buildings.Templates.Plants.Chillers.Types.Distribution.Variable1Only
+    "CHW minimum flow bypass valve control bus"
+    annotation(Placement(transformation(extent={{-260,100},{-220,140}}),
+      iconTransformation(extent={{-422,198},{-382,238}})));
+  Buildings.Templates.Components.Interfaces.Bus busValConWatEcoIso
+    if cfg.typEco ==
+      Buildings.Templates.Plants.Chillers.Types.Economizer.HeatExchangerWithValve
+    "WSE HX CW isolation valve control bus"
+    annotation(Placement(transformation(extent={{-260,-220},{-220,-180}}),
+      iconTransformation(extent={{-466,50},{-426,90}})));
 equation
-  connect(busValChiWatChiIso, bus.valChiWatChiIso)
-    annotation(Line(points={{-240,160},{-220,160},{-220,0},{-260,0}},
-      color={255,204,51},
-      thickness=0.5));
-  connect(busChi, bus.chi)
-    annotation(Line(points={{-240,200},{-210,200},{-210,0},{-260,0}},
-      color={255,204,51},
-      thickness=0.5));
-  connect(busCoo, bus.coo)
-    annotation(Line(points={{-240,-100},{-240,0},{-260,0}},
-      color={255,204,51},
-      thickness=0.5));
-  connect(busValCooInlIso, bus.valCooInlIso)
-    annotation(Line(points={{-240,-140},{-230,-140},{-230,0},{-260,0}},
-      color={255,204,51},
-      thickness=0.5));
-  connect(busValCooOutIso, bus.valCooOutIso)
-    annotation(Line(points={{-240,-180},{-220,-180},{-220,0},{-260,0}},
-      color={255,204,51},
-      thickness=0.5));
-  connect(busValChiWatChiBypSer, bus.valChiWatChiByp)
-    annotation(Line(points={{-240,80},{-240,0},{-260,0}},
-      color={255,204,51},
-      thickness=0.5));
-  connect(busValConWatChiIso, bus.valConWatChiIso)
-    annotation(Line(points={{-240,120},{-228,120},{-228,0},{-260,0}},
-      color={255,204,51},
-      thickness=0.5));
-  connect(busPumConWat, bus.pumConWat) annotation (Line(
-      points={{-180,120},{-180,0},{-260,0}},
-      color={255,204,51},
-      thickness=0.5));
-  connect(busPumChiWatSec, bus.pumChiWatSec) annotation (Line(
-      points={{-180,160},{-192,160},{-192,0},{-260,0}},
-      color={255,204,51},
-      thickness=0.5));
-  connect(busPumChiWatPri, bus.pumChiWatPri) annotation (Line(
-      points={{-180,200},{-200,200},{-200,0},{-260,0}},
-      color={255,204,51},
-      thickness=0.5));
-  connect(busValChiWatEcoByp, bus.valChiWatEcoByp) annotation (Line(
-      points={{-200,-40},{-200,0},{-260,0}},
-      color={255,204,51},
-      thickness=0.5));
-  connect(busPumChiWatEco, bus.pumChiWatEco) annotation (Line(
-      points={{-180,-20},{-180,0},{-260,0}},
-      color={255,204,51},
-      thickness=0.5));
-  connect(busValChiWatChiBypPar, bus.valChiWatChiBypPar) annotation (Line(
-      points={{-160,80},{-160,0},{-260,0}},
-      color={255,204,51},
-      thickness=0.5));
-  connect(busValChiWatMinByp, bus.valChiWatMinByp) annotation (Line(
-      points={{-140,60},{-140,0},{-260,0}},
-      color={255,204,51},
-      thickness=0.5));
-  connect(busValConWatEcoIso, bus.valConWatEcoIso) annotation (Line(
-      points={{-180,-60},{-180,0},{-260,0}},
-      color={255,204,51},
-      thickness=0.5));
+  /* Control point connection - start */
+  connect(busValChiWatChiIso, bus.valChiWatChiIso);
+  connect(busChi, bus.chi);
+  connect(busCoo, bus.coo);
+  connect(busValCooInlIso, bus.valCooInlIso);
+  connect(busValCooOutIso, bus.valCooOutIso);
+  connect(busValChiWatChiBypSer, bus.valChiWatChiByp);
+  connect(busValConWatChiIso, bus.valConWatChiIso);
+  connect(busPumConWat, bus.pumConWat);
+  connect(busPumChiWatSec, bus.pumChiWatSec);
+  connect(busPumChiWatPri, bus.pumChiWatPri);
+  connect(busValChiWatEcoByp, bus.valChiWatEcoByp);
+  connect(busPumChiWatEco, bus.pumChiWatEco);
+  connect(busValChiWatChiBypPar, bus.valChiWatChiBypPar);
+  connect(busValChiWatMinByp, bus.valChiWatMinByp);
+  connect(busValConWatEcoIso, bus.valConWatEcoIso);
+  /* Control point connection - stop */
 annotation(Icon(coordinateSystem(preserveAspectRatio=false,
   extent={{-100,-100},{100,100}}),
   graphics={Rectangle(extent={{-100,-100},{100,100}},
@@ -360,7 +324,7 @@ annotation(Icon(coordinateSystem(preserveAspectRatio=false,
   Array instances of nested expandable connectors are systematically declared
   here to enhance support across various Modelica tools. A typical connect
   clause such as <code>connect(bus.nestedBus[:].y, sensor[:].y)</code> raises
-  issues when <code>nestedBus</code> is not explicitly declared as Modelica
+  issues when <code>nestedBus</code> is not explicitly declared because Modelica
   compilers cannot decide to which variable the dimensionality should be
   assigned between <code>nestedBus</code> and <code>y</code> inside
   <code>nestedBus</code>.

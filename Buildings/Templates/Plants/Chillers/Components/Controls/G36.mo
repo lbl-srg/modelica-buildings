@@ -277,6 +277,14 @@ block G36
     if not have_senDpChiWatRemWir
     "Local CHW differential pressure reset"
     annotation(Placement(transformation(extent={{-60,16},{-40,36}})));
+  Buildings.Templates.Plants.Controls.Utilities.PlaceholderLogical y1PumChiWatRes[if cfg.typDisChiWat ==
+    Buildings.Templates.Plants.Chillers.Types.Distribution.Variable1Only
+  then cfg.nPumChiWatPri else cfg.nPumChiWatSec](
+    each final have_inp=cfg.typDisChiWat ==
+      Buildings.Templates.Plants.Chillers.Types.Distribution.Variable1Only,
+    each final have_inpPh=true)
+    "Select appropriate CHW pump status for CHW differential pressure reset"
+    annotation(Placement(transformation(extent={{-188,30},{-168,50}})));
 equation
   /* Control point connection - start */
   connect(busChi.y1ReqFloChiWat, ctl.uChiWatReq);
@@ -295,15 +303,8 @@ equation
   connect(bus.TConWatSup, ctl.TConWatSup);
   connect(bus.TChiWatPriSup, ctl.TChiWatSup);
   connect(bus.dpChiWatEco, ctl.dpChiWat);
-  // HACK Dymola does not automatically remove these clauses at translation.
-  if cfg.typEco ==
-    Buildings.Templates.Plants.Chillers.Types.Economizer.HeatExchangerWithPump
-  then
-    connect(busPumChiWatEco.y1_actual, ctl.uEcoPum);
-  end if;
-  if cfg.typChi == Buildings.Templates.Components.Types.Chiller.WaterCooled then
-    connect(busPumConWat.y1_actual, ctl.uConWatPum);
-  end if;
+  connect(busPumChiWatEco.y1_actual, ctl.uEcoPum);
+  connect(busPumConWat.y1_actual, ctl.uConWatPum);
   connect(bus.TChiWatEcoEnt, ctl.TEntHex);
   connect(busCoo.y1_actual, ctl.uTowSta);
   connect(busChi.yCtlHea, ctl.uHeaPreCon);
@@ -312,13 +313,6 @@ equation
   connect(bus.phiOut, ctl.phi);
   connect(bus.u1SchEna, ctl.uPlaSchEna);
   connect(bus.dpChiWatRem, resDpChiWatLoc.dpChiWat_remote);
-  if cfg.typDisChiWat ==
-    Buildings.Templates.Plants.Chillers.Types.Distribution.Variable1Only
-  then
-    connect(busPumChiWatPri.y1_actual, resDpChiWatLoc.uChiWatPum);
-  else
-    connect(busPumChiWatSec.y1_actual, resDpChiWatLoc.uChiWatPum);
-  end if;
   connect(busValChiWatChiIso.y0_actual, ctl.u1ChiWatIsoValClo);
   connect(busValChiWatChiIso.y1_actual, ctl.u1ChiWatIsoValOpe);
   connect(busValChiWatChiIso.y_actual, ctl.uChiWatIsoVal);
@@ -338,7 +332,7 @@ equation
   connect(ctl.yConWatPum, busPumConWat.y1);
   connect(ctl.yEcoConWatIsoVal, busValConWatEcoIso.y1);
   connect(ctl.yMinValPosSet, busValChiWatMinByp.y);
-  connect(ctl.yTowCel, bus.y1Coo);
+  connect(ctl.yTowCel, busCoo.y1);
   connect(ctl.yWsePumOn, busPumChiWatEco.y1);
   connect(ctl.yWsePumSpe, busPumChiWatEco.y);
   connect(ctl.yWseRetVal, busValChiWatEcoByp.y);
@@ -346,7 +340,7 @@ equation
   connect(ctl.yConWatPumSpe, busPumConWat.y);
   connect(ctl.yTowCelIsoVal, busValCooInlIso.y1);
   connect(ctl.yTowCelIsoVal, busValCooOutIso.y1);
-  connect(ctl.yTowFanSpe, bus.yCoo);
+  connect(ctl.yTowFanSpe, busCoo.y);
   /* Control point connection - stop */
   connect(reqPlaChiWat.y, ctl.chiPlaReq)
     annotation(Line(points={{168,154},{-18,154},{-18,-16},{-2,-16}},
@@ -392,6 +386,18 @@ equation
     annotation(Line(
       points={{22,22.8},{40,22.8},{40,60},{-80,60},{-80,21},{-62,21}},
       color={0,0,127}));
+  connect(busPumChiWatPri.y1_actual, y1PumChiWatRes.u)
+    annotation(Line(points={{-240,40},{-190,40}},
+      color={255,204,51},
+      thickness=0.5));
+  connect(busPumChiWatSec.y1_actual, y1PumChiWatRes.uPh)
+    annotation(Line(
+      points={{-240,0},{-230,0},{-230,2},{-220,2},{-220,34},{-190,34}},
+      color={255,204,51},
+      thickness=0.5));
+  connect(y1PumChiWatRes.y, resDpChiWatLoc.uChiWatPum)
+    annotation(Line(points={{-166,40},{-70,40},{-70,32},{-62,32}},
+      color={255,0,255}));
 annotation(Documentation(
   info="<html>
 <h4>Description</h4>
