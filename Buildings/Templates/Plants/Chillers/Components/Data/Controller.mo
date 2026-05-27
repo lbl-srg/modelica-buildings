@@ -390,7 +390,8 @@ record Controller
     "Number of plant stages, including stage zero and distinguishing stages with and without WSE, if applicable"
     annotation(Evaluate=true,
       Dialog(group="Plant staging"));
-  parameter Integer staPumConWat[:, :](each start=0)
+  parameter Integer staPumConWat[:, :](
+    start=fill(0, nSta, cfg.nPumConWat))
     "Condenser water pump staging matrix, with plant stage as row index and condenser water pump as column index: 0 for disabled, 1 for enabled"
     annotation(Dialog(group="Plant staging",
       enable=cfg.typCtl ==
@@ -399,7 +400,7 @@ record Controller
           Buildings.Templates.Components.Types.Chiller.WaterCooled));
   parameter Integer staCoo[:](
     max=fill(cfg.nCoo, nSta),
-    start=fill(cfg.nCoo, nSta))
+    start=fill(0, nSta))
     "Number of enabled tower cells for each plant stage"
     annotation(Evaluate=true,
       Dialog(group="Plant staging",
