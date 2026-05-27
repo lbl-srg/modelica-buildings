@@ -1379,9 +1379,6 @@ block AirToWater
     annotation (Placement(transformation(extent={{-110,320},{-90,340}})));
   StagingRotation.EquipmentEnable enaEquHea(
     final have_HpShc=have_HpShc,
-    final nEquAlt=nEquAlt,
-    final nSta=nSta,
-    final nEqu=nHpTot,
     final staEqu=staEqu,
     final staEquSinMod=staEquSinMod,
     final staEquDouMod=staEquDouMod)
@@ -1473,9 +1470,6 @@ block AirToWater
     annotation (Placement(transformation(extent={{-10,90},{10,110}})));
   StagingRotation.EquipmentEnable enaEquCoo(
     final have_HpShc=have_HpShc,
-    final nEquAlt=nEquAlt,
-    final nSta=nSta,
-    final nEqu=nHpTot,
     final staEqu=staEqu,
     final staEquSinMod=staEquSinMod,
     final staEquDouMod=staEquDouMod)
