@@ -6,19 +6,21 @@ block EquipmentEnable
     "Set to true if the logic block is used to stage HPs in a polyvalent heat pump plant"
     annotation (Evaluate=true);
 
-  parameter Integer nEquAlt
+  final parameter Integer nEquAlt=if nEqu==1 then 1 elseif (nEqu>1 and have_HpShc) then
+    max({sum({(if staEquSinMod[i, j] > 0 and staEquSinMod[i, j] < 1 then 1 else 0) for j in 1:nEqu}) for i in 1:nSta})
+    else max({sum({(if staEqu[i, j] > 0 and staEqu[i, j] < 1 then 1 else 0) for j in 1:nEqu}) for i in 1:nSta})
     "Number of lead/lag alternate equipment"
     annotation (Evaluate=true);
 
-  parameter Integer nSta
+  final parameter Integer nSta=if have_HpShc then size(staEquSinMod,1) else size(staEqu,1)
     "Number of stages"
     annotation (Evaluate=true);
 
-  parameter Integer nEqu
+  final parameter Integer nEqu=if have_HpShc then size(staEquSinMod,2) else size(staEqu,2)
     "Number of equipment"
     annotation (Evaluate=true);
 
-  parameter Real staEqu[nSta,nEqu](
+  parameter Real staEqu[:,:](
     each unit="1",
     each min=0,
     each max=1,
@@ -27,7 +29,7 @@ block EquipmentEnable
     annotation (Evaluate=true,
       Dialog(enable=not have_HpShc));
 
-  parameter Real staEquSinMod[nSta,nEqu](
+  parameter Real staEquSinMod[:,:](
     each unit="1",
     each min=0,
     each max=1,
@@ -36,7 +38,7 @@ block EquipmentEnable
     annotation (Evaluate=true,
       Dialog(enable=have_HpShc));
 
-  parameter Real staEquDouMod[nSta,nEqu](
+  parameter Real staEquDouMod[:,:](
     each unit="1",
     each min=0,
     each max=1,

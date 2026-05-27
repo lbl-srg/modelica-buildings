@@ -221,9 +221,6 @@ block StagingHeadered "Generic staging logic for headered pumps"
     annotation (Placement(transformation(extent={{-10,110},{10,130}})));
   StagingRotation.EquipmentEnable enaHdr(
     final have_HpShc=false,
-    final nEquAlt=nPum,
-    final nSta=nPum,
-    final nEqu=nPum,
     final staEqu=staPum)
     if is_hdr
     "Enable headered pumps"

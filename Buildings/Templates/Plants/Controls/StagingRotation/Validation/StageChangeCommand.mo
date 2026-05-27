@@ -89,11 +89,7 @@ model StageChangeCommand
     final k=VHeaWat_flow_nominal)
     "Scale by design flow"
     annotation (Placement(transformation(extent={{-100,-50},{-80,-30}})));
-  StagingRotation.EquipmentEnable                                         enaEqu(
-    is_pumApp=true,
-    nEquAlt=2,
-    nSta=5,
-    nEqu=3,
+  Buildings.Templates.Plants.Controls.StagingRotation.EquipmentEnable enaEqu(
     staEqu=[1,0,0; 0,1/2,1/2; 1,1/2,1/2; 0,1,1; 1,1,1])
     "Enable equipment"
     annotation (Placement(transformation(extent={{60,-10},{80,10}})));
