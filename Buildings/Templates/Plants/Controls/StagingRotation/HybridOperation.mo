@@ -252,8 +252,8 @@ equation
     Documentation(
       info="<html>
 <p>
-Block that manages custom calculations for integrating a simultaneous
-heating-cooling heat pump (SHC HP) with multiple modular single-mode heat pumps
+Block that manages custom calculations for integrating simultaneous
+heating-cooling heat pumps (SHC HPs) with multiple modular single-mode heat pumps
 to create a hybrid heat pump plant.
 </p>
 <ul>
@@ -264,7 +264,7 @@ pumps shall be lead-lag controlled as defined in
 Buildings.Templates.Plants.Controls.StagingRotation.SortRuntime</a>.
 </li>
 <li>
-In simultaneous heating-cooling mode, the SHC HP shall operate in Stage 1 for both
+In simultaneous heating-cooling mode, the SHC HP operation is prioritized in both
 plants.  Else it shall operate in the highest capacity stage and the modular HPs
 shall operate in the lower capacity stages based on lead-lag order.
 </li>
@@ -276,15 +276,9 @@ The implemented module manages the following functions.
 <ul>
 <li>
 Uses the heating plant enable <code>u1EnaHea</code> and cooling plant enable
-<code>u1EnaCoo</code> signals to determine operation mode <code>yMod</code>
-(heating-only, cooling-only, or heating-cooling) for the SHC HP. This also influences
-the staging order <code>yStaEqu</code>, the equipment rotation index signal
-<code>yIdxSta</code>.
-</li>
-<li>
-Generates the availability status vectors <code>yAvaHpShcCoo</code> and
-<code>yAvaHpShcHea</code> to indicate availability of the SHC HP, which can operate
-without a cooldown period between mode changes.
+<code>u1EnaCoo</code> signals alng with the heat pump enable signale signals
+<code>u1Hp</code> to determine operation mode and output appropriate signals for
+<code>y1HeaHpShc</code>, <code>y1CooHpShc</code> and <code>yStaEqu</code>.
 </li>
 <li>
 Identifies primary pump operation status for SHC HP, and manages enable status
