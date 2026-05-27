@@ -6,7 +6,7 @@ model AdiabaticPad
   package MediumPropyleneGlycol =
       Buildings.Media.Antifreeze.PropyleneGlycolWater (property_T=273.15+50, X_a=
             0.4);
-  CCC_test.ESTCP.AdiabaticPad adiabaticPad1(redeclare package Medium =
+  Buildings.Fluid.HeatExchangers.AdiabaticPads.AdiabaticPad adiabaticPad1(redeclare package Medium =
         MediumAir, m_flow_nominal=1)
     annotation (Placement(transformation(extent={{-26,-18},{-6,2}})));
   Buildings.Controls.OBC.CDL.Reals.Sources.Sin
@@ -39,7 +39,7 @@ model AdiabaticPad
     nPorts=1) annotation (Placement(transformation(extent={{-86,-18},{-66,2}})));
   Buildings.BoundaryConditions.WeatherData.ReaderTMY3 weaDat(filNam=
         ModelicaServices.ExternalReferences.loadResource(
-        "modelica://CCC_test/Resources/weatherdata/Sacramento_TMY3.mos"))
+        "modelica://Buildings/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos"))
     annotation (Placement(transformation(extent={{-220,-58},{-200,-38}})));
   Buildings.Controls.OBC.CDL.Reals.Sources.Sin
                                    sin1(
@@ -61,7 +61,7 @@ model AdiabaticPad
         extent={{-10,-10},{10,10}},
         rotation=0,
         origin={26,-6})));
-  CCC_test.ESTCP.AdiabaticPad adiabaticPad2(redeclare package Medium =
+  Buildings.Fluid.HeatExchangers.AdiabaticPads.AdiabaticPad adiabaticPad2(redeclare package Medium =
         MediumAir, m_flow_nominal=1)
     annotation (Placement(transformation(extent={{48,-18},{68,2}})));
 equation
