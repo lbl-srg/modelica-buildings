@@ -68,23 +68,30 @@ protected
     annotation (Placement(transformation(extent={{140,100},{160,120}})));
 equation
   connect(ctl.y1PumHeaWatPriShc, y1PumHeaWatPriFouPip_actual1.y1) annotation (
-      Line(points={{72,-25},{88,-25},{88,-50},{98,-50}}, color={255,0,255}));
+      Line(points={{72,-16.2727},{88,-16.2727},{88,-50},{98,-50}},
+                                                         color={255,0,255}));
   connect(ctl.y1PumChiWatPriShc, y1PumChiWatPriFouPip_actual1.y1) annotation (
-      Line(points={{72,-27},{86,-27},{86,-80},{98,-80}}, color={255,0,255}));
+      Line(points={{72,-17.9091},{86,-17.9091},{86,-80},{98,-80}},
+                                                         color={255,0,255}));
   connect(y1PumHeaWatPriFouPip_actual1.y1_actual, ctl.u1PumHeaWatPriShc_actual)
-    annotation (Line(points={{122,-50},{172,-50},{172,90},{16,90},{16,38},{28,38}},
+    annotation (Line(points={{122,-50},{172,-50},{172,90},{16,90},{16,34.6182},
+          {28,34.6182}},
         color={255,0,255}));
   connect(y1PumChiWatPriFouPip_actual1.y1_actual, ctl.u1PumChiWatPriShc_actual)
-    annotation (Line(points={{122,-80},{174,-80},{174,94},{14,94},{14,36},{28,36}},
+    annotation (Line(points={{122,-80},{174,-80},{174,94},{14,94},{14,32.9818},
+          {28,32.9818}},
         color={255,0,255}));
-      connect(ctl.y1CooHpShc, or2.u2) annotation (Line(points={{72,55},{80,55},{80,
-          102},{98,102}}, color={255,0,255}));
-      connect(ctl.y1HeaHpShc, or2.u1) annotation (Line(points={{72,57},{72,58},{78,
-          58},{78,110},{98,110}}, color={255,0,255}));
+      connect(ctl.y1CooHpShc, or2.u2) annotation (Line(points={{72,47.5455},{80,
+          47.5455},{80,102},{98,102}},
+                          color={255,0,255}));
+      connect(ctl.y1HeaHpShc, or2.u1) annotation (Line(points={{72,49.1818},{72,
+          58},{78,58},{78,110},{98,110}},
+                                  color={255,0,255}));
   connect(or2.y, y1HpShc_actual1.y1)
     annotation (Line(points={{122,110},{138,110}}, color={255,0,255}));
   connect(y1HpShc_actual1.y1_actual, ctl.u1HpShc_actual) annotation (Line(
-        points={{162,110},{174,110},{174,134},{12,134},{12,44},{28,44}}, color=
+        points={{162,110},{174,110},{174,134},{12,134},{12,39.5273},{28,39.5273}},
+                                                                         color=
           {255,0,255}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},
             {100,100}})),                                        Diagram(
