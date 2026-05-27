@@ -502,6 +502,8 @@ equation
           {36,-110},{36,-83},{58,-83}}, color={255,0,255}));
   connect(lat3.y, logSwi4.u3) annotation (Line(points={{142,-40},{160,-40},{160,
           -198},{178,-198}}, color={255,0,255}));
+  connect(or2.y, logSwi4.u3) annotation (Line(points={{-138,-170},{-126,-170},{
+          -126,-198},{178,-198}}, color={255,0,255}));
 annotation (
   defaultComponentName="endUp",
   Diagram(coordinateSystem(preserveAspectRatio=false,
@@ -545,7 +547,7 @@ bypass setpoint"),
           fillPattern=FillPattern.Solid,
           pattern=LinePattern.None),
           Text(
-          extent={{-170,-192},{-54,-200}},
+          extent={{-160,-204},{-44,-212}},
           textColor={0,0,127},
           horizontalAlignment=TextAlignment.Right,
           textString="End stage-up process"),
