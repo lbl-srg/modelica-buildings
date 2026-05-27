@@ -1,5 +1,5 @@
 within Buildings.BoundaryConditions.SolarIrradiation;
-block DirectTiltedSurface "Direct solar irradiation on a tilted surface"
+model DirectTiltedSurface "Direct solar irradiation on a tilted surface"
   extends
     Buildings.BoundaryConditions.SolarIrradiation.BaseClasses.PartialSolarIrradiation;
 
@@ -57,6 +57,11 @@ For a definition of the parameters, see the
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+May 15, 2026, by Jianjun Hu:<br/>
+Changed the class type from block to model.<br/>
+This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/2122\">IBPSA, #2122</a>.
+</li>
 <li>
 September 6, 2021, by Ettore Zanetti:<br/>
 Removed parameter <code>lat</code> as it is now obtained from the weather data bus.<br/>

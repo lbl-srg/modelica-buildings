@@ -274,22 +274,6 @@
   optimica:
     comment: 'CVodeError: ''The rootfinding function failed in an unrecoverable manner. At time 32392.196613.'''
     simulate: false
-- model_name: Buildings.Fluid.HydronicConfigurations.ActiveNetworks.Examples.DiversionOpenLoop
-  optimica:
-    comment: 'The following equation(s) could not be matched to any variable: isEna.u = loa.ctl.cha.pre_u_start, isEna.u = loa1.ctl.cha.pre_u_start'
-    translate: false
-- model_name: Buildings.Fluid.HydronicConfigurations.ActiveNetworks.Examples.InjectionTwoWayVariableReturn
-  optimica:
-    comment: 'The following equation(s) could not be matched to any variable: loaOpe.mode = loaOpe.loa.ctl.cha.pre_u_start...'
-    translate: false
-- model_name: Buildings.Fluid.HydronicConfigurations.ActiveNetworks.Examples.ThrottleOpenLoop
-  optimica:
-    comment: 'The following equation(s) could not be matched to any variable: con.mode = loa.ctl.cha.pre_u_start, con.mode = loa1.ctl.cha.pre_u_start'
-    translate: false
-- model_name: Buildings.Fluid.HydronicConfigurations.PassiveNetworks.Examples.SingleMixingOpenLoop
-  optimica:
-    comment: 'The following equation(s) could not be matched to any variable: con.mode = loa.ctl.cha.pre_u_start, con.mode = loa1.ctl.cha.pre_u_start'
-    translate: false
 - model_name: Buildings.Obsolete.DHC.ETS.Combined.Examples.ChillerBorefield
   openmodelica:
     comment: Simulation fails on travis, https://app.travis-ci.com/github/lbl-srg/modelica-buildings/jobs/638765271
@@ -389,43 +373,6 @@
   openmodelica:
     comment: Time out after 300 s.
     translate: false
-- model_name: Buildings.ThermalZones.Detailed.Examples.FFD.NaturalConvectionWithControl
-  openmodelica:
-    comment: 'TimeoutExpired: omc timed out after 300 seconds'
-    simulate: false
-- model_name: Buildings.ThermalZones.Detailed.Examples.FFD.RoomOnlyConstructionBoundary
-  openmodelica:
-    comment: Failed to copy array. Dimension sizes are not equal and destination array is not flexible.
-    simulate: false
-- model_name: Buildings.ThermalZones.Detailed.Examples.FFD.RoomOnlyExteriorWallNoWindow
-  openmodelica:
-    comment: Timeout after 300 s
-    simulate: false
-- model_name: Buildings.ThermalZones.Detailed.Examples.FFD.RoomOnlySurfaceBoundary
-  openmodelica:
-    comment: Failed to copy array. Dimension sizes are not equal and destination array is not flexible.
-    simulate: false
-- model_name: Buildings.ThermalZones.Detailed.Examples.FFD.Tutorial.MixedConvection
-  dymola:
-    time_out: 600
-  openmodelica:
-    comment: 'TimeoutExpired: omc timed out after 300 seconds'
-    simulate: false
-- model_name: Buildings.ThermalZones.Detailed.Examples.FFD.Tutorial.NaturalConvection
-  openmodelica:
-    comment: 'TimeoutExpired: omc timed out after 300 seconds'
-    simulate: false
-- model_name: Buildings.ThermalZones.Detailed.Examples.FFD.WindowWithShade
-  dymola:
-    comment: Timeout on jenkins
-    time_out: 600
-  openmodelica:
-    comment: 'TimeoutExpired: omc timed out after 300 seconds'
-    simulate: false
-- model_name: Buildings.ThermalZones.Detailed.Examples.FFD.WindowWithoutShade
-  openmodelica:
-    comment: 'TimeoutExpired: omc timed out after 300 seconds'
-    simulate: false
 - model_name: Buildings.ThermalZones.Detailed.FLEXLAB.Rooms.Examples.X3WithRadiantFloor
   openmodelica:
     comment: 'TimeoutExpired: translation timed out after 300 seconds'
@@ -501,14 +448,6 @@
 - model_name: Buildings.ThermalZones.EnergyPlus_24_2_0.Examples.SmallOffice.Unconditioned
   optimica:
     rtol: 1.0e-08
-- model_name: Buildings.ThermalZones.EnergyPlus_24_2_0.Validation.MultipleBuildings.TwoIdenticalOneZoneBuildings
-  openmodelica:
-    comment: error during shutdown, https://github.com/lbl-srg/modelica-buildings/issues/3345
-    simulate: false
-- model_name: Buildings.ThermalZones.EnergyPlus_24_2_0.Validation.MultipleBuildings.TwoIdenticalTwoZoneBuildings
-  openmodelica:
-    comment: error during shutdown, https://github.com/lbl-srg/modelica-buildings/issues/3345
-    simulate: false
 - model_name: Buildings.ThermalZones.ReducedOrder.Validation.VDI6007.TestCase11
   openmodelica:
     comment: Inputs differ by more than threShold. Check output 'satisfied' for when violation(s) happened. Segmentation fault (core dumped)
