@@ -9,7 +9,7 @@ model AirCooled
    * typDisChiWat
    * typArrPumChiWatPri_select
    * have_pumChiWatPriVar_select
-   * chi(typValChiWatChiIso_select
+   * chi.typValChiWatChiIso_select
    */
   extends Buildings.Templates.Plants.Chillers.Interfaces.PartialChilledWaterLoop(
     redeclare replaceable package MediumCon=Buildings.Media.Air,

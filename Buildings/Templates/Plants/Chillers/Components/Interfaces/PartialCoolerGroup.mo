@@ -32,7 +32,7 @@ partial model PartialCoolerGroup
           "Two-way two-position valve",
         choice=Buildings.Templates.Components.Types.Valve.None "No Valve"));
   parameter Buildings.Templates.Components.Types.Valve typValCooOutIso =
-    Buildings.Templates.Components.Types.Valve.TwoWayTwoPosition
+    typValCooInlIso
     "Type of cooler outlet isolation valve"
     annotation(Evaluate=true,
       Dialog(group="Configuration"),

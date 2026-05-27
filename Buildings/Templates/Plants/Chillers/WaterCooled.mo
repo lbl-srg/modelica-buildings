@@ -11,9 +11,6 @@ model WaterCooled
    * have_pumChiWatPriVar_select
    * chi.typValChiWatChiIso_select
    * typArrPumConWat_select
-   *
-   * And for the component coo:
-   * typValCooInlIso
    */
   extends Buildings.Templates.Plants.Chillers.Interfaces.PartialChilledWaterLoop(
     redeclare replaceable package MediumCon=Buildings.Media.Water,
@@ -40,7 +37,9 @@ model WaterCooled
       final tau=tau,
       final allowFlowReversal=allowFlowReversal,
       final text_flip=true,
-      final typValCooInlIso=Buildings.Templates.Components.Types.Valve.TwoWayTwoPosition)
+      typValCooInlIso=if nChi==2 and nCoo==2 then
+      Buildings.Templates.Components.Types.Valve.None
+      else Buildings.Templates.Components.Types.Valve.TwoWayTwoPosition)
     "Coolers"
     annotation(Dialog(group="Coolers"),
       Placement(transformation(extent={{-118,34},{-282,94}})));

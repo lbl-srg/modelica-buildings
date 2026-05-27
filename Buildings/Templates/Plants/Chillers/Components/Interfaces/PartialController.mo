@@ -239,12 +239,48 @@ partial block PartialController
     "Chiller CW isolation valve control bus"
     annotation(Placement(transformation(extent={{-260,100},{-220,140}}),
       iconTransformation(extent={{-756,150},{-716,190}})));
-  Buildings.Templates.Components.Interfaces.Bus busValChiWatChiBypSer[cfg.nChi]
-    if cfg.typArrChi ==
-      Buildings.Templates.Plants.Chillers.Types.ChillerArrangement.Series
+  Buildings.Templates.Components.Interfaces.Bus busValChiWatChiBypSer[cfg.nChi] if cfg.typArrChi
+     == Buildings.Templates.Plants.Chillers.Types.ChillerArrangement.Series
     "Chiller CHW bypass valve control bus - Series chillers"
     annotation(Placement(transformation(extent={{-260,60},{-220,100}}),
       iconTransformation(extent={{-422,198},{-382,238}})));
+  Buildings.Templates.Components.Interfaces.Bus busPumChiWatPri
+    "Primary CHW pump control bus"
+    annotation (Placement(transformation(extent={{-200,180},{-160,220}}),
+      iconTransformation(extent={{-466,50},{-426,90}})));
+  Buildings.Templates.Components.Interfaces.Bus busPumConWat
+    if cfg.nPumConWat > 0 "CW pump control bus" annotation (Placement(
+        transformation(extent={{-200,100},{-160,140}}), iconTransformation(
+          extent={{-466,50},{-426,90}})));
+  Buildings.Templates.Components.Interfaces.Bus busPumChiWatSec
+    if cfg.have_pumChiWatSec "Secondary CHW pump control bus" annotation (
+      Placement(transformation(extent={{-200,140},{-160,180}}),
+        iconTransformation(extent={{-466,50},{-426,90}})));
+  Buildings.Templates.Components.Interfaces.Bus busPumChiWatEco if cfg.typEco
+     == Buildings.Templates.Plants.Chillers.Types.Economizer.HeatExchangerWithPump
+    "WSE CHW HX pump control bus" annotation (Placement(transformation(extent={
+            {-200,-40},{-160,0}}), iconTransformation(extent={{-466,50},{-426,
+            90}})));
+  Buildings.Templates.Components.Interfaces.Bus busValChiWatEcoByp if cfg.typEco
+     == Buildings.Templates.Plants.Chillers.Types.Economizer.HeatExchangerWithValve
+    "WSE CHW bypass valve control bus" annotation (Placement(transformation(
+          extent={{-220,-60},{-180,-20}}), iconTransformation(extent={{-466,50},
+            {-426,90}})));
+  Buildings.Templates.Components.Interfaces.Bus busValChiWatChiBypPar
+    if cfg.have_valChiWatChiBypPar
+    "Chiller CHW bypass valve control bus – Parallel chillers with WSE in primary-only plants"
+    annotation (Placement(transformation(extent={{-180,60},{-140,100}}),
+        iconTransformation(extent={{-422,198},{-382,238}})));
+  Buildings.Templates.Components.Interfaces.Bus busValChiWatMinByp if cfg.typDisChiWat
+     == Buildings.Templates.Plants.Chillers.Types.Distribution.Variable1Only
+    "CHW minimum flow bypass valve control bus" annotation (Placement(
+        transformation(extent={{-160,40},{-120,80}}), iconTransformation(extent
+          ={{-422,198},{-382,238}})));
+  Buildings.Templates.Components.Interfaces.Bus busValConWatEcoIso if cfg.typEco
+     == Buildings.Templates.Plants.Chillers.Types.Economizer.HeatExchangerWithValve
+    "WSE HX CW isolation valve control bus" annotation (Placement(
+        transformation(extent={{-200,-80},{-160,-40}}), iconTransformation(
+          extent={{-466,50},{-426,90}})));
 equation
   connect(busValChiWatChiIso, bus.valChiWatChiIso)
     annotation(Line(points={{-240,160},{-220,160},{-220,0},{-260,0}},
@@ -259,11 +295,11 @@ equation
       color={255,204,51},
       thickness=0.5));
   connect(busValCooInlIso, bus.valCooInlIso)
-    annotation(Line(points={{-240,-140},{-220,-140},{-220,0},{-260,0}},
+    annotation(Line(points={{-240,-140},{-230,-140},{-230,0},{-260,0}},
       color={255,204,51},
       thickness=0.5));
   connect(busValCooOutIso, bus.valCooOutIso)
-    annotation(Line(points={{-240,-180},{-210,-180},{-210,0},{-260,0}},
+    annotation(Line(points={{-240,-180},{-220,-180},{-220,0},{-260,0}},
       color={255,204,51},
       thickness=0.5));
   connect(busValChiWatChiBypSer, bus.valChiWatChiByp)
@@ -272,6 +308,38 @@ equation
       thickness=0.5));
   connect(busValConWatChiIso, bus.valConWatChiIso)
     annotation(Line(points={{-240,120},{-228,120},{-228,0},{-260,0}},
+      color={255,204,51},
+      thickness=0.5));
+  connect(busPumConWat, bus.pumConWat) annotation (Line(
+      points={{-180,120},{-180,0},{-260,0}},
+      color={255,204,51},
+      thickness=0.5));
+  connect(busPumChiWatSec, bus.pumChiWatSec) annotation (Line(
+      points={{-180,160},{-192,160},{-192,0},{-260,0}},
+      color={255,204,51},
+      thickness=0.5));
+  connect(busPumChiWatPri, bus.pumChiWatPri) annotation (Line(
+      points={{-180,200},{-200,200},{-200,0},{-260,0}},
+      color={255,204,51},
+      thickness=0.5));
+  connect(busValChiWatEcoByp, bus.valChiWatEcoByp) annotation (Line(
+      points={{-200,-40},{-200,0},{-260,0}},
+      color={255,204,51},
+      thickness=0.5));
+  connect(busPumChiWatEco, bus.pumChiWatEco) annotation (Line(
+      points={{-180,-20},{-180,0},{-260,0}},
+      color={255,204,51},
+      thickness=0.5));
+  connect(busValChiWatChiBypPar, bus.valChiWatChiBypPar) annotation (Line(
+      points={{-160,80},{-160,0},{-260,0}},
+      color={255,204,51},
+      thickness=0.5));
+  connect(busValChiWatMinByp, bus.valChiWatMinByp) annotation (Line(
+      points={{-140,60},{-140,0},{-260,0}},
+      color={255,204,51},
+      thickness=0.5));
+  connect(busValConWatEcoIso, bus.valConWatEcoIso) annotation (Line(
+      points={{-180,-60},{-180,0},{-260,0}},
       color={255,204,51},
       thickness=0.5));
 annotation(Icon(coordinateSystem(preserveAspectRatio=false,

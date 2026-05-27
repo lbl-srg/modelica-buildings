@@ -299,10 +299,10 @@ equation
   if cfg.typEco ==
     Buildings.Templates.Plants.Chillers.Types.Economizer.HeatExchangerWithPump
   then
-    connect(bus.pumChiWatEco.y1_actual, ctl.uEcoPum);
+    connect(busPumChiWatEco.y1_actual, ctl.uEcoPum);
   end if;
   if cfg.typChi == Buildings.Templates.Components.Types.Chiller.WaterCooled then
-    connect(bus.pumConWat.y1_actual, ctl.uConWatPum);
+    connect(busPumConWat.y1_actual, ctl.uConWatPum);
   end if;
   connect(bus.TChiWatEcoEnt, ctl.TEntHex);
   connect(busCoo.y1_actual, ctl.uTowSta);
@@ -315,35 +315,35 @@ equation
   if cfg.typDisChiWat ==
     Buildings.Templates.Plants.Chillers.Types.Distribution.Variable1Only
   then
-    connect(bus.pumChiWatPri.y1_actual, resDpChiWatLoc.uChiWatPum);
+    connect(busPumChiWatPri.y1_actual, resDpChiWatLoc.uChiWatPum);
   else
-    connect(bus.pumChiWatSec.y1_actual, resDpChiWatLoc.uChiWatPum);
+    connect(busPumChiWatSec.y1_actual, resDpChiWatLoc.uChiWatPum);
   end if;
-  connect(bus.valChiWatChiIso.y0_actual, ctl.u1ChiWatIsoValClo);
-  connect(bus.valChiWatChiIso.y1_actual, ctl.u1ChiWatIsoValOpe);
-  connect(bus.valChiWatChiIso.y_actual, ctl.uChiWatIsoVal);
-  connect(bus.valCooInlIso.y0_actual, ctl.u1TowInlIsoValClo);
-  connect(bus.valCooInlIso.y1_actual, ctl.u1TowInlIsoValOpe);
-  connect(bus.valCooOutIso.y0_actual, ctl.u1TowOutIsoValClo);
-  connect(bus.valCooOutIso.y1_actual, ctl.u1TowOutIsoValOpe);
+  connect(busValChiWatChiIso.y0_actual, ctl.u1ChiWatIsoValClo);
+  connect(busValChiWatChiIso.y1_actual, ctl.u1ChiWatIsoValOpe);
+  connect(busValChiWatChiIso.y_actual, ctl.uChiWatIsoVal);
+  connect(busValCooInlIso.y0_actual, ctl.u1TowInlIsoValClo);
+  connect(busValCooInlIso.y1_actual, ctl.u1TowInlIsoValOpe);
+  connect(busValCooOutIso.y0_actual, ctl.u1TowOutIsoValClo);
+  connect(busValCooOutIso.y1_actual, ctl.u1TowOutIsoValOpe);
   // Controller outputs
   connect(ctl.TChiWatSupSet, bus.TChiWatSupSet);
   connect(ctl.TChiWatSupSet, busChi.TChiWatSet);
-  connect(ctl.y1WseChiWatBypVal, bus.valChiWatChiByp.y1);
+  connect(ctl.y1WseChiWatBypVal, busValChiWatChiBypPar.y1);
   connect(ctl.yChi, busChi.y1);
   connect(ctl.yChiWatIsoVal, busValChiWatChiIso.y);
-  connect(ctl.yChiWatPum, bus.pumChiWatPri.y1);
+  connect(ctl.yChiWatPum, busPumChiWatPri.y1);
   connect(ctl.y1ConWatIsoVal, busValConWatChiIso.y1);
   connect(ctl.yConWatIsoVal, busValConWatChiIso.y);
-  connect(ctl.yConWatPum, bus.pumConWat.y1);
-  connect(ctl.yEcoConWatIsoVal, bus.valConWatEcoIso.y1);
-  connect(ctl.yMinValPosSet, bus.valChiWatMinByp.y);
+  connect(ctl.yConWatPum, busPumConWat.y1);
+  connect(ctl.yEcoConWatIsoVal, busValConWatEcoIso.y1);
+  connect(ctl.yMinValPosSet, busValChiWatMinByp.y);
   connect(ctl.yTowCel, bus.y1Coo);
-  connect(ctl.yWsePumOn, bus.pumChiWatEco.y1);
-  connect(ctl.yWsePumSpe, bus.pumChiWatEco.y);
-  connect(ctl.yWseRetVal, bus.valChiWatEcoByp.y);
-  connect(ctl.yChiPumSpe, bus.pumChiWatPri.y);
-  connect(ctl.yConWatPumSpe, bus.pumConWat.y);
+  connect(ctl.yWsePumOn, busPumChiWatEco.y1);
+  connect(ctl.yWsePumSpe, busPumChiWatEco.y);
+  connect(ctl.yWseRetVal, busValChiWatEcoByp.y);
+  connect(ctl.yChiPumSpe, busPumChiWatPri.y);
+  connect(ctl.yConWatPumSpe, busPumConWat.y);
   connect(ctl.yTowCelIsoVal, busValCooInlIso.y1);
   connect(ctl.yTowCelIsoVal, busValCooOutIso.y1);
   connect(ctl.yTowFanSpe, bus.yCoo);

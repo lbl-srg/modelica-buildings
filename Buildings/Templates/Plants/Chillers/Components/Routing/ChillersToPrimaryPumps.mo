@@ -301,7 +301,7 @@ initial equation
   end if;
 equation
   /* Control point connection - start */
-  connect(bus.valChiWatChiByp, valChiWatChiBypPar.bus);
+  connect(bus.valChiWatChiBypPar, valChiWatChiBypPar.bus);
   connect(bus.TChiWatEcoAft, TChiWatEcoAft.y);
   connect(bus.TChiWatEcoBef, TChiWatEcoBef.y);
   connect(bus.TChiWatPlaRet, TChiWatPlaRet.y);

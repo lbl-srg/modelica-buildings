@@ -391,8 +391,6 @@ record Controller
     annotation(Evaluate=true,
       Dialog(group="Plant staging"));
   parameter Integer staPumConWat[:, :](each start=0)
-    if cfg.typCtl == Buildings.Templates.Plants.Chillers.Types.Controller.G36
-      and cfg.typChi == Buildings.Templates.Components.Types.Chiller.WaterCooled
     "Condenser water pump staging matrix, with plant stage as row index and condenser water pump as column index: 0 for disabled, 1 for enabled"
     annotation(Dialog(group="Plant staging",
       enable=cfg.typCtl ==

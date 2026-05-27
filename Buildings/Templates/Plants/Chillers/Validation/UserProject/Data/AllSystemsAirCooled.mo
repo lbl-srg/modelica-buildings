@@ -65,7 +65,7 @@ class AllSystemsAirCooled
       yPumChiWatPri_min=0.1,
       yPumChiWatSec_min=0.1,
       yFanCoo_min=0,
-      sta=[0, 0; 1, 0; 1, 1],
+      staChi=[0, 0; 1, 0; 1, 1],
       TOutChiWatLck=250,
       TConWatRetChi_nominal=fill(
         Buildings.Templates.Data.Defaults.TConWatRet, pla.cfg.nChi),
