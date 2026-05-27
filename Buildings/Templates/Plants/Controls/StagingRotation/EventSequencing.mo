@@ -7,7 +7,7 @@ block EventSequencing "Staging event sequencing"
     "Set to true for plants that provide CHW"
     annotation (Evaluate=true);
   parameter Boolean have_HpShc=false
-    "Is the plant a hybrid heat pump plant?"
+    "Set to true for polyvalent heat pump plants"
     annotation (Evaluate=true);
   parameter Boolean have_valInlIso
     "Set to true if the system has inlet isolation valves"

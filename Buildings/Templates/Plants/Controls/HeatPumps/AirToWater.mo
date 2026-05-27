@@ -1378,7 +1378,6 @@ block AirToWater
     "Evaluate heating stage availability"
     annotation (Placement(transformation(extent={{-110,320},{-90,340}})));
   StagingRotation.EquipmentEnable enaEquHea(
-    final is_pumApp=false,
     final have_HpShc=have_HpShc,
     final nEquAlt=nEquAlt,
     final nSta=nSta,
@@ -1473,7 +1472,6 @@ block AirToWater
     "Compute cooling stage index"
     annotation (Placement(transformation(extent={{-10,90},{10,110}})));
   StagingRotation.EquipmentEnable enaEquCoo(
-    final is_pumApp=false,
     final have_HpShc=have_HpShc,
     final nEquAlt=nEquAlt,
     final nSta=nSta,

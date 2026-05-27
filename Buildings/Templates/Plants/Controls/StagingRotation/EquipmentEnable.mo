@@ -1,11 +1,9 @@
 within Buildings.Templates.Plants.Controls.StagingRotation;
 block EquipmentEnable
   "Return array of equipment to be enabled at given stage"
-  parameter Boolean is_pumApp
-    "Is the equipment enable block used for a pump control module application?";
 
   parameter Boolean have_HpShc=false
-    "True: The logic block is used in a hybrid heat pump plant"
+    "Set to true if the logic block is used to stage HPs in a polyvalent heat pump plant"
     annotation (Evaluate=true);
 
   parameter Integer nEquAlt
@@ -25,7 +23,7 @@ block EquipmentEnable
     each min=0,
     each max=1,
     start=fill(0,nSta,nEqu))
-    "Staging matrix for non-hybrid plant – Equipment required for each stage"
+    "Staging matrix – Equipment required for each stage"
     annotation (Evaluate=true,
       Dialog(enable=not have_HpShc));
 
@@ -34,7 +32,7 @@ block EquipmentEnable
     each min=0,
     each max=1,
     start=fill(0,nSta,nEqu))
-    "Staging matrix for hybrid plant in single-operation mode – Equipment required for each stage"
+    "Staging matrix for polyvalent HP plant in single-operation mode – Equipment required for each stage"
     annotation (Evaluate=true,
       Dialog(enable=have_HpShc));
 
@@ -43,7 +41,7 @@ block EquipmentEnable
     each min=0,
     each max=1,
     start=fill(0,nSta,nEqu))
-    "Staging matrix for hybrid plant in heating-cooling mode – Equipment required for each stage"
+    "Staging matrix for polyvalent HP plant in heating-cooling mode – Equipment required for each stage"
     annotation (Evaluate=true,
       Dialog(enable=have_HpShc));
 
@@ -64,7 +62,7 @@ block EquipmentEnable
     annotation (Placement(transformation(extent={{-240,-120},{-200,-80}}),
       iconTransformation(extent={{-140,-40},{-100,0}})));
 
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1HeaCoo if not is_pumApp
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1HeaCoo if have_HpShc
     "Detect plant switching to heating-cooling mode"
     annotation (Placement(transformation(extent={{-240,-160},{-200,-120}}),
       iconTransformation(extent={{-140,-80},{-100,-40}})));
@@ -160,7 +158,7 @@ block EquipmentEnable
     "Compare to required number of equipment"
     annotation (Placement(transformation(extent={{30,-130},{50,-110}})));
   Buildings.Controls.OBC.CDL.Logical.MultiOr swiEna(
-    final nin=if is_pumApp then 2 else 3)
+    final nin=if not have_HpShc then 2 else 3)
     "Evaluate condition to switch to newly computed enable signal"
     annotation (Placement(transformation(extent={{80,-90},{100,-70}})));
   Buildings.Controls.OBC.CDL.Logical.And isEnaPreAva[nEqu]
@@ -195,12 +193,12 @@ block EquipmentEnable
     "Void if stage is equal to zero"
     annotation (Placement(transformation(extent={{-100,50},{-80,70}})));
 
-  Buildings.Controls.OBC.CDL.Logical.Change cha1 if not is_pumApp
+  Buildings.Controls.OBC.CDL.Logical.Change cha1 if have_HpShc
     "Detect if plant enters simultaneous heating and cooling operation"
     annotation (Placement(transformation(extent={{-20,-150},{0,-130}})));
 
   Buildings.Controls.OBC.CDL.Reals.Switch swiMod[nEqu,nSta]
-    if have_HpShc and not is_pumApp
+    if have_HpShc and have_HpShc
     "Switch between transpose matrices for heating-cooling mode and single-operation mode"
     annotation (Placement(transformation(extent={{-8,110},{12,130}})));
 
@@ -221,12 +219,12 @@ block EquipmentEnable
 
   Buildings.Controls.OBC.CDL.Routing.BooleanVectorReplicator booVecRepRow(
     final nin=nSta,
-    final nout=nEqu) if not is_pumApp
+    final nout=nEqu) if have_HpShc
     "Replicate heating-cooling signal vector to match number of rows"
     annotation (Placement(transformation(extent={{-80,-130},{-60,-110}})));
 
   Buildings.Controls.OBC.CDL.Routing.BooleanScalarReplicator booScaRepCol(
-    final nout=nSta) if not is_pumApp
+    final nout=nSta) if have_HpShc
     "Replicate heating-cooling signal to match number of columns"
     annotation (Placement(transformation(extent={{-120,-130},{-100,-110}})));
 
