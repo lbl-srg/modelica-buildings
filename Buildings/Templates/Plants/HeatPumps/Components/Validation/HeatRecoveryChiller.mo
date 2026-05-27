@@ -9,19 +9,27 @@ model HeatRecoveryChiller
     "Type of energy balance: dynamic (3 initialization options) or steady state"
     annotation (Evaluate=true,
     Dialog(tab="Dynamics",group="Conservation equations"));
+  parameter Modelica.Units.SI.Efficiency COP_nominal = 3.6
+    "Coefficient of performance at design cooling conditions";
   parameter Buildings.Templates.Components.Data.Chiller datHrc(
     final typ=Buildings.Templates.Components.Types.Chiller.WaterCooled,
-    redeclare Buildings.Fluid.Chillers.Data.ElectricReformulatedEIR.ReformEIRChiller_Trane_CGWD_207kW_3_99COP_None per,
+    TCon_nominal=Buildings.Templates.Data.Defaults.THeaWatSupMed,
     cap_nominal=500E3,
-    COP_nominal=3.8,
     dpChiWat_nominal=Buildings.Templates.Data.Defaults.dpChiWatChi,
     dpCon_nominal=Buildings.Templates.Data.Defaults.dpConWatChi,
     TChiWatSup_nominal=Buildings.Templates.Data.Defaults.TChiWatSup,
-    TConEnt_nominal=Buildings.Templates.Data.Defaults.THeaWatRetMed,
     mChiWat_flow_nominal=datHrc.cap_nominal / abs(datHrc.TChiWatSup_nominal -
       Buildings.Templates.Data.Defaults.TChiWatRet) / Buildings.Utilities.Psychrometrics.Constants.cpWatLiq,
-    mCon_flow_nominal=datHrc.QCon_flow_nominal / abs(datHrc.TConEnt_nominal -
-      Buildings.Templates.Data.Defaults.THeaWatSupMed) / Buildings.Utilities.Psychrometrics.Constants.cpWatLiq)
+    mCon_flow_nominal=datHrc.cap_nominal * (1 + 1/COP_nominal) / abs(datHrc.TCon_nominal -
+      Buildings.Templates.Data.Defaults.THeaWatRetMed) / Buildings.Utilities.Psychrometrics.Constants.cpWatLiq,
+    per(
+      fileName=Modelica.Utilities.Files.loadResource(
+        "modelica://Buildings/Resources/Data/Fluid/HeatPumps/ModularReversible/Examples/TableData2DLoadDep_Chiller.txt"),
+        PLRSup={0.45,0.5,0.55,0.6,0.65,0.7,0.75,0.8,0.9,1.0},
+        PLRCyc_min=0.2,
+        use_TEvaOutForTab=true,
+      use_TConOutForTab=true),
+    P_min=50)
     "HRC parameters"
     annotation (Placement(transformation(extent={{-180,100},{-160,120}})));
   parameter Buildings.Templates.Components.Data.PumpSingle datPumChiWatHrc(
@@ -46,13 +54,13 @@ model HeatRecoveryChiller
     annotation (Placement(transformation(extent={{-60,-56},{60,64}})));
   Fluid.Sources.Boundary_pT inlChiWat(
     redeclare final package Medium=Medium,
-    T=datHrc.TChiWatRet_nominal,
+    T=hrc.TChiWatRet_nominal,
     nPorts=1)
     "Boundary conditions for HRC entering CHW"
     annotation (Placement(transformation(extent={{150,30},{130,50}})));
   Fluid.Sources.Boundary_pT inlHeaWat(
     redeclare final package Medium=Medium,
-    T=datHrc.TConEnt_nominal,
+    T=hrc.TConEnt_nominal,
     nPorts=1)
     "Boundary conditions for HRC entering HW"
     annotation (Placement(transformation(extent={{-150,-50},{-130,-30}})));
@@ -88,18 +96,12 @@ model HeatRecoveryChiller
     period=1000)
     "Source for DO signals"
     annotation (Placement(transformation(extent={{-60,130},{-40,150}})));
-  Buildings.Controls.OBC.CDL.Reals.Switch TSupSet(
-    y(
-      unit="K",
-      displayUnit="degC"))
-    "HRC supply temperature setpoint"
-    annotation (Placement(transformation(extent={{30,150},{50,170}})));
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant TChiWatSupSet(
     final k=datHrc.TChiWatSup_nominal)
     "CHW supply temperature setpoint"
     annotation (Placement(transformation(extent={{-130,170},{-110,190}})));
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant THeaWatSupSet(
-    final k=datHrc.TConLvg_nominal)
+    final k=datHrc.TCon_nominal)
     "HW supply temperature setpoint"
     annotation (Placement(transformation(extent={{-100,150},{-80,170}})));
   Fluid.Sensors.TemperatureTwoPort THeaWatLvg(
@@ -127,14 +129,6 @@ equation
     annotation (Line(points={{-38,140},{40,140},{40,100}},color={255,0,255}));
   connect(y1.y[2], busHrc.y1Coo)
     annotation (Line(points={{-38,140},{40,140},{40,100}},color={255,0,255}));
-  connect(y1.y[2], TSupSet.u2)
-    annotation (Line(points={{-38,140},{20,140},{20,160},{28,160}},color={255,0,255}));
-  connect(TChiWatSupSet.y, TSupSet.u1)
-    annotation (Line(points={{-108,180},{20,180},{20,168},{28,168}},color={0,0,127}));
-  connect(THeaWatSupSet.y, TSupSet.u3)
-    annotation (Line(points={{-78,160},{0,160},{0,152},{28,152}},color={0,0,127}));
-  connect(TSupSet.y, busHrc.TSupSet)
-    annotation (Line(points={{52,160},{60,160},{60,100},{40,100}},color={0,0,127}));
   connect(outHeaWat.ports[1], THeaWatLvg.port_b)
     annotation (Line(points={{130,-40},{100,-40}},color={0,127,255}));
   connect(THeaWatLvg.port_a, hrc.port_b1)
@@ -153,6 +147,18 @@ equation
     annotation (Line(points={{80,80},{0,80},{0,60}},color={255,204,51},thickness=0.5));
   connect(busPumHeaWatHrc, bus.pumHeaWatHrc)
     annotation (Line(points={{80,120},{0,120},{0,60}},color={255,204,51},thickness=0.5));
+  connect(TChiWatSupSet.y, busHrc.TChiWatSet) annotation (Line(points={{-108,
+          180},{38,180},{38,100},{40,100}}, color={0,0,127}), Text(
+      string="%second",
+      index=1,
+      extent={{6,3},{6,3}},
+      horizontalAlignment=TextAlignment.Left));
+  connect(THeaWatSupSet.y, busHrc.THeaWatSet) annotation (Line(points={{-78,160},
+          {36,160},{36,100},{40,100}}, color={0,0,127}), Text(
+      string="%second",
+      index=1,
+      extent={{6,3},{6,3}},
+      horizontalAlignment=TextAlignment.Left));
   annotation (
     __Dymola_Commands(
       file=
@@ -164,6 +170,12 @@ equation
     Documentation(
       revisions="<html>
 <ul>
+<li>
+April 18, 2025, by Antoine Gautier:<br/>
+Refactored with load-dependent 2D table data heat recovery chiller model.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4152\">#4152</a>.
+</li>
 <li>
 May 31, 2024, by Antoine Gautier:<br/>
 First implementation.

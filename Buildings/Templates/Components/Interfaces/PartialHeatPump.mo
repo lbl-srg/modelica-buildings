@@ -39,16 +39,10 @@ model PartialHeatPump
   parameter Boolean is_rev
     "Set to true for reversible heat pumps, false for heating only"
     annotation (Evaluate=true, Dialog(group="Configuration"));
-  parameter Buildings.Templates.Components.Types.HeatPumpModel typMod=
-    Buildings.Templates.Components.Types.HeatPumpModel.EquationFit
-    "Type of heat pump model"
-    annotation (Evaluate=true, Dialog(group="Configuration"),
-    __ctrlFlow(enable=false));
 
   parameter Buildings.Templates.Components.Data.HeatPump dat(
     typ=typ,
     is_rev=is_rev,
-    typMod=typMod,
     cpHeaWat_default=cpHeaWat_default,
     cpSou_default=cpSou_default)
     "Design and operating parameters"

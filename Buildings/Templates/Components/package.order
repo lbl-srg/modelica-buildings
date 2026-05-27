@@ -4,6 +4,7 @@ Coils
 Controls
 Fans
 HeatPumps
+Loads
 Pumps
 Routing
 Sensors
@@ -12,3 +13,4 @@ Data
 Types
 Validation
 Interfaces
+BaseClasses

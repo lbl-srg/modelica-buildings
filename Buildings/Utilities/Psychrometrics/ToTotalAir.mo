@@ -37,12 +37,8 @@ First implementation.
             100}}), graphics={Text(
           extent={{-88,32},{-36,-32}},
           textColor={0,0,0},
-          fillColor={0,0,0},
-          fillPattern=FillPattern.Solid,
           textString="XiDry"), Text(
           extent={{20,50},{92,-50}},
           textColor={0,0,0},
-          fillColor={0,0,0},
-          fillPattern=FillPattern.Solid,
           textString="XiTotal")}));
 end ToTotalAir;

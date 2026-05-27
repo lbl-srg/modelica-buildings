@@ -22,6 +22,7 @@
 ****************************************************************************/
 
 #include "ffd.h"
+#include <string.h>
 
 /* global variables */
 REAL** var;
@@ -222,6 +223,7 @@ int ffd(int cosimulation) {
   /* Free the memory */
   free_data(var);
   free_index(BINDEX);
+  free_para(&para);
 
   /* Inform Modelica the stopping command has been received*/
   #ifndef FFD_ISAT
@@ -247,7 +249,6 @@ void modelicaError(char* msg) {
   if (para.cosim->ffd->msg == NULL) {
 	  ffd_log("ffd(): Failed to allocate memory for cosim->ffd->msg", FFD_ERROR);
   }
-
   strcpy(para.cosim->ffd->msg, msg);
   /* Write the command to stop the cosimulation*/
   para.cosim->para->flag = 2;

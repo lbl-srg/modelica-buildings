@@ -353,8 +353,7 @@ partial model PartialHeatPumpPlant
   final parameter Modelica.Units.SI.HeatFlowRate capHea_nominal=if have_heaWat
     then abs(dat.hp.capHeaHp_nominal) * nHp else 0
     "Heating capacity - All units";
-  final parameter Modelica.Units.SI.HeatFlowRate QHea_flow_nominal=
-    capHea_nominal
+  final parameter Modelica.Units.SI.HeatFlowRate QHea_flow_nominal=capHea_nominal
     "Heating heat flow rate - All units";
   final parameter Modelica.Units.SI.Temperature THeaWatSup_nominal=dat.ctl.THeaWatSup_nominal
     "Maximum HW supply temperature";
@@ -374,8 +373,7 @@ partial model PartialHeatPumpPlant
   final parameter Modelica.Units.SI.HeatFlowRate capCoo_nominal=if have_chiWat
     then abs(dat.hp.capCooHp_nominal) * nHp else 0
     "Cooling capacity - All units";
-  final parameter Modelica.Units.SI.HeatFlowRate QCoo_flow_nominal=-
-    capCoo_nominal
+  final parameter Modelica.Units.SI.HeatFlowRate QCoo_flow_nominal=-capCoo_nominal
     "Cooling heat flow rate - All units";
   final parameter Modelica.Units.SI.Temperature TChiWatSup_nominal=dat.ctl.TChiWatSup_nominal
     "Minimum CHW supply temperature";

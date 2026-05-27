@@ -45,7 +45,8 @@ model TableData2DLoadDep
     final cpCon=cpCon,
     final cpEva=cpEva,
     redeclare final Buildings.Fluid.HeatPumps.ModularReversible.RefrigerantCycle.Frosting.NoFrosting iceFacCal,
-    final dat=datCoo)
+    final dat=datCoo,
+    final P_min=P_min)
     "Refrigerant cycle module for the cooling mode";
   parameter Boolean have_switchover=false
     "Set to true for heat recovery chiller with built-in switchover"
@@ -53,7 +54,7 @@ model TableData2DLoadDep
   parameter Boolean use_TLoaLvgForCtl=true
     "Set to true for leaving temperature control, false for entering temperature control"
     annotation (Evaluate=true);
-  parameter Modelica.Units.SI.HeatFlowRate QCoo_flow_nominal(final max=0, start=0)
+  parameter Modelica.Units.SI.HeatFlowRate QCoo_flow_nominal(max=0, start=0)
     "Nominal cooling capacity"
     annotation (Dialog(group="Nominal condition"));
   final parameter Real scaFacCoo=refCyc.refCycChiCoo.scaFac
@@ -63,6 +64,8 @@ model TableData2DLoadDep
     "Cooling performance data"
     annotation (choicesAllMatching=true,
       Placement(transformation(extent={{114,-18},{130,-2}})));
+  parameter Modelica.Units.SI.Power P_min(min=0)=0
+    "Minimum power when system is enabled with compressor cycled off";
   parameter Modelica.Units.SI.Temperature TEvaCoo_nominal
     "CHW temperature: leaving if datCoo.use_TEvaOutForTab=true, entering otherwise"
     annotation (Dialog(group="Nominal condition"));
@@ -72,17 +75,27 @@ model TableData2DLoadDep
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput on
     "On/off command: true to enable chiller, false to disable chiller"
     annotation (Placement(transformation(extent={{-180,-40},{-140,0}}),
-      iconTransformation(extent={{-138,-18},{-102,18}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput TSet(
+      iconTransformation(extent={{-138,-38},{-102,-2}})));
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput TChwSet(
     final unit="K",
     displayUnit="degC")
-    "Temperature setpoint"
+    "CHW temperature setpoint - Supply or return depending on use_TLoaLvgForCtl"
     annotation (Placement(transformation(extent={{-180,20},{-140,60}}),
-      iconTransformation(extent={{-138,22},{-102,58}})));
+        iconTransformation(extent={{-138,-18},{-102,18}})));
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput THwSet(
+    final unit="K",
+    displayUnit="degC") if have_switchover
+    "HW temperature setpoint - Supply or return depending on use_TLoaLvgForCtl"
+    annotation (Placement(transformation(extent={{-180,40},{-140,80}}),
+        iconTransformation(extent={{-138,22},{-102,58}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput coo
     if have_switchover "Switchover signal: true for cooling, false for heating"
     annotation (Placement(transformation(extent={{-180,-100},{-140,-60}}),
-      iconTransformation(extent={{-138,-38},{-102,-2}})));
+      iconTransformation(extent={{-138,-58},{-102,-22}})));
+  Modelica.Blocks.Interfaces.RealOutput PLR(final unit="1")
+    "Compressor part load ratio"
+    annotation (Placement(transformation(extent={{140,-70},{160,-50}}),
+      iconTransformation(extent={{-10,-10},{10,10}}, rotation=-90, origin={80,-110})));
   Buildings.Fluid.HeatPumps.ModularReversible.BaseClasses.CalculateCommandSignal calYSet(
     final use_rev=false,
     final useInHeaPum=false)
@@ -99,12 +112,11 @@ model TableData2DLoadDep
   Buildings.Controls.OBC.CDL.Reals.Switch QUse_flow
     "Select useful heat flow rate depending on operating mode"
     annotation (Placement(transformation(extent={{92,-30},{72,-10}})));
-  Modelica.Blocks.Interfaces.RealOutput PLR(final unit="1")
-    "Compressor part load ratio" annotation (Placement(transformation(extent={{
-            140,-70},{160,-50}}), iconTransformation(
-        extent={{-10,-10},{10,10}},
-        rotation=-90,
-        origin={80,-110})));
+  Buildings.Templates.Plants.Controls.Utilities.PlaceholderReal phTHwSet(
+    final have_inp=have_switchover,
+    u_internal=273.15)
+    "Placeholder value"
+    annotation (Placement(transformation(extent={{-120,70},{-100,90}})));
 equation
   if not use_intSafCtr then
     connect(calYSet.ySet, sigBus.yMea)
@@ -114,9 +126,6 @@ equation
   connect(on, sigBus.onOffMea)
     annotation (Line(points={{-160,-20},{-132,-20},{-132,-38},{-141,-38},{-141,
           -41}},                                               color={255,0,255}));
-  connect(TSet, sigBus.TSet)
-    annotation (Line(points={{-160,40},{-120,40},{-120,-38},{-141,-38},{-141,-41}},
-                                                             color={0,0,127}));
   connect(coo, sigBus.coo)
     annotation (Line(points={{-160,-80},{-132,-80},{-132,-42},{-142,-42},{-142,-41},
           {-141,-41}},                                         color={255,0,255}),
@@ -154,6 +163,12 @@ equation
       points={{-141,-41},{-44,-41},{-44,-16},{-48,-16}},
       color={255,204,51},
       thickness=0.5));
+  connect(THwSet, phTHwSet.u) annotation (Line(points={{-160,60},{-132,60},{
+          -132,80},{-122,80}}, color={0,0,127}));
+  connect(phTHwSet.y, sigBus.THwSet) annotation (Line(points={{-98,80},{-80,80},
+          {-80,-41},{-141,-41}}, color={0,0,127}));
+  connect(TChwSet, sigBus.TChwSet) annotation (Line(points={{-160,40},{-122,40},
+          {-122,-41},{-141,-41}}, color={0,0,127}));
   annotation (
     Icon(
       coordinateSystem(
@@ -170,6 +185,13 @@ equation
     Documentation(
       revisions="<html>
 <ul>
+<li>
+March 23, 2026, by Antoine Gautier:<br/>
+Refactored with two separate connectors
+for CHW and HW temperature setpoints.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4507\">#4507</a>.
+</li>
 <li>
 March 21, 2025, by Antoine Gautier:<br/>
 First implementation.
@@ -234,12 +256,16 @@ Set <code>coo=true</code> for cooling mode,
 <code>coo=false</code> for heating mode.
 </li>
 <li>
-Chiller temperature setpoint: <code>TSet</code>
+CHW temperature setpoint: <code>TChwSet</code>
 (real, scalar)<br/>
-This is the supply or return temperature setpoint
+This is either the supply or return temperature setpoint
 depending on the value of <code>use_TLoaLvgForCtl</code>.
-For heat recovery chillers, the active setpoint must be
-switched externally between CHW and HW temperature.
+</li>
+<li>For heat recovery chillers only (<code>have_switchover=true</code>),
+HW temperature setpoint: <code>THwSet</code>
+(real, scalar)<br/>
+This is either the supply or return temperature setpoint
+depending on the value of <code>use_TLoaLvgForCtl</code>.
 </li>
 </ul>
 <h4>Implementation details</h4>
@@ -248,7 +274,8 @@ This model introduces structural changes compared to other models within
 <a href=\"modelica://Buildings.Fluid.Chillers.ModularReversible\">
 Buildings.Fluid.Chillers.ModularReversible</a>.
 </p>
-<p>First, there is no replaceable heating cycle component.
+<p>
+First, there is no replaceable heating cycle component.
 Instead, the Boolean parameter <code>have_switchover</code> is used
 for toggling between cooling-only and heat recovery chillers.
 A major implication is that a single performance data file is used

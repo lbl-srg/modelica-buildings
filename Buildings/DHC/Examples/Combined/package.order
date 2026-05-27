@@ -1,4 +1,5 @@
 SeriesConstantFlow
 SeriesVariableFlow
 SeriesVariableFlowAgentControl
+ETSHeatRecoveryHeatPump_BuildingTimeSeries
 BaseClasses

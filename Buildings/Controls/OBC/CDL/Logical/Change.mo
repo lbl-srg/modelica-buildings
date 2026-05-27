@@ -3,16 +3,14 @@ block Change
   "Output y is true, if the input u has a rising or falling edge (y = change(u))"
   parameter Boolean pre_u_start=false
     "Start value of pre(u) at initial time";
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u(
+    final fixed=true,
+    final start=pre_u_start)
     "Input to be monitored for a change"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput y
     "Output with true when the input changes"
     annotation (Placement(transformation(extent={{100,-20},{140,20}})));
-
-initial equation
-  pre(u)=pre_u_start;
-
 equation
   y=change(u);
   annotation (
@@ -60,6 +58,11 @@ Otherwise the output is <code>false</code>.
 </html>",
       revisions="<html>
 <ul>
+<li>
+May 6, 2026, by Antoine Gautier:<br/>
+Replaced initial equation with start attribute on input.
+This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4581\">Buildings, issue 4581</a>.
+</li>
 <li>
 January 3, 2017, by Michael Wetter:<br/>
 First implementation, based on the implementation of the

@@ -4,17 +4,96 @@ class Version_13_0_0 "Version 13.0.0"
     annotation (Documentation(info="<html>
 <div class=\"release-summary\">
 <p>
-Version X.Y.Z is ... xxx
+Version 13.0.0 is a major release that adds various new packages and models.
+</p>
+<p>
+The library has been tested with
+Dymola 2026x,
+OpenModelica 1.26.3,
+OPTIMICA 1.66 and recent versions of Impact.
+</p>
+<p>
+The following major changes have been done compared to release 12.0.0:
+</p>
+<ul>
+<li>
+The package <code>Buildings.Controls.OBC.ASHRAE.G36.FanCoilUnit</code>
+has been added with control sequences for fan coil units.
+</li>
+<li>
+The package <code>Buildings.DHC.ETS.Combined</code> has been replaced with improved models,
+and the old models have been moved to the <code>Buildings.Obsolete</code> package.
+</li>
+<li>
+The package <code>Buildings.Templates</code> has been refactored to use load-dependent 2D table data for
+chiller and heat pump models.
+</li>
+<li>
+The package <code>Buildings.Fluid.AirFilters</code> has been added with models for air filters.
+</li>
+<li>
+The package <code>Buildings.Fluid.HeatExchangers.ThermalWheels</code>
+has been added with models for heat recovery and enthalpy recovery wheels.
+</li>
+<li>
+The package <code>Buildings.Media.Antifreeze.Functions</code> has been added to enable
+calling glycol property functions without instantiating a package.
+</li>
+<li>
+The package <code>Buildings.Utilities.IO.Python_3_12</code>
+has been added with models to call Python 3.12 modules from a Modelica block.
+This package replaces <code>Buildings.Utilities.IO.Python_3_8</code>
+which has been moved to the <code>Buildings.Obsolete</code> package.
+</li>
+<li>
+The models of cooling towers in <code>Buildings.Fluid.HeatExchangers.CoolingTowers</code>
+have been refactored to use a data record for the performance data,
+and a new model of a dry cooler that uses the epsilon-NTU relation has been added.
+</li>
+</ul>
+<p>
+Also, many models have been updated to improve performance, to improve compliance with the Modelica Language Standard and to correct model errors.
 </p>
 </div>
+<p>
+This version also changes the weather data conversion from using Java to Python.
+This change was made when correcting an issue that caused a discontinuity in wind
+direction interpolation when the direction changes between 0 and 360 degrees.
+Users should update their existing weather files by running the Python script
+<code>Buildings/Resources/bin/convert_weather_data.py</code> as
+this requires a conversion of the wind direction data.
+See <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/2068\">IBPSA, #2068</a>.
+</p>
 <!-- New libraries -->
 <p>
 The following <b style=\"color:blue\">new libraries</b> have been added:
 </p>
 <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\">
-<tr><td valign=\"top\">xxx
+<tr><td valign=\"top\">Buildings.Controls.OBC.ASHRAE.G36.FanCoilUnit
     </td>
-    <td valign=\"top\">xxx.
+    <td valign=\"top\">Package with control sequences for fan coil units.<br/>
+                       This is for
+                       <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2885\">issue 2885</a>.
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Fluid.AirFilters
+    </td>
+    <td valign=\"top\">Package with models for air filters.<br/>
+                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3618\">issue 3618</a>.
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Fluid.HeatExchangers.ThermalWheels
+    </td>
+    <td valign=\"top\">Package with models for heat recovery and enthalpy recovery wheels.<br/>
+                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3538\">#3538</a>.
+    </td>
+</tr>
+<tr><td valign=\"top\">Buidings.Utilities.IO.Python_3_12
+    </td>
+    <td valign=\"top\">Package with models to call Python 3.12 modules from a Modelica block.<br/>
+                       This package replaces <code>Buidings.Utilities.IO.Python_3_8</code> which has
+                       been moved to the <code>Buildings.Obsolete</code> package.<br/>
+                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4347\">issue 4347</a>.
     </td>
     </tr>
 </table>
@@ -24,12 +103,26 @@ The following <b style=\"color:blue\">new components</b> have been added
 to <b style=\"color:blue\">existing</b> libraries:
 </p>
 <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\" style=\"border-collapse:collapse;\">
-<tr><td colspan=\"2\"><b>xxx</b>
+<tr><td colspan=\"2\"><b>Buildings.Fluid</b>
     </td>
 </tr>
-<tr><td valign=\"top\">xxx
+<tr><td valign=\"top\">Buildings.Fluid.HeatExchangers.CoolingTowers.DryCooler
     </td>
-    <td valign=\"top\">xxx.
+    <td valign=\"top\">Model of a dry cooler that uses the epsilon-NTU relation,
+                       with convection coefficients varying with flow rates and temperature.<br/>
+                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4567\">issue 4567</a>.
+    </td>
+</tr>
+<tr><td colspan=\"2\"><b>Buildings.Media</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Media.Antifreeze.Functions.EthyleneGlycolWater<br/>
+                       Buildings.Media.Antifreeze.Functions.PropyleneGlycolWater
+    </td>
+    <td valign=\"top\">Packages that allows function calls of media properties without
+                       having to instantiate a package. This allows calling the
+                       functions from a Modelica <code>record</code>.<br/>
+                       This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/2115\">IBPSA, issue 2115</a>.
     </td>
     </tr>
 <tr><td colspan=\"2\"><b>Buildings.ThermalZones</b>
@@ -48,6 +141,17 @@ have been <b style=\"color:blue\">improved</b> in a
 <b style=\"color:blue\">backward compatible</b> way:
 </p>
 <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\" style=\"border-collapse:collapse;\">
+<tr><td colspan=\"2\"><b>Buildings.BoundaryConditions.WeatherData</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.BoundaryConditions.WeatherData.ReaderTMY3
+    </td>
+    <td valign=\"top\">Changed the class type from block to model.<br/>
+                       This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/2091\">IBPSA, #2091</a>.<br/>
+                       Changed weather data interpolation to avoid a discontinuity in wind directory when it switches between 0 and 360 degrees.<br/>
+                       This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/2068\">IBPSA, #2068</a>.
+    </td>
+</tr>
 <tr><td colspan=\"2\"><b>Buildings.Airflow</b>
     </td>
 </tr>
@@ -57,7 +161,69 @@ have been <b style=\"color:blue\">improved</b> in a
                        This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/2043\">IBPSA, issue 2043</a>.
     </td>
 </tr>
-<tr><td colspan=\"2\"><b>Buildings.Fluid</b>
+<tr><td colspan=\"2\"><b>Buildings.Controls.OBC.CDL</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Controls.OBC.CDL.Logical.Latch
+    </td>
+    <td valign=\"top\">Reformulated initalization to avoid non-linear equations in <code>when</code> blocks.<br/>
+                       This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/2064\">IBPSA, issue 2064</a>.
+    </td>
+</tr>
+<tr><td colspan=\"2\"><b>Buildings.Fluid.Examples</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Fluid.Examples.ResistanceVolumeFlowReversal
+    </td>
+    <td valign=\"top\">Added two-port temperature sensors to replace <code>vol[.].T</code>
+                       from reference results.<br/>
+                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4276\">#4276</a>.
+    </td>
+</tr>
+<tr><td colspan=\"2\"><b>Buildings.Fluid.FixedResistances</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Fluid.FixedResistances.PlugFlowPipe<br/>
+                     Buildings.Fluid.FixedResistances.PlugFlowPipeDiscretized
+    </td>
+    <td valign=\"top\">Added option to disable pressure drop calculation.<br/>
+                       This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/2015\">IBPSA, issue 2015</a>.
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Fluid.FixedResistances.PlugFlowPipe
+    </td>
+    <td valign=\"top\">Removed stray <code>Line</code> annotation. Added <code>if-then</code> to conditional connections.<br/>
+                       This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/2071\">IBPSA, #2071</a>.
+    </td>
+</tr>
+<tr><td colspan=\"2\"><b>Buildings.Fluid.Geothermal.Borefields</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Fluid.Geothermal.Borefields.BaseClasses.HeatTransfer.ThermalResponseFactors.Validation.FiniteLineSource_Erfint
+    </td>
+    <td valign=\"top\">Added an assert-statement for <code>err</code>
+                       and removed it from reference results.<br/>
+                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4277\">#4277</a>.
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Fluid.Geothermal.Borefields.BaseClasses.HeatTransfer.GroundTemperatureResponse<br/>
+                       Buildings.Fluid.Geothermal.ZonedBorefields.BaseClasses.HeatTransfer.GroundTemperatureResponse
+    </td>
+    <td valign=\"top\">Reformulated <code>when</code> block to avoid continuous and discrete variable assignment in the same block.<br/>
+                       This is for
+                       <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4321\">#4321</a>
+    </td>
+</tr>
+<tr><td colspan=\"2\"><b>Buildings.Fluid.HeatExchangers</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Fluid.HeatExchangers.ThermalWheels
+    </td>
+    <td valign=\"top\">Package of models for heat recovery and enthalpy recovery wheels.<br/>
+                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3538\">issue 3538</a>.
+    </td>
+</tr>
+<tr><td colspan=\"2\"><b>Buildings.Fluid.HeatPumps</b>
     </td>
 </tr>
 <tr><td valign=\"top\">Buildings.Fluid.HeatPumps.ModularReversible
@@ -66,17 +232,38 @@ have been <b style=\"color:blue\">improved</b> in a
                        This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/2035\">IBPSA, issue 2035</a>.
     </td>
 </tr>
-<tr><td valign=\"top\">Buildings.Fluid.PlugFlowPipe<br/>
-                       Buildings.Fluid.PlugFlowPipeDiscretized
-    </td>
-    <td valign=\"top\">Added option to disable pressure drop calculation.<br/>
-                       This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/2015\">IBPSA, issue 2015</a>.
+<tr><td colspan=\"2\"><b>Buildings.Obsolete.Utilities.IO.Python_3_8</b>
     </td>
 </tr>
-<tr><td colspan=\"2\"><b>Buildings.Utilities.IO.Python_3_8</b>
+<tr><td valign=\"top\">Buildings.Obsolete.Utilities.IO.Python_3_8.Functions.BaseClasses.exchange
+    </td>
+    <td valign=\"top\">Added missing header file.<br/>
+                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4343\">issue 4343</a>.
     </td>
 </tr>
-<tr><td valign=\"top\">Buildings.Utilities.IO.Python_3_8.Functions.BaseClasses.exchange
+<tr><td colspan=\"2\"><b>Buildings.ThermalZones.Detailed</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.ThermalZones.Detailed.BaseClasses.ExteriorBoundaryConditions
+    </td>
+    <td valign=\"top\">Explicitly assigned value to the roughness of the exterior constructions.<br/>
+                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4367\">issue 4367</a>.
+    </td>
+</tr>
+<tr><td colspan=\"2\"><b>Buildings.ThermalZones.EnergyPlus_24_2_0</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.ThermalZones.EnergyPlus_24_2_0.BaseClasses.ThermalZoneAdapter
+    </td>
+    <td valign=\"top\">Added an assertion that stops the simulation if the air pressure is unreasonable, which may
+                       be the case if a user provides fresh air but not exhaust air path.<br/>
+                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3319\">issue 3319</a>.
+    </td>
+</tr>
+<tr><td colspan=\"2\"><b>Buildings.Utilities.IO.Python_3_12</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Utilities.IO.Python_3_12.Functions.BaseClasses.exchange
     </td>
     <td valign=\"top\">Added missing header file.<br/>
                        This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4343\">issue 4343</a>.
@@ -91,54 +278,8 @@ have been <b style=\"color:blue\">improved</b> in a
                        Buildings.Utilities.Math.Functions.smoothHeaviside<br/>
                        Buildings.Utilities.Math.Functions.smoothLimit
     </td>
-    <td valign=\"top\">Made the functions inlined.<br/>
+    <td valign=\"top\">Declared the functions to be inlined.<br/>
                        This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4278\">issue 4278</a>.
-    </td>
-</tr>
-<tr><td colspan=\"2\"><b>Buildings.Fluid.HeatExchangers</b>
-    </td>
-</tr>
-<tr><td valign=\"top\">Buildings.Fluid.HeatExchangers.ThermalWheels
-    </td>
-    <td valign=\"top\">Package of models for heat recovery and enthalpy recovery wheels.<br/>
-                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3538\">issue 3538</a>.
-    </td>
-</tr>     
-<tr><td colspan=\"2\"><b>Buildings.Fluid.Examples</b>
-    </td>
-</tr>
-<tr><td valign=\"top\">Buildings.Fluid.Examples.ResistanceVolumeFlowReversal
-    </td>
-    <td valign=\"top\">Added two-port temperature sensors to replace <code>vol[.].T</code>
-                       from reference results.<br/>
-                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4276\">#4276</a>.
-    </td>
-</tr>
-<tr><td colspan=\"2\"><b>Buildings.Fluid.Geothermal.Borefields</b>
-    </td>
-</tr>
-<tr><td valign=\"top\">Buildings.Fluid.Geothermal.Borefields.BaseClasses.HeatTransfer.ThermalResponseFactors.Validation.FiniteLineSource_Erfint
-    </td>
-    <td valign=\"top\">Added an assert-statement for <code>err</code>
-                       and removed it from reference results.<br/>
-                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4277\">#4277</a>.
-    </td>
-</tr>
-<tr><td colspan=\"2\"><b>Buildings.Fluid.HeatExchangers</b>
-    </td>
-</tr>
-<tr><td valign=\"top\">Buildings.Fluid.HeatExchangers.ThermalWheels
-    </td>
-    <td valign=\"top\">Package of models for heat recovery and enthalpy recovery wheels.<br/>
-                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3538\">issue 3538</a>.
-    </td>
-</tr>
-<tr><td colspan=\"2\"><b>xxx</b>
-    </td>
-</tr>
-<tr><td valign=\"top\">xxx
-    </td>
-    <td valign=\"top\">xxx.
     </td>
 </tr>
 </table>
@@ -163,12 +304,119 @@ have been <b style=\"color:blue\">improved</b> in a
                        This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4374\">issue 4374</a>.
     </td>
 </tr>
-<tr><td colspan=\"2\"><b>xxx</b>
+<tr><td colspan=\"2\"><b>Buildings.DHC</b>
     </td>
 </tr>
-<tr><td valign=\"top\">xxx
+<tr><td valign=\"top\">Buildings.DHC.ETS.Combined.ChillerBorefield<br/>
+                       Buildings.DHC.ETS.Combined.Examples.ChillerBorefield<br/>
+                       Buildings.DHC.ETS.Combined.Examples.ChillerOnly<br/>
+                       Buildings.DHC.ETS.Combined.Validation.ChillerBorefield<br/>
+                       Buildings.DHC.ETS.Combined.Validation.ChillerOnly<br/>
+                       Buildings.DHC.ETS.Combined.Validation.ChillerWSE<br/>
+                       Buildings.DHC.ETS.Combined.Validation.BaseClasses.PartialChillerBorefield<br/>
+                       Buildings.DHC.ETS.Combined.Subsystems.Borefield<br/>
+                       Buildings.DHC.ETS.Combined.Subsystems.Chiller<br/>
+                       Buildings.DHC.ETS.Combined.Subsystems.Validation.Borefield<br/>
+                       Buildings.DHC.ETS.Combined.Subsystems.Validation.Chiller<br/>
+                       Buildings.DHC.ETS.Combined.Controls.Chiller<br/>
+                       Buildings.DHC.ETS.Combined.Controls.Borefield<br/>
+                       Buildings.DHC.ETS.Combined.Controls.Supervisory<br/>
+                       Buildings.DHC.ETS.Combined.Controls.SideHot<br/>
+                       Buildings.DHC.ETS.Combined.Controls.SideCold<br/>
+                       Buildings.DHC.ETS.Combined.Controls.BaseClasses.PartialSupervisory<br/>
+                       Buildings.DHC.ETS.Combined.Controls.HeatExchanger
     </td>
-    <td valign=\"top\">xxx.
+    <td valign=\"top\">Moved to <code>Buildings.Obsolete</code> as these are replaced with improved models.<br/>
+                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4354\">issue 4354</a>.
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.DHC.ETS.Combined.Controls.PIDWithEnable
+    </td>
+    <td valign=\"top\">Moved to <code>Buildings.Controls.OBC.Utilities.PIDWithEnable</code> as there were two identical implementations.
+    </td>
+</tr>
+<tr><td colspan=\"2\"><b>Buildings.Fluid</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Fluid.HeatExchangers.CoolingTowers
+    </td>
+    <td valign=\"top\">Refactored models to use a data record for the performance data.<br/>
+                       The old models were moved to the <code>Buildings.Obsolete</code> package,
+                       and a conversion script updates old models to the new ones.<br/>
+                       This is for
+                       <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4489\">#4489</a>.
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Fluid.Chillers.ModularReversible.RefrigerantCycle.TableData2DLoadDep<br/>
+                       Buildings.Fluid.Chillers.ModularReversible.TableData2DLoadDep<br/>
+                       Buildings.Fluid.HeatPumps.ModularReversible.RefrigerantCycle.TableData2DLoadDep<br/>
+                       Buildings.Fluid.HeatPumps.ModularReversible.TableData2DLoadDep
+    </td>
+    <td valign=\"top\">Refactored with two separate connectors for HW and CHW temperature setpoints.<br/>
+                       This is for
+                       <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4507\">#4507</a>.
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Fluid.HeatPumps.ModularReversible.RefrigerantCycle.BaseClasses.TableData2DLoadDepSHC<br/>
+                       Buildings.Fluid.HeatPumps.ModularReversible.RefrigerantCycle.TableData2DLoadDepSHC<br/>
+                       Buildings.Fluid.HeatPumps.ModularReversible.TableData2DLoadDepSHC
+    </td>
+    <td valign=\"top\">Refactored with two separate connectors for heating and cooling on/off commands.<br/>
+                       This is for
+                       <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4507\">#4507</a>.
+    </td>
+</tr>
+<tr><td colspan=\"2\"><b>Buildings.Templates</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Templates.Components.BaseClasses.PartialHeatPumpTableData2DLoadDep<br/>
+                       Buildings.Templates.Components.Chillers.Compression<br/>
+                       Buildings.Templates.Plants.Controls.HeatPumps.AirToWater<br/>
+                       Buildings.Templates.Plants.HeatPumps.AirToWater<br/>
+                       Buildings.Templates.Plants.HeatPumps.Components.Controls.AirToWater<br/>
+                       Buildings.Templates.Plants.HeatPumps.Components.Controls.OpenLoop
+    </td>
+    <td valign=\"top\">Refactored with two separate connectors for HW and CHW temperature setpoints.<br/>
+                       This is for
+                       <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4507\">#4507</a>.
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Templates.AirHandlersFans.Components.Controls.G36VAVMultiZone<br/>
+                       Buildings.Templates.AirHandlersFans.Components.Data.VAVMultiZoneController<br/>
+                       Buildings.Templates.AirHandlersFans.Configuration.PartialAirHandler<br/>
+                       Buildings.Templates.AirHandlersFans.Interfaces.PartialAirHandler<br/>
+                       Buildings.Templates.AirHandlersFans.Validation.VAVMultiZone
+    </td>
+    <td valign=\"top\">Moved zoning parameter declarations into controller data record.<br/>
+                       This is for
+                       <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4497\">#4497</a>.
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Templates.Components.Chillers.Compression<br/>
+                       Buildings.Templates.Components.HeatPumps.AirToWater<br/>
+                       Buildings.Templates.Components.HeatPumps.WaterToWater<br/>
+                       Buildings.Templates.Plants.HeatPumps.AirToWater<br/>
+                       Buildings.Templates.Plants.HeatPumps.Components.HeatPumpGroups.AirToWater<br/>
+                       Buildings.Templates.Plants.HeatPumps.Components.HeatRecoveryChiller
+    </td>
+    <td valign=\"top\">Refactored with load-dependent 2D table data heat pump model.<br/>
+                       This is for
+                       <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4152\">#4152</a>.
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Templates.Plants.Controls.Utilities.PIDWithEnable
+    </td>
+    <td valign=\"top\">Moved to <code>Buildings.Controls.OBC.Utilities.PIDWithEnable</code> as there were two identical implementations.
+    </td>
+</tr>
+ <tr><td colspan=\"2\"><b>Buildings.Utilities</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Utilities.IO.Python_3_8
+    </td>
+    <td valign=\"top\">Moved package to <code>Buildings.Obsolete.Utilities.IO.Python_3_8</code>
+                       as it is replaced by <code>Buildings.Utilities.IO.Python_3_12</code>.<br/>
+                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4347\">issue 4347</a>.
     </td>
 </tr>
 </table>
@@ -178,37 +426,43 @@ The following <b style=\"color:red\">critical errors</b> have been fixed (i.e., 
 that can lead to wrong simulation results):
 </p>
 <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\" style=\"border-collapse:collapse;\">
-<tr><td colspan=\"2\"><b>xxx</b>
+<tr><td colspan=\"2\"><b>Buildings.Controls.OBC.Utilities.PIDWithAutotuning</b>
     </td>
 </tr>
-<tr><td valign=\"top\">xxx
+<tr><td valign=\"top\">Buildings.Controls.OBC.Utilities.PIDWithAutotuning.SystemIdentification.FirstOrderTimeDelay.BaseClasses.TimeConstantDelay<br/>
+                       Buildings.Controls.OBC.Utilities.PIDWithAutotuning.Relay.BaseClasses.NormalizedTimeDelay
     </td>
-    <td valign=\"top\">xxx.
+    <td valign=\"top\">Add error-handling mechanism to capture negative control gains.<br/>
+                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4378\">issue 4378</a>.
+    </td>
+</tr>
+<tr><td colspan=\"2\"><b>Buildings.Templates</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Templates.Plants.Controls.HeatPumps.AirToWater<br/>
+                     Buildings.Templates.Plants.Controls.StagingRotation.EquipmentAvailability
+    </td>
+    <td valign=\"top\">Refactored to use \"required to run\" conditions in the equipment availability logic.<br/>
+                     This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4432\">issue 4432</a>.
     </td>
 </tr>
 </table>
 <!-- Uncritical errors -->
 <p>
-The following <b style=\"color:red\">uncritical errors</b> have been fixed (i.e., errors
-that do <b style=\"color:red\">not</b> lead to wrong simulation results, e.g.,
-units are wrong or errors in documentation):
-</p>
-<table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\" style=\"border-collapse:collapse;\">
-<tr><td colspan=\"2\"><b>xxx</b>
-    </td>
-</tr>
-<tr><td valign=\"top\">xxx
-    </td>
-    <td valign=\"top\">xxx.
-    </td>
-</tr>
-</table>
-<p>
 Note:
+</p>
+<p>
+This version removes the packages
 </p>
 <ul>
 <li>
-xxx
+<code>Buildings.Obsolete.ThermalZones.EnergyPlus_9_6_0</code>
+</li>
+<li>
+<code>Buildings.Obsolete.Fluid.Movers.Validation</code>
+</li>
+<li>
+<code>Buildings.Obsolete.Fluid.SolarCollectors</code>
 </li>
 </ul>
 </html>"));

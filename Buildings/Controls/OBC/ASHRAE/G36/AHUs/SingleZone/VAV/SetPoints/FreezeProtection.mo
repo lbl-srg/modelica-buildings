@@ -1075,22 +1075,16 @@ annotation (defaultComponentName="sinAHUFrePro",
         Text(
           extent={{-332,212},{-238,192}},
           textColor={0,0,255},
-          fillColor={215,215,215},
-          fillPattern=FillPattern.Solid,
           horizontalAlignment=TextAlignment.Left,
           textString="Stage 3"),
         Text(
           extent={{-330,410},{-236,390}},
           textColor={0,0,255},
-          fillColor={215,215,215},
-          fillPattern=FillPattern.Solid,
           horizontalAlignment=TextAlignment.Left,
           textString="Stage 2"),
         Text(
           extent={{-342,712},{-248,692}},
           textColor={0,0,255},
-          fillColor={215,215,215},
-          fillPattern=FillPattern.Solid,
           horizontalAlignment=TextAlignment.Left,
           textString="Stage 1")}),
  Documentation(info="<html>

@@ -32,7 +32,6 @@ equation
           textString="I"),
         Text(
           textColor={0,0,127},
-          fillPattern=FillPattern.Solid,
           extent={{0.0,-40.0},{100.0,40.0}},
           textString="R"),
         Polygon(

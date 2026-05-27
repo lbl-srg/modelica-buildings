@@ -33,7 +33,7 @@
 #include "utility.h"
 #endif
 
-FILE *file1;
+extern FILE *file1;
 
 int data_debug(PARA_DATA *para, REAL **var, char *name);
 

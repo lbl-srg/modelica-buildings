@@ -88,13 +88,13 @@ int ffd(int cosimulation);
 ****************************************************************************/
 int allocate_memory(PARA_DATA* para);
 
-/****************************************************************************
-|  Write error message to Modelica
-|
-| \para msg Pointer to message to be written.
-|
-| \return no return
-****************************************************************************/
+/*
+	* Write error message to Modelica
+	*
+	* @para msg Pointer to message to be written.
+	*
+	* @return no return
+	*/
 void modelicaError(char *msg);
 
-
+void free_para(PARA_DATA *para);

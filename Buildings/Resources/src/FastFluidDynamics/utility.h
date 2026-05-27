@@ -72,6 +72,16 @@ void ffd_log(char* message, FFD_MSG_TYPE msg_type);
 | \return 0 if no error occurred
 ****************************************************************************/
 REAL outflow(PARA_DATA* para, REAL** var, REAL* psi, int** BINDEX);
+/*
+	* Check the residual of equation
+	*
+	* @param para Pointer to FFD parameters
+	* @param var Pointer to FFD simulation variables
+	* @param psi Pointer to the variable
+	*
+	* @return 0 if no error occurred
+	*/
+REAL check_residual(PARA_DATA *para, REAL **var, REAL *x);
 
 /****************************************************************************
 |  Check the inflow rate of the scalar psi
@@ -199,15 +209,25 @@ void free_index(int** BINDEX);
 ****************************************************************************/
 void free_data(REAL** var);
 
-/****************************************************************************
-|  Determine the maximum value of given scalar variable
-|
-| \param para Pointer to FFD parameters
-| \param dat Pointer to scalar variable
-|
-| \return Smax Maximum value of the scalar variable
-****************************************************************************/
-REAL scalar_global_max(PARA_DATA* para, REAL* dat);
+/*
+		* Free memory for FFD simulation variables
+		*
+		* @param var Pointer to FFD simulation variables
+		*
+		* @return 0 if no error occurred
+		*/
+void free_para(PARA_DATA *para);
+
+
+/*
+	* Determine the maximum value of given scalar variable
+	*
+	* @param para Pointer to FFD parameters
+	* @param dat Pointer to scalar variable
+	*
+	* @return Smax Maximum value of the scalar variable
+	*/
+REAL scalar_global_max(PARA_DATA *para, REAL *dat);
 
 /****************************************************************************
 |  Determine the minimum value of given scalar variable

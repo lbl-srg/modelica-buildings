@@ -6,7 +6,22 @@ extends Buildings.ThermalZones.Detailed.BaseClasses.PartialExchange;
     "Allocate memory for cosimulation variables via constructor and send stop command to FFD via destructor";
 
 protected
+<<<<<<< HEAD
   function sendParameters
+=======
+  final parameter Integer nSen(min=0) = size(sensorName, 1)
+    "Number of sensors that are connected to CFD output";
+  final parameter Integer nPorts=size(portName, 1)
+    "Number of fluid ports for the HVAC inlet and outlets";
+  discrete Modelica.Units.SI.Time modTimRea(fixed=false)
+    "Current model time received from CFD";
+
+  discrete Integer retVal(start=0, fixed=true) "Return value from CFD";
+
+  ///////////////////////////////////////////////////////////////////////////
+  // Function that sends the parameters of the model from Modelica to CFD
+  impure function sendParameters
+>>>>>>> master
     input String cfdFilNam "CFD input file name";
     input String[nSur] name "Surface names";
     input Modelica.Units.SI.Area[nSur] A "Surface areas";
@@ -38,6 +53,87 @@ protected
     input Modelica.Units.SI.Density rho_start "Density at initial state";
   protected
     Integer coSimFlag=0;
+  algorithm
+    for i in 1:nSur loop
+      assert(A[i] > 0, "Surface must be bigger than zero.");
+    end for;
+
+    coSimFlag := cfdStartCosimulation(
+        cfdFilNam,
+        name,
+        A,
+        til,
+        bouCon,
+        nPorts,
+        portName,
+        haveSensor,
+        sensorName,
+        haveShade,
+        nSur,
+        nSen,
+        nConExtWin,
+        nXi,
+        nC,
+        rho_start);
+    assert(coSimFlag < 0.5, "Could not start the cosimulation.");
+
+  end sendParameters;
+
+  ///////////////////////////////////////////////////////////////////////////
+  // Function that exchanges data during the time stepping between
+  // Modelica and CFD.
+  impure function exchange
+    input Integer flag "Communication flag to write to CFD";
+    input Modelica.Units.SI.Time t
+      "Current simulation time in seconds to write";
+    input Modelica.Units.SI.Time dt(min=100*Modelica.Constants.eps)
+      "Requested time step length";
+    input Real[nU] u "Input for CFD";
+    input Integer nU "Number of inputs for CFD";
+    input Real[nY] yFixed "Fixed values (used for debugging only)";
+    input Integer nY "Number of outputs from CFD";
+    output Modelica.Units.SI.Time modTimRea
+      "Current model time in seconds read from CFD";
+    output Real[nY] y "Output computed by CFD";
+    output Integer retVal
+      "The exit value, which is negative if an error occurred";
+  algorithm
+    (modTimRea,y,retVal) := cfdExchangeData(
+        flag,
+        t,
+        dt,
+        u,
+        nU,
+        nY);
+  end exchange;
+
+  ///////////////////////////////////////////////////////////////////////////
+  // Function that returns strings that are not unique.
+  function returnNonUniqueStrings
+    input Integer n(min=2) "Number entries";
+    input Boolean ideNam[n - 1]
+      "Flag that is set to true if the name is used more than once";
+    input String names[n] "Names";
+    output String s "String with non-unique names";
+  algorithm
+    s := "";
+    for i in 1:n - 1 loop
+      if ideNam[i] then
+        s := s + "\n  '" + names[i] + "'";
+      end if;
+    end for;
+  end returnNonUniqueStrings;
+
+  // This function does not work because Dymola 2014 has problems with
+  // handling strings in an algorithm section
+  impure function assertStringsAreUnique
+    input String descriptiveName
+      "Descriptive name of what is tested, such as 'sensor' or 'ports'";
+    input Integer n(min=2) "Number of strings";
+    input String names[n] "Names";
+  protected
+    Boolean ideNam[max(0, n-1)]
+      "Flag that is set to true if the name is used more than once";
 
   algorithm
 
@@ -248,6 +344,10 @@ Buildings.ThermalZones.Detailed.UsersGuide.CFD</a>.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+October 2, 2025, by Michael Wetter:<br/>
+Declared functions as <code>impure</code>.
+</li>
 <li>
 April 5, 2020, by Xu Han, Wangda Zuo and Michael Wetter:<br/>
 Changed structure.

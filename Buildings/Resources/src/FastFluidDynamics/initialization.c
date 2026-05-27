@@ -322,28 +322,30 @@ int set_initial_data(PARA_DATA* para, REAL** var, int** BINDEX) {
   /****************************************************************************
   | Allocate memory for Substances
   ****************************************************************************/
-  if (para->bc->nb_port > 0 && para->bc->nb_C > 0) {
-	para->bc->CPort = (REAL * *)malloc(sizeof(REAL*) * para->bc->nb_port);
-	para->bc->CPortAve = (REAL * *)malloc(sizeof(REAL*) * para->bc->nb_port);
-	para->bc->CPortMean = (REAL * *)malloc(sizeof(REAL*) * para->bc->nb_port);
-	if (para->bc->CPort == NULL || para->bc->CPortAve == NULL
-		|| para->bc->CPortMean) {
-		ffd_log("set_initial_data(): Could not allocate memory for CPort.",
-			FFD_ERROR);
-		return 1;
-	}
+  if(para->bc->nb_port>0&&para->bc->nb_C>0) {
+    para->bc->CPort = (REAL **) malloc(sizeof(REAL *)*para->bc->nb_port);
+    para->bc->CPortAve = (REAL **) malloc(sizeof(REAL *)*para->bc->nb_port);
+    para->bc->CPortMean = (REAL **) malloc(sizeof(REAL *)*para->bc->nb_port);
+    if(para->bc->CPort==NULL ||
+       para->bc->CPortAve==NULL ||
+       para->bc->CPortMean==NULL) {
+      ffd_log("set_initial_data(): Could not allocate memory for CPort.",
+              FFD_ERROR);
+      return 1;
+    }
 
-	for (i = 0; i < para->bc->nb_port; i++) {
-		para->bc->CPort[i] = (REAL*)malloc(sizeof(REAL) * para->bc->nb_C);
-		para->bc->CPortAve[i] = (REAL*)malloc(sizeof(REAL) * para->bc->nb_C);
-		para->bc->CPortMean[i] = (REAL*)malloc(sizeof(REAL) * para->bc->nb_C);
-		if (para->bc->CPort[i] == NULL || para->bc->CPortAve[i] == NULL
-			|| para->bc->CPortMean[i]) {
-			ffd_log("set_initial_data(): "
-				"Could not allocate memory for C at Port[i].",
-				FFD_ERROR);
-			return 1;
-		}
+    for(i=0; i<para->bc->nb_port; i++) {
+      para->bc->CPort[i] = (REAL *) malloc(sizeof(REAL)*para->bc->nb_C);
+      para->bc->CPortAve[i] = (REAL *) malloc(sizeof(REAL)*para->bc->nb_C);
+      para->bc->CPortMean[i] = (REAL *) malloc(sizeof(REAL)*para->bc->nb_C);
+      if(para->bc->CPort[i]==NULL ||
+         para->bc->CPortAve[i]==NULL ||
+         para->bc->CPortMean[i]==NULL) {
+        ffd_log("set_initial_data(): "
+                "Could not allocate memory for C at Port[i].",
+                FFD_ERROR);
+        return 1;
+      }
 
 		for (j = 0; j < para->bc->nb_C; j++) {
 			para->bc->CPort[i][j] = 0.0;

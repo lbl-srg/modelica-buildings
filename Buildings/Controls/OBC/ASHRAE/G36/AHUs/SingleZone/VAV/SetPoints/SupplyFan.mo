@@ -271,26 +271,18 @@ annotation (defaultComponentName = "supFanSpe",
         Text(
           extent={{-100,-24},{-76,-34}},
           textColor={0,0,127},
-          fillColor={0,0,0},
-          fillPattern=FillPattern.Solid,
           textString="uHea"),
         Text(
           extent={{-100,-74},{-80,-84}},
           textColor={0,0,127},
-          fillColor={0,0,0},
-          fillPattern=FillPattern.Solid,
           textString="uCoo"),
         Text(
           extent={{86,6},{100,-4}},
           textColor={0,0,127},
-          fillColor={0,0,0},
-          fillPattern=FillPattern.Solid,
           textString="y"),
         Text(
           extent={{-100,36},{-80,26}},
           textColor={0,0,127},
-          fillColor={0,0,0},
-          fillPattern=FillPattern.Solid,
           textString="TOut"),
     Line(points={{-54,50},{-54,-42}}, color={95,95,95}),
     Polygon(
@@ -308,8 +300,6 @@ annotation (defaultComponentName = "supFanSpe",
         Text(
           extent={{-100,84},{-80,74}},
           textColor={0,0,127},
-          fillColor={0,0,0},
-          fillPattern=FillPattern.Solid,
           textString="TZon")}),
   Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-220,-240},{220,300}})),
   Documentation(info="<html>

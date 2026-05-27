@@ -354,102 +354,83 @@ annotation (defaultComponentName="modSetPoi",
         Text(
           extent={{-98,-32},{-58,-46}},
           textColor={0,0,127},
-          pattern=LinePattern.Dash,
           textString="tNexOcc"),
         Text(
           extent={{-98,-12},{-70,-26}},
           textColor={255,0,255},
-          pattern=LinePattern.Dash,
           textString="u1Occ"),
         Text(
           extent={{-100,106},{-74,94}},
           textColor={0,0,127},
-          pattern=LinePattern.Dash,
           textString="TZon"),
         Text(
           visible=have_locAdj and not sepAdj,
           extent={{-100,-60},{-66,-74}},
           textColor={0,0,127},
-          pattern=LinePattern.Dash,
           textString="setAdj"),
         Text(
           visible=have_locAdj and sepAdj,
           extent={{-98,-102},{-52,-116}},
           textColor={0,0,127},
-          pattern=LinePattern.Dash,
           textString="heaSetAdj"),
         Text(
           visible=have_occSen,
           extent={{-98,-132},{-52,-146}},
           textColor={255,0,255},
-          pattern=LinePattern.Dash,
           textString="u1OccSen"),
         Text(
           visible=have_winSen,
           extent={{-100,136},{-74,124}},
           textColor={255,0,255},
-          pattern=LinePattern.Dash,
           textString="u1Win"),
         Text(
           extent={{46,8},{96,-6}},
           textColor={0,0,127},
-          pattern=LinePattern.Dash,
           textString="TCooSet"),
         Text(
           extent={{44,-72},{96,-88}},
           textColor={0,0,127},
-          pattern=LinePattern.Dash,
           textString="THeaSet"),
         Text(
           extent={{52,88},{100,76}},
           textColor={255,127,0},
-          pattern=LinePattern.Dash,
           textString="yOpeMod"),
         Text(
           extent={{-98,188},{-50,174}},
           textColor={0,0,127},
-          pattern=LinePattern.Dash,
           textString="cooDowTim"),
         Text(
           extent={{-98,168},{-50,154}},
           textColor={0,0,127},
-          pattern=LinePattern.Dash,
           textString="warUpTim"),
         Text(
           extent={{-96,-152},{-28,-166}},
           textColor={255,127,0},
-          pattern=LinePattern.Dash,
           textString="uCooDemLimLev"),
         Text(
           extent={{-98,-172},{-28,-186}},
           textColor={255,127,0},
-          pattern=LinePattern.Dash,
           textString="uHeaDemLimLev"),
         Text(
           visible=have_locAdj and sepAdj,
           extent={{-98,-82},{-52,-96}},
           textColor={0,0,127},
-          pattern=LinePattern.Dash,
           textString="cooSetAdj"),
         Text(
           extent={{-98,78},{-48,64}},
           textColor={0,0,127},
-          pattern=LinePattern.Dash,
           textString="TOccHeaSet"),
         Text(
           extent={{-98,58},{-48,44}},
           textColor={0,0,127},
-          pattern=LinePattern.Dash,
           textString="TOccCooSet"),
         Text(
           extent={{-98,18},{-48,4}},
           textColor={0,0,127},
-          pattern=LinePattern.Dash,
           textString="TUnoCooSet"),
         Text(
           extent={{-98,38},{-48,24}},
           textColor={0,0,127},
-          pattern=LinePattern.Dash,
           textString="TUnoHeaSet")}),
 Documentation(info="<html>
 <p>

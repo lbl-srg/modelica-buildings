@@ -29,7 +29,7 @@
 
 #include "utility.h"
 
-FILE* file_old_ffd;
+extern FILE *file_old_ffd;
 
 /****************************************************************************
 |  Read the previous FFD simulation data in a format of standard output
