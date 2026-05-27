@@ -12,6 +12,7 @@ WetCoilCounterFlow
 WetCoilDiscretized
 WetCoilEffectivenessNTU
 ActiveBeams
+AdiabaticPads
 CoolingTowers
 RadiantSlabs
 Radiators
