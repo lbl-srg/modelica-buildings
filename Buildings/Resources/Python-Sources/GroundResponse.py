@@ -14,11 +14,11 @@ def doStep(dblInp, state):
     # temporary directory instead of the Buildings library root.
     # Dymola runs from "Path_to_modelica-buildings/Buildings" and returns the correct
     # path.
-    # Using "SCRIPT_DIR" guarantees the correct absolute path in all tools.
-    SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
+    # Using "scriptDir" guarantees the correct absolute path in all tools.
+    scriptDir = os.path.dirname(os.path.abspath(__file__))
 
     # Folder that includes the TOUGH input files
-    TOUGH_dir = os.path.join(SCRIPT_DIR, '..', 'Data', 'Fluid', 'Geothermal', 'Borefields', 'TOUGH')
+    TOUGH_dir = os.path.join(scriptDir, '..', 'Data', 'Fluid', 'Geothermal', 'Borefields', 'TOUGH')
     
     # Number of Modelica cells
     nSeg = int(dblInp[0])
