@@ -222,12 +222,6 @@ block EventSequencing "Staging event sequencing"
     if have_chiWat and (have_pumChiWatPri or have_HpShc)
     "Keep pump running until heat pump internal shutdown cycle times out"
     annotation (Placement(transformation(extent={{110,-110},{130,-90}})));
-  Buildings.Controls.OBC.CDL.Logical.TrueDelay truDelHea(delayTime=dtFil)
-    "Filter out enable signal pulses from upstream"
-    annotation (Placement(transformation(extent={{-80,30},{-60,50}})));
-  Buildings.Controls.OBC.CDL.Logical.TrueDelay truDelCoo(delayTime=dtFil)
-    "Filter out enable signal pulses from upstream"
-    annotation (Placement(transformation(extent={{-80,-40},{-60,-20}})));
 equation
   connect(heaValPum.y, ena.u1)
     annotation (Line(points={{82,120},{84,120},{84,100},{88,100}},color={255,0,255}));
@@ -328,18 +322,14 @@ equation
   connect(u1Coo_internal.y, latPumChiWatPri.u)
     annotation (Line(points={{-128,80},{-100,80},{-100,-100},{108,-100}},
                                                                       color={255,0,255}));
-  connect(u1Hea_internal.y, truDelHea.u) annotation (Line(points={{-128,140},{-120,
-          140},{-120,40},{-82,40}}, color={255,0,255}));
-  connect(u1Coo_internal.y, truDelCoo.u) annotation (Line(points={{-128,80},{-100,
-          80},{-100,-30},{-82,-30}}, color={255,0,255}));
   connect(u1Hea_internal.y, u1HeaOrCoo.u1) annotation (Line(points={{-128,140},
           {-120,140},{-120,120},{-92,120}}, color={255,0,255}));
   connect(u1Coo_internal.y, u1HeaOrCoo.u2) annotation (Line(points={{-128,80},{
           -100,80},{-100,112},{-92,112}}, color={255,0,255}));
-  connect(truDelHea.y, latValHeaWatIso.u)
-    annotation (Line(points={{-58,40},{98,40}}, color={255,0,255}));
-  connect(truDelCoo.y, latValChiWatIso.u) annotation (Line(points={{-58,-30},{
-          -40,-30},{-40,0},{98,0}}, color={255,0,255}));
+  connect(u1Hea_internal.y, latValHeaWatIso.u) annotation (Line(points={{-128,
+          140},{-120,140},{-120,40},{98,40}}, color={255,0,255}));
+  connect(u1Coo_internal.y, latValChiWatIso.u) annotation (Line(points={{-128,
+          80},{-100,80},{-100,0},{98,0}}, color={255,0,255}));
   annotation (
     defaultComponentName="seqEve",
     Icon(
