@@ -2,9 +2,9 @@
 <!-- Created with Inkscape (http://www.inkscape.org/) -->
 
 <svg
-   width="422.76804mm"
-   height="166.71231mm"
-   viewBox="0 0 422.76803 166.71231"
+   width="462.24698mm"
+   height="167.0105mm"
+   viewBox="0 0 462.24697 167.0105"
    version="1.1"
    id="svg8"
    inkscape:version="1.2.2 (b0a8486541, 2022-12-01)"
@@ -22,11 +22,16 @@
    xmlns:dc="http://purl.org/dc/elements/1.1/">
   <defs
      id="defs2">
+    <inkscape:path-effect
+       effect="spiro"
+       id="path-effect732"
+       is_visible="true"
+       lpeversion="1" />
     <rect
        x="471.02121"
-       y="67.173928"
-       width="94.285714"
-       height="42.394378"
+       y="67.173927"
+       width="94.285713"
+       height="42.394379"
        id="rect1616" />
     <inkscape:path-effect
        effect="spiro"
@@ -170,28 +175,16 @@
        refX="0"
        refY="0"
        orient="auto"
-       inkscape:stockid="Arrow2Lend">
+       inkscape:stockid="Arrow2Lend"
+       viewBox="0 0 12.705841 9.5264135"
+       markerWidth="12.705841"
+       markerHeight="9.5264139"
+       preserveAspectRatio="xMidYMid">
       <path
          transform="matrix(-1.1,0,0,-1.1,-1.1,0)"
          d="M 8.7185878,4.0337352 -2.2072895,0.01601326 8.7185884,-4.0017078 c -1.7454984,2.3720609 -1.7354408,5.6174519 -6e-7,8.035443 z"
          style="fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:0.625;stroke-linejoin:round;stroke-opacity:1"
          id="path1611-9"
-         inkscape:connector-curvature="0" />
-    </marker>
-    <marker
-       inkscape:stockid="Arrow2Lend"
-       orient="auto"
-       refY="0"
-       refX="0"
-       id="Arrow2Lend-4"
-       style="overflow:visible"
-       inkscape:isstock="true"
-       inkscape:collect="always">
-      <path
-         id="path1208-2"
-         style="fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:0.625;stroke-linejoin:round;stroke-opacity:1"
-         d="M 8.7185878,4.0337352 -2.2072895,0.01601326 8.7185884,-4.0017078 c -1.7454984,2.3720609 -1.7354408,5.6174519 -6e-7,8.035443 z"
-         transform="matrix(-1.1,0,0,-1.1,-1.1,0)"
          inkscape:connector-curvature="0" />
     </marker>
     <marker
@@ -543,6 +536,30 @@
        id="path-effect34900-8"
        is_visible="true"
        lpeversion="1" />
+    <marker
+       inkscape:isstock="true"
+       style="overflow:visible"
+       id="marker1613-3-3"
+       refX="0"
+       refY="0"
+       orient="auto"
+       inkscape:stockid="Arrow2Lend"
+       viewBox="0 0 12.705841 9.5264135"
+       markerWidth="12.705841"
+       markerHeight="9.5264139"
+       preserveAspectRatio="xMidYMid">
+      <path
+         transform="matrix(-1.1,0,0,-1.1,-1.1,0)"
+         d="M 8.7185878,4.0337352 -2.2072895,0.01601326 8.7185884,-4.0017078 c -1.7454984,2.3720609 -1.7354408,5.6174519 -6e-7,8.035443 z"
+         style="fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:0.625;stroke-linejoin:round;stroke-opacity:1"
+         id="path1611-9-6"
+         inkscape:connector-curvature="0" />
+    </marker>
+    <inkscape:path-effect
+       effect="spiro"
+       id="path-effect732-7"
+       is_visible="true"
+       lpeversion="1" />
   </defs>
   <sodipodi:namedview
      id="base"
@@ -552,8 +569,8 @@
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
      inkscape:zoom="1.4"
-     inkscape:cx="592.14286"
-     inkscape:cy="446.07143"
+     inkscape:cx="904.64286"
+     inkscape:cy="236.78571"
      inkscape:document-units="mm"
      inkscape:current-layer="layer1"
      showgrid="false"
@@ -572,7 +589,7 @@
     <inkscape:grid
        type="xygrid"
        id="grid815"
-       originx="-155.27699"
+       originx="-102.36031"
        originy="-104.08434" />
   </sodipodi:namedview>
   <metadata
@@ -590,43 +607,43 @@
      inkscape:label="Layer 1"
      inkscape:groupmode="layer"
      id="layer1"
-     transform="translate(-155.27706,-25.486924)">
+     transform="translate(-102.36038,-25.486924)">
     <path
-       style="opacity:0.1;fill:#00c600;fill-opacity:1;stroke:#000000;stroke-width:0.138993;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
-       d="M 370.91447,26.272827 V 191.59063 H 577.97559 V 26.272827 Z"
-       id="path1715"
+       style="fill:#dce0de;fill-opacity:1;stroke:#000000;stroke-width:0.6;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       d="M 307.96952,25.913001 V 191.09346 H 492.12508 V 25.913001 Z"
+       id="path817-7-7-3"
        inkscape:connector-curvature="0" />
     <path
-       style="fill:#dce0de;fill-opacity:1;stroke:#000000;stroke-width:0.36825;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
-       d="m 292.73257,89.842784 v 17.204436 h 61.39447 V 89.842784 Z"
+       style="fill:#dce0de;fill-opacity:1;stroke:#000000;stroke-width:0.6;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       d="m 227.64507,89.842784 v 17.204436 h 61.39447 V 89.842784 Z"
        id="path817-8"
        inkscape:connector-curvature="0" />
     <path
        style="fill:none;stroke:#000000;stroke-width:0.1473;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:0.5892, 0.5892;stroke-dashoffset:0;stroke-opacity:1;marker-end:url(#marker1503-4)"
-       d="M 380.7082,42.153002 V 67.762527"
+       d="M 315.6207,42.153002 V 67.762527"
        id="path838-4"
        inkscape:connector-curvature="0" />
     <path
        style="fill:none;stroke:#000000;stroke-width:0.1473;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
-       d="m 374.94984,68.434825 v 17.01385 h 61.20388 V 68.434823 Z"
+       d="m 309.86234,68.434825 v 17.01385 h 61.20388 V 68.434823 Z"
        id="path840-1"
        inkscape:connector-curvature="0" />
     <path
-       style="fill:#dce0de;fill-opacity:1;stroke:#000000;stroke-width:0.36825;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
-       d="m 374.85456,113.96445 v 17.20451 h 61.39445 v -17.20451 z"
+       style="fill:#dce0de;fill-opacity:1;stroke:#000000;stroke-width:0.6;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       d="m 502.9129,112.06004 v 17.20452 h 61.39445 v -17.20452 z"
        id="path817-7-7"
        inkscape:connector-curvature="0" />
     <text
        xml:space="preserve"
-       style="font-style:normal;font-variant:normal;font-weight:500;font-stretch:normal;font-size:7.22963px;line-height:1.25;font-family:aakar;-inkscape-font-specification:'aakar, Medium';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.290129"
-       x="496.53683"
-       y="153.34749"
+       style="font-style:normal;font-variant:normal;font-weight:500;font-stretch:normal;font-size:7.99989px;line-height:1.25;font-family:aakar;-inkscape-font-specification:'aakar, Medium';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.29013"
+       x="462.26831"
+       y="35.96175"
        id="text898-9"><tspan
          sodipodi:role="line"
          id="tspan896-4"
-         x="496.53683"
-         y="153.34749"
-         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:7.22974px;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;writing-mode:lr-tb;text-anchor:start;stroke-width:0.290129">Implement in Python</tspan></text>
+         x="462.26831"
+         y="35.96175"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:8px;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;writing-mode:lr-tb;text-anchor:start;stroke-width:0.29013">Python</tspan></text>
     <text
        xml:space="preserve"
        style="font-style:normal;font-variant:normal;font-weight:500;font-stretch:normal;font-size:2.83154px;line-height:1.25;font-family:aakar;-inkscape-font-specification:'aakar, Medium';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.0910294"
@@ -641,13 +658,13 @@
     <text
        xml:space="preserve"
        style="font-style:normal;font-variant:normal;font-weight:500;font-stretch:normal;font-size:3.86601px;line-height:1.25;font-family:aakar;-inkscape-font-specification:'aakar, Medium';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.0801221"
-       x="383.37381"
+       x="318.28656"
        y="48.866261"
        id="text920-7"><tspan
          style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:3.86601px;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Italic';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;writing-mode:lr-tb;text-anchor:start;stroke-width:0.0801221"
          sodipodi:role="line"
          id="tspan1679-5"
-         x="383.37381"
+         x="318.28656"
          y="48.866261">QBor_flow[nSeg]<tspan
    style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:3.86601px;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Italic';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;writing-mode:lr-tb;baseline-shift:sub;text-anchor:start;stroke-width:0.0801221"
    id="tspan2367">i-1</tspan>: heat flow rate from each segment of the borehole to ground, at tim<tspan
@@ -656,13 +673,13 @@
     <text
        xml:space="preserve"
        style="font-style:normal;font-variant:normal;font-weight:500;font-stretch:normal;font-size:3.86601px;line-height:1.25;font-family:aakar;-inkscape-font-specification:'aakar, Medium';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.0801221"
-       x="383.59924"
+       x="318.51199"
        y="55.491699"
        id="text920-4-2"><tspan
          style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:3.86601px;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Italic';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;writing-mode:lr-tb;text-anchor:start;stroke-width:0.0801221"
          sodipodi:role="line"
          id="tspan1681-8"
-         x="383.59924"
+         x="318.51199"
          y="55.491699">TBorWal[nSeg]<tspan
    style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:3.86601px;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Italic';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;writing-mode:lr-tb;baseline-shift:sub;text-anchor:start;stroke-width:0.0801221"
    id="tspan2371">i-1</tspan>: wall temperatures of each borehole segment, at tim<tspan
@@ -671,30 +688,30 @@
     <text
        xml:space="preserve"
        style="font-style:normal;font-variant:normal;font-weight:500;font-stretch:normal;font-size:3.8645px;line-height:1.25;font-family:aakar;-inkscape-font-specification:'aakar, Medium';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.0800909"
-       x="383.93179"
+       x="318.84454"
        y="62.616081"
        id="text920-8-1"><tspan
          sodipodi:role="line"
          id="tspan918-3-1"
-         x="383.93179"
+         x="318.84454"
          y="62.616081"
          style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:3.8645px;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Italic';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;writing-mode:lr-tb;text-anchor:start;stroke-width:0.0800909">tim<tspan
    style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:3.8645px;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Italic';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;writing-mode:lr-tb;baseline-shift:sub;text-anchor:start;stroke-width:0.0800909"
    id="tspan1013-2">i-1</tspan>: end time of last TOUGH simulation</tspan></text>
     <path
        style="fill:none;stroke:#000000;stroke-width:0.1473;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:0.5892, 0.5892;stroke-dashoffset:0;stroke-opacity:1;marker-start:url(#marker1555-5)"
-       d="m 436.04069,76.88778 h 17.09358"
+       d="m 370.95319,76.88778 h 17.09358"
        id="path980-8"
        inkscape:connector-curvature="0" />
     <text
        xml:space="preserve"
        style="font-style:normal;font-variant:normal;font-weight:500;font-stretch:normal;font-size:3.69415px;line-height:1.25;font-family:aakar;-inkscape-font-specification:'aakar, Medium';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.0765604"
-       x="454.09348"
+       x="389.00623"
        y="72.488953"
        id="text920-3-3"><tspan
          sodipodi:role="line"
          id="tspan1100-7"
-         x="454.09348"
+         x="389.00623"
          y="72.488953"
          style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:3.69414px;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;writing-mode:lr-tb;text-anchor:start;stroke-width:0.0765604">&quot;SAVE&quot;: result from TOUGH at tim<tspan
    style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:3.69414px;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;writing-mode:lr-tb;baseline-shift:sub;text-anchor:start;stroke-width:0.0765604"
@@ -702,198 +719,198 @@
     <text
        xml:space="preserve"
        style="font-style:normal;font-variant:normal;font-weight:500;font-stretch:normal;font-size:3.7001px;line-height:1.25;font-family:aakar;-inkscape-font-specification:'aakar, Medium';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.0766838"
-       x="454.37134"
+       x="389.28409"
        y="78.560837"
        id="text920-3-8-6"><tspan
          sodipodi:role="line"
          id="tspan1106-1"
-         x="454.37134"
+         x="389.28409"
          y="78.560837"
          style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:3.70011px;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;writing-mode:lr-tb;text-anchor:start;stroke-width:0.0766838">&quot;INFILE&quot;: template to be updated</tspan></text>
     <text
        xml:space="preserve"
        style="font-style:normal;font-variant:normal;font-weight:500;font-stretch:normal;font-size:3.7001px;line-height:1.25;font-family:aakar;-inkscape-font-specification:'aakar, Medium';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.0766838"
-       x="454.37134"
+       x="389.28409"
        y="84.351151"
        id="text920-3-8-4-7"><tspan
          sodipodi:role="line"
          id="tspan1104-3"
-         x="454.37134"
+         x="389.28409"
          y="84.351151"
          style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:3.70011px;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;writing-mode:lr-tb;text-anchor:start;stroke-width:0.0766838">&quot;writeincon.inp&quot;: template to be updated</tspan></text>
     <path
        style="fill:none;stroke:#000000;stroke-width:0.1473;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:0.5892, 0.5892;stroke-dashoffset:0;stroke-opacity:1"
-       d="m 452.91459,68.217677 v 17.44815 h 83.01504 v -17.44815 z"
+       d="m 387.82709,68.217677 v 17.44815 h 83.01504 v -17.44815 z"
        id="path1040-8"
        inkscape:connector-curvature="0" />
     <path
-       style="fill:none;stroke:#000000;stroke-width:0.1473;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:0.5892, 0.5892;stroke-dashoffset:0;stroke-opacity:1;marker-end:url(#Arrow2Lend-4)"
-       d="M 380.7082,85.694328 V 113.15514"
+       style="fill:none;stroke:#000000;stroke-width:0.1473;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:0.589201, 0.589201;stroke-dashoffset:0;stroke-opacity:1"
+       d="M 315.62071,85.694328 V 116.40051"
        id="path1042-9"
        inkscape:connector-curvature="0" />
     <text
        xml:space="preserve"
        style="font-style:normal;font-variant:normal;font-weight:500;font-stretch:normal;font-size:3.86601px;line-height:1.25;font-family:aakar;-inkscape-font-specification:'aakar, Medium';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.0801221"
-       x="383.53439"
-       y="94.297798"
+       x="318.44714"
+       y="95.8853"
        id="text920-3-8-9-99"><tspan
          style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:3.86603px;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Italic';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;writing-mode:lr-tb;text-anchor:start;stroke-width:0.0801221"
          sodipodi:role="line"
          id="tspan4844-9"
-         x="383.53439"
-         y="94.297798">&quot;INFILE&quot;: file that includes thermal properties of ground and borehole, start/stop time and step size</tspan></text>
+         x="318.44714"
+         y="95.8853">&quot;INFILE&quot;: file that includes thermal properties of ground and borehole, start/stop time and step size</tspan></text>
     <text
        xml:space="preserve"
        style="font-style:normal;font-variant:normal;font-weight:500;font-stretch:normal;font-size:3.86601px;line-height:1.25;font-family:aakar;-inkscape-font-specification:'aakar, Medium';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.0801221"
-       x="383.81271"
-       y="101.48"
+       x="318.72546"
+       y="103.0675"
        id="text920-3-8-9-9-86"><tspan
          style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:3.86603px;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Italic';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;writing-mode:lr-tb;text-anchor:start;stroke-width:0.0801221"
          sodipodi:role="line"
          id="tspan1110-3"
-         x="383.81271"
-         y="101.48">&quot;INCON&quot;: initial temperatures (borehole, ground) of the simulation domain, at tim<tspan
+         x="318.72546"
+         y="103.0675">&quot;INCON&quot;: initial temperatures (borehole, ground) of the simulation domain, at tim<tspan
    style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:3.86603px;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Italic';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;writing-mode:lr-tb;baseline-shift:sub;text-anchor:start;stroke-width:0.0801221"
    id="tspan4896-8">i-1</tspan></tspan></text>
     <text
        xml:space="preserve"
        style="font-style:normal;font-variant:normal;font-weight:500;font-stretch:normal;font-size:3.86601px;line-height:1.25;font-family:aakar;-inkscape-font-specification:'aakar, Medium';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.0801221"
-       x="384.03546"
-       y="108.10543"
+       x="318.94821"
+       y="109.69292"
        id="text920-3-8-9-9-8-6"><tspan
          style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:3.86603px;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Italic';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;writing-mode:lr-tb;text-anchor:start;stroke-width:0.0801221"
          sodipodi:role="line"
          id="tspan1112-6"
-         x="384.03546"
-         y="108.10543">&quot;GENER&quot;: file that includes heat flow rate from borehole to ground</tspan></text>
+         x="318.94821"
+         y="109.69292">&quot;GENER&quot;: file that includes heat flow rate from borehole to ground</tspan></text>
     <path
-       style="fill:none;stroke:#000000;stroke-width:0.1473;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:0.5892, 0.5892;stroke-dashoffset:0;stroke-opacity:1;marker-end:url(#marker1613-3)"
-       d="m 380.7082,131.55906 v 14.77693"
+       style="fill:none;stroke:#000000;stroke-width:0.147301;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:0.5892, 0.5892;stroke-dashoffset:0;stroke-opacity:1;marker-end:url(#marker1613-3)"
+       d="m 315.62076,125.66092 v 20.6812"
        id="path1139-8"
        inkscape:connector-curvature="0" />
     <text
        xml:space="preserve"
        style="font-style:normal;font-variant:normal;font-weight:500;font-stretch:normal;font-size:3.8645px;line-height:1.25;font-family:aakar;-inkscape-font-specification:'aakar, Medium';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.0800909"
-       x="383.25604"
-       y="139.44882"
+       x="318.16879"
+       y="136.27386"
        id="text920-3-7-8"><tspan
          style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:3.8645px;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;writing-mode:lr-tb;text-anchor:start;stroke-width:0.0800909"
          sodipodi:role="line"
          id="tspan1116-2"
-         x="383.25604"
-         y="139.44882">&quot;SAVE&quot;: TOUGH result file at time tim<tspan
+         x="318.16879"
+         y="136.27386">&quot;SAVE&quot;: TOUGH result file at time tim<tspan
    style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:3.8645px;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;writing-mode:lr-tb;baseline-shift:sub;text-anchor:start;stroke-width:0.0800909"
    id="tspan4900-1">i</tspan></tspan></text>
     <path
        style="fill:none;stroke:#000000;stroke-width:0.1473;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:0.5892, 0.5892;stroke-dashoffset:0;stroke-opacity:1"
-       d="M 374.86223,154.28713 H 330.09909"
+       d="M 309.77473,154.28713 H 265.01159"
        id="path1181-8"
        inkscape:connector-curvature="0" />
     <text
        xml:space="preserve"
        style="font-style:normal;font-variant:normal;font-weight:500;font-stretch:normal;font-size:3.01185px;line-height:1.25;font-family:aakar;-inkscape-font-specification:'aakar, Medium';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.120866"
-       x="376.98279"
+       x="311.89554"
        y="157.44368"
        id="text898-0-9"><tspan
          style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:3.01185px;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;writing-mode:lr-tb;text-anchor:start;stroke-width:0.120866"
          sodipodi:role="line"
          id="tspan1096-3"
-         x="376.98279"
+         x="311.89554"
          y="157.44368">function to extract borehole wall</tspan><tspan
          style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:3.01185px;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;writing-mode:lr-tb;text-anchor:start;stroke-width:0.120866"
          sodipodi:role="line"
          id="tspan1098-5"
-         x="376.98279"
-         y="161.48294">temperature from TOUGH results file</tspan></text>
+         x="311.89554"
+         y="161.55856">temperature from TOUGH results file</tspan></text>
     <path
        style="fill:none;stroke:#000000;stroke-width:0.1473;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
-       d="m 374.94984,145.96338 v 17.01384 h 61.20388 v -17.01384 z"
+       d="m 309.86234,145.96338 v 17.01384 h 61.20388 v -17.01384 z"
        id="path840-2-7"
        inkscape:connector-curvature="0" />
     <text
        xml:space="preserve"
        style="font-style:normal;font-variant:normal;font-weight:500;font-stretch:normal;font-size:3.26703px;line-height:1.25;font-family:aakar;-inkscape-font-specification:'aakar, Medium';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.131107"
-       x="377.12323"
+       x="312.03598"
        y="79.743431"
        id="text898-0-8-0"><tspan
          style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:3.26703px;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;writing-mode:lr-tb;text-anchor:start;stroke-width:0.131107"
          sodipodi:role="line"
          id="tspan1071-2-4"
-         x="377.12323"
+         x="312.03598"
          y="79.743431">function to update TOUGH input </tspan><tspan
          style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:3.26703px;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;writing-mode:lr-tb;text-anchor:start;stroke-width:0.131107"
          sodipodi:role="line"
          id="tspan1073-2-4"
-         x="377.12323"
-         y="84.124916">for each TOUGH call</tspan></text>
+         x="312.03598"
+         y="84.206947">for each TOUGH call</tspan></text>
     <text
        xml:space="preserve"
-       style="font-style:normal;font-variant:normal;font-weight:500;font-stretch:normal;font-size:2.68779px;line-height:1.25;font-family:aakar;-inkscape-font-specification:'aakar, Medium';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.107862"
-       x="393.90924"
-       y="124.78382"
+       style="font-style:normal;font-variant:normal;font-weight:500;font-stretch:normal;font-size:3.21428px;line-height:1.25;font-family:aakar;-inkscape-font-specification:'aakar, Medium';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.107862"
+       x="519.43475"
+       y="123.37719"
        id="text898-8-7-9"><tspan
          sodipodi:role="line"
          id="tspan1122-3-3"
-         x="393.90924"
-         y="124.78382"
-         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:6.82605px;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;writing-mode:lr-tb;text-anchor:start;stroke-width:0.107862">TOUGH</tspan></text>
+         x="519.43475"
+         y="123.37719"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:8.16327px;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;text-align:start;writing-mode:lr-tb;text-anchor:start;stroke-width:0.107862">TOUGH</tspan></text>
     <text
        xml:space="preserve"
-       style="font-style:normal;font-variant:normal;font-weight:500;font-stretch:normal;font-size:8.96619px;line-height:1.25;font-family:aakar;-inkscape-font-specification:'aakar, Medium';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.359818"
-       x="308.74222"
-       y="100.91683"
+       style="font-style:normal;font-variant:normal;font-weight:500;font-stretch:normal;font-size:10.6515px;line-height:1.25;font-family:aakar;-inkscape-font-specification:'aakar, Medium';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.359818"
+       x="240.35345"
+       y="100.62674"
        id="text898-5-5-7"><tspan
          sodipodi:role="line"
          id="tspan1045-3-7"
-         x="308.74222"
-         y="100.91683"
-         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:6.55951px;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;writing-mode:lr-tb;text-anchor:start;stroke-width:0.359818">Modelica</tspan></text>
+         x="240.35345"
+         y="100.62674"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:7.79221px;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;writing-mode:lr-tb;text-anchor:start;stroke-width:0.359818">Modelica</tspan></text>
     <text
        xml:space="preserve"
        style="font-style:normal;font-variant:normal;font-weight:500;font-stretch:normal;font-size:5.17365px;line-height:1.25;font-family:aakar;-inkscape-font-specification:'aakar, Medium';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.207621"
-       x="421.25314"
+       x="356.16589"
        y="180.0153"
        id="text898-9-9"><tspan
          sodipodi:role="line"
          id="tspan896-4-6"
-         x="421.25314"
+         x="356.16589"
          y="180.0153"
          style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:5.17366px;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;writing-mode:lr-tb;text-anchor:start;stroke-width:0.207621">Update state</tspan></text>
     <path
        style="fill:none;stroke:#000000;stroke-width:0.163298;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:0.653194, 0.653194;stroke-dashoffset:0;stroke-opacity:1"
-       d="m 374.96743,174.43752 v 13.91651 h 117.40141 v -13.91651 z"
+       d="m 309.87993,174.43752 v 13.91651 h 117.40141 v -13.91651 z"
        id="path840-2-7-5"
        inkscape:connector-curvature="0" />
     <path
        style="fill:none;stroke:#000000;stroke-width:0.126554;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:0.506215, 0.506215;stroke-dashoffset:0;stroke-opacity:1;marker-end:url(#marker1613-3-6)"
-       d="m 380.86663,163.3058 v 10.90758"
+       d="m 315.77913,163.3058 v 10.90758"
        id="path1139-8-0"
        inkscape:connector-curvature="0" />
     <text
        xml:space="preserve"
        style="font-style:normal;font-variant:normal;font-weight:500;font-stretch:normal;font-size:4.48168px;line-height:1.25;font-family:aakar;-inkscape-font-specification:'aakar, Medium';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.179852"
-       x="383.68634"
+       x="318.59909"
        y="33.266918"
        id="text898-9-9-2"><tspan
          sodipodi:role="line"
          id="tspan896-4-6-1"
-         x="383.68634"
+         x="318.59909"
          y="33.266918"
          style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.48165px;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;writing-mode:lr-tb;text-anchor:start;stroke-width:0.179852">State of last invoke</tspan></text>
     <path
        style="fill:none;stroke:#000000;stroke-width:0.163298;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:0.653194, 0.653194;stroke-dashoffset:0;stroke-opacity:1"
-       d="M 374.96743,28.204721 V 42.121248 H 492.36884 V 28.204721 Z"
+       d="M 309.87993,28.204721 V 42.121248 H 427.28134 V 28.204721 Z"
        id="path840-2-7-5-2"
        inkscape:connector-curvature="0" />
     <text
        xml:space="preserve"
        style="font-style:normal;font-variant:normal;font-weight:500;font-stretch:normal;font-size:3.86601px;line-height:1.25;font-family:aakar;-inkscape-font-specification:'aakar, Medium';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.0801221"
-       x="383.35284"
+       x="318.26559"
        y="169.94379"
        id="text920-4-0-8-7"><tspan
          sodipodi:role="line"
          id="tspan1582"
-         x="383.35284"
+         x="318.26559"
          y="169.94379"
          style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:3.86601px;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Italic';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;writing-mode:lr-tb;text-anchor:start;stroke-width:0.0801221">TBorWal[:]<tspan
    style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:3.86601px;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Italic';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;writing-mode:lr-tb;baseline-shift:sub;text-anchor:start;stroke-width:0.0801221"
@@ -902,74 +919,74 @@
    id="tspan1584">i</tspan></tspan></text>
     <path
        style="fill:none;stroke:#000000;stroke-width:0.1473;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:0.5892, 0.5892;stroke-dashoffset:0;stroke-opacity:1;marker-start:url(#marker2073)"
-       d="M 329.7561,107.78213 V 154.8057"
+       d="M 264.6686,107.78213 V 154.8057"
        id="path1042-9-7"
        inkscape:connector-curvature="0" />
     <path
        style="fill:none;stroke:#000000;stroke-width:0.1473;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:0.5892, 0.5892;stroke-dashoffset:0;stroke-opacity:1"
-       d="m 313.66329,107.34613 v 74.30072"
+       d="m 248.57579,107.34613 v 74.30072"
        id="path1042-9-7-7"
        inkscape:connector-curvature="0" />
     <path
        style="fill:none;stroke:#000000;stroke-width:0.1473;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:0.5892, 0.5892;stroke-dashoffset:0;stroke-opacity:1;marker-start:url(#marker2314)"
-       d="M 374.90426,181.53497 H 313.4384"
+       d="M 306.91674,181.53489 H 248.3509"
        id="path1181-8-8"
        inkscape:connector-curvature="0" />
     <text
        xml:space="preserve"
        style="font-style:normal;font-variant:normal;font-weight:500;font-stretch:normal;font-size:3.72446px;line-height:1.25;font-family:aakar;-inkscape-font-specification:'aakar, Medium';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.0771884"
-       x="299.00754"
-       y="186.42957"
+       x="232.30421"
+       y="186.51508"
        id="text920-7-2"
        inkscape:export-filename="/home/jianjunhu/GitFolder/modelica-buildings/Buildings/Resources/Images/Fluid/Geothermal/Borefields/TOUGHResponse/workFlow.png"
        inkscape:export-xdpi="450"
        inkscape:export-ydpi="450"><tspan
          sodipodi:role="line"
          id="tspan2363"
-         x="299.00754"
-         y="186.42957"
+         x="232.30421"
+         y="186.51508"
          style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:3.72446px;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Italic';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;writing-mode:lr-tb;text-anchor:start;stroke-width:0.0771884">QBor_flow[nSeg]<tspan
    style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:3.72446px;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Italic';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;writing-mode:lr-tb;baseline-shift:sub;text-anchor:start;stroke-width:0.0771884"
-   id="tspan2391">i</tspan>: heat flow rate from each segment </tspan><tspan
+   id="tspan2391">i</tspan>: heat flow rate from each </tspan><tspan
          sodipodi:role="line"
          id="tspan2365"
-         x="299.00754"
-         y="191.51804"
-         style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:3.72446px;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Italic';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;writing-mode:lr-tb;text-anchor:start;stroke-width:0.0771884">of the borehole to ground, at tim<tspan
+         x="232.30421"
+         y="191.60355"
+         style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:3.72446px;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Italic';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;writing-mode:lr-tb;text-anchor:start;stroke-width:0.0771884">segment of the borehole to ground, at tim<tspan
    style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:3.72446px;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Italic';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;writing-mode:lr-tb;baseline-shift:sub;text-anchor:start;stroke-width:0.0771884"
    id="tspan2397">i</tspan></tspan></text>
     <text
        xml:space="preserve"
        style="font-style:normal;font-variant:normal;font-weight:500;font-stretch:normal;font-size:4.17085px;line-height:1.25;font-family:aakar;-inkscape-font-specification:'aakar, Medium';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.0864399"
-       x="319.95236"
+       x="254.86516"
        y="178.2775"
        id="text920-8-1-6"><tspan
          sodipodi:role="line"
          id="tspan918-3-1-1"
-         x="319.95236"
+         x="254.86516"
          y="178.2775"
          style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.17085px;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Italic';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;writing-mode:lr-tb;text-anchor:start;stroke-width:0.0864399">tim<tspan
    style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.17085px;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Italic';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;writing-mode:lr-tb;baseline-shift:sub;text-anchor:start;stroke-width:0.0864399"
    id="tspan1013-2-2">i</tspan>: current time</tspan></text>
     <path
        style="fill:none;stroke:#000000;stroke-width:0.1473;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:0.5892, 0.5892;stroke-dashoffset:0;stroke-opacity:1"
-       d="M 323.1728,76.7203 V 89.883516"
+       d="M 258.0853,76.7203 V 89.883516"
        id="path1042-9-7-5"
        inkscape:connector-curvature="0" />
     <path
        style="fill:none;stroke:#000000;stroke-width:0.148711;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:0.594842, 0.594842;stroke-dashoffset:0;stroke-opacity:1;marker-start:url(#marker2603)"
-       d="M 374.24813,77.119318 H 322.89185"
+       d="M 309.16063,77.119318 H 257.80435"
        id="path1181-8-3"
        inkscape:connector-curvature="0" />
     <text
        xml:space="preserve"
        style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.17085px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Italic';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.0864399"
-       x="331.83417"
+       x="266.74692"
        y="74.100609"
        id="text920-8-1-6-0"><tspan
          sodipodi:role="line"
          id="tspan918-3-1-1-6"
-         x="331.83417"
+         x="266.74692"
          y="74.100609"
          style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.17085px;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Italic';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;writing-mode:lr-tb;text-anchor:start;stroke-width:0.0864399">tim<tspan
    style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.17085px;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Italic';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;writing-mode:lr-tb;baseline-shift:sub;text-anchor:start;stroke-width:0.0864399"
@@ -977,29 +994,29 @@
     <text
        xml:space="preserve"
        style="font-style:normal;font-variant:normal;font-weight:500;font-stretch:normal;font-size:1.0745px;line-height:1.25;font-family:aakar;-inkscape-font-specification:'aakar, Medium';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.0222688"
-       x="332.13831"
+       x="267.05106"
        y="135.82367"
        id="text920-4-0-8-7-39"><tspan
          style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:3.6893px;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Italic';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;writing-mode:lr-tb;text-anchor:start;stroke-width:0.0222688"
          sodipodi:role="line"
          id="tspan1582-6"
-         x="332.13831"
+         x="267.05106"
          y="135.82367">TBorWal[nSeg]<tspan
    style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:3.6893px;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Italic';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;writing-mode:lr-tb;baseline-shift:sub;text-anchor:start;stroke-width:0.0222688"
    id="tspan2717-5">i</tspan>: wall</tspan><tspan
          style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:3.6893px;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Italic';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;writing-mode:lr-tb;text-anchor:start;stroke-width:0.0222688"
          sodipodi:role="line"
-         x="332.13831"
+         x="267.05106"
          y="140.43529"
          id="tspan1298">temperatures</tspan><tspan
          style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:3.6893px;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Italic';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;writing-mode:lr-tb;text-anchor:start;stroke-width:0.0222688"
          sodipodi:role="line"
-         x="332.13831"
+         x="267.05106"
          y="145.04692"
          id="tspan2752">of each borehole</tspan><tspan
          style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:3.6893px;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Italic';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;writing-mode:lr-tb;text-anchor:start;stroke-width:0.0222688"
          sodipodi:role="line"
-         x="332.13831"
+         x="267.05106"
          y="149.65854"
          id="tspan2756">segment, at tim<tspan
    style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:3.6893px;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Italic';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;writing-mode:lr-tb;baseline-shift:sub;text-anchor:start;stroke-width:0.0222688"
@@ -1007,13 +1024,13 @@
     <text
        xml:space="preserve"
        style="font-style:normal;font-variant:normal;font-weight:500;font-stretch:normal;font-size:3.8645px;line-height:1.25;font-family:aakar;-inkscape-font-specification:'aakar, Medium';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.0800909"
-       x="402.05273"
+       x="336.96548"
        y="186.04518"
        id="text920-3-7-8-9"><tspan
          style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:3.28481px;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Italic';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;writing-mode:lr-tb;text-anchor:start;stroke-width:0.0800909"
          sodipodi:role="line"
          id="tspan1116-2-2"
-         x="402.05273"
+         x="336.96548"
          y="186.04518">state = {'tLast': tim<tspan
    style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:3.28481px;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Italic';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;writing-mode:lr-tb;baseline-shift:sub;text-anchor:start;stroke-width:0.0800909"
    id="tspan1236">i</tspan>, 'Q': QBor_flow[nSeg]<tspan
@@ -1024,13 +1041,13 @@
     <text
        xml:space="preserve"
        style="font-style:normal;font-variant:normal;font-weight:500;font-stretch:normal;font-size:3.8645px;line-height:1.25;font-family:aakar;-inkscape-font-specification:'aakar, Medium';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.0800909"
-       x="383.5271"
+       x="318.43985"
        y="39.288246"
        id="text920-3-7-8-9-1"><tspan
          style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:3.28481px;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Italic';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;writing-mode:lr-tb;text-anchor:start;stroke-width:0.0800909"
          sodipodi:role="line"
          id="tspan1116-2-2-7"
-         x="383.5271"
+         x="318.43985"
          y="39.288246">state = {'tLast': tim<tspan
    style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:3.28481px;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Italic';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;writing-mode:lr-tb;baseline-shift:sub;text-anchor:start;stroke-width:0.0800909"
    id="tspan1236-4">i-1</tspan>, 'Q': QBor_flow[nSeg]<tspan
@@ -1041,28 +1058,28 @@
     <text
        xml:space="preserve"
        style="font-style:normal;font-variant:normal;font-weight:500;font-stretch:normal;font-size:5.17365px;line-height:1.25;font-family:aakar;-inkscape-font-specification:'aakar, Medium';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.207621"
-       x="388.09894"
+       x="323.01169"
        y="152.14798"
        id="text898-9-9-29"><tspan
          sodipodi:role="line"
          id="tspan896-4-6-7"
-         x="388.09894"
+         x="323.01169"
          y="152.14798"
          style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:5.17366px;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;writing-mode:lr-tb;text-anchor:start;stroke-width:0.207621">read_save()</tspan></text>
     <text
        xml:space="preserve"
        style="font-style:normal;font-variant:normal;font-weight:500;font-stretch:normal;font-size:5.17365px;line-height:1.25;font-family:aakar;-inkscape-font-specification:'aakar, Medium';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.207621"
-       x="388.02368"
+       x="322.93643"
        y="73.868019"
        id="text898-9-9-29-6"><tspan
          sodipodi:role="line"
          id="tspan896-4-6-7-4"
-         x="388.02368"
+         x="322.93643"
          y="73.868019"
          style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:5.17366px;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;writing-mode:lr-tb;text-anchor:start;stroke-width:0.207621">write_incon()</tspan></text>
     <g
        id="g41285"
-       transform="translate(4.2333335,-1.0583333)">
+       transform="translate(-48.68334,-1.0583333)">
       <rect
          style="opacity:1;fill:url(#radialGradient1062);fill-opacity:1;stroke:none;stroke-width:0.320695;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;enable-background:new"
          id="rect970"
@@ -1488,7 +1505,8 @@
            style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:3.27328px;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Italic';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;writing-mode:lr-tb;text-anchor:start;stroke-width:0.0678381">(in TOUGH)</tspan></text>
     </g>
     <g
-       id="g41207">
+       id="g41207"
+       transform="translate(-52.916673)">
       <text
          xml:space="preserve"
          style="font-style:normal;font-variant:normal;font-weight:500;font-stretch:normal;font-size:3.72446px;line-height:1.25;font-family:aakar;-inkscape-font-specification:'aakar, Medium';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.0771884"
@@ -1600,6 +1618,18 @@
        xml:space="preserve"
        transform="matrix(0.26458333,0,0,0.26458333,155.27706,25.486924)"
        id="text1614"
-       style="fill:black;fill-opacity:1;stroke:none;font-family:sans-serif;font-style:normal;font-weight:normal;font-size:40px;line-height:1.25;letter-spacing:0px;word-spacing:0px;white-space:pre;shape-inside:url(#rect1616)" />
+       style="font-style:normal;font-weight:normal;font-size:40px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;white-space:pre;shape-inside:url(#rect1616);display:inline;fill:#000000;fill-opacity:1;stroke:none" />
+    <path
+       style="fill:none;stroke:#000000;stroke-width:0.147;stroke-linecap:butt;stroke-linejoin:miter;stroke-dasharray:0.441, 0.441;stroke-dashoffset:0;stroke-opacity:1;marker-end:url(#marker1613-3)"
+       d="M 315.64799,116.40054 H 502.70838"
+       id="path730"
+       inkscape:path-effect="#path-effect732"
+       inkscape:original-d="M 315.64799,116.40054 H 502.70838" />
+    <path
+       style="fill:none;stroke:#000000;stroke-width:0.147;stroke-linecap:butt;stroke-linejoin:miter;stroke-dasharray:0.441, 0.441;stroke-dashoffset:0;stroke-opacity:1"
+       d="M 315.64799,125.66092 H 502.31152"
+       id="path730-5"
+       inkscape:path-effect="#path-effect732-7"
+       inkscape:original-d="M 315.64799,125.66092 H 502.31152" />
   </g>
 </svg>

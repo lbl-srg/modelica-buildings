@@ -105,29 +105,26 @@ Icon(coordinateSystem(preserveAspectRatio=false), graphics={
           lineColor={0,0,0},
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid),
-        Rectangle(
-          extent={{-100,30},{100,-100}},
-          lineColor={0,0,0},
-          fillColor={127,127,0},
-          fillPattern=FillPattern.Solid),
-        Rectangle(
-          extent={{-52,30},{-94,-100}},
-          lineColor={0,0,0},
-          fillColor={135,135,135},
-          fillPattern=FillPattern.Solid),
+        Bitmap(extent={{-100,66},{100,-136}}, fileName="modelica://Buildings/Resources/Images/Fluid/Geothermal/Borefields/TOUGH/tough.png"),
         Line(
-          points={{-66,-4},{72,-4}},
+          points={{-66,-8},{72,-8}},
           color={255,0,0},
           arrow={Arrow.None,Arrow.Filled}),
-        Rectangle(
-          extent={{-100,30},{-94,-100}},
-          lineColor={0,0,0},
-          fillColor={0,128,255},
-          fillPattern=FillPattern.Solid),
         Text(
           extent={{-150,150},{150,110}},
           textString="%name",
-          textColor={0,0,255})}),  Diagram(coordinateSystem(preserveAspectRatio=
+          textColor={0,0,255}),
+        Rectangle(
+          extent={{-100,30},{-92,-100}},
+          lineColor={0,0,0},
+          fillColor={238,46,47},
+          fillPattern=FillPattern.Solid),
+        Text(
+          extent={{22,-68},{94,-102}},
+          textColor={0,0,127},
+          textString="TOUGH",
+          textStyle={TextStyle.Bold})}),
+                                   Diagram(coordinateSystem(preserveAspectRatio=
            false)),
  Documentation(info="<html>
 <p>
