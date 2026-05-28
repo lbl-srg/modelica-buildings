@@ -105,6 +105,44 @@ have been <b style=\"color:blue\">improved</b> in a
                        This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4015\">Buildings, #4015</a>.<br/>
     </td>
 </tr>
+<tr><td colspan=\"2\"><b>Buildings.Fluid.Sources</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Fluid.Sources.BaseClasses.PartialSource<br/>
+                       Buildings.Fluid.Sources.BaseClasses.PartialAirSource
+    </td>
+    <td valign=\"top\">Removed deprecated <code>cardinality</code> function.<br/>
+                       Removed protected parameter <code>flowDirection</code> as it was set to <code>Bidirectional</code> and had no effect on the model.
+                       The annoation <code>mayOnlyConnectOnce</code> must not be used for these models as they are often used to set the
+                       reference presssure in closed system flow networks.<br/>
+                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4607\">Buildings, #4607</a>.
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Fluid.Sources.TraceSubstancesFlowSource
+    </td>
+    <td valign=\"top\">Removed deprecated <code>cardinality</code> function and replaced with <code>mayOnlyConnectOnce</code> annotation.<br/>
+                       Removed protected parameter <code>flowDirection</code> as it was set to <code>Bidirectional</code> and had no effect on the model.<br/>
+                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4607\">Buildings, #4607</a>.
+    </td>
+</tr>
+<tr><td colspan=\"2\"><b>Buildings.ThermalZones.EnergyPlus_24_2_0</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.ThermalZones.EnergyPlus_24_2_0.OpaqueConstruction
+    </td>
+    <td valign=\"top\">Removed deprecated <code>cardinality</code> function and replaced with <code>mustBeConnected</code> annotation.<br/>
+                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4607\">Buildings, #4607</a>.
+    </td>
+</tr>
+<tr><td colspan=\"2\"><b>Buildings.Utilities.IO.BCVTB</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Utilities.IO.BCVTB.BaseClasses.FluidInterface
+    </td>
+    <td valign=\"top\">Removed protected parameter <code>flowDirection</code> as it was set to <code>Bidirectional</code> and had no effect on the model.<br/>
+                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4607\">Buildings, #4607</a>.
+    </td>
+</tr>
 </table>
 <!-- Non-backward compatible changes to existing components -->
 <p>

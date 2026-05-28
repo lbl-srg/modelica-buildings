@@ -25,7 +25,11 @@ model TraceSubstancesFlowSource
   Modelica.Fluid.Interfaces.FluidPorts_b ports[nPorts](
     redeclare each package Medium = Medium)
     "Connector for fluid ports"
-    annotation (Placement(transformation(extent={{90,40},{110,-40}})));
+    annotation (mayOnlyConnectOnce = "Each ports[i] of boundary shall at most be connected to one component.
+If two or more connections are present, ideal mixing takes
+place in these connections, which is usually not the intention
+of the modeller. Increase nPorts to add an additional port.",
+      Placement(transformation(extent={{90,40},{110,-40}})));
 
 protected
   parameter Medium.ExtraProperty C_in_internal[Medium.nC](
@@ -49,16 +53,6 @@ initial equation
   assert(sum(C_in_internal) > 1E-4, "Trace substance '" + substanceName + "' is not present in medium '"
          + Medium.mediumName + "'.\n"
          + "Check source parameter and medium model.");
-
-  // Only one connection allowed to a port to avoid unwanted ideal mixing
-  for i in 1:nPorts loop
-    assert(cardinality(ports[i]) <= 1,"
-Each ports[i] of boundary shall at most be connected to one component.
-If two or more connections are present, ideal mixing takes
-place in these connections, which is usually not the intention
-of the modeller. Increase nPorts to add an additional port.
-");
-  end for;
 
 equation
   sum(ports.m_flow) = -m_flow_in_internal;
@@ -104,6 +98,12 @@ which is more efficient than using this model.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+May 21, 2026, by Michael Wetter:<br/>
+Replaced deprecated <code>cardinality</code> function with the annotation
+<code>mayOnlyConnectOnce</code>.<br/>
+This is for <a href=\"http://github.com/lbl-srg/modelica-buildings/issues/4607\">Buildings, #4607</a>.
+</li>
 <li>
 March 11, 2024, by Michael Wetter:<br/>
 Corrected use of <code>HideResult</code>.<br/>
