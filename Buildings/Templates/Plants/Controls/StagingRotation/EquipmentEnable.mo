@@ -230,25 +230,8 @@ block EquipmentEnable
     "Replicate heating-cooling signal to match number of columns"
     annotation (Placement(transformation(extent={{-120,-130},{-100,-110}})));
 
-  Buildings.Controls.OBC.CDL.Logical.TrueFalseHold truFalHol3[nEqu](
-      trueHoldDuration=fill(1, nEqu), falseHoldDuration=fill(0, nEqu))
-    annotation (Placement(transformation(extent={{160,10},{180,30}})));
-  Buildings.Controls.OBC.CDL.Logical.TrueFalseHold truFalHol4[nEqu](
-      trueHoldDuration=fill(1, nEqu), falseHoldDuration=fill(0, nEqu))
-    annotation (Placement(transformation(extent={{128,40},{148,60}})));
-  Buildings.Controls.OBC.CDL.Logical.TrueFalseHold truFalHol5[nEqu](
-      trueHoldDuration=fill(1, nEqu), falseHoldDuration=fill(0, nEqu))
-    annotation (Placement(transformation(extent={{140,80},{160,100}})));
-  Buildings.Controls.OBC.CDL.Logical.TrueFalseHold truFalHol6[nEqu](
-      trueHoldDuration=fill(1, nEqu), falseHoldDuration=fill(0, nEqu))
-    annotation (Placement(transformation(extent={{142,120},{162,140}})));
-  Buildings.Controls.OBC.CDL.Logical.TrueFalseHold truFalHol7[nEqu](
-      trueHoldDuration=fill(1, nEqu), falseHoldDuration=fill(0, nEqu))
-    annotation (Placement(transformation(extent={{60,130},{80,150}})));
-  Buildings.Controls.OBC.CDL.Logical.TrueFalseHold truFalHol8[nEqu](
-      trueHoldDuration=fill(1, nEqu), falseHoldDuration=fill(0, nEqu))
-    annotation (Placement(transformation(extent={{60,100},{80,120}})));
   Buildings.Controls.OBC.CDL.Logical.Pre pre if have_HpShc
+    "Pre block to prevent incorrect generation of equipment enable pulse signal"
     annotation (Placement(transformation(extent={{-160,-130},{-140,-110}})));
 equation
   connect(intScaRep.y, reqEquSta.index)
@@ -379,20 +362,6 @@ equation
     annotation (Line(points={{-98,-120},{-82,-120}}, color={255,0,255}));
   connect(booVecRepRow.y, swiMod.u2) annotation (Line(points={{-58,-120},{-32,-120},
           {-32,120},{-10,120}}, color={255,0,255}));
-  connect(logSwi.y, truFalHol3.u) annotation (Line(points={{182,-20},{190,-20},
-          {190,4},{150,4},{150,20},{158,20}}, color={255,0,255}));
-  connect(ena.y, truFalHol4.u) annotation (Line(points={{132,-20},{138,-20},{
-          138,-12},{146,-12},{146,34},{154,34},{154,42},{158,42},{158,66},{118,
-          66},{118,50},{126,50}}, color={255,0,255}));
-  connect(isReqAltAvaNee.y, truFalHol6.u) annotation (Line(points={{102,-20},{
-          102,-2},{192,-2},{192,114},{132,114},{132,130},{140,130}}, color={255,
-          0,255}));
-  connect(isReqAva.y, truFalHol5.u) annotation (Line(points={{12,-60},{54,-60},
-          {54,-18},{48,-18},{48,90},{138,90}}, color={255,0,255}));
-  connect(truArrCon.y1, truFalHol7.u) annotation (Line(points={{122,20},{130,20},
-          {130,0},{46,0},{46,140},{58,140}}, color={255,0,255}));
-  connect(isReqAltAva.y, truFalHol8.u) annotation (Line(points={{12,20},{32,20},
-          {32,94},{50,94},{50,110},{58,110}}, color={255,0,255}));
   connect(u1HeaCoo, pre.u) annotation (Line(points={{-220,-140},{-172,-140},{
           -172,-120},{-162,-120}}, color={255,0,255}));
   connect(pre.y, booScaRepCol.u)
