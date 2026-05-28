@@ -4,12 +4,15 @@
 import os
 import shutil
 
+# Get the directory containing GroundResponse.py
+SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
+
 def doStep(dblInp, state):
 
     modelicaWorkingPath = os.getcwd()
 
     # Folder that includes the TOUGH input files
-    TOUGH_dir = os.path.join(modelicaWorkingPath, 'Resources', 'Python-Sources', 'TOUGH')
+    TOUGH_dir = os.path.join(SCRIPT_DIR, 'TOUGH')
     
     # Number of Modelica cells
     nSeg = int(dblInp[0])
@@ -43,7 +46,7 @@ def doStep(dblInp, state):
     if state == None:
         # Create the TOUGH working folder
         # The working folder will be removed at the end of simulation.
-        touWorDir = os.path.join(modelicaWorkingPath, 'Resources', 'Python-Sources', 'tmp-tou-work')
+        touWorDir = os.path.join(SCRIPT_DIR, 'tmp-tou-work')
         os.mkdir(touWorDir)
         # Copy the TOUGH input files to working directory
         copy_files(TOUGH_dir, touWorDir)
