@@ -1,18 +1,24 @@
 ''' Python module that is used for the example
-    Buildings.Fluid.Geothermal.Borefields.TOUGHResponse.Examples.Borefields
+    Buildings.Fluid.Geothermal.Borefields.TOUGH.Examples.Borefields
 '''
 import os
 import shutil
-
-# Get the directory containing GroundResponse.py
-SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
 
 def doStep(dblInp, state):
 
     modelicaWorkingPath = os.getcwd()
 
+    # Get the directory containing this script.
+    # This is needed because OpenModelica runs from a temporary directory such as
+    # "/tmp/tmp-Buildings-0-ujmm2dwk", so "modelicaWorkingPath" would return that
+    # temporary directory instead of the Buildings library root.
+    # Dymola runs from "Path_to_modelica-buildings/Buildings" and returns the correct
+    # path.
+    # Using "SCRIPT_DIR" guarantees the correct absolute path in all tools.
+    SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
+
     # Folder that includes the TOUGH input files
-    TOUGH_dir = os.path.join(SCRIPT_DIR, 'TOUGH')
+    TOUGH_dir = os.path.join(SCRIPT_DIR, '..', 'Data', 'Fluid', 'Geothermal', 'Borefields', 'TOUGH')
     
     # Number of Modelica cells
     nSeg = int(dblInp[0])
@@ -21,13 +27,13 @@ def doStep(dblInp, state):
     # Number of observation points in the TOUGH simulation domain
     nInt = int(dblInp[2])
 
-    # Heat flux from borehole wall to ground: Modelica --> Tough
+    # Heat flux from borehole wall to ground: Modelica --> TOUGH
     Q = dblInp[3:nSeg+3]
-    # Initial borehole wall temperature at the start of modelica simulation
+    # Initial borehole wall temperature at the start of the Modelica simulation
     T_start = [dblInp[i] for i in range(nSeg+3, 2*nSeg+3)]
     # Current outdoor temperature
     T_out = dblInp[2*nSeg+3]
-    # Current time when needs to call TOUGH. This is also the end time of TOUGH simulation.
+    # Current simulation time at which TOUGH is called. This is also the end time of the TOUGH simulation.
     tim = dblInp[2*nSeg+4]
 
     # Total height of the borehole.
@@ -43,10 +49,10 @@ def doStep(dblInp, state):
     modelicaLayers = modelica_mesh(hBor, nSeg)
 
     # This is the first call of this python module. There is no state yet.
-    if state == None:
+    if state is None:
         # Create the TOUGH working folder
         # The working folder will be removed at the end of simulation.
-        touWorDir = os.path.join(SCRIPT_DIR, 'tmp-tou-work')
+        touWorDir = os.path.join('tmp-tou-work')
         os.mkdir(touWorDir)
         # Copy the TOUGH input files to working directory
         copy_files(TOUGH_dir, touWorDir)
@@ -72,11 +78,11 @@ def doStep(dblInp, state):
         # Find the TOUGH simulation step size
         dt = tim - tLast
 
-        # JModelica invokes the model twice during an event, in which case
-        # dt is zero, or close to zero.
-        # We don't evaluate the equations as this can cause chattering and in some
-        # cases JModelica does not converge during the event iteration.
-        # This guard is fine because the component is sampled at discrete time steps.
+        # Some Modelica simulation tools invoke the model twice during an event,
+        # in which case dt is zero or close to zero.
+        # We do not evaluate the equations in that case, as this can cause chattering
+        # and in some cases prevent convergence during event iteration.
+        # This guard is safe because the component is sampled at discrete time steps.
         if dt > 1e-2:
 
             # Change current directory to working directory
@@ -85,14 +91,10 @@ def doStep(dblInp, state):
             Q_toTough = mesh_to_mesh(toughLayers, modelicaLayers, Q_stored, 'Q_Mo2To')
             # Q_toTough = [150] * nTouSeg
 
-            # Check if there is 'GENER'. If the file does not exist, it means this is 
-            # the first call of TOUGH simulation. There is no 'SAVE' yet so cannot call
-            # `writeincon` to generate input files for TOUGH simulation.
+            # Check if 'GENER' exists. If it does not, this is the first call of
+            # the TOUGH simulation. The initial GENER file is already included among
+            # the copied TOUGH input files, so no action is needed here.
             if not os.path.exists('GENER'):
-                # create initial 'GENER' file
-                # initialize_gener(toughLayers, Q_toTough, 'GENER')
-                # update existing 'INFILE'
-                # update_infile(tLast, tim, 'INFILE', 'newINFILE')
                 pass
 
             # It's not the first call of TOUGH simulation. So there is 'SAVE' file from
@@ -151,8 +153,8 @@ def doStep(dblInp, state):
 
     return [ToModelica, state]
 
-''' Imitate TOUGH simulation. It will copy the SAVE file and update the temperature of the 33 elements
-    and the 10 interested points
+''' Imitate the TOUGH simulation. It updates the SAVE file by incrementing the temperature
+    of the borehole-wall elements and the observation points.
 '''
 def tough_avatar(heatFlux, T_out, nInt):
     totEle = len(heatFlux)
@@ -187,7 +189,7 @@ def tough_avatar(heatFlux, T_out, nInt):
     os.remove('SAVE')
     os.rename('temp_SAVE', 'SAVE')
 
-''' It increases all temperature by 0.1 degC.
+''' Increment the temperature value encoded in a SAVE-file line by a small amount.
 '''
 def imitateTemperature(line, T_out):
     lastE = line.rindex('E')
@@ -247,7 +249,7 @@ def update_infile(preTim, curTim, infile, outfile):
 
 ''' Find Tough mesh layer depth
 '''
-def find_layer_depth(fileName,nTouSeg):
+def find_layer_depth(fileName, nTouSeg):
     fin = open(fileName)
     count = 0
     layers = list()
@@ -264,7 +266,7 @@ def find_layer_depth(fileName,nTouSeg):
     layInd = 0
     for line in fin:
         count += 1
-        if count >=3 and count <= nTouSeg+1:
+        if count >= 3 and count <= nTouSeg+1:
             layInd += 1
             strSet = line.split()
             z.append(float(strSet[-1]))
@@ -294,7 +296,7 @@ def add_grid_boundary(layers):
     lowerBound = (-1)*layers[0]['dz']
     layers[0]['upperBound'] = upperBound
     layers[0]['lowerBound'] = lowerBound
-    for i in range(1,len(layers)):
+    for i in range(1, len(layers)):
         upperBound = lowerBound
         lowerBound = upperBound - layers[i]['dz']
         layers[i]['upperBound'] = upperBound
@@ -351,7 +353,7 @@ def mesh_to_mesh(layers, modelicaLayers, variables, flag):
                 # dz = layers[j]['dz']
                 if ((ub >= cuMe and ub < nexMe) and (lb > cuMe and lb <= nexMe)):
                     ele = layers[j]['dz']
-                elif ((ub >= cuMe and ub <nexMe) and (lb > cuMe and lb > nexMe)):
+                elif ((ub >= cuMe and ub < nexMe) and (lb > cuMe and lb > nexMe)):
                     ele = nexMe - ub
                 elif ((ub < cuMe and ub <= nexMe) and (lb > cuMe and lb <= nexMe)):
                     ele = lb - cuMe
@@ -376,7 +378,7 @@ def update_writeincon(infile, preTim, curTim, boreholeTem, heatFlux, T_out):
             tempStr = '% 10.0f' % preTim
             fout.write(tempStr.strip() + os.linesep)
         # assign final time
-        elif count ==  8:
+        elif count == 8:
             tempStr = '% 10.0f' % curTim
             fout.write(tempStr.strip() + os.linesep)
         # assign borehole wall temperature to each segment
@@ -608,7 +610,7 @@ def fortranstyle(sciFor):
         exp = posVal.find('e')
         # find the value before the 'E'
         leadValue = posVal[:exp]
-        # log the total length
+        # record the total length
         valueLen = len(leadValue)
         # remove decimal point
         pureNum = leadValue.replace('.', '')
