@@ -1,5 +1,5 @@
 within Buildings.Fluid.Humidifiers;
-package EvaporativeCoolers "Package with evaporative coolers"
+package EvaporativePads "Package with evaporative pads"
 annotation (preferredView="info", Documentation(info="<html>
 <p>
 Package with evaporative cooler models based on EnergyPlus v23.1.0 Engineering Reference.
@@ -39,4 +39,4 @@ Package with evaporative cooler models based on EnergyPlus v23.1.0 Engineering R
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid,
           extent={{-80.0,0.0},{-20.0,60.0}})}));
-end EvaporativeCoolers;
+end EvaporativePads;
