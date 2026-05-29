@@ -9,14 +9,14 @@ model GroundResponse "Ground response calculated by the TOUGH simulator"
     annotation(Dialog(group="Sampling"));
 
   Modelica.Blocks.Interfaces.RealInput QBor_flow[nSeg](
-    final unit=fill("W", nSeg))
+    each final unit="W")
     "Heat flow from boreholes (positive if heat from fluid into soil)"
     annotation (Placement(transformation(extent={{-140,20},{-100,60}}),
       iconTransformation(extent={{-120,50},{-100,70}})));
   Modelica.Blocks.Interfaces.RealInput TBorWal_start[nSeg](
-    final unit=fill("K", nSeg),
-    displayUnit=fill("degC", nSeg),
-    quantity=fill("ThermodynamicTemperature", nSeg))
+    each final unit="K",
+    each displayUnit="degC",
+    each quantity="ThermodynamicTemperature")
     "Initial borehole outer wall temperature at the beginning of the simulation"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}}),
       iconTransformation(extent={{-120,-10},{-100,10}})));
@@ -28,9 +28,9 @@ model GroundResponse "Ground response calculated by the TOUGH simulator"
     annotation (Placement(transformation(extent={{-140,-60},{-100,-20}}),
         iconTransformation(extent={{-120,-70},{-100,-50}})));
   Modelica.Blocks.Interfaces.RealOutput TBorWal[nSeg](
-    final unit=fill("K", nSeg),
-    displayUnit=fill("degC", nSeg),
-    quantity=fill("ThermodynamicTemperature", nSeg))
+    each final unit="K",
+    each displayUnit="degC",
+    each quantity="ThermodynamicTemperature")
     "Temperature of current borehole wall temperature"
     annotation (Placement(transformation(extent={{100,40},{140,80}}),
       iconTransformation(extent={{100,50},{120,70}})));
@@ -43,9 +43,9 @@ model GroundResponse "Ground response calculated by the TOUGH simulator"
     annotation (Placement(transformation(extent={{100,-40},{140,0}}),
       iconTransformation(extent={{100,-30},{120,-10}})));
   Modelica.Blocks.Interfaces.RealOutput TInt[nInt](
-    final unit=fill("K", nInt),
-    displayUnit=fill("degC", nInt),
-    quantity=fill("ThermodynamicTemperature", nInt))
+    each final unit="K",
+    each displayUnit="degC",
+    each quantity="ThermodynamicTemperature")
     "Temperature at the interested points in the ground"
     annotation (Placement(transformation(extent={{100,-80},{140,-40}}),
       iconTransformation(extent={{100,-70},{120,-50}})));
