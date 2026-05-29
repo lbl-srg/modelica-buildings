@@ -1,10 +1,11 @@
-# Following data are from "RESULTS5-2A.xlsx" in folder /Sec5-2AFiles/Informative Materials
-# of "Supplemental Files for ANSI/ASHRAE Standard 140-2020, Method of Test for Evaluating
-# Building Performance Simulation Software": http://www.ashrae.org/140-2020
+# Following data are from "Std140_TF_Results.xlsx" in folder /Std140_TF_Files/Informative Materials
+# of "Supplemental Files for ANSI/ASHRAE Standard 140-2023, Method of Test for Evaluating
+# Building Performance Simulation Software":
+# https://www.ashrae.org/technical-resources/bookstore/supplemental-files/ansi-ashrae-standard-140-2023-method-of-test-for-evaluating-building-performance-simulation-software
 #
 # For the cases with heating and cooling, the test acceptance criteria ranges are
 # from Table A3-1, Table A3-2, Table A3-3 and Table A3-4 of
-# "ASHRAE Standard 140-2020 Addendum b":
+# "ASHRAE Standard 140-2023 Addendum b":
 # https://www.ashrae.org/technical-resources/standards-and-guidelines/standards-addenda\"
 ========================================================
 # Table B8-1. Annual Heating Loads (MWh)

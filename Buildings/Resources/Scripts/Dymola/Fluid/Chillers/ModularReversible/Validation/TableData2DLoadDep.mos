@@ -6,7 +6,7 @@ simulateModel("Buildings.Fluid.Chillers.ModularReversible.Validation.TableData2D
 createPlot(id = 1,
     position = {5, 5, 400, 600},
     filename = "TableData2DLoadDepChiller.mat",
-    y = {"chi.TSet", "chi.refCyc.sigBus.TEvaInMea", "chi.refCyc.sigBus.TEvaOutMea", "per.TEvaLvgMax", "chi.refCyc.sigBus.TConInMea", "chi.refCyc.sigBus.TConOutMea"},
+    y = {"chi.TChwSet", "chi.refCyc.sigBus.TEvaInMea", "chi.refCyc.sigBus.TEvaOutMea", "per.TEvaLvgMax", "chi.refCyc.sigBus.TConInMea", "chi.refCyc.sigBus.TConOutMea"},
     autoscale=true,
     grid=true,
     autoreplot = true);

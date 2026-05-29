@@ -8,10 +8,8 @@
           <span class="icon-bar"></span>
         </button>
         <a class="navbar-brand" href="{{ pathto(master_doc) }}">
-          {%- block sidebarlogo %}
-            {%- if logo %}<img src="{{ pathto('_static/' + logo, 1) }}">{%- endif %}
-          {%- endblock %}
-          {% if theme_navbar_title -%}{{ theme_navbar_title|e }}{%- else -%}{{ project|e }}{%- endif -%}
+          <img src="{{ pathto('_static/lbl-logo.png', 1) }}" class="navbar-logo" alt="Logo">
+          {%- if theme_navbar_title -%}{{ theme_navbar_title|e }}{%- else -%}{{ project|e }}{%- endif -%}
         </a>
         <span class="navbar-text navbar-version pull-left"><b>{{ version|e }}</b></span>
       </div>

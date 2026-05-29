@@ -166,7 +166,7 @@ protected
     input Integer n(min=2) "Number of strings";
     input String names[n] "Names";
   protected
-    Boolean ideNam[n-1]
+    Boolean ideNam[max(0, n-1)]
       "Flag that is set to true if the name is used more than once";
 
   algorithm

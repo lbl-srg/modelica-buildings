@@ -322,6 +322,8 @@ equation
           116},{-140,106},{-158,106}}, color={0,0,127}));
   connect(QRad_flow.u2, radHeaFloSen.Q_flow) annotation (Line(points={{38,104},
           {26,104},{26,40},{0,40},{0,49}},  color={0,0,127}));
+  connect(pFlu.y, fmuZon.p) annotation (Line(points={{143,12},{150,12},{150,-66},
+          {74,-66},{74,-60},{78,-60}}, color={0,0,127}));
   annotation (
     defaultComponentName="zon",
     Icon(
@@ -541,6 +543,12 @@ is not possible.
 </html>",
       revisions="<html>
 <ul>
+<li>
+March 30, 2026, by Michael Wetter:<br/>
+Added check for air pressure to be within reasonable limits.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3319\">#3319</a>.
+</li>
 <li>
 March 22, 2024, by Michael Wetter:<br/>
 Changed radiative heat flow rate sent to EnergyPlus to be the average over the last
