@@ -58,7 +58,7 @@ def doStep(dblInp, state):
         copy_files(TOUGH_dir, touWorDir)
         # Initialize the state
         T_tough_start = mesh_to_mesh(toughLayers, modelicaLayers, T_start, 'T_Mo2To')
-        state = {'tLast': tim, 'Q': Q, 'T_tough': T_tough_start, 'work_dir': touWorDir}
+        state = {'tLast': tim, 'startTime': tim, 'Q': Q, 'T_tough': T_tough_start, 'work_dir': touWorDir}
         p_Int = [101343.01] * nInt
         x_Int = [10.5] * nInt
         T_Int = [15.06+273.15] * nInt
@@ -71,6 +71,7 @@ def doStep(dblInp, state):
         #   -- the heat flow on the borehole wall that was measured in Modelica at last invocation,
         #   -- the borehole wall temperature at the end of last TOUGH simulation.
         tou_tmp = state['work_dir']
+        startTime = state['startTime']
         tLast = state['tLast']
         Q_stored = state['Q']
         T_stored = state['T_tough']
@@ -113,7 +114,7 @@ def doStep(dblInp, state):
                 # each borehole segment to ground, from Modelica in previous call.
                 # The `T_tough` is the wall temperature of each borehole segment from
                 # last TOUGH simulation
-                update_writeincon('writeincon.inp', tLast, tim, T_stored, Q_toTough, T_out)
+                update_writeincon('writeincon.inp', tLast-startTime, tim-startTime, T_stored, Q_toTough, T_out)
 
                 # Generate TOUGH input files
                 # os.system("./writeincon < writeincon.inp")
@@ -146,7 +147,7 @@ def doStep(dblInp, state):
             ToModelica = T_toModelica + data['p_Int'] + data['x_Int'] + data['T_Int']
 
             # Update state
-            state = {'tLast': tim, 'Q': Q, 'T_tough': T_tough, 'work_dir': tou_tmp}
+            state = {'tLast': tim, 'startTime': tim, 'Q': Q, 'T_tough': T_tough, 'work_dir': tou_tmp}
 
             # Change back to original working directory
             os.chdir(modelicaWorkingPath)
