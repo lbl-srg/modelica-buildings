@@ -4,6 +4,17 @@ model HybridAirToWater "Controller for AWHP plant"
     Buildings.Templates.Plants.HeatPumps.Components.Interfaces.PartialController(
     final typ=Buildings.Templates.Plants.HeatPumps.Types.Controller.AirToWater);
 
+
+  final parameter Integer nHpShc=cfg.nHpShc
+    "Number of SHC heat pumps"
+    annotation (Evaluate=true,
+    Dialog(group="Configuration"));
+
+  final parameter Integer nHpTot=cfg.nHpTot
+    "Total number of heat pumps"
+    annotation (Evaluate=true,
+    Dialog(group="Configuration"));
+
   final parameter Real staEqu[:, cfg.nHpTot](
     each final max=1,
     each final min=0,
@@ -30,7 +41,6 @@ model HybridAirToWater "Controller for AWHP plant"
   Buildings.Templates.Plants.Experimental.Baseclasses.AirToWater ctl(
     final is_priOnl=if is_typDis_override then (typDis_override==Buildings.Templates.Plants.HeatPumps.Types.Distribution.Variable1Only) else (cfg.typDis==Buildings.Templates.Plants.HeatPumps.Types.Distribution.Variable1Only),
     final have_hrc_select=cfg.have_hrc,
-    final nHpShc=cfg.nHpShc,
     final TChiWatSupSet_max=dat.TChiWatSupSet_max,
     final TChiWatSup_nominal=dat.TChiWatSup_nominal,
     final THeaWatSupSet_min=dat.THeaWatSupSet_min,
@@ -189,6 +199,19 @@ model HybridAirToWater "Controller for AWHP plant"
     if cfg.have_HpShc
     "Combine primary pump signals for heating and cooling mode"
     annotation (Placement(transformation(extent={{60,0},{80,20}})));
+protected
+  Components.Interfaces.Bus                     busHpShc[nHpShc]
+    if cfg.have_HpShc "SHC heat pump control bus" annotation (Placement(
+        transformation(extent={{-260,280},{-220,320}}), iconTransformation(
+          extent={{-466,50},{-426,90}})));
+  Components.Interfaces.Bus                     busPumShcHeaWatPri
+    if cfg.have_HpShc "Primary SHC HP HW pump control bus" annotation (
+      Placement(transformation(extent={{-180,60},{-140,100}}),
+        iconTransformation(extent={{-466,50},{-426,90}})));
+  Components.Interfaces.Bus                     busPumShcChiWatPri
+    if cfg.have_HpShc "Primary SHC HP CHW pump control bus" annotation (
+      Placement(transformation(extent={{-180,-180},{-140,-140}}),
+        iconTransformation(extent={{-466,50},{-426,90}})));
 equation
   /* Control point connection - start */
   // Inputs from plant control bus
@@ -259,8 +282,8 @@ equation
   connect(ctl.yPumHeaWatSec, busPumHeaWatSec.y);
   connect(ctl.y1Hrc, busHrc.y1);
   connect(ctl.y1CooHrc, busHrc.y1Coo);
-  connect(ctl.THeaWatHrcSupSet, busHrc.THeaWatSet);
-  connect(ctl.TChiWatHrcSupSet, busHrc.TChiWatSet);
+  connect(ctl.THeaWatSupHrcSet, busHrc.THeaWatSet);
+  connect(ctl.TChiWatSupHrcSet, busHrc.TChiWatSet);
   connect(ctl.y1PumChiWatHrc, busPumChiWatHrc.y1);
   connect(ctl.y1PumHeaWatHrc, busPumHeaWatHrc.y1);
   /* Control point connection - stop */
@@ -365,6 +388,9 @@ equation
   connect(ctl.y1PumChiWatPri, or2.u2) annotation (Line(points={{22,19.5455},{44,
           19.5455},{44,2},{58,2}},
                          color={255,0,255}));
+  connect(busPumShcHeaWatPri, bus.pumShcHeaWatPri);
+  connect(busPumShcChiWatPri, bus.pumShcChiWatPri);
+  connect(busHpShc,bus.hpShc);
   annotation (
     defaultComponentName="ctl", Documentation(info="<html>
 <p>

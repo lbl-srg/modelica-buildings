@@ -73,11 +73,11 @@ model HybridAirToWater "Validation of AWHP plant template"
       origin={-210,-20})));
   Buildings.Templates.Plants.HeatPumps.AirToWater pla(
     redeclare final package MediumHeaWat=Medium,
-    cfg(nHpShc=1),
+    nHpShc=1,
     typDis_select1=Buildings.Templates.Plants.HeatPumps.Types.Distribution.Variable1Only,
     typTanHeaWat_select=Buildings.Templates.Components.Types.IntegrationPoint.None,
     typTanChiWat_select=Buildings.Templates.Components.Types.IntegrationPoint.None,
-    ctl(
+    redeclare Buildings.Templates.Plants.Experimental.Baseclasses.HybridAirToWater ctl(
       is_typDis_override=true,
       typDis_override=Buildings.Templates.Plants.HeatPumps.Types.Distribution.Constant1Variable2,
       have_PumHeaWatSec_override=true,

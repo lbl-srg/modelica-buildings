@@ -169,7 +169,7 @@ block AirToWater "Controller for AWHP plant"
     annotation (Evaluate=true,
     Dialog(group="Plant configuration"));
 
-  parameter Integer nHpShc(min=0)
+  final parameter Integer nHpShc(min=0)=1
     "Number of heat pumps with simultaneous heating-cooling mode"
     annotation (Evaluate=true,
     Dialog(group="Plant configuration"));
@@ -488,12 +488,13 @@ block AirToWater "Controller for AWHP plant"
   final parameter Integer staHpShcRow = size(staHpShc,1)
     "Number of rows in the simultaneous heating-cooling heat pump staging matrix";
 
-  final parameter Real staEqu[:, nHpTot](
+  parameter Real staEqu[:, nHpTot](
     each final max=1,
     each final min=0,
     each final unit="1")=if have_HpShc then staEquSinMod else staHp
     "Staging matrix – Equipment required for each stage"
-    annotation (Dialog(group="Equipment staging and rotation"));
+    annotation (Dialog(group="Equipment staging and rotation",
+      enable=false));
 
   parameter Real staEquDouMod[:, nHpTot](
     each final max=1,
@@ -511,6 +512,11 @@ block AirToWater "Controller for AWHP plant"
 
   final parameter Integer nSta(
     final min=1)=size(staEqu, 1)
+    "Number of stages"
+    annotation (Evaluate=true);
+
+  final parameter Integer nEqu(
+    final min=1)=size(staEqu, 2)
     "Number of stages"
     annotation (Evaluate=true);
 
@@ -1315,7 +1321,7 @@ block AirToWater "Controller for AWHP plant"
     annotation (Placement(transformation(extent={{300,-120},{340,-80}}),
       iconTransformation(extent={{200,-150},{240,-110}})));
 
-  Buildings.Controls.OBC.CDL.Interfaces.RealOutput THeaWatHrcSupSet(
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput THeaWatSupHrcSet(
     final unit="K",
     displayUnit="degC") if have_hrc
     "Sidestream HRC HW supply temperature setpoint"
@@ -1330,7 +1336,7 @@ block AirToWater "Controller for AWHP plant"
     annotation (Placement(transformation(extent={{300,-140},{340,-100}}),
       iconTransformation(extent={{200,-170},{240,-130}})));
 
-  Buildings.Controls.OBC.CDL.Interfaces.RealOutput TChiWatHrcSupSet(
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput TChiWatSupHrcSet(
     final unit="K",
     displayUnit="degC") if have_hrc
     "Sidestream HRC CHW supply temperature setpoint"
@@ -1731,8 +1737,8 @@ block AirToWater "Controller for AWHP plant"
     final staEquSinMod=staEquSinMod) if have_HpShc
     "Hybrid plant control module"
     annotation (Placement(transformation(extent={{60,-114},{80,-94}})));
-  Buildings.Controls.OBC.CDL.Reals.Sources.Constant staMat[nSta,nHpTot](k=staEqu)
-    if not have_HpShc "Staging matrix signal"
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant conStaMat[nSta,nHpTot](k=
+        staEqu) if not have_HpShc "Staging matrix signal"
     annotation (Placement(transformation(extent={{-220,250},{-200,270}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant con(k=false)
     if not have_HpShc "Constant Boolean false signal"
@@ -2226,9 +2232,9 @@ equation
         color={0,0,127}));
 if have_HpShc then
 end if;
-  connect(staMat.y, avaStaHea.staEqu) annotation (Line(points={{-198,260},{-164,
-          260},{-164,326},{-112,326}},                       color={0,0,127}));
-  connect(staMat.y, avaStaCoo.staEqu) annotation (Line(points={{-198,260},{-164,
+  connect(conStaMat.y, avaStaHea.staEqu) annotation (Line(points={{-198,260},{-164,
+          260},{-164,326},{-112,326}}, color={0,0,127}));
+  connect(conStaMat.y, avaStaCoo.staEqu) annotation (Line(points={{-198,260},{-164,
           260},{-164,204},{-72,204},{-72,44},{-128,44},{-128,66},{-112,66}},
         color={0,0,127}));
   connect(con.y, enaEquHea.u1HeaCoo) annotation (Line(points={{-218,400},{-66,
@@ -2302,10 +2308,10 @@ end if;
     annotation (Line(points={{172,-100},{320,-100}}, color={0,0,127}));
   connect(repTChiWatSupSet.y[1:nHp], TChiWatSupHpSet) annotation (Line(points={
           {172,-140},{284,-140},{284,-120},{320,-120}}, color={0,0,127}));
-  connect(THeaWatSupSet, THeaWatHrcSupSet) annotation (Line(points={{320,-160},
+  connect(THeaWatSupSet,THeaWatSupHrcSet)  annotation (Line(points={{320,-160},
           {186,-160},{186,-326},{260,-326},{260,-320},{320,-320}}, color={0,0,
           127}));
-  connect(TChiWatSupSet, TChiWatHrcSupSet) annotation (Line(points={{320,-180},
+  connect(TChiWatSupSet,TChiWatSupHrcSet)  annotation (Line(points={{320,-180},
           {188,-180},{188,-332},{260,-332},{260,-340},{320,-340}}, color={0,0,
           127}));
   connect(or6[nHp + 1:nHp + nHpShc].y, y1PumHeaWatPriShc) annotation (Line(
