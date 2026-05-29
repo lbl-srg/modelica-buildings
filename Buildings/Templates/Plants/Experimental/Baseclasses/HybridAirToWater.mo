@@ -1,4 +1,4 @@
-within Buildings.Templates.Plants.HeatPumps.Components.Controls;
+within Buildings.Templates.Plants.Experimental.Baseclasses;
 model HybridAirToWater "Controller for AWHP plant"
   extends
     Buildings.Templates.Plants.HeatPumps.Components.Interfaces.PartialController(
@@ -27,7 +27,7 @@ model HybridAirToWater "Controller for AWHP plant"
     annotation (Evaluate=true,
     Dialog(group="Equipment staging and rotation"));
 
-  Buildings.Templates.Plants.Controls.HeatPumps.AirToWater ctl(
+  Buildings.Templates.Plants.Experimental.Baseclasses.AirToWater ctl(
     final is_priOnl=if is_typDis_override then (typDis_override==Buildings.Templates.Plants.HeatPumps.Types.Distribution.Variable1Only) else (cfg.typDis==Buildings.Templates.Plants.HeatPumps.Types.Distribution.Variable1Only),
     final have_hrc_select=cfg.have_hrc,
     final nHpShc=cfg.nHpShc,

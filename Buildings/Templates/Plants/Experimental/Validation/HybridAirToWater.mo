@@ -1,4 +1,4 @@
-within Buildings.Templates.Plants.HeatPumps.Validation;
+within Buildings.Templates.Plants.Experimental.Validation;
 model HybridAirToWater "Validation of AWHP plant template"
   extends Modelica.Icons.Example;
   replaceable package Medium=Buildings.Media.Water
@@ -8,7 +8,7 @@ model HybridAirToWater "Validation of AWHP plant template"
     "Set to true if the plant provides CHW"
     annotation (Evaluate=true,
     Dialog(group="Configuration"));
-  inner parameter UserProject.Data.AllSystems datAll(pla(
+  inner parameter Buildings.Templates.Plants.HeatPumps.Validation.UserProject.Data.AllSystems datAll(pla(
       final cfg=pla.cfg,
       ctl(
         yPumHeaWatPriSet=1,
@@ -126,7 +126,7 @@ model HybridAirToWater "Validation of AWHP plant template"
     "AHU control bus"
     annotation (Placement(transformation(extent={{-30,60},{10,100}}),
       iconTransformation(extent={{-340,-140},{-300,-100}})));
-  Interfaces.Bus busPla "Plant control bus"
+  Buildings.Templates.Plants.HeatPumps.Interfaces.Bus busPla "Plant control bus"
     annotation (Placement(transformation(extent={{-200,-20},{-160,20}}),
       iconTransformation(extent={{-370,-70},{-330,-30}})));
   Buildings.Controls.OBC.CDL.Reals.Sources.TimeTable ratLoa(
@@ -241,7 +241,7 @@ model HybridAirToWater "Validation of AWHP plant template"
     dp_nominal={0,0,0})
     "Primary return junction between 2-pipe and 4-pipe ASHPs"
     annotation (Placement(transformation(extent={{-90,-130},{-110,-110}})));
-  Buildings.Templates.Components.HeatPumps.AirToWaterSHC hpSHC(
+  Buildings.Templates.Plants.Experimental.Baseclasses.AirToWaterSHC hpSHC(
     redeclare package MediumHeaWat = Medium,
     redeclare package MediumSou = Medium,
     is_rev=true,
@@ -699,7 +699,7 @@ equation
   annotation (
     __Dymola_Commands(
       file=
-        "modelica://Buildings/Resources/Scripts/Dymola/Templates/Plants/HeatPumps/Validation/HybridAirToWater.mos"
+        "modelica://Buildings/Resources/Scripts/Dymola/Templates/Plants/Experimental/Validation/HybridAirToWater.mos"
         "Simulate and plot"),
     experiment(
       Tolerance=1e-6,

@@ -1,8 +1,8 @@
-within Buildings.Templates.Plants.Controls.HeatPumps.Validation;
+within Buildings.Templates.Plants.Experimental.Validation;
 model AirToWaterPolyvalent
   "Validation model for polyvalent heat pump plant controller"
   extends Buildings.Templates.Plants.Controls.HeatPumps.Validation.AirToWater(
-    ctl(
+    redeclare Buildings.Templates.Plants.Experimental.Baseclasses.AirToWater ctl(
       have_heaWat=true,
       have_chiWat=true,
       have_hrc_select=false,
@@ -98,7 +98,7 @@ equation
     coordinateSystem(preserveAspectRatio=false, extent={{-240,-240},{240,240}})),
     __Dymola_Commands(
       file=
-        "modelica://Buildings/Resources/Scripts/Dymola/Templates/Plants/Controls/HeatPumps/Validation/AirToWaterPolyvalent.mos"
+        "modelica://Buildings/Resources/Scripts/Dymola/Templates/Plants/Experimental/Validation/AirToWaterPolyvalent.mos"
         "Simulate and plot"),
     Documentation(
       revisions="<html>

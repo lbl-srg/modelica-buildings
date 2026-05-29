@@ -1,4 +1,4 @@
-simulateModel("Buildings.Templates.Plants.Controls.HeatPumps.Validation.AirToWaterPolyvalent",
+simulateModel("Buildings.Templates.Plants.Experimental.Validation.AirToWaterPolyvalent",
     method="cvode",
     tolerance=1e-6,
     stopTime=86400.0,
