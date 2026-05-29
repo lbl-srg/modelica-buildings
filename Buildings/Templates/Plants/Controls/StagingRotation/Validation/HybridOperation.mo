@@ -6,13 +6,13 @@ model HybridOperation
     ctl(
     final have_heaWat=true,
     final have_chiWat=true,
-    final nHp=3,
+    final nHp=2,
     final is_HpShc={false,false,true},
+    nHpShc=1,
     final staEquDouMod=[0,0,1; 1/2,1/2,1; 1,1,1],
-    final staEquSinMod=[1/2,1/2,0; 1,1,0; 1,1,1],
-    final idxEquAlt={1,2})
+    final staEquSinMod=[1/2,1/2,0; 1,1,0; 1,1,1])
     "Integration block"
-    annotation (Placement(transformation(extent={{-10,-18},{10,18}})));
+    annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
 
 protected
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant con(
@@ -44,43 +44,33 @@ protected
     annotation (Placement(transformation(extent={{-40,-100},{-20,-80}})));
 
 equation
-  connect(booPul.y, ctl.u1HpAva[3]) annotation (Line(points={{-58,-40},{-26,-40},
-          {-26,0},{-22,0},{-22,4.66667},{-12,4.66667}}, color={255,0,255}));
-  connect(con.y, ctl.u1HpAva[1]) annotation (Line(points={{-58,-10},{-22,-10},{
-          -22,3.33333},{-12,3.33333}}, color={255,0,255}));
-  connect(con.y, ctl.uMod[1]) annotation (Line(points={{-58,-10},{-26,-10},{-26,
-          -0.666667},{-12,-0.666667}},
-                                    color={255,0,255}));
-  connect(con.y, ctl.u1EnaHea) annotation (Line(points={{-58,-10},{-16,-10},{
-          -16,8},{-12,8}},             color={255,0,255}));
+  connect(con.y, ctl.u1EnaHea) annotation (Line(points={{-58,-10},{-22,-10},{
+          -22,4},{-12,4}},             color={255,0,255}));
   connect(booPul.y, not1.u) annotation (Line(points={{-58,-40},{-50,-40},{-50,
           -60},{-42,-60}},
                       color={255,0,255}));
-  connect(not1.y, ctl.uMod[2]) annotation (Line(points={{-18,-60},{-10,-60},{-10,
-          -20},{-20,-20},{-20,0},{-12,0}},   color={255,0,255}));
-  connect(booPul.y, ctl.uMod[3]) annotation (Line(points={{-58,-40},{-26,-40},{
-          -26,0.666667},{-12,0.666667}},
-                                     color={255,0,255}));
   connect(con.y, ctl.u1PumPriHea[1]) annotation (Line(points={{-58,-10},{-22,
-          -10},{-22,-8.66667},{-12,-8.66667}},
-                                          color={255,0,255}));
-  connect(booPul.y, ctl.u1PumPriHea[3]) annotation (Line(points={{-58,-40},{-26,
-          -40},{-26,-7.33333},{-12,-7.33333}}, color={255,0,255}));
-  connect(not1.y, ctl.u1HpAva[2]) annotation (Line(points={{-18,-60},{-10,-60},
-          {-10,-20},{-20,-20},{-20,4},{-12,4}}, color={255,0,255}));
+          -10},{-22,-4},{-12,-4}},        color={255,0,255}));
+  connect(booPul.y, ctl.u1PumPriHea[3]) annotation (Line(points={{-58,-40},{-22,
+          -40},{-22,-4},{-12,-4}},             color={255,0,255}));
   connect(not1.y, ctl.u1PumPriHea[2]) annotation (Line(points={{-18,-60},{-10,
-          -60},{-10,-20},{-20,-20},{-20,-8},{-12,-8}},
+          -60},{-10,-16},{-20,-16},{-20,-10},{-22,-10},{-22,-4},{-12,-4}},
                                                     color={255,0,255}));
   connect(booPul1.y, ctl.u1EnaCoo) annotation (Line(points={{-58,50},{-20,50},{
-          -20,12},{-12,12}},
+          -20,8},{-12,8}},
                          color={255,0,255}));
-  connect(con1.y, ctl.u1PumPriCoo) annotation (Line(points={{-58,20},{-42,20},{
-          -42,-4},{-12,-4}},
+  connect(con1.y, ctl.u1PumPriCoo) annotation (Line(points={{-58,20},{-26,20},{
+          -26,0},{-12,0}},
                          color={255,0,255}));
-  connect(not2.y, ctl.u1Hp) annotation (Line(points={{-18,-90},{-16,-90},{-16,
-          -12},{-12,-12}}, color={255,0,255}));
-  connect(ctl.u1HpAva, not2.u) annotation (Line(points={{-12,4},{-44,4},{-44,
-          -90},{-42,-90}}, color={255,0,255}));
+  connect(not2.y, ctl.u1Hp) annotation (Line(points={{-18,-90},{-6,-90},{-6,-38},
+          {-12,-38},{-12,-8}},
+                           color={255,0,255}));
+  connect(con.y, not2[1].u) annotation (Line(points={{-58,-10},{-48,-10},{-48,
+          -26},{-84,-26},{-84,-90},{-42,-90}}, color={255,0,255}));
+  connect(not1.y, not2[2].u) annotation (Line(points={{-18,-60},{-10,-60},{-10,
+          -74},{-52,-74},{-52,-90},{-42,-90}}, color={255,0,255}));
+  connect(not1.y, not2[3].u) annotation (Line(points={{-18,-60},{-10,-60},{-10,
+          -74},{-52,-74},{-52,-90},{-42,-90}}, color={255,0,255}));
   annotation (
     __Dymola_Commands(
       file=

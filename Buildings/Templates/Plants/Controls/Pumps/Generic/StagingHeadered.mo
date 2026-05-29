@@ -220,11 +220,7 @@ block StagingHeadered "Generic staging logic for headered pumps"
     "Reset number of enabled pumps to zero if lead pump disabled"
     annotation (Placement(transformation(extent={{-10,110},{10,130}})));
   StagingRotation.EquipmentEnable enaHdr(
-    final is_pumApp=true,
     final have_HpShc=false,
-    final nEquAlt=nPum,
-    final nSta=nPum,
-    final nEqu=nPum,
     final staEqu=staPum)
     if is_hdr
     "Enable headered pumps"

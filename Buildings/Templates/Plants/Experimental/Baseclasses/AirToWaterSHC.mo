@@ -1,4 +1,4 @@
-within Buildings.Templates.Components.HeatPumps;
+within Buildings.Templates.Plants.Experimental.Baseclasses;
 model AirToWaterSHC
   "Simultaneous heating and cooling (SHC) air-to-water heat pumps"
   extends Buildings.Templates.Components.BaseClasses.PartialHeatPumpTableData2DLoadDepSHC(

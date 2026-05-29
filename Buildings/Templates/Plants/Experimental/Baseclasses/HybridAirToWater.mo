@@ -1,8 +1,19 @@
-within Buildings.Templates.Plants.HeatPumps.Components.Controls;
+within Buildings.Templates.Plants.Experimental.Baseclasses;
 model HybridAirToWater "Controller for AWHP plant"
   extends
     Buildings.Templates.Plants.HeatPumps.Components.Interfaces.PartialController(
     final typ=Buildings.Templates.Plants.HeatPumps.Types.Controller.AirToWater);
+
+
+  final parameter Integer nHpShc=cfg.nHpShc
+    "Number of SHC heat pumps"
+    annotation (Evaluate=true,
+    Dialog(group="Configuration"));
+
+  final parameter Integer nHpTot=cfg.nHpTot
+    "Total number of heat pumps"
+    annotation (Evaluate=true,
+    Dialog(group="Configuration"));
 
   final parameter Real staEqu[:, cfg.nHpTot](
     each final max=1,
@@ -27,10 +38,9 @@ model HybridAirToWater "Controller for AWHP plant"
     annotation (Evaluate=true,
     Dialog(group="Equipment staging and rotation"));
 
-  Buildings.Templates.Plants.Controls.HeatPumps.AirToWater ctl(
+  Buildings.Templates.Plants.Experimental.Baseclasses.AirToWater ctl(
     final is_priOnl=if is_typDis_override then (typDis_override==Buildings.Templates.Plants.HeatPumps.Types.Distribution.Variable1Only) else (cfg.typDis==Buildings.Templates.Plants.HeatPumps.Types.Distribution.Variable1Only),
     final have_hrc_select=cfg.have_hrc,
-    final nHpShc=cfg.nHpShc,
     final TChiWatSupSet_max=dat.TChiWatSupSet_max,
     final TChiWatSup_nominal=dat.TChiWatSup_nominal,
     final THeaWatSupSet_min=dat.THeaWatSupSet_min,
@@ -189,6 +199,19 @@ model HybridAirToWater "Controller for AWHP plant"
     if cfg.have_HpShc
     "Combine primary pump signals for heating and cooling mode"
     annotation (Placement(transformation(extent={{60,0},{80,20}})));
+protected
+  Components.Interfaces.Bus                     busHpShc[nHpShc]
+    if cfg.have_HpShc "SHC heat pump control bus" annotation (Placement(
+        transformation(extent={{-260,280},{-220,320}}), iconTransformation(
+          extent={{-466,50},{-426,90}})));
+  Components.Interfaces.Bus                     busPumShcHeaWatPri
+    if cfg.have_HpShc "Primary SHC HP HW pump control bus" annotation (
+      Placement(transformation(extent={{-180,60},{-140,100}}),
+        iconTransformation(extent={{-466,50},{-426,90}})));
+  Components.Interfaces.Bus                     busPumShcChiWatPri
+    if cfg.have_HpShc "Primary SHC HP CHW pump control bus" annotation (
+      Placement(transformation(extent={{-180,-180},{-140,-140}}),
+        iconTransformation(extent={{-466,50},{-426,90}})));
 equation
   /* Control point connection - start */
   // Inputs from plant control bus
@@ -259,8 +282,8 @@ equation
   connect(ctl.yPumHeaWatSec, busPumHeaWatSec.y);
   connect(ctl.y1Hrc, busHrc.y1);
   connect(ctl.y1CooHrc, busHrc.y1Coo);
-  connect(ctl.THeaWatHrcSupSet, busHrc.THeaWatSet);
-  connect(ctl.TChiWatHrcSupSet, busHrc.TChiWatSet);
+  connect(ctl.THeaWatSupHrcSet, busHrc.THeaWatSet);
+  connect(ctl.TChiWatSupHrcSet, busHrc.TChiWatSet);
   connect(ctl.y1PumChiWatHrc, busPumChiWatHrc.y1);
   connect(ctl.y1PumHeaWatHrc, busPumHeaWatHrc.y1);
   /* Control point connection - stop */
@@ -329,40 +352,45 @@ equation
   connect(phReqResChiWatEquZon.y, reqResChiWat.u2) annotation (Line(points={{148,
           -200},{134,-200},{134,68},{112,68}}, color={255,127,0}));
   connect(reqPlaHeaWat.y, ctl.nReqPlaHeaWat) annotation (Line(points={{88,194},{
-          -40,194},{-40,13.8},{-22,13.8}},
-                                       color={255,127,0}));
-  connect(reqPlaChiWat.y, ctl.nReqPlaChiWat) annotation (Line(points={{88,154},{
-          -38,154},{-38,11.8},{-22,11.8}},
+          -40,194},{-40,13},{-22,13}}, color={255,127,0}));
+  connect(reqPlaChiWat.y, ctl.nReqPlaChiWat) annotation (Line(points={{88,154},
+          {-38,154},{-38,11.3636},{-22,11.3636}},
                                        color={255,127,0}));
   connect(reqResHeaWat.y,ctl.nReqResHeaWat)  annotation (Line(points={{88,114},{
-          -36,114},{-36,9.8},{-22,9.8}},
+          -36,114},{-36,9.72727},{-22,9.72727}},
                                        color={255,127,0}));
   connect(reqResChiWat.y,ctl.nReqResChiWat)  annotation (Line(points={{88,74},{-34,
-          74},{-34,7.8},{-22,7.8}},
+          74},{-34,8.09091},{-22,8.09091}},
                                   color={255,127,0}));
   connect(resDpHeaWatLoc.dpLocSet, ctl.dpHeaWatLocSet) annotation (Line(points={{-48.2,0},
-          {-40,0},{-40,-26.2},{-22,-26.2}},       color={0,0,127}));
+          {-40,0},{-40,-19.7273},{-22,-19.7273}}, color={0,0,127}));
   connect(resDpChiWatLoc.dpLocSet, ctl.dpChiWatLocSet) annotation (Line(points={{-48.2,
-          -40},{-40,-40},{-40,-32.2},{-22,-32.2}},    color={0,0,127}));
-  connect(ctl.dpChiWatRemSet, resDpChiWatLoc.dpRemSet) annotation (Line(points={{22,-7},
-          {40,-7},{40,-60},{-80,-60},{-80,-34},{-72,-34}},           color={0,0,
+          -40},{-40,-40},{-40,-24.6364},{-22,-24.6364}},
+                                                      color={0,0,127}));
+  connect(ctl.dpChiWatRemSet, resDpChiWatLoc.dpRemSet) annotation (Line(points={{22,-5},
+          {40,-5},{40,-60},{-80,-60},{-80,-34},{-72,-34}},           color={0,0,
           127}));
-  connect(ctl.dpHeaWatRemSet, resDpHeaWatLoc.dpRemSet) annotation (Line(points={{22,-5},
-          {34,-5},{34,-10},{42,-10},{42,-62},{-82,-62},{-82,6},{-72,6}},
+  connect(ctl.dpHeaWatRemSet, resDpHeaWatLoc.dpRemSet) annotation (Line(points={{22,
+          -3.36364},{34,-3.36364},{34,-10},{42,-10},{42,-62},{-82,-62},{-82,6},{
+          -72,6}},
         color={0,0,127}));
   connect(ctl.u1HpShc_actual, busHpShc.y1_actual);
-  connect(ctl.y1HpShcHea, busHpShc.y1HeaOn);
-  connect(ctl.y1HpShcCoo, busHpShc.y1CooOn);
+  connect(ctl.y1HeaHpShc, busHpShc.y1HeaOn);
+  connect(ctl.y1CooHpShc, busHpShc.y1CooOn);
   connect(ctl.THeaWatSupSetHpShc, busHpShc.TSet);
   connect(ctl.THeaWatSupSetHpShc, busHpShc.THeaWatSupSet);
   connect(ctl.TChiWatSupSetHpShc, busHpShc.TChiWatSupSet);
-  connect(ctl.yMod, busHpShc.yMod);
   connect(ctl.y1PumHeaWatPriShc, busPumShcHeaWatPri.y1);
   connect(ctl.y1PumChiWatPriShc, busPumShcChiWatPri.y1);
-  connect(ctl.y1PumHeaWatPri, or2.u1) annotation (Line(points={{22,27},{52,27},{
-          52,10},{58,10}}, color={255,0,255}));
-  connect(ctl.y1PumChiWatPri, or2.u2) annotation (Line(points={{22,25},{44,25},{
-          44,2},{58,2}}, color={255,0,255}));
+  connect(ctl.y1PumHeaWatPri, or2.u1) annotation (Line(points={{22,21.1818},{52,
+          21.1818},{52,10},{58,10}},
+                           color={255,0,255}));
+  connect(ctl.y1PumChiWatPri, or2.u2) annotation (Line(points={{22,19.5455},{44,
+          19.5455},{44,2},{58,2}},
+                         color={255,0,255}));
+  connect(busPumShcHeaWatPri, bus.pumShcHeaWatPri);
+  connect(busPumShcChiWatPri, bus.pumShcChiWatPri);
+  connect(busHpShc,bus.hpShc);
   annotation (
     defaultComponentName="ctl", Documentation(info="<html>
 <p>

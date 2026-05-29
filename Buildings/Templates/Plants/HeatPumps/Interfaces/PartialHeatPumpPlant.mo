@@ -75,6 +75,7 @@ partial model PartialHeatPumpPlant
     final have_valHpOutIso=have_valHpOutIso,
     final is_rev=is_rev,
     final nHp=nHp,
+    final nHpShc=nHpShc,
     final nPumChiWatPri=nPumChiWatPri,
     final nPumChiWatSec=nPumChiWatSec,
     final nPumHeaWatPri=nPumHeaWatPri,
@@ -109,7 +110,13 @@ partial model PartialHeatPumpPlant
   parameter Integer nHp(
     final min=1,
     start=1)
-    "Total number of heat pumps"
+    "Number of non-polyvalent heat pumps"
+    annotation (Evaluate=true,
+    Dialog(group="Heat pumps"));
+  parameter Integer nHpShc(
+    final min=1,
+    start=1)
+    "Number of polyvalent heat pumps"
     annotation (Evaluate=true,
     Dialog(group="Heat pumps"));
   parameter Boolean is_rev

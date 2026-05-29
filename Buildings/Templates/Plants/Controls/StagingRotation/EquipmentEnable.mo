@@ -1,49 +1,49 @@
 within Buildings.Templates.Plants.Controls.StagingRotation;
 block EquipmentEnable
   "Return array of equipment to be enabled at given stage"
-  parameter Boolean is_pumApp
-    "Is the equipment enable block used for a pump control module application?";
 
   parameter Boolean have_HpShc=false
-    "True: The logic block is used in a hybrid heat pump plant"
+    "Set to true if the logic block is used to stage HPs in a polyvalent heat pump plant"
     annotation (Evaluate=true);
 
-  parameter Integer nEquAlt
+  final parameter Integer nEquAlt=if nEqu==1 then 1 elseif (nEqu>1 and have_HpShc) then
+    max({sum({(if staEquSinMod[i, j] > 0 and staEquSinMod[i, j] < 1 then 1 else 0) for j in 1:nEqu}) for i in 1:nSta})
+    else max({sum({(if staEqu[i, j] > 0 and staEqu[i, j] < 1 then 1 else 0) for j in 1:nEqu}) for i in 1:nSta})
     "Number of lead/lag alternate equipment"
     annotation (Evaluate=true);
 
-  parameter Integer nSta
+  final parameter Integer nSta=if have_HpShc then size(staEquSinMod,1) else size(staEqu,1)
     "Number of stages"
     annotation (Evaluate=true);
 
-  parameter Integer nEqu
+  final parameter Integer nEqu=if have_HpShc then size(staEquSinMod,2) else size(staEqu,2)
     "Number of equipment"
     annotation (Evaluate=true);
 
-  parameter Real staEqu[nSta,nEqu](
+  parameter Real staEqu[:,:](
     each unit="1",
     each min=0,
     each max=1,
     start=fill(0,nSta,nEqu))
-    "Staging matrix for non-hybrid plant – Equipment required for each stage"
+    "Staging matrix – Equipment required for each stage"
     annotation (Evaluate=true,
       Dialog(enable=not have_HpShc));
 
-  parameter Real staEquSinMod[nSta,nEqu](
+  parameter Real staEquSinMod[:,:](
     each unit="1",
     each min=0,
     each max=1,
     start=fill(0,nSta,nEqu))
-    "Staging matrix for hybrid plant in single-operation mode – Equipment required for each stage"
+    "Staging matrix for polyvalent HP plant in single-operation mode – Equipment required for each stage"
     annotation (Evaluate=true,
       Dialog(enable=have_HpShc));
 
-  parameter Real staEquDouMod[nSta,nEqu](
+  parameter Real staEquDouMod[:,:](
     each unit="1",
     each min=0,
     each max=1,
     start=fill(0,nSta,nEqu))
-    "Staging matrix for hybrid plant in heating-cooling mode – Equipment required for each stage"
+    "Staging matrix for polyvalent HP plant in heating-cooling mode – Equipment required for each stage"
     annotation (Evaluate=true,
       Dialog(enable=have_HpShc));
 
@@ -64,7 +64,7 @@ block EquipmentEnable
     annotation (Placement(transformation(extent={{-240,-120},{-200,-80}}),
       iconTransformation(extent={{-140,-40},{-100,0}})));
 
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1HeaCoo if not is_pumApp
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1HeaCoo if have_HpShc
     "Detect plant switching to heating-cooling mode"
     annotation (Placement(transformation(extent={{-240,-160},{-200,-120}}),
       iconTransformation(extent={{-140,-80},{-100,-40}})));
@@ -160,7 +160,7 @@ block EquipmentEnable
     "Compare to required number of equipment"
     annotation (Placement(transformation(extent={{30,-130},{50,-110}})));
   Buildings.Controls.OBC.CDL.Logical.MultiOr swiEna(
-    final nin=if is_pumApp then 2 else 3)
+    final nin=if not have_HpShc then 2 else 3)
     "Evaluate condition to switch to newly computed enable signal"
     annotation (Placement(transformation(extent={{80,-90},{100,-70}})));
   Buildings.Controls.OBC.CDL.Logical.And isEnaPreAva[nEqu]
@@ -195,41 +195,44 @@ block EquipmentEnable
     "Void if stage is equal to zero"
     annotation (Placement(transformation(extent={{-100,50},{-80,70}})));
 
-  Buildings.Controls.OBC.CDL.Logical.Change cha1 if not is_pumApp
+  Buildings.Controls.OBC.CDL.Logical.Change cha1 if have_HpShc
     "Detect if plant enters simultaneous heating and cooling operation"
     annotation (Placement(transformation(extent={{-20,-150},{0,-130}})));
 
   Buildings.Controls.OBC.CDL.Reals.Switch swiMod[nEqu,nSta]
-    if have_HpShc and not is_pumApp
-    "Switch between transverse matrices for heating-cooling mode and single-operation mode"
+    if have_HpShc and have_HpShc
+    "Switch between transpose matrices for heating-cooling mode and single-operation mode"
     annotation (Placement(transformation(extent={{-8,110},{12,130}})));
 
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant conTraMatStaEquDouMod[nEqu,nSta](
     final k=traStaEquDouMod) if have_HpShc
-    "Constant signal for transverse of staging equation matrix in heating-cooling mode"
+    "Constant signal for transpose of staging equation matrix in heating-cooling mode"
     annotation (Placement(transformation(extent={{-80,130},{-60,150}})));
 
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant conTraMatStaEquSinMod[nEqu,nSta](
     final k=traStaEquSinMod) if have_HpShc
-    "Constant signal for transverse of staging equation matrix in single-operation mode"
+    "Constant signal for transpose of staging equation matrix in single-operation mode"
     annotation (Placement(transformation(extent={{-80,90},{-60,110}})));
 
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant conTraMatStaEqu[nEqu,nSta](
     final k=traStaEqu) if not have_HpShc
-    "Constant signal for transverse of staging equation matrix in non-hybrid plants"
+    "Constant signal for transpose of staging equation matrix in non-hybrid plants"
     annotation (Placement(transformation(extent={{-190,50},{-170,70}})));
 
   Buildings.Controls.OBC.CDL.Routing.BooleanVectorReplicator booVecRepRow(
     final nin=nSta,
-    final nout=nEqu) if not is_pumApp
+    final nout=nEqu) if have_HpShc
     "Replicate heating-cooling signal vector to match number of rows"
     annotation (Placement(transformation(extent={{-80,-130},{-60,-110}})));
 
   Buildings.Controls.OBC.CDL.Routing.BooleanScalarReplicator booScaRepCol(
-    final nout=nSta) if not is_pumApp
+    final nout=nSta) if have_HpShc
     "Replicate heating-cooling signal to match number of columns"
     annotation (Placement(transformation(extent={{-120,-130},{-100,-110}})));
 
+  Buildings.Controls.OBC.CDL.Logical.Pre pre if have_HpShc
+    "Pre block to prevent incorrect generation of equipment enable pulse signal"
+    annotation (Placement(transformation(extent={{-160,-130},{-140,-110}})));
 equation
   connect(intScaRep.y, reqEquSta.index)
     annotation (Line(points={{-108,-20},{-100,-20},{-100,40},{-150,40},{-150,48}},
@@ -357,10 +360,12 @@ equation
           60}},                                          color={0,0,127}));
   connect(booScaRepCol.y, booVecRepRow.u)
     annotation (Line(points={{-98,-120},{-82,-120}}, color={255,0,255}));
-  connect(u1HeaCoo, booScaRepCol.u) annotation (Line(points={{-220,-140},{-132,-140},
-          {-132,-120},{-122,-120}}, color={255,0,255}));
   connect(booVecRepRow.y, swiMod.u2) annotation (Line(points={{-58,-120},{-32,-120},
           {-32,120},{-10,120}}, color={255,0,255}));
+  connect(u1HeaCoo, pre.u) annotation (Line(points={{-220,-140},{-172,-140},{
+          -172,-120},{-162,-120}}, color={255,0,255}));
+  connect(pre.y, booScaRepCol.u)
+    annotation (Line(points={{-138,-120},{-122,-120}}, color={255,0,255}));
   annotation (
     defaultComponentName="enaEqu",
     Icon(
