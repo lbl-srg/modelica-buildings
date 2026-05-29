@@ -64,8 +64,7 @@ model GroundResponse "Ground response calculated by the TOUGH simulator"
     final n=2*nSeg + 6)
     "Multiplex"
     annotation (Placement(transformation(extent={{0,-10},{20,10}})));
-  Modelica.Blocks.Sources.ContinuousClock clock
-    "Current time"
+  Buildings.Utilities.Time.ModelTime clock "Model time"
     annotation (Placement(transformation(extent={{-80,-70},{-60,-50}})));
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant griNum[3](
     final k={nSeg,nTouSeg,nInt}) "Total number of grids"
