@@ -3,5 +3,6 @@ PlugFlow
 PlugFlowHeatLoss
 PlugFlowPipe
 PlugFlowTransportDelay
+PowerLawResistanceParameters
 powerLawFixedM
 Validation

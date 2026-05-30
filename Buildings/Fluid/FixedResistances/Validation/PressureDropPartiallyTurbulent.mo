@@ -28,12 +28,11 @@ model PressureDropPartiallyTurbulent
     dp_nominal=5000) "Flow resistance"
     annotation (Placement(transformation(extent={{0,90},{20,110}})));
 
-  Buildings.Fluid.FixedResistances.PressureDropPartiallyTurbulent
-                                                res12(
+  Buildings.Fluid.FixedResistances.PressureDropPartiallyTurbulent res12(
     redeclare package Medium = Medium,
     m_flow_nominal=2,
     dp_nominal=5000,
-    m=0.5)        "Flow resistance"
+    n=2) "Flow resistance"
     annotation (Placement(transformation(extent={{0,50},{20,70}})));
 
   Modelica.Blocks.Sources.Ramp P(
@@ -67,13 +66,15 @@ model PressureDropPartiallyTurbulent
     m_flow_nominal=2,
     dp_nominal=5000,
     linearized=true,
-    m=0.5) "Flow resistance"
+    n=2) "Flow resistance"
     annotation (Placement(transformation(extent={{0,-70},{20,-50}})));
-  Sensors.MassFlowRate                 senMasFlo3(redeclare package Medium =
-        Medium)                        "Mass flow rate sensor"
+  Sensors.MassFlowRate senMasFlo3(
+    redeclare package Medium = Medium)
+    "Mass flow rate sensor"
     annotation (Placement(transformation(extent={{60,-30},{80,-10}})));
-  Sensors.MassFlowRate                 senMasFlo4(redeclare package Medium =
-        Medium)                        "Mass flow rate sensor"
+  Sensors.MassFlowRate senMasFlo4(
+    redeclare package Medium = Medium)
+    "Mass flow rate sensor"
     annotation (Placement(transformation(extent={{60,-70},{80,-50}})));
   Buildings.Utilities.Diagnostics.AssertEquality assEqu2(threShold=1E-1)
     "Assert equality of the two mass flow rates"
@@ -89,13 +90,15 @@ model PressureDropPartiallyTurbulent
     redeclare package Medium = Medium,
     m_flow_nominal=2,
     dp_nominal=5000,
-    m=1) "Flow resistance"
+    n=1) "Flow resistance"
     annotation (Placement(transformation(extent={{0,-170},{20,-150}})));
-  Sensors.MassFlowRate                 senMasFlo5(redeclare package Medium =
-        Medium)                        "Mass flow rate sensor"
+  Sensors.MassFlowRate senMasFlo5(
+    redeclare package Medium = Medium)
+    "Mass flow rate sensor"
     annotation (Placement(transformation(extent={{60,-130},{80,-110}})));
-  Sensors.MassFlowRate                 senMasFlo6(redeclare package Medium =
-        Medium)                        "Mass flow rate sensor"
+  Sensors.MassFlowRate senMasFlo6(
+    redeclare package Medium = Medium)
+    "Mass flow rate sensor"
     annotation (Placement(transformation(extent={{60,-170},{80,-150}})));
   Buildings.Utilities.Diagnostics.AssertEquality assEqu3(threShold=1E-1)
     "Assert equality of the two mass flow rates"
@@ -104,10 +107,11 @@ model PressureDropPartiallyTurbulent
     redeclare package Medium = Medium,
     m_flow_nominal=2,
     dp_nominal=5000,
-    m=0.8) "Flow resistance"
+    n=1.25) "Flow resistance"
     annotation (Placement(transformation(extent={{0,-230},{20,-210}})));
-  Sensors.MassFlowRate                 senMasFlo7(redeclare package Medium =
-        Medium)                        "Mass flow rate sensor"
+  Sensors.MassFlowRate senMasFlo7(
+    redeclare package Medium = Medium)
+    "Mass flow rate sensor"
     annotation (Placement(transformation(extent={{60,-230},{80,-210}})));
 equation
   connect(sou.ports[1], res11.port_a)
@@ -184,11 +188,11 @@ equation
                                          Text(
           extent={{-114,-106},{-20,-128}},
           textColor={0,0,255},
-          textString="Linearized vs setting m=1."),
+          textString="Linearized vs setting n=1."),
                                          Text(
           extent={{-114,-212},{-20,-234}},
           textColor={0,0,255},
-          textString="Non-linearized, m=0.8")}),
+          textString="Non-linearized, n=1.25")}),
 experiment(
       StartTime=-1,
       Tolerance=1e-06),

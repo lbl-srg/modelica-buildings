@@ -30,7 +30,7 @@ model ColdPlateR_P
   parameter Modelica.Units.SI.PressureDifference dp_nominal(displayUnit="Pa") = 50000
     "Pressure drop at nominal mass flow rate"
     annotation (Dialog(group="Nominal condition"));
-  parameter Real m = 0.54 "Flow exponent, m=0.5 for turbulent, m=1 for laminar";
+  parameter Real n = 1.85 "Flow exponent, n=1 for laminar, n=2 for turbulent";
   parameter Real deltaM(min=1E-6) = 0.3
     "Fraction of nominal mass flow rate where transition to turbulent occurs"
        annotation(Evaluate=true,
@@ -83,7 +83,7 @@ model ColdPlateR_P
     final allowFlowReversal=allowFlowReversal,
     final m_flow_nominal=m_flow_nominal,
     final dp_nominal=dp_nominal,
-    final m=m)
+    final n=n)
     "Flow resistance"
     annotation (Placement(transformation(extent={{-40,-10},{-20,10}})));
   Fluid.Delays.DelayFirstOrder vol(
