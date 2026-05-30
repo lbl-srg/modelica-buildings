@@ -224,12 +224,9 @@ __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Fixe
     Documentation(info="<html>
 <p>
 This model tests the implementation of
-<a href=\"modelica://Buildings.Fluid.FixedResistances.PressureDropPartiallyTurbulent\">
-Buildings.Fluid.FixedResistances.PressureDropPartiallyTurbulent</a>
-for different values of the flow coefficient <i>m</i>
-by comparing it against solutions computed by
 <a href=\"modelica://Buildings.Fluid.FixedResistances.PressureDrop\">
-Buildings.Fluid.FixedResistances.PressureDrop</a>.
+Buildings.Fluid.FixedResistances.PressureDrop</a>
+for different values of the flow coefficient <i>n</i>.
 </p>
 <p>
 For those configurations where the results should be the same,
@@ -238,8 +235,10 @@ an assertion checks for equality, within a small tolerance.
 </html>", revisions="<html>
 <ul>
 <li>
-December 19, 2025, by Michael Wetter:<br/>
-First implementation.
+May 30, 2026, by Michael Wetter:<br/>
+First implementation.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4620\">#4620</a>.
 </li>
 </ul>
 </html>"),

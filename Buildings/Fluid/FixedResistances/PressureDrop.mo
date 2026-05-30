@@ -259,6 +259,13 @@ This leads to simpler equations.
 </html>", revisions="<html>
 <ul>
 <li>
+May 30, 2026, by Michael Wetter:<br/>
+Updated implementation to allow a flow coefficient <code>n</code> that is different from <code>2</code>.
+This allows use of the model for not fully turbulent flow.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4620\">#4620</a>.
+</li>
+<li>
 March 31, 2026, by Michael Wetter:<br/>
 Corrected unit propagation error that causes Dymola 2026x to not show certain units.<br/>
 See <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/2100\">#2100</a>.

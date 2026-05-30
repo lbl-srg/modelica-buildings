@@ -65,17 +65,14 @@ For <i>|&Delta;p| &lt; &Delta;p<sub>t</sub></i>, the equation is regularized
 so that it is twice continuously differentiable in <i>&Delta;p</i>, and that it
 has an infinite number of continuous derivatives in <i>m</i> and in <i>k</i>.
 </p>
-<p>
-If <i>m = 0.5</i>, use
-<a href=\"modelica://Buildings.Fluid.FixedResistances.PressureDrop\">
-Buildings.Fluid.FixedResistances.PressureDrop</a>.
-</p>
 </html>",
 revisions="<html>
 <ul>
 <li>
-December 18, 2025 by Michael Wetter:<br/>
-First implementation.
+May 30, 2026, by Michael Wetter:<br/>
+First implementation.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4620\">#4620</a>.
 </li>
 </ul>
 </html>"));
