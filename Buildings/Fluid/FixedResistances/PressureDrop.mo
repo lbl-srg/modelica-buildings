@@ -26,16 +26,19 @@ protected
     "Flag to enable/disable computation of flow resistance"
    annotation(Evaluate=true);
   final parameter Real coeM(final unit="kg/(s.Pa)")=
-    if linearized and computeFlowResistance
+    if (linearized or fullyLaminar) and computeFlowResistance
     then k^n/m_flow_nominal_pos else 0
     "Precomputed coefficient to avoid division by parameter";
   final parameter Real coeP(final unit="s.Pa/kg")=
-    if linearized and computeFlowResistance
+    if (linearized or fullyLaminar) and computeFlowResistance
     then m_flow_nominal_pos/k^n else 0
     "Precomputed coefficient to avoid division by parameter";
 
   // Coefficients for partially turbulent model
-  parameter Boolean fullyTurbulent = n > 1.999999 and n < 2.000001
+  parameter Boolean fullyTurbulent = n > 1.99999999 and n < 2.00000001
+    "If true, fully turbulent, simpler model, is used"
+    annotation(Evaluate=true);
+  parameter Boolean fullyLaminar = n > 0.99999999 and n < 1.00000001
     "If true, fully turbulent, simpler model, is used"
     annotation(Evaluate=true);
 
@@ -44,11 +47,11 @@ protected
   parameter Real m = 1/n "Flow exponent";
   parameter Real a = gamma
     "Polynomial coefficient for regularized implementation of flow resistance";
-  parameter Real b = if fullyTurbulent then 0 else 1/8*m^2 - 3*gamma - 3/2*m + 35.0/8
+  parameter Real b = if fullyTurbulent or fullyLaminar then 0 else 1/8*m^2 - 3*gamma - 3/2*m + 35.0/8
     "Polynomial coefficient for regularized implementation of flow resistance";
-  parameter Real c = if fullyTurbulent then 0 else -1/4*m^2 + 3*gamma + 5/2*m - 21.0/4
+  parameter Real c = if fullyTurbulent or fullyLaminar then 0 else -1/4*m^2 + 3*gamma + 5/2*m - 21.0/4
     "Polynomial coefficient for regularized implementation of flow resistance";
-  parameter Real d = if fullyTurbulent then 0 else 1/8*m^2 - gamma - m + 15.0/8
+  parameter Real d = if fullyTurbulent or fullyLaminar then 0 else 1/8*m^2 - gamma - m + 15.0/8
     "Polynomial coefficient for regularized implementation of flow resistance";
   parameter Modelica.Units.SI.PressureDifference dp_turbulent(displayUnit="Pa") =
     dp_nominal * (m_flow_turbulent/m_flow_nominal)^n
@@ -63,7 +66,7 @@ initial equation
 equation
   // Pressure drop calculation
   if computeFlowResistance then
-    if linearized then
+    if linearized or fullyLaminar then
       if from_dp then
         m_flow = dp*coeM;
       else
@@ -329,5 +332,10 @@ July 20, 2007 by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>
-</html>"));
+</html>"),
+    Icon(graphics={Text(
+          extent={{-34,-54},{34,-84}},
+          textColor={28,108,200},
+          visible = not (fullyTurbulent or fullyLaminar),
+          textString="n=n")}));
 end PressureDrop;
