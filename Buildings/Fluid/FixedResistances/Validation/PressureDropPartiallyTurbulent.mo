@@ -60,7 +60,7 @@ model PressureDropPartiallyTurbulent
     m_flow_nominal=2,
     dp_nominal=5000,
     linearized=true,
-    n=2)             "Flow resistance"
+    n=2) "Flow resistance"
     annotation (Placement(transformation(extent={{0,-30},{20,-10}})));
   Buildings.Fluid.FixedResistances.PressureDrop res23(
     redeclare package Medium = Medium,
@@ -114,7 +114,7 @@ model PressureDropPartiallyTurbulent
     redeclare package Medium = Medium)
     "Mass flow rate sensor"
     annotation (Placement(transformation(extent={{60,-230},{80,-210}})));
-  PressureDrop                                  res9(
+  PressureDrop res9(
     redeclare package Medium = Medium,
     m_flow_nominal=2,
     dp_nominal=5000,
@@ -215,11 +215,7 @@ equation
                                          Text(
           extent={{-114,-250},{-20,-272}},
           textColor={0,0,255},
-          textString="Linearized, n=1.25"),
-                                         Text(
-          extent={{112,-236},{192,-272}},
-          textColor={238,46,47},
-          textString="fixme: add res9 to plot")}),
+          textString="Linearized, n=1.25")}),
 experiment(
       StartTime=-1,
       Tolerance=1e-06),
@@ -247,5 +243,5 @@ First implementation.
 </li>
 </ul>
 </html>"),
-    Icon(coordinateSystem(extent={{-120,-280},{160,160}})));
+    Icon(coordinateSystem(extent={{-100,-100},{100,100}})));
 end PressureDropPartiallyTurbulent;
