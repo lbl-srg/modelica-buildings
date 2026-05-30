@@ -43,19 +43,34 @@ protected
     annotation(Evaluate=true);
 
   parameter Real m = 1/n "Flow exponent";
-  constant Real a(min=1) = 1.5
+
+  parameter Real a(min=1, fixed=false)
     "Normalized flow rate where dphi(0)/dpi intersects phi(1), polynomial coefficient for regularized implementation of flow resistance.";
-  parameter Real b = if fullyTurbulent or fullyLaminar then 0 else 1/8*m^2 - 3*a - 3/2*m + 35.0/8
+  parameter Real b(fixed=false)
     "Polynomial coefficient for regularized implementation of flow resistance";
-  parameter Real c = if fullyTurbulent or fullyLaminar then 0 else -1/4*m^2 + 3*a + 5/2*m - 21.0/4
+  parameter Real c(fixed=false)
     "Polynomial coefficient for regularized implementation of flow resistance";
-  parameter Real d = if fullyTurbulent or fullyLaminar then 0 else 1/8*m^2 - a - m + 15.0/8
+  parameter Real d(fixed=false)
     "Polynomial coefficient for regularized implementation of flow resistance";
+
   parameter Modelica.Units.SI.PressureDifference dp_turbulent(displayUnit="Pa") =
     dp_nominal * (m_flow_turbulent/m_flow_nominal)^n
     "Transition to turbulent flow";
 
 initial equation
+  if fullyTurbulent or fullyLaminar then
+    a = 0;
+    b = 0;
+    c = 0;
+    d = 0;
+  else
+    a = 1.5;
+    b = 1/8*m^2 - 3*a - 3/2*m + 35.0/8;
+    c = -1/4*m^2 + 3*a + 5/2*m - 21.0/4;
+    d = 1/8*m^2 - a - m + 15.0/8;
+  end if;
+
+
  if computeFlowResistance then
    assert(m_flow_turbulent > 0, "m_flow_turbulent must be bigger than zero.");
  end if;
