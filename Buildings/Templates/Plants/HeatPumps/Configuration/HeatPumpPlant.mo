@@ -31,7 +31,7 @@ record HeatPumpPlant
     annotation(Evaluate=true);
 
   final parameter Boolean have_HpShc=nHpShc>0
-    "True: The plant is a hybrid heat pump plant with a four-pipe heat pump"
+    "Set to true if the heat pump plant has polyvalent units"
     annotation(Evaluate=true);
 
   parameter Boolean is_rev

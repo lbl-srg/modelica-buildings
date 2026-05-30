@@ -179,7 +179,7 @@ block AirToWater "Controller for AWHP plant"
     annotation (Evaluate=true);
 
   final parameter Boolean have_HpShc=nHpShc>0
-    "True: The plant is a hybrid heat pump plant with simultaneous heating-cooling"
+    "Set to true if the heat pump plant has polyvalent units"
     annotation (Evaluate=true,
       Dialog(group="Plant configuration"));
 
@@ -481,9 +481,10 @@ block AirToWater "Controller for AWHP plant"
   parameter Real staHpShc[:, nHpShc](
     each final max=1,
     each final min=0,
-    each final unit="1")={fill(i/nHpShc,nHpShc) for i in 1:nHpShc}
+    each final unit="1",
+    final start={{0}})={fill(i/nHpShc,nHpShc) for i in 1:nHpShc}
     "Staging matrix for heat pumps with simultaneous heating-cooling – Equipment required for each stage"
-    annotation (Dialog(group="Equipment staging and rotation"));
+    annotation (Dialog(group="Equipment staging and rotation", enable=have_HpShc));
 
   final parameter Integer staHpShcRow = size(staHpShc,1)
     "Number of rows in the simultaneous heating-cooling heat pump staging matrix";
@@ -1375,7 +1376,7 @@ block AirToWater "Controller for AWHP plant"
       nEqu=nHpTot) if have_heaWat "Evaluate heating stage availability"
     annotation (Placement(transformation(extent={{-110,320},{-90,340}})));
   Controls.StagingRotation.EquipmentEnable enaEquHea(
-    final have_HpShc=have_HpShc,
+    is_HpShcApp=have_HpShc,
     final staEqu=staEqu,
     final staEquSinMod=staEquSinMod,
     final staEquDouMod=staEquDouMod) if have_heaWat
@@ -1455,7 +1456,7 @@ block AirToWater "Controller for AWHP plant"
     if have_chiWat "Compute cooling stage index"
     annotation (Placement(transformation(extent={{-10,90},{10,110}})));
   Controls.StagingRotation.EquipmentEnable enaEquCoo(
-    final have_HpShc=have_HpShc,
+    is_HpShcApp=have_HpShc,
     final staEqu=staEqu,
     final staEquSinMod=staEquSinMod,
     final staEquDouMod=staEquDouMod) if have_chiWat
@@ -2497,9 +2498,9 @@ Constant speed
 </table>
 <h4>Details</h4>
 <p>
-Staging matrices <code>staHp</code> and <code>staHpShc</code>
-are required parameters. The other staging matrices can be defined if the plant
-requires a complex staging order.
+Staging matrix <code>staHp</code> is a required parameter. <code>staHpShc</code>
+is a required parameter if there are any polyvalent heat pumps (<code>nHpShc&gt;0</code>). The other
+staging matrices can be defined if the plant requires a complex staging order.
 See the documentation of
 <a href=\"modelica://Buildings.Templates.Plants.Controls.StagingRotation.EquipmentEnable\">
 Buildings.Templates.Plants.Controls.StagingRotation.EquipmentEnable</a>

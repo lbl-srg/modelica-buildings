@@ -4,7 +4,7 @@ block StageChangeCommand "Generate stage change command"
     "Type of application"
     annotation (Evaluate=true);
   parameter Boolean have_HpShc=false
-    "Set to true if the logic block is used in a polyvalent HP plant"
+    "Set to true if the heat pump plant has polyvalent units"
     annotation (Evaluate=true);
   parameter Boolean have_pumSec
     "Set to true for primary-secondary distribution, false for primary-only"
