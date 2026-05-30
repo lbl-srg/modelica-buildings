@@ -447,62 +447,37 @@ For each equipment item <i>i</i>, the enable command is determined as
 follows.
 </p>
 <p>
-The staging matrix (or its transpose) encodes which equipment items are
-required at each stage. From the extracted row for the current stage, three Boolean
+From the extracted row for the current stage, three Boolean
 conditions are derived for each equipment item <i>i</i>:
 </p>
 <ul>
 <li>
-<code>isReq</code>: the staging row value equals exactly 1, meaning equipment
+the staging row value equals exactly 1, meaning equipment
 <i>i</i> is required without a lead/lag alternate.
 </li>
 <li>
-<code>isReqPosAlt</code>: the staging row value is greater than zero, meaning
+the staging row value is greater than zero, meaning
 equipment <i>i</i> is required either directly or as a potential
 lead/lag alternate.
 </li>
 <li>
-<code>isNotReqNoAlt</code>: the staging row value is less than 1, meaning
+the staging row value is less than 1, meaning
 equipment <i>i</i> is either not required or is only a candidate
 lead/lag alternate.
 </li>
 </ul>
 <p>
-Equipment that is directly required (<code>isReq</code> is true) and available
-(<code>u1Ava</code> is true) is enabled via <code>isReqAva</code>.
+Equipment that is directly required and available
+is enabled via <code>isReqAva</code>.
 </p>
 <p>
 For lead/lag alternate equipment, the number of alternates needed to
-satisfy the stage requirement is computed as:
-</p>
-<p align=\"center\" style=\"font-style:italic;\">
-n<sub>alt,req</sub> = n<sub>equ,sta</sub> &minus; n<sub>req</sub>
-</p>
-<p>
-where <i>n<sub>equ,sta</sub></i> is the total number of equipment
-required at the current stage (summed from the staging row via
-<code>nEquStaRea</code> and converted by <code>nEquSta</code>) and
-<i>n<sub>req</sub></i> is the count of equipment directly required
-without a lead/lag alternate (counted by <code>nReq</code>).
-The block <code>truArrCon</code>
-(<a href=\"modelica://Buildings.Templates.Plants.Controls.Utilities.TrueArrayConditional\">
-Buildings.Templates.Plants.Controls.Utilities.TrueArrayConditional</a>)
+satisfy the stage requirement is first computed. The block <code>truArrCon</code>
 then generates a Boolean array that marks the
-first <i>n<sub>alt,req</sub></i> available lead/lag alternate equipment
-items according to the sorted runtime order supplied by
-<code>uIdxAltSor</code>.
-An alternate equipment item is enabled when it is a candidate
-(<i>isReqPosAlt</i> and <i>isNotReqNoAlt</i>), available
-(<code>u1Ava</code>), and selected by <code>truArrCon</code>; this
-combined condition is evaluated by <code>isReqAltAva</code> and
-<code>isReqAltAvaNee</code>.
-</p>
-<p>
-The final enable command for each equipment item is the logical OR of
-the two paths:
-</p>
-<p align=\"center\" style=\"font-style:italic;\">
-y1<sub>i</sub> = isReqAva<sub>i</sub> or isReqAltAvaNee<sub>i</sub>
+first available lead/lag alternate equipment items according to the sorted runtime
+order supplied by <code>uIdxAltSor</code>.
+An alternate equipment item is enabled when it is a candidate, available, and
+selected by <code>truArrCon</code>.
 </p>
 </html>", revisions="<html>
 <ul>
