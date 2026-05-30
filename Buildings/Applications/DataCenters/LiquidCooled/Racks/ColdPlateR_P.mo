@@ -78,7 +78,7 @@ model ColdPlateR_P
     final V_flow_nominal=m_flow_nominal/Medium.d_const/nColPla) "Case temperature"
     annotation (Placement(transformation(extent={{20,70},{40,90}})));
 
-  Buildings.Fluid.FixedResistances.PressureDropPartiallyTurbulent res(
+  Buildings.Fluid.FixedResistances.PressureDrop res(
     redeclare package Medium = Medium,
     final allowFlowReversal=allowFlowReversal,
     final m_flow_nominal=m_flow_nominal,

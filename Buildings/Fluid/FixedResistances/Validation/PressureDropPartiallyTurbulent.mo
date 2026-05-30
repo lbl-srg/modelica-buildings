@@ -28,7 +28,7 @@ model PressureDropPartiallyTurbulent
     dp_nominal=5000) "Flow resistance"
     annotation (Placement(transformation(extent={{0,90},{20,110}})));
 
-  Buildings.Fluid.FixedResistances.PressureDropPartiallyTurbulent res12(
+  Buildings.Fluid.FixedResistances.PressureDrop res12(
     redeclare package Medium = Medium,
     m_flow_nominal=2,
     dp_nominal=5000,
@@ -61,7 +61,7 @@ model PressureDropPartiallyTurbulent
     dp_nominal=5000,
     linearized=true) "Flow resistance"
     annotation (Placement(transformation(extent={{0,-30},{20,-10}})));
-  Buildings.Fluid.FixedResistances.PressureDropPartiallyTurbulent res23(
+  Buildings.Fluid.FixedResistances.PressureDrop res23(
     redeclare package Medium = Medium,
     m_flow_nominal=2,
     dp_nominal=5000,
@@ -86,7 +86,7 @@ model PressureDropPartiallyTurbulent
     dp_nominal=5000,
     linearized=true) "Flow resistance"
     annotation (Placement(transformation(extent={{0,-130},{20,-110}})));
-  Buildings.Fluid.FixedResistances.PressureDropPartiallyTurbulent res32(
+  Buildings.Fluid.FixedResistances.PressureDrop res32(
     redeclare package Medium = Medium,
     m_flow_nominal=2,
     dp_nominal=5000,
@@ -103,7 +103,7 @@ model PressureDropPartiallyTurbulent
   Buildings.Utilities.Diagnostics.AssertEquality assEqu3(threShold=1E-1)
     "Assert equality of the two mass flow rates"
     annotation (Placement(transformation(extent={{120,-100},{140,-80}})));
-  Buildings.Fluid.FixedResistances.PressureDropPartiallyTurbulent res08(
+  Buildings.Fluid.FixedResistances.PressureDrop res08(
     redeclare package Medium = Medium,
     m_flow_nominal=2,
     dp_nominal=5000,

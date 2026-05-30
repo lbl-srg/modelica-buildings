@@ -4,6 +4,10 @@ model PressureDrop
   extends Buildings.Fluid.BaseClasses.PartialResistance(
     final m_flow_turbulent = if computeFlowResistance then deltaM * m_flow_nominal_pos else 0);
 
+  parameter Real n(min=1, max=2) = 2
+    "Flow exponent, n=1 for laminar, n=2 for turbulent"
+    annotation(Evaluate=true);
+
   parameter Real deltaM(min=1E-6) = 0.3
     "Fraction of nominal mass flow rate where transition to turbulent occurs"
        annotation(Evaluate=true,
@@ -11,8 +15,8 @@ model PressureDrop
                          enable = not linearized));
 
   final parameter Real k = if computeFlowResistance then
-        m_flow_nominal_pos / sqrt(dp_nominal_pos) else 0
-    "Flow coefficient, k=m_flow/sqrt(dp), with unit=(kg.m)^(1/2)";
+        m_flow_nominal_pos / dp_nominal_pos^(1/n) else 0
+    "Flow coefficient, k=m_flow/dp^(1/n)";
 protected
   parameter Boolean disableComputeFlowResistance_internal=false
     "=false to disable computation of flow resistance"
@@ -23,12 +27,33 @@ protected
    annotation(Evaluate=true);
   final parameter Real coeM(final unit="kg/(s.Pa)")=
     if linearized and computeFlowResistance
-    then k^2/m_flow_nominal_pos else 0
+    then k^n/m_flow_nominal_pos else 0
     "Precomputed coefficient to avoid division by parameter";
   final parameter Real coeP(final unit="s.Pa/kg")=
     if linearized and computeFlowResistance
-    then m_flow_nominal_pos/k^2 else 0
+    then m_flow_nominal_pos/k^n else 0
     "Precomputed coefficient to avoid division by parameter";
+
+  // Coefficients for partially turbulent model
+  parameter Boolean fullyTurbulent = n > 1.999999 and n < 2.000001
+    "If true, fully turbulent, simpler model, is used"
+    annotation(Evaluate=true);
+
+  constant Real gamma(min=1) = 1.5
+    "Normalized flow rate where dphi(0)/dpi intersects phi(1)";
+  parameter Real m = 1/n "Flow exponent";
+  parameter Real a = gamma
+    "Polynomial coefficient for regularized implementation of flow resistance";
+  parameter Real b = if fullyTurbulent then 0 else 1/8*m^2 - 3*gamma - 3/2*m + 35.0/8
+    "Polynomial coefficient for regularized implementation of flow resistance";
+  parameter Real c = if fullyTurbulent then 0 else -1/4*m^2 + 3*gamma + 5/2*m - 21.0/4
+    "Polynomial coefficient for regularized implementation of flow resistance";
+  parameter Real d = if fullyTurbulent then 0 else 1/8*m^2 - gamma - m + 15.0/8
+    "Polynomial coefficient for regularized implementation of flow resistance";
+  parameter Modelica.Units.SI.PressureDifference dp_turbulent(displayUnit="Pa") =
+    dp_nominal * (m_flow_turbulent/m_flow_nominal)^n
+    "Transition to turbulent flow";
+
 initial equation
  if computeFlowResistance then
    assert(m_flow_turbulent > 0, "m_flow_turbulent must be bigger than zero.");
@@ -45,35 +70,51 @@ equation
         dp = m_flow*coeP;
       end if;
     else
-      if homotopyInitialization then
-        if from_dp then
-          m_flow=homotopy(
-            actual=Buildings.Fluid.BaseClasses.FlowModels.basicFlowFunction_dp(
+      if fullyTurbulent then
+        // Case for n=2, which uses a simpler implementation
+        if homotopyInitialization then
+          if from_dp then
+            m_flow=homotopy(
+              actual=Buildings.Fluid.BaseClasses.FlowModels.basicFlowFunction_dp(
+                dp=dp,
+                k=k,
+                m_flow_turbulent=m_flow_turbulent),
+              simplified=m_flow_nominal_pos*dp/dp_nominal_pos);
+          else
+            dp=homotopy(
+              actual=Buildings.Fluid.BaseClasses.FlowModels.basicFlowFunction_m_flow(
+                m_flow=m_flow,
+                k=k,
+                m_flow_turbulent=m_flow_turbulent),
+              simplified=dp_nominal_pos*m_flow/m_flow_nominal_pos);
+           end if;  // from_dp
+        else // do not use homotopy
+          if from_dp then
+            m_flow=Buildings.Fluid.BaseClasses.FlowModels.basicFlowFunction_dp(
               dp=dp,
               k=k,
-              m_flow_turbulent=m_flow_turbulent),
-            simplified=m_flow_nominal_pos*dp/dp_nominal_pos);
-        else
-          dp=homotopy(
-            actual=Buildings.Fluid.BaseClasses.FlowModels.basicFlowFunction_m_flow(
+              m_flow_turbulent=m_flow_turbulent);
+          else
+            dp=Buildings.Fluid.BaseClasses.FlowModels.basicFlowFunction_m_flow(
               m_flow=m_flow,
               k=k,
-              m_flow_turbulent=m_flow_turbulent),
-            simplified=dp_nominal_pos*m_flow/m_flow_nominal_pos);
-         end if;  // from_dp
-      else // do not use homotopy
-        if from_dp then
-          m_flow=Buildings.Fluid.BaseClasses.FlowModels.basicFlowFunction_dp(
-            dp=dp,
-            k=k,
-            m_flow_turbulent=m_flow_turbulent);
-        else
-          dp=Buildings.Fluid.BaseClasses.FlowModels.basicFlowFunction_m_flow(
-            m_flow=m_flow,
-            k=k,
-            m_flow_turbulent=m_flow_turbulent);
-        end if;  // from_dp
-      end if; // homotopyInitialization
+              m_flow_turbulent=m_flow_turbulent);
+          end if;  // from_dp
+        end if; // homotopyInitialization
+      else
+        // Case for n < 2.
+        if homotopyInitialization then
+            m_flow=homotopy(
+              actual=Buildings.Fluid.FixedResistances.BaseClasses.powerLawFixedM(
+                k=k, dp=dp, m=m, a=a, b=b, c=c, d=d,
+                dp_turbulent=dp_turbulent),
+              simplified=m_flow_nominal_pos*dp/dp_nominal_pos);
+        else // do not use homotopy
+          m_flow=Buildings.Fluid.FixedResistances.BaseClasses.powerLawFixedM(
+                k=k, dp=dp, m=m, a=a, b=b, c=c, d=d,
+                dp_turbulent=dp_turbulent);
+        end if; // homotopyInitialization
+      end if;
     end if; // linearized
   else // do not compute flow resistance
     dp = 0;
@@ -83,16 +124,17 @@ equation
 Documentation(info="<html>
 <p>
 Model of a flow resistance with a fixed flow coefficient.
-The mass flow rate is
+The mass flow rate and pressure loss relationship is
 </p>
 <p align=\"center\" style=\"font-style:italic;\">
 m&#775; = k
-&radic;<span style=\"text-decoration:overline;\">&Delta;p</span>,
+&Delta;p<sup>1/n</sup>,
 </p>
 <p>
 where
 <i>k</i> is a constant and
-<i>&Delta;p</i> is the pressure drop.
+<i>&Delta;p</i> is the pressure drop and
+<i>n</i> is the pressure drop coefficient, set by default to <i>n=2</i>.
 The constant <i>k</i> is equal to
 <code>k=m_flow_nominal/sqrt(dp_nominal)</code>,
 where <code>m_flow_nominal</code> and <code>dp_nominal</code>
@@ -114,12 +156,20 @@ where <code>deltaM=0.3</code> and
 The figure below shows the pressure drop for the parameters
 <code>m_flow_nominal=5</code> kg/s,
 <code>dp_nominal=10</code> Pa and
-<code>deltaM=0.3</code>.
+<code>deltaM=0.3</code> and <code>n=2</code>.
 </p>
 <p align=\"center\">
 <img alt=\"image\" src=\"modelica://Buildings/Resources/Images/Fluid/FixedResistances/PressureDrop.png\"/>
 </p>
 <h4>Important parameters</h4>
+<p>
+The pressure loss coefficient <code>n</code> determines how the
+mass flow rate and pressure loss are related.
+Use <code>n=1</code> for laminar flow and <code>n=2</code> for fully
+turbulent flow.
+Intermediate values may be used for components such as filters,
+micro-channel heat exchangers or very smooth plastic pipes.
+</p>
 <p>
 The parameter <code>from_dp</code> is used to determine
 whether the mass flow rate is computed as a function of the
@@ -167,7 +217,7 @@ Buildings.Fluid.FixedResistances.HydraulicDiameter</a>.
 </p>
 <h4>Implementation</h4>
 <p>
-The pressure drop is computed by calling a function in the package
+For <code>n=2</code>, the pressure drop is computed by calling a function in the package
 <a href=\"modelica://Buildings.Fluid.BaseClasses.FlowModels\">
 Buildings.Fluid.BaseClasses.FlowModels</a>,
 This package contains regularized implementations of the equation
@@ -177,6 +227,12 @@ This package contains regularized implementations of the equation
 </p>
 <p>
 and its inverse function.
+</p>
+<p>
+For other values of <code>n</code>, a computationally more expensive implementation is used
+through a call of the function
+<a href=\"modelica://Buildings.Fluid.FixedResistances.BaseClasses.powerLawFixedM\">
+Buildings.Fluid.FixedResistances.BaseClasses.powerLawFixedM</a>.
 </p>
 <p>
 To decouple the energy equation from the mass equations,
