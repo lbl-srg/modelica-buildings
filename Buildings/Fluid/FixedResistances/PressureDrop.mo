@@ -66,7 +66,7 @@ initial equation
 equation
   // Pressure drop calculation
   if computeFlowResistance then
-    if linearized or fullyLaminar then
+    if linearized or fullyLaminar then // fixme: Test with fullyLaminar removed
       if from_dp then
         m_flow = dp*coeM;
       else
