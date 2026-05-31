@@ -40,7 +40,7 @@ protected
 
   Buildings.Controls.OBC.CDL.Reals.Switch swiEna
     "Switch for enabling setpoint change"
-    annotation (Placement(transformation(extent={{14,-48},{34,-28}})));
+    annotation (Placement(transformation(extent={{0,-60},{20,-40}})));
 
   Buildings.Controls.OBC.CDL.Reals.Min uCurSetAllMin
     "Current setpoint should not be smaller than the allowed minimum setpoint"
@@ -51,27 +51,27 @@ protected
     annotation (Placement(transformation(extent={{60,-10},{80,10}})));
 
 equation
-  connect(uEna, swiEna.u2) annotation (Line(points={{-180,120},{0,120},{0,-38},
-          {12,-38}},      color={255,0,255}));
-  connect(uCurSet, swiEna.u3) annotation (Line(points={{-180,40},{-148,40},{
-          -148,-46},{12,-46}},
+  connect(uEna, swiEna.u2) annotation (Line(points={{-180,120},{-20,120},{-20,
+          -50},{-2,-50}}, color={255,0,255}));
+  connect(uCurSet, swiEna.u3) annotation (Line(points={{-180,40},{-140,40},{
+          -140,-58},{-2,-58}},
                           color={0,0,127}));
   connect(conAscSet.y, swiMinMax.u2) annotation (Line(points={{-78,-30},{-62,
           -30}},           color={255,0,255}));
-  connect(swiMinMax.y, swiEna.u1) annotation (Line(points={{-38,-30},{12,-30}},
-                               color={0,0,127}));
+  connect(swiMinMax.y, swiEna.u1) annotation (Line(points={{-38,-30},{-10,-30},
+          {-10,-42},{-2,-42}}, color={0,0,127}));
   connect(uAllMaxSet,uCurSetAllMin. u1) annotation (Line(points={{-180,-40},{
-          -140,-40},{-140,30},{100,30},{100,6},{118,6}},
+          -120,-40},{-120,30},{100,30},{100,6},{118,6}},
                                             color={0,0,127}));
   connect(uAllMinSet,uCurSetAllMax. u1) annotation (Line(points={{-180,-120},{
           40,-120},{40,6},{58,6}},                color={0,0,127}));
-  connect(swiEna.y,uCurSetAllMax. u2) annotation (Line(points={{36,-38},{48,-38},
-          {48,-6},{58,-6}}, color={0,0,127}));
+  connect(swiEna.y,uCurSetAllMax. u2) annotation (Line(points={{22,-50},{50,-50},
+          {50,-6},{58,-6}}, color={0,0,127}));
   connect(uCurSetAllMax.y,uCurSetAllMin. u2)
     annotation (Line(points={{82,0},{100,0},{100,-6},{118,-6}},
                                                              color={0,0,127}));
-  connect(uAllMaxSet, swiMinMax.u1) annotation (Line(points={{-180,-40},{-140,
-          -40},{-140,30},{-70,30},{-70,-22},{-62,-22}},
+  connect(uAllMaxSet, swiMinMax.u1) annotation (Line(points={{-180,-40},{-120,
+          -40},{-120,30},{-70,30},{-70,-22},{-62,-22}},
                                  color={0,0,127}));
   connect(uAllMinSet, swiMinMax.u3) annotation (Line(points={{-180,-120},{-72,
           -120},{-72,-38},{-62,-38}},
@@ -92,14 +92,7 @@ equation
       textString="%name")}), Diagram(
     coordinateSystem(preserveAspectRatio=false,
     extent={{-160,-140},{160,140}},
-    grid={2,2}), graphics={Text(
-          extent={{20,150},{142,60}},
-          textColor={28,108,200},
-          textString="fixme: Check if min and max 
-should be so that they are only
- enabled if uEna=true. Now, the
- block can be disabled, but it still
- changes the output.")}),
+    grid={2,2})),
     Documentation(info="<html>
 
 <p>
