@@ -24,6 +24,7 @@ model AirToWater
   Buildings.Templates.Plants.Controls.HeatPumps.AirToWater ctl(
     final is_priOnl=cfg.typDis==Buildings.Templates.Plants.HeatPumps.Types.Distribution.Variable1Only,
     final have_hrc_select=cfg.have_hrc,
+    TOut_nominal=dat.TOut_nominal,
     final TChiWatSupSet_max=dat.TChiWatSupSet_max,
     final TChiWatSup_nominal=dat.TChiWatSup_nominal,
     final THeaWatSupSet_min=dat.THeaWatSupSet_min,
