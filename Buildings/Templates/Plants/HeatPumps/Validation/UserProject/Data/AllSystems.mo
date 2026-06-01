@@ -68,6 +68,7 @@ class AllSystems
         use_TConOutForTab=true),
       P_min=50),
     ctl(
+      TOut_nominal=273.15+10,
       THeaWatSupSet_min=298.15,
       VHeaWatSec_flow_nominal=pla.cfg.nHp*pla.ctl.VHeaWatHp_flow_nominal/1.1,
       TChiWatSupSet_max=288.15,

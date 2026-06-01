@@ -505,12 +505,10 @@ equation
     annotation (Line(points={{48,84},{32,84},{32,74}},           color={255,127,0}));
   connect(dpChiWatRem.p_rel, busPla.dpChiWatRem)
     annotation (Line(points={{151,-18},{144,-18},{144,50},{-180,50},{-180,0}},
-                                                                       color={0,0,127}),
-      Text(string="%second",index=1,extent={{-6,3},{-6,3}},horizontalAlignment=TextAlignment.Right));
+                                                                       color={0,0,127}));
   connect(dpHeaWatRem.p_rel, busPla.dpHeaWatRem)
     annotation (Line(points={{151,-98},{144,-98},{144,50},{-180,50},{-180,0}},
-      color={0,0,127}),Text(string="%second",index=1,extent={{-6,3},{-6,3}},
-      horizontalAlignment=TextAlignment.Right));
+      color={0,0,127}));
   connect(loaCoo.port_b, VChiWatSec_flow.port_a)
     annotation (Line(points={{200,0},{240,0},{240,-10}}, color={0,127,255}));
   connect(dpChiWatRem[1].port_a, loaCoo.port_a)
@@ -622,32 +620,16 @@ equation
   connect(VHeaWatPri_flow.port_b, junHWBypSup.port_1)
     annotation (Line(points={{-38,-80},{-34,-80}}, color={0,127,255}));
   connect(senTemChiWatSecSup.T, busPla.TChiWatSecSup) annotation (Line(points={
-          {80,11},{80,16},{-154,16},{-154,0},{-180,0}}, color={0,0,127}), Text(
-      string="%second",
-      index=1,
-      extent={{-6,3},{-6,3}},
-      horizontalAlignment=TextAlignment.Right));
+          {80,11},{80,16},{-154,16},{-154,0},{-180,0}}, color={0,0,127}));
   connect(senTemHeaWatSecSup.T, busPla.THeaWatSecSup) annotation (Line(points={
           {84,-69},{84,-64},{-126,-64},{-126,16},{-154,16},{-154,0},{-180,0}},
-        color={0,0,127}), Text(
-      string="%second",
-      index=1,
-      extent={{-6,3},{-6,3}},
-      horizontalAlignment=TextAlignment.Right));
+        color={0,0,127}));
   connect(senTemHeaWatPriRet.T, busPla.THeaWatPriRet) annotation (Line(points={
           {-72,-109},{-72,-104},{-120,-104},{-120,-122},{-228,-122},{-228,0},{
-          -180,0}}, color={0,0,127}), Text(
-      string="%second",
-      index=1,
-      extent={{-6,3},{-6,3}},
-      horizontalAlignment=TextAlignment.Right));
+          -180,0}}, color={0,0,127}));
   connect(senTemChiWatPriRet.T, busPla.TChiWatPriRet) annotation (Line(points={
           {-74,-29},{-74,-16},{-122,-16},{-122,-8},{-154,-8},{-154,0},{-180,0}},
-        color={0,0,127}), Text(
-      string="%second",
-      index=1,
-      extent={{-6,3},{-6,3}},
-      horizontalAlignment=TextAlignment.Right));
+        color={0,0,127}));
   connect(busPla.pumShcHeaWatPri, pumHWHpShc.bus) annotation (Line(
       points={{-180,0},{-180,-26},{-192,-26},{-192,-120},{-194,-120},{-194,-170},
           {-170,-170},{-170,-180}},

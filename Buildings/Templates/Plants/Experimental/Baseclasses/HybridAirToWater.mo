@@ -41,6 +41,7 @@ model HybridAirToWater "Controller for AWHP plant"
   Buildings.Templates.Plants.Experimental.Baseclasses.AirToWater ctl(
     final is_priOnl=if is_typDis_override then (typDis_override==Buildings.Templates.Plants.HeatPumps.Types.Distribution.Variable1Only) else (cfg.typDis==Buildings.Templates.Plants.HeatPumps.Types.Distribution.Variable1Only),
     final have_hrc_select=cfg.have_hrc,
+    TOut_nominal=dat.TOut_nominal,
     final TChiWatSupSet_max=dat.TChiWatSupSet_max,
     final TChiWatSup_nominal=dat.TChiWatSup_nominal,
     final THeaWatSupSet_min=dat.THeaWatSupSet_min,

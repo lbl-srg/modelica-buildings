@@ -218,6 +218,14 @@ block AirToWater
     annotation (Evaluate=true,
     Dialog(group="Sensors",
       enable=have_chiWat));
+  parameter Real TOut_nominal(
+    min=273.15,
+    start=10 + 273.15,
+    unit="K",
+    displayUnit="degC")
+    "Nominal outdoor air temperature"
+    annotation (Dialog(group="Information provided by designer",
+      enable=have_heaWat));
   parameter Real THeaWatSup_nominal(
     min=273.15,
     start=50 + 273.15,
@@ -1196,6 +1204,8 @@ block AirToWater
     typ=Buildings.Templates.Plants.Controls.Types.Application.Heating,
     final have_pumSec=have_pumHeaWatSec,
     final have_inpPlrSta=false,
+    final THeaWatSup_nominal=THeaWatSup_nominal,
+    final TOut_nominal=TOut_nominal,
     final plrSta=plrSta,
     final staEqu=staEqu,
     final nSta=nSta,
@@ -1261,10 +1271,6 @@ block AirToWater
     each final dtOff=dtOff)
     "Evaluate equipment availability in heating or cooling mode"
     annotation (Placement(transformation(extent={{-150,210},{-130,230}})));
-  Buildings.Controls.OBC.CDL.Logical.Pre y1HeaPre[nHp]
-    if have_heaWat and have_chiWat
-    "Left-limit of command signal to break algebraic loop"
-    annotation (Placement(transformation(extent={{230,350},{210,370}})));
   StagingRotation.SortRuntime sorRunTimCoo(
     final idxEquAlt=idxEquAlt,
     nin=nHp)
@@ -1533,6 +1539,7 @@ block AirToWater
     final k=staEqu)
     "Constant source for staging matrix signal"
     annotation (Placement(transformation(extent={{-220,260},{-200,280}})));
+
 equation
   connect(u1SchHea, enaHea.u1Sch)
     annotation (Line(points={{-280,380},{-180,380},{-180,364},{-112,364}},color={255,0,255}));
@@ -1560,14 +1567,15 @@ equation
   connect(seqEve.y1ValChiWatOutIso, y1ValChiWatHpOutIso) annotation (Line(
         points={{162,294},{236,294},{236,260},{280,260}}, color={255,0,255}));
   connect(idxStaHea.y, chaStaHea.uSta)
-    annotation (Line(points={{12,360},{20,360},{20,340},{-50,340},{-50,330},{-42,330}},
+    annotation (Line(points={{12,360},{20,360},{20,340},{-50,340},{-50,328},{-42,
+          328}},
       color={255,127,0}));
   connect(chaStaHea.y1Dow, idxStaHea.u1Dow)
     annotation (Line(points={{-18,316},{-14,316},{-14,358},{-12,358}},color={255,0,255}));
   connect(chaStaHea.y1Up, idxStaHea.u1Up)
     annotation (Line(points={{-18,324},{-16,324},{-16,362},{-12,362}},color={255,0,255}));
   connect(avaStaHea.y1, chaStaHea.u1AvaSta)
-    annotation (Line(points={{-88,330},{-56,330},{-56,328},{-42,328}},color={255,0,255}));
+    annotation (Line(points={{-88,330},{-56,330},{-56,326},{-42,326}},color={255,0,255}));
   connect(sorRunTimHea.yIdx, enaEquHea.uIdxAltSor)
     annotation (Line(points={{-18,284},{32,284},{32,366},{38,366}},color={255,127,0}));
   connect(nReqPlaChiWat, enaCoo.nReqPla) annotation (Line(points={{-280,320},{-182,
@@ -1578,7 +1586,7 @@ equation
   connect(u1SchCoo, enaCoo.u1Sch)
     annotation (Line(points={{-280,360},{-180,360},{-180,104},{-112,104}},color={255,0,255}));
   connect(avaStaCoo.y1, chaStaCoo.u1AvaSta)
-    annotation (Line(points={{-88,70},{-56,70},{-56,70},{-42,70}},color={255,0,255}));
+    annotation (Line(points={{-88,70},{-56,70},{-56,68},{-42,68}},color={255,0,255}));
   connect(enaCoo.y1, idxStaCoo.u1Lea)
     annotation (Line(points={{-88,100},{-56,100},{-56,106},{-12,106}},color={255,0,255}));
   connect(chaStaCoo.y1Up, idxStaCoo.u1Up)
@@ -1592,8 +1600,6 @@ equation
           {80,310},{138,310}}, color={255,0,255}));
   connect(enaEquCoo.y1, seqEve.u1Coo) annotation (Line(points={{62,100},{80,100},
           {80,306},{138,306}}, color={255,0,255}));
-  connect(y1HeaHp, y1HeaPre.u)
-    annotation (Line(points={{280,360},{232,360}},color={255,0,255}));
   connect(avaEquHeaCoo.y1Hea, avaStaHea.u1Ava)
     annotation (Line(points={{-128,226},{-120,226},{-120,334},{-112,334}},color={255,0,255}));
   connect(avaEquHeaCoo.y1Coo, avaStaCoo.u1Ava)
@@ -1607,7 +1613,7 @@ equation
   connect(sorRunTimCoo.yIdx, enaEquCoo.uIdxAltSor)
     annotation (Line(points={{-18,24},{32,24},{32,106},{38,106}},color={255,127,0}));
   connect(idxStaCoo.y, chaStaCoo.uSta)
-    annotation (Line(points={{12,100},{20,100},{20,80},{-48,80},{-48,72},{-42,72}},
+    annotation (Line(points={{12,100},{20,100},{20,80},{-48,80},{-48,70},{-42,70}},
       color={255,127,0}));
   connect(avaEquHeaCoo.y1Hea, sorRunTimHea.u1Ava)
     annotation (Line(points={{-128,226},{-120,226},{-120,284},{-42,284}},color={255,0,255}));
@@ -1704,7 +1710,7 @@ equation
     annotation (Line(points={{12,100},{20,100},{20,-12},{-46,-12},{-46,4},{-42,4}},
       color={255,127,0}));
   connect(comStaCoo.y1, chaStaCoo.u1StaPro)
-    annotation (Line(points={{-18,-6},{-10,-6},{-10,48},{-46,48},{-46,66},{-42,66}},
+    annotation (Line(points={{-18,-6},{-10,-6},{-10,48},{-46,48},{-46,64},{-42,64}},
       color={255,0,255}));
   connect(u1Hp_actual, comStaCoo.u1_actual)
     annotation (Line(points={{-280,300},{-60,300},{-60,-4},{-42,-4}},color={255,0,255}));
@@ -1718,8 +1724,8 @@ equation
   connect(y1HpPre.y, comStaHea.u1)
     annotation (Line(points={{178,380},{-60,380},{-60,260},{-42,260}},color={255,0,255}));
   connect(comStaHea.y1, chaStaHea.u1StaPro)
-    annotation (Line(points={{-18,254},{-10,254},{-10,308},{-44,308},{-44,324},
-          {-42,324}},
+    annotation (Line(points={{-18,254},{-10,254},{-10,308},{-44,308},{-44,322},{
+          -42,322}},
       color={255,0,255}));
   connect(resHeaWat.dpSet, dpHeaWatRemSet)
     annotation (Line(points={{72,246},{240,246},{240,-60},{280,-60}}, color={0,0,127}));
@@ -1738,12 +1744,12 @@ equation
   connect(comStaCoo.y1, resChiWat.u1StaPro)
     annotation (Line(points={{-18,-6},{-10,-6},{-10,-46},{48,-46}},color={255,0,255}));
   connect(resChiWat.TSupSet, chaStaCoo.TSupSet)
-    annotation (Line(points={{72,-46},{116,-46},{116,-20},{-52,-20},{-52,64},{-42,
-          64}},
+    annotation (Line(points={{72,-46},{116,-46},{116,-20},{-52,-20},{-52,62},{-42,
+          62}},
       color={0,0,127}));
   connect(resHeaWat.TSupSet, chaStaHea.TSupSet)
-    annotation (Line(points={{72,234},{118,234},{118,220},{-52,220},{-52,322},{-42,
-          322}},
+    annotation (Line(points={{72,234},{118,234},{118,220},{-52,220},{-52,320},{-42,
+          320}},
       color={0,0,127}));
   connect(ctlPumPri.yPumHeaWatPriHdr, yPumHeaWatPriHdr)
     annotation (Line(points={{212,84},{220,84},{220,100},{280,100}},color={0,0,127}));
@@ -1971,6 +1977,8 @@ equation
           270},{-190,326},{-112,326}}, color={0,0,127}));
   connect(conStaMat.y, avaStaCoo.staEqu) annotation (Line(points={{-198,270},{-190,
           270},{-190,66},{-112,66}}, color={0,0,127}));
+  connect(TOut, chaStaHea.TOut) annotation (Line(points={{-280,120},{-170,120},
+          {-170,384},{-46,384},{-46,330},{-42,330}}, color={0,0,127}));
   annotation (
     defaultComponentName="ctl",
     Icon(

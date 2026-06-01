@@ -47,6 +47,7 @@ model StageChangeCommand
     annotation (Placement(transformation(extent={{-130,-50},{-110,-30}})));
   Buildings.Templates.Plants.Controls.StagingRotation.StageChangeCommand chaSta(
     typ=Buildings.Templates.Plants.Controls.Types.Application.Heating,
+    is_heaApp=false,
     have_pumSec=false,
     plrSta=0.9,
     staEqu=[1,0,0; 0,1/2,1/2; 1,1/2,1/2; 0,1,1; 1,1,1],
@@ -113,7 +114,7 @@ equation
   connect(TRet.y, chaSta.TRet)
     annotation (Line(points={{-108,0},{-104,0},{-104,-6},{-52,-6}},color={0,0,127}));
   connect(TSupSet.y, chaSta.TSupSet)
-    annotation (Line(points={{-108,40},{-100,40},{-100,2},{-52,2}},  color={0,0,127}));
+    annotation (Line(points={{-108,40},{-100,40},{-100,0},{-52,0}},  color={0,0,127}));
   connect(chaSta.y1Up, idxSta.u1Up)
     annotation (Line(points={{-28,4},{-20,4},{-20,2},{-2,2}},color={255,0,255}));
   connect(chaSta.y1Dow, idxSta.u1Dow)
@@ -123,14 +124,14 @@ equation
   connect(u1AvaSta.y, idxSta.u1AvaSta)
     annotation (Line(points={{-108,-80},{-10,-80},{-10,-6},{-2,-6}},color={255,0,255}));
   connect(idxSta.y, chaSta.uSta)
-    annotation (Line(points={{22,0},{40,0},{40,20},{-56,20},{-56,10},{-52,10}},
+    annotation (Line(points={{22,0},{40,0},{40,20},{-56,20},{-56,8},{-52,8}},
       color={255,127,0}));
   connect(chaSta.y1Up, y1UpHol.u)
     annotation (Line(points={{-28,4},{-20,4},{-20,40},{-2,40}},color={255,0,255}));
   connect(chaSta.y1Dow, y1DowHol.u)
     annotation (Line(points={{-28,-4},{-20,-4},{-20,-40},{-2,-40}},color={255,0,255}));
   connect(u1AvaSta.y, chaSta.u1AvaSta)
-    annotation (Line(points={{-108,-80},{-60,-80},{-60,8},{-52,8}},color={255,0,255}));
+    annotation (Line(points={{-108,-80},{-60,-80},{-60,6},{-52,6}},color={255,0,255}));
   connect(ratV_flow.y[1], V_flow.u)
     annotation (Line(points={{-108,-40},{-102,-40}},color={0,0,127}));
   connect(V_flow.y, chaSta.V_flow)
@@ -143,7 +144,7 @@ equation
   connect(enaEqu.y1, staEqu.y1)
     annotation (Line(points={{82,0},{98,0}},color={255,0,255}));
   connect(comSta.y1, chaSta.u1StaPro)
-    annotation (Line(points={{-52,54},{-58,54},{-58,4},{-52,4}},color={255,0,255}));
+    annotation (Line(points={{-52,54},{-58,54},{-58,2},{-52,2}},color={255,0,255}));
   connect(enaEqu.y1, comSta.u1)
     annotation (Line(points={{82,0},{90,0},{90,60},{-28,60}},         color={255,0,255}));
   connect(staEqu.y1_actual, comSta.u1_actual)
