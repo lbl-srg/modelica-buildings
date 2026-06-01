@@ -44,7 +44,7 @@ protected
 
   parameter Real m = 1/n "Flow exponent";
 
-  parameter Real a(min=1, fixed=false)
+  parameter Real a(fixed=false)
     "Normalized flow rate where dphi(0)/dpi intersects phi(1), polynomial coefficient for regularized implementation of flow resistance.";
   parameter Real b(fixed=false)
     "Polynomial coefficient for regularized implementation of flow resistance";
