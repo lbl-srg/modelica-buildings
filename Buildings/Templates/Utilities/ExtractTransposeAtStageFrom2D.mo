@@ -1,5 +1,5 @@
 within Buildings.Templates.Utilities;
-block ExtractTransposeAtStage
+block ExtractTransposeAtStageFrom2D
   parameter Real sta[:,:]
     "Row-major expansion of staging matrix";
   parameter Integer nRow=size(sta, 1);
@@ -65,4 +65,4 @@ equation
           0}}, color={0,0,127}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
         coordinateSystem(preserveAspectRatio=false)));
-end ExtractTransposeAtStage;
+end ExtractTransposeAtStageFrom2D;

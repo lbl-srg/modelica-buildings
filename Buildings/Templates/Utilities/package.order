@@ -1,5 +1,8 @@
 computeBalancingPressureDrop
 computeNumberOfStagedUnits
 StagingMatrix
-ExtractTransposeAtStage
+ExtractTransposeAtStageFrom1D
+ExtractTransposeAtStageFrom2D
+ExtractMatrixAtStageFrom1D
+ExtractMatrixAtStage
 Validation
