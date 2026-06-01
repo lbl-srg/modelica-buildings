@@ -1,4 +1,4 @@
-within Buildings.Fluid.FixedResistances.BaseClasses.Validation;
+within Buildings.Fluid.BaseClasses.FlowModels.Validation;
 model PowerLawFixedM "Test model for power law function"
   extends Modelica.Icons.Example;
   parameter Modelica.Units.SI.Density rho = 1.2 "Fluid density";
@@ -41,7 +41,7 @@ equation
     d=d,
     dp_turbulent=dp_turbulent);
   m2_flow = V_flow * rho;
-  m_flow = Buildings.Fluid.FixedResistances.BaseClasses.powerLawFixedM(
+  m_flow = Buildings.Fluid.BaseClasses.FlowModels.powerLawFixedM(
     k=k,
     dp=dp,
     m=m,
@@ -54,13 +54,13 @@ equation
     "Error: The two implementations of the power law model need to give identical results");
   annotation (
 experiment(Tolerance=1e-6, StopTime=1.0),
-  __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/FixedResistances/BaseClasses/Validation/PowerLawFixedM.mos"
+  __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/BaseClasses/FlowModels/Validation/PowerLawFixedM.mos"
      "Simulate and plot"),
   Documentation(info="<html>
 <p>
 This examples validates the implementation of
-<a href=\"modelica://Buildings.Fluid.FixedResistances.BaseClasses.powerLawFixedM\">
-Buildings.Fluid.FixedResistances.BaseClasses.powerLawFixedM</a>
+<a href=\"modelica://Buildings.Fluid.BaseClasses.FlowModels.powerLawFixedM\">
+Buildings.Fluid.BaseClasses.FlowModels.powerLawFixedM</a>
 by comparing it with the results from
 <a href=\"modelica://Buildings.Airflow.Multizone.BaseClasses.powerLawFixedM\">
 Buildings.Airflow.Multizone.BaseClasses.powerLawFixedM</a>.
