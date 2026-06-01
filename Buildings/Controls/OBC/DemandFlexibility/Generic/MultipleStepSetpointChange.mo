@@ -5,7 +5,7 @@ block MultipleStepSetpointChange "Multiple-step setpoint change"
     "Setpoint change delta; always positive";
 
   parameter Boolean ascSet
-    "Ascending setpoint boolean value; if true, command the setpoint toward the allowed maximum setpoint, otherwise toward the allowed minimum setpoint";
+    "If true, command the setpoint toward the allowed maximum setpoint, otherwise toward the allowed minimum setpoint";
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uAllMaxSet
     "Allowed maximum setpoint"
@@ -58,8 +58,8 @@ protected
     annotation (Placement(transformation(extent={{-60,-40},{-40,-20}})));
 
 equation
-  connect(uEna, swiEna.u2) annotation (Line(points={{-180,120},{-10,120},{-10,-50},
-          {-2,-50}},      color={255,0,255}));
+  connect(uEna, swiEna.u2) annotation (Line(points={{-180,120},{-20,120},{-20,
+          -50},{-2,-50}}, color={255,0,255}));
   connect(uCurSet, swiEna.u3) annotation (Line(points={{-180,40},{-140,40},{
           -140,-58},{-2,-58}},
                           color={0,0,127}));
@@ -81,8 +81,8 @@ equation
           -90},{-70,-36},{-62,-36}}, color={0,0,127}));
   connect(uCurSet, addCurSet.u1) annotation (Line(points={{-180,40},{-70,40},{-70,
           -24},{-62,-24}}, color={0,0,127}));
-  connect(addCurSet.y, swiEna.u1) annotation (Line(points={{-38,-30},{-20,-30},{
-          -20,-42},{-2,-42}}, color={0,0,127}));
+  connect(addCurSet.y, swiEna.u1) annotation (Line(points={{-38,-30},{-30,-30},
+          {-30,-42},{-2,-42}},color={0,0,127}));
   annotation (defaultComponentName="mulSteSetCha",
     Icon(coordinateSystem(preserveAspectRatio=false,
     extent={{-100,-100},{100,100}},

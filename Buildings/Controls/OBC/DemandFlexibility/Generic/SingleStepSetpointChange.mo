@@ -2,7 +2,7 @@ within Buildings.Controls.OBC.DemandFlexibility.Generic;
 block SingleStepSetpointChange "Single-step setpoint change"
 
   parameter Boolean ascSet
-    "if true, command the setpoint toward the allowed maximum setpoint, otherwise toward the allowed minimum setpoint";
+    "If true, command the setpoint toward the allowed maximum setpoint, otherwise toward the allowed minimum setpoint";
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uAllMaxSet
     "Allowed maximum setpoint"
@@ -20,7 +20,7 @@ block SingleStepSetpointChange "Single-step setpoint change"
         iconTransformation(extent={{-140,0},{-100,40}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uEna
-    "if true, allow the setpoint to be changed, otherwise output uCurSet, constrained within uAllMinSet and uAllMaxSet"
+    "If true, allow the setpoint to be changed, otherwise output uCurSet, constrained within uAllMinSet and uAllMaxSet"
     annotation (Placement(transformation(extent={{-200,100},{-160,140}}),
       iconTransformation(extent={{-140,40},{-100,80}})));
 

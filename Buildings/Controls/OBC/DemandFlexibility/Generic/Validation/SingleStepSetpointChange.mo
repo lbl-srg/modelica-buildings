@@ -13,10 +13,7 @@ model SingleStepSetpointChange "Single-step setpoint change"
     annotation (Placement(transformation(extent={{-120,60},{-100,80}})));
 
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant TAllMinSet(
-    y(final unit="K",
-      displayUnit="degC"), k(
-      final unit="K",
-      displayUnit="degC") = 289.15)
+    k(final unit="K", displayUnit="degC") = 289.15)
     "Allowed minimum temperature setpoint"
     annotation (Placement(transformation(extent={{-120,-80},{-100,-60}})));
 
@@ -30,10 +27,7 @@ model SingleStepSetpointChange "Single-step setpoint change"
         origin={70,30})));
 
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant TAllMaxSet(
-    y(final unit="K",
-      displayUnit="degC"), k(
-      final unit="K",
-      displayUnit="degC") = 292.15)
+    k(final unit="K", displayUnit="degC") = 292.15)
     "Allowed maximum temperature setpoint"
     annotation (Placement(transformation(extent={{-120,0},{-100,20}})));
 
