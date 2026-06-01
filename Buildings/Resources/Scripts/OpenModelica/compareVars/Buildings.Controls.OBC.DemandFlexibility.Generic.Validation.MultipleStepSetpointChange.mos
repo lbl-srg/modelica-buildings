@@ -1,0 +1,8 @@
+compareVars :=
+  {
+    "mulSteSetCha.y",
+    "uniDelTSet.y",
+    "TAllMinSet.y",
+    "TAllMaxSet.y",
+    "mulSteSetCha.uEna"
+  };
