@@ -199,10 +199,10 @@ equation
       points={{40,-50},{60,-50}},
       color={0,127,255}));
   connect(senMasFlo3.port_b, sin1.ports[1]) annotation (Line(
-      points={{80,-10},{90,-10},{90,-28},{100,-28}},
+      points={{80,-10},{90,-10},{90,-31},{100,-31}},
       color={0,127,255}));
   connect(senMasFlo4.port_b, sin1.ports[2]) annotation (Line(
-      points={{80,-50},{90,-50},{90,-32},{100,-32}},
+      points={{80,-50},{90,-50},{90,-29},{100,-29}},
       color={0,127,255}));
   connect(senMasFlo1.port_b, sin.ports[1])
           annotation (Line(
