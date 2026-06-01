@@ -38,8 +38,9 @@ block Controller "Chiller plant controller"
     "Chiller minimum cycling loads vector"
     annotation (Dialog(tab="General", group="Chillers configuration"));
 
-  parameter Real TChiWatSupMin[nChi](unit=fill("K", nChi), each displayUnit=
-        "degC")
+  parameter Real TChiWatSupMin[nChi](
+    unit=fill("K", nChi),
+    displayUnit=fill("degC", nChi))
     "Minimum chilled water supply temperature"
     annotation (Dialog(tab="General", group="Chillers configuration"));
 
@@ -410,62 +411,63 @@ block Controller "Chiller plant controller"
 
   parameter Real holTim(unit="s")=900
     "Time to fix plant reset value"
-    annotation(Dialog(tab="Plant Reset"));
+    annotation(Dialog(tab="Plant reset"));
 
   parameter Real iniSet(unit="1")=1
     "Initial setpoint"
-    annotation (Dialog(tab="Plant Reset", group="Trim and respond"));
+    annotation (Dialog(tab="Plant reset", group="Trim and respond"));
 
   parameter Real minSet(unit="1")=0
     "Minimum plant reset value"
-    annotation (Dialog(tab="Plant Reset", group="Trim and respond"));
+    annotation (Dialog(tab="Plant reset", group="Trim and respond"));
 
   parameter Real maxSet(unit="1")=1
     "Maximum plant reset value"
-    annotation (Dialog(tab="Plant Reset", group="Trim and respond"));
+    annotation (Dialog(tab="Plant reset", group="Trim and respond"));
 
   parameter Real delTim(unit="s")=900
     "Delay time after which trim and respond is activated"
-    annotation (Dialog(tab="Plant Reset", group="Trim and respond"));
+    annotation (Dialog(tab="Plant reset", group="Trim and respond"));
 
   parameter Real samplePeriod(unit="s")=300
     "Sample period time"
-    annotation (Dialog(tab="Plant Reset", group="Trim and respond"));
+    annotation (Dialog(tab="Plant reset", group="Trim and respond"));
 
   parameter Integer numIgnReq = 2
     "Number of ignored requests"
-    annotation (Dialog(tab="Plant Reset", group="Trim and respond"));
+    annotation (Dialog(tab="Plant reset", group="Trim and respond"));
 
   parameter Real triAmo = -0.02 "Trim amount"
-    annotation (Dialog(tab="Plant Reset", group="Trim and respond"));
+    annotation (Dialog(tab="Plant reset", group="Trim and respond"));
 
   parameter Real resAmo = 0.03
     "Respond amount (must be opposite in to triAmo)"
-    annotation (Dialog(tab="Plant Reset", group="Trim and respond"));
+    annotation (Dialog(tab="Plant reset", group="Trim and respond"));
 
   parameter Real maxRes = 0.07
     "Maximum response per time interval (same sign as resAmo)"
-    annotation (Dialog(tab="Plant Reset", group="Trim and respond"));
+    annotation (Dialog(tab="Plant reset", group="Trim and respond"));
 
   parameter Real dpChiWatMin[nSenChiWatPum](unit=fill("Pa", nSenChiWatPum))=
     fill(34473.8, nSenChiWatPum)
     "Minimum chilled water differential pressure setpoint, the array size equals to the number of remote pressure sensor"
-    annotation (Dialog(tab="Plant Reset", group="Chilled water supply"));
+    annotation (Dialog(tab="Plant reset", group="Chilled water supply"));
 
-  parameter Real dpChiWatMax[nSenChiWatPum](unit=fill("Pa", nSenChiWatPum),
-      each displayUnit="Pa")
+  parameter Real dpChiWatMax[nSenChiWatPum](
+    unit=fill("Pa", nSenChiWatPum),
+    displayUnit=fill("Pa", nSenChiWatPum))
     "Maximum chilled water differential pressure setpoint, the array size equals to the number of remote pressure sensor"
-    annotation (Dialog(tab="Plant Reset", group="Chilled water supply"));
+    annotation (Dialog(tab="Plant reset", group="Chilled water supply"));
 
   parameter Real TPlaChiWatSupMax(
     unit="K",
     displayUnit="degC")=288.706
     "Maximum plant chilled water supply temperature, default 60 degF"
-    annotation (Dialog(tab="Plant Reset", group="Chilled water supply"));
+    annotation (Dialog(tab="Plant reset", group="Chilled water supply"));
 
   parameter Real halSet = 0.5
     "Half plant reset value"
-    annotation (Dialog(tab="Plant Reset", group="Chilled water supply"));
+    annotation (Dialog(tab="Plant reset", group="Chilled water supply"));
 
   // ---- Staging setpoints ----
 
@@ -585,41 +587,41 @@ block Controller "Chiller plant controller"
   final parameter Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Types.TowerSpeedControl fanSpeCon=
     Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Types.TowerSpeedControl.CondenserWaterReturnTemperaure
     "Tower fan speed control type"
-    annotation (Dialog(tab="Cooling Towers", group="Fan speed", enable=not have_airCoo));
+    annotation (Dialog(tab="Cooling towers", group="Fan speed", enable=not have_airCoo));
 
   final parameter Boolean have_conWatRetCon = fanSpeCon==Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Types.TowerSpeedControl.CondenserWaterReturnTemperaure
     "True: the fan speed is controlled to maintain the condenser water return temperature setpoint"
-    annotation (Dialog(tab="Cooling Towers", group="Fan speed", enable=not have_airCoo));
+    annotation (Dialog(tab="Cooling towers", group="Fan speed", enable=not have_airCoo));
 
   parameter Boolean closeCoupledPlant=false
     "True: the plant is close coupled, i.e. the pipe length from the chillers to cooling towers does not exceed approximately 100 feet"
-    annotation (Dialog(tab="Cooling Towers", group="Fan speed", enable=(not have_airCoo) and have_conWatRetCon));
+    annotation (Dialog(tab="Cooling towers", group="Fan speed", enable=(not have_airCoo) and have_conWatRetCon));
 
   parameter Real fanSpeMin(unit="1")=0.1
     "Minimum tower fan speed"
-    annotation (Dialog(tab="Cooling Towers", group="Fan speed", enable=not have_airCoo));
+    annotation (Dialog(tab="Cooling towers", group="Fan speed", enable=not have_airCoo));
 
   parameter Buildings.Controls.OBC.CDL.Types.SimpleController intOpeCon=
     Buildings.Controls.OBC.CDL.Types.SimpleController.PI
     "Controller in the mode if WSE and chillers are enabled"
-    annotation (Dialog(tab="Cooling Towers", group="Fan speed controller with WSE enabled",
+    annotation (Dialog(tab="Cooling towers", group="Fan speed controller with WSE enabled",
                        enable=have_WSE and not have_airCoo));
 
   parameter Real kIntOpeTowFan=0.1
     "Gain of controller, if both WSE and chillers are enabled"
-    annotation (Dialog(tab="Cooling Towers", group="Fan speed controller with WSE enabled",
+    annotation (Dialog(tab="Cooling towers", group="Fan speed controller with WSE enabled",
                        enable=have_WSE and not have_airCoo));
 
   parameter Real TiIntOpeTowFan(unit="s")=10
     "Time constant of integrator block, if both WSE and chillers are enabled"
-    annotation (Dialog(tab="Cooling Towers", group="Fan speed controller with WSE enabled",
+    annotation (Dialog(tab="Cooling towers", group="Fan speed controller with WSE enabled",
                        enable=have_WSE and (intOpeCon==Buildings.Controls.OBC.CDL.Types.SimpleController.PI or
                                             intOpeCon==Buildings.Controls.OBC.CDL.Types.SimpleController.PID)
                               and not have_airCoo));
 
   parameter Real TdIntOpeTowFan(unit="s")=0.1
     "Time constant of derivative block, if both WSE and chillers are enabled"
-    annotation (Dialog(tab="Cooling Towers", group="Fan speed controller with WSE enabled",
+    annotation (Dialog(tab="Cooling towers", group="Fan speed controller with WSE enabled",
                        enable=have_WSE and (intOpeCon==Buildings.Controls.OBC.CDL.Types.SimpleController.PD or
                                            intOpeCon==Buildings.Controls.OBC.CDL.Types.SimpleController.PID)
                               and not have_airCoo));
@@ -627,24 +629,24 @@ block Controller "Chiller plant controller"
   parameter Buildings.Controls.OBC.CDL.Types.SimpleController chiWatConTowFan=
     Buildings.Controls.OBC.CDL.Types.SimpleController.PI
     "Controller in the mode if only WSE is enabled"
-    annotation (Dialog(tab="Cooling Towers", group="Fan speed controller with WSE enabled",
+    annotation (Dialog(tab="Cooling towers", group="Fan speed controller with WSE enabled",
                        enable=have_WSE and not have_airCoo));
 
   parameter Real kWSETowFan=0.1
     "Gain of controller, if only WSE is enabled"
-    annotation (Dialog(tab="Cooling Towers", group="Fan speed controller with WSE enabled",
+    annotation (Dialog(tab="Cooling towers", group="Fan speed controller with WSE enabled",
                        enable=have_WSE and not have_airCoo));
 
   parameter Real TiWSETowFan(unit="s")=10
     "Time constant of integrator block, if only WSE is enabled"
-    annotation (Dialog(tab="Cooling Towers", group="Fan speed controller with WSE enabled",
+    annotation (Dialog(tab="Cooling towers", group="Fan speed controller with WSE enabled",
                         enable=have_WSE and (chiWatConTowFan==Buildings.Controls.OBC.CDL.Types.SimpleController.PI or
                                              chiWatConTowFan==Buildings.Controls.OBC.CDL.Types.SimpleController.PID)
                                and not have_airCoo));
 
   parameter Real TdWSETowFan(unit="s")=0.1
     "Time constant of derivative block, if only WSE is enabled"
-    annotation (Dialog(tab="Cooling Towers", group="Fan speed controller with WSE enabled",
+    annotation (Dialog(tab="Cooling towers", group="Fan speed controller with WSE enabled",
                        enable=have_WSE and (chiWatConTowFan==Buildings.Controls.OBC.CDL.Types.SimpleController.PD or
                                             chiWatConTowFan==Buildings.Controls.OBC.CDL.Types.SimpleController.PID)
                               and not have_airCoo));
@@ -653,125 +655,125 @@ block Controller "Chiller plant controller"
   parameter Real TConWatSup_nominal[nChi](
     start=fill(4, nChi),
     unit=fill("K", nChi),
-    each displayUnit="degC")
+    displayUnit=fill("degC", nChi))
     "Condenser water supply temperature (condenser entering) of each chiller"
-    annotation (Evaluate=true, Dialog(tab="Cooling Towers", group="Fan speed: Return temperature control", enable=not have_airCoo));
+    annotation (Evaluate=true, Dialog(tab="Cooling towers", group="Fan speed: return temperature control", enable=not have_airCoo));
 
   parameter Real TConWatRet_nominal[nChi](
     start=fill(4, nChi),
     unit=fill("K", nChi),
-    each displayUnit="degC")
+    displayUnit=fill("degC", nChi))
     "Condenser water return temperature (condenser leaving) of each chiller"
-    annotation (Evaluate=true, Dialog(tab="Cooling Towers", group="Fan speed: Return temperature control", enable=not have_airCoo));
+    annotation (Evaluate=true, Dialog(tab="Cooling towers", group="Fan speed: return temperature control", enable=not have_airCoo));
 
   parameter Buildings.Controls.OBC.CDL.Types.SimpleController couPlaCon=
     Buildings.Controls.OBC.CDL.Types.SimpleController.PI
     "Type of coupled plant controller"
-    annotation (Dialog(tab="Cooling Towers", group="Fan speed: Return temperature control",
+    annotation (Dialog(tab="Cooling towers", group="Fan speed: return temperature control",
                         enable=closeCoupledPlant and not have_airCoo));
 
   parameter Real kCouPla=0.1
     "Gain of controller, for close coupled plant"
-    annotation (Dialog(tab="Cooling Towers", group="Fan speed: Return temperature control",
+    annotation (Dialog(tab="Cooling towers", group="Fan speed: return temperature control",
                         enable=closeCoupledPlant and not have_airCoo));
 
   parameter Real TiCouPla(unit="s")=10
     "Time constant of integrator block, for close coupled plant"
-    annotation (Dialog(tab="Cooling Towers", group="Fan speed: Return temperature control",
+    annotation (Dialog(tab="Cooling towers", group="Fan speed: return temperature control",
                        enable=closeCoupledPlant and (couPlaCon==Buildings.Controls.OBC.CDL.Types.SimpleController.PI or
                                                       couPlaCon==Buildings.Controls.OBC.CDL.Types.SimpleController.PID)
                               and not have_airCoo));
 
   parameter Real TdCouPla(unit="s")=0.1
     "Time constant of derivative block, for close coupled plant"
-    annotation (Dialog(tab="Cooling Towers", group="Fan speed: Return temperature control",
+    annotation (Dialog(tab="Cooling towers", group="Fan speed: return temperature control",
                        enable=closeCoupledPlant and (couPlaCon==Buildings.Controls.OBC.CDL.Types.SimpleController.PD or
                                                      couPlaCon==Buildings.Controls.OBC.CDL.Types.SimpleController.PID)
                               and not have_airCoo));
 
   parameter Real yCouPlaMax(unit="1")=1
     "Upper limit of output of controller, for close coupled plant"
-    annotation (Dialog(tab="Cooling Towers", group="Fan speed: Return temperature control",
+    annotation (Dialog(tab="Cooling towers", group="Fan speed: return temperature control",
                        enable=closeCoupledPlant and not have_airCoo));
 
   parameter Real yCouPlaMin(unit="1")=0
     "Lower limit of output of controller, for close coupled plant"
-    annotation (Dialog(tab="Cooling Towers", group="Fan speed: Return temperature control",
+    annotation (Dialog(tab="Cooling towers", group="Fan speed: return temperature control",
                         enable=closeCoupledPlant and not have_airCoo));
 
   parameter Real samplePeriodConTDiff(unit="s")=30
     "Period of sampling condenser water supply and return temperature difference"
-    annotation (Dialog(tab="Cooling Towers", group="Fan speed: Return temperature control",
+    annotation (Dialog(tab="Cooling towers", group="Fan speed: return temperature control",
                        enable=(not have_airCoo) and not closeCoupledPlant));
 
   parameter Buildings.Controls.OBC.CDL.Types.SimpleController supWatCon=
     Buildings.Controls.OBC.CDL.Types.SimpleController.PI
     "Condenser supply water temperature controller for less coupled plant"
-    annotation (Dialog(tab="Cooling Towers", group="Fan speed: Return temperature control",
+    annotation (Dialog(tab="Cooling towers", group="Fan speed: return temperature control",
                        enable=(not have_airCoo) and not closeCoupledPlant));
 
   parameter Real kSupCon=0.1
     "Gain of controller, for less coupled plant"
-    annotation (Dialog(tab="Cooling Towers", group="Fan speed: Return temperature control",
+    annotation (Dialog(tab="Cooling towers", group="Fan speed: return temperature control",
                        enable=(not have_airCoo) and not closeCoupledPlant));
 
   parameter Real TiSupCon(unit="s")=10
     "Time constant of integrator block, for less coupled plant"
-    annotation (Dialog(tab="Cooling Towers", group="Fan speed: Return temperature control",
+    annotation (Dialog(tab="Cooling towers", group="Fan speed: return temperature control",
                        enable=(not closeCoupledPlant) and (supWatCon==Buildings.Controls.OBC.CDL.Types.SimpleController.PI or
                                                            supWatCon==Buildings.Controls.OBC.CDL.Types.SimpleController.PID)
                               and (not have_airCoo)));
 
   parameter Real TdSupCon(unit="s")=0.1
     "Time constant of derivative block, for less coupled plant"
-    annotation (Dialog(tab="Cooling Towers", group="Fan speed: Return temperature control",
+    annotation (Dialog(tab="Cooling towers", group="Fan speed: return temperature control",
                        enable=(not closeCoupledPlant) and (supWatCon==Buildings.Controls.OBC.CDL.Types.SimpleController.PD or
                                                            supWatCon==Buildings.Controls.OBC.CDL.Types.SimpleController.PID)
                                and (not have_airCoo)));
 
   parameter Real ySupConMax=1
     "Upper limit of output of controller, for less coupled plant"
-    annotation (Dialog(tab="Cooling Towers", group="Fan speed: Return temperature control",
+    annotation (Dialog(tab="Cooling towers", group="Fan speed: return temperature control",
                        enable=(not have_airCoo) and not closeCoupledPlant));
 
   parameter Real ySupConMin=0
     "Lower limit of output of controller, for less coupled plant"
-    annotation (Dialog(tab="Cooling Towers", group="Fan speed: Return temperature control",
+    annotation (Dialog(tab="Cooling towers", group="Fan speed: return temperature control",
                        enable=(not have_airCoo) and not closeCoupledPlant));
 
   parameter Real iniPlaTim(unit="s")=600
     "Time to hold return temperature at initial setpoint after plant being enabled"
-    annotation (Dialog(tab="Cooling Towers", group="Advanced", enable=(not have_airCoo)));
+    annotation (Dialog(tab="Cooling towers", group="Advanced", enable=(not have_airCoo)));
 
   parameter Real ramTim(unit="s")=180
     "Time to ramp return water temperature from initial value to setpoint"
-    annotation (Dialog(tab="Cooling Towers", group="Advanced", enable=(not have_airCoo)));
+    annotation (Dialog(tab="Cooling towers", group="Advanced", enable=(not have_airCoo)));
 
   parameter Real cheMinFanSpe(unit="s")=300
     "Threshold time for checking duration when tower fan equals to the minimum tower fan speed"
-    annotation (Dialog(tab="Cooling Towers", group="Advanced", enable=(not have_airCoo)));
+    annotation (Dialog(tab="Cooling towers", group="Advanced", enable=(not have_airCoo)));
 
   parameter Real cheMaxTowSpe(unit="s")=300
     "Threshold time for checking duration when any enabled chiller maximum cooling speed equals to the minimum tower fan speed"
-    annotation (Dialog(tab="Cooling Towers", group="Advanced", enable=(not have_airCoo)));
+    annotation (Dialog(tab="Cooling towers", group="Advanced", enable=(not have_airCoo)));
 
   parameter Real cheTowOff(unit="s")=60
     "Threshold time for checking duration when there is no enabled tower fan"
-    annotation (Dialog(tab="Cooling Towers", group="Advanced", enable=(not have_airCoo)));
+    annotation (Dialog(tab="Cooling towers", group="Advanced", enable=(not have_airCoo)));
 
   // ---- Cooling tower: staging ----
   parameter Boolean have_towInlIsoVal=true
     "True: tower cells have the inlet isolation valve"
-    annotation (Dialog(tab="Cooling Towers", group="Staging", enable=not have_airCoo));
+    annotation (Dialog(tab="Cooling towers", group="Staging", enable=not have_airCoo));
   parameter Boolean have_towOutIsoVal=false
     "True: tower cells have the outlet isolation valve"
-    annotation (Dialog(tab="Cooling Towers", group="Staging", enable=have_towInlIsoVal and not have_airCoo));
+    annotation (Dialog(tab="Cooling towers", group="Staging", enable=have_towInlIsoVal and not have_airCoo));
   parameter Boolean have_towIsoValEndSwi=false
     "True: tower cells isolatiove valve have the end switch feedback"
-    annotation (Dialog(tab="Cooling Towers", group="Staging", enable=have_towInlIsoVal and not have_airCoo));
+    annotation (Dialog(tab="Cooling towers", group="Staging", enable=have_towInlIsoVal and not have_airCoo));
   parameter Real chaTowCelIsoTim(unit="s")=300
     "Time to slowly change isolation valve"
-     annotation (Dialog(tab="Cooling Towers", group="Staging", enable=have_towInlIsoVal and not have_towIsoValEndSwi and not have_airCoo));
+     annotation (Dialog(tab="Cooling towers", group="Staging", enable=have_towInlIsoVal and not have_towIsoValEndSwi and not have_airCoo));
 
   // ---- Cooling tower: Water level control ----
   parameter Real watLevMin(
@@ -779,11 +781,11 @@ block Controller "Chiller plant controller"
     start=0,
     unit="m")
     "Minimum cooling tower water level recommended by manufacturer"
-     annotation (Dialog(tab="Cooling Towers", group="Makeup water", enable=(not have_airCoo)));
+     annotation (Dialog(tab="Cooling towers", group="Makeup water", enable=(not have_airCoo)));
 
   parameter Real watLevMax(start=0, unit="m")
     "Maximum cooling tower water level recommended by manufacturer"
-    annotation (Dialog(tab="Cooling Towers", group="Makeup water", enable=(not have_airCoo)));
+    annotation (Dialog(tab="Cooling towers", group="Makeup water", enable=(not have_airCoo)));
 
   // ---- Advanced ----
   parameter Real locDt(unit="K")=1
