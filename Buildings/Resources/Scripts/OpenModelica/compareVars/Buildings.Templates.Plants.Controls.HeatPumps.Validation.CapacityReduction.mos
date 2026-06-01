@@ -1,0 +1,8 @@
+compareVars :=
+  {
+    "capRed.TOut",
+    "capRed.TOut_nominal",
+    "capRed.THeaWatSup",
+    "capRed.THeaWatSup_nominal",
+    "capRed.y"
+  };
