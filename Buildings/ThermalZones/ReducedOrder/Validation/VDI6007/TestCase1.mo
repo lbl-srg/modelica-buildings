@@ -45,12 +45,12 @@ model TestCase1 "VDI 6007 Test Case 1 model"
     "Table with internal gains"
     annotation (Placement(transformation(extent={{6,-58},{22,-42}})));
   Modelica.Blocks.Sources.CombiTimeTable reference(
-    tableOnFile=false,
-    columns={2},
-    extrapolation=Modelica.Blocks.Types.Extrapolation.HoldLastPoint,
-    smoothness=Modelica.Blocks.Types.Smoothness.ConstantSegments,
-    offset={273.15},
-    table=[0,22; 3600,22; 7200,22; 10800,22; 14400,22; 18000,22; 21600,22;
+    final tableOnFile=false,
+    final columns={2},
+    final extrapolation=Modelica.Blocks.Types.Extrapolation.HoldLastPoint,
+    final smoothness=Modelica.Blocks.Types.Smoothness.ConstantSegments,
+    final offset={273.15},
+    final table=[0,22; 3600,22; 7200,22; 10800,22; 14400,22; 18000,22; 21600,22;
         25200,27.7; 28800,27.9; 32400,28.1; 36000,28.4; 39600,28.6; 43200,28.8;
         46800,29; 50400,29.2; 54000,29.4; 57600,29.6; 61200,29.8; 64800,30;
         68400,24.5; 72000,24.5; 75600,24.5; 79200,24.5; 82800,24.5; 86400,24.5;
@@ -128,6 +128,12 @@ equation
   <p>This test validates basic functionalities.</p>
   </html>", revisions="<html>
   <ul>
+<li>
+April 29, 2026, by Michael Wetter:<br/>
+Changed configuration of table to cause the parameters to be evaluated, as this leads to more efficient code.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/2111\">IBPSA, #2111</a>.
+</li>
   <li>
   July 11, 2019, by Katharina Brinkmann:<br/>
   Renamed <code>alphaWall</code> to <code>hConWall</code>

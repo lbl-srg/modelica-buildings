@@ -16,7 +16,9 @@ protected
                         size(table,1) "Number of rows";
   final parameter Real[nRow,2] offsetVector = [zeros(nRow), offset*ones(nRow)]
     "Vector to take offset of output signal into account";
-  Modelica.Blocks.Tables.CombiTable1Dv tab(tableOnFile=false, final table=(if
+  Modelica.Blocks.Tables.CombiTable1Dv tab(
+    final tableOnFile=false,
+    final table=(if
         constantExtrapolation then cat(
         1,
         [table[1, 1] - 1,table[1, 2]],
@@ -71,6 +73,12 @@ Note that the first column must be strictly increasing.
 </html>",
 revisions="<html>
 <ul>
+<li>
+April 29, 2026, by Michael Wetter:<br/>
+Changed configuration of table to cause the parameters to be evaluated, as this leads to more efficient code.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/2111\">IBPSA, #2111</a>.
+</li>
 <li>
 August 30, 2016, by Michael Wetter:<br/>
 Changed protected final parameter <code>nCol</code> to <code>nRow</code>.<br/>

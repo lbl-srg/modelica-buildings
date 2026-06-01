@@ -125,13 +125,13 @@ model ElectricChillersDirectETS "Example model for district cooling system with
     "Normalized Q_flow"
     annotation (Placement(transformation(extent={{-120,-10},{-100,10}})));
   HeatTransfer.Sources.FixedTemperature gnd[nLoa](each T=285.15) "Ground"
-    annotation (Placement(transformation(extent={{100,-60},{120,-40}})));
+    annotation (Placement(transformation(extent={{74,-90},{94,-70}})));
   Controls.OBC.CDL.Logical.Timer tim(t=3600)
     annotation (Placement(transformation(extent={{-40,-10},{-20,10}})));
   Controls.OBC.CDL.Logical.Not onPla "On signal for the plant"
     annotation (Placement(transformation(extent={{0,-18},{20,2}})));
   HeatTransfer.Sources.FixedTemperature gnd1[nLoa + 1](each T=285.15) "Ground"
-    annotation (Placement(transformation(extent={{166,-54},{146,-34}})));
+    annotation (Placement(transformation(extent={{170,-90},{150,-70}})));
 protected
   parameter Modelica.Units.SI.SpecificHeatCapacity cp=Medium.specificHeatCapacityCp(
     Medium.setState_pTX(
@@ -147,7 +147,7 @@ equation
   connect(TCHWSupSet.y, pla.TCHWSupSet) annotation (Line(points={{21,-50},{32,
           -50},{32,-4.66667},{49.3333,-4.66667}},   color={0,0,127}));
   connect(pla.port_aSerCoo, dis.port_bDisRet) annotation (Line(points={{50,
-          -11.3333},{36,-11.3333},{36,-60},{88,-60},{88,-16},{100,-16}},color={
+          -11.3333},{40,-11.3333},{40,-40},{92,-40},{92,-16},{100,-16}},color={
           0,127,255}));
   connect(dis.port_aDisSup, pla.port_bSerCoo) annotation (Line(points={{100,-10},
           {100,-11.3333},{70,-11.3333}},        color={0,127,255}));
@@ -162,8 +162,8 @@ equation
      annotation (Line(points={{91,70},{100,70},{100,57},{119,57}},
                                                                color={0,0,127}));
   end for;
-  connect(buiETS.QCoo_flow, QTotCoo_flow.u) annotation (Line(points={{137,38},{136,
-          38},{136,24},{-170,24},{-170,0},{-162,0}},
+  connect(buiETS.QCoo_flow, QTotCoo_flow.u) annotation (Line(points={{137,38},{
+          138,38},{138,24},{-170,24},{-170,0},{-162,0}},
                                    color={0,0,127}));
   connect(QTotCoo_flow.y, norQFlo.u)
     annotation (Line(points={{-139,0},{-122,0}},
@@ -177,11 +177,11 @@ equation
   connect(onPla.y, pla.on) annotation (Line(points={{22,-8},{26,-8},{26,
           -2.66667},{49.3333,-2.66667}},
                                   color={255,0,255}));
-  connect(gnd.port, dis.heatPortsRet) annotation (Line(points={{120,-50},{120,
-          -30},{112.6,-30},{112.6,-17.6}},
-                                      color={191,0,0}));
-  connect(gnd1.port, dis.heatPortsDis) annotation (Line(points={{146,-44},{
-          127.8,-44},{127.8,-8.4}}, color={191,0,0}));
+  connect(gnd.port, dis.heatPortsRet) annotation (Line(points={{94,-80},{112.6,
+          -80},{112.6,-17.6}},        color={191,0,0}));
+  connect(gnd1.port, dis.heatPortsDis) annotation (Line(points={{150,-80},{144,
+          -80},{144,-26},{152,-26},{152,10},{127.8,10},{127.8,-8.4}},
+                                    color={191,0,0}));
     annotation (
     Diagram(
       coordinateSystem(
