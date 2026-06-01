@@ -1,5 +1,5 @@
 within Buildings.Fluid.BaseClasses.FlowModels;
-function powerLawFixedM
+function powerLawFixedM_dp
   "Power law used in pressure drop equations when m is constant and may be different from 0.5"
   extends Modelica.Icons.Function;
 
@@ -76,4 +76,4 @@ This is for
 </li>
 </ul>
 </html>"));
-end powerLawFixedM;
+end powerLawFixedM_dp;

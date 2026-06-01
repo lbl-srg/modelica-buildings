@@ -121,12 +121,12 @@ equation
         // Case for n < 2.
         if homotopyInitialization then
             m_flow=homotopy(
-              actual=Buildings.Fluid.BaseClasses.FlowModels.powerLawFixedM(
+              actual=Buildings.Fluid.BaseClasses.FlowModels.powerLawFixedM_dp(
                 k=k, dp=dp, m=m, a=a, b=b, c=c, d=d,
                 dp_turbulent=dp_turbulent),
               simplified=m_flow_nominal_pos*dp/dp_nominal_pos);
         else // do not use homotopy
-          m_flow=Buildings.Fluid.BaseClasses.FlowModels.powerLawFixedM(
+          m_flow=Buildings.Fluid.BaseClasses.FlowModels.powerLawFixedM_dp(
                 k=k, dp=dp, m=m, a=a, b=b, c=c, d=d,
                 dp_turbulent=dp_turbulent);
         end if; // homotopyInitialization
@@ -247,8 +247,8 @@ and its inverse function.
 <p>
 For other values of <code>n</code>, a computationally more expensive implementation is used
 through a call of the function
-<a href=\"modelica://Buildings.Fluid.BaseClasses.FlowModels.powerLawFixedM\">
-Buildings.Fluid.BaseClasses.FlowModels.powerLawFixedM</a>.
+<a href=\"modelica://Buildings.Fluid.BaseClasses.FlowModels.powerLawFixedM_dp\">
+Buildings.Fluid.BaseClasses.FlowModels.powerLawFixedM_dp</a>.
 </p>
 <p>
 To decouple the energy equation from the mass equations,
