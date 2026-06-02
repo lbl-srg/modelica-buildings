@@ -112,7 +112,7 @@
   openmodelica:
     comment: simulation terminated by an assertion at initialization.
     simulate: false
-- model_name: Buildings.Examples.ChillerPlants.Guideline36.ClosedLoop
+- model_name: Buildings.Examples.ChillerPlant.Guideline36.ClosedLoop
   openmodelica:
     comment: Internal error function createNonlinearResidualEquations failed.
     translate: false
