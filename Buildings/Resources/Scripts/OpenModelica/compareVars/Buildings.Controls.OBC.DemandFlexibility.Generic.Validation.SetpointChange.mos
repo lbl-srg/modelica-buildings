@@ -1,0 +1,8 @@
+compareVars :=
+  {
+    "setCha.y",
+    "setCha.uCurSet",
+    "TAllMinSet.y",
+    "TAllMaxSet.y",
+    "setCha.uEna"
+  };

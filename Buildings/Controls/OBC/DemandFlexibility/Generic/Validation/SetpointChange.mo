@@ -1,19 +1,26 @@
 within Buildings.Controls.OBC.DemandFlexibility.Generic.Validation;
 model SetpointChange "Setpoint change"
 
-  Buildings.Controls.OBC.DemandFlexibility.Generic.SetpointChange             setCha(
+  Buildings.Controls.OBC.CDL.Discrete.Sampler sam(final samplePeriod=300)
+    "Sample period for the setpoint change"
+    annotation (Placement(transformation(extent={{20,20},{40,40}})));
+  Buildings.Controls.OBC.DemandFlexibility.Generic.SetpointChange setCha(
     setChaDel=0.5,
     ascSet=true,
     incSteSetCha=true)
-    "Multiple-step setpoint change block"
+    "Setpoint change block"
     annotation (Placement(transformation(extent={{-20,20},{0,40}})));
-  Buildings.Controls.OBC.CDL.Logical.Sources.Pulse uEna(period=1800, shift=900)
-    "Boolean value for the signal to enable multiple-step setpoint change"
-    annotation (Placement(transformation(extent={{-120,60},{-100,80}})));
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant TAllMaxSet(
+    k(final unit="K", displayUnit="degC") = 292.15)
+    "Allowed maximum temperature setpoint"
+    annotation (Placement(transformation(extent={{-120,0},{-100,20}})));
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant TAllMinSet(
     k(final unit="K", displayUnit="degC") = 289.15)
     "Allowed minimum temperature setpoint"
     annotation (Placement(transformation(extent={{-120,-80},{-100,-60}})));
+  Buildings.Controls.OBC.CDL.Logical.Sources.Pulse uEna(period=1800, shift=900)
+    "Boolean value for the signal to enable setpoint change"
+    annotation (Placement(transformation(extent={{-120,60},{-100,80}})));
   Buildings.Controls.OBC.CDL.Discrete.UnitDelay uniDelTSet(
     samplePeriod=10,
     y_start=273.15 + 17)
@@ -22,13 +29,6 @@ model SetpointChange "Setpoint change"
         extent={{-10,-10},{10,10}},
         rotation=0,
         origin={70,30})));
-  Buildings.Controls.OBC.CDL.Reals.Sources.Constant TAllMaxSet(
-    k(final unit="K", displayUnit="degC") = 292.15)
-    "Allowed maximum temperature setpoint"
-    annotation (Placement(transformation(extent={{-120,0},{-100,20}})));
-  Buildings.Controls.OBC.CDL.Discrete.Sampler sam(final samplePeriod=300)
-    "Sample period for the multiple-step setpoint change"
-    annotation (Placement(transformation(extent={{20,20},{40,40}})));
 equation
   connect(TAllMinSet.y, setCha.uAllMinSet) annotation (Line(points={{-98,-70},{-60,
           -70},{-60,24},{-22,24}}, color={0,0,127}));
@@ -55,8 +55,8 @@ Buildings.Controls.OBC.DemandFlexibility.Generic.SetpointChange</a>.
 This validation test uses two constant temperatures, the minimum temperature setpoint
 <code>TAllMinSet</code> and the maximum temperature setpoint <code>TAllMaxSet</code>,
 to set the inputs <code>uAllMinSet</code> and <code>uAllMaxSet</code>. It also uses 
-a boolean pulse signal to set the input <code>uEna</code> to enable the 
-multiple-step setpoint change. 
+a boolean pulse signal to set the input <code>uEna</code> to enable the setpoint 
+change. 
 </p>
 <p>
 A <code>UnitDelay</code> block emulates the behavior of a temperature setpoint 

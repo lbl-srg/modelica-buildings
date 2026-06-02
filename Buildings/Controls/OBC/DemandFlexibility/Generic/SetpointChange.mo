@@ -2,7 +2,8 @@ within Buildings.Controls.OBC.DemandFlexibility.Generic;
 block SetpointChange "Setpoint change"
 
   parameter Real setChaDel(min=0) if incSteSetCha
-    "Setpoint change delta; always positive";
+    "Setpoint change delta; always positive"
+    annotation (Dialog(enable = incSteSetCha));
   parameter Boolean ascSet
     "True: ascending setpoint; False: descending setpoint";
   parameter Boolean incSteSetCha
@@ -60,10 +61,6 @@ equation
   connect(uAllMaxSet,uCurSetAllMin. u1) annotation (Line(points={{-180,-40},{
           -120,-40},{-120,30},{100,30},{100,6},{118,6}},
                                             color={0,0,127}));
-  connect(uAllMinSet,uCurSetAllMax. u1) annotation (Line(points={{-180,-120},{
-          40,-120},{40,6},{58,6}},                color={0,0,127}));
-  connect(swiEna.y,uCurSetAllMax. u2) annotation (Line(points={{22,-50},{50,-50},
-          {50,-6},{58,-6}}, color={0,0,127}));
   connect(uCurSetAllMax.y,uCurSetAllMin. u2)
     annotation (Line(points={{82,0},{100,0},{100,-6},{118,-6}},
                                                              color={0,0,127}));
@@ -86,6 +83,10 @@ equation
           70},{-70,76},{-62,76}}, color={0,0,127}));
   connect(uCurSet, addCurSet.u2) annotation (Line(points={{-180,40},{-70,40},{-70,
           64},{-62,64}}, color={0,0,127}));
+  connect(swiEna.y, uCurSetAllMax.u1) annotation (Line(points={{22,-50},{40,-50},
+          {40,6},{58,6}}, color={0,0,127}));
+  connect(uAllMinSet, uCurSetAllMax.u2) annotation (Line(points={{-180,-120},{50,
+          -120},{50,-6},{58,-6}}, color={0,0,127}));
   annotation (defaultComponentName="setCha",
     Icon(coordinateSystem(preserveAspectRatio=false,
     extent={{-100,-100},{100,100}},
@@ -103,16 +104,32 @@ equation
     grid={2,2})),
     Documentation(info="<html>
 <p>
-This block conducts a multiple-step setpoint change as follows:
+This block conducts a setpoint change as follows:
 </p>
 <ul>
 <li>
-If the setpoint change enabling input <code>uEna</code> is <code>true</code>, the 
-output is <code>y = min(uAllMaxSet, max(uAllMinSet, uCurSet + setChaDel))</code> 
-if the parameter <code>ascSet</code> is set to <code>true</code>, or is 
-<code>y = min(uAllMaxSet, max(uAllMinSet, uCurSet - setChaDel))</code> if 
-<code>ascSet</code> is set to <code>false</code>.
+If the setpoint change enabling input <code>uEna</code> is <code>true</code>:
 </li>
+<ul>
+<li>
+If <code>incSteSetCha</code> is <code>true</code>, and <code>ascSet</code> is 
+<code>true</code>, the output is <code>y = min(uAllMaxSet, max(uAllMinSet, 
+uCurSet + setChaDel))</code>.
+</li>
+<li>
+If <code>incSteSetCha</code> is <code>true</code>, and <code>ascSet</code> is 
+<code>false</code>, the output is <code>y = min(uAllMaxSet, max(uAllMinSet, 
+uCurSet - setChaDel))</code>.
+</li>
+<li>
+If <code>incSteSetCha</code> is <code>false</code>, and <code>ascSet</code> is 
+<code>true</code>, the output is <code>y = uAllMaxSet</code>.
+</li>
+<li>
+If <code>incSteSetCha</code> is <code>false</code>, and <code>ascSet</code> is 
+<code>false</code>, the output is <code>y = uAllMinSet</code>.
+</li>
+</ul>
 <li>
 If the setpoint change enabling input <code>uEna</code> is <code>false</code>, the 
 output is <code>y = min(uAllMaxSet, max(uAllMinSet, uCurSet))</code>.
@@ -120,8 +137,8 @@ output is <code>y = min(uAllMaxSet, max(uAllMinSet, uCurSet))</code>.
 </ul>
 <p>
 Note that the output <code>y</code> is intended to be received by a downstream
-setpoint controller, which will process the setpoint change and pass its new setpoint
-back to <code>uCurSet</code>, completing a full control loop.
+setpoint controller, which will process the setpoint change and pass its new 
+setpoint back to <code>uCurSet</code>, completing a full control loop.
 </p>
 </html>",
         revisions="<html>
