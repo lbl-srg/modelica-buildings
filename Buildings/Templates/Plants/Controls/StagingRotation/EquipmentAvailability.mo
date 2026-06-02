@@ -29,12 +29,6 @@ block EquipmentAvailability
     "Equipment available for cooling"
     annotation (Placement(transformation(extent={{200,-140},{240,-100}}),
       iconTransformation(extent={{100,-80},{140,-40}})));
-  Buildings.Controls.OBC.CDL.Logical.And onAndHea
-    "Return true if equipment on and in heating mode"
-    annotation (Placement(transformation(extent={{-110,-10},{-90,10}})));
-  Buildings.Controls.OBC.CDL.Logical.And onAndCoo
-    "Return true if equipment on and in cooling mode"
-    annotation (Placement(transformation(extent={{-110,-130},{-90,-110}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1Ava
     "Equipment available signal"
     annotation (Placement(transformation(extent={{-240,-80},{-200,-40}}),
@@ -111,9 +105,6 @@ block EquipmentAvailability
   Utilities.PlaceholderLogical phHea(final have_inp=have_heaWat, final
       u_internal=false) "Placeholder value if signal is not available"
     annotation (Placement(transformation(extent={{-190,-10},{-170,10}})));
-  Buildings.Controls.OBC.CDL.Logical.Or on
-    "Return true if equipment enabled in either mode"
-    annotation (Placement(transformation(extent={{-150,-50},{-130,-30}})));
   Buildings.Controls.OBC.CDL.Logical.Not offOrNotCoo
     "Return true if equipment is off or not in cooling mode"
     annotation (Placement(transformation(extent={{-10,-110},{10,-90}})));
@@ -123,9 +114,6 @@ equation
   connect(avaMod.outPort[1], trnToCoo.inPort)
     annotation (Line(points={{-49.5,159.833},{-40,159.833},{-40,120},{-4,120}},
       color={0,0,0}));
-  connect(onAndCoo.y, trnToCoo.condition)
-    annotation (Line(points={{-88,-120},{-80,-120},{-80,40},{0,40},{0,108}},
-                                                                      color={255,0,255}));
   connect(onHea.outPort[1], trnToOff.inPort)
     annotation (Line(points={{30.5,159.875},{44,159.875},{44,160},{56,160}},
       color={0,0,0}));
@@ -136,8 +124,6 @@ equation
       color={0,0,0}));
   connect(trnToCoo.outPort, onCoo.inPort[1])
     annotation (Line(points={{1.5,120},{69,120}},color={0,0,0}));
-  connect(onAndHea.y, trnToHea.condition)
-    annotation (Line(points={{-88,0},{-20,0},{-20,148}},color={255,0,255}));
   connect(avaMod.outPort[2], trnToHea.inPort)
     annotation (Line(points={{-49.5,160},{-24,160}},color={0,0,0}));
   connect(avaMod.active, avaAllHea.u1)
@@ -199,24 +185,16 @@ equation
     annotation (Line(points={{-88,-80},{100,-80},{100,68}},color={255,0,255}));
   connect(u1EnaHea, phHea.u)
     annotation (Line(points={{-220,0},{-192,0}}, color={255,0,255}));
-  connect(phHea.y, on.u1) annotation (Line(points={{-168,0},{-160,0},{-160,-40},
-          {-152,-40}}, color={255,0,255}));
-  connect(phCoo.y, on.u2) annotation (Line(points={{-168,-120},{-160,-120},{
-          -160,-48},{-152,-48}}, color={255,0,255}));
-  connect(phHea.y, onAndHea.u1)
-    annotation (Line(points={{-168,0},{-112,0}}, color={255,0,255}));
-  connect(on.y, onAndHea.u2) annotation (Line(points={{-128,-40},{-120,-40},{
-          -120,-8},{-112,-8}}, color={255,0,255}));
-  connect(phCoo.y, onAndCoo.u2) annotation (Line(points={{-168,-120},{-140,-120},
-          {-140,-128},{-112,-128}}, color={255,0,255}));
-  connect(on.y, onAndCoo.u1) annotation (Line(points={{-128,-40},{-120,-40},{
-          -120,-120},{-112,-120}}, color={255,0,255}));
-  connect(onAndHea.y, offOrNotHea.u) annotation (Line(points={{-88,0},{-20,0},{
-          -20,20},{-12,20}}, color={255,0,255}));
-  connect(onAndCoo.y, offOrNotCoo.u) annotation (Line(points={{-88,-120},{-80,
-          -120},{-80,-100},{-12,-100}}, color={255,0,255}));
   connect(offOrNotCoo.y, trnToOff1.condition) annotation (Line(points={{12,-100},
           {120,-100},{120,108}}, color={255,0,255}));
+  connect(phHea.y, offOrNotHea.u) annotation (Line(points={{-168,0},{-100,0},{
+          -100,20},{-12,20}}, color={255,0,255}));
+  connect(phHea.y, trnToHea.condition) annotation (Line(points={{-168,0},{-100,
+          0},{-100,140},{-20,140},{-20,148}}, color={255,0,255}));
+  connect(phCoo.y, offOrNotCoo.u) annotation (Line(points={{-168,-120},{-80,
+          -120},{-80,-100},{-12,-100}}, color={255,0,255}));
+  connect(phCoo.y, trnToCoo.condition) annotation (Line(points={{-168,-120},{
+          -80,-120},{-80,60},{0,60},{0,108}}, color={255,0,255}));
   annotation (
     __cdl(
       extensionBlock=true),
