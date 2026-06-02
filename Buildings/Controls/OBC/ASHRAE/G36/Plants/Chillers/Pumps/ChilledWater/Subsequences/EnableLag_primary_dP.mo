@@ -54,11 +54,11 @@ block EnableLag_primary_dP
   Buildings.Controls.OBC.CDL.Reals.MultiplyByParameter chiWatFloRat(
     final k=1/VChiWat_flow_nominal) "Chiller water flow ratio"
     annotation (Placement(transformation(extent={{-200,70},{-180,90}})));
-  Buildings.Controls.OBC.CDL.Logical.TimerWithReset tim(
+  Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Generic.TimerWithReset tim(
     final t=timPer)
     "Check if it has passed the threshold time"
     annotation (Placement(transformation(extent={{40,90},{60,110}})));
-  Buildings.Controls.OBC.CDL.Logical.TimerWithReset tim1(
+  Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Generic.TimerWithReset tim1(
     final t=timPer)
     "Check if it has passed the threshold time"
     annotation (Placement(transformation(extent={{40,-140},{60,-120}})));

@@ -1,4 +1,4 @@
-within Buildings.Controls.OBC.CDL.Logical;
+within Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Generic;
 block TimerWithReset
   "Timer measuring the time from the time instant where the Boolean input became true"
   parameter Real t(
