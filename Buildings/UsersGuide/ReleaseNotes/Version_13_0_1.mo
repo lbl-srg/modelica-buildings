@@ -19,7 +19,7 @@ The following <b style=\"color:blue\">new libraries</b> have been added:
     </tr>
 <tr><td valign=\"top\">Buildings.Controls.OBC.ASHRAE.G36.Plants
     </td>
-    <td valign=\"top\">Package of sequences for chiller and boiler plants
+    <td valign=\"top\">Package of sequences for chiller plants
     </td>
     </tr>
 </table>
