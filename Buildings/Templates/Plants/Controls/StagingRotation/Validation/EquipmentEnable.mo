@@ -75,7 +75,7 @@ equation
   connect(uSta.y[1], equEnaOneTwo.uSta)
     annotation (Line(points={{-58,0},{40,0},{40,-40},{68,-40}},color={255,127,0}));
   connect(uSta1.y[1], equEnaEqu.uSta)
-    annotation (Line(points={{-58,40},{30,40},{30,40},{68,40}},color={255,127,0}));
+    annotation (Line(points={{-58,40},{68,40}},color={255,127,0}));
   connect(u1AvaEqu.y, equEnaEqu.u1Ava)
     annotation (Line(points={{-58,-40},{-40,-40},{-40,34},{68,34}},color={255,0,255}));
   connect(u1AvaEqu.y, booToRea.u)
@@ -115,11 +115,11 @@ equation
           points={{-36,60},{64,0},{-36,-60},{-36,60}})}),
     Documentation(info="<html>
 <p>
-This model validates 
+This model validates
 <a href=\"modelica://Buildings.Templates.Plants.Controls.StagingRotation.EquipmentEnable\">
 Buildings.Templates.Plants.Controls.StagingRotation.EquipmentEnable</a>
-in a configuration with three equally sized units (component <code>equEnaEqu</code>) 
-and in a configuration with one small unit and two large equally sized 
+in a configuration with three equally sized units (component <code>equEnaEqu</code>)
+and in a configuration with one small unit and two large equally sized
 units (component <code>equEnaOneTwo</code>).
 Only the units of the same size are lead/lag alternated.
 </p>

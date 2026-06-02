@@ -238,6 +238,12 @@ the opposite mode.
 </html>", revisions="<html>
 <ul>
 <li>
+June 2, 2026, by Antoine Gautier:<br/>
+Removed unnecessary <code>Or</code> and <code>And</code> blocks.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4624\">#4624</a>.
+</li>
+<li>
 January 23, 2025, by Antoine Gautier:<br/>
 Refactored to use \"required to run\" conditions.<br/>
 This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4432\">#4432</a>.
