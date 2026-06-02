@@ -177,7 +177,7 @@ partial model PartialDataCenter
     annotation (Placement(transformation(extent={{10,-10},{-10,10}},
         rotation=90,
         origin={-50,-150})));
-  Buildings.Examples.ChillerPlants.DataCenter.BaseClasses.SimplifiedRoom roo(
+  Buildings.Examples.ChillerPlant.DataCenter.BaseClasses.SimplifiedRoom roo(
     redeclare replaceable package Medium = MediumA,
     rooLen=50,
     rooWid=30,
