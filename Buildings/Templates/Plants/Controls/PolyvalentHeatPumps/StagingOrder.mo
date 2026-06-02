@@ -1,4 +1,4 @@
-within Buildings.Templates.Utilities;
+within Buildings.Templates.Plants.Controls.PolyvalentHeatPumps;
 block StagingOrder
   parameter Integer nHp "Number of HP units (excluding polyvalent HP)";
   parameter Integer nShc "Number of polyvalent HP units";

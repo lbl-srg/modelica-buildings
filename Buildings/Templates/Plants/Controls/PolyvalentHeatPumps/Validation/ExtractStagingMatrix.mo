@@ -1,4 +1,4 @@
-within Buildings.Templates.Utilities.Validation;
+within Buildings.Templates.Plants.Controls.PolyvalentHeatPumps.Validation;
 model ExtractStagingMatrix
   extends Modelica.Icons.Example;
   parameter Integer nHp = 0
@@ -46,23 +46,24 @@ model ExtractStagingMatrix
         sta.nShcShc[iHea, iCoo + 1] / max(nShc, 1),
         nShc)) for iCoo in 1:nSta, iHea in 1:nSta + 1}
     "Cooling staging matrix – Varies with heating stage";
-  Buildings.Templates.Utilities.StagingOrder sta(final nHp=nHp, final nShc=nShc)
-    "Calculate staging order";
-  Controls.OBC.CDL.Integers.Sources.Constant iHea(k=3)
-    annotation(Placement(transformation(extent={{-60,-10},{-40,10}})));
-  Buildings.Templates.Utilities.ExtractStagingMatrix extSta(
+  Buildings.Templates.Plants.Controls.PolyvalentHeatPumps.StagingOrder sta(
+      final nHp=nHp, final nShc=nShc) "Calculate staging order";
+  Buildings.Controls.OBC.CDL.Integers.Sources.Constant iHea(k=3)
+    annotation (Placement(transformation(extent={{-60,-10},{-40,10}})));
+  Buildings.Templates.Plants.Controls.PolyvalentHeatPumps.ExtractStagingMatrix
+    extSta(
     final sta=sta.staCoo,
     final nHp=nHp,
-    final nShc=nShc)
-    "Extract cooling staging matrix at given heating stage"
-    annotation(Placement(transformation(extent={{-10,20},{10,40}})));
-  Buildings.Templates.Utilities.ExtractStagingMatrix extTra(
+    final nShc=nShc) "Extract cooling staging matrix at given heating stage"
+    annotation (Placement(transformation(extent={{-10,20},{10,40}})));
+  Buildings.Templates.Plants.Controls.PolyvalentHeatPumps.ExtractStagingMatrix
+    extTra(
     is_transpose=true,
     final sta=sta.staCoo,
     final nHp=nHp,
     final nShc=nShc)
     "Extract transpose of cooling staging matrix at given heating stage"
-    annotation(Placement(transformation(extent={{-10,-10},{10,10}})));
+    annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
 initial algorithm
   for iHea in 1:nSta + 1, iCoo in 1:nSta, iEqu in 1:nHp + 2 * nShc loop
     assert(
@@ -73,7 +74,7 @@ initial algorithm
   end for;
   for iCoo in 1:nSta, iEqu in 1:nHp + 2 * nShc loop
     assert(
-      abs(staCoo[iHea.k, iCoo, iEqu] - ext1D.y[iCoo, iEqu]) <
+      abs(staCoo[iHea.k, iCoo, iEqu] - extSta.y[iCoo, iEqu]) <
         Modelica.Constants.small,
       "Mismatch");
     assert(
@@ -82,7 +83,7 @@ initial algorithm
       "Mismatch");
   end for;
 equation
-  connect(iHea.y, ext1D.u)
+  connect(iHea.y, extSta.u)
     annotation(Line(points={{-38,0},{-20,0},{-20,30},{-12,30}},
       color={255,127,0}));
   connect(iHea.y, extTra.u)

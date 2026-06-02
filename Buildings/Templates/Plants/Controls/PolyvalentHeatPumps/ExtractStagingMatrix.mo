@@ -1,4 +1,4 @@
-within Buildings.Templates.Utilities;
+within Buildings.Templates.Plants.Controls.PolyvalentHeatPumps;
 block ExtractStagingMatrix
   parameter Real sta[:]
     "Fully flattened (1D) row-major expansion of 3D staging matrix";
@@ -16,58 +16,52 @@ block ExtractStagingMatrix
     "Number of stages";
   final parameter Integer nOut = nEqu * nSta
     "Number of extracted scalar outputs";
-  Controls.OBC.CDL.Interfaces.IntegerInput u
-    "Stage index"
-    annotation(Placement(transformation(extent={{-140,-20},{-100,20}}),
-      iconTransformation(extent={{-140,-20},{-100,20}})));
-  Controls.OBC.CDL.Interfaces.RealOutput y[if is_transpose
-  then nEqu else nSta, if is_transpose then nSta else nEqu]
-    annotation(Placement(transformation(extent={{100,-20},{140,20}}),
-      iconTransformation(extent={{100,-20},{140,20}})));
+  Buildings.Controls.OBC.CDL.Interfaces.IntegerInput u "Stage index"
+    annotation (Placement(transformation(extent={{-140,-20},{-100,20}}),
+        iconTransformation(extent={{-140,-20},{-100,20}})));
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput y[if is_transpose then nEqu
+     else nSta,if is_transpose then nSta else nEqu] annotation (Placement(
+        transformation(extent={{100,-20},{140,20}}), iconTransformation(extent=
+            {{100,-20},{140,20}})));
   // ---- Data path (all 2D) ----
-  Controls.OBC.CDL.Reals.Sources.Constant conStaCoo[nOut, nLen](
-    final k={sta[m] for m in 1:nLen, p in 1:nOut})
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant conStaCoo[nOut,nLen](final
+      k={sta[m] for m in 1:nLen,p in 1:nOut})
     "Full flat vector duplicated for each of nOut extractors"
-    annotation(Placement(transformation(extent={{-40,60},{-20,80}})));
-  Controls.OBC.CDL.Routing.RealExtractor extIndRea[nOut](each nin=nLen)
-    "Scalar extraction per output element"
-    annotation(Placement(transformation(extent={{30,60},{50,80}})));
+    annotation (Placement(transformation(extent={{-40,60},{-20,80}})));
+  Buildings.Controls.OBC.CDL.Routing.RealExtractor extIndRea[nOut](each nin=
+        nLen) "Scalar extraction per output element"
+    annotation (Placement(transformation(extent={{30,60},{50,80}})));
   // ---- Index path ----
   // flat index = (u-1)*nSta*nEqu + offset
   // straight (non-transpose): offset = q = (iCoo-1)*nEqu + iEqu
-  Controls.OBC.CDL.Integers.Sources.Constant one(k=1)
-    annotation(Placement(transformation(extent={{-90,-80},{-70,-60}})));
-  Controls.OBC.CDL.Integers.Subtract intSub
-    "u - 1"
-    annotation(Placement(transformation(extent={{-56,-40},{-36,-20}})));
-  Controls.OBC.CDL.Integers.Sources.Constant nStaCst(k=nSta * nEqu)
-    annotation(Placement(transformation(extent={{-50,-80},{-30,-60}})));
-  Controls.OBC.CDL.Integers.Multiply mulInt
-    "(u-1)*nSta*nEqu"
-    annotation(Placement(transformation(extent={{-20,-40},{0,-20}})));
-  Controls.OBC.CDL.Routing.IntegerScalarReplicator intScaRep(nout=nOut)
+  Buildings.Controls.OBC.CDL.Integers.Sources.Constant one(k=1)
+    annotation (Placement(transformation(extent={{-90,-80},{-70,-60}})));
+  Buildings.Controls.OBC.CDL.Integers.Subtract intSub "u - 1"
+    annotation (Placement(transformation(extent={{-56,-40},{-36,-20}})));
+  Buildings.Controls.OBC.CDL.Integers.Sources.Constant nStaCst(k=nSta*nEqu)
+    annotation (Placement(transformation(extent={{-50,-80},{-30,-60}})));
+  Buildings.Controls.OBC.CDL.Integers.Multiply mulInt "(u-1)*nSta*nEqu"
+    annotation (Placement(transformation(extent={{-20,-40},{0,-20}})));
+  Buildings.Controls.OBC.CDL.Routing.IntegerScalarReplicator intScaRep(nout=nOut)
     "Broadcast runtime base to all outputs"
-    annotation(Placement(transformation(extent={{10,-40},{30,-20}})));
-  Controls.OBC.CDL.Integers.Sources.Constant offCst[nOut](
-    final k=if is_transpose
-      then {(mod(p - 1, nSta)) * nEqu + (div(p - 1, nSta) + 1) for p in 1:nOut}
-      else {p for p in 1:nOut})
+    annotation (Placement(transformation(extent={{10,-40},{30,-20}})));
+  Buildings.Controls.OBC.CDL.Integers.Sources.Constant offCst[nOut](final k=if
+        is_transpose then {(mod(p - 1, nSta))*nEqu + (div(p - 1, nSta) + 1)
+        for p in 1:nOut} else {p for p in 1:nOut})
     "Per-output offset = flat position (identity for straight extraction)"
-    annotation(Placement(transformation(extent={{10,-80},{30,-60}})));
-  Controls.OBC.CDL.Integers.Add addInt[nOut]
-    annotation(Placement(transformation(extent={{48,-40},{68,-20}})));
-  Controls.OBC.CDL.Routing.RealExtractSignal extReaSig[if is_transpose
-  then nEqu else nSta](
+    annotation (Placement(transformation(extent={{10,-80},{30,-60}})));
+  Buildings.Controls.OBC.CDL.Integers.Add addInt[nOut]
+    annotation (Placement(transformation(extent={{48,-40},{68,-20}})));
+  Buildings.Controls.OBC.CDL.Routing.RealExtractSignal extReaSig[if
+    is_transpose then nEqu else nSta](
     each final nin=nOut,
     each final nout=if is_transpose then nSta else nEqu,
-    final extract=if is_transpose
-      then {(i - 1) * nSta + j for j in 1:nSta, i in 1:nEqu}
-      else {(j - 1) * nEqu + i for i in 1:nEqu, j in 1:nSta})
-    annotation(Placement(transformation(extent={{120,60},{140,80}})));
-  Controls.OBC.CDL.Routing.RealVectorReplicator reaVecRep(
-    final nin=nOut,
-    final nout=if is_transpose then nEqu else nSta)
-    annotation(Placement(transformation(extent={{70,59},{90,81}})));
+    final extract=if is_transpose then {(i - 1)*nSta + j for j in 1:nSta,i in 1
+        :nEqu} else {(j - 1)*nEqu + i for i in 1:nEqu,j in 1:nSta})
+    annotation (Placement(transformation(extent={{120,60},{140,80}})));
+  Buildings.Controls.OBC.CDL.Routing.RealVectorReplicator reaVecRep(final nin=
+        nOut, final nout=if is_transpose then nEqu else nSta)
+    annotation (Placement(transformation(extent={{70,59},{90,81}})));
 equation
   // index path
   connect(u, intSub.u1)
