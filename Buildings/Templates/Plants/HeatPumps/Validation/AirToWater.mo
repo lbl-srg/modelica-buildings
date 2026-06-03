@@ -41,7 +41,7 @@ model AirToWater
   Buildings.Templates.Plants.HeatPumps.AirToWater pla(
     redeclare final package MediumHeaWat=Medium,
     have_hrc_select=true,
-    cfg(nHpShc=0),
+    nHpShc=0,
     ctl(
       is_typDis_override=false,
       nAirHan=1,

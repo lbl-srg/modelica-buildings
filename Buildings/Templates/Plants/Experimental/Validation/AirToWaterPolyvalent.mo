@@ -111,8 +111,8 @@ First implementation.
       info="<html>
 <p>
 This model validates
-<a href=\"modelica://Buildings.Templates.Plants.Controls.HeatPumps.AirToWater\">
-Buildings.Templates.Plants.Controls.HeatPumps.AirToWater</a>
+<a href=\"modelica://Buildings.Templates.Plants.Experimental.Baseclasses.AirToWater\">
+Buildings.Templates.Plants.Experimental.Baseclasses.AirToWater</a>
 with instance <code>ctl</code> that controls a polyvalent heat pump plant with two
 equally-sized 2-pipe air-source heat pumps (ASHPs) in a lead-lag relationship, and
 an additional 4-pipe ASHP that is prioritized when servicing simultaneous heating

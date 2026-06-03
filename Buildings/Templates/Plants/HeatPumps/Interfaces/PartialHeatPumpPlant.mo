@@ -114,8 +114,8 @@ partial model PartialHeatPumpPlant
     annotation (Evaluate=true,
     Dialog(group="Heat pumps"));
   parameter Integer nHpShc(
-    final min=1,
-    start=1)
+    final min=0,
+    start=0)
     "Number of polyvalent heat pumps"
     annotation (Evaluate=true,
     Dialog(group="Heat pumps"));

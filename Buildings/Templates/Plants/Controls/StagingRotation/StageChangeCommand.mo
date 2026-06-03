@@ -3,8 +3,11 @@ block StageChangeCommand "Generate stage change command"
   parameter Buildings.Templates.Plants.Controls.Types.Application typ
     "Type of application"
     annotation (Evaluate=true);
+  final parameter Boolean is_heaApp=typ==Buildings.Templates.Plants.Controls.Types.Application.Heating
+    "Set to true if the block is used to stage the heating plant"
+    annotation(Evaluate=true);
   parameter Boolean have_HpShc=false
-    "Set to true if the logic block is used in a polyvalent HP plant"
+    "Set to true if the heat pump plant has polyvalent units"
     annotation (Evaluate=true);
   parameter Boolean have_pumSec
     "Set to true for primary-secondary distribution, false for primary-only"
@@ -12,6 +15,23 @@ block StageChangeCommand "Generate stage change command"
   parameter Boolean have_inpPlrSta=false
     "Set to true to use an input signal for SPLR, false to use a parameter"
     annotation (Evaluate=true);
+
+  parameter Real THeaWatSup_nominal(
+    min=273.15,
+    start=50 + 273.15,
+    unit="K",
+    displayUnit="degC")
+    "Nominal HW supply temperature"
+    annotation (Dialog(enable=is_heaApp));
+
+  parameter Real TOut_nominal(
+    min=273.15,
+    start=10 + 273.15,
+    unit="K",
+    displayUnit="degC")
+    "Nominal outdoor air temperature"
+    annotation (Dialog(enable=is_heaApp));
+
   parameter Real plrSta(
     max=1,
     min=0,
@@ -96,11 +116,11 @@ block StageChangeCommand "Generate stage change command"
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1AvaSta[nSta]
     "Stage available signal"
     annotation (Placement(transformation(extent={{-240,60},{-200,100}}),
-      iconTransformation(extent={{-140,60},{-100,100}})));
+      iconTransformation(extent={{-140,40},{-100,80}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1StaPro
     "Staging process in progress"
     annotation (Placement(transformation(extent={{-240,0},{-200,40}}),
-      iconTransformation(extent={{-140,20},{-100,60}})));
+      iconTransformation(extent={{-140,0},{-100,40}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uPlrSta(
     final unit="1",
     final min=0,
@@ -116,7 +136,7 @@ block StageChangeCommand "Generate stage change command"
     final max=nSta)
     "Stage index"
     annotation (Placement(transformation(extent={{-240,160},{-200,200}}),
-      iconTransformation(extent={{-140,80},{-100,120}})));
+      iconTransformation(extent={{-140,60},{-100,100}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TRet(
     final unit="K",
     displayUnit="degC") "Return temperature used to compute required capacity"
@@ -127,11 +147,18 @@ block StageChangeCommand "Generate stage change command"
     displayUnit="degC")
     "Active supply temperature setpoint used to compute required capacity"
     annotation (Placement(transformation(extent={{-240,-100},{-200,-60}}),
-      iconTransformation(extent={{-140,0},{-100,40}})));
+      iconTransformation(extent={{-140,-20},{-100,20}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput V_flow(
-    final unit="m3/s") "Volume flow rate used to compute required capacity"
+    final unit="m3/s")
+    "Volume flow rate used to compute required capacity"
     annotation (Placement(transformation(extent={{-240,-200},{-200,-160}}),
       iconTransformation(extent={{-140,-100},{-100,-60}})));
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput TOut(
+    final unit="K",
+    displayUnit="degC") if is_heaApp
+    "Outdoor air temperature"
+    annotation (Placement(transformation(extent={{-240,250},{-200,290}}),
+      iconTransformation(extent={{-140,80},{-100,120}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput y1Up
     "Stage up command"
     annotation (Placement(transformation(extent={{200,60},{240,100}}),
@@ -250,8 +277,7 @@ block StageChangeCommand "Generate stage change command"
     annotation (Placement(transformation(extent={{-170,-110},{-150,-90}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TPriSup(
     final unit="K",
-    displayUnit="degC")
-    "Primary supply temperature"
+    displayUnit="degC") "Primary supply temperature"
     annotation (Placement(transformation(extent={{-240,-40},{-200,0}}),
       iconTransformation(extent={{-140,-40},{-100,0}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TSecSup(
@@ -296,7 +322,7 @@ block StageChangeCommand "Generate stage change command"
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1HeaCoo if have_HpShc
     "Detect plant switching to heating-cooling mode"
     annotation (Placement(transformation(extent={{-240,30},{-200,70}}),
-      iconTransformation(extent={{-140,40},{-100,80}})));
+      iconTransformation(extent={{-140,20},{-100,60}})));
   Buildings.Controls.OBC.CDL.Routing.BooleanScalarReplicator booScaRepCol(
     final nout=nSta) if have_HpShc
     "Replicate heating-cooling signal to match number of columns"
@@ -306,6 +332,20 @@ block StageChangeCommand "Generate stage change command"
     final nout=nEqu) if have_HpShc
     "Replicate heating-cooling signal vector to match number of rows"
     annotation (Placement(transformation(extent={{-120,40},{-100,60}})));
+  HeatPumps.CapacityReduction capRed(TOut_nominal=TOut_nominal,
+      THeaWatSup_nominal=THeaWatSup_nominal) if is_heaApp
+    "Calculate capacity reduction factor or heating applications"
+    annotation (Placement(transformation(extent={{60,250},{80,270}})));
+  Buildings.Controls.OBC.CDL.Reals.Multiply mulCapSta
+    "Multiply active stage capacity by capacity reduction factor"
+    annotation (Placement(transformation(extent={{150,220},{170,240}})));
+  Buildings.Controls.OBC.CDL.Reals.Multiply mulCapStaLow
+    "Multiply lower stage capacity by capacity reduction factor"
+    annotation (Placement(transformation(extent={{150,180},{170,200}})));
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant con(
+    final k=1) if not is_heaApp
+    "Constant capacity reduction signal for cooling operation"
+    annotation (Placement(transformation(extent={{60,290},{80,310}})));
 equation
   connect(intScaRep.y, reqEquSta.index)
     annotation (Line(points={{-88,200},{0,200},{0,208}},color={255,127,0}));
@@ -363,14 +403,6 @@ equation
   connect(splTimCapSta.y, gre.u2)
     annotation (Line(points={{-108,-140},{-106,-140},{-106,-108},{-92,-108}},
                                                                     color={0,0,127}));
-  connect(capSta.y, splTimCapSta.u2)
-    annotation (Line(points={{92,220},{136,220},{136,-160},{-136,-160},{-136,-146},
-          {-132,-146}},
-      color={0,0,127}));
-  connect(setZer.y, splTimCapStaLow.u2)
-    annotation (Line(points={{132,180},{140,180},{140,-200},{-136,-200},{-136,-186},
-          {-132,-186}},
-      color={0,0,127}));
   connect(splTimCapStaLow.y, les.u2)
     annotation (Line(points={{-108,-180},{-100,-180},{-100,-148},{-92,-148}},
                                                                       color={0,0,127}));
@@ -452,6 +484,27 @@ equation
     annotation (Line(points={{-138,50},{-122,50}}, color={255,0,255}));
   connect(booVecRepRow.y, swiMod.u2) annotation (Line(points={{-98,50},{-60,50},
           {-60,30},{30,30}}, color={255,0,255}));
+  connect(TPriSup, capRed.THeaWatSup) annotation (Line(points={{-220,-20},{-186,
+          -20},{-186,256},{58,256}}, color={0,0,127}));
+  connect(TOut, capRed.TOut) annotation (Line(points={{-220,270},{48,270},{48,264},
+          {58,264}}, color={0,0,127}));
+  connect(capRed.y, mulCapSta.u1) annotation (Line(points={{82,260},{140,260},{140,
+          236},{148,236}}, color={0,0,127}));
+  connect(capSta.y, mulCapSta.u2) annotation (Line(points={{92,220},{120,220},{120,
+          224},{148,224}}, color={0,0,127}));
+  connect(mulCapSta.y, splTimCapSta.u2) annotation (Line(points={{172,230},{190,
+          230},{190,-160},{-136,-160},{-136,-146},{-132,-146}}, color={0,0,127}));
+  connect(setZer.y, mulCapStaLow.u2) annotation (Line(points={{132,180},{140,180},
+          {140,184},{148,184}}, color={0,0,127}));
+  connect(capRed.y, mulCapStaLow.u1) annotation (Line(points={{82,260},{140,260},
+          {140,196},{148,196}}, color={0,0,127}));
+  connect(mulCapStaLow.y, splTimCapStaLow.u2) annotation (Line(points={{172,190},
+          {176,190},{176,-200},{-136,-200},{-136,-186},{-132,-186}}, color={0,0,
+          127}));
+  connect(con.y, mulCapSta.u1) annotation (Line(points={{82,300},{134,300},{134,
+          236},{148,236}}, color={0,0,127}));
+  connect(con.y, mulCapStaLow.u1) annotation (Line(points={{82,300},{134,300},{134,
+          196},{148,196}}, color={0,0,127}));
   annotation (
     defaultComponentName="chaSta",
     Icon(
@@ -471,7 +524,7 @@ equation
     Diagram(
       coordinateSystem(
         preserveAspectRatio=false,
-        extent={{-200,-240},{200,240}})),
+        extent={{-200,-240},{200,320}})),
     Documentation(
       info="<html>
 <p>

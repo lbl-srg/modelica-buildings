@@ -7,6 +7,13 @@ record Controller
   // HW loop
   // RFE: Declare array parameters for unequally sized units.
   // The current implementation only supports equally sized units.
+  parameter Modelica.Units.SI.Temperature TOut_nominal(
+    displayUnit="degC",
+    start=Buildings.Templates.Data.Defaults.THeaWatSupMed,
+    final min=273.15)
+    "Nominal outdoor air temperature"
+    annotation (Dialog(group="Information provided by designer",
+      enable=cfg.have_heaWat));
   parameter Modelica.Units.SI.Temperature THeaWatSup_nominal(
     displayUnit="degC",
     start=Buildings.Templates.Data.Defaults.THeaWatSupMed,

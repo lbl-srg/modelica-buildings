@@ -2,21 +2,21 @@ within Buildings.Templates.Plants.Controls.StagingRotation;
 block EquipmentEnable
   "Return array of equipment to be enabled at given stage"
 
-  parameter Boolean have_HpShc=false
+  parameter Boolean is_HpShcApp=false
     "Set to true if the logic block is used to stage HPs in a polyvalent heat pump plant"
     annotation (Evaluate=true);
 
-  final parameter Integer nEquAlt=if nEqu==1 then 1 elseif (nEqu>1 and have_HpShc) then
+  final parameter Integer nEquAlt=if nEqu==1 then 1 elseif (nEqu>1 and is_HpShcApp) then
     max({sum({(if staEquSinMod[i, j] > 0 and staEquSinMod[i, j] < 1 then 1 else 0) for j in 1:nEqu}) for i in 1:nSta})
     else max({sum({(if staEqu[i, j] > 0 and staEqu[i, j] < 1 then 1 else 0) for j in 1:nEqu}) for i in 1:nSta})
     "Number of lead/lag alternate equipment"
     annotation (Evaluate=true);
 
-  final parameter Integer nSta=if have_HpShc then size(staEquSinMod,1) else size(staEqu,1)
+  final parameter Integer nSta=if is_HpShcApp then size(staEquSinMod,1) else size(staEqu,1)
     "Number of stages"
     annotation (Evaluate=true);
 
-  final parameter Integer nEqu=if have_HpShc then size(staEquSinMod,2) else size(staEqu,2)
+  final parameter Integer nEqu=if is_HpShcApp then size(staEquSinMod,2) else size(staEqu,2)
     "Number of equipment"
     annotation (Evaluate=true);
 
@@ -27,7 +27,7 @@ block EquipmentEnable
     start=fill(0,nSta,nEqu))
     "Staging matrix – Equipment required for each stage"
     annotation (Evaluate=true,
-      Dialog(enable=not have_HpShc));
+      Dialog(enable=not is_HpShcApp));
 
   parameter Real staEquSinMod[:,:](
     each unit="1",
@@ -36,7 +36,7 @@ block EquipmentEnable
     start=fill(0,nSta,nEqu))
     "Staging matrix for polyvalent HP plant in single-operation mode – Equipment required for each stage"
     annotation (Evaluate=true,
-      Dialog(enable=have_HpShc));
+      Dialog(enable=is_HpShcApp));
 
   parameter Real staEquDouMod[:,:](
     each unit="1",
@@ -45,7 +45,7 @@ block EquipmentEnable
     start=fill(0,nSta,nEqu))
     "Staging matrix for polyvalent HP plant in heating-cooling mode – Equipment required for each stage"
     annotation (Evaluate=true,
-      Dialog(enable=have_HpShc));
+      Dialog(enable=is_HpShcApp));
 
   final parameter Real traStaEqu[nEqu, nSta]= {{staEqu[i, j] for i in 1:nSta} for j in 1:nEqu}
     "Transpose of staging matrix for non-hybrid plant"
@@ -64,7 +64,7 @@ block EquipmentEnable
     annotation (Placement(transformation(extent={{-240,-120},{-200,-80}}),
       iconTransformation(extent={{-140,-40},{-100,0}})));
 
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1HeaCoo if have_HpShc
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1HeaCoo if is_HpShcApp
     "Detect plant switching to heating-cooling mode"
     annotation (Placement(transformation(extent={{-240,-160},{-200,-120}}),
       iconTransformation(extent={{-140,-80},{-100,-40}})));
@@ -160,7 +160,7 @@ block EquipmentEnable
     "Compare to required number of equipment"
     annotation (Placement(transformation(extent={{30,-130},{50,-110}})));
   Buildings.Controls.OBC.CDL.Logical.MultiOr swiEna(
-    final nin=if not have_HpShc then 2 else 3)
+    final nin=if not is_HpShcApp then 2 else 3)
     "Evaluate condition to switch to newly computed enable signal"
     annotation (Placement(transformation(extent={{80,-90},{100,-70}})));
   Buildings.Controls.OBC.CDL.Logical.And isEnaPreAva[nEqu]
@@ -195,42 +195,42 @@ block EquipmentEnable
     "Void if stage is equal to zero"
     annotation (Placement(transformation(extent={{-100,50},{-80,70}})));
 
-  Buildings.Controls.OBC.CDL.Logical.Change cha1 if have_HpShc
+  Buildings.Controls.OBC.CDL.Logical.Change cha1 if is_HpShcApp
     "Detect if plant enters simultaneous heating and cooling operation"
     annotation (Placement(transformation(extent={{-20,-150},{0,-130}})));
 
   Buildings.Controls.OBC.CDL.Reals.Switch swiMod[nEqu,nSta]
-    if have_HpShc and have_HpShc
+    if is_HpShcApp
     "Switch between transpose matrices for heating-cooling mode and single-operation mode"
     annotation (Placement(transformation(extent={{-8,110},{12,130}})));
 
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant conTraMatStaEquDouMod[nEqu,nSta](
-    final k=traStaEquDouMod) if have_HpShc
+    final k=traStaEquDouMod) if is_HpShcApp
     "Constant signal for transpose of staging equation matrix in heating-cooling mode"
     annotation (Placement(transformation(extent={{-80,130},{-60,150}})));
 
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant conTraMatStaEquSinMod[nEqu,nSta](
-    final k=traStaEquSinMod) if have_HpShc
+    final k=traStaEquSinMod) if is_HpShcApp
     "Constant signal for transpose of staging equation matrix in single-operation mode"
     annotation (Placement(transformation(extent={{-80,90},{-60,110}})));
 
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant conTraMatStaEqu[nEqu,nSta](
-    final k=traStaEqu) if not have_HpShc
+    final k=traStaEqu) if not is_HpShcApp
     "Constant signal for transpose of staging equation matrix in non-hybrid plants"
     annotation (Placement(transformation(extent={{-190,50},{-170,70}})));
 
   Buildings.Controls.OBC.CDL.Routing.BooleanVectorReplicator booVecRepRow(
     final nin=nSta,
-    final nout=nEqu) if have_HpShc
+    final nout=nEqu) if is_HpShcApp
     "Replicate heating-cooling signal vector to match number of rows"
     annotation (Placement(transformation(extent={{-80,-130},{-60,-110}})));
 
   Buildings.Controls.OBC.CDL.Routing.BooleanScalarReplicator booScaRepCol(
-    final nout=nSta) if have_HpShc
+    final nout=nSta) if is_HpShcApp
     "Replicate heating-cooling signal to match number of columns"
     annotation (Placement(transformation(extent={{-120,-130},{-100,-110}})));
 
-  Buildings.Controls.OBC.CDL.Logical.Pre pre if have_HpShc
+  Buildings.Controls.OBC.CDL.Logical.Pre pre if is_HpShcApp
     "Pre block to prevent incorrect generation of equipment enable pulse signal"
     annotation (Placement(transformation(extent={{-160,-130},{-140,-110}})));
 equation
@@ -447,62 +447,37 @@ For each equipment item <i>i</i>, the enable command is determined as
 follows.
 </p>
 <p>
-The staging matrix (or its transpose) encodes which equipment items are
-required at each stage. From the extracted row for the current stage, three Boolean
+From the extracted row for the current stage, three Boolean
 conditions are derived for each equipment item <i>i</i>:
 </p>
 <ul>
 <li>
-<code>isReq</code>: the staging row value equals exactly 1, meaning equipment
+the staging row value equals exactly 1, meaning equipment
 <i>i</i> is required without a lead/lag alternate.
 </li>
 <li>
-<code>isReqPosAlt</code>: the staging row value is greater than zero, meaning
+the staging row value is greater than zero, meaning
 equipment <i>i</i> is required either directly or as a potential
 lead/lag alternate.
 </li>
 <li>
-<code>isNotReqNoAlt</code>: the staging row value is less than 1, meaning
+the staging row value is less than 1, meaning
 equipment <i>i</i> is either not required or is only a candidate
 lead/lag alternate.
 </li>
 </ul>
 <p>
-Equipment that is directly required (<code>isReq</code> is true) and available
-(<code>u1Ava</code> is true) is enabled via <code>isReqAva</code>.
+Equipment that is directly required and available
+is enabled via <code>isReqAva</code>.
 </p>
 <p>
 For lead/lag alternate equipment, the number of alternates needed to
-satisfy the stage requirement is computed as:
-</p>
-<p align=\"center\" style=\"font-style:italic;\">
-n<sub>alt,req</sub> = n<sub>equ,sta</sub> &minus; n<sub>req</sub>
-</p>
-<p>
-where <i>n<sub>equ,sta</sub></i> is the total number of equipment
-required at the current stage (summed from the staging row via
-<code>nEquStaRea</code> and converted by <code>nEquSta</code>) and
-<i>n<sub>req</sub></i> is the count of equipment directly required
-without a lead/lag alternate (counted by <code>nReq</code>).
-The block <code>truArrCon</code>
-(<a href=\"modelica://Buildings.Templates.Plants.Controls.Utilities.TrueArrayConditional\">
-Buildings.Templates.Plants.Controls.Utilities.TrueArrayConditional</a>)
+satisfy the stage requirement is first computed. The block <code>truArrCon</code>
 then generates a Boolean array that marks the
-first <i>n<sub>alt,req</sub></i> available lead/lag alternate equipment
-items according to the sorted runtime order supplied by
-<code>uIdxAltSor</code>.
-An alternate equipment item is enabled when it is a candidate
-(<i>isReqPosAlt</i> and <i>isNotReqNoAlt</i>), available
-(<code>u1Ava</code>), and selected by <code>truArrCon</code>; this
-combined condition is evaluated by <code>isReqAltAva</code> and
-<code>isReqAltAvaNee</code>.
-</p>
-<p>
-The final enable command for each equipment item is the logical OR of
-the two paths:
-</p>
-<p align=\"center\" style=\"font-style:italic;\">
-y1<sub>i</sub> = isReqAva<sub>i</sub> or isReqAltAvaNee<sub>i</sub>
+first available lead/lag alternate equipment items according to the sorted runtime
+order supplied by <code>uIdxAltSor</code>.
+An alternate equipment item is enabled when it is a candidate, available, and
+selected by <code>truArrCon</code>.
 </p>
 </html>", revisions="<html>
 <ul>
