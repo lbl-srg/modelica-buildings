@@ -1,5 +1,8 @@
 EquipmentAvailability
 EquipmentEnable
+EquipmentEnablePolyvalent
+SelectSortedAvailable
+UpdateEnableState
 EventSequencing
 FailsafeCondition
 LoadAverage

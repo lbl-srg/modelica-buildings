@@ -48,8 +48,11 @@ model ExtractStagingMatrix
     "Cooling staging matrix – Varies with heating stage";
   Buildings.Templates.Plants.Controls.PolyvalentHeatPumps.StagingOrder sta(
       final nHp=nHp, final nShc=nShc) "Calculate staging order";
-  Buildings.Controls.OBC.CDL.Integers.Sources.Constant iHea(k=3)
-    annotation (Placement(transformation(extent={{-60,-10},{-40,10}})));
+  Buildings.Controls.OBC.CDL.Integers.Sources.TimeTable iHea(
+    table={{i*iHea.timeScale,i} for i in 0:nSta},
+    timeScale=1/(nSta + 1),
+    period=1)
+    annotation (Placement(transformation(extent={{-80,-10},{-60,10}})));
   Buildings.Templates.Plants.Controls.PolyvalentHeatPumps.ExtractStagingMatrix
     extSta(
     final sta=sta.staCoo,
@@ -69,24 +72,22 @@ initial algorithm
     assert(
       abs(
         sta.staCoo[((iHea - 1) * nSta + (iCoo - 1)) * (nHp + 2 * nShc) + iEqu] -
-          staCoo[iHea, iCoo, iEqu]) < Modelica.Constants.small,
+        staCoo[iHea, iCoo, iEqu]) < Modelica.Constants.small,
       "Mismatch");
   end for;
   for iCoo in 1:nSta, iEqu in 1:nHp + 2 * nShc loop
     assert(
-      abs(staCoo[iHea.k, iCoo, iEqu] - extSta.y[iCoo, iEqu]) <
+      abs(staCoo[iHea.y[1] + 1, iCoo, iEqu] - extSta.y[iCoo, iEqu]) <
         Modelica.Constants.small,
       "Mismatch");
     assert(
-      abs(staCoo[iHea.k, iCoo, iEqu] - extTra.y[iEqu, iCoo]) <
+      abs(staCoo[iHea.y[1] + 1, iCoo, iEqu] - extTra.y[iEqu, iCoo]) <
         Modelica.Constants.small,
       "Mismatch");
   end for;
 equation
-  connect(iHea.y, extSta.u)
-    annotation(Line(points={{-38,0},{-20,0},{-20,30},{-12,30}},
-      color={255,127,0}));
-  connect(iHea.y, extTra.u)
-    annotation(Line(points={{-38,0},{-12,0}},
-      color={255,127,0}));
+  connect(iHea.y[1], extTra.u)
+    annotation (Line(points={{-58,0},{-12,0}}, color={255,127,0}));
+  connect(iHea.y[1], extSta.u) annotation (Line(points={{-58,0},{-20,0},{-20,30},
+          {-12,30}}, color={255,127,0}));
 end ExtractStagingMatrix;
