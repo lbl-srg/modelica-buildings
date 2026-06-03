@@ -1,8 +1,0 @@
-compareVars :=
-  {
-    "mulSteSetCha.y",
-    "mulSteSetCha.uCurSet",
-    "TAllMinSet.y",
-    "TAllMaxSet.y",
-    "mulSteSetCha.uEna"
-  };
