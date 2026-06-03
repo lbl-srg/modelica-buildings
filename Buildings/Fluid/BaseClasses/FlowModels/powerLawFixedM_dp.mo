@@ -1,7 +1,6 @@
 within Buildings.Fluid.BaseClasses.FlowModels;
 function powerLawFixedM_dp
   "Power law used in pressure drop equations when m is constant and may be different from 0.5"
-  extends Modelica.Icons.Function;
 
   input Real k "Flow coefficient, k = m_flow/ dp^m";
   input Modelica.Units.SI.PressureDifference dp(displayUnit="Pa")
@@ -75,5 +74,12 @@ This is for
 <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4620\">#4620</a>.
 </li>
 </ul>
-</html>"));
+</html>"),
+    Icon(graphics={                Line(
+          points={{-80,-40},{-80,60},{80,-40},{80,60}},
+          color={0,140,72},
+          thickness=1), Text(
+          extent={{-40,-40},{40,-80}},
+          textColor={0,0,0},
+          textString="%name")}));
 end powerLawFixedM_dp;
