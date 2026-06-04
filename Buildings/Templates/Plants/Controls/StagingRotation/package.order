@@ -1,6 +1,7 @@
 EquipmentAvailability
 EquipmentEnable
 EquipmentEnablePolyvalent
+SelectEquipmentAtStage
 SelectSortedAvailable
 UpdateEnableState
 EventSequencing
