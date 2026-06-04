@@ -55,16 +55,15 @@ block StagingParameters
     else nShcShc[div(r - 1, nSta) + 1, mod(r - 1, nSta) + 2] / max(
         nShc,
         1)) for iEqu in 1:nHp + 2 * nShc, r in 1:(nSta + 1) * nSta}
-    "Cooling staging matrix – row-major over (0≤iHea≤nSta, 1≤iCoo≤nSta)";
-  final parameter Real staHea[(nSta + 1) * nSta, nHp + 2 * nShc] =
+    "Cooling staging matrix – row-major over (0≤iHea outer, 1≤iCoo inner)";
+  final parameter Real staHea[(nSta + 1)*nSta, nHp + 2*nShc] =
     {(if iEqu <= nHp
-    then nHpHea[div(r - 1, nSta) + 1, mod(r - 1, nSta) + 2] / max(nHp, 1)
+    then nHpHea[mod(r - 1, nSta) + 2, div(r - 1, nSta) + 1] / max(nHp, 1)
     elseif iEqu <= nHp + nShc
-    then nShcHea[div(r - 1, nSta) + 1, mod(r - 1, nSta) + 2] / max(nShc, 1)
-    else nShcShc[div(r - 1, nSta) + 1, mod(r - 1, nSta) + 2] / max(
-        nShc,
-        1)) for iEqu in 1:nHp + 2 * nShc, r in 1:(nSta + 1) * nSta}
-    "Heating staging matrix – row-major over (0≤iCoo≤nSta, 1≤iHea≤nSta)";
+    then nShcHea[mod(r - 1, nSta) + 2, div(r - 1, nSta) + 1] / max(nShc, 1)
+    else nShcShc[mod(r - 1, nSta) + 2, div(r - 1, nSta) + 1] / max(nShc, 1))
+      for iEqu in 1:nHp + 2*nShc, r in 1:(nSta + 1)*nSta}
+    "Heating staging matrix – row-major over (0≤iCoo outer, 1≤iHea inner)";
 annotation(defaultComponentName="staPar",
   Documentation(
     info="<html>

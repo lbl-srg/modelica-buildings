@@ -1,9 +1,6 @@
 EquipmentAvailability
 EquipmentEnable
 EquipmentEnablePolyvalent
-SelectEquipmentAtStage
-SelectSortedAvailable
-UpdateEnableState
 EventSequencing
 FailsafeCondition
 LoadAverage
@@ -12,3 +9,4 @@ StageAvailability
 StageChangeCommand
 StageCompletion
 Validation
+BaseClasses

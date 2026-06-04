@@ -244,7 +244,8 @@ block StageChangeCommand
   Buildings.Controls.OBC.CDL.Logical.And effAndNotFaiSaf
     "Efficiency condition met AND failsafe stage up condition is not true"
     annotation (Placement(transformation(extent={{10,-150},{30,-130}})));
-  PolyvalentHeatPumps.ExtractStagingMatrix extTra(is_transpose=true) if
+  PolyvalentHeatPumps.ExtractStagingMatrix extTra(final sta=staEqu,
+                                                  is_transpose=true) if
     have_shc
     "Extract transpose of staging matrix for the opposite mode stage index"
     annotation (Placement(transformation(extent={{-70,250},{-50,270}})));

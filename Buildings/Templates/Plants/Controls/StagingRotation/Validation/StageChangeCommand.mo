@@ -1,5 +1,9 @@
 within Buildings.Templates.Plants.Controls.StagingRotation.Validation;
 model StageChangeCommand "Validation model for stage change logic"
+  parameter Boolean have_shc = false
+    "Set to true for plants with polyvalent heat pumps"
+    annotation (Dialog(group="Configuration"),
+      Evaluate=true);
   parameter Real cp_default(
     final unit="J/(kg.K)")=4184
     "Default specific heat capacity"
@@ -10,7 +14,7 @@ model StageChangeCommand "Validation model for stage change logic"
     "Default specific heat capacity"
     annotation (Dialog(group="Configuration",
       enable=false));
-  final parameter Real capHea_nominal(
+  parameter Real capHea_nominal(
     final unit="W")=sum(chaSta.capEqu)
     "Installed heating capacity"
     annotation (Dialog(group="Nominal condition"));
@@ -29,8 +33,11 @@ model StageChangeCommand "Validation model for stage change logic"
     cp_default / rho_default
     "Design primary HW volume flow rate"
     annotation (Dialog(group="Nominal condition"));
-  final parameter Integer nSta=size(chaSta.staEqu, 1)
+  final parameter Integer nSta=chaSta.nSta
     "Number of stages"
+    annotation (Evaluate=true);
+  final parameter Integer nEqu=chaSta.nEqu
+    "Number of pieces of equipment"
     annotation (Evaluate=true);
   Buildings.Controls.OBC.CDL.Reals.Sources.TimeTable ratV_flow(
     table=[
@@ -46,6 +53,7 @@ model StageChangeCommand "Validation model for stage change logic"
     annotation (Placement(transformation(extent={{-130,-50},{-110,-30}})));
   Buildings.Templates.Plants.Controls.StagingRotation.StageChangeCommand chaSta(
     typ=Buildings.Templates.Plants.Controls.Types.Application.Heating,
+    final have_shc=have_shc,
     have_pumSec=false,
     plrSta=0.9,
     staEqu=[1,0,0; 0,1/2,1/2; 1,1/2,1/2; 0,1,1; 1,1,1],
@@ -77,29 +85,27 @@ model StageChangeCommand "Validation model for stage change logic"
   Buildings.Controls.OBC.CDL.Logical.TrueFalseHold y1UpHol(
     final falseHoldDuration=0, trueHoldDuration=1)
     "Hold stage up command for plotting"
-    annotation (Placement(transformation(extent={{0,30},{20,50}})));
+    annotation (Placement(transformation(extent={{0,-42},{20,-22}})));
   Buildings.Controls.OBC.CDL.Logical.TrueFalseHold y1DowHol(
     final falseHoldDuration=0, trueHoldDuration=1)
     "Hold stage down command for plotting"
-    annotation (Placement(transformation(extent={{0,-50},{20,-30}})));
+    annotation (Placement(transformation(extent={{0,-70},{20,-50}})));
   Buildings.Controls.OBC.CDL.Reals.MultiplyByParameter V_flow(
     final k=VHeaWat_flow_nominal)
     "Scale by design flow"
     annotation (Placement(transformation(extent={{-100,-50},{-80,-30}})));
-  Buildings.Templates.Plants.Controls.StagingRotation.EquipmentEnable enaEqu(
-    final staEqu=chaSta.staEqu)
+  Buildings.Templates.Plants.Controls.StagingRotation.EquipmentEnable enaEqu(final
+      staEqu=chaSta.staEqu) if not have_shc
     "Enable equipment"
     annotation (Placement(transformation(extent={{60,-10},{80,10}})));
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant idxEquLeaLag[2](
-    final k={2, 3})
+    k={2, 3})
     "Indices of lead/lag equipment"
     annotation (Placement(transformation(extent={{-100,90},{-80,110}})));
-  Buildings.Controls.OBC.CDL.Logical.Sources.Constant u1AvaEqu[3](
-    each final k=true)
-    "Equipment available signal"
+  Buildings.Controls.OBC.CDL.Logical.Sources.Constant u1AvaEqu[nEqu](each final
+            k=true) "Equipment available signal"
     annotation (Placement(transformation(extent={{-100,-110},{-80,-90}})));
-  Components.Controls.StatusEmulator staEqu[3](
-    each delayTime=15)
+  Components.Controls.StatusEmulator staEqu[nEqu](each delayTime=15)
     "Evaluate equipment status"
     annotation (Placement(transformation(extent={{100,-10},{120,10}})));
   Buildings.Templates.Plants.Controls.StagingRotation.StageCompletion comSta(
@@ -114,7 +120,7 @@ equation
   connect(chaSta.y1Up, idxSta.u1Up)
     annotation (Line(points={{-28,4},{-20,4},{-20,2},{-2,2}},color={255,0,255}));
   connect(chaSta.y1Dow, idxSta.u1Dow)
-    annotation (Line(points={{-28,-4},{-20,-4},{-20,-2},{-2,-2}},color={255,0,255}));
+    annotation (Line(points={{-28,-4},{-12,-4},{-12,-2},{-2,-2}},color={255,0,255}));
   connect(u1Lea.y, idxSta.u1Lea)
     annotation (Line(points={{-108,80},{-10,80},{-10,6},{-2,6}},color={255,0,255}));
   connect(u1AvaSta.y, idxSta.u1AvaSta)
@@ -123,9 +129,10 @@ equation
     annotation (Line(points={{22,0},{40,0},{40,20},{-56,20},{-56,8},{-52,8}},
       color={255,127,0}));
   connect(chaSta.y1Up, y1UpHol.u)
-    annotation (Line(points={{-28,4},{-20,4},{-20,40},{-2,40}},color={255,0,255}));
+    annotation (Line(points={{-28,4},{-20,4},{-20,-32},{-2,-32}},
+                                                               color={255,0,255}));
   connect(chaSta.y1Dow, y1DowHol.u)
-    annotation (Line(points={{-28,-4},{-20,-4},{-20,-40},{-2,-40}},color={255,0,255}));
+    annotation (Line(points={{-28,-4},{-12,-4},{-12,-60},{-2,-60}},color={255,0,255}));
   connect(u1AvaSta.y, chaSta.u1AvaSta)
     annotation (Line(points={{-108,-80},{-60,-80},{-60,6},{-52,6}},color={255,0,255}));
   connect(ratV_flow.y[1], V_flow.u)
@@ -137,7 +144,7 @@ equation
   connect(idxEquLeaLag.y, enaEqu.uIdxAltSor)
     annotation (Line(points={{-78,100},{54,100},{54,6},{58,6}},color={255,127,0}));
   connect(u1AvaEqu.y, enaEqu.u1Ava)
-    annotation (Line(points={{-78,-100},{54,-100},{54,-6},{58,-6}},color={255,0,255}));
+    annotation (Line(points={{-78,-100},{50,-100},{50,-6},{58,-6}},color={255,0,255}));
   connect(enaEqu.y1, staEqu.y1)
     annotation (Line(points={{82,0},{98,0}},color={255,0,255}));
   connect(comSta.y1, chaSta.u1StaPro)

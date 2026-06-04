@@ -1,4 +1,4 @@
-within Buildings.Templates.Plants.Controls.StagingRotation;
+within Buildings.Templates.Plants.Controls.StagingRotation.BaseClasses;
 block SelectEquipmentAtStage
   parameter Integer nEqu
     "Number of equipment"

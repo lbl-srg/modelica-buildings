@@ -91,15 +91,17 @@ block EquipmentEnablePolyvalent
     "Polyvalent HP in SHC mode available signal"
     annotation(Placement(transformation(extent={{-240,-160},{-200,-120}}),
       iconTransformation(extent={{-140,-100},{-100,-60}})));
-  SelectSortedAvailable selSorAvaHp(final nEqu=nHp, final nEquAlt=nHp)
-    "Select units by priority order and availability – HP"
-    annotation(Placement(transformation(extent={{70,30},{90,50}})));
-  SelectSortedAvailable selSorAvaShc1(final nEqu=nShc, final nEquAlt=nShc)
+  BaseClasses.SelectSortedAvailable selSorAvaHp(final nEqu=nHp, final nEquAlt=
+        nHp) "Select units by priority order and availability – HP"
+    annotation (Placement(transformation(extent={{70,30},{90,50}})));
+  BaseClasses.SelectSortedAvailable selSorAvaShc1(final nEqu=nShc, final
+      nEquAlt=nShc)
     "Select units by priority order and availability – Polyvalent HP in single mode"
-    annotation(Placement(transformation(extent={{72,-10},{92,10}})));
-  SelectSortedAvailable selSorAvaShc2(final nEqu=nShc, final nEquAlt=nShc)
+    annotation (Placement(transformation(extent={{72,-10},{92,10}})));
+  BaseClasses.SelectSortedAvailable selSorAvaShc2(final nEqu=nShc, final
+      nEquAlt=nShc)
     "Select units by priority order and availability – Polyvalent HP in SHC mode"
-    annotation(Placement(transformation(extent={{72,-50},{92,-30}})));
+    annotation (Placement(transformation(extent={{72,-50},{92,-30}})));
   Buildings.Controls.OBC.CDL.Logical.Not notSelShc1[nShc]
     "Return true if equipment not selected in single mode"
     annotation(Placement(transformation(extent={{-68,-90},{-48,-70}})));
@@ -115,32 +117,32 @@ block EquipmentEnablePolyvalent
   Buildings.Controls.OBC.CDL.Logical.And isShc2ReqAltAvaNee[nShc]
     "Return true if equipment required with lead/lag alternate and available and needed to meet stage requirement"
     annotation(Placement(transformation(extent={{110,-50},{130,-30}})));
-  UpdateEnableState updEnaStaHp(final nEqu=nHp)
+  BaseClasses.UpdateEnableState updEnaStaHp(final nEqu=nHp)
     "Update enable state"
-    annotation(Placement(transformation(extent={{170,30},{190,50}})));
-  UpdateEnableState updEnaStaShc1(final nEqu=nShc)
+    annotation (Placement(transformation(extent={{170,30},{190,50}})));
+  BaseClasses.UpdateEnableState updEnaStaShc1(final nEqu=nShc)
     "Update enable state"
-    annotation(Placement(transformation(extent={{170,-10},{190,10}})));
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput y1Shc1[nHp]
-    "Polyvalent HP enable command in single mode"
-    annotation(Placement(transformation(extent={{200,-20},{240,20}}),
-      iconTransformation(extent={{100,-20},{140,20}})));
-  UpdateEnableState updEnaStaShc2(final nEqu=nShc)
+    annotation (Placement(transformation(extent={{170,-10},{190,10}})));
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput y1Shc1[nShc]
+    "Polyvalent HP enable command in single mode" annotation (Placement(
+        transformation(extent={{200,-20},{240,20}}), iconTransformation(extent=
+            {{100,-20},{140,20}})));
+  BaseClasses.UpdateEnableState updEnaStaShc2(final nEqu=nShc)
     "Update enable state"
-    annotation(Placement(transformation(extent={{170,-50},{190,-30}})));
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput y1Shc2[nHp]
-    "Polyvalent HP enable command in SHC mode"
-    annotation(Placement(transformation(extent={{200,-60},{240,-20}}),
-      iconTransformation(extent={{100,-60},{140,-20}})));
-  SelectEquipmentAtStage selEquStaHp(final nEqu=nHp)
+    annotation (Placement(transformation(extent={{170,-50},{190,-30}})));
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput y1Shc2[nShc]
+    "Polyvalent HP enable command in SHC mode" annotation (Placement(
+        transformation(extent={{200,-60},{240,-20}}), iconTransformation(extent
+          ={{100,-60},{140,-20}})));
+  BaseClasses.SelectEquipmentAtStage selEquStaHp(final nEqu=nHp)
     "Select equipment at stage"
-    annotation(Placement(transformation(extent={{10,30},{30,50}})));
-  SelectEquipmentAtStage selEquStaShc1(final nEqu=nShc)
+    annotation (Placement(transformation(extent={{10,30},{30,50}})));
+  BaseClasses.SelectEquipmentAtStage selEquStaShc1(final nEqu=nShc)
     "Select equipment at stage"
-    annotation(Placement(transformation(extent={{10,-10},{30,10}})));
-  SelectEquipmentAtStage selEquStaShc2(final nEqu=nShc)
+    annotation (Placement(transformation(extent={{10,-10},{30,10}})));
+  BaseClasses.SelectEquipmentAtStage selEquStaShc2(final nEqu=nShc)
     "Select equipment at stage"
-    annotation(Placement(transformation(extent={{10,-50},{30,-30}})));
+    annotation (Placement(transformation(extent={{10,-50},{30,-30}})));
 equation
   connect(intScaRep.y, reqEquSta.index)
     annotation(Line(points={{-98,0},{-90,0},{-90,28}},
@@ -286,13 +288,13 @@ equation
       color={255,127,0}));
   connect(selEquStaShc2.y1ReqOrAltAndAva, isShc2ReqAltAvaNee.u2)
     annotation(Line(
-      points={{32,-46},{40,-46},{40,-54},{96,-54},{96,-48},{108,-48}},
+      points={{32,-48},{40,-48},{40,-54},{96,-54},{96,-48},{108,-48}},
       color={255,0,255}));
   connect(selEquStaHp.y1ReqOrAltAndAva, isHpReqAltAvaNee.u2)
-    annotation(Line(points={{32,34},{40,34},{40,26},{96,26},{96,32},{108,32}},
+    annotation(Line(points={{32,32},{40,32},{40,26},{96,26},{96,32},{108,32}},
       color={255,0,255}));
   connect(selEquStaShc1.y1ReqOrAltAndAva, isShc1ReqAltAvaNee1.u2)
-    annotation(Line(points={{32,-6},{40,-6},{40,-14},{96,-14},{96,-8},{108,-8}},
+    annotation(Line(points={{32,-8},{40,-8},{40,-14},{96,-14},{96,-8},{108,-8}},
       color={255,0,255}));
   connect(selEquStaHp.nTot, updEnaStaHp.n)
     annotation(Line(points={{32,48},{40,48},{40,58},{158,58},{158,48},{168,48}},

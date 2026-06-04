@@ -1,4 +1,4 @@
-within Buildings.Templates.Plants.Controls.StagingRotation;
+within Buildings.Templates.Plants.Controls.StagingRotation.BaseClasses;
 block SelectSortedAvailable
   "Generate a true array of n elements based on priority order and availability"
   parameter Integer nEqu

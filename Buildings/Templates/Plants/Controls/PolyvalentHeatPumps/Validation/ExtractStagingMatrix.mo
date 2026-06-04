@@ -1,7 +1,7 @@
 within Buildings.Templates.Plants.Controls.PolyvalentHeatPumps.Validation;
 model ExtractStagingMatrix
   extends Modelica.Icons.Example;
-  parameter Integer nHp = 0
+  parameter Integer nHp = 2
     "Number of HP units (excluding polyvalent HP)"
     annotation(Evaluate=true);
   parameter Integer nShc = 2
@@ -14,7 +14,7 @@ model ExtractStagingMatrix
   parameter Real capCooHp_nominal =
     (1 - 1 / Buildings.Templates.Data.Defaults.COPHpAwHea) * capHeaHp_nominal
     "Design cooling capacity - Each heat pump (excluding polyvalent HP)";
-  parameter Real capHeaShc_nominal = 2E5
+  parameter Real capHeaShc_nominal = 1.3E5
     "Design heating capacity - Each polyvalent heat pump";
   parameter Real capCooShc_nominal =
     (1 - 1 / Buildings.Templates.Data.Defaults.COPHpAwHea) * capHeaShc_nominal
@@ -40,8 +40,15 @@ model ExtractStagingMatrix
       fill(staPar.nHpCoo[iHea, iCoo + 1]/max(nHp, 1), nHp),
       fill(staPar.nShcCoo[iHea, iCoo + 1]/max(nShc, 1), nShc),
       fill(staPar.nShcShc[iHea, iCoo + 1]/max(nShc, 1), nShc)) for iCoo in 1:
-      nSta,iHea in 1:nSta + 1}
+    nSta, iHea in 1:nSta + 1}
     "Cooling staging matrix – Varies with heating stage";
+  parameter Real staHea[nSta + 1,nSta,nHp + 2*nShc]={cat(
+      1,
+    fill(staPar.nHpHea[iHea + 1, iCoo]/max(nHp, 1), nHp),
+    fill(staPar.nShcHea[iHea + 1, iCoo]/max(nShc, 1), nShc),
+    fill(staPar.nShcShc[iHea + 1, iCoo]/max(nShc, 1), nShc)) for iHea in 1:
+    nSta, iCoo in 1:nSta + 1}
+    "Heating staging matrix – Varies with cooling stage";
   Buildings.Templates.Plants.Controls.PolyvalentHeatPumps.StagingParameters staPar(final nHp
       =nHp, final nShc=nShc) "Staging parameters"
     annotation (Placement(transformation(extent={{60,60},{80,80}})));
@@ -59,8 +66,18 @@ model ExtractStagingMatrix
     "Extract transpose of cooling staging matrix at given heating stage"
     annotation (Placement(transformation(extent={{-10,-50},{10,-30}})));
 initial algorithm
-  for iHea in 1:nSta + 1, iCoo in 1:nSta, iEqu in 1:nHp + 2 * nShc loop
-    assert(abs(staPar.staCoo[(iHea - 1)*nSta + iCoo, iEqu] - staCoo[iHea, iCoo,
+  for iOut in 1:nSta + 1, iInn in 1:nSta, iEqu in 1:nHp + 2 * nShc loop
+    assert(abs(staPar.staCoo[(iOut - 1)*nSta + iInn, iEqu] - staCoo[iOut, iInn,
+      iEqu]) < Modelica.Constants.small, "Mismatch");
+    assert(abs(staPar.staHea[(iOut - 1)*nSta + iInn, iEqu] - staHea[iOut, iInn,
+      iEqu]) < Modelica.Constants.small, "Mismatch");
+    if staPar.is_feasible[iOut, iInn +1] then
+      assert(abs(staHea[iOut, iInn, iEqu] - staCoo[iOut, iInn, iEqu]) <
+        Modelica.Constants.small, "Mismatch");
+    end if;
+  end for;
+  for iCoo in 1:nSta + 1, iHea in 1:nSta, iEqu in 1:nHp + 2 * nShc loop
+    assert(abs(staPar.staHea[(iCoo - 1)*nSta + iHea, iEqu] - staHea[iCoo, iHea,
       iEqu]) < Modelica.Constants.small, "Mismatch");
   end for;
   for iCoo in 1:nSta, iEqu in 1:nHp + 2 * nShc loop
