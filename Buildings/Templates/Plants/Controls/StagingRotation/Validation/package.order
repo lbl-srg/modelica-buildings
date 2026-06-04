@@ -7,4 +7,5 @@ LoadAverage
 SortRuntime
 StageAvailability
 StageChangeCommand
+StageChangeCommandSHC
 StageCompletion

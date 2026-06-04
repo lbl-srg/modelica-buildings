@@ -20,14 +20,11 @@ model EquipmentEnablePolyvalent
     timeScale=1,
     period=50) "Stage index"
     annotation (Placement(transformation(extent={{-90,-10},{-70,10}})));
-  PolyvalentHeatPumps.StagingOrder staOrd(final nHp=nHp, final nShc=nShc)
+  PolyvalentHeatPumps.StagingParameters staPar(final nHp=nHp, final nShc=nShc)
     "Generate staging parameters"
-    annotation (Placement(transformation(extent={{-90,70},{-70,90}})));
-  PolyvalentHeatPumps.ExtractStagingMatrix extractStagingMatrix(
-    final sta=staOrd.staCoo,
-    final nHp=nHp,
-    final nShc=nShc,
-    is_transpose=true)
+    annotation (Placement(transformation(extent={{60,60},{80,80}})));
+  PolyvalentHeatPumps.ExtractStagingMatrix extractStagingMatrix2D(final sta=
+        staPar.staCoo, is_transpose=true)
     annotation (Placement(transformation(extent={{-30,10},{-10,30}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.TimeTable u1AvaShc1(
     table=[0,1,1],
@@ -55,7 +52,7 @@ model EquipmentEnablePolyvalent
 equation
   connect(uSta.y[1], enaEqu.uSta)
     annotation (Line(points={{-68,0},{8,0}}, color={255,127,0}));
-  connect(extractStagingMatrix.y, enaEqu.staTra)
+  connect(extractStagingMatrix2D.y, enaEqu.staTra)
     annotation (Line(points={{-8,20},{0,20},{0,8},{8,8}}, color={0,0,127}));
   connect(u1AvaHp.y, enaEqu.u1HpAva) annotation (Line(points={{-68,-40},{0,-40},
           {0,-4},{8,-4}}, color={255,0,255}));
@@ -67,7 +64,7 @@ equation
     annotation (Line(points={{-38,60},{4,60},{4,6},{8,6}}, color={255,127,0}));
   connect(idxSorShc.y, enaEqu.uIdxShcSor)
     annotation (Line(points={{-68,40},{2,40},{2,4},{8,4}}, color={255,127,0}));
-  connect(uStaOpp.y[1], extractStagingMatrix.u)
+  connect(uStaOpp.y[1], extractStagingMatrix2D.u)
     annotation (Line(points={{-38,20},{-32,20}}, color={255,127,0}));
   annotation (
     __Dymola_Commands(

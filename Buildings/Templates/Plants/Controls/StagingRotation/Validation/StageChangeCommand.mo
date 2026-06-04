@@ -120,7 +120,7 @@ equation
   connect(u1AvaSta.y, idxSta.u1AvaSta)
     annotation (Line(points={{-108,-80},{-10,-80},{-10,-6},{-2,-6}},color={255,0,255}));
   connect(idxSta.y, chaSta.uSta)
-    annotation (Line(points={{22,0},{40,0},{40,20},{-56,20},{-56,10},{-52,10}},
+    annotation (Line(points={{22,0},{40,0},{40,20},{-56,20},{-56,8},{-52,8}},
       color={255,127,0}));
   connect(chaSta.y1Up, y1UpHol.u)
     annotation (Line(points={{-28,4},{-20,4},{-20,40},{-2,40}},color={255,0,255}));

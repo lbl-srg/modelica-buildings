@@ -4,6 +4,9 @@ block StageChangeCommand
   parameter Buildings.Templates.Plants.Controls.Types.Application typ
     "Type of application"
     annotation (Evaluate=true);
+  parameter Boolean have_shc = false
+    "Set to true for plants with polyvalent heat pumps"
+    annotation (Evaluate=true);
   parameter Boolean have_pumSec
     "Set to true for primary-secondary distribution, false for primary-only"
     annotation (Evaluate=true);
@@ -17,14 +20,17 @@ block StageChangeCommand
     unit="1")=0.9
     "Staging part load ratio"
     annotation (Dialog(enable=not have_inpPlrSta));
-  final parameter Real traStaEqu[nEqu, nSta]={{staEqu[i, j] for i in 1:nSta} for j in 1:nEqu}
+  final parameter Real traStaEqu[nEqu, nSta]=
+    {{staEqu[i, j] for i in 1:nSta} for j in 1:nEqu}
     "Transpose of staging matrix";
   parameter Real staEqu[:,:](
     each final max=1,
     each final min=0,
     each final unit="1")
     "Staging matrix – Equipment required for each stage";
-  final parameter Integer nSta=size(staEqu, 1)
+  final parameter Integer nSta=if have_shc then
+    integer((1 + sqrt(1 + 4*size(staEqu, 1))) / 2) - 1
+    else size(staEqu, 1)
     "Number of stages"
     annotation (Evaluate=true);
   final parameter Integer nEqu=size(staEqu, 2)
@@ -69,18 +75,15 @@ block StageChangeCommand
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uPlrSta(
     final unit="1",
     final min=0,
-    final max=1)
-    if have_inpPlrSta
-    "Input signal for staging part load ratio"
+    final max=1) if have_inpPlrSta "Input signal for staging part load ratio"
     annotation (Placement(transformation(extent={{-240,-240},{-200,-200}}),
       iconTransformation(extent={{-140,-120},{-100,-80}})));
   // We allow the stage index to be zero, e.g., when the plant is disabled.
   Buildings.Controls.OBC.CDL.Interfaces.IntegerInput uSta(
     final min=0,
-    final max=nSta)
-    "Stage index"
+    final max=nSta) "Stage index"
     annotation (Placement(transformation(extent={{-240,160},{-200,200}}),
-      iconTransformation(extent={{-140,80},{-100,120}})));
+      iconTransformation(extent={{-140,60},{-100,100}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TRet(
     final unit="K",
     displayUnit="degC") "Return temperature used to compute required capacity"
@@ -105,9 +108,9 @@ block StageChangeCommand
     annotation (Placement(transformation(extent={{200,-100},{240,-60}}),
       iconTransformation(extent={{100,-60},{140,-20}})));
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant traMatStaEqu[nEqu, nSta](
-    final k=traStaEqu)
+    final k=traStaEqu) if not have_shc
     "Transpose of staging matrix"
-    annotation (Placement(transformation(extent={{-80,210},{-60,230}})));
+    annotation (Placement(transformation(extent={{-70,210},{-50,230}})));
   Buildings.Controls.OBC.CDL.Routing.RealExtractor reqEquSta[nEqu](
     each final nin=nSta)
     "Extract equipment required at given stage"
@@ -122,7 +125,7 @@ block StageChangeCommand
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant capEquPar[nEqu](
     final k=capEqu)
     "Capacity of each equipment"
-    annotation (Placement(transformation(extent={{-80,150},{-60,170}})));
+    annotation (Placement(transformation(extent={{-70,150},{-50,170}})));
   Buildings.Controls.OBC.CDL.Reals.MultiSum capSta(
     nin=nEqu)
     "Compute nominal capacity of active stage"
@@ -241,15 +244,30 @@ block StageChangeCommand
   Buildings.Controls.OBC.CDL.Logical.And effAndNotFaiSaf
     "Efficiency condition met AND failsafe stage up condition is not true"
     annotation (Placement(transformation(extent={{10,-150},{30,-130}})));
+  PolyvalentHeatPumps.ExtractStagingMatrix extTra(is_transpose=true) if
+    have_shc
+    "Extract transpose of staging matrix for the opposite mode stage index"
+    annotation (Placement(transformation(extent={{-70,250},{-50,270}})));
+  Buildings.Controls.OBC.CDL.Interfaces.IntegerInput uStaOpp(final min=0,
+      final max=nSta) if have_shc
+                      "Stage index of opposite mode" annotation (Placement(
+        transformation(extent={{-240,240},{-200,280}}), iconTransformation(
+          extent={{-140,80},{-100,120}})));
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput staTra[nEqu,nSta](
+    final unit="1",
+    final min=0,
+    final max=1) if have_shc       "Transpose of staging matrix at given stage"
+    annotation (Placement(transformation(extent={{200,240},{240,280}}),
+        iconTransformation(extent={{100,80},{140,120}})));
 equation
   connect(intScaRep.y, reqEquSta.index)
     annotation (Line(points={{-88,200},{0,200},{0,208}},color={255,127,0}));
   connect(traMatStaEqu.y, reqEquSta.u)
-    annotation (Line(points={{-58,220},{-12,220}},color={0,0,127}));
+    annotation (Line(points={{-48,220},{-12,220}},color={0,0,127}));
   connect(reqEquSta.y, capEquSta.u1)
     annotation (Line(points={{12,220},{20,220},{20,226},{28,226}},color={0,0,127}));
   connect(capEquPar.y, capEquSta.u2)
-    annotation (Line(points={{-58,160},{20,160},{20,214},{28,214}},color={0,0,127}));
+    annotation (Line(points={{-48,160},{20,160},{20,214},{28,214}},color={0,0,127}));
   connect(capEquSta.y, capSta.u)
     annotation (Line(points={{52,220},{68,220}},color={0,0,127}));
   connect(intScaRep.u, maxInt.y)
@@ -279,11 +297,11 @@ equation
   connect(intScaRep2.y, reqEquStaLow.index)
     annotation (Line(points={{32,120},{40,120},{40,140},{0,140},{0,168}},color={255,127,0}));
   connect(traMatStaEqu.y, reqEquStaLow.u)
-    annotation (Line(points={{-58,220},{-20,220},{-20,180},{-12,180}},color={0,0,127}));
+    annotation (Line(points={{-48,220},{-20,220},{-20,180},{-12,180}},color={0,0,127}));
   connect(reqEquStaLow.y, capEquStaLow.u2)
     annotation (Line(points={{12,180},{16,180},{16,174},{28,174}},color={0,0,127}));
   connect(capEquPar.y, capEquStaLow.u1)
-    annotation (Line(points={{-58,160},{20,160},{20,186},{28,186}},color={0,0,127}));
+    annotation (Line(points={{-48,160},{20,160},{20,186},{28,186}},color={0,0,127}));
   connect(capEquStaLow.y, capStaLow.u)
     annotation (Line(points={{52,180},{68,180}},color={0,0,127}));
   connect(idxLasTru.y, minInt.u2)
@@ -374,6 +392,14 @@ equation
                                      color={255,0,255}));
   connect(effAndNotFaiSaf.y, y1Dow) annotation (Line(points={{32,-140},{180,
           -140},{180,-80},{220,-80}}, color={255,0,255}));
+  connect(uStaOpp, extTra.u)
+    annotation (Line(points={{-220,260},{-72,260}}, color={255,127,0}));
+  connect(extTra.y, reqEquSta.u) annotation (Line(points={{-48,260},{-20,260},{-20,
+          220},{-12,220}}, color={0,0,127}));
+  connect(extTra.y, reqEquStaLow.u) annotation (Line(points={{-48,260},{-20,260},
+          {-20,180},{-12,180}}, color={0,0,127}));
+  connect(extTra.y, staTra)
+    annotation (Line(points={{-48,260},{220,260}}, color={0,0,127}));
   annotation (
     defaultComponentName="chaSta",
     Icon(
@@ -393,7 +419,8 @@ equation
     Diagram(
       coordinateSystem(
         preserveAspectRatio=false,
-        extent={{-200,-240},{200,240}})),
+        extent={{-200,-280},{200,280}},
+        grid={2,2})),
     Documentation(
       info="<html>
 <p>

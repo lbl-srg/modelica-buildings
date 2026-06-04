@@ -1,5 +1,5 @@
 within Buildings.Templates.Plants.Controls.PolyvalentHeatPumps;
-block StagingOrder
+block StagingParameters
   parameter Integer nHp "Number of HP units (excluding polyvalent HP)";
   parameter Integer nShc "Number of polyvalent HP units";
   final parameter Integer nSta = nHp + nShc
@@ -47,39 +47,47 @@ block StagingOrder
       and (staCooRes[iHea + 1, iCoo + 1] - nHpCoo[iHea + 1, iCoo + 1] -
         nShcCoo[iHea + 1, iCoo + 1] == 0) for iCoo in 0:nSta, iHea in 0:nSta}
     "True if the stage combination is achievable";
-  final parameter Real staCoo[(nSta + 1) * nSta * (nHp + 2 * nShc)] =
-    {(if mod(m - 1, nHp + 2 * nShc) < nHp
-    then nHpCoo[div(m - 1, nSta * (nHp + 2 * nShc)) + 1, mod(
-        div(m - 1, nHp + 2 * nShc),
-        nSta) + 2] / max(nHp, 1)
-    elseif mod(m - 1, nHp + 2 * nShc) < nHp + nShc
-    then nShcCoo[div(m - 1, nSta * (nHp + 2 * nShc)) + 1, mod(
-      div(m - 1, nHp + 2 * nShc),
-      nSta) + 2] / max(nShc, 1)
-    else nShcShc[div(m - 1, nSta * (nHp + 2 * nShc)) + 1, mod(
-        div(m - 1, nHp + 2 * nShc),
-        nSta) + 2] / max(nShc, 1)) for m in 1:(nSta + 1) * nSta * (nHp + 2 *
-      nShc)}
-    "Cooling staging matrix – fully flattened (row-major over iHea, iCoo, iEqu)";
-  final parameter Real staHea[(nSta + 1) * nSta * (nHp + 2 * nShc)] =
-    {(if mod(m - 1, nHp + 2 * nShc) < nHp
-    then nHpHea[div(m - 1, nSta * (nHp + 2 * nShc)) + 1, mod(
-        div(m - 1, nHp + 2 * nShc),
-        nSta) + 2] / max(nHp, 1)
-    elseif mod(m - 1, nHp + 2 * nShc) < nHp + nShc
-    then nShcHea[div(m - 1, nSta * (nHp + 2 * nShc)) + 1, mod(
-      div(m - 1, nHp + 2 * nShc),
-      nSta) + 2] / max(nShc, 1)
-    else nShcShc[div(m - 1, nSta * (nHp + 2 * nShc)) + 1, mod(
-        div(m - 1, nHp + 2 * nShc),
-        nSta) + 2] / max(nShc, 1)) for m in 1:(nSta + 1) * nSta * (nHp + 2 *
-      nShc)}
-    "Heating staging matrix – fully flattened (row-major over iHea, iCoo, iEqu)";
-annotation(Documentation(
-  info="<html>
+  final parameter Real staCoo[(nSta + 1) * nSta, nHp + 2 * nShc] =
+    {(if iEqu <= nHp
+    then nHpCoo[div(r - 1, nSta) + 1, mod(r - 1, nSta) + 2] / max(nHp, 1)
+    elseif iEqu <= nHp + nShc
+    then nShcCoo[div(r - 1, nSta) + 1, mod(r - 1, nSta) + 2] / max(nShc, 1)
+    else nShcShc[div(r - 1, nSta) + 1, mod(r - 1, nSta) + 2] / max(
+        nShc,
+        1)) for iEqu in 1:nHp + 2 * nShc, r in 1:(nSta + 1) * nSta}
+    "Cooling staging matrix – row-major over (0≤iHea≤nSta, 1≤iCoo≤nSta)";
+  final parameter Real staHea[(nSta + 1) * nSta, nHp + 2 * nShc] =
+    {(if iEqu <= nHp
+    then nHpHea[div(r - 1, nSta) + 1, mod(r - 1, nSta) + 2] / max(nHp, 1)
+    elseif iEqu <= nHp + nShc
+    then nShcHea[div(r - 1, nSta) + 1, mod(r - 1, nSta) + 2] / max(nShc, 1)
+    else nShcShc[div(r - 1, nSta) + 1, mod(r - 1, nSta) + 2] / max(
+        nShc,
+        1)) for iEqu in 1:nHp + 2 * nShc, r in 1:(nSta + 1) * nSta}
+    "Heating staging matrix – row-major over (0≤iCoo≤nSta, 1≤iHea≤nSta)";
+annotation(defaultComponentName="staPar",
+  Documentation(
+    info="<html>
 <p>
   For a plant with polyvalent heat pumps, this block calculates the number of
   units to be staged in each operating mode.
 </p>
-</html>"));
-end StagingOrder;
+</html>"),
+  Icon(graphics={Rectangle(origin={0,-25},
+    lineColor={64,64,64},
+    fillColor={255,215,136},
+    fillPattern=FillPattern.Solid,
+    extent={{-100.0,-75.0},{100.0,75.0}},
+    radius=25.0),
+  Text(textColor={0,0,255},
+    extent={{-150,60},{150,100}},
+    textString="%name"),
+  Line(points={{-100,0},{100,0}},
+    color={64,64,64}),
+  Line(origin={0,-25},
+    points={{0.0,75.0},{0.0,-75.0}},
+    color={64,64,64}),
+  Line(origin={0,-50},
+    points={{-100.0,0.0},{100.0,0.0}},
+    color={64,64,64})}));
+end StagingParameters;

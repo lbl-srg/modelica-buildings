@@ -27,67 +27,51 @@ model ExtractStagingMatrix
     (1 - 1 / Buildings.Templates.Data.Defaults.COPHpWwHea) *
       capHeaShcShc_nominal
     "Design cooling capacity in SHC mode - Each polyvalent heat pump";
-  parameter Real capCooSta_nominal[nSta + 1, nSta + 1] =
-    sta.nHpCoo * capCooHp_nominal .+ sta.nShcCoo * capCooShc_nominal .+
-      sta.nShcShc * capCooShcShc_nominal
-    "Cooling capacity at each stage";
-  parameter Real capHeaSta_nominal[nSta + 1, nSta + 1] =
-    sta.nHpHea * capHeaHp_nominal .+ sta.nShcHea * capHeaShc_nominal .+
-      sta.nShcShc * capHeaShcShc_nominal
-    "Heating capacity at each stage";
+  parameter Real capCooSta_nominal[nSta + 1,nSta + 1]=staPar.nHpCoo*
+      capCooHp_nominal .+ staPar.nShcCoo*capCooShc_nominal .+ staPar.nShcShc*
+      capCooShcShc_nominal "Cooling capacity at each stage";
+  parameter Real capHeaSta_nominal[nSta + 1,nSta + 1]=staPar.nHpHea*
+      capHeaHp_nominal .+ staPar.nShcHea*capHeaShc_nominal .+ staPar.nShcShc*
+      capHeaShcShc_nominal "Heating capacity at each stage";
   // Columns are for equipment tags, duplicating SHC units for cooling-only and SHC mode indexing
   // NOT CDL compliant because 3D array!
-  parameter Real staCoo[nSta + 1, nSta, nHp + 2 * nShc] =
-    {cat(
+  parameter Real staCoo[nSta + 1,nSta,nHp + 2*nShc]={cat(
       1,
-      fill(sta.nHpCoo[iHea, iCoo + 1] / max(nHp, 1), nHp),
-      fill(sta.nShcCoo[iHea, iCoo + 1] / max(nShc, 1), nShc),
-      fill(
-        sta.nShcShc[iHea, iCoo + 1] / max(nShc, 1),
-        nShc)) for iCoo in 1:nSta, iHea in 1:nSta + 1}
+      fill(staPar.nHpCoo[iHea, iCoo + 1]/max(nHp, 1), nHp),
+      fill(staPar.nShcCoo[iHea, iCoo + 1]/max(nShc, 1), nShc),
+      fill(staPar.nShcShc[iHea, iCoo + 1]/max(nShc, 1), nShc)) for iCoo in 1:
+      nSta,iHea in 1:nSta + 1}
     "Cooling staging matrix – Varies with heating stage";
-  Buildings.Templates.Plants.Controls.PolyvalentHeatPumps.StagingOrder sta(
-      final nHp=nHp, final nShc=nShc) "Calculate staging order";
+  Buildings.Templates.Plants.Controls.PolyvalentHeatPumps.StagingParameters staPar(final nHp
+      =nHp, final nShc=nShc) "Staging parameters"
+    annotation (Placement(transformation(extent={{60,60},{80,80}})));
   Buildings.Controls.OBC.CDL.Integers.Sources.TimeTable iHea(
     table={{i*iHea.timeScale,i} for i in 0:nSta},
     timeScale=1/(nSta + 1),
     period=1)
     annotation (Placement(transformation(extent={{-80,-10},{-60,10}})));
   Buildings.Templates.Plants.Controls.PolyvalentHeatPumps.ExtractStagingMatrix
-    extSta(
-    final sta=sta.staCoo,
-    final nHp=nHp,
-    final nShc=nShc) "Extract cooling staging matrix at given heating stage"
-    annotation (Placement(transformation(extent={{-10,20},{10,40}})));
-  Buildings.Templates.Plants.Controls.PolyvalentHeatPumps.ExtractStagingMatrix
-    extTra(
-    is_transpose=true,
-    final sta=sta.staCoo,
-    final nHp=nHp,
-    final nShc=nShc)
-    "Extract transpose of cooling staging matrix at given heating stage"
+    extSta(final sta=staPar.staCoo)
+    "Extract cooling staging matrix at given heating stage"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
+  Buildings.Templates.Plants.Controls.PolyvalentHeatPumps.ExtractStagingMatrix
+    extTra(final sta=staPar.staCoo, is_transpose=true)
+    "Extract transpose of cooling staging matrix at given heating stage"
+    annotation (Placement(transformation(extent={{-10,-50},{10,-30}})));
 initial algorithm
   for iHea in 1:nSta + 1, iCoo in 1:nSta, iEqu in 1:nHp + 2 * nShc loop
-    assert(
-      abs(
-        sta.staCoo[((iHea - 1) * nSta + (iCoo - 1)) * (nHp + 2 * nShc) + iEqu] -
-        staCoo[iHea, iCoo, iEqu]) < Modelica.Constants.small,
-      "Mismatch");
+    assert(abs(staPar.staCoo[(iHea - 1)*nSta + iCoo, iEqu] - staCoo[iHea, iCoo,
+      iEqu]) < Modelica.Constants.small, "Mismatch");
   end for;
   for iCoo in 1:nSta, iEqu in 1:nHp + 2 * nShc loop
-    assert(
-      abs(staCoo[iHea.y[1] + 1, iCoo, iEqu] - extSta.y[iCoo, iEqu]) <
-        Modelica.Constants.small,
-      "Mismatch");
-    assert(
-      abs(staCoo[iHea.y[1] + 1, iCoo, iEqu] - extTra.y[iEqu, iCoo]) <
-        Modelica.Constants.small,
-      "Mismatch");
+    assert(abs(staCoo[iHea.y[1] + 1, iCoo, iEqu] - extSta.y[iCoo, iEqu]) <
+      Modelica.Constants.small, "Mismatch");
+    assert(abs(staCoo[iHea.y[1] + 1, iCoo, iEqu] - extTra.y[iEqu, iCoo]) <
+      Modelica.Constants.small, "Mismatch");
   end for;
 equation
-  connect(iHea.y[1], extTra.u)
+  connect(iHea.y[1], extSta.u)
     annotation (Line(points={{-58,0},{-12,0}}, color={255,127,0}));
-  connect(iHea.y[1], extSta.u) annotation (Line(points={{-58,0},{-20,0},{-20,30},
-          {-12,30}}, color={255,127,0}));
+  connect(iHea.y[1], extTra.u) annotation (Line(points={{-58,0},{-20,0},{-20,-40},
+          {-12,-40}}, color={255,127,0}));
 end ExtractStagingMatrix;
