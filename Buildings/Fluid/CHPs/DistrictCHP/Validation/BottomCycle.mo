@@ -28,10 +28,8 @@ model BottomCycle
     unit="K",
     displayUnit="degC")=823.15
     "Superheated steam temperature in Celsius used for correlation function";
-  parameter Modelica.Units.SI.AbsolutePressure p_a_nominal=30000
-    "Nominal inlet pressure for predefined pump characteristics";
-  parameter Modelica.Units.SI.AbsolutePressure p_b_nominal=3000000
-    "Nominal outlet pressure, fixed if not control_m_flow and not use_p_set";
+  parameter Modelica.Units.SI.PressureDifference dp_nominal(displayUnit="Pa")=3000000
+    "Nominal pressure difference";
   parameter Modelica.Units.SI.Volume V=12.4
     "Total volume of evaporator";
 
@@ -70,24 +68,13 @@ model BottomCycle
     "Start value of liquid volume in the evaporator";
   parameter Modelica.Units.SI.VolumeFlowRate VWat_flow_start=0.055
     "Start value of volumetric flow rate of liquid water";
-  parameter Modelica.Units.SI.AbsolutePressure p_a_start=30000
-    "Start value of inlet pressure for pump";
-  parameter Modelica.Units.SI.AbsolutePressure p_b_start=30000
-    "Start value of outlet pressure for pump";
-  parameter Boolean use_T_start=false
-    "Boolean to indicate if T_start is used";
-  parameter Real T_start(
-    unit="K",
-    displayUnit="degC")=777.625
-    "Start value of temperature for pump";
-  parameter Modelica.Units.SI.SpecificEnthalpy h_start=1e5
-    "Start value of specific enthalpy for pump";
 
   Buildings.Fluid.CHPs.DistrictCHP.BottomCycle botCyc(
     final a=a,
     final a_SteMas=a_SteMas,
     final TSta=TSta,
     final m_flow_nominal=m_flow_nominal,
+    dp_nominal=dp_nominal,
     final allowFlowReversal=allowFlowReversal,
     final V=V,
     final p_start=p_start,
@@ -104,11 +91,7 @@ model BottomCycle
     final VWat_flow_start=VWat_flow_start,
     final TSte=TSte,
     final VWat_set=VWat_set,
-    final p_a_start=p_a_start,
-    final p_b_start=p_b_start,
-    final use_T_start=use_T_start,
-    final T_start=T_start,
-    final h_start=h_start,
+    m_flow_start=m_flow_nominal,
     steBoi(fixed_p_start=false))
     "Bottom cycle: feed in water and heated up to produce superheat steam"
     annotation (Placement(transformation(extent={{-10,-30},{10,-12}})));
@@ -156,14 +139,11 @@ model BottomCycle
 equation
 
   connect(exhTem.y, botCyc.TExh) annotation (Line(points={{-59,70},{-20,70},{
-          -20,-13.8},{-12,-13.8}},
-                               color={0,0,127}));
+          -20,-13.8},{-12,-13.8}}, color={0,0,127}));
   connect(ambTemp.y, botCyc.TAmb) annotation (Line(points={{-59,30},{-30,30},{
-          -30,-16.5},{-12,-16.5}},
-                               color={0,0,127}));
+          -30,-16.5},{-12,-16.5}}, color={0,0,127}));
   connect(trapezoid.y, botCyc.mExh_flow) annotation (Line(points={{-59,-10},{
-          -40,-10},{-40,-19.2},{-12,-19.2}},
-                                         color={0,0,127}));
+          -40,-10},{-40,-19.2},{-12,-19.2}}, color={0,0,127}));
   connect(sou.ports[1], botCyc.port_a) annotation (Line(points={{-30,-40},{-20,
           -40},{-20,-21},{-10,-21}}, color={0,127,255}));
   connect(botCyc.port_b, bou.ports[1]) annotation (Line(points={{10,-21},{20,

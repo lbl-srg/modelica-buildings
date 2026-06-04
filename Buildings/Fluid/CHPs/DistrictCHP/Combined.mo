@@ -35,40 +35,6 @@ model Combined "Combined-cycle CHP model"
   parameter Modelica.Units.SI.Volume V=12.4
     "Total volume of HRSG evaporator"
     annotation (Dialog(group="Heat recovery steam generator"));
-  parameter Modelica.Units.SI.AbsolutePressure p_a_nominal(displayUnit="Pa")=30000
-    "Nominal inlet pressure for predefined pump characteristics"
-    annotation (Dialog(group="HRSG water feeding pump"));
-  parameter Modelica.Units.SI.AbsolutePressure p_b_nominal(displayUnit="Pa")=3000000
-    "Nominal outlet pressure, fixed if not control_m_flow and not use_p_set"
-    annotation (Dialog(group="HRSG water feeding pump"));
-  parameter Integer nParallel=1 "Number of pumps in parallel"
-    annotation (Dialog(group="HRSG water feeding pump"));
-  replaceable function flowCharacteristic =
-    Modelica.Fluid.Machines.BaseClasses.PumpCharacteristics.quadraticFlow(
-          V_flow_nominal={0, V_flow_op, 1.5*V_flow_op},
-          head_nominal={2*head_op, head_op, 0})
-    "Head vs. V_flow characteristic at nominal speed and density"
-    annotation (Dialog(group="HRSG water feeding pump"));
-  parameter Modelica.Units.NonSI.AngularVelocity_rpm N_nominal=1500
-    "Nominal rotational speed for flow characteristic"
-    annotation (Dialog(group="HRSG water feeding pump"));
-  parameter Modelica.Media.Interfaces.Types.Density rho_nominal=
-      MediumW.density_pTX(
-      MediumW.p_default,
-      MediumW.T_default,
-      MediumW.X_default) "Nominal fluid density for characteristic"
-    annotation (Dialog(group="HRSG water feeding pump"));
-  parameter Boolean use_powerCharacteristic=false
-    "Use powerCharacteristic (vs. efficiencyCharacteristic)"
-    annotation (Dialog(group="HRSG water feeding pump"));
-
-  // exemplary characteristics
-  final parameter Modelica.Units.SI.VolumeFlowRate V_flow_op = m_flow_nominal/rho_nominal
-    "Operational volume flow rate according to nominal values";
-  final parameter Modelica.Units.SI.Position head_op = (p_b_nominal-p_a_nominal)/(rho_nominal*g_n)
-    "Operational pump head according to nominal values";
-  final constant Modelica.Units.SI.Acceleration g_n=9.80665
-    "Standard acceleration of gravity on earth";
 
   // Advanced tab
   parameter Real TSte(
@@ -128,23 +94,6 @@ model Combined "Combined-cycle CHP model"
   parameter Modelica.Units.SI.VolumeFlowRate VWat_flow_start=0.055
     "Start value of volumetric flow rate of liquid water"
     annotation (Dialog(tab="Initialization",group="Fluid system"));
-  parameter Modelica.Units.SI.AbsolutePressure p_a_start(displayUnit="Pa")=30000
-    "Start value of inlet pressure for pump"
-    annotation (Dialog(tab="Initialization", group="HRSG water feeding pump"));
-  parameter Modelica.Units.SI.AbsolutePressure p_b_start(displayUnit="Pa")=3000000
-    "Start value of outlet pressure for pump"
-    annotation (Dialog(tab="Initialization", group="HRSG water feeding pump"));
-  parameter Boolean use_T_start=false
-    "Boolean to indicate if T_start is used"
-    annotation (Dialog(tab="Initialization", group="HRSG water feeding pump"));
-  parameter Real T_start(
-    unit="K",
-    displayUnit="degC")=777.625
-    "Start value of temperature for pump"
-    annotation (Dialog(tab="Initialization", group="HRSG water feeding pump"));
-  parameter Modelica.Units.SI.SpecificEnthalpy h_start=1e5
-    "Start value of specific enthalpy for pump"
-    annotation (Dialog(tab="Initialization", group="HRSG water feeding pump"));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput y
     "Part load ratio"
@@ -194,13 +143,6 @@ model Combined "Combined-cycle CHP model"
     final TSta=TSta,
     final VWat_set=VWat_set,
     final m_flow_nominal=m_flow_nominal,
-    final p_a_nominal=p_a_nominal,
-    final p_b_nominal=p_b_nominal,
-    final nParallel=nParallel,
-    redeclare function flowCharacteristic = flowCharacteristic,
-    final N_nominal=N_nominal,
-    final rho_nominal=rho_nominal,
-    final use_powerCharacteristic=use_powerCharacteristic,
     final V=V,
     final pumCon=pumCon,
     final k=k,
@@ -216,14 +158,8 @@ model Combined "Combined-cycle CHP model"
     final massDynamics=massDynamics,
     final p_start=p_start,
     final VWat_start=VWat_start,
-    final VWat_flow_start=VWat_flow_start,
-    final p_a_start=p_a_start,
-    final p_b_start=p_b_start,
-    final use_T_start=use_T_start,
-    final T_start=T_start,
-    final h_start=h_start)
-    "Bottom cycle"
-    annotation (Placement(transformation(extent={{20,-10},{40,8}})));
+    final VWat_flow_start=VWat_flow_start) "Bottom cycle"
+    annotation (Placement(transformation(extent={{20,-10},{40,10}})));
 
 equation
   connect(topCycTab.PEle, PEle) annotation (Line(points={{-38,58},{20,58},{20,90},
