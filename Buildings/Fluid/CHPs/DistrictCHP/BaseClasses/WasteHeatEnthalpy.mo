@@ -44,7 +44,7 @@ the ambient conditions.
 Aly Elshamy, 2006.
 <i><a href=\"file:///Users/jianjunhu/Downloads/malshadadi1,+Journal+manager,+1E.pdf/\">
 Condensation Of Flue Gases In Boilers</a></i>.
-Journal of Science & Technology Vol. (11) No.(1).
+Journal of Science &amp; Technology Vol. (11) No.(1).
 </p>
 </html>"));
 end WasteHeatEnthalpy;
