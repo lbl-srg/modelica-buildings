@@ -34,13 +34,8 @@ partial model FluidInterface
     each final m_flow_nominal=m_flow_nominal)
     "Total enthalpy flow rate (sensible plus latent)"
     annotation (Placement(transformation(extent={{0,-10},{-20,10}})));
-  Modelica.Fluid.Interfaces.FluidPorts_b ports[
-                                nPorts](
-                     redeclare each package Medium = Medium,
-                     each m_flow(max=if flowDirection==Modelica.Fluid.Types.PortFlowDirection.Leaving then 0 else
-                                     +Modelica.Constants.inf,
-                                 min=if flowDirection==Modelica.Fluid.Types.PortFlowDirection.Entering then 0 else
-                                     -Modelica.Constants.inf))
+  Modelica.Fluid.Interfaces.FluidPorts_b ports[nPorts](
+    redeclare each package Medium = Medium)
     annotation (Placement(transformation(extent={{88,40},{108,-40}})));
 
   Modelica.Blocks.Math.Sum sumHTot_flow(nin=nPorts)
@@ -58,11 +53,6 @@ partial model FluidInterface
     final use_m_flow_in=true)
     annotation (Placement(transformation(extent={{-52,-10},{-32,10}})));
 protected
-  parameter Modelica.Fluid.Types.PortFlowDirection flowDirection=
-                   Modelica.Fluid.Types.PortFlowDirection.Bidirectional
-    "Allowed flow direction"
-    annotation(Evaluate=true, Dialog(tab="Advanced"));
-
   Modelica.Blocks.Sources.Constant m_flow_par(final k=m_flow)
     "Mass flow rate if set as a parameter"
     annotation (Placement(transformation(extent={{-88,-30},{-68,-10}})));
@@ -100,8 +90,6 @@ equation
         Text(
           extent={{-168,50},{-66,10}},
           textColor={0,0,0},
-          fillColor={255,255,255},
-          fillPattern=FillPattern.Solid,
           textString="T"),
         Rectangle(
           extent={{35,45},{100,-45}},
@@ -121,8 +109,6 @@ equation
         Text(
           extent={{-54,32},{16,-30}},
           textColor={255,0,0},
-          fillColor={255,0,0},
-          fillPattern=FillPattern.Solid,
           textString="m"),
         Ellipse(
           extent={{-26,30},{-18,22}},
@@ -138,6 +124,12 @@ interfacing fluid flow systems with the BCVTB interface.
 </html>",
 revisions="<html>
 <ul>
+<li>
+May 21, 2026, by Michael Wetter:<br/>
+Removed protected parameter <code>flowDirection</code> as it was set to <code>Birectional</code>
+and had no effect on the model.<br/>
+This is for <a href=\"http://github.com/lbl-srg/modelica-buildings/issues/4607\">Buildings, #4607</a>.
+</li>
 <li>
 May 27, 2016, by Michael Wetter:<br/>
 Refactored mass flow rate assignment to avoid using conditional connector

@@ -635,39 +635,29 @@ annotation (
         Text(
           extent={{-40,318},{154,280}},
           textColor={0,0,127},
-          fillColor={215,215,215},
-          fillPattern=FillPattern.Solid,
           horizontalAlignment=TextAlignment.Right,
           textString="Active airflow setpoint
 in cooling state"),
         Text(
           extent={{32,136},{216,104}},
           textColor={0,0,127},
-          fillColor={215,215,215},
-          fillPattern=FillPattern.Solid,
           horizontalAlignment=TextAlignment.Left,
           textString="Override if TDis is lower than TDisMin
 (e.g., AHU overcools)"),
         Text(
           extent={{-52,42},{154,0}},
           textColor={0,0,127},
-          fillColor={215,215,215},
-          fillPattern=FillPattern.Solid,
           horizontalAlignment=TextAlignment.Right,
           textString="Active airflow setpoint
 in deadband state"),
         Text(
           extent={{88,-26},{150,-44}},
           textColor={0,0,127},
-          fillColor={215,215,215},
-          fillPattern=FillPattern.Solid,
           horizontalAlignment=TextAlignment.Right,
           textString="Valve control"),
         Text(
           extent={{-44,-164},{154,-200}},
           textColor={0,0,127},
-          fillColor={215,215,215},
-          fillPattern=FillPattern.Solid,
           horizontalAlignment=TextAlignment.Right,
           textString="Active airflow setpoint
 in heating state")}),
@@ -685,78 +675,64 @@ in heating state")}),
         Text(
           extent={{-98,68},{-62,54}},
           textColor={0,0,127},
-          pattern=LinePattern.Dash,
           textString="VActCooMax_flow"),
         Text(
           extent={{-98,88},{-62,74}},
           textColor={0,0,127},
-          pattern=LinePattern.Dash,
           textString="VActCooMin_flow"),
         Text(
           extent={{-98,-76},{-60,-90}},
           textColor={0,0,127},
-          pattern=LinePattern.Dash,
           textString="VActHeaMax_flow"),
         Text(
           extent={{-98,-54},{-62,-66}},
           textColor={0,0,127},
-          pattern=LinePattern.Dash,
           textString="VActHeaMin_flow"),
         Text(
           extent={{-98,44},{-70,38}},
           textColor={0,0,127},
-          pattern=LinePattern.Dash,
           textString="VActMin_flow"),
         Text(
           extent={{-100,102},{-80,96}},
           textColor={0,0,127},
-          pattern=LinePattern.Dash,
           textString="uCoo"),
         Text(
           extent={{-100,-18},{-80,-24}},
           textColor={0,0,127},
-          pattern=LinePattern.Dash,
           textString="uHea"),
         Text(
           extent={{-100,2},{-76,-4}},
           textColor={0,0,127},
-          pattern=LinePattern.Dash,
           textString="THeaSet"),
         Text(
           extent={{-100,24},{-80,16}},
           textColor={0,0,127},
-          pattern=LinePattern.Dash,
           textString="TSup"),
         Text(
           extent={{-11.5,3.5},{11.5,-3.5}},
           textColor={0,0,127},
-          pattern=LinePattern.Dash,
           textString="TDis",
           origin={-41.5,-89.5},
           rotation=90),
         Text(
           extent={{-100,-36},{-80,-42}},
           textColor={0,0,127},
-          pattern=LinePattern.Dash,
           textString="TZon"),
         Text(
           visible=not have_pressureIndependentDamper,
           extent={{-11.5,4.5},{11.5,-4.5}},
           textColor={0,0,127},
-          pattern=LinePattern.Dash,
           origin={39.5,-85.5},
           rotation=90,
           textString="VDis_flow"),
         Text(
           extent={{72,44},{98,34}},
           textColor={0,0,127},
-          pattern=LinePattern.Dash,
           textString="yDam",
           horizontalAlignment=TextAlignment.Right),
         Text(
           extent={{66,-34},{98,-48}},
           textColor={0,0,127},
-          pattern=LinePattern.Dash,
           horizontalAlignment=TextAlignment.Right,
           textString="yHeaVal"),
         Line(points={{-50,64},{-50,-48},{62,-48}}, color={95,95,95}),
@@ -795,19 +771,16 @@ in heating state")}),
         Text(
           extent={{60,88},{98,76}},
           textColor={0,0,127},
-          pattern=LinePattern.Dash,
           horizontalAlignment=TextAlignment.Right,
           textString="VDisSet_flow"),
         Text(
           extent={{60,-74},{98,-86}},
           textColor={0,0,127},
-          pattern=LinePattern.Dash,
           horizontalAlignment=TextAlignment.Right,
           textString="TDisHeaSet"),
         Text(
           extent={{-98,-96},{-78,-102}},
           textColor={0,0,127},
-          pattern=LinePattern.Dash,
           textString="uOpeMod")}),
   Documentation(info="<html>
 <p>

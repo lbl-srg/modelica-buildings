@@ -5,21 +5,14 @@ block G36VAVMultiZone
     Buildings.Templates.AirHandlersFans.Components.Interfaces.PartialControllerVAVMultizone(
       final typ=Buildings.Templates.AirHandlersFans.Types.Controller.G36VAVMultiZone);
 
-  parameter String idZon[nZon]
-    "Zone (or terminal unit) names"
-    annotation(Evaluate=true,
-    Dialog(group="Configuration"));
+  final parameter String idZon[:] = dat.idZon
+    "Zone (or terminal unit) names";
 
-  parameter String namGro[:]
-    "Name of zone groups"
-    annotation (
-    Evaluate=true,
-    Dialog(group="Configuration"));
+  final parameter String namGro[:] = dat.namGro
+    "Name of zone groups";
 
-  parameter String namGroZon[nZon]
-    "Name of group which each zone belongs to"
-    annotation(Evaluate=true,
-    Dialog(group="Configuration"));
+  final parameter String namGroZon[:] = dat.namGroZon
+    "Name of group which each zone belongs to";
 
   final parameter Integer nGro(final min=1)=
     size(namGro, 1)
@@ -264,6 +257,15 @@ block G36VAVMultiZone
     final nGro=nGro)
     "Compute the AHU operating mode"
     annotation (Placement(transformation(extent={{-90,70},{-70,90}})));
+initial equation
+  assert(size(idZon, 1)==nZon,
+    "In " + getInstanceName() +
+    ": The size of the parameter 'idZon' (= " + String(size(idZon, 1)) +
+    ") must be equal to the number or zones 'nZon' (= " + String(nZon) + ").");
+  assert(size(namGroZon, 1)==nZon,
+    "In " + getInstanceName() +
+    ": The size of the parameter 'namGroZon' (= " + String(size(namGroZon, 1)) +
+    ") must be equal to the number or zones 'nZon' (= " + String(nZon) + ").");
 equation
   /* Control point connection - start */
 
@@ -516,6 +518,12 @@ for HVAC Systems. Atlanta, GA.
 </ul>
 </html>", revisions="<html>
 <ul>
+<li>
+March 16, 2026, by Antoine Gautier:<br/>
+Moved zoning parameter declarations into controller data record.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4497\">#4497</a>.
+</li>
 <li>
 November 8, 2023, by Antoine Gautier:<br/>
 Added support for additional configurations.<br/>

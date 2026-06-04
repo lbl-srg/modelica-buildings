@@ -67,9 +67,12 @@ model HydraulicEfficiencyMethods
 
   Modelica.Blocks.Sources.Constant y(k=1) "Relative speed"
     annotation (Placement(transformation(extent={{-60,70},{-40,90}})));
-  Modelica.Blocks.Sources.Ramp m_flow(height=rho.k, duration=1) "Mass flow rate"
+  Modelica.Blocks.Sources.Ramp m_flow(
+    height=1.2,
+    duration=1,
+    y(unit="kg/s")) "Mass flow rate"
     annotation (Placement(transformation(extent={{-60,20},{-40,40}})));
-  Modelica.Blocks.Sources.Constant rho(k=rhoFlu) "Density"
+  Modelica.Blocks.Sources.Constant rho(k(unit="kg/m3")=rhoFlu) "Density"
     annotation (Placement(transformation(extent={{-60,-40},{-40,-20}})));
 
 equation
@@ -113,6 +116,11 @@ Buildings.Fluid.Movers.BaseClasses.Types.HydraulicEfficiencyMethod</a>.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+March 31, 2026, by Michael Wetter:<br/>
+Corrected unit propagation error that causes Dymola 2026x to not show certain units.<br/>
+See <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/2100\">#2100</a>.
+</li>
 <li>
 Aug 5, 2022, by Hongxiang Fu:<br/>
 First implementation.<br/>

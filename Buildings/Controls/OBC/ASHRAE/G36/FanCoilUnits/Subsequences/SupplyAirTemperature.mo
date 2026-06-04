@@ -215,7 +215,8 @@ block SupplyAirTemperature
     final controllerType=heaCoiConTyp,
     final k=kHeaCoi,
     final Ti=TiHeaCoi,
-    final Td=TdHeaCoi) if have_heaCoi
+    final Td=TdHeaCoi,
+    r=10) if have_heaCoi
     "PID controller for heating coil"
     annotation (Placement(transformation(extent={{80,50},{100,70}})));
 
@@ -224,7 +225,8 @@ block SupplyAirTemperature
     final k=kCooCoi,
     final Ti=TiCooCoi,
     final Td=TdCooCoi,
-    final reverseActing=false) if have_cooCoi
+    final reverseActing=false,
+    r=10) if have_cooCoi
     "PID controller for cooling coil"
     annotation (Placement(transformation(extent={{80,-110},{100,-90}})));
 
@@ -406,61 +408,43 @@ equation
         Text(
           extent={{-96,92},{-50,72}},
           textColor={255,0,255},
-          fillColor={0,0,0},
-          fillPattern=FillPattern.Solid,
           textString="u1Fan"),
         Text(
           extent={{-96,60},{-20,38}},
           textColor={0,0,127},
-          fillColor={0,0,0},
-          fillPattern=FillPattern.Solid,
           textString="TZonHeaSet",
           visible=have_heaCoi),
         Text(
           extent={{-100,30},{-52,10}},
           textColor={0,0,127},
-          fillColor={0,0,0},
-          fillPattern=FillPattern.Solid,
           textString="uHea",
           visible=have_heaCoi),
         Text(
           extent={{-96,-10},{-46,-28}},
           textColor={0,0,127},
-          fillColor={0,0,0},
-          fillPattern=FillPattern.Solid,
           textString="TAirSup"),
         Text(
           extent={{-100,-40},{-52,-60}},
           textColor={0,0,127},
-          fillColor={0,0,0},
-          fillPattern=FillPattern.Solid,
           textString="uCoo",
           visible=have_cooCoi),
         Text(
           extent={{38,70},{96,50}},
           textColor={0,0,127},
-          fillColor={0,0,0},
-          fillPattern=FillPattern.Solid,
           textString="yHeaCoi",
           visible=have_heaCoi),
         Text(
           extent={{-96,-68},{-20,-90}},
           textColor={0,0,127},
-          fillColor={0,0,0},
-          fillPattern=FillPattern.Solid,
           textString="TZonCooSet",
           visible=have_cooCoi),
         Text(
           extent={{20,12},{96,-10}},
           textColor={0,0,127},
-          fillColor={0,0,0},
-          fillPattern=FillPattern.Solid,
           textString="TSupSet"),
         Text(
           extent={{38,-50},{96,-70}},
           textColor={0,0,127},
-          fillColor={0,0,0},
-          fillPattern=FillPattern.Solid,
           textString="yCooCoi",
           visible=have_cooCoi)}),        Diagram(coordinateSystem(
           preserveAspectRatio=false, extent={{-240,-180},{240,180}})),
@@ -491,6 +475,11 @@ alt=\"Supply air temperature setpoint control logic diagram\"/> </p>
 </html>",
 revisions="<html>
 <ul>
+<li>
+November 20, 2025, by Karthik Devaprasad:<br/>
+Added error scaling factors to PI controllers regulating supply air temperature
+at temperature setpoint.
+</li>
 <li>
 March 17, 2022, by Karthik Devaprasad:<br/>
 First implementation.

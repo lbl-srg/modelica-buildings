@@ -331,8 +331,6 @@ equation
         Text(
           extent={{-228,-244},{-178,-194}},
           textColor={0,0,127},
-          fillColor={0,0,255},
-          fillPattern=FillPattern.Solid,
           textString="C_flow",
           visible = use_C_flow)}),
     Documentation(info="<html>

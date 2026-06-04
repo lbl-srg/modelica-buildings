@@ -185,47 +185,38 @@ annotation (defaultComponentName="ove",
         Text(
           extent={{-100,76},{-60,64}},
           textColor={0,0,127},
-          pattern=LinePattern.Dash,
           textString="uDamSet"),
         Text(
           extent={{-98,98},{-48,84}},
           textColor={255,127,0},
-          pattern=LinePattern.Dash,
           textString="oveDamPos"),
         Text(
           extent={{60,86},{100,74}},
           textColor={0,0,127},
-          pattern=LinePattern.Dash,
           textString="yDam"),
         Text(
           extent={{-100,-2},{-60,-14}},
           textColor={0,0,127},
-          pattern=LinePattern.Dash,
           textString="uValSet"),
         Text(
           extent={{-100,16},{-60,4}},
           textColor={255,0,255},
-          pattern=LinePattern.Dash,
           textString="uHeaOff"),
         Text(
           extent={{60,8},{100,-4}},
           textColor={0,0,127},
-          pattern=LinePattern.Dash,
           textString="yVal"),
         Text(
           extent={{-100,-82},{-74,-96}},
           textColor={255,0,255},
-          pattern=LinePattern.Dash,
           textString="uFan"),
         Text(
           extent={{-96,-62},{-62,-76}},
           textColor={255,127,0},
-          pattern=LinePattern.Dash,
           textString="oveFan"),
         Text(
           extent={{56,-74},{96,-86}},
           textColor={255,0,255},
-          pattern=LinePattern.Dash,
           textString="yFanStaSet")}),
   Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-140,-180},{140,180}})),
 Documentation(info="<html>

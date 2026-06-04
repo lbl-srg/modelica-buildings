@@ -21,10 +21,13 @@ protected
     (dp_nominal_pos > Modelica.Constants.eps) and not disableComputeFlowResistance_internal
     "Flag to enable/disable computation of flow resistance"
    annotation(Evaluate=true);
-  final parameter Real coeff=
+  final parameter Real coeM(final unit="kg/(s.Pa)")=
     if linearized and computeFlowResistance
-    then if from_dp then k^2/m_flow_nominal_pos else m_flow_nominal_pos/k^2
-    else 0
+    then k^2/m_flow_nominal_pos else 0
+    "Precomputed coefficient to avoid division by parameter";
+  final parameter Real coeP(final unit="s.Pa/kg")=
+    if linearized and computeFlowResistance
+    then m_flow_nominal_pos/k^2 else 0
     "Precomputed coefficient to avoid division by parameter";
 initial equation
  if computeFlowResistance then
@@ -37,9 +40,9 @@ equation
   if computeFlowResistance then
     if linearized then
       if from_dp then
-        m_flow = dp*coeff;
+        m_flow = dp*coeM;
       else
-        dp = m_flow*coeff;
+        dp = m_flow*coeP;
       end if;
     else
       if homotopyInitialization then
@@ -183,6 +186,11 @@ This leads to simpler equations.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+March 31, 2026, by Michael Wetter:<br/>
+Corrected unit propagation error that causes Dymola 2026x to not show certain units.<br/>
+See <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/2100\">#2100</a>.
+</li>
 <li>
 April 25, 2025, by Fabian Wuelhorst and Michael Wetter:<br/>
 Add option to disable <code>computeFlowResistance</code> for extending classes.<br/>

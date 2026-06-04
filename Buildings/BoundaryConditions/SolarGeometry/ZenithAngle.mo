@@ -1,5 +1,5 @@
 within Buildings.BoundaryConditions.SolarGeometry;
-block ZenithAngle "Zenith angle"
+model ZenithAngle "Zenith angle"
   extends Modelica.Blocks.Icons.Block;
   Modelica.Blocks.Interfaces.RealOutput y(
     final quantity="Angle",
@@ -44,6 +44,11 @@ Buildings.BoundaryConditions.UsersGuide</a>.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+May 15, 2026, by Jianjun Hu:<br/>
+Changed the class type from block to model.<br/>
+This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/2122\">IBPSA, #2122</a>.
+</li>
 <li>
 September 6, 2021, by Ettore Zanetti:<br/>
 Changed <code>lat</code> from being a parameter to an input from weather bus.<br/>

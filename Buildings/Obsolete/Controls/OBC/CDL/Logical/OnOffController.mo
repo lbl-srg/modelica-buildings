@@ -40,7 +40,6 @@ equation
           borderPattern=BorderPattern.Raised),
         Text(
           extent={{-92,74},{44,44}},
-          lineThickness=0.5,
           textString="reference"),
         Text(
           extent={{-94,-52},{-34,-74}},
