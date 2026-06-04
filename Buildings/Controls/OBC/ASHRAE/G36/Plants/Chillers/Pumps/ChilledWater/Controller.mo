@@ -459,7 +459,7 @@ equation
   connect(booToInt.y, mulSumInt.u)
     annotation (Line(points={{-238,-120},{-222,-120}}, color={255,127,0}));
   connect(mulSumInt.y, addInt.u2)
-    annotation (Line(points={{-198,-120},{-190,-120},{-190,-26},{-162,-26}},
+    annotation (Line(points={{-198,-120},{-170,-120},{-170,-26},{-162,-26}},
       color={255,127,0}));
   connect(conInt.y, addInt.u1)
     annotation (Line(points={{-198,200},{-170,200},{-170,-14},{-162,-14}},
