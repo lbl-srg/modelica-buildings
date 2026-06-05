@@ -94,7 +94,7 @@ model BottomCycle
     m_flow_start=m_flow_nominal,
     steBoi(fixed_p_start=false))
     "Bottom cycle: feed in water and heated up to produce superheat steam"
-    annotation (Placement(transformation(extent={{-10,-30},{10,-12}})));
+    annotation (Placement(transformation(extent={{-10,-30},{10,-10}})));
 
   Modelica.Blocks.Sources.Constant ambTemp(k=15 + 273.15)
     "Ambient temperature"
@@ -139,15 +139,15 @@ model BottomCycle
 equation
 
   connect(exhTem.y, botCyc.TExh) annotation (Line(points={{-59,70},{-20,70},{
-          -20,-13.8},{-12,-13.8}}, color={0,0,127}));
+          -20,-12},{-12,-12}},     color={0,0,127}));
   connect(ambTemp.y, botCyc.TAmb) annotation (Line(points={{-59,30},{-30,30},{
-          -30,-16.5},{-12,-16.5}}, color={0,0,127}));
+          -30,-15},{-12,-15}},     color={0,0,127}));
   connect(trapezoid.y, botCyc.mExh_flow) annotation (Line(points={{-59,-10},{
-          -40,-10},{-40,-19.2},{-12,-19.2}}, color={0,0,127}));
+          -40,-10},{-40,-18},{-12,-18}},     color={0,0,127}));
   connect(sou.ports[1], botCyc.port_a) annotation (Line(points={{-30,-40},{-20,
-          -40},{-20,-21},{-10,-21}}, color={0,127,255}));
-  connect(botCyc.port_b, bou.ports[1]) annotation (Line(points={{10,-21},{20,
-          -21},{20,-40},{30,-40}}, color={0,127,255}));
+          -40},{-20,-20},{-10,-20}}, color={0,127,255}));
+  connect(botCyc.port_b, bou.ports[1]) annotation (Line(points={{10,-20},{20,
+          -20},{20,-40},{30,-40}}, color={0,127,255}));
 annotation (Icon(coordinateSystem(preserveAspectRatio=false)),
   Diagram(coordinateSystem(preserveAspectRatio=false)),
 Documentation(revisions="<html>

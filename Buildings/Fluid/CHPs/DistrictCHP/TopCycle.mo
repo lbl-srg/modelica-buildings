@@ -7,7 +7,6 @@ model TopCycle "Topping cycle subsystem model"
      annotation (choicesAllMatching= true, Placement(transformation(extent={{40,-120},
             {60,-100}})));
 
-  // Inputs
   Buildings.Controls.OBC.CDL.Interfaces.RealInput y
     "Part load ratio"
     annotation (Placement(transformation(extent={{-180,20},{-140,60}}),
@@ -19,8 +18,6 @@ model TopCycle "Topping cycle subsystem model"
     "Ambient temperature"
     annotation (Placement(transformation(extent={{-180,-90},{-140,-50}}),
         iconTransformation(extent={{-140,-60},{-100,-20}})));
-
-  // Outputs
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput PEle(
     final quantity= "Power",
     final unit = "W")
@@ -47,38 +44,39 @@ model TopCycle "Topping cycle subsystem model"
         iconTransformation(extent={{100,-100},{140,-60}})));
 
   // Look-up tables
-  Modelica.Blocks.Tables.CombiTable2Ds eleCap_CorFac(
-    final table=per.capPowCor_GTG,
+  Modelica.Blocks.Tables.CombiTable2Ds powCapCor(
+    final table=per.capPowCor,
     final smoothness=Modelica.Blocks.Types.Smoothness.LinearSegments)
-    "Look-up table that represents a set of efficiency curves varying with both the outdoor air temperature and the part load ratio"
+    "Power capacity correction factors"
     annotation (Placement(transformation(extent={{-60,60},{-40,80}})));
-  Modelica.Blocks.Tables.CombiTable2Ds gasTurEff_CorFac(
-    final table=per.effCor_GTG,
+  Modelica.Blocks.Tables.CombiTable2Ds gasTurEffCor(
+    final table=per.effCor,
     final smoothness=Modelica.Blocks.Types.Smoothness.LinearSegments)
-    "Look-up table that represents a set of efficiency curves varying with both the outdoor air temperature and the part load ratio"
+    "Gas turbine efficiency correction factors"
     annotation (Placement(transformation(extent={{-60,10},{-40,30}})));
-  Modelica.Blocks.Tables.CombiTable2Ds exhT_CorFac(
-    final table=per.exhTempCor_GT,
+  Modelica.Blocks.Tables.CombiTable2Ds exhTemCor(
+    final table=per.exhTemCor,
     final smoothness=Modelica.Blocks.Types.Smoothness.ContinuousDerivative)
+    "Exhaust temperature correction factors"
     annotation (Placement(transformation(extent={{-60,-40},{-40,-20}})));
-  Modelica.Blocks.Tables.CombiTable2Ds exhMas_CorFac(
-    final table=per.exhMasCor_GT,
+  Modelica.Blocks.Tables.CombiTable2Ds exhMasCor(
+    final table=per.exhMasCor,
     final smoothness=Modelica.Blocks.Types.Smoothness.LinearSegments)
+    "Exhaust mass flow correction factors"
     annotation (Placement(transformation(extent={{-60,-90},{-40,-70}})));
 
-  // Others
 protected
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant fulCap(
     final k=1)
     "Full power generation capacity"
     annotation (Placement(transformation(extent={{-120,70},{-100,90}})));
-  Buildings.Controls.OBC.CDL.Reals.Multiply pow
+  Buildings.Controls.OBC.CDL.Reals.Multiply pow "Power generation"
     annotation (Placement(transformation(extent={{20,90},{40,110}})));
   Buildings.Controls.OBC.CDL.Reals.Divide groHea
     "Gross heat input into the system"
     annotation (Placement(transformation(extent={{60,30},{80,50}})));
-  Buildings.Controls.OBC.CDL.Reals.MultiplyByParameter eleCap(
-    final k=per.P_nominal) "Fuel mass flow rate computation"
+  Buildings.Controls.OBC.CDL.Reals.MultiplyByParameter powCap(
+    final k=per.P_nominal) "Power capacity computation"
     annotation (Placement(transformation(extent={{-20,60},{0,80}})));
   Buildings.Controls.OBC.CDL.Reals.MultiplyByParameter nomHea(
     final k=1/per.LHVFue)    "Low heating value"
@@ -86,11 +84,12 @@ protected
   Buildings.Controls.OBC.CDL.Reals.MultiplyByParameter gasTurEff(
     final k=per.eta_nominal) "Gas turbine efficiency computation"
     annotation (Placement(transformation(extent={{-20,10},{0,30}})));
-  Buildings.Controls.OBC.CDL.Reals.MultiplyByParameter exhTemp(
-    final k=per.TExh_nominal) "Exhaust temperature computation"
+  Buildings.Controls.OBC.CDL.Reals.MultiplyByParameter exhTem(
+    final k=per.TExh_nominal)
+    "Exhaust temperature computation"
     annotation (Placement(transformation(extent={{-20,-40},{0,-20}})));
-  Buildings.Controls.OBC.CDL.Reals.MultiplyByParameter exhMas(
-    final k=per.mExh_nominal) "Exhaust mass flow rate computation"
+  Buildings.Controls.OBC.CDL.Reals.MultiplyByParameter exhMas(final k=per.mExh_flow_nominal)
+                              "Exhaust mass flow rate computation"
     annotation (Placement(transformation(extent={{-20,-90},{0,-70}})));
   Buildings.Controls.OBC.CDL.Reals.MultiplyByParameter loaPer(
     final k=1)
@@ -102,25 +101,25 @@ protected
     annotation (Placement(transformation(extent={{-120,-80},{-100,-60}})));
 
 equation
-  connect(exhT_CorFac.y, exhTemp.u)
-    annotation (Line(points={{-39,-30},{-22,-30}},color={0,0,127}));
-  connect(exhMas_CorFac.y, exhMas.u)
-    annotation (Line(points={{-39,-80},{-22,-80}},color={0,0,127}));
+  connect(exhTemCor.y, exhTem.u)
+    annotation (Line(points={{-39,-30},{-22,-30}}, color={0,0,127}));
+  connect(exhMasCor.y, exhMas.u)
+    annotation (Line(points={{-39,-80},{-22,-80}}, color={0,0,127}));
   connect(loaPer.u, y)
     annotation (Line(points={{-122,40},{-160,40}},color={0,0,127}));
-  connect(gasTurEff_CorFac.u1, loaPer.y) annotation (Line(points={{-62,26},{-80,
-          26},{-80,40},{-98,40}}, color={0,0,127}));
-  connect(exhT_CorFac.u1, loaPer.y) annotation (Line(points={{-62,-24},{-80,-24},
-          {-80,40},{-98,40}},color={0,0,127}));
-  connect(exhMas_CorFac.u1, loaPer.y) annotation (Line(points={{-62,-74},{-80,-74},
+  connect(gasTurEffCor.u1, loaPer.y) annotation (Line(points={{-62,26},{-80,26},
           {-80,40},{-98,40}}, color={0,0,127}));
-  connect(gasTurEff.u, gasTurEff_CorFac.y)
-    annotation (Line(points={{-22,20},{-39,20}},color={0,0,127}));
-  connect(eleCap_CorFac.y, eleCap.u)
-    annotation (Line(points={{-39,70},{-22,70}},color={0,0,127}));
+  connect(exhTemCor.u1, loaPer.y) annotation (Line(points={{-62,-24},{-80,-24},{
+          -80,40},{-98,40}}, color={0,0,127}));
+  connect(exhMasCor.u1, loaPer.y) annotation (Line(points={{-62,-74},{-80,-74},{
+          -80,40},{-98,40}}, color={0,0,127}));
+  connect(gasTurEff.u, gasTurEffCor.y)
+    annotation (Line(points={{-22,20},{-39,20}}, color={0,0,127}));
+  connect(powCapCor.y, powCap.u)
+    annotation (Line(points={{-39,70},{-22,70}}, color={0,0,127}));
   connect(gasTurEff.y, groHea.u2) annotation (Line(points={{2,20},{40,20},{40,
           34},{58,34}}, color={0,0,127}));
-  connect(exhTemp.y, TExh)
+  connect(exhTem.y, TExh)
     annotation (Line(points={{2,-30},{160,-30}}, color={0,0,127}));
   connect(exhMas.y, mExh_flow)
     annotation (Line(points={{2,-80},{160,-80}}, color={0,0,127}));
@@ -130,22 +129,22 @@ equation
          color={0,0,127}));
   connect(pow.y, PEle)
     annotation (Line(points={{42,100},{160,100}}, color={0,0,127}));
-  connect(eleCap.y, pow.u2) annotation (Line(points={{2,70},{10,70},{10,94},{18,
+  connect(powCap.y, pow.u2) annotation (Line(points={{2,70},{10,70},{10,94},{18,
           94}}, color={0,0,127}));
   connect(pow.y, groHea.u1) annotation (Line(points={{42,100},{50,100},{50,46},
           {58,46}},color={0,0,127}));
-  connect(eleCap_CorFac.u1, fulCap.y) annotation (Line(points={{-62,76},{-80,76},
-          {-80,80},{-98,80}}, color={0,0,127}));
+  connect(powCapCor.u1, fulCap.y) annotation (Line(points={{-62,76},{-80,76},{-80,
+          80},{-98,80}}, color={0,0,127}));
   connect(TSet, addPar.u)
     annotation (Line(points={{-160,-70},{-122,-70}},color={0,0,127}));
-  connect(addPar.y, eleCap_CorFac.u2) annotation (Line(points={{-98,-70},{-90,-70},
-          {-90,64},{-62,64}}, color={0,0,127}));
-  connect(addPar.y, gasTurEff_CorFac.u2) annotation (Line(points={{-98,-70},{-90,
-          -70},{-90,14},{-62,14}}, color={0,0,127}));
-  connect(addPar.y, exhT_CorFac.u2) annotation (Line(points={{-98,-70},{-90,-70},
-          {-90,-36},{-62,-36}}, color={0,0,127}));
-  connect(addPar.y, exhMas_CorFac.u2) annotation (Line(points={{-98,-70},{-90,-70},
-          {-90,-86},{-62,-86}}, color={0,0,127}));
+  connect(addPar.y, powCapCor.u2) annotation (Line(points={{-98,-70},{-90,-70},{
+          -90,64},{-62,64}}, color={0,0,127}));
+  connect(addPar.y, gasTurEffCor.u2) annotation (Line(points={{-98,-70},{-90,-70},
+          {-90,14},{-62,14}}, color={0,0,127}));
+  connect(addPar.y, exhTemCor.u2) annotation (Line(points={{-98,-70},{-90,-70},{
+          -90,-36},{-62,-36}}, color={0,0,127}));
+  connect(addPar.y, exhMasCor.u2) annotation (Line(points={{-98,-70},{-90,-70},{
+          -90,-86},{-62,-86}}, color={0,0,127}));
   connect(y, pow.u1) annotation (Line(points={{-160,40},{-130,40},{-130,106},{18,
           106}}, color={0,0,127}));
 annotation (

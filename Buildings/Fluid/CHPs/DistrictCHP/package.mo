@@ -2,13 +2,11 @@ within Buildings.Fluid.CHPs;
 package DistrictCHP "Package of CHP models for district energy systems"
   extends Modelica.Icons.VariantsPackage;
 
-  annotation(Documentation(info= "<html>
+annotation(Documentation(info= "<html>
 <p>
 This package includes models for combined heat and power (CHP) system in district
 energy systems. This combined-cycle CHP system consists of the topping and bottoming
-cycles. The model is based on the implementation of
-<a href=\"https://publications.ibpsa.org/conference/paper/?id=simbuild2024_2118\">
-Z.He et al., 2024</a>.
+cycles. The model is implemented based on He et al. (2024).
 </p>
 <p>
 In the topping cycle, the gas turbine converts a portion of the fuel energy into
@@ -45,9 +43,10 @@ Q&#775;<sub>fuel</sub> = P<sub>GTG</sub> + Q&#775;<sub>exhaust</sub>
 </i>
 </p>
 <p>
-Where <i>Q&#775;<sub>fuel</sub></i> is the fuel combustion energy flow, <i>P<sub>GTG</sub></i> is
-the electrical power output of the gas turbine generator, and <i>Q&#775;<sub>exhaust</sub></i>
-is the heat flow of the exhaust gas. The fuel combustion energy flow is calculated by:
+Where <i>Q&#775;<sub>fuel</sub></i> is the fuel combustion energy flow rate,
+<i>P<sub>GTG</sub></i> is the electrical power output of the gas turbine generator,
+and <i>Q&#775;<sub>exhaust</sub></i> is the heat flow rate of the exhaust gas.
+The fuel combustion energy flow rate is calculated by:
 </p>
 <p align=\"center\">
 <i>
@@ -66,7 +65,7 @@ Q&#775;<sub>exhaust</sub> = Q&#775;<sub>fuel</sub> × (1 - η<sub>GTG</sub>)
 </p>
 <p>
 In the bottoming cycle, the inputs are the exhaust gas and feedwater energy, while
-the outputs include electricity from the steam turbine and heating energy from
+the outputs include electrical power from the steam turbine and heating energy from
 saturated steam. Heat losses occur in the exhaust gas stack and during the
 desuperheating process. The energy balance for the bottoming cycle is:
 </p>
@@ -77,14 +76,18 @@ Q&#775;<sub>steam,sat</sub> + Q&#775;<sub>exhaust,loss</sub> + Q&#775;<sub>steam
 </i>
 </p>
 <p>
-Where <i>Q&#775;<sub>water</sub></i> is the energy flow from the feedwater, <i>P<sub>STG</sub></i>
-is the electricity from the steam turbine generator, <i>Q&#775;<sub>steam,sat</sub></i> is
-the heating energy of the saturated steam, and the last two terms represent
-respective energy losses.
+Where <i>Q&#775;<sub>water</sub></i> is the energy flow rate from the feedwater,
+<i>P<sub>STG</sub></i> is the electrical power from the steam turbine generator,
+<i>Q&#775;<sub>steam,sat</sub></i> is the heating energy flow rate of the saturated
+steam, and the last two terms represent respective energy losses.
 </p>
-<h4>Note</h4>
+<h4>References</h4>
 <p>
-All energy flows are time-dependent rates (e.g., Watts).
+He, Z., Anbarasu, S., Hinkelman, K., Hu, J., Zuo, W., Moftakhari, A., 2024.
+<a href=\"https://publications.ibpsa.org/conference/paper/?id=simbuild2024_2118\">
+<i>Computationally Efficient and Accurate Modeling of Combined Heat and Power Systems
+for District Energy Systems</i>.</a>
+Proceedings of SimBuild Conference 2024.
 </p>
 </html>", revisions="<html>
 <ul>
