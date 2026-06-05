@@ -32,7 +32,7 @@ createPlot(
     id=2,
     position={410, 5, 400, 600},
     subPlot=1,
-    y={"enaEquShc.y1Hp[1]", "enaEquShc.y1Hp[2]", "enaEquShc.y1Shc1[1]", "enaEquShc.y1Shc1[2]", "enaEquShc.y1Shc2[1]", "enaEquShc.y1Shc2[2]"},
+    y={"enaEquPhp.y1Hp[1]", "enaEquPhp.y1Hp[2]", "enaEquPhp.y1Php1[1]", "enaEquPhp.y1Php1[2]", "enaEquPhp.y1Php2[1]", "enaEquPhp.y1Php2[2]"},
     autoscale=true,
     grid=true,
     timeUnit="min"

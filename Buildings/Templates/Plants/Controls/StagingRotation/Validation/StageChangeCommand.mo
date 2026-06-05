@@ -1,6 +1,6 @@
 within Buildings.Templates.Plants.Controls.StagingRotation.Validation;
 model StageChangeCommand "Validation model for stage change logic"
-  parameter Boolean have_shc = false
+  parameter Boolean have_php = false
     "Set to true for plants with polyvalent heat pumps"
     annotation (Dialog(group="Configuration"),
       Evaluate=true);
@@ -53,7 +53,7 @@ model StageChangeCommand "Validation model for stage change logic"
     annotation (Placement(transformation(extent={{-130,-50},{-110,-30}})));
   Buildings.Templates.Plants.Controls.StagingRotation.StageChangeCommand chaSta(
     typ=Buildings.Templates.Plants.Controls.Types.Application.Heating,
-    final have_shc=have_shc,
+    final have_php=have_php,
     have_pumSec=false,
     plrSta=0.9,
     staEqu=[1,0,0; 0,1/2,1/2; 1,1/2,1/2; 0,1,1; 1,1,1],
@@ -95,7 +95,7 @@ model StageChangeCommand "Validation model for stage change logic"
     "Scale by design flow"
     annotation (Placement(transformation(extent={{-100,-50},{-80,-30}})));
   Buildings.Templates.Plants.Controls.StagingRotation.EquipmentEnable enaEqu(final
-      staEqu=chaSta.staEqu) if not have_shc
+      staEqu=chaSta.staEqu) if not have_php
     "Enable equipment"
     annotation (Placement(transformation(extent={{60,-10},{80,10}})));
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant idxEquLeaLag[2](

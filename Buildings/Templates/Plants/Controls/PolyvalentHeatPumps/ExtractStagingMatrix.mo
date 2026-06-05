@@ -4,7 +4,7 @@ block ExtractStagingMatrix
     "Partially flattened (2D) staging matrix [(nSta+1)*nSta, nEqu], row-major over (iHea, iCoo)";
   parameter Boolean is_transpose = false annotation(Evaluate=true);
   final parameter Integer nRow = size(sta, 1) "= (nSta+1)*nSta";
-  final parameter Integer nEqu = size(sta, 2) "= nHp + 2*nShc";
+  final parameter Integer nEqu = size(sta, 2) "= nHp + 2*nPhp";
   final parameter Integer nSta = integer((1 + sqrt(1 + 4*nRow)) / 2) - 1;
   final parameter Integer nOut = nEqu * nSta;
 

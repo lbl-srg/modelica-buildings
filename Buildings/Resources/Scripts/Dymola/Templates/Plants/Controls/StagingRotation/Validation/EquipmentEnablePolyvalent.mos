@@ -20,14 +20,14 @@ createPlot(
 createPlot(
     id=1,
     subPlot=3,
-    y={"enaEqu.y1Shc1[1]", "enaEqu.y1Shc1[2]"},
+    y={"enaEqu.y1Php1[1]", "enaEqu.y1Php1[2]"},
     autoscale=true,
     grid=true
 );
 createPlot(
     id=1,
     subPlot=4,
-    y={"enaEqu.y1Shc2[1]", "enaEqu.y1Shc2[2]"},
+    y={"enaEqu.y1Php2[1]", "enaEqu.y1Php2[2]"},
     autoscale=true,
     grid=true
 );

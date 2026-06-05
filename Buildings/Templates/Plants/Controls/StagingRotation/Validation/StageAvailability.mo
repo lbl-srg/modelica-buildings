@@ -27,7 +27,7 @@ model StageAvailability "Validation model for the evaluation of stage availabili
         true, final staEqu=staPhp.staHea)
     "Compute stage availability – Two reversible HP and one polyvalent HP"
     annotation (Placement(transformation(extent={{-10,50},{10,70}})));
-  PolyvalentHeatPumps.StagingParameters staPhp(nHp=2, nShc=1)
+  PolyvalentHeatPumps.StagingParameters staPhp(nHp=2, nPhp=1)
     "Staging parameters for polyvalent plant"
     annotation (Placement(transformation(extent={{60,60},{80,80}})));
   Buildings.Controls.OBC.CDL.Integers.Sources.TimeTable staOpp(
@@ -67,11 +67,11 @@ equation
           points={{-36,60},{64,0},{-36,-60},{-36,60}})}),
     Documentation(info="<html>
 <p>
-This model validates 
+This model validates
 <a href=\"modelica://Buildings.Templates.Plants.Controls.StagingRotation.StageAvailability\">
 Buildings.Templates.Plants.Controls.StagingRotation.StageAvailability</a>
-in a configuration with three equally sized units (component <code>avaStaEqu</code>) 
-and in a configuration with one small unit and two large equally sized 
+in a configuration with three equally sized units (component <code>avaStaEqu</code>)
+and in a configuration with one small unit and two large equally sized
 units (component <code>avaStaOneTwo</code>).
 Only the units of the same size are lead/lag alternated.
 </p>

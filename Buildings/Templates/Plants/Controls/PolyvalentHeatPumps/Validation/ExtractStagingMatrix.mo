@@ -2,55 +2,55 @@ within Buildings.Templates.Plants.Controls.PolyvalentHeatPumps.Validation;
 model ExtractStagingMatrix
   extends Modelica.Icons.Example;
   parameter Integer nHp = 2
-    "Number of HP units (excluding polyvalent HP)"
+    "Number of HP (excluding polyvalent HP)"
     annotation(Evaluate=true);
-  parameter Integer nShc = 2
-    "Number of polyvalent HP units"
+  parameter Integer nPhp = 2
+    "Number of polyvalent HP"
     annotation(Evaluate=true);
-  final parameter Integer nSta = nHp + nShc
+  final parameter Integer nSta = nHp + nPhp
     "Number of cooling or heating stages (excluding stage 0)";
   parameter Real capHeaHp_nominal = 1E5
     "Design heating capacity - Each heat pump (excluding polyvalent HP)";
   parameter Real capCooHp_nominal =
     (1 - 1 / Buildings.Templates.Data.Defaults.COPHpAwHea) * capHeaHp_nominal
     "Design cooling capacity - Each heat pump (excluding polyvalent HP)";
-  parameter Real capHeaShc_nominal = 1.3E5
+  parameter Real capHeaPhp_nominal = 1.3E5
     "Design heating capacity - Each polyvalent heat pump";
-  parameter Real capCooShc_nominal =
-    (1 - 1 / Buildings.Templates.Data.Defaults.COPHpAwHea) * capHeaShc_nominal
+  parameter Real capCooPhp_nominal =
+    (1 - 1 / Buildings.Templates.Data.Defaults.COPHpAwHea) * capHeaPhp_nominal
     "Design cooling capacity - Each polyvalent heat pump";
-  parameter Real capHeaShcShc_nominal =
+  parameter Real capHeaPhpShc_nominal =
     Buildings.Templates.Data.Defaults.COPHpWwHea /
-      Buildings.Templates.Data.Defaults.COPHpAwHea * capHeaShc_nominal
+      Buildings.Templates.Data.Defaults.COPHpAwHea * capHeaPhp_nominal
     "Design heating capacity in SHC mode - Each polyvalent heat pump";
-  parameter Real capCooShcShc_nominal =
+  parameter Real capCooPhpShc_nominal =
     (1 - 1 / Buildings.Templates.Data.Defaults.COPHpWwHea) *
-      capHeaShcShc_nominal
+      capHeaPhpShc_nominal
     "Design cooling capacity in SHC mode - Each polyvalent heat pump";
   parameter Real capCooSta_nominal[nSta + 1,nSta + 1]=staPhp.nHpCoo*
-      capCooHp_nominal .+staPhp.nShcCoo *capCooShc_nominal .+staPhp.nShcShc *
-      capCooShcShc_nominal "Cooling capacity at each stage";
+      capCooHp_nominal .+staPhp.nPhpCoo *capCooPhp_nominal .+staPhp.nPhpShc *
+      capCooPhpShc_nominal "Cooling capacity at each stage";
   parameter Real capHeaSta_nominal[nSta + 1,nSta + 1]=staPhp.nHpHea*
-      capHeaHp_nominal .+staPhp.nShcHea *capHeaShc_nominal .+staPhp.nShcShc *
-      capHeaShcShc_nominal "Heating capacity at each stage";
-  // Columns are for equipment tags, duplicating SHC units for cooling-only and SHC mode indexing
+      capHeaHp_nominal .+staPhp.nPhpHea *capHeaPhp_nominal .+staPhp.nPhpShc *
+      capHeaPhpShc_nominal "Heating capacity at each stage";
+  // Columns are for equipment tags, duplicating polyvalent units for cooling-only and SHC mode indexing
   // NOT CDL compliant because 3D array!
-  parameter Real staCoo[nSta + 1,nSta,nHp + 2*nShc]={cat(
+  parameter Real staCoo[nSta + 1,nSta,nHp + 2*nPhp]={cat(
       1,
       fill(staPhp.nHpCoo[iHea, iCoo + 1]/max(nHp, 1), nHp),
-      fill(staPhp.nShcCoo[iHea, iCoo + 1]/max(nShc, 1), nShc),
-      fill(staPhp.nShcShc[iHea, iCoo + 1]/max(nShc, 1), nShc)) for iCoo in 1:
+      fill(staPhp.nPhpCoo[iHea, iCoo + 1]/max(nPhp, 1), nPhp),
+      fill(staPhp.nPhpShc[iHea, iCoo + 1]/max(nPhp, 1), nPhp)) for iCoo in 1:
     nSta, iHea in 1:nSta + 1}
     "Cooling staging matrix – Varies with heating stage";
-  parameter Real staHea[nSta + 1,nSta,nHp + 2*nShc]={cat(
+  parameter Real staHea[nSta + 1,nSta,nHp + 2*nPhp]={cat(
       1,
     fill(staPhp.nHpHea[iHea + 1, iCoo]/max(nHp, 1), nHp),
-    fill(staPhp.nShcHea[iHea + 1, iCoo]/max(nShc, 1), nShc),
-    fill(staPhp.nShcShc[iHea + 1, iCoo]/max(nShc, 1), nShc)) for iHea in 1:
+    fill(staPhp.nPhpHea[iHea + 1, iCoo]/max(nPhp, 1), nPhp),
+    fill(staPhp.nPhpShc[iHea + 1, iCoo]/max(nPhp, 1), nPhp)) for iHea in 1:
     nSta, iCoo in 1:nSta + 1}
     "Heating staging matrix – Varies with cooling stage";
   Buildings.Templates.Plants.Controls.PolyvalentHeatPumps.StagingParameters staPhp(final nHp
-      =nHp, final nShc=nShc) "Staging parameters"
+      =nHp, final nPhp=nPhp) "Staging parameters"
     annotation (Placement(transformation(extent={{60,60},{80,80}})));
   Buildings.Controls.OBC.CDL.Integers.Sources.TimeTable iHea(
     table={{i*iHea.timeScale,i} for i in 0:nSta},
@@ -66,7 +66,7 @@ model ExtractStagingMatrix
     "Extract transpose of cooling staging matrix at given heating stage"
     annotation (Placement(transformation(extent={{-10,-50},{10,-30}})));
 initial algorithm
-  for iOut in 1:nSta + 1, iInn in 1:nSta, iEqu in 1:nHp + 2 * nShc loop
+  for iOut in 1:nSta + 1, iInn in 1:nSta, iEqu in 1:nHp + 2 * nPhp loop
     if staPhp.is_feasible[iOut, iInn + 1] then
     assert(abs(staPhp.staCoo[(iOut - 1)*nSta + iInn, iEqu] - staCoo[iOut, iInn,
       iEqu]) < Modelica.Constants.small, "Mismatch");
@@ -76,7 +76,7 @@ initial algorithm
       Modelica.Constants.small, "Mismatch");
     end if;
   end for;
-  for iCoo in 1:nSta, iEqu in 1:nHp + 2 * nShc loop
+  for iCoo in 1:nSta, iEqu in 1:nHp + 2 * nPhp loop
     assert(abs(staCoo[iHea.y[1] + 1, iCoo, iEqu] - extSta.y[iCoo, iEqu]) <
       Modelica.Constants.small, "Mismatch");
     assert(abs(staCoo[iHea.y[1] + 1, iCoo, iEqu] - extStaTra.y[iEqu, iCoo]) <
