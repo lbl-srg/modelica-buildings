@@ -1,0 +1,17 @@
+compareVars :=
+  {
+    "chaSta.capReq.QReq_flow",
+    "chaSta.capSta.y",
+    "chaSta.capStaLow.y",
+    "capHea_nominal",
+    "y1UpHol.y",
+    "y1DowHol.y",
+    "idxSta.y",
+    "chaSta.uStaOpp",
+    "enaEquShc.y1Hp[1]",
+    "enaEquShc.y1Hp[2]",
+    "enaEquShc.y1Shc1[1]",
+    "enaEquShc.y1Shc1[2]",
+    "enaEquShc.y1Shc2[1]",
+    "enaEquShc.y1Shc2[2]"
+  };

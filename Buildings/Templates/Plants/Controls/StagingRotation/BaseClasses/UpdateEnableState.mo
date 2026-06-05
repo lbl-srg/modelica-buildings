@@ -20,7 +20,7 @@ block UpdateEnableState
     annotation(Placement(transformation(extent={{-80,10},{-60,30}})));
   Buildings.Controls.OBC.CDL.Logical.Pre y1Pre[nEqu]
     "Left limit of signal in discrete time"
-    annotation(Placement(transformation(extent={{72,-90},{52,-70}})));
+    annotation(Placement(transformation(extent={{70,-90},{50,-70}})));
   Buildings.Controls.OBC.CDL.Logical.Switch logSwi[nEqu]
     "Switch to newly computed value at stage change"
     annotation(Placement(transformation(extent={{50,10},{70,30}})));
@@ -53,7 +53,7 @@ block UpdateEnableState
     annotation (Placement(transformation(extent={{-50,-50},{-30,-30}})));
 equation
   connect(y1Pre.y, logSwi.u3)
-    annotation(Line(points={{50,-80},{40,-80},{40,12},{48,12}},
+    annotation(Line(points={{48,-80},{40,-80},{40,12},{48,12}},
       color={255,0,255}));
   connect(booScaRep.y, logSwi.u2)
     annotation(Line(points={{32,20},{48,20}},
@@ -68,7 +68,7 @@ equation
     annotation(Line(points={{10,-80},{-6,-80}},
       color={255,0,255}));
   connect(y1, y1Pre.u)
-    annotation(Line(points={{120,0},{80,0},{80,-80},{74,-80}},
+    annotation(Line(points={{120,0},{80,0},{80,-80},{72,-80}},
       color={255,0,255}));
   connect(logSwi.y, y1)
     annotation(Line(points={{72,20},{80,20},{80,0},{120,0}},
@@ -87,7 +87,7 @@ equation
           34,-88}},
       color={255,0,255}));
   connect(y1Pre.y, isEnaPreAva.u1)
-    annotation(Line(points={{50,-80},{34,-80}},
+    annotation(Line(points={{48,-80},{34,-80}},
       color={255,0,255}));
   connect(nEnaAvaPre.y,intEqu. u2)
     annotation(Line(points={{-30,-80},{-90,-80},{-90,-48},{-82,-48}},

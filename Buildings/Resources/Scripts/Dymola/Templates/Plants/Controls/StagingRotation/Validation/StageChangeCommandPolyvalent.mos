@@ -1,8 +1,8 @@
-simulateModel("Buildings.Templates.Plants.Controls.StagingRotation.Validation.StageChangeCommandSHC",
+simulateModel("Buildings.Templates.Plants.Controls.StagingRotation.Validation.StageChangeCommandPolyvalent",
     method="cvode",
     tolerance=1e-6,
     stopTime=20000.0,
-    resultFile="StageChangeCommandSHC");
+    resultFile="StageChangeCommandPolyvalent");
 createPlot(
     id=1,
     position={5, 5, 400, 600},
@@ -32,8 +32,7 @@ createPlot(
     id=2,
     position={410, 5, 400, 600},
     subPlot=1,
-    y={"enaEquShc.y1Hp[1]", "enaEquShc.y1Hp[2]", "enaEquShc.y1Shc1[1]",
-    "enaEquShc.y1Shc1[2]", "enaEquShc.y1Shc2[1]", "enaEquShc.y1Shc2[2]"},
+    y={"enaEquShc.y1Hp[1]", "enaEquShc.y1Hp[2]", "enaEquShc.y1Shc1[1]", "enaEquShc.y1Shc1[2]", "enaEquShc.y1Shc2[1]", "enaEquShc.y1Shc2[2]"},
     autoscale=true,
     grid=true,
     timeUnit="min"

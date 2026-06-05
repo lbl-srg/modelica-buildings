@@ -1,15 +1,8 @@
 within Buildings.Templates.Plants.Controls.StagingRotation.Validation;
 model StageAvailability "Validation model for the evaluation of stage availability"
   Buildings.Controls.OBC.CDL.Logical.Sources.TimeTable u1AvaEqu(
-    table=[
-      0, 0, 0, 0;
-      1, 1, 0, 0;
-      2, 0, 1, 0;
-      3, 0, 0, 1;
-      4, 1, 1, 0;
-      5, 0, 1, 1;
-      6, 1, 1, 1;
-      7, 0, 0, 0],
+    table=[0,0,0,0,0; 1,1,0,0,1; 2,0,1,0,1; 3,0,0,1,1; 4,1,1,0,1; 5,0,1,1,0; 6,1,
+        1,1,0; 7,0,0,0,0],
     timeScale=1,
     period=7)
     "Equipment available signal"
@@ -30,11 +23,27 @@ model StageAvailability "Validation model for the evaluation of stage availabili
       1, 1, 1])
     "Compute stage availability – One small equipment, two large equally sized equipment"
     annotation (Placement(transformation(extent={{-10,-30},{10,-10}})));
+  Buildings.Templates.Plants.Controls.StagingRotation.StageAvailability avaStaPhp(have_php=
+        true, final staEqu=staPhp.staHea)
+    "Compute stage availability – Two reversible HP and one polyvalent HP"
+    annotation (Placement(transformation(extent={{-10,50},{10,70}})));
+  PolyvalentHeatPumps.StagingParameters staPhp(nHp=2, nShc=1)
+    "Staging parameters for polyvalent plant"
+    annotation (Placement(transformation(extent={{60,60},{80,80}})));
+  Buildings.Controls.OBC.CDL.Integers.Sources.TimeTable staOpp(
+    table=[0,3; 3,0],
+    timeScale=1,
+    period=7) "Opposite mode (cooling) stage"
+    annotation (Placement(transformation(extent={{-80,50},{-60,70}})));
 equation
-  connect(u1AvaEqu.y, avaStaEqu.u1Ava)
+  connect(u1AvaEqu.y[1:3], avaStaEqu.u1Ava)
     annotation (Line(points={{-58,0},{-20,0},{-20,20},{-12,20}},color={255,0,255}));
-  connect(u1AvaEqu.y, avaStaOneTwo.u1Ava)
+  connect(u1AvaEqu.y[1:3], avaStaOneTwo.u1Ava)
     annotation (Line(points={{-58,0},{-20,0},{-20,-20},{-12,-20}},color={255,0,255}));
+  connect(u1AvaEqu.y, avaStaPhp.u1Ava) annotation (Line(points={{-58,0},{-20,0},
+          {-20,60},{-12,60}},   color={255,0,255}));
+  connect(staOpp.y[1], avaStaPhp.uStaOpp) annotation (Line(points={{-58,60},{
+          -40,60},{-40,66},{-12,66}}, color={255,127,0}));
   annotation (
     __Dymola_Commands(
       file=

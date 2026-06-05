@@ -47,24 +47,25 @@ block StagingParameters
       and (staCooRes[iHea + 1, iCoo + 1] - nHpCoo[iHea + 1, iCoo + 1] -
         nShcCoo[iHea + 1, iCoo + 1] == 0) for iCoo in 0:nSta, iHea in 0:nSta}
     "True if the stage combination is achievable";
-  final parameter Real staCoo[(nSta + 1) * nSta, nHp + 2 * nShc] =
-    {(if iEqu <= nHp
+  final parameter Real staCoo[(nSta + 1)*nSta, nHp + 2*nShc] =
+    {(if not is_feasible[div(r - 1, nSta) + 1, mod(r - 1, nSta) + 2] then 0
+    elseif iEqu <= nHp
     then nHpCoo[div(r - 1, nSta) + 1, mod(r - 1, nSta) + 2] / max(nHp, 1)
     elseif iEqu <= nHp + nShc
     then nShcCoo[div(r - 1, nSta) + 1, mod(r - 1, nSta) + 2] / max(nShc, 1)
-    else nShcShc[div(r - 1, nSta) + 1, mod(r - 1, nSta) + 2] / max(
-        nShc,
-        1)) for iEqu in 1:nHp + 2 * nShc, r in 1:(nSta + 1) * nSta}
-    "Cooling staging matrix – row-major over (0≤iHea outer, 1≤iCoo inner)";
+    else nShcShc[div(r - 1, nSta) + 1, mod(r - 1, nSta) + 2] / max(nShc, 1))
+      for iEqu in 1:nHp + 2*nShc, r in 1:(nSta + 1)*nSta}
+    "Cooling staging matrix – row-major over (0≤iHea outer, 1≤iCoo inner), 0 if infeasible";
   final parameter Real staHea[(nSta + 1)*nSta, nHp + 2*nShc] =
-    {(if iEqu <= nHp
+    {(if not is_feasible[mod(r - 1, nSta) + 2, div(r - 1, nSta) + 1] then 0
+    elseif iEqu <= nHp
     then nHpHea[mod(r - 1, nSta) + 2, div(r - 1, nSta) + 1] / max(nHp, 1)
     elseif iEqu <= nHp + nShc
     then nShcHea[mod(r - 1, nSta) + 2, div(r - 1, nSta) + 1] / max(nShc, 1)
     else nShcShc[mod(r - 1, nSta) + 2, div(r - 1, nSta) + 1] / max(nShc, 1))
       for iEqu in 1:nHp + 2*nShc, r in 1:(nSta + 1)*nSta}
-    "Heating staging matrix – row-major over (0≤iCoo outer, 1≤iHea inner)";
-annotation(defaultComponentName="staPar",
+    "Heating staging matrix – row-major over (0≤iCoo outer, 1≤iHea inner), 0 if infeasible";
+annotation(defaultComponentName="staPhp",
   Documentation(
     info="<html>
 <p>
@@ -73,8 +74,8 @@ annotation(defaultComponentName="staPar",
 </p>
 </html>"),
   Icon(graphics={Rectangle(origin={0,-25},
-    lineColor={64,64,64},
-    fillColor={255,215,136},
+    lineColor={0,0,0},
+    fillColor={255,128,0},
     fillPattern=FillPattern.Solid,
     extent={{-100.0,-75.0},{100.0,75.0}},
     radius=25.0),

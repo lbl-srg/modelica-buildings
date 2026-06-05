@@ -1,11 +1,11 @@
 within Buildings.Templates.Plants.Controls.StagingRotation.Validation;
-model StageChangeCommandSHC
+model StageChangeCommandPolyvalent
   extends Buildings.Templates.Plants.Controls.StagingRotation.Validation.StageChangeCommand(
     have_shc=true,
     capHea_nominal = sum(chaSta.capEqu[1:4]),
     chaSta(
       capEqu=cat(1, fill(capHeaHp_nominal,2), fill(capHeaShc_nominal, 2), fill(capHeaShcShc_nominal, 2)),
-      staEqu=staPar.staHea),
+      staEqu=staPhp.staHea),
     comSta(nin=6),
     idxEquLeaLag(k={1,2}));
   parameter Real capHeaHp_nominal = 1E5
@@ -19,7 +19,7 @@ model StageChangeCommandSHC
   Buildings.Templates.Plants.Controls.StagingRotation.EquipmentEnablePolyvalent
     enaEquShc(nHp=2, nShc=2) "Enable equipment at stage"
     annotation (Placement(transformation(extent={{60,20},{80,40}})));
-  PolyvalentHeatPumps.StagingParameters staPar(nHp=2, nShc=2)
+  PolyvalentHeatPumps.StagingParameters staPhp(nHp=2, nShc=2)
     "Staging parameters"
     annotation (Placement(transformation(extent={{100,80},{120,100}})));
   Buildings.Controls.OBC.CDL.Integers.Sources.TimeTable staOpp(
@@ -59,10 +59,10 @@ equation
   annotation (
     __Dymola_Commands(
       file=
-        "modelica://Buildings/Resources/Scripts/Dymola/Templates/Plants/Controls/StagingRotation/Validation/StageChangeCommandSHC.mos"
+        "modelica://Buildings/Resources/Scripts/Dymola/Templates/Plants/Controls/StagingRotation/Validation/StageChangeCommandPolyvalent.mos"
         "Simulate and plot"),
     experiment(
       StopTime=20000.0,
       Tolerance=1e-06),
     Diagram(coordinateSystem(extent={{-140,-140},{140,140}})));
-end StageChangeCommandSHC;
+end StageChangeCommandPolyvalent;

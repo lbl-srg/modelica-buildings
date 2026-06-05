@@ -20,11 +20,11 @@ model EquipmentEnablePolyvalent
     timeScale=1,
     period=50) "Stage index"
     annotation (Placement(transformation(extent={{-90,-10},{-70,10}})));
-  PolyvalentHeatPumps.StagingParameters staPar(final nHp=nHp, final nShc=nShc)
+  PolyvalentHeatPumps.StagingParameters staPhp(final nHp=nHp, final nShc=nShc)
     "Generate staging parameters"
     annotation (Placement(transformation(extent={{60,60},{80,80}})));
-  PolyvalentHeatPumps.ExtractStagingMatrix extractStagingMatrix2D(final sta=
-        staPar.staCoo, is_transpose=true)
+  PolyvalentHeatPumps.ExtractStagingMatrix extractStagingMatrix2D(final sta=staPhp.staCoo,
+                       is_transpose=true)
     annotation (Placement(transformation(extent={{-30,10},{-10,30}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.TimeTable u1AvaShc1(
     table=[0,1,1],
