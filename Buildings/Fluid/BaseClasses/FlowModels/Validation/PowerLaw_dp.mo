@@ -1,5 +1,5 @@
 within Buildings.Fluid.BaseClasses.FlowModels.Validation;
-model PowerLawFixedM_dp "Test model for power law function"
+model PowerLaw_dp "Test model for power law function"
   extends Modelica.Icons.Example;
   parameter Modelica.Units.SI.Density rho = 1.2 "Fluid density";
   parameter Real C = 2/10^m "Flow coefficient, C = V_flow/ dp^m";
@@ -7,7 +7,10 @@ model PowerLawFixedM_dp "Test model for power law function"
 
   constant Real m(min=0.5, max=1) = 0.8
     "Flow exponent, m=0.5 for turbulent, m=1 for laminar";
-  parameter Modelica.Units.SI.PressureDifference dp_turbulent(min=0) = 5
+  constant Real n(min=1, max=2) = 1/m
+    "Flow exponent, n=1 for laminar, n=2 for turbulent";
+  parameter Modelica.Units.SI.MassFlowRate m_flow_turbulent(min=0) =
+    k * 5^m
     "Pressure difference where regularization starts";
 
   Modelica.Units.SI.PressureDifference dp "Pressure difference";
@@ -18,49 +21,30 @@ model PowerLawFixedM_dp "Test model for power law function"
   Modelica.Units.SI.MassFlowRate m_flow
     "Mass flow rate computed with model powerLawFixedM that uses k";
 
-  constant Real gamma(min=1) = 1.5
-    "Normalized flow rate where dphi(0)/dpi intersects phi(1)";
-  constant Real a = gamma
-    "Polynomial coefficient for regularized implementation of flow resistance";
-  constant Real b = 1/8*m^2 - 3*gamma - 3/2*m + 35.0/8
-    "Polynomial coefficient for regularized implementation of flow resistance";
-  constant Real c = -1/4*m^2 + 3*gamma + 5/2*m - 21.0/4
-    "Polynomial coefficient for regularized implementation of flow resistance";
-  constant Real d = 1/8*m^2 - gamma - m + 15.0/8
-    "Polynomial coefficient for regularized implementation of flow resistance";
-
 equation
   dp = 10*(-1+2*time);
   V_flow = Buildings.Airflow.Multizone.BaseClasses.powerLawFixedM(
     C=C,
     dp=dp,
     m=m,
-    a=a,
-    b=b,
-    c=c,
-    d=d,
     dp_turbulent=dp_turbulent);
   m2_flow = V_flow * rho;
-  m_flow = Buildings.Fluid.BaseClasses.FlowModels.powerLawFixedM_dp(
+  m_flow = Buildings.Fluid.BaseClasses.FlowModels.powerLaw_dp(
     k=k,
     dp=dp,
-    m=m,
-    a=a,
-    b=b,
-    c=c,
-    d=d,
+    n=n,
     dp_turbulent=dp_turbulent);
   assert(abs(m_flow-m2_flow) < 1E-10,
     "Error: The two implementations of the power law model need to give identical results");
   annotation (
 experiment(Tolerance=1e-6, StopTime=1.0),
-  __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/BaseClasses/FlowModels/Validation/PowerLawFixedM_dp.mos"
+  __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/BaseClasses/FlowModels/Validation/PowerLaw_dp.mos"
      "Simulate and plot"),
   Documentation(info="<html>
 <p>
 This examples validates the implementation of
-<a href=\"modelica://Buildings.Fluid.BaseClasses.FlowModels.powerLawFixedM_dp\">
-Buildings.Fluid.BaseClasses.FlowModels.powerLawFixedM_dp</a>
+<a href=\"modelica://Buildings.Fluid.BaseClasses.FlowModels.powerLaw_dp\">
+Buildings.Fluid.BaseClasses.FlowModels.powerLaw_dp</a>
 by comparing it with the results from
 <a href=\"modelica://Buildings.Airflow.Multizone.BaseClasses.powerLawFixedM\">
 Buildings.Airflow.Multizone.BaseClasses.powerLawFixedM</a>.
@@ -78,4 +62,4 @@ First implementation.
 </li>
 </ul>
 </html>"));
-end PowerLawFixedM_dp;
+end PowerLaw_dp;
