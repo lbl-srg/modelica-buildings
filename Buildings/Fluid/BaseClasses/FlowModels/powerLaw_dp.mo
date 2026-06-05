@@ -18,28 +18,21 @@ protected
     "Pressure difference where turbulent flow occurs";
 
   // Polynomial coefficients
-  Real a1;
-  Real a3;
-  Real a5;
-  Real abs_dp = abs(dp);
+  Real a1 := (k * (m - 3) * (m - 5) / 8) * (dp_turbulent^(m - 1))
+    "Polynomial coefficient for regularized implementation of flow resistance";
+  Real a3 := (k * (m - 1) * (5 - m) / 4) * (dp_turbulent^(m - 3))
+    "Polynomial coefficient for regularized implementation of flow resistance";
+  Real a5 := (k * (m - 1) * (m - 3) / 8) * (dp_turbulent^(m - 5))
+    "Polynomial coefficient for regularized implementation of flow resistance";
+  Modelica.Units.SI.PressureDifference abs_dp = abs(dp)
+    "Absolute value of pressure difference";
 
 algorithm
-  // 1. Calculate the coefficients for the C2-continuous polynomial
-  // These are derived from the matching conditions at |dp| = dp_turbulent
-
-  a1 := (k * (m - 3) * (m - 5) / 8) * (dp_turbulent^(m - 1));
-  a3 := (k * (m - 1) * (5 - m) / 4) * (dp_turbulent^(m - 3));
-  a5 := (k * (m - 1) * (m - 3) / 8) * (dp_turbulent^(m - 5));
-
-  // 2. Apply the conditional logic
-  if abs_dp < dp_turbulent then
-    // Polynomial region: ensures smoothness at dp=0 and C2 continuity at dp_turbulent
-    m_flow := a1 * dp + a3 * dp^3 + a5 * dp^5;
-  else
-    // Power-law region: the standard physical model
-    m_flow := k * sign(dp) * abs_dp^m;
-  end if;
-
+  m_flow :=
+    if abs_dp < dp_turbulent
+    then a1 * dp + a3 * dp^3 + a5 * dp^5
+    else k * sign(dp) * abs_dp^m;
+ 
 annotation (
   smoothOrder=2,
   Inline=true,

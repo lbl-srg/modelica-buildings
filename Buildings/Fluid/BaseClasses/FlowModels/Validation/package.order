@@ -3,6 +3,7 @@ BasicFlowFunction_dp_DerivativeCheck2
 BasicFlowFunction_m_flow_DerivativeCheck
 BasicFlowFunction_m_flow_DerivativeCheck2
 InverseFlowFunctions
+InversePowerLaws
 InvertingBasicFlowFunction_dp
 InvertingBasicFlowFunction_m_flow
 PowerLaw_dp

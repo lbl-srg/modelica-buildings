@@ -12,26 +12,23 @@ function powerLaw_m_flow
   output Modelica.Units.SI.PressureDifference dp(displayUnit="Pa") "Pressure difference";
 
 protected
-  // Local variables
-  Real b1, b3, b5 "Polynomial coefficients";
-  Real abs_m = abs(m_flow) "Absolute value of mass flow rate";
+  Real C = 1.0 / (k^n) "Coefficient 1/k^n, based on the definition k = m_flow / dp^(1/n)";
+  // Polynomial coefficients for C2 continuity
+  // These coefficients match the value, 1st derivative, and 2nd derivative
+  // of the function f(x) = C * x^n at the point x = m_flow_t
+  Real b1 = (C * (n - 3) * (n - 5) / 8) * (m_flow_turbulent^(n - 1))
+    "Polynomial coefficient for regularized implementation of flow resistance";
+  Real b3 = (C * (n - 1) * (5 - n) / 4) * (m_flow_turbulent^(n - 3))
+    "Polynomial coefficient for regularized implementation of flow resistance";
+  Real b5 = (C * (n - 1) * (n - 3) / 8) * (m_flow_turbulent^(n - 5))
+    "Polynomial coefficient for regularized implementation of flow resistance";
+  Modelica.Units.SI.MassFlowRate abs_m = abs(m_flow)
+    "Absolute value of mass flow rate";
 
 algorithm
-  // Calculate polynomial coefficients for C2 continuity
-  // Based on the matching of f, f', and f'' at |m_flow| = m_flow_turbulent
-  b1 := ((n - 3) * (n - 5) / (8 * k)) * (m_flow_turbulent^(n - 1));
-  b3 := ((n - 1) * (5 - n) / (4 * k)) * (m_flow_turbulent^(n - 3));
-  b5 := ((n - 1) * (n - 3) / (8 * k)) * (m_flow_turbulent^(n - 5));
-
-  // Piecewise evaluation
-  if abs_m < m_flow_turbulent then
-    // Polynomial approximation near zero to ensure smoothness
-    dp := b1 * m_flow + b3 * m_flow^3 + b5 * m_flow^5;
-  else
-    // Power-law region
-    dp := (1.0 / k) * sign(m_flow) * abs_m^n;
-  end if;
-
+  dp := if abs_m < m_flow_turbulent 
+        then b1 * m_flow + b3 * m_flow^3 + b5 * m_flow^5
+        else C * sign(m_flow) * abs_m^n;
 annotation (
   smoothOrder=2,
   Inline=true,
