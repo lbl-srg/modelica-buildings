@@ -192,18 +192,18 @@ Icon(coordinateSystem(preserveAspectRatio=true,
         Text(extent={{50,84},{100,70}},textColor={0,0,127},textString="y_actual")}),
 Documentation(info="<html>
 <p>
-This model describes a fan or pump with mechanical interface and uses 
+This model describes a fan or pump with mechanical interface and uses
 the <a href=\"modelica://Buildings.Fluid.Movers.SpeedControlled_y\">
-Buildings.Fluid.Movers.SpeedControlled_y</a> as a base model. 
+Buildings.Fluid.Movers.SpeedControlled_y</a> as a base model.
 </p>
 <p>
-The governing equation of this implementation is based on the relationship 
+The governing equation of this implementation is based on the relationship
 between the power and torque of the rotating object, which is represented as follows:
 </p>
 <p align=\"center\" style=\"font-style:italic;\">P&nbsp;=&nbsp;tau&nbsp;*&nbsp;W
 </p>
 <p>
-Where, the <i>P</i> is power [W], <i>tau</i> is torque [N.m], and <i>W</i> 
+Where, the <i>P</i> is power [W], <i>tau</i> is torque [N.m], and <i>W</i>
 is angular velocity [rad/s].
 </p>
 </html>", revisions="<html>

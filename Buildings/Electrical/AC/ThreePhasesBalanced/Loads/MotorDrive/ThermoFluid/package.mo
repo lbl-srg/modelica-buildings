@@ -5,7 +5,7 @@ package ThermoFluid "Package with HVAC equipment models"
   annotation (preferredView="info",
   Documentation(info="<html>
 <p>
-This package contains models for HVAC equipments with mechanical interface. 
+This package contains models for HVAC equipments with mechanical interface.
 </p>
 </html>"));
 end ThermoFluid;

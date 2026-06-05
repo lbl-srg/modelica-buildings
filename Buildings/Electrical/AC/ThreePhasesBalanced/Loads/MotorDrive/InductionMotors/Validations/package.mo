@@ -5,7 +5,7 @@ package Validations "Validations of the induction motors"
   annotation (Documentation(revisions="<html>
 <ul>
 <li>
-September 12, 2025, by Viswanathan Ganesh: <br/>
+September 12, 2025, by Viswanathan Ganesh:<br/>
 First implementation.
 </li>
 </ul>

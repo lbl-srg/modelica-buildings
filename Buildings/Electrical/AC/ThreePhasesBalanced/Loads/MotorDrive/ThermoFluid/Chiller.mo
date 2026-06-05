@@ -325,11 +325,11 @@ Icon(coordinateSystem(preserveAspectRatio=true,
         Text(extent={{70,24},{120,10}},textString="P",textColor={0,0,127})}),
 Documentation(info="<html>
 <p>
-This model describes a chiller with mechanical interface and uses 
+This model describes a chiller with mechanical interface and uses
 <a href=\"modelica://Buildings.Fluid.Chillers.Carnot_y\">Buildings.Fluid.Chillers.Carnot_y</a> 
-as a base model. The governing equation of this implementation is based on the 
-relationship between the power and torque of the rotating object, which is 
-represented as follows: 
+as a base model. The governing equation of this implementation is based on the
+relationship between the power and torque of the rotating object, which is
+represented as follows:
 </p>
 <p align=\"center\"><i>P&nbsp;=&nbsp;tau&nbsp;*&nbsp;W</i>
 </p>
@@ -339,20 +339,20 @@ angular velocity [rad/s].
 </p>
 <h4>Assumption and limitation</h4>
 <p>
-This implementation assumes that the compressor is centrifugal  
-and the relationship between compressor power and speed ideally follows 
+This implementation assumes that the compressor is centrifugal
+and the relationship between compressor power and speed ideally follows
 a cubic relationship.
 </p>
 <h4>Reference</h4>
 <p>
 <span style=\"font-family: Arial;\"><a name=\":2k\" href=\"https://ieeexplore.ieee.org/abstract/document/8598849\">
-Oliveira, Felipe, and Abhisek Ukil. &quot;Comparative performance analysis of 
-induction and synchronous reluctance motors in chiller systems for energy 
+Oliveira, Felipe, and Abhisek Ukil. &quot;Comparative performance analysis of
+induction and synchronous reluctance motors in chiller systems for energy
 efficient buildings.&quot;&nbsp;<i>IEEE Transactions on Industrial Informatics</i>&nbsp;15.8 (2019): 4384-4393.</a></span>
 </p>
 <p>
 <span style=\"font-family: Arial;\"><a href=\"https://www.proquest.com/docview/2414053191?pq-origsite=gscholar\">
-Lei Wang PhD, P. E., and Yasuko Sakurai. &quot;Optimize a Chilled-Water Plant 
+Lei Wang PhD, P. E., and Yasuko Sakurai. &quot;Optimize a Chilled-Water Plant
 with Magnetic-Bearing Variable Speed Chillers.&quot;&nbsp;<i>ASHRAE Transactions</i>&nbsp;126 (2020): 725-735.</a></span>
 </p>
 </html>", revisions="<html>

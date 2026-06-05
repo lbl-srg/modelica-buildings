@@ -4,7 +4,7 @@ package Coupled "Package with motor coupled HVAC equipment"
 
 annotation (preferredView="info", Documentation(info="<html>
 <p>
-This package contains models for motor coupled HVAC equipment with electrical 
+This package contains models for motor coupled HVAC equipment with electrical
 interface.
 </p>
 </html>", revisions="<html>

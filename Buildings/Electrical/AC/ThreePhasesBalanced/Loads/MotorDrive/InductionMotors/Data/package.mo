@@ -5,9 +5,8 @@ package Data "Contains records of various Induction Machines"
 annotation(preferredView="info",
   Documentation(info="<html>
 <p>
-This package contains the common parameters that are used
-to specify the electrical parameters
-for the induction machine model
+This package contains the common parameters that are used to specify the electrical
+parameters for the induction machine model
 <a href=\"modelica://Buildings.Electrical.AC.ThreePhasesBalanced.Loads.MotorDrive.InductionMotors\">
 Buildings.Electrical.AC.ThreePhasesBalanced.Loads.MotorDrive.InductionMotors</a>.
 </p>

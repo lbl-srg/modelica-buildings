@@ -71,7 +71,7 @@ First implementation.
 <p>
 This example validates the induction model by comparing its results with the one from
 the models in Modelica Standard Library (MSL), with the setup as described in Ganesh et al.
-(2025). The reference data of MSL is simulated reference data from the model 
+(2025). The reference data of MSL is simulated reference data from the model
 <a href=\"modelica://Modelica.Electrical.Machines.Examples.InductionMachines.IMC_DOL\">
 Modelica.Electrical.Machines.Examples.InductionMachines.IMC_DOL</a>.
 The LeFosse reference data plotted is from the simulation setup as described in
