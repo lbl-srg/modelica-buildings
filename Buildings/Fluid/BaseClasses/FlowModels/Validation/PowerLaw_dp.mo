@@ -2,17 +2,25 @@ within Buildings.Fluid.BaseClasses.FlowModels.Validation;
 model PowerLaw_dp "Test model for power law function"
   extends Modelica.Icons.Example;
   parameter Modelica.Units.SI.Density rho = 1.2 "Fluid density";
-  parameter Real C = 2/10^m "Flow coefficient, C = V_flow/ dp^m";
-  parameter Real k = 2/10^m * rho "Flow coefficient, k = m_flow/ dp^m";
+  parameter Modelica.Units.SI.MassFlowRate m_flow_nominal = 5
+    "Nominal mass flow rate used to compute the flow coefficient k and C for the power law model";
+  parameter Modelica.Units.SI.PressureDifference dp_nominal(displayUnit="Pa") = 10
+    "Nominal pressure difference used to compute the flow coefficient k and C for the power law model";
 
-  constant Real m(min=0.5, max=1) = 0.8
-    "Flow exponent, m=0.5 for turbulent, m=1 for laminar";
-  constant Real n(min=1, max=2) = 1/m
+  parameter Real n(min=1, max=2) = 1/0.8
     "Flow exponent, n=1 for laminar, n=2 for turbulent";
-  parameter Modelica.Units.SI.MassFlowRate m_flow_turbulent(min=0) =
-    k * 5^m
-    "Pressure difference where regularization starts";
 
+  parameter Real C = m_flow_nominal/rho/dp_nominal^n "Flow coefficient, C = V_flow/ dp^m";
+  parameter Real k = m_flow_nominal/dp_nominal^(1/n) "Flow coefficient, k = m_flow/ dp^n";
+
+
+  parameter Modelica.Units.SI.MassFlowRate m_flow_turbulent(min=0) =
+    m_flow_nominal
+    "Mass flow rate where regularization starts, here set to the same value as m_flow_nominal";
+
+  parameter Modelica.Units.SI.PressureDifference dp_turbulent(min=0) =
+    (m_flow_turbulent/k)^n
+    "Pressure difference where regularization starts";
   Modelica.Units.SI.PressureDifference dp "Pressure difference";
   Modelica.Units.SI.VolumeFlowRate V_flow
     "Volume flow rate computed with model powerLawFixedM that uses C";
@@ -33,7 +41,7 @@ equation
     k=k,
     dp=dp,
     n=n,
-    dp_turbulent=dp_turbulent);
+    m_flow_turbulent=m_flow_turbulent);
   assert(abs(m_flow-m2_flow) < 1E-10,
     "Error: The two implementations of the power law model need to give identical results");
   annotation (
