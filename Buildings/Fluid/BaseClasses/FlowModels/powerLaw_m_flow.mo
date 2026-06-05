@@ -35,10 +35,6 @@ algorithm
 annotation (
   smoothOrder=2,
   Inline=true,
-  derivative(
-    order=1,
-    zeroDerivative=k,
-    zeroDerivative=m_flow_turbulent)=Buildings.Fluid.BaseClasses.FlowModels.powerLaw_m_flow_der,
    inverse(
      m_flow=Buildings.Fluid.BaseClasses.FlowModels.powerLaw_dp(
        k=k, dp=dp, n=n, m_flow_turbulent=m_flow_turbulent)),
