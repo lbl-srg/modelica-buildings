@@ -130,7 +130,7 @@ model Combined "Combined-cycle CHP model"
     annotation (Placement(transformation(extent={{-60,40},{-40,60}})));
   Modelica.Fluid.Interfaces.FluidPort_a port_a(
     redeclare package Medium =MediumW)
-    "Fluid connector b (positive design flow direction is from port_a to port_b)"
+    "Fluid connector a (positive design flow direction is from port_a to port_b)"
     annotation (Placement(transformation(extent={{-90,-10},{-110,10}})));
   Modelica.Fluid.Interfaces.FluidPort_b port_b(
     redeclare final package Medium =MediumS)

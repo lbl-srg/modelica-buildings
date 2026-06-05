@@ -14,10 +14,10 @@ function HRSGEffectiveness
 
 algorithm
   if abs(TAmb -59) < abs(TAmb-77) then
-  // The zero enthalpy reference tempeature is set at 59 degF
+  // The zero enthalpy reference temperature is set at 59 degF
   y:= 1- (0.2443*TSta- 13.571)/(0.3003*TExh - 55.576);
   else
-  // The zero enthalpy reference tempeature is set at 77 degF
+  // The zero enthalpy reference temperature is set at 77 degF
   y:= 1- (0.2443*TSta -17.892)/(0.3003*TExh - 59.897);
   end if;
 annotation (Documentation(info="<html>

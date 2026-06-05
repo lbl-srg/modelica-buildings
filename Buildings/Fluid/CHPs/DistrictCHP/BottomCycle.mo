@@ -227,7 +227,7 @@ model BottomCycle "Bottoming cycle subsystem model"
     final allowFlowReversal=allowFlowReversal,
     final m_flow_nominal=m_flow_nominal,
     final initType=Modelica.Blocks.Types.Init.SteadyState)
-    "Steamspecific enthalpy"
+    "Steam specific enthalpy"
     annotation (Placement(transformation(extent={{90,-50},{110,-30}})));
   Buildings.Fluid.FixedResistances.PressureDrop res(
     redeclare final package Medium =MediumW,

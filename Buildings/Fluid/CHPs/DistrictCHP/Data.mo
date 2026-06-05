@@ -1,7 +1,7 @@
 within Buildings.Fluid.CHPs.DistrictCHP;
 package Data "Performance data for gas turbines in the topping cycle models"
   extends Modelica.Icons.MaterialPropertiesPackage;
-  record Generic "Generic data record for gas turibne performance"
+  record Generic "Generic data record for gas turbine performance"
     extends Modelica.Icons.Record;
 
     // Nominal values
@@ -57,11 +57,11 @@ for the gas turbine model
 </html>",   revisions="<html>
 <ul>
 <li>
-Octorber 6, 2023 by Zhanwei He :<br/>
-First implementation.
-</li>
-</ul>
-</html>"));
+  October 6, 2023 by Zhanwei He :<br/>
+  First implementation.
+  </li>
+  </ul>
+  </html>"));
   end Generic;
 
   package SolarTurbines "Solar Turbines data sheets"
@@ -1079,9 +1079,9 @@ Performance data for gas turbines in the topping cycle models
 </html>", revisions="<html>
 <ul>
 <li>
-Octorber 6, 2023 by Zhanwei He :<br/>
-First implementation.
-</li>
-</ul>
-</html>"));
+  October 6, 2023 by Zhanwei He :<br/>
+  First implementation.
+  </li>
+  </ul>
+  </html>"));
 end Data;

@@ -1,7 +1,7 @@
 within Buildings.Fluid.CHPs.DistrictCHP.Validation;
 model TopCycle "Model validation for the topping cycle subsystem"
   extends Modelica.Icons.Example;
-  // Choose differernt gas turbine
+  // Choose different gas turbine
   parameter Buildings.Fluid.CHPs.DistrictCHP.Data.SolarTurbines.NaturalGas.Taurus70_11101S_NG per
     "Performance curve for the selected gas turbine";
   // Part load parameters for different load levels

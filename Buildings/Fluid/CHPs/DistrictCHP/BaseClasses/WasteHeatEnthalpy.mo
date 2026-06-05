@@ -24,7 +24,7 @@ block WasteHeatEnthalpy
 equation
   // Waste heat specific enthalpy calculation:
   // With the exhaust temperature around 300~500 degC and the nominal ambient
-  // temperature as 15 degC, the avaeraged specific heat of exhaust is 1.08 kJ/(kg-K),
+  // temperature as 15 degC, the averaged specific heat of exhaust is 1.08 kJ/(kg-K),
   // see (Elshamy 2006)
   hWasHea = 1.08e3*(TExh - TAmb);
   annotation (Documentation(revisions="<html>

@@ -1,6 +1,6 @@
 within Buildings.Fluid.CHPs.DistrictCHP.BaseClasses;
 block SteamToExhaustMassFlowRatio
-  "Ratio of mass flow rate beween the steam and the exhaust"
+  "Ratio of mass flow rate between the steam and the exhaust"
   extends Modelica.Blocks.Icons.Block;
 
   parameter Real a_SteMas[3]
