@@ -3,12 +3,12 @@ block OpenLoop
   "Open-loop controller"
   extends Buildings.Templates.Plants.HeatPumps.Components.Interfaces.PartialController(
     final typ=Buildings.Templates.Plants.HeatPumps.Types.Controller.OpenLoop);
-  Buildings.Controls.OBC.CDL.Reals.Sources.Constant THeaWatSupSet[nHp + nShc](
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant THeaWatSupSet[nHp + nPhp](
     y(each final unit="K", each displayUnit="degC"),
     each k=Buildings.Templates.Data.Defaults.THeaWatSupMed)
     "HW supply temperature set point"
     annotation(Placement(transformation(extent={{-20,310},{-40,330}})));
-  Buildings.Controls.OBC.CDL.Reals.Sources.Constant TChiWatSupSet[nHp + nShc](
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant TChiWatSupSet[nHp + nPhp](
     y(each final unit="K", each displayUnit="degC"),
     each k=Buildings.Templates.Data.Defaults.TChiWatSup)
     "CHW supply temperature set point"
@@ -67,7 +67,7 @@ block OpenLoop
     each period=5000)
     if cfg.typPumChiWatPriHp <>
     Buildings.Templates.Plants.HeatPumps.Types.PumpsPrimary.None
-    or cfg.typPumChiWatPriShc <>
+    or cfg.typPumChiWatPriPhp <>
     Buildings.Templates.Plants.HeatPumps.Types.PumpsPrimary.None
     "Primary CHW pump start/stop command"
     annotation(Placement(transformation(extent={{-100,-210},{-120,-190}})));
@@ -100,7 +100,7 @@ block OpenLoop
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant yPumHeaWatPriHdr(
     k=dat.yPumHeaWatPriHdrSet)
     if (cfg.typPumHeaWatPriHp == Buildings.Templates.Plants.HeatPumps.Types.PumpsPrimary.Variable
-    or cfg.typPumHeaWatPriShc == Buildings.Templates.Plants.HeatPumps.Types.PumpsPrimary.Variable)
+    or cfg.typPumHeaWatPriPhp == Buildings.Templates.Plants.HeatPumps.Types.PumpsPrimary.Variable)
     and cfg.typArrPumPri ==
         Buildings.Templates.Components.Types.PumpArrangement.Headered
     "Headered primary HW pump speed signal"
@@ -108,16 +108,16 @@ block OpenLoop
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant yPumChiWatPriHdr(
     k=dat.yPumChiWatPriHdrSet)
     if (cfg.typPumChiWatPriHp == Buildings.Templates.Plants.HeatPumps.Types.PumpsPrimary.Variable
-    or cfg.typPumChiWatPriShc == Buildings.Templates.Plants.HeatPumps.Types.PumpsPrimary.Variable)
+    or cfg.typPumChiWatPriPhp == Buildings.Templates.Plants.HeatPumps.Types.PumpsPrimary.Variable)
     and cfg.typArrPumPri ==
         Buildings.Templates.Components.Types.PumpArrangement.Headered
     "Headered primary CHW pump speed signal"
     annotation(Placement(transformation(extent={{-60,-210},{-80,-190}})));
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant yPumHeaWatPriDed[cfg.nPumHeaWatPri](
     k=cat(1, fill(dat.yPumHeaWatPriHpSet, cfg.nHp),
-      fill(dat.yPumHeaWatPriShcSet, cfg.nShc)))
+      fill(dat.yPumHeaWatPriPhpSet, cfg.nPhp)))
     if (cfg.typPumHeaWatPriHp == Buildings.Templates.Plants.HeatPumps.Types.PumpsPrimary.Variable
-    or cfg.typPumHeaWatPriShc == Buildings.Templates.Plants.HeatPumps.Types.PumpsPrimary.Variable)
+    or cfg.typPumHeaWatPriPhp == Buildings.Templates.Plants.HeatPumps.Types.PumpsPrimary.Variable)
       and cfg.typArrPumPri ==
         Buildings.Templates.Components.Types.PumpArrangement.Dedicated
     "Dedicated primary HW pump speed signal"
@@ -125,60 +125,60 @@ block OpenLoop
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant yPumChiWatPriDed[cfg.nPumChiWatPri](
     k=if cfg.have_pumChiWatDedHp then
       cat(1, fill(dat.yPumChiWatPriHpSet, cfg.nHp),
-      fill(dat.yPumChiWatPriShcSet, cfg.nShc)) else
-      fill(dat.yPumChiWatPriShcSet, cfg.nShc))
+      fill(dat.yPumChiWatPriPhpSet, cfg.nPhp)) else
+      fill(dat.yPumChiWatPriPhpSet, cfg.nPhp))
     if cfg.typArrPumPri ==
     Buildings.Templates.Components.Types.PumpArrangement.Dedicated
     and (cfg.typPumChiWatPriHp == Buildings.Templates.Plants.HeatPumps.Types.PumpsPrimary.Variable
-    or cfg.typPumChiWatPriShc == Buildings.Templates.Plants.HeatPumps.Types.PumpsPrimary.Variable)
+    or cfg.typPumChiWatPriPhp == Buildings.Templates.Plants.HeatPumps.Types.PumpsPrimary.Variable)
     "Dedicated primary CHW pump speed signal"
     annotation(Placement(transformation(extent={{-20,-210},{-40,-190}})));
-  Buildings.Controls.OBC.CDL.Logical.Sources.TimeTable y1ValChiWatShcInlIso[nShc](
+  Buildings.Controls.OBC.CDL.Logical.Sources.TimeTable y1ValChiWatPhpInlIso[nPhp](
     each table=[0, 0; 3.1, 1; 5, 0],
     each timeScale=1000,
     each period=5000)
-    if cfg.have_shc and cfg.have_chiWat and cfg.have_valShcInlIso
-    "SHC unit inlet CHW isolation valve opening signal"
+    if cfg.have_php and cfg.have_chiWat and cfg.have_valPhpInlIso
+    "Polyvalent HP inlet CHW isolation valve opening signal"
     annotation(Placement(transformation(extent={{-40,-90},{-60,-70}})));
-  Buildings.Controls.OBC.CDL.Logical.Sources.TimeTable y1ValChiWatShcOutIso[nShc](
+  Buildings.Controls.OBC.CDL.Logical.Sources.TimeTable y1ValChiWatPhpOutIso[nPhp](
     each table=[0, 0; 3.1, 1; 5, 0],
     each timeScale=1000,
     each period=5000)
-    if cfg.have_shc and cfg.have_chiWat and cfg.have_valShcOutIso
-    "SHC unit outlet CHW isolation valve opening signal"
+    if cfg.have_php and cfg.have_chiWat and cfg.have_valPhpOutIso
+    "Polyvalent HP outlet CHW isolation valve opening signal"
     annotation(Placement(transformation(extent={{-40,-130},{-60,-110}})));
-  Buildings.Controls.OBC.CDL.Logical.Sources.TimeTable y1ValHeaWatShcInlIso[nShc](
+  Buildings.Controls.OBC.CDL.Logical.Sources.TimeTable y1ValHeaWatPhpInlIso[nPhp](
     each table=[0, 0; 1, 1; 3, 0; 5, 0],
     each timeScale=1000,
     each period=5000)
-    if cfg.have_shc and cfg.have_heaWat and cfg.have_valShcInlIso
-    "SHC unit inlet HW isolation valve opening signal"
+    if cfg.have_php and cfg.have_heaWat and cfg.have_valPhpInlIso
+    "Polyvalent HP inlet HW isolation valve opening signal"
     annotation(Placement(transformation(extent={{-60,250},{-80,270}})));
-  Buildings.Controls.OBC.CDL.Logical.Sources.TimeTable y1ValHeaWatShcOutIso[nShc](
+  Buildings.Controls.OBC.CDL.Logical.Sources.TimeTable y1ValHeaWatPhpOutIso[nPhp](
     each table=[0, 0; 1, 1; 3, 0; 5, 0],
     each timeScale=1000,
     each period=5000)
-    if cfg.have_shc and cfg.have_heaWat and cfg.have_valShcOutIso
-    "SHC unit outlet HW isolation valve opening signal"
+    if cfg.have_php and cfg.have_heaWat and cfg.have_valPhpOutIso
+    "Polyvalent HP outlet HW isolation valve opening signal"
     annotation(Placement(transformation(extent={{-60,210},{-80,230}})));
-  Buildings.Controls.OBC.CDL.Logical.Sources.TimeTable y1HeaShc[nShc](
+  Buildings.Controls.OBC.CDL.Logical.Sources.TimeTable y1HeaPhp[nPhp](
     each table=[0, 0; 1, 1; 4, 0],
     each timeScale=1000,
     each period=5000)
-    if cfg.have_shc
-    "SHC unit heating on/off command"
+    if cfg.have_php
+    "Polyvalent HP heating on/off command"
     annotation(Placement(transformation(extent={{-60,350},{-80,370}})));
-  Buildings.Controls.OBC.CDL.Logical.Sources.TimeTable y1CooShc[nShc](
+  Buildings.Controls.OBC.CDL.Logical.Sources.TimeTable y1CooPhp[nPhp](
     each table=[0, 0; 2.5, 1],
     each timeScale=1000,
     each period=5000)
-    if cfg.have_shc
-    "SHC unit cooling on/off command"
+    if cfg.have_php
+    "Polyvalent HP cooling on/off command"
     annotation(Placement(transformation(extent={{-60,310},{-80,330}})));
 equation
   /* Control point connection - start */
-  connect(TChiWatSupSet[nHp + 1:nHp + nShc].y, busShc.TChiWatSet);
-  connect(THeaWatSupSet[nHp + 1:nHp + nShc].y, busShc.THeaWatSet);
+  connect(TChiWatSupSet[nHp + 1:nHp + nPhp].y, busPhp.TChiWatSet);
+  connect(THeaWatSupSet[nHp + 1:nHp + nPhp].y, busPhp.THeaWatSet);
   connect(y1Hp.y[1], busHp.y1);
   connect(y1HeaHp.y[1], busHp.y1Hea);
   connect(y1PumChiWatPri.y[1], busPumChiWatPri.y1);
@@ -193,16 +193,16 @@ equation
   connect(yPumHeaWatSec.y, busPumHeaWatSec.y);
   connect(TChiWatSupSet[1:nHp].y, busHp.TChiWatSet);
   connect(THeaWatSupSet[1:nHp].y, busHp.THeaWatSet);
-  connect(y1CooShc.y[1], busShc.y1Coo);
-  connect(y1HeaShc.y[1], busShc.y1Hea);
+  connect(y1CooPhp.y[1], busPhp.y1Coo);
+  connect(y1HeaPhp.y[1], busPhp.y1Hea);
   connect(y1ValChiWatHpInlIso.y[1], busValChiWatHpInlIso.y1);
   connect(y1ValChiWatHpOutIso.y[1], busValChiWatHpOutIso.y1);
   connect(y1ValHeaWatHpInlIso.y[1], busValHeaWatHpInlIso.y1);
   connect(y1ValHeaWatHpOutIso.y[1], busValHeaWatHpOutIso.y1);
-  connect(y1ValChiWatShcInlIso.y[1], busValChiWatShcInlIso.y1);
-  connect(y1ValChiWatShcOutIso.y[1], busValChiWatShcOutIso.y1);
-  connect(y1ValHeaWatShcInlIso.y[1], busValHeaWatShcInlIso.y1);
-  connect(y1ValHeaWatShcOutIso.y[1], busValHeaWatShcOutIso.y1);
+  connect(y1ValChiWatPhpInlIso.y[1], busValChiWatPhpInlIso.y1);
+  connect(y1ValChiWatPhpOutIso.y[1], busValChiWatPhpOutIso.y1);
+  connect(y1ValHeaWatPhpInlIso.y[1], busValHeaWatPhpInlIso.y1);
+  connect(y1ValHeaWatPhpOutIso.y[1], busValHeaWatPhpOutIso.y1);
   /* Control point connection - stop */
 annotation(defaultComponentName="ctl",
   Documentation(

@@ -20,19 +20,17 @@ model AirToWater
     if have_hp
     "Heat pumps"
     annotation(Placement(transformation(extent={{10,-50},{-10,-30}})));
-  Buildings.Templates.Components.HeatPumps.AirToWater shc[nShc](
+  Buildings.Templates.Components.HeatPumps.AirToWater php[nPhp](
     each final show_T=show_T,
-    redeclare each final package MediumHeaWat=MediumHeaWat,
-    redeclare each final package MediumChiWat=MediumChiWat,
-    redeclare each final package MediumAir=MediumAir,
+    redeclare each final package MediumHeaWat = MediumHeaWat,
+    redeclare each final package MediumChiWat = MediumChiWat,
+    redeclare each final package MediumAir = MediumAir,
     each final typMod=Buildings.Templates.Components.Types.HeatPumpCapability.Polyvalent,
-    final dat=datShc,
+    final dat=datPhp,
     each final allowFlowReversal=allowFlowReversal,
     each final energyDynamics=energyDynamics,
     each final have_dpChiHeaWat=have_dpChiHeaWat,
-    each final have_dpSou=have_dpSou)
-    if have_shc
-    "SHC units"
+    each final have_dpSou=have_dpSou) if have_php "Polyvalent heat pumps"
     annotation(Placement(transformation(extent={{-30,-10},{-50,10}})));
 equation
   for i in 1:nHp loop
@@ -47,28 +45,26 @@ equation
       annotation(Line(points={{160,-200},{160,-50},{10,-50}},
         color={0,127,255}));
   end for;
-  for i in 1:nShc loop
-    connect(busWea, shc[i].busWea)
-      annotation(Line(points={{20,200},{20,10},{-34,10}},
+  for i in 1:nPhp loop
+    connect(busWea, php[i].busWea) annotation (Line(
+        points={{20,200},{20,10},{-34,10}},
         color={255,204,51},
         thickness=0.5));
-    connect(ports_aSou[nHp + i], shc[i].port_aSou)
-      annotation(Line(points={{-160,-200},{-160,-10},{-50,-10}},
-        color={0,127,255}));
-    connect(ports_bSou[nHp + i], shc[i].port_bSou)
-      annotation(Line(points={{160,-200},{160,-10},{-30,-10}},
-        color={0,127,255}));
+    connect(ports_aSou[nHp + i], php[i].port_aSou) annotation (Line(points={{-160,
+            -200},{-160,-10},{-50,-10}}, color={0,127,255}));
+    connect(ports_bSou[nHp + i], php[i].port_bSou) annotation (Line(points={{160,
+            -200},{160,-10},{-30,-10}}, color={0,127,255}));
   end for;
-  connect(ports_aHeaWatShc, shc.port_a)
+  connect(ports_aHeaWatPhp,php.port_a)
     annotation(Line(points={{120,200},{120,0},{-30,0}},
       color={0,127,255}));
-  connect(ports_bChiWatShc, shc.port_bChiWat)
+  connect(ports_bChiWatPhp,php.port_bChiWat)
     annotation(Line(points={{-60,200},{-60,30},{-30,30},{-30,10}},
       color={0,127,255}));
-  connect(ports_aChiWatShc, shc.port_aChiWat)
+  connect(ports_aChiWatPhp,php.port_aChiWat)
     annotation(Line(points={{60,200},{60,20},{-60,20},{-60,10},{-50,10}},
       color={0,127,255}));
-  connect(busShc, shc.bus)
+  connect(busPhp,php.bus)
     annotation(Line(points={{-40,160},{-40,10}},
       color={255,204,51},
       thickness=0.5));
@@ -82,7 +78,7 @@ equation
   connect(hp.port_b, ports_bChiHeaWatHp)
     annotation(Line(points={{-10,-40},{-180,-40},{-180,200}},
       color={0,127,255}));
-  connect(shc.port_b, ports_bHeaWatShc)
+  connect(php.port_b, ports_bHeaWatPhp)
     annotation(Line(points={{-50,0},{-120,0},{-120,200}},
       color={0,127,255}));
 annotation(defaultComponentName="hp",

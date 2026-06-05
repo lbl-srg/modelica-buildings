@@ -1,7 +1,7 @@
 HeatPumpGroupAirToWater
-HeatPumpGroupAirToWaterSHC
+HeatPumpGroupAirToWaterPolyvalent
 HeatRecoveryChiller
 PumpsPrimaryDedicated
-PumpsPrimaryDedicatedSHC
+PumpsPrimaryDedicatedPolyvalent
 ValvesIsolation
-ValvesIsolationSHC
+ValvesIsolationPolyvalent

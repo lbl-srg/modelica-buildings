@@ -9,7 +9,7 @@ model PartialHeatPumpGroup
   replaceable package MediumChiWat = MediumHeaWat
     constrainedby Modelica.Media.Interfaces.PartialMedium
     "CHW medium"
-    annotation(Dialog(enable=have_shc),
+    annotation(Dialog(enable=have_php),
       __ctrlFlow(enable=false));
 
   /*
@@ -35,16 +35,15 @@ model PartialHeatPumpGroup
     "Set to true for plants with non-reversible or reversible heat pumps"
     annotation(Evaluate=true,
       Dialog(group="Configuration"));
-  parameter Boolean have_shc = false
-    "Set to true for plants with polyvalent (SHC) units"
+  parameter Boolean have_php=false
+    "Set to true for plants with polyvalent heat pumps"
     annotation(Evaluate=true,
       Dialog(group="Configuration"));
   parameter Integer nHp
-    "Number of heat pumps (excluding SHC units)"
+    "Number of heat pumps (excluding polyvalent units)"
     annotation(Evaluate=true,
       Dialog(group="Configuration"));
-  parameter Integer nShc = 0
-    "Number of polyvalent (SHC) units"
+  parameter Integer nPhp=0 "Number of polyvalent heat pumps"
     annotation(Evaluate=true,
       Dialog(group="Configuration"));
   parameter Buildings.Templates.Components.Types.HeatPump typHp
@@ -57,11 +56,11 @@ model PartialHeatPumpGroup
       Dialog(group="Configuration"));
   parameter Buildings.Templates.Plants.HeatPumps.Components.Data.HeatPumpGroup dat(
     have_hp=have_hp,
-    have_shc=have_shc,
+    have_php=have_php,
     typHp=typHp,
     is_rev=is_rev,
     cpHeaWat_default=cpHeaWat_default,
-    cpChiWatShc_default=cpChiWat_default,
+    cpChiWatPhp_default=cpChiWat_default,
     cpSou_default=cpSou_default)
     "Design and operating parameters"
     annotation(Placement(transformation(extent={{-10,-120},{10,-100}})),
@@ -90,31 +89,30 @@ model PartialHeatPumpGroup
     final P_min=fill(dat.PHp_min, nHp))
     if have_hp
     "Design and operating parameters - Each HP";
-  final parameter Buildings.Templates.Components.Data.HeatPump datShc[nShc](
+  final parameter Buildings.Templates.Components.Data.HeatPump datPhp[nPhp](
     each final typMod=Buildings.Templates.Components.Types.HeatPumpCapability.Polyvalent,
     each final typ=typHp,
     each final cpHeaWat_default=cpHeaWat_default,
-    each final cpChiWatShc_default=cpChiWat_default,
+    each final cpChiWatPhp_default=cpChiWat_default,
     each final cpSou_default=cpSou_default,
-    final mHeaWat_flow_nominal=fill(dat.mHeaWatShc_flow_nominal, nShc),
-    final mSouWwCoo_flow_nominal=fill(dat.mSouWwCooShc_flow_nominal, nShc),
-    final TSouHea_nominal=fill(dat.TSouHeaShc_nominal, nShc),
-    final mChiWat_flow_nominal=fill(dat.mChiWatShc_flow_nominal, nShc),
-    final dpSouWwHea_nominal=fill(dat.dpSouWwHeaShc_nominal, nShc),
-    final THeaWatSup_nominal=fill(dat.THeaWatSupShc_nominal, nShc),
-    final dpHeaWat_nominal=fill(dat.dpHeaWatShc_nominal, nShc),
-    final dpChiWatShc_nominal=fill(dat.dpChiWatShc_nominal, nShc),
-    final mSouWwHea_flow_nominal=fill(dat.mSouWwHeaShc_flow_nominal, nShc),
-    final TSouCoo_nominal=fill(dat.TSouCooShc_nominal, nShc),
+    final mHeaWat_flow_nominal=fill(dat.mHeaWatPhp_flow_nominal, nPhp),
+    final mSouWwCoo_flow_nominal=fill(dat.mSouWwCooPhp_flow_nominal, nPhp),
+    final TSouHea_nominal=fill(dat.TSouHeaPhp_nominal, nPhp),
+    final mChiWat_flow_nominal=fill(dat.mChiWatPhp_flow_nominal, nPhp),
+    final dpSouWwHea_nominal=fill(dat.dpSouWwHeaPhp_nominal, nPhp),
+    final THeaWatSup_nominal=fill(dat.THeaWatSupPhp_nominal, nPhp),
+    final dpHeaWat_nominal=fill(dat.dpHeaWatPhp_nominal, nPhp),
+    final dpChiWatPhp_nominal=fill(dat.dpChiWatPhp_nominal, nPhp),
+    final mSouWwHea_flow_nominal=fill(dat.mSouWwHeaPhp_flow_nominal, nPhp),
+    final TSouCoo_nominal=fill(dat.TSouCooPhp_nominal, nPhp),
     each final perShc=dat.perShc,
-    final capCoo_nominal=fill(dat.capCooShc_nominal, nShc),
-    final TChiWatSup_nominal=fill(dat.TChiWatSupShc_nominal, nShc),
-    final capHea_nominal=fill(dat.capHeaShc_nominal, nShc),
-    final capCooShc_nominal=fill(dat.capCooHrShc_nominal, nShc),
-    final capHeaShc_nominal=fill(dat.capHeaHrShc_nominal, nShc),
-    final P_min=fill(dat.PShc_min, nShc))
-    if have_shc
-    "Design and operating parameters - Each SHC unit";
+    final capCoo_nominal=fill(dat.capCooPhp_nominal, nPhp),
+    final TChiWatSup_nominal=fill(dat.TChiWatSupPhp_nominal, nPhp),
+    final capHea_nominal=fill(dat.capHeaPhp_nominal, nPhp),
+    final capCooShc_nominal=fill(dat.capCooShcPhp_nominal, nPhp),
+    final capHeaShc_nominal=fill(dat.capHeaShcPhp_nominal, nPhp),
+    final P_min=fill(dat.PPhp_min, nPhp)) if have_php
+    "Design and operating parameters - Each polyvalent HP";
   final parameter Modelica.Units.SI.MassFlowRate mHeaWatHp_flow_nominal =
     dat.mHeaWatHp_flow_nominal
     "Design HW mass flow rate - Each heat pump";
@@ -196,14 +194,14 @@ model PartialHeatPumpGroup
       Dialog(tab="Assumptions",
         enable=typHp ==
           Buildings.Templates.Components.Types.HeatPump.WaterToWater));
-  parameter String idEqu[nHp + nShc] =
+  parameter String idEqu[nHp +nPhp]  =
     (if typHp == Buildings.Templates.Components.Types.HeatPump.AirToWater
     then "AW"
     elseif typHp == Buildings.Templates.Components.Types.HeatPump.WaterToWater
     then "WW"
     else "") .+
       {if i > nHp
-      then "HR-" + String(i - nHp) else "HP-" + String(i) for i in 1:nHp + nShc}
+      then "HR-" + String(i - nHp) else "HP-" + String(i) for i in 1:nHp +nPhp}
     "Equipment identifier"
     annotation(Dialog(tab="Advanced"));
   final parameter MediumHeaWat.SpecificHeatCapacity cpHeaWat_default =
@@ -265,7 +263,7 @@ model PartialHeatPumpGroup
       iconTransformation(extent={{-10,-40},{10,40}},
         rotation=90,
         origin={820,400})));
-  Modelica.Fluid.Interfaces.FluidPorts_b ports_bSou[nHp + nShc](
+  Modelica.Fluid.Interfaces.FluidPorts_b ports_bSou[nHp +nPhp](
     redeclare each final package Medium=MediumSou,
     each m_flow(
       max=if allowFlowReversalSou then +Modelica.Constants.inf else 0),
@@ -280,7 +278,7 @@ model PartialHeatPumpGroup
       iconTransformation(extent={{-10,-40},{10,40}},
         rotation=90,
         origin={500,-398})));
-  Modelica.Fluid.Interfaces.FluidPorts_a ports_aSou[nHp + nShc](
+  Modelica.Fluid.Interfaces.FluidPorts_a ports_aSou[nHp +nPhp](
     redeclare each final package Medium=MediumSou,
     each m_flow(
       min=if allowFlowReversalSou then -Modelica.Constants.inf else 0),
@@ -295,56 +293,56 @@ model PartialHeatPumpGroup
       iconTransformation(extent={{-10,-40},{10,40}},
         rotation=90,
         origin={-500,-400})));
-  Modelica.Fluid.Interfaces.FluidPorts_b ports_bHeaWatShc[nShc](
+  Modelica.Fluid.Interfaces.FluidPorts_b ports_bHeaWatPhp[nPhp](
     redeclare each final package Medium=MediumHeaWat,
     each m_flow(max=if allowFlowReversal then +Modelica.Constants.inf else 0),
     each h_outflow(
       start=MediumHeaWat.h_default,
       nominal=MediumHeaWat.h_default))
-    if have_shc
-    "HW supply – SHC units"
+    if have_php
+    "HW supply – Polyvalent heat pumps"
     annotation(Placement(transformation(extent={{-10,-40},{10,40}},
       rotation=90,
       origin={-120,200}),
       iconTransformation(extent={{-10,-40},{10,40}},
         rotation=90,
         origin={-660,400})));
-  Modelica.Fluid.Interfaces.FluidPorts_b ports_bChiWatShc[nShc](
+  Modelica.Fluid.Interfaces.FluidPorts_b ports_bChiWatPhp[nPhp](
     redeclare each final package Medium=MediumChiWat,
     each m_flow(max=if allowFlowReversal then +Modelica.Constants.inf else 0),
     each h_outflow(
       start=MediumChiWat.h_default,
       nominal=MediumChiWat.h_default))
-    if have_shc
-    "CHW supply – SHC units"
+    if have_php
+    "CHW supply – Polyvalent heat pumps"
     annotation(Placement(transformation(extent={{-10,-40},{10,40}},
       rotation=90,
       origin={-60,200}),
       iconTransformation(extent={{-10,-40},{10,40}},
         rotation=90,
         origin={-500,400})));
-  Modelica.Fluid.Interfaces.FluidPorts_a ports_aHeaWatShc[nShc](
+  Modelica.Fluid.Interfaces.FluidPorts_a ports_aHeaWatPhp[nPhp](
     redeclare each final package Medium=MediumHeaWat,
     each m_flow(min=if allowFlowReversal then -Modelica.Constants.inf else 0),
     each h_outflow(
       start=MediumHeaWat.h_default,
       nominal=MediumHeaWat.h_default))
-    if have_shc
-    "HW return – SHC units"
+    if have_php
+    "HW return – Polyvalent heat pumps"
     annotation(Placement(transformation(extent={{-10,-40},{10,40}},
       rotation=90,
       origin={120,200}),
       iconTransformation(extent={{-10,-40},{10,40}},
         rotation=90,
         origin={660,400})));
-  Modelica.Fluid.Interfaces.FluidPorts_a ports_aChiWatShc[nShc](
+  Modelica.Fluid.Interfaces.FluidPorts_a ports_aChiWatPhp[nPhp](
     redeclare each final package Medium=MediumChiWat,
     each m_flow(min=if allowFlowReversal then -Modelica.Constants.inf else 0),
     each h_outflow(
       start=MediumChiWat.h_default,
       nominal=MediumChiWat.h_default))
-    if have_shc
-    "CHW return – SHC units"
+    if have_php
+    "CHW return – Polyvalent heat pumps"
     annotation(Placement(transformation(extent={{-10,-40},{10,40}},
       rotation=90,
       origin={60,200}),
@@ -360,14 +358,14 @@ model PartialHeatPumpGroup
     "Weather bus"
     annotation(Placement(transformation(extent={{0,180},{40,220}}),
       iconTransformation(extent={{-220,380},{-180,420}})));
-  MediumSou.ThermodynamicState sta_aSou[nHp + nShc] =
+  MediumSou.ThermodynamicState sta_aSou[nHp +nPhp]  =
     MediumSou.setState_phX(
       ports_aSou.p,
       noEvent(actualStream(ports_aSou.h_outflow)),
       noEvent(actualStream(ports_aSou.Xi_outflow)))
     if show_T
     "Source medium properties in port_aSou";
-  MediumSou.ThermodynamicState sta_bSou[nHp + nShc] =
+  MediumSou.ThermodynamicState sta_bSou[nHp +nPhp]  =
     MediumSou.setState_phX(
       ports_bSou.p,
       noEvent(actualStream(ports_bSou.h_outflow)),
@@ -388,34 +386,34 @@ model PartialHeatPumpGroup
       noEvent(actualStream(ports_bChiHeaWatHp.Xi_outflow)))
     if show_T and have_hp
     "Source medium properties in port_bChiHeaWatHp";
-  MediumHeaWat.ThermodynamicState sta_aHeaWatShc[nShc] =
+  MediumHeaWat.ThermodynamicState sta_aHeaWatPhp[nPhp] =
     MediumHeaWat.setState_phX(
-      ports_aHeaWatShc.p,
-      noEvent(actualStream(ports_aHeaWatShc.h_outflow)),
-      noEvent(actualStream(ports_aHeaWatShc.Xi_outflow)))
-    if show_T and have_shc
-    "Source medium properties in port_aHeaWatShc";
-  MediumHeaWat.ThermodynamicState sta_bHeaWatShc[nShc] =
+      ports_aHeaWatPhp.p,
+      noEvent(actualStream(ports_aHeaWatPhp.h_outflow)),
+      noEvent(actualStream(ports_aHeaWatPhp.Xi_outflow)))
+    if show_T and have_php
+    "Source medium properties in port_aHeaWatPhp";
+  MediumHeaWat.ThermodynamicState sta_bHeaWatPhp[nPhp] =
     MediumHeaWat.setState_phX(
-      ports_bHeaWatShc.p,
-      noEvent(actualStream(ports_bHeaWatShc.h_outflow)),
-      noEvent(actualStream(ports_bHeaWatShc.Xi_outflow)))
-    if show_T and have_shc
-    "Source medium properties in port_bHeaWatShc";
-  MediumChiWat.ThermodynamicState sta_aChiWatShc[nShc] =
+      ports_bHeaWatPhp.p,
+      noEvent(actualStream(ports_bHeaWatPhp.h_outflow)),
+      noEvent(actualStream(ports_bHeaWatPhp.Xi_outflow)))
+    if show_T and have_php
+    "Source medium properties in port_bHeaWatPhp";
+  MediumChiWat.ThermodynamicState sta_aChiWatPhp[nPhp] =
     MediumChiWat.setState_phX(
-      ports_aChiWatShc.p,
-      noEvent(actualStream(ports_aChiWatShc.h_outflow)),
-      noEvent(actualStream(ports_aChiWatShc.Xi_outflow)))
-    if show_T and have_shc
-    "Source medium properties in port_aChiWatShc";
-  MediumChiWat.ThermodynamicState sta_bChiWatShc[nShc] =
+      ports_aChiWatPhp.p,
+      noEvent(actualStream(ports_aChiWatPhp.h_outflow)),
+      noEvent(actualStream(ports_aChiWatPhp.Xi_outflow)))
+    if show_T and have_php
+    "Source medium properties in port_aChiWatPhp";
+  MediumChiWat.ThermodynamicState sta_bChiWatPhp[nPhp] =
     MediumChiWat.setState_phX(
-      ports_bChiWatShc.p,
-      noEvent(actualStream(ports_bChiWatShc.h_outflow)),
-      noEvent(actualStream(ports_bChiWatShc.Xi_outflow)))
-    if show_T and have_shc
-    "Source medium properties in port_bChiWatShc";
+      ports_bChiWatPhp.p,
+      noEvent(actualStream(ports_bChiWatPhp.h_outflow)),
+      noEvent(actualStream(ports_bChiWatPhp.Xi_outflow)))
+    if show_T and have_php
+    "Source medium properties in port_bChiWatPhp";
   protected
   Buildings.Templates.Components.Interfaces.Bus busHp[nHp]
     if have_hp
@@ -423,9 +421,9 @@ model PartialHeatPumpGroup
     annotation(Placement(transformation(extent={{-20,140},{20,180}}),
       iconTransformation(extent={{-522,206},{-482,246}})));
   protected
-  Buildings.Templates.Components.Interfaces.Bus busShc[nShc]
-    if have_shc
-    "SHC unit control bus"
+  Buildings.Templates.Components.Interfaces.Bus busPhp[nPhp]
+    if have_php
+    "Polyvalent HP control bus"
     annotation(Placement(transformation(extent={{-60,140},{-20,180}}),
       iconTransformation(extent={{-522,206},{-482,246}})));
 equation
@@ -433,7 +431,7 @@ equation
     annotation(Line(points={{-20,200},{-20,160},{0,160}},
       color={255,204,51},
       thickness=0.5));
-  connect(bus.shc, busShc)
+  connect(bus.php, busPhp)
     annotation(Line(points={{-20,200},{-20,160},{-40,160}},
       color={255,204,51},
       thickness=0.5));
@@ -442,121 +440,121 @@ annotation(Diagram(coordinateSystem(extent={{-200,-200},{200,200}})),
     extent={{-2400,-400},{2400,400}}),
     graphics={Bitmap(extent={{1880,160},{1960,240}},
       fileName="modelica://Buildings/Resources/Images/Templates/Components/Boilers/ControllerOnboard.svg",
-      visible=nHp + nShc >= 1),
+      visible=nHp + nPhp >= 1),
     Rectangle(extent={{2240,400},{1960,0}},
-      visible=nHp + nShc >= 1,
+      visible=nHp + nPhp >= 1,
       lineThickness=1),
     Text(extent={{1960,250},{2240,150}},
       textColor={0,0,0},
-      visible=nHp + nShc >= 1,
+      visible=nHp + nPhp >= 1,
       textString=idEqu[1]),
     Bitmap(extent={{1080,160},{1160,240}},
       fileName="modelica://Buildings/Resources/Images/Templates/Components/Boilers/ControllerOnboard.svg",
-      visible=nHp + nShc >= 2),
+      visible=nHp + nPhp >= 2),
     Rectangle(extent={{1440,400},{1160,0}},
-      visible=nHp + nShc >= 2,
+      visible=nHp + nPhp >= 2,
       lineThickness=1),
     Text(extent={{1160,250},{1440,150}},
       textColor={0,0,0},
-      visible=nHp + nShc >= 2,
+      visible=nHp + nPhp >= 2,
       textString=idEqu[2]),
     Bitmap(extent={{280,160},{360,240}},
       fileName="modelica://Buildings/Resources/Images/Templates/Components/Boilers/ControllerOnboard.svg",
-      visible=nHp + nShc >= 3),
+      visible=nHp + nPhp >= 3),
     Rectangle(extent={{640,400},{360,0}},
-      visible=nHp + nShc >= 3,
+      visible=nHp + nPhp >= 3,
       lineThickness=1),
     Text(extent={{360,250},{640,150}},
       textColor={0,0,0},
-      visible=nHp + nShc >= 3,
+      visible=nHp + nPhp >= 3,
       textString=idEqu[3]),
     Bitmap(extent={{-520,160},{-440,240}},
       fileName="modelica://Buildings/Resources/Images/Templates/Components/Boilers/ControllerOnboard.svg",
-      visible=nHp + nShc >= 4),
+      visible=nHp + nPhp >= 4),
     Rectangle(extent={{-160,400},{-440,0}},
       lineColor={0,0,0},
       lineThickness=1,
-      visible=nHp + nShc >= 4),
+      visible=nHp + nPhp >= 4),
     Text(extent={{-440,250},{-160,150}},
       textColor={0,0,0},
-      visible=nHp + nShc >= 4,
+      visible=nHp + nPhp >= 4,
       textString=idEqu[4]),
     Bitmap(extent={{-1320,160},{-1240,240}},
       fileName="modelica://Buildings/Resources/Images/Templates/Components/Boilers/ControllerOnboard.svg",
-      visible=nHp + nShc >= 5),
+      visible=nHp + nPhp >= 5),
     Rectangle(extent={{-960,400},{-1240,0}},
       lineColor={0,0,0},
       lineThickness=1,
-      visible=nHp + nShc >= 5),
+      visible=nHp + nPhp >= 5),
     Text(extent={{-1240,250},{-960,150}},
       textColor={0,0,0},
-      visible=nHp + nShc >= 5,
+      visible=nHp + nPhp >= 5,
       textString=idEqu[5]),
     Bitmap(extent={{-2120,160},{-2040,240}},
       fileName="modelica://Buildings/Resources/Images/Templates/Components/Boilers/ControllerOnboard.svg",
-      visible=nHp + nShc >= 6),
+      visible=nHp + nPhp >= 6),
     Rectangle(extent={{-1760,400},{-2040,0}},
       lineColor={0,0,0},
       lineThickness=1,
-      visible=nHp + nShc >= 6),
+      visible=nHp + nPhp >= 6),
     Text(extent={{-2040,250},{-1760,150}},
       textColor={0,0,0},
-      visible=nHp + nShc >= 6,
+      visible=nHp + nPhp >= 6,
       textString=idEqu[6]),
     Line(points={{2400,400},{2400,-80},{2200,-80},{2200,0}},
       color={0,0,0},
       thickness=5,
       pattern=LinePattern.Dash,
-      visible=nHp + nShc >= 1 and nHp < 1),
+      visible=nHp + nPhp >= 1 and nHp < 1),
     Line(points={{1600,400},{1600,-80},{1400,-80},{1400,0}},
       color={0,0,0},
       thickness=5,
       pattern=LinePattern.Dash,
-      visible=nHp + nShc >= 2 and nHp < 2),
+      visible=nHp + nPhp >= 2 and nHp < 2),
     Line(points={{800,400},{800,-80},{600,-80},{600,0}},
       color={0,0,0},
       thickness=5,
       pattern=LinePattern.Dash,
-      visible=nHp + nShc >= 3 and nHp < 3),
+      visible=nHp + nPhp >= 3 and nHp < 3),
     Line(points={{0,400},{0,-80},{-200,-80},{-200,0}},
       color={0,0,0},
       thickness=5,
       pattern=LinePattern.Dash,
-      visible=nHp + nShc >= 4 and nHp < 4),
+      visible=nHp + nPhp >= 4 and nHp < 4),
     Line(points={{-800,400},{-800,-80},{-1000,-80},{-1000,0}},
       color={0,0,0},
       thickness=5,
       pattern=LinePattern.Dash,
-      visible=nHp + nShc >= 5 and nHp < 5),
+      visible=nHp + nPhp >= 5 and nHp < 5),
     Line(points={{-1600,400},{-1600,-80},{-1800,-80},{-1800,0}},
       color={0,0,0},
       thickness=5,
       pattern=LinePattern.Dash,
-      visible=nHp + nShc >= 6 and nHp < 6),
+      visible=nHp + nPhp >= 6 and nHp < 6),
     Line(points={{1000,400},{1000,-80},{1200,-80},{1200,0}},
       color={0,0,0},
       thickness=5,
-      visible=nHp + nShc >= 2 and nHp < 2),
+      visible=nHp + nPhp >= 2 and nHp < 2),
     Line(points={{1800,400},{1800,-80},{2000,-80},{2000,0}},
       color={0,0,0},
       thickness=5,
-      visible=nHp + nShc >= 1 and nHp < 1),
+      visible=nHp + nPhp >= 1 and nHp < 1),
     Line(points={{200,400},{200,-80},{400,-80},{400,0}},
       color={0,0,0},
       thickness=5,
-      visible=nHp + nShc >= 3 and nHp < 3),
+      visible=nHp + nPhp >= 3 and nHp < 3),
     Line(points={{-600,400},{-600,-80},{-400,-80},{-400,0}},
       color={0,0,0},
       thickness=5,
-      visible=nHp + nShc >= 4 and nHp < 4),
+      visible=nHp + nPhp >= 4 and nHp < 4),
     Line(points={{-1400,400},{-1400,-80},{-1200,-80},{-1200,0}},
       color={0,0,0},
       thickness=5,
-      visible=nHp + nShc >= 5 and nHp < 5),
+      visible=nHp + nPhp >= 5 and nHp < 5),
     Line(points={{-2200,400},{-2200,-80},{-2000,-80},{-2000,0}},
       color={0,0,0},
       thickness=5,
-      visible=nHp + nShc >= 6 and nHp < 6)}),
+      visible=nHp + nPhp >= 6 and nHp < 6)}),
   Documentation(
     info="<html>
 <p>

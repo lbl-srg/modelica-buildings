@@ -10,15 +10,11 @@ class AllSystems
     hp(
       capHeaHp_nominal=500E3,
       capCooHp_nominal=500E3,
-      capHeaShc_nominal=500E3,
-      capCooShc_nominal=500E3,
-      capHeaHrShc_nominal=500E3,
-      capCooHrShc_nominal=500E3,
       mHeaWatHp_flow_nominal=pla.hp.capHeaHp_nominal / abs(
         pla.ctl.THeaWatSup_nominal -
           Buildings.Templates.Data.Defaults.THeaWatRetMed) /
       Buildings.Utilities.Psychrometrics.Constants.cpWatLiq,
-      mHeaWatShc_flow_nominal=pla.hp.capHeaShc_nominal / abs(
+      mHeaWatPhp_flow_nominal=pla.hp.capHeaPhp_nominal / abs(
         pla.ctl.THeaWatSup_nominal -
         Buildings.Templates.Data.Defaults.THeaWatRetMed) /
         Buildings.Utilities.Psychrometrics.Constants.cpWatLiq,
@@ -26,17 +22,17 @@ class AllSystems
         pla.ctl.TChiWatSup_nominal -
           Buildings.Templates.Data.Defaults.TChiWatRet) /
       Buildings.Utilities.Psychrometrics.Constants.cpWatLiq,
-      mChiWatShc_flow_nominal=pla.hp.capCooShc_nominal / abs(
+      mChiWatPhp_flow_nominal=pla.hp.capCooPhp_nominal / abs(
         pla.ctl.TChiWatSup_nominal -
           Buildings.Templates.Data.Defaults.TChiWatRet) /
         Buildings.Utilities.Psychrometrics.Constants.cpWatLiq,
       dpHeaWatHp_nominal=Buildings.Templates.Data.Defaults.dpHeaWatHp,
-      dpHeaWatShc_nominal=Buildings.Templates.Data.Defaults.dpHeaWatHp * 0.8,
-      dpChiWatShc_nominal=Buildings.Templates.Data.Defaults.dpChiWatChi * 0.8,
+      dpHeaWatPhp_nominal=Buildings.Templates.Data.Defaults.dpHeaWatHp * 0.8,
+      dpChiWatPhp_nominal=Buildings.Templates.Data.Defaults.dpChiWatChi * 0.8,
       TSouHeaHp_nominal=Buildings.Templates.Data.Defaults.TOutHpHeaLow,
-      TSouHeaShc_nominal=Buildings.Templates.Data.Defaults.TOutHpHeaLow,
+      TSouHeaPhp_nominal=Buildings.Templates.Data.Defaults.TOutHpHeaLow,
       TSouCooHp_nominal=Buildings.Templates.Data.Defaults.TOutHpCoo,
-      TSouCooShc_nominal=Buildings.Templates.Data.Defaults.TOutHpCoo,
+      TSouCooPhp_nominal=Buildings.Templates.Data.Defaults.TOutHpCoo,
       perHeaHp(
         fileName=Modelica.Utilities.Files.loadResource(
           "modelica://Buildings/Resources/Data/Templates/Components/HeatPumps/Validation/AWHP_Heating.txt"),
@@ -51,14 +47,18 @@ class AllSystems
         use_TEvaOutForTab=true,
         use_TConOutForTab=false),
       PHp_min=1.0E3,
-      PShc_min=1.0E3,
       perShc(
         fileNameHea=Modelica.Utilities.Files.loadResource(
           "modelica://Buildings/Resources/Data/Fluid/HeatPumps/ModularReversible/RefrigerantCycle/BaseClasses/Validation/AWHP_Heating.txt"),
         fileNameCoo=Modelica.Utilities.Files.loadResource(
           "modelica://Buildings/Resources/Data/Fluid/HeatPumps/ModularReversible/RefrigerantCycle/BaseClasses/Validation/AWHP_Cooling.txt"),
         fileNameShc=Modelica.Utilities.Files.loadResource(
-          "modelica://Buildings/Resources/Data/Fluid/HeatPumps/ModularReversible/RefrigerantCycle/BaseClasses/Validation/AWHP_SHC.txt"))),
+          "modelica://Buildings/Resources/Data/Fluid/HeatPumps/ModularReversible/RefrigerantCycle/BaseClasses/Validation/AWHP_SHC.txt")),
+      capHeaPhp_nominal=500E3,
+      capCooPhp_nominal=500E3,
+      capCooShcPhp_nominal=500E3,
+      PPhp_min=1.0E3,
+      capHeaShcPhp_nominal =500E3),
     pumHeaWatPri(
       dp_nominal=fill(
         1.5 * (if pla.cfg.have_chiWat and
@@ -107,11 +107,11 @@ class AllSystems
     ctl(
       THeaWatSupSet_min=298.15,
       VHeaWatSec_flow_nominal=(pla.cfg.nHp * pla.ctl.VHeaWatHp_flow_nominal
-        + pla.cfg.nShc * pla.ctl.VHeaWatShc_flow_nominal) /
+        + pla.cfg.nPhp * pla.ctl.VHeaWatPhp_flow_nominal) /
         1.1,
       TChiWatSupSet_max=288.15,
       VChiWatSec_flow_nominal=(pla.cfg.nHp * pla.ctl.VChiWatHp_flow_nominal
-        + pla.cfg.nShc * pla.ctl.VHeaWatShc_flow_nominal) /
+        + pla.cfg.nPhp * pla.ctl.VHeaWatPhp_flow_nominal) /
         1.1,
       dpChiWatRemSet_max={Buildings.Templates.Data.Defaults.dpChiWatRemSet_max},
       dpHeaWatRemSet_max={Buildings.Templates.Data.Defaults.dpHeaWatRemSet_max},
@@ -122,20 +122,20 @@ class AllSystems
       TOutHeaWatLck=Buildings.Templates.Data.Defaults.TOutHeaWatLck,
       capHeaHp_nominal=pla.hp.capHeaHp_nominal,
       capCooHp_nominal=pla.hp.capCooHp_nominal,
-      capHeaShc_nominal=pla.hp.capHeaShc_nominal,
-      capCooShc_nominal=pla.hp.capCooShc_nominal,
       TChiWatSup_nominal=Buildings.Templates.Data.Defaults.TChiWatSup,
       yPumChiWatPriHpSet=0.90,
-      yPumChiWatPriShcSet=0.69,
+      yPumChiWatPriPhpSet=0.69,
       yPumHeaWatPriHpSet=0.57,
-      yPumHeaWatPriShcSet=0.65,
+      yPumHeaWatPriPhpSet=0.65,
       staEqu={fill(i / pla.cfg.nHp, pla.cfg.nHp) for i in 1:pla.cfg.nHp},
       TChiWatSupHrc_min=Buildings.Templates.Data.Defaults.TChiWatSup_min,
       THeaWatSupHrc_max=pla.ctl.THeaWatSup_nominal + 5,
       COPHeaHrc_nominal=4.6,
       capCooHrc_min=pla.hrc.cap_nominal * pla.hrc.per.PLRCyc_min,
       capHeaHrc_min=(1 + 1 / (pla.ctl.COPHeaHrc_nominal - 1)) *
-        pla.ctl.capCooHrc_min))
+        pla.ctl.capCooHrc_min,
+      capHeaPhp_nominal=pla.hp.capHeaPhp_nominal,
+      capCooPhp_nominal=pla.hp.capCooPhp_nominal))
     "Parameters for heat pump plant"
     annotation(Dialog(group="Plants"),
       Placement(transformation(extent={{-10,0},{10,20}})));

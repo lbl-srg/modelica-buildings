@@ -71,23 +71,23 @@ model HeatPumps
       tabLowBou=[253.15, 265.15; 317.15, 278.15]))
     "Reversible AWHP parameters"
     annotation(Placement(transformation(extent={{100,60},{120,80}})));
-  parameter Data.HeatPump datShc(
-    final cpHeaWat_default=shc.cpHeaWat_default,
-    final cpSou_default=shc.cpSou_default,
-    final typ=shc.typ,
-    final typMod=shc.typMod,
-    mHeaWat_flow_nominal=datShc.capHea_nominal / abs(
-      datShc.THeaWatSup_nominal -
+  parameter Data.HeatPump datPhp(
+    final cpHeaWat_default=php.cpHeaWat_default,
+    final cpSou_default=php.cpSou_default,
+    final typ=php.typ,
+    final typMod=php.typMod,
+    mHeaWat_flow_nominal=datPhp.capHea_nominal / abs(datPhp.THeaWatSup_nominal
+                                -
         Buildings.Templates.Data.Defaults.THeaWatRetMed) /
       Buildings.Utilities.Psychrometrics.Constants.cpWatLiq,
     dpHeaWat_nominal=Buildings.Templates.Data.Defaults.dpHeaWatHp,
     capHea_nominal=500E3,
     THeaWatSup_nominal=Buildings.Templates.Data.Defaults.THeaWatSupMed,
-    mChiWat_flow_nominal=datShc.capCoo_nominal / abs(
-      datShc.TChiWatSup_nominal -
+    mChiWat_flow_nominal=datPhp.capCoo_nominal / abs(datPhp.TChiWatSup_nominal
+                                -
         Buildings.Templates.Data.Defaults.TChiWatRet) /
       Buildings.Utilities.Psychrometrics.Constants.cpWatLiq,
-    dpChiWatShc_nominal=Buildings.Templates.Data.Defaults.dpChiWatChi,
+    dpChiWatPhp_nominal=Buildings.Templates.Data.Defaults.dpChiWatChi,
     capCoo_nominal=500E3,
     TChiWatSup_nominal=Buildings.Templates.Data.Defaults.TChiWatSup,
     TSouCoo_nominal=Buildings.Templates.Data.Defaults.TOutHpCoo,
@@ -108,7 +108,7 @@ model HeatPumps
         "modelica://Buildings/Resources/Data/Fluid/HeatPumps/ModularReversible/RefrigerantCycle/BaseClasses/Validation/AWHP_Cooling.txt"),
       fileNameShc=Modelica.Utilities.Files.loadResource(
         "modelica://Buildings/Resources/Data/Fluid/HeatPumps/ModularReversible/RefrigerantCycle/BaseClasses/Validation/AWHP_SHC.txt")))
-    "SHC unit parameters"
+    "Polyvalent HP parameters"
     annotation(Placement(transformation(extent={{100,-120},{120,-100}})));
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant TChiWatSupSet(
     k=datHpAw.TChiWatSup_nominal,
@@ -334,50 +334,50 @@ model HeatPumps
     final dp_nominal=datHpWw.dpSouWwHea_nominal)
     "Source fluid pressure drop computed externally"
     annotation(Placement(transformation(extent={{50,-70},{70,-50}})));
-  Fluid.Sources.Boundary_pT inlChiWatShc(
+  Fluid.Sources.Boundary_pT inlChiWatPhp(
     redeclare final package Medium = Medium,
-    p=supChiWatShc.p + datShc.dpChiWat_nominal,
+    p=supChiWatPhp.p +datPhp.dpChiWat_nominal,
     use_T_in=true,
     nPorts=1) "Boundary conditions of CHW at HP inlet"
     annotation (Placement(transformation(extent={{-10,-170},{10,-150}})));
-  Fluid.Sources.Boundary_pT supChiWatShc(
+  Fluid.Sources.Boundary_pT supChiWatPhp(
     redeclare final package Medium = Medium,
     p=Buildings.Templates.Data.Defaults.pChiWat_rel_nominal + 101325,
     nPorts=1) "Boundary condition at CHW supply"
     annotation (Placement(transformation(extent={{190,-170},{170,-150}})));
-  Buildings.Templates.Components.HeatPumps.AirToWater shc(
+  Buildings.Templates.Components.HeatPumps.AirToWater php(
     typMod=Buildings.Templates.Components.Types.HeatPumpCapability.Polyvalent,
     show_T=true,
     redeclare final package MediumHeaWat = Medium,
-    final dat=datShc,
-    final energyDynamics=energyDynamics) "SHC unit"
+    final dat=datPhp,
+    final energyDynamics=energyDynamics) "Polyvalent heat pump"
     annotation (Placement(transformation(extent={{80,-210},{100,-190}})));
-  Fluid.Sensors.TemperatureTwoPort THeaWatSupShc(redeclare final package Medium
-      = Medium, final m_flow_nominal=datShc.mHeaWat_flow_nominal)
+  Fluid.Sensors.TemperatureTwoPort THeaWatSupPhp(redeclare final package Medium
+      = Medium, final m_flow_nominal=datPhp.mHeaWat_flow_nominal)
     "HW supply temperature"
     annotation (Placement(transformation(extent={{110,-210},{130,-190}})));
-  Fluid.Sensors.TemperatureTwoPort THeaWatRetShc(redeclare final package Medium
-      = Medium, final m_flow_nominal=datShc.mHeaWat_flow_nominal)
+  Fluid.Sensors.TemperatureTwoPort THeaWatRetPhp(redeclare final package Medium
+      = Medium, final m_flow_nominal=datPhp.mHeaWat_flow_nominal)
     "HW return temperature"
     annotation (Placement(transformation(extent={{30,-210},{50,-190}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.TimeTable y1Coo(
     table=[0,0; 0.5,1; 2.5,0],
     timeScale=1000,
-    period=3000) "SHC unit cooling on/off command"
+    period=3000) "Polyvalent HP cooling on/off command"
     annotation (Placement(transformation(extent={{-128,-150},{-108,-130}})));
-  Fluid.Sensors.TemperatureTwoPort TChiWatRetShc(redeclare final package Medium
-      = Medium, final m_flow_nominal=datShc.mChiWat_flow_nominal)
+  Fluid.Sensors.TemperatureTwoPort TChiWatRetPhp(redeclare final package Medium
+      = Medium, final m_flow_nominal=datPhp.mChiWat_flow_nominal)
     "CHW return temperature"
     annotation (Placement(transformation(extent={{50,-170},{70,-150}})));
-  Fluid.Sensors.TemperatureTwoPort TChiWatSupShc(redeclare final package Medium
-      = Medium, final m_flow_nominal=datShc.mChiWat_flow_nominal)
+  Fluid.Sensors.TemperatureTwoPort TChiWatSupPhp(redeclare final package Medium
+      = Medium, final m_flow_nominal=datPhp.mChiWat_flow_nominal)
     "CHW supply temperature"
     annotation (Placement(transformation(extent={{110,-166},{130,-146}})));
-  Fluid.Sources.Boundary_pT inlHeaWatShc(
+  Fluid.Sources.Boundary_pT inlHeaWatPhp(
     redeclare final package Medium = Medium,
-    p=sup.p + datShc.dpHeaWat_nominal,
+    p=sup.p +datPhp.dpHeaWat_nominal,
     use_T_in=true,
-    nPorts=1) "Boundary conditions of HW at SHC inlet"
+    nPorts=1) "Boundary conditions of HW at polyvalent HP inlet"
     annotation (Placement(transformation(extent={{-10,-210},{10,-190}})));
   protected
   Interfaces.Bus bus
@@ -395,7 +395,7 @@ model HeatPumps
     annotation(Placement(transformation(extent={{-40,-20},{0,20}}),
       iconTransformation(extent={{-276,6},{-236,46}})));
 protected
-  Interfaces.Bus busShc "SHC unit control bus" annotation (Placement(
+  Interfaces.Bus busPhp "Polyvalent HP control bus" annotation (Placement(
         transformation(extent={{-40,-160},{0,-120}}), iconTransformation(extent
           ={{-276,6},{-236,46}})));
 equation
@@ -528,28 +528,28 @@ equation
   connect(inlHpSou.ports[1], resSou.port_a)
     annotation(Line(points={{10,-60},{50,-60}},
       color={0,127,255}));
-  connect(shc.port_b, THeaWatSupShc.port_a)
+  connect(php.port_b, THeaWatSupPhp.port_a)
     annotation (Line(points={{100,-200},{110,-200}}, color={0,127,255}));
-  connect(THeaWatRetShc.port_b, shc.port_a)
+  connect(THeaWatRetPhp.port_b,php. port_a)
     annotation (Line(points={{50,-200},{80,-200}}, color={0,127,255}));
-  connect(busShc, shc.bus) annotation (Line(
+  connect(busPhp,php. bus) annotation (Line(
       points={{-20,-140},{90,-140},{90,-190}},
       color={255,204,51},
       thickness=0.5));
-  connect(THeaWatSupShc.port_b, sup.ports[4]) annotation (Line(points={{130,
+  connect(THeaWatSupPhp.port_b, sup.ports[4]) annotation (Line(points={{130,
           -200},{160,-200},{160,41.5}}, color={0,127,255}));
-  connect(TChiWatRet.y, inlChiWatShc.T_in) annotation (Line(points={{-98,80},{
+  connect(TChiWatRet.y, inlChiWatPhp.T_in) annotation (Line(points={{-98,80},{
           -90,80},{-90,-156},{-12,-156}}, color={0,0,127}));
-  connect(weaDat.weaBus, shc.busWea)
+  connect(weaDat.weaBus,php. busWea)
     annotation(Line(points={{160,180},{140,180},{140,-164},{84,-164},{84,-190}},
       color={255,204,51},
       thickness=0.5));
-  connect(y1Hea.y[1], busShc.y1Hea) annotation (Line(points={{-138,140},{-40,
+  connect(y1Hea.y[1], busPhp.y1Hea) annotation (Line(points={{-138,140},{-40,
           140},{-40,-138},{-20,-138},{-20,-140}},
                                            color={255,0,255}));
-  connect(TChiWatSupSet.y, busShc.TChiWatSet) annotation (Line(points={{-98,160},
+  connect(TChiWatSupSet.y, busPhp.TChiWatSet) annotation (Line(points={{-98,160},
           {-20,160},{-20,-140}},           color={0,0,127}));
-  connect(THeaWatSupSet.y, busShc.THeaWatSet) annotation (Line(points={{-98,200},
+  connect(THeaWatSupSet.y, busPhp.THeaWatSet) annotation (Line(points={{-98,200},
           {-20,200},{-20,-140}},           color={0,0,127}));
   connect(THeaWatSupSet.y, bus1.THeaWatSet)
     annotation (Line(points={{-98,200},{-20,200},{-20,160}},
@@ -559,10 +559,10 @@ equation
                                                           color={0,0,127}));
   connect(THeaWatSupSet.y, bus2.THeaWatSet)
     annotation (Line(points={{-98,200},{-20,200},{-20,0}}, color={0,0,127}));
-  connect(THeaWatSupSet.y, busShc.THeaWatSet)
+  connect(THeaWatSupSet.y, busPhp.THeaWatSet)
     annotation (Line(points={{-98,200},{-20,200},{-20,-140}},
                                                             color={0,0,127}));
-  connect(y1Coo.y[1], busShc.y1Coo)
+  connect(y1Coo.y[1], busPhp.y1Coo)
     annotation (Line(points={{-106,-140},{-20,-140}},color={255,0,255}));
   connect(TChiWatSupSet.y, bus.TChiWatSet) annotation (Line(points={{-98,160},{
           -20,160},{-20,80}},     color={0,0,127}));
@@ -574,17 +574,17 @@ equation
       index=1,
       extent={{6,3},{6,3}},
       horizontalAlignment=TextAlignment.Left));
-  connect(inlChiWatShc.ports[1], TChiWatRetShc.port_a)
+  connect(inlChiWatPhp.ports[1], TChiWatRetPhp.port_a)
     annotation (Line(points={{10,-160},{50,-160}}, color={0,127,255}));
-  connect(TChiWatRetShc.port_b, shc.port_aChiWat) annotation (Line(points={{70,
+  connect(TChiWatRetPhp.port_b,php. port_aChiWat) annotation (Line(points={{70,
           -160},{100,-160},{100,-190}}, color={0,127,255}));
-  connect(supChiWatShc.ports[1], TChiWatSupShc.port_b) annotation (Line(points=
+  connect(supChiWatPhp.ports[1], TChiWatSupPhp.port_b) annotation (Line(points=
           {{170,-160},{170,-156},{130,-156}}, color={0,127,255}));
-  connect(TChiWatSupShc.port_a, shc.port_bChiWat) annotation (Line(points={{110,
+  connect(TChiWatSupPhp.port_a,php. port_bChiWat) annotation (Line(points={{110,
           -156},{80,-156},{80,-190}}, color={0,127,255}));
-  connect(inlHeaWatShc.ports[1], THeaWatRetShc.port_a)
+  connect(inlHeaWatPhp.ports[1], THeaWatRetPhp.port_a)
     annotation (Line(points={{10,-200},{30,-200}}, color={0,127,255}));
-  connect(THeaWatRet.y, inlHeaWatShc.T_in) annotation (Line(points={{-98,120},{
+  connect(THeaWatRet.y, inlHeaWatPhp.T_in) annotation (Line(points={{-98,120},{
           -92,120},{-92,-196},{-12,-196}}, color={0,0,127}));
 annotation(Diagram(coordinateSystem(extent={{-200,-220},{200,220}}, grid={2,2})),
   __Dymola_Commands(
@@ -605,16 +605,16 @@ annotation(Diagram(coordinateSystem(extent={{-200,-220},{200,220}}, grid={2,2}))
   pressure and a varying return temperature.
 </p>
 <p>
-  The AWHP model (suffix <code>Aw</code>) is configured to represent either 
-  a non-reversible heat pump (suffix <code>Nrv</code>) or a reversible 
+  The AWHP model (suffix <code>Aw</code>) is configured to represent either
+  a non-reversible heat pump (suffix <code>Nrv</code>) or a reversible
   heat pump that switches between cooling and heating mode.
 </p>
 <p>
-  The WWHP model (suffix <code>Ww</code>) is configured to represent a  
+  The WWHP model (suffix <code>Ww</code>) is configured to represent a
   reversible heat pump that switches between cooling and heating mode.
 </p>
 <p>
-  The polyvalent unit model (suffix <code>Shc</code>) switches between 
+  The polyvalent unit model (suffix <code>Php</code>) switches between
   cooling-only, heating-only and simultaneous heating and cooling mode.
 </p>
 </html>",

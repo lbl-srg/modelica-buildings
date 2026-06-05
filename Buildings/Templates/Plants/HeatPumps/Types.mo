@@ -26,9 +26,9 @@ package Types
     ReversibleHeatRecovery
       "Heating and cooling with reversible heat pumps and heat recovery chiller",
     ReversiblePolyvalent
-      "Heating and cooling with reversible heat pumps and polyvalent (SHC) units",
+      "Heating and cooling with reversible heat pumps and polyvalent heat pumps",
     Polyvalent
-      "Heating and cooling with polyvalent (SHC) units")
+      "Heating and cooling with polyvalent heat pumps")
     "Enumeration to specify the type of plant";
   type PumpsPrimary = enumeration(
     Constant

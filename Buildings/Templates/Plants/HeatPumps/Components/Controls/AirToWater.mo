@@ -57,10 +57,10 @@ model AirToWater
     final have_pumPriHdr=cfg.typArrPumPri == Buildings.Templates.Components.Types.PumpArrangement.Headered,
     final have_pumHeaWatPriVar_select=
       cfg.typPumHeaWatPriHp==Buildings.Templates.Plants.HeatPumps.Types.PumpsPrimary.Variable
-      or cfg.typPumHeaWatPriShc==Buildings.Templates.Plants.HeatPumps.Types.PumpsPrimary.Variable,
+      or cfg.typPumHeaWatPriPhp==Buildings.Templates.Plants.HeatPumps.Types.PumpsPrimary.Variable,
     final have_pumChiWatPriVar_select=
       cfg.typPumChiWatPriHp==Buildings.Templates.Plants.HeatPumps.Types.PumpsPrimary.Variable
-      or cfg.typPumChiWatPriShc==Buildings.Templates.Plants.HeatPumps.Types.PumpsPrimary.Variable,
+      or cfg.typPumChiWatPriPhp==Buildings.Templates.Plants.HeatPumps.Types.PumpsPrimary.Variable,
     final have_senDpChiWatRemWir=cfg.have_senDpChiWatRemWir,
     final have_senDpHeaWatRemWir=cfg.have_senDpHeaWatRemWir,
     final have_senTChiWatPriRet_select=have_senTChiWatPriRet_select,
@@ -332,7 +332,7 @@ equation
   annotation (
     defaultComponentName="ctl", Documentation(info="<html>
 <p>
-This class implements the sequence of operation for plants with 
+This class implements the sequence of operation for plants with
 air-to-water heat pumps.
 It is based on the controller
 <a href=\"modelica://Buildings.Templates.Plants.Controls.HeatPumps.AirToWater\">
@@ -349,7 +349,7 @@ AI signal with a dimensionality of zero</li>
 <li>HW differential pressure from remote sensor(s) <code>dpHeaWatRem</code>:
 AI signal with a dimensionality of one, the number of remote
 sensors is specified by the parameter <code>nSenDpHeaWatRem</code>.</li>
-<li>CHW differential pressure from remote sensor(s) <code>dpChiWatRem</code> – 
+<li>CHW differential pressure from remote sensor(s) <code>dpChiWatRem</code> –
 only for heating and cooling plants:
 AI signal with a dimensionality of one, the number of remote
 sensors is specified by the parameter <code>nSenDpChiWatRem</code>.</li>
@@ -366,14 +366,14 @@ equipment controller <code>bus(AirHan|EquZon)[:].reqResHeaWat</code>:
 AI signal (Integer), with a dimensionality of one
 </li>
 <li>
-CHW plant requests yielded by the air handler or zone equipment controller 
-<code>bus(AirHan|EquZon)[:].reqPlaChiWat</code> – 
+CHW plant requests yielded by the air handler or zone equipment controller
+<code>bus(AirHan|EquZon)[:].reqPlaChiWat</code> –
 only for heating and cooling plants:
 AI signal (Integer), with a dimensionality of one
 </li>
 <li>
-CHW reset requests yielded by the air handler or zone equipment controller 
-<code>bus(AirHan|EquZon)[:].reqResChiWat</code> – 
+CHW reset requests yielded by the air handler or zone equipment controller
+<code>bus(AirHan|EquZon)[:].reqResChiWat</code> –
 only for heating and cooling plants:
 AI signal (Integer), with a dimensionality of one
 </li>

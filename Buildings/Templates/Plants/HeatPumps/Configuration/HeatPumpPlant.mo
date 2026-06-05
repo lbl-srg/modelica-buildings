@@ -18,22 +18,22 @@ record HeatPumpPlant
   parameter Boolean have_hp
     "Set to true for plants with non-reversible or reversible heat pumps"
     annotation(Evaluate=true);
-  parameter Boolean have_shc
-    "Set to true for plants with polyvalent (SHC) units"
+  parameter Boolean have_php
+    "Set to true for plants with polyvalent heat pumps"
     annotation(Evaluate=true);
   parameter Boolean have_hrc
     "Set to true for plants with a sidestream heat recovery chiller"
     annotation(Evaluate=true);
-  parameter Integer nHp "Number of heat pumps (excluding SHC units)"
+  parameter Integer nHp "Number of heat pumps (excluding polyvalent units)"
     annotation(Evaluate=true);
-  parameter Integer nShc
-    "Number of polyvalent (SHC) units"
+  parameter Integer nPhp
+    "Number of polyvalent heat pumps"
     annotation(Evaluate=true);
   parameter Boolean is_rev
     "Set to true for reversible heat pumps, false for heating only"
     annotation(Evaluate=true);
-  parameter Boolean is_shcMod
-    "Set to true for modular SHC unit"
+  parameter Boolean is_phpMod
+    "Set to true for modular polyvalent heat pump"
     annotation(Evaluate=true);
   parameter Boolean have_valHpInlIso
     "Set to true for isolation valves at HP inlet"
@@ -41,11 +41,11 @@ record HeatPumpPlant
   parameter Boolean have_valHpOutIso
     "Set to true for isolation valves at HP outlet"
     annotation(Evaluate=true);
-  parameter Boolean have_valShcInlIso
-    "Set to true for isolation valves at SHC unit inlet"
+  parameter Boolean have_valPhpInlIso
+    "Set to true for isolation valves at polyvalent HP inlet"
     annotation(Evaluate=true);
-  parameter Boolean have_valShcOutIso
-    "Set to true for isolation valves at SHC unit outlet"
+  parameter Boolean have_valPhpOutIso
+    "Set to true for isolation valves at polyvalent HP outlet"
     annotation(Evaluate=true);
   parameter Buildings.Templates.Plants.HeatPumps.Types.Controller typCtl
     "Type of controller"
@@ -79,8 +79,8 @@ record HeatPumpPlant
   parameter Buildings.Templates.Plants.HeatPumps.Types.PumpsPrimary typPumHeaWatPriHp
     "Type of HP primary HW pumps"
     annotation(Evaluate=true);
-  parameter Buildings.Templates.Plants.HeatPumps.Types.PumpsPrimary typPumHeaWatPriShc
-    "Type of SHC unit primary HW pumps"
+  parameter Buildings.Templates.Plants.HeatPumps.Types.PumpsPrimary typPumHeaWatPriPhp
+    "Type of polyvalent HP primary HW pumps"
     annotation(Evaluate=true);
   parameter Integer nPumHeaWatPri
     "Number of primary HW pumps"
@@ -116,8 +116,8 @@ record HeatPumpPlant
   parameter Buildings.Templates.Plants.HeatPumps.Types.PumpsPrimary typPumChiWatPriHp
     "Type of HP primary CHW pumps"
     annotation(Evaluate=true);
-  parameter Buildings.Templates.Plants.HeatPumps.Types.PumpsPrimary typPumChiWatPriShc
-    "Type of SHC unit primary CHW pumps"
+  parameter Buildings.Templates.Plants.HeatPumps.Types.PumpsPrimary typPumChiWatPriPhp
+    "Type of polyvalent HP primary CHW pumps"
     annotation(Evaluate=true);
   parameter Integer nPumChiWatPri
     "Number of primary CHW pumps"

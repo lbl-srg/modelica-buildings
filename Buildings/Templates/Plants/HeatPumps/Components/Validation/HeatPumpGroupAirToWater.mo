@@ -8,7 +8,7 @@ model HeatPumpGroupAirToWater
     "CHW/HW medium";
 
   parameter Integer nHp = 3
-    "Number of heat pumps (excluding SHC units)"
+    "Number of heat pumps (excluding polyvalent HPs)"
     annotation(Evaluate=true);
   parameter Modelica.Fluid.Types.Dynamics energyDynamics =
     Modelica.Fluid.Types.Dynamics.FixedInitial
@@ -23,8 +23,8 @@ model HeatPumpGroupAirToWater
       have_chiWat=false,
       typPumHeaWatPriHp=Buildings.Templates.Plants.HeatPumps.Types.PumpsPrimary.Variable,
       typPumChiWatPriHp=Buildings.Templates.Plants.HeatPumps.Types.PumpsPrimary.None,
-      typPumHeaWatPriShc=Buildings.Templates.Plants.HeatPumps.Types.PumpsPrimary.None,
-      typPumChiWatPriShc=Buildings.Templates.Plants.HeatPumps.Types.PumpsPrimary.None,
+      typPumHeaWatPriPhp=Buildings.Templates.Plants.HeatPumps.Types.PumpsPrimary.None,
+      typPumChiWatPriPhp=Buildings.Templates.Plants.HeatPumps.Types.PumpsPrimary.None,
       typPumHeaWatSec=Buildings.Templates.Plants.HeatPumps.Types.PumpsSecondary.None,
       typTanHeaWat=Buildings.Templates.Components.Types.IntegrationPoint.None,
       typTanChiWat=Buildings.Templates.Components.Types.IntegrationPoint.None,
@@ -58,12 +58,12 @@ model HeatPumpGroupAirToWater
       nAirHan=0,
       nEquZon=0,
       final have_hp=hpAwNrv.have_hp,
-      final have_shc=hpAwNrv.have_shc,
-      final is_shcMod=false,
-      final nShc=hpAwNrv.nShc,
-      have_valShcInlIso=false,
-      have_valShcOutIso=false,
-      have_pumChiWatDedHp=false),
+      final have_php=hpAwNrv.have_php,
+      final nPhp=hpAwNrv.nPhp,
+      have_valPhpInlIso=false,
+      have_valPhpOutIso=false,
+      have_pumChiWatDedHp=false,
+      final is_phpMod=false),
     THeaWatSup_nominal=datHpAwNrv.THeaWatSupHp_nominal,
     dpChiWatRemSet_max=fill(
       Buildings.Templates.Data.Defaults.dpChiWatRemSet_max,
@@ -81,8 +81,8 @@ model HeatPumpGroupAirToWater
       have_chiWat=true,
       typPumHeaWatPriHp=Buildings.Templates.Plants.HeatPumps.Types.PumpsPrimary.Variable,
       typPumChiWatPriHp=Buildings.Templates.Plants.HeatPumps.Types.PumpsPrimary.None,
-      typPumHeaWatPriShc=Buildings.Templates.Plants.HeatPumps.Types.PumpsPrimary.None,
-      typPumChiWatPriShc=Buildings.Templates.Plants.HeatPumps.Types.PumpsPrimary.None,
+      typPumHeaWatPriPhp=Buildings.Templates.Plants.HeatPumps.Types.PumpsPrimary.None,
+      typPumChiWatPriPhp=Buildings.Templates.Plants.HeatPumps.Types.PumpsPrimary.None,
       typPumHeaWatSec=Buildings.Templates.Plants.HeatPumps.Types.PumpsSecondary.None,
       typTanHeaWat=Buildings.Templates.Components.Types.IntegrationPoint.None,
       typTanChiWat=Buildings.Templates.Components.Types.IntegrationPoint.None,
@@ -116,12 +116,12 @@ model HeatPumpGroupAirToWater
       nAirHan=0,
       nEquZon=0,
       final have_hp=hpAw.have_hp,
-      final have_shc=hpAw.have_shc,
-      final is_shcMod=false,
-      final nShc=hpAw.nShc,
-      have_valShcInlIso=false,
-      have_valShcOutIso=false,
-      have_pumChiWatDedHp=false),
+      final have_php=hpAw.have_php,
+      final nPhp=hpAw.nPhp,
+      have_valPhpInlIso=false,
+      have_valPhpOutIso=false,
+      have_pumChiWatDedHp=false,
+      final is_phpMod=false),
     THeaWatSup_nominal=datHpAw.THeaWatSupHp_nominal,
     TChiWatSup_nominal=datHpAw.TChiWatSupHp_nominal,
     dpChiWatRemSet_max=fill(
@@ -155,7 +155,7 @@ model HeatPumpGroupAirToWater
       use_TConOutForTab=true,
       tabUppBou=[263.15, 323.15; 313.15, 323.15]),
     have_hp=true,
-    have_shc=false)
+    have_php=false)
     "Non-reversible AWHP parameters"
     annotation(Placement(transformation(extent={{-220,60},{-200,80}})));
   parameter Buildings.Templates.Plants.HeatPumps.Components.Data.HeatPumpGroup datHpAw(
@@ -191,7 +191,7 @@ model HeatPumpGroupAirToWater
         "modelica://Buildings/Resources/Data/Templates/Components/HeatPumps/Validation/AWHP_Cooling.txt"),
       PLRSup={1}),
     have_hp=true,
-    have_shc=false)
+    have_php=false)
     "Reversible AWHP parameters"
     annotation(Placement(transformation(extent={{-220,-180},{-200,-160}})));
   Fluid.Sources.Boundary_pT sup(

@@ -18,17 +18,17 @@ model ValvesIsolation
     else Buildings.Templates.Components.Types.Valve.None
     "Valve type at HP outlet"
     annotation(Evaluate=true);
-  final parameter Buildings.Templates.Components.Types.Valve typValShcInlIso =
-    if have_valShcInlIso
+  final parameter Buildings.Templates.Components.Types.Valve typValPhpInlIso =
+    if have_valPhpInlIso
     then Buildings.Templates.Components.Types.Valve.TwoWayTwoPosition
     else Buildings.Templates.Components.Types.Valve.None
-    "Valve type at SHC unit inlet"
+    "Valve type at polyvalent HP inlet"
     annotation(Evaluate=true);
-  final parameter Buildings.Templates.Components.Types.Valve typValShcOutIso =
-    if have_valShcOutIso
+  final parameter Buildings.Templates.Components.Types.Valve typValPhpOutIso =
+    if have_valPhpOutIso
     then Buildings.Templates.Components.Types.Valve.TwoWayTwoPosition
     else Buildings.Templates.Components.Types.Valve.None
-    "Valve type at SHC unit outlet"
+    "Valve type at polyvalent HP outlet"
     annotation(Evaluate=true);
   parameter Boolean have_chiWat = true
     "Set to true if the plant provides CHW"
@@ -38,20 +38,20 @@ model ValvesIsolation
     "Set to true for plants with non-reversible or reversible heat pumps"
     annotation(Evaluate=true,
       Dialog(group="Configuration"));
-  parameter Boolean have_shc = false
-    "Set to true for plants with polyvalent (SHC) units"
+  parameter Boolean have_php = false
+    "Set to true for plants with polyvalent heat pumps"
     annotation(Evaluate=true,
       Dialog(group="Configuration"));
-  parameter Boolean is_shcMod = false
-    "Set to true for modular SHC unit"
+  parameter Boolean is_phpMod = false
+    "Set to true for modular polyvalent HP"
     annotation(Evaluate=true,
       Dialog(group="Configuration"));
   parameter Integer nHp
-    "Number of heat pumps (excluding SHC units)"
+    "Number of heat pumps (excluding polyvalent HPs)"
     annotation(Evaluate=true,
       Dialog(group="Configuration"));
-  parameter Integer nShc = 0
-    "Number of polyvalent (SHC) units"
+  parameter Integer nPhp = 0
+    "Number of polyvalent heat pumps"
     annotation(Evaluate=true,
       Dialog(group="Configuration"));
   parameter Boolean have_valHpInlIso = false
@@ -62,66 +62,66 @@ model ValvesIsolation
     "Set to true for isolation valves at HP outlet"
     annotation(Evaluate=true,
       Dialog(group="Configuration"));
-  parameter Boolean have_valShcInlIso = false
-    "Set to true for isolation valves at SHC unit inlet"
+  parameter Boolean have_valPhpInlIso = false
+    "Set to true for isolation valves at polyvalent HP inlet"
     annotation(Evaluate=true,
       Dialog(group="Configuration"));
-  parameter Boolean have_valShcOutIso = false
-    "Set to true for isolation valves at SHC unit outlet"
+  parameter Boolean have_valPhpOutIso = false
+    "Set to true for isolation valves at polyvalent HP outlet"
     annotation(Evaluate=true,
       Dialog(group="Configuration"));
   parameter Boolean have_pumChiWatDedHp = false
     "Set to true for HP with separate dedicated primary CHW pumps"
     annotation(Evaluate=true,
       Dialog(group="Configuration"));
-  parameter Modelica.Units.SI.MassFlowRate mHeaWatUni_flow_nominal[nHp + nShc](
+  parameter Modelica.Units.SI.MassFlowRate mHeaWatUni_flow_nominal[nHp + nPhp](
     each final min=0)
     "HW mass flow rate - Each unit "
     annotation(Dialog(group="Nominal condition"));
   parameter Modelica.Units.SI.PressureDifference dpHeaWatUni_nominal[nHp +
-    nShc](
+    nPhp](
     each final min=0,
     each start=Buildings.Templates.Data.Defaults.dpHeaWatHp)
     "Pressure drop at design HW mass flow rate - Each unit"
     annotation(Dialog(group="Nominal condition"));
   parameter Modelica.Units.SI.PressureDifference dpBalHeaWatUni_nominal[nHp +
-    nShc](each final min=0) = fill(0, nHp + nShc)
+    nPhp](each final min=0) = fill(0, nHp + nPhp)
     "Balancing valve pressure drop at design HW mass flow rate - Each unit"
     annotation(Dialog(group="Nominal condition"));
-  parameter Modelica.Units.SI.MassFlowRate mChiWatUni_flow_nominal[nHp + nShc](
+  parameter Modelica.Units.SI.MassFlowRate mChiWatUni_flow_nominal[nHp + nPhp](
     each final min=0,
     each start=0)
     "CHW mass flow rate - Each unit"
     annotation(Dialog(group="Nominal condition",
       enable=have_chiWat));
-  parameter Modelica.Units.SI.PressureDifference dpChiWatShc_nominal[nShc](
+  parameter Modelica.Units.SI.PressureDifference dpChiWatPhp_nominal[nPhp](
     each final min=0,
     each start=0)
-    "Pressure drop at design CHW mass flow rate - Each SHC unit"
+    "Pressure drop at design CHW mass flow rate - Each polyvalent HP"
     annotation(Dialog(group="Nominal condition",
-      enable=have_chiWat and have_shc));
+      enable=have_chiWat and have_php));
   final parameter Modelica.Units.SI.PressureDifference dpChiWatUni_nominal[nHp +
-    nShc] =
+    nPhp] =
     cat(
       1,
       if have_hp
       then dpHeaWatUni_nominal[1:nHp] .*
         (mChiWatUni_flow_nominal[1:nHp] ./ mHeaWatUni_flow_nominal[1:nHp]) .^ 2
       else fill(0, 0),
-      if have_shc then dpChiWatShc_nominal else fill(0, 0))
+      if have_php then dpChiWatPhp_nominal else fill(0, 0))
     "Pressure drop at design CHW mass flow rate - Each unit";
   parameter Modelica.Units.SI.PressureDifference dpBalChiWatUni_nominal[nHp +
-    nShc](each final min=0, each start=0) = fill(0, nHp + nShc)
+    nPhp](each final min=0, each start=0) = fill(0, nHp + nPhp)
     "Balancing valve pressure drop at design CHW mass flow rate - Each unit"
     annotation(Dialog(group="Nominal condition",
       enable=have_chiWat));
   parameter Modelica.Units.SI.PressureDifference dpValveHeaWat_nominal[nHp +
-    nShc](each final min=0) =
-    fill(Buildings.Templates.Data.Defaults.dpValIso, nHp + nShc)
+    nPhp](each final min=0) =
+    fill(Buildings.Templates.Data.Defaults.dpValIso, nHp + nPhp)
     "HW isolation valve pressure drop (identical for inlet and outlet valves)"
     annotation(Dialog(group="Nominal condition"));
   final parameter Modelica.Units.SI.PressureDifference dpFixedHeaWat_nominal[nHp +
-    nShc] = dpHeaWatUni_nominal + dpBalHeaWatUni_nominal
+    nPhp] = dpHeaWatUni_nominal + dpBalHeaWatUni_nominal
     "Fixed HW pressure drop: HP + balancing valve"
     annotation(Dialog(group="Nominal condition"));
   // The following two parameters are intended for external use.
@@ -131,68 +131,68 @@ model ValvesIsolation
    * error in the validation model with OCT 1.66.
    */
   final parameter Modelica.Units.SI.PressureDifference dpHeaWatVal_nominal[nHp +
-    nShc] =
-    if have_hp and have_shc
+    nPhp] =
+    if have_hp and have_php
     then cat(
       1,
       dpValveHeaWat_nominal[1:nHp] * ((if have_valHpInlIso then 1 else 0) +
         (if have_valHpOutIso then 1 else 0)),
-      dpValveHeaWat_nominal[nHp + 1:nHp + nShc] * ((if have_valShcInlIso
-      then 1 else 0) + (if have_valShcOutIso then 1 else 0)))
+      dpValveHeaWat_nominal[nHp + 1:nHp + nPhp] * ((if have_valPhpInlIso
+      then 1 else 0) + (if have_valPhpOutIso then 1 else 0)))
     elseif have_hp
     then dpValveHeaWat_nominal[1:nHp] * ((if have_valHpInlIso then 1 else 0) +
       (if have_valHpOutIso then 1 else 0))
-    else dpValveHeaWat_nominal[nHp + 1:nHp + nShc] * ((if have_valShcInlIso
-        then 1 else 0) + (if have_valShcOutIso then 1 else 0))
+    else dpValveHeaWat_nominal[nHp + 1:nHp + nPhp] * ((if have_valPhpInlIso
+        then 1 else 0) + (if have_valPhpOutIso then 1 else 0))
     "Total HW pressure drop for inlet and outlet valves"
     annotation(Evaluate=true);
   final parameter Modelica.Units.SI.PressureDifference dpHeaWat_nominal[nHp +
-    nShc] = dpFixedHeaWat_nominal .+ dpHeaWatVal_nominal
+    nPhp] = dpFixedHeaWat_nominal .+ dpHeaWatVal_nominal
     "Total HW pressure drop: fixed + valves";
   parameter Modelica.Units.SI.PressureDifference dpValveChiWat_nominal[nHp +
-    nShc](each final min=0, each start=0) =
+    nPhp](each final min=0, each start=0) =
     if have_chiWat
-    then fill(Buildings.Templates.Data.Defaults.dpValIso, nHp + nShc)
-    else fill(0, nHp + nShc)
+    then fill(Buildings.Templates.Data.Defaults.dpValIso, nHp + nPhp)
+    else fill(0, nHp + nPhp)
     "Isolation valve CHW pressure drop (identical for inlet and outlet valves)"
     annotation(Dialog(group="Nominal condition",
       enable=have_chiWat));
   final parameter Modelica.Units.SI.PressureDifference dpFixedChiWat_nominal[nHp +
-    nShc] =
+    nPhp] =
     if have_chiWat
-    then dpBalChiWatUni_nominal + dpChiWatUni_nominal else fill(0, nHp + nShc)
+    then dpBalChiWatUni_nominal + dpChiWatUni_nominal else fill(0, nHp + nPhp)
     "Total fixed CHW pressure drop"
     annotation(Dialog(group="Nominal condition",
       enable=have_chiWat));
   // The following two parameters are intended for external use.
   final parameter Modelica.Units.SI.PressureDifference dpChiWatVal_nominal[nHp +
-    nShc] =
-    if have_hp and have_shc
+    nPhp] =
+    if have_hp and have_php
     then cat(
       1,
       dpValveChiWat_nominal[1:nHp] * ((if have_valHpInlIso then 1 else 0) +
         (if have_valHpOutIso then 1 else 0)),
-      dpValveChiWat_nominal[nHp + 1:nHp + nShc] * ((if have_valShcInlIso
-      then 1 else 0) + (if have_valShcOutIso then 1 else 0)))
+      dpValveChiWat_nominal[nHp + 1:nHp + nPhp] * ((if have_valPhpInlIso
+      then 1 else 0) + (if have_valPhpOutIso then 1 else 0)))
     elseif have_hp
     then dpValveChiWat_nominal[1:nHp] * ((if have_valHpInlIso then 1 else 0) +
       (if have_valHpOutIso then 1 else 0))
-    else dpValveChiWat_nominal[nHp + 1:nHp + nShc] * ((if have_valShcInlIso
-        then 1 else 0) + (if have_valShcOutIso then 1 else 0))
+    else dpValveChiWat_nominal[nHp + 1:nHp + nPhp] * ((if have_valPhpInlIso
+        then 1 else 0) + (if have_valPhpOutIso then 1 else 0))
     "Total CHW pressure drop for inlet and outlet valves"
     annotation(Evaluate=true);
   final parameter Modelica.Units.SI.PressureDifference dpChiWat_nominal[nHp +
-    nShc] =
+    nPhp] =
     if have_chiWat
-    then dpFixedChiWat_nominal .+ dpChiWatVal_nominal else fill(0, nHp + nShc)
+    then dpFixedChiWat_nominal .+ dpChiWatVal_nominal else fill(0, nHp + nPhp)
     "Total CHW pressure drop: fixed + valves"
     annotation(Dialog(group="Nominal condition",
       enable=have_chiWat));
   // We include the fixed resistance prioritarily where isolation valves are used.
   // If no isolation valves are used, the fixed resistance is included at outlet.
   final parameter Buildings.Templates.Components.Data.Valve datValHeaWatUniOutIso[nHp +
-    nShc](
-    typ=cat(1, fill(typValHpOutIso, nHp), fill(typValShcOutIso, nShc)),
+    nPhp](
+    typ=cat(1, fill(typValHpOutIso, nHp), fill(typValPhpOutIso, nPhp)),
     m_flow_nominal=mHeaWatUni_flow_nominal,
     dpValve_nominal=dpValveHeaWat_nominal,
     dpFixed_nominal=dpFixedHeaWat_nominal .* cat(
@@ -204,16 +204,16 @@ model ValvesIsolation
         then 1 else 0,
         nHp),
       fill(
-        if have_shc
-          and (have_valShcOutIso
-            or not have_valShcOutIso and not have_valShcInlIso)
+        if have_php
+          and (have_valPhpOutIso
+            or not have_valPhpOutIso and not have_valPhpInlIso)
         then 1 else 0,
-        nShc)))
+        nPhp)))
     "Unit outlet HW isolation valve parameters"
     annotation(Placement(transformation(extent={{-10,0},{10,20}})));
   final parameter Buildings.Templates.Components.Data.Valve datValHeaWatUniInlIso[nHp +
-    nShc](
-    typ=cat(1, fill(typValHpInlIso, nHp), fill(typValShcInlIso, nShc)),
+    nPhp](
+    typ=cat(1, fill(typValHpInlIso, nHp), fill(typValPhpInlIso, nPhp)),
     m_flow_nominal=mHeaWatUni_flow_nominal,
     dpValve_nominal=dpValveHeaWat_nominal,
     dpFixed_nominal=dpFixedHeaWat_nominal .* cat(
@@ -222,14 +222,14 @@ model ValvesIsolation
         if have_hp and not have_valHpOutIso and have_valHpInlIso then 1 else 0,
         nHp),
       fill(
-        if have_shc and not have_valShcOutIso and have_valShcInlIso
+        if have_php and not have_valPhpOutIso and have_valPhpInlIso
         then 1 else 0,
-        nShc)))
+        nPhp)))
     "Unit inlet HW isolation valve parameters"
     annotation(Placement(transformation(extent={{-10,30},{10,50}})));
   final parameter Buildings.Templates.Components.Data.Valve datValChiWatUniOutIso[nHp +
-    nShc](
-    typ=cat(1, fill(typValHpOutIso, nHp), fill(typValShcOutIso, nShc)),
+    nPhp](
+    typ=cat(1, fill(typValHpOutIso, nHp), fill(typValPhpOutIso, nPhp)),
     m_flow_nominal=mChiWatUni_flow_nominal,
     dpValve_nominal=dpValveChiWat_nominal,
     dpFixed_nominal=dpFixedChiWat_nominal .* cat(
@@ -241,16 +241,16 @@ model ValvesIsolation
         then 1 else 0,
         nHp),
       fill(
-        if have_shc
-          and (have_valShcOutIso
-            or not have_valShcOutIso and not have_valShcInlIso)
+        if have_php
+          and (have_valPhpOutIso
+            or not have_valPhpOutIso and not have_valPhpInlIso)
         then 1 else 0,
-        nShc)))
+        nPhp)))
     "Unit outlet CHW isolation valve parameters"
     annotation(Placement(transformation(extent={{-10,-30},{10,-10}})));
   final parameter Buildings.Templates.Components.Data.Valve datValChiWatUniInlIso[nHp +
-    nShc](
-    typ=cat(1, fill(typValHpInlIso, nHp), fill(typValShcInlIso, nShc)),
+    nPhp](
+    typ=cat(1, fill(typValHpInlIso, nHp), fill(typValPhpInlIso, nPhp)),
     m_flow_nominal=mChiWatUni_flow_nominal,
     dpValve_nominal=dpValveChiWat_nominal,
     dpFixed_nominal=dpFixedChiWat_nominal .* cat(
@@ -259,9 +259,9 @@ model ValvesIsolation
         if have_hp and not have_valHpOutIso and have_valHpInlIso then 1 else 0,
         nHp),
       fill(
-        if have_shc and not have_valShcOutIso and have_valShcInlIso
+        if have_php and not have_valPhpOutIso and have_valPhpInlIso
         then 1 else 0,
-        nShc)))
+        nPhp)))
     "Heat pump inlet CHW isolation valve parameters"
     annotation(Placement(transformation(extent={{-10,-60},{10,-40}})));
   parameter Modelica.Fluid.Types.Dynamics energyDynamics =
@@ -414,10 +414,10 @@ model ValvesIsolation
     "Plant control bus"
     annotation(Placement(transformation(extent={{-20,180},{20,220}}),
       iconTransformation(extent={{-20,380},{20,420}})));
-  Buildings.Templates.Components.Actuators.Valve valHeaWatUniOutIso[nHp + nShc](
+  Buildings.Templates.Components.Actuators.Valve valHeaWatUniOutIso[nHp + nPhp](
     redeclare each final package Medium=Medium,
     final dat=datValHeaWatUniOutIso,
-    final typ=cat(1, fill(typValHpOutIso, nHp), fill(typValShcOutIso, nShc)),
+    final typ=cat(1, fill(typValHpOutIso, nHp), fill(typValPhpOutIso, nPhp)),
     each final use_strokeTime=use_strokeTime,
     each final strokeTime=strokeTime,
     each final init=init,
@@ -428,10 +428,10 @@ model ValvesIsolation
     annotation(Placement(transformation(extent={{-10,10},{10,-10}},
       rotation=90,
       origin={-160,0})));
-  Buildings.Templates.Components.Actuators.Valve valChiWatUniOutIso[nHp + nShc](
+  Buildings.Templates.Components.Actuators.Valve valChiWatUniOutIso[nHp + nPhp](
     redeclare each final package Medium=Medium,
     final dat=datValChiWatUniOutIso,
-    final typ=cat(1, fill(typValHpOutIso, nHp), fill(typValShcOutIso, nShc)),
+    final typ=cat(1, fill(typValHpOutIso, nHp), fill(typValPhpOutIso, nPhp)),
     each final use_strokeTime=use_strokeTime,
     each final strokeTime=strokeTime,
     each final init=init,
@@ -443,10 +443,10 @@ model ValvesIsolation
     annotation(Placement(transformation(extent={{-10,-10},{10,10}},
       rotation=90,
       origin={-80,0})));
-  Buildings.Templates.Components.Actuators.Valve valHeaWatUniInlIso[nHp + nShc](
+  Buildings.Templates.Components.Actuators.Valve valHeaWatUniInlIso[nHp + nPhp](
     redeclare each final package Medium=Medium,
     final dat=datValHeaWatUniInlIso,
-    final typ=cat(1, fill(typValHpInlIso, nHp), fill(typValShcInlIso, nShc)),
+    final typ=cat(1, fill(typValHpInlIso, nHp), fill(typValPhpInlIso, nPhp)),
     each final use_strokeTime=use_strokeTime,
     each final strokeTime=strokeTime,
     each final init=init,
@@ -457,10 +457,10 @@ model ValvesIsolation
     annotation(Placement(transformation(extent={{10,-10},{-10,10}},
       rotation=90,
       origin={80,0})));
-  Buildings.Templates.Components.Actuators.Valve valChiWatUniInlIso[nHp + nShc](
+  Buildings.Templates.Components.Actuators.Valve valChiWatUniInlIso[nHp + nPhp](
     redeclare each final package Medium=Medium,
     final dat=datValChiWatUniInlIso,
-    final typ=cat(1, fill(typValHpInlIso, nHp), fill(typValShcInlIso, nShc)),
+    final typ=cat(1, fill(typValHpInlIso, nHp), fill(typValPhpInlIso, nPhp)),
     each final use_strokeTime=use_strokeTime,
     each final strokeTime=strokeTime,
     each final init=init,
@@ -479,7 +479,7 @@ model ValvesIsolation
     final energyDynamics=energyDynamics,
     final allowFlowReversal=allowFlowReversal,
     final prescribedHeatFlowRate=false,
-    final nPorts=nHp + 1 + (if have_shc then nShc else 0))
+    final nPorts=nHp + 1 + (if have_php then nPhp else 0))
     "Fluid volume at junction"
     annotation(Placement(transformation(extent={{-10,-10},{10,10}},
       rotation=0,
@@ -491,7 +491,7 @@ model ValvesIsolation
     final energyDynamics=energyDynamics,
     final allowFlowReversal=allowFlowReversal,
     final prescribedHeatFlowRate=false,
-    final nPorts=nHp + 1 + (if have_shc then nShc else 0))
+    final nPorts=nHp + 1 + (if have_php then nPhp else 0))
     if have_chiWat
     "Fluid volume at junction"
     annotation(Placement(transformation(extent={{-10,-10},{10,10}},
@@ -504,7 +504,7 @@ model ValvesIsolation
     final energyDynamics=energyDynamics,
     final allowFlowReversal=allowFlowReversal,
     final prescribedHeatFlowRate=false,
-    final nPorts=nHp + 1 + (if have_shc then nShc else 0))
+    final nPorts=nHp + 1 + (if have_php then nPhp else 0))
     "Fluid volume at junction"
     annotation(Placement(transformation(extent={{-10,-10},{10,10}},
       rotation=0,
@@ -516,54 +516,54 @@ model ValvesIsolation
     final energyDynamics=energyDynamics,
     final allowFlowReversal=allowFlowReversal,
     final prescribedHeatFlowRate=false,
-    final nPorts=nHp + 1 + (if have_shc then nShc else 0))
+    final nPorts=nHp + 1 + (if have_php then nPhp else 0))
     if have_chiWat
     "Fluid volume at junction"
     annotation(Placement(transformation(extent={{-10,-10},{10,10}},
       rotation=0,
       origin={160,70})));
-  Modelica.Fluid.Interfaces.FluidPorts_b ports_bChiWatShc[nShc](
+  Modelica.Fluid.Interfaces.FluidPorts_b ports_bChiWatPhp[nPhp](
     redeclare each final package Medium=Medium,
     each m_flow(max=if allowFlowReversal then +Modelica.Constants.inf else 0),
     each h_outflow(start=Medium.h_default, nominal=Medium.h_default))
-    if have_shc
-    "CHW return – SHC unit entering"
+    if have_php
+    "CHW return – Polyvalent heat pump entering"
     annotation(Placement(transformation(extent={{-10,-40},{10,40}},
       rotation=90,
       origin={160,-200}),
       iconTransformation(extent={{-10,-40},{10,40}},
         rotation=90,
         origin={340,-700})));
-  Modelica.Fluid.Interfaces.FluidPorts_b ports_bHeaWatShc[nShc](
+  Modelica.Fluid.Interfaces.FluidPorts_b ports_bHeaWatPhp[nPhp](
     redeclare each final package Medium=Medium,
     each m_flow(max=if allowFlowReversal then +Modelica.Constants.inf else 0),
     each h_outflow(start=Medium.h_default, nominal=Medium.h_default))
-    if have_shc
-    "HW return – SHC unit entering"
+    if have_php
+    "HW return – Polyvalent heat pump entering"
     annotation(Placement(transformation(extent={{-10,-40},{10,40}},
       rotation=90,
       origin={100,-200}),
       iconTransformation(extent={{-10,-40},{10,40}},
         rotation=90,
         origin={500,-700})));
-  Modelica.Fluid.Interfaces.FluidPorts_a ports_aHeaWatShc[nShc](
+  Modelica.Fluid.Interfaces.FluidPorts_a ports_aHeaWatPhp[nPhp](
     redeclare each final package Medium=Medium,
     each m_flow(min=if allowFlowReversal then -Modelica.Constants.inf else 0),
     each h_outflow(start=Medium.h_default, nominal=Medium.h_default))
-    if have_shc
-    "HW supply – SHC unit leaving"
+    if have_php
+    "HW supply – Polyvalent heat pump leaving"
     annotation(Placement(transformation(extent={{-10,-40},{10,40}},
       rotation=90,
       origin={-60,-200}),
       iconTransformation(extent={{-10,-40},{10,40}},
         rotation=90,
         origin={-280,-700})));
-  Modelica.Fluid.Interfaces.FluidPorts_a ports_aChiWatShc[nShc](
+  Modelica.Fluid.Interfaces.FluidPorts_a ports_aChiWatPhp[nPhp](
     redeclare each final package Medium=Medium,
     each m_flow(min=if allowFlowReversal then -Modelica.Constants.inf else 0),
     each h_outflow(start=Medium.h_default, nominal=Medium.h_default))
-    if have_shc
-    "CHW supply – SHC unit leaving"
+    if have_php
+    "CHW supply – Polyvalent heat pump leaving"
     annotation(Placement(transformation(extent={{-10,-40},{10,40}},
       rotation=90,
       origin={-20,-200}),
@@ -591,25 +591,25 @@ model ValvesIsolation
     "Heat pump outlet CHW isolation valve control bus"
     annotation(Placement(transformation(extent={{-60,160},{-20,200}}),
       iconTransformation(extent={{-466,50},{-426,90}})));
-  Buildings.Templates.Components.Interfaces.Bus busValHeaWatShcOutIso[nShc]
-    if have_shc and have_valShcOutIso
-    "SHC unit outlet HW isolation valve control bus"
+  Buildings.Templates.Components.Interfaces.Bus busValHeaWatPhpOutIso[nPhp]
+    if have_php and have_valPhpOutIso
+    "Polyvalent HP outlet HW isolation valve control bus"
     annotation(Placement(transformation(extent={{-60,80},{-20,120}}),
       iconTransformation(extent={{-466,50},{-426,90}})));
-  Buildings.Templates.Components.Interfaces.Bus busValChiWatShcOutIso[nShc]
-    if have_shc and have_valShcOutIso
-    "SHC unit outlet CHW isolation valve control bus"
+  Buildings.Templates.Components.Interfaces.Bus busValChiWatPhpOutIso[nPhp]
+    if have_php and have_valPhpOutIso
+    "Polyvalent HP outlet CHW isolation valve control bus"
     annotation(Placement(transformation(extent={{-60,140},{-20,180}}),
       iconTransformation(extent={{-466,50},{-426,90}})));
   protected
-  Buildings.Templates.Components.Interfaces.Bus busValHeaWatShcInlIso[nShc]
-    if have_shc and have_valShcInlIso
-    "SHC unit inlet HW isolation valve control bus"
+  Buildings.Templates.Components.Interfaces.Bus busValHeaWatPhpInlIso[nPhp]
+    if have_php and have_valPhpInlIso
+    "Polyvalent HP inlet HW isolation valve control bus"
     annotation(Placement(transformation(extent={{20,80},{60,120}}),
       iconTransformation(extent={{-466,50},{-426,90}})));
-  Buildings.Templates.Components.Interfaces.Bus busValChiWatShcInlIso[nShc]
-    if have_shc and have_valShcInlIso
-    "SHC unit inlet CHW isolation valve control bus"
+  Buildings.Templates.Components.Interfaces.Bus busValChiWatPhpInlIso[nPhp]
+    if have_php and have_valPhpInlIso
+    "Polyvalent HP inlet CHW isolation valve control bus"
     annotation(Placement(transformation(extent={{20,140},{60,180}}),
       iconTransformation(extent={{-466,50},{-426,90}})));
 equation
@@ -638,21 +638,21 @@ equation
           thickness=0.5));
     end for;
   end if;
-  if have_shc then
-    for i in 1:nShc loop
-      connect(busValChiWatShcOutIso[i], valChiWatUniOutIso[nHp + i].bus)
+  if have_php then
+    for i in 1:nPhp loop
+      connect(busValChiWatPhpOutIso[i], valChiWatUniOutIso[nHp + i].bus)
         annotation(Line(points={{-40,160},{-120,160},{-120,0},{-90,0}},
           color={255,204,51},
           thickness=0.5));
-      connect(busValChiWatShcInlIso[i], valChiWatUniInlIso[nHp + i].bus)
+      connect(busValChiWatPhpInlIso[i], valChiWatUniInlIso[nHp + i].bus)
         annotation(Line(points={{40,160},{140,160},{140,0},{150,0}},
           color={255,204,51},
           thickness=0.5));
-      connect(busValHeaWatShcInlIso[i], valHeaWatUniInlIso[nHp + i].bus)
+      connect(busValHeaWatPhpInlIso[i], valHeaWatUniInlIso[nHp + i].bus)
         annotation(Line(points={{40,100},{60,100},{60,0},{70,0}},
           color={255,204,51},
           thickness=0.5));
-      connect(busValHeaWatShcOutIso[i], valHeaWatUniOutIso[nHp + i].bus)
+      connect(busValHeaWatPhpOutIso[i], valHeaWatUniOutIso[nHp + i].bus)
         annotation(Line(points={{-40,100},{-140,100},{-140,0},{-150,0}},
           color={255,204,51},
           thickness=0.5));
@@ -674,49 +674,49 @@ equation
     annotation(Line(points={{0,200},{0,180},{-40,180}},
       color={255,204,51},
       thickness=0.5));
-  connect(valHeaWatUniOutIso.port_b, junHeaWatSup.ports[1:nHp + nShc])
+  connect(valHeaWatUniOutIso.port_b, junHeaWatSup.ports[1:nHp + nPhp])
     annotation(Line(points={{-160,10},{-160,60}},
       color={0,127,255}));
-  connect(junHeaWatSup.ports[nHp + nShc + 1], port_bHeaWat)
+  connect(junHeaWatSup.ports[nHp + nPhp + 1], port_bHeaWat)
     annotation(Line(points={{-160,60},{-180,60},{-180,200}},
       color={0,127,255}));
-  connect(valChiWatUniOutIso.port_b, junChiWatSup.ports[1:nHp + nShc])
+  connect(valChiWatUniOutIso.port_b, junChiWatSup.ports[1:nHp + nPhp])
     annotation(Line(points={{-80,10},{-80,60}},
       color={0,127,255}));
-  connect(port_bChiWat, junChiWatSup.ports[nHp + nShc + 1])
+  connect(port_bChiWat, junChiWatSup.ports[nHp + nPhp + 1])
     annotation(Line(points={{-100,200},{-100,60},{-80,60}},
       color={0,127,255}));
-  connect(port_aHeaWat, junHeaWatRet.ports[nHp + nShc + 1])
+  connect(port_aHeaWat, junHeaWatRet.ports[nHp + nPhp + 1])
     annotation(Line(points={{100,200},{100,60},{80,60}},
       color={0,127,255}));
-  connect(port_aChiWat, junChiWatRet.ports[nHp + nShc + 1])
+  connect(port_aChiWat, junChiWatRet.ports[nHp + nPhp + 1])
     annotation(Line(points={{180,200},{180,60},{160,60}},
       color={0,127,255}));
-  connect(junHeaWatRet.ports[1:nHp + nShc], valHeaWatUniInlIso.port_a)
+  connect(junHeaWatRet.ports[1:nHp + nPhp], valHeaWatUniInlIso.port_a)
     annotation(Line(points={{80,60},{80,10}},
       color={0,127,255}));
-  connect(valChiWatUniInlIso.port_a, junChiWatRet.ports[1:nHp + nShc])
+  connect(valChiWatUniInlIso.port_a, junChiWatRet.ports[1:nHp + nPhp])
     annotation(Line(points={{160,10},{160,60}},
       color={0,127,255}));
-  connect(valChiWatUniInlIso[nHp + 1:nHp + nShc].port_b, ports_bChiWatShc)
+  connect(valChiWatUniInlIso[nHp + 1:nHp + nPhp].port_b, ports_bChiWatPhp)
     annotation(Line(points={{160,-10},{160,-200}},
       color={0,127,255}));
-  connect(valHeaWatUniInlIso[nHp + 1:nHp + nShc].port_b, ports_bHeaWatShc)
+  connect(valHeaWatUniInlIso[nHp + 1:nHp + nPhp].port_b, ports_bHeaWatPhp)
     annotation(Line(points={{80,-10},{80,-20},{100,-20},{100,-200}},
       color={0,127,255}));
-  connect(bus.valHeaWatShcOutIso, busValHeaWatShcOutIso)
+  connect(bus.valHeaWatPhpOutIso, busValHeaWatPhpOutIso)
     annotation(Line(points={{0,200},{0,100},{-40,100}},
       color={255,204,51},
       thickness=0.5));
-  connect(bus.valHeaWatShcInlIso, busValHeaWatShcInlIso)
+  connect(bus.valHeaWatPhpInlIso, busValHeaWatPhpInlIso)
     annotation(Line(points={{0,200},{0,100},{40,100}},
       color={255,204,51},
       thickness=0.5));
-  connect(bus.valChiWatShcOutIso, busValChiWatShcOutIso)
+  connect(bus.valChiWatPhpOutIso, busValChiWatPhpOutIso)
     annotation(Line(points={{0,200},{0,160},{-40,160}},
       color={255,204,51},
       thickness=0.5));
-  connect(bus.valChiWatShcInlIso, busValChiWatShcInlIso)
+  connect(bus.valChiWatPhpInlIso, busValChiWatPhpInlIso)
     annotation(Line(points={{0,200},{0,160},{40,160}},
       color={255,204,51},
       thickness=0.5));
@@ -726,10 +726,10 @@ equation
   connect(ports_aHeaWatHp, valHeaWatUniOutIso[1:nHp].port_a)
     annotation(Line(points={{-180,-200},{-180,-20},{-160,-20},{-160,-10}},
       color={0,127,255}));
-  connect(ports_aChiWatShc, valChiWatUniOutIso[nHp + 1:nHp + nShc].port_a)
+  connect(ports_aChiWatPhp, valChiWatUniOutIso[nHp + 1:nHp + nPhp].port_a)
     annotation(Line(points={{-20,-200},{-20,-20},{-80,-20},{-80,-10}},
       color={0,127,255}));
-  connect(ports_aHeaWatShc, valHeaWatUniOutIso[nHp + 1:nHp + nShc].port_a)
+  connect(ports_aHeaWatPhp, valHeaWatUniOutIso[nHp + 1:nHp + nPhp].port_a)
     annotation(Line(points={{-60,-200},{-60,-40},{-160,-40},{-160,-10}},
       color={0,127,255}));
   connect(ports_aChiHeaWatHp, valChiWatUniOutIso[1:nHp].port_a)
@@ -788,43 +788,43 @@ annotation(defaultComponentName="valIso",
       color={0,0,0},
       thickness=5,
       visible=have_chiWat and
-        (have_pumChiWatDedHp and nHp >= 2 or nHp + nShc >= 2 and nHp < 2)),
+        (have_pumChiWatDedHp and nHp >= 2 or nHp + nPhp >= 2 and nHp < 2)),
     Line(points={{200,-160},{200,-700}},
       color={0,0,0},
       thickness=5,
       visible=have_chiWat and
-        (have_pumChiWatDedHp and nHp >= 3 or nHp + nShc >= 3 and nHp < 3)),
+        (have_pumChiWatDedHp and nHp >= 3 or nHp + nPhp >= 3 and nHp < 3)),
     Line(points={{-600,-160},{-600,-700}},
       color={0,0,0},
       thickness=5,
       visible=have_chiWat and
-        (have_pumChiWatDedHp and nHp >= 4 or nHp + nShc >= 4 and nHp < 4)),
+        (have_pumChiWatDedHp and nHp >= 4 or nHp + nPhp >= 4 and nHp < 4)),
     Line(points={{-1400,-160},{-1400,-700}},
       color={0,0,0},
       thickness=5,
       visible=have_chiWat and
-        (have_pumChiWatDedHp and nHp >= 5 or nHp + nShc >= 5 and nHp < 5)),
+        (have_pumChiWatDedHp and nHp >= 5 or nHp + nPhp >= 5 and nHp < 5)),
     Line(points={{-2200,-160},{-2200,-700}},
       color={0,0,0},
       thickness=5,
       visible=have_chiWat and
-        (have_pumChiWatDedHp and nHp >= 6 or nHp + nShc >= 6 and nHp < 6)),
+        (have_pumChiWatDedHp and nHp >= 6 or nHp + nPhp >= 6 and nHp < 6)),
     Line(points={{1800,-160},{1800,-700}},
       color={0,0,0},
       thickness=5,
       visible=have_chiWat and
-        (have_pumChiWatDedHp and nHp >= 1 or nHp + nShc >= 1 and nHp < 1)),
+        (have_pumChiWatDedHp and nHp >= 1 or nHp + nPhp >= 1 and nHp < 1)),
     Line(points=if nHp >= 1
       then {{2400,200},{2400,-400},{2200,-400}}
       else {{2400,200},{2400,-400},{2400,-700}},
       color={0,0,0},
       pattern=LinePattern.Dash,
       thickness=5,
-      visible=have_chiWat and nHp + nShc >= 1),
+      visible=have_chiWat and nHp + nPhp >= 1),
     Line(points={{1800,-160},{1800,600},{2400,600}},
       color={0,0,0},
       thickness=5,
-      visible=have_chiWat and nHp + nShc >= 1),
+      visible=have_chiWat and nHp + nPhp >= 1),
     Bitmap(visible=have_chiWat and have_valHpOutIso and nHp >= 1,
       extent={{-100,-100},{100,100}},
       fileName="modelica://Buildings/Resources/Images/Templates/Components/Valves/TwoWay.svg",
@@ -834,7 +834,7 @@ annotation(defaultComponentName="valIso",
       color={0,0,0},
       pattern=LinePattern.Dash,
       thickness=5,
-      visible=nHp + nShc >= 1),
+      visible=nHp + nPhp >= 1),
     Bitmap(visible=have_valHpInlIso and nHp >= 1,
       extent={{-100,-100},{100,100}},
       fileName="modelica://Buildings/Resources/Images/Templates/Components/Valves/TwoWay.svg",
@@ -886,11 +886,11 @@ annotation(defaultComponentName="valIso",
       fillColor={255,255,255},
       fillPattern=FillPattern.Solid,
       pattern=LinePattern.None,
-      visible=have_chiWat and nHp + nShc >= 1),
+      visible=have_chiWat and nHp + nPhp >= 1),
     Line(points={{1000,-160},{1000,600},{1800,600}},
       color={0,0,0},
       thickness=5,
-      visible=have_chiWat and nHp + nShc >= 2),
+      visible=have_chiWat and nHp + nPhp >= 2),
     Bitmap(visible=have_chiWat and have_valHpOutIso and nHp >= 2,
       extent={{-100,-100},{100,100}},
       fileName="modelica://Buildings/Resources/Images/Templates/Components/Valves/TwoWay.svg",
@@ -900,7 +900,7 @@ annotation(defaultComponentName="valIso",
       color={0,0,0},
       pattern=LinePattern.Dash,
       thickness=5,
-      visible=nHp + nShc >= 2),
+      visible=nHp + nPhp >= 2),
     Bitmap(visible=have_valHpInlIso and nHp >= 2,
       extent={{-100,-100},{100,100}},
       fileName="modelica://Buildings/Resources/Images/Templates/Components/Valves/TwoWay.svg",
@@ -942,11 +942,11 @@ annotation(defaultComponentName="valIso",
       fillColor={255,255,255},
       fillPattern=FillPattern.Solid,
       pattern=LinePattern.None,
-      visible=have_chiWat and nHp + nShc >= 2),
+      visible=have_chiWat and nHp + nPhp >= 2),
     Line(points={{1200,2},{1200,-698}},
       color={0,0,0},
       thickness=5,
-      visible=nHp + nShc >= 2),
+      visible=nHp + nPhp >= 2),
     Bitmap(visible=have_valHpOutIso and nHp >= 2,
       extent={{-100,-100},{100,100}},
       fileName="modelica://Buildings/Resources/Images/Templates/Components/Valves/TwoWay.svg",
@@ -960,7 +960,7 @@ annotation(defaultComponentName="valIso",
     Line(points={{200,-160},{200,600},{1000,600}},
       color={0,0,0},
       thickness=5,
-      visible=have_chiWat and nHp + nShc >= 3),
+      visible=have_chiWat and nHp + nPhp >= 3),
     Bitmap(visible=have_chiWat and have_valHpOutIso and nHp >= 3,
       extent={{-100,-100},{100,100}},
       fileName="modelica://Buildings/Resources/Images/Templates/Components/Valves/TwoWay.svg",
@@ -970,7 +970,7 @@ annotation(defaultComponentName="valIso",
       color={0,0,0},
       pattern=LinePattern.Dash,
       thickness=5,
-      visible=nHp + nShc >= 3),
+      visible=nHp + nPhp >= 3),
     Bitmap(visible=have_valHpInlIso and nHp >= 3,
       extent={{-100,-100},{100,100}},
       fileName="modelica://Buildings/Resources/Images/Templates/Components/Valves/TwoWay.svg",
@@ -1007,11 +1007,11 @@ annotation(defaultComponentName="valIso",
       fillColor={255,255,255},
       fillPattern=FillPattern.Solid,
       pattern=LinePattern.None,
-      visible=have_chiWat and nHp + nShc >= 3),
+      visible=have_chiWat and nHp + nPhp >= 3),
     Line(points={{400,0},{400,-700}},
       color={0,0,0},
       thickness=5,
-      visible=nHp + nShc >= 3),
+      visible=nHp + nPhp >= 3),
     Bitmap(visible=have_valHpOutIso and nHp >= 3,
       extent={{-100,-100},{100,100}},
       fileName="modelica://Buildings/Resources/Images/Templates/Components/Valves/TwoWay.svg",
@@ -1025,7 +1025,7 @@ annotation(defaultComponentName="valIso",
     Line(points={{-600,-160},{-600,600},{200,600}},
       color={0,0,0},
       thickness=5,
-      visible=have_chiWat and nHp + nShc >= 4),
+      visible=have_chiWat and nHp + nPhp >= 4),
     Bitmap(visible=have_chiWat and have_valHpOutIso and nHp >= 4,
       extent={{-100,-100},{100,100}},
       fileName="modelica://Buildings/Resources/Images/Templates/Components/Valves/TwoWay.svg",
@@ -1035,7 +1035,7 @@ annotation(defaultComponentName="valIso",
       color={0,0,0},
       pattern=LinePattern.Dash,
       thickness=5,
-      visible=nHp + nShc >= 4),
+      visible=nHp + nPhp >= 4),
     Bitmap(visible=have_valHpInlIso and nHp >= 4,
       extent={{-100,-100},{100,100}},
       fileName="modelica://Buildings/Resources/Images/Templates/Components/Valves/TwoWay.svg",
@@ -1072,11 +1072,11 @@ annotation(defaultComponentName="valIso",
       fillColor={255,255,255},
       fillPattern=FillPattern.Solid,
       pattern=LinePattern.None,
-      visible=have_chiWat and nHp + nShc >= 4),
+      visible=have_chiWat and nHp + nPhp >= 4),
     Line(points={{-400,0},{-400,-700}},
       color={0,0,0},
       thickness=5,
-      visible=nHp + nShc >= 4),
+      visible=nHp + nPhp >= 4),
     Bitmap(visible=have_valHpOutIso and nHp >= 4,
       extent={{-100,-100},{100,100}},
       fileName="modelica://Buildings/Resources/Images/Templates/Components/Valves/TwoWay.svg",
@@ -1090,7 +1090,7 @@ annotation(defaultComponentName="valIso",
     Line(points={{-1400,-160},{-1400,600},{-600,600}},
       color={0,0,0},
       thickness=5,
-      visible=have_chiWat and nHp + nShc >= 5),
+      visible=have_chiWat and nHp + nPhp >= 5),
     Bitmap(visible=have_chiWat and have_valHpOutIso and nHp >= 5,
       extent={{-100,-100},{100,100}},
       fileName="modelica://Buildings/Resources/Images/Templates/Components/Valves/TwoWay.svg",
@@ -1100,7 +1100,7 @@ annotation(defaultComponentName="valIso",
       color={0,0,0},
       pattern=LinePattern.Dash,
       thickness=5,
-      visible=nHp + nShc >= 5),
+      visible=nHp + nPhp >= 5),
     Bitmap(visible=have_valHpInlIso and nHp >= 5,
       extent={{-100,-100},{100,100}},
       fileName="modelica://Buildings/Resources/Images/Templates/Components/Valves/TwoWay.svg",
@@ -1137,11 +1137,11 @@ annotation(defaultComponentName="valIso",
       fillColor={255,255,255},
       fillPattern=FillPattern.Solid,
       pattern=LinePattern.None,
-      visible=have_chiWat and nHp + nShc >= 5),
+      visible=have_chiWat and nHp + nPhp >= 5),
     Line(points={{-1200,0},{-1200,-700}},
       color={0,0,0},
       thickness=5,
-      visible=nHp + nShc >= 5),
+      visible=nHp + nPhp >= 5),
     Bitmap(visible=have_valHpOutIso and nHp >= 5,
       extent={{-100,-100},{100,100}},
       fileName="modelica://Buildings/Resources/Images/Templates/Components/Valves/TwoWay.svg",
@@ -1155,7 +1155,7 @@ annotation(defaultComponentName="valIso",
     Line(points={{-2200,-160},{-2200,600},{-1400,600}},
       color={0,0,0},
       thickness=5,
-      visible=have_chiWat and nHp + nShc >= 6),
+      visible=have_chiWat and nHp + nPhp >= 6),
     Bitmap(visible=have_chiWat and have_valHpOutIso and nHp >= 6,
       extent={{-100,-100},{100,100}},
       fileName="modelica://Buildings/Resources/Images/Templates/Components/Valves/TwoWay.svg",
@@ -1165,7 +1165,7 @@ annotation(defaultComponentName="valIso",
       color={0,0,0},
       pattern=LinePattern.Dash,
       thickness=5,
-      visible=nHp + nShc >= 6),
+      visible=nHp + nPhp >= 6),
     Bitmap(visible=have_valHpInlIso and nHp >= 6,
       extent={{-100,-100},{100,100}},
       fileName="modelica://Buildings/Resources/Images/Templates/Components/Valves/TwoWay.svg",
@@ -1202,11 +1202,11 @@ annotation(defaultComponentName="valIso",
       fillColor={255,255,255},
       fillPattern=FillPattern.Solid,
       pattern=LinePattern.None,
-      visible=have_chiWat and nHp + nShc >= 6),
+      visible=have_chiWat and nHp + nPhp >= 6),
     Line(points={{-2000,0},{-2000,-700}},
       color={0,0,0},
       thickness=5,
-      visible=nHp + nShc >= 6),
+      visible=nHp + nPhp >= 6),
     Bitmap(visible=have_valHpOutIso and nHp >= 6,
       extent={{-100,-100},{100,100}},
       fileName="modelica://Buildings/Resources/Images/Templates/Components/Valves/TwoWay.svg",
@@ -1238,14 +1238,14 @@ annotation(defaultComponentName="valIso",
       fillColor={255,255,255},
       fillPattern=FillPattern.Solid,
       pattern=LinePattern.None,
-      visible=have_chiWat and nHp + nShc >= 2),
+      visible=have_chiWat and nHp + nPhp >= 2),
     Line(points=if nHp >= 2
       then {{2400,200},{1600,200},{1600,-400},{1400,-400}}
       else {{2400,200},{1600,200},{1600,-400},{1600,-700}},
       color={0,0,0},
       pattern=LinePattern.Dash,
       thickness=5,
-      visible=have_chiWat and nHp + nShc >= 2),
+      visible=have_chiWat and nHp + nPhp >= 2),
     Bitmap(visible=have_chiWat and nHp >= 2 and have_valHpInlIso,
       extent={{-100,-100},{100,100}},
       fileName="modelica://Buildings/Resources/Images/Templates/Components/Valves/TwoWay.svg",
@@ -1262,14 +1262,14 @@ annotation(defaultComponentName="valIso",
       fillColor={255,255,255},
       fillPattern=FillPattern.Solid,
       pattern=LinePattern.None,
-      visible=have_chiWat and nHp + nShc >= 3),
+      visible=have_chiWat and nHp + nPhp >= 3),
     Line(points=if nHp >= 3
       then {{1600,200},{800,200},{800,-400},{600,-400}}
       else {{1600,200},{800,200},{800,-400},{800,-700}},
       color={0,0,0},
       pattern=LinePattern.Dash,
       thickness=5,
-      visible=have_chiWat and nHp + nShc >= 3),
+      visible=have_chiWat and nHp + nPhp >= 3),
     Bitmap(visible=have_chiWat and nHp >= 3 and have_valHpInlIso,
       extent={{-100,-100},{100,100}},
       fileName="modelica://Buildings/Resources/Images/Templates/Components/Valves/TwoWay.svg",
@@ -1291,28 +1291,28 @@ annotation(defaultComponentName="valIso",
       fillColor={255,255,255},
       fillPattern=FillPattern.Solid,
       pattern=LinePattern.None,
-      visible=have_chiWat and nHp + nShc >= 4),
+      visible=have_chiWat and nHp + nPhp >= 4),
     Rectangle(extent={{-220,220},{-180,180}},
       lineColor={0,0,0},
       lineThickness=1,
       fillColor={255,255,255},
       fillPattern=FillPattern.Solid,
       pattern=LinePattern.None,
-      visible=have_chiWat and nHp + nShc >= 5),
+      visible=have_chiWat and nHp + nPhp >= 5),
     Rectangle(extent={{-1020,220},{-980,180}},
       lineColor={0,0,0},
       lineThickness=1,
       fillColor={255,255,255},
       fillPattern=FillPattern.Solid,
       pattern=LinePattern.None,
-      visible=have_chiWat and nHp + nShc >= 6),
+      visible=have_chiWat and nHp + nPhp >= 6),
     Line(points=if nHp >= 4
       then {{800,200},{0,200},{0,-400},{-200,-400}}
       else {{800,200},{0,200},{0,-400},{0,-700}},
       color={0,0,0},
       pattern=LinePattern.Dash,
       thickness=5,
-      visible=have_chiWat and nHp + nShc >= 4),
+      visible=have_chiWat and nHp + nPhp >= 4),
     Bitmap(visible=have_chiWat and nHp >= 4 and have_valHpInlIso,
       extent={{-100,-100},{100,100}},
       fileName="modelica://Buildings/Resources/Images/Templates/Components/Valves/TwoWay.svg",
@@ -1334,7 +1334,7 @@ annotation(defaultComponentName="valIso",
       color={0,0,0},
       pattern=LinePattern.Dash,
       thickness=5,
-      visible=have_chiWat and nHp + nShc >= 5),
+      visible=have_chiWat and nHp + nPhp >= 5),
     Bitmap(visible=have_chiWat and nHp >= 5 and have_valHpInlIso,
       extent={{-100,-100},{100,100}},
       fileName="modelica://Buildings/Resources/Images/Templates/Components/Valves/TwoWay.svg",
@@ -1356,7 +1356,7 @@ annotation(defaultComponentName="valIso",
       color={0,0,0},
       pattern=LinePattern.Dash,
       thickness=5,
-      visible=have_chiWat and nHp + nShc >= 6),
+      visible=have_chiWat and nHp + nPhp >= 6),
     Bitmap(visible=have_chiWat and nHp >= 6 and have_valHpInlIso,
       extent={{-100,-100},{100,100}},
       fileName="modelica://Buildings/Resources/Images/Templates/Components/Valves/TwoWay.svg",

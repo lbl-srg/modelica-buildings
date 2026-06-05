@@ -13,14 +13,13 @@ record HeatPump
     Buildings.Utilities.Psychrometrics.Constants.cpWatLiq
     "HW default specific heat capacity"
     annotation(Dialog(group="Configuration"));
-  parameter Modelica.Units.SI.SpecificHeatCapacity cpChiWatShc_default =
-    cpHeaWat_default
-    "CHW default specific heat capacity"
+  parameter Modelica.Units.SI.SpecificHeatCapacity cpChiWatPhp_default=
+      cpHeaWat_default "CHW default specific heat capacity"
     annotation(Dialog(group="Configuration",
       enable=typMod == Buildings.Templates.Components.Types.HeatPumpCapability.Polyvalent));
   final parameter Modelica.Units.SI.SpecificHeatCapacity cpChiWat_default =
     if typMod == Buildings.Templates.Components.Types.HeatPumpCapability.Polyvalent
-    then cpChiWatShc_default
+    then cpChiWatPhp_default
     else cpHeaWat_default
     "CHW default specific heat capacity";
   parameter Modelica.Units.SI.SpecificHeatCapacity cpSou_default =
@@ -51,15 +50,15 @@ record HeatPump
     "CHW mass flow rate"
     annotation(Dialog(group="Nominal condition",
       enable=typMod==Buildings.Templates.Components.Types.HeatPumpCapability.Reversible));
-  parameter Modelica.Units.SI.PressureDifference dpChiWatShc_nominal(start=0)
+  parameter Modelica.Units.SI.PressureDifference dpChiWatPhp_nominal(start=0)
     "Pressure drop at design CHW mass flow rate"
     annotation(Dialog(group="Nominal condition",
-      enable=typMod==Buildings.Templates.Components.Types.HeatPumpCapability.Polyvalent));
+      enable=typMod == Buildings.Templates.Components.Types.HeatPumpCapability.Polyvalent));
   final parameter Modelica.Units.SI.PressureDifference dpChiWat_nominal =
     if typMod==Buildings.Templates.Components.Types.HeatPumpCapability.Reversible
     then dpHeaWat_nominal * (mChiWat_flow_nominal / mHeaWat_flow_nominal) ^ 2
     elseif typMod==Buildings.Templates.Components.Types.HeatPumpCapability.Polyvalent
-    then dpChiWatShc_nominal
+    then dpChiWatPhp_nominal
     else 0
     "Pressure drop at design CHW mass flow rate"
     annotation(Dialog(group="Nominal condition"));
@@ -184,7 +183,8 @@ record HeatPump
       Dialog(group="Performance data",
         enable=typMod==Buildings.Templates.Components.Types.HeatPumpCapability.Reversible),
       Placement(transformation(extent={{20,0},{40,20}})));
-  replaceable parameter Buildings.Fluid.HeatPumps.ModularReversible.Data.TableData2DLoadDepSHC.Generic perShc(
+  replaceable parameter
+    Fluid.HeatPumps.ModularReversible.Data.TableData2DLoadDepSHC.Generic perShc(
     mCon_flow_nominal=mHeaWat_flow_nominal,
     mEva_flow_nominal=mChiWat_flow_nominal,
     dpCon_nominal=dpHeaWat_nominal,
@@ -203,7 +203,7 @@ record HeatPump
     annotation(Dialog(group="Performance data",
       enable=typMod == Buildings.Templates.Components.Types.HeatPumpCapability.Polyvalent),
       choicesAllMatching=true,
-      Placement(transformation(extent={{-10,-40},{10,-20}})));
+    Placement(transformation(extent={{-10,-40},{10,-20}})));
   parameter Modelica.Units.SI.Power P_min(min=0)=0
     "Minimum power when system is enabled with compressor cycled off"
     annotation(Dialog(group="Performance data"));
@@ -225,8 +225,8 @@ annotation(defaultComponentPrefixes="parameter",
 </p>
 <p>
   Also note that placeholders values are assigned to some parameters of the
-  subrecords <code>perCoo</code> and <code>perShc</code> which are used to 
-  specify the performance data in cooling mode and SHC mode, respectively. 
+  subrecords <code>perCoo</code> and <code>perShc</code> which are used to
+  specify the performance data in cooling mode and SHC mode, respectively.
   These values should be overwritten for reversible and polyvalent heat
   pumps. This overwriting happens automatically when redeclaring or
   reassigning the performance records <code>perCoo</code> and <code>perShc</code>.

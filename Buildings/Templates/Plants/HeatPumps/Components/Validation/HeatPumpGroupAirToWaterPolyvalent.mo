@@ -1,6 +1,6 @@
 within Buildings.Templates.Plants.HeatPumps.Components.Validation;
-model HeatPumpGroupAirToWaterSHC
-  "Validation model for heat pump group with AWHP and SHC units"
+model HeatPumpGroupAirToWaterPolyvalent
+  "Validation model for AWHP group with polyvalent HP"
   extends Modelica.Icons.Example;
 
   replaceable package Medium = Buildings.Media.Water
@@ -8,10 +8,9 @@ model HeatPumpGroupAirToWaterSHC
     "CHW/HW medium";
 
   final parameter Integer nHp = 3
-    "Number of heat pumps (excluding SHC units)"
+    "Number of heat pumps (excluding polyvalent units)"
     annotation(Evaluate=true);
-  final parameter Integer nShc = 1
-    "Number of polyvalent (SHC) units"
+  final parameter Integer nPhp=1 "Number of polyvalent heat pumps"
     annotation(Evaluate=true);
   parameter Modelica.Fluid.Types.Dynamics energyDynamics =
     Modelica.Fluid.Types.Dynamics.FixedInitial
@@ -19,15 +18,15 @@ model HeatPumpGroupAirToWaterSHC
     annotation(Evaluate=true,
       Dialog(tab="Dynamics",
         group="Conservation equations"));
-  parameter Data.Controller datCtlPlaShc(
+  parameter Data.Controller datCtlPlaPhp(
     cfg(
       have_hrc=false,
       have_inpSch=false,
       have_chiWat=true,
       typPumHeaWatPriHp=Buildings.Templates.Plants.HeatPumps.Types.PumpsPrimary.None,
       typPumChiWatPriHp=Buildings.Templates.Plants.HeatPumps.Types.PumpsPrimary.None,
-      typPumHeaWatPriShc=Buildings.Templates.Plants.HeatPumps.Types.PumpsPrimary.Variable,
-      typPumChiWatPriShc=Buildings.Templates.Plants.HeatPumps.Types.PumpsPrimary.Variable,
+      typPumHeaWatPriPhp=Buildings.Templates.Plants.HeatPumps.Types.PumpsPrimary.Variable,
+      typPumChiWatPriPhp=Buildings.Templates.Plants.HeatPumps.Types.PumpsPrimary.Variable,
       typPumHeaWatSec=Buildings.Templates.Plants.HeatPumps.Types.PumpsSecondary.None,
       typTanHeaWat=Buildings.Templates.Components.Types.IntegrationPoint.None,
       typTanChiWat=Buildings.Templates.Components.Types.IntegrationPoint.None,
@@ -35,58 +34,55 @@ model HeatPumpGroupAirToWaterSHC
       nPumChiWatSec=0,
       rhoHeaWat_default=Buildings.Media.Water.d_const,
       typCtl=Buildings.Templates.Plants.HeatPumps.Types.Controller.OpenLoop,
-      is_rev=shc.is_rev,
-      typHp=shc.typHp,
+      is_rev=php.is_rev,
+      typHp=php.typHp,
       rhoChiWat_default=Buildings.Media.Water.d_const,
-      cpChiWat_default=shc.cpChiWat_default,
+      cpChiWat_default=php.cpChiWat_default,
       have_hotWat=false,
       have_valChiWatMinByp=false,
       have_valHeaWatMinByp=false,
       have_valHpInlIso=false,
       have_valHpOutIso=false,
-      cpHeaWat_default=shc.cpHeaWat_default,
-      cpSou_default=shc.cpSou_default,
+      cpHeaWat_default=php.cpHeaWat_default,
+      cpSou_default=php.cpSou_default,
       have_senDpChiWatRemWir=true,
       typArrPumPri=Buildings.Templates.Components.Types.PumpArrangement.Dedicated,
       nHp=0,
-      final nPumHeaWatPri=nShc,
+      final nPumHeaWatPri=nPhp,
       have_heaWat=true,
       nPumHeaWatSec=0,
       rhoSou_default=Buildings.Media.Air.dStp,
       have_senDpHeaWatRemWir=true,
       typPumChiWatSec=Buildings.Templates.Plants.HeatPumps.Types.PumpsSecondary.None,
-      final nPumChiWatPri=nShc,
+      final nPumChiWatPri=nPhp,
       nSenDpHeaWatRem=1,
       nSenDpChiWatRem=1,
       nAirHan=0,
       nEquZon=0,
-      final have_hp=shc.have_hp,
-      final have_shc=shc.have_shc,
-      is_shcMod=false,
-      final nShc=nShc,
-      have_valShcInlIso=false,
-      have_valShcOutIso=false,
-      have_pumChiWatDedHp=false),
-    THeaWatSup_nominal=datShc.THeaWatSupHp_nominal,
-    TChiWatSup_nominal=datHpShc.TChiWatSupHp_nominal,
-    dpChiWatRemSet_max=fill(
-      Buildings.Templates.Data.Defaults.dpChiWatRemSet_max,
-      datCtlPlaShc.cfg.nSenDpChiWatRem),
-    dpHeaWatRemSet_max=fill(
-      Buildings.Templates.Data.Defaults.dpHeaWatRemSet_max,
-      datCtlPlaShc.cfg.nSenDpHeaWatRem),
-    staEqu={fill(1, nHp)})
-    "Controller parameters"
+      final have_hp=php.have_hp,
+      final have_php=php.have_php,
+      final nPhp=nPhp,
+      have_valPhpInlIso=false,
+      have_valPhpOutIso=false,
+      have_pumChiWatDedHp=false,
+      is_phpMod=false),
+    THeaWatSup_nominal=datPhp.THeaWatSupHp_nominal,
+    TChiWatSup_nominal=datHpPhp.TChiWatSupHp_nominal,
+    dpChiWatRemSet_max=fill(Buildings.Templates.Data.Defaults.dpChiWatRemSet_max,
+        datCtlPlaPhp.cfg.nSenDpChiWatRem),
+    dpHeaWatRemSet_max=fill(Buildings.Templates.Data.Defaults.dpHeaWatRemSet_max,
+        datCtlPlaPhp.cfg.nSenDpHeaWatRem),
+    staEqu={fill(1, nHp)}) "Controller parameters"
     annotation(Placement(transformation(extent={{-100,160},{-80,180}})));
-  parameter Data.Controller datCtlPlaHpShc(
+  parameter Data.Controller datCtlPlaHpPhp(
     cfg(
       have_hrc=false,
       have_inpSch=false,
       have_chiWat=true,
       typPumHeaWatPriHp=Buildings.Templates.Plants.HeatPumps.Types.PumpsPrimary.Variable,
       typPumChiWatPriHp=Buildings.Templates.Plants.HeatPumps.Types.PumpsPrimary.None,
-      typPumHeaWatPriShc=Buildings.Templates.Plants.HeatPumps.Types.PumpsPrimary.Variable,
-      typPumChiWatPriShc=Buildings.Templates.Plants.HeatPumps.Types.PumpsPrimary.Variable,
+      typPumHeaWatPriPhp=Buildings.Templates.Plants.HeatPumps.Types.PumpsPrimary.Variable,
+      typPumChiWatPriPhp=Buildings.Templates.Plants.HeatPumps.Types.PumpsPrimary.Variable,
       typPumHeaWatSec=Buildings.Templates.Plants.HeatPumps.Types.PumpsSecondary.None,
       typTanHeaWat=Buildings.Templates.Components.Types.IntegrationPoint.None,
       typTanChiWat=Buildings.Templates.Components.Types.IntegrationPoint.None,
@@ -94,146 +90,123 @@ model HeatPumpGroupAirToWaterSHC
       nPumChiWatSec=0,
       rhoHeaWat_default=Buildings.Media.Water.d_const,
       typCtl=Buildings.Templates.Plants.HeatPumps.Types.Controller.OpenLoop,
-      is_rev=hpShc.is_rev,
-      typHp=hpShc.typHp,
+      is_rev=hpPhp.is_rev,
+      typHp=hpPhp.typHp,
       rhoChiWat_default=Buildings.Media.Water.d_const,
-      cpChiWat_default=hpShc.cpChiWat_default,
+      cpChiWat_default=hpPhp.cpChiWat_default,
       have_hotWat=false,
       have_valChiWatMinByp=false,
       have_valHeaWatMinByp=false,
       have_valHpInlIso=true,
       have_valHpOutIso=true,
-      cpHeaWat_default=hpShc.cpHeaWat_default,
-      cpSou_default=hpShc.cpSou_default,
+      cpHeaWat_default=hpPhp.cpHeaWat_default,
+      cpSou_default=hpPhp.cpSou_default,
       have_senDpChiWatRemWir=true,
       typArrPumPri=Buildings.Templates.Components.Types.PumpArrangement.Dedicated,
       nHp=nHp,
-      final nPumHeaWatPri=nHp + nShc,
+      final nPumHeaWatPri=nHp +nPhp,
       have_heaWat=true,
       nPumHeaWatSec=0,
       rhoSou_default=Buildings.Media.Air.dStp,
       have_senDpHeaWatRemWir=true,
       typPumChiWatSec=Buildings.Templates.Plants.HeatPumps.Types.PumpsSecondary.None,
-      final nPumChiWatPri=nShc,
+      final nPumChiWatPri=nPhp,
       nSenDpHeaWatRem=1,
       nSenDpChiWatRem=1,
       nAirHan=0,
       nEquZon=0,
-      final have_hp=hpShc.have_hp,
-      final have_shc=hpShc.have_shc,
-      final is_shcMod=false,
-      final nShc=nShc,
-      have_valShcInlIso=false,
-      have_valShcOutIso=false,
-      have_pumChiWatDedHp=false),
-    THeaWatSup_nominal=datHpShc.THeaWatSupHp_nominal,
-    TChiWatSup_nominal=datHpShc.TChiWatSupHp_nominal,
-    dpChiWatRemSet_max=fill(
-      Buildings.Templates.Data.Defaults.dpChiWatRemSet_max,
-      datCtlPlaHpShc.cfg.nSenDpChiWatRem),
-    dpHeaWatRemSet_max=fill(
-      Buildings.Templates.Data.Defaults.dpHeaWatRemSet_max,
-      datCtlPlaHpShc.cfg.nSenDpHeaWatRem),
+      final have_hp=hpPhp.have_hp,
+      final have_php=hpPhp.have_php,
+      final nPhp=nPhp,
+      have_valPhpInlIso=false,
+      have_valPhpOutIso=false,
+      have_pumChiWatDedHp=false,
+      final is_phpMod=false),
+    THeaWatSup_nominal=datHpPhp.THeaWatSupHp_nominal,
+    TChiWatSup_nominal=datHpPhp.TChiWatSupHp_nominal,
+    dpChiWatRemSet_max=fill(Buildings.Templates.Data.Defaults.dpChiWatRemSet_max,
+        datCtlPlaHpPhp.cfg.nSenDpChiWatRem),
+    dpHeaWatRemSet_max=fill(Buildings.Templates.Data.Defaults.dpHeaWatRemSet_max,
+        datCtlPlaHpPhp.cfg.nSenDpHeaWatRem),
     staEqu={fill(1, nHp)})
     "Controller parameters"
     annotation(Placement(transformation(extent={{-260,-180},{-240,-160}})));
-  parameter Data.HeatPumpGroup datShc(
+  parameter Data.HeatPumpGroup datPhp(
     have_hp=false,
-    have_shc=true,
+    have_php=true,
     is_rev=false,
-    final cpHeaWat_default=shc.cpHeaWat_default,
-    final cpSou_default=shc.cpSou_default,
-    final typHp=shc.typHp,
-    mHeaWatShc_flow_nominal=datHpShc.capHeaShc_nominal / abs(
-      datHpShc.THeaWatSupShc_nominal -
-        Buildings.Templates.Data.Defaults.THeaWatRetMed) /
-      Buildings.Utilities.Psychrometrics.Constants.cpWatLiq,
-    dpHeaWatShc_nominal=Buildings.Templates.Data.Defaults.dpHeaWatHp,
-    capHeaShc_nominal=500E3,
-    THeaWatSupShc_nominal=Buildings.Templates.Data.Defaults.THeaWatSupMed,
-    TSouHeaShc_nominal=Buildings.Templates.Data.Defaults.TOutHpHeaLow,
-    mChiWatShc_flow_nominal=datHpShc.capCooShc_nominal / abs(
-      datHpShc.TChiWatSupShc_nominal -
-        Buildings.Templates.Data.Defaults.TChiWatRet) /
-      Buildings.Utilities.Psychrometrics.Constants.cpWatLiq,
-    capCooShc_nominal=500E3,
-    dpChiWatShc_nominal=Buildings.Templates.Data.Defaults.dpChiWatChi,
-    TChiWatSupShc_nominal=Buildings.Templates.Data.Defaults.TChiWatSup,
-    TSouCooShc_nominal=Buildings.Templates.Data.Defaults.TOutHpCoo,
-    PShc_min=1.0E3,
-    capHeaHrShc_nominal=500E3,
-    capCooHrShc_nominal=500E3,
+    final cpHeaWat_default=php.cpHeaWat_default,
+    final cpSou_default=php.cpSou_default,
+    final typHp=php.typHp,
+    mHeaWatPhp_flow_nominal=datHpPhp.capHeaPhp_nominal/abs(datHpPhp.THeaWatSupPhp_nominal
+         - Buildings.Templates.Data.Defaults.THeaWatRetMed)/Buildings.Utilities.Psychrometrics.Constants.cpWatLiq,
+    dpHeaWatPhp_nominal=Buildings.Templates.Data.Defaults.dpHeaWatHp,
+    capHeaPhp_nominal=500E3,
+    THeaWatSupPhp_nominal=Buildings.Templates.Data.Defaults.THeaWatSupMed,
+    TSouHeaPhp_nominal=Buildings.Templates.Data.Defaults.TOutHpHeaLow,
+    mChiWatPhp_flow_nominal=datHpPhp.capCooPhp_nominal/abs(datHpPhp.TChiWatSupPhp_nominal
+         - Buildings.Templates.Data.Defaults.TChiWatRet)/Buildings.Utilities.Psychrometrics.Constants.cpWatLiq,
+    capCooPhp_nominal=500E3,
+    dpChiWatPhp_nominal=Buildings.Templates.Data.Defaults.dpChiWatChi,
+    TChiWatSupPhp_nominal=Buildings.Templates.Data.Defaults.TChiWatSup,
+    TSouCooPhp_nominal=Buildings.Templates.Data.Defaults.TOutHpCoo,
+    PPhp_min=1.0E3,
+    capHeaShcPhp_nominal=500E3,
+    capCooShcPhp_nominal=500E3,
     perShc(
-      fileNameHea=Modelica.Utilities.Files.loadResource(
-        "modelica://Buildings/Resources/Data/Fluid/HeatPumps/ModularReversible/RefrigerantCycle/BaseClasses/Validation/AWHP_Heating.txt"),
-      fileNameCoo=Modelica.Utilities.Files.loadResource(
-        "modelica://Buildings/Resources/Data/Fluid/HeatPumps/ModularReversible/RefrigerantCycle/BaseClasses/Validation/AWHP_Cooling.txt"),
-      fileNameShc=Modelica.Utilities.Files.loadResource(
-        "modelica://Buildings/Resources/Data/Fluid/HeatPumps/ModularReversible/RefrigerantCycle/BaseClasses/Validation/AWHP_SHC.txt")))
-    "Parameters for group of SHC units"
-    annotation(Placement(transformation(extent={{-60,160},{-40,180}})));
-  parameter Data.HeatPumpGroup datHpShc(
+      fileNameHea=Modelica.Utilities.Files.loadResource("modelica://Buildings/Resources/Data/Fluid/HeatPumps/ModularReversible/RefrigerantCycle/BaseClasses/Validation/AWHP_Heating.txt"),
+      fileNameCoo=Modelica.Utilities.Files.loadResource("modelica://Buildings/Resources/Data/Fluid/HeatPumps/ModularReversible/RefrigerantCycle/BaseClasses/Validation/AWHP_Cooling.txt"),
+      fileNameShc=Modelica.Utilities.Files.loadResource("modelica://Buildings/Resources/Data/Fluid/HeatPumps/ModularReversible/RefrigerantCycle/BaseClasses/Validation/AWHP_SHC.txt")))
+    "Parameters for group of polyvalent HPs"
+    annotation (Placement(transformation(extent={{-60,160},{-40,180}})));
+  parameter Data.HeatPumpGroup datHpPhp(
     have_hp=true,
-    have_shc=true,
-    final cpHeaWat_default=hpShc.cpHeaWat_default,
-    final cpSou_default=hpShc.cpSou_default,
-    final typHp=hpShc.typHp,
-    final is_rev=hpShc.is_rev,
-    mHeaWatHp_flow_nominal=datHpShc.capHeaHp_nominal / abs(
-      datHpShc.THeaWatSupHp_nominal -
-        Buildings.Templates.Data.Defaults.THeaWatRetMed) /
-      Buildings.Utilities.Psychrometrics.Constants.cpWatLiq,
+    have_php=true,
+    final cpHeaWat_default=hpPhp.cpHeaWat_default,
+    final cpSou_default=hpPhp.cpSou_default,
+    final typHp=hpPhp.typHp,
+    final is_rev=hpPhp.is_rev,
+    mHeaWatHp_flow_nominal=datHpPhp.capHeaHp_nominal/abs(datHpPhp.THeaWatSupHp_nominal
+         - Buildings.Templates.Data.Defaults.THeaWatRetMed)/Buildings.Utilities.Psychrometrics.Constants.cpWatLiq,
     dpHeaWatHp_nominal=Buildings.Templates.Data.Defaults.dpHeaWatHp,
     capHeaHp_nominal=500E3,
     THeaWatSupHp_nominal=Buildings.Templates.Data.Defaults.THeaWatSupMed,
     TSouHeaHp_nominal=Buildings.Templates.Data.Defaults.TOutHpHeaLow,
-    mChiWatHp_flow_nominal=datHpShc.capCooHp_nominal / abs(
-      datHpShc.TChiWatSupHp_nominal -
-        Buildings.Templates.Data.Defaults.TChiWatRet) /
-      Buildings.Utilities.Psychrometrics.Constants.cpWatLiq,
+    mChiWatHp_flow_nominal=datHpPhp.capCooHp_nominal/abs(datHpPhp.TChiWatSupHp_nominal
+         - Buildings.Templates.Data.Defaults.TChiWatRet)/Buildings.Utilities.Psychrometrics.Constants.cpWatLiq,
     capCooHp_nominal=500E3,
     TChiWatSupHp_nominal=Buildings.Templates.Data.Defaults.TChiWatSup,
     TSouCooHp_nominal=Buildings.Templates.Data.Defaults.TOutHpCoo,
     PHp_min=1.0E3,
     perHeaHp(
-      fileName=Modelica.Utilities.Files.loadResource(
-        "modelica://Buildings/Resources/Data/Templates/Components/HeatPumps/Validation/AWHP_Heating.txt"),
+      fileName=Modelica.Utilities.Files.loadResource("modelica://Buildings/Resources/Data/Templates/Components/HeatPumps/Validation/AWHP_Heating.txt"),
       PLRSup={1},
       use_TEvaOutForTab=false,
       use_TConOutForTab=true,
-      tabUppBou=[263.15, 323.15; 313.15, 323.15]),
-    perCooHp(
-      fileName=Modelica.Utilities.Files.loadResource(
-        "modelica://Buildings/Resources/Data/Templates/Components/HeatPumps/Validation/AWHP_Cooling.txt"),
-      PLRSup={1}),
-    mHeaWatShc_flow_nominal=datHpShc.capHeaShc_nominal / abs(
-      datHpShc.THeaWatSupShc_nominal -
-        Buildings.Templates.Data.Defaults.THeaWatRetMed) /
-      Buildings.Utilities.Psychrometrics.Constants.cpWatLiq,
-    dpHeaWatShc_nominal=Buildings.Templates.Data.Defaults.dpHeaWatHp,
-    capHeaShc_nominal=500E3,
-    THeaWatSupShc_nominal=Buildings.Templates.Data.Defaults.THeaWatSupMed,
-    TSouHeaShc_nominal=Buildings.Templates.Data.Defaults.TOutHpHeaLow,
-    mChiWatShc_flow_nominal=datHpShc.capCooShc_nominal / abs(
-      datHpShc.TChiWatSupShc_nominal -
-        Buildings.Templates.Data.Defaults.TChiWatRet) /
-      Buildings.Utilities.Psychrometrics.Constants.cpWatLiq,
-    capCooShc_nominal=500E3,
-    dpChiWatShc_nominal=Buildings.Templates.Data.Defaults.dpChiWatChi,
-    TChiWatSupShc_nominal=Buildings.Templates.Data.Defaults.TChiWatSup,
-    TSouCooShc_nominal=Buildings.Templates.Data.Defaults.TOutHpCoo,
-    PShc_min=1.0E3,
-    capHeaHrShc_nominal=500E3,
-    capCooHrShc_nominal=500E3,
+      tabUppBou=[263.15,323.15; 313.15,323.15]),
+    perCooHp(fileName=Modelica.Utilities.Files.loadResource("modelica://Buildings/Resources/Data/Templates/Components/HeatPumps/Validation/AWHP_Cooling.txt"),
+        PLRSup={1}),
+    mHeaWatPhp_flow_nominal=datHpPhp.capHeaPhp_nominal/abs(datHpPhp.THeaWatSupPhp_nominal
+         - Buildings.Templates.Data.Defaults.THeaWatRetMed)/Buildings.Utilities.Psychrometrics.Constants.cpWatLiq,
+    dpHeaWatPhp_nominal=Buildings.Templates.Data.Defaults.dpHeaWatHp,
+    capHeaPhp_nominal=500E3,
+    THeaWatSupPhp_nominal=Buildings.Templates.Data.Defaults.THeaWatSupMed,
+    TSouHeaPhp_nominal=Buildings.Templates.Data.Defaults.TOutHpHeaLow,
+    mChiWatPhp_flow_nominal=datHpPhp.capCooPhp_nominal/abs(datHpPhp.TChiWatSupPhp_nominal
+         - Buildings.Templates.Data.Defaults.TChiWatRet)/Buildings.Utilities.Psychrometrics.Constants.cpWatLiq,
+    capCooPhp_nominal=500E3,
+    dpChiWatPhp_nominal=Buildings.Templates.Data.Defaults.dpChiWatChi,
+    TChiWatSupPhp_nominal=Buildings.Templates.Data.Defaults.TChiWatSup,
+    TSouCooPhp_nominal=Buildings.Templates.Data.Defaults.TOutHpCoo,
+    PPhp_min=1.0E3,
+    capHeaShcPhp_nominal=500E3,
+    capCooShcPhp_nominal=500E3,
     perShc(
-      fileNameHea=Modelica.Utilities.Files.loadResource(
-        "modelica://Buildings/Resources/Data/Fluid/HeatPumps/ModularReversible/RefrigerantCycle/BaseClasses/Validation/AWHP_Heating.txt"),
-      fileNameCoo=Modelica.Utilities.Files.loadResource(
-        "modelica://Buildings/Resources/Data/Fluid/HeatPumps/ModularReversible/RefrigerantCycle/BaseClasses/Validation/AWHP_Cooling.txt"),
-      fileNameShc=Modelica.Utilities.Files.loadResource(
-        "modelica://Buildings/Resources/Data/Fluid/HeatPumps/ModularReversible/RefrigerantCycle/BaseClasses/Validation/AWHP_SHC.txt")))
-    "Parameters for group of reversible AWHP and SHC unit"
-    annotation(Placement(transformation(extent={{-220,-180},{-200,-160}})));
+      fileNameHea=Modelica.Utilities.Files.loadResource("modelica://Buildings/Resources/Data/Fluid/HeatPumps/ModularReversible/RefrigerantCycle/BaseClasses/Validation/AWHP_Heating.txt"),
+      fileNameCoo=Modelica.Utilities.Files.loadResource("modelica://Buildings/Resources/Data/Fluid/HeatPumps/ModularReversible/RefrigerantCycle/BaseClasses/Validation/AWHP_Cooling.txt"),
+      fileNameShc=Modelica.Utilities.Files.loadResource("modelica://Buildings/Resources/Data/Fluid/HeatPumps/ModularReversible/RefrigerantCycle/BaseClasses/Validation/AWHP_SHC.txt")))
+    "Parameters for group of reversible AWHP and polyvalent HP"
+    annotation (Placement(transformation(extent={{-220,-180},{-200,-160}})));
   Fluid.Sources.Boundary_pT sup(
     redeclare final package Medium=Medium,
     p=Buildings.Templates.Data.Defaults.pHeaWat_rel_nominal + 101325,
@@ -247,36 +220,34 @@ model HeatPumpGroupAirToWaterSHC
       rotation=0,
       origin={240,180})));
   Controls.OpenLoop ctlPlaShc(
-    final cfg=datCtlPlaShc.cfg,
-    final dat=datCtlPlaShc)
+    final cfg=datCtlPlaPhp.cfg,
+    final dat=datCtlPlaPhp)
     "Plant controller"
     annotation(Placement(transformation(extent={{10,170},{-10,190}})));
-  HeatPumpGroups.AirToWater shc(
+  HeatPumpGroups.AirToWater php(
     redeclare final package MediumHeaWat=Medium,
     have_hp=false,
-    have_shc=true,
+    have_php=true,
     final nHp=0,
-    final nShc=nShc,
+    final nPhp=nPhp,
     is_rev=false,
-    final dat=datShc,
+    final dat=datPhp,
     final energyDynamics=energyDynamics,
-    show_T=true)
-    "SHC units only"
+    show_T=true) "Polyvalent HP only"
     annotation(Placement(transformation(extent={{280,40},{-200,120}})));
-  HeatPumpGroups.AirToWater hpShc(
+  HeatPumpGroups.AirToWater hpPhp(
     redeclare final package MediumHeaWat=Medium,
-    have_shc=true,
+    have_php=true,
     final nHp=nHp,
-    final nShc=nShc,
+    final nPhp=nPhp,
     is_rev=true,
-    final dat=datHpShc,
+    final dat=datHpPhp,
     final energyDynamics=energyDynamics,
-    show_T=true)
-    "Reversible AWHP and SHC unit"
+    show_T=true) "AWHP group with reversible and polyvalent units"
     annotation(Placement(transformation(extent={{280,-200},{-200,-120}})));
   Controls.OpenLoop ctlPlaAw(
-    final cfg=datCtlPlaHpShc.cfg,
-    final dat=datCtlPlaHpShc)
+    final cfg=datCtlPlaHpPhp.cfg,
+    final dat=datCtlPlaHpPhp)
     "Plant controller"
     annotation(Placement(transformation(extent={{-10,-50},{-30,-30}})));
   Fluid.Sources.Boundary_pT inlHp(
@@ -288,7 +259,7 @@ model HeatPumpGroupAirToWaterSHC
     annotation(Placement(transformation(extent={{-90,-50},{-70,-30}})));
   Fluid.Sensors.TemperatureTwoPort TChiHeaWatRetHp[nHp](
     redeclare each final package Medium=Medium,
-    each final m_flow_nominal=datHpShc.mHeaWatHp_flow_nominal)
+    each final m_flow_nominal=datHpPhp.mHeaWatHp_flow_nominal)
     "Reversible HP CHW/HW return temperature"
     annotation(Placement(transformation(extent={{-70,-50},{-50,-30}})));
   Fluid.Sources.Boundary_pT sup1(
@@ -299,31 +270,31 @@ model HeatPumpGroupAirToWaterSHC
     annotation(Placement(transformation(extent={{200,-50},{180,-30}})));
   Fluid.Sensors.TemperatureTwoPort TChiHeaWatSupHp[nHp](
     redeclare each final package Medium=Medium,
-    each final m_flow_nominal=datHpShc.mHeaWatHp_flow_nominal)
+    each final m_flow_nominal=datHpPhp.mHeaWatHp_flow_nominal)
     "Reversible HP CHW/HW supply temperature"
     annotation(Placement(transformation(extent={{140,-90},{160,-70}})));
   Buildings.Controls.OBC.CDL.Reals.Sources.Sin THeaWatRet1(
-    amplitude=datHpShc.THeaWatSupHp_nominal - datHpShc.THeaWatRetHp_nominal,
+    amplitude=datHpPhp.THeaWatSupHp_nominal -datHpPhp.THeaWatRetHp_nominal,
     freqHz=3 / 3000,
     y(final unit="K", displayUnit="degC"),
-    offset=datHpShc.THeaWatRetHp_nominal,
+    offset=datHpPhp.THeaWatRetHp_nominal,
     startTime=0)
     "HW return temperature value"
     annotation(Placement(transformation(extent={{-290,-70},{-270,-50}})));
   Buildings.Controls.OBC.CDL.Reals.Sources.Sin TChiWatRet(
-    amplitude=datHpShc.TChiWatRetHp_nominal - datHpShc.TChiWatSupHp_nominal,
+    amplitude=datHpPhp.TChiWatRetHp_nominal -datHpPhp.TChiWatSupHp_nominal,
     freqHz=3 / 3000,
     y(final unit="K", displayUnit="degC"),
-    offset=datHpShc.TChiWatRetHp_nominal,
+    offset=datHpPhp.TChiWatRetHp_nominal,
     startTime=0)
     "CHW return temperature value"
     annotation(Placement(transformation(extent={{-290,-110},{-270,-90}})));
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant pHeaWatInl1(
-    k=sup.p + hpShc.dpHeaWatHp_nominal)
+    k=sup.p +hpPhp.dpHeaWatHp_nominal)
     "HW inlet pressure"
     annotation(Placement(transformation(extent={{-290,10},{-270,30}})));
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant pChiWatInl(
-    k=sup.p + hpShc.dpChiWatHp_nominal)
+    k=sup.p +hpPhp.dpChiWatHp_nominal)
     "CHW inlet pressure"
     annotation(Placement(transformation(extent={{-10,-10},{10,10}},
       rotation=0,
@@ -344,47 +315,47 @@ model HeatPumpGroupAirToWaterSHC
     annotation(Placement(iconVisible=false,
       transformation(extent={{-60,-20},{-20,20}}),
       iconTransformation(extent={{-536,100},{-496,140}})));
-  Fluid.Sources.Boundary_pT inlHeaWatShc(
+  Fluid.Sources.Boundary_pT inlHeaWatPhp(
     redeclare final package Medium=Medium,
-    p=sup1.p + datHpShc.dpHeaWatShc_nominal,
+    p=sup1.p +datHpPhp.dpHeaWatPhp_nominal,
     use_T_in=true,
     nPorts=2)
-    "Boundary conditions at SHC unit inlet"
+    "Boundary conditions at polyvalent HP inlet"
     annotation(Placement(transformation(extent={{-150,-70},{-130,-50}})));
-  Fluid.Sources.Boundary_pT inlChiWatShc(
+  Fluid.Sources.Boundary_pT inlChiWatPhp(
     redeclare final package Medium=Medium,
-    p=sup1.p + datHpShc.dpChiWatShc_nominal,
+    p=sup1.p +datHpPhp.dpChiWatPhp_nominal,
     use_T_in=true,
     nPorts=2)
-    "Boundary conditions at SHC unit inlet"
+    "Boundary conditions at polyvalent HP inlet"
     annotation(Placement(transformation(extent={{-120,-90},{-100,-70}})));
 equation
-  connect(ctlPlaShc.bus, shc.bus)
+  connect(ctlPlaShc.bus,php. bus)
     annotation(Line(points={{10,180},{40,180},{40,120}},
       color={255,204,51},
       thickness=0.5));
-  connect(weaDat.weaBus, shc.busWea)
+  connect(weaDat.weaBus,php. busWea)
     annotation(Line(points={{230,180},{60,180},{60,120}},
       color={255,204,51},
       thickness=0.5));
-  connect(weaDat.weaBus, hpShc.busWea)
+  connect(weaDat.weaBus,hpPhp. busWea)
     annotation(Line(points={{230,180},{220,180},{220,0},{60,0},{60,-120}},
       color={255,204,51},
       thickness=0.5));
-  connect(ctlPlaAw.bus, hpShc.bus)
+  connect(ctlPlaAw.bus,hpPhp. bus)
     annotation(Line(points={{-10,-40},{40,-40},{40,-120}},
       color={255,204,51},
       thickness=0.5));
   connect(inlHp.ports, TChiHeaWatRetHp.port_a)
     annotation(Line(points={{-70,-40},{-70,-40}},
       color={0,127,255}));
-  connect(TChiHeaWatRetHp.port_b, hpShc.ports_aChiHeaWatHp)
+  connect(TChiHeaWatRetHp.port_b,hpPhp. ports_aChiHeaWatHp)
     annotation(Line(points={{-50,-40},{-42,-40},{-42,-120}},
       color={0,127,255}));
   connect(TChiHeaWatSupHp.port_b, sup1.ports[1:3])
     annotation(Line(points={{160,-80},{180,-80},{180,-40}},
       color={0,127,255}));
-  connect(hpShc.ports_bChiHeaWatHp, TChiHeaWatSupHp.port_a)
+  connect(hpPhp.ports_bChiHeaWatHp, TChiHeaWatSupHp.port_a)
     annotation(Line(points={{122,-120},{122,-80},{140,-80}},
       color={0,127,255}));
   connect(THeaWatRet1.y, TRetAct.u1)
@@ -421,41 +392,41 @@ equation
   connect(pInl_rel.u2, TRetAct.u2)
     annotation(Line(points={{-242,0},{-250,0},{-250,-80},{-242,-80}},
       color={255,0,255}));
-  connect(hpShc.ports_bChiWatShc[1], sup1.ports[4])
+  connect(hpPhp.ports_bChiWatPhp[1], sup1.ports[4])
     annotation(Line(points={{90,-120},{90,-40},{180,-40},{180,-39.2}},
       color={0,127,255}));
-  connect(hpShc.ports_bHeaWatShc[1], sup1.ports[5])
+  connect(hpPhp.ports_bHeaWatPhp[1], sup1.ports[5])
     annotation(Line(points={{106,-120},{106,-60},{180,-60},{180,-38.4}},
       color={0,127,255}));
-  connect(inlHeaWatShc.ports[1], hpShc.ports_aHeaWatShc[1])
+  connect(inlHeaWatPhp.ports[1],hpPhp. ports_aHeaWatPhp[1])
     annotation(Line(points={{-130,-61},{-26,-61},{-26,-120}},
       color={0,127,255}));
-  connect(inlChiWatShc.ports[1], hpShc.ports_aChiWatShc[1])
+  connect(inlChiWatPhp.ports[1],hpPhp. ports_aChiWatPhp[1])
     annotation(Line(points={{-100,-81},{-10,-81},{-10,-120}},
       color={0,127,255}));
-  connect(TChiWatRet.y, inlChiWatShc.T_in)
+  connect(TChiWatRet.y, inlChiWatPhp.T_in)
     annotation(Line(points={{-268,-100},{-140,-100},{-140,-76},{-122,-76}},
       color={0,0,127}));
-  connect(THeaWatRet1.y, inlHeaWatShc.T_in)
+  connect(THeaWatRet1.y, inlHeaWatPhp.T_in)
     annotation(Line(points={{-268,-60},{-160,-60},{-160,-56},{-152,-56}},
       color={0,0,127}));
-  connect(inlHeaWatShc.ports[2], shc.ports_aHeaWatShc[1])
+  connect(inlHeaWatPhp.ports[2],php. ports_aHeaWatPhp[1])
     annotation(Line(
       points={{-130,-59},{-120,-59},{-120,140},{-26,140},{-26,120}},
       color={0,127,255}));
-  connect(inlChiWatShc.ports[2], shc.ports_aChiWatShc[1])
+  connect(inlChiWatPhp.ports[2],php. ports_aChiWatPhp[1])
     annotation(Line(points={{-100,-79},{-100,130},{-10,130},{-10,120}},
       color={0,127,255}));
-  connect(shc.ports_bHeaWatShc[1], sup.ports[1])
+  connect(php.ports_bHeaWatPhp[1], sup.ports[1])
     annotation(Line(points={{106,120},{106,130},{180,130},{180,139}},
       color={0,127,255}));
-  connect(shc.ports_bChiWatShc, sup.ports[2:2])
+  connect(php.ports_bChiWatPhp, sup.ports[2:2])
     annotation(Line(points={{90,120},{90,141},{180,141}},
       color={0,127,255}));
 annotation(Diagram(coordinateSystem(extent={{-300,-200},{300,200}},
   grid={2,2})),
   __Dymola_Commands(
-    file="modelica://Buildings/Resources/Scripts/Dymola/Templates/Plants/HeatPumps/Components/Validation/HeatPumpGroupAirToWaterSHC.mos"
+    file="modelica://Buildings/Resources/Scripts/Dymola/Templates/Plants/HeatPumps/Components/Validation/HeatPumpGroupAirToWaterPolyvalent.mos"
       "Simulate and plot"),
   experiment(Tolerance=1e-6,
     StartTime=10497600.0,
@@ -470,9 +441,9 @@ annotation(Diagram(coordinateSystem(extent={{-300,-200},{300,200}},
   constant differential pressure and a varying return temperature.
 </p>
 <p>
-  The model is configured to represent either a single SHC unit without
-  reversible heat pumps (component <code>shc</code>) or a group of reversible
-  heat pumps with a single SHC unit (component <code>hpShc</code>).
+  The model is configured to represent either a single polyvalent HP without
+  reversible heat pumps (component <code>php</code>) or a group of reversible
+  heat pumps with a single polyvalent HP (component <code>hpPhp</code>).
 </p>
 </html>",
     revisions="<html>
@@ -483,4 +454,4 @@ annotation(Diagram(coordinateSystem(extent={{-300,-200},{300,200}},
   </li>
 </ul>
 </html>"));
-end HeatPumpGroupAirToWaterSHC;
+end HeatPumpGroupAirToWaterPolyvalent;

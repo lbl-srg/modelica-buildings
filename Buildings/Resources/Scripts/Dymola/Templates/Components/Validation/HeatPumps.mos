@@ -88,21 +88,21 @@ createPlot(
     id=5,
     position={350, 50, 300, 600},
     subPlot=1,
-    y={"THeaWatRetShc.T", "THeaWatSupShc.T", "shc.bus.THeaWatSet", "shc.THeaWatRet_nominal"},
+    y={"THeaWatRetPhp.T", "THeaWatSupPhp.T", "php.bus.THeaWatSet", "php.THeaWatRet_nominal"},
     autoscale=true,
     grid=true
 );
 createPlot(
     id=5,
     subPlot=2,
-    y={"TChiWatRetShc.T", "TChiWatSupShc.T", "shc.bus.TChiWatSet", "shc.TChiWatRet_nominal"},
+    y={"TChiWatRetPhp.T", "TChiWatSupPhp.T", "php.bus.TChiWatSet", "php.TChiWatRet_nominal"},
     autoscale=true,
     grid=true
 );
 createPlot(
     id=5,
     subPlot=3,
-    y={"shc.port_a.m_flow", "shc.port_aChiWat.m_flow", "shc.mHeaWat_flow_nominal", "shc.mChiWat_flow_nominal"},
+    y={"php.port_a.m_flow", "php.port_aChiWat.m_flow", "php.mHeaWat_flow_nominal", "php.mChiWat_flow_nominal"},
     autoscale=true,
     grid=true
 );

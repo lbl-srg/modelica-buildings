@@ -61,7 +61,7 @@ partial model PartialHeatPumpTableData2DLoadDep
     if not typMod == Buildings.Templates.Components.Types.HeatPumpCapability.Polyvalent
     "Heat pump"
     annotation(Placement(transformation(extent={{-10,-16},{10,4}})));
-  Buildings.Fluid.HeatPumps.ModularReversible.TableData2DLoadDepSHC shc(
+  Buildings.Fluid.HeatPumps.ModularReversible.TableData2DLoadDepSHC php(
     redeclare final package MediumCon=MediumHeaWat,
     redeclare final package MediumEva=MediumChiWat,
     final P_min=dat.P_min,
@@ -87,12 +87,12 @@ partial model PartialHeatPumpTableData2DLoadDep
     use_conCap=false,
     use_evaCap=false)
     if typMod == Buildings.Templates.Components.Types.HeatPumpCapability.Polyvalent
-    "Polyvalent (SHC) unit"
+    "Polyvalent heat pump"
     annotation(Placement(transformation(extent={{-12,56},{8,76}})));
   Routing.PassThroughFluid pas(redeclare final package Medium=MediumSou)
     if typ == Buildings.Templates.Components.Types.HeatPump.AirToWater and
     typMod == Buildings.Templates.Components.Types.HeatPumpCapability.Polyvalent
-    "Direct fluid pass through in case of air-source SHC unit"
+    "Direct fluid pass through in case of air-source polyvalent HP"
     annotation(Placement(transformation(extent={{10,-50},{-10,-30}})));
   Buildings.Controls.OBC.CDL.Logical.Or onHeaOrCoo if typMod == Buildings.Templates.Components.Types.HeatPumpCapability.Polyvalent
     "Commanded on in cooling or heating mode"
@@ -144,19 +144,19 @@ equation
   connect(hp.on, y1_actual.y1)
     annotation(Line(points={{-12,-8},{-14,-8},{-14,12},{40,12},{40,108}},
       color={255,0,255}));
-  connect(shc.port_b1, THeaWatLvg.port_a)
+  connect(php.port_b1, THeaWatLvg.port_a)
     annotation(Line(points={{8,72},{20,72},{20,0},{70,0}},
       color={0,127,255}));
-  connect(THeaWatEnt.port_b, shc.port_a1)
+  connect(THeaWatEnt.port_b,php. port_a1)
     annotation(Line(points={{-40,0},{-40,72},{-12,72}},
       color={0,127,255}));
-  connect(shc.port_b2, port_bChiWat)
+  connect(php.port_b2, port_bChiWat)
     annotation(Line(points={{-12,60},{-60,60},{-60,60},{-100,60}},
       color={0,127,255}));
-  connect(port_aChiWat, shc.port_a2)
+  connect(port_aChiWat,php. port_a2)
     annotation(Line(points={{100,60},{8,60}},
       color={0,127,255}));
-  connect(busWea, shc.weaBus)
+  connect(busWea,php. weaBus)
     annotation(Line(points={{-40,-140},{-60,-140},{-60,76},{-2,76}},
       color={255,204,51},
       thickness=0.5));
@@ -166,27 +166,27 @@ equation
   connect(pas.port_b, TSouLvg.port_a)
     annotation(Line(points={{-10,-40},{-20,-40}},
       color={0,127,255}));
-  connect(bus.THeaWatSet, shc.THwSet) annotation (Line(
+  connect(bus.THeaWatSet,php. THwSet) annotation (Line(
       points={{0,160},{0,140},{-20,140},{-20,70},{-14,70}},
       color={255,204,51},
       thickness=0.5));
-  connect(bus.TChiWatSet, shc.TChwSet) annotation (Line(
+  connect(bus.TChiWatSet,php. TChwSet) annotation (Line(
       points={{0,160},{0,140},{-20,140},{-20,66},{-14,66}},
       color={255,204,51},
       thickness=0.5));
-  connect(bus.y1Hea, shc.onHea) annotation (Line(
+  connect(bus.y1Hea,php. onHea) annotation (Line(
       points={{0,160},{0,140},{-20,140},{-20,64},{-14,64}},
       color={255,204,51},
       thickness=0.5));
-  connect(bus.y1Coo, shc.onCoo) annotation (Line(
+  connect(bus.y1Coo,php. onCoo) annotation (Line(
       points={{0,160},{0,140},{-20,140},{-20,62},{-14,62}},
       color={255,204,51},
       thickness=0.5));
   connect(onHeaOrCoo.y, y1_actual.y1)
     annotation (Line(points={{10,100},{40,100},{40,108}}, color={255,0,255}));
-  connect(shc.onHea, onHeaOrCoo.u1) annotation (Line(points={{-14,64},{-18,64},
+  connect(php.onHea, onHeaOrCoo.u1) annotation (Line(points={{-14,64},{-18,64},
           {-18,100},{-14,100}}, color={255,0,255}));
-  connect(shc.onCoo, onHeaOrCoo.u2) annotation (Line(points={{-14,62},{-16,62},
+  connect(php.onCoo, onHeaOrCoo.u2) annotation (Line(points={{-14,62},{-16,62},
           {-16,92},{-14,92}}, color={255,0,255}));
 annotation(defaultComponentName="heaPum",
   Documentation(

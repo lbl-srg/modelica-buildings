@@ -9,8 +9,8 @@ record HeatPumpGroup
     "Set to true for plants with non-reversible or reversible heat pumps"
     annotation(Evaluate=true,
       Dialog(group="Configuration"));
-  parameter Boolean have_shc
-    "Set to true for plants with polyvalent (SHC) units"
+  parameter Boolean have_php
+    "Set to true for plants with polyvalent heat pumps"
     annotation(Evaluate=true,
       Dialog(group="Configuration"));
   parameter Boolean is_rev
@@ -22,13 +22,12 @@ record HeatPumpGroup
     Buildings.Utilities.Psychrometrics.Constants.cpWatLiq
     "HW default specific heat capacity"
     annotation(Dialog(group="Configuration"));
-  parameter Modelica.Units.SI.SpecificHeatCapacity cpChiWatShc_default =
-    cpHeaWat_default
-    "CHW default specific heat capacity"
+  parameter Modelica.Units.SI.SpecificHeatCapacity cpChiWatPhp_default=
+      cpHeaWat_default "CHW default specific heat capacity"
     annotation(Dialog(group="Configuration",
-      enable=have_shc));
+      enable=have_php));
   final parameter Modelica.Units.SI.SpecificHeatCapacity cpChiWat_default =
-    if have_shc then cpChiWatShc_default else cpHeaWat_default
+    if have_php then cpChiWatPhp_default else cpHeaWat_default
     "CHW default specific heat capacity";
   parameter Modelica.Units.SI.SpecificHeatCapacity cpSou_default =
     if typHp == Buildings.Templates.Components.Types.HeatPump.AirToWater
@@ -39,43 +38,43 @@ record HeatPumpGroup
   // RFE: Declare array parameters for unequally sized units.
   // The current implementation only supports equally sized units.
   parameter Modelica.Units.SI.HeatFlowRate capHeaHp_nominal(start=0)
-    "Heating capacity - Each heat pump"
+    "Heating capacity - Each unit"
     annotation(Dialog(group="Nominal condition – Heat pumps",
       enable=have_hp));
   parameter Modelica.Units.SI.MassFlowRate mHeaWatHp_flow_nominal(
     min=0,
     start=1)
-    "HW mass flow rate - Each heat pump"
+    "HW mass flow rate - Each unit"
     annotation(Evaluate=true,
       Dialog(group="Nominal condition – Heat pumps",
         enable=have_hp));
   parameter Modelica.Units.SI.PressureDifference dpHeaWatHp_nominal(
     min=0,
     start=Buildings.Templates.Data.Defaults.dpChiWatChi)
-    "Pressure drop at design HW mass flow rate - Each heat pump"
+    "Pressure drop at design HW mass flow rate - Each unit"
     annotation(Dialog(group="Nominal condition – Heat pumps",
       enable=have_hp));
   parameter Modelica.Units.SI.Temperature THeaWatSupHp_nominal(
     min=273.15,
     start=Buildings.Templates.Data.Defaults.THeaWatSupMed)
-    "HW supply temperature - Each heat pump"
+    "HW supply temperature - Each unit"
     annotation(Dialog(group="Nominal condition – Heat pumps",
       enable=have_hp));
   final parameter Modelica.Units.SI.Temperature THeaWatRetHp_nominal =
     THeaWatSupHp_nominal - abs(capHeaHp_nominal) / cpHeaWat_default /
       mHeaWatHp_flow_nominal
-    "HW return temperature - Each heat pump"
+    "HW return temperature - Each unit"
     annotation(Dialog(group="Nominal condition – Heat pumps"));
   parameter Modelica.Units.SI.Temperature TSouHeaHp_nominal(
     min=220,
     start=Buildings.Templates.Data.Defaults.TOutHpHeaLow)
-    "OAT or source fluid supply temperature (evaporator entering) in heating mode - Each heat pump"
+    "OAT or source fluid supply temperature (evaporator entering) in heating mode - Each unit"
     annotation(Dialog(group="Nominal condition – Heat pumps",
       enable=have_hp));
   parameter Modelica.Units.SI.MassFlowRate mSouWwHeaHp_flow_nominal(
     min=0,
     start=mHeaWatHp_flow_nominal)
-    "Source fluid mass flow rate in heating mode - Each heat pump"
+    "Source fluid mass flow rate in heating mode - Each unit"
     annotation(Evaluate=true,
       Dialog(group="Nominal condition – Heat pumps",
         enable=have_hp
@@ -84,7 +83,7 @@ record HeatPumpGroup
   parameter Modelica.Units.SI.PressureDifference dpSouWwHeaHp_nominal(
     min=0,
     start=Buildings.Templates.Data.Defaults.dpChiWatChi)
-    "Source fluid pressure drop in heating mode - Each heat pump"
+    "Source fluid pressure drop in heating mode - Each unit"
     annotation(Dialog(group="Nominal condition – Heat pumps",
       enable=have_hp
         and typHp ==
@@ -96,31 +95,31 @@ record HeatPumpGroup
       else Buildings.Templates.Data.Defaults.ratMFloAirByCapChi * abs(
         capHeaHp_nominal))
     else 1
-    "Source fluid mass flow rate in heating mode - Each heat pump"
+    "Source fluid mass flow rate in heating mode - Each unit"
     annotation(Evaluate=true);
   final parameter Modelica.Units.SI.PressureDifference dpSouHeaHp_nominal =
     if typHp == Buildings.Templates.Components.Types.HeatPump.WaterToWater
     then dpSouWwHeaHp_nominal else Buildings.Templates.Data.Defaults.dpAirChi
-    "Source fluid pressure drop in heating mode - Each heat pump";
+    "Source fluid pressure drop in heating mode - Each unit";
   parameter Modelica.Units.SI.HeatFlowRate capCooHp_nominal(start=0)
-    "Cooling capacity - Each heat pump"
+    "Cooling capacity - Each unit"
     annotation(Dialog(group="Nominal condition – Heat pumps",
       enable=have_hp and is_rev));
   parameter Modelica.Units.SI.MassFlowRate mChiWatHp_flow_nominal(
     min=0,
     start=1)
-    "CHW mass flow rate - Each heat pump"
+    "CHW mass flow rate - Each unit"
     annotation(Evaluate=true,
       Dialog(group="Nominal condition – Heat pumps",
         enable=have_hp and is_rev));
   final parameter Modelica.Units.SI.PressureDifference dpChiWatHp_nominal =
     dpHeaWatHp_nominal * (mChiWatHp_flow_nominal / mHeaWatHp_flow_nominal) ^ 2
-    "Pressure drop at design CHW mass flow rate - Each heat pump"
+    "Pressure drop at design CHW mass flow rate - Each unit"
     annotation(Dialog(group="Nominal condition – Heat pumps"));
   parameter Modelica.Units.SI.Temperature TChiWatSupHp_nominal(
     min=253.15,
     start=Buildings.Templates.Data.Defaults.TChiWatSup)
-    "(Lowest) CHW supply temperature - Each heat pump"
+    "(Lowest) CHW supply temperature - Each unit"
     annotation(Dialog(group="Nominal condition – Heat pumps",
       enable=have_hp and is_rev));
   final parameter Modelica.Units.SI.Temperature TChiWatRetHp_nominal =
@@ -128,18 +127,18 @@ record HeatPumpGroup
     then TChiWatSupHp_nominal + abs(capCooHp_nominal) / cpChiWat_default /
       mChiWatHp_flow_nominal
     else Buildings.Templates.Data.Defaults.TChiWatRet
-    "CHW return temperature - Each heat pump"
+    "CHW return temperature - Each unit"
     annotation(Dialog(group="Nominal condition – Heat pumps"));
   parameter Modelica.Units.SI.Temperature TSouCooHp_nominal(
     min=273.15,
     start=Buildings.Templates.Data.Defaults.TOutHpCoo)
-    "OAT or source fluid supply temperature (condenser entering) in cooling mode - Each heat pump"
+    "OAT or source fluid supply temperature (condenser entering) in cooling mode - Each unit"
     annotation(Dialog(group="Nominal condition – Heat pumps",
       enable=have_hp and is_rev));
   parameter Modelica.Units.SI.MassFlowRate mSouWwCooHp_flow_nominal(
     min=0,
     start=mChiWatHp_flow_nominal)
-    "Source fluid mass flow rate in cooling mode - Each heat pump"
+    "Source fluid mass flow rate in cooling mode - Each unit"
     annotation(Evaluate=true,
       Dialog(group="Nominal condition – Heat pumps",
         enable=have_hp
@@ -151,11 +150,11 @@ record HeatPumpGroup
     then mSouWwCooHp_flow_nominal
     else Buildings.Templates.Data.Defaults.ratMFloAirByCapChi * abs(
       capCooHp_nominal)
-    "Source fluid mass flow rate in cooling mode - Each heat pump"
+    "Source fluid mass flow rate in cooling mode - Each unit"
     annotation(Evaluate=true);
   final parameter Modelica.Units.SI.PressureDifference dpSouCooHp_nominal =
     dpSouHeaHp_nominal * (mSouCooHp_flow_nominal / mSouHeaHp_flow_nominal) ^ 2
-    "Source fluid pressure drop in cooling mode - Each heat pump";
+    "Source fluid pressure drop in cooling mode - Each unit";
   replaceable parameter Fluid.HeatPumps.ModularReversible.Data.TableData2DLoadDep.GenericHeatPump perHeaHp(
     fileName="",
     PLRSup={1},
@@ -195,137 +194,137 @@ record HeatPumpGroup
         enable=have_hp and is_rev),
       Placement(transformation(extent={{-40,-28},{-20,-8}})));
   parameter Modelica.Units.SI.Power PHp_min(min=0) = 0
-    "Minimum power when system is enabled with compressor cycled off - Each heat pump"
+    "Minimum power when system is enabled with compressor cycled off - Each unit"
     annotation(Dialog(group="Performance data – Heat pumps",
       enable=have_hp));
   // RFE: Declare array parameters for unequally sized units.
   // The current implementation only supports equally sized units.
-  parameter Modelica.Units.SI.HeatFlowRate capHeaShc_nominal(start=0)
-    "Heating capacity - Each SHC unit"
-    annotation(Dialog(group="Nominal condition – SHC units",
-      enable=have_shc));
-  parameter Modelica.Units.SI.MassFlowRate mHeaWatShc_flow_nominal(
+  parameter Modelica.Units.SI.HeatFlowRate capHeaPhp_nominal(start=0)
+    "Heating capacity - Each unit"
+    annotation(Dialog(group="Nominal condition – Polyvalent heat pumps",
+      enable=have_php));
+  parameter Modelica.Units.SI.MassFlowRate mHeaWatPhp_flow_nominal(
     min=0,
     start=1)
-    "HW mass flow rate - Each SHC unit"
+    "HW mass flow rate - Each unit"
     annotation(Evaluate=true,
-      Dialog(group="Nominal condition – SHC units",
-        enable=have_shc));
-  parameter Modelica.Units.SI.PressureDifference dpHeaWatShc_nominal(
+      Dialog(group="Nominal condition – Polyvalent heat pumps",
+        enable=have_php));
+  parameter Modelica.Units.SI.PressureDifference dpHeaWatPhp_nominal(
     min=0,
     start=Buildings.Templates.Data.Defaults.dpChiWatChi)
-    "Pressure drop at design HW mass flow rate - Each SHC unit"
-    annotation(Dialog(group="Nominal condition – SHC units",
-      enable=have_shc));
-  parameter Modelica.Units.SI.Temperature THeaWatSupShc_nominal(
+    "Pressure drop at design HW mass flow rate - Each unit"
+    annotation(Dialog(group="Nominal condition – Polyvalent heat pumps",
+      enable=have_php));
+  parameter Modelica.Units.SI.Temperature THeaWatSupPhp_nominal(
     min=273.15,
     start=Buildings.Templates.Data.Defaults.THeaWatSupMed)
-    "(Highest) HW supply temperature - Each SHC unit"
-    annotation(Dialog(group="Nominal condition – SHC units",
-      enable=have_shc));
-  final parameter Modelica.Units.SI.Temperature THeaWatRetShc_nominal =
-    THeaWatSupShc_nominal - abs(capHeaShc_nominal) / cpHeaWat_default /
-      mHeaWatShc_flow_nominal
-    "HW return temperature - Each SHC unit"
-    annotation(Dialog(group="Nominal condition – SHC units"));
-  parameter Modelica.Units.SI.Temperature TSouHeaShc_nominal(
+    "(Highest) HW supply temperature - Each unit"
+    annotation(Dialog(group="Nominal condition – Polyvalent heat pumps",
+      enable=have_php));
+  final parameter Modelica.Units.SI.Temperature THeaWatRetPhp_nominal =
+    THeaWatSupPhp_nominal - abs(capHeaPhp_nominal) / cpHeaWat_default /
+      mHeaWatPhp_flow_nominal
+    "HW return temperature - Each unit"
+    annotation(Dialog(group="Nominal condition – Polyvalent heat pumps"));
+  parameter Modelica.Units.SI.Temperature TSouHeaPhp_nominal(
     min=220,
     start=Buildings.Templates.Data.Defaults.TOutHpHeaLow) = TSouHeaHp_nominal
-    "OAT or source fluid supply temperature (evaporator entering) in heating mode - Each SHC unit"
-    annotation(Dialog(group="Nominal condition – SHC units",
-      enable=have_shc));
-  parameter Modelica.Units.SI.MassFlowRate mSouWwHeaShc_flow_nominal(
+    "OAT or source fluid supply temperature (evaporator entering) in heating mode - Each unit"
+    annotation(Dialog(group="Nominal condition – Polyvalent heat pumps",
+      enable=have_php));
+  parameter Modelica.Units.SI.MassFlowRate mSouWwHeaPhp_flow_nominal(
     min=0,
-    start=mHeaWatShc_flow_nominal)
-    "Source fluid mass flow rate in heating mode - Each SHC unit"
+    start=mHeaWatPhp_flow_nominal)
+    "Source fluid mass flow rate in heating mode - Each unit"
     annotation(Evaluate=true,
-      Dialog(group="Nominal condition – SHC units",
-        enable=have_shc
+      Dialog(group="Nominal condition – Polyvalent heat pumps",
+        enable=have_php
           and typHp ==
             Buildings.Templates.Components.Types.HeatPump.WaterToWater));
-  parameter Modelica.Units.SI.PressureDifference dpSouWwHeaShc_nominal(
+  parameter Modelica.Units.SI.PressureDifference dpSouWwHeaPhp_nominal(
     min=0,
     start=Buildings.Templates.Data.Defaults.dpChiWatChi)
-    "Source fluid pressure drop in heating mode - Each SHC unit"
-    annotation(Dialog(group="Nominal condition – SHC units",
-      enable=have_shc
+    "Source fluid pressure drop in heating mode - Each unit"
+    annotation(Dialog(group="Nominal condition – Polyvalent heat pumps",
+      enable=have_php
         and typHp ==
           Buildings.Templates.Components.Types.HeatPump.WaterToWater));
-  final parameter Modelica.Units.SI.MassFlowRate mSouHeaShc_flow_nominal =
-    if have_shc
+  final parameter Modelica.Units.SI.MassFlowRate mSouHeaPhp_flow_nominal =
+    if have_php
     then (if typHp == Buildings.Templates.Components.Types.HeatPump.WaterToWater
-      then mSouWwHeaShc_flow_nominal
+      then mSouWwHeaPhp_flow_nominal
       else Buildings.Templates.Data.Defaults.ratMFloAirByCapChi * abs(
-        capHeaShc_nominal))
+      capHeaPhp_nominal))
     else 1
-    "Source fluid mass flow rate in heating mode - Each SHC unit"
+    "Source fluid mass flow rate in heating mode - Each unit"
     annotation(Evaluate=true);
-  final parameter Modelica.Units.SI.PressureDifference dpSouHeaShc_nominal =
-    if have_shc
+  final parameter Modelica.Units.SI.PressureDifference dpSouHeaPhp_nominal =
+    if have_php
       and typHp == Buildings.Templates.Components.Types.HeatPump.WaterToWater
-    then dpSouWwHeaShc_nominal else Buildings.Templates.Data.Defaults.dpAirChi
-    "Source fluid pressure drop in heating mode - Each SHC unit";
-  parameter Modelica.Units.SI.HeatFlowRate capCooShc_nominal(start=0)
-    "Cooling capacity - Each SHC unit"
-    annotation(Dialog(group="Nominal condition – SHC units",
-      enable=have_shc));
-  parameter Modelica.Units.SI.MassFlowRate mChiWatShc_flow_nominal(
+    then dpSouWwHeaPhp_nominal else Buildings.Templates.Data.Defaults.dpAirChi
+    "Source fluid pressure drop in heating mode - Each unit";
+  parameter Modelica.Units.SI.HeatFlowRate capCooPhp_nominal(start=0)
+    "Cooling capacity - Each unit"
+    annotation(Dialog(group="Nominal condition – Polyvalent heat pumps",
+      enable=have_php));
+  parameter Modelica.Units.SI.MassFlowRate mChiWatPhp_flow_nominal(
     min=0,
     start=1)
-    "CHW mass flow rate - Each SHC unit"
+    "CHW mass flow rate - Each unit"
     annotation(Evaluate=true,
-      Dialog(group="Nominal condition – SHC units",
-        enable=have_shc));
-  parameter Modelica.Units.SI.PressureDifference dpChiWatShc_nominal(start=0)
-    "Pressure drop at design CHW mass flow rate - Each SHC unit"
-    annotation(Dialog(group="Nominal condition – SHC units",
-      enable=have_shc));
-  parameter Modelica.Units.SI.Temperature TChiWatSupShc_nominal(
+      Dialog(group="Nominal condition – Polyvalent heat pumps",
+        enable=have_php));
+  parameter Modelica.Units.SI.PressureDifference dpChiWatPhp_nominal(start=0)
+    "Pressure drop at design CHW mass flow rate - Each unit"
+    annotation(Dialog(group="Nominal condition – Polyvalent heat pumps",
+      enable=have_php));
+  parameter Modelica.Units.SI.Temperature TChiWatSupPhp_nominal(
     min=253.15,
     start=Buildings.Templates.Data.Defaults.TChiWatSup)
-    "(Lowest) CHW supply temperature - Each SHC unit"
-    annotation(Dialog(group="Nominal condition – SHC units",
-      enable=have_shc));
-  final parameter Modelica.Units.SI.Temperature TChiWatRetShc_nominal =
-    TChiWatSupShc_nominal + abs(capCooShc_nominal) / cpChiWat_default /
-      mChiWatShc_flow_nominal
-    "CHW return temperature - Each SHC unit"
-    annotation(Dialog(group="Nominal condition – SHC units",
-      enable=have_shc));
-  parameter Modelica.Units.SI.Temperature TSouCooShc_nominal(
+    "(Lowest) CHW supply temperature - Each unit"
+    annotation(Dialog(group="Nominal condition – Polyvalent heat pumps",
+      enable=have_php));
+  final parameter Modelica.Units.SI.Temperature TChiWatRetPhp_nominal =
+    TChiWatSupPhp_nominal + abs(capCooPhp_nominal) / cpChiWat_default /
+      mChiWatPhp_flow_nominal
+    "CHW return temperature - Each unit"
+    annotation(Dialog(group="Nominal condition – Polyvalent heat pumps",
+      enable=have_php));
+  parameter Modelica.Units.SI.Temperature TSouCooPhp_nominal(
     min=273.15,
     start=Buildings.Templates.Data.Defaults.TOutHpCoo) = TSouCooHp_nominal
-    "OAT or source fluid supply temperature (condenser entering) in cooling mode - Each SHC unit"
-    annotation(Dialog(group="Nominal condition – SHC units",
-      enable=have_shc));
-  parameter Modelica.Units.SI.MassFlowRate mSouWwCooShc_flow_nominal(
+    "OAT or source fluid supply temperature (condenser entering) in cooling mode - Each unit"
+    annotation(Dialog(group="Nominal condition – Polyvalent heat pumps",
+      enable=have_php));
+  parameter Modelica.Units.SI.MassFlowRate mSouWwCooPhp_flow_nominal(
     min=0,
-    start=mChiWatShc_flow_nominal)
-    "Source fluid mass flow rate in cooling mode - Each SHC unit"
+    start=mChiWatPhp_flow_nominal)
+    "Source fluid mass flow rate in cooling mode - Each unit"
     annotation(Evaluate=true,
-      Dialog(group="Nominal condition – SHC units",
-        enable=have_shc
+      Dialog(group="Nominal condition – Polyvalent heat pumps",
+        enable=have_php
           and typHp ==
             Buildings.Templates.Components.Types.HeatPump.WaterToWater));
-  final parameter Modelica.Units.SI.MassFlowRate mSouCooShc_flow_nominal =
+  final parameter Modelica.Units.SI.MassFlowRate mSouCooPhp_flow_nominal =
     if typHp == Buildings.Templates.Components.Types.HeatPump.WaterToWater
-    then mSouWwCooShc_flow_nominal
+    then mSouWwCooPhp_flow_nominal
     else Buildings.Templates.Data.Defaults.ratMFloAirByCapChi * abs(
-      capCooShc_nominal)
-    "Source fluid mass flow rate in cooling mode - Each SHC unit"
+      capCooPhp_nominal)
+    "Source fluid mass flow rate in cooling mode - Each unit"
     annotation(Evaluate=true);
-  final parameter Modelica.Units.SI.PressureDifference dpSouCooShc_nominal =
-    dpSouHeaShc_nominal *
-      (mSouCooShc_flow_nominal / mSouHeaShc_flow_nominal) ^ 2
-    "Source fluid pressure drop in cooling mode - Each SHC unit";
-  parameter Modelica.Units.SI.HeatFlowRate capHeaHrShc_nominal(start=0)
-    "Heating capacity in heat recovery mode - Each SHC unit"
-    annotation(Dialog(group="Nominal condition – SHC units",
-      enable=have_shc));
-  parameter Modelica.Units.SI.HeatFlowRate capCooHrShc_nominal(start=0)
-    "Cooling capacity in heat recovery mode - Each SHC unit"
-    annotation(Dialog(group="Nominal condition – SHC units",
-      enable=have_shc));
+  final parameter Modelica.Units.SI.PressureDifference dpSouCooPhp_nominal =
+    dpSouHeaPhp_nominal *
+      (mSouCooPhp_flow_nominal / mSouHeaPhp_flow_nominal) ^ 2
+    "Source fluid pressure drop in cooling mode - Each unit";
+  parameter Modelica.Units.SI.HeatFlowRate capHeaShcPhp_nominal(start=0)
+    "Heating capacity in SHC mode - Each unit"
+    annotation(Dialog(group="Nominal condition – Polyvalent heat pumps",
+      enable=have_php));
+  parameter Modelica.Units.SI.HeatFlowRate capCooShcPhp_nominal(start=0)
+    "Cooling capacity in SHC mode - Each unit"
+    annotation(Dialog(group="Nominal condition – Polyvalent heat pumps",
+      enable=have_php));
   replaceable parameter Buildings.Fluid.HeatPumps.ModularReversible.Data.TableData2DLoadDepSHC.Generic perShc(
     devIde="",
     PLRHeaSup={1},
@@ -336,19 +335,21 @@ record HeatPumpGroup
     fileNameShc="",
     use_TConOutForTab=true,
     use_TEvaOutForTab=true,
-    mCon_flow_nominal=mHeaWatShc_flow_nominal,
-    mEva_flow_nominal=mSouHeaShc_flow_nominal,
-    dpCon_nominal=dpHeaWatShc_nominal,
-    dpEva_nominal=dpSouHeaShc_nominal)
-    "Performance data - Each SHC unit"
-    annotation(Dialog(group="Performance data – SHC units",
-      enable=have_shc),
+    mCon_flow_nominal=mHeaWatPhp_flow_nominal,
+    mEva_flow_nominal=mSouHeaPhp_flow_nominal,
+    dpCon_nominal=dpHeaWatPhp_nominal,
+    dpEva_nominal=dpSouHeaPhp_nominal)
+    "Performance data - Each unit"
+    annotation(Dialog(group="Performance data – Polyvalent heat pumps",
+      enable=have_php),
       choicesAllMatching=true,
       Placement(transformation(extent={{20,-10},{40,10}})));
-  parameter Modelica.Units.SI.Power PShc_min(min=0, start=0) = 0
-    "Minimum power when system is enabled with compressor cycled off - Each SHC unit"
-    annotation(Dialog(group="Performance data – SHC units",
-      enable=have_shc));
+  parameter Modelica.Units.SI.Power PPhp_min(
+    min=0,
+    start=0) = 0
+    "Minimum power when system is enabled with compressor cycled off - Each unit"
+    annotation(Dialog(group="Performance data – Polyvalent heat pumps",
+      enable=have_php));
 annotation(defaultComponentPrefixes="parameter",
   defaultComponentName="datHp",
   Documentation(

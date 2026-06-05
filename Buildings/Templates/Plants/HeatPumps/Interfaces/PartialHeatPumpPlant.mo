@@ -61,10 +61,10 @@ partial model PartialHeatPumpPlant
       Buildings.Templates.Plants.HeatPumps.Types.Plant.ReversibleHeatRecovery
     "Set to true for plants with sidestream heat recovery chiller"
     annotation(Evaluate=true);
-  final parameter Boolean have_shc =
+  final parameter Boolean have_php =
     typ == Buildings.Templates.Plants.HeatPumps.Types.Plant.ReversiblePolyvalent
       or typ == Buildings.Templates.Plants.HeatPumps.Types.Plant.Polyvalent
-    "Set to true for plants with polyvalent (SHC) units"
+    "Set to true for plants with polyvalent heat pumps"
     annotation(Evaluate=true);
   parameter Buildings.Templates.Plants.HeatPumps.Types.Plant typ =
     Buildings.Templates.Plants.HeatPumps.Types.Plant.Reversible
@@ -84,21 +84,21 @@ partial model PartialHeatPumpPlant
     final have_hrc=have_hrc,
     final have_hotWat=have_hotWat,
     final have_pumChiWatDedHp=have_pumChiWatDedHp,
-    final have_shc=have_shc,
+    final have_php=have_php,
     final have_valChiWatMinByp=have_valChiWatMinByp,
     final have_valHeaWatMinByp=have_valHeaWatMinByp,
     final have_valHpInlIso=have_valHpInlIso,
     final have_valHpOutIso=have_valHpOutIso,
-    final have_valShcInlIso=have_valShcInlIso,
-    final have_valShcOutIso=have_valShcOutIso,
+    final have_valPhpInlIso=have_valPhpInlIso,
+    final have_valPhpOutIso=have_valPhpOutIso,
     final is_rev=is_rev,
-    final is_shcMod=is_shcMod,
+    final is_phpMod=is_phpMod,
     final nHp=nHp,
     final nPumChiWatPri=nPumChiWatPri,
     final nPumChiWatSec=nPumChiWatSec,
     final nPumHeaWatPri=nPumHeaWatPri,
     final nPumHeaWatSec=nPumHeaWatSec,
-    final nShc=nShc,
+    final nPhp=nPhp,
     final rhoChiWat_default=rhoChiWat_default,
     final rhoHeaWat_default=rhoHeaWat_default,
     final rhoSou_default=rhoSou_default,
@@ -106,9 +106,9 @@ partial model PartialHeatPumpPlant
     final typArrPumPri=typArrPumPri,
     final typDis=typDis,
     final typPumChiWatPriHp=typPumChiWatPriHp,
-    final typPumChiWatPriShc=typPumChiWatPriShc,
+    final typPumChiWatPriPhp=typPumChiWatPriPhp,
     final typPumHeaWatPriHp=typPumHeaWatPriHp,
-    final typPumHeaWatPriShc=typPumHeaWatPriShc,
+    final typPumHeaWatPriPhp=typPumHeaWatPriPhp,
     final typPumChiWatSec=typPumChiWatSec,
     final typPumHeaWatSec=typPumHeaWatSec,
     final typTanChiWat=typTanChiWat,
@@ -128,30 +128,30 @@ partial model PartialHeatPumpPlant
     annotation(Placement(transformation(extent={{-120,360},{-100,380}})));
   // RFE(AntoineGautier): Allow specifying subset of units dedicated to HW, CHW or DHW production.
   parameter Integer nHp_select(start=0)
-    "Number of heat pumps (excluding SHC units)"
+    "Number of heat pumps (excluding polyvalent HPs)"
     annotation(Evaluate=true,
       Dialog(group="Heat pumps",
         enable=have_hp));
   final parameter Integer nHp(
     final max=if have_hp then 10 else 0,
     final min=if have_hp then 1 else 0) = if have_hp then nHp_select else 0
-    "Number of heat pumps (excluding SHC units)"
+    "Number of heat pumps (excluding polyvalent HPs)"
     annotation(Evaluate=true);
-  parameter Boolean is_shcMod(start=false)
+  parameter Boolean is_phpMod(start=false)
     "Set to true for modular polyvalent (SHC) unit"
     annotation(Evaluate=true,
-      Dialog(group="Polyvalent (SHC) units",
-        enable=have_shc));
-  parameter Integer nShc_select(start=0)
-    "Number of polyvalent (SHC) units"
+      Dialog(group="polyvalent heat pumps",
+        enable=have_php));
+  parameter Integer nPhp_select(start=0)
+    "Number of polyvalent heat pumps"
     annotation(Evaluate=true,
-      Dialog(group="Polyvalent (SHC) units",
-        enable=have_shc and not is_shcMod));
-  final parameter Integer nShc(
-    final max=if have_shc then (if is_shcMod then 1 else 10) else 0,
-    final min=if have_shc then 1 else 0) =
-    if have_shc then (if is_shcMod then 1 else nShc_select) else 0
-    "Number of polyvalent (SHC) units"
+      Dialog(group="polyvalent heat pumps",
+        enable=have_php and not is_phpMod));
+  final parameter Integer nPhp(
+    final max=if have_php then (if is_phpMod then 1 else 10) else 0,
+    final min=if have_php then 1 else 0) =
+    if have_php then (if is_phpMod then 1 else nPhp_select) else 0
+    "Number of polyvalent heat pumps"
     annotation(Evaluate=true);
   final parameter Boolean is_rev =
     typ == Buildings.Templates.Plants.HeatPumps.Types.Plant.Reversible
@@ -217,19 +217,19 @@ partial model PartialHeatPumpPlant
     else true
     "Set to true for isolation valves at HP outlet"
     annotation(Evaluate=true);
-  // RFE(AntoineGautier): Default integration of isolation valves at SHC unit inlet,
+  // RFE(AntoineGautier): Default integration of isolation valves at polyvalent HP inlet,
   // not configurable.
-  final parameter Boolean have_valShcInlIso =
-    if not have_shc
+  final parameter Boolean have_valPhpInlIso =
+    if not have_php
     then false
     elseif typArrPumPri ==
       Buildings.Templates.Components.Types.PumpArrangement.Dedicated
     then false
     else true
-    "Set to true for isolation valves at SHC unit inlet"
+    "Set to true for isolation valves at polyvalent HP inlet"
     annotation(Evaluate=true);
-  final parameter Boolean have_valShcOutIso = false
-    "Set to true for isolation valves at SHC unit outlet"
+  final parameter Boolean have_valPhpOutIso = false
+    "Set to true for isolation valves at polyvalent HP outlet"
     annotation(Evaluate=true);
   // Constant-primary hybrid plants require dedicated pumps.
   parameter Buildings.Templates.Components.Types.PumpArrangement typArrPumPri_select =
@@ -292,25 +292,25 @@ partial model PartialHeatPumpPlant
     else Buildings.Templates.Plants.HeatPumps.Types.PumpsPrimary.None
     "Type of HP primary HW pumps"
     annotation(Evaluate=true);
-  final parameter Buildings.Templates.Plants.HeatPumps.Types.PumpsPrimary typPumHeaWatPriShc =
-    if have_heaWat and have_shc
+  final parameter Buildings.Templates.Plants.HeatPumps.Types.PumpsPrimary typPumHeaWatPriPhp =
+    if have_heaWat and have_php
     then typPumPri
     else Buildings.Templates.Plants.HeatPumps.Types.PumpsPrimary.None
-    "Type of SHC unit primary HW pumps"
+    "Type of polyvalent HP primary HW pumps"
     annotation(Evaluate=true);
-  parameter Integer nPumHeaWatPri_select(min=0, start=0) = max(nHp, nShc)
+  parameter Integer nPumHeaWatPri_select(min=0, start=0) = max(nHp, nPhp)
     "Number of primary HW pumps"
     annotation(Evaluate=true,
       Dialog(group="Primary loop",
         enable=have_heaWat
           and typArrPumPri ==
             Buildings.Templates.Components.Types.PumpArrangement.Headered));
-  // FIXME: Update default for modular SHC unit
+  // FIXME: Update default for modular polyvalent HP
   final parameter Integer nPumHeaWatPri =
     if have_heaWat
     then (if typArrPumPri ==
       Buildings.Templates.Components.Types.PumpArrangement.Headered
-      then nPumHeaWatPri_select else nHp + nShc)
+      then nPumHeaWatPri_select else nHp + nPhp)
     else 0
     "Number of primary HW pumps"
     annotation(Evaluate=true,
@@ -341,7 +341,7 @@ partial model PartialHeatPumpPlant
     annotation(Evaluate=true,
       Dialog(group="Secondary HW loop"));
   // Primary-secondary plants.
-  parameter Integer nPumHeaWatSec_select(min=0) = max(nHp, nShc)
+  parameter Integer nPumHeaWatSec_select(min=0) = max(nHp, nPhp)
     "Number of secondary HW pumps"
     annotation(Evaluate=true,
       Dialog(group="Secondary HW loop",
@@ -410,29 +410,29 @@ partial model PartialHeatPumpPlant
     else Buildings.Templates.Plants.HeatPumps.Types.PumpsPrimary.None
     "Type of HP primary CHW pumps"
     annotation(Evaluate=true);
-  final parameter Buildings.Templates.Plants.HeatPumps.Types.PumpsPrimary typPumChiWatPriShc =
-    if have_shc
+  final parameter Buildings.Templates.Plants.HeatPumps.Types.PumpsPrimary typPumChiWatPriPhp =
+    if have_php
     then typPumPri
     else Buildings.Templates.Plants.HeatPumps.Types.PumpsPrimary.None
-    "Type of SHC unit primary CHW pumps"
+    "Type of polyvalent HP primary CHW pumps"
     annotation(Evaluate=true);
   // Plants with headered primary CHW pumps.
-  parameter Integer nPumChiWatPri_select(min=0, start=0) = max(nHp, nShc)
+  parameter Integer nPumChiWatPri_select(min=0, start=0) = max(nHp, nPhp)
     "Number of primary CHW pumps"
     annotation(Evaluate=true,
       Dialog(group="Primary loop",
         enable=have_chiWat
           and typArrPumPri ==
             Buildings.Templates.Components.Types.PumpArrangement.Headered));
-  // FIXME: Update default for modular SHC unit
+  // FIXME: Update default for modular polyvalent HP
   final parameter Integer nPumChiWatPri =
     if have_chiWat
     then (if typArrPumPri ==
       Buildings.Templates.Components.Types.PumpArrangement.Headered
       then nPumChiWatPri_select
       elseif not have_pumPriComHp
-      then nHp + nShc
-      else nShc)
+      then nHp + nPhp
+      else nPhp)
     else 0
     "Number of primary CHW pumps"
     annotation(Evaluate=true,
@@ -462,8 +462,8 @@ partial model PartialHeatPumpPlant
     "Type of secondary CHW pumps"
     annotation(Evaluate=true,
       Dialog(group="Secondary CHW loop"));
-  // FIXME: Update default for modular SHC unit
-  parameter Integer nPumChiWatSec_select(min=0) = max(nHp, nShc)
+  // FIXME: Update default for modular polyvalent HP
+  parameter Integer nPumChiWatSec_select(min=0) = max(nHp, nPhp)
     "Number of secondary CHW pumps"
     annotation(Evaluate=true,
       Dialog(group="Secondary CHW loop",
@@ -472,7 +472,7 @@ partial model PartialHeatPumpPlant
             Buildings.Templates.Plants.HeatPumps.Types.Distribution.Constant1Variable2
             or typDis ==
               Buildings.Templates.Plants.HeatPumps.Types.Distribution.Variable1And2)));
-  // FIXME: Update default for modular SHC unit
+  // FIXME: Update default for modular polyvalent HP
   final parameter Integer nPumChiWatSec(final min=0) =
     if not have_chiWat
       or typDis ==
@@ -485,8 +485,8 @@ partial model PartialHeatPumpPlant
   // FIXME: Not straightfoward in case of hybrid plant
   final parameter Modelica.Units.SI.MassFlowRate mHeaWatPri_flow_nominal =
     if have_heaWat
-    then dat.hp.mHeaWatHp_flow_nominal * nHp + dat.hp.mHeaWatShc_flow_nominal *
-      nShc
+    then dat.hp.mHeaWatHp_flow_nominal * nHp + dat.hp.mHeaWatPhp_flow_nominal *
+      nPhp
     else 0
     "Primary HW mass flow rate"
     annotation(Evaluate=true);
@@ -501,8 +501,8 @@ partial model PartialHeatPumpPlant
   // FIXME: Not straightfoward in case of hybrid plant
   final parameter Modelica.Units.SI.HeatFlowRate capHea_nominal =
     if have_heaWat
-    then abs(dat.hp.capHeaHp_nominal) * nHp + abs(dat.hp.capHeaShc_nominal) *
-      nShc
+    then abs(dat.hp.capHeaHp_nominal) * nHp + abs(dat.hp.capHeaPhp_nominal) *
+      nPhp
     else 0
     "Heating capacity - All units";
   final parameter Modelica.Units.SI.HeatFlowRate QHea_flow_nominal =
@@ -518,8 +518,8 @@ partial model PartialHeatPumpPlant
   // FIXME: Not straightfoward in case of hybrid plant
   final parameter Modelica.Units.SI.MassFlowRate mChiWatPri_flow_nominal =
     if have_chiWat
-    then dat.hp.mChiWatHp_flow_nominal * nHp + dat.hp.mChiWatShc_flow_nominal *
-      nShc
+    then dat.hp.mChiWatHp_flow_nominal * nHp + dat.hp.mChiWatPhp_flow_nominal *
+      nPhp
     else 0
     "Primary CHW mass flow rate"
     annotation(Evaluate=true);
@@ -534,8 +534,8 @@ partial model PartialHeatPumpPlant
   // FIXME: Not straightfoward in case of hybrid plant
   final parameter Modelica.Units.SI.HeatFlowRate capCoo_nominal =
     if have_chiWat
-    then abs(dat.hp.capCooHp_nominal) * nHp + abs(dat.hp.capCooShc_nominal) *
-      nShc
+    then abs(dat.hp.capCooHp_nominal) * nHp + abs(dat.hp.capCooPhp_nominal) *
+      nPhp
     else 0
     "Cooling capacity - All units";
   final parameter Modelica.Units.SI.HeatFlowRate QCoo_flow_nominal =
@@ -545,17 +545,17 @@ partial model PartialHeatPumpPlant
     dat.ctl.TChiWatSup_nominal
     "Minimum CHW supply temperature";
   final parameter Modelica.Units.SI.Temperature TChiWatRet_nominal =
-    if is_rev or have_shc
+    if is_rev or have_php
     then TChiWatSup_nominal - QCoo_flow_nominal / cpChiWat_default /
       mChiWat_flow_nominal
     else Buildings.Templates.Data.Defaults.TChiWatRet
     "CHW return temperature - Each heat pump"
     annotation(Dialog(group="Nominal condition"));
   final parameter Modelica.Units.SI.Temperature TSouHea_nominal =
-    if have_hp then dat.hp.TSouHeaHp_nominal else dat.hp.TSouHeaShc_nominal
+    if have_hp then dat.hp.TSouHeaHp_nominal else dat.hp.TSouHeaPhp_nominal
     "OAT or source fluid supply temperature (evaporator entering) in heating mode - Each unit";
   final parameter Modelica.Units.SI.Temperature TSouCoo_nominal =
-    if have_hp then dat.hp.TSouCooHp_nominal else dat.hp.TSouCooShc_nominal
+    if have_hp then dat.hp.TSouCooHp_nominal else dat.hp.TSouCooPhp_nominal
     "OAT or source fluid supply temperature (evaporator entering) in cooling mode - Each unit";
   // Dynamics and miscellaneous parameters.
   final parameter Modelica.Fluid.Types.Dynamics energyDynamics =
