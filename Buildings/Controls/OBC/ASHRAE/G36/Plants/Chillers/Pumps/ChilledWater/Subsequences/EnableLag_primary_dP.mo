@@ -54,15 +54,14 @@ block EnableLag_primary_dP
   Buildings.Controls.OBC.CDL.Reals.MultiplyByParameter chiWatFloRat(
     final k=1/VChiWat_flow_nominal) "Chiller water flow ratio"
     annotation (Placement(transformation(extent={{-200,70},{-180,90}})));
-
-  Buildings.Controls.OBC.CDL.Logical.TrueDelay truDel(
-    final delayTime=timPer)
+  Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Generic.TimerWithReset tim(
+    final t=timPer)
     "Check if it has passed the threhold time"
-    annotation (Placement(transformation(extent={{40,110},{60,130}})));
-  Buildings.Controls.OBC.CDL.Logical.TrueDelay truDel1(
-    final delayTime=timPer)
+    annotation (Placement(transformation(extent={{80,110},{100,130}})));
+  Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Generic.TimerWithReset tim1(
+    final t=timPer)
     "Check if it has passed the threhold time"
-    annotation (Placement(transformation(extent={{40,-160},{60,-140}})));
+    annotation (Placement(transformation(extent={{80,-180},{100,-160}})));
 
 protected
   Buildings.Controls.OBC.CDL.Conversions.BooleanToInteger booToInt[nPum]
@@ -113,10 +112,6 @@ protected
   Buildings.Controls.OBC.CDL.Integers.Change cha
     "Check if there is change in the number of enabled pumps"
     annotation (Placement(transformation(extent={{-100,30},{-80,50}})));
-  Buildings.Controls.OBC.CDL.Logical.Latch lat "Clear the true output"
-    annotation (Placement(transformation(extent={{160,90},{180,110}})));
-  Buildings.Controls.OBC.CDL.Logical.Latch lat1 "Clear the true output"
-    annotation (Placement(transformation(extent={{160,-180},{180,-160}})));
 
 equation
   connect(VChiWat_flow,chiWatFloRat. u)
@@ -170,22 +165,18 @@ equation
           {-40,-158},{-22,-158}}, color={255,0,255}));
   connect(numOpePum.y, cha.u) annotation (Line(points={{-118,0},{-110,0},{-110,
           40},{-102,40}}, color={255,127,0}));
-  connect(enaPum1.y, truDel.u)
-    annotation (Line(points={{2,120},{38,120}}, color={255,0,255}));
-  connect(truDel.y, lat.u) annotation (Line(points={{62,120},{140,120},{140,100},
-          {158,100}}, color={255,0,255}));
-  connect(cha.up, lat.clr) annotation (Line(points={{-78,46},{-20,46},{-20,94},{
-          158,94}}, color={255,0,255}));
-  connect(disPum1.y, truDel1.u)
-    annotation (Line(points={{2,-150},{38,-150}}, color={255,0,255}));
-  connect(truDel1.y, lat1.u) annotation (Line(points={{62,-150},{120,-150},{120,
-          -170},{158,-170}}, color={255,0,255}));
-  connect(cha.down, lat1.clr) annotation (Line(points={{-78,34},{-50,34},{-50,-176},
-          {158,-176}}, color={255,0,255}));
-  connect(lat1.y, yDown)
-    annotation (Line(points={{182,-170},{240,-170}}, color={255,0,255}));
-  connect(lat.y, yUp)
-    annotation (Line(points={{182,100},{240,100}}, color={255,0,255}));
+  connect(cha.up, tim.reset) annotation (Line(points={{-78,46},{40,46},{40,112},
+          {78,112}}, color={255,0,255}));
+  connect(enaPum1.y, tim.u)
+    annotation (Line(points={{2,120},{78,120}}, color={255,0,255}));
+  connect(tim.passed, yUp) annotation (Line(points={{102,112},{160,112},{160,100},
+          {240,100}}, color={255,0,255}));
+  connect(disPum1.y, tim1.u) annotation (Line(points={{2,-150},{40,-150},{40,-170},
+          {78,-170}}, color={255,0,255}));
+  connect(cha.down, tim1.reset) annotation (Line(points={{-78,34},{-50,34},{-50,
+          -178},{78,-178}}, color={255,0,255}));
+  connect(tim1.passed, yDown) annotation (Line(points={{102,-178},{160,-178},{160,
+          -170},{240,-170}}, color={255,0,255}));
 annotation (
   defaultComponentName="enaLagChiPum",
   Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}}),
