@@ -55,6 +55,20 @@ model CoolingTowerGroup "Model of multiple identical cooling towers in parallel"
       tab="Dynamics",
       group="Nominal condition",
       enable=energyDynamics <> Modelica.Fluid.Types.Dynamics.SteadyState));
+  final parameter Modelica.Units.SI.HeatFlowRate Q_flow_nominal =
+    mConWatUni_flow_nominal*4200*(TConWatSup_nominal-TConWatRet_nominal)
+    "Cooling tower design load";
+
+  parameter Fluid.HeatExchangers.CoolingTowers.Data.Merkel.Generic datCooTow(
+    PFan_Q_flow_nominal = -PFanUni_nominal/Q_flow_nominal,
+    Q_flow_nominal=Q_flow_nominal,
+    ratCooAir_nominal=mConWatUni_flow_nominal/mAirUni_flow_nominal,
+    TAirInWB_nominal=TWetBulEnt_nominal,
+    TCooIn_nominal=TConWatRet_nominal,
+    TCooOut_nominal=TConWatSup_nominal,
+    dp_nominal=dpConWatFriUni_nominal)
+    "Cooling tower performance data"
+    annotation (Placement(transformation(extent={{60,100},{80,120}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput y1[nUni]
     "Cooling tower Start command"
@@ -101,14 +115,8 @@ model CoolingTowerGroup "Model of multiple identical cooling towers in parallel"
 
   Fluid.HeatExchangers.CoolingTowers.Merkel coo(
     redeclare final package Medium = Medium,
-    final m_flow_nominal=mConWatUni_flow_nominal,
-    final dp_nominal=dpConWatFriUni_nominal,
+    final dat=datCooTow,
     final yMin=yFan_min,
-    final ratWatAir_nominal=mConWatUni_flow_nominal/mAirUni_flow_nominal,
-    final TAirInWB_nominal=TWetBulEnt_nominal,
-    final TWatIn_nominal=TConWatRet_nominal,
-    final TWatOut_nominal=TConWatSup_nominal,
-    final PFan_nominal=PFanUni_nominal,
     final tau=tau,
     final allowFlowReversal=allowFlowReversal,
     final show_T=show_T,
@@ -143,7 +151,7 @@ equation
                                              color={0,127,255}));
   connect(coo.port_b, mulOut.port_a)
     annotation (Line(points={{10,0},{60,0}}, color={0,127,255}));
-  connect(weaBus.TWetBul, coo.TAir) annotation (Line(
+  connect(weaBus.TWetBul, coo.TWetBul) annotation (Line(
       points={{100,-40},{-20,-40},{-20,4},{-12,4}},
       color={255,204,51},
       thickness=0.5), Text(
@@ -253,6 +261,12 @@ to switch to a free convection regime at zero fan power.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+April 27, 2026, by Michael Wetter:<br/>
+Refactored for new cooling tower implementation.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4567\">issue 4567</a>.
+</li>
 <li>
 June 20, 2024, by Michael Wetter:<br/>
 Corrected annotation.<br/>

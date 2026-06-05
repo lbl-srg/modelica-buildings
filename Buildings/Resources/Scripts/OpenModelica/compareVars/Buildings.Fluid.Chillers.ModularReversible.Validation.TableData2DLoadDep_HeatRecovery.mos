@@ -1,6 +1,6 @@
 compareVars :=
   {
-    "chi.TSet",
+    "chi.THwSet",
     "chi.refCyc.sigBus.TEvaInMea",
     "chi.refCyc.sigBus.TEvaOutMea",
     "per.TEvaLvgMax",
