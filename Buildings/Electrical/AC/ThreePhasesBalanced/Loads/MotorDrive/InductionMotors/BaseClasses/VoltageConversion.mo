@@ -6,7 +6,7 @@ block VoltageConversion
   Buildings.Controls.OBC.CDL.Interfaces.RealInput V_rms(
     final unit="V",
     final quantity="Voltage")
-    "Root mean squre voltage"
+    "Root mean square voltage"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}}),
         iconTransformation(extent={{-140,-20},{-100,20}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput v_qs(

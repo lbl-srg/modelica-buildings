@@ -15,7 +15,7 @@ model Chiller "Example showing how to use the motor coupled chiller model"
     "Nominal mass flow rate at chilled water side";
   parameter Modelica.Units.SI.MassFlowRate m1_flow_nominal=
     m2_flow_nominal*(COP_nominal+1)/COP_nominal
-    "Nominal mass flow rate at condenser water wide";
+    "Nominal mass flow rate at condenser water side";
 
   Buildings.Fluid.Sources.MassFlowSource_T sou1(
     redeclare package Medium = Buildings.Media.Water,
@@ -109,7 +109,7 @@ __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Electrical
         "Simulate and plot"),
     Documentation(info="<html>
 <p>
-This example sinmulates a motor coupled chiller.
+This example simulates a motor coupled chiller.
 </p>
 <p>
 To ensure that the chiller energy consumption is in accordance with the manufacture

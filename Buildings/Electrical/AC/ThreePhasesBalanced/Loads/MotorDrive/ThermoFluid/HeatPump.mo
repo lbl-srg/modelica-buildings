@@ -334,7 +334,7 @@ This model describes a heat pump with mechanical interface and uses
 Buildings.Fluid.HeatPumps.Carnot_y</a>
 as a base model.The governing equation of this implementation is based on the
 relationship between the power and torque of the rotating object, which is
-represented as follow:
+represented as follows:
 </p>
 <p align=\"center\"><i>P&nbsp;=&nbsp;tau&nbsp;*&nbsp;W</i>
 </p>

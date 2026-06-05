@@ -31,12 +31,12 @@ model MotorMachineInterface
   Buildings.Controls.OBC.CDL.Interfaces.RealInput V_rms(
     final unit="V",
     final quantity="Voltage")
-    "Prescribed root mean squre voltage"
+    "Prescribed root mean square voltage"
     annotation (Placement(transformation(extent={{-140,40},{-100,80}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput f(
     final quantity="Frequency",
     final unit="Hz")
-    "Controllable freuqency to the motor"
+    "Controllable frequency to the motor"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput omega_r(
     final quantity="AngularVelocity",
@@ -58,7 +58,7 @@ model MotorMachineInterface
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput tau_e(
     final quantity="Torque",
     final unit="N.m")
-    "Electromagenetic torque of rotor"
+    "Electromagnetic torque of rotor"
     annotation (Placement(transformation(extent={{100,-20},{140,20}}),
         iconTransformation(extent={{100,-80},{140,-40}})));
 

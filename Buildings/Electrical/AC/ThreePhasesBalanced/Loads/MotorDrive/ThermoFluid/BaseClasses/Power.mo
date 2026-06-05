@@ -1,5 +1,5 @@
 within Buildings.Electrical.AC.ThreePhasesBalanced.Loads.MotorDrive.ThermoFluid.BaseClasses;
-function Power   "Function to compute Mechancial Power"
+function Power   "Function to compute Mechanical Power"
 
 input Real tau "Torque";
 input Real spe "Rotational Speed";

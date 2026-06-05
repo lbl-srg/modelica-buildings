@@ -329,7 +329,7 @@ This model describes a chiller with mechanical interface and uses
 <a href=\"modelica://Buildings.Fluid.Chillers.Carnot_y\">Buildings.Fluid.Chillers.Carnot_y</a> 
 as a base model. The governing equation of this implementation is based on the 
 relationship between the power and torque of the rotating object, which is 
-represented as follow: 
+represented as follows: 
 </p>
 <p align=\"center\"><i>P&nbsp;=&nbsp;tau&nbsp;*&nbsp;W</i>
 </p>

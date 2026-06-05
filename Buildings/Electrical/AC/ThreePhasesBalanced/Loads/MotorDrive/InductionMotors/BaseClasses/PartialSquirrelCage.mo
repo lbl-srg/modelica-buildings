@@ -13,7 +13,7 @@ model PartialSquirrelCage
 
   Real v_rms "Root mean square voltage";
   Modelica.Units.SI.Angle theta_s
-    "Supply voltage phase angel";
+    "Supply voltage phase angle";
   Modelica.Units.SI.Voltage v[:] = terminal.v
     "Voltage vector";
   Modelica.Units.SI.Current i[:] = terminal.i
@@ -54,7 +54,7 @@ model PartialSquirrelCage
     "Supply voltage phase angle"
     annotation (Placement(transformation(extent={{-80,70},{-60,90}})));
   Modelica.Blocks.Continuous.Integrator int
-    "Integrator for voltage angular fequency"
+    "Integrator for voltage angular frequency"
     annotation (Placement(transformation(extent={{20,70},{40,90}})));
   Modelica.Blocks.Math.Product conVol
     "Controlled voltage"

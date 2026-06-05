@@ -35,7 +35,7 @@ model CurrentDerivative_dStator
     "D-axis stator current"
     annotation (Placement(transformation(extent={{-140,40},{-100,80}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput der_i_dr
-    "Derivative of D-axis rotore current"
+    "Derivative of D-axis rotor current"
     annotation (Placement(transformation(extent={{-140,0},{-100,40}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput omega(
     final quantity="AngularVelocity",

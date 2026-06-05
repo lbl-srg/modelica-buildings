@@ -91,7 +91,7 @@ __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Electrical
         "Simulate and plot"),
         Documentation(info="<html>
 <p>
-Example that simulates a chiler using the torque as input signal.
+Example that simulates a chiller using the torque as input signal.
 </p>
 </html>", revisions="<html>
 <ul>

@@ -1,5 +1,5 @@
 within Buildings.Electrical.AC.ThreePhasesBalanced.Loads.MotorDrive.ThermoFluid.Examples;
-model Pump "This example shows how to use the heat pump with mechanical interface"
+model Pump "This example shows how to use the pump with mechanical interface"
   extends Modelica.Icons.Example;
   package MediumW = Buildings.Media.Water;
 

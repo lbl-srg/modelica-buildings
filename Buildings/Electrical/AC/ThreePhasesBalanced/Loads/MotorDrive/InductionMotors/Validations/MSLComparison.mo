@@ -29,7 +29,7 @@ model MSLComparison
     tableOnFile=true,
     tableName="tab4",
     fileName=ModelicaServices.ExternalReferences.loadResource("modelica://Buildings/Resources/Data/Electrical/InductionMachine/Validation/power.txt"))
-    "Refrence active power from reference"
+    "Reference active power from reference"
     annotation (Placement(transformation(extent={{20,-20},{40,0}})));
   Modelica.Blocks.Sources.CombiTimeTable torMSL(
     tableOnFile=true,
@@ -59,7 +59,7 @@ annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
         coordinateSystem(preserveAspectRatio=false)),
     experiment(Tolerance=1e-6,StartTime=0,StopTime=0.8),
     __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Electrical/AC/ThreePhasesBalanced/Loads/MotorDrive/InductionMotors/Validations/MSLComparison.mos"
-        "Simulate and PLot"),
+        "Simulate and Plot"),
 Documentation(revisions="<html>
 <ul>
 <li>
@@ -74,7 +74,7 @@ the models in Modelica Standard Library (MSL), with the setup as described in Ga
 (2025). The reference data of MSL is simulated reference data from the model 
 <a href=\"modelica://Modelica.Electrical.Machines.Examples.InductionMachines.IMC_DOL\">
 Modelica.Electrical.Machines.Examples.InductionMachines.IMC_DOL</a>.
-The LeFosse reference data plotted is from the simulation setup as decribed in
+The LeFosse reference data plotted is from the simulation setup as described in
 Roberta Le Fosse (2021).
 </p>
 <h4>Reference</h4>

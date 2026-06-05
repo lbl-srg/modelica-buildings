@@ -228,12 +228,12 @@ equation
 Documentation(info="<html>
 <p>
 This is a model of a squirrel cage induction motor coupled pump with ideal speed
-control. The chiller operation is regulated such that mass flow rate is able to reach
+control. The pump operation is regulated such that mass flow rate is able to reach
 its setpoint. The model has electrical interfaces and can be used for simulating
 microgrids and discussing grid interactions.
 </p>
 <p>
-The model can be customized by selecting the follwoing parameters:
+The model can be customized by selecting the following parameters:
 </p>
 <ul>
 <li>

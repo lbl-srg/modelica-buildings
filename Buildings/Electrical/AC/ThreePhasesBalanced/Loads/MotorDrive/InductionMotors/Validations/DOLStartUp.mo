@@ -58,7 +58,7 @@ First implementation.
 </html>", info="<html>
 <p>
 This example validates the induction motor start-up sequence as shown in Ganesh
-et al. (2025). The reference data plotted is from the simulation setup as decribed
+et al. (2025). The reference data plotted is from the simulation setup as described
 in Roberta Le Fosse (2021).
 To ensure consistency with the model used in the reference, the induction motor model
 adopted in this study also neglects iron losses and magnetic saturation.

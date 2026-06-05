@@ -3,7 +3,7 @@ function CurrentD_VFD "D-axis VFD electrical current at terminal that connects e
 
 input Real i_ds "D-axis stator current";
 input Real v_VFD "VFD voltage";
-input Real v_rms "Root mean squre voltage";
+input Real v_rms "Root mean square voltage";
 output Real i "Terminal current interface";
 
 algorithm

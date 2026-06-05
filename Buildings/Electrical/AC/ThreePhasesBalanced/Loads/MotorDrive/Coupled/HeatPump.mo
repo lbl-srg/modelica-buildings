@@ -354,7 +354,7 @@ leaving water temperature (<code>TMea</code>) is able to reach its setpoint
 simulating microgrids and discussing grid interactions.
 </p>
 <p>Using the parameter <code>per</code>, the user can set desired equivalent motor
-that closely matches with the heatpump&apos;s rating based on manufacturer datasheet.
+that closely matches with the heat pump&apos;s rating based on manufacturer datasheet.
 </p>
 </html>", revisions="<html>
 <ul>

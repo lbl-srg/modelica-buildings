@@ -32,6 +32,8 @@ First Implementation.
 </li>
 </ul>
 </html>", info="<html>
+<p>
 An example of induction motor start up sequence.
+</p>
 </html>"));
 end SquirrelCageStartUp;

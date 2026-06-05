@@ -81,7 +81,6 @@ equation
           color={0,0,127}));
   connect(angFreDif.y, omega_r) annotation (Line(points={{-51,-60},{80,-60},{80,
           70},{120,70}}, color={0,0,127}));
-
   connect(angFre.y, omega_r1) annotation (Line(points={{21,60},{30,60},{30,-20},
           {120,-20}}, color={0,0,127}));
   connect(angFre.y, angFreDif.u2) annotation (Line(points={{21,60},{30,60},{30,

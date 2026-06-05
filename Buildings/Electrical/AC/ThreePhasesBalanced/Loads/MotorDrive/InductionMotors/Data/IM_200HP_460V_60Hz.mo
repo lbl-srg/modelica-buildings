@@ -18,7 +18,7 @@ record IM_200HP_460V_60Hz =
   info="<html>
 <p>
 This is the record of parameters for Induction Machine models from MATLAB
-<code>(IM200HP460V60Hz)</code>
+<code>(IM200HP460V60Hz)</code>.
 </p>
 </html>",
 revisions="<html>

@@ -9,13 +9,13 @@ model HeatPump "Example showing how to use the motor coupled heat pump model"
     "Temperature difference evaporator outlet-inlet";
   parameter Modelica.Units.SI.TemperatureDifference dTCon_nominal=10
     "Temperature difference condenser outlet-inlet";
-  parameter Real COP_nominal=3 "Chiller COP";
+  parameter Real COP_nominal=3 "Heat pump COP";
   parameter Modelica.Units.SI.MassFlowRate m2_flow_nominal=
      -P_nominal*COP_nominal/dTEva_nominal/4200
     "Nominal mass flow rate at chilled water side";
   parameter Modelica.Units.SI.MassFlowRate m1_flow_nominal=
     m2_flow_nominal*(COP_nominal+1)/COP_nominal
-    "Nominal mass flow rate at condenser water wide";
+    "Nominal mass flow rate at condenser water side";
 
   Buildings.Fluid.Sources.MassFlowSource_T sou1(
     redeclare package Medium = MediumW,
@@ -114,7 +114,7 @@ annotation (experiment(Tolerance=1e-6,StartTime=0,StopTime=350),
         "Simulate and plot"),
 Documentation(info="<html>
 <p>
-This example sinmulates a motor coupled heat pump.
+This example simulates a motor coupled heat pump.
 </p>
 <p>
 To ensure that the heat pump energy consumption is in accordance with the manufacture

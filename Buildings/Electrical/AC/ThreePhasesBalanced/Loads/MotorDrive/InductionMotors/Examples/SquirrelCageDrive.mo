@@ -27,7 +27,8 @@ model SquirrelCageDrive
   Modelica.Blocks.Sources.Step Speed_ref1(
     height=26.5,
     offset=0,
-    startTime=1)   "Set point of control target"
+    startTime=1)
+    "Set point of control target"
     annotation (Placement(transformation(extent={{-58,-76},{-38,-56}})));
 
 equation
@@ -53,6 +54,8 @@ First Implementation.
 </li>
 </ul>
 </html>", info="<html>
+<p>
 An example of induction motor drive with closed loop variable speed controller.
+</p>
 </html>"));
 end SquirrelCageDrive;

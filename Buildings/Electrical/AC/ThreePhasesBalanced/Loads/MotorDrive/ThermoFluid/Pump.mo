@@ -198,7 +198,7 @@ Buildings.Fluid.Movers.SpeedControlled_y</a> as a base model.
 </p>
 <p>
 The governing equation of this implementation is based on the relationship 
-between the power and torque of the rotating object, which is represented as follow:
+between the power and torque of the rotating object, which is represented as follows:
 </p>
 <p align=\"center\" style=\"font-style:italic;\">P&nbsp;=&nbsp;tau&nbsp;*&nbsp;W
 </p>
