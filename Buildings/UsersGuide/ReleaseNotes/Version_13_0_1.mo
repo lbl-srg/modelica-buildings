@@ -32,6 +32,14 @@ to <b style=\"color:blue\">existing</b> libraries:
     <td valign=\"top\">xxx.
     </td>
     </tr>
+<tr><td colspan=\"2\"><b>Buildings.Electrical</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Electrical.AC.ThreePhasesBalanced.Loads.MotorDrive
+    </td>
+    <td valign=\"top\">Package with models for motor and motor driven devices.
+    </td>
+</tr>
 </table>
 <!-- Backward compatible changes -->
 <p>
