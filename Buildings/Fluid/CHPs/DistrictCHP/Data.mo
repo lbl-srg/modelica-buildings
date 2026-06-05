@@ -113,11 +113,14 @@ First implementation.
             0.9, 1.001434206, 0.977009039, 0.955204764, 0.930655926, 0.907816818, 0.885802777, 0.858155455;
               1, 1.038431160, 1.018894033, 1.000000000, 0.981700653, 0.964098623, 0.946622155, 0.922272125]);
                                  // Natural Gas
-        annotation (Documentation(info="<html>
+      annotation (Documentation(info="<html>
 <p>
-Performance data for gas turbine model.
+Performance data for gas turbine model
+<a href=\"https://s7d2.scene7.com/is/content/Caterpillar/CM20150703-52095-62290\">
+Centaur40_4700S_NG</a>.
 </p>
-</html>",   revisions="<html>
+</html>",
+      revisions="<html>
 <ul>
 <li>
 October 28, 2023, by Zhanwei He:<br/>
@@ -174,11 +177,14 @@ First implementation.
             0.9, 0.999710343, 0.982058155, 0.963135521, 0.945764014, 0.924116439, 0.901619944, 0.879222896;
               1, 1.039564613, 1.019706222, 1.000000000, 0.977916471, 0.955518699, 0.930925825, 0.906046290]);
                                  // Natural Gas
-        annotation (Documentation(info="<html>
+      annotation (Documentation(info="<html>
 <p>
-Performance data for gas turbine model.
+Performance data for gas turbine model
+<a href=\"https://s7d2.scene7.com/is/content/Caterpillar/CM20150703-52095-37893\">
+Centaur50_T6200S_NG</a>.
 </p>
-</html>",   revisions="<html>
+</html>",
+      revisions="<html>
 <ul>
 <li>
 October 28, 2023, by Zhanwei He:<br/>
@@ -235,11 +241,14 @@ First implementation.
             0.9, 0.952213676, 0.935670601, 0.920388220, 0.904973375, 0.886101127, 0.867305508, 0.846348125;
               1, 1.044590755, 1.021959137, 1.000000000, 0.976792455, 0.954363277, 0.931583520, 0.906575566]);
                                  // Natural Gas
-        annotation (Documentation(info="<html>
+      annotation (Documentation(info="<html>
 <p>
-Performance data for gas turbine model.
+Performance data for gas turbine model
+<a href=\"https://s7d2.scene7.com/is/content/Caterpillar/CM20150710-52396-21070\">
+Mercury50_6400R_NG</a>.
 </p>
-</html>",   revisions="<html>
+</html>",
+      revisions="<html>
 <ul>
 <li>
 October 28, 2023, by Zhanwei He:<br/>
@@ -296,11 +305,14 @@ First implementation.
             0.9, 0.954094388, 0.941255409, 0.927646003, 0.910815390, 0.891710144, 0.874018017, 0.856301622;
               1, 1.031714638, 1.016488928, 1.000000000, 0.979440256, 0.957355718, 0.937392958, 0.917231134]);
                                  // Natural Gas
-        annotation (Documentation(info="<html>
+      annotation (Documentation(info="<html>
 <p>
-Performance data for gas turbine model.
+Performance data for gas turbine model
+<a href=\"https://s7d2.scene7.com/is/content/Caterpillar/CM20150703-52095-49890\">
+Taurus60_7901S_NG</a>.
 </p>
-</html>",   revisions="<html>
+</html>",
+      revisions="<html>
 <ul>
 <li>
 October 28, 2023, by Zhanwei He:<br/>
@@ -358,11 +370,14 @@ First implementation.
               1, 1.038057647, 1.019105302, 1.000000000, 0.972711893, 0.945454959, 0.914141018, 0.880823476]);
 
                                  // Natural Gas
-        annotation (Documentation(info="<html>
+      annotation (Documentation(info="<html>
 <p>
-Performance data for gas turbine model.
+Performance data for gas turbine model
+<a href=\"https://s7d2.scene7.com/is/content/Caterpillar/CM20150703-52095-38597\">
+Taurus65_8701S_NG</a>.
 </p>
-</html>",   revisions="<html>
+</html>",
+      revisions="<html>
 <ul>
 <li>
 October 28, 2023, by Zhanwei He:<br/>
@@ -420,11 +435,14 @@ First implementation.
          0.9, 0.971481416, 0.956999046, 0.940917693, 0.919663372, 0.897844389, 0.875154979, 0.850680739;
            1, 1.036061464, 1.019170273, 1.000000000, 0.976552292, 0.951177993, 0.925374373, 0.898050275]);
 
-        annotation (Documentation(info="<html>
+      annotation (Documentation(info="<html>
 <p>
-Performance data for gas turbine model.
+Performance data for gas turbine model
+<a href=\"https://s7d2.scene7.com/is/content/Caterpillar/CM20150703-52095-12880\">
+Taurus70_11101S_NG</a>.
 </p>
-</html>",   revisions="<html>
+</html>",
+      revisions="<html>
 <ul>
 <li>
 October 28, 2023, by Zhanwei He:<br/>
@@ -481,11 +499,14 @@ First implementation.
             0.9, 1.013522136, 0.996270650, 0.978106029, 0.959485145, 0.940360309, 0.918281041, 0.894601028;
               1, 1.033902350, 1.017693705, 1.000000000, 0.983271736, 0.965562858, 0.946803635, 0.925491940]);
                                  // Natural Gas
-        annotation (Documentation(info="<html>
+      annotation (Documentation(info="<html>
 <p>
-Performance data for gas turbine model.
+Performance data for gas turbine model
+<a href=\"https://s7d2.scene7.com/is/content/Caterpillar/CM20150703-52095-29539\">
+Mars100_16000S_NG</a>.
 </p>
-</html>",   revisions="<html>
+</html>",
+      revisions="<html>
 <ul>
 <li>
 October 28, 2023, by Zhanwei He:<br/>
@@ -542,11 +563,14 @@ First implementation.
             0.9, 0.991412756, 0.993866855, 0.996356081, 0.999309131, 1.006244539, 1.017092641, 1.029893119;
               1, 0.989517836, 0.994670792, 1.000000000, 1.006913946, 1.016290436, 1.029136907, 1.045336097]);
                                  // Natural Gas
-        annotation (Documentation(info="<html>
+      annotation (Documentation(info="<html>
 <p>
-Performance data for gas turbine model.
+Performance data for gas turbine model
+<a href=\"https://s7d2.scene7.com/is/content/Caterpillar/CM20150703-52095-43744\">
+Titan130_20501S_NG</a>.
 </p>
-</html>",   revisions="<html>
+</html>",
+      revisions="<html>
 <ul>
 <li>
 October 28, 2023, by Zhanwei He:<br/>
@@ -603,11 +627,14 @@ First implementation.
             0.9, 0.939317561, 0.954996547, 0.973162228, 0.988877795, 1.006350617, 1.022688478, 1.039364786;
               1, 0.981941045, 0.990368892, 1.000000000, 1.013005761, 1.026968781, 1.042658618, 1.058544282]);
                                 // Natural Gas
-        annotation (Documentation(info="<html>
+      annotation (Documentation(info="<html>
 <p>
-Performance data for gas turbine model.
+Performance data for gas turbine model
+<a href=\"https://s7d2.scene7.com/is/content/Caterpillar/CM20220318-b6734-70be9\">
+Titan350_47000_NG</a>.
 </p>
-</html>",   revisions="<html>
+</html>",
+      revisions="<html>
 <ul>
 <li>
 October 28, 2023, by Zhanwei He:<br/>
@@ -664,11 +691,14 @@ First implementation.
              0.9, 1.010895211, 0.985795591, 0.960544543, 0.932198800, 0.905741026, 0.878692682, 0.852372851;
              1, 1.045444805, 1.022844281, 1.000000000, 0.970298849, 0.943339771, 0.914412910, 0.886756764]);
 
-        annotation (Documentation(info="<html>
+      annotation (Documentation(info="<html>
 <p>
-Performance data for gas turbine model.
+Performance data for gas turbine model
+<a href=\"https://s7d2.scene7.com/is/content/Caterpillar/CM20220318-18bf4-966d4\">
+Titan350_53000_NG</a>.
 </p>
-</html>",   revisions="<html>
+</html>",
+      revisions="<html>
 <ul>
 <li>
 October 28, 2023, by Zhanwei He:<br/>
@@ -740,11 +770,14 @@ First implementation.
             0.9, 1.001485127, 0.978310027, 0.955397818, 0.930962474, 0.908150163, 0.885795553, 0.858412661;
               1, 1.038359831, 1.018875112, 1.000000000, 0.981816053, 0.964307452, 0.946900677, 0.922594976]);
                                // Diesel 2-D
-        annotation (Documentation(info="<html>
+      annotation (Documentation(info="<html>
 <p>
-Performance data for gas turbine model.
+Performance data for gas turbine model
+<a href=\"https://s7d2.scene7.com/is/content/Caterpillar/CM20150703-52095-62290\">
+Centaur40_4700S_Diesel</a>.
 </p>
-</html>",   revisions="<html>
+</html>",
+      revisions="<html>
 <ul>
 <li>
 October 28, 2023, by Zhanwei He:<br/>
@@ -801,11 +834,14 @@ First implementation.
             0.9, 1.003415997, 0.985058610, 0.967005373, 0.947345294, 0.927398046, 0.904899528, 0.882252032;
               1, 1.039398992, 1.019621949, 1.000000000, 0.977919554, 0.955511044, 0.931096666, 0.906364190]);
                                // Diesel 2-D
-        annotation (Documentation(info="<html>
+      annotation (Documentation(info="<html>
 <p>
-Performance data for gas turbine model.
+Performance data for gas turbine model
+<a href=\"https://s7d2.scene7.com/is/content/Caterpillar/CM20150703-52095-37893\">
+Centaur50_T6200S_Diesel</a>.
 </p>
-</html>",   revisions="<html>
+</html>",
+      revisions="<html>
 <ul>
 <li>
 October 28, 2023, by Zhanwei He:<br/>
@@ -862,11 +898,14 @@ First implementation.
             0.9, 0.951657831, 0.940833896, 0.929744901, 0.912609721, 0.892399620, 0.875253566, 0.857394036;
               1, 1.031797783, 1.016524654, 1.000000000, 0.978820041, 0.957009459, 0.938720630, 0.917808418]);
                                // Diesel 2-D
-        annotation (Documentation(info="<html>
+      annotation (Documentation(info="<html>
 <p>
-Performance data for gas turbine model.
+Performance data for gas turbine model
+<a href=\"https://s7d2.scene7.com/is/content/Caterpillar/CM20150703-52095-49890\">
+Taurus60_7901S_Diesel</a>.
 </p>
-</html>",   revisions="<html>
+</html>",
+      revisions="<html>
 <ul>
 <li>
 October 28, 2023, by Zhanwei He:<br/>
@@ -924,11 +963,14 @@ First implementation.
             0.9, 0.983246466, 0.966896127, 0.949442400, 0.928256075, 0.904997299, 0.881379753, 0.856170254;
               1, 1.036039043, 1.018999973, 1.000000000, 0.977063286, 0.951932575, 0.926272555, 0.899033144]);
 
-        annotation (Documentation(info="<html>
+      annotation (Documentation(info="<html>
 <p>
-Performance data for gas turbine model.
+Performance data for gas turbine model
+<a href=\"https://s7d2.scene7.com/is/content/Caterpillar/CM20150703-52095-12880\">
+Taurus70_11101S_Diesel</a>.
 </p>
-</html>",   revisions="<html>
+</html>",
+      revisions="<html>
 <ul>
 <li>
 October 28, 2023, by Zhanwei He:<br/>
@@ -985,11 +1027,14 @@ First implementation.
             0.9, 1.014203630, 0.994440345, 0.974869624, 0.953964888, 0.929878843, 0.903974878, 0.875526843;
               1, 1.036469288, 1.017775955, 1.000000000, 0.981294277, 0.960894689, 0.936995226, 0.909967722]);
                                // Diesel 2-D
-        annotation (Documentation(info="<html>
+      annotation (Documentation(info="<html>
 <p>
-Performance data for gas turbine model.
+Performance data for gas turbine model
+<a href=\"https://s7d2.scene7.com/is/content/Caterpillar/CM20150703-52095-29539\">
+Mars100_16000S_Diesel</a>.
 </p>
-</html>",   revisions="<html>
+</html>",
+      revisions="<html>
 <ul>
 <li>
 October 28, 2023, by Zhanwei He:<br/>
@@ -1046,11 +1091,14 @@ First implementation.
             0.9, 0.987020237, 0.991920092, 0.996621353, 1.001840954, 1.011010598, 1.023533716, 1.038026463;
               1, 0.988582543, 0.994234552, 1.000000000, 1.007387382, 1.017919516, 1.031623232, 1.047762031]);
                                // Diesel 2-D
-        annotation (Documentation(info="<html>
+      annotation (Documentation(info="<html>
 <p>
-Performance data for gas turbine model.
+Performance data for gas turbine model
+<a href=\"https://s7d2.scene7.com/is/content/Caterpillar/CM20150703-52095-43744\">
+Titan130_20501S_Diesel</a>.
 </p>
-</html>",   revisions="<html>
+</html>",
+      revisions="<html>
 <ul>
 <li>
 October 28, 2023, by Zhanwei He:<br/>
@@ -1074,7 +1122,14 @@ First implementation.
 </ul>
 </html>"));
     end Diesel;
-    annotation (Documentation(revisions="<html>
+  annotation (Documentation(info="<html>
+<p>
+Performance data for gas turbines from
+<a href=\"https://www.solarturbines.com/en_US/products/power-generation-packages.html\">
+Solar Turbines</a>.
+</p>
+</html>",
+  revisions="<html>
 <ul>
 <li>
 October 28, 2023, by Zhanwei He:<br/>
