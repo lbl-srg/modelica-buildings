@@ -42,7 +42,47 @@ protected
     "If true, fully turbulent, simpler model, is used"
     annotation(Evaluate=true);
 
+  // Coefficients for the power law model, computed once as parameters
+  final parameter Boolean computePowerLaw=
+    computeFlowResistance and not (linearized or fullyLaminar or fullyTurbulent)
+    "Flag, true if the power law model coefficients need to be computed"
+    annotation(Evaluate=true);
+  parameter Modelica.Units.SI.PressureDifference dp_turbulent(
+    displayUnit="Pa", fixed=false)
+    "Pressure difference where turbulent flow occurs";
+  parameter Real m(fixed=false)
+    "Flow exponent for the pressure drop";
+  parameter Real a1(fixed=false)
+    "Polynomial coefficient for regularized implementation of flow resistance";
+  parameter Real a3(fixed=false)
+    "Polynomial coefficient for regularized implementation of flow resistance";
+  parameter Real a5(fixed=false)
+    "Polynomial coefficient for regularized implementation of flow resistance";
+  parameter Real C(fixed=false)
+    "Coefficient 1/k^n, based on the definition k = m_flow / dp^(1/n)";
+  parameter Real b1(fixed=false)
+    "Polynomial coefficient for regularized implementation of flow resistance";
+  parameter Real b3(fixed=false)
+    "Polynomial coefficient for regularized implementation of flow resistance";
+  parameter Real b5(fixed=false)
+    "Polynomial coefficient for regularized implementation of flow resistance";
+
 initial equation
+ if computePowerLaw then
+   (dp_turbulent, m, a1, a3, a5, C, b1, b3, b5) =
+     Buildings.Fluid.BaseClasses.FlowModels.powerLawData(
+       k=k, n=n, m_flow_turbulent=m_flow_turbulent);
+ else
+   dp_turbulent = 0;
+   m = 1/n;
+   a1 = 0;
+   a3 = 0;
+   a5 = 0;
+   C = 0;
+   b1 = 0;
+   b3 = 0;
+   b5 = 0;
+ end if;
  if computeFlowResistance then
    assert(m_flow_turbulent > 0, "m_flow_turbulent must be bigger than zero.");
  end if;
@@ -94,13 +134,17 @@ equation
         if homotopyInitialization then
             m_flow=homotopy(
               actual=Buildings.Fluid.BaseClasses.FlowModels.powerLaw_dp(
-                k=k, dp=dp, n=n,
-                m_flow_turbulent=m_flow_turbulent),
+                dp=dp, k=k, n=n,
+                m_flow_turbulent=m_flow_turbulent,
+                dp_turbulent=dp_turbulent, m=m, a1=a1, a3=a3, a5=a5,
+                C=C, b1=b1, b3=b3, b5=b5),
               simplified=m_flow_nominal_pos*dp/dp_nominal_pos);
         else // do not use homotopy
           m_flow=Buildings.Fluid.BaseClasses.FlowModels.powerLaw_dp(
-                k=k, dp=dp, n=n,
-                m_flow_turbulent=m_flow_turbulent);
+                dp=dp, k=k, n=n,
+                m_flow_turbulent=m_flow_turbulent,
+                dp_turbulent=dp_turbulent, m=m, a1=a1, a3=a3, a5=a5,
+                C=C, b1=b1, b3=b3, b5=b5);
         end if; // homotopyInitialization
       end if;
     end if; // linearized

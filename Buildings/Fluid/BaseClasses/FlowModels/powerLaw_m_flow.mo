@@ -2,26 +2,32 @@ within Buildings.Fluid.BaseClasses.FlowModels;
 function powerLaw_m_flow
   "Inverse of power law used in pressure drop equations when the flow exponent is constant and may be different from 2"
 
-  input Real k "Flow coefficient, k = m_flow/ dp^(1/n)";
   input Modelica.Units.SI.MassFlowRate m_flow(displayUnit="kg/s")
     "Mass flow rate";
+  input Real k "Flow coefficient, k = m_flow/ dp^(1/n)";
   input Real n(min=1, max=2)
     "Flow exponent, n=1 for laminar, n=2 for turbulent";
   input Modelica.Units.SI.MassFlowRate m_flow_turbulent(min=0)
     "Mass flow rate where transition to turbulent flow occurs";
+  input Modelica.Units.SI.PressureDifference dp_turbulent(displayUnit="Pa")
+    "Pressure difference where turbulent flow occurs";
+  input Real m(min=0.5, max=1) "Flow exponent for the pressure drop";
+  input Real a1
+    "Polynomial coefficient for regularized implementation of flow resistance";
+  input Real a3
+    "Polynomial coefficient for regularized implementation of flow resistance";
+  input Real a5
+    "Polynomial coefficient for regularized implementation of flow resistance";
+  input Real C "Coefficient 1/k^n, based on the definition k = m_flow / dp^(1/n)";
+  input Real b1
+    "Polynomial coefficient for regularized implementation of flow resistance";
+  input Real b3
+    "Polynomial coefficient for regularized implementation of flow resistance";
+  input Real b5
+    "Polynomial coefficient for regularized implementation of flow resistance";
   output Modelica.Units.SI.PressureDifference dp(displayUnit="Pa") "Pressure difference";
 
 protected
-  Real C = 1.0 / (k^n) "Coefficient 1/k^n, based on the definition k = m_flow / dp^(1/n)";
-  // Polynomial coefficients for C2 continuity
-  // These coefficients match the value, 1st derivative, and 2nd derivative
-  // of the function f(x) = C * x^n at the point x = m_flow_t
-  Real b1 = (C * (n - 3) * (n - 5) / 8) * (m_flow_turbulent^(n - 1))
-    "Polynomial coefficient for regularized implementation of flow resistance";
-  Real b3 = (C * (n - 1) * (5 - n) / 4) * (m_flow_turbulent^(n - 3))
-    "Polynomial coefficient for regularized implementation of flow resistance";
-  Real b5 = (C * (n - 1) * (n - 3) / 8) * (m_flow_turbulent^(n - 5))
-    "Polynomial coefficient for regularized implementation of flow resistance";
   Modelica.Units.SI.MassFlowRate abs_m = abs(m_flow)
     "Absolute value of mass flow rate";
 
@@ -34,7 +40,9 @@ annotation (
   Inline=true,
    inverse(
      m_flow=Buildings.Fluid.BaseClasses.FlowModels.powerLaw_dp(
-       k=k, dp=dp, n=n, m_flow_turbulent=m_flow_turbulent)),
+       dp=dp, k=k, n=n, m_flow_turbulent=m_flow_turbulent,
+       dp_turbulent=dp_turbulent, m=m, a1=a1, a3=a3, a5=a5,
+       C=C, b1=b1, b3=b3, b5=b5)),
   Documentation(info="<html>
 <p>
 This model describes the pressure difference and mass flow rate relation
@@ -56,7 +64,39 @@ For laminar flow, set <i>n=1</i> and
 for turbulent flow, set <i>n=2</i>.
 </p>
 <p>
+The coefficient <code>C</code> and the polynomial coefficients
+<code>b1</code>, <code>b3</code> and <code>b5</code> are computed by the function
+<a href=\"modelica://Buildings.Fluid.BaseClasses.FlowModels.powerLawData\">
+Buildings.Fluid.BaseClasses.FlowModels.powerLawData</a>
+and passed as inputs. As these quantities only depend on the parameters
+<code>k</code>, <code>n</code> and <code>m_flow_turbulent</code>, they
+can be computed once as parameters rather than at each function evaluation.
+</p>
+<p>
 The model is used for the fluid flow models that are neither fully laminar nor fully turbulent.
+</p>
+<h4>Note regarding arguments</h4>
+<p>
+This function takes as inputs not only the coefficients
+<code>C</code>, <code>b1</code>, <code>b3</code> and <code>b5</code>
+that are used in its own implementation,
+but also the coefficients <code>dp_turbulent</code>, <code>m</code>,
+<code>a1</code>, <code>a3</code> and <code>a5</code>
+that are used by its inverse function
+<a href=\"modelica://Buildings.Fluid.BaseClasses.FlowModels.powerLaw_dp\">
+Buildings.Fluid.BaseClasses.FlowModels.powerLaw_dp</a>.
+These additional arguments are needed so that the <code>inverse</code> annotation
+can pass the input arguments of this function directly to its inverse function.
+Therefore, this function and its inverse function
+<a href=\"modelica://Buildings.Fluid.BaseClasses.FlowModels.powerLaw_dp\">
+Buildings.Fluid.BaseClasses.FlowModels.powerLaw_dp</a>
+have the same input arguments, except that this function takes the mass flow rate
+<code>m_flow</code> as the first argument while its inverse takes the pressure difference
+<code>dp</code> as the first argument.
+The coefficients <code>dp_turbulent</code>, <code>m</code>, <code>a1</code>,
+<code>a3</code> and <code>a5</code> are computed by the function
+<a href=\"modelica://Buildings.Fluid.BaseClasses.FlowModels.powerLawData\">
+Buildings.Fluid.BaseClasses.FlowModels.powerLawData</a>.
 </p>
 <h4>Implementation</h4>
 <p>
