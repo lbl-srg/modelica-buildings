@@ -211,7 +211,7 @@ model HeatPump "Motor coupled heat pump"
     final Td=Td,
     final yMax=yMax,
     final yMin=yMin) "Motor model"
-    annotation (Placement(transformation(extent={{-40,40},{-20,60}})));
+    annotation (Placement(transformation(extent={{-30,40},{-10,60}})));
 
 protected
   final parameter Modelica.Units.SI.Temperature TUseAct_nominal = TCon_nominal + TAppCon_nominal
@@ -234,8 +234,17 @@ protected
   Modelica.Blocks.Sources.RealExpression loaTor(
     final y=mecHea.shaft.tau)
     "Heat pump torque block"
-    annotation (Placement(transformation(extent={{-20,10},{-40,30}})));
+    annotation (Placement(transformation(extent={{-10,10},{-30,30}})));
 
+public
+  Modelica.Blocks.Interfaces.BooleanInput on
+    "Set to true to enable compressor, or false to disable compressor"
+    annotation (Placement(transformation(extent={{-140,-40},{-100,0}}),
+        iconTransformation(extent={{-120,-20},{-100,0}})));
+  Modelica.Blocks.Logical.Switch switch annotation (Placement(transformation(
+        extent={{-10,-10},{10,10}},
+        rotation=0,
+        origin={-56,30})));
 equation
   connect(port_a1,mecHea. port_a1) annotation (Line(points={{-100,60},{-80,60},
           {-80,6},{-10,6}}, color={0,127,255}));
@@ -245,22 +254,28 @@ equation
           80,6},{10,6}},  color={0,127,255}));
   connect(port_a2,mecHea. port_a2) annotation (Line(points={{100,-60},{80,-60},
           {80,-6},{10,-6}}, color={0,127,255}));
-  connect(simMot.setPoi, TSet) annotation (Line(points={{-42,58},{-60,58},{-60,80},
-          {-120,80}}, color={0,0,127}));
-  connect(TMea, simMot.mea) annotation (Line(points={{-120,30},{-60,30},{-60,50},
-          {-42,50}}, color={0,0,127}));
-  connect(loaTor.y, simMot.tau_m) annotation (Line(points={{-41,20},{-50,20},{-50,
-          42},{-42,42}},     color={0,0,127}));
-  connect(terminal, simMot.terminal) annotation (Line(points={{0,100},{0,80},{-30,
-          80},{-30,60}},     color={0,120,120}));
-  connect(mecHea.shaft, simMot.shaft) annotation (Line(points={{0,10},{0,50},
-          {-20,50}}, color={0,0,0}));
+  connect(loaTor.y, simMot.tau_m) annotation (Line(points={{-31,20},{-36,20},{
+          -36,42},{-32,42}}, color={0,0,127}));
+  connect(terminal, simMot.terminal) annotation (Line(points={{0,100},{0,80},{
+          -20,80},{-20,60}}, color={0,120,120}));
+  connect(mecHea.shaft, simMot.shaft) annotation (Line(points={{0,10},{0,50},{
+          -10,50}},  color={0,0,0}));
   connect(mecHea.QCon_flow, QCon_flow) annotation (Line(points={{11,9},{70,9},{70,
           90},{120,90}}, color={0,0,127}));
   connect(mecHea.P, P)
     annotation (Line(points={{11,0},{120,0}}, color={0,0,127}));
   connect(mecHea.QEva_flow, QEva_flow) annotation (Line(points={{11,-9},{70,-9},
           {70,-30},{120,-30}}, color={0,0,127}));
+  connect(on, switch.u2) annotation (Line(points={{-120,-20},{-82,-20},{-82,30},
+          {-68,30}}, color={255,0,255}));
+  connect(switch.y, simMot.mea) annotation (Line(points={{-45,30},{-42,30},{-42,
+          50},{-32,50}}, color={0,0,127}));
+  connect(switch.u1, TMea) annotation (Line(points={{-68,38},{-86,38},{-86,30},
+          {-120,30}}, color={0,0,127}));
+  connect(TSet, simMot.setPoi) annotation (Line(points={{-120,80},{-74,80},{-74,
+          58},{-32,58}}, color={0,0,127}));
+  connect(switch.u3, TSet) annotation (Line(points={{-68,22},{-74,22},{-74,80},
+          {-120,80}}, color={0,0,127}));
   annotation (defaultComponentName="heaPum",
   Icon(coordinateSystem(preserveAspectRatio=true,extent={{-100,-100},
             {100,100}}), graphics={
@@ -358,6 +373,10 @@ that closely matches with the heat pump&apos;s rating based on manufacturer data
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+June 05, 2026, by Viswanathan Ganesh:<br/>
+Added boolean feature.
+</li>
 <li>
 May 07, 2024, by Viswanathan Ganesh and Zhanwei He:<br/>
 Updated Implementation.

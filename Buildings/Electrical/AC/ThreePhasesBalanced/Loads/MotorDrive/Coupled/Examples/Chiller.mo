@@ -83,6 +83,9 @@ model Chiller "Example showing how to use the motor coupled chiller model"
     offset=273.15 + 15)
     "Evaporator inlet temperature"
     annotation (Placement(transformation(extent={{80,-36},{60,-16}})));
+  Modelica.Blocks.Sources.BooleanConstant EquipmentStatus(k=true)
+    "true for \"On\", False for \"Off\""
+    annotation (Placement(transformation(extent={{-90,-10},{-70,10}})));
 equation
   connect(Sou.terminal, chi.terminal)
     annotation (Line(points={{0,22},{0,0}}, color={0,120,120}));
@@ -104,6 +107,8 @@ equation
           {-12,-1}}, color={0,0,127}));
   connect(senTem.T, chi.TMea)
     annotation (Line(points={{-30,-19},{-30,-7},{-12,-7}}, color={0,0,127}));
+  connect(EquipmentStatus.y, chi.on) annotation (Line(points={{-69,0},{-32,0},{
+          -32,-11},{-11,-11}}, color={255,0,255}));
   annotation (experiment(Tolerance=1e-6,StartTime=0,StopTime=600),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Electrical/AC/ThreePhasesBalanced/Loads/MotorDrive/Coupled/Examples/Chiller.mos"
         "Simulate and plot"),
@@ -120,8 +125,12 @@ manufacture records).
 </html>", revisions="<html>
 <ul>
 <li>
+June 05, 2026, by Viswanathan Ganesh:<br/>
+Updated example to have boolean feature.
+</li>
+<li>
 May 07, 2024, by Viswanathan Ganesh and Zhanwei He:<br/>
-Debug and updated the model
+Debug and updated the model.
 </li>
 <li>
 October 15, 2021, by Mingzhe Liu:<br/>

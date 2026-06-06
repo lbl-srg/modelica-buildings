@@ -87,6 +87,9 @@ model HeatPump "Example showing how to use the motor coupled heat pump model"
     "Evaporator inlet temperature"
     annotation (Placement(transformation(extent={{94,-26},{74,-6}})));
 
+  Modelica.Blocks.Sources.BooleanConstant EquipmentStatus(k=true)
+    "true for \"On\", False for \"Off\""
+    annotation (Placement(transformation(extent={{-92,-10},{-72,10}})));
 equation
   connect(hea.port_a2, sou2.ports[1]) annotation (Line(points={{10,-6},{10,-6},{
           34,-6},{34,-20},{40,-20}}, color={0,127,255}));
@@ -109,6 +112,8 @@ equation
   connect(TEva_in.y, sou2.T_in)
     annotation (Line(points={{73,-16},{62,-16}}, color={0,0,127}));
 
+  connect(EquipmentStatus.y, hea.on) annotation (Line(points={{-71,0},{-20,0},{
+          -20,-1},{-11,-1}}, color={255,0,255}));
 annotation (experiment(Tolerance=1e-6,StartTime=0,StopTime=350),
   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Electrical/AC/ThreePhasesBalanced/Loads/MotorDrive/Coupled/Examples/HeatPump.mos"
         "Simulate and plot"),
@@ -124,8 +129,12 @@ grid) and <code>hea.P</code> (energy consumption according to manufacture record
 </html>", revisions="<html>
 <ul>
 <li>
+June 05, 2026, by Viswanathan Ganesh:<br/>
+Updated example to have boolean feature.
+</li>
+<li>
 May 07, 2024, by Viswanathan Ganesh and Zhanwei He:<br/>
-Debug and updated the model
+Debug and updated the model.
 </li>
 <li>
 October 15, 2021, by Mingzhe Liu:<br/>

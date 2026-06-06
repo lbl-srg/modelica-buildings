@@ -208,7 +208,7 @@ model Chiller "Motor coupled chiller"
     final Td=Td,
     final yMax=yMax,
     final yMin=yMin) "Motor model"
-    annotation (Placement(transformation(extent={{-40,40},{-20,60}})));
+    annotation (Placement(transformation(extent={{-30,40},{-10,60}})));
 
 protected
   final parameter Modelica.Units.SI.Temperature TUseAct_nominal= TEva_nominal - TAppEva_nominal
@@ -231,8 +231,19 @@ protected
   Modelica.Blocks.Sources.RealExpression loaTor(
     final y=mecChi.shaft.tau)
     "Chiller torque block"
-    annotation (Placement(transformation(extent={{-20,10},{-40,30}})));
+    annotation (Placement(transformation(extent={{10,-10},{-10,10}},
+        rotation=0,
+        origin={-14,20})));
 
+public
+  Modelica.Blocks.Interfaces.BooleanInput on
+    "Set to true to enable compressor, or false to disable compressor"
+    annotation (Placement(transformation(extent={{-140,-40},{-100,0}}),
+        iconTransformation(extent={{-120,-20},{-100,0}})));
+  Modelica.Blocks.Logical.Switch switch annotation (Placement(transformation(
+        extent={{-10,-10},{10,10}},
+        rotation=0,
+        origin={-52,32})));
 equation
   connect(port_a1, mecChi.port_a1) annotation (Line(points={{-100,60},{-80,60},{
           -80,6},{-10,6}},  color={0,127,255}));
@@ -242,16 +253,12 @@ equation
           {100,60}}, color={0,127,255}));
   connect(mecChi.port_a2, port_a2) annotation (Line(points={{10,-6},{80,-6},{80,
           -60},{100,-60}},     color={0,127,255}));
-  connect(TSet, simMot.setPoi) annotation (Line(points={{-120,80},{-60,80},{-60,
-          58},{-42,58}}, color={0,0,127}));
-  connect(TMea, simMot.mea) annotation (Line(points={{-120,30},{-60,30},{-60,50},
-          {-42,50}}, color={0,0,127}));
-  connect(loaTor.y, simMot.tau_m) annotation (Line(points={{-41,20},{-50,20},{
-          -50,42},{-42,42}},  color={0,0,127}));
-  connect(simMot.terminal, terminal) annotation (Line(points={{-30,60},{-30,80},
+  connect(TSet, simMot.setPoi) annotation (Line(points={{-120,80},{-76,80},{-76,
+          58},{-32,58}}, color={0,0,127}));
+  connect(simMot.terminal, terminal) annotation (Line(points={{-20,60},{-20,80},
           {0,80},{0,100}}, color={0,120,120}));
   connect(mecChi.shaft, simMot.shaft) annotation (Line(points={{0,10},{0,50},{
-          -20,50}}, color={0,0,0}));
+          -10,50}}, color={0,0,0}));
   connect(mecChi.P, P)
     annotation (Line(points={{11,0},{120,0}}, color={0,0,127}));
   connect(mecChi.QCon_flow, QCon_flow) annotation (Line(points={{11,9},{70,9},{70,
@@ -259,6 +266,16 @@ equation
   connect(mecChi.QEva_flow, QEva_flow) annotation (Line(points={{11,-9},{70,-9},
           {70,-30},{120,-30}}, color={0,0,127}));
 
+  connect(loaTor.y, simMot.tau_m)
+    annotation (Line(points={{-25,20},{-32,20},{-32,42}}, color={0,0,127}));
+  connect(switch.y, simMot.mea) annotation (Line(points={{-41,32},{-36,32},{-36,
+          50},{-32,50}}, color={0,0,127}));
+  connect(on, switch.u2) annotation (Line(points={{-120,-20},{-72,-20},{-72,32},
+          {-64,32}}, color={255,0,255}));
+  connect(switch.u1, TMea) annotation (Line(points={{-64,40},{-88,40},{-88,30},
+          {-120,30}}, color={0,0,127}));
+  connect(switch.u3, TSet) annotation (Line(points={{-64,24},{-76,24},{-76,80},
+          {-120,80}}, color={0,0,127}));
 annotation (defaultComponentName="chi",
   Icon(coordinateSystem(preserveAspectRatio=true,extent={{-100,-100},
             {100,100}}), graphics={
@@ -358,6 +375,10 @@ closely matches with the chiller&apos;s rating based on manufacturer datasheet.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+June 05, 2026, by Viswanathan Ganesh:<br/>
+Added boolean feature.
+</li>
 <li>
 May 07, 2024, by Viswanathan Ganesh and Zhanwei He:<br/>
 Updated Implementation.
