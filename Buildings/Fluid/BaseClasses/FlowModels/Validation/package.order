@@ -6,4 +6,6 @@ InverseFlowFunctions
 InversePowerLaws
 InvertingBasicFlowFunction_dp
 InvertingBasicFlowFunction_m_flow
+InvertingPowerLaw_dp
+InvertingPowerLaw_m_flow
 PowerLaw_dp
