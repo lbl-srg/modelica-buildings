@@ -1,33 +1,36 @@
 within Buildings.Electrical.AC.ThreePhasesBalanced.Loads.MotorDrive.Coupled.Examples;
-model Pump "This example shows how to use the motor coupled pump model"
+model Pump "Example showing how to use the motor coupled pump model"
   extends Modelica.Icons.Example;
-  package MediumW = Buildings.Media.Water;
-  parameter Modelica.Units.SI.MassFlowRate m_flow_nominal = 1 "Nominal mass flow rate";
-  parameter Modelica.Units.SI.Pressure dp_nominal=500   "nominal pressure drop";
+  package MediumW = Buildings.Media.Water "Water medium";
+  parameter Modelica.Units.SI.MassFlowRate m_flow_nominal = 1
+    "Nominal mass flow rate";
+  parameter Modelica.Units.SI.Pressure dp_nominal=500
+    "nominal pressure drop";
 
-  Buildings.Fluid.Sources.Boundary_pT sou(redeclare package Medium = MediumW,
-      nPorts=2)
-              "Boundary"
+  Buildings.Fluid.Sources.Boundary_pT sou(
+    redeclare package Medium = MediumW,
+    nPorts=2)
+    "Boundary"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}}, rotation=0,
       origin={-90,20})));
   Buildings.Electrical.AC.ThreePhasesBalanced.Loads.MotorDrive.Coupled.Pump pum(
     addPowerToMedium=true,
-    redeclare
-      Buildings.Electrical.AC.ThreePhasesBalanced.Loads.MotorDrive.InductionMotors.Data.Generic
-      per1,
-    pum(pum(energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)),
+    loaIne=1,
+    Nrpm_nominal=1500,
+    redeclare Buildings.Electrical.AC.ThreePhasesBalanced.Loads.MotorDrive.InductionMotors.Data.Generic motPer,
+    r=2,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     redeclare package Medium = MediumW,
-    redeclare
-      Buildings.Fluid.Movers.Data.Pumps.Wilo.VeroLine50slash150dash4slash2 per,
-    k=0.0012,
-    Ti=0.63)
-           "Pump"
+    redeclare Buildings.Fluid.Movers.Data.Pumps.Wilo.VeroLine50slash150dash4slash2 per,
+    k=0.05,
+    Ti=5)    "Pump"
     annotation (Placement(transformation(extent={{0,10},{20,30}})));
 
   Buildings.Electrical.AC.ThreePhasesBalanced.Sources.Grid gri(f=50, V=400)
     "Voltage source"
     annotation (Placement(transformation(extent={{0,60},{20,80}})));
-  Buildings.Fluid.Sensors.MassFlowRate senMasFlo(redeclare package Medium = MediumW)
+  Buildings.Fluid.Sensors.MassFlowRate senMasFlo(
+    redeclare package Medium = MediumW)
     "Flow rate sensor"
     annotation (Placement(transformation(extent={{0,-50},{-20,-30}})));
   Buildings.Fluid.FixedResistances.PressureDrop dp1(
@@ -43,34 +46,48 @@ model Pump "This example shows how to use the motor coupled pump model"
   Modelica.Blocks.Sources.Step step(
     height=10,
     offset=0,
-    startTime=100)  "Flow rate set point"
+    startTime=100)
+    "Flow rate set point"
     annotation (Placement(transformation(extent={{-80,60},{-60,80}})));
 
 equation
   connect(gri.terminal, pum.terminal) annotation (Line(points={{10,60},{10,30}},
           color={0,120,120}));
-  connect(step.y, pum.setPoi) annotation (Line(points={{-59,70},{-6,70},{-6,
-          27.7778},{-1,27.7778}}, color={0,0,127}));
-  connect(dp1.port_b, pum.port_a) annotation (Line(points={{-20,20},{-18,20},{
-          -18,18.8889},{0,18.8889}}, color={0,127,255}));
+  connect(step.y, pum.m_flow_set) annotation (Line(points={{-59,70},{-10,70},{
+          -10,28},{-2,28}}, color={0,0,127}));
+  connect(dp1.port_b, pum.port_a) annotation (Line(points={{-20,20},{0,20}},
+          color={0,127,255}));
   connect(dp1.port_a, sou.ports[1])
     annotation (Line(points={{-40,20},{-80,20},{-80,19}}, color={0,127,255}));
-  connect(pum.port_b, dp2.port_a) annotation (Line(points={{20,18.8889},{22,
-          18.8889},{22,20},{40,20}}, color={0,127,255}));
+  connect(pum.port_b, dp2.port_a) annotation (Line(points={{20,20},{40,20}},
+          color={0,127,255}));
   connect(dp2.port_b, senMasFlo.port_a) annotation (Line(points={{60,20},{64,20},
           {64,-40},{0,-40}}, color={0,127,255}));
   connect(senMasFlo.port_b, sou.ports[2]) annotation (Line(points={{-20,-40},{
           -50,-40},{-50,21},{-80,21}}, color={0,127,255}));
-  connect(senMasFlo.m_flow, pum.meaPoi) annotation (Line(points={{-10,-29},{-10,
-          23.3333},{-1,23.3333}}, color={0,0,127}));
-  annotation (experiment(Tolerance=1e-6,StartTime=0,StopTime=200),
-__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Electrical/AC/ThreePhasesBalanced/Loads/MotorDrive/Coupled/Examples/Pump.mos"
+  connect(senMasFlo.m_flow,pum.m_flow)  annotation (Line(points={{-10,-29},{-10,
+          24},{-2,24}}, color={0,0,127}));
+
+annotation (experiment(Tolerance=1e-6,StartTime=0,StopTime=200),
+  __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Electrical/AC/ThreePhasesBalanced/Loads/MotorDrive/Coupled/Examples/Pump.mos"
         "Simulate and plot"),
     Documentation(info="<html>
 <p>
-Example that simulates a motor coupled pump to track the set point signal as 
-the load changes.
+This example simulates a motor coupled pump.
 </p>
+<ul>
+<li>
+The parameter <code>pum.riseTime</code> in the dynamics tab, helps to set the
+response of the fluid by regulating the motor speed to meet the prescribed mass flow.
+To get the desired equipment response along with riseTime the gains of the controller
+also needs to be tuned.
+</li>
+<li>
+To ensure that the pump energy consumption is in accordance with the manufacture
+records, we can compare <code>gri.P.real</code> (energy consumption from the grid)
+and <code>pum.P</code> (energy consumption according to manufacture records).
+</li>
+</ul>
 </html>", revisions="<html>
 <ul>
 <li>
