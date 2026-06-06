@@ -1,0 +1,7 @@
+compareVars :=
+  {
+    "Sou.P.real",
+    "Sou.P.apparent",
+    "TSet.y",
+    "senTem.T"
+  };
