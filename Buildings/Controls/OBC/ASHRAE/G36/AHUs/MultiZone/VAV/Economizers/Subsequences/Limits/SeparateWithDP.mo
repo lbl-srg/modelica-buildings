@@ -422,80 +422,65 @@ annotation (
         Text(
           extent={{-98,38},{-48,22}},
           textColor={0,0,127},
-          pattern=LinePattern.Dash,
           textString="dpMinOutDam"),
         Text(
           extent={{-98,20},{6,2}},
           textColor={0,0,127},
-          pattern=LinePattern.Dash,
           textString="VOutMinSet_flow_normalized",
           visible=venStd == Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.ASHRAE62_1),
         Text(
           extent={{-100,-62},{-60,-74}},
           textColor={0,0,127},
-          pattern=LinePattern.Dash,
           textString="uOutDam"),
         Text(
           extent={{-98,-82},{-60,-96}},
           textColor={0,0,127},
-          pattern=LinePattern.Dash,
           textString="uSupFan"),
         Text(
           extent={{44,60},{98,42}},
           textColor={0,0,127},
-          pattern=LinePattern.Dash,
           textString="yOutDam_min"),
         Text(
           extent={{44,40},{98,22}},
           textColor={0,0,127},
-          pattern=LinePattern.Dash,
           textString="yOutDam_max"),
         Text(
           extent={{46,-40},{98,-58}},
           textColor={0,0,127},
-          pattern=LinePattern.Dash,
           textString="yRetDam_max"),
         Text(
           extent={{44,-18},{98,-38}},
           textColor={0,0,127},
-          pattern=LinePattern.Dash,
           textString="yRetDam_min"),
         Text(
           extent={{30,-78},{98,-96}},
           textColor={0,0,127},
-          pattern=LinePattern.Dash,
           textString="yRetDamPhy_max"),
         Text(
           extent={{-98,-12},{-56,-26}},
           textColor={255,0,255},
-          pattern=LinePattern.Dash,
           textString="u1SupFan"),
         Text(
           extent={{-100,-32},{-50,-46}},
           textColor={255,127,0},
-          pattern=LinePattern.Dash,
           textString="uOpeMod"),
         Text(
           extent={{52,94},{98,70}},
           textColor={255,0,255},
-          pattern=LinePattern.Dash,
           textString="y1MinOutDam"),
         Text(
           extent={{-96,98},{-4,84}},
           textColor={0,0,127},
-          pattern=LinePattern.Dash,
           textString="effAbsOutAir_normalized",
           visible=venStd == Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.California_Title_24),
         Text(
           extent={{-96,58},{-4,44}},
           textColor={0,0,127},
-          pattern=LinePattern.Dash,
           textString="effDesOutAir_normalized",
           visible=venStd == Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.California_Title_24),
         Text(
           extent={{-96,78},{-36,64}},
           textColor={0,0,127},
-          pattern=LinePattern.Dash,
           visible=have_CO2Sen and venStd == Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.California_Title_24,
           textString="uCO2Loo_max")}),
   Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-220,-360},{220,360}})),

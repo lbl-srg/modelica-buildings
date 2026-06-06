@@ -9,10 +9,10 @@ model OpaqueConstruction
     "Surface area";
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a heaPorFro
     "Heat port for front surface"
-    annotation (Placement(transformation(extent={{-110,-10},{-90,10}}),iconTransformation(extent={{-110,-10},{-90,10}})));
+    annotation (mustBeConnected = "In " + getInstanceName() +": The heat port heaPorFro must be connected to another heat port.", Placement(transformation(extent={{-110,-10},{-90,10}}),iconTransformation(extent={{-110,-10},{-90,10}})));
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_b heaPorBac
     "Heat port for back surface"
-    annotation (Placement(transformation(extent={{90,-10},{110,10}}),iconTransformation(extent={{88,-10},{108,10}})));
+    annotation (mustBeConnected = "In " + getInstanceName() +": The heat port heaPorBac must be connected to another heat port.", Placement(transformation(extent={{90,-10},{110,10}}),iconTransformation(extent={{88,-10},{108,10}})));
   Modelica.Units.SI.HeatFlux qFro_flow
     "Heat flow rate at front surface per unit area";
   Modelica.Units.SI.HeatFlux qBac_flow
@@ -111,15 +111,6 @@ initial equation
     A > 0,
     "Surface area must not be zero.");
 equation
-  // Make sure the heat ports are connected.
-  // These statements must be in the equation section. Otherwise,
-  // Dymola 2021 does trigger an error during the symbolic processing
-  // rather than these assertions if the heat port is not connected.
-  assert(cardinality(heaPorFro) > 0,
-    "In " + getInstanceName() +": The heat port heaPorFro must be connected to another heat port.");
-  assert(cardinality(heaPorBac) > 0,
-    "In " + getInstanceName() +": The heat port heaPorBac must be connected to another heat port.");
-
   when {initial(),time >= pre(tNext)} then
     // Initialization of output variables.
     TFroLast=heaPorFro.T;

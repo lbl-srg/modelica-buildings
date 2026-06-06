@@ -56,12 +56,12 @@ INVALID_IN_MOS=[]
 # List of invalid regular expressions in .mo files
 # The check for lineColor is from
 # https://github.com/modelica/ModelicaStandardLibrary/blob/master/.CI/check_deprecated_line_color.py
-INVALID_REGEXP_IN_MO=["StopTime\s*=\s*\d\s*[*]\s*\d+",
-                      "(Documentation\s*\(((.|\r?\n)*?))font-size\s*:",
-                      "file\s*=\s*\"Resources", # This should be file="modelica://Buildings/Resources
-                      "parameter.*Boolean.*homotopyInitialization",
-                      "(Text\s*\([^\)]*)lineColor",
-                      "(Line\s*\([^\)]*)lineThickness"]
+INVALID_REGEXP_IN_MO=[r"StopTime\s*=\s*\d\s*[*]\s*\d+",
+                      r"(Documentation\s*\(((.|\r?\n)*?))font-size\s*:",
+                      r"file\s*=\s*\"Resources", # This should be file="modelica://Buildings/Resources
+                      r"parameter.*Boolean.*homotopyInitialization",
+                      r"(Text\s*\([^\)]*)lineColor",
+                      r"(Line\s*\([^\)]*)lineThickness"]
 # List of strings that are required in .mo files, except in Examples
 REQUIRED_IN_MO=["documentation"]
 

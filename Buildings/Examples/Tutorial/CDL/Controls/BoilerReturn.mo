@@ -48,14 +48,10 @@ equation
         Text(
           extent={{-88,22},{-40,-18}},
           textColor={0,0,0},
-          fillColor={255,255,255},
-          fillPattern=FillPattern.None,
           textString="TRet"),
         Text(
           extent={{40,24},{88,-16}},
           textColor={0,0,0},
-          fillColor={255,255,255},
-          fillPattern=FillPattern.None,
           textString="yVal"),
         Polygon(
           points={{0,-62},{-12,-80},{14,-80},{0,-62}},

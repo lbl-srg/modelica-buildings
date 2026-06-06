@@ -37,24 +37,24 @@ partial model PartialBaseLine "Partial cable line dispersion model"
                choicesAllMatching = true);
 
   final parameter Modelica.Units.SI.Temperature T_ref=commercialCable.T_ref
-    "Reference temperature of the line" annotation (Evaluate=True);
+    "Reference temperature of the line";
   final parameter Modelica.Units.SI.Temperature M=commercialCable.M
     "Temperature constant (R_actual = R*(M + T_heatPort)/(M + T_ref))";
   final parameter Modelica.Units.SI.Resistance R=commercialCable.lineResistance(
       l,
       f_n,
-      commercialCable) "Resistance of the cable" annotation (Evaluate=True);
+      commercialCable) "Resistance of the cable" annotation (Evaluate = true);
   final parameter Modelica.Units.SI.Inductance L=commercialCable.lineInductance(
       l,
       f_n,
       commercialCable)
     "Inductance of the cable due to mutual and self inductance"
-    annotation (Evaluate=True);
+    annotation (Evaluate = true);
   final parameter Modelica.Units.SI.Capacitance C=
       commercialCable.lineCapacitance(
       l,
       f_n,
-      commercialCable) "Capacitance of the cable" annotation (Evaluate=True);
+      commercialCable) "Capacitance of the cable" annotation (Evaluate = true);
   Buildings.HeatTransfer.Sources.PrescribedTemperature cableTemp
     "Temperature of the cable"
     annotation (Placement(transformation(extent={{-60,12},{-40,32}})));
@@ -158,6 +158,16 @@ show how this can be done.
 
 </html>", revisions="<html>
 <ul>
+<li>
+January 29, 2026, by Michael Wetter:<br/>
+Removed <code>Evaluate=true</code> annotation due to translation error with OpenModelica.<br/>
+This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/2082\">IBPSA, #2082</a>.
+</li>
+<li>
+November 17, 2025, by Michael Wetter:<br/>
+Corrected typo in annotation.<br/>
+This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4406\">Buildings, #4406</a>.
+</li>
 <li>
 September 23, 2014, by Marco Bonvini:<br/>
 Revised model and documentation according to change in the structure of the cable record.

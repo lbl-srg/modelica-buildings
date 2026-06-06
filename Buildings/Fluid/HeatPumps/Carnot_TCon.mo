@@ -67,8 +67,6 @@ equation
         Text(
           extent={{-148,156},{-92,114}},
           textColor={0,0,127},
-          fillColor={255,255,255},
-          fillPattern=FillPattern.Solid,
           textString="TCon"),
         Line(points={{-100,90},{-80,90},{-80,84},{80,84},{80,64}},
                                                     color={0,0,255})}),

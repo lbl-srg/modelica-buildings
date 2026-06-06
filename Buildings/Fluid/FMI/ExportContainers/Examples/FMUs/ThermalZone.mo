@@ -126,7 +126,6 @@ equation
           pattern=LinePattern.None),
         Text(
           extent={{76,134},{114,110}},
-          pattern=LinePattern.None,
           textColor={0,0,127},
           horizontalAlignment=TextAlignment.Left,
           textString="Simplified model of

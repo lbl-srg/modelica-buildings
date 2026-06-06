@@ -27,7 +27,7 @@ model MassFlowRatePulse100 "Comparative model validation with FEFLOW for a pulse
   parameter Data.Configuration.Template conDat(
     borCon=Buildings.Fluid.Geothermal.Borefields.Types.BoreholeConfiguration.DoubleUTubeParallel,
     mBor_flow_nominal=20*995.586/24/3600*{1, 1},
-    each dp_nominal=85*4*100*{1, 1},
+    dp_nominal=85*4*100*{1, 1},
     hBor=85,
     rBor=0.075,
     dBor=0.5,
@@ -50,8 +50,8 @@ model MassFlowRatePulse100 "Comparative model validation with FEFLOW for a pulse
     "Total number of independent bore field zones";
 
   replaceable Modelica.Blocks.Sources.Constant TIn[nZon](
-    each k(each final unit="K",
-      each displayUnit="degC")=293.15)
+    each k(final unit="K",
+           displayUnit="degC")=293.15)
     constrainedby Modelica.Blocks.Interfaces.SO
     "Inlet temperature into each zone"
     annotation (Placement(transformation(extent={{-80,-10},{-60,10}})));
@@ -144,6 +144,10 @@ The mass flow rate in both zones is a pulse function.
 </html>",
 revisions="<html>
 <ul>
+<li>
+October 8, 2025, by Michael Wetter:<br/>
+Corrected wrong <code>each</code> statements.
+</li>
 <li>
 May 17, 2024, by Michael Wetter:<br/>
 First implementation.

@@ -122,34 +122,16 @@ model HeatExchanger
         extent={{-10,-10},{10,10}},
         rotation=0,
         origin={-30,-20})));
-  Buildings.Controls.OBC.CDL.Logical.Or or2
+  Buildings.Controls.OBC.CDL.Logical.MultiOr
+                                        mulOr(nin=4)
     "Compute enable signal for heat/cold rejection"
-    annotation (Placement(transformation(extent={{-120,70},{-100,90}})));
-  Modelica.Blocks.Sources.RealExpression yValIsoCon(
-    y=if time >= 2500 then
-        1
-      else
-        0)
+    annotation (Placement(transformation(extent={{-40,70},{-20,90}})));
+  Modelica.Blocks.Sources.BooleanExpression yValIsoCon(y=time >= 2500)
     "Condenser loop isolation valve opening"
     annotation (Placement(transformation(extent={{-190,50},{-170,70}})));
-  Modelica.Blocks.Sources.RealExpression yValIsoEva(
-    y=if time >= 500 then
-        1
-      else
-        0)
+  Modelica.Blocks.Sources.BooleanExpression yValIsoEva(y=time >= 500)
     "Evaporator loop isolation valve opening"
     annotation (Placement(transformation(extent={{-190,30},{-170,50}})));
-  Buildings.Controls.OBC.CDL.Reals.Sources.Sin sin1(
-    amplitude=0.5,
-    freqHz=1e-3,
-    offset=0.5)
-    "Control signal"
-    annotation (Placement(transformation(extent={{-80,130},{-60,150}})));
-  Buildings.Controls.OBC.CDL.Reals.Switch swi1 "Activate heat/cold rejection"
-    annotation (Placement(transformation(extent={{-20,70},{0,90}})));
-  Buildings.Controls.OBC.CDL.Reals.Sources.Constant zer(
-    k=0) "Zero"
-    annotation (Placement(transformation(extent={{-80,90},{-60,110}})));
   Modelica.Blocks.Sources.TimeTable TColVal(
     y(final unit="K",
       displayUnit="degC"),
@@ -194,8 +176,7 @@ equation
   connect(swi.y, bou2.T_in) annotation (Line(points={{-98,-80},{-90,-80},{-90,
           -16},{-82,-16}}, color={0,0,127}));
   connect(uEnaColRej.y,swi.u2)
-    annotation (Line(points={{-169,80},{-140,80},{-140,20},{-120,20},{-120,-60},
-          {-130,-60},{-130,-80},{-122,-80}},                                                                        color={255,0,255}));
+    annotation (Line(points={{-169,80},{-140,80},{-140,-80},{-122,-80}},                                            color={255,0,255}));
   connect(hexPum.port_b1,senT1OutPum.port_a)
     annotation (Line(points={{50,-74},{80,-74},{80,-100},{100,-100}},
                                                                   color={0,127,255}));
@@ -231,32 +212,10 @@ equation
                                                              color={0,127,255}));
   connect(senT2OutVal.port_a,hexVal.port_b2)
     annotation (Line(points={{-20,20},{0,20},{0,-6},{30,-6}},     color={0,127,255}));
-  connect(uEnaColRej.y,or2.u2)
-    annotation (Line(points={{-169,80},{-140,80},{-140,72},{-122,72}},  color={255,0,255}));
-  connect(uHeaRej.y,or2.u1)
-    annotation (Line(points={{-169,100},{-130,100},{-130,80},{-122,80}},  color={255,0,255}));
-  connect(yValIsoCon.y,hexVal.yValIso_actual[1])
-    annotation (Line(points={{-169,60},{8,60},{8,-2.5},{28,-2.5}}, color={0,0,127}));
-  connect(yValIsoCon.y,hexPum.yValIso_actual[1])
-    annotation (Line(points={{-169,60},{8,60},{8,-82.5},{28,-82.5}}, color={0,0,127}));
-  connect(yValIsoEva.y,hexVal.yValIso_actual[2])
-    annotation (Line(points={{-169,40},{4,40},{4,-1.5},{28,-1.5}}, color={0,0,127}));
-  connect(yValIsoEva.y,hexPum.yValIso_actual[2])
-    annotation (Line(points={{-169,40},{4,40},{4,-81.5},{28,-81.5}}, color={0,0,127}));
-  connect(or2.y,swi1.u2)
-    annotation (Line(points={{-98,80},{-22,80}},   color={255,0,255}));
-  connect(sin1.y,swi1.u1)
-    annotation (Line(points={{-58,140},{-40,140},{-40,88},{-22,88}},  color={0,0,127}));
-  connect(zer.y,swi1.u3)
-    annotation (Line(points={{-58,100},{-50,100},{-50,72},{-22,72}},color={0,0,127}));
-  connect(swi1.y,hexVal.u)
-    annotation (Line(points={{2,80},{12,80},{12,2},{28,2}},         color={0,0,127}));
-  connect(swi1.y,hexPum.u)
-    annotation (Line(points={{2,80},{12,80},{12,-78},{28,-78}},       color={0,0,127}));
   connect(TColVal.y,swi.u1)
-    annotation (Line(points={{-169,-60},{-140,-60},{-140,-72},{-122,-72}},color={0,0,127}));
+    annotation (Line(points={{-169,-60},{-160,-60},{-160,-72},{-122,-72}},color={0,0,127}));
   connect(THotVal.y,swi.u3)
-    annotation (Line(points={{-169,-100},{-140,-100},{-140,-88},{-122,-88}},
+    annotation (Line(points={{-169,-100},{-160,-100},{-160,-88},{-122,-88}},
                                                                           color={0,0,127}));
   connect(TSerWat.y, bou1Pum.T_in) annotation (Line(points={{189,-80},{180,-80},
           {180,-78},{162,-78}}, color={0,0,127}));
@@ -268,6 +227,18 @@ equation
   connect(bou2.ports[4], senT2InlVal.port_a) annotation (Line(points={{-60,
           -18.5},{-60,-20},{-40,-20}},
                                 color={0,127,255}));
+  connect(uHeaRej.y, mulOr.u[1]) annotation (Line(points={{-169,100},{-108,100},
+          {-108,77.375},{-42,77.375}}, color={255,0,255}));
+  connect(uEnaColRej.y, mulOr.u[2]) annotation (Line(points={{-169,80},{-92,80},
+          {-92,79.125},{-42,79.125}}, color={255,0,255}));
+  connect(yValIsoCon.y, mulOr.u[3]) annotation (Line(points={{-169,60},{-104,60},
+          {-104,80.875},{-42,80.875}}, color={255,0,255}));
+  connect(yValIsoEva.y, mulOr.u[4]) annotation (Line(points={{-169,40},{-100,40},
+          {-100,82.625},{-42,82.625}}, color={255,0,255}));
+  connect(mulOr.y, hexVal.on) annotation (Line(points={{-18,80},{10,80},{10,2},
+          {28,2}}, color={255,0,255}));
+  connect(mulOr.y, hexPum.on) annotation (Line(points={{-18,80},{10,80},{10,-78},
+          {28,-78}}, color={255,0,255}));
   annotation (
     Diagram(
       coordinateSystem(

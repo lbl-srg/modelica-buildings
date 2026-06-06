@@ -99,8 +99,6 @@ equation
         Text(
           extent={{-50,68},{-20,100}},
           textColor={0,0,0},
-          fillColor={215,215,215},
-          fillPattern=FillPattern.Solid,
           textString="P"),
         Line(
           points={{-74,0},{-100,0},{-100,0}},
@@ -117,8 +115,6 @@ equation
         Text(
           extent={{44,70},{100,116}},
           textColor={0,0,0},
-          fillColor={215,215,215},
-          fillPattern=FillPattern.Solid,
           textString="SOC"),
         Text(
           extent={{44,154},{134,112}},

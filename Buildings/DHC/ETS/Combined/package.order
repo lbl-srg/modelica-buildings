@@ -1,8 +1,9 @@
-ChillerBorefield
 HeatPumpHeatExchanger
 HeatPumpHeatExchangerDHWTank
+HeatRecoveryHeatPump
 Controls
 Subsystems
+Data
 Examples
 Validation
 BaseClasses

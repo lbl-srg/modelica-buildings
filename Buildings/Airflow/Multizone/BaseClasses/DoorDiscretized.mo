@@ -28,6 +28,9 @@ protected
   parameter Modelica.Units.SI.Density rho_default=Medium.density(sta_default)
     "Density, used to compute fluid volume";
 
+  final parameter Real sqrt_dp_turbulent(min=0) = sqrt(dp_turbulent)
+    "Square root of pressure difference where laminar and turbulent flow relation coincide";
+
   input Real hAg[nCom](each unit="m2/s2")=
     {Modelica.Constants.g_n*(hA - (i - 0.5)*dh) for i in 1:nCom}
     "Product g*h_i for each compartment";
@@ -117,6 +120,13 @@ using the model for a door that can be open or closed.
 </html>",
 revisions="<html>
 <ul>
+<li>
+September 19, 2025, by Michael Wetter:<br/>
+Introduced protected parameter <code>sqrt_dp_turbulent</code>,
+which is needed to improve computing efficiency if flow exponent is <i>0.5</i>.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/2043\">IBPSA, #2043</a>.
+</li>
 <li>
 October 29, 2024, by Klaas De Jonge:<br/>
 Unprotected <code>dh</code> and changed prefixes of <code>dh</code>,<code>hAg</code> and <code>hBg</code> to <code>input</code>.<br/>

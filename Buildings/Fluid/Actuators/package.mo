@@ -1,6 +1,6 @@
 within Buildings.Fluid;
 package Actuators "Package with actuator models such as valves and dampers"
-  extends Modelica.Icons.VariantsPackage;
+  extends Modelica.Icons.Package;
 
 
 package UsersGuide "User's Guide"
@@ -184,9 +184,20 @@ because it generates a state event whenever the valve position changes.
 </html>"));
 
 end UsersGuide;
-
-
-annotation (preferredView="info", Documentation(info="<html>
+  annotation (preferredView="info", Documentation(info="<html>
+<p>
 This package contains component models for actuators.
-</html>"));
+</p>
+</html>"),
+    Icon(graphics={Polygon(
+          points={{-40,40},{-40,-40},{0,0},{-40,40}},
+          lineColor={0,0,0},
+          lineThickness=0.5,
+          fillColor={255,255,255},
+          fillPattern=FillPattern.Solid), Polygon(
+          points={{40,40},{40,-40},{0,0},{40,40}},
+          lineColor={0,0,0},
+          lineThickness=0.5,
+          fillColor={255,255,255},
+          fillPattern=FillPattern.Solid)}));
 end Actuators;

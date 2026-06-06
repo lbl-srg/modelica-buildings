@@ -1,5 +1,5 @@
 within Buildings.BoundaryConditions.SolarGeometry;
-block IncidenceAngle "Solar incidence angle on a tilted surface"
+model IncidenceAngle "Solar incidence angle on a tilted surface"
   extends Modelica.Blocks.Icons.Block;
   parameter Modelica.Units.SI.Angle azi "Surface azimuth";
   parameter Modelica.Units.SI.Angle til "Surface tilt";
@@ -66,6 +66,11 @@ For a definition of the parameters, see the User's Guide
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+May 15, 2026, by Jianjun Hu:<br/>
+Changed the class type from block to model.<br/>
+This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/2122\">IBPSA, #2122</a>.
+</li>
 <li>
 September 6, 2021, by Ettore Zanetti:<br/>
 Changed <code>lat</code> from being a parameter to an input from weather bus.<br/>

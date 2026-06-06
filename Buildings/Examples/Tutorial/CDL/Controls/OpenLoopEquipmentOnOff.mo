@@ -39,26 +39,18 @@ equation
         Text(
           extent={{-94,-40},{-46,-80}},
           textColor={0,0,0},
-          fillColor={255,255,255},
-          fillPattern=FillPattern.None,
           textString="onSys"),
         Text(
           extent={{36,-38},{84,-78}},
           textColor={0,0,0},
-          fillColor={255,255,255},
-          fillPattern=FillPattern.None,
           textString="onPum"),
         Text(
           extent={{42,82},{90,42}},
           textColor={0,0,0},
-          fillColor={255,255,255},
-          fillPattern=FillPattern.None,
           textString="onBoi"),
         Text(
           extent={{-92,82},{-44,42}},
           textColor={0,0,0},
-          fillColor={255,255,255},
-          fillPattern=FillPattern.None,
           textString="TBoi")}),
         Diagram(
         coordinateSystem(preserveAspectRatio=false)),

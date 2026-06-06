@@ -2,15 +2,26 @@ within Buildings.Airflow.Multizone;
 model Coefficient_V_flow "Power law with coefficient for volume flow rate"
   extends Buildings.Airflow.Multizone.BaseClasses.PartialOneWayFlowElement(
     m_flow = V_flow*rho,
-    V_flow = Buildings.Airflow.Multizone.BaseClasses.powerLawFixedM(
-      C=C,
-      dp=dp,
-      m=m,
-      a=a,
-      b=b,
-      c=c,
-      d=d,
-      dp_turbulent=dp_turbulent),
+    V_flow = if Modelica.Math.isEqual(m, 0.5, 1E-10) then
+        Buildings.Airflow.Multizone.BaseClasses.powerLaw05(
+          C=C,
+          dp=dp,
+          a=a,
+          b=b,
+          c=c,
+          d=d,
+          dp_turbulent=dp_turbulent,
+          sqrt_dp_turbulent=sqrt_dp_turbulent)
+      else
+          Buildings.Airflow.Multizone.BaseClasses.powerLawFixedM(
+          C=C,
+          dp=dp,
+          m=m,
+          a=a,
+          b=b,
+          c=c,
+          d=d,
+          dp_turbulent=dp_turbulent),
     final m_flow_nominal=rho_default*C*dp_turbulent,
     final m_flow_small=1E-4*abs(m_flow_nominal));
    extends Buildings.Airflow.Multizone.BaseClasses.PowerLawResistanceParameters(
@@ -82,6 +93,12 @@ Dols and Walton (2002) recommend to use for the flow exponent m=0.6 to m=0.7 if 
 </ul>
 </html>", revisions="<html>
 <ul>
+<li>
+September 19, 2025, by Michael Wetter:<br/>
+Revised implementation to improve computing efficiency if flow exponent is <i>0.5</i>.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/2043\">IBPSA, #2043</a>.
+</li>
 <li>
 February 2, 2022, by Michael Wetter:<br/>
 Revised implementation.<br/>

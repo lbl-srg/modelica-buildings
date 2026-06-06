@@ -50,7 +50,7 @@ block FreezeProtection
     "Lower limit of output"
     annotation (__cdl(ValueInReference=false),
                 Dialog(group="Heating coil controller", enable=heaCoi==Buildings.Controls.OBC.ASHRAE.G36.Types.HeatingCoil.WaterBased and have_frePro));
-  parameter Real Thys(unit="K")=0.25
+  parameter Real THys(unit="K")=0.25
     "Hysteresis for checking temperature difference"
     annotation (__cdl(ValueInReference=false),
                 Dialog(tab="Advanced", enable=have_frePro));
@@ -236,7 +236,7 @@ block FreezeProtection
 protected
   Buildings.Controls.OBC.CDL.Reals.LessThreshold lesThr(
     final t=273.15 + 4,
-    final h=Thys) if have_frePro
+    final h=THys) if have_frePro
     "Check if supply air temperature is less than threshold"
     annotation (Placement(transformation(extent={{-360,660},{-340,680}})));
   Buildings.Controls.OBC.CDL.Logical.Timer tim(
@@ -269,7 +269,7 @@ protected
     annotation (Placement(transformation(extent={{120,510},{140,530}})));
   Buildings.Controls.OBC.CDL.Reals.GreaterThreshold greThr(
     final t=273.15 + 7,
-    final h=Thys) if have_frePro
+    final h=THys) if have_frePro
     "Check if supply air temperature is greater than threshold"
     annotation (Placement(transformation(extent={{-380,450},{-360,470}})));
   Buildings.Controls.OBC.CDL.Logical.Latch lat if have_frePro
@@ -284,7 +284,7 @@ protected
     annotation (Placement(transformation(extent={{-260,442},{-240,462}})));
   Buildings.Controls.OBC.CDL.Reals.LessThreshold lesThr1(
     final t=273.15 + 3,
-    final h=Thys) if have_frePro
+    final h=THys) if have_frePro
     "Check if supply air temperature is less than threshold"
     annotation (Placement(transformation(extent={{-380,360},{-360,380}})));
   Buildings.Controls.OBC.CDL.Logical.Timer tim2(
@@ -327,7 +327,7 @@ protected
     annotation (Placement(transformation(extent={{-320,160},{-300,180}})));
   Buildings.Controls.OBC.CDL.Reals.LessThreshold lesThr2(
     final t=273.15 + 1,
-    final h=Thys) if have_frePro
+    final h=THys) if have_frePro
     "Check if supply air temperature is less than threshold"
     annotation (Placement(transformation(extent={{-400,120},{-380,140}})));
   Buildings.Controls.OBC.CDL.Logical.Timer tim4(
@@ -1075,22 +1075,16 @@ annotation (defaultComponentName="sinAHUFrePro",
         Text(
           extent={{-332,212},{-238,192}},
           textColor={0,0,255},
-          fillColor={215,215,215},
-          fillPattern=FillPattern.Solid,
           horizontalAlignment=TextAlignment.Left,
           textString="Stage 3"),
         Text(
           extent={{-330,410},{-236,390}},
           textColor={0,0,255},
-          fillColor={215,215,215},
-          fillPattern=FillPattern.Solid,
           horizontalAlignment=TextAlignment.Left,
           textString="Stage 2"),
         Text(
           extent={{-342,712},{-248,692}},
           textColor={0,0,255},
-          fillColor={215,215,215},
-          fillPattern=FillPattern.Solid,
           horizontalAlignment=TextAlignment.Left,
           textString="Stage 1")}),
  Documentation(info="<html>
@@ -1144,6 +1138,12 @@ shall be no software reset switch.)
 </ol>
 </html>", revisions="<html>
 <ul>
+<li>
+September 26, 2025, by Jianjun Hu:<br/>
+Renamed the parameter <code>Thys</code> to <code>THys</code>.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4374\">issue 4374</a>.
+</li>
 <li>
 March 1, 2023, by Michael Wetter:<br/>
 Changed constants from <code>0</code> to <code>0.0</code> and <code>1</code> to <code>1.0</code>.<br/>
