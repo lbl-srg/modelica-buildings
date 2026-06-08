@@ -14,7 +14,7 @@ cp20=cp(20)
 cpRel = list()
 for TC in T_degC:
     cpRel.append(cp(TC)/cp20)
-print "At T=20, cp = ", cp20
+print("At T=20, cp = ", cp20)
 
 # Plot figure
 fig = plt.figure(figsize=(6, 2))

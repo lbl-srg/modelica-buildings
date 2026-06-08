@@ -73,7 +73,7 @@ ep_HBeaInc=df['GLASS:Surface Outside Face Incident Beam Solar Radiation Rate per
 
 
 (_, mo_AGla) =  mof.values("roo.conExtWin[1].AGla")
-print "Modelica glass area: AGla = {}".format(mo_AGla[0])
+print("Modelica glass area: AGla = {}".format(mo_AGla[0]))
 (mo_tim, mo_qAbs_sol1) = mof.values("roo.conExtWin[1].QAbsUns_flow[1]")
 (mo_tim, mo_qAbs_sol2) = mof.values("roo.conExtWin[1].QAbsUns_flow[2]")
 mo_qAbs_sol1 = mo_qAbs_sol1/mo_AGla[0]
