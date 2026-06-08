@@ -26,7 +26,7 @@ if __name__ == "__main__":
         string = urlpath.read().decode('utf-8')
 
     # Regular expression to extract reference results
-    pattern = re.compile(r'(?<=\>)[a-zA-Z0-9_a-zA-Z0-9]+[.]+[txt]*')
+    pattern = re.compile('(?<=\>)[a-zA-Z0-9_a-zA-Z0-9]+[.]+[txt]*')
     filelist = pattern.findall(string)
 
     # Create a reference results' directory in working folder
