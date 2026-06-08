@@ -24,12 +24,20 @@ The following <b style=\"color:blue\">new components</b> have been added
 to <b style=\"color:blue\">existing</b> libraries:
 </p>
 <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\" style=\"border-collapse:collapse;\">
-<tr><td colspan=\"2\"><b>xxx</b>
+<tr><td colspan=\"2\"><b>Buildings.Fluid.BaseClasses.FlowModels</b>
     </td>
 </tr>
-<tr><td valign=\"top\">xxx
+<tr><td valign=\"top\">Buildings.Fluid.BaseClasses.FlowModels.powerLaw_dp<br/>
+                       Buildings.Fluid.BaseClasses.FlowModels.powerLaw_m_flow<br/>
+                       Buildings.Fluid.BaseClasses.FlowModels.powerLaw_dp_der<br/>
+                       Buildings.Fluid.BaseClasses.FlowModels.powerLaw_m_flow_der<br/>
+                       Buildings.Fluid.BaseClasses.FlowModels.powerLaw_dp_der2<br/>
+                       Buildings.Fluid.BaseClasses.FlowModels.powerLaw_m_flow_der2<br/>
+                       Buildings.Fluid.BaseClasses.FlowModels.powerLawData
     </td>
-    <td valign=\"top\">xxx.
+    <td valign=\"top\">Added functions for pressure drop calculations with flow exponents between 1 and 2,
+                       enabling modeling of partially turbulent flows such as in microchannel heat exchangers.<br/>
+                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4620\">Buildings, #4620</a>.
     </td>
     </tr>
 </table>
@@ -40,12 +48,14 @@ have been <b style=\"color:blue\">improved</b> in a
 <b style=\"color:blue\">backward compatible</b> way:
 </p>
 <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\" style=\"border-collapse:collapse;\">
-<tr><td colspan=\"2\"><b>xxx</b>
+<tr><td colspan=\"2\"><b>Buildings.Fluid.FixedResistances</b>
     </td>
 </tr>
-<tr><td valign=\"top\">xxx
+<tr><td valign=\"top\">Buildings.Fluid.FixedResistances.PressureDrop
     </td>
-    <td valign=\"top\">xxx.
+    <td valign=\"top\">Updated to allow a flow exponent between 1 and 2,
+                       enabling modeling of partially turbulent flows such as in microchannel heat exchangers.<br/>
+                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4620\">Buildings, #4620</a>.
     </td>
 </tr>
 <tr><td colspan=\"2\"><b>Buildings.Air.Systems.SingleZone.VAV.Examples.OptimalStart</b>
