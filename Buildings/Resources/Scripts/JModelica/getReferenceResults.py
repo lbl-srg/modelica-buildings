@@ -22,11 +22,11 @@ directory ='Dymola_Ext'
 if __name__ == "__main__":
     # Path to the directory with reference results
     urlResPath = 'https://simulationresearch.lbl.gov/jmodelica/modelica-buildings/Dymola/'
-    urlpath =urlopen(urlResPath)
-    string = urlpath.read().decode('utf-8')
+    with urlopen(urlResPath) as urlpath:
+        string = urlpath.read().decode('utf-8')
 
     # Regular expression to extract reference results
-    pattern = re.compile('(?<=\>)[a-zA-Z0-9_a-zA-Z0-9]+[.]+[txt]*')
+    pattern = re.compile(r'(?<=\>)[a-zA-Z0-9_a-zA-Z0-9]+[.]+[txt]*')
     filelist = pattern.findall(string)
 
     # Create a reference results' directory in working folder
@@ -37,8 +37,6 @@ if __name__ == "__main__":
         print("Processing file {} of {}".format(i+1, len(filelist)))
         # Check files with length longer than 7
         if len(filename) > 7:
-            remotefile = urlopen(urlResPath + filename)
-            localfile = open(os.path.join(directory, filename),'w')
-            localfile.write(remotefile.read())
-            localfile.close()
-            remotefile.close()
+            with urlopen(urlResPath + filename) as remotefile:
+                with open(os.path.join(directory, filename),'w') as localfile:
+                    localfile.write(remotefile.read())
