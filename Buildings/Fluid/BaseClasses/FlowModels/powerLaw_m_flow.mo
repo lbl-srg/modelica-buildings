@@ -32,9 +32,10 @@ protected
     "Absolute value of mass flow rate";
 
 algorithm
-  dp := if abs_m < m_flow_turbulent 
-        then b1 * m_flow + b3 * m_flow^3 + b5 * m_flow^5
-        else C * sign(m_flow) * abs_m^n;
+  dp := if abs_m < m_flow_turbulent
+        then m_flow * (b1 + m_flow * m_flow * (b3 + m_flow * m_flow * b5))
+        else
+        if m_flow > 0 then C * m_flow^n else -C * abs_m^n;
 annotation (
   smoothOrder=2,
   Inline=true,

@@ -38,7 +38,7 @@ protected
 algorithm
   m_flow_der :=
     (if abs_dp < dp_turbulent
-     then a1 + 3*a3*dp^2 + 5*a5*dp^4
+      then a1 + dp*dp * (3*a3 + dp*dp * 5*a5)
      else k * m * abs_dp^(m - 1)) * dp_der;
 
 annotation (

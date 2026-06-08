@@ -34,9 +34,10 @@ protected
 algorithm
   m_flow :=
     if abs_dp < dp_turbulent
-    then a1 * dp + a3 * dp^3 + a5 * dp^5
-    else k * sign(dp) * abs_dp^m;
- 
+    then dp * (a1 + dp * dp * (a3 + dp * dp * a5))
+    else
+    if dp > 0 then k * dp^m else - k * abs_dp^m;
+
 annotation (
   smoothOrder=2,
   Inline=true,
