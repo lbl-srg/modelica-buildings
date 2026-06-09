@@ -155,6 +155,10 @@ protected
     "Pump torque block"
     annotation (Placement(transformation(extent={{-20,10},{-40,30}})));
 
+public
+  Modelica.Blocks.Sources.BooleanConstant booleanConstant
+    "Equipment os always 'on'"
+    annotation (Placement(transformation(extent={{-90,20},{-70,40}})));
 equation
   connect(port_a, pum.port_a) annotation (Line(points={{-100,0},{-10,0}},
           color={0,127,255}));
@@ -164,9 +168,10 @@ equation
           {0,-68},{0,-68}}, color={191,0,0}));
   connect(motDri.setPoi, m_flow_set) annotation (Line(points={{-42,58},{-60,58},
           {-60,80},{-120,80}}, color={0,0,127}));
-  connect(motDri.mea,m_flow)  annotation (Line(points={{-42,50},{-120,50}},
+  connect(motDri.mea,m_flow)  annotation (Line(points={{-42,53},{-82,53},{-82,
+          50},{-120,50}},
           color={0,0,127}));
-  connect(motDri.tau_m, loaTor.y) annotation (Line(points={{-42,42},{-60,42},{
+  connect(motDri.tau_m, loaTor.y) annotation (Line(points={{-42,47},{-60,47},{
           -60,20},{-41,20}},  color={0,0,127}));
   connect(motDri.terminal, terminal) annotation (Line(points={{-30,60},{-30,80},
           {0,80},{0,100}}, color={0,120,120}));
@@ -176,6 +181,8 @@ equation
         color={0,0,127}));
   connect(pum.y_actual, y_actual) annotation (Line(points={{11,7},{84,7},{84,70},
           {110,70}}, color={0,0,127}));
+  connect(booleanConstant.y, motDri.u) annotation (Line(points={{-69,30},{-50,
+          30},{-50,41},{-42,41}}, color={255,0,255}));
   annotation (defaultComponentName="pum",
   Icon(coordinateSystem(preserveAspectRatio=true,
         extent={{-100,-100},{100,100}}),  graphics={

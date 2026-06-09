@@ -237,11 +237,7 @@ protected
     "Chiller torque block"
     annotation (Placement(transformation(extent={{10,10},{-10,-10}},
         rotation=180,
-        origin={-50,52})));
-
-  Modelica.Blocks.Logical.Switch mea "Active measured value"
-    annotation (Placement(transformation(extent={{-10,-10},{10,10}},
-      rotation=0, origin={-50,-20})));
+        origin={-44,42})));
 
 equation
   connect(port_a1, mecChi.port_a1) annotation (Line(points={{-100,60},{-70,60},{
@@ -256,24 +252,21 @@ equation
           68},{-12,68}}, color={0,0,127}));
   connect(simMot.terminal, terminal) annotation (Line(points={{0,70},{0,100}},
           color={0,120,120}));
-  connect(mecChi.P, P)
-    annotation (Line(points={{11,0},{120,0}}, color={0,0,127}));
   connect(mecChi.QCon_flow, QCon_flow) annotation (Line(points={{11,9},{70,9},{70,
           90},{120,90}}, color={0,0,127}));
   connect(mecChi.QEva_flow, QEva_flow) annotation (Line(points={{11,-9},{70,-9},
           {70,-30},{120,-30}}, color={0,0,127}));
   connect(loaTor.y, simMot.tau_m)
-    annotation (Line(points={{-39,52},{-12,52}}, color={0,0,127}));
-  connect(mea.y, simMot.mea) annotation (Line(points={{-39,-20},{-30,-20},{-30,60},
-          {-12,60}}, color={0,0,127}));
-  connect(on, mea.u2)
-    annotation (Line(points={{-120,-20},{-62,-20}}, color={255,0,255}));
-  connect(mea.u1, TMea) annotation (Line(points={{-62,-12},{-90,-12},{-90,20},{-120,
-          20}}, color={0,0,127}));
-  connect(mea.u3, TSet) annotation (Line(points={{-62,-28},{-80,-28},{-80,80},{-120,
-          80}}, color={0,0,127}));
+    annotation (Line(points={{-33,42},{-24,42},{-24,57},{-12,57}},
+                                                 color={0,0,127}));
   connect(simMot.shaft, mecChi.shaft) annotation (Line(points={{10,60},{20,60},{
           20,30},{0,30},{0,10}}, color={0,0,0}));
+  connect(on, simMot.u) annotation (Line(points={{-120,-20},{-22,-20},{-22,51},
+          {-12,51}}, color={255,0,255}));
+  connect(TMea, simMot.mea) annotation (Line(points={{-120,20},{-60,20},{-60,63},
+          {-12,63}}, color={0,0,127}));
+  connect(mecChi.P, P)
+    annotation (Line(points={{11,0},{120,0}}, color={0,0,127}));
 annotation (defaultComponentName="chi",
   Icon(coordinateSystem(preserveAspectRatio=true,extent={{-100,-100},
             {100,100}}), graphics={

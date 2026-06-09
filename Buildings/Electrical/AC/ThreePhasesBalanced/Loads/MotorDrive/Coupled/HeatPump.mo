@@ -238,11 +238,7 @@ protected
   Modelica.Blocks.Sources.RealExpression loaTor(
     final y=mecHea.shaft.tau)
     "Heat pump torque block"
-    annotation (Placement(transformation(extent={{-60,42},{-40,62}})));
-
-  Modelica.Blocks.Logical.Switch mea "Active measured value"
-    annotation (Placement(transformation(extent={{-10,-10},{10,10}},
-      rotation=0, origin={-50,-20})));
+    annotation (Placement(transformation(extent={{-58,30},{-38,50}})));
 
 equation
   connect(port_a1,mecHea. port_a1) annotation (Line(points={{-100,60},{-70,60},{
@@ -253,7 +249,8 @@ equation
           80,6},{10,6}},  color={0,127,255}));
   connect(port_a2,mecHea. port_a2) annotation (Line(points={{100,-60},{80,-60},
           {80,-6},{10,-6}}, color={0,127,255}));
-  connect(loaTor.y, simMot.tau_m) annotation (Line(points={{-39,52},{-12,52}},
+  connect(loaTor.y, simMot.tau_m) annotation (Line(points={{-37,40},{-34,40},{
+          -34,57},{-12,57}},
           color={0,0,127}));
   connect(terminal, simMot.terminal) annotation (Line(points={{0,100},{0,70}},
           color={0,120,120}));
@@ -263,18 +260,14 @@ equation
     annotation (Line(points={{11,0},{120,0}}, color={0,0,127}));
   connect(mecHea.QEva_flow, QEva_flow) annotation (Line(points={{11,-9},{70,-9},
           {70,-30},{120,-30}}, color={0,0,127}));
-  connect(on, mea.u2)
-    annotation (Line(points={{-120,-20},{-62,-20}}, color={255,0,255}));
-  connect(mea.y, simMot.mea) annotation (Line(points={{-39,-20},{-30,-20},{-30,60},
-          {-12,60}}, color={0,0,127}));
-  connect(mea.u1, TMea) annotation (Line(points={{-62,-12},{-90,-12},{-90,20},{-120,
-          20}}, color={0,0,127}));
   connect(TSet, simMot.setPoi) annotation (Line(points={{-120,80},{-80,80},{-80,
           68},{-12,68}}, color={0,0,127}));
-  connect(mea.u3, TSet) annotation (Line(points={{-62,-28},{-80,-28},{-80,80},{-120,
-          80}}, color={0,0,127}));
   connect(simMot.shaft, mecHea.shaft) annotation (Line(points={{10,60},{20,60},{
           20,30},{0,30},{0,10}}, color={0,0,0}));
+  connect(on, simMot.u) annotation (Line(points={{-120,-20},{-28,-20},{-28,51},
+          {-12,51}}, color={255,0,255}));
+  connect(TMea, simMot.mea) annotation (Line(points={{-120,20},{-60,20},{-60,63},
+          {-12,63}}, color={0,0,127}));
   annotation (defaultComponentName="heaPum",
   Icon(coordinateSystem(preserveAspectRatio=true,extent={{-100,-100},
             {100,100}}), graphics={
