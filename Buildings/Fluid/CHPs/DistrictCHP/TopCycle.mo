@@ -69,7 +69,7 @@ protected
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant fulCap(
     final k=1)
     "Full power generation capacity"
-    annotation (Placement(transformation(extent={{-120,70},{-100,90}})));
+    annotation (Placement(transformation(extent={{-120,80},{-100,100}})));
   Buildings.Controls.OBC.CDL.Reals.Multiply pow "Power generation"
     annotation (Placement(transformation(extent={{20,90},{40,110}})));
   Buildings.Controls.OBC.CDL.Reals.Divide groHea
@@ -88,13 +88,10 @@ protected
     final k=per.TExh_nominal)
     "Exhaust temperature computation"
     annotation (Placement(transformation(extent={{-20,-40},{0,-20}})));
-  Buildings.Controls.OBC.CDL.Reals.MultiplyByParameter exhMas(final k=per.mExh_flow_nominal)
-                              "Exhaust mass flow rate computation"
+  Buildings.Controls.OBC.CDL.Reals.MultiplyByParameter exhMas(
+    final k=per.mExh_flow_nominal)
+    "Exhaust mass flow rate computation"
     annotation (Placement(transformation(extent={{-20,-90},{0,-70}})));
-  Buildings.Controls.OBC.CDL.Reals.MultiplyByParameter loaPer(
-    final k=1)
-    "load ratio"
-    annotation (Placement(transformation(extent={{-120,30},{-100,50}})));
   Buildings.Controls.OBC.CDL.Reals.AddParameter addPar(
     final p=-273.15)
     "Convert from degK to degC"
@@ -105,14 +102,6 @@ equation
     annotation (Line(points={{-39,-30},{-22,-30}}, color={0,0,127}));
   connect(exhMasCor.y, exhMas.u)
     annotation (Line(points={{-39,-80},{-22,-80}}, color={0,0,127}));
-  connect(loaPer.u, y)
-    annotation (Line(points={{-122,40},{-160,40}},color={0,0,127}));
-  connect(gasTurEffCor.u1, loaPer.y) annotation (Line(points={{-62,26},{-80,26},
-          {-80,40},{-98,40}}, color={0,0,127}));
-  connect(exhTemCor.u1, loaPer.y) annotation (Line(points={{-62,-24},{-80,-24},{
-          -80,40},{-98,40}}, color={0,0,127}));
-  connect(exhMasCor.u1, loaPer.y) annotation (Line(points={{-62,-74},{-80,-74},{
-          -80,40},{-98,40}}, color={0,0,127}));
   connect(gasTurEff.u, gasTurEffCor.y)
     annotation (Line(points={{-22,20},{-39,20}}, color={0,0,127}));
   connect(powCapCor.y, powCap.u)
@@ -134,19 +123,25 @@ equation
   connect(pow.y, groHea.u1) annotation (Line(points={{42,100},{50,100},{50,46},
           {58,46}},color={0,0,127}));
   connect(powCapCor.u1, fulCap.y) annotation (Line(points={{-62,76},{-80,76},{-80,
-          80},{-98,80}}, color={0,0,127}));
+          90},{-98,90}}, color={0,0,127}));
   connect(TSet, addPar.u)
     annotation (Line(points={{-160,-70},{-122,-70}},color={0,0,127}));
-  connect(addPar.y, powCapCor.u2) annotation (Line(points={{-98,-70},{-90,-70},{
-          -90,64},{-62,64}}, color={0,0,127}));
-  connect(addPar.y, gasTurEffCor.u2) annotation (Line(points={{-98,-70},{-90,-70},
-          {-90,14},{-62,14}}, color={0,0,127}));
-  connect(addPar.y, exhTemCor.u2) annotation (Line(points={{-98,-70},{-90,-70},{
-          -90,-36},{-62,-36}}, color={0,0,127}));
-  connect(addPar.y, exhMasCor.u2) annotation (Line(points={{-98,-70},{-90,-70},{
-          -90,-86},{-62,-86}}, color={0,0,127}));
-  connect(y, pow.u1) annotation (Line(points={{-160,40},{-130,40},{-130,106},{18,
-          106}}, color={0,0,127}));
+  connect(addPar.y, powCapCor.u2) annotation (Line(points={{-98,-70},{-80,-70},{
+          -80,64},{-62,64}}, color={0,0,127}));
+  connect(addPar.y, gasTurEffCor.u2) annotation (Line(points={{-98,-70},{-80,-70},
+          {-80,14},{-62,14}}, color={0,0,127}));
+  connect(addPar.y, exhTemCor.u2) annotation (Line(points={{-98,-70},{-80,-70},{
+          -80,-36},{-62,-36}}, color={0,0,127}));
+  connect(addPar.y, exhMasCor.u2) annotation (Line(points={{-98,-70},{-80,-70},{
+          -80,-86},{-62,-86}}, color={0,0,127}));
+  connect(y, pow.u1) annotation (Line(points={{-160,40},{-90,40},{-90,106},{18,106}},
+                 color={0,0,127}));
+  connect(y, gasTurEffCor.u1) annotation (Line(points={{-160,40},{-90,40},{-90,26},
+          {-62,26}}, color={0,0,127}));
+  connect(y, exhTemCor.u1) annotation (Line(points={{-160,40},{-90,40},{-90,-24},
+          {-62,-24}}, color={0,0,127}));
+  connect(y, exhMasCor.u1) annotation (Line(points={{-160,40},{-90,40},{-90,-74},
+          {-62,-74}}, color={0,0,127}));
 annotation (
   defaultComponentName="topCyc",
   Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}})),

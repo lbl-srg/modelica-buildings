@@ -10,10 +10,10 @@ model BottomCycle
     "Water medium - Medium model for port_a (inlet)";
 
   // Parameters for the calculation blocks
-  parameter Real a[:]={-0.23380344533,0.220477944738,-0.01476897980}
+  parameter Real a[3]={-0.23380344533,0.220477944738,-0.01476897980}
     "Coefficients for bottoming cycle exergy efficiency function"
     annotation (Dialog(group="Coefficients for functions"));
-  parameter Real a_SteMas[:]={0.1140,0,0}
+  parameter Real a_SteMas[3]={0.1140,0,0}
     "Coefficients for bottoming cycle steam mass flow function"
     annotation (Dialog(group="Coefficients for functions"));
   parameter Real TSta(

@@ -2,7 +2,7 @@ within Buildings.Fluid.CHPs.DistrictCHP.BaseClasses;
 block HeatInput "Required heat input"
   extends Modelica.Blocks.Icons.Block;
 
-  parameter Real a_SteMas[:]={0.153, 0.018, 0.002}
+  parameter Real a_SteMas[3]={0.153, 0.018, 0.002}
     "Coefficients for calculating steam to exhaust mass flow ratio";
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TExh(

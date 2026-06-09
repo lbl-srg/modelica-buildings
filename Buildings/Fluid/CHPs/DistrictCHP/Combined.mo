@@ -13,10 +13,10 @@ model Combined "Combined-cycle CHP model"
             {-60,-60}})));
 
   // Parameters for the calculation blocks
-  parameter Real a[:]={-0.23380344533,0.220477944738,-0.01476897980}
+  parameter Real a[3]={-0.23380344533,0.220477944738,-0.01476897980}
     "Coefficients for calculating steam turbine exhaust exergy efficiency"
     annotation (Dialog(group="Steam turbine"));
-  parameter Real a_SteMas[:]={0.153, 0.018, 0.002}
+  parameter Real a_SteMas[3]={0.153, 0.018, 0.002}
     "Coefficients for calculating steam turbine steam to exhaust mass flow ratio"
     annotation (Dialog(group="Steam turbine"));
 

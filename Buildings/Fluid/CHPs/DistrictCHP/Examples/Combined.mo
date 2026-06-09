@@ -3,8 +3,7 @@ model Combined "Example of the usage of the combined model"
   extends Modelica.Icons.Example;
   package MediumS = Buildings.Media.Steam
     "Steam medium - Medium model for port_b (outlet)";
-  package MediumW =
-      Buildings.Media.Specialized.Water.TemperatureDependentDensity
+  package MediumW = Buildings.Media.Specialized.Water.TemperatureDependentDensity
     "Water medium - Medium model for port_a (inlet)";
 
   parameter Buildings.Fluid.CHPs.DistrictCHP.Data.SolarTurbines.NaturalGas.Centaur50_T6200S_NG per
@@ -16,11 +15,15 @@ model Combined "Example of the usage of the combined model"
     per=per)
     "Combined cycle CHP plant"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
-  Modelica.Blocks.Sources.CombiTimeTable loa(table=[0,1.0; 14400,1.0; 28800,1.0;
-        43200,1.0; 57600,0.8; 72000,0.5; 86400,0.5]) "Load profile"
+  Modelica.Blocks.Sources.CombiTimeTable loa(
+    table=[0,1.0; 14400,1.0; 28800,1.0;
+      43200,1.0; 57600,0.8; 72000,0.5; 86400,0.5])
+    "Load profile"
     annotation (Placement(transformation(extent={{-80,60},{-60,80}})));
-  Modelica.Blocks.Sources.CombiTimeTable ambTem(table=[0.0,25; 14400,25; 28800,
-        25; 43200,23; 57600,22; 72000,23; 86400,25]) "Ambient temperature"
+  Modelica.Blocks.Sources.CombiTimeTable ambTem(
+    table=[0.0,25; 14400,25; 28800,25; 43200,23;
+         57600,22; 72000,23; 86400,25])
+    "Ambient temperature"
     annotation (Placement(transformation(extent={{-80,-6},{-60,14}})));
   Buildings.Fluid.Sources.Boundary_pT sou(
     redeclare package Medium = MediumW,
