@@ -149,7 +149,7 @@ int isatExchangeData(double t0, double dt, double *u, size_t nU, size_t nY,
       cosim->modelica->XiPor[j][k] = u[i+j*cosim->para->nXi+k];
     }
 
-  i = i + cosim->para->nPorts*cosim->para->nXi;
+  i = i + (size_t)cosim->para->nPorts * (size_t)cosim->para->nXi;
   for(j=0; j<cosim->para->nPorts; j++)
     for(k=0; k<cosim->para->nC; k++) {
       cosim->modelica->CPor[j][k] = u[i+j*cosim->para->nC+k];
