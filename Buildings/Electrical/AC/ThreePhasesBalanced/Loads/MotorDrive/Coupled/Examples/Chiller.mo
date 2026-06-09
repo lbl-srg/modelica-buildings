@@ -83,7 +83,9 @@ model Chiller "Example showing how to use the motor coupled chiller model"
     offset=273.15 + 15)
     "Evaporator inlet temperature"
     annotation (Placement(transformation(extent={{40,-80},{60,-60}})));
-  Controls.OBC.CDL.Logical.Sources.Pulse enaSta(width=0.75, period=600)
+  Buildings.Controls.OBC.CDL.Logical.Sources.Pulse enaSta(
+    width=0.75,
+    period=600)
     "True for enabled device"
     annotation (Placement(transformation(extent={{-80,-30},{-60,-10}})));
 equation
@@ -92,24 +94,24 @@ equation
                                             color={0,120,120}));
   connect(TCon_in.y, sou1.T_in)
     annotation (Line(points={{-59,24},{-42,24}}, color={0,0,127}));
-  connect(chi.port_a1, sou1.ports[1]) annotation (Line(points={{20,6},{-10,6},{
-          -10,20},{-20,20}},  color={0,127,255}));
+  connect(chi.port_a1, sou1.ports[1]) annotation (Line(points={{20,6},{-10,6},{-10,
+          20},{-20,20}},      color={0,127,255}));
   connect(senTem.port_a, chi.port_b2) annotation (Line(points={{-20,-60},{0,-60},
           {0,-6},{20,-6}},           color={0,127,255}));
   connect(senTem.port_b, sin2.ports[1])
     annotation (Line(points={{-40,-60},{-60,-60}}, color={0,127,255}));
-  connect(chi.port_a2, sou2.ports[1]) annotation (Line(points={{40,-6},{50,-6},
-          {50,-40},{60,-40}}, color={0,127,255}));
+  connect(chi.port_a2, sou2.ports[1]) annotation (Line(points={{40,-6},{50,-6},{
+          50,-40},{60,-40}},  color={0,127,255}));
   connect(chi.port_b1, sin1.ports[1]) annotation (Line(points={{40,6},{60,6}},
                             color={0,127,255}));
-  connect(TSet.y, chi.TSet) annotation (Line(points={{-59,60},{0,60},{0,9},{18,
-          9}},       color={0,0,127}));
+  connect(TSet.y, chi.TSet) annotation (Line(points={{-59,60},{0,60},{0,9},{18,9}},
+                     color={0,0,127}));
   connect(senTem.T, chi.TMea)
     annotation (Line(points={{-30,-49},{-30,3},{18,3}},    color={0,0,127}));
-  connect(enaSta.y, chi.on) annotation (Line(points={{-58,-20},{-10,-20},{-10,
-          -1},{18,-1}}, color={255,0,255}));
-  connect(TEva_in.y, sou2.T_in) annotation (Line(points={{61,-70},{90,-70},{90,
-          -36},{82,-36}}, color={0,0,127}));
+  connect(enaSta.y, chi.on) annotation (Line(points={{-58,-20},{-10,-20},{-10,-1},
+          {18,-1}}, color={255,0,255}));
+  connect(TEva_in.y, sou2.T_in) annotation (Line(points={{61,-70},{90,-70},{90,-36},
+          {82,-36}}, color={0,0,127}));
   annotation (experiment(Tolerance=1e-6,StartTime=0,StopTime=600),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Electrical/AC/ThreePhasesBalanced/Loads/MotorDrive/Coupled/Examples/Chiller.mos"
         "Simulate and plot"),
