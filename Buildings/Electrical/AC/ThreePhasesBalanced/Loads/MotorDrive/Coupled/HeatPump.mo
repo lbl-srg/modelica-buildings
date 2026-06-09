@@ -17,10 +17,10 @@ model HeatPump "Motor coupled heat pump"
     "Nominal heating flow rate (Positive)"
     annotation (Dialog(group="Nominal condition"));
   parameter Modelica.Units.SI.TemperatureDifference dTEva_nominal(max=0)=-10
-                       "Temperature difference evaporator outlet-inlet"
+    "Temperature difference evaporator outlet-inlet"
     annotation (Dialog(group="Nominal condition"));
   parameter Modelica.Units.SI.TemperatureDifference dTCon_nominal(min=0)=10
-                      "Temperature difference condenser outlet-inlet"
+    "Temperature difference condenser outlet-inlet"
     annotation (Dialog(group="Nominal condition"));
   parameter Modelica.Units.SI.Power P_nominal(min=0)
     "Nominal compressor power (at y=1)"
@@ -139,8 +139,12 @@ model HeatPump "Motor coupled heat pump"
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TMea(
     final unit="K")
     "Measured condenser leaving temperature"
-    annotation (Placement(transformation(extent={{-140,10},{-100,50}}),
-        iconTransformation(extent={{-140,10},{-100,50}})));
+    annotation (Placement(transformation(extent={{-140,0},{-100,40}}),
+      iconTransformation(extent={{-140,10},{-100,50}})));
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput on
+    "Set to true to enable compressor, or false to disable compressor"
+    annotation (Placement(transformation(extent={{-140,-40},{-100,0}}),
+        iconTransformation(extent={{-140,-30},{-100,10}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput QCon_flow(
     final quantity="HeatFlowRate",
     final unit="W")
@@ -211,7 +215,7 @@ model HeatPump "Motor coupled heat pump"
     final Td=Td,
     final yMax=yMax,
     final yMin=yMin) "Motor model"
-    annotation (Placement(transformation(extent={{-30,40},{-10,60}})));
+    annotation (Placement(transformation(extent={{-10,50},{10,70}})));
 
 protected
   final parameter Modelica.Units.SI.Temperature TUseAct_nominal = TCon_nominal + TAppCon_nominal
@@ -234,48 +238,43 @@ protected
   Modelica.Blocks.Sources.RealExpression loaTor(
     final y=mecHea.shaft.tau)
     "Heat pump torque block"
-    annotation (Placement(transformation(extent={{-10,10},{-30,30}})));
+    annotation (Placement(transformation(extent={{-60,42},{-40,62}})));
 
-public
-  Modelica.Blocks.Interfaces.BooleanInput on
-    "Set to true to enable compressor, or false to disable compressor"
-    annotation (Placement(transformation(extent={{-140,-40},{-100,0}}),
-        iconTransformation(extent={{-120,-20},{-100,0}})));
-  Modelica.Blocks.Logical.Switch switch annotation (Placement(transformation(
-        extent={{-10,-10},{10,10}},
-        rotation=0,
-        origin={-56,30})));
+  Modelica.Blocks.Logical.Switch mea "Active measured value"
+    annotation (Placement(transformation(extent={{-10,-10},{10,10}},
+      rotation=0, origin={-50,-20})));
+
 equation
-  connect(port_a1,mecHea. port_a1) annotation (Line(points={{-100,60},{-80,60},
-          {-80,6},{-10,6}}, color={0,127,255}));
-  connect(port_b2,mecHea. port_b2) annotation (Line(points={{-100,-60},{-80,-60},
-          {-80,-6},{-10,-6}}, color={0,127,255}));
+  connect(port_a1,mecHea. port_a1) annotation (Line(points={{-100,60},{-70,60},{
+          -70,6},{-10,6}},  color={0,127,255}));
+  connect(port_b2,mecHea. port_b2) annotation (Line(points={{-100,-60},{-20,-60},
+          {-20,-6},{-10,-6}}, color={0,127,255}));
   connect(port_b1,mecHea. port_b1) annotation (Line(points={{100,60},{80,60},{
           80,6},{10,6}},  color={0,127,255}));
   connect(port_a2,mecHea. port_a2) annotation (Line(points={{100,-60},{80,-60},
           {80,-6},{10,-6}}, color={0,127,255}));
-  connect(loaTor.y, simMot.tau_m) annotation (Line(points={{-31,20},{-36,20},{
-          -36,42},{-32,42}}, color={0,0,127}));
-  connect(terminal, simMot.terminal) annotation (Line(points={{0,100},{0,80},{
-          -20,80},{-20,60}}, color={0,120,120}));
-  connect(mecHea.shaft, simMot.shaft) annotation (Line(points={{0,10},{0,50},{
-          -10,50}},  color={0,0,0}));
+  connect(loaTor.y, simMot.tau_m) annotation (Line(points={{-39,52},{-12,52}},
+          color={0,0,127}));
+  connect(terminal, simMot.terminal) annotation (Line(points={{0,100},{0,70}},
+          color={0,120,120}));
   connect(mecHea.QCon_flow, QCon_flow) annotation (Line(points={{11,9},{70,9},{70,
           90},{120,90}}, color={0,0,127}));
   connect(mecHea.P, P)
     annotation (Line(points={{11,0},{120,0}}, color={0,0,127}));
   connect(mecHea.QEva_flow, QEva_flow) annotation (Line(points={{11,-9},{70,-9},
           {70,-30},{120,-30}}, color={0,0,127}));
-  connect(on, switch.u2) annotation (Line(points={{-120,-20},{-82,-20},{-82,30},
-          {-68,30}}, color={255,0,255}));
-  connect(switch.y, simMot.mea) annotation (Line(points={{-45,30},{-42,30},{-42,
-          50},{-32,50}}, color={0,0,127}));
-  connect(switch.u1, TMea) annotation (Line(points={{-68,38},{-86,38},{-86,30},
-          {-120,30}}, color={0,0,127}));
-  connect(TSet, simMot.setPoi) annotation (Line(points={{-120,80},{-74,80},{-74,
-          58},{-32,58}}, color={0,0,127}));
-  connect(switch.u3, TSet) annotation (Line(points={{-68,22},{-74,22},{-74,80},
-          {-120,80}}, color={0,0,127}));
+  connect(on, mea.u2)
+    annotation (Line(points={{-120,-20},{-62,-20}}, color={255,0,255}));
+  connect(mea.y, simMot.mea) annotation (Line(points={{-39,-20},{-30,-20},{-30,60},
+          {-12,60}}, color={0,0,127}));
+  connect(mea.u1, TMea) annotation (Line(points={{-62,-12},{-90,-12},{-90,20},{-120,
+          20}}, color={0,0,127}));
+  connect(TSet, simMot.setPoi) annotation (Line(points={{-120,80},{-80,80},{-80,
+          68},{-12,68}}, color={0,0,127}));
+  connect(mea.u3, TSet) annotation (Line(points={{-62,-28},{-80,-28},{-80,80},{-120,
+          80}}, color={0,0,127}));
+  connect(simMot.shaft, mecHea.shaft) annotation (Line(points={{10,60},{20,60},{
+          20,30},{0,30},{0,10}}, color={0,0,0}));
   annotation (defaultComponentName="heaPum",
   Icon(coordinateSystem(preserveAspectRatio=true,extent={{-100,-100},
             {100,100}}), graphics={
