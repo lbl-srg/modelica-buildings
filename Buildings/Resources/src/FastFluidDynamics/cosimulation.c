@@ -400,7 +400,7 @@ int write_cosim_data(PARA_DATA *para, REAL **var) {
     | Assign the Xi
     -------------------------------------------------------------------------*/
     if(para->outp->version==DEBUG) {
-      sprintf(msg, "\t\t\tn_Xi=%f, id=%d", para->bc->nb_Xi, id);
+      sprintf(msg, "\t\t\tn_Xi=%d, id=%d", para->bc->nb_Xi, id);
       ffd_log(msg, FFD_NORMAL);
     }
 
