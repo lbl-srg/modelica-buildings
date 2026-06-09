@@ -6,9 +6,6 @@ extends Buildings.ThermalZones.Detailed.BaseClasses.PartialExchange;
     "Allocate memory for cosimulation variables via constructor and send stop command to FFD via destructor";
 
 protected
-<<<<<<< HEAD
-  function sendParameters
-=======
   final parameter Integer nSen(min=0) = size(sensorName, 1)
     "Number of sensors that are connected to CFD output";
   final parameter Integer nPorts=size(portName, 1)
@@ -21,7 +18,6 @@ protected
   ///////////////////////////////////////////////////////////////////////////
   // Function that sends the parameters of the model from Modelica to CFD
   impure function sendParameters
->>>>>>> master
     input String cfdFilNam "CFD input file name";
     input String[nSur] name "Surface names";
     input Modelica.Units.SI.Area[nSur] A "Surface areas";
@@ -136,33 +132,28 @@ protected
       "Flag that is set to true if the name is used more than once";
 
   algorithm
+  // Loop over all names to verify that they are unique
+    if n > 1 then
+      for i in 1:n-1 loop
+        for j in i+1:n loop
+          ideNam[i] := Modelica.Utilities.Strings.isEqual(names[i], names[j]);
+          if ideNam[i] then
+            break;
+          end if;
+        end for; // j
+      end for; // i
 
-  for i in 1:nSur loop
-    assert(A[i] > 0, "Surface must be bigger than zero.");
-  end for;
-
-  coSimFlag := cfdStartCosimulation(
-      cfdFilNam,
-      name,
-      A,
-      til,
-      bouCon,
-      nPorts,
-      portName,
-      haveSensor,
-      sensorName,
-      haveShade,
-      nSur,
-      nSen,
-      nConExtWin,
-      nXi,
-      nC,
-      haveSource,
-      nSou,
-      sourceName,
-      rho_start);
-  assert(coSimFlag < 0.5, "Could not start the cosimulation.");
-  end sendParameters;
+      assert( not Modelica.Math.BooleanVectors.anyTrue(ideNam),
+      "For the CFD interface, all " + descriptiveName +
+      " must have a name that is unique within each room.
+      The following "
+        + descriptiveName + " names are used more than once in the room model:" +
+      returnNonUniqueStrings(n, ideNam, names));
+    else
+      ideNam :=fill(false, max(0, n - 1));
+    end if;
+   annotation(Inline=true);
+  end assertStringsAreUnique;
 
   function cfdStartCosimulation "Start the coupled simulation with CFD"
     input String cfdFilNam "CFD input file name";
