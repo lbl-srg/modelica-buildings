@@ -3,5 +3,9 @@ compareVars :=
     "Sou.P.real",
     "Sou.P.apparent",
     "TSet.y",
-    "senTem.T"
+    "senTem.T",
+    "Sou1.P.real",
+    "Sou1.P.apparent",
+    "TSet.y",
+    "senTem1.T"
   };
