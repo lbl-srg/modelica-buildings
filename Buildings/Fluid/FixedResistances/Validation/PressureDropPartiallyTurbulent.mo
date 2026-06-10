@@ -218,6 +218,7 @@ equation
           textString="Linearized, n=1.25")}),
 experiment(
       StartTime=-1,
+      StopTime=1,
       Tolerance=1e-06),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/FixedResistances/Validation/PressureDropPartiallyTurbulent.mos"
         "Simulate and plot"),
