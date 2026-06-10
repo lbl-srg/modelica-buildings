@@ -77,7 +77,7 @@ model SquirrelCageDrive
   Modelica.Blocks.Sources.Constant Overwride(k=0)
     "Overwride Speed to zero for 'off' condition"
     annotation (Placement(transformation(extent={{60,-100},{40,-80}})));
-  Modelica.Blocks.Continuous.FirstOrder firstOrder(T=1, initType=Modelica.Blocks.Types.Init.NoInit)
+  Modelica.Blocks.Continuous.FirstOrder firstOrder(T=1, initType=Modelica.Blocks.Types.Init.SteadyState)
     "Smooth speed signal" annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
