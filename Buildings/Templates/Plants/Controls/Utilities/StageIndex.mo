@@ -4,6 +4,9 @@ block StageIndex
   parameter Boolean have_inpAva=true
     "Set to true if stage availability is provided with input signal, false for stages always available"
     annotation (Evaluate=true);
+  parameter Boolean use_twoMod=false
+    "Set to true to apply the runtime requirement to cooling-and-heating stage combinations"
+    annotation (Evaluate=true);
   parameter Integer nSta(
     start=1,
     final min=1)
@@ -105,7 +108,7 @@ block StageIndex
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=0,
-        origin={-30,80})));
+        origin={20,80})));
   FirstTrueIndex idxFirAva(
     nin=nSta)
     "Return index of first available stage"
@@ -120,13 +123,11 @@ block StageIndex
   Buildings.Controls.OBC.CDL.Integers.Less lowAva
     "Return true if there is any lower stage available"
     annotation (Placement(transformation(extent={{-150,-130},{-130,-110}})));
-  Buildings.Controls.OBC.CDL.Logical.Timer tim[nSta](
-    passed(
-      each start=false),
-    each final t=dtRun)
+  Buildings.Controls.OBC.CDL.Logical.Timer tim[nSta](passed(each start=false),
+      each final t=dtRun)
     if dtRun > 0
     "Timer for minimum runtime"
-    annotation (Placement(transformation(extent={{-90,70},{-70,90}})));
+    annotation (Placement(transformation(extent={{-40,70},{-20,90}})));
   PlaceholderLogical phAvaSta[nSta](
     each final have_inp=have_inpAva,
     each final have_inpPh=false,
@@ -211,6 +212,28 @@ block StageIndex
     final integerFalse=0)
     "Cast to integer"
     annotation (Placement(transformation(extent={{-190,110},{-170,130}})));
+  Buildings.Controls.OBC.CDL.Interfaces.IntegerInput uStaOpp(final min=0,
+      final max=nSta) if use_twoMod "Opposite mode stage index" annotation (
+      Placement(transformation(extent={{-280,60},{-240,100}}),
+        iconTransformation(extent={{-140,-100},{-100,-60}})));
+  Buildings.Controls.OBC.CDL.Integers.Change chaStaOpp if use_twoMod
+    "True when opposite mode stage changes"
+    annotation (Placement(transformation(extent={{-230,70},{-210,90}})));
+  Buildings.Controls.OBC.CDL.Logical.Not notChaStaOpp
+    "True if opposite mode stage does not change"
+    annotation (Placement(transformation(extent={{-190,70},{-170,90}})));
+  Buildings.Controls.OBC.CDL.Logical.And actAndNotOppModCha[nSta]
+    "True if stage active and opposite mode stage does not change"
+    annotation (Placement(transformation(extent={{-70,70},{-50,90}})));
+  Buildings.Controls.OBC.CDL.Routing.BooleanScalarReplicator booScaRep(final
+      nout=nSta) "Replicate"
+    annotation (Placement(transformation(extent={{-120,70},{-100,90}})));
+  Buildings.Controls.OBC.CDL.Logical.Sources.Constant fal(final k=false)
+    if not use_twoMod "Placeholder signal"
+    annotation (Placement(transformation(extent={{-230,40},{-210,60}})));
+  Buildings.Controls.OBC.CDL.Logical.Pre pre
+    "Avoid blocking stage transition if opposite mode stage changes at the same time"
+    annotation (Placement(transformation(extent={{-150,70},{-130,90}})));
 equation
   for i in 1:nSta loop
     for j in 1:nSta loop
@@ -259,13 +282,10 @@ equation
   connect(idxFirAct.y, maxInt.u2)
     annotation (Line(points={{202,100},{220,100},{220,-220},{-196,-220},{-196,-206},{-192,-206}},
       color={255,127,0}));
-  connect(sta.active, tim.u)
-    annotation (Line(points={{0,129},{0,100},{-100,100},{-100,80},{-92,80}},
-      color={255,0,255}));
   connect(tim.passed, pas.u)
-    annotation (Line(points={{-68,72},{-60,72},{-60,80},{-42,80}},color={255,0,255}));
-  connect(sta.active, pas.uPh) annotation (Line(points={{0,129},{0,100},{-50,
-          100},{-50,74},{-42,74}}, color={255,0,255}));
+    annotation (Line(points={{-18,72},{-10,72},{-10,80},{8,80}},  color={255,0,255}));
+  connect(sta.active, pas.uPh) annotation (Line(points={{0,129},{0,74},{8,74}},
+                                   color={255,0,255}));
   connect(u1AvaSta, phAvaSta.u)
     annotation (Line(points={{-260,-160},{-232,-160}}, color={255,0,255}));
   connect(phAvaSta.y, una.u)
@@ -295,7 +315,8 @@ equation
   connect(upOrDow.y, rep.u)
     annotation (Line(points={{-48,0},{-42,0}},color={255,0,255}));
   connect(pas.y, runAndTrn.u1)
-    annotation (Line(points={{-18,80},{-12,80},{-12,0},{-2,0}},color={255,0,255}));
+    annotation (Line(points={{32,80},{40,80},{40,60},{-12,60},{-12,0},{-2,0}},
+                                                               color={255,0,255}));
   connect(rep.y, runAndTrn.u2)
     annotation (Line(points={{-18,0},{-14,0},{-14,-8},{-2,-8}},color={255,0,255}));
   connect(intScaRep.y, intLesEqu.u2)
@@ -374,12 +395,29 @@ equation
   connect(rep2.y, runAndEna.u1)
     annotation (Line(points={{-18,40},{-2,40}},color={255,0,255}));
   connect(pas.y, runAndEna.u2)
-    annotation (Line(points={{-18,80},{-12,80},{-12,32},{-2,32}},color={255,0,255}));
+    annotation (Line(points={{32,80},{40,80},{40,60},{-12,60},{-12,32},{-2,32}},
+                                                                 color={255,0,255}));
   connect(idxFirAct.y, intScaRep.u)
     annotation (Line(points={{202,100},{220,100},{220,-220},{-60,-220},{-60,-200},{-52,-200}},
       color={255,127,0}));
   connect(intScaRep.y, intGreEqu.u2)
     annotation (Line(points={{-28,-200},{-24,-200},{-24,-168},{-12,-168}},color={255,127,0}));
+  connect(uStaOpp, chaStaOpp.u)
+    annotation (Line(points={{-260,80},{-232,80}}, color={255,127,0}));
+  connect(chaStaOpp.y, notChaStaOpp.u)
+    annotation (Line(points={{-208,80},{-192,80}}, color={255,0,255}));
+  connect(fal.y, notChaStaOpp.u) annotation (Line(points={{-208,50},{-204,50},{
+          -204,80},{-192,80}}, color={255,0,255}));
+  connect(actAndNotOppModCha.y, tim.u)
+    annotation (Line(points={{-48,80},{-42,80}}, color={255,0,255}));
+  connect(sta.active, actAndNotOppModCha.u1) annotation (Line(points={{0,129},{
+          0,100},{-80,100},{-80,80},{-72,80}},    color={255,0,255}));
+  connect(booScaRep.y, actAndNotOppModCha.u2) annotation (Line(points={{-98,80},
+          {-90,80},{-90,72},{-72,72}},    color={255,0,255}));
+  connect(notChaStaOpp.y, pre.u)
+    annotation (Line(points={{-168,80},{-152,80}}, color={255,0,255}));
+  connect(pre.y, booScaRep.u)
+    annotation (Line(points={{-128,80},{-122,80}}, color={255,0,255}));
   annotation (
     __cdl(
       extensionBlock=true),
@@ -401,7 +439,8 @@ equation
     Diagram(
       coordinateSystem(
         preserveAspectRatio=false,
-        extent={{-240,-240},{240,240}})),
+        extent={{-240,-240},{240,240}},
+        grid={2,2})),
     Documentation(
       info="<html>
 <p>

@@ -117,19 +117,10 @@ block EquipmentEnablePolyvalent
   Buildings.Controls.OBC.CDL.Logical.And isPhp2ReqAltAvaNee[nPhp]
     "Return true if equipment required with lead/lag alternate and available and needed to meet stage requirement"
     annotation(Placement(transformation(extent={{110,-50},{130,-30}})));
-  BaseClasses.UpdateEnableState updEnaStaHp(final nEqu=nHp)
-    "Update enable state"
-    annotation (Placement(transformation(extent={{170,30},{190,50}})));
-  BaseClasses.UpdateEnableState updEnaStaPhp1(final nEqu=nPhp)
-    "Update enable state"
-    annotation (Placement(transformation(extent={{170,-10},{190,10}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput y1Php1[nPhp]
     "Polyvalent HP enable command in single mode" annotation (Placement(
         transformation(extent={{200,-20},{240,20}}), iconTransformation(extent=
             {{100,-20},{140,20}})));
-  BaseClasses.UpdateEnableState updEnaStaPhp2(final nEqu=nPhp)
-    "Update enable state"
-    annotation (Placement(transformation(extent={{170,-50},{190,-30}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput y1Php2[nPhp]
     "Polyvalent HP enable command in SHC mode" annotation (Placement(
         transformation(extent={{200,-60},{240,-20}}), iconTransformation(extent
@@ -217,45 +208,6 @@ equation
   connect(selSorAvaPhp2.y1, isPhp2ReqAltAvaNee.u1)
     annotation(Line(points={{94,-40},{108,-40}},
       color={255,0,255}));
-  connect(updEnaStaHp.y1, y1Hp)
-    annotation(Line(points={{192,40},{220,40}},
-      color={255,0,255}));
-  connect(uSta, updEnaStaHp.uSta)
-    annotation(Line(
-      points={{-220,0},{-190,0},{-190,60},{160,60},{160,44},{168,44}},
-      color={255,127,0}));
-  connect(isHpReqAltAvaNee.y, updEnaStaHp.u1)
-    annotation(Line(points={{132,40},{168,40}},
-      color={255,0,255}));
-  connect(u1HpAva, updEnaStaHp.u1Ava)
-    annotation(Line(points={{-220,-100},{162,-100},{162,36},{168,36}},
-      color={255,0,255}));
-  connect(updEnaStaPhp1.y1, y1Php1)
-    annotation(Line(points={{192,0},{220,0}},
-      color={255,0,255}));
-  connect(isPhp1ReqAltAvaNee1.y, updEnaStaPhp1.u1)
-    annotation(Line(points={{132,0},{168,0}},
-      color={255,0,255}));
-  connect(u1Php1Ava, updEnaStaPhp1.u1Ava)
-    annotation(Line(points={{-220,-120},{164,-120},{164,-4},{168,-4}},
-      color={255,0,255}));
-  connect(uSta, updEnaStaPhp1.uSta)
-    annotation(Line(
-      points={{-220,0},{-190,0},{-190,60},{160,60},{160,4},{168,4}},
-      color={255,127,0}));
-  connect(updEnaStaPhp2.y1, y1Php2)
-    annotation(Line(points={{192,-40},{220,-40}},
-      color={255,0,255}));
-  connect(notSelPhp1AndAva.y, updEnaStaPhp2.u1Ava)
-    annotation(Line(points={{-8,-80},{166,-80},{166,-44},{168,-44}},
-      color={255,0,255}));
-  connect(isPhp2ReqAltAvaNee.y, updEnaStaPhp2.u1)
-    annotation(Line(points={{132,-40},{168,-40}},
-      color={255,0,255}));
-  connect(uSta, updEnaStaPhp2.uSta)
-    annotation(Line(
-      points={{-220,0},{-190,0},{-190,60},{160,60},{160,-36},{168,-36}},
-      color={255,127,0}));
   connect(uIdxPhpSor, selSorAvaPhp2.uIdxSor)
     annotation(Line(points={{-220,80},{60,80},{60,-34},{70,-34}},
       color={255,127,0}));
@@ -288,24 +240,20 @@ equation
       color={255,127,0}));
   connect(selEquStaPhp2.y1ReqOrAltAndAva, isPhp2ReqAltAvaNee.u2)
     annotation(Line(
-      points={{32,-48},{40,-48},{40,-54},{96,-54},{96,-48},{108,-48}},
+      points={{32,-44},{40,-44},{40,-54},{96,-54},{96,-48},{108,-48}},
       color={255,0,255}));
   connect(selEquStaHp.y1ReqOrAltAndAva, isHpReqAltAvaNee.u2)
-    annotation(Line(points={{32,32},{40,32},{40,26},{96,26},{96,32},{108,32}},
+    annotation(Line(points={{32,36},{40,36},{40,26},{96,26},{96,32},{108,32}},
       color={255,0,255}));
   connect(selEquStaPhp1.y1ReqOrAltAndAva, isPhp1ReqAltAvaNee1.u2)
-    annotation(Line(points={{32,-8},{40,-8},{40,-14},{96,-14},{96,-8},{108,-8}},
+    annotation(Line(points={{32,-4},{40,-4},{40,-14},{96,-14},{96,-8},{108,-8}},
       color={255,0,255}));
-  connect(selEquStaHp.nTot, updEnaStaHp.n)
-    annotation(Line(points={{32,48},{40,48},{40,58},{158,58},{158,48},{168,48}},
-      color={255,127,0}));
-  connect(selEquStaPhp1.nTot, updEnaStaPhp1.n)
-    annotation(Line(points={{32,8},{40,8},{40,18},{158,18},{158,8},{168,8}},
-      color={255,127,0}));
-  connect(selEquStaPhp2.nTot, updEnaStaPhp2.n)
-    annotation(Line(
-      points={{32,-32},{40,-32},{40,-22},{158,-22},{158,-32},{168,-32}},
-      color={255,127,0}));
+  connect(isHpReqAltAvaNee.y, y1Hp)
+    annotation (Line(points={{132,40},{220,40}}, color={255,0,255}));
+  connect(isPhp1ReqAltAvaNee1.y, y1Php1)
+    annotation (Line(points={{132,0},{220,0}}, color={255,0,255}));
+  connect(isPhp2ReqAltAvaNee.y, y1Php2)
+    annotation (Line(points={{132,-40},{220,-40}}, color={255,0,255}));
 annotation(defaultComponentName="enaEqu",
   Icon(coordinateSystem(preserveAspectRatio=true),
     graphics={Rectangle(extent={{-100,100},{100,-100}},
