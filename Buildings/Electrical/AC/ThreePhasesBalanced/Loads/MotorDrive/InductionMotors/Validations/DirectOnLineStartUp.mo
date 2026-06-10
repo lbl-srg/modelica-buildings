@@ -1,5 +1,5 @@
 within Buildings.Electrical.AC.ThreePhasesBalanced.Loads.MotorDrive.InductionMotors.Validations;
-model DOLStartUp "Validate the induction motor model at the direct on line startup"
+model DirectOnLineStartUp "Validate the induction motor model at the direct on line startup"
   extends Modelica.Icons.Example;
 
   Modelica.Blocks.Sources.RealExpression loaTor(y=26.5) "Load torque"
@@ -48,7 +48,7 @@ equation
 annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
         coordinateSystem(preserveAspectRatio=false)),
     experiment(Tolerance=1e-6,StartTime=0,StopTime=0.8),
-    __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Electrical/AC/ThreePhasesBalanced/Loads/MotorDrive/InductionMotors/Validations/DOLStartUp.mos"
+    __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Electrical/AC/ThreePhasesBalanced/Loads/MotorDrive/InductionMotors/Validations/DirectOnLineStartUp.mos"
         "Simulate and Plot"),
 Documentation(revisions="<html>
 <ul>
@@ -98,4 +98,4 @@ for automotive applications</i>. <a href=\"https://webthesis.biblio.polito.it/17
 [Thesis]</a>.
 </p>
 </html>"));
-end DOLStartUp;
+end DirectOnLineStartUp;
