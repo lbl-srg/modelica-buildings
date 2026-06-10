@@ -43,12 +43,12 @@ model SquirrelCageDrive
   Buildings.Controls.OBC.CDL.Interfaces.RealInput mea if have_speCon
     "Measured value of control target"
     annotation (Placement(transformation(extent={{-200,10},{-160,50}}),
-        iconTransformation(extent={{-140,-20},{-100,20}})));
+        iconTransformation(extent={{-140,10},{-100,50}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput tau_m(
     final unit="N.m")
     "Load torque"
     annotation (Placement(transformation(extent={{-200,-100},{-160,-60}}),
-        iconTransformation(extent={{-140,-100},{-100,-60}})));
+        iconTransformation(extent={{-140,-50},{-100,-10}})));
 
   Buildings.Controls.OBC.CDL.Reals.PID speCon(
     final controllerType=Buildings.Controls.OBC.CDL.Types.SimpleController.PI,
@@ -72,6 +72,16 @@ model SquirrelCageDrive
     "Constant one"
     annotation (Placement(transformation(extent={{-140,-10},{-120,10}})));
 
+  Modelica.Blocks.Logical.Switch switch1
+    annotation (Placement(transformation(extent={{40,-70},{60,-50}})));
+  Modelica.Blocks.Sources.Constant Overwride(k=0)
+    "Overwride Speed to zero for 'off' condition"
+    annotation (Placement(transformation(extent={{60,-100},{40,-80}})));
+  Modelica.Blocks.Continuous.FirstOrder firstOrder(T=1, initType=Modelica.Blocks.Types.Init.SteadyState)
+    "Smooth speed signal" annotation (Placement(transformation(
+        extent={{-10,-10},{10,10}},
+        rotation=90,
+        origin={80,-36})));
 equation
   connect(int.y, curBlo.wt) annotation (Line(points={{41,80},{50,80},{50,48},{58,
           48}}, color={0,0,127}));
@@ -82,9 +92,7 @@ equation
   connect(speBlo.omega_r, torSpe.omega_r) annotation (Line(points={{2,-74},{10,-74},
           {10,-6},{18,-6}}, color={0,0,127}));
   connect(torSpe.tau_e, speBlo.tau_e) annotation (Line(points={{42,-6},{50,-6},
-          {50,-40},{-30,-40},{-30,-74},{-22,-74}}, color={0,0,127}));
-  connect(speBlo.omega_r1, spe.w_ref) annotation (Line(points={{2,-80},{60,-80},
-          {60,0},{70,0}}, color={0,0,127}));
+          {50,-26},{-30,-26},{-30,-74},{-22,-74}}, color={0,0,127}));
   connect(spe.flange, shaft)
     annotation (Line(points={{92,0},{100,0}}, color={0,0,0}));
   connect(tau_m, speBlo.tau_m)
@@ -123,6 +131,16 @@ equation
           -110,-4},{-42,-4}}, color={0,0,127}));
   connect(speCon.y, mul.u1) annotation (Line(points={{-118,60},{-110,60},{-110,
           -54},{-82,-54}}, color={0,0,127}));
+  connect(speBlo.omega_r1, switch1.u1) annotation (Line(points={{2,-80},{14,-80},
+          {14,-52},{38,-52}}, color={0,0,127}));
+  connect(Overwride.y, switch1.u3) annotation (Line(points={{39,-90},{30,-90},{
+          30,-68},{38,-68}}, color={0,0,127}));
+  connect(u, switch1.u2) annotation (Line(points={{-120,-90},{20,-90},{20,-60},
+          {38,-60}}, color={255,0,255}));
+  connect(switch1.y, firstOrder.u)
+    annotation (Line(points={{61,-60},{80,-60},{80,-48}}, color={0,0,127}));
+  connect(firstOrder.y, spe.w_ref) annotation (Line(points={{80,-25},{80,-20},{
+          60,-20},{60,0},{70,0}}, color={0,0,127}));
  annotation(defaultComponentName="motDri",
     Documentation(info="<html>
 <p>

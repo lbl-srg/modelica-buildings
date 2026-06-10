@@ -49,12 +49,17 @@ model MSLComparison
     fileName=ModelicaServices.ExternalReferences.loadResource("modelica://Buildings/Resources/Data/Electrical/InductionMachine/Validation/mslpower.txt"))
     "Active power data calculated by the models from the Modelica Standard Library"
     annotation (Placement(transformation(extent={{60,-20},{80,0}})));
+  Modelica.Blocks.Sources.BooleanConstant booleanConstant
+    annotation (Placement(transformation(extent={{-60,-60},{-40,-40}})));
 equation
   connect(loaTor.y, motDri.tau_m)
-    annotation (Line(points={{-33,-18},{-20,-18}}, color={0,0,127}));
+    annotation (Line(points={{-33,-18},{-26,-18},{-26,-13},{-20,-13}},
+                                                   color={0,0,127}));
   connect(sou.terminal, motDri.terminal) annotation (Line(points={{-10,20},{-8,
           20},{-8,8.88178e-16}}, color={0,120,120}));
 
+  connect(booleanConstant.y, motDri.u) annotation (Line(points={{-39,-50},{-20,
+          -50},{-20,-19}}, color={255,0,255}));
 annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
         coordinateSystem(preserveAspectRatio=false)),
     experiment(Tolerance=1e-6,StartTime=0,StopTime=0.8),

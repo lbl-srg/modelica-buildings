@@ -10,7 +10,7 @@ model SquirrelCageDrive
   Modelica.Blocks.Sources.RealExpression mea(
     y=motDri.speBlo.N)
     "Measured value of control target"
-    annotation (Placement(transformation(extent={{-60,-36},{-40,-16}})));
+    annotation (Placement(transformation(extent={{-60,-20},{-40,0}})));
   Modelica.Blocks.Sources.Step Speed_ref(
     height=1500,
     offset=0,
@@ -29,17 +29,23 @@ model SquirrelCageDrive
     offset=0,
     startTime=1)
     "Set point of control target"
-    annotation (Placement(transformation(extent={{-58,-76},{-38,-56}})));
+    annotation (Placement(transformation(extent={{-58,-42},{-38,-22}})));
 
+  Modelica.Blocks.Sources.BooleanConstant booleanConstant
+    annotation (Placement(transformation(extent={{-60,-80},{-40,-60}})));
 equation
   connect(motDri.terminal, sou.terminal)
     annotation (Line(points={{10,20},{10,30},{12,30},{12,40}}, color={0,120,120}));
   connect(Speed_ref.y, motDri.setPoi)
     annotation (Line(points={{-39,18},{-2,18}}, color={0,0,127}));
-  connect(mea.y, motDri.mea) annotation (Line(points={{-39,-26},{-20,-26},{-20,10},
-          {-2,10}}, color={0,0,127}));
-  connect(Speed_ref1.y, motDri.tau_m) annotation (Line(points={{-37,-66},{-8,-66},
-          {-8,2},{-2,2}}, color={0,0,127}));
+  connect(mea.y, motDri.mea) annotation (Line(points={{-39,-10},{-20,-10},{-20,
+          13},{-2,13}},
+                    color={0,0,127}));
+  connect(Speed_ref1.y, motDri.tau_m) annotation (Line(points={{-37,-32},{-14,
+          -32},{-14,7},{-2,7}},
+                          color={0,0,127}));
+  connect(booleanConstant.y, motDri.u) annotation (Line(points={{-39,-70},{-10,
+          -70},{-10,1},{-2,1}}, color={255,0,255}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
         coordinateSystem(preserveAspectRatio=false)),
     experiment(Tolerance=1e-6,StartTime=0,StopTime=2),

@@ -4,7 +4,7 @@ model DOLStartUp
   extends Modelica.Icons.Example;
 
   Modelica.Blocks.Sources.RealExpression loaTor(y=26.5) "Load torque"
-    annotation (Placement(transformation(extent={{-54,-28},{-34,-8}})));
+    annotation (Placement(transformation(extent={{-54,-22},{-34,-2}})));
   Buildings.Electrical.AC.ThreePhasesBalanced.Sources.Grid sou(f=50, V=220*1.414)
     "Voltage source"
     annotation (Placement(transformation(extent={{-20,20},{0,40}})));
@@ -37,12 +37,17 @@ model DOLStartUp
     fileName=ModelicaServices.ExternalReferences.loadResource("modelica://Buildings/Resources/Data/Electrical/InductionMachine/Validation/power.txt"))
     "Reference active power"
     annotation (Placement(transformation(extent={{52,-86},{72,-66}})));
+  Modelica.Blocks.Sources.BooleanConstant booleanConstant
+    annotation (Placement(transformation(extent={{-80,-40},{-60,-20}})));
 equation
   connect(loaTor.y, motDri.tau_m)
-    annotation (Line(points={{-33,-18},{-20,-18}}, color={0,0,127}));
+    annotation (Line(points={{-33,-12},{-26,-12},{-26,-13},{-20,-13}},
+                                                   color={0,0,127}));
   connect(sou.terminal, motDri.terminal) annotation (Line(points={{-10,20},{-8,
           20},{-8,8.88178e-16}}, color={0,120,120}));
 
+  connect(booleanConstant.y, motDri.u) annotation (Line(points={{-59,-30},{-20,
+          -30},{-20,-19}}, color={255,0,255}));
 annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
         coordinateSystem(preserveAspectRatio=false)),
     experiment(Tolerance=1e-6,StartTime=0,StopTime=0.8),
