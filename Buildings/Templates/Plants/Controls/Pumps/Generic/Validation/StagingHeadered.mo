@@ -74,7 +74,16 @@ model StagingHeadered
     "Pump speed command"
     annotation (Placement(transformation(extent={{-110,-90},{-90,-70}})));
   Components.Controls.StatusEmulator y1Pum_actual[nPum] "Pump Status"
-    annotation (Placement(transformation(extent={{20,70},{0,90}})));
+    annotation (Placement(transformation(extent={{40,-50},{60,-30}})));
+  Components.Controls.StatusEmulator y1Pum_actual1
+                                                 [nPum] "Pump Status"
+    annotation (Placement(transformation(extent={{40,30},{60,50}})));
+  Components.Controls.StatusEmulator y1Pum_actual2
+                                                 [nPum] "Pump Status"
+    annotation (Placement(transformation(extent={{40,-10},{60,10}})));
+  Components.Controls.StatusEmulator y1Pum_actual3
+                                                 [nPum] "Pump Status"
+    annotation (Placement(transformation(extent={{40,-90},{60,-70}})));
 equation
   connect(ratFlo.y[1],VPri_flow. u)
     annotation (Line(points={{-88,0},{-70,0}},color={0,0,127}));
@@ -107,15 +116,25 @@ equation
   connect(dpSet.y, staPumSecDp.dpSet[1]) annotation (Line(points={{-88,-40},{-80,-40},
           {-80,-84},{-2,-84}}, color={0,0,127}));
   connect(staPumPriDp.y1, y1Pum_actual.y1) annotation (Line(points={{22,-40},{
-          40,-40},{40,80},{22,80}}, color={255,0,255}));
-  connect(y1Pum_actual.y1_actual, staPumPriDed.u1Pum_actual) annotation (Line(
-        points={{-2,80},{-20,80},{-20,40},{-2,40}}, color={255,0,255}));
-  connect(y1Pum_actual.y1_actual, staPumPriNoDp.u1Pum_actual) annotation (Line(
-        points={{-2,80},{-20,80},{-20,0},{-2,0}}, color={255,0,255}));
+          38,-40}},                 color={255,0,255}));
+  connect(y1Pum_actual1.y1_actual, staPumPriDed.u1Pum_actual) annotation (Line(
+        points={{62,40},{80,40},{80,20},{-10,20},{-10,40},{-2,40}}, color={255,
+          0,255}));
+  connect(y1Pum_actual2.y1_actual, staPumPriNoDp.u1Pum_actual) annotation (Line(
+        points={{62,0},{80,0},{80,-20},{-10,-20},{-10,0},{-2,0}}, color={255,0,
+          255}));
   connect(y1Pum_actual.y1_actual, staPumPriDp.u1Pum_actual) annotation (Line(
-        points={{-2,80},{-20,80},{-20,-40},{-2,-40}}, color={255,0,255}));
-  connect(y1Pum_actual.y1_actual, staPumSecDp.u1Pum_actual) annotation (Line(
-        points={{-2,80},{-20,80},{-20,-80},{-2,-80}}, color={255,0,255}));
+        points={{62,-40},{80,-40},{80,-60},{-10,-60},{-10,-40},{-2,-40}}, color
+        ={255,0,255}));
+  connect(staPumSecDp.y1, y1Pum_actual3.y1)
+    annotation (Line(points={{22,-80},{38,-80}}, color={255,0,255}));
+  connect(y1Pum_actual3.y1_actual, staPumSecDp.u1Pum_actual) annotation (Line(
+        points={{62,-80},{80,-80},{80,-96},{-10,-96},{-10,-80},{-2,-80}}, color
+        ={255,0,255}));
+  connect(staPumPriNoDp.y1, y1Pum_actual2.y1)
+    annotation (Line(points={{22,0},{38,0}}, color={255,0,255}));
+  connect(staPumPriDed.y1, y1Pum_actual1.y1)
+    annotation (Line(points={{22,40},{38,40}}, color={255,0,255}));
   annotation (
     __Dymola_Commands(
       file=
@@ -159,6 +178,12 @@ All pumps are disabled when the plant is disabled.
 </html>",
       revisions="<html>
 <ul>
+<li>
+June 10, 2026, by Antoine Gautier:<br/>
+Updated with multiple instances of <code>StatusEmulator</code>.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4624\">#4624</a>.
+</li>
 <li>
 July 10, 2024, by Antoine Gautier:<br/>
 Updated the model with <code>StatusEmulator</code>.
