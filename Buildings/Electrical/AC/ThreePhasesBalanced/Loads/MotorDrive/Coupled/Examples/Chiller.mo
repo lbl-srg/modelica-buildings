@@ -108,8 +108,9 @@ equation
                      color={0,0,127}));
   connect(senTem.T, chi.TMea)
     annotation (Line(points={{-30,-49},{-30,3},{18,3}},    color={0,0,127}));
-  connect(enaSta.y, chi.on) annotation (Line(points={{-58,-20},{-10,-20},{-10,-1},
-          {18,-1}}, color={255,0,255}));
+  connect(enaSta.y, chi.on) annotation (Line(points={{-58,-20},{-10,-20},{-10,
+          -2},{18,-2}},
+                    color={255,0,255}));
   connect(TEva_in.y, sou2.T_in) annotation (Line(points={{61,-70},{90,-70},{90,-36},
           {82,-36}}, color={0,0,127}));
   annotation (experiment(Tolerance=1e-6,StartTime=0,StopTime=600),

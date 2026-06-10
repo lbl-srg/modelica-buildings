@@ -143,8 +143,8 @@ model HeatPump "Motor coupled heat pump"
       iconTransformation(extent={{-140,10},{-100,50}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput on
     "Set to true to enable compressor, or false to disable compressor"
-    annotation (Placement(transformation(extent={{-140,-40},{-100,0}}),
-        iconTransformation(extent={{-140,-30},{-100,10}})));
+    annotation (Placement(transformation(extent={{-140,-50},{-100,-10}}),
+        iconTransformation(extent={{-140,-40},{-100,0}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput QCon_flow(
     final quantity="HeatFlowRate",
     final unit="W")
@@ -203,7 +203,7 @@ model HeatPump "Motor coupled heat pump"
     final T2_start=T2_start,
     final energyDynamics=energyDynamics)
     "Heat pump model with mechanical interface"
-    annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
+    annotation (Placement(transformation(extent={{10,-10},{30,10}})));
 
   Buildings.Electrical.AC.ThreePhasesBalanced.Loads.MotorDrive.InductionMotors.SquirrelCageDrive simMot(
     final per=per,
@@ -238,36 +238,37 @@ protected
   Modelica.Blocks.Sources.RealExpression loaTor(
     final y=mecHea.shaft.tau)
     "Heat pump torque block"
-    annotation (Placement(transformation(extent={{-58,30},{-38,50}})));
+    annotation (Placement(transformation(extent={{-80,-20},{-60,0}})));
 
 equation
-  connect(port_a1,mecHea. port_a1) annotation (Line(points={{-100,60},{-70,60},{
-          -70,6},{-10,6}},  color={0,127,255}));
+  connect(port_a1,mecHea. port_a1) annotation (Line(points={{-100,60},{-80,60},
+          {-80,6},{10,6}},  color={0,127,255}));
   connect(port_b2,mecHea. port_b2) annotation (Line(points={{-100,-60},{-20,-60},
-          {-20,-6},{-10,-6}}, color={0,127,255}));
+          {-20,-6},{10,-6}},  color={0,127,255}));
   connect(port_b1,mecHea. port_b1) annotation (Line(points={{100,60},{80,60},{
-          80,6},{10,6}},  color={0,127,255}));
+          80,6},{30,6}},  color={0,127,255}));
   connect(port_a2,mecHea. port_a2) annotation (Line(points={{100,-60},{80,-60},
-          {80,-6},{10,-6}}, color={0,127,255}));
-  connect(loaTor.y, simMot.tau_m) annotation (Line(points={{-37,40},{-34,40},{
-          -34,57},{-12,57}},
+          {80,-6},{30,-6}}, color={0,127,255}));
+  connect(loaTor.y, simMot.tau_m) annotation (Line(points={{-59,-10},{-40,-10},
+          {-40,57},{-12,57}},
           color={0,0,127}));
   connect(terminal, simMot.terminal) annotation (Line(points={{0,100},{0,70}},
           color={0,120,120}));
-  connect(mecHea.QCon_flow, QCon_flow) annotation (Line(points={{11,9},{70,9},{70,
-          90},{120,90}}, color={0,0,127}));
+  connect(mecHea.QCon_flow, QCon_flow) annotation (Line(points={{31,9},{70,9},{
+          70,90},{120,90}},
+                         color={0,0,127}));
   connect(mecHea.P, P)
-    annotation (Line(points={{11,0},{120,0}}, color={0,0,127}));
-  connect(mecHea.QEva_flow, QEva_flow) annotation (Line(points={{11,-9},{70,-9},
+    annotation (Line(points={{31,0},{120,0}}, color={0,0,127}));
+  connect(mecHea.QEva_flow, QEva_flow) annotation (Line(points={{31,-9},{70,-9},
           {70,-30},{120,-30}}, color={0,0,127}));
   connect(TSet, simMot.setPoi) annotation (Line(points={{-120,80},{-80,80},{-80,
           68},{-12,68}}, color={0,0,127}));
-  connect(simMot.shaft, mecHea.shaft) annotation (Line(points={{10,60},{20,60},{
-          20,30},{0,30},{0,10}}, color={0,0,0}));
-  connect(on, simMot.u) annotation (Line(points={{-120,-20},{-28,-20},{-28,51},
-          {-12,51}}, color={255,0,255}));
-  connect(TMea, simMot.mea) annotation (Line(points={{-120,20},{-60,20},{-60,63},
+  connect(simMot.shaft, mecHea.shaft) annotation (Line(points={{10,60},{20,60},
+          {20,10}},              color={0,0,0}));
+  connect(TMea, simMot.mea) annotation (Line(points={{-120,20},{-70,20},{-70,63},
           {-12,63}}, color={0,0,127}));
+  connect(on, simMot.on) annotation (Line(points={{-120,-30},{-30,-30},{-30,51},
+          {-12,51}}, color={255,0,255}));
   annotation (defaultComponentName="heaPum",
   Icon(coordinateSystem(preserveAspectRatio=true,extent={{-100,-100},
             {100,100}}), graphics={

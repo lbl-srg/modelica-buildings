@@ -111,8 +111,9 @@ equation
           color={0,127,255}));
   connect(TCon_in.y, sou1.T_in)
     annotation (Line(points={{-59,10},{-50,10}}, color={0,0,127}));
-  connect(enaSta.y, heaPum.on) annotation (Line(points={{-58,-30},{-20,-30},{-20,
-          -1},{-2,-1}}, color={255,0,255}));
+  connect(enaSta.y, heaPum.on) annotation (Line(points={{-58,-30},{-20,-30},{
+          -20,-2},{-2,-2}},
+                        color={255,0,255}));
   connect(TEva_in.y, sou2.T_in) annotation (Line(points={{61,-70},{90,-70},{90,-36},
           {82,-36}}, color={0,0,127}));
 annotation (experiment(Tolerance=1e-6,StartTime=0,StopTime=350),

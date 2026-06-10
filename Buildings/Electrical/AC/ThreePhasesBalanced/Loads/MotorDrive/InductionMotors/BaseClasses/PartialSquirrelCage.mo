@@ -11,6 +11,11 @@ model PartialSquirrelCage
 
   parameter Boolean have_speCon "Have the closed loop built-in speed control";
 
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput on
+    "Enable the operation of the induction motor"
+    annotation (Placement(transformation(extent={{-20,-20},{20,20}}, rotation=90,
+      origin={0,-120}), iconTransformation(extent={{-140,-110},{-100,-70}})));
+
   Real v_rms "Root mean square voltage";
   Modelica.Units.SI.Angle theta_s
     "Supply voltage phase angle";
@@ -60,17 +65,15 @@ model PartialSquirrelCage
     "Controlled voltage"
     annotation (Placement(transformation(extent={{-40,20},{-20,40}})));
 
-  Modelica.Blocks.Interfaces.BooleanInput u
-    annotation (Placement(transformation(extent={{-140,-110},{-100,-70}})));
 equation
   theta_s = PhaseSystem.thetaRef(terminal.theta) "phase angle";
   v_rms=Buildings.Electrical.AC.ThreePhasesBalanced.Loads.MotorDrive.InductionMotors.BaseClasses.RMS_Voltage(v[1],v[2]);
   if have_speCon then
-    i[1] =Buildings.Electrical.AC.ThreePhasesBalanced.Loads.MotorDrive.InductionMotors.BaseClasses.CurrentD_VFD(torSpe.motMod.i_ds,conVol.y,v_rms,u);
-    i[2] =Buildings.Electrical.AC.ThreePhasesBalanced.Loads.MotorDrive.InductionMotors.BaseClasses.CurrentQ_VFD(torSpe.motMod.i_qs,conVol.y,v_rms,u);
+    i[1] =Buildings.Electrical.AC.ThreePhasesBalanced.Loads.MotorDrive.InductionMotors.BaseClasses.CurrentD_VFD(torSpe.motMod.i_ds,conVol.y,v_rms,on);
+    i[2] =Buildings.Electrical.AC.ThreePhasesBalanced.Loads.MotorDrive.InductionMotors.BaseClasses.CurrentQ_VFD(torSpe.motMod.i_qs,conVol.y,v_rms,on);
   else
-    i[1] = Buildings.Electrical.AC.ThreePhasesBalanced.Loads.MotorDrive.InductionMotors.BaseClasses.CurrentD(torSpe.motMod.i_ds,u);
-    i[2] = Buildings.Electrical.AC.ThreePhasesBalanced.Loads.MotorDrive.InductionMotors.BaseClasses.CurrentQ(torSpe.motMod.i_qs,u);
+    i[1] = Buildings.Electrical.AC.ThreePhasesBalanced.Loads.MotorDrive.InductionMotors.BaseClasses.CurrentD(torSpe.motMod.i_ds,on);
+    i[2] = Buildings.Electrical.AC.ThreePhasesBalanced.Loads.MotorDrive.InductionMotors.BaseClasses.CurrentQ(torSpe.motMod.i_qs,on);
   end if;
 annotation(Icon(coordinateSystem(preserveAspectRatio=true,
         extent={{-100,-100},{100,100}}), graphics={

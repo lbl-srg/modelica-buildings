@@ -2,11 +2,11 @@ within Buildings.Electrical.AC.ThreePhasesBalanced.Loads.MotorDrive.InductionMot
 function CurrentD "D-axis electrical current at terminal that connects electric grid with the model"
 
   input Real i_ds "D-axis stator current";
-  input Boolean enabled "True to calculate current, False to force zero";
+  input Boolean enable "True to calculate current, False to force zero";
   output Real i "Terminal current interface";
 
 algorithm
-  i :=if enabled then 1.5*i_ds else 0.0;
+  i :=if enable then 1.5*i_ds else 0.0;
 annotation (preferredView="info", Documentation(info="<html>
 <p>
 This function contains script to compute d-axis current for the model

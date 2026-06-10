@@ -181,7 +181,7 @@ equation
         color={0,0,127}));
   connect(pum.y_actual, y_actual) annotation (Line(points={{11,7},{84,7},{84,70},
           {110,70}}, color={0,0,127}));
-  connect(booleanConstant.y, motDri.u) annotation (Line(points={{-69,30},{-50,
+  connect(booleanConstant.y, motDri.on) annotation (Line(points={{-69,30},{-50,
           30},{-50,41},{-42,41}}, color={255,0,255}));
   annotation (defaultComponentName="pum",
   Icon(coordinateSystem(preserveAspectRatio=true,

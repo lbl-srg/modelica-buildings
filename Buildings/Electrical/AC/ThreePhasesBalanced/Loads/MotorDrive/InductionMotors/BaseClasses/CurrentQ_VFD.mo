@@ -4,11 +4,11 @@ function CurrentQ_VFD "Q-axis VFD electrical current at terminal that connects e
 input Real i_qs "Q-axis stator current";
 input Real v_VFD "VFD voltage";
 input Real v_rms "Root mean square voltage";
-input Boolean enabled "True to calculate current, False to force zero";
+input Boolean enable "True to calculate current, False to force zero";
 output Real i "Terminal current interface";
 
 algorithm
-  i :=if enabled then 1.0*i_qs*(v_VFD/v_rms) else 0.0;
+  i :=if enable then 1.0*i_qs*(v_VFD/v_rms) else 0.0;
 
 annotation (preferredView="info", Documentation(info="<html>
 <p>

@@ -139,8 +139,8 @@ model Chiller "Motor coupled chiller"
       iconTransformation(extent={{-140,10},{-100,50}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput on
     "Set to true to enable compressor, or false to disable compressor"
-    annotation (Placement(transformation(extent={{-140,-40},{-100,0}}),
-        iconTransformation(extent={{-140,-30},{-100,10}})));
+    annotation (Placement(transformation(extent={{-140,-50},{-100,-10}}),
+        iconTransformation(extent={{-140,-40},{-100,0}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput QCon_flow(
     final quantity="HeatFlowRate",
     final unit="W")
@@ -199,7 +199,7 @@ model Chiller "Motor coupled chiller"
     final T2_start=T2_start,
     final energyDynamics=energyDynamics)
     "Chiller model with mechanical interface"
-    annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
+    annotation (Placement(transformation(extent={{10,-10},{30,10}})));
 
   Buildings.Electrical.AC.ThreePhasesBalanced.Loads.MotorDrive.InductionMotors.SquirrelCageDrive
     simMot(
@@ -237,36 +237,36 @@ protected
     "Chiller torque block"
     annotation (Placement(transformation(extent={{10,10},{-10,-10}},
         rotation=180,
-        origin={-44,42})));
+        origin={-70,-10})));
 
 equation
-  connect(port_a1, mecChi.port_a1) annotation (Line(points={{-100,60},{-70,60},{
-          -70,6},{-10,6}},  color={0,127,255}));
+  connect(port_a1, mecChi.port_a1) annotation (Line(points={{-100,60},{-80,60},{
+          -80,6},{10,6}},   color={0,127,255}));
   connect(port_b2, mecChi.port_b2) annotation (Line(points={{-100,-60},{-20,-60},
-          {-20,-6},{-10,-6}}, color={0,127,255}));
-  connect(mecChi.port_b1, port_b1) annotation (Line(points={{10,6},{80,6},{80,60},
+          {-20,-6},{10,-6}},  color={0,127,255}));
+  connect(mecChi.port_b1, port_b1) annotation (Line(points={{30,6},{80,6},{80,60},
           {100,60}}, color={0,127,255}));
-  connect(mecChi.port_a2, port_a2) annotation (Line(points={{10,-6},{80,-6},{80,
+  connect(mecChi.port_a2, port_a2) annotation (Line(points={{30,-6},{80,-6},{80,
           -60},{100,-60}},     color={0,127,255}));
   connect(TSet, simMot.setPoi) annotation (Line(points={{-120,80},{-80,80},{-80,
           68},{-12,68}}, color={0,0,127}));
   connect(simMot.terminal, terminal) annotation (Line(points={{0,70},{0,100}},
           color={0,120,120}));
-  connect(mecChi.QCon_flow, QCon_flow) annotation (Line(points={{11,9},{70,9},{70,
+  connect(mecChi.QCon_flow, QCon_flow) annotation (Line(points={{31,9},{70,9},{70,
           90},{120,90}}, color={0,0,127}));
-  connect(mecChi.QEva_flow, QEva_flow) annotation (Line(points={{11,-9},{70,-9},
+  connect(mecChi.QEva_flow, QEva_flow) annotation (Line(points={{31,-9},{70,-9},
           {70,-30},{120,-30}}, color={0,0,127}));
   connect(loaTor.y, simMot.tau_m)
-    annotation (Line(points={{-33,42},{-24,42},{-24,57},{-12,57}},
-                                                 color={0,0,127}));
+    annotation (Line(points={{-59,-10},{-40,-10},{-40,57},{-12,57}},
+          color={0,0,127}));
   connect(simMot.shaft, mecChi.shaft) annotation (Line(points={{10,60},{20,60},{
-          20,30},{0,30},{0,10}}, color={0,0,0}));
-  connect(on, simMot.u) annotation (Line(points={{-120,-20},{-22,-20},{-22,51},
-          {-12,51}}, color={255,0,255}));
-  connect(TMea, simMot.mea) annotation (Line(points={{-120,20},{-60,20},{-60,63},
+          20,10}}, color={0,0,0}));
+  connect(TMea, simMot.mea) annotation (Line(points={{-120,20},{-70,20},{-70,63},
           {-12,63}}, color={0,0,127}));
   connect(mecChi.P, P)
-    annotation (Line(points={{11,0},{120,0}}, color={0,0,127}));
+    annotation (Line(points={{31,0},{120,0}}, color={0,0,127}));
+  connect(on, simMot.on) annotation (Line(points={{-120,-30},{-30,-30},{-30,51},
+          {-12,51}}, color={255,0,255}));
 annotation (defaultComponentName="chi",
   Icon(coordinateSystem(preserveAspectRatio=true,extent={{-100,-100},
             {100,100}}), graphics={

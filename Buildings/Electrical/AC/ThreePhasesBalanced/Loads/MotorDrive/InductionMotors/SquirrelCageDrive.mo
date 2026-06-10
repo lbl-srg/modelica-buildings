@@ -47,7 +47,7 @@ model SquirrelCageDrive
   Buildings.Controls.OBC.CDL.Interfaces.RealInput tau_m(
     final unit="N.m")
     "Load torque"
-    annotation (Placement(transformation(extent={{-200,-100},{-160,-60}}),
+    annotation (Placement(transformation(extent={{-200,-80},{-160,-40}}),
         iconTransformation(extent={{-140,-50},{-100,-10}})));
 
   Buildings.Controls.OBC.CDL.Reals.PID speCon(
@@ -71,17 +71,20 @@ model SquirrelCageDrive
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant con(final k=1) if not have_speCon
     "Constant one"
     annotation (Placement(transformation(extent={{-140,-10},{-120,10}})));
-
-  Modelica.Blocks.Logical.Switch switch1
+  Modelica.Blocks.Logical.Switch enaDisSpe
+    "Switch the speed depending on the enabling condition"
     annotation (Placement(transformation(extent={{40,-70},{60,-50}})));
-  Modelica.Blocks.Sources.Constant Overwride(k=0)
-    "Overwride Speed to zero for 'off' condition"
+  Modelica.Blocks.Sources.Constant zerSpe(
+    final k=0)
+    "Zero speed when the motor is disabled"
     annotation (Placement(transformation(extent={{60,-100},{40,-80}})));
-  Modelica.Blocks.Continuous.FirstOrder firstOrder(T=1, initType=Modelica.Blocks.Types.Init.SteadyState)
-    "Smooth speed signal" annotation (Placement(transformation(
-        extent={{-10,-10},{10,10}},
-        rotation=90,
-        origin={80,-36})));
+  Modelica.Blocks.Continuous.FirstOrder smoSpe(
+    T=1,
+    initType=Modelica.Blocks.Types.Init.SteadyState)
+    "Smooth speed signal"
+    annotation (Placement(transformation(extent={{-10,-10},{10,10}},
+      rotation=90, origin={80,-36})));
+
 equation
   connect(int.y, curBlo.wt) annotation (Line(points={{41,80},{50,80},{50,48},{58,
           48}}, color={0,0,127}));
@@ -96,7 +99,8 @@ equation
   connect(spe.flange, shaft)
     annotation (Line(points={{92,0},{100,0}}, color={0,0,0}));
   connect(tau_m, speBlo.tau_m)
-    annotation (Line(points={{-180,-80},{-22,-80}}, color={0,0,127}));
+    annotation (Line(points={{-180,-60},{-120,-60},{-120,-80},{-22,-80}},
+         color={0,0,127}));
   connect(conFre.y, torSpe.f)
     annotation (Line(points={{-19,-10},{-10,-10},{-10,0},{18,0}}, color={0,0,127}));
   connect(conVol.y, torSpe.V_rms) annotation (Line(points={{-19,30},{10,30},{10,
@@ -122,7 +126,7 @@ equation
   connect(con.y, conVol.u2) annotation (Line(points={{-118,0},{-110,0},{-110,24},
           {-42,24}}, color={0,0,127}));
   connect(con.y, conFre.u1) annotation (Line(points={{-118,0},{-110,0},{-110,-4},
-          {-42,-4}},                   color={0,0,127}));
+          {-42,-4}}, color={0,0,127}));
   connect(con.y, mul.u1) annotation (Line(points={{-118,0},{-110,0},{-110,-54},
           {-82,-54}}, color={0,0,127}));
   connect(speCon.y, conVol.u2) annotation (Line(points={{-118,60},{-110,60},{
@@ -131,16 +135,16 @@ equation
           -110,-4},{-42,-4}}, color={0,0,127}));
   connect(speCon.y, mul.u1) annotation (Line(points={{-118,60},{-110,60},{-110,
           -54},{-82,-54}}, color={0,0,127}));
-  connect(speBlo.omega_r1, switch1.u1) annotation (Line(points={{2,-80},{14,-80},
+  connect(speBlo.omega_r1, enaDisSpe.u1) annotation (Line(points={{2,-80},{14,-80},
           {14,-52},{38,-52}}, color={0,0,127}));
-  connect(Overwride.y, switch1.u3) annotation (Line(points={{39,-90},{30,-90},{
-          30,-68},{38,-68}}, color={0,0,127}));
-  connect(u, switch1.u2) annotation (Line(points={{-120,-90},{20,-90},{20,-60},
-          {38,-60}}, color={255,0,255}));
-  connect(switch1.y, firstOrder.u)
+  connect(zerSpe.y, enaDisSpe.u3) annotation (Line(points={{39,-90},{30,-90},{30,
+          -68},{38,-68}}, color={0,0,127}));
+  connect(enaDisSpe.y, smoSpe.u)
     annotation (Line(points={{61,-60},{80,-60},{80,-48}}, color={0,0,127}));
-  connect(firstOrder.y, spe.w_ref) annotation (Line(points={{80,-25},{80,-20},{
-          60,-20},{60,0},{70,0}}, color={0,0,127}));
+  connect(smoSpe.y, spe.w_ref) annotation (Line(points={{80,-25},{80,-20},{60,-20},
+          {60,0},{70,0}}, color={0,0,127}));
+  connect(on, enaDisSpe.u2) annotation (Line(points={{0,-120},{0,-94},{20,-94},
+          {20,-60},{38,-60}}, color={255,0,255}));
  annotation(defaultComponentName="motDri",
     Documentation(info="<html>
 <p>
