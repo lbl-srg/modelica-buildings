@@ -297,7 +297,7 @@ to the input vectors (full set of equipment).
 </html>", revisions="<html>
 <ul>
 <li>
-July 10, 2026, by Antoine Gautier:<br/>
+June 10, 2026, by Antoine Gautier:<br/>
 Corrected runtime weighting for unavailable units.
 Updated handling and default value of runtime initialization.<br/>
 This is for

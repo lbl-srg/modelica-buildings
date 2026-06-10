@@ -1,5 +1,6 @@
 within Buildings.Templates.Plants.Controls.StagingRotation.BaseClasses;
 block SelectEquipmentAtStage
+  "Select available equipment at a given stage"
   parameter Integer nEqu
     "Number of equipment"
     annotation(Evaluate=true);
@@ -14,10 +15,10 @@ block SelectEquipmentAtStage
     each final t=1E-4)
     "Return true if equipment required (with or without lead/lag alternate)"
     annotation(Placement(transformation(extent={{-70,-70},{-50,-50}})));
-  Buildings.Controls.OBC.CDL.Reals.LessThreshold notReqOrAlt[nEqu](each final t
-      =0.9999)
+  Buildings.Controls.OBC.CDL.Reals.LessThreshold notReqOrAlt[nEqu](
+    each final t=0.9999)
     "Return true if equipment not required or indexed as lead/lag alternate"
-    annotation (Placement(transformation(extent={{-70,-10},{-50,10}})));
+    annotation(Placement(transformation(extent={{-70,-10},{-50,10}})));
   Buildings.Controls.OBC.CDL.Logical.MultiAnd isAltAndAva[nEqu](
     each final nin=3)
     "Return true if indexed as lead/lag alternate and available"
@@ -71,7 +72,7 @@ block SelectEquipmentAtStage
       iconTransformation(extent={{100,-60},{140,-20}})));
   Buildings.Controls.OBC.CDL.Logical.Not notReqNorAlt[nEqu]
     "Return true if equipment not required (with or without lead/lag alternate)"
-    annotation (Placement(transformation(extent={{-10,-90},{10,-70}})));
+    annotation(Placement(transformation(extent={{-10,-90},{10,-70}})));
 equation
   connect(isReq.y, isReqAndAva.u1)
     annotation(Line(points={{-46,40},{-12,40}},
@@ -86,7 +87,8 @@ equation
     annotation(Line(points={{-120,0},{-80,0},{-80,-60},{-72,-60}},
       color={0,0,127}));
   connect(uEquSta, notReqOrAlt.u)
-    annotation (Line(points={{-120,0},{-72,0}}, color={0,0,127}));
+    annotation(Line(points={{-120,0},{-72,0}},
+      color={0,0,127}));
   connect(uEquSta, isReq.u)
     annotation(Line(points={{-120,0},{-80,0},{-80,40},{-70,40}},
       color={0,0,127}));
@@ -100,7 +102,8 @@ equation
     annotation(Line(points={{-48,-60},{-40,-60},{-40,-2.33333},{-12,-2.33333}},
       color={255,0,255}));
   connect(notReqOrAlt.y, isAltAndAva.u[2])
-    annotation (Line(points={{-48,0},{-12,0}}, color={255,0,255}));
+    annotation(Line(points={{-48,0},{-12,0}},
+      color={255,0,255}));
   connect(u1Ava, isAltAndAva.u[3])
     annotation(Line(points={{-120,-40},{-20,-40},{-20,2.33333},{-12,2.33333}},
       color={255,0,255}));
@@ -128,12 +131,15 @@ equation
   connect(isReqOrAltAndAva.y, y1ReqOrAltAndAva)
     annotation(Line(points={{12,-40},{120,-40}},
       color={255,0,255}));
-  connect(isReqOrAlt.y, notReqNorAlt.u) annotation (Line(points={{-48,-60},{-40,
-          -60},{-40,-80},{-12,-80}}, color={255,0,255}));
+  connect(isReqOrAlt.y, notReqNorAlt.u)
+    annotation(Line(points={{-48,-60},{-40,-60},{-40,-80},{-12,-80}},
+      color={255,0,255}));
   connect(u1Ava, isReqOrAltAndAva.u1)
-    annotation (Line(points={{-120,-40},{-12,-40}}, color={255,0,255}));
-  connect(isReqOrAlt.y, isReqOrAltAndAva.u2) annotation (Line(points={{-48,-60},
-          {-40,-60},{-40,-48},{-12,-48}}, color={255,0,255}));
+    annotation(Line(points={{-120,-40},{-12,-40}},
+      color={255,0,255}));
+  connect(isReqOrAlt.y, isReqOrAltAndAva.u2)
+    annotation(Line(points={{-48,-60},{-40,-60},{-40,-48},{-12,-48}},
+      color={255,0,255}));
 annotation(defaultComponentName="selEquSta",
   Icon(coordinateSystem(preserveAspectRatio=false),
     graphics={Rectangle(extent={{-100,100},{100,-100}},
@@ -143,5 +149,27 @@ annotation(defaultComponentName="selEquSta",
     Text(extent={{-150,150},{150,110}},
       textString="%name",
       textColor={0,0,255})}),
-  Diagram(coordinateSystem(preserveAspectRatio=false)));
+  Diagram(coordinateSystem(preserveAspectRatio=false)),
+  Documentation(
+    info="<html>
+<p>
+  This block decodes a row of the staging matrix and the equipment
+  availability array to classify each unit and compute aggregate counts for
+  the current stage.
+</p>
+<p>The boolean output arrays classify each unit as follows:</p>
+<ul>
+  <li>The unit is required (not an alternate) and available.</li>
+  <li>The unit is a lead/lag alternate and available.</li>
+  <li>The unit is either required or a lead/lag alternate, and available.</li>
+</ul>
+</html>",
+    revisions="<html>
+<ul>
+  <li>
+    June 10, 2026, by Antoine Gautier:<br />
+    First implementation.
+  </li>
+</ul>
+</html>"));
 end SelectEquipmentAtStage;

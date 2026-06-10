@@ -183,13 +183,17 @@ annotation(defaultComponentName="truArrCon",
 <p>
   This block outputs a Boolean array with true at the output positions given
   by the first <code>u</code> entries of the priority-ordered index array
-  <code>uIdx</code>. The number of true elements equals <code>u</code>
-  when at least <code>u</code> valid and distinct entries are present in
+  <code>uIdx</code>. The number of true elements equals <code>u</code> when at
+  least <code>u</code> valid and distinct entries are present in
   <code>uIdx</code>, and is less otherwise.
 </p>
 </html>",
     revisions="<html>
 <ul>
+  <li>
+    June 10, 2026, by Antoine Gautier:<br />
+    Refactored using CDL Elementary Blocks.
+  </li>
   <li>
     March 29, 2024, by Antoine Gautier:<br />
     First implementation.

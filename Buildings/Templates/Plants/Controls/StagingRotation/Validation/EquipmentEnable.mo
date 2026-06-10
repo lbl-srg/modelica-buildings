@@ -122,7 +122,7 @@ Only the units of the same size are lead/lag alternated.
 </html>", revisions="<html>
 <ul>
 <li>
-July 10, 2026, by Antoine Gautier:<br/>
+June 10, 2026, by Antoine Gautier:<br/>
 Refactored with status emulator and runtime sorter.<br/>
 This is for
 <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4624\">#4624</a>.

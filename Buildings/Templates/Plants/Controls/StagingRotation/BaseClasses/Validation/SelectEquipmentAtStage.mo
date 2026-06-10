@@ -79,5 +79,12 @@ This model validates
 Buildings.Templates.Plants.Controls.StagingRotation.BaseClasses.SelectEquipmentAtStage</a>
 in a configuration with one small unit and two lead/lag alternate units.
 </p>
+</html>", revisions="<html>
+<ul>
+<li>
+June 10, 2026, by Antoine Gautier:<br/>
+First implementation.
+</li>
+</ul>
 </html>"));
 end SelectEquipmentAtStage;

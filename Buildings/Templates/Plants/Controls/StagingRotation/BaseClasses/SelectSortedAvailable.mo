@@ -2,10 +2,10 @@ within Buildings.Templates.Plants.Controls.StagingRotation.BaseClasses;
 block SelectSortedAvailable
   "Generate a true array of n elements based on priority order and availability"
   parameter Integer nEqu
-    "Number of equipment"
+    "Number of units"
     annotation(Evaluate=true);
   parameter Integer nEquAlt
-    "Number of lead/lag alternate equipment"
+    "Number of lead/lag alternate units"
     annotation(Evaluate=true);
   Buildings.Controls.OBC.CDL.Interfaces.IntegerInput n
     "Number of required lead/lag alternate units"
@@ -48,7 +48,7 @@ equation
   connect(avaIntAltRep.y, avaIntIdxEquAlt.u)
     annotation(Line(points={{-38,0},{-32,0}},
       color={255,127,0}));
-  connect(avaIntIdxEquAlt.y,excUna. u1)
+  connect(avaIntIdxEquAlt.y, excUna.u1)
     annotation(Line(points={{-8,0},{0,0},{0,6},{8,6}},
       color={255,127,0}));
   connect(avaInt.y, avaIntAltRep.u)
@@ -63,7 +63,7 @@ equation
   connect(uIdxSor, avaIntIdxEquAlt.index)
     annotation(Line(points={{-120,-60},{-20,-60},{-20,-12}},
       color={255,127,0}));
-  connect(uIdxSor,excUna. u2)
+  connect(uIdxSor, excUna.u2)
     annotation(Line(points={{-120,-60},{0,-60},{0,-6},{8,-6}},
       color={255,127,0}));
   connect(excUna.y, truArrCon.uIdx)
@@ -78,5 +78,27 @@ annotation(defaultComponentName="selSorAva",
     Text(extent={{-150,150},{150,110}},
       textString="%name",
       textColor={0,0,255})}),
-  Diagram(coordinateSystem(preserveAspectRatio=false)));
+  Diagram(coordinateSystem(preserveAspectRatio=false)),
+  Documentation(
+    info="<html>
+<p>
+  This block selects <code>n</code> lead/lag alternate units to enable,
+  choosing among available units in priority order.
+</p>
+<p>
+  The output has size <code>nEqu</code> (total equipment count), not
+  <code>nEquAlt</code> (number of lead/lag alternate units), so it can be
+  combined directly with the required-unit enable signals from
+  <a href=\"modelica://Buildings.Templates.Plants.Controls.StagingRotation.BaseClasses.SelectEquipmentAtStage\">
+    Buildings.Templates.Plants.Controls.StagingRotation.BaseClasses.SelectEquipmentAtStage</a>.
+</p>
+</html>",
+    revisions="<html>
+<ul>
+  <li>
+    June 10, 2026, by Antoine Gautier:<br />
+    First implementation.
+  </li>
+</ul>
+</html>"));
 end SelectSortedAvailable;
