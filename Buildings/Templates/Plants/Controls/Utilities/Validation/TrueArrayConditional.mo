@@ -25,7 +25,7 @@ model TrueArrayConditional
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant uCst(k=2)
     "Source signal for number of true elements"
     annotation (Placement(transformation(extent={{-80,-50},{-60,-30}})));
-  Buildings.Controls.OBC.CDL.Integers.Sources.Constant uIdxCst[4](k={1,0,1,4})
+  Buildings.Controls.OBC.CDL.Integers.Sources.Constant uIdxCst[4](k={4,0,4,1})
     "Source signal for array of priority"
     annotation (Placement(transformation(extent={{-80,-90},{-60,-70}})));
 equation

@@ -238,7 +238,7 @@ the opposite mode.
 </html>", revisions="<html>
 <ul>
 <li>
-June 2, 2026, by Antoine Gautier:<br/>
+June 10, 2026, by Antoine Gautier:<br/>
 Removed unnecessary <code>Or</code> and <code>And</code> blocks.<br/>
 This is for
 <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4624\">#4624</a>.

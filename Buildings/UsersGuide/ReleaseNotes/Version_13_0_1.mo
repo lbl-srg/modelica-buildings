@@ -137,7 +137,22 @@ have been <b style=\"color:blue\">improved</b> in a
 </tr>
 <tr><td valign=\"top\">Buildings.Templates.Plants.Controls.StagingRotation.EquipmentEnable
     </td>
-    <td valign=\"top\">Added logic to remove unavailable equipment from staging order.<br/>
+    <td valign=\"top\">Added logic to remove unavailable equipment from staging order.
+                       Removed restriction on enable state updates.
+                       Modularized the implementation.<br/>
+                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4624\">Buildings, #4624</a>.
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Templates.Plants.Controls.StagingRotation.SortRuntime
+    </td>
+    <td valign=\"top\">Corrected runtime weighting for unavailable units.
+                       Updated handling and default value of runtime initialization.<br/>
+                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4624\">Buildings, #4624</a>.
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Templates.Plants.Controls.Utilities.TrueArrayConditional
+    </td>
+    <td valign=\"top\">Refactored using CDL Elementary Blocks.<br/>
                        This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4624\">Buildings, #4624</a>.
     </td>
 </tr>
