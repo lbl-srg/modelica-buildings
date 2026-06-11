@@ -1,7 +1,7 @@
 within Buildings.Controls.OBC.DemandFlexibility.Generic;
 block SetpointChange "Setpoint change"
 
-  parameter Real setChaDel(min=0)
+  parameter Real setChaDel(min=0,start=0)
     "Setpoint change delta; always positive"
     annotation (Dialog(enable = incCha));
   parameter Boolean ascSet

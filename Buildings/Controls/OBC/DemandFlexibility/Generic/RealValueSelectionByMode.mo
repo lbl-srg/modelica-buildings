@@ -2,7 +2,7 @@ within Buildings.Controls.OBC.DemandFlexibility.Generic;
 block RealValueSelectionByMode "Real value selection by mode"
 
   parameter Boolean use_pre
-    "The pre-cool or pre-heat mode is used";
+    "True: the pre-cool or pre-heat mode is used";
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uDef
     "Input value for the default mode"
@@ -21,7 +21,7 @@ block RealValueSelectionByMode "Real value selection by mode"
     annotation (Placement(transformation(extent={{-180,-60},{-140,-20}}),
         iconTransformation(extent={{-140,-60},{-100,-20}})));
   Buildings.Controls.OBC.CDL.Interfaces.IntegerInput uMod
-    "Demand flexibility mode;  -1 = pre-cool or pre-heat, 0 = default, 1 = load-shed, 2 = load-rebound"
+    "Demand flexibility mode; 0 = pre-cool or pre-heat, 1 = default, 2 = load-shed, 3 = load-rebound"
     annotation (Placement(transformation(extent={{-180,60},{-140,100}}),
         iconTransformation(extent={{-140,60},{-100,100}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput y
@@ -44,19 +44,19 @@ protected
   Buildings.Controls.OBC.CDL.Integers.Equal intEquPre if use_pre
     "Check whether it is the pre-cool or pre-heat mode"
     annotation (Placement(transformation(extent={{-40,60},{-20,80}})));
-  Buildings.Controls.OBC.CDL.Integers.Sources.Constant conIntPre(k=-1) if use_pre
+  Buildings.Controls.OBC.CDL.Integers.Sources.Constant conIntPre(k=0)  if use_pre
     "Integer constant for the pre-cool or pre-heat mode"
     annotation (Placement(transformation(extent={{-80,40},{-60,60}})));
   Buildings.Controls.OBC.CDL.Integers.Equal intEquShe
     "Check whether it is the load-shed mode"
     annotation (Placement(transformation(extent={{-40,0},{-20,20}})));
-  Buildings.Controls.OBC.CDL.Integers.Sources.Constant conIntShe(k=1)
+  Buildings.Controls.OBC.CDL.Integers.Sources.Constant conIntShe(k=2)
     "Integer constant for the load-shed mode"
     annotation (Placement(transformation(extent={{-80,-20},{-60,0}})));
   Buildings.Controls.OBC.CDL.Integers.Equal intEquReb
     "Check whether it is the load-rebound mode"
     annotation (Placement(transformation(extent={{-40,-60},{-20,-40}})));
-  Buildings.Controls.OBC.CDL.Integers.Sources.Constant conIntReb(k=2)
+  Buildings.Controls.OBC.CDL.Integers.Sources.Constant conIntReb(k=3)
     "Integer constant for the load-rebound mode"
     annotation (Placement(transformation(extent={{-80,-80},{-60,-60}})));
 equation
@@ -130,8 +130,8 @@ output as the output variable <code>y</code>, based on the demand flexibility mo
 </p>
 <p>
 The demand flexibility mode includes the pre-cool or pre-heat mode
-(<i>uMod = -1</i>), the default mode (<i>uMod = 0</i>), the load-shed mode
-(<i>uMod = 1</i>), and the load-rebound mode (<i>uMod = 2</i>). These modes
+(<i>uMod = 0</i>), the default mode (<i>uMod = 1</i>), the load-shed mode
+(<i>uMod = 2</i>), and the load-rebound mode (<i>uMod = 3</i>). These modes
 correspond to the input variables <code>uPre</code>, <code>uDef</code>,
 <code>uShe</code>, and <code>uReb</code>. If <code>uMod</code> is any other integer,
 the output variable <code>y</code> takes the value of <code>uDef</code>.

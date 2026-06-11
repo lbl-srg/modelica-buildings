@@ -6,25 +6,25 @@ model RealValueSelectionByMode "Real value selection by mode"
     "Block for the real value selection by mode, including the pre-cool or pre-heat mode"
     annotation (Placement(transformation(extent={{60,20},{80,40}})));
   Buildings.Controls.OBC.CDL.Integers.Sources.TimeTable uModHou(
-    table=[0,0; 14,-1; 16,1; 18,3; 19,1; 21,2; 22,0; 24,0],
+    table=[0,1; 14,0; 16,2; 18,-1; 19,2; 21,3; 22,1; 24,1],
     timeScale=3600,
     period=86400)
     "Demand flexibility mode by hour"
     annotation (Placement(transformation(extent={{-80,60},{-60,80}})));
-  Buildings.Controls.OBC.CDL.Reals.Sources.Constant conPre(k=-10)
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant conPre(k=0)
     "Constant for the pre-cool or pre-heat mode"
     annotation (Placement(transformation(extent={{-60,20},{-40,40}})));
   Buildings.Controls.OBC.DemandFlexibility.Generic.RealValueSelectionByMode reaValSelByModNoPre(
     use_pre=false)
     "Block for the real value selection by mode, without the pre-cool or pre-heat mode"
     annotation (Placement(transformation(extent={{60,-20},{80,0}})));
-  Buildings.Controls.OBC.CDL.Reals.Sources.Constant conDef(k=0)
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant conDef(k=10)
     "Constant for the default mode"
     annotation (Placement(transformation(extent={{-80,-20},{-60,0}})));
-  Buildings.Controls.OBC.CDL.Reals.Sources.Constant conShe(k=10)
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant conShe(k=20)
     "Constant for the load-shed mode"
     annotation (Placement(transformation(extent={{-40,-40},{-20,-20}})));
-  Buildings.Controls.OBC.CDL.Reals.Sources.Constant conReb(k=20)
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant conReb(k=30)
     "Constant for the load-rebound mode"
     annotation (Placement(transformation(extent={{-60,-80},{-40,-60}})));
 equation

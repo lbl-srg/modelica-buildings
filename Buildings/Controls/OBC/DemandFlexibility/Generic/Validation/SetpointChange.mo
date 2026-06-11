@@ -13,7 +13,6 @@ model SetpointChange "Setpoint change"
     incCha=true) "Incremental setpoint change block"
     annotation (Placement(transformation(extent={{-20,40},{0,60}})));
   Buildings.Controls.OBC.DemandFlexibility.Generic.SetpointChange setChaOneSte(
-    setChaDel=0.5,
     ascSet=true,
     incCha=false) "One-step setpoint change block"
     annotation (Placement(transformation(extent={{-20,-40},{0,-20}})));
