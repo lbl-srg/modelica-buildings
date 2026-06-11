@@ -1254,7 +1254,7 @@ block AirToWater
     "Left-limit of command signal to break algebraic loop"
     annotation (Placement(transformation(extent={{230,350},{210,370}})));
   StagingRotation.SortRuntime sorRunTim(final idxEquAlt=idxEquAlt, nin=nHp)
-    if have_chiWat "Sort lead/lag alternate equipment by staging runtime"
+                   "Sort lead/lag alternate equipment by staging runtime"
     annotation (Placement(transformation(extent={{-210,256},{-190,276}})));
   Pumps.Generic.StagingHeadered staPumHeaWatPri(
     final is_pri=true,
