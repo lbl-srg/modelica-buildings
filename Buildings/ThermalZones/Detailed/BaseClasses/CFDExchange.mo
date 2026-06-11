@@ -70,6 +70,9 @@ protected
         nConExtWin,
         nXi,
         nC,
+        haveSource,
+        nSou,
+        sourceName,
         rho_start);
     assert(coSimFlag < 0.5, "Could not start the cosimulation.");
 
