@@ -62,16 +62,16 @@ model SquirrelCageDrive
     "PI controller as variable frequency drive"
     annotation (Placement(transformation(extent={{-140,50},{-120,70}})));
   Modelica.Blocks.Math.Product conFre "Controlled frequency"
-    annotation (Placement(transformation(extent={{-40,-20},{-20,0}})));
+    annotation (Placement(transformation(extent={{-40,-10},{-20,10}})));
   Buildings.Controls.OBC.CDL.Reals.MultiplyByParameter gai(
     final k=1/(2*Modelica.Constants.pi)) "Convert rad/s to Hz"
-    annotation (Placement(transformation(extent={{-80,-40},{-60,-20}})));
+    annotation (Placement(transformation(extent={{-80,-30},{-60,-10}})));
   Buildings.Controls.OBC.CDL.Reals.Multiply mul "Controlled frequency in rad/s"
-    annotation (Placement(transformation(extent={{-80,-70},{-60,-50}})));
+    annotation (Placement(transformation(extent={{-80,-60},{-60,-40}})));
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant con(final k=1) if not have_speCon
     "Constant one"
     annotation (Placement(transformation(extent={{-140,-10},{-120,10}})));
-  Modelica.Blocks.Logical.Switch enaDisSpe
+  Buildings.Controls.OBC.CDL.Reals.Switch enaDisSpe
     "Switch the speed depending on the enabling condition"
     annotation (Placement(transformation(extent={{40,-70},{60,-50}})));
   Modelica.Blocks.Sources.Constant zerSpe(
@@ -79,8 +79,8 @@ model SquirrelCageDrive
     "Zero speed when the motor is disabled"
     annotation (Placement(transformation(extent={{60,-100},{40,-80}})));
   Modelica.Blocks.Continuous.FirstOrder smoSpe(
-    T=1,
-    initType=Modelica.Blocks.Types.Init.SteadyState)
+    final T=1,
+    final initType=Modelica.Blocks.Types.Init.InitialState)
     "Smooth speed signal"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},
       rotation=90, origin={80,-36})));
@@ -92,57 +92,58 @@ equation
     annotation (Line(points={{42,6},{50,6},{50,40},{58,40}}, color={0,0,127}));
   connect(torSpe.i_qs, curBlo.i_qs)
     annotation (Line(points={{42,0},{54,0},{54,32},{58,32}}, color={0,0,127}));
-  connect(speBlo.omega_r, torSpe.omega_r) annotation (Line(points={{2,-74},{10,-74},
+  connect(speBlo.omega_r, torSpe.omega_r) annotation (Line(points={{2,-64},{10,-64},
           {10,-6},{18,-6}}, color={0,0,127}));
-  connect(torSpe.tau_e, speBlo.tau_e) annotation (Line(points={{42,-6},{50,-6},
-          {50,-26},{-30,-26},{-30,-74},{-22,-74}}, color={0,0,127}));
+  connect(torSpe.tau_e, speBlo.tau_e) annotation (Line(points={{42,-6},{50,-6},{
+          50,-30},{-30,-30},{-30,-64},{-22,-64}},  color={0,0,127}));
   connect(spe.flange, shaft)
-    annotation (Line(points={{92,0},{100,0}}, color={0,0,0}));
+    annotation (Line(points={{90,0},{100,0}}, color={0,0,0}));
   connect(tau_m, speBlo.tau_m)
-    annotation (Line(points={{-180,-60},{-120,-60},{-120,-80},{-22,-80}},
+    annotation (Line(points={{-180,-60},{-120,-60},{-120,-70},{-22,-70}},
          color={0,0,127}));
   connect(conFre.y, torSpe.f)
-    annotation (Line(points={{-19,-10},{-10,-10},{-10,0},{18,0}}, color={0,0,127}));
+    annotation (Line(points={{-19,0},{18,0}}, color={0,0,127}));
   connect(conVol.y, torSpe.V_rms) annotation (Line(points={{-19,30},{10,30},{10,
           6},{18,6}}, color={0,0,127}));
   connect(rmsVol.y, conVol.u1) annotation (Line(points={{-59,50},{-50,50},{-50,36},
           {-42,36}}, color={0,0,127}));
-  connect(gai.y, conFre.u2) annotation (Line(points={{-58,-30},{-50,-30},{-50,-16},
-          {-42,-16}},color={0,0,127}));
+  connect(gai.y, conFre.u2) annotation (Line(points={{-58,-20},{-50,-20},{-50,-6},
+          {-42,-6}}, color={0,0,127}));
   connect(volAngFre.y, gai.u) annotation (Line(points={{-19,80},{-10,80},{-10,60},
-          {-100,60},{-100,-30},{-82,-30}}, color={0,0,127}));
+          {-100,60},{-100,-20},{-82,-20}}, color={0,0,127}));
   connect(setPoi, speCon.u_s) annotation (Line(points={{-180,60},{-142,60}},
           color={0,0,127}));
   connect(mea, speCon.u_m)
     annotation (Line(points={{-180,30},{-130,30},{-130,48}}, color={0,0,127}));
   connect(volAngFre.y, mul.u2) annotation (Line(points={{-19,80},{-10,80},{-10,60},
-          {-100,60},{-100,-66},{-82,-66}}, color={0,0,127}));
-  connect(mul.y, int.u) annotation (Line(points={{-58,-60},{0,-60},{0,80},{18,80}},
+          {-100,60},{-100,-56},{-82,-56}}, color={0,0,127}));
+  connect(mul.y, int.u) annotation (Line(points={{-58,-50},{-40,-50},{-40,-20},{
+          0,-20},{0,80},{18,80}},
         color={0,0,127}));
-  connect(mul.y, speBlo.omega) annotation (Line(points={{-58,-60},{-40,-60},{-40,
-          -86},{-22,-86}}, color={0,0,127}));
+  connect(mul.y, speBlo.omega) annotation (Line(points={{-58,-50},{-40,-50},{-40,
+          -76},{-22,-76}}, color={0,0,127}));
   connect(volPhaAng.y, volAngFre.u)
     annotation (Line(points={{-59,80},{-42,80}}, color={0,0,127}));
   connect(con.y, conVol.u2) annotation (Line(points={{-118,0},{-110,0},{-110,24},
           {-42,24}}, color={0,0,127}));
-  connect(con.y, conFre.u1) annotation (Line(points={{-118,0},{-110,0},{-110,-4},
-          {-42,-4}}, color={0,0,127}));
-  connect(con.y, mul.u1) annotation (Line(points={{-118,0},{-110,0},{-110,-54},
-          {-82,-54}}, color={0,0,127}));
+  connect(con.y, conFre.u1) annotation (Line(points={{-118,0},{-110,0},{-110,6},
+          {-42,6}}, color={0,0,127}));
+  connect(con.y, mul.u1) annotation (Line(points={{-118,0},{-110,0},{-110,-44},{
+          -82,-44}}, color={0,0,127}));
   connect(speCon.y, conVol.u2) annotation (Line(points={{-118,60},{-110,60},{
           -110,24},{-42,24}}, color={0,0,127}));
-  connect(speCon.y, conFre.u1) annotation (Line(points={{-118,60},{-110,60},{
-          -110,-4},{-42,-4}}, color={0,0,127}));
-  connect(speCon.y, mul.u1) annotation (Line(points={{-118,60},{-110,60},{-110,
-          -54},{-82,-54}}, color={0,0,127}));
-  connect(speBlo.omega_r1, enaDisSpe.u1) annotation (Line(points={{2,-80},{14,-80},
+  connect(speCon.y, conFre.u1) annotation (Line(points={{-118,60},{-110,60},{-110,
+          6},{-42,6}}, color={0,0,127}));
+  connect(speCon.y, mul.u1) annotation (Line(points={{-118,60},{-110,60},{-110,-44},
+          {-82,-44}}, color={0,0,127}));
+  connect(speBlo.omega_r1, enaDisSpe.u1) annotation (Line(points={{2,-70},{14,-70},
           {14,-52},{38,-52}}, color={0,0,127}));
   connect(zerSpe.y, enaDisSpe.u3) annotation (Line(points={{39,-90},{30,-90},{30,
           -68},{38,-68}}, color={0,0,127}));
   connect(enaDisSpe.y, smoSpe.u)
     annotation (Line(points={{61,-60},{80,-60},{80,-48}}, color={0,0,127}));
   connect(smoSpe.y, spe.w_ref) annotation (Line(points={{80,-25},{80,-20},{60,-20},
-          {60,0},{70,0}}, color={0,0,127}));
+          {60,0},{68,0}}, color={0,0,127}));
   connect(on, enaDisSpe.u2) annotation (Line(points={{0,-120},{0,-94},{20,-94},
           {20,-60},{38,-60}}, color={255,0,255}));
  annotation(defaultComponentName="motDri",

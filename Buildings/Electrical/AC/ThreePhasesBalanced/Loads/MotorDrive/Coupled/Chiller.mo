@@ -248,7 +248,7 @@ equation
           {100,60}}, color={0,127,255}));
   connect(mecChi.port_a2, port_a2) annotation (Line(points={{30,-6},{80,-6},{80,
           -60},{100,-60}},     color={0,127,255}));
-  connect(TSet, simMot.setPoi) annotation (Line(points={{-120,80},{-80,80},{-80,
+  connect(TSet, simMot.setPoi) annotation (Line(points={{-120,80},{-60,80},{-60,
           68},{-12,68}}, color={0,0,127}));
   connect(simMot.terminal, terminal) annotation (Line(points={{0,70},{0,100}},
           color={0,120,120}));
@@ -261,7 +261,7 @@ equation
           color={0,0,127}));
   connect(simMot.shaft, mecChi.shaft) annotation (Line(points={{10,60},{20,60},{
           20,10}}, color={0,0,0}));
-  connect(TMea, simMot.mea) annotation (Line(points={{-120,20},{-70,20},{-70,63},
+  connect(TMea, simMot.mea) annotation (Line(points={{-120,20},{-60,20},{-60,63},
           {-12,63}}, color={0,0,127}));
   connect(mecChi.P, P)
     annotation (Line(points={{31,0},{120,0}}, color={0,0,127}));

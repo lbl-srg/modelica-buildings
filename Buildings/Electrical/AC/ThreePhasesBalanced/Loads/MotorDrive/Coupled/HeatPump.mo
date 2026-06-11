@@ -261,11 +261,11 @@ equation
     annotation (Line(points={{31,0},{120,0}}, color={0,0,127}));
   connect(mecHea.QEva_flow, QEva_flow) annotation (Line(points={{31,-9},{70,-9},
           {70,-30},{120,-30}}, color={0,0,127}));
-  connect(TSet, simMot.setPoi) annotation (Line(points={{-120,80},{-80,80},{-80,
+  connect(TSet, simMot.setPoi) annotation (Line(points={{-120,80},{-60,80},{-60,
           68},{-12,68}}, color={0,0,127}));
   connect(simMot.shaft, mecHea.shaft) annotation (Line(points={{10,60},{20,60},
           {20,10}},              color={0,0,0}));
-  connect(TMea, simMot.mea) annotation (Line(points={{-120,20},{-70,20},{-70,63},
+  connect(TMea, simMot.mea) annotation (Line(points={{-120,20},{-60,20},{-60,63},
           {-12,63}}, color={0,0,127}));
   connect(on, simMot.on) annotation (Line(points={{-120,-30},{-30,-30},{-30,51},
           {-12,51}}, color={255,0,255}));
