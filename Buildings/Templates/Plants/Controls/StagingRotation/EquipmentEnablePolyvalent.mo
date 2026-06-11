@@ -28,10 +28,10 @@ block EquipmentEnablePolyvalent
     "Transpose of staging matrix at current heating or cooling stage"
     annotation(Placement(transformation(extent={{-240,20},{-200,60}}),
       iconTransformation(extent={{-140,60},{-100,100}})));
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput y1Hp[nHp]
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput y1Hp[nHp] if nHp > 0
     "HP enable command"
     annotation(Placement(transformation(extent={{200,20},{240,60}}),
-      iconTransformation(extent={{100,20},{140,60}})));
+      iconTransformation(extent={{100,60},{140,100}})));
   Buildings.Controls.OBC.CDL.Routing.RealExtractor reqEquSta[nCol](
     each final nin=nSta)
     "Extract equipment required at given stage"
@@ -119,12 +119,12 @@ block EquipmentEnablePolyvalent
     annotation(Placement(transformation(extent={{110,-50},{130,-30}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput y1Php1[nPhp]
     "Polyvalent HP enable command in single mode" annotation (Placement(
-        transformation(extent={{200,-20},{240,20}}), iconTransformation(extent=
-            {{100,-20},{140,20}})));
+        transformation(extent={{200,-20},{240,20}}), iconTransformation(extent={{100,20},
+            {140,60}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput y1Php2[nPhp]
     "Polyvalent HP enable command in SHC mode" annotation (Placement(
-        transformation(extent={{200,-60},{240,-20}}), iconTransformation(extent
-          ={{100,-60},{140,-20}})));
+        transformation(extent={{200,-60},{240,-20}}), iconTransformation(extent={{100,-20},
+            {140,20}})));
   BaseClasses.SelectEquipmentAtStage selEquStaHp(final nEqu=nHp)
     "Select equipment at stage"
     annotation (Placement(transformation(extent={{10,30},{30,50}})));
@@ -134,6 +134,17 @@ block EquipmentEnablePolyvalent
   BaseClasses.SelectEquipmentAtStage selEquStaPhp2(final nEqu=nPhp)
     "Select equipment at stage"
     annotation (Placement(transformation(extent={{10,-50},{30,-30}})));
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput y1Php1Or2[nPhp]
+    "True if polyvalent HP commanded on in either single mode or SHC mode"
+    annotation (Placement(transformation(extent={{200,-100},{240,-60}}),
+        iconTransformation(extent={{100,-100},{140,-60}})));
+  Buildings.Controls.OBC.CDL.Logical.Or on1Or2[nPhp]
+    "True if polyvalent HP commanded on in either single mode or SHC mode"
+    annotation (Placement(transformation(extent={{170,-90},{190,-70}})));
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput y1HpPhp1[nHp + nPhp]
+    "HP enable command (i<=nHp) and polyvalent HP enable command in single mode (i>nHp)"
+    annotation (Placement(transformation(extent={{200,60},{240,100}}),
+        iconTransformation(extent={{100,-60},{140,-20}})));
 equation
   connect(intScaRep.y, reqEquSta.index)
     annotation(Line(points={{-98,0},{-90,0},{-90,28}},
@@ -254,6 +265,17 @@ equation
     annotation (Line(points={{132,0},{220,0}}, color={255,0,255}));
   connect(isPhp2ReqAltAvaNee.y, y1Php2)
     annotation (Line(points={{132,-40},{220,-40}}, color={255,0,255}));
+  connect(on1Or2.y, y1Php1Or2)
+    annotation (Line(points={{192,-80},{220,-80}}, color={255,0,255}));
+  connect(isPhp1ReqAltAvaNee1.y, on1Or2.u1) annotation (Line(points={{132,0},{
+          160,0},{160,-80},{168,-80}}, color={255,0,255}));
+  connect(isPhp2ReqAltAvaNee.y, on1Or2.u2) annotation (Line(points={{132,-40},{
+          140,-40},{140,-88},{168,-88}}, color={255,0,255}));
+  connect(isHpReqAltAvaNee.y, y1HpPhp1[1:nHp]) annotation (Line(points={{132,40},
+          {180,40},{180,80},{220,80}}, color={255,0,255}));
+  connect(isPhp1ReqAltAvaNee1.y, y1HpPhp1[nHp + 1:nHp + nPhp]) annotation (Line(
+        points={{132,0},{160,0},{160,80},{202,80},{202,82},{200,82}}, color={
+          255,0,255}));
 annotation(defaultComponentName="enaEqu",
   Icon(coordinateSystem(preserveAspectRatio=true),
     graphics={Rectangle(extent={{-100,100},{100,-100}},
@@ -263,5 +285,10 @@ annotation(defaultComponentName="enaEqu",
     Text(extent={{-150,150},{150,110}},
       textString="%name",
       textColor={0,0,255})}),
-  Diagram(coordinateSystem(extent={{-200,-160},{200,140}})));
+  Diagram(coordinateSystem(extent={{-200,-160},{200,140}})),
+    Documentation(info="<html>
+TODO: use conditional clauses nHp>0 and nPhp>0  
+and merge with Buildings.Templates.Plants.Controls.StagingRotation.EquipmentEnable
+when https://github.com/lbl-srg/modelica-buildings/pull/4636 finalized.
+</html>"));
 end EquipmentEnablePolyvalent;

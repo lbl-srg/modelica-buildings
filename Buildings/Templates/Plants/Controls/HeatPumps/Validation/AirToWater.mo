@@ -60,31 +60,27 @@ model AirToWater
     nSenDpChiWatRem=1,
     final THeaWatSup_nominal=THeaWatSup_nominal,
     THeaWatSupSet_min=298.15,
-    VHeaWatHp_flow_nominal=1.1 * fill(VHeaWat_flow_nominal / ctl.nHp, ctl.nHp),
-    VHeaWatHp_flow_min=0.6 * ctl.VHeaWatHp_flow_nominal,
+    VHeaWatHp_flow_nominal=1.1*fill(VHeaWat_flow_nominal/ctl.nHp, ctl.nHp),
+    VHeaWatHp_flow_min=0.6*ctl.VHeaWatHp_flow_nominal,
     final VHeaWatSec_flow_nominal=VHeaWat_flow_nominal,
     capHeaHp_nominal=fill(350E3, ctl.nHp),
     dpHeaWatRemSet_max={5E4},
     final TChiWatSup_nominal=TChiWatSup_nominal,
     TChiWatSupSet_max=288.15,
-    VChiWatHp_flow_nominal=1.1 * fill(VChiWat_flow_nominal / ctl.nHp, ctl.nHp),
-    VChiWatHp_flow_min=0.6 * ctl.VChiWatHp_flow_nominal,
+    VChiWatHp_flow_nominal=1.1*fill(VChiWat_flow_nominal/ctl.nHp, ctl.nHp),
+    VChiWatHp_flow_min=0.6*ctl.VChiWatHp_flow_nominal,
     final VChiWatSec_flow_nominal=VChiWat_flow_nominal,
     capCooHp_nominal=fill(350E3, ctl.nHp),
     yPumHeaWatPriSet=0.8,
     yPumChiWatPriSet=0.7,
     dpChiWatRemSet_max={5E4},
-    staEqu=[
-      1 / 3, 1 / 3, 1 / 3;
-      2 / 3, 2 / 3, 2 / 3;
-      1, 1, 1],
-    idxEquAlt={1, 2, 3},
+    staHp=[1/3,1/3,1/3; 2/3,2/3,2/3; 1,1,1],
+    idxEquAlt={1,2,3},
     TChiWatSupHrc_min=277.15,
     THeaWatSupHrc_max=333.15,
     COPHeaHrc_nominal=2.8,
-    capCooHrc_min=ctl.capHeaHrc_min *(1 - 1 / ctl.COPHeaHrc_nominal),
-    capHeaHrc_min=0.3 * 0.5 * sum(ctl.capHeaHp_nominal))
-    "Plant controller"
+    capCooHrc_min=ctl.capHeaHrc_min*(1 - 1/ctl.COPHeaHrc_nominal),
+    capHeaHrc_min=0.3*0.5*sum(ctl.capHeaHp_nominal)) "Plant controller"
     annotation (Placement(transformation(extent={{0,-22},{40,50}})));
   Buildings.Controls.OBC.CDL.Reals.Sources.TimeTable ratV_flow(
     table=[
