@@ -9,12 +9,6 @@ temperature setpoint control, chiller chilled water supply temperature reset, an
 air handling unit (AHU) supply fan speed control and cooling coil valve limiting.
 </p>
 </html>",revisions="<html>
-<ul>
-<li>
-April 03, 2026, by Weiping Huang:<br/>
-First implementation.
-</li>
-</ul>
 </html>"),
     Icon(
       coordinateSystem(

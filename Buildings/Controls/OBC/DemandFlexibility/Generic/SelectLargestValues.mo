@@ -107,5 +107,12 @@ number. If the number of values that do not have the disqualified flag is smalle
 than <code>nSel</code>, the final number of selected largest values will be smaller
 than <code>nSel</code>.
 </p>
+</html>", revisions="<html>
+<ul>
+<li>
+June 11, 2026, by Weiping Huang:<br/>
+First implementation.
+</li>
+</ul>
 </html>"));
 end SelectLargestValues;

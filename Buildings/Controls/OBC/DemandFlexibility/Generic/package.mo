@@ -8,12 +8,6 @@ This package contains generic control sequences that are used for demand flexibi
 control.
 </p>
 </html>",revisions="<html>
-<ul>
-<li>
-April 03, 2026, by Weiping Huang:<br/>
-First implementation.
-</li>
-</ul>
 </html>"),
     Icon(
       coordinateSystem(
