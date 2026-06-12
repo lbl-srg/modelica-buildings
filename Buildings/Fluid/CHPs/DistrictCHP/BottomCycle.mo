@@ -9,7 +9,7 @@ model BottomCycle "Bottoming cycle subsystem model"
     "Water medium - Medium model for port_a (inlet)";
 
   // Parameters for the calculation blocks
-  parameter Real a[3]={-0.23380344533,0.220477944738,-0.01476897980}
+  parameter Real a[3]={0.2441, 0.0746, -0.00279}
     "Coefficients for calculating exhaust exergy efficiency"
     annotation (Dialog(group="Coefficients for functions"));
   parameter Real a_SteMas[3]={0.153, 0.018, 0.002}
@@ -307,7 +307,7 @@ equation
   connect(pum.port_b, watSpeEnt.port_a)
     annotation (Line(points={{-60,-40},{-40,-40}}, color={0,127,255}));
   connect(masFlo.y,pum. m_flow_in) annotation (Line(points={{21,-90},{40,-90},{
-          40,-18},{-70,-18},{-70,-28}}, color={0,0,127}));
+          40,-20},{-70,-20},{-70,-28}}, color={0,0,127}));
 annotation (
   defaultComponentName="botCyc",
   Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}})),

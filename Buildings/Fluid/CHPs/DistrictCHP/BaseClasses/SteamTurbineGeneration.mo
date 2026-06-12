@@ -3,7 +3,8 @@ block SteamTurbineGeneration
   "Steam turbine power generation"
   extends Modelica.Blocks.Icons.Block;
 
-  parameter Real a[3] "Coefficients for calculating exhaust exergy efficiency";
+  parameter Real a[3]={0.2441, 0.0746, -0.00279}
+    "Coefficients for calculating exhaust exergy efficiency";
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TExh(
     displayUnit="degC",
@@ -35,8 +36,7 @@ algorithm
   aExh :=Buildings.Fluid.CHPs.DistrictCHP.BaseClasses.Functions.ExhaustSpecificExergy(TExh=TExh_degF)/0.0004299226
     "Convert the unit from Btu/lb to J/kg (1J/kg=0.000429923 Btu/Ib)";
 
-  PEle := mExh_flow*aExh*
-    Buildings.Fluid.CHPs.DistrictCHP.BaseClasses.Functions.ExhaustExergyEfficiency(
+  PEle := mExh_flow*aExh*Buildings.Fluid.CHPs.DistrictCHP.BaseClasses.Functions.ExhaustExergyEfficiency(
      a=a, TExh=TExh_degF)
     "Steam turbine electricity is obtained by the exhaust exergy times exergy efficiency";
 

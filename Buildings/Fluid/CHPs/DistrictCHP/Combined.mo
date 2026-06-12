@@ -13,7 +13,7 @@ model Combined "Combined-cycle CHP model"
             {-60,-60}})));
 
   // Parameters for the calculation blocks
-  parameter Real a[3]={-0.23380344533,0.220477944738,-0.01476897980}
+  parameter Real a[3]={0.2441, 0.0746, -0.00279}
     "Coefficients for calculating steam turbine exhaust exergy efficiency"
     annotation (Dialog(group="Steam turbine"));
   parameter Real a_SteMas[3]={0.153, 0.018, 0.002}
@@ -216,6 +216,27 @@ First implementation.
 <p>
 This is the combined-cycle CHP model including the topping cycle and the bottoming
 cycle models.
+</p>
+<p>
+The parameter vectors <code>a</code> and <code>a_SteMas</code> are coefficient
+vectors for steam turbine model in bottoming cycle. Both can be found through linear
+regression.
+To find the coeffcients, with operational datas, run
+</p>
+<pre>
+  cd Resources/Data/Fluid/CHPs/DistrictCHP/Validation
+  python3 operationCoefficients.py
+</pre>
+<p>
+One set of example coefficient vectors from Gülen (2019) is <code>a={0.2441,0.0746,
+-0.00279}</code> and <code>a_SteMas={0.153,0.018,0.002}</code>.
+</p>
+<h4>References</h4>
+<p>
+Gülen, S. (2019).
+<a href=\"https://doi.org/10.1201/9780429244360\">
+Gas Turbine Combined Cycle Power Plants (1st ed.)</a>
+CRC Press.
 </p>
 </html>"));
 end Combined;
