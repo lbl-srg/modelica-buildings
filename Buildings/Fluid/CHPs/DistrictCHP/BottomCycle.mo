@@ -124,9 +124,9 @@ model BottomCycle "Bottoming cycle subsystem model"
    "Ambient temperature"
     annotation (Placement(transformation(extent={{-180,60},{-140,100}}),
         iconTransformation(extent={{-140,30},{-100,70}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealOutput PEle_ST(
-    final quantity= "Power",
-    final unit = "W")
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput PEle(
+    final quantity="Power",
+    final unit="W")
     "Steam turbine electricity generation"
     annotation (Placement(transformation(extent={{140,50},{180,90}}),
         iconTransformation(extent={{100,60},{140,100}})));
@@ -276,10 +276,10 @@ equation
           40},{0,20},{20,20}},   color={0,0,127}));
   connect(heaInp.Q_flow, gre.u2) annotation (Line(points={{-18,40},{50,40},{50,92},
           {58,92}},     color={0,0,127}));
-  connect(powGen.PEle_ST, PEle_ST)
+  connect(powGen.PEle, PEle)
     annotation (Line(points={{-18,70},{160,70}}, color={0,0,127}));
-  connect(powGen.PEle_ST, heaAva.u2) annotation (Line(points={{-18,70},{0,70},{0,
-          94},{18,94}},      color={0,0,127}));
+  connect(powGen.PEle, heaAva.u2) annotation (Line(points={{-18,70},{0,70},{0,94},
+          {18,94}}, color={0,0,127}));
   connect(steHeaFlo.QSupSte_flow, heaAva.u1) annotation (Line(points={{-18,120},
           {0,120},{0,106},{18,106}},  color={0,0,127}));
   connect(heaAva.y, gre.u1)

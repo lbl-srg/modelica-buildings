@@ -106,21 +106,21 @@ model Combined "Combined-cycle CHP model"
     "Ambient temperature"
     annotation (Placement(transformation(extent={{-140,20},{-100,60}}),
         iconTransformation(extent={{-140,20},{-100,60}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealOutput PEle(
-    final quantity= "Power",
-    final unit = "W")
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput PEle_gasTur(
+    final quantity="Power",
+    final unit="W")
     "Gas turbine electricity generation"
     annotation (Placement(transformation(extent={{100,70},{140,110}}),
-        iconTransformation(extent={{100,70},{140,110}})));
+      iconTransformation(extent={{100,70},{140,110}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput mFue_flow(
     final unit="kg/s",
     final quantity="MassFlowRate")
     "Fuel mass flow rate"
     annotation (Placement(transformation(extent={{100,40},{140,80}}),
         iconTransformation(extent={{100,40},{140,80}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealOutput PEle_ST(
-    final quantity= "Power",
-    final unit = "W")
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput PEle_steTur(
+    final quantity="Power",
+    final unit="W")
     "Steam turbine electricity generation"
     annotation (Placement(transformation(extent={{100,10},{140,50}}),
         iconTransformation(extent={{100,10},{140,50}})));
@@ -162,8 +162,8 @@ model Combined "Combined-cycle CHP model"
     annotation (Placement(transformation(extent={{20,-10},{40,10}})));
 
 equation
-  connect(topCycTab.PEle, PEle) annotation (Line(points={{-38,58},{20,58},{20,90},
-          {120,90}}, color={0,0,127}));
+  connect(topCycTab.PEle, PEle_gasTur) annotation (Line(points={{-38,58},{20,58},
+          {20,90},{120,90}}, color={0,0,127}));
   connect(topCycTab.mFue_flow, mFue_flow) annotation (Line(points={{-38,53},{40,
           53},{40,60},{120,60}}, color={0,0,127}));
   connect(y, topCycTab.y) annotation (Line(points={{-120,80},{-80,80},{-80,54},{
@@ -178,7 +178,7 @@ equation
           {-120,40}}, color={0,0,127}));
   connect(topCycTab.mExh_flow, botCycExp.mExh_flow) annotation (Line(points={{-38,42},
           {-10,42},{-10,2},{18,2}},     color={0,0,127}));
-  connect(botCycExp.PEle_ST, PEle_ST) annotation (Line(points={{42,8},{60,8},{60,
+  connect(botCycExp.PEle, PEle_steTur) annotation (Line(points={{42,8},{60,8},{60,
           30},{120,30}}, color={0,0,127}));
   connect(topCycTab.TExh, botCycExp.TExh) annotation (Line(points={{-38,47},{0,47},
           {0,8},{18,8}}, color={0,0,127}));

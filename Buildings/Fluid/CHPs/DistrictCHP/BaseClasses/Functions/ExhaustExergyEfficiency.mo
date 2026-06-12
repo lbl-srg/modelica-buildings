@@ -5,7 +5,7 @@ function ExhaustExergyEfficiency
 
   input Modelica.Units.NonSI.Temperature_degF TExh
     "Exhaust gas temperature in degrees Fahrenheit";
-  input Real a[3]={0.2441, 0.0746, -0.00279}
+  input Real a[3]
     "Coefficients";
   output Real y
     "Exhaust exergy efficiency";
@@ -28,9 +28,11 @@ y = a<sub>1</sub> + a<sub>2</sub> (T<sub>exh</sub> / 100) + a<sub>3</sub>
 </i>
 </p>
 <p>
-where
-<i>T<sub>exh</sub></i> is the exhaust gas temperature (in &deg;F) from the
-gas turbine in the topping cycle.
+where <i>T<sub>exh</sub></i> is the exhaust gas temperature (in &deg;F) from the
+gas turbine in the topping cycle. <i>a[:]</i> is the vector of coefficient for
+calculating the exergy efficiency and it can be found through linear
+regression. One example of the coefficient vector from Gülen (2019) is
+<i>{0.2441, 0.0746, -0.00279}</i>.
 </p>
 <h4>References</h4>
 <p>

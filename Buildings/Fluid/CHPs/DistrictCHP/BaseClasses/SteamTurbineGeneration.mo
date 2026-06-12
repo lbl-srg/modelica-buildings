@@ -18,11 +18,11 @@ block SteamTurbineGeneration
     "Exhaust mass flow rate"
     annotation (Placement(transformation(extent={{-140,-60},{-100,-20}})));
 
-  Buildings.Controls.OBC.CDL.Interfaces.RealOutput PEle_ST(
-    final quantity= "Power",
-    final unit = "W")
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput PEle(
+    final quantity="Power",
+    final unit="W")
     "Steam turbine generator power generation"
-  annotation (Placement(transformation(extent={{100,-20},{140,20}})));
+    annotation (Placement(transformation(extent={{100,-20},{140,20}})));
 
 protected
   Modelica.Units.NonSI.Temperature_degF TExh_degF
@@ -35,9 +35,9 @@ algorithm
   aExh :=Buildings.Fluid.CHPs.DistrictCHP.BaseClasses.Functions.ExhaustSpecificExergy(TExh=TExh_degF)/0.0004299226
     "Convert the unit from Btu/lb to J/kg (1J/kg=0.000429923 Btu/Ib)";
 
-  PEle_ST :=mExh_flow*aExh*Buildings.Fluid.CHPs.DistrictCHP.BaseClasses.Functions.ExhaustExergyEfficiency(
-    a=a,
-    TExh=TExh_degF)
+  PEle := mExh_flow*aExh*
+    Buildings.Fluid.CHPs.DistrictCHP.BaseClasses.Functions.ExhaustExergyEfficiency(
+     a=a, TExh=TExh_degF)
     "Steam turbine electricity is obtained by the exhaust exergy times exergy efficiency";
 
 annotation (defaultComponentName="steTurGen",
@@ -81,16 +81,16 @@ specific exergy by the exhaust mass flow rate.
 </p>
 <p align=\"center\">
 <i>
-P<sub>ste</sub> = a<sub>exh</sub> m<sub>exh</sub> &epsilon;<sub>exh</sub>,
+P<sub>STG</sub> = a<sub>exh</sub> m<sub>exh</sub> &epsilon;<sub>exh</sub>,
 </i>
 </p>
 <p>
-where <i>P<sub>ste</sub></i> is the steam turbine power generation,
+where <i>P<sub>STG</sub></i> is the steam turbine power generation,
 <i>a<sub>exh</sub> </i> is the specific exergy of exhaust gas from gas turbine,
 which is obtained by using the function
 <a href=\"modelica://Buildings.Fluid.CHPs.DistrictCHP.BaseClasses.Functions.ExhaustSpecificExergy\">
 Buildings.Fluid.CHPs.DistrictCHP.BaseClasses.Functions.ExhaustSpecificExergy</a>,
-<i>&epsilon;<sub>exh</sub></i> is the exergy efficiency, and the value is calculated
+<i>&epsilon;<sub>exh</sub></i> is the exergy efficiency, which is calculated
 by using the function
 <a href=\"modelica://Buildings.Fluid.CHPs.DistrictCHP.BaseClasses.Functions.ExhaustExergyEfficiency\">
 Buildings.Fluid.CHPs.DistrictCHP.BaseClasses.Functions.ExhaustExergyEfficiency</a>.

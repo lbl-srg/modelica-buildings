@@ -54,10 +54,10 @@ equation
           {-12,8}}, color={0,0,127}));
   connect(ambTem.y[1], comCyc.TAmb)
     annotation (Line(points={{-59,4},{-12,4}}, color={0,0,127}));
-  connect(comCyc.PEle, GTG_Ele.u) annotation (Line(points={{12,9},{40,9},{40,70},
-          {58,70}},     color={0,0,127}));
-  connect(comCyc.PEle_ST, STG_Ele.u) annotation (Line(points={{12,3},{52,3},{52,
-          -10},{58,-10}}, color={0,0,127}));
+  connect(comCyc.PEle_gasTur, GTG_Ele.u)
+    annotation (Line(points={{12,9},{40,9},{40,70},{58,70}}, color={0,0,127}));
+  connect(comCyc.PEle_steTur, STG_Ele.u) annotation (Line(points={{12,3},{52,3},
+          {52,-10},{58,-10}}, color={0,0,127}));
   connect(comCyc.mFue_flow, mFuel.u)
     annotation (Line(points={{12,6},{52,6},{52,30},{58,30}}, color={0,0,127}));
   connect(comCyc.port_a, sou.ports[1]) annotation (Line(points={{-10,0},{-40,0},
