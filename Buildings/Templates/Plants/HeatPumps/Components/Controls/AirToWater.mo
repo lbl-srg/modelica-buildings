@@ -14,13 +14,11 @@ model AirToWater
     final min=1)=size(staEqu, 1)
     "Number of stages"
     annotation (Evaluate=true);
-  final parameter Integer idxEquAlt[ctl.nEquAlt]=Modelica.Math.BooleanVectors.index(
-    {Modelica.Math.BooleanVectors.anyTrue({
-      nHp==1 or staEqu[i,j] > 0 and staEqu[i,j] < 1 for i in 1:nSta})
-      for j in 1:nHp})
-    "Indices of lead/lag alternate equipment"
-    annotation (Evaluate=true,
-    Dialog(group="Equipment staging and rotation"));
+  final parameter Integer idxEquAlt[ctl.nAltHp]=
+      Modelica.Math.BooleanVectors.index({Modelica.Math.BooleanVectors.anyTrue(
+      {nHp == 1 or staEqu[i, j] > 0 and staEqu[i, j] < 1 for i in 1:nSta}) for
+      j in 1:nHp}) "Indices of lead/lag alternate equipment"
+    annotation (Evaluate=true, Dialog(group="Equipment staging and rotation"));
   Buildings.Templates.Plants.Controls.HeatPumps.AirToWater ctl(
     final is_priOnl=cfg.typDis == Buildings.Templates.Plants.HeatPumps.Types.Distribution.Variable1Only,
     final have_hrc_select=cfg.have_hrc,
@@ -53,7 +51,7 @@ model AirToWater
     final have_chiWat=cfg.have_chiWat,
     final have_heaWat=cfg.have_heaWat,
     final have_inpSch=have_inpSch,
-    final have_pumChiWatPriDed_select=cfg.have_pumChiWatPriDed,
+    final have_pumChiWatPriDedHp_select=cfg.have_pumChiWatPriDed,
     final have_pumPriHdr=cfg.typArrPumPri == Buildings.Templates.Components.Types.PumpArrangement.Headered,
     final have_pumHeaWatPriVar_select=cfg.have_pumHeaWatPriVar,
     final have_pumChiWatPriVar_select=cfg.have_pumChiWatPriVar,
@@ -67,7 +65,7 @@ model AirToWater
     final have_senVHeaWatPri_select=have_senVHeaWatPri_select,
     final have_valHpInlIso=cfg.have_valHpInlIso,
     final have_valHpOutIso=cfg.have_valHpOutIso,
-    final idxEquAlt=idxEquAlt,
+    final idxAltHp=idxEquAlt,
     final nHp=cfg.nHp,
     final nPumChiWatPri=cfg.nPumChiWatPri,
     final nPumChiWatSec=cfg.nPumChiWatSec,

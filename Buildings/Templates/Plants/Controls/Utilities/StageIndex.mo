@@ -5,7 +5,7 @@ block StageIndex
     "Set to true if stage availability is provided with input signal, false for stages always available"
     annotation (Evaluate=true);
   parameter Boolean use_twoMod=false
-    "Set to true to apply the runtime requirement to cooling-and-heating stage combinations"
+    "Set to true to apply the runtime requirement to combinations of cooling and heating stages"
     annotation (Evaluate=true);
   parameter Integer nSta(
     start=1,

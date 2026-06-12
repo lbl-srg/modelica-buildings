@@ -374,7 +374,7 @@ Secondary pumps are lead/lag alternated as described in
 Buildings.Templates.Plants.Controls.StagingRotation.SortRuntime</a>.
 </p>
 <p>
-The lead secondary pump is enabled when the plant is enabled. 
+The lead secondary pump is enabled when the plant is enabled.
 Otherwise, the lead secondary pump is disabled.
 <p>
 Secondary pumps are staged as described in
@@ -384,16 +384,16 @@ Buildings.Templates.Plants.Controls.Pumps.Generic.StagingHeaderedDeltaP</a>.
 <h4>Details</h4>
 <p>
 To simplify integration into the plant controller this block also
-serves as a pass-through for the dedicated primary pump command signal 
+serves as a pass-through for the dedicated primary pump command signal
 that is generated in
-<a href=\"modelica://Buildings.Templates.Plants.Controls.StagingRotation.EventSequencing\">
-Buildings.Templates.Plants.Controls.StagingRotation.EventSequencing</a>.
+<a href=\"modelica://Buildings.Templates.Plants.Controls.StagingRotation.EventSequencingHeatPumps\">
+Buildings.Templates.Plants.Controls.StagingRotation.EventSequencingHeatPumps</a>.
 For this purpose, the block includes the parameter <code>is_hdr</code> to
 specify whether the pumps are headered or dedicated.
 </p>
 <p>
 At its current stage of development, this block contains no
-logic for handling faulted equipment. 
+logic for handling faulted equipment.
 It is therefore assumed that all pumps are available at all times.
 </p>
 </html>", revisions="<html>
