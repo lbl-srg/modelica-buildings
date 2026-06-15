@@ -8,7 +8,7 @@ model MSL "Validate the induction motor model by comparing results with the one 
     "Voltage source"
     annotation (Placement(transformation(extent={{-20,20},{0,40}})));
   Buildings.Electrical.AC.ThreePhasesBalanced.Loads.MotorDrive.InductionMotors.SquirrelCageDrive motDri(
-      have_speCon=false)
+    final have_speCon=false)
     "Squirrel cage induction motor"
     annotation (Placement(transformation(extent={{-20,-20},{0,0}})));
 
@@ -48,15 +48,15 @@ model MSL "Validate the induction motor model by comparing results with the one 
     fileName=ModelicaServices.ExternalReferences.loadResource("modelica://Buildings/Resources/Data/Electrical/InductionMachine/Validation/mslpower.txt"))
     "Active power data calculated by the models from the Modelica Standard Library"
     annotation (Placement(transformation(extent={{60,-20},{80,0}})));
-  Modelica.Blocks.Sources.BooleanConstant booleanConstant
+  Modelica.Blocks.Sources.BooleanConstant booTru "Boolean true"
     annotation (Placement(transformation(extent={{-80,-60},{-60,-40}})));
 equation
   connect(loaTor.y, motDri.tau_m)
     annotation (Line(points={{-59,10},{-40,10},{-40,-13},{-22,-13}}, color={0,0,127}));
   connect(sou.terminal, motDri.terminal) annotation (Line(points={{-10,20},{-10,
           8.88178e-16}}, color={0,120,120}));
-  connect(booleanConstant.y, motDri.on) annotation (Line(points={{-59,-50},{-40,
-    -50},{-40,-19},{-22,-19}}, color={255,0,255}));
+  connect(booTru.y, motDri.on) annotation (Line(points={{-59,-50},{-40,-50},{-40,
+          -19},{-22,-19}}, color={255,0,255}));
 
 annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
         coordinateSystem(preserveAspectRatio=false)),

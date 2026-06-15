@@ -6,45 +6,45 @@ model DirectOnLineStartUp "Validate the induction motor model at the direct on l
     annotation (Placement(transformation(extent={{-60,0},{-40,20}})));
   Buildings.Electrical.AC.ThreePhasesBalanced.Sources.Grid sou(f=50, V=220*1.414)
     "Voltage source"
-    annotation (Placement(transformation(extent={{0,32},{20,52}})));
+    annotation (Placement(transformation(extent={{0,30},{20,50}})));
   Buildings.Electrical.AC.ThreePhasesBalanced.Loads.MotorDrive.InductionMotors.SquirrelCageDrive motDri(
-    have_speCon=false)
+    final have_speCon=false)
     "Squirrel cage induction motor"
-    annotation (Placement(transformation(extent={{0,-8},{20,12}})));
+    annotation (Placement(transformation(extent={{0,-10},{20,10}})));
 
   Modelica.Blocks.Sources.CombiTimeTable torRef(
     tableOnFile=true,
     tableName="tab1",
     fileName=ModelicaServices.ExternalReferences.loadResource("modelica://Buildings/Resources/Data/Electrical/InductionMachine/Validation/torque.txt"))
     "Reference torque"
-    annotation (Placement(transformation(extent={{-42,-86},{-22,-66}})));
+    annotation (Placement(transformation(extent={{-60,-80},{-40,-60}})));
   Modelica.Blocks.Sources.CombiTimeTable curRef(
     tableOnFile=true,
     tableName="tab3",
     fileName=ModelicaServices.ExternalReferences.loadResource("modelica://Buildings/Resources/Data/Electrical/InductionMachine/Validation/current.txt"))
     "Reference current"
-    annotation (Placement(transformation(extent={{-10,-86},{10,-66}})));
+    annotation (Placement(transformation(extent={{-20,-80},{0,-60}})));
   Modelica.Blocks.Sources.CombiTimeTable speRef(
     tableOnFile=true,
     tableName="tab2",
     fileName=ModelicaServices.ExternalReferences.loadResource("modelica://Buildings/Resources/Data/Electrical/InductionMachine/Validation/speed.txt"))
     "Reference rotor speed"
-    annotation (Placement(transformation(extent={{22,-86},{42,-66}})));
+    annotation (Placement(transformation(extent={{20,-80},{40,-60}})));
   Modelica.Blocks.Sources.CombiTimeTable powRef(
     tableOnFile=true,
     tableName="tab4",
     fileName=ModelicaServices.ExternalReferences.loadResource("modelica://Buildings/Resources/Data/Electrical/InductionMachine/Validation/power.txt"))
     "Reference active power"
-    annotation (Placement(transformation(extent={{52,-86},{72,-66}})));
-  Modelica.Blocks.Sources.BooleanConstant booleanConstant
+    annotation (Placement(transformation(extent={{60,-80},{80,-60}})));
+  Modelica.Blocks.Sources.BooleanConstant booTru "Boolean true"
     annotation (Placement(transformation(extent={{-60,-40},{-40,-20}})));
 equation
   connect(loaTor.y, motDri.tau_m)
-    annotation (Line(points={{-39,10},{-20,10},{-20,-1},{-2,-1}}, color={0,0,127}));
-  connect(sou.terminal, motDri.terminal) annotation (Line(points={{10,32},{10,12}},
+    annotation (Line(points={{-39,10},{-20,10},{-20,-3},{-2,-3}}, color={0,0,127}));
+  connect(sou.terminal, motDri.terminal) annotation (Line(points={{10,30},{10,10}},
           color={0,120,120}));
-  connect(booleanConstant.y, motDri.on) annotation (Line(points={{-39,-30},{-20,
-          -30},{-20,-7},{-2,-7}}, color={255,0,255}));
+  connect(booTru.y, motDri.on) annotation (Line(points={{-39,-30},{-20,-30},{-20,
+          -9},{-2,-9}}, color={255,0,255}));
 annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
         coordinateSystem(preserveAspectRatio=false)),
     experiment(Tolerance=1e-6,StartTime=0,StopTime=0.8),

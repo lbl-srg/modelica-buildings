@@ -157,7 +157,7 @@ model Chiller "Motor coupled chiller"
     final quantity="HeatFlowRate",
     final unit="W")
     "Actual cooling heat flow rate removed from fluid 2"
-    annotation (Placement(transformation(extent={{100,-50},{140,-10}}),
+    annotation (Placement(transformation(extent={{100,-110},{140,-70}}),
         iconTransformation(extent={{100,-110},{140,-70}})));
 
   Buildings.Electrical.AC.ThreePhasesBalanced.Loads.MotorDrive.ThermoFluid.Chiller mecChi(
@@ -249,13 +249,13 @@ equation
   connect(mecChi.port_a2, port_a2) annotation (Line(points={{30,-6},{80,-6},{80,
           -60},{100,-60}},     color={0,127,255}));
   connect(TSet, simMot.setPoi) annotation (Line(points={{-120,80},{-60,80},{-60,
-          68},{-12,68}}, color={0,0,127}));
+          69},{-12,69}}, color={0,0,127}));
   connect(simMot.terminal, terminal) annotation (Line(points={{0,70},{0,100}},
           color={0,120,120}));
   connect(mecChi.QCon_flow, QCon_flow) annotation (Line(points={{31,9},{70,9},{70,
           90},{120,90}}, color={0,0,127}));
-  connect(mecChi.QEva_flow, QEva_flow) annotation (Line(points={{31,-9},{70,-9},
-          {70,-30},{120,-30}}, color={0,0,127}));
+  connect(mecChi.QEva_flow, QEva_flow) annotation (Line(points={{32,-9},{70,-9},
+          {70,-90},{120,-90}}, color={0,0,127}));
   connect(loaTor.y, simMot.tau_m)
     annotation (Line(points={{-59,-10},{-40,-10},{-40,57},{-12,57}},
           color={0,0,127}));
@@ -356,7 +356,7 @@ Documentation(info="<html>
 <p>
 This is a model of a squirrel cage induction motor coupled chiller with ideal
 speed control. The chiller operation is regulated such that the measured evaporator
-leaving water temperature (<code>TMea</code>) is able to reach its setpoint (<code>TSet</code>)
+leaving water temperature (<code>TMea</code>) is able to reach its setpoint (<code>TSet</code>).
 The model has electrical interfaces and can be used for simulating microgrids and
 discussing grid interactions.
 </p>

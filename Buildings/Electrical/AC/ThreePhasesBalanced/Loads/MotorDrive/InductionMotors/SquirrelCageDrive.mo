@@ -39,10 +39,10 @@ model SquirrelCageDrive
   Buildings.Controls.OBC.CDL.Interfaces.RealInput setPoi if have_speCon
     "Set point of control target"
     annotation (Placement(transformation(extent={{-200,40},{-160,80}}),
-        iconTransformation(extent={{-140,60},{-100,100}})));
+        iconTransformation(extent={{-140,70},{-100,110}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput mea if have_speCon
     "Measured value of control target"
-    annotation (Placement(transformation(extent={{-200,10},{-160,50}}),
+    annotation (Placement(transformation(extent={{-200,0},{-160,40}}),
         iconTransformation(extent={{-140,10},{-100,50}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput tau_m(
     final unit="N.m")
@@ -114,7 +114,7 @@ equation
   connect(setPoi, speCon.u_s) annotation (Line(points={{-180,60},{-142,60}},
           color={0,0,127}));
   connect(mea, speCon.u_m)
-    annotation (Line(points={{-180,30},{-130,30},{-130,48}}, color={0,0,127}));
+    annotation (Line(points={{-180,20},{-130,20},{-130,48}}, color={0,0,127}));
   connect(volAngFre.y, mul.u2) annotation (Line(points={{-19,80},{-10,80},{-10,60},
           {-100,60},{-100,-56},{-82,-56}}, color={0,0,127}));
   connect(mul.y, int.u) annotation (Line(points={{-58,-50},{-40,-50},{-40,-20},{

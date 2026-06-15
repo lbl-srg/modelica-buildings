@@ -161,7 +161,7 @@ model HeatPump "Motor coupled heat pump"
     final quantity="HeatFlowRate",
     final unit="W")
     "Actual cooling heat flow rate removed from fluid 2"
-    annotation (Placement(transformation(extent={{100,-50},{140,-10}}),
+    annotation (Placement(transformation(extent={{100,-110},{140,-70}}),
         iconTransformation(extent={{100,-110},{140,-70}})));
 
   Buildings.Electrical.AC.ThreePhasesBalanced.Loads.MotorDrive.ThermoFluid.HeatPump mecHea(
@@ -259,10 +259,10 @@ equation
                          color={0,0,127}));
   connect(mecHea.P, P)
     annotation (Line(points={{31,0},{120,0}}, color={0,0,127}));
-  connect(mecHea.QEva_flow, QEva_flow) annotation (Line(points={{31,-9},{70,-9},
-          {70,-30},{120,-30}}, color={0,0,127}));
+  connect(mecHea.QEva_flow, QEva_flow) annotation (Line(points={{32,-9},{70,-9},
+          {70,-90},{120,-90}}, color={0,0,127}));
   connect(TSet, simMot.setPoi) annotation (Line(points={{-120,80},{-60,80},{-60,
-          68},{-12,68}}, color={0,0,127}));
+          69},{-12,69}}, color={0,0,127}));
   connect(simMot.shaft, mecHea.shaft) annotation (Line(points={{10,60},{20,60},
           {20,10}},              color={0,0,0}));
   connect(TMea, simMot.mea) annotation (Line(points={{-120,20},{-60,20},{-60,63},

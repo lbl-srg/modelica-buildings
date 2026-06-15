@@ -157,7 +157,7 @@ protected
 
 public
   Modelica.Blocks.Sources.BooleanConstant booleanConstant
-    "Equipment os always 'on'"
+    "Equipment is always 'on'"
     annotation (Placement(transformation(extent={{-90,20},{-70,40}})));
 equation
   connect(port_a, pum.port_a) annotation (Line(points={{-100,0},{-10,0}},

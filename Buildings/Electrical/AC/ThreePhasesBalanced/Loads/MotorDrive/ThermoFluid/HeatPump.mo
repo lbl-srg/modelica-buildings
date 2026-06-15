@@ -94,24 +94,21 @@ model HeatPump "Heat pump with mechanical interface"
     "Type of energy balance: dynamic (3 initialization options) or steady state"
     annotation (Dialog(tab="Dynamics", group="Evaporator and condenser"));
 
-  Modelica.Blocks.Interfaces.RealOutput QCon_flow(
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput QCon_flow(
     final quantity="HeatFlowRate",
     final unit="W")
     "Actual heating heat flow rate added to fluid 1"
-    annotation (Placement(transformation(extent={{100,80},{120,100}}),
-        iconTransformation(extent={{100,80},{120,100}})));
-  Modelica.Blocks.Interfaces.RealOutput P(
+    annotation (Placement(transformation(extent={{100,70},{140,110}})));
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput P(
     final quantity="Power",
     final unit="W")
     "Electric power consumed"
-    annotation (Placement(transformation(extent={{100,-10},{120,10}}),
-        iconTransformation(extent={{100,-10},{120,10}})));
-  Modelica.Blocks.Interfaces.RealOutput QEva_flow(
+    annotation (Placement(transformation(extent={{100,-20},{140,20}})));
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput QEva_flow(
     final quantity="HeatFlowRate",
     final unit="W")
     "Actual cooling heat flow rate removed from fluid 2"
-    annotation (Placement(transformation(extent={{100,-100},{120,-80}}),
-        iconTransformation(extent={{100,-100},{120,-80}})));
+    annotation (Placement(transformation(extent={{100,-110},{140,-70}})));
 
   Modelica.Units.SI.Torque tauHea "Heat pump torque";
 
@@ -230,11 +227,11 @@ equation
           color={0,0,0}));
   connect(speCub.y, heaPum.y) annotation (Line(points={{-61.7,30},{-70,30},{-70,
           9},{-12,9}}, color={0,0,127}));
-  connect(heaPum.P, P) annotation (Line(points={{11,0},{110,0}}, color={0,0,127}));
+  connect(heaPum.P, P) annotation (Line(points={{11,0},{120,0}}, color={0,0,127}));
   connect(heaPum.QCon_flow, QCon_flow) annotation (Line(points={{11,9},{70,9},{70,
-          90},{110,90}}, color={0,0,127}));
+          90},{120,90}}, color={0,0,127}));
   connect(heaPum.QEva_flow, QEva_flow) annotation (Line(points={{11,-9},{70,-9},
-          {70,-90},{110,-90}}, color={0,0,127}));
+          {70,-90},{120,-90}}, color={0,0,127}));
   connect(gaiSpe.y, speCub.u[1]) annotation (Line(points={{-21,30},{-40,30},{
           -40,27.6667}}, color={0,0,127}));
   connect(gaiSpe.y, speCub.u[2]) annotation (Line(points={{-21,30},{-30,30},{-30,
