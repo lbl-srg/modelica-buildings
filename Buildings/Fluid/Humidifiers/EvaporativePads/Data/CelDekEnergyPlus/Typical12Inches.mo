@@ -1,6 +1,5 @@
-within Buildings.Fluid.Humidifiers.EvaporativePads.Data.CelDekEnergyPlus;
-record Typical12Inches
-  "Data for CelDek EnergyPlus typical 12-inch evaporative pad"
+within Buildings.Fluid.Humidifiers.EvaporativePads.Data.CELdekEnergyPlus;
+record Typical12Inches "Data for CELdek EnergyPlus typical 12-inch evaporative pad"
   extends Buildings.Fluid.Humidifiers.EvaporativePads.Data.Generic (
     efficiency(
       v={0,0.5,0.75,1,1.255,1.511,1.766,2.021,2.277,2.532,2.788,3.043,3.298,3.554,
@@ -18,10 +17,9 @@ defaultComponentPrefixes="parameter",
 defaultComponentName="per",
 Documentation(info="<html>
 <p>
-Evaporative pad performance data.
-See the documentation of
-<a href=\"modelica://Buildings.Fluid.Humidifiers.EvaporativePads.Data.CelDekEnergyPlus\">
-Buildings.Fluid.Humidifiers.EvaporativePads.Data.CelDekEnergyPlus</a>.
+Evaporative pad performance data. See the documentation of
+<a href=\"modelica://Buildings.Fluid.Humidifiers.EvaporativePads.Data.CELdekEnergyPlus\">
+Buildings.Fluid.Humidifiers.EvaporativePads.Data.CELdekEnergyPlus</a>.
 </p>
 </html>", revisions="<html>
 <ul>

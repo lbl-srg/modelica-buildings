@@ -4,11 +4,10 @@ record Generic "Generic data record for evaporative pads"
 
   parameter
     Buildings.Fluid.Humidifiers.EvaporativePads.Baseclasses.Characteristics.saturationEfficiencyParameters
-    efficiency(v={0}, eta={0.7}) "Saturation efficiency vs. air speed";
-
+    efficiency(v={0}, eta={0.7}) "Saturation efficiency vs. air velocity";
   parameter
     Buildings.Fluid.Humidifiers.EvaporativePads.Baseclasses.Characteristics.pressureParameters
-    pressure(v={0}, dp={20}) "Pressure drop vs. air speed";
+    pressure(v={0}, dp={20}) "Pressure drop vs. air velocity";
 
   annotation (
   defaultComponentPrefixes = "parameter",
@@ -39,10 +38,8 @@ such as
 </pre>
 <p>
 where independent variable <i>v</i> is the air velocity flowing through the
-evaporative pad, dependent variable <i>eta</i> is the saturation efficiency,
-and dependent variable <i>dp</i> is the air pressure drop through the
-evaporative pad. Saturation efficiency is defined as <i>eta = (TDryBulIn -
-TDryBulOut) / (TDryBulIn - TWetBulIn)</i>.
+evaporative pad, dependent variable <i>eta</i> is the saturation efficiency, and
+dependent variable <i>dp</i> is the air pressure drop through the evaporative pad.
 </p>
 <p>
 This data record can be used with

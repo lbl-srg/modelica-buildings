@@ -1,9 +1,10 @@
 within Buildings.Fluid.Humidifiers.EvaporativePads.Data;
-package CelDekEnergyPlus
+package CELdekEnergyPlus
+  "Package of CELdek evaporative pad performance data in EnergyPlus"
   extends Modelica.Icons.Package;
   annotation (Documentation(info="<html>
 <p>
-This package contains performance data from the EnergyPlus 23.1 engineering reference for CelDek evaporative pads.
+This package contains performance data from the EnergyPlus 23.1 engineering reference for CELdek evaporative pads.
 </p>
 <p>
 From the
@@ -36,8 +37,8 @@ of air velocity and pad depth. However, an equation of the following form is use
 <p>
 By setting <i>a = 78.74 Pa&sdot;m<sup>-1</sup>&sdot;(m/s)<sup>-b</sup></i> and <i>b = 1.8</i>, the pressure
 drop <i>dp</i> aligns with the values from the 
-<a href=\"https://munters.sies.si/images/pdf/celdek7090.pdf\">CelDek 7090-15 evaporative pad</a> product.
+<a href=\"https://munters.sies.si/images/pdf/CELdek7090.pdf\">CELdek 7090-15 evaporative pad</a> product.
 Data point pairs of pressure drop vs. air velocity are digitized from this equation for a specific pad depth.
 </p>
 </html>"));
-end CelDekEnergyPlus;
+end CELdekEnergyPlus;

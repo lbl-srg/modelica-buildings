@@ -1,5 +1,5 @@
 within Buildings.Fluid.Humidifiers.EvaporativePads;
-package Data
+package Data "Package containing data for real evaporative pads"
 
   annotation (Documentation(info="<html>
 <p>

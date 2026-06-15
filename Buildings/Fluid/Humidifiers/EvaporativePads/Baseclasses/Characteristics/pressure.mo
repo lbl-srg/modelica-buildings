@@ -32,30 +32,24 @@ algorithm
                 y2d=d[i+1]);
   end if;
 
-  annotation(smoothOrder=1,
-              Documentation(info="<html>
+annotation(smoothOrder=1,
+  Documentation(info="<html>
 <p>
-This function computes the air pressure drop through evaporative pads for given pad depth 
-and air velocity in the form
+This function computes the air pressure drop through an evaporative pad for a given
+air velocity in the form
 </p>
 <p align=\"center\" style=\"font-style:italic;\">
-  &Delta;p = r<sub>N</sub><sup>2</sup> &nbsp; s(V&#775;/r<sub>N</sub>, d),
+&Delta;p = s(v, d)
 </p>
 <p>
-where
-<i>&Delta;p</i> is the pressure rise,
-<i>r<sub>N</sub></i> is the normalized fan speed,
-<i>V&#775;</i> is the volume flow rate and
-<i>d</i> are performance data for fan or pump power consumption at <i>r<sub>N</sub>=1</i>.
+where <i>&Delta;p</i> is the pressure drop, <i>v</i> is the air velocity, and
+<i>d</i> are performance data for an evaporative pad with a specified pad depth.
 </p>
 <h4>Implementation</h4>
 <p>
-The function <i>s(&middot;, &middot;)</i> is a cubic hermite spline.
-If the data <i>d</i> define a monotone decreasing sequence, then
-<i>s(&middot;, d)</i> is a monotone decreasing function.
-</p>
-<p>
-The function allows <i>r<sub>N</sub></i> to be zero.
+The function <i>s(&middot;, &middot;)</i> is a cubic hermite spline. If the data
+<i>d</i> define a monotone decreasing sequence, then <i>s(&middot;, d)</i> is a
+monotone decreasing function.
 </p>
 </html>",
 revisions="<html>

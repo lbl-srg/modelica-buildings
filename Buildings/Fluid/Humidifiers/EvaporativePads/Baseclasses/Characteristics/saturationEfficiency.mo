@@ -35,18 +35,17 @@ algorithm
   annotation(smoothOrder=1,
               Documentation(info="<html>
 <p>
-This function computes the saturation efficiency of evaporative pads for given pad depth 
-and air velocity. The efficiency is
+This function computes the saturation efficiency through an evaporative pad for a given air velocity 
+in the form
 </p>
 <p align=\"center\" style=\"font-style:italic;\">
-  &eta; = s(V&#775;/r<sub>N</sub>, d),
+&eta; = s(v, d)
 </p>
 <p>
 where
-<i>&eta;</i> is the efficiency,
-<i>r<sub>N</sub></i> is the normalized fan speed,
-<i>V&#775;</i> is the volume flow rate, and
-<i>d</i> are performance data for fan or pump efficiency.
+<i>&eta;</i> is the saturation efficiency,
+<i>v</i> is the air velocity, and
+<i>d</i> are performance data for an evaporative pad with a specified pad depth.
 </p>
 <h4>Implementation</h4>
 <p>
