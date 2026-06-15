@@ -91,7 +91,7 @@ block EquipmentAvailability
     annotation (Placement(transformation(extent={{-36,70},{-16,90}})));
   Buildings.Controls.OBC.CDL.Logical.Not una
     "Return true if equipment is unavailable"
-    annotation (Placement(transformation(extent={{-130,-90},{-110,-70}})));
+    annotation (Placement(transformation(extent={{-110,-90},{-90,-70}})));
   Modelica.StateGraph.TransitionWithSignal trnToAva
     "Transition back to available state"
     annotation (Placement(transformation(extent={{170,90},{190,110}})));
@@ -109,7 +109,7 @@ block EquipmentAvailability
     annotation (Placement(transformation(extent={{-50,-110},{-30,-90}})));
   Buildings.Controls.OBC.CDL.Logical.And heaAndCoo
     "Return true if equipment is in simultaneous heating and cooling mode"
-    annotation (Placement(transformation(extent={{-150,-30},{-130,-10}})));
+    annotation (Placement(transformation(extent={{-110,-30},{-90,-10}})));
   Buildings.Controls.OBC.CDL.Logical.Or offOrNotHeaOrHeaAndCoo
     "Return true if equipment is off or not in heating mode or in simultaneous heating and cooling mode"
     annotation (Placement(transformation(extent={{-10,10},{10,30}})));
@@ -121,18 +121,11 @@ block EquipmentAvailability
     "Equipment available for simultaneous heating and cooling operation"
     annotation (Placement(transformation(extent={{200,-180},{240,-140}}),
         iconTransformation(extent={{100,-20},{140,20}})));
-  Buildings.Controls.OBC.CDL.Logical.Xor sinMod
-    "Return true if equipment in single mode (heating or cooling but not both)"
-    annotation (Placement(transformation(extent={{-150,-170},{-130,-150}})));
-  Buildings.Controls.OBC.CDL.Logical.And notSinModAndAva
-    "Return true if equipment not in single mode and available"
-    annotation (Placement(transformation(extent={{170,-170},{190,-150}})));
-  Buildings.Controls.OBC.CDL.Logical.Not notSinMod
-    "Return true if equipment not in single mode"
-    annotation (Placement(transformation(extent={{-110,-170},{-90,-150}})));
+  Buildings.Controls.OBC.CDL.Logical.Pre u1EnaCooPre "Left-limit of signal"
+    annotation (Placement(transformation(extent={{-160,-130},{-140,-110}})));
+  Buildings.Controls.OBC.CDL.Logical.Pre u1EnaHeaPre "Left-limit of signal"
+    annotation (Placement(transformation(extent={{-160,-10},{-140,10}})));
 equation
-  connect(u1EnaCoo, phCoo.u)
-    annotation (Line(points={{-220,-120},{-192,-120}}, color={255,0,255}));
   connect(avaMod.outPort[1], trnToCoo.inPort)
     annotation (Line(points={{-49.5,159.833},{-40,159.833},{-40,120},{-4,120}},
       color={0,0,0}));
@@ -168,14 +161,13 @@ equation
     annotation (Line(points={{148.5,180},{-80,180},{-80,159.75},{-71,159.75}},
       color={0,0,0}));
   connect(u1Ava, una.u)
-    annotation (Line(points={{-220,-60},{-140,-60},{-140,-80},{-132,-80}},color={255,0,255}));
+    annotation (Line(points={{-220,-60},{-196,-60},{-196,-80},{-112,-80}},color={255,0,255}));
   connect(avaMod.outPort[3], trnToUna.inPort)
     annotation (Line(points={{-49.5,160.167},{-49.5,160},{-40,160},{-40,80},{
           -30,80}},
       color={0,0,0}));
   connect(una.y, trnToUna.condition)
-    annotation (Line(points={{-108,-80},{-26,-80},{-26,68}},
-                                                           color={255,0,255}));
+    annotation (Line(points={{-88,-80},{-26,-80},{-26,68}},color={255,0,255}));
   connect(trnToUna.outPort, unaSta.inPort[1])
     annotation (Line(points={{-24.5,80},{50,80},{50,99.6667},{139,99.6667}},
       color={0,0,0}));
@@ -196,54 +188,48 @@ equation
   connect(trnToUna2.outPort, unaSta.inPort[2])
     annotation (Line(points={{41.5,100},{90,100},{90,100},{139,100}},color={0,0,0}));
   connect(una.y, trnToUna2.condition)
-    annotation (Line(points={{-108,-80},{40,-80},{40,88}},
-                                                         color={255,0,255}));
+    annotation (Line(points={{-88,-80},{40,-80},{40,88}},color={255,0,255}));
   connect(onCoo.outPort[2], trnToUna3.inPort)
     annotation (Line(points={{90.5,120.125},{92,120.125},{92,80},{96,80}},color={0,0,0}));
   connect(trnToUna3.outPort, unaSta.inPort[3])
     annotation (Line(points={{101.5,80},{130,80},{130,100.333},{139,100.333}},
       color={0,0,0}));
   connect(una.y, trnToUna3.condition)
-    annotation (Line(points={{-108,-80},{100,-80},{100,68}},
-                                                           color={255,0,255}));
-  connect(u1EnaHea, phHea.u)
-    annotation (Line(points={{-220,0},{-192,0}}, color={255,0,255}));
-  connect(phHea.y, offOrNotHea.u) annotation (Line(points={{-168,0},{-100,0},{
-          -100,20},{-52,20}}, color={255,0,255}));
-  connect(phHea.y, trnToHea.condition) annotation (Line(points={{-168,0},{-100,
-          0},{-100,140},{-20,140},{-20,148}}, color={255,0,255}));
-  connect(phCoo.y, offOrNotCoo.u) annotation (Line(points={{-168,-120},{-80,
-          -120},{-80,-100},{-52,-100}}, color={255,0,255}));
-  connect(phCoo.y, trnToCoo.condition) annotation (Line(points={{-168,-120},{
-          -80,-120},{-80,60},{0,60},{0,108}}, color={255,0,255}));
-  connect(phCoo.y, heaAndCoo.u2) annotation (Line(points={{-168,-120},{-160,
-          -120},{-160,-28},{-152,-28}}, color={255,0,255}));
-  connect(phHea.y, heaAndCoo.u1) annotation (Line(points={{-168,0},{-164,0},{
-          -164,-20},{-152,-20}}, color={255,0,255}));
+    annotation (Line(points={{-88,-80},{100,-80},{100,68}},color={255,0,255}));
   connect(offOrNotHea.y, offOrNotHeaOrHeaAndCoo.u1)
     annotation (Line(points={{-28,20},{-12,20}}, color={255,0,255}));
   connect(offOrNotCoo.y, offOrNotCooOrHeaAndCoo.u1)
     annotation (Line(points={{-28,-100},{-12,-100}}, color={255,0,255}));
   connect(offOrNotHeaOrHeaAndCoo.y, trnToOff.condition)
     annotation (Line(points={{12,20},{60,20},{60,148}}, color={255,0,255}));
-  connect(heaAndCoo.y, offOrNotHeaOrHeaAndCoo.u2) annotation (Line(points={{
-          -128,-20},{-20,-20},{-20,12},{-12,12}}, color={255,0,255}));
-  connect(heaAndCoo.y, offOrNotCooOrHeaAndCoo.u2) annotation (Line(points={{
-          -128,-20},{-20,-20},{-20,-108},{-12,-108}}, color={255,0,255}));
+  connect(heaAndCoo.y, offOrNotHeaOrHeaAndCoo.u2) annotation (Line(points={{-88,-20},
+          {-20,-20},{-20,12},{-12,12}},           color={255,0,255}));
+  connect(heaAndCoo.y, offOrNotCooOrHeaAndCoo.u2) annotation (Line(points={{-88,-20},
+          {-20,-20},{-20,-108},{-12,-108}},           color={255,0,255}));
   connect(offOrNotCooOrHeaAndCoo.y, trnToOff1.condition) annotation (Line(
         points={{12,-100},{120,-100},{120,108}}, color={255,0,255}));
-  connect(phCoo.y, sinMod.u2) annotation (Line(points={{-168,-120},{-160,-120},
-          {-160,-168},{-152,-168}}, color={255,0,255}));
-  connect(phHea.y, sinMod.u1) annotation (Line(points={{-168,0},{-164,0},{-164,
-          -160},{-152,-160}}, color={255,0,255}));
-  connect(sinMod.y, notSinMod.u)
-    annotation (Line(points={{-128,-160},{-112,-160}}, color={255,0,255}));
-  connect(notSinModAndAva.y, y1Shc)
-    annotation (Line(points={{192,-160},{220,-160}}, color={255,0,255}));
-  connect(u1Ava, notSinModAndAva.u1) annotation (Line(points={{-220,-60},{160,
-          -60},{160,-160},{168,-160}}, color={255,0,255}));
-  connect(notSinMod.y, notSinModAndAva.u2) annotation (Line(points={{-88,-160},
-          {140,-160},{140,-168},{168,-168}}, color={255,0,255}));
+  connect(phHea.u, u1EnaHea)
+    annotation (Line(points={{-192,0},{-220,0}}, color={255,0,255}));
+  connect(u1EnaCoo, phCoo.u)
+    annotation (Line(points={{-220,-120},{-192,-120}}, color={255,0,255}));
+  connect(u1EnaHeaPre.y, heaAndCoo.u1) annotation (Line(points={{-138,0},{-120,
+          0},{-120,-20},{-112,-20}}, color={255,0,255}));
+  connect(u1EnaHeaPre.y, offOrNotHea.u) annotation (Line(points={{-138,0},{-120,
+          0},{-120,20},{-52,20}}, color={255,0,255}));
+  connect(u1EnaHeaPre.y, trnToHea.condition) annotation (Line(points={{-138,0},
+          {-120,0},{-120,140},{-20,140},{-20,148}}, color={255,0,255}));
+  connect(phHea.y, u1EnaHeaPre.u)
+    annotation (Line(points={{-168,0},{-162,0}}, color={255,0,255}));
+  connect(u1EnaCooPre.y, trnToCoo.condition) annotation (Line(points={{-138,
+          -120},{-130,-120},{-130,100},{0,100},{0,108}}, color={255,0,255}));
+  connect(u1EnaCooPre.y, heaAndCoo.u2) annotation (Line(points={{-138,-120},{
+          -130,-120},{-130,-28},{-112,-28}}, color={255,0,255}));
+  connect(u1EnaCooPre.y, offOrNotCoo.u) annotation (Line(points={{-138,-120},{
+          -130,-120},{-130,-100},{-52,-100}}, color={255,0,255}));
+  connect(phCoo.y, u1EnaCooPre.u)
+    annotation (Line(points={{-168,-120},{-162,-120}}, color={255,0,255}));
+  connect(u1Ava, y1Shc) annotation (Line(points={{-220,-60},{160,-60},{160,-160},
+          {220,-160}}, color={255,0,255}));
   annotation (
     __cdl(
       extensionBlock=true),
@@ -268,6 +254,7 @@ equation
         extent={{-200,-200},{200,200}})),
     Documentation(
       info="<html>
+FIXME: evaluate impact of using a pre block.
 <p>
 If a heat pump is commanded enabled in either heating or cooling mode,
 it is removed from the staging order of the opposite mode until it has

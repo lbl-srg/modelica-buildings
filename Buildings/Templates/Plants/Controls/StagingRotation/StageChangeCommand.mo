@@ -33,7 +33,7 @@ block StageChangeCommand
   final parameter Integer nEqu = size(staEqu, 2)
     "Number of equipment"
     annotation(Evaluate=true);
-  parameter Real capEqu[nEqu](each final min=0, each final unit="W")
+  parameter Real capEqu[:](each final min=0, each final unit="W")
     "Design capacity of each equipment";
   parameter Real dtRun(min=0, unit="s") = 900
     "Runtime with exceeded staging part load ratio before staging event is triggered";
@@ -96,6 +96,21 @@ block StageChangeCommand
     "Stage down command"
     annotation(Placement(transformation(extent={{200,-100},{240,-60}}),
       iconTransformation(extent={{100,-60},{140,-20}})));
+  Buildings.Controls.OBC.CDL.Interfaces.IntegerInput uStaOpp(
+    final min=0,
+    final max=nSta)
+    if have_php
+    "Stage index of opposite mode"
+    annotation(Placement(transformation(extent={{-240,240},{-200,280}}),
+      iconTransformation(extent={{-140,80},{-100,120}})));
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput staTra[nEqu, nSta](
+    each final unit="1",
+    each final min=0,
+    each final max=1)
+    if have_php
+    "Transpose of staging matrix at given stage"
+    annotation(Placement(transformation(extent={{200,240},{240,280}}),
+      iconTransformation(extent={{100,80},{140,120}})));
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant traMatStaEqu[nEqu, nSta](
     final k=traStaEqu)
     if not have_php
@@ -243,21 +258,6 @@ block StageChangeCommand
     if have_php
     "Extract transpose of staging matrix for the opposite mode stage index"
     annotation(Placement(transformation(extent={{-70,250},{-50,270}})));
-  Buildings.Controls.OBC.CDL.Interfaces.IntegerInput uStaOpp(
-    final min=0,
-    final max=nSta)
-    if have_php
-    "Stage index of opposite mode"
-    annotation(Placement(transformation(extent={{-240,240},{-200,280}}),
-      iconTransformation(extent={{-140,80},{-100,120}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealOutput staTra[nEqu, nSta](
-    final unit="1",
-    final min=0,
-    final max=1)
-    if have_php
-    "Transpose of staging matrix at given stage"
-    annotation(Placement(transformation(extent={{200,240},{240,280}}),
-      iconTransformation(extent={{100,80},{140,120}})));
 equation
   connect(intScaRep.y, reqEquSta.index)
     annotation(Line(points={{-88,200},{0,200},{0,208}},

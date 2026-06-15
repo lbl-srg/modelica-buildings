@@ -1,7 +1,7 @@
 within Buildings.Templates.Plants.Controls.HeatPumps.Validation;
 model AirToWater "Validation model for AWHP plant controller"
   final parameter Real capHea_nominal(
-    final unit="W")=sum(ctl.capHeaHp_nominal)
+    final unit="W")=sum(cat(1, ctl.capHeaHp_nominal, ctl.capHeaPhp_nominal))
     "Installed heating capacity"
     annotation (Dialog(group="Nominal condition"));
   parameter Real THeaWatSup_nominal(
@@ -20,7 +20,7 @@ model AirToWater "Validation model for AWHP plant controller"
     "Design HW volume flow rate"
     annotation (Dialog(group="Nominal condition"));
   final parameter Real capCoo_nominal(
-    final unit="W")=sum(ctl.capCooHp_nominal)
+    final unit="W")=sum(cat(1, ctl.capCooHp_nominal, ctl.capCooPhp_nominal))
     "Installed cooling capacity"
     annotation (Dialog(group="Nominal condition"));
   parameter Real TChiWatSup_nominal(
@@ -68,11 +68,12 @@ model AirToWater "Validation model for AWHP plant controller"
     VChiWatHp_flow_nominal=1.1*fill(VChiWat_flow_nominal/ctl.nHp, ctl.nHp),
     VChiWatHp_flow_min=0.6*ctl.VChiWatHp_flow_nominal,
     final VChiWatSec_flow_nominal=VChiWat_flow_nominal,
-    capCooHp_nominal=fill(350E3, ctl.nHp),
+    capCooHp_nominal=(1 - 1/Buildings.Templates.Data.Defaults.COPHpAwHea)*ctl.capHeaHp_nominal,
     yPumHeaWatPriSet=0.8,
     yPumChiWatPriSet=0.7,
     dpChiWatRemSet_max={5E4},
     staHp=[1/3,1/3,1/3; 2/3,2/3,2/3; 1,1,1],
+    nStaHp=3,
     idxAltHp_select={1,2,3},
     TChiWatSupHrc_min=277.15,
     THeaWatSupHrc_max=333.15,

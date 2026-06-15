@@ -22,29 +22,32 @@ block TimerWithReset
     "True if the elapsed time is greater than threshold"
     annotation (Placement(transformation(extent={{100,-100},{140,-60}}),
       iconTransformation(extent={{100,-100},{140,-60}})));
+
 protected
-  discrete Real entryTime(
-    final quantity="Time",
-    final unit="s")
-    "Time instant when u became true";
-initial equation
-  entryTime = time;
-  passed = t <= 0;
+  Buildings.Controls.OBC.CDL.Logical.Edge edg
+    "Reset input edge"
+    annotation (Placement(transformation(extent={{-80,-90},{-60,-70}})));
+  Buildings.Controls.OBC.CDL.Logical.Xor xor
+    "Output true if only one input is true"
+    annotation (Placement(transformation(extent={{0,-10},{20,10}})));
+  Buildings.Controls.OBC.CDL.Logical.Timer tim(
+    final t=t)
+    "Measuring time and check if bolean input has been true more than threshold time"
+    annotation (Placement(transformation(extent={{40,-10},{60,10}})));
+
 equation
-  when {u, reset} then
-    entryTime = time;
-    passed = u and t <= 0;
-  elsewhen u and time >= pre(entryTime) + t then
-    entryTime = pre(entryTime);
-    passed = true;
-  elsewhen not u then
-    entryTime = pre(entryTime);
-    passed = false;
-  end when;
-  y = if u then time - entryTime else 0.0;
+  connect(reset, edg.u)
+    annotation (Line(points={{-120,-80},{-82,-80}}, color={255,0,255}));
+  connect(edg.y, xor.u2) annotation (Line(points={{-58,-80},{-20,-80},{-20,-8},{
+          -2,-8}}, color={255,0,255}));
+  connect(u, xor.u1)
+    annotation (Line(points={{-120,0},{-2,0}}, color={255,0,255}));
+  connect(xor.y, tim.u)
+    annotation (Line(points={{22,0},{38,0}}, color={255,0,255}));
+  connect(tim.y, y) annotation (Line(points={{62,0},{120,0}}, color={0,0,127}));
+  connect(tim.passed, passed) annotation (Line(points={{62,-8},{80,-8},{80,-80},
+          {120,-80}}, color={255,0,255}));
   annotation (
-    __cdl(
-      extensionBlock=true),
     defaultComponentName="tim",
     Icon(
       coordinateSystem(
@@ -117,25 +120,13 @@ equation
     Documentation(revisions="<html>
 <ul>
 <li>
-October 21, 2024, by Antoine Gautier:<br/>
-Refactored to ensure <code>passed=u</code> if <code>t=0</code>.
-This is for
-<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3952\">#3952</a>.
-</li>
-<li>
-March 29, 2024, by Antoine Gautier:<br/>
+June 5, 2026, by Jianjun Hu:<br/>
 First implementation.
 </li>
 </ul>
 </html>", info="<html>
-<p>
-This block is similar to
-<a href=\"modelica://Buildings.Controls.OBC.CDL.Logical.Timer\">
-Buildings.Controls.OBC.CDL.Logical.Timer</a>,
-but introduces an additional Boolean input signal <code>reset</code>,
-which resets the timer.
-When <code>reset</code> becomes true:
-<code>y=0</code> and <code>passed=false</code>.
-</p>
+FIXME: should be replaced by 
+Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Generic.TimerWithReset
+once issue2293_chiller_plant_seq is merged.
 </html>"));
 end TimerWithReset;

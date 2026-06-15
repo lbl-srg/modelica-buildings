@@ -117,14 +117,14 @@ block EquipmentEnablePolyvalent
   Buildings.Controls.OBC.CDL.Logical.And isPhp2ReqAltAvaNee[nPhp]
     "Return true if equipment required with lead/lag alternate and available and needed to meet stage requirement"
     annotation(Placement(transformation(extent={{110,-50},{130,-30}})));
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput y1Php1[nPhp]
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput y1Php1[nHp + nPhp]
     "Polyvalent HP enable command in single mode" annotation (Placement(
-        transformation(extent={{200,-20},{240,20}}), iconTransformation(extent={{100,20},
-            {140,60}})));
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput y1Php2[nPhp]
+        transformation(extent={{200,-20},{240,20}}), iconTransformation(extent=
+            {{100,20},{140,60}})));
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput y1Php2[nHp + nPhp]
     "Polyvalent HP enable command in SHC mode" annotation (Placement(
-        transformation(extent={{200,-60},{240,-20}}), iconTransformation(extent={{100,-20},
-            {140,20}})));
+        transformation(extent={{200,-60},{240,-20}}), iconTransformation(extent
+          ={{100,-20},{140,20}})));
   BaseClasses.SelectEquipmentAtStage selEquStaHp(final nEqu=nHp)
     "Select equipment at stage"
     annotation (Placement(transformation(extent={{10,30},{30,50}})));
@@ -142,9 +142,12 @@ block EquipmentEnablePolyvalent
     "True if polyvalent HP commanded on in either single mode or SHC mode"
     annotation (Placement(transformation(extent={{170,-90},{190,-70}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput y1HpPhp1[nHp + nPhp]
-    "HP enable command (i<=nHp) and polyvalent HP enable command in single mode (i>nHp)"
+    "HP enable command (up to nHp) and polyvalent HP enable command in single mode (beyond nHp)"
     annotation (Placement(transformation(extent={{200,60},{240,100}}),
         iconTransformation(extent={{100,-60},{140,-20}})));
+  Buildings.Controls.OBC.CDL.Logical.Sources.Constant falCst[nHp](each final k=
+        false) "Constant false"
+    annotation (Placement(transformation(extent={{170,-30},{190,-10}})));
 equation
   connect(intScaRep.y, reqEquSta.index)
     annotation(Line(points={{-98,0},{-90,0},{-90,28}},
@@ -261,10 +264,6 @@ equation
       color={255,0,255}));
   connect(isHpReqAltAvaNee.y, y1Hp)
     annotation (Line(points={{132,40},{220,40}}, color={255,0,255}));
-  connect(isPhp1ReqAltAvaNee1.y, y1Php1)
-    annotation (Line(points={{132,0},{220,0}}, color={255,0,255}));
-  connect(isPhp2ReqAltAvaNee.y, y1Php2)
-    annotation (Line(points={{132,-40},{220,-40}}, color={255,0,255}));
   connect(on1Or2.y, y1Php1Or2)
     annotation (Line(points={{192,-80},{220,-80}}, color={255,0,255}));
   connect(isPhp1ReqAltAvaNee1.y, on1Or2.u1) annotation (Line(points={{132,0},{
@@ -274,8 +273,16 @@ equation
   connect(isHpReqAltAvaNee.y, y1HpPhp1[1:nHp]) annotation (Line(points={{132,40},
           {180,40},{180,80},{220,80}}, color={255,0,255}));
   connect(isPhp1ReqAltAvaNee1.y, y1HpPhp1[nHp + 1:nHp + nPhp]) annotation (Line(
-        points={{132,0},{160,0},{160,80},{202,80},{202,82},{200,82}}, color={
+        points={{132,0},{160,0},{160,80},{202,80},{202,80},{220,80}}, color={
           255,0,255}));
+  connect(falCst.y, y1Php1[1:nHp]) annotation (Line(points={{192,-20},{196,-20},
+          {196,0},{220,0}}, color={255,0,255}));
+  connect(falCst.y, y1Php2[1:nHp]) annotation (Line(points={{192,-20},{196,-20},
+          {196,-40},{220,-40}}, color={255,0,255}));
+  connect(isPhp1ReqAltAvaNee1.y, y1Php1[nHp + 1:nHp + nPhp])
+    annotation (Line(points={{132,0},{208,0}}, color={255,0,255}));
+  connect(isPhp2ReqAltAvaNee.y, y1Php2[nHp + 1:nHp + nPhp]) annotation (Line(
+        points={{132,-40},{206,-40},{206,-38},{208,-38}}, color={255,0,255}));
 annotation(defaultComponentName="enaEqu",
   Icon(coordinateSystem(preserveAspectRatio=true),
     graphics={Rectangle(extent={{-100,100},{100,-100}},

@@ -42,16 +42,10 @@ block EventSequencingHeatPumps
     min=0,
     unit="s")=180
     "Heat pump internal shutdown cycle timing";
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1ShcHea
-    if is_php
-    "Enable command in SHC mode from heating mode sequence"
-    annotation(Placement(transformation(extent={{-260,20},{-220,60}}),
-      iconTransformation(extent={{-140,60},{-100,100}})));
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1ShcCoo
-    if is_php
-    "Enable command in SHC mode from cooling mode sequence"
-    annotation(Placement(transformation(extent={{-260,-20},{-220,20}}),
-      iconTransformation(extent={{-140,40},{-100,80}})));
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1Shc
+    "Enable command in SHC mode" annotation (Placement(transformation(extent={{
+            -260,20},{-220,60}}), iconTransformation(extent={{-140,60},{-100,
+            100}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1Hea
     if have_heaWat
     "Enable command from heating mode sequence"
@@ -97,14 +91,13 @@ block EventSequencingHeatPumps
     "Primary CHW pump start command – Dedicated or lead headered pump"
     annotation(Placement(transformation(extent={{220,-160},{260,-120}}),
       iconTransformation(extent={{100,-120},{140,-80}})));
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput y1Hp if not is_php
-    "Heat pump enable command" annotation (Placement(transformation(extent={{220,
-            160},{260,200}}), iconTransformation(extent={{100,100},{140,140}})));
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput y1HeaHp
-    if not is_php and have_heaWat and have_chiWat
-    "Heat pump heating/cooling mode command: true=heating, false=cooling"
-    annotation (Placement(transformation(extent={{220,140},{260,180}}),
-      iconTransformation(extent={{100,80},{140,120}})));
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput y1 "Enable command"
+    annotation (Placement(transformation(extent={{220,160},{260,200}}),
+        iconTransformation(extent={{100,100},{140,140}})));
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput y1Hea
+    if have_heaWat and have_chiWat "Heating mode command" annotation (Placement(
+        transformation(extent={{220,140},{260,180}}), iconTransformation(extent
+          ={{100,80},{140,120}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1Coo
     if have_chiWat
     "Enable command from cooling mode sequence"
@@ -123,13 +116,13 @@ block EventSequencingHeatPumps
   Buildings.Controls.OBC.CDL.Logical.Timer timValHea(final t=dtVal)
     if have_heaWat and (have_valInlIso or have_valOutIso)
     "Return true when nominal valve timing elapsed"
-    annotation(Placement(transformation(extent={{-50,130},{-30,150}})));
+    annotation(Placement(transformation(extent={{-20,130},{0,150}})));
   Buildings.Controls.OBC.CDL.Logical.MultiAnd heaValPum(nin=3)
     "Return true if heating AND valve timing elapsed AND lead HW pumps on"
     annotation(Placement(transformation(extent={{70,130},{90,150}})));
   Buildings.Controls.OBC.CDL.Logical.Or heaOrCooMet
     "True if either heating or cooling enable clause met"
-    annotation(Placement(transformation(extent={{110,170},{130,190}})));
+    annotation(Placement(transformation(extent={{180,170},{200,190}})));
   Buildings.Controls.OBC.CDL.Logical.MultiAnd cooValPum(nin=3)
     "Return true if cooling AND valve timing elapsed AND lead CHW pumps on"
     annotation(Placement(transformation(extent={{70,70},{90,90}})));
@@ -198,7 +191,7 @@ block EventSequencingHeatPumps
   Buildings.Controls.OBC.CDL.Logical.Timer timValCoo(final t=dtVal)
     if have_chiWat and (have_valInlIso or have_valOutIso)
     "Return true when nominal valve timing elapsed"
-    annotation(Placement(transformation(extent={{-50,50},{-30,70}})));
+    annotation(Placement(transformation(extent={{-20,50},{0,70}})));
   Utilities.PlaceholderLogical timValCoo_internal(
     final have_inp=have_chiWat and (have_valInlIso or have_valOutIso),
     final have_inpPh=true,
@@ -207,7 +200,7 @@ block EventSequencingHeatPumps
     annotation(Placement(transformation(extent={{20,50},{40,70}})));
   Buildings.Controls.OBC.CDL.Logical.Not notHea
     "Return true if disabled from heating sequence"
-    annotation(Placement(transformation(extent={{-110,90},{-90,110}})));
+    annotation(Placement(transformation(extent={{-110,10},{-90,30}})));
   Buildings.Controls.OBC.CDL.Logical.Not notCoo
     "Return true if disabled from cooling sequence"
     annotation(Placement(transformation(extent={{-110,-30},{-90,-10}})));
@@ -219,7 +212,7 @@ block EventSequencingHeatPumps
     annotation(Placement(transformation(extent={{10,-70},{30,-50}})));
   Buildings.Controls.OBC.CDL.Logical.MultiAnd isPhpAndNotHeaAndCoo(nin=3)
     "Return true if polyvalent HP disabled for heating and enabled for cooling"
-    annotation (Placement(transformation(extent={{-50,90},{-30,110}})));
+    annotation (Placement(transformation(extent={{-50,10},{-30,30}})));
   Buildings.Controls.OBC.CDL.Logical.Or timHpOrPhpNotHeaAndCoo
     "Return true if HP shutdown cycle ended or polyvalent HP switching to heating disabled"
     annotation (Placement(transformation(extent={{10,-30},{30,-10}})));
@@ -229,21 +222,12 @@ block EventSequencingHeatPumps
     final u_internal=false)
     "Replace with placeholder value if input signal is not available"
     annotation(Placement(transformation(extent={{-210,30},{-190,50}})));
-  Utilities.PlaceholderLogical u1ShcCoo_internal(
-    final have_inp=is_php,
-    final have_inpPh=false,
-    final u_internal=false)
-    "Replace with placeholder value if input signal is not available"
-    annotation(Placement(transformation(extent={{-210,-10},{-190,10}})));
-  Buildings.Controls.OBC.CDL.Logical.MultiOr u1HeaOrShcHea(nin=2)
+  Buildings.Controls.OBC.CDL.Logical.Or      u1HeaOrShcHea
     "Return true if heating enabled"
-    annotation(Placement(transformation(extent={{-148,110},{-128,130}})));
-  Buildings.Controls.OBC.CDL.Logical.MultiOr u1CooOrShcCoo(nin=2)
+    annotation(Placement(transformation(extent={{-150,110},{-130,130}})));
+  Buildings.Controls.OBC.CDL.Logical.Or      u1CooOrShcCoo
     "Return true if cooling enabled"
     annotation(Placement(transformation(extent={{-150,70},{-130,90}})));
-  Buildings.Controls.OBC.CDL.Logical.Or u1Shc
-    "Return true if SHC mode enabled"
-    annotation(Placement(transformation(extent={{-180,10},{-160,30}})));
   Buildings.Controls.OBC.CDL.Logical.And heaAndCooMet
     "True if both heating and cooling enable clauses met"
     annotation(Placement(transformation(extent={{110,130},{130,150}})));
@@ -257,16 +241,16 @@ block EventSequencingHeatPumps
     annotation (Placement(transformation(extent={{200,10},{180,30}})));
   Buildings.Controls.OBC.CDL.Logical.Switch swiShcHea
     "Switch to conditions on both modes being met to transition from off to SHC"
-    annotation (Placement(transformation(extent={{180,90},{200,110}})));
+    annotation (Placement(transformation(extent={{140,90},{160,110}})));
   Buildings.Controls.OBC.CDL.Logical.Nor offPre if have_heaWat and have_chiWat
     "True if heating and cooling previously disabled"
     annotation (Placement(transformation(extent={{160,10},{140,30}})));
   Buildings.Controls.OBC.CDL.Logical.And u1ShcAndOffPre
     "True if SHC command with heating and cooling previously disabled"
-    annotation (Placement(transformation(extent={{70,10},{90,30}})));
+    annotation (Placement(transformation(extent={{70,30},{90,50}})));
   Buildings.Controls.OBC.CDL.Logical.Switch swiShcCoo
     "Switch to conditions on both modes being met to transition from off to SHC"
-    annotation (Placement(transformation(extent={{180,50},{200,70}})));
+    annotation (Placement(transformation(extent={{140,50},{160,70}})));
   Utilities.PlaceholderLogical offPre_internal(
     final have_inp=have_heaWat and have_chiWat,
     final have_inpPh=false,
@@ -301,14 +285,8 @@ block EventSequencingHeatPumps
     "Replace with placeholder value if input signal is not available"
     annotation (Placement(transformation(extent={{180,-110},{200,-90}})));
 equation
-  connect(heaValPum.y, heaOrCooMet.u1)
-    annotation(Line(points={{92,140},{100,140},{100,180},{108,180}},
-      color={255,0,255}));
-  connect(cooValPum.y, heaOrCooMet.u2)
-    annotation(Line(points={{92,80},{104,80},{104,172},{108,172}},
-      color={255,0,255}));
   connect(timValHea.passed, timValHea_internal.u)
-    annotation(Line(points={{-28,132},{-24,132},{-24,140},{18,140}},
+    annotation(Line(points={{2,132},{8,132},{8,140},{18,140}},
       color={255,0,255}));
   connect(u1PumHeaWatPri_actual, u1PumHeaWatPri_internal.u)
     annotation(Line(points={{-240,-160},{-212,-160}},
@@ -323,8 +301,8 @@ equation
   connect(u1PumChiWatPri_internal.y, cooValPum.u[1])
     annotation(Line(points={{-158,-180},{58,-180},{58,77.6667},{68,77.6667}},
       color={255,0,255}));
-  connect(heaOrCooMet.y, y1Hp)
-    annotation (Line(points={{132,180},{240,180}}, color={255,0,255}));
+  connect(heaOrCooMet.y, y1)
+    annotation (Line(points={{202,180},{240,180}}, color={255,0,255}));
   connect(u1Hea, u1Hea_internal.u)
     annotation(Line(points={{-240,120},{-212,120}},
       color={255,0,255}));
@@ -365,51 +343,48 @@ equation
     annotation(Line(points={{32,-60},{80,-60},{80,-146},{128,-146}},
       color={255,0,255}));
   connect(isPhpAndNotCooAndHea.y, timHpOrPhpNotCooAndHea.u1)
-    annotation(Line(points={{-28,-20},{-20,-20},{-20,-60},{8,-60}},
+    annotation(Line(points={{-28,-20},{-24,-20},{-24,-60},{8,-60}},
       color={255,0,255}));
   connect(timHp.passed, timHpOrPhpNotHeaAndCoo.u2) annotation (Line(points={{-28,
           -68},{0,-68},{0,-28},{8,-28}}, color={255,0,255}));
   connect(isPhpAndNotHeaAndCoo.y, timHpOrPhpNotHeaAndCoo.u1) annotation (Line(
-        points={{-28,100},{-16,100},{-16,-20},{8,-20}}, color={255,0,255}));
+        points={{-28,20},{-20,20},{-20,-20},{8,-20}},   color={255,0,255}));
   connect(timHpOrPhpNotHeaAndCoo.y, latValHeaWatIso.clr) annotation (Line(
         points={{32,-20},{90,-20},{90,-46},{98,-46}}, color={255,0,255}));
   connect(timHpOrPhpNotHeaAndCoo.y, latPumHeaWatPri.clr) annotation (Line(
         points={{32,-20},{90,-20},{90,-126},{98,-126}}, color={255,0,255}));
-  connect(u1ShcHea, u1ShcHea_internal.u)
-    annotation(Line(points={{-240,40},{-212,40}},
-      color={255,0,255}));
-  connect(u1ShcCoo, u1ShcCoo_internal.u)
-    annotation(Line(points={{-240,0},{-212,0}},
-      color={255,0,255}));
+  connect(u1Shc, u1ShcHea_internal.u)
+    annotation (Line(points={{-240,40},{-212,40}}, color={255,0,255}));
   connect(u1HeaOrShcHea.y, timValHea.u)
-    annotation(Line(points={{-126,120},{-60,120},{-60,140},{-52,140}},
+    annotation(Line(points={{-128,120},{-40,120},{-40,140},{-22,140}},
       color={255,0,255}));
-  connect(u1HeaOrShcHea.y, y1HeaHp) annotation (Line(points={{-126,120},{60,120},
-          {60,160},{240,160}}, color={255,0,255}));
+  connect(u1HeaOrShcHea.y, y1Hea) annotation (Line(points={{-128,120},{-120,120},
+          {-120,160},{240,160}},
+                               color={255,0,255}));
   connect(u1HeaOrShcHea.y, timValHea_internal.uPh)
-    annotation(Line(points={{-126,120},{-20,120},{-20,134},{18,134}},
+    annotation(Line(points={{-128,120},{14,120},{14,134},{18,134}},
       color={255,0,255}));
   connect(u1HeaOrShcHea.y, notHea.u)
-    annotation(Line(points={{-126,120},{-120,120},{-120,100},{-112,100}},
+    annotation(Line(points={{-128,120},{-120,120},{-120,20},{-112,20}},
       color={255,0,255}));
   connect(u1HeaOrShcHea.y, off.u1)
-    annotation(Line(points={{-126,120},{-120,120},{-120,-60},{-112,-60}},
+    annotation(Line(points={{-128,120},{-120,120},{-120,-60},{-112,-60}},
       color={255,0,255}));
   connect(u1HeaOrShcHea.y, rou.u)
-    annotation(Line(points={{-126,120},{-120,120},{-120,-100},{-42,-100}},
+    annotation(Line(points={{-128,120},{-120,120},{-120,-100},{-42,-100}},
       color={255,0,255}));
   connect(u1HeaOrShcHea.y, heaValPum.u[3])
     annotation(Line(
-      points={{-126,120},{60,120},{60,136},{68,136},{68,142.333}},
+      points={{-128,120},{60,120},{60,136},{68,136},{68,142.333}},
       color={255,0,255}));
   connect(u1HeaOrShcHea.y, u1HeaOrCoo.u1)
-    annotation(Line(points={{-126,120},{-120,120},{-120,-120},{-112,-120}},
+    annotation(Line(points={{-128,120},{-120,120},{-120,-120},{-112,-120}},
       color={255,0,255}));
   connect(u1CooOrShcCoo.y, timValCoo.u)
-    annotation(Line(points={{-128,80},{-60,80},{-60,60},{-52,60}},
+    annotation(Line(points={{-128,80},{-40,80},{-40,60},{-22,60}},
       color={255,0,255}));
   connect(u1CooOrShcCoo.y, timValCoo_internal.uPh)
-    annotation(Line(points={{-128,80},{0,80},{0,54},{18,54}},
+    annotation(Line(points={{-128,80},{14,80},{14,54},{18,54}},
       color={255,0,255}));
   connect(u1CooOrShcCoo.y, cooValPum.u[3])
     annotation(Line(points={{-128,80},{68,80},{68,82.3333}},
@@ -423,33 +398,14 @@ equation
   connect(u1CooOrShcCoo.y, u1HeaOrCoo.u2)
     annotation(Line(points={{-128,80},{-124,80},{-124,-128},{-112,-128}},
       color={255,0,255}));
-  connect(u1Hea_internal.y, u1HeaOrShcHea.u[1])
-    annotation(Line(points={{-188,120},{-150,120},{-150,118.25}},
-      color={255,0,255}));
-  connect(u1Coo_internal.y, u1CooOrShcCoo.u[1])
-    annotation(Line(points={{-188,80},{-152,80},{-152,78.25}},
-      color={255,0,255}));
   connect(u1CooOrShcCoo.y, latValChiWatIso.u)
     annotation(Line(points={{-128,80},{-124,80},{-124,-80},{98,-80}},
       color={255,0,255}));
   connect(u1HeaOrShcHea.y, latValHeaWatIso.u)
-    annotation(Line(points={{-126,120},{-120,120},{-120,-40},{98,-40}},
+    annotation(Line(points={{-128,120},{-120,120},{-120,-40},{98,-40}},
       color={255,0,255}));
   connect(u1CooOrShcCoo.y, latPumChiWatPri.u)
     annotation(Line(points={{-128,80},{-124,80},{-124,-140},{128,-140}},
-      color={255,0,255}));
-  connect(u1ShcHea_internal.y, u1Shc.u1)
-    annotation(Line(points={{-188,40},{-186,40},{-186,20},{-182,20}},
-      color={255,0,255}));
-  connect(u1ShcCoo_internal.y, u1Shc.u2)
-    annotation(Line(points={{-188,0},{-186,0},{-186,12},{-182,12}},
-      color={255,0,255}));
-  connect(u1Shc.y, u1CooOrShcCoo.u[2])
-    annotation(Line(
-      points={{-158,20},{-156,20},{-156,82},{-152,82},{-152,81.75}},
-      color={255,0,255}));
-  connect(u1Shc.y, u1HeaOrShcHea.u[2])
-    annotation(Line(points={{-158,20},{-156,20},{-156,121.75},{-150,121.75}},
       color={255,0,255}));
   connect(heaValPum.y, heaAndCooMet.u1)
     annotation(Line(points={{92,140},{108,140}},
@@ -463,50 +419,51 @@ equation
   connect(y1AndCoo, y1AndCooPre.u) annotation (Line(points={{240,60},{210,60},{210,
           20},{202,20}},
                        color={255,0,255}));
-  connect(y1AndCooPre.y, offPre.u2) annotation (Line(points={{178,20},{174,20},{
-          174,12},{162,12}},
+  connect(y1AndCooPre.y, offPre.u2) annotation (Line(points={{178,20},{176,20},
+          {176,12},{162,12}},
                          color={255,0,255}));
-  connect(y1AndHeaPre.y, offPre.u1) annotation (Line(points={{178,140},{168,140},
-          {168,20},{162,20}},
+  connect(y1AndHeaPre.y, offPre.u1) annotation (Line(points={{178,140},{174,140},
+          {174,20},{162,20}},
                             color={255,0,255}));
-  connect(heaAndCooMet.y, swiShcHea.u1) annotation (Line(points={{132,140},{160,
-          140},{160,108},{178,108}},
+  connect(heaAndCooMet.y, swiShcHea.u1) annotation (Line(points={{132,140},{134,
+          140},{134,108},{138,108}},
                                    color={255,0,255}));
   connect(heaValPum.y, swiShcHea.u3) annotation (Line(points={{92,140},{100,140},
-          {100,92},{178,92}}, color={255,0,255}));
+          {100,92},{138,92}}, color={255,0,255}));
   connect(swiShcHea.y, y1AndHea)
-    annotation (Line(points={{202,100},{240,100}},
+    annotation (Line(points={{162,100},{240,100}},
                                                  color={255,0,255}));
-  connect(u1Shc.y, u1ShcAndOffPre.u1) annotation (Line(points={{-158,20},{68,20}},
-                           color={255,0,255}));
-  connect(cooValPum.y, swiShcCoo.u3) annotation (Line(points={{92,80},{104,80},{
-          104,52},{178,52}}, color={255,0,255}));
+  connect(cooValPum.y, swiShcCoo.u3) annotation (Line(points={{92,80},{104,80},
+          {104,52},{138,52}},color={255,0,255}));
   connect(swiShcCoo.y, y1AndCoo)
-    annotation (Line(points={{202,60},{240,60}}, color={255,0,255}));
-  connect(heaAndCooMet.y, swiShcCoo.u1) annotation (Line(points={{132,140},{160,
-          140},{160,68},{178,68}}, color={255,0,255}));
-  connect(timValCoo.passed, timValCoo_internal.u) annotation (Line(points={{-28,
-          52},{-20,52},{-20,60},{18,60}}, color={255,0,255}));
+    annotation (Line(points={{162,60},{240,60}}, color={255,0,255}));
+  connect(heaAndCooMet.y, swiShcCoo.u1) annotation (Line(points={{132,140},{134,
+          140},{134,68},{138,68}}, color={255,0,255}));
+  connect(timValCoo.passed, timValCoo_internal.u) annotation (Line(points={{2,52},{
+          8,52},{8,60},{18,60}},          color={255,0,255}));
   connect(offPre.y, offPre_internal.u)
     annotation (Line(points={{138,20},{132,20}}, color={255,0,255}));
   connect(offPre_internal.y, u1ShcAndOffPre.u2) annotation (Line(points={{108,20},
-          {106,20},{106,0},{60,0},{60,12},{68,12}}, color={255,0,255}));
-  connect(u1ShcAndOffPre.y, swiShcCoo.u2) annotation (Line(points={{92,20},{96,20},
-          {96,60},{178,60}}, color={255,0,255}));
-  connect(u1ShcAndOffPre.y, swiShcHea.u2) annotation (Line(points={{92,20},{96,20},
-          {96,100},{178,100}}, color={255,0,255}));
+          {106,20},{106,0},{60,0},{60,32},{68,32}}, color={255,0,255}));
+  connect(u1ShcAndOffPre.y, swiShcCoo.u2) annotation (Line(points={{92,40},{96,
+          40},{96,60},{138,60}},
+                             color={255,0,255}));
+  connect(u1ShcAndOffPre.y, swiShcHea.u2) annotation (Line(points={{92,40},{96,
+          40},{96,100},{138,100}},
+                               color={255,0,255}));
   connect(notCoo.y, isPhpAndNotCooAndHea.u[1]) annotation (Line(points={{-88,-20},
           {-52,-20},{-52,-22.3333}}, color={255,0,255}));
-  connect(notHea.y, isPhpAndNotHeaAndCoo.u[1]) annotation (Line(points={{-88,100},
-          {-52,100},{-52,97.6667}}, color={255,0,255}));
-  connect(isPhp.y, isPhpAndNotHeaAndCoo.u[2]) annotation (Line(points={{-188,180},
-          {-80,180},{-80,100},{-52,100}}, color={255,0,255}));
-  connect(u1CooOrShcCoo.y, isPhpAndNotHeaAndCoo.u[3]) annotation (Line(points={{
-          -128,80},{-80,80},{-80,102.333},{-52,102.333}}, color={255,0,255}));
+  connect(notHea.y, isPhpAndNotHeaAndCoo.u[1]) annotation (Line(points={{-88,20},
+          {-52,20},{-52,17.6667}},  color={255,0,255}));
+  connect(isPhp.y, isPhpAndNotHeaAndCoo.u[2]) annotation (Line(points={{-188,
+          180},{-80,180},{-80,18},{-52,18},{-52,20}},
+                                          color={255,0,255}));
+  connect(u1CooOrShcCoo.y, isPhpAndNotHeaAndCoo.u[3]) annotation (Line(points={{-128,80},
+          {-60,80},{-60,22.3333},{-52,22.3333}},          color={255,0,255}));
   connect(isPhp.y, isPhpAndNotCooAndHea.u[2]) annotation (Line(points={{-188,180},
           {-80,180},{-80,-20},{-52,-20}}, color={255,0,255}));
-  connect(u1HeaOrShcHea.y, isPhpAndNotCooAndHea.u[3]) annotation (Line(points={{
-          -126,120},{-120,120},{-120,0},{-82,0},{-82,-18},{-52,-18},{-52,-17.6667}},
+  connect(u1HeaOrShcHea.y, isPhpAndNotCooAndHea.u[3]) annotation (Line(points={{-128,
+          120},{-120,120},{-120,0},{-82,0},{-82,-18},{-52,-18},{-52,-17.6667}},
         color={255,0,255}));
   connect(latValHeaWatIso.y, y1ValHeaWatInlIso_internal.u)
     annotation (Line(points={{122,-40},{148,-40}}, color={255,0,255}));
@@ -524,6 +481,20 @@ equation
         points={{122,-80},{140,-80},{140,-100},{178,-100}}, color={255,0,255}));
   connect(y1ValChiWatOutIso_internal.y, y1ValChiWatOutIso)
     annotation (Line(points={{202,-100},{240,-100}}, color={255,0,255}));
+  connect(swiShcHea.y, heaOrCooMet.u1) annotation (Line(points={{162,100},{164,
+          100},{164,180},{178,180}}, color={255,0,255}));
+  connect(swiShcCoo.y, heaOrCooMet.u2) annotation (Line(points={{162,60},{168,
+          60},{168,172},{178,172}}, color={255,0,255}));
+  connect(u1ShcHea_internal.y, u1ShcAndOffPre.u1)
+    annotation (Line(points={{-188,40},{68,40}}, color={255,0,255}));
+  connect(u1Hea_internal.y, u1HeaOrShcHea.u1)
+    annotation (Line(points={{-188,120},{-152,120}}, color={255,0,255}));
+  connect(u1Coo_internal.y, u1CooOrShcCoo.u1)
+    annotation (Line(points={{-188,80},{-152,80}}, color={255,0,255}));
+  connect(u1ShcHea_internal.y, u1CooOrShcCoo.u2) annotation (Line(points={{-188,
+          40},{-160,40},{-160,72},{-152,72}}, color={255,0,255}));
+  connect(u1ShcHea_internal.y, u1HeaOrShcHea.u2) annotation (Line(points={{-188,
+          40},{-160,40},{-160,112},{-152,112}}, color={255,0,255}));
 annotation(defaultComponentName="seqEve",
   Icon(coordinateSystem(preserveAspectRatio=true,
     extent={{-100,-140},{100,140}},
@@ -679,11 +650,15 @@ delay. However, any minimum off time required by the heat pump between
 opposite operating modes must still be enforced by the enable sequence.
 </p>
 <p>
-To facilitate integration into a plant controllers serving both
+To facilitate integration into plant controllers serving both
 reversible and polyvalent heat pumps, the output connectors for 
-the isolation valve commands are instantiated irrespective of the
-presence of the valves.
-They are set to false when no isolation valves are present.
+the isolation valve commands are instantiated regardless of whether the 
+isolation valves are present. 
+They are set to <code>false</code> when no isolation valves are present.
+Similarly, the input connector for the enable command for simultaneous
+heating and cooling mode is always instantiated. It must be 
+connected to a <code>false</code> valued signal when the parameter
+<code>is_php</code> is <code>false</code>.
 </p>
 </html>",
     revisions="<html>

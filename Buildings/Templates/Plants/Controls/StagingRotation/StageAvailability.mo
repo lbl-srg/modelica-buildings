@@ -55,9 +55,9 @@ block StageAvailability
       is_transpose=false) if have_php
     "Extract staging matrix for the opposite mode stage index"
     annotation (Placement(transformation(extent={{-88,30},{-68,50}})));
-  Buildings.Controls.OBC.CDL.Integers.GreaterEqualThreshold notZer[nSta](each final
-            t=1)
-    "True if the number of units required (with or without lead/lag alternate) is not zero"
+  Buildings.Controls.OBC.CDL.Integers.GreaterThreshold      notZer[nSta](each
+      final t=0)
+    "True if the number of units required (with or without lead/lag alternate) is nonzero"
     annotation (Placement(transformation(extent={{30,50},{50,70}})));
   Utilities.CountTrue nReqAndAva[nSta](each final nin=nEqu)
     "Number of units required (without lead/lag alternate) and available"
@@ -137,7 +137,11 @@ than or equal to the number of units required to run at that stage.
 </li>
 <li>
 The number of units required to run at that stage &ndash;
-with or without lead/lag alternate &ndash; is not zero.
+with or without lead/lag alternate &ndash; is nonzero.
+This condition is used by
+<a href=\"modelica://Buildings.Templates.Plants.Controls.PolyvalentHeatPumps.StagingParameters\">
+Buildings.Templates.Plants.Controls.PolyvalentHeatPumps.StagingParameters</a>
+to encode that a stage is not feasible.
 </li>
 </ul>
 <p>

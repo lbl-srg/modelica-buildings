@@ -19,20 +19,18 @@ model ExtractStagingMatrix
   parameter Real capCooPhp_nominal =
     (1 - 1 / Buildings.Templates.Data.Defaults.COPHpAwHea) * capHeaPhp_nominal
     "Design cooling capacity - Each polyvalent heat pump";
-  parameter Real capHeaPhpShc_nominal =
-    Buildings.Templates.Data.Defaults.COPHpWwHea /
-      Buildings.Templates.Data.Defaults.COPHpAwHea * capHeaPhp_nominal
+  parameter Real capHeaShcPhp_nominal=Buildings.Templates.Data.Defaults.COPHpWwHea
+      /Buildings.Templates.Data.Defaults.COPHpAwHea*capHeaPhp_nominal
     "Design heating capacity in SHC mode - Each polyvalent heat pump";
-  parameter Real capCooPhpShc_nominal =
-    (1 - 1 / Buildings.Templates.Data.Defaults.COPHpWwHea) *
-      capHeaPhpShc_nominal
+  parameter Real capCooShcPhp_nominal=(1 - 1/Buildings.Templates.Data.Defaults.COPHpWwHea)
+      *capHeaShcPhp_nominal
     "Design cooling capacity in SHC mode - Each polyvalent heat pump";
   parameter Real capCooSta_nominal[nSta + 1,nSta + 1]=staPhp.nHpCoo*
       capCooHp_nominal .+staPhp.nPhpCoo *capCooPhp_nominal .+staPhp.nPhpShc *
-      capCooPhpShc_nominal "Cooling capacity at each stage";
+      capCooShcPhp_nominal "Cooling capacity at each stage";
   parameter Real capHeaSta_nominal[nSta + 1,nSta + 1]=staPhp.nHpHea*
       capHeaHp_nominal .+staPhp.nPhpHea *capHeaPhp_nominal .+staPhp.nPhpShc *
-      capHeaPhpShc_nominal "Heating capacity at each stage";
+      capHeaShcPhp_nominal "Heating capacity at each stage";
   // Columns are for equipment tags, duplicating polyvalent units for cooling-only and SHC mode indexing
   // NOT CDL compliant because 3D array!
   parameter Real staCoo[nSta + 1,nSta,nHp + 2*nPhp]={cat(
