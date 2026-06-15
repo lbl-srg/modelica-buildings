@@ -19,7 +19,7 @@ The following <b style=\"color:blue\">new libraries</b> have been added:
     </tr>
 <tr><td valign=\"top\">Buildings.Controls.OBC.ASHRAE.G36.Plants
     </td>
-    <td valign=\"top\">Package of sequences for chiller and boiler plants
+    <td valign=\"top\">Package of sequences for chiller plants
     </td>
     </tr>
 </table>
@@ -126,6 +126,12 @@ have been <b style=\"color:blue\">improved</b> in a
     </td>
 </tr>
 <tr><td colspan=\"2\"><b>Buildings.ThermalZones.EnergyPlus_24_2_0</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.ThermalZones.EnergyPlus_24_2_0.Validation.MultipleBuildings
+    </td>
+    <td valign=\"top\">Improved C source codes to allow the validation model being simulated with OpenModelica.<br/>
+                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3345\">Buildings, #3345</a>.<br/>
     </td>
 </tr>
 <tr><td valign=\"top\">Buildings.ThermalZones.EnergyPlus_24_2_0.OpaqueConstruction
