@@ -75,7 +75,7 @@ are not invertible.
 May 30, 2026, by Michael Wetter:<br/>
 First implementation.<br/>
 This is for
-<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4620\">#4620</a>.
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4620\">Buildings, #4620</a>.
 </li>
 </ul>
 </html>"));

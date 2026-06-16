@@ -27,14 +27,14 @@ function powerLawData
 
 algorithm
   // Coefficients used by powerLaw_dp
-  m := 1/n;
+  m := 1 / n;
   dp_turbulent := (m_flow_turbulent^n) / k;
   a1 := (k * (m - 3) * (m - 5) / 8) * (dp_turbulent^(m - 1));
   a3 := (k * (m - 1) * (5 - m) / 4) * (dp_turbulent^(m - 3));
   a5 := (k * (m - 1) * (m - 3) / 8) * (dp_turbulent^(m - 5));
 
   // Coefficients used by powerLaw_m_flow
-  C := 1.0 / (k^n);
+  C := 1 / (k^n);
   // These coefficients match the value, 1st derivative, and 2nd derivative
   // of the function f(x) = C * x^n at the point x = m_flow_turbulent
   b1 := (C * (n - 3) * (n - 5) / 8) * (m_flow_turbulent^(n - 1));
@@ -42,7 +42,6 @@ algorithm
   b5 := (C * (n - 1) * (n - 3) / 8) * (m_flow_turbulent^(n - 5));
 
 annotation (
-  Inline=true,
   Documentation(info="<html>
 <p>
 This function computes the coefficients that are used by the functions
@@ -63,10 +62,11 @@ while the coefficients <code>C</code>, <code>b1</code>, <code>b3</code> and
 Buildings.Fluid.BaseClasses.FlowModels.powerLaw_m_flow</a>.
 </p>
 <p>
-The coefficients only depend on the parameters <code>k</code>, <code>n</code>
-and <code>m_flow_turbulent</code>. Hence, they can be computed once as
-parameters and then be passed to the above functions,
-which avoids recomputing them at each function evaluation.
+The coefficients only depend on the <code>k</code>, <code>n</code>
+and <code>m_flow_turbulent</code> which often are parameters in a model.
+In this case, this function allows to compute the coefficients only once as
+parameters and then pass them to the above functions,
+which avoids recomputing them during the time step simulation.
 </p>
 </html>",
 revisions="<html>
@@ -75,7 +75,7 @@ revisions="<html>
 May 30, 2026, by Michael Wetter:<br/>
 First implementation.<br/>
 This is for
-<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4620\">#4620</a>.
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4620\">Buildings, #4620</a>.
 </li>
 </ul>
 </html>"),

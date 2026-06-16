@@ -279,7 +279,7 @@ May 30, 2026, by Michael Wetter:<br/>
 Updated implementation to allow a flow coefficient <code>n</code> that is different from <code>2</code>.
 This allows use of the model for not fully turbulent flow.<br/>
 This is for
-<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4620\">#4620</a>.
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4620\">Buildings, #4620</a>.
 </li>
 <li>
 March 31, 2026, by Michael Wetter:<br/>
