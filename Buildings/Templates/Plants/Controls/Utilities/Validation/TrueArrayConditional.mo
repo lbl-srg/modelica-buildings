@@ -30,16 +30,13 @@ model TrueArrayConditional
     annotation (Placement(transformation(extent={{-80,-90},{-60,-70}})));
 equation
   connect(uTru.y[1], truArrConSam.u) annotation (Line(points={{-58,80},{-20,80},
-          {-20,40},{-2,40}},
-                           color={255,127,0}));
+          {-20,40},{-2,40}}, color={255,127,0}));
   connect(uIdx1.y, truArrConSam.uIdx[1]) annotation (Line(points={{-58,40},{-40,
-          40},{-40,33.5},{-2,33.5}},
-                                 color={255,127,0}));
+          40},{-40,33.5},{-2,33.5}}, color={255,127,0}));
   connect(uTru.y[1], truArrConGre.u) annotation (Line(points={{-58,80},{-20,80},
           {-20,0},{-2,0}},     color={255,127,0}));
   connect(uIdx1.y, truArrConGre.uIdx[1]) annotation (Line(points={{-58,40},{-40,
-          40},{-40,-6.5},{-2,-6.5}},
-                                   color={255,127,0}));
+          40},{-40,-6.5},{-2,-6.5}}, color={255,127,0}));
   connect(uIdx2.y, truArrConSam.uIdx[2]) annotation (Line(points={{-58,0},{-50,
           0},{-50,32.5},{-2,32.5},{-2,34.5}},   color={255,127,0}));
   connect(uIdx2.y, truArrConGre.uIdx[2]) annotation (Line(points={{-58,0},{-50,

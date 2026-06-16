@@ -120,8 +120,9 @@ block SortRuntime
   Buildings.Controls.OBC.CDL.Reals.Add iniRunTimLif[nEquAlt]
     "Add runtime initial value"
     annotation (Placement(transformation(extent={{-50,70},{-30,90}})));
-  Buildings.Controls.OBC.CDL.Conversions.BooleanToReal zerAva[nEquAlt](each final
-            realTrue=0, each final realFalse=1)
+  Buildings.Controls.OBC.CDL.Conversions.BooleanToReal zerAva[nEquAlt](
+    each final realTrue=0,
+    each final realFalse=1)
     "Assign zero to available equipment"
     annotation (Placement(transformation(extent={{-50,-130},{-30,-110}})));
   Buildings.Controls.OBC.CDL.Reals.Multiply clrRunAva[nEquAlt]
@@ -149,13 +150,11 @@ equation
   connect(opp.y, addWei.u)
     annotation (Line(points={{2,-80},{8,-80}},color={0,0,127}));
   connect(addWeiUna.y, sor.u)
-    annotation (Line(points={{112,0},{118,0}},
-                                             color={0,0,127}));
+    annotation (Line(points={{112,0},{118,0}}, color={0,0,127}));
   connect(clrRunUna.y, addWeiUna.u1)
     annotation (Line(points={{72,0},{80,0},{80,6},{88,6}},color={0,0,127}));
   connect(fal.y, timRunLif.reset)
-    annotation (Line(points={{-158,100},{-120,100},{-120,72},{-92,72}},
-                                                                     color={255,0,255}));
+    annotation (Line(points={{-158,100},{-120,100},{-120,72},{-92,72}}, color={255,0,255}));
   connect(u1Run, u1RunEquAlt.u)
     annotation (Line(points={{-220,40},{-182,40}},color={255,0,255}));
   connect(u1RunEquAlt.y, off.u)

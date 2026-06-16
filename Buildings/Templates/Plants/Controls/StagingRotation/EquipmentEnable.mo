@@ -76,11 +76,13 @@ block EquipmentEnable
   Buildings.Controls.OBC.CDL.Reals.Multiply voiStaZer[nEqu]
     "Void if stage is equal to zero"
     annotation (Placement(transformation(extent={{-50,-10},{-30,10}})));
-  BaseClasses.SelectSortedAvailable selSorAva(final nEqu=nEqu, final nEquAlt=
-        nEquAlt)
+  BaseClasses.SelectSortedAvailable selSorAva(
+    final nEqu=nEqu,
+    final nEquAlt=nEquAlt)
     "Select lead/lag alternate units by priority order and availability"
     annotation (Placement(transformation(extent={{60,-10},{80,10}})));
-  BaseClasses.SelectEquipmentAtStage selEquSta(final nEqu=nEqu)
+  BaseClasses.SelectEquipmentAtStage selEquSta(
+    final nEqu=nEqu)
     "Select available units at stage"
     annotation (Placement(transformation(extent={{10,-10},{30,10}})));
 equation
@@ -111,7 +113,7 @@ equation
   connect(uIdxAltSor, selSorAva.uIdxSor) annotation (Line(points={{-220,80},{50,
           80},{50,6},{58,6}},color={255,127,0}));
   connect(voiStaZer.y, selEquSta.uEquSta) annotation (Line(points={{-28,0},{8,0}},
-                                    color={0,0,127}));
+          color={0,0,127}));
   connect(selEquSta.nAlt, selSorAva.n) annotation (Line(points={{32,4},{40,4},{
           40,0},{58,0}},  color={255,127,0}));
   connect(u1Ava, selEquSta.u1Ava) annotation (Line(points={{-220,-80},{0,-80},{
@@ -119,13 +121,11 @@ equation
   connect(selSorAva.y1, isReqAltAvaNee.u1)
     annotation (Line(points={{82,0},{108,0}},color={255,0,255}));
   connect(selEquSta.y1AltAndAva, isReqAltAvaNee.u2) annotation (Line(points={{32,-2},
-          {40,-2},{40,-16},{100,-16},{100,-8},{108,-8}},        color={255,0,
-          255}));
+          {40,-2},{40,-16},{100,-16},{100,-8},{108,-8}}, color={255,0,255}));
   connect(selEquSta.y1ReqAndAva, ena.u2) annotation (Line(points={{32,0},{36,0},
           {36,-20},{140,-20},{140,-8},{148,-8}},     color={255,0,255}));
   connect(u1Ava, selSorAva.u1Ava) annotation (Line(points={{-220,-80},{50,-80},
-          {50,-6},{58,-6}},
-                         color={255,0,255}));
+          {50,-6},{58,-6}}, color={255,0,255}));
   connect(ena.y, y1)
     annotation (Line(points={{172,0},{220,0}}, color={255,0,255}));
   annotation (
@@ -147,8 +147,7 @@ equation
     Diagram(
       coordinateSystem(
         extent={{-200,-100},{200,100}}, grid={2,2})),
-    Documentation(
-      info="<html>
+Documentation(info="<html>
 <p>
 This block generates the equipment enable commands based on the
 active stage index <code>uSta</code>, the equipment available

@@ -466,7 +466,7 @@ block AirToWater
   parameter Real dTHea(
     min=0,
     unit="K")=2.5
-    "Delta-T triggering stage up command for heating appplications (>0)"
+    "Delta-T triggering stage up command for heating applications (>0)"
     annotation (Dialog(tab="Advanced",group="Equipment staging and rotation",
     enable=have_heaWat));
   parameter Real dTCoo(
