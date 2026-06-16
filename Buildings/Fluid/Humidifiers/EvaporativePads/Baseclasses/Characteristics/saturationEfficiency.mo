@@ -6,7 +6,7 @@ function saturationEfficiency "Saturation efficiency vs. air velocity"
     per "Efficiency performance data";
   input Real v "Air velocity";
   input Real d[:] "Derivatives at support points for spline interpolation";
-  output Real eta(unit="1", final quantity="Efficiency") "Efficiency";
+  output Real eta(unit="1", final quantity="Efficiency") "Saturation efficiency";
 
 protected
   Integer n = size(per.v, 1) "Number of data points";
@@ -32,26 +32,24 @@ algorithm
                 y2d=d[i+1]);
   end if;
 
-  annotation(smoothOrder=1,
-              Documentation(info="<html>
+annotation(smoothOrder=1,
+  Documentation(info="<html>
 <p>
-This function computes the saturation efficiency through an evaporative pad for a given air velocity 
-in the form
+This function computes the saturation efficiency through an evaporative pad for a
+given air velocity in the form
 </p>
 <p align=\"center\" style=\"font-style:italic;\">
 &eta; = s(v, d)
 </p>
 <p>
-where
-<i>&eta;</i> is the saturation efficiency,
-<i>v</i> is the air velocity, and
+where <i>&eta;</i> is the saturation efficiency, <i>v</i> is the air velocity, and
 <i>d</i> are performance data for an evaporative pad with a specified pad depth.
 </p>
 <h4>Implementation</h4>
 <p>
-The function <i>s(&middot;, &middot;)</i> is a cubic hermite spline.
-If the data <i>d</i> define a monotone decreasing sequence, then
-<i>s(&middot;, d)</i> is a monotone decreasing function.
+The function <i>s(&middot;, &middot;)</i> is a cubic hermite spline. If the data
+<i>d</i> define a monotone decreasing sequence, then <i>s(&middot;, d)</i> is a
+monotone decreasing function.
 </p>
 </html>",
 revisions="<html>
