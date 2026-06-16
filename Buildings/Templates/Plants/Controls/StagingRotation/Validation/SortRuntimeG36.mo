@@ -1,18 +1,21 @@
 within Buildings.Templates.Plants.Controls.StagingRotation.Validation;
 model SortRuntimeG36 "Validation model for equipment runtime sorting logic"
   Buildings.Templates.Plants.Controls.StagingRotation.SortRuntime sorRunTim(
-      runTim_start={1000,950,900}*3600,
-                                   nin=3)
+    runTim_start={1000,950,900}*3600,
+    nin=3)
     "Sort runtime"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
-  Buildings.Controls.OBC.CDL.Logical.Sources.Constant u1AvaEqu[3](k=fill(true,
-        3)) "Equipment available signal"
+  Buildings.Controls.OBC.CDL.Logical.Sources.Constant u1AvaEqu[3](
+    k=fill(true,3))
+    "Equipment available signal"
     annotation (Placement(transformation(extent={{-90,-50},{-70,-30}})));
-  Buildings.Controls.OBC.CDL.Logical.Sources.TimeTable y1(table=[0,0,0,1; 51,0,
-        1,1; 102,0,1,0; 202,0,0,0],
+  Buildings.Controls.OBC.CDL.Logical.Sources.TimeTable y1(
+    table=[0,0,0,1; 51,0,1,1; 102,0,1,0; 202,0,0,0],
     timeScale=3600,
-    period=250*3600)                            "Equipment enable signal"
+    period=250*3600)
+    "Equipment enable signal"
     annotation (Placement(transformation(extent={{-90,-4},{-70,16}})));
+
 equation
   connect(u1AvaEqu.y, sorRunTim.u1Ava) annotation (Line(points={{-68,-40},{-20,
           -40},{-20,-6},{-12,-6}}, color={255,0,255}));
@@ -20,12 +23,9 @@ equation
           -12,6},{-12,6.66667}}, color={255,0,255}));
   annotation (
     __Dymola_Commands(
-      file=
-        "modelica://Buildings/Resources/Scripts/Dymola/Templates/Plants/Controls/StagingRotation/Validation/SortRuntimeG36.mos"
+      file="modelica://Buildings/Resources/Scripts/Dymola/Templates/Plants/Controls/StagingRotation/Validation/SortRuntimeG36.mos"
         "Simulate and plot"),
-    experiment(
-      StopTime=792000.0,
-      Tolerance=1e-06),
+    experiment(StopTime=792000.0, Tolerance=1e-06),
     Icon(
       graphics={
         Ellipse(
