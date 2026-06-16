@@ -52,13 +52,13 @@ block EventSequencingHeatPumps
     annotation(Placement(transformation(extent={{-260,100},{-220,140}}),
       iconTransformation(extent={{-140,100},{-100,140}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1PumHeaWatPri_actual
-    if have_heaWat and have_pumHeaWatPri
-    "Primary HW pump status (dedicated or lead headered pump)"
+    if have_heaWat
+    "Primary HW pump status – Lead headered (replicated) or dedicated pump"
     annotation(Placement(transformation(extent={{-260,-180},{-220,-140}}),
       iconTransformation(extent={{-140,-20},{-100,20}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1PumChiWatPri_actual
-    if have_chiWat and have_pumChiWatPri
-    "Primary CHW pump status – Dedicated or lead headered pump"
+    if have_chiWat
+    "Primary CHW pump status – Lead headered (replicated) or dedicated pump"
     annotation(Placement(transformation(extent={{-260,-200},{-220,-160}}),
       iconTransformation(extent={{-140,-40},{-100,0}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput y1ValHeaWatInlIso
@@ -82,13 +82,11 @@ block EventSequencingHeatPumps
     annotation(Placement(transformation(extent={{220,-120},{260,-80}}),
       iconTransformation(extent={{100,-60},{140,-20}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput y1PumHeaWatPri
-    if have_heaWat and have_pumHeaWatPri
-    "Primary HW pump start command – Dedicated or lead headered pump"
+    "Primary HW pump request to pump staging logic"
     annotation(Placement(transformation(extent={{220,-140},{260,-100}}),
       iconTransformation(extent={{100,-100},{140,-60}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput y1PumChiWatPri
-    if have_chiWat and have_pumChiWatPri
-    "Primary CHW pump start command – Dedicated or lead headered pump"
+    "Primary CHW pump request to pump staging logic"
     annotation(Placement(transformation(extent={{220,-160},{260,-120}}),
       iconTransformation(extent={{100,-120},{140,-80}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput y1 "Enable command"
@@ -284,6 +282,18 @@ block EventSequencingHeatPumps
     final u_internal=false)
     "Replace with placeholder value if input signal is not available"
     annotation (Placement(transformation(extent={{180,-110},{200,-90}})));
+  Utilities.PlaceholderLogical y1PumHeaWatPri_internal(
+    final have_inp=have_heaWat and have_pumHeaWatPri,
+    final have_inpPh=false,
+    final u_internal=false)
+    "Replace with placeholder value if input signal is not available"
+    annotation (Placement(transformation(extent={{152,-130},{172,-110}})));
+  Utilities.PlaceholderLogical y1PumChiWatPri_internal(
+    final have_inp=have_chiWat and have_pumChiWatPri,
+    final have_inpPh=false,
+    final u_internal=false)
+    "Replace with placeholder value if input signal is not available"
+    annotation (Placement(transformation(extent={{180,-150},{200,-130}})));
 equation
   connect(timValHea.passed, timValHea_internal.u)
     annotation(Line(points={{2,132},{8,132},{8,140},{18,140}},
@@ -320,12 +330,6 @@ equation
       color={255,0,255}));
   connect(rou.y[1], latPumHeaWatPri.u)
     annotation(Line(points={{-18,-100},{60,-100},{60,-120},{98,-120}},
-      color={255,0,255}));
-  connect(latPumHeaWatPri.y, y1PumHeaWatPri)
-    annotation(Line(points={{122,-120},{240,-120}},
-      color={255,0,255}));
-  connect(latPumChiWatPri.y, y1PumChiWatPri)
-    annotation(Line(points={{152,-140},{240,-140}},
       color={255,0,255}));
   connect(timValHea_internal.y, heaValPum.u[2])
     annotation(Line(points={{42,140},{58,140},{68,140}},
@@ -495,6 +499,14 @@ equation
           40},{-160,40},{-160,72},{-152,72}}, color={255,0,255}));
   connect(u1ShcHea_internal.y, u1HeaOrShcHea.u2) annotation (Line(points={{-188,
           40},{-160,40},{-160,112},{-152,112}}, color={255,0,255}));
+  connect(latPumHeaWatPri.y, y1PumHeaWatPri_internal.u)
+    annotation (Line(points={{122,-120},{150,-120}}, color={255,0,255}));
+  connect(y1PumHeaWatPri_internal.y, y1PumHeaWatPri)
+    annotation (Line(points={{174,-120},{240,-120}}, color={255,0,255}));
+  connect(latPumChiWatPri.y, y1PumChiWatPri_internal.u)
+    annotation (Line(points={{152,-140},{178,-140}}, color={255,0,255}));
+  connect(y1PumChiWatPri_internal.y, y1PumChiWatPri)
+    annotation (Line(points={{202,-140},{240,-140}}, color={255,0,255}));
 annotation(defaultComponentName="seqEve",
   Icon(coordinateSystem(preserveAspectRatio=true,
     extent={{-100,-140},{100,140}},
@@ -652,13 +664,13 @@ opposite operating modes must still be enforced by the enable sequence.
 <p>
 To facilitate integration into plant controllers serving both
 reversible and polyvalent heat pumps, the output connectors for 
-the isolation valve commands are instantiated regardless of whether the 
-isolation valves are present. 
-They are set to <code>false</code> when no isolation valves are present.
-Similarly, the input connector for the enable command for simultaneous
-heating and cooling mode is always instantiated. It must be 
-connected to a <code>false</code> valued signal when the parameter
-<code>is_php</code> is <code>false</code>.
+the isolation valve commands and the primary pump enable commands
+are always instantiated, and set to <code>false</code> when the 
+corresponding equipment is not present.
+Similarly, the input connectors for the simultaneous
+heating and cooling mode enable command or the primary pump status
+are always instantiated, and respectively gnored when <code>is_php</code> 
+is <code>false</code> or when the primary pumps are not present.
 </p>
 </html>",
     revisions="<html>

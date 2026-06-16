@@ -6,7 +6,7 @@ model AirToWaterPolyvalent
       typ=Buildings.Templates.Plants.Controls.Types.PlantHeatPump.ReversiblePolyvalent,
       have_valPhpInlIso=false,
       have_valPhpOutIso=false,
-      have_pumChiWatPriDedHp_select=true,
+      have_pumChiWatPriDedHp_select=false,
       nHp_select=2,
       nPhp_select=1,
       capHeaPhp_nominal=fill(300E3, ctl.nPhp),
@@ -25,9 +25,6 @@ model AirToWaterPolyvalent
   Buildings.Controls.OBC.CDL.Logical.Or y1HeaOrCooPhp[ctl.nPhp]
     "Polyvalent HP enabled in either mode"
     annotation(Placement(transformation(extent={{70,24},{90,44}})));
-  Buildings.Controls.OBC.CDL.Logical.TrueFalseHold y1HpHol[ctl.nHp](each
-      trueHoldDuration=5, each falseHoldDuration=0)
-    annotation (Placement(transformation(extent={{160,40},{180,60}})));
 equation
   connect(ctl.y1HeaPhp, y1HeaOrCooPhp.u1)
     annotation(Line(points={{42,34},{68,34}},
@@ -41,8 +38,6 @@ equation
   connect(y1Php_actual.y1_actual, ctl.u1Php_actual)
     annotation(Line(points={{68,104},{-16,104},{-16,40},{-2,40},{-2,40.2}},
       color={255,0,255}));
-  connect(ctl.y1Hp, y1HpHol.u) annotation (Line(points={{42,48},{60,48},{60,50},
-          {158,50}}, color={255,0,255}));
   annotation(
         __Dymola_Commands(
       file=

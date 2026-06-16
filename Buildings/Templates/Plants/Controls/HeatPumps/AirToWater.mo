@@ -1464,7 +1464,7 @@ block AirToWater
     annotation(Placement(transformation(extent={{190,170},{210,190}})));
   Pumps.Generic.StagingHeadered staPumChiWatSec(
     final is_pri=false,
-    final nEqu=nHp,
+    final nEqu=nHp + nPhp,
     final nPum=nPumChiWatSec,
     final is_hdr=have_pumSecHdr,
     final is_ctlDp=have_pumSecCtlDp,
@@ -1483,7 +1483,7 @@ block AirToWater
     annotation(Placement(transformation(extent={{190,130},{210,150}})));
   Pumps.Generic.StagingHeadered staPumHeaWatSec(
     final is_pri=false,
-    final nEqu=nHp,
+    final nEqu=nHp + nPhp,
     final nPum=nPumHeaWatSec,
     final is_hdr=have_pumSecHdr,
     final is_ctlDp=have_pumSecCtlDp,
@@ -1809,7 +1809,7 @@ equation
     annotation(Line(
       points={{212,186},{220,186},{220,262},{122,262},{122,296},{138,296}},
       color={255,0,255}));
-  connect(seqEve.y1PumChiWatPri, staPumChiWatPri.u1Pum)
+  connect(seqEve.y1PumChiWatPri, staPumChiWatPri.u1PumPri)
     annotation(Line(points={{162,288},{178,288},{178,182},{188,182}},
       color={255,0,255}));
   connect(u1PumChiWatPri_actual, staPumChiWatPri.u1Pum_actual)
@@ -1837,7 +1837,7 @@ equation
   connect(staPumHeaWatPri.y1, y1PumHeaWatPri)
     annotation(Line(points={{162,200},{216,200},{216,200},{280,200}},
       color={255,0,255}));
-  connect(seqEve.y1PumHeaWatPri, staPumHeaWatPri.u1Pum)
+  connect(seqEve.y1PumHeaWatPri, staPumHeaWatPri.u1PumPri)
     annotation(Line(points={{162,290},{162,220},{130,220},{130,202},{138,202}},
       color={255,0,255}));
   connect(VHeaWatSec_flow, staPumHeaWatSec.V_flow)
