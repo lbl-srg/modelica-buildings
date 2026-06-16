@@ -33,6 +33,7 @@ laminar flow, although the implementation does not use a linear function.
 <h4>Implementation</h4>
 <p>
 The four main functions are
+</p>
 <ul>
 <li>
 <a href=\"modelica://Buildings.Fluid.BaseClasses.FlowModels.basicFlowFunction_dp\">
@@ -51,6 +52,7 @@ Buildings.Fluid.BaseClasses.FlowModels.powerLaw_dp</a>, and
 Buildings.Fluid.BaseClasses.FlowModels.powerLaw_m_flow</a>.
 </li>
 </ul>
+<p>
 These functions compute the mass flow rate or the pressure drop, respectively.
 The first two functions assume that the flow resistance is quadratic in the mass flow rate,
 and the other two functions allow for a flow exponent between <i>1</i> and <i>2</i>.
