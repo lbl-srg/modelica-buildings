@@ -80,9 +80,7 @@ annotation (
 experiment(
       StartTime=-2,
       StopTime=2,
-      __Dymola_NumberOfIntervals=50000,
-      Tolerance=1e-08,
-      __Dymola_Algorithm="Cvode"),
+      Tolerance=1e-08),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/BaseClasses/FlowModels/Validation/PowerLaw_dp_DerivativeCheck2.mos"
         "Simulate and plot"),
 Documentation(info="<html>
