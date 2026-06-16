@@ -24,6 +24,7 @@ model AirToWater
   Buildings.Templates.Plants.Controls.HeatPumps.AirToWater ctl(
     final is_priOnl=cfg.typDis==Buildings.Templates.Plants.HeatPumps.Types.Distribution.Variable1Only,
     final have_hrc_select=cfg.have_hrc,
+    TOut_nominal=dat.TOut_nominal,
     final TChiWatSupSet_max=dat.TChiWatSupSet_max,
     final TChiWatSup_nominal=dat.TChiWatSup_nominal,
     final THeaWatSupSet_min=dat.THeaWatSupSet_min,
@@ -305,19 +306,18 @@ equation
           -160},{136,-160},{136,108},{112,108}}, color={255,127,0}));
   connect(phReqResChiWatEquZon.y, reqResChiWat.u2) annotation (Line(points={{148,
           -200},{134,-200},{134,68},{112,68}}, color={255,127,0}));
-  connect(reqPlaHeaWat.y, ctl.nReqPlaHeaWat) annotation (Line(points={{88,194},
-          {-40,194},{-40,18},{-22,18}},color={255,127,0}));
-  connect(reqPlaChiWat.y, ctl.nReqPlaChiWat) annotation (Line(points={{88,154},
-          {-38,154},{-38,16},{-22,16}},color={255,127,0}));
-  connect(reqResHeaWat.y,ctl.nReqResHeaWat)  annotation (Line(points={{88,114},
-          {-36,114},{-36,14},{-22,14}},color={255,127,0}));
-  connect(reqResChiWat.y,ctl.nReqResChiWat)  annotation (Line(points={{88,74},{
-          -34,74},{-34,12},{-22,12}},
-                                  color={255,127,0}));
-  connect(resDpHeaWatLoc.dpLocSet, ctl.dpHeaWatLocSet) annotation (Line(points={
-          {-48.2,0},{-40,0},{-40,-22},{-22,-22}}, color={0,0,127}));
-  connect(resDpChiWatLoc.dpLocSet, ctl.dpChiWatLocSet) annotation (Line(points={
-          {-48.2,-40},{-40,-40},{-40,-28},{-22,-28}}, color={0,0,127}));
+  connect(reqPlaHeaWat.y, ctl.nReqPlaHeaWat) annotation (Line(points={{88,194},{
+          -40,194},{-40,18},{-22,18}}, color={255,127,0}));
+  connect(reqPlaChiWat.y, ctl.nReqPlaChiWat) annotation (Line(points={{88,154},{
+          -38,154},{-38,16},{-22,16}}, color={255,127,0}));
+  connect(reqResHeaWat.y,ctl.nReqResHeaWat)  annotation (Line(points={{88,114},{
+          -36,114},{-36,14},{-22,14}}, color={255,127,0}));
+  connect(reqResChiWat.y,ctl.nReqResChiWat)  annotation (Line(points={{88,74},{-34,
+          74},{-34,12},{-22,12}}, color={255,127,0}));
+  connect(resDpHeaWatLoc.dpLocSet, ctl.dpHeaWatLocSet) annotation (Line(points={{-48.2,0},
+          {-40,0},{-40,-22},{-22,-22}},           color={0,0,127}));
+  connect(resDpChiWatLoc.dpLocSet, ctl.dpChiWatLocSet) annotation (Line(points={{-48.2,
+          -40},{-40,-40},{-40,-28},{-22,-28}},        color={0,0,127}));
   connect(ctl.dpChiWatRemSet, resDpChiWatLoc.dpRemSet) annotation (Line(points={{22,-8},
           {40,-8},{40,-60},{-80,-60},{-80,-34},{-72,-34}},           color={0,0,
           127}));

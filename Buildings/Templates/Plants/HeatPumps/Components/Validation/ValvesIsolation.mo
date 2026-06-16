@@ -13,6 +13,7 @@ model ValvesIsolation
     Dialog(tab="Dynamics",group="Conservation equations"));
   parameter Data.Controller datCtl(
     cfg(
+      nHpShc=0,
       have_pumHeaWatPriVar=true,
       have_pumChiWatPriVar=false,
       have_inpSch=false,
@@ -53,6 +54,7 @@ model ValvesIsolation
       nSenDpChiWatRem=0,
       nAirHan=0,
       nEquZon=0),
+    TOut_nominal=278.15,
     THeaWatSup_nominal=Buildings.Templates.Data.Defaults.THeaWatSupMed,
     TChiWatSup_nominal=Buildings.Templates.Data.Defaults.TChiWatSup,
     dpChiWatRemSet_max=fill(Buildings.Templates.Data.Defaults.dpChiWatRemSet_max,
@@ -63,6 +65,7 @@ model ValvesIsolation
     annotation (Placement(transformation(extent={{-80,370},{-60,390}})));
   parameter Data.Controller datCtlHeaInl(
     cfg(
+      nHpShc=0,
       have_pumHeaWatPriVar=true,
       have_pumChiWatPriVar=false,
       have_inpSch=false,
@@ -103,6 +106,7 @@ model ValvesIsolation
       nSenDpChiWatRem=0,
       nAirHan=0,
       nEquZon=0),
+    TOut_nominal=278.15,
     THeaWatSup_nominal=Buildings.Templates.Data.Defaults.THeaWatSupMed,
     TChiWatSup_nominal=Buildings.Templates.Data.Defaults.TChiWatSup,
         dpChiWatRemSet_max=fill(Buildings.Templates.Data.Defaults.dpChiWatRemSet_max, datCtlHeaInl.cfg.nSenDpChiWatRem),
@@ -112,6 +116,7 @@ model ValvesIsolation
     annotation (Placement(transformation(extent={{-80,110},{-60,130}})));
   parameter Data.Controller datCtlSep(
     cfg(
+      nHpShc=0,
       have_pumHeaWatPriVar=true,
       have_pumChiWatPriVar=false,
       have_inpSch=false,
@@ -152,6 +157,7 @@ model ValvesIsolation
       nSenDpChiWatRem=0,
       nAirHan=0,
       nEquZon=0),
+    TOut_nominal=278.15,
     THeaWatSup_nominal=Buildings.Templates.Data.Defaults.THeaWatSupMed,
     TChiWatSup_nominal=Buildings.Templates.Data.Defaults.TChiWatSup,
     dpChiWatRemSet_max=fill(Buildings.Templates.Data.Defaults.dpChiWatRemSet_max, datCtlSep.cfg.nSenDpChiWatRem),

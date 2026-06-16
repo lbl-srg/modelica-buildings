@@ -75,6 +75,7 @@ partial model PartialHeatPumpPlant
     final have_valHpOutIso=have_valHpOutIso,
     final is_rev=is_rev,
     final nHp=nHp,
+    final nHpShc=nHpShc,
     final nPumChiWatPri=nPumChiWatPri,
     final nPumChiWatSec=nPumChiWatSec,
     final nPumHeaWatPri=nPumHeaWatPri,
@@ -109,7 +110,13 @@ partial model PartialHeatPumpPlant
   parameter Integer nHp(
     final min=1,
     start=1)
-    "Total number of heat pumps"
+    "Number of non-polyvalent heat pumps"
+    annotation (Evaluate=true,
+    Dialog(group="Heat pumps"));
+  parameter Integer nHpShc(
+    final min=0,
+    start=0)
+    "Number of polyvalent heat pumps"
     annotation (Evaluate=true,
     Dialog(group="Heat pumps"));
   parameter Boolean is_rev
@@ -351,7 +358,7 @@ partial model PartialHeatPumpPlant
     "HW mass flow rate (total, distributed to consumers)"
     annotation (Evaluate=true);
   final parameter Modelica.Units.SI.HeatFlowRate capHea_nominal=if have_heaWat
-    then abs(dat.hp.capHeaHp_nominal) * nHp else 0
+    then abs(dat.hp.capHeaHp_nominal) * cfg.nHpTot else 0
     "Heating capacity - All units";
   final parameter Modelica.Units.SI.HeatFlowRate QHea_flow_nominal=capHea_nominal
     "Heating heat flow rate - All units";
@@ -371,7 +378,7 @@ partial model PartialHeatPumpPlant
     "CHW mass flow rate - Total, distributed to consumers"
     annotation (Evaluate=true);
   final parameter Modelica.Units.SI.HeatFlowRate capCoo_nominal=if have_chiWat
-    then abs(dat.hp.capCooHp_nominal) * nHp else 0
+    then abs(dat.hp.capCooHp_nominal) * cfg.nHpTot else 0
     "Cooling capacity - All units";
   final parameter Modelica.Units.SI.HeatFlowRate QCoo_flow_nominal=-capCoo_nominal
     "Cooling heat flow rate - All units";

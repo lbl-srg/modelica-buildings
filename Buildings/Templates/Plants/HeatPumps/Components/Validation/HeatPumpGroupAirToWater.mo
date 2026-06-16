@@ -11,8 +11,9 @@ model HeatPumpGroupAirToWater
     Dialog(tab="Dynamics",group="Conservation equations"));
   parameter Data.Controller datCtlPlaAwNrv(
     cfg(
-      have_hrc = false,
-      have_inpSch = false,
+      have_hrc=false,
+      nHpShc=0,
+      have_inpSch=false,
       have_chiWat=false,
       typPumHeaWatPri=Buildings.Templates.Plants.HeatPumps.Types.PumpsPrimary.Variable,
       typPumChiWatPri=Buildings.Templates.Plants.HeatPumps.Types.PumpsPrimary.None,
@@ -51,6 +52,7 @@ model HeatPumpGroupAirToWater
       nSenDpChiWatRem=1,
       nAirHan=0,
       nEquZon=0),
+    TOut_nominal=278.15,
     THeaWatSup_nominal=datHpAwNrv.THeaWatSupHp_nominal,
     dpChiWatRemSet_max=fill(Buildings.Templates.Data.Defaults.dpChiWatRemSet_max, datCtlPlaAwNrv.cfg.nSenDpChiWatRem),
     dpHeaWatRemSet_max=fill(Buildings.Templates.Data.Defaults.dpHeaWatRemSet_max, datCtlPlaAwNrv.cfg.nSenDpHeaWatRem),
@@ -59,8 +61,9 @@ model HeatPumpGroupAirToWater
     annotation (Placement(transformation(extent={{-260,60},{-240,80}})));
   parameter Data.Controller datCtlPlaAw(
     cfg(
-      have_hrc = false,
-      have_inpSch = false,
+      have_hrc=false,
+      nHpShc=0,
+      have_inpSch=false,
       have_chiWat=true,
       typPumHeaWatPri=Buildings.Templates.Plants.HeatPumps.Types.PumpsPrimary.Variable,
       typPumChiWatPri=Buildings.Templates.Plants.HeatPumps.Types.PumpsPrimary.Variable,
@@ -99,6 +102,7 @@ model HeatPumpGroupAirToWater
       nSenDpChiWatRem=1,
       nAirHan=0,
       nEquZon=0),
+    TOut_nominal=278.15,
     THeaWatSup_nominal=datHpAw.THeaWatSupHp_nominal,
     TChiWatSup_nominal=datHpAw.TChiWatSupHp_nominal,
     dpChiWatRemSet_max=fill(Buildings.Templates.Data.Defaults.dpChiWatRemSet_max, datCtlPlaAw.cfg.nSenDpChiWatRem),

@@ -1,0 +1,6 @@
+compareVars :=
+  {
+    "curCapRed.TOut",
+    "curCapRed.THeaWatSup",
+    "curCapRed.y"
+  };

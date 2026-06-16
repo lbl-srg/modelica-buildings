@@ -68,6 +68,7 @@ class AllSystems
         use_TConOutForTab=true),
       P_min=50),
     ctl(
+      TOut_nominal=273.15+10,
       THeaWatSupSet_min=298.15,
       VHeaWatSec_flow_nominal=pla.cfg.nHp*pla.ctl.VHeaWatHp_flow_nominal/1.1,
       TChiWatSupSet_max=288.15,
@@ -92,7 +93,6 @@ class AllSystems
           Buildings.Templates.Plants.HeatPumps.Types.PumpsPrimary.None then pla.hp.mHeaWatHp_flow_nominal
           /max(pla.hp.mHeaWatHp_flow_nominal, pla.hp.mChiWatHp_flow_nominal)
            else 1,
-      staEqu={fill(i/pla.cfg.nHp, pla.cfg.nHp) for i in 1:pla.cfg.nHp},
       TChiWatSupHrc_min=Buildings.Templates.Data.Defaults.TChiWatSup_min,
       THeaWatSupHrc_max=pla.ctl.THeaWatSup_nominal + 5,
       COPHeaHrc_nominal=4.6,

@@ -7,6 +7,13 @@ record Controller
   // HW loop
   // RFE: Declare array parameters for unequally sized units.
   // The current implementation only supports equally sized units.
+  parameter Modelica.Units.SI.Temperature TOut_nominal(
+    displayUnit="degC",
+    start=Buildings.Templates.Data.Defaults.THeaWatSupMed,
+    final min=273.15)
+    "Nominal outdoor air temperature"
+    annotation (Dialog(group="Information provided by designer",
+      enable=cfg.have_heaWat));
   parameter Modelica.Units.SI.Temperature THeaWatSup_nominal(
     displayUnit="degC",
     start=Buildings.Templates.Data.Defaults.THeaWatSupMed,
@@ -286,11 +293,45 @@ record Controller
   // Furthermore, a start value cannot be provided as the number of plant stages is not known beforehand.
   // If provided, there will likely be a mismatch between assigned value and start value.
   // Therefore, no enable annotation can be used.
+
+  parameter Real staHp[:, :](
+    each final max=1,
+    each final min=0,
+    each final unit="1")={fill(i/cfg.nHp,cfg.nHp) for i in 1:cfg.nHp}
+    "Staging matrix for heat pumps with single-mode operation – Equipment required for each stage"
+    annotation (Dialog(group="Equipment staging and rotation"));
+
+  final parameter Integer staHpRow = size(staHp,1)
+    "Number of rows in the single-mode heat pump staging matrix";
+
+  parameter Real staHpShc[:, :](
+    each final max=1,
+    each final min=0,
+    each final unit="1")={fill(i/cfg.nHpShc,cfg.nHpShc) for i in 1:cfg.nHpShc}
+    "Staging matrix for heat pumps with simultaneous heating-cooling – Equipment required for each stage"
+    annotation (Dialog(group="Equipment staging and rotation"));
+
+  final parameter Integer staHpShcRow = size(staHpShc,1)
+    "Number of rows in the simultaneous heating-cooling heat pump staging matrix";
+
   parameter Real staEqu[:, :](
     each final max=1,
     each final min=0,
-    each final unit="1")
-    "Staging matrix – Equipment required for each stage"
+    each final unit="1")=if cfg.have_HpShc then staEquSinMod else staHp
+    "Staging matrix – Equipment required for each stage;
+    Manually assign this to be equal to StaEquSinMod in a hybrid plant"
+    annotation (Dialog(group="Equipment staging and rotation"));
+  parameter Real staEquDouMod[:, :](
+    each final max=1,
+    each final min=0,
+    each final unit="1")=if cfg.have_HpShc then cat(1,cat(2,fill(0,staHpShcRow,cfg.nHp),staHpShc),cat(2,staHp,fill(staHpShc[staHpShcRow], staHpRow))) else staHp
+    "Staging matrix when both heating and cooling are enabled – Equipment required for each stage"
+    annotation (Dialog(group="Equipment staging and rotation"));
+  parameter Real staEquSinMod[:, :](
+    each final max=1,
+    each final min=0,
+    each final unit="1")=if cfg.have_HpShc then cat(1,cat(2,staHp,fill(0,staHpRow,cfg.nHpShc)),cat(2,fill(staHp[staHpRow], staHpShcRow),staHpShc)) else staHp
+    "Staging matrix for heating-only and cooling-only mode– Equipment required for each stage"
     annotation (Dialog(group="Equipment staging and rotation"));
   parameter Real plrSta(
     final max=1,

@@ -1,5 +1,6 @@
 within Buildings.Templates.Plants.Controls.StagingRotation.Validation;
-model StageChangeCommand "Validation model for stage change logic"
+model StageChangeCommand
+  "Validation model for stage change logic"
   parameter Real cp_default(
     final unit="J/(kg.K)")=4184
     "Default specific heat capacity"
@@ -29,7 +30,7 @@ model StageChangeCommand "Validation model for stage change logic"
     cp_default / rho_default
     "Design primary HW volume flow rate"
     annotation (Dialog(group="Nominal condition"));
-  final parameter Integer nSta=size(chaSta.staEqu, 1)
+  final parameter Integer nSta=5
     "Number of stages"
     annotation (Evaluate=true);
   Buildings.Controls.OBC.CDL.Reals.Sources.TimeTable ratV_flow(
@@ -46,9 +47,12 @@ model StageChangeCommand "Validation model for stage change logic"
     annotation (Placement(transformation(extent={{-130,-50},{-110,-30}})));
   Buildings.Templates.Plants.Controls.StagingRotation.StageChangeCommand chaSta(
     typ=Buildings.Templates.Plants.Controls.Types.Application.Heating,
+    is_heaApp=false,
     have_pumSec=false,
     plrSta=0.9,
     staEqu=[1,0,0; 0,1/2,1/2; 1,1/2,1/2; 0,1,1; 1,1,1],
+    nSta=5,
+    nEqu=3,
     capEqu=1E3*{100,450,450},
     cp_default=cp_default,
     rho_default=rho_default,
@@ -87,7 +91,7 @@ model StageChangeCommand "Validation model for stage change logic"
     "Scale by design flow"
     annotation (Placement(transformation(extent={{-100,-50},{-80,-30}})));
   Buildings.Templates.Plants.Controls.StagingRotation.EquipmentEnable enaEqu(
-    final staEqu=chaSta.staEqu)
+    staEqu=[1,0,0; 0,1/2,1/2; 1,1/2,1/2; 0,1,1; 1,1,1])
     "Enable equipment"
     annotation (Placement(transformation(extent={{60,-10},{80,10}})));
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant idxEquLeaLag[2](
@@ -120,7 +124,7 @@ equation
   connect(u1AvaSta.y, idxSta.u1AvaSta)
     annotation (Line(points={{-108,-80},{-10,-80},{-10,-6},{-2,-6}},color={255,0,255}));
   connect(idxSta.y, chaSta.uSta)
-    annotation (Line(points={{22,0},{40,0},{40,20},{-56,20},{-56,10},{-52,10}},
+    annotation (Line(points={{22,0},{40,0},{40,20},{-56,20},{-56,8},{-52,8}},
       color={255,127,0}));
   connect(chaSta.y1Up, y1UpHol.u)
     annotation (Line(points={{-28,4},{-20,4},{-20,40},{-2,40}},color={255,0,255}));
@@ -133,23 +137,24 @@ equation
   connect(V_flow.y, chaSta.V_flow)
     annotation (Line(points={{-78,-40},{-56,-40},{-56,-8},{-52,-8}},color={0,0,127}));
   connect(idxSta.y, enaEqu.uSta)
-    annotation (Line(points={{22,0},{58,0}},color={255,127,0}));
-  connect(idxEquLeaLag.y, enaEqu.uIdxAltSor)
-    annotation (Line(points={{-78,100},{54,100},{54,6},{58,6}},color={255,127,0}));
+    annotation (Line(points={{22,0},{40,0},{40,2},{58,2}},
+                                            color={255,127,0}));
   connect(u1AvaEqu.y, enaEqu.u1Ava)
-    annotation (Line(points={{-78,-100},{54,-100},{54,-6},{58,-6}},color={255,0,255}));
+    annotation (Line(points={{-78,-100},{54,-100},{54,-2},{58,-2}},color={255,0,255}));
   connect(enaEqu.y1, staEqu.y1)
     annotation (Line(points={{82,0},{98,0}},color={255,0,255}));
   connect(comSta.y1, chaSta.u1StaPro)
-    annotation (Line(points={{-52,54},{-58,54},{-58,4},{-52,4}},color={255,0,255}));
+    annotation (Line(points={{-52,54},{-58,54},{-58,2},{-52,2}},color={255,0,255}));
   connect(enaEqu.y1, comSta.u1)
-    annotation (Line(points={{82,0},{90,0},{90,60},{-28,60},{-28,60}},color={255,0,255}));
+    annotation (Line(points={{82,0},{90,0},{90,60},{-28,60}},         color={255,0,255}));
   connect(staEqu.y1_actual, comSta.u1_actual)
     annotation (Line(points={{122,0},{130,0},{130,56},{-28,56}},color={255,0,255}));
   connect(idxSta.y, comSta.uSta)
     annotation (Line(points={{22,0},{40,0},{40,64},{-28,64}},color={255,127,0}));
   connect(TSupSet.y, chaSta.TPriSup) annotation (Line(points={{-108,40},{-100,
           40},{-100,-2},{-52,-2}}, color={0,0,127}));
+  connect(idxEquLeaLag.y, enaEqu.uIdxAltSor) annotation (Line(points={{-78,100},
+          {42,100},{42,6},{58,6}}, color={255,127,0}));
   annotation (
     __Dymola_Commands(
       file=

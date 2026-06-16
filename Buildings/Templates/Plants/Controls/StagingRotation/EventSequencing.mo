@@ -6,11 +6,14 @@ block EventSequencing "Staging event sequencing"
   parameter Boolean have_chiWat
     "Set to true for plants that provide CHW"
     annotation (Evaluate=true);
+  parameter Boolean have_HpShc=false
+    "Set to true if the heat pump plant has polyvalent units"
+    annotation (Evaluate=true);
   parameter Boolean have_valInlIso
-    "Set to true if the system as inlet isolation valves"
+    "Set to true if the system has inlet isolation valves"
     annotation (Evaluate=true);
   parameter Boolean have_valOutIso
-    "Set to true if the system as outlet isolation valves"
+    "Set to true if the system has outlet isolation valves"
     annotation (Evaluate=true);
   parameter Boolean have_pumHeaWatPri(start=false)
     "Set to true for plants with primary HW pumps"
@@ -39,6 +42,7 @@ block EventSequencing "Staging event sequencing"
     min=0,
     unit="s") = 180
     "Heat pump internal shutdown cycle timing";
+
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1Hea
     if have_heaWat
     "Enable command from heating mode sequence"
@@ -50,7 +54,7 @@ block EventSequencing "Staging event sequencing"
     annotation (Placement(transformation(extent={{-200,-30},{-160,10}}),
       iconTransformation(extent={{-140,-20},{-100,20}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1PumChiWatPri_actual
-    if have_chiWat and have_pumChiWatPri
+    if have_chiWat and (have_pumChiWatPri or have_HpShc)
     "Primary CHW pump status – Dedicated or lead headered pump"
     annotation (Placement(transformation(extent={{-200,-70},{-160,-30}}),
       iconTransformation(extent={{-140,-40},{-100,0}})));
@@ -90,7 +94,7 @@ block EventSequencing "Staging event sequencing"
     annotation (Placement(transformation(extent={{160,-80},{200,-40}}),
       iconTransformation(extent={{100,-100},{140,-60}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput y1PumChiWatPri
-    if have_chiWat and have_pumChiWatPri
+    if have_chiWat and (have_pumChiWatPri or have_HpShc)
     "Primary CHW pump start command – Dedicated or lead headered pump"
     annotation (Placement(transformation(extent={{160,-120},{200,-80}}),
       iconTransformation(extent={{100,-120},{140,-80}})));
@@ -137,7 +141,7 @@ block EventSequencing "Staging event sequencing"
     "Replace with placeholder value if input signal is not available"
     annotation (Placement(transformation(extent={{-150,-100},{-130,-80}})));
   Utilities.PlaceholderLogical u1PumChiWatPri_internal(
-    final have_inp=have_chiWat and have_pumChiWatPri,
+    final have_inp=have_chiWat and (have_pumChiWatPri or have_HpShc),
     final have_inpPh=false,
     final u_internal=true)
     "Replace with placeholder value if input signal is not available"
@@ -185,21 +189,19 @@ block EventSequencing "Staging event sequencing"
     "Return true if enabled in cooling mode"
     annotation (Placement(transformation(extent={{130,60},{150,80}})));
   Buildings.Controls.OBC.CDL.Routing.BooleanScalarReplicator rou(
-    final nout=1)
-    if have_pumChiWatPri
+    final nout=1) if have_pumChiWatPri or have_HpShc
     "Signal routing for plants with dedicated primary CHW pumps"
-    annotation (Placement(transformation(extent={{60,-76},{80,-56}})));
+    annotation (Placement(transformation(extent={{60,-80},{80,-60}})));
   Buildings.Controls.OBC.CDL.Routing.BooleanScalarReplicator rou1(
-    final nout=1)
-    if not have_pumChiWatPri
+    final nout=1) if not have_pumChiWatPri and not have_HpShc
     "Signal routing for plants without dedicated primary CHW pumps"
     annotation (Placement(transformation(extent={{60,-50},{80,-30}})));
-  Buildings.Controls.OBC.CDL.Logical.Nor off
-    "Return true if disabled from heating and cooling mode sequence"
-    annotation (Placement(transformation(extent={{-52,10},{-32,30}})));
-  Buildings.Controls.OBC.CDL.Logical.Timer timHp(final t=dtOff)
-    "Return true when heat pump internal shutdown cycle times out"
-    annotation (Placement(transformation(extent={{-10,10},{10,30}})));
+  Buildings.Controls.OBC.CDL.Logical.Or on
+    "Return true if either heating or cooling mode is enabled"
+    annotation (Placement(transformation(extent={{-100,-66},{-80,-46}})));
+  Buildings.Controls.OBC.CDL.Logical.Timer timHpHea(final t=dtOff)
+    "Return true when heat pump internal shutdown cycle times out in heating mode"
+    annotation (Placement(transformation(extent={{0,10},{20,30}})));
   Buildings.Controls.OBC.CDL.Logical.Latch latValHeaWatIso
     if have_heaWat
     "Keep valve open until heat pump internal shutdown cycle times out"
@@ -213,9 +215,28 @@ block EventSequencing "Staging event sequencing"
     "Keep pump running until heat pump internal shutdown cycle times out"
     annotation (Placement(transformation(extent={{110,-70},{130,-50}})));
   Buildings.Controls.OBC.CDL.Logical.Latch latPumChiWatPri
-    if have_chiWat and have_pumChiWatPri
+    if have_chiWat and (have_pumChiWatPri or have_HpShc)
     "Keep pump running until heat pump internal shutdown cycle times out"
     annotation (Placement(transformation(extent={{110,-110},{130,-90}})));
+  Buildings.Controls.OBC.CDL.Logical.Timer timHpCoo(
+    final t=dtOff)
+    "Return true when heat pump internal shutdown cycle times out in cooling mode"
+    annotation (Placement(transformation(extent={{0,-40},{20,-20}})));
+  Buildings.Controls.OBC.CDL.Logical.Latch latHeaDis
+    "Latch to track heating mode disable"
+    annotation (Placement(transformation(extent={{-30,10},{-10,30}})));
+  Buildings.Controls.OBC.CDL.Logical.Latch latCooDis
+    "Latch to track cooling mode disable"
+    annotation (Placement(transformation(extent={{-30,-40},{-10,-20}})));
+  Buildings.Controls.OBC.CDL.Logical.Edge edgEna
+    "Generate pulse to signal heating or cooling mode enable"
+    annotation (Placement(transformation(extent={{-70,-66},{-50,-46}})));
+  Buildings.Controls.OBC.CDL.Logical.FallingEdge falEdgHea
+    "Detect heating mode disable"
+    annotation (Placement(transformation(extent={{-90,10},{-70,30}})));
+  Buildings.Controls.OBC.CDL.Logical.FallingEdge falEdgCoo
+    "Detect cooling mode disable"
+    annotation (Placement(transformation(extent={{-90,-40},{-70,-20}})));
 equation
   connect(heaValPum.y, ena.u1)
     annotation (Line(points={{82,120},{84,120},{84,100},{88,100}},color={255,0,255}));
@@ -242,7 +263,8 @@ equation
   connect(timVal_internal.y, cooValPum.u[1])
     annotation (Line(points={{12,100},{48,100},{48,77.375},{58,77.375}},color={255,0,255}));
   connect(u1PumChiWatPri_internal.y, cooValPum.u[2])
-    annotation (Line(points={{-128,-50},{48,-50},{48,79.125},{58,79.125}},color={255,0,255}));
+    annotation (Line(points={{-128,-50},{-124,-50},{-124,-68},{48,-68},{48,79.125},
+          {58,79.125}},                                                   color={255,0,255}));
   connect(u1PumChiWatSec_internal.y, cooValPum.u[3])
     annotation (Line(points={{-128,-130},{52,-130},{52,80.875},{58,80.875}},
       color={255,0,255}));
@@ -250,10 +272,6 @@ equation
     annotation (Line(points={{112,100},{124,100},{124,140},{180,140}},color={255,0,255}));
   connect(u1Hea, u1Hea_internal.u)
     annotation (Line(points={{-180,140},{-152,140}},color={255,0,255}));
-  connect(u1Coo_internal.y, u1HeaOrCoo.u2)
-    annotation (Line(points={{-128,80},{-100,80},{-100,112},{-92,112}},color={255,0,255}));
-  connect(u1Hea_internal.y, u1HeaOrCoo.u1)
-    annotation (Line(points={{-128,140},{-120,140},{-120,120},{-92,120}},color={255,0,255}));
   connect(u1HeaOrCoo.y, timVal.u)
     annotation (Line(points={{-68,120},{-60,120},{-60,100},{-52,100}},color={255,0,255}));
   connect(u1HeaOrCoo.y, timVal_internal.uPh) annotation (Line(points={{-68,120},
@@ -273,30 +291,24 @@ equation
   connect(ena.y, enaAndCoo.u1)
     annotation (Line(points={{112,100},{124,100},{124,70},{128,70}},color={255,0,255}));
   connect(u1Coo_internal.y, enaAndCoo.u2)
-    annotation (Line(points={{-128,80},{-100,80},{-100,48},{60,48},{60,62},{128,62}},
+    annotation (Line(points={{-128,80},{-110,80},{-110,62},{128,62}},
       color={255,0,255}));
   connect(enaAndCoo.y, y1AndCoo)
     annotation (Line(points={{152,70},{156,70},{156,80},{180,80}},color={255,0,255}));
   connect(u1Hea_internal.y, rou.u)
-    annotation (Line(points={{-128,140},{-120,140},{-120,-66},{58,-66}},color={255,0,255}));
+    annotation (Line(points={{-128,140},{-120,140},{-120,-70},{58,-70}},color={255,0,255}));
   connect(u1HeaOrCoo.y, rou1.u)
     annotation (Line(points={{-68,120},{44,120},{44,-40},{58,-40}},  color={255,0,255}));
-  connect(u1Hea_internal.y, off.u1)
-    annotation (Line(points={{-128,140},{-120,140},{-120,20},{-54,20}},color={255,0,255}));
-  connect(u1Coo_internal.y, off.u2)
-    annotation (Line(points={{-128,80},{-100,80},{-100,12},{-54,12}},color={255,0,255}));
-  connect(off.y, timHp.u)
-    annotation (Line(points={{-30,20},{-12,20}},color={255,0,255}));
-  connect(timHp.passed, latValHeaWatIso.clr)
-    annotation (Line(points={{12,12},{40,12},{40,34},{98,34}}, color={255,0,255}));
+  connect(u1Hea_internal.y, on.u1) annotation (Line(points={{-128,140},{-120,140},
+          {-120,-56},{-102,-56}}, color={255,0,255}));
+  connect(u1Coo_internal.y, on.u2) annotation (Line(points={{-128,80},{-110,80},
+          {-110,-64},{-102,-64}}, color={255,0,255}));
+  connect(timHpHea.passed, latValHeaWatIso.clr) annotation (Line(points={{22,12},
+          {40,12},{40,34},{98,34}}, color={255,0,255}));
   connect(latValHeaWatIso.y, y1ValHeaWatInlIso)
     annotation (Line(points={{122,40},{180,40}},color={255,0,255}));
-  connect(u1Hea_internal.y, latValHeaWatIso.u)
-    annotation (Line(points={{-128,140},{-120,140},{-120,40},{98,40}},color={255,0,255}));
   connect(latValChiWatIso.y, y1ValChiWatInlIso)
     annotation (Line(points={{122,0},{180,0}},color={255,0,255}));
-  connect(timHp.passed, latValChiWatIso.clr)
-    annotation (Line(points={{12,12},{40,12},{40,-6},{98,-6}}, color={255,0,255}));
   connect(latValHeaWatIso.y, y1ValHeaWatOutIso)
     annotation (Line(points={{122,40},{140,40},{140,20},{180,20}},color={255,0,255}));
   connect(latValChiWatIso.y, y1ValChiWatOutIso)
@@ -305,25 +317,48 @@ equation
     annotation (Line(points={{82,-40},{90,-40},{90,-60},{108,-60}},
                                                 color={255,0,255}));
   connect(rou.y[1], latPumHeaWatPri.u)
-    annotation (Line(points={{82,-66},{90,-66},{90,-60},{108,-60}},
+    annotation (Line(points={{82,-70},{90,-70},{90,-60},{108,-60}},
                                                                   color={255,0,255}));
-  connect(timHp.passed, latPumHeaWatPri.clr)
-    annotation (Line(points={{12,12},{40,12},{40,-20},{100,-20},{100,-66},{108,
-          -66}},
-      color={255,0,255}));
+  connect(timHpHea.passed, latPumHeaWatPri.clr) annotation (Line(points={{22,12},
+          {40,12},{40,-20},{100,-20},{100,-66},{108,-66}}, color={255,0,255}));
   connect(latPumHeaWatPri.y, y1PumHeaWatPri)
     annotation (Line(points={{132,-60},{180,-60}},                    color={255,0,255}));
   connect(latPumChiWatPri.y, y1PumChiWatPri)
     annotation (Line(points={{132,-100},{180,-100}},
                                                   color={255,0,255}));
-  connect(timHp.passed, latPumChiWatPri.clr)
-    annotation (Line(points={{12,12},{40,12},{40,-106},{108,-106}},
-                                                                 color={255,0,255}));
   connect(u1Coo_internal.y, latPumChiWatPri.u)
-    annotation (Line(points={{-128,80},{-100,80},{-100,-100},{108,-100}},
+    annotation (Line(points={{-128,80},{-110,80},{-110,-100},{108,-100}},
                                                                       color={255,0,255}));
-  connect(u1Coo_internal.y, latValChiWatIso.u)
-    annotation (Line(points={{-128,80},{-100,80},{-100,0},{98,0}},color={255,0,255}));
+  connect(u1Hea_internal.y, u1HeaOrCoo.u1) annotation (Line(points={{-128,140},
+          {-120,140},{-120,120},{-92,120}}, color={255,0,255}));
+  connect(u1Coo_internal.y, u1HeaOrCoo.u2) annotation (Line(points={{-128,80},{-110,
+          80},{-110,112},{-92,112}},      color={255,0,255}));
+  connect(u1Hea_internal.y, latValHeaWatIso.u) annotation (Line(points={{-128,140},
+          {-120,140},{-120,40},{98,40}}, color={255,0,255}));
+  connect(u1Coo_internal.y, latValChiWatIso.u) annotation (Line(points={{-128,80},
+          {-110,80},{-110,0},{98,0}}, color={255,0,255}));
+  connect(latHeaDis.y, timHpHea.u)
+    annotation (Line(points={{-8,20},{-2,20}}, color={255,0,255}));
+  connect(latCooDis.y, timHpCoo.u)
+    annotation (Line(points={{-8,-30},{-2,-30}}, color={255,0,255}));
+  connect(timHpCoo.passed, latValChiWatIso.clr) annotation (Line(points={{22,-38},
+          {36,-38},{36,-6},{98,-6}}, color={255,0,255}));
+  connect(timHpCoo.passed, latPumChiWatPri.clr) annotation (Line(points={{22,-38},
+          {36,-38},{36,-106},{108,-106}}, color={255,0,255}));
+  connect(on.y, edgEna.u)
+    annotation (Line(points={{-78,-56},{-72,-56}}, color={255,0,255}));
+  connect(edgEna.y, latCooDis.clr) annotation (Line(points={{-48,-56},{-40,-56},
+          {-40,-36},{-32,-36}}, color={255,0,255}));
+  connect(edgEna.y, latHeaDis.clr) annotation (Line(points={{-48,-56},{-40,-56},
+          {-40,14},{-32,14}}, color={255,0,255}));
+  connect(falEdgHea.y, latHeaDis.u)
+    annotation (Line(points={{-68,20},{-32,20}}, color={255,0,255}));
+  connect(falEdgCoo.y, latCooDis.u)
+    annotation (Line(points={{-68,-30},{-32,-30}}, color={255,0,255}));
+  connect(u1Hea_internal.y, falEdgHea.u) annotation (Line(points={{-128,140},{-120,
+          140},{-120,20},{-92,20}}, color={255,0,255}));
+  connect(u1Coo_internal.y, falEdgCoo.u) annotation (Line(points={{-128,80},{-110,
+          80},{-110,-30},{-92,-30}}, color={255,0,255}));
   annotation (
     defaultComponentName="seqEve",
     Icon(
@@ -379,7 +414,7 @@ The heat pump is disabled.
 </li>
 <li>
 After the time required for the internal shutdown cycle to time out 
-(<code>dtOff</code> to be determined empirically, defaulting to <i>3</i>&nbsp;min),
+(<code>dtOff</code> to be determined empirically, defaulting to 3&nbsp;min),
 all isolation valves are commanded closed.
 </li>
 <li>
@@ -394,10 +429,20 @@ The headered primary pumps are commanded off as described in
 Buildings.Templates.Plants.Controls.Pumps.Generic.StagingHeadered</a>.
 </li>
 </ul>
+<h4>Details</h4>
+<p>Filters <code>truDelHea</code> and <code>truDelCoo</code> have been added to
+filter errant stage change signals that have been observed to sometimes coincide
+with the plant entering heating-cooling mode, which results in modular HP isolation
+valves openign incorrecty.</p>
 </html>", revisions="<html>
 <ul>
 <li>
-March 29, 2024, by Antoine Gautier:<br/>
+<i>April 23, 2026</i>, by Karthik Devaprasad:<br/>
+Adapted for hybrid heat pump plant operation.<br/>
+This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4304\">#4304</a>.
+</li>
+<li>
+<i>March 29, 2024</i>, by Antoine Gautier:<br/>
 First implementation.
 </li>
 </ul>

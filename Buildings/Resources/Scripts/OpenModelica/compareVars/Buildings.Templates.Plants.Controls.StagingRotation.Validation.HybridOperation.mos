@@ -1,0 +1,14 @@
+compareVars :=
+  {
+    "ctl.u1EnaCoo",
+    "ctl.u1EnaHea",
+    "ctl.u1Hp[1]",
+    "ctl.u1Hp[2]",
+    "ctl.u1Hp[3]",
+    "ctl.y1HeaCoo",
+    "ctl.y1HeaHpShc[1]",
+    "ctl.y1CooHpShc[1]",
+    "ctl.u1PumPriCoo[3]",
+    "ctl.u1PumPriHea[3]",
+    "ctl.y1PumPri[3]"
+  };

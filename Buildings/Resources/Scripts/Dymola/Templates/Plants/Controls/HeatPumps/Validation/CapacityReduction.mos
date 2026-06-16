@@ -1,0 +1,8 @@
+simulateModel("Buildings.Templates.Plants.Controls.HeatPumps.Validation.CapacityReduction",
+    method="cvode",
+    tolerance=1e-6,
+    stopTime=3600.0,
+    resultFile="CapacityReduction");
+createPlot(id=1, position={0, 0, 1033, 840}, y={"capRed.TOut", "capRed.TOut_nominal"}, range={0.0, 3600.0, -15.0, 25.0}, grid=true, subPlot=101, colors={{28,108,200}, {238,46,47}}, timeUnit="s", displayUnits={"degC", "degC"});
+createPlot(id=1, position={0, 0, 1033, 840}, y={"capRed.THeaWatSup", "capRed.THeaWatSup_nominal"}, range={0.0, 3600.0, 35.0, 65.0}, grid=true, subPlot=102, colors={{28,108,200}, {238,46,47}}, timeUnit="s", displayUnits={"degC", "degC"});
+createPlot(id=1, position={0, 0, 1033, 840}, y={"capRed.y"}, range={0.0, 3600.0, 0.6, 1.6}, grid=true, subPlot=103, colors={{28,108,200}}, timeUnit="s");
