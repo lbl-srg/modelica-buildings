@@ -11,7 +11,7 @@
 #define PyInt_AsLong(x) (PyLong_AsLong((x)))
 #define PyString_FromString(x) (PyUnicode_FromString(x))
 #define PyString_AsString(x) (PyBytes_AsString(x))
-#define PyInt_Check(x) (PySet_Check(x))
+#define PyInt_Check(x) (PyLong_Check(x))
 #endif
 
 extern char **environ;
