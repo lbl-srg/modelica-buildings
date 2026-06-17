@@ -132,6 +132,7 @@ equation
       else
         // Case for n < 2.
         if homotopyInitialization then
+          if from_dp then
             m_flow=homotopy(
               actual=Buildings.Fluid.BaseClasses.FlowModels.powerLaw_dp(
                 dp=dp, k=k, n=n,
@@ -139,12 +140,29 @@ equation
                 dp_turbulent=dp_turbulent, m=m, a1=a1, a3=a3, a5=a5,
                 C=C, b1=b1, b3=b3, b5=b5),
               simplified=m_flow_nominal_pos*dp/dp_nominal_pos);
+          else
+            dp = homotopy(
+              actual=Buildings.Fluid.BaseClasses.FlowModels.powerLaw_m_flow(
+                m_flow=m_flow, k=k, n=n,
+                m_flow_turbulent=m_flow_turbulent,
+                dp_turbulent=dp_turbulent, m=m, a1=a1, a3=a3, a5=a5,
+                C=C, b1=b1, b3=b3, b5=b5),
+              simplified=dp_nominal_pos*m_flow/m_flow_nominal_pos);
+          end if; // from_dp
         else // do not use homotopy
-          m_flow=Buildings.Fluid.BaseClasses.FlowModels.powerLaw_dp(
+          if from_dp then
+            m_flow=Buildings.Fluid.BaseClasses.FlowModels.powerLaw_dp(
                 dp=dp, k=k, n=n,
                 m_flow_turbulent=m_flow_turbulent,
                 dp_turbulent=dp_turbulent, m=m, a1=a1, a3=a3, a5=a5,
                 C=C, b1=b1, b3=b3, b5=b5);
+          else
+            dp=Buildings.Fluid.BaseClasses.FlowModels.powerLaw_m_flow(
+                m_flow=m_flow, k=k, n=n,
+                m_flow_turbulent=m_flow_turbulent,
+                dp_turbulent=dp_turbulent, m=m, a1=a1, a3=a3, a5=a5,
+                C=C, b1=b1, b3=b3, b5=b5);
+          end if; // from_dp
         end if; // homotopyInitialization
       end if;
     end if; // linearized
