@@ -84,11 +84,11 @@ annotation (__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymol
 This example shows the borefield ground thermal response that is modeled by the
 TOUGH simulator.
 However in this example, the dummy function <code>def tough_avatar(heatFlux, T_out, nInt)</code>
-is used to imitate the ground response calculated by TOUGH simulator.
+is used to imitate the ground response of the TOUGH simulator.
 </p>
 <p>
-Note the dummy function cannot run the ground modeling as TOUGH. It assumes the
-response temperature increased by 0.1 K every time when invoking the Python
+Note that the dummy function cannot run the ground modeling as TOUGH. It assumes that the
+response temperature increases by <i>0.1</i> K every time when invoking the Python
 interface. It is created to show the coupling workflow.
 </p>
 </html>",

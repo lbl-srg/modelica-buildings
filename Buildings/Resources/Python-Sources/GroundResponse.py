@@ -66,7 +66,7 @@ def doStep(dblInp, state):
         ToModelica = T_toModelica + p_Int + x_Int + T_Int
     else:
         # retrieve state of last invocation, including
-        #   -- the path of working directory
+        #   -- the path of the working directory
         #   -- the end time of the last TOUGH simulation,
         #   -- the heat flow on the borehole wall that was measured in Modelica at last invocation,
         #   -- the borehole wall temperature at the end of last TOUGH simulation.
