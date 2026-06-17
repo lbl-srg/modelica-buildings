@@ -1,4 +1,5 @@
 ConcatenateLogical
+ConcatenateParameterLogical
 CountTrue
 FirstTrueIndex
 HoldReal

@@ -3,65 +3,67 @@ block ConcatenateLogical
   parameter Boolean is_app = true
     "Set to true to append to the input array, false to prepend"
     annotation(Evaluate=true);
-  parameter Integer nin = 0
+  parameter Integer nin1 = 0
     "Size of input array"
     annotation(Evaluate=true,
       Dialog(connectorSizing=true),
       HideResult=true);
-  parameter Boolean new[:] "New array to be concatenated with the input array";
-  final parameter Integer nNew = size(new, 1) "Size of new array";
-  final parameter Integer nout = nin + nNew "Size of output array";
-  final parameter Integer idxExtInp[nout] =
-    if is_app
-    then cat(1, {i for i in 1:nin}, fill(1, nNew))
-    else cat(1, fill(1, nNew), {i for i in 1:nin})
-    "Indices of input array to be extracted";
-  final parameter Integer idxExtNew[nout] =
-    if is_app
-    then cat(1, fill(1, nin), {i for i in 1:nNew})
-    else cat(1, {i for i in 1:nNew}, fill(1, nin))
-    "Indices of new array to be extracted";
-  final parameter Boolean selInpNew[nout] =
-    if is_app
-    then cat(1, fill(true, nin), fill(false, nNew))
-    else cat(1, fill(false, nNew), fill(true, nin))
-    "Selector for input array (true) or new array (false) values";
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1[nin]
+  parameter Integer nin2 = 0
+    "Size of input array"
+    annotation(Evaluate=true,
+      Dialog(connectorSizing=true),
+      HideResult=true);
+  final parameter Integer nout = nin1 +nin2  "Size of output array";
+  final parameter Integer idxExt1[nout]=if is_app then cat(
+      1,
+      {i for i in 1:nin1},
+      fill(1, nin2)) else cat(
+      1,
+      fill(1, nin2),
+      {i for i in 1:nin1}) "Indices of first array to be extracted";
+  final parameter Integer idxExt2[nout]=if is_app then cat(
+      1,
+      fill(1, nin1),
+      {i for i in 1:nin2}) else cat(
+      1,
+      {i for i in 1:nin2},
+      fill(1, nin1)) "Indices of second array to be extracted";
+  final parameter Boolean selInp[nout]=if is_app then cat(1, fill(true, nin1),
+      fill(false, nin2)) else cat(1, fill(false, nin2), fill(true, nin1))
+    "Selector for first (true) or second (false) array values";
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1[nin1]
     "Array of Boolean signals"
     annotation(Placement(transformation(extent={{-140,-20},{-100,20}}),
       iconTransformation(extent={{-140,-20},{-100,20}})));
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u2[nin2] if have_input
+    "Array of Boolean signals"
+    annotation(Placement(transformation(extent={{-140,-100},{-100,-60}}),
+      iconTransformation(extent={{-140,-100},{-100,-60}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput y[nout]
     "Concatenated array"
     annotation(Placement(transformation(extent={{100,-20},{140,20}}),
       iconTransformation(extent={{100,-20},{140,20}})));
   Buildings.Controls.OBC.CDL.Routing.BooleanExtractSignal expInp(
-    final nin=nin,
+    final nin=nin1,
     final nout=nout,
-    final extract=idxExtInp)
-    "Expand input array"
-    annotation(Placement(transformation(extent={{-10,-10},{10,10}})));
+    final extract=idxExt1) if nin1 > 0 "Expand array"
+    annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
   Buildings.Controls.OBC.CDL.Logical.Switch logSwi[nout]
-    "Switch between input array and new array"
+    "Switch between first and second array"
     annotation(Placement(transformation(extent={{62,-10},{82,10}})));
-  Buildings.Controls.OBC.CDL.Logical.Sources.Constant con[nout](
-    final k=selInpNew)
-    annotation(Placement(transformation(extent={{-90,-30},{-70,-10}})));
-  Buildings.Controls.OBC.CDL.Logical.Sources.Constant newCst[nNew](final k=new)
-    if nNew > 0
-    "New array to be concatenated"
-    annotation(Placement(transformation(extent={{-90,-90},{-70,-70}})));
-  Buildings.Controls.OBC.CDL.Routing.BooleanExtractSignal expNew(
-    final nin=nNew,
+  Buildings.Controls.OBC.CDL.Logical.Sources.Constant con[nout](final k=selInp)
+    "Input selector"
+    annotation (Placement(transformation(extent={{-90,-30},{-70,-10}})));
+  Buildings.Controls.OBC.CDL.Routing.BooleanExtractSignal exp2(
+    final nin=nin2,
     final nout=nout,
-    final extract=idxExtNew)
-    if nNew > 0
-    "Expand new array"
-    annotation(Placement(transformation(extent={{-10,-90},{10,-70}})));
-  Buildings.Controls.OBC.CDL.Logical.Sources.Constant new0[nout](
-    final k=fill(true, nout))
-    if nNew == 0
-    "Placeholder for zero-sized array"
-    annotation(Placement(transformation(extent={{-60,-60},{-40,-40}})));
+    final extract=idxExt2) if nin2 > 0 "Expand array"
+    annotation (Placement(transformation(extent={{-10,-90},{10,-70}})));
+protected
+  // The parameter have_input is used in ConcatenateParameterLogical
+  parameter Boolean have_input = true
+    "Set to true if second array provided as input, false if provided as parameter"
+    annotation(Evaluate=true);
 equation
   connect(u1, expInp.u)
     annotation(Line(points={{-120,0},{-12,0}},
@@ -75,15 +77,10 @@ equation
   connect(expInp.y, logSwi.u1)
     annotation(Line(points={{12,0},{20,0},{20,8},{60,8}},
       color={255,0,255}));
-  connect(newCst.y, expNew.u)
-    annotation(Line(points={{-68,-80},{-12,-80}},
-      color={255,0,255}));
-  connect(expNew.y, logSwi.u3)
-    annotation(Line(points={{12,-80},{40,-80},{40,-8},{60,-8}},
-      color={255,0,255}));
-  connect(new0.y, logSwi.u3)
-    annotation(Line(points={{-38,-50},{40,-50},{40,-8},{60,-8}},
-      color={255,0,255}));
+  connect(exp2.y, logSwi.u3) annotation (Line(points={{12,-80},{40,-80},{40,-8},
+          {60,-8}}, color={255,0,255}));
+  connect(u2, exp2.u)
+    annotation (Line(points={{-120,-80},{-12,-80}}, color={255,0,255}));
 annotation(defaultComponentName="cat1",
   Icon(coordinateSystem(preserveAspectRatio=false),
     graphics={Rectangle(extent={{-100,100},{100,-100}},
@@ -97,20 +94,15 @@ annotation(defaultComponentName="cat1",
   Documentation(
     info="<html>
 <p>
-  This block concatenates a Boolean array provided as a parameter with an
-  input Boolean array.
+  This block concatenates two Boolean arrays.
 </p>
 <p>
-  When <code>is_app = true</code> (default), the new values are appended after
-  the input array.
+  When <code>is_app = true</code> (default), the values of <code>u2</code>
+  are appended after the values of <code>u1</code>.
 </p>
 <p>
-  When <code>is_app = false</code>, the new values are prepended before the
-  input array.
-</p>
-<p>
-  A zero-sized array can be provided as a parameter. The block then is a
-  no-op, returning the input array unchanged.
+  When <code>is_app = false</code>, the values of <code>u2</code>
+  are prepended before the values of <code>u1</code>.
 </p>
 </html>",
     revisions="<html>

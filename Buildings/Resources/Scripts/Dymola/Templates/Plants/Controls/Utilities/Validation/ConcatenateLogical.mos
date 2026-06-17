@@ -6,21 +6,15 @@ simulateModel("Buildings.Templates.Plants.Controls.Utilities.Validation.Concaten
 createPlot(
     id=1,
     position={5, 5, 300, 600},
-    y={"cat0.y[1]", "cat0.y[2]"},
-    autoscale=true,
-    grid=true
-);
-createPlot(
-    id=1,
-    subplot=2,
+    subPlot=1,
     y={"catApp.y[1]", "catApp.y[2]", "catApp.y[3]"},
     autoscale=true,
     grid=true
 );
 createPlot(
     id=1,
-    subplot=3,
-    y={"catPre.y[1]", "catPre.y[2]", "catPre.y[3]", "catPre.y[4]"},
+    subPlot=2,
+    y={"catPre.y[1]", "catPre.y[2]", "catPre.y[3]"},
     autoscale=true,
     grid=true
 );

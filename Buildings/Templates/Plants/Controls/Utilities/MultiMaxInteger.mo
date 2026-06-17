@@ -29,8 +29,6 @@ equation
   connect(mulMax.y,reaToInt. u)
     annotation (Line(points={{-18,0},{-2,0}}, color={0,0,127}));
   annotation (
-    __cdl(
-      extensionBlock=true),
     defaultComponentName="mulMax",
     Icon(
       coordinateSystem(
