@@ -1,6 +1,6 @@
 within Buildings.Fluid.Humidifiers.EvaporativePads.Baseclasses;
 model EvaporativePadInterface
-  "Partial model with performance curves for evaporative pads"
+  "Model with performance curves for evaporative pads"
 
   parameter Buildings.Fluid.Humidifiers.EvaporativePads.Data.Generic per
     "Record with performance data"
