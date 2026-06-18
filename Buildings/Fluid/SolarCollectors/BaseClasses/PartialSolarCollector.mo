@@ -81,8 +81,8 @@ partial model PartialSolarCollector "Partial model for solar collectors"
     Medium, allowFlowReversal=allowFlowReversal) "Mass flow rate sensor"
     annotation (Placement(transformation(extent={{-90,-11},{-70,11}})));
   Buildings.Fluid.FixedResistances.PressureDrop res(
-    final n=fixme,
     redeclare final package Medium = Medium,
+    final n=n,
     final from_dp=from_dp,
     final show_T=show_T,
     final m_flow_nominal=m_flow_nominal,
