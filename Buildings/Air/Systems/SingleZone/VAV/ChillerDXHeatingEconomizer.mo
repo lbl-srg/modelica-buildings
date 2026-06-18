@@ -380,7 +380,7 @@ equation
       points={{-180,40},{-140,40},{-140,40.2}},
       color={255,204,51},
       thickness=0.5), Text(
-      textString="%first",
+      string="%first",
       index=-1,
       extent={{-6,3},{-6,3}}));
   connect(senTMixAir.port_b, fanSup.port_a)   annotation (Line(points={{-40,40},
@@ -404,7 +404,7 @@ equation
       points={{-180,40},{-180,-208},{160,-208},{160,-170},{150,-170}},
       color={255,204,51},
       thickness=0.5), Text(
-      textString="%first",
+      string="%first",
       index=-1,
       extent={{-6,3},{-6,3}}));
   connect(pumChiWat.P, PPum) annotation (Line(points={{111,-79},{111,-52},{180,

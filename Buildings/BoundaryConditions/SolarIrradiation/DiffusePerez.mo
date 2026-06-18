@@ -64,28 +64,28 @@ equation
       points={{-100,5.55112e-16},{-92,5.55112e-16},{-92,22.4},{-62.8,22.4}},
       color={255,204,51},
       thickness=0.5), Text(
-      textString="%first",
+      string="%first",
       index=-1,
       extent={{-6,3},{-6,3}}));
   connect(weaBus.HDifHor, skyCle.HDifHor) annotation (Line(
       points={{-100,5.55112e-16},{-92,5.55112e-16},{-92,20},{-62.8,20}},
       color={255,204,51},
       thickness=0.5), Text(
-      textString="%first",
+      string="%first",
       index=-1,
       extent={{-6,3},{-6,3}}));
   connect(weaBus.HDifHor, skyBri.HDifHor) annotation (Line(
       points={{-100,5.55112e-16},{-92,5.55112e-16},{-92,-50},{-60.8,-50}},
       color={255,204,51},
       thickness=0.5), Text(
-      textString="%first",
+      string="%first",
       index=-1,
       extent={{-6,3},{-6,3}}));
   connect(weaBus.HGloHor, HDifTil.HGloHor) annotation (Line(
       points={{-100,5.55112e-16},{-70,0},{-38,0},{-38,16.8},{-4.2,16.8}},
       color={255,204,51},
       thickness=0.5), Text(
-      textString="%first",
+      string="%first",
       index=-1,
       extent={{-6,3},{-6,3}}));
   connect(weaBus.HDifHor, HDifTil.HDifHor) annotation (Line(
@@ -93,7 +93,7 @@ equation
           10.5}},
       color={255,204,51},
       thickness=0.5), Text(
-      textString="%first",
+      string="%first",
       index=-1,
       extent={{-6,3},{-6,3}}));
 
@@ -107,7 +107,7 @@ equation
       points={{-100,5.55112e-16},{-92,5.55112e-16},{-92,-91},{-86,-91}},
       color={255,204,51},
       thickness=0.5), Text(
-      textString="%first",
+      string="%first",
       index=-1,
       extent={{-6,3},{-6,3}}));
   connect(weaBus.solZen, HDifTil.zen) annotation (Line(
@@ -115,7 +115,7 @@ equation
           -8.4},{-4.2,-8.4}},
       color={255,204,51},
       thickness=0.5), Text(
-      textString="%first",
+      string="%first",
       index=-1,
       extent={{-6,3},{-6,3}}));
   connect(HDifTil.HSkyDifTil, add.u1) annotation (Line(
