@@ -25,6 +25,8 @@ model ChillerDXHeatingEconomizer
   parameter Modelica.Units.SI.PressureDifference dp_nominal(displayUnit="Pa")=
        500 "Design pressure drop of flow leg with fan"
     annotation (Dialog(group="Air design"));
+  parameter Real n=2 "Flow exponent, n=1 for laminar, n=2 for turbulent"
+    annotation (Dialog(group="Air design"));
   final parameter Modelica.Units.SI.MassFlowRate mChiEva_flow_nominal=-
       QCoo_flow_nominal/Buildings.Utilities.Psychrometrics.Constants.cpWatLiq/4
     "Design chilled water supply flow";
@@ -132,7 +134,7 @@ model ChillerDXHeatingEconomizer
     redeclare package Medium = MediumA) "Supply fan"
     annotation (Placement(transformation(extent={{-30,30},{-10,50}})));
   Buildings.Fluid.FixedResistances.PressureDrop totalRes(
-    final n=fixme,
+    final n=n,
     final m_flow_nominal=mAir_flow_nominal,
     final dp_nominal=dp_nominal,
     final allowFlowReversal=false,
@@ -637,7 +639,6 @@ This allows use of the model for not fully turbulent flow.<br/>
 This is for
 <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4620\">Buildings, #4620</a>.
 </li>
-
 <li>
 March 27, 2024, by Michael Wetter:<br/>
 Corrected wrong assignment of <code>out.C</code>.
