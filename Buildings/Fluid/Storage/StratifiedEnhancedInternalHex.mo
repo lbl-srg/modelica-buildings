@@ -17,7 +17,7 @@ model StratifiedEnhancedInternalHex
 
   parameter Integer hexSegMult(min=1) = 2
     "Number of heat exchanger segments in each tank segment"
-    annotation(Dialog(tab="General", group="Heat exchanger"));
+    annotation(Dialog(group="Heat exchanger"));
 
   parameter Modelica.Units.SI.Diameter dExtHex=0.025
     "Exterior diameter of the heat exchanger pipe"
@@ -53,7 +53,7 @@ model StratifiedEnhancedInternalHex
     annotation (Dialog(tab="Flow resistance heat exchanger"));
   parameter Real n(min=1, max=2) = 2
     "Flow exponent, n=1 for laminar, n=2 for turbulent"
-    annotation(Evaluate=true);
+    annotation(Dialog(tab="Flow resistance heat exchanger"), Evaluate=true);
 
   parameter Boolean linearizeFlowResistance=false
     "= true, use linear relation between m_flow and dp for any flow rate"
@@ -123,7 +123,7 @@ model StratifiedEnhancedInternalHex
     final energyDynamics=energyDynamicsHex,
     final energyDynamicsSolid=energyDynamicsHexSolid,
     final computeFlowResistance=computeFlowResistance,
-    from_dp=from_dp,
+    final from_dp=from_dp,
     final n=n,
     final linearizeFlowResistance=linearizeFlowResistance,
     final deltaM=deltaM,
@@ -190,10 +190,7 @@ equation
       color={0,127,255},
       smooth=Smooth.None));
 
-  annotation (Line(
-      points={{-73.2,69},{-70,69},{-70,28},{-16,28},{-16,-2.22045e-16},{0,-2.22045e-16}},
-      color={191,0,0},
-      smooth=Smooth.None), Icon(coordinateSystem(preserveAspectRatio=false,
+  annotation (Icon(coordinateSystem(preserveAspectRatio=false,
           extent={{-100,-100},{100,100}}), graphics={
         Rectangle(
           extent={{-94,-38},{28,-42}},
