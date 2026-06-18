@@ -6,7 +6,7 @@ model PressureDrop
 
   parameter Real n(min=1, max=2) = 2
     "Flow exponent, n=1 for laminar, n=2 for turbulent"
-    annotation(Evaluate=true);
+    annotation(Evaluate=true, Dialog(tab="Advanced"));
 
   parameter Real deltaM(min=1E-6) = 0.3
     "Fraction of nominal mass flow rate where transition to turbulent occurs"

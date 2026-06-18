@@ -12,7 +12,7 @@ record TwoPortFlowResistanceParameters
                 tab="Flow resistance"));
   parameter Real n(min=1, max=2) = 2
     "Flow exponent, n=1 for laminar, n=2 for turbulent"
-    annotation(Evaluate=true);
+    annotation(Evaluate=true, Dialog(tab="Advanced"));
   parameter Modelica.Units.SI.PressureDifference dp_nominal(min=0, displayUnit=
         "Pa") "Pressure difference"
     annotation (Dialog(group="Nominal condition"));

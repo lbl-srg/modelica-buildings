@@ -12,7 +12,7 @@ model PlugFlowPipe
     annotation (Dialog(tab="Advanced"));
   parameter Real n(min=1, max=2) = 2
     "Flow exponent, n=1 for laminar, n=2 for turbulent"
-    annotation(Evaluate=true);
+    annotation(Evaluate=true, Dialog(tab="Advanced"));
 
   parameter Boolean have_pipCap=true
     "= true, a mixing volume is added that corresponds
