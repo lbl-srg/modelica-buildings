@@ -11,7 +11,6 @@ model FlowCircuit
     m_flow_nominal=1)
     annotation (Placement(transformation(extent={{-20,10},{0,30}})));
   Buildings.Fluid.FixedResistances.PressureDrop res(
-    final n=fixme,
     redeclare package Medium = Medium,
     m_flow_nominal=1,
     dp_nominal=1000)

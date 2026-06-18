@@ -170,9 +170,6 @@ model ValvesIsolation
     annotation (Evaluate=true,
     Dialog(tab="Advanced",
       enable=have_valHpInlIso or have_valHpOutIso));
-  parameter Real n(min=1, max=2) = 2
-    "Flow exponent, n=1 for laminar, n=2 for turbulent"
-    annotation(Evaluate=true);
   parameter Boolean linearized=false
     "= true, use linear relation between m_flow and dp for any flow rate"
     annotation (Evaluate=true,
@@ -312,7 +309,6 @@ model ValvesIsolation
     each final init=init,
     each final y_start=y_start,
     each final from_dp=from_dp,
-               final n=n,
     each final linearized=linearized)
     "HP outlet HW isolation valve"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},rotation=90,
@@ -326,7 +322,6 @@ model ValvesIsolation
     each final init=init,
     each final y_start=y_start,
     each final from_dp=from_dp,
-               final n=n,
     each final linearized=linearized) if have_chiWat
     "HP outlet CHW isolation valve"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},rotation=90,
@@ -340,7 +335,6 @@ model ValvesIsolation
     each final init=init,
     each final y_start=y_start,
     each final from_dp=from_dp,
-               final n=n,
     each final linearized=linearized)
     "HP inlet HW isolation valve"
     annotation (Placement(transformation(extent={{10,10},{-10,-10}},rotation=90,
@@ -354,7 +348,6 @@ model ValvesIsolation
     each final init=init,
     each final y_start=y_start,
     each final from_dp=from_dp,
-               final n=n,
     each final linearized=linearized) if have_chiWat
     "HP inlet CHW isolation valve"
     annotation (Placement(transformation(extent={{10,10},{-10,-10}},rotation=90,
@@ -1153,14 +1146,6 @@ can be modeled by setting the parameter <code>have_chiWat</code> to true.
 </p>
 </html>", revisions="<html>
 <ul>
-<li>
-June 17, 2026, by Michael Wetter:<br/>
-Updated implementation to allow a flow coefficient <code>n</code> that is different from <code>2</code>.
-This allows use of the model for not fully turbulent flow.<br/>
-This is for
-<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4620\">Buildings, #4620</a>.
-</li>
-
 <li>
 May 7, 2025, by Antoine Gautier:<br/>
 Refactored with fixed resistance in valve component.<br/>
