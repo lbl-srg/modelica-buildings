@@ -101,50 +101,50 @@ equation
       points={{0,0},{20,0},{20,-30.4}},
       color={255,204,51},
       thickness=0.5), Text(
-      textString="%first",
+      string="%first",
       index=-1,
       extent={{-6,3},{-6,3}}));
   connect(TAmb.y, weaBus.TDryBul) annotation (Line(points={{-59,100},{0,100},{0,
           50},{0.05,50},{0.05,0.05}},
                       color={0,0,127}), Text(
-      textString="%second",
+      string="%second",
       index=1,
       extent={{6,3},{6,3}}));
   connect(HSol.y, weaBus.HDifHor) annotation (Line(points={{-59,70},{-28,70},{-28,
           0.05},{0.05,0.05}},
                      color={0,0,127}), Text(
-      textString="%second",
+      string="%second",
       index=1,
       extent={{6,3},{6,3}}));
   connect(HSol.y, weaBus.HGloHor) annotation (Line(points={{-59,70},{-28,70},{-28,
           0.05},{0.05,0.05}},
                      color={0,0,127}), Text(
-      textString="%second",
+      string="%second",
       index=1,
       extent={{6,3},{6,3}}));
   connect(const.y, weaBus.solZen) annotation (Line(points={{-59,30},{-28,30},{-28,
           0.05},{0.05,0.05}},
                      color={0,0,127}), Text(
-      textString="%second",
+      string="%second",
       index=1,
       extent={{6,3},{6,3}}));
   connect(solTim.y, weaBus.solTim) annotation (Line(points={{-59,-40},{-28,-40},
           {-28,0.05},{0.05,0.05}},
                           color={0,0,127}), Text(
-      textString="%second",
+      string="%second",
       index=1,
       extent={{6,3},{6,3}}));
   connect(HSol.y, weaBus.HDirNor) annotation (Line(points={{-59,70},{-28,70},{-28,
           0.05},{0.05,0.05}},
                      color={0,0,127}), Text(
-      textString="%second",
+      string="%second",
       index=1,
       extent={{6,3},{6,3}}));
   connect(solEn.weaBus, weaBus) annotation (Line(
       points={{20,-70.4},{16,-70.4},{16,-70},{12,-70},{12,0},{0,0}},
       color={255,204,51},
       thickness=0.5), Text(
-      textString="%second",
+      string="%second",
       index=1,
       extent={{6,3},{6,3}}));
   connect(lat.y, weaBus.lat) annotation (Line(points={{-59,-70},{-28,-70},{-28,0.05},
