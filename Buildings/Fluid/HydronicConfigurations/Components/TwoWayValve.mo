@@ -40,9 +40,6 @@ model TwoWayValve "Container class for two-way valves"
   parameter Boolean from_dp = false
     "= true, use m_flow = f(dp) else dp = f(m_flow)"
     annotation (Evaluate=true, Dialog(tab="Advanced"));
-  parameter Real n(min=1, max=2) = 2
-    "Flow exponent, n=1 for laminar, n=2 for turbulent"
-    annotation(Evaluate=true);
 
   parameter Boolean linearized = false
     "= true, use linear relation between m_flow and dp for any flow rate"
@@ -89,7 +86,6 @@ model TwoWayValve "Container class for two-way valves"
     final l=l,
     final deltaM=deltaM,
     final from_dp=from_dp,
-    final n=n,
     final allowFlowReversal=allowFlowReversal,
     final linearized=linearized,
     final use_strokeTime=use_strokeTime,
@@ -108,7 +104,6 @@ model TwoWayValve "Container class for two-way valves"
     final l=l,
     final deltaM=deltaM,
     final from_dp=from_dp,
-    final n=n,
     final allowFlowReversal=allowFlowReversal,
     final linearized=linearized,
     final use_strokeTime=use_strokeTime,
@@ -126,7 +121,6 @@ model TwoWayValve "Container class for two-way valves"
     final dpFixed_nominal=dpFixed_nominal,
     final deltaM=deltaM,
     final from_dp=from_dp,
-    final n=n,
     final allowFlowReversal=allowFlowReversal,
     final linearized=linearized,
     final use_strokeTime=use_strokeTime,
@@ -146,7 +140,6 @@ model TwoWayValve "Container class for two-way valves"
     final l=l,
     final deltaM=deltaM,
     final from_dp=from_dp,
-    final n=n,
     final allowFlowReversal=allowFlowReversal,
     final use_strokeTime=use_strokeTime,
     final strokeTime=strokeTime,
@@ -267,14 +260,6 @@ equation
           fillPattern=FillPattern.Solid,
           textString="%%")}), Documentation(revisions="<html>
 <ul>
-<li>
-June 17, 2026, by Michael Wetter:<br/>
-Updated implementation to allow a flow coefficient <code>n</code> that is different from <code>2</code>.
-This allows use of the model for not fully turbulent flow.<br/>
-This is for
-<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4620\">Buildings, #4620</a>.
-</li>
-
 <li>
 June 30, 2022, by Antoine Gautier:<br/>
 First implementation.
