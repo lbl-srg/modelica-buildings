@@ -12,7 +12,7 @@ record FourPortFlowResistanceParameters
                 tab="Flow resistance", group="Medium 1"));
   parameter Real n1(min=1, max=2) = 2
     "Flow exponent for side 1, n=1 for laminar, n=2 for turbulent"
-    annotation(Evaluate=true, Dialog(tab="Advanced"));
+    annotation(Evaluate=true, Dialog(tab="Flow resistance", group="Medium 1"));
   parameter Modelica.Units.SI.PressureDifference dp1_nominal(min=0, displayUnit
       ="Pa") "Pressure difference"
     annotation (Dialog(group="Nominal condition"));
@@ -34,7 +34,7 @@ record FourPortFlowResistanceParameters
                 tab="Flow resistance", group="Medium 2"));
   parameter Real n2(min=1, max=2) = 2
     "Flow exponent for side 2, n=1 for laminar, n=2 for turbulent"
-    annotation(Evaluate=true, Dialog(tab="Advanced"));
+    annotation(Evaluate=true, Dialog(tab="Flow resistance", group="Medium 2"));
   parameter Modelica.Units.SI.PressureDifference dp2_nominal(min=0, displayUnit
       ="Pa") "Pressure difference"
     annotation (Dialog(group="Nominal condition"));
