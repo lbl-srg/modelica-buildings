@@ -16,7 +16,7 @@ model Direct
     final dp_nominal=10,
     final dep=0.2,
     final padAre=0.6) "Direct evaporative cooler" annotation (Placement(
-        transformation(origin={0,0}, extent={{-10,-10},{10,10}})));
+        transformation(origin={10,0},extent={{-10,-10},{10,10}})));
 
   Buildings.Fluid.Sources.Boundary_pT sin(
     redeclare final package Medium = MediumA,
@@ -87,11 +87,16 @@ model Direct
     "Convert outlet temperature from Kelvin to deg C"
     annotation (Placement(transformation(extent={{100,50},{120,70}})));
 
+  Controls.OBC.CDL.Logical.Sources.Pulse evaCooAct(
+    width=0.75,
+    period=604800 - 350000,
+    shift=350000) "Boolean pulse signal for active evaporative cooling"
+    annotation (Placement(transformation(extent={{-40,-80},{-20,-60}})));
 equation
   connect(combiTimeTable.y[9], sou.m_flow_in) annotation (Line(points={{-109,40},
           {-100,40},{-100,8},{-42,8}}, color={0,0,127}));
   connect(dirEvaCoo.port_b, senTem.port_a)
-    annotation (Line(points={{10,0},{30,0}}, color={0,127,255}));
+    annotation (Line(points={{20,0},{30,0}}, color={0,127,255}));
   connect(senTem.T, mea.u)
     annotation (Line(points={{40,11},{40,60},{58,60}}, color={0,0,127}));
   connect(senMasFra.X, mea1.u)
@@ -113,8 +118,10 @@ equation
   connect(senMasFra.port_b, sin.ports[1])
     annotation (Line(points={{80,0},{100,0}},color={0,127,255}));
   connect(sou.ports[1], dirEvaCoo.port_a)
-    annotation (Line(points={{-20,0},{-10,0}}, color={0,127,255}));
+    annotation (Line(points={{-20,0},{0,0}},   color={0,127,255}));
 
+  connect(evaCooAct.y, dirEvaCoo.evaCooAct) annotation (Line(points={{-18,-70},{
+          -10,-70},{-10,-4},{1,-4}}, color={255,0,255}));
 annotation (
   Diagram(coordinateSystem(extent={{-140,-100},{140,100}})),
   experiment(StartTime=350000, StopTime=604800, Interval=60, Tolerance=1e-6),
@@ -142,7 +149,8 @@ The validation generates three subplots.
 <ul>
 <li>
 Subplot 1 shows the inlet air mass flowrate measured from the EnergyPlus model
-used to activate the component model.
+used to activate the component model, as well as the the evaporative cooling on and
+off status.
 </li>
 <li>
 Subplot 2 compares the outlet air dry bulb temperature measurements from the Modelica
@@ -164,6 +172,11 @@ and dry bulb temperature.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+June 18, 2026, by Weiping Huang:<br/>
+Added an evaporative cooling on-and-off boolean flag for the direct evaporative
+cooler model.
+</li>
 <li>
 September 14, 2023 by Cerrina Mouchref, Karthikeya Devaprasad, Lingzhe Wang:<br/>
 First implementation.

@@ -1,0 +1,6 @@
+compareVars :=
+  {
+    "evaPadInt.v",
+    "evaPadInt.eta",
+    "evaPadInt.dp"
+  };

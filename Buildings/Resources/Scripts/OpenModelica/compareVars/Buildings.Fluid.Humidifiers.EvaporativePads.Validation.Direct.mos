@@ -1,6 +1,7 @@
 compareVars :=
   {
     "sou.m_flow_in",
+    "evaCooAct.y",
     "to_degCOut.y",
     "combiTimeTable.y[7]",
     "toTotAirOut.XiTotalAir",
