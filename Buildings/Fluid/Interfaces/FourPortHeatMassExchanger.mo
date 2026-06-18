@@ -112,8 +112,8 @@ model FourPortHeatMassExchanger
         rotation=180)));
 
   Buildings.Fluid.FixedResistances.PressureDrop preDro1(
-    final n=fixme,
     redeclare final package Medium = Medium1,
+    final n=n1,
     final m_flow_nominal=m1_flow_nominal,
     final deltaM=deltaM1,
     final allowFlowReversal=allowFlowReversal1,
@@ -125,8 +125,8 @@ model FourPortHeatMassExchanger
     annotation (Placement(transformation(extent={{-80,70},{-60,90}})));
 
   Buildings.Fluid.FixedResistances.PressureDrop preDro2(
-    final n=fixme,
     redeclare final package Medium = Medium2,
+    final n=n2,
     final m_flow_nominal=m2_flow_nominal,
     final deltaM=deltaM2,
     final allowFlowReversal=allowFlowReversal2,

@@ -191,8 +191,8 @@ model EightPortHeatMassExchanger
             {-70,10}})));
 
   Buildings.Fluid.FixedResistances.PressureDrop preDro1(
-    final n=fixme,
     redeclare final package Medium = Medium1,
+    final n=n1,
     final m_flow_nominal=m1_flow_nominal,
     final deltaM=deltaM1,
     final allowFlowReversal=allowFlowReversal1,
@@ -204,8 +204,8 @@ model EightPortHeatMassExchanger
     annotation (Placement(transformation(extent={{-80,70},{-60,90}})));
 
   Buildings.Fluid.FixedResistances.PressureDrop preDro2(
-    final n=fixme,
     redeclare final package Medium = Medium2,
+    final n=n2,
     final m_flow_nominal=m2_flow_nominal,
     final deltaM=deltaM2,
     final allowFlowReversal=allowFlowReversal2,
@@ -216,8 +216,8 @@ model EightPortHeatMassExchanger
     final dp_nominal=dp2_nominal) "Pressure drop model for fluid 2"
     annotation (Placement(transformation(extent={{90,20},{70,40}})));
   Buildings.Fluid.FixedResistances.PressureDrop preDro3(
-    final n=fixme,
     redeclare final package Medium = Medium3,
+    final n=n3,
     final m_flow_nominal=m3_flow_nominal,
     final deltaM=deltaM3,
     final allowFlowReversal=allowFlowReversal3,
@@ -229,8 +229,8 @@ model EightPortHeatMassExchanger
     annotation (Placement(transformation(extent={{-90,-42},{-70,-22}})));
 
   Buildings.Fluid.FixedResistances.PressureDrop preDro4(
-    final n=fixme,
     redeclare final package Medium = Medium4,
+    final n=n4,
     final m_flow_nominal=m4_flow_nominal,
     final deltaM=deltaM4,
     final allowFlowReversal=allowFlowReversal4,
