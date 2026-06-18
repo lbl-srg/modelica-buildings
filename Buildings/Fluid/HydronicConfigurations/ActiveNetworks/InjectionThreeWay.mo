@@ -86,6 +86,7 @@ model InjectionThreeWay "Injection circuit with three-way valve"
         origin={60,0})));
   FixedResistances.PressureDrop res1(
     redeclare final package Medium = Medium,
+    final n=n,
     final allowFlowReversal=allowFlowReversal,
     final m_flow_nominal=m1_flow_nominal,
     final dp_nominal=dpBal1_nominal)
@@ -96,6 +97,7 @@ model InjectionThreeWay "Injection circuit with three-way valve"
         origin={60,-80})));
   FixedResistances.PressureDrop res2(
     redeclare final package Medium = Medium,
+    final n=n,
     final allowFlowReversal=allowFlowReversal,
     final m_flow_nominal=m2_flow_nominal,
     final dp_nominal=dpBal2_nominal) "Secondary balancing valve"

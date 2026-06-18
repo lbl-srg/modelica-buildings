@@ -61,6 +61,7 @@ model ThreeWayValve "Container class for three-way valves"
   parameter Boolean from_dp = true
     "= true, use m_flow = f(dp) else dp = f(m_flow)"
     annotation (Evaluate=true, Dialog(tab="Advanced"));
+
   parameter Modelica.Fluid.Types.PortFlowDirection portFlowDirection_1=Modelica.Fluid.Types.PortFlowDirection.Bidirectional
     "Flow direction for port_1"
    annotation(Dialog(tab="Advanced"));
@@ -380,6 +381,14 @@ for the justification.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+June 17, 2026, by Michael Wetter:<br/>
+Updated implementation to allow a flow coefficient <code>n</code> that is different from <code>2</code>.
+This allows use of the model for not fully turbulent flow.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4620\">Buildings, #4620</a>.
+</li>
+
 <li>
 June 30, 2022, by Antoine Gautier:<br/>
 First implementation.

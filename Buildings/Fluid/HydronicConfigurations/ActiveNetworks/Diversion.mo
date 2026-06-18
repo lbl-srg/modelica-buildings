@@ -58,8 +58,8 @@ model Diversion "Diversion circuit"
         rotation=90,
         origin={-60,0})));
   Buildings.Fluid.FixedResistances.PressureDrop res1(
-    final n=fixme,
     redeclare final package Medium=Medium,
+    final n=n,
     final allowFlowReversal=allowFlowReversal,
     final m_flow_nominal=m1_flow_nominal,
     final dp_nominal=dpBal1_nominal)
@@ -70,6 +70,7 @@ model Diversion "Diversion circuit"
         origin={60,-50})));
   FixedResistances.PressureDrop res3(
     redeclare final package Medium = Medium,
+    final n=n,
     final allowFlowReversal=allowFlowReversal,
     final m_flow_nominal=m2_flow_nominal,
     final dp_nominal=if use_lumFloRes then 0 else dpBal3_nominal)

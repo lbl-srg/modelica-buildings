@@ -2,9 +2,6 @@ within Buildings.Fluid.FixedResistances;
 model LosslessPipe "Pipe with no flow friction and no heat transfer"
   extends Buildings.Fluid.Interfaces.PartialTwoPortInterface;
   final parameter Boolean from_dp=true "Used to satisfy replaceable models";
-  parameter Real n(min=1, max=2) = 2
-    "Flow exponent, n=1 for laminar, n=2 for turbulent"
-    annotation(Evaluate=true, Dialog(tab="Advanced"));
 equation
   dp=0;
   // Isenthalpic state transformation (no storage and no loss of energy)

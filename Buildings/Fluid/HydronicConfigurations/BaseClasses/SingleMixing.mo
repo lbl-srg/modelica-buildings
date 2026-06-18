@@ -55,6 +55,7 @@ model SingleMixing "Single mixing circuit"
         origin={60,-40})));
   FixedResistances.PressureDrop res1(
     redeclare final package Medium = Medium,
+    final n=n,
     final allowFlowReversal=allowFlowReversal,
     final m_flow_nominal=m1_flow_nominal,
     final dp_nominal=if use_lumFloRes then 0 else dpBal1_nominal)
@@ -65,6 +66,7 @@ model SingleMixing "Single mixing circuit"
         origin={60,-70})));
   FixedResistances.PressureDrop res2(
     redeclare final package Medium = Medium,
+    final n=n,
     final allowFlowReversal=allowFlowReversal,
     final m_flow_nominal=m2_flow_nominal,
     final dp_nominal=dpBal2_nominal)
@@ -126,6 +128,7 @@ model SingleMixing "Single mixing circuit"
         origin={60,60})));
   FixedResistances.PressureDrop res3(
     redeclare final package Medium = Medium,
+    final n=n,
     final allowFlowReversal=allowFlowReversal,
     final m_flow_nominal=m2_flow_nominal,
     final dp_nominal=if use_lumFloRes then 0 else dpBal3_nominal)

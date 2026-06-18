@@ -23,8 +23,8 @@ model Pipe
     annotation (Dialog(tab="Flow resistance"));
 
   Buildings.Fluid.FixedResistances.PressureDrop preDro(
-    final n=fixme,
     redeclare final package Medium = Medium,
+    final n=n,
     final from_dp=from_dp,
     final show_T=show_T,
     final m_flow_nominal=m_flow_nominal,

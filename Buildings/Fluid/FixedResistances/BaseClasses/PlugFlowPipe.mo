@@ -99,9 +99,9 @@ model PlugFlowPipe
   Modelica.Units.SI.Velocity v=del.v "Flow velocity of medium in pipe";
 
   replaceable Buildings.Fluid.FixedResistances.HydraulicDiameter res(
+    final n=n,
     final dh=dh,
     final from_dp=from_dp,
-    final n=n,
     final length=length,
     final roughness=roughness,
     final fac=fac,

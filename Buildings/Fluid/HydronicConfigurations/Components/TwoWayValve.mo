@@ -235,7 +235,7 @@ equation
           extent={{-40,126},{-160,76}},
           textColor={0,0,0},
           textString=DynamicSelect("", String(y, format=".2f"))),
-                                         Rectangle(
+    Rectangle(
       extent={{-60,40},{60,-40}},
       fillColor={255,255,255},
       fillPattern=FillPattern.Solid,
@@ -254,12 +254,20 @@ equation
       visible=use_strokeTime,
       points={{-30,40},{30,40}}),
     Line(
-      points={{0,40},{0,0}}),      Text(
-          extent={{-74,20},{-36,-24}},
-          textColor=DynamicSelect({255,255,255}, (1-y)*{255,255,255}),
-          fillPattern=FillPattern.Solid,
-          textString="%%")}), Documentation(revisions="<html>
+      points={{0,40},{0,0}}),
+    Text( extent={{-74,20},{-36,-24}},
+          textColor={255,255,255},
+      textString="%%")}),
+    Documentation(revisions="<html>
 <ul>
+<li>
+June 17, 2026, by Michael Wetter:<br/>
+Updated implementation to allow a flow coefficient <code>n</code> that is different from <code>2</code>.
+This allows use of the model for not fully turbulent flow.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4620\">Buildings, #4620</a>.
+</li>
+
 <li>
 June 30, 2022, by Antoine Gautier:<br/>
 First implementation.

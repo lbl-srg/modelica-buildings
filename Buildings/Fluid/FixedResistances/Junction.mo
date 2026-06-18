@@ -5,7 +5,7 @@ model Junction
     m_flow_small=mDyn_flow_nominal*1e-4,
     mDyn_flow_nominal = sum(abs(m_flow_nominal[:])/3),
     redeclare Buildings.Fluid.FixedResistances.PressureDrop res1(
-      final n=fixme,
+      final n=n,
       from_dp=from_dp,
       final m_flow_nominal=m_flow_nominal[1],
       final dp_nominal=dp_nominal[1],
@@ -13,6 +13,7 @@ model Junction
       homotopyInitialization=homotopyInitialization,
       deltaM=deltaM),
     redeclare Buildings.Fluid.FixedResistances.PressureDrop res2(
+      final n=n,
       from_dp=from_dp,
       final m_flow_nominal=m_flow_nominal[2],
       final dp_nominal=dp_nominal[2],
@@ -20,6 +21,7 @@ model Junction
       homotopyInitialization=homotopyInitialization,
       deltaM=deltaM),
     redeclare Buildings.Fluid.FixedResistances.PressureDrop res3(
+      final n=n,
       from_dp=from_dp,
       final m_flow_nominal=m_flow_nominal[3],
       final dp_nominal=dp_nominal[3],
@@ -37,6 +39,10 @@ model Junction
   parameter Modelica.Units.SI.Pressure[3] dp_nominal(each displayUnit="Pa")
     "Pressure drop at nominal mass flow rate, set to zero or negative number at outflowing ports."
     annotation (Dialog(group="Nominal condition"));
+
+  parameter Real n(min=1, max=2) = 2
+    "Flow exponent, n=1 for laminar, n=2 for turbulent"
+    annotation(Evaluate=true);
 
   parameter Real deltaM(min=0) = 0.3
     "Fraction of nominal mass flow rate where transition to turbulent occurs"

@@ -34,6 +34,10 @@ model PartialHydronicConfiguration
     "Consumer circuit pressure differential at design conditions"
     annotation (Dialog(group="Nominal condition", enable=use_dp2));
 
+  parameter Real n(min=1, max=2) = 2
+    "Flow exponent, n1=1 for laminar, n1=2 for turbulent"
+    annotation(Evaluate=true);
+
   parameter Buildings.Fluid.HydronicConfigurations.Types.ValveCharacteristic typCha=
     Buildings.Fluid.HydronicConfigurations.Types.ValveCharacteristic.EqualPercentage
     "Control valve characteristic"

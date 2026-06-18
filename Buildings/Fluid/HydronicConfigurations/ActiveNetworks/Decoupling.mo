@@ -67,6 +67,7 @@ model Decoupling "Decoupling circuit with self-acting Delta-p control valve"
 
   FixedResistances.PressureDrop res1(
     redeclare final package Medium = Medium,
+    final n=n,
     final allowFlowReversal=allowFlowReversal,
     final m_flow_nominal=m1_flow_nominal,
     final dp_nominal=if use_lumFloRes then 0 else dpBal1_nominal)
@@ -77,6 +78,7 @@ model Decoupling "Decoupling circuit with self-acting Delta-p control valve"
         origin={60,-70})));
   FixedResistances.PressureDrop res2(
     redeclare final package Medium = Medium,
+    final n=n,
     final allowFlowReversal=allowFlowReversal,
     final m_flow_nominal=m2_flow_nominal,
     final dp_nominal=dpBal2_nominal)
@@ -137,6 +139,7 @@ model Decoupling "Decoupling circuit with self-acting Delta-p control valve"
         origin={60,60})));
   FixedResistances.PressureDrop res3(
     redeclare final package Medium = Medium,
+    final n=n,
     final allowFlowReversal=allowFlowReversal,
     final m_flow_nominal=m1_flow_nominal-m2_flow_nominal,
     final dp_nominal=dpBal3_nominal)
