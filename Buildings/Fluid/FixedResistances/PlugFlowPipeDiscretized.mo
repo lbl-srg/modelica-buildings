@@ -16,7 +16,7 @@ model PlugFlowPipeDiscretized
     annotation(Evaluate=true);
 
   parameter Boolean have_pipCap=true
-    "= true, a mixing volume is added to each segment that corresponds 
+    "= true, a mixing volume is added to each segment that corresponds
     to the heat capacity of the pipe segment wall"
     annotation (Dialog(tab="Advanced"));
   parameter Boolean have_symmetry=true
@@ -263,7 +263,7 @@ June 17, 2026, by Michael Wetter:<br/>
 Updated implementation to allow a flow coefficient <code>n</code> that is different from <code>2</code>.
 This allows use of the model for not fully turbulent flow.<br/>
 This is for
-<a href="https://github.com/lbl-srg/modelica-buildings/issues/4620">Buildings, #4620</a>.
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4620\">Buildings, #4620</a>.
 </li>
 
 <li>
