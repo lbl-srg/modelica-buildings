@@ -80,7 +80,7 @@ createPlot(
 createPlot(
     id=4,
     subPlot=3,
-    y={"ctl.y1PumChiWatPri[1]", "ctl.y1PumChiWatPri[2]", "ctl.y1PumChiWatPri[3]"},
+    y={"ctl.y1PumChiWatPriHp[1]", "ctl.y1PumChiWatPriHp[2]", "ctl.y1PumChiWatPriPhp[1]"},
     autoscale=true,
     grid=true,
     timeUnit="h"

@@ -52,13 +52,12 @@ block EventSequencingHeatPumps
     annotation(Placement(transformation(extent={{-260,100},{-220,140}}),
       iconTransformation(extent={{-140,100},{-100,140}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1PumHeaWatPri_actual
-    if have_heaWat
-    "Primary HW pump status – Lead headered (replicated) or dedicated pump"
+    if have_heaWat "Primary HW pump status – Lead headered or dedicated pump"
     annotation(Placement(transformation(extent={{-260,-180},{-220,-140}}),
       iconTransformation(extent={{-140,-20},{-100,20}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1PumChiWatPri_actual
     if have_chiWat
-    "Primary CHW pump status – Lead headered (replicated) or dedicated pump"
+    "Primary CHW pump status – Lead headered or dedicated pump"
     annotation(Placement(transformation(extent={{-260,-200},{-220,-160}}),
       iconTransformation(extent={{-140,-40},{-100,0}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput y1ValHeaWatInlIso

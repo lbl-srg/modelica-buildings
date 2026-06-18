@@ -49,12 +49,20 @@ block VariableSpeed
     else 0
     "Size of input connector for primary CHW pump command"
     annotation(Evaluate=true);
-  parameter Real yPumHeaWatPriSet(max=2, min=0, start=1, unit="1")
+  parameter Real yPumHeaWatPriSet(
+    max=2,
+    min=0,
+    start=1,
+    unit="1")
     "Primary pump speed providing design heat pump flow in heating mode"
     annotation(Dialog(
       group="Information provided by testing, adjusting, and balancing contractor",
       enable=have_heaWat and not have_pumPriCtlDp));
-  parameter Real yPumChiWatPriSet(max=2, min=0, start=1, unit="1")
+  parameter Real yPumChiWatPriSet(
+    max=2,
+    min=0,
+    start=1,
+    unit="1")
     "Primary pump speed providing design heat pump flow in cooling mode"
     annotation(Dialog(
       group="Information provided by testing, adjusting, and balancing contractor",
@@ -69,21 +77,25 @@ block VariableSpeed
     annotation(Evaluate=true,
       Dialog(group="Plant configuration",
         enable=have_heaWat and have_pumPriCtlDp));
-  parameter Real yPumHeaWatPri_min(max=1, min=0, start=0.1, unit="1") = 0.1
+  parameter Real yPumHeaWatPri_min(
+    max=1,
+    min=0,
+    start=0.1,
+    unit="1")=0.1
     "Minimum primary HW pump speed"
     annotation(Dialog(
       group="Information provided by testing, adjusting, and balancing contractor",
       enable=have_heaWat and have_pumPriCtlDp));
   parameter Real kCtlDpHeaWat(
-    min=100 * Buildings.Controls.OBC.CDL.Constants.eps,
-    start=1) = 1
+    min=100*Buildings.Controls.OBC.CDL.Constants.eps,
+    start=1)=1
     "Gain of controller for HW loop ∆p control"
     annotation(Dialog(group="Control gains",
       enable=have_heaWat and have_pumPriCtlDp));
   parameter Real TiCtlDpHeaWat(
-    min=100 * Buildings.Controls.OBC.CDL.Constants.eps,
+    min=100*Buildings.Controls.OBC.CDL.Constants.eps,
     start=60,
-    unit="s") = 60
+    unit="s")=60
     "Time constant of integrator block for HW loop ∆p control"
     annotation(Dialog(group="Control gains",
       enable=have_heaWat and have_pumPriCtlDp));
@@ -97,21 +109,25 @@ block VariableSpeed
     annotation(Evaluate=true,
       Dialog(group="Plant configuration",
         enable=have_chiWat and have_pumPriCtlDp));
-  parameter Real yPumChiWatPri_min(max=1, min=0, start=0.1, unit="1") = 0.1
+  parameter Real yPumChiWatPri_min(
+    max=1,
+    min=0,
+    start=0.1,
+    unit="1")=0.1
     "Minimum primary CHW pump speed"
     annotation(Dialog(
       group="Information provided by testing, adjusting, and balancing contractor",
       enable=have_pumChiWatPri and have_pumPriCtlDp));
   parameter Real kCtlDpChiWat(
-    min=100 * Buildings.Controls.OBC.CDL.Constants.eps,
-    start=1) = 1
+    min=100*Buildings.Controls.OBC.CDL.Constants.eps,
+    start=1)=1
     "Gain of controller for CHW loop ∆p control"
     annotation(Dialog(group="Control gains",
       enable=have_chiWat and have_pumPriCtlDp));
   parameter Real TiCtlDpChiWat(
-    min=100 * Buildings.Controls.OBC.CDL.Constants.eps,
+    min=100*Buildings.Controls.OBC.CDL.Constants.eps,
     start=60,
-    unit="s") = 60
+    unit="s")=60
     "Time constant of integrator block for CHW loop ∆p control"
     annotation(Dialog(group="Control gains",
       enable=have_chiWat and have_pumPriCtlDp));

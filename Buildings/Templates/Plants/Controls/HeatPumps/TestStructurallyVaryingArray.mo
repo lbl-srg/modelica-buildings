@@ -18,9 +18,18 @@ model TestStructurallyVaryingArray
     annotation (Placement(transformation(extent={{0,-10},{20,10}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant con[2](k={true,false})
     annotation (Placement(transformation(extent={{-60,-10},{-40,10}})));
+  Utilities.PlaceholderLogical phValIso[2](
+    have_inp={true,false},
+    each have_inpPh=false,
+    u_internal={true,true}) "Placeholder signal"
+    annotation (Placement(transformation(extent={{0,-62},{20,-42}})));
 equation
   connect(cst.y, c[2].u1);
 
   connect(con.y, extBooSig.u)
     annotation (Line(points={{-38,0},{-2,0}}, color={255,0,255}));
+  connect(con.y, phValIso.uPh) annotation (Line(points={{-38,0},{-24,0},{-24,
+          -58},{-2,-58}}, color={255,0,255}));
+  connect(con[1:2].y, phValIso[1:2].u) annotation (Line(points={{-38,0},{-20,0},
+          {-20,-52},{-2,-52}}, color={255,0,255}));
 end TestStructurallyVaryingArray;

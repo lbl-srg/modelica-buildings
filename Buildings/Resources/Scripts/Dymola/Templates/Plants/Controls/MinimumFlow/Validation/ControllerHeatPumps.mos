@@ -1,8 +1,8 @@
-simulateModel("Buildings.Templates.Plants.Controls.MinimumFlow.Validation.ControllerDualMode",
+simulateModel("Buildings.Templates.Plants.Controls.MinimumFlow.Validation.ControllerHeatPumps",
     method="cvode",
     tolerance=1e-6,
     stopTime=1000.0,
-    resultFile="MinimumFlowControllerDualMode");
+    resultFile="MinimumFlowControllerHeatPumps");
 createPlot(
     id=1,
     subPlot=1,

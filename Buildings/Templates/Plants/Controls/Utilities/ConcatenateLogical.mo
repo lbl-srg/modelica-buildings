@@ -50,7 +50,7 @@ block ConcatenateLogical
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
   Buildings.Controls.OBC.CDL.Logical.Switch logSwi[nout]
     "Switch between first and second array"
-    annotation(Placement(transformation(extent={{62,-10},{82,10}})));
+    annotation(Placement(transformation(extent={{60,-10},{80,10}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant con[nout](final k=selInp)
     "Input selector"
     annotation (Placement(transformation(extent={{-90,-30},{-70,-10}})));
@@ -69,16 +69,16 @@ equation
     annotation(Line(points={{-120,0},{-12,0}},
       color={255,0,255}));
   connect(logSwi.y, y)
-    annotation(Line(points={{84,0},{120,0}},
+    annotation(Line(points={{82,0},{120,0}},
       color={255,0,255}));
   connect(con.y, logSwi.u2)
-    annotation(Line(points={{-68,-20},{30,-20},{30,0},{60,0}},
+    annotation(Line(points={{-68,-20},{30,-20},{30,0},{58,0}},
       color={255,0,255}));
   connect(expInp.y, logSwi.u1)
-    annotation(Line(points={{12,0},{20,0},{20,8},{60,8}},
+    annotation(Line(points={{12,0},{20,0},{20,8},{58,8}},
       color={255,0,255}));
   connect(exp2.y, logSwi.u3) annotation (Line(points={{12,-80},{40,-80},{40,-8},
-          {60,-8}}, color={255,0,255}));
+          {58,-8}}, color={255,0,255}));
   connect(u2, exp2.u)
     annotation (Line(points={{-120,-80},{-12,-80}}, color={255,0,255}));
 annotation(defaultComponentName="cat1",

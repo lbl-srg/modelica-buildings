@@ -199,7 +199,7 @@ equation
   connect(busHp.y1_actual, ctl.u1Hp_actual);
   connect(busPumChiWatPri.y1_actual, ctl.u1PumChiWatPriHdr_actual);
   connect(busPumChiWatSec.y1_actual, ctl.u1PumChiWatSec_actual);
-  connect(busPumHeaWatPri.y1_actual, ctl.u1PumHeaWatPri_actual);
+  connect(busPumHeaWatPri.y1_actual, ctl.u1PumHeaWatPriDedPhp_actual);
   connect(busPumHeaWatSec.y1_actual, ctl.u1PumHeaWatSec_actual);
   connect(bus.u1SchCoo, ctl.u1SchCoo);
   connect(bus.u1SchHea, ctl.u1SchHea);
@@ -217,7 +217,7 @@ equation
   connect(ctl.y1Hp, busHp.y1);
   connect(ctl.y1PumChiWatPriHdr, busPumChiWatPri.y1);
   connect(ctl.y1PumChiWatSec, busPumChiWatSec.y1);
-  connect(ctl.y1PumHeaWatPri, busPumHeaWatPri.y1);
+  connect(ctl.y1PumHeaWatPriHdr, busPumHeaWatPri.y1);
   connect(ctl.y1PumHeaWatSec, busPumHeaWatSec.y1);
   connect(ctl.y1ValChiWatHpInlIso, busValChiWatHpInlIso.y1);
   connect(ctl.y1ValChiWatHpOutIso, busValChiWatHpOutIso.y1);

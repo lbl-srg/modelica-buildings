@@ -27,35 +27,64 @@ block StagingHeadered
   parameter Integer nPum
     "Number of pumps"
     annotation(Evaluate=true);
-  parameter Integer nSenDp(final min=1, start=1)
+  parameter Integer nSenDp(min=1, start=1)
     "Number of hardwired ∆p sensors"
     annotation(Evaluate=true,
       Dialog(enable=is_hdr and is_ctlDp));
-  parameter Real V_flow_nominal(min=1E-6, start=1E-6, unit="m3/s")
+  parameter Real V_flow_nominal(
+    min=1E-6,
+    start=1E-6,
+    unit="m3/s")
     "Design flow rate"
     annotation(Dialog(enable=is_hdr and is_ctlDp));
-  parameter Real dtRun(min=0, start=600, unit="s") = 600
+  parameter Real dtRun(
+    min=0,
+    start=600,
+    unit="s")=600
     "Runtime before triggering stage change command based on efficiency condition"
     annotation(Dialog(enable=is_hdr and is_ctlDp));
-  parameter Real dtRunFaiSaf(final min=0, final unit="s", start=300) = 300
+  parameter Real dtRunFaiSaf(
+    min=0,
+    start=300,
+    unit="s")=300
     "Runtime before triggering stage change command based on failsafe condition"
     annotation(Dialog(enable=is_hdr and is_ctlDp));
-  parameter Real dtRunFaiSafLowY(min=0, start=600, unit="s") = dtRun
+  parameter Real dtRunFaiSafLowY(
+    min=0,
+    start=600,
+    unit="s")=dtRun
     "Runtime before triggering stage change command based on low pump speed failsafe condition"
     annotation(Dialog(enable=is_hdr and is_ctlDp));
-  parameter Real dVOffUp(max=1, min=0, start=0.03, unit="1") = 0.03
+  parameter Real dVOffUp(
+    max=1,
+    min=0,
+    start=0.03,
+    unit="1")=0.03
     "Stage up flow point offset"
     annotation(Dialog(enable=is_hdr and is_ctlDp));
-  parameter Real dVOffDow(max=1, min=0, start=0.03, unit="1") = dVOffUp
+  parameter Real dVOffDow(
+    max=1,
+    min=0,
+    start=0.03,
+    unit="1")=dVOffUp
     "Stage down flow point offset"
     annotation(Dialog(enable=is_hdr and is_ctlDp));
-  parameter Real dpOff(final min=0, final unit="Pa", start=1E4) = 1E4
+  parameter Real dpOff(
+    min=0,
+    start=1E4,
+    unit="Pa")=1E4
     "Stage change ∆p point offset (>0)"
     annotation(Dialog(enable=is_hdr and is_ctlDp));
-  parameter Real yUp(final min=0, final unit="1", start=0.99) = 0.99
+  parameter Real yUp(
+    min=0,
+    start=0.99,
+    unit="1")=0.99
     "Stage up pump speed point"
     annotation(Dialog(enable=is_hdr and is_ctlDp));
-  parameter Real yDow(final min=0, final unit="1", start=0.4) = 0.4
+  parameter Real yDow(
+    min=0,
+    start=0.4,
+    unit="1")=0.4
     "Stage down pump speed point"
     annotation(Dialog(enable=is_hdr and is_ctlDp));
   final parameter Real staPum[nPum, nPum](
@@ -78,7 +107,7 @@ block StagingHeadered
     annotation(Placement(transformation(extent={{160,-80},{200,-40}}),
       iconTransformation(extent={{100,-20},{140,20}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput y1_actual[nEqu]
-    "Pump status to event sequencing logic (dedicated or replicated lead headered pump)"
+    "Pump status to event sequencing logic (dedicated or replicated lead headered pump signal)"
     annotation(Placement(transformation(extent={{160,60},{200,100}}),
       iconTransformation(extent={{100,40},{140,80}})));
   Utilities.StageIndex nPumHdrDp(final have_inpAva=false, final nSta=nPum)
@@ -126,9 +155,10 @@ block StagingHeadered
       iconTransformation(extent={{-140,-40},{-100,0}})));
   Buildings.Controls.OBC.CDL.Routing.BooleanExtractSignal sigPumPriDed(
     final nin=nEqu,
-    final nout=nPum)
+    final nout=nPum,
+    extract={i + max(0, nEqu - nPum) for i in 1:nPum})
     if is_pri and not is_hdr
-    "Extract dedicated primary pump command signal assuming nEqu=nPum"
+    "Filter out possible placeholder signals (plants with polyvalent HP)"
     annotation(Placement(transformation(extent={{70,-170},{90,-150}})));
   Buildings.Controls.OBC.CDL.Routing.BooleanExtractor y1LeaHdr_actual(
     final nin=nPum)
