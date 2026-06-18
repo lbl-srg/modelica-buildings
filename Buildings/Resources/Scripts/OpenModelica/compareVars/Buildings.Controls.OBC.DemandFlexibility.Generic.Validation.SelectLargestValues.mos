@@ -1,0 +1,9 @@
+compareVars :=
+  {
+    "selLarVal.u[1]",
+    "selLarVal.u[4]",
+    "selLarVal.disFla[1]",
+    "selLarVal.disFla[4]",
+    "selLarVal.y[1]",
+    "selLarVal.y[4]"
+  };

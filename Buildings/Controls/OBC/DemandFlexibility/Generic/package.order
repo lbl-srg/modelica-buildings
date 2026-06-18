@@ -1,3 +1,6 @@
-SingleStepSetpointChange
-MultipleStepSetpointChange
+RealValueSelectionByMode
+SelectLargestValues
+SelectSmallestValues
+SetpointChange
+SetpointResolution
 Validation

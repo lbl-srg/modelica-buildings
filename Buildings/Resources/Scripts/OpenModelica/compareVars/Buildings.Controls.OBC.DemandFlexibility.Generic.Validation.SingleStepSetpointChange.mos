@@ -1,8 +1,0 @@
-compareVars :=
-  {
-    "sinSteSetCha.y",
-    "uniDelTSet.y",
-    "TAllMinSet.y",
-    "TAllMaxSet.y",
-    "sinSteSetCha.uEna"
-  };

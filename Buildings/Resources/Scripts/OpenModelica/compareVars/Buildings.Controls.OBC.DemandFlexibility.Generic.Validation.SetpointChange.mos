@@ -1,0 +1,12 @@
+compareVars :=
+  {
+    "setChaInc.y",
+    "setChaInc.uCurSet",
+    "TAllMinSet.y",
+    "TAllMaxSet.y",
+    "setChaOneSte.y",
+    "setChaOneSte.uCurSet",
+    "TAllMinSet.y",
+    "TAllMaxSet.y",
+    "uEna.y"
+  };

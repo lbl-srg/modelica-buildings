@@ -4,16 +4,10 @@ package Generic "Generic control sequences"
     Documentation(
       info="<html>
 <p>
-This package contains generic control sequences that are used for demand flexibility control.
+This package contains generic control sequences that are used for demand flexibility
+control.
 </p>
-</html>",
-      revisions="<html>
-<ul>
-<li>
-April 03, 2026, by Weiping Huang:<br/>
-First implementation.
-</li>
-</ul>
+</html>",revisions="<html>
 </html>"),
     Icon(
       coordinateSystem(
