@@ -152,9 +152,6 @@ model Valve "Multiple-configuration valve"
     "= true, use m_flow = f(dp) else dp = f(m_flow)"
     annotation (Evaluate=true, Dialog(tab="Advanced",
     enable=typ<>Buildings.Templates.Components.Types.Valve.None));
-  parameter Real n(min=1, max=2) = 2
-    "Flow exponent, n=1 for laminar, n=2 for turbulent"
-    annotation(Evaluate=true);
   parameter Boolean linearized = false
     "= true, use linear relation between m_flow and dp for any flow rate"
     annotation(Evaluate=true, Dialog(tab="Advanced",
@@ -236,7 +233,6 @@ model Valve "Multiple-configuration valve"
     final allowFlowReversal=allowFlowReversal,
     final show_T=show_T,
     final from_dp=from_dp,
-    final n=n,
     final linearized=linearized)
     if typ==Buildings.Templates.Components.Types.Valve.None
     "No valve"
@@ -254,7 +250,6 @@ model Valve "Multiple-configuration valve"
     final allowFlowReversal=allowFlowReversal,
     final show_T=show_T,
     final from_dp=from_dp,
-    final n=n,
     final linearized=linearized)
     if is_twoWay
     and chaTwo==Buildings.Templates.Components.Types.ValveCharacteristicTwoWay.EqualPercentage
@@ -278,7 +273,6 @@ model Valve "Multiple-configuration valve"
     final allowFlowReversal=allowFlowReversal,
     final show_T=show_T,
     final from_dp=from_dp,
-    final n=n,
     final linearized=linearized)
     if is_twoWay
     and chaTwo==Buildings.Templates.Components.Types.ValveCharacteristicTwoWay.Linear
@@ -301,8 +295,7 @@ model Valve "Multiple-configuration valve"
     final y_start=y_start,
     final allowFlowReversal=allowFlowReversal,
     final show_T=show_T,
-    final from_dp=from_dp,
-    final n=n) if is_twoWay and chaTwo == Buildings.Templates.Components.Types.ValveCharacteristicTwoWay.PressureIndependent
+    final from_dp=from_dp) if is_twoWay and chaTwo == Buildings.Templates.Components.Types.ValveCharacteristicTwoWay.PressureIndependent
     "Pressure independent two-way valve" annotation (__ctrlFlow(enable=false),
       Placement(transformation(extent={{-30,-30},{-10,-10}}, rotation=0)));
   Buildings.Fluid.Actuators.Valves.TwoWayTable tab(
@@ -319,7 +312,6 @@ model Valve "Multiple-configuration valve"
     final allowFlowReversal=allowFlowReversal,
     final show_T=show_T,
     final from_dp=from_dp,
-    final n=n,
     final linearized=linearized)
     if is_twoWay
     and chaTwo==Buildings.Templates.Components.Types.ValveCharacteristicTwoWay.Table
@@ -350,7 +342,6 @@ model Valve "Multiple-configuration valve"
     final portFlowDirection_3=if allowFlowReversal then Modelica.Fluid.Types.PortFlowDirection.Bidirectional
          else Modelica.Fluid.Types.PortFlowDirection.Entering,
     final from_dp=from_dp,
-    final n=n,
     final linearized={linearized,linearized}) if is_thrWay and chaThr ==
     Buildings.Templates.Components.Types.ValveCharacteristicThreeWay.EqualPercentageLinear
     "Three-way valve with equal percentage and linear characteristics"
@@ -376,7 +367,6 @@ model Valve "Multiple-configuration valve"
     final portFlowDirection_3=if allowFlowReversal then Modelica.Fluid.Types.PortFlowDirection.Bidirectional
          else Modelica.Fluid.Types.PortFlowDirection.Entering,
     final from_dp=from_dp,
-    final n=n,
     final linearized={linearized,linearized}) if is_thrWay and chaThr ==
     Buildings.Templates.Components.Types.ValveCharacteristicThreeWay.Linear
     "Three-way valve with linear characteristics" annotation (__ctrlFlow(enable
@@ -404,7 +394,6 @@ model Valve "Multiple-configuration valve"
     final portFlowDirection_3=if allowFlowReversal then Modelica.Fluid.Types.PortFlowDirection.Bidirectional
          else Modelica.Fluid.Types.PortFlowDirection.Entering,
     final from_dp=from_dp,
-    final n=n,
     final linearized={linearized,linearized}) if is_thrWay and chaThr ==
     Buildings.Templates.Components.Types.ValveCharacteristicThreeWay.Table
     "Three-way valve with table-specified characteristics" annotation (
@@ -568,14 +557,6 @@ The following input and output points are available.
 For modulating valves:
 </p>
 <ul>
-<li>
-June 17, 2026, by Michael Wetter:<br/>
-Updated implementation to allow a flow coefficient <code>n</code> that is different from <code>2</code>.
-This allows use of the model for not fully turbulent flow.<br/>
-This is for
-<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4620\">Buildings, #4620</a>.
-</li>
-
 <li>
 The valve position is modulated with a fractional position
 signal <code>y</code> (real).<br/>

@@ -44,9 +44,6 @@ model Damper "Multiple-configuration damper"
     "= true, use m_flow = f(dp) else dp = f(m_flow)"
     annotation (Evaluate=true, Dialog(tab="Advanced",
     enable=typ<>Buildings.Templates.Components.Types.Damper.None));
-  parameter Real n(min=1, max=2) = 2
-    "Flow exponent, n=1 for laminar, n=2 for turbulent"
-    annotation(Evaluate=true);
   parameter Boolean linearized = false
     "= true, use linear relation between m_flow and dp for any flow rate"
     annotation(Evaluate=true, Dialog(tab="Advanced",
@@ -93,7 +90,6 @@ model Damper "Multiple-configuration damper"
     final allowFlowReversal=allowFlowReversal,
     final show_T=show_T,
     final from_dp=from_dp,
-    final n=n,
     final linearized=linearized) if typ == Buildings.Templates.Components.Types.Damper.Modulating
      or typ == Buildings.Templates.Components.Types.Damper.TwoPosition
     "Damper with exponential characteristic"
@@ -109,8 +105,7 @@ model Damper "Multiple-configuration damper"
     final y_start=y_start,
     final allowFlowReversal=allowFlowReversal,
     final show_T=show_T,
-    final from_dp=from_dp,
-    final n=n)
+    final from_dp=from_dp)
     if typ==Buildings.Templates.Components.Types.Damper.PressureIndependent
     "Pressure independent damper"
     annotation (Placement(transformation(extent={{30,-50},{50,-30}})));
@@ -121,7 +116,6 @@ model Damper "Multiple-configuration damper"
     final allowFlowReversal=allowFlowReversal,
     final show_T=show_T,
     final from_dp=from_dp,
-    final n=n,
     final linearized=linearized)
     if typ==Buildings.Templates.Components.Types.Damper.None
     "No damper"
@@ -254,14 +248,6 @@ The following input and output points are available.
 For modulating dampers:
 </p>
 <ul>
-<li>
-June 17, 2026, by Michael Wetter:<br/>
-Updated implementation to allow a flow coefficient <code>n</code> that is different from <code>2</code>.
-This allows use of the model for not fully turbulent flow.<br/>
-This is for
-<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4620\">Buildings, #4620</a>.
-</li>
-
 <li>
 The damper opening is modulated with a fractional opening
 signal <code>y</code> (real).<br/>
