@@ -19,6 +19,7 @@ partial model PartialPrescribedOutlet
 
 protected
   Buildings.Fluid.FixedResistances.PressureDrop preDro(
+    final n=fixme,
     redeclare final package Medium = Medium,
     final m_flow_nominal=m_flow_nominal,
     final deltaM=deltaM,
@@ -81,6 +82,14 @@ and connect its input signals, in they are enabled.
 </html>",
 revisions="<html>
 <ul>
+<li>
+June 17, 2026, by Michael Wetter:<br/>
+Updated implementation to allow a flow coefficient <code>n</code> that is different from <code>2</code>.
+This allows use of the model for not fully turbulent flow.<br/>
+This is for
+<a href="https://github.com/lbl-srg/modelica-buildings/issues/4620">Buildings, #4620</a>.
+</li>
+
 <li>
 March 10, 2022, by Michael Wetter:<br/>
 Propagated <code>energyDynamics</code> from instance <code>outCon</code>.

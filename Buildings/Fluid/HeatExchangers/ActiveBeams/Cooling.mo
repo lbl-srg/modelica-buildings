@@ -37,6 +37,9 @@ model Cooling "Active beam unit for cooling"
     "= true, use m_flow = f(dp) else dp = f(m_flow)"
     annotation (Evaluate=true, Dialog(enable = perCoo.dpAir_nominal > 0,
                 tab="Flow resistance"));
+  parameter Real nWat(min=1, max=2) = 2
+    "Flow exponent, nWat=1 for laminar, nWat=2 for turbulent"
+    annotation(Evaluate=true);
   parameter Boolean linearizeFlowResistanceWat = false
     "= true, use linear relation between m_flow and dp for any flow rate"
     annotation(Dialog(tab="Flow resistance"));
@@ -153,6 +156,7 @@ protected
     final show_T=false,
     final homotopyInitialization=homotopyInitialization,
     final from_dp=from_dpWat,
+    final n=nWat,
     final linearizeFlowResistance=linearizeFlowResistanceWat,
     final deltaM=deltaMWat,
     final tau=tau,
@@ -286,6 +290,14 @@ Buildings.Fluid.HeatExchangers.ActiveBeams.Data</a>.
 </p>
 <h4>References</h4>
 <ul>
+<li>
+June 17, 2026, by Michael Wetter:<br/>
+Updated implementation to allow a flow coefficient <code>n</code> that is different from <code>2</code>.
+This allows use of the model for not fully turbulent flow.<br/>
+This is for
+<a href="https://github.com/lbl-srg/modelica-buildings/issues/4620">Buildings, #4620</a>.
+</li>
+
 <li>
 DOE(2015) EnergyPlus documentation v8.4.0 - Engineering Reference.
 </li>

@@ -41,6 +41,7 @@ model StoragePlant "Model of a storage plant with a chiller and a CHW tank"
     final dp_nominal=chi2PreDro.dp_nominal) "Primary CHW pump"
     annotation (Placement(transformation(extent={{-40,-14},{-20,6}})));
   Buildings.Fluid.FixedResistances.PressureDrop chi2PreDro(
+    final n=fixme,
     redeclare final package Medium = Medium,
     final m_flow_nominal=mChi_flow_nominal,
     dp_nominal=0.1*dpPum_nominal) "Pressure drop of the chiller loop"
@@ -257,6 +258,14 @@ Buildings.DHC.Plants.Cooling.Examples.StoragePlantDualSource</a>.
 Shown in the schematic below, it has two CHW plants and three users.
 </p>
 <ul>
+<li>
+June 17, 2026, by Michael Wetter:<br/>
+Updated implementation to allow a flow coefficient <code>n</code> that is different from <code>2</code>.
+This allows use of the model for not fully turbulent flow.<br/>
+This is for
+<a href="https://github.com/lbl-srg/modelica-buildings/issues/4620">Buildings, #4620</a>.
+</li>
+
 <li>
 Plant 1 only has a chiller. The supply pump, P1, is controlled to ensure that
 all users have enough pressure head.  This represents a remote chiller plant,

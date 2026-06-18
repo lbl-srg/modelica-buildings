@@ -60,6 +60,9 @@ model MixingBox "Outside air mixing box with interlocked air dampers"
   parameter Boolean from_dp=true
     "= true, use m_flow = f(dp) else dp = f(m_flow)"
     annotation (Dialog(tab="Advanced"));
+  parameter Real n(min=1, max=2) = 2
+    "Flow exponent, n=1 for laminar, n=2 for turbulent"
+    annotation(Evaluate=true);
   parameter Boolean linearized=false
     "= true, use linear relation between m_flow and dp for any flow rate"
     annotation (Dialog(tab="Advanced"));
@@ -107,6 +110,7 @@ model MixingBox "Outside air mixing box with interlocked air dampers"
     final dpDamper_nominal=dpDamOut_nominal,
     final dpFixed_nominal=dpFixOut_nominal,
     final from_dp=from_dp,
+    final n=n,
     final linearized=linearized,
     final use_deltaM=use_deltaM,
     final deltaM=deltaM,
@@ -129,6 +133,7 @@ model MixingBox "Outside air mixing box with interlocked air dampers"
     final dpDamper_nominal=dpDamExh_nominal,
     final dpFixed_nominal=dpFixExh_nominal,
     final from_dp=from_dp,
+    final n=n,
     final linearized=linearized,
     final use_deltaM=use_deltaM,
     final deltaM=deltaM,
@@ -151,6 +156,7 @@ model MixingBox "Outside air mixing box with interlocked air dampers"
     final dpDamper_nominal=dpDamRec_nominal,
     final dpFixed_nominal=dpFixRec_nominal,
     final from_dp=from_dp,
+    final n=n,
     final linearized=linearized,
     final use_deltaM=use_deltaM,
     final deltaM=deltaM,
@@ -294,6 +300,14 @@ equation
 defaultComponentName="eco",
 Documentation(revisions="<html>
 <ul>
+<li>
+June 17, 2026, by Michael Wetter:<br/>
+Updated implementation to allow a flow coefficient <code>n</code> that is different from <code>2</code>.
+This allows use of the model for not fully turbulent flow.<br/>
+This is for
+<a href="https://github.com/lbl-srg/modelica-buildings/issues/4620">Buildings, #4620</a>.
+</li>
+
 <li>
 February 7, 2025, by Jelger Jansen:<br/>
 Removed <code>import</code> statement.

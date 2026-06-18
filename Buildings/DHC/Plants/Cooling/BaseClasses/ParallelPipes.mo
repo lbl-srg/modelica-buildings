@@ -18,12 +18,14 @@ model ParallelPipes "CHW supply and return pipes in parallel"
     annotation(Dialog(group="Nominal condition"));
 
   Buildings.Fluid.FixedResistances.PressureDrop preDro1(
+    final n=fixme,
     redeclare package Medium = Medium1,
     final allowFlowReversal=true,
     final dp_nominal=dp_nominal,
     final m_flow_nominal=m1_flow_nominal) "Flow resistance"
     annotation (Placement(transformation(extent={{-10,50},{10,70}})));
   Buildings.Fluid.FixedResistances.PressureDrop preDro2(
+    final n=fixme,
     redeclare package Medium = Medium2,
     final allowFlowReversal=true,
     final dp_nominal=dp_nominal,
@@ -77,6 +79,14 @@ Only pressure drop is considered. This model does not consider heat loss.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+June 17, 2026, by Michael Wetter:<br/>
+Updated implementation to allow a flow coefficient <code>n</code> that is different from <code>2</code>.
+This allows use of the model for not fully turbulent flow.<br/>
+This is for
+<a href="https://github.com/lbl-srg/modelica-buildings/issues/4620">Buildings, #4620</a>.
+</li>
+
 <li>
 July 27, 2022 by Hongxiang Fu:<br/>
 First implementation. This is for

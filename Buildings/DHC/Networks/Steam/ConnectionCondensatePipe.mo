@@ -5,6 +5,7 @@ model ConnectionCondensatePipe
     Buildings.DHC.Networks.BaseClasses.PartialConnection2Pipe2Medium(
     redeclare final model Model_pipDisRet =
         Buildings.Fluid.FixedResistances.PressureDrop (
+          final n=fixme,
           final dp_nominal=dp_nominal),
     redeclare model Model_pipDisSup =
         Buildings.Fluid.FixedResistances.LosslessPipe);
@@ -12,6 +13,7 @@ model ConnectionCondensatePipe
     "Pressure drop at nominal mass flow rate"
     annotation (Dialog(group="Nominal condition"));
   Buildings.Fluid.FixedResistances.PressureDrop pipConRet(
+    final n=fixme,
     redeclare package Medium = MediumRet,
     m_flow_nominal=mCon_flow_nominal,
     final dp_nominal=dp_nominal)
@@ -75,6 +77,14 @@ Energy Systems (OSMSES 2022)</i>, Aachen, German, April 4-5, 2022.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+June 17, 2026, by Michael Wetter:<br/>
+Updated implementation to allow a flow coefficient <code>n</code> that is different from <code>2</code>.
+This allows use of the model for not fully turbulent flow.<br/>
+This is for
+<a href="https://github.com/lbl-srg/modelica-buildings/issues/4620">Buildings, #4620</a>.
+</li>
+
 <li>
 September 15, 2023, by Kathryn Hinkelman:<br/>
 Updated publication references.

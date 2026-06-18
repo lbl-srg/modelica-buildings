@@ -31,9 +31,15 @@ model PartialWaterCooledDXCoil "Base class for water source DX coils"
   parameter Boolean from_dpEva=false
     "= true, use m_flow = f(dp) else dp = f(m_flow)"
     annotation (Dialog(tab="Flow resistance", group="Condenser"));
+  parameter Real nEva(min=1, max=2) = 2
+    "Flow exponent, nEva=1 for laminar, nEva=2 for turbulent"
+    annotation(Evaluate=true);
   parameter Boolean from_dpCon=false
     "= true, use m_flow = f(dp) else dp = f(m_flow)"
     annotation (Dialog(tab="Flow resistance", group="Evaporator"));
+  parameter Real nCon(min=1, max=2) = 2
+    "Flow exponent, nCon=1 for laminar, nCon=2 for turbulent"
+    annotation(Evaluate=true);
 
   parameter Boolean linearizeFlowResistanceEva=false
     "= true, use linear relation between m_flow and dp for any flow rate"
@@ -164,6 +170,7 @@ model PartialWaterCooledDXCoil "Base class for water source DX coils"
       final allowFlowReversal=allowFlowReversalEva,
       final show_T=false,
       final from_dp=from_dpEva,
+      final n=nEva,
       final linearizeFlowResistance=linearizeFlowResistanceEva,
       final deltaM=deltaMEva,
       final m_flow_small=mEva_flow_small,
@@ -197,6 +204,7 @@ model PartialWaterCooledDXCoil "Base class for water source DX coils"
     final allowFlowReversal=allowFlowReversalCon,
     final show_T=false,
     final from_dp=from_dpCon,
+    final n=nCon,
     final linearizeFlowResistance=linearizeFlowResistanceCon,
     final dp_nominal = dpCon_nominal,
     final deltaM=deltaMCon,
@@ -461,6 +469,14 @@ for an explanation of the model.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+June 17, 2026, by Michael Wetter:<br/>
+Updated implementation to allow a flow coefficient <code>n</code> that is different from <code>2</code>.
+This allows use of the model for not fully turbulent flow.<br/>
+This is for
+<a href="https://github.com/lbl-srg/modelica-buildings/issues/4620">Buildings, #4620</a>.
+</li>
+
 <li>
 November 26, 2025, by Michael Wetter:<br/>
 Updated redeclare and replaceable statements.<br/>

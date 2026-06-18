@@ -52,6 +52,7 @@ model TwoPortHeatMassExchanger
      annotation (Placement(transformation(extent={{-9,0},{11,-20}})));
 
   Buildings.Fluid.FixedResistances.PressureDrop preDro(
+    final n=fixme,
     redeclare final package Medium = Medium,
     final m_flow_nominal=m_flow_nominal,
     final deltaM=deltaM,
@@ -114,6 +115,14 @@ Buildings.Fluid.Interfaces.PartialTwoPortInterface</a>.
 
 For models that extend this model, see for example
 <ul>
+<li>
+June 17, 2026, by Michael Wetter:<br/>
+Updated implementation to allow a flow coefficient <code>n</code> that is different from <code>2</code>.
+This allows use of the model for not fully turbulent flow.<br/>
+This is for
+<a href="https://github.com/lbl-srg/modelica-buildings/issues/4620">Buildings, #4620</a>.
+</li>
+
 <li>
 the ideal heater or cooler
 <a href=\"modelica://Buildings.Fluid.HeatExchangers.HeaterCooler_u\">

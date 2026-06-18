@@ -2,6 +2,9 @@ within Buildings.Fluid.FixedResistances;
 model LosslessPipe "Pipe with no flow friction and no heat transfer"
   extends Buildings.Fluid.Interfaces.PartialTwoPortInterface;
   final parameter Boolean from_dp=true "Used to satisfy replaceable models";
+  parameter Real n(min=1, max=2) = 2
+    "Flow exponent, n=1 for laminar, n=2 for turbulent"
+    annotation(Evaluate=true);
 equation
   dp=0;
   // Isenthalpic state transformation (no storage and no loss of energy)
@@ -43,6 +46,14 @@ Buildings.Fluid.Actuators.BaseClasses.PartialThreeWayValve</a>.
 </html>",
 revisions="<html>
 <ul>
+<li>
+June 17, 2026, by Michael Wetter:<br/>
+Updated implementation to allow a flow coefficient <code>n</code> that is different from <code>2</code>.
+This allows use of the model for not fully turbulent flow.<br/>
+This is for
+<a href="https://github.com/lbl-srg/modelica-buildings/issues/4620">Buildings, #4620</a>.
+</li>
+
 <li>
 June 23, 2018, by Filip Jorissen:<br/>
 Implementation is now more efficient for <code>allowFlowReversal=false</code>.

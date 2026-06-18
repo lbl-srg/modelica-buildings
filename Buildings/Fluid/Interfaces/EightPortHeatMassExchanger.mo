@@ -191,6 +191,7 @@ model EightPortHeatMassExchanger
             {-70,10}})));
 
   Buildings.Fluid.FixedResistances.PressureDrop preDro1(
+    final n=fixme,
     redeclare final package Medium = Medium1,
     final m_flow_nominal=m1_flow_nominal,
     final deltaM=deltaM1,
@@ -203,6 +204,7 @@ model EightPortHeatMassExchanger
     annotation (Placement(transformation(extent={{-80,70},{-60,90}})));
 
   Buildings.Fluid.FixedResistances.PressureDrop preDro2(
+    final n=fixme,
     redeclare final package Medium = Medium2,
     final m_flow_nominal=m2_flow_nominal,
     final deltaM=deltaM2,
@@ -214,6 +216,7 @@ model EightPortHeatMassExchanger
     final dp_nominal=dp2_nominal) "Pressure drop model for fluid 2"
     annotation (Placement(transformation(extent={{90,20},{70,40}})));
   Buildings.Fluid.FixedResistances.PressureDrop preDro3(
+    final n=fixme,
     redeclare final package Medium = Medium3,
     final m_flow_nominal=m3_flow_nominal,
     final deltaM=deltaM3,
@@ -226,6 +229,7 @@ model EightPortHeatMassExchanger
     annotation (Placement(transformation(extent={{-90,-42},{-70,-22}})));
 
   Buildings.Fluid.FixedResistances.PressureDrop preDro4(
+    final n=fixme,
     redeclare final package Medium = Medium4,
     final m_flow_nominal=m4_flow_nominal,
     final deltaM=deltaM4,
@@ -365,6 +369,14 @@ equation
 <p>The variable names follow the conventions used in <a href=\"modelica://Modelica.Fluid.Examples.HeatExchanger.BaseClasses.BasicHX\">Modelica.Fluid.Examples.HeatExchanger.BaseClasses.BasicHX</a>. </p>
 </html>", revisions="<html>
 <ul>
+<li>
+June 17, 2026, by Michael Wetter:<br/>
+Updated implementation to allow a flow coefficient <code>n</code> that is different from <code>2</code>.
+This allows use of the model for not fully turbulent flow.<br/>
+This is for
+<a href="https://github.com/lbl-srg/modelica-buildings/issues/4620">Buildings, #4620</a>.
+</li>
+
 <li>
 April 14, 2020, by Michael Wetter:<br/>
 Changed <code>homotopyInitialization</code> to a constant.<br/>

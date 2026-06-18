@@ -132,6 +132,7 @@ model ChillerDXHeatingEconomizer
     redeclare package Medium = MediumA) "Supply fan"
     annotation (Placement(transformation(extent={{-30,30},{-10,50}})));
   Buildings.Fluid.FixedResistances.PressureDrop totalRes(
+    final n=fixme,
     final m_flow_nominal=mAir_flow_nominal,
     final dp_nominal=dp_nominal,
     final allowFlowReversal=false,
@@ -629,6 +630,14 @@ feedback control of damper positions. The cooling coil is a dry coil model.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+June 17, 2026, by Michael Wetter:<br/>
+Updated implementation to allow a flow coefficient <code>n</code> that is different from <code>2</code>.
+This allows use of the model for not fully turbulent flow.<br/>
+This is for
+<a href="https://github.com/lbl-srg/modelica-buildings/issues/4620">Buildings, #4620</a>.
+</li>
+
 <li>
 March 27, 2024, by Michael Wetter:<br/>
 Corrected wrong assignment of <code>out.C</code>.

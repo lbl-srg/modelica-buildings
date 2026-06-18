@@ -96,6 +96,7 @@ model BoilerPolynomial
     "Steam/water control volume"
     annotation (Placement(transformation(extent={{0,-10},{20,10}})));
   Buildings.Fluid.FixedResistances.PressureDrop res(
+    final n=fixme,
     redeclare final package Medium = MediumWat,
     final allowFlowReversal=allowFlowReversal,
     final m_flow_nominal=m_flow_nominal,
@@ -234,6 +235,14 @@ Buildings.Fluid.Boilers.BoilerPolynomial</a> for the efficiency
 and fuel mass flow rate computation with the following exceptions:
 </p>
 <ul>
+<li>
+June 17, 2026, by Michael Wetter:<br/>
+Updated implementation to allow a flow coefficient <code>n</code> that is different from <code>2</code>.
+This allows use of the model for not fully turbulent flow.<br/>
+This is for
+<a href="https://github.com/lbl-srg/modelica-buildings/issues/4620">Buildings, #4620</a>.
+</li>
+
 <li>
 Water enters <code>port_a</code> in liquid state and exits
 <code>port_b</code> in vapor state.

@@ -24,12 +24,16 @@ model DuctManifoldFixedResistance
   parameter Boolean from_dp = false
     "= true, use m_flow = f(dp) else dp = f(m_flow)"
     annotation (Evaluate=true, Dialog(tab="Advanced"));
+  parameter Real n(min=1, max=2) = 2
+    "Flow exponent, n=1 for laminar, n=2 for turbulent"
+    annotation(Evaluate=true);
 
   Buildings.Fluid.FixedResistances.PressureDrop fixRes(
     redeclare package Medium = Medium,
     m_flow_nominal=m_flow_nominal,
     dp_nominal=dp_nominal,
     from_dp=from_dp,
+    final n=n,
     deltaM=deltaM,
     linearized=linearized) "Fixed resistance for each duct"
     annotation (Placement(transformation(extent={{-40,-10},{-20,10}})));
@@ -75,6 +79,14 @@ stop with an error.
 </html>",
 revisions="<html>
 <ul>
+<li>
+June 17, 2026, by Michael Wetter:<br/>
+Updated implementation to allow a flow coefficient <code>n</code> that is different from <code>2</code>.
+This allows use of the model for not fully turbulent flow.<br/>
+This is for
+<a href="https://github.com/lbl-srg/modelica-buildings/issues/4620">Buildings, #4620</a>.
+</li>
+
 <li>
 November 8, 2016, by Michael Wetter:<br/>
 Removed wrong usage of <code>each</code> keyword.

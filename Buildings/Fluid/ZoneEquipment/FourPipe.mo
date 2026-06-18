@@ -223,6 +223,7 @@ model FourPipe "System model for a four-pipe fan coil unit"
     annotation (Placement(transformation(extent={{120,-10},{140,10}})));
 
   Buildings.Fluid.FixedResistances.PressureDrop totResAir(
+    final n=fixme,
     redeclare final package Medium = MediumA,
     final m_flow_nominal = mAir_flow_nominal,
     final dp_nominal = dpAir_nominal,
@@ -586,6 +587,14 @@ This is a four-pipe fan coil unit system model. The system consists of the
 following components:
 </p>
 <ul>
+<li>
+June 17, 2026, by Michael Wetter:<br/>
+Updated implementation to allow a flow coefficient <code>n</code> that is different from <code>2</code>.
+This allows use of the model for not fully turbulent flow.<br/>
+This is for
+<a href="https://github.com/lbl-srg/modelica-buildings/issues/4620">Buildings, #4620</a>.
+</li>
+
 <li>
 A supply fan <code>fan</code> of class
 <a href=\"modelica://Buildings.Fluid.Movers.FlowControlled_m_flow\">

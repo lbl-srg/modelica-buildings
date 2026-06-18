@@ -10,6 +10,9 @@ record FourPortFlowResistanceParameters
     "= true, use m_flow = f(dp) else dp = f(m_flow)"
     annotation (Evaluate=true, Dialog(enable = computeFlowResistance1,
                 tab="Flow resistance", group="Medium 1"));
+  parameter Real n1(min=1, max=2) = 2
+    "Flow exponent, n1=1 for laminar, n1=2 for turbulent"
+    annotation(Evaluate=true);
   parameter Modelica.Units.SI.PressureDifference dp1_nominal(min=0, displayUnit
       ="Pa") "Pressure difference"
     annotation (Dialog(group="Nominal condition"));
@@ -29,6 +32,9 @@ record FourPortFlowResistanceParameters
     "= true, use m_flow = f(dp) else dp = f(m_flow)"
     annotation (Evaluate=true, Dialog(enable = computeFlowResistance2,
                 tab="Flow resistance", group="Medium 2"));
+  parameter Real n2(min=1, max=2) = 2
+    "Flow exponent, n2=1 for laminar, n2=2 for turbulent"
+    annotation(Evaluate=true);
   parameter Modelica.Units.SI.PressureDifference dp2_nominal(min=0, displayUnit
       ="Pa") "Pressure difference"
     annotation (Dialog(group="Nominal condition"));
@@ -54,6 +60,14 @@ already declares it.
 </html>",
 revisions="<html>
 <ul>
+<li>
+June 17, 2026, by Michael Wetter:<br/>
+Updated implementation to allow a flow coefficient <code>n</code> that is different from <code>2</code>.
+This allows use of the model for not fully turbulent flow.<br/>
+This is for
+<a href="https://github.com/lbl-srg/modelica-buildings/issues/4620">Buildings, #4620</a>.
+</li>
+
 <li>
 January 22, 2016, by Michael Wetter:<br/>
 Corrected type declaration of pressure difference.

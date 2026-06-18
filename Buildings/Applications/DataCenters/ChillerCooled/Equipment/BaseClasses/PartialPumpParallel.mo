@@ -78,6 +78,9 @@ partial model PartialPumpParallel "Partial model for pump parallel"
   parameter Boolean from_dp = false
     "= true, use m_flow = f(dp) else dp = f(m_flow)"
     annotation (Evaluate=true, Dialog(tab="Flow resistance"));
+  parameter Real n(min=1, max=2) = 2
+    "Flow exponent, n=1 for laminar, n=2 for turbulent"
+    annotation(Evaluate=true);
   parameter Boolean linearizeFlowResistance = false
     "= true, use linear relation between m_flow and dp for any flow rate"
     annotation(Dialog(tab="Flow resistance"));
@@ -135,6 +138,7 @@ partial model PartialPumpParallel "Partial model for pump parallel"
     each final m_flow_nominal=m_flow_nominal,
     each final deltaM=deltaM,
     each final from_dp=from_dp,
+               final n=n,
     each final linearized=linearizeFlowResistance,
     each final homotopyInitialization=homotopyInitialization)
     "Isolation valves"
@@ -254,6 +258,14 @@ equation
           origin={-60,0},
           rotation=90)}),    Documentation(revisions="<html>
 <ul>
+<li>
+June 17, 2026, by Michael Wetter:<br/>
+Updated implementation to allow a flow coefficient <code>n</code> that is different from <code>2</code>.
+This allows use of the model for not fully turbulent flow.<br/>
+This is for
+<a href="https://github.com/lbl-srg/modelica-buildings/issues/4620">Buildings, #4620</a>.
+</li>
+
 <li>
 March 1, 2023, by Michael Wetter:<br/>
 Changed constants from <code>0</code> to <code>0.0</code> and <code>1</code> to <code>1.0</code>.<br/>
