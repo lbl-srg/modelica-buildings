@@ -94,9 +94,8 @@ model StageChangeCommand "Validation model for stage change logic"
     final k=VHeaWat_flow_nominal)
     "Scale by design flow"
     annotation (Placement(transformation(extent={{-100,-50},{-80,-30}})));
-  Buildings.Templates.Plants.Controls.StagingRotation.EquipmentEnable enaEqu(final
-      staEqu=chaSta.staEqu) if not have_php
-    "Enable equipment"
+  Buildings.Templates.Plants.Controls.StagingRotation.EquipmentEnable enaEqu(
+      final staEqu=chaSta.staEqu) if not have_php "Enable equipment"
     annotation (Placement(transformation(extent={{60,-10},{80,10}})));
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant idxEquLeaLag[2](
     k={2, 3})

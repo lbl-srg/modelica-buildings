@@ -55,8 +55,8 @@ block StageAvailability
       is_transpose=false) if have_php
     "Extract staging matrix for the opposite mode stage index"
     annotation (Placement(transformation(extent={{-88,30},{-68,50}})));
-  Buildings.Controls.OBC.CDL.Integers.GreaterThreshold      notZer[nSta](each
-      final t=0)
+  Buildings.Controls.OBC.CDL.Integers.GreaterThreshold      notZer[nSta](each final
+            t=0)
     "True if the number of units required (with or without lead/lag alternate) is nonzero"
     annotation (Placement(transformation(extent={{30,50},{50,70}})));
   Utilities.CountTrue nReqAndAva[nSta](each final nin=nEqu)

@@ -4,12 +4,15 @@ model AirToWaterPolyvalent
   extends Buildings.Templates.Plants.Controls.HeatPumps.Validation.AirToWater(
     ctl(
       typ=Buildings.Templates.Plants.Controls.Types.PlantHeatPump.ReversiblePolyvalent,
-      is_priOnl=true,
+      is_priOnl=false,
       have_valPhpInlIso=false,
       have_valPhpOutIso=false,
       have_pumChiWatPriDedHp_select=false,
+      have_pumPriHdr=false,
       nHp_select=2,
       nPhp_select=1,
+      nPumHeaWatSec_select=2,
+      nPumChiWatSec_select=2,
       capHeaPhp_nominal=fill(300E3, ctl.nPhp),
       capHeaShcPhp_nominal=Buildings.Templates.Data.Defaults.COPHpWwHea/
           Buildings.Templates.Data.Defaults.COPHpAwHea*ctl.capHeaPhp_nominal,

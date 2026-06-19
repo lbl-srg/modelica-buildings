@@ -1,5 +1,5 @@
-within Buildings.Templates.Plants.Controls.StagingRotation.Validation;
-model EquipmentEnablePolyvalent
+within Buildings.Templates.Plants.Controls.PolyvalentHeatPumps.Validation;
+model EquipmentEnable
   "Validation model for polyvalent HP enable logic"
   parameter Integer nHp = 2
     "Number of reversible heat pumps"
@@ -12,7 +12,7 @@ model EquipmentEnablePolyvalent
     timeScale=1,
     period=100) "HP available signal"
     annotation (Placement(transformation(extent={{-90,-50},{-70,-30}})));
-  Buildings.Templates.Plants.Controls.StagingRotation.EquipmentEnablePolyvalent
+  Buildings.Templates.Plants.Controls.PolyvalentHeatPumps.EquipmentEnable
     enaEqu(final nHp=nHp, final nPhp=nPhp) "Compute array of enabled equipment"
     annotation (Placement(transformation(extent={{10,-10},{30,10}})));
   Buildings.Controls.OBC.CDL.Integers.Sources.TimeTable uSta(
@@ -54,22 +54,22 @@ equation
     annotation (Line(points={{-68,0},{8,0}}, color={255,127,0}));
   connect(extractStagingMatrix2D.y, enaEqu.staTra)
     annotation (Line(points={{-8,20},{0,20},{0,8},{8,8}}, color={0,0,127}));
-  connect(u1AvaHp.y, enaEqu.u1HpAva) annotation (Line(points={{-68,-40},{0,-40},
+  connect(u1AvaHp.y,enaEqu.u1AvaHp)  annotation (Line(points={{-68,-40},{0,-40},
           {0,-4},{8,-4}}, color={255,0,255}));
-  connect(u1AvaPhp1.y, enaEqu.u1Php1Ava) annotation (Line(points={{-38,-60},{-18,
+  connect(u1AvaPhp1.y,enaEqu.u1AvaPhp1)  annotation (Line(points={{-38,-60},{-18,
           -60},{-18,-6},{8,-6}}, color={255,0,255}));
-  connect(u1AvaPhp2.y, enaEqu.u1Php2Ava) annotation (Line(points={{-68,-80},{-16,
+  connect(u1AvaPhp2.y,enaEqu.u1AvaPhp2)  annotation (Line(points={{-68,-80},{-16,
           -80},{-16,-8},{8,-8}}, color={255,0,255}));
-  connect(idxSorHp.y, enaEqu.uIdxHpSor)
+  connect(idxSorHp.y,enaEqu.uIdxSorHp)
     annotation (Line(points={{-38,60},{4,60},{4,6},{8,6}}, color={255,127,0}));
-  connect(idxSorPhp.y, enaEqu.uIdxPhpSor)
+  connect(idxSorPhp.y,enaEqu.uIdxSorPhp)
     annotation (Line(points={{-68,40},{2,40},{2,4},{8,4}}, color={255,127,0}));
   connect(uStaOpp.y[1], extractStagingMatrix2D.u)
     annotation (Line(points={{-38,20},{-32,20}}, color={255,127,0}));
   annotation (
     __Dymola_Commands(
       file=
-        "modelica://Buildings/Resources/Scripts/Dymola/Templates/Plants/Controls/StagingRotation/Validation/EquipmentEnablePolyvalent.mos"
+        "modelica://Buildings/Resources/Scripts/Dymola/Templates/Plants/Controls/PolyvalentHeatPumps/Validation/EquipmentEnable.mos"
         "Simulate and plot"),
     experiment(
       StopTime=100.0,
@@ -90,7 +90,7 @@ equation
     Documentation(info="<html>
 <p>
 This model validates
-<a href=\"modelica://Buildings.Templates.Plants.Controls.StagingRotation.EquipmentEnablePolyvalent\">
+<a href=\"modelica://Buildings.Templates.Plants.Controls.PolyvalentHeatPumps.EquipmentEnable\">
 Buildings.Templates.Plants.Controls.StagingRotation.EquipmentEnablePolyvalent</a>
 in a configuration with three equally sized units (component <code>equEnaEqu</code>)
 and in a configuration with one small unit and two large equally sized
@@ -105,4 +105,4 @@ First implementation.
 </li>
 </ul>
 </html>"));
-end EquipmentEnablePolyvalent;
+end EquipmentEnable;

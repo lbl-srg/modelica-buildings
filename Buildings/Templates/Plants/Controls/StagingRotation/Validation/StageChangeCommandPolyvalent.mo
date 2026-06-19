@@ -16,7 +16,7 @@ model StageChangeCommandPolyvalent
     Buildings.Templates.Data.Defaults.COPHpWwHea /
       Buildings.Templates.Data.Defaults.COPHpAwHea * capHeaPhp_nominal
     "Design heating capacity in SHC mode - Each polyvalent heat pump";
-  Buildings.Templates.Plants.Controls.StagingRotation.EquipmentEnablePolyvalent
+  Buildings.Templates.Plants.Controls.PolyvalentHeatPumps.EquipmentEnable
     enaEquPhp(nHp=2, nPhp=2) "Enable equipment at stage"
     annotation (Placement(transformation(extent={{60,20},{80,40}})));
   PolyvalentHeatPumps.StagingParameters staPhp(nHp=2, nPhp=2)
@@ -30,15 +30,15 @@ model StageChangeCommandPolyvalent
 equation
   connect(chaSta.staTra, enaEquPhp.staTra) annotation (Line(points={{-28,10},{-18,
           10},{-18,38},{58,38}}, color={0,0,127}));
-  connect(idxEquLeaLag.y, enaEquPhp.uIdxHpSor) annotation (Line(points={{-78,100},
+  connect(idxEquLeaLag.y,enaEquPhp.uIdxSorHp)  annotation (Line(points={{-78,100},
           {54,100},{54,36},{58,36}}, color={255,127,0}));
-  connect(idxEquLeaLag.y, enaEquPhp.uIdxPhpSor) annotation (Line(points={{-78,100},
+  connect(idxEquLeaLag.y,enaEquPhp.uIdxSorPhp)  annotation (Line(points={{-78,100},
           {54,100},{54,34},{58,34}}, color={255,127,0}));
-  connect(u1AvaEqu[5:6].y, enaEquPhp.u1Php2Ava) annotation (Line(points={{-78,-100},{
+  connect(u1AvaEqu[5:6].y,enaEquPhp.u1AvaPhp2)  annotation (Line(points={{-78,-100},{
           50,-100},{50,22},{58,22}}, color={255,0,255}));
-  connect(u1AvaEqu[3:4].y, enaEquPhp.u1Php1Ava) annotation (Line(points={{-78,-100},{
+  connect(u1AvaEqu[3:4].y,enaEquPhp.u1AvaPhp1)  annotation (Line(points={{-78,-100},{
           50,-100},{50,24},{58,24}}, color={255,0,255}));
-  connect(u1AvaEqu[1:2].y, enaEquPhp.u1HpAva) annotation (Line(points={{-78,-100},{50,
+  connect(u1AvaEqu[1:2].y,enaEquPhp.u1AvaHp)  annotation (Line(points={{-78,-100},{50,
           -100},{50,26},{58,26}}, color={255,0,255}));
   connect(idxSta.y, enaEquPhp.uSta) annotation (Line(points={{22,0},{40,0},{40,30},
           {58,30}}, color={255,127,0}));

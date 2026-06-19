@@ -216,10 +216,9 @@ block StagingHeadered
     if is_pri and is_hdr and not is_ctlDp
     "Reset number of enabled pumps to zero if lead pump disabled"
     annotation(Placement(transformation(extent={{-10,110},{10,130}})));
-  StagingRotation.EquipmentEnable enaHdr(final staEqu=staPum)
-    if is_hdr
+  StagingRotation.EquipmentEnable enaHdr(final staEqu=staPum) if is_hdr
     "Enable headered pumps"
-    annotation(Placement(transformation(extent={{70,-10},{90,10}})));
+    annotation (Placement(transformation(extent={{70,-10},{90,10}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput y(final unit="1")
     if is_hdr and is_ctlDp
     "Pump speed command"
