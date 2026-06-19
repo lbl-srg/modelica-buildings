@@ -34,10 +34,10 @@ block SelectSortedAvailable
   Buildings.Controls.OBC.CDL.Routing.IntegerExtractor avaIntIdxEquAlt[nEquAlt](
     each final nin=nEqu)
     "Available signals of lead/lag alternate equipment reordered based on idxEquAlt"
-    annotation(Placement(transformation(extent={{-30,-10},{-10,10}})));
+    annotation(Placement(transformation(extent={{-20,-10},{0,10}})));
   Buildings.Controls.OBC.CDL.Integers.Multiply excUna[nEquAlt]
     "Filter out unavailable units"
-    annotation(Placement(transformation(extent={{10,-10},{30,10}})));
+    annotation(Placement(transformation(extent={{20,-40},{40,-20}})));
   Utilities.TrueArrayConditional truArrCon(final nout=nEqu, nin=nEquAlt)
     "Generate array of size nEqu with nAltReq true elements at uIdxAltSor indices "
     annotation(Placement(transformation(extent={{60,-10},{80,10}})));
@@ -46,10 +46,10 @@ equation
     annotation(Line(points={{-120,0},{-92,0}},
       color={255,0,255}));
   connect(avaIntAltRep.y, avaIntIdxEquAlt.u)
-    annotation(Line(points={{-38,0},{-32,0}},
+    annotation(Line(points={{-38,0},{-22,0}},
       color={255,127,0}));
   connect(avaIntIdxEquAlt.y, excUna.u1)
-    annotation(Line(points={{-8,0},{0,0},{0,6},{8,6}},
+    annotation(Line(points={{2,0},{10,0},{10,-24},{18,-24}},
       color={255,127,0}));
   connect(avaInt.y, avaIntAltRep.u)
     annotation(Line(points={{-68,0},{-62,0}},
@@ -61,13 +61,13 @@ equation
     annotation(Line(points={{-120,60},{50,60},{50,0},{58,0}},
       color={255,127,0}));
   connect(uIdxSor, avaIntIdxEquAlt.index)
-    annotation(Line(points={{-120,-60},{-20,-60},{-20,-12}},
+    annotation(Line(points={{-120,-60},{-10,-60},{-10,-12}},
       color={255,127,0}));
   connect(uIdxSor, excUna.u2)
-    annotation(Line(points={{-120,-60},{0,-60},{0,-6},{8,-6}},
+    annotation(Line(points={{-120,-60},{-10,-60},{-10,-36},{18,-36}},
       color={255,127,0}));
   connect(excUna.y, truArrCon.uIdx)
-    annotation(Line(points={{32,0},{40,0},{40,-6},{58,-6}},
+    annotation(Line(points={{42,-30},{50,-30},{50,-6},{58,-6}},
       color={255,127,0}));
 annotation(defaultComponentName="selSorAva",
   Icon(coordinateSystem(preserveAspectRatio=false),
@@ -79,26 +79,25 @@ annotation(defaultComponentName="selSorAva",
       textString="%name",
       textColor={0,0,255})}),
   Diagram(coordinateSystem(preserveAspectRatio=false)),
-  Documentation(
-    info="<html>
+Documentation(info="<html>
 <p>
-  This block selects <code>n</code> lead/lag alternate units to enable,
-  choosing among available units in priority order.
+This block selects <code>n</code> lead/lag alternate units to enable,
+choosing among available units in priority order.
 </p>
 <p>
-  The output has size <code>nEqu</code> (total equipment count), not
-  <code>nEquAlt</code> (number of lead/lag alternate units), so it can be
-  combined directly with the required-unit enable signals from
-  <a href=\"modelica://Buildings.Templates.Plants.Controls.StagingRotation.BaseClasses.SelectEquipmentAtStage\">
-    Buildings.Templates.Plants.Controls.StagingRotation.BaseClasses.SelectEquipmentAtStage</a>.
+The output has size <code>nEqu</code> (total equipment count), not
+<code>nEquAlt</code> (number of lead/lag alternate units), so it can be
+combined directly with the required-unit enable signals from
+<a href=\"modelica://Buildings.Templates.Plants.Controls.StagingRotation.BaseClasses.SelectEquipmentAtStage\">
+Buildings.Templates.Plants.Controls.StagingRotation.BaseClasses.SelectEquipmentAtStage</a>.
 </p>
 </html>",
-    revisions="<html>
+revisions="<html>
 <ul>
-  <li>
-    June 10, 2026, by Antoine Gautier:<br />
-    First implementation.
-  </li>
+<li>
+June 10, 2026, by Antoine Gautier:<br/>
+First implementation.
+</li>
 </ul>
 </html>"));
 end SelectSortedAvailable;

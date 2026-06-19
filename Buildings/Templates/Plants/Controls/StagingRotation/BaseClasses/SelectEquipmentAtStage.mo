@@ -42,7 +42,7 @@ block SelectEquipmentAtStage
     annotation(Placement(transformation(extent={{-10,70},{10,90}})));
   Buildings.Controls.OBC.CDL.Interfaces.IntegerOutput nTot
     "Total equipment count at current stage"
-    annotation(Placement(transformation(extent={{100,60},{140,100}}),
+    annotation(Placement(transformation(extent={{100,70},{140,110}}),
       iconTransformation(extent={{100,60},{140,100}})));
   Buildings.Controls.OBC.CDL.Interfaces.IntegerOutput nReq
     "Number of units required excluding lead/lag alternates"
@@ -50,25 +50,25 @@ block SelectEquipmentAtStage
       iconTransformation(extent={{100,40},{140,80}})));
   Buildings.Controls.OBC.CDL.Interfaces.IntegerOutput nAlt
     "Number of lead/lag alternate units"
-    annotation(Placement(transformation(extent={{100,20},{140,60}}),
+    annotation(Placement(transformation(extent={{100,10},{140,50}}),
       iconTransformation(extent={{100,20},{140,60}})));
   Buildings.Controls.OBC.CDL.Integers.Subtract nAltCou
     "Number of lead/lag alternate units to run to meet stage requirement"
-    annotation(Placement(transformation(extent={{70,30},{90,50}})));
+    annotation(Placement(transformation(extent={{70,20},{90,40}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput y1ReqAndAva[nEqu]
     "True if unit is required and available (excluding lead/lag alternates)"
-    annotation(Placement(transformation(extent={{100,0},{140,40}}),
+    annotation(Placement(transformation(extent={{100,-20},{140,20}}),
       iconTransformation(extent={{100,-20},{140,20}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput y1AltAndAva[nEqu]
     "True if unit is indexed as lead/lag alternate and available"
-    annotation(Placement(transformation(extent={{100,-20},{140,20}}),
+    annotation(Placement(transformation(extent={{100,-60},{140,-20}}),
       iconTransformation(extent={{100,-40},{140,0}})));
   Buildings.Controls.OBC.CDL.Logical.And isReqOrAltAndAva[nEqu]
     "Return true if equipment required with or without lead/lag alternate, and available"
     annotation(Placement(transformation(extent={{-10,-50},{10,-30}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput y1ReqOrAltAndAva[nEqu]
     "True if unit is required or indexed as lead/lag alternate and available"
-    annotation(Placement(transformation(extent={{100,-60},{140,-20}}),
+    annotation(Placement(transformation(extent={{100,-100},{140,-60}}),
       iconTransformation(extent={{100,-60},{140,-20}})));
   Buildings.Controls.OBC.CDL.Logical.Not notReqNorAlt[nEqu]
     "Return true if equipment not required (with or without lead/lag alternate)"
@@ -111,25 +111,25 @@ equation
     annotation(Line(points={{42,60},{120,60}},
       color={255,127,0}));
   connect(nTotInt.y, nTot)
-    annotation(Line(points={{12,80},{120,80}},
+    annotation(Line(points={{12,80},{60,80},{60,90},{120,90}},
       color={255,127,0}));
   connect(nAltCou.y, nAlt)
-    annotation(Line(points={{92,40},{120,40}},
+    annotation(Line(points={{92,30},{120,30}},
       color={255,127,0}));
   connect(nTotInt.y, nAltCou.u1)
-    annotation(Line(points={{12,80},{60,80},{60,46},{68,46}},
+    annotation(Line(points={{12,80},{60,80},{60,36},{68,36}},
       color={255,127,0}));
   connect(nReqCou.y, nAltCou.u2)
-    annotation(Line(points={{42,60},{50,60},{50,34},{68,34}},
+    annotation(Line(points={{42,60},{50,60},{50,24},{68,24}},
       color={255,127,0}));
   connect(isReqAndAva.y, y1ReqAndAva)
-    annotation(Line(points={{12,40},{20,40},{20,20},{120,20}},
+    annotation(Line(points={{12,40},{40,40},{40,0},{120,0}},
       color={255,0,255}));
   connect(isAltAndAva.y, y1AltAndAva)
-    annotation(Line(points={{12,0},{120,0}},
+    annotation(Line(points={{12,0},{30,0},{30,-40},{120,-40}},
       color={255,0,255}));
   connect(isReqOrAltAndAva.y, y1ReqOrAltAndAva)
-    annotation(Line(points={{12,-40},{120,-40}},
+    annotation(Line(points={{12,-40},{20,-40},{20,-80},{120,-80}},
       color={255,0,255}));
   connect(isReqOrAlt.y, notReqNorAlt.u)
     annotation(Line(points={{-48,-60},{-40,-60},{-40,-80},{-12,-80}},
@@ -150,26 +150,25 @@ annotation(defaultComponentName="selEquSta",
       textString="%name",
       textColor={0,0,255})}),
   Diagram(coordinateSystem(preserveAspectRatio=false)),
-  Documentation(
-    info="<html>
+Documentation(info="<html>
 <p>
-  This block decodes a row of the staging matrix and the equipment
-  availability array to classify each unit and compute aggregate counts for
-  the current stage.
+This block decodes a row of the staging matrix and the equipment
+availability array to classify each unit and compute aggregate counts for
+the current stage.
 </p>
 <p>The boolean output arrays classify each unit as follows:</p>
 <ul>
-  <li>The unit is required (not an alternate) and available.</li>
-  <li>The unit is a lead/lag alternate and available.</li>
-  <li>The unit is either required or a lead/lag alternate, and available.</li>
+<li>The unit is required (not an alternate) and available.</li>
+<li>The unit is a lead/lag alternate and available.</li>
+<li>The unit is either required or a lead/lag alternate, and available.</li>
 </ul>
 </html>",
-    revisions="<html>
+revisions="<html>
 <ul>
-  <li>
-    June 10, 2026, by Antoine Gautier:<br />
-    First implementation.
-  </li>
+<li>
+June 10, 2026, by Antoine Gautier:<br/>
+First implementation.
+</li>
 </ul>
 </html>"));
 end SelectEquipmentAtStage;

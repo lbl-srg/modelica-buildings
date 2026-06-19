@@ -46,8 +46,7 @@ equation
           -40,60},{-40,66},{-12,66}}, color={255,127,0}));
   annotation (
     __Dymola_Commands(
-      file=
-        "modelica://Buildings/Resources/Scripts/Dymola/Templates/Plants/Controls/StagingRotation/Validation/StageAvailability.mos"
+      file="modelica://Buildings/Resources/Scripts/Dymola/Templates/Plants/Controls/StagingRotation/Validation/StageAvailability.mos"
         "Simulate and plot"),
     experiment(
       StopTime=7.0,

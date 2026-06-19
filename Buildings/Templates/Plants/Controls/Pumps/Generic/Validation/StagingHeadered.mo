@@ -75,14 +75,11 @@ model StagingHeadered
     annotation (Placement(transformation(extent={{-110,-90},{-90,-70}})));
   Components.Controls.StatusEmulator y1Pum_actual[nPum] "Pump Status"
     annotation (Placement(transformation(extent={{40,-50},{60,-30}})));
-  Components.Controls.StatusEmulator y1Pum_actual1
-                                                 [nPum] "Pump Status"
+  Components.Controls.StatusEmulator y1Pum_actual1[nPum] "Pump Status"
     annotation (Placement(transformation(extent={{40,30},{60,50}})));
-  Components.Controls.StatusEmulator y1Pum_actual2
-                                                 [nPum] "Pump Status"
+  Components.Controls.StatusEmulator y1Pum_actual2[nPum] "Pump Status"
     annotation (Placement(transformation(extent={{40,-10},{60,10}})));
-  Components.Controls.StatusEmulator y1Pum_actual3
-                                                 [nPum] "Pump Status"
+  Components.Controls.StatusEmulator y1Pum_actual3[nPum] "Pump Status"
     annotation (Placement(transformation(extent={{40,-90},{60,-70}})));
 equation
   connect(ratFlo.y[1],VPri_flow. u)

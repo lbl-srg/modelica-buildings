@@ -73,7 +73,7 @@ ep_HBeaInc=df['GLASS:Surface Outside Face Incident Beam Solar Radiation Rate per
 
 
 (_, mo_AGla) =  mof.values("roo.conExtWin[1].AGla")
-print "Modelica glass area: AGla = {}".format(mo_AGla[0])
+print("Modelica glass area: AGla = {}".format(mo_AGla[0]))
 (mo_tim, mo_qAbs_sol1) = mof.values("roo.conExtWin[1].QAbsUns_flow[1]")
 (mo_tim, mo_qAbs_sol2) = mof.values("roo.conExtWin[1].QAbsUns_flow[2]")
 mo_qAbs_sol1 = mo_qAbs_sol1/mo_AGla[0]
@@ -97,7 +97,7 @@ ax.plot(1./3600/24*ep_tim, ep_qAbs_sol2, label='e+ roomside pane')
 ax.plot(1./3600/24*mo_tim, mo_qAbs_sol1, label='Modelica outside pane')
 ax.plot(1./3600/24*mo_tim, mo_qAbs_sol2, label='Modelica roomside pane')
 ax.set_xlabel('time [days]')
-ax.set_ylabel('Absorbed solar radiation [$\mathrm{W/m^2}$]')
+ax.set_ylabel(r'Absorbed solar radiation [$\mathrm{W/m^2}$]')
 ax.legend(loc='upper right')
 ax.grid(True)
 
@@ -149,7 +149,7 @@ ax.plot(1./3600/24*ep_tim, ep_HTotInc-Plotter.interpolate(ep_tim, mo_tim, mo_HTo
 #ax.plot(1./3600/24*mo_tim, mo_HBeaInc, label='Modelica total')
 #ax.plot(1./3600/24*mo_tim, mo_HTotInc, label='Modelica beam')
 ax.set_xlabel('time [days]')
-ax.set_ylabel('difference in solar incidence [$\mathrm{W/m^2}$]')
+ax.set_ylabel(r'difference in solar incidence [$\mathrm{W/m^2}$]')
 ax.legend(loc='lower right')
 ax.grid(True)
 
