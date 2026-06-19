@@ -63,10 +63,10 @@ model IndirectTankHeatExchanger
         iconTransformation(extent={{-10,-108},{10,-88}})));
 
   Buildings.Fluid.FixedResistances.PressureDrop res(
-    final n=fixme,
     redeclare final package Medium = MediumHex,
     final dp_nominal=dp_nominal,
     final m_flow_nominal=m_flow_nominal,
+    final n=n,
     final allowFlowReversal=allowFlowReversal,
     final homotopyInitialization=homotopyInitialization,
     final show_T=show_T,
