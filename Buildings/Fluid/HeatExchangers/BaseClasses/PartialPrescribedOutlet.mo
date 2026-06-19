@@ -19,8 +19,8 @@ partial model PartialPrescribedOutlet
 
 protected
   Buildings.Fluid.FixedResistances.PressureDrop preDro(
-    final n=fixme,
     redeclare final package Medium = Medium,
+    final n=n,
     final m_flow_nominal=m_flow_nominal,
     final deltaM=deltaM,
     final allowFlowReversal=allowFlowReversal,

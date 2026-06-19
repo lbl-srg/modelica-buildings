@@ -197,9 +197,12 @@ partial model PartialReversibleRefrigerantMachine
   parameter Boolean from_dp=false
     "= true, use m_flow = f(dp) else dp = f(m_flow)"
     annotation (Dialog(tab="Advanced", group="Flow resistance"));
-  parameter Real n(min=1, max=2) = 2
+  parameter Real nEva(min=1, max=2) = 2
     "Flow exponent, n=1 for laminar, n=2 for turbulent"
-    annotation(Evaluate=true);
+    annotation(Dialog(tab="Evaporator", group="Flow resistance"), Evaluate=true);
+  parameter Real nCon(min=1, max=2) = 2
+    "Flow exponent, n=1 for laminar, n=2 for turbulent"
+    annotation(Dialog(tab="Condenser", group="Flow resistance"), Evaluate=true);
   parameter Boolean linearized=false
     "= true, use linear relation between m_flow and dp for any flow rate"
     annotation (Dialog(tab="Advanced", group="Flow resistance"));
@@ -230,7 +233,7 @@ partial model PartialReversibleRefrigerantMachine
     final use_cap=use_conCap,
     final X_start=XCon_start,
     final from_dp=from_dp,
-    final n=n,
+    final n=nCon,
     final energyDynamics=energyDynamics,
     final isCon=true,
     final C=CCon,
@@ -252,7 +255,7 @@ partial model PartialReversibleRefrigerantMachine
     final p_start=pEva_start,
     final X_start=XEva_start,
     final from_dp=from_dp,
-    final n=n,
+    final n=nEva,
     final energyDynamics=energyDynamics,
     final isCon=false,
     final C=CEva,

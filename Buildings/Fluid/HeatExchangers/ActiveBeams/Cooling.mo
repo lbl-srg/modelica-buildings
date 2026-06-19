@@ -38,8 +38,11 @@ model Cooling "Active beam unit for cooling"
     annotation (Evaluate=true, Dialog(enable = perCoo.dpAir_nominal > 0,
                 tab="Flow resistance"));
   parameter Real nWat(min=1, max=2) = 2
-    "Flow exponent, nWat=1 for laminar, nWat=2 for turbulent"
-    annotation(Evaluate=true);
+    "Flow exponent for water-side, nWat=1 for laminar, nWat=2 for turbulent"
+    annotation(Dialog(tab="Flow resistance"), Evaluate=true);
+  parameter Real nAir(min=1, max=2) = 2
+    "Flow exponent for air-side, nWat=1 for laminar, nWat=2 for turbulent"
+    annotation(Dialog(tab="Flow resistance"), Evaluate=true);
   parameter Boolean linearizeFlowResistanceWat = false
     "= true, use linear relation between m_flow and dp for any flow rate"
     annotation(Dialog(tab="Flow resistance"));
@@ -144,7 +147,8 @@ model Cooling "Active beam unit for cooling"
   FixedResistances.PressureDrop res(
     redeclare final package Medium = MediumAir,
     final m_flow_nominal=perCoo.mAir_flow_nominal*nBeams,
-    final dp_nominal=perCoo.dpAir_nominal)
+    final dp_nominal=perCoo.dpAir_nominal,
+    final n=nAir) "Flow resistance on air-side"
     annotation (Placement(transformation(extent={{40,-70},{20,-50}})));
 
 protected

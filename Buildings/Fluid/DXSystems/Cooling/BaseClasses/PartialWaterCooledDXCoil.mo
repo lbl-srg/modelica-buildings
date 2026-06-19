@@ -30,37 +30,37 @@ model PartialWaterCooledDXCoil "Base class for water source DX coils"
 
   parameter Boolean from_dpEva=false
     "= true, use m_flow = f(dp) else dp = f(m_flow)"
-    annotation (Dialog(tab="Flow resistance", group="Condenser"));
+    annotation (Dialog(tab="Flow resistance", group="Evaporator"));
   parameter Real nEva(min=1, max=2) = 2
     "Flow exponent, nEva=1 for laminar, nEva=2 for turbulent"
-    annotation(Evaluate=true);
+    annotation(Dialog(tab="Flow resistance", group="Evaporator"), Evaluate=true);
   parameter Boolean from_dpCon=false
     "= true, use m_flow = f(dp) else dp = f(m_flow)"
-    annotation (Dialog(tab="Flow resistance", group="Evaporator"));
+    annotation (Dialog(tab="Flow resistance", group="Condenser"));
   parameter Real nCon(min=1, max=2) = 2
     "Flow exponent, nCon=1 for laminar, nCon=2 for turbulent"
-    annotation(Evaluate=true);
+    annotation(Dialog(tab="Flow resistance", group="Condenser"), Evaluate=true);
 
   parameter Boolean linearizeFlowResistanceEva=false
     "= true, use linear relation between m_flow and dp for any flow rate"
-    annotation (Dialog(tab="Flow resistance", group="Condenser"));
+    annotation (Dialog(tab="Flow resistance", group="Evaporator"));
   parameter Boolean linearizeFlowResistanceCon=false
     "= true, use linear relation between m_flow and dp for any flow rate"
-    annotation (Dialog(tab="Flow resistance", group="Evaporator"));
+    annotation (Dialog(tab="Flow resistance", group="Condenser"));
 
   parameter Real deltaMEva(final unit="1")=0.1
     "Fraction of nominal flow rate where flow transitions to laminar"
-    annotation (Dialog(tab="Flow resistance", group="Condenser"));
+    annotation (Dialog(tab="Flow resistance", group="Evaporator"));
   parameter Real deltaMCon(final unit="1")=0.1
     "Fraction of nominal flow rate where flow transitions to laminar"
-    annotation (Dialog(tab="Flow resistance", group="Evaporator"));
+    annotation (Dialog(tab="Flow resistance", group="Condenser"));
 
   parameter Modelica.Units.SI.Time tauEva=60
     "Time constant at nominal flow rate (used if energyDynamics <> Modelica.Fluid.Types.Dynamics.SteadyState)"
-    annotation (Dialog(tab="Dynamics", group="Condenser"));
+    annotation (Dialog(tab="Dynamics", group="Evaporator"));
   parameter Modelica.Units.SI.Time tauCon=60
     "Time constant at nominal flow rate (used if energyDynamics <> Modelica.Fluid.Types.Dynamics.SteadyState)"
-    annotation (Dialog(tab="Dynamics", group="Evaporator"));
+    annotation (Dialog(tab="Dynamics", group="Condenser"));
 
   parameter Boolean computeReevaporation=true
     "Set to true to compute reevaporation of water that accumulated on coil";
@@ -68,39 +68,39 @@ model PartialWaterCooledDXCoil "Base class for water source DX coils"
   // Initialization
   parameter MediumEva.AbsolutePressure pEva_start = MediumEva.p_default
     "Start value of pressure"
-    annotation(Dialog(tab = "Initialization", group = "Medium 1"));
+    annotation(Dialog(tab = "Initialization", group = "Evaporator"));
   parameter MediumEva.Temperature TEva_start = MediumEva.T_default
     "Start value of temperature"
-    annotation(Dialog(tab = "Initialization", group = "Medium 1"));
+    annotation(Dialog(tab = "Initialization", group = "Evaporator"));
   parameter MediumEva.MassFraction XEva_start[MediumEva.nX] = MediumEva.X_default
     "Start value of mass fractions m_i/m"
-    annotation (Dialog(tab="Initialization", group = "Medium 1", enable=MediumEva.nXi > 0));
+    annotation (Dialog(tab="Initialization", group = "Evaporator", enable=MediumEva.nXi > 0));
   parameter MediumEva.ExtraProperty CEva_start[MediumEva.nC](
     final quantity=MediumEva.extraPropertiesNames)=fill(0, MediumEva.nC)
     "Start value of trace substances"
-    annotation (Dialog(tab="Initialization", group = "Medium 1", enable=MediumEva.nC > 0));
+    annotation (Dialog(tab="Initialization", group = "Evaporator", enable=MediumEva.nC > 0));
   parameter MediumEva.ExtraProperty CEva_nominal[MediumEva.nC](
     final quantity=MediumEva.extraPropertiesNames) = fill(1E-2, MediumEva.nC)
     "Nominal value of trace substances. (Set to typical order of magnitude.)"
-   annotation (Dialog(tab="Initialization", group = "Medium 1", enable=MediumEva.nC > 0));
+   annotation (Dialog(tab="Initialization", group = "Evaporator", enable=MediumEva.nC > 0));
 
   parameter MediumCon.AbsolutePressure pCon_start = MediumCon.p_default
     "Start value of pressure"
-    annotation(Dialog(tab = "Initialization", group = "Medium 2"));
+    annotation(Dialog(tab = "Initialization", group = "Condenser"));
   parameter MediumCon.Temperature TCon_start = MediumCon.T_default
     "Start value of temperature"
-    annotation(Dialog(tab = "Initialization", group = "Medium 2"));
+    annotation(Dialog(tab = "Initialization", group = "Condenser"));
   parameter MediumCon.MassFraction XCon_start[MediumCon.nX] = MediumCon.X_default
     "Start value of mass fractions m_i/m"
-    annotation (Dialog(tab="Initialization", group = "Medium 2", enable=MediumCon.nXi > 0));
+    annotation (Dialog(tab="Initialization", group = "Condenser", enable=MediumCon.nXi > 0));
   parameter MediumCon.ExtraProperty CCon_start[MediumCon.nC](
     final quantity=MediumCon.extraPropertiesNames)=fill(0, MediumCon.nC)
     "Start value of trace substances"
-    annotation (Dialog(tab="Initialization", group = "Medium 2", enable=MediumCon.nC > 0));
+    annotation (Dialog(tab="Initialization", group = "Condenser", enable=MediumCon.nC > 0));
   parameter MediumCon.ExtraProperty CCon_nominal[MediumCon.nC](
     final quantity=MediumCon.extraPropertiesNames) = fill(1E-2, MediumCon.nC)
     "Nominal value of trace substances. (Set to typical order of magnitude.)"
-   annotation (Dialog(tab="Initialization", group = "Medium 2", enable=MediumCon.nC > 0));
+   annotation (Dialog(tab="Initialization", group = "Condenser", enable=MediumCon.nC > 0));
 
   // Assumptions
   parameter Modelica.Fluid.Types.Dynamics energyDynamics=Modelica.Fluid.Types.Dynamics.DynamicFreeInitial

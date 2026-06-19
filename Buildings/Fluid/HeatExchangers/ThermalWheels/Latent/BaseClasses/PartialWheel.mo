@@ -25,7 +25,8 @@ partial model PartialWheel
                 tab="Flow resistance", group="Medium 1"));
   parameter Real n1(min=1, max=2) = 2
     "Flow exponent, n1=1 for laminar, n1=2 for turbulent"
-    annotation(Evaluate=true);
+    annotation (Evaluate=true, Dialog(
+                tab="Flow resistance", group="Medium 1"));
   parameter Boolean linearizeFlowResistance1 = false
     "= true, use linear relation between m_flow and dp for any flow rate"
     annotation(Dialog(tab="Flow resistance", group="Medium 1"));
@@ -36,7 +37,8 @@ partial model PartialWheel
                 tab="Flow resistance", group="Medium 2"));
   parameter Real n2(min=1, max=2) = 2
     "Flow exponent, n2=1 for laminar, n2=2 for turbulent"
-    annotation(Evaluate=true);
+    annotation (Evaluate=true, Dialog(
+                tab="Flow resistance", group="Medium 2"));
   parameter Boolean linearizeFlowResistance2 = false
     "= true, use linear relation between m_flow and dp for any flow rate"
     annotation(Dialog(tab="Flow resistance", group="Medium 2"));
@@ -97,9 +99,9 @@ protected
     final allowFlowReversal1=allowFlowReversal1,
     final allowFlowReversal2=allowFlowReversal2,
     final from_dp1=from_dp1,
-    final n=n1,
+    final n1=n1,
     final from_dp2=from_dp2,
-    final n=n2,
+    final n2=n2,
     final linearizeFlowResistance1=linearizeFlowResistance1,
     final linearizeFlowResistance2=linearizeFlowResistance2)
     "Heat exchanger"

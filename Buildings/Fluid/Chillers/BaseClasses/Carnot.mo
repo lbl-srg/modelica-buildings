@@ -66,13 +66,13 @@ partial model Carnot
     annotation (Dialog(tab="Flow resistance", group="Condenser"));
   parameter Real n1(min=1, max=2) = 2
     "Flow exponent, n1=1 for laminar, n1=2 for turbulent"
-    annotation(Evaluate=true);
+    annotation(Dialog(tab="Flow resistance", group="Condenser"), Evaluate=true);
   parameter Boolean from_dp2=false
     "= true, use m_flow = f(dp) else dp = f(m_flow)"
     annotation (Dialog(tab="Flow resistance", group="Evaporator"));
   parameter Real n2(min=1, max=2) = 2
     "Flow exponent, n2=1 for laminar, n2=2 for turbulent"
-    annotation(Evaluate=true);
+    annotation(Dialog(tab="Flow resistance", group="Evaporator"), Evaluate=true);
 
   parameter Boolean linearizeFlowResistance1=false
     "= true, use linear relation between m_flow and dp for any flow rate"
