@@ -14,9 +14,10 @@ record TwoNPortsFlowResistanceParameters
     "= true, use m_flow = f(dp) else dp = f(m_flow)"
     annotation (Evaluate=true, Dialog(enable = computeFlowResistance,
                 tab="Flow resistance"));
-  parameter Real n[nPorts](min=1, max=2) = 2
-    "Flow exponent, n[nPorts]=1 for laminar, n[nPorts]=2 for turbulent"
-    annotation(Evaluate=true);
+  parameter Real n(min=1, max=2) = 2
+    "Flow exponent, n=1 for laminar, n=2 for turbulent"
+    annotation (Evaluate=true, Dialog(enable = computeFlowResistance,
+                tab="Flow resistance"));
   parameter Modelica.Units.SI.PressureDifference dp_nominal[nPorts](
     each min=0,
     each displayUnit="Pa") "Pressure difference"
