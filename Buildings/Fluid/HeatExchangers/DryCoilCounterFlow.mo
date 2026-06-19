@@ -13,7 +13,7 @@ model DryCoilCounterFlow
     annotation (Dialog(tab="General", group="Nominal condition"));
   parameter Real r_nominal=2/3
     "Ratio between air-side and water-side convective heat transfer coefficient"
-    annotation (Dialog(group="Nominal condition"));
+    annotation (Dialog(Dialog(tab="Heat transfer"), group="Nominal condition"));
   parameter Integer nEle(min=1) = 4
     "Number of pipe segments used for discretization"
     annotation (Dialog(group="Geometry"));
@@ -23,14 +23,18 @@ model DryCoilCounterFlow
     annotation(Evaluate=true, Dialog(tab = "Dynamics", group="Conservation equations"));
 
   parameter Modelica.Units.SI.Time tau1=10
-    "Time constant at nominal flow for medium 1" annotation (Dialog(group=
-          "Nominal condition", enable=not (energyDynamics == Modelica.Fluid.Types.Dynamics.SteadyState)));
+    "Time constant at nominal flow for medium 1" annotation (
+       Dialog(tab = "Dynamics", group="Conservation equations",
+         enable=not (energyDynamics == Modelica.Fluid.Types.Dynamics.SteadyState)));
   parameter Modelica.Units.SI.Time tau2=2
-    "Time constant at nominal flow for medium 2" annotation (Dialog(group=
-          "Nominal condition", enable=not (energyDynamics == Modelica.Fluid.Types.Dynamics.SteadyState)));
+    "Time constant at nominal flow for medium 2" annotation (
+      Dialog(tab = "Dynamics", group="Conservation equations",
+        enable=not (energyDynamics == Modelica.Fluid.Types.Dynamics.SteadyState)));
   parameter Modelica.Units.SI.Time tau_m=5
     "Time constant of metal at nominal UA value"
-    annotation (Dialog(group="Nominal condition"));
+    annotation (
+      Dialog(tab = "Dynamics", group="Conservation equations",
+        enable=not (energyDynamics == Modelica.Fluid.Types.Dynamics.SteadyState)));
 
   parameter Boolean waterSideFlowDependent=true
     "Set to false to make water-side hA independent of mass flow rate"
@@ -315,6 +319,10 @@ rather may be considered as approximated by these heat conductors.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+June 19, 2026, by Michael Wetter:<br/>
+Updated Dialog annotations.
+</li>
 <li>
 October 19, 2018, by Kino:<br/>
 Changed model to use a replaceable model as this allows translation in OpenModelica.<br/>

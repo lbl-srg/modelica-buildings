@@ -38,10 +38,10 @@ model DryCoilDiscretized
      annotation(Dialog(group = "Geometry"));
   parameter Boolean use_dh1 = false
     "Set to true to specify hydraulic diameter for pipe pressure drop"
-       annotation(Evaluate=true, Dialog(enable = not linearizeFlowResistance1, tab="Advanced"));
+       annotation(Evaluate=true, Dialog(group="Nominal condition"));
   parameter Boolean use_dh2 = false
     "Set to true to specify hydraulic diameter for duct pressure drop)"
-       annotation(Evaluate=true, Dialog(tab="Advanced"));
+       annotation(Evaluate=true, Dialog(group="Nominal condition"));
 
   parameter Modelica.Fluid.Types.Dynamics energyDynamics=Modelica.Fluid.Types.Dynamics.DynamicFreeInitial
     "Formulation of energy balance"
@@ -52,21 +52,27 @@ model DryCoilDiscretized
         enable=use_dh1 and not linearizeFlowResistance1));
   parameter Real ReC_1=4000
     "Reynolds number where transition to turbulence starts inside pipes"
-     annotation(Dialog(enable = use_dh1 and not linearizeFlowResistance1, tab="Advanced"));
+     annotation(Dialog(enable = use_dh1 and not linearizeFlowResistance1, tab="Flow resistance", group="Medium 1"));
   parameter Real ReC_2=4000
     "Reynolds number where transition to turbulence starts inside ducts"
-     annotation(Dialog(enable = use_dh2 and not linearizeFlowResistance2, tab="Advanced"));
+     annotation(Dialog(enable = use_dh2 and not linearizeFlowResistance2, tab="Flow resistance", group="Medium 2"));
   parameter Modelica.Units.SI.Length dh2=1 "Hydraulic diameter for duct"
     annotation (Dialog(group="Geometry"));
   parameter Modelica.Units.SI.Time tau1=20
-    "Time constant at nominal flow for medium 1" annotation (Dialog(group=
-          "Nominal condition", enable=energyDynamics <> Modelica.Fluid.Types.Dynamics.SteadyState));
+    "Time constant at nominal flow for medium 1"
+    annotation (
+       Dialog(tab = "Dynamics", group="Conservation equations",
+         enable=not (energyDynamics == Modelica.Fluid.Types.Dynamics.SteadyState)));
   parameter Modelica.Units.SI.Time tau2=10
-    "Time constant at nominal flow for medium 2" annotation (Dialog(group=
-          "Nominal condition", enable=energyDynamics <> Modelica.Fluid.Types.Dynamics.SteadyState));
+    "Time constant at nominal flow for medium 2"
+    annotation (
+       Dialog(tab = "Dynamics", group="Conservation equations",
+         enable=not (energyDynamics == Modelica.Fluid.Types.Dynamics.SteadyState)));
   parameter Modelica.Units.SI.Time tau_m=20
     "Time constant of metal at nominal UA value"
-    annotation (Dialog(group="Nominal condition"));
+    annotation (
+       Dialog(tab = "Dynamics", group="Conservation equations",
+         enable=not (energyDynamics == Modelica.Fluid.Types.Dynamics.SteadyState)));
   parameter Boolean waterSideFlowDependent = false
     "Set to false to make water-side hA independent of mass flow rate"
     annotation(Dialog(tab="Heat transfer"));
@@ -450,6 +456,10 @@ rather may be considered as approximated by these heat conductors.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+June 19, 2026, by Michael Wetter:<br/>
+Updated Dialog annotations.
+</li>
 <li>
 June 22, 2023 by Hongxiang Fu:<br/>
 Corrected the modification of <code>hexReg[nReg].m2_flow_nominal</code>.<br/>
