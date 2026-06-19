@@ -24,6 +24,7 @@ model StoragePlant "Model of a storage plant with a chiller and a CHW tank"
   parameter Modelica.Units.SI.PressureDifference dpVal_nominal
     "Nominal pressure difference for return valve sizing"
     annotation(Dialog(group="Nominal values"));
+
   parameter Modelica.Units.SI.Temperature T_CHWS_nominal(
     final displayUnit="degC")=
      7+273.15 "Nominal temperature of CHW supply"
@@ -41,7 +42,6 @@ model StoragePlant "Model of a storage plant with a chiller and a CHW tank"
     final dp_nominal=chi2PreDro.dp_nominal) "Primary CHW pump"
     annotation (Placement(transformation(extent={{-40,-14},{-20,6}})));
   Buildings.Fluid.FixedResistances.PressureDrop chi2PreDro(
-    final n=fixme,
     redeclare final package Medium = Medium,
     final m_flow_nominal=mChi_flow_nominal,
     dp_nominal=0.1*dpPum_nominal) "Pressure drop of the chiller loop"

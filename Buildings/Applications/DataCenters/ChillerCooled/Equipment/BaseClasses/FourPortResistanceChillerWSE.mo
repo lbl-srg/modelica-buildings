@@ -12,7 +12,8 @@ record FourPortResistanceChillerWSE
                 tab="Flow resistance", group="Medium 1"));
   parameter Real n1(min=1, max=2) = 2
     "Flow exponent, n1=1 for laminar, n1=2 for turbulent"
-    annotation(Evaluate=true);
+    annotation(Dialog(enable = computeFlowResistance1,
+                      tab="Flow resistance", group="Medium 1"));
   parameter Modelica.Units.SI.PressureDifference dp1_chi_nominal(min=0,
       displayUnit="Pa") "Pressure difference on medium 1 side in the chillers"
     annotation (Dialog(group="Chiller"));
@@ -37,7 +38,8 @@ record FourPortResistanceChillerWSE
                 tab="Flow resistance", group="Medium 2"));
   parameter Real n2(min=1, max=2) = 2
     "Flow exponent, n2=1 for laminar, n2=2 for turbulent"
-    annotation(Evaluate=true);
+    annotation(Dialog(enable = computeFlowResistance2,
+                      tab="Flow resistance", group="Medium 2"));
   parameter Modelica.Units.SI.PressureDifference dp2_chi_nominal(min=0,
       displayUnit="Pa") "Pressure difference on medium 2 side in the chillers"
     annotation (Dialog(group="Chiller"));

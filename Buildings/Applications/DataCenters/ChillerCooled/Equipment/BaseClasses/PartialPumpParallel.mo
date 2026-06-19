@@ -78,9 +78,6 @@ partial model PartialPumpParallel "Partial model for pump parallel"
   parameter Boolean from_dp = false
     "= true, use m_flow = f(dp) else dp = f(m_flow)"
     annotation (Evaluate=true, Dialog(tab="Flow resistance"));
-  parameter Real n(min=1, max=2) = 2
-    "Flow exponent, n=1 for laminar, n=2 for turbulent"
-    annotation(Evaluate=true);
   parameter Boolean linearizeFlowResistance = false
     "= true, use linear relation between m_flow and dp for any flow rate"
     annotation(Dialog(tab="Flow resistance"));
@@ -138,7 +135,6 @@ partial model PartialPumpParallel "Partial model for pump parallel"
     each final m_flow_nominal=m_flow_nominal,
     each final deltaM=deltaM,
     each final from_dp=from_dp,
-               final n=n,
     each final linearized=linearizeFlowResistance,
     each final homotopyInitialization=homotopyInitialization)
     "Isolation valves"

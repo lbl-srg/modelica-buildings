@@ -17,16 +17,20 @@ model ParallelPipes "CHW supply and return pipes in parallel"
     "Nominal pressure drop"
     annotation(Dialog(group="Nominal condition"));
 
+  parameter Real n(min=1, max=2) = 2
+    "Flow exponent, n=1 for laminar, n=2 for turbulent"
+    annotation(Dialog(tab="Advanced"), Evaluate=true);
+
   Buildings.Fluid.FixedResistances.PressureDrop preDro1(
-    final n=fixme,
     redeclare package Medium = Medium1,
+    final n=n,
     final allowFlowReversal=true,
     final dp_nominal=dp_nominal,
     final m_flow_nominal=m1_flow_nominal) "Flow resistance"
     annotation (Placement(transformation(extent={{-10,50},{10,70}})));
   Buildings.Fluid.FixedResistances.PressureDrop preDro2(
-    final n=fixme,
     redeclare package Medium = Medium2,
+    final n=n,
     final allowFlowReversal=true,
     final dp_nominal=dp_nominal,
     final m_flow_nominal=m2_flow_nominal) "Flow resistance"

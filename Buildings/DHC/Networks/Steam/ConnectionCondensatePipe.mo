@@ -5,16 +5,19 @@ model ConnectionCondensatePipe
     Buildings.DHC.Networks.BaseClasses.PartialConnection2Pipe2Medium(
     redeclare final model Model_pipDisRet =
         Buildings.Fluid.FixedResistances.PressureDrop (
-          final n=fixme,
+          final n=n,
           final dp_nominal=dp_nominal),
     redeclare model Model_pipDisSup =
         Buildings.Fluid.FixedResistances.LosslessPipe);
   parameter Modelica.Units.SI.PressureDifference dp_nominal(displayUnit="Pa")
     "Pressure drop at nominal mass flow rate"
     annotation (Dialog(group="Nominal condition"));
+  parameter Real n(min=1, max=2) = 2
+    "Flow exponent, n=1 for laminar, n=2 for turbulent"
+    annotation(Evaluate=true);
   Buildings.Fluid.FixedResistances.PressureDrop pipConRet(
-    final n=fixme,
     redeclare package Medium = MediumRet,
+    final n=n,
     m_flow_nominal=mCon_flow_nominal,
     final dp_nominal=dp_nominal)
     "Connection return pipe"

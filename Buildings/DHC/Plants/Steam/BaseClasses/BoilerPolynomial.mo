@@ -23,6 +23,12 @@ model BoilerPolynomial
   parameter Modelica.Units.SI.PressureDifference dp_nominal(displayUnit="Pa")
     "Pressure drop at nominal mass flow rate"
     annotation(Dialog(group = "Nominal condition"));
+
+  parameter Real n(min=1, max=2) = 2
+    "Flow exponent, n=1 for laminar, n=2 for turbulent"
+    annotation (Evaluate=true, Dialog(
+                tab="Advanced"));
+
   parameter Modelica.Units.SI.Power Q_flow_nominal "Nominal heating power";
   parameter Modelica.Units.SI.Temperature T_nominal = 373.15
     "Temperature used to compute nominal efficiency
@@ -96,8 +102,8 @@ model BoilerPolynomial
     "Steam/water control volume"
     annotation (Placement(transformation(extent={{0,-10},{20,10}})));
   Buildings.Fluid.FixedResistances.PressureDrop res(
-    final n=fixme,
     redeclare final package Medium = MediumWat,
+    final n=n,
     final allowFlowReversal=allowFlowReversal,
     final m_flow_nominal=m_flow_nominal,
     final show_T=show_T,
