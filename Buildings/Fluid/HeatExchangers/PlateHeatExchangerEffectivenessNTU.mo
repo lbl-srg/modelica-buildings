@@ -10,10 +10,10 @@ model PlateHeatExchangerEffectivenessNTU
     "Ratio between convective heat transfer coefficients at nominal conditions, r_nominal = hA1_nominal/hA2_nominal"
     annotation(Dialog(tab="Advanced", group="Heat transfer coefficients"));
 
-  parameter Real n1(min=0, max=1)=0.8
+  parameter Real nCon1(min=0, max=1)=0.8
     "Exponent for convective heat transfer coefficient, h1~m1_flow^n1"
     annotation(Dialog(tab="Advanced", group="Heat transfer coefficients"));
-  parameter Real n2(min=0, max=1)=n1
+  parameter Real nCon2(min=0, max=1)=nCon1
    "Exponent for convective heat transfer coefficient, h2~m2_flow^n2"
    annotation(Dialog(tab="Advanced", group="Heat transfer coefficients"));
 
@@ -39,11 +39,11 @@ equation
   // Convective heat transfer coefficients
  hA1 = hA1_nominal * Buildings.Utilities.Math.Functions.regNonZeroPower(
    x = m1_flow/m1_flow_nominal,
-   n = n1,
+   n = nCon1,
    delta = 0.1);
  hA2 = hA2_nominal * Buildings.Utilities.Math.Functions.regNonZeroPower(
    x = m2_flow/m2_flow_nominal,
-   n = n2,
+   n = nCon2,
    delta = 0.1);
   annotation (
     Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
@@ -128,11 +128,11 @@ are supported.
 <h4>Convective heat transfer coefficients</h4>
 <p>
 The convective heat transfer coefficients scale proportional to
-<i>(m&#775;/m&#775;<sub>0</sub>)<sup>n</sup></i>, where
+<i>(m&#775;/m&#775;<sub>0</sub>)<sup>nCon</sup></i>, where
 <i>m&#775;</i> is the mass flow rate and
 <i>m&#775;<sub>0</sub></i> is the nominal mass flow rate.
 By default, the exponents are
-<i>n=0.8</i> for both streams.
+<i>nCon=0.8</i> for both streams.
 The convective heat transfer coefficients are computed based on the UA-value, neglecting
 the thermal conductance of the heat exchanger material.
 The ratio of the convection coefficients at design conditions can be
@@ -143,7 +143,7 @@ where
 By default, the ratio <i>r<sub>0</sub></i> is computed based on the similarity law for
 turbulent flow, which states that the convective heat transfer coefficient <i>h</i> follows the proportionality law
 <p align=\"center\" style=\"font-style:italic;\">
-  h &prop; k (&rho; v x / &eta;)<sup>n1</sup> Pr<sup>1/3</sup>,
+  h &prop; k (&rho; v x / &eta;)<sup>nCon1</sup> Pr<sup>1/3</sup>,
 </p>
 <p>
 where <i>k</i> is the heat conductivity of the fluid,
@@ -156,8 +156,8 @@ Under the assumption that both sides of the heat exchanger are identical,
 and considering that the velocity is proportional to the mass flow rate divided by the density,
 the ratio <i>r<sub>0</sub></i> is
 <p align=\"center\" style=\"font-style:italic;\">
-r<sub>0</sub> = (k<sub>1</sub> (m&#775;<sub>0,1</sub> / &eta;<sub>0,1</sub>)<sup>n1</sup> Pr<sub>0,1</sub><sup>1/3</sup>) &frasl;
-  (k<sub>2</sub> (m&#775;<sub>0,2</sub> / &eta;<sub>0,2</sub>)<sup>n2</sup> Pr<sub>0,2</sub><sup>1/3</sup>).
+r<sub>0</sub> = (k<sub>1</sub> (m&#775;<sub>0,1</sub> / &eta;<sub>0,1</sub>)<sup>nCon1</sup> Pr<sub>0,1</sub><sup>1/3</sup>) &frasl;
+  (k<sub>2</sub> (m&#775;<sub>0,2</sub> / &eta;<sub>0,2</sub>)<sup>nCon2</sup> Pr<sub>0,2</sub><sup>1/3</sup>).
 </p>
 <p>
 This is the default setting for the parameter <code>r_nominal</code>.
@@ -173,6 +173,12 @@ Buildings.Fluid.MassExchangers.ConstantEffectiveness</a>.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+June 19, 20262, by Michael Wetter:<br/>
+Renamed exponents for convective heat transfer coefficients from <code>n1</code> and <code>n2</code> to <code>nCon1</code> and <code>nCon2</code>.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4620\">issue 4620</a>.
+</li>
 <li>
 March 15, 2022, by Michael Wetter:<br/>
 Introduced parameter <code>r_nominal</code> and exposed exponents of convective heat transfer coefficients.<br/>
