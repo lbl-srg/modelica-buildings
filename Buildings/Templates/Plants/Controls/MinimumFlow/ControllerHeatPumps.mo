@@ -88,9 +88,9 @@ block ControllerHeatPumps
       iconTransformation(extent={{-140,-18},{-100,22}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1PumHeaWatPriDedPhp_actual[nPhp]
     if have_heaWat and nPhp > 0 and not have_pumPriHdr
-    "Primary HW pump status – Polyvalent HP dedicated pumps" annotation (
-      Placement(transformation(extent={{-200,-80},{-160,-40}}),
-        iconTransformation(extent={{-140,-38},{-100,2}})));
+    "Primary HW pump status – Polyvalent HP dedicated pumps"
+    annotation(Placement(transformation(extent={{-200,-80},{-160,-40}}),
+      iconTransformation(extent={{-140,-38},{-100,2}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput VChiWatPri_flow(
     final unit="m3/s")
     if have_chiWat
@@ -193,7 +193,7 @@ block ControllerHeatPumps
   Buildings.Controls.OBC.CDL.Logical.Not u1CooHp[nHp]
     if have_chiWat and nHp > 0
     "True if HP in cooling mode"
-    annotation(Placement(transformation(extent={{-110,150},{-90,170}})));
+    annotation(Placement(transformation(extent={{-110,102},{-90,122}})));
   Buildings.Controls.OBC.CDL.Logical.And onAndHeaHp[nHp]
     if have_heaWat and nHp > 0
     "True if HP commanded on in heating mode"
@@ -209,7 +209,7 @@ block ControllerHeatPumps
       and not have_pumPriHdr
       and not have_pumChiWatPriDedHp
     "Dedicated pump on and cooling mode – HP with common CHW and HW pumps"
-    annotation(Placement(transformation(extent={{-70,-110},{-50,-90}})));
+    annotation(Placement(transformation(extent={{-70,-90},{-50,-70}})));
   Buildings.Controls.OBC.CDL.Logical.And pumDedOnAndHeaHp[nHp]
     if have_heaWat
       and have_chiWat
@@ -228,26 +228,6 @@ block ControllerHeatPumps
     "Polyvalent HP cooling mode command"
     annotation(Placement(transformation(extent={{-200,100},{-160,140}}),
       iconTransformation(extent={{-140,102},{-100,142}})));
-  Utilities.ConcatenateLogical onAndHeaHpPhp(nin1=nHp, nin2=nPhp)
-    if have_heaWat and nHp > 0 and nPhp > 0
-    "Heating mode enable – Plants with HP and polyvalent HP"
-    annotation(Placement(transformation(extent={{20,150},{40,170}})));
-  Utilities.PlaceholderLogical onAndHeaHpOrPhp[if nHp > 0 then nHp else nPhp](
-    each final have_inp=nHp > 0,
-    each final have_inpPh=true)
-    if have_heaWat and not (nHp > 0 and nPhp > 0)
-    "Heating mode enable – Plants with either HP or polyvalent HP (not both)"
-    annotation(Placement(transformation(extent={{-10,170},{10,190}})));
-  Utilities.PlaceholderLogical onAndCooHpOrPhp[if nHp > 0 then nHp else nPhp](
-    each final have_inp=nHp > 0,
-    each final have_inpPh=true)
-    if have_chiWat and not (nHp > 0 and nPhp > 0)
-    "Cooling mode enable – Plants with either HP or polyvalent HP (not both)"
-    annotation(Placement(transformation(extent={{-10,110},{10,130}})));
-  Utilities.ConcatenateLogical onAndCooHpPhp(nin1=1, nin2=1)
-    if have_chiWat and nHp > 0 and nPhp > 0
-    "Cooling mode enable – Plants with HP and polyvalent HP"
-    annotation(Placement(transformation(extent={{20,90},{40,110}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1PumChiWatPriDedHp_actual[nHp]
     if have_chiWat and nHp > 0 and not have_pumPriHdr and have_pumChiWatPriDedHp
     "Primary CHW pump status – HP dedicated pumps"
@@ -294,33 +274,58 @@ block ControllerHeatPumps
     if have_chiWat
     "Inlet or outlet CHW isolation valve commanded open"
     annotation(Placement(transformation(extent={{60,30},{80,50}})));
-  Utilities.ConcatenateLogical pumDedOnCooHpPhp(nin1=nHp, nin2=nPhp)
-    if have_chiWat and nHp > 0 and nPhp > 0 and not have_pumPriHdr
-    "Dedicated pump on and cooling mode – Plants with HP and polyvalent HP"
-    annotation(Placement(transformation(extent={{0,-130},{20,-110}})));
-  Utilities.PlaceholderLogical pumDedOnAndCooHpOrPhp[if nHp > 0
-  then nHp else nPhp](each final have_inp=nHp > 0, each final have_inpPh=true)
-    if have_chiWat and not have_pumPriHdr and not (nHp > 0 and nPhp > 0)
-    "Dedicated pump on and cooling mode – Plants with HP or polyvalent HP (not both)"
-    annotation(Placement(transformation(extent={{-30,-110},{-10,-90}})));
-  Utilities.PlaceholderLogical pumDedOnAndHeaHpOrPhp[if nHp > 0
-  then nHp else nPhp](each final have_inp=nHp > 0, each final have_inpPh=true)
-    if have_heaWat and not have_pumPriHdr and not (nHp > 0 and nPhp > 0)
-    "Dedicated pump on and heating mode – Plants with HP or polyvalent HP (not both)"
-    annotation(Placement(transformation(extent={{-28,-30},{-8,-10}})));
-  Utilities.ConcatenateLogical pumDedOnHeaHpPhp(nin1=nHp, nin2=nPhp)
-    if have_heaWat and nHp > 0 and nPhp > 0 and not have_pumPriHdr
-    "Dedicated pump on and heating mode – Plants with HP and polyvalent HP"
-    annotation(Placement(transformation(extent={{0,-50},{20,-30}})));
-  Buildings.Controls.OBC.CDL.Routing.BooleanExtractSignal pumHeaWatPriDedHp_actual(
-    final nin=nHp,
-    final nout=nHp)
-    if have_heaWat
+  Utilities.ConcatenateSelectLogical pumDedOnCoo(
+    final have_u1=nHp > 0,
+    final have_u2=nPhp > 0,
+    nin2=nPhp,
+    nin1=nHp)
+    if have_chiWat and not have_pumPriHdr
+    "Dedicated pump on and cooling mode"
+    annotation(Placement(transformation(extent={{0,-90},{20,-70}})));
+  Utilities.ConcatenateSelectLogical pumDedOnHeaHpPhp(
+    final have_u1=nHp > 0,
+    final have_u2=nPhp > 0,
+    nin2=nPhp,
+    nin1=nHp)
+    if have_heaWat and not have_pumPriHdr
+    "Dedicated pump on and heating mode"
+    annotation(Placement(transformation(extent={{0,-30},{20,-10}})));
+  Utilities.PlaceholderLogical pumDedOnAndHeaHp1[nHp](
+    each final have_inp=have_heaWat
+      and have_chiWat
       and nHp > 0
       and not have_pumPriHdr
-      and (have_pumChiWatPriDedHp or not have_chiWat)
-    "Direct pass-through for plants with separate dedicated CHW/HW pumps"
-    annotation(Placement(transformation(extent={{-110,-50},{-90,-30}})));
+      and not have_pumChiWatPriDedHp,
+    each final have_inpPh=true)
+    if have_heaWat and not have_pumPriHdr and nHp > 0
+    "Dedicated pump on and heating mode – HP"
+    annotation(Placement(transformation(extent={{-40,-30},{-20,-10}})));
+  Utilities.PlaceholderLogical pumDedOnAndHeaHp2[nHp](
+    each final have_inp=have_heaWat
+      and have_chiWat
+      and nHp > 0
+      and not have_pumPriHdr
+      and not have_pumChiWatPriDedHp,
+    each final have_inpPh=true)
+    if have_chiWat and not have_pumPriHdr and nHp > 0
+    "Dedicated pump on and heating mode – HP"
+    annotation(Placement(transformation(extent={{-40,-90},{-20,-70}})));
+  Utilities.ConcatenateSelectLogical onAndHea(
+    final have_u1=nHp > 0,
+    final have_u2=nPhp > 0,
+    final nin2=nPhp,
+    final nin1=nHp)
+    if have_heaWat
+    "Heating mode enable"
+    annotation(Placement(transformation(extent={{0,170},{20,190}})));
+  Utilities.ConcatenateSelectLogical onAndCoo(
+    final have_u1=nHp > 0,
+    final have_u2=nPhp > 0,
+    final nin2=nPhp,
+    final nin1=nHp)
+    if have_chiWat
+    "Cooling mode enable"
+    annotation(Placement(transformation(extent={{0,110},{20,130}})));
 equation
   connect(ctlFloMinHeaWat.y, yValHeaWatMinByp)
     annotation(Line(points={{134,0},{150,0},{150,60},{180,60}},
@@ -338,7 +343,7 @@ equation
     annotation(Line(points={{-180,160},{-152,160}},
       color={255,0,255}));
   connect(phHeaCooHp.y, u1CooHp.u)
-    annotation(Line(points={{-128,160},{-112,160}},
+    annotation(Line(points={{-128,160},{-120,160},{-120,112},{-112,112}},
       color={255,0,255}));
   connect(u1Hp, onAndHeaHp.u1)
     annotation(Line(points={{-180,180},{-62,180}},
@@ -350,55 +355,19 @@ equation
     annotation(Line(points={{-180,-160},{98,-160},{98,-4},{110,-4}},
       color={0,0,127}));
   connect(u1CooHp.y, onAndCooHp.u2)
-    annotation(Line(points={{-88,160},{-80,160},{-80,112},{-62,112}},
+    annotation(Line(points={{-88,112},{-62,112}},
       color={255,0,255}));
   connect(u1CooHp.y, pumDedOnAndCooHp.u1)
-    annotation(Line(points={{-88,160},{-80,160},{-80,-100},{-72,-100}},
+    annotation(Line(points={{-88,112},{-80,112},{-80,-80},{-72,-80}},
       color={255,0,255}));
   connect(phHeaCooHp.y, onAndHeaHp.u2)
-    annotation(Line(
-      points={{-128,160},{-120,160},{-120,178},{-64,178},{-64,172},{-62,172}},
+    annotation(Line(points={{-128,160},{-120,160},{-120,172},{-62,172}},
       color={255,0,255}));
   connect(phHeaCooHp.y, pumDedOnAndHeaHp.u1)
     annotation(Line(points={{-128,160},{-120,160},{-120,-20},{-72,-20}},
       color={255,0,255}));
   connect(u1Hp, onAndCooHp.u1)
-    annotation(Line(points={{-180,180},{-70,180},{-70,120},{-62,120}},
-      color={255,0,255}));
-  connect(onAndHeaHp.y, onAndHeaHpPhp.u1)
-    annotation(Line(points={{-38,180},{-20,180},{-20,160},{18,160}},
-      color={255,0,255}));
-  connect(u1HeaPhp, onAndHeaHpPhp.u2)
-    annotation(Line(points={{-180,140},{-30,140},{-30,152},{18,152}},
-      color={255,0,255}));
-  connect(onAndHeaHp.y, onAndHeaHpOrPhp.u)
-    annotation(Line(points={{-38,180},{-12,180}},
-      color={255,0,255}));
-  connect(u1HeaPhp, onAndHeaHpOrPhp.uPh)
-    annotation(Line(points={{-180,140},{-30,140},{-30,174},{-12,174}},
-      color={255,0,255}));
-  connect(onAndHeaHpOrPhp.y, ctlFloMinHeaWat.u1Equ)
-    annotation(Line(points={{12,180},{100,180},{100,8},{110,8}},
-      color={255,0,255}));
-  connect(onAndHeaHpPhp.y, ctlFloMinHeaWat.u1Equ)
-    annotation(Line(points={{42,160},{100,160},{100,8},{110,8}},
-      color={255,0,255}));
-  connect(onAndCooHp.y, onAndCooHpOrPhp.u)
-    annotation(Line(points={{-38,120},{-12,120}},
-      color={255,0,255}));
-  connect(u1CooPhp, onAndCooHpOrPhp.uPh)
-    annotation(Line(
-      points={{-180,120},{-140,120},{-140,100},{-30,100},{-30,114},{-12,114}},
-      color={255,0,255}));
-  connect(u1CooPhp[1], onAndCooHpPhp.u2[1])
-    annotation(Line(
-      points={{-180,120},{-140,120},{-140,100},{-30,100},{-30,92},{18,92}},
-      color={255,0,255}));
-  connect(onAndCooHp[1].y, onAndCooHpPhp.u1[1])
-    annotation(Line(points={{-38,120},{-20,120},{-20,100},{18,100}},
-      color={255,0,255}));
-  connect(onAndCooHpPhp.y, ctlFloMinChiWat.u1Equ)
-    annotation(Line(points={{42,100},{96,100},{96,-52},{108,-52}},
+    annotation(Line(points={{-180,180},{-80,180},{-80,120},{-62,120}},
       color={255,0,255}));
   connect(u1ValHeaWatInlIso, phValHeaWatInlIso.u)
     annotation(Line(points={{-180,80},{-152,80}},
@@ -430,68 +399,60 @@ equation
   connect(valChiWatInlOrOutIso.y, ctlFloMinChiWat.u1ValIso)
     annotation(Line(points={{82,40},{88,40},{88,-56},{108,-56}},
       color={255,0,255}));
-  connect(u1PumChiWatPriDedPhp_actual, pumDedOnCooHpPhp.u2)
-    annotation(Line(points={{-180,-120},{-150,-120},{-150,-128},{-2,-128}},
+  connect(u1PumChiWatPriDedPhp_actual, pumDedOnCoo.u2)
+    annotation(Line(points={{-180,-120},{-10,-120},{-10,-88},{-2,-88}},
       color={255,0,255}));
-  connect(u1PumChiWatPriDedHp_actual, pumDedOnCooHpPhp.u1)
-    annotation(Line(points={{-180,-100},{-146,-100},{-146,-120},{-2,-120}},
-      color={255,0,255}));
-  connect(pumDedOnAndCooHp.y, pumDedOnAndCooHpOrPhp.u)
-    annotation(Line(points={{-48,-100},{-32,-100}},
-      color={255,0,255}));
-  connect(u1PumChiWatPriDedPhp_actual, pumDedOnAndCooHpOrPhp.uPh)
-    annotation(Line(
-      points={{-180,-120},{-150,-120},{-150,-128},{-36,-128},{-36,-106},{-32,-106}},
-      color={255,0,255}));
-  connect(pumDedOnAndCooHpOrPhp.y, ctlFloMinChiWat.u1PumPri_actual)
-    annotation(Line(points={{-8,-100},{90,-100},{90,-60},{108,-60}},
-      color={255,0,255}));
-  connect(pumDedOnCooHpPhp.y, ctlFloMinChiWat.u1PumPri_actual)
-    annotation(Line(points={{22,-120},{94,-120},{94,-60},{108,-60}},
-      color={255,0,255}));
-  connect(pumDedOnAndHeaHp.y, pumDedOnAndHeaHpOrPhp.u)
-    annotation(Line(points={{-48,-20},{-30,-20}},
-      color={255,0,255}));
-  connect(pumDedOnAndCooHp.y, pumDedOnCooHpPhp.u1)
-    annotation(Line(points={{-48,-100},{-44,-100},{-44,-120},{-2,-120}},
-      color={255,0,255}));
-  connect(u1PumChiWatPriDedHp_actual, pumDedOnAndCooHpOrPhp.u)
-    annotation(Line(
-      points={{-180,-100},{-146,-100},{-146,-120},{-40,-120},{-40,-100},{-32,-100}},
+  connect(pumDedOnCoo.y, ctlFloMinChiWat.u1PumPri_actual)
+    annotation(Line(points={{22,-80},{94,-80},{94,-60},{108,-60}},
       color={255,0,255}));
   connect(u1PumHeaWatPriDedPhp_actual, pumDedOnHeaHpPhp.u2)
-    annotation(Line(points={{-180,-60},{-36,-60},{-36,-48},{-2,-48}},
-      color={255,0,255}));
-  connect(u1PumHeaWatPriDedPhp_actual, pumDedOnAndHeaHpOrPhp.uPh)
-    annotation(Line(points={{-180,-60},{-36,-60},{-36,-26},{-30,-26}},
-      color={255,0,255}));
-  connect(u1PumHeaWatPriDedHp_actual, pumHeaWatPriDedHp_actual.u)
-    annotation(Line(points={{-180,-40},{-112,-40}},
-      color={255,0,255}));
-  connect(pumHeaWatPriDedHp_actual.y, pumDedOnAndHeaHpOrPhp.u)
-    annotation(Line(points={{-88,-40},{-44,-40},{-44,-20},{-30,-20}},
+    annotation(Line(points={{-180,-60},{-10,-60},{-10,-28},{-2,-28}},
       color={255,0,255}));
   connect(u1PumHeaWatPriDedHp_actual, pumDedOnAndHeaHp.u2)
-    annotation(Line(
-      points={{-180,-40},{-140,-40},{-140,-24},{-76,-24},{-76,-28},{-72,-28}},
+    annotation(Line(points={{-180,-40},{-140,-40},{-140,-28},{-72,-28}},
       color={255,0,255}));
   connect(u1PumHeaWatPriDedHp_actual, pumDedOnAndCooHp.u2)
-    annotation(Line(points={{-180,-40},{-140,-40},{-140,-108},{-72,-108}},
-      color={255,0,255}));
-  connect(pumDedOnAndHeaHp.y, pumDedOnHeaHpPhp.u1)
-    annotation(Line(points={{-48,-20},{-40,-20},{-40,-40},{-2,-40}},
-      color={255,0,255}));
-  connect(pumHeaWatPriDedHp_actual.y, pumDedOnHeaHpPhp.u1)
-    annotation(Line(points={{-88,-40},{-2,-40}},
-      color={255,0,255}));
-  connect(pumDedOnAndHeaHpOrPhp.y, ctlFloMinHeaWat.u1PumPri_actual)
-    annotation(Line(points={{-6,-20},{80,-20},{80,0},{110,0}},
+    annotation(Line(points={{-180,-40},{-140,-40},{-140,-88},{-72,-88}},
       color={255,0,255}));
   connect(pumDedOnHeaHpPhp.y, ctlFloMinHeaWat.u1PumPri_actual)
-    annotation(Line(points={{22,-40},{84,-40},{84,0},{110,0}},
+    annotation(Line(points={{22,-20},{84,-20},{84,0},{110,0}},
       color={255,0,255}));
-  connect(onAndCooHpOrPhp.y, ctlFloMinChiWat.u1Equ)
-    annotation(Line(points={{12,120},{96,120},{96,-52},{108,-52}},
+  connect(pumDedOnAndHeaHp.y, pumDedOnAndHeaHp1.u)
+    annotation(Line(points={{-48,-20},{-42,-20}},
+      color={255,0,255}));
+  connect(u1PumHeaWatPriDedHp_actual, pumDedOnAndHeaHp1.uPh)
+    annotation(Line(points={{-180,-40},{-46,-40},{-46,-26},{-42,-26}},
+      color={255,0,255}));
+  connect(pumDedOnAndHeaHp1.y, pumDedOnHeaHpPhp.u1)
+    annotation(Line(points={{-18,-20},{-2,-20}},
+      color={255,0,255}));
+  connect(pumDedOnAndHeaHp2.y, pumDedOnCoo.u1)
+    annotation(Line(points={{-18,-80},{-2,-80}},
+      color={255,0,255}));
+  connect(u1PumChiWatPriDedHp_actual, pumDedOnAndHeaHp2.uPh)
+    annotation(Line(points={{-180,-100},{-46,-100},{-46,-86},{-42,-86}},
+      color={255,0,255}));
+  connect(pumDedOnAndCooHp.y, pumDedOnAndHeaHp2.u)
+    annotation(Line(points={{-48,-80},{-42,-80}},
+      color={255,0,255}));
+  connect(onAndHeaHp.y, onAndHea.u1)
+    annotation(Line(points={{-38,180},{-2,180}},
+      color={255,0,255}));
+  connect(u1HeaPhp, onAndHea.u2)
+    annotation(Line(points={{-180,140},{-20,140},{-20,172},{-2,172}},
+      color={255,0,255}));
+  connect(onAndHea.y, ctlFloMinHeaWat.u1Equ)
+    annotation(Line(points={{22,180},{100,180},{100,8},{110,8}},
+      color={255,0,255}));
+  connect(onAndCooHp.y, onAndCoo.u1)
+    annotation(Line(points={{-38,120},{-2,120}},
+      color={255,0,255}));
+  connect(onAndCoo.y, ctlFloMinChiWat.u1Equ)
+    annotation(Line(points={{22,120},{96,120},{96,-52},{108,-52}},
+      color={255,0,255}));
+  connect(u1CooPhp, onAndCoo.u2)
+    annotation(Line(
+      points={{-180,120},{-140,120},{-140,100},{-20,100},{-20,112},{-2,112}},
       color={255,0,255}));
 annotation(defaultComponentName="ctlFloMin",
   Icon(coordinateSystem(preserveAspectRatio=true,

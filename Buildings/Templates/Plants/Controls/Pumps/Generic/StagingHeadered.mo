@@ -219,7 +219,7 @@ block StagingHeadered
   StagingRotation.EquipmentEnable enaHdr(final staEqu=staPum)
     if is_hdr
     "Enable headered pumps"
-    annotation(Placement(transformation(extent={{50,-10},{70,10}})));
+    annotation(Placement(transformation(extent={{70,-10},{90,10}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput y(final unit="1")
     if is_hdr and is_ctlDp
     "Pump speed command"
@@ -319,19 +319,19 @@ equation
     annotation(Line(points={{-180,40},{-16,40},{-16,46},{-12,46}},
       color={255,0,255}));
   connect(enaHdr.y1, y1)
-    annotation(Line(points={{72,0},{140,0},{140,-60},{180,-60}},
+    annotation(Line(points={{92,0},{140,0},{140,-60},{180,-60}},
       color={255,0,255}));
   connect(nPumHdrDp.y, enaHdr.uSta)
-    annotation(Line(points={{12,0},{48,0}},
+    annotation(Line(points={{12,0},{68,0}},
       color={255,127,0}));
   connect(nPumHdrPriNotDp.y, enaHdr.uSta)
-    annotation(Line(points={{12,120},{20,120},{20,0},{48,0}},
+    annotation(Line(points={{12,120},{20,120},{20,0},{68,0}},
       color={255,127,0}));
   connect(u1Ava.y, enaHdr.u1Ava)
-    annotation(Line(points={{12,-100},{20,-100},{20,-6},{48,-6}},
+    annotation(Line(points={{12,-100},{20,-100},{20,-6},{68,-6}},
       color={255,0,255}));
   connect(sorRunTimHdr.yIdx, enaHdr.uIdxAltSor)
-    annotation(Line(points={{12,34},{40,34},{40,6},{48,6}},
+    annotation(Line(points={{12,34},{40,34},{40,6},{68,6}},
       color={255,127,0}));
   connect(sigPumPriDed.y, y1)
     annotation(Line(points={{92,-160},{140,-160},{140,-60},{180,-60}},
