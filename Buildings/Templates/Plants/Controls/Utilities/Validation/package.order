@@ -1,3 +1,6 @@
+ConcatenateLogical
+ConcatenateParameterLogical
+ConcatenateSelectLogical
 CountTrue
 FirstTrueIndex
 HoldReal
@@ -8,5 +11,4 @@ PlaceholderInteger
 PlaceholderLogical
 PlaceholderReal
 StageIndex
-TimerWithReset
 TrueArrayConditional

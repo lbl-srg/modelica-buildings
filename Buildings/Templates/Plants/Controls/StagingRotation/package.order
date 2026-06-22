@@ -1,6 +1,6 @@
 EquipmentAvailability
 EquipmentEnable
-EventSequencing
+EventSequencingHeatPumps
 FailsafeCondition
 LoadAverage
 SortRuntime
@@ -8,3 +8,4 @@ StageAvailability
 StageChangeCommand
 StageCompletion
 Validation
+BaseClasses

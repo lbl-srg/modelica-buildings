@@ -1,0 +1,33 @@
+simulateModel("Buildings.Templates.Plants.Controls.PolyvalentHeatPumps.Validation.EquipmentEnable",
+    method="cvode",
+    tolerance=1e-6,
+    stopTime=100.0,
+    resultFile="EquipmentEnablePolyvalent");
+createPlot(
+    id=1,
+    position={5, 5, 500, 600},
+    y={"uSta.y[1]", "uStaOpp.y[1]"},
+    autoscale=true,
+    grid=true
+);
+createPlot(
+    id=1,
+    subPlot=2,
+    y={"enaEqu.y1Hp[1]", "enaEqu.y1Hp[2]"},
+    autoscale=true,
+    grid=true
+);
+createPlot(
+    id=1,
+    subPlot=3,
+    y={"enaEqu.y1Php1[3]", "enaEqu.y1Php1[4]"},
+    autoscale=true,
+    grid=true
+);
+createPlot(
+    id=1,
+    subPlot=4,
+    y={"enaEqu.y1Php2[3]", "enaEqu.y1Php2[4]"},
+    autoscale=true,
+    grid=true
+);
