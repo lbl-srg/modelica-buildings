@@ -8,17 +8,11 @@ model Borefield
   parameter Modelica.Units.SI.Temperature TGro = 283.15
     "Initial ground temperature";
 
-  parameter Buildings.Fluid.Geothermal.Borefields.Data.Borefield.Example borFieUTubDat(
-    filDat=Buildings.Fluid.Geothermal.Borefields.Data.Filling.Bentonite(
+  parameter Buildings.Fluid.Geothermal.Borefields.TOUGH.Data.Borefield.Example borFieUTubDat(
+    filDat=Buildings.Fluid.Geothermal.Borefields.TOUGH.Data.Filling.Bentonite(
         kFil=2.5,
         cFil=1000,
-        dFil=2600),
-    soiDat=Buildings.Fluid.Geothermal.Borefields.Data.Soil.SandStone(
-        kSoi=2.5,
-        cSoi=1000,
-        dSoi=2600),
-    conDat=Buildings.Fluid.Geothermal.Borefields.Data.Configuration.Example(
-        borCon=Buildings.Fluid.Geothermal.Borefields.Types.BoreholeConfiguration.SingleUTube))
+        dFil=2600)) "Borefield data record"
     annotation (Placement(transformation(extent={{90,90},{110,110}})));
 
   Buildings.Controls.OBC.CDL.Reals.Sources.Sin floRat(

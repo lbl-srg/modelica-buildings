@@ -32,7 +32,7 @@ partial model PartialBorefield
     annotation(Dialog(tab = "Initialization"));
 
   // General parameters of borefield
-  parameter Buildings.Fluid.Geothermal.Borefields.Data.Borefield.Template borFieDat "Borefield data"
+  parameter Buildings.Fluid.Geothermal.Borefields.TOUGH.Data.Borefield.Template borFieDat "Borefield data"
     annotation (choicesAllMatching=true,Placement(transformation(extent={{-80,-80},{-60,-60}})));
 
   // Temperature gradient in undisturbed soil
@@ -83,8 +83,8 @@ partial model PartialBorefield
     annotation (Placement(transformation(extent={{100,40},{120,60}}),
         iconTransformation(extent={{100,34},{120,54}})));
 
-  replaceable Buildings.Fluid.Geothermal.Borefields.BaseClasses.Boreholes.BaseClasses.PartialBorehole borHol constrainedby
-    Buildings.Fluid.Geothermal.Borefields.BaseClasses.Boreholes.BaseClasses.PartialBorehole(
+  replaceable Buildings.Fluid.Geothermal.Borefields.TOUGH.BaseClasses.Boreholes.BaseClasses.PartialBorehole borHol constrainedby
+    Buildings.Fluid.Geothermal.Borefields.TOUGH.BaseClasses.Boreholes.BaseClasses.PartialBorehole(
     redeclare final package Medium = Medium,
     final borFieDat=borFieDat,
     final nSeg=nSeg,
@@ -111,7 +111,7 @@ partial model PartialBorefield
     final nTouSeg=nTouSeg,
     final samplePeriod=samplePeriod)
     "Ground response calculated by TOUGH simulator"
-    annotation (Placement(transformation(extent={{8,40},{28,60}})));
+    annotation (Placement(transformation(extent={{0,40},{20,60}})));
 
   Modelica.Blocks.Interfaces.RealInput TOut(
     final unit="K",
@@ -170,16 +170,17 @@ equation
           0},{0,0},{0,4},{90,4},{90,20},{80,20}},   color={191,0,0}));
   connect(AveTBor.y, TBorAve)
     annotation (Line(points={{81,50},{110,50}}, color={0,0,127}));
-  connect(touRes.TBorWal, AveTBor.u) annotation (Line(points={{29,56},{44,56},{44,
+  connect(touRes.TBorWal, AveTBor.u) annotation (Line(points={{21,56},{40,56},{40,
           50},{58,50}}, color={0,0,127}));
-  connect(touRes.TBorWal, TemBorWal.T) annotation (Line(points={{29,56},{40,56},
+  connect(touRes.TBorWal, TemBorWal.T) annotation (Line(points={{21,56},{40,56},
           {40,20},{58,20}}, color={0,0,127}));
   connect(TBorHol_start.y, touRes.TBorWal_start)
-    annotation (Line(points={{-19,20},{0,20},{0,50},{7,50}}, color={0,0,127}));
+    annotation (Line(points={{-19,20},{-10,20},{-10,50},{-1,50}},
+                                                             color={0,0,127}));
   connect(QBorHol.Q_flow, touRes.QBor_flow) annotation (Line(points={{-11,-10},{
-          -60,-10},{-60,56},{7,56}}, color={0,0,127}));
-  connect(touRes.TOut, TOut) annotation (Line(points={{7,44},{-80,44},{-80,40},{
-          -120,40}}, color={0,0,127}));
+          -60,-10},{-60,56},{-1,56}},color={0,0,127}));
+  connect(touRes.TOut, TOut) annotation (Line(points={{-1,44},{-80,44},{-80,40},
+          {-120,40}},color={0,0,127}));
   annotation (
     Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}}),
       graphics={
