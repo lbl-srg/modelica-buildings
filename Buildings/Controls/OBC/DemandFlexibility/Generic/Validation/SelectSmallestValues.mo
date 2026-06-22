@@ -5,7 +5,7 @@ model SelectSmallestValues "Select smallest values"
     nVal=5)
     "Block to select smallest values"
     annotation (Placement(transformation(extent={{60,0},{80,20}})));
-  Buildings.Controls.OBC.CDL.Reals.Sources.Constant con2[4](k={13,7,2,3})
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant con2[4](k={13,5,2,3})
     "A vector of four real constants"
     annotation (Placement(transformation(extent={{-40,-40},{-20,-20}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant con1[4](
