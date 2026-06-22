@@ -62,10 +62,10 @@ protected
     annotation (Placement(transformation(extent={{110,30},{130,50}})));
   Buildings.Fluid.CHPs.BaseClasses.EnergyConversionNormal opeModBas(final per=
         per) "Typical energy conversion mode"
-    annotation (Placement(transformation(extent={{-20,-10},{0,10}})));
+    annotation (Placement(transformation(extent={{-20,-40},{0,-20}})));
   Buildings.Fluid.CHPs.BaseClasses.EnergyConversionWarmUp opeModWarUpEngTem(
       final per=per) if not per.warmUpByTimeDelay "Warm-up by engine temperature"
-    annotation (Placement(transformation(extent={{-20,-60},{0,-40}})));
+    annotation (Placement(transformation(extent={{-20,-80},{0,-60}})));
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant const(final k=0)
     "Zero constant"
     annotation (Placement(transformation(extent={{-100,60},{-80,80}})));
@@ -79,7 +79,7 @@ protected
     annotation (Placement(transformation(extent={{-100,90},{-80,110}})));
   Buildings.Controls.OBC.CDL.Reals.Switch switch2
     "Switch between warm-up and normal value"
-    annotation (Placement(transformation(extent={{80,70},{100,90}})));
+    annotation (Placement(transformation(extent={{80,82},{100,102}})));
   Buildings.Controls.OBC.CDL.Reals.Switch switch3
     "Switch between warm-up and normal value"
     annotation (Placement(transformation(extent={{80,10},{100,30}})));
@@ -92,34 +92,45 @@ protected
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant PEleTimeDel(final k=0)
                if per.warmUpByTimeDelay
     "Zero power output in case of warm-up by time delay"
-    annotation (Placement(transformation(extent={{-20,90},{0,110}})));
+    annotation (Placement(transformation(extent={{-20,110},{0,130}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant delWarUp(
     final k=per.warmUpByTimeDelay) "Warm-up by time delay"
-    annotation (Placement(transformation(extent={{-100,-120},{-80,-100}})));
+    annotation (Placement(transformation(extent={{-100,-130},{-80,-110}})));
   Modelica.Blocks.Sources.BooleanExpression wamUpMod(
     final y=opeMod == CHPs.BaseClasses.Types.Mode.WarmUp)
     "Check whether warm-up mode is active"
     annotation (Placement(transformation(extent={{-100,30},{-80,50}})));
   Buildings.Controls.OBC.CDL.Logical.Not engTemWarUp
     "Warm-up based on engine temperature"
-    annotation (Placement(transformation(extent={{-60,-120},{-40,-100}})));
+    annotation (Placement(transformation(extent={{-60,-130},{-40,-110}})));
   Buildings.Controls.OBC.CDL.Logical.And and1
     "True if warm-up mode and warm-up based on engine temperature"
-    annotation (Placement(transformation(extent={{-20,-90},{0,-70}})));
-  Buildings.Controls.OBC.CDL.Reals.Sources.Constant dumTimDel(
-    final k=0) if per.warmUpByTimeDelay
-    "Set dummy value in case of warm-up by time delay"
-    annotation (Placement(transformation(extent={{-20,30},{0,50}})));
+    annotation (Placement(transformation(extent={{-20,-122},{0,-102}})));
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant dumTimDelFue(
+    final k=0,
+    y(unit="kg/s"))
+    if per.warmUpByTimeDelay "Set dummy value in case of warm-up by time delay"
+    annotation (Placement(transformation(extent={{-20,52},{0,72}})));
+  Controls.OBC.CDL.Reals.Sources.Constant dumTimDelAir(
+    final k=0,
+    y(unit="kg/s"))
+    if per.warmUpByTimeDelay "Set dummy value in case of warm-up by time delay"
+    annotation (Placement(transformation(extent={{-20,20},{0,40}})));
+  Controls.OBC.CDL.Reals.Sources.Constant dumTimDelGen(
+    final k=0,
+    y(unit="W"))
+    if per.warmUpByTimeDelay "Set dummy value in case of warm-up by time delay"
+    annotation (Placement(transformation(extent={{-20,-10},{0,10}})));
 
 equation
-  connect(opeModBas.mWat_flow, mWat_flow) annotation (Line(points={{-22,0},{-120,
-          0},{-120,20},{-160,20}},        color={0,0,127}));
-  connect(opeModBas.TWatIn, TWatIn) annotation (Line(points={{-22,-6},{-100,-6},
+  connect(opeModBas.mWat_flow, mWat_flow) annotation (Line(points={{-22,-30},{-110,
+          -30},{-110,20},{-160,20}},      color={0,0,127}));
+  connect(opeModBas.TWatIn, TWatIn) annotation (Line(points={{-22,-36},{-100,-36},
           {-100,-20},{-160,-20}},color={0,0,127}));
-  connect(opeModWarUpEngTem.TEng, TEng) annotation (Line(points={{-22,-58},{-110,
-          -58},{-110,-90},{-160,-90}},  color={0,0,127}));
-  connect(opeModWarUpEngTem.TWatIn, TWatIn) annotation (Line(points={{-22,-47},{
-          -100,-47},{-100,-20},{-160,-20}},
+  connect(opeModWarUpEngTem.TEng, TEng) annotation (Line(points={{-22,-78},{-110,
+          -78},{-110,-90},{-160,-90}},  color={0,0,127}));
+  connect(opeModWarUpEngTem.TWatIn, TWatIn) annotation (Line(points={{-22,-67},{
+          -100,-67},{-100,-20},{-160,-20}},
                                          color={0,0,127}));
   connect(const.y, switch.u3) annotation (Line(points={{-78,70},{-70,70},{-70,
           92},{-62,92}},
@@ -130,10 +141,13 @@ equation
   connect(booExp.y, switch.u2) annotation (Line(points={{-79,100},{-62,100}},
           color={255,0,255}));
   connect(switch.y, opeModBas.PEle) annotation (Line(points={{-38,100},{-30,100},
-          {-30,6},{-22,6}},  color={0,0,127}));
-  connect(opeModWarUpEngTem.PEleNet, switch2.u1) annotation (Line(points={{2,-42},
-          {20,-42},{20,88},{78,88}}, color={0,0,127}));
-  connect(switch2.y, PEleNet) annotation (Line(points={{102,80},{160,80}},
+          {-30,-24},{-22,-24}},
+                             color={0,0,127}));
+  connect(opeModWarUpEngTem.PEleNet, switch2.u1) annotation (Line(points={{2,-62},
+          {20,-62},{20,100},{78,100}},
+                                     color={0,0,127}));
+  connect(switch2.y, PEleNet) annotation (Line(points={{102,92},{120,92},{120,80},
+          {160,80}},
           color={0,0,127}));
   connect(switch3.y, mFue_flow) annotation (Line(points={{102,20},{160,20}},
           color={0,0,127}));
@@ -141,51 +155,51 @@ equation
           color={0,0,127}));
   connect(switch5.y, QGen_flow)
     annotation (Line(points={{102,-100},{160,-100}}, color={0,0,127}));
-  connect(opeModBas.mFue_flow, switch3.u3) annotation (Line(points={{2,6},{60,6},
-          {60,12},{78,12}},     color={0,0,127}));
-  connect(opeModWarUpEngTem.mFue_flow, switch3.u1) annotation (Line(points={{2,-47},
-          {26,-47},{26,28},{78,28}}, color={0,0,127}));
-  connect(opeModBas.mAir_flow, switch4.u3) annotation (Line(points={{2,0},{60,0},
-          {60,-48},{78,-48}},      color={0,0,127}));
-  connect(opeModWarUpEngTem.mAir_flow, switch4.u1) annotation (Line(points={{2,-53},
-          {40,-53},{40,-32},{78,-32}},  color={0,0,127}));
-  connect(opeModWarUpEngTem.QGen_flow, switch5.u1) annotation (Line(points={{2,-58},
-          {32,-58},{32,-92},{78,-92}},      color={0,0,127}));
-  connect(opeModBas.QGen_flow, switch5.u3) annotation (Line(points={{2.2,-6},{54,
-          -6},{54,-108},{78,-108}},     color={0,0,127}));
+  connect(opeModBas.mFue_flow, switch3.u3) annotation (Line(points={{2,-24},{60,
+          -24},{60,12},{78,12}},color={0,0,127}));
+  connect(opeModWarUpEngTem.mFue_flow, switch3.u1) annotation (Line(points={{2,-67},
+          {26,-67},{26,28},{78,28}}, color={0,0,127}));
+  connect(opeModBas.mAir_flow, switch4.u3) annotation (Line(points={{2,-30},{60,
+          -30},{60,-48},{78,-48}}, color={0,0,127}));
+  connect(opeModWarUpEngTem.mAir_flow, switch4.u1) annotation (Line(points={{2,-73},
+          {40,-73},{40,-32},{78,-32}},  color={0,0,127}));
+  connect(opeModWarUpEngTem.QGen_flow, switch5.u1) annotation (Line(points={{2,-78},
+          {32,-78},{32,-92},{78,-92}},      color={0,0,127}));
+  connect(opeModBas.QGen_flow, switch5.u3) annotation (Line(points={{2.2,-36},{54,
+          -36},{54,-108},{78,-108}},    color={0,0,127}));
   connect(mWat_flow, opeModWarUpEngTem.mWat_flow) annotation (Line(points={{-160,20},
-          {-120,20},{-120,-42},{-22,-42}},     color={0,0,127}));
+          {-110,20},{-110,-62},{-22,-62}},     color={0,0,127}));
   connect(switch3.y, assFue.mFue_flow) annotation (Line(points={{102,20},{104,20},
           {104,40},{108,40}}, color={0,0,127}));
-  connect(PEleTimeDel.y, switch2.u1) annotation (Line(points={{2,100},{60,100},{
-          60,88},{78,88}}, color={0,0,127}));
+  connect(PEleTimeDel.y, switch2.u1) annotation (Line(points={{2,120},{60,120},{
+          60,100},{78,100}},
+                           color={0,0,127}));
   connect(switch.y, switch2.u3) annotation (Line(points={{-38,100},{-30,100},{-30,
-          72},{78,72}}, color={0,0,127}));
+          84},{78,84}}, color={0,0,127}));
   connect(TRoo, opeModWarUpEngTem.TRoo) annotation (Line(points={{-160,-60},{-120,
-          -60},{-120,-53},{-22,-53}},    color={0,0,127}));
+          -60},{-120,-73},{-22,-73}},    color={0,0,127}));
   connect(delWarUp.y, engTemWarUp.u)
-    annotation (Line(points={{-78,-110},{-62,-110}}, color={255,0,255}));
-  connect(engTemWarUp.y, and1.u2) annotation (Line(points={{-38,-110},{-30,-110},
-          {-30,-88},{-22,-88}}, color={255,0,255}));
-  connect(wamUpMod.y, and1.u1) annotation (Line(points={{-79,40},{-60,40},{-60,
-          -80},{-22,-80}},
+    annotation (Line(points={{-78,-120},{-62,-120}}, color={255,0,255}));
+  connect(engTemWarUp.y, and1.u2) annotation (Line(points={{-38,-120},{-22,-120}},
+                                color={255,0,255}));
+  connect(wamUpMod.y, and1.u1) annotation (Line(points={{-79,40},{-60,40},{-60,-100},
+          {-30,-100},{-30,-112},{-22,-112}},
                       color={255,0,255}));
-  connect(and1.y, switch3.u2) annotation (Line(points={{2,-80},{70,-80},{70,20},
+  connect(and1.y, switch3.u2) annotation (Line(points={{2,-112},{70,-112},{70,20},
           {78,20}}, color={255,0,255}));
-  connect(and1.y, switch4.u2) annotation (Line(points={{2,-80},{70,-80},{70,-40},
+  connect(and1.y, switch4.u2) annotation (Line(points={{2,-112},{70,-112},{70,-40},
           {78,-40}}, color={255,0,255}));
-  connect(and1.y, switch5.u2) annotation (Line(points={{2,-80},{70,-80},{70,-100},
+  connect(and1.y, switch5.u2) annotation (Line(points={{2,-112},{70,-112},{70,-100},
           {78,-100}}, color={255,0,255}));
-  connect(wamUpMod.y, switch2.u2) annotation (Line(points={{-79,40},{-60,40},{
-          -60,80},{78,80}},
-                        color={255,0,255}));
-  connect(dumTimDel.y, switch3.u1) annotation (Line(points={{2,40},{26,40},{26,28},
-          {78,28}}, color={0,0,127}));
-  connect(dumTimDel.y, switch4.u1) annotation (Line(points={{2,40},{40,40},{40,-32},
-          {78,-32}}, color={0,0,127}));
-  connect(dumTimDel.y, switch5.u1) annotation (Line(points={{2,40},{32,40},{32,-92},
-          {78,-92}}, color={0,0,127}));
+  connect(wamUpMod.y, switch2.u2) annotation (Line(points={{-79,40},{-60,40},{-60,
+          92},{78,92}}, color={255,0,255}));
+  connect(dumTimDelFue.y, switch3.u1) annotation (Line(points={{2,62},{26,62},{26,
+          28},{78,28}}, color={0,0,127}));
 
+  connect(switch4.u1, dumTimDelAir.y) annotation (Line(points={{78,-32},{40,-32},
+          {40,30},{2,30}}, color={0,0,127}));
+  connect(switch5.u1, dumTimDelGen.y) annotation (Line(points={{78,-92},{32,-92},
+          {32,0},{2,0}}, color={0,0,127}));
 annotation (
   defaultComponentName="eneCon",
   Diagram(coordinateSystem(extent={{-140,-140},{140,140}})),
@@ -207,6 +221,11 @@ combustion engines).
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+March 31, 2026, by Michael Wetter:<br/>
+Corrected unit propagation error that causes Dymola 2026x to not show certain units.<br/>
+See <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/2100\">#2100</a>.
+</li>
 <li>
 April 8, 2020, by Antoine Gautier:<br/>
 Refactored implementation.

@@ -159,6 +159,11 @@ show how this can be done.
 </html>", revisions="<html>
 <ul>
 <li>
+January 29, 2026, by Michael Wetter:<br/>
+Removed <code>Evaluate=true</code> annotation due to translation error with OpenModelica.<br/>
+This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/2082\">IBPSA, #2082</a>.
+</li>
+<li>
 November 17, 2025, by Michael Wetter:<br/>
 Corrected typo in annotation.<br/>
 This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4406\">Buildings, #4406</a>.

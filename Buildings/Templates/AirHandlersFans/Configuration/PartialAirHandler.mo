@@ -2,6 +2,9 @@ within Buildings.Templates.AirHandlersFans.Configuration;
 record PartialAirHandler "Configuration parameters for air handler interface class"
   extends Modelica.Icons.Record;
 
+  parameter Integer nZon
+    "Number of served zones"
+    annotation (Evaluate=true);
   parameter Buildings.Templates.AirHandlersFans.Types.Configuration typ
     "Type of system"
     annotation (Evaluate=true);

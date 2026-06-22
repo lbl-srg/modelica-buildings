@@ -1,5 +1,5 @@
 within Buildings.BoundaryConditions.WeatherData;
-block ReaderTMY3 "Reader for TMY3 weather data"
+model ReaderTMY3 "Reader for TMY3 weather data"
 
   Bus weaBus "Weather data bus" annotation (Placement(transformation(extent={{
             290,-10},{310,10}}), iconTransformation(extent={{190,-10},{210,10}})));
@@ -801,8 +801,9 @@ equation
       extent={{6,3},{6,3}},
       horizontalAlignment=TextAlignment.Left));
 
-  connect(limWinDir.winDir, weaBus.winDir) annotation (Line(points={{181,-270},{280,
-          -270},{280,0},{300,0}}, color={0,0,127}), Text(
+  connect(limWinDir.winDir, weaBus.winDir) annotation (Line(points={{181,-270},
+          {300.05,-270},{300.05,0.05}},
+                                  color={0,0,127}), Text(
       textString="%second",
       index=1,
       extent={{6,3},{6,3}}));
@@ -870,9 +871,9 @@ equation
       extent={{6,3},{6,3}},
       horizontalAlignment=TextAlignment.Left));
 
-  connect(latitude.y, zenAng.lat) annotation (Line(points={{-129,-280},{-124,
-          -280},{-124,-290},{-90,-290},{-90,-216},{-72,-216}}, color={0,0,127}));
-    annotation (
+  connect(latitude.y, zenAng.lat)
+    annotation (Line(points={{-129,-280},{-124,-280},{-124,-290},{-90,-290},{-90,-216},{-72,-216}}, color={0,0,127}));
+  annotation (
     defaultComponentName="weaDat",
     Icon(coordinateSystem(
         preserveAspectRatio=false,
@@ -890,41 +891,34 @@ equation
         Text(
           visible=(pAtmSou == Buildings.BoundaryConditions.Types.DataSource.Input),
           extent={{-190,216},{-164,184}},
-          lineColor={0,0,127},
           textString="p"),
         Text(
           visible=(TDryBulSou == Buildings.BoundaryConditions.Types.DataSource.Input),
           extent={{-194,162},{-118,118}},
-          lineColor={0,0,127},
           textString="TDryBul"),
         Text(
           visible=(relHumSou == Buildings.BoundaryConditions.Types.DataSource.Input),
           extent={{-190,92},{-104,66}},
-          lineColor={0,0,127},
           textString="relHum"),
         Text(
-        visible=(winSpeSou == Buildings.BoundaryConditions.Types.DataSource.Input),
+          visible=(winSpeSou == Buildings.BoundaryConditions.Types.DataSource.Input),
           extent={{-196,44},{-110,2}},
-          lineColor={0,0,127},
           textString="winSpe"),
         Text(
           visible=(winDirSou == Buildings.BoundaryConditions.Types.DataSource.Input),
           extent={{-192,-18},{-106,-60}},
-          lineColor={0,0,127},
           textString="winDir"),
         Text(
-        visible=(HSou ==  Buildings.BoundaryConditions.Types.RadiationDataSource.Input_HGloHor_HDifHor or HSou == Buildings.BoundaryConditions.Types.RadiationDataSource.Input_HDirNor_HGloHor),
-        extent={{-202,-88},{-112,-108}},
-          lineColor={0,0,127},
+          visible=(HSou == Buildings.BoundaryConditions.Types.RadiationDataSource.Input_HGloHor_HDifHor or HSou == Buildings.BoundaryConditions.Types.RadiationDataSource.Input_HDirNor_HGloHor),
+          extent={{-202,-88},{-112,-108}},
           textString="HGloHor"),
-        Text(visible=(HSou == Buildings.BoundaryConditions.Types.RadiationDataSource.Input_HGloHor_HDifHor or HSou == Buildings.BoundaryConditions.Types.RadiationDataSource.Input_HDirNor_HDifHor),
-        extent={{-202,-142},{-116,-164}},
-          lineColor={0,0,127},
+        Text(
+          visible=(HSou == Buildings.BoundaryConditions.Types.RadiationDataSource.Input_HGloHor_HDifHor or HSou == Buildings.BoundaryConditions.Types.RadiationDataSource.Input_HDirNor_HDifHor),
+          extent={{-202,-142},{-116,-164}},
           textString="HDifHor"),
         Text(
-        visible=(HSou == Buildings.BoundaryConditions.Types.RadiationDataSource.Input_HDirNor_HGloHor or HSou == Buildings.BoundaryConditions.Types.RadiationDataSource.Input_HDirNor_HDifHor),
-        extent={{-200,-186},{-126,-214}},
-          lineColor={0,0,127},
+          visible=(HSou == Buildings.BoundaryConditions.Types.RadiationDataSource.Input_HDirNor_HGloHor or HSou == Buildings.BoundaryConditions.Types.RadiationDataSource.Input_HDirNor_HDifHor),
+          extent={{-200,-186},{-126,-214}},
           textString="HDirNor"),
         Ellipse(
           extent={{-146,154},{28,-20}},
@@ -933,9 +927,8 @@ equation
           fillPattern=FillPattern.Sphere,
           fillColor={255,255,0}),
         Polygon(
-          points={{94,106},{77.9727,42.9844},{78,42},{110,52},{138,50},{164,38},
-              {182,-28},{138,-102},{10,-110},{-140,-106},{-166,-30},{-150,24},{-102,
-              26},{-78.2109,8.1582},{-78,8},{-92,70},{-58,120},{34,140},{94,106}},
+          points={{94,106},{77.9727,42.9844},{78,42},{110,52},{138,50},{164,38},{182,-28},{138,-102},{10,-110},{-140,-106},{-166,-30},
+              {-150,24},{-102,26},{-78.2109,8.1582},{-78,8},{-92,70},{-58,120},{34,140},{94,106}},
           lineColor={220,220,220},
           lineThickness=0.1,
           fillPattern=FillPattern.Sphere,
@@ -944,7 +937,7 @@ equation
         Text(
           extent={{140,-106},{-126,-192}},
           textColor={255,255,255},
-          textString=DynamicSelect("", String(weaBus.TDryBul-273.15, format=".1f")))}),
+          textString=DynamicSelect("", String(weaBus.TDryBul - 273.15, format=".1f")))}),
     Documentation(info="<html>
 <p>
 This component reads TMY3 weather data (Wilcox and Marion, 2008) or user specified weather data.
@@ -1266,13 +1259,13 @@ To use new weather data, there are two supported ways:
 You can use the Python tool AixWeather
 (<a href=\"https://github.com/RWTH-EBC/AixWeather\">https://github.com/RWTH-EBC/AixWeather</a>),
 which is installable via <code>pip</code> or accessible via a WebApp (<a href=\"https://aixweather.eonerc.rwth-aachen.de/\">https://aixweather.eonerc.rwth-aachen.de/</a>).
-Here, conversion of <code>epw</code> (EnergyPlus), <code>dat</code> (German Meteorological Service) or custom data 
+Here, conversion of <code>epw</code> (EnergyPlus), <code>dat</code> (German Meteorological Service) or custom data
 to the desired <code>mos</code> format is supported.
 </p>
 </li>
 <li>
 <p>
-You can use a Java application to convert <code>epw</code> to <code>mos</code> format by following these steps:
+You can use a Python application to convert <code>epw</code> to <code>mos</code> format by following these steps:
 </p>
 <ol>
 <li>
@@ -1292,20 +1285,25 @@ for which you have write permission).
 <p>
 On a console window, type</p><pre>
   cd Buildings/Resources/weatherdata
-  java -jar ../bin/ConvertWeatherData.jar inputFile.epw
+  python ../bin/convert_weather_data.py inputFile.epw
 </pre>
 <p>
 or if <code>inputFile.epw</code> contains space in the name:
 </p>
 <pre>
-  java -jar ../bin/ConvertWeatherData.jar \"inputFile .epw\"
+  python ../bin/convert_weather_data.py \"inputFile .epw\"
 </pre>
 <p>
 This will generate the weather data file <code>inputFile.mos</code>, which can be read
 by the model
 <a href=\"modelica://Buildings.BoundaryConditions.WeatherData.ReaderTMY3\">
 Buildings.BoundaryConditions.WeatherData.ReaderTMY3</a>.
+To see the script options use the help argument:
 </p>
+<pre>
+  python ../bin/convert_weather_data.py -h
+</pre>
+
 </li>
 </ol>
 </ul>
@@ -1582,8 +1580,8 @@ midnight at December 31 as the value for <i>t=0</i>. Rather, the
 value from 1:00 AM on January 1 is duplicated and used for 0:00 on January 1.
 To maintain a data record with <i>8760</i> hours, the weather data record from
 midnight at December 31 is deleted.
-These changes in the weather data file are done in the Java program
-<code>Buildings/Resources/bin/ConvertWeatherData.jar</code> that converts
+These changes in the weather data file are done in the python script
+<code>Buildings/Resources/bin/convert_weather_data.py</code> that converts
 EnergyPlus weather data file to Modelica weather data files, and which is described
 above.
 The length of the weather data is calculated as the
@@ -1621,6 +1619,17 @@ Technical Report, NREL/TP-581-43156, revised May 2008.
 </ul>
 </html>", revisions="<html>
 <ul>
+<li>
+April 8, 2026, by Jianjun Hu:<br/>
+Changed the class type from block to model.<br/>
+This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/2091\">IBPSA, #2091</a>.
+</li>
+<li>
+April 7, 2026, by Ettore Zanetti:<br/>
+Update documentation on weather script.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/2068\">IBPSA, #2068</a>.
+</li>
 <li>
 May 28, 2025, by Fabian Wuellhorst:<br/>
 Added information on AixWeather to documentation.<br/>
@@ -1860,6 +1869,5 @@ First implementation.
 </li>
 </ul>
 </html>"),
-    Diagram(coordinateSystem(preserveAspectRatio=false,
-     extent={{-200,-300},{300,300}})));
+    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-200,-300},{300,300}})));
 end ReaderTMY3;

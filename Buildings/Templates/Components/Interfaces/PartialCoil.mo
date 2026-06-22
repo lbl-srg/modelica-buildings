@@ -42,7 +42,6 @@ partial model PartialCoil "Interface class for coil"
     annotation (Evaluate=true, Dialog(group="Configuration"));
 
   parameter Buildings.Templates.Components.Data.Coil dat(
-    final have_sou=have_sou,
     final typ=typ,
     final typVal=typVal)
     "Design and operating parameters"

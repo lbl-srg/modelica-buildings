@@ -60,6 +60,7 @@ block PID
     "Gain for proportional control action"
     annotation (Placement(transformation(extent={{-50,130},{-30,150}})));
   Buildings.Controls.OBC.CDL.Reals.IntegratorWithReset I(
+    y(nominal=max(abs(yMax), abs(yMin))),
     final k=k/Ti,
     final y_start=xi_start) if with_I
     "Integral term"
@@ -239,30 +240,22 @@ equation
           visible=(controllerType == Buildings.Controls.OBC.CDL.Types.SimpleController.P),
           extent={{-32,-22},{68,-62}},
           textColor={0,0,0},
-          textString="P",
-          fillPattern=FillPattern.Solid,
-          fillColor={175,175,175}),
+          textString="P"),
         Text(
           visible=(controllerType == Buildings.Controls.OBC.CDL.Types.SimpleController.PI),
           extent={{-26,-22},{74,-62}},
           textColor={0,0,0},
-          textString="PI",
-          fillPattern=FillPattern.Solid,
-          fillColor={175,175,175}),
+          textString="PI"),
         Text(
           visible=(controllerType == Buildings.Controls.OBC.CDL.Types.SimpleController.PD),
           extent={{-16,-22},{88,-62}},
           textColor={0,0,0},
-          fillPattern=FillPattern.Solid,
-          fillColor={175,175,175},
           textString="P D"),
         Text(
           visible=(controllerType == Buildings.Controls.OBC.CDL.Types.SimpleController.PID),
           extent={{-14,-22},{86,-62}},
           textColor={0,0,0},
-          textString="PID",
-          fillPattern=FillPattern.Solid,
-          fillColor={175,175,175}),
+          textString="PID"),
         Polygon(
           points={{-80,82},{-88,60},{-72,60},{-80,82}},
           lineColor={192,192,192},
@@ -486,6 +479,12 @@ American Society of Heating Refrigerating and Air-Conditioning Engineers Inc. At
 </html>",
       revisions="<html>
 <ul>
+<li>
+April 13, 2026, by Michael Wetter:<br/>
+Added value for <code>nominal</code> attribute for integrator state <code>I.y</code><br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/2106\">IBPSA, issue 2106</a>.
+</li>
 <li>
 October 23, 2023, by Michael Wetter:<br/>
 Added value of control output <code>y</code> to icon.

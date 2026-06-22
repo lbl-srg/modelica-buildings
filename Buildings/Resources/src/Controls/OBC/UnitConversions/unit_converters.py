@@ -1,7 +1,5 @@
 import os
 import re
-from pdb import set_trace as bp
-
 import logging
 logging.basicConfig(level=logging.DEBUG)
 log = logging.getLogger(__name__)

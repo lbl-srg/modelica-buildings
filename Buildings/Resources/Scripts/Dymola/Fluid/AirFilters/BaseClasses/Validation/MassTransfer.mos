@@ -1,0 +1,7 @@
+simulateModel("Buildings.Fluid.AirFilters.BaseClasses.Validation.MassTransfer", stopTime=63072000, tolerance=1e-06, method="CVode", resultFile="MassTransfer");
+createPlot(id=1, position={15, 15, 780, 849}, y={"senTraSubParIn.C", "senTraSubParOut.C"}, range={0.0, 800.0, -2.0E-08, 1.0E-07}, grid=true, subPlot=101, colors={{28,108,200}, {238,46,47}}, timeUnit="d");
+createPlot(id=1, position={15, 15, 780, 849}, y={"senTraSubVOCIn.C", "senTraSubVOCOut.C"}, range={0.0, 800.0, -2.0E-09, 1.2E-08}, grid=true, subPlot=102, colors={{28,108,200}, {238,46,47}}, timeUnit="d");
+createPlot(id=2, position={805, 17, 864, 848}, y={"masTra.eps[1]", "masTra.eps[2]"}, range={0.0, 800.0, 0.2, 1.0}, grid=true, subPlot=101, colors={{28,108,200}, {238,46,47}}, timeUnit="d", displayUnits={"1", "1"});
+createPlot(id=2, position={805, 17, 864, 848}, y={"masTra.mCon_flow[1]", "masTra.mCon_flow[2]"}, range={0.0, 800.0, -2.0E-08, 1.0E-07}, grid=true, subPlot=102, colors={{28,108,200}, {238,46,47}}, timeUnit="d", displayUnits={"kg/s", "kg/s"});
+
+

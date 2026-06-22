@@ -24,10 +24,6 @@ model VAVMultiZone "Validation model for multiple-zone VAV"
 
   Buildings.Templates.AirHandlersFans.VAVMultiZone VAV_1(
     nZon=2,
-    ctl(
-      idZon={"Box_1","Box_1"},
-      namGro={"Floor_1"},
-      namGroZon={"Floor_1","Floor_1"}),
     final dat=datAll.VAV_1,
     redeclare final package MediumAir = MediumAir,
     redeclare final package MediumChiWat = MediumChiWat,
