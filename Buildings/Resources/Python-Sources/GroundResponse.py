@@ -147,7 +147,7 @@ def doStep(dblInp, state):
             ToModelica = T_toModelica + data['p_Int'] + data['x_Int'] + data['T_Int']
 
             # Update state
-            state = {'tLast': tim, 'startTime': tim, 'Q': Q, 'T_tough': T_tough, 'work_dir': tou_tmp}
+            state = {'tLast': tim, 'startTime': startTime, 'Q': Q, 'T_tough': T_tough, 'work_dir': tou_tmp}
 
             # Change back to original working directory
             os.chdir(modelicaWorkingPath)
