@@ -371,6 +371,13 @@ equal to <code>dp2_nominal + dpBal2_nominal + dpBal3_nominal</code>.
 </html>", revisions="<html>
 <ul>
 <li>
+June 17, 2026, by Michael Wetter:<br/>
+Updated implementation to allow a flow coefficient <code>n</code> that is different from <code>2</code>.
+This allows use of the model for not fully turbulent flow.<br/>
+This is for
+<a href="https://github.com/lbl-srg/modelica-buildings/issues/4620">Buildings, #4620</a>.
+</li>
+<li>
 June 30, 2022, by Antoine Gautier:<br/>
 First implementation.
 </li>

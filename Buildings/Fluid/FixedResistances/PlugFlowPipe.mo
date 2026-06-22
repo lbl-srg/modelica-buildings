@@ -66,6 +66,10 @@ model PlugFlowPipe
     Documentation(revisions="<html>
 <ul>
 <li>
+June 22, 2026, by Michael Wetter:<br/>
+Removed missplaced annotation.
+</li>
+<li>
 January 5, 2026, by Michael Wetter:<br/>
 In <a href=\"modelica://Buildings.Fluid.FixedResistances.BaseClasses.PlugFlowPipe\">
 Buildings.Fluid.FixedResistances.BaseClasses.PlugFlowPipe</a>,
