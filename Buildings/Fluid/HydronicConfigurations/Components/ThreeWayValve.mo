@@ -388,7 +388,6 @@ This allows use of the model for not fully turbulent flow.<br/>
 This is for
 <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4620\">Buildings, #4620</a>.
 </li>
-
 <li>
 June 30, 2022, by Antoine Gautier:<br/>
 First implementation.
