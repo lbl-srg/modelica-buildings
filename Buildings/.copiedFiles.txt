@@ -3310,8 +3310,16 @@ Buildings/Resources/Scripts/Dymola/Fluid/BaseClasses/FlowModels/Validation/Basic
 Buildings/Resources/Scripts/Dymola/Fluid/BaseClasses/FlowModels/Validation/BasicFlowFunction_m_flow_DerivativeCheck.mos
 Buildings/Resources/Scripts/Dymola/Fluid/BaseClasses/FlowModels/Validation/BasicFlowFunction_m_flow_DerivativeCheck2.mos
 Buildings/Resources/Scripts/Dymola/Fluid/BaseClasses/FlowModels/Validation/InverseFlowFunctions.mos
+Buildings/Resources/Scripts/Dymola/Fluid/BaseClasses/FlowModels/Validation/InversePowerLaws.mos
 Buildings/Resources/Scripts/Dymola/Fluid/BaseClasses/FlowModels/Validation/InvertingBasicFlowFunction_dp.mos
 Buildings/Resources/Scripts/Dymola/Fluid/BaseClasses/FlowModels/Validation/InvertingBasicFlowFunction_m_flow.mos
+Buildings/Resources/Scripts/Dymola/Fluid/BaseClasses/FlowModels/Validation/InvertingPowerLaw_dp.mos
+Buildings/Resources/Scripts/Dymola/Fluid/BaseClasses/FlowModels/Validation/InvertingPowerLaw_m_flow.mos
+Buildings/Resources/Scripts/Dymola/Fluid/BaseClasses/FlowModels/Validation/PowerLaw_dp.mos
+Buildings/Resources/Scripts/Dymola/Fluid/BaseClasses/FlowModels/Validation/PowerLaw_dp_DerivativeCheck.mos
+Buildings/Resources/Scripts/Dymola/Fluid/BaseClasses/FlowModels/Validation/PowerLaw_dp_DerivativeCheck2.mos
+Buildings/Resources/Scripts/Dymola/Fluid/BaseClasses/FlowModels/Validation/PowerLaw_m_flow_DerivativeCheck.mos
+Buildings/Resources/Scripts/Dymola/Fluid/BaseClasses/FlowModels/Validation/PowerLaw_m_flow_DerivativeCheck2.mos
 Buildings/Resources/Scripts/Dymola/Fluid/BaseClasses/Validation/ActuatorFilter.mos
 Buildings/Resources/Scripts/Dymola/Fluid/BaseClasses/Validation/MassFlowRateMultiplier.mos
 Buildings/Resources/Scripts/Dymola/Fluid/CHPs/OrganicRankine/BaseClasses/Validation/DryFluid.mos
@@ -3418,6 +3426,7 @@ Buildings/Resources/Scripts/Dymola/Fluid/FixedResistances/Validation/PlugFlowPip
 Buildings/Resources/Scripts/Dymola/Fluid/FixedResistances/Validation/PlugFlowPipes/PlugFlowAIT.mos
 Buildings/Resources/Scripts/Dymola/Fluid/FixedResistances/Validation/PlugFlowPipes/PlugFlowULg.mos
 Buildings/Resources/Scripts/Dymola/Fluid/FixedResistances/Validation/PlugFlowPipes/TransportWaterAir.mos
+Buildings/Resources/Scripts/Dymola/Fluid/FixedResistances/Validation/PressureDropPartiallyTurbulent.mos
 Buildings/Resources/Scripts/Dymola/Fluid/FixedResistances/Validation/PressureDropsExplicit.mos
 Buildings/Resources/Scripts/Dymola/Fluid/FixedResistances/Validation/PressureDropsExplicitLinearized.mos
 Buildings/Resources/Scripts/Dymola/Fluid/FixedResistances/Validation/PressureDropsParallel.mos
