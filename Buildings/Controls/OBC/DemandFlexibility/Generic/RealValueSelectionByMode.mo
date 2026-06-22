@@ -44,19 +44,20 @@ protected
   Buildings.Controls.OBC.CDL.Integers.Equal intEquPre if use_pre
     "Check whether it is the pre-cool or pre-heat mode"
     annotation (Placement(transformation(extent={{-40,60},{-20,80}})));
-  Buildings.Controls.OBC.CDL.Integers.Sources.Constant conIntPre(k=0)  if use_pre
+  Buildings.Controls.OBC.CDL.Integers.Sources.Constant conIntPre(k=Buildings.Controls.OBC.DemandFlexibility.Types.DemandFlexibilityModes.preCondition)
+                                                                       if use_pre
     "Integer constant for the pre-cool or pre-heat mode"
     annotation (Placement(transformation(extent={{-80,40},{-60,60}})));
   Buildings.Controls.OBC.CDL.Integers.Equal intEquShe
     "Check whether it is the load-shed mode"
     annotation (Placement(transformation(extent={{-40,0},{-20,20}})));
-  Buildings.Controls.OBC.CDL.Integers.Sources.Constant conIntShe(k=2)
+  Buildings.Controls.OBC.CDL.Integers.Sources.Constant conIntShe(k=Buildings.Controls.OBC.DemandFlexibility.Types.DemandFlexibilityModes.loadShed)
     "Integer constant for the load-shed mode"
     annotation (Placement(transformation(extent={{-80,-20},{-60,0}})));
   Buildings.Controls.OBC.CDL.Integers.Equal intEquReb
     "Check whether it is the load-rebound mode"
     annotation (Placement(transformation(extent={{-40,-60},{-20,-40}})));
-  Buildings.Controls.OBC.CDL.Integers.Sources.Constant conIntReb(k=3)
+  Buildings.Controls.OBC.CDL.Integers.Sources.Constant conIntReb(k=Buildings.Controls.OBC.DemandFlexibility.Types.DemandFlexibilityModes.loadRebound)
     "Integer constant for the load-rebound mode"
     annotation (Placement(transformation(extent={{-80,-80},{-60,-60}})));
 equation
