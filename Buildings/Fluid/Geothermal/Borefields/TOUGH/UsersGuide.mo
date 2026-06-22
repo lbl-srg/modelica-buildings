@@ -19,7 +19,7 @@ Buildings.Fluid.Geothermal.Borefields.TOUGH.BaseClasses.GroundResponse</a>.
 <p>
 Note that for this co-simulation, the TOUGH 3 simulator must be installed.
 However, for demonstration purposes, the test models in this package call a
-code that imitates the TOUGH response.
+code that emulates the TOUGH response.
 </p>
 
 <h4>When to use the model</h4>
@@ -27,8 +27,8 @@ code that imitates the TOUGH response.
 TOUGH 3 simulations are needed for modeling geothermal energy
 systems in which the underground geology is complex. For instance, when there
 is strong underground water flow, other models such as those based on g-functions
-that assume heat transfer in the ground is purely by conduction are less
-accurate, as these g-function-based models do not account for the advective heat
+that assume heat transfer in the ground is purely by conduction are not applicable,
+as these g-function-based models do not account for the advective heat
 transfer due to the water flow.
 </p>
 
@@ -41,7 +41,7 @@ It instantiates the Python interface model
 <a href=\"modelica://Buildings.Utilities.IO.Python_3_12.Real_Real\">
 Buildings.Utilities.IO.Python_3_12.Real_Real</a>, which can send data to Python
 functions and receive data from it. It enables computations to be performed inside
-a Python module that calls an external simulator—in this case, the TOUGH 3 simulator.
+a Python module that calls an external simulator, which in this case is the TOUGH 3 simulator.
 </p>
 <h5>Python interface</h5>
 <p>
@@ -67,7 +67,7 @@ The argument <code>samplePeriod</code> specifies the sampling period, and <code>
 configures whether to use the instantaneous value, an average over the interval, or
 the integral over the interval. Setting the parameter <code>passPythonObject</code>
 to <code>true</code> enables passing a Python object from one invocation to
-the next, thereby accumulating a Python data structure.
+the next, thereby reusing Python data from one call to another.
 More explanation about the Python setup can be found in
 <a href=\"modelica://Buildings.Utilities.IO.Python_3_12.UsersGuide\">
 Buildings.Utilities.IO.Python_3_12.UsersGuide</a>.
@@ -79,16 +79,16 @@ where only the major sections are illustrated:
 <pre>
   def doStep(dblInp, state):
     # Retrieve state of last invocation, including
-    #   -- the path of TOUGH working directory
+    #   -- the path of the TOUGH working directory
     #   -- the end clock time of the last TOUGH simulation,
-    #   -- the heat flow on the borehole wall that was measured in Modelica at last invocation,
-    #   -- the borehole wall temperature at the end of last TOUGH simulation.
+    #   -- the heat flow rate on the borehole wall that was measured in Modelica at last invocation,
+    #   -- the borehole wall temperature at the end of the last TOUGH simulation.
     tou_tmp = state['work_dir']
     tLast = state['tLast']
     Q_stored = state['Q']
     T_stored = state['T_tough']
     
-    # Map the heat flow in the Modelica domain mesh points (borehole segments)
+    # Map the heat flow rate in the Modelica domain mesh points (borehole segments)
     # to the TOUGH boundary mesh point
     Q_toTough = mesh_to_mesh(toughLayers, modelicaLayers, Q_stored, 'Q_Mo2To')
 
@@ -127,7 +127,7 @@ The argument <code>dblInp</code> to the Python function is an array with size
 <code>nSeg</code>: The total number of borehole segments specified in Modelica.
 </li>
 <li>
-<code>nTouSeg</code>: In TOUGH mesh, the total number of grids that covers
+<code>nTouSeg</code>: In the TOUGH mesh, the total number of grids that covers
 the entire borehole length.
 </li>
 <li>
@@ -155,7 +155,7 @@ temperature for the TOUGH simulation.
 <h5>Coupling workflow</h5>
 <p>
 The borehole wall is the boundary between the Modelica simulation and the TOUGH simulation.
-Modelica provides the heat flow rate through the wall as the boundary condition
+Modelica provides the heat flow rate through the borehole wall as the boundary condition
 for TOUGH, and TOUGH returns the wall temperature
 as the boundary condition for Modelica.
 The flow chart below shows the overall coupling workflow at each time step.

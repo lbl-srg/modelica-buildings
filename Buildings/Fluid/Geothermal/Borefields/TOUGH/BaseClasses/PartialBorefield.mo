@@ -57,7 +57,7 @@ partial model PartialBorefield
     annotation (Dialog(tab="Initialization", group="Temperature profile"));
   parameter Real dT_dz(
     min=0,
-    unit="K/m")=0.01
+    final unit="K/m")=0.01
     "Vertical temperature gradient of the undisturbed soil for h below z0"
     annotation (Dialog(tab="Initialization", group="Temperature profile"));
 
@@ -139,7 +139,7 @@ protected
     annotation (Placement(transformation(extent={{60,40},{80,60}})));
 
   Modelica.Blocks.Sources.Constant TBorHol_start[nSeg](
-    k=TExt_start,
+    final k=TExt_start,
     y(each unit="K", each displayUnit="degC"))
     "Borehole outer wall start temperature"
     annotation (Placement(transformation(extent={{-40,10},{-20,30}})));
