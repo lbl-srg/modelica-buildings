@@ -211,7 +211,7 @@
   optimica:
     comment: Optimica uses Python 3.11, while the examples use Python 3.12
     translate: false
-- model_name: Buildings.Fluid.Geothermal.Borefields.TOUGH.Examples.Borefields
+- model_name: Buildings.Fluid.Geothermal.Borefields.TOUGH.Examples.Borefield
   optimica:
     translate: false
     comment: Optimica uses Python 3.11, while the examples use Python 3.12

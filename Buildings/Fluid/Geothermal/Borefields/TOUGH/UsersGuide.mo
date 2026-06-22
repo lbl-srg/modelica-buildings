@@ -303,8 +303,8 @@ the <code>doStep</code> function with dummy <code>Q</code> inputs.
 <h5>Example</h5>
 <p>
 The class
-<a href=\"modelica://Buildings.Fluid.Geothermal.Borefields.TOUGH.Examples.Borefields\">
-Buildings.Fluid.Geothermal.Borefields.TOUGH.Examples.Borefields</a>
+<a href=\"modelica://Buildings.Fluid.Geothermal.Borefields.TOUGH.Examples.Borefield\">
+Buildings.Fluid.Geothermal.Borefields.TOUGH.Examples.Borefield</a>
 demonstrates the usage of the coupling model.
 When the TOUGH simulator is not installed, the Python interface module includes a
 stub function, <code>def tough_avatar(heatFlux, T_out)</code>, that imitates the

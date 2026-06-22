@@ -1,5 +1,5 @@
 within Buildings.Fluid.Geothermal.Borefields.TOUGH.Examples;
-model Borefields
+model Borefield
   "Example model of single u-tube borefield with ground responses calculated by TOUGH simulation"
   extends Modelica.Icons.Example;
 
@@ -76,7 +76,7 @@ equation
     annotation (Line(points={{-40,0},{0,0}}, color={0,127,255}));
   connect(borFieUTubWitTou.port_b, sin.ports[1])
     annotation (Line(points={{20,0},{80,0}}, color={0,127,255}));
-annotation (__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Geothermal/Borefields/TOUGH/Examples/Borefields.mos"
+annotation (__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Geothermal/Borefields/TOUGH/Examples/Borefield.mos"
         "Simulate and plot"),
   experiment(StopTime=72000, Tolerance=1e-06),
   Documentation(info="<html>
@@ -102,4 +102,4 @@ First implementation.
 </html>"),
     Diagram(coordinateSystem(extent={{-140,-120},{140,120}})),
     Icon(coordinateSystem(extent={{-100,-100},{100,100}})));
-end Borefields;
+end Borefield;
