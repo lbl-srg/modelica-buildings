@@ -4,6 +4,7 @@ class Version_13_0_1 "Version 13.0.1"
     annotation (Documentation(info="<html>
 <div class=\"release-summary\">
 <p>
+<b>Note: This file will be renamed to Version_14_0_0 after some pending pull requests are merged.</b>
 Version 13.0.1 is ... xxx
 </p>
 </div>
