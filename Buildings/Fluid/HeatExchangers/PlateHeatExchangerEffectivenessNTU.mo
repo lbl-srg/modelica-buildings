@@ -5,8 +5,8 @@ model PlateHeatExchangerEffectivenessNTU
     UA = 1/(1/hA1 + 1/hA2));
 
   parameter Real r_nominal(min=0)=
-      (k1_default * (m1_flow_nominal/eta1_default)^n1 * Pr1_default^(1/3)) /
-      (k2_default * (m2_flow_nominal/eta2_default)^n2 * Pr2_default^(1/3))
+      (k1_default * (m1_flow_nominal/eta1_default)^nCon1 * Pr1_default^(1/3)) /
+      (k2_default * (m2_flow_nominal/eta2_default)^nCon2 * Pr2_default^(1/3))
     "Ratio between convective heat transfer coefficients at nominal conditions, r_nominal = hA1_nominal/hA2_nominal"
     annotation(Dialog(tab="Advanced", group="Heat transfer coefficients"));
 

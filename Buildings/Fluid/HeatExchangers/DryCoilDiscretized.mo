@@ -82,6 +82,15 @@ model DryCoilDiscretized
   parameter Boolean waterSideTemperatureDependent = false
     "Set to false to make water-side hA independent of temperature"
     annotation(Dialog(tab="Heat transfer"));
+  parameter Real n_w=0.85
+    "Water-side exponent for convective heat transfer coefficient, h~m_flow^n_w"
+    annotation(Dialog(tab="Heat transfer"));
+  parameter Real n_a=0.8
+    "Air-side exponent for convective heat transfer coefficient, h~m_flow^n_a"
+    annotation(Dialog(tab="Heat transfer"));
+  parameter Real r_nominal=0.5
+    "Ratio between air-side and water-side convective heat transfer coefficient"
+    annotation(Dialog(tab="Heat transfer", group="Nominal condition"));
   parameter Modelica.Units.SI.MassFlowRate mStart_flow_a1=m1_flow_nominal
     "Guess value for mass flow rate at port_a1"
     annotation (Dialog(tab="General", group="Initialization"));
@@ -176,6 +185,9 @@ model DryCoilDiscretized
     final UA_nominal=UA_nominal,
     final m_flow_nominal_a=m2_flow_nominal,
     final m_flow_nominal_w=m1_flow_nominal,
+    final r_nominal=r_nominal,
+    final n_w=n_w,
+    final n_a=n_a,
     final waterSideTemperatureDependent=waterSideTemperatureDependent,
     final waterSideFlowDependent=waterSideFlowDependent,
     final airSideTemperatureDependent=airSideTemperatureDependent,
@@ -457,8 +469,10 @@ rather may be considered as approximated by these heat conductors.
 </html>", revisions="<html>
 <ul>
 <li>
-June 19, 2026, by Michael Wetter:<br/>
-Updated Dialog annotations.
+June 22, 2026, by Michael Wetter:<br/>
+Updated Dialog annotations, and revised heat exchanger models to consistently expose parameters
+<code>r_nominal</code>, <code>n_w</code> and <code>n_a</code>.<br/>
+This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4620\">#4620</a>.
 </li>
 <li>
 June 22, 2023 by Hongxiang Fu:<br/>

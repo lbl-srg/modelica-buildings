@@ -11,9 +11,7 @@ model DryCoilCounterFlow
   parameter Modelica.Units.SI.ThermalConductance UA_nominal(min=0)
     "Thermal conductance at nominal flow, used to compute heat capacity"
     annotation (Dialog(tab="General", group="Nominal condition"));
-  parameter Real r_nominal=2/3
-    "Ratio between air-side and water-side convective heat transfer coefficient"
-    annotation (Dialog(Dialog(tab="Heat transfer"), group="Nominal condition"));
+
   parameter Integer nEle(min=1) = 4
     "Number of pipe segments used for discretization"
     annotation (Dialog(group="Geometry"));
@@ -48,6 +46,15 @@ model DryCoilCounterFlow
   parameter Boolean airSideTemperatureDependent=false
     "Set to false to make air-side hA independent of temperature"
     annotation (Dialog(tab="Heat transfer"));
+  parameter Real n_w=0.85
+    "Water-side exponent for convective heat transfer coefficient, h~m_flow^n_w"
+    annotation(Dialog(tab="Heat transfer"));
+  parameter Real n_a=0.8
+    "Air-side exponent for convective heat transfer coefficient, h~m_flow^n_a"
+    annotation(Dialog(tab="Heat transfer"));
+  parameter Real r_nominal=2/3
+    "Ratio between air-side and water-side convective heat transfer coefficient"
+    annotation(Dialog(tab="Heat transfer", group="Nominal condition"));
 
   parameter Modelica.Units.SI.ThermalConductance GDif=1E-2*UA_nominal/max(1, (nEle - 1))
     "Thermal conductance to approximate diffusion (which improves model at near-zero flow rates)"
@@ -70,7 +77,9 @@ model DryCoilCounterFlow
     final waterSideFlowDependent=waterSideFlowDependent,
     final airSideTemperatureDependent=airSideTemperatureDependent,
     final airSideFlowDependent=airSideFlowDependent,
-    r_nominal=r_nominal) "Model for convective heat transfer coefficient"
+    final r_nominal=r_nominal,
+    final n_w=n_w,
+    final n_a=n_a) "Model for convective heat transfer coefficient"
     annotation (Placement(transformation(extent={{-60,70},{-40,90}})));
 protected
   final parameter Boolean use_temSen_1=
@@ -320,8 +329,10 @@ rather may be considered as approximated by these heat conductors.
 </html>", revisions="<html>
 <ul>
 <li>
-June 19, 2026, by Michael Wetter:<br/>
-Updated Dialog annotations.
+June 22, 2026, by Michael Wetter:<br/>
+Updated Dialog annotations, and revised heat exchanger models to consistently expose parameters
+<code>r_nominal</code>, <code>n_w</code> and <code>n_a</code>.<br/>
+This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4620\">#4620</a>.
 </li>
 <li>
 October 19, 2018, by Kino:<br/>
