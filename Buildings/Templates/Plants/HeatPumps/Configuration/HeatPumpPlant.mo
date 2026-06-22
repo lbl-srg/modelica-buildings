@@ -3,6 +3,9 @@ record HeatPumpPlant
   "Configuration parameters for heat pump plant"
   extends Modelica.Icons.Record;
   // Generic
+  parameter Buildings.Templates.Plants.Controls.Types.PlantHeatPump typ
+    "Type of plant"
+    annotation(Evaluate=true);
   parameter Buildings.Templates.Components.Types.HeatPump typHp
     "Type of heat pump"
     annotation(Evaluate=true);
@@ -76,11 +79,8 @@ record HeatPumpPlant
     "Source fluid default specific heat capacity"
     annotation(Evaluate=true);
   // HW loop
-  parameter Buildings.Templates.Plants.HeatPumps.Types.PumpsPrimary typPumHeaWatPriHp
-    "Type of HP primary HW pumps"
-    annotation(Evaluate=true);
-  parameter Buildings.Templates.Plants.HeatPumps.Types.PumpsPrimary typPumHeaWatPriPhp
-    "Type of polyvalent HP primary HW pumps"
+  parameter Buildings.Templates.Plants.HeatPumps.Types.PumpsPrimary typPumHeaWatPri
+    "Type of primary HW pumps"
     annotation(Evaluate=true);
   parameter Integer nPumHeaWatPri
     "Number of primary HW pumps"
@@ -110,14 +110,11 @@ record HeatPumpPlant
     "Number of remote HW differential pressure sensors used for HW pump speed control"
     annotation(Evaluate=true);
   // CHW loop
-  parameter Boolean have_pumChiWatDedHp
-    "Set to true for HP with separate dedicated primary CHW pumps"
+  parameter Boolean have_pumChiWatPriDedHp
+    "Set to true for HP with separate dedicated primary pumps for CHW and HW circuits"
     annotation(Evaluate=true);
-  parameter Buildings.Templates.Plants.HeatPumps.Types.PumpsPrimary typPumChiWatPriHp
-    "Type of HP primary CHW pumps"
-    annotation(Evaluate=true);
-  parameter Buildings.Templates.Plants.HeatPumps.Types.PumpsPrimary typPumChiWatPriPhp
-    "Type of polyvalent HP primary CHW pumps"
+  parameter Buildings.Templates.Plants.HeatPumps.Types.PumpsPrimary typPumChiWatPri
+    "Type of primary CHW pumps"
     annotation(Evaluate=true);
   parameter Integer nPumChiWatPri
     "Number of primary CHW pumps"

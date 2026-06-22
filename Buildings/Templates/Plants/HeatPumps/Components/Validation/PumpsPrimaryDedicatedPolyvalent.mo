@@ -32,7 +32,6 @@ model PumpsPrimaryDedicatedPolyvalent
       have_php=true,
       final nPhp=nPhp,
       typPumHeaWatPriHp=Buildings.Templates.Plants.HeatPumps.Types.PumpsPrimary.Constant,
-      typPumChiWatPriHp=Buildings.Templates.Plants.HeatPumps.Types.PumpsPrimary.None,
       typPumHeaWatPriPhp=Buildings.Templates.Plants.HeatPumps.Types.PumpsPrimary.Constant,
       typPumChiWatPriPhp=Buildings.Templates.Plants.HeatPumps.Types.PumpsPrimary.Constant,
       typPumHeaWatSec=Buildings.Templates.Plants.HeatPumps.Types.PumpsSecondary.None,
@@ -65,19 +64,17 @@ model PumpsPrimaryDedicatedPolyvalent
       nSenDpChiWatRem=0,
       nAirHan=0,
       nEquZon=0,
-      have_pumChiWatDedHp=false,
-      is_phpMod=false),
+      is_phpMod=false,
+      have_pumChiWatPriDedHp=false,
+      typPumChiWatPriDedHp=Buildings.Templates.Plants.HeatPumps.Types.PumpsPrimary.None),
     THeaWatSup_nominal=Buildings.Templates.Data.Defaults.THeaWatSupMed,
     TChiWatSup_nominal=Buildings.Templates.Data.Defaults.TChiWatSup,
-    dpChiWatRemSet_max=fill(
-      Buildings.Templates.Data.Defaults.dpChiWatRemSet_max,
-      datCtl.cfg.nSenDpChiWatRem),
-    dpHeaWatRemSet_max=fill(
-      Buildings.Templates.Data.Defaults.dpHeaWatRemSet_max,
-      datCtl.cfg.nSenDpHeaWatRem),
-    staEqu={fill(1, datCtl.cfg.nHp)})
-    "Controller parameters"
-    annotation(Placement(transformation(extent={{-180,290},{-160,310}})));
+    dpChiWatRemSet_max=fill(Buildings.Templates.Data.Defaults.dpChiWatRemSet_max,
+        datCtl.cfg.nSenDpChiWatRem),
+    dpHeaWatRemSet_max=fill(Buildings.Templates.Data.Defaults.dpHeaWatRemSet_max,
+        datCtl.cfg.nSenDpHeaWatRem),
+    staHp={fill(1, datCtl.cfg.nHp)}) "Controller parameters"
+    annotation (Placement(transformation(extent={{-180,290},{-160,310}})));
   parameter Data.Controller datCtlNoDed(
     cfg(
       have_inpSch=false,
@@ -91,7 +88,6 @@ model PumpsPrimaryDedicatedPolyvalent
       have_php=true,
       final nPhp=nPhp,
       typPumHeaWatPriHp=Buildings.Templates.Plants.HeatPumps.Types.PumpsPrimary.Constant,
-      typPumChiWatPriHp=Buildings.Templates.Plants.HeatPumps.Types.PumpsPrimary.Constant,
       typPumHeaWatPriPhp=Buildings.Templates.Plants.HeatPumps.Types.PumpsPrimary.Constant,
       typPumChiWatPriPhp=Buildings.Templates.Plants.HeatPumps.Types.PumpsPrimary.Constant,
       typPumHeaWatSec=Buildings.Templates.Plants.HeatPumps.Types.PumpsSecondary.None,
@@ -124,17 +120,17 @@ model PumpsPrimaryDedicatedPolyvalent
       nSenDpChiWatRem=0,
       nAirHan=0,
       nEquZon=0,
-      have_pumChiWatDedHp=false,
-      is_phpMod=false),
+      is_phpMod=false,
+      have_pumChiWatPriDedHp=false,
+      typPumChiWatPriDedHp=Buildings.Templates.Plants.HeatPumps.Types.PumpsPrimary.Constant),
     THeaWatSup_nominal=Buildings.Templates.Data.Defaults.THeaWatSupMed,
     TChiWatSup_nominal=Buildings.Templates.Data.Defaults.TChiWatSup,
     dpChiWatRemSet_max=fill(Buildings.Templates.Data.Defaults.dpChiWatRemSet_max,
         datCtlNoDed.cfg.nSenDpChiWatRem),
     dpHeaWatRemSet_max=fill(Buildings.Templates.Data.Defaults.dpHeaWatRemSet_max,
         datCtlNoDed.cfg.nSenDpHeaWatRem),
-    staEqu={fill(1, datCtlNoDed.cfg.nHp)})
-    "Controller parameters"
-    annotation(Placement(transformation(extent={{-280,-10},{-260,10}})));
+    staHp={fill(1, datCtlNoDed.cfg.nHp)}) "Controller parameters"
+    annotation (Placement(transformation(extent={{-280,-10},{-260,10}})));
   parameter Data.Controller datCtlSep(
     cfg(
       have_inpSch=false,
@@ -148,7 +144,6 @@ model PumpsPrimaryDedicatedPolyvalent
       have_php=true,
       final nPhp=nPhp,
       typPumHeaWatPriHp=Buildings.Templates.Plants.HeatPumps.Types.PumpsPrimary.Constant,
-      typPumChiWatPriHp=Buildings.Templates.Plants.HeatPumps.Types.PumpsPrimary.Constant,
       typPumHeaWatPriPhp=Buildings.Templates.Plants.HeatPumps.Types.PumpsPrimary.Constant,
       typPumChiWatPriPhp=Buildings.Templates.Plants.HeatPumps.Types.PumpsPrimary.Constant,
       typPumHeaWatSec=Buildings.Templates.Plants.HeatPumps.Types.PumpsSecondary.None,
@@ -181,19 +176,17 @@ model PumpsPrimaryDedicatedPolyvalent
       nSenDpChiWatRem=0,
       nAirHan=0,
       nEquZon=0,
-      have_pumChiWatDedHp=true,
-      is_phpMod=false),
+      is_phpMod=false,
+      have_pumChiWatPriDedHp=true,
+      typPumChiWatPriDedHp=Buildings.Templates.Plants.HeatPumps.Types.PumpsPrimary.Constant),
     THeaWatSup_nominal=Buildings.Templates.Data.Defaults.THeaWatSupMed,
     TChiWatSup_nominal=Buildings.Templates.Data.Defaults.TChiWatSup,
-    dpChiWatRemSet_max=fill(
-      Buildings.Templates.Data.Defaults.dpChiWatRemSet_max,
-      datCtlSep.cfg.nSenDpChiWatRem),
-    dpHeaWatRemSet_max=fill(
-      Buildings.Templates.Data.Defaults.dpHeaWatRemSet_max,
-      datCtlSep.cfg.nSenDpHeaWatRem),
-    staEqu={fill(1, datCtlSep.cfg.nHp)})
-    "Controller parameters"
-    annotation(Placement(transformation(extent={{-180,-290},{-160,-270}})));
+    dpChiWatRemSet_max=fill(Buildings.Templates.Data.Defaults.dpChiWatRemSet_max,
+        datCtlSep.cfg.nSenDpChiWatRem),
+    dpHeaWatRemSet_max=fill(Buildings.Templates.Data.Defaults.dpHeaWatRemSet_max,
+        datCtlSep.cfg.nSenDpHeaWatRem),
+    staHp={fill(1, datCtlSep.cfg.nHp)}) "Controller parameters"
+    annotation (Placement(transformation(extent={{-180,-290},{-160,-270}})));
   parameter Data.HeatPumpGroup datHpPhp(
     have_hp=true,
     have_php=true,

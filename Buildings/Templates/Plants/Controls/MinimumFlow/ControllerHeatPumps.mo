@@ -11,7 +11,7 @@ block ControllerHeatPumps
     "Set to true for headered primary pumps, false for dedicated pumps"
     annotation(Evaluate=true);
   parameter Boolean have_pumChiWatPriDedHp(start=false)
-    "Set to true for HP with separate dedicated primary CHW pumps"
+    "Set to true for HP with separate dedicated primary pumps for CHW and HW circuits"
     annotation(Evaluate=true,
       Dialog(enable=not have_pumPriHdr and nHp > 0));
   // Use isolation valve command if valves are present and for:

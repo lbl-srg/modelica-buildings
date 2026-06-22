@@ -64,18 +64,17 @@ model AirToWater
     VChiWatHp_flow_min=0.6*ctl.VChiWatHp_flow_nominal,
     final VChiWatSec_flow_nominal=VChiWat_flow_nominal,
     capCooHp_nominal=(1 - 1/Buildings.Templates.Data.Defaults.COPHpAwHea)*ctl.capHeaHp_nominal,
-    yPumHeaWatPriHpSet=0.8,
-    yPumChiWatPriHpSet=0.7,
+    yPumHeaWatPriDedHpSet=0.8,
+    yPumChiWatPriDedHpSet=0.7,
     dpChiWatRemSet_max={5E4},
     staHp=[1/3,1/3,1/3; 2/3,2/3,2/3; 1,1,1],
-    idxAltHp_select={1, 2, 3},
+    idxAltHp_select={1,2,3},
     TChiWatSupHrc_min=277.15,
     THeaWatSupHrc_max=333.15,
     COPHeaHrc_nominal=2.8,
-    capCooHrc_min=ctl.capHeaHrc_min * (1 - 1 / ctl.COPHeaHrc_nominal),
-    capHeaHrc_min=0.3 * 0.5 * sum(ctl.capHeaHp_nominal))
-    "Plant controller"
-    annotation(Placement(transformation(extent={{0,-28},{40,60}})));
+    capCooHrc_min=ctl.capHeaHrc_min*(1 - 1/ctl.COPHeaHrc_nominal),
+    capHeaHrc_min=0.3*0.5*sum(ctl.capHeaHp_nominal)) "Plant controller"
+    annotation (Placement(transformation(extent={{0,-28},{40,60}})));
   Buildings.Controls.OBC.CDL.Reals.Sources.TimeTable ratV_flow(
     table=[
       0, 0, 0;

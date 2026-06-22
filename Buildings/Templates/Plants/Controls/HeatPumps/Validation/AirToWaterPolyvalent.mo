@@ -21,14 +21,16 @@ model AirToWaterPolyvalent
           ctl.capHeaPhp_nominal,
       capCooShcPhp_nominal=(1 - 1/Buildings.Templates.Data.Defaults.COPHpWwHea)
           *ctl.capHeaShcPhp_nominal,
-      yPumHeaWatPriPhpSet=0.8,
-      yPumChiWatPriPhpSet=0.7,
       VChiWatPhp_flow_min=0.6*ctl.VChiWatPhp_flow_nominal,
       VChiWatPhp_flow_nominal=1.1*ctl.capCooPhp_nominal/capCoo_nominal*
           VChiWat_flow_nominal,
       VHeaWatPhp_flow_min=0.6*ctl.VHeaWatPhp_flow_nominal,
       VHeaWatPhp_flow_nominal=1.1*ctl.capHeaPhp_nominal/capHea_nominal*
-          VHeaWat_flow_nominal),
+          VHeaWat_flow_nominal,
+      yPumHeaWatPriDedPhpSet
+                         =0.8,
+      yPumChiWatPriDedPhpSet
+                         =0.7),
     ratV_flow(
       table=[
         0, 0, 0;

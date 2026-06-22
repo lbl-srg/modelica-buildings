@@ -3,28 +3,10 @@ model AirToWater
   "Controller for AWHP plant"
   extends Buildings.Templates.Plants.HeatPumps.Components.Interfaces.PartialController(
     final typ=Buildings.Templates.Plants.HeatPumps.Types.Controller.AirToWater);
-  final parameter Real staEqu[:, nHp](
-    each final max=1,
-    each final min=0,
-    each final unit="1") = dat.staEqu
-    "Staging matrix – Equipment required for each stage"
-    annotation(Dialog(group="Equipment staging and rotation"));
-  final parameter Integer nSta(final min=1) = size(staEqu, 1)
-    "Number of stages"
-    annotation(Evaluate=true);
-  final parameter Integer idxEquAlt[ctl.nAltHp] =
-    Modelica.Math.BooleanVectors.index(
-      {Modelica.Math.BooleanVectors.anyTrue(
-        {nHp == 1
-          or staEqu[i, j] > 0
-            and staEqu[i, j] < 1 for i in 1:nSta}) for j in 1:nHp})
-    "Indices of lead/lag alternate equipment"
-    annotation(Evaluate=true,
-      Dialog(group="Equipment staging and rotation"));
   Buildings.Templates.Plants.Controls.HeatPumps.AirToWater ctl(
+    final typ=cfg.typ,
     final is_priOnl=cfg.typDis ==
       Buildings.Templates.Plants.HeatPumps.Types.Distribution.Variable1Only,
-    final have_hrc_select=cfg.have_hrc,
     final TChiWatSupSet_max=dat.TChiWatSupSet_max,
     final TChiWatSup_nominal=dat.TChiWatSup_nominal,
     final THeaWatSupSet_min=dat.THeaWatSupSet_min,
@@ -33,14 +15,22 @@ model AirToWater
     final TOutHeaWatLck=dat.TOutHeaWatLck,
     final VChiWatHp_flow_min=fill(dat.VChiWatHp_flow_min, cfg.nHp),
     final VChiWatHp_flow_nominal=fill(dat.VChiWatHp_flow_nominal, cfg.nHp),
+    final VChiWatPhp_flow_min=fill(dat.VChiWatPhp_flow_min, cfg.nPhp),
+    final VChiWatPhp_flow_nominal=fill(dat.VChiWatPhp_flow_nominal, cfg.nPhp),
     final VChiWatPri_flow_nominal=dat.VChiWatPri_flow_nominal,
     final VChiWatSec_flow_nominal=dat.VChiWatSec_flow_nominal,
     final VHeaWatHp_flow_min=fill(dat.VHeaWatHp_flow_min, cfg.nHp),
     final VHeaWatHp_flow_nominal=fill(dat.VHeaWatHp_flow_nominal, cfg.nHp),
+    final VHeaWatPhp_flow_min=fill(dat.VHeaWatPhp_flow_min, cfg.nPhp),
+    final VHeaWatPhp_flow_nominal=fill(dat.VHeaWatPhp_flow_nominal, cfg.nPhp),
     final VHeaWatPri_flow_nominal=dat.VHeaWatPri_flow_nominal,
     final VHeaWatSec_flow_nominal=dat.VHeaWatSec_flow_nominal,
     final capCooHp_nominal=fill(dat.capCooHp_nominal, cfg.nHp),
+    final capCooPhp_nominal=fill(dat.capCooPhp_nominal, cfg.nPhp),
+    final capCooShcPhp_nominal=fill(dat.capCooShcPhp_nominal, cfg.nPhp),
     final capHeaHp_nominal=fill(dat.capHeaHp_nominal, cfg.nHp),
+    final capHeaPhp_nominal=fill(dat.capHeaPhp_nominal, cfg.nPhp),
+    final capHeaShcPhp_nominal=fill(dat.capHeaShcPhp_nominal, cfg.nPhp),
     final cp_default=if cfg.have_heaWat
       then cfg.cpHeaWat_default else cfg.cpChiWat_default,
     final dpChiWatRemSet_max=dat.dpChiWatRemSet_max,
@@ -52,18 +42,14 @@ model AirToWater
     final COPHeaHrc_nominal=dat.COPHeaHrc_nominal,
     final TChiWatSupHrc_min=dat.TChiWatSupHrc_min,
     final THeaWatSupHrc_max=dat.THeaWatSupHrc_max,
-    final have_chiWat=cfg.have_chiWat,
-    final have_heaWat=cfg.have_heaWat,
     final have_inpSch=have_inpSch,
-    final have_pumChiWatPriDedHp_select=cfg.have_pumChiWatPriDed,
+    final have_pumChiWatPriDedHp_select=cfg.have_pumChiWatPriDedHp,
     final have_pumPriHdr=cfg.typArrPumPri ==
       Buildings.Templates.Components.Types.PumpArrangement.Headered,
-    final have_pumHeaWatPriVar_select=
-      cfg.typPumHeaWatPriHp==Buildings.Templates.Plants.HeatPumps.Types.PumpsPrimary.Variable
-      or cfg.typPumHeaWatPriPhp==Buildings.Templates.Plants.HeatPumps.Types.PumpsPrimary.Variable,
-    final have_pumChiWatPriVar_select=
-      cfg.typPumChiWatPriHp==Buildings.Templates.Plants.HeatPumps.Types.PumpsPrimary.Variable
-      or cfg.typPumChiWatPriPhp==Buildings.Templates.Plants.HeatPumps.Types.PumpsPrimary.Variable,
+    final have_pumHeaWatPriVar_select=cfg.typPumHeaWatPri ==
+      Buildings.Templates.Plants.HeatPumps.Types.PumpsPrimary.Variable,
+    final have_pumChiWatPriVar_select=cfg.typPumChiWatPri ==
+      Buildings.Templates.Plants.HeatPumps.Types.PumpsPrimary.Variable,
     final have_senDpChiWatRemWir=cfg.have_senDpChiWatRemWir,
     final have_senDpHeaWatRemWir=cfg.have_senDpHeaWatRemWir,
     final have_senTChiWatPriRet_select=have_senTChiWatPriRet_select,
@@ -74,12 +60,14 @@ model AirToWater
     final have_senVHeaWatPri_select=have_senVHeaWatPri_select,
     final have_valHpInlIso=cfg.have_valHpInlIso,
     final have_valHpOutIso=cfg.have_valHpOutIso,
-    final idxAltHp=idxEquAlt,
-    final nHp=cfg.nHp,
-    final nPumChiWatPri=cfg.nPumChiWatPri,
-    final nPumChiWatSec=cfg.nPumChiWatSec,
-    final nPumHeaWatPri=cfg.nPumHeaWatPri,
-    final nPumHeaWatSec=cfg.nPumHeaWatSec,
+    final have_valPhpInlIso=cfg.have_valPhpInlIso,
+    final have_valPhpOutIso=cfg.have_valPhpOutIso,
+    final nHp_select=cfg.nHp,
+    final nPhp_select=cfg.nPhp,
+    final nPumChiWatPri_select=cfg.nPumChiWatPri,
+    final nPumChiWatSec_select=cfg.nPumChiWatSec,
+    final nPumHeaWatPri_select=cfg.nPumHeaWatPri,
+    final nPumHeaWatSec_select=cfg.nPumHeaWatSec,
     final nSenDpChiWatRem=nSenDpChiWatRem,
     final nSenDpHeaWatRem=nSenDpHeaWatRem,
     final plrSta=dat.plrSta,
@@ -87,16 +75,20 @@ model AirToWater
       then cfg.rhoHeaWat_default else cfg.rhoChiWat_default,
     final schCoo=dat.schCoo,
     final schHea=dat.schHea,
-    final staHp=dat.staEqu,
+    final staHp=dat.staHp,
+    final idxAltHp_select=dat.idxAltHp,
     final yPumChiWatPri_min=dat.yPumChiWatPri_min,
-    yPumChiWatPriSet=if cfg.typArrPumPri == Buildings.Templates.Components.Types.PumpArrangement.Headered
-      then dat.yPumChiWatPriHdrSet else dat.yPumChiWatPriHpSet,
+    yPumChiWatPriDedHpSet=dat.yPumChiWatPriDedHpSet,
+    yPumChiWatPriDedPhpSet=dat.yPumChiWatPriDedPhpSet,
+    yPumChiWatPriHdrSet=dat.yPumChiWatPriHdrSet,
     final yPumChiWatSec_min=dat.yPumChiWatSec_min,
     final yPumHeaWatPri_min=dat.yPumHeaWatPri_min,
-    yPumHeaWatPriSet=if cfg.typArrPumPri == Buildings.Templates.Components.Types.PumpArrangement.Headered
-      then dat.yPumHeaWatPriHdrSet else dat.yPumHeaWatPriHpSet,
-    final yPumHeaWatSec_min=dat.yPumHeaWatSec_min) "Plant controller"
-    annotation (Placement(transformation(extent={{-20,-32},{20,40}})));
+    yPumHeaWatPriDedHpSet=dat.yPumHeaWatPriDedHpSet,
+    yPumHeaWatPriDedPhpSet=dat.yPumHeaWatPriDedPhpSet,
+    yPumHeaWatPriHdrSet=dat.yPumHeaWatPriHdrSet,
+    final yPumHeaWatSec_min=dat.yPumHeaWatSec_min)
+    "Plant controller"
+    annotation(Placement(transformation(extent={{-20,-48},{20,40}})));
   Buildings.Controls.OBC.CDL.Integers.MultiSum reqPlaHeaWatAirHan(
     final nin=nAirHan)
     if cfg.have_heaWat
@@ -225,9 +217,14 @@ equation
   connect(bus.dpHeaWatRem, ctl.dpHeaWatRem);
   connect(bus.dpHeaWatRem, resDpHeaWatLoc.dpRem);
   connect(busHp.y1_actual, ctl.u1Hp_actual);
-  connect(busPumChiWatPri.y1_actual, ctl.u1PumChiWatPriHdr_actual);
+  connect(busPhp.y1_actual, ctl.u1Php_actual);
+  connect(rouPumChiWatPri.y1Hdr_actual, ctl.u1PumChiWatPriHdr_actual);
+  connect(rouPumChiWatPri.y1DedHp_actual, ctl.u1PumChiWatPriDedHp_actual);
+  connect(rouPumChiWatPri.y1DedPhp_actual, ctl.u1PumChiWatPriDedPhp_actual);
   connect(busPumChiWatSec.y1_actual, ctl.u1PumChiWatSec_actual);
-  connect(busPumHeaWatPri.y1_actual, ctl.u1PumHeaWatPriDedPhp_actual);
+  connect(rouPumHeaWatPri.y1Hdr_actual, ctl.u1PumHeaWatPriHdr_actual);
+  connect(rouPumHeaWatPri.y1DedHp_actual, ctl.u1PumHeaWatPriDedHp_actual);
+  connect(rouPumHeaWatPri.y1DedPhp_actual, ctl.u1PumHeaWatPriDedPhp_actual);
   connect(busPumHeaWatSec.y1_actual, ctl.u1PumHeaWatSec_actual);
   connect(bus.u1SchCoo, ctl.u1SchCoo);
   connect(bus.u1SchHea, ctl.u1SchHea);
@@ -243,9 +240,13 @@ equation
   connect(ctl.dpHeaWatRemSet, bus.dpHeaWatRemSet);
   connect(ctl.y1HeaHp, busHp.y1Hea);
   connect(ctl.y1Hp, busHp.y1);
-  connect(ctl.y1PumChiWatPriHdr, busPumChiWatPri.y1);
+  connect(ctl.y1PumChiWatPriDedHp, rouPumChiWatPri.y1DedHp);
+  connect(ctl.y1PumChiWatPriDedPhp, rouPumChiWatPri.y1DedPhp);
+  connect(ctl.y1PumChiWatPriHdr, rouPumChiWatPri.y1Hdr);
   connect(ctl.y1PumChiWatSec, busPumChiWatSec.y1);
-  connect(ctl.y1PumHeaWatPriHdr, busPumHeaWatPri.y1);
+  connect(ctl.y1PumHeaWatPriDedHp, rouPumHeaWatPri.y1DedHp);
+  connect(ctl.y1PumHeaWatPriDedPhp, rouPumHeaWatPri.y1DedPhp);
+  connect(ctl.y1PumHeaWatPriHdr, rouPumHeaWatPri.y1Hdr);
   connect(ctl.y1PumHeaWatSec, busPumHeaWatSec.y1);
   connect(ctl.y1ValChiWatHpInlIso, busValChiWatHpInlIso.y1);
   connect(ctl.y1ValChiWatHpOutIso, busValChiWatHpOutIso.y1);
@@ -253,11 +254,13 @@ equation
   connect(ctl.y1ValHeaWatHpOutIso, busValHeaWatHpOutIso.y1);
   connect(ctl.yValHeaWatMinByp, busValHeaWatMinByp.y);
   connect(ctl.yValChiWatMinByp, busValChiWatMinByp.y);
-  connect(ctl.yPumChiWatPriDedHp, busPumChiWatPri.y);
-  connect(ctl.yPumChiWatPriHdr, busPumChiWatPri.y);
+  connect(ctl.yPumChiWatPriDedHp, rouPumChiWatPri.yDedHp);
+  connect(ctl.yPumChiWatPriDedPhp, rouPumChiWatPri.yDedPhp);
+  connect(ctl.yPumChiWatPriHdr, rouPumChiWatPri.yHdr);
   connect(ctl.yPumChiWatSec, busPumChiWatSec.y);
-  connect(ctl.yPumHeaWatPriDedHp, busPumHeaWatPri.y);
-  connect(ctl.yPumHeaWatPriHdr, busPumHeaWatPri.y);
+  connect(ctl.yPumHeaWatPriDedHp, rouPumHeaWatPri.yDedHp);
+  connect(ctl.yPumHeaWatPriDedPhp, rouPumHeaWatPri.yDedPhp);
+  connect(ctl.yPumHeaWatPriHdr, rouPumHeaWatPri.yHdr);
   connect(ctl.yPumHeaWatSec, busPumHeaWatSec.y);
   connect(ctl.y1Hrc, busHrc.y1);
   connect(ctl.y1CooHrc, busHrc.y1Coo);
@@ -347,29 +350,30 @@ equation
     annotation(Line(points={{148,-200},{134,-200},{134,68},{112,68}},
       color={255,127,0}));
   connect(reqPlaHeaWat.y, ctl.nReqPlaHeaWat)
-    annotation(Line(points={{88,194},{-40,194},{-40,18},{-22,18}},
+    annotation(Line(points={{88,194},{-40,194},{-40,4},{-22,4}},
       color={255,127,0}));
   connect(reqPlaChiWat.y, ctl.nReqPlaChiWat)
-    annotation(Line(points={{88,154},{-38,154},{-38,16},{-22,16}},
+    annotation(Line(points={{88,154},{-38,154},{-38,2},{-22,2}},
       color={255,127,0}));
   connect(reqResHeaWat.y, ctl.nReqResHeaWat)
-    annotation(Line(points={{88,114},{-36,114},{-36,14},{-22,14}},
+    annotation(Line(points={{88,114},{-36,114},{-36,0},{-22,0}},
       color={255,127,0}));
   connect(reqResChiWat.y, ctl.nReqResChiWat)
-    annotation(Line(points={{88,74},{-34,74},{-34,12},{-22,12}},
+    annotation(Line(points={{88,74},{-34,74},{-34,-2},{-22,-2}},
       color={255,127,0}));
   connect(resDpHeaWatLoc.dpLocSet, ctl.dpHeaWatLocSet)
-    annotation(Line(points={{-48.2,0},{-40,0},{-40,-22},{-22,-22}},
+    annotation(Line(points={{-48.2,0},{-40,0},{-40,-36},{-22,-36}},
       color={0,0,127}));
   connect(resDpChiWatLoc.dpLocSet, ctl.dpChiWatLocSet)
-    annotation(Line(points={{-48.2,-40},{-40,-40},{-40,-28},{-22,-28}},
+    annotation(Line(points={{-48.2,-40},{-40,-40},{-40,-42},{-22,-42}},
       color={0,0,127}));
   connect(ctl.dpChiWatRemSet, resDpChiWatLoc.dpRemSet)
     annotation(Line(
-      points={{22,-8},{40,-8},{40,-60},{-80,-60},{-80,-34},{-72,-34}},
+      points={{22,-26},{40,-26},{40,-60},{-80,-60},{-80,-34},{-72,-34}},
       color={0,0,127}));
   connect(ctl.dpHeaWatRemSet, resDpHeaWatLoc.dpRemSet)
-    annotation(Line(points={{22,-6},{42,-6},{42,-62},{-82,-62},{-82,6},{-72,6}},
+    annotation(Line(
+      points={{22,-24},{42,-24},{42,-62},{-82,-62},{-82,6},{-72,6}},
       color={0,0,127}));
 annotation(defaultComponentName="ctl",
   Documentation(

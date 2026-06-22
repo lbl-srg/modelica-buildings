@@ -136,17 +136,24 @@ record Controller
           or cfg.typPumChiWatSec <>
             Buildings.Templates.Plants.HeatPumps.Types.PumpsSecondary.None)));
   // HACK(AntoineGautier):
-  // Using cfg.nHp for size(staEqu, 2) is not supported by Dymola which fails to "evaluate and check the size declaration".
+  // Declaring staHp[:, cfg.nHp] is not supported by Dymola which fails to
+  // "evaluate and check the size declaration".
   // So the size is kept unassigned and a check is performed at initialization.
-  // Furthermore, a start value cannot be provided as the number of plant stages is not known beforehand.
+  // Furthermore, a start value cannot be provided as the number of stages is not known beforehand.
   // If provided, there will likely be a mismatch between assigned value and start value.
-  // Therefore, no enable annotation can be used.
-  parameter Real staEqu[:, :](
+  // A default binding is used instead.
+  parameter Real staHp[:, :](
     each final max=1,
     each final min=0,
-    each final unit="1")
-    "Staging matrix – Equipment required for each stage"
-    annotation(Dialog(group="Equipment staging and rotation"));
+    each final unit="1") = {i / cfg.nHp for _ in 1:cfg.nHp, i in 1:cfg.nHp}
+    "Heat pump staging matrix – Equipment required for each stage"
+    annotation(Dialog(group="Equipment staging and rotation",
+      enable=cfg.have_hp and not cfg.have_php));
+  parameter Integer idxAltHp[:] = 1:cfg.nHp
+    "Indices of lead/lag alternate heat pumps"
+    annotation(Evaluate=true,
+      Dialog(group="Equipment staging and rotation",
+      enable=cfg.have_hp and not cfg.have_php));
   parameter Real plrSta(
     final max=1,
     final min=0,
@@ -245,6 +252,10 @@ record Controller
       =1) "Design heating capacity – Each unit"
     annotation(Dialog(group="Plant equipment – Polyvalent units",
       enable=cfg.have_php and cfg.typCtl == Buildings.Templates.Plants.HeatPumps.Types.Controller.AirToWater));
+  parameter Modelica.Units.SI.HeatFlowRate capHeaShcPhp_nominal(final min=0, start
+    =1) "Design heating capacity in SHC mode – Each unit"
+    annotation(Dialog(group="Plant equipment – Polyvalent units",
+      enable=cfg.have_php and cfg.typCtl == Buildings.Templates.Plants.HeatPumps.Types.Controller.AirToWater));
   parameter Modelica.Units.SI.VolumeFlowRate VChiWatPhp_flow_nominal(
     final min=0,
     start=0.1)
@@ -269,6 +280,10 @@ record Controller
             Buildings.Templates.Plants.HeatPumps.Types.Distribution.Variable1Only));
   parameter Modelica.Units.SI.HeatFlowRate capCooPhp_nominal(final min=0, start
       =1) "Design cooling capacity – Each unit"
+    annotation(Dialog(group="Plant equipment – Polyvalent units",
+      enable=cfg.have_php and cfg.typCtl == Buildings.Templates.Plants.HeatPumps.Types.Controller.AirToWater));
+  parameter Modelica.Units.SI.HeatFlowRate capCooShcPhp_nominal(final min=0, start
+    =1) "Design cooling capacity in SHC mode – Each unit"
     annotation(Dialog(group="Plant equipment – Polyvalent units",
       enable=cfg.have_php and cfg.typCtl == Buildings.Templates.Plants.HeatPumps.Types.Controller.AirToWater));
   parameter Real TChiWatSupHrc_min(
@@ -336,7 +351,7 @@ record Controller
           Buildings.Templates.Plants.HeatPumps.Types.Controller.AirToWater
         and not cfg.have_senDpHeaWatRemWir));
   parameter Real yPumHeaWatPriHdrSet(final max=2, final min=0, start=1, final unit="1") = 1
-    "Headered primary HW pump speed providing design flow in heating mode"
+    "Primary HW pump speed providing design flow – Headered pumps"
     annotation(Dialog(
       group="Information provided by testing, adjusting, and balancing contractor",
       enable=cfg.have_heaWat
@@ -346,36 +361,34 @@ record Controller
           Buildings.Templates.Plants.HeatPumps.Types.Distribution.Constant1Variable2
         and cfg.typArrPumPri ==
           Buildings.Templates.Components.Types.PumpArrangement.Headered
-        and (cfg.typPumHeaWatPriHp ==
-          Buildings.Templates.Plants.HeatPumps.Types.PumpsPrimary.Variable
-          or cfg.typPumHeaWatPriPhp ==
-            Buildings.Templates.Plants.HeatPumps.Types.PumpsPrimary.Variable)));
-  parameter Real yPumHeaWatPriHpSet(final max=2, final min=0, start=1, final unit="1") = 1
-    "Heat pump dedicated primary pump speed providing design flow in heating mode"
+        and cfg.typPumHeaWatPri ==
+          Buildings.Templates.Plants.HeatPumps.Types.PumpsPrimary.Variable));
+  parameter Real yPumHeaWatPriDedHpSet(
+    final max=2,
+    final min=0,
+    start=1,
+    final unit="1") = 1
+    "Primary pump speed providing design flow in heating mode – HP dedicated pumps"
     annotation(Dialog(
       group="Information provided by testing, adjusting, and balancing contractor",
-      enable=cfg.have_heaWat
-        and cfg.typCtl ==
-          Buildings.Templates.Plants.HeatPumps.Types.Controller.AirToWater
-        and cfg.typDis ==
-          Buildings.Templates.Plants.HeatPumps.Types.Distribution.Constant1Variable2
-        and cfg.typArrPumPri ==
-          Buildings.Templates.Components.Types.PumpArrangement.Dedicated
-        and cfg.typPumHeaWatPriHp ==
-          Buildings.Templates.Plants.HeatPumps.Types.PumpsPrimary.Variable));
-  parameter Real yPumHeaWatPriPhpSet(final max=2, final min=0, start=1, final unit="1") = 1
-    "Polyvalent unit dedicated primary HW pump speed providing design flow"
+      enable=cfg.have_heaWat and cfg.typCtl == Buildings.Templates.Plants.HeatPumps.Types.Controller.AirToWater
+           and cfg.typDis == Buildings.Templates.Plants.HeatPumps.Types.Distribution.Constant1Variable2
+           and cfg.typArrPumPri == Buildings.Templates.Components.Types.PumpArrangement.Dedicated
+      and cfg.typPumHeaWatPri == Buildings.Templates.Plants.HeatPumps.Types.PumpsPrimary.Variable
+      and cfg.have_hp));
+  parameter Real yPumHeaWatPriDedPhpSet(
+    final max=2,
+    final min=0,
+    start=1,
+    final unit="1") = 1
+    "Primary HW pump speed providing design flow – Polyvalent HP dedicated pumps"
     annotation(Dialog(
       group="Information provided by testing, adjusting, and balancing contractor",
-      enable=cfg.have_heaWat
-        and cfg.typCtl ==
-          Buildings.Templates.Plants.HeatPumps.Types.Controller.AirToWater
-        and cfg.typDis ==
-          Buildings.Templates.Plants.HeatPumps.Types.Distribution.Constant1Variable2
-        and cfg.typArrPumPri ==
-          Buildings.Templates.Components.Types.PumpArrangement.Dedicated
-        and cfg.typPumHeaWatPriPhp ==
-          Buildings.Templates.Plants.HeatPumps.Types.PumpsPrimary.Variable));
+      enable=cfg.have_heaWat and cfg.typCtl == Buildings.Templates.Plants.HeatPumps.Types.Controller.AirToWater
+           and cfg.typDis == Buildings.Templates.Plants.HeatPumps.Types.Distribution.Constant1Variable2
+           and cfg.typArrPumPri == Buildings.Templates.Components.Types.PumpArrangement.Dedicated
+      and cfg.typPumHeaWatPri == Buildings.Templates.Plants.HeatPumps.Types.PumpsPrimary.Variable
+      and cfg.have_php));
   parameter Real yPumHeaWatPri_min(final max=1, final min=0, start=0.1, final unit="1") = 0.1
     "Primary HW pump minimum speed"
     annotation(Dialog(
@@ -385,10 +398,8 @@ record Controller
           Buildings.Templates.Plants.HeatPumps.Types.Controller.AirToWater
         and cfg.typDis ==
           Buildings.Templates.Plants.HeatPumps.Types.Distribution.Variable1Only
-        and (cfg.typPumHeaWatPriHp ==
-          Buildings.Templates.Plants.HeatPumps.Types.PumpsPrimary.Variable
-          or cfg.typPumHeaWatPriPhp ==
-            Buildings.Templates.Plants.HeatPumps.Types.PumpsPrimary.Variable)));
+        and cfg.typPumHeaWatPri ==
+          Buildings.Templates.Plants.HeatPumps.Types.PumpsPrimary.Variable));
   parameter Real yPumHeaWatSec_min(final max=1, final min=0, final unit="1", start=0.1) = 0.1
     "Secondary HW pump minimum speed"
     annotation(Dialog(
@@ -434,59 +445,48 @@ record Controller
           Buildings.Templates.Plants.HeatPumps.Types.Controller.AirToWater
         and not cfg.have_senDpChiWatRemWir));
   parameter Real yPumChiWatPriHdrSet(final max=2, final min=0, start=1, final unit="1") = 1
-    "Headered primary pump speed providing design flow in cooling mode"
+    "Primary CHW pump speed providing design flow – Headered pumps"
     annotation(Dialog(
       group="Information provided by testing, adjusting, and balancing contractor",
-      enable=cfg.have_chiWat
-        and cfg.typCtl ==
-          Buildings.Templates.Plants.HeatPumps.Types.Controller.AirToWater
-        and cfg.typDis ==
-          Buildings.Templates.Plants.HeatPumps.Types.Distribution.Constant1Variable2
-        and cfg.typArrPumPri ==
-          Buildings.Templates.Components.Types.PumpArrangement.Headered
-        and (cfg.typPumChiWatPriHp ==
-          Buildings.Templates.Plants.HeatPumps.Types.PumpsPrimary.Variable
-          or cfg.typPumChiWatPriPhp ==
-            Buildings.Templates.Plants.HeatPumps.Types.PumpsPrimary.Variable)));
-  parameter Real yPumChiWatPriHpSet(final max=2, final min=0, start=1, final unit="1") = 1
-    "Heat pump dedicated primary pump speed providing design flow in cooling mode"
+      enable=cfg.have_chiWat and cfg.typCtl == Buildings.Templates.Plants.HeatPumps.Types.Controller.AirToWater
+           and cfg.typDis == Buildings.Templates.Plants.HeatPumps.Types.Distribution.Constant1Variable2
+           and cfg.typArrPumPri == Buildings.Templates.Components.Types.PumpArrangement.Headered
+           and cfg.typPumChiWatPri == Buildings.Templates.Plants.HeatPumps.Types.PumpsPrimary.Variable));
+  parameter Real yPumChiWatPriDedHpSet(
+    final max=2,
+    final min=0,
+    start=1,
+    final unit="1") = 1
+    "Primary pump speed providing design flow in cooling mode – HP dedicated pumps"
     annotation(Dialog(
-      group="Information provided by testing, adjusting, and balancing contractor",
-      enable=cfg.have_chiWat
-        and cfg.typCtl ==
-          Buildings.Templates.Plants.HeatPumps.Types.Controller.AirToWater
-        and cfg.typDis ==
-          Buildings.Templates.Plants.HeatPumps.Types.Distribution.Constant1Variable2
-        and cfg.typArrPumPri ==
-          Buildings.Templates.Components.Types.PumpArrangement.Dedicated
-        and cfg.typPumChiWatPriHp ==
-          Buildings.Templates.Plants.HeatPumps.Types.PumpsPrimary.Variable));
-  parameter Real yPumChiWatPriPhpSet(final max=2, final min=0, start=1, final unit="1") = 1
-    "Polyvalent unit dedicated primary pump speed providing design flow in cooling mode"
+      group=
+          "Information provided by testing, adjusting, and balancing contractor",
+      enable=cfg.have_chiWat and cfg.typCtl == Buildings.Templates.Plants.HeatPumps.Types.Controller.AirToWater
+           and cfg.typDis == Buildings.Templates.Plants.HeatPumps.Types.Distribution.Constant1Variable2
+           and cfg.typArrPumPri == Buildings.Templates.Components.Types.PumpArrangement.Dedicated
+           and cfg.typPumChiWatPri == Buildings.Templates.Plants.HeatPumps.Types.PumpsPrimary.Variable
+           and cfg.have_hp));
+  parameter Real yPumChiWatPriDedPhpSet(
+    final max=2,
+    final min=0,
+    start=1,
+    final unit="1") = 1
+    "Primary CHW pump speed providing design flow – Polyvalent HP dedicated pumps"
     annotation(Dialog(
-      group="Information provided by testing, adjusting, and balancing contractor",
-      enable=cfg.have_chiWat
-        and cfg.typCtl ==
-          Buildings.Templates.Plants.HeatPumps.Types.Controller.AirToWater
-        and cfg.typDis ==
-          Buildings.Templates.Plants.HeatPumps.Types.Distribution.Constant1Variable2
-        and cfg.typArrPumPri ==
-          Buildings.Templates.Components.Types.PumpArrangement.Dedicated
-        and cfg.typPumChiWatPriPhp ==
-          Buildings.Templates.Plants.HeatPumps.Types.PumpsPrimary.Variable));
+      group=
+          "Information provided by testing, adjusting, and balancing contractor",
+      enable=cfg.have_chiWat and cfg.typCtl == Buildings.Templates.Plants.HeatPumps.Types.Controller.AirToWater
+           and cfg.typDis == Buildings.Templates.Plants.HeatPumps.Types.Distribution.Constant1Variable2
+           and cfg.typArrPumPri == Buildings.Templates.Components.Types.PumpArrangement.Dedicated
+           and cfg.typPumChiWatPri == Buildings.Templates.Plants.HeatPumps.Types.PumpsPrimary.Variable
+           and cfg.have_php));
   parameter Real yPumChiWatPri_min(final max=1, final min=0, start=0.1, final unit="1") = 0.1
     "Primary CHW pump minimum speed"
     annotation(Dialog(
       group="Information provided by testing, adjusting, and balancing contractor",
-      enable=cfg.have_chiWat
-        and cfg.typCtl ==
-          Buildings.Templates.Plants.HeatPumps.Types.Controller.AirToWater
-        and cfg.typDis ==
-          Buildings.Templates.Plants.HeatPumps.Types.Distribution.Variable1Only
-        and (cfg.typPumChiWatPriHp ==
-          Buildings.Templates.Plants.HeatPumps.Types.PumpsPrimary.Variable
-          or cfg.typPumChiWatPriPhp ==
-            Buildings.Templates.Plants.HeatPumps.Types.PumpsPrimary.Variable)));
+      enable=cfg.have_chiWat and cfg.typCtl == Buildings.Templates.Plants.HeatPumps.Types.Controller.AirToWater
+           and cfg.typDis == Buildings.Templates.Plants.HeatPumps.Types.Distribution.Variable1Only
+           and cfg.typPumChiWatPri == Buildings.Templates.Plants.HeatPumps.Types.PumpsPrimary.Variable));
   parameter Real yPumChiWatSec_min(final max=1, final min=0, final unit="1", start=0.1) = 0.1
     "Secondary CHW pump minimum speed"
     annotation(Dialog(

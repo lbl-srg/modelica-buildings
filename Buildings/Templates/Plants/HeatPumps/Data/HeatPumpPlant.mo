@@ -27,8 +27,10 @@ record HeatPumpPlant
     final cpSou_default=cfg.cpSou_default,
     capCooHp_nominal=ctl.capCooHp_nominal,
     capCooPhp_nominal=ctl.capCooPhp_nominal,
+    capCooShcPhp_nominal=ctl.capCooShcPhp_nominal,
     capHeaHp_nominal=ctl.capHeaHp_nominal,
     capHeaPhp_nominal=ctl.capHeaPhp_nominal,
+    capHeaShcPhp_nominal=ctl.capHeaShcPhp_nominal,
     TChiWatSupHp_nominal=ctl.TChiWatSup_nominal,
     TChiWatSupPhp_nominal=ctl.TChiWatSup_nominal,
     THeaWatSupHp_nominal=ctl.THeaWatSup_nominal,
@@ -56,7 +58,8 @@ record HeatPumpPlant
     "Polyvalent unit CHW balancing valve pressure drop at design CHW flow"
     annotation(Dialog(group="Heat pumps and polyvalent units"));
   // HW loop
-  /* HACK(AntoineGautier)
+  /*
+   * HACK(AntoineGautier)
    * Dymola 2026x fails to check the size of m_flow_nominal (freezes)
    * in case of *headered* pumps. Using 'nPumHeaWatPri - nPhp' for
    * the case with *dedicated* pumps somehow helps the compiler...
@@ -64,9 +67,8 @@ record HeatPumpPlant
   parameter Buildings.Templates.Components.Data.PumpMultiple pumHeaWatPri(
     final nPum=cfg.nPumHeaWatPri,
     final rho_default=cfg.rhoHeaWat_default,
-    final typ=if cfg.typPumHeaWatPriHp <>
+    final typ=if cfg.typPumHeaWatPri <>
       Buildings.Templates.Plants.HeatPumps.Types.PumpsPrimary.None
-      or cfg.have_php
       then Buildings.Templates.Components.Types.Pump.Multiple
       else Buildings.Templates.Components.Types.Pump.None,
     m_flow_nominal=if cfg.typArrPumPri ==
@@ -74,12 +76,10 @@ record HeatPumpPlant
       then cat(
         1,
         fill(
-          if cfg.have_chiWat and
-          cfg.typPumChiWatPriHp ==
-          Buildings.Templates.Plants.HeatPumps.Types.PumpsPrimary.None
-            then max(hp.mHeaWatHp_flow_nominal, hp.mChiWatHp_flow_nominal)
-            else hp.mHeaWatHp_flow_nominal,
-        cfg.nPumHeaWatPri - cfg.nPhp),
+          if cfg.have_pumChiWatPriDedHp
+            then hp.mHeaWatHp_flow_nominal
+            else max(hp.mHeaWatHp_flow_nominal, hp.mChiWatHp_flow_nominal),
+          cfg.nPumHeaWatPri - cfg.nPhp),
         fill(hp.mHeaWatPhp_flow_nominal, cfg.nPhp))
       else fill(
         (cfg.nHp * hp.mHeaWatHp_flow_nominal + cfg.nPhp *
@@ -147,7 +147,8 @@ record HeatPumpPlant
         and cfg.typPumHeaWatSec ==
           Buildings.Templates.Plants.HeatPumps.Types.PumpsSecondary.Centralized));
   // CHW loop
-  /* HACK(AntoineGautier)
+  /*
+   * HACK(AntoineGautier)
    * Dymola 2026x fails to check the size of m_flow_nominal (freezes)
    * in case of *headered* pumps. Using 'nPumChiWatPri - nPhp' for
    * the case with *dedicated* pumps somehow helps the compiler...
@@ -155,18 +156,15 @@ record HeatPumpPlant
   parameter Buildings.Templates.Components.Data.PumpMultiple pumChiWatPri(
     final nPum=cfg.nPumChiWatPri,
     final rho_default=cfg.rhoChiWat_default,
-    final typ=if cfg.typPumChiWatPriHp <>
+    final typ=if cfg.typPumChiWatPri <>
       Buildings.Templates.Plants.HeatPumps.Types.PumpsPrimary.None
-      or cfg.have_php
       then Buildings.Templates.Components.Types.Pump.Multiple
       else Buildings.Templates.Components.Types.Pump.None,
     m_flow_nominal=if cfg.typArrPumPri ==
       Buildings.Templates.Components.Types.PumpArrangement.Dedicated
       then cat(
         1,
-        fill(
-          hp.mChiWatHp_flow_nominal,
-          cfg.nPumChiWatPri - cfg.nPhp),
+        fill(hp.mChiWatHp_flow_nominal, cfg.nPumChiWatPri - cfg.nPhp),
         fill(hp.mChiWatPhp_flow_nominal, cfg.nPhp))
       else fill(
         (hp.mChiWatHp_flow_nominal * cfg.nHp + hp.mChiWatPhp_flow_nominal *
@@ -174,7 +172,7 @@ record HeatPumpPlant
         cfg.nPumChiWatPri))
     "Primary CHW pumps"
     annotation(Dialog(group="Primary CHW loop",
-      enable=cfg.typPumChiWatPriHp <>
+      enable=cfg.typPumChiWatPriDedHp <>
         Buildings.Templates.Plants.HeatPumps.Types.PumpsPrimary.None
         or cfg.have_php));
   final parameter Buildings.Templates.Components.Data.PumpSingle pumChiWatPriSin[max(
@@ -200,23 +198,22 @@ record HeatPumpPlant
     fill(Buildings.Templates.Data.Defaults.dpValChe, cfg.nPumChiWatPri)
     "Primary CHW pump check valve pressure drop at design CHW flow rate – Each unit"
     annotation(Dialog(group="Primary CHW loop",
-      enable=cfg.typPumChiWatPriHp <>
-        Buildings.Templates.Plants.HeatPumps.Types.PumpsPrimary.None
-        or cfg.typPumChiWatPriPhp <>
-          Buildings.Templates.Plants.HeatPumps.Types.PumpsPrimary.None));
+      enable=cfg.typPumChiWatPri <>
+        Buildings.Templates.Plants.HeatPumps.Types.PumpsPrimary.None));
   parameter Buildings.Templates.Components.Data.Valve valChiWatMinByp(
     final typ=Buildings.Templates.Components.Types.Valve.TwoWayModulating,
     m_flow_nominal=if cfg.have_valChiWatMinByp
-    then max(ctl.VChiWatHp_flow_min, ctl.VChiWatPhp_flow_min) * cfg.rhoChiWat_default
-    else max(hp.mChiWatHp_flow_nominal, hp.mChiWatPhp_flow_nominal),
+      then max(ctl.VChiWatHp_flow_min, ctl.VChiWatPhp_flow_min) *
+        cfg.rhoChiWat_default
+      else max(hp.mChiWatHp_flow_nominal, hp.mChiWatPhp_flow_nominal),
     dpValve_nominal=Buildings.Templates.Data.Defaults.dpValBypMin)
     "CHW minimum flow bypass valve"
     annotation(Dialog(group="Primary CHW loop",
       enable=cfg.have_valChiWatMinByp));
   parameter Modelica.Units.SI.Volume VTanChiWat(start=0) =
     if cfg.have_chiWat
-    then 2 * 60 * (cfg.nHp * hp.mChiWatHp_flow_nominal +
-      cfg.nPhp * hp.mChiWatPhp_flow_nominal) / cfg.rhoChiWat_default
+    then 2 * 60 * (cfg.nHp * hp.mChiWatHp_flow_nominal + cfg.nPhp *
+      hp.mChiWatPhp_flow_nominal) / cfg.rhoChiWat_default
     else 0
     "Volume of HW buffer tank"
     annotation(Dialog(group="Primary CHW loop",

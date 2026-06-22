@@ -59,7 +59,7 @@ block AirToWater
     "Set to true for plants with primary HW pumps"
     annotation(Evaluate=true);
   parameter Boolean have_pumChiWatPriDedHp_select(start=false)=false
-    "Set to true for HP with separate dedicated primary CHW pumps"
+    "Set to true for HP with separate dedicated primary pumps for CHW and HW circuits"
     annotation(Evaluate=true,
       Dialog(enable=have_chiWat and not have_pumPriHdr,
         group="Plant configuration"));
@@ -70,7 +70,7 @@ block AirToWater
     annotation(Evaluate=true);
   final parameter Boolean have_pumChiWatPri =
     have_chiWat and (have_pumPriHdr or have_pumChiWatPriDedHp or have_php)
-    "Set to true for plants with separate primary CHW pumps"
+    "Set to true for HP with separate dedicated primary pumps for CHW and HW circuits"
     annotation(Evaluate=true);
   parameter Boolean have_pumPriHdr
     "Set to true for headered primary pumps, false for dedicated pumps"
@@ -426,24 +426,34 @@ block AirToWater
     "Minimum value to which the HW differential pressure can be reset - Remote sensor"
     annotation(Dialog(group="Information provided by designer",
       enable=have_heaWat and have_pumHeaWatSec));
-  parameter Real yPumHeaWatPriHpSet(
+  parameter Real yPumHeaWatPriHdrSet(
     max=2,
     min=0,
     start=1,
     unit="1")
-    "Primary pump speed providing design flow in heating mode – HP"
+    "Primary HW pump speed providing design flow – Headered pumps"
     annotation(Dialog(
       group="Information provided by testing, adjusting, and balancing contractor",
-      enable=have_heaWat and not is_priOnl and have_pumHeaWatPriVar and have_hp));
-  parameter Real yPumHeaWatPriPhpSet(
+      enable=have_heaWat and not is_priOnl and have_pumHeaWatPriVar and have_pumPriHdr));
+  parameter Real yPumHeaWatPriDedHpSet(
     max=2,
     min=0,
     start=1,
     unit="1")
-    "Primary pump speed providing design flow in heating mode – Polyvalent HP"
+    "Primary pump speed providing design flow in heating mode – HP dedicated pumps"
     annotation(Dialog(
       group="Information provided by testing, adjusting, and balancing contractor",
-      enable=have_heaWat and not is_priOnl and have_pumHeaWatPriVar and have_php));
+      enable=have_heaWat and not is_priOnl and have_pumHeaWatPriVar and have_hp and not have_pumPriHdr));
+  parameter Real yPumHeaWatPriDedPhpSet(
+    max=2,
+    min=0,
+    start=1,
+    unit="1")
+    "Primary HW pump speed providing design flow – Polyvalent HP dedicated pumps"
+    annotation(Dialog(
+      group="Information provided by testing, adjusting, and balancing contractor",
+      enable=have_heaWat and not is_priOnl and have_pumHeaWatPriVar and
+          have_php and not have_pumPriHdr));
   parameter Real TChiWatSup_nominal(
     min=273.15,
     start=7 + 273.15,
@@ -552,24 +562,32 @@ block AirToWater
     "Minimum value to which the CHW differential pressure can be reset - Remote sensor"
     annotation(Dialog(group="Information provided by designer",
       enable=have_pumChiWatSec));
-  parameter Real yPumChiWatPriHpSet(
+  parameter Real yPumChiWatPriHdrSet(
+    max=2,
+    min=0,
+    start=1,
+    unit="1") "Primary CHW pump speed providing design flow – Headered pumps"
+    annotation(Dialog(
+      group="Information provided by testing, adjusting, and balancing contractor",
+      enable=have_chiWat and not is_priOnl and have_pumChiWatPriVar and have_pumPriHdr));
+  parameter Real yPumChiWatPriDedHpSet(
+    max=2,
+    min=0,
+    start=1,
+    unit="1") "Primary pump speed providing design flow in cooling mode – HP dedicated pumps"
+    annotation(Dialog(
+      group="Information provided by testing, adjusting, and balancing contractor",
+      enable=have_chiWat and not is_priOnl and have_pumChiWatPriVar and have_hp and not have_pumPriHdr));
+  parameter Real yPumChiWatPriDedPhpSet(
     max=2,
     min=0,
     start=1,
     unit="1")
-    "Primary pump speed providing design flow in cooling mode – HP"
+    "Primary CHW pump speed providing design flow – Polyvalent HP dedicated pumps"
     annotation(Dialog(
       group="Information provided by testing, adjusting, and balancing contractor",
-      enable=have_chiWat and not is_priOnl and have_pumChiWatPriVar and have_hp));
-  parameter Real yPumChiWatPriPhpSet(
-    max=2,
-    min=0,
-    start=1,
-    unit="1")
-    "Primary pump speed providing design flow in cooling mode – Polyvalent HP"
-    annotation(Dialog(
-      group="Information provided by testing, adjusting, and balancing contractor",
-      enable=have_chiWat and not is_priOnl and have_pumChiWatPriVar and have_php));
+      enable=have_chiWat and not is_priOnl and have_pumChiWatPriVar and
+          have_php and not have_pumPriHdr));
   parameter Real cp_default(
     min=0,
     unit="J/(kg.K)")=4184
@@ -628,7 +646,7 @@ block AirToWater
   parameter Real staHp[:, :](
     each final max=1,
     each final min=0,
-    each final unit="1") = {min(i, nHp)/nHp for _ in 1:nHp, i in 1:nHp}
+    each final unit="1") = {i / nHp for _ in 1:nHp, i in 1:nHp}
     "Heat pump staging matrix – Equipment required for each stage"
     annotation(Dialog(group="Equipment staging and rotation",
       enable=have_hp and not have_php));
@@ -1800,10 +1818,12 @@ block AirToWater
     final nPhp=nPhp,
     final nPumHeaWatPri=nPumHeaWatPri,
     final nPumChiWatPri=nPumChiWatPri,
-    final yPumHeaWatPriHpSet=yPumHeaWatPriHpSet,
-    final yPumChiWatPriHpSet=yPumChiWatPriHpSet,
-    final yPumHeaWatPriPhpSet=yPumHeaWatPriPhpSet,
-    final yPumChiWatPriPhpSet=yPumChiWatPriPhpSet,
+    final yPumHeaWatPriHdrSet=yPumHeaWatPriHdrSet,
+    final yPumChiWatPriHdrSet=yPumChiWatPriHdrSet,
+    final yPumHeaWatPriDedHpSet=yPumHeaWatPriDedHpSet,
+    final yPumChiWatPriDedHpSet=yPumChiWatPriDedHpSet,
+    final yPumHeaWatPriDedPhpSet=yPumHeaWatPriDedPhpSet,
+    final yPumChiWatPriDedPhpSet=yPumChiWatPriDedPhpSet,
     final have_senDpChiWatRemWir=have_senDpChiWatRemWir,
     final have_senDpHeaWatRemWir=have_senDpHeaWatRemWir,
     final kCtlDpChiWat=kCtlDpChiWat,
@@ -1816,7 +1836,7 @@ block AirToWater
     final yPumHeaWatPri_min=yPumHeaWatPri_min)
     if have_pumHeaWatPriVar or have_pumChiWatPriVar
     "Primary pump speed control"
-    annotation(Placement(transformation(extent={{190,54},{210,98}})));
+    annotation (Placement(transformation(extent={{190,54},{210,98}})));
   Pumps.Generic.ControlDifferentialPressure ctlPumHeaWatSec(
     final have_senDpRemWir=have_senDpHeaWatRemWir,
     final nPum=nPumHeaWatSec,
@@ -2838,7 +2858,7 @@ annotation(defaultComponentName="ctl",
   Icon(coordinateSystem(preserveAspectRatio=true,
     extent={{-200,-440},{200,440}},
     grid={2,2}),
-    graphics={Rectangle(extent={{-202,440},{200,-440}},
+    graphics={Rectangle(extent={{-200,440},{200,-440}},
       lineColor={0,0,0},
       fillColor={255,255,255},
       fillPattern=FillPattern.Solid),

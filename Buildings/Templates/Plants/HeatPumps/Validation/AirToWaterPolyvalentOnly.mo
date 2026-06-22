@@ -3,7 +3,7 @@ model AirToWaterPolyvalentOnly
   "Validation of AWHP plant template with polyvalent units only (without reversible HP)"
   extends Buildings.Templates.Plants.HeatPumps.Validation.AirToWater(
     pla(
-      typ=Buildings.Templates.Plants.HeatPumps.Types.Plant.Polyvalent,
+      typ=Buildings.Templates.Plants.Controls.Types.PlantHeatPump.Polyvalent,
         typArrPumPri_select=Buildings.Templates.Components.Types.PumpArrangement.Headered));
 
 annotation(

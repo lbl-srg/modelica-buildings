@@ -37,22 +37,21 @@ model AirToWater
       rotation=0,
       origin={-170,-40})));
   Buildings.Templates.Plants.HeatPumps.AirToWater pla(
-    redeclare final package MediumHeaWat=Medium,
-    typ=Buildings.Templates.Plants.HeatPumps.Types.Plant.Reversible,
+    redeclare final package MediumHeaWat = Medium,
+    typ=Buildings.Templates.Plants.Controls.Types.PlantHeatPump.Reversible,
     final dat=datAll.pla,
     nHp_select=3,
     is_phpMod=false,
     nPhp_select=1,
     typArrPumPri_select=Buildings.Templates.Components.Types.PumpArrangement.Dedicated,
     typPumPri_select=Buildings.Templates.Plants.HeatPumps.Types.PumpsPrimary.Constant,
-    have_pumPriComHp_select=false,
+    have_pumPriDedComHp_select=false,
     final allowFlowReversal=allowFlowReversal,
     linearized=true,
     show_T=true,
     ctl(nAirHan=1, nEquZon=0),
-    is_dpBalYPumSetCal=true)
-    "Heat pump plant"
-    annotation(Placement(transformation(extent={{-80,-100},{-40,-60}})));
+    is_dpBalYPumSetCal=true) "Heat pump plant"
+    annotation (Placement(transformation(extent={{-80,-100},{-40,-60}})));
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant TDum(
     k=293.15,
     y(final unit="K", displayUnit="degC"))
@@ -332,7 +331,7 @@ annotation(__Dymola_Commands(
 <p>
   Three equally sized heat pumps are modeled, which can all be lead/lag
   alternated. A heat recovery chiller (HRC) can be included by setting
-  <code>pla.typ=Buildings.Templates.Plants.HeatPumps.Types.Plant.HeatingAltCoolingHeatRecovery</code>.
+  <code>pla.typ=Buildings.Templates.Plants.Controls.Types.PlantHeatPump.ReversibleHeatRecovery</code>.
   The HRC is connected to the HW and CHW return pipes (sidestream
   integration). A unique aggregated load is modeled on each loop using a heat
   exchanger component exposed to conditioned space air, and a two-way

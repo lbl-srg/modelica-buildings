@@ -3,11 +3,12 @@ model AirToWaterPolyvalent
   "Validation of AWHP plant template with polyvalent units"
   extends Buildings.Templates.Plants.HeatPumps.Validation.AirToWater(
     pla(
-      typ=Buildings.Templates.Plants.HeatPumps.Types.Plant.ReversiblePolyvalent,
+      typ=Buildings.Templates.Plants.Controls.Types.PlantHeatPump.ReversiblePolyvalent,
       nPhp_select=2,
       typDis_select1=Buildings.Templates.Plants.HeatPumps.Types.Distribution.Constant1Variable2,
       typPumPri_select=Buildings.Templates.Plants.HeatPumps.Types.PumpsPrimary.Variable,
-      have_pumPriComHp_select=false)
+      have_pumPriDedComHp_select
+                             =false)
                                    );
 
 annotation(__Dymola_Commands(
