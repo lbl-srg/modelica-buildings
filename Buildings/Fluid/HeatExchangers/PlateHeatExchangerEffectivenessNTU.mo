@@ -174,7 +174,7 @@ Buildings.Fluid.MassExchangers.ConstantEffectiveness</a>.
 </html>", revisions="<html>
 <ul>
 <li>
-June 19, 20262, by Michael Wetter:<br/>
+June 19, 2026, by Michael Wetter:<br/>
 Renamed exponents for convective heat transfer coefficients from <code>n1</code> and <code>n2</code> to <code>nCon1</code> and <code>nCon2</code>.<br/>
 This is for
 <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4620\">issue 4620</a>.
