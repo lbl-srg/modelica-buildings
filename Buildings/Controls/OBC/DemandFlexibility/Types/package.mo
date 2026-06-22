@@ -5,7 +5,6 @@ package Types
 <p>
 This package provides type definitions used in demand flexibility control sequences.
 </p>
-</html>", revisions="<html>
 </html>"), Icon(graphics={
         Rectangle(
           lineColor={200,200,200},
