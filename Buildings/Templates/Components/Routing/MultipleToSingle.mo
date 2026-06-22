@@ -35,9 +35,9 @@ model MultipleToSingle "Multiple inlet port, single outlet ports"
       Dialog(tab="Advanced", group="Diagnostics"),
       HideResult=true);
 
-  constant Integer icon_offset = 0
+  parameter Integer icon_offset = 0
     "Offset in y-direction between inlet and outlet in icon layer";
-  constant Integer icon_dy = 100
+  parameter Integer icon_dy = 100
     "Distance in y-direction between each branch in icon layer";
   constant Buildings.Templates.Components.Types.IntegrationPoint icon_pipe=
       Buildings.Templates.Components.Types.IntegrationPoint.None "Pipe symbol";
