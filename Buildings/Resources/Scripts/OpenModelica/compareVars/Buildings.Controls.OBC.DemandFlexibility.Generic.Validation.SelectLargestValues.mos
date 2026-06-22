@@ -1,9 +1,18 @@
 compareVars :=
   {
     "selLarVal.u[1]",
+    "selLarVal.u[2]",
+    "selLarVal.u[3]",
     "selLarVal.u[4]",
-    "selLarVal.disFla[1]",
-    "selLarVal.disFla[4]",
+    "selLarVal.u[5]",
     "selLarVal.y[1]",
-    "selLarVal.y[4]"
+    "selLarVal.y[2]",
+    "selLarVal.y[3]",
+    "selLarVal.y[4]",
+    "selLarVal.y[5]",
+    "selLarVal.disFla[1]",
+    "selLarVal.disFla[2]",
+    "selLarVal.disFla[3]",
+    "selLarVal.disFla[4]",
+    "selLarVal.disFla[5]"
   };

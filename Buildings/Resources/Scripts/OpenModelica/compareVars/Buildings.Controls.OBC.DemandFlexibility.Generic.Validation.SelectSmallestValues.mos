@@ -2,8 +2,17 @@ compareVars :=
   {
     "selSmaVal.u[1]",
     "selSmaVal.u[2]",
+    "selSmaVal.u[3]",
+    "selSmaVal.u[4]",
+    "selSmaVal.u[5]",
+    "selSmaVal.y[1]",
+    "selSmaVal.y[2]",
+    "selSmaVal.y[3]",
+    "selSmaVal.y[4]",
+    "selSmaVal.y[5]",
     "selSmaVal.disFla[1]",
     "selSmaVal.disFla[2]",
-    "selSmaVal.y[1]",
-    "selSmaVal.y[2]"
+    "selSmaVal.disFla[3]",
+    "selSmaVal.disFla[4]",
+    "selSmaVal.disFla[5]"
   };
