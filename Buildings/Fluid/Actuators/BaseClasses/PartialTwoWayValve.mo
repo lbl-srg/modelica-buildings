@@ -96,7 +96,16 @@ each valve opening characteristics has different parameters.
 </html>",
 revisions="<html>
 <ul>
-
+<li>
+March 31, 2026, by Michael Wetter:<br/>
+Corrected unit propagation error that causes Dymola 2026x to not show certain units.<br/>
+See <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/2100\">#2100</a>.
+</li>
+<li>
+January 19, 2026, by Jelger Jansen:<br/>
+Added unit 1 to parameter <code>kVal</code> to avoid FMU unit errors.<br/>
+This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/2074\">#2074</a>.
+</li>
 <li>
 April 2, 2020, by Filip Jorissen:<br/>
 Added model name in assert message.<br/>

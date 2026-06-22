@@ -118,7 +118,14 @@ otherwise, <code>dy/dt = thr</code>.
 A smaller time constant <code>Td &gt; 0</code> means a higher accuracy for the derivative approximation.
 </p>
 <p>
-Note that when the input <code>activate</code> switches to <code>false</code>,
+Note that the block limits the rate of change of the input <code>u</code> in the same
+way as <a href=\"modelica://Buildings.Controls.OBC.CDL.Reals.LimitSlewRate\">
+Buildings.Controls.OBC.CDL.Reals.LimitSlewRate</a>. However, the
+<a href=\"modelica://Buildings.Controls.OBC.CDL.Reals.LimitSlewRate\">
+Buildings.Controls.OBC.CDL.Reals.LimitSlewRate</a>
+has a boolean parameter to flag if the rate of change should be limited, while this
+block has the boolean input <code>activate</code> to enable or disable the functionality.
+When the input <code>activate</code> switches to <code>false</code>,
 the output <code>y</code> can have a discontinuity.
 </p>
 <h4>Implementation</h4>
@@ -129,6 +136,12 @@ the input is numerically differentiated with derivative time constant <code>Td</
 </html>",
 revisions="<html>
 <ul>
+<li>
+September 15, 2025, by Jianjun Hu:<br/>
+Updated documentation to clarify the difference with the block
+<a href=\"modelica://Buildings.Controls.OBC.CDL.Reals.LimitSlewRate\">
+Buildings.Controls.OBC.CDL.Reals.LimitSlewRate</a>.
+</li>
 <li>
 February 15, 2024, by Michael Wetter:<br/>
 Updated documentation.

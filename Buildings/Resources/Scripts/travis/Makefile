@@ -32,13 +32,6 @@ test-energyplus-validations:
 	   echo "*** Testing `pwd`/run.sh" && \
 	   ./run.sh'
 	@echo "*********************************************************"
-	@echo "*** Testing idf files for $(ENERGYPLUS_9_6_0)"
-	@export PATH=$(ROOT)/$(ENERGYPLUS_9_6_0):$(PATH); \
-	 find $(ROOT)/Buildings/Resources/Data/Obsolete/ThermalZones/EnergyPlus_9_6_0 -name run.sh | xargs -I {} sh -c \
-	  'cd `dirname {}` && \
-	   echo "*********************************************************" && \
-	   echo "*** Testing `pwd`/run.sh" && \
-	   ./run.sh'
 	@echo "*** Verify that all files in repository are up to date"
 	git diff --exit-code $(ROOT)/Buildings/Resources/Data
 	@echo "    Target $@ successful."
@@ -188,10 +181,14 @@ test-optimica:
 	  python3 ../bin/runUnitTests.py --batch --single-package $(PACKAGE) --tool optimica --skip-verification -n $(NPROC))
 	@echo "    Target $@ successful."
 
+# Template testing configuration variable
+COVER_FLAG = $(if $(COVER),--cover $(COVER))
+PACKAGE_FLAG = $(if $(PACKAGE),--single-package $(PACKAGE))
+
 test-templates-dymola:
-	(cd $(ROOT)/Buildings && ../Buildings/Resources/Scripts/travis/templates/checkandrun.sh --checksum --tool Dymola --cover 0.3)
+	(cd $(ROOT)/Buildings && ../Buildings/Resources/Scripts/travis/templates/checkandrun.sh --checksum $(PACKAGE_FLAG) --tool Dymola $(COVER_FLAG))
 	@echo "    Target $@ successful."
 
 test-templates-optimica:
-	(cd $(ROOT)/Buildings && ../Buildings/Resources/Scripts/travis/templates/checkandrun.sh --checksum --tool Optimica --cover 0.3)
+	(cd $(ROOT)/Buildings && ../Buildings/Resources/Scripts/travis/templates/checkandrun.sh --checksum $(PACKAGE_FLAG) --tool Optimica $(COVER_FLAG))
 	@echo "    Target $@ successful."

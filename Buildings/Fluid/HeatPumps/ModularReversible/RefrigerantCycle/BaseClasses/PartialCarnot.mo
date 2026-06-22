@@ -6,7 +6,7 @@ partial model PartialCarnot
     annotation(Dialog(group="Nominal condition"));
   parameter Boolean use_constAppTem=false
     "=true to fix approach temperatures at nominal values. This can improve simulation speed"
-    annotation(Evalute=true, Dialog(group="Efficiency"));
+    annotation(Evaluate=true, Dialog(group="Efficiency"));
   parameter Modelica.Units.SI.TemperatureDifference TAppCon_nominal(min=0)
     "Temperature difference between refrigerant and working fluid outlet in condenser"
     annotation (Dialog(group="Efficiency"));
@@ -126,6 +126,11 @@ equation
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+November 17, 2025, by Michael Wetter:<br/>
+Corrected typo in annotation.<br/>
+This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4406\">Buildings, #4406</a>.
+</li>
 <li>
 May 2, 2025, by Michael Wetter:<br/>
 Set <code>Evaluate=true</code> for <code>use_constAppTem</code>. This is a structural parameter, if evaluated during

@@ -47,7 +47,7 @@ model EquationFitReversible_EnergyPlus "Validation with EnergyPlus model"
   Modelica.Blocks.Sources.CombiTimeTable datRea(
     tableOnFile=true,
     fileName=ModelicaServices.ExternalReferences.loadResource(
-    "modelica://Buildings//Resources/Data/Fluid/HeatPumps/Validation/EquationFitReversible_EnergyPlus/GSHPSimple-GLHE-ReverseHeatPump.dat"),
+    "modelica://Buildings/Resources/Data/Fluid/HeatPumps/Validation/EquationFitReversible_EnergyPlus/GSHPSimple-GLHE-ReverseHeatPump.dat"),
     verboseRead=false,
     tableName="EnergyPlus",
     columns=2:8,

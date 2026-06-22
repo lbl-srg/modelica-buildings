@@ -42,7 +42,7 @@ INVALID_IN_ALL=["fixme", "import \"",
                 "__Dymola_Text",
                 "modelica://AixLib",
                 "modelica://BuildingSystems",
-	        "modelica://IDEAS",
+                "modelica://IDEAS",
                 "modelica://https://",
                 r'href=\"Buildings.',
                 ">>>>>>",
@@ -56,12 +56,12 @@ INVALID_IN_MOS=[]
 # List of invalid regular expressions in .mo files
 # The check for lineColor is from
 # https://github.com/modelica/ModelicaStandardLibrary/blob/master/.CI/check_deprecated_line_color.py
-INVALID_REGEXP_IN_MO=["StopTime\s*=\s*\d\s*[*]\s*\d+",
-                      "(Documentation\s*\(((.|\r?\n)*?))font-size\s*:",
-                      "file\s*=\s*\"Resources", # This should be file="modelica://Buildings/Resources
-                      "parameter.*Boolean.*homotopyInitialization",
-                      "(Text\s*\([^\)]*)lineColor",
-                      "(Line\s*\([^\)]*)lineThickness"]
+INVALID_REGEXP_IN_MO=[r"StopTime\s*=\s*\d\s*[*]\s*\d+",
+                      r"(Documentation\s*\(((.|\r?\n)*?))font-size\s*:",
+                      r"file\s*=\s*\"Resources", # This should be file="modelica://Buildings/Resources
+                      r"parameter.*Boolean.*homotopyInitialization",
+                      r"(Text\s*\([^\)]*)lineColor",
+                      r"(Line\s*\([^\)]*)lineThickness"]
 # List of strings that are required in .mo files, except in Examples
 REQUIRED_IN_MO=["documentation"]
 
@@ -77,8 +77,8 @@ def getRelativeMoPath(absoluteFileName):
 
 #########################################################
 def report_empty_statements(fileName, start_line, next_line):
-    filObj=open(fileName, 'r')
-    filTex=filObj.readlines()
+    with open(fileName, 'r') as filObj:
+        filTex=filObj.readlines()
     found_loop = False
     iLin = 1
     for lin in filTex:
@@ -97,8 +97,8 @@ def report_empty_statements(fileName, start_line, next_line):
 
 #########################################################
 def reportErrorIfContains(fileName, listOfStrings):
-    filObj=open(fileName, 'r')
-    filTex=filObj.read()
+    with open(fileName, 'r') as filObj:
+        filTex=filObj.read()
     filTex=filTex.lower()
     for string in listOfStrings:
         if (filTex.find(string.lower()) > -1):
@@ -110,8 +110,8 @@ def reportErrorIfContains(fileName, listOfStrings):
 #########################################################
 def reportErrorIfContainsRegExp(fileName, listOfStrings):
     import re
-    filObj=open(fileName, 'r')
-    filTex=filObj.read()
+    with open(fileName, 'r') as filObj:
+        filTex=filObj.read()
     for string in listOfStrings:
         match = re.search(string, filTex, re.I)
         if match is not None:
@@ -123,8 +123,8 @@ def reportErrorIfContainsRegExp(fileName, listOfStrings):
 
 #########################################################
 def reportErrorIfMissing(fileName, listOfStrings):
-    filObj=open(fileName, 'r')
-    filTex=filObj.read()
+    with open(fileName, 'r') as filObj:
+        filTex=filObj.read()
     filTex=filTex.lower()
     for string in listOfStrings:
         if (filTex.find(string.lower()) == -1):

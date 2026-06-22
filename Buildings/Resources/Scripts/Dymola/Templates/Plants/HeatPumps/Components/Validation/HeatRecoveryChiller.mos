@@ -14,21 +14,21 @@ createPlot(
 createPlot(
     id=1,
     subPlot=2,
-    y={"TChiWatLvg.T", "inlChiWat.T", "TSupSet.y"},
+    y={"TChiWatLvg.T", "inlChiWat.T", "bus.hrc.TChiWatSet"},
     autoscale=true,
     grid=true
 );
 createPlot(
     id=1,
     subPlot=3,
-    y={"THeaWatLvg.T", "inlHeaWat.T", "TSupSet.y"},
+    y={"THeaWatLvg.T", "inlHeaWat.T", "bus.hrc.THeaWatSet"},
     autoscale=true,
     grid=true
 );
 createPlot(
     id=1,
     subPlot=4,
-    y={"hrc.hrc.chi.PLR2", "hrc.hrc.chi.COP"},
+    y={"hrc.hrc.chi.PLR", "hrc.hrc.chi.COP", "hrc.hrc.chi.EER"},
     autoscale=true,
     grid=true
 );

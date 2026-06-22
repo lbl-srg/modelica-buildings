@@ -47,7 +47,6 @@ record VAVMultiZone "Record for multiple-zone VAV"
   parameter Buildings.Templates.Components.Data.Coil coiHeaPre(
     final typ=cfg.typCoiHeaPre,
     final typVal=cfg.typValCoiHeaPre,
-    final have_sou=cfg.have_souHeaWat,
     mAir_flow_nominal=mAirSup_flow_nominal)
     "Heating coil in preheat position"
     annotation (Dialog(group="Coils",
@@ -56,7 +55,6 @@ record VAVMultiZone "Record for multiple-zone VAV"
   parameter Buildings.Templates.Components.Data.Coil coiCoo(
     final typ=cfg.typCoiCoo,
     final typVal=cfg.typValCoiCoo,
-    final have_sou=cfg.have_souChiWat,
     mAir_flow_nominal=mAirSup_flow_nominal)
     "Cooling coil"
     annotation (Dialog(
@@ -65,7 +63,6 @@ record VAVMultiZone "Record for multiple-zone VAV"
   parameter Buildings.Templates.Components.Data.Coil coiHeaReh(
     final typ=cfg.typCoiHeaReh,
     final typVal=cfg.typValCoiHeaReh,
-    final have_sou=cfg.have_souHeaWat,
     mAir_flow_nominal=mAirSup_flow_nominal)
     "Heating coil in reheat position"
     annotation (Dialog(group="Coils",

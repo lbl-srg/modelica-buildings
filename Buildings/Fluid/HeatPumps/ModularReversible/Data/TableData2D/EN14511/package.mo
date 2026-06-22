@@ -1,7 +1,7 @@
 within Buildings.Fluid.HeatPumps.ModularReversible.Data.TableData2D;
 package EN14511 "Package for EN15411 data records"
 
-annotation (preferredVies="info",
+annotation (preferredView="info",
 Documentation(info="<html>
 <p>
   This package contains data records for heat pump

@@ -39,17 +39,10 @@ model PartialHeatPumpGroup "Interface for heat pump group"
     "Set to true for reversible heat pumps, false for heating only"
     annotation (Evaluate=true,
     Dialog(group="Configuration"));
-  parameter Buildings.Templates.Components.Types.HeatPumpModel typMod=
-    Buildings.Templates.Components.Types.HeatPumpModel.EquationFit
-    "Type of heat pump model"
-    annotation (Evaluate=true,
-    Dialog(group="Configuration"),
-    __ctrlFlow(enable=false));
   parameter Buildings.Templates.Plants.HeatPumps.Components.Data.HeatPumpGroup dat(
     nHp=nHp,
     typ=typ,
     is_rev=is_rev,
-    typMod=typMod,
     cpHeaWat_default=cpHeaWat_default,
     cpSou_default=cpSou_default)
     "Design and operating parameters"
@@ -58,7 +51,6 @@ model PartialHeatPumpGroup "Interface for heat pump group"
   final parameter Buildings.Templates.Components.Data.HeatPump datHp[nHp](
     each final is_rev=is_rev,
     each final typ=typ,
-    each final typMod=typMod,
     each final cpHeaWat_default=cpHeaWat_default,
     each final cpSou_default=cpSou_default,
     each final mHeaWat_flow_nominal=dat.mHeaWatHp_flow_nominal,
@@ -70,10 +62,12 @@ model PartialHeatPumpGroup "Interface for heat pump group"
     each final dpHeaWat_nominal=dat.dpHeaWatHp_nominal,
     each final mSouWwHea_flow_nominal=dat.mSouWwHeaHp_flow_nominal,
     each final TSouCoo_nominal=dat.TSouCooHp_nominal,
-    each final perFit=dat.perFitHp,
+    each final perHea=dat.perHeaHp,
+    each final perCoo=dat.perCooHp,
     each final capCoo_nominal=dat.capCooHp_nominal,
     each final TChiWatSup_nominal=dat.TChiWatSupHp_nominal,
-    each final capHea_nominal=dat.capHeaHp_nominal)
+    each final capHea_nominal=dat.capHeaHp_nominal,
+    each final P_min=dat.PHp_min)
     "Design and operating parameters - Each heat pump";
   final parameter Modelica.Units.SI.MassFlowRate mHeaWatHp_flow_nominal=dat.mHeaWatHp_flow_nominal
     "Design HW mass flow rate - Each heat pump";
@@ -214,16 +208,24 @@ model PartialHeatPumpGroup "Interface for heat pump group"
   parameter Boolean show_T=false
     "= true, if actual temperature at port is computed"
     annotation (Dialog(tab="Advanced",group="Diagnostics"),HideResult=true);
-  MediumHeaWat.ThermodynamicState sta_aChiHeaWat[nHp]=MediumHeaWat.setState_phX(ports_aChiHeaWat.p, noEvent(actualStream(ports_aChiHeaWat.h_outflow)), noEvent(actualStream(ports_aChiHeaWat.Xi_outflow)))
+  MediumHeaWat.ThermodynamicState sta_aChiHeaWat[nHp]=
+    MediumHeaWat.setState_phX(ports_aChiHeaWat.p,
+      noEvent(actualStream(ports_aChiHeaWat.h_outflow)), noEvent(actualStream(ports_aChiHeaWat.Xi_outflow)))
     if show_T
     "CHW/HW medium properties in port_aChiHeaWat";
-  MediumHeaWat.ThermodynamicState sta_bChiHeaWat[nHp]=MediumHeaWat.setState_phX(ports_bChiHeaWat.p, noEvent(actualStream(ports_bChiHeaWat.h_outflow)), noEvent(actualStream(ports_bChiHeaWat.Xi_outflow)))
+  MediumHeaWat.ThermodynamicState sta_bChiHeaWat[nHp]=
+    MediumHeaWat.setState_phX(ports_bChiHeaWat.p,
+      noEvent(actualStream(ports_bChiHeaWat.h_outflow)), noEvent(actualStream(ports_bChiHeaWat.Xi_outflow)))
     if show_T
     "CHW/HW medium properties in port_bChiHeaWat";
-  MediumSou.ThermodynamicState sta_aSou[nHp]=MediumSou.setState_phX(ports_aSou.p, noEvent(actualStream(ports_aSou.h_outflow)), noEvent(actualStream(ports_aSou.Xi_outflow)))
+  MediumSou.ThermodynamicState sta_aSou[nHp]=
+    MediumSou.setState_phX(ports_aSou.p,
+      noEvent(actualStream(ports_aSou.h_outflow)), noEvent(actualStream(ports_aSou.Xi_outflow)))
     if show_T
     "Source medium properties in port_aSou";
-  MediumSou.ThermodynamicState sta_bSou[nHp]=MediumSou.setState_phX(ports_bSou.p, noEvent(actualStream(ports_bSou.h_outflow)), noEvent(actualStream(ports_bSou.Xi_outflow)))
+  MediumSou.ThermodynamicState sta_bSou[nHp]=
+    MediumSou.setState_phX(ports_bSou.p,
+      noEvent(actualStream(ports_bSou.h_outflow)), noEvent(actualStream(ports_bSou.Xi_outflow)))
     if show_T
     "Source medium properties in port_bSou";
 protected

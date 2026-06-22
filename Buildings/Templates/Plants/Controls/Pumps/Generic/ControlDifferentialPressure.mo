@@ -76,7 +76,7 @@ block ControlDifferentialPressure
     if not have_senDpRemWir
     "Maximum DP setpoint"
     annotation (Placement(transformation(extent={{-90,-50},{-70,-30}})));
-  Utilities.PIDWithEnable ctlDpRem[nSenDpRem](
+  Buildings.Controls.OBC.Utilities.PIDWithEnable ctlDpRem[nSenDpRem](
     each final k=k,
     each final Ti=Ti,
     each r=dpSca,
@@ -87,7 +87,7 @@ block ControlDifferentialPressure
     if have_senDpRemWir
     "Remote differential pressure control"
     annotation (Placement(transformation(extent={{-10,30},{10,50}})));
-  Utilities.PIDWithEnable ctlDpLoc(
+  Buildings.Controls.OBC.Utilities.PIDWithEnable ctlDpLoc(
     final k=k,
     final Ti=Ti,
     final r=dpSca,

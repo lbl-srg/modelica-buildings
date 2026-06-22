@@ -8,14 +8,15 @@ function density_pTX
     "Water vapor mass fraction per unit mass total air";
   output Modelica.Units.SI.Density d "Mass density";
 protected
-  Modelica.Units.SI.SpecificHeatCapacity R
+  Modelica.Units.SI.SpecificHeatCapacity R=
+  Modelica.Media.IdealGases.Common.SingleGasesData.Air.R_s*(1 - X_w) +
+    Modelica.Media.IdealGases.Common.SingleGasesData.H2O.R_s*X_w
     "Gas constant (of mixture if applicable)";
 algorithm
-  R :=Modelica.Media.IdealGases.Common.SingleGasesData.Air.R_s*(1 - X_w) +
-    Modelica.Media.IdealGases.Common.SingleGasesData.H2O.R_s*X_w;
   d := p/(R*T);
 
   annotation (smoothOrder=99,
+  Inline=true,
   Documentation(info="<html>
 <p>
 Function to compute the density of moist air for given
@@ -27,6 +28,13 @@ total air.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+September 19, 2025, by Michael Wetter:<br/>
+Inlined function, as this function is often used by the multizone airlfow models.
+This further improves the computing time.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/2043\">IBPSA, #2043</a>.
+</li>
 <li>
 November 23, 2015 by Filip Jorissen:<br/>
 Added derivative information for avoiding numerical Jacobians.

@@ -122,6 +122,12 @@ International Journal of Energy Research, 35:312&ndash;320, 2011.</p>
 </html>", revisions="<html>
 <ul>
 <li>
+July 9, 2025, by Jianjun Hu:<br/>
+Added missing value assignment.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/2030\">IBPSA, #2030</a>.
+</li>
+<li>
 November 22, 2023, by Michael Wetter:<br/>
 Corrected use of <code>getInstanceName()</code> which was called inside a function which
 is not allowed.<br/>

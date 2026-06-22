@@ -105,6 +105,5 @@ First implementation.
             {100,100}}), graphics={Text(
           extent={{-74,20},{-36,-24}},
           textColor=DynamicSelect({255,255,255}, (1-y)*{255,255,255}),
-          fillPattern=FillPattern.Solid,
           textString="%%")}));
 end TwoWayEqualPercentage;

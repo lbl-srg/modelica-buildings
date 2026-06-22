@@ -359,7 +359,7 @@ block ValveCondenserEvaporator
     annotation (Placement(transformation(extent={{240,400},{280,440}}),
         iconTransformation(extent={{100,40},{140,80}})));
 
-  Buildings.DHC.ETS.Combined.Controls.PIDWithEnable valEvaChi[nChi](
+  Buildings.Controls.OBC.Utilities.PIDWithEnable valEvaChi[nChi](
     each k=k,
     each Ti=Ti,
     each final yMin=yMin,
@@ -369,7 +369,7 @@ block ValveCondenserEvaporator
     each final y_neutral=y_neutral)
     "Chiller evaporator isolation valve control when HRC in direct HR"
     annotation (Placement(transformation(extent={{-110,390},{-90,410}})));
-  Buildings.DHC.ETS.Combined.Controls.PIDWithEnable valConChi[nChi](
+  Buildings.Controls.OBC.Utilities.PIDWithEnable valConChi[nChi](
     each k=k,
     each Ti=Ti,
     each final yMin=yMin,
@@ -378,7 +378,7 @@ block ValveCondenserEvaporator
     each final y_reset=y_reset,
     each final y_neutral=y_neutral) "Chiller condenser isolation valve control"
     annotation (Placement(transformation(extent={{70,350},{90,370}})));
-  Buildings.DHC.ETS.Combined.Controls.PIDWithEnable valEvaChiHea[nChiHea](
+  Buildings.Controls.OBC.Utilities.PIDWithEnable valEvaChiHea[nChiHea](
     each k=4*k,
     each Ti=Ti/3,
     each final yMin=yMin,
@@ -387,7 +387,7 @@ block ValveCondenserEvaporator
     each final y_reset=y_reset,
     each final y_neutral=y_neutral) "HRC evaporator isolation valve control"
     annotation (Placement(transformation(extent={{-130,-10},{-110,10}})));
-  Buildings.DHC.ETS.Combined.Controls.PIDWithEnable valConChiHea[nChiHea](
+  Buildings.Controls.OBC.Utilities.PIDWithEnable valConChiHea[nChiHea](
     each k=k,
     each Ti=Ti,
     each final yMin=yMin,
@@ -575,7 +575,7 @@ block ValveCondenserEvaporator
         extent={{-10,-10},{10,10}},
         rotation=0,
         origin={-130,-380})));
-  Buildings.DHC.ETS.Combined.Controls.PIDWithEnable valConSwi(
+  Buildings.Controls.OBC.Utilities.PIDWithEnable valConSwi(
     u_s(unit="K", displayUnit="degC"),
     u_m(unit="K", displayUnit="degC"),
     k=k,
@@ -622,7 +622,7 @@ block ValveCondenserEvaporator
         extent={{-10,-10},{10,10}},
         rotation=0,
         origin={50,-360})));
-  Buildings.DHC.ETS.Combined.Controls.PIDWithEnable ctlTConWatEvaLvg[nChiHea](
+  Buildings.Controls.OBC.Utilities.PIDWithEnable ctlTConWatEvaLvg[nChiHea](
     u_s(each final unit="K", each displayUnit="degC"),
     u_m(each final unit="K", each displayUnit="degC"),
     each final k=k/2,
@@ -669,7 +669,7 @@ block ValveCondenserEvaporator
   Buildings.Controls.OBC.CDL.Reals.Switch selFloSet[nChiHea]
     "Select HRC evaporator flow setpoint based on operating mode"
     annotation (Placement(transformation(extent={{-160,-10},{-140,10}})));
-  Buildings.DHC.ETS.Combined.Controls.PIDWithEnable ctlTConWatEvaEnt(
+  Buildings.Controls.OBC.Utilities.PIDWithEnable ctlTConWatEvaEnt(
     u_s(final unit="K", displayUnit="degC"),
     u_m(final unit="K", displayUnit="degC"),
     k=k,
@@ -708,7 +708,7 @@ block ValveCondenserEvaporator
   Buildings.Controls.OBC.CDL.Routing.RealExtractor TConWatConRetSet(final nin=2)
     "Extract value at given index"
     annotation (Placement(transformation(extent={{-170,90},{-150,110}})));
-  Buildings.DHC.ETS.Combined.Controls.PIDWithEnable ctlTConWatConRet(
+  Buildings.Controls.OBC.Utilities.PIDWithEnable ctlTConWatConRet(
     u_s(final unit="K", displayUnit="degC"),
     u_m(final unit="K", displayUnit="degC"),
     k=k,
@@ -749,7 +749,7 @@ block ValveCondenserEvaporator
         extent={{-10,-10},{10,10}},
         rotation=0,
         origin={30,-40})));
-  Buildings.DHC.ETS.Combined.Controls.PIDWithEnable ctlTConLvgChi[nChi +
+  Buildings.Controls.OBC.Utilities.PIDWithEnable ctlTConLvgChi[nChi +
     nChiHea](
     u_s(each final unit="K", each displayUnit="degC"),
     u_m(each final unit="K", each displayUnit="degC"),
@@ -793,7 +793,7 @@ block ValveCondenserEvaporator
   Buildings.Controls.OBC.CDL.Reals.Switch swiFloSet1[nChi + nChiHea]
     "Switch condenser flow setpoint based on condenser loop operating mode"
     annotation (Placement(transformation(extent={{-10,230},{10,250}})));
-  Buildings.DHC.ETS.Combined.Controls.PIDWithEnable valChiWatMinByp[nChi +
+  Buildings.Controls.OBC.Utilities.PIDWithEnable valChiWatMinByp[nChi +
     nChiHea](
     each k=0.01,
     each Ti=Ti,
@@ -803,7 +803,7 @@ block ValveCondenserEvaporator
     each final y_reset=0,
     each final y_neutral=0) "CHW minimum flow bypass valve control"
     annotation (Placement(transformation(extent={{144,450},{164,470}})));
-  Buildings.DHC.ETS.Combined.Controls.PIDWithEnable valHeaWatMinByp[nChiHea](
+  Buildings.Controls.OBC.Utilities.PIDWithEnable valHeaWatMinByp[nChiHea](
     each k=0.01,
     each Ti=Ti,
     each final yMin=0,

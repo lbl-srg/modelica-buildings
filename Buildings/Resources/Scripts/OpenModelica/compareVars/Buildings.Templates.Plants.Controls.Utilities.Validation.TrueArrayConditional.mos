@@ -8,5 +8,14 @@ compareVars :=
     "truArrConGre.y1[1]",
     "truArrConGre.y1[2]",
     "truArrConGre.y1[3]",
-    "truArrConGre.y1[4]"
+    "truArrConGre.y1[4]",
+    "truArrSpaInp.u",
+    "truArrSpaInp.uIdx[1]",
+    "truArrSpaInp.uIdx[2]",
+    "truArrSpaInp.uIdx[3]",
+    "truArrSpaInp.uIdx[4]",
+    "truArrSpaInp.y1[1]",
+    "truArrSpaInp.y1[2]",
+    "truArrSpaInp.y1[3]",
+    "truArrSpaInp.y1[4]"
   };

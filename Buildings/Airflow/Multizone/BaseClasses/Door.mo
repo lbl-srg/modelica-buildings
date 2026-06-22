@@ -43,6 +43,9 @@ protected
   constant Real conTP = Buildings.Media.Air.dStp*Modelica.Media.IdealGases.Common.SingleGasesData.Air.R_s
     "Conversion factor for converting temperature difference to pressure difference";
 
+  final parameter Real sqrt_dp_turbulent(min=0) = sqrt(dp_turbulent)
+    "Square root of pressure difference where laminar and turbulent flow relation coincide";
+
   parameter Medium.ThermodynamicState sta_default=Medium.setState_pTX(
       T=Medium.T_default,
       p=Medium.p_default,
@@ -117,6 +120,13 @@ This is a partial model for the bi-directional air flow through a door.
 </html>",
 revisions="<html>
 <ul>
+<li>
+September 19, 2025, by Michael Wetter:<br/>
+Introduced protected parameter <code>sqrt_dp_turbulent</code>,
+which is needed to improve computing efficiency if flow exponent is <i>0.5</i>.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/2043\">IBPSA, #2043</a>.
+</li>
 <li>
 October 6, 2020, by Michael Wetter:<br/>
 First implementation for

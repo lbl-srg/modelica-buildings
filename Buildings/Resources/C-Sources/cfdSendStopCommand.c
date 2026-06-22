@@ -15,6 +15,7 @@
 
 #include "cfdCosimulation.h"
 
+#include <stdlib.h>
 /*
  * Send a stop command to terminate the CFD simulation
  *
@@ -54,6 +55,10 @@ void cfdSendStopCommand(void *thread) {
   /*free memory for variables*/
   if (cosim->para->fileName != NULL){
     free(cosim->para->fileName);
+  }
+  /* filePath is allocated by read_parameter() in the FFD thread via calloc() */
+  if (cosim->para->filePath != NULL){
+    free(cosim->para->filePath);
   }
   if (cosim->para->are != NULL){
     free(cosim->para->are);
