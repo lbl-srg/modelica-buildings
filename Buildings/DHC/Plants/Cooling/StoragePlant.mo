@@ -24,7 +24,6 @@ model StoragePlant "Model of a storage plant with a chiller and a CHW tank"
   parameter Modelica.Units.SI.PressureDifference dpVal_nominal
     "Nominal pressure difference for return valve sizing"
     annotation(Dialog(group="Nominal values"));
-
   parameter Modelica.Units.SI.Temperature T_CHWS_nominal(
     final displayUnit="degC")=
      7+273.15 "Nominal temperature of CHW supply"
@@ -258,14 +257,6 @@ Buildings.DHC.Plants.Cooling.Examples.StoragePlantDualSource</a>.
 Shown in the schematic below, it has two CHW plants and three users.
 </p>
 <ul>
-<li>
-June 17, 2026, by Michael Wetter:<br/>
-Updated implementation to allow a flow coefficient <code>n</code> that is different from <code>2</code>.
-This allows use of the model for not fully turbulent flow.<br/>
-This is for
-<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4620\">Buildings, #4620</a>.
-</li>
-
 <li>
 Plant 1 only has a chiller. The supply pump, P1, is controlled to ensure that
 all users have enough pressure head.  This represents a remote chiller plant,
