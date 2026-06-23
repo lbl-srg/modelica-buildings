@@ -90,7 +90,7 @@ model PumpsPrimaryDedicated
     annotation(Dialog(enable=nPumChiWat > 0),
       Placement(transformation(extent={{30,0},{50,20}})));
   parameter Modelica.Units.SI.PressureDifference dpValCheHeaWat_nominal[nPumHeaWat](
-    min=0,
+    final min=fill(0, nPumHeaWat),
     start=fill(
       if typArrPumPri ==
         Buildings.Templates.Components.Types.PumpArrangement.Dedicated
@@ -106,7 +106,7 @@ model PumpsPrimaryDedicated
       enable=typArrPumPri ==
         Buildings.Templates.Components.Types.PumpArrangement.Dedicated));
   parameter Modelica.Units.SI.PressureDifference dpValCheChiWat_nominal[nPumChiWat](
-    min=0,
+    final min=fill(0, nPumChiWat),
     start=fill(
       if typArrPumPri ==
         Buildings.Templates.Components.Types.PumpArrangement.Dedicated

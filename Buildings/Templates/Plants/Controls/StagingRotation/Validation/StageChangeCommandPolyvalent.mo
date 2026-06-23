@@ -3,9 +3,11 @@ model StageChangeCommandPolyvalent
   extends Buildings.Templates.Plants.Controls.StagingRotation.Validation.StageChangeCommand(
     have_php=true,
     capHea_nominal = sum(chaSta.capEqu[1:4]),
-    chaSta(
-      capEqu=cat(1, fill(capHeaHp_nominal,2), fill(capHeaPhp_nominal, 2), fill(capHeaPhpShc_nominal, 2)),
-      staEqu=staPhp.staHea),
+    chaSta(capEqu=cat(
+          1,
+          fill(capHeaHp_nominal, 2),
+          fill(capHeaPhp_nominal, 2),
+          fill(capHeaPhpShc_nominal, 2)), staEqu=staPhp.staHea),
     comSta(nin=6),
     idxEquLeaLag(k={1,2}));
   parameter Real capHeaHp_nominal = 1E5
@@ -23,9 +25,9 @@ model StageChangeCommandPolyvalent
     "Staging parameters"
     annotation (Placement(transformation(extent={{100,80},{120,100}})));
   Buildings.Controls.OBC.CDL.Integers.Sources.TimeTable staOpp(
-    table=[0,0; 1,0; 5,3; 6,2; 11,1; 12,0],
+    table=[0,0,1; 1,0,1; 5,3,4; 6,2,3; 11,1,2; 12,0,1],
     timeScale=1000,
-    period=20000) "Opposite mode (cooling) stage"
+    period=20000) "Opposite mode (cooling) stage, and next higher stage"
     annotation (Placement(transformation(extent={{-90,30},{-70,50}})));
 equation
   connect(chaSta.staTra, enaEquPhp.staTra) annotation (Line(points={{-28,10},{-18,
@@ -42,19 +44,18 @@ equation
           -100},{50,26},{58,26}}, color={255,0,255}));
   connect(idxSta.y, enaEquPhp.uSta) annotation (Line(points={{22,0},{40,0},{40,30},
           {58,30}}, color={255,127,0}));
-  connect(enaEquPhp.y1Hp, staEqu[1:2].y1) annotation (Line(points={{82,34},{92,34},
-          {92,0},{98,0}}, color={255,0,255}));
-  connect(enaEquPhp.y1Php1, staEqu[3:4].y1) annotation (Line(points={{82,30},{94,
-          30},{94,0},{98,0}}, color={255,0,255}));
-  connect(enaEquPhp.y1Php2, staEqu[5:6].y1) annotation (Line(points={{82,26},{96,
-          26},{96,0},{98,0}}, color={255,0,255}));
-  connect(enaEquPhp.y1Hp, comSta.u1[1:2]) annotation (Line(points={{82,34},{92,34},
-          {92,60},{-28,60}}, color={255,0,255}));
-  connect(enaEquPhp.y1Php1, comSta.u1[3:4]) annotation (Line(points={{82,30},{94,
-          30},{94,60},{-28,60}}, color={255,0,255}));
-  connect(enaEquPhp.y1Php2, comSta.u1[5:6]) annotation (Line(points={{82,26},{96,
-          26},{96,60},{-28,60}}, color={255,0,255}));
+  connect(enaEquPhp.y1HpPhp1, staEqu[1:4].y1) annotation (Line(points={{82,26},{
+          92,26},{92,0},{98,0}}, color={255,0,255}));
+  connect(enaEquPhp.y1Php2[3:4], staEqu[5:6].y1) annotation (Line(points={{82,30},{96,
+          30},{96,0},{98,0}}, color={255,0,255}));
+  connect(enaEquPhp.y1HpPhp1, comSta.u1[1:4]) annotation (Line(points={{82,26},{
+          92,26},{92,60},{-28,60}},
+                             color={255,0,255}));
+  connect(enaEquPhp.y1Php2[3:4], comSta.u1[5:6]) annotation (Line(points={{82,30},{96,
+          30},{96,60},{-28,60}}, color={255,0,255}));
   connect(staOpp.y[1], chaSta.uStaOpp) annotation (Line(points={{-68,40},{-60,40},
+    {-60,10},{-52,10}}, color={255,127,0}));
+  connect(staOpp.y[2], chaSta.uStaOppNexHig) annotation (Line(points={{-68,40},{-60,40},
           {-60,10},{-52,10}}, color={255,127,0}));
   annotation (
     __Dymola_Commands(

@@ -228,7 +228,7 @@ block StageIndex
     annotation (Placement(transformation(extent={{-120,70},{-100,90}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant fal(final k=false)
     if not use_twoMod "Placeholder signal"
-    annotation (Placement(transformation(extent={{-230,40},{-210,60}})));
+    annotation (Placement(transformation(extent={{-230,30},{-210,50}})));
   Buildings.Controls.OBC.CDL.Logical.Pre pre
     "Avoid blocking stage transition if opposite mode stage changes at the same time"
     annotation (Placement(transformation(extent={{-150,70},{-130,90}})));
@@ -406,7 +406,7 @@ equation
     annotation (Line(points={{-260,80},{-232,80}}, color={255,127,0}));
   connect(chaStaOpp.y, notChaStaOpp.u)
     annotation (Line(points={{-208,80},{-192,80}}, color={255,0,255}));
-  connect(fal.y, notChaStaOpp.u) annotation (Line(points={{-208,50},{-204,50},{
+  connect(fal.y, notChaStaOpp.u) annotation (Line(points={{-208,40},{-204,40},{
           -204,80},{-192,80}}, color={255,0,255}));
   connect(actAndNotOppModCha.y, tim.u)
     annotation (Line(points={{-48,80},{-42,80}}, color={255,0,255}));
@@ -416,10 +416,6 @@ equation
           {-90,80},{-90,72},{-72,72}},    color={255,0,255}));
   connect(notChaStaOpp.y, pre.u)
     annotation (Line(points={{-168,80},{-152,80}}, color={255,0,255}));
-  connect(pre.y, booScaRep.u)
-    annotation (Line(points={{-128,80},{-122,80}}, color={255,0,255}));
-  connect(pre.y, timOppMod.u) annotation (Line(points={{-128,80},{-126,80},{-126,
-          120},{-122,120}}, color={255,0,255}));
   connect(truNexHigAva.y1, sta0ToSta.condition) annotation (Line(points={{-128,180},
           {-60,180},{-60,188}}, color={255,0,255}));
   connect(u1LeaClr.y, booToInt.u)
@@ -442,6 +438,10 @@ equation
           {-236,140},{-236,172},{-232,172}}, color={255,0,255}));
   connect(u1Lea, u1LeaClr.u1)
     annotation (Line(points={{-260,180},{-232,180}}, color={255,0,255}));
+  connect(pre.y, booScaRep.u)
+    annotation (Line(points={{-128,80},{-122,80}}, color={255,0,255}));
+  connect(pre.y, timOppMod.u) annotation (Line(points={{-128,80},{-126,80},{
+          -126,120},{-122,120}}, color={255,0,255}));
   annotation (
     __cdl(
       extensionBlock=true),

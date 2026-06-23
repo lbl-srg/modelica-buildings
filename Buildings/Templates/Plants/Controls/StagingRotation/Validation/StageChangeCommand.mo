@@ -61,7 +61,7 @@ model StageChangeCommand "Validation model for stage change logic"
     cp_default=cp_default,
     rho_default=rho_default,
     dT=2.5) "Generate stage change command"
-    annotation (Placement(transformation(extent={{-50,-12},{-30,12}})));
+    annotation (Placement(transformation(extent={{-50,-14},{-30,14}})));
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant TSupSet(
     final k=THeaWatSup_nominal)
     "HWST setpoint"
@@ -117,9 +117,9 @@ equation
   connect(TSupSet.y, chaSta.TSupSet)
     annotation (Line(points={{-108,40},{-100,40},{-100,0},{-52,0}},  color={0,0,127}));
   connect(chaSta.y1Up, idxSta.u1Up)
-    annotation (Line(points={{-28,4},{-20,4},{-20,2},{-2,2}},color={255,0,255}));
+    annotation (Line(points={{-28,2},{-2,2}},                color={255,0,255}));
   connect(chaSta.y1Dow, idxSta.u1Dow)
-    annotation (Line(points={{-28,-4},{-12,-4},{-12,-2},{-2,-2}},color={255,0,255}));
+    annotation (Line(points={{-28,-2},{-2,-2}},                  color={255,0,255}));
   connect(u1Lea.y, idxSta.u1Lea)
     annotation (Line(points={{-108,80},{-10,80},{-10,6},{-2,6}},color={255,0,255}));
   connect(u1AvaSta.y, idxSta.u1AvaSta)
@@ -128,10 +128,10 @@ equation
     annotation (Line(points={{22,0},{40,0},{40,20},{-56,20},{-56,8},{-52,8}},
       color={255,127,0}));
   connect(chaSta.y1Up, y1UpHol.u)
-    annotation (Line(points={{-28,4},{-20,4},{-20,-32},{-2,-32}},
+    annotation (Line(points={{-28,2},{-20,2},{-20,-32},{-2,-32}},
                                                                color={255,0,255}));
   connect(chaSta.y1Dow, y1DowHol.u)
-    annotation (Line(points={{-28,-4},{-12,-4},{-12,-60},{-2,-60}},color={255,0,255}));
+    annotation (Line(points={{-28,-2},{-12,-2},{-12,-60},{-2,-60}},color={255,0,255}));
   connect(u1AvaSta.y, chaSta.u1AvaSta)
     annotation (Line(points={{-108,-80},{-60,-80},{-60,6},{-52,6}},color={255,0,255}));
   connect(ratV_flow.y[1], V_flow.u)
