@@ -11,7 +11,7 @@ block SortRuntime
   final parameter Integer nEquAlt=size(idxEquAlt, 1)
     "Number of lead/lag alternate equipment"
     annotation (Evaluate=true);
-  parameter Real runTim_start[nEquAlt]={60 + i for i in 1:nEquAlt}
+  parameter Real runTim_start[nEquAlt]=fill(0, nEquAlt)
     "Staging runtime initial values";
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1Run[nin]
     "Boolean signal used to assess equipment runtime"
@@ -47,18 +47,18 @@ block SortRuntime
     final ascending=true,
     nin=nEquAlt)
     "Sort equipment by increasing weighted runtime"
-    annotation (Placement(transformation(extent={{110,-10},{130,10}})));
+    annotation (Placement(transformation(extent={{120,-10},{140,10}})));
   Buildings.Controls.OBC.CDL.Conversions.BooleanToReal weiOffAva[nEquAlt](
     each final realTrue=1E10,
     each final realFalse=1)
     "Weight to be applied to runtime of equipment off and available"
     annotation (Placement(transformation(extent={{-50,30},{-30,50}})));
-  Buildings.Controls.OBC.CDL.Reals.Multiply appWeiOffAva[nEquAlt]
+  Buildings.Controls.OBC.CDL.Reals.Add      appWeiOffAva[nEquAlt]
     "Apply weights to runtime of equipment off and available"
-    annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
-  Buildings.Controls.OBC.CDL.Reals.Multiply voiRunUna[nEquAlt]
-    "Void runtime of unavailable equipment"
-    annotation (Placement(transformation(extent={{30,-10},{50,10}})));
+    annotation (Placement(transformation(extent={{10,-10},{30,10}})));
+  Buildings.Controls.OBC.CDL.Reals.Multiply clrRunUna[nEquAlt]
+    "Clear runtime of unavailable equipment"
+    annotation (Placement(transformation(extent={{50,-10},{70,10}})));
   Buildings.Controls.OBC.CDL.Logical.And offAva[nEquAlt]
     "Return true if equipment off and available"
     annotation (Placement(transformation(extent={{-90,30},{-70,50}})));
@@ -67,8 +67,7 @@ block SortRuntime
     annotation (Placement(transformation(extent={{-90,-50},{-70,-30}})));
   Buildings.Controls.OBC.CDL.Conversions.BooleanToReal zerUna[nEquAlt](
     each final realTrue=0,
-    each final realFalse=1)
-    "Assign zero to unavailable equipment"
+    each final realFalse=1) "Assign zero to unavailable equipment"
     annotation (Placement(transformation(extent={{-50,-50},{-30,-30}})));
   Buildings.Controls.OBC.CDL.Logical.Timer timUna[nEquAlt]
     "Compute time elapsed since equipment is unavailable"
@@ -83,18 +82,10 @@ block SortRuntime
     annotation (Placement(transformation(extent={{-20,-90},{0,-70}})));
   Buildings.Controls.OBC.CDL.Reals.Add addWeiUna[nEquAlt]
     "Add weight to unavailable equipment"
-    annotation (Placement(transformation(extent={{70,-10},{90,10}})));
-  Buildings.Controls.OBC.CDL.Reals.Multiply voiWeiAva[nEquAlt]
-    "Void weight of available equipment"
-    annotation (Placement(transformation(extent={{48,-90},{68,-70}})));
-  Buildings.Controls.OBC.CDL.Conversions.BooleanToReal zerAva[nEquAlt](
-    each final realTrue=0,
-    each final realFalse=1)
-    "Assign zero to available equipment"
-    annotation (Placement(transformation(extent={{-50,-130},{-30,-110}})));
+    annotation (Placement(transformation(extent={{90,-10},{110,10}})));
   Buildings.Controls.OBC.CDL.Logical.TimerAccumulating timRunLif[nEquAlt]
     "Compute lifetime runtime"
-    annotation (Placement(transformation(extent={{-50,70},{-30,90}})));
+    annotation (Placement(transformation(extent={{-90,70},{-70,90}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant fal[nEquAlt](
     each final k=false)
     "Constant"
@@ -118,27 +109,38 @@ block SortRuntime
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant idxEquAltMat[nEquAlt, nEquAlt](
     final k={idxEquAlt for i in 1:nEquAlt})
     "Indices of lead/lag alternate equipment repeated nEquAlt times"
-    annotation (Placement(transformation(extent={{110,-50},{130,-30}})));
+    annotation (Placement(transformation(extent={{120,50},{140,70}})));
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant runTimSta[nEquAlt](
     final k=runTim_start)
     "Staging runtime initial values"
-    annotation (Placement(transformation(extent={{-100,110},{-80,130}})));
-  Buildings.Controls.OBC.CDL.Reals.Max iniRunTim[nEquAlt]
-    "Fix runtime until it exceeds the initial value"
+    annotation (Placement(transformation(extent={{-90,110},{-70,130}})));
+  Buildings.Controls.OBC.CDL.Reals.Add iniRunTim[nEquAlt]
+    "Add runtime initial value"
     annotation (Placement(transformation(extent={{-50,-10},{-30,10}})));
+  Buildings.Controls.OBC.CDL.Reals.Add iniRunTimLif[nEquAlt]
+    "Add runtime initial value"
+    annotation (Placement(transformation(extent={{-50,70},{-30,90}})));
+  Buildings.Controls.OBC.CDL.Conversions.BooleanToReal zerAva[nEquAlt](
+    each final realTrue=0,
+    each final realFalse=1)
+    "Assign zero to available equipment"
+    annotation (Placement(transformation(extent={{-50,-130},{-30,-110}})));
+  Buildings.Controls.OBC.CDL.Reals.Multiply clrRunAva[nEquAlt]
+    "Clear runtime of available equipment"
+    annotation (Placement(transformation(extent={{50,-90},{70,-70}})));
 equation
   connect(u1Res.y, timRun.reset)
     annotation (Line(points={{-158,-100},{-120,-100},{-120,-8},{-92,-8}},color={255,0,255}));
   connect(weiOffAva.y, appWeiOffAva.u1)
-    annotation (Line(points={{-28,40},{-20,40},{-20,6},{-12,6}},color={0,0,127}));
+    annotation (Line(points={{-28,40},{-20,40},{-20,6},{8,6}},  color={0,0,127}));
   connect(off.y, offAva.u1)
     annotation (Line(points={{-108,40},{-92,40}},color={255,0,255}));
   connect(offAva.y, weiOffAva.u)
     annotation (Line(points={{-68,40},{-52,40}},color={255,0,255}));
-  connect(appWeiOffAva.y, voiRunUna.u1)
-    annotation (Line(points={{12,0},{20,0},{20,6},{28,6}},color={0,0,127}));
-  connect(zerUna.y, voiRunUna.u2)
-    annotation (Line(points={{-28,-40},{20,-40},{20,-6},{28,-6}},color={0,0,127}));
+  connect(appWeiOffAva.y,clrRunUna. u1)
+    annotation (Line(points={{32,0},{40,0},{40,6},{48,6}},color={0,0,127}));
+  connect(zerUna.y,clrRunUna. u2)
+    annotation (Line(points={{-28,-40},{40,-40},{40,-6},{48,-6}},color={0,0,127}));
   connect(una.y, timUna.u)
     annotation (Line(points={{-68,-40},{-60,-40},{-60,-80},{-52,-80}},color={255,0,255}));
   connect(una.y, zerUna.u)
@@ -148,52 +150,54 @@ equation
   connect(opp.y, addWei.u)
     annotation (Line(points={{2,-80},{8,-80}},color={0,0,127}));
   connect(addWeiUna.y, sor.u)
-    annotation (Line(points={{92,0},{108,0}},color={0,0,127}));
-  connect(voiRunUna.y, addWeiUna.u1)
-    annotation (Line(points={{52,0},{54,0},{54,6},{68,6}},color={0,0,127}));
-  connect(voiWeiAva.y, addWeiUna.u2)
-    annotation (Line(points={{70,-80},{80,-80},{80,-20},{60,-20},{60,-6},{68,-6}},
-      color={0,0,127}));
-  connect(addWei.y, voiWeiAva.u1)
-    annotation (Line(points={{32,-80},{40,-80},{40,-74},{46,-74}},color={0,0,127}));
-  connect(zerAva.y, voiWeiAva.u2)
-    annotation (Line(points={{-28,-120},{40,-120},{40,-86},{46,-86}},color={0,0,127}));
-  connect(timRunLif.y, yRunTimLif)
-    annotation (Line(points={{-28,80},{220,80}},color={0,0,127}));
+    annotation (Line(points={{112,0},{118,0}}, color={0,0,127}));
+  connect(clrRunUna.y, addWeiUna.u1)
+    annotation (Line(points={{72,0},{80,0},{80,6},{88,6}},color={0,0,127}));
   connect(fal.y, timRunLif.reset)
-    annotation (Line(points={{-158,100},{-60,100},{-60,72},{-52,72}},color={255,0,255}));
+    annotation (Line(points={{-158,100},{-120,100},{-120,72},{-92,72}}, color={255,0,255}));
   connect(u1Run, u1RunEquAlt.u)
     annotation (Line(points={{-220,40},{-182,40}},color={255,0,255}));
   connect(u1RunEquAlt.y, off.u)
     annotation (Line(points={{-158,40},{-132,40}},color={255,0,255}));
   connect(u1RunEquAlt.y, timRunLif.u)
-    annotation (Line(points={{-158,40},{-140,40},{-140,80},{-52,80}},color={255,0,255}));
+    annotation (Line(points={{-158,40},{-140,40},{-140,80},{-92,80}},color={255,0,255}));
   connect(u1RunEquAlt.y, timRun.u)
     annotation (Line(points={{-158,40},{-140,40},{-140,0},{-92,0}},color={255,0,255}));
   connect(u1Ava, u1AvaEquAlt.u)
     annotation (Line(points={{-220,-40},{-182,-40}},color={255,0,255}));
   connect(u1AvaEquAlt.y, una.u)
     annotation (Line(points={{-158,-40},{-92,-40}},color={255,0,255}));
-  connect(u1AvaEquAlt.y, zerAva.u)
-    annotation (Line(points={{-158,-40},{-100,-40},{-100,-120},{-52,-120}},color={255,0,255}));
   connect(u1AvaEquAlt.y, offAva.u2)
     annotation (Line(points={{-158,-40},{-100,-40},{-100,32},{-92,32}},color={255,0,255}));
   connect(idxEquAltMat.y, resIdxInp.u)
-    annotation (Line(points={{132,-40},{160,-40},{160,0},{168,0}},color={255,127,0}));
+    annotation (Line(points={{142,60},{160,60},{160,0},{168,0}},  color={255,127,0}));
   connect(sor.yIdx, resIdxInp.index)
-    annotation (Line(points={{132,-6},{164,-6},{164,-16},{180,-16},{180,-12}},
+    annotation (Line(points={{142,-6},{160,-6},{160,-20},{180,-20},{180,-12}},
       color={255,127,0}));
   connect(resIdxInp.y, yIdx)
     annotation (Line(points={{192,0},{220,0}},color={255,127,0}));
   connect(runTimSta.y, iniRunTim.u1)
-    annotation (Line(points={{-78,120},{-66,120},{-66,6},{-52,6}},color={0,0,127}));
+    annotation (Line(points={{-68,120},{-60,120},{-60,6},{-52,6}},color={0,0,127}));
   connect(timRun.y, iniRunTim.u2)
-    annotation (Line(points={{-68,0},{-60,0},{-60,-6},{-52,-6}},color={0,0,127}));
+    annotation (Line(points={{-68,0},{-64,0},{-64,-6},{-52,-6}},color={0,0,127}));
   connect(iniRunTim.y, appWeiOffAva.u2)
-    annotation (Line(points={{-28,0},{-20,0},{-20,-6},{-12,-6}},color={0,0,127}));
-  connect(timRun.y, yRunTimSta)
-    annotation (Line(points={{-68,0},{-60,0},{-60,20},{180,20},{180,40},{220,40}},
-      color={0,0,127}));
+    annotation (Line(points={{-28,0},{0,0},{0,-6},{8,-6}},      color={0,0,127}));
+  connect(iniRunTim.y, yRunTimSta) annotation (Line(points={{-28,0},{0,0},{0,40},
+          {220,40}},                           color={0,0,127}));
+  connect(iniRunTimLif.y, yRunTimLif)
+    annotation (Line(points={{-28,80},{220,80}}, color={0,0,127}));
+  connect(timRunLif.y, iniRunTimLif.u2) annotation (Line(points={{-68,80},{-64,80},
+          {-64,74},{-52,74}}, color={0,0,127}));
+  connect(runTimSta.y, iniRunTimLif.u1) annotation (Line(points={{-68,120},{-60,
+          120},{-60,86},{-52,86}}, color={0,0,127}));
+  connect(u1AvaEquAlt.y, zerAva.u) annotation (Line(points={{-158,-40},{-100,-40},
+          {-100,-120},{-52,-120}}, color={255,0,255}));
+  connect(clrRunAva.y, addWeiUna.u2) annotation (Line(points={{72,-80},{80,-80},
+          {80,-6},{88,-6}}, color={0,0,127}));
+  connect(addWei.y, clrRunAva.u1) annotation (Line(points={{32,-80},{40,-80},{40,
+          -74},{48,-74}}, color={0,0,127}));
+  connect(zerAva.y, clrRunAva.u2) annotation (Line(points={{-28,-120},{40,-120},
+          {40,-86},{48,-86}}, color={0,0,127}));
   annotation (
     defaultComponentName="sorRunTim",
     Icon(
@@ -213,7 +217,8 @@ equation
     Diagram(
       coordinateSystem(
         preserveAspectRatio=false,
-        extent={{-200,-160},{200,160}})),
+        extent={{-200,-140},{200,140}},
+        grid={2,2})),
     Documentation(
       info="<html>
 <p>
@@ -243,22 +248,6 @@ the equipment that alarmed most recently is sent to the last position.
 The equipment in alarm automatically moves up in the staging order
 only if another equipment goes into alarm.
 </p>
-<h4>Staging runtime initialization</h4>
-<p>
-When the controller is initialized, the choice of the first equipment to run
-is random since all runtimes are equal to zero.
-So, before this first equipment reports status, all equipment will be
-considered off and only this first equipment will increase runtime and be
-queued in the staging order.
-At next stage change, another equipment will then be staged on instead,
-resulting in the first running equipment being \"hot swapped\".
-To avoid this behavior, the vector parameter <code>runTim_start</code> is used
-to initialize the staging runtime, which will be fixed at this parameter
-value until it becomes higher.
-The parameter <code>runTim_start</code> should be set to a vector of
-strictly increasing values, where the minimum value is greater than
-the time needed for the equipment to report status.
-</p>
 <h4>Details</h4>
 <p>
 The sorting logic is implemented using the following method.
@@ -269,12 +258,12 @@ If a unit is on and available, its staging runtime is used as is.
 </li>
 <li>
 If a unit is off and available, its staging runtime is increased 
-by a constant of <i>1E10</i>&nbsp;s.
+by <i>1E10</i>&nbsp;s.
 </li>
 <li>
-If a unit is unavailable, its staging runtime is replaced by
-the time that has elapsed since the unit became unavailable.
-This time is then increased by a constant of <i>1E20</i>&nbsp;s.
+If a unit is unavailable, its staging runtime is replaced by  
+<i>1E20</i>&nbsp;s minus the time elapsed since it became 
+unavailable.
 </li>
 <li>
 A unique instance of the sorting block is then used to order
@@ -306,6 +295,13 @@ to the input vectors (full set of equipment).
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+June 10, 2026, by Antoine Gautier:<br/>
+Corrected runtime weighting for unavailable units.
+Updated handling and default value of runtime initialization.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4624\">#4624</a>.
+</li>
 <li>
 March 29, 2024, by Antoine Gautier:<br/>
 First implementation.

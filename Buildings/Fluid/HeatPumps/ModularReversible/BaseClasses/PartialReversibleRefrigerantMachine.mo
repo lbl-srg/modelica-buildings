@@ -197,6 +197,12 @@ partial model PartialReversibleRefrigerantMachine
   parameter Boolean from_dp=false
     "= true, use m_flow = f(dp) else dp = f(m_flow)"
     annotation (Dialog(tab="Advanced", group="Flow resistance"));
+  parameter Real nEva(min=1, max=2) = 2
+    "Flow exponent, n=1 for laminar, n=2 for turbulent"
+    annotation(Dialog(tab="Evaporator", group="Flow resistance"), Evaluate=true);
+  parameter Real nCon(min=1, max=2) = 2
+    "Flow exponent, n=1 for laminar, n=2 for turbulent"
+    annotation(Dialog(tab="Condenser", group="Flow resistance"), Evaluate=true);
   parameter Boolean linearized=false
     "= true, use linear relation between m_flow and dp for any flow rate"
     annotation (Dialog(tab="Advanced", group="Flow resistance"));
@@ -227,6 +233,7 @@ partial model PartialReversibleRefrigerantMachine
     final use_cap=use_conCap,
     final X_start=XCon_start,
     final from_dp=from_dp,
+    final n=nCon,
     final energyDynamics=energyDynamics,
     final isCon=true,
     final C=CCon,
@@ -248,6 +255,7 @@ partial model PartialReversibleRefrigerantMachine
     final p_start=pEva_start,
     final X_start=XEva_start,
     final from_dp=from_dp,
+    final n=nEva,
     final energyDynamics=energyDynamics,
     final isCon=false,
     final C=CEva,
@@ -678,6 +686,14 @@ equation
           fillPattern=FillPattern.Solid)}),
        Diagram(coordinateSystem(extent={{-140,-160},{140,160}})),
     Documentation(revisions="<html><ul>
+<li>
+June 17, 2026, by Michael Wetter:<br/>
+Updated implementation to allow a flow coefficient <code>n</code> that is different from <code>2</code>.
+This allows use of the model for not fully turbulent flow.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4620\">Buildings, #4620</a>.
+</li>
+
   <li>
     <i>February 27, 2025</i> by Jianjun Hu:<br/>
     Corrected conditions for removing COP and EER output connector.<br/>

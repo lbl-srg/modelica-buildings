@@ -70,15 +70,13 @@ if __name__ == '__main__':
     subst = "https://doc.modelica.org\\g<2>/Resources/helpDymola/"
     for fil in files:
         filNam = helpDir + os.path.sep + fil
-        filObj=open(filNam, 'r')
-        lines = filObj.read()
-        filObj.close()
+        with open(filNam, 'r') as filObj:
+            lines = filObj.read()
 
         # You can manually specify the number of replacements by changing the 4th argument
         lines = re.sub(regex, subst, lines)
-        filObj=open(filNam, 'w')
-        filObj.write(lines)
-        filObj.close()
+        with open(filNam, 'w') as filObj:
+            filObj.write(lines)
 
     # Other replacements
     replacements = {'font-family: Arial, sans-serif;': '',
@@ -174,22 +172,19 @@ if __name__ == '__main__':
     # Substitute text
     for fil in files:
         filNam = helpDir + os.path.sep + fil
-        filObj=open(filNam, 'r')
-        lines = filObj.readlines()
-        filObj.close()
+        with open(filNam, 'r') as filObj:
+            lines = filObj.readlines()
         for old, new in replacements.items():
             for i in range(len(lines)):
                 lines[i] = lines[i].replace(old, new)
-        filObj=open(filNam, 'w')
-        filObj.writelines(lines)
-        filObj.close()
+        with open(filNam, 'w') as filObj:
+            filObj.writelines(lines)
 
     # Replace certain sections
     for fil in files:
         filNam = helpDir + os.path.sep + fil
-        filObj=open(filNam, 'r')
-        lines = filObj.readlines()
-        filObj.close()
+        with open(filNam, 'r') as filObj:
+            lines = filObj.readlines()
         # Dymola writes
         # <address>
         # <a href="http://www.3ds.com/">Automatically generated</a> Thu Mar 17 16:10:41 2016.
@@ -233,15 +228,13 @@ if __name__ == '__main__':
 </html>'''.format(homepage = HOMEPAGE))
 
         if found:
-            filObj=open(filNam, 'w')
-            filObj.writelines(lines)
-            filObj.close()
+            with open(filNam, 'w') as filObj:
+                filObj.writelines(lines)
 
     # Validate the new files
     for fil in files:
         filNam = helpDir + os.path.sep + fil
         # Check if line contains a wrong string
-        filObj=open(filNam, 'r')
-        for lin in filObj.readlines():
-            validateLine(lin, filNam)
-            filObj.close()
+        with open(filNam, 'r') as filObj:
+            for lin in filObj.readlines():
+                validateLine(lin, filNam)
