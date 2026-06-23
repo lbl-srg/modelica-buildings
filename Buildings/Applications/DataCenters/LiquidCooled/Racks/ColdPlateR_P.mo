@@ -78,13 +78,12 @@ model ColdPlateR_P
     final V_flow_nominal=m_flow_nominal/Medium.d_const/nColPla) "Case temperature"
     annotation (Placement(transformation(extent={{20,70},{40,90}})));
 
-  Buildings.Fluid.FixedResistances.PressureDrop res(
+  Buildings.Fluid.FixedResistances.PressureDrop preDro(
     redeclare package Medium = Medium,
     final allowFlowReversal=allowFlowReversal,
     final m_flow_nominal=m_flow_nominal,
     final dp_nominal=dp_nominal,
-    final n=n)
-    "Flow resistance"
+    final n=n) "Flow resistance"
     annotation (Placement(transformation(extent={{-40,-10},{-20,10}})));
   Fluid.Delays.DelayFirstOrder vol(
     redeclare final package Medium = Medium,
@@ -100,8 +99,7 @@ model ColdPlateR_P
   Modelica.Units.SI.MassFlowRate m_flow = port_a.m_flow
     "Mass flow rate from port_a to port_b";
 
-  Modelica.Units.SI.PressureDifference dp(
-    displayUnit="Pa") = res.dp
+  Modelica.Units.SI.PressureDifference dp(displayUnit="Pa") = preDro.dp
     "Pressure difference between port_a and port_b";
 protected
   Modelica.Blocks.Math.Gain Q_flow(final k=Q_flow_nominal)
@@ -135,13 +133,13 @@ equation
   connect(preHea.port,vol. heatPort) annotation (Line(points={{-22,20},{-10,20},
           {-10,10},{10,10}},
                         color={191,0,0}));
-  connect(res.port_b,vol. ports[1])
+  connect(preDro.port_b, vol.ports[1])
     annotation (Line(points={{-20,0},{19,0}}, color={0,127,255}));
   connect(casTem.V_flow, VColPla_flow.y) annotation (Line(points={{19,86},{-28,86},
           {-28,88},{-39,88}}, color={0,0,127}));
   connect(casTem.TIn, TIn.y) annotation (Line(points={{19,80},{-28,80},{-28,74},
           {-39,74}}, color={0,0,127}));
-  connect(port_a, res.port_a)
+  connect(port_a, preDro.port_a)
     annotation (Line(points={{-100,0},{-40,0}}, color={0,127,255}));
   connect(vol.ports[2], port_b)
     annotation (Line(points={{21,0},{100,0}}, color={0,127,255}));

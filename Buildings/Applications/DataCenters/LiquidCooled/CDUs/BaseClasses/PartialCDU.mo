@@ -20,6 +20,7 @@ model PartialCDU "Partial model for a CDU"
     "= true, use m_flow = f(dp) else dp = f(m_flow)"
     annotation (Evaluate=true, Dialog(enable=computeFlowResistancePla,
                 tab="Flow resistance", group="Medium 1"));
+
   parameter Boolean linearizeFlowResistancePla=false
     "= true, use linear relation between m_flow and dp for any flow rate"
     annotation(Dialog(enable=computeFlowResistancePla,
@@ -32,6 +33,7 @@ model PartialCDU "Partial model for a CDU"
     "= true, use m_flow = f(dp) else dp = f(m_flow)"
     annotation (Evaluate=true, Dialog(enable=computeFlowResistanceRac,
                 tab="Flow resistance", group="Medium 2"));
+
   parameter Boolean linearizeFlowResistanceRac=false
     "= true, use linear relation between m_flow and dp for any flow rate"
     annotation(Dialog(enable=computeFlowResistanceRac,

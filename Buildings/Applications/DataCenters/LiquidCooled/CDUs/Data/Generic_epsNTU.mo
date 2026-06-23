@@ -39,6 +39,16 @@ record Generic_epsNTU
     min=0,
     displayUnit="Pa") = dpHexPla_nominal "Pressure difference"
     annotation (Dialog(group="Nominal condition"));
+
+  parameter Real nPla(min=1, max=2) = 2
+    "Flow exponent, n=1 for laminar, n=2 for turbulent"
+    annotation (Evaluate=true, Dialog(
+                tab="Flow resistance", group="Medium 1"));
+  parameter Real nRac(min=1, max=2) = 2
+    "Flow exponent, n=1 for laminar, n=2 for turbulent"
+    annotation (Evaluate=true, Dialog(
+                tab="Flow resistance", group="Medium 2"));
+
   parameter Real deltaMRac=0.1
     "Fraction of nominal flow rate where flow transitions to laminar on rack side"
     annotation(Dialog(tab="Flow resistance", group="Medium 2"));
