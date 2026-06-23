@@ -7,6 +7,7 @@ model GroundResponse
     nSeg=10,
     nInt=10,
     nTouSeg=33,
+    touWorDir="tmp-tou-wor",
     samplePeriod=60) "Ground response calculated by TOUGH simulator"
     annotation (Placement(transformation(extent={{40,-10},{60,10}})));
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant con[10](
@@ -24,11 +25,6 @@ model GroundResponse
     annotation (Placement(transformation(extent={{-60,-60},{-40,-40}})));
 
 equation
-  // Delete the TOUGH temporary working folder
-  // Note that the working folder path is specified in the Python function.
-  when {initial(), terminal()} then
-    Modelica.Utilities.Files.remove("tmp-tou-work");
-  end when;
   connect(sin.y, touRes.QBor_flow)
     annotation (Line(points={{-38,50},{0,50},{0,6},{39,6}}, color={0,0,127}));
   connect(con.y, touRes.TBorWal_start)

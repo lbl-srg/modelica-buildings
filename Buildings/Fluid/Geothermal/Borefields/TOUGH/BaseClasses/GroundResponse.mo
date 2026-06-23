@@ -5,6 +5,8 @@ model GroundResponse "Ground response calculated by the TOUGH simulator"
   parameter Integer nSeg "Total number of segments";
   parameter Integer nInt "Number of points in the ground to be investigated";
   parameter Integer nTouSeg "Total number of grids along the entire borehole in the TOUGH mesh";
+  parameter String touWorDir
+    "TOUGH working directory name";
   parameter Modelica.Units.SI.Time samplePeriod "Sample period of component"
     annotation(Dialog(group="Sampling"));
   final parameter Real startTime(fixed=false) "Simulation start time";
@@ -51,13 +53,14 @@ model GroundResponse "Ground response calculated by the TOUGH simulator"
     annotation (Placement(transformation(extent={{100,-80},{140,-40}}),
       iconTransformation(extent={{100,-70},{120,-50}})));
 
-  Buildings.Utilities.IO.Python_3_12.Real_Real pyt(
+  Buildings.Fluid.Geothermal.Borefields.TOUGH.BaseClasses.Real_Real pyt(
     final startTime=startTime,
     final moduleName="GroundResponse",
     final functionName="doStep",
     final nDblRea=nSeg+3*nInt,
     final nDblWri=2*nSeg + 6,
     final samplePeriod=samplePeriod,
+    final strWri={touWorDir},
     final flag=0,
     final passPythonObject=true)
     "Python interface model to call TOUGH simulator"
@@ -79,6 +82,11 @@ initial equation
   startTime = time;
 
 equation
+  // Delete the TOUGH temporary working folder
+  // Note that the working folder path is specified in the Python function.
+  when {initial(), terminal()} then
+    Modelica.Utilities.Files.remove(touWorDir);
+  end when;
   connect(pyt.yR[1:nSeg], TBorWal)
     annotation (Line(points={{61,0},{80,0},{80,60},{120,60}}, color={0,0,127}));
   connect(mul.y, pyt.uR)

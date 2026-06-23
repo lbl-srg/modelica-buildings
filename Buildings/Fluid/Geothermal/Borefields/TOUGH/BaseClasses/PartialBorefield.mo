@@ -73,6 +73,9 @@ partial model PartialBorefield
   parameter Modelica.Units.SI.Time samplePeriod
     "Sample period of component"
     annotation (Dialog(group="Ground response"));
+  parameter String touWorDir
+    "TOUGH working directory name"
+    annotation (Dialog(group="Ground response"));
 
   Modelica.Blocks.Interfaces.RealOutput TBorAve(
     final quantity="ThermodynamicTemperature",
@@ -110,6 +113,7 @@ partial model PartialBorefield
     final nSeg=nSeg,
     final nInt=nInt,
     final nTouSeg=nTouSeg,
+    final touWorDir=touWorDir,
     final samplePeriod=samplePeriod)
     "Ground response calculated by TOUGH simulator"
     annotation (Placement(transformation(extent={{0,40},{20,60}})));

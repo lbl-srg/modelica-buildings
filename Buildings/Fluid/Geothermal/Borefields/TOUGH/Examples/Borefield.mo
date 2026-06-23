@@ -41,7 +41,8 @@ model Borefield
     nTouSeg=33,
     nSeg=10,
     nInt=10,
-    samplePeriod=60)
+    samplePeriod=60,
+    touWorDir="tmp-tou-wor")
     "Borefield with a U-tube borehole configuration, with ground response calculated by TOUGH"
     annotation (Placement(transformation(extent={{0,-10},{20,10}})));
   Buildings.Fluid.Sources.Boundary_pT sin(
@@ -55,11 +56,6 @@ model Borefield
     "Ambient temperature"
     annotation (Placement(transformation(extent={{-120,50},{-100,70}})));
 equation
-  // Delete the TOUGH temporary working folder
-  // Note that the working folder path is specified in the Python function.
-  when {initial(), terminal()} then
-    Modelica.Utilities.Files.remove("tmp-tou-work");
-  end when;
   connect(floRat.y, sou.m_flow_in) annotation (Line(points={{-98,20},{-80,20},{-80,
           8},{-62,8}}, color={0,0,127}));
   connect(watTem.y, sou.T_in) annotation (Line(points={{-98,-40},{-80,-40},{-80,

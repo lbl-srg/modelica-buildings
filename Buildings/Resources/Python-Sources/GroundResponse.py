@@ -4,7 +4,7 @@
 import os
 import shutil
 
-def doStep(dblInp, state):
+def doStep(dblInp, worDir, state):
 
     modelicaWorkingPath = os.getcwd()
 
@@ -52,7 +52,7 @@ def doStep(dblInp, state):
     if state is None:
         # Create the TOUGH working folder
         # The working folder will be removed at the end of simulation.
-        touWorDir = os.path.join('tmp-tou-work')
+        touWorDir = os.path.join(worDir)
         os.mkdir(touWorDir)
         # Copy the TOUGH input files to working directory
         copy_files(TOUGH_dir, touWorDir)
@@ -88,9 +88,7 @@ def doStep(dblInp, state):
 
             # Change current directory to working directory
             os.chdir(tou_tmp)
-            # T_toTough = mesh_to_mesh(toughLayer, modelicaLayers, state['T'], 'Mo2To')
             Q_toTough = mesh_to_mesh(toughLayers, modelicaLayers, Q_stored, 'Q_Mo2To')
-            # Q_toTough = [150] * nTouSeg
 
             # Check if 'GENER' exists. If it does not, this is the first call of
             # the TOUGH simulation. The initial GENER file is already included among
@@ -99,7 +97,7 @@ def doStep(dblInp, state):
                 pass
 
             # It's not the first call of TOUGH simulation. So there is 'SAVE' file from
-            # previous TOUGH call and we can use `writeincon` to generate TOUGH input
+            # previous TOUGH call and we can use `write_incon()` to generate TOUGH input
             # files.
             else:
                 # Delete old TOUGH input files
@@ -117,13 +115,12 @@ def doStep(dblInp, state):
                 update_writeincon('writeincon.inp', tLast-startTime, tim-startTime, T_stored, Q_toTough, T_out)
 
                 # Generate TOUGH input files
-                # os.system("./writeincon < writeincon.inp")
                 write_incon()
                 if os.path.exists('INFILE'):
                     os.remove('INFILE')
                 os.rename('newINFILE', 'INFILE')
 
-            # Conduct one step TOUGH simulation.
+            # Conduct one step TOUGH simulation with TOUGH executable
             # The TOUGH simulation requires:
             #   -- the INCON as the initial condition, including temperature, pressure at the mesh points
             #   -- the INFILE for specifying the ground properties and the initial and end simulation time,
@@ -135,13 +132,11 @@ def doStep(dblInp, state):
             tough_avatar(Q_toTough, T_out, nInt)
 
             # Extract borehole wall temperature
-            # os.system("./readsave < readsave.inp > out.txt")
             read_save()
             data = extract_data('out.txt', nTouSeg, nInt)
             T_tough = data['T_Bor']
             # Output to Modelica simulation
             T_toModelica = mesh_to_mesh(toughLayers, modelicaLayers, T_tough, 'To2Mo')
-            # T_toModelica = [281.15] * nSeg
 
             # Outputs to Modelica
             ToModelica = T_toModelica + data['p_Int'] + data['x_Int'] + data['T_Int']
@@ -214,39 +209,6 @@ def copy_files(src, dest):
         fileName = os.path.join(src, fil)
         if os.path.isfile(fileName):
             shutil.copy(fileName, dest)
-
-''' Create initial `GENER` file for the 1st call of TOUGH
-'''
-def initialize_gener(toughLayers, Q, fileName):
-    with open(fileName, 'w') as f:
-        f.write("GENER" + os.linesep)
-        for i in range(0, len(Q)):
-            f.write("%s  1sou 1" % toughLayers[i]['layer'] + "                         HEAT %10.3e" % Q[i] + os.linesep)
-        f.write("+++" + os.linesep)
-        f.write("         1         2         3         4         5         6         7         8" + os.linesep)
-        f.write("         9        10        11        12        13        14        15        16" + os.linesep)
-        f.write("        17        18        19        20        21        22        23        24" + os.linesep)
-        f.write("        25        26        27        28        29        30        31        32" + os.linesep)
-        f.write("        33" + os.linesep)
-
-''' Update the `INFILE` file for the first TOUGH call
-'''
-def update_infile(preTim, curTim, infile, outfile):
-    fin = open(infile)
-    fout = open(outfile, 'wt')
-    count = 0
-    for line in fin:
-        count += 1
-        if count == 27:
-            endStr=line[20:]
-            staStr='%10.1f%10.1f' % (preTim, curTim)
-            fout.write(staStr + endStr)
-        else:
-            fout.write(line)
-    fin.close()
-    fout.close()
-    os.remove(infile)
-    os.rename(outfile, infile)
 
 ''' Find Tough mesh layer depth
 '''
