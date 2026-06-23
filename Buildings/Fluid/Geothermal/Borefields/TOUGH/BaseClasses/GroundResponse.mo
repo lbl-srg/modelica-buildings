@@ -7,6 +7,7 @@ model GroundResponse "Ground response calculated by the TOUGH simulator"
   parameter Integer nTouSeg "Total number of grids along the entire borehole in the TOUGH mesh";
   parameter Modelica.Units.SI.Time samplePeriod "Sample period of component"
     annotation(Dialog(group="Sampling"));
+  final parameter Real startTime(fixed=false) "Simulation start time";
 
   Modelica.Blocks.Interfaces.RealInput QBor_flow[nSeg](
     each final unit="W")
@@ -51,6 +52,7 @@ model GroundResponse "Ground response calculated by the TOUGH simulator"
       iconTransformation(extent={{100,-70},{120,-50}})));
 
   Buildings.Utilities.IO.Python_3_12.Real_Real pyt(
+    final startTime=startTime,
     final moduleName="GroundResponse",
     final functionName="doStep",
     final nDblRea=nSeg+3*nInt,
@@ -72,6 +74,9 @@ model GroundResponse "Ground response calculated by the TOUGH simulator"
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant borHei(final k=hBor)
     "Total height of the borehole"
     annotation (Placement(transformation(extent={{-40,-90},{-20,-70}})));
+
+initial equation
+  startTime = time;
 
 equation
   connect(pyt.yR[1:nSeg], TBorWal)
