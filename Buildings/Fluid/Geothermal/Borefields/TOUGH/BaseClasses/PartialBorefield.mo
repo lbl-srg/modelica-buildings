@@ -95,6 +95,7 @@ partial model PartialBorefield
     final show_T=show_T,
     final computeFlowResistance=computeFlowResistance,
     final from_dp=from_dp,
+    final n=n,
     final linearizeFlowResistance=linearizeFlowResistance,
     final deltaM=deltaM,
     final energyDynamics=energyDynamics,
