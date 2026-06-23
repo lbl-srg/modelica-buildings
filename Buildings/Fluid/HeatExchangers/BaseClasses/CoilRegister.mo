@@ -55,6 +55,8 @@ model CoilRegister "Register for a heat exchanger"
     initialize_p2 = {{(i == 1 and j == 1 and initialize_p2) for i in 1:nPipSeg} for j in 1:nPipPar},
     each allowFlowReversal1=allowFlowReversal1,
     each allowFlowReversal2=allowFlowReversal2,
+    each n1=n1,
+    each n2=n2,
     each tau1=tau1/nPipSeg,
     each m1_flow_nominal=m1_flow_nominal/nPipPar,
     each tau2=tau2,
