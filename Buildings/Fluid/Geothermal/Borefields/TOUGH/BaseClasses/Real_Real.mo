@@ -151,6 +151,12 @@ If the function needs to pass an object from one invocation to the
 next, set <code>passPythonObject = true</code>.
 Otherwise, leave it at its default value <code>passPythonObject = false</code>.
 </p>
+<p>
+Note that the model is same as
+<a href=\"modelica://Buildings.Utilities.IO.Python_3_12.Real_Real\">
+Buildings.Utilities.IO.Python_3_12.Real_Real</a>,
+except the model propagates the parameters for strings writing to Python.
+</p>
 </html>", revisions="<html>
 <ul>
 <li>
