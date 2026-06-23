@@ -13,6 +13,8 @@ model OneUTube "Single U-tube borehole heat exchanger"
     each final deltaM1=deltaM,
     each final deltaM2=deltaM,
     each final energyDynamics=energyDynamics,
+    each final n1=n,
+    each final n2=n,
     each final mSenFac=mSenFac,
     final dp1_nominal={if i == 1 then dp_nominal else 0 for i in 1:nSeg},
     each final dp2_nominal=0,
