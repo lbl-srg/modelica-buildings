@@ -88,7 +88,7 @@ model AirToWater
     yPumHeaWatPriHdrSet=dat.yPumHeaWatPriHdrSet,
     final yPumHeaWatSec_min=dat.yPumHeaWatSec_min)
     "Plant controller"
-    annotation(Placement(transformation(extent={{-20,-48},{20,40}})));
+    annotation(Placement(transformation(extent={{-20,-52},{20,40}})));
   Buildings.Controls.OBC.CDL.Integers.MultiSum reqPlaHeaWatAirHan(
     final nin=nAirHan)
     if cfg.have_heaWat
@@ -185,13 +185,13 @@ model AirToWater
     dpLocSet_max=fill(dat.dpHeaWatLocSet_max, nSenDpHeaWatRem))
     if cfg.have_heaWat and not have_senDpHeaWatRemWir
     "Local HW DP reset"
-    annotation(Placement(transformation(extent={{-70,-10},{-50,10}})));
+    annotation(Placement(transformation(extent={{-70,-20},{-50,0}})));
   Buildings.Templates.Plants.Controls.Pumps.Generic.ResetLocalDifferentialPressure resDpChiWatLoc[nSenDpChiWatRem](
     dpLocSet_min=fill(dat.dpChiWatLocSet_min, nSenDpChiWatRem),
     dpLocSet_max=fill(dat.dpChiWatLocSet_max, nSenDpChiWatRem))
     if cfg.have_chiWat and not have_senDpChiWatRemWir
     "Local CHW DP reset"
-    annotation(Placement(transformation(extent={{-70,-50},{-50,-30}})));
+    annotation(Placement(transformation(extent={{-70,-54},{-50,-34}})));
 equation
   /* Control point connection - start */
   // Inputs from plant control bus
@@ -234,12 +234,16 @@ equation
   // Outputs to plant control bus
   connect(ctl.THeaWatSupHpSet, busHp.THeaWatSet);
   connect(ctl.TChiWatSupHpSet, busHp.TChiWatSet);
+  connect(ctl.THeaWatSupPhpSet, busPhp.THeaWatSet);
+  connect(ctl.TChiWatSupPhpSet, busPhp.TChiWatSet);
   connect(ctl.TChiWatSupSet, bus.TChiWatSupSet);
   connect(ctl.THeaWatSupSet, bus.THeaWatSupSet);
   connect(ctl.dpChiWatRemSet, bus.dpChiWatRemSet);
   connect(ctl.dpHeaWatRemSet, bus.dpHeaWatRemSet);
   connect(ctl.y1HeaHp, busHp.y1Hea);
   connect(ctl.y1Hp, busHp.y1);
+  connect(ctl.y1HeaPhp, busPhp.y1Hea);
+  connect(ctl.y1CooPhp, busPhp.y1Coo);
   connect(ctl.y1PumChiWatPriDedHp, rouPumChiWatPri.y1DedHp);
   connect(ctl.y1PumChiWatPriDedPhp, rouPumChiWatPri.y1DedPhp);
   connect(ctl.y1PumChiWatPriHdr, rouPumChiWatPri.y1Hdr);
@@ -350,30 +354,30 @@ equation
     annotation(Line(points={{148,-200},{134,-200},{134,68},{112,68}},
       color={255,127,0}));
   connect(reqPlaHeaWat.y, ctl.nReqPlaHeaWat)
-    annotation(Line(points={{88,194},{-40,194},{-40,4},{-22,4}},
+    annotation(Line(points={{88,194},{-40,194},{-40,2},{-22,2}},
       color={255,127,0}));
   connect(reqPlaChiWat.y, ctl.nReqPlaChiWat)
-    annotation(Line(points={{88,154},{-38,154},{-38,2},{-22,2}},
+    annotation(Line(points={{88,154},{-38,154},{-38,0},{-22,0}},
       color={255,127,0}));
   connect(reqResHeaWat.y, ctl.nReqResHeaWat)
-    annotation(Line(points={{88,114},{-36,114},{-36,0},{-22,0}},
+    annotation(Line(points={{88,114},{-36,114},{-36,-2},{-22,-2}},
       color={255,127,0}));
   connect(reqResChiWat.y, ctl.nReqResChiWat)
-    annotation(Line(points={{88,74},{-34,74},{-34,-2},{-22,-2}},
+    annotation(Line(points={{88,74},{-34,74},{-34,-4},{-22,-4}},
       color={255,127,0}));
   connect(resDpHeaWatLoc.dpLocSet, ctl.dpHeaWatLocSet)
-    annotation(Line(points={{-48.2,0},{-40,0},{-40,-36},{-22,-36}},
+    annotation(Line(points={{-48.2,-10},{-40,-10},{-40,-38},{-22,-38}},
       color={0,0,127}));
   connect(resDpChiWatLoc.dpLocSet, ctl.dpChiWatLocSet)
-    annotation(Line(points={{-48.2,-40},{-40,-40},{-40,-42},{-22,-42}},
+    annotation(Line(points={{-48.2,-44},{-22,-44}},
       color={0,0,127}));
   connect(ctl.dpChiWatRemSet, resDpChiWatLoc.dpRemSet)
     annotation(Line(
-      points={{22,-26},{40,-26},{40,-60},{-80,-60},{-80,-34},{-72,-34}},
+      points={{22,-24},{40,-24},{40,-60},{-80,-60},{-80,-38},{-72,-38}},
       color={0,0,127}));
   connect(ctl.dpHeaWatRemSet, resDpHeaWatLoc.dpRemSet)
     annotation(Line(
-      points={{22,-24},{42,-24},{42,-62},{-82,-62},{-82,6},{-72,6}},
+      points={{22,-22},{42,-22},{42,-62},{-82,-62},{-82,-4},{-72,-4}},
       color={0,0,127}));
 annotation(defaultComponentName="ctl",
   Documentation(

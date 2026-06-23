@@ -58,7 +58,7 @@ equation
     annotation(Line(points={{92,40},{132,40},{132,104},{92,104}},
       color={255,0,255}));
   connect(y1Php_actual.y1_actual, ctl.u1Php_actual)
-    annotation(Line(points={{68,104},{-16,104},{-16,40},{-2,40},{-2,50}},
+    annotation(Line(points={{68,104},{-16,104},{-16,40},{-2,40},{-2,46}},
       color={255,0,255}));
 annotation(__Dymola_Commands(
   file="modelica://Buildings/Resources/Scripts/Dymola/Templates/Plants/Controls/HeatPumps/Validation/AirToWaterPolyvalent.mos"

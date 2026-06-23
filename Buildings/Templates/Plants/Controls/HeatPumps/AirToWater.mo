@@ -221,7 +221,7 @@ block AirToWater
     "Number of 2-pipe heat pumps"
     annotation(Evaluate=true,
       Dialog(group="Plant configuration"));
-  parameter Integer nPhp_select(min=if have_hp then 1 else 0, start=1)
+  parameter Integer nPhp_select(min=if have_php then 1 else 0, start=1)
     "Number of polyvalent heat pumps"
     annotation(Evaluate=true,
       Dialog(group="Plant configuration",
@@ -1214,131 +1214,131 @@ block AirToWater
     if have_heaWat and have_valHpInlIso
     "Heat pump inlet HW isolation valve command"
     annotation(Placement(transformation(extent={{260,380},{300,420}}),
-      iconTransformation(extent={{200,340},{240,380}})));
+      iconTransformation(extent={{200,380},{240,420}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput y1ValHeaWatHpOutIso[nHp]
     if have_heaWat and have_valHpOutIso
     "Heat pump outlet HW isolation valve command"
     annotation(Placement(transformation(extent={{260,360},{300,400}}),
-      iconTransformation(extent={{200,320},{240,360}})));
+      iconTransformation(extent={{200,360},{240,400}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput y1ValChiWatHpInlIso[nHp]
     if have_chiWat and have_valHpInlIso
     "Heat pump inlet CHW isolation valve command"
     annotation(Placement(transformation(extent={{260,340},{300,380}}),
-      iconTransformation(extent={{200,300},{240,340}})));
+      iconTransformation(extent={{200,340},{240,380}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput y1ValChiWatHpOutIso[nHp]
     if have_chiWat and have_valHpOutIso
     "Heat pump outlet CHW isolation valve command"
     annotation(Placement(transformation(extent={{260,320},{300,360}}),
-      iconTransformation(extent={{200,280},{240,320}})));
+      iconTransformation(extent={{200,320},{240,360}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput y1PumHeaWatPriHdr[nPumHeaWatPri]
     if have_pumHeaWatPri and have_pumPriHdr
     "Primary HW pump start command – Headered pumps"
     annotation(Placement(transformation(extent={{260,220},{300,260}}),
-      iconTransformation(extent={{200,140},{240,180}})));
+      iconTransformation(extent={{200,180},{240,220}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput y1PumChiWatPriHdr[nPumChiWatPri]
     if have_pumChiWatPri and have_pumPriHdr
     "Primary CHW pump start command – Headered pumps"
     annotation(Placement(transformation(extent={{260,160},{300,200}}),
-      iconTransformation(extent={{200,80},{240,120}})));
+      iconTransformation(extent={{200,120},{240,160}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput y1PumHeaWatSec[nPumHeaWatSec]
     if have_pumHeaWatSec
     "Secondary HW pump start command"
     annotation(Placement(transformation(extent={{260,100},{300,140}}),
-      iconTransformation(extent={{200,20},{240,60}})));
+      iconTransformation(extent={{200,60},{240,100}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput y1PumChiWatSec[nPumChiWatSec]
     if have_pumChiWatSec
     "Secondary CHW pump start command"
     annotation(Placement(transformation(extent={{260,80},{300,120}}),
-      iconTransformation(extent={{200,0},{240,40}})));
+      iconTransformation(extent={{200,40},{240,80}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput y1Hp[nHp]
     if have_hp
     "Heat pump enable command"
     annotation(Placement(transformation(extent={{260,460},{300,500}}),
-      iconTransformation(extent={{200,380},{240,420}})));
+      iconTransformation(extent={{200,420},{240,460}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput y1HeaHp[nHp]
     if have_hp and have_heaWat and have_chiWat
     "Heat pump heating/cooling mode command: true=heating, false=cooling"
     annotation(Placement(transformation(extent={{260,440},{300,480}}),
-      iconTransformation(extent={{200,360},{240,400}})));
+      iconTransformation(extent={{200,400},{240,440}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput y1HeaPhp[nPhp]
     if have_php
     "Polyvalent HP heating on/off command"
     annotation(Placement(transformation(extent={{260,420},{300,460}}),
-      iconTransformation(extent={{200,260},{240,300}})));
+      iconTransformation(extent={{200,300},{240,340}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput y1CooPhp[nPhp]
     if have_php
     "Polyvalent HP cooling on/off command"
     annotation(Placement(transformation(extent={{260,400},{300,440}}),
-      iconTransformation(extent={{200,240},{240,280}})));
+      iconTransformation(extent={{200,280},{240,320}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput y1ValHeaWatPhpInlIso[nPhp]
     if have_php and have_valPhpInlIso
     "Polyvalent HP inlet HW isolation valve command"
     annotation(Placement(transformation(extent={{260,300},{300,340}}),
-      iconTransformation(extent={{200,220},{240,260}})));
+      iconTransformation(extent={{200,260},{240,300}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput y1ValChiWatPhpInlIso[nPhp]
     if have_php and have_valPhpInlIso
     "Polyvalent HP inlet CHW isolation valve command"
     annotation(Placement(transformation(extent={{260,260},{300,300}}),
-      iconTransformation(extent={{200,180},{240,220}})));
+      iconTransformation(extent={{200,220},{240,260}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput y1ValHeaWatPhpOutIso[nPhp]
     if have_php and have_valPhpOutIso
     "Polyvalent HP outlet HW isolation valve command"
     annotation(Placement(transformation(extent={{260,280},{300,320}}),
-      iconTransformation(extent={{200,200},{240,240}})));
+      iconTransformation(extent={{200,240},{240,280}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput y1ValChiWatPhpOutIso[nPhp]
     if have_php and have_valPhpOutIso
     "Polyvalent HP outlet CHW isolation valve command"
     annotation(Placement(transformation(extent={{260,240},{300,280}}),
-      iconTransformation(extent={{200,160},{240,200}})));
+      iconTransformation(extent={{200,200},{240,240}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput dpHeaWatRemSet[nSenDpHeaWatRem](
     each final min=0,
     each final unit="Pa")
     if have_heaWat
     "HW differential pressure setpoint"
     annotation(Placement(transformation(extent={{260,-100},{300,-60}}),
-      iconTransformation(extent={{200,-220},{240,-180}})));
+      iconTransformation(extent={{200,-180},{240,-140}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput dpChiWatRemSet[nSenDpChiWatRem](
     each final min=0,
     each final unit="Pa")
     if have_chiWat
     "CHW differential pressure setpoint"
     annotation(Placement(transformation(extent={{260,-120},{300,-80}}),
-      iconTransformation(extent={{200,-240},{240,-200}})));
+      iconTransformation(extent={{200,-200},{240,-160}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yPumHeaWatPriHdr(
     final unit="1")
     if have_pumHeaWatPriVar and have_pumPriHdr
     "Primary HW pump speed command – Headered pumps"
     annotation(Placement(transformation(extent={{260,60},{300,100}}),
-      iconTransformation(extent={{200,-20},{240,20}})));
+      iconTransformation(extent={{200,20},{240,60}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yPumChiWatPriHdr(
     final unit="1")
     if have_pumChiWatPriVar and have_pumPriHdr
     "Primary CHW pump speed command – Headered pumps"
     annotation(Placement(transformation(extent={{260,40},{300,80}}),
-      iconTransformation(extent={{200,-40},{240,0}})));
+      iconTransformation(extent={{200,0},{240,40}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yPumHeaWatSec(final unit="1")
     if have_pumHeaWatSec
     "Primary HW pump speed command"
     annotation(Placement(transformation(extent={{260,-60},{300,-20}}),
-      iconTransformation(extent={{200,-140},{240,-100}})));
+      iconTransformation(extent={{200,-100},{240,-60}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yPumChiWatSec(final unit="1")
     if have_pumChiWatSec
     "Primary CHW pump speed command"
     annotation(Placement(transformation(extent={{260,-80},{300,-40}}),
-      iconTransformation(extent={{200,-160},{240,-120}})));
+      iconTransformation(extent={{200,-120},{240,-80}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput TChiWatSupSet(
     final unit="K",
     displayUnit="degC")
     if have_chiWat
     "Plant CHW supply temperature setpoint"
-    annotation(Placement(transformation(extent={{260,-200},{300,-160}}),
+    annotation(Placement(transformation(extent={{260,-240},{300,-200}}),
       iconTransformation(extent={{200,-320},{240,-280}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput THeaWatSupSet(
     final unit="K",
     displayUnit="degC")
     if have_heaWat
     "Plant HW supply temperature setpoint"
-    annotation(Placement(transformation(extent={{260,-180},{300,-140}}),
+    annotation(Placement(transformation(extent={{260,-220},{300,-180}}),
       iconTransformation(extent={{200,-300},{240,-260}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TChiWatPriRet(
     final unit="K",
@@ -1362,13 +1362,13 @@ block AirToWater
     if have_pumHeaWatPriVar and not have_pumPriHdr and have_hp
     "Primary HW pump speed command – HP dedicated pumps"
     annotation(Placement(transformation(extent={{260,20},{300,60}}),
-      iconTransformation(extent={{200,-60},{240,-20}})));
+      iconTransformation(extent={{200,-20},{240,20}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yPumChiWatPriDedHp[nPumChiWatPriDedHp](
     each final unit="1")
     if have_pumChiWatPriVar and have_pumChiWatPriDedHp
     "Primary CHW pump speed command – HP dedicated pumps"
     annotation(Placement(transformation(extent={{260,-20},{300,20}}),
-      iconTransformation(extent={{200,-100},{240,-60}})));
+      iconTransformation(extent={{200,-60},{240,-20}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput THeaWatSecRet(
     final unit="K",
     displayUnit="degC")
@@ -1398,11 +1398,10 @@ block AirToWater
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput THeaWatSupHpSet[nHp](
     each final unit="K",
     each final quantity="ThermodynamicTemperature",
-    each displayUnit="degC")
-    if have_heaWat
+    each displayUnit="degC") if have_heaWat and have_hp
     "HP HW supply temperature setpoint"
     annotation(Placement(transformation(extent={{260,-140},{300,-100}}),
-      iconTransformation(extent={{200,-260},{240,-220}})));
+      iconTransformation(extent={{200,-220},{240,-180}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput THeaWatPriSup(
     final unit="K",
     displayUnit="degC")
@@ -1491,22 +1490,21 @@ block AirToWater
     final unit="1")
     if have_heaWat and is_priOnl
     "HW minimum flow bypass valve command"
-    annotation(Placement(transformation(extent={{260,-240},{300,-200}}),
-      iconTransformation(extent={{200,-180},{240,-140}})));
+    annotation(Placement(transformation(extent={{260,-260},{300,-220}}),
+      iconTransformation(extent={{200,-140},{240,-100}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yValChiWatMinByp(
     final unit="1")
     if have_chiWat and is_priOnl
     "CHW minimum flow bypass valve command"
-    annotation(Placement(transformation(extent={{260,-260},{300,-220}}),
-      iconTransformation(extent={{200,-200},{240,-160}})));
+    annotation(Placement(transformation(extent={{260,-280},{300,-240}}),
+      iconTransformation(extent={{200,-160},{240,-120}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput TChiWatSupHpSet[nHp](
     each final unit="K",
     each final quantity="ThermodynamicTemperature",
-    each displayUnit="degC")
-    if have_chiWat
+    each displayUnit="degC") if have_chiWat and have_hp
     "HP CHW supply temperature setpoint"
     annotation(Placement(transformation(extent={{260,-160},{300,-120}}),
-      iconTransformation(extent={{200,-280},{240,-240}})));
+      iconTransformation(extent={{200,-240},{240,-200}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput TChiWatSupHrcSet(
     final unit="K",
     displayUnit="degC")
@@ -1857,16 +1855,12 @@ block AirToWater
     if have_pumChiWatSec and have_pumSecCtlDp
     "Secondary CHW pump speed control"
     annotation(Placement(transformation(extent={{190,-18},{210,2}})));
-  Buildings.Controls.OBC.CDL.Routing.RealScalarReplicator repTChiWatSupSet(
-    final nout=nHp)
-    if have_chiWat
-    "Replicate CHWST setpoint"
-    annotation(Placement(transformation(extent={{200,-130},{220,-110}})));
-  Buildings.Controls.OBC.CDL.Routing.RealScalarReplicator repTHeaWatSupSet(
-    final nout=nHp)
-    if have_heaWat
-    "Replicate HWST setpoint"
-    annotation(Placement(transformation(extent={{150,-110},{170,-90}})));
+  Buildings.Controls.OBC.CDL.Routing.RealScalarReplicator repTChiWatSupHpSet(final
+      nout=nHp) if have_chiWat and have_hp "Replicate CHWST setpoint"
+    annotation (Placement(transformation(extent={{210,-150},{230,-130}})));
+  Buildings.Controls.OBC.CDL.Routing.RealScalarReplicator repTHeaWatSupHpSet(final
+      nout=nHp) if have_heaWat and have_hp "Replicate HWST setpoint"
+    annotation (Placement(transformation(extent={{152,-130},{172,-110}})));
   HeatRecoveryChillers.Controller hrc(
     final COPHea_nominal=COPHeaHrc_nominal,
     final TChiWatSup_min=TChiWatSupHrc_min,
@@ -1970,18 +1964,18 @@ block AirToWater
     if have_pumChiWatPri and have_pumChiWatPriDedHp
     "Primary CHW pump start command – HP dedicated pumps"
     annotation(Placement(transformation(extent={{260,140},{300,180}}),
-      iconTransformation(extent={{200,60},{240,100}})));
+      iconTransformation(extent={{200,100},{240,140}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput y1PumChiWatPriDedPhp[nPumChiWatPriDedPhp]
     if have_pumChiWatPri and not have_pumPriHdr and have_php
     "Primary CHW pump start command – Polyvalent HP dedicated pumps"
     annotation(Placement(transformation(extent={{260,120},{300,160}}),
-      iconTransformation(extent={{200,40},{240,80}})));
+      iconTransformation(extent={{200,80},{240,120}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yPumChiWatPriDedPhp[nPumChiWatPriDedPhp](
     each final unit="1")
     if have_pumChiWatPriVar and not have_pumPriHdr and have_php
     "Primary CHW pump speed command – Polyvalent HP dedicated pumps"
     annotation(Placement(transformation(extent={{260,-40},{300,0}}),
-      iconTransformation(extent={{200,-120},{240,-80}})));
+      iconTransformation(extent={{200,-80},{240,-40}})));
   PolyvalentHeatPumps.RoutingPrimaryPumpStatus rouPumChiWatPri(
     final have_pumPriHdr=have_pumPriHdr,
     final nPumPriDedHp=nPumChiWatPriDedHp,
@@ -2012,18 +2006,18 @@ block AirToWater
     if have_pumHeaWatPri and have_hp and not have_pumPriHdr
     "Primary HW pump start command – HP dedicated pumps"
     annotation(Placement(transformation(extent={{260,200},{300,240}}),
-      iconTransformation(extent={{200,120},{240,160}})));
+      iconTransformation(extent={{200,160},{240,200}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput y1PumHeaWatPriDedPhp[nPumHeaWatPriDedPhp]
     if have_pumHeaWatPri and have_php and not have_pumPriHdr
     "Primary HW pump start command – Polyvalent HP dedicated pumps"
     annotation(Placement(transformation(extent={{260,180},{300,220}}),
-      iconTransformation(extent={{200,100},{240,140}})));
+      iconTransformation(extent={{200,140},{240,180}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yPumHeaWatPriDedPhp[nPumHeaWatPriDedPhp](
     each final unit="1")
     if have_pumHeaWatPriVar and not have_pumPriHdr and have_php
     "Primary HW pump speed command – Polyvalent HP dedicated pumps"
     annotation(Placement(transformation(extent={{260,0},{300,40}}),
-      iconTransformation(extent={{200,-80},{240,-40}})));
+      iconTransformation(extent={{200,-40},{240,0}})));
   Buildings.Controls.OBC.CDL.Utilities.Assert assMes(message=
         "\"Primary-secondary plants with headered pumps are not supported when both reversible and polyvalent HP are present")
     annotation (Placement(transformation(extent={{210,-430},{230,-410}})));
@@ -2036,6 +2030,29 @@ block AirToWater
     annotation (Placement(transformation(extent={{100,-450},{120,-430}})));
   Buildings.Controls.OBC.CDL.Logical.MultiOr mulOr(nin=3)
     annotation (Placement(transformation(extent={{170,-430},{190,-410}})));
+  Buildings.Controls.OBC.CDL.Logical.TrueFalseHold y1EnaHeaHol[nHp](each
+      trueHoldDuration=1)
+    annotation (Placement(transformation(extent={{100,358},{120,378}})));
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput THeaWatSupPhpSet[nPhp](
+    each final unit="K",
+    each final quantity="ThermodynamicTemperature",
+    each displayUnit="degC") if have_heaWat and have_php
+    "Polyvalent HP HW supply temperature setpoint" annotation (Placement(
+        transformation(extent={{260,-180},{300,-140}}), iconTransformation(
+          extent={{200,-260},{240,-220}})));
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput TChiWatSupPhpSet[nPhp](
+    each final unit="K",
+    each final quantity="ThermodynamicTemperature",
+    each displayUnit="degC") if have_chiWat and have_php
+    "Polyvalent HP CHW supply temperature setpoint" annotation (Placement(
+        transformation(extent={{260,-200},{300,-160}}), iconTransformation(
+          extent={{200,-280},{240,-240}})));
+  Buildings.Controls.OBC.CDL.Routing.RealScalarReplicator repTHeaWatSupPhpSet(final
+      nout=nPhp) if have_heaWat and have_php "Replicate HWST setpoint"
+    annotation (Placement(transformation(extent={{150,-170},{170,-150}})));
+  Buildings.Controls.OBC.CDL.Routing.RealScalarReplicator repTChiWatSupPhpSet(final
+      nout=nPhp) if have_chiWat and have_php "Replicate CHWST setpoint"
+    annotation (Placement(transformation(extent={{210,-190},{230,-170}})));
 equation
   connect(u1Php_actual, sorRunTimPhp.u1Run)
     annotation(Line(points={{-280,440},{-180,440},{-180,466},{-152,466}},
@@ -2407,18 +2424,16 @@ equation
   connect(dpChiWatLoc, ctlPumChiWatSec.dpLoc)
     annotation(Line(points={{-280,-320},{184,-320},{184,-16},{188,-16}},
       color={0,0,127}));
-  connect(resChiWat.TSupSet, repTChiWatSupSet.u)
-    annotation(Line(points={{72,-46},{116,-46},{116,-120},{198,-120}},
-      color={0,0,127}));
-  connect(resHeaWat.TSupSet, repTHeaWatSupSet.u)
-    annotation(Line(points={{72,234},{118,234},{118,-100},{148,-100}},
-      color={0,0,127}));
+  connect(resChiWat.TSupSet, repTChiWatSupHpSet.u) annotation (Line(points={{72,
+          -46},{116,-46},{116,-140},{208,-140}}, color={0,0,127}));
+  connect(resHeaWat.TSupSet, repTHeaWatSupHpSet.u) annotation (Line(points={{72,
+          234},{118,234},{118,-120},{150,-120}}, color={0,0,127}));
   connect(resChiWat.TSupSet, TChiWatSupSet)
     annotation(Line(
-      points={{72,-46},{116,-46},{116,-162},{188,-162},{188,-180},{280,-180}},
+      points={{72,-46},{116,-46},{116,-202},{188,-202},{188,-220},{280,-220}},
       color={0,0,127}));
   connect(resHeaWat.TSupSet, THeaWatSupSet)
-    annotation(Line(points={{72,234},{118,234},{118,-160},{280,-160}},
+    annotation(Line(points={{72,234},{118,234},{118,-200},{280,-200}},
       color={0,0,127}));
   connect(hrc.y1, y1Hrc)
     annotation(Line(points={{222,-296},{240,-296},{240,-280},{280,-280}},
@@ -2433,10 +2448,10 @@ equation
     annotation(Line(points={{222,-312},{232,-312},{232,-380},{280,-380}},
       color={255,0,255}));
   connect(TChiWatSupSet, hrc.TChiWatSupSet)
-    annotation(Line(points={{280,-180},{188,-180},{188,-302},{198,-302}},
+    annotation(Line(points={{280,-220},{188,-220},{188,-302},{198,-302}},
       color={0,0,127}));
   connect(THeaWatSupSet, hrc.THeaWatSupSet)
-    annotation(Line(points={{280,-160},{186,-160},{186,-312},{198,-312}},
+    annotation(Line(points={{280,-200},{186,-200},{186,-312},{198,-312}},
       color={0,0,127}));
   connect(enaCoo.y1, hrc.u1Coo)
     annotation(Line(points={{-88,100},{-80,100},{-80,-290},{198,-290}},
@@ -2608,10 +2623,10 @@ equation
     annotation(Line(points={{-280,20},{-244,20},{-244,198},{138,198}},
       color={0,0,127}));
   connect(ctlFloMin.yValHeaWatMinByp, yValHeaWatMinByp)
-    annotation(Line(points={{224,-240},{240,-240},{240,-220},{280,-220}},
+    annotation(Line(points={{224,-240},{280,-240}},
       color={0,0,127}));
   connect(ctlFloMin.yValChiWatMinByp, yValChiWatMinByp)
-    annotation(Line(points={{224,-244},{242,-244},{242,-240},{280,-240}},
+    annotation(Line(points={{224,-244},{252,-244},{252,-260},{280,-260}},
       color={0,0,127}));
   connect(y1Hp, ctlFloMin.u1Hp)
     annotation(Line(
@@ -2643,7 +2658,8 @@ equation
       color={255,0,255}));
   connect(seqEve.y1ValChiWatOutIso, ctlFloMin.u1ValChiWatOutIso)
     annotation(Line(
-      points={{162,294},{244,294},{244,-172},{198,-172},{198,-229.8},{200,-229.8}},
+      points={{162,294},{246,294},{246,-206},{198,-206},{198,-229.8},{200,
+          -229.8}},
       color={255,0,255}));
   connect(u1PumHeaWatPriDedHp_actual, ctlFloMin.u1PumHeaWatPriDedHp_actual)
     annotation(Line(points={{-280,220},{-258,220},{-258,86},{112,86},{112,
@@ -2682,17 +2698,15 @@ equation
   connect(VHeaWatLoa_flow.y, hrc.VHeaWatLoa_flow)
     annotation(Line(points={{-118,-60},{-98,-60},{-98,-318},{198,-318}},
       color={0,0,127}));
-  connect(repTHeaWatSupSet.y, THeaWatSupHpSet)
-    annotation(Line(points={{172,-100},{226,-100},{226,-120},{280,-120}},
-      color={0,0,127}));
-  connect(repTChiWatSupSet.y, TChiWatSupHpSet)
-    annotation(Line(points={{222,-120},{252,-120},{252,-140},{280,-140}},
-      color={0,0,127}));
+  connect(repTHeaWatSupHpSet.y, THeaWatSupHpSet)
+    annotation (Line(points={{174,-120},{280,-120}}, color={0,0,127}));
+  connect(repTChiWatSupHpSet.y, TChiWatSupHpSet)
+    annotation (Line(points={{232,-140},{280,-140}}, color={0,0,127}));
   connect(TChiWatSupSet, TChiWatSupHrcSet)
-    annotation(Line(points={{280,-180},{250,-180},{250,-340},{280,-340}},
+    annotation(Line(points={{280,-220},{250,-220},{250,-340},{280,-340}},
       color={0,0,127}));
   connect(THeaWatSupSet, THeaWatSupHrcSet)
-    annotation(Line(points={{280,-160},{248,-160},{248,-320},{280,-320}},
+    annotation(Line(points={{280,-200},{248,-200},{248,-320},{280,-320}},
       color={0,0,127}));
   connect(idxStaCoo.y, avaStaHea.uStaOpp)
     annotation(Line(
@@ -2854,18 +2868,28 @@ equation
           160,-417.667},{168,-417.667}}, color={255,0,255}));
   connect(mulOr.y, assMes.u)
     annotation (Line(points={{192,-420},{208,-420}}, color={255,0,255}));
+  connect(enaEquHea.y1Hp, y1EnaHeaHol.u)
+    annotation (Line(points={{62,368},{98,368}}, color={255,0,255}));
+  connect(resChiWat.TSupSet, repTChiWatSupPhpSet.u) annotation (Line(points={{
+          72,-46},{116,-46},{116,-180},{208,-180}}, color={0,0,127}));
+  connect(resHeaWat.TSupSet, repTHeaWatSupPhpSet.u) annotation (Line(points={{
+          72,234},{118,234},{118,-160},{148,-160}}, color={0,0,127}));
+  connect(repTHeaWatSupPhpSet.y, THeaWatSupPhpSet)
+    annotation (Line(points={{172,-160},{280,-160}}, color={0,0,127}));
+  connect(repTChiWatSupPhpSet.y, TChiWatSupPhpSet)
+    annotation (Line(points={{232,-180},{280,-180}}, color={0,0,127}));
 annotation(defaultComponentName="ctl",
   Icon(coordinateSystem(preserveAspectRatio=true,
-    extent={{-200,-440},{200,440}},
+    extent={{-200,-460},{200,460}},
     grid={2,2}),
-    graphics={Rectangle(extent={{-200,440},{200,-440}},
+    graphics={Rectangle(extent={{-200,460},{200,-460}},
       lineColor={0,0,0},
       fillColor={255,255,255},
       fillPattern=FillPattern.Solid),
-    Text(extent={{-150,490},{150,450}},
+    Text(extent={{-150,510},{150,470}},
       textString="%name",
       textColor={0,0,255})}),
-  Diagram(coordinateSystem(extent={{-260,-460},{260,500}},
+  Diagram(coordinateSystem(extent={{-200,-460},{200,460}},
     grid={2,2})),
   Documentation(
     info="<html>

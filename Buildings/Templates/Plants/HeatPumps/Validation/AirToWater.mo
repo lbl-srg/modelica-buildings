@@ -38,11 +38,10 @@ model AirToWater
       origin={-170,-40})));
   Buildings.Templates.Plants.HeatPumps.AirToWater pla(
     redeclare final package MediumHeaWat = Medium,
-    typ=Buildings.Templates.Plants.Controls.Types.PlantHeatPump.Reversible,
+    typ=Buildings.Templates.Plants.Controls.Types.PlantHeatPump.ReversibleHeatRecovery,
     final dat=datAll.pla,
     nHp_select=3,
     is_phpMod=false,
-    nPhp_select=1,
     typArrPumPri_select=Buildings.Templates.Components.Types.PumpArrangement.Dedicated,
     typPumPri_select=Buildings.Templates.Plants.HeatPumps.Types.PumpsPrimary.Constant,
     have_pumPriDedComHp_select=false,

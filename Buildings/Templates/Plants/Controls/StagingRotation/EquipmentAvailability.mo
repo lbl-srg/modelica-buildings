@@ -121,10 +121,6 @@ block EquipmentAvailability
     "Equipment available for simultaneous heating and cooling operation"
     annotation (Placement(transformation(extent={{200,-180},{240,-140}}),
         iconTransformation(extent={{100,-20},{140,20}})));
-  Buildings.Controls.OBC.CDL.Logical.Pre u1EnaCooPre "Left-limit of signal"
-    annotation (Placement(transformation(extent={{-160,-130},{-140,-110}})));
-  Buildings.Controls.OBC.CDL.Logical.Pre u1EnaHeaPre "Left-limit of signal"
-    annotation (Placement(transformation(extent={{-160,-10},{-140,10}})));
 equation
   connect(avaMod.outPort[1], trnToCoo.inPort)
     annotation (Line(points={{-49.5,159.833},{-40,159.833},{-40,120},{-4,120}},
@@ -161,7 +157,7 @@ equation
     annotation (Line(points={{148.5,180},{-80,180},{-80,159.75},{-71,159.75}},
       color={0,0,0}));
   connect(u1Ava, una.u)
-    annotation (Line(points={{-220,-60},{-196,-60},{-196,-80},{-112,-80}},color={255,0,255}));
+    annotation (Line(points={{-220,-60},{-120,-60},{-120,-80},{-112,-80}},color={255,0,255}));
   connect(avaMod.outPort[3], trnToUna.inPort)
     annotation (Line(points={{-49.5,160.167},{-49.5,160},{-40,160},{-40,80},{
           -30,80}},
@@ -212,22 +208,18 @@ equation
     annotation (Line(points={{-192,0},{-220,0}}, color={255,0,255}));
   connect(u1EnaCoo, phCoo.u)
     annotation (Line(points={{-220,-120},{-192,-120}}, color={255,0,255}));
-  connect(u1EnaHeaPre.y, heaAndCoo.u1) annotation (Line(points={{-138,0},{-120,
-          0},{-120,-20},{-112,-20}}, color={255,0,255}));
-  connect(u1EnaHeaPre.y, offOrNotHea.u) annotation (Line(points={{-138,0},{-120,
-          0},{-120,20},{-52,20}}, color={255,0,255}));
-  connect(u1EnaHeaPre.y, trnToHea.condition) annotation (Line(points={{-138,0},
-          {-120,0},{-120,140},{-20,140},{-20,148}}, color={255,0,255}));
-  connect(phHea.y, u1EnaHeaPre.u)
-    annotation (Line(points={{-168,0},{-162,0}}, color={255,0,255}));
-  connect(u1EnaCooPre.y, trnToCoo.condition) annotation (Line(points={{-138,
-          -120},{-130,-120},{-130,100},{0,100},{0,108}}, color={255,0,255}));
-  connect(u1EnaCooPre.y, heaAndCoo.u2) annotation (Line(points={{-138,-120},{
-          -130,-120},{-130,-28},{-112,-28}}, color={255,0,255}));
-  connect(u1EnaCooPre.y, offOrNotCoo.u) annotation (Line(points={{-138,-120},{
-          -130,-120},{-130,-100},{-52,-100}}, color={255,0,255}));
-  connect(phCoo.y, u1EnaCooPre.u)
-    annotation (Line(points={{-168,-120},{-162,-120}}, color={255,0,255}));
+  connect(phHea.y, heaAndCoo.u1) annotation (Line(points={{-168,0},{-120,0},{-120,
+          -20},{-112,-20}},          color={255,0,255}));
+  connect(phHea.y, offOrNotHea.u) annotation (Line(points={{-168,0},{-120,0},{-120,
+          20},{-52,20}},          color={255,0,255}));
+  connect(phHea.y, trnToHea.condition) annotation (Line(points={{-168,0},{-120,0},
+          {-120,140},{-20,140},{-20,148}},          color={255,0,255}));
+  connect(phCoo.y, trnToCoo.condition) annotation (Line(points={{-168,-120},{
+          -130,-120},{-130,100},{0,100},{0,108}},        color={255,0,255}));
+  connect(phCoo.y, heaAndCoo.u2) annotation (Line(points={{-168,-120},{-130,
+          -120},{-130,-28},{-112,-28}},      color={255,0,255}));
+  connect(phCoo.y, offOrNotCoo.u) annotation (Line(points={{-168,-120},{-130,
+          -120},{-130,-100},{-52,-100}},      color={255,0,255}));
   connect(u1Ava, y1Shc) annotation (Line(points={{-220,-60},{160,-60},{160,-160},
           {220,-160}}, color={255,0,255}));
   annotation (
@@ -254,7 +246,6 @@ equation
         extent={{-200,-200},{200,200}})),
     Documentation(
       info="<html>
-FIXME: evaluate impact of using a pre block.
 <p>
 If a heat pump is commanded enabled in either heating or cooling mode,
 it is removed from the staging order of the opposite mode until it has

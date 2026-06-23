@@ -46,7 +46,7 @@ createPlot(
 );
 createPlot(
     id=3,
-    position={615, 5, 300, 500},
+    position={615, 5, 300, 600},
     subPlot=1,
     y={"pla.ctl.ctl.y1Hp[1]", "pla.ctl.ctl.y1Hp[2]", "pla.ctl.ctl.y1Hp[3]"},
     autoscale=true,
@@ -62,10 +62,18 @@ createPlot(
     timeUnit="h"
 );
 createPlot(
+    id=3,
+    subPlot=3,
+    y={"pla.ctl.ctl.y1HeaPhp[1]", "pla.ctl.ctl.y1CooPhp[1]"},
+    autoscale=true,
+    grid=true,
+    timeUnit="h"
+);
+createPlot(
     id=4,
     position={920, 5, 300, 600},
     subPlot=1,
-    y={"pla.ctl.ctl.y1PumHeaWatPri[1]", "pla.ctl.ctl.y1PumHeaWatPri[2]", "pla.ctl.ctl.y1PumHeaWatPri[3]"},
+    y={"pla.ctl.ctl.y1PumHeaWatPriDedHp[1]", "pla.ctl.ctl.y1PumHeaWatPriDedHp[2]", "pla.ctl.ctl.y1PumHeaWatPriDedPhp[1]", "pla.ctl.ctl.y1PumHeaWatPriDedPhp[1]", "pla.ctl.ctl.y1PumChiWatPriDedPhp[1]"},
     autoscale=true,
     grid=true,
     timeUnit="h"
