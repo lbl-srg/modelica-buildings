@@ -64,9 +64,15 @@ partial model Carnot
   parameter Boolean from_dp1=false
     "= true, use m_flow = f(dp) else dp = f(m_flow)"
     annotation (Dialog(tab="Flow resistance", group="Condenser"));
+  parameter Real n1(min=1, max=2) = 2
+    "Flow exponent, n1=1 for laminar, n1=2 for turbulent"
+    annotation(Dialog(tab="Flow resistance", group="Condenser"), Evaluate=true);
   parameter Boolean from_dp2=false
     "= true, use m_flow = f(dp) else dp = f(m_flow)"
     annotation (Dialog(tab="Flow resistance", group="Evaporator"));
+  parameter Real n2(min=1, max=2) = 2
+    "Flow exponent, n2=1 for laminar, n2=2 for turbulent"
+    annotation(Dialog(tab="Flow resistance", group="Evaporator"), Evaluate=true);
 
   parameter Boolean linearizeFlowResistance1=false
     "= true, use linear relation between m_flow and dp for any flow rate"
@@ -390,6 +396,14 @@ and the part load ratio are set up.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+June 17, 2026, by Michael Wetter:<br/>
+Updated implementation to allow a flow coefficient <code>n</code> that is different from <code>2</code>.
+This allows use of the model for not fully turbulent flow.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4620\">Buildings, #4620</a>.
+</li>
+
 <li>
 February 3, 2023, by Michael Wetter:<br/>
 Changed parameter binding

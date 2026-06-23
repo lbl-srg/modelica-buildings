@@ -6,7 +6,7 @@ model PressureDrop
 
   parameter Real n(min=1, max=2) = 2
     "Flow exponent, n=1 for laminar, n=2 for turbulent"
-    annotation(Evaluate=true);
+    annotation(Evaluate=true, Dialog(tab="Advanced"));
 
   parameter Real deltaM(min=1E-6) = 0.3
     "Fraction of nominal mass flow rate where transition to turbulent occurs"
@@ -42,35 +42,47 @@ protected
     "If true, fully turbulent, simpler model, is used"
     annotation(Evaluate=true);
 
-  parameter Real m = 1/n "Flow exponent";
-
-  parameter Real a(fixed=false)
-    "Normalized flow rate where dphi(0)/dpi intersects phi(1), polynomial coefficient for regularized implementation of flow resistance.";
-  parameter Real b(fixed=false)
+  // Coefficients for the power law model, computed once as parameters
+  final parameter Boolean computePowerLaw=
+    computeFlowResistance and not (linearized or fullyLaminar or fullyTurbulent)
+    "Flag, true if the power law model coefficients need to be computed"
+    annotation(Evaluate=true);
+  parameter Modelica.Units.SI.PressureDifference dp_turbulent(
+    displayUnit="Pa", fixed=false)
+    "Pressure difference where turbulent flow occurs";
+  parameter Real m(fixed=false)
+    "Flow exponent for the pressure drop";
+  parameter Real a1(fixed=false)
     "Polynomial coefficient for regularized implementation of flow resistance";
-  parameter Real c(fixed=false)
+  parameter Real a3(fixed=false)
     "Polynomial coefficient for regularized implementation of flow resistance";
-  parameter Real d(fixed=false)
+  parameter Real a5(fixed=false)
     "Polynomial coefficient for regularized implementation of flow resistance";
-
-  parameter Modelica.Units.SI.PressureDifference dp_turbulent(displayUnit="Pa") =
-    dp_nominal * (m_flow_turbulent/m_flow_nominal)^n
-    "Transition to turbulent flow";
+  parameter Real C(fixed=false)
+    "Coefficient 1/k^n, based on the definition k = m_flow / dp^(1/n)";
+  parameter Real b1(fixed=false)
+    "Polynomial coefficient for regularized implementation of flow resistance";
+  parameter Real b3(fixed=false)
+    "Polynomial coefficient for regularized implementation of flow resistance";
+  parameter Real b5(fixed=false)
+    "Polynomial coefficient for regularized implementation of flow resistance";
 
 initial equation
-  if fullyTurbulent or fullyLaminar then
-    a = 0;
-    b = 0;
-    c = 0;
-    d = 0;
-  else
-    a = 1.5;
-    b = 1/8*m^2 - 3*a - 3/2*m + 35.0/8;
-    c = -1/4*m^2 + 3*a + 5/2*m - 21.0/4;
-    d = 1/8*m^2 - a - m + 15.0/8;
-  end if;
-
-
+ if computePowerLaw then
+   (dp_turbulent, m, a1, a3, a5, C, b1, b3, b5) =
+     Buildings.Fluid.BaseClasses.FlowModels.powerLawData(
+       k=k, n=n, m_flow_turbulent=m_flow_turbulent);
+ else
+   dp_turbulent = 0;
+   m = 1/n;
+   a1 = 0;
+   a3 = 0;
+   a5 = 0;
+   C = 0;
+   b1 = 0;
+   b3 = 0;
+   b5 = 0;
+ end if;
  if computeFlowResistance then
    assert(m_flow_turbulent > 0, "m_flow_turbulent must be bigger than zero.");
  end if;
@@ -120,15 +132,37 @@ equation
       else
         // Case for n < 2.
         if homotopyInitialization then
+          if from_dp then
             m_flow=homotopy(
-              actual=Buildings.Fluid.BaseClasses.FlowModels.powerLawFixedM(
-                k=k, dp=dp, m=m, a=a, b=b, c=c, d=d,
-                dp_turbulent=dp_turbulent),
+              actual=Buildings.Fluid.BaseClasses.FlowModels.powerLaw_dp(
+                dp=dp, k=k, n=n,
+                m_flow_turbulent=m_flow_turbulent,
+                dp_turbulent=dp_turbulent, m=m, a1=a1, a3=a3, a5=a5,
+                C=C, b1=b1, b3=b3, b5=b5),
               simplified=m_flow_nominal_pos*dp/dp_nominal_pos);
+          else
+            dp = homotopy(
+              actual=Buildings.Fluid.BaseClasses.FlowModels.powerLaw_m_flow(
+                m_flow=m_flow, k=k, n=n,
+                m_flow_turbulent=m_flow_turbulent,
+                dp_turbulent=dp_turbulent, m=m, a1=a1, a3=a3, a5=a5,
+                C=C, b1=b1, b3=b3, b5=b5),
+              simplified=dp_nominal_pos*m_flow/m_flow_nominal_pos);
+          end if; // from_dp
         else // do not use homotopy
-          m_flow=Buildings.Fluid.BaseClasses.FlowModels.powerLawFixedM(
-                k=k, dp=dp, m=m, a=a, b=b, c=c, d=d,
-                dp_turbulent=dp_turbulent);
+          if from_dp then
+            m_flow=Buildings.Fluid.BaseClasses.FlowModels.powerLaw_dp(
+                dp=dp, k=k, n=n,
+                m_flow_turbulent=m_flow_turbulent,
+                dp_turbulent=dp_turbulent, m=m, a1=a1, a3=a3, a5=a5,
+                C=C, b1=b1, b3=b3, b5=b5);
+          else
+            dp=Buildings.Fluid.BaseClasses.FlowModels.powerLaw_m_flow(
+                m_flow=m_flow, k=k, n=n,
+                m_flow_turbulent=m_flow_turbulent,
+                dp_turbulent=dp_turbulent, m=m, a1=a1, a3=a3, a5=a5,
+                C=C, b1=b1, b3=b3, b5=b5);
+          end if; // from_dp
         end if; // homotopyInitialization
       end if;
     end if; // linearized
@@ -247,8 +281,8 @@ and its inverse function.
 <p>
 For other values of <code>n</code>, a computationally more expensive implementation is used
 through a call of the function
-<a href=\"modelica://Buildings.Fluid.BaseClasses.FlowModels.powerLawFixedM\">
-Buildings.Fluid.BaseClasses.FlowModels.powerLawFixedM</a>.
+<a href=\"modelica://Buildings.Fluid.BaseClasses.FlowModels.powerLaw_dp\">
+Buildings.Fluid.BaseClasses.FlowModels.powerLaw_dp</a>.
 </p>
 <p>
 To decouple the energy equation from the mass equations,
@@ -263,7 +297,7 @@ May 30, 2026, by Michael Wetter:<br/>
 Updated implementation to allow a flow coefficient <code>n</code> that is different from <code>2</code>.
 This allows use of the model for not fully turbulent flow.<br/>
 This is for
-<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4620\">#4620</a>.
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4620\">Buildings, #4620</a>.
 </li>
 <li>
 March 31, 2026, by Michael Wetter:<br/>
