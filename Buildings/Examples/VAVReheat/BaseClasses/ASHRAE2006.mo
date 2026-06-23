@@ -110,13 +110,13 @@ equation
       color={255,204,51},
       thickness=0.5,
       smooth=Smooth.None), Text(
-      textString="%first",
+      string="%first",
       index=-1,
       extent={{-6,3},{-6,3}}));
   connect(TRooAve.y, controlBus.TRooAve) annotation (Line(
       points={{-319,240},{-240,240},{-240,-340}},
       color={0,0,127}),          Text(
-      textString="%second",
+      string="%second",
       index=1,
       extent={{6,3},{6,3}}));
   connect(TRet.T, conEco.TRet) annotation (Line(
@@ -150,19 +150,19 @@ equation
       points={{-299,-204},{-240,-204},{-240,-340}},
       color={0,0,127},
       smooth=Smooth.None), Text(
-      textString="%second",
+      string="%second",
       index=1,
       extent={{6,3},{6,3}}));
   connect(occSch.occupied, controlBus.occupied) annotation (Line(
       points={{-299,-216},{-240,-216},{-240,-340}},
       color={255,0,255},
       smooth=Smooth.None), Text(
-      textString="%second",
+      string="%second",
       index=1,
       extent={{6,3},{6,3}}));
   connect(TOut.y, controlBus.TOut) annotation (Line(points={{-279,180},{-240,180},
           {-240,-340}},                            color={0,0,127}), Text(
-      textString="%second",
+      string="%second",
       index=1,
       extent={{6,3},{6,3}}));
   connect(conEco.controlBus, controlBus) annotation (Line(

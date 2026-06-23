@@ -750,13 +750,13 @@ equation
   connect(tWetBul_TDryBulXi.TWetBul, weaBus.TWetBul) annotation (Line(
       points={{261,-50},{280,-50},{280,0},{300,0}},
       color={0,0,127}), Text(
-      textString="%second",
+      string="%second",
       index=1,
       extent={{6,3},{6,3}}));
 
   connect(limRelHum.relHum, weaBus.relHum) annotation (Line(points={{181,30},{280,30},
           {280,0},{300,0}}, color={0,0,127}), Text(
-      textString="%second",
+      string="%second",
       index=1,
       extent={{6,3},{6,3}}));
 
@@ -804,7 +804,7 @@ equation
   connect(limWinDir.winDir, weaBus.winDir) annotation (Line(points={{181,-270},
           {300.05,-270},{300.05,0.05}},
                                   color={0,0,127}), Text(
-      textString="%second",
+      string="%second",
       index=1,
       extent={{6,3},{6,3}}));
 
@@ -817,26 +817,26 @@ equation
 
   connect(limTotSkyCov.nTot, weaBus.nTot) annotation (Line(points={{181,-30},{220,
           -30},{220,0},{300,0}}, color={0,0,127}), Text(
-      textString="%second",
+      string="%second",
       index=1,
       extent={{6,3},{6,3}}));
   connect(limOpaSkyCov.nOpa, weaBus.nOpa) annotation (Line(points={{181,-150},{220,
           -150},{220,0},{300,0}}, color={0,0,127}), Text(
-      textString="%second",
+      string="%second",
       index=1,
       extent={{6,3},{6,3}}));
 
   connect(modTim.y, weaBus.cloTim) annotation (Line(
       points={{-139,6.10623e-16},{34.75,6.10623e-16},{34.75,0},{300,0}},
       color={0,0,127}), Text(
-      textString="%second",
+      string="%second",
       index=1,
       extent={{6,3},{6,3}}));
 
   connect(solTim.solTim, weaBus.solTim) annotation (Line(
       points={{-67,-130},{-10,-130},{-10,0},{300,0}},
       color={0,0,127}), Text(
-      textString="%second",
+      string="%second",
       index=1,
       extent={{6,3},{6,3}}));
 

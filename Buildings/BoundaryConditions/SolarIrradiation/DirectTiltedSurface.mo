@@ -29,7 +29,7 @@ equation
       points={{-100,5.55112e-16},{-80,5.55112e-16},{-80,12},{-4,12}},
       color={255,204,51},
       thickness=0.5), Text(
-      textString="%first",
+      string="%first",
       index=-1,
       extent={{-6,3},{-6,3}}));
   connect(incAng.y, inc) annotation (Line(
@@ -44,7 +44,7 @@ equation
       points={{-100,5.55112e-16},{-80,5.55112e-16},{-80,-20},{-50,-20}},
       color={255,204,51},
       thickness=0.5), Text(
-      textString="%first",
+      string="%first",
       index=-1,
       extent={{-6,3},{-6,3}}));
   annotation (
