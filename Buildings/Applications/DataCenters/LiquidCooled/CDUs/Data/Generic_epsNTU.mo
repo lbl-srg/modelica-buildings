@@ -146,17 +146,21 @@ record Generic_epsNTU
     annotation (Dialog(tab="Dynamics", group="Pump"));
 
   parameter Real r_nominal(min=0)=
-      (kPla_default * (mPla_flow_nominal/etaPla_default)^nPla * PrPla_default^(1/3)) /
-      (kRac_default * (mRac_flow_nominal/etaRac_default)^nRac * PrRac_default^(1/3))
+    (kPla_default * (mPla_flow_nominal/etaPla_default)^nConPla * PrPla_default^(1/3)) /
+    (kRac_default * (mRac_flow_nominal/etaRac_default)^nConRac * PrRac_default^(1/3))
     "Ratio between convective heat transfer coefficients at nominal conditions, r_nominal = hAPla_nominal/hARac_nominal"
     annotation(Dialog(tab="Advanced", group="Heat transfer coefficients"));
 
-  parameter Real nPla(min=0, max=1)=0.8
-    "Exponent for convective heat transfer coefficient, h~m_flow^n"
+  parameter Real nConPla(
+    min=0,
+    max=1) = 0.8
+    "Exponent for convective heat transfer coefficient, h~m_flow^nCon"
     annotation(Dialog(tab="Advanced", group="Heat transfer coefficients"));
-  parameter Real nRac(min=0, max=1)=nPla
-   "Exponent for convective heat transfer coefficient, h~m_flow^n"
-   annotation(Dialog(tab="Advanced", group="Heat transfer coefficients"));
+  parameter Real nConRac(
+    min=0,
+    max=1) = nConPla
+    "Exponent for convective heat transfer coefficient, h~m_flow^nCon"
+    annotation (Dialog(tab="Advanced", group="Heat transfer coefficients"));
 
   final parameter Modelica.Units.SI.ThermalConductance CPla_flow_nominal=
     mPla_flow_nominal * cpPla_default

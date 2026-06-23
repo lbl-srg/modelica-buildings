@@ -1,7 +1,8 @@
 within Buildings.Applications.DataCenters.LiquidCooled.CDUs;
 model CDU_epsNTU "CDU using epsilon-NTU for heat transfer"
-  extends Buildings.Applications.DataCenters.LiquidCooled.CDUs.BaseClasses.PartialCDU(
-    redeclare Fluid.HeatExchangers.PlateHeatExchangerEffectivenessNTU hex(
+  extends
+    Buildings.Applications.DataCenters.LiquidCooled.CDUs.BaseClasses.PartialCDU(
+      redeclare Fluid.HeatExchangers.PlateHeatExchangerEffectivenessNTU hex(
       final from_dp1=from_dpPla,
       final dp1_nominal=dat.dpHexPla_nominal,
       final linearizeFlowResistance1=linearizeFlowResistancePla,
@@ -16,9 +17,8 @@ model CDU_epsNTU "CDU using epsilon-NTU for heat transfer"
       final T_a1_nominal=dat.TPlaIn_nominal,
       final T_a2_nominal=dat.TRacIn_nominal,
       final r_nominal=dat.r_nominal,
-      final n1=dat.nPla,
-      final n2=dat.nRac)
-    );
+      final nCon1=dat.nConPla,
+      final nCon2=dat.nConRac));
 
   annotation (
   defaultComponentName="cdu",
