@@ -1,0 +1,18 @@
+simulateModel("Buildings.Controls.OBC.RadiantSystems.CoolingAndHeating.Lockouts.SubLockouts.Validation.ChilledWaterReturnLockout", startTime=0.0, stopTime=172800.0, method="cvode",  tolerance=1E-06, resultFile="ChilledWaterReturnLockout");
+createPlot(id=1, position={15, 10, 924, 583},
+ y={"chwRetLim.TSlaRet","chwRetLim.TSlaRet"}, 
+ range={0.0, 172000.0, 250, 320},
+ autoscale = true,
+ autoerase = true,
+ autoreplot = true,
+ grid=true,
+ color=true);
+createPlot(id=1, position={15, 10, 924, 294},
+ y={"chwRetLim.yCooTChiWatRetLim"}, 
+ range={0.0, 172000.0, 0, 1},
+ autoscale = true,
+ autoerase = true,
+ autoreplot = true,
+ grid=true,
+ color=true,
+ subPlot=2);
