@@ -76,7 +76,7 @@ equation
       points={{-79,80},{-79,60},{-140,60},{-140,19.0769},{-122,19.0769}},
       color={255,204,51},
       thickness=0.5), Text(
-      textString="%first",
+      string="%first",
       index=-1,
       extent={{-6,3},{-6,3}},
       horizontalAlignment=TextAlignment.Right));

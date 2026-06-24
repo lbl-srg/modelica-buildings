@@ -564,42 +564,42 @@ equation
       color={255,204,51},
       thickness=0.5,
       smooth=Smooth.None), Text(
-      textString="%first",
+      string="%first",
       index=-1,
       extent={{-6,3},{-6,3}}));
   connect(occSch.tNexOcc, controlBus.dTNexOcc) annotation (Line(
       points={{-297,-204},{-240,-204},{-240,-260}},
       color={0,0,127},
       smooth=Smooth.None), Text(
-      textString="%second",
+      string="%second",
       index=1,
       extent={{6,3},{6,3}}));
   connect(TOut.y, controlBus.TOut) annotation (Line(
       points={{-299,180},{-240,180},{-240,-260}},
       color={0,0,127},
       smooth=Smooth.None), Text(
-      textString="%second",
+      string="%second",
       index=1,
       extent={{6,3},{6,3}}));
   connect(occSch.occupied, controlBus.occupied) annotation (Line(
       points={{-297,-216},{-240,-216},{-240,-260}},
       color={255,0,255},
       smooth=Smooth.None), Text(
-      textString="%second",
+      string="%second",
       index=1,
       extent={{6,3},{6,3}}));
   connect(min.y, controlBus.TRooMin) annotation (Line(
       points={{1221,450},{1248,450},{1248,-260},{-240,-260}},
       color={0,0,127},
       smooth=Smooth.None), Text(
-      textString="%second",
+      string="%second",
       index=1,
       extent={{6,3},{6,3}}));
   connect(ave.y, controlBus.TRooAve) annotation (Line(
       points={{1221,420},{1248,420},{1248,-260},{-240,-260}},
       color={0,0,127},
       smooth=Smooth.None), Text(
-      textString="%second",
+      string="%second",
       index=1,
       extent={{6,3},{6,3}}));
   connect(TRet.T, conEco.TRet) annotation (Line(
@@ -615,7 +615,7 @@ equation
       color={255,204,51},
       thickness=0.5,
       smooth=Smooth.None), Text(
-      textString="%first",
+      string="%first",
       index=-1,
       extent={{-6,3},{-6,3}}));
   connect(TSetRoo.controlBus, controlBus) annotation (Line(
@@ -633,7 +633,7 @@ equation
       color={255,204,51},
       thickness=0.5,
       smooth=Smooth.None), Text(
-      textString="%second",
+      string="%second",
       index=1,
       extent={{6,3},{6,3}}));
   connect(sou.controlBus, controlBus) annotation (Line(
@@ -642,7 +642,7 @@ equation
       color={255,204,51},
       thickness=0.5,
       smooth=Smooth.None), Text(
-      textString="%second",
+      string="%second",
       index=1,
       extent={{6,3},{6,3}}));
   connect(eas.controlBus, controlBus) annotation (Line(
@@ -651,7 +651,7 @@ equation
       color={255,204,51},
       thickness=0.5,
       smooth=Smooth.None), Text(
-      textString="%second",
+      string="%second",
       index=1,
       extent={{6,3},{6,3}}));
   connect(nor.controlBus, controlBus) annotation (Line(
@@ -660,7 +660,7 @@ equation
       color={255,204,51},
       thickness=0.5,
       smooth=Smooth.None), Text(
-      textString="%second",
+      string="%second",
       index=1,
       extent={{6,3},{6,3}}));
   connect(wes.controlBus, controlBus) annotation (Line(
@@ -669,7 +669,7 @@ equation
       color={255,204,51},
       thickness=0.5,
       smooth=Smooth.None), Text(
-      textString="%second",
+      string="%second",
       index=1,
       extent={{6,3},{6,3}}));
   connect(conEco.yOA, eco.y) annotation (Line(
@@ -1008,7 +1008,7 @@ equation
       color={255,204,51},
       thickness=0.5,
       smooth=Smooth.None), Text(
-      textString="%first",
+      string="%first",
       index=-1,
       extent={{-6,3},{-6,3}}));
   connect(conFanRet.y, fanRet.y) annotation (Line(
