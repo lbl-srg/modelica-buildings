@@ -243,12 +243,15 @@ def simulate_cases(args, simulator, all_experiment_attributes, asy=False):
     ]
     results = []
     pool = Pool(os.cpu_count())
-    if asy:
-        results = pool.starmap_async(simulate_case, args_with_fixed)
-    else:
-        results = pool.starmap(simulate_case, args_with_fixed)
-    pool.close()
-    pool.join()
+    # 'with Pool' shall not be used: Pool.__exit__ calls terminate(), killing workers still running after starmap_async returns.
+    try:  # Exception safety: ensure close()+join() even if starmap raises
+        if asy:
+            results = pool.starmap_async(simulate_case, args_with_fixed)
+        else:
+            results = pool.starmap(simulate_case, args_with_fixed)
+    finally:
+        pool.close()
+        pool.join()
 
     return results
 
