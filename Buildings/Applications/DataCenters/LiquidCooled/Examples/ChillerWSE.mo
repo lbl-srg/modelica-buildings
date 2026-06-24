@@ -193,7 +193,7 @@ model ChillerWSE
         ModelicaServices.ExternalReferences.loadResource("modelica://Buildings/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos"),
       computeWetBulbTemperature=false) "Weather data reader"
     annotation (Placement(transformation(extent={{-122,640},{-102,660}})));
-  BoundaryConditions.WeatherData.Bus weaBus
+  BoundaryConditions.WeatherData.Bus weaBus "Weather data bus"
     annotation (Placement(transformation(extent={{-72,640},{-52,660}}),
         iconTransformation(extent={{-176,140},{-156,160}})));
   Fluid.Movers.Preconfigured.SpeedControlled_y pumEva(
