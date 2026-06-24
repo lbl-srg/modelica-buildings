@@ -430,16 +430,7 @@ model ChillerWSE
   Modelica.Blocks.Sources.RealExpression PIT(y(final unit="W") = rac.P)
     "Power consumption of IT"
     annotation (Placement(transformation(extent={{360,-72},{380,-52}})));
-  model ElectricalEnergyMeter
-    extends Modelica.Blocks.Continuous.Integrator(
-      u(final unit="W"),
-      y(final unit="J",
-        displayUnit="Wh"),
-      final k = 1,
-      final use_reset=false,
-      final initType=Modelica.Blocks.Types.Init.InitialState,
-      y_start=0);
-  end ElectricalEnergyMeter;
+
   ElectricalEnergyMeter EFan "Energy meter"
     annotation (Placement(transformation(extent={{400,48},{420,68}})));
   ElectricalEnergyMeter EPum "Energy meter"
