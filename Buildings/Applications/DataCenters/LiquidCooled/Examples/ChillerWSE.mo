@@ -21,7 +21,7 @@ model ChillerWSE
 
   parameter Modelica.Units.SI.Power PRac = 1E6
     "Total rack design power";
-  parameter Real fraWSE = 0.9 "Fraction of peak load covered by water side economizer";
+  parameter Real fraWSE = 0.6 "Fraction of peak load covered by water side economizer";
   parameter Real fraChi = 1-fraWSE "Fraction of peak load covered by chiller";
 
   constant Modelica.Units.SI.TemperatureDifference dTRac_nominal(max=0) = -5
@@ -389,24 +389,18 @@ model ChillerWSE
       final unit="K",
       displayUnit="degC") =TPlaSup_nominal)
     "Set point temperature for evaporator outlet temperature"
-    annotation (Placement(transformation(extent={{-560,340},{-540,360}})));
+    annotation (Placement(transformation(extent={{-568,380},{-548,400}})));
   Controls.OBC.CDL.Reals.Sources.Constant pSetChiWatPum(
     y(final unit="Pa"), k(final unit="Pa") = datCDU.dpHexPla_nominal + datCDU.dpValve_nominal)
     "Pressure setpoint for chilled water pump"
     annotation (Placement(transformation(extent={{160,160},{180,180}})));
   Controls.OBC.CDL.Reals.Hysteresis hysChi(
-    uLow=1.1,
-    uHigh=1.2,
+    uLow=0,
+    uHigh=1,
     u(final unit="K")) "Hysteresis for chiller staging"
     annotation (Placement(transformation(extent={{-400,250},{-380,270}})));
-  Controls.OBC.CDL.Reals.Subtract TAppWSE1(
-    u1(final unit="K", displayUnit="degC"),
-    u2(final unit="K", displayUnit="degC"),
-    y(final unit="K"))
-   "Approach temperature for economizer"
-    annotation (Placement(transformation(extent={{-440,200},{-420,220}})));
-  Controls.OBC.CDL.Conversions.BooleanToReal yPumChi(y(final unit="kg/s"),
-      realTrue(final unit="kg/s"))
+  Controls.OBC.CDL.Conversions.BooleanToReal yPumChi(y(final unit="1"),
+      realTrue(final unit="1"))
     "Control signal for chiller circulation pumps"
     annotation (Placement(transformation(extent={{-300,250},{-280,270}})));
   Fluid.Sources.Boundary_pT bou1(
@@ -414,9 +408,10 @@ model ChillerWSE
     p(displayUnit="Pa") = 300000,
     nPorts=1)   "Pressure boundary condition"
     annotation (Placement(transformation(extent={{248,610},{228,630}})));
-  Controls.OBC.CDL.Reals.AddParameter TOffSet(p=0)
-    "Offset for set point (for testing only)"
-    annotation (Placement(transformation(extent={{-530,340},{-510,360}})));
+  Controls.OBC.CDL.Reals.AddParameter TOffSet(
+    p=-1,
+    y(final unit="K", displayUnit="degC")) "Offset for set point"
+    annotation (Placement(transformation(extent={{-530,380},{-510,400}})));
   Modelica.Blocks.Sources.RealExpression PFan(y(final unit="W") = cooTow.PFan)
     "Power consumption of tower fans"
     annotation (Placement(transformation(extent={{360,48},{380,68}})));
@@ -431,13 +426,13 @@ model ChillerWSE
     "Power consumption of IT"
     annotation (Placement(transformation(extent={{360,-72},{380,-52}})));
 
-  ElectricalEnergyMeter EFan "Energy meter"
+  BaseClasses.ElectricalEnergyMeter EFan "Energy meter"
     annotation (Placement(transformation(extent={{400,48},{420,68}})));
-  ElectricalEnergyMeter EPum "Energy meter"
+  BaseClasses.ElectricalEnergyMeter EPum "Energy meter"
     annotation (Placement(transformation(extent={{400,8},{420,28}})));
-  ElectricalEnergyMeter EChi "Energy meter"
+  BaseClasses.ElectricalEnergyMeter EChi "Energy meter"
     annotation (Placement(transformation(extent={{400,-32},{420,-12}})));
-  ElectricalEnergyMeter EPIT(y_start=1E-10)
+  BaseClasses.ElectricalEnergyMeter EPIT(y_start=1E-10)
                              "Energy meter"
     annotation (Placement(transformation(extent={{400,-72},{420,-52}})));
   Modelica.Blocks.Math.MultiSum EFac(nu=4) "Electricity for facility"
@@ -535,7 +530,7 @@ model ChillerWSE
     tau=0) "Inlet water temperature of tower"
     annotation (Placement(transformation(extent={{-80,610},{-60,630}})));
 
-  Controls.OBC.CDL.Reals.AddParameter TOffSetWSE(p=0)
+  Controls.OBC.CDL.Reals.AddParameter TOffSetWSE(p=-1)
     "Offset for set point for WSE control"
     annotation (Placement(transformation(extent={{20,700},{40,720}})));
   Fluid.Sensors.MassFlowRate senMasFloByEco(redeclare package Medium =
@@ -568,7 +563,7 @@ model ChillerWSE
     annotation (Placement(transformation(extent={{-400,590},{-380,610}})));
   Controls.OBC.CDL.Reals.Sources.Constant zer1(k=0)
              "Zero as a set point"
-    annotation (Placement(transformation(extent={{180,460},{200,480}})));
+    annotation (Placement(transformation(extent={{200,460},{220,480}})));
   Controls.OBC.CDL.Reals.PID conEcoTow(
     k=1,
     yMin=0.1,
@@ -579,7 +574,7 @@ model ChillerWSE
     r=mWSETow_flow_nominal,
     xi_start=1,
     reverseActing=false) "Controller for economizer pump on tower loop"
-    annotation (Placement(transformation(extent={{220,460},{240,480}})));
+    annotation (Placement(transformation(extent={{240,460},{260,480}})));
   Controls.OBC.CDL.Reals.Sources.Constant TSetTowRet(y(final unit="K",
         displayUnit="degC"), k(
       final unit="K",
@@ -598,6 +593,11 @@ model ChillerWSE
     xi_start=1,
     reverseActing=false) "Controller for tower pump"
     annotation (Placement(transformation(extent={{-480,590},{-460,610}})));
+  Controls.OBC.CDL.Reals.Subtract errTFre(
+    u1(final unit="K", displayUnit="degC"),
+    u2(final unit="K", displayUnit="degC"))
+    "Temperature error after free cooling"
+    annotation (Placement(transformation(extent={{-440,260},{-420,280}})));
 protected
   final parameter MediumAir.ThermodynamicState staAir_default=MediumAir.setState_pTX(
       T=MediumAir.T_default,
@@ -613,32 +613,11 @@ protected
     X=MediumChi.X_default[1:MediumChi.nXi]) "Default state for chiller loop fluid";
 
 public
-  Fluid.HeatExchangers.SensibleCooler_T fixme(
-    redeclare package Medium = MediumRac,
-    m_flow_nominal=mRac_flow_nominal,
-    show_T=true,
-    dp_nominal=0,
-    energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState)
-    annotation (Placement(transformation(extent={{-104,-72},{-84,-52}})));
-  Controls.OBC.CDL.Reals.Sources.Constant TSetRacIn1(y(final unit="K",
-        displayUnit="degC"), k(
-      final unit="K",
-      displayUnit="degC") = TRacSup_nominal)
-    "Set point for rack inlet temperature"
-    annotation (Placement(transformation(extent={{-190,-62},{-170,-42}})));
-  Fluid.HeatExchangers.SensibleCooler_T fixme1(
-    redeclare package Medium = MediumChi,
-    m_flow_nominal=mPla_flow_nominal,
-    show_T=true,
-    dp_nominal=0,
-    energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState)
-    annotation (Placement(transformation(extent={{-196,110},{-176,130}})));
-  Controls.OBC.CDL.Reals.Sources.Constant TSetRacIn2(y(final unit="K",
-        displayUnit="degC"), k(
-      final unit="K",
-      displayUnit="degC") = TPlaSup_nominal)
-    "Set point for rack inlet temperature"
-    annotation (Placement(transformation(extent={{-282,120},{-262,140}})));
+  Controls.OBC.CDL.Reals.Limiter yFanTow(uMax=1, uMin=0.1)
+    "Tower fan control signal based on economizer leaving temperature"
+    annotation (Placement(transformation(extent={{-400,680},{-380,700}})));
+  Controls.OBC.CDL.Reals.Max yTowFan "Fan control signal"
+    annotation (Placement(transformation(extent={{100,686},{120,706}})));
 protected
   parameter Modelica.Units.SI.SpecificHeatCapacity cpAir_default=
       MediumAir.specificHeatCapacityCp(staAir_default)
@@ -721,10 +700,8 @@ equation
     annotation (Line(points={{-378,260},{-302,260}}, color={255,0,255}));
   connect(senTTow_b.port_b, bou1.ports[1])
     annotation (Line(points={{80,620},{228,620}}, color={0,127,255}));
-  connect(TOffSet.y, chi.TSet) annotation (Line(points={{-508,350},{-108,350},{-108,
-          340},{-118,340}}, color={0,0,127}));
   connect(TOffSet.u, TSetEva.y)
-    annotation (Line(points={{-532,350},{-538,350}}, color={0,0,127}));
+    annotation (Line(points={{-532,390},{-546,390}}, color={0,0,127}));
   connect(PFan.y, EFan.u)
     annotation (Line(points={{381,58},{398,58}},   color={0,0,127}));
   connect(PPum.y, EPum.u)
@@ -781,10 +758,6 @@ equation
           {-130,472}}, color={0,0,127}));
   connect(invValSig.u, conPIDCon.y) annotation (Line(points={{-322,480},{-330,480},
           {-330,430},{-338,430}}, color={0,0,127}));
-  connect(senTEvaIn.T, TAppWSE1.u1) annotation (Line(points={{-10,231},{-10,240},
-          {-470,240},{-470,216},{-442,216}}, color={0,0,127}));
-  connect(TOffSet.y, TAppWSE1.u2) annotation (Line(points={{-508,350},{-500,350},
-          {-500,204},{-442,204}}, color={0,0,127}));
   connect(pumEva.y, yPumChi.y) annotation (Line(points={{-68,290},{-60,290},{-60,
           260},{-278,260}}, color={0,0,127}));
   connect(pumCon.y, yPumChi.y) annotation (Line(points={{-68,420},{-60,420},{-60,
@@ -820,11 +793,11 @@ equation
   connect(senMasFlo3.port_a, jun1.port_2)
     annotation (Line(points={{120,540},{150,540}}, color={0,127,255}));
   connect(zer1.y, conEcoTow.u_s)
-    annotation (Line(points={{202,470},{218,470}}, color={0,0,127}));
-  connect(conEcoTow.y, pumWSECW.y) annotation (Line(points={{242,470},{248,470},
-          {248,420},{172,420}}, color={0,0,127}));
-  connect(conEcoTow.u_m, senMasFlo3.m_flow) annotation (Line(points={{230,458},{
-          230,448},{212,448},{212,560},{110,560},{110,551}}, color={0,0,127}));
+    annotation (Line(points={{222,470},{238,470}}, color={0,0,127}));
+  connect(conEcoTow.y, pumWSECW.y) annotation (Line(points={{262,470},{272,470},
+          {272,420},{172,420}}, color={0,0,127}));
+  connect(conEcoTow.u_m, senMasFlo3.m_flow) annotation (Line(points={{250,458},{
+          250,452},{190,452},{190,564},{110,564},{110,551}}, color={0,0,127}));
   connect(jun8.port_2, pumTow.port_a) annotation (Line(points={{-190,540},{-220,
           540},{-220,590}}, color={0,127,255}));
   connect(jun6.port_3, senTWSE_b1.port_b)
@@ -837,14 +810,11 @@ equation
     annotation (Line(points={{70,698},{70,631}}, color={0,0,127}));
   connect(TSetTowRet.y, TOffSetWSE.u)
     annotation (Line(points={{2,710},{18,710}}, color={0,0,127}));
-  connect(conTow.y, cooTow.y) annotation (Line(points={{82,710},{88,710},{88,670},
-          {-28,670},{-28,627.1},{-11.9,627.1}}, color={0,0,127}));
-  connect(conPumTow.u_s, TOffSet.y) annotation (Line(points={{-482,600},{-494,600},
-          {-494,350},{-508,350}}, color={0,0,127}));
+  connect(conPumTow.u_s, TOffSet.y) annotation (Line(points={{-482,600},{-496,
+          600},{-496,390},{-508,390}},
+                                  color={0,0,127}));
   connect(conPumTow.u_m, senTEvaIn.T) annotation (Line(points={{-470,588},{-470,
           240},{-10,240},{-10,231}}, color={0,0,127}));
-  connect(conPumTow.y, hysChi.u) annotation (Line(points={{-458,600},{-450,600},
-          {-450,260},{-402,260}}, color={0,0,127}));
   connect(conPumTow.y, yPumTow.u)
     annotation (Line(points={{-458,600},{-402,600}}, color={0,0,127}));
   connect(dpSet.y, cdu.dpSet) annotation (Line(points={{-78,60},{-28,60},{-28,
@@ -852,18 +822,26 @@ equation
                      color={0,0,127}));
   connect(TSetRacIn.y, cdu.TSet) annotation (Line(points={{-78,90},{-24,90},{
           -24,42},{-12,42}}, color={0,0,127}));
-  connect(fixme.port_b, rac.port_a) annotation (Line(points={{-84,-62},{-48,-62},
-          {-48,-60},{-10,-60}}, color={0,127,255}));
-  connect(fixme.port_a, senTRac_a.port_b) annotation (Line(points={{-104,-62},{-134,
-          -62},{-134,34},{-60,34}}, color={0,127,255}));
-  connect(TSetRacIn1.y, fixme.TSet) annotation (Line(points={{-168,-52},{-138,-52},
-          {-138,-54},{-106,-54}}, color={0,0,127}));
-  connect(jun5.port_2, fixme1.port_a) annotation (Line(points={{-190,220},{-202,
-          220},{-202,222},{-224,222},{-224,120},{-196,120}}, color={0,127,255}));
-  connect(fixme1.port_b, senTCDU_a.port_a)
-    annotation (Line(points={{-176,120},{-50,120}}, color={0,127,255}));
-  connect(TSetRacIn2.y, fixme1.TSet) annotation (Line(points={{-260,130},{-230,130},
-          {-230,128},{-198,128}}, color={0,0,127}));
+  connect(rac.port_a, senTRac_a.port_b) annotation (Line(points={{-10,-60},{-92,
+          -60},{-92,34},{-60,34}}, color={0,127,255}));
+  connect(senTCDU_a.port_a, jun5.port_2) annotation (Line(points={{-50,120},{-212,
+          120},{-212,220},{-190,220}}, color={0,127,255}));
+  connect(senTEvaIn.T, errTFre.u1) annotation (Line(points={{-10,231},{-10,240},
+          {-470,240},{-470,276},{-442,276}}, color={0,0,127}));
+  connect(errTFre.u2, TOffSet.y) annotation (Line(points={{-442,264},{-496,264},
+          {-496,390},{-508,390}}, color={0,0,127}));
+  connect(errTFre.y, hysChi.u) annotation (Line(points={{-418,270},{-412,270},{-412,
+          260},{-402,260}}, color={0,0,127}));
+  connect(TSetEva.y, chi.TSet) annotation (Line(points={{-546,390},{-540,390},{
+          -540,348},{-110,348},{-110,340},{-118,340}}, color={0,0,127}));
+  connect(conTow.y, yTowFan.u1) annotation (Line(points={{82,710},{88,710},{88,
+          702},{98,702}}, color={0,0,127}));
+  connect(yTowFan.y, cooTow.y) annotation (Line(points={{122,696},{130,696},{
+          130,640},{-20,640},{-20,627.1},{-11.9,627.1}}, color={0,0,127}));
+  connect(errTFre.y, yFanTow.u) annotation (Line(points={{-418,270},{-416,270},
+          {-416,690},{-402,690}}, color={0,0,127}));
+  connect(conTow.y, yTowFan.u2) annotation (Line(points={{82,710},{90,710},{90,
+          690},{98,690}}, color={0,0,127}));
   annotation (Diagram(coordinateSystem(extent={{-580,-120},{540,780}})),
     Icon(
         coordinateSystem(extent={{-100,-100},{100,100}})),

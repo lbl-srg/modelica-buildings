@@ -167,6 +167,7 @@ model PartialCDU "Partial model for a CDU"
     redeclare final package Medium = MediumRac,
     energyDynamics=energyDynamics,
     final allowFlowReversal=allowFlowReversalRac,
+    addPowerToMedium=addPowerToMedium,
     final tau=tau,
     final use_riseTime=use_riseTime,
     final riseTime=dat.riseTime,
@@ -195,6 +196,8 @@ model PartialCDU "Partial model for a CDU"
     "Temperature sensor for medium leaving towards IT racks"
     annotation (Placement(transformation(extent={{-60,-70},{-80,-50}})));
 
+  parameter Boolean addPowerToMedium=true
+    "Set to false to avoid any power from the pump (=heat and flow work) being added to medium (may give simpler equations)";
 initial equation
   if checkMedia then
     // Assert that the media are consistent with the medium types declared in the parameter record

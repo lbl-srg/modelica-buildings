@@ -1,4 +1,4 @@
-within Buildings.Applications.DataCenters.LiquidCooled.Examples;
+within Buildings.Applications.DataCenters.LiquidCooled.Validation;
 model ChillerWSEDesignConditionsGlycol
   "Validation model that tests the component configurations at design conditions"
   extends Buildings.Applications.DataCenters.LiquidCooled.Examples.ChillerWSE(
@@ -6,7 +6,8 @@ model ChillerWSEDesignConditionsGlycol
     break weaBus,
     uti(k=1),
     fraWSE=0.999999,
-    yPumChi(realTrue=0)
+    yPumChi(realTrue=0),
+    cdu(addPowerToMedium=false)
     );
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant TDryBulCon(
     y(final unit="K",
@@ -25,7 +26,7 @@ equation
       StopTime=3600,
       Tolerance=1e-06),
       __Dymola_Commands(
-       file="modelica://Buildings/Resources/Scripts/Dymola/Applications/DataCenters/LiquidCooled/Examples/ChillerWSEDesignConditionsGlycol.mos" "Simulate and plot"),
+       file="modelica://Buildings/Resources/Scripts/Dymola/Applications/DataCenters/LiquidCooled/Validation/ChillerWSEDesignConditionsGlycol.mos" "Simulate and plot"),
     Documentation(info="<html>
 <p>
 Validation model that simulates

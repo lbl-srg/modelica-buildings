@@ -1,7 +1,7 @@
-within Buildings.Applications.DataCenters.LiquidCooled.Examples;
+within Buildings.Applications.DataCenters.LiquidCooled.Validation;
 model ChillerWSEDesignConditionsWater
   "Validation model that tests the component configurations at design conditions, using water in all fluid loops"
-  extends Buildings.Applications.DataCenters.LiquidCooled.Examples.ChillerWSEDesignConditionsGlycol(
+  extends Buildings.Applications.DataCenters.LiquidCooled.Validation.ChillerWSEDesignConditionsGlycol(
     redeclare package MediumTow = Buildings.Media.Water,
     redeclare package MediumRac = Buildings.Media.Water,
     datCDU(
@@ -16,7 +16,7 @@ model ChillerWSEDesignConditionsWater
       StopTime=3600,
       Tolerance=1e-06),
       __Dymola_Commands(
-       file="modelica://Buildings/Resources/Scripts/Dymola/Applications/DataCenters/LiquidCooled/Examples/ChillerWSEDesignConditionsWater.mos" "Simulate and plot"),
+       file="modelica://Buildings/Resources/Scripts/Dymola/Applications/DataCenters/LiquidCooled/Validation/ChillerWSEDesignConditionsWater.mos" "Simulate and plot"),
     Documentation(info="<html>
 <p>
 Validation model that simulates
@@ -24,8 +24,8 @@ Validation model that simulates
 Buildings.Applications.DataCenters.LiquidCooled.Examples.ChillerWSE</a>
 at design conditions.
 The model is identical to
-<a href=\"modelica://Buildings.Applications.DataCenters.LiquidCooled.Examples.ChillerWSEDesignConditionsGlycol\">
-Buildings.Applications.DataCenters.LiquidCooled.Examples.ChillerWSEDesignConditionsGlycol</a>
+<a href=\"modelica://Buildings.Applications.DataCenters.LiquidCooled.Validation.ChillerWSEDesignConditionsGlycol\">
+Buildings.Applications.DataCenters.LiquidCooled.Validation.ChillerWSEDesignConditionsGlycol</a>
 except that the media is set to water.
 </p>
 <p>

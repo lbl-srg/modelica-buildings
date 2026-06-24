@@ -1,4 +1,4 @@
-within Buildings.Applications.DataCenters.LiquidCooled.Examples;
+within Buildings.Applications.DataCenters.LiquidCooled.Examples.BaseClasses;
   model ElectricalEnergyMeter
     extends Modelica.Blocks.Continuous.Integrator(
       u(final unit="W"),
