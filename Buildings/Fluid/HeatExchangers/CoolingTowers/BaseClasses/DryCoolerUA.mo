@@ -34,14 +34,16 @@ block DryCoolerUA
   final parameter Modelica.Units.SI.ThermalConductance UA_nominal=
       NTU_nominal*CMin_flow_nominal
     "Thermal conductance at nominal flow, used to compute heat capacity";
+
   final parameter Real eps_nominal=
       dat.Q_flow_nominal/((dat.TAirIn_nominal - dat.TCooIn_nominal)*CMin_flow_nominal)
     "Nominal heat transfer effectiveness";
-  final parameter Real NTU_nominal(min=0)=
+
+final parameter Real NTU_nominal(min=0)=
       Buildings.Fluid.HeatExchangers.BaseClasses.ntu_epsilonZ(
         eps=min(0.99999, max(1E-6, eps_nominal)),
         Z=Z_nominal,
-        flowRegime=Integer(Buildings.Fluid.Types.HeatExchangerConfiguration.CounterFlow))
+        flowRegime=Integer(Buildings.Fluid.Types.HeatExchangerConfiguration.CrossFlowUnmixed))
     "Nominal number of transfer units";
 
   final parameter Real Z_nominal(
@@ -272,6 +274,11 @@ Buildings.Fluid.HeatExchangers.CoolingTowers.DryCooler</a>.
 </html>",
     revisions="<html>
 <ul>
+<li>
+June 24, 2026, by Michael Wetter:<br/>
+Corrected flow regime which was inconsistent between computation of parameters
+and time domain simulation.
+</li>
 <li>
 April 27, 2026, by Michael Wetter:<br/>
 First implementation.
