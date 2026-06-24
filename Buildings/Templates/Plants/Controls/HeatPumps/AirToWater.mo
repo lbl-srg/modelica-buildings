@@ -1554,9 +1554,7 @@ block AirToWater
     final have_valOutIso={if i <= nHp
     then have_valHpOutIso else have_valPhpOutIso for i in 1:nHp + nPhp},
     each final have_pumHeaWatPri=have_pumHeaWatPri,
-    final have_pumChiWatPri={if i <= nHp
-    then have_pumPriHdr or have_pumChiWatPriDedHp else true for i in 1:nHp +
-      nPhp},
+    each final have_pumChiWatPri=have_pumChiWatPri,
     each final have_pumHeaWatSec=have_pumHeaWatSec,
     each final have_pumChiWatSec=have_pumChiWatSec,
     each final dtVal=dtVal,

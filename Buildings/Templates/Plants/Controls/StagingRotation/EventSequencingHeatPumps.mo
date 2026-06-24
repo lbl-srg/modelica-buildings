@@ -52,11 +52,12 @@ block EventSequencingHeatPumps
     annotation(Placement(transformation(extent={{-260,100},{-220,140}}),
       iconTransformation(extent={{-140,100},{-100,140}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1PumHeaWatPri_actual
-    if have_heaWat "Primary HW pump status – Lead headered or dedicated pump"
+    if have_heaWat and have_pumHeaWatPri
+    "Primary HW pump status – Lead headered or dedicated pump"
     annotation(Placement(transformation(extent={{-260,-180},{-220,-140}}),
       iconTransformation(extent={{-140,-20},{-100,20}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1PumChiWatPri_actual
-    if have_chiWat
+    if have_chiWat and have_pumChiWatPri
     "Primary CHW pump status – Lead headered or dedicated pump"
     annotation(Placement(transformation(extent={{-260,-200},{-220,-160}}),
       iconTransformation(extent={{-140,-40},{-100,0}})));
@@ -662,14 +663,13 @@ opposite operating modes must still be enforced by the enable sequence.
 </p>
 <p>
 To facilitate integration into plant controllers serving both
-reversible and polyvalent heat pumps, the output connectors for 
+reversible and polyvalent heat pumps, the output connectors for
 the isolation valve commands and the primary pump enable commands
-are always instantiated, and set to <code>false</code> when the 
+are always instantiated, and set to <code>false</code> when the
 corresponding equipment is not present.
-Similarly, the input connectors for the simultaneous
-heating and cooling mode enable command or the primary pump status
-are always instantiated, and respectively gnored when <code>is_php</code> 
-is <code>false</code> or when the primary pumps are not present.
+Similarly, the input connector for the simultaneous
+heating and cooling mode enable command is always instantiated,
+and ignored when <code>is_php</code> is <code>false</code>.
 </p>
 </html>",
     revisions="<html>

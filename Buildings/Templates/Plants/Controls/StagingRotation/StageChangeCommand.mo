@@ -108,6 +108,16 @@ block StageChangeCommand
     "Transpose of staging matrix at given stage"
     annotation(Placement(transformation(extent={{200,200},{240,240}}),
       iconTransformation(extent={{100,80},{140,120}})));
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1Lck if have_php and typ ==
+    Buildings.Templates.Plants.Controls.Types.Application.Cooling
+    "Lock stage up command" annotation (Placement(transformation(extent={{-240,300},
+            {-200,340}}), iconTransformation(extent={{-140,0},{-100,40}})));
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput y1Lck
+    if have_php and typ ==
+    Buildings.Templates.Plants.Controls.Types.Application.Heating
+    "Lock stage up command of opposite mode" annotation (Placement(
+        transformation(extent={{200,260},{240,300}}), iconTransformation(extent={{100,-80},
+            {140,-40}})));
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant traMatStaEqu[nEqu, nSta](
     final k=traStaEqu)
     if not have_php
@@ -263,16 +273,8 @@ block StageChangeCommand
       is_transpose=true) if have_php and typ == Buildings.Templates.Plants.Controls.Types.Application.Heating
     "Extract transpose of staging matrix for the next available higher stage of opposite mode"
     annotation (Placement(transformation(extent={{-180,270},{-160,290}})));
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1Lck if have_php and typ ==
-    Buildings.Templates.Plants.Controls.Types.Application.Cooling
-    "Lock stage up command" annotation (Placement(transformation(extent={{-240,300},
-            {-200,340}}), iconTransformation(extent={{-140,0},{-100,40}})));
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput y1Lck if have_php and typ ==
-    Buildings.Templates.Plants.Controls.Types.Application.Heating
-    "Lock stage up command of opposite mode" annotation (Placement(
-        transformation(extent={{200,260},{240,300}}), iconTransformation(extent={{100,-80},
-            {140,-40}})));
-  Buildings.Controls.OBC.CDL.Logical.And upAndCouEquStaNexHigZer if have_php
+  Buildings.Controls.OBC.CDL.Logical.And upAndCouEquStaNexHigZer
+    if have_php
      and typ == Buildings.Templates.Plants.Controls.Types.Application.Heating
     "True if stage up command and equipment count at next available higher stages is zero"
     annotation (Placement(transformation(extent={{172,270},{192,290}})));
@@ -316,11 +318,18 @@ block StageChangeCommand
     have_php and typ == Buildings.Templates.Plants.Controls.Types.Application.Heating
     "Equipment count at next available higher stages"
     annotation (Placement(transformation(extent={{30,270},{50,290}})));
-  Buildings.Controls.OBC.CDL.Reals.LessThreshold couEquStaNexHigZer(t=1E-6, h=1E-6)
-                                                                            if
+  Buildings.Controls.OBC.CDL.Reals.LessThreshold couEquStaNexHigZer(
+    t=1E-3)
+    if
     have_php and typ == Buildings.Templates.Plants.Controls.Types.Application.Heating
     "True if equipment count at next available higher stages is zero"
     annotation (Placement(transformation(extent={{70,270},{90,290}})));
+  // HACK(AntoineGautier): The 0 s hold block below solves an initialization
+  // error with OCT 1.66 for Templates.Plants.HeatPumps.Validation.AirToWaterPolyvalent
+  Buildings.Controls.OBC.CDL.Logical.TrueFalseHold truFalHol(final trueHoldDuration=0)
+    if have_php and typ == Buildings.Templates.Plants.Controls.Types.Application.Heating
+    "No-op hold to improve tool support"
+    annotation (Placement(transformation(extent={{110,270},{130,290}})));
 equation
   connect(intScaRep.y, reqEquSta.index)
     annotation(Line(points={{-88,160},{0,160},{0,168}},
@@ -529,22 +538,24 @@ equation
           120},{-44,120},{-44,106},{-32,106}}, color={255,127,0}));
   connect(maxCurSta.y, yStaNexHig)
     annotation (Line(points={{-8,100},{220,100}}, color={255,127,0}));
-  connect(uStaOppNexHig, extTraOppNexHig.u)
-    annotation (Line(points={{-220,280},{-182,280}}, color={255,127,0}));
   connect(extTraOppNexHig.y, reqEquStaNexHig.u)
     annotation (Line(points={{-158,280},{-12,280}}, color={0,0,127}));
   connect(intScaRep4.y, reqEquStaNexHig.index)
     annotation (Line(points={{28,240},{0,240},{0,268}}, color={255,127,0}));
-  connect(yStaNexHig, intScaRep4.u) annotation (Line(points={{220,100},{180,100},
-          {180,240},{52,240}}, color={255,127,0}));
   connect(reqEquStaNexHig.y, couEquStaNexHig.u)
     annotation (Line(points={{12,280},{28,280}}, color={0,0,127}));
   connect(couEquStaNexHig.y, couEquStaNexHigZer.u)
     annotation (Line(points={{52,280},{68,280}}, color={0,0,127}));
-  connect(couEquStaNexHigZer.y, upAndCouEquStaNexHigZer.u1)
-    annotation (Line(points={{92,280},{170,280}}, color={255,0,255}));
   connect(upAndCouEquStaNexHigZer.y, y1Lck)
     annotation (Line(points={{194,280},{220,280}}, color={255,0,255}));
+  connect(uStaOppNexHig, extTraOppNexHig.u)
+    annotation (Line(points={{-220,280},{-182,280}}, color={255,127,0}));
+  connect(maxCurSta.y, intScaRep4.u) annotation (Line(points={{-8,100},{180,100},
+          {180,240},{52,240}}, color={255,127,0}));
+  connect(couEquStaNexHigZer.y, truFalHol.u)
+    annotation (Line(points={{92,280},{108,280}}, color={255,0,255}));
+  connect(truFalHol.y, upAndCouEquStaNexHigZer.u1)
+    annotation (Line(points={{132,280},{170,280}}, color={255,0,255}));
 annotation(defaultComponentName="chaSta",
   Icon(coordinateSystem(preserveAspectRatio=false,
     extent={{-100,-140},{100,140}},
@@ -676,8 +687,7 @@ annotation(defaultComponentName="chaSta",
   the same event iteration.
 </p>
 <p>
-  When both heating and cooling modes have a stage-up condition active
-  at the same time, the heating-mode instance of this block evaluates the
+  The heating-mode instance of this block evaluates the
   feasibility of the combined next step by looking up the equipment count
   for the pair (next available higher heating stage, next available higher
   cooling stage) in the staging matrix.

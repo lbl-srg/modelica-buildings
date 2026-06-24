@@ -53,17 +53,13 @@ block DisableDedicated
   Buildings.Controls.OBC.CDL.Logical.And disAndOffOrNotReq
     "Return true if lead equipment disabled AND (proven off OR not requesting flow)"
     annotation (Placement(transformation(extent={{30,-70},{50,-50}})));
-  Buildings.Controls.OBC.CDL.Logical.Edge edg
+  Buildings.Controls.OBC.CDL.Logical.Edge edg(pre_u_start=true)
     "Trigger true signal when disable conditions turn true"
     annotation (Placement(transformation(extent={{60,-70},{80,-50}})));
   Buildings.Controls.OBC.CDL.Logical.Not noReq
     if have_reqFlo
     "Return true if no flow request"
     annotation (Placement(transformation(extent={{-80,-50},{-60,-30}})));
-  Utilities.Initialization ini(
-    final yIni=false)
-    "Force false clear signal at initial time"
-    annotation (Placement(transformation(extent={{40,-30},{60,-10}})));
 equation
   connect(lat.y, y1)
     annotation (Line(points={{94,0},{120,0}},color={255,0,255}));
@@ -89,11 +85,8 @@ equation
     annotation (Line(points={{12,-60},{14,-60},{14,-68},{28,-68}},color={255,0,255}));
   connect(disAndOffOrNotReq.y, edg.u)
     annotation (Line(points={{52,-60},{58,-60}},color={255,0,255}));
-  connect(edg.y, ini.u)
-    annotation (Line(points={{82,-60},{88,-60},{88,-40},{30,-40},{30,-20},{38,-20}},
-      color={255,0,255}));
-  connect(ini.y, lat.clr)
-    annotation (Line(points={{62,-20},{66,-20},{66,-6},{70,-6}},color={255,0,255}));
+  connect(edg.y, lat.clr) annotation (Line(points={{82,-60},{90,-60},{90,-40},{
+          60,-40},{60,-6},{70,-6}}, color={255,0,255}));
   annotation (
     defaultComponentName="enaDed",
     Icon(
@@ -138,5 +131,15 @@ dedicated primary pumps in chiller and boiler plants.
 <p>
 The enable signal <code>u1</code> is yielded by the staging event sequencing logic.
 </p>
+</html>", revisions="<html>
+  <li>
+    July 1, 2026, by Antoine Gautier:<br />
+    Use the <code>pre_u_start</code> parameter of the Edge block to prevent 
+    spurious disabling at initial time.
+  </li>
+  <li>
+    March 29, 2024, by Antoine Gautier:<br />
+    First implementation.
+  </li>
 </html>"));
 end DisableDedicated;

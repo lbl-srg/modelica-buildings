@@ -4,7 +4,6 @@ ConcatenateSelectLogical
 CountTrue
 FirstTrueIndex
 HoldReal
-Initialization
 LastTrueIndex
 MultiMaxInteger
 MultiMinInteger

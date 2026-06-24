@@ -44,7 +44,6 @@ model AirToWater
     is_phpMod=false,
     typArrPumPri_select=Buildings.Templates.Components.Types.PumpArrangement.Dedicated,
     typPumPri_select=Buildings.Templates.Plants.HeatPumps.Types.PumpsPrimary.Constant,
-    have_pumPriDedComHp_select=false,
     final allowFlowReversal=allowFlowReversal,
     linearized=true,
     show_T=true,
