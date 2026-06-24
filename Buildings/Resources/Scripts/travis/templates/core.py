@@ -450,16 +450,10 @@ def prune_modifications(
     ]
 
     # Apply fraction of test coverage.
-    if fraction_test_coverage is not None:
-        combinations = [
-            el
-            for idx, el in enumerate(combinations)
-            if idx
-            in random.sample(
-                range(len(combinations)),
-                int(len(combinations) * fraction_test_coverage),
-            )
-        ]
+    if fraction_test_coverage is not None and fraction_test_coverage < 1:
+        combinations = random.sample(
+            combinations, int(len(combinations) * fraction_test_coverage)
+        )
 
     # Update tags. (Because pruning resulted in a sparse list of indices.)
     for i, arg in enumerate(combinations):
