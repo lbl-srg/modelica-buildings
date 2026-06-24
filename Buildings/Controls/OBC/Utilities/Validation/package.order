@@ -5,3 +5,4 @@ OptimalStartHeatingCooling
 OptimalStartNoHeatingNoCooling
 PIDWithEnable
 PIDWithInputGains
+ExtremumSeekingControl
