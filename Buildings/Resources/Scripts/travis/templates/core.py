@@ -383,7 +383,7 @@ def prune_modifications(combinations, exclude, remove_modif, fraction_test_cover
             - Remove single modification: For a VAV air handler, a combination with a electric heating coil and a three-way valve
                 for the heating coil should use `remove_modif` to remove the valve component modification. We cannot use
                 `exclude` here because there is a modification of the valve component in each combination, so we would end up
-                excluding all combinations with a electric heating coil.
+                excluding all combinations with an electric heating coil.
     """
     # Exclude cases.
     if exclude is not None:

@@ -30,35 +30,34 @@ Details:
 import core
 
 MODELS = [
-    'Buildings.Templates.Plants.HeatPumps.Validation.AirToWater',
+    'Buildings.Templates.Plants.HeatPumps.Validation.AirToWaterPolyvalent',
 ]
 
 # See docstring of `generate_combinations` function for the structure of MODIF_GRID.
 # Tested modifications should at least cover the options specified at:
 # https://github.com/lbl-srg/ctrl-flow-dev/blob/main/server/scripts/sequence-doc/src/version/Current%20G36%20Decisions/Guideline%2036-2021%20(mappings).csv
 MODIF_GRID = {
-    'Buildings.Templates.Plants.HeatPumps.Validation.AirToWater': {
-        'have_chiWat': [  # Parameter declared at top level with final binding in template instance.
-            'true',
-            'false',
-        ],
-        'pla__have_hrc_select': [
-            'true',
-            'false',
+    'Buildings.Templates.Plants.HeatPumps.Validation.AirToWaterPolyvalent': {
+        'pla__typ': [
+        #     'Buildings.Templates.Plants.Controls.Types.PlantHeatPump.HeatingOnly',
+        #     'Buildings.Templates.Plants.Controls.Types.PlantHeatPump.Reversible',
+        #     'Buildings.Templates.Plants.Controls.Types.PlantHeatPump.ReversibleHeatRecovery',
+            'Buildings.Templates.Plants.Controls.Types.PlantHeatPump.ReversiblePolyvalent',
+        #     'Buildings.Templates.Plants.Controls.Types.PlantHeatPump.Polyvalent',
         ],
         'pla__typDis_select1': [
             'Buildings.Templates.Plants.HeatPumps.Types.Distribution.Variable1Only',
             'Buildings.Templates.Plants.HeatPumps.Types.Distribution.Constant1Variable2',
         ],
-        'pla__typArrPumPri': [
+        'pla__typArrPumPri_select': [
             'Buildings.Templates.Components.Types.PumpArrangement.Dedicated',
             'Buildings.Templates.Components.Types.PumpArrangement.Headered',
         ],
-        'pla__typPumHeaWatPri_select1': [  # typPumChiWatPri_select1=typPumHeaWatPri_select1 by default in the template.
+        'pla__typPumPri_select': [
             'Buildings.Templates.Plants.HeatPumps.Types.PumpsPrimary.Constant',
             'Buildings.Templates.Plants.HeatPumps.Types.PumpsPrimary.Variable',
         ],
-        'pla__have_pumChiWatPriDed_select': [
+        'pla__have_pumPriDedComHp_select': [
             'true',
             'false',
         ],
@@ -83,41 +82,40 @@ MODIF_GRID = {
 
 # See docstring of `prune_modifications` function for the structure of EXCLUDE.
 EXCLUDE = {
-    'Buildings.Templates.Plants.HeatPumps.Validation.AirToWater': [
+    'Buildings.Templates.Plants.HeatPumps.Validation.AirToWaterPolyvalent': [
         [
-            'have_chiWat=false',
-            'have_hrc_select=true',
+            'typ=Buildings.Templates.Plants.Controls.Types.PlantHeatPump.ReversiblePolyvalent',
+            'typDis_select1=Buildings.Templates.Plants.HeatPumps.Types.Distribution.Constant1Variable2',
+            'typArrPumPri_select=Buildings.Templates.Components.Types.PumpArrangement.Headered',
         ],
     ],
 }
 
 # See docstring of `prune_modifications` function for the structure of REMOVE_MODIF.
 REMOVE_MODIF = {
-    'Buildings.Templates.Plants.HeatPumps.Validation.AirToWater': [
+    'Buildings.Templates.Plants.HeatPumps.Validation.AirToWaterPolyvalent': [
         (
             [
                 'Buildings.Templates.Plants.HeatPumps.Types.Distribution.Variable1Only',
             ],
             [
-                'typPumHeaWatPri_select1',
+                'typPumPri_select',
             ],
         ),
         (
             [
-                'have_chiWat=true',
-                'typArrPumPri=Buildings.Templates.Components.Types.PumpArrangement.Headered',
+                'Buildings.Templates.Components.Types.PumpArrangement.Headered',
             ],
             [
-                'have_pumChiWatPriDed_select',
+                'have_pumPriDedComHp_select',
             ],
         ),
         (
             [
-                'have_chiWat=false',
+                'Buildings.Templates.Plants.Controls.Types.PlantHeatPump.HeatingOnly',
             ],
             [
-                'typPumChiWatPri_select1',
-                'have_pumChiWatPriDed_select',
+                'have_pumPriDedComHp_select',
             ],
         ),
         (
@@ -131,7 +129,7 @@ REMOVE_MODIF = {
         ),
         (
             [
-                'have_hrc_select=true',
+                'Buildings.Templates.Plants.Controls.Types.PlantHeatPump.ReversibleHeatRecovery',
             ],
             [
                 'have_senVHeaWatPri_select',
@@ -145,5 +143,8 @@ REMOVE_MODIF = {
 
 if __name__ == '__main__':
     core.main(
-        models=MODELS, modif_grid=MODIF_GRID, exclude=EXCLUDE, remove_modif=REMOVE_MODIF
+        models=MODELS,
+        modif_grid=MODIF_GRID,
+        exclude=EXCLUDE,
+        remove_modif=REMOVE_MODIF,
     )
