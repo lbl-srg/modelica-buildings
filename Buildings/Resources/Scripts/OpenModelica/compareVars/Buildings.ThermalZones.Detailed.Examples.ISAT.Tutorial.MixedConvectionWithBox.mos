@@ -1,0 +1,5 @@
+compareVars :=
+  {
+    "roo.yCFD[1]",
+    "roo.yCFD[2]"
+  };

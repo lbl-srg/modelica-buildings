@@ -1,0 +1,6 @@
+compareVars :=
+  {
+    "roo.air.heaPorAir.T",
+    "roo.weaBus.TDryBul",
+    "roo.air.conExt[1].Q_flow"
+  };
