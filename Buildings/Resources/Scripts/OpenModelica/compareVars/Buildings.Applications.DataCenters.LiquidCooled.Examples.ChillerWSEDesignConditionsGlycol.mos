@@ -1,0 +1,15 @@
+compareVars :=
+  {
+    "cdu.conVal.u_s",
+    "cdu.conVal.u_m",
+    "TRacSup_nominal",
+    "TRacRet_nominal",
+    "senTRac_b.T",
+    "TTowRet_nominal",
+    "senTTow_b.T",
+    "senTTow_a.T",
+    "TTowSup_nominal",
+    "senTWSE_b1.T",
+    "senTCDU_a.T",
+    "senTCDU_b.T"
+  };

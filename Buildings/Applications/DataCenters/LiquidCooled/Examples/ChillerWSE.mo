@@ -3,13 +3,20 @@ model ChillerWSE
   "Example model of a simple liquid cooled data center with chiller and water-side economizer"
   extends Modelica.Icons.Example;
 
+  package MediumAir = Buildings.Media.Air(T_default=TDryBul_nominal) "Medium for air";
   package MediumChi = Buildings.Media.Water "Medium for chilled water loop";
+  replaceable package MediumTow = Buildings.Media.Antifreeze.PropyleneGlycolWater(
+    property_T=TTowSup_nominal,
+    X_a=Buildings.Media.Antifreeze.Functions.PropyleneGlycolWater.volumeToMassFraction(
+        phi=0.4,
+      T=293.15))
+    constrainedby Modelica.Media.Interfaces.PartialSimpleMedium(T_default=TTowSup_nominal) "Medium for tower loop";
   replaceable package MediumRac = Buildings.Media.Antifreeze.PropyleneGlycolWater(
-    property_T=303.15,
+    property_T=TRacSup_nominal,
     X_a=Buildings.Media.Antifreeze.Functions.PropyleneGlycolWater.volumeToMassFraction(
         phi=0.25,
       T=293.15))
-    constrainedby Modelica.Media.Interfaces.PartialSimpleMedium(T_default=303.15)
+    constrainedby Modelica.Media.Interfaces.PartialSimpleMedium(T_default=TRacSup_nominal)
     "Medium for rack";
 
   parameter Modelica.Units.SI.Power PRac = 1E6
@@ -17,33 +24,36 @@ model ChillerWSE
   parameter Real fraWSE = 0.9 "Fraction of peak load covered by water side economizer";
   parameter Real fraChi = 1-fraWSE "Fraction of peak load covered by chiller";
 
-  parameter Modelica.Units.SI.TemperatureDifference dTRac_nominal(max=0) = -5
+  constant Modelica.Units.SI.TemperatureDifference dTRac_nominal(max=0) = -5
     "Temperature difference rack loop";
 
-  parameter Modelica.Units.SI.TemperatureDifference dTPla_nominal(max=0) = -5
+  constant Modelica.Units.SI.TemperatureDifference dTPla_nominal(max=0) = -5
     "Temperature difference cooling plant loop";
-  final parameter Modelica.Units.SI.TemperatureDifference dTTow_nominal(max=0) = dTPla_nominal
+  constant Modelica.Units.SI.TemperatureDifference dTTow_nominal(max=0) = dTPla_nominal
     "Temperature difference tower water loop";
 
-  parameter Modelica.Units.SI.Temperature TRacSup_nominal=273.15 + 45
+  constant Modelica.Units.SI.Temperature TRacSup_nominal=273.15 + 45
     "Supply coolant temperature to rack at design conditions";
-  parameter Modelica.Units.SI.Temperature TRacRet_nominal=TRacSup_nominal-dTRac_nominal
+  constant Modelica.Units.SI.Temperature TRacRet_nominal=TRacSup_nominal-dTRac_nominal
     "Return coolant temperature from rack at design conditions";
-  parameter Modelica.Units.SI.TemperatureDifference TApp_nominal = 3 "Approach temperature at heat exchangers";
-  parameter Modelica.Units.SI.Temperature TPlaSup_nominal=TRacSup_nominal - TApp_nominal
+  constant Modelica.Units.SI.TemperatureDifference TApp_nominal = 3 "Approach temperature at heat exchangers";
+  constant Modelica.Units.SI.Temperature TPlaSup_nominal=TRacSup_nominal - TApp_nominal
     "Temperature from cooling plant to CDU at design conditions";
-  parameter Modelica.Units.SI.Temperature TPlaRet_nominal=TPlaSup_nominal - dTPla_nominal
+  constant Modelica.Units.SI.Temperature TPlaRet_nominal=TPlaSup_nominal - dTPla_nominal
     "Temperature from CDU to cooling plant at design conditions";
-  parameter Modelica.Units.SI.Temperature TTowRet_nominal=TPlaSup_nominal - TApp_nominal
+  constant Modelica.Units.SI.Temperature TTowRet_nominal=TPlaSup_nominal - TApp_nominal
     "Return temperature from cooling tower";
-  parameter Modelica.Units.SI.Temperature TTowSup_nominal=TTowRet_nominal - dTTow_nominal
+  constant Modelica.Units.SI.Temperature TTowSup_nominal=TTowRet_nominal - dTTow_nominal
     "Supply temperature to cooling tower";
+
+  constant Modelica.Units.SI.Temperature TDryBul_nominal=273.15 + 36
+    "Design dry bulb temperature if WSE is used exclusively (with fraWSE=0.9999)";
 
   parameter Modelica.Units.SI.MassFlowRate mRac_flow_nominal=PRac/(
       TRacRet_nominal - TRacSup_nominal)/MediumRac.cp_const
     "Rack mass flow rate at design conditions";
   parameter Modelica.Units.SI.MassFlowRate mPla_flow_nominal=PRac/(
-      TPlaRet_nominal -TPlaSup_nominal) /MediumChi.cp_const
+      TPlaRet_nominal -TPlaSup_nominal) /cpChi_default
     "Cooling loop water mass flow rate at design conditions";
 
 
@@ -55,16 +65,13 @@ model ChillerWSE
   parameter Modelica.Units.SI.PressureDifference dPRac_nominal = 60000
     "Rack design pressure drop";
   parameter Buildings.Applications.DataCenters.LiquidCooled.Racks.Data.OCP_1kW_OAM_PG25 datTheRes
-    "Thermal resistance data"
+    "Thermal resistance data for case temperature"
     annotation (Placement(transformation(extent={{60,-98},{80,-78}})));
 
   parameter Real COPc_nominal=5 "Chiller COP";
-  parameter Real epsWSE_nominal(min=0.5, max=0.95) = QWSE_flow_nominal / (mWSE_flow_nominal*MediumChi.cp_const*(TPlaRet_nominal-TTowRet_nominal))
+  parameter Real epsWSE_nominal(min=0.5, max=0.95) = QWSE_flow_nominal /
+    (min(mWSEPla_flow_nominal*cpChi_default, mWSETow_flow_nominal*cpTow_default)*(TPlaRet_nominal-TTowRet_nominal))
     "Effectiveness of water side economizer";
-
-//  parameter Modelica.Units.SI.Temperature TSetCooTowOut_nominal =
-//      TPlaRet_nominal - (TPlaRet_nominal-TPlaSup_nominal)/epsWSE_nominal - 3
-//    "Set point for cooling tower outlet temperature to meet design load with WSE";
 
   final parameter Modelica.Units.SI.HeatFlowRate QCon_flow_nominal =
     (1-fraWSE) * PRac * (1/COPc_nominal+1)
@@ -73,10 +80,13 @@ model ChillerWSE
     "Design heat flow rate of economizer";
   final parameter Modelica.Units.SI.MassFlowRate mEva_flow_nominal(min=0)=mPla_flow_nominal
     "Nominal mass flow rate at condenser water, sized to circulate all water through it to meet set point when trim chiller is needed";
-  final parameter Modelica.Units.SI.MassFlowRate mCon_flow_nominal(min=0)=mWSE_flow_nominal
+  final parameter Modelica.Units.SI.MassFlowRate mCon_flow_nominal(min=0)=-QCon_flow_nominal/dTTow_nominal/cpTow_default
     "Nominal mass flow rate at condenser water";
-  final parameter Modelica.Units.SI.MassFlowRate mWSE_flow_nominal(min=0)=mPla_flow_nominal
-    "Nominal mass flow rate at condenser water";
+  final parameter Modelica.Units.SI.MassFlowRate mWSETow_flow_nominal(min=0)=-QWSE_flow_nominal/dTTow_nominal/cpTow_default
+    "Nominal mass flow rate at WSE on tower side";
+  final parameter Modelica.Units.SI.MassFlowRate mWSEPla_flow_nominal(min=0)=-QWSE_flow_nominal/dTPla_nominal/cpChi_default
+    "Nominal mass flow rate at WSE on chilled water side";
+
   parameter CDUs.Data.Generic_2MW datCDU(
     TApp_nominal=TApp_nominal,
     TRacOut_nominal=TRacSup_nominal,
@@ -94,9 +104,11 @@ model ChillerWSE
     Q_flow_nominal=-PRac,
     TCooIn_nominal=TTowSup_nominal,
     TCooOut_nominal=TTowRet_nominal,
-    dp_nominal=80000)
+    dp_nominal=80000,
+    ratCooAir_nominal=cpAir_default/cpTow_default,
+    TAirIn_nominal=TDryBul_nominal)
     "Performance data for cooling tower"
-    annotation (Placement(transformation(extent={{20,580},{40,600}})));
+    annotation (Placement(transformation(extent={{22,580},{42,600}})));
 
   Controls.OBC.CDL.Reals.Sources.Constant uti(k=0.6)
     "Utilization of hardware"
@@ -125,6 +137,7 @@ model ChillerWSE
   Buildings.Applications.DataCenters.LiquidCooled.CDUs.CDU_epsNTU cdu(
     redeclare package MediumPla = MediumChi,
     redeclare package MediumRac = MediumRac,
+    show_T=true,
     final dat=datCDU,
     allowFlowReversalPla=false,
     allowFlowReversalRac=false,
@@ -157,10 +170,10 @@ model ChillerWSE
     "Set point for rack inlet temperature"
     annotation (Placement(transformation(extent={{-100,80},{-80,100}})));
   Fluid.HeatExchangers.ConstantEffectiveness wse(
-    redeclare package Medium1 = MediumChi,
+    redeclare package Medium1 = MediumTow,
     redeclare package Medium2 = MediumChi,
-    m1_flow_nominal=mWSE_flow_nominal,
-    m2_flow_nominal=mWSE_flow_nominal,
+    m1_flow_nominal=mWSETow_flow_nominal,
+    m2_flow_nominal=mWSEPla_flow_nominal,
     show_T=true,
     eps=epsWSE_nominal,
     dp2_nominal=dpHexChi_nominal,
@@ -168,7 +181,7 @@ model ChillerWSE
                    "Water side economizer (Heat exchanger)"
     annotation (Placement(transformation(extent={{120,321},{100,341}})));
   Fluid.Chillers.Carnot_TEva chi(
-    redeclare package Medium1 = MediumChi,
+    redeclare package Medium1 = MediumTow,
     redeclare package Medium2 = MediumChi,
     m1_flow_nominal=mCon_flow_nominal,
     m2_flow_nominal=mEva_flow_nominal,
@@ -181,7 +194,7 @@ model ChillerWSE
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial) "Chiller"
     annotation (Placement(transformation(extent={{-120,321},{-140,341}})));
   Fluid.HeatExchangers.CoolingTowers.DryCooler cooTow(
-    redeclare package Medium = MediumChi,
+    redeclare package Medium = MediumTow,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     dat=datCooTow)
     "Cooling tower"
@@ -196,7 +209,7 @@ model ChillerWSE
   BoundaryConditions.WeatherData.Bus weaBus "Weather data bus"
     annotation (Placement(transformation(extent={{-72,640},{-52,660}}),
         iconTransformation(extent={{-176,140},{-156,160}})));
-  Fluid.Movers.Preconfigured.SpeedControlled_y pumEva(
+  Buildings.Fluid.Movers.Preconfigured.SpeedControlled_y pumEva(
     redeclare package Medium = MediumChi,
     addPowerToMedium=false,
     m_flow_nominal=mEva_flow_nominal,
@@ -205,21 +218,21 @@ model ChillerWSE
         extent={{10,-10},{-10,10}},
         rotation=270,
         origin={-80,290})));
-  Fluid.Movers.Preconfigured.SpeedControlled_y pumWSEChi(
+  Buildings.Fluid.Movers.Preconfigured.SpeedControlled_y pumWSEChi(
     redeclare package Medium = MediumChi,
     addPowerToMedium=false,
-    m_flow_nominal=mWSE_flow_nominal,
+    m_flow_nominal=mWSEPla_flow_nominal,
     dp_nominal=dpHexChi_nominal) "Pump for water-side economizer" annotation (
       Placement(transformation(
         extent={{10,-10},{-10,10}},
         rotation=270,
         origin={160,290})));
-  Fluid.Movers.Preconfigured.SpeedControlled_y pumTow(
-    redeclare package Medium = MediumChi,
+  Buildings.Fluid.Movers.Preconfigured.SpeedControlled_y pumTow(
+    redeclare package Medium = MediumTow,
     allowFlowReversal=false,
     addPowerToMedium=false,
     riseTime=5,
-    m_flow_nominal=mWSE_flow_nominal,
+    m_flow_nominal=mWSETow_flow_nominal,
     dp_nominal=dpHexChi_nominal) "Pump for tower loop" annotation (Placement(
         transformation(
         extent={{-10,-10},{10,10}},
@@ -227,14 +240,14 @@ model ChillerWSE
         origin={-220,600})));
   Fluid.Sensors.TemperatureTwoPort senTWSE_b2(
     redeclare package Medium = MediumChi,
-    m_flow_nominal=mWSE_flow_nominal,
+    m_flow_nominal=mWSEPla_flow_nominal,
     tau=0) "Chilled water outlet temperature of water side economizer"
     annotation (Placement(transformation(
         extent={{10,-10},{-10,10}},
         rotation=90,
         origin={60,290})));
   Fluid.Movers.Preconfigured.SpeedControlled_y pumCon(
-    redeclare package Medium = MediumChi,
+    redeclare package Medium = MediumTow,
     addPowerToMedium=false,
     m_flow_nominal=mCon_flow_nominal,
     dp_nominal=dpHexChi_nominal) "Pump for chiller condenser" annotation (
@@ -243,15 +256,15 @@ model ChillerWSE
         rotation=90,
         origin={-80,420})));
   Fluid.Sensors.TemperatureTwoPort senTTow_b(
-    redeclare package Medium = MediumChi,
+    redeclare package Medium = MediumTow,
     allowFlowReversal=false,
-    m_flow_nominal=mWSE_flow_nominal,
+    m_flow_nominal=mWSETow_flow_nominal,
     tau=0) "Outlet water temperature of tower"
     annotation (Placement(transformation(extent={{60,610},{80,630}})));
   Fluid.FixedResistances.Junction jun1(
-    redeclare package Medium = MediumChi,
+    redeclare package Medium = MediumTow,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
-    m_flow_nominal=mWSE_flow_nominal*{1,1,1},
+    m_flow_nominal=mWSETow_flow_nominal*{1,1,1},
     dp_nominal={0,0,0}) annotation (Placement(transformation(
         extent={{10,-10},{-10,10}},
         rotation=0,
@@ -299,7 +312,7 @@ model ChillerWSE
         rotation=90,
         origin={-180,290})));
   Fluid.Sensors.TemperatureTwoPort senTChi_b1(
-    redeclare package Medium = MediumChi,
+    redeclare package Medium = MediumTow,
     m_flow_nominal=mCon_flow_nominal,
     tau=0) "Cooling tower water outlet temperature of chiller" annotation (
       Placement(transformation(
@@ -307,17 +320,17 @@ model ChillerWSE
         rotation=90,
         origin={-180,370})));
   Fluid.Sensors.TemperatureTwoPort senTWSE_b1(
-    redeclare package Medium = MediumChi,
-    m_flow_nominal=mWSE_flow_nominal,
+    redeclare package Medium = MediumTow,
+    m_flow_nominal=mWSETow_flow_nominal,
     tau=0) "Cooling tower water outlet temperature of water side economizer"
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={60,370})));
-  Fluid.Movers.Preconfigured.SpeedControlled_y pumWSECW(
-    redeclare package Medium = MediumChi,
+  Buildings.Fluid.Movers.Preconfigured.SpeedControlled_y pumWSECW(
+    redeclare package Medium = MediumTow,
     addPowerToMedium=false,
-    m_flow_nominal=mWSE_flow_nominal,
+    m_flow_nominal=mWSETow_flow_nominal,
     dp_nominal=dpHexChi_nominal)
     "Pump for water side economizer on cooling tower side" annotation (
       Placement(transformation(
@@ -336,25 +349,25 @@ model ChillerWSE
         rotation=270,
         origin={220,170})));
   Fluid.FixedResistances.Junction jun6(
-    redeclare package Medium = MediumChi,
+    redeclare package Medium = MediumTow,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
-    m_flow_nominal=mWSE_flow_nominal*{1,1,1},
+    m_flow_nominal=mWSETow_flow_nominal*{1,1,1},
     dp_nominal={0,0,0}) annotation (Placement(transformation(
         extent={{10,-10},{-10,10}},
         rotation=0,
         origin={60,540})));
   Fluid.FixedResistances.Junction jun7(
-    redeclare package Medium = MediumChi,
+    redeclare package Medium = MediumTow,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
-    m_flow_nominal=mWSE_flow_nominal*{1,1,1},
+    m_flow_nominal=mWSETow_flow_nominal*{1,1,1},
     dp_nominal={0,0,0}) annotation (Placement(transformation(
         extent={{10,-10},{-10,10}},
         rotation=0,
         origin={-80,540})));
   Fluid.FixedResistances.Junction jun8(
-    redeclare package Medium = MediumChi,
+    redeclare package Medium = MediumTow,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
-    m_flow_nominal=mWSE_flow_nominal*{1,1,1},
+    m_flow_nominal=mWSETow_flow_nominal*{1,1,1},
     dp_nominal={0,0,0}) annotation (Placement(transformation(
         extent={{10,-10},{-10,10}},
         rotation=0,
@@ -397,7 +410,7 @@ model ChillerWSE
     "Control signal for chiller circulation pumps"
     annotation (Placement(transformation(extent={{-300,250},{-280,270}})));
   Fluid.Sources.Boundary_pT bou1(
-    redeclare package Medium = MediumChi,
+    redeclare package Medium = MediumTow,
     p(displayUnit="Pa") = 300000,
     nPorts=1)   "Pressure boundary condition"
     annotation (Placement(transformation(extent={{248,610},{228,630}})));
@@ -442,22 +455,22 @@ model ChillerWSE
     "Power use effectiveness (not taking into account electrical losses)"
     annotation (Placement(transformation(extent={{500,-42},{520,-22}})));
   Fluid.Sensors.TemperatureTwoPort senTWSEMix(
-    redeclare package Medium = MediumChi,
+    redeclare package Medium = MediumTow,
     allowFlowReversal=false,
-    m_flow_nominal=mWSE_flow_nominal,
+    m_flow_nominal=mWSETow_flow_nominal,
     tau=0) "Water temperature cooling tower loop after WSE"
     annotation (Placement(transformation(
         extent={{-10,10},{10,-10}},
         rotation=180,
         origin={-10,540})));
   Fluid.Actuators.Valves.TwoWayLinear valByp(
-    redeclare package Medium = MediumChi,
+    redeclare package Medium = MediumTow,
     m_flow_nominal=mCon_flow_nominal,
     final dpValve_nominal=dpVal_nominal,
     strokeTime=30)                       "Valve for condenser loop bypass"
     annotation (Placement(transformation(extent={{-140,450},{-120,470}})));
   Fluid.Actuators.Valves.TwoWayLinear valThr(
-    redeclare package Medium = MediumChi,
+    redeclare package Medium = MediumTow,
     m_flow_nominal=mCon_flow_nominal,
     final dpValve_nominal=dpVal_nominal,
     strokeTime=30,
@@ -467,16 +480,16 @@ model ChillerWSE
         rotation=270,
         origin={-80,500})));
   Fluid.FixedResistances.Junction jun9(
-    redeclare package Medium = MediumChi,
+    redeclare package Medium = MediumTow,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     m_flow_nominal=mCon_flow_nominal*{1,1,1},
-    dp_nominal={0,0,0}) "Junction at condenser loop["
+    dp_nominal={0,0,0}) "Junction at condenser loop"
                         annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=270,
         origin={-80,460})));
   Fluid.FixedResistances.Junction jun10(
-    redeclare package Medium = MediumChi,
+    redeclare package Medium = MediumTow,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     m_flow_nominal=mCon_flow_nominal*{1,1,1},
     dp_nominal={0,0,0}) "Junction at condenser loop["
@@ -485,7 +498,7 @@ model ChillerWSE
         rotation=270,
         origin={-180,460})));
   Buildings.Fluid.Sensors.TemperatureTwoPort senTChi_a1(
-    redeclare package Medium = MediumChi,
+    redeclare package Medium = MediumTow,
     m_flow_nominal=mCon_flow_nominal,
     tau=0) "Cooling tower water inlet temperature of chiller" annotation (
       Placement(transformation(
@@ -525,9 +538,9 @@ model ChillerWSE
     offset=1)
     annotation (Placement(transformation(extent={{-140,-6},{-120,14}})));
   Fluid.Sensors.TemperatureTwoPort senTTow_a(
-    redeclare package Medium = MediumChi,
+    redeclare package Medium = MediumTow,
     allowFlowReversal=false,
-    m_flow_nominal=mWSE_flow_nominal,
+    m_flow_nominal=mWSETow_flow_nominal,
     tau=0) "Inlet water temperature of tower"
     annotation (Placement(transformation(extent={{-80,610},{-60,630}})));
 
@@ -541,20 +554,20 @@ model ChillerWSE
         rotation=0,
         origin={108,220})));
   Controls.OBC.CDL.Reals.PID conEcoPla(
-    k=0.1,
+    k=1,
     yMin=0.1,
     u_s(final unit="kg/s"),
     u_m(final unit="kg/s"),
     controllerType=Buildings.Controls.OBC.CDL.Types.SimpleController.PI,
     Ti=60,
-    r=mWSE_flow_nominal,
+    r=mWSEPla_flow_nominal,
     xi_start=1,
     reverseActing=false) "Controller for economizer pump on facility level"
     annotation (Placement(transformation(extent={{240,260},{260,280}})));
   Controls.OBC.CDL.Reals.Sources.Constant zer(
       k = 0) "Zero as a set point"
     annotation (Placement(transformation(extent={{200,260},{220,280}})));
-  Fluid.Sensors.MassFlowRate senMasFlo3(redeclare package Medium = MediumChi)
+  Fluid.Sensors.MassFlowRate senMasFlo3(redeclare package Medium = MediumTow)
     "Mass flow rate sensor" annotation (Placement(transformation(
         extent={{-10,10},{10,-10}},
         rotation=180,
@@ -566,13 +579,13 @@ model ChillerWSE
              "Zero as a set point"
     annotation (Placement(transformation(extent={{180,460},{200,480}})));
   Controls.OBC.CDL.Reals.PID conEcoTow(
-    k=0.1,
+    k=1,
     yMin=0.1,
     u_s(final unit="kg/s"),
     u_m(final unit="kg/s"),
     controllerType=Buildings.Controls.OBC.CDL.Types.SimpleController.PI,
     Ti=60,
-    r=mWSE_flow_nominal,
+    r=mWSETow_flow_nominal,
     xi_start=1,
     reverseActing=false) "Controller for economizer pump on tower loop"
     annotation (Placement(transformation(extent={{220,460},{240,480}})));
@@ -594,6 +607,57 @@ model ChillerWSE
     xi_start=1,
     reverseActing=false) "Controller for tower pump"
     annotation (Placement(transformation(extent={{-480,590},{-460,610}})));
+protected
+  final parameter MediumAir.ThermodynamicState staAir_default=MediumAir.setState_pTX(
+      T=MediumAir.T_default,
+      p=MediumAir.p_default,
+      X=MediumAir.X_default[1:MediumAir.nXi]) "Default state for air";
+  final parameter MediumTow.ThermodynamicState staTow_default=MediumTow.setState_pTX(
+      T=MediumTow.T_default,
+      p=MediumTow.p_default,
+    X=MediumTow.X_default[1:MediumTow.nXi]) "Default state for tower loop fluid";
+  final parameter MediumChi.ThermodynamicState staChi_default=MediumChi.setState_pTX(
+      T=MediumChi.T_default,
+      p=MediumChi.p_default,
+    X=MediumChi.X_default[1:MediumChi.nXi]) "Default state for chiller loop fluid";
+
+public
+  Fluid.HeatExchangers.SensibleCooler_T fixme(
+    redeclare package Medium = MediumRac,
+    m_flow_nominal=mRac_flow_nominal,
+    show_T=true,
+    dp_nominal=0,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState)
+    annotation (Placement(transformation(extent={{-104,-72},{-84,-52}})));
+  Controls.OBC.CDL.Reals.Sources.Constant TSetRacIn1(y(final unit="K",
+        displayUnit="degC"), k(
+      final unit="K",
+      displayUnit="degC") = TRacSup_nominal)
+    "Set point for rack inlet temperature"
+    annotation (Placement(transformation(extent={{-190,-62},{-170,-42}})));
+  Fluid.HeatExchangers.SensibleCooler_T fixme1(
+    redeclare package Medium = MediumChi,
+    m_flow_nominal=mPla_flow_nominal,
+    show_T=true,
+    dp_nominal=0,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState)
+    annotation (Placement(transformation(extent={{-196,110},{-176,130}})));
+  Controls.OBC.CDL.Reals.Sources.Constant TSetRacIn2(y(final unit="K",
+        displayUnit="degC"), k(
+      final unit="K",
+      displayUnit="degC") = TPlaSup_nominal)
+    "Set point for rack inlet temperature"
+    annotation (Placement(transformation(extent={{-282,120},{-262,140}})));
+protected
+  parameter Modelica.Units.SI.SpecificHeatCapacity cpAir_default=
+      MediumAir.specificHeatCapacityCp(staAir_default)
+    "Specific heat capacity of air at nominal condition";
+  parameter Modelica.Units.SI.SpecificHeatCapacity cpTow_default=
+      MediumTow.specificHeatCapacityCp(staTow_default)
+    "Specific heat capacity of tower loop fluid at nominal condition";
+  parameter Modelica.Units.SI.SpecificHeatCapacity cpChi_default=
+      MediumChi.specificHeatCapacityCp(staChi_default)
+    "Specific heat capacity of chiller loop fluid at nominal condition";
 equation
   connect(senTCDU_a.port_b, cdu.port_aPla) annotation (Line(points={{-30,120},{
           -20,120},{-20,46},{-10,46}},
@@ -606,9 +670,6 @@ equation
                                                color={0,127,255}));
   connect(cdu.port_bRac, senTRac_a.port_a)
     annotation (Line(points={{-10,34},{-40,34}}, color={0,127,255}));
-  connect(senTRac_a.port_b, rac.port_a) annotation (Line(points={{-60,34},{-80,
-          34},{-80,-60},{-10,-60}},
-                              color={0,127,255}));
   connect(rac.port_b, senTRac_b.port_a) annotation (Line(points={{10,-60},{80,
           -60},{80,34},{60,34}},
                             color={0,127,255}));
@@ -624,8 +685,6 @@ equation
     annotation (Line(points={{-20,220},{-70,220}}, color={0,127,255}));
   connect(jun4.port_2, jun5.port_1) annotation (Line(points={{-90,220},{-170,220}},
                                   color={0,127,255}));
-  connect(jun5.port_2, senTCDU_a.port_a) annotation (Line(points={{-190,220},{-220,
-          220},{-220,120},{-50,120}}, color={0,127,255}));
   connect(jun4.port_3,pumEva. port_a)
     annotation (Line(points={{-80,230},{-80,280}}, color={0,127,255}));
   connect(pumEva.port_b, chi.port_a2) annotation (Line(points={{-80,300},{-80,308},
@@ -802,6 +861,18 @@ equation
                      color={0,0,127}));
   connect(TSetRacIn.y, cdu.TSet) annotation (Line(points={{-78,90},{-24,90},{
           -24,42},{-12,42}}, color={0,0,127}));
+  connect(fixme.port_b, rac.port_a) annotation (Line(points={{-84,-62},{-48,-62},
+          {-48,-60},{-10,-60}}, color={0,127,255}));
+  connect(fixme.port_a, senTRac_a.port_b) annotation (Line(points={{-104,-62},{-134,
+          -62},{-134,34},{-60,34}}, color={0,127,255}));
+  connect(TSetRacIn1.y, fixme.TSet) annotation (Line(points={{-168,-52},{-138,-52},
+          {-138,-54},{-106,-54}}, color={0,0,127}));
+  connect(jun5.port_2, fixme1.port_a) annotation (Line(points={{-190,220},{-202,
+          220},{-202,222},{-224,222},{-224,120},{-196,120}}, color={0,127,255}));
+  connect(fixme1.port_b, senTCDU_a.port_a)
+    annotation (Line(points={{-176,120},{-50,120}}, color={0,127,255}));
+  connect(TSetRacIn2.y, fixme1.TSet) annotation (Line(points={{-260,130},{-230,130},
+          {-230,128},{-198,128}}, color={0,0,127}));
   annotation (Diagram(coordinateSystem(extent={{-580,-120},{540,780}})),
     Icon(
         coordinateSystem(extent={{-100,-100},{100,100}})),
