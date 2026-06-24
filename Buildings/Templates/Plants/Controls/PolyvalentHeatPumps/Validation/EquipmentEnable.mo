@@ -12,7 +12,7 @@ model EquipmentEnable
     timeScale=1,
     period=100) "HP available signal"
     annotation (Placement(transformation(extent={{-90,-50},{-70,-30}})));
-  Buildings.Templates.Plants.Controls.PolyvalentHeatPumps.EquipmentEnable
+  Buildings.Templates.Plants.Controls.HeatPumps.Subsequences.EquipmentEnable
     enaEqu(final nHp=nHp, final nPhp=nPhp) "Compute array of enabled equipment"
     annotation (Placement(transformation(extent={{10,-10},{30,10}})));
   Buildings.Controls.OBC.CDL.Integers.Sources.TimeTable uSta(
@@ -90,7 +90,7 @@ equation
     Documentation(info="<html>
 <p>
 This model validates
-<a href=\"modelica://Buildings.Templates.Plants.Controls.PolyvalentHeatPumps.EquipmentEnable\">
+<a href=\"modelica://Buildings.Templates.Plants.Controls.HeatPumps.Subsequences.EquipmentEnable\">
 Buildings.Templates.Plants.Controls.StagingRotation.EquipmentEnablePolyvalent</a>
 in a configuration with three equally sized units (component <code>equEnaEqu</code>)
 and in a configuration with one small unit and two large equally sized

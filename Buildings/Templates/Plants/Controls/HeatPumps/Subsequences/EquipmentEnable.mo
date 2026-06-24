@@ -1,6 +1,5 @@
-within Buildings.Templates.Plants.Controls.PolyvalentHeatPumps;
-block EquipmentEnable
-  "Return array of equipment to be enabled at given stage"
+within Buildings.Templates.Plants.Controls.HeatPumps.Subsequences;
+block EquipmentEnable "Return array of equipment to be enabled at given stage"
   parameter Integer nStaHp(start=nHp)
     "Number of stages in HP staging matrix"
     annotation (Evaluate=true, Dialog(enable=nPhp==0));
@@ -138,14 +137,12 @@ block EquipmentEnable
   Buildings.Controls.OBC.CDL.Logical.And isPhp2AvaReqOrAltNee[nPhp] if nPhp > 0
     "Return true if equipment available and required or lead/lag alternate and needed to meet stage requirement"
     annotation (Placement(transformation(extent={{110,-50},{130,-30}})));
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput y1Php1[nHp + nPhp]
-    "False (up to nHp) and polyvalent HP enable command in single mode (from nHp+1)"
-                                                  annotation (Placement(
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput y1Php1[nPhp] if nPhp > 0
+    "Polyvalent HP enable command in single mode" annotation (Placement(
         transformation(extent={{200,-20},{240,20}}), iconTransformation(extent=
             {{100,20},{140,60}})));
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput y1Php2[nHp + nPhp]
-    "False (up to nHp) and polyvalent HP enable command in SHC mode (from nHp+1)"
-                                               annotation (Placement(
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput y1Php2[nPhp] if nPhp > 0
+    "Polyvalent HP enable command in SHC mode" annotation (Placement(
         transformation(extent={{200,-60},{240,-20}}), iconTransformation(extent
           ={{100,-20},{140,20}})));
   StagingRotation.BaseClasses.SelectEquipmentAtStage selEquStaHp(final nEqu=nHp)
@@ -169,9 +166,6 @@ block EquipmentEnable
     "HP enable command (up to nHp) and polyvalent HP enable command in single mode (from nHp+1)"
     annotation (Placement(transformation(extent={{200,60},{240,100}}),
         iconTransformation(extent={{100,-60},{140,-20}})));
-  Buildings.Controls.OBC.CDL.Logical.Sources.Constant falCst[nHp](each final k=
-        false) "Constant false"
-    annotation (Placement(transformation(extent={{170,-30},{190,-10}})));
   Buildings.Controls.OBC.CDL.Logical.Or enaHp[nHp] if nHp > 0
     "Enable HP required without lead/lag alternate and available or lead/lag alternate to meet stage requirement"
     annotation (Placement(transformation(extent={{150,30},{170,50}})));
@@ -290,14 +284,6 @@ equation
           {140,-40},{140,-88},{168,-88}}, color={255,0,255}));
   connect(isPhp1AvaReqOrAltNee1.y, y1HpPhp1[nHp + 1:nHp + nPhp]) annotation (
       Line(points={{132,0},{180,0},{180,80},{220,80}}, color={255,0,255}));
-  connect(falCst.y, y1Php1[1:nHp]) annotation (Line(points={{192,-20},{196,-20},
-          {196,0},{220,0}}, color={255,0,255}));
-  connect(falCst.y, y1Php2[1:nHp]) annotation (Line(points={{192,-20},{196,-20},
-          {196,-40},{220,-40}}, color={255,0,255}));
-  connect(isPhp1AvaReqOrAltNee1.y, y1Php1[nHp + 1:nHp + nPhp])
-    annotation (Line(points={{132,0},{220,0}}, color={255,0,255}));
-  connect(isPhp2AvaReqOrAltNee.y, y1Php2[nHp + 1:nHp + nPhp]) annotation (Line(
-        points={{132,-40},{206,-40},{206,-40},{220,-40}}, color={255,0,255}));
   connect(isHpAvaAltNee.y, enaHp.u1)
     annotation (Line(points={{132,40},{148,40}}, color={255,0,255}));
   connect(traMatStaHp.y, reqEquSta.u) annotation (Line(points={{-158,60},{-120,60},
@@ -312,6 +298,10 @@ equation
           40},{40,20},{140,20},{140,32},{148,32}}, color={255,0,255}));
   connect(enaHp.y, y1HpPhp1[1:nHp]) annotation (Line(points={{172,40},{190,40},{
           190,80},{220,80}}, color={255,0,255}));
+  connect(isPhp1AvaReqOrAltNee1.y, y1Php1)
+    annotation (Line(points={{132,0},{220,0}}, color={255,0,255}));
+  connect(isPhp2AvaReqOrAltNee.y, y1Php2)
+    annotation (Line(points={{132,-40},{220,-40}}, color={255,0,255}));
 annotation(defaultComponentName="enaEqu",
   Icon(coordinateSystem(preserveAspectRatio=true),
     graphics={Rectangle(extent={{-100,100},{100,-100}},
@@ -323,15 +313,5 @@ annotation(defaultComponentName="enaEqu",
       textColor={0,0,255})}),
   Diagram(coordinateSystem(extent={{-200,-160},{200,140}})),
     Documentation(info="<html>
-TODO: use conditional clauses nHp>0 and nPhp>0  
-and merge with Buildings.Templates.Plants.Controls.StagingRotation.EquipmentEnable
-when https://github.com/lbl-srg/modelica-buildings/pull/4636 finalized.
-<h4>Implementation details</h4>
-<p>
-To facilitate integration into plant controllers serving both
-reversible and polyvalent heat pumps, the output connectors for 
-the ... are of size <code>nHp + nPhp</code> and populated
-with <code>false</code> values.
-</p>
 </html>"));
 end EquipmentEnable;

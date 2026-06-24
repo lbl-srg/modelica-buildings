@@ -106,10 +106,10 @@ block StagingHeadered
     "Pump command – Hardware point"
     annotation(Placement(transformation(extent={{160,-80},{200,-40}}),
       iconTransformation(extent={{100,-20},{140,20}})));
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput y1_actual[nEqu]
-    "Pump status to event sequencing logic (dedicated or replicated lead headered pump signal)"
-    annotation(Placement(transformation(extent={{160,60},{200,100}}),
-      iconTransformation(extent={{100,40},{140,80}})));
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput y1Ded_actual[nPum]
+    if not is_hdr "Dedicated primary pump status to event sequencing logic"
+    annotation (Placement(transformation(extent={{160,80},{200,120}}),
+        iconTransformation(extent={{100,60},{140,100}})));
   Utilities.StageIndex nPumHdrDp(final have_inpAva=false, final nSta=nPum)
     if is_hdr and is_ctlDp
     "Compute number of pumps to be staged on – Headered pumps using ∆p control"
@@ -156,8 +156,7 @@ block StagingHeadered
   Buildings.Controls.OBC.CDL.Routing.BooleanExtractSignal sigPumPriDed(
     final nin=nEqu,
     final nout=nPum,
-    extract={i + max(0, nEqu - nPum) for i in 1:nPum})
-    if is_pri and not is_hdr
+    extract={i + max(0, nEqu - nPum) for i in 1:nPum}) if is_pri and not is_hdr
     "Filter out possible placeholder signals (plants with polyvalent HP)"
     annotation(Placement(transformation(extent={{70,-170},{90,-150}})));
   Buildings.Controls.OBC.CDL.Routing.BooleanExtractor y1LeaHdr_actual(
@@ -165,11 +164,6 @@ block StagingHeadered
     if is_hdr
     "Lead headered pump status"
     annotation(Placement(transformation(extent={{30,50},{50,70}})));
-  Buildings.Controls.OBC.CDL.Routing.BooleanScalarReplicator booScaRep(
-    final nout=nEqu)
-    if is_hdr
-    "Replicate signal"
-    annotation(Placement(transformation(extent={{70,50},{90,70}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1ValInlIso[nEqu]
     if is_pri and is_hdr and have_valInlIso
     "Equipment inlet isolation valve command"
@@ -236,13 +230,10 @@ block StagingHeadered
     "Loop differential pressure setpoint"
     annotation(Placement(transformation(extent={{-200,-40},{-160,0}}),
       iconTransformation(extent={{-140,-60},{-100,-20}})));
-  Utilities.ConcatenateParameterLogical pasU1Pum_actual(
-    final nin1=nPum,
-    final is_app=false,
-    final new=fill(false, nEqu - nPum))
-    if is_pri and not is_hdr
-    "Pass-through for pump status, prepend with false if nEqu > nPum"
-    annotation(Placement(transformation(extent={{70,90},{90,110}})));
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput y1Hdr_actual if is_hdr
+    "Lead headered primary pump status to event sequencing logic" annotation (
+      Placement(transformation(extent={{160,40},{200,80}}), iconTransformation(
+          extent={{100,20},{140,60}})));
 equation
   connect(u1Pum_actual, staHdrDp.u1_actual)
     annotation(Line(points={{-180,40},{-152,40},{-152,8},{-132,8}},
@@ -271,12 +262,6 @@ equation
       color={255,0,255}));
   connect(u1Pum_actual, y1LeaHdr_actual.u)
     annotation(Line(points={{-180,40},{-152,40},{-152,60},{28,60}},
-      color={255,0,255}));
-  connect(y1LeaHdr_actual.y, booScaRep.u)
-    annotation(Line(points={{52,60},{68,60}},
-      color={255,0,255}));
-  connect(booScaRep.y, y1_actual)
-    annotation(Line(points={{92,60},{140,60},{140,80},{180,80}},
       color={255,0,255}));
   connect(u1ValInlIso, phValInlIso.u)
     annotation(Line(points={{-180,-100},{-152,-100},{-152,-80},{-132,-80}},
@@ -344,12 +329,10 @@ equation
   connect(y, staHdrDp.y)
     annotation(Line(points={{-180,-60},{-136,-60},{-136,-8},{-132,-8}},
       color={0,0,127}));
-  connect(u1Pum_actual, pasU1Pum_actual.u1)
-    annotation(Line(points={{-180,40},{-152,40},{-152,100},{68,100}},
-      color={255,0,255}));
-  connect(pasU1Pum_actual.y, y1_actual)
-    annotation(Line(points={{92,100},{140,100},{140,80},{180,80}},
-      color={255,0,255}));
+  connect(y1LeaHdr_actual.y, y1Hdr_actual)
+    annotation (Line(points={{52,60},{180,60}}, color={255,0,255}));
+  connect(u1Pum_actual, y1Ded_actual) annotation (Line(points={{-180,40},{-152,
+          40},{-152,100},{180,100}}, color={255,0,255}));
 annotation(defaultComponentName="staPum",
   Icon(coordinateSystem(preserveAspectRatio=true,
     extent={{-100,-100},{100,100}}),
@@ -422,7 +405,7 @@ annotation(defaultComponentName="staPum",
   To simplify integration into the plant controller this block also serves as
   a pass-through for the dedicated primary pump command signal that is
   generated in
-  <a href=\"modelica://Buildings.Templates.Plants.Controls.StagingRotation.EventSequencingHeatPumps\">
+  <a href=\"modelica://Buildings.Templates.Plants.Controls.HeatPumps.Subsequences.EventSequencing\">
     Buildings.Templates.Plants.Controls.StagingRotation.EventSequencingHeatPumps</a>.
   For this purpose, the block includes the parameter <code>is_hdr</code> to
   specify whether the pumps are headered or dedicated.

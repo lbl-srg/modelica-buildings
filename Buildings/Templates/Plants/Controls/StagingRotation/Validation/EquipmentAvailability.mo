@@ -1,6 +1,6 @@
 within Buildings.Templates.Plants.Controls.StagingRotation.Validation;
 model EquipmentAvailability "Validation model for the evaluation of equipment availability"
-  Buildings.Templates.Plants.Controls.StagingRotation.EquipmentAvailability
+  Buildings.Templates.Plants.Controls.HeatPumps.Subsequences.EquipmentAvailability
     avaHeaCoo(have_heaWat=true, have_chiWat=true)
     "Evaluate equipment availability – Heating and cooling"
     annotation (Placement(transformation(extent={{0,-10},{20,10}})));
@@ -23,12 +23,12 @@ model EquipmentAvailability "Validation model for the evaluation of equipment av
     timeScale=1000,
     period=10000) "Equipment enabled in heating mode"
     annotation (Placement(transformation(extent={{-80,30},{-60,50}})));
-  Buildings.Templates.Plants.Controls.StagingRotation.EquipmentAvailability
+  Buildings.Templates.Plants.Controls.HeatPumps.Subsequences.EquipmentAvailability
     avaHea(have_heaWat=true, have_chiWat=false)
     "Evaluate equipment availability – Heating only"
     annotation (Placement(transformation(extent={{0,30},{20,50}})));
-  Buildings.Templates.Plants.Controls.StagingRotation.EquipmentAvailability avaCoo(
-      have_heaWat=false, have_chiWat=true)
+  Buildings.Templates.Plants.Controls.HeatPumps.Subsequences.EquipmentAvailability
+    avaCoo(have_heaWat=false, have_chiWat=true)
     "Evaluate equipment availability – Cooling only"
     annotation (Placement(transformation(extent={{0,-50},{20,-30}})));
 equation
@@ -72,7 +72,7 @@ equation
     Documentation(info="<html>
 <p>
 This model validates 
-<a href=\"modelica://Buildings.Templates.Plants.Controls.StagingRotation.EquipmentAvailability\">
+<a href=\"modelica://Buildings.Templates.Plants.Controls.HeatPumps.Subsequences.EquipmentAvailability\">
 Buildings.Templates.Plants.Controls.StagingRotation.EquipmentAvailability</a>
 for heating-only applications (component <code>avaHeaCoo</code>) and heating and cooling 
 applications (component <code>avaHea</code>).

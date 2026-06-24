@@ -18,7 +18,7 @@ model StageChangeCommandPolyvalent
     Buildings.Templates.Data.Defaults.COPHpWwHea /
       Buildings.Templates.Data.Defaults.COPHpAwHea * capHeaPhp_nominal
     "Design heating capacity in SHC mode - Each polyvalent heat pump";
-  Buildings.Templates.Plants.Controls.PolyvalentHeatPumps.EquipmentEnable
+  Buildings.Templates.Plants.Controls.HeatPumps.Subsequences.EquipmentEnable
     enaEquPhp(nHp=2, nPhp=2) "Enable equipment at stage"
     annotation (Placement(transformation(extent={{60,20},{80,40}})));
   PolyvalentHeatPumps.StagingParameters staPhp(nHp=2, nPhp=2)

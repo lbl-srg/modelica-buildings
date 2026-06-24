@@ -1,6 +1,6 @@
 within Buildings.Templates.Plants.Controls.StagingRotation.Validation;
 model EventSequencing "Validation model for event sequencing logic"
-  Buildings.Templates.Plants.Controls.StagingRotation.EventSequencingHeatPumps
+  Buildings.Templates.Plants.Controls.HeatPumps.Subsequences.EventSequencing
     seqEveHea(
     have_heaWat=true,
     have_chiWat=false,
@@ -16,7 +16,7 @@ model EventSequencing "Validation model for event sequencing logic"
     period=4500)
     "Command signal – Index 1 for heating command, 2 for cooling command"
     annotation (Placement(transformation(extent={{-80,-10},{-60,10}})));
-  Buildings.Templates.Plants.Controls.StagingRotation.EventSequencingHeatPumps
+  Buildings.Templates.Plants.Controls.HeatPumps.Subsequences.EventSequencing
     seqEveHeaCoo(
     have_heaWat=true,
     have_chiWat=true,
@@ -74,7 +74,7 @@ equation
     Documentation(info="<html>
 <p>
 This model validates
-<a href=\"modelica://Buildings.Templates.Plants.Controls.StagingRotation.EventSequencingHeatPumps\">
+<a href=\"modelica://Buildings.Templates.Plants.Controls.HeatPumps.Subsequences.EventSequencing\">
 Buildings.Templates.Plants.Controls.StagingRotation.EventSequencingHeatPumps</a>
 for the following configurations.
 </p>
