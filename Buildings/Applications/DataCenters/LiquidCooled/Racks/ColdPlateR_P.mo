@@ -23,7 +23,7 @@ model ColdPlateR_P
     "Design temperature differences, used to compute cold plate temperature"
     annotation(Dialog(group="Case temperature"));
 
-  parameter Data.Generic_R_m_flow datTheRes "Thermal resistance data record"
+  parameter Data.Generic_R_m_flow datTheRes "Thermal resistance data for case temperature"
     annotation (Placement(transformation(extent={{60,60},{80,80}})));
 
   // Flow resistance
