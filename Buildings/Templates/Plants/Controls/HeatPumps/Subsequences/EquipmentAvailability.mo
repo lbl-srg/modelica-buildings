@@ -1,7 +1,7 @@
 within Buildings.Templates.Plants.Controls.HeatPumps.Subsequences;
 block EquipmentAvailability
   "Equipment availability for heating and cooling applications"
-  parameter Boolean is_php
+  parameter Boolean is_php = false
     "Set to true for polyvalent heat pumps"
     annotation(Evaluate=true);
   parameter Boolean have_heaWat
@@ -13,8 +13,7 @@ block EquipmentAvailability
   parameter Real dtOff(min=0, unit="s") = 900
     "Off time required before equipment is deemed available again";
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1EnaHea
-    if have_heaWat
-    "Equipment enabled in heating mode"
+    if have_heaWat "Heating enable command"
     annotation(Placement(transformation(extent={{-240,-20},{-200,20}}),
       iconTransformation(extent={{-140,20},{-100,60}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput y1Hea
@@ -23,8 +22,7 @@ block EquipmentAvailability
     annotation(Placement(transformation(extent={{200,-20},{240,20}}),
       iconTransformation(extent={{100,40},{140,80}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1EnaCoo
-    if have_chiWat
-    "Equipment enabled in cooling mode"
+    if have_chiWat "Cooling enable command"
     annotation(Placement(transformation(extent={{-240,-140},{-200,-100}}),
       iconTransformation(extent={{-140,-60},{-100,-20}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput y1Coo
@@ -89,7 +87,7 @@ block EquipmentAvailability
     annotation(Placement(transformation(extent={{-36,70},{-16,90}})));
   Buildings.Controls.OBC.CDL.Logical.Not una
     "Return true if equipment is unavailable"
-    annotation(Placement(transformation(extent={{-110,-90},{-90,-70}})));
+    annotation(Placement(transformation(extent={{-110,-50},{-90,-30}})));
   Modelica.StateGraph.TransitionWithSignal trnToAva
     "Transition back to available state"
     annotation(Placement(transformation(extent={{170,90},{190,110}})));
@@ -112,7 +110,7 @@ block EquipmentAvailability
     annotation(Placement(transformation(extent={{-10,10},{10,30}})));
   Buildings.Controls.OBC.CDL.Logical.Or offOrNotCooOrHeaAndCoo
     "Return true if equipment is off or not in cooling mode or in simultaneous heating and cooling mode"
-    annotation(Placement(transformation(extent={{-10,-110},{10,-90}})));
+    annotation(Placement(transformation(extent={{0,-110},{20,-90}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput y1Shc
     if is_php
     "Equipment available for simultaneous heating and cooling operation"
@@ -122,13 +120,12 @@ block EquipmentAvailability
     "Avoid race condition when heating and cooling enabled at same time event: priority to heating"
     annotation(Placement(transformation(extent={{170,-130},{190,-110}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1EnaShc
-    if is_php
-    "Equipment enabled in SHC mode"
+    if is_php "Simultaneous heating and cooling enable command"
     annotation(Placement(transformation(extent={{-240,-200},{-200,-160}}),
       iconTransformation(extent={{-140,-100},{-100,-60}})));
   Buildings.Controls.OBC.CDL.Logical.Not notEdgHea
     "True if not simultaneously enabled in heating mode"
-    annotation(Placement(transformation(extent={{52,-150},{72,-130}})));
+    annotation(Placement(transformation(extent={{40,-150},{60,-130}})));
   Utilities.PlaceholderLogical phShc(
     final have_inp=is_php,
     final u_internal=false)
@@ -136,13 +133,13 @@ block EquipmentAvailability
     annotation(Placement(transformation(extent={{-190,-190},{-170,-170}})));
   Buildings.Controls.OBC.CDL.Logical.Edge edgHea
     "True at the time heating is enabled"
-    annotation(Placement(transformation(extent={{20,-150},{40,-130}})));
+    annotation(Placement(transformation(extent={{0,-150},{20,-130}})));
   Buildings.Controls.OBC.CDL.Logical.Not notEdgShc
     "True if not simultaneously enabled in SHC mode"
-    annotation(Placement(transformation(extent={{50,-190},{70,-170}})));
+    annotation(Placement(transformation(extent={{40,-190},{60,-170}})));
   Buildings.Controls.OBC.CDL.Logical.Edge edgShc
     "True at the time SHC is enabled"
-    annotation(Placement(transformation(extent={{20,-190},{40,-170}})));
+    annotation(Placement(transformation(extent={{0,-190},{20,-170}})));
 equation
   connect(avaMod.outPort[1], trnToCoo.inPort)
     annotation(Line(points={{-49.5,159.833},{-40,159.833},{-40,120},{-4,120}},
@@ -182,14 +179,14 @@ equation
     annotation(Line(points={{148.5,180},{-80,180},{-80,159.75},{-71,159.75}},
       color={0,0,0}));
   connect(u1Ava, una.u)
-    annotation(Line(points={{-220,-60},{-120,-60},{-120,-80},{-112,-80}},
+    annotation(Line(points={{-220,-60},{-120,-60},{-120,-40},{-112,-40}},
       color={255,0,255}));
   connect(avaMod.outPort[3], trnToUna.inPort)
     annotation(Line(
       points={{-49.5,160.167},{-49.5,160},{-40,160},{-40,80},{-30,80}},
       color={0,0,0}));
   connect(una.y, trnToUna.condition)
-    annotation(Line(points={{-88,-80},{-26,-80},{-26,68}},
+    annotation(Line(points={{-88,-40},{-26,-40},{-26,68}},
       color={255,0,255}));
   connect(trnToUna.outPort, unaSta.inPort[1])
     annotation(Line(points={{-24.5,80},{50,80},{50,99.6667},{139,99.6667}},
@@ -217,7 +214,7 @@ equation
     annotation(Line(points={{41.5,100},{90,100},{90,100},{139,100}},
       color={0,0,0}));
   connect(una.y, trnToUna2.condition)
-    annotation(Line(points={{-88,-80},{40,-80},{40,88}},
+    annotation(Line(points={{-88,-40},{40,-40},{40,88}},
       color={255,0,255}));
   connect(onCoo.outPort[2], trnToUna3.inPort)
     annotation(Line(points={{90.5,120.125},{92,120.125},{92,80},{96,80}},
@@ -226,19 +223,19 @@ equation
     annotation(Line(points={{101.5,80},{130,80},{130,100.333},{139,100.333}},
       color={0,0,0}));
   connect(una.y, trnToUna3.condition)
-    annotation(Line(points={{-88,-80},{100,-80},{100,68}},
+    annotation(Line(points={{-88,-40},{100,-40},{100,68}},
       color={255,0,255}));
   connect(offOrNotHea.y, offOrNotHeaOrHeaAndCoo.u1)
     annotation(Line(points={{-28,20},{-12,20}},
       color={255,0,255}));
   connect(offOrNotCoo.y, offOrNotCooOrHeaAndCoo.u1)
-    annotation(Line(points={{-28,-100},{-12,-100}},
+    annotation(Line(points={{-28,-100},{-2,-100}},
       color={255,0,255}));
   connect(offOrNotHeaOrHeaAndCoo.y, trnToOff.condition)
     annotation(Line(points={{12,20},{60,20},{60,148}},
       color={255,0,255}));
   connect(offOrNotCooOrHeaAndCoo.y, trnToOff1.condition)
-    annotation(Line(points={{12,-100},{120,-100},{120,108}},
+    annotation(Line(points={{22,-100},{120,-100},{120,108}},
       color={255,0,255}));
   connect(phHea.u, u1EnaHea)
     annotation(Line(points={{-192,0},{-220,0}},
@@ -268,7 +265,7 @@ equation
     annotation(Line(points={{-220,-180},{-192,-180}},
       color={255,0,255}));
   connect(phShc.y, offOrNotCooOrHeaAndCoo.u2)
-    annotation(Line(points={{-168,-180},{-20,-180},{-20,-108},{-12,-108}},
+    annotation(Line(points={{-168,-180},{-20,-180},{-20,-108},{-2,-108}},
       color={255,0,255}));
   connect(phShc.y, offOrNotHeaOrHeaAndCoo.u2)
     annotation(Line(points={{-168,-180},{-20,-180},{-20,12},{-12,12}},
@@ -281,22 +278,22 @@ equation
       points={{152,-120},{162,-120},{162,-122.333},{168,-122.333}},
       color={255,0,255}));
   connect(notEdgHea.y, avaAllCooAndNotHea.u[2])
-    annotation(Line(points={{74,-140},{160,-140},{160,-120},{168,-120}},
+    annotation(Line(points={{62,-140},{160,-140},{160,-120},{168,-120}},
       color={255,0,255}));
   connect(phHea.y, edgHea.u)
-    annotation(Line(points={{-168,0},{-160,0},{-160,-140},{18,-140}},
+    annotation(Line(points={{-168,0},{-160,0},{-160,-140},{-2,-140}},
       color={255,0,255}));
   connect(edgHea.y, notEdgHea.u)
-    annotation(Line(points={{42,-140},{50,-140}},
+    annotation(Line(points={{22,-140},{38,-140}},
       color={255,0,255}));
   connect(notEdgShc.y, avaAllCooAndNotHea.u[3])
-    annotation(Line(points={{72,-180},{160,-180},{160,-117.667},{168,-117.667}},
+    annotation(Line(points={{62,-180},{160,-180},{160,-117.667},{168,-117.667}},
       color={255,0,255}));
   connect(phShc.y, edgShc.u)
-    annotation(Line(points={{-168,-180},{18,-180}},
+    annotation(Line(points={{-168,-180},{-2,-180}},
       color={255,0,255}));
   connect(edgShc.y, notEdgShc.u)
-    annotation(Line(points={{42,-180},{48,-180}},
+    annotation(Line(points={{22,-180},{38,-180}},
       color={255,0,255}));
 annotation(__cdl(extensionBlock=true),
   defaultComponentName="avaHeaCoo",

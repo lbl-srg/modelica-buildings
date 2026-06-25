@@ -1545,7 +1545,7 @@ block AirToWater
     final nPhp=nPhp) if have_heaWat
     "Compute enable command for equipment in heating mode"
     annotation (Placement(transformation(extent={{40,350},{60,370}})));
-  Subsequences.EventSequencingGroup seqEve(
+  Subsequences.EventSequencingMultiple seqEve(
     final nHp=nHp,
     final nPhp=nPhp,
     final have_heaWat=have_heaWat,
@@ -1972,27 +1972,25 @@ block AirToWater
     "Primary CHW pump speed command – Polyvalent HP dedicated pumps"
     annotation(Placement(transformation(extent={{260,-40},{300,0}}),
       iconTransformation(extent={{200,-80},{240,-40}})));
-  PolyvalentHeatPumps.RoutingPrimaryPumpStatus rouPumChiWatPri(
+  Subsequences.RoutingPrimaryPumpStatus rouPumChiWatPri(
     final have_pumPriHdr=have_pumPriHdr,
     final nPumPriDedHp=nPumChiWatPriDedHp,
     final nPumPriDedPhp=nPumChiWatPriDedPhp,
-    final nPumPri=nPumChiWatPri)
-    if have_pumChiWatPri
+    final nPumPri=nPumChiWatPri) if have_pumChiWatPri
     "Reroute primary CHW pump status signal"
-    annotation(Placement(transformation(extent={{-230,150},{-210,170}})));
+    annotation (Placement(transformation(extent={{-230,150},{-210,170}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1PumHeaWatPriHdr_actual[nPumHeaWatPri]
     if have_pumHeaWatPri and have_pumPriHdr
     "Primary HW pump status"
     annotation(Placement(transformation(extent={{-300,220},{-260,260}}),
       iconTransformation(extent={{-240,280},{-200,320}})));
-  PolyvalentHeatPumps.RoutingPrimaryPumpStatus rouPumHeaWatPri(
+  Subsequences.RoutingPrimaryPumpStatus rouPumHeaWatPri(
     final have_pumPriHdr=have_pumPriHdr,
     final nPumPriDedHp=nPumHeaWatPriDedHp,
     final nPumPriDedPhp=nPumHeaWatPriDedPhp,
-    final nPumPri=nPumHeaWatPri)
-    if have_pumHeaWatPri
+    final nPumPri=nPumHeaWatPri) if have_pumHeaWatPri
     "Reroute primary HW pump status signal"
-    annotation(Placement(transformation(extent={{-230,210},{-210,230}})));
+    annotation (Placement(transformation(extent={{-230,210},{-210,230}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1PumHeaWatPriDedHp_actual[nPumHeaWatPriDedHp]
     if have_pumHeaWatPri and not have_pumPriHdr and have_hp
     "Primary HW pump status"

@@ -1,8 +1,8 @@
-simulateModel("Buildings.Templates.Plants.Controls.StagingRotation.Validation.EventSequencing",
+simulateModel("Buildings.Templates.Plants.Controls.HeatPumps.Subsequences.Validation.EventSequencingSingle",
     method="cvode",
     tolerance=1e-6,
     stopTime=4500.0,
-    resultFile="EventSequencing");
+    resultFile="EventSequencingSingleHP");
 createPlot(
     id=1,
     position={5, 5, 300, 500},

@@ -1,8 +1,8 @@
-simulateModel("Buildings.Templates.Plants.Controls.StagingRotation.Validation.EquipmentAvailability",
+simulateModel("Buildings.Templates.Plants.Controls.HeatPumps.Subsequences.Validation.EquipmentAvailability",
     method="cvode",
     tolerance=1e-6,
     stopTime=10000.0,
-    resultFile="EquipmentAvailability");
+    resultFile="EquipmentAvailabilityHP");
 createPlot(
     id=1,
     position={5, 5, 300, 500},

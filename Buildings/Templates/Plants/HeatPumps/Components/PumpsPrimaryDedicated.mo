@@ -493,8 +493,7 @@ annotation(defaultComponentName="pumPri",
   Diagram(coordinateSystem(extent={{-200,-200},{200,200}})),
   Icon(coordinateSystem(preserveAspectRatio=false,
     extent={{-2400,-400},{2400,400}}),
-    graphics={
-              Bitmap(visible=typArrPumPri ==
+    graphics={Bitmap(visible=typArrPumPri ==
       Buildings.Templates.Components.Types.PumpArrangement.Dedicated and
       nHp + nPhp >= 6,
       extent={{-50,-50},{50,50}},

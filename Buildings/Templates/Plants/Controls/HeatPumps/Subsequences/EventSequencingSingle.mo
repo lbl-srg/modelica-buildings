@@ -1,7 +1,6 @@
 within Buildings.Templates.Plants.Controls.HeatPumps.Subsequences;
-block EventSequencing
-  "Staging event sequencing for a single heat pump"
-  parameter Boolean is_php
+block EventSequencingSingle "Staging event sequencing for a single heat pump"
+  parameter Boolean is_php = false
     "Set to true for polyvalent heat pumps"
     annotation(Evaluate=true);
   parameter Boolean have_heaWat
@@ -127,7 +126,7 @@ block EventSequencing
     "Replace with placeholder value if input signal is not available"
     annotation(Placement(transformation(extent={{-210,70},{-190,90}})));
   Buildings.Controls.OBC.CDL.Logical.Or u1HeaOrCoo
-    if have_chiWat and not have_pumChiWatPri
+    if have_heaWat and have_chiWat and not have_pumChiWatPri
     "Return true if enabled from heating or cooling mode sequence"
     annotation(Placement(transformation(extent={{-110,-130},{-90,-110}})));
   Utilities.PlaceholderLogical u1Hea_internal(
@@ -137,11 +136,11 @@ block EventSequencing
     "Replace with placeholder value if input signal is not available"
     annotation(Placement(transformation(extent={{-210,110},{-190,130}})));
   Buildings.Controls.OBC.CDL.Routing.BooleanScalarReplicator rou(final nout=1)
-    if have_chiWat and have_pumChiWatPri
+    if have_heaWat and (have_chiWat and have_pumChiWatPri or not have_chiWat)
     "Signal routing for plants with dedicated primary CHW pumps"
     annotation(Placement(transformation(extent={{-40,-110},{-20,-90}})));
   Buildings.Controls.OBC.CDL.Routing.BooleanScalarReplicator rou1(final nout=1)
-    if have_chiWat and not have_pumChiWatPri
+    if have_heaWat and have_chiWat and not have_pumChiWatPri
     "Signal routing for plants without dedicated primary CHW pumps"
     annotation(Placement(transformation(extent={{-70,-130},{-50,-110}})));
   Buildings.Controls.OBC.CDL.Logical.Nor off
@@ -699,9 +698,13 @@ annotation(defaultComponentName="seqEve",
     revisions="<html>
 <ul>
   <li>
+    July 1, 2026, by Antoine Gautier:<br />
+    Refactored to support polyvalent heat pumps.
+  </li>
+  <li>
     March 29, 2024, by Antoine Gautier:<br />
     First implementation.
   </li>
 </ul>
 </html>"));
-end EventSequencing;
+end EventSequencingSingle;

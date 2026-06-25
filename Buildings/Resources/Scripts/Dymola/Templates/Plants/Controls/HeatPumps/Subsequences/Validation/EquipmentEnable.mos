@@ -1,8 +1,8 @@
-simulateModel("Buildings.Templates.Plants.Controls.PolyvalentHeatPumps.Validation.EquipmentEnable",
+simulateModel("Buildings.Templates.Plants.Controls.HeatPumps.Subsequences.Validation.EquipmentEnable",
     method="cvode",
     tolerance=1e-6,
     stopTime=100.0,
-    resultFile="EquipmentEnablePolyvalent");
+    resultFile="EquipmentEnableHP");
 createPlot(
     id=1,
     position={5, 5, 500, 600},
@@ -20,14 +20,14 @@ createPlot(
 createPlot(
     id=1,
     subPlot=3,
-    y={"enaEqu.y1Php1[3]", "enaEqu.y1Php1[4]"},
+    y={"enaEqu.y1Php1[1]", "enaEqu.y1Php1[2]"},
     autoscale=true,
     grid=true
 );
 createPlot(
     id=1,
     subPlot=4,
-    y={"enaEqu.y1Php2[3]", "enaEqu.y1Php2[4]"},
+    y={"enaEqu.y1Php2[1]", "enaEqu.y1Php2[2]"},
     autoscale=true,
     grid=true
 );

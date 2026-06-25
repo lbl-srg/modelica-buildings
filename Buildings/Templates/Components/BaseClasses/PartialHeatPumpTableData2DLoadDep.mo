@@ -75,7 +75,7 @@ partial model PartialHeatPumpTableData2DLoadDep
     final TConCoo_nominal=TChiWatSup_nominal,
     final TEvaCoo_nominal=TSouCoo_nominal,
     final allowFlowReversalCon=allowFlowReversal,
-    final allowFlowReversalEva=allowFlowReversalSou,
+    final allowFlowReversalEva=allowFlowReversal,
     final dTCon_nominal=THeaWatSup_nominal - THeaWatRet_nominal,
     final dTEva_nominal=TChiWatSup_nominal - TChiWatRet_nominal,
     final energyDynamics=energyDynamics,

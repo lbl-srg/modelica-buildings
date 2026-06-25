@@ -1,6 +1,6 @@
 within Buildings.Templates.Plants.Controls.HeatPumps.Subsequences;
-block EventSequencingGroup
-  "Staging event sequencing for a group of heat pumps"
+block EventSequencingMultiple
+  "Staging event sequencing for multiple heat pumps"
   parameter Integer nHp
     "Number of heat pumps"
     annotation(Evaluate=true);
@@ -126,21 +126,19 @@ block EventSequencingGroup
     "Polyvalent HP cooling on/off command"
     annotation(Placement(transformation(extent={{120,0},{160,40}}),
       iconTransformation(extent={{100,40},{140,80}})));
-  EventSequencing seqEveHp[nHp](
+  EventSequencingSingle seqEveHp[nHp](
     each final is_php=false,
     each final have_heaWat=have_heaWat,
     each final have_chiWat=have_chiWat,
     each final have_valInlIso=have_valHpInlIso,
     each final have_valOutIso=have_valHpOutIso,
     each final have_pumHeaWatPri=have_heaWat,
-    each final have_pumChiWatPri=have_chiWat and have_pumPriHdr
-      or have_pumChiWatPriDedHp,
+    each final have_pumChiWatPri=have_chiWat and have_pumPriHdr or
+        have_pumChiWatPriDedHp,
     each final dtVal=dtVal,
-    each final dtOff=dtOff)
-    if nHp > 0
-    "HP event sequencing"
-    annotation(Placement(transformation(extent={{-20,40},{0,68}})));
-  EventSequencing seqEvePhp[nPhp](
+    each final dtOff=dtOff) if nHp > 0 "HP event sequencing"
+    annotation (Placement(transformation(extent={{-20,40},{0,68}})));
+  EventSequencingSingle seqEvePhp[nPhp](
     each final is_php=true,
     each final have_heaWat=have_heaWat,
     each final have_chiWat=have_chiWat,
@@ -149,10 +147,8 @@ block EventSequencingGroup
     each final have_pumHeaWatPri=have_heaWat,
     each final have_pumChiWatPri=have_chiWat,
     each final dtVal=dtVal,
-    each final dtOff=dtOff)
-    if nPhp > 0
-    "Polyvalent HP event sequencing"
-    annotation(Placement(transformation(extent={{-20,-68},{0,-40}})));
+    each final dtOff=dtOff) if nPhp > 0 "Polyvalent HP event sequencing"
+    annotation (Placement(transformation(extent={{-20,-68},{0,-40}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1PumHeaWatPriHdr_actual
     if have_heaWat and have_pumPriHdr
     "Lead headered primary HW pump status"
@@ -303,13 +299,21 @@ annotation(defaultComponentName="seqEve",
       textString="%name",
       textColor={0,0,255})}),
   Diagram(coordinateSystem(extent={{-120,-120},{120,120}})),
-  Documentation(info="<html></html>",
+  Documentation(info="<html>
+<p>
+  This block applies the staging event sequencing logic of
+  <a href=\"modelica://Buildings.Templates.Plants.Controls.HeatPumps.Subsequences.EventSequencingSingle\">
+    Buildings.Templates.Plants.Controls.HeatPumps.Subsequences.EventSequencingSingle</a>
+  to a group of <code>nHp</code> reversible heat pumps and <code>nPhp</code>
+  polyvalent heat pumps.
+</p>
+</html>",
     revisions="<html>
 <ul>
   <li>
-    March 29, 2024, by Antoine Gautier:<br />
+    July 1, 2026, by Antoine Gautier:<br />
     First implementation.
   </li>
 </ul>
 </html>"));
-end EventSequencingGroup;
+end EventSequencingMultiple;

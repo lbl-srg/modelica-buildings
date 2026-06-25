@@ -405,7 +405,7 @@ annotation(defaultComponentName="staPum",
   To simplify integration into the plant controller this block also serves as
   a pass-through for the dedicated primary pump command signal that is
   generated in
-  <a href=\"modelica://Buildings.Templates.Plants.Controls.HeatPumps.Subsequences.EventSequencing\">
+  <a href=\"modelica://Buildings.Templates.Plants.Controls.HeatPumps.Subsequences.EventSequencingSingle\">
     Buildings.Templates.Plants.Controls.StagingRotation.EventSequencingHeatPumps</a>.
   For this purpose, the block includes the parameter <code>is_hdr</code> to
   specify whether the pumps are headered or dedicated.
