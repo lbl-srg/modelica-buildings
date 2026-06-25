@@ -1,4 +1,4 @@
-simulateModel("Buildings.Fluid.Humidifiers.EvaporativePads.Validation.Direct", method="CVode", tolerance=1e-6, startTime=350000,stopTime=604800, resultFile="DirectEvaporativeCooler");
+simulateModel("Buildings.Fluid.Humidifiers.EvaporativePads.Validation.Direct_DryWetSwitch", method="CVode", tolerance=1e-6, startTime=350000,stopTime=604800, resultFile="Direct_DryWetSwitch");
 createPlot(id=1, position={3, -12, 720, 412}, y={"sou.m_flow_in", "evaCooAct.y"}, range={4.0, 7.0, -1.0, 2.0},  grid=true, subPlot=101, colors={{28,108,200}, {238,46,47}}, range2={-0.5, 1.5}, axes={1, 2}, timeUnit="d", displayUnits={"kg/s", ""});
 createPlot(id=1, position={3, -12, 720, 412}, y={"to_degCOut.y", "combiTimeTable.y[7]"}, range={4.0, 7.0, 10.0, 40.0}, autoscale=false, grid=true, subPlot=102, colors={{28,108,200}, {238,46,47}}, timeUnit="d", displayUnits={"degC", ""});
 createPlot(id=1, position={3, -12, 720, 412}, y={"toTotAirOut.XiTotalAir", "mea1.y"}, range={4.0, 7.0, 0.005, 0.02},  autoscale=false, grid=true, subPlot=103, colors={{28,108,200}, {238,46,47}}, timeUnit="d", displayUnits={"", "1"});

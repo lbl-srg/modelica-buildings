@@ -3,7 +3,10 @@ model Direct
   "Direct evaporative cooler"
   extends Buildings.Fluid.Interfaces.TwoPortHeatMassExchanger(
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
-    redeclare Buildings.Fluid.MixingVolumes.MixingVolumeMoistAir vol);
+    redeclare Buildings.Fluid.MixingVolumes.MixingVolumeMoistAir vol,
+    final m_flow_nominal=per.v_nominal*padAre*Medium.dStp,
+    final dp_nominal=per.dp_nominal,
+    final n=per.n);
 
   parameter Modelica.Units.SI.Area padAre
     "Area of the rigid media evaporative pad";
@@ -11,7 +14,8 @@ model Direct
     "Depth of the rigid media evaporative pad";
   replaceable parameter Buildings.Fluid.Humidifiers.EvaporativePads.Data.Generic per
     constrainedby Buildings.Fluid.Humidifiers.EvaporativePads.Data.Generic
-    "Record with performance data" annotation (choicesAllMatching=true,
+    "Record with performance data for evaporative pads"
+    annotation (choicesAllMatching=true,
       Placement(transformation(extent={{60,60},{80,80}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput evaCooAct
@@ -27,7 +31,8 @@ model Direct
   Buildings.Fluid.Humidifiers.EvaporativePads.Baseclasses.Direct dirEvaCoo(
     redeclare final package Medium = Medium,
     final dep=dep,
-    final padAre=padAre)
+    final padAre=padAre,
+    per=per)
     "Direct evaporative cooling calculator"
     annotation (Placement(transformation(origin={30,50}, extent={{-10,-10},{10,10}})));
 
@@ -55,9 +60,6 @@ protected
     redeclare package Medium = Medium)
     "Calculate wet bulb temperature from inlet medium state"
     annotation (Placement(transformation(extent={{-20,70},{0,90}})));
-  Modelica.Blocks.Routing.RealPassThrough realPassThrough
-    "Pass-through block for transmitting real signal with different units"
-    annotation (Placement(transformation(extent={{-60,50},{-40,70}})));
   Buildings.Controls.OBC.CDL.Reals.Switch swiEvaCoo
     "Switch to turn evaporative cooling on and off"
     annotation (Placement(transformation(extent={{60,-40},{80,-20}})));
@@ -73,14 +75,10 @@ equation
           10,80},{10,56},{18,56}}, color={0,0,127}));
   connect(XInl.y, wetBul.Xi)
     annotation (Line(points={{-79,80},{-21,80}}, color={0,0,127}));
-  connect(pInl.y, dirEvaCoo.p) annotation (Line(points={{-79,60},{-70,60},{-70,44},
+  connect(pInl.y, dirEvaCoo.p) annotation (Line(points={{-79,60},{-60,60},{-60,44},
           {18,44}}, color={0,0,127}));
   connect(V_flow.y, dirEvaCoo.V_flow) annotation (Line(points={{-79,30},{0,30},{
           0,48},{18,48}},    color={0,0,127}));
-  connect(pInl.y, realPassThrough.u) annotation (Line(points={{-79,60},{-62,60}},
-          color={0,0,127}));
-  connect(realPassThrough.y, wetBul.p) annotation (Line(points={{-39,60},{-22,60},
-          {-22,72},{-21,72}}, color={0,0,127}));
 
   connect(evaCooAct, swiEvaCoo.u2) annotation (Line(points={{-120,-80},{-40,-80},
           {-40,-30},{58,-30}}, color={255,0,255}));
@@ -92,6 +90,8 @@ equation
           {90,-80},{-20,-80},{-20,-18},{-11,-18}}, color={0,0,127}));
   connect(zerWatFlo.y, swiEvaCoo.u3) annotation (Line(points={{22,-50},{40,-50},
           {40,-38},{58,-38}}, color={0,0,127}));
+  connect(pInl.y, wetBul.p) annotation (Line(points={{-79,60},{-60,60},{-60,72},
+          {-21,72}}, color={0,0,127}));
 annotation (defaultComponentName="dirEvaCoo", Icon(graphics={
   Rectangle(lineColor={0,0,255}, fillColor={95,95,95}, pattern=LinePattern.None,
             fillPattern=FillPattern.Solid, extent={{-70,60},{70,-60}}),

@@ -6,8 +6,8 @@ record Typical6Inches "Data for CELdek EnergyPlus typical 6-inch evaporative pad
         4.064,4.575,45.75,457.5},
       eta={0.915,0.85,0.821,0.796,0.772,0.75,0.731,0.714,0.698,0.683,0.67,0.658,
         0.647,0.636,0.616,0.596,0,0}),
-    dp_nominal=200,
-    v_nominal=5,
+    dp_nominal=185.304,
+    v_nominal=4.575,
     n=1.8);
 
   annotation (

@@ -11,7 +11,20 @@ block Direct
   parameter Modelica.Units.SI.Length dep
     "Depth of the rigid media evaporative pad";
 
-  Real eff(
+  replaceable parameter Buildings.Fluid.Humidifiers.EvaporativePads.Data.Generic per
+    constrainedby Buildings.Fluid.Humidifiers.EvaporativePads.Data.Generic
+    "Record with performance data for evaporative pads"
+    annotation (choicesAllMatching=true,
+      Placement(transformation(extent={{60,60},{80,80}})));
+
+  final parameter Real etaDer[size(per.efficiency.v,1)]=
+    Buildings.Utilities.Math.Functions.splineDerivatives(
+    x=per.efficiency.v,
+    y=per.efficiency.eta,
+    ensureMonotonicity=Buildings.Utilities.Math.Functions.isMonotonic(
+      x=per.efficiency.eta,
+      strict=false));
+  Real eta(
     final unit="1")
     "Evaporative humidifier efficiency";
 
@@ -60,7 +73,7 @@ block Direct
     redeclare package Medium =  Medium)
     "Water vapor mass fraction at the inlet";
 
-  Modelica.Units.SI.Velocity vel
+  Modelica.Units.SI.Velocity v
     "Air velocity";
 
   Modelica.Units.SI.ThermodynamicTemperature TDryBulOut(
@@ -77,18 +90,17 @@ protected
   parameter Modelica.Units.SI.Density rho_default=Medium.density(sta_default)
     "Density, used to compute fluid volume";
 
-  parameter Real effCoe[11] = {0.792714, 0.958569, -0.25193, -1.03215, 0.0262659,
-                               0.914869, -1.48241, -0.018992, 1.13137, 0.0327622,
-                               -0.145384}
-    "Coefficients for evaporative medium efficiency calculation";
+
 
 equation
-  vel =abs(V_flow)/padAre;
-  eff = effCoe[1] + effCoe[2]*(dep) + effCoe[3]*(vel)  + effCoe[4]*(dep^2) +
-    effCoe[5]*(vel^2) + effCoe[6]*(dep*vel)  + effCoe[7]*(vel*dep^2) +
-    effCoe[8]*(dep*vel^3) + effCoe[9]*(dep^3*vel) + effCoe[10]*(vel^3*dep^2) +
-    effCoe[11]*(dep^3*vel^2);
-  TDryBulOut = TDryBulIn - eff*(TDryBulIn - TWetBulIn);
+  v =abs(V_flow)/padAre;
+
+  eta =
+    Buildings.Fluid.Humidifiers.EvaporativePads.Baseclasses.Characteristics.saturationEfficiency(
+    per=per.efficiency,
+    v=v,
+    d=etaDer);
+  TDryBulOut = TDryBulIn - eta*(TDryBulIn - TWetBulIn);
   TDryBulIn = XWIn.TDryBul;
   TWetBulIn = XWIn.TWetBul;
   p = XWIn.p;
@@ -104,7 +116,7 @@ direct evaporative cooler component. The calculations are based on the direct
 evaporative cooler model in the Engineering Reference document from EnergyPlus v23.1.0.
 </p>
 <p>
-The effectiveness of the evaporative media <code>eff</code> is calculated using 
+The saturation efficiency of the evaporative media <code>eta</code> is calculated using 
 the curve
 </p>
 <p align=\"center\" style=\"font-style:italic;\">

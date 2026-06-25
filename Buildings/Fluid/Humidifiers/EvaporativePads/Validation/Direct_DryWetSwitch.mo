@@ -1,5 +1,5 @@
 within Buildings.Fluid.Humidifiers.EvaporativePads.Validation;
-model Direct
+model Direct_DryWetSwitch
   "Validation model for a direct evaporative cooler"
 
   extends Modelica.Icons.Example;
@@ -12,10 +12,10 @@ model Direct
 
   Buildings.Fluid.Humidifiers.EvaporativePads.Direct dirEvaCoo(
     redeclare final package Medium = MediumA,
-    final m_flow_nominal=m_flow_nominal,
-    final dp_nominal=10,
     final dep=0.2,
-    final padAre=0.6) "Direct evaporative cooler" annotation (Placement(
+    final padAre=0.6,
+    redeclare Buildings.Fluid.Humidifiers.EvaporativePads.Data.Generic per)
+                      "Direct evaporative cooler" annotation (Placement(
         transformation(origin={10,0},extent={{-10,-10},{10,10}})));
 
   Buildings.Fluid.Sources.Boundary_pT sin(
@@ -93,8 +93,6 @@ model Direct
     shift=350000) "Boolean pulse signal for active evaporative cooling"
     annotation (Placement(transformation(extent={{-40,-80},{-20,-60}})));
 equation
-  connect(combiTimeTable.y[9], sou.m_flow_in) annotation (Line(points={{-109,40},
-          {-100,40},{-100,8},{-42,8}}, color={0,0,127}));
   connect(dirEvaCoo.port_b, senTem.port_a)
     annotation (Line(points={{20,0},{30,0}}, color={0,127,255}));
   connect(senTem.T, mea.u)
@@ -122,6 +120,8 @@ equation
 
   connect(evaCooAct.y, dirEvaCoo.evaCooAct) annotation (Line(points={{-18,-70},{
           -10,-70},{-10,-4},{1,-4}}, color={255,0,255}));
+  connect(combiTimeTable.y[9], sou.m_flow_in) annotation (Line(points={{-109,40},
+          {-100,40},{-100,8},{-42,8}}, color={0,0,127}));
 annotation (
   Diagram(coordinateSystem(extent={{-140,-100},{140,100}})),
   experiment(StartTime=350000, StopTime=604800, Interval=60, Tolerance=1e-6),
@@ -184,6 +184,6 @@ First implementation.
 </ul>
 </html>"),
     Icon(coordinateSystem(extent={{-100,-100},{100,100}})),
-    __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Humidifiers/EvaporativePads/Validation/Direct.mos"
+    __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Humidifiers/EvaporativePads/Validation/Direct_DryWetSwitch.mos"
         "Simulate and plot"));
-end Direct;
+end Direct_DryWetSwitch;
