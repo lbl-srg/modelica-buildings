@@ -10,7 +10,8 @@ model AirToWater
   final parameter Boolean have_chiWat = pla.have_chiWat
     "Set to true if the plant provides CHW"
     annotation(Evaluate=true);
-  inner replaceable parameter UserProject.Data.AirToWater datAll(pla(final cfg=pla.cfg))
+  inner replaceable parameter UserProject.Data.AirToWater datAll(
+    pla(final cfg=pla.cfg))
     "Plant parameters"
     annotation(Placement(transformation(extent={{-180,120},{-160,140}})));
   parameter Modelica.Units.SI.PressureDifference dpTer_nominal(
@@ -37,7 +38,7 @@ model AirToWater
       rotation=0,
       origin={-170,-40})));
   Buildings.Templates.Plants.HeatPumps.AirToWater pla(
-    redeclare final package MediumHeaWat = Medium,
+    redeclare final package MediumHeaWat=Medium,
     typ=Buildings.Templates.Plants.Controls.Types.PlantHeatPump.ReversibleHeatRecovery,
     final dat=datAll.pla,
     nHp_select=3,
@@ -48,8 +49,9 @@ model AirToWater
     linearized=true,
     show_T=true,
     ctl(nAirHan=1, nEquZon=0),
-    is_dpBalYPumSetCal=true) "Heat pump plant"
-    annotation (Placement(transformation(extent={{-80,-100},{-40,-60}})));
+    is_dpBalYPumSetCal=true)
+    "Heat pump plant"
+    annotation(Placement(transformation(extent={{-80,-100},{-40,-60}})));
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant TDum(
     k=293.15,
     y(final unit="K", displayUnit="degC"))
@@ -93,18 +95,23 @@ model AirToWater
       16, 0, 1;
       18, 0, 0.6;
       22, 0.1, 0.1;
-      24, 0, 0],
+      24, 0, 0
+    ],
     timeScale=3600)
     "Fraction of design load – Index 1 for heating, 2 for cooling"
     annotation(Placement(transformation(extent={{-180,30},{-160,50}})));
-  Fluid.Sensors.MassFlowRate mChiWat_flow(redeclare final package Medium=Medium)
+  Fluid.Sensors.VolumeFlowRate VChiWat_flow(
+    redeclare final package Medium=Medium,
+    final m_flow_nominal=pla.mChiWat_flow_nominal)
     if have_chiWat
-    "CHW mass flow rate"
+    "CHW volume flow rate"
     annotation(Placement(transformation(extent={{-10,-10},{10,10}},
       rotation=-90,
-      origin={160,-60})));
-  Fluid.Sensors.MassFlowRate mHeaWat_flow(redeclare final package Medium=Medium)
-    "HW mass flow rate"
+      origin={160,-58})));
+  Fluid.Sensors.VolumeFlowRate VHeaWat_flow(
+    redeclare final package Medium=Medium,
+    final m_flow_nominal=pla.mHeaWat_flow_nominal)
+    "HW volume flow rate"
     annotation(Placement(transformation(extent={{-10,-10},{10,10}},
       rotation=-90,
       origin={160,-120})));
@@ -211,10 +218,10 @@ equation
     annotation(Line(points={{-80,-62},{-80,-20}},
       color={255,204,51},
       thickness=0.5));
-  connect(mChiWat_flow.port_b, dpChiWatRem[1].port_b)
-    annotation(Line(points={{160,-70},{160,-80},{60,-80},{60,-68}},
+  connect(VChiWat_flow.port_b, dpChiWatRem[1].port_b)
+    annotation(Line(points={{160,-68},{160,-80},{60,-80},{60,-68}},
       color={0,127,255}));
-  connect(mHeaWat_flow.port_b, dpHeaWatRem[1].port_b)
+  connect(VHeaWat_flow.port_b, dpHeaWatRem[1].port_b)
     annotation(Line(points={{160,-130},{160,-140},{60,-140},{60,-128}},
       color={0,127,255}));
   connect(cst.y, mulInt.u1)
@@ -226,10 +233,10 @@ equation
   connect(mulInt[2].y, busAirHan.reqPlaHeaWat)
     annotation(Line(points={{-22,60},{-40,60}},
       color={255,127,0}));
-  connect(mChiWat_flow.port_b, pipChiWat.port_a)
-    annotation(Line(points={{160,-70},{160,-80},{50,-80}},
+  connect(VChiWat_flow.port_b, pipChiWat.port_a)
+    annotation(Line(points={{160,-68},{160,-80},{50,-80}},
       color={0,127,255}));
-  connect(mHeaWat_flow.port_b, pipHeaWat.port_a)
+  connect(VHeaWat_flow.port_b, pipHeaWat.port_a)
     annotation(Line(points={{160,-130},{160,-140},{50,-140}},
       color={0,127,255}));
   connect(reqPlaRes.yChiWatResReq, ph[1].u)
@@ -264,8 +271,8 @@ equation
         index=1,
         extent={{-6,3},{-6,3}},
         horizontalAlignment=TextAlignment.Right));
-  connect(loaCoo.port_b, mChiWat_flow.port_a)
-    annotation(Line(points={{110,-40},{160,-40},{160,-50}},
+  connect(loaCoo.port_b, VChiWat_flow.port_a)
+    annotation(Line(points={{110,-40},{160,-40},{160,-48}},
       color={0,127,255}));
   connect(dpChiWatRem[1].port_a, loaCoo.port_a)
     annotation(Line(points={{60,-48},{60,-40},{90,-40}},
@@ -273,7 +280,7 @@ equation
   connect(loaCoo.yVal_actual, reqPlaRes.uCooCoiSet)
     annotation(Line(points={{112,-32},{126,-32},{126,49},{92,49}},
       color={0,0,127}));
-  connect(loaHea.port_b, mHeaWat_flow.port_a)
+  connect(loaHea.port_b, VHeaWat_flow.port_a)
     annotation(Line(points={{110,-100},{160,-100},{160,-110}},
       color={0,127,255}));
   connect(dpHeaWatRem[1].port_a, loaHea.port_a)
@@ -362,9 +369,9 @@ annotation(__Dymola_Commands(
   Note that the HRC model does not explicitly represent compressor cycling. As
   a result, the cycling-based disabling condition specified in
   <a href=\"modelica://Buildings.Templates.Plants.Controls.HeatRecoveryChillers.Enable\">
-    Buildings.Templates.Plants.Controls.HeatRecoveryChillers.Enable</a> is never
-  triggered. This limitation may lead to overestimating the HRC operating
-  time.
+    Buildings.Templates.Plants.Controls.HeatRecoveryChillers.Enable</a> is
+  never triggered. This limitation may lead to overestimating the HRC
+  operating time.
 </p>
 <h4>Details</h4>
 <p>
