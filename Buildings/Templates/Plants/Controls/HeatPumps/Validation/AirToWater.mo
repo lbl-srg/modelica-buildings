@@ -105,7 +105,7 @@ model AirToWater
     final k=VChiWat_flow_nominal)
     "Scale by design flow"
     annotation(Placement(transformation(extent={{-80,-50},{-60,-30}})));
-  Components.Controls.StatusEmulator y1Hp_actual[ctl.nHp]
+  Components.Controls.StatusEmulator y1Hp_actual[ctl.nHp] if ctl.have_hp
     "HP status"
     annotation(Placement(transformation(extent={{100,48},{120,68}})));
   Components.Controls.StatusEmulator y1PumHeaWatPriHdr_actual[ctl.nPumHeaWatPri]

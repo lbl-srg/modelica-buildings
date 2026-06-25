@@ -1,9 +1,9 @@
-simulateModel("Buildings.Templates.Plants.HeatPumps.Validation.AirToWaterPolyvalent",
+simulateModel("Buildings.Templates.Plants.HeatPumps.Validation.AirToWaterReversiblePolyvalentPlant",
     method="cvode",
     tolerance=1e-6,
     startTime=0.0,
     stopTime=86400.0,
-    resultFile="AirToWaterPolyvalentPlant");
+    resultFile="AirToWaterReversiblePolyvalentPlant");
 createPlot(
     id=1,
     position={5, 5, 300, 600},
@@ -46,9 +46,9 @@ createPlot(
 );
 createPlot(
     id=3,
-    position={615, 5, 300, 400},
+    position={615, 5, 300, 600},
     subPlot=1,
-    y={"pla.ctl.ctl.y1HeaPhp[1]", "pla.ctl.ctl.y1HeaPhp[2]", "pla.ctl.ctl.y1HeaPhp[3]"},
+    y={"pla.ctl.ctl.y1Hp[1]", "pla.ctl.ctl.y1Hp[2]"},
     autoscale=true,
     grid=true,
     timeUnit="h"
@@ -56,16 +56,24 @@ createPlot(
 createPlot(
     id=3,
     subPlot=2,
-    y={"pla.ctl.ctl.y1CooPhp[1]", "pla.ctl.ctl.y1CooPhp[2]", "pla.ctl.ctl.y1CooPhp[3]"},
+    y={"pla.ctl.ctl.y1HeaHp[1]", "pla.ctl.ctl.y1HeaHp[2]"},
+    autoscale=true,
+    grid=true,
+    timeUnit="h"
+);
+createPlot(
+    id=3,
+    subPlot=3,
+    y={"pla.ctl.ctl.y1HeaPhp[1]", "pla.ctl.ctl.y1CooPhp[1]"},
     autoscale=true,
     grid=true,
     timeUnit="h"
 );
 createPlot(
     id=4,
-    position={920, 5, 300, 400},
+    position={920, 5, 300, 600},
     subPlot=1,
-    y={"pla.ctl.ctl.y1PumHeaWatPriHdr[1]", "pla.ctl.ctl.y1PumHeaWatPriHdr[2]", "pla.ctl.ctl.y1PumHeaWatPriHdr[3]"},
+    y={"pla.ctl.ctl.y1PumHeaWatPriDedHp[1]", "pla.ctl.ctl.y1PumHeaWatPriDedHp[2]", "pla.ctl.ctl.y1PumHeaWatPriDedPhp[1]", "pla.ctl.ctl.y1PumChiWatPriDedPhp[1]"},
     autoscale=true,
     grid=true,
     timeUnit="h"
@@ -73,7 +81,15 @@ createPlot(
 createPlot(
     id=4,
     subPlot=2,
-    y={"pla.ctl.ctl.y1PumChiWatPriHdr[1]", "pla.ctl.ctl.y1PumChiWatPriHdr[2]", "pla.ctl.ctl.y1PumChiWatPriHdr[3]"},
+    y={"pla.ctl.ctl.y1PumHeaWatSec[1]", "pla.ctl.ctl.y1PumHeaWatSec[2]"},
+    autoscale=true,
+    grid=true,
+    timeUnit="h"
+);
+createPlot(
+    id=4,
+    subPlot=3,
+    y={"pla.ctl.ctl.y1PumChiWatSec[1]", "pla.ctl.ctl.y1PumChiWatSec[2]"},
     autoscale=true,
     grid=true,
     timeUnit="h"

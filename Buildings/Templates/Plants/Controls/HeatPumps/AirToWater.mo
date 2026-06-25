@@ -61,10 +61,10 @@ block AirToWater
   parameter Boolean have_pumChiWatPriDedHp_select(start=false) = false
     "Set to true for HP with separate dedicated primary pumps for CHW and HW circuits"
     annotation(Evaluate=true,
-      Dialog(enable=have_chiWat and not have_pumPriHdr,
+      Dialog(enable=have_chiWat and not have_pumPriHdr and have_hp,
         group="Plant configuration"));
   final parameter Boolean have_pumChiWatPriDedHp =
-    if have_chiWat and not have_pumPriHdr
+    if have_hp and have_chiWat and not have_pumPriHdr
     then have_pumChiWatPriDedHp_select else false
     "Set to true for HP with separate dedicated primary CHW pumps"
     annotation(Evaluate=true);
@@ -348,7 +348,7 @@ block AirToWater
     unit=fill("W", nHp))
     "Design heating capacity - Each heat pump"
     annotation(Dialog(group="Information provided by designer",
-      enable=have_heaWat));
+      enable=have_heaWat and have_hp));
   parameter Real VHeaWatHp_flow_nominal[nHp](
     min=fill(0, nHp),
     start=fill(1E-6, nHp),
@@ -356,7 +356,7 @@ block AirToWater
     "Design HW volume flow rate - Each heat pump"
     annotation(Evaluate=true,
       Dialog(group="Information provided by designer",
-        enable=have_heaWat and is_priOnl));
+        enable=have_heaWat and is_priOnl and have_hp));
   parameter Real VHeaWatHp_flow_min[nHp](
     min=fill(0, nHp),
     start=fill(0, nHp),
@@ -364,7 +364,7 @@ block AirToWater
     "Minimum HW volume flow rate - Each heat pump"
     annotation(Evaluate=true,
       Dialog(group="Information provided by designer",
-        enable=have_heaWat and is_priOnl));
+        enable=have_heaWat and is_priOnl and have_hp));
   parameter Real capHeaPhp_nominal[nPhp](
     min=fill(0, nPhp),
     start=fill(1, nPhp),
@@ -381,7 +381,7 @@ block AirToWater
       enable=have_php));
   parameter Real VHeaWatPhp_flow_nominal[nPhp](
     min=fill(0, nPhp),
-    start=fill(1E-6, nPhp),
+    start=fill(0, nPhp),
     unit=fill("m3/s", nPhp))
     "Design HW volume flow rate - Each polyvalent heat pump"
     annotation(Evaluate=true,
@@ -395,15 +395,13 @@ block AirToWater
     annotation(Evaluate=true,
       Dialog(group="Information provided by designer",
         enable=have_php and is_priOnl));
-  parameter Real VHeaWatPri_flow_nominal(
-    min=0,
-    start=sum(VHeaWatHp_flow_nominal),
-    unit="m3/s") = sum(VHeaWatHp_flow_nominal)
+  parameter Real VHeaWatPri_flow_nominal(min=0, start=0, unit="m3/s") =
+    sum(cat(1, VHeaWatHp_flow_nominal, VHeaWatPhp_flow_nominal))
     "Primary HW volume flow rate"
     annotation(Evaluate=true,
       Dialog(group="Information provided by designer",
         enable=have_heaWat and is_priOnl and have_pumPriHdr));
-  parameter Real VHeaWatSec_flow_nominal(min=0, start=1E-6, unit="m3/s")
+  parameter Real VHeaWatSec_flow_nominal(min=0, start=0, unit="m3/s")
     "Design secondary HW volume flow rate"
     annotation(Evaluate=true,
       Dialog(group="Information provided by designer",
@@ -476,7 +474,7 @@ block AirToWater
     unit=fill("W", nHp))
     "Design cooling capacity - Each heat pump"
     annotation(Dialog(group="Information provided by designer",
-      enable=have_chiWat));
+      enable=have_chiWat and have_hp));
   parameter Real VChiWatHp_flow_nominal[nHp](
     min=fill(0, nHp),
     start=fill(1E-6, nHp),
@@ -484,7 +482,7 @@ block AirToWater
     "Design CHW volume flow rate - Each heat pump"
     annotation(Evaluate=true,
       Dialog(group="Information provided by designer",
-        enable=have_chiWat and is_priOnl));
+        enable=have_chiWat and is_priOnl and have_hp));
   parameter Real VChiWatHp_flow_min[nHp](
     min=fill(0, nHp),
     start=fill(0, nHp),
@@ -492,7 +490,7 @@ block AirToWater
     "Minimum CHW volume flow rate - Each heat pump"
     annotation(Evaluate=true,
       Dialog(group="Information provided by designer",
-        enable=have_chiWat and is_priOnl));
+        enable=have_chiWat and is_priOnl and have_hp));
   parameter Real capCooPhp_nominal[nPhp](
     min=fill(0, nPhp),
     start=fill(1, nPhp),
@@ -523,10 +521,8 @@ block AirToWater
     annotation(Evaluate=true,
       Dialog(group="Information provided by designer",
         enable=have_php and is_priOnl));
-  parameter Real VChiWatPri_flow_nominal(
-    min=0,
-    start=sum(VChiWatHp_flow_nominal),
-    unit="m3/s") = sum(VChiWatHp_flow_nominal)
+  parameter Real VChiWatPri_flow_nominal(min=0, start=0, unit="m3/s") =
+    sum(cat(1, VChiWatHp_flow_nominal, VChiWatPhp_flow_nominal))
     "Primary CHW volume flow rate"
     annotation(Evaluate=true,
       Dialog(group="Information provided by designer",
@@ -555,7 +551,8 @@ block AirToWater
       enable=have_chiWat
         and not is_priOnl
         and have_pumChiWatPriVar
-        and have_pumPriHdr));
+        and have_pumPriHdr
+        and have_hp));
   parameter Real yPumChiWatPriDedHpSet(max=2, min=0, start=1, unit="1")
     "Primary pump speed providing design flow in cooling mode – HP dedicated pumps"
     annotation(Dialog(
@@ -947,10 +944,6 @@ block AirToWater
     annotation(Dialog(tab="Advanced",
       group="Sidestream HRC",
       enable=have_hrc));
-  Buildings.Controls.OBC.CDL.Logical.Sources.Constant u1AvaHp[nHp](each k=true)
-    "Heat pump available signal – Block does not handle faulted equipment yet"
-    annotation(Placement(transformation(extent={{-240,270},{-220,290}}),
-      iconTransformation(extent={{-240,220},{-200,260}})));
   Buildings.Controls.OBC.CDL.Interfaces.IntegerInput nReqPlaHeaWat
     if have_heaWat
     "Number of HW plant requests"
@@ -1061,22 +1054,22 @@ block AirToWater
     annotation(Placement(transformation(extent={{-300,-300},{-260,-260}}),
       iconTransformation(extent={{-240,-380},{-200,-340}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput y1ValHeaWatHpInlIso[nHp]
-    if have_heaWat and have_valHpInlIso
+    if have_heaWat and have_valHpInlIso and have_hp
     "Heat pump inlet HW isolation valve command"
     annotation(Placement(transformation(extent={{260,380},{300,420}}),
       iconTransformation(extent={{200,380},{240,420}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput y1ValHeaWatHpOutIso[nHp]
-    if have_heaWat and have_valHpOutIso
+    if have_heaWat and have_valHpOutIso and have_hp
     "Heat pump outlet HW isolation valve command"
     annotation(Placement(transformation(extent={{260,360},{300,400}}),
       iconTransformation(extent={{200,360},{240,400}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput y1ValChiWatHpInlIso[nHp]
-    if have_chiWat and have_valHpInlIso
+    if have_chiWat and have_valHpInlIso and have_hp
     "Heat pump inlet CHW isolation valve command"
     annotation(Placement(transformation(extent={{260,340},{300,380}}),
       iconTransformation(extent={{200,340},{240,380}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput y1ValChiWatHpOutIso[nHp]
-    if have_chiWat and have_valHpOutIso
+    if have_chiWat and have_valHpOutIso and have_hp
     "Heat pump outlet CHW isolation valve command"
     annotation(Placement(transformation(extent={{260,320},{300,360}}),
       iconTransformation(extent={{200,320},{240,360}})));
@@ -1204,6 +1197,7 @@ block AirToWater
     annotation(Placement(transformation(extent={{-300,-60},{-260,-20}}),
       iconTransformation(extent={{-240,-140},{-200,-100}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1Hp_actual[nHp]
+    if have_hp
     "Heat pump status"
     annotation(Placement(transformation(extent={{-300,280},{-260,320}}),
       iconTransformation(extent={{-240,320},{-200,360}})));
@@ -1364,6 +1358,74 @@ block AirToWater
     "Sidestream HRC CHW supply temperature setpoint"
     annotation(Placement(transformation(extent={{260,-360},{300,-320}}),
       iconTransformation(extent={{200,-440},{240,-400}})));
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1PumChiWatPriDedHp_actual[nPumChiWatPriDedHp]
+    if have_pumChiWatPri and have_pumChiWatPriDedHp
+    "Primary CHW pump status – HP dedicated pumps"
+    annotation(Placement(transformation(extent={{-300,140},{-260,180}}),
+      iconTransformation(extent={{-240,200},{-200,240}})));
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1PumChiWatPriDedPhp_actual[nPumChiWatPriDedPhp]
+    if have_pumChiWatPri and not have_pumPriHdr and have_php
+    "Primary CHW pump status – Polyvalent HP dedicated pumps"
+    annotation(Placement(transformation(extent={{-300,120},{-260,160}}),
+      iconTransformation(extent={{-240,180},{-200,220}})));
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput y1PumChiWatPriDedHp[nPumChiWatPriDedHp]
+    if have_pumChiWatPri and have_pumChiWatPriDedHp
+    "Primary CHW pump start command – HP dedicated pumps"
+    annotation(Placement(transformation(extent={{260,140},{300,180}}),
+      iconTransformation(extent={{200,100},{240,140}})));
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput y1PumChiWatPriDedPhp[nPumChiWatPriDedPhp]
+    if have_pumChiWatPri and not have_pumPriHdr and have_php
+    "Primary CHW pump start command – Polyvalent HP dedicated pumps"
+    annotation(Placement(transformation(extent={{260,120},{300,160}}),
+      iconTransformation(extent={{200,80},{240,120}})));
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput yPumChiWatPriDedPhp[nPumChiWatPriDedPhp](
+    each final unit="1")
+    if have_pumChiWatPriVar and not have_pumPriHdr and have_php
+    "Primary CHW pump speed command – Polyvalent HP dedicated pumps"
+    annotation(Placement(transformation(extent={{260,-40},{300,0}}),
+      iconTransformation(extent={{200,-80},{240,-40}})));
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1PumHeaWatPriDedHp_actual[nPumHeaWatPriDedHp]
+    if have_pumHeaWatPri and not have_pumPriHdr and have_hp
+    "Primary HW pump status"
+    annotation(Placement(transformation(extent={{-300,200},{-260,240}}),
+      iconTransformation(extent={{-240,260},{-200,300}})));
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput y1PumHeaWatPriDedHp[nPumHeaWatPriDedHp]
+    if have_pumHeaWatPri and have_hp and not have_pumPriHdr
+    "Primary HW pump start command – HP dedicated pumps"
+    annotation(Placement(transformation(extent={{260,200},{300,240}}),
+      iconTransformation(extent={{200,160},{240,200}})));
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput y1PumHeaWatPriDedPhp[nPumHeaWatPriDedPhp]
+    if have_pumHeaWatPri and have_php and not have_pumPriHdr
+    "Primary HW pump start command – Polyvalent HP dedicated pumps"
+    annotation(Placement(transformation(extent={{260,180},{300,220}}),
+      iconTransformation(extent={{200,140},{240,180}})));
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput yPumHeaWatPriDedPhp[nPumHeaWatPriDedPhp](
+    each final unit="1")
+    if have_pumHeaWatPriVar and not have_pumPriHdr and have_php
+    "Primary HW pump speed command – Polyvalent HP dedicated pumps"
+    annotation(Placement(transformation(extent={{260,0},{300,40}}),
+      iconTransformation(extent={{200,-40},{240,0}})));
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput THeaWatSupPhpSet[nPhp](
+    each final unit="K",
+    each final quantity="ThermodynamicTemperature",
+    each displayUnit="degC")
+    if have_heaWat and have_php
+    "Polyvalent HP HW supply temperature setpoint"
+    annotation(Placement(transformation(extent={{260,-180},{300,-140}}),
+      iconTransformation(extent={{200,-260},{240,-220}})));
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput TChiWatSupPhpSet[nPhp](
+    each final unit="K",
+    each final quantity="ThermodynamicTemperature",
+    each displayUnit="degC")
+    if have_chiWat and have_php
+    "Polyvalent HP CHW supply temperature setpoint"
+    annotation(Placement(transformation(extent={{260,-200},{300,-160}}),
+      iconTransformation(extent={{200,-280},{240,-240}})));
+  Buildings.Controls.OBC.CDL.Logical.Sources.Constant u1AvaHp[nHp](each k=true)
+    if have_hp
+    "Heat pump available signal – Block does not handle faulted equipment yet"
+    annotation(Placement(transformation(extent={{-240,270},{-220,290}}),
+      iconTransformation(extent={{-240,220},{-200,260}})));
   Enabling.Enable enaHea(
     final typ=Buildings.Templates.Plants.Controls.Types.Application.Heating,
     final TOutLck=TOutHeaWatLck,
@@ -1500,6 +1562,7 @@ block AirToWater
     "Evaluate HP availability in heating or cooling mode"
     annotation(Placement(transformation(extent={{-150,230},{-130,250}})));
   StagingRotation.SortRuntime sorRunTimHp(final idxEquAlt=idxAltHp, nin=nHp)
+    if have_hp
     "Sort lead/lag alternate HP by staging runtime"
     annotation(Placement(transformation(extent={{-150,260},{-130,280}})));
   Pumps.Generic.StagingHeadered staPumHeaWatPri(
@@ -1810,32 +1873,6 @@ block AirToWater
     if have_php
     "Polyvalent HP enabled in SHC mode"
     annotation(Placement(transformation(extent={{160,390},{140,410}})));
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1PumChiWatPriDedHp_actual[nPumChiWatPriDedHp]
-    if have_pumChiWatPri and have_pumChiWatPriDedHp
-    "Primary CHW pump status – HP dedicated pumps"
-    annotation(Placement(transformation(extent={{-300,140},{-260,180}}),
-      iconTransformation(extent={{-240,200},{-200,240}})));
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1PumChiWatPriDedPhp_actual[nPumChiWatPriDedPhp]
-    if have_pumChiWatPri and not have_pumPriHdr and have_php
-    "Primary CHW pump status – Polyvalent HP dedicated pumps"
-    annotation(Placement(transformation(extent={{-300,120},{-260,160}}),
-      iconTransformation(extent={{-240,180},{-200,220}})));
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput y1PumChiWatPriDedHp[nPumChiWatPriDedHp]
-    if have_pumChiWatPri and have_pumChiWatPriDedHp
-    "Primary CHW pump start command – HP dedicated pumps"
-    annotation(Placement(transformation(extent={{260,140},{300,180}}),
-      iconTransformation(extent={{200,100},{240,140}})));
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput y1PumChiWatPriDedPhp[nPumChiWatPriDedPhp]
-    if have_pumChiWatPri and not have_pumPriHdr and have_php
-    "Primary CHW pump start command – Polyvalent HP dedicated pumps"
-    annotation(Placement(transformation(extent={{260,120},{300,160}}),
-      iconTransformation(extent={{200,80},{240,120}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealOutput yPumChiWatPriDedPhp[nPumChiWatPriDedPhp](
-    each final unit="1")
-    if have_pumChiWatPriVar and not have_pumPriHdr and have_php
-    "Primary CHW pump speed command – Polyvalent HP dedicated pumps"
-    annotation(Placement(transformation(extent={{260,-40},{300,0}}),
-      iconTransformation(extent={{200,-80},{240,-40}})));
   Subsequences.RoutingPrimaryPumpStatus rouPumChiWatPri(
     final have_pumPriHdr=have_pumPriHdr,
     final nPumPriDedHp=nPumChiWatPriDedHp,
@@ -1857,27 +1894,6 @@ block AirToWater
     if have_pumHeaWatPri
     "Reroute primary HW pump status signal"
     annotation(Placement(transformation(extent={{-230,210},{-210,230}})));
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1PumHeaWatPriDedHp_actual[nPumHeaWatPriDedHp]
-    if have_pumHeaWatPri and not have_pumPriHdr and have_hp
-    "Primary HW pump status"
-    annotation(Placement(transformation(extent={{-300,200},{-260,240}}),
-      iconTransformation(extent={{-240,260},{-200,300}})));
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput y1PumHeaWatPriDedHp[nPumHeaWatPriDedHp]
-    if have_pumHeaWatPri and have_hp and not have_pumPriHdr
-    "Primary HW pump start command – HP dedicated pumps"
-    annotation(Placement(transformation(extent={{260,200},{300,240}}),
-      iconTransformation(extent={{200,160},{240,200}})));
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput y1PumHeaWatPriDedPhp[nPumHeaWatPriDedPhp]
-    if have_pumHeaWatPri and have_php and not have_pumPriHdr
-    "Primary HW pump start command – Polyvalent HP dedicated pumps"
-    annotation(Placement(transformation(extent={{260,180},{300,220}}),
-      iconTransformation(extent={{200,140},{240,180}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealOutput yPumHeaWatPriDedPhp[nPumHeaWatPriDedPhp](
-    each final unit="1")
-    if have_pumHeaWatPriVar and not have_pumPriHdr and have_php
-    "Primary HW pump speed command – Polyvalent HP dedicated pumps"
-    annotation(Placement(transformation(extent={{260,0},{300,40}}),
-      iconTransformation(extent={{200,-40},{240,0}})));
   Buildings.Controls.OBC.CDL.Utilities.Assert assMes(
     message="\"Primary-secondary plants with headered pumps are not supported when both reversible and polyvalent HP are present")
     annotation(Placement(transformation(extent={{210,-470},{230,-450}})));
@@ -1895,22 +1911,6 @@ block AirToWater
   Buildings.Controls.OBC.CDL.Logical.TrueFalseHold y1EnaHeaHol[nHp](
     each trueHoldDuration=1)
     annotation(Placement(transformation(extent={{100,358},{120,378}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealOutput THeaWatSupPhpSet[nPhp](
-    each final unit="K",
-    each final quantity="ThermodynamicTemperature",
-    each displayUnit="degC")
-    if have_heaWat and have_php
-    "Polyvalent HP HW supply temperature setpoint"
-    annotation(Placement(transformation(extent={{260,-180},{300,-140}}),
-      iconTransformation(extent={{200,-260},{240,-220}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealOutput TChiWatSupPhpSet[nPhp](
-    each final unit="K",
-    each final quantity="ThermodynamicTemperature",
-    each displayUnit="degC")
-    if have_chiWat and have_php
-    "Polyvalent HP CHW supply temperature setpoint"
-    annotation(Placement(transformation(extent={{260,-200},{300,-160}}),
-      iconTransformation(extent={{200,-280},{240,-240}})));
   Buildings.Controls.OBC.CDL.Routing.RealScalarReplicator repTHeaWatSupPhpSet(
     final nout=nPhp)
     if have_heaWat and have_php

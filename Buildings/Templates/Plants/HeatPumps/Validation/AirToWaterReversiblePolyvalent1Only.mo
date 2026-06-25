@@ -1,5 +1,5 @@
 within Buildings.Templates.Plants.HeatPumps.Validation;
-model AirToWaterPolyvalentPrimaryOnly
+model AirToWaterReversiblePolyvalent1Only
   "Validation of AWHP plant template with reversible (2-pipe) and polyvalent (4-pipe) units"
   extends Buildings.Templates.Plants.HeatPumps.Validation.AirToWater(
     redeclare Buildings.Templates.Plants.HeatPumps.Validation.UserProject.Data.AirToWaterPolyvalent datAll,
@@ -23,4 +23,4 @@ annotation(__Dymola_Commands(
     "Simulate and plot"),
   experiment(Tolerance=1e-6,
     StopTime=86400.0));
-end AirToWaterPolyvalentPrimaryOnly;
+end AirToWaterReversiblePolyvalent1Only;

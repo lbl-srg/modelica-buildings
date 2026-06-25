@@ -256,6 +256,10 @@ equation
   connect(ctl.y1ValChiWatHpOutIso, busValChiWatHpOutIso.y1);
   connect(ctl.y1ValHeaWatHpInlIso, busValHeaWatHpInlIso.y1);
   connect(ctl.y1ValHeaWatHpOutIso, busValHeaWatHpOutIso.y1);
+  connect(ctl.y1ValChiWatPhpInlIso, busValChiWatPhpInlIso.y1);
+  connect(ctl.y1ValChiWatPhpOutIso, busValChiWatPhpOutIso.y1);
+  connect(ctl.y1ValHeaWatPhpInlIso, busValHeaWatPhpInlIso.y1);
+  connect(ctl.y1ValHeaWatPhpOutIso, busValHeaWatPhpOutIso.y1);
   connect(ctl.yValHeaWatMinByp, busValHeaWatMinByp.y);
   connect(ctl.yValChiWatMinByp, busValChiWatMinByp.y);
   connect(ctl.yPumChiWatPriDedHp, rouPumChiWatPri.yDedHp);
