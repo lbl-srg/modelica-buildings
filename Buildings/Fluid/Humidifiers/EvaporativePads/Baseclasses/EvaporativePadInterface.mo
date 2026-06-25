@@ -2,9 +2,10 @@ within Buildings.Fluid.Humidifiers.EvaporativePads.Baseclasses;
 model EvaporativePadInterface
   "Model with performance curves for evaporative pads"
 
-  parameter Buildings.Fluid.Humidifiers.EvaporativePads.Data.Generic per
+  replaceable parameter Buildings.Fluid.Humidifiers.EvaporativePads.Data.Generic per
+    constrainedby Buildings.Fluid.Humidifiers.EvaporativePads.Data.Generic
     "Record with performance data"
-    annotation (Placement(transformation(extent={{60,-80},{80,-60}})));
+    annotation (choicesAllMatching=true,Placement(transformation(extent={{60,-80},{80,-60}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput v(
     final quantity="Velocity",
     final unit="m/s") "Air velocity"
@@ -13,14 +14,8 @@ model EvaporativePadInterface
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput eta(
     final quantity="Efficiency",
     final unit="1") "Saturation efficiency"
-    annotation (Placement(transformation(extent={{100,-70},{140,-30}}),
-      iconTransformation(extent={{100,30},{140,70}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealOutput dp(
-    final quantity="PressureDifference",
-    final unit="Pa")
-    "Pressure drop"
-    annotation (Placement(transformation(extent={{100,30},{140,70}}),
-      iconTransformation(extent={{100,-70},{140,-30}})));
+    annotation (Placement(transformation(extent={{100,-20},{140,20}}),
+      iconTransformation(extent={{100,-20},{140,20}})));
 protected
   final parameter Real etaDer[size(per.efficiency.v,1)]=
     Buildings.Utilities.Math.Functions.splineDerivatives(
@@ -30,25 +25,13 @@ protected
       x=per.efficiency.eta,
       strict=false))
     "Derivative for cubic spline of saturation efficiency vs. air velocity";
-  final parameter Real dpDer[size(per.pressure.v,1)]=
-    Buildings.Utilities.Math.Functions.splineDerivatives(
-    x=per.pressure.v,
-    y=per.pressure.dp,
-    ensureMonotonicity=Buildings.Utilities.Math.Functions.isMonotonic(
-      x=per.pressure.dp,
-      strict=false))
-    "Derivative for cubic spline of pressure drop vs. air velocity";
 
 equation
-  eta =
+  eta =min(1,max(0,
     Buildings.Fluid.Humidifiers.EvaporativePads.Baseclasses.Characteristics.saturationEfficiency(
     per=per.efficiency,
     v=v,
-    d=etaDer);
-  dp = Buildings.Fluid.Humidifiers.EvaporativePads.Baseclasses.Characteristics.pressure(
-    per=per.pressure,
-    v=v,
-    d=dpDer);
+    d=etaDer)));
   annotation (defaultComponentName="evaPadInt",
     Icon(coordinateSystem(preserveAspectRatio=false), graphics={
           Rectangle(

@@ -3,12 +3,13 @@ model EvaporativePadInterface
   "Simple model to validate EvaporativePadInterface"
   extends Modelica.Icons.Example;
   Buildings.Fluid.Humidifiers.EvaporativePads.Baseclasses.EvaporativePadInterface
-    evaPadInt(per(efficiency(v={0,5,10}, eta={0.99,0.90,0.81}),
-      pressure(v={0,5,10}, dp={0,10,35})))
+    evaPadInt(redeclare
+      Buildings.Fluid.Humidifiers.EvaporativePads.Data.CELdekEnergyPlus.Typical6Inches
+      per)
     "Model for the evaporative pad interface"
     annotation (Placement(transformation(extent={{20,0},{40,20}})));
   Modelica.Blocks.Sources.Ramp v(
-    height=20,
+    height=12.5,
     duration=1,
     offset=-5)
     "Air velocity"

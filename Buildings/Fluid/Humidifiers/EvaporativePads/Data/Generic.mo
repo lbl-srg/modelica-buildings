@@ -4,10 +4,13 @@ record Generic "Generic data record for evaporative pads"
 
   parameter
     Buildings.Fluid.Humidifiers.EvaporativePads.Baseclasses.Characteristics.saturationEfficiencyParameters
-    efficiency(v={0}, eta={0.7}) "Saturation efficiency vs. air velocity";
-  parameter
-    Buildings.Fluid.Humidifiers.EvaporativePads.Baseclasses.Characteristics.pressureParameters
-    pressure(v={0}, dp={20}) "Pressure drop vs. air velocity";
+    efficiency(v={0,2.5,5}, eta={0.88,0.8,0.72}) "Saturation efficiency vs. air velocity";
+  parameter Modelica.Units.SI.PressureDifference dp_nominal(displayUnit="Pa")=200
+    "Pressure drop at nominal mass flow rate";
+  parameter Modelica.Units.SI.Velocity v_nominal=5
+    "Nominal air velocity";
+  parameter Real n(min=1, max=2)=1.8
+    "Flow exponent for the pressure drop of air, n=1 for laminar, n=2 for turbulent";
 
   annotation (
   defaultComponentPrefixes = "parameter",

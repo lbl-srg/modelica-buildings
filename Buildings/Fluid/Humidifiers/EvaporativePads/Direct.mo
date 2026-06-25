@@ -9,6 +9,10 @@ model Direct
     "Area of the rigid media evaporative pad";
   parameter Modelica.Units.SI.Length dep
     "Depth of the rigid media evaporative pad";
+  replaceable parameter Buildings.Fluid.Humidifiers.EvaporativePads.Data.Generic per
+    constrainedby Buildings.Fluid.Humidifiers.EvaporativePads.Data.Generic
+    "Record with performance data" annotation (choicesAllMatching=true,
+      Placement(transformation(extent={{60,60},{80,80}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput evaCooAct
     "True: the evaporative cooling is active" annotation (Placement(

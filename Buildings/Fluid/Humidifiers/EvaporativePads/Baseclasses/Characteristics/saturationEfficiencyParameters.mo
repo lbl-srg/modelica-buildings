@@ -4,7 +4,7 @@ record saturationEfficiencyParameters
   extends Modelica.Icons.Record;
   parameter Real v[:](each min=0)
     "Air velocity";
-  parameter Modelica.Units.SI.Efficiency eta[size(v, 1)](each max=1)
+  parameter Modelica.Units.SI.Efficiency eta[size(v, 1)](each min=0,max=1)
     "Saturation efficiency at the corresponding air velocity";
   annotation (Documentation(info="<html>
 <p>

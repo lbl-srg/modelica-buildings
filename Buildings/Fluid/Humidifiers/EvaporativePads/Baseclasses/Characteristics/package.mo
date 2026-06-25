@@ -21,9 +21,9 @@ The following performance curves are implemented:
 <tr>
 <td>Air velocity</td>
 <td>Pressure</td>
-<td><a href=\"modelica://Buildings.Fluid.Humidifiers.EvaporativePads.Baseclasses.Characteristics.pressureParameters\">
+<td><a href=\"modelica://CCC_test.ESTCP2.AdiabaticPads.BaseClasses.Characteristics.pressureParameters_archived_20260624\">
 pressureParameters</a></td>
-<td><a href=\"modelica://Buildings.Fluid.Humidifiers.EvaporativePads.Baseclasses.Characteristics.pressure\">
+<td><a href=\"modelica://CCC_test.ESTCP2.AdiabaticPads.BaseClasses.Characteristics.pressure_archived_20260624\">
 pressure</a></td>
 </tr>
 <tr>
