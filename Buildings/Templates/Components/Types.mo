@@ -5,6 +5,7 @@ package Types
 
   type Chiller = enumeration(
     AirCooled "Air-cooled compression chiller",
+    None "No chiller",
     WaterCooled "Water-cooled compression chiller")
     "Enumeration to specify the type of chiller";
 

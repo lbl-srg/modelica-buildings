@@ -7,9 +7,11 @@ record Chiller
     annotation (Evaluate=true,
     Dialog(group="Configuration", enable=false));
   parameter Modelica.Units.SI.MassFlowRate mChiWat_flow_nominal(
-    final min=0)
+    final min=0,
+    start=1)
     "CHW mass flow rate"
-    annotation (Dialog(group="Nominal condition"));
+    annotation (Dialog(group="Nominal condition",
+      enable=typ<>Buildings.Templates.Components.Types.Chiller.None));
   parameter Modelica.Units.SI.MassFlowRate mCon_flow_nominal(
     start=if typ == Buildings.Templates.Components.Types.Chiller.WaterCooled
       then mChiWat_flow_nominal elseif typ == Buildings.Templates.Components.Types.Chiller.AirCooled
@@ -19,14 +21,16 @@ record Chiller
     "Condenser cooling fluid (e.g. CW) mass flow rate"
     annotation (Dialog(group="Nominal condition",
       enable=typ==Buildings.Templates.Components.Types.Chiller.WaterCooled));
-  parameter Modelica.Units.SI.HeatFlowRate cap_nominal
+  parameter Modelica.Units.SI.HeatFlowRate cap_nominal(start=0)
     "Cooling capacity"
-    annotation (Dialog(group="Nominal condition"));
+    annotation (Dialog(group="Nominal condition",
+      enable=typ<>Buildings.Templates.Components.Types.Chiller.None));
   parameter Modelica.Units.SI.PressureDifference dpChiWat_nominal(
     final min=0,
     start=Buildings.Templates.Data.Defaults.dpChiWatChi)
     "CHW pressure drop"
-    annotation (Dialog(group="Nominal condition"));
+    annotation (Dialog(group="Nominal condition",
+      enable=typ<>Buildings.Templates.Components.Types.Chiller.None));
   parameter Modelica.Units.SI.PressureDifference dpCon_nominal(
     final min=0,
     start=if typ == Buildings.Templates.Components.Types.Chiller.WaterCooled
@@ -37,15 +41,23 @@ record Chiller
     annotation (Dialog(group="Nominal condition",
       enable=typ==Buildings.Templates.Components.Types.Chiller.WaterCooled));
   parameter Modelica.Units.SI.Temperature TChiWatSup_nominal(
-    final min=260)
+    final min=260,
+    start=Buildings.Templates.Data.Defaults.TChiWatSup)
     "CHW supply temperature"
-    annotation (Dialog(group="Nominal condition"));
+    annotation (Dialog(group="Nominal condition",
+      enable=typ<>Buildings.Templates.Components.Types.Chiller.None));
   parameter Modelica.Units.SI.Temperature TCon_nominal(
-    final min=273.15)
+    final min=273.15,
+    start=Buildings.Templates.Data.Defaults.TOutChi)
     "Condenser entering or leaving fluid temperature (depending on per.use_TConOutForTab)"
-    annotation (Dialog(group="Nominal condition"));
+    annotation (Dialog(group="Nominal condition",
+      enable=typ<>Buildings.Templates.Components.Types.Chiller.None));
   replaceable parameter
     Buildings.Fluid.Chillers.ModularReversible.Data.TableData2DLoadDep.Generic per(
+      PLRSup={1},
+      fileName="",
+      use_TConOutForTab=true,
+      use_TEvaOutForTab=true,
       mCon_flow_nominal=mCon_flow_nominal,
       mEva_flow_nominal=mChiWat_flow_nominal,
       dpCon_nominal=dpCon_nominal,
@@ -59,8 +71,9 @@ record Chiller
     annotation (
     choicesAllMatching=true,
       Placement(transformation(extent={{-8,0},{8,16}})));
-  parameter Modelica.Units.SI.Power P_min(final min=0)=0
-    "Minimum power when system is enabled with compressor cycled off";
+  parameter Modelica.Units.SI.Power P_min(final min=0, start=0) = 0
+    "Minimum power when system is enabled with compressor cycled off"
+    annotation (Dialog(enable=typ<>Buildings.Templates.Components.Types.Chiller.None));
   annotation (
     defaultComponentPrefixes="parameter",
     defaultComponentName="datChi",

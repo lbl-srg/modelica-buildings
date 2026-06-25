@@ -237,7 +237,8 @@ record HeatPumpPlant
         Buildings.Templates.Plants.HeatPumps.Types.PumpsSecondary.Centralized));
   // Sidestream HRC
   parameter Buildings.Templates.Components.Data.Chiller hrc(
-    typ=Buildings.Templates.Components.Types.Chiller.WaterCooled,
+    typ=if cfg.have_hrc then Buildings.Templates.Components.Types.Chiller.WaterCooled
+      else Buildings.Templates.Components.Types.Chiller.None,
     TChiWatSup_nominal=ctl.TChiWatSup_nominal)
     "Chiller"
     annotation(Dialog(group="Sidetream heat recovery chiller",
@@ -246,7 +247,7 @@ record HeatPumpPlant
    * HACK(AntoineGautier):
    * The bindings for per.pressure in the single pump record declarations below
    * are identical to the default bindings in the PumpSingle class definition.
-   * However, they are needed for Dymola (version 2024x Refresh 1) that fails
+   * They are needed here for Dymola (version 2024x Refresh 1) that fails
    * to evaluate the size of per.pressure.dp otherwise.
    */
   parameter Buildings.Templates.Components.Data.PumpSingle pumChiWatHrc(

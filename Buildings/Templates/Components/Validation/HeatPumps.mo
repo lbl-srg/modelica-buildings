@@ -95,7 +95,7 @@ model HeatPumps
     P_min=1.0E3,
     capHeaShc_nominal=500E3,
     capCooShc_nominal=500E3,
-    perShc(
+    perPhp(
       PLRHeaSup={1},
       PLRCooSup={1},
       PLRShcSup={1},

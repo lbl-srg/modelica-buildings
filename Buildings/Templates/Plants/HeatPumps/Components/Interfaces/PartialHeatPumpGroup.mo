@@ -105,7 +105,7 @@ model PartialHeatPumpGroup
     final dpChiWatPhp_nominal=fill(dat.dpChiWatPhp_nominal, nPhp),
     final mSouWwHea_flow_nominal=fill(dat.mSouWwHeaPhp_flow_nominal, nPhp),
     final TSouCoo_nominal=fill(dat.TSouCooPhp_nominal, nPhp),
-    each final perShc=dat.perShc,
+    each final perPhp=dat.perPhp,
     final capCoo_nominal=fill(dat.capCooPhp_nominal, nPhp),
     final TChiWatSup_nominal=fill(dat.TChiWatSupPhp_nominal, nPhp),
     final capHea_nominal=fill(dat.capHeaPhp_nominal, nPhp),

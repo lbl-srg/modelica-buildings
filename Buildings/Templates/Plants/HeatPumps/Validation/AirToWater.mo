@@ -10,7 +10,7 @@ model AirToWater
   final parameter Boolean have_chiWat = pla.have_chiWat
     "Set to true if the plant provides CHW"
     annotation(Evaluate=true);
-  inner parameter UserProject.Data.AllSystems datAll(pla(final cfg=pla.cfg))
+  inner replaceable parameter UserProject.Data.AirToWater datAll(pla(final cfg=pla.cfg))
     "Plant parameters"
     annotation(Placement(transformation(extent={{-180,120},{-160,140}})));
   parameter Modelica.Units.SI.PressureDifference dpTer_nominal(

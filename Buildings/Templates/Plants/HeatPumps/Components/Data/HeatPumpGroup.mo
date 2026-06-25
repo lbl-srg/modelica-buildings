@@ -325,7 +325,8 @@ record HeatPumpGroup
     "Cooling capacity in SHC mode - Each unit"
     annotation(Dialog(group="Nominal condition – Polyvalent heat pumps",
       enable=have_php));
-  replaceable parameter Buildings.Fluid.HeatPumps.ModularReversible.Data.TableData2DLoadDepSHC.Generic perShc(
+  replaceable parameter
+    Fluid.HeatPumps.ModularReversible.Data.TableData2DLoadDepSHC.Generic perPhp(
     devIde="",
     PLRHeaSup={1},
     PLRCooSup={1},
@@ -338,12 +339,12 @@ record HeatPumpGroup
     mCon_flow_nominal=mHeaWatPhp_flow_nominal,
     mEva_flow_nominal=mSouHeaPhp_flow_nominal,
     dpCon_nominal=dpHeaWatPhp_nominal,
-    dpEva_nominal=dpSouHeaPhp_nominal)
+      dpEva_nominal=dpSouHeaPhp_nominal)
     "Performance data - Each unit"
     annotation(Dialog(group="Performance data – Polyvalent heat pumps",
       enable=have_php),
       choicesAllMatching=true,
-      Placement(transformation(extent={{20,-10},{40,10}})));
+    Placement(transformation(extent={{20,-10},{40,10}})));
   parameter Modelica.Units.SI.Power PPhp_min(
     min=0,
     start=0) = 0

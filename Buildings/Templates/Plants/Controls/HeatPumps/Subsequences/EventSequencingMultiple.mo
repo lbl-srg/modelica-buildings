@@ -133,11 +133,13 @@ block EventSequencingMultiple
     each final have_valInlIso=have_valHpInlIso,
     each final have_valOutIso=have_valHpOutIso,
     each final have_pumHeaWatPri=have_heaWat,
-    each final have_pumChiWatPri=have_chiWat and have_pumPriHdr or
-        have_pumChiWatPriDedHp,
+    each final have_pumChiWatPri=have_chiWat and have_pumPriHdr
+      or have_pumChiWatPriDedHp,
     each final dtVal=dtVal,
-    each final dtOff=dtOff) if nHp > 0 "HP event sequencing"
-    annotation (Placement(transformation(extent={{-20,40},{0,68}})));
+    each final dtOff=dtOff)
+    if nHp > 0
+    "HP event sequencing"
+    annotation(Placement(transformation(extent={{-20,40},{0,68}})));
   EventSequencingSingle seqEvePhp[nPhp](
     each final is_php=true,
     each final have_heaWat=have_heaWat,
@@ -147,8 +149,10 @@ block EventSequencingMultiple
     each final have_pumHeaWatPri=have_heaWat,
     each final have_pumChiWatPri=have_chiWat,
     each final dtVal=dtVal,
-    each final dtOff=dtOff) if nPhp > 0 "Polyvalent HP event sequencing"
-    annotation (Placement(transformation(extent={{-20,-68},{0,-40}})));
+    each final dtOff=dtOff)
+    if nPhp > 0
+    "Polyvalent HP event sequencing"
+    annotation(Placement(transformation(extent={{-20,-68},{0,-40}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1PumHeaWatPriHdr_actual
     if have_heaWat and have_pumPriHdr
     "Lead headered primary HW pump status"
@@ -170,7 +174,8 @@ block EventSequencingMultiple
     final nin1=nPumChiWatPri,
     final is_app=false,
     final new=fill(false, max(0, nHp + nPhp - nPumChiWatPri)))
-    if have_chiWat and not have_pumPriHdr or have_pumChiWatPriDedHp
+    if have_chiWat
+      and (not have_pumPriHdr and nPhp > 0 or have_pumChiWatPriDedHp)
     "Prepend with false if nHp+nPhp > nPum"
     annotation(Placement(transformation(extent={{-80,-50},{-60,-30}})));
   Buildings.Controls.OBC.CDL.Routing.BooleanScalarReplicator u1PumHeaWatPriHdr_internal(
@@ -299,7 +304,8 @@ annotation(defaultComponentName="seqEve",
       textString="%name",
       textColor={0,0,255})}),
   Diagram(coordinateSystem(extent={{-120,-120},{120,120}})),
-  Documentation(info="<html>
+  Documentation(
+    info="<html>
 <p>
   This block applies the staging event sequencing logic of
   <a href=\"modelica://Buildings.Templates.Plants.Controls.HeatPumps.Subsequences.EventSequencingSingle\">

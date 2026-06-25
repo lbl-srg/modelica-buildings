@@ -159,7 +159,7 @@ record HeatPump
     use_TConOutForTab=false,
     use_TEvaOutForTab=true)
     constrainedby Buildings.Fluid.HeatPumps.ModularReversible.Data.TableData2DLoadDep.GenericHeatPump
-    "Performance data in heating mode"
+    "Performance data in heating mode – 2-pipe heat pump"
     annotation(Dialog(group="Performance data",
       enable=not typMod == Buildings.Templates.Components.Types.HeatPumpCapability.Polyvalent),
       choicesAllMatching=true,
@@ -178,13 +178,13 @@ record HeatPump
     use_TConOutForTab=false,
     use_TEvaOutForTab=true)
     constrainedby Buildings.Fluid.Chillers.ModularReversible.Data.TableData2DLoadDep.Generic
-    "Performance data in cooling mode"
+    "Performance data in cooling mode – 2-pipe heat pump"
     annotation(choicesAllMatching=true,
       Dialog(group="Performance data",
         enable=typMod==Buildings.Templates.Components.Types.HeatPumpCapability.Reversible),
       Placement(transformation(extent={{20,0},{40,20}})));
   replaceable parameter
-    Fluid.HeatPumps.ModularReversible.Data.TableData2DLoadDepSHC.Generic perShc(
+    Fluid.HeatPumps.ModularReversible.Data.TableData2DLoadDepSHC.Generic perPhp(
     mCon_flow_nominal=mHeaWat_flow_nominal,
     mEva_flow_nominal=mChiWat_flow_nominal,
     dpCon_nominal=dpHeaWat_nominal,
@@ -199,7 +199,7 @@ record HeatPump
     fileNameShc="",
     devIde="")
     constrainedby Buildings.Fluid.HeatPumps.ModularReversible.Data.TableData2DLoadDepSHC.Generic
-    "Performance data in simultaneous heating and cooling mode"
+    "Performance data – Polyvalent heat pump"
     annotation(Dialog(group="Performance data",
       enable=typMod == Buildings.Templates.Components.Types.HeatPumpCapability.Polyvalent),
       choicesAllMatching=true,

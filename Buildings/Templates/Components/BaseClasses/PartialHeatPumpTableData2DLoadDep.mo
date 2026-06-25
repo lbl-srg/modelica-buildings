@@ -69,7 +69,7 @@ partial model PartialHeatPumpTableData2DLoadDep
     final QHea_flow_nominal=QHea_flow_nominal,
     final QHeaShc_flow_nominal=abs(dat.capHeaShc_nominal),
     final QCooShc_flow_nominal=-abs(dat.capCooShc_nominal),
-    final dat=dat.perShc,
+    final dat=dat.perPhp,
     final TConHea_nominal=THeaWatSup_nominal,
     final TEvaHea_nominal=TSouHea_nominal,
     final TConCoo_nominal=TChiWatSup_nominal,
