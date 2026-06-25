@@ -255,6 +255,14 @@ equation
           rotation=90)}),    Documentation(revisions="<html>
 <ul>
 <li>
+June 17, 2026, by Michael Wetter:<br/>
+Updated implementation to allow a flow coefficient <code>n</code> that is different from <code>2</code>.
+This allows use of the model for not fully turbulent flow.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4620\">Buildings, #4620</a>.
+</li>
+
+<li>
 March 1, 2023, by Michael Wetter:<br/>
 Changed constants from <code>0</code> to <code>0.0</code> and <code>1</code> to <code>1.0</code>.<br/>
 This is for

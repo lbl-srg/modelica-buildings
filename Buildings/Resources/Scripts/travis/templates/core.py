@@ -20,7 +20,9 @@ from multiprocessing import Pool
 import pandas as pd
 import yaml
 
-assert sys.version_info >= (3, 8), "This script requires a Python version >= 3.8."
+assert sys.version_info >= (3, 8), (
+    'This script requires a Python version >= 3.8.'
+)
 
 CRED = '\033[91m'
 CGREEN = '\033[92m'
@@ -37,28 +39,30 @@ def parse_args():
         description='Generate combinations and run simulations'
     )
     parser.add_argument(
-        "--tool",
+        '--tool',
         type=str,
-        help="tool to run simulations (case-insensitive)",
+        help='tool to run simulations (case-insensitive)',
         default='dymola',
         required=False,
     )
     parser.add_argument(
-        "--coverage",
+        '--coverage',
         type=float,
-        help="fraction of test coverage between 0 (>) and 1 (<=)",
+        help='fraction of test coverage between 0 (>) and 1 (<=)',
         default=1,
         required=False,
     )
-    parser.add_argument("--generate", help="generate combinations", action="store_true")
     parser.add_argument(
-        "--simulate", help="path of combination file", action="store_true"
+        '--generate', help='generate combinations', action='store_true'
+    )
+    parser.add_argument(
+        '--simulate', help='path of combination file', action='store_true'
     )
     args = parser.parse_args()
 
-    assert (
-        args.coverage > 0 and args.coverage <= 1
-    ), "Fraction of test coverage must be between (>) 0 and (<=) 1."
+    assert args.coverage > 0 and args.coverage <= 1, (
+        'Fraction of test coverage must be between (>) 0 and (<=) 1.'
+    )
 
     return args
 
@@ -81,9 +85,9 @@ def get_experiment_attributes(model_name, conf=CONF):
     with open(mos_path) as FH:
         mos_content = FH.read()
     try:
-        simu_clause = re.search(r'simulateModel\(.*?\)', mos_content, re.DOTALL).group(
-            0
-        )
+        simu_clause = re.search(
+            r'simulateModel\(.*?\)', mos_content, re.DOTALL
+        ).group(0)
     except AttributeError:
         raise RuntimeError(
             f'The script {os.path.abspath(mos_path)} does not contain any simulateModel clause.'
@@ -112,9 +116,13 @@ def get_experiment_attributes(model_name, conf=CONF):
             for tool in attributes:
                 if tool in el_conf:
                     if 'rtol' in el_conf[tool]:
-                        attributes[tool]['tolerance'] = el_conf[tool]['tolerance']
+                        attributes[tool]['tolerance'] = el_conf[tool][
+                            'tolerance'
+                        ]
                     if 'translate' in el_conf[tool]:
-                        attributes[tool]['simulate'] = el_conf[tool]['translate']
+                        attributes[tool]['simulate'] = el_conf[tool][
+                            'translate'
+                        ]
                     if 'simulate' in el_conf[tool]:
                         attributes[tool]['simulate'] = el_conf[tool]['simulate']
     return attributes
@@ -148,9 +156,9 @@ def simulate_case(arg, simulator, experiment_attributes):
     else:
         return 4, f'Unsupported simulation tool: {simulator}.'
 
-    mat_root = re.split(r"\.", arg[0])[-1]
-    mat_suffix = re.sub(r"\.", "_", str(arg[2]))
-    output_dir_prefix = f"{mat_root}_{mat_suffix}"
+    mat_root = re.split(r'\.', arg[0])[-1]
+    mat_suffix = re.sub(r'\.', '_', str(arg[2]))
+    output_dir_prefix = f'{mat_root}_{mat_suffix}'
     cwd = os.getcwd()
     # We need to create temporary directories at the same level as Buildings because of
     # the way volumes are mounted in docker run, see Buildings/Resources/Scripts/travis/dymola/dymola.
@@ -179,6 +187,8 @@ def simulate_case(arg, simulator, experiment_attributes):
     s.setStopTime(experiment_attributes[simulator]['stopTime'])
     s.printModelAndTime()
 
+    toreturn = 0
+    log = None
     try:
         s.simulate()
     except Exception as e:
@@ -188,8 +198,6 @@ def simulate_case(arg, simulator, experiment_attributes):
         os.chdir(cwd)
 
     # Test if simulation succeeded.
-    toreturn = 0
-    log = None
     try:
         if simulator == 'dymola':
             with open(os.path.join(output_dir_path, 'simulator.log')) as fh:
@@ -198,7 +206,9 @@ def simulate_case(arg, simulator, experiment_attributes):
                 toreturn = 1
         elif simulator == 'optimica':
             with open(
-                glob.glob(os.path.join(fr'{output_dir_path}', '*buildingspy.json'))[0],
+                glob.glob(
+                    os.path.join(rf'{output_dir_path}', '*buildingspy.json')
+                )[0],
                 'r',
             ) as f:
                 log = json.load(f)
@@ -228,15 +238,20 @@ def simulate_cases(args, simulator, all_experiment_attributes, asy=False):
     Returns:
         list[tuple[int, str]]: List of (error code, log).
     """
-    args_with_fixed = [(el, simulator, all_experiment_attributes[el[0]]) for el in args]
+    args_with_fixed = [
+        (el, simulator, all_experiment_attributes[el[0]]) for el in args
+    ]
     results = []
     pool = Pool(os.cpu_count())
-    if asy:
-        results = pool.starmap_async(simulate_case, args_with_fixed)
-    else:
-        results = pool.starmap(simulate_case, args_with_fixed)
-    pool.close()
-    pool.join()
+    # 'with Pool' shall not be used: Pool.__exit__ calls terminate(), killing workers still running after starmap_async returns.
+    try:  # Exception safety: ensure close()+join() even if starmap raises
+        if asy:
+            results = pool.starmap_async(simulate_case, args_with_fixed)
+        else:
+            results = pool.starmap(simulate_case, args_with_fixed)
+    finally:
+        pool.close()
+        pool.join()
 
     return results
 
@@ -275,7 +290,7 @@ def generate_modif_list(dic):
                 comp_modif = ''
             modif = re.sub(
                 '(.*)redeclare__(.*)',
-                fr'\g<1>redeclare {comp_type} \g<2>',
+                rf'\g<1>redeclare {comp_type} \g<2>',
                 param + comp_modif,
             )
         else:
@@ -339,7 +354,9 @@ def generate_combinations(models, modif_grid):
     return combinations
 
 
-def prune_modifications(combinations, exclude, remove_modif, fraction_test_coverage):
+def prune_modifications(
+    combinations, exclude, remove_modif, fraction_test_coverage
+):
     """Remove class modifications, and update combination tag.
 
     Args:
@@ -392,12 +409,17 @@ def prune_modifications(combinations, exclude, remove_modif, fraction_test_cover
             if arg[0] in exclude:  # Model found in dict keys.
                 modif_concat = ''.join(arg[1])
                 if any(
-                    all(re.search(modif_ex, modif_concat) for modif_ex in list_modif_ex)
+                    all(
+                        re.search(modif_ex, modif_concat)
+                        for modif_ex in list_modif_ex
+                    )
                     for list_modif_ex in exclude[arg[0]]
                 ):
                     indices_to_pop.append(i)
         combinations = [
-            el for idx, el in enumerate(combinations) if idx not in indices_to_pop
+            el
+            for idx, el in enumerate(combinations)
+            if idx not in indices_to_pop
         ]
 
     # Remove modifications.
@@ -428,16 +450,10 @@ def prune_modifications(combinations, exclude, remove_modif, fraction_test_cover
     ]
 
     # Apply fraction of test coverage.
-    if fraction_test_coverage is not None:
-        combinations = [
-            el
-            for idx, el in enumerate(combinations)
-            if idx
-            in random.sample(
-                range(len(combinations)),
-                int(len(combinations) * fraction_test_coverage),
-            )
-        ]
+    if fraction_test_coverage is not None and fraction_test_coverage < 1:
+        combinations = random.sample(
+            combinations, int(len(combinations) * fraction_test_coverage)
+        )
 
     # Update tags. (Because pruning resulted in a sparse list of indices.)
     for i, arg in enumerate(combinations):
@@ -471,9 +487,9 @@ def report_clean(combinations, results):
         )
     )
 
-    assert len(df) == len(
-        combinations
-    ), 'Error when trying to retrieve simulation results as a DataFrame.'
+    assert len(df) == len(combinations), (
+        'Error when trying to retrieve simulation results as a DataFrame.'
+    )
 
     # Log and exit if any simulations failed.
     if df.errorcode.abs().sum() != 0:
@@ -513,10 +529,14 @@ def main(models, modif_grid, exclude, remove_modif):
         for model_name in models:
             if not all_experiment_attributes[model_name][tool]['simulate']:
                 models.remove(model_name)
-                print(f'Model {model_name} is not simulated based on `conf.yml`.')
+                print(
+                    f'Model {model_name} is not simulated based on `conf.yml`.'
+                )
 
         # Generate combinations.
-        combinations = generate_combinations(models=models, modif_grid=modif_grid)
+        combinations = generate_combinations(
+            models=models, modif_grid=modif_grid
+        )
 
         # Prune class modifications.
         combinations = prune_modifications(
@@ -537,7 +557,8 @@ def main(models, modif_grid, exclude, remove_modif):
         # Split combinations into chunks of 100 items.
         for i in range(ceil(len(combinations) / 100)):
             with open(
-                f'{os.path.basename(__file__).replace(".py", "_combin") + str(i)}', 'wb'
+                f'{os.path.basename(__file__).replace(".py", "_combin") + str(i)}',
+                'wb',
             ) as FH:
                 slc = slice(i * 100, min((i + 1) * 100, len(combinations)))
                 pickle.dump(combinations[slc], FH)
