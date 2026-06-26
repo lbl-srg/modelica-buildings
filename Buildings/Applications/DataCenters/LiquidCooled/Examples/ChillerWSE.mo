@@ -64,8 +64,10 @@ model ChillerWSE
     "Heat exchanger design pressure drop on chiller side";
   parameter Modelica.Units.SI.PressureDifference dPRac_nominal = 60000
     "Rack design pressure drop";
-  parameter Buildings.Applications.DataCenters.LiquidCooled.Racks.LiquidSinglePhase.Data.OCP_1kW_OAM_PG25 datTheRes
-    "Thermal resistance data for case temperature"
+  parameter
+    Buildings.Applications.DataCenters.LiquidCooled.Racks.LiquidSinglePhase.Data.OCP_1kW_OAM_PG25
+    datRac(P_nominal=PRac, m_flow_nominal=mRac_flow_nominal)
+    "Performance data for IT rack"
     annotation (Placement(transformation(extent={{60,-98},{80,-78}})));
 
   parameter Real COPc_nominal=5 "Chiller COP";
@@ -116,9 +118,7 @@ model ChillerWSE
   Buildings.Applications.DataCenters.LiquidCooled.Racks.LiquidSinglePhase.ColdPlateR_P rac(
     redeclare package Medium = MediumRac,
     allowFlowReversal=false,
-    P_nominal=PRac,
-    m_flow_nominal=mRac_flow_nominal,
-    datTheRes=datTheRes,
+    dat=datRac,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
     "Rack with cold plate heat exchangers, modeled for simplicity as one large rack"
     annotation (Placement(transformation(extent={{-10,-70},{10,-50}})));
