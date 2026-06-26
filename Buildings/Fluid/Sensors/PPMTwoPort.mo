@@ -18,7 +18,9 @@ model PPMTwoPort
     annotation (Dialog(group="Initialization"));
   parameter Modelica.Units.SI.MolarMass MM=Modelica.Media.IdealGases.Common.SingleGasesData.CO2.MM
     "Molar mass of the trace substance";
-  Modelica.Blocks.Interfaces.RealOutput ppm(min=0)
+  Modelica.Blocks.Interfaces.RealOutput ppm(
+    min=0,
+    nominal=if C_start > 1E-8 then C_start else 1)
     "Trace substance in port medium in ppm"
     annotation (Placement(transformation(extent={{100,-10},{120,10}}),
         iconTransformation(
@@ -112,6 +114,11 @@ Buildings.Fluid.Sensors.UsersGuide</a> for an explanation.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+June 25, 2026, by Michael Wetter:<br/>
+Added <code>nominal</code> attribute to state variable.<br/>
+This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/2132\">IBPSA, #2132</a>.
+</li>
 <li>
 February 25, 2020, by Michael Wetter:<br/>
 Changed icon to display its operating state.<br/>
