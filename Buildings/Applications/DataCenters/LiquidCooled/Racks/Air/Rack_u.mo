@@ -1,6 +1,6 @@
 within Buildings.Applications.DataCenters.LiquidCooled.Racks.Air;
 model Rack_u "Model of an air-cooled rack, and utilization is input"
-  extends Buildings.Applications.DataCenters.LiquidCooled.Racks.Air.BaseRack(
+  extends Buildings.Applications.DataCenters.LiquidCooled.Racks.BaseClasses.PartialRack(
     m_flow_nominal = P_nominal/(dTSet*cp_default),
     dp_nominal=200,
     n=2,
@@ -121,64 +121,15 @@ First implementation.
 </html>"),
     Icon(graphics={
         Rectangle(
-          extent={{-100,100},{100,-100}},
-          lineColor={0,0,127},
-          fillColor={255,255,255},
-          fillPattern=FillPattern.Solid),
-        Rectangle(
-          extent={{-40,62},{40,-58}},
-          pattern=LinePattern.None,
-          fillColor={0,0,0},
-          fillPattern=FillPattern.Solid),
-        Rectangle(
-          extent={{-32,50},{32,36}},
-          pattern=LinePattern.None,
-          fillColor={255,255,255},
-          fillPattern=FillPattern.Solid),
-        Rectangle(
-          extent={{-32,28},{32,14}},
-          pattern=LinePattern.None,
-          fillColor={255,255,255},
-          fillPattern=FillPattern.Solid),
-        Rectangle(
-          extent={{-32,8},{32,-6}},
-          pattern=LinePattern.None,
-          fillColor={255,255,255},
-          fillPattern=FillPattern.Solid),
-        Rectangle(
-          extent={{-32,-34},{32,-48}},
-          pattern=LinePattern.None,
-          fillColor={255,255,255},
-          fillPattern=FillPattern.Solid),
-        Rectangle(
-          extent={{-32,-12},{32,-26}},
-          pattern=LinePattern.None,
-          fillColor={255,255,255},
-          fillPattern=FillPattern.Solid),
-        Rectangle(
-          extent={{-104,6},{-34,-2}},
+          extent={{40,4},{100,-4}},
           lineColor={0,0,255},
           pattern=LinePattern.None,
-          fillColor={0,0,0},
+          fillColor={0,140,72},
           fillPattern=FillPattern.Solid),
         Rectangle(
-          extent={{34,4},{102,-4}},
+          extent={{-106,4},{-40,-4}},
           lineColor={0,0,255},
           pattern=LinePattern.None,
-          fillColor={0,0,0},
-          fillPattern=FillPattern.Solid),
-        Text(
-          extent={{-96,82},{-82,62}},
-          textColor={0,0,127},
-          textString="u"),
-        Line(
-          points={{-60,0},{0,0}},
-          color={0,0,0},
-          thickness=0.5,
-          origin={-40,60},
-          rotation=360),
-        Text(
-          extent={{78,90},{92,70}},
-          textColor={0,0,127},
-          textString="P")}));
+          fillColor={0,140,72},
+          fillPattern=FillPattern.Solid)}));
 end Rack_u;

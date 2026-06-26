@@ -1,5 +1,5 @@
-within Buildings.Applications.DataCenters.LiquidCooled.Racks.Air;
-partial model BaseRack "Partial model of an IT rack, with utilization as input"
+within Buildings.Applications.DataCenters.LiquidCooled.Racks.BaseClasses;
+partial model PartialRack "Partial model of an IT rack, with utilization as input"
   extends Buildings.Fluid.Interfaces.PartialTwoPort;
   replaceable package Medium = Modelica.Media.Interfaces.PartialMedium
     "Medium in the component"
@@ -178,18 +178,6 @@ First implementation.
           pattern=LinePattern.None,
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid),
-        Rectangle(
-          extent={{-104,6},{-34,-2}},
-          lineColor={0,0,255},
-          pattern=LinePattern.None,
-          fillColor={0,0,0},
-          fillPattern=FillPattern.Solid),
-        Rectangle(
-          extent={{34,4},{102,-4}},
-          lineColor={0,0,255},
-          pattern=LinePattern.None,
-          fillColor={0,0,0},
-          fillPattern=FillPattern.Solid),
         Text(
           extent={{-96,82},{-82,62}},
           textColor={0,0,127},
@@ -204,4 +192,4 @@ First implementation.
           extent={{78,90},{92,70}},
           textColor={0,0,127},
           textString="P")}));
-end BaseRack;
+end PartialRack;
