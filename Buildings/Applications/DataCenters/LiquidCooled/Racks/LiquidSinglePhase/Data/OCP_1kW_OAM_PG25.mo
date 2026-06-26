@@ -1,4 +1,4 @@
-within Buildings.Applications.DataCenters.LiquidCooled.Racks.Data;
+within Buildings.Applications.DataCenters.LiquidCooled.Racks.LiquidSinglePhase.Data;
 record OCP_1kW_OAM_PG25 "OpenCompute example for 1 kW OAM with PG25 as working fluid"
   extends Generic_R_m_flow(
     V_flow={0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1.0, 1.2, 1.4, 1.6, 1.8, 2.0, 2.2, 2.4}/60/1000,

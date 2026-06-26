@@ -1,4 +1,4 @@
-within Buildings.Applications.DataCenters.LiquidCooled.Racks;
+within Buildings.Applications.DataCenters.LiquidCooled.Racks.LiquidSinglePhase;
 package Data "Package with data records for racks"
   extends Modelica.Icons.MaterialPropertiesPackage;
   annotation (Documentation(info="<html>

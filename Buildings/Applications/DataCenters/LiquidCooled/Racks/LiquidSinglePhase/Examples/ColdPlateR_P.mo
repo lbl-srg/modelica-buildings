@@ -1,4 +1,4 @@
-within Buildings.Applications.DataCenters.LiquidCooled.Racks.Examples;
+within Buildings.Applications.DataCenters.LiquidCooled.Racks.LiquidSinglePhase.Examples;
 model ColdPlateR_P "Example model for cold plate"
   extends Modelica.Icons.Example;
   package Medium = Buildings.Media.Antifreeze.PropyleneGlycolWater(
@@ -31,7 +31,7 @@ model ColdPlateR_P "Example model for cold plate"
     startTime=30)
     "Mass flow rate"
     annotation (Placement(transformation(extent={{-80,-2},{-60,18}})));
-  Buildings.Applications.DataCenters.LiquidCooled.Racks.ColdPlateR_P rac(
+  Buildings.Applications.DataCenters.LiquidCooled.Racks.LiquidSinglePhase.ColdPlateR_P rac(
     redeclare package Medium = Medium,
     P_nominal=Q_flow_nominal,
     m_flow_nominal=m_flow_nominal,
@@ -48,7 +48,7 @@ model ColdPlateR_P "Example model for cold plate"
     redeclare package Medium = Medium,
     nPorts=1) "Pressure boundary condition"
     annotation (Placement(transformation(extent={{90,-10},{70,10}})));
-  parameter Data.OCP_1kW_OAM_PG25 datTheRes "Thermal resistance data"
+  parameter LiquidSinglePhase.Data.OCP_1kW_OAM_PG25 datTheRes "Thermal resistance data"
     annotation (Placement(transformation(extent={{60,60},{80,80}})));
   Fluid.Sensors.TemperatureTwoPort senTOut(
     redeclare package Medium = Medium,
@@ -73,7 +73,7 @@ equation
       StopTime=60,
       Tolerance=1e-06),
       __Dymola_Commands(
-       file="modelica://Buildings/Resources/Scripts/Dymola/Applications/DataCenters/LiquidCooled/Racks/Examples/ColdPlateR_P.mos" "Simulate and plot"),
+       file="modelica://Buildings/Resources/Scripts/Dymola/Applications/DataCenters/LiquidCooled/Racks/LiquidSinglePhase/Examples/ColdPlateR_P.mos" "Simulate and plot"),
     Documentation(info="<html>
 <p>
 Example model of a cold plate with different GPU utilization.

@@ -1,4 +1,4 @@
-within Buildings.Applications.DataCenters.LiquidCooled.Racks;
+within Buildings.Applications.DataCenters.LiquidCooled.Racks.LiquidSinglePhase;
 model ColdPlateR_P
   "Model of a cold plate in which heat transfer is characterized by R for different flow rates, and utilization is input"
   extends Buildings.Fluid.Interfaces.PartialTwoPort;
@@ -73,7 +73,7 @@ model ColdPlateR_P
     annotation (Placement(transformation(extent={{100,80},{120,100}}),
         iconTransformation(extent={{100,70},{120,90}})));
 
-  Buildings.Applications.DataCenters.LiquidCooled.Racks.BaseClasses.CaseTemperature casTem(
+  Buildings.Applications.DataCenters.LiquidCooled.Racks.LiquidSinglePhase.BaseClasses.CaseTemperature casTem(
     final datTheRes=datTheRes,
     final V_flow_nominal=m_flow_nominal/Medium.d_const/nColPla) "Case temperature"
     annotation (Placement(transformation(extent={{20,70},{40,90}})));
@@ -232,8 +232,8 @@ value of the data record's volume flow rate, <code>VColPla_flow_nominal = averag
 </p>
 <p>
 This thermal resistance is computed using the data from the data record
-<a href=\"modelica://Buildings.Applications.DataCenters.LiquidCooled.Racks.Data.Generic_R_m_flow\">
-Buildings.Applications.DataCenters.LiquidCooled.Racks.Data.Generic_R_m_flow</a>.
+<a href=\"modelica://Buildings.Applications.DataCenters.LiquidCooled.Racks.LiquidSinglePhase.Data.Generic_R_m_flow\">
+Buildings.Applications.DataCenters.LiquidCooled.Racks.LiquidSinglePhase.Data.Generic_R_m_flow</a>.
 The computation is done in the block <code>casTem</code>,
 which does a data fit for <i>R</i>. The relative error of this data fit
 is shown in <code>casTem.relErrR</code>.

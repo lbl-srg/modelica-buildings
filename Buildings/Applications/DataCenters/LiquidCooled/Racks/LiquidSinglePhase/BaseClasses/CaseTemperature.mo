@@ -1,10 +1,10 @@
-within Buildings.Applications.DataCenters.LiquidCooled.Racks.BaseClasses;
+within Buildings.Applications.DataCenters.LiquidCooled.Racks.LiquidSinglePhase.BaseClasses;
 block CaseTemperature "Block to compute the case temperature"
   extends Modelica.Blocks.Icons.Block;
 
   constant Real delta = 1E-4 "Small value for regularization";
 
-  parameter Data.Generic_R_m_flow datTheRes
+  parameter LiquidSinglePhase.Data.Generic_R_m_flow datTheRes
     "Case-to-inlet thermal resistance as a function of the volume flow rate"
     annotation (Placement(transformation(extent={{60,60},{80,80}})));
   parameter Modelica.Units.SI.VolumeFlowRate V_flow_nominal
@@ -81,8 +81,8 @@ equation
   Documentation(info="<html>
 <p>
 This block computes the case temperature for use in
-<a href=\"modelica://Buildings.Applications.DataCenters.LiquidCooled.Racks.ColdPlateR_P\">
-Buildings.Applications.DataCenters.LiquidCooled.Racks.ColdPlateR_P</a>.
+<a href=\"modelica://Buildings.Applications.DataCenters.LiquidCooled.Racks.LiquidSinglePhase.ColdPlateR_P\">
+Buildings.Applications.DataCenters.LiquidCooled.Racks.LiquidSinglePhase.ColdPlateR_P</a>.
 </p>
 <p>
 The relative error of the data fit of the thermal resistance <i>R</i>

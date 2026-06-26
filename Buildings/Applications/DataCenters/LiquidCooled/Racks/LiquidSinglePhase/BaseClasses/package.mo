@@ -1,4 +1,4 @@
-within Buildings.Applications.DataCenters.LiquidCooled.Racks;
+within Buildings.Applications.DataCenters.LiquidCooled.Racks.LiquidSinglePhase;
 package BaseClasses "Package with base classes for racks"
 
   annotation (Documentation(info="<html>

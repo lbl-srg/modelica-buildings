@@ -1,4 +1,4 @@
-within Buildings.Applications.DataCenters.LiquidCooled.Racks.Data;
+within Buildings.Applications.DataCenters.LiquidCooled.Racks.LiquidSinglePhase.Data;
 record OCP_1kW_OAM_Water
   "OpenCompute example for 1 kW OAM with DI water as working fluid"
   extends Generic_R_m_flow(

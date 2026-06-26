@@ -48,7 +48,7 @@ model CDU_epsNTU "Example model of a CDU with varying load on the IT side"
     dpHeaExt_nominal=dPRac_nominal)
     "Data performance record for CDU"
     annotation (Placement(transformation(extent={{80,60},{100,80}})));
-  parameter Buildings.Applications.DataCenters.LiquidCooled.Racks.Data.OCP_1kW_OAM_PG25 datTheRes
+  parameter Buildings.Applications.DataCenters.LiquidCooled.Racks.LiquidSinglePhase.Data.OCP_1kW_OAM_PG25 datTheRes
     "Thermal resistance data"
     annotation (Placement(transformation(extent={{80,-100},{100,-80}})));
 
@@ -60,7 +60,7 @@ model CDU_epsNTU "Example model of a CDU with varying load on the IT side"
     offset=0.6)
     "Utilization of hardware"
     annotation (Placement(transformation(extent={{-50,-40},{-30,-20}})));
-  Buildings.Applications.DataCenters.LiquidCooled.Racks.ColdPlateR_P rac(
+  Buildings.Applications.DataCenters.LiquidCooled.Racks.LiquidSinglePhase.ColdPlateR_P rac(
     redeclare package Medium = MediumRac,
     allowFlowReversal=false,
     P_nominal=PRac,
