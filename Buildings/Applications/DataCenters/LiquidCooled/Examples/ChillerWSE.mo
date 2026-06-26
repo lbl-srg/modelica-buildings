@@ -116,7 +116,7 @@ model ChillerWSE
   Buildings.Applications.DataCenters.LiquidCooled.Racks.ColdPlateR_P rac(
     redeclare package Medium = MediumRac,
     allowFlowReversal=false,
-    Q_flow_nominal=PRac,
+    P_nominal=PRac,
     m_flow_nominal=mRac_flow_nominal,
     datTheRes=datTheRes,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)

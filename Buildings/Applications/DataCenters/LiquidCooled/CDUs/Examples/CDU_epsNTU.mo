@@ -63,7 +63,7 @@ model CDU_epsNTU "Example model of a CDU with varying load on the IT side"
   Buildings.Applications.DataCenters.LiquidCooled.Racks.ColdPlateR_P rac(
     redeclare package Medium = MediumRac,
     allowFlowReversal=false,
-    Q_flow_nominal=PRac,
+    P_nominal=PRac,
     m_flow_nominal=mRac_flow_nominal,
     datTheRes=datTheRes,
     dp_nominal=dPRac_nominal,

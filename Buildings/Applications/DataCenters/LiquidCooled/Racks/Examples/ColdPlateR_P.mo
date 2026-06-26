@@ -33,11 +33,11 @@ model ColdPlateR_P "Example model for cold plate"
     annotation (Placement(transformation(extent={{-80,-2},{-60,18}})));
   Buildings.Applications.DataCenters.LiquidCooled.Racks.ColdPlateR_P rac(
     redeclare package Medium = Medium,
-    Q_flow_nominal=Q_flow_nominal,
+    P_nominal=Q_flow_nominal,
     m_flow_nominal=m_flow_nominal,
     datTheRes=datTheRes,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
-                         "Rack with cold plate heat exchangers"
+    "Rack with cold plate heat exchangers"
     annotation (Placement(transformation(extent={{0,-10},{20,10}})));
   Buildings.Fluid.Sources.MassFlowSource_T sou(
     redeclare package Medium = Medium,

@@ -1,6 +1,6 @@
 within Buildings.Applications.DataCenters.LiquidCooled.Racks;
 model ColdPlateR_P
-  "Model of a cold plate in which heat transfer is characterized by R for different flow rates, and P is input"
+  "Model of a cold plate in which heat transfer is characterized by R for different flow rates, and utilization is input"
   extends Buildings.Fluid.Interfaces.PartialTwoPort;
   replaceable package Medium = Modelica.Media.Interfaces.PartialMedium
     "Medium in the component"
@@ -12,16 +12,16 @@ model ColdPlateR_P
               X_a=0.25)
               "Propylene glycol water, 25% mass fraction")));
 
-  parameter Modelica.Units.SI.HeatFlowRate Q_flow_nominal(min=0)
+  parameter Modelica.Units.SI.HeatFlowRate P_nominal(min=0)
     "Design heat flow rate at u=1, also called Thermal Design Power (TDP)"
     annotation (Dialog(group="Nominal condition"));
 
   parameter Modelica.Units.SI.MassFlowRate m_flow_nominal
     "Nominal mass flow rate" annotation (Dialog(group="Nominal condition"));
-  final parameter Modelica.Units.SI.TemperatureDifference dT_nominal =
-    Q_flow_nominal/(m_flow_nominal*Medium.cp_const)
+  final parameter Modelica.Units.SI.TemperatureDifference dT_nominal=P_nominal/(
+      m_flow_nominal*Medium.cp_const)
     "Design temperature differences, used to compute cold plate temperature"
-    annotation(Dialog(group="Case temperature"));
+    annotation (Dialog(group="Case temperature"));
 
   parameter Data.Generic_R_m_flow datTheRes "Thermal resistance data for case temperature"
     annotation (Placement(transformation(extent={{60,60},{80,80}})));
@@ -42,8 +42,8 @@ model ColdPlateR_P
     "Design flow rate of one cold plate, used to compute the case temperature"
     annotation (Dialog(group="Case temperature"));
   // For number of rack, we use a Real to simplify solving optimizations that involves this parameter
-  parameter Real nColPla=Q_flow_nominal/(VColPla_flow_nominal*Medium.d_const*
-      Medium.cp_const*dT_nominal)
+  parameter Real nColPla=P_nominal/(VColPla_flow_nominal*Medium.d_const*Medium.cp_const
+      *dT_nominal)
     "Number of cold plates, used to compute the case temperature"
     annotation (Dialog(group="Case temperature"));
 
@@ -64,7 +64,7 @@ model ColdPlateR_P
     annotation(Dialog(tab = "Initialization"));
 
   Modelica.Blocks.Interfaces.RealInput u(final unit="1", min=0)
-    "Normalized utilization" annotation (Placement(transformation(extent={{-140,30},
+    "Normalized utilization, equal to actual power use over P_nominal" annotation (Placement(transformation(extent={{-140,30},
             {-100,70}}),     iconTransformation(extent={{-120,50},{-100,70}})));
 
   Modelica.Blocks.Interfaces.RealOutput P(
@@ -102,7 +102,7 @@ model ColdPlateR_P
   Modelica.Units.SI.PressureDifference dp(displayUnit="Pa") = preDro.dp
     "Pressure difference between port_a and port_b";
 protected
-  Modelica.Blocks.Math.Gain Q_flow(final k=Q_flow_nominal)
+  Modelica.Blocks.Math.Gain Q_flow(final k=P_nominal)
     "Gain to compute actual heat flow rate"
     annotation (Placement(transformation(extent={{-80,40},{-60,60}})));
 
@@ -159,12 +159,12 @@ of the Open Compute Project.
 </p>
 <h4>Electrical and fluid characterization</h4>
 <p>
-The model takes as a parameter the thermal design power (TDB) <code>Q_flow_nominal</code>
+The model takes as a parameter the thermal design power (TDB) <code>P_nominal</code>
 and as an input the utilization <code>u</code>.
 The heat added to the coolant fluid is then calculated as
 </p>
 <p align=\"center\" style=\"font-style:italic;\">
-Q_flow = u Q_flow_nominal.
+Q_flow = u P_nominal.
 </p>
 <p>
 The fluid outlet temperature is computed using a first order delay to mimic
@@ -216,11 +216,11 @@ where
 <code>T_inlet</code> is the coolant inlet temperature and
 <code>Q_flow</code> is the heat emitted by the cold plate.
 Use of this equation requires knowledge of the heat flow rate of one cold plate <code>Q_flow</code>,
-but the component model takes as a parameter the total design heat flow rate <code>Q_flow_nominal</code>.
+but the component model takes as a parameter the total design heat flow rate <code>P_nominal</code>.
 The model approximates the number of cold plates using
 </p>
 <p align=\"center\" style=\"font-style:italic;\">
-n_col = Q_flow_nominal / (VColPla_flow_nominal * rho * c_p * dT_nominal),
+n_col = P_nominal / (VColPla_flow_nominal * rho * c_p * dT_nominal),
 </p>
 <p>
 where
