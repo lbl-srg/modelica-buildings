@@ -10,7 +10,8 @@ model SpecificEnthalpyTwoPort "Ideal two port sensor for the specific enthalpy"
     annotation (Dialog(group="Initialization"));
   Modelica.Blocks.Interfaces.RealOutput h_out(final quantity="SpecificEnergy",
                                               final unit="J/kg",
-                                              start=h_out_start)
+                                              start=h_out_start,
+                                              nominal=h_out_start*m_flow_nominal)
     "Specific enthalpy of the passing fluid"
     annotation (Placement(transformation(
         origin={0,110},
@@ -71,6 +72,11 @@ Buildings.Fluid.Sensors.UsersGuide</a> for an explanation.
 </html>",
 revisions="<html>
 <ul>
+<li>
+June 25, 2026, by Michael Wetter:<br/>
+Added <code>nominal</code> attribute to state variable.<br/>
+This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/2132\">IBPSA, #2132</a>.
+</li>
 <li>
 February 25, 2020, by Michael Wetter:<br/>
 Changed icon to display its operating state.<br/>
