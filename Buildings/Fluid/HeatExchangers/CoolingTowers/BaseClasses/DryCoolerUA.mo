@@ -277,7 +277,8 @@ Buildings.Fluid.HeatExchangers.CoolingTowers.DryCooler</a>.
 <li>
 June 24, 2026, by Michael Wetter:<br/>
 Corrected flow regime which was inconsistent between computation of parameters
-and time domain simulation.
+and time domain simulation.<br/>
+This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4648\">Buildings, #4648</a>.
 </li>
 <li>
 April 27, 2026, by Michael Wetter:<br/>
