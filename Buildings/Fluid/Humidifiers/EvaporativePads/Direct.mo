@@ -10,32 +10,28 @@ model Direct
 
   parameter Modelica.Units.SI.Area padAre
     "Area of the rigid media evaporative pad";
-  parameter Modelica.Units.SI.Length dep
-    "Depth of the rigid media evaporative pad";
   replaceable parameter Buildings.Fluid.Humidifiers.EvaporativePads.Data.Generic per
     constrainedby Buildings.Fluid.Humidifiers.EvaporativePads.Data.Generic
     "Record with performance data for evaporative pads"
     annotation (choicesAllMatching=true,
       Placement(transformation(extent={{60,60},{80,80}})));
 
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput evaCooAct
-    "True: the evaporative cooling is active" annotation (Placement(
-        transformation(extent={{-140,-100},{-100,-60}}), iconTransformation(
-          extent={{-110,-60},{-70,-20}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput dmWat_flow(
     final unit="kg/s",
     final quantity="MassFlowRate")
     "Water vapor mass flow rate difference between inlet and outlet"
     annotation (Placement(transformation(origin={120,80}, extent={{-20,-20},{20,20}}),
       iconTransformation(origin={90,40}, extent={{-20,-20},{20,20}})));
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput evaCooAct
+    "True: the evaporative cooling is active" annotation (Placement(
+        transformation(extent={{-140,-100},{-100,-60}}), iconTransformation(
+          extent={{-110,-60},{-70,-20}})));
   Buildings.Fluid.Humidifiers.EvaporativePads.Baseclasses.Direct dirEvaCoo(
     redeclare final package Medium = Medium,
-    final dep=dep,
     final padAre=padAre,
     per=per)
     "Direct evaporative cooling calculator"
     annotation (Placement(transformation(origin={30,50}, extent={{-10,-10},{10,10}})));
-
 protected
   Medium.ThermodynamicState staInl=Medium.setState_phX(
     p=port_a.p, h=inStream(port_a.h_outflow), X=inStream(port_a.Xi_outflow))
@@ -78,8 +74,7 @@ equation
   connect(pInl.y, dirEvaCoo.p) annotation (Line(points={{-79,60},{-60,60},{-60,44},
           {18,44}}, color={0,0,127}));
   connect(V_flow.y, dirEvaCoo.V_flow) annotation (Line(points={{-79,30},{0,30},{
-          0,48},{18,48}},    color={0,0,127}));
-
+          0,48},{18,48}},color={0,0,127}));
   connect(evaCooAct, swiEvaCoo.u2) annotation (Line(points={{-120,-80},{-40,-80},
           {-40,-30},{58,-30}}, color={255,0,255}));
   connect(dirEvaCoo.dmWat_flow, swiEvaCoo.u1) annotation (Line(points={{42,50},{
@@ -119,8 +114,8 @@ info="<html>
 Model for a direct evaporative cooler.
 </p>
 <p>
-The cooler cools down the airstream by adiabatically increasing the humidity 
-mass fraction of the air. The mass of water vapor added to the air is reported by the 
+The cooler cools down the airstream by adiabatically increasing the humidity mass
+fraction of the air. The mass of water vapor added to the air is reported by the 
 output signal <code>dmWat_flow</code>.
 </p>
 <p>
@@ -128,8 +123,33 @@ The input variable <code>evaCooAct</code> determines whether the evaporative coo
 is active. When evaporative cooling is not active, no water vapor is added to the
 air, and thus <code>dmWat_flow = 0</code>.
 </p>
+<p>
+This model uses a data record <code>per</code> to provide data on the saturation
+efficiency and the pressure drop of an evaporative pad. This data record is an
+instance of
+<a href=\"modelica://Buildings.Fluid.Humidifiers.EvaporativePads.Data.Generic\">
+Buildings.Fluid.Humidifiers.EvaporativePads.Data.Generic</a>.
+</p>
+<p>
+The elemental block <code>dirEvaCoo</code> calculates the saturation efficiency by
+referencing a cubic hermite spline of discrete data points on the saturation
+efficiency <code>eta</code> and the air velocity <code>v</code> from this data
+record. The elemental block <code>preDro</code> calculates the pressure drop by
+reference the nominal pressure drop <code>dp_nominal</code>, the nominal air
+velocity <code>v_nominal</code>, and the flow exponent for pressure drop
+<code>n</code> from this data record.
+</p>
+<p>
+Note that air flow is designed to flow from <code>port_a</code> to
+<code>port_b</code>. Unintentional behaviors will occur if such flow direction is
+reversed.
+</p>
 </html>", revisions="<html>
 <ul>
+<li>
+June 26, 2026, by Weiping Huang:<br/>
+Added a Modelica data record to calculate saturation efficiency and pressure drop.
+</li>
 <li>
 June 18, 2026, by Weiping Huang:<br/>
 Added an evaporative cooling on-and-off boolean flag.

@@ -29,20 +29,31 @@ Record containing parameters for evaporative pads.
 <h4>Typical use</h4>
 <p>
 This record may be used to assign evaporative pad performance data using declaration
-such as
+such as:
 </p>
 <pre>
   Buildings.Fluid.Humidifiers.EvaporativePads.Direct dirEvaCoo(
     redeclare package Medium = MediumA,
       per(efficiency(v={0,v_nominal,2*v_nominal},
-                   eta={1.1*eta_nominal,eta_nominal,0.9*eta_nominal})
-          pressure(v={0,v_nominal,2*v_nominal},
-                   dp={0,dp_nominal,3.5*dp_nominal}))) \"Direct evaporative cooler\";
+            eta={1.1*eta_nominal,eta_nominal,0.9*eta_nominal}),
+          dp_nominal=1*dp_nominal,
+          v_nominal=1*v_nominal,
+          n=1.8)) \"Direct evaporative cooler\";
 </pre>
 <p>
-where independent variable <i>v</i> is the air velocity flowing through the
-evaporative pad, dependent variable <i>eta</i> is the saturation efficiency, and
-dependent variable <i>dp</i> is the air pressure drop through the evaporative pad.
+This record provides performance data for both the saturation efficiency and the
+pressure drop of an evaporative pad. 
+</p>
+<p>
+For saturation efficiency, a discrete list of data points of the air velocity
+flowing through the evaporative pad <i>v</i> (independent variable), as well as a
+discrete list of corresponding data points of the saturation efficiency <i>eta</i>
+(dependent variable), are provided. 
+</p>
+<p>
+For pressure drop, only a single nominal pressure drop value <i>dp_nominal</i>, a
+single nominal air velocity value <i>v_nominal</i>, and a single flow exponent value
+for pressure drop <i>n</i> are provided.
 </p>
 <p>
 This data record can be used with

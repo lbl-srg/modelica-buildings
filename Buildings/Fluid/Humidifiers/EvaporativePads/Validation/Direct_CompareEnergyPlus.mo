@@ -1,23 +1,19 @@
 within Buildings.Fluid.Humidifiers.EvaporativePads.Validation;
 model Direct_CompareEnergyPlus
-  "Validation model for a direct evaporative cooler"
-
+  "Validation model for a direct evaporative cooler against EnergyPlus results"
   extends Modelica.Icons.Example;
 
   replaceable package MediumA = Buildings.Media.Air
     "Medium";
-
   parameter Modelica.Units.SI.MassFlowRate m_flow_nominal = 2
     "Nominal supply air volume flowrate";
 
   Buildings.Fluid.Humidifiers.EvaporativePads.Direct dirEvaCoo(
     redeclare final package Medium = MediumA,
-    final dep=0.2,
     final padAre=0.6,
     redeclare Buildings.Fluid.Humidifiers.EvaporativePads.Data.Generic per)
-                      "Direct evaporative cooler" annotation (Placement(
+    "Direct evaporative cooler" annotation (Placement(
         transformation(origin={10,0},extent={{-10,-10},{10,10}})));
-
   Buildings.Fluid.Sources.Boundary_pT sin(
     redeclare final package Medium = MediumA,
     final T=340,
@@ -25,7 +21,6 @@ model Direct_CompareEnergyPlus
     final nPorts=1)
     "Sink"
     annotation (Placement(transformation(origin={110,0}, extent={{10,-10},{-10,10}})));
-
   Modelica.Blocks.Sources.CombiTimeTable combiTimeTable(
     final columns = 2:10,
     final fileName=ModelicaServices.ExternalReferences.loadResource("modelica://Buildings/Resources/Data/Fluid/Humidifiers/EvaporativePads/Direct/Direct.dat"),
@@ -34,7 +29,6 @@ model Direct_CompareEnergyPlus
     final timeScale = 1)
     "EnergyPlus data"
     annotation (Placement(transformation(origin={-120,40}, extent ={{-10,-10},{10,10}})));
-
   Buildings.Fluid.Sources.MassFlowSource_T sou(
     redeclare final package Medium = MediumA,
     final m_flow=1,
@@ -45,7 +39,6 @@ model Direct_CompareEnergyPlus
     final nPorts=1)
     "Mass flow rate source"
     annotation (Placement(transformation(origin={-30,0}, extent={{-10,-10},{10,10}})));
-
   Buildings.Fluid.Sensors.TemperatureTwoPort senTem(
     redeclare final package Medium = MediumA,
     final initType=Modelica.Blocks.Types.Init.InitialOutput,
@@ -53,43 +46,34 @@ model Direct_CompareEnergyPlus
     final T_start=293.15)
     "Outlet air temperature sensor"
     annotation (Placement(transformation(origin={40,0}, extent={{-10,-10},{10,10}})));
-
   Buildings.Fluid.Sensors.MassFractionTwoPort senMasFra(
     redeclare final package Medium = MediumA,
     final m_flow_nominal=m_flow_nominal)
     "Outlet air water mass fraction sensor"
     annotation (Placement(transformation(origin={70,0}, extent={{-10,-10},{10,10}})));
-
   Modelica.Blocks.Math.Mean mea(
     final f=1/600,
     x0=293.15)
     "Mean block to average output data"
     annotation (Placement(transformation(origin={70,60}, extent={{-10,-10},{10,10}})));
-
   Modelica.Blocks.Math.Mean mea1(
     final f=1/600)
     "Mean block to average output data"
     annotation (Placement(transformation(origin={110,30},extent={{-10,-10},{10,10}})));
-
   Buildings.Utilities.Psychrometrics.ToTotalAir toTotAirIn
     "Convert inlet air humidity ratio denominator from dry air to total air"
     annotation (Placement(transformation(extent={{-90,-70},{-70,-50}})));
-
   Buildings.Utilities.Psychrometrics.ToTotalAir toTotAirOut
     "Convert outlet air humidity ratio denominator from dry air to total air"
     annotation (Placement(transformation(extent={{-80,30},{-60,50}})));
-
   Modelica.Blocks.Math.UnitConversions.From_degC from_degCIn
     "Convert inlet temperature from deg C to Kelvin"
     annotation (Placement(transformation(extent={{-90,-30},{-70,-10}})));
-
   Modelica.Blocks.Math.UnitConversions.To_degC to_degCOut
     "Convert outlet temperature from Kelvin to deg C"
     annotation (Placement(transformation(extent={{100,50},{120,70}})));
-
-  Controls.OBC.CDL.Logical.Sources.Constant
-                                         evaCooAct(k=true)
-                  "Boolean pulse signal for active evaporative cooling"
+  Buildings.Controls.OBC.CDL.Logical.Sources.Constant evaCooAct(k=true)
+    "Boolean pulse signal for active evaporative cooling"
     annotation (Placement(transformation(extent={{-40,-80},{-20,-60}})));
 equation
   connect(dirEvaCoo.port_b, senTem.port_a)
@@ -116,7 +100,6 @@ equation
     annotation (Line(points={{80,0},{100,0}},color={0,127,255}));
   connect(sou.ports[1], dirEvaCoo.port_a)
     annotation (Line(points={{-20,0},{0,0}},   color={0,127,255}));
-
   connect(evaCooAct.y, dirEvaCoo.evaCooAct) annotation (Line(points={{-18,-70},{
           -10,-70},{-10,-4},{1,-4}}, color={255,0,255}));
   connect(combiTimeTable.y[9], sou.m_flow_in) annotation (Line(points={{-109,40},
@@ -128,7 +111,7 @@ annotation (
 <p>
 This model validates the direct evaporative cooler model
 <a href=\"modelica://Buildings.Fluid.Humidifiers.EvaporativePads.Direct\">
-Buildings.Fluid.Humidifiers.EvaporativePads.Direct</a>.
+Buildings.Fluid.Humidifiers.EvaporativePads.Direct</a> against EnergyPlus results.
 </p>
 <p>
 The EnergyPlus results were generated using the example file <code>Direct.idf</code>

@@ -1,6 +1,6 @@
 within Buildings.Fluid.Humidifiers.EvaporativePads.Validation;
 model Direct_DryWetSwitch
-  "Validation model for a direct evaporative cooler"
+  "Validation model for a direct evaporative cooler for both dry and wet modes"
 
   extends Modelica.Icons.Example;
 
@@ -12,7 +12,6 @@ model Direct_DryWetSwitch
 
   Buildings.Fluid.Humidifiers.EvaporativePads.Direct dirEvaCoo(
     redeclare final package Medium = MediumA,
-    final dep=0.2,
     final padAre=0.6,
     redeclare Buildings.Fluid.Humidifiers.EvaporativePads.Data.Generic per)
                       "Direct evaporative cooler" annotation (Placement(

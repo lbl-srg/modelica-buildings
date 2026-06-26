@@ -1,6 +1,6 @@
 within Buildings.Fluid.Humidifiers.EvaporativePads.Baseclasses;
-model EvaporativePadInterface
-  "Model with performance curves for evaporative pads"
+block EvaporativePadInterface
+  "Interface with performance curves for evaporative pads"
 
   replaceable parameter Buildings.Fluid.Humidifiers.EvaporativePads.Data.Generic per
     constrainedby Buildings.Fluid.Humidifiers.EvaporativePads.Data.Generic
@@ -46,17 +46,20 @@ equation
         coordinateSystem(preserveAspectRatio=false)),
     Documentation(info="<html>
 <p>
-This is an interface that implements the functions to compute the pressure drop and
+This is an interface that implements the performance curves to compute the
 saturation efficiency of evaporative pads.
 </p>
 <p>
-The pressure drop and saturation efficiency characteristics of evaporative pads in
-relation to the air velocity is given by a set of data points using the data record
-<code>per</code>, which is an instance of
+The saturation efficiency of evaporative pads in relation to the air velocity is
+given by a set of discrete data points using the data record <code>per</code>, which
+is an instance of
 <a href=\"modelica://Buildings.Fluid.Humidifiers.EvaporativePads.Data.Generic\">
 Buildings.Fluid.Humidifiers.EvaporativePads.Data.Generic</a>. A cubic hermite spline
 with linear extrapolation is used to compute the performance at other operating
 points.
+</p>
+<p>
+This interface also enforces the saturation efficiency value to be between 0 and 1.
 </p>
 </html>", revisions="<html>
 <ul>

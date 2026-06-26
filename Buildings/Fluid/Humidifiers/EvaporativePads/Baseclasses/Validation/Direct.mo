@@ -4,89 +4,81 @@ model Direct "Validation of the Direct block"
 
   parameter Modelica.Units.SI.Area padAre = 0.6
     "Area of the rigid media evaporative pad";
-
-  parameter Modelica.Units.SI.Length dep = 0.2
-    "Depth of the rigid media evaporative pad";
-
   parameter Modelica.Units.SI.Length pAtm = 101325
     "Atmospheric pressure";
-
   parameter Modelica.Units.SI.ThermodynamicTemperature TDryBulSup_nominal = 296.15
     "Nominal supply air drybulb temperature";
-
   parameter Modelica.Units.SI.ThermodynamicTemperature TWetBulSup_nominal = 289.3
     "Nominal supply air wetbulb temperature";
-
   parameter Modelica.Units.SI.VolumeFlowRate V_flow_nominal = 1
     "Nominal supply air volume flowrate";
 
   Buildings.Fluid.Humidifiers.EvaporativePads.Baseclasses.Direct dirEvaCoo(
     redeclare package Medium = Buildings.Media.Air,
     final padAre=padAre,
-    final dep=dep)
+    redeclare Buildings.Fluid.Humidifiers.EvaporativePads.Data.Generic per)
     "Instance with time-varying volume flowrate signal"
-    annotation (Placement(transformation(origin={30,50}, extent={{-10,-10},{10,10}})));
-
+    annotation (Placement(transformation(origin={30,50}, extent={{-10,-10},
+      {10,10}})));
   Buildings.Fluid.Humidifiers.EvaporativePads.Baseclasses.Direct dirEvaCoo1(
     redeclare package Medium = Buildings.Media.Air,
     final padAre=padAre,
-    final dep=dep)
+    redeclare Buildings.Fluid.Humidifiers.EvaporativePads.Data.Generic per)
     "Instance with time-varying wetbulb temperature signal"
-    annotation (Placement(transformation(origin={30,0}, extent={{-10,-10},{10,10}})));
-
+    annotation (Placement(transformation(origin={30,0}, extent={{-10,-10},
+      {10,10}})));
   Buildings.Fluid.Humidifiers.EvaporativePads.Baseclasses.Direct dirEvaCoo2(
     redeclare package Medium = Buildings.Media.Air,
     final padAre=padAre,
-    final dep=dep)
+    redeclare Buildings.Fluid.Humidifiers.EvaporativePads.Data.Generic per)
     "Instance with time-varying drybulb temperature signal"
-    annotation (Placement(transformation(origin={30,-50}, extent={{-10,-10},{10,
-            10}})));
-
+    annotation (Placement(transformation(origin={30,-50}, extent={{-10,-10},
+      {10,10}})));
 protected
   Modelica.Blocks.Sources.Constant TWetBulSupCon(
     final k=TWetBulSup_nominal)
     "Constant wet bulb temperature signal"
-    annotation (Placement(transformation(origin={-80,80}, extent={{-10,-10},{10,10}})));
-
+    annotation (Placement(transformation(origin={-80,80}, extent={{-10,-10},
+      {10,10}})));
   Modelica.Blocks.Sources.Constant TDryBulSupCon(
     final k=TDryBulSup_nominal)
     "Constant drybulb temperature signal"
-    annotation (Placement(transformation(origin={-80,30}, extent={{-10,-10},{10,10}})));
-
+    annotation (Placement(transformation(origin={-80,30}, extent={{-10,-10},
+      {10,10}})));
   Modelica.Blocks.Sources.Ramp TWetBulSupRam(
     final duration=60,
     final height=5,
     final offset=TWetBulSup_nominal,
     final startTime=0)
     "Ramp signal for wet-bulb temperature"
-    annotation (Placement(transformation(origin={-10,20}, extent={{-10,-10},{10,10}})));
-
+    annotation (Placement(transformation(origin={-10,20}, extent={{-10,-10},
+      {10,10}})));
   Modelica.Blocks.Sources.Ramp TDryBulSupRam(
     final duration=60,
     final height=15,
     final offset=TDryBulSup_nominal,
     final startTime=0)
     "Ramp signal for drybulb temperature"
-    annotation (Placement(transformation(origin={-10,-26}, extent={{-10,-10},{10,10}})));
-
+    annotation (Placement(transformation(origin={-10,-26}, extent={{-10,-10},
+      {10,10}})));
   Modelica.Blocks.Sources.Constant V_flowCon(
     final k=V_flow_nominal)
     "Constant volume flowrate signal"
-    annotation (Placement(transformation(origin={-80,-30}, extent={{-10,-10},{10,10}})));
-
+    annotation (Placement(transformation(origin={-80,-30}, extent={{-10,-10},
+      {10,10}})));
   Modelica.Blocks.Sources.Ramp V_flowRam(
     final duration=60,
     final height=0.5,
     final offset=V_flow_nominal,
     final startTime=0)
     "Ramp signal for volume flowrate"
-    annotation (Placement(transformation(origin={-10,80}, extent={{-10,-10},{10,10}})));
-
+    annotation (Placement(transformation(origin={-10,80}, extent={{-10,-10},
+      {10,10}})));
   Modelica.Blocks.Sources.Constant pCon(
     final k=pAtm)
     "Constant pressure signal"
-    annotation (Placement(transformation(origin={-80,-80}, extent={{-10,-10},{10,10}})));
-
+    annotation (Placement(transformation(origin={-80,-80}, extent={{-10,-10},
+      {10,10}})));
 equation
   connect(TWetBulSupCon.y, dirEvaCoo.TWetBulIn) annotation (Line(points={{-69,80},
           {-40,80},{-40,56},{18,56}}, color={0,0,127}));
@@ -117,9 +109,9 @@ annotation (Documentation(info="<html>
 <p>
 This model implements a validation of the block
 <a href=\"modelica://Buildings.Fluid.Humidifiers.EvaporativePads.Baseclasses.Direct\">
-Buildings.Fluid.Humidifiers.EvaporativePads.Baseclasses.Direct</a>
-that applies the peformance curve to calculate the water mass flow rate of a
-direct evaporative cooler.
+Buildings.Fluid.Humidifiers.EvaporativePads.Baseclasses.Direct</a> that applies the
+peformance curve to calculate the water mass flow rate of a direct evaporative
+cooler.
 </p>
 <p>
 This model considers three validation instances with:
@@ -146,20 +138,22 @@ added <code>dmWat_flow</code>, and hence the cooling rate, changes as follows.
 <ul>
 <li>
 On plot 1, with constant values of <code>TWetBulIn</code>,
-<code>TDryBulIn</code>, and <code>p</code>, an increasing <code>V_flow</code>
-leads to decreasings in <code>eff</code> and <code>XiOut</code>. Since <code>V_flow</code>
-is the dominant term in the equations, this leads to an increase in <code>dmWat_flow</code>.
+<code>TDryBulIn</code>, and <code>p</code>, an increasing <code>V_flow</code> leads
+to decreasings in the saturation efficiency <code>eta</code> and <code>XiOut</code>.
+Since <code>V_flow</code> is the dominant term in the equations, this leads to an
+increase in <code>dmWat_flow</code>.
 </li>
 <li>
 On plot 2, with constant values of <code>TDryBulIn</code>, <code>p</code>,
 and <code>V_flow</code>, an increasing <code>TWetBulIn</code> leads to an increase
 in <code>XiIn</code>. Based on the performance curve, <code>TDryBulOut</code> and
-<code>XiOut</code> keep constant.This results in an increase of <code>dmWat_flow</code>.
+<code>XiOut</code> keep constant.This results in an increase of
+<code>dmWat_flow</code>.
 </li>
 <li>
-On plot 3, with constant values of <code>TWetBulIn</code>, <code>p</code>,
-and <code>V_flow</code>, an increasing <code>TDryBulIn</code> leads to a decrease
-in <code>XiIn</code>. Based on the performance curve, <code>TDryBulOut</code> and
+On plot 3, with constant values of <code>TWetBulIn</code>, <code>p</code>, and
+<code>V_flow</code>, an increasing <code>TDryBulIn</code> leads to a decrease in
+<code>XiIn</code>. Based on the performance curve, <code>TDryBulOut</code> and
 <code>XiOut</code> keep constant. This results in an increase of
 <code>dmWat_flow</code>.
 </li>

@@ -18,7 +18,7 @@ equation
     annotation (Line(points={{-19,10},{18,10}}, color={0,0,127}));
   annotation (Documentation(info="<html>
 <p>
-Simple validation model for the evaporative pad interface model.
+Simple validation model for the evaporative pad interface block.
 </p>
 </html>", revisions="<html>
 <ul>

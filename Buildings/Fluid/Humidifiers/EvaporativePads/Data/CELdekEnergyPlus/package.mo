@@ -25,11 +25,7 @@ the pad is as follows:
 <p>
 Data point pairs of saturation efficiency vs. air velocity are digitized from this
 curve fitting equation for a specific pad depth. Data point pairs include air
-velocity values between the normal domain of <i>0 - 4.575 m/s</i>, as well as two
-additional air velocity values that are <i>10</i> times and <i>100</i> times of the
-maximum value of the normal domain, <i>45.75 m/s</i> and <i>457.5 m/s</i>. The
-saturation effciency values from the data point pairs are limited within the range
-of <i>0% - 100%</i>.
+velocity values between <i>0 - 4.575 m/s</i>.
 </p>
 <p>
 The EnergyPlus 23.1 engineering reference does not specify the pressure drop through
@@ -37,14 +33,15 @@ evaporative pads as a function of air velocity and pad depth. However, an equati
 of the following form is used:
 </p>
 <p align=\"center\">
-<i>dp = a&sdot;d&sdot;v<sup>b</sup></i>
+<i>dp = a&sdot;d&sdot;v<sup>n</sup></i>
 </p>
 <p>
-By setting <i>a = 78.74 Pa&sdot;m<sup>-1</sup>&sdot;(m/s)<sup>-b</sup></i> and
-<i>b = 1.8</i>, the pressure drop <i>dp</i> aligns with the values from the 
-<a href=\"https://munters.sies.si/images/pdf/CELdek7090.pdf\">CELdek 7090-15
-evaporative pad</a> product. Data point pairs of pressure drop vs. air velocity are
-digitized from this equation for a specific pad depth.
+By setting <i>a = 78.74 Pa&sdot;m<sup>-1</sup>&sdot;(m/s)<sup>-n</sup></i> and
+<i>n = 1.8</i>, the pressure drop <i>dp</i> aligns with the values from the 
+<a href=\"https://munters.sies.si/images/pdf/celdek7090.pdf\">CELdek 7090-15
+evaporative pad</a> product. With nominal air velocity <i>v_nominal = 4.575 m/s</i>, 
+the nominal pressure drop <i>dp_nominal</i> can be calculated with the above pressure drop equation 
+if the depth of the evaporative pad <i>d</i> is known.
 </p>
 </html>"));
 end CELdekEnergyPlus;

@@ -15,7 +15,7 @@ defaultComponentPrefixes="parameter",
 defaultComponentName="per",
 Documentation(info="<html>
 <p>
-Evaporative pad performance data. See the documentation of
+Performance data for a 6-inch evaporative pad. See the documentation of
 <a href=\"modelica://Buildings.Fluid.Humidifiers.EvaporativePads.Data.CELdekEnergyPlus\">
 Buildings.Fluid.Humidifiers.EvaporativePads.Data.CELdekEnergyPlus</a>.
 </p>
