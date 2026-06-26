@@ -2,40 +2,47 @@ within Buildings.Applications.DataCenters.LiquidCooled.Racks.LiquidSinglePhase;
 model ColdPlateR_P
   "Model of a cold plate in which heat transfer is characterized by R for different flow rates, and utilization is input"
   extends Buildings.Applications.DataCenters.LiquidCooled.Racks.BaseClasses.PartialRack(
-    dp_nominal=50000,
-    n=1.85,
-    vol(nPorts=2)
-          );
+    redeclare replaceable Buildings.Applications.DataCenters.LiquidCooled.Racks.LiquidSinglePhase.Data.Generic dat,
+    vol(nPorts=2));
 
-  final parameter Modelica.Units.SI.TemperatureDifference dT_nominal=P_nominal/(
-      m_flow_nominal*Medium.cp_const)
+  final parameter Modelica.Units.SI.TemperatureDifference dT_nominal=dat.P_nominal/(
+      dat.m_flow_nominal*cp_default)
     "Design temperature differences, used to compute cold plate temperature"
     annotation (Dialog(group="Case temperature"));
 
-  parameter Data.Generic_R_m_flow datTheRes
-    "Thermal resistance data for case temperature"
-    annotation (Placement(transformation(extent={{60,60},{80,80}})));
 
-  parameter Modelica.Units.SI.VolumeFlowRate VColPla_flow_nominal=sum(datTheRes.V_flow)
-      /size(datTheRes.V_flow, 1)
+  parameter Modelica.Units.SI.VolumeFlowRate VColPla_flow_nominal=sum(dat.theRes.V_flow)
+      /size(dat.theRes.V_flow, 1)
     "Design flow rate of one cold plate, used to compute the case temperature"
     annotation (Dialog(group="Case temperature"));
   // For number of rack, we use a Real to simplify solving optimizations that involves this parameter
-  parameter Real nColPla=P_nominal/(VColPla_flow_nominal*Medium.d_const*Medium.cp_const
+  parameter Real nColPla=dat.P_nominal/(VColPla_flow_nominal*d_default*cp_default
       *dT_nominal)
     "Number of cold plates, used to compute the case temperature"
     annotation (Dialog(group="Case temperature"));
 
 
   Buildings.Applications.DataCenters.LiquidCooled.Racks.LiquidSinglePhase.BaseClasses.CaseTemperature casTem(
-    final datTheRes=datTheRes,
-    final V_flow_nominal=m_flow_nominal/Medium.d_const/nColPla)
+    final dat=dat.theRes,
+    final V_flow_nominal=dat.m_flow_nominal/d_default/nColPla)
     "Case temperature"
     annotation (Placement(transformation(extent={{20,70},{40,90}})));
 
 protected
+  parameter Medium.ThermodynamicState state_default = Medium.setState_pTX(
+    T=Medium.T_default,
+    p=Medium.p_default,
+    X=Medium.X_default[1:Medium.nXi]) "Medium state at default values";
+
+  parameter Modelica.Units.SI.SpecificHeatCapacity cp_default=
+    Medium.specificHeatCapacityCp(state=state_default)
+    "Specific heat capacity";
+  parameter Modelica.Units.SI.Density d_default=
+    Medium.density(state=state_default)
+    "Specific heat capacity";
+
   Modelica.Blocks.Sources.RealExpression VColPla_flow(y(final unit="m3/s") =
-      port_a.m_flow/Medium.d_const/nColPla) "Volume flow rate per cold plate"
+      port_a.m_flow/d_default/nColPla) "Volume flow rate per cold plate"
     annotation (Placement(transformation(extent={{-60,78},{-40,98}})));
   Modelica.Blocks.Sources.RealExpression TIn(
     y(final unit="K",
@@ -148,7 +155,7 @@ value of the data record's volume flow rate, <code>VColPla_flow_nominal = averag
 </p>
 <p>
 This thermal resistance is computed using the data from the data record
-<a href=\"modelica://Buildings.Applications.DataCenters.LiquidCooled.Racks.LiquidSinglePhase.Data.Generic_R_m_flow\">
+<a href=\"modelica://Buildings.Applications.DataCenters.LiquidCooled.Racks.LiquidSinglePhase.Data.BaseClasses.Generic_R_m_flow\">
 Buildings.Applications.DataCenters.LiquidCooled.Racks.LiquidSinglePhase.Data.Generic_R_m_flow</a>.
 The computation is done in the block <code>casTem</code>,
 which does a data fit for <i>R</i>. The relative error of this data fit

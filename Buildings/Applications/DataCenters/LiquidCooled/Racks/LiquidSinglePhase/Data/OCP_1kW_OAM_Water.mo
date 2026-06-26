@@ -1,9 +1,11 @@
 within Buildings.Applications.DataCenters.LiquidCooled.Racks.LiquidSinglePhase.Data;
 record OCP_1kW_OAM_Water
   "OpenCompute example for 1 kW OAM with DI water as working fluid"
-  extends Generic_R_m_flow(
-    V_flow={2.0, 3.0, 4.0, 5.0}/60/1000,
-    R = {0.0172, 0.0160, 0.0154, 0.0151});
+  extends Buildings.Applications.DataCenters.LiquidCooled.Racks.LiquidSinglePhase.Data.Generic(
+    theRes(
+      V_flow={2.0,3.0,4.0,5.0}/60/1000,
+      R={0.0172,0.0160,0.0154,0.0151})
+    );
   annotation (
   defaultComponentName="datTheRes",
   defaultComponentPrefixes="parameter",
@@ -12,6 +14,10 @@ record OCP_1kW_OAM_Water
 This specification is for a 1 kW Open Accelerator Module (OAM) based on the Open Compute Project (OCP)
 report by Cheng et al. (2023).
 The data is based on Figure 8, which is for a single cold plate with deionized (DI) water as the working fluid.
+</p>
+<p>
+<b>Note</b>: The values for <code>dp_nominal</code>, <code>n</code> and <code>deltaM</code> are generic,
+as no data for these parameters were found.
 </p>
 <h4>References</h4>
 <p>

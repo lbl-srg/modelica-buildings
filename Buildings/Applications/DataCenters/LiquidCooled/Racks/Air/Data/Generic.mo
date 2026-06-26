@@ -1,18 +1,22 @@
 within Buildings.Applications.DataCenters.LiquidCooled.Racks.Air.Data;
 record Generic "Generic data record for air cooled rack"
-  extends Modelica.Icons.Record;
-  parameter Modelica.Units.SI.VolumeFlowRate V_flow[:](each min=0)
-    "Volume flow rate at user-selected points";
-  parameter Modelica.Units.SI.ThermalResistance R[size(V_flow, 1)](
-    each min=0) "Case-to-inlet thermal resistance";
-  parameter Integer n(min=1) = 1
-    "Order of desired polynomial that fits the data points (V_flow, R*V_flow)";
-  annotation (
+  extends Buildings.Applications.DataCenters.LiquidCooled.Racks.BaseClasses.Data.Generic(
+    m_flow_nominal = P_nominal/(dTSet*cp_default),
+    dp_nominal=200,
+    n=2);
+
+  constant Modelica.Units.SI.SpecificHeatCapacity cp_default = 1014.54
+    "Specific heat capacity";
+
+  parameter Modelica.Units.SI.TemperatureDifference dTSet(min=1) = 10
+    "Set point for temperature raise across rack";
+
+annotation (
   defaultComponentName="dat",
   defaultComponentPrefixes="parameter",
   Documentation(info="<html>
 <p>
-fixme.
+Generic data record for air-cooled IT rack.
 <p>
 </html>", revisions="<html>
 <ul>

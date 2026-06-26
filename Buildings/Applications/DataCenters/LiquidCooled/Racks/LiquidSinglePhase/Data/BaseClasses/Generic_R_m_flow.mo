@@ -1,4 +1,4 @@
-within Buildings.Applications.DataCenters.LiquidCooled.Racks.LiquidSinglePhase.Data;
+within Buildings.Applications.DataCenters.LiquidCooled.Racks.LiquidSinglePhase.Data.BaseClasses;
 record Generic_R_m_flow
   "Generic data record for thermal resistance that is used to compute the case temperature as a function of mass flow rate"
   extends Modelica.Icons.Record;

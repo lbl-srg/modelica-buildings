@@ -4,7 +4,7 @@ block CaseTemperature "Block to compute the case temperature"
 
   constant Real delta = 1E-4 "Small value for regularization";
 
-  parameter LiquidSinglePhase.Data.Generic_R_m_flow datTheRes
+  parameter Data.BaseClasses.Generic_R_m_flow dat
     "Case-to-inlet thermal resistance as a function of the volume flow rate"
     annotation (Placement(transformation(extent={{60,60},{80,80}})));
   parameter Modelica.Units.SI.VolumeFlowRate V_flow_nominal
@@ -40,26 +40,26 @@ block CaseTemperature "Block to compute the case temperature"
 
   Modelica.Units.SI.ThermalResistance R
     "Case-to-inlet thermal resistance";
-  final parameter Real relErrR[:]={RFit[i]/datTheRes.R[i] for i in 1:nSup}
+  final parameter Real relErrR[:]={RFit[i]/dat.R[i] for i in 1:nSup}
     "Relative error of resistance based on data fit at each support point datRes.V_flow";
 protected
-  final parameter Integer nSup=size(datTheRes.V_flow, 1)
+  final parameter Integer nSup=size(dat.V_flow, 1)
     "Number of support points";
   parameter Modelica.Units.SI.VolumeFlowRate V_flow_small = delta * V_flow_nominal
     "Nominal volume flow rate for one cold plate" annotation (Dialog(group="Nominal condition"));
-  parameter Real RV[nSup](each min=0) = {datTheRes.R[i]*datTheRes.V_flow[i]
+  parameter Real RV[nSup](each min=0) = {dat.R[i]*dat.V_flow[i]
     for i in 1:nSup} "Resistance multipled by volume flow rate";
   final parameter Real p[:]=Modelica.Math.Polynomials.fitting(
-      u=datTheRes.V_flow,
+      u=dat.V_flow,
       y=RV,
-      n=datTheRes.n) "Polynomial coefficients";
+      n=dat.n) "Polynomial coefficients";
   final parameter Modelica.Units.SI.ThermalResistance RFit[nSup]={
       Modelica.Math.Polynomials.evaluateWithRange(
       p=p,
-      uMin=datTheRes.V_flow[1],
-      uMax=datTheRes.V_flow[end],
-      u=datTheRes.V_flow[i])/Buildings.Utilities.Math.Functions.smoothMax(
-      x1=datTheRes.V_flow[i],
+      uMin=dat.V_flow[1],
+      uMax=dat.V_flow[end],
+      u=dat.V_flow[i])/Buildings.Utilities.Math.Functions.smoothMax(
+      x1=dat.V_flow[i],
       x2=V_flow_small,
       deltaX=delta/4) for i in 1:nSup}
     "Resistance based on data fit (used to show error)";
@@ -67,8 +67,8 @@ protected
 equation
   R =Modelica.Math.Polynomials.evaluateWithRange(
     p=p,
-    uMin=datTheRes.V_flow[1],
-    uMax=datTheRes.V_flow[end],
+    uMin=dat.V_flow[1],
+    uMax=dat.V_flow[end],
     u=V_flow)/Buildings.Utilities.Math.Functions.smoothMax(
     x1=V_flow,
     x2=V_flow_small,

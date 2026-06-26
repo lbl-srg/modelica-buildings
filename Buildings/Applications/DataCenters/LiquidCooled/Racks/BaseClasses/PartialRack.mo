@@ -11,23 +11,10 @@ partial model PartialRack "Partial model of an IT rack, with utilization as inpu
               X_a=0.25)
               "Propylene glycol water, 25% mass fraction")));
 
-  parameter Modelica.Units.SI.HeatFlowRate P_nominal(min=0)
-    "Design heat flow rate at u=1, also called Thermal Design Power (TDP)"
-    annotation (Dialog(group="Nominal condition"));
 
-  parameter Modelica.Units.SI.MassFlowRate m_flow_nominal
-    "Nominal mass flow rate" annotation (Dialog(group="Nominal condition"));
-
-  // Flow resistance
-  parameter Modelica.Units.SI.PressureDifference dp_nominal(displayUnit="Pa")
-    "Pressure drop at nominal mass flow rate"
-    annotation (Dialog(group="Nominal condition"));
-  parameter Real n "Flow exponent, n=1 for laminar, n=2 for turbulent";
-  parameter Real deltaM(min=1E-6) = 0.3
-    "Fraction of nominal mass flow rate where transition to turbulent occurs"
-       annotation(Evaluate=true,
-                  Dialog(group = "Transition to laminar",
-                         enable = not linearized));
+  replaceable parameter Buildings.Applications.DataCenters.LiquidCooled.Racks.BaseClasses.Data.Generic dat
+    "Performance data"
+    annotation (Placement(transformation(extent={{60,-80},{80,-60}})));
 
   parameter Boolean linearized = false
     "= true, use linear relation between m_flow and dp for any flow rate"
@@ -59,19 +46,19 @@ partial model PartialRack "Partial model of an IT rack, with utilization as inpu
   Buildings.Fluid.FixedResistances.PressureDrop preDro(
     redeclare package Medium = Medium,
     final allowFlowReversal=allowFlowReversal,
-    final m_flow_nominal=m_flow_nominal,
-    final dp_nominal=dp_nominal,
-    final n=n) "Flow resistance"
+    final m_flow_nominal=dat.m_flow_nominal,
+    final dp_nominal=dat.dp_nominal,
+    final n=dat.n) "Flow resistance"
     annotation (Placement(transformation(extent={{-80,-10},{-60,10}})));
   Fluid.Delays.DelayFirstOrder vol(
     redeclare final package Medium = Medium,
     final energyDynamics=energyDynamics,
     final T_start=T_start,
-    final m_flow_nominal=m_flow_nominal,
+    final m_flow_nominal=dat.m_flow_nominal,
     final allowFlowReversal=allowFlowReversal,
     final tau=tau,
     final prescribedHeatFlowRate=true,
-    nPorts=1)       "Fluid control volume"
+    nPorts=2)       "Fluid control volume"
     annotation (Placement(transformation(extent={{50,0},{70,20}})));
 
   Modelica.Units.SI.MassFlowRate m_flow = port_a.m_flow
@@ -80,11 +67,11 @@ partial model PartialRack "Partial model of an IT rack, with utilization as inpu
   Modelica.Units.SI.PressureDifference dp(displayUnit="Pa") = preDro.dp
     "Pressure difference between port_a and port_b";
 protected
-  Modelica.Blocks.Math.Gain Q_flow(final k=P_nominal)
+  Modelica.Blocks.Math.Gain Q_flow(final k=dat.P_nominal)
     "Gain to compute actual heat flow rate"
     annotation (Placement(transformation(extent={{-80,40},{-60,60}})));
 
-  Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow preHea(final alpha=0)
+  Buildings.HeatTransfer.Sources.PrescribedHeatFlow preHea
     "Prescribed heat flow rate"
     annotation (Placement(transformation(extent={{20,0},{40,20}})));
 equation

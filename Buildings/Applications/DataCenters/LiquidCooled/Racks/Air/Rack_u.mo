@@ -1,22 +1,17 @@
 within Buildings.Applications.DataCenters.LiquidCooled.Racks.Air;
 model Rack_u "Model of an air-cooled rack, and utilization is input"
   extends Buildings.Applications.DataCenters.LiquidCooled.Racks.BaseClasses.PartialRack(
-    m_flow_nominal = P_nominal/(dTSet*cp_default),
-    dp_nominal=200,
-    n=2,
+    redeclare replaceable Buildings.Applications.DataCenters.LiquidCooled.Racks.Air.Data.Generic dat,
     vol(nPorts=2)
     );
-  parameter Modelica.Units.SI.TemperatureDifference dTSet(min=1) = 10
-    "Set point for temperature raise across rack";
-
 
   Fluid.Movers.Preconfigured.FlowControlled_m_flow mov(
     redeclare package Medium = Medium,
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
     addPowerToMedium=true,
     use_riseTime=false,
-    final m_flow_nominal=m_flow_nominal,
-    dp_nominal=dp_nominal)
+    final m_flow_nominal=dat.m_flow_nominal,
+    dp_nominal=dat.dp_nominal)
     "Fan"
     annotation (Placement(transformation(extent={{-40,10},{-20,-10}})));
 
@@ -29,10 +24,10 @@ protected
   Controls.OBC.CDL.Reals.Add PTot "Total power consumption"
     annotation (Placement(transformation(extent={{-20,20},{0,40}})));
   Modelica.Blocks.Sources.RealExpression mSet_flow(
-    y(final unit="kg/s")=Q_flow.y/(cp*dTSet))
+    y(final unit="kg/s")=Q_flow.y/(cp*dat.dTSet))
     "Set point for fan mass flow rate"
     annotation (Placement(transformation(extent={{-80,-42},{-60,-22}})));
-protected
+
   parameter Medium.ThermodynamicState state_default=
     Medium.setState_phX(
       Medium.p_default,

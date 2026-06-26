@@ -30,12 +30,9 @@ model ColdPlateR_P "Example model for cold plate"
     startTime=30)
     "Mass flow rate"
     annotation (Placement(transformation(extent={{-80,-2},{-60,18}})));
-  Buildings.Applications.DataCenters.LiquidCooled.Racks.LiquidSinglePhase.ColdPlateR_P
-    rac(
+  Buildings.Applications.DataCenters.LiquidCooled.Racks.LiquidSinglePhase.ColdPlateR_P rac(
     redeclare package Medium = Medium,
-    P_nominal=P_nominal,
-    m_flow_nominal=m_flow_nominal,
-    datTheRes=datTheRes,
+    dat=dat,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
     "Rack with cold plate heat exchangers"
     annotation (Placement(transformation(extent={{0,-10},{20,10}})));
@@ -48,9 +45,7 @@ model ColdPlateR_P "Example model for cold plate"
     redeclare package Medium = Medium,
     nPorts=1) "Pressure boundary condition"
     annotation (Placement(transformation(extent={{90,-10},{70,10}})));
-  parameter LiquidSinglePhase.Data.OCP_1kW_OAM_PG25 datTheRes
-    "Thermal resistance data"
-    annotation (Placement(transformation(extent={{60,60},{80,80}})));
+
   Fluid.Sensors.TemperatureTwoPort senTOut(
     redeclare package Medium = Medium,
     allowFlowReversal=false,
@@ -61,6 +56,11 @@ model ColdPlateR_P "Example model for cold plate"
   parameter Modelica.Units.SI.SpecificHeatCapacity cp_default=
     Medium.specificHeatCapacityCp(state=state_default)
     "Heat capacity, to compute additional dry mass";
+  parameter LiquidSinglePhase.Data.OCP_1kW_OAM_PG25 dat(
+    P_nominal=P_nominal,
+    m_flow_nominal=m_flow_nominal)
+    "Performance data"
+    annotation (Placement(transformation(extent={{60,60},{80,80}})));
 protected
   parameter Medium.ThermodynamicState state_default = Medium.setState_pTX(
     T=Medium.T_default,

@@ -4,7 +4,7 @@ model CaseTemperature "Example model for case temperature"
 
   parameter Integer nPar = 4 "Number of parallel cold plates";
   Buildings.Applications.DataCenters.LiquidCooled.Racks.LiquidSinglePhase.BaseClasses.CaseTemperature
-    casTem(datTheRes=ocpOAM3, V_flow_nominal=2.5/60/1000) "Case temperature"
+    casTem(dat=ocpOAM3, V_flow_nominal=2.5/60/1000) "Case temperature"
     annotation (Placement(transformation(extent={{10,-10},{30,10}})));
   Controls.OBC.CDL.Reals.Sources.Ramp V_flow(
    y(final unit="m3/s"),
@@ -22,7 +22,7 @@ model CaseTemperature "Example model for case temperature"
     annotation (Placement(transformation(extent={{-80,-10},{-60,10}})));
   Controls.OBC.CDL.Reals.Sources.Constant P(k=1000) "Heat flow rate"
     annotation (Placement(transformation(extent={{-80,-40},{-60,-20}})));
-  parameter LiquidSinglePhase.Data.Generic_R_m_flow ocpOAM3(
+  parameter Data.BaseClasses.Generic_R_m_flow ocpOAM3(
     V_flow=nPar*{1.5,2.0,2.5,3.0,3.5}/60/1000,
     R={0.0183,0.0176,0.0170,0.0166,0.0157},
     n=2) "Data from OCP report by Chen et al. (2023), Figure 13"
