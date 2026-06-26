@@ -1,8 +1,11 @@
 within Buildings.Applications.DataCenters.LiquidCooled.Racks.LiquidSinglePhase;
 model ColdPlateR_P
   "Model of a cold plate in which heat transfer is characterized by R for different flow rates, and utilization is input"
-  extends Buildings.Applications.DataCenters.LiquidCooled.Racks.Air.Rack_u(
-    n=1.85);
+  extends Buildings.Applications.DataCenters.LiquidCooled.Racks.Air.BaseRack(
+    dp_nominal=50000,
+    n=1.85,
+    vol(nPorts=2)
+          );
 
   final parameter Modelica.Units.SI.TemperatureDifference dT_nominal=P_nominal/(
       m_flow_nominal*Medium.cp_const)
@@ -56,6 +59,12 @@ equation
     annotation (Line(points={{-59,50},{-42,50}}, color={0,0,127}));
   connect(QCas_flow.y, casTem.Q_flow) annotation (Line(points={{-19,50},{-10,50},
           {-10,74},{19,74}}, color={0,0,127}));
+  connect(preDro.port_b, vol.ports[2])
+    annotation (Line(points={{-60,0},{60,0}}, color={0,127,255}));
+  connect(Q_flow.y, preHea.Q_flow) annotation (Line(points={{-59,50},{-52,50},{
+          -52,28},{8,28},{8,10},{20,10}}, color={0,0,127}));
+  connect(Q_flow.y, P) annotation (Line(points={{-59,50},{-52,50},{-52,28},{88,
+          28},{88,90},{110,90}}, color={0,0,127}));
 annotation (
   defaultComponentName="rac",
   Documentation(
@@ -152,7 +161,7 @@ Eran Dagan, Assaf Dinstag,Jane Yao.
 <a href=\"https://www.opencompute.org/documents/oai-system-liquid-cooling-guidelines-in-ocp-template-mar-3-2023-update-pdf\">
 OCP OAI SYSTEM LIQUID COOLING GUIDELINES</a>.
 2023.
-<p>
+</p>
 </html>",
 revisions="<html>
 <ul>

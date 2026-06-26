@@ -1,115 +1,72 @@
 within Buildings.Applications.DataCenters.LiquidCooled.Racks.Air;
 model Rack_u "Model of an air-cooled rack, and utilization is input"
-  extends Buildings.Fluid.Interfaces.PartialTwoPort;
-  replaceable package Medium = Modelica.Media.Interfaces.PartialMedium
-    "Medium in the component"
-      annotation (choices(
-        choice(redeclare package Medium = Buildings.Media.Water "Water"),
-        choice(redeclare package Medium =
-            Buildings.Media.Antifreeze.PropyleneGlycolWater (
-              property_T=303.15,
-              X_a=0.25)
-              "Propylene glycol water, 25% mass fraction")));
-
-  parameter Modelica.Units.SI.HeatFlowRate P_nominal(min=0)
-    "Design heat flow rate at u=1, also called Thermal Design Power (TDP)"
-    annotation (Dialog(group="Nominal condition"));
-
-  parameter Modelica.Units.SI.MassFlowRate m_flow_nominal
-    "Nominal mass flow rate" annotation (Dialog(group="Nominal condition"));
+  extends Buildings.Applications.DataCenters.LiquidCooled.Racks.Air.BaseRack(
+    m_flow_nominal = P_nominal/(dTSet*cp_default),
+    dp_nominal=200,
+    n=2,
+    vol(nPorts=2)
+    );
+  parameter Modelica.Units.SI.TemperatureDifference dTSet(min=1) = 10
+    "Set point for temperature raise across rack";
 
 
-  // Flow resistance
-  parameter Modelica.Units.SI.PressureDifference dp_nominal(displayUnit="Pa") = 50000
-    "Pressure drop at nominal mass flow rate"
-    annotation (Dialog(group="Nominal condition"));
-  parameter Real n = 2 "Flow exponent, n=1 for laminar, n=2 for turbulent";
-  parameter Real deltaM(min=1E-6) = 0.3
-    "Fraction of nominal mass flow rate where transition to turbulent occurs"
-       annotation(Evaluate=true,
-                  Dialog(group = "Transition to laminar",
-                         enable = not linearized));
-
-  parameter Boolean linearized = false
-    "= true, use linear relation between m_flow and dp for any flow rate"
-    annotation(Evaluate=true, Dialog(tab="Advanced"));
-
-  parameter Modelica.Fluid.Types.Dynamics energyDynamics=Modelica.Fluid.Types.Dynamics.DynamicFreeInitial
-    "Type of energy balance: dynamic (3 initialization options) or steady state"
-    annotation(Evaluate=true, Dialog(tab = "Dynamics", group="Conservation equations"));
-
-  parameter Modelica.Units.SI.Time tau=2
-    "Time constant of fluid outlet temperature at nominal flow";
-
-  // Initialization
-  parameter Medium.Temperature T_start = Medium.T_default
-    "Start value of temperature"
-    annotation(Dialog(tab = "Initialization"));
-
-  Modelica.Blocks.Interfaces.RealInput u(final unit="1", min=0)
-    "Normalized utilization, equal to actual power use over P_nominal" annotation (Placement(transformation(extent={{-140,30},
-            {-100,70}}),     iconTransformation(extent={{-120,50},{-100,70}})));
-
-  Modelica.Blocks.Interfaces.RealOutput P(
-    final unit="W")
-    "Electrical power consumed by IT"
-    annotation (Placement(transformation(extent={{100,80},{120,100}}),
-        iconTransformation(extent={{100,70},{120,90}})));
-
-  Buildings.Fluid.FixedResistances.PressureDrop preDro(
+  Fluid.Movers.Preconfigured.FlowControlled_m_flow mov(
     redeclare package Medium = Medium,
-    final allowFlowReversal=allowFlowReversal,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
+    addPowerToMedium=true,
+    use_riseTime=false,
     final m_flow_nominal=m_flow_nominal,
-    final dp_nominal=dp_nominal,
-    final n=n) "Flow resistance"
-    annotation (Placement(transformation(extent={{-40,-10},{-20,10}})));
-  Fluid.Delays.DelayFirstOrder vol(
-    redeclare final package Medium = Medium,
-    final energyDynamics=energyDynamics,
-    final T_start=T_start,
-    final m_flow_nominal=m_flow_nominal,
-    final allowFlowReversal=allowFlowReversal,
-    final tau=tau,
-    final prescribedHeatFlowRate=true,
-    final nPorts=2) "Fluid control volume"
-    annotation (Placement(transformation(extent={{10,0},{30,20}})));
+    dp_nominal=dp_nominal)
+    "Fan"
+    annotation (Placement(transformation(extent={{-40,10},{-20,-10}})));
 
-  Modelica.Units.SI.MassFlowRate m_flow = port_a.m_flow
-    "Mass flow rate from port_a to port_b";
-
-  Modelica.Units.SI.PressureDifference dp(displayUnit="Pa") = preDro.dp
-    "Pressure difference between port_a and port_b";
 protected
-  Modelica.Blocks.Math.Gain Q_flow(final k=P_nominal)
-    "Gain to compute actual heat flow rate"
-    annotation (Placement(transformation(extent={{-80,40},{-60,60}})));
+  parameter Modelica.Units.SI.SpecificHeatCapacity cp_default = Medium.specificHeatCapacityCp(
+    state_default) "Specific heat capacity";
+  Modelica.Units.SI.SpecificHeatCapacity cp = Medium.specificHeatCapacityCp(
+    state_in) "Specific heat capacity";
 
-  Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow preHea(final alpha=0)
-    "Prescribed heat flow rate"
-    annotation (Placement(transformation(extent={{-42,10},{-22,30}})));
+  Controls.OBC.CDL.Reals.Add PTot "Total power consumption"
+    annotation (Placement(transformation(extent={{-20,20},{0,40}})));
+  Modelica.Blocks.Sources.RealExpression mSet_flow(
+    y(final unit="kg/s")=Q_flow.y/(cp*dTSet))
+    "Set point for fan mass flow rate"
+    annotation (Placement(transformation(extent={{-80,-42},{-60,-22}})));
+protected
+  parameter Medium.ThermodynamicState state_default=
+    Medium.setState_phX(
+      Medium.p_default,
+      Medium.h_default,
+      Medium.X_default[1:Medium.nXi])
+    "Default medium state";
+  Medium.ThermodynamicState state_in=
+    Medium.setState_phX(
+      port_a.p,
+      inStream(port_a.h_outflow),
+      inStream(port_a.Xi_outflow))
+      "State of inflowing medium";
 equation
-  connect(Q_flow.u, u) annotation (Line(points={{-82,50},{-120,50}},
-                color={0,0,127}));
-  connect(Q_flow.y, preHea.Q_flow) annotation (Line(points={{-59,50},{-52,50},{-52,
-          20},{-42,20}}, color={0,0,127}));
-  connect(preHea.port,vol. heatPort) annotation (Line(points={{-22,20},{-10,20},
-          {-10,10},{10,10}},
-                        color={191,0,0}));
-  connect(preDro.port_b, vol.ports[1])
-    annotation (Line(points={{-20,0},{19,0}}, color={0,127,255}));
-  connect(port_a, preDro.port_a)
-    annotation (Line(points={{-100,0},{-40,0}}, color={0,127,255}));
-  connect(vol.ports[2], port_b)
-    annotation (Line(points={{21,0},{100,0}}, color={0,127,255}));
-  connect(Q_flow.y, P) annotation (Line(points={{-59,50},{88,50},{88,90},{110,90}},
-                                          color={0,0,127}));
+  connect(mSet_flow.y, mov.m_flow_in)
+    annotation (Line(points={{-59,-32},{-30,-32},{-30,-12}},
+                                                       color={0,0,127}));
+  connect(preDro.port_b, mov.port_a)
+    annotation (Line(points={{-60,0},{-40,0}}, color={0,127,255}));
+  connect(mov.port_b, vol.ports[2])
+    annotation (Line(points={{-20,0},{60,0}}, color={0,127,255}));
+  connect(Q_flow.y, PTot.u1) annotation (Line(points={{-59,50},{-30,50},{-30,36},
+          {-22,36}}, color={0,0,127}));
+  connect(mov.P, PTot.u2) annotation (Line(points={{-19,-9},{-10,-9},{-10,16},{-28,
+          16},{-28,24},{-22,24}}, color={0,0,127}));
+  connect(PTot.y, P) annotation (Line(points={{2,30},{80,30},{80,90},{110,90}},
+        color={0,0,127}));
+  connect(PTot.y, preHea.Q_flow) annotation (Line(points={{2,30},{10,30},{10,10},
+          {20,10}}, color={0,0,127}));
 annotation (
   defaultComponentName="rac",
   Documentation(
     info="<html>
 <p>
-Model of IT racks with cold plate heat exchangers based on the characterization
-of the Open Compute Project.
+Model of an air-cooled IT rack.
 </p>
 <h4>Electrical and fluid characterization</h4>
 <p>
@@ -141,70 +98,23 @@ where
 <code>dp</code> is the pressure difference between inlet and outlet,
 <code>dp_nominal</code> is a parameter for the design pressure difference, and
 <code>m</code> is a parameter for the flow exponent.
-Based on a data fit using the data in Chen et al., (2024), the default value is <code>m=1.85</code>.
-The model assumes a default pressure drop <code>dp_nominal</code> of
-<code>dp_nominal=50</code> kPa, which is the pressure drop of the OCP specified
-cold plate with a 8x1 loop at <i>10</i> l/min flow rate with 25% PGW.
 </p>
-<h4>Case temperature</h4>
+<h4>Fan mass flow rate</h4>
 <p>
-The model also computes the case temperature, which is the external surface temperature
-of the component's packaging, typically the top-center point where a
-thermal interface material or heat sink is attached.
+The model has a built-in fan, configured to have zero back pressure.
+The fan has an ideal controller that maintains a temperature difference across
+the rack equal to the parameter <code>dTSet</code>, before adding the fan
+energy to that air stream.
+Note that therefore, the actual rack outlet temperature is slightly higher because the
+fan energy is not included in the calculation of the mass flow rate.
+If it were included, the model would have a nonlinear system of equations,
+or would require a PI controller.
 </p>
-<p>
-The case temperature is computed based on the coolant inlet temperature and the
-heat dissipated by the chip, using the case-to-inlet thermal resistance of a cold plate.
-Thefore, the model assumes sufficient mass flow rate, e.g., this
-model simplifies the case temperature as being independent of the coolant mass flow rate,
-other than through the variation of the thermal resistance on that mass flow rate.
-This follows the convention used in the Open Compute Project report by
-Chen et al. (2023), which uses for the case-to-inlet thermal resistance the definition
-</p>
-<p align=\"center\" style=\"font-style:italic;\">
-R = (T_cas - T_inlet) &frasl; Q_flow,
-</p>
-<p>
-where
-<code>T_cas</code> is the case temperature,
-<code>T_inlet</code> is the coolant inlet temperature and
-<code>Q_flow</code> is the heat emitted by the cold plate.
-Use of this equation requires knowledge of the heat flow rate of one cold plate <code>Q_flow</code>,
-but the component model takes as a parameter the total design heat flow rate <code>P_nominal</code>.
-The model approximates the number of cold plates using
-</p>
-<p align=\"center\" style=\"font-style:italic;\">
-n_col = P_nominal / (VColPla_flow_nominal * rho * c_p * dT_nominal),
-</p>
-<p>
-where
-<code>VColPla_flow_nominal</code> is the design flow rate of a cold plate, approximated by default as the average
-value of the data record's volume flow rate, <code>VColPla_flow_nominal = average(datRes.V_flow)</code>,
-<code>rho</code> is the fluid density,
-<code>c_p</code> is the fluid specific heat capacity, and
-<code>dT_nominal</code> is the design temperature difference.
-</p>
-<p>
-This thermal resistance is computed using the data from the data record
-<a href=\"modelica://Buildings.Applications.DataCenters.LiquidCooled.Racks.LiquidSinglePhase.Data.Generic_R_m_flow\">
-Buildings.Applications.DataCenters.LiquidCooled.Racks.LiquidSinglePhase.Data.Generic_R_m_flow</a>.
-The computation is done in the block <code>casTem</code>,
-which does a data fit for <i>R</i>. The relative error of this data fit
-is shown in <code>casTem.relErrR</code>.
-</p>
-<h4>References</h4>
-<p>
-Cheng Chen, Dennis Trieu, Tejas Shah, Allen Guo, Jaylen Cheng, Christopher Chapman, Sukhvinder Kang,
-Eran Dagan, Assaf Dinstag,Jane Yao.
-<a href=\"https://www.opencompute.org/documents/oai-system-liquid-cooling-guidelines-in-ocp-template-mar-3-2023-update-pdf\">
-OCP OAI SYSTEM LIQUID COOLING GUIDELINES</a>.
-2023.
-<p>
 </html>",
 revisions="<html>
 <ul>
 <li>
-December 16, 2025, by Michael Wetter:<br/>
+June 26, 2026, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>

@@ -1,5 +1,5 @@
 simulateModel("Buildings.Applications.DataCenters.LiquidCooled.Racks.Air.Examples.Rack_u", stopTime=540, tolerance=1e-06, resultFile="Rack_u");
 createPlot(id=1, position={15, 15, 917, 858}, y={"rac.m_flow_nominal", "rac.port_a.m_flow"}, range={0.0, 550.0, 0.4, 1.0}, grid=true, subPlot=101, colors={{28,108,200}, {238,46,47}}, timeUnit="s", displayUnits={"kg/s", "kg/s"});
 createPlot(id=1, position={15, 15, 917, 858}, y={"rac.u"}, range={0.0, 550.0, 0.5, 1.1}, grid=true, subPlot=102, colors={{28,108,200}}, timeUnit="s", displayUnits={"1"});
-createPlot(id=1, position={15, 15, 917, 858}, y={"sou.T", "senTOut.T"}, range={0.0, 550.0, 15.0, 45.0}, grid=true, subPlot=103, colors={{28,108,200}, {238,46,47}}, timeUnit="s", displayUnits={"degC", "degC"});
+createPlot(id=1, position={15, 15, 917, 858}, y={"senTIn.T", "senTOut.T"}, range={0.0, 550.0, 15.0, 45.0}, grid=true, subPlot=103, colors={{28,108,200}, {238,46,47}}, timeUnit="s", displayUnits={"degC", "degC"});
 
