@@ -94,7 +94,7 @@ equation
                         color={191,0,0}));
   connect(port_a, preDro.port_a)
     annotation (Line(points={{-100,0},{-80,0}}, color={0,127,255}));
-  connect(port_b, vol.ports[1])
+  connect(port_b, vol.ports[2])
     annotation (Line(points={{100,0},{60,0}}, color={0,127,255}));
 annotation (
   Documentation(

@@ -59,7 +59,7 @@ equation
     annotation (Line(points={{-59,50},{-42,50}}, color={0,0,127}));
   connect(QCas_flow.y, casTem.Q_flow) annotation (Line(points={{-19,50},{-10,50},
           {-10,74},{19,74}}, color={0,0,127}));
-  connect(preDro.port_b, vol.ports[2])
+  connect(preDro.port_b, vol.ports[1])
     annotation (Line(points={{-60,0},{60,0}}, color={0,127,255}));
   connect(Q_flow.y, preHea.Q_flow) annotation (Line(points={{-59,50},{-52,50},{
           -52,28},{8,28},{8,10},{20,10}}, color={0,0,127}));

@@ -51,7 +51,7 @@ equation
                                                        color={0,0,127}));
   connect(preDro.port_b, mov.port_a)
     annotation (Line(points={{-60,0},{-40,0}}, color={0,127,255}));
-  connect(mov.port_b, vol.ports[2])
+  connect(mov.port_b, vol.ports[1])
     annotation (Line(points={{-20,0},{60,0}}, color={0,127,255}));
   connect(Q_flow.y, PTot.u1) annotation (Line(points={{-59,50},{-30,50},{-30,36},
           {-22,36}}, color={0,0,127}));
