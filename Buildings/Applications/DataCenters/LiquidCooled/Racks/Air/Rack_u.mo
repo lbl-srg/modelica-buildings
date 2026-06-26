@@ -1,61 +1,108 @@
-within Buildings.Applications.DataCenters.LiquidCooled.Racks.LiquidSinglePhase;
-model ColdPlateR_P
-  "Model of a cold plate in which heat transfer is characterized by R for different flow rates, and utilization is input"
-  extends Buildings.Applications.DataCenters.LiquidCooled.Racks.Air.Rack_u(
-    n=1.85);
+within Buildings.Applications.DataCenters.LiquidCooled.Racks.Air;
+model Rack_u "Model of an air-cooled rack, and utilization is input"
+  extends Buildings.Fluid.Interfaces.PartialTwoPort;
+  replaceable package Medium = Modelica.Media.Interfaces.PartialMedium
+    "Medium in the component"
+      annotation (choices(
+        choice(redeclare package Medium = Buildings.Media.Water "Water"),
+        choice(redeclare package Medium =
+            Buildings.Media.Antifreeze.PropyleneGlycolWater (
+              property_T=303.15,
+              X_a=0.25)
+              "Propylene glycol water, 25% mass fraction")));
 
-  final parameter Modelica.Units.SI.TemperatureDifference dT_nominal=P_nominal/(
-      m_flow_nominal*Medium.cp_const)
-    "Design temperature differences, used to compute cold plate temperature"
-    annotation (Dialog(group="Case temperature"));
+  parameter Modelica.Units.SI.HeatFlowRate P_nominal(min=0)
+    "Design heat flow rate at u=1, also called Thermal Design Power (TDP)"
+    annotation (Dialog(group="Nominal condition"));
 
-  parameter Data.Generic_R_m_flow datTheRes
-    "Thermal resistance data for case temperature"
-    annotation (Placement(transformation(extent={{60,60},{80,80}})));
-
-  parameter Modelica.Units.SI.VolumeFlowRate VColPla_flow_nominal=sum(datTheRes.V_flow)
-      /size(datTheRes.V_flow, 1)
-    "Design flow rate of one cold plate, used to compute the case temperature"
-    annotation (Dialog(group="Case temperature"));
-  // For number of rack, we use a Real to simplify solving optimizations that involves this parameter
-  parameter Real nColPla=P_nominal/(VColPla_flow_nominal*Medium.d_const*Medium.cp_const
-      *dT_nominal)
-    "Number of cold plates, used to compute the case temperature"
-    annotation (Dialog(group="Case temperature"));
+  parameter Modelica.Units.SI.MassFlowRate m_flow_nominal
+    "Nominal mass flow rate" annotation (Dialog(group="Nominal condition"));
 
 
-  Buildings.Applications.DataCenters.LiquidCooled.Racks.LiquidSinglePhase.BaseClasses.CaseTemperature casTem(
-    final datTheRes=datTheRes,
-    final V_flow_nominal=m_flow_nominal/Medium.d_const/nColPla)
-    "Case temperature"
-    annotation (Placement(transformation(extent={{20,70},{40,90}})));
+  // Flow resistance
+  parameter Modelica.Units.SI.PressureDifference dp_nominal(displayUnit="Pa") = 50000
+    "Pressure drop at nominal mass flow rate"
+    annotation (Dialog(group="Nominal condition"));
+  parameter Real n = 2 "Flow exponent, n=1 for laminar, n=2 for turbulent";
+  parameter Real deltaM(min=1E-6) = 0.3
+    "Fraction of nominal mass flow rate where transition to turbulent occurs"
+       annotation(Evaluate=true,
+                  Dialog(group = "Transition to laminar",
+                         enable = not linearized));
 
+  parameter Boolean linearized = false
+    "= true, use linear relation between m_flow and dp for any flow rate"
+    annotation(Evaluate=true, Dialog(tab="Advanced"));
+
+  parameter Modelica.Fluid.Types.Dynamics energyDynamics=Modelica.Fluid.Types.Dynamics.DynamicFreeInitial
+    "Type of energy balance: dynamic (3 initialization options) or steady state"
+    annotation(Evaluate=true, Dialog(tab = "Dynamics", group="Conservation equations"));
+
+  parameter Modelica.Units.SI.Time tau=2
+    "Time constant of fluid outlet temperature at nominal flow";
+
+  // Initialization
+  parameter Medium.Temperature T_start = Medium.T_default
+    "Start value of temperature"
+    annotation(Dialog(tab = "Initialization"));
+
+  Modelica.Blocks.Interfaces.RealInput u(final unit="1", min=0)
+    "Normalized utilization, equal to actual power use over P_nominal" annotation (Placement(transformation(extent={{-140,30},
+            {-100,70}}),     iconTransformation(extent={{-120,50},{-100,70}})));
+
+  Modelica.Blocks.Interfaces.RealOutput P(
+    final unit="W")
+    "Electrical power consumed by IT"
+    annotation (Placement(transformation(extent={{100,80},{120,100}}),
+        iconTransformation(extent={{100,70},{120,90}})));
+
+  Buildings.Fluid.FixedResistances.PressureDrop preDro(
+    redeclare package Medium = Medium,
+    final allowFlowReversal=allowFlowReversal,
+    final m_flow_nominal=m_flow_nominal,
+    final dp_nominal=dp_nominal,
+    final n=n) "Flow resistance"
+    annotation (Placement(transformation(extent={{-40,-10},{-20,10}})));
+  Fluid.Delays.DelayFirstOrder vol(
+    redeclare final package Medium = Medium,
+    final energyDynamics=energyDynamics,
+    final T_start=T_start,
+    final m_flow_nominal=m_flow_nominal,
+    final allowFlowReversal=allowFlowReversal,
+    final tau=tau,
+    final prescribedHeatFlowRate=true,
+    final nPorts=2) "Fluid control volume"
+    annotation (Placement(transformation(extent={{10,0},{30,20}})));
+
+  Modelica.Units.SI.MassFlowRate m_flow = port_a.m_flow
+    "Mass flow rate from port_a to port_b";
+
+  Modelica.Units.SI.PressureDifference dp(displayUnit="Pa") = preDro.dp
+    "Pressure difference between port_a and port_b";
 protected
-  Modelica.Blocks.Sources.RealExpression VColPla_flow(y(final unit="m3/s") =
-      port_a.m_flow/Medium.d_const/nColPla) "Volume flow rate per cold plate"
-    annotation (Placement(transformation(extent={{-60,78},{-40,98}})));
-  Modelica.Blocks.Sources.RealExpression TIn(
-    y(final unit="K",
-      displayUnit="degC")
-        = Medium.temperature_phX(
-            p=port_a.p,
-            h=inStream(port_a.h_outflow),
-            X=cat(1, inStream(port_a.Xi_outflow), {1 - sum(inStream(port_a.Xi_outflow))})))
-      "Inlet temperature"
-    annotation (Placement(transformation(extent={{-60,64},{-40,84}})));
+  Modelica.Blocks.Math.Gain Q_flow(final k=P_nominal)
+    "Gain to compute actual heat flow rate"
+    annotation (Placement(transformation(extent={{-80,40},{-60,60}})));
 
-  Modelica.Blocks.Math.Gain QCas_flow(final k=1/nColPla)
-    "Gain to compute heat flow rate per case"
-    annotation (Placement(transformation(extent={{-40,40},{-20,60}})));
+  Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow preHea(final alpha=0)
+    "Prescribed heat flow rate"
+    annotation (Placement(transformation(extent={{-42,10},{-22,30}})));
 equation
-  connect(casTem.V_flow, VColPla_flow.y) annotation (Line(points={{19,86},{-28,86},
-          {-28,88},{-39,88}}, color={0,0,127}));
-  connect(casTem.TIn, TIn.y) annotation (Line(points={{19,80},{-28,80},{-28,74},
-          {-39,74}}, color={0,0,127}));
-  connect(Q_flow.y, QCas_flow.u)
-    annotation (Line(points={{-59,50},{-42,50}}, color={0,0,127}));
-  connect(QCas_flow.y, casTem.Q_flow) annotation (Line(points={{-19,50},{-10,50},
-          {-10,74},{19,74}}, color={0,0,127}));
+  connect(Q_flow.u, u) annotation (Line(points={{-82,50},{-120,50}},
+                color={0,0,127}));
+  connect(Q_flow.y, preHea.Q_flow) annotation (Line(points={{-59,50},{-52,50},{-52,
+          20},{-42,20}}, color={0,0,127}));
+  connect(preHea.port,vol. heatPort) annotation (Line(points={{-22,20},{-10,20},
+          {-10,10},{10,10}},
+                        color={191,0,0}));
+  connect(preDro.port_b, vol.ports[1])
+    annotation (Line(points={{-20,0},{19,0}}, color={0,127,255}));
+  connect(port_a, preDro.port_a)
+    annotation (Line(points={{-100,0},{-40,0}}, color={0,127,255}));
+  connect(vol.ports[2], port_b)
+    annotation (Line(points={{21,0},{100,0}}, color={0,127,255}));
+  connect(Q_flow.y, P) annotation (Line(points={{-59,50},{88,50},{88,90},{110,90}},
+                                          color={0,0,127}));
 annotation (
   defaultComponentName="rac",
   Documentation(
@@ -224,4 +271,4 @@ First implementation.
           extent={{78,90},{92,70}},
           textColor={0,0,127},
           textString="P")}));
-end ColdPlateR_P;
+end Rack_u;

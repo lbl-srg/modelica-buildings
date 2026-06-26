@@ -1,15 +1,12 @@
-within Buildings.Applications.DataCenters.LiquidCooled.Racks.LiquidSinglePhase.Examples;
-model ColdPlateR_P "Example model for cold plate"
+within Buildings.Applications.DataCenters.LiquidCooled.Racks.Air.Examples;
+model Rack_u "Example model for air cooled rack"
   extends Modelica.Icons.Example;
-  package Medium = Buildings.Media.Antifreeze.PropyleneGlycolWater(
-    T_default=303.15,
-    property_T=303.15,
-    X_a=0.25)
-    "Propylene glycol";
-  parameter Modelica.Units.SI.HeatFlowRate P_nominal=2*66000
+  package Medium = Buildings.Media.Air
+    "Air medium";
+  parameter Modelica.Units.SI.HeatFlowRate P_nominal=10000
     "Design heat flow rate at u=1, also called Thermal Design Power (TDP)";
 
-  parameter Modelica.Units.SI.TemperatureDifference dT_nominal = 7
+  parameter Modelica.Units.SI.TemperatureDifference dT_nominal = 10
     "Design temperature difference of coolant fluid";
 
   final parameter Modelica.Units.SI.MassFlowRate m_flow_nominal=P_nominal/
@@ -18,26 +15,24 @@ model ColdPlateR_P "Example model for cold plate"
   Buildings.Controls.OBC.CDL.Reals.Sources.Pulse uti(
     amplitude=0.4,
     width=2/5,
-    period=5,
+    period=60,
     shift=0.2,
-    offset=0.62)
+    offset=0.6)
     "Utilization of hardware"
     annotation (Placement(transformation(extent={{-80,40},{-60,60}})));
   Buildings.Controls.OBC.CDL.Reals.Sources.Ramp m_flow(
     height=-m_flow_nominal/2,
-    duration=5,
+    duration=300,
     offset=m_flow_nominal,
-    startTime=30)
+    startTime=120)
     "Mass flow rate"
     annotation (Placement(transformation(extent={{-80,-2},{-60,18}})));
-  Buildings.Applications.DataCenters.LiquidCooled.Racks.LiquidSinglePhase.ColdPlateR_P
-    rac(
+  Buildings.Applications.DataCenters.LiquidCooled.Racks.Air.Rack_u rac(
     redeclare package Medium = Medium,
     P_nominal=P_nominal,
     m_flow_nominal=m_flow_nominal,
-    datTheRes=datTheRes,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
-    "Rack with cold plate heat exchangers"
+    "Air-cooled rack"
     annotation (Placement(transformation(extent={{0,-10},{20,10}})));
   Buildings.Fluid.Sources.MassFlowSource_T sou(
     redeclare package Medium = Medium,
@@ -48,9 +43,6 @@ model ColdPlateR_P "Example model for cold plate"
     redeclare package Medium = Medium,
     nPorts=1) "Pressure boundary condition"
     annotation (Placement(transformation(extent={{90,-10},{70,10}})));
-  parameter LiquidSinglePhase.Data.OCP_1kW_OAM_PG25 datTheRes
-    "Thermal resistance data"
-    annotation (Placement(transformation(extent={{60,60},{80,80}})));
   Fluid.Sensors.TemperatureTwoPort senTOut(
     redeclare package Medium = Medium,
     allowFlowReversal=false,
@@ -83,32 +75,17 @@ equation
       StopTime=60,
       Tolerance=1e-06),
       __Dymola_Commands(
-       file="modelica://Buildings/Resources/Scripts/Dymola/Applications/DataCenters/LiquidCooled/Racks/LiquidSinglePhase/Examples/ColdPlateR_P.mos" "Simulate and plot"),
+       file="modelica://Buildings/Resources/Scripts/Dymola/Applications/DataCenters/LiquidCooled/Racks/Air/Examples/Rack_u.mos" "Simulate and plot"),
     Documentation(info="<html>
 <p>
-Example model of a cold plate with different GPU utilization.
-</p>
-<p>
-The GPU utilization is modeled as a pulse that is parameterized based on the data of Patel et al. (2024),
-Figure 6(b) which is for the Llama2-50B LLM, neglecting the very high frequency and approximating
-the change in utilization with a periodic pulse input.
-The cold plate has a constant flow rate at the start of the simulation, and then ramps down to
-half the design flow rate to show the change in case temperature.
-</p>
-<h4>References</h4>
-<p>Pratyush Patel, Esha Choukse, Chaojie Zhang, Íñigo Goiri, Brijesh Warrier, Nithish Mahalingam, and Ricardo Bianchini.<br/>
-Characterizing Power Management Opportunities for LLMs in the Cloud.<br/>
-In Proceedings of the 29th ACM International Conference on
-Architectural Support for Programming Languages and Operating Systems, Volume 3 (ASPLOS '24).<br/>
-Association for Computing Machinery, New York, NY, USA, 207–222. 2024.<br/>
-<a href=\"https://doi.org/10.1145/3620666.3651329\">doi:10.1145/3620666.3651329</a>.
+Example model of an air-cooled rack different GPU utilization.
 </p>
 </html>", revisions="<html>
 <ul>
 <li>
-December 22, 2025, by Michael Wetter:<br/>
+June 26, 2026, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>
 </html>"));
-end ColdPlateR_P;
+end Rack_u;

@@ -25,8 +25,7 @@ model CaseTemperature "Example model for case temperature"
   parameter LiquidSinglePhase.Data.Generic_R_m_flow ocpOAM3(
     V_flow=nPar*{1.5,2.0,2.5,3.0,3.5}/60/1000,
     R={0.0183,0.0176,0.0170,0.0166,0.0157},
-    n=2)
-    "Data from OCP report by Chen et al. (2023), Figure 13"
+    n=2) "Data from OCP report by Chen et al. (2023), Figure 13"
     annotation (Placement(transformation(extent={{60,60},{80,80}})));
 equation
   connect(V_flow.y, casTem.V_flow) annotation (Line(points={{-58,30},{-20,30},{
