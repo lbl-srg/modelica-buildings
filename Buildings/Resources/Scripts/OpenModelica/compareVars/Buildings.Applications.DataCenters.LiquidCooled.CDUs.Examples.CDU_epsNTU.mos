@@ -11,7 +11,7 @@ compareVars :=
     "cdu.hex.Q1_flow",
     "rac.vol.heatPort.Q_flow",
     "cdu.pum.P",
-    "rac.dp_nominal",
+    "rac.dat.dp_nominal",
     "cdu.hex.dp1",
     "cdu.hex.dp2",
     "cdu.pum.dp",

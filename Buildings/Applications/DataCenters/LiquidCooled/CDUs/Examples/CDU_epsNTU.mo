@@ -27,7 +27,7 @@ model CDU_epsNTU "Example model of a CDU with varying load on the IT side"
   parameter Modelica.Units.SI.MassFlowRate mChi_flow_nominal =
     PRac/(TChi_b-TChi_a)/MediumChi.cp_const
     "Chilled water mass flow rate at design conditions";
-  parameter Modelica.Units.SI.PressureDifference dPRac_nominal(
+  parameter Modelica.Units.SI.PressureDifference dpRac_nominal(
     displayUnit="Pa") = 60000
     "Rack design pressure drop";
   parameter Modelica.Units.SI.PressureDifference dpHexChi_nominal(
@@ -45,11 +45,13 @@ model CDU_epsNTU "Example model of a CDU with varying load on the IT side"
     medRac=Buildings.Applications.DataCenters.LiquidCooled.Types.Media.PropyleneGlycol,
     phiGlyRac=0.25,
     TApp_nominal=6,
-    dpHeaExt_nominal=dPRac_nominal)
+    dpHeaExt_nominal=dpRac_nominal)
     "Data performance record for CDU"
     annotation (Placement(transformation(extent={{80,60},{100,80}})));
-  parameter Buildings.Applications.DataCenters.LiquidCooled.Racks.LiquidSinglePhase.Data.OCP_1kW_OAM_PG25 datTheRes
-    "Thermal resistance data"
+  parameter Buildings.Applications.DataCenters.LiquidCooled.Racks.LiquidSinglePhase.Data.OCP_1kW_OAM_PG25 datRac(
+    P_nominal=PRac,
+    m_flow_nominal=mRac_flow_nominal,
+    dp_nominal=dpRac_nominal) "Rack performance data"
     annotation (Placement(transformation(extent={{80,-100},{100,-80}})));
 
   Buildings.Controls.OBC.CDL.Reals.Sources.Pulse uti(
@@ -60,13 +62,11 @@ model CDU_epsNTU "Example model of a CDU with varying load on the IT side"
     offset=0.6)
     "Utilization of hardware"
     annotation (Placement(transformation(extent={{-50,-40},{-30,-20}})));
-  Buildings.Applications.DataCenters.LiquidCooled.Racks.LiquidSinglePhase.ColdPlateR_P rac(
+  Buildings.Applications.DataCenters.LiquidCooled.Racks.LiquidSinglePhase.ColdPlateR_P
+    rac(
     redeclare package Medium = MediumRac,
     allowFlowReversal=false,
-    P_nominal=PRac,
-    m_flow_nominal=mRac_flow_nominal,
-    datTheRes=datTheRes,
-    dp_nominal=dPRac_nominal,
+    dat=datRac,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
     "Rack with cold plate heat exchangers, modeled for simplicity as one large rack"
     annotation (Placement(transformation(extent={{-10,-70},{10,-50}})));

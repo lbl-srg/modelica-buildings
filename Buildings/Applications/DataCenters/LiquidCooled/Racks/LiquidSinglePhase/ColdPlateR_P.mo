@@ -2,7 +2,8 @@ within Buildings.Applications.DataCenters.LiquidCooled.Racks.LiquidSinglePhase;
 model ColdPlateR_P
   "Model of a cold plate in which heat transfer is characterized by R for different flow rates, and utilization is input"
   extends Buildings.Applications.DataCenters.LiquidCooled.Racks.BaseClasses.PartialRack(
-    redeclare replaceable Buildings.Applications.DataCenters.LiquidCooled.Racks.LiquidSinglePhase.Data.Generic dat,
+    redeclare replaceable Buildings.Applications.DataCenters.LiquidCooled.Racks.LiquidSinglePhase.Data.Generic dat
+    constrainedby Buildings.Applications.DataCenters.LiquidCooled.Racks.LiquidSinglePhase.Data.Generic,
     vol(nPorts=2));
 
   final parameter Modelica.Units.SI.TemperatureDifference dT_nominal=dat.P_nominal/(
