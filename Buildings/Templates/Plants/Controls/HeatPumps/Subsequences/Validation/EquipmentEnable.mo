@@ -81,6 +81,8 @@ equation
   connect(uStaOpp.y[1], extractStagingMatrix2D.u)
     annotation(Line(points={{-38,20},{-32,20}},
       color={255,127,0}));
+  connect(idxSorPhp.y, enaEqu.uIdxSorPhp2)
+    annotation (Line(points={{-68,40},{2,40},{2,2},{8,2}}, color={255,127,0}));
 annotation(__Dymola_Commands(
   file="modelica://Buildings/Resources/Scripts/Dymola/Templates/Plants/Controls/HeatPumps/Subsequences/Validation/EquipmentEnable.mos"
     "Simulate and plot"),

@@ -122,12 +122,6 @@ block EquipmentEnable "Return array of equipment to be enabled at given stage"
         nPhp, final nEquAlt=nPhp) if nPhp > 0
     "Select units by priority order and availability – Polyvalent HP in SHC mode"
     annotation (Placement(transformation(extent={{70,-50},{90,-30}})));
-  Buildings.Controls.OBC.CDL.Logical.Not notSelPhp1[nPhp] if nPhp > 0
-    "Return true if equipment not selected in single mode"
-    annotation(Placement(transformation(extent={{-70,-90},{-50,-70}})));
-  Buildings.Controls.OBC.CDL.Logical.And notSelPhp1AndAva[nPhp] if nPhp > 0
-    "Return true if equipment not selected in single mode AND available"
-    annotation(Placement(transformation(extent={{-30,-90},{-10,-70}})));
   Buildings.Controls.OBC.CDL.Logical.And isHpAvaAltNee[nHp] if nHp > 0
     "True if available and lead/lag alternate needed to meet stage requirement"
     annotation (Placement(transformation(extent={{110,30},{130,50}})));
@@ -227,16 +221,6 @@ equation
           100},{58,100},{58,6},{68,6}}, color={255,127,0}));
   connect(u1AvaPhp1, selSorAvaPhp1.u1Ava)
     annotation(Line(points={{-220,-120},{62,-120},{62,-6},{68,-6}},
-      color={255,0,255}));
-  connect(selSorAvaPhp1.y1, notSelPhp1.u)
-    annotation(Line(
-      points={{92,0},{100,0},{100,-60},{-80,-60},{-80,-80},{-72,-80}},
-      color={255,0,255}));
-  connect(notSelPhp1.y, notSelPhp1AndAva.u1)
-    annotation(Line(points={{-48,-80},{-32,-80}},
-      color={255,0,255}));
-  connect(u1AvaPhp2, notSelPhp1AndAva.u2)
-    annotation(Line(points={{-220,-140},{-40,-140},{-40,-88},{-32,-88}},
       color={255,0,255}));
   connect(selSorAvaHp.y1, isHpAvaAltNee.u1)
     annotation (Line(points={{92,40},{108,40}}, color={255,0,255}));

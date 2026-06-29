@@ -526,7 +526,7 @@ annotation(defaultComponentName="pumPri",
       nHp + nPhp >= 2,
       extent={{-50,-50},{50,50}},
       fileName="modelica://Buildings/Resources/Images/Templates/Components/Pumps/Single.svg",
-      origin={1220,8},
+      origin={1220,10},
       rotation=90),
     Line(points={{2000,400},{2000,60}},
       color={0,0,0},
@@ -916,10 +916,7 @@ annotation(defaultComponentName="pumPri",
     Line(points={{200,400},{200,60}},
       color={0,0,0},
       thickness=5,
-      visible=have_pumChiWatDedHp and nHp >= 3 or
-        typArrPumPri ==
-        Buildings.Templates.Components.Types.PumpArrangement.Dedicated and
-        nHp + nPhp >= 3 and nHp < 3),
+      visible=have_pumChiWatDedHp and nHp >= 3 or nHp + nPhp >= 3 and nHp < 3),
     Bitmap(visible=have_pumChiWatDedHp and nHp >= 3 or
       typArrPumPri ==
       Buildings.Templates.Components.Types.PumpArrangement.Dedicated and
@@ -939,7 +936,10 @@ annotation(defaultComponentName="pumPri",
       thickness=5,
       visible=nHp + nPhp >= 3 and nHp < 3),
     Bitmap(visible=have_pumChiWatPriVar and
-      (have_pumChiWatDedHp and nHp >= 3 or nHp + nPhp >= 3 and nHp < 3),
+      (have_pumChiWatDedHp and nHp >= 3 or
+      typArrPumPri ==
+        Buildings.Templates.Components.Types.PumpArrangement.Dedicated and
+      nHp + nPhp >= 3 and nHp < 3),
       extent={{60,-50},{160,50}},
       fileName="modelica://Buildings/Resources/Images/Templates/Components/Actuators/VFD.svg"),
     Line(points={{468,0},{482,0}},
@@ -965,6 +965,12 @@ annotation(defaultComponentName="pumPri",
       nHp + nPhp >= 3 and nHp < 3),
       extent={{60,-50},{160,50}},
       fileName="modelica://Buildings/Resources/Images/Templates/Components/Actuators/MotorStarter.svg"),
+    Line(points=if typArrPumPri ==
+        Buildings.Templates.Components.Types.PumpArrangement.Dedicated
+        then {{1222,0},{1200,-34},{1200,-400}} else {{1200,60},{1200,-400}},
+        color={0,0,0},
+        thickness=5,
+        visible=nHp + nPhp >= 2),
     Line(points=if typArrPumPri ==
       Buildings.Templates.Components.Types.PumpArrangement.Dedicated
       then {{1222,0},{1200,-34},{1200,-400}} else {{1200,60},{1200,400}},
@@ -1003,10 +1009,7 @@ annotation(defaultComponentName="pumPri",
     Line(points={{1000,400},{1000,60}},
       color={0,0,0},
       thickness=5,
-      visible=have_pumChiWatDedHp and nHp >= 2 or
-        typArrPumPri ==
-        Buildings.Templates.Components.Types.PumpArrangement.Dedicated and
-        nHp + nPhp >= 2 and nHp < 2),
+      visible=have_pumChiWatDedHp and nHp >= 2 or nHp + nPhp >= 2 and nHp < 2),
     Bitmap(visible=have_pumChiWatDedHp and nHp >= 2 or
       typArrPumPri ==
       Buildings.Templates.Components.Types.PumpArrangement.Dedicated and
@@ -1065,7 +1068,7 @@ annotation(defaultComponentName="pumPri",
       thickness=5,
       pattern=LinePattern.Dash,
       visible=nHp + nPhp >= 2 and nHp < 2),
-    Line(points={{820,400},{820,-400}},
+    Line(points={{800,400},{800,-400}},
       color={0,0,0},
       thickness=5,
       pattern=LinePattern.Dash,

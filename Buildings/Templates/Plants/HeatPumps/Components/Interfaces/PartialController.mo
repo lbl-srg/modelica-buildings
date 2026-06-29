@@ -65,22 +65,6 @@ block PartialController
           and have_senVHeaWatSec
           and cfg.typDis <>
             Buildings.Templates.Plants.HeatPumps.Types.Distribution.Variable1Only));
-  final parameter Boolean have_senVHeaWatPri =
-    cfg.have_heaWat
-      and (if cfg.have_hrc or not have_senVHeaWatSec or
-      cfg.typDis ==
-      Buildings.Templates.Plants.HeatPumps.Types.Distribution.Variable1Only
-      then true else have_senVHeaWatPri_select)
-    "Set to true for plants with primary HW flow sensor"
-    annotation(Evaluate=true,
-      Dialog(group="Configuration"));
-  // Secondary flow sensor required for secondary HW pump staging.
-  final parameter Boolean have_senVHeaWatSec =
-    cfg.typPumHeaWatSec <>
-      Buildings.Templates.Plants.HeatPumps.Types.PumpsSecondary.None
-    "Set to true for plants with secondary HW flow sensor"
-    annotation(Evaluate=true,
-      Dialog(group="Configuration"));
   parameter Boolean have_senVChiWatPri_select(start=false) =
     have_senVHeaWatPri_select
     "Set to true for plants with primary CHW flow sensor"
@@ -93,22 +77,6 @@ block PartialController
           and have_senVChiWatSec
           and cfg.typDis <>
             Buildings.Templates.Plants.HeatPumps.Types.Distribution.Variable1Only));
-  final parameter Boolean have_senVChiWatPri =
-    cfg.have_chiWat
-      and (if cfg.have_hrc or not have_senVChiWatSec or
-      cfg.typDis <>
-      Buildings.Templates.Plants.HeatPumps.Types.Distribution.Variable1Only
-      then true else have_senVChiWatPri_select)
-    "Set to true for plants with primary CHW flow sensor"
-    annotation(Evaluate=true,
-      Dialog(group="Configuration"));
-  // Secondary flow sensor required for secondary CHW pump staging.
-  final parameter Boolean have_senVChiWatSec =
-    cfg.typPumChiWatSec <>
-      Buildings.Templates.Plants.HeatPumps.Types.PumpsSecondary.None
-    "Set to true for plants with secondary CHW flow sensor"
-    annotation(Evaluate=true,
-      Dialog(group="Configuration"));
   parameter Boolean have_senTHeaWatPriRet_select(start=false) = false
     "Set to true for plants with primary HW return temperature sensor"
     annotation(Evaluate=true,
@@ -117,14 +85,7 @@ block PartialController
           Buildings.Templates.Plants.HeatPumps.Types.Controller.OpenLoop
           and cfg.have_heaWat
           and not cfg.have_hrc
-          and have_senTHeaWatSecRet));
-  final parameter Boolean have_senTHeaWatPriRet =
-    cfg.have_heaWat
-      and (if cfg.have_hrc or not have_senTHeaWatSecRet
-      then true else have_senTHeaWatPriRet_select)
-    "Set to true for plants with primary HW return temperature sensor"
-    annotation(Evaluate=true,
-      Dialog(group="Configuration"));
+        and have_senTHeaWatSecRet));
   parameter Boolean have_senTChiWatPriRet_select(start=false) =
     have_senTHeaWatPriRet_select
     "Set to true for plants with primary CHW return temperature sensor"
@@ -134,28 +95,7 @@ block PartialController
           Buildings.Templates.Plants.HeatPumps.Types.Controller.OpenLoop
           and cfg.have_chiWat
           and not cfg.have_hrc
-          and have_senTChiWatSecRet));
-  final parameter Boolean have_senTChiWatPriRet =
-    cfg.have_chiWat
-      and (if cfg.have_hrc or not have_senTChiWatSecRet
-      then true else have_senTChiWatPriRet_select)
-    "Set to true for plants with primary CHW return temperature sensor"
-    annotation(Evaluate=true,
-      Dialog(group="Configuration"));
-  // For primary-secondary plants, SHWST sensor is required for plant staging.
-  final parameter Boolean have_senTHeaWatSecSup =
-    cfg.typPumHeaWatSec <>
-      Buildings.Templates.Plants.HeatPumps.Types.PumpsSecondary.None
-    "Set to true for plants with secondary HW supply temperature sensor"
-    annotation(Evaluate=true,
-      Dialog(group="Configuration"));
-  // For primary-secondary plants, SCHWST sensor is required for plant staging.
-  final parameter Boolean have_senTChiWatSecSup =
-    cfg.typPumChiWatSec <>
-      Buildings.Templates.Plants.HeatPumps.Types.PumpsSecondary.None
-    "Set to true for plants with secondary CHW supply temperature sensor"
-    annotation(Evaluate=true,
-      Dialog(group="Configuration"));
+        and have_senTChiWatSecRet));
   // Following return temperature sensors are:
   // - optional for primary-secondary plants without HRC,
   // - required for plants with HRC: downstream of HRC.
@@ -178,24 +118,6 @@ block PartialController
           and cfg.typPumChiWatSec <>
             Buildings.Templates.Plants.HeatPumps.Types.PumpsSecondary.None
           and not cfg.have_hrc));
-  final parameter Boolean have_senTHeaWatSecRet =
-    if cfg.have_hrc
-    then true
-    elseif cfg.typPumHeaWatSec ==
-      Buildings.Templates.Plants.HeatPumps.Types.PumpsSecondary.None
-    then false
-    else have_senTHeaWatSecRet_select
-    "Set to true for plants with secondary HW return temperature sensor"
-    annotation(Evaluate=true);
-  final parameter Boolean have_senTChiWatSecRet(start=false) =
-    if cfg.have_hrc
-    then true
-    elseif cfg.typPumChiWatSec ==
-      Buildings.Templates.Plants.HeatPumps.Types.PumpsSecondary.None
-    then false
-    else have_senTChiWatSecRet_select
-    "Set to true for plants with secondary CHW return temperature sensor"
-    annotation(Evaluate=true);
   parameter Boolean have_senDpHeaWatRemWir = false
     "Set to true for remote HW differential pressure sensor(s) hardwired to plant or pump controller"
     annotation(Evaluate=true,
@@ -248,6 +170,38 @@ block PartialController
         and typ ==
           Buildings.Templates.Plants.HeatPumps.Types.Controller.AirToWater,
       group="Plant enable"));
+  // Bind the following disabled parameters to the corresponding controller
+  // parameters in derived class to avoid duplicating final assignment equations.
+  parameter Boolean have_senVHeaWatPri
+    "Set to true for plants with primary HW flow sensor"
+    annotation(Evaluate=true, Dialog(enable=false));
+  parameter Boolean have_senVHeaWatSec
+    "Set to true for plants with secondary HW flow sensor"
+    annotation(Evaluate=true, Dialog(enable=false));
+  parameter Boolean have_senVChiWatPri
+    "Set to true for plants with primary CHW flow sensor"
+    annotation(Evaluate=true, Dialog(enable=false));
+  parameter Boolean have_senVChiWatSec
+    "Set to true for plants with secondary CHW flow sensor"
+    annotation(Evaluate=true, Dialog(enable=false));
+  parameter Boolean have_senTHeaWatPriRet
+    "Set to true for plants with primary HW return temperature sensor"
+    annotation(Evaluate=true, Dialog(enable=false));
+  parameter Boolean have_senTChiWatPriRet
+    "Set to true for plants with primary CHW return temperature sensor"
+    annotation(Evaluate=true, Dialog(enable=false));
+  parameter Boolean have_senTHeaWatSecSup
+    "Set to true for plants with secondary HW supply temperature sensor"
+    annotation(Evaluate=true, Dialog(enable=false));
+  parameter Boolean have_senTChiWatSecSup
+    "Set to true for plants with secondary CHW supply temperature sensor"
+    annotation(Evaluate=true, Dialog(enable=false));
+  parameter Boolean have_senTHeaWatSecRet
+    "Set to true for plants with secondary HW return temperature sensor"
+    annotation(Evaluate=true, Dialog(enable=false));
+  parameter Boolean have_senTChiWatSecRet
+    "Set to true for plants with secondary CHW return temperature sensor"
+    annotation(Evaluate=true, Dialog(enable=false));
   Buildings.Templates.Plants.HeatPumps.Interfaces.Bus bus
     "Plant control bus"
     annotation(Placement(transformation(extent={{-20,-20},{20,20}},

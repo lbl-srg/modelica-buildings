@@ -2,7 +2,17 @@ within Buildings.Templates.Plants.HeatPumps.Components.Controls;
 model AirToWater
   "Controller for AWHP plant"
   extends Buildings.Templates.Plants.HeatPumps.Components.Interfaces.PartialController(
-    final typ=Buildings.Templates.Plants.HeatPumps.Types.Controller.AirToWater);
+    final typ=Buildings.Templates.Plants.HeatPumps.Types.Controller.AirToWater,
+    final have_senVHeaWatPri=ctl.have_senVHeaWatPri,
+    final have_senVHeaWatSec=ctl.have_senVHeaWatSec,
+    final have_senVChiWatPri=ctl.have_senVChiWatPri,
+    final have_senVChiWatSec=ctl.have_senVChiWatSec,
+    final have_senTHeaWatPriRet=ctl.have_senTHeaWatPriRet,
+    final have_senTChiWatPriRet=ctl.have_senTChiWatPriRet,
+    final have_senTHeaWatSecSup=ctl.have_senTHeaWatSecSup,
+    final have_senTChiWatSecSup=ctl.have_senTChiWatSecSup,
+    final have_senTHeaWatSecRet=ctl.have_senTHeaWatSecRet,
+    final have_senTChiWatSecRet=ctl.have_senTChiWatSecRet);
   Buildings.Templates.Plants.Controls.HeatPumps.AirToWater ctl(
     final typ=cfg.typ,
     final is_priOnl=cfg.typDis ==
