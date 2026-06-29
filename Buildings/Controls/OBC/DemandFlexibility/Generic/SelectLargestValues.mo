@@ -23,26 +23,28 @@ block SelectLargestValues "Select largest values"
     annotation (Placement(transformation(extent={{280,-20},{320,20}}),
         iconTransformation(extent={{100,-20},{140,20}})));
 protected
-  Buildings.Controls.OBC.CDL.Reals.Sources.Constant numSeq[nVal](k=1:1:nVal)
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant conNumSeq[nVal](k={i for i in
+            1:nVal})
     "A numerical sequence from one up to the number of values"
     annotation (Placement(transformation(extent={{-260,-40},{-240,-20}})));
-  Buildings.Controls.OBC.CDL.Reals.MultiplyByParameter scaSmaNum[nVal](k=smaNum)
+  Buildings.Controls.OBC.CDL.Reals.MultiplyByParameter scaSmaNum[nVal](k=fill(
+        smaNum, nVal))
     "Scale the numerical sequence with a small number"
     annotation (Placement(transformation(extent={{-220,-40},{-200,-20}})));
   Buildings.Controls.OBC.CDL.Reals.Add addSmaNum[nVal]
     "Add different small numbers to input values to allow ranking of equal input values"
     annotation (Placement(transformation(extent={{-180,0},{-160,20}})));
   Buildings.Controls.OBC.CDL.Routing.RealExtractor extNSel(nin=nVal)
-    "Extract the nSel largest value"
+    "Extract the n-th largest value, where n equals the number of largest values to select"
     annotation (Placement(transformation(extent={{80,0},{100,20}})));
   Buildings.Controls.OBC.CDL.Routing.RealScalarReplicator nSelValRep(nout=nVal)
-    "Replicate the nSel largest value into a vector"
+    "Replicate the n-th largest value into a vector, where n equals the number of largest values to select"
     annotation (Placement(transformation(extent={{120,0},{140,20}})));
   Buildings.Controls.OBC.CDL.Reals.Less lesNSelVal[nVal]
-    "Check whether the input value is less than the nSel largest value"
+    "Check whether the input value is less than the n-th largest value, where n equals the number of largest values to select"
     annotation (Placement(transformation(extent={{160,-40},{180,-20}})));
   Buildings.Controls.OBC.CDL.Logical.Not notLesNSelVal[nVal]
-    "Check whether the input value is greater than or equal to the nSel largest value"
+    "Check whether the input value is greater than or equal to the n-th largest value, where n equals the number of largest values to select"
     annotation (Placement(transformation(extent={{200,-40},{220,-20}})));
   Buildings.Controls.OBC.CDL.Logical.Not notDisFla[nVal]
     "The disqualified flag is not active"
@@ -83,7 +85,7 @@ equation
     annotation (Line(points={{22,10},{38,10}},color={0,0,127}));
   connect(subOne.y, minRep.u)
     annotation (Line(points={{-78,30},{-62,30}}, color={0,0,127}));
-  connect(numSeq.y, scaSmaNum.u)
+  connect(conNumSeq.y, scaSmaNum.u)
     annotation (Line(points={{-238,-30},{-222,-30}}, color={0,0,127}));
   connect(scaSmaNum.y, addSmaNum.u2)
     annotation (Line(points={{-198,-30},{-190,-30},{-190,4},{-182,4}},
