@@ -32,7 +32,7 @@ block EquipmentEnable "Return array of equipment to be enabled at given stage"
     "Number of columns in staging matrix";
   Buildings.Controls.OBC.CDL.Interfaces.IntegerInput uIdxSorHp[nAltHp]
     if nHp > 0 "Indices of heat pumps sorted by increasing runtime" annotation
-    (Placement(transformation(extent={{-240,80},{-200,120}}),
+    (Placement(transformation(extent={{-240,100},{-200,140}}),
         iconTransformation(extent={{-140,40},{-100,80}})));
   Buildings.Controls.OBC.CDL.Interfaces.IntegerInput uSta
     "Stage index"
@@ -97,11 +97,11 @@ block EquipmentEnable "Return array of equipment to be enabled at given stage"
     extract={nHp + nPhp + i for i in 1:nPhp}) if nPhp > 0
     "Extract polyvalent units required in SHC mode at given stage"
     annotation(Placement(transformation(extent={{-30,-50},{-10,-30}})));
-  Buildings.Controls.OBC.CDL.Interfaces.IntegerInput uIdxSorPhp[nPhp]
+  Buildings.Controls.OBC.CDL.Interfaces.IntegerInput uIdxSorPhp1[nPhp]
     if nPhp > 0
-    "Indices of polyvalent units sorted by increasing runtime"
-    annotation(Placement(transformation(extent={{-240,60},{-200,100}}),
-      iconTransformation(extent={{-140,20},{-100,60}})));
+    "Indices of polyvalent units sorted by increasing runtime in single mode"
+    annotation (Placement(transformation(extent={{-240,80},{-200,120}}),
+        iconTransformation(extent={{-140,20},{-100,60}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1AvaPhp1[nPhp] if nPhp > 0
     "Polyvalent HP in single mode available signal"
     annotation(Placement(transformation(extent={{-240,-140},{-200,-100}}),
@@ -124,7 +124,7 @@ block EquipmentEnable "Return array of equipment to be enabled at given stage"
     annotation (Placement(transformation(extent={{70,-50},{90,-30}})));
   Buildings.Controls.OBC.CDL.Logical.Not notSelPhp1[nPhp] if nPhp > 0
     "Return true if equipment not selected in single mode"
-    annotation(Placement(transformation(extent={{-68,-90},{-48,-70}})));
+    annotation(Placement(transformation(extent={{-70,-90},{-50,-70}})));
   Buildings.Controls.OBC.CDL.Logical.And notSelPhp1AndAva[nPhp] if nPhp > 0
     "Return true if equipment not selected in single mode AND available"
     annotation(Placement(transformation(extent={{-30,-90},{-10,-70}})));
@@ -172,6 +172,11 @@ block EquipmentEnable "Return array of equipment to be enabled at given stage"
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant traMatStaHp[nCol,nSta](
       final k=traStaHp) if nPhp == 0 "Transpose of HP staging matrix"
     annotation (Placement(transformation(extent={{-180,50},{-160,70}})));
+  Buildings.Controls.OBC.CDL.Interfaces.IntegerInput uIdxSorPhp2[nPhp]
+    if nPhp > 0
+    "Indices of polyvalent units sorted by increasing runtime in SHC mode"
+    annotation(Placement(transformation(extent={{-240,60},{-200,100}}),
+      iconTransformation(extent={{-140,0},{-100,40}})));
 equation
   connect(intScaRep.y, reqEquSta.index)
     annotation(Line(points={{-98,0},{-90,0},{-90,28}},
@@ -213,26 +218,22 @@ equation
     annotation(Line(points={{-46,0},{-40,0},{-40,-40},{-32,-40}},
       color={0,0,127}));
   connect(uIdxSorHp, selSorAvaHp.uIdxSor)
-    annotation(Line(points={{-220,100},{62,100},{62,46},{68,46}},
+    annotation(Line(points={{-220,120},{62,120},{62,46},{68,46}},
       color={255,127,0}));
   connect(u1AvaHp, selSorAvaHp.u1Ava)
-    annotation(Line(points={{-220,-100},{62,-100},{62,34},{68,34}},
+    annotation(Line(points={{-220,-100},{60,-100},{60,34},{68,34}},
       color={255,0,255}));
-  connect(uIdxSorPhp, selSorAvaPhp1.uIdxSor)
-    annotation(Line(points={{-220,80},{60,80},{60,6},{68,6}},
-      color={255,127,0}));
+  connect(uIdxSorPhp1, selSorAvaPhp1.uIdxSor) annotation (Line(points={{-220,
+          100},{58,100},{58,6},{68,6}}, color={255,127,0}));
   connect(u1AvaPhp1, selSorAvaPhp1.u1Ava)
-    annotation(Line(points={{-220,-120},{64,-120},{64,-6},{68,-6}},
+    annotation(Line(points={{-220,-120},{62,-120},{62,-6},{68,-6}},
       color={255,0,255}));
   connect(selSorAvaPhp1.y1, notSelPhp1.u)
     annotation(Line(
-      points={{92,0},{100,0},{100,-60},{-80,-60},{-80,-80},{-70,-80}},
+      points={{92,0},{100,0},{100,-60},{-80,-60},{-80,-80},{-72,-80}},
       color={255,0,255}));
   connect(notSelPhp1.y, notSelPhp1AndAva.u1)
-    annotation(Line(points={{-46,-80},{-32,-80}},
-      color={255,0,255}));
-  connect(notSelPhp1AndAva.y, selSorAvaPhp2.u1Ava)
-    annotation(Line(points={{-8,-80},{66,-80},{66,-46},{68,-46}},
+    annotation(Line(points={{-48,-80},{-32,-80}},
       color={255,0,255}));
   connect(u1AvaPhp2, notSelPhp1AndAva.u2)
     annotation(Line(points={{-220,-140},{-40,-140},{-40,-88},{-32,-88}},
@@ -243,9 +244,6 @@ equation
     annotation (Line(points={{92,0},{108,0}}, color={255,0,255}));
   connect(selSorAvaPhp2.y1, isPhp2AvaReqOrAltNee.u1)
     annotation (Line(points={{92,-40},{108,-40}}, color={255,0,255}));
-  connect(uIdxSorPhp, selSorAvaPhp2.uIdxSor)
-    annotation(Line(points={{-220,80},{60,80},{60,-34},{68,-34}},
-      color={255,127,0}));
   connect(reqHpSta.y, selEquStaHp.uEquSta)
     annotation(Line(points={{-8,40},{8,40}},
       color={0,0,127}));
@@ -260,9 +258,6 @@ equation
       color={255,0,255}));
   connect(u1AvaPhp1, selEquStaPhp1.u1Ava)
     annotation(Line(points={{-220,-120},{2,-120},{2,-6},{8,-6}},
-      color={255,0,255}));
-  connect(notSelPhp1AndAva.y, selEquStaPhp2.u1Ava)
-    annotation(Line(points={{-8,-80},{4,-80},{4,-46},{8,-46}},
       color={255,0,255}));
   connect(selEquStaPhp1.nTot, selSorAvaPhp1.n)
     annotation(Line(points={{32,8},{40,8},{40,0},{68,0}},
@@ -302,15 +297,22 @@ equation
     annotation (Line(points={{132,0},{220,0}}, color={255,0,255}));
   connect(isPhp2AvaReqOrAltNee.y, y1Php2)
     annotation (Line(points={{132,-40},{220,-40}}, color={255,0,255}));
+  connect(uIdxSorPhp2, selSorAvaPhp2.uIdxSor) annotation (Line(points={{-220,80},
+          {54,80},{54,-34},{68,-34}}, color={255,127,0}));
+  connect(u1AvaPhp2, selEquStaPhp2.u1Ava) annotation (Line(points={{-220,-140},
+          {4,-140},{4,-46},{8,-46}}, color={255,0,255}));
+  connect(u1AvaPhp2, selSorAvaPhp2.u1Ava) annotation (Line(points={{-220,-140},
+          {64,-140},{64,-46},{68,-46}}, color={255,0,255}));
 annotation(defaultComponentName="enaEqu",
   Icon(coordinateSystem(preserveAspectRatio=true),
-    graphics={Rectangle(extent={{-100,100},{100,-100}},
-      lineColor={0,0,0},
-      fillColor={255,255,255},
-      fillPattern=FillPattern.Solid),
+    graphics={
     Text(extent={{-150,150},{150,110}},
       textString="%name",
-      textColor={0,0,255})}),
+      textColor={0,0,255}),
+              Rectangle(extent={{-100,100},{100,-100}},
+      lineColor={0,0,0},
+      fillColor={255,255,255},
+      fillPattern=FillPattern.Solid)}),
   Diagram(coordinateSystem(extent={{-200,-160},{200,140}})),
     Documentation(info="<html>
 </html>"));

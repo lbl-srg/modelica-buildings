@@ -46,7 +46,7 @@ createPlot(
 );
 createPlot(
     id=3,
-    position={615, 5, 300, 400},
+    position={615, 5, 300, 500},
     subPlot=1,
     y={"pla.ctl.ctl.y1HeaPhp[1]", "pla.ctl.ctl.y1HeaPhp[2]", "pla.ctl.ctl.y1HeaPhp[3]"},
     autoscale=true,
@@ -63,7 +63,7 @@ createPlot(
 );
 createPlot(
     id=4,
-    position={920, 5, 300, 400},
+    position={920, 5, 300, 500},
     subPlot=1,
     y={"pla.ctl.ctl.y1PumHeaWatPriHdr[1]", "pla.ctl.ctl.y1PumHeaWatPriHdr[2]", "pla.ctl.ctl.y1PumHeaWatPriHdr[3]"},
     autoscale=true,
@@ -97,8 +97,8 @@ createPlot(
 );
 createPlot(
     id=6,
-    position={40, 40, 300, 600},
-    y={"pla.bus.VHeaWatPri_flow", "pla.bus.VHeaWatSec_flow", "datAll.pla.ctl.VHeaWatPri_flow_nominal", "datAll.pla.ctl.VHeaWatSec_flow_nominal"},
+    position={40, 40, 300, 500},
+    y={"pla.bus.VHeaWatPri_flow", "datAll.pla.ctl.VHeaWatPri_flow_nominal"},
     autoscale=true,
     grid=true,
     timeUnit="h"
@@ -106,15 +106,7 @@ createPlot(
 createPlot(
     id=6,
     subPlot=2,
-    y={"pla.bus.VChiWatPri_flow", "pla.bus.VChiWatSec_flow", "datAll.pla.ctl.VChiWatPri_flow_nominal", "datAll.pla.ctl.VChiWatSec_flow_nominal"},
-    autoscale=true,
-    grid=true,
-    timeUnit="h"
-);
-createPlot(
-    id=6,
-    subPlot=3,
-    y={"pla.hp.hp[1].hp.PLR", "pla.hp.hp[2].hp.PLR", "pla.hp.hp[3].hp.PLR"},
+    y={"pla.bus.VChiWatPri_flow", "datAll.pla.ctl.VChiWatPri_flow_nominal"},
     autoscale=true,
     grid=true,
     timeUnit="h"
@@ -122,7 +114,7 @@ createPlot(
 createPlot(
     id=7,
     position={345, 40, 300, 500},
-    y={"pla.bus.THeaWatSupSet", "pla.bus.THeaWatPriSup", "pla.bus.THeaWatSecSup", "pla.bus.THeaWatPriRet", "pla.bus.THeaWatSecRet"},
+    y={"pla.bus.THeaWatSupSet", "pla.bus.THeaWatPriSup", "pla.bus.THeaWatPriRet"},
     autoscale=true,
     grid=true,
     timeUnit="h"
@@ -130,7 +122,7 @@ createPlot(
 createPlot(
     id=7,
     subPlot=2,
-    y={"pla.bus.TChiWatSupSet", "pla.bus.TChiWatPriSup", "pla.bus.TChiWatSecSup", "pla.bus.TChiWatPriRet", "pla.bus.TChiWatSecRet"},
+    y={"pla.bus.TChiWatSupSet", "pla.bus.TChiWatPriSup", "pla.bus.TChiWatPriRet"},
     autoscale=true,
     grid=true,
     timeUnit="h"

@@ -1563,7 +1563,7 @@ block AirToWater
     annotation(Placement(transformation(extent={{-150,230},{-130,250}})));
   StagingRotation.SortRuntime sorRunTimHp(final idxEquAlt=idxAltHp, nin=nHp)
     if have_hp
-    "Sort lead/lag alternate HP by staging runtime"
+    "Sort lead/lag alternate HP by increasing runtime"
     annotation(Placement(transformation(extent={{-150,260},{-130,280}})));
   Pumps.Generic.StagingHeadered staPumHeaWatPri(
     final is_pri=true,
@@ -1650,29 +1650,29 @@ block AirToWater
     "Secondary HW pump staging"
     annotation(Placement(transformation(extent={{140,150},{160,170}})));
   Utilities.PlaceholderReal THeaWatRet(
-    final have_inp=have_senTHeaWatPriRet,
+    final have_inp=have_senTHeaWatPriRet and have_senVHeaWatPri,
     final have_inpPh=true)
     if have_heaWat
-    "Select HW return temperature sensor"
+    "For staging logic select primary sensor if both temperature and flow sensors available"
     annotation(Placement(transformation(extent={{-230,30},{-210,50}})));
   Utilities.PlaceholderReal VHeaWatSta_flow(
-    final have_inp=have_senVHeaWatPri,
+    final have_inp=have_senTHeaWatPriRet and have_senVHeaWatPri,
     final have_inpPh=true)
     if have_heaWat
-    "For staging logic select primary flow sensor if both primary and secondary sensors available"
+    "For staging logic select primary sensor if both temperature and flow sensors available"
     annotation(Placement(transformation(extent={{-190,10},{-170,30}})));
   Utilities.PlaceholderReal TChiWatRet(
-    final have_inp=have_senTChiWatPriRet,
+    final have_inp=have_senTChiWatPriRet and have_senVChiWatPri,
     final have_inpPh=true)
     if have_chiWat
-    "Select CHW return temperature sensor"
+    "For staging logic select primary sensor if both temperature and flow sensors available"
     annotation(Placement(transformation(extent={{-230,-30},{-210,-10}})));
   Utilities.PlaceholderReal VChiWatSta_flow(
-    final have_inp=have_senVChiWatPri,
+    final have_inp=have_senTChiWatPriRet and have_senVChiWatPri,
     final have_inpPh=true)
     if have_chiWat
-    "For staging logic select primary flow sensor if both primary and secondary sensors available"
-    annotation(Placement(transformation(extent={{-190,-52},{-170,-32}})));
+    "For staging logic select primary sensor if both temperature and flow sensors available"
+    annotation(Placement(transformation(extent={{-190,-50},{-170,-30}})));
   StagingRotation.StageCompletion comStaCoo(nin=nHp + 2 * nPhp)
     if have_chiWat
     "Check successful completion of cooling stage change"
@@ -1848,10 +1848,6 @@ block AirToWater
     if have_chiWat
     "For HRC logic select either primary or secondary sensor depending on plant configuration"
     annotation(Placement(transformation(extent={{-140,-110},{-120,-90}})));
-  StagingRotation.SortRuntime sorRunTimPhp(nin=nPhp)
-    if have_php
-    "Sort lead/lag alternate polyvalent HP by staging runtime"
-    annotation(Placement(transformation(extent={{-150,450},{-130,470}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant u1AvaPhp[nPhp](
     each k=true)
     if have_php
@@ -1869,10 +1865,6 @@ block AirToWater
     if have_php
     "Evaluate polyvalent HP availability in heating or cooling mode"
     annotation(Placement(transformation(extent={{-150,390},{-130,410}})));
-  Buildings.Controls.OBC.CDL.Logical.And y1ShcPhp[nPhp]
-    if have_php
-    "Polyvalent HP enabled in SHC mode"
-    annotation(Placement(transformation(extent={{160,390},{140,410}})));
   Subsequences.RoutingPrimaryPumpStatus rouPumChiWatPri(
     final have_pumPriHdr=have_pumPriHdr,
     final nPumPriDedHp=nPumChiWatPriDedHp,
@@ -1921,13 +1913,11 @@ block AirToWater
     if have_chiWat and have_php
     "Replicate CHWST setpoint"
     annotation(Placement(transformation(extent={{210,-190},{230,-170}})));
+  PolyvalentHeatPumps.SortRuntime sorRunTimPhp(final nPhp=nPhp)
+    if have_php
+    "Sort polyvalent HP by increasing runtime in each operating mode"
+    annotation(Placement(transformation(extent={{-150,450},{-130,470}})));
 equation
-  connect(u1Php_actual, sorRunTimPhp.u1Run)
-    annotation(Line(points={{-280,440},{-180,440},{-180,466},{-152,466}},
-      color={255,0,255}));
-  connect(u1AvaPhp.y, sorRunTimPhp.u1Ava)
-    annotation(Line(points={{-218,420},{-170,420},{-170,454},{-152,454}},
-      color={255,0,255}));
   connect(u1SchHea, enaHea.u1Sch)
     annotation(Line(points={{-280,380},{-180,380},{-180,364},{-112,364}},
       color={255,0,255}));
@@ -2110,14 +2100,14 @@ equation
     annotation(Line(points={{-280,-160},{-238,-160},{-238,-26},{-232,-26}},
       color={0,0,127}));
   connect(VChiWatPri_flow, VChiWatSta_flow.u)
-    annotation(Line(points={{-280,-40},{-204,-40},{-204,-42},{-192,-42}},
+    annotation(Line(points={{-280,-40},{-192,-40}},
       color={0,0,127}));
   connect(VChiWatSta_flow.y, chaStaCoo.V_flow)
     annotation(Line(
-      points={{-168,-42},{-162,-42},{-162,38},{-48,38},{-48,52},{-42,52}},
+      points={{-168,-40},{-162,-40},{-162,38},{-48,38},{-48,52},{-42,52}},
       color={0,0,127}));
   connect(VChiWatSec_flow, VChiWatSta_flow.uPh)
-    annotation(Line(points={{-280,-200},{-204,-200},{-204,-48},{-192,-48}},
+    annotation(Line(points={{-280,-200},{-204,-200},{-204,-46},{-192,-46}},
       color={0,0,127}));
   connect(enaHea.y1, staPumHeaWatSec.u1Pla)
     annotation(Line(points={{-88,360},{-82,360},{-82,168},{138,168}},
@@ -2169,8 +2159,8 @@ equation
   connect(y1CooPhp, comStaCoo.u1[nHp + 1:nHp + nPhp])
     annotation(Line(points={{280,420},{-58,420},{-58,30},{-42,30}},
       color={255,0,255}));
-  connect(y1ShcPhp.y, comStaCoo.u1[nHp + nPhp + 1:nHp + 2 * nPhp])
-    annotation(Line(points={{138,400},{-54,400},{-54,30},{-42,30}},
+  connect(sorRunTimPhp.y1ShcPhp, comStaCoo.u1[nHp + nPhp + 1:nHp + 2 * nPhp])
+    annotation(Line(points={{-128,456},{-54,456},{-54,30},{-42,30}},
       color={255,0,255}));
   connect(idxStaHea.y, comStaHea.uSta)
     annotation(Line(
@@ -2191,8 +2181,8 @@ equation
   connect(y1HeaPhp, comStaHea.u1[nHp + 1:nHp + nPhp])
     annotation(Line(points={{280,440},{-58,440},{-58,290},{-42,290}},
       color={255,0,255}));
-  connect(y1ShcPhp.y, comStaHea.u1[nHp + nPhp + 1:nHp + 2 * nPhp])
-    annotation(Line(points={{138,400},{-54,400},{-54,290},{-42,290}},
+  connect(sorRunTimPhp.y1ShcPhp, comStaHea.u1[nHp + nPhp + 1:nHp + 2 * nPhp])
+    annotation(Line(points={{-128,456},{-54,456},{-54,290},{-42,290}},
       color={255,0,255}));
   connect(comStaHea.y1, chaStaHea.u1StaPro)
     annotation(Line(
@@ -2614,14 +2604,14 @@ equation
   connect(sorRunTimHp.yIdx, enaEquHea.uIdxSorHp)
     annotation(Line(points={{-128,264},{24,264},{24,366},{38,366}},
       color={255,127,0}));
-  connect(sorRunTimPhp.yIdx, enaEquHea.uIdxSorPhp)
-    annotation(Line(points={{-128,454},{26,454},{26,364},{38,364}},
+  connect(sorRunTimPhp.yIdxSorHeaPhp, enaEquHea.uIdxSorPhp1)
+    annotation(Line(points={{-128,468},{32,468},{32,364},{38,364}},
+      color={255,127,0}));
+  connect(sorRunTimPhp.yIdxSorCooPhp, enaEquCoo.uIdxSorPhp1)
+    annotation(Line(points={{-128,464},{30,464},{30,104},{48,104}},
       color={255,127,0}));
   connect(sorRunTimHp.yIdx, enaEquCoo.uIdxSorHp)
     annotation(Line(points={{-128,264},{24,264},{24,106},{48,106}},
-      color={255,127,0}));
-  connect(sorRunTimPhp.yIdx, enaEquCoo.uIdxSorPhp)
-    annotation(Line(points={{-128,454},{26,454},{26,104},{48,104}},
       color={255,127,0}));
   connect(u1AvaHp.y, avaHeaCooHp.u1Ava)
     annotation(Line(points={{-218,280},{-200,280},{-200,240},{-152,240}},
@@ -2645,11 +2635,11 @@ equation
     annotation(Line(points={{-128,400},{-120,400},{-120,330},{-112,330}},
       color={255,0,255}));
   connect(u1AvaPhp.y, avaHeaCooPhp.u1Ava)
-    annotation(Line(points={{-218,420},{-170,420},{-170,400},{-152,400}},
+    annotation(Line(points={{-218,420},{-180,420},{-180,400},{-152,400}},
       color={255,0,255}));
   connect(enaEquHea.y1Php1, avaHeaCooPhp.u1EnaHea)
     annotation(Line(
-      points={{62,364},{78,364},{78,416},{-160,416},{-160,406},{-152,406}},
+      points={{62,364},{78,364},{78,416},{-160,416},{-160,404},{-152,404}},
       color={255,0,255}));
   connect(enaEquHea.y1Php2, avaHeaCooPhp.u1EnaShc)
     annotation(Line(
@@ -2657,15 +2647,15 @@ equation
       color={255,0,255}));
   connect(enaEquHea.y1Hp, avaHeaCooHp.u1EnaHea)
     annotation(Line(
-      points={{62,368},{70,368},{70,378},{-158,378},{-158,246},{-152,246}},
+      points={{62,368},{70,368},{70,378},{-158,378},{-158,244},{-152,244}},
       color={255,0,255}));
   connect(enaEquCoo.y1Php1, avaHeaCooPhp.u1EnaCoo)
     annotation(Line(
-      points={{72,104},{80,104},{80,386},{-160,386},{-160,394},{-152,394}},
+      points={{72,104},{80,104},{80,386},{-160,386},{-160,396},{-152,396}},
       color={255,0,255}));
   connect(enaEquCoo.y1Hp, avaHeaCooHp.u1EnaCoo)
     annotation(Line(
-      points={{72,108},{76,108},{76,218},{-158,218},{-158,234},{-152,234}},
+      points={{72,108},{76,108},{76,218},{-158,218},{-158,236},{-152,236}},
       color={255,0,255}));
   connect(avaHeaCooHp.y1Coo, enaEquCoo.u1AvaHp)
     annotation(Line(
@@ -2697,12 +2687,6 @@ equation
       color={255,0,255}));
   connect(seqEve.y1ValChiWatOutIso[nHp + 1:nHp + nPhp], y1ValChiWatPhpOutIso)
     annotation(Line(points={{162,293.333},{238,293.333},{238,260},{280,260}},
-      color={255,0,255}));
-  connect(y1HeaPhp, y1ShcPhp.u1)
-    annotation(Line(points={{280,440},{220,440},{220,400},{162,400}},
-      color={255,0,255}));
-  connect(y1CooPhp, y1ShcPhp.u2)
-    annotation(Line(points={{280,420},{214,420},{214,392},{162,392}},
       color={255,0,255}));
   connect(idxStaCoo.y, idxStaHea.uStaOpp)
     annotation(Line(
@@ -2780,6 +2764,26 @@ equation
       color={255,0,255}));
   connect(enaEquCoo.y1HpPhp1, seqEve.u1CooHpPhp)
     annotation(Line(points={{72,96},{78,96},{78,309.667},{138,309.667}},
+      color={255,0,255}));
+  connect(u1AvaPhp.y, sorRunTimPhp.u1AvaPhp)
+    annotation(Line(points={{-218,420},{-180,420},{-180,456},{-152,456}},
+      color={255,0,255}));
+  connect(sorRunTimPhp.yIdxSorShcPhp, enaEquHea.uIdxSorPhp2)
+    annotation(Line(points={{-128,460},{28,460},{28,362},{38,362}},
+      color={255,127,0}));
+  connect(sorRunTimPhp.yIdxSorShcPhp, enaEquCoo.uIdxSorPhp2)
+    annotation(Line(points={{-128,460},{28,460},{28,102},{48,102}},
+      color={255,127,0}));
+  connect(u1Php_actual, sorRunTimPhp.u1Php_actual)
+    annotation(Line(points={{-280,440},{-186,440},{-186,460},{-152,460}},
+      color={255,0,255}));
+  connect(y1HeaPhp, sorRunTimPhp.u1HeaPhp)
+    annotation(Line(
+      points={{280,440},{240,440},{240,482},{-160,482},{-160,468},{-152,468}},
+      color={255,0,255}));
+  connect(y1CooPhp, sorRunTimPhp.u1CooPhp)
+    annotation(Line(
+      points={{280,420},{242,420},{242,484},{-162,484},{-162,464},{-152,464}},
       color={255,0,255}));
 annotation(defaultComponentName="ctl",
   Icon(coordinateSystem(preserveAspectRatio=true,

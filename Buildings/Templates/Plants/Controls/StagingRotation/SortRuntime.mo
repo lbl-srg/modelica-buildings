@@ -248,6 +248,13 @@ the equipment that alarmed most recently is sent to the last position.
 The equipment in alarm automatically moves up in the staging order
 only if another equipment goes into alarm.
 </p>
+<h5>
+Plants with reversible heat pumps
+</h5>
+<p>
+A single runtime point accumulates per heat pump inclusive of 
+both heating and cooling runtimes. 
+</p>
 <h4>Details</h4>
 <p>
 The sorting logic is implemented using the following method.
