@@ -1,5 +1,5 @@
 within Buildings.Fluid.Humidifiers.EvaporativePads;
-package Baseclasses "Package with baseclasses"
+package Baseclasses "Package with base classes"
   extends Modelica.Icons.BasesPackage;
 
 annotation ( preferredView="info", Documentation(info="<html>

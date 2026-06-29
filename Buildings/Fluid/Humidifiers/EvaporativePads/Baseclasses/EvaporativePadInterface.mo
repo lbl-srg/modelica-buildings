@@ -32,7 +32,7 @@ equation
     per=per.efficiency,
     v=v,
     d=etaDer)));
-  annotation (defaultComponentName="evaPadInt",
+annotation (defaultComponentName="evaPadInt",
     Icon(coordinateSystem(preserveAspectRatio=false), graphics={
           Rectangle(
           extent={{-100,-100},{100,100}},

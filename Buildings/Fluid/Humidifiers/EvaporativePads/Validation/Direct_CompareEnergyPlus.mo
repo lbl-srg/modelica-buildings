@@ -1,6 +1,6 @@
 within Buildings.Fluid.Humidifiers.EvaporativePads.Validation;
 model Direct_CompareEnergyPlus
-  "Validation model for a direct evaporative cooler against EnergyPlus results"
+  "Validation model for a direct evaporative pad against EnergyPlus results"
   extends Modelica.Icons.Example;
 
   replaceable package MediumA = Buildings.Media.Air
@@ -8,11 +8,11 @@ model Direct_CompareEnergyPlus
   parameter Modelica.Units.SI.MassFlowRate m_flow_nominal = 2
     "Nominal supply air volume flowrate";
 
-  Buildings.Fluid.Humidifiers.EvaporativePads.Direct dirEvaCoo(
+  Buildings.Fluid.Humidifiers.EvaporativePads.Direct dirEvaPad(
     redeclare final package Medium = MediumA,
     final padAre=0.6,
     redeclare Buildings.Fluid.Humidifiers.EvaporativePads.Data.Generic per)
-    "Direct evaporative cooler" annotation (Placement(
+    "Direct evaporative pad"    annotation (Placement(
         transformation(origin={10,0},extent={{-10,-10},{10,10}})));
   Buildings.Fluid.Sources.Boundary_pT sin(
     redeclare final package Medium = MediumA,
@@ -76,7 +76,7 @@ model Direct_CompareEnergyPlus
     "Boolean pulse signal for active evaporative cooling"
     annotation (Placement(transformation(extent={{-40,-80},{-20,-60}})));
 equation
-  connect(dirEvaCoo.port_b, senTem.port_a)
+  connect(dirEvaPad.port_b, senTem.port_a)
     annotation (Line(points={{20,0},{30,0}}, color={0,127,255}));
   connect(senTem.T, mea.u)
     annotation (Line(points={{40,11},{40,60},{58,60}}, color={0,0,127}));
@@ -98,9 +98,9 @@ equation
     annotation (Line(points={{60,0},{50,0}}, color={0,127,255}));
   connect(senMasFra.port_b, sin.ports[1])
     annotation (Line(points={{80,0},{100,0}},color={0,127,255}));
-  connect(sou.ports[1], dirEvaCoo.port_a)
+  connect(sou.ports[1],dirEvaPad. port_a)
     annotation (Line(points={{-20,0},{0,0}},   color={0,127,255}));
-  connect(evaCooAct.y, dirEvaCoo.evaCooAct) annotation (Line(points={{-18,-70},{
+  connect(evaCooAct.y,dirEvaPad. evaCooAct) annotation (Line(points={{-18,-70},{
           -10,-70},{-10,-4},{1,-4}}, color={255,0,255}));
   connect(combiTimeTable.y[9], sou.m_flow_in) annotation (Line(points={{-109,40},
           {-100,40},{-100,8},{-42,8}}, color={0,0,127}));
@@ -109,7 +109,7 @@ annotation (
   experiment(StartTime=350000, StopTime=604800, Interval=60, Tolerance=1e-6),
   Documentation(info="<html>
 <p>
-This model validates the direct evaporative cooler model
+This model validates the direct evaporative pad model
 <a href=\"modelica://Buildings.Fluid.Humidifiers.EvaporativePads.Direct\">
 Buildings.Fluid.Humidifiers.EvaporativePads.Direct</a> against EnergyPlus results.
 </p>
@@ -157,7 +157,7 @@ and dry bulb temperature.
 <li>
 June 18, 2026, by Weiping Huang:<br/>
 Added an evaporative cooling on-and-off boolean flag for the direct evaporative
-cooler model.
+pad model.
 </li>
 <li>
 September 14, 2023 by Cerrina Mouchref, Karthikeya Devaprasad, Lingzhe Wang:<br/>

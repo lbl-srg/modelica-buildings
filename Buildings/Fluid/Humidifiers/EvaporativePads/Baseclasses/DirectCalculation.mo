@@ -1,6 +1,6 @@
 within Buildings.Fluid.Humidifiers.EvaporativePads.Baseclasses;
-block Direct
-  "Calculates the water vapor mass flow rate of a direct evaporative cooler"
+block DirectCalculation
+  "Calculates the water vapor mass flow rate of a direct evaporative pad"
 
   replaceable package Medium = Modelica.Media.Interfaces.PartialMedium
     "Medium";
@@ -88,10 +88,15 @@ equation
   TDryBulOut = XWOut.TDryBul;
   dmWat_flow = (XWOut.X_w - XWIn.X_w)*V_flow*rho_default;
 
-annotation (Documentation(info="<html>
+annotation (defaultComponentName="dirEvaPadCal",
+  Icon(graphics={
+  Text(extent={{-152,144},{148,104}}, textString="%name", textColor={0,0,255}),
+  Rectangle(extent={{-100,100},{100,-100}}, lineColor={0,0,0},
+     fillColor={255,255,255}, fillPattern=FillPattern.Solid)}),
+    Documentation(info="<html>
 <p>
-This block calculates the water vapor mass flow rate addition into the air stream in
-the direct evaporative cooler component.
+This block calculates the water vapor mass flow rate addition into the air stream
+from the direct evaporative pad.
 </p>
 <p>
 The saturation efficiency of an evaporative pad <code>eta</code> is calculated using 
@@ -136,8 +141,5 @@ September 14, 2023 by Cerrina Mouchref, Karthikeya Devaprasad, Lingzhe Wang:<br/
 First implementation.
 </li>
 </ul>
-</html>"), Icon(graphics={
-  Text(extent={{-152,144},{148,104}}, textString="%name", textColor={0,0,255}),
-  Rectangle(extent={{-100,100},{100,-100}}, lineColor={0,0,0},
-     fillColor={255,255,255}, fillPattern=FillPattern.Solid)}));
-end Direct;
+</html>"));
+end DirectCalculation;

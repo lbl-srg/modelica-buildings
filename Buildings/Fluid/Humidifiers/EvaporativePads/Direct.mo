@@ -1,6 +1,6 @@
 within Buildings.Fluid.Humidifiers.EvaporativePads;
 model Direct
-  "Direct evaporative cooler"
+  "Direct evaporative pad"
   extends Buildings.Fluid.Interfaces.TwoPortHeatMassExchanger(
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
     redeclare Buildings.Fluid.MixingVolumes.MixingVolumeMoistAir vol,
@@ -26,12 +26,12 @@ model Direct
     "True: the evaporative cooling is active" annotation (Placement(
         transformation(extent={{-140,-100},{-100,-60}}), iconTransformation(
           extent={{-110,-60},{-70,-20}})));
-  Buildings.Fluid.Humidifiers.EvaporativePads.Baseclasses.Direct dirEvaCoo(
+  Buildings.Fluid.Humidifiers.EvaporativePads.Baseclasses.DirectCalculation
+    dirEvaPadCal(
     redeclare final package Medium = Medium,
     final padAre=padAre,
-    per=per)
-    "Direct evaporative cooling calculator"
-    annotation (Placement(transformation(origin={30,50}, extent={{-10,-10},{10,10}})));
+    per=per) "Direct evaporative pad calculation" annotation (Placement(
+        transformation(origin={30,50}, extent={{-10,-10},{10,10}})));
 protected
   Medium.ThermodynamicState staInl=Medium.setState_phX(
     p=port_a.p, h=inStream(port_a.h_outflow), X=inStream(port_a.Xi_outflow))
@@ -63,22 +63,22 @@ protected
     "Zero water flow"
     annotation (Placement(transformation(extent={{0,-60},{20,-40}})));
 equation
-  connect(TDryBul.y, dirEvaCoo.TDryBulIn) annotation (Line(points={{-39,90},{-30,
-          90},{-30,52},{18,52}}, color={0,0,127}));
+  connect(TDryBul.y, dirEvaPadCal.TDryBulIn) annotation (Line(points={{-39,90},{
+          -30,90},{-30,52},{18,52}}, color={0,0,127}));
   connect(TDryBul.y, wetBul.TDryBul) annotation (Line(points={{-39,90},{-30,90},
           {-30,88},{-21,88}}, color={0,0,127}));
-  connect(wetBul.TWetBul, dirEvaCoo.TWetBulIn) annotation (Line(points={{1,80},{
-          10,80},{10,56},{18,56}}, color={0,0,127}));
+  connect(wetBul.TWetBul, dirEvaPadCal.TWetBulIn) annotation (Line(points={{1,80},
+          {10,80},{10,56},{18,56}}, color={0,0,127}));
   connect(XInl.y, wetBul.Xi)
     annotation (Line(points={{-79,80},{-21,80}}, color={0,0,127}));
-  connect(pInl.y, dirEvaCoo.p) annotation (Line(points={{-79,60},{-60,60},{-60,44},
-          {18,44}}, color={0,0,127}));
-  connect(V_flow.y, dirEvaCoo.V_flow) annotation (Line(points={{-79,30},{0,30},{
-          0,48},{18,48}},color={0,0,127}));
+  connect(pInl.y, dirEvaPadCal.p) annotation (Line(points={{-79,60},{-60,60},{-60,
+          44},{18,44}}, color={0,0,127}));
+  connect(V_flow.y, dirEvaPadCal.V_flow) annotation (Line(points={{-79,30},{0,30},
+          {0,48},{18,48}}, color={0,0,127}));
   connect(evaCooAct, swiEvaCoo.u2) annotation (Line(points={{-120,-80},{-40,-80},
           {-40,-30},{58,-30}}, color={255,0,255}));
-  connect(dirEvaCoo.dmWat_flow, swiEvaCoo.u1) annotation (Line(points={{42,50},{
-          50,50},{50,-22},{58,-22}}, color={0,0,127}));
+  connect(dirEvaPadCal.dmWat_flow, swiEvaCoo.u1) annotation (Line(points={{42,50},
+          {50,50},{50,-22},{58,-22}}, color={0,0,127}));
   connect(swiEvaCoo.y, dmWat_flow) annotation (Line(points={{82,-30},{90,-30},{90,
           80},{120,80}}, color={0,0,127}));
   connect(swiEvaCoo.y, vol.mWat_flow) annotation (Line(points={{82,-30},{90,-30},
@@ -87,7 +87,7 @@ equation
           {40,-38},{58,-38}}, color={0,0,127}));
   connect(pInl.y, wetBul.p) annotation (Line(points={{-79,60},{-60,60},{-60,72},
           {-21,72}}, color={0,0,127}));
-annotation (defaultComponentName="dirEvaCoo", Icon(graphics={
+annotation (defaultComponentName="dirEvaPad", Icon(graphics={
   Rectangle(lineColor={0,0,255}, fillColor={95,95,95}, pattern=LinePattern.None,
             fillPattern=FillPattern.Solid, extent={{-70,60},{70,-60}}),
   Rectangle(lineColor={0,0,255}, fillColor={0,0,255}, pattern = LinePattern.None,
@@ -111,12 +111,12 @@ annotation (defaultComponentName="dirEvaCoo", Icon(graphics={
 Documentation(
 info="<html>
 <p>
-Model for a direct evaporative cooler.
+Model for a direct evaporative pad.
 </p>
 <p>
-The cooler cools down the airstream by adiabatically increasing the humidity mass
-fraction of the air. The mass of water vapor added to the air is reported by the 
-output signal <code>dmWat_flow</code>.
+This direct evaporative pad cools down the airstream by adiabatically increasing the
+humidity mass fraction of the air. The mass of water vapor added to the air is
+reported by the output signal <code>dmWat_flow</code>.
 </p>
 <p>
 The input variable <code>evaCooAct</code> determines whether the evaporative cooling
@@ -131,8 +131,8 @@ instance of
 Buildings.Fluid.Humidifiers.EvaporativePads.Data.Generic</a>.
 </p>
 <p>
-The elemental block <code>dirEvaCoo</code> calculates the saturation efficiency by
-referencing a cubic hermite spline of discrete data points on the saturation
+The elemental block <code>dirEvaPadCal</code> calculates the saturation efficiency
+by referencing a cubic hermite spline of discrete data points on the saturation
 efficiency <code>eta</code> and the air velocity <code>v</code> from this data
 record. The elemental block <code>preDro</code> calculates the pressure drop by
 reference the nominal pressure drop <code>dp_nominal</code>, the nominal air
