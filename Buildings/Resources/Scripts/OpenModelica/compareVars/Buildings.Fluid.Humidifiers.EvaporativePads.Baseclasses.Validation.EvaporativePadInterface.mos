@@ -1,6 +1,5 @@
 compareVars :=
   {
     "evaPadInt.v",
-    "evaPadInt.eta",
-    "evaPadInt.dp"
+    "evaPadInt.eta"
   };
