@@ -4,134 +4,126 @@ block SortRuntime
   parameter Integer nPhp
     "Number of units"
     annotation(Evaluate=true);
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1CooPhp[nPhp]
-    "Polyvalent HP cooling on/off command"
-    annotation(Placement(transformation(extent={{-140,-20},{-100,20}}),
-      iconTransformation(extent={{-140,20},{-100,60}})));
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1HeaPhp[nPhp]
-    "Polyvalent HP heating on/off command"
-    annotation(Placement(transformation(extent={{-140,40},{-100,80}}),
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1Coo[nPhp]
+    "Polyvalent HP cooling-only enable"
+    annotation(Placement(transformation(extent={{-140,20},{-100,60}}),
+      iconTransformation(extent={{-140,-20},{-100,20}})));
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1Hea[nPhp]
+    "Polyvalent HP heating-only enable"
+    annotation(Placement(transformation(extent={{-140,60},{-100,100}}),
       iconTransformation(extent={{-140,60},{-100,100}})));
   Buildings.Controls.OBC.CDL.Interfaces.IntegerOutput yIdxSorCooPhp[nPhp]
     "Indices of polyvalent units sorted by increasing runtime in cooling-only mode"
-    annotation(Placement(transformation(extent={{100,-20},{140,20}}),
+    annotation(Placement(transformation(extent={{100,20},{140,60}}),
       iconTransformation(extent={{100,20},{140,60}})));
   Buildings.Controls.OBC.CDL.Interfaces.IntegerOutput yIdxSorHeaPhp[nPhp]
     "Indices of polyvalent units sorted by increasing runtime in heating-only mode"
-    annotation(Placement(transformation(extent={{100,40},{140,80}}),
+    annotation(Placement(transformation(extent={{100,60},{140,100}}),
       iconTransformation(extent={{100,60},{140,100}})));
   Buildings.Controls.OBC.CDL.Interfaces.IntegerOutput yIdxSorShcPhp[nPhp]
     "Indices of polyvalent units sorted by increasing runtime in SHC mode"
-    annotation(Placement(transformation(extent={{100,-60},{140,-20}}),
+    annotation(Placement(transformation(extent={{100,-20},{140,20}}),
       iconTransformation(extent={{100,-20},{140,20}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1Php_actual[nPhp]
     "Polyvalent heat pump status"
     annotation(Placement(transformation(extent={{-140,-60},{-100,-20}}),
-      iconTransformation(extent={{-140,-20},{-100,20}})));
+      iconTransformation(extent={{-140,-60},{-100,-20}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1AvaPhp[nPhp]
     "Polyvalent heat pump available signal"
     annotation(Placement(transformation(extent={{-140,-100},{-100,-60}}),
-      iconTransformation(extent={{-140,-60},{-100,-20}})));
+      iconTransformation(extent={{-140,-100},{-100,-60}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput y1ShcPhp[nPhp]
     "Polyvalent HP commanded in SHC mode"
-    annotation(Placement(transformation(extent={{100,-100},{140,-60}}),
+    annotation(Placement(transformation(extent={{100,-60},{140,-20}}),
       iconTransformation(extent={{100,-60},{140,-20}})));
-  Buildings.Controls.OBC.CDL.Logical.Xor heaXorCoo[nPhp]
-    "True if commanded in single mode"
-    annotation(Placement(transformation(extent={{-40,20},{-20,40}})));
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1Shc[nPhp]
+    "Polyvalent HP SHC enable"
+    annotation(Placement(transformation(extent={{-140,-20},{-100,20}}),
+      iconTransformation(extent={{-140,20},{-100,60}})));
   StagingRotation.SortRuntime sorRunTimHea(nin=nPhp)
     "Sort by increasing runtime in heating-only mode"
-    annotation(Placement(transformation(extent={{60,50},{80,70}})));
+    annotation(Placement(transformation(extent={{60,70},{80,90}})));
   StagingRotation.SortRuntime sorRunTimCoo(nin=nPhp)
     "Sort by increasing runtime in cooling-only mode"
-    annotation(Placement(transformation(extent={{60,-10},{80,10}})));
+    annotation(Placement(transformation(extent={{60,30},{80,50}})));
   StagingRotation.SortRuntime sorRunTimShc(nin=nPhp)
     "Sort by increasing runtime in SHC mode"
-    annotation(Placement(transformation(extent={{60,-50},{80,-30}})));
-  Buildings.Controls.OBC.CDL.Logical.MultiAnd shc[nPhp](each nin=3)
+    annotation(Placement(transformation(extent={{60,-10},{80,10}})));
+  Buildings.Controls.OBC.CDL.Logical.And shc[nPhp]
     "True if commanded in SHC mode"
-    annotation(Placement(transformation(extent={{10,-50},{30,-30}})));
+    annotation(Placement(transformation(extent={{10,-10},{30,10}})));
   Buildings.Controls.OBC.CDL.Logical.Pre u1HeaPre[nPhp]
     "Left-limit of signal to break algebraic loop"
-    annotation(Placement(transformation(extent={{-90,50},{-70,70}})));
+    annotation(Placement(transformation(extent={{-90,70},{-70,90}})));
   Buildings.Controls.OBC.CDL.Logical.Pre u1CooPre[nPhp]
     "Left-limit of signal to break algebraic loop"
-    annotation(Placement(transformation(extent={{-90,-10},{-70,10}})));
-  Buildings.Controls.OBC.CDL.Logical.MultiAnd hea[nPhp](each nin=3)
+    annotation(Placement(transformation(extent={{-90,30},{-70,50}})));
+  Buildings.Controls.OBC.CDL.Logical.And hea[nPhp]
     "True if operating in heating-only mode"
-    annotation(Placement(transformation(extent={{10,50},{30,70}})));
-  Buildings.Controls.OBC.CDL.Logical.MultiAnd coo[nPhp](each nin=3)
+    annotation(Placement(transformation(extent={{10,70},{30,90}})));
+  Buildings.Controls.OBC.CDL.Logical.And coo[nPhp]
     "True if operating in cooling-only mode"
-    annotation(Placement(transformation(extent={{10,-10},{30,10}})));
+    annotation(Placement(transformation(extent={{10,30},{30,50}})));
+  Buildings.Controls.OBC.CDL.Logical.Pre u1ShcPre[nPhp]
+    "Left-limit of signal to break algebraic loop"
+    annotation(Placement(transformation(extent={{-90,-10},{-70,10}})));
 equation
   connect(sorRunTimHea.yIdx, yIdxSorHeaPhp)
-    annotation(Line(points={{82,54},{90,54},{90,60},{120,60}},
+    annotation(Line(points={{82,74},{90,74},{90,80},{120,80}},
       color={255,127,0}));
   connect(sorRunTimCoo.yIdx, yIdxSorCooPhp)
-    annotation(Line(points={{82,-6},{90,-6},{90,0},{120,0}},
+    annotation(Line(points={{82,34},{90,34},{90,40},{120,40}},
       color={255,127,0}));
   connect(sorRunTimShc.yIdx, yIdxSorShcPhp)
-    annotation(Line(points={{82,-46},{90,-46},{90,-40},{120,-40}},
+    annotation(Line(points={{82,-6},{90,-6},{90,0},{120,0}},
       color={255,127,0}));
-  connect(u1HeaPhp, u1HeaPre.u)
-    annotation(Line(points={{-120,60},{-92,60}},
+  connect(u1Hea, u1HeaPre.u)
+    annotation(Line(points={{-120,80},{-92,80}},
       color={255,0,255}));
-  connect(u1CooPhp, u1CooPre.u)
-    annotation(Line(points={{-120,0},{-92,0}},
-      color={255,0,255}));
-  connect(u1HeaPre.y, heaXorCoo.u1)
-    annotation(Line(points={{-68,60},{-60,60},{-60,30},{-42,30}},
-      color={255,0,255}));
-  connect(u1CooPre.y, heaXorCoo.u2)
-    annotation(Line(points={{-68,0},{-50,0},{-50,22},{-42,22}},
-      color={255,0,255}));
-  connect(u1HeaPre.y, hea.u[1])
-    annotation(Line(points={{-68,60},{8,60},{8,57.6667}},
-      color={255,0,255}));
-  connect(heaXorCoo.y, hea.u[2])
-    annotation(Line(points={{-18,30},{4,30},{4,60},{8,60}},
-      color={255,0,255}));
-  connect(heaXorCoo.y, coo.u[2])
-    annotation(Line(points={{-18,30},{4,30},{4,0},{8,0}},
+  connect(u1Coo, u1CooPre.u)
+    annotation(Line(points={{-120,40},{-92,40}},
       color={255,0,255}));
   connect(shc.y, sorRunTimShc.u1Run)
-    annotation(Line(points={{32,-40},{50,-40},{50,-34},{58,-34}},
-      color={255,0,255}));
-  connect(u1AvaPhp, sorRunTimShc.u1Ava)
-    annotation(Line(points={{-120,-80},{40,-80},{40,-46},{58,-46}},
-      color={255,0,255}));
-  connect(u1AvaPhp, sorRunTimCoo.u1Ava)
-    annotation(Line(points={{-120,-80},{40,-80},{40,-6},{58,-6}},
-      color={255,0,255}));
-  connect(u1AvaPhp, sorRunTimHea.u1Ava)
-    annotation(Line(points={{-120,-80},{40,-80},{40,54},{58,54}},
-      color={255,0,255}));
-  connect(coo.y, sorRunTimCoo.u1Run)
     annotation(Line(points={{32,0},{50,0},{50,6},{58,6}},
       color={255,0,255}));
+  connect(u1AvaPhp, sorRunTimShc.u1Ava)
+    annotation(Line(points={{-120,-80},{40,-80},{40,-6},{58,-6}},
+      color={255,0,255}));
+  connect(u1AvaPhp, sorRunTimCoo.u1Ava)
+    annotation(Line(points={{-120,-80},{40,-80},{40,34},{58,34}},
+      color={255,0,255}));
+  connect(u1AvaPhp, sorRunTimHea.u1Ava)
+    annotation(Line(points={{-120,-80},{40,-80},{40,74},{58,74}},
+      color={255,0,255}));
+  connect(coo.y, sorRunTimCoo.u1Run)
+    annotation(Line(points={{32,40},{50,40},{50,46},{58,46}},
+      color={255,0,255}));
   connect(hea.y, sorRunTimHea.u1Run)
-    annotation(Line(points={{32,60},{50,60},{50,66},{58,66}},
-      color={255,0,255}));
-  connect(u1CooPre.y, coo.u[1])
-    annotation(Line(points={{-68,0},{8,0},{8,-2.33333}},
-      color={255,0,255}));
-  connect(u1HeaPre.y, shc.u[1])
-    annotation(Line(points={{-68,60},{-60,60},{-60,-38},{8,-38},{8,-42.3333}},
-      color={255,0,255}));
-  connect(u1CooPre.y, shc.u[2])
-    annotation(Line(points={{-68,0},{-50,0},{-50,-36},{8,-36},{8,-40}},
-      color={255,0,255}));
-  connect(u1Php_actual, shc.u[3])
-    annotation(Line(points={{-120,-40},{8,-40},{8,-37.6667}},
-      color={255,0,255}));
-  connect(u1Php_actual, hea.u[3])
-    annotation(Line(points={{-120,-40},{0,-40},{0,62.3333},{8,62.3333}},
-      color={255,0,255}));
-  connect(u1Php_actual, coo.u[3])
-    annotation(Line(points={{-120,-40},{0,-40},{0,2.33333},{8,2.33333}},
+    annotation(Line(points={{32,80},{40,80},{40,86},{58,86}},
       color={255,0,255}));
   connect(shc.y, y1ShcPhp)
-    annotation(Line(points={{32,-40},{50,-40},{50,-80},{120,-80}},
+    annotation(Line(points={{32,0},{50,0},{50,-40},{120,-40}},
+      color={255,0,255}));
+  connect(u1Shc, u1ShcPre.u)
+    annotation(Line(points={{-120,0},{-92,0}},
+      color={255,0,255}));
+  connect(u1HeaPre.y, hea.u1)
+    annotation(Line(points={{-68,80},{8,80}},
+      color={255,0,255}));
+  connect(u1Php_actual, hea.u2)
+    annotation(Line(points={{-120,-40},{-40,-40},{-40,72},{8,72}},
+      color={255,0,255}));
+  connect(u1CooPre.y, coo.u1)
+    annotation(Line(points={{-68,40},{8,40}},
+      color={255,0,255}));
+  connect(u1Php_actual, coo.u2)
+    annotation(Line(points={{-120,-40},{-40,-40},{-40,32},{8,32}},
+      color={255,0,255}));
+  connect(u1Php_actual, shc.u2)
+    annotation(Line(points={{-120,-40},{-40,-40},{-40,-8},{8,-8}},
+      color={255,0,255}));
+  connect(u1ShcPre.y, shc.u1)
+    annotation(Line(points={{-68,0},{8,0}},
       color={255,0,255}));
 annotation(defaultComponentName="sorRunTimPhp",
   Icon(coordinateSystem(preserveAspectRatio=false),

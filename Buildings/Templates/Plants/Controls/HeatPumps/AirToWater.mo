@@ -1900,9 +1900,6 @@ block AirToWater
     annotation(Placement(transformation(extent={{100,-490},{120,-470}})));
   Buildings.Controls.OBC.CDL.Logical.MultiOr mulOr(nin=3)
     annotation(Placement(transformation(extent={{170,-470},{190,-450}})));
-  Buildings.Controls.OBC.CDL.Logical.TrueFalseHold y1EnaHeaHol[nHp](
-    each trueHoldDuration=1)
-    annotation(Placement(transformation(extent={{100,358},{120,378}})));
   Buildings.Controls.OBC.CDL.Routing.RealScalarReplicator repTHeaWatSupPhpSet(
     final nout=nPhp)
     if have_heaWat and have_php
@@ -2728,9 +2725,6 @@ equation
   connect(mulOr.y, assMes.u)
     annotation(Line(points={{192,-460},{208,-460}},
       color={255,0,255}));
-  connect(enaEquHea.y1Hp, y1EnaHeaHol.u)
-    annotation(Line(points={{62,368},{98,368}},
-      color={255,0,255}));
   connect(resChiWat.TSupSet, repTChiWatSupPhpSet.u)
     annotation(Line(points={{72,-46},{116,-46},{116,-180},{208,-180}},
       color={0,0,127}));
@@ -2766,7 +2760,16 @@ equation
     annotation(Line(points={{72,96},{78,96},{78,309.667},{138,309.667}},
       color={255,0,255}));
   connect(u1AvaPhp.y, sorRunTimPhp.u1AvaPhp)
-    annotation(Line(points={{-218,420},{-180,420},{-180,456},{-152,456}},
+    annotation(Line(points={{-218,420},{-180,420},{-180,452},{-152,452}},
+      color={255,0,255}));
+  connect(enaEquCoo.y1Php1, sorRunTimPhp.u1Coo)
+    annotation(Line(points={{72,104},{-180,104},{-180,460},{-152,460}},
+      color={255,0,255}));
+  connect(enaEquHea.y1Php1, sorRunTimPhp.u1Hea)
+    annotation(Line(points={{62,364},{-180,364},{-180,468},{-152,468}},
+      color={255,0,255}));
+  connect(enaEquHea.y1Php2, sorRunTimPhp.u1Shc)
+    annotation(Line(points={{62,360},{-180,360},{-180,464},{-152,464}},
       color={255,0,255}));
   connect(sorRunTimPhp.yIdxSorShcPhp, enaEquHea.uIdxSorPhp2)
     annotation(Line(points={{-128,460},{28,460},{28,362},{38,362}},
@@ -2775,15 +2778,7 @@ equation
     annotation(Line(points={{-128,460},{28,460},{28,102},{48,102}},
       color={255,127,0}));
   connect(u1Php_actual, sorRunTimPhp.u1Php_actual)
-    annotation(Line(points={{-280,440},{-186,440},{-186,460},{-152,460}},
-      color={255,0,255}));
-  connect(y1HeaPhp, sorRunTimPhp.u1HeaPhp)
-    annotation(Line(
-      points={{280,440},{240,440},{240,482},{-160,482},{-160,468},{-152,468}},
-      color={255,0,255}));
-  connect(y1CooPhp, sorRunTimPhp.u1CooPhp)
-    annotation(Line(
-      points={{280,420},{242,420},{242,484},{-162,484},{-162,464},{-152,464}},
+    annotation(Line(points={{-280,440},{-186,440},{-186,456},{-152,456}},
       color={255,0,255}));
 annotation(defaultComponentName="ctl",
   Icon(coordinateSystem(preserveAspectRatio=true,
