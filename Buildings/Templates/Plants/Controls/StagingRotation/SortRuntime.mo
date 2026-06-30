@@ -49,8 +49,7 @@ block SortRuntime
     "Sort equipment by increasing weighted runtime"
     annotation (Placement(transformation(extent={{120,-10},{140,10}})));
   Buildings.Controls.OBC.CDL.Conversions.BooleanToReal weiOffAva[nEquAlt](
-    each final realTrue=1E10,
-    each final realFalse=1)
+    each final realTrue=1E10, each final realFalse=0)
     "Weight to be applied to runtime of equipment off and available"
     annotation (Placement(transformation(extent={{-50,30},{-30,50}})));
   Buildings.Controls.OBC.CDL.Reals.Add      appWeiOffAva[nEquAlt]
