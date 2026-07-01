@@ -34,7 +34,7 @@ equation
           10},{-18,38},{58,38}}, color={0,0,127}));
   connect(idxEquLeaLag.y,enaEquPhp.uIdxSorHp)  annotation (Line(points={{-78,100},
           {54,100},{54,36},{58,36}}, color={255,127,0}));
-  connect(idxEquLeaLag.y, enaEquPhp.uIdxSorPhp1) annotation (Line(points={{-78,
+  connect(idxEquLeaLag.y, enaEquPhp.uIdxSorPhp) annotation (Line(points={{-78,
           100},{54,100},{54,34},{58,34}}, color={255,127,0}));
   connect(u1AvaEqu[5:6].y,enaEquPhp.u1AvaPhp2)  annotation (Line(points={{-78,-100},{
           50,-100},{50,22},{58,22}}, color={255,0,255}));

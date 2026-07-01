@@ -76,7 +76,7 @@ equation
   connect(idxSorHp.y, enaEqu.uIdxSorHp)
     annotation(Line(points={{-38,60},{4,60},{4,6},{8,6}},
       color={255,127,0}));
-  connect(idxSorPhp.y, enaEqu.uIdxSorPhp1)
+  connect(idxSorPhp.y, enaEqu.uIdxSorPhp)
     annotation (Line(points={{-68,40},{2,40},{2,4},{8,4}}, color={255,127,0}));
   connect(uStaOpp.y[1], extractStagingMatrix2D.u)
     annotation(Line(points={{-38,20},{-32,20}},
