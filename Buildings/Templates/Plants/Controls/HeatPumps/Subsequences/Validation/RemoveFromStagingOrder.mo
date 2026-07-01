@@ -16,6 +16,15 @@ equation
           -48,40},{-20,40},{-20,6},{-2,6}}, color={255,127,0}));
   connect(u1.y, removeFromStagingOrder.u1) annotation (Line(points={{-48,-20},{
           -20,-20},{-20,-6},{-2,-6}}, color={255,0,255}));
-  annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
+  annotation (Icon(coordinateSystem(preserveAspectRatio=false), graphics={
+                 Ellipse(lineColor={75,138,73},
+    fillColor={255,255,255},
+    fillPattern=FillPattern.Solid,
+    extent={{-100,-100},{100,100}}),
+  Polygon(lineColor={0,0,255},
+    fillColor={75,138,73},
+    pattern=LinePattern.None,
+    fillPattern=FillPattern.Solid,
+    points={{-36,60},{64,0},{-36,-60},{-36,60}})}),              Diagram(
         coordinateSystem(preserveAspectRatio=false)));
 end RemoveFromStagingOrder;

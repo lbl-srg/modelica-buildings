@@ -1,5 +1,6 @@
 within Buildings.Templates.Plants.Controls.HeatPumps.Subsequences;
-block EquipmentEnable "Return array of equipment to be enabled at given stage"
+block EquipmentEnable
+  "Equipment state and mode selection at a given stage"
   parameter Boolean have_ctlPhp = false
     "Set to true if this block is used to control polyvalent heat pumps"
     annotation(Evaluate=true);
@@ -232,7 +233,7 @@ block EquipmentEnable "Return array of equipment to be enabled at given stage"
     if have_ctlPhp "Polyvalent HP enable command in single mode" annotation (
       Placement(transformation(extent={{200,-260},{240,-220}}),
         iconTransformation(extent={{100,20},{140,60}})));
-  RemoveFromStagingMultiple removeFromStagingMultiple(final nPhp=nPhp)
+  PolyvalentHeatPumps.ModeAlternation removeFromStagingMultiple(final nPhp=nPhp)
     if have_ctlPhp
     annotation (Placement(transformation(extent={{-140,90},{-120,110}})));
 equation
@@ -424,5 +425,37 @@ annotation(defaultComponentName="enaEqu",
       fillPattern=FillPattern.Solid)}),
   Diagram(coordinateSystem(extent={{-200,-160},{200,140}})),
     Documentation(info="<html>
+<h4>State alternation</h4>
+<p>
+Heat pumps are lead/lag controlled as specified in
+  <a href=\"modelica://Buildings.Templates.Plants.Controls.StagingRotation.SortRuntime\">
+    Buildings.Templates.Plants.Controls.StagingRotation.SortRuntime</a>,
+in all operating modes.  
+</p>
+<p>
+A single runtime point accumulates per heat pump inclusive of 
+all operating mode runtimes. 
+</p>
+<h4>Mode alternation</h4>
+<h5>Plants with reversible heat pumps</h5>
+<p>
+Alternation between heating and cooling mode is subject to the requirements
+specified in 
+  <a href=\"modelica://Buildings.Templates.Plants.Controls.HeatPumps.Subsequences.EquipmentAvailability\">
+    Buildings.Templates.Plants.Controls.HeatPumps.Subsequences.EquipmentAvailability</a>.
+</p>
+<h5>Plants with polyvalents heat pumps</h5>
+<p>
+Alternation between heating-only and cooling-only mode is subject to the requirements
+specified in 
+  <a href=\"modelica://Buildings.Templates.Plants.Controls.HeatPumps.Subsequences.EquipmentAvailability\">
+    Buildings.Templates.Plants.Controls.HeatPumps.Subsequences.EquipmentAvailability</a>.
+</p>
+<p>
+Alternation between single mode and SHC mode is subject to the requirements
+specified in 
+  <a href=\"modelica://Buildings.Templates.Plants.Controls.PolyvalentHeatPumps.ModeAlternation\">
+    Buildings.Templates.Plants.Controls.PolyvalentHeatPumps.RemoveFromStagingOrder</a>.
+</p>
 </html>"));
 end EquipmentEnable;

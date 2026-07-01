@@ -1909,10 +1909,10 @@ block AirToWater
     "Replicate CHWST setpoint"
     annotation(Placement(transformation(extent={{210,-190},{230,-170}})));
   PolyvalentHeatPumps.AssertMinimumRuntime assMinRunTimPhp(final nPhp=nPhp)
-    if have_php "Assert polyvalent HP minimum runtime met"
+    if have_php "Assert polyvalent HP minimum runtime"
     annotation (Placement(transformation(extent={{160,450},{140,470}})));
   PolyvalentHeatPumps.AssertMinimumRuntime assMinOffTimPhp(use_runTim=false,
-      final nPhp=nPhp) if have_php "Assert polyvalent HP minimum offtime met"
+      final nPhp=nPhp) if have_php "Assert polyvalent HP minimum off-time"
     annotation (Placement(transformation(extent={{120,450},{100,470}})));
   Buildings.Controls.OBC.CDL.Logical.TrueFalseHold y1HeaPhpHol[nPhp](each
       trueHoldDuration=1) if have_php annotation (Placement(transformation(

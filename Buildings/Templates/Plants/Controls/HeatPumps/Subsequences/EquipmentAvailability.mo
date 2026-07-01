@@ -87,7 +87,7 @@ block EquipmentAvailability
     annotation(Placement(transformation(extent={{-36,70},{-16,90}})));
   Buildings.Controls.OBC.CDL.Logical.Not una
     "Return true if equipment is unavailable"
-    annotation(Placement(transformation(extent={{-110,-50},{-90,-30}})));
+    annotation(Placement(transformation(extent={{-92,-50},{-72,-30}})));
   Modelica.StateGraph.TransitionWithSignal trnToAva
     "Transition back to available state"
     annotation(Placement(transformation(extent={{170,90},{190,110}})));
@@ -125,6 +125,15 @@ block EquipmentAvailability
     final u_internal=false)
     "Placeholder value if signal is not available"
     annotation(Placement(transformation(extent={{-190,-190},{-170,-170}})));
+  Buildings.Controls.OBC.CDL.Logical.Edge edgEnaHea
+    "True exactly when heating is enabled"
+    annotation (Placement(transformation(extent={{10,-150},{30,-130}})));
+  Buildings.Controls.OBC.CDL.Logical.Not notEdgEnaHea
+    "True if heating is not enabled at same time"
+    annotation (Placement(transformation(extent={{50,-150},{70,-130}})));
+  Buildings.Controls.OBC.CDL.Logical.And guaEdgEnaHea
+    "Guard against heating being enabled at same time"
+    annotation (Placement(transformation(extent={{170,-130},{190,-110}})));
 equation
   connect(avaMod.outPort[1], trnToCoo.inPort)
     annotation(Line(points={{-49.5,159.833},{-40,159.833},{-40,120},{-4,120}},
@@ -164,14 +173,14 @@ equation
     annotation(Line(points={{148.5,180},{-80,180},{-80,159.75},{-71,159.75}},
       color={0,0,0}));
   connect(u1Ava, una.u)
-    annotation(Line(points={{-220,-60},{-120,-60},{-120,-40},{-112,-40}},
+    annotation(Line(points={{-220,-60},{-100,-60},{-100,-40},{-94,-40}},
       color={255,0,255}));
   connect(avaMod.outPort[3], trnToUna.inPort)
     annotation(Line(
       points={{-49.5,160.167},{-49.5,160},{-40,160},{-40,80},{-30,80}},
       color={0,0,0}));
   connect(una.y, trnToUna.condition)
-    annotation(Line(points={{-88,-40},{-26,-40},{-26,68}},
+    annotation(Line(points={{-70,-40},{-26,-40},{-26,68}},
       color={255,0,255}));
   connect(trnToUna.outPort, unaSta.inPort[1])
     annotation(Line(points={{-24.5,80},{50,80},{50,99.6667},{139,99.6667}},
@@ -199,7 +208,7 @@ equation
     annotation(Line(points={{41.5,100},{90,100},{90,100},{139,100}},
       color={0,0,0}));
   connect(una.y, trnToUna2.condition)
-    annotation(Line(points={{-88,-40},{40,-40},{40,88}},
+    annotation(Line(points={{-70,-40},{40,-40},{40,88}},
       color={255,0,255}));
   connect(onCoo.outPort[2], trnToUna3.inPort)
     annotation(Line(points={{90.5,120.125},{92,120.125},{92,80},{96,80}},
@@ -208,7 +217,7 @@ equation
     annotation(Line(points={{101.5,80},{130,80},{130,100.333},{139,100.333}},
       color={0,0,0}));
   connect(una.y, trnToUna3.condition)
-    annotation(Line(points={{-88,-40},{100,-40},{100,68}},
+    annotation(Line(points={{-70,-40},{100,-40},{100,68}},
       color={255,0,255}));
   connect(offOrNotHea.y, offOrNotHeaOrHeaAndCoo.u1)
     annotation(Line(points={{-28,20},{-12,20}},
@@ -241,7 +250,7 @@ equation
     annotation(Line(points={{-168,-120},{-130,-120},{-130,-100},{-52,-100}},
       color={255,0,255}));
   connect(u1Ava, y1Shc)
-    annotation(Line(points={{-220,-60},{-120,-60},{-120,-160},{220,-160}},
+    annotation(Line(points={{-220,-60},{-100,-60},{-100,-160},{220,-160}},
       color={255,0,255}));
   connect(u1EnaShc, phShc.u)
     annotation(Line(points={{-220,-180},{-192,-180}},
@@ -255,8 +264,16 @@ equation
   connect(avaAllHea.y, y1Hea)
     annotation(Line(points={{150,0},{220,0}},
       color={255,0,255}));
-  connect(avaAllCoo.y, y1Coo)
-    annotation (Line(points={{152,-120},{220,-120}}, color={255,0,255}));
+  connect(phHea.y, edgEnaHea.u) annotation (Line(points={{-168,0},{-120,0},{
+          -120,-140},{8,-140}}, color={255,0,255}));
+  connect(edgEnaHea.y, notEdgEnaHea.u)
+    annotation (Line(points={{32,-140},{48,-140}}, color={255,0,255}));
+  connect(avaAllCoo.y, guaEdgEnaHea.u1)
+    annotation (Line(points={{152,-120},{168,-120}}, color={255,0,255}));
+  connect(guaEdgEnaHea.y, y1Coo)
+    annotation (Line(points={{192,-120},{220,-120}}, color={255,0,255}));
+  connect(notEdgEnaHea.y, guaEdgEnaHea.u2) annotation (Line(points={{72,-140},{
+          158,-140},{158,-128},{168,-128}}, color={255,0,255}));
 annotation(__cdl(extensionBlock=true),
   defaultComponentName="avaHeaCoo",
   Icon(coordinateSystem(preserveAspectRatio=true,

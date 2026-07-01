@@ -3,6 +3,5 @@ EquipmentEnable
 EventSequencingSingle
 EventSequencingMultiple
 RemoveFromStagingOrder
-RemoveFromStagingMultiple
 RoutingPrimaryPumpStatus
 Validation

@@ -241,18 +241,16 @@ the equipment with the most operating hours as determined by
 Staging Runtime is made the last stage equipment and the one
 with the least number of hours is made the lead stage equipment.
 </p>
+<p><i>
+Note: This strategy effectively makes it such that equipment are not 
+\"hot swapped\", e.g., a pump would not be started and another stopped 
+during operation just for runtime equalization.
+</p></i>
 <p>
 In the case of unavailable equipment,
 the equipment that alarmed most recently is sent to the last position.
 The equipment in alarm automatically moves up in the staging order
 only if another equipment goes into alarm.
-</p>
-<h5>
-Plants with reversible heat pumps
-</h5>
-<p>
-A single runtime point accumulates per heat pump inclusive of 
-both heating and cooling runtimes. 
 </p>
 <h4>Details</h4>
 <p>
