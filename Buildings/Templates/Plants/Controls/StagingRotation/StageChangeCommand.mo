@@ -534,8 +534,6 @@ equation
     annotation (Line(points={{-78,100},{-72,100}}, color={255,0,255}));
   connect(idxFirTru.y, maxCurSta.u2) annotation (Line(points={{-48,100},{-44,100},
           {-44,94},{-32,94}}, color={255,127,0}));
-  connect(uSta, maxCurSta.u1) annotation (Line(points={{-220,140},{-190,140},{-190,
-          120},{-44,120},{-44,106},{-32,106}}, color={255,127,0}));
   connect(maxCurSta.y, yStaNexHig)
     annotation (Line(points={{-8,100},{220,100}}, color={255,127,0}));
   connect(extTraOppNexHig.y, reqEquStaNexHig.u)
@@ -556,6 +554,8 @@ equation
     annotation (Line(points={{92,280},{108,280}}, color={255,0,255}));
   connect(truFalHol.y, upAndCouEquStaNexHigZer.u1)
     annotation (Line(points={{132,280},{170,280}}, color={255,0,255}));
+  connect(one.y, maxCurSta.u1) annotation (Line(points={{-158,140},{-40,140},{
+          -40,106},{-32,106}}, color={255,127,0}));
 annotation(defaultComponentName="chaSta",
   Icon(coordinateSystem(preserveAspectRatio=false,
     extent={{-100,-140},{100,140}},

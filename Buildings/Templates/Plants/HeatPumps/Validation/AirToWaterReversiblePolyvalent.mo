@@ -6,7 +6,7 @@ model AirToWaterReversiblePolyvalent
     pla(
       typ=Buildings.Templates.Plants.Controls.Types.PlantHeatPump.ReversiblePolyvalent,
       nHp_select=2,
-      nPhp_select=1,
+      nPhp_select=3,
       typDis_select1=Buildings.Templates.Plants.HeatPumps.Types.Distribution.Constant1Variable2,
       typPumPri_select=Buildings.Templates.Plants.HeatPumps.Types.PumpsPrimary.Constant,
       have_pumPriDedComHp_select=true,
