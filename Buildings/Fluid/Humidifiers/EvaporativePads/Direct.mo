@@ -30,7 +30,7 @@ model Direct
     dirEvaPadCal(
     redeclare final package Medium = Medium,
     final padAre=padAre,
-    per=per) "Direct evaporative pad calculation" annotation (Placement(
+    final per=per) "Direct evaporative pad calculation" annotation (Placement(
         transformation(origin={30,50}, extent={{-10,-10},{10,10}})));
 protected
   Medium.ThermodynamicState staInl=Medium.setState_phX(
