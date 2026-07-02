@@ -191,15 +191,14 @@ annotation(defaultComponentName="assMinRunTimPhp",
   based on its heating and cooling on/off commands.
 </p>
 <p>
-  If <code>use_runTim=true</code> (default), it asserts that the heat pump has
-  run for at least <code>dt_min</code> before its on/off command turns
-  <code>false</code>, i.e., before its mode is switched or it is disabled.
+  If <code>use_runTim=true</code> (default), it asserts that each mode command
+  remains <code>true</code> for at least <code>dt_min</code> before it turns
+  <code>false</code>.
 </p>
 <p>
-  If <code>use_runTim=false</code>, it asserts that the heat pump has been off
-  for at least <code>dt_min</code> before its on/off command turns
-  <code>true</code> again, i.e., before it is enabled or switched to another
-  mode.
+  If <code>use_runTim=false</code>, it asserts that each mode command remains
+  <code>false</code> for at least <code>dt_min</code> before it turns
+  <code>true</code>.
 </p>
 </html>",
     revisions="<html>

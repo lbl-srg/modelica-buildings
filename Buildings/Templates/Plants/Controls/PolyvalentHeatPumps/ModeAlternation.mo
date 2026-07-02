@@ -236,7 +236,7 @@ annotation(defaultComponentName="selModPhp",
   in cooling mode are removed from the staging order for the heating enable
   logic. The heating enable logic can thus disable a unit previously enabled
   in either heating or SHC mode, or enable a unit previously enabled in SHC
-  mode or disabled. This exception applies to that stage transition only.
+  mode or disabled.
 </p>
 <p>
   At any other time, the units previously enabled in cooling or SHC mode are
@@ -252,7 +252,7 @@ annotation(defaultComponentName="selModPhp",
   in heating mode are removed from the staging order for the cooling enable
   logic. The cooling enable logic can thus disable a unit previously enabled
   in either cooling or SHC mode, or enable a unit previously enabled in SHC
-  mode or disabled. This exception applies to that stage transition only.
+  mode or disabled.
 </p>
 <p>
   At any other time, the units previously enabled in heating or SHC mode are

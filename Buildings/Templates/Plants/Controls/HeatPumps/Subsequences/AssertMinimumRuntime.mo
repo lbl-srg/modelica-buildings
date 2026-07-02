@@ -10,32 +10,36 @@ block AssertMinimumRuntime
   parameter Integer nUni(final min=1) "Number of units";
   parameter Real dt_min(final min=0, final unit="s") = 10 * 60
     "Minimum runtime or off-time";
-  parameter String message = if use_runTim
-    then "HP minimum runtime is not met."
-    else "HP minimum off-time is not met."
+  parameter String message =
+    if use_runTim
+    then "HP minimum runtime is not met." else "HP minimum off-time is not met."
     "Warning message";
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1[nUni]
-    "HP on/off command" annotation (Placement(transformation(extent={{-160,40},{
-            -120,80}}), iconTransformation(extent={{-140,60},{-100,100}})));
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1Hea[nUni] if have_chiWat
-    "HP heating/cooling mode command: true=heating, false=cooling" annotation (
-      Placement(transformation(extent={{-160,-100},{-120,-60}}),
-        iconTransformation(extent={{-140,-100},{-100,-60}})));
+    "HP on/off command"
+    annotation(Placement(transformation(extent={{-160,40},{-120,80}}),
+      iconTransformation(extent={{-140,60},{-100,100}})));
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1Hea[nUni]
+    if have_chiWat
+    "HP heating/cooling mode command: true=heating, false=cooling"
+    annotation(Placement(transformation(extent={{-160,-100},{-120,-60}}),
+      iconTransformation(extent={{-140,-100},{-100,-60}})));
   Buildings.Controls.OBC.CDL.Logical.Timer timOnOff[nUni](each final t=dt_min)
     "Timer for on/off state"
-    annotation (Placement(transformation(extent={{-60,70},{-40,90}})));
-  Buildings.Controls.OBC.CDL.Logical.FallingEdge falEdgOn[nUni] if use_runTim
+    annotation(Placement(transformation(extent={{-60,70},{-40,90}})));
+  Buildings.Controls.OBC.CDL.Logical.FallingEdge falEdgOn[nUni]
+    if use_runTim
     "Falling edge of on/off command"
-    annotation (Placement(transformation(extent={{-100,38},{-80,58}})));
+    annotation(Placement(transformation(extent={{-100,38},{-80,58}})));
   Buildings.Controls.OBC.CDL.Logical.Pre preTimOnOff[nUni]
     "Left-limit of timer status, before it is reset by the falling/rising edge"
-    annotation (Placement(transformation(extent={{-20,50},{0,70}})));
+    annotation(Placement(transformation(extent={{-20,50},{0,70}})));
   Buildings.Controls.OBC.CDL.Logical.Switch swiRunHea[nUni]
     "Select minimum runtime/off-time status at falling/rising edge of heating command"
     annotation(Placement(transformation(extent={{20,30},{40,50}})));
-  Buildings.Controls.OBC.CDL.Logical.Timer timNotChaHea[nUni](each final t=
-        dt_min) "Timer for stable heating/cooling mode command"
-    annotation (Placement(transformation(extent={{-10,-110},{10,-90}})));
+  Buildings.Controls.OBC.CDL.Logical.Timer timNotChaHea[nUni](
+    each final t=dt_min)
+    "Timer for stable heating/cooling mode command"
+    annotation(Placement(transformation(extent={{-10,-110},{10,-90}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant tru[nUni](each k=true)
     "Constant true signal used absent a falling edge"
     annotation(Placement(transformation(extent={{-20,-10},{0,10}})));
@@ -52,39 +56,49 @@ block AssertMinimumRuntime
     each message=message)
     "Assert that minimum runtime/off-time is met"
     annotation(Placement(transformation(extent={{90,-10},{110,10}})));
-  Buildings.Controls.OBC.CDL.Logical.Not off[nUni] if not use_runTim
+  Buildings.Controls.OBC.CDL.Logical.Not off[nUni]
+    if not use_runTim
     "True if off"
-    annotation (Placement(transformation(extent={{-100,70},{-80,90}})));
-  Buildings.Controls.OBC.CDL.Logical.Edge edgOn[nUni] if not use_runTim
+    annotation(Placement(transformation(extent={{-100,70},{-80,90}})));
+  Buildings.Controls.OBC.CDL.Logical.Edge edgOn[nUni]
+    if not use_runTim
     "Rising edge of on/off command"
-    annotation (Placement(transformation(extent={{-100,10},{-80,30}})));
+    annotation(Placement(transformation(extent={{-100,10},{-80,30}})));
   Buildings.Controls.OBC.CDL.Routing.BooleanScalarReplicator pasOn[nUni]
-    if use_runTim "Direct pass-through for on/off command"
-    annotation (Placement(transformation(extent={{-100,100},{-80,120}})));
+    if use_runTim
+    "Direct pass-through for on/off command"
+    annotation(Placement(transformation(extent={{-100,100},{-80,120}})));
   Buildings.Controls.OBC.CDL.Logical.Change chaHea[nUni]
     "True if heating command changes"
-    annotation (Placement(transformation(extent={{-80,-91},{-60,-69}})));
-  Utilities.PlaceholderLogical phHea[nUni](each final have_inp=have_chiWat,
-      each final u_internal=true) "Placeholder signal"
-    annotation (Placement(transformation(extent={{-110,-90},{-90,-70}})));
+    annotation(Placement(transformation(extent={{-80,-91},{-60,-69}})));
+  Utilities.PlaceholderLogical phHea[nUni](
+    each final have_inp=have_chiWat,
+    each final u_internal=true)
+    "Placeholder signal"
+    annotation(Placement(transformation(extent={{-110,-90},{-90,-70}})));
   Buildings.Controls.OBC.CDL.Logical.Not notChaHea[nUni]
     "True if heating command doesn't change"
-    annotation (Placement(transformation(extent={{-40,-111},{-20,-89}})));
+    annotation(Placement(transformation(extent={{-40,-111},{-20,-89}})));
 equation
-  connect(timOnOff.passed, preTimOnOff.u) annotation (Line(points={{-38,72},{-30,
-          72},{-30,60},{-22,60}}, color={255,0,255}));
-  connect(falEdgOn.y, swiRunHea.u2) annotation (Line(points={{-78,48},{-60,48},{
-          -60,40},{18,40}}, color={255,0,255}));
-  connect(preTimOnOff.y, swiRunHea.u1) annotation (Line(points={{2,60},{10,60},{
-          10,48},{18,48}}, color={255,0,255}));
+  connect(timOnOff.passed, preTimOnOff.u)
+    annotation(Line(points={{-38,72},{-30,72},{-30,60},{-22,60}},
+      color={255,0,255}));
+  connect(falEdgOn.y, swiRunHea.u2)
+    annotation(Line(points={{-78,48},{-60,48},{-60,40},{18,40}},
+      color={255,0,255}));
+  connect(preTimOnOff.y, swiRunHea.u1)
+    annotation(Line(points={{2,60},{10,60},{10,48},{18,48}},
+      color={255,0,255}));
   connect(tru.y, swiRunHea.u3)
     annotation(Line(points={{2,0},{14,0},{14,32},{18,32}},
       color={255,0,255}));
   connect(preHea.y, swiRunCoo.u1)
-    annotation(Line(points={{52,-100},{60,-100},{60,-60},{0,-60},{0,-32},{18,-32}},
+    annotation(Line(
+      points={{52,-100},{60,-100},{60,-60},{0,-60},{0,-32},{18,-32}},
       color={255,0,255}));
-  connect(timNotChaHea.passed, preHea.u) annotation (Line(points={{12,-108},{20,
-          -108},{20,-100},{28,-100}}, color={255,0,255}));
+  connect(timNotChaHea.passed, preHea.u)
+    annotation(Line(points={{12,-108},{20,-108},{20,-100},{28,-100}},
+      color={255,0,255}));
   connect(tru.y, swiRunCoo.u3)
     annotation(Line(points={{2,0},{14,0},{14,-48},{18,-48}},
       color={255,0,255}));
@@ -98,29 +112,41 @@ equation
     annotation(Line(points={{82,0},{88,0}},
       color={255,0,255}));
   connect(off.y, timOnOff.u)
-    annotation (Line(points={{-78,80},{-62,80}}, color={255,0,255}));
-  connect(u1, off.u) annotation (Line(points={{-140,60},{-110,60},{-110,80},{-102,
-          80}}, color={255,0,255}));
-  connect(u1, pasOn.u) annotation (Line(points={{-140,60},{-110,60},{-110,110},{
-          -102,110}}, color={255,0,255}));
-  connect(pasOn.y[1], timOnOff.u) annotation (Line(points={{-78,110},{-70,110},{
-          -70,80},{-62,80}}, color={255,0,255}));
-  connect(u1, falEdgOn.u) annotation (Line(points={{-140,60},{-110,60},{-110,48},
-          {-102,48}}, color={255,0,255}));
-  connect(u1, edgOn.u) annotation (Line(points={{-140,60},{-110,60},{-110,20},{-102,
-          20}}, color={255,0,255}));
-  connect(edgOn.y, swiRunHea.u2) annotation (Line(points={{-78,20},{-60,20},{-60,
-          40},{18,40}}, color={255,0,255}));
+    annotation(Line(points={{-78,80},{-62,80}},
+      color={255,0,255}));
+  connect(u1, off.u)
+    annotation(Line(points={{-140,60},{-110,60},{-110,80},{-102,80}},
+      color={255,0,255}));
+  connect(u1, pasOn.u)
+    annotation(Line(points={{-140,60},{-110,60},{-110,110},{-102,110}},
+      color={255,0,255}));
+  connect(pasOn.y[1], timOnOff.u)
+    annotation(Line(points={{-78,110},{-70,110},{-70,80},{-62,80}},
+      color={255,0,255}));
+  connect(u1, falEdgOn.u)
+    annotation(Line(points={{-140,60},{-110,60},{-110,48},{-102,48}},
+      color={255,0,255}));
+  connect(u1, edgOn.u)
+    annotation(Line(points={{-140,60},{-110,60},{-110,20},{-102,20}},
+      color={255,0,255}));
+  connect(edgOn.y, swiRunHea.u2)
+    annotation(Line(points={{-78,20},{-60,20},{-60,40},{18,40}},
+      color={255,0,255}));
   connect(u1Hea, phHea.u)
-    annotation (Line(points={{-140,-80},{-112,-80}}, color={255,0,255}));
+    annotation(Line(points={{-140,-80},{-112,-80}},
+      color={255,0,255}));
   connect(phHea.y, chaHea.u)
-    annotation (Line(points={{-88,-80},{-82,-80}}, color={255,0,255}));
-  connect(chaHea.y, swiRunCoo.u2) annotation (Line(points={{-58,-80},{-50,-80},{
-          -50,-40},{18,-40}}, color={255,0,255}));
-  connect(chaHea.y, notChaHea.u) annotation (Line(points={{-58,-80},{-50,-80},{-50,
-          -100},{-42,-100}}, color={255,0,255}));
+    annotation(Line(points={{-88,-80},{-82,-80}},
+      color={255,0,255}));
+  connect(chaHea.y, swiRunCoo.u2)
+    annotation(Line(points={{-58,-80},{-50,-80},{-50,-40},{18,-40}},
+      color={255,0,255}));
+  connect(chaHea.y, notChaHea.u)
+    annotation(Line(points={{-58,-80},{-50,-80},{-50,-100},{-42,-100}},
+      color={255,0,255}));
   connect(notChaHea.y, timNotChaHea.u)
-    annotation (Line(points={{-18,-100},{-12,-100}}, color={255,0,255}));
+    annotation(Line(points={{-18,-100},{-12,-100}},
+      color={255,0,255}));
 annotation(defaultComponentName="assMinRunTimHp",
   Icon(coordinateSystem(preserveAspectRatio=false),
     graphics={Text(extent={{-150,150},{150,110}},
@@ -152,19 +178,19 @@ annotation(defaultComponentName="assMinRunTimHp",
   Documentation(
     info="<html>
 <p>
-  This block asserts that each polyvalent heat pump does not short cycle,
-  based on its heating and cooling on/off commands.
+  This block asserts that each heat pump does not short cycle, based on its
+  enable and heating/cooling mode commands.
 </p>
 <p>
   If <code>use_runTim=true</code> (default), it asserts that the heat pump has
-  run for at least <code>dt_min</code> before its on/off command turns
-  <code>false</code>, i.e., before its mode is switched or it is disabled.
+  been enabled in the same mode for at least <code>dt_min</code> before its
+  enable command turns <code>false</code> or its mode command changes.
 </p>
 <p>
-  If <code>use_runTim=false</code>, it asserts that the heat pump has been off
-  for at least <code>dt_min</code> before its on/off command turns
-  <code>true</code> again, i.e., before it is enabled or switched to another
-  mode.
+  If <code>use_runTim=false</code>, it asserts that the heat pump has been
+  commanded off and its mode command hasn't changed for at least
+  <code>dt_min</code> before its enable command turns <code>true</code> again
+  or its mode command changes.
 </p>
 </html>",
     revisions="<html>

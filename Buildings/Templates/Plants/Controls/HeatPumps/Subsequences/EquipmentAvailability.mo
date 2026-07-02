@@ -14,268 +14,226 @@ block EquipmentAvailability
     "Off time required before equipment is deemed available again";
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1EnaHea
     if have_heaWat "Heating enable command"
-    annotation(Placement(transformation(extent={{-240,-20},{-200,20}}),
-      iconTransformation(extent={{-140,20},{-100,60}})));
+    annotation(Placement(transformation(extent={{-260,20},{-220,60}}),
+      iconTransformation(extent={{-140,60},{-100,100}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput y1Hea
     if have_heaWat
     "Equipment available for heating"
-    annotation(Placement(transformation(extent={{200,-20},{240,20}}),
-      iconTransformation(extent={{100,40},{140,80}})));
+    annotation(Placement(transformation(extent={{220,20},{260,60}}),
+      iconTransformation(extent={{100,60},{140,100}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1EnaCoo
     if have_chiWat "Cooling enable command"
-    annotation(Placement(transformation(extent={{-240,-140},{-200,-100}}),
-      iconTransformation(extent={{-140,-60},{-100,-20}})));
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput y1Coo
-    if have_chiWat
+    annotation(Placement(transformation(extent={{-260,-80},{-220,-40}}),
+      iconTransformation(extent={{-140,20},{-100,60}})));
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput y1Coo if have_chiWat
     "Equipment available for cooling"
-    annotation(Placement(transformation(extent={{200,-140},{240,-100}}),
-      iconTransformation(extent={{100,-80},{140,-40}})));
+    annotation(Placement(transformation(extent={{220,-100},{260,-60}}),
+      iconTransformation(extent={{100,-20},{140,20}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1Ava
     "Equipment available signal"
-    annotation(Placement(transformation(extent={{-240,-80},{-200,-40}}),
+    annotation(Placement(transformation(extent={{-260,-160},{-220,-120}}),
+      iconTransformation(extent={{-140,-100},{-100,-60}})));
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1EnaShc
+    if is_php "Simultaneous heating and cooling enable command"
+    annotation(Placement(transformation(extent={{-260,-120},{-220,-80}}),
       iconTransformation(extent={{-140,-20},{-100,20}})));
-  Utilities.PlaceholderLogical phCoo(
-    final have_inp=have_chiWat,
-    final u_internal=false)
-    "Placeholder value if signal is not available"
-    annotation(Placement(transformation(extent={{-190,-130},{-170,-110}})));
-  Buildings.Controls.OBC.CDL.Logical.Not offOrNotHea
-    "Return true if equipment is off or not in heating mode"
-    annotation(Placement(transformation(extent={{-50,10},{-30,30}})));
-  inner Modelica.StateGraph.StateGraphRoot stateGraphRoot
-    annotation(Placement(transformation(extent={{-160,160},{-140,180}})));
-  Modelica.StateGraph.StepWithSignal onHea(nOut=2, nIn=1)
-    "Enabled in heating mode"
-    annotation(Placement(transformation(extent={{10,150},{30,170}})));
-  Modelica.StateGraph.InitialStepWithSignal avaMod(nOut=3, nIn=2)
-    "Initial state – Equipment available for all modes"
-    annotation(Placement(transformation(extent={{-70,150},{-50,170}})));
-  Modelica.StateGraph.TransitionWithSignal trnToOff
-    "Transition to off state"
-    annotation(Placement(transformation(extent={{50,150},{70,170}})));
-  Modelica.StateGraph.StepWithSignal onCoo(nOut=2, nIn=1)
-    "Enabled in cooling mode"
-    annotation(Placement(transformation(extent={{70,110},{90,130}})));
-  Modelica.StateGraph.TransitionWithSignal trnToCoo
-    "Transition to cooling mode"
-    annotation(Placement(transformation(extent={{-10,110},{10,130}})));
-  Modelica.StateGraph.TransitionWithSignal trnToHea
-    "Transition to heating mode"
-    annotation(Placement(transformation(extent={{-30,150},{-10,170}})));
-  Modelica.StateGraph.TransitionWithSignal trnToOff1
-    "Transition to off state"
-    annotation(Placement(transformation(extent={{110,110},{130,130}})));
-  Buildings.Controls.OBC.CDL.Logical.Or avaAllHea
-    "Return true if equipment available for all modes or in heating mode"
-    annotation(Placement(transformation(extent={{128,-10},{148,10}})));
-  Buildings.Controls.OBC.CDL.Logical.Or avaAllCoo
-    "Return true if equipment available for all modes or in cooling mode"
-    annotation(Placement(transformation(extent={{130,-130},{150,-110}})));
-  Modelica.StateGraph.Step offSta(nOut=1, nIn=2)
-    "Off state"
-    annotation(Placement(transformation(extent={{140,130},{160,150}})));
-  Modelica.StateGraph.Transition trnToAvaTim(
-    enableTimer=true,
-    final waitTime=dtOff)
-    "Transition back to available state after off time elapsed"
-    annotation(Placement(transformation(extent={{160,170},{140,190}})));
-  Modelica.StateGraph.Step unaSta(nOut=1, nIn=3)
-    "Unavailable state"
-    annotation(Placement(transformation(extent={{140,90},{160,110}})));
-  Modelica.StateGraph.TransitionWithSignal trnToUna
-    "Transition to unavailable state"
-    annotation(Placement(transformation(extent={{-36,70},{-16,90}})));
-  Buildings.Controls.OBC.CDL.Logical.Not una
-    "Return true if equipment is unavailable"
-    annotation(Placement(transformation(extent={{-92,-50},{-72,-30}})));
-  Modelica.StateGraph.TransitionWithSignal trnToAva
-    "Transition back to available state"
-    annotation(Placement(transformation(extent={{170,90},{190,110}})));
-  Modelica.StateGraph.TransitionWithSignal trnToUna2
-    "Transition to unavailable state"
-    annotation(Placement(transformation(extent={{30,90},{50,110}})));
-  Modelica.StateGraph.TransitionWithSignal trnToUna3
-    "Transition to unavailable state"
-    annotation(Placement(transformation(extent={{90,70},{110,90}})));
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput y1Shc if is_php
+    "Equipment available for simultaneous heating and cooling"
+    annotation(Placement(transformation(extent={{220,-160},{260,-120}}),
+      iconTransformation(extent={{100,-100},{140,-60}})));
   Utilities.PlaceholderLogical phHea(
     final have_inp=have_heaWat,
     final u_internal=false)
     "Placeholder value if signal is not available"
-    annotation(Placement(transformation(extent={{-190,-10},{-170,10}})));
-  Buildings.Controls.OBC.CDL.Logical.Not offOrNotCoo
-    "Return true if equipment is off or not in cooling mode"
-    annotation(Placement(transformation(extent={{-50,-110},{-30,-90}})));
-  Buildings.Controls.OBC.CDL.Logical.Or offOrNotHeaOrHeaAndCoo
-    "Return true if equipment is off or not in heating mode or in simultaneous heating and cooling mode"
-    annotation(Placement(transformation(extent={{-10,10},{10,30}})));
-  Buildings.Controls.OBC.CDL.Logical.Or offOrNotCooOrHeaAndCoo
-    "Return true if equipment is off or not in cooling mode or in simultaneous heating and cooling mode"
-    annotation(Placement(transformation(extent={{0,-110},{20,-90}})));
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput y1Shc
-    if is_php
-    "Equipment available for simultaneous heating and cooling operation"
-    annotation(Placement(transformation(extent={{200,-180},{240,-140}}),
-      iconTransformation(extent={{100,-20},{140,20}})));
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1EnaShc
-    if is_php "Simultaneous heating and cooling enable command"
-    annotation(Placement(transformation(extent={{-240,-200},{-200,-160}}),
-      iconTransformation(extent={{-140,-100},{-100,-60}})));
+    annotation(Placement(transformation(extent={{-190,30},{-170,50}})));
+  Utilities.PlaceholderLogical phCoo(
+    final have_inp=have_chiWat,
+    final u_internal=false)
+    "Placeholder value if signal is not available"
+    annotation(Placement(transformation(extent={{-190,-70},{-170,-50}})));
   Utilities.PlaceholderLogical phShc(
     final have_inp=is_php,
     final u_internal=false)
     "Placeholder value if signal is not available"
-    annotation(Placement(transformation(extent={{-190,-190},{-170,-170}})));
-  Buildings.Controls.OBC.CDL.Logical.Edge edgEnaHea
-    "True exactly when heating is enabled"
-    annotation (Placement(transformation(extent={{10,-150},{30,-130}})));
-  Buildings.Controls.OBC.CDL.Logical.Not notEdgEnaHea
-    "True if heating is not enabled at same time"
-    annotation (Placement(transformation(extent={{50,-150},{70,-130}})));
-  Buildings.Controls.OBC.CDL.Logical.And guaEdgEnaHea
-    "Guard against heating being enabled at same time"
-    annotation (Placement(transformation(extent={{170,-130},{190,-110}})));
+    annotation(Placement(transformation(extent={{-190,-110},{-170,-90}})));
+  Buildings.Controls.OBC.CDL.Logical.Not notShc
+    "Return true if equipment not required to run in simultaneous heating and cooling mode"
+    annotation(Placement(transformation(extent={{-150,-110},{-130,-90}})));
+  Buildings.Controls.OBC.CDL.Logical.And reqHea
+    "Return true if equipment required to run in heating mode only"
+    annotation(Placement(transformation(extent={{-110,30},{-90,50}})));
+  Buildings.Controls.OBC.CDL.Logical.And reqCoo
+    "Return true if equipment required to run in cooling mode only"
+    annotation(Placement(transformation(extent={{-110,-70},{-90,-50}})));
+  Buildings.Controls.OBC.CDL.Logical.Pre preLatHea
+    "Previous value of heating mode latch"
+    annotation(Placement(transformation(extent={{-190,150},{-170,170}})));
+  Buildings.Controls.OBC.CDL.Logical.Pre preLatCoo
+    "Previous value of cooling mode latch"
+    annotation(Placement(transformation(extent={{-190,110},{-170,130}})));
+  Buildings.Controls.OBC.CDL.Logical.Or latAll
+    "Return true if equipment has operated in a single mode and off time has not elapsed – Previous values"
+    annotation(Placement(transformation(extent={{-150,130},{-130,150}})));
+  Buildings.Controls.OBC.CDL.Logical.Not entHea
+    "Return true if equipment allowed to enter heating mode – Off time elapsed for all modes"
+    annotation(Placement(transformation(extent={{-110,130},{-90,150}})));
+  Buildings.Controls.OBC.CDL.Logical.Nor entCoo
+    "Return true if equipment allowed to enter cooling mode – No heating command and off time elapsed for all modes"
+    annotation(Placement(transformation(extent={{-70,10},{-50,30}})));
+  Buildings.Controls.OBC.CDL.Logical.Pre preRunHea
+    "Previous value of heating mode operation signal"
+    annotation(Placement(transformation(extent={{-110,70},{-90,90}})));
+  Buildings.Controls.OBC.CDL.Logical.Or avaHea
+    "Return true if equipment operating in heating mode or allowed to enter it"
+    annotation(Placement(transformation(extent={{-70,70},{-50,90}})));
+  Buildings.Controls.OBC.CDL.Logical.And runHea
+    "Return true if equipment operating in heating mode"
+    annotation(Placement(transformation(extent={{20,30},{40,50}})));
+  Buildings.Controls.OBC.CDL.Logical.Pre preRunCoo
+    "Previous value of cooling mode operation signal"
+    annotation(Placement(transformation(extent={{-110,-30},{-90,-10}})));
+  Buildings.Controls.OBC.CDL.Logical.Or avaCoo
+    "Return true if equipment operating in cooling mode or allowed to enter it"
+    annotation(Placement(transformation(extent={{-28,-30},{-8,-10}})));
+  Buildings.Controls.OBC.CDL.Logical.And runCoo
+    "Return true if equipment operating in cooling mode"
+    annotation(Placement(transformation(extent={{20,-70},{40,-50}})));
+  Buildings.Controls.OBC.CDL.Logical.Nor off
+    "Return true if equipment not operating in any single mode"
+    annotation(Placement(transformation(extent={{60,-30},{80,-10}})));
+  Buildings.Controls.OBC.CDL.Logical.Timer tim(
+    final t=dtOff)
+    "Return true if equipment has been off for the required time"
+    annotation(Placement(transformation(extent={{90,-30},{110,-10}})));
+  Buildings.Controls.OBC.CDL.Logical.Latch latHea
+    "Return true from the time equipment enters heating mode until off time has elapsed"
+    annotation(Placement(transformation(extent={{130,30},{150,50}})));
+  Buildings.Controls.OBC.CDL.Logical.Latch latCoo
+    "Return true from the time equipment enters cooling mode until off time has elapsed"
+    annotation(Placement(transformation(extent={{130,-70},{150,-50}})));
+  Buildings.Controls.OBC.CDL.Logical.And avaAllHea
+    "Return true if equipment available for heating"
+    annotation(Placement(transformation(extent={{190,30},{210,50}})));
+  Buildings.Controls.OBC.CDL.Logical.And avaAllCoo
+    "Return true if equipment available for cooling"
+    annotation(Placement(transformation(extent={{190,-90},{210,-70}})));
 equation
-  connect(avaMod.outPort[1], trnToCoo.inPort)
-    annotation(Line(points={{-49.5,159.833},{-40,159.833},{-40,120},{-4,120}},
-      color={0,0,0}));
-  connect(onHea.outPort[1], trnToOff.inPort)
-    annotation(Line(points={{30.5,159.875},{44,159.875},{44,160},{56,160}},
-      color={0,0,0}));
-  connect(onCoo.outPort[1], trnToOff1.inPort)
-    annotation(Line(points={{90.5,119.875},{104,119.875},{104,120},{116,120}},
-      color={0,0,0}));
-  connect(trnToCoo.outPort, onCoo.inPort[1])
-    annotation(Line(points={{1.5,120},{69,120}},
-      color={0,0,0}));
-  connect(avaMod.outPort[2], trnToHea.inPort)
-    annotation(Line(points={{-49.5,160},{-36,160},{-36,160},{-24,160}},
-      color={0,0,0}));
-  connect(avaMod.active, avaAllHea.u1)
-    annotation(Line(points={{-60,149},{-60,0},{126,0}},
-      color={255,0,255}));
-  connect(onHea.active, avaAllHea.u2)
-    annotation(Line(points={{20,149},{20,-8},{126,-8}},
-      color={255,0,255}));
-  connect(trnToHea.outPort, onHea.inPort[1])
-    annotation(Line(points={{-18.5,160},{-4,160},{-4,160},{9,160}},
-      color={0,0,0}));
-  connect(offSta.outPort[1], trnToAvaTim.inPort)
-    annotation(Line(points={{160.5,140},{170,140},{170,180},{154,180}},
-      color={0,0,0}));
-  connect(trnToOff.outPort, offSta.inPort[1])
-    annotation(Line(points={{61.5,160},{130,160},{130,139.75},{139,139.75}},
-      color={0,0,0}));
-  connect(trnToOff1.outPort, offSta.inPort[2])
-    annotation(Line(
-      points={{121.5,120},{130,120},{130,140},{134,140},{134,140.25},{139,140.25}},
-      color={0,0,0}));
-  connect(trnToAvaTim.outPort, avaMod.inPort[1])
-    annotation(Line(points={{148.5,180},{-80,180},{-80,159.75},{-71,159.75}},
-      color={0,0,0}));
-  connect(u1Ava, una.u)
-    annotation(Line(points={{-220,-60},{-100,-60},{-100,-40},{-94,-40}},
-      color={255,0,255}));
-  connect(avaMod.outPort[3], trnToUna.inPort)
-    annotation(Line(
-      points={{-49.5,160.167},{-49.5,160},{-40,160},{-40,80},{-30,80}},
-      color={0,0,0}));
-  connect(una.y, trnToUna.condition)
-    annotation(Line(points={{-70,-40},{-26,-40},{-26,68}},
-      color={255,0,255}));
-  connect(trnToUna.outPort, unaSta.inPort[1])
-    annotation(Line(points={{-24.5,80},{50,80},{50,99.6667},{139,99.6667}},
-      color={0,0,0}));
-  connect(unaSta.outPort[1], trnToAva.inPort)
-    annotation(Line(points={{160.5,100},{176,100}},
-      color={0,0,0}));
-  connect(u1Ava, trnToAva.condition)
-    annotation(Line(points={{-220,-60},{180,-60},{180,88}},
-      color={255,0,255}));
-  connect(trnToAva.outPort, avaMod.inPort[2])
-    annotation(Line(
-      points={{181.5,100},{190,100},{190,190},{-90,190},{-90,160.25},{-71,160.25}},
-      color={0,0,0}));
-  connect(avaMod.active, avaAllCoo.u1)
-    annotation(Line(points={{-60,149},{-60,-120},{128,-120}},
-      color={255,0,255}));
-  connect(onCoo.active, avaAllCoo.u2)
-    annotation(Line(points={{80,109},{80,-128},{128,-128}},
-      color={255,0,255}));
-  connect(onHea.outPort[2], trnToUna2.inPort)
-    annotation(Line(points={{30.5,160.125},{32,160.125},{32,100},{36,100}},
-      color={0,0,0}));
-  connect(trnToUna2.outPort, unaSta.inPort[2])
-    annotation(Line(points={{41.5,100},{90,100},{90,100},{139,100}},
-      color={0,0,0}));
-  connect(una.y, trnToUna2.condition)
-    annotation(Line(points={{-70,-40},{40,-40},{40,88}},
-      color={255,0,255}));
-  connect(onCoo.outPort[2], trnToUna3.inPort)
-    annotation(Line(points={{90.5,120.125},{92,120.125},{92,80},{96,80}},
-      color={0,0,0}));
-  connect(trnToUna3.outPort, unaSta.inPort[3])
-    annotation(Line(points={{101.5,80},{130,80},{130,100.333},{139,100.333}},
-      color={0,0,0}));
-  connect(una.y, trnToUna3.condition)
-    annotation(Line(points={{-70,-40},{100,-40},{100,68}},
-      color={255,0,255}));
-  connect(offOrNotHea.y, offOrNotHeaOrHeaAndCoo.u1)
-    annotation(Line(points={{-28,20},{-12,20}},
-      color={255,0,255}));
-  connect(offOrNotCoo.y, offOrNotCooOrHeaAndCoo.u1)
-    annotation(Line(points={{-28,-100},{-2,-100}},
-      color={255,0,255}));
-  connect(offOrNotHeaOrHeaAndCoo.y, trnToOff.condition)
-    annotation(Line(points={{12,20},{60,20},{60,148}},
-      color={255,0,255}));
-  connect(offOrNotCooOrHeaAndCoo.y, trnToOff1.condition)
-    annotation(Line(points={{22,-100},{120,-100},{120,108}},
-      color={255,0,255}));
   connect(phHea.u, u1EnaHea)
-    annotation(Line(points={{-192,0},{-220,0}},
+    annotation(Line(points={{-192,40},{-240,40}},
       color={255,0,255}));
   connect(u1EnaCoo, phCoo.u)
-    annotation(Line(points={{-220,-120},{-192,-120}},
-      color={255,0,255}));
-  connect(phHea.y, offOrNotHea.u)
-    annotation(Line(points={{-168,0},{-120,0},{-120,20},{-52,20}},
-      color={255,0,255}));
-  connect(phHea.y, trnToHea.condition)
-    annotation(Line(points={{-168,0},{-120,0},{-120,140},{-20,140},{-20,148}},
-      color={255,0,255}));
-  connect(phCoo.y, trnToCoo.condition)
-    annotation(Line(points={{-168,-120},{-130,-120},{-130,100},{0,100},{0,108}},
-      color={255,0,255}));
-  connect(phCoo.y, offOrNotCoo.u)
-    annotation(Line(points={{-168,-120},{-130,-120},{-130,-100},{-52,-100}},
-      color={255,0,255}));
-  connect(u1Ava, y1Shc)
-    annotation(Line(points={{-220,-60},{-100,-60},{-100,-160},{220,-160}},
+    annotation(Line(points={{-240,-60},{-192,-60}},
       color={255,0,255}));
   connect(u1EnaShc, phShc.u)
-    annotation(Line(points={{-220,-180},{-192,-180}},
+    annotation(Line(points={{-240,-100},{-192,-100}},
       color={255,0,255}));
-  connect(phShc.y, offOrNotCooOrHeaAndCoo.u2)
-    annotation(Line(points={{-168,-180},{-20,-180},{-20,-108},{-2,-108}},
+  connect(phShc.y, notShc.u)
+    annotation(Line(points={{-168,-100},{-152,-100}},
       color={255,0,255}));
-  connect(phShc.y, offOrNotHeaOrHeaAndCoo.u2)
-    annotation(Line(points={{-168,-180},{-20,-180},{-20,12},{-12,12}},
+  connect(phHea.y, reqHea.u1)
+    annotation(Line(points={{-168,40},{-112,40}},
+      color={255,0,255}));
+  connect(notShc.y, reqHea.u2)
+    annotation(Line(points={{-128,-100},{-120,-100},{-120,32},{-112,32}},
+      color={255,0,255}));
+  connect(phCoo.y, reqCoo.u1)
+    annotation(Line(points={{-168,-60},{-112,-60}},
+      color={255,0,255}));
+  connect(notShc.y, reqCoo.u2)
+    annotation(Line(points={{-128,-100},{-120,-100},{-120,-68},{-112,-68}},
+      color={255,0,255}));
+  connect(preLatHea.y, latAll.u1)
+    annotation(Line(points={{-168,160},{-160,160},{-160,140},{-152,140}},
+      color={255,0,255}));
+  connect(preLatCoo.y, latAll.u2)
+    annotation(Line(points={{-168,120},{-160,120},{-160,132},{-152,132}},
+      color={255,0,255}));
+  connect(latAll.y, entHea.u)
+    annotation(Line(points={{-128,140},{-112,140}},
+      color={255,0,255}));
+  connect(phHea.y, entCoo.u1)
+    annotation(Line(points={{-168,40},{-160,40},{-160,20},{-72,20}},
+      color={255,0,255}));
+  connect(latAll.y, entCoo.u2)
+    annotation(Line(points={{-128,140},{-124,140},{-124,12},{-72,12}},
+      color={255,0,255}));
+  connect(runHea.y, preRunHea.u)
+    annotation(Line(points={{42,40},{50,40},{50,60},{-120,60},{-120,80},{-112,
+          80}},
+      color={255,0,255}));
+  connect(runCoo.y, preRunCoo.u)
+    annotation(Line(
+      points={{42,-60},{50,-60},{50,-40},{-116,-40},{-116,-20},{-112,-20}},
+      color={255,0,255}));
+  connect(runHea.y, off.u1)
+    annotation(Line(points={{42,40},{50,40},{50,-20},{58,-20}},
+      color={255,0,255}));
+  connect(runCoo.y, off.u2)
+    annotation(Line(points={{42,-60},{50,-60},{50,-28},{58,-28}},
+      color={255,0,255}));
+  connect(off.y, tim.u)
+    annotation(Line(points={{82,-20},{88,-20}},
+      color={255,0,255}));
+  connect(runHea.y, latHea.u)
+    annotation(Line(points={{42,40},{128,40}},
+      color={255,0,255}));
+  connect(tim.passed, latHea.clr)
+    annotation(Line(points={{112,-28},{120,-28},{120,34},{128,34}},
+      color={255,0,255}));
+  connect(runCoo.y, latCoo.u)
+    annotation(Line(points={{42,-60},{128,-60}},
+      color={255,0,255}));
+  connect(tim.passed, latCoo.clr)
+    annotation(Line(points={{112,-28},{120,-28},{120,-66},{128,-66}},
+      color={255,0,255}));
+  connect(latHea.y, preLatHea.u)
+    annotation(Line(
+      points={{152,40},{160,40},{160,100},{-200,100},{-200,160},{-192,160}},
+      color={255,0,255}));
+  connect(latCoo.y, preLatCoo.u)
+    annotation(Line(
+      points={{152,-60},{164,-60},{164,104},{-196,104},{-196,120},{-192,120}},
+      color={255,0,255}));
+  connect(avaHea.y, avaAllHea.u1)
+    annotation(Line(points={{-48,80},{180,80},{180,40},{188,40}},
+      color={255,0,255}));
+  connect(u1Ava, avaAllHea.u2)
+    annotation(Line(
+      points={{-240,-140},{180,-140},{180,32},{188,32}},
+      color={255,0,255}));
+  connect(u1Ava, avaAllCoo.u2)
+    annotation(Line(
+      points={{-240,-140},{180,-140},{180,-88},{188,-88}},
       color={255,0,255}));
   connect(avaAllHea.y, y1Hea)
-    annotation(Line(points={{150,0},{220,0}},
+    annotation(Line(points={{212,40},{240,40}},
       color={255,0,255}));
-  connect(phHea.y, edgEnaHea.u) annotation (Line(points={{-168,0},{-120,0},{
-          -120,-140},{8,-140}}, color={255,0,255}));
-  connect(edgEnaHea.y, notEdgEnaHea.u)
-    annotation (Line(points={{32,-140},{48,-140}}, color={255,0,255}));
-  connect(avaAllCoo.y, guaEdgEnaHea.u1)
-    annotation (Line(points={{152,-120},{168,-120}}, color={255,0,255}));
-  connect(guaEdgEnaHea.y, y1Coo)
-    annotation (Line(points={{192,-120},{220,-120}}, color={255,0,255}));
-  connect(notEdgEnaHea.y, guaEdgEnaHea.u2) annotation (Line(points={{72,-140},{
-          158,-140},{158,-128},{168,-128}}, color={255,0,255}));
-annotation(__cdl(extensionBlock=true),
-  defaultComponentName="avaHeaCoo",
+  connect(avaAllCoo.y, y1Coo)
+    annotation(Line(points={{212,-80},{240,-80}},
+      color={255,0,255}));
+  connect(u1Ava, y1Shc)
+    annotation(Line(
+      points={{-240,-140},{240,-140}},
+      color={255,0,255}));
+  connect(avaHea.y, runHea.u1) annotation (Line(points={{-48,80},{0,80},{0,40},
+          {18,40}}, color={255,0,255}));
+  connect(reqHea.y, runHea.u2) annotation (Line(points={{-88,40},{-10,40},{-10,
+          32},{18,32}}, color={255,0,255}));
+  connect(entHea.y, avaHea.u1) annotation (Line(points={{-88,140},{-80,140},{
+          -80,80},{-72,80}}, color={255,0,255}));
+  connect(preRunHea.y, avaHea.u2) annotation (Line(points={{-88,80},{-84,80},{
+          -84,72},{-72,72}}, color={255,0,255}));
+  connect(avaCoo.y, runCoo.u1) annotation (Line(points={{-6,-20},{0,-20},{0,-60},
+          {18,-60}}, color={255,0,255}));
+  connect(avaCoo.y, avaAllCoo.u1) annotation (Line(points={{-6,-20},{0,-20},{0,
+          -80},{188,-80}}, color={255,0,255}));
+  connect(reqCoo.y, runCoo.u2) annotation (Line(points={{-88,-60},{-10,-60},{
+          -10,-68},{18,-68}}, color={255,0,255}));
+  connect(preRunCoo.y, avaCoo.u2) annotation (Line(points={{-88,-20},{-46,-20},
+          {-46,-28},{-30,-28}}, color={255,0,255}));
+  connect(entCoo.y, avaCoo.u1) annotation (Line(points={{-48,20},{-40,20},{-40,
+          -20},{-30,-20}}, color={255,0,255}));
+annotation(defaultComponentName="avaHeaCoo",
   Icon(coordinateSystem(preserveAspectRatio=true,
     extent={{-100,-100},{100,100}}),
     graphics={Rectangle(extent={{-100,100},{100,-100}},
@@ -286,13 +244,19 @@ annotation(__cdl(extensionBlock=true),
       textString="%name",
       textColor={0,0,255})}),
   Diagram(coordinateSystem(preserveAspectRatio=false,
-    extent={{-200,-200},{200,200}})),
+    extent={{-220,-180},{220,180}},
+        grid={2,2})),
   Documentation(
     info="<html>
 <p>
-  If a heat pump is commanded enabled in either heating or cooling mode, it is
+  If a reversible heat pump is commanded enabled in either heating or cooling mode, it is
   removed from the staging order of the opposite mode until it has been off
   for <code>dtOff</code>.
+</p>
+<p>
+  If a polyvalent heat pump is commanded enabled in single mode, it is
+  removed from the staging order of the opposite single mode until it has been off
+  or operating in simultaneous heating and cooling mode for <code>dtOff</code>.
 </p>
 <h4>Implementation details</h4>
 <p>
@@ -303,9 +267,33 @@ annotation(__cdl(extensionBlock=true),
   between these two events. During this delay, the heat pump should not be
   considered available for the opposite mode.
 </p>
+<p>
+  Since the enable commands are computed from the availability signals 
+  within the plant controller, the block is structured to avoid creating 
+  an algebraic loop at simulation time and at initialization: 
+  the heating availability has no direct dependency on any enable command, 
+  and the cooling availability directly depends on the heating enable command only.
+  If both single mode commands are received at the same time event, the
+  heating command prevails and the equipment is reported unavailable for cooling.
+</p>
+<p>
+  A mode command is only accepted &ndash; and the equipment considered as
+  operating in that mode &ndash; if it is received while the equipment is 
+  available or already operating in that mode.
+  Commands received before the off time has elapsed are disregarded, 
+  so the availability outputs remain false even if an enable command is issued.
+</p>
+<p>
+  At initial time the equipment is available for all modes.
+</p>
 </html>",
     revisions="<html>
 <ul>
+  <li>
+    July 2, 2026, by Antoine Gautier:<br />
+    Refactored using CDL blocks in place of
+    <code>Modelica.StateGraph</code> components.
+  </li>
   <li>
     June 10, 2026, by Antoine Gautier:<br />
     Removed unnecessary <code>Or</code> and <code>And</code> blocks.<br />
