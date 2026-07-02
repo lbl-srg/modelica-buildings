@@ -4,7 +4,8 @@ block ActiveAirFlow
 
   parameter Real VCooMax_flow(
     final quantity="VolumeFlowRate",
-    final unit="m3/s");
+    final unit="m3/s")
+    "Design zone cooling maximum airflow rate";
 
   Buildings.Controls.OBC.CDL.Interfaces.IntegerInput uOpeMod
     "Zone operation mode"
