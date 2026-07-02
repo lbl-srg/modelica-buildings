@@ -375,7 +375,7 @@ equation
           -70,-178},{-42,-178}}, color={255,0,255}));
   connect(leaDamAla2.y, truDel3.u)
     annotation (Line(points={{-18,-170},{18,-170}}, color={255,0,255}));
-annotation (defaultComponentName="ala",
+annotation (
   Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}}),
        graphics={
         Rectangle(
