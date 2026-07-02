@@ -13,7 +13,7 @@ model EquipmentEnable
     period=100)
     "HP available signal"
     annotation(Placement(transformation(extent={{-90,-50},{-70,-30}})));
-  Buildings.Templates.Plants.Controls.HeatPumps.Subsequences.EquipmentEnable enaEqu(
+  Buildings.Templates.Plants.Controls.HeatPumps.Subsequences.SelectModeState enaEqu(
     final nHp=nHp,
     final nPhp=nPhp)
     "Compute array of enabled equipment"
@@ -58,31 +58,33 @@ model EquipmentEnable
     "Opposite mode stage index"
     annotation(Placement(transformation(extent={{-60,10},{-40,30}})));
 equation
-  connect(uSta.y[1], enaEqu.uSta)
+  connect(uSta.y[1], enaEqu.uStaHea)
     annotation(Line(points={{-68,0},{8,0}},
       color={255,127,0}));
-  connect(extractStagingMatrix2D.y, enaEqu.staTra)
+  connect(extractStagingMatrix2D.y, enaEqu.staTraHea)
     annotation(Line(points={{-8,20},{0,20},{0,8},{8,8}},
       color={0,0,127}));
-  connect(u1AvaHp.y, enaEqu.u1AvaHp)
+  connect(u1AvaHp.y, enaEqu.u1AvaHeaHp)
     annotation(Line(points={{-68,-40},{0,-40},{0,-4},{8,-4}},
       color={255,0,255}));
-  connect(u1AvaPhp1.y, enaEqu.u1AvaPhp1)
+  connect(u1AvaPhp1.y, enaEqu.u1AvaHeaPhp)
     annotation(Line(points={{-38,-60},{-18,-60},{-18,-6},{8,-6}},
       color={255,0,255}));
-  connect(u1AvaPhp2.y, enaEqu.u1AvaPhp2)
+  connect(u1AvaPhp2.y, enaEqu.u1AvaShcPhp)
     annotation(Line(points={{-68,-80},{-16,-80},{-16,-8},{8,-8}},
       color={255,0,255}));
   connect(idxSorHp.y, enaEqu.uIdxSorHp)
     annotation(Line(points={{-38,60},{4,60},{4,6},{8,6}},
       color={255,127,0}));
   connect(idxSorPhp.y, enaEqu.uIdxSorPhp)
-    annotation (Line(points={{-68,40},{2,40},{2,4},{8,4}}, color={255,127,0}));
+    annotation(Line(points={{-68,40},{2,40},{2,4},{8,4}},
+      color={255,127,0}));
   connect(uStaOpp.y[1], extractStagingMatrix2D.u)
     annotation(Line(points={{-38,20},{-32,20}},
       color={255,127,0}));
   connect(idxSorPhp.y, enaEqu.uIdxSorPhp2)
-    annotation (Line(points={{-68,40},{2,40},{2,2},{8,2}}, color={255,127,0}));
+    annotation(Line(points={{-68,40},{2,40},{2,2},{8,2}},
+      color={255,127,0}));
 annotation(__Dymola_Commands(
   file="modelica://Buildings/Resources/Scripts/Dymola/Templates/Plants/Controls/HeatPumps/Subsequences/Validation/EquipmentEnable.mos"
     "Simulate and plot"),
@@ -101,7 +103,7 @@ annotation(__Dymola_Commands(
     info="<html>
 <p>
   This model validates
-  <a href=\"modelica://Buildings.Templates.Plants.Controls.HeatPumps.Subsequences.EquipmentEnable\">
+  <a href=\"modelica://Buildings.Templates.Plants.Controls.HeatPumps.Subsequences.SelectModeState\">
     Buildings.Templates.Plants.Controls.HeatPumps.Subsequences.EquipmentEnable</a>
   in a configuration with three equally sized units (component
   <code>equEnaEqu</code>) and in a configuration with one small unit and two

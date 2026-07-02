@@ -1,7 +1,7 @@
+AssertMinimumRuntime
 EquipmentAvailability
-EquipmentEnable
 EventSequencingSingle
 EventSequencingMultiple
-RemoveFromStagingOrder
 RoutingPrimaryPumpStatus
+SelectModeState
 Validation

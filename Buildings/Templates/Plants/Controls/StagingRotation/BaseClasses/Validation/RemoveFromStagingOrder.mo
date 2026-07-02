@@ -1,6 +1,6 @@
-within Buildings.Templates.Plants.Controls.HeatPumps.Subsequences.Validation;
+within Buildings.Templates.Plants.Controls.StagingRotation.BaseClasses.Validation;
 model RemoveFromStagingOrder
-  Buildings.Templates.Plants.Controls.HeatPumps.Subsequences.RemoveFromStagingOrder
+  Buildings.Templates.Plants.Controls.StagingRotation.BaseClasses.RemoveFromStagingOrder
     removeFromStagingOrder(nUni=4)
     annotation (Placement(transformation(extent={{0,-10},{20,10}})));
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant idxSor[4](k={3,1,2,4})

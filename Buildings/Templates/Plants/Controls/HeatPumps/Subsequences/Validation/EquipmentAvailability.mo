@@ -36,25 +36,25 @@ model EquipmentAvailability
     annotation(Placement(transformation(extent={{0,-50},{20,-30}})));
 equation
   connect(u1Ava.y[1], avaHeaCoo.u1Ava)
-    annotation(Line(points={{-58,0},{-2,0}},
+    annotation(Line(points={{-58,0},{-30,0},{-30,-8},{-2,-8}},
       color={255,0,255}));
   connect(u1Ava.y[1], avaHea.u1Ava)
-    annotation(Line(points={{-58,0},{-10,0},{-10,40},{-2,40}},
+    annotation(Line(points={{-58,0},{-10,0},{-10,32},{-2,32}},
       color={255,0,255}));
   connect(u1Hea.y[1], avaHea.u1EnaHea)
-    annotation(Line(points={{-58,40},{-20,40},{-20,44},{-2,44}},
+    annotation(Line(points={{-58,40},{-20,40},{-20,48},{-2,48}},
       color={255,0,255}));
   connect(u1Hea.y[1], avaHeaCoo.u1EnaHea)
-    annotation(Line(points={{-58,40},{-20,40},{-20,4},{-2,4}},
+    annotation(Line(points={{-58,40},{-20,40},{-20,8},{-2,8}},
       color={255,0,255}));
   connect(u1Coo.y[1], avaHeaCoo.u1EnaCoo)
-    annotation(Line(points={{-58,-40},{-20,-40},{-20,-4},{-2,-4}},
+    annotation(Line(points={{-58,-40},{-20,-40},{-20,4},{-2,4}},
       color={255,0,255}));
   connect(u1Ava.y[1], avaCoo.u1Ava)
-    annotation(Line(points={{-58,0},{-10,0},{-10,-40},{-2,-40}},
+    annotation(Line(points={{-58,0},{-10,0},{-10,-48},{-2,-48}},
       color={255,0,255}));
   connect(u1Coo.y[1], avaCoo.u1EnaCoo)
-    annotation(Line(points={{-58,-40},{-20,-40},{-20,-44},{-2,-44}},
+    annotation(Line(points={{-58,-40},{-20,-40},{-20,-36},{-2,-36}},
       color={255,0,255}));
 annotation(__Dymola_Commands(
   file="modelica://Buildings/Resources/Scripts/Dymola/Templates/Plants/Controls/HeatPumps/Subsequences/Validation/EquipmentAvailability.mos"

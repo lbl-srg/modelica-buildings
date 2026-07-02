@@ -5,7 +5,7 @@ block ModeAlternation
     "Number of polyvalent HP"
     annotation(Evaluate=true);
   Buildings.Controls.OBC.CDL.Interfaces.IntegerInput uIdxSor[nPhp]
-    "Indices of polyvalent units sorted by increasing runtime"
+    "Indices of units sorted by increasing runtime"
     annotation(Placement(transformation(extent={{-200,-160},{-160,-120}}),
       iconTransformation(extent={{-140,-20},{-100,20}})));
   Buildings.Controls.OBC.CDL.Interfaces.IntegerInput nHea
@@ -86,26 +86,26 @@ block ModeAlternation
   Buildings.Controls.OBC.CDL.Logical.Pre preShc[nPhp]
     "Enable command of each unit in SHC mode prior to stage transition"
     annotation(Placement(transformation(extent={{-140,-110},{-120,-90}})));
-  Buildings.Templates.Plants.Controls.HeatPumps.Subsequences.RemoveFromStagingOrder remHeaRes(
-    final nUni=nPhp)
+  Buildings.Templates.Plants.Controls.StagingRotation.BaseClasses.RemoveFromStagingOrder
+    remHeaRes(final nUni=nPhp)
     "Restrictive heating order: remove units previously enabled in cooling mode"
-    annotation(Placement(transformation(extent={{-92,-70},{-72,-50}})));
-  Buildings.Templates.Plants.Controls.HeatPumps.Subsequences.RemoveFromStagingOrder remHeaSwi(
-    final nUni=nPhp)
+    annotation (Placement(transformation(extent={{-92,-70},{-72,-50}})));
+  Buildings.Templates.Plants.Controls.StagingRotation.BaseClasses.RemoveFromStagingOrder
+    remHeaSwi(final nUni=nPhp)
     "Heating order at mode switch: also remove units previously enabled in SHC mode"
-    annotation(Placement(transformation(extent={{-40,-90},{-20,-70}})));
-  Buildings.Templates.Plants.Controls.HeatPumps.Subsequences.RemoveFromStagingOrder remCooRes(
-    final nUni=nPhp)
+    annotation (Placement(transformation(extent={{-40,-90},{-20,-70}})));
+  Buildings.Templates.Plants.Controls.StagingRotation.BaseClasses.RemoveFromStagingOrder
+    remCooRes(final nUni=nPhp)
     "Restrictive cooling order: remove units previously enabled in heating mode"
-    annotation(Placement(transformation(extent={{-92,-30},{-72,-10}})));
-  Buildings.Templates.Plants.Controls.HeatPumps.Subsequences.RemoveFromStagingOrder remCooSwi(
-    final nUni=nPhp)
+    annotation (Placement(transformation(extent={{-92,-30},{-72,-10}})));
+  Buildings.Templates.Plants.Controls.StagingRotation.BaseClasses.RemoveFromStagingOrder
+    remCooSwi(final nUni=nPhp)
     "Cooling order at mode switch: also remove units previously enabled in SHC mode"
-    annotation(Placement(transformation(extent={{-40,-50},{-20,-30}})));
-  Buildings.Templates.Plants.Controls.HeatPumps.Subsequences.RemoveFromStagingOrder remShc(
-    final nUni=nPhp)
+    annotation (Placement(transformation(extent={{-40,-50},{-20,-30}})));
+  Buildings.Templates.Plants.Controls.StagingRotation.BaseClasses.RemoveFromStagingOrder
+    remShc(final nUni=nPhp)
     "SHC order: remove units currently enabled in heating or cooling mode"
-    annotation(Placement(transformation(extent={{-40,10},{-20,30}})));
+    annotation (Placement(transformation(extent={{-40,10},{-20,30}})));
   Buildings.Controls.OBC.CDL.Integers.Switch swiHea[nPhp]
     "Apply the mode-switch heating order at a mode switch, the restrictive one otherwise"
     annotation(Placement(transformation(extent={{100,130},{120,150}})));
@@ -215,7 +215,8 @@ equation
   connect(remShc.yIdxSor, yIdxSorShc)
     annotation(Line(points={{-18,20},{180,20}},
       color={255,127,0}));
-annotation(Icon(coordinateSystem(preserveAspectRatio=false),
+annotation(defaultComponentName="selModPhp",
+  Icon(coordinateSystem(preserveAspectRatio=false),
   graphics={Rectangle(extent={{-100,100},{100,-100}},
     lineColor={0,0,0},
     fillColor={255,255,255},

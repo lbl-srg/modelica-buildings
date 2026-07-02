@@ -4,76 +4,79 @@ block AssertMinimumRuntime
   parameter Boolean use_runTim = true
     "Set to true to assert minimum runtime, false for minimum off time"
     annotation(Evaluate=true);
-  parameter Integer nPhp(final min=1) "Number of polyvalent heat pumps";
+  parameter Integer nUni(final min=1) "Number of units";
   parameter Real dt_min(final min=0, final unit="s") = 10 * 60
     "Minimum runtime or off-time";
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput y1HeaPhp[nPhp]
+  parameter String message =
+    if use_runTim
+    then "Polyvalent HP minimum runtime is not met."
+    else "Polyvalent HP minimum off-time is not met."
+    "Warning message";
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1Hea[nUni]
     "Polyvalent HP heating on/off command"
     annotation(Placement(transformation(extent={{-160,40},{-120,80}}),
       iconTransformation(extent={{-140,60},{-100,100}})));
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1CooPhp[nPhp]
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1Coo[nUni]
     "Polyvalent HP cooling on/off command"
     annotation(Placement(transformation(extent={{-160,-100},{-120,-60}}),
       iconTransformation(extent={{-140,-100},{-100,-60}})));
-  Buildings.Controls.OBC.CDL.Logical.Timer timHea[nPhp](each final t=dt_min)
+  Buildings.Controls.OBC.CDL.Logical.Timer timHea[nUni](each final t=dt_min)
     "Timer for heating mode"
     annotation(Placement(transformation(extent={{-60,70},{-40,90}})));
-  Buildings.Controls.OBC.CDL.Logical.FallingEdge falEdgHea[nPhp]
+  Buildings.Controls.OBC.CDL.Logical.FallingEdge falEdgHea[nUni]
     if use_runTim
     "Falling edge of heating on/off command"
     annotation(Placement(transformation(extent={{-100,38},{-80,58}})));
-  Buildings.Controls.OBC.CDL.Logical.Pre preHea[nPhp]
+  Buildings.Controls.OBC.CDL.Logical.Pre preHea[nUni]
     "Left-limit of timer status, before it is reset by the falling/rising edge"
     annotation(Placement(transformation(extent={{-20,50},{0,70}})));
-  Buildings.Controls.OBC.CDL.Logical.Switch swiRunHea[nPhp]
+  Buildings.Controls.OBC.CDL.Logical.Switch swiRunHea[nUni]
     "Select minimum runtime/off-time status at falling/rising edge of heating command"
     annotation(Placement(transformation(extent={{20,30},{40,50}})));
-  Buildings.Controls.OBC.CDL.Logical.Timer timCoo[nPhp](each final t=dt_min)
+  Buildings.Controls.OBC.CDL.Logical.Timer timCoo[nUni](each final t=dt_min)
     "Timer for cooling on/off command"
     annotation(Placement(transformation(extent={{-60,-90},{-40,-70}})));
-  Buildings.Controls.OBC.CDL.Logical.Sources.Constant tru[nPhp](each k=true)
+  Buildings.Controls.OBC.CDL.Logical.Sources.Constant tru[nUni](each k=true)
     "Constant true signal used absent a falling edge"
     annotation(Placement(transformation(extent={{-20,-10},{0,10}})));
-  Buildings.Controls.OBC.CDL.Logical.FallingEdge falEdgCoo[nPhp]
+  Buildings.Controls.OBC.CDL.Logical.FallingEdge falEdgCoo[nUni]
     if use_runTim
     "Falling edge of cooling on/off command"
     annotation(Placement(transformation(extent={{-100,-60},{-80,-40}})));
-  Buildings.Controls.OBC.CDL.Logical.Pre preCoo[nPhp]
+  Buildings.Controls.OBC.CDL.Logical.Pre preCoo[nUni]
     "Left-limit of timer status, before it is reset by the falling/rising edge"
     annotation(Placement(transformation(extent={{-20,-70},{0,-50}})));
-  Buildings.Controls.OBC.CDL.Logical.Switch swiRunCoo[nPhp]
+  Buildings.Controls.OBC.CDL.Logical.Switch swiRunCoo[nUni]
     "Select minimum runtime/off-time status at falling/rising edge of cooling command"
     annotation(Placement(transformation(extent={{20,-50},{40,-30}})));
-  Buildings.Controls.OBC.CDL.Logical.And and2[nPhp]
+  Buildings.Controls.OBC.CDL.Logical.And and2[nUni]
     "True if minimum runtime/off-time is met in both heating and cooling command"
     annotation(Placement(transformation(extent={{60,-10},{80,10}})));
-  Buildings.Controls.OBC.CDL.Utilities.Assert assRunTim[nPhp](
-    each message=if use_runTim
-      then "Polyvalent HP minimum runtime is not met."
-      else "Polyvalent HP minimum off-time is not met.")
+  Buildings.Controls.OBC.CDL.Utilities.Assert assRunTim[nUni](
+    each message=message)
     "Assert that minimum runtime/off-time is met"
     annotation(Placement(transformation(extent={{90,-10},{110,10}})));
-  Buildings.Controls.OBC.CDL.Logical.Not notHea[nPhp]
+  Buildings.Controls.OBC.CDL.Logical.Not notHea[nUni]
     if not use_runTim
     "True if heating disabled"
     annotation(Placement(transformation(extent={{-100,70},{-80,90}})));
-  Buildings.Controls.OBC.CDL.Logical.Edge edgHea[nPhp]
+  Buildings.Controls.OBC.CDL.Logical.Edge edgHea[nUni]
     if not use_runTim
     "Rising edge of heating on/off command"
     annotation(Placement(transformation(extent={{-100,10},{-80,30}})));
-  Buildings.Controls.OBC.CDL.Routing.BooleanScalarReplicator pasHea[nPhp]
+  Buildings.Controls.OBC.CDL.Routing.BooleanScalarReplicator pasHea[nUni]
     if use_runTim
     "Direct pass-through for heating command"
     annotation(Placement(transformation(extent={{-100,100},{-80,120}})));
-  Buildings.Controls.OBC.CDL.Logical.Edge edgCoo[nPhp]
+  Buildings.Controls.OBC.CDL.Logical.Edge edgCoo[nUni]
     if not use_runTim
     "Rising edge of cooling on/off command"
     annotation(Placement(transformation(extent={{-100,-30},{-80,-10}})));
-  Buildings.Controls.OBC.CDL.Logical.Not notCoo[nPhp]
+  Buildings.Controls.OBC.CDL.Logical.Not notCoo[nUni]
     if not use_runTim
     "True if cooling disabled"
     annotation(Placement(transformation(extent={{-100,-122},{-80,-102}})));
-  Buildings.Controls.OBC.CDL.Routing.BooleanScalarReplicator pasCoo[nPhp]
+  Buildings.Controls.OBC.CDL.Routing.BooleanScalarReplicator pasCoo[nUni]
     if use_runTim
     "Direct pass-through for cooling command"
     annotation(Placement(transformation(extent={{-100,-90},{-80,-70}})));
@@ -111,40 +114,40 @@ equation
   connect(and2.y, assRunTim.u)
     annotation(Line(points={{82,0},{88,0}},
       color={255,0,255}));
-  connect(u1CooPhp, falEdgCoo.u)
+  connect(u1Coo, falEdgCoo.u)
     annotation(Line(points={{-140,-80},{-110,-80},{-110,-50},{-102,-50}},
       color={255,0,255}));
   connect(notHea.y, timHea.u)
     annotation(Line(points={{-78,80},{-62,80}},
       color={255,0,255}));
-  connect(y1HeaPhp, notHea.u)
+  connect(u1Hea, notHea.u)
     annotation(Line(points={{-140,60},{-110,60},{-110,80},{-102,80}},
       color={255,0,255}));
-  connect(y1HeaPhp, pasHea.u)
+  connect(u1Hea, pasHea.u)
     annotation(Line(points={{-140,60},{-110,60},{-110,110},{-102,110}},
       color={255,0,255}));
   connect(pasHea.y[1], timHea.u)
     annotation(Line(points={{-78,110},{-70,110},{-70,80},{-62,80}},
       color={255,0,255}));
-  connect(y1HeaPhp, falEdgHea.u)
+  connect(u1Hea, falEdgHea.u)
     annotation(Line(points={{-140,60},{-110,60},{-110,48},{-102,48}},
       color={255,0,255}));
-  connect(y1HeaPhp, edgHea.u)
+  connect(u1Hea, edgHea.u)
     annotation(Line(points={{-140,60},{-110,60},{-110,20},{-102,20}},
       color={255,0,255}));
   connect(edgHea.y, swiRunHea.u2)
     annotation(Line(points={{-78,20},{-60,20},{-60,40},{18,40}},
       color={255,0,255}));
-  connect(u1CooPhp, edgCoo.u)
+  connect(u1Coo, edgCoo.u)
     annotation(Line(points={{-140,-80},{-110,-80},{-110,-20},{-102,-20}},
       color={255,0,255}));
-  connect(u1CooPhp, pasCoo.u)
+  connect(u1Coo, pasCoo.u)
     annotation(Line(points={{-140,-80},{-102,-80}},
       color={255,0,255}));
   connect(pasCoo.y[1], timCoo.u)
     annotation(Line(points={{-78,-80},{-62,-80}},
       color={255,0,255}));
-  connect(u1CooPhp, notCoo.u)
+  connect(u1Coo, notCoo.u)
     annotation(Line(points={{-140,-80},{-110,-80},{-110,-112},{-102,-112}},
       color={255,0,255}));
   connect(notCoo.y, timCoo.u)
