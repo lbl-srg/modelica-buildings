@@ -36,7 +36,7 @@ env:
     - OPTIMICA_VERSION=travis-ubuntu-2404-optimica:1.66
     - DYMOLA_VERSION=travis_ubuntu-2404_dymola:2026x-x86_64
     - ENERGYPLUS_23_1_0=EnergyPlus-23.1.0-87ed9199d4-Linux-Ubuntu20.04-x86_64
-    - MODELICA_JSON_VERSION=7d863069dcc37dc409a452af972140c13ea260e6
+    - MODELICA_JSON_VERSION=e384b20cbc3ac292dc684d3a26cbeeefaf0710a3
     - MODELICA_JSON_HOME=${TRAVIS_BUILD_DIR}/modelica-json
 
   jobs:
