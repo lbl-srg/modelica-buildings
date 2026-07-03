@@ -13,6 +13,8 @@ model AirToWaterReversiblePolyvalent
       ctl(
         have_senVHeaWatPri_select=true,
         have_senVChiWatPri_select=true,
+        have_senTChiWatPriRet_select=true,
+        have_senTHeaWatPriRet_select=true,
         have_senTChiWatSecRet_select=true,
         have_senTHeaWatSecRet_select=true)),
     ratLoa(
@@ -25,8 +27,8 @@ model AirToWaterReversiblePolyvalent
         16, 0, 1;
         18, 0, 0.6;
         22, 0.1, 0.1;
-        24, 0, 0
-      ]));
+        24, 0, 0])
+        );
 annotation(__Dymola_Commands(
   file="modelica://Buildings/Resources/Scripts/Dymola/Templates/Plants/HeatPumps/Validation/AirToWaterReversiblePolyvalent.mos"
     "Simulate and plot"),

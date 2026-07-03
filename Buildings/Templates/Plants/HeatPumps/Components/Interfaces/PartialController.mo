@@ -62,7 +62,7 @@ block PartialController
           Buildings.Templates.Plants.HeatPumps.Types.Controller.OpenLoop
           and cfg.have_heaWat
           and not cfg.have_hrc
-          and have_senVHeaWatSec
+          and have_senTHeaWatSecRet and have_senVHeaWatSec
           and cfg.typDis <>
             Buildings.Templates.Plants.HeatPumps.Types.Distribution.Variable1Only));
   parameter Boolean have_senVChiWatPri_select(start=false) =
@@ -74,7 +74,7 @@ block PartialController
           Buildings.Templates.Plants.HeatPumps.Types.Controller.OpenLoop
           and cfg.have_chiWat
           and not cfg.have_hrc
-          and have_senVChiWatSec
+          and have_senTChiWatSecRet and have_senVChiWatSec
           and cfg.typDis <>
             Buildings.Templates.Plants.HeatPumps.Types.Distribution.Variable1Only));
   parameter Boolean have_senTHeaWatPriRet_select(start=false) = false
@@ -83,9 +83,11 @@ block PartialController
       Dialog(group="Configuration",
         enable=typ <>
           Buildings.Templates.Plants.HeatPumps.Types.Controller.OpenLoop
+          and cfg.typDis <>
+            Buildings.Templates.Plants.HeatPumps.Types.Distribution.Variable1Only
           and cfg.have_heaWat
           and not cfg.have_hrc
-        and have_senTHeaWatSecRet));
+        and have_senTHeaWatSecRet and have_senVHeaWatSec));
   parameter Boolean have_senTChiWatPriRet_select(start=false) =
     have_senTHeaWatPriRet_select
     "Set to true for plants with primary CHW return temperature sensor"
@@ -93,9 +95,11 @@ block PartialController
       Dialog(group="Configuration",
         enable=typ <>
           Buildings.Templates.Plants.HeatPumps.Types.Controller.OpenLoop
+          and cfg.typDis <>
+            Buildings.Templates.Plants.HeatPumps.Types.Distribution.Variable1Only
           and cfg.have_chiWat
           and not cfg.have_hrc
-        and have_senTChiWatSecRet));
+        and have_senTChiWatSecRet and have_senVChiWatSec));
   // Following return temperature sensors are:
   // - optional for primary-secondary plants without HRC,
   // - required for plants with HRC: downstream of HRC.

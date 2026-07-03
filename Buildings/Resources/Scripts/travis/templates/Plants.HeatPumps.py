@@ -143,10 +143,23 @@ REMOVE_MODIF = {
                 'have_pumPriDedComHp_select',
             ],
         ),
-        # Controls/HeatPumps/AirToWater.mo:
+        # Controls/HeatPumps/AirToWater.mo: primary flow and primary return temperature sensors
+        # are forced together, based on the completeness of the *secondary pair* (flow AND return
+        # temperature), so that the staging logic always has access to either a complete primary
+        # pair or a complete secondary pair (it uses the primary pair when available, and falls
+        # back to the secondary pair otherwise):
+        #   final parameter Boolean have_senVHeaWatPri =
+        #     have_heaWat and (if is_priOnl or have_hrc or
+        #       not (have_senTHeaWatSecRet and have_senVHeaWatSec)
+        #       then true else have_senVHeaWatPri_select);
+        #   final parameter Boolean have_senTHeaWatPriRet =
+        #     have_heaWat and (if is_priOnl or have_hrc or
+        #       not (have_senTHeaWatSecRet and have_senVHeaWatSec)
+        #       then true else have_senTHeaWatPriRet_select);
         # With typDis=Variable1Only, is_priOnl=true, so have_senVHeaWatSec=have_pumHeaWatSec=false:
-        # have_senVHeaWatPri is forced to true, have_senTHeaWatSecRet is forced to false (hence
-        # have_senTHeaWatPriRet is also forced to true, see rule below), regardless of selection.
+        # the secondary pair can never be complete, so have_senVHeaWatPri and have_senTHeaWatPriRet
+        # are both forced to true, and have_senTHeaWatSecRet is forced to false, regardless of
+        # selection.
         (
             [
                 'Buildings.Templates.Plants.HeatPumps.Types.Distribution.Variable1Only',
@@ -157,15 +170,19 @@ REMOVE_MODIF = {
                 'have_senTHeaWatPriRet_select',
             ],
         ),
-        # Controls/HeatPumps/AirToWater.mo: have_senTHeaWatPriRet_select is only used if
-        # have_senTHeaWatSecRet is true (see rule above). So whenever have_senTHeaWatSecRet_select
-        # is explicitly set to false, have_senTHeaWatPriRet is forced to true regardless of
-        # have_senTHeaWatPriRet_select.
+        # Controls/HeatPumps/AirToWater.mo: have_senVHeaWatPri_select and have_senTHeaWatPriRet_select
+        # are only used if the secondary pair (have_senVHeaWatSec and have_senTHeaWatSecRet) is
+        # complete (see rule above). Outside of is_priOnl/have_hrc (already handled by other rules),
+        # have_senVHeaWatSec is unconditionally true and have_senTHeaWatSecRet reduces to exactly
+        # have_senTHeaWatSecRet_select, so "secondary pair complete" reduces to exactly
+        # have_senTHeaWatSecRet_select. Whenever have_senTHeaWatSecRet_select is false, the secondary
+        # pair is incomplete and both primary selections are forced to true.
         (
             [
                 'have_senTHeaWatSecRet_select=false',
             ],
             [
+                'have_senVHeaWatPri_select',
                 'have_senTHeaWatPriRet_select',
             ],
         ),

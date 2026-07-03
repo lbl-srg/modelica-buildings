@@ -130,7 +130,7 @@ createPlot(
 createPlot(
     id=6,
     subPlot=3,
-    y={"pla.hp.hp[1].hp.PLR", "pla.hp.hp[2].hp.PLR", "pla.hp.hp[3].hp.PLR"},
+    y={"pla.hp.hp[1].hp.PLR", "pla.hp.hp[2].hp.PLR"},
     autoscale=true,
     grid=true,
     timeUnit="h"

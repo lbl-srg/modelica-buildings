@@ -27,7 +27,7 @@ block AssertMinimumRuntime
     if use_runTim
     "Falling edge of heating on/off command"
     annotation(Placement(transformation(extent={{-100,38},{-80,58}})));
-  Buildings.Controls.OBC.CDL.Logical.Pre preHea[nUni]
+  Buildings.Controls.OBC.CDL.Logical.Pre preHea[nUni](each pre_u_start=true)
     "Left-limit of timer status, before it is reset by the falling/rising edge"
     annotation(Placement(transformation(extent={{-20,50},{0,70}})));
   Buildings.Controls.OBC.CDL.Logical.Switch swiRunHea[nUni]
@@ -43,7 +43,7 @@ block AssertMinimumRuntime
     if use_runTim
     "Falling edge of cooling on/off command"
     annotation(Placement(transformation(extent={{-100,-60},{-80,-40}})));
-  Buildings.Controls.OBC.CDL.Logical.Pre preCoo[nUni]
+  Buildings.Controls.OBC.CDL.Logical.Pre preCoo[nUni](each pre_u_start=true)
     "Left-limit of timer status, before it is reset by the falling/rising edge"
     annotation(Placement(transformation(extent={{-20,-70},{0,-50}})));
   Buildings.Controls.OBC.CDL.Logical.Switch swiRunCoo[nUni]
