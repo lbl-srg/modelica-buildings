@@ -312,6 +312,14 @@ annotation(defaultComponentName="seqEve",
   to a group of <code>nHp</code> reversible heat pumps and <code>nPhp</code>
   polyvalent heat pumps.
 </p>
+<p>
+  To facilitate integration into plant controllers serving both reversible 
+  and polyvalent heat pumps, the output connectors for the isolation valve 
+  commands and the primary pump enable commands have always the same
+  dimension <code>nHp + nPhp</code>. 
+  When a piece of equipment is not present for a given unit, the  
+  corresponding array element is set to <code>false</code>.
+</p>
 </html>",
     revisions="<html>
 <ul>

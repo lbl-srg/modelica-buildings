@@ -10,25 +10,22 @@ block AirToWater
     "Set to true for plants that provide HW"
     annotation(Evaluate=true,
       Dialog(group="Plant configuration"));
-  final parameter Boolean have_chiWat =
-    typ <> Buildings.Templates.Plants.Controls.Types.PlantHeatPump.HeatingOnly
+  final parameter Boolean have_chiWat = typ <>
+    Buildings.Templates.Plants.Controls.Types.PlantHeatPump.HeatingOnly
     "Set to true for plants that provide CHW"
     annotation(Evaluate=true,
       Dialog(group="Plant configuration"));
-  final parameter Boolean have_hrc =
-    typ ==
-      Buildings.Templates.Plants.Controls.Types.PlantHeatPump.ReversibleHeatRecovery
+  final parameter Boolean have_hrc = typ ==
+    Buildings.Templates.Plants.Controls.Types.PlantHeatPump.ReversibleHeatRecovery
     "Set to true for plants with sidestream heat recovery chiller"
     annotation(Evaluate=true);
-  final parameter Boolean have_hp =
-    typ <> Buildings.Templates.Plants.Controls.Types.PlantHeatPump.Polyvalent
+  final parameter Boolean have_hp = typ <>
+    Buildings.Templates.Plants.Controls.Types.PlantHeatPump.Polyvalent
     "Set to true for plants with 2-pipe heat pumps"
     annotation(Evaluate=true);
-  final parameter Boolean have_php =
-    typ ==
-      Buildings.Templates.Plants.Controls.Types.PlantHeatPump.ReversiblePolyvalent
-      or typ ==
-        Buildings.Templates.Plants.Controls.Types.PlantHeatPump.Polyvalent
+  final parameter Boolean have_php = typ ==
+    Buildings.Templates.Plants.Controls.Types.PlantHeatPump.ReversiblePolyvalent
+    or typ == Buildings.Templates.Plants.Controls.Types.PlantHeatPump.Polyvalent
     "Set to true for plants with polyvalent heat pumps"
     annotation(Evaluate=true);
   parameter Boolean is_priOnl = false
@@ -63,13 +60,13 @@ block AirToWater
     annotation(Evaluate=true,
       Dialog(enable=have_chiWat and not have_pumPriHdr and have_hp,
         group="Plant configuration"));
-  final parameter Boolean have_pumChiWatPriDedHp =
-    if have_hp and have_chiWat and not have_pumPriHdr
-    then have_pumChiWatPriDedHp_select else false
+  final parameter Boolean have_pumChiWatPriDedHp = if have_hp
+    and have_chiWat
+    and not have_pumPriHdr then have_pumChiWatPriDedHp_select else false
     "Set to true for HP with separate dedicated primary CHW pumps"
     annotation(Evaluate=true);
-  final parameter Boolean have_pumChiWatPri =
-    have_chiWat and (have_pumPriHdr or have_pumChiWatPriDedHp or have_php)
+  final parameter Boolean have_pumChiWatPri = have_chiWat
+    and (have_pumPriHdr or have_pumChiWatPriDedHp or have_php)
     "Set to true for HP with separate dedicated primary pumps for CHW and HW circuits"
     annotation(Evaluate=true);
   parameter Boolean have_pumPriHdr
@@ -86,12 +83,12 @@ block AirToWater
     annotation(Evaluate=true,
       Dialog(group="Plant configuration",
         enable=have_pumChiWatPri and not is_priOnl));
-  final parameter Boolean have_pumHeaWatPriVar =
-    have_pumHeaWatPri and (is_priOnl or have_pumHeaWatPriVar_select)
+  final parameter Boolean have_pumHeaWatPriVar = have_pumHeaWatPri
+    and (is_priOnl or have_pumHeaWatPriVar_select)
     "Set to true for variable speed primary HW pumps, false for constant speed pumps"
     annotation(Evaluate=true);
-  final parameter Boolean have_pumChiWatPriVar =
-    have_pumChiWatPri and (is_priOnl or have_pumChiWatPriVar_select)
+  final parameter Boolean have_pumChiWatPriVar = have_pumChiWatPri
+    and (is_priOnl or have_pumChiWatPriVar_select)
     "Set to true for variable speed primary CHW pumps, false for constant speed pumps"
     annotation(Evaluate=true);
   final parameter Boolean have_pumPriCtlDp = is_priOnl
@@ -110,8 +107,8 @@ block AirToWater
     annotation(Evaluate=true,
       Dialog(group="Plant configuration"));
   // Only ∆p controlled variable speed pumps are supported for secondary pumps.
-  final parameter Boolean have_pumSecCtlDp =
-    have_pumHeaWatSec or have_pumChiWatSec
+  final parameter Boolean have_pumSecCtlDp = have_pumHeaWatSec
+    or have_pumChiWatSec
     "Set to true for secondary variable speed pumps using ∆p pump speed control"
     annotation(Evaluate=true,
       Dialog(group="Plant configuration"));
@@ -126,12 +123,13 @@ block AirToWater
         enable=have_heaWat
           and not is_priOnl
           and not have_hrc
-          and have_senTHeaWatSecRet and have_senVHeaWatSec));
-  final parameter Boolean have_senVHeaWatPri =
-    have_heaWat
-      and (if is_priOnl or have_hrc or
-      not (have_senTHeaWatSecRet and have_senVHeaWatSec)
-      then true else have_senVHeaWatPri_select)
+          and have_senTHeaWatSecRet
+          and have_senVHeaWatSec));
+  final parameter Boolean have_senVHeaWatPri = have_heaWat
+    and (if is_priOnl
+      or have_hrc
+      or not (have_senTHeaWatSecRet and have_senVHeaWatSec) then true
+      else have_senVHeaWatPri_select)
     "Set to true for plants with primary HW flow sensor"
     annotation(Evaluate=true,
       Dialog(group="Sensors"));
@@ -147,12 +145,13 @@ block AirToWater
         enable=have_chiWat
           and not is_priOnl
           and not have_hrc
-          and have_senTChiWatSecRet and have_senVChiWatSec));
-  final parameter Boolean have_senVChiWatPri =
-    have_chiWat
-      and (if is_priOnl or have_hrc or
-      not (have_senTChiWatSecRet and have_senVChiWatSec)
-      then true else have_senVChiWatPri_select)
+          and have_senTChiWatSecRet
+          and have_senVChiWatSec));
+  final parameter Boolean have_senVChiWatPri = have_chiWat
+    and (if is_priOnl
+      or have_hrc
+      or not (have_senTChiWatSecRet and have_senVChiWatSec) then true
+      else have_senVChiWatPri_select)
     "Set to true for plants with primary CHW flow sensor"
     annotation(Evaluate=true,
       Dialog(group="Sensors"));
@@ -168,12 +167,13 @@ block AirToWater
         enable=have_heaWat
           and not is_priOnl
           and not have_hrc
-          and have_senTHeaWatSecRet and have_senVHeaWatSec));
-  final parameter Boolean have_senTHeaWatPriRet =
-    have_heaWat
-      and (if is_priOnl or have_hrc or
-      not (have_senTHeaWatSecRet and have_senVHeaWatSec)
-      then true else have_senTHeaWatPriRet_select)
+          and have_senTHeaWatSecRet
+          and have_senVHeaWatSec));
+  final parameter Boolean have_senTHeaWatPriRet = have_heaWat
+    and (if is_priOnl
+      or have_hrc
+      or not (have_senTHeaWatSecRet and have_senVHeaWatSec) then true
+      else have_senTHeaWatPriRet_select)
     "Set to true for plants with primary HW return temperature sensor"
     annotation(Evaluate=true,
       Dialog(group="Sensors"));
@@ -184,12 +184,13 @@ block AirToWater
         enable=have_chiWat
           and not is_priOnl
           and not have_hrc
-          and have_senTChiWatSecRet and have_senVChiWatSec));
-  final parameter Boolean have_senTChiWatPriRet =
-    have_chiWat
-      and (if is_priOnl or have_hrc or
-      not (have_senTChiWatSecRet and have_senVChiWatSec)
-      then true else have_senTChiWatPriRet_select)
+          and have_senTChiWatSecRet
+          and have_senVChiWatSec));
+  final parameter Boolean have_senTChiWatPriRet = have_chiWat
+    and (if is_priOnl
+      or have_hrc
+      or not (have_senTChiWatSecRet and have_senVChiWatSec) then true
+      else have_senTChiWatPriRet_select)
     "Set to true for plants with primary CHW return temperature sensor"
     annotation(Evaluate=true,
       Dialog(group="Sensors"));
@@ -216,19 +217,12 @@ block AirToWater
     annotation(Evaluate=true,
       Dialog(group="Sensors",
         enable=have_pumChiWatSec and not have_hrc));
-  final parameter Boolean have_senTHeaWatSecRet =
-    if have_hrc
-    then true
-    elseif not have_pumHeaWatSec
-    then false
-    else have_senTHeaWatSecRet_select
+  final parameter Boolean have_senTHeaWatSecRet = if have_hrc then true
+    elseif not have_pumHeaWatSec then false else have_senTHeaWatSecRet_select
     "Set to true for plants with secondary HW return temperature sensor"
     annotation(Evaluate=true);
-  final parameter Boolean have_senTChiWatSecRet(start=false) =
-    if have_hrc
-    then true
-    elseif not have_pumChiWatSec
-    then false
+  final parameter Boolean have_senTChiWatSecRet(start=false) = if have_hrc
+    then true elseif not have_pumChiWatSec then false
     else have_senTChiWatSecRet_select
     "Set to true for plants with secondary CHW return temperature sensor"
     annotation(Evaluate=true);
@@ -257,20 +251,17 @@ block AirToWater
     annotation(Evaluate=true,
       Dialog(group="Plant configuration",
         enable=have_pumHeaWatPri and have_pumPriHdr));
-  final parameter Integer nPumHeaWatPriDedHp =
-    if have_hp and not have_pumPriHdr then nHp else 0
+  final parameter Integer nPumHeaWatPriDedHp = if have_hp and not have_pumPriHdr
+    then nHp else 0
     "Number of dedicated primary HW pumps serving HP"
     annotation(Evaluate=true);
-  final parameter Integer nPumHeaWatPriDedPhp =
-    if have_php and not have_pumPriHdr then nPhp else 0
+  final parameter Integer nPumHeaWatPriDedPhp = if have_php
+    and not have_pumPriHdr then nPhp else 0
     "Number of dedicated primary HW pumps serving polyvalent HP"
     annotation(Evaluate=true);
-  final parameter Integer nPumHeaWatPri =
-    if have_pumHeaWatPri and have_pumPriHdr
-    then nPumHeaWatPri_select
-    elseif have_pumHeaWatPri and not have_pumPriHdr
-    then nHp + nPhp
-    else 0
+  final parameter Integer nPumHeaWatPri = if have_pumHeaWatPri
+    and have_pumPriHdr then nPumHeaWatPri_select
+    elseif have_pumHeaWatPri and not have_pumPriHdr then nHp + nPhp else 0
     "Number of primary HW pumps"
     annotation(Evaluate=true);
   parameter Integer nPumChiWatPri_select(
@@ -280,17 +271,16 @@ block AirToWater
     annotation(Evaluate=true,
       Dialog(group="Plant configuration",
         enable=have_pumChiWatPri and have_pumPriHdr));
-  final parameter Integer nPumChiWatPriDedHp =
-    if have_pumChiWatPriDedHp then nHp else 0
+  final parameter Integer nPumChiWatPriDedHp = if have_pumChiWatPriDedHp
+    then nHp else 0
     "Number of dedicated primary CHW pumps serving HP"
     annotation(Evaluate=true);
-  final parameter Integer nPumChiWatPriDedPhp =
-    if have_php and not have_pumPriHdr then nPhp else 0
+  final parameter Integer nPumChiWatPriDedPhp = if have_php
+    and not have_pumPriHdr then nPhp else 0
     "Number of dedicated primary CHW pumps serving polyvalent HP"
     annotation(Evaluate=true);
-  final parameter Integer nPumChiWatPri =
-    if have_pumChiWatPri and have_pumPriHdr
-    then nPumChiWatPri_select
+  final parameter Integer nPumChiWatPri = if have_pumChiWatPri
+    and have_pumPriHdr then nPumChiWatPri_select
     elseif have_pumChiWatPri and not have_pumPriHdr
     then nPumChiWatPriDedHp + nPumChiWatPriDedPhp
     else 0
@@ -303,8 +293,8 @@ block AirToWater
     annotation(Evaluate=true,
       Dialog(group="Plant configuration",
         enable=have_pumHeaWatSec));
-  final parameter Integer nPumHeaWatSec =
-    if have_pumHeaWatSec then nPumHeaWatSec_select else 0
+  final parameter Integer nPumHeaWatSec = if have_pumHeaWatSec
+    then nPumHeaWatSec_select else 0
     "Number of secondary HW pumps"
     annotation(Evaluate=true);
   parameter Integer nPumChiWatSec_select(
@@ -314,8 +304,8 @@ block AirToWater
     annotation(Evaluate=true,
       Dialog(group="Plant configuration",
         enable=have_pumChiWatSec));
-  final parameter Integer nPumChiWatSec =
-    if have_pumChiWatSec then nPumChiWatSec_select else 0
+  final parameter Integer nPumChiWatSec = if have_pumChiWatSec
+    then nPumChiWatSec_select else 0
     "Number of secondary CHW pumps"
     annotation(Evaluate=true);
   parameter Boolean have_senDpHeaWatRemWir(start=false) = false
@@ -415,8 +405,8 @@ block AirToWater
     annotation(Evaluate=true,
       Dialog(group="Information provided by designer",
         enable=have_php and is_priOnl));
-  parameter Real VHeaWatPri_flow_nominal(min=0, start=0, unit="m3/s") =
-    sum(cat(1, VHeaWatHp_flow_nominal, VHeaWatPhp_flow_nominal))
+  parameter Real VHeaWatPri_flow_nominal(min=0, start=0, unit="m3/s") = sum(
+    cat(1, VHeaWatHp_flow_nominal, VHeaWatPhp_flow_nominal))
     "Primary HW volume flow rate"
     annotation(Evaluate=true,
       Dialog(group="Information provided by designer",
@@ -541,8 +531,8 @@ block AirToWater
     annotation(Evaluate=true,
       Dialog(group="Information provided by designer",
         enable=have_php and is_priOnl));
-  parameter Real VChiWatPri_flow_nominal(min=0, start=0, unit="m3/s") =
-    sum(cat(1, VChiWatHp_flow_nominal, VChiWatPhp_flow_nominal))
+  parameter Real VChiWatPri_flow_nominal(min=0, start=0, unit="m3/s") = sum(
+    cat(1, VChiWatHp_flow_nominal, VChiWatPhp_flow_nominal))
     "Primary CHW volume flow rate"
     annotation(Evaluate=true,
       Dialog(group="Information provided by designer",
@@ -646,14 +636,12 @@ block AirToWater
   final parameter Integer nSta = if have_php then nHp + nPhp else nStaHp
     "Number of stages"
     annotation(Evaluate=true);
-  final parameter Integer nAltHp(final min=0) =
-    if have_hp and not have_php
-    then (if nHp == 1
-      then 1
+  final parameter Integer nAltHp(final min=0) = if have_hp and not have_php
+    then (if nHp == 1 then 1
       else max(
         {sum(
-          {(if staHp[i, j] > 0 and staHp[i, j] < 1
-          then 1 else 0) for j in 1:nHp}) for i in 1:nStaHp}))
+          {(if staHp[i, j] > 0 and staHp[i, j] < 1 then 1
+            else 0) for j in 1:nHp}) for i in 1:nStaHp}))
     else nHp
     "Number of lead/lag alternate heat pumps"
     annotation(Evaluate=true);
@@ -664,8 +652,8 @@ block AirToWater
     annotation(Evaluate=true,
       Dialog(group="Equipment staging and rotation",
         enable=have_hp and not have_php));
-  final parameter Integer idxAltHp[:] =
-    if have_hp and not have_php then idxAltHp_select else 1:nHp
+  final parameter Integer idxAltHp[:] = if have_hp and not have_php
+    then idxAltHp_select else 1:nHp
     "Indices of lead/lag alternate heat pumps"
     annotation(Evaluate=true,
       Dialog(group="Equipment staging and rotation"));
@@ -1444,7 +1432,7 @@ block AirToWater
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant u1AvaHp[nHp](each k=true)
     if have_hp
     "Heat pump available signal – Block does not handle faulted equipment yet"
-    annotation(Placement(transformation(extent={{-240,270},{-220,290}}),
+    annotation(Placement(transformation(extent={{-230,270},{-210,290}}),
       iconTransformation(extent={{-240,220},{-200,260}})));
   Enabling.Enable enaHea(
     final typ=Buildings.Templates.Plants.Controls.Types.Application.Heating,
@@ -1479,7 +1467,7 @@ block AirToWater
     final nAltHp_select=nAltHp,
     final nPhp=nPhp)
     "Compute enable command for equipment in heating mode"
-    annotation(Placement(transformation(extent={{50,348},{70,368}})));
+    annotation(Placement(transformation(extent={{50,346},{70,370}})));
   Subsequences.EventSequencingMultiple seqEve(
     final nHp=nHp,
     final nPhp=nPhp,
@@ -1510,11 +1498,9 @@ block AirToWater
     final have_inpPlrSta=false,
     final plrSta=plrSta,
     final staEqu=if have_php then staPhp.staHea else staHp,
-    final capEqu={if i <= nHp
-    then capHeaHp_nominal[i]
-    elseif i <= nHp + nPhp
-    then capHeaPhp_nominal[i - nHp]
-    else capHeaShcPhp_nominal[i - nHp - nPhp] for i in 1:nHp + 2 * nPhp},
+    final capEqu={if i <= nHp then capHeaHp_nominal[i]
+      elseif i <= nHp + nPhp then capHeaPhp_nominal[i - nHp]
+      else capHeaShcPhp_nominal[i - nHp - nPhp] for i in 1:nHp + 2 * nPhp},
     final dtRun=dtRunSta,
     final cp_default=cp_default,
     final rho_default=rho_default,
@@ -1543,11 +1529,9 @@ block AirToWater
     final have_inpPlrSta=false,
     final plrSta=plrSta,
     final staEqu=if have_php then staPhp.staCoo else staHp,
-    final capEqu={if i <= nHp
-    then capCooHp_nominal[i]
-    elseif i <= nHp + nPhp
-    then capCooPhp_nominal[i - nHp]
-    else capCooShcPhp_nominal[i - nHp - nPhp] for i in 1:nHp + 2 * nPhp},
+    final capEqu={if i <= nHp then capCooHp_nominal[i]
+      elseif i <= nHp + nPhp then capCooPhp_nominal[i - nHp]
+      else capCooShcPhp_nominal[i - nHp - nPhp] for i in 1:nHp + 2 * nPhp},
     final dtRun=dtRunSta,
     final cp_default=cp_default,
     final rho_default=rho_default,
@@ -1579,10 +1563,10 @@ block AirToWater
   Pumps.Generic.StagingHeadered staPumHeaWatPri(
     final is_pri=true,
     final is_ctlDp=have_pumPriCtlDp,
-    final have_valInlIso=if have_hp
-      then have_valHpInlIso else have_valPhpInlIso,
-    final have_valOutIso=if have_hp
-      then have_valHpOutIso else have_valPhpOutIso,
+    final have_valInlIso=if have_hp then have_valHpInlIso
+      else have_valPhpInlIso,
+    final have_valOutIso=if have_hp then have_valHpOutIso
+      else have_valPhpOutIso,
     final nEqu=nHp + nPhp,
     final nPum=nPumHeaWatPri,
     final is_hdr=have_pumPriHdr,
@@ -1602,10 +1586,10 @@ block AirToWater
   Pumps.Generic.StagingHeadered staPumChiWatPri(
     final is_pri=true,
     final is_ctlDp=have_pumPriCtlDp,
-    final have_valInlIso=if have_hp
-      then have_valHpInlIso else have_valPhpInlIso,
-    final have_valOutIso=if have_hp
-      then have_valHpOutIso else have_valPhpOutIso,
+    final have_valInlIso=if have_hp then have_valHpInlIso
+      else have_valPhpInlIso,
+    final have_valOutIso=if have_hp then have_valHpOutIso
+      else have_valPhpOutIso,
     final nEqu=nHp + nPhp,
     final nPum=nPumChiWatPri,
     final is_hdr=have_pumPriHdr,
@@ -1832,18 +1816,14 @@ block AirToWater
     final have_valOutIso=have_valHpOutIso or have_valPhpOutIso,
     final k=kValMinByp,
     final Ti=TiValMinByp,
-    final VChiWat_flow_min={if i <= nHp
-    then VChiWatHp_flow_min[i]
-    else VChiWatPhp_flow_min[i - nHp] for i in 1:nHp + nPhp},
-    final VChiWat_flow_nominal={if i <= nHp
-    then VChiWatHp_flow_nominal[i]
-    else VChiWatPhp_flow_nominal[i - nHp] for i in 1:nHp + nPhp},
-    final VHeaWat_flow_min={if i <= nHp
-    then VHeaWatHp_flow_min[i]
-    else VHeaWatPhp_flow_min[i - nHp] for i in 1:nHp + nPhp},
-    final VHeaWat_flow_nominal={if i <= nHp
-    then VHeaWatHp_flow_nominal[i]
-    else VHeaWatPhp_flow_nominal[i - nHp] for i in 1:nHp + nPhp})
+    final VChiWat_flow_min={if i <= nHp then VChiWatHp_flow_min[i]
+      else VChiWatPhp_flow_min[i - nHp] for i in 1:nHp + nPhp},
+    final VChiWat_flow_nominal={if i <= nHp then VChiWatHp_flow_nominal[i]
+      else VChiWatPhp_flow_nominal[i - nHp] for i in 1:nHp + nPhp},
+    final VHeaWat_flow_min={if i <= nHp then VHeaWatHp_flow_min[i]
+      else VHeaWatPhp_flow_min[i - nHp] for i in 1:nHp + nPhp},
+    final VHeaWat_flow_nominal={if i <= nHp then VHeaWatHp_flow_nominal[i]
+      else VHeaWatPhp_flow_nominal[i - nHp] for i in 1:nHp + nPhp})
     if is_priOnl
     "CHW/HW minimum flow bypass valve controller"
     annotation(Placement(transformation(extent={{202,-250},{222,-218}})));
@@ -1863,11 +1843,11 @@ block AirToWater
     each k=true)
     if have_php
     "Polyvalent heat pump available signal – Block does not handle faulted equipment yet"
-    annotation(Placement(transformation(extent={{-240,410},{-220,430}}),
+    annotation(Placement(transformation(extent={{-230,410},{-210,430}}),
       iconTransformation(extent={{-240,220},{-200,260}})));
   PolyvalentHeatPumps.StagingParameters staPhp(final nHp=nHp, final nPhp=nPhp)
     "Staging parameters for plants with polyvalent HP"
-    annotation(Placement(transformation(extent={{-240,470},{-220,490}})));
+    annotation(Placement(transformation(extent={{-230,470},{-210,490}})));
   Subsequences.EquipmentAvailability avaHeaCooPhp[nPhp](
     each final is_php=true,
     each final have_heaWat=have_heaWat,
@@ -1899,18 +1879,18 @@ block AirToWater
     annotation(Placement(transformation(extent={{-230,210},{-210,230}})));
   Buildings.Controls.OBC.CDL.Utilities.Assert assMes(
     message="Primary-secondary plants with headered pumps are not supported when both reversible and polyvalent HP are present")
-    annotation(Placement(transformation(extent={{210,-470},{230,-450}})));
+    annotation(Placement(transformation(extent={{210,-450},{230,-430}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant con(final k=is_priOnl)
-    annotation(Placement(transformation(extent={{100,-450},{120,-430}})));
+    annotation(Placement(transformation(extent={{100,-430},{120,-410}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant con1(
     k=typ <>
       Buildings.Templates.Plants.Controls.Types.PlantHeatPump.ReversiblePolyvalent)
-    annotation(Placement(transformation(extent={{130,-470},{150,-450}})));
+    annotation(Placement(transformation(extent={{130,-450},{150,-430}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant con2(
     final k=not have_pumPriHdr)
-    annotation(Placement(transformation(extent={{100,-490},{120,-470}})));
+    annotation(Placement(transformation(extent={{100,-470},{120,-450}})));
   Buildings.Controls.OBC.CDL.Logical.MultiOr mulOr(nin=3)
-    annotation(Placement(transformation(extent={{170,-470},{190,-450}})));
+    annotation(Placement(transformation(extent={{170,-450},{190,-430}})));
   Buildings.Controls.OBC.CDL.Routing.RealScalarReplicator repTHeaWatSupPhpSet(
     final nout=nPhp)
     if have_heaWat and have_php
@@ -1932,16 +1912,6 @@ block AirToWater
     if have_php
     "Assert polyvalent HP minimum off-time"
     annotation(Placement(transformation(extent={{130,450},{110,470}})));
-  Buildings.Controls.OBC.CDL.Logical.TrueFalseHold y1HeaPhpHol[nPhp](
-    each trueHoldDuration=1)
-    if have_php
-    annotation(Placement(transformation(extent={{340,430},{360,450}}),
-      iconTransformation(extent={{-240,220},{-200,260}})));
-  Buildings.Controls.OBC.CDL.Logical.TrueFalseHold y1CooPhpHol[nPhp](
-    each trueHoldDuration=1)
-    if have_php
-    annotation(Placement(transformation(extent={{380,410},{400,430}}),
-      iconTransformation(extent={{-240,220},{-200,260}})));
   StagingRotation.SortRuntime sorRunTimPhp(nin=nPhp)
     if have_php
     "Sort polyvalent HP by increasing runtime"
@@ -2180,7 +2150,7 @@ equation
     annotation(Line(points={{-280,300},{-160,300},{-160,276},{-152,276}},
       color={255,0,255}));
   connect(u1AvaHp.y, sorRunTimHp.u1Ava)
-    annotation(Line(points={{-218,280},{-200,280},{-200,264},{-152,264}},
+    annotation(Line(points={{-208,280},{-200,280},{-200,264},{-152,264}},
       color={255,0,255}));
   connect(idxStaCoo.y, comStaCoo.uSta)
     annotation(Line(
@@ -2648,7 +2618,7 @@ equation
     annotation(Line(points={{-128,454},{32,454},{32,362},{48,362}},
       color={255,127,0}));
   connect(u1AvaHp.y, avaHeaCooHp.u1Ava)
-    annotation(Line(points={{-218,280},{-200,280},{-200,232},{-152,232}},
+    annotation(Line(points={{-208,280},{-200,280},{-200,232},{-152,232}},
       color={255,0,255}));
   connect(avaHeaCooHp.y1Hea, avaStaHea.u1Ava[1:nHp])
     annotation(Line(
@@ -2670,19 +2640,18 @@ equation
     annotation(Line(points={{-128,392},{-120,392},{-120,330},{-112,330}},
       color={255,0,255}));
   connect(u1AvaPhp.y, avaHeaCooPhp.u1Ava)
-    annotation(Line(points={{-218,420},{-180,420},{-180,392},{-152,392}},
+    annotation(Line(points={{-208,420},{-180,420},{-180,392},{-152,392}},
       color={255,0,255}));
   connect(selMod.y1HeaPhp, avaHeaCooPhp.u1EnaHea)
     annotation(Line(
-      points={{72,358},{88,358},{88,382},{-158,382},{-158,408},{-156,408},{-152,408}},
+      points={{72,358},{88,358},{88,382},{-158,382},{-158,408},{-152,408}},
       color={255,0,255}));
   connect(selMod.y1ShcPhp, avaHeaCooPhp.u1EnaShc)
     annotation(Line(
       points={{72,354},{92,354},{92,386},{-154,386},{-154,400},{-152,400}},
       color={255,0,255}));
   connect(selMod.y1HeaHp, avaHeaCooHp.u1EnaHea)
-    annotation(Line(
-      points={{72,366},{72,378},{-158,378},{-158,248},{-152,248},{-152,248}},
+    annotation(Line(points={{72,366},{72,378},{-158,378},{-158,248},{-152,248}},
       color={255,0,255}));
   connect(selMod.y1CooPhp, avaHeaCooPhp.u1EnaCoo)
     annotation(Line(
@@ -2700,13 +2669,13 @@ equation
     annotation(Line(points={{-128,248},{28,248},{28,356},{48,356}},
       color={255,0,255}));
   connect(avaHeaCooPhp.y1Hea, selMod.u1AvaHeaPhp)
-    annotation(Line(points={{-128,408},{36,408},{36,352},{42,352},{48,352}},
+    annotation(Line(points={{-128,408},{36,408},{36,352},{48,352}},
       color={255,0,255}));
   connect(avaHeaCooPhp.y1Shc, selMod.u1AvaShcPhp)
-    annotation(Line(points={{-128,392},{34,392},{34,350},{42,350},{48,350}},
+    annotation(Line(points={{-128,392},{34,392},{34,350},{48,350}},
       color={255,0,255}));
   connect(avaHeaCooPhp.y1Coo, selMod.u1AvaCooPhp)
-    annotation(Line(points={{-128,400},{32,400},{32,348},{40,348},{48,348}},
+    annotation(Line(points={{-128,400},{32,400},{32,348},{48,348}},
       color={255,0,255}));
   connect(seqEve.y1ValHeaWatInlIso[nHp + 1:nHp + nPhp], y1ValHeaWatPhpInlIso)
     annotation(Line(points={{162,300.333},{242,300.333},{242,320},{280,320}},
@@ -2748,17 +2717,17 @@ equation
       color={255,0,255}));
   connect(con.y, mulOr.u[1])
     annotation(Line(
-      points={{122,-440},{160,-440},{160,-462.333},{168,-462.333}},
+      points={{122,-420},{160,-420},{160,-442.333},{168,-442.333}},
       color={255,0,255}));
   connect(con1.y, mulOr.u[2])
-    annotation(Line(points={{152,-460},{168,-460}},
+    annotation(Line(points={{152,-440},{168,-440}},
       color={255,0,255}));
   connect(con2.y, mulOr.u[3])
     annotation(Line(
-      points={{122,-480},{160,-480},{160,-457.667},{168,-457.667}},
+      points={{122,-460},{160,-460},{160,-437.667},{168,-437.667}},
       color={255,0,255}));
   connect(mulOr.y, assMes.u)
-    annotation(Line(points={{192,-460},{208,-460}},
+    annotation(Line(points={{192,-440},{208,-440}},
       color={255,0,255}));
   connect(resChiWat.TSupSet, repTChiWatSupPhpSet.u)
     annotation(Line(points={{72,-46},{116,-46},{116,-180},{208,-180}},
@@ -2808,17 +2777,11 @@ equation
     annotation(Line(
       points={{280,420},{244,420},{244,452},{180,452},{180,444},{134,444},{134,452},{132,452}},
       color={255,0,255}));
-  connect(y1CooPhp, y1CooPhpHol.u)
-    annotation(Line(points={{280,420},{378,420}},
-      color={255,0,255}));
-  connect(y1HeaPhp, y1HeaPhpHol.u)
-    annotation(Line(points={{280,440},{338,440}},
-      color={255,0,255}));
   connect(u1Php_actual, sorRunTimPhp.u1Run)
     annotation(Line(points={{-280,440},{-186,440},{-186,466},{-152,466}},
       color={255,0,255}));
   connect(u1AvaPhp.y, sorRunTimPhp.u1Ava)
-    annotation(Line(points={{-218,420},{-180,420},{-180,454},{-152,454}},
+    annotation(Line(points={{-208,420},{-180,420},{-180,454},{-152,454}},
       color={255,0,255}));
   connect(idxStaCoo.y, selMod.uStaCoo)
     annotation(Line(points={{12,100},{18,100},{18,358},{48,358}},

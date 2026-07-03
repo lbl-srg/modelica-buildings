@@ -1,6 +1,6 @@
 within Buildings.Templates.Plants.Controls.HeatPumps.Validation;
-model AirToWaterPolyvalent
-  "Validation model for AWHP plant controller with polyvalent heat pumps"
+model AirToWaterReversiblePolyvalent
+  "Validation model for AWHP plant controller with reversible and polyvalent heat pumps"
   extends Buildings.Templates.Plants.Controls.HeatPumps.Validation.AirToWater(
     ctl(
       typ=Buildings.Templates.Plants.Controls.Types.PlantHeatPump.ReversiblePolyvalent,
@@ -61,8 +61,31 @@ equation
     annotation(Line(points={{68,104},{-16,104},{-16,40},{-2,40},{-2,46}},
       color={255,0,255}));
 annotation(__Dymola_Commands(
-  file="modelica://Buildings/Resources/Scripts/Dymola/Templates/Plants/Controls/HeatPumps/Validation/AirToWaterPolyvalent.mos"
+  file="modelica://Buildings/Resources/Scripts/Dymola/Templates/Plants/Controls/HeatPumps/Validation/AirToWaterReversiblePolyvalent.mos"
     "Simulate and plot"),
   experiment(StopTime=86400.0,
-    Tolerance=1e-06));
-end AirToWaterPolyvalent;
+    Tolerance=1e-06),
+    Documentation(info="<html>
+<p>
+  This model validates
+  <a href=\"modelica://Buildings.Templates.Plants.Controls.HeatPumps.AirToWater\">
+    Buildings.Templates.Plants.Controls.HeatPumps.AirToWater</a> in a
+  configuration with two reversible heat pumps and one polyvalent heat pump.
+</p>
+<p>
+Simulating this model shows how the controller responds to a varying load by
+</p>
+<ul>
+  <li>enabling the polyvalent heat pump in simultaneous heating and
+      cooling mode with priority,</li>
+  <li>staging and unstaging the reversible heat pumps,</li>
+  <li>enabling the dedicated primary pumps together with their equipment,</li>
+  <li>rotating lead/lag equipment to ensure even wear,</li>
+  <li>
+    resetting the supply temperature and remote differential pressure in
+    both the CHW and HW loops based on valve position,
+  </li>
+  <li>staging the secondary pumps.</li>
+</ul>
+</html>"));
+end AirToWaterReversiblePolyvalent;

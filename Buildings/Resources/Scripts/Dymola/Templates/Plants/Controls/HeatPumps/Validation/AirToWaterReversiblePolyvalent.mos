@@ -1,8 +1,8 @@
-simulateModel("Buildings.Templates.Plants.Controls.HeatPumps.Validation.AirToWaterPolyvalent",
+simulateModel("Buildings.Templates.Plants.Controls.HeatPumps.Validation.AirToWaterReversiblePolyvalent",
     method="cvode",
     tolerance=1e-6,
     stopTime=86400.0,
-    resultFile="AirToWaterPolyvalentControls");
+    resultFile="AirToWaterReversiblePolyvalentControls");
 createPlot(
     id=1,
     position={5, 5, 300, 500},

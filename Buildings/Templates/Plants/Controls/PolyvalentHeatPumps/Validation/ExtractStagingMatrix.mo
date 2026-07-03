@@ -85,4 +85,42 @@ equation
     annotation (Line(points={{-58,0},{-12,0}}, color={255,127,0}));
   connect(iHea.y[1], extStaTra.u) annotation (Line(points={{-58,0},{-20,0},{-20,
           -40},{-12,-40}}, color={255,127,0}));
+annotation(Documentation(
+    info="<html>
+<p>
+  This model validates
+  <a href=\"modelica://Buildings.Templates.Plants.Controls.PolyvalentHeatPumps.StagingParameters\">
+    Buildings.Templates.Plants.Controls.PolyvalentHeatPumps.StagingParameters</a>
+  and
+  <a href=\"modelica://Buildings.Templates.Plants.Controls.PolyvalentHeatPumps.ExtractStagingMatrix\">
+    Buildings.Templates.Plants.Controls.PolyvalentHeatPumps.ExtractStagingMatrix</a>
+  in a
+  configuration with two revserible heat pumps and two polyvalent heat pumps.
+</p>
+<p>
+  The parameters <code>staHea</code> and <code>staCoo</code> independently
+  reconstruct, from the equipment count matrices computed by <code>StagingParameters</code>, 
+  the per-mode staging matrices. At
+  initialization, these matrices are compared
+  against the ones internally computed by <code>StagingParameters</code> for every
+  feasible combination of heating and cooling stage, and against each other, which validates
+  the internal consistency of <code>StagingParameters</code>.
+</p>
+<p>
+  The heating stage index is cycled through every stage over the course of the simulation, and
+  is used to extract the cooling staging matrix and its transpose at the current heating stage. At
+  initialization, i.e., at heating stage <i>0</i>, the extracted matrices
+  are compared against the independently reconstructed reference <code>staCoo</code>, which
+  validates <code>ExtractStagingMatrix</code> for both the direct and the
+  transposed extraction.
+</p>
+</html>",
+    revisions="<html>
+<ul>
+  <li>
+    July 3, 2026, by Antoine Gautier:<br />
+    Added documentation.
+  </li>
+</ul>
+</html>"));
 end ExtractStagingMatrix;

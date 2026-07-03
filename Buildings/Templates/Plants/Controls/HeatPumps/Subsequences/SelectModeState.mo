@@ -125,7 +125,7 @@ block SelectModeState
     if nPhp > 0
     "Polyvalent HP SHC mode available signal"
     annotation(Placement(transformation(extent={{-260,-300},{-220,-260}}),
-      iconTransformation(extent={{-140,-100},{-100,-60}})));
+      iconTransformation(extent={{-140,-120},{-100,-80}})));
   StagingRotation.BaseClasses.SelectSortedAvailable selSorAvaHeaHp(
     final nEqu=nHp,
     final nEquAlt=nAltHp)
@@ -250,7 +250,7 @@ block SelectModeState
     if nPhp > 0
     "Polyvalent HP cooling-only mode available signal"
     annotation(Placement(transformation(extent={{-260,-280},{-220,-240}}),
-      iconTransformation(extent={{-140,-120},{-100,-80}})));
+      iconTransformation(extent={{-140,-100},{-100,-60}})));
   Buildings.Controls.OBC.CDL.Routing.RealExtractSignal reqPhpCooSta(
     nin=nCol,
     nout=nPhp,
@@ -588,11 +588,11 @@ equation
     annotation(Line(points={{-240,-220},{-2,-220},{-2,74},{6,74}},
       color={255,0,255}));
 annotation(defaultComponentName="selMod",
-  Icon(coordinateSystem(preserveAspectRatio=true),
-    graphics={Text(extent={{-150,150},{150,110}},
+  Icon(coordinateSystem(preserveAspectRatio=true, extent={{-100,-120},{100,120}}),
+    graphics={Text(extent={{-150,170},{150,130}},
       textString="%name",
       textColor={0,0,255}),
-    Rectangle(extent={{-100,100},{100,-100}},
+    Rectangle(extent={{-100,120},{100,-120}},
       lineColor={0,0,0},
       fillColor={255,255,255},
       fillPattern=FillPattern.Solid)}),

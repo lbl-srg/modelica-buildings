@@ -32,7 +32,23 @@ createPlot(
     id=2,
     position={410, 5, 400, 600},
     subPlot=1,
-    y={"enaEquPhp.y1Hp[1]", "enaEquPhp.y1Hp[2]", "enaEquPhp.y1Php1[3]", "enaEquPhp.y1Php1[4]", "enaEquPhp.y1Php2[3]", "enaEquPhp.y1Php2[4]"},
+    y={"selMod.y1HeaHp[1]", "selMod.y1HeaHp[2]", "selMod.y1CooHp[1]", "selMod.y1CooHp[2]"},
+    autoscale=true,
+    grid=true,
+    timeUnit="min"
+);
+createPlot(
+    id=2,
+    subPlot=2,
+    y={"selMod.y1HeaPhp[1]", "selMod.y1HeaPhp[2]", "selMod.y1CooPhp[1]", "selMod.y1CooPhp[2]"},
+    autoscale=true,
+    grid=true,
+    timeUnit="min"
+);
+createPlot(
+    id=2,
+    subPlot=3,
+    y={"selMod.y1ShcPhp[1]", "selMod.y1ShcPhp[2]"},
     autoscale=true,
     grid=true,
     timeUnit="min"

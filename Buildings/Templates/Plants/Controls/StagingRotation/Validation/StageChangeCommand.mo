@@ -94,8 +94,8 @@ model StageChangeCommand "Validation model for stage change logic"
     final k=VHeaWat_flow_nominal)
     "Scale by design flow"
     annotation (Placement(transformation(extent={{-100,-50},{-80,-30}})));
-  Buildings.Templates.Plants.Controls.StagingRotation.EquipmentEnable enaEqu(
-      final staEqu=chaSta.staEqu) if not have_php "Enable equipment"
+  Buildings.Templates.Plants.Controls.StagingRotation.EquipmentEnable enaEqu(final
+      staEqu=chaSta.staEqu)       if not have_php "Enable equipment"
     annotation (Placement(transformation(extent={{60,-10},{80,10}})));
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant idxEquLeaLag[2](
     k={2, 3})
@@ -186,10 +186,15 @@ This model validates
 <a href=\"modelica://Buildings.Templates.Plants.Controls.StagingRotation.StageChangeCommand\">
 Buildings.Templates.Plants.Controls.StagingRotation.StageChangeCommand</a>
 in a configuration with one small unit and two large equally sized
-units (component <code>avaStaOneTwo</code>).
+units.
 In response to a varying flow rate, the variation of the
 required capacity <code>chaSta.capReq.y</code> triggers stage change
 events.
+The block
+<a href=\"modelica://Buildings.Templates.Plants.Controls.Utilities.StageIndex\">
+Buildings.Templates.Plants.Controls.Utilities.StageIndex</a>
+is used to illustrate how these events translate into
+a varying plant stage index <code>idxSta.y</code>.
 The block
 <a href=\"modelica://Buildings.Templates.Plants.Controls.Utilities.StageIndex\">
 Buildings.Templates.Plants.Controls.Utilities.StageIndex</a>
