@@ -30,7 +30,9 @@ Details:
 import core
 
 MODELS = [
+    'Buildings.Templates.Plants.HeatPumps.Validation.AirToWater',
     'Buildings.Templates.Plants.HeatPumps.Validation.AirToWaterPolyvalent',
+    'Buildings.Templates.Plants.HeatPumps.Validation.AirToWaterReversiblePolyvalent',
 ]
 
 # See docstring of `generate_combinations` function for the structure of MODIF_GRID.
@@ -38,13 +40,6 @@ MODELS = [
 # https://github.com/lbl-srg/ctrl-flow-dev/blob/main/server/scripts/sequence-doc/src/version/Current%20G36%20Decisions/Guideline%2036-2021%20(mappings).csv
 MODIF_GRID = {
     'Buildings.Templates.Plants.HeatPumps.Validation.AirToWaterPolyvalent': {
-        'pla__typ': [
-        #     'Buildings.Templates.Plants.Controls.Types.PlantHeatPump.HeatingOnly',
-        #     'Buildings.Templates.Plants.Controls.Types.PlantHeatPump.Reversible',
-        #     'Buildings.Templates.Plants.Controls.Types.PlantHeatPump.ReversibleHeatRecovery',
-            'Buildings.Templates.Plants.Controls.Types.PlantHeatPump.ReversiblePolyvalent',
-        #     'Buildings.Templates.Plants.Controls.Types.PlantHeatPump.Polyvalent',
-        ],
         'pla__typDis_select1': [
             'Buildings.Templates.Plants.HeatPumps.Types.Distribution.Variable1Only',
             'Buildings.Templates.Plants.HeatPumps.Types.Distribution.Constant1Variable2',
@@ -61,30 +56,48 @@ MODIF_GRID = {
             'true',
             'false',
         ],
-        'pla__ctl__have_senTHeaWatPriRet_select': [  # have_senTChiWatPriRet_select=have_senTHeaWatPriRet_select by default in the template.
+        'pla__ctl__have_senTHeaWatPriRet_select': [
             'true',
             'false',
         ],
-        'pla__ctl__have_senTHeaWatSecRet_select': [  # have_senTChiWatSecRet_select=have_senTHeaWatSecRet_select by default in the template.
+        'pla__ctl__have_senTHeaWatSecRet_select': [
             'true',
             'false',
         ],
-        'pla__ctl__have_senDpHeaWatRemWir': [  # have_senDpChiWatRemWir=have_senDpHeaWatRemWir by default in the template.
+        'pla__ctl__have_senDpHeaWatRemWir': [
             'true',
             'false',
         ],
-        'pla__ctl__have_senVHeaWatPri_select': [  # have_senVChiWatPri_select=have_senVHeaWatPri_select by default in the template.
+        'pla__ctl__have_senVHeaWatPri_select': [
             'true',
             'false',
         ],
     },
 }
+MODIF_GRID['Buildings.Templates.Plants.HeatPumps.Validation.AirToWater'] = (
+    MODIF_GRID[
+        'Buildings.Templates.Plants.HeatPumps.Validation.AirToWaterPolyvalent'
+    ]
+    | {
+        'pla__typ': [
+            'Buildings.Templates.Plants.Controls.Types.PlantHeatPump.HeatingOnly',
+            'Buildings.Templates.Plants.Controls.Types.PlantHeatPump.Reversible',
+            'Buildings.Templates.Plants.Controls.Types.PlantHeatPump.ReversibleHeatRecovery',
+        ],
+    }
+)
+MODIF_GRID[
+    'Buildings.Templates.Plants.HeatPumps.Validation.AirToWaterReversiblePolyvalent'
+] = MODIF_GRID[
+    'Buildings.Templates.Plants.HeatPumps.Validation.AirToWaterPolyvalent'
+]
 
 # See docstring of `prune_modifications` function for the structure of EXCLUDE.
 EXCLUDE = {
-    'Buildings.Templates.Plants.HeatPumps.Validation.AirToWaterPolyvalent': [
+    'Buildings.Templates.Plants.HeatPumps.Validation.AirToWaterReversiblePolyvalent': [
+        # Interfaces/PartialHeatPumpPlant.mo:
+        #   // Constant-primary plants with 2-pipe and 4-pipe HP require dedicated pumps.
         [
-            'typ=Buildings.Templates.Plants.Controls.Types.PlantHeatPump.ReversiblePolyvalent',
             'typDis_select1=Buildings.Templates.Plants.HeatPumps.Types.Distribution.Constant1Variable2',
             'typArrPumPri_select=Buildings.Templates.Components.Types.PumpArrangement.Headered',
         ],
@@ -94,6 +107,9 @@ EXCLUDE = {
 # See docstring of `prune_modifications` function for the structure of REMOVE_MODIF.
 REMOVE_MODIF = {
     'Buildings.Templates.Plants.HeatPumps.Validation.AirToWaterPolyvalent': [
+        # Interfaces/PartialHeatPumpPlant.mo:
+        #   // Selection only possible for constant primary-variable secondary plants.
+        #   // Constant primary-only plants and variable primary plants require variable speed pumps.
         (
             [
                 'Buildings.Templates.Plants.HeatPumps.Types.Distribution.Variable1Only',
@@ -102,6 +118,11 @@ REMOVE_MODIF = {
                 'typPumPri_select',
             ],
         ),
+        # Interfaces/PartialHeatPumpPlant.mo:
+        #   final parameter Boolean have_pumPriDedComHp=
+        #     if have_hp and have_chiWat and typArrPumPri==Dedicated
+        #     then have_pumPriDedComHp_select else false;
+        # With Headered pumps, have_pumPriDedComHp is forced to false regardless of the selection.
         (
             [
                 'Buildings.Templates.Components.Types.PumpArrangement.Headered',
@@ -110,6 +131,10 @@ REMOVE_MODIF = {
                 'have_pumPriDedComHp_select',
             ],
         ),
+        # Same rule as above: with typ=HeatingOnly, have_chiWat=false, so have_pumPriDedComHp
+        # is forced to false regardless of the selection.
+        # This only has an effect for the AirToWater model, which is the only one that varies
+        # pla__typ: see below.
         (
             [
                 'Buildings.Templates.Plants.Controls.Types.PlantHeatPump.HeatingOnly',
@@ -118,6 +143,10 @@ REMOVE_MODIF = {
                 'have_pumPriDedComHp_select',
             ],
         ),
+        # Controls/HeatPumps/AirToWater.mo:
+        # With typDis=Variable1Only, is_priOnl=true, so have_senVHeaWatSec=have_pumHeaWatSec=false:
+        # have_senVHeaWatPri is forced to true, have_senTHeaWatSecRet is forced to false (hence
+        # have_senTHeaWatPriRet is also forced to true, see rule below), regardless of selection.
         (
             [
                 'Buildings.Templates.Plants.HeatPumps.Types.Distribution.Variable1Only',
@@ -125,8 +154,31 @@ REMOVE_MODIF = {
             [
                 'have_senVHeaWatPri_select',
                 'have_senTHeaWatSecRet_select',
+                'have_senTHeaWatPriRet_select',
             ],
         ),
+        # Controls/HeatPumps/AirToWater.mo: have_senTHeaWatPriRet_select is only used if
+        # have_senTHeaWatSecRet is true (see rule above). So whenever have_senTHeaWatSecRet_select
+        # is explicitly set to false, have_senTHeaWatPriRet is forced to true regardless of
+        # have_senTHeaWatPriRet_select.
+        (
+            [
+                'have_senTHeaWatSecRet_select=false',
+            ],
+            [
+                'have_senTHeaWatPriRet_select',
+            ],
+        ),
+    ]
+}
+REMOVE_MODIF['Buildings.Templates.Plants.HeatPumps.Validation.AirToWater'] = (
+    REMOVE_MODIF[
+        'Buildings.Templates.Plants.HeatPumps.Validation.AirToWaterPolyvalent'
+    ]
+    + [
+        # Controls/HeatPumps/AirToWater.mo: with typ=ReversibleHeatRecovery, have_hrc=true, so
+        # have_senVHeaWatPri, have_senTHeaWatPriRet and have_senTHeaWatSecRet are all forced to
+        # true regardless of their respective selections (see rules above).
         (
             [
                 'Buildings.Templates.Plants.Controls.Types.PlantHeatPump.ReversibleHeatRecovery',
@@ -138,8 +190,29 @@ REMOVE_MODIF = {
             ],
         ),
     ]
-}
-
+)
+REMOVE_MODIF[
+    'Buildings.Templates.Plants.HeatPumps.Validation.AirToWaterReversiblePolyvalent'
+] = list(
+    REMOVE_MODIF[
+        'Buildings.Templates.Plants.HeatPumps.Validation.AirToWaterPolyvalent'
+    ]
+)
+# Controls/HeatPumps/AirToWater.mo: final parameter Boolean have_hp = typ <> Polyvalent.
+# For AirToWaterPolyvalent (typ is fixed to Polyvalent), have_hp is always false, so
+# have_pumPriDedComHp (see rule above) is always forced to false: the selection has no effect
+# at all for this model. This is appended after copying the list above so that it does not leak
+# into the AirToWater and AirToWaterReversiblePolyvalent lists.
+REMOVE_MODIF[
+    'Buildings.Templates.Plants.HeatPumps.Validation.AirToWaterPolyvalent'
+].append(
+    (
+        [],
+        [
+            'have_pumPriDedComHp_select',
+        ],
+    )
+)
 
 if __name__ == '__main__':
     core.main(
