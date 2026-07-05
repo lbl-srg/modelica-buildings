@@ -56,7 +56,9 @@ def parse_args():
         '--generate', help='generate combinations', action='store_true'
     )
     parser.add_argument(
-        '--simulate', help='path of combination file', action='store_true'
+        '--simulate',
+        help='run simulations from previously generated combination files',
+        action='store_true',
     )
     parser.add_argument(
         '--n-cpu',
@@ -529,6 +531,10 @@ def main(models, modif_grid, exclude, remove_modif):
     """Main function."""
     args = parse_args()
     tool = args.tool.lower()
+    # Base name for combination chunk files, derived from the invoked script (e.g.,
+    # Plants.HeatPumps.py) rather than core.py's own __file__, so that chunk files from
+    # different template scripts run in the same directory cannot be mistaken for one another.
+    combin_prefix = os.path.basename(sys.argv[0]).replace('.py', '_combin')
     # Get experiment attributes for all models.
     all_experiment_attributes = dict(
         zip(models, map(get_experiment_attributes, models))
@@ -566,19 +572,14 @@ def main(models, modif_grid, exclude, remove_modif):
 
         # Split combinations into chunks of 100 items.
         for i in range(ceil(len(combinations) / 100)):
-            with open(
-                f'{os.path.basename(__file__).replace(".py", "_combin") + str(i)}',
-                'wb',
-            ) as FH:
+            with open(f'{combin_prefix}{i}', 'wb') as FH:
                 slc = slice(i * 100, min((i + 1) * 100, len(combinations)))
                 pickle.dump(combinations[slc], FH)
 
     if args.simulate:
         # Run simulations by chunks of 100 items.
         # This gives a chance to exit(1) if any simulation failed within a given chunk.
-        for file in glob.glob(
-            f'{os.path.basename(__file__).replace(".py", "_combin")}*'
-        ):
+        for file in glob.glob(f'{combin_prefix}*'):
             with open(file, 'rb') as FH:
                 combinations = pickle.load(FH)
             # Delete combination file that was just consumed.
