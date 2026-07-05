@@ -205,7 +205,17 @@ def simulate_case(arg, simulator, experiment_attributes):
     toreturn = 0
     log = None
     try:
-        s.simulate()
+        # buildingspy's Simulator.deleteOutputFiles() cleans up stale Dymola artifacts
+        # (e.g., dsfinal.txt, dsmodel.c) using filenames relative to the shared working
+        # directory rather than each worker's own outputDirectory. When many simulations
+        # run in parallel, one worker can delete such a file right after another has
+        # checked that it exists, raising a spurious FileNotFoundError unrelated to the
+        # model. Retrying once is enough: the file is now actually gone, so the retry's
+        # existence check correctly skips it instead of raising.
+        try:
+            s.simulate()
+        except FileNotFoundError:
+            s.simulate()
     except Exception as e:
         toreturn = 2
         print(e)
