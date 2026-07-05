@@ -58,6 +58,13 @@ def parse_args():
     parser.add_argument(
         '--simulate', help='path of combination file', action='store_true'
     )
+    parser.add_argument(
+        '--n-cpu',
+        type=int,
+        help='number of CPU cores to use for running simulations (default: all available)',
+        default=os.cpu_count(),
+        required=False,
+    )
     args = parser.parse_args()
 
     assert args.coverage > 0 and args.coverage <= 1, (
@@ -226,13 +233,16 @@ def simulate_case(arg, simulator, experiment_attributes):
     return toreturn, log
 
 
-def simulate_cases(args, simulator, all_experiment_attributes, asy=False):
+def simulate_cases(
+    args, simulator, all_experiment_attributes, n_cpu, asy=False
+):
     """Configure and run all simulations.
 
     Args:
         args: list[tuple[str, list[str]]]: List of tuples containing (model name, list of class modifications, suffix for mat file name).
         simulator: str: Modelica tool for simulating the model.
         all_experiment_attributes: dict: Dict with model name as key and return value of get_experiment_attributes(model_name) as value (dict).
+        n_cpu: int: Number of CPU cores to use for running simulations.
         asy: bool: If True run simulations asynchronously.
 
     Returns:
@@ -242,7 +252,7 @@ def simulate_cases(args, simulator, all_experiment_attributes, asy=False):
         (el, simulator, all_experiment_attributes[el[0]]) for el in args
     ]
     results = []
-    pool = Pool(os.cpu_count())
+    pool = Pool(n_cpu)
     # 'with Pool' shall not be used: Pool.__exit__ calls terminate(), killing workers still running after starmap_async returns.
     try:  # Exception safety: ensure close()+join() even if starmap raises
         if asy:
@@ -580,6 +590,7 @@ def main(models, modif_grid, exclude, remove_modif):
                     combinations,
                     simulator=tool,
                     all_experiment_attributes=all_experiment_attributes,
+                    n_cpu=args.n_cpu,
                     asy=False,
                 )
 
