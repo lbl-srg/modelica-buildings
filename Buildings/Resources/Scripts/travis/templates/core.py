@@ -67,6 +67,12 @@ def parse_args():
         default=os.cpu_count(),
         required=False,
     )
+    parser.add_argument(
+        '--keep-going',
+        help='run all chunks of simulations even if a chunk has failures, '
+        'and only exit with an error after all chunks have run',
+        action='store_true',
+    )
     args = parser.parse_args()
 
     assert args.coverage > 0 and args.coverage <= 1, (
@@ -474,21 +480,19 @@ def prune_modifications(
     return combinations
 
 
-def report_clean(combinations, results):
+def report_clean(combinations, results, keep_going=False):
     """Report, clean and exit(1) if any simulations failed.
 
     Args:
         combinations: list[tuple[str, list[str], str]]: List of combinations.
         results: list[tuple[int, str]]: List of (error code, log).
+        keep_going: bool: If True, do not exit(1) on failure: append failures to the log
+            and let the caller decide whether/when to exit, so that remaining chunks
+            (if any) still get simulated.
 
     Returns:
-        pd.DataFrame
+        bool: True if any simulation failed, False otherwise.
     """
-    try:
-        os.unlink('unitTestsTemplates.log')
-    except FileNotFoundError:
-        pass
-
     df = pd.DataFrame(
         dict(
             model=[el[0] for el in combinations],
@@ -503,9 +507,11 @@ def report_clean(combinations, results):
         'Error when trying to retrieve simulation results as a DataFrame.'
     )
 
+    has_failure = df.errorcode.abs().sum() != 0
+
     # Log and exit if any simulations failed.
-    if df.errorcode.abs().sum() != 0:
-        with open('unitTestsTemplates.log', 'w') as FH:
+    if has_failure:
+        with open('unitTestsTemplates.log', 'a') as FH:
             for idx in df[df.errorcode != 0].index:
                 FH.write(
                     f'*** Simulation failed for {df.iloc[idx].model} with the error code {df.iloc[idx].errorcode} '
@@ -520,11 +526,14 @@ def report_clean(combinations, results):
             + CEND
             + 'See the file `unitTestsTemplates.log`.\n'
         )
-        sys.exit(1)
+        if not keep_going:
+            sys.exit(1)
 
     del combinations
     del results
     gc.collect()
+
+    return has_failure
 
 
 def main(models, modif_grid, exclude, remove_modif):
@@ -577,8 +586,15 @@ def main(models, modif_grid, exclude, remove_modif):
                 pickle.dump(combinations[slc], FH)
 
     if args.simulate:
+        try:
+            os.unlink('unitTestsTemplates.log')
+        except FileNotFoundError:
+            pass
+
         # Run simulations by chunks of 100 items.
-        # This gives a chance to exit(1) if any simulation failed within a given chunk.
+        # Without --keep-going, this gives a chance to exit(1) as soon as a chunk has failures.
+        # With --keep-going, all chunks are simulated, and we exit(1) at the end if any chunk failed.
+        any_failure = False
         for file in glob.glob(f'{combin_prefix}*'):
             with open(file, 'rb') as FH:
                 combinations = pickle.load(FH)
@@ -595,5 +611,10 @@ def main(models, modif_grid, exclude, remove_modif):
                     asy=False,
                 )
 
-                # Report, clean and exit(1) if any simulations failed.
-                report_clean(combinations, results)
+                # Report, clean and exit(1) if any simulations failed (unless --keep-going).
+                any_failure |= report_clean(
+                    combinations, results, keep_going=args.keep_going
+                )
+
+        if any_failure:
+            sys.exit(1)
