@@ -36,7 +36,7 @@ env:
     - OPTIMICA_VERSION=travis-ubuntu-2404-optimica:1.66
     - DYMOLA_VERSION=travis_ubuntu-2404_dymola:2026x-x86_64
     - ENERGYPLUS_23_1_0=EnergyPlus-23.1.0-87ed9199d4-Linux-Ubuntu20.04-x86_64
-    - MODELICA_JSON_VERSION=6d950c3592fa021aa914ba4ff34a67cbb69962c6
+    - MODELICA_JSON_VERSION=134cef957fb24254ddc0927b45dc2895f3db5af2
     - MODELICA_JSON_HOME=${TRAVIS_BUILD_DIR}/modelica-json
 
   jobs:
@@ -142,8 +142,7 @@ before_install:
       rm ${MODELICA_JSON_VERSION}.tar.gz;
       mv modelica-json-${MODELICA_JSON_VERSION} ${MODELICA_JSON_HOME};
       cd ${MODELICA_JSON_HOME};
-      make install-node-packages;
-      make compile;
+      make install;
       cd -;
       echo "Installed modelica-json in ${MODELICA_JSON_HOME}";
     fi;
