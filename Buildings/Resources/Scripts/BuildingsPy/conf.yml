@@ -6,6 +6,9 @@
   optimica:
     comment: High solver tolerance required to avoid time out.
     rtol: 1.0e-08
+- model_name: Buildings.Applications.DataCenters.DXCooled.Examples.DXCooledAirsideEconomizer
+  openmodelica:
+    solver: cvode
 - model_name: Buildings.Controls.DemandResponse.Examples.ClientLBNL90
   openmodelica:
     comment: 'TimeoutExpired: omc timed out after 300 seconds'
