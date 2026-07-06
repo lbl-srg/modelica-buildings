@@ -256,6 +256,10 @@
   openmodelica:
     comment: Internal error function createSimCode failed [Transformation from optimised DAE to simulation code structure failed].
     translate: false
+- model_name: Buildings.Fluid.HydronicConfigurations.ActiveNetworks.Examples.Decoupling
+  optimica:
+    comment: High solver tolerance required to avoid time out.
+    rtol: 1.0e-07
 - model_name: Buildings.Fluid.HydronicConfigurations.ActiveNetworks.Examples.DecouplingMixing
   openmodelica:
     comment: Timeout after 300 s. See also OpenModelica, issue 13341
