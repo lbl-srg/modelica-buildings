@@ -1,5 +1,5 @@
 within Buildings.Templates.Plants.Controls.HeatPumps.Validation;
-model AirToWater
+model AirToWaterReversibleHeatRecovery
   "Validation model for AWHP plant controller"
   final parameter Real capHea_nominal(final unit="W") =
     sum(cat(1, ctl.capHeaHp_nominal, ctl.capHeaPhp_nominal))
@@ -443,10 +443,10 @@ equation
     annotation(Line(points={{-58,160},{-26,160},{-26,10},{-2,10}},
       color={0,0,127}));
   connect(THeaWatRet.y, ctl.THeaWatLooOrSecRet)
-    annotation(Line(points={{-58,160},{-26,160},{-26,6},{-8,6}},
+    annotation(Line(points={{-58,160},{-26,160},{-26,-2},{-2,-2}},
       color={0,0,127}));
   connect(TChiWatRet.y, ctl.TChiWatLooOrSecRet)
-    annotation(Line(points={{-88,140},{-28,140},{-28,-2},{-8,-2}},
+    annotation(Line(points={{-88,140},{-28,140},{-28,-10},{-2,-10}},
       color={0,0,127}));
   connect(TChiWatRet.y, ctl.TChiWatPriRet)
     annotation(Line(points={{-88,140},{-28,140},{-28,4},{-2,4}},
@@ -467,7 +467,7 @@ equation
     annotation(Line(points={{42,24},{62,24},{62,-80},{68,-80}},
       color={255,0,255}));
 annotation(__Dymola_Commands(
-  file="modelica://Buildings/Resources/Scripts/Dymola/Templates/Plants/Controls/HeatPumps/Validation/AirToWater.mos"
+  file="modelica://Buildings/Resources/Scripts/Dymola/Templates/Plants/Controls/HeatPumps/Validation/AirToWaterReversibleHeatRecovery.mos"
     "Simulate and plot"),
   experiment(StopTime=86400.0,
     Tolerance=1e-06),
@@ -513,4 +513,4 @@ annotation(__Dymola_Commands(
   <li>staging the secondary pumps.</li>
 </ul>
 </html>"));
-end AirToWater;
+end AirToWaterReversibleHeatRecovery;

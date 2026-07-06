@@ -1068,6 +1068,19 @@ initial equation
   end if;
 equation
   /* Control point connection - start */
+  if typDis == Buildings.Templates.Plants.HeatPumps.Types.Distribution.Constant1Variable2 then
+
+  connect(TChiWatLooOrSecRet.y, bus.TChiWatSecRet);
+  connect(THeaWatLooOrSecRet.y, bus.THeaWatSecRet);
+      connect(VChiWatLooOrSec_flow.y, bus.VChiWatSec_flow);
+    connect(VHeaWatLooOrSec_flow.y, bus.VHeaWatSec_flow);
+  else
+
+  connect(TChiWatLooOrSecRet.y, bus.TChiWatLooRet);
+  connect(THeaWatLooOrSecRet.y, bus.THeaWatLooRet);
+  connect(VChiWatLooOrSec_flow.y, bus.VChiWatLoo_flow);
+  connect(VHeaWatLooOrSec_flow.y, bus.VHeaWatLoo_flow);
+  end if;
   connect(busWea, hp.busWea);
   connect(bus, hp.bus);
   connect(bus, hrc.bus);
@@ -1081,20 +1094,12 @@ equation
   connect(bus.valHeaWatMinByp, valHeaWatMinByp.bus);
   connect(VChiWatPri_flow.y, bus.VChiWatPri_flow);
   connect(VHeaWatPri_flow.y, bus.VHeaWatPri_flow);
-  connect(VChiWatLooOrSec_flow.y, bus.VChiWatLoo_flow);
-  connect(VHeaWatLooOrSec_flow.y, bus.VHeaWatLoo_flow);
-  connect(VChiWatLooOrSec_flow.y, bus.VChiWatSec_flow);
-  connect(VHeaWatLooOrSec_flow.y, bus.VHeaWatSec_flow);
   connect(TChiWatPriSup.y, bus.TChiWatPriSup);
   connect(THeaWatPriSup.y, bus.THeaWatPriSup);
   connect(TChiWatPriRet.y, bus.TChiWatPriRet);
   connect(THeaWatPriRet.y, bus.THeaWatPriRet);
-  connect(TChiWatLooOrSecRet.y, bus.TChiWatLooRet);
-  connect(THeaWatLooOrSecRet.y, bus.THeaWatLooRet);
   connect(TChiWatSecSup.y, bus.TChiWatSecSup);
   connect(THeaWatSecSup.y, bus.THeaWatSecSup);
-  connect(TChiWatLooOrSecRet.y, bus.TChiWatSecRet);
-  connect(THeaWatLooOrSecRet.y, bus.THeaWatSecRet);
   connect(THeaWatRetUpsHrc.y, bus.THeaWatRetUpsHrc);
   connect(TChiWatRetUpsHrc.y, bus.TChiWatRetUpsHrc);
   connect(dpHeaWatLoc.y, bus.dpHeaWatLoc);
@@ -1464,7 +1469,7 @@ annotation(defaultComponentName="pla",
   actual plant configuration, refer to the diagram view of the plant
   component. In Dymola, for example, you can access this by right-clicking the
   component <code>pla</code> in the model
-  <a href=\"modelica://Buildings.Templates.Plants.HeatPumps.Validation.AirToWater\">
+  <a href=\"modelica://Buildings.Templates.Plants.HeatPumps.Validation.AirToWaterReversibleHeatRecovery\">
     Buildings.Templates.Plants.HeatPumps.Validation.AirToWater</a> and
   selecting \"Show Component\" from the context menu.
 </p>

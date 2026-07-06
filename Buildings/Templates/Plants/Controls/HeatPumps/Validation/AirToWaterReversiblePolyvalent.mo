@@ -1,7 +1,7 @@
 within Buildings.Templates.Plants.Controls.HeatPumps.Validation;
 model AirToWaterReversiblePolyvalent
   "Validation model for AWHP plant controller with reversible and polyvalent heat pumps"
-  extends Buildings.Templates.Plants.Controls.HeatPumps.Validation.AirToWater(
+  extends Buildings.Templates.Plants.Controls.HeatPumps.Validation.AirToWaterReversibleHeatRecovery(
     ctl(
       typ=Buildings.Templates.Plants.Controls.Types.PlantHeatPump.ReversiblePolyvalent,
       is_priOnl=false,

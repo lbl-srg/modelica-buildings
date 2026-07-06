@@ -1,6 +1,6 @@
 within Buildings.Templates.Plants.HeatPumps.Validation;
-model AirToWater
-  "Validation of AWHP plant template"
+model AirToWaterReversibleHeatRecovery
+  "Validation of AWHP plant template with reversible heat pumps and heat recovery chiller"
   extends Modelica.Icons.Example;
 
   replaceable package Medium = Buildings.Media.Water
@@ -47,7 +47,10 @@ model AirToWater
     final allowFlowReversal=allowFlowReversal,
     linearized=true,
     show_T=true,
-    ctl(nAirHan=1, nEquZon=0),
+    ctl(
+      nAirHan=1,
+      nEquZon=0,
+      have_senTPriRet_select=true),
     is_dpBalYPumSetCal=true)
     "Heat pump plant"
     annotation(Placement(transformation(extent={{-80,-100},{-40,-60}})));
@@ -94,8 +97,7 @@ model AirToWater
       16, 0, 1;
       18, 0, 0.6;
       22, 0.1, 0.1;
-      24, 0, 0
-    ],
+      24, 0, 0],
     timeScale=3600)
     "Fraction of design load – Index 1 for heating, 2 for cooling"
     annotation(Placement(transformation(extent={{-180,30},{-160,50}})));
@@ -319,7 +321,7 @@ equation
     annotation(Line(points={{30,-80},{-40,-80},{-40,-84}},
       color={0,127,255}));
 annotation(__Dymola_Commands(
-  file="modelica://Buildings/Resources/Scripts/Dymola/Templates/Plants/HeatPumps/Validation/AirToWater.mos"
+  file="modelica://Buildings/Resources/Scripts/Dymola/Templates/Plants/HeatPumps/Validation/AirToWaterReversibleHeatRecovery.mos"
     "Simulate and plot"),
   experiment(Tolerance=1e-6,
     StopTime=86400.0),
@@ -333,11 +335,11 @@ annotation(__Dymola_Commands(
   heating loads reach their peak value first, the cooling loads reach it last.
 </p>
 <p>
-  Three equally sized heat pumps are modeled, which can all be lead/lag
-  alternated. A heat recovery chiller (HRC) can be included by setting
-  <code>pla.typ=Buildings.Templates.Plants.Controls.Types.PlantHeatPump.ReversibleHeatRecovery</code>.
-  The HRC is connected to the HW and CHW return pipes (sidestream
-  integration). A unique aggregated load is modeled on each loop using a heat
+  Three equally sized, lead/lag alternated heat pumps are modeled. 
+  A heat recovery chiller (HRC) is included
+  (<code>pla.typ=Buildings.Templates.Plants.Controls.Types.PlantHeatPump.ReversibleHeatRecovery</code>)
+  and connected to the HW and CHW return pipes (sidestream integration). 
+  A unique aggregated load is modeled on each loop using a heat
   exchanger component exposed to conditioned space air, and a two-way
   modulating valve. An importance multiplier of <i>10</i> is applied to the
   plant requests and reset requests generated from the valve position.
@@ -409,4 +411,4 @@ annotation(__Dymola_Commands(
 </ul>
 </html>"),
   Diagram(coordinateSystem(extent={{-200,-160},{200,160}})));
-end AirToWater;
+end AirToWaterReversibleHeatRecovery;

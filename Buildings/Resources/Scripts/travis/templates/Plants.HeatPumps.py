@@ -30,8 +30,8 @@ Details:
 import core
 
 MODELS = [
-    'Buildings.Templates.Plants.HeatPumps.Validation.AirToWater',
     'Buildings.Templates.Plants.HeatPumps.Validation.AirToWaterPolyvalent',
+    'Buildings.Templates.Plants.HeatPumps.Validation.AirToWaterReversibleHeatRecovery',
     'Buildings.Templates.Plants.HeatPumps.Validation.AirToWaterReversiblePolyvalent',
 ]
 
@@ -70,7 +70,7 @@ MODIF_GRID = {
         ],
     },
 }
-MODIF_GRID['Buildings.Templates.Plants.HeatPumps.Validation.AirToWater'] = (
+MODIF_GRID['Buildings.Templates.Plants.HeatPumps.Validation.AirToWaterReversibleHeatRecovery'] = (
     MODIF_GRID[
         'Buildings.Templates.Plants.HeatPumps.Validation.AirToWaterPolyvalent'
     ]
@@ -165,7 +165,7 @@ REMOVE_MODIF = {
         ),
     ]
 }
-REMOVE_MODIF['Buildings.Templates.Plants.HeatPumps.Validation.AirToWater'] = (
+REMOVE_MODIF['Buildings.Templates.Plants.HeatPumps.Validation.AirToWaterReversibleHeatRecovery'] = (
     REMOVE_MODIF[
         'Buildings.Templates.Plants.HeatPumps.Validation.AirToWaterPolyvalent'
     ]
