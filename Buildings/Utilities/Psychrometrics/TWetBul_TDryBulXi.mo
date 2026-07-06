@@ -16,12 +16,14 @@ block TWetBul_TDryBulXi
     final unit="K",
     min=0) "Dry bulb temperature"
     annotation (Placement(transformation(extent={{-120,70},{-100,90}})));
-  Modelica.Blocks.Interfaces.RealInput p(  final quantity="Pressure",
-                                           final unit="Pa",
-                                           min = 0) "Pressure"
+  Modelica.Blocks.Interfaces.RealInput p(final quantity="Pressure",
+                                         final unit="Pa",
+                                         nominal=100000,
+                                         min = 0) "Pressure"
     annotation (Placement(transformation(extent={{-120,-90},{-100,-70}})));
   Modelica.Blocks.Interfaces.RealOutput TWetBul(
     start=293,
+    nominal=300,
     final quantity="ThermodynamicTemperature",
     final unit="K",
     min=0) "Wet bulb temperature"
