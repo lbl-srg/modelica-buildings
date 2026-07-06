@@ -56,19 +56,15 @@ MODIF_GRID = {
             'true',
             'false',
         ],
-        'pla__ctl__have_senTHeaWatPriRet_select': [
+        'pla__ctl__have_senTPriRet_select': [
             'true',
             'false',
         ],
-        'pla__ctl__have_senTHeaWatSecRet_select': [
+        'pla__ctl__have_senTLooRet_select': [
             'true',
             'false',
         ],
         'pla__ctl__have_senDpHeaWatRemWir': [
-            'true',
-            'false',
-        ],
-        'pla__ctl__have_senVHeaWatPri_select': [
             'true',
             'false',
         ],
@@ -143,47 +139,28 @@ REMOVE_MODIF = {
                 'have_pumPriDedComHp_select',
             ],
         ),
-        # Controls/HeatPumps/AirToWater.mo: primary flow and primary return temperature sensors
-        # are forced together, based on the completeness of the *secondary pair* (flow AND return
-        # temperature), so that the staging logic always has access to either a complete primary
-        # pair or a complete secondary pair (it uses the primary pair when available, and falls
-        # back to the secondary pair otherwise):
-        #   final parameter Boolean have_senVHeaWatPri =
-        #     have_heaWat and (if is_priOnl or have_hrc or
-        #       not (have_senTHeaWatSecRet and have_senVHeaWatSec)
-        #       then true else have_senVHeaWatPri_select);
-        #   final parameter Boolean have_senTHeaWatPriRet =
-        #     have_heaWat and (if is_priOnl or have_hrc or
-        #       not (have_senTHeaWatSecRet and have_senVHeaWatSec)
-        #       then true else have_senTHeaWatPriRet_select);
-        # With typDis=Variable1Only, is_priOnl=true, so have_senVHeaWatSec=have_pumHeaWatSec=false:
-        # the secondary pair can never be complete, so have_senVHeaWatPri and have_senTHeaWatPriRet
-        # are both forced to true, and have_senTHeaWatSecRet is forced to false, regardless of
-        # selection.
+        # Controls/HeatPumps/AirToWater.mo:
+        #   final parameter Boolean have_senTPriRet =
+        #     if is_priOnl then true else have_senTPriRet_select;
+        # With typDis=Variable1Only, is_priOnl=true, so have_senTPriRet_select has no effect.
         (
             [
                 'Buildings.Templates.Plants.HeatPumps.Types.Distribution.Variable1Only',
             ],
             [
-                'have_senVHeaWatPri_select',
-                'have_senTHeaWatSecRet_select',
-                'have_senTHeaWatPriRet_select',
+                'have_senTPriRet_select',
             ],
         ),
-        # Controls/HeatPumps/AirToWater.mo: have_senVHeaWatPri_select and have_senTHeaWatPriRet_select
-        # are only used if the secondary pair (have_senVHeaWatSec and have_senTHeaWatSecRet) is
-        # complete (see rule above). Outside of is_priOnl/have_hrc (already handled by other rules),
-        # have_senVHeaWatSec is unconditionally true and have_senTHeaWatSecRet reduces to exactly
-        # have_senTHeaWatSecRet_select, so "secondary pair complete" reduces to exactly
-        # have_senTHeaWatSecRet_select. Whenever have_senTHeaWatSecRet_select is false, the secondary
-        # pair is incomplete and both primary selections are forced to true.
+        # Controls/HeatPumps/AirToWater.mo:
+        #   final parameter Boolean have_senTLooRet =
+        #     is_priOnl and (if have_hrc then true else have_senTLooRet_select);
+        # With typDis=Constant1Variable2, is_priOnl=false, so have_senTLooRet_select has no effect.
         (
             [
-                'have_senTHeaWatSecRet_select=false',
+                'Buildings.Templates.Plants.HeatPumps.Types.Distribution.Constant1Variable2',
             ],
             [
-                'have_senVHeaWatPri_select',
-                'have_senTHeaWatPriRet_select',
+                'have_senTLooRet_select',
             ],
         ),
     ]
@@ -193,17 +170,18 @@ REMOVE_MODIF['Buildings.Templates.Plants.HeatPumps.Validation.AirToWater'] = (
         'Buildings.Templates.Plants.HeatPumps.Validation.AirToWaterPolyvalent'
     ]
     + [
-        # Controls/HeatPumps/AirToWater.mo: with typ=ReversibleHeatRecovery, have_hrc=true, so
-        # have_senVHeaWatPri, have_senTHeaWatPriRet and have_senTHeaWatSecRet are all forced to
-        # true regardless of their respective selections (see rules above).
+        # Controls/HeatPumps/AirToWater.mo: with typDis=Variable1Only (is_priOnl=true) and
+        # typ=ReversibleHeatRecovery (have_hrc=true), have_senTLooRet is forced to true
+        # (see rule above), so have_senTLooRet_select has no effect regardless of selection.
+        # This only has an effect for the AirToWater model, which is the only one that varies
+        # pla__typ: see above.
         (
             [
+                'Buildings.Templates.Plants.HeatPumps.Types.Distribution.Variable1Only',
                 'Buildings.Templates.Plants.Controls.Types.PlantHeatPump.ReversibleHeatRecovery',
             ],
             [
-                'have_senVHeaWatPri_select',
-                'have_senTHeaWatPriRet_select',
-                'have_senTHeaWatSecRet_select',
+                'have_senTLooRet_select',
             ],
         ),
     ]

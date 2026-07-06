@@ -7,8 +7,7 @@ block AssertMinimumRuntime
   parameter Integer nUni(final min=1) "Number of units";
   parameter Real dt_min(final min=0, final unit="s") = 10 * 60
     "Minimum runtime or off-time";
-  parameter String message =
-    if use_runTim
+  parameter String message = if use_runTim
     then "Polyvalent HP minimum runtime is not met."
     else "Polyvalent HP minimum off-time is not met."
     "Warning message";
@@ -27,9 +26,13 @@ block AssertMinimumRuntime
     if use_runTim
     "Falling edge of heating on/off command"
     annotation(Placement(transformation(extent={{-100,38},{-80,58}})));
+  // The bindings below for pre_u_start make translation fail with OCT 1.66.
   Buildings.Controls.OBC.CDL.Logical.Pre preHea[nUni](each pre_u_start=true)
     "Left-limit of timer status, before it is reset by the falling/rising edge"
     annotation(Placement(transformation(extent={{-20,50},{0,70}})));
+  Buildings.Controls.OBC.CDL.Logical.Pre preCoo[nUni](each pre_u_start=true)
+    "Left-limit of timer status, before it is reset by the falling/rising edge"
+    annotation(Placement(transformation(extent={{-20,-70},{0,-50}})));
   Buildings.Controls.OBC.CDL.Logical.Switch swiRunHea[nUni]
     "Select minimum runtime/off-time status at falling/rising edge of heating command"
     annotation(Placement(transformation(extent={{20,30},{40,50}})));
@@ -43,9 +46,6 @@ block AssertMinimumRuntime
     if use_runTim
     "Falling edge of cooling on/off command"
     annotation(Placement(transformation(extent={{-100,-60},{-80,-40}})));
-  Buildings.Controls.OBC.CDL.Logical.Pre preCoo[nUni](each pre_u_start=true)
-    "Left-limit of timer status, before it is reset by the falling/rising edge"
-    annotation(Placement(transformation(extent={{-20,-70},{0,-50}})));
   Buildings.Controls.OBC.CDL.Logical.Switch swiRunCoo[nUni]
     "Select minimum runtime/off-time status at falling/rising edge of cooling command"
     annotation(Placement(transformation(extent={{20,-50},{40,-30}})));

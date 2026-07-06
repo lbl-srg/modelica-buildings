@@ -580,11 +580,9 @@ annotation(defaultComponentName="chaSta",
   <i>OPLR = Qrequired / Qstage</i>
 </p>
 <p>
-  If both primary and secondary hot water temperatures and flow rates are
+  If both primary and secondary return temperature and flow rate sensors are
   available, the sensors in the primary loop are used for calculating
-  <i>Qrequired</i>. If a heat recovery chiller is piped into the secondary
-  return, the sensors in the primary loop are used. (These conditions are
-  implemented in
+  <i>Qrequired</i>. (This condition is implemented in
   <a href=\"modelica://Buildings.Templates.Plants.Controls.HeatPumps.AirToWater\">
     Buildings.Templates.Plants.Controls.HeatPumps.AirToWater</a>.)
 </p>

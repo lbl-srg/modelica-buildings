@@ -35,9 +35,6 @@ record HeatPumpPlant
   parameter Boolean is_rev
     "Set to true for reversible heat pumps, false for heating only"
     annotation(Evaluate=true);
-  parameter Boolean is_phpMod
-    "Set to true for modular polyvalent heat pump"
-    annotation(Evaluate=true);
   parameter Boolean have_valHpInlIso
     "Set to true for isolation valves at HP inlet"
     annotation(Evaluate=true);

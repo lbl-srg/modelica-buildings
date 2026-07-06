@@ -112,118 +112,103 @@ block AirToWater
     "Set to true for secondary variable speed pumps using ∆p pump speed control"
     annotation(Evaluate=true,
       Dialog(group="Plant configuration"));
-  // Primary sensors (flow and return temperature) are only optional if the full pair of
-  // secondary sensors (flow and return temperature) is available: the staging logic
-  // always needs access to either a complete primary pair or a complete secondary pair,
-  // and falls back to the secondary pair whenever the primary pair is not complete.
-  parameter Boolean have_senVHeaWatPri_select(start=false)
-    "Set to true for plants with primary HW flow sensor"
-    annotation(Evaluate=true,
-      Dialog(group="Sensors",
-        enable=have_heaWat
-          and not is_priOnl
-          and not have_hrc
-          and have_senTHeaWatSecRet
-          and have_senVHeaWatSec));
-  final parameter Boolean have_senVHeaWatPri = have_heaWat
-    and (if is_priOnl
-      or have_hrc
-      or not (have_senTHeaWatSecRet and have_senVHeaWatSec) then true
-      else have_senVHeaWatPri_select)
-    "Set to true for plants with primary HW flow sensor"
-    annotation(Evaluate=true,
-      Dialog(group="Sensors"));
-  // Secondary flow sensor required for secondary HW pump staging.
-  final parameter Boolean have_senVHeaWatSec = have_pumHeaWatSec
-    "Set to true for plants with secondary HW flow sensor"
-    annotation(Evaluate=true,
-      Dialog(group="Sensors"));
-  parameter Boolean have_senVChiWatPri_select(start=false)
-    "Set to true for plants with primary CHW flow sensor"
-    annotation(Evaluate=true,
-      Dialog(group="Sensors",
-        enable=have_chiWat
-          and not is_priOnl
-          and not have_hrc
-          and have_senTChiWatSecRet
-          and have_senVChiWatSec));
-  final parameter Boolean have_senVChiWatPri = have_chiWat
-    and (if is_priOnl
-      or have_hrc
-      or not (have_senTChiWatSecRet and have_senVChiWatSec) then true
-      else have_senVChiWatPri_select)
-    "Set to true for plants with primary CHW flow sensor"
-    annotation(Evaluate=true,
-      Dialog(group="Sensors"));
-  // Secondary flow sensor required for secondary CHW pump staging.
-  final parameter Boolean have_senVChiWatSec(start=false) = have_pumChiWatSec
-    "Set to true for plants with secondary CHW flow sensor"
-    annotation(Evaluate=true,
-      Dialog(group="Sensors"));
-  parameter Boolean have_senTHeaWatPriRet_select(start=false)
-    "Set to true for plants with primary HW return temperature sensor"
-    annotation(Evaluate=true,
-      Dialog(group="Sensors",
-        enable=have_heaWat
-          and not is_priOnl
-          and not have_hrc
-          and have_senTHeaWatSecRet
-          and have_senVHeaWatSec));
-  final parameter Boolean have_senTHeaWatPriRet = have_heaWat
-    and (if is_priOnl
-      or have_hrc
-      or not (have_senTHeaWatSecRet and have_senVHeaWatSec) then true
-      else have_senTHeaWatPriRet_select)
-    "Set to true for plants with primary HW return temperature sensor"
-    annotation(Evaluate=true,
-      Dialog(group="Sensors"));
-  parameter Boolean have_senTChiWatPriRet_select(start=false)
-    "Set to true for plants with primary CHW return temperature sensor"
-    annotation(Evaluate=true,
-      Dialog(group="Sensors",
-        enable=have_chiWat
-          and not is_priOnl
-          and not have_hrc
-          and have_senTChiWatSecRet
-          and have_senVChiWatSec));
-  final parameter Boolean have_senTChiWatPriRet = have_chiWat
-    and (if is_priOnl
-      or have_hrc
-      or not (have_senTChiWatSecRet and have_senVChiWatSec) then true
-      else have_senTChiWatPriRet_select)
-    "Set to true for plants with primary CHW return temperature sensor"
-    annotation(Evaluate=true,
-      Dialog(group="Sensors"));
-  // For primary-secondary plants, SHWST sensor is required for plant staging.
-  final parameter Boolean have_senTHeaWatSecSup = have_pumHeaWatSec
-    "Set to true for plants with secondary HW supply temperature sensor"
-    annotation(Evaluate=true,
-      Dialog(group="Sensors"));
-  // For primary-secondary plants, SCHWST sensor is required for plant staging.
-  final parameter Boolean have_senTChiWatSecSup = have_pumChiWatSec
-    "Set to true for plants with secondary CHW supply temperature sensor"
-    annotation(Evaluate=true,
-      Dialog(group="Sensors"));
-  // Following return temperature sensors are:
-  // - optional for primary-secondary plants without HRC,
-  // - required for plants with HRC: downstream of HRC.
-  parameter Boolean have_senTHeaWatSecRet_select(start=false) = false
-    "Set to true for plants with secondary HW return temperature sensor"
-    annotation(Evaluate=true,
-      Dialog(group="Sensors",
-        enable=have_pumHeaWatSec and not have_hrc));
-  parameter Boolean have_senTChiWatSecRet_select(start=false) = false
-    "Set to true for plants with secondary CHW return temperature sensor"
-    annotation(Evaluate=true,
-      Dialog(group="Sensors",
-        enable=have_pumChiWatSec and not have_hrc));
-  final parameter Boolean have_senTHeaWatSecRet = if have_hrc then true
-    elseif not have_pumHeaWatSec then false else have_senTHeaWatSecRet_select
-    "Set to true for plants with secondary HW return temperature sensor"
+  // Primary flow sensor:
+  // - Required for primary-only plants
+  // - Not required nor recommended for primary-secondary plants
+  final parameter Boolean have_senVPri = is_priOnl
+    "Set to true for plants with primary CHW/HW flow sensor"
     annotation(Evaluate=true);
-  final parameter Boolean have_senTChiWatSecRet(start=false) = if have_hrc
-    then true elseif not have_pumChiWatSec then false
-    else have_senTChiWatSecRet_select
+  // Primary supply temperature sensor required for both primary-only plants
+  // and primary-secondary plants ( ailsafe staging condition)
+  final parameter Boolean have_senTPriSup = true
+    "Set to true for plants with primary CHW/HW supply temperature sensor"
+    annotation(Evaluate=true);
+  // Primary return temperature sensor:
+  // - Required for primary-only plants (HP staging logic)
+  // - Optional for primary-secondary plants
+  parameter Boolean have_senTPriRet_select(start=false) = false
+    "Set to true for plants with primary CHW/HW return temperature sensor"
+    annotation(Evaluate=true,
+      Dialog(group="Sensors",
+        enable=not is_priOnl));
+  final parameter Boolean have_senTPriRet = if is_priOnl then true
+    else have_senTPriRet_select
+    "Set to true for plants with primary CHW/HW return temperature sensor"
+    annotation(Evaluate=true);
+  // CHW/HW loop return temperature sensor:
+  // - Required for primary-only plants with HRC
+  // - Optional for other primary-only plants
+  parameter Boolean have_senTLooRet_select(start=false) = false
+    "Set to true for plants with CHW/HW loop return temperature sensor (load side of minimum flow bypass)"
+    annotation(Evaluate=true,
+      Dialog(group="Sensors",
+        enable=is_priOnl and not have_hrc));
+  final parameter Boolean have_senTLooRet = is_priOnl
+    and (if have_hrc then true else have_senTLooRet_select)
+    "Set to true for plants with CHW/HW loop return temperature sensor"
+    annotation(Evaluate=true);
+  final parameter Boolean have_senVLoo = is_priOnl and have_hrc
+    "Set to true for plants with CHW/HW loop flow sensor"
+    annotation(Evaluate=true);
+  // Secondary flow sensor required for secondary pump staging
+  final parameter Boolean have_senVSec = not is_priOnl
+    "Set to true for plants with secondary CHW/HW flow sensor"
+    annotation(Evaluate=true);
+  // Secondary supply and return temperature sensors required for primary-secondary plants (HP staging logic)
+  final parameter Boolean have_senTSec = not is_priOnl
+    "Set to true for plants with secondary CHW/HW supply and return temperature sensors"
+    annotation(Evaluate=true);
+  // We propagate the sensor configuration to each loop.
+  final parameter Boolean have_senVHeaWatPri = have_heaWat and have_senVPri
+    "Set to true for plants with primary HW flow sensor"
+    annotation(Evaluate=true);
+  final parameter Boolean have_senVHeaWatLoo = have_heaWat and have_senVLoo
+    "Set to true for plants with HW loop flow sensor"
+    annotation(Evaluate=true);
+  final parameter Boolean have_senVHeaWatSec = have_heaWat and have_senVSec
+    "Set to true for plants with secondary HW flow sensor"
+    annotation(Evaluate=true);
+  final parameter Boolean have_senVChiWatPri = have_chiWat and have_senVPri
+    "Set to true for plants with primary CHW flow sensor"
+    annotation(Evaluate=true);
+  final parameter Boolean have_senVChiWatLoo = have_chiWat and have_senVLoo
+    "Set to true for plants with CHW loop flow sensor"
+    annotation(Evaluate=true);
+  final parameter Boolean have_senVChiWatSec = have_chiWat and have_senVSec
+    "Set to true for plants with secondary CHW flow sensor"
+    annotation(Evaluate=true);
+  final parameter Boolean have_senTHeaWatPriSup = have_heaWat
+    and have_senTPriSup
+    "Set to true for plants with primary HW supply temperature sensor"
+    annotation(Evaluate=true);
+  final parameter Boolean have_senTHeaWatPriRet = have_heaWat
+    and have_senTPriRet
+    "Set to true for plants with primary HW return temperature sensor"
+    annotation(Evaluate=true);
+  final parameter Boolean have_senTChiWatPriSup = have_chiWat
+    and have_senTPriSup
+    "Set to true for plants with primary CHW supply temperature sensor"
+    annotation(Evaluate=true);
+  final parameter Boolean have_senTChiWatPriRet = have_chiWat
+    and have_senTPriRet
+    "Set to true for plants with primary CHW return temperature sensor"
+    annotation(Evaluate=true);
+  final parameter Boolean have_senTHeaWatSecSup = have_heaWat and have_senTSec
+    "Set to true for plants with secondary HW supply temperature sensor"
+    annotation(Evaluate=true);
+  final parameter Boolean have_senTChiWatSecSup = have_chiWat and have_senTSec
+    "Set to true for plants with secondary CHW supply temperature sensor"
+    annotation(Evaluate=true);
+  final parameter Boolean have_senTHeaWatLooRet = have_heaWat
+    and have_senTLooRet
+    "Set to true for plants with HW loop return temperature sensor (load side of minimum flow bypass)";
+  final parameter Boolean have_senTChiWatLooRet = have_chiWat
+    and have_senTLooRet
+    "Set to true for plants with CHW loop return temperature sensor (load side of minimum flow bypass)";
+  final parameter Boolean have_senTHeaWatSecRet = have_heaWat and have_senTSec
+    "Set to true for plants with loop/secondary HW return temperature sensor"
+    annotation(Evaluate=true);
+  final parameter Boolean have_senTChiWatSecRet = have_chiWat and have_senTSec
     "Set to true for plants with secondary CHW return temperature sensor"
     annotation(Evaluate=true);
   parameter Integer nHp_select(min=if have_hp then 1 else 0, start=1)
@@ -1017,13 +1002,13 @@ block AirToWater
   Buildings.Controls.OBC.CDL.Interfaces.RealInput THeaWatPriRet(
     final unit="K",
     displayUnit="degC")
-    if have_heaWat and have_senTHeaWatPriRet
+    if have_senTHeaWatPriRet
     "Primary HW return temperature"
     annotation(Placement(transformation(extent={{-300,20},{-260,60}}),
       iconTransformation(extent={{-240,-60},{-200,-20}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput VHeaWatPri_flow(
     final unit="m3/s")
-    if have_heaWat and have_senVHeaWatPri
+    if have_senVHeaWatPri
     "Primary HW volume flow rate"
     annotation(Placement(transformation(extent={{-300,0},{-260,40}}),
       iconTransformation(extent={{-240,-80},{-200,-40}})));
@@ -1194,13 +1179,13 @@ block AirToWater
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TChiWatPriRet(
     final unit="K",
     displayUnit="degC")
-    if have_chiWat and have_senTChiWatPriRet
+    if have_senTChiWatPriRet
     "Primary CHW return temperature"
     annotation(Placement(transformation(extent={{-300,-40},{-260,0}}),
       iconTransformation(extent={{-240,-120},{-200,-80}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput VChiWatPri_flow(
     final unit="m3/s")
-    if have_chiWat and have_senVChiWatPri
+    if have_senVChiWatPri
     "Primary CHW volume flow rate"
     annotation(Placement(transformation(extent={{-300,-60},{-260,-20}}),
       iconTransformation(extent={{-240,-140},{-200,-100}})));
@@ -1221,30 +1206,30 @@ block AirToWater
     "Primary CHW pump speed command – HP dedicated pumps"
     annotation(Placement(transformation(extent={{260,-20},{300,20}}),
       iconTransformation(extent={{200,-60},{240,-20}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput THeaWatSecRet(
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput THeaWatLooOrSecRet(
     final unit="K",
     displayUnit="degC")
-    if have_heaWat and have_senTHeaWatSecRet
-    "Secondary HW return temperature"
+    if have_senTHeaWatSecRet or have_senTHeaWatLooRet
+    "HW loop (primary-only) or secondary (primary-secondary) return temperature"
     annotation(Placement(transformation(extent={{-300,-100},{-260,-60}}),
       iconTransformation(extent={{-240,-180},{-200,-140}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput VHeaWatSec_flow(
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput VHeaWatLooOrSec_flow(
     final unit="m3/s")
-    if have_heaWat and have_senVHeaWatSec
-    "Secondary HW volume flow rate"
+    if have_senVHeaWatSec or have_senVHeaWatLoo
+    "HW loop (primary-only) or secondary (primary-secondary) volume flow rate"
     annotation(Placement(transformation(extent={{-300,-140},{-260,-100}}),
       iconTransformation(extent={{-240,-220},{-200,-180}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput TChiWatSecRet(
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput TChiWatLooOrSecRet(
     final unit="K",
     displayUnit="degC")
-    if have_chiWat and have_senTChiWatSecRet
-    "Secondary CHW return temperature"
+    if have_senTChiWatSecRet or have_senTChiWatLooRet
+    "CHW loop (primary-only) or secondary (primary-secondary) return temperature"
     annotation(Placement(transformation(extent={{-300,-180},{-260,-140}}),
       iconTransformation(extent={{-240,-260},{-200,-220}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput VChiWatSec_flow(
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput VChiWatLooOrSec_flow(
     final unit="m3/s")
-    if have_chiWat and have_senVChiWatSec
-    "Secondary CHW volume flow rate"
+    if have_senVChiWatSec or have_senVChiWatLoo
+    "CHW loop (primary-only) or secondary (primary-secondary) volume flow rate"
     annotation(Placement(transformation(extent={{-300,-220},{-260,-180}}),
       iconTransformation(extent={{-240,-300},{-200,-260}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput THeaWatSupHpSet[nHp](
@@ -1258,29 +1243,29 @@ block AirToWater
   Buildings.Controls.OBC.CDL.Interfaces.RealInput THeaWatPriSup(
     final unit="K",
     displayUnit="degC")
-    if have_heaWat
+    if have_senTHeaWatPriSup
     "Primary HW supply temperature"
     annotation(Placement(transformation(extent={{-300,40},{-260,80}}),
       iconTransformation(extent={{-240,-40},{-200,0}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TChiWatPriSup(
     final unit="K",
     displayUnit="degC")
-    if have_chiWat
+    if have_senTChiWatPriSup
     "Primary CHW return temperature"
     annotation(Placement(transformation(extent={{-300,-20},{-260,20}}),
       iconTransformation(extent={{-240,-100},{-200,-60}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput THeaWatSecSup(
     final unit="K",
     displayUnit="degC")
-    if have_heaWat and have_senTHeaWatSecSup
+    if have_senTHeaWatSecSup
     "Secondary HW supply temperature"
     annotation(Placement(transformation(extent={{-300,-80},{-260,-40}}),
       iconTransformation(extent={{-240,-160},{-200,-120}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TChiWatSecSup(
     final unit="K",
     displayUnit="degC")
-    if have_chiWat and have_senTChiWatSecSup
-    "Secondary CHW return temperature"
+    if have_senTChiWatSecSup
+    "Secondary CHW supply temperature"
     annotation(Placement(transformation(extent={{-300,-160},{-260,-120}}),
       iconTransformation(extent={{-240,-240},{-200,-200}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput y1Hrc
@@ -1827,18 +1812,6 @@ block AirToWater
     if is_priOnl
     "CHW/HW minimum flow bypass valve controller"
     annotation(Placement(transformation(extent={{202,-250},{222,-218}})));
-  Utilities.PlaceholderReal VHeaWatLoa_flow(
-    final have_inp=is_priOnl,
-    final have_inpPh=true)
-    if have_heaWat
-    "For HRC logic select either primary or secondary sensor depending on plant configuration"
-    annotation(Placement(transformation(extent={{-140,-70},{-120,-50}})));
-  Utilities.PlaceholderReal VChiWatLoa_flow(
-    final have_inp=is_priOnl,
-    final have_inpPh=true)
-    if have_chiWat
-    "For HRC logic select either primary or secondary sensor depending on plant configuration"
-    annotation(Placement(transformation(extent={{-140,-110},{-120,-90}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant u1AvaPhp[nPhp](
     each k=true)
     if have_php
@@ -2079,10 +2052,10 @@ equation
     annotation(Line(
       points={{162,288.667},{162,220},{130,220},{130,202},{138,202}},
       color={255,0,255}));
-  connect(VHeaWatSec_flow, staPumHeaWatSec.V_flow)
+  connect(VHeaWatLooOrSec_flow, staPumHeaWatSec.V_flow)
     annotation(Line(points={{-280,-120},{-156,-120},{-156,158},{138,158}},
       color={0,0,127}));
-  connect(VChiWatSec_flow, staPumChiWatSec.V_flow)
+  connect(VChiWatLooOrSec_flow, staPumChiWatSec.V_flow)
     annotation(Line(points={{-280,-200},{-154,-200},{-154,138},{188,138}},
       color={0,0,127}));
   connect(THeaWatPriRet, THeaWatRet.u)
@@ -2092,7 +2065,7 @@ equation
     annotation(Line(
       points={{-208,40},{-168,40},{-168,306},{-50,306},{-50,314},{-42,314}},
       color={0,0,127}));
-  connect(THeaWatSecRet, THeaWatRet.uPh)
+  connect(THeaWatLooOrSecRet, THeaWatRet.uPh)
     annotation(Line(points={{-280,-80},{-240,-80},{-240,34},{-232,34}},
       color={0,0,127}));
   connect(VHeaWatPri_flow, VHeaWatSta_flow.u)
@@ -2102,7 +2075,7 @@ equation
     annotation(Line(
       points={{-168,20},{-166,20},{-166,304},{-48,304},{-48,312},{-42,312}},
       color={0,0,127}));
-  connect(VHeaWatSec_flow, VHeaWatSta_flow.uPh)
+  connect(VHeaWatLooOrSec_flow, VHeaWatSta_flow.uPh)
     annotation(Line(points={{-280,-120},{-200,-120},{-200,14},{-192,14}},
       color={0,0,127}));
   connect(TChiWatPriRet, TChiWatRet.u)
@@ -2112,7 +2085,7 @@ equation
     annotation(Line(
       points={{-208,-20},{-164,-20},{-164,48},{-50,48},{-50,54},{-42,54}},
       color={0,0,127}));
-  connect(TChiWatSecRet, TChiWatRet.uPh)
+  connect(TChiWatLooOrSecRet, TChiWatRet.uPh)
     annotation(Line(points={{-280,-160},{-238,-160},{-238,-26},{-232,-26}},
       color={0,0,127}));
   connect(VChiWatPri_flow, VChiWatSta_flow.u)
@@ -2122,7 +2095,7 @@ equation
     annotation(Line(
       points={{-168,-40},{-162,-40},{-162,38},{-48,38},{-48,52},{-42,52}},
       color={0,0,127}));
-  connect(VChiWatSec_flow, VChiWatSta_flow.uPh)
+  connect(VChiWatLooOrSec_flow, VChiWatSta_flow.uPh)
     annotation(Line(points={{-280,-200},{-204,-200},{-204,-46},{-192,-46}},
       color={0,0,127}));
   connect(enaHea.y1, staPumHeaWatSec.u1Pla)
@@ -2345,10 +2318,10 @@ equation
   connect(THeaWatRetUpsHrc, hrc.THeaWatRetUpsHrc)
     annotation(Line(points={{-280,-100},{-246,-100},{-246,-316},{198,-316}},
       color={0,0,127}));
-  connect(THeaWatSecRet, hrc.THeaWatHrcLvg)
+  connect(THeaWatLooOrSecRet, hrc.THeaWatHrcLvg)
     annotation(Line(points={{-280,-80},{-240,-80},{-240,-314},{198,-314}},
       color={0,0,127}));
-  connect(TChiWatSecRet, hrc.TChiWatHrcLvg)
+  connect(TChiWatLooOrSecRet, hrc.TChiWatHrcLvg)
     annotation(Line(points={{-280,-160},{-238,-160},{-238,-304},{198,-304}},
       color={0,0,127}));
   connect(u1Hrc_actual, hrc.u1Hrc_actual)
@@ -2559,24 +2532,6 @@ equation
   connect(VChiWatPri_flow, ctlFloMin.VChiWatPri_flow)
     annotation(Line(points={{-280,-40},{-254,-40},{-254,-245.8},{200,-245.8}},
       color={0,0,127}));
-  connect(VHeaWatSec_flow, VHeaWatLoa_flow.uPh)
-    annotation(Line(points={{-280,-120},{-156,-120},{-156,-66},{-142,-66}},
-      color={0,0,127}));
-  connect(VHeaWatPri_flow, VHeaWatLoa_flow.u)
-    annotation(Line(points={{-280,20},{-244,20},{-244,-60},{-142,-60}},
-      color={0,0,127}));
-  connect(VChiWatSec_flow, VChiWatLoa_flow.uPh)
-    annotation(Line(points={{-280,-200},{-154,-200},{-154,-106},{-142,-106}},
-      color={0,0,127}));
-  connect(VChiWatPri_flow, VChiWatLoa_flow.u)
-    annotation(Line(points={{-280,-40},{-254,-40},{-254,-100},{-142,-100}},
-      color={0,0,127}));
-  connect(VChiWatLoa_flow.y, hrc.VChiWatLoa_flow)
-    annotation(Line(points={{-118,-100},{-100,-100},{-100,-308},{198,-308}},
-      color={0,0,127}));
-  connect(VHeaWatLoa_flow.y, hrc.VHeaWatLoa_flow)
-    annotation(Line(points={{-118,-60},{-98,-60},{-98,-318},{198,-318}},
-      color={0,0,127}));
   connect(repTHeaWatSupHpSet.y, THeaWatSupHpSet)
     annotation(Line(points={{174,-120},{280,-120}},
       color={0,0,127}));
@@ -2672,10 +2627,10 @@ equation
     annotation(Line(points={{-128,408},{36,408},{36,352},{48,352}},
       color={255,0,255}));
   connect(avaHeaCooPhp.y1Shc, selMod.u1AvaShcPhp)
-    annotation(Line(points={{-128,392},{34,392},{34,350},{48,350}},
+    annotation(Line(points={{-128,392},{34,392},{34,348},{48,348}},
       color={255,0,255}));
   connect(avaHeaCooPhp.y1Coo, selMod.u1AvaCooPhp)
-    annotation(Line(points={{-128,400},{32,400},{32,348},{48,348}},
+    annotation(Line(points={{-128,400},{32,400},{32,350},{48,350}},
       color={255,0,255}));
   connect(seqEve.y1ValHeaWatInlIso[nHp + 1:nHp + nPhp], y1ValHeaWatPhpInlIso)
     annotation(Line(points={{162,300.333},{242,300.333},{242,320},{280,320}},
@@ -2815,6 +2770,12 @@ equation
     annotation(Line(
       points={{280,460},{173.75,460},{173.75,442},{74,442},{74,452},{72,452}},
       color={255,0,255}));
+  connect(VChiWatLooOrSec_flow, hrc.VChiWatLoa_flow)
+    annotation(Line(points={{-280,-200},{-140,-200},{-140,-308},{198,-308}},
+      color={0,0,127}));
+  connect(VHeaWatLooOrSec_flow, hrc.VHeaWatLoa_flow)
+    annotation(Line(points={{-280,-120},{-142,-120},{-142,-318},{198,-318}},
+      color={0,0,127}));
 annotation(defaultComponentName="ctl",
   Icon(coordinateSystem(preserveAspectRatio=true,
     extent={{-200,-460},{200,460}},

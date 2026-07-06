@@ -93,7 +93,6 @@ partial model PartialHeatPumpPlant
     final have_valPhpInlIso=have_valPhpInlIso,
     final have_valPhpOutIso=have_valPhpOutIso,
     final is_rev=is_rev,
-    final is_phpMod=is_phpMod,
     final nHp=nHp,
     final nPumChiWatPri=nPumChiWatPri,
     final nPumChiWatSec=nPumChiWatSec,
@@ -136,20 +135,15 @@ partial model PartialHeatPumpPlant
     final min=if have_hp then 1 else 0) = if have_hp then nHp_select else 0
     "Number of heat pumps (excluding polyvalent HPs)"
     annotation(Evaluate=true);
-  parameter Boolean is_phpMod(start=false)
-    "Set to true for modular polyvalent (SHC) unit"
-    annotation(Evaluate=true,
-      Dialog(group="polyvalent heat pumps",
-        enable=have_php));
   parameter Integer nPhp_select(start=0)
     "Number of polyvalent heat pumps"
     annotation(Evaluate=true,
       Dialog(group="polyvalent heat pumps",
-        enable=have_php and not is_phpMod));
+        enable=have_php));
   final parameter Integer nPhp(
-    final max=if have_php then (if is_phpMod then 1 else 10) else 0,
+    final max=if have_php then 10 else 0,
     final min=if have_php then 1 else 0) =
-    if have_php then (if is_phpMod then 1 else nPhp_select) else 0
+    if have_php then nPhp_select else 0
     "Number of polyvalent heat pumps"
     annotation(Evaluate=true);
   final parameter Boolean is_rev =

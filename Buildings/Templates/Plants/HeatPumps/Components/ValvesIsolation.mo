@@ -42,10 +42,6 @@ model ValvesIsolation
     "Set to true for plants with polyvalent heat pumps"
     annotation(Evaluate=true,
       Dialog(group="Configuration"));
-  parameter Boolean is_phpMod = false
-    "Set to true for modular polyvalent HP"
-    annotation(Evaluate=true,
-      Dialog(group="Configuration"));
   parameter Integer nHp
     "Number of heat pumps (excluding polyvalent HPs)"
     annotation(Evaluate=true,

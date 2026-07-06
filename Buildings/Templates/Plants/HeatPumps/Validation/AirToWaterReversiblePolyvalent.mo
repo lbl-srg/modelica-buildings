@@ -10,13 +10,7 @@ model AirToWaterReversiblePolyvalent
       typDis_select1=Buildings.Templates.Plants.HeatPumps.Types.Distribution.Constant1Variable2,
       typPumPri_select=Buildings.Templates.Plants.HeatPumps.Types.PumpsPrimary.Constant,
       have_pumPriDedComHp_select=true,
-      ctl(
-        have_senVHeaWatPri_select=true,
-        have_senVChiWatPri_select=true,
-        have_senTChiWatPriRet_select=true,
-        have_senTHeaWatPriRet_select=true,
-        have_senTChiWatSecRet_select=true,
-        have_senTHeaWatSecRet_select=true)),
+      ctl(have_senTPriRet_select=true)),
     ratLoa(
       table=[
         0, 0, 0;
@@ -27,8 +21,8 @@ model AirToWaterReversiblePolyvalent
         16, 0, 1;
         18, 0, 0.6;
         22, 0.1, 0.1;
-        24, 0, 0])
-        );
+        24, 0, 0
+      ]));
 annotation(__Dymola_Commands(
   file="modelica://Buildings/Resources/Scripts/Dymola/Templates/Plants/HeatPumps/Validation/AirToWaterReversiblePolyvalent.mos"
     "Simulate and plot"),

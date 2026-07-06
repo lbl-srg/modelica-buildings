@@ -4,11 +4,15 @@ model AirToWater
   extends Buildings.Templates.Plants.HeatPumps.Components.Interfaces.PartialController(
     final typ=Buildings.Templates.Plants.HeatPumps.Types.Controller.AirToWater,
     final have_senVHeaWatPri=ctl.have_senVHeaWatPri,
+    final have_senVHeaWatLoo=ctl.have_senVHeaWatLoo,
     final have_senVHeaWatSec=ctl.have_senVHeaWatSec,
     final have_senVChiWatPri=ctl.have_senVChiWatPri,
+    final have_senVChiWatLoo=ctl.have_senVChiWatLoo,
     final have_senVChiWatSec=ctl.have_senVChiWatSec,
     final have_senTHeaWatPriRet=ctl.have_senTHeaWatPriRet,
     final have_senTChiWatPriRet=ctl.have_senTChiWatPriRet,
+    final have_senTHeaWatLooRet=ctl.have_senTHeaWatLooRet,
+    final have_senTChiWatLooRet=ctl.have_senTChiWatLooRet,
     final have_senTHeaWatSecSup=ctl.have_senTHeaWatSecSup,
     final have_senTChiWatSecSup=ctl.have_senTChiWatSecSup,
     final have_senTHeaWatSecRet=ctl.have_senTHeaWatSecRet,
@@ -62,12 +66,8 @@ model AirToWater
       Buildings.Templates.Plants.HeatPumps.Types.PumpsPrimary.Variable,
     final have_senDpChiWatRemWir=cfg.have_senDpChiWatRemWir,
     final have_senDpHeaWatRemWir=cfg.have_senDpHeaWatRemWir,
-    final have_senTChiWatPriRet_select=have_senTChiWatPriRet_select,
-    final have_senTChiWatSecRet_select=have_senTChiWatSecRet_select,
-    final have_senTHeaWatPriRet_select=have_senTHeaWatPriRet_select,
-    final have_senTHeaWatSecRet_select=have_senTHeaWatSecRet_select,
-    final have_senVChiWatPri_select=have_senVChiWatPri_select,
-    final have_senVHeaWatPri_select=have_senVHeaWatPri_select,
+    final have_senTPriRet_select=have_senTPriRet_select,
+    final have_senTLooRet_select=have_senTLooRet_select,
     final have_valHpInlIso=cfg.have_valHpInlIso,
     final have_valHpOutIso=cfg.have_valHpOutIso,
     final have_valPhpInlIso=cfg.have_valPhpInlIso,
@@ -195,29 +195,45 @@ model AirToWater
     dpLocSet_max=fill(dat.dpHeaWatLocSet_max, nSenDpHeaWatRem))
     if cfg.have_heaWat and not have_senDpHeaWatRemWir
     "Local HW DP reset"
-    annotation(Placement(transformation(extent={{-70,-20},{-50,0}})));
+    annotation(Placement(transformation(extent={{-90,-30},{-70,-10}})));
   Buildings.Templates.Plants.Controls.Pumps.Generic.ResetLocalDifferentialPressure resDpChiWatLoc[nSenDpChiWatRem](
     dpLocSet_min=fill(dat.dpChiWatLocSet_min, nSenDpChiWatRem),
     dpLocSet_max=fill(dat.dpChiWatLocSet_max, nSenDpChiWatRem))
     if cfg.have_chiWat and not have_senDpChiWatRemWir
     "Local CHW DP reset"
-    annotation(Placement(transformation(extent={{-70,-54},{-50,-34}})));
+    annotation(Placement(transformation(extent={{-88,-70},{-68,-50}})));
+  Buildings.Templates.Plants.Controls.Utilities.PlaceholderReal
+    THeaWatLooOrSecRet(final have_inp=have_senTHeaWatLooRet, have_inpPh=true)
+    if have_senTHeaWatLooRet or have_senTHeaWatSecRet
+    "Select sensor based on plant configuration"
+    annotation (Placement(transformation(extent={{-210,10},{-190,30}})));
+  Buildings.Templates.Plants.Controls.Utilities.PlaceholderReal
+    TChiWatLooOrSecRet(final have_inp=have_senTChiWatLooRet, have_inpPh=true)
+    if have_senTChiWatLooRet or have_senTChiWatSecRet
+    "Select sensor based on plant configuration"
+    annotation (Placement(transformation(extent={{-170,10},{-150,30}})));
+  Buildings.Templates.Plants.Controls.Utilities.PlaceholderReal VHeaWatLooOrSec(
+      final have_inp=have_senVHeaWatLoo, have_inpPh=true)
+    if have_senVHeaWatLoo or have_senVHeaWatSec
+    "Select sensor based on plant configuration"
+    annotation (Placement(transformation(extent={{-130,10},{-110,30}})));
+  Buildings.Templates.Plants.Controls.Utilities.PlaceholderReal VChiWatLooOrSec(
+      final have_inp=have_senVChiWatLoo, have_inpPh=true)
+    if have_senVChiWatLoo or have_senVChiWatSec
+    "Select sensor based on plant configuration"
+    annotation (Placement(transformation(extent={{-90,10},{-70,30}})));
 equation
   /* Control point connection - start */
   // Inputs from plant control bus
   connect(bus.TChiWatPriRet, ctl.TChiWatPriRet);
   connect(bus.TChiWatPriSup, ctl.TChiWatPriSup);
-  connect(bus.TChiWatSecRet, ctl.TChiWatSecRet);
   connect(bus.TChiWatSecSup, ctl.TChiWatSecSup);
   connect(bus.THeaWatPriRet, ctl.THeaWatPriRet);
   connect(bus.THeaWatPriSup, ctl.THeaWatPriSup);
-  connect(bus.THeaWatSecRet, ctl.THeaWatSecRet);
   connect(bus.THeaWatSecSup, ctl.THeaWatSecSup);
   connect(bus.TOut, ctl.TOut);
   connect(bus.VChiWatPri_flow, ctl.VChiWatPri_flow);
-  connect(bus.VChiWatSec_flow, ctl.VChiWatSec_flow);
   connect(bus.VHeaWatPri_flow, ctl.VHeaWatPri_flow);
-  connect(bus.VHeaWatSec_flow, ctl.VHeaWatSec_flow);
   connect(bus.dpChiWatLoc, ctl.dpChiWatLoc);
   connect(bus.dpChiWatLocSet, ctl.dpChiWatLocSet);
   connect(bus.dpChiWatRem, ctl.dpChiWatRem);
@@ -380,19 +396,62 @@ equation
     annotation(Line(points={{88,74},{-34,74},{-34,-4},{-22,-4}},
       color={255,127,0}));
   connect(resDpHeaWatLoc.dpLocSet, ctl.dpHeaWatLocSet)
-    annotation(Line(points={{-48.2,-10},{-40,-10},{-40,-38},{-22,-38}},
+    annotation(Line(points={{-68.2,-20},{-60,-20},{-60,-38},{-22,-38}},
       color={0,0,127}));
   connect(resDpChiWatLoc.dpLocSet, ctl.dpChiWatLocSet)
-    annotation(Line(points={{-48.2,-44},{-22,-44}},
+    annotation(Line(points={{-66.2,-60},{-40,-60},{-40,-44},{-22,-44}},
       color={0,0,127}));
   connect(ctl.dpChiWatRemSet, resDpChiWatLoc.dpRemSet)
     annotation(Line(
-      points={{22,-24},{40,-24},{40,-60},{-80,-60},{-80,-38},{-72,-38}},
+      points={{22,-24},{40,-24},{40,-78},{-98,-78},{-98,-54},{-90,-54}},
       color={0,0,127}));
   connect(ctl.dpHeaWatRemSet, resDpHeaWatLoc.dpRemSet)
     annotation(Line(
-      points={{22,-22},{42,-22},{42,-62},{-82,-62},{-82,-4},{-72,-4}},
+      points={{22,-22},{42,-22},{42,-80},{-100,-80},{-100,-14},{-92,-14}},
       color={0,0,127}));
+  connect(bus.THeaWatLooRet, THeaWatLooOrSecRet.u) annotation (Line(
+      points={{-260,0},{-220,0},{-220,20},{-212,20}},
+      color={255,204,51},
+      thickness=0.5));
+  connect(bus.THeaWatSecRet, THeaWatLooOrSecRet.uPh) annotation (Line(
+      points={{-260,0},{-220,0},{-220,14},{-212,14}},
+      color={255,204,51},
+      thickness=0.5));
+  connect(bus.TChiWatLooRet, TChiWatLooOrSecRet.u) annotation (Line(
+      points={{-260,0},{-180,0},{-180,20},{-172,20}},
+      color={255,204,51},
+      thickness=0.5));
+  connect(bus.TChiWatSecRet, TChiWatLooOrSecRet.uPh) annotation (Line(
+      points={{-260,0},{-180,0},{-180,14},{-172,14}},
+      color={255,204,51},
+      thickness=0.5));
+  connect(bus.VHeaWatLoo_flow, VHeaWatLooOrSec.u) annotation (Line(
+      points={{-260,0},{-140,0},{-140,20},{-132,20}},
+      color={255,204,51},
+      thickness=0.5));
+  connect(bus.VHeaWatSec_flow, VHeaWatLooOrSec.uPh) annotation (Line(
+      points={{-260,0},{-140,0},{-140,14},{-132,14}},
+      color={255,204,51},
+      thickness=0.5));
+  connect(bus.VChiWatLoo_flow, VChiWatLooOrSec.u) annotation (Line(
+      points={{-260,0},{-100,0},{-100,20},{-92,20}},
+      color={255,204,51},
+      thickness=0.5));
+  connect(bus.VChiWatSec_flow, VChiWatLooOrSec.uPh) annotation (Line(
+      points={{-260,0},{-100,0},{-100,14},{-92,14}},
+      color={255,204,51},
+      thickness=0.5));
+  connect(VChiWatLooOrSec.y, ctl.VChiWatLooOrSec_flow) annotation (Line(points={
+          {-68,20},{-48,20},{-48,-34},{-22,-34}}, color={0,0,127}));
+  connect(VHeaWatLooOrSec.y, ctl.VHeaWatLooOrSec_flow) annotation (Line(points={
+          {-108,20},{-102,20},{-102,38},{-44,38},{-44,-26},{-22,-26}}, color={0,
+          0,127}));
+  connect(TChiWatLooOrSecRet.y, ctl.TChiWatLooOrSecRet) annotation (Line(points
+        ={{-148,20},{-142,20},{-142,40},{-46,40},{-46,-32},{-22,-32},{-22,-30}},
+        color={0,0,127}));
+  connect(THeaWatLooOrSecRet.y, ctl.THeaWatLooOrSecRet) annotation (Line(points
+        ={{-188,20},{-184,20},{-184,42},{-42,42},{-42,-22},{-22,-22}}, color={0,
+          0,127}));
 annotation(defaultComponentName="ctl",
   Documentation(
     info="<html>

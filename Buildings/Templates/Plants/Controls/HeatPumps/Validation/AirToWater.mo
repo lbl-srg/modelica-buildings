@@ -41,10 +41,6 @@ model AirToWater
     is_priOnl=false,
     have_pumHeaWatPriVar_select=false,
     have_pumChiWatPriVar_select=false,
-    have_senVHeaWatPri_select=false,
-    have_senVChiWatPri_select=false,
-    have_senTHeaWatPriRet_select=false,
-    have_senTChiWatPriRet_select=false,
     have_senDpHeaWatRemWir=false,
     nSenDpHeaWatRem=1,
     have_senDpChiWatRemWir=false,
@@ -317,15 +313,13 @@ equation
   connect(VHeaWat_flow.y, ctl.VHeaWatPri_flow)
     annotation(Line(points={{-88,-20},{-26,-20},{-26,8},{-2,8}},
       color={0,0,127}));
-  connect(VHeaWat_flow.y, ctl.VHeaWatSec_flow)
-    annotation(Line(points={{-88,-20},{-26,-20},{-26,-6},{-2,-6}},
-      color={0,0,127}));
+  connect(VHeaWat_flow.y, ctl.VHeaWatLooOrSec_flow) annotation (Line(points={{-88,
+          -20},{-26,-20},{-26,-6},{-2,-6}}, color={0,0,127}));
   connect(VChiWat_flow.y, ctl.VChiWatPri_flow)
     annotation(Line(points={{-58,-40},{-24,-40},{-24,2},{-2,2}},
       color={0,0,127}));
-  connect(VChiWat_flow.y, ctl.VChiWatSec_flow)
-    annotation(Line(points={{-58,-40},{-22,-40},{-22,-14},{-2,-14}},
-      color={0,0,127}));
+  connect(VChiWat_flow.y, ctl.VChiWatLooOrSec_flow) annotation (Line(points={{-58,
+          -40},{-22,-40},{-22,-14},{-2,-14}}, color={0,0,127}));
   connect(ratV_flow.y, gai.u)
     annotation(Line(points={{-138,-40},{-120,-40},{-120,40},{-110,40}},
       color={0,0,127}));
@@ -448,11 +442,11 @@ equation
   connect(THeaWatRet.y, ctl.THeaWatPriRet)
     annotation(Line(points={{-58,160},{-26,160},{-26,10},{-2,10}},
       color={0,0,127}));
-  connect(THeaWatRet.y, ctl.THeaWatSecRet)
-    annotation(Line(points={{-58,160},{-26,160},{-26,-2},{-2,-2}},
+  connect(THeaWatRet.y, ctl.THeaWatLooOrSecRet)
+    annotation(Line(points={{-58,160},{-26,160},{-26,6},{-8,6}},
       color={0,0,127}));
-  connect(TChiWatRet.y, ctl.TChiWatSecRet)
-    annotation(Line(points={{-88,140},{-28,140},{-28,-10},{-2,-10}},
+  connect(TChiWatRet.y, ctl.TChiWatLooOrSecRet)
+    annotation(Line(points={{-88,140},{-28,140},{-28,-2},{-8,-2}},
       color={0,0,127}));
   connect(TChiWatRet.y, ctl.TChiWatPriRet)
     annotation(Line(points={{-88,140},{-28,140},{-28,4},{-2,4}},
