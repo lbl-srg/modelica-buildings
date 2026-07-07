@@ -1,7 +1,7 @@
 within Buildings.Controls.OBC.DemandFlexibility.Generic;
 block SetpointResolution "Setpoint resolution"
 
-  parameter Real resInt
+  parameter Real resInt(min=0)
     "Setpoint resolution interval";
   parameter Real refSet
     "Reference setpoint for resolution calculation; set to 293.15 for temperature setpoints and zero for other setpoints";
@@ -14,22 +14,22 @@ block SetpointResolution "Setpoint resolution"
     annotation (Placement(transformation(extent={{120,-20},{160,20}}),
         iconTransformation(extent={{100,-20},{140,20}})));
 protected
-  Buildings.Controls.OBC.CDL.Reals.AddParameter subRefSet(p=-refSet)
+  Buildings.Controls.OBC.CDL.Reals.AddParameter subRefSet(final p=-refSet)
     "Subtract the reference setpoint"
     annotation (Placement(transformation(extent={{-100,-10},{-80,10}})));
   Buildings.Controls.OBC.CDL.Reals.Divide div
     "Divide the difference from the reference setpoint by the resolution interval to get the number of resolution intervals"
     annotation (Placement(transformation(extent={{-40,-10},{-20,10}})));
-  Buildings.Controls.OBC.CDL.Reals.Round rouNumResInt(n=0)
+  Buildings.Controls.OBC.CDL.Reals.Round rouNumResInt(final n=0)
     "Round the number of resolution intervals to an integer"
     annotation (Placement(transformation(extent={{0,-10},{20,10}})));
   Buildings.Controls.OBC.CDL.Reals.Multiply mul
     "Multiple the integer number of resolution intervals by the resolution interval"
     annotation (Placement(transformation(extent={{40,-10},{60,10}})));
-  Buildings.Controls.OBC.CDL.Reals.AddParameter addRefSet(p=refSet)
+  Buildings.Controls.OBC.CDL.Reals.AddParameter addRefSet(final p=refSet)
     "Add the reference setpoint"
     annotation (Placement(transformation(extent={{80,-10},{100,10}})));
-  Buildings.Controls.OBC.CDL.Reals.Sources.Constant conResInt(k=resInt)
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant conResInt(final k=resInt)
     "Constant for the setpoint resolution interval"
     annotation (Placement(transformation(extent={{-100,-80},{-80,-60}})));
 equation

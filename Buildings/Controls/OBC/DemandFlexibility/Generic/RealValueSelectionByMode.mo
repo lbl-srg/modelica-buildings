@@ -28,10 +28,11 @@ block RealValueSelectionByMode "Real value selection by mode"
     "Output value based on the demand flexibility mode"
     annotation (Placement(transformation(extent={{140,-20},{180,20}}),
         iconTransformation(extent={{100,-20},{140,20}})));
-  Buildings.Controls.OBC.CDL.Reals.MultiplyByParameter pasThrDef(k=1)  if not use_pre
+protected
+  Buildings.Controls.OBC.CDL.Reals.MultiplyByParameter pasThrDef(final k=1)
+    if not use_pre
     "Simple pass-through block for the default mode input value"
     annotation (Placement(transformation(extent={{20,-20},{40,0}})));
-protected
   Buildings.Controls.OBC.CDL.Reals.Switch swiPre if use_pre
     "True: output the value for the pre-cool or pre-heat mode; False: output the value for the default mode"
     annotation (Placement(transformation(extent={{20,80},{40,100}})));
@@ -44,20 +45,23 @@ protected
   Buildings.Controls.OBC.CDL.Integers.Equal intEquPre if use_pre
     "Check whether it is the pre-cool or pre-heat mode"
     annotation (Placement(transformation(extent={{-40,60},{-20,80}})));
-  Buildings.Controls.OBC.CDL.Integers.Sources.Constant conIntPre(k=Buildings.Controls.OBC.DemandFlexibility.Types.DemandFlexibilityModes.preCondition)
-                                                                       if use_pre
+  Buildings.Controls.OBC.CDL.Integers.Sources.Constant conIntPre(
+    final k=Buildings.Controls.OBC.DemandFlexibility.Types.DemandFlexibilityModes.preCondition)
+    if use_pre
     "Integer constant for the pre-cool or pre-heat mode"
     annotation (Placement(transformation(extent={{-80,40},{-60,60}})));
   Buildings.Controls.OBC.CDL.Integers.Equal intEquShe
     "Check whether it is the load-shed mode"
     annotation (Placement(transformation(extent={{-40,0},{-20,20}})));
-  Buildings.Controls.OBC.CDL.Integers.Sources.Constant conIntShe(k=Buildings.Controls.OBC.DemandFlexibility.Types.DemandFlexibilityModes.loadShed)
+  Buildings.Controls.OBC.CDL.Integers.Sources.Constant conIntShe(
+    final k=Buildings.Controls.OBC.DemandFlexibility.Types.DemandFlexibilityModes.loadShed)
     "Integer constant for the load-shed mode"
     annotation (Placement(transformation(extent={{-80,-20},{-60,0}})));
   Buildings.Controls.OBC.CDL.Integers.Equal intEquReb
     "Check whether it is the load-rebound mode"
     annotation (Placement(transformation(extent={{-40,-60},{-20,-40}})));
-  Buildings.Controls.OBC.CDL.Integers.Sources.Constant conIntReb(k=Buildings.Controls.OBC.DemandFlexibility.Types.DemandFlexibilityModes.loadRebound)
+  Buildings.Controls.OBC.CDL.Integers.Sources.Constant conIntReb(
+    final k=Buildings.Controls.OBC.DemandFlexibility.Types.DemandFlexibilityModes.loadRebound)
     "Integer constant for the load-rebound mode"
     annotation (Placement(transformation(extent={{-80,-80},{-60,-60}})));
 equation
@@ -105,10 +109,11 @@ equation
   connect(uMod, intEquPre.u1)
     annotation (Line(points={{-160,80},{-100,80},{-100,70},{-42,70}},
       color={255,127,0}));
-  connect(uDef, pasThrDef.u) annotation (Line(points={{-160,0},{-120,0},{-120,-30},
-          {10,-30},{10,-10},{18,-10}}, color={0,0,127}));
-  connect(pasThrDef.y, swiShe.u3) annotation (Line(points={{42,-10},{50,-10},{50,
-          2},{58,2}}, color={0,0,127}));
+  connect(uDef, pasThrDef.u)
+    annotation (Line(points={{-160,0},{-120,0},{-120,-30},{10,-30},{10,-10},
+      {18,-10}}, color={0,0,127}));
+  connect(pasThrDef.y, swiShe.u3)
+    annotation (Line(points={{42,-10},{50,-10},{50,2},{58,2}}, color={0,0,127}));
   annotation (defaultComponentName="reaValSelByMod",
     Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}},
     grid={2,2}), graphics={Rectangle(

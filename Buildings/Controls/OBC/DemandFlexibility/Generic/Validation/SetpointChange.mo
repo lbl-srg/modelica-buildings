@@ -27,29 +27,31 @@ model SetpointChange "Setpoint change"
   Buildings.Controls.OBC.CDL.Logical.Sources.Pulse uEna(period=1800, shift=900)
     "Boolean value for the signal to enable setpoint change"
     annotation (Placement(transformation(extent={{-120,60},{-100,80}})));
-  Buildings.Controls.OBC.CDL.Discrete.UnitDelay uniDelTSetInc(samplePeriod=10,
-      y_start=273.15 + 17)
+  Buildings.Controls.OBC.CDL.Discrete.UnitDelay uniDelTSetInc(
+    samplePeriod=10,
+    y_start=273.15 + 17)
     "Emulates an external setpoint controller that sets its output to the input each sample period for incremental setpoint change"
-    annotation (Placement(transformation(
-        extent={{-10,-10},{10,10}},
-        rotation=0,
-        origin={70,50})));
-  Buildings.Controls.OBC.CDL.Discrete.UnitDelay uniDelTSetOneSte(samplePeriod=10,
-      y_start=273.15 + 17)
+    annotation (Placement(transformation(extent={{-10,-10},{10,10}}, rotation=0,
+      origin={70,50})));
+  Buildings.Controls.OBC.CDL.Discrete.UnitDelay uniDelTSetOneSte(
+    samplePeriod=10,
+    y_start=273.15 + 17)
     "Emulates an external setpoint controller that sets its output to the input each sample period for one-step setpoint change"
-    annotation (Placement(transformation(
-        extent={{-10,-10},{10,10}},
-        rotation=0,
-        origin={70,-30})));
+    annotation (Placement(transformation(extent={{-10,-10},{10,10}}, rotation=0,
+      origin={70,-30})));
 equation
-  connect(TAllMinSet.y, setChaInc.uAllMinSet) annotation (Line(points={{-98,-70},
-          {-60,-70},{-60,44},{-22,44}}, color={0,0,127}));
-  connect(uniDelTSetInc.y, setChaInc.uCurSet) annotation (Line(points={{82,50},{
-          100,50},{100,20},{-40,20},{-40,52},{-22,52}}, color={0,0,127}));
-  connect(uEna.y, setChaInc.uEna) annotation (Line(points={{-98,70},{-70,70},{-70,
-          56},{-22,56}}, color={255,0,255}));
-  connect(TAllMaxSet.y, setChaInc.uAllMaxSet) annotation (Line(points={{-98,10},
-          {-80,10},{-80,48.2},{-22,48.2}}, color={0,0,127}));
+  connect(TAllMinSet.y, setChaInc.uAllMinSet)
+    annotation (Line(points={{-98,-70},{-60,-70},{-60,44},{-22,44}},
+      color={0,0,127}));
+  connect(uniDelTSetInc.y, setChaInc.uCurSet)
+    annotation (Line(points={{82,50},{100,50},{100,20},{-40,20},{-40,52},{-22,52}},
+      color={0,0,127}));
+  connect(uEna.y, setChaInc.uEna)
+    annotation (Line(points={{-98,70},{-70,70},{-70,56},{-22,56}},
+      color={255,0,255}));
+  connect(TAllMaxSet.y, setChaInc.uAllMaxSet)
+    annotation (Line(points={{-98,10},{-80,10},{-80,48.2},{-22,48.2}},
+      color={0,0,127}));
   connect(samInc.y, uniDelTSetInc.u)
     annotation (Line(points={{42,50},{58,50}}, color={0,0,127}));
   connect(setChaInc.y, samInc.u)
@@ -58,14 +60,18 @@ equation
     annotation (Line(points={{2,-30},{18,-30}}, color={0,0,127}));
   connect(samOneSte.y, uniDelTSetOneSte.u)
     annotation (Line(points={{42,-30},{58,-30}}, color={0,0,127}));
-  connect(uEna.y, setChaOneSte.uEna) annotation (Line(points={{-98,70},{-70,70},
-          {-70,-24},{-22,-24}}, color={255,0,255}));
-  connect(TAllMinSet.y, setChaOneSte.uAllMinSet) annotation (Line(points={{-98,-70},
-          {-60,-70},{-60,-36},{-22,-36}}, color={0,0,127}));
-  connect(setChaOneSte.uAllMaxSet, TAllMaxSet.y) annotation (Line(points={{-22,-31.8},
-          {-80,-31.8},{-80,10},{-98,10}}, color={0,0,127}));
-  connect(uniDelTSetOneSte.y, setChaOneSte.uCurSet) annotation (Line(points={{82,
-          -30},{100,-30},{100,-60},{-40,-60},{-40,-28},{-22,-28}}, color={0,0,127}));
+  connect(uEna.y, setChaOneSte.uEna)
+    annotation (Line(points={{-98,70},{-70,70},{-70,-24},{-22,-24}},
+      color={255,0,255}));
+  connect(TAllMinSet.y, setChaOneSte.uAllMinSet)
+    annotation (Line(points={{-98,-70},{-60,-70},{-60,-36},{-22,-36}},
+      color={0,0,127}));
+  connect(setChaOneSte.uAllMaxSet, TAllMaxSet.y)
+    annotation (Line(points={{-22,-31.8},{-80,-31.8},{-80,10},{-98,10}},
+      color={0,0,127}));
+  connect(uniDelTSetOneSte.y, setChaOneSte.uCurSet)
+    annotation (Line(points={{82,-30},{100,-30},{100,-60},{-40,-60},{-40,-28},
+      {-22,-28}}, color={0,0,127}));
 annotation (experiment(StopTime=3600, Interval=60, Tolerance=1e-06),
   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/DemandFlexibility/Generic/Validation/SetpointChange.mos"
     "Simulate and plot"),

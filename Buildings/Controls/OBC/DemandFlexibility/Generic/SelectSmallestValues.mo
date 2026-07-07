@@ -1,7 +1,7 @@
 within Buildings.Controls.OBC.DemandFlexibility.Generic;
 block SelectSmallestValues "Select smallest values"
 
-  parameter Integer nVal
+  parameter Integer nVal(min=1)
     "Number of values to compare";
   final parameter Real smaNum=1e-5
     "A small number to allow equal values to be ranked";
@@ -23,21 +23,21 @@ block SelectSmallestValues "Select smallest values"
     annotation (Placement(transformation(extent={{280,-20},{320,20}}),
         iconTransformation(extent={{100,-20},{140,20}})));
 protected
-  Buildings.Controls.OBC.CDL.Reals.Sources.Constant numSeq[nVal](k={i for i in
-        1:nVal})
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant numSeq[nVal](
+    final k={i for i in 1:nVal})
     "A numerical sequence from one up to the number of values"
     annotation (Placement(transformation(extent={{-260,-40},{-240,-20}})));
-  Buildings.Controls.OBC.CDL.Reals.MultiplyByParameter scaSmaNum[nVal](k=fill(
-        smaNum, nVal))
+  Buildings.Controls.OBC.CDL.Reals.MultiplyByParameter scaSmaNum[nVal](
+    final k=fill(smaNum, nVal))
     "Scale the numerical sequence with a small number"
     annotation (Placement(transformation(extent={{-220,-40},{-200,-20}})));
   Buildings.Controls.OBC.CDL.Reals.Add addSmaNum[nVal]
     "Add different small numbers to input values to allow ranking of equal input values"
     annotation (Placement(transformation(extent={{-180,0},{-160,20}})));
-  Buildings.Controls.OBC.CDL.Routing.RealExtractor extNSel(nin=nVal)
+  Buildings.Controls.OBC.CDL.Routing.RealExtractor extNSel(final nin=nVal)
     "Extract the n-th smallest value, where n equals the number of smallest values to select"
     annotation (Placement(transformation(extent={{80,0},{100,20}})));
-  Buildings.Controls.OBC.CDL.Routing.RealScalarReplicator nSelValRep(nout=nVal)
+  Buildings.Controls.OBC.CDL.Routing.RealScalarReplicator nSelValRep(final nout=nVal)
     "Replicate the n-th smallest value into a vector, where n equals the number of smallest values to select"
     annotation (Placement(transformation(extent={{120,0},{140,20}})));
   Buildings.Controls.OBC.CDL.Reals.Greater greNSelVal[nVal]
@@ -61,10 +61,10 @@ protected
   Buildings.Controls.OBC.CDL.Reals.Switch swi[nVal]
     "True to pass a large value; false to pass the input value"
     annotation (Placement(transformation(extent={{0,0},{20,20}})));
-  Buildings.Controls.OBC.CDL.Routing.RealScalarReplicator maxRep(nout=nVal)
+  Buildings.Controls.OBC.CDL.Routing.RealScalarReplicator maxRep(final nout=nVal)
     "Replicate the maximum value plus one into a vector"
     annotation (Placement(transformation(extent={{-60,20},{-40,40}})));
-  Buildings.Controls.OBC.CDL.Reals.Sort sort(ascending=true,  nin=nVal)
+  Buildings.Controls.OBC.CDL.Reals.Sort sort(final ascending=true, nin=nVal)
     "Output the sorted input values in ascending order"
     annotation (Placement(transformation(extent={{40,0},{60,20}})));
 equation

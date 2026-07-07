@@ -43,7 +43,9 @@ protected
     "Current setpoint should not be larger than the allowed maximum setpoint"
     annotation (Placement(transformation(extent={{60,-10},{80,10}})));
   Buildings.Controls.OBC.CDL.Conversions.BooleanToReal sigChaSetChaDel(
-    realTrue=setChaDel, realFalse=-1*setChaDel) if incCha
+    final realTrue=setChaDel,
+    final realFalse=-1*setChaDel)
+    if incCha
     "Sign change for the setpoint change delta"
     annotation (Placement(transformation(extent={{-100,60},{-80,80}})));
   Buildings.Controls.OBC.CDL.Reals.Add addCurSet if incCha
@@ -53,36 +55,47 @@ protected
     "Switch between the allowed minimum and maximum setpoints"
     annotation (Placement(transformation(extent={{-60,-20},{-40,0}})));
 equation
-  connect(uEna, swiEna.u2) annotation (Line(points={{-180,120},{-10,120},{-10,-50},
-          {-2,-50}}, color={255,0,255}));
-  connect(uCurSet, swiEna.u3) annotation (Line(points={{-180,40},{-140,40},{
-          -140,-58},{-2,-58}}, color={0,0,127}));
-  connect(uAllMaxSet,uCurSetAllMin. u1) annotation (Line(points={{-180,-40},{
-          -120,-40},{-120,30},{100,30},{100,6},{118,6}}, color={0,0,127}));
+  connect(uEna, swiEna.u2)
+    annotation (Line(points={{-180,120},{-10,120},{-10,-50},{-2,-50}},
+      color={255,0,255}));
+  connect(uCurSet, swiEna.u3)
+    annotation (Line(points={{-180,40},{-140,40},{-140,-58},{-2,-58}},
+      color={0,0,127}));
+  connect(uAllMaxSet,uCurSetAllMin. u1)
+    annotation (Line(points={{-180,-40},{-120,-40},{-120,30},{100,30},{100,6},
+      {118,6}}, color={0,0,127}));
   connect(uCurSetAllMax.y,uCurSetAllMin. u2)
     annotation (Line(points={{82,0},{100,0},{100,-6},{118,-6}}, color={0,0,127}));
   connect(uCurSetAllMin.y, y)
     annotation (Line(points={{142,0},{180,0}}, color={0,0,127}));
   connect(conAscSet.y, sigChaSetChaDel.u)
     annotation (Line(points={{-118,70},{-102,70}}, color={255,0,255}));
-  connect(addCurSet.y, swiEna.u1) annotation (Line(points={{-38,70},{-20,70},{-20,
-          -42},{-2,-42}}, color={0,0,127}));
-  connect(uAllMaxSet,swiMinMax. u1) annotation (Line(points={{-180,-40},{-120,-40},
-          {-120,-2},{-62,-2}}, color={0,0,127}));
-  connect(conAscSet.y, swiMinMax.u2) annotation (Line(points={{-118,70},{-110,70},
-          {-110,-10},{-62,-10}}, color={255,0,255}));
-  connect(swiMinMax.y, swiEna.u1) annotation (Line(points={{-38,-10},{-20,-10},{
-          -20,-42},{-2,-42}}, color={0,0,127}));
-  connect(swiMinMax.u3, uAllMinSet) annotation (Line(points={{-62,-18},{-80,-18},
-          {-80,-120},{-180,-120}}, color={0,0,127}));
-  connect(sigChaSetChaDel.y, addCurSet.u1) annotation (Line(points={{-78,70},{-70,
-          70},{-70,76},{-62,76}}, color={0,0,127}));
-  connect(uCurSet, addCurSet.u2) annotation (Line(points={{-180,40},{-70,40},{-70,
-          64},{-62,64}}, color={0,0,127}));
-  connect(swiEna.y, uCurSetAllMax.u1) annotation (Line(points={{22,-50},{40,-50},
-          {40,6},{58,6}}, color={0,0,127}));
-  connect(uAllMinSet, uCurSetAllMax.u2) annotation (Line(points={{-180,-120},{50,
-          -120},{50,-6},{58,-6}}, color={0,0,127}));
+  connect(addCurSet.y, swiEna.u1)
+    annotation (Line(points={{-38,70},{-20,70},{-20,-42},{-2,-42}},
+      color={0,0,127}));
+  connect(uAllMaxSet,swiMinMax. u1)
+    annotation (Line(points={{-180,-40},{-120,-40},{-120,-2},{-62,-2}},
+      color={0,0,127}));
+  connect(conAscSet.y, swiMinMax.u2)
+    annotation (Line(points={{-118,70},{-110,70},{-110,-10},{-62,-10}},
+      color={255,0,255}));
+  connect(swiMinMax.y, swiEna.u1)
+    annotation (Line(points={{-38,-10},{-20,-10},{-20,-42},{-2,-42}},
+      color={0,0,127}));
+  connect(swiMinMax.u3, uAllMinSet)
+    annotation (Line(points={{-62,-18},{-80,-18},{-80,-120},{-180,-120}},
+    color={0,0,127}));
+  connect(sigChaSetChaDel.y, addCurSet.u1)
+    annotation (Line(points={{-78,70},{-70,70},{-70,76},{-62,76}},
+      color={0,0,127}));
+  connect(uCurSet, addCurSet.u2)
+    annotation (Line(points={{-180,40},{-70,40},{-70,64},{-62,64}},
+      color={0,0,127}));
+  connect(swiEna.y, uCurSetAllMax.u1)
+    annotation (Line(points={{22,-50},{40,-50},{40,6},{58,6}}, color={0,0,127}));
+  connect(uAllMinSet, uCurSetAllMax.u2)
+    annotation (Line(points={{-180,-120},{50,-120},{50,-6},{58,-6}},
+      color={0,0,127}));
   annotation (defaultComponentName="setCha",
     Icon(coordinateSystem(preserveAspectRatio=false,
     extent={{-100,-100},{100,100}},
