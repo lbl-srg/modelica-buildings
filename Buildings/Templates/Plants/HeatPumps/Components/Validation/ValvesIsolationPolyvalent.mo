@@ -510,7 +510,7 @@ annotation(__Dymola_Commands(
     revisions="<html>
 <ul>
   <li>
-    XXXX, 2026, by Antoine Gautier:<br />
+    July 10, 2026, by Antoine Gautier:<br />
     First implementation.
   </li>
 </ul>
@@ -519,7 +519,7 @@ annotation(__Dymola_Commands(
 <p>
   This model validates the model
   <a href=\"modelica://Buildings.Templates.Plants.HeatPumps.Components.ValvesIsolation\">
-    Buildings.Templates.Plants.HeatPumps.Components.ValvesIsolation</a> for
+    Buildings.Templates.Plants.HeatPumps.Components.ValvesIsolation</a>
   for two configurations, each with two identical AWHP and two identical
   polyvalent units.
 </p>

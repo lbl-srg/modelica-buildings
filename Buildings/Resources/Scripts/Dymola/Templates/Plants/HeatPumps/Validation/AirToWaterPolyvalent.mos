@@ -65,7 +65,7 @@ createPlot(
     id=4,
     position={920, 5, 300, 500},
     subPlot=1,
-    y={"pla.ctl.ctl.y1PumHeaWatPriHdr[1]", "pla.ctl.ctl.y1PumHeaWatPriHdr[2]", "pla.ctl.ctl.y1PumHeaWatPriHdr[3]"},
+    y={"pla.ctl.ctl.y1PumHeaWatPriHdr[1]", "pla.ctl.ctl.y1PumHeaWatPriHdr[2]"},
     autoscale=true,
     grid=true,
     timeUnit="h"
@@ -73,7 +73,7 @@ createPlot(
 createPlot(
     id=4,
     subPlot=2,
-    y={"pla.ctl.ctl.y1PumChiWatPriHdr[1]", "pla.ctl.ctl.y1PumChiWatPriHdr[2]", "pla.ctl.ctl.y1PumChiWatPriHdr[3]"},
+    y={"pla.ctl.ctl.y1PumChiWatPriHdr[1]", "pla.ctl.ctl.y1PumChiWatPriHdr[2]"},
     autoscale=true,
     grid=true,
     timeUnit="h"

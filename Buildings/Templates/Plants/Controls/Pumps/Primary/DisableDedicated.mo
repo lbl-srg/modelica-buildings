@@ -111,11 +111,11 @@ The pump is disabled when the associated plant equipment is disabled and:
 <ul>
 <li>
 if the equipment has a flow request network point
-(<code>have_req=true</code>): either the equipment has been proven 
+(<code>have_req=true</code>): either the equipment has been proven
 off for <code>dtOff</code> or is not requesting flow.
 </li>
 <li>
-otherwise (<code>have_req=false</code>): the equipment has been 
+otherwise (<code>have_req=false</code>): the equipment has been
 proven off for <code>dtOff</code>.
 </li>
 </ul>
@@ -133,8 +133,8 @@ The enable signal <code>u1</code> is yielded by the staging event sequencing log
 </p>
 </html>", revisions="<html>
   <li>
-    July 1, 2026, by Antoine Gautier:<br />
-    Use the <code>pre_u_start</code> parameter of the Edge block to prevent 
+    July 10, 2026, by Antoine Gautier:<br />
+    Use the <code>pre_u_start</code> parameter of the Edge block to prevent
     spurious disabling at initial time.
   </li>
   <li>

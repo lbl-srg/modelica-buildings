@@ -698,7 +698,7 @@ annotation(defaultComponentName="seqEve",
     revisions="<html>
 <ul>
   <li>
-    July 1, 2026, by Antoine Gautier:<br />
+    July 10, 2026, by Antoine Gautier:<br />
     Refactored to support polyvalent heat pumps.
   </li>
   <li>

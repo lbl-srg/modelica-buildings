@@ -85,7 +85,7 @@ annotation(defaultComponentName="staPhp",
   one unit of either type therefore contributes one additional stage of
   capacity, so the maximum number of plant stages is
   <i>n<sub>Sta</sub> = n<sub>HP</sub> + n<sub>PHP</sub></i
-  >. Heating and cooling stages are tracked independantly, each ranging over
+  >. Heating and cooling stages are tracked independently, each ranging over
   <i>{0, &hellip;, n<sub>Sta</sub>}</i>, since the same pool of units can
   serve either load.
 </p>
@@ -236,7 +236,7 @@ annotation(defaultComponentName="staPhp",
     revisions="<html>
 <ul>
   <li>
-    July 1, 2026, by Antoine Gautier:<br />
+    July 10, 2026, by Antoine Gautier:<br />
     First implementation.
   </li>
 </ul>

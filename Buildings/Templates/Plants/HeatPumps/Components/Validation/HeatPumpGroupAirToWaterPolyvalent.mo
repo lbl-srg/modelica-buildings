@@ -446,7 +446,7 @@ annotation(Diagram(coordinateSystem(extent={{-300,-200},{300,200}},
     revisions="<html>
 <ul>
   <li>
-    XXXX, 2026, by Antoine Gautier:<br />
+    July 10, 2026, by Antoine Gautier:<br />
     First implementation.
   </li>
 </ul>

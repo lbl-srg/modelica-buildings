@@ -1,5 +1,6 @@
 within Buildings.Templates.Plants.HeatPumps.Components.Controls;
 block PrimaryPumpSignalRouting
+  "Primary pump signal routing between plant bus and controller connectors"
   parameter Buildings.Templates.Plants.HeatPumps.Types.PumpsPrimary typ
     "Type of primary pumps"
     annotation(Evaluate=true);
@@ -81,7 +82,8 @@ equation
     annotation(Line(points={{-120,80},{0,80},{0,100}},
       color={255,0,255}));
   connect(yHdr, bus.y)
-    annotation (Line(points={{-120,60},{0,60},{0,100}}, color={0,0,127}));
+    annotation(Line(points={{-120,60},{0,60},{0,100}},
+      color={0,0,127}));
   connect(y1Hdr_actual, bus.y1_actual)
     annotation(Line(points={{120,60},{0,60},{0,100}},
       color={255,0,255}));
@@ -103,7 +105,6 @@ equation
   connect(y1DedPhp_actual, bus.y1_actual[nPum - nPhp + 1:nPum])
     annotation(Line(points={{120,-60},{0,-60},{0,100}},
       color={255,0,255}));
-
 annotation(defaultComponentName="rouPumPri",
   Icon(coordinateSystem(preserveAspectRatio=false),
     graphics={Rectangle(extent={{-100,-100},{100,100}},
@@ -113,5 +114,24 @@ annotation(defaultComponentName="rouPumPri",
     Text(extent={{-150,150},{150,110}},
       textString="%name",
       textColor={0,0,255})}),
-  Diagram(coordinateSystem(preserveAspectRatio=false)));
+  Diagram(coordinateSystem(preserveAspectRatio=false)),
+  Documentation(
+    info="<html>
+<p>
+  This block routes the primary pump start and stop commands, speed commands
+  (for variable speed pumps) and status signals between the connectors exposed
+  to the primary pump controller and the plant bus. Depending on the primary
+  pump arrangement, the signals are either mapped to the headered pump
+  connectors or split between the dedicated pump connectors serving the
+  reversible heat pumps and those serving the polyvalent heat pumps.
+</p>
+</html>",
+    revisions="<html>
+<ul>
+  <li>
+    July 10, 2026, by Antoine Gautier:<br />
+    First implementation.
+  </li>
+</ul>
+</html>"));
 end PrimaryPumpSignalRouting;

@@ -464,7 +464,7 @@ annotation(defaultComponentName="ctl",
 <h4>Control points</h4>
 <p>
   The control sequence requires the following external input points in
-  addition to those already included in the HP plant template.
+  addition to those already included in the AWHP plant template.
 </p>
 <ul>
   <li>

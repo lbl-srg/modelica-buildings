@@ -2793,7 +2793,7 @@ annotation(defaultComponentName="ctl",
 <p>
   This block implements the sequence of operation for plants with air-to-water
   heat pumps. Most parts of the sequence of operation are similar to that
-  described in ASHRAE, 2021 for chiller plants.
+  described in ASHRAE, 2024 for chiller plants.
 </p>
 <p>
   The supported plant configurations are enumerated in the table below.<br />
@@ -2805,28 +2805,19 @@ annotation(defaultComponentName="ctl",
     <th>Notes</th>
   </tr>
   <tr>
-    <td>Function</td>
+    <td>Function and equipment type</td>
     <td>
-      Heating and cooling<br />
-      Heating-only<br />
-      Cooling-only
-    </td>
-    <td></td>
-  </tr>
-  <tr>
-    <td>Heat recovery</td>
-    <td>
-      Without sidestream heat recovery chiller<br />
-      With sidestream heat recovery chiller
+        Heating-only with non-reversible heat pumps<br />
+        Heating and cooling with reversible heat pumps<br />
+        Heating and cooling with reversible heat pumps and heat recovery chiller<br />
+        Heating and cooling with reversible (2-pipe) heat pumps and polyvalent (4-pipe) heat pumps<br />
+        Heating and cooling with polyvalent (4-pipe) heat pumps
     </td>
     <td>
-      This option is only available for heating and cooling plants. When
-      selected, the plant controller incorporates logic to manage a chiller
-      and its associated dedicated primary CHW and CW pumps. The chiller is
-      considered connected in a sidestream configuration to both the CHW
-      return and the HW return.
-    </td>
-  </tr>
+     For configurations without polyvalent heat pumps, the heat pumps may be unequally sized with only a subset of lead/lag alternated units.<br />
+     For configurations with polyvalent heat pumps, both reversible heat pumps and the polyvalent heat pumps must be equally sized, and all units are lead/lag alternated within their own pool.<br />
+     For the configuration with a heat recovery chiller, the chiller is considered connected in a sidestream configuration to both the CHW return and the HW return.
+ </td>
   <tr>
     <td>Type of distribution</td>
     <td>
@@ -2858,17 +2849,20 @@ annotation(defaultComponentName="ctl",
     </td>
     <td>
       It is assumed that the HW and the CHW loops have the same type of
-      primary pump arrangement, as specified by this parameter.
+      primary pump arrangement, as specified by this parameter.<br />
+      Primary-secondary plants with both reversible and polyvalent heat pumps
+      must have primary dedicated pumps: primary headered pumps are not supported
+      for this configuration.
     </td>
   </tr>
   <tr>
-    <td>Separate dedicated primary CHW pumps</td>
+    <td>Separate dedicated primary pumps for the CHW and HW circuits</td>
     <td>
       False<br />
       True
     </td>
     <td>
-      This option is only available for heating and cooling plants with
+      This option is only available for reversible heat pumps with
       dedicated primary pumps. If this option is not selected, each AWHP uses
       a common dedicated primary pump for HW and CHW – this pump is then
       denoted as the primary HW pump. Otherwise, each AWHP relies on a
@@ -2902,11 +2896,21 @@ annotation(defaultComponentName="ctl",
 </table>
 <h4>Details</h4>
 <p>
-  A staging matrix <code>staEqu</code> is required as a parameter. See the
+  For plants without polyvalent heat pumps, a staging matrix <code>staEqu</code>
+  is required as a parameter. See the
   documentation of
   <a href=\"modelica://Buildings.Templates.Plants.Controls.StagingRotation.EquipmentEnable\">
     Buildings.Templates.Plants.Controls.StagingRotation.EquipmentEnable</a>
   for the associated definition and requirements.
+</p>
+<p>
+  For plants with polyvalent heat pumps, the staging matrix is programmatically
+  generated, under the assumption that all units (polyvalent heat pumps on the one hand,
+  and optionally reversible heat pumps on the other hand) are equally sized.
+  See the documentation of
+  <a href=\"modelica://Buildings.Templates.Plants.Controls.PolyvalentHeatPumps.StagingParameters\">
+    Buildings.Templates.Plants.Controls.PolyvalentHeatPumps.StagingParameters</a>
+  for the associated logic.
 </p>
 <p>
   Depending on the plant configuration, the term \"primary HW pumps\" (and the
@@ -2923,13 +2927,19 @@ annotation(defaultComponentName="ctl",
 <h4>References</h4>
 <ul>
   <li id=\"ASHRAE2021\">
-    ASHRAE, 2021. Guideline 36-2021, High-Performance Sequences of Operation
+    ASHRAE, 2024. Guideline 36-2024, High-Performance Sequences of Operation
     for HVAC Systems. Atlanta, GA.
   </li>
 </ul>
 </html>",
     revisions="<html>
 <ul>
+  <li>
+    July 10, 2026, by Antoine Gautier:<br />
+    Enhanced controller to support plants with polyvalent (4-pipe) units.<br />
+    This is for
+    <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4512\">#4512</a>.
+  </li>
   <li>
     June 10, 2026, by Antoine Gautier:<br />
     Refactored with a single instance of <code>SortRuntime</code> for both

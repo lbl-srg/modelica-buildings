@@ -224,7 +224,7 @@ annotation(defaultComponentPrefixes="parameter",
   be scaled to match the value provided at design conditions.
 </p>
 <p>
-  Also note that placeholders values are assigned to some parameters of the
+  Also note that placeholder values are assigned to some parameters of the
   subrecords <code>perCoo</code> and <code>perShc</code> which are used to
   specify the performance data in cooling mode and SHC mode, respectively.
   These values should be overwritten for reversible and polyvalent heat

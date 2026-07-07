@@ -1470,7 +1470,7 @@ annotation(defaultComponentName="pla",
   component. In Dymola, for example, you can access this by right-clicking the
   component <code>pla</code> in the model
   <a href=\"modelica://Buildings.Templates.Plants.HeatPumps.Validation.AirToWaterReversibleHeatRecovery\">
-    Buildings.Templates.Plants.HeatPumps.Validation.AirToWater</a> and
+    Buildings.Templates.Plants.HeatPumps.Validation.AirToWaterReversibleHeatRecovery</a> and
   selecting \"Show Component\" from the context menu.
 </p>
 <p align=\"center\">
@@ -1481,9 +1481,9 @@ annotation(defaultComponentName="pla",
 </p>
 <p>
   Currently, only identical heat pumps are supported. Although the template
-  can accommodate any number of identical heat pumps, the graphical feedback
+  can accommodate any number of identical units, the graphical feedback
   for system configuration via the diagram layer is only accurate for up to 6
-  devices.
+  units.
 </p>
 <p>
   The supported plant configurations are enumerated in the table below. The
@@ -1630,7 +1630,7 @@ annotation(defaultComponentName="pla",
     </td>
     <td>
       Most parts of the sequence of operation are similar to that described in
-      ASHRAE, 2021 for chiller plants.<br />
+      ASHRAE, 2024 for chiller plants.<br />
       See the documentation of
       <a href=\"modelica://Buildings.Templates.Plants.Controls.HeatPumps.AirToWater\">
         Buildings.Templates.Plants.Controls.HeatPumps.AirToWater</a> for
@@ -1659,15 +1659,20 @@ annotation(defaultComponentName="pla",
   temperature and the part load ratio. The heat pump performance data are
   provided via the subrecords <code>dat.hp.perHeaHp</code> and
   <code>dat.hp.perCooHp</code> for the heating mode and the cooling mode,
-  respectively. For the required format of the performance data files, please
-  refer to the documentation of the block
+  respectively. The polyvalent heat pump performance data are
+  provided via the subrecord <code>dat.hp.perPhp</code>.
+  For the required format of the performance data files, please
+  refer to the documentation of the blocks
   <a href=\"modelica://Buildings.Fluid.HeatPumps.ModularReversible.RefrigerantCycle.BaseClasses.TableData2DLoadDep\">
-    Buildings.Fluid.HeatPumps.ModularReversible.RefrigerantCycle.BaseClasses.TableData2DLoadDep</a>.
+    Buildings.Fluid.HeatPumps.ModularReversible.RefrigerantCycle.BaseClasses.TableData2DLoadDep</a>
+  and
+  <a href=\"modelica://Buildings.Fluid.HeatPumps.ModularReversible.RefrigerantCycle.BaseClasses.TableData2DLoadDepSHC\">
+    Buildings.Fluid.HeatPumps.ModularReversible.RefrigerantCycle.BaseClasses.TableData2DLoadDepSHC</a>.
 </p>
 <h4>References</h4>
 <ul>
   <li id=\"ASHRAE2021\">
-    ASHRAE, 2021. Guideline 36-2021, High-Performance Sequences of Operation
+    ASHRAE, 2024. Guideline 36-2024, High-Performance Sequences of Operation
     for HVAC Systems. Atlanta, GA.
   </li>
 </ul>

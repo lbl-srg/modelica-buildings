@@ -10,10 +10,9 @@ model AirToWaterReversibleHeatRecovery
   final parameter Boolean have_chiWat = pla.have_chiWat
     "Set to true if the plant provides CHW"
     annotation(Evaluate=true);
-  inner replaceable parameter UserProject.Data.AirToWater datAll(
-    pla(final cfg=pla.cfg))
-    "Plant parameters"
-    annotation(Placement(transformation(extent={{-180,120},{-160,140}})));
+  inner replaceable parameter UserProject.Data.AirToWaterReversibleHeatRecovery
+    datAll(pla(final cfg=pla.cfg)) "Plant parameters"
+    annotation (Placement(transformation(extent={{-180,120},{-160,140}})));
   parameter Modelica.Units.SI.PressureDifference dpTer_nominal(
     displayUnit="Pa") = 3E4
     "Liquid pressure drop across terminal unit at design conditions";
@@ -44,6 +43,8 @@ model AirToWaterReversibleHeatRecovery
     nHp_select=3,
     typArrPumPri_select=Buildings.Templates.Components.Types.PumpArrangement.Dedicated,
     typPumPri_select=Buildings.Templates.Plants.HeatPumps.Types.PumpsPrimary.Constant,
+    nPumHeaWatSec_select=2,
+    nPumChiWatSec_select=2,
     final allowFlowReversal=allowFlowReversal,
     linearized=true,
     show_T=true,

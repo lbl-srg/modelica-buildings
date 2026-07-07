@@ -61,7 +61,7 @@ Outputs the minimum element of the input vector.
 </html>", revisions="<html>
 <ul>
 <li>
-July 1, 2026, by Antoine Gautier:<br/>
+July 10, 2026, by Antoine Gautier:<br/>
 Refactored using CDL Elementary Blocks.
 </li>
 <li>

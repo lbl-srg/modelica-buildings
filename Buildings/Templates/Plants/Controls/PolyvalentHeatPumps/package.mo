@@ -33,5 +33,10 @@ package PolyvalentHeatPumps
         Rectangle(
           lineColor={128,128,128},
           extent={{-100,-100},{100,100}},
-          radius=25.0)}));
+          radius=25.0)}), Documentation(info="<html>
+<p>
+This package contains subsequences that are specific to polyvalent 
+heat pump controls.
+</p>
+</html>"));
 end PolyvalentHeatPumps;

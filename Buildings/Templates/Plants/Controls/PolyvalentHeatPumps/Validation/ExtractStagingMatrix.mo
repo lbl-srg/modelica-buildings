@@ -95,11 +95,11 @@ annotation(Documentation(
   <a href=\"modelica://Buildings.Templates.Plants.Controls.PolyvalentHeatPumps.ExtractStagingMatrix\">
     Buildings.Templates.Plants.Controls.PolyvalentHeatPumps.ExtractStagingMatrix</a>
   in a
-  configuration with two revserible heat pumps and two polyvalent heat pumps.
+  configuration with two reversible heat pumps and two polyvalent heat pumps.
 </p>
 <p>
   The parameters <code>staHea</code> and <code>staCoo</code> independently
-  reconstruct, from the equipment count matrices computed by <code>StagingParameters</code>, 
+  reconstruct, from the equipment count matrices computed by <code>StagingParameters</code>,
   the per-mode staging matrices. At
   initialization, these matrices are compared
   against the ones internally computed by <code>StagingParameters</code> for every

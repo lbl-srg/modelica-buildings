@@ -242,8 +242,8 @@ Staging Runtime is made the last stage equipment and the one
 with the least number of hours is made the lead stage equipment.
 </p>
 <p><i>
-Note: This strategy effectively makes it such that equipment are not 
-\"hot swapped\", e.g., a pump would not be started and another stopped 
+Note: This strategy effectively makes it such that equipment are not
+\"hot swapped\", e.g., a pump would not be started and another stopped
 during operation just for runtime equalization.
 </p></i>
 <p>
@@ -261,12 +261,12 @@ The sorting logic is implemented using the following method.
 If a unit is on and available, its staging runtime is used as is.
 </li>
 <li>
-If a unit is off and available, its staging runtime is increased 
+If a unit is off and available, its staging runtime is increased
 by <i>1E10</i>&nbsp;s.
 </li>
 <li>
-If a unit is unavailable, its staging runtime is replaced by  
-<i>1E20</i>&nbsp;s minus the time elapsed since it became 
+If a unit is unavailable, its staging runtime is replaced by
+<i>1E20</i>&nbsp;s minus the time elapsed since it became
 unavailable.
 </li>
 <li>
@@ -276,7 +276,7 @@ the different units.
 </ul>
 <p>
 This is effectively the same as sorting the units within
-the three following subsets: units that are on and available, 
+the three following subsets: units that are on and available,
 units that are off and available, units that are unavailable.
 In particular, the order index of a given unit remains unchanged
 if it is the only element of a given subset.

@@ -1,5 +1,5 @@
 within Buildings.Templates.Plants.HeatPumps.Validation.UserProject.Data;
-class AirToWater
+class AirToWaterReversibleHeatRecovery
   "Top-level (whole building) system parameters"
   extends Buildings.Templates.Plants.HeatPumps.Validation.UserProject.Data.BaseAirToWater(
     pla(
@@ -72,4 +72,4 @@ annotation(defaultComponentPrefixes="inner parameter",
   HVAC system. It is aimed for validation purposes only.
 </p>
 </html>"));
-end AirToWater;
+end AirToWaterReversibleHeatRecovery;

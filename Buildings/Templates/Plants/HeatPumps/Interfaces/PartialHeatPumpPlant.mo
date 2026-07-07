@@ -272,14 +272,13 @@ partial model PartialHeatPumpPlant
     if have_heaWat then typPumPri else Buildings.Templates.Plants.HeatPumps.Types.PumpsPrimary.None
     "Type of primary HW pumps"
     annotation(Evaluate=true);
-  parameter Integer nPumHeaWatPri_select(min=0, start=0) = max(nHp, nPhp)
+  parameter Integer nPumHeaWatPri_select(final min=1, start=1) = nHp + nPhp
     "Number of primary HW pumps"
     annotation(Evaluate=true,
       Dialog(group="Primary loop",
         enable=have_heaWat
           and typArrPumPri ==
             Buildings.Templates.Components.Types.PumpArrangement.Headered));
-  // FIXME: Update default for modular polyvalent HP
   final parameter Integer nPumHeaWatPri =
     if have_heaWat
     then (if typArrPumPri ==
@@ -314,7 +313,7 @@ partial model PartialHeatPumpPlant
     "Type of secondary HW pumps"
     annotation(Evaluate=true,
       Dialog(group="Secondary HW loop"));
-  parameter Integer nPumHeaWatSec_select(min=0) = max(nHp, nPhp)
+  parameter Integer nPumHeaWatSec_select(final min=1, start=1)
     "Number of secondary HW pumps"
     annotation(Evaluate=true,
       Dialog(group="Secondary HW loop",
@@ -382,14 +381,13 @@ partial model PartialHeatPumpPlant
     "Type of polyvalent HP primary CHW pumps"
     annotation(Evaluate=true);
   // Plants with headered primary CHW pumps.
-  parameter Integer nPumChiWatPri_select(min=0, start=0) = max(nHp, nPhp)
+  parameter Integer nPumChiWatPri_select(final min=1, start=1) = nHp + nPhp
     "Number of primary CHW pumps"
     annotation(Evaluate=true,
       Dialog(group="Primary loop",
         enable=have_chiWat
           and typArrPumPri ==
             Buildings.Templates.Components.Types.PumpArrangement.Headered));
-  // FIXME: Update default for modular polyvalent HP
   final parameter Integer nPumChiWatPri=if have_chiWat then (if typArrPumPri
        == Buildings.Templates.Components.Types.PumpArrangement.Headered then
       nPumChiWatPri_select elseif not have_pumPriDedComHp then nHp + nPhp else
@@ -420,8 +418,7 @@ partial model PartialHeatPumpPlant
     "Type of secondary CHW pumps"
     annotation(Evaluate=true,
       Dialog(group="Secondary CHW loop"));
-  // FIXME: Update default for modular polyvalent HP
-  parameter Integer nPumChiWatSec_select(min=0) = max(nHp, nPhp)
+  parameter Integer nPumChiWatSec_select(final min=1, start=1)
     "Number of secondary CHW pumps"
     annotation(Evaluate=true,
       Dialog(group="Secondary CHW loop",
@@ -430,7 +427,6 @@ partial model PartialHeatPumpPlant
             Buildings.Templates.Plants.HeatPumps.Types.Distribution.Constant1Variable2
             or typDis ==
               Buildings.Templates.Plants.HeatPumps.Types.Distribution.Variable1And2)));
-  // FIXME: Update default for modular polyvalent HP
   final parameter Integer nPumChiWatSec(final min=0) =
     if not have_chiWat
       or typDis ==
@@ -439,8 +435,7 @@ partial model PartialHeatPumpPlant
     "Number of secondary CHW pumps"
     annotation(Evaluate=true,
       Dialog(group="Secondary CHW loop"));
-  // Design and operating parameters.
-  // FIXME: Not straightfoward in case of hybrid plant
+  // Design and operating parameters
   final parameter Modelica.Units.SI.MassFlowRate mHeaWatPri_flow_nominal =
     if have_heaWat
     then dat.hp.mHeaWatHp_flow_nominal * nHp + dat.hp.mHeaWatPhp_flow_nominal *
@@ -456,7 +451,6 @@ partial model PartialHeatPumpPlant
     else 0
     "HW mass flow rate (total, distributed to consumers)"
     annotation(Evaluate=true);
-  // FIXME: Not straightfoward in case of hybrid plant
   final parameter Modelica.Units.SI.HeatFlowRate capHea_nominal =
     if have_heaWat
     then abs(dat.hp.capHeaHp_nominal) * nHp + abs(dat.hp.capHeaPhp_nominal) *
@@ -473,7 +467,6 @@ partial model PartialHeatPumpPlant
     THeaWatSup_nominal - QHea_flow_nominal / cpHeaWat_default /
       mHeaWat_flow_nominal
     "HW return temperature";
-  // FIXME: Not straightfoward in case of hybrid plant
   final parameter Modelica.Units.SI.MassFlowRate mChiWatPri_flow_nominal =
     if have_chiWat
     then dat.hp.mChiWatHp_flow_nominal * nHp + dat.hp.mChiWatPhp_flow_nominal *
@@ -489,7 +482,6 @@ partial model PartialHeatPumpPlant
     else 0
     "CHW mass flow rate - Total, distributed to consumers"
     annotation(Evaluate=true);
-  // FIXME: Not straightfoward in case of hybrid plant
   final parameter Modelica.Units.SI.HeatFlowRate capCoo_nominal =
     if have_chiWat
     then abs(dat.hp.capCooHp_nominal) * nHp + abs(dat.hp.capCooPhp_nominal) *

@@ -907,7 +907,7 @@ annotation(__Dymola_Commands(
     revisions="<html>
 <ul>
   <li>
-    XXXX, 2026, by Antoine Gautier:<br />
+    July 10, 2026, by Antoine Gautier:<br />
     First implementation.
   </li>
 </ul>

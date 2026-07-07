@@ -137,14 +137,14 @@ annotation(defaultComponentName="extSta",
   and can therefore be consumed by this block.
 </p>
 <p>
-  If <code>is_transpose = true</code>, the block outputs the transpose 
+  If <code>is_transpose = true</code>, the block outputs the transpose
   of the staging matrix, with dimensions <i>n<sub>Equ</sub> &times; n<sub>Sta</sub></i>.
 </p>
 </html>",
     revisions="<html>
 <ul>
   <li>
-    July 1, 2026, by Antoine Gautier:<br />
+    July 10, 2026, by Antoine Gautier:<br />
     First implementation.
   </li>
 </ul>

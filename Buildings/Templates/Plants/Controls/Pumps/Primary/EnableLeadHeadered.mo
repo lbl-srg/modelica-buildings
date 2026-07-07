@@ -159,7 +159,7 @@ condition is evaluated based on a command signal <i>&lt;&nbsp;100&nbsp;%</i>.
 The \"valve commanded open\" condition is evaluated as the negation of the previous condition.
 </p>
 <h4>Details</h4>
-<p>This logic is prescribed in ASHRAE, 2021 for:
+<p>This logic is prescribed in ASHRAE, 2024 for:
 </p>
 <ul>
 <li>
@@ -177,7 +177,7 @@ headered primary pumps in boiler plants.
 <p>
 The valve <i>command</i> is used in contrast to the feedback of the
 valve position or the end switch status, as prescribed by Guideline 36.
-This is for the sake of simplicity, as there is no harm in deadheading the pump 
+This is for the sake of simplicity, as there is no harm in deadheading the pump
 for a couple seconds and it simplifies the programming.
 </p>
 <p>
@@ -191,7 +191,7 @@ behavior.
 <h4>References</h4>
 <ul>
 <li id=\"ASHRAE2021\">
-ASHRAE, 2021. Guideline 36-2021, High-Performance Sequences of Operation
+ASHRAE, 2024. Guideline 36-2024, High-Performance Sequences of Operation
 for HVAC Systems. Atlanta, GA.
 </li>
 </ul>
