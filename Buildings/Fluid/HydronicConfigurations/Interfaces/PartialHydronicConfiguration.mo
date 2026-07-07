@@ -34,6 +34,10 @@ model PartialHydronicConfiguration
     "Consumer circuit pressure differential at design conditions"
     annotation (Dialog(group="Nominal condition", enable=use_dp2));
 
+  parameter Real n(min=1, max=2) = 2
+    "Flow exponent, n1=1 for laminar, n1=2 for turbulent"
+    annotation(Evaluate=true);
+
   parameter Buildings.Fluid.HydronicConfigurations.Types.ValveCharacteristic typCha=
     Buildings.Fluid.HydronicConfigurations.Types.ValveCharacteristic.EqualPercentage
     "Control valve characteristic"
@@ -381,5 +385,15 @@ outside connectors that any derived class may use.
 This provides plug-compatibility across all the models extending this
 class.
 </p>
+</html>", revisions="<html>
+<ul>
+<li>
+June 17, 2026, by Michael Wetter:<br/>
+Updated implementation to allow a flow coefficient <code>n</code> that is different from <code>2</code>.
+This allows use of the model for not fully turbulent flow.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4620\">Buildings, #4620</a>.
+</li>
+</ul>
 </html>"));
 end PartialHydronicConfiguration;

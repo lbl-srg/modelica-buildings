@@ -31,6 +31,7 @@ model Throttle "Throttle circuit"
         origin={60,0})));
   Buildings.Fluid.FixedResistances.PressureDrop res1(
     redeclare final package Medium=Medium,
+    final n=n,
     final allowFlowReversal=allowFlowReversal,
     final m_flow_nominal=m1_flow_nominal,
     final dp_nominal=if use_lumFloRes then 0 else dpBal1_nominal)
@@ -267,6 +268,13 @@ https://tayloreng.egnyte.com/dl/W8sfOOuoni/ASHRAE_Journal_-_Doubling-Down_on_NOT
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+June 17, 2026, by Michael Wetter:<br/>
+Updated implementation to allow a flow coefficient <code>n</code> that is different from <code>2</code>.
+This allows use of the model for not fully turbulent flow.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4620\">Buildings, #4620</a>.
+</li>
 <li>
 June 30, 2022, by Antoine Gautier:<br/>
 First implementation.
