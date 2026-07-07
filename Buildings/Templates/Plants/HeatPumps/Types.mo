@@ -18,18 +18,6 @@ package Types
     Variable1And2
       "Variable primary - Variable secondary centralized")
     "Enumeration to specify the type of CHW/HW distribution system";
-  type Plant = enumeration(
-    HeatingOnly
-     "Heating-only with non-reversible heat pumps",
-    Reversible
-      "Heating and cooling with reversible heat pumps",
-    ReversibleHeatRecovery
-      "Heating and cooling with reversible heat pumps and heat recovery chiller",
-    ReversiblePolyvalent
-      "Heating and cooling with reversible heat pumps and polyvalent heat pumps",
-    Polyvalent
-      "Heating and cooling with polyvalent heat pumps")
-    "Enumeration to specify the type of plant";
   type PumpsPrimary = enumeration(
     Constant
       "Constant speed pump specified separately",

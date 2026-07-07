@@ -1068,18 +1068,18 @@ initial equation
   end if;
 equation
   /* Control point connection - start */
-  if typDis == Buildings.Templates.Plants.HeatPumps.Types.Distribution.Constant1Variable2 then
-
-  connect(TChiWatLooOrSecRet.y, bus.TChiWatSecRet);
-  connect(THeaWatLooOrSecRet.y, bus.THeaWatSecRet);
-      connect(VChiWatLooOrSec_flow.y, bus.VChiWatSec_flow);
+  if typDis ==
+    Buildings.Templates.Plants.HeatPumps.Types.Distribution.Constant1Variable2
+  then
+    connect(TChiWatLooOrSecRet.y, bus.TChiWatSecRet);
+    connect(THeaWatLooOrSecRet.y, bus.THeaWatSecRet);
+    connect(VChiWatLooOrSec_flow.y, bus.VChiWatSec_flow);
     connect(VHeaWatLooOrSec_flow.y, bus.VHeaWatSec_flow);
   else
-
-  connect(TChiWatLooOrSecRet.y, bus.TChiWatLooRet);
-  connect(THeaWatLooOrSecRet.y, bus.THeaWatLooRet);
-  connect(VChiWatLooOrSec_flow.y, bus.VChiWatLoo_flow);
-  connect(VHeaWatLooOrSec_flow.y, bus.VHeaWatLoo_flow);
+    connect(TChiWatLooOrSecRet.y, bus.TChiWatLooRet);
+    connect(THeaWatLooOrSecRet.y, bus.THeaWatLooRet);
+    connect(VChiWatLooOrSec_flow.y, bus.VChiWatLoo_flow);
+    connect(VHeaWatLooOrSec_flow.y, bus.VHeaWatLoo_flow);
   end if;
   connect(busWea, hp.busWea);
   connect(bus, hp.bus);
@@ -1470,8 +1470,8 @@ annotation(defaultComponentName="pla",
   component. In Dymola, for example, you can access this by right-clicking the
   component <code>pla</code> in the model
   <a href=\"modelica://Buildings.Templates.Plants.HeatPumps.Validation.AirToWaterReversibleHeatRecovery\">
-    Buildings.Templates.Plants.HeatPumps.Validation.AirToWaterReversibleHeatRecovery</a> and
-  selecting \"Show Component\" from the context menu.
+    Buildings.Templates.Plants.HeatPumps.Validation.AirToWaterReversibleHeatRecovery</a>
+  and selecting \"Show Component\" from the context menu.
 </p>
 <p align=\"center\">
   <img
@@ -1481,8 +1481,8 @@ annotation(defaultComponentName="pla",
 </p>
 <p>
   Currently, only identical heat pumps are supported. Although the template
-  can accommodate any number of identical units, the graphical feedback
-  for system configuration via the diagram layer is only accurate for up to 6
+  can accommodate any number of identical units, the graphical feedback for
+  system configuration via the diagram layer is only accurate for up to 6
   units.
 </p>
 <p>
@@ -1497,29 +1497,29 @@ annotation(defaultComponentName="pla",
     <th>Notes</th>
   </tr>
   <tr>
-    <td>Function</td>
+    <td>Function and equipment type</td>
     <td>
-      <b>Heating and cooling</b><br />
-      Heating-only
+      <b>Heating and cooling with reversible heat pumps</b><br />
+      Heating-only with non-reversible heat pumps<br />
+      Heating and cooling with reversible heat pumps and heat recovery
+      chiller<br />
+      Heating and cooling with reversible (2-pipe) heat pumps and polyvalent
+      (4-pipe) heat pumps<br />
+      Heating and cooling with polyvalent (4-pipe) heat pumps
     </td>
     <td>
       The plant always provides heating hot water.<br />
-      Setting the parameter <code>have_chiWat</code> to true (default setting)
-      allows modeling a plant that provides both heating hot water and chilled
-      water.
-    </td>
-  </tr>
-  <tr>
-    <td>Heat recovery</td>
-    <td>
-      <b>Without sidestream heat recovery chiller</b><br />
-      With sidestream heat recovery chiller
-    </td>
-    <td>
-      This option is only available for heating and cooling plants. When
-      selected, the template includes a chiller and its associated dedicated
-      primary CHW and CW pumps. The chiller is considered connected in a
-      sidestream configuration to both the CHW return and the HW return.
+      For configurations without polyvalent heat pumps, the heat pumps may be
+      unequally sized, with only a subset of the units participating in
+      lead/lag alternation.<br />
+      For configurations with polyvalent heat pumps, the reversible heat pumps
+      must be equally sized among themselves, and the polyvalent heat pumps
+      must be equally sized among themselves. All units are lead/lag
+      alternated within their own pool.<br />
+      For the configuration with a heat recovery chiller, the template
+      includes a chiller and its associated dedicated primary CHW and CW
+      pumps. The chiller is considered connected in a sidestream configuration
+      to both the CHW return and the HW return.
     </td>
   </tr>
   <tr>
@@ -1553,22 +1553,24 @@ annotation(defaultComponentName="pla",
     </td>
     <td>
       It is assumed that the HW and the CHW loops have the same type of
-      primary pump arrangement, as specified by this parameter.
+      primary pump arrangement, as specified by this parameter.<br />
+      Primary-secondary plants with both reversible and polyvalent heat pumps
+      must have primary dedicated pumps: primary headered pumps are not
+      supported for this configuration.
     </td>
   </tr>
   <tr>
-    <td>Separate dedicated primary CHW pumps</td>
+    <td>Separate dedicated primary pumps for the CHW and HW circuits</td>
     <td>
       <b>False</b><br />
       True
     </td>
     <td>
-      This option is only available for heating and cooling plants with
-      dedicated primary pumps. If this option is not selected (default
-      setting), each AWHP uses a common dedicated primary pump for HW and CHW
-      – this pump is then denoted as the primary HW pump. Otherwise, each AWHP
-      relies on a separate dedicated HW pump and a separate dedicated CHW
-      pump.
+      This option is only available for reversible heat pumps with dedicated
+      primary pumps. If this option is not selected (default setting), each
+      AWHP uses a common dedicated primary pump for CHW and HW – this pump is
+      then denoted as the primary HW pump. Otherwise, each AWHP relies on a
+      separate dedicated HW pump and a separate dedicated CHW pump.
     </td>
   </tr>
   <tr>
@@ -1659,10 +1661,9 @@ annotation(defaultComponentName="pla",
   temperature and the part load ratio. The heat pump performance data are
   provided via the subrecords <code>dat.hp.perHeaHp</code> and
   <code>dat.hp.perCooHp</code> for the heating mode and the cooling mode,
-  respectively. The polyvalent heat pump performance data are
-  provided via the subrecord <code>dat.hp.perPhp</code>.
-  For the required format of the performance data files, please
-  refer to the documentation of the blocks
+  respectively. The polyvalent heat pump performance data are provided via the
+  subrecord <code>dat.hp.perPhp</code>. For the required format of the
+  performance data files, please refer to the documentation of the blocks
   <a href=\"modelica://Buildings.Fluid.HeatPumps.ModularReversible.RefrigerantCycle.BaseClasses.TableData2DLoadDep\">
     Buildings.Fluid.HeatPumps.ModularReversible.RefrigerantCycle.BaseClasses.TableData2DLoadDep</a>
   and

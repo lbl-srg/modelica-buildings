@@ -20,12 +20,12 @@ model HeatPumpGroupAirToWaterPolyvalent
         group="Conservation equations"));
   parameter Data.Controller datCtlPlaPhp(
     cfg(
+      typ=Buildings.Templates.Plants.Controls.Types.PlantHeatPump.ReversiblePolyvalent,
       have_hrc=false,
       have_inpSch=false,
       have_chiWat=true,
-      typPumHeaWatPriHp=Buildings.Templates.Plants.HeatPumps.Types.PumpsPrimary.None,
-      typPumHeaWatPriPhp=Buildings.Templates.Plants.HeatPumps.Types.PumpsPrimary.Variable,
-      typPumChiWatPriPhp=Buildings.Templates.Plants.HeatPumps.Types.PumpsPrimary.Variable,
+      typPumHeaWatPri=Buildings.Templates.Plants.HeatPumps.Types.PumpsPrimary.Variable,
+      typPumChiWatPri=Buildings.Templates.Plants.HeatPumps.Types.PumpsPrimary.Variable,
       typPumHeaWatSec=Buildings.Templates.Plants.HeatPumps.Types.PumpsSecondary.None,
       typTanHeaWat=Buildings.Templates.Components.Types.IntegrationPoint.None,
       typTanChiWat=Buildings.Templates.Components.Types.IntegrationPoint.None,
@@ -63,8 +63,7 @@ model HeatPumpGroupAirToWaterPolyvalent
       final nPhp=nPhp,
       have_valPhpInlIso=false,
       have_valPhpOutIso=false,
-      have_pumChiWatPriDedHp=false,
-      typPumChiWatPriDedHp=Buildings.Templates.Plants.HeatPumps.Types.PumpsPrimary.None),
+      have_pumChiWatPriDedHp=false),
     THeaWatSup_nominal=datPhp.THeaWatSupHp_nominal,
     TChiWatSup_nominal=datHpPhp.TChiWatSupHp_nominal,
     dpChiWatRemSet_max=fill(Buildings.Templates.Data.Defaults.dpChiWatRemSet_max,
@@ -75,12 +74,12 @@ model HeatPumpGroupAirToWaterPolyvalent
     annotation (Placement(transformation(extent={{-100,160},{-80,180}})));
   parameter Data.Controller datCtlPlaHpPhp(
     cfg(
+      typ=Buildings.Templates.Plants.Controls.Types.PlantHeatPump.ReversiblePolyvalent,
       have_hrc=false,
       have_inpSch=false,
       have_chiWat=true,
-      typPumHeaWatPriHp=Buildings.Templates.Plants.HeatPumps.Types.PumpsPrimary.Variable,
-      typPumHeaWatPriPhp=Buildings.Templates.Plants.HeatPumps.Types.PumpsPrimary.Variable,
-      typPumChiWatPriPhp=Buildings.Templates.Plants.HeatPumps.Types.PumpsPrimary.Variable,
+      typPumHeaWatPri=Buildings.Templates.Plants.HeatPumps.Types.PumpsPrimary.Variable,
+      typPumChiWatPri=Buildings.Templates.Plants.HeatPumps.Types.PumpsPrimary.Variable,
       typPumHeaWatSec=Buildings.Templates.Plants.HeatPumps.Types.PumpsSecondary.None,
       typTanHeaWat=Buildings.Templates.Components.Types.IntegrationPoint.None,
       typTanChiWat=Buildings.Templates.Components.Types.IntegrationPoint.None,
@@ -118,8 +117,7 @@ model HeatPumpGroupAirToWaterPolyvalent
       final nPhp=nPhp,
       have_valPhpInlIso=false,
       have_valPhpOutIso=false,
-      have_pumChiWatPriDedHp=false,
-      typPumChiWatPriDedHp=Buildings.Templates.Plants.HeatPumps.Types.PumpsPrimary.None),
+      have_pumChiWatPriDedHp=false),
     THeaWatSup_nominal=datHpPhp.THeaWatSupHp_nominal,
     TChiWatSup_nominal=datHpPhp.TChiWatSupHp_nominal,
     dpChiWatRemSet_max=fill(Buildings.Templates.Data.Defaults.dpChiWatRemSet_max,
@@ -150,7 +148,7 @@ model HeatPumpGroupAirToWaterPolyvalent
     PPhp_min=1.0E3,
     capHeaShcPhp_nominal=500E3,
     capCooShcPhp_nominal=500E3,
-    perShc(
+    perPhp(
       fileNameHea=Modelica.Utilities.Files.loadResource("modelica://Buildings/Resources/Data/Fluid/HeatPumps/ModularReversible/RefrigerantCycle/BaseClasses/Validation/AWHP_Heating.txt"),
       fileNameCoo=Modelica.Utilities.Files.loadResource("modelica://Buildings/Resources/Data/Fluid/HeatPumps/ModularReversible/RefrigerantCycle/BaseClasses/Validation/AWHP_Cooling.txt"),
       fileNameShc=Modelica.Utilities.Files.loadResource("modelica://Buildings/Resources/Data/Fluid/HeatPumps/ModularReversible/RefrigerantCycle/BaseClasses/Validation/AWHP_SHC.txt")))
@@ -198,7 +196,7 @@ model HeatPumpGroupAirToWaterPolyvalent
     PPhp_min=1.0E3,
     capHeaShcPhp_nominal=500E3,
     capCooShcPhp_nominal=500E3,
-    perShc(
+    perPhp(
       fileNameHea=Modelica.Utilities.Files.loadResource("modelica://Buildings/Resources/Data/Fluid/HeatPumps/ModularReversible/RefrigerantCycle/BaseClasses/Validation/AWHP_Heating.txt"),
       fileNameCoo=Modelica.Utilities.Files.loadResource("modelica://Buildings/Resources/Data/Fluid/HeatPumps/ModularReversible/RefrigerantCycle/BaseClasses/Validation/AWHP_Cooling.txt"),
       fileNameShc=Modelica.Utilities.Files.loadResource("modelica://Buildings/Resources/Data/Fluid/HeatPumps/ModularReversible/RefrigerantCycle/BaseClasses/Validation/AWHP_SHC.txt")))

@@ -64,8 +64,7 @@ block OpenLoop
     each table=[0, 0; 3.1, 1; 5, 0],
     each timeScale=1000,
     each period=5000)
-    if cfg.typPumChiWatPriDedHp <> Buildings.Templates.Plants.HeatPumps.Types.PumpsPrimary.None
-     or cfg.typPumChiWatPriPhp <> Buildings.Templates.Plants.HeatPumps.Types.PumpsPrimary.None
+    if cfg.typPumChiWatPri <> Buildings.Templates.Plants.HeatPumps.Types.PumpsPrimary.None
     "Primary CHW pump start/stop command"
     annotation(Placement(transformation(extent={{-100,-210},{-120,-190}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.TimeTable y1PumHeaWatSec[cfg.nPumHeaWatSec](
@@ -96,23 +95,20 @@ block OpenLoop
     annotation(Placement(transformation(extent={{-140,-250},{-160,-230}})));
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant yPumHeaWatPriHdr(
     k=dat.yPumHeaWatPriHdrSet)
-    if (cfg.typPumHeaWatPriHp == Buildings.Templates.Plants.HeatPumps.Types.PumpsPrimary.Variable
-    or cfg.typPumHeaWatPriPhp == Buildings.Templates.Plants.HeatPumps.Types.PumpsPrimary.Variable)
+    if cfg.typPumHeaWatPri == Buildings.Templates.Plants.HeatPumps.Types.PumpsPrimary.Variable
     and cfg.typArrPumPri ==
         Buildings.Templates.Components.Types.PumpArrangement.Headered
     "Headered primary HW pump speed signal"
     annotation(Placement(transformation(extent={{-60,170},{-80,190}})));
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant yPumChiWatPriHdr(
     k=dat.yPumChiWatPriHdrSet)
-    if (cfg.typPumChiWatPriDedHp == Buildings.Templates.Plants.HeatPumps.Types.PumpsPrimary.Variable
-     or cfg.typPumChiWatPriPhp == Buildings.Templates.Plants.HeatPumps.Types.PumpsPrimary.Variable)
+    if cfg.typPumChiWatPri == Buildings.Templates.Plants.HeatPumps.Types.PumpsPrimary.Variable
      and cfg.typArrPumPri == Buildings.Templates.Components.Types.PumpArrangement.Headered
     "Headered primary CHW pump speed signal"
     annotation(Placement(transformation(extent={{-60,-210},{-80,-190}})));
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant yPumHeaWatPriDed[cfg.nPumHeaWatPri](
      k=cat(1, fill(dat.yPumHeaWatPriDedHpSet, cfg.nHp), fill(dat.yPumHeaWatPriDedPhpSet,
-        cfg.nPhp))) if (cfg.typPumHeaWatPriHp == Buildings.Templates.Plants.HeatPumps.Types.PumpsPrimary.Variable
-     or cfg.typPumHeaWatPriPhp == Buildings.Templates.Plants.HeatPumps.Types.PumpsPrimary.Variable)
+        cfg.nPhp))) if cfg.typPumHeaWatPri == Buildings.Templates.Plants.HeatPumps.Types.PumpsPrimary.Variable
      and cfg.typArrPumPri == Buildings.Templates.Components.Types.PumpArrangement.Dedicated
     "Dedicated primary HW pump speed signal"
     annotation (Placement(transformation(extent={{-20,170},{-40,190}})));
@@ -120,8 +116,7 @@ block OpenLoop
      k=if cfg.have_pumChiWatPriDedHp then cat(1, fill(dat.yPumChiWatPriDedHpSet,
         cfg.nHp), fill(dat.yPumChiWatPriDedPhpSet, cfg.nPhp)) else fill(dat.yPumChiWatPriDedPhpSet,
         cfg.nPhp)) if cfg.typArrPumPri == Buildings.Templates.Components.Types.PumpArrangement.Dedicated
-     and (cfg.typPumChiWatPriDedHp == Buildings.Templates.Plants.HeatPumps.Types.PumpsPrimary.Variable
-     or cfg.typPumChiWatPriPhp == Buildings.Templates.Plants.HeatPumps.Types.PumpsPrimary.Variable)
+     and cfg.typPumChiWatPri == Buildings.Templates.Plants.HeatPumps.Types.PumpsPrimary.Variable
     "Dedicated primary CHW pump speed signal"
     annotation (Placement(transformation(extent={{-20,-210},{-40,-190}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.TimeTable y1ValChiWatPhpInlIso[nPhp](

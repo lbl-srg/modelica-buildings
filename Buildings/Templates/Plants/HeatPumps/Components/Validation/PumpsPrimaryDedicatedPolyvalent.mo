@@ -21,6 +21,7 @@ model PumpsPrimaryDedicatedPolyvalent
         group="Conservation equations"));
   parameter Data.Controller datCtl(
     cfg(
+      typ=Buildings.Templates.Plants.Controls.Types.PlantHeatPump.ReversiblePolyvalent,
       have_inpSch=false,
       have_hp=true,
       have_hrc=false,
@@ -31,9 +32,8 @@ model PumpsPrimaryDedicatedPolyvalent
       have_chiWat=true,
       have_php=true,
       final nPhp=nPhp,
-      typPumHeaWatPriHp=Buildings.Templates.Plants.HeatPumps.Types.PumpsPrimary.Constant,
-      typPumHeaWatPriPhp=Buildings.Templates.Plants.HeatPumps.Types.PumpsPrimary.Constant,
-      typPumChiWatPriPhp=Buildings.Templates.Plants.HeatPumps.Types.PumpsPrimary.Constant,
+      typPumHeaWatPri=Buildings.Templates.Plants.HeatPumps.Types.PumpsPrimary.Constant,
+      typPumChiWatPri=Buildings.Templates.Plants.HeatPumps.Types.PumpsPrimary.Constant,
       typPumHeaWatSec=Buildings.Templates.Plants.HeatPumps.Types.PumpsSecondary.None,
       typTanHeaWat=Buildings.Templates.Components.Types.IntegrationPoint.None,
       typTanChiWat=Buildings.Templates.Components.Types.IntegrationPoint.None,
@@ -64,8 +64,7 @@ model PumpsPrimaryDedicatedPolyvalent
       nSenDpChiWatRem=0,
       nAirHan=0,
       nEquZon=0,
-      have_pumChiWatPriDedHp=false,
-      typPumChiWatPriDedHp=Buildings.Templates.Plants.HeatPumps.Types.PumpsPrimary.None),
+      have_pumChiWatPriDedHp=false),
     THeaWatSup_nominal=Buildings.Templates.Data.Defaults.THeaWatSupMed,
     TChiWatSup_nominal=Buildings.Templates.Data.Defaults.TChiWatSup,
     dpChiWatRemSet_max=fill(Buildings.Templates.Data.Defaults.dpChiWatRemSet_max,
@@ -76,6 +75,7 @@ model PumpsPrimaryDedicatedPolyvalent
     annotation (Placement(transformation(extent={{-180,290},{-160,310}})));
   parameter Data.Controller datCtlNoDed(
     cfg(
+      typ=Buildings.Templates.Plants.Controls.Types.PlantHeatPump.ReversiblePolyvalent,
       have_inpSch=false,
       have_hp=true,
       have_hrc=false,
@@ -86,9 +86,8 @@ model PumpsPrimaryDedicatedPolyvalent
       have_chiWat=true,
       have_php=true,
       final nPhp=nPhp,
-      typPumHeaWatPriHp=Buildings.Templates.Plants.HeatPumps.Types.PumpsPrimary.Constant,
-      typPumHeaWatPriPhp=Buildings.Templates.Plants.HeatPumps.Types.PumpsPrimary.Constant,
-      typPumChiWatPriPhp=Buildings.Templates.Plants.HeatPumps.Types.PumpsPrimary.Constant,
+      typPumHeaWatPri=Buildings.Templates.Plants.HeatPumps.Types.PumpsPrimary.Constant,
+      typPumChiWatPri=Buildings.Templates.Plants.HeatPumps.Types.PumpsPrimary.Constant,
       typPumHeaWatSec=Buildings.Templates.Plants.HeatPumps.Types.PumpsSecondary.None,
       typTanHeaWat=Buildings.Templates.Components.Types.IntegrationPoint.None,
       typTanChiWat=Buildings.Templates.Components.Types.IntegrationPoint.None,
@@ -119,8 +118,7 @@ model PumpsPrimaryDedicatedPolyvalent
       nSenDpChiWatRem=0,
       nAirHan=0,
       nEquZon=0,
-      have_pumChiWatPriDedHp=false,
-      typPumChiWatPriDedHp=Buildings.Templates.Plants.HeatPumps.Types.PumpsPrimary.Constant),
+      have_pumChiWatPriDedHp=false),
     THeaWatSup_nominal=Buildings.Templates.Data.Defaults.THeaWatSupMed,
     TChiWatSup_nominal=Buildings.Templates.Data.Defaults.TChiWatSup,
     dpChiWatRemSet_max=fill(Buildings.Templates.Data.Defaults.dpChiWatRemSet_max,
@@ -131,6 +129,7 @@ model PumpsPrimaryDedicatedPolyvalent
     annotation (Placement(transformation(extent={{-280,-10},{-260,10}})));
   parameter Data.Controller datCtlSep(
     cfg(
+      typ=Buildings.Templates.Plants.Controls.Types.PlantHeatPump.ReversiblePolyvalent,
       have_inpSch=false,
       have_hp=true,
       have_hrc=false,
@@ -141,9 +140,8 @@ model PumpsPrimaryDedicatedPolyvalent
       have_chiWat=true,
       have_php=true,
       final nPhp=nPhp,
-      typPumHeaWatPriHp=Buildings.Templates.Plants.HeatPumps.Types.PumpsPrimary.Constant,
-      typPumHeaWatPriPhp=Buildings.Templates.Plants.HeatPumps.Types.PumpsPrimary.Constant,
-      typPumChiWatPriPhp=Buildings.Templates.Plants.HeatPumps.Types.PumpsPrimary.Constant,
+      typPumHeaWatPri=Buildings.Templates.Plants.HeatPumps.Types.PumpsPrimary.Constant,
+      typPumChiWatPri=Buildings.Templates.Plants.HeatPumps.Types.PumpsPrimary.Constant,
       typPumHeaWatSec=Buildings.Templates.Plants.HeatPumps.Types.PumpsSecondary.None,
       typTanHeaWat=Buildings.Templates.Components.Types.IntegrationPoint.None,
       typTanChiWat=Buildings.Templates.Components.Types.IntegrationPoint.None,
@@ -174,8 +172,7 @@ model PumpsPrimaryDedicatedPolyvalent
       nSenDpChiWatRem=0,
       nAirHan=0,
       nEquZon=0,
-      have_pumChiWatPriDedHp=true,
-      typPumChiWatPriDedHp=Buildings.Templates.Plants.HeatPumps.Types.PumpsPrimary.Constant),
+      have_pumChiWatPriDedHp=true),
     THeaWatSup_nominal=Buildings.Templates.Data.Defaults.THeaWatSupMed,
     TChiWatSup_nominal=Buildings.Templates.Data.Defaults.TChiWatSup,
     dpChiWatRemSet_max=fill(Buildings.Templates.Data.Defaults.dpChiWatRemSet_max,
@@ -224,7 +221,7 @@ model PumpsPrimaryDedicatedPolyvalent
     PPhp_min=1.0E3,
     capHeaShcPhp_nominal=500E3,
     capCooShcPhp_nominal=500E3,
-    perShc(
+    perPhp(
       fileNameHea=Modelica.Utilities.Files.loadResource("modelica://Buildings/Resources/Data/Fluid/HeatPumps/ModularReversible/RefrigerantCycle/BaseClasses/Validation/AWHP_Heating.txt"),
       fileNameCoo=Modelica.Utilities.Files.loadResource("modelica://Buildings/Resources/Data/Fluid/HeatPumps/ModularReversible/RefrigerantCycle/BaseClasses/Validation/AWHP_Cooling.txt"),
       fileNameShc=Modelica.Utilities.Files.loadResource("modelica://Buildings/Resources/Data/Fluid/HeatPumps/ModularReversible/RefrigerantCycle/BaseClasses/Validation/AWHP_SHC.txt")))

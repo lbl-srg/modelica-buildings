@@ -29,7 +29,10 @@ equation
     __Dymola_Commands(
       file=
         "modelica://Buildings/Resources/Scripts/Dymola/Templates/Plants/Controls/StagingRotation/BaseClasses/Validation/RemoveFromStagingOrder.mos"
-        "Simulate and plot"),
+      "Simulate and plot"),
+    experiment(
+      StopTime=6.0,
+      Tolerance=1e-06),
     Icon(coordinateSystem(preserveAspectRatio=false),
   graphics={Ellipse(lineColor={75,138,73},
     fillColor={255,255,255},

@@ -126,59 +126,59 @@ block PartialController
       group="Plant enable"));
   // Bind the following disabled parameters to the corresponding controller
   // parameters in derived class to avoid duplicating final assignment equations.
-  parameter Boolean have_senVHeaWatPri
+  parameter Boolean have_senVHeaWatPri(start=false)
     "Set to true for plants with primary HW flow sensor"
     annotation(Evaluate=true,
       Dialog(enable=false));
-  parameter Boolean have_senVHeaWatLoo
+  parameter Boolean have_senVHeaWatLoo(start=false)
     "Set to true for plants with HW loop flow sensor"
     annotation(Evaluate=true,
       Dialog(enable=false));
-  parameter Boolean have_senVHeaWatSec
+  parameter Boolean have_senVHeaWatSec(start=false)
     "Set to true for plants with secondary HW flow sensor"
     annotation(Evaluate=true,
       Dialog(enable=false));
-  parameter Boolean have_senVChiWatPri
+  parameter Boolean have_senVChiWatPri(start=false)
     "Set to true for plants with primary CHW flow sensor"
     annotation(Evaluate=true,
       Dialog(enable=false));
-  parameter Boolean have_senVChiWatLoo
+  parameter Boolean have_senVChiWatLoo(start=false)
     "Set to true for plants with CHW loop flow sensor"
     annotation(Evaluate=true,
       Dialog(enable=false));
-  parameter Boolean have_senVChiWatSec
+  parameter Boolean have_senVChiWatSec(start=false)
     "Set to true for plants with secondary CHW flow sensor"
     annotation(Evaluate=true,
       Dialog(enable=false));
-  parameter Boolean have_senTHeaWatPriRet
+  parameter Boolean have_senTHeaWatPriRet(start=false)
     "Set to true for plants with primary HW return temperature sensor"
     annotation(Evaluate=true,
       Dialog(enable=false));
-  parameter Boolean have_senTHeaWatLooRet
+  parameter Boolean have_senTHeaWatLooRet(start=false)
     "Set to true for plants with HW loop return temperature sensor"
     annotation(Evaluate=true,
       Dialog(enable=false));
-  parameter Boolean have_senTChiWatPriRet
+  parameter Boolean have_senTChiWatPriRet(start=false)
     "Set to true for plants with primary CHW return temperature sensor"
     annotation(Evaluate=true,
       Dialog(enable=false));
-  parameter Boolean have_senTChiWatLooRet
+  parameter Boolean have_senTChiWatLooRet(start=false)
     "Set to true for plants with CHW loop return temperature sensor"
     annotation(Evaluate=true,
       Dialog(enable=false));
-  parameter Boolean have_senTHeaWatSecSup
+  parameter Boolean have_senTHeaWatSecSup(start=false)
     "Set to true for plants with secondary HW supply temperature sensor"
     annotation(Evaluate=true,
       Dialog(enable=false));
-  parameter Boolean have_senTChiWatSecSup
+  parameter Boolean have_senTChiWatSecSup(start=false)
     "Set to true for plants with secondary CHW supply temperature sensor"
     annotation(Evaluate=true,
       Dialog(enable=false));
-  parameter Boolean have_senTHeaWatSecRet
+  parameter Boolean have_senTHeaWatSecRet(start=false)
     "Set to true for plants with secondary HW return temperature sensor"
     annotation(Evaluate=true,
       Dialog(enable=false));
-  parameter Boolean have_senTChiWatSecRet
+  parameter Boolean have_senTChiWatSecRet(start=false)
     "Set to true for plants with secondary CHW return temperature sensor"
     annotation(Evaluate=true,
       Dialog(enable=false));
@@ -215,7 +215,9 @@ block PartialController
     nHp=if cfg.have_pumChiWatPriDedHp then cfg.nHp else 0,
     final nPhp=cfg.nPhp)
     if cfg.typPumChiWatPri <>
-      Buildings.Templates.Plants.HeatPumps.Types.PumpsPrimary.None
+    Buildings.Templates.Plants.HeatPumps.Types.PumpsPrimary.None
+    and typ <>
+      Buildings.Templates.Plants.HeatPumps.Types.Controller.OpenLoop
     "Primary CHW pump signal routing"
     annotation(Placement(transformation(extent={{-210,-180},{-190,-160}})));
   Controls.PrimaryPumpSignalRouting rouPumHeaWatPri(
@@ -225,7 +227,9 @@ block PartialController
     nHp=cfg.nHp,
     final nPhp=cfg.nPhp)
     if cfg.typPumHeaWatPri <>
-      Buildings.Templates.Plants.HeatPumps.Types.PumpsPrimary.None
+    Buildings.Templates.Plants.HeatPumps.Types.PumpsPrimary.None
+    and typ <>
+        Buildings.Templates.Plants.HeatPumps.Types.Controller.OpenLoop
     "Primary HW pump signal routing"
     annotation(Placement(transformation(extent={{-210,60},{-190,80}})));
   protected

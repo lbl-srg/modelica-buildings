@@ -2807,17 +2807,27 @@ annotation(defaultComponentName="ctl",
   <tr>
     <td>Function and equipment type</td>
     <td>
-        Heating-only with non-reversible heat pumps<br />
-        Heating and cooling with reversible heat pumps<br />
-        Heating and cooling with reversible heat pumps and heat recovery chiller<br />
-        Heating and cooling with reversible (2-pipe) heat pumps and polyvalent (4-pipe) heat pumps<br />
-        Heating and cooling with polyvalent (4-pipe) heat pumps
+      Heating-only with non-reversible heat pumps<br />
+      Heating and cooling with reversible heat pumps<br />
+      Heating and cooling with reversible heat pumps and heat recovery
+      chiller<br />
+      Heating and cooling with reversible (2-pipe) heat pumps and polyvalent
+      (4-pipe) heat pumps<br />
+      Heating and cooling with polyvalent (4-pipe) heat pumps
     </td>
     <td>
-     For configurations without polyvalent heat pumps, the heat pumps may be unequally sized with only a subset of lead/lag alternated units.<br />
-     For configurations with polyvalent heat pumps, both reversible heat pumps and the polyvalent heat pumps must be equally sized, and all units are lead/lag alternated within their own pool.<br />
-     For the configuration with a heat recovery chiller, the chiller is considered connected in a sidestream configuration to both the CHW return and the HW return.
- </td>
+      For configurations without polyvalent heat pumps, the heat pumps may be
+      unequally sized, with only a subset of the units participating in
+      lead/lag alternation.<br />
+      For configurations with polyvalent heat pumps, the reversible heat pumps
+      must be equally sized among themselves, and the polyvalent heat pumps
+      must be equally sized among themselves. All units are lead/lag
+      alternated within their own pool.<br />
+      For the configuration with a heat recovery chiller, the chiller is
+      considered connected in a sidestream configuration to both the CHW
+      return and the HW return.
+    </td>
+  </tr>
   <tr>
     <td>Type of distribution</td>
     <td>
@@ -2851,8 +2861,8 @@ annotation(defaultComponentName="ctl",
       It is assumed that the HW and the CHW loops have the same type of
       primary pump arrangement, as specified by this parameter.<br />
       Primary-secondary plants with both reversible and polyvalent heat pumps
-      must have primary dedicated pumps: primary headered pumps are not supported
-      for this configuration.
+      must have primary dedicated pumps: primary headered pumps are not
+      supported for this configuration.
     </td>
   </tr>
   <tr>
@@ -2862,11 +2872,11 @@ annotation(defaultComponentName="ctl",
       True
     </td>
     <td>
-      This option is only available for reversible heat pumps with
-      dedicated primary pumps. If this option is not selected, each AWHP uses
-      a common dedicated primary pump for HW and CHW – this pump is then
-      denoted as the primary HW pump. Otherwise, each AWHP relies on a
-      separate dedicated HW pump and a separate dedicated CHW pump.
+      This option is only available for reversible heat pumps with dedicated
+      primary pumps. If this option is not selected, each AWHP uses a common
+      dedicated primary pump for CHW and HW – this pump is then denoted as the
+      primary HW pump. Otherwise, each AWHP relies on a separate dedicated HW
+      pump and a separate dedicated CHW pump.
     </td>
   </tr>
   <tr>
@@ -2896,18 +2906,17 @@ annotation(defaultComponentName="ctl",
 </table>
 <h4>Details</h4>
 <p>
-  For plants without polyvalent heat pumps, a staging matrix <code>staEqu</code>
-  is required as a parameter. See the
-  documentation of
+  For plants without polyvalent heat pumps, a staging matrix
+  <code>staEqu</code> is required as a parameter. See the documentation of
   <a href=\"modelica://Buildings.Templates.Plants.Controls.StagingRotation.EquipmentEnable\">
     Buildings.Templates.Plants.Controls.StagingRotation.EquipmentEnable</a>
   for the associated definition and requirements.
 </p>
 <p>
-  For plants with polyvalent heat pumps, the staging matrix is programmatically
-  generated, under the assumption that all units (polyvalent heat pumps on the one hand,
-  and optionally reversible heat pumps on the other hand) are equally sized.
-  See the documentation of
+  For plants with polyvalent heat pumps, the staging matrix is
+  programmatically generated, under the assumption that all units (polyvalent
+  heat pumps on the one hand, and optionally reversible heat pumps on the
+  other hand) are equally sized. See the documentation of
   <a href=\"modelica://Buildings.Templates.Plants.Controls.PolyvalentHeatPumps.StagingParameters\">
     Buildings.Templates.Plants.Controls.PolyvalentHeatPumps.StagingParameters</a>
   for the associated logic.
