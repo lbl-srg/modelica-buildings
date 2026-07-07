@@ -1,59 +1,68 @@
-last-generated=2016-12-22
+last-generated=2026-07-07
 statistics-fmu-dependencies=
 {
-  "Outputs": {
-    "outlet.m_flow": [
-      "inlet.m_flow"
-    ], 
-    "inlet.backward.T": [
-      "inlet.m_flow", 
-      "outlet.backward.T", 
-      "outlet.backward.X_w", 
-      "u"
-    ], 
-    "inlet.backward.X_w": [
-      "outlet.backward.X_w"
-    ], 
-    "outlet.forward.T": [
-      "inlet.m_flow", 
-      "inlet.forward.T", 
-      "inlet.forward.X_w", 
-      "u"
-    ], 
-    "outlet.forward.X_w": [
-      "inlet.forward.X_w"
-    ], 
-    "outlet.p": [
-      "inlet.p"
-    ]
-  }, 
+  "Derivatives": {},
   "InitialUnknowns": {
-    "outlet.m_flow": [
-      "inlet.m_flow"
-    ], 
+    "com.preDro.C": [],
+    "com.preDro.a1": [],
+    "com.preDro.a3": [],
+    "com.preDro.a5": [],
+    "com.preDro.b1": [],
+    "com.preDro.b3": [],
+    "com.preDro.b5": [],
+    "com.preDro.dp_turbulent": [],
+    "com.preDro.m": [],
     "inlet.backward.T": [
-      "inlet.m_flow", 
-      "outlet.backward.T", 
-      "outlet.backward.X_w", 
-      "Q_flow_nominal", 
+      "inlet.m_flow",
+      "outlet.backward.T",
+      "outlet.backward.X_w",
+      "Q_flow_nominal",
       "u"
-    ], 
+    ],
     "inlet.backward.X_w": [
       "outlet.backward.X_w"
-    ], 
+    ],
     "outlet.forward.T": [
-      "inlet.m_flow", 
-      "inlet.forward.T", 
-      "inlet.forward.X_w", 
-      "Q_flow_nominal", 
+      "inlet.m_flow",
+      "inlet.forward.T",
+      "inlet.forward.X_w",
+      "Q_flow_nominal",
       "u"
-    ], 
+    ],
     "outlet.forward.X_w": [
       "inlet.forward.X_w"
-    ], 
+    ],
+    "outlet.m_flow": [
+      "inlet.m_flow"
+    ],
     "outlet.p": [
       "inlet.p"
     ]
-  }, 
-  "Derivatives": {}
+  },
+  "Outputs": {
+    "inlet.backward.T": [
+      "inlet.m_flow",
+      "outlet.backward.T",
+      "outlet.backward.X_w",
+      "u"
+    ],
+    "inlet.backward.X_w": [
+      "outlet.backward.X_w"
+    ],
+    "outlet.forward.T": [
+      "inlet.m_flow",
+      "inlet.forward.T",
+      "inlet.forward.X_w",
+      "u"
+    ],
+    "outlet.forward.X_w": [
+      "inlet.forward.X_w"
+    ],
+    "outlet.m_flow": [
+      "inlet.m_flow"
+    ],
+    "outlet.p": [
+      "inlet.p"
+    ]
+  }
 }

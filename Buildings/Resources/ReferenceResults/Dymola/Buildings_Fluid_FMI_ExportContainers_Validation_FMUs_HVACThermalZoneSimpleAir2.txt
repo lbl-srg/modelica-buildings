@@ -1,17 +1,57 @@
-last-generated=2018-06-24
+last-generated=2026-07-07
 statistics-fmu-dependencies=
 {
   "Derivatives": {},
   "InitialUnknowns": {
-    "QGaiLat_flow": [],
-    "QGaiRad_flow": [],
-    "QGaiSenCon_flow": [],
-    "fluPor[1].forward.C[1]": [],
-    "fluPor[1].forward.T": [],
-    "fluPor[1].m_flow": [],
-    "fluPor[2].forward.C[1]": [],
-    "fluPor[2].forward.T": [],
-    "fluPor[2].m_flow": []
+    "QGaiLat_flow": [
+      "zero.k"
+    ],
+    "QGaiRad_flow": [
+      "zero.k"
+    ],
+    "QGaiSenCon_flow": [
+      "zero.k"
+    ],
+    "fluPor[1].forward.C[1]": [
+      "sou.C[1]",
+      "sou.m_flow"
+    ],
+    "fluPor[1].forward.T": [
+      "sou.m_flow",
+      "sou.T"
+    ],
+    "fluPor[1].m_flow": [
+      "sou.m_flow"
+    ],
+    "fluPor[2].forward.C[1]": [
+      "bou.C[1]",
+      "sou.m_flow"
+    ],
+    "fluPor[2].forward.T": [
+      "bou.T",
+      "sou.m_flow"
+    ],
+    "fluPor[2].m_flow": [
+      "sou.m_flow"
+    ],
+    "ret.C": [],
+    "ret.a1": [],
+    "ret.a3": [],
+    "ret.a5": [],
+    "ret.b1": [],
+    "ret.b3": [],
+    "ret.b5": [],
+    "ret.dp_turbulent": [],
+    "ret.m": [],
+    "sup.C": [],
+    "sup.a1": [],
+    "sup.a3": [],
+    "sup.a5": [],
+    "sup.b1": [],
+    "sup.b3": [],
+    "sup.b5": [],
+    "sup.dp_turbulent": [],
+    "sup.m": []
   },
   "Outputs": {
     "QGaiLat_flow": [],

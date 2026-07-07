@@ -1,4 +1,4 @@
-last-generated=2022-09-10
+last-generated=2026-07-07
 statistics-fmu-dependencies=
 {
   "Derivatives": {
@@ -62,17 +62,14 @@ statistics-fmu-dependencies=
     ]
   },
   "InitialUnknowns": {
-    "TOut": [],
-    "TRad1": [
-      "vol1.p_start",
-      "vol1.T_start",
-      "vol1.X_start[1]"
+    "TOut": [
+      "weaDat.datRea.nHeaderLines",
+      "weaDat.datRea.verboseRead",
+      "weaDat.cheTemDryBul.TMin",
+      "weaDat.cheTemDryBul.TMax"
     ],
-    "TRad2": [
-      "vol2.p_start",
-      "vol2.T_start",
-      "vol2.X_start[1]"
-    ],
+    "TRad1": [],
+    "TRad2": [],
     "der(vol1.dynBal.U)": [
       "fluPor[1,1].m_flow",
       "fluPor[1,1].forward.T",
@@ -84,12 +81,13 @@ statistics-fmu-dependencies=
       "fluPor[1,3].forward.T",
       "fluPor[1,3].forward.X_w",
       "QRooInt_flow",
+      "weaDat.datRea.nHeaderLines",
+      "weaDat.datRea.verboseRead",
+      "weaDat.cheTemDryBul.TMin",
+      "weaDat.cheTemDryBul.TMax",
       "theCon1.G",
       "preHea1.T_ref",
-      "preHea1.alpha",
-      "vol1.p_start",
-      "vol1.T_start",
-      "vol1.X_start[1]"
+      "preHea1.alpha"
     ],
     "der(vol1.dynBal.m)": [
       "fluPor[1,1].m_flow",
@@ -102,10 +100,7 @@ statistics-fmu-dependencies=
       "fluPor[1,2].m_flow",
       "fluPor[1,2].forward.X_w",
       "fluPor[1,3].m_flow",
-      "fluPor[1,3].forward.X_w",
-      "V",
-      "vol1.p_start",
-      "vol1.X_start[1]"
+      "fluPor[1,3].forward.X_w"
     ],
     "der(vol2.dynBal.U)": [
       "fluPor[2,1].m_flow",
@@ -118,12 +113,13 @@ statistics-fmu-dependencies=
       "fluPor[2,3].forward.T",
       "fluPor[2,3].forward.X_w",
       "QRooInt_flow",
+      "weaDat.datRea.nHeaderLines",
+      "weaDat.datRea.verboseRead",
+      "weaDat.cheTemDryBul.TMin",
+      "weaDat.cheTemDryBul.TMax",
       "theCon2.G",
       "preHea2.T_ref",
-      "preHea2.alpha",
-      "vol2.p_start",
-      "vol2.T_start",
-      "vol2.X_start[1]"
+      "preHea2.alpha"
     ],
     "der(vol2.dynBal.m)": [
       "fluPor[2,1].m_flow",
@@ -136,110 +132,139 @@ statistics-fmu-dependencies=
       "fluPor[2,2].m_flow",
       "fluPor[2,2].forward.X_w",
       "fluPor[2,3].m_flow",
-      "fluPor[2,3].forward.X_w",
-      "V",
-      "vol2.p_start",
-      "vol2.X_start[1]"
+      "fluPor[2,3].forward.X_w"
     ],
-    "fluPor[1,1].backward.T": [
-      "vol1.p_start",
-      "vol1.T_start",
-      "vol1.X_start[1]"
+    "fluPor[1,1].backward.T": [],
+    "fluPor[1,1].backward.X_w": [],
+    "fluPor[1,2].backward.T": [],
+    "fluPor[1,2].backward.X_w": [],
+    "fluPor[1,3].backward.T": [],
+    "fluPor[1,3].backward.X_w": [],
+    "fluPor[2,1].backward.T": [],
+    "fluPor[2,1].backward.X_w": [],
+    "fluPor[2,2].backward.T": [],
+    "fluPor[2,2].backward.X_w": [],
+    "fluPor[2,3].backward.T": [],
+    "fluPor[2,3].backward.X_w": [],
+    "theZonAda[1].assEqu.t0": [
+      "theZonAda[1].assEqu.startTime"
     ],
-    "fluPor[1,1].backward.X_w": [
-      "vol1.X_start[1]"
+    "theZonAda[2].assEqu.t0": [
+      "theZonAda[2].assEqu.startTime"
     ],
-    "fluPor[1,2].backward.T": [
-      "vol1.p_start",
-      "vol1.T_start",
-      "vol1.X_start[1]"
+    "vol1.dynBal.U": [],
+    "vol1.dynBal.m": [],
+    "vol1.dynBal.medium.Xi[1]": [],
+    "vol2.dynBal.U": [],
+    "vol2.dynBal.m": [],
+    "vol2.dynBal.medium.Xi[1]": [],
+    "weaBus.HDifHor": [
+      "weaDat.add30Min.k1",
+      "weaDat.add30Min.k2",
+      "weaDat.datRea30Min.nHeaderLines",
+      "weaDat.datRea30Min.verboseRead"
     ],
-    "fluPor[1,2].backward.X_w": [
-      "vol1.X_start[1]"
+    "weaBus.HDirNor": [
+      "weaDat.add30Min.k1",
+      "weaDat.add30Min.k2",
+      "weaDat.datRea30Min.nHeaderLines",
+      "weaDat.datRea30Min.verboseRead"
     ],
-    "fluPor[1,3].backward.T": [
-      "vol1.p_start",
-      "vol1.T_start",
-      "vol1.X_start[1]"
+    "weaBus.HGloHor": [
+      "weaDat.add30Min.k1",
+      "weaDat.add30Min.k2",
+      "weaDat.datRea30Min.nHeaderLines",
+      "weaDat.datRea30Min.verboseRead"
     ],
-    "fluPor[1,3].backward.X_w": [
-      "vol1.X_start[1]"
+    "weaBus.HHorIR": [
+      "weaDat.datRea.nHeaderLines",
+      "weaDat.datRea.verboseRead"
     ],
-    "fluPor[2,1].backward.T": [
-      "vol2.p_start",
-      "vol2.T_start",
-      "vol2.X_start[1]"
+    "weaBus.TBlaSky": [
+      "weaDat.datRea.nHeaderLines",
+      "weaDat.datRea.verboseRead",
+      "weaDat.cheTemDryBul.TMin",
+      "weaDat.cheTemDryBul.TMax",
+      "weaDat.cheTemDewPoi.TMin",
+      "weaDat.cheTemDewPoi.TMax",
+      "weaDat.cheTemBlaSky.TMin",
+      "weaDat.cheTemBlaSky.TMax"
     ],
-    "fluPor[2,1].backward.X_w": [
-      "vol2.X_start[1]"
+    "weaBus.TDewPoi": [
+      "weaDat.datRea.nHeaderLines",
+      "weaDat.datRea.verboseRead",
+      "weaDat.cheTemDewPoi.TMin",
+      "weaDat.cheTemDewPoi.TMax"
     ],
-    "fluPor[2,2].backward.T": [
-      "vol2.p_start",
-      "vol2.T_start",
-      "vol2.X_start[1]"
+    "weaBus.TDryBul": [
+      "weaDat.datRea.nHeaderLines",
+      "weaDat.datRea.verboseRead",
+      "weaDat.cheTemDryBul.TMin",
+      "weaDat.cheTemDryBul.TMax"
     ],
-    "fluPor[2,2].backward.X_w": [
-      "vol2.X_start[1]"
-    ],
-    "fluPor[2,3].backward.T": [
-      "vol2.p_start",
-      "vol2.T_start",
-      "vol2.X_start[1]"
-    ],
-    "fluPor[2,3].backward.X_w": [
-      "vol2.X_start[1]"
-    ],
-    "vol1.dynBal.U": [
-      "V",
-      "vol1.p_start",
-      "vol1.T_start",
-      "vol1.X_start[1]"
-    ],
-    "vol1.dynBal.m": [
-      "V",
-      "vol1.p_start"
-    ],
-    "vol1.dynBal.medium.Xi[1]": [
-      "vol1.X_start[1]"
-    ],
-    "vol2.dynBal.U": [
-      "V",
-      "vol2.p_start",
-      "vol2.T_start",
-      "vol2.X_start[1]"
-    ],
-    "vol2.dynBal.m": [
-      "V",
-      "vol2.p_start"
-    ],
-    "vol2.dynBal.medium.Xi[1]": [
-      "vol2.X_start[1]"
-    ],
-    "weaBus.HDifHor": [],
-    "weaBus.HDirNor": [],
-    "weaBus.HGloHor": [],
-    "weaBus.HHorIR": [],
-    "weaBus.TBlaSky": [],
-    "weaBus.TDewPoi": [],
-    "weaBus.TDryBul": [],
     "weaBus.alt": [],
-    "weaBus.ceiHei": [],
+    "weaBus.ceiHei": [
+      "weaDat.datRea.nHeaderLines",
+      "weaDat.datRea.verboseRead"
+    ],
     "weaBus.cloTim": [],
     "weaBus.lat": [],
     "weaBus.lon": [],
-    "weaBus.nOpa": [],
-    "weaBus.nTot": [],
+    "weaBus.nOpa": [
+      "weaDat.datRea.nHeaderLines",
+      "weaDat.datRea.verboseRead"
+    ],
+    "weaBus.nTot": [
+      "weaDat.datRea.nHeaderLines",
+      "weaDat.datRea.verboseRead"
+    ],
     "weaBus.pAtm": [
       "weaDat.pAtm"
     ],
-    "weaBus.relHum": [],
-    "weaBus.solAlt": [],
-    "weaBus.solDec": [],
-    "weaBus.solHouAng": [],
-    "weaBus.solTim": [],
-    "weaBus.solZen": [],
-    "weaBus.winDir": [],
-    "weaBus.winSpe": []
+    "weaBus.relHum": [
+      "weaDat.datRea.nHeaderLines",
+      "weaDat.datRea.verboseRead"
+    ],
+    "weaBus.solAlt": [
+      "weaDat.locTim.weaDatStaTim",
+      "weaDat.locTim.weaDatEndTim",
+      "weaDat.eqnTim.weaDatStaTim",
+      "weaDat.eqnTim.weaDatEndTim",
+      "weaDat.decAng.weaDatStaTim",
+      "weaDat.decAng.weaDatEndTim"
+    ],
+    "weaBus.solDec": [
+      "weaDat.decAng.weaDatStaTim",
+      "weaDat.decAng.weaDatEndTim"
+    ],
+    "weaBus.solHouAng": [
+      "weaDat.locTim.weaDatStaTim",
+      "weaDat.locTim.weaDatEndTim",
+      "weaDat.eqnTim.weaDatStaTim",
+      "weaDat.eqnTim.weaDatEndTim"
+    ],
+    "weaBus.solTim": [
+      "weaDat.locTim.weaDatStaTim",
+      "weaDat.locTim.weaDatEndTim",
+      "weaDat.eqnTim.weaDatStaTim",
+      "weaDat.eqnTim.weaDatEndTim"
+    ],
+    "weaBus.solZen": [
+      "weaDat.locTim.weaDatStaTim",
+      "weaDat.locTim.weaDatEndTim",
+      "weaDat.eqnTim.weaDatStaTim",
+      "weaDat.eqnTim.weaDatEndTim",
+      "weaDat.decAng.weaDatStaTim",
+      "weaDat.decAng.weaDatEndTim"
+    ],
+    "weaBus.winDir": [
+      "weaDat.datRea.nHeaderLines",
+      "weaDat.datRea.verboseRead"
+    ],
+    "weaBus.winSpe": [
+      "weaDat.datRea.nHeaderLines",
+      "weaDat.datRea.verboseRead"
+    ]
   },
   "Outputs": {
     "TOut": [],
