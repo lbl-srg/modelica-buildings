@@ -41,6 +41,24 @@ to <b style=\"color:blue\">existing</b> libraries:
                        This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4620\">Buildings, #4620</a>.
     </td>
     </tr>
+<tr><td colspan=\"2\"><b>Buildings.Templates.Plants.Controls</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Templates.Plants.Controls.PolyvalentHeatPumps
+    </td>
+    <td valign=\"top\">Added a package of subsequences specific to polyvalent heat pump controls
+                       (mode alternation, staging parameters and minimum runtime assertion).<br/>
+                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4512\">Buildings, #4512</a>.
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Templates.Plants.Controls.Utilities.ConcatenateLogical<br/>
+                       Buildings.Templates.Plants.Controls.Utilities.ConcatenateParameterLogical<br/>
+                       Buildings.Templates.Plants.Controls.Utilities.ConcatenateSelectLogical
+    </td>
+    <td valign=\"top\">Added blocks to concatenate Boolean arrays.<br/>
+                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4512\">Buildings, #4512</a>.
+    </td>
+</tr>
 </table>
 <!-- Backward compatible changes -->
 <p>
@@ -215,12 +233,69 @@ have been <b style=\"color:blue\">improved</b> in a
 <b style=\"color:blue\">non-backward compatible</b> way:
 </p>
 <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\" style=\"border-collapse:collapse;\">
- <tr><td colspan=\"2\"><b>xxx</b>
+<tr><td colspan=\"2\"><b>Buildings.Templates.Components</b>
     </td>
 </tr>
-<tr><td valign=\"top\">xxx
+<tr><td valign=\"top\">Buildings.Templates.Components.Data.HeatPump<br/>
+                       Buildings.Templates.Components.Interfaces.PartialHeatPump
     </td>
-    <td valign=\"top\">xxx.
+    <td valign=\"top\">Replaced the <code>is_rev</code> parameter with <code>typMod</code>,
+                       of the new type <code>Buildings.Templates.Components.Types.HeatPumpCapability</code>,
+                       to also support polyvalent heat pumps.<br/>
+                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4512\">Buildings, #4512</a>.
+    </td>
+</tr>
+<tr><td colspan=\"2\"><b>Buildings.Templates.Plants.Controls</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Templates.Plants.Controls.MinimumFlow.ControllerDualMode
+    </td>
+    <td valign=\"top\">Renamed to <code>Buildings.Templates.Plants.Controls.MinimumFlow.ControllerHeatPumps</code>
+                       and refactored to support plants with polyvalent heat pumps.<br/>
+                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4512\">Buildings, #4512</a>.
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Templates.Plants.Controls.Pumps.Primary.VariableSpeed
+    </td>
+    <td valign=\"top\">Renamed to <code>Buildings.Templates.Plants.Controls.Pumps.Primary.VariableSpeedWithHeatPumps</code>
+                       and refactored to support plants with polyvalent heat pumps.<br/>
+                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4512\">Buildings, #4512</a>.
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Templates.Plants.Controls.StagingRotation.EquipmentAvailability<br/>
+                       Buildings.Templates.Plants.Controls.StagingRotation.EventSequencing
+    </td>
+    <td valign=\"top\">Removed and replaced with
+                       <code>Buildings.Templates.Plants.Controls.HeatPumps.Subsequences.EquipmentAvailability</code>,
+                       <code>EventSequencingSingle</code>,
+                       which also support polyvalent heat pumps.<br/>
+                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4512\">Buildings, #4512</a>.
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Templates.Plants.Controls.Utilities.Initialization
+    </td>
+    <td valign=\"top\">Removed as it is no longer used.<br/>
+                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4512\">Buildings, #4512</a>.
+    </td>
+</tr>
+<tr><td colspan=\"2\"><b>Buildings.Templates.Plants.HeatPumps</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Templates.Plants.HeatPumps.AirToWater<br/>
+                       Buildings.Templates.Plants.HeatPumps.Components.Data.Controller<br/>
+                       Buildings.Templates.Plants.HeatPumps.Components.Data.HeatPumpGroup<br/>
+                       Buildings.Templates.Plants.HeatPumps.Components.Interfaces.PartialHeatPumpGroup<br/>
+                       Buildings.Templates.Plants.HeatPumps.Components.PumpsPrimaryDedicated<br/>
+                       Buildings.Templates.Plants.HeatPumps.Components.ValvesIsolation<br/>
+                       Buildings.Templates.Plants.HeatPumps.Configuration.HeatPumpPlant<br/>
+                       Buildings.Templates.Plants.HeatPumps.Data.HeatPumpPlant<br/>
+                       Buildings.Templates.Plants.HeatPumps.Interfaces.PartialHeatPumpPlant<br/>
+    </td>
+    <td valign=\"top\">Refactored the heat pump plant template and its components to support polyvalent
+                       heat pumps.
+                       This renamed existing parameters, and added multiple new required configuration and
+                       sizing parameters for polyvalent heat pumps.<br/>
+                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4512\">Buildings, #4512</a>.
     </td>
 </tr>
 </table>

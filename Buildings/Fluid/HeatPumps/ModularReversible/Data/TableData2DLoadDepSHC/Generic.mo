@@ -106,6 +106,11 @@ of the above block.
 revisions="<html>
 <ul>
 <li>
+July 10, 2026, by Antoine Gautier:<br/>
+Used unspecified array sizes for table names and PLR vectors.<br/>
+This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4512\">#4512</a>.
+</li>
+<li>
 November 17, 2025, by Michael Wetter:<br/>
 Corrected typo in annotation.<br/>
 This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4406\">Buildings, #4406</a>.

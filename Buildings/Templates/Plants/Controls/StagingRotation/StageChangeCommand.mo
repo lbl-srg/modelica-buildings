@@ -700,6 +700,11 @@ annotation(defaultComponentName="chaSta",
     revisions="<html>
 <ul>
   <li>
+    July 10, 2026, by Antoine Gautier:<br />
+    Refactored to support plants with polyvalent heat pumps.<br/>
+    This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4512\">#4512</a>.
+  </li>
+  <li>
     May 31, 2024, by Antoine Gautier:<br />
     Refactored using <code>LoadAverage</code> block and added failsafe
     condition.

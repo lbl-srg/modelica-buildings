@@ -632,5 +632,13 @@ annotation(defaultComponentName="selMod",
   <a href=\"modelica://Buildings.Templates.Plants.Controls.PolyvalentHeatPumps.ModeAlternation\">
     Buildings.Templates.Plants.Controls.PolyvalentHeatPumps.ModeAlternation</a>.
 </p>
+</html>", revisions="<html>
+<ul>
+<li>
+July 10, 2026, by Antoine Gautier:<br/>
+First implementation.<br/>
+This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4512\">#4512</a>.
+</li>
+</ul>
 </html>"));
 end SelectModeState;

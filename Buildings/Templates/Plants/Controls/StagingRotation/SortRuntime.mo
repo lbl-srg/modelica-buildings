@@ -300,6 +300,10 @@ to the input vectors (full set of equipment).
 </html>", revisions="<html>
 <ul>
 <li>
+July 10, 2026, by Antoine Gautier:<br/>
+Corrected the runtime replacement value for staged-off equipment.
+</li>
+<li>
 June 10, 2026, by Antoine Gautier:<br/>
 Corrected runtime weighting for unavailable units.
 Updated handling and default value of runtime initialization.<br/>

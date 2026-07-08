@@ -95,8 +95,8 @@ equation
     Documentation(
       info="<html>
 <p>
-This block computes the load on a system based on the return temperature, 
-active supply temperature setpoint and measured flow through the associated 
+This block computes the load on a system based on the return temperature,
+active supply temperature setpoint and measured flow through the associated
 circuit flow meter, using the following equation.
 </p>
 <ul>
@@ -108,7 +108,7 @@ circuit flow meter, using the following equation.
 </li>
 <li>
 For all applications: <code>Q_flow</code> less than or equal to zero means
-that there is no actual load on the system. 
+that there is no actual load on the system.
 </li>
 </ul>
 <p>

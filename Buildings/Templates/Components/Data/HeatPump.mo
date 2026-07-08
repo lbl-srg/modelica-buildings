@@ -231,5 +231,18 @@ annotation(defaultComponentPrefixes="parameter",
   pumps. This overwriting happens automatically when redeclaring or
   reassigning the performance records <code>perCoo</code> and <code>perShc</code>.
 </p>
+</html>", revisions="<html>
+<ul>
+<li>
+July 10, 2026, by Antoine Gautier:<br/>
+Added the <code>typMod</code> parameter and the performance data records
+required to support polyvalent heat pumps.<br/>
+This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4512\">#4512</a>.
+</li>
+<li>
+  March 29, 2024, by Antoine Gautier:<br />
+  First implementation.
+</li>
+</ul>
 </html>"));
 end HeatPump;

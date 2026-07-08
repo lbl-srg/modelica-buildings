@@ -158,6 +158,11 @@ the stage change is in progress.
 </html>", revisions="<html>
 <ul>
 <li>
+July 10, 2026, by Antoine Gautier:<br/>
+Added <code>pre</code> block to guard against concomitant stage change and command change.<br/>
+This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4512\">#4512</a>.
+</li>
+<li>
 June 26, 2024, by Antoine Gautier:<br/>
 Replaced <code>hold</code> with <code>pre</code> to guard against concomitant stage change and command change.<br/>
 This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3787\">#3787</a>.

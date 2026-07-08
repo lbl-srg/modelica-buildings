@@ -413,6 +413,10 @@ Sidestream HRC HW and CHW pumps are enabled when the heat recovery chiller is en
       revisions="<html>
 <ul>
 <li>
+July 10, 2026, by Antoine Gautier:<br/>
+Clarified documentation on the calculation of the available CHW and HW loads.
+</li>
+<li>
 May 31, 2024, by Antoine Gautier:<br/>
 First implementation.
 </li>

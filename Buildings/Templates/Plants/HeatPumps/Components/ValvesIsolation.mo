@@ -1509,6 +1509,11 @@ annotation(defaultComponentName="valIso",
     revisions="<html>
 <ul>
   <li>
+    July 10, 2026, by Antoine Gautier:<br />
+    Refactored for plants with polyvalent heat pumps.<br />
+    This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4512\">#4512</a>.
+  </li>
+  <li>
     May 7, 2025, by Antoine Gautier:<br />
     Refactored with fixed resistance in valve component.<br />
     This is for

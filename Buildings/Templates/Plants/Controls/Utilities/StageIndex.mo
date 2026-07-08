@@ -536,6 +536,12 @@ lead/lag alternate equipment to replace the faulty equipment.
       revisions="<html>
 <ul>
 <li>
+July 10, 2026, by Antoine Gautier:<br/>
+Added logic to apply the minimum runtime
+requirement to combinations of cooling and heating stages.<br/>
+This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4512\">#4512</a>.
+</li>
+<li>
 March 29, 2024, by Antoine Gautier:<br/>
 First implementation.
 </li>

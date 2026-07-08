@@ -511,5 +511,13 @@ annotation(defaultComponentName="ctl",
     </ul>
   </li>
 </ul>
+</html>", revisions="<html>
+<ul>
+<li>
+July 10, 2026, by Antoine Gautier:<br/>
+Refactored for plants with polyvalent heat pumps.<br/>
+This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4512\">#4512</a>.
+</li>
+</ul>
 </html>"));
 end AirToWater;

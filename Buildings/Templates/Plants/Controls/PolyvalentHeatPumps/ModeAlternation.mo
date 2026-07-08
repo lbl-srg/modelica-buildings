@@ -299,5 +299,13 @@ annotation(defaultComponentName="selModPhp",
     Buildings.Templates.Plants.Controls.HeatPumps.Subsequences.EquipmentAvailability</a>
   for the alternation between heating-only and cooling-only mode.
 </p>
+</html>", revisions="<html>
+<ul>
+<li>
+July 10, 2026, by Antoine Gautier:<br/>
+First implementation.<br/>
+This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4512\">#4512</a>.
+</li>
+</ul>
 </html>"));
 end ModeAlternation;

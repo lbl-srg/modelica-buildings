@@ -236,6 +236,11 @@ AO signal, with a dimensionality of zero
     revisions="<html>
 <ul>
 <li>
+July 10, 2026, by Antoine Gautier:<br/>
+Added polyvalent heat pump model and associated connectors.<br/>
+This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4512\">#4512</a>.
+</li>
+<li>
 March 23, 2026, by Antoine Gautier:<br/>
 Refactored with two separate connectors
 for HW and CHW temperature setpoints.<br/>

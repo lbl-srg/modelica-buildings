@@ -147,5 +147,17 @@ annotation(defaultComponentPrefixes="parameter",
   <a href=\"modelica://Buildings.Templates.Plants.HeatPumps\">
     Buildings.Templates.Plants.HeatPumps</a>.
 </p>
+</html>", revisions="<html>
+<ul>
+<li>
+July 10, 2026, by Antoine Gautier:<br/>
+Refactored for plants with polyvalent heat pumps.<br/>
+This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4512\">#4512</a>.
+</li>
+<li>
+  March 29, 2024, by Antoine Gautier:<br />
+  First implementation.
+</li>
+</ul>
 </html>"));
 end HeatPumpPlant;
