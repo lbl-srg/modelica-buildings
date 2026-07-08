@@ -50,7 +50,8 @@ block EventSequencingMultiple
   parameter Real dtOff(min=0, unit="s") = 180
     "Heat pump internal shutdown cycle timing";
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1ShcPhp[nPhp]
-    if nPhp > 0 "SHC enable command – Polyvalent HP"
+    if nPhp > 0
+    "SHC enable command – Polyvalent HP"
     annotation(Placement(transformation(extent={{-160,20},{-120,60}}),
       iconTransformation(extent={{-140,60},{-100,100}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1HeaHpPhp[nHp + nPhp]
@@ -313,12 +314,11 @@ annotation(defaultComponentName="seqEve",
   polyvalent heat pumps.
 </p>
 <p>
-  To facilitate integration into plant controllers serving both reversible
-  and polyvalent heat pumps, the output connectors for the isolation valve
-  commands and the primary pump enable commands have always the same
-  dimension <code>nHp + nPhp</code>.
-  When a piece of equipment is not present for a given unit, the
-  corresponding array element is set to <code>false</code>.
+  To facilitate integration into plant controllers serving both reversible and
+  polyvalent heat pumps, the output connectors for the isolation valve
+  commands and the primary pump enable commands have always the same dimension
+  <code>nHp + nPhp</code>. When a piece of equipment is not present for a
+  given unit, the corresponding array element is set to <code>false</code>.
 </p>
 </html>",
     revisions="<html>

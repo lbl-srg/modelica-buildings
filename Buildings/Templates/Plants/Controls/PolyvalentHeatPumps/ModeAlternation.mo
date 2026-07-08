@@ -86,26 +86,26 @@ block ModeAlternation
   Buildings.Controls.OBC.CDL.Logical.Pre preShc[nPhp]
     "Enable command of each unit in SHC mode prior to stage transition"
     annotation(Placement(transformation(extent={{-140,-110},{-120,-90}})));
-  Buildings.Templates.Plants.Controls.StagingRotation.BaseClasses.RemoveFromStagingOrder
-    remHeaRes(final nUni=nPhp)
+  Buildings.Templates.Plants.Controls.StagingRotation.BaseClasses.RemoveFromStagingOrder remHeaRes(
+    final nUni=nPhp)
     "Restrictive heating order: remove units previously enabled in cooling mode"
-    annotation (Placement(transformation(extent={{-92,-70},{-72,-50}})));
-  Buildings.Templates.Plants.Controls.StagingRotation.BaseClasses.RemoveFromStagingOrder
-    remHeaSwi(final nUni=nPhp)
+    annotation(Placement(transformation(extent={{-92,-70},{-72,-50}})));
+  Buildings.Templates.Plants.Controls.StagingRotation.BaseClasses.RemoveFromStagingOrder remHeaSwi(
+    final nUni=nPhp)
     "Heating order at mode switch: also remove units previously enabled in SHC mode"
-    annotation (Placement(transformation(extent={{-40,-90},{-20,-70}})));
-  Buildings.Templates.Plants.Controls.StagingRotation.BaseClasses.RemoveFromStagingOrder
-    remCooRes(final nUni=nPhp)
+    annotation(Placement(transformation(extent={{-40,-90},{-20,-70}})));
+  Buildings.Templates.Plants.Controls.StagingRotation.BaseClasses.RemoveFromStagingOrder remCooRes(
+    final nUni=nPhp)
     "Restrictive cooling order: remove units previously enabled in heating mode"
-    annotation (Placement(transformation(extent={{-92,-30},{-72,-10}})));
-  Buildings.Templates.Plants.Controls.StagingRotation.BaseClasses.RemoveFromStagingOrder
-    remCooSwi(final nUni=nPhp)
+    annotation(Placement(transformation(extent={{-92,-30},{-72,-10}})));
+  Buildings.Templates.Plants.Controls.StagingRotation.BaseClasses.RemoveFromStagingOrder remCooSwi(
+    final nUni=nPhp)
     "Cooling order at mode switch: also remove units previously enabled in SHC mode"
-    annotation (Placement(transformation(extent={{-40,-50},{-20,-30}})));
-  Buildings.Templates.Plants.Controls.StagingRotation.BaseClasses.RemoveFromStagingOrder
-    remShc(final nUni=nPhp)
+    annotation(Placement(transformation(extent={{-40,-50},{-20,-30}})));
+  Buildings.Templates.Plants.Controls.StagingRotation.BaseClasses.RemoveFromStagingOrder remShc(
+    final nUni=nPhp)
     "SHC order: remove units currently enabled in heating or cooling mode"
-    annotation (Placement(transformation(extent={{-40,10},{-20,30}})));
+    annotation(Placement(transformation(extent={{-40,10},{-20,30}})));
   Buildings.Controls.OBC.CDL.Integers.Switch swiHea[nPhp]
     "Apply the mode-switch heating order at a mode switch, the restrictive one otherwise"
     annotation(Placement(transformation(extent={{100,130},{120,150}})));
@@ -217,13 +217,13 @@ equation
       color={255,127,0}));
 annotation(defaultComponentName="selModPhp",
   Icon(coordinateSystem(preserveAspectRatio=false),
-  graphics={Rectangle(extent={{-100,100},{100,-100}},
-    lineColor={0,0,0},
-    fillColor={255,255,255},
-    fillPattern=FillPattern.Solid),
-  Text(extent={{-150,150},{150,110}},
-    textString="%name",
-    textColor={0,0,255})}),
+    graphics={Rectangle(extent={{-100,100},{100,-100}},
+      lineColor={0,0,0},
+      fillColor={255,255,255},
+      fillPattern=FillPattern.Solid),
+    Text(extent={{-150,150},{150,110}},
+      textString="%name",
+      textColor={0,0,255})}),
   Diagram(coordinateSystem(preserveAspectRatio=false,
     extent={{-160,-160},{160,160}})),
   Documentation(
@@ -299,13 +299,15 @@ annotation(defaultComponentName="selModPhp",
     Buildings.Templates.Plants.Controls.HeatPumps.Subsequences.EquipmentAvailability</a>
   for the alternation between heating-only and cooling-only mode.
 </p>
-</html>", revisions="<html>
+</html>",
+    revisions="<html>
 <ul>
-<li>
-July 10, 2026, by Antoine Gautier:<br/>
-First implementation.<br/>
-This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4512\">#4512</a>.
-</li>
+  <li>
+    July 10, 2026, by Antoine Gautier:<br />
+    First implementation.<br />
+    This is for
+    <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4512\">#4512</a>.
+  </li>
 </ul>
 </html>"));
 end ModeAlternation;

@@ -90,9 +90,8 @@ annotation(__Dymola_Commands(
   This model validates
   <a href=\"modelica://Buildings.Templates.Plants.Controls.PolyvalentHeatPumps.ModeAlternation\">
     Buildings.Templates.Plants.Controls.PolyvalentHeatPumps.ModeAlternation</a>
-  in a configuration with two polyvalent
-  heat pumps and a constant runtime order
-  <code>idxSor={1, 2}</code>.
+  in a configuration with two polyvalent heat pumps and a constant runtime
+  order <code>idxSor={1, 2}</code>.
 </p>
 <p>
   The number of units staged in each mode and the corresponding enable

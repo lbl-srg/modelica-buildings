@@ -269,8 +269,8 @@ annotation(__Dymola_Commands(
 <p>
   This model validates
   <a href=\"modelica://Buildings.Templates.Plants.Controls.MinimumFlow.ControllerHeatPumps\">
-    Buildings.Templates.Plants.Controls.MinimumFlow.ControllerDualMode</a> for
-  cooling-only (components <code>*Coo</code>), heating-only (components
+    Buildings.Templates.Plants.Controls.MinimumFlow.ControllerDualMode</a>
+  for cooling-only (components <code>*Coo</code>), heating-only (components
   <code>*Hea</code>) and heating and cooling applications (components
   <code>*HeaCoo</code>), and for two plant configurations: one where the
   bypass valve controller is enabled with the isolation valve command

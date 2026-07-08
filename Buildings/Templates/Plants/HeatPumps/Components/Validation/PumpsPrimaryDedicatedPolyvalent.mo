@@ -67,12 +67,15 @@ model PumpsPrimaryDedicatedPolyvalent
       have_pumChiWatPriDedHp=false),
     THeaWatSup_nominal=Buildings.Templates.Data.Defaults.THeaWatSupMed,
     TChiWatSup_nominal=Buildings.Templates.Data.Defaults.TChiWatSup,
-    dpChiWatRemSet_max=fill(Buildings.Templates.Data.Defaults.dpChiWatRemSet_max,
-        datCtl.cfg.nSenDpChiWatRem),
-    dpHeaWatRemSet_max=fill(Buildings.Templates.Data.Defaults.dpHeaWatRemSet_max,
-        datCtl.cfg.nSenDpHeaWatRem),
-    staHp={fill(1, datCtl.cfg.nHp)}) "Controller parameters"
-    annotation (Placement(transformation(extent={{-180,290},{-160,310}})));
+    dpChiWatRemSet_max=fill(
+      Buildings.Templates.Data.Defaults.dpChiWatRemSet_max,
+      datCtl.cfg.nSenDpChiWatRem),
+    dpHeaWatRemSet_max=fill(
+      Buildings.Templates.Data.Defaults.dpHeaWatRemSet_max,
+      datCtl.cfg.nSenDpHeaWatRem),
+    staHp={fill(1, datCtl.cfg.nHp)})
+    "Controller parameters"
+    annotation(Placement(transformation(extent={{-180,290},{-160,310}})));
   parameter Data.Controller datCtlNoDed(
     cfg(
       typ=Buildings.Templates.Plants.Controls.Types.PlantHeatPump.ReversiblePolyvalent,
@@ -121,12 +124,15 @@ model PumpsPrimaryDedicatedPolyvalent
       have_pumChiWatPriDedHp=false),
     THeaWatSup_nominal=Buildings.Templates.Data.Defaults.THeaWatSupMed,
     TChiWatSup_nominal=Buildings.Templates.Data.Defaults.TChiWatSup,
-    dpChiWatRemSet_max=fill(Buildings.Templates.Data.Defaults.dpChiWatRemSet_max,
-        datCtlNoDed.cfg.nSenDpChiWatRem),
-    dpHeaWatRemSet_max=fill(Buildings.Templates.Data.Defaults.dpHeaWatRemSet_max,
-        datCtlNoDed.cfg.nSenDpHeaWatRem),
-    staHp={fill(1, datCtlNoDed.cfg.nHp)}) "Controller parameters"
-    annotation (Placement(transformation(extent={{-280,-10},{-260,10}})));
+    dpChiWatRemSet_max=fill(
+      Buildings.Templates.Data.Defaults.dpChiWatRemSet_max,
+      datCtlNoDed.cfg.nSenDpChiWatRem),
+    dpHeaWatRemSet_max=fill(
+      Buildings.Templates.Data.Defaults.dpHeaWatRemSet_max,
+      datCtlNoDed.cfg.nSenDpHeaWatRem),
+    staHp={fill(1, datCtlNoDed.cfg.nHp)})
+    "Controller parameters"
+    annotation(Placement(transformation(extent={{-280,-10},{-260,10}})));
   parameter Data.Controller datCtlSep(
     cfg(
       typ=Buildings.Templates.Plants.Controls.Types.PlantHeatPump.ReversiblePolyvalent,
@@ -175,45 +181,59 @@ model PumpsPrimaryDedicatedPolyvalent
       have_pumChiWatPriDedHp=true),
     THeaWatSup_nominal=Buildings.Templates.Data.Defaults.THeaWatSupMed,
     TChiWatSup_nominal=Buildings.Templates.Data.Defaults.TChiWatSup,
-    dpChiWatRemSet_max=fill(Buildings.Templates.Data.Defaults.dpChiWatRemSet_max,
-        datCtlSep.cfg.nSenDpChiWatRem),
-    dpHeaWatRemSet_max=fill(Buildings.Templates.Data.Defaults.dpHeaWatRemSet_max,
-        datCtlSep.cfg.nSenDpHeaWatRem),
-    staHp={fill(1, datCtlSep.cfg.nHp)}) "Controller parameters"
-    annotation (Placement(transformation(extent={{-180,-290},{-160,-270}})));
+    dpChiWatRemSet_max=fill(
+      Buildings.Templates.Data.Defaults.dpChiWatRemSet_max,
+      datCtlSep.cfg.nSenDpChiWatRem),
+    dpHeaWatRemSet_max=fill(
+      Buildings.Templates.Data.Defaults.dpHeaWatRemSet_max,
+      datCtlSep.cfg.nSenDpHeaWatRem),
+    staHp={fill(1, datCtlSep.cfg.nHp)})
+    "Controller parameters"
+    annotation(Placement(transformation(extent={{-180,-290},{-160,-270}})));
   parameter Data.HeatPumpGroup datHpPhp(
     have_hp=true,
     have_php=true,
     final typHp=Buildings.Templates.Components.Types.HeatPump.AirToWater,
     final is_rev=true,
-    mHeaWatHp_flow_nominal=datHpPhp.capHeaHp_nominal/abs(datHpPhp.THeaWatSupHp_nominal
-         - Buildings.Templates.Data.Defaults.THeaWatRetMed)/Buildings.Utilities.Psychrometrics.Constants.cpWatLiq,
+    mHeaWatHp_flow_nominal=datHpPhp.capHeaHp_nominal / abs(
+      datHpPhp.THeaWatSupHp_nominal -
+        Buildings.Templates.Data.Defaults.THeaWatRetMed) /
+      Buildings.Utilities.Psychrometrics.Constants.cpWatLiq,
     dpHeaWatHp_nominal=Buildings.Templates.Data.Defaults.dpHeaWatHp,
     capHeaHp_nominal=500E3,
     THeaWatSupHp_nominal=Buildings.Templates.Data.Defaults.THeaWatSupMed,
     TSouHeaHp_nominal=Buildings.Templates.Data.Defaults.TOutHpHeaLow,
-    mChiWatHp_flow_nominal=datHpPhp.capCooHp_nominal/abs(datHpPhp.TChiWatSupHp_nominal
-         - Buildings.Templates.Data.Defaults.TChiWatRet)/Buildings.Utilities.Psychrometrics.Constants.cpWatLiq,
+    mChiWatHp_flow_nominal=datHpPhp.capCooHp_nominal / abs(
+      datHpPhp.TChiWatSupHp_nominal -
+        Buildings.Templates.Data.Defaults.TChiWatRet) /
+      Buildings.Utilities.Psychrometrics.Constants.cpWatLiq,
     capCooHp_nominal=500E3,
     TChiWatSupHp_nominal=Buildings.Templates.Data.Defaults.TChiWatSup,
     TSouCooHp_nominal=Buildings.Templates.Data.Defaults.TOutHpCoo,
     PHp_min=1.0E3,
     perHeaHp(
-      fileName=Modelica.Utilities.Files.loadResource("modelica://Buildings/Resources/Data/Templates/Components/HeatPumps/Validation/AWHP_Heating.txt"),
+      fileName=Modelica.Utilities.Files.loadResource(
+        "modelica://Buildings/Resources/Data/Templates/Components/HeatPumps/Validation/AWHP_Heating.txt"),
       PLRSup={1},
       use_TEvaOutForTab=false,
       use_TConOutForTab=true,
-      tabUppBou=[263.15,323.15; 313.15,323.15]),
-    perCooHp(fileName=Modelica.Utilities.Files.loadResource("modelica://Buildings/Resources/Data/Templates/Components/HeatPumps/Validation/AWHP_Cooling.txt"),
-        PLRSup={1}),
-    mHeaWatPhp_flow_nominal=datHpPhp.capHeaPhp_nominal/abs(datHpPhp.THeaWatSupPhp_nominal
-         - Buildings.Templates.Data.Defaults.THeaWatRetMed)/Buildings.Utilities.Psychrometrics.Constants.cpWatLiq,
+      tabUppBou=[263.15, 323.15; 313.15, 323.15]),
+    perCooHp(
+      fileName=Modelica.Utilities.Files.loadResource(
+        "modelica://Buildings/Resources/Data/Templates/Components/HeatPumps/Validation/AWHP_Cooling.txt"),
+      PLRSup={1}),
+    mHeaWatPhp_flow_nominal=datHpPhp.capHeaPhp_nominal / abs(
+      datHpPhp.THeaWatSupPhp_nominal -
+        Buildings.Templates.Data.Defaults.THeaWatRetMed) /
+      Buildings.Utilities.Psychrometrics.Constants.cpWatLiq,
     dpHeaWatPhp_nominal=Buildings.Templates.Data.Defaults.dpHeaWatHp,
     capHeaPhp_nominal=500E3,
     THeaWatSupPhp_nominal=Buildings.Templates.Data.Defaults.THeaWatSupMed,
     TSouHeaPhp_nominal=Buildings.Templates.Data.Defaults.TOutHpHeaLow,
-    mChiWatPhp_flow_nominal=datHpPhp.capCooPhp_nominal/abs(datHpPhp.TChiWatSupPhp_nominal
-         - Buildings.Templates.Data.Defaults.TChiWatRet)/Buildings.Utilities.Psychrometrics.Constants.cpWatLiq,
+    mChiWatPhp_flow_nominal=datHpPhp.capCooPhp_nominal / abs(
+      datHpPhp.TChiWatSupPhp_nominal -
+        Buildings.Templates.Data.Defaults.TChiWatRet) /
+      Buildings.Utilities.Psychrometrics.Constants.cpWatLiq,
     capCooPhp_nominal=500E3,
     dpChiWatPhp_nominal=Buildings.Templates.Data.Defaults.dpChiWatChi,
     TChiWatSupPhp_nominal=Buildings.Templates.Data.Defaults.TChiWatSup,
@@ -222,30 +242,33 @@ model PumpsPrimaryDedicatedPolyvalent
     capHeaShcPhp_nominal=500E3,
     capCooShcPhp_nominal=500E3,
     perPhp(
-      fileNameHea=Modelica.Utilities.Files.loadResource("modelica://Buildings/Resources/Data/Fluid/HeatPumps/ModularReversible/RefrigerantCycle/BaseClasses/Validation/AWHP_Heating.txt"),
-      fileNameCoo=Modelica.Utilities.Files.loadResource("modelica://Buildings/Resources/Data/Fluid/HeatPumps/ModularReversible/RefrigerantCycle/BaseClasses/Validation/AWHP_Cooling.txt"),
-      fileNameShc=Modelica.Utilities.Files.loadResource("modelica://Buildings/Resources/Data/Fluid/HeatPumps/ModularReversible/RefrigerantCycle/BaseClasses/Validation/AWHP_SHC.txt")))
+      fileNameHea=Modelica.Utilities.Files.loadResource(
+        "modelica://Buildings/Resources/Data/Fluid/HeatPumps/ModularReversible/RefrigerantCycle/BaseClasses/Validation/AWHP_Heating.txt"),
+      fileNameCoo=Modelica.Utilities.Files.loadResource(
+        "modelica://Buildings/Resources/Data/Fluid/HeatPumps/ModularReversible/RefrigerantCycle/BaseClasses/Validation/AWHP_Cooling.txt"),
+      fileNameShc=Modelica.Utilities.Files.loadResource(
+        "modelica://Buildings/Resources/Data/Fluid/HeatPumps/ModularReversible/RefrigerantCycle/BaseClasses/Validation/AWHP_SHC.txt")))
     "Parameters for reversible and polyvalent heat pumps"
-    annotation (Placement(transformation(extent={{-280,-120},{-260,-100}})));
+    annotation(Placement(transformation(extent={{-280,-120},{-260,-100}})));
   parameter Buildings.Templates.Components.Data.PumpMultiple datPumPriCom(
     typ=Buildings.Templates.Components.Types.Pump.Multiple,
     nPum=nHp + nPhp,
     m_flow_nominal=cat(
       1,
       fill(
-        max(datHpPhp.mHeaWatHp_flow_nominal,datHpPhp.mChiWatHp_flow_nominal),
+        max(datHpPhp.mHeaWatHp_flow_nominal, datHpPhp.mChiWatHp_flow_nominal),
         nHp),
       fill(datHpPhp.mHeaWatPhp_flow_nominal, nPhp)),
     dp_nominal=cat(
       1,
       fill(
-        max(datHpPhp.dpHeaWatHp_nominal,datHpPhp.dpChiWatHp_nominal)  +
+        max(datHpPhp.dpHeaWatHp_nominal, datHpPhp.dpChiWatHp_nominal) +
           Buildings.Templates.Data.Defaults.dpValChe + max(
-          max(valChiWatIsoCom.dpValve_nominal),
-          max(valHeaWatIsoCom.dpValve_nominal)),
+            max(valChiWatIsoCom.dpValve_nominal),
+            max(valHeaWatIsoCom.dpValve_nominal)),
         nHp),
-      fill(datHpPhp.dpHeaWatHp_nominal
-                                    +
+      fill(
+        datHpPhp.dpHeaWatHp_nominal +
           Buildings.Templates.Data.Defaults.dpValChe,
         nPhp)))
     "Primary pump parameters – Configuration with common HW/CHW pump for HP"
@@ -259,13 +282,13 @@ model PumpsPrimaryDedicatedPolyvalent
       fill(datHpPhp.mHeaWatPhp_flow_nominal, nPhp)),
     dp_nominal=cat(
       1,
-      fill(datHpPhp.dpHeaWatHp_nominal
-                                    +
+      fill(
+        datHpPhp.dpHeaWatHp_nominal +
           Buildings.Templates.Data.Defaults.dpValChe + max(
-          valHeaWatIsoCom.dpValve_nominal),
+            valHeaWatIsoCom.dpValve_nominal),
         nHp),
-      fill(datHpPhp.dpHeaWatPhp_nominal
-                                     +
+      fill(
+        datHpPhp.dpHeaWatPhp_nominal +
           Buildings.Templates.Data.Defaults.dpValChe,
         nPhp)))
     "Dedicated primary HW pump parameters – HP and polyvalent HPs"
@@ -279,13 +302,13 @@ model PumpsPrimaryDedicatedPolyvalent
       fill(datHpPhp.mChiWatPhp_flow_nominal, nPhp)),
     dp_nominal=cat(
       1,
-      fill(datHpPhp.dpChiWatHp_nominal
-                                    +
+      fill(
+        datHpPhp.dpChiWatHp_nominal +
           Buildings.Templates.Data.Defaults.dpValChe + max(
-          valHeaWatIsoCom.dpValve_nominal),
+            valHeaWatIsoCom.dpValve_nominal),
         nHp),
-      fill(datHpPhp.dpChiWatPhp_nominal
-                                     +
+      fill(
+        datHpPhp.dpChiWatPhp_nominal +
           Buildings.Templates.Data.Defaults.dpValChe,
         nPhp)))
     "Dedicated primary CHW pump parameters – HP and polyvalent HPs"
@@ -293,29 +316,38 @@ model PumpsPrimaryDedicatedPolyvalent
   parameter Buildings.Templates.Components.Data.PumpMultiple datPumHeaWatHdr(
     typ=Buildings.Templates.Components.Types.Pump.Multiple,
     nPum=nHp + nPhp,
-    m_flow_nominal=fill((datHpPhp.mHeaWatHp_flow_nominal*nHp +datHpPhp.mHeaWatPhp_flow_nominal
-        *nPhp)/datPumHeaWatHdr.nPum, datPumHeaWatHdr.nPum),
-    dp_nominal=fill(max(datHpPhp.dpHeaWatHp_nominal,datHpPhp.dpHeaWatPhp_nominal)
-         + Buildings.Templates.Data.Defaults.dpValChe + max(valHeaWatIsoHdr.dpValve_nominal),
-        datPumHeaWatHdr.nPum))
+    m_flow_nominal=fill(
+      (datHpPhp.mHeaWatHp_flow_nominal * nHp +
+        datHpPhp.mHeaWatPhp_flow_nominal * nPhp) / datPumHeaWatHdr.nPum,
+      datPumHeaWatHdr.nPum),
+    dp_nominal=fill(
+      max(datHpPhp.dpHeaWatHp_nominal, datHpPhp.dpHeaWatPhp_nominal) +
+        Buildings.Templates.Data.Defaults.dpValChe + max(
+          valHeaWatIsoHdr.dpValve_nominal),
+      datPumHeaWatHdr.nPum))
     "Headered primary HW pump parameters – HP and polyvalent HPs"
     annotation(Placement(transformation(extent={{-240,-80},{-220,-60}})));
   parameter Buildings.Templates.Components.Data.PumpMultiple datPumChiWatHdr(
     typ=Buildings.Templates.Components.Types.Pump.Multiple,
     final nPum=nHp + nPhp,
-    m_flow_nominal=fill((datHpPhp.mChiWatHp_flow_nominal*nHp +datHpPhp.mChiWatPhp_flow_nominal
-        *nPhp)/datPumChiWatHdr.nPum, datPumChiWatHdr.nPum),
-    dp_nominal=fill(max(datHpPhp.dpChiWatHp_nominal,datHpPhp.dpChiWatPhp_nominal)
-         + Buildings.Templates.Data.Defaults.dpValChe + max(valChiWatIsoHdr.dpValve_nominal),
-        datPumChiWatHdr.nPum))
+    m_flow_nominal=fill(
+      (datHpPhp.mChiWatHp_flow_nominal * nHp +
+        datHpPhp.mChiWatPhp_flow_nominal * nPhp) / datPumChiWatHdr.nPum,
+      datPumChiWatHdr.nPum),
+    dp_nominal=fill(
+      max(datHpPhp.dpChiWatHp_nominal, datHpPhp.dpChiWatPhp_nominal) +
+        Buildings.Templates.Data.Defaults.dpValChe + max(
+          valChiWatIsoHdr.dpValve_nominal),
+      datPumChiWatHdr.nPum))
     "Headered primary CHW pump parameters – HP and polyvalent HPs"
     annotation(Placement(transformation(extent={{-200,-80},{-180,-60}})));
   parameter Buildings.Templates.Components.Data.PumpMultiple datPumChiWatPhp(
     typ=Buildings.Templates.Components.Types.Pump.Multiple,
     final nPum=nPhp,
     m_flow_nominal=fill(datHpPhp.mChiWatPhp_flow_nominal, nPhp),
-    dp_nominal=fill(datHpPhp.dpChiWatPhp_nominal + Buildings.Templates.Data.Defaults.dpValChe,
-        nPhp))
+    dp_nominal=fill(
+      datHpPhp.dpChiWatPhp_nominal + Buildings.Templates.Data.Defaults.dpValChe,
+      nPhp))
     "Dedicated primary CHW pump parameters – Polyvalent heat pumps"
     annotation(Placement(transformation(extent={{-120,240},{-100,260}})));
   final parameter Buildings.Templates.Components.Data.PumpSingle datPumComSin[nHp +
@@ -461,9 +493,10 @@ model PumpsPrimaryDedicatedPolyvalent
       dpFixed_nominal=Buildings.Templates.Utilities.computeBalancingPressureDrop(
         m_flow_nominal=fill(datHpPhp.mHeaWatHp_flow_nominal, nHp),
         dp_nominal=pumPriCom.dpValCheHeaWat_nominal[1:nHp] *
-          (datHpPhp.mHeaWatHp_flow_nominal / max(datHpPhp.mHeaWatHp_flow_nominal,
-          datHpPhp.mChiWatHp_flow_nominal))   ^ 2 .+ fill(datHpPhp.dpHeaWatHp_nominal,
-            nHp) .+ valHeaWatIsoCom.dpValve_nominal,
+          (datHpPhp.mHeaWatHp_flow_nominal / max(
+            datHpPhp.mHeaWatHp_flow_nominal, datHpPhp.mChiWatHp_flow_nominal)) ^
+          2 .+ fill(datHpPhp.dpHeaWatHp_nominal, nHp) .+
+          valHeaWatIsoCom.dpValve_nominal,
         datPum=datPumComSin[1:nHp])),
     each from_dp=true)
     "Primary HW loop isolation valve"
@@ -477,9 +510,10 @@ model PumpsPrimaryDedicatedPolyvalent
       dpFixed_nominal=Buildings.Templates.Utilities.computeBalancingPressureDrop(
         m_flow_nominal=fill(datHpPhp.mChiWatHp_flow_nominal, nHp),
         dp_nominal=pumPriCom.dpValCheHeaWat_nominal[1:nHp] *
-          (datHpPhp.mChiWatHp_flow_nominal / max(datHpPhp.mHeaWatHp_flow_nominal,
-          datHpPhp.mChiWatHp_flow_nominal))   ^ 2 .+ fill(datHpPhp.dpChiWatHp_nominal,
-            nHp) .+ valChiWatIsoCom.dpValve_nominal,
+          (datHpPhp.mChiWatHp_flow_nominal / max(
+            datHpPhp.mHeaWatHp_flow_nominal, datHpPhp.mChiWatHp_flow_nominal)) ^
+          2 .+ fill(datHpPhp.dpChiWatHp_nominal, nHp) .+
+          valChiWatIsoCom.dpValve_nominal,
         datPum=datPumComSin[1:nHp])),
     each from_dp=true)
     "Primary CHW loop isolation valve"
@@ -501,9 +535,9 @@ model PumpsPrimaryDedicatedPolyvalent
       dpFixed_nominal=Buildings.Templates.Utilities.computeBalancingPressureDrop(
         m_flow_nominal=valChiWatIsoHdr.m_flow_nominal,
         dp_nominal=pumChiWatPriHdr.dpValChe_nominal .+ cat(
-            1,
-            fill(datHpPhp.dpChiWatHp_nominal, nHp),
-            fill(datHpPhp.dpChiWatPhp_nominal, nPhp)) .+
+          1,
+          fill(datHpPhp.dpChiWatHp_nominal, nHp),
+          fill(datHpPhp.dpChiWatPhp_nominal, nPhp)) .+
           valChiWatIsoHdr.dpValve_nominal,
         datPum=datPumChiWatHdrSin)),
     each from_dp=true)
@@ -521,9 +555,9 @@ model PumpsPrimaryDedicatedPolyvalent
       dpFixed_nominal=Buildings.Templates.Utilities.computeBalancingPressureDrop(
         m_flow_nominal=valHeaWatIsoHdr.m_flow_nominal,
         dp_nominal=pumHeaWatPriHdr.dpValChe_nominal .+ cat(
-            1,
-            fill(datHpPhp.dpHeaWatHp_nominal, nHp),
-            fill(datHpPhp.dpHeaWatPhp_nominal, nPhp)) .+
+          1,
+          fill(datHpPhp.dpHeaWatHp_nominal, nHp),
+          fill(datHpPhp.dpHeaWatPhp_nominal, nPhp)) .+
           valHeaWatIsoHdr.dpValve_nominal,
         datPum=datPumHeaWatHdrSin)),
     each from_dp=true)
@@ -633,7 +667,7 @@ model PumpsPrimaryDedicatedPolyvalent
       rotation=90,
       origin={100,-10})));
   Fluid.Sources.Boundary_pT ret5(
-    redeclare final package Medium = Medium,
+    redeclare final package Medium=Medium,
     p=Buildings.Templates.Data.Defaults.pHeaWat_rel_nominal + 101325,
     nPorts=nPhp)
     "Boundary condition at return"
@@ -820,41 +854,44 @@ equation
       color={255,204,51},
       thickness=0.5));
   connect(busPla.valHeaWatHpInlIso[1:nHp], valHeaWatIsoHdr[1:nHp].bus)
-    annotation (Line(
-      points={{-200,0},{0,0},{0,-30}},
+    annotation(Line(points={{-200,0},{0,0},{0,-30}},
       color={255,204,51},
       thickness=0.5));
   connect(busPla.valChiWatHpInlIso[1:nHp], valChiWatIsoHdr[1:nHp].bus)
-    annotation (Line(
-      points={{-200,0},{30,0},{30,-50}},
+    annotation(Line(points={{-200,0},{30,0},{30,-50}},
       color={255,204,51},
       thickness=0.5));
   connect(pumPriNoDed.ports_bChiWatSupShc, pumChiWatPriHdr.ports_a[nHp + 1:nHp +
-    nPhp]) annotation (Line(points={{-12,-100},{-12,-80},{-40,-80},{-40,-60}},
-        color={0,127,255}));
+    nPhp])
+    annotation(Line(points={{-12,-100},{-12,-80},{-40,-80},{-40,-60}},
+      color={0,127,255}));
   connect(pumPriNoDed.ports_bHeaWatSupShc, pumHeaWatPriHdr.ports_a[nHp + 1:nHp +
-    nPhp]) annotation (Line(points={{-28,-100},{-28,-90},{-110,-90},{-110,-40}},
-        color={0,127,255}));
+    nPhp])
+    annotation(Line(points={{-28,-100},{-28,-90},{-110,-90},{-110,-40}},
+      color={0,127,255}));
   connect(pumPriNoDed.ports_bChiHeaWat, pumHeaWatPriHdr.ports_a[1:nHp])
-    annotation (Line(points={{-44,-100},{-120,-100},{-120,-40},{-110,-40}},
-        color={0,127,255}));
+    annotation(Line(points={{-44,-100},{-120,-100},{-120,-40},{-110,-40}},
+      color={0,127,255}));
   connect(pumPriNoDed.ports_bChiHeaWat, pumChiWatPriHdr.ports_a[1:nHp])
-    annotation (Line(points={{-44,-100},{-44,-60},{-40,-60}}, color={0,127,255}));
+    annotation(Line(points={{-44,-100},{-44,-60},{-40,-60}},
+      color={0,127,255}));
   connect(pumChiWatPriHdr.ports_b, valChiWatIsoHdr.port_a)
-    annotation (Line(points={{-20,-60},{20,-60}}, color={0,127,255}));
+    annotation(Line(points={{-20,-60},{20,-60}},
+      color={0,127,255}));
   connect(pumHeaWatPriHdr.ports_b, valHeaWatIsoHdr.port_a)
-    annotation (Line(points={{-90,-40},{-10,-40}}, color={0,127,255}));
-  connect(ret1.ports, valHeaWatIsoHdr.port_b) annotation (Line(points={{100,-20},
-          {100,-40},{10,-40}}, color={0,127,255}));
-  connect(ret5.ports, valChiWatIsoHdr[nHp+1:nHp+nPhp].port_b)
-    annotation (Line(points={{120,-60},{40,-60}}, color={0,127,255}));
+    annotation(Line(points={{-90,-40},{-10,-40}},
+      color={0,127,255}));
+  connect(ret1.ports, valHeaWatIsoHdr.port_b)
+    annotation(Line(points={{100,-20},{100,-40},{10,-40}},
+      color={0,127,255}));
+  connect(ret5.ports, valChiWatIsoHdr[nHp + 1:nHp + nPhp].port_b)
+    annotation(Line(points={{120,-60},{40,-60}},
+      color={0,127,255}));
 annotation(__Dymola_Commands(
   file="modelica://Buildings/Resources/Scripts/Dymola/Templates/Plants/HeatPumps/Components/Validation/PumpsPrimaryDedicatedPolyvalent.mos"
     "Simulate and plot"),
-  experiment(
-      StopTime=5000,
-      Tolerance=1e-09,
-      __Dymola_Algorithm="Cvode"),
+  experiment(Tolerance=1e-06,
+    StopTime=5000),
   Diagram(coordinateSystem(extent={{-300,-520},{300,360}})),
   Documentation(
     info="<html>
@@ -866,23 +903,23 @@ annotation(__Dymola_Commands(
 </p>
 <ul>
   <li>
-    Heat pumps with a single dedicated primary pump serving both CHW and HW circuits,
-    polyvalent units with constant speed dedicated primary pumps:
+    Heat pumps with a single dedicated primary pump serving both CHW and HW
+    circuits, polyvalent units with constant speed dedicated primary pumps:
     component <code>pumPriCom</code>.
   </li>
   <li>
-    Plant with headered constant speed primary pumps:
-    component <code>pumPriHdr</code>.
+    Plant with headered constant speed primary pumps: component
+    <code>pumPriHdr</code>.
   </li>
   <li>
-    Plant with separate constant speed dedicated HW and
-    CHW pumps: component <code>pumPriSep</code>.
+    Plant with separate constant speed dedicated HW and CHW pumps: component
+    <code>pumPriSep</code>.
   </li>
 </ul>
 <p>
   In each configuration, two identical heat pumps and two identical polyvalent
-  units are represented by fixed flow resistances (components <code>hp*</code>,
-  <code>phpCon*</code> and <code>phpEva*</code>).
+  units are represented by fixed flow resistances (components
+  <code>hp*</code>, <code>phpCon*</code> and <code>phpEva*</code>).
 </p>
 <p>
   The model uses open loop controls and the simulation allows verifying that
@@ -890,10 +927,9 @@ annotation(__Dymola_Commands(
   enabled.
 </p>
 <p>
-  In the configurations with headered pumps, or with a single dedicated primary
-  pump serving both CHW and HW circuits,
-  this requires adjusting the design
-  pressure drop of the balancing valves which are modeled by fixed flow
+  In the configurations with headered pumps, or with a single dedicated
+  primary pump serving both CHW and HW circuits, this requires adjusting the
+  design pressure drop of the balancing valves which are modeled by fixed flow
   resistances in the isolation valve components <code>valHeaWatIso*</code> and
   <code>valChiWatIso*</code>. This adjustment is done programmatically using
   the function

@@ -34,8 +34,8 @@ block SelectModeState
     annotation(Evaluate=true);
   final parameter Integer nSta = if nPhp > 0 then nHp + nPhp else size(staHp, 1)
     "Number of stages";
-  final parameter Integer nCol =
-    if nPhp > 0 then nHp + 2 * nPhp else size(staHp, 2)
+  final parameter Integer nCol = if nPhp > 0 then nHp + 2 * nPhp
+    else size(staHp, 2)
     "Number of columns in staging matrix";
   Buildings.Controls.OBC.CDL.Interfaces.IntegerInput uIdxSorHp[nAltHp]
     if nHp > 0
@@ -588,7 +588,8 @@ equation
     annotation(Line(points={{-240,-220},{-2,-220},{-2,74},{6,74}},
       color={255,0,255}));
 annotation(defaultComponentName="selMod",
-  Icon(coordinateSystem(preserveAspectRatio=true, extent={{-100,-120},{100,120}}),
+  Icon(coordinateSystem(preserveAspectRatio=true,
+    extent={{-100,-120},{100,120}}),
     graphics={Text(extent={{-150,170},{150,130}},
       textString="%name",
       textColor={0,0,255}),
@@ -632,13 +633,15 @@ annotation(defaultComponentName="selMod",
   <a href=\"modelica://Buildings.Templates.Plants.Controls.PolyvalentHeatPumps.ModeAlternation\">
     Buildings.Templates.Plants.Controls.PolyvalentHeatPumps.ModeAlternation</a>.
 </p>
-</html>", revisions="<html>
+</html>",
+    revisions="<html>
 <ul>
-<li>
-July 10, 2026, by Antoine Gautier:<br/>
-First implementation.<br/>
-This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4512\">#4512</a>.
-</li>
+  <li>
+    July 10, 2026, by Antoine Gautier:<br />
+    First implementation.<br />
+    This is for
+    <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4512\">#4512</a>.
+  </li>
 </ul>
 </html>"));
 end SelectModeState;

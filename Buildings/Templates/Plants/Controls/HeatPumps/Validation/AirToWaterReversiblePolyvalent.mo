@@ -14,23 +14,22 @@ model AirToWaterReversiblePolyvalent
       nPumHeaWatSec_select=2,
       nPumChiWatSec_select=2,
       capHeaPhp_nominal=fill(300E3, ctl.nPhp),
-      capHeaShcPhp_nominal=Buildings.Templates.Data.Defaults.COPHpWwHea/
-          Buildings.Templates.Data.Defaults.COPHpAwHea*ctl.capHeaPhp_nominal,
+      capHeaShcPhp_nominal=Buildings.Templates.Data.Defaults.COPHpWwHea /
+        Buildings.Templates.Data.Defaults.COPHpAwHea * ctl.capHeaPhp_nominal,
       TOutChiWatLck=273.15,
-      capCooPhp_nominal=(1 - 1/Buildings.Templates.Data.Defaults.COPHpAwHea)*
-          ctl.capHeaPhp_nominal,
-      capCooShcPhp_nominal=(1 - 1/Buildings.Templates.Data.Defaults.COPHpWwHea)
-          *ctl.capHeaShcPhp_nominal,
-      VChiWatPhp_flow_min=0.6*ctl.VChiWatPhp_flow_nominal,
-      VChiWatPhp_flow_nominal=1.1*ctl.capCooPhp_nominal/capCoo_nominal*
-          VChiWat_flow_nominal,
-      VHeaWatPhp_flow_min=0.6*ctl.VHeaWatPhp_flow_nominal,
-      VHeaWatPhp_flow_nominal=1.1*ctl.capHeaPhp_nominal/capHea_nominal*
-          VHeaWat_flow_nominal,
-      yPumHeaWatPriDedPhpSet
-                         =0.8,
-      yPumChiWatPriDedPhpSet
-                         =0.7),
+      capCooPhp_nominal=(1 - 1 / Buildings.Templates.Data.Defaults.COPHpAwHea) *
+        ctl.capHeaPhp_nominal,
+      capCooShcPhp_nominal=(1 - 1 /
+        Buildings.Templates.Data.Defaults.COPHpWwHea) *
+        ctl.capHeaShcPhp_nominal,
+      VChiWatPhp_flow_min=0.6 * ctl.VChiWatPhp_flow_nominal,
+      VChiWatPhp_flow_nominal=1.1 * ctl.capCooPhp_nominal / capCoo_nominal *
+        VChiWat_flow_nominal,
+      VHeaWatPhp_flow_min=0.6 * ctl.VHeaWatPhp_flow_nominal,
+      VHeaWatPhp_flow_nominal=1.1 * ctl.capHeaPhp_nominal / capHea_nominal *
+        VHeaWat_flow_nominal,
+      yPumHeaWatPriDedPhpSet=0.8,
+      yPumChiWatPriDedPhpSet=0.7),
     ratV_flow(
       table=[
         0, 0, 0;
@@ -39,8 +38,8 @@ model AirToWaterReversiblePolyvalent
         12, 0.2, 0.2;
         15, 0, 1;
         22, 0.1, 0.1;
-        24, 0, 0])
-        );
+        24, 0, 0
+      ]));
   Components.Controls.StatusEmulator y1Php_actual[ctl.nPhp]
     "Polyvalent HP status"
     annotation(Placement(transformation(extent={{90,94},{70,114}})));
@@ -65,7 +64,8 @@ annotation(__Dymola_Commands(
     "Simulate and plot"),
   experiment(StopTime=86400.0,
     Tolerance=1e-06),
-    Documentation(info="<html>
+  Documentation(
+    info="<html>
 <p>
   This model validates
   <a href=\"modelica://Buildings.Templates.Plants.Controls.HeatPumps.AirToWater\">
@@ -73,17 +73,19 @@ annotation(__Dymola_Commands(
   configuration with two reversible heat pumps and one polyvalent heat pump.
 </p>
 <p>
-Simulating this model shows how the controller responds to a varying load by
+  Simulating this model shows how the controller responds to a varying load by
 </p>
 <ul>
-  <li>enabling the polyvalent heat pump in simultaneous heating and
-      cooling mode with priority,</li>
+  <li>
+    enabling the polyvalent heat pump in simultaneous heating and cooling mode
+    with priority,
+  </li>
   <li>staging and unstaging the reversible heat pumps,</li>
   <li>enabling the dedicated primary pumps together with their equipment,</li>
   <li>rotating lead/lag equipment to ensure even wear,</li>
   <li>
-    resetting the supply temperature and remote differential pressure in
-    both the CHW and HW loops based on valve position,
+    resetting the supply temperature and remote differential pressure in both
+    the CHW and HW loops based on valve position,
   </li>
   <li>staging the secondary pumps.</li>
 </ul>

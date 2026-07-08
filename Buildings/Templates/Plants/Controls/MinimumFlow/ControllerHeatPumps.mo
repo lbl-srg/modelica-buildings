@@ -17,16 +17,14 @@ block ControllerHeatPumps
   // Use isolation valve command if valves are present and for:
   // - HP with dedicated pumps serving both CHW and HW loops
   // - Headered primary pumps
-  final parameter Boolean use_valEqu[nEqu] =
-    {(have_valInlIso or have_valOutIso)
-      and (not have_pumPriHdr and i <= nHp and not have_pumChiWatPriDedHp
-        or have_pumPriHdr) for i in 1:nEqu}
+  final parameter Boolean use_valEqu[nEqu] = {(have_valInlIso or have_valOutIso)
+    and (not have_pumPriHdr and i <= nHp and not have_pumChiWatPriDedHp
+      or have_pumPriHdr) for i in 1:nEqu}
     "Set to true to use isolation valve command to enable control loop – Each unit"
     annotation(Evaluate=true);
-  final parameter Boolean use_val =
-    (have_valInlIso or have_valOutIso)
-      and (not have_pumPriHdr and nHp > 0 and not have_pumChiWatPriDedHp
-        or have_pumPriHdr)
+  final parameter Boolean use_val = (have_valInlIso or have_valOutIso)
+    and (not have_pumPriHdr and nHp > 0 and not have_pumChiWatPriDedHp
+      or have_pumPriHdr)
     "Set to true to use isolation valve command to enable control loop – Any unit"
     annotation(Evaluate=true);
   // Use dedicated primary pump status for:
@@ -472,7 +470,8 @@ annotation(defaultComponentName="ctlFloMin",
     July 10, 2026, by Antoine Gautier:<br />
     Renamed from <code>ControllerDualMode</code> and refactored to support
     plants with polyvalent heat pumps.<br />
-    This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4512\">#4512</a>.
+    This is for
+    <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4512\">#4512</a>.
   </li>
   <li>
     May 31, 2024, by Antoine Gautier:<br />

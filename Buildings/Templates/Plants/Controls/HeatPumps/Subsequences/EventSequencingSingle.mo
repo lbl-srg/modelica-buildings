@@ -1,5 +1,6 @@
 within Buildings.Templates.Plants.Controls.HeatPumps.Subsequences;
-block EventSequencingSingle "Staging event sequencing for a single heat pump"
+block EventSequencingSingle
+  "Staging event sequencing for a single heat pump"
   parameter Boolean is_php = false
     "Set to true for polyvalent heat pumps"
     annotation(Evaluate=true);

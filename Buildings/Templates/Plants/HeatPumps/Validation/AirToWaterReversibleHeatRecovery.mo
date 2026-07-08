@@ -10,9 +10,10 @@ model AirToWaterReversibleHeatRecovery
   final parameter Boolean have_chiWat = pla.have_chiWat
     "Set to true if the plant provides CHW"
     annotation(Evaluate=true);
-  inner replaceable parameter UserProject.Data.AirToWaterReversibleHeatRecovery
-    datAll(pla(final cfg=pla.cfg)) "Plant parameters"
-    annotation (Placement(transformation(extent={{-180,120},{-160,140}})));
+  inner replaceable parameter UserProject.Data.AirToWaterReversibleHeatRecovery datAll(
+    pla(final cfg=pla.cfg))
+    "Plant parameters"
+    annotation(Placement(transformation(extent={{-180,120},{-160,140}})));
   parameter Modelica.Units.SI.PressureDifference dpTer_nominal(
     displayUnit="Pa") = 3E4
     "Liquid pressure drop across terminal unit at design conditions";
@@ -48,10 +49,7 @@ model AirToWaterReversibleHeatRecovery
     final allowFlowReversal=allowFlowReversal,
     linearized=true,
     show_T=true,
-    ctl(
-      nAirHan=1,
-      nEquZon=0,
-      have_senTPriRet_select=true),
+    ctl(nAirHan=1, nEquZon=0, have_senTPriRet_select=true),
     is_dpBalYPumSetCal=true)
     "Heat pump plant"
     annotation(Placement(transformation(extent={{-80,-100},{-40,-60}})));
@@ -98,7 +96,8 @@ model AirToWaterReversibleHeatRecovery
       16, 0, 1;
       18, 0, 0.6;
       22, 0.1, 0.1;
-      24, 0, 0],
+      24, 0, 0
+    ],
     timeScale=3600)
     "Fraction of design load – Index 1 for heating, 2 for cooling"
     annotation(Placement(transformation(extent={{-180,30},{-160,50}})));
@@ -336,14 +335,14 @@ annotation(__Dymola_Commands(
   heating loads reach their peak value first, the cooling loads reach it last.
 </p>
 <p>
-  Three equally sized, lead/lag alternated heat pumps are modeled. 
-  A heat recovery chiller (HRC) is included
+  Three equally sized, lead/lag alternated heat pumps are modeled. A heat
+  recovery chiller (HRC) is included
   (<code>pla.typ=Buildings.Templates.Plants.Controls.Types.PlantHeatPump.ReversibleHeatRecovery</code>)
-  and connected to the HW and CHW return pipes (sidestream integration). 
-  A unique aggregated load is modeled on each loop using a heat
-  exchanger component exposed to conditioned space air, and a two-way
-  modulating valve. An importance multiplier of <i>10</i> is applied to the
-  plant requests and reset requests generated from the valve position.
+  and connected to the HW and CHW return pipes (sidestream integration). A
+  unique aggregated load is modeled on each loop using a heat exchanger
+  component exposed to conditioned space air, and a two-way modulating valve.
+  An importance multiplier of <i>10</i> is applied to the plant requests and
+  reset requests generated from the valve position.
 </p>
 <p>
   The user can modify the plant parameter <code>pla.typ</code> to switch

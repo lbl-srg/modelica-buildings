@@ -1,5 +1,6 @@
 within Buildings.Templates.Plants.Controls.StagingRotation.BaseClasses;
-block RemoveFromStagingOrder "Remove flagged units from staging order"
+block RemoveFromStagingOrder
+  "Remove flagged units from staging order"
   parameter Integer nUni(min=1)
     "Number of units"
     annotation(Evaluate=true);

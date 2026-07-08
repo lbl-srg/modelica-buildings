@@ -21,8 +21,8 @@ model AirToWaterReversiblePolyvalent
         16, 0, 1;
         18, 0, 0.6;
         22, 0.1, 0.1;
-        24, 0, 0])
-        );
+        24, 0, 0
+      ]));
 annotation(__Dymola_Commands(
   file="modelica://Buildings/Resources/Scripts/Dymola/Templates/Plants/HeatPumps/Validation/AirToWaterReversiblePolyvalent.mos"
     "Simulate and plot"),

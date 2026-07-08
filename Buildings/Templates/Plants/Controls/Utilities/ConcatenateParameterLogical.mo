@@ -23,9 +23,9 @@ equation
   connect(pla0.y, logSwi.u3)
     annotation(Line(points={{-18,-60},{40,-60},{40,-8},{60,-8}},
       color={255,0,255}));
-  annotation(defaultComponentName="cat1",
-    Documentation(
-  info="<html>
+annotation(defaultComponentName="cat1",
+  Documentation(
+    info="<html>
 <p>
   This block concatenates two Boolean arrays, one provided as an input, the
   other one provided as a parameter.
@@ -43,7 +43,7 @@ equation
   no-op, returning the input array unchanged.
 </p>
 </html>",
-  revisions="<html>
+    revisions="<html>
 <ul>
   <li>
     July 10, 2026, by Antoine Gautier:<br />

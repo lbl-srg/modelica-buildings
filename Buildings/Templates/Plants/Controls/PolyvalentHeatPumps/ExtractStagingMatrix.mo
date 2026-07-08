@@ -6,10 +6,8 @@ block ExtractStagingMatrix
   parameter Boolean is_transpose = false
     "Set to true to output the transpose of the staging matrix"
     annotation(Evaluate=true);
-  final parameter Integer nRow = size(sta, 1)
-    "Number of rows";
-  final parameter Integer nEqu = size(sta, 2)
-    "Equipment count";
+  final parameter Integer nRow = size(sta, 1) "Number of rows";
+  final parameter Integer nEqu = size(sta, 2) "Equipment count";
   final parameter Integer nSta = integer((1 + sqrt(1 + 4 * nRow)) / 2) - 1
     "Number of stage";
   final parameter Integer nOut = nEqu * nSta
@@ -18,8 +16,8 @@ block ExtractStagingMatrix
     "Stage index of opposite mode (from 0 to stage number)"
     annotation(Placement(transformation(extent={{-140,-20},{-100,20}}),
       iconTransformation(extent={{-140,-20},{-100,20}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealOutput y[if is_transpose
-  then nEqu else nSta, if is_transpose then nSta else nEqu]
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput y[if is_transpose then nEqu
+    else nSta, if is_transpose then nSta else nEqu]
     annotation(Placement(transformation(extent={{100,-20},{140,20}}),
       iconTransformation(extent={{100,-20},{140,20}})));
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant conStaCoo[nOut, nRow](
@@ -33,8 +31,7 @@ block ExtractStagingMatrix
     "Scalar extraction along the row dimension"
     annotation(Placement(transformation(extent={{-30,30},{-10,50}})));
   // row index = (u-1)*nSta + iCoo
-  Buildings.Controls.OBC.CDL.Integers.Sources.Constant nStaCst(
-    final k=nSta)
+  Buildings.Controls.OBC.CDL.Integers.Sources.Constant nStaCst(final k=nSta)
     annotation(Placement(transformation(extent={{-90,-70},{-70,-50}})));
   Buildings.Controls.OBC.CDL.Integers.Multiply mulInt
     "(u-1)*nSta"
@@ -43,8 +40,7 @@ block ExtractStagingMatrix
     final nout=nOut)
     annotation(Placement(transformation(extent={{-10,-30},{10,-10}})));
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant offCst[nOut](
-    final k=if is_transpose
-      then {mod(p - 1, nSta) + 1 for p in 1:nOut}
+    final k=if is_transpose then {mod(p - 1, nSta) + 1 for p in 1:nOut}
       else {div(p - 1, nEqu) + 1 for p in 1:nOut})
     "Per-output iCoo (row within heating stage)"
     annotation(Placement(transformation(extent={{-10,-70},{10,-50}})));
@@ -52,7 +48,7 @@ block ExtractStagingMatrix
     "Add offset to stage index"
     annotation(Placement(transformation(extent={{30,-30},{50,-10}})));
   Buildings.Controls.OBC.CDL.Routing.RealExtractSignal extReaSig[if is_transpose
-  then nEqu else nSta](
+    then nEqu else nSta](
     each final nin=nOut,
     each final nout=if is_transpose then nSta else nEqu,
     final extract=if is_transpose
@@ -112,20 +108,22 @@ annotation(defaultComponentName="extSta",
   Given the pre-computed staging matrix <code>sta</code> (either
   <code>staCoo</code> or <code>staHea</code> from
   <a href=\"modelica://Buildings.Templates.Plants.Controls.PolyvalentHeatPumps.StagingParameters\">
-  Buildings.Templates.Plants.Controls.PolyvalentHeatPumps.StagingParameters</a>)
-  and the current stage index <i>u</i> of the opposite operating mode,
-  this block extracts the corresponding
-  <i>n<sub>Sta</sub> &times; n<sub>Equ</sub></i> slice of normalized
-  equipment fractions for all non-zero stages of the primary mode.
+    Buildings.Templates.Plants.Controls.PolyvalentHeatPumps.StagingParameters</a>)
+  and the current stage index <i>u</i> of the opposite operating mode, this
+  block extracts the corresponding
+  <i>n<sub>Sta</sub> &times; n<sub>Equ</sub></i> slice of normalized equipment
+  fractions for all non-zero stages of the primary mode.
 </p>
 <p>
-  The number of stages <i>n<sub>Sta</sub></i> is recovered from the row
-  count <i>n<sub>Row</sub> = (n<sub>Sta</sub> + 1) &sdot; n<sub>Sta</sub></i>
+  The number of stages <i>n<sub>Sta</sub></i> is recovered from the row count
+  <i>n<sub>Row</sub> = (n<sub>Sta</sub> + 1) &sdot; n<sub>Sta</sub></i>
   by solving the resulting quadratic:
 </p>
 <p>
-  <i>n<sub>Sta</sub> =
-    &lfloor;(1 + &radic;(1 + 4 &sdot; n<sub>Row</sub>)) / 2&rfloor; - 1</i>
+  <i
+    >n<sub>Sta</sub> = &lfloor;(1 + &radic;(1 + 4 &sdot; n<sub>Row</sub>)) /
+    2&rfloor; - 1</i
+  >
 </p>
 <p>
   <i>n<sub>Equ</sub></i> equals the number of columns.
@@ -133,12 +131,14 @@ annotation(defaultComponentName="extSta",
 <p>
   The output matrix corresponds to that specified in the documentation of
   <a href=\"modelica://Buildings.Templates.Plants.Controls.StagingRotation.EquipmentEnable\">
-  Buildings.Templates.Plants.Controls.StagingRotation.EquipmentEnable</a>
+    Buildings.Templates.Plants.Controls.StagingRotation.EquipmentEnable</a>
   and can therefore be consumed by this block.
 </p>
 <p>
-  If <code>is_transpose = true</code>, the block outputs the transpose
-  of the staging matrix, with dimensions <i>n<sub>Equ</sub> &times; n<sub>Sta</sub></i>.
+  If <code>is_transpose = true</code>, the block outputs the transpose of the
+  staging matrix, with dimensions
+  <i>n<sub>Equ</sub> &times; n<sub>Sta</sub></i
+  >.
 </p>
 </html>",
     revisions="<html>

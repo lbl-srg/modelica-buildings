@@ -119,7 +119,8 @@ annotation(defaultComponentName="rouPumChiWatPri",
     polyvalent HP dedicated pump status signals are concatenated.
   </li>
 </ul>
-</html>", revisions="<html>
+</html>",
+    revisions="<html>
 <ul>
   <li>
     July 10, 2026, by Antoine Gautier:<br />

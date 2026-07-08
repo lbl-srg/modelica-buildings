@@ -9,10 +9,11 @@ class BaseAirToWater
   parameter Buildings.Templates.Plants.HeatPumps.Data.HeatPumpPlant pla(
     pumHeaWatPri(
       dp_nominal=fill(
-        1.5 * (if pla.cfg.have_chiWat and
-          pla.cfg.typArrPumPri ==
-          Buildings.Templates.Components.Types.PumpArrangement.Dedicated and
-          pla.cfg.have_hp and not pla.cfg.have_pumChiWatPriDedHp
+        1.5 * (if pla.cfg.have_chiWat
+          and pla.cfg.typArrPumPri ==
+            Buildings.Templates.Components.Types.PumpArrangement.Dedicated
+          and pla.cfg.have_hp
+          and not pla.cfg.have_pumChiWatPriDedHp
           then max(pla.hp.dpHeaWatHp_nominal, pla.hp.dpChiWatHp_nominal)
           else pla.hp.dpHeaWatHp_nominal),
         pla.cfg.nPumHeaWatPri) .+ (if pla.cfg.typDis ==
@@ -25,8 +26,8 @@ class BaseAirToWater
     pumChiWatPri(
       dp_nominal=fill(1.5 * pla.hp.dpChiWatHp_nominal, pla.cfg.nPumChiWatPri) .+
         (if pla.cfg.typDis ==
-        Buildings.Templates.Plants.HeatPumps.Types.Distribution.Variable1Only
-        then Buildings.Templates.Data.Defaults.dpChiWatLocSet_max else 0)),
+          Buildings.Templates.Plants.HeatPumps.Types.Distribution.Variable1Only
+          then Buildings.Templates.Data.Defaults.dpChiWatLocSet_max else 0)),
     pumChiWatSec(
       dp_nominal=fill(
         Buildings.Templates.Data.Defaults.dpChiWatLocSet_max,

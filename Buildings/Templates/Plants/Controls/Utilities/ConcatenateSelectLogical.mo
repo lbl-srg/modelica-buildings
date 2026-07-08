@@ -17,8 +17,8 @@ block ConcatenateSelectLogical
     annotation(Evaluate=true,
       Dialog(connectorSizing=true),
       HideResult=true);
-  final parameter Integer nout =
-    if have_u1 and have_u2 then nin1 + nin2 elseif have_u1 then nin1 else nin2
+  final parameter Integer nout = if have_u1 and have_u2 then nin1 + nin2
+    elseif have_u1 then nin1 else nin2
     "Size of output array"
     annotation(Evaluate=true);
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1[nin1]

@@ -1,8 +1,8 @@
 within Buildings.Templates.Plants.Controls.HeatPumps.Validation;
 model AirToWaterReversibleHeatRecovery
   "Validation model for AWHP plant controller"
-  final parameter Real capHea_nominal(final unit="W") =
-    sum(cat(1, ctl.capHeaHp_nominal, ctl.capHeaPhp_nominal))
+  final parameter Real capHea_nominal(final unit="W") = sum(
+    cat(1, ctl.capHeaHp_nominal, ctl.capHeaPhp_nominal))
     "Installed heating capacity"
     annotation(Dialog(group="Nominal condition"));
   parameter Real THeaWatSup_nominal(unit="K", displayUnit="degC") = 323.15
@@ -11,13 +11,12 @@ model AirToWaterReversibleHeatRecovery
   parameter Real THeaWatRet_nominal(unit="K", displayUnit="degC") = 315.15
     "Design HW return temperature"
     annotation(Dialog(group="Nominal condition"));
-  parameter Real VHeaWat_flow_nominal(unit="m3/s") =
-    capHea_nominal / abs(THeaWatSup_nominal - THeaWatRet_nominal) /
-      ctl.cp_default / ctl.rho_default
+  parameter Real VHeaWat_flow_nominal(unit="m3/s") = capHea_nominal / abs(
+    THeaWatSup_nominal - THeaWatRet_nominal) / ctl.cp_default / ctl.rho_default
     "Design HW volume flow rate"
     annotation(Dialog(group="Nominal condition"));
-  final parameter Real capCoo_nominal(final unit="W") =
-    sum(cat(1, ctl.capCooHp_nominal, ctl.capCooPhp_nominal))
+  final parameter Real capCoo_nominal(final unit="W") = sum(
+    cat(1, ctl.capCooHp_nominal, ctl.capCooPhp_nominal))
     "Installed cooling capacity"
     annotation(Dialog(group="Nominal condition"));
   parameter Real TChiWatSup_nominal(unit="K", displayUnit="degC") = 280.15
@@ -26,9 +25,8 @@ model AirToWaterReversibleHeatRecovery
   parameter Real TChiWatRet_nominal(unit="K", displayUnit="degC") = 285.15
     "Design CHW return temperature"
     annotation(Dialog(group="Nominal condition"));
-  parameter Real VChiWat_flow_nominal(unit="m3/s") =
-    capCoo_nominal / abs(TChiWatSup_nominal - TChiWatRet_nominal) /
-      ctl.cp_default / ctl.rho_default
+  parameter Real VChiWat_flow_nominal(unit="m3/s") = capCoo_nominal / abs(
+    TChiWatSup_nominal - TChiWatRet_nominal) / ctl.cp_default / ctl.rho_default
     "Design CHW volume flow rate"
     annotation(Dialog(group="Nominal condition"));
   Buildings.Templates.Plants.Controls.HeatPumps.AirToWater ctl(
@@ -47,30 +45,32 @@ model AirToWaterReversibleHeatRecovery
     nSenDpChiWatRem=1,
     final THeaWatSup_nominal=THeaWatSup_nominal,
     THeaWatSupSet_min=298.15,
-    VHeaWatHp_flow_nominal=1.1*ctl.capHeaHp_nominal/capHea_nominal*
-        VHeaWat_flow_nominal,
-    VHeaWatHp_flow_min=0.6*ctl.VHeaWatHp_flow_nominal,
+    VHeaWatHp_flow_nominal=1.1 * ctl.capHeaHp_nominal / capHea_nominal *
+      VHeaWat_flow_nominal,
+    VHeaWatHp_flow_min=0.6 * ctl.VHeaWatHp_flow_nominal,
     final VHeaWatSec_flow_nominal=VHeaWat_flow_nominal,
     capHeaHp_nominal=fill(350E3, ctl.nHp),
     dpHeaWatRemSet_max={5E4},
     final TChiWatSup_nominal=TChiWatSup_nominal,
     TChiWatSupSet_max=288.15,
-    VChiWatHp_flow_nominal=1.1*ctl.capCooHp_nominal/capCoo_nominal*
-        VChiWat_flow_nominal,
-    VChiWatHp_flow_min=0.6*ctl.VChiWatHp_flow_nominal,
+    VChiWatHp_flow_nominal=1.1 * ctl.capCooHp_nominal / capCoo_nominal *
+      VChiWat_flow_nominal,
+    VChiWatHp_flow_min=0.6 * ctl.VChiWatHp_flow_nominal,
     final VChiWatSec_flow_nominal=VChiWat_flow_nominal,
-    capCooHp_nominal=(1 - 1/Buildings.Templates.Data.Defaults.COPHpAwHea)*ctl.capHeaHp_nominal,
+    capCooHp_nominal=(1 - 1 / Buildings.Templates.Data.Defaults.COPHpAwHea) *
+      ctl.capHeaHp_nominal,
     yPumHeaWatPriDedHpSet=0.8,
     yPumChiWatPriDedHpSet=0.7,
     dpChiWatRemSet_max={5E4},
-    staHp=[1/3,1/3,1/3; 2/3,2/3,2/3; 1,1,1],
-    idxAltHp_select={1,2,3},
+    staHp=[1 / 3, 1 / 3, 1 / 3; 2 / 3, 2 / 3, 2 / 3; 1, 1, 1],
+    idxAltHp_select={1, 2, 3},
     TChiWatSupHrc_min=277.15,
     THeaWatSupHrc_max=333.15,
     COPHeaHrc_nominal=2.8,
-    capCooHrc_min=ctl.capHeaHrc_min*(1 - 1/ctl.COPHeaHrc_nominal),
-    capHeaHrc_min=0.3*0.5*sum(ctl.capHeaHp_nominal)) "Plant controller"
-    annotation (Placement(transformation(extent={{0,-32},{40,60}})));
+    capCooHrc_min=ctl.capHeaHrc_min * (1 - 1 / ctl.COPHeaHrc_nominal),
+    capHeaHrc_min=0.3 * 0.5 * sum(ctl.capHeaHp_nominal))
+    "Plant controller"
+    annotation(Placement(transformation(extent={{0,-32},{40,60}})));
   Buildings.Controls.OBC.CDL.Reals.Sources.TimeTable ratV_flow(
     table=[
       0, 0, 0;
@@ -79,7 +79,8 @@ model AirToWaterReversibleHeatRecovery
       12, 0.2, 0.2;
       15, 0, 1;
       22, 0.1, 0.1;
-      24, 0, 0],
+      24, 0, 0
+    ],
     timeScale=3600)
     "Source signal for volume flow rate ratio – Index 1 for HW, 2 for CHW"
     annotation(Placement(transformation(extent={{-160,-50},{-140,-30}})));
@@ -101,7 +102,8 @@ model AirToWaterReversibleHeatRecovery
     final k=VChiWat_flow_nominal)
     "Scale by design flow"
     annotation(Placement(transformation(extent={{-80,-50},{-60,-30}})));
-  Components.Controls.StatusEmulator y1Hp_actual[ctl.nHp] if ctl.have_hp
+  Components.Controls.StatusEmulator y1Hp_actual[ctl.nHp]
+    if ctl.have_hp
     "HP status"
     annotation(Placement(transformation(extent={{100,48},{120,68}})));
   Components.Controls.StatusEmulator y1PumHeaWatPriHdr_actual[ctl.nPumHeaWatPri]
@@ -313,13 +315,15 @@ equation
   connect(VHeaWat_flow.y, ctl.VHeaWatPri_flow)
     annotation(Line(points={{-88,-20},{-26,-20},{-26,8},{-2,8}},
       color={0,0,127}));
-  connect(VHeaWat_flow.y, ctl.VHeaWatLooOrSec_flow) annotation (Line(points={{-88,
-          -20},{-26,-20},{-26,-6},{-2,-6}}, color={0,0,127}));
+  connect(VHeaWat_flow.y, ctl.VHeaWatLooOrSec_flow)
+    annotation(Line(points={{-88,-20},{-26,-20},{-26,-6},{-2,-6}},
+      color={0,0,127}));
   connect(VChiWat_flow.y, ctl.VChiWatPri_flow)
     annotation(Line(points={{-58,-40},{-24,-40},{-24,2},{-2,2}},
       color={0,0,127}));
-  connect(VChiWat_flow.y, ctl.VChiWatLooOrSec_flow) annotation (Line(points={{-58,
-          -40},{-22,-40},{-22,-14},{-2,-14}}, color={0,0,127}));
+  connect(VChiWat_flow.y, ctl.VChiWatLooOrSec_flow)
+    annotation(Line(points={{-58,-40},{-22,-40},{-22,-14},{-2,-14}},
+      color={0,0,127}));
   connect(ratV_flow.y, gai.u)
     annotation(Line(points={{-138,-40},{-120,-40},{-120,40},{-110,40}},
       color={0,0,127}));
@@ -369,8 +373,7 @@ equation
       color={0,0,127}));
   connect(ctl.dpChiWatRemSet, resDpChiWatLoc.dpRemSet)
     annotation(Line(
-      points={{42,-4},{47.9167,-4},{47.9167,-100},{-90,-100},{-90,-174},{-42,
-          -174}},
+      points={{42,-4},{47.9167,-4},{47.9167,-100},{-90,-100},{-90,-174},{-42,-174}},
       color={0,0,127}));
   connect(dpHeaWatRem.y, resDpHeaWatLoc.dpRem)
     annotation(Line(points={{-58,-80},{-52,-80},{-52,-146},{-42,-146}},
@@ -419,8 +422,7 @@ equation
     annotation(Line(points={{-168,160},{-86,160},{-86,154},{-82,154}},
       color={0,0,127}));
   connect(ctl.TChiWatSupSet, TChiWatRet.u2)
-    annotation(Line(
-      points={{42,-16},{42,126},{-120,126},{-120,134},{-112,134}},
+    annotation(Line(points={{42,-16},{42,126},{-120,126},{-120,134},{-112,134}},
       color={0,0,127}));
   connect(dTChiWat.y, TChiWatRet.u1)
     annotation(Line(points={{-128,140},{-124,140},{-124,146},{-112,146}},

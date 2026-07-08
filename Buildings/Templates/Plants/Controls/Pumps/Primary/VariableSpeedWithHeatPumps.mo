@@ -18,12 +18,11 @@ block VariableSpeedWithHeatPumps
     annotation(Evaluate=true,
       Dialog(group="Plant configuration",
         enable=not have_pumPriHdr and nHp > 0));
-  final parameter Boolean have_pumPriComDedHp =
-    nHp > 0
-      and have_heaWat
-      and have_chiWat
-      and not have_pumPriHdr
-      and not have_pumChiWatPriDedHp
+  final parameter Boolean have_pumPriComDedHp = nHp > 0
+    and have_heaWat
+    and have_chiWat
+    and not have_pumPriHdr
+    and not have_pumChiWatPriDedHp
     "Set to true for HP with single dedicated primary pump serving both CHW and HW circuits"
     annotation(Evaluate=true);
   parameter Integer nHp
@@ -53,57 +52,49 @@ block VariableSpeedWithHeatPumps
       Dialog(group="Plant configuration",
         enable=have_chiWat and have_pumPriHdr
           or nPhp > 0
-        or nHp > 0 and have_pumChiWatPriDedHp));
-  parameter Real yPumHeaWatPriHdrSet(
-    max=2,
-    min=0,
-    start=1,
-    unit="1") "Primary HW pump speed providing design flow – Headered pumps"
+          or nHp > 0 and have_pumChiWatPriDedHp));
+  parameter Real yPumHeaWatPriHdrSet(max=2, min=0, start=1, unit="1")
+    "Primary HW pump speed providing design flow – Headered pumps"
     annotation(Dialog(
       group="Information provided by testing, adjusting, and balancing contractor",
       enable=have_heaWat and have_pumPriHdr and not have_pumPriCtlDp));
-  parameter Real yPumChiWatPriHdrSet(
-    max=2,
-    min=0,
-    start=1,
-    unit="1") "Primary CHW pump speed providing design flow – Headered pumps"
+  parameter Real yPumChiWatPriHdrSet(max=2, min=0, start=1, unit="1")
+    "Primary CHW pump speed providing design flow – Headered pumps"
     annotation(Dialog(
       group="Information provided by testing, adjusting, and balancing contractor",
       enable=have_chiWat and have_pumPriHdr and not have_pumPriCtlDp));
-  parameter Real yPumHeaWatPriDedHpSet(
-    max=2,
-    min=0,
-    start=1,
-    unit="1") "Primary pump speed providing design flow in heating mode – HP dedicated pumps"
+  parameter Real yPumHeaWatPriDedHpSet(max=2, min=0, start=1, unit="1")
+    "Primary pump speed providing design flow in heating mode – HP dedicated pumps"
     annotation(Dialog(
       group="Information provided by testing, adjusting, and balancing contractor",
-      enable=have_heaWat and not have_pumPriHdr and nHp > 0 and not have_pumPriCtlDp));
-  parameter Real yPumChiWatPriDedHpSet(
-    max=2,
-    min=0,
-    start=1,
-    unit="1") "Primary pump speed providing design flow in cooling mode – HP dedicated pumps"
+      enable=have_heaWat
+        and not have_pumPriHdr
+        and nHp > 0
+        and not have_pumPriCtlDp));
+  parameter Real yPumChiWatPriDedHpSet(max=2, min=0, start=1, unit="1")
+    "Primary pump speed providing design flow in cooling mode – HP dedicated pumps"
     annotation(Dialog(
       group="Information provided by testing, adjusting, and balancing contractor",
-      enable=have_chiWat and not have_pumPriHdr and nHp > 0 and not have_pumPriCtlDp));
-  parameter Real yPumHeaWatPriDedPhpSet(
-    max=2,
-    min=0,
-    start=1,
-    unit="1")
+      enable=have_chiWat
+        and not have_pumPriHdr
+        and nHp > 0
+        and not have_pumPriCtlDp));
+  parameter Real yPumHeaWatPriDedPhpSet(max=2, min=0, start=1, unit="1")
     "Primary HW pump speed providing design flow – Polyvalent HP dedicated pumps"
     annotation(Dialog(
       group="Information provided by testing, adjusting, and balancing contractor",
-      enable=have_heaWat and not have_pumPriHdr and nPhp > 0 and not have_pumPriCtlDp));
-  parameter Real yPumChiWatPriDedPhpSet(
-    max=2,
-    min=0,
-    start=1,
-    unit="1")
+      enable=have_heaWat
+        and not have_pumPriHdr
+        and nPhp > 0
+        and not have_pumPriCtlDp));
+  parameter Real yPumChiWatPriDedPhpSet(max=2, min=0, start=1, unit="1")
     "Primary CHW pump speed providing design flow – Polyvalent HP dedicated pumps"
     annotation(Dialog(
       group="Information provided by testing, adjusting, and balancing contractor",
-      enable=have_chiWat and not have_pumPriHdr and nPhp > 0 and not have_pumPriCtlDp));
+      enable=have_chiWat
+        and not have_pumPriHdr
+        and nPhp > 0
+        and not have_pumPriCtlDp));
   parameter Boolean have_senDpHeaWatRemWir(start=false)
     "Set to true for remote HW differential pressure sensor(s) hardwired to controller"
     annotation(Evaluate=true,
@@ -249,15 +240,16 @@ block VariableSpeedWithHeatPumps
   Utilities.PlaceholderReal phSpePumHeaWatPriHp(
     final have_inp=have_pumPriCtlDp,
     final have_inpPh=false,
-    final u_internal=yPumHeaWatPriDedHpSet) if have_heaWat and nHp > 0
+    final u_internal=yPumHeaWatPriDedHpSet)
+    if have_heaWat and nHp > 0
     "Replace with fixed speed – HP"
-    annotation (Placement(transformation(extent={{48,10},{68,30}})));
+    annotation(Placement(transformation(extent={{48,10},{68,30}})));
   Generic.ControlDifferentialPressure ctlDpChiWat(
     final have_senDpRemWir=have_senDpChiWatRemWir,
     final k=kCtlDpChiWat,
-    final nPum=nPumChiWatPri + (if nHp > 0 and not have_pumPriHdr and
-      not have_pumChiWatPriDedHp
-      then nHp else 0),
+    final nPum=nPumChiWatPri + (if nHp > 0
+      and not have_pumPriHdr
+      and not have_pumChiWatPriDedHp then nHp else 0),
     final nSenDpRem=nSenDpChiWatRem,
     final Ti=TiCtlDpChiWat,
     final y_min=if have_chiWat then yPumChiWatPri_min else yPumHeaWatPri_min)
@@ -267,9 +259,10 @@ block VariableSpeedWithHeatPumps
   Utilities.PlaceholderReal phSpePumChiWatPriHp(
     final have_inp=have_pumPriCtlDp,
     final have_inpPh=false,
-    final u_internal=yPumChiWatPriDedHpSet) if nHp > 0 and have_chiWat
+    final u_internal=yPumChiWatPriDedHpSet)
+    if nHp > 0 and have_chiWat
     "Replace with fixed speed – HP"
-    annotation (Placement(transformation(extent={{48,-30},{68,-10}})));
+    annotation(Placement(transformation(extent={{48,-30},{68,-10}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1PumHeaWatPriHdr_actual[nPumHeaWatPri]
     if have_heaWat and have_pumPriCtlDp and have_pumPriHdr
     "Primary HW pump status – Headered pumps"
@@ -449,9 +442,10 @@ block VariableSpeedWithHeatPumps
   Utilities.PlaceholderReal phSpePumHeaWatPriPhp(
     final have_inp=have_pumPriCtlDp,
     final have_inpPh=false,
-    final u_internal=yPumHeaWatPriDedPhpSet) if have_heaWat and nPhp > 0
+    final u_internal=yPumHeaWatPriDedPhpSet)
+    if have_heaWat and nPhp > 0
     "Replace with fixed speed – PHP"
-    annotation (Placement(transformation(extent={{48,-70},{68,-50}})));
+    annotation(Placement(transformation(extent={{48,-70},{68,-50}})));
   Buildings.Controls.OBC.CDL.Routing.RealScalarReplicator rep5(final nout=nPhp)
     if have_heaWat and nPhp > 0
     "Replicate signal"
@@ -459,9 +453,10 @@ block VariableSpeedWithHeatPumps
   Utilities.PlaceholderReal phSpePumChiWatPriPhp(
     final have_inp=have_pumPriCtlDp,
     final have_inpPh=false,
-    final u_internal=yPumChiWatPriDedPhpSet) if have_chiWat and nPhp > 0
+    final u_internal=yPumChiWatPriDedPhpSet)
+    if have_chiWat and nPhp > 0
     "Replace with fixed speed – PHP"
-    annotation (Placement(transformation(extent={{48,-110},{68,-90}})));
+    annotation(Placement(transformation(extent={{48,-110},{68,-90}})));
   Buildings.Controls.OBC.CDL.Routing.RealScalarReplicator rep6(final nout=nPhp)
     if have_chiWat and nPhp > 0
     "Replicate signal"
@@ -469,15 +464,17 @@ block VariableSpeedWithHeatPumps
   Utilities.PlaceholderReal phSpePumHeaWatPri(
     final have_inp=have_pumPriCtlDp,
     final have_inpPh=false,
-    final u_internal=yPumHeaWatPriHdrSet) if have_heaWat and have_pumPriHdr
+    final u_internal=yPumHeaWatPriHdrSet)
+    if have_heaWat and have_pumPriHdr
     "Replace with fixed speed – HP XOR PHP (both NOT supported)"
-    annotation (Placement(transformation(extent={{50,130},{70,150}})));
+    annotation(Placement(transformation(extent={{50,130},{70,150}})));
   Utilities.PlaceholderReal phSpePumChiWatPri(
     final have_inp=have_pumPriCtlDp,
     final have_inpPh=false,
-    final u_internal=yPumChiWatPriHdrSet) if have_chiWat and have_pumPriHdr
+    final u_internal=yPumChiWatPriHdrSet)
+    if have_chiWat and have_pumPriHdr
     "Replace with fixed speed – HP XOR PHP (both NOT supported)"
-    annotation (Placement(transformation(extent={{50,70},{70,90}})));
+    annotation(Placement(transformation(extent={{50,70},{70,90}})));
   Buildings.Controls.OBC.CDL.Reals.Switch setPumChiWatPriDedPhp[nPhp]
     if have_chiWat and not have_pumPriHdr and nPhp > 0
     "Set prescribed speed when pump is enabled"
@@ -850,9 +847,10 @@ HP when the dedicated pump is enabled")}),
 <ul>
   <li>
     July 10, 2026, by Antoine Gautier:<br />
-    Renamed from <code>VariableSpeed</code> and refactored to support
-    plants with polyvalent heat pumps.<br />
-    This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4512\">#4512</a>.
+    Renamed from <code>VariableSpeed</code> and refactored to support plants
+    with polyvalent heat pumps.<br />
+    This is for
+    <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4512\">#4512</a>.
   </li>
   <li>
     May 31, 2024, by Antoine Gautier:<br />
