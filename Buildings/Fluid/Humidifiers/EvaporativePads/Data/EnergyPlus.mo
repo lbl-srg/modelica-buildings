@@ -1,24 +1,24 @@
 within Buildings.Fluid.Humidifiers.EvaporativePads.Data;
 record EnergyPlus
-  "Data for CELdek EnergyPlus typical evaporative pad with varying pad depth"
+  "Data for an evaporative pad from the EnergyPlus engineering reference with varying pad depth"
   extends Buildings.Fluid.Humidifiers.EvaporativePads.Data.Generic (
     final efficiency(
       v={0,0.5,1,1.5,2,2.5,3,3.5,4,4.5,5},
-      eta={0.7927+0.9586*dep-1.0321*dep^2+0.0*dep^3,
-        0.6733+1.4136*dep-1.7693*dep^2+0.5293*dep^3,
-        0.567+1.8544*dep-2.4818*dep^2+0.986*dep^3,
-        0.4739+2.2668*dep-3.1452*dep^2+1.3699*dep^3,
-        0.3939+2.6364*dep-3.7349*dep^2+1.6812*dep^3,
-        0.3271+2.949*dep-4.2263*dep^2+1.9198*dep^3,
-        0.2733+3.1904*dep-4.5948*dep^2+2.0857*dep^3,
-        0.2327+3.3463*dep-4.8159*dep^2+2.1788*dep^3,
-        0.2052+3.4026*dep-4.865*dep^2+2.1993*dep^3,
-        0.1909+3.3448*dep-4.7175*dep^2+2.1471*dep^3,
-        0.1897+3.1589*dep-4.3489*dep^2+2.0222*dep^3}),
-    final dp_nominal=160*dep/0.15,
+      eta={0.7927+0.9586*d-1.0321*d^2+0.0*d^3,
+        0.6733+1.4136*d-1.7693*d^2+0.5293*d^3,
+        0.567+1.8544*d-2.4818*d^2+0.986*d^3,
+        0.4739+2.2668*d-3.1452*d^2+1.3699*d^3,
+        0.3939+2.6364*d-3.7349*d^2+1.6812*d^3,
+        0.3271+2.949*d-4.2263*d^2+1.9198*d^3,
+        0.2733+3.1904*d-4.5948*d^2+2.0857*d^3,
+        0.2327+3.3463*d-4.8159*d^2+2.1788*d^3,
+        0.2052+3.4026*d-4.865*d^2+2.1993*d^3,
+        0.1909+3.3448*d-4.7175*d^2+2.1471*d^3,
+        0.1897+3.1589*d-4.3489*d^2+2.0222*d^3}),
+    final dp_nominal=95.545*d*3.5^1.9259,
     final v_nominal=3.5,
     final n=1.9259);
-  parameter Modelica.Units.SI.Length dep = 0.1524
+  parameter Modelica.Units.SI.Length d = 0.1524
     "Depth of the rigid media evaporative pad";
   annotation (
 defaultComponentPrefixes="parameter",
@@ -45,24 +45,24 @@ the pad is as follows:
 </p>
 <p>
 Data point pairs of saturation efficiency vs. air velocity are digitized from this
-curve fitting equation for a specific pad depth. Data point pairs include air
-velocity values between <i>0 - 4.575 m/s</i>.
+curve fitting equation. However, the pad depth remains a parameter that users can 
+modify. Data point pairs include air velocity values between <i>0 - 5 m/s</i>.
 </p>
 <p>
 The EnergyPlus 23.1 engineering reference does not specify the pressure drop through
-evaporative pads as a function of air velocity and pad depth. However, an equation
-of the following form is used:
+evaporative pads as a function of air velocity <i>v</i> and pad depth <i>d</i>.
+However, an equation of the following form is used:
 </p>
 <p align=\"center\">
 <i>dp = a&sdot;d&sdot;v<sup>n</sup></i>
 </p>
 <p>
-By setting <i>a = 78.74 Pa&sdot;m<sup>-1</sup>&sdot;(m/s)<sup>-n</sup></i> and
-<i>n = 1.8</i>, the pressure drop <i>dp</i> aligns with the values from the 
+By setting <i>a = 95.545 Pa&sdot;m<sup>-1</sup>&sdot;(m/s)<sup>-n</sup></i> and
+<i>n = 1.9259</i>, the pressure drop <i>dp</i> aligns with the values from the 
 <a href=\"https://munters.sies.si/images/pdf/celdek7090.pdf\">CELdek 7090-15
-evaporative pad</a> product. With nominal air velocity <i>v_nominal = 4.575 m/s</i>, 
-the nominal pressure drop <i>dp_nominal</i> can be calculated with the above pressure drop equation 
-if the depth of the evaporative pad <i>d</i> is known.
+150mm evaporative pad</a> product. With nominal air velocity <i>v_nominal =
+3.5 m/s</i>, the nominal pressure drop <i>dp_nominal</i> can be calculated with the
+above pressure drop equation if the depth of the evaporative pad <i>d</i> is known.
 </p>
 </html>", revisions="<html>
 <ul>

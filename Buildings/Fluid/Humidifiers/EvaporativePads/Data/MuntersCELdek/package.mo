@@ -4,7 +4,8 @@ package MuntersCELdek
   extends Modelica.Icons.Package;
   annotation (Documentation(info="<html>
 <p>
-This package contains performance data for CELdek evaporative pads developed by Munters.
+This package contains performance data for CELdek evaporative pads developed by
+Munters.
 </p>
 </html>"));
 end MuntersCELdek;

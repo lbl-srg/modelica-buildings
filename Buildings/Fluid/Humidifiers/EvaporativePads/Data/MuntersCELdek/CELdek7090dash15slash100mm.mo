@@ -1,6 +1,6 @@
 within Buildings.Fluid.Humidifiers.EvaporativePads.Data.MuntersCELdek;
 record CELdek7090dash15slash100mm
-  "Data for CELdek EnergyPlus typical 12-inch evaporative pad"
+  "Data for CELdek 7090-15/100mm evaporative pad"
   extends Buildings.Fluid.Humidifiers.EvaporativePads.Data.Generic (
     final efficiency(
       v={0,0.5,1,1.5,2,2.5,3,3.5,4,5,10},
@@ -14,24 +14,40 @@ defaultComponentPrefixes="parameter",
 defaultComponentName="per",
 Documentation(info="<html>
 <p>
-Performance data for a 12-inch evaporative pad. 
-The data points are digitised from
-<a href=\"https://content.greenheck.com/public/DAMProd/Original/10002/CentrifugalDWPerfSuppl_catalog.pdf\">
-https://content.greenheck.com/public/DAMProd/Original/10002/CentrifugalDWPerfSuppl_catalog.pdf</a>.
-The highest available speeds on the graphs were selected as nominal.
-The volumetric flow rates and static pressures were extracted by plot digitiser
-(<a href=\"https://apps.automeris.io/wpd/\">https://apps.automeris.io/wpd/</a>).
-The powers were read from the graphs approximately using
-<a href=\"https://eleif.net/photo_measure.html\">
-https://eleif.net/photo_measure.html</a>.
-For each pressure-flow rate curve, the points to the left of the highest point
-were abandoned to ensure convergence.
-See <a href=\"modelica://Buildings.Fluid.Movers.UsersGuide\">Buildings.Fluid.Movers.UsersGuide</a>
-and <a href=\"modelica://Buildings/Resources/Images/Fluid/Movers/UsersGuide/2013-IBPSA-Wetter.pdf\">Wetter (2013)</a>
-for more information on the convergence considerations.
-Also note that in the actual names of each fan,
-the number precedes the letters (e.g. \"12 BIDW\").
-They had to be reversed in class names of the records.
+This data record contains performance data for a CELdek 7090-15/100mm evaporative
+pad. 
+</p>
+<p>
+The data points are digitized from
+<a href=\"https://munters.sies.si/images/pdf/celdek7090.pdf\">
+https://munters.sies.si/images/pdf/celdek7090.pdf</a>. Data points for pressure drop
+were extracted from the graph for air velocities between <i>0.74 - 4.5 m/s</i>. An
+equation of the following form was fitted into the pressure drop data points:
+</p>
+<p align=\"center\">
+<i>dp = a&sdot;v<sup>n</sup></i>
+</p>
+<p>
+We found <i>a = 9.5970</i> and <i>n = 1.9259</i>. By setting the nominal air
+velocity <i>v_nominal = 4.5 m/s</i> and plug this into the fitted equation, the
+nominal pressure drop <i>dp_nominal = 173.84 Pa</i>. Only <i>dp_nominal</i>,
+<i>v_nominal</i>, and the flow exponent for pressure drop <i>n</i> are included in
+this data record.
+</p>
+<p>
+Data points for saturation efficiency were extracted from the graph for air
+velocities between <i>0.5 - 4 m/s</i>. An equation of the following form was fitted
+into the saturation efficiency data points:
+</p>
+<p align=\"center\">
+<i>&eta; = e<sup>-b &sdot; (v - c)</sup></i>
+</p>
+<p>
+We found <i>b = 0.08318623</i> and <i>c = -2.15514767</i>. This fitted equation was
+used to calculate the saturation efficiency for air velocities at <i>0 m/s</i>,
+<i>5 m/s</i>, and <i>10 m/s</i>. These additional saturation efficiency values were
+then added to the original set of saturation efficiency data points in this data
+record.
 </p>
 </html>", revisions="<html>
 <ul>
