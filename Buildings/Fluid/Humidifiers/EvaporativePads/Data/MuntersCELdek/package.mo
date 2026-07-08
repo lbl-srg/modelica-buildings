@@ -1,6 +1,6 @@
 within Buildings.Fluid.Humidifiers.EvaporativePads.Data;
-package CELdekEnergyPlus
-  "Package of CELdek evaporative pad performance data in EnergyPlus"
+package MuntersCELdek
+  "Package of CELdek evaporative pad performance data from manufacturers"
   extends Modelica.Icons.Package;
   annotation (Documentation(info="<html>
 <p>
@@ -44,4 +44,4 @@ the nominal pressure drop <i>dp_nominal</i> can be calculated with the above pre
 if the depth of the evaporative pad <i>d</i> is known.
 </p>
 </html>"));
-end CELdekEnergyPlus;
+end MuntersCELdek;

@@ -4,8 +4,8 @@ model EvaporativePadInterface
   extends Modelica.Icons.Example;
   Buildings.Fluid.Humidifiers.EvaporativePads.Baseclasses.EvaporativePadInterface
     evaPadInt(redeclare
-      Buildings.Fluid.Humidifiers.EvaporativePads.Data.Generic per)
-    "Model for the evaporative pad interface"
+      Buildings.Fluid.Humidifiers.EvaporativePads.Data.EvapcoTest.ManufacturerA6inchVersion1
+      per) "Model for the evaporative pad interface"
     annotation (Placement(transformation(extent={{20,0},{40,20}})));
   Modelica.Blocks.Sources.Ramp v(
     height=12.5,
