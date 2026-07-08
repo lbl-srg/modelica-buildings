@@ -1,4 +1,4 @@
-last-generated=2026-07-07
+last-generated=2022-09-10
 statistics-fmu-dependencies=
 {
   "Derivatives": {
@@ -48,6 +48,9 @@ statistics-fmu-dependencies=
       "theCon.G",
       "preHea.T_ref",
       "preHea.alpha",
+      "vol.p_start",
+      "vol.T_start",
+      "vol.X_start[1]",
       "TOutSou.k"
     ],
     "der(vol.dynBal.m)": [
@@ -65,45 +68,51 @@ statistics-fmu-dependencies=
       "fluPor[1].m_flow",
       "fluPor[1].forward.X_w",
       "fluPor[2].m_flow",
-      "fluPor[2].forward.X_w"
+      "fluPor[2].forward.X_w",
+      "V",
+      "vol.p_start",
+      "vol.X_start[1]"
     ],
     "fluPor[1].backward.C[1]": [
       "vol.C_start[1]"
     ],
-    "fluPor[1].backward.T": [],
-    "fluPor[1].backward.X_w": [],
+    "fluPor[1].backward.T": [
+      "vol.p_start",
+      "vol.T_start",
+      "vol.X_start[1]"
+    ],
+    "fluPor[1].backward.X_w": [
+      "vol.X_start[1]"
+    ],
     "fluPor[2].backward.C[1]": [
       "vol.C_start[1]"
     ],
-    "fluPor[2].backward.T": [],
-    "fluPor[2].backward.X_w": [],
-    "res1.C": [],
-    "res1.a1": [],
-    "res1.a3": [],
-    "res1.a5": [],
-    "res1.b1": [],
-    "res1.b3": [],
-    "res1.b5": [],
-    "res1.dp_turbulent": [],
-    "res1.m": [],
-    "res2.C": [],
-    "res2.a1": [],
-    "res2.a3": [],
-    "res2.a5": [],
-    "res2.b1": [],
-    "res2.b3": [],
-    "res2.b5": [],
-    "res2.dp_turbulent": [],
-    "res2.m": [],
-    "theZonAda.assEqu.t0": [
-      "theZonAda.assEqu.startTime"
+    "fluPor[2].backward.T": [
+      "vol.p_start",
+      "vol.T_start",
+      "vol.X_start[1]"
     ],
-    "vol.dynBal.U": [],
-    "vol.dynBal.m": [],
+    "fluPor[2].backward.X_w": [
+      "vol.X_start[1]"
+    ],
+    "vol.dynBal.U": [
+      "V",
+      "vol.p_start",
+      "vol.T_start",
+      "vol.X_start[1]"
+    ],
+    "vol.dynBal.m": [
+      "V",
+      "vol.p_start"
+    ],
     "vol.dynBal.mC[1]": [
+      "V",
+      "vol.p_start",
       "vol.C_start[1]"
     ],
-    "vol.dynBal.medium.Xi[1]": []
+    "vol.dynBal.medium.Xi[1]": [
+      "vol.X_start[1]"
+    ]
   },
   "Outputs": {
     "TOut": [],

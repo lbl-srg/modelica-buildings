@@ -1,4 +1,4 @@
-last-generated=2026-07-07
+last-generated=2019-04-17
 statistics-fmu-dependencies=
 {
   "Derivatives": {
@@ -27,37 +27,32 @@ statistics-fmu-dependencies=
       "theCon.G",
       "preHea.T_ref",
       "preHea.alpha",
+      "vol.p_start",
+      "vol.T_start",
       "TOutSou.k"
     ],
     "der(vol.dynBal.m)": [
       "fluPor[1].m_flow",
       "fluPor[2].m_flow"
     ],
-    "fluPor[1].backward.T": [],
-    "fluPor[2].backward.T": [],
-    "res1.C": [],
-    "res1.a1": [],
-    "res1.a3": [],
-    "res1.a5": [],
-    "res1.b1": [],
-    "res1.b3": [],
-    "res1.b5": [],
-    "res1.dp_turbulent": [],
-    "res1.m": [],
-    "res2.C": [],
-    "res2.a1": [],
-    "res2.a3": [],
-    "res2.a5": [],
-    "res2.b1": [],
-    "res2.b3": [],
-    "res2.b5": [],
-    "res2.dp_turbulent": [],
-    "res2.m": [],
-    "theZonAda.assEqu.t0": [
-      "theZonAda.assEqu.startTime"
+    "fluPor[1].backward.T": [
+      "vol.p_start",
+      "vol.T_start"
     ],
-    "vol.dynBal.U": [],
-    "vol.dynBal.m": []
+    "fluPor[2].backward.T": [
+      "vol.p_start",
+      "vol.T_start"
+    ],
+    "vol.dynBal.U": [
+      "V",
+      "vol.p_start",
+      "vol.T_start"
+    ],
+    "vol.dynBal.m": [
+      "V",
+      "vol.p_start",
+      "vol.T_start"
+    ]
   },
   "Outputs": {
     "TOut": [],
