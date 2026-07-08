@@ -1703,7 +1703,7 @@ block AirToWater
     if have_chiWat
     "CHW plant reset"
     annotation(Placement(transformation(extent={{50,-50},{70,-30}})));
-  Pumps.Primary.VariableSpeedHeatPumps ctlPumPri(
+  Pumps.Primary.VariableSpeedWithHeatPumps ctlPumPri(
     final have_heaWat=have_heaWat,
     final have_chiWat=have_chiWat,
     final have_pumPriCtlDp=have_pumPriCtlDp,
@@ -1731,7 +1731,7 @@ block AirToWater
     final yPumHeaWatPri_min=yPumHeaWatPri_min)
     if have_pumHeaWatPriVar or have_pumChiWatPriVar
     "Primary pump speed control"
-    annotation(Placement(transformation(extent={{190,54},{210,98}})));
+    annotation (Placement(transformation(extent={{190,54},{210,98}})));
   Pumps.Generic.ControlDifferentialPressure ctlPumHeaWatSec(
     final have_senDpRemWir=have_senDpHeaWatRemWir,
     final nPum=nPumHeaWatSec,

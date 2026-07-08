@@ -1,5 +1,5 @@
 within Buildings.Templates.Plants.Controls.Pumps.Primary;
-block VariableSpeedHeatPumps
+block VariableSpeedWithHeatPumps
   "Variable speed primary pumps in heat pump plants"
   parameter Boolean have_heaWat
     "Set to true for plants that provide HW"
@@ -859,4 +859,4 @@ HP when the dedicated pump is enabled")}),
   </li>
 </ul>
 </html>"));
-end VariableSpeedHeatPumps;
+end VariableSpeedWithHeatPumps;

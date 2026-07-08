@@ -1,7 +1,7 @@
 within Buildings.Templates.Plants.Controls.Pumps.Primary.Validation;
-model VariableSpeedHeatPumps
+model VariableSpeedWithHeatPumps
   "Validation model for the control logic of variable speed primary pumps in heat pump plants"
-  Buildings.Templates.Plants.Controls.Pumps.Primary.VariableSpeedHeatPumps
+  Buildings.Templates.Plants.Controls.Pumps.Primary.VariableSpeedWithHeatPumps
     ctlPumPriHdrHea(
     have_heaWat=true,
     have_chiWat=false,
@@ -11,6 +11,7 @@ model VariableSpeedHeatPumps
     have_pumPriHdr=true,
     nPumHeaWatPri=2,
     nPumChiWatPri=0,
+    yPumHeaWatPriHdrSet=1,
     yPumHeaWatPriDedHpSet=0.8)
     "Headered primary pumps without Δp control – Heating-only plant"
     annotation (Placement(transformation(extent={{0,52},{20,96}})));
@@ -28,7 +29,7 @@ model VariableSpeedHeatPumps
     period=3500)
     "Command signal – Plant, equipment or isolation valve depending on tested configuration"
     annotation(Placement(transformation(extent={{-100,-10},{-80,10}})));
-  Buildings.Templates.Plants.Controls.Pumps.Primary.VariableSpeedHeatPumps
+  Buildings.Templates.Plants.Controls.Pumps.Primary.VariableSpeedWithHeatPumps
     ctlPumPriHdr(
     have_heaWat=true,
     have_chiWat=true,
@@ -36,6 +37,8 @@ model VariableSpeedHeatPumps
     nPhp=0,
     have_pumPriCtlDp=false,
     have_pumPriHdr=true,
+    yPumHeaWatPriHdrSet=1,
+    yPumChiWatPriHdrSet=1,
     yPumHeaWatPriDedHpSet=0.8,
     yPumChiWatPriDedHpSet=0.9,
     nPumHeaWatPri=2,
@@ -45,7 +48,7 @@ model VariableSpeedHeatPumps
   Buildings.Controls.OBC.CDL.Logical.Not u1Coo[2]
     "Opposite signal to generate cooling system commands"
     annotation(Placement(transformation(extent={{-50,-10},{-30,10}})));
-  Buildings.Templates.Plants.Controls.Pumps.Primary.VariableSpeedHeatPumps
+  Buildings.Templates.Plants.Controls.Pumps.Primary.VariableSpeedWithHeatPumps
     ctlPumPriDedCom(
     have_heaWat=true,
     have_chiWat=true,
@@ -59,7 +62,7 @@ model VariableSpeedHeatPumps
     yPumChiWatPriDedHpSet=0.9)
     "Common dedicated primary pumps without Δp control – Heating and cooling plant"
     annotation (Placement(transformation(extent={{0,-74},{20,-30}})));
-  Buildings.Templates.Plants.Controls.Pumps.Primary.VariableSpeedHeatPumps
+  Buildings.Templates.Plants.Controls.Pumps.Primary.VariableSpeedWithHeatPumps
     ctlPumPriDedSep(
     have_heaWat=true,
     have_chiWat=true,
@@ -74,7 +77,8 @@ model VariableSpeedHeatPumps
     yPumChiWatPriDedHpSet=0.9)
     "Separate dedicated primary pumps without Δp control – Heating and cooling plant"
     annotation (Placement(transformation(extent={{0,-136},{20,-92}})));
-  Buildings.Templates.Plants.Controls.Pumps.Primary.VariableSpeedHeatPumps ctlPumPriHdrHeaDp(
+  Buildings.Templates.Plants.Controls.Pumps.Primary.VariableSpeedWithHeatPumps
+    ctlPumPriHdrHeaDp(
     have_heaWat=true,
     have_chiWat=false,
     nHp=2,
@@ -86,7 +90,7 @@ model VariableSpeedHeatPumps
     have_senDpHeaWatRemWir=false,
     nSenDpHeaWatRem=2)
     "Headered primary pumps with Δp control – Heating-only plant"
-    annotation(Placement(transformation(extent={{70,52},{90,96}})));
+    annotation (Placement(transformation(extent={{70,52},{90,96}})));
   Buildings.Controls.OBC.CDL.Reals.Sources.TimeTable ratDp(
     table=[0, 0.1, 0.5; 1, 1, 0.5; 1.5, 1, 0.2; 2, 0.1, 0.1],
     timeScale=3600)
@@ -104,7 +108,8 @@ model VariableSpeedHeatPumps
   Buildings.Controls.OBC.CDL.Reals.Add dp[2]
     "Differential pressure"
     annotation(Placement(transformation(extent={{-10,110},{10,130}})));
-  Buildings.Templates.Plants.Controls.Pumps.Primary.VariableSpeedHeatPumps ctlPumPriHdrDp(
+  Buildings.Templates.Plants.Controls.Pumps.Primary.VariableSpeedWithHeatPumps
+    ctlPumPriHdrDp(
     have_heaWat=true,
     have_chiWat=true,
     nHp=2,
@@ -118,8 +123,9 @@ model VariableSpeedHeatPumps
     have_senDpChiWatRemWir=true,
     nSenDpChiWatRem=2)
     "Headered primary pumps with Δp control – Heating and cooling plant"
-    annotation(Placement(transformation(extent={{70,-14},{90,30}})));
-  Buildings.Templates.Plants.Controls.Pumps.Primary.VariableSpeedHeatPumps ctlPumPriDedComDp(
+    annotation (Placement(transformation(extent={{70,-14},{90,30}})));
+  Buildings.Templates.Plants.Controls.Pumps.Primary.VariableSpeedWithHeatPumps
+    ctlPumPriDedComDp(
     have_heaWat=true,
     have_chiWat=true,
     have_pumChiWatPriDedHp=false,
@@ -133,7 +139,7 @@ model VariableSpeedHeatPumps
     have_senDpChiWatRemWir=false,
     nSenDpChiWatRem=2)
     "Common dedicated primary pumps with Δp control – Heating and cooling plant"
-    annotation(Placement(transformation(extent={{70,-74},{90,-30}})));
+    annotation (Placement(transformation(extent={{70,-74},{90,-30}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.TimeTable u1Hea(
     table=[
       0, 0, 0;
@@ -148,7 +154,7 @@ model VariableSpeedHeatPumps
     period=5000)
     "Heating mode command signal"
     annotation(Placement(transformation(extent={{-100,-150},{-80,-130}})));
-  Buildings.Templates.Plants.Controls.Pumps.Primary.VariableSpeedHeatPumps
+  Buildings.Templates.Plants.Controls.Pumps.Primary.VariableSpeedWithHeatPumps
     ctlPumPriDedSepDp(
     have_heaWat=true,
     have_chiWat=true,
@@ -286,7 +292,7 @@ equation
     annotation(Line(points={{-78,0},{-60,0},{-60,40},{40,40},{40,-40},{68,-40}},
       color={255,0,255}));
 annotation(__Dymola_Commands(
-  file="modelica://Buildings/Resources/Scripts/Dymola/Templates/Plants/Controls/Pumps/Primary/Validation/VariableSpeedHeatPumps.mos"
+  file="modelica://Buildings/Resources/Scripts/Dymola/Templates/Plants/Controls/Pumps/Primary/Validation/VariableSpeedWithHeatPumps.mos"
     "Simulate and plot"),
   experiment(StopTime=5000.0,
     Tolerance=1e-06),
@@ -294,8 +300,8 @@ annotation(__Dymola_Commands(
     info="<html>
 <p>
   This model validates
-  <a href=\"modelica://Buildings.Templates.Plants.Controls.Pumps.Primary.VariableSpeedHeatPumps\">
-    Buildings.Templates.Plants.Controls.Pumps.Primary.VariableSpeedHeatPumps</a>
+  <a href=\"modelica://Buildings.Templates.Plants.Controls.Pumps.Primary.VariableSpeedWithHeatPumps\">
+    Buildings.Templates.Plants.Controls.Pumps.Primary.VariableSpeedWithHeatPumps</a>
   with two plant equipment and two primary pumps and for the following
   configurations.
 </p>
@@ -347,4 +353,4 @@ annotation(__Dymola_Commands(
     grid={2,2}),
     graphics={Polygon(points={{214,66},{214,66}},
       lineColor={28,108,200})}));
-end VariableSpeedHeatPumps;
+end VariableSpeedWithHeatPumps;

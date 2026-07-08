@@ -8,10 +8,14 @@ compareVars :=
     "y1DowHol.y",
     "idxSta.y",
     "chaSta.uStaOpp",
-    "enaEquShc.y1Hp[1]",
-    "enaEquShc.y1Hp[2]",
-    "enaEquShc.y1Shc1[1]",
-    "enaEquShc.y1Shc1[2]",
-    "enaEquShc.y1Shc2[1]",
-    "enaEquShc.y1Shc2[2]"
+    "selMod.y1HeaHp[1]",
+    "selMod.y1HeaHp[2]",
+    "selMod.y1CooHp[1]",
+    "selMod.y1CooHp[2]",
+    "selMod.y1HeaPhp[1]",
+    "selMod.y1HeaPhp[2]",
+    "selMod.y1CooPhp[1]",
+    "selMod.y1CooPhp[2]",
+    "selMod.y1ShcPhp[1]",
+    "selMod.y1ShcPhp[2]"
   };

@@ -1,8 +1,8 @@
-simulateModel("Buildings.Templates.Plants.Controls.Pumps.Primary.Validation.VariableSpeedHeatPumps",
+simulateModel("Buildings.Templates.Plants.Controls.Pumps.Primary.Validation.VariableSpeedWithHeatPumps",
     method="cvode",
     tolerance=1e-6,
     stopTime=5000.0,
-    resultFile="PumpsPrimaryVariableSpeedHeatPumps");
+    resultFile="PumpsPrimaryVariableSpeedWithHeatPumps");
 createPlot(
     id=1,
     subPlot=1,
