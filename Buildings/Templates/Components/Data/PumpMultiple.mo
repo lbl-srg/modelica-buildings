@@ -24,11 +24,17 @@ record PumpMultiple "Record for multiple-pump models"
     "Total pressure rise - Each pump"
     annotation (Dialog(group="Nominal condition",
     enable=typ<>Buildings.Templates.Components.Types.Pump.None));
+  // HACK: The following parameter declaration and corresponding binding with
+  // per.pressure.V_flow is a workaround against a false positive model
+  // check error with Dymola 2026.x.
+  final parameter Modelica.Units.SI.VolumeFlowRate VPer_flow[:, :] =
+    {{0, 1, 2} * m_flow_nominal[i] / rho_default for i in 1:nPum}
+    "Volume flow rate support points for performance curve";
   // To avoid missing support for zero-sized record in case of nPum=0 we use max(nPum, 1).
   replaceable parameter Fluid.Movers.Data.Generic per[max(nPum, 1)](
     pressure(
       V_flow=if typ<>Buildings.Templates.Components.Types.Pump.None then
-      {{0, 1, 2} * m_flow_nominal[i] / rho_default for i in 1:nPum} else [0],
+      VPer_flow else [0],
       dp=if typ<>Buildings.Templates.Components.Types.Pump.None then
       {{1.14, 1, 0.42} * dp_nominal[i] for i in 1:nPum} else [0]))
     constrainedby Buildings.Fluid.Movers.Data.Generic

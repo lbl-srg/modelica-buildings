@@ -26,10 +26,16 @@ record Fan "Record for fan model"
     "Total pressure rise"
     annotation (
     Dialog(group="Nominal condition",
-    enable=typ <> Buildings.Templates.Components.Types.Fan.None));
+      enable=typ <> Buildings.Templates.Components.Types.Fan.None));
+  // HACK: The following parameter declaration and corresponding binding with
+  // per.pressure.V_flow is a workaround against a false positive model
+  // check error with Dymola 2026.x.
+  final parameter Modelica.Units.SI.VolumeFlowRate VPer_flow[:] =
+    {0, 1, 2} * m_flow_nominal / 1.2 / max(1, nFan)
+    "Volume flow rate support points for performance curve";
   replaceable parameter Buildings.Fluid.Movers.Data.Generic per(
     pressure(
-      V_flow={0, 1, 2} * m_flow_nominal / 1.2 / max(1, nFan),
+      V_flow=VPer_flow,
       dp={1.5, 1, 0} * dp_nominal))
     constrainedby Buildings.Fluid.Movers.Data.Generic
     "Performance data"
