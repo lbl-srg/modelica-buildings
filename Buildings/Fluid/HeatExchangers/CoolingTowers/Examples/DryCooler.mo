@@ -1,0 +1,79 @@
+within Buildings.Fluid.HeatExchangers.CoolingTowers.Examples;
+model DryCooler
+  "Test model for dry cooler using epsilon-NTU heat transfer correlation"
+  extends Modelica.Icons.Example;
+  extends BaseClasses.PartialStaticTwoPortCoolingTower(
+    redeclare CoolingTowers.DryCooler tow(dat=dat),
+    weaDat(final computeWetBulbTemperature=false));
+
+  parameter Buildings.Fluid.HeatExchangers.CoolingTowers.Data.DryCooler.Generic
+    dat(
+    Q_flow_nominal=-m_flow_nominal*4200*(35 - 30),
+    TCooIn_nominal=308.15,
+    TCooOut_nominal=303.15,
+    dp_nominal=6000,
+    TAirIn_nominal=298.15) "Performance data for dry cooler"
+    annotation (Placement(transformation(extent={{80,-60},{100,-40}})));
+
+  Modelica.Blocks.Sources.Constant TSetLea(k=273.15 + 18)
+    "Setpoint for leaving temperature"
+    annotation (Placement(transformation(extent={{-80,0},{-60,20}})));
+  Controls.Continuous.LimPID conFan(
+    k=1,
+    Ti=60,
+    Td=10,
+    reverseActing=false,
+    initType=Modelica.Blocks.Types.Init.InitialState)
+    "Controller for tower fan"
+    annotation (Placement(transformation(extent={{-40,0},{-20,20}})));
+equation
+  connect(TSetLea.y, conFan.u_s) annotation (Line(
+      points={{-59,10},{-42,10}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(conFan.y, tow.y) annotation (Line(
+      points={{-19,10},{10,10},{10,-42},{20,-42}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(tow.TLvg, conFan.u_m) annotation (Line(
+      points={{43,-56},{50,-56},{50,-20},{-30,-20},{-30,-2}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(weaBus.TDryBul, tow.TDryBul) annotation (Line(
+      points={{-60,50},{0,50},{0,-46},{20,-46}},
+      color={255,204,51},
+      thickness=0.5), Text(
+      string="%first",
+      index=-1,
+      extent={{-6,3},{-6,3}},
+      horizontalAlignment=TextAlignment.Right));
+annotation(Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-140,-260},
+            {140,100}}),
+                      graphics),
+experiment(StartTime=15552000, StopTime=15638400, Tolerance=1e-06),
+__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/HeatExchangers/CoolingTowers/Examples/DryCooler.mos"
+        "Simulate and plot"),
+    Icon(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{100,
+            100}})),
+    Documentation(info="<html>
+<p>
+This example illustrates the use of the dry cooler model
+<a href=\"modelica://Buildings.Fluid.HeatExchangers.CoolingTowers.DryCooler\">
+Buildings.Fluid.HeatExchangers.CoolingTowers.DryCooler</a>.
+Heat is injected into the volume <code>vol</code>. An on/off controller
+switches the cooling loop water pump on or off based on the temperature of
+this volume.
+The dry cooler outlet temperature is controlled to track a fixed temperature.
+The thermal performance of the dry cooler is specified through the data record
+<a href=\"modelica://Buildings.Fluid.HeatExchangers.CoolingTowers.Data.DryCooler.Generic\">
+Buildings.Fluid.HeatExchangers.CoolingTowers.Data.DryCooler.DryCooler</a>.
+</p>
+</html>", revisions="<html>
+<ul>
+<li>
+April 21, 2026, by Michael Wetter:<br/>
+First implementation.
+</li>
+</ul>
+</html>"));
+end DryCooler;

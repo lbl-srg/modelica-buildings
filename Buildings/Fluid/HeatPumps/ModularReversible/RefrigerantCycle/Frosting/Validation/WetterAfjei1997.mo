@@ -14,7 +14,9 @@ model WetterAfjei1997
     sigBus1
     "Bus-connector used in a heat pump"
     annotation (Placement(transformation(extent={{-48,-20},{-8,20}})));
-  Modelica.Blocks.Sources.Constant const(final k=0)
+  Modelica.Blocks.Sources.Constant const(
+    final k=0,
+    y(unit="kg/s"))
     "Values are irrelevant for the function"
     annotation (Placement(transformation(extent={{-80,20},{-60,40}})));
   Modelica.Blocks.Sources.Ramp ramp(
@@ -30,6 +32,11 @@ model WetterAfjei1997
   Modelica.Blocks.Interfaces.RealOutput iceFacAir
     "Icing factor from 0 to 1 to estimate influence of icing"
     annotation (Placement(transformation(extent={{100,-30},{120,-10}})));
+  Modelica.Blocks.Sources.Constant const1(
+    final k=0,
+    y(unit="K"))
+    "Values are irrelevant for the function"
+    annotation (Placement(transformation(extent={{-80,60},{-60,80}})));
 equation
   connect(iceFacWatSou.iceFac, iceFacWat)
     annotation (Line(points={{41,20},{110,20}}, color={0,0,127}));
@@ -43,12 +50,6 @@ equation
       index=1,
       extent={{6,3},{6,3}},
       horizontalAlignment=TextAlignment.Left));
-  connect(const.y, sigBus1.TEvaOutMea) annotation (Line(points={{-59,30},{-28,30},
-          {-28,0}}, color={0,0,127}), Text(
-      string="%second",
-      index=1,
-      extent={{-3,-6},{-3,-6}},
-      horizontalAlignment=TextAlignment.Right));
   connect(ramp.y, sigBus1.TEvaInMea) annotation (Line(points={{-59,-30},{-28,-30},
           {-28,0}}, color={0,0,127}), Text(
       string="%second",
@@ -65,6 +66,12 @@ equation
       index=1,
       extent={{-6,3},{-6,3}},
       horizontalAlignment=TextAlignment.Right));
+  connect(const1.y, sigBus1.TEvaOutMea) annotation (Line(points={{-59,70},{-28,
+          70},{-28,0}}, color={0,0,127}), Text(
+      string="%second",
+      index=1,
+      extent={{2,2},{2,5}},
+      horizontalAlignment=TextAlignment.Left));
   annotation (   __Dymola_Commands(file=
      "modelica://Buildings/Resources/Scripts/Dymola/Fluid/HeatPumps/ModularReversible/RefrigerantCycle/Frosting/Validation/WetterAfjei1997.mos"
         "Simulate and plot"),
@@ -86,11 +93,16 @@ https://simulationresearch.lbl.gov/wetter/download/type204_hp.pdf</a>
 </p>
 </html>", revisions="<html>
 <ul>
-  <li>
-  April 17, 2025, by Fabian Wuellhorst:<br/>
-    First implementation, see
-    <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1975\">IBPSA #1975</a>
-  </li>
+<li>
+March 31, 2026, by Michael Wetter:<br/>
+Corrected unit propagation error that causes Dymola 2026x to not show certain units.<br/>
+See <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/2100\">#2100</a>.
+</li>
+<li>
+April 17, 2025, by Fabian Wuellhorst:<br/>
+First implementation, see
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1975\">IBPSA #1975</a>
+</li>
 </ul>
 </html>"));
 end WetterAfjei1997;

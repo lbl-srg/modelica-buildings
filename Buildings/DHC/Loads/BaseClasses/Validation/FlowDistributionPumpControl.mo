@@ -20,9 +20,8 @@ model FlowDistributionPumpControl
   parameter Modelica.Units.SI.Temperature T_aHeaWat_nominal=273.15 + 40
     "Heating water inlet temperature at nominal conditions"
     annotation (Dialog(group="Nominal condition"));
-  parameter Modelica.Units.SI.Temperature T_bHeaWat_nominal(
-    min=273.15,
-    displayUnit="degC") = T_aHeaWat_nominal - 5
+  parameter Modelica.Units.SI.Temperature T_bHeaWat_nominal(min=273.15)=
+    T_aHeaWat_nominal - 5
     "Heating water outlet temperature at nominal conditions"
     annotation (Dialog(group="Nominal condition"));
   parameter Modelica.Units.SI.Temperature T_aLoaHea_nominal=273.15 + 20
@@ -91,10 +90,14 @@ model FlowDistributionPumpControl
     final mDis_flow_nominal=m_flow_nominal,
     final mCon_flow_nominal=mCon_flow_nominal,
     mEnd_flow_nominal=m_flow_nominal,
-    lDis=fill(25, nLoa),
-    lEnd=1) "Distribution network"
+    lDis=cat(
+        1,
+        {0.2},
+        fill(0.8/(nLoa - 1), nLoa - 1))*(dp_nominal - dpSet)/(dis.dp_length_nominal
+        *2),
+    lEnd=0) "Distribution network"
     annotation (Placement(transformation(extent={{40,-180},{80,-160}})));
-  Buildings.Fluid.Movers.Preconfigured.FlowControlled_dp pumCstDp(
+  Fluid.Movers.Preconfigured.SpeedControlled_y           pumCstDp(
     redeclare package Medium=Medium1,
     m_flow_nominal=m_flow_nominal,
     dp_nominal=dp_nominal)
@@ -204,7 +207,10 @@ model FlowDistributionPumpControl
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant setDp(
     k=dpSet)
     "Pressure difference set-point"
-    annotation (Placement(transformation(extent={{-180,-140},{-160,-120}})));
+    annotation (Placement(transformation(extent={{-180,-130},{-160,-110}})));
+  Buildings.Controls.OBC.CDL.Reals.PID ctlDp(
+    r=dpSet) "Delta-p controller"
+    annotation (Placement(transformation(extent={{-110,-130},{-90,-110}})));
 protected
   parameter Medium1.ThermodynamicState sta_default=Medium1.setState_pTX(
     T=Medium1.T_default,
@@ -283,28 +289,50 @@ equation
   connect(dis.port_bDisRet,supHeaWat.ports[1])
     annotation (Line(points={{40,-176},{20,-176},{20,-200},{-120,-200},{-120,-181}},color={0,127,255}));
   connect(supHeaWat.ports[2],vol.ports[2])
-    annotation (Line(points={{-120,-179},{-120,-174},{-80,-174},{-80,-160},{-48,
-          -160}},                                                                      color={0,127,255}));
+    annotation (Line(points={{-120,-179},{-120,-160},{-48,-160}},                      color={0,127,255}));
   connect(THeaWatSup.y,supHeaWat.T_in)
     annotation (Line(points={{-158,0},{-152,0},{-152,-176},{-142,-176}},color={0,0,127}));
   connect(minTSet.y,reaRep.u)
     annotation (Line(points={{-158,70},{-130,70}},color={0,0,127}));
-  connect(dis.dp,pumCstDp.dpMea)
-    annotation (Line(points={{82,-167},{120,-167},{120,-190},{-20,-190},{-20,-140},
-          {-8,-140},{-8,-148}},                                                                         color={0,0,127}));
-  connect(setDp.y,pumCstDp.dp_in)
-    annotation (Line(points={{-158,-130},{0,-130},{0,-148}},color={0,0,127}));
+  connect(setDp.y, ctlDp.u_s)
+    annotation (Line(points={{-158,-120},{-112,-120}}, color={0,0,127}));
+  connect(ctlDp.y, pumCstDp.y)
+    annotation (Line(points={{-88,-120},{0,-120},{0,-148}}, color={0,0,127}));
+  connect(dis.dp, ctlDp.u_m) annotation (Line(points={{82,-167},{100,-167},{100,
+          -220},{-100,-220},{-100,-132}}, color={0,0,127}));
   annotation (
     Documentation(
       info="<html>
 <p>
 This model validates the pump head computation algorithm implemented in
 <a href=\"modelica://Buildings.DHC.Loads.BaseClasses.FlowDistribution\">
-Buildings.DHC.Loads.BaseClasses.FlowDistribution</a>.
+Buildings.DHC.Loads.BaseClasses.FlowDistribution</a>
+by comparing that model with an explicit modeling of the distribution 
+network, the distribution pump and the terminal units.
 </p>
+<p>
+Two configurations are tested, both with variable-flow distribution.
+</p>
+<ul>
+<li>
+Constant speed pump (components <code>*CstSpe</code>): the pump rides its curve
+as the terminal units modulate the flow rate.
+</li>
+<li>
+Constant Δp (components <code>*CstDp</code>): the pump speed is modulated
+by a PI loop tracking a Δp setpoint at a remote location in the 
+circuit, upstream of the last terminal unit.
+</li>
+</ul>
 </html>",
       revisions="<html>
 <ul>
+<li>
+April 10, 2026, by Antoine Gautier:<br/>
+Replaced the Δp-controlled pump with a speed-controlled pump.
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4534\">#4534</a>.
+</li>
 <li>
 August 30, 2022, by Hongxiang Fu:<br/>
 Swapped the pump models for preconfigured versions and removed the pump curve

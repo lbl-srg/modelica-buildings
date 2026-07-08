@@ -29,13 +29,11 @@ block CoolingCoilValve "Cooling coil valve position control sequence"
     "Recorded fan feedback threshold hysteresis delta"
     annotation(Evaluate=true, Dialog(group="Enable"));
 
-  parameter Modelica.Units.SI.Temperature TSupHighLim=50*(5/9) - 32*(5/9) +
-      273.15
+  parameter Modelica.Units.SI.Temperature TSupHighLim=50*(5/9) - 32*(5/9) + 273.15
     "Recorded minimum supply air temperature for defining the upper limit of the valve position"
     annotation (Evaluate=true, Dialog(group="Controller"));
 
-  parameter Modelica.Units.SI.Temperature TSupHigLim=42*(5/9) - 32*(5/9) +
-      273.15
+  parameter Modelica.Units.SI.Temperature TSupHigLim=42*(5/9) - 32*(5/9) + 273.15
     "Recorded maximum supply air temperature for defining the upper limit of the valve position"
     annotation (Evaluate=true, Dialog(group="Controller"));
 
@@ -86,12 +84,14 @@ block CoolingCoilValve "Cooling coil valve position control sequence"
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TSupSet(
     final unit="K",
+    displayUnit="degC",
     final quantity = "ThermodynamicTemperature") "Supply air temperature setpoint"
     annotation (Placement(transformation(extent={{-160,70},{-120,110}}),
       iconTransformation(extent={{-120,30},{-100,50}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TOut(
     final unit="K",
+    displayUnit="degC",
     final quantity = "ThermodynamicTemperature")
     "Measured outdoor air temperature"
     annotation (Placement(transformation(extent={{-160,-40},{-120,0}}),

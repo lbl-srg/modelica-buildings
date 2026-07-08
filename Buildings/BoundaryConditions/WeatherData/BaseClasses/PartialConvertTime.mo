@@ -22,13 +22,13 @@ protected
   Integer k "Period index";
 
 initial equation
-  k = integer(modTimAux/lenWea) + 1;
+  k = integer(modTimAux/lenWea)+1;
   tNext = if canRepeatWeatherFile then k * lenWea else time;
 
 equation
   // simulation time stamp went over the end time of the weather file
   // (last time stamp of the weather file + average increment)
-  when (not initial() and canRepeatWeatherFile and modTimAux > pre(tNext)) then
+  when (canRepeatWeatherFile and modTimAux > pre(tNext)) then
     k = pre(k) + 1;
     tNext = k * lenWea;
   end when;
@@ -47,7 +47,8 @@ or a multiple of it, if this is the length of the weather file.
 <li>
 February 18, 2026, by Jianjun Hu:<br/>
 Improved ill-posed integer rounding.<br/>
-This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4480\">#4480</a>.
+This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4480\">Buildings #4480</a>
+and <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/2088\">IBPSA #2088</a>.
 </li>
 <li>
 March 27, 2023, by Ettore Zanetti:<br/>

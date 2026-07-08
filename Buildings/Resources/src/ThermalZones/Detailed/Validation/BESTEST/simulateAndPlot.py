@@ -28,7 +28,7 @@ CWD = os.getcwd()
 # so that the regression test will generate high resolution results.
 BP_BRANCH = 'issue335_high_ncp'
 # simulator, dymola and optimica are supported
-TOOL = 'optimica'
+TOOL = 'dymola'
 
 # standard data file
 ASHRAE_DATA = './ASHRAE140_data.dat'
@@ -838,29 +838,28 @@ def _add_data(dataList):
 
     :param dataList: the structure to be added data into it
     """
-    data_file = open(ASHRAE_DATA)
-    count = 0
-    startLine = 0
-    table_end = True
-    data_head = ''
-    for line in data_file:
-        count += 1
-        for i in range(len(dataList)):
-            if dataList[i]['data_head'] in line:
-                singleTable = dataList[i]
-                data_head = singleTable['data_head']
-                startLine = count + 2
-                table_end = False
-                temp = list()
-        if '-----' in line:
-            table_end = True
-            startLine = 0
-            data_head = ''
-            singleTable['data'] = temp
-        if count >= startLine and startLine > 0 and not table_end:
-            data = get_line_data(line, singleTable)
-            temp.append(data)
-    data_file.close()
+    with open(ASHRAE_DATA) as data_file:
+        count = 0
+        startLine = 0
+        table_end = True
+        data_head = ''
+        for line in data_file:
+            count += 1
+            for i in range(len(dataList)):
+                if dataList[i]['data_head'] in line:
+                    singleTable = dataList[i]
+                    data_head = singleTable['data_head']
+                    startLine = count + 2
+                    table_end = False
+                    temp = list()
+            if '-----' in line:
+                table_end = True
+                startLine = 0
+                data_head = ''
+                singleTable['data'] = temp
+            if count >= startLine and startLine > 0 and not table_end:
+                data = get_line_data(line, singleTable)
+                temp.append(data)
 
 def get_line_data(line, table):
     """
@@ -1213,29 +1212,28 @@ def update_html_tables(comDat):
     loadContent = _generate_load_tables(comDat, allTools, lessTools)
     ffContent = _generate_ff_tables(comDat, lessTools)
     userGuideFile = "../../../../../../ThermalZones/Detailed/Validation/BESTEST/UsersGuide.mo"
-    moFile = open(userGuideFile)
     beforeTables = ''
     betweenTables = ''
     afterTables = ''
     startSec = True
     midSec = False
     endSec = False
-    for line in moFile:
-        if startSec:
-            beforeTables = beforeTables + line
-        if ('<!-- table start: load data -->' in line):
-            startSec = False
-        if ('<!-- table end: load data -->' in line):
-            midSec = True
-        if midSec:
-            betweenTables = betweenTables + line
-        if ('<!-- table start: free float data -->' in line):
-            midSec = False
-        if ('<!-- table end: free float data -->' in line):
-            endSec = True
-        if endSec:
-            afterTables = afterTables + line
-    moFile.close()
+    with open(userGuideFile) as moFile:
+        for line in moFile:
+            if startSec:
+                beforeTables = beforeTables + line
+            if ('<!-- table start: load data -->' in line):
+                startSec = False
+            if ('<!-- table end: load data -->' in line):
+                midSec = True
+            if midSec:
+                betweenTables = betweenTables + line
+            if ('<!-- table start: free float data -->' in line):
+                midSec = False
+            if ('<!-- table end: free float data -->' in line):
+                endSec = True
+            if endSec:
+                afterTables = afterTables + line
     newMoContent = beforeTables + loadContent \
                    + betweenTables + ffContent \
                    + afterTables

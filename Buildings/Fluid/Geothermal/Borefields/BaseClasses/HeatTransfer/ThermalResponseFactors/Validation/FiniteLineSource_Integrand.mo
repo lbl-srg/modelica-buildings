@@ -11,11 +11,12 @@ model FiniteLineSource_Integrand
   parameter Modelica.Units.SI.Height len2=150.0 "Length of receiving borehole";
   parameter Modelica.Units.SI.Height burDep2=4.0
     "Buried depth of receiving borehole";
-  Real u "Integration variable";
+  Real u(unit="1/m") "Integration variable";
   Real y "Finite line source integrand";
+  constant Real con(unit="1/(m.s)") = 1 "Unit conversion factor";
 
 equation
-  u = time;
+  u = con*time;
   y = Buildings.Fluid.Geothermal.Borefields.BaseClasses.HeatTransfer.ThermalResponseFactors.finiteLineSource_Integrand(
     u=u,
     dis=dis,
@@ -36,6 +37,11 @@ finite line source integrand function.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+March 31, 2026, by Michael Wetter:<br/>
+Corrected unit propagation error that causes Dymola 2026x to not show certain units.<br/>
+See <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/2100\">#2100</a>.
+</li>
 <li>
 July 17, 2018, by Massimo Cimmino:<br/>
 First implementation.

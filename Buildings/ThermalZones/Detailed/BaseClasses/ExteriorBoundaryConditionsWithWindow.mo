@@ -181,7 +181,7 @@ equation
       points={{222,-70},{244,-70},{244,42}},
       color={0,0,127},
       smooth=Smooth.None), Text(
-      textString="%second",
+      string="%second",
       index=1,
       extent={{6,3},{6,3}}));
   connect(repConExtWinVWin.y,conExtWin. vWin) annotation (Line(
@@ -192,7 +192,7 @@ equation
       points={{142,-12},{192,-12},{192,-14},{244,-14},{244,42}},
       color={0,0,127},
       smooth=Smooth.None), Text(
-      textString="%second",
+      string="%second",
       index=1,
       extent={{6,3},{6,3}}));
   connect(HTotConExtWinFra.y, solHeaGaiConWin.Q_flow) annotation (Line(
@@ -220,7 +220,7 @@ equation
       points={{-136,-268},{244,-268},{244,42}},
       color={0,0,127},
       smooth=Smooth.None), Text(
-      textString="%second",
+      string="%second",
       index=1,
       extent={{6,3},{6,3}}));
   connect(skyRadExcWin.TBlaSky, weaBus.TBlaSky)
@@ -228,7 +228,7 @@ equation
       points={{-136,-252},{244,-252},{244,42}},
       color={0,0,127},
       smooth=Smooth.None), Text(
-      textString="%second",
+      string="%second",
       index=1,
       extent={{6,3},{6,3}}));
   connect(skyRadExcWin.port, fra) annotation (Line(
@@ -247,7 +247,7 @@ equation
       points={{222,-102},{244,-102},{244,42}},
       color={0,0,127},
       smooth=Smooth.None), Text(
-      textString="%second",
+      string="%second",
       index=1,
       extent={{6,3},{6,3}}));
   for i in 1:nCon loop
@@ -256,7 +256,7 @@ equation
       color={255,204,51},
       thickness=0.5,
       smooth=Smooth.None), Text(
-      textString="%second",
+      string="%second",
       index=1,
       extent={{6,3},{6,3}}));
   end for;
