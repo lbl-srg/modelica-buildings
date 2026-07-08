@@ -132,6 +132,7 @@ dedicated primary pumps in chiller and boiler plants.
 The enable signal <code>u1</code> is yielded by the staging event sequencing logic.
 </p>
 </html>", revisions="<html>
+<ul>
   <li>
     July 10, 2026, by Antoine Gautier:<br />
     Use the <code>pre_u_start</code> parameter of the Edge block to prevent
@@ -141,5 +142,6 @@ The enable signal <code>u1</code> is yielded by the staging event sequencing log
     March 29, 2024, by Antoine Gautier:<br />
     First implementation.
   </li>
+</ul>
 </html>"));
 end DisableDedicated;

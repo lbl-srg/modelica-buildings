@@ -223,7 +223,7 @@ annotation(defaultComponentName="heaPum",
 Heat pump HW supply temperature setpoint: <code>THeaWatSet</code>,
 AO signal, with a dimensionality of zero
 </li>
-<li>For reversible heat pumps only (<code>typMod==Buildings.Templates.Components.Types.HeatPumpCapability.Reversible</code,
+<li>For reversible heat pumps only (<code>typMod==Buildings.Templates.Components.Types.HeatPumpCapability.Reversible</code>),
 Heat pump CHW supply temperature setpoint: <code>TChiWatSet</code>,
 AO signal, with a dimensionality of zero
 </li>
@@ -245,7 +245,7 @@ March 23, 2026, by Antoine Gautier:<br/>
 Refactored with two separate connectors
 for HW and CHW temperature setpoints.<br/>
 This is for
-<a href=\\\"https://github.com/lbl-srg/modelica-buildings/issues/4507\\\">#4507</a>.
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4507\">#4507</a>.
 </li>
   <li>
     March 21, 2025, by Antoine Gautier:<br />

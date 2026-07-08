@@ -245,7 +245,7 @@ with the least number of hours is made the lead stage equipment.
 Note: This strategy effectively makes it such that equipment are not
 \"hot swapped\", e.g., a pump would not be started and another stopped
 during operation just for runtime equalization.
-</p></i>
+</i></p>
 <p>
 In the case of unavailable equipment,
 the equipment that alarmed most recently is sent to the last position.
