@@ -22,7 +22,7 @@ This correlation function has the form
 <p align=\"center\">
 <i>
 y = a<sub>1</sub> + a<sub>2</sub> (T<sub>exh</sub> &frasl; 100 -11) - a<sub>3</sub>
-(T<sub>ste</sub> -1050)&frasl; 25 ,
+(T<sub>ste</sub> -1050) &frasl; 25 ,
 </i>
 </p>
 <p>

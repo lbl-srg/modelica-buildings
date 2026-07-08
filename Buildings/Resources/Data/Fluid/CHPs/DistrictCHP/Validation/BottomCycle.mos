@@ -1,4 +1,3 @@
-#1
 #3000 seconds Simulation results of the model ThermoPower.Examples.RankineCycle.Simulators.ClosedLoop
 # in https://github.com/casella/ThermoPower/blob/e2b011ac7fd90f9cf5771f29f1aefa160550b6ee/ThermoPower/Examples.mo#L3119
 #1st column: Time, seconds
