@@ -9,19 +9,7 @@ model AirToWaterPolyvalent
       typDis_select1=Buildings.Templates.Plants.HeatPumps.Types.Distribution.Variable1Only,
       typArrPumPri_select=Buildings.Templates.Components.Types.PumpArrangement.Headered,
       nPumHeaWatPri_select=2,
-      nPumChiWatPri_select=2),
-    ratLoa(
-      table=[
-        0, 0, 0;
-        5, 0, 0;
-        7, 1, 0;
-        10, 0.5, 0.1;
-        14, 0, 0.6;
-        16, 0, 1;
-        18, 0, 0.6;
-        22, 0.1, 0.1;
-        24, 0, 0
-      ]));
+      nPumChiWatPri_select=2));
 annotation(__Dymola_Commands(
   file="modelica://Buildings/Resources/Scripts/Dymola/Templates/Plants/HeatPumps/Validation/AirToWaterPolyvalent.mos"
     "Simulate and plot"),

@@ -15,8 +15,8 @@ model AirToWaterReversiblePolyvalent
       table=[
         0, 0, 0;
         5, 0, 0;
-        7, 1, 1;
-        10, 0.5, 0.8;
+        7, 1, 0.2;
+        10, 0.5, 0.5;
         14, 0, 0.6;
         16, 0, 1;
         18, 0, 0.6;
@@ -42,12 +42,9 @@ annotation(__Dymola_Commands(
 </p>
 <p>
   The modeling assumptions are reproduced from the parent validation model,
-  except for the load profile, which is deliberately chosen to maximize
-  simultaneous heating and cooling loads during the first hours of the
-  simulation, exercising the mode selection and staging logic for polyvalent
-  heat pumps. Note that the concomitant load profile then exceeds the plant's
-  simultaneous heating and cooling capacity, and the CHW supply temperature
-  setpoint is not met during this period.
+  except for the load profile, which is deliberately chosen to increase
+  simultaneous heating and cooling loads, exercising the mode selection and
+  staging logic for polyvalent heat pumps.
 </p>
 <p>Simulating this model shows how the plant responds to a varying load by</p>
 <ul>
