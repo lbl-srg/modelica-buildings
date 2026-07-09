@@ -7,7 +7,7 @@ createPlot(
     id=1,
     position={5, 5, 300, 500},
     subPlot=1,
-    y={"seqEveHea.u1Hea", "seqEveHea.u1PumHeaWatPri_actual", "seqEveHea.u1PumHeaWatSec_actual"},
+    y={"seqEveHea.u1Hea", "seqEveHea.u1PumHeaWatPri_actual"},
     autoscale=true,
     grid=true,
     timeUnit="min"

@@ -331,15 +331,65 @@
   openmodelica:
     comment: Translation failed.
     translate: false
+- model_name: Buildings.Templates.Plants.Controls.HeatPumps.Subsequences.Validation.AssertMinimumRuntime
+  optimica:
+    comment: Translation failed. Requires https://github.com/ibpsa/modelica-ibpsa/issues/2136
+    translate: false
+- model_name: Buildings.Templates.Plants.Controls.HeatPumps.Subsequences.Validation.SelectModeState
+  openmodelica:
+    comment: Translation fails with OMC 1.26.3 but succeeds with 1.27.0.
+    translate: false
 - model_name: Buildings.Templates.Plants.Controls.HeatPumps.Validation.AirToWaterReversibleHeatRecovery
   optimica:
     comment: Translation failed. Requires https://github.com/ibpsa/modelica-ibpsa/issues/2136
     translate: false
 - model_name: Buildings.Templates.Plants.Controls.HeatPumps.Validation.AirToWaterReversiblePolyvalent
+  openmodelica:
+    comment: Translation failed. The connectors in connect(ctl.sorRunTimHp.yIdx, ctl.selMod.uIdxSorHp) are not type compatible.
+    translate: false
+  optimica:
+    comment: Translation failed. Requires https://github.com/ibpsa/modelica-ibpsa/issues/2136
+    translate: false
+- model_name: Buildings.Templates.Plants.Controls.PolyvalentHeatPumps.Validation.AssertMinimumRuntime
+  optimica:
+    comment: Translation failed. Requires https://github.com/ibpsa/modelica-ibpsa/issues/2136
+    translate: false
+- model_name: Buildings.Templates.Plants.Controls.PolyvalentHeatPumps.Validation.ModeAlternation
+  openmodelica:
+    comment: Translation fails with OMC 1.26.3 but succeeds with 1.27.0.
+    translate: false
+- model_name: Buildings.Templates.Plants.Controls.Pumps.Generic.Validation.StagingHeadered
+  optimica:
+    comment: Translation failed. Requires https://github.com/ibpsa/modelica-ibpsa/issues/2136
+    translate: false
+- model_name: Buildings.Templates.Plants.Controls.Pumps.Generic.Validation.StagingHeaderedDeltaP
+  optimica:
+    comment: Translation failed. Requires https://github.com/ibpsa/modelica-ibpsa/issues/2136
+    translate: false
+- model_name: Buildings.Templates.Plants.Controls.StagingRotation.Validation.SortRuntime
+  optimica:
+    comment: Translation failed. Requires https://github.com/ibpsa/modelica-ibpsa/issues/2136
+    translate: false
+- model_name: Buildings.Templates.Plants.Controls.StagingRotation.Validation.SortRuntimeG36
+  optimica:
+    comment: Translation failed. Requires https://github.com/ibpsa/modelica-ibpsa/issues/2136
+    translate: false
+- model_name: Buildings.Templates.Plants.Controls.StagingRotation.Validation.StageChangeCommand
+  optimica:
+    comment: Translation failed. Requires https://github.com/ibpsa/modelica-ibpsa/issues/2136
+    translate: false
+- model_name: Buildings.Templates.Plants.Controls.StagingRotation.Validation.StageChangeCommandPolyvalent
+  openmodelica:
+    comment: Translation fails with OMC 1.26.3 but succeeds with 1.27.0.
+    translate: false
   optimica:
     comment: Translation failed. Requires https://github.com/ibpsa/modelica-ibpsa/issues/2136
     translate: false
 - model_name: Buildings.Templates.Plants.HeatPumps.Components.Validation.HeatPumpGroupAirToWater
+  openmodelica:
+    comment: Translation failed.
+    translate: false
+- model_name: Buildings.Templates.Plants.HeatPumps.Components.Validation.HeatPumpGroupAirToWaterPolyvalent
   openmodelica:
     comment: Translation failed.
     translate: false
@@ -351,7 +401,15 @@
   openmodelica:
     comment: Translation failed.
     translate: false
+- model_name: Buildings.Templates.Plants.HeatPumps.Components.Validation.PumpsPrimaryDedicatedPolyvalent
+  openmodelica:
+    comment: Translation failed.
+    translate: false
 - model_name: Buildings.Templates.Plants.HeatPumps.Components.Validation.ValvesIsolation
+  openmodelica:
+    comment: Translation failed.
+    translate: false
+- model_name: Buildings.Templates.Plants.HeatPumps.Components.Validation.ValvesIsolationPolyvalent
   openmodelica:
     comment: Translation failed.
     translate: false

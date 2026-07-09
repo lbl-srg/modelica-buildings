@@ -140,7 +140,7 @@ record HeatPumpPlant
   // CHW loop
   final parameter Modelica.Units.SI.MassFlowRate mPumChiWatPriDed_flow_nominal[cfg.nPumChiWatPri] =
     {if i >= cfg.nPumChiWatPri - cfg.nPhp + 1 then hp.mChiWatPhp_flow_nominal
-      else hp.mHeaWatHp_flow_nominal for i in 1:cfg.nPumChiWatPri}
+      else hp.mChiWatHp_flow_nominal for i in 1:cfg.nPumChiWatPri}
     "Dedicated primary CHW pump mass flow rate";
   parameter Buildings.Templates.Components.Data.PumpMultiple pumChiWatPri(
     final nPum=cfg.nPumChiWatPri,

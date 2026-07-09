@@ -107,7 +107,12 @@ equation
   connect(iHea.y[1], extStaTra.u)
     annotation(Line(points={{-58,0},{-20,0},{-20,-40},{-12,-40}},
       color={255,127,0}));
-annotation(Documentation(
+annotation(__Dymola_Commands(
+  file="modelica://Buildings/Resources/Scripts/Dymola/Templates/Plants/Controls/PolyvalentHeatPumps/Validation/ExtractStagingMatrix.mos"
+    "Simulate and plot"),
+  experiment(StopTime=1.0,
+    Tolerance=1e-06),
+  Documentation(
   info="<html>
 <p>
   This model validates

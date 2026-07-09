@@ -97,14 +97,16 @@ model ValvesIsolation
     annotation(Dialog(group="Nominal condition",
       enable=have_chiWat and have_php));
   final parameter Modelica.Units.SI.PressureDifference dpChiWatUni_nominal[nHp +
-    nPhp] =
-    cat(
+    nPhp] = if have_hp and have_php
+    then cat(
       1,
-      if have_hp
-      then dpHeaWatUni_nominal[1:nHp] .*
-        (mChiWatUni_flow_nominal[1:nHp] ./ mHeaWatUni_flow_nominal[1:nHp]) .^ 2
-      else fill(0, 0),
-      if have_php then dpChiWatPhp_nominal else fill(0, 0))
+      dpHeaWatUni_nominal[1:nHp] .*
+        (mChiWatUni_flow_nominal[1:nHp] ./ mHeaWatUni_flow_nominal[1:nHp]) .^ 2,
+      dpChiWatPhp_nominal)
+    elseif have_hp
+    then dpHeaWatUni_nominal[1:nHp] .*
+      (mChiWatUni_flow_nominal[1:nHp] ./ mHeaWatUni_flow_nominal[1:nHp]) .^ 2
+    else dpChiWatPhp_nominal
     "Pressure drop at design CHW mass flow rate - Each unit";
   parameter Modelica.Units.SI.PressureDifference dpBalChiWatUni_nominal[nHp +
     nPhp](each final min=0, each start=0) = fill(0, nHp + nPhp)
@@ -112,8 +114,8 @@ model ValvesIsolation
     annotation(Dialog(group="Nominal condition",
       enable=have_chiWat));
   parameter Modelica.Units.SI.PressureDifference dpValveHeaWat_nominal[nHp +
-    nPhp](each final min=0) =
-    fill(Buildings.Templates.Data.Defaults.dpValIso, nHp + nPhp)
+    nPhp](each final min=0) = fill(
+    Buildings.Templates.Data.Defaults.dpValIso, nHp + nPhp)
     "HW isolation valve pressure drop (identical for inlet and outlet valves)"
     annotation(Dialog(group="Nominal condition"));
   final parameter Modelica.Units.SI.PressureDifference dpFixedHeaWat_nominal[nHp +
@@ -127,60 +129,55 @@ model ValvesIsolation
    * error in the validation model with OCT 1.66.
    */
   final parameter Modelica.Units.SI.PressureDifference dpHeaWatVal_nominal[nHp +
-    nPhp] =
-    if have_hp and have_php
+    nPhp] = if have_hp and have_php
     then cat(
       1,
       dpValveHeaWat_nominal[1:nHp] * ((if have_valHpInlIso then 1 else 0) +
         (if have_valHpOutIso then 1 else 0)),
-      dpValveHeaWat_nominal[nHp + 1:nHp + nPhp] * ((if have_valPhpInlIso
-      then 1 else 0) + (if have_valPhpOutIso then 1 else 0)))
+      dpValveHeaWat_nominal[nHp + 1:nHp + nPhp] * ((if have_valPhpInlIso then 1
+        else 0) + (if have_valPhpOutIso then 1 else 0)))
     elseif have_hp
     then dpValveHeaWat_nominal[1:nHp] * ((if have_valHpInlIso then 1 else 0) +
       (if have_valHpOutIso then 1 else 0))
     else dpValveHeaWat_nominal[nHp + 1:nHp + nPhp] * ((if have_valPhpInlIso
-        then 1 else 0) + (if have_valPhpOutIso then 1 else 0))
+      then 1 else 0) + (if have_valPhpOutIso then 1 else 0))
     "Total HW pressure drop for inlet and outlet valves"
     annotation(Evaluate=true);
   final parameter Modelica.Units.SI.PressureDifference dpHeaWat_nominal[nHp +
     nPhp] = dpFixedHeaWat_nominal .+ dpHeaWatVal_nominal
     "Total HW pressure drop: fixed + valves";
   parameter Modelica.Units.SI.PressureDifference dpValveChiWat_nominal[nHp +
-    nPhp](each final min=0, each start=0) =
-    if have_chiWat
+    nPhp](each final min=0, each start=0) = if have_chiWat
     then fill(Buildings.Templates.Data.Defaults.dpValIso, nHp + nPhp)
     else fill(0, nHp + nPhp)
     "Isolation valve CHW pressure drop (identical for inlet and outlet valves)"
     annotation(Dialog(group="Nominal condition",
       enable=have_chiWat));
   final parameter Modelica.Units.SI.PressureDifference dpFixedChiWat_nominal[nHp +
-    nPhp] =
-    if have_chiWat
-    then dpBalChiWatUni_nominal + dpChiWatUni_nominal else fill(0, nHp + nPhp)
+    nPhp] = if have_chiWat then dpBalChiWatUni_nominal + dpChiWatUni_nominal
+    else fill(0, nHp + nPhp)
     "Total fixed CHW pressure drop"
     annotation(Dialog(group="Nominal condition",
       enable=have_chiWat));
   // The following two parameters are intended for external use.
   final parameter Modelica.Units.SI.PressureDifference dpChiWatVal_nominal[nHp +
-    nPhp] =
-    if have_hp and have_php
+    nPhp] = if have_hp and have_php
     then cat(
       1,
       dpValveChiWat_nominal[1:nHp] * ((if have_valHpInlIso then 1 else 0) +
         (if have_valHpOutIso then 1 else 0)),
-      dpValveChiWat_nominal[nHp + 1:nHp + nPhp] * ((if have_valPhpInlIso
-      then 1 else 0) + (if have_valPhpOutIso then 1 else 0)))
+      dpValveChiWat_nominal[nHp + 1:nHp + nPhp] * ((if have_valPhpInlIso then 1
+        else 0) + (if have_valPhpOutIso then 1 else 0)))
     elseif have_hp
     then dpValveChiWat_nominal[1:nHp] * ((if have_valHpInlIso then 1 else 0) +
       (if have_valHpOutIso then 1 else 0))
     else dpValveChiWat_nominal[nHp + 1:nHp + nPhp] * ((if have_valPhpInlIso
-        then 1 else 0) + (if have_valPhpOutIso then 1 else 0))
+      then 1 else 0) + (if have_valPhpOutIso then 1 else 0))
     "Total CHW pressure drop for inlet and outlet valves"
     annotation(Evaluate=true);
   final parameter Modelica.Units.SI.PressureDifference dpChiWat_nominal[nHp +
-    nPhp] =
-    if have_chiWat
-    then dpFixedChiWat_nominal .+ dpChiWatVal_nominal else fill(0, nHp + nPhp)
+    nPhp] = if have_chiWat then dpFixedChiWat_nominal .+ dpChiWatVal_nominal
+    else fill(0, nHp + nPhp)
     "Total CHW pressure drop: fixed + valves"
     annotation(Dialog(group="Nominal condition",
       enable=have_chiWat));
@@ -196,14 +193,12 @@ model ValvesIsolation
       fill(
         if have_hp
           and (have_valHpOutIso
-            or not have_valHpOutIso and not have_valHpInlIso)
-        then 1 else 0,
+            or not have_valHpOutIso and not have_valHpInlIso) then 1 else 0,
         nHp),
       fill(
         if have_php
           and (have_valPhpOutIso
-            or not have_valPhpOutIso and not have_valPhpInlIso)
-        then 1 else 0,
+            or not have_valPhpOutIso and not have_valPhpInlIso) then 1 else 0,
         nPhp)))
     "Unit outlet HW isolation valve parameters"
     annotation(Placement(transformation(extent={{-10,0},{10,20}})));
@@ -218,8 +213,8 @@ model ValvesIsolation
         if have_hp and not have_valHpOutIso and have_valHpInlIso then 1 else 0,
         nHp),
       fill(
-        if have_php and not have_valPhpOutIso and have_valPhpInlIso
-        then 1 else 0,
+        if have_php and not have_valPhpOutIso and have_valPhpInlIso then 1
+          else 0,
         nPhp)))
     "Unit inlet HW isolation valve parameters"
     annotation(Placement(transformation(extent={{-10,30},{10,50}})));
@@ -233,14 +228,12 @@ model ValvesIsolation
       fill(
         if have_hp
           and (have_valHpOutIso
-            or not have_valHpOutIso and not have_valHpInlIso)
-        then 1 else 0,
+            or not have_valHpOutIso and not have_valHpInlIso) then 1 else 0,
         nHp),
       fill(
         if have_php
           and (have_valPhpOutIso
-            or not have_valPhpOutIso and not have_valPhpInlIso)
-        then 1 else 0,
+            or not have_valPhpOutIso and not have_valPhpInlIso) then 1 else 0,
         nPhp)))
     "Unit outlet CHW isolation valve parameters"
     annotation(Placement(transformation(extent={{-10,-30},{10,-10}})));
@@ -255,8 +248,8 @@ model ValvesIsolation
         if have_hp and not have_valHpOutIso and have_valHpInlIso then 1 else 0,
         nHp),
       fill(
-        if have_php and not have_valPhpOutIso and have_valPhpInlIso
-        then 1 else 0,
+        if have_php and not have_valPhpOutIso and have_valPhpInlIso then 1
+          else 0,
         nPhp)))
     "Heat pump inlet CHW isolation valve parameters"
     annotation(Placement(transformation(extent={{-10,-60},{10,-40}})));
@@ -276,8 +269,8 @@ model ValvesIsolation
     "Set to false to simplify equations, assuming, but not enforcing, no flow reversal"
     annotation(Dialog(tab="Assumptions"),
       Evaluate=true);
-  parameter Boolean use_strokeTime =
-    energyDynamics <> Modelica.Fluid.Types.Dynamics.SteadyState
+  parameter Boolean use_strokeTime = energyDynamics <>
+    Modelica.Fluid.Types.Dynamics.SteadyState
     "Set to true to continuously open and close valve"
     annotation(__ctrlFlow(enable=false),
       Dialog(tab="Dynamics",
@@ -783,35 +776,34 @@ annotation(defaultComponentName="valIso",
     Line(points={{1000,-160},{1000,-700}},
       color={0,0,0},
       thickness=5,
-      visible=have_chiWat and
-        (have_pumChiWatDedHp and nHp >= 2 or nHp + nPhp >= 2 and nHp < 2)),
+      visible=have_chiWat
+        and (have_pumChiWatDedHp and nHp >= 2 or nHp + nPhp >= 2 and nHp < 2)),
     Line(points={{200,-160},{200,-700}},
       color={0,0,0},
       thickness=5,
-      visible=have_chiWat and
-        (have_pumChiWatDedHp and nHp >= 3 or nHp + nPhp >= 3 and nHp < 3)),
+      visible=have_chiWat
+        and (have_pumChiWatDedHp and nHp >= 3 or nHp + nPhp >= 3 and nHp < 3)),
     Line(points={{-600,-160},{-600,-700}},
       color={0,0,0},
       thickness=5,
-      visible=have_chiWat and
-        (have_pumChiWatDedHp and nHp >= 4 or nHp + nPhp >= 4 and nHp < 4)),
+      visible=have_chiWat
+        and (have_pumChiWatDedHp and nHp >= 4 or nHp + nPhp >= 4 and nHp < 4)),
     Line(points={{-1400,-160},{-1400,-700}},
       color={0,0,0},
       thickness=5,
-      visible=have_chiWat and
-        (have_pumChiWatDedHp and nHp >= 5 or nHp + nPhp >= 5 and nHp < 5)),
+      visible=have_chiWat
+        and (have_pumChiWatDedHp and nHp >= 5 or nHp + nPhp >= 5 and nHp < 5)),
     Line(points={{-2200,-160},{-2200,-700}},
       color={0,0,0},
       thickness=5,
-      visible=have_chiWat and
-        (have_pumChiWatDedHp and nHp >= 6 or nHp + nPhp >= 6 and nHp < 6)),
+      visible=have_chiWat
+        and (have_pumChiWatDedHp and nHp >= 6 or nHp + nPhp >= 6 and nHp < 6)),
     Line(points={{1800,-160},{1800,-700}},
       color={0,0,0},
       thickness=5,
-      visible=have_chiWat and
-        (have_pumChiWatDedHp and nHp >= 1 or nHp + nPhp >= 1 and nHp < 1)),
-    Line(points=if nHp >= 1
-      then {{2400,200},{2400,-400},{2200,-400}}
+      visible=have_chiWat
+        and (have_pumChiWatDedHp and nHp >= 1 or nHp + nPhp >= 1 and nHp < 1)),
+    Line(points=if nHp >= 1 then {{2400,200},{2400,-400},{2200,-400}}
       else {{2400,200},{2400,-400},{2400,-700}},
       color={0,0,0},
       pattern=LinePattern.Dash,
@@ -821,9 +813,9 @@ annotation(defaultComponentName="valIso",
       color={0,0,0},
       thickness=5,
       visible=have_chiWat and nHp + nPhp >= 1),
-    Bitmap(visible=have_chiWat and
-      (have_valHpOutIso and nHp >= 1 or
-      have_valPhpOutIso and nPhp + nHp >= 1 and nHp < 1),
+    Bitmap(visible=have_chiWat
+      and (have_valHpOutIso and nHp >= 1
+        or have_valPhpOutIso and nPhp + nHp >= 1 and nHp < 1),
       extent={{-100,-100},{100,100}},
       fileName="modelica://Buildings/Resources/Images/Templates/Components/Valves/TwoWay.svg",
       rotation=360,
@@ -833,66 +825,72 @@ annotation(defaultComponentName="valIso",
       pattern=LinePattern.Dash,
       thickness=5,
       visible=nHp + nPhp >= 1),
-    Bitmap(visible=have_valHpInlIso and nHp >= 1 or
-      have_valPhpInlIso and nPhp + nHp >= 1 and nHp < 1,
+    Bitmap(visible=have_valHpInlIso and nHp >= 1
+      or have_valPhpInlIso and nPhp + nHp >= 1 and nHp < 1,
       extent={{-100,-100},{100,100}},
       fileName="modelica://Buildings/Resources/Images/Templates/Components/Valves/TwoWay.svg",
       rotation=360,
       origin={2200,-200}),
-    Bitmap(visible=have_chiWat and
-      (nHp >= 1 and have_valHpInlIso or
-      have_valPhpInlIso and nPhp + nHp >= 1 and nHp < 1),
+    Bitmap(visible=have_chiWat
+      and (nHp >= 1 and have_valHpInlIso
+        or have_valPhpInlIso and nPhp + nHp >= 1 and nHp < 1),
       extent={{-100,-100},{100,100}},
       fileName="modelica://Buildings/Resources/Images/Templates/Components/Valves/TwoWay.svg",
       rotation=360,
       origin={2400,-200}),
-    Line(visible=have_chiWat and
-      (nHp >= 1 and have_valHpInlIso or
-      have_valPhpInlIso and nPhp + nHp >= 1 and nHp < 1),
+    Line(visible=have_chiWat
+      and (nHp >= 1 and have_valHpInlIso
+        or have_valPhpInlIso and nPhp + nHp >= 1 and nHp < 1),
       points={{0,30},{0,-30}},
       color={0,0,0},
       origin={2370,-200},
       rotation=-90),
     Bitmap(visible=typValHpInlIso ==
-      Buildings.Templates.Components.Types.Valve.TwoWayTwoPosition and
-      have_chiWat and nHp >= 1 or
-      typValPhpInlIso ==
-      Buildings.Templates.Components.Types.Valve.TwoWayTwoPosition and
-      nPhp + nHp >= 1 and nHp < 1,
+      Buildings.Templates.Components.Types.Valve.TwoWayTwoPosition
+      and have_chiWat
+      and nHp >= 1
+      or typValPhpInlIso ==
+        Buildings.Templates.Components.Types.Valve.TwoWayTwoPosition
+        and nPhp + nHp >= 1
+        and nHp < 1,
       extent={{2260,-240},{2340,-160}},
       fileName="modelica://Buildings/Resources/Images/Templates/Components/Actuators/TwoPosition.svg"),
     Bitmap(visible=typValHpInlIso ==
-      Buildings.Templates.Components.Types.Valve.TwoWayTwoPosition and
-      nHp >= 1 or
-      typValPhpInlIso ==
-      Buildings.Templates.Components.Types.Valve.TwoWayTwoPosition and
-      nPhp + nHp >= 1 and nHp < 1,
+      Buildings.Templates.Components.Types.Valve.TwoWayTwoPosition
+      and nHp >= 1
+      or typValPhpInlIso ==
+        Buildings.Templates.Components.Types.Valve.TwoWayTwoPosition
+        and nPhp + nHp >= 1
+        and nHp < 1,
       extent={{2060,-240},{2140,-160}},
       fileName="modelica://Buildings/Resources/Images/Templates/Components/Actuators/TwoPosition.svg"),
-    Line(visible=have_valHpInlIso and nHp >= 1 or
-      have_valPhpInlIso and nPhp + nHp >= 1 and nHp < 1,
+    Line(visible=have_valHpInlIso and nHp >= 1
+      or have_valPhpInlIso and nPhp + nHp >= 1 and nHp < 1,
       points={{0,30},{0,-30}},
       color={0,0,0},
       origin={2170,-200},
       rotation=-90),
     Bitmap(visible=typValHpOutIso ==
-      Buildings.Templates.Components.Types.Valve.TwoWayTwoPosition and
-      nHp >= 1 or
-      typValPhpOutIso ==
-      Buildings.Templates.Components.Types.Valve.TwoWayTwoPosition and
-      nPhp + nHp >= 1 and nHp < 1,
+      Buildings.Templates.Components.Types.Valve.TwoWayTwoPosition
+      and nHp >= 1
+      or typValPhpOutIso ==
+        Buildings.Templates.Components.Types.Valve.TwoWayTwoPosition
+        and nPhp + nHp >= 1
+        and nHp < 1,
       extent={{1860,-240},{1940,-160}},
       fileName="modelica://Buildings/Resources/Images/Templates/Components/Actuators/TwoPosition.svg"),
     Bitmap(visible=typValHpOutIso ==
-      Buildings.Templates.Components.Types.Valve.TwoWayTwoPosition and
-      have_chiWat and nHp >= 1 or
-      typValPhpOutIso ==
-      Buildings.Templates.Components.Types.Valve.TwoWayTwoPosition and
-      nPhp + nHp >= 1 and nHp < 1,
+      Buildings.Templates.Components.Types.Valve.TwoWayTwoPosition
+      and have_chiWat
+      and nHp >= 1
+      or typValPhpOutIso ==
+        Buildings.Templates.Components.Types.Valve.TwoWayTwoPosition
+        and nPhp + nHp >= 1
+        and nHp < 1,
       extent={{1660,-240},{1740,-160}},
       fileName="modelica://Buildings/Resources/Images/Templates/Components/Actuators/TwoPosition.svg"),
-    Line(visible=have_chiWat and have_valHpOutIso and nHp >= 1 or
-      have_valPhpOutIso and nPhp + nHp >= 1 and nHp < 1,
+    Line(visible=have_chiWat and have_valHpOutIso and nHp >= 1
+      or have_valPhpOutIso and nPhp + nHp >= 1 and nHp < 1,
       points={{0,30},{0,-30}},
       color={0,0,0},
       origin={1770,-200},
@@ -908,9 +906,9 @@ annotation(defaultComponentName="valIso",
       color={0,0,0},
       thickness=5,
       visible=have_chiWat and nHp + nPhp >= 2),
-    Bitmap(visible=have_chiWat and
-      (have_valHpOutIso and nHp >= 2 or
-      have_valPhpOutIso and nPhp + nHp >= 2 and nHp < 2),
+    Bitmap(visible=have_chiWat
+      and (have_valHpOutIso and nHp >= 2
+        or have_valPhpOutIso and nPhp + nHp >= 2 and nHp < 2),
       extent={{-100,-100},{100,100}},
       fileName="modelica://Buildings/Resources/Images/Templates/Components/Valves/TwoWay.svg",
       rotation=360,
@@ -920,52 +918,58 @@ annotation(defaultComponentName="valIso",
       pattern=LinePattern.Dash,
       thickness=5,
       visible=nHp + nPhp >= 2),
-    Bitmap(visible=have_valHpInlIso and nHp >= 2 or
-      have_valPhpInlIso and nPhp + nHp >= 2 and nHp < 2,
+    Bitmap(visible=have_valHpInlIso and nHp >= 2
+      or have_valPhpInlIso and nPhp + nHp >= 2 and nHp < 2,
       extent={{-100,-100},{100,100}},
       fileName="modelica://Buildings/Resources/Images/Templates/Components/Valves/TwoWay.svg",
       rotation=360,
       origin={1400,-200}),
     Bitmap(visible=typValHpInlIso ==
-      Buildings.Templates.Components.Types.Valve.TwoWayTwoPosition and
-      have_chiWat and nHp >= 2 or
-      typValPhpInlIso ==
-      Buildings.Templates.Components.Types.Valve.TwoWayTwoPosition and
-      nPhp + nHp >= 2 and nHp < 2,
+      Buildings.Templates.Components.Types.Valve.TwoWayTwoPosition
+      and have_chiWat
+      and nHp >= 2
+      or typValPhpInlIso ==
+        Buildings.Templates.Components.Types.Valve.TwoWayTwoPosition
+        and nPhp + nHp >= 2
+        and nHp < 2,
       extent={{1460,-240},{1540,-160}},
       fileName="modelica://Buildings/Resources/Images/Templates/Components/Actuators/TwoPosition.svg"),
     Bitmap(visible=typValHpInlIso ==
-      Buildings.Templates.Components.Types.Valve.TwoWayTwoPosition and
-      nHp >= 2 or
-      typValPhpInlIso ==
-      Buildings.Templates.Components.Types.Valve.TwoWayTwoPosition and
-      nPhp + nHp >= 2 and nHp < 2,
+      Buildings.Templates.Components.Types.Valve.TwoWayTwoPosition
+      and nHp >= 2
+      or typValPhpInlIso ==
+        Buildings.Templates.Components.Types.Valve.TwoWayTwoPosition
+        and nPhp + nHp >= 2
+        and nHp < 2,
       extent={{1260,-240},{1340,-160}},
       fileName="modelica://Buildings/Resources/Images/Templates/Components/Actuators/TwoPosition.svg"),
-    Line(visible=have_valHpInlIso and nHp >= 2 or
-      have_valPhpInlIso and nPhp + nHp >= 2 and nHp < 2,
+    Line(visible=have_valHpInlIso and nHp >= 2
+      or have_valPhpInlIso and nPhp + nHp >= 2 and nHp < 2,
       points={{0,30},{0,-30}},
       color={0,0,0},
       origin={1370,-200},
       rotation=-90),
     Bitmap(visible=typValHpOutIso ==
-      Buildings.Templates.Components.Types.Valve.TwoWayTwoPosition and
-      nHp >= 2 or
-      typValPhpOutIso ==
-      Buildings.Templates.Components.Types.Valve.TwoWayTwoPosition and
-      nPhp + nHp >= 2 and nHp < 2,
+      Buildings.Templates.Components.Types.Valve.TwoWayTwoPosition
+      and nHp >= 2
+      or typValPhpOutIso ==
+        Buildings.Templates.Components.Types.Valve.TwoWayTwoPosition
+        and nPhp + nHp >= 2
+        and nHp < 2,
       extent={{1060,-240},{1140,-160}},
       fileName="modelica://Buildings/Resources/Images/Templates/Components/Actuators/TwoPosition.svg"),
     Bitmap(visible=typValHpOutIso ==
-      Buildings.Templates.Components.Types.Valve.TwoWayTwoPosition and
-      have_chiWat and nHp >= 2 or
-      typValPhpOutIso ==
-      Buildings.Templates.Components.Types.Valve.TwoWayTwoPosition and
-      nPhp + nHp >= 2 and nHp < 2,
+      Buildings.Templates.Components.Types.Valve.TwoWayTwoPosition
+      and have_chiWat
+      and nHp >= 2
+      or typValPhpOutIso ==
+        Buildings.Templates.Components.Types.Valve.TwoWayTwoPosition
+        and nPhp + nHp >= 2
+        and nHp < 2,
       extent={{860,-240},{940,-160}},
       fileName="modelica://Buildings/Resources/Images/Templates/Components/Actuators/TwoPosition.svg"),
-    Line(visible=have_chiWat and have_valHpOutIso and nHp >= 2 or
-      have_valPhpOutIso and nPhp + nHp >= 2 and nHp < 2,
+    Line(visible=have_chiWat and have_valHpOutIso and nHp >= 2
+      or have_valPhpOutIso and nPhp + nHp >= 2 and nHp < 2,
       points={{0,30},{0,-30}},
       color={0,0,0},
       origin={970,-200},
@@ -995,9 +999,9 @@ annotation(defaultComponentName="valIso",
       color={0,0,0},
       thickness=5,
       visible=have_chiWat and nHp + nPhp >= 3),
-    Bitmap(visible=have_chiWat and
-      (have_valHpOutIso and nHp >= 3 or
-      have_valPhpOutIso and nPhp + nHp >= 3 and nHp < 3),
+    Bitmap(visible=have_chiWat
+      and (have_valHpOutIso and nHp >= 3
+        or have_valPhpOutIso and nPhp + nHp >= 3 and nHp < 3),
       extent={{-100,-100},{100,100}},
       fileName="modelica://Buildings/Resources/Images/Templates/Components/Valves/TwoWay.svg",
       rotation=360,
@@ -1007,44 +1011,48 @@ annotation(defaultComponentName="valIso",
       pattern=LinePattern.Dash,
       thickness=5,
       visible=nHp + nPhp >= 3),
-    Bitmap(visible=have_valHpInlIso and nHp >= 3 or
-      have_valPhpInlIso and nPhp + nHp >= 3 and nHp < 3,
+    Bitmap(visible=have_valHpInlIso and nHp >= 3
+      or have_valPhpInlIso and nPhp + nHp >= 3 and nHp < 3,
       extent={{-100,-100},{100,100}},
       fileName="modelica://Buildings/Resources/Images/Templates/Components/Valves/TwoWay.svg",
       rotation=360,
       origin={600,-200}),
     Bitmap(visible=typValHpInlIso ==
-      Buildings.Templates.Components.Types.Valve.TwoWayTwoPosition and
-      nHp >= 3 or
-      typValPhpInlIso ==
-      Buildings.Templates.Components.Types.Valve.TwoWayTwoPosition and
-      nPhp + nHp >= 3 and nHp < 3,
+      Buildings.Templates.Components.Types.Valve.TwoWayTwoPosition
+      and nHp >= 3
+      or typValPhpInlIso ==
+        Buildings.Templates.Components.Types.Valve.TwoWayTwoPosition
+        and nPhp + nHp >= 3
+        and nHp < 3,
       extent={{460,-240},{540,-160}},
       fileName="modelica://Buildings/Resources/Images/Templates/Components/Actuators/TwoPosition.svg"),
-    Line(visible=have_valHpInlIso and nHp >= 3 or
-      have_valPhpInlIso and nPhp + nHp >= 3 and nHp < 3,
+    Line(visible=have_valHpInlIso and nHp >= 3
+      or have_valPhpInlIso and nPhp + nHp >= 3 and nHp < 3,
       points={{0,30},{0,-30}},
       color={0,0,0},
       origin={570,-200},
       rotation=-90),
     Bitmap(visible=typValHpOutIso ==
-      Buildings.Templates.Components.Types.Valve.TwoWayTwoPosition and
-      nHp >= 3 or
-      typValPhpOutIso ==
-      Buildings.Templates.Components.Types.Valve.TwoWayTwoPosition and
-      nPhp + nHp >= 3 and nHp < 3,
+      Buildings.Templates.Components.Types.Valve.TwoWayTwoPosition
+      and nHp >= 3
+      or typValPhpOutIso ==
+        Buildings.Templates.Components.Types.Valve.TwoWayTwoPosition
+        and nPhp + nHp >= 3
+        and nHp < 3,
       extent={{260,-240},{340,-160}},
       fileName="modelica://Buildings/Resources/Images/Templates/Components/Actuators/TwoPosition.svg"),
     Bitmap(visible=typValHpOutIso ==
-      Buildings.Templates.Components.Types.Valve.TwoWayTwoPosition and
-      have_chiWat and nHp >= 3 or
-      typValPhpOutIso ==
-      Buildings.Templates.Components.Types.Valve.TwoWayTwoPosition and
-      nPhp + nHp >= 3 and nHp < 3,
+      Buildings.Templates.Components.Types.Valve.TwoWayTwoPosition
+      and have_chiWat
+      and nHp >= 3
+      or typValPhpOutIso ==
+        Buildings.Templates.Components.Types.Valve.TwoWayTwoPosition
+        and nPhp + nHp >= 3
+        and nHp < 3,
       extent={{60,-240},{140,-160}},
       fileName="modelica://Buildings/Resources/Images/Templates/Components/Actuators/TwoPosition.svg"),
-    Line(visible=have_chiWat and have_valHpOutIso and nHp >= 3 or
-      have_valPhpOutIso and nPhp + nHp >= 3 and nHp < 3,
+    Line(visible=have_chiWat and have_valHpOutIso and nHp >= 3
+      or have_valPhpOutIso and nPhp + nHp >= 3 and nHp < 3,
       points={{0,30},{0,-30}},
       color={0,0,0},
       origin={170,-200},
@@ -1074,9 +1082,9 @@ annotation(defaultComponentName="valIso",
       color={0,0,0},
       thickness=5,
       visible=have_chiWat and nHp + nPhp >= 4),
-    Bitmap(visible=have_chiWat and
-      (have_valHpOutIso and nHp >= 4 or
-      have_valPhpOutIso and nPhp + nHp >= 4 and nHp < 4),
+    Bitmap(visible=have_chiWat
+      and (have_valHpOutIso and nHp >= 4
+        or have_valPhpOutIso and nPhp + nHp >= 4 and nHp < 4),
       extent={{-100,-100},{100,100}},
       fileName="modelica://Buildings/Resources/Images/Templates/Components/Valves/TwoWay.svg",
       rotation=360,
@@ -1086,44 +1094,48 @@ annotation(defaultComponentName="valIso",
       pattern=LinePattern.Dash,
       thickness=5,
       visible=nHp + nPhp >= 4),
-    Bitmap(visible=have_valHpInlIso and nHp >= 4 or
-      have_valPhpInlIso and nPhp + nHp >= 4 and nHp < 4,
+    Bitmap(visible=have_valHpInlIso and nHp >= 4
+      or have_valPhpInlIso and nPhp + nHp >= 4 and nHp < 4,
       extent={{-100,-100},{100,100}},
       fileName="modelica://Buildings/Resources/Images/Templates/Components/Valves/TwoWay.svg",
       rotation=360,
       origin={-200,-200}),
     Bitmap(visible=typValHpInlIso ==
-      Buildings.Templates.Components.Types.Valve.TwoWayTwoPosition and
-      nHp >= 4 or
-      typValPhpInlIso ==
-      Buildings.Templates.Components.Types.Valve.TwoWayTwoPosition and
-      nPhp + nHp >= 4 and nHp < 4,
+      Buildings.Templates.Components.Types.Valve.TwoWayTwoPosition
+      and nHp >= 4
+      or typValPhpInlIso ==
+        Buildings.Templates.Components.Types.Valve.TwoWayTwoPosition
+        and nPhp + nHp >= 4
+        and nHp < 4,
       extent={{-340,-240},{-260,-160}},
       fileName="modelica://Buildings/Resources/Images/Templates/Components/Actuators/TwoPosition.svg"),
-    Line(visible=have_valHpInlIso and nHp >= 4 or
-      have_valPhpInlIso and nPhp + nHp >= 4 and nHp < 4,
+    Line(visible=have_valHpInlIso and nHp >= 4
+      or have_valPhpInlIso and nPhp + nHp >= 4 and nHp < 4,
       points={{0,30},{0,-30}},
       color={0,0,0},
       origin={-230,-200},
       rotation=-90),
     Bitmap(visible=typValHpOutIso ==
-      Buildings.Templates.Components.Types.Valve.TwoWayTwoPosition and
-      nHp >= 4 or
-      typValPhpOutIso ==
-      Buildings.Templates.Components.Types.Valve.TwoWayTwoPosition and
-      nPhp + nHp >= 4 and nHp < 4,
+      Buildings.Templates.Components.Types.Valve.TwoWayTwoPosition
+      and nHp >= 4
+      or typValPhpOutIso ==
+        Buildings.Templates.Components.Types.Valve.TwoWayTwoPosition
+        and nPhp + nHp >= 4
+        and nHp < 4,
       extent={{-540,-240},{-460,-160}},
       fileName="modelica://Buildings/Resources/Images/Templates/Components/Actuators/TwoPosition.svg"),
     Bitmap(visible=typValHpOutIso ==
-      Buildings.Templates.Components.Types.Valve.TwoWayTwoPosition and
-      have_chiWat and nHp >= 4 or
-      typValPhpOutIso ==
-      Buildings.Templates.Components.Types.Valve.TwoWayTwoPosition and
-      nPhp + nHp >= 4 and nHp < 4,
+      Buildings.Templates.Components.Types.Valve.TwoWayTwoPosition
+      and have_chiWat
+      and nHp >= 4
+      or typValPhpOutIso ==
+        Buildings.Templates.Components.Types.Valve.TwoWayTwoPosition
+        and nPhp + nHp >= 4
+        and nHp < 4,
       extent={{-740,-240},{-660,-160}},
       fileName="modelica://Buildings/Resources/Images/Templates/Components/Actuators/TwoPosition.svg"),
-    Line(visible=have_chiWat and have_valHpOutIso and nHp >= 4 or
-      have_valPhpOutIso and nPhp + nHp >= 4 and nHp < 4,
+    Line(visible=have_chiWat and have_valHpOutIso and nHp >= 4
+      or have_valPhpOutIso and nPhp + nHp >= 4 and nHp < 4,
       points={{0,30},{0,-30}},
       color={0,0,0},
       origin={-630,-200},
@@ -1153,9 +1165,9 @@ annotation(defaultComponentName="valIso",
       color={0,0,0},
       thickness=5,
       visible=have_chiWat and nHp + nPhp >= 5),
-    Bitmap(visible=have_chiWat and
-      (have_valHpOutIso and nHp >= 5 or
-      have_valPhpOutIso and nPhp + nHp >= 5 and nHp < 5),
+    Bitmap(visible=have_chiWat
+      and (have_valHpOutIso and nHp >= 5
+        or have_valPhpOutIso and nPhp + nHp >= 5 and nHp < 5),
       extent={{-100,-100},{100,100}},
       fileName="modelica://Buildings/Resources/Images/Templates/Components/Valves/TwoWay.svg",
       rotation=360,
@@ -1165,44 +1177,48 @@ annotation(defaultComponentName="valIso",
       pattern=LinePattern.Dash,
       thickness=5,
       visible=nHp + nPhp >= 5),
-    Bitmap(visible=have_valHpInlIso and nHp >= 5 or
-      have_valPhpInlIso and nPhp + nHp >= 5 and nHp < 5,
+    Bitmap(visible=have_valHpInlIso and nHp >= 5
+      or have_valPhpInlIso and nPhp + nHp >= 5 and nHp < 5,
       extent={{-100,-100},{100,100}},
       fileName="modelica://Buildings/Resources/Images/Templates/Components/Valves/TwoWay.svg",
       rotation=360,
       origin={-1000,-200}),
     Bitmap(visible=typValHpInlIso ==
-      Buildings.Templates.Components.Types.Valve.TwoWayTwoPosition and
-      nHp >= 5 or
-      typValPhpInlIso ==
-      Buildings.Templates.Components.Types.Valve.TwoWayTwoPosition and
-      nPhp + nHp >= 5 and nHp < 5,
+      Buildings.Templates.Components.Types.Valve.TwoWayTwoPosition
+      and nHp >= 5
+      or typValPhpInlIso ==
+        Buildings.Templates.Components.Types.Valve.TwoWayTwoPosition
+        and nPhp + nHp >= 5
+        and nHp < 5,
       extent={{-1140,-240},{-1060,-160}},
       fileName="modelica://Buildings/Resources/Images/Templates/Components/Actuators/TwoPosition.svg"),
-    Line(visible=have_valHpInlIso and nHp >= 5 or
-      have_valPhpInlIso and nPhp + nHp >= 5 and nHp < 5,
+    Line(visible=have_valHpInlIso and nHp >= 5
+      or have_valPhpInlIso and nPhp + nHp >= 5 and nHp < 5,
       points={{0,30},{0,-30}},
       color={0,0,0},
       origin={-1030,-200},
       rotation=-90),
     Bitmap(visible=typValHpOutIso ==
-      Buildings.Templates.Components.Types.Valve.TwoWayTwoPosition and
-      nHp >= 5 or
-      typValPhpOutIso ==
-      Buildings.Templates.Components.Types.Valve.TwoWayTwoPosition and
-      nPhp + nHp >= 5 and nHp < 5,
+      Buildings.Templates.Components.Types.Valve.TwoWayTwoPosition
+      and nHp >= 5
+      or typValPhpOutIso ==
+        Buildings.Templates.Components.Types.Valve.TwoWayTwoPosition
+        and nPhp + nHp >= 5
+        and nHp < 5,
       extent={{-1340,-240},{-1260,-160}},
       fileName="modelica://Buildings/Resources/Images/Templates/Components/Actuators/TwoPosition.svg"),
     Bitmap(visible=typValHpOutIso ==
-      Buildings.Templates.Components.Types.Valve.TwoWayTwoPosition and
-      have_chiWat and nHp >= 5 or
-      typValPhpOutIso ==
-      Buildings.Templates.Components.Types.Valve.TwoWayTwoPosition and
-      nPhp + nHp >= 5 and nHp < 5,
+      Buildings.Templates.Components.Types.Valve.TwoWayTwoPosition
+      and have_chiWat
+      and nHp >= 5
+      or typValPhpOutIso ==
+        Buildings.Templates.Components.Types.Valve.TwoWayTwoPosition
+        and nPhp + nHp >= 5
+        and nHp < 5,
       extent={{-1540,-240},{-1460,-160}},
       fileName="modelica://Buildings/Resources/Images/Templates/Components/Actuators/TwoPosition.svg"),
-    Line(visible=have_chiWat and have_valHpOutIso and nHp >= 5 or
-      have_valPhpOutIso and nPhp + nHp >= 5 and nHp < 5,
+    Line(visible=have_chiWat and have_valHpOutIso and nHp >= 5
+      or have_valPhpOutIso and nPhp + nHp >= 5 and nHp < 5,
       points={{0,30},{0,-30}},
       color={0,0,0},
       origin={-1430,-200},
@@ -1232,9 +1248,9 @@ annotation(defaultComponentName="valIso",
       color={0,0,0},
       thickness=5,
       visible=have_chiWat and nHp + nPhp >= 6),
-    Bitmap(visible=have_chiWat and
-      (have_valHpOutIso and nHp >= 6 or
-      have_valPhpOutIso and nPhp + nHp >= 6 and nHp < 6),
+    Bitmap(visible=have_chiWat
+      and (have_valHpOutIso and nHp >= 6
+        or have_valPhpOutIso and nPhp + nHp >= 6 and nHp < 6),
       extent={{-100,-100},{100,100}},
       fileName="modelica://Buildings/Resources/Images/Templates/Components/Valves/TwoWay.svg",
       rotation=360,
@@ -1244,44 +1260,48 @@ annotation(defaultComponentName="valIso",
       pattern=LinePattern.Dash,
       thickness=5,
       visible=nHp + nPhp >= 6),
-    Bitmap(visible=have_valHpInlIso and nHp >= 6 or
-      have_valPhpInlIso and nPhp + nHp >= 6 and nHp < 6,
+    Bitmap(visible=have_valHpInlIso and nHp >= 6
+      or have_valPhpInlIso and nPhp + nHp >= 6 and nHp < 6,
       extent={{-100,-100},{100,100}},
       fileName="modelica://Buildings/Resources/Images/Templates/Components/Valves/TwoWay.svg",
       rotation=360,
       origin={-1800,-200}),
     Bitmap(visible=typValHpInlIso ==
-      Buildings.Templates.Components.Types.Valve.TwoWayTwoPosition and
-      nHp >= 6 or
-      typValPhpInlIso ==
-      Buildings.Templates.Components.Types.Valve.TwoWayTwoPosition and
-      nPhp + nHp >= 6 and nHp < 6,
+      Buildings.Templates.Components.Types.Valve.TwoWayTwoPosition
+      and nHp >= 6
+      or typValPhpInlIso ==
+        Buildings.Templates.Components.Types.Valve.TwoWayTwoPosition
+        and nPhp + nHp >= 6
+        and nHp < 6,
       extent={{-1940,-240},{-1860,-160}},
       fileName="modelica://Buildings/Resources/Images/Templates/Components/Actuators/TwoPosition.svg"),
-    Line(visible=have_valHpInlIso and nHp >= 6 or
-      have_valPhpInlIso and nPhp + nHp >= 6 and nHp < 6,
+    Line(visible=have_valHpInlIso and nHp >= 6
+      or have_valPhpInlIso and nPhp + nHp >= 6 and nHp < 6,
       points={{0,30},{0,-30}},
       color={0,0,0},
       origin={-1830,-200},
       rotation=-90),
     Bitmap(visible=typValHpOutIso ==
-      Buildings.Templates.Components.Types.Valve.TwoWayTwoPosition and
-      nHp >= 6 or
-      typValPhpOutIso ==
-      Buildings.Templates.Components.Types.Valve.TwoWayTwoPosition and
-      nPhp + nHp >= 6 and nHp < 6,
+      Buildings.Templates.Components.Types.Valve.TwoWayTwoPosition
+      and nHp >= 6
+      or typValPhpOutIso ==
+        Buildings.Templates.Components.Types.Valve.TwoWayTwoPosition
+        and nPhp + nHp >= 6
+        and nHp < 6,
       extent={{-2140,-240},{-2060,-160}},
       fileName="modelica://Buildings/Resources/Images/Templates/Components/Actuators/TwoPosition.svg"),
     Bitmap(visible=typValHpOutIso ==
-      Buildings.Templates.Components.Types.Valve.TwoWayTwoPosition and
-      have_chiWat and nHp >= 6 or
-      typValPhpOutIso ==
-      Buildings.Templates.Components.Types.Valve.TwoWayTwoPosition and
-      nPhp + nHp >= 6 and nHp < 6,
+      Buildings.Templates.Components.Types.Valve.TwoWayTwoPosition
+      and have_chiWat
+      and nHp >= 6
+      or typValPhpOutIso ==
+        Buildings.Templates.Components.Types.Valve.TwoWayTwoPosition
+        and nPhp + nHp >= 6
+        and nHp < 6,
       extent={{-2340,-240},{-2260,-160}},
       fileName="modelica://Buildings/Resources/Images/Templates/Components/Actuators/TwoPosition.svg"),
-    Line(visible=have_chiWat and have_valHpOutIso and nHp >= 6 or
-      have_valPhpOutIso and nPhp + nHp >= 6 and nHp < 6,
+    Line(visible=have_chiWat and have_valHpOutIso and nHp >= 6
+      or have_valPhpOutIso and nPhp + nHp >= 6 and nHp < 6,
       points={{0,30},{0,-30}},
       color={0,0,0},
       origin={-2230,-200},
@@ -1329,23 +1349,22 @@ annotation(defaultComponentName="valIso",
       fillPattern=FillPattern.Solid,
       pattern=LinePattern.None,
       visible=have_chiWat and nHp + nPhp >= 2),
-    Line(points=if nHp >= 2
-      then {{2400,200},{1600,200},{1600,-400},{1400,-400}}
+    Line(points=if nHp >= 2 then {{2400,200},{1600,200},{1600,-400},{1400,-400}}
       else {{2400,200},{1600,200},{1600,-400},{1600,-700}},
       color={0,0,0},
       pattern=LinePattern.Dash,
       thickness=5,
       visible=have_chiWat and nHp + nPhp >= 2),
-    Bitmap(visible=have_chiWat and
-      (nHp >= 2 and have_valHpInlIso or
-      have_valPhpInlIso and nPhp + nHp >= 2 and nHp < 2),
+    Bitmap(visible=have_chiWat
+      and (nHp >= 2 and have_valHpInlIso
+        or have_valPhpInlIso and nPhp + nHp >= 2 and nHp < 2),
       extent={{-100,-100},{100,100}},
       fileName="modelica://Buildings/Resources/Images/Templates/Components/Valves/TwoWay.svg",
       rotation=360,
       origin={1600,-200}),
-    Line(visible=have_chiWat and
-      (nHp >= 2 and have_valHpInlIso or
-      have_valPhpInlIso and nPhp + nHp >= 2 and nHp < 2),
+    Line(visible=have_chiWat
+      and (nHp >= 2 and have_valHpInlIso
+        or have_valPhpInlIso and nPhp + nHp >= 2 and nHp < 2),
       points={{0,30},{0,-30}},
       color={0,0,0},
       origin={1570,-200},
@@ -1357,33 +1376,34 @@ annotation(defaultComponentName="valIso",
       fillPattern=FillPattern.Solid,
       pattern=LinePattern.None,
       visible=have_chiWat and nHp + nPhp >= 3),
-    Line(points=if nHp >= 3
-      then {{1600,200},{800,200},{800,-400},{600,-400}}
+    Line(points=if nHp >= 3 then {{1600,200},{800,200},{800,-400},{600,-400}}
       else {{1600,200},{800,200},{800,-400},{800,-700}},
       color={0,0,0},
       pattern=LinePattern.Dash,
       thickness=5,
       visible=have_chiWat and nHp + nPhp >= 3),
-    Bitmap(visible=have_chiWat and
-      (nHp >= 3 and have_valHpInlIso or
-      have_valPhpInlIso and nPhp + nHp >= 3 and nHp < 3),
+    Bitmap(visible=have_chiWat
+      and (nHp >= 3 and have_valHpInlIso
+        or have_valPhpInlIso and nPhp + nHp >= 3 and nHp < 3),
       extent={{-100,-100},{100,100}},
       fileName="modelica://Buildings/Resources/Images/Templates/Components/Valves/TwoWay.svg",
       rotation=360,
       origin={800,-200}),
-    Line(visible=have_chiWat and
-      (nHp >= 3 and have_valHpInlIso or
-      have_valPhpInlIso and nPhp + nHp >= 3 and nHp < 3),
+    Line(visible=have_chiWat
+      and (nHp >= 3 and have_valHpInlIso
+        or have_valPhpInlIso and nPhp + nHp >= 3 and nHp < 3),
       points={{0,30},{0,-30}},
       color={0,0,0},
       origin={770,-200},
       rotation=-90),
     Bitmap(visible=typValHpInlIso ==
-      Buildings.Templates.Components.Types.Valve.TwoWayTwoPosition and
-      have_chiWat and nHp >= 3 or
-      typValPhpInlIso ==
-      Buildings.Templates.Components.Types.Valve.TwoWayTwoPosition and
-      nPhp + nHp >= 3 and nHp < 3,
+      Buildings.Templates.Components.Types.Valve.TwoWayTwoPosition
+      and have_chiWat
+      and nHp >= 3
+      or typValPhpInlIso ==
+        Buildings.Templates.Components.Types.Valve.TwoWayTwoPosition
+        and nPhp + nHp >= 3
+        and nHp < 3,
       extent={{660,-240},{740,-160}},
       fileName="modelica://Buildings/Resources/Images/Templates/Components/Actuators/TwoPosition.svg"),
     Rectangle(extent={{580,220},{620,180}},
@@ -1407,62 +1427,64 @@ annotation(defaultComponentName="valIso",
       fillPattern=FillPattern.Solid,
       pattern=LinePattern.None,
       visible=have_chiWat and nHp + nPhp >= 6),
-    Line(points=if nHp >= 4
-      then {{800,200},{0,200},{0,-400},{-200,-400}}
+    Line(points=if nHp >= 4 then {{800,200},{0,200},{0,-400},{-200,-400}}
       else {{800,200},{0,200},{0,-400},{0,-700}},
       color={0,0,0},
       pattern=LinePattern.Dash,
       thickness=5,
       visible=have_chiWat and nHp + nPhp >= 4),
-    Bitmap(visible=have_chiWat and
-      (nHp >= 4 and have_valHpInlIso or
-      have_valPhpInlIso and nPhp + nHp >= 4 and nHp < 4),
+    Bitmap(visible=have_chiWat
+      and (nHp >= 4 and have_valHpInlIso
+        or have_valPhpInlIso and nPhp + nHp >= 4 and nHp < 4),
       extent={{-100,-100},{100,100}},
       fileName="modelica://Buildings/Resources/Images/Templates/Components/Valves/TwoWay.svg",
       rotation=360,
       origin={0,-200}),
-    Line(visible=have_chiWat and
-      (nHp >= 4 and have_valHpInlIso or
-      have_valPhpInlIso and nPhp + nHp >= 4 and nHp < 4),
+    Line(visible=have_chiWat
+      and (nHp >= 4 and have_valHpInlIso
+        or have_valPhpInlIso and nPhp + nHp >= 4 and nHp < 4),
       points={{0,30},{0,-30}},
       color={0,0,0},
       origin={-30,-200},
       rotation=-90),
     Bitmap(visible=typValHpInlIso ==
-      Buildings.Templates.Components.Types.Valve.TwoWayTwoPosition and
-      have_chiWat and nHp >= 4 or
-      typValPhpInlIso ==
-      Buildings.Templates.Components.Types.Valve.TwoWayTwoPosition and
-      nPhp + nHp >= 4 and nHp < 4,
+      Buildings.Templates.Components.Types.Valve.TwoWayTwoPosition
+      and have_chiWat
+      and nHp >= 4
+      or typValPhpInlIso ==
+        Buildings.Templates.Components.Types.Valve.TwoWayTwoPosition
+        and nPhp + nHp >= 4
+        and nHp < 4,
       extent={{-140,-240},{-60,-160}},
       fileName="modelica://Buildings/Resources/Images/Templates/Components/Actuators/TwoPosition.svg"),
-    Line(points=if nHp >= 5
-      then {{0,200},{-800,200},{-800,-400},{-1000,-400}}
+    Line(points=if nHp >= 5 then {{0,200},{-800,200},{-800,-400},{-1000,-400}}
       else {{0,200},{-800,200},{-800,-400},{-800,-700}},
       color={0,0,0},
       pattern=LinePattern.Dash,
       thickness=5,
       visible=have_chiWat and nHp + nPhp >= 5),
-    Bitmap(visible=have_chiWat and
-      (nHp >= 5 and have_valHpInlIso or
-      have_valPhpInlIso and nPhp + nHp >= 5 and nHp < 5),
+    Bitmap(visible=have_chiWat
+      and (nHp >= 5 and have_valHpInlIso
+        or have_valPhpInlIso and nPhp + nHp >= 5 and nHp < 5),
       extent={{-100,-100},{100,100}},
       fileName="modelica://Buildings/Resources/Images/Templates/Components/Valves/TwoWay.svg",
       rotation=360,
       origin={-800,-200}),
-    Line(visible=have_chiWat and
-      (nHp >= 5 and have_valHpInlIso or
-      have_valPhpInlIso and nPhp + nHp >= 5 and nHp < 5),
+    Line(visible=have_chiWat
+      and (nHp >= 5 and have_valHpInlIso
+        or have_valPhpInlIso and nPhp + nHp >= 5 and nHp < 5),
       points={{0,30},{0,-30}},
       color={0,0,0},
       origin={-830,-200},
       rotation=-90),
     Bitmap(visible=typValHpInlIso ==
-      Buildings.Templates.Components.Types.Valve.TwoWayTwoPosition and
-      have_chiWat and nHp >= 5 or
-      typValPhpInlIso ==
-      Buildings.Templates.Components.Types.Valve.TwoWayTwoPosition and
-      nPhp + nHp >= 5 and nHp < 5,
+      Buildings.Templates.Components.Types.Valve.TwoWayTwoPosition
+      and have_chiWat
+      and nHp >= 5
+      or typValPhpInlIso ==
+        Buildings.Templates.Components.Types.Valve.TwoWayTwoPosition
+        and nPhp + nHp >= 5
+        and nHp < 5,
       extent={{-940,-240},{-860,-160}},
       fileName="modelica://Buildings/Resources/Images/Templates/Components/Actuators/TwoPosition.svg"),
     Line(points=if nHp >= 6
@@ -1472,26 +1494,28 @@ annotation(defaultComponentName="valIso",
       pattern=LinePattern.Dash,
       thickness=5,
       visible=have_chiWat and nHp + nPhp >= 6),
-    Bitmap(visible=have_chiWat and
-      (nHp >= 6 and have_valHpInlIso or
-      have_valPhpInlIso and nPhp + nHp >= 6 and nHp < 6),
+    Bitmap(visible=have_chiWat
+      and (nHp >= 6 and have_valHpInlIso
+        or have_valPhpInlIso and nPhp + nHp >= 6 and nHp < 6),
       extent={{-100,-100},{100,100}},
       fileName="modelica://Buildings/Resources/Images/Templates/Components/Valves/TwoWay.svg",
       rotation=360,
       origin={-1600,-200}),
-    Line(visible=have_chiWat and
-      (nHp >= 6 and have_valHpInlIso or
-      have_valPhpInlIso and nPhp + nHp >= 6 and nHp < 6),
+    Line(visible=have_chiWat
+      and (nHp >= 6 and have_valHpInlIso
+        or have_valPhpInlIso and nPhp + nHp >= 6 and nHp < 6),
       points={{0,30},{0,-30}},
       color={0,0,0},
       origin={-1630,-200},
       rotation=-90),
     Bitmap(visible=typValHpInlIso ==
-      Buildings.Templates.Components.Types.Valve.TwoWayTwoPosition and
-      have_chiWat and nHp >= 6 or
-      typValPhpInlIso ==
-      Buildings.Templates.Components.Types.Valve.TwoWayTwoPosition and
-      nPhp + nHp >= 6 and nHp < 6,
+      Buildings.Templates.Components.Types.Valve.TwoWayTwoPosition
+      and have_chiWat
+      and nHp >= 6
+      or typValPhpInlIso ==
+        Buildings.Templates.Components.Types.Valve.TwoWayTwoPosition
+        and nPhp + nHp >= 6
+        and nHp < 6,
       extent={{-1740,-240},{-1660,-160}},
       fileName="modelica://Buildings/Resources/Images/Templates/Components/Actuators/TwoPosition.svg")}),
   Documentation(
@@ -1511,7 +1535,8 @@ annotation(defaultComponentName="valIso",
   <li>
     July 10, 2026, by Antoine Gautier:<br />
     Refactored for plants with polyvalent heat pumps.<br />
-    This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4512\">#4512</a>.
+    This is for
+    <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4512\">#4512</a>.
   </li>
   <li>
     May 7, 2025, by Antoine Gautier:<br />
