@@ -188,9 +188,9 @@ First implementation.
   end isatExchangeData;
 
 
-initial equation
+initial algorithm
   if verbose then
-    Modelica.Utilities.Streams.print(getInstanceName() + ": Starting CFD.\n");
+    Modelica.Utilities.Streams.print("ISATExchange: Starting ISAT.\n");
   end if;
 
   // Send parameters to the CFD interface
@@ -235,9 +235,7 @@ algorithm
 
     // Check for valid return flags
     assert(retVal >= 0,
-      "Obtained negative return value during data transfer with CFD.\n" +
-      "   Aborting simulation. Check CFD log file.\n" +
-      "   Received: retVal = " + String(retVal));
+      "Obtained negative return value during data transfer with CFD. Aborting simulation. Check CFD log file.");
   end when;
 
   annotation (Documentation(info="<html>

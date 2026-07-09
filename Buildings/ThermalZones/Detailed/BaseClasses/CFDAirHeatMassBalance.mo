@@ -137,8 +137,7 @@ protected
       ASurBou=surBou.A,
       tilSurBou=surBou.til,
       bouConSurBou=surBou.boundaryCondition)
-    "Names of all surfaces in the order in which their properties are sent to CFD"
-    annotation (Evaluate=true);
+    "Names of all surfaces in the order in which their properties are sent to CFD";
 
   // Interfaces between the CFD block and the heat ports of this model
   // Here, we directly access datConExt instead of surIde. The reason is

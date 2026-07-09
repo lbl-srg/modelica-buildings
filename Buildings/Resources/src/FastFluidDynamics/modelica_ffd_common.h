@@ -85,6 +85,7 @@ typedef struct{
   ParameterSharedData *para;
   ffdSharedData *ffd;
   ModelicaSharedData *modelica;
+  int started; /* 1 if cosimulation has been started, 0 otherwise */
 } CosimulationData;
 
 #define FFD_ISAT

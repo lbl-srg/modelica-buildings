@@ -123,40 +123,40 @@ protected
     end for;
   end returnNonUniqueStrings;
 
-  // This function does not work because Dymola 2014 has problems with
-  // handling strings in an algorithm section
-  impure function assertStringsAreUnique
-    input String descriptiveName
-      "Descriptive name of what is tested, such as 'sensor' or 'ports'";
-    input Integer n(min=2) "Number of strings";
-    input String names[n] "Names";
-  protected
-    Boolean ideNam[max(0, n-1)]
-      "Flag that is set to true if the name is used more than once";
-
-  algorithm
-  // Loop over all names to verify that they are unique
-    if n > 1 then
-      for i in 1:n-1 loop
-        for j in i+1:n loop
-          ideNam[i] := Modelica.Utilities.Strings.isEqual(names[i], names[j]);
-          if ideNam[i] then
-            break;
-          end if;
-        end for; // j
-      end for; // i
-
-      assert( not Modelica.Math.BooleanVectors.anyTrue(ideNam),
-      "For the CFD interface, all " + descriptiveName +
-      " must have a name that is unique within each room.
-      The following "
-        + descriptiveName + " names are used more than once in the room model:" +
-      returnNonUniqueStrings(n, ideNam, names));
-    else
-      ideNam :=fill(false, max(0, n - 1));
-    end if;
-   annotation(Inline=true);
-  end assertStringsAreUnique;
+//   // This function does not work because Dymola 2014 has problems with
+//   // handling strings in an algorithm section
+//   impure function assertStringsAreUnique
+//     input String descriptiveName
+//       "Descriptive name of what is tested, such as 'sensor' or 'ports'";
+//     input Integer n(min=2) "Number of strings";
+//     input String names[n] "Names";
+//   protected
+//     Boolean ideNam[max(0, n-1)]
+//       "Flag that is set to true if the name is used more than once";
+//
+//   algorithm
+//   // Loop over all names to verify that they are unique
+//     if n > 1 then
+//       for i in 1:n-1 loop
+//         for j in i+1:n loop
+//           ideNam[i] := Modelica.Utilities.Strings.isEqual(names[i], names[j]);
+//           if ideNam[i] then
+//             break;
+//           end if;
+//         end for; // j
+//       end for; // i
+//
+//       assert( not Modelica.Math.BooleanVectors.anyTrue(ideNam),
+//       "For the CFD interface, all " + descriptiveName +
+//       " must have a name that is unique within each room.
+//       The following "
+//         + descriptiveName + " names are used more than once in the room model:" +
+//       returnNonUniqueStrings(n, ideNam, names));
+//     else
+//       ideNam :=fill(false, max(0, n - 1));
+//     end if;
+//    annotation(Inline=true);
+//   end assertStringsAreUnique;
 
   function cfdStartCosimulation "Start the coupled simulation with CFD"
     input String cfdFilNam "CFD input file name";
@@ -276,9 +276,9 @@ First implementation.
 
   end cfdExchangeData;
 
-initial equation
+initial algorithm
   if verbose then
-    Modelica.Utilities.Streams.print(getInstanceName() + ": Starting CFD.\n");
+    Modelica.Utilities.Streams.print("CFDExchange: Starting CFD.\n");
   end if;
 
   // Send parameters to the CFD interface
@@ -322,9 +322,7 @@ algorithm
 
     // Check for valid return flags
     assert(retVal >= 0,
-      "Obtained negative return value during data transfer with CFD.\n" +
-      "   Aborting simulation. Check CFD log file.\n" +
-      "   Received: retVal = " + String(retVal));
+      "Obtained negative return value during data transfer with CFD. Aborting simulation. Check CFD log file.");
   end when;
   annotation (
     Documentation(info="<html>

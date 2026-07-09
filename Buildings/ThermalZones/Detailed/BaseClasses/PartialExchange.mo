@@ -34,7 +34,8 @@ block PartialExchange
     "Names of sensors as declared in the CFD input file";
   parameter String portName[:]
     "Names of fluid ports as declared in the CFD input file";
-  parameter Boolean verbose=false "Set to true for verbose output";
+  parameter Boolean verbose=false "Set to true for verbose output"
+    annotation(Evaluate=true);
   parameter Modelica.Units.SI.Density rho_start "Density at initial state";
   parameter Boolean haveSource
     "Flag, true if the model has at least one source";
@@ -81,54 +82,49 @@ protected
     end for;
   end returnNonUniqueStrings;
 
-  // This function does not work because Dymola 2014 has problems with
-  // handling strings in an algorithm section
-  function assertStringsAreUnique
+  // Note: Dymola has problems with string operations (concatenation, function
+  // calls returning strings) inside algorithm sections used during translation.
+  // Therefore assertStringsAreUnique only performs a boolean uniqueness check
+  // and emits a fixed error message without enumerating the duplicates.
+  // See the commented-out block in CFDExchange.mo for background.
+  impure function assertStringsAreUnique
     input String descriptiveName
       "Descriptive name of what is tested, such as 'sensor' or 'ports'";
     input Integer n(min=2) "Number of strings";
     input String names[n] "Names";
   protected
-    Boolean ideNam[n-1]
-      "Flag that is set to true if the name is used more than once";
+    Boolean anyDuplicate
+      "True if at least one name appears more than once";
 
   algorithm
-      // Loop over all names to verify that they are unique
+    anyDuplicate := false;
     if n > 1 then
       for i in 1:n-1 loop
         for j in i+1:n loop
-          ideNam[i] := Modelica.Utilities.Strings.isEqual(names[i], names[j]);
-          if ideNam[i] then
-            break;
+          if Modelica.Utilities.Strings.isEqual(names[i], names[j]) then
+            anyDuplicate := true;
           end if;
         end for; // j
       end for; // i
-
-      assert( not Modelica.Math.BooleanVectors.anyTrue(ideNam),
-      "For the CFD interface, all " + descriptiveName +
-      " must have a name that is unique within each room.
-      The following "
-        + descriptiveName + " names are used more than once in the room model:" +
-      returnNonUniqueStrings(n, ideNam, names));
-    else
-      ideNam :=fill(false, max(0, n - 1));
+      assert(not anyDuplicate,
+        "For the CFD interface, all " + descriptiveName +
+        " names must be unique within each room. Check the room model parameters.");
     end if;
-   annotation(Inline=true);
   end assertStringsAreUnique;
 
-initial equation
-
-  // Diagnostics output
+initial algorithm
+  // Diagnostics output - must be in an algorithm section because
+  // Modelica.Utilities.Streams.print has side-effects and is not
+  // allowed in equation sections.
   if verbose then
-   Modelica.Utilities.Streams.print(string="
+    Modelica.Utilities.Streams.print(string="
 CFDExchange has the following surfaces:");
     for i in 1:nSur loop
       Modelica.Utilities.Streams.print(string="
   name = " + surIde[i].name + "
   A    = " + String(surIde[i].A) + " [m2]
   tilt = " + String(surIde[i].til*180/Modelica.Constants.pi) + " [deg]");
-  end for;
-
+    end for;
     if haveSensor then
       Modelica.Utilities.Streams.print(string="
 CFDExchange has the following sensors:");
@@ -143,10 +139,9 @@ CFDExchange has the following sensors:");
   // Assert that the surface, sensor and ports have a name,
   // and that that name is unique.
   // Otherwise, stop with an error.
-
   assertStringsAreUnique(descriptiveName="surface",
                          n=nSur,
-                         names={surIde[i].name for i in 1:nSur});
+                         names=surIde.name);
   assertStringsAreUnique(descriptiveName="sensor",
                          n=nSen,
                          names=sensorName);
@@ -154,13 +149,13 @@ CFDExchange has the following sensors:");
                          n=nPorts,
                          names=portName);
 
+  assert(min(flaWri) >= 0 and max(flaWri) <= 2,
+    "Parameter flaWri is out of range. Each element must be 0, 1, or 2.");
+
+initial equation
   // Assignment of parameters and start values
   uInt = zeros(nWri);
   uIntPre = zeros(nWri);
-  for i in 1:nWri loop
-    assert(flaWri[i] >= 0 and flaWri[i] <= 2,
-      "Parameter flaWri out of range for " + String(i) + "-th component.");
-  end for;
 
   // Assign uWri and y. This avoids a translation warning in Dymola
   // as otherwise, not all initial values are specified.
