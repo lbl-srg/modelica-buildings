@@ -24,21 +24,19 @@ record PumpMultiple "Record for multiple-pump models"
     "Total pressure rise - Each pump"
     annotation (Dialog(group="Nominal condition",
     enable=typ<>Buildings.Templates.Components.Types.Pump.None));
-  // HACK: The following parameter declaration and corresponding binding with
-  // per.pressure.V_flow is a workaround against a false positive model
-  // check error with Dymola 2026.x.
-  final parameter Modelica.Units.SI.VolumeFlowRate VPer_flow[:, :] =
-    {{0, 1, 2} * m_flow_nominal[i] / rho_default for i in 1:nPum}
-    "Volume flow rate support points for performance curve";
-  // To avoid missing support for zero-sized record in case of nPum=0 we use max(nPum, 1).
+  // HACK: The following parameter declaration and corresponding bindings in
+  // per.pressure are a workaround against a false positive model check error with Dymola 2026.x.
+  final parameter Buildings.Fluid.Movers.BaseClasses.Characteristics.flowParameters pressure[max(nPum, 1)](
+    V_flow=if typ == Buildings.Templates.Components.Types.Pump.None then [0,0,0]
+      else {{0, 1, 2} * m_flow_nominal[i] / rho_default for i in 1:nPum},
+    dp=if typ == Buildings.Templates.Components.Types.Pump.None then [0,0,0]
+      else {{1.14, 1, 0.42} * dp_nominal[i] for i in 1:nPum})
+    "Pressure curve";
+  // HACK: Some tools don't support zero-sized records, so nPum=0 is remapped to max(nPum, 1).
   replaceable parameter Fluid.Movers.Data.Generic per[max(nPum, 1)](
-    pressure(
-      V_flow=if typ<>Buildings.Templates.Components.Types.Pump.None then
-      VPer_flow else [0],
-      dp=if typ<>Buildings.Templates.Components.Types.Pump.None then
-      {{1.14, 1, 0.42} * dp_nominal[i] for i in 1:nPum} else [0]))
+    pressure(V_flow=pressure.V_flow, dp=pressure.dp))
     constrainedby Buildings.Fluid.Movers.Data.Generic
-    "Performance data - Each pump"
+    "Performance data – Each pump"
     annotation(Dialog(enable=typ<>Buildings.Templates.Components.Types.Pump.None));
 
   parameter Modelica.Units.SI.Density rho_default=Buildings.Media.Water.d_const

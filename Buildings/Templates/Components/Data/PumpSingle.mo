@@ -18,18 +18,16 @@ record PumpSingle "Record for single pump model"
     "Total pressure rise"
     annotation (Dialog(group="Nominal condition",
       enable=typ<>Buildings.Templates.Components.Types.Pump.None));
-  // HACK: The following parameter declaration and corresponding binding with
-  // per.pressure.V_flow is a workaround against a false positive model
-  // check error with Dymola 2026.x.
-  final parameter Modelica.Units.SI.VolumeFlowRate VPer_flow[:] =
-    {0, 1, 2} * m_flow_nominal / rho_default
-    "Volume flow rate support points for performance curve";
+  // HACK: The following parameter declaration and corresponding bindings in
+  // per.pressure are a workaround against a false positive model check error with Dymola 2026.x.
+  final parameter Buildings.Fluid.Movers.BaseClasses.Characteristics.flowParameters pressure(
+    V_flow=if typ == Buildings.Templates.Components.Types.Pump.None then {0,0,0}
+      else {0, 1, 2} * m_flow_nominal / rho_default,
+    dp=if typ == Buildings.Templates.Components.Types.Pump.None then {0,0,0}
+      else {1.14, 1, 0.42} * dp_nominal)
+    "Pressure curve";
   replaceable parameter Buildings.Fluid.Movers.Data.Generic per(
-    pressure(
-      V_flow=if typ<>Buildings.Templates.Components.Types.Pump.None then
-      VPer_flow else {0,0,0},
-      dp=if typ<>Buildings.Templates.Components.Types.Pump.None then
-      {1.14, 1, 0.42} * dp_nominal else {0,0,0}))
+    pressure(V_flow=pressure.V_flow, dp=pressure.dp))
     constrainedby Buildings.Fluid.Movers.Data.Generic
     "Performance data"
     annotation(Dialog(enable=typ<>Buildings.Templates.Components.Types.Pump.None));
