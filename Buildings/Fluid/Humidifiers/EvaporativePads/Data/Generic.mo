@@ -1,5 +1,5 @@
 within Buildings.Fluid.Humidifiers.EvaporativePads.Data;
-record Generic "Generic data record for evaporative pads"
+record Generic "Generic data record for an evaporative pad"
   extends Modelica.Icons.Record;
 
   parameter

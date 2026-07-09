@@ -30,7 +30,11 @@ model Direct
     dirEvaPadCal(
     redeclare final package Medium = Medium,
     final padAre=padAre,
-    final per=per) "Direct evaporative pad calculation" annotation (Placement(
+    per(final efficiency=per.efficiency,
+      final v_nominal=per.v_nominal,
+      final dp_nominal=per.dp_nominal,
+      final n=per.n))
+    "Direct evaporative pad calculation" annotation (Placement(
         transformation(origin={30,50}, extent={{-10,-10},{10,10}})));
 protected
   Medium.ThermodynamicState staInl=Medium.setState_phX(
@@ -120,8 +124,14 @@ reported by the output signal <code>dmWat_flow</code>.
 </p>
 <p>
 The input variable <code>evaCooAct</code> determines whether the evaporative cooling
-is active. When evaporative cooling is not active, no water vapor is added to the
-air, and thus <code>dmWat_flow = 0</code>.
+is active (such that the evaporative pad is wet). When evaporative cooling is not
+active (the evaporative pad is dry), no water vapor is added to the air, and thus
+<code>dmWat_flow = 0</code>. The pressure drop through the evaporative
+pad is less than <i>10%</i> lower when the evaporative pad is dry compared to when
+the evaporative pad is wet (see
+<a href=\"https://munters.sies.si/images/pdf/celdek7090.pdf\">this reference</a>).
+Thus, this model assumes that the pressure drop is the same for a dry evaporative
+pad as for a wet evaporative pad.
 </p>
 <p>
 This model uses a data record <code>per</code> to provide data on the saturation
@@ -141,7 +151,7 @@ velocity <code>v_nominal</code>, and the flow exponent for pressure drop
 </p>
 <p>
 Note that air flow is designed to flow from <code>port_a</code> to
-<code>port_b</code>. Unintentional behaviors will occur if such flow direction is
+<code>port_b</code>. Unexpected behaviors will occur if such flow direction is
 reversed.
 </p>
 </html>", revisions="<html>

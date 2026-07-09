@@ -5,7 +5,7 @@ record CELdek7090dash15slash150mm
     final efficiency(
       v={0,0.5,1,1.5,2,2.5,3,3.5,4,4.5,5,10},
       eta={0.926,0.908,0.881,0.854,0.828,0.808,0.788,0.766,0.752,0.731,0.719,0.547}),
-    final dp_nominal=160,
+    final dp_nominal=160.71,
     final v_nominal=3.5,
     final n=1.9259);
 
@@ -30,7 +30,7 @@ equation of the following form was fitted into the pressure drop data points:
 <p>
 We found <i>a = 14.3956</i> and <i>n = 1.9259</i>. By setting the nominal air
 velocity <i>v_nominal = 3.5 m/s</i> and plug this into the fitted equation, the
-nominal pressure drop <i>dp_nominal = 160 Pa</i>. Only <i>dp_nominal</i>,
+nominal pressure drop <i>dp_nominal = 160.71 Pa</i>. Only <i>dp_nominal</i>,
 <i>v_nominal</i>, and the flow exponent for pressure drop <i>n</i> are included in
 this data record.
 </p>

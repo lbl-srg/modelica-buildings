@@ -10,7 +10,7 @@ model EvaporativePadInterface
   Modelica.Blocks.Sources.Ramp v(
     height=12.5,
     duration=1,
-    offset=-5)
+    offset=0)
     "Air velocity"
     annotation (Placement(transformation(extent={{-40,0},{-20,20}})));
 equation

@@ -11,7 +11,7 @@ model Direct_CompareEnergyPlus
   Buildings.Fluid.Humidifiers.EvaporativePads.Direct dirEvaPad(
     redeclare final package Medium = MediumA,
     final padAre=0.6,
-    redeclare Buildings.Fluid.Humidifiers.EvaporativePads.Data.Generic per)
+    redeclare Buildings.Fluid.Humidifiers.EvaporativePads.Data.EnergyPlus per)
     "Direct evaporative pad"    annotation (Placement(
         transformation(origin={10,0},extent={{-10,-10},{10,10}})));
   Buildings.Fluid.Sources.Boundary_pT sin(
