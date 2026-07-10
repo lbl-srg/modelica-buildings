@@ -34,11 +34,11 @@ such as:
 <pre>
   Buildings.Fluid.Humidifiers.EvaporativePads.Direct dirEvaCoo(
     redeclare package Medium = MediumA,
-      per(efficiency(v={0,v_nominal,2*v_nominal},
-            eta={1.1*eta_nominal,eta_nominal,0.9*eta_nominal}),
-          dp_nominal=1*dp_nominal,
-          v_nominal=1*v_nominal,
-          n=1.8)) \"Direct evaporative cooler\";
+    per(efficiency(v={0,v_nominal,2*v_nominal},
+                   eta={1.1*eta_nominal,eta_nominal,0.9*eta_nominal}),
+        dp_nominal=1*dp_nominal,
+        v_nominal=1*v_nominal,
+        n=1.8));
 </pre>
 <p>
 This record provides performance data for both the saturation efficiency and the
