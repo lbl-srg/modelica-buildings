@@ -22,7 +22,7 @@ Function to return thermal conductivity for specified glycol mass fraction and t
 </p>
 <p>
 This function returns the thermal conductivity by calling the functions in
-<a href=\\\"modelica://Buildings.Media.Antifreeze.Functions\">
+<a href=\"modelica://Buildings.Media.Antifreeze.Functions\">
 Buildings.Media.Antifreeze.Functions</a>.
 For water, the input argument <code>X_a</code> is not used.
 For glycol, set it to the mass fraction of glycol.

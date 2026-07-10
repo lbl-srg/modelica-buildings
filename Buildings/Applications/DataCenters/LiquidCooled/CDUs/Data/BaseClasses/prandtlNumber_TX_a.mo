@@ -1,5 +1,5 @@
 within Buildings.Applications.DataCenters.LiquidCooled.CDUs.Data.BaseClasses;
-function prandtlNumber_TX_a "Return fluid properties"
+function prandtlNumber_TX_a "Return Prandtl number"
   extends Modelica.Icons.Function;
   input Buildings.Applications.DataCenters.LiquidCooled.Types.Media medium
     "Medium type";
@@ -22,7 +22,7 @@ Function to return Prandtl number for specified glycol mass fraction and tempera
 </p>
 <p>
 This function returns the Prandtl number by calling the functions in
-<a href=\\\"modelica://Buildings.Media.Antifreeze.Functions\">
+<a href=\"modelica://Buildings.Media.Antifreeze.Functions\">
 Buildings.Media.Antifreeze.Functions</a>.
 For water, the input argument <code>X_a</code> is not used.
 For glycol, set it to the mass fraction of glycol.
