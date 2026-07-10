@@ -65,7 +65,7 @@ class SpawnExternalObject
     input Real derivatives_delta[nDer]
       "Increments for derivative calculation";
     output SpawnExternalObject adapter;
-  external "C" adapter=allocate_Modelica_EnergyPlus_24_2_0(
+  external "C" adapter=Modelica_EnergyPlus_24_2_0_allocate(
     objectType,
     startTime,
     modelicaNameBuilding,
@@ -107,7 +107,7 @@ class SpawnExternalObject
     derivatives_delta,
     nDer)
     annotation (
-      Include="#include <EnergyPlus_24_2_0_Wrapper.c>",
+      Include="#include <Modelica_EnergyPlus_24_2_0_allocate.c>",
       IncludeDirectory="modelica://Buildings/Resources/C-Sources",
       Library={"ModelicaBuildingsEnergyPlus_24_2_0","fmilib_shared"});
     annotation (
@@ -148,9 +148,9 @@ class SpawnExternalObject
     "Release storage"
     extends Modelica.Icons.Function;
     input SpawnExternalObject adapter;
-  external "C" free_Modelica_EnergyPlus_24_2_0(adapter)
+  external "C" Modelica_EnergyPlus_24_2_0_free(adapter)
     annotation (
-      Include="#include <EnergyPlus_24_2_0_Wrapper.c>",
+      Include="#include <Modelica_EnergyPlus_24_2_0_free.c>",
       IncludeDirectory="modelica://Buildings/Resources/C-Sources",
       Library={"ModelicaBuildingsEnergyPlus_24_2_0","fmilib_shared"});
     annotation (
