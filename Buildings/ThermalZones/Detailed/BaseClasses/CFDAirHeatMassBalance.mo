@@ -114,29 +114,29 @@ protected
       nSurBou=nSurBou,
       nSur=nSur,
       haveShade=haveShade,
-      nameConExt=datConExt.name,
-      AConExt=datConExt.A,
-      tilConExt=datConExt.til,
-      bouConConExt=datConExt.boundaryCondition,
-      nameConExtWin=datConExtWin.name,
-      AConExtWin=datConExtWin.AOpa,
-      tilConExtWin=datConExtWin.til,
-      bouConConExtWin=datConExtWin.boundaryCondition,
-      AGla=datConExtWin.AGla,
-      AFra=datConExtWin.AFra,
+      nameConExt=datConExt[1:nConExt].name,
+      AConExt=datConExt[1:nConExt].A,
+      tilConExt=datConExt[1:nConExt].til,
+      bouConConExt=datConExt[1:nConExt].boundaryCondition,
+      nameConExtWin=datConExtWin[1:nConExtWin].name,
+      AConExtWin=datConExtWin[1:nConExtWin].AOpa,
+      tilConExtWin=datConExtWin[1:nConExtWin].til,
+      bouConConExtWin=datConExtWin[1:nConExtWin].boundaryCondition,
+      AGla=datConExtWin[1:nConExtWin].AGla,
+      AFra=datConExtWin[1:nConExtWin].AFra,
       uSha=uSha_fixed,
-      nameConPar=datConPar.name,
-      AConPar=datConPar.A,
-      tilConPar=datConPar.til,
-      bouConConPar=datConPar.boundaryCondition,
-      nameConBou=datConBou.name,
-      AConBou=datConBou.A,
-      tilConBou=datConBou.til,
-      bouConConBou=datConBou.boundaryCondition,
-      nameSurBou=surBou.name,
-      ASurBou=surBou.A,
-      tilSurBou=surBou.til,
-      bouConSurBou=surBou.boundaryCondition)
+      nameConPar=datConPar[1:nConPar].name,
+      AConPar=datConPar[1:nConPar].A,
+      tilConPar=datConPar[1:nConPar].til,
+      bouConConPar=datConPar[1:nConPar].boundaryCondition,
+      nameConBou=datConBou[1:nConBou].name,
+      AConBou=datConBou[1:nConBou].A,
+      tilConBou=datConBou[1:nConBou].til,
+      bouConConBou=datConBou[1:nConBou].boundaryCondition,
+      nameSurBou=surBou[1:nSurBou].name,
+      ASurBou=surBou[1:nSurBou].A,
+      tilSurBou=surBou[1:nSurBou].til,
+      bouConSurBou=surBou[1:nSurBou].boundaryCondition)
     "Names of all surfaces in the order in which their properties are sent to CFD";
 
   // Interfaces between the CFD block and the heat ports of this model
@@ -333,56 +333,104 @@ protected
       "Boundary condition";
 
     output CFDSurfaceIdentifier id[nSur] "Name of all surfaces";
-
+  protected
+    // Local offsets into the output array id[nSur], computed the same
+    // way as the corresponding k* parameters in the enclosing model.
+    Integer offConExt "Offset for exterior constructions";
+    Integer offConExtWin "Offset for exterior constructions with window";
+    Integer offGlaUns "Offset for unshaded glass";
+    Integer offGlaSha "Offset for shaded glass";
+    Integer offConExtWinFra "Offset for window frame";
+    Integer offConPar_a "Offset for partition constructions, surface a";
+    Integer offConPar_b "Offset for partition constructions, surface b";
+    Integer offConBou "Offset for constructions with exterior boundary";
+    Integer offSurBou "Offset for surfaces modeled outside of this room";
   algorithm
-    id := cat(
-        1,
-        {CFDSurfaceIdentifier(
-          name=nameConExt[i],
-          A=AConExt[i],
-          til=tilConExt[i],
-          bouCon=bouConConExt[i]) for i in 1:nConExt},
-        {CFDSurfaceIdentifier(
-          name=nameConExtWin[i],
-          A=AConExtWin[i],
-          til=tilConExtWin[i],
-          bouCon=bouConConExtWin[i]) for i in 1:nConExtWin},
-        {CFDSurfaceIdentifier(
-          name=nameConExtWin[i] + " (glass, unshaded)",
-          A=AGla[i]*(1-uSha[i]),
-          til=tilConExtWin[i],
-          bouCon=bouConConExtWin[i]) for i in 1:nConExtWin},
-        {CFDSurfaceIdentifier(
-          name=nameConExtWin[i] + " (glass, shaded)",
-          A=AGla[i]*uSha[i],
-          til=tilConExtWin[i],
-          bouCon=bouConConExtWin[i]) for i in 1:(if haveShade then nConExtWin
-         else 0)},
-        {CFDSurfaceIdentifier(
-          name=nameConExtWin[i] + " (frame)",
-          A=AFra[i],
-          til=tilConExtWin[i],
-          bouCon=bouConConExtWin[i]) for i in 1:nConExtWin},
-        {CFDSurfaceIdentifier(
-          name=nameConPar[i] + " (surface a)",
-          A=AConPar[i],
-          til=tilConPar[i],
-          bouCon=bouConConPar[i]) for i in 1:nConPar},
-        {CFDSurfaceIdentifier(
-          name=nameConPar[i] + " (surface b)",
-          A=AConPar[i],
-          til=tilConPar[i] + Modelica.Constants.pi/180,
-          bouCon=bouConConPar[i]) for i in 1:nConPar},
-        {CFDSurfaceIdentifier(
-          name=nameConBou[i],
-          A=AConBou[i],
-          til=tilConBou[i],
-          bouCon=bouConConBou[i]) for i in 1:nConBou},
-        {CFDSurfaceIdentifier(
-          name=nameSurBou[i],
-          A=ASurBou[i],
-          til=tilSurBou[i],
-          bouCon=bouConSurBou[i]) for i in 1:nSurBou});
+    // Note: The identifiers are assigned by writing each record
+    // individually into a pre-allocated element of the output array
+    // using plain for loops, rather than assembling the array with
+    // array-constructor expressions such as {record(...) for i in 1:n}
+    // combined with cat(). Dymola's code generator has been observed to
+    // fail to expand (inline) a function that returns an array of
+    // records when the algorithm uses such array-constructor/cat()
+    // patterns, reporting the internal errors "failed to expand string"
+    // and "Unimplemented: No support for unexpanded array of records."
+    // Writing directly into individual array elements avoids this
+    // limitation.
+    offConExt := 0;
+    offConExtWin := offConExt + nConExt;
+    offGlaUns := offConExtWin + nConExtWin;
+    offGlaSha := offGlaUns + nConExtWin;
+    offConExtWinFra := if haveShade then offGlaSha + nConExtWin else offGlaSha;
+    offConPar_a := offConExtWinFra + nConExtWin;
+    offConPar_b := offConPar_a + nConPar;
+    offConBou := offConPar_b + nConPar;
+    offSurBou := offConBou + nConBou;
+
+    for i in 1:nConExt loop
+      id[offConExt + i].name := nameConExt[i];
+      id[offConExt + i].A := AConExt[i];
+      id[offConExt + i].til := tilConExt[i];
+      id[offConExt + i].bouCon := bouConConExt[i];
+    end for;
+
+    for i in 1:nConExtWin loop
+      id[offConExtWin + i].name := nameConExtWin[i];
+      id[offConExtWin + i].A := AConExtWin[i];
+      id[offConExtWin + i].til := tilConExtWin[i];
+      id[offConExtWin + i].bouCon := bouConConExtWin[i];
+    end for;
+
+    for i in 1:nConExtWin loop
+      id[offGlaUns + i].name := nameConExtWin[i] + " (glass, unshaded)";
+      id[offGlaUns + i].A := AGla[i]*(1 - uSha[i]);
+      id[offGlaUns + i].til := tilConExtWin[i];
+      id[offGlaUns + i].bouCon := bouConConExtWin[i];
+    end for;
+
+    if haveShade then
+      for i in 1:nConExtWin loop
+        id[offGlaSha + i].name := nameConExtWin[i] + " (glass, shaded)";
+        id[offGlaSha + i].A := AGla[i]*uSha[i];
+        id[offGlaSha + i].til := tilConExtWin[i];
+        id[offGlaSha + i].bouCon := bouConConExtWin[i];
+      end for;
+    end if;
+
+    for i in 1:nConExtWin loop
+      id[offConExtWinFra + i].name := nameConExtWin[i] + " (frame)";
+      id[offConExtWinFra + i].A := AFra[i];
+      id[offConExtWinFra + i].til := tilConExtWin[i];
+      id[offConExtWinFra + i].bouCon := bouConConExtWin[i];
+    end for;
+
+    for i in 1:nConPar loop
+      id[offConPar_a + i].name := nameConPar[i] + " (surface a)";
+      id[offConPar_a + i].A := AConPar[i];
+      id[offConPar_a + i].til := tilConPar[i];
+      id[offConPar_a + i].bouCon := bouConConPar[i];
+    end for;
+
+    for i in 1:nConPar loop
+      id[offConPar_b + i].name := nameConPar[i] + " (surface b)";
+      id[offConPar_b + i].A := AConPar[i];
+      id[offConPar_b + i].til := tilConPar[i] + Modelica.Constants.pi/180;
+      id[offConPar_b + i].bouCon := bouConConPar[i];
+    end for;
+
+    for i in 1:nConBou loop
+      id[offConBou + i].name := nameConBou[i];
+      id[offConBou + i].A := AConBou[i];
+      id[offConBou + i].til := tilConBou[i];
+      id[offConBou + i].bouCon := bouConConBou[i];
+    end for;
+
+    for i in 1:nSurBou loop
+      id[offSurBou + i].name := nameSurBou[i];
+      id[offSurBou + i].A := ASurBou[i];
+      id[offSurBou + i].til := tilSurBou[i];
+      id[offSurBou + i].bouCon := bouConSurBou[i];
+    end for;
   end assignSurfaceIdentifier;
 
 public
@@ -839,6 +887,23 @@ Buildings.ThermalZones.Detailed.UsersGuide.CFD</a>.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+July 10, 2026, by fix for Dymola translation error:<br/>
+Rewrote the body of function <code>assignSurfaceIdentifier</code> to
+assign each <code>CFDSurfaceIdentifier</code> record directly into a
+pre-allocated element of the output array using plain <code>for</code>
+loops, instead of assembling the array with array-constructor expressions
+(e.g. <code>{CFDSurfaceIdentifier(...) for i in 1:n}</code>) concatenated
+with <code>cat()</code>. Dymola failed to expand (inline) this function at
+translation time, reporting the internal errors
+\"failed to expand string\" and
+\"Unimplemented: No support for unexpanded array of records\", because it
+could not expand a function returning an array of records that is
+assembled from array-constructor/<code>cat()</code> expressions,
+especially when they also perform string concatenation with
+<code>+</code>. Writing directly into individual output array elements
+avoids this Dymola limitation.
+</li>
 <li>
 November 17, 2016, by Michael Wetter:<br/>
 Removed protected parameter <code>uStart</code>, which is not needed.<br/>

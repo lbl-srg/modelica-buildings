@@ -59,11 +59,42 @@ protected
     "Number of sensors that are connected to CFD output";
   final parameter Integer nPorts=size(portName, 1)
     "Number of fluid ports for the HVAC inlet and outlets";
+  // Pre-computed array of surface names, extracted from the array of records
+  // surIde. This avoids Dymola's internal error "failed to expand string",
+  // which occurs when an array projection such as surIde.name,
+  // surIde[:].name, or an array constructor such as
+  // {surIde[i].name for i in 1:nSur} is used to extract a String field
+  // from an array of records, either directly or as an actual argument to
+  // a function call (e.g. assertStringsAreUnique, sendParameters) that is
+  // evaluated during translation (e.g. in an initial algorithm section).
+  // Instead, the extraction is done inside a function using an explicit
+  // for loop that assigns each element individually, which Dymola can
+  // expand correctly.
+  final parameter String surNam[nSur] = getSurfaceNames(surIde)
+    "Names of all surfaces, pre-extracted to avoid Dymola translation error";
   discrete Modelica.Units.SI.Time modTimRea(fixed=false)
     "Current model time received from CFD";
 
   discrete Integer retVal(start=0, fixed=true) "Return value from CFD";
 
+
+  ///////////////////////////////////////////////////////////////////////////
+  // Function that extracts the name field of an array of CFDSurfaceIdentifier
+  // records into a String array. This is implemented as a function with an
+  // explicit for loop, rather than as an array projection such as
+  // surIde.name or surIde[:].name, or an array constructor such as
+  // {surIde[i].name for i in 1:size(surIde,1)}, because Dymola's code
+  // generator has been observed to fail to expand (inline) such
+  // expressions when a String field is extracted from an array of
+  // records, reporting the internal error "failed to expand string".
+  function getSurfaceNames
+    input CFDSurfaceIdentifier surIde[:] "Surface identifiers";
+    output String name[size(surIde,1)] "Names of the surfaces";
+  algorithm
+    for i in 1:size(surIde,1) loop
+      name[i] := surIde[i].name;
+    end for;
+  end getSurfaceNames;
 
   ///////////////////////////////////////////////////////////////////////////
   // Function that returns strings that are not unique.
@@ -121,7 +152,7 @@ initial algorithm
 CFDExchange has the following surfaces:");
     for i in 1:nSur loop
       Modelica.Utilities.Streams.print(string="
-  name = " + surIde[i].name + "
+  name = " + surNam[i] + "
   A    = " + String(surIde[i].A) + " [m2]
   tilt = " + String(surIde[i].til*180/Modelica.Constants.pi) + " [deg]");
     end for;
@@ -141,7 +172,7 @@ CFDExchange has the following sensors:");
   // Otherwise, stop with an error.
   assertStringsAreUnique(descriptiveName="surface",
                          n=nSur,
-                         names=surIde.name);
+                         names=surNam);
   assertStringsAreUnique(descriptiveName="sensor",
                          n=nSen,
                          names=sensorName);
@@ -208,6 +239,25 @@ Buildings.ThermalZones.Detailed.UsersGuide.CFD</a>.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+July 10, 2026, by fix for Dymola translation error:<br/>
+Introduced the protected parameter <code>surNam</code> and the function
+<code>getSurfaceNames</code>, which extracts the <code>name</code> field of
+the array of records <code>surIde</code> using an explicit <code>for</code>
+loop. Replaced all uses of the array projections <code>surIde.name</code>
+and <code>surIde[:].name</code> (in <code>assertStringsAreUnique</code> and
+in the diagnostic <code>Modelica.Utilities.Streams.print</code> statement)
+with <code>surNam</code>. Dymola's code generator failed to expand
+(inline) such array projections when a <code>String</code> field is
+extracted from an array of records, reporting the internal error
+\"failed to expand string\". This is also fixed in
+<a href=\"modelica://Buildings.ThermalZones.Detailed.BaseClasses.CFDExchange\">
+Buildings.ThermalZones.Detailed.BaseClasses.CFDExchange</a> and
+<a href=\"modelica://Buildings.ThermalZones.Detailed.BaseClasses.ISATExchange\">
+Buildings.ThermalZones.Detailed.BaseClasses.ISATExchange</a>, which now use
+<code>surNam</code> instead of <code>surIde[:].name</code> in the call to
+<code>sendParameters</code>.
+</li>
 <li>
 April 5, 2020, by Xu Han, Wangda Zuo and Michael Wetter:<br/>
 First implementation.

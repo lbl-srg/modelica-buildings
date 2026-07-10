@@ -284,7 +284,7 @@ initial algorithm
   // Send parameters to the CFD interface
   sendParameters(
     cfdFilNam=cfdFilNam,
-    name=surIde[:].name,
+    name=surNam,
     A=surIde[:].A,
     til=surIde[:].til,
     bouCon=surIde[:].bouCon,
