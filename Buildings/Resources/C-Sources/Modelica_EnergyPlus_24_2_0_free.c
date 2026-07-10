@@ -1,7 +1,7 @@
-#ifndef Spawn_declared
-#define Spawn_declared
+#ifndef Modelica_EnergyPlus_24_2_0_free_declared
+#define Modelica_EnergyPlus_24_2_0_free_declared
 
-#include "EnergyPlus_24_2_0_Wrapper.h"
+#include "Modelica_EnergyPlus_24_2_0_free.h"
 #include <stdlib.h>
 
 /* *********************************************************
