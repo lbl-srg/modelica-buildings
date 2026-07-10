@@ -163,7 +163,7 @@ model PartialCDU "Partial model for a CDU"
         rotation=0,
         origin={-50,60})));
 
-  Fluid.Movers.Preconfigured.SpeedControlled_y pum(
+  Fluid.Movers.SpeedControlled_y pum(
     redeclare final package Medium = MediumRac,
     energyDynamics=energyDynamics,
     final allowFlowReversal=allowFlowReversalRac,
@@ -172,9 +172,20 @@ model PartialCDU "Partial model for a CDU"
     final use_riseTime=use_riseTime,
     final riseTime=dat.riseTime,
     final y_start=yPum_start,
-    m_flow_nominal=dat.mRac_flow_nominal,
-    dp_nominal=dat.dpHeaExt_nominal + dat.dpHexRac_nominal)
-                                                 "Pump on IT side" annotation (
+    per(
+      pressure(
+        V_flow=dat.pumpExternalPressure.V_flow,
+        dp={dat.pumpExternalPressure.dp[i] +
+          (dat.pumpExternalPressure.V_flow[i]*dat.rhoRac_default)^dat.nRac * dat.dpHexRac_nominal/dat.mRac_flow_nominal^dat.nRac
+            for i in 1:size(dat.pumpExternalPressure.V_flow, 1)}),
+      powerOrEfficiencyIsHydraulic=false,
+      etaHydMet=Buildings.Fluid.Movers.BaseClasses.Types.HydraulicEfficiencyMethod.Efficiency_VolumeFlowRate,
+      etaMotMet=Buildings.Fluid.Movers.BaseClasses.Types.MotorEfficiencyMethod.Efficiency_VolumeFlowRate,
+      efficiency=dat.pumpEfficiency,
+      motorEfficiency=dat.pumpEfficiency),
+    final inputType=Buildings.Fluid.Types.InputType.Continuous,
+    final init=Modelica.Blocks.Types.Init.InitialOutput)
+    "Pump on IT side" annotation (
       Placement(transformation(
         extent={{10,10},{-10,-10}},
         rotation=90,

@@ -135,6 +135,10 @@ record Generic_epsNTU
     Buildings.Applications.DataCenters.LiquidCooled.CDUs.Data.BaseClasses.prandtlNumber_TX_a(
       medium=medRac, X_a=XGlyRac, T=TRacOut_nominal)
     "Prandtl number for rack-side performance data";
+  final parameter Modelica.Units.SI.Density rhoRac_default =
+    Buildings.Applications.DataCenters.LiquidCooled.CDUs.Data.BaseClasses.density_TX_a(
+      medium=medRac, X_a=XGlyRac, T=TRacOut_nominal)
+    "Mass density for rack-side performance data";
 
   // Valve
   parameter Modelica.Units.SI.PressureDifference dpValve_nominal(
@@ -151,9 +155,21 @@ record Generic_epsNTU
     displayUnit="Pa")
     "Nominal head for pressure available at the CDU's fluid ports. I.e., this is the head for resistances external to the CDU"
     annotation (Dialog(group="Pump"));
+
   parameter Modelica.Units.SI.Time riseTime=30
     "Time needed to change motor speed between zero and full speed"
     annotation (Dialog(tab="Dynamics", group="Pump"));
+
+  parameter Buildings.Fluid.Movers.BaseClasses.Characteristics.efficiencyParameters
+    pumpEfficiency(
+      V_flow=mRac_flow_nominal/rhoRac_default*{0},
+      eta={0.7}) "Total pump efficiency vs. volumetric flow rate";
+
+  parameter Buildings.Fluid.Movers.BaseClasses.Characteristics.flowParameters
+    pumpExternalPressure(
+      V_flow=mRac_flow_nominal/rhoRac_default*{0, 1, 2},
+      dp = dpHeaExt_nominal*{1.14, 1, 0.42})
+    "External head available for flow network that is connected to the CDU on the rack-side";
 
   parameter Real r_nominal(min=0)=
     (kPla_default * (mPla_flow_nominal/etaPla_default)^nConPla * PrPla_default^(1/3)) /

@@ -5,19 +5,35 @@ model Rack_u "Model of an air-cooled rack, and utilization is input"
     vol(nPorts=2)
     );
 
-  Fluid.Movers.Preconfigured.FlowControlled_m_flow mov(
+  Fluid.Movers.FlowControlled_m_flow fan(
     redeclare package Medium = Medium,
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
-    addPowerToMedium=true,
+    final addPowerToMedium=true,
     use_riseTime=false,
     final m_flow_nominal=dat.m_flow_nominal,
-    dp_nominal=dat.dp_nominal)
+    dp_nominal=dat.dp_nominal,
+    per(
+      pressure(
+        V_flow=dat.m_flow_nominal/rho_default*{0,1,2},
+        dp=dat.dp_nominal*{1.12, 1, 0}),
+      powerOrEfficiencyIsHydraulic=false,
+      etaHydMet=Buildings.Fluid.Movers.BaseClasses.Types.HydraulicEfficiencyMethod.Efficiency_VolumeFlowRate,
+      etaMotMet=Buildings.Fluid.Movers.BaseClasses.Types.MotorEfficiencyMethod.Efficiency_VolumeFlowRate,
+      efficiency=dat.fanHydraulicEfficiency,
+      motorEfficiency_yMot=dat.fanMotorEfficiency_yMot),
+    final nominalValuesDefineDefaultPressureCurve=true,
+    final inputType=Buildings.Fluid.Types.InputType.Continuous,
+    final init=Modelica.Blocks.Types.Init.InitialOutput)
     "Fan"
     annotation (Placement(transformation(extent={{-40,10},{-20,-10}})));
 
 protected
   parameter Modelica.Units.SI.SpecificHeatCapacity cp_default = Medium.specificHeatCapacityCp(
     state_default) "Specific heat capacity";
+
+  parameter Modelica.Units.SI.SpecificHeatCapacity rho_default = Medium.density(
+    state_default) "Density";
+
   Modelica.Units.SI.SpecificHeatCapacity cp = Medium.specificHeatCapacityCp(
     state_in) "Specific heat capacity";
 
@@ -41,16 +57,16 @@ protected
       inStream(port_a.Xi_outflow))
       "State of inflowing medium";
 equation
-  connect(mSet_flow.y, mov.m_flow_in)
+  connect(mSet_flow.y,fan. m_flow_in)
     annotation (Line(points={{-59,-32},{-30,-32},{-30,-12}},
                                                        color={0,0,127}));
-  connect(preDro.port_b, mov.port_a)
+  connect(preDro.port_b,fan. port_a)
     annotation (Line(points={{-60,0},{-40,0}}, color={0,127,255}));
-  connect(mov.port_b, vol.ports[1])
-    annotation (Line(points={{-20,0},{60,0}}, color={0,127,255}));
+  connect(fan.port_b, vol.ports[1])
+    annotation (Line(points={{-20,0},{59,0}}, color={0,127,255}));
   connect(Q_flow.y, PTot.u1) annotation (Line(points={{-59,50},{-30,50},{-30,36},
           {-22,36}}, color={0,0,127}));
-  connect(mov.P, PTot.u2) annotation (Line(points={{-19,-9},{-10,-9},{-10,16},{-28,
+  connect(fan.P, PTot.u2) annotation (Line(points={{-19,-9},{-10,-9},{-10,16},{-28,
           16},{-28,24},{-22,24}}, color={0,0,127}));
   connect(PTot.y, P) annotation (Line(points={{2,30},{80,30},{80,90},{110,90}},
         color={0,0,127}));
