@@ -132,6 +132,39 @@ This model validates the direct evaporative pad model
 Buildings.Fluid.Humidifiers.EvaporativePads.Direct</a> by switching between the dry
 and wet modes.
 </p>
+<p>
+This validation model connects 2 evaporative pads in series. It uses a Chicago
+weather file to represent outside air conditions in the month of August, and it
+simulates how the dry bulb temperature and the water vapor mass fraction of the air
+change when air passes through the 2 evaporative pads, for both the active
+evaporative cooling mode (wet pad) and the inactive mode (dry pad).
+</p>
+<p>
+The validation results demonstrate that the dry bulb temperature of the air
+decreases when air passes through both the first and the second evaporative pads.
+However, the dry bulb temperature reduction is smaller for the second evaporative
+pad compared to the first evaporative pad due to the dry bulb temperature of the air
+being closer to the wet bulb temperature of the air after leaving the first
+evaporative pad, creating a diminishing return.
+</p>
+<p>
+A similar behavior is observed for the water vapor mass fraction of the air, where
+the water vapor mass fraction increases for both the first and the second
+evaporative pads. However, the water vapor mass fraction rise is smaller for the
+second evaporative pad compared to the first evaporative pad due to the air being
+more humid after leaving the first evaporative pad.
+</p>
+<p>
+On the other hand, for the active evaporative cooling mode, the dry bulb temperature
+of the air decreases, and the water vapor mass fraction of the air increases. When
+evaporative cooling is inactive, the dry bulb temperature and the water vapor mass
+fraction of the air do not change.
+</p>
+<p>
+There is pressure drop when air passes through the 2 evaporative pads. The
+validation results also show the assumption that the pressure drop does not change
+when switching between active and inactive evaporative cooling.
+</p>
 </html>", revisions="<html>
 <ul>
 <li>
