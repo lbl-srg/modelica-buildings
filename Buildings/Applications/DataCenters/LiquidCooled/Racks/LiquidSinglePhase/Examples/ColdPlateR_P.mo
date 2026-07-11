@@ -56,10 +56,8 @@ model ColdPlateR_P "Example model for cold plate"
   parameter Modelica.Units.SI.SpecificHeatCapacity cp_default=
     Medium.specificHeatCapacityCp(state=state_default)
     "Heat capacity, to compute additional dry mass";
-  parameter LiquidSinglePhase.Data.OCP_1kW_OAM_PG25 dat(
-    P_nominal=P_nominal,
-    m_flow_nominal=m_flow_nominal)
-    "Performance data"
+  parameter LiquidSinglePhase.Data.OCP_1kW_OAM_PG25 dat(PIT_nominal=P_nominal,
+      m_flow_nominal=m_flow_nominal) "Performance data"
     annotation (Placement(transformation(extent={{60,60},{80,80}})));
 protected
   parameter Medium.ThermodynamicState state_default = Medium.setState_pTX(

@@ -66,7 +66,7 @@ model ChillerWSE
     "Rack design pressure drop";
   parameter
     Buildings.Applications.DataCenters.LiquidCooled.Racks.LiquidSinglePhase.Data.OCP_1kW_OAM_PG25
-    datRac(P_nominal=PRac, m_flow_nominal=mRac_flow_nominal)
+    datRac(PIT_nominal=PRac, m_flow_nominal=mRac_flow_nominal)
     "Performance data for IT rack"
     annotation (Placement(transformation(extent={{60,-98},{80,-78}})));
 

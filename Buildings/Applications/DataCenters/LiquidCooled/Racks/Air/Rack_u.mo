@@ -1,31 +1,30 @@
 within Buildings.Applications.DataCenters.LiquidCooled.Racks.Air;
 model Rack_u "Model of an air-cooled rack, and utilization is input"
   extends Buildings.Applications.DataCenters.LiquidCooled.Racks.BaseClasses.PartialRack(
-    redeclare replaceable Buildings.Applications.DataCenters.LiquidCooled.Racks.Air.Data.Generic dat,
-    vol(nPorts=2)
+    redeclare replaceable Buildings.Applications.DataCenters.LiquidCooled.Racks.Air.Data.Generic dat, vol(
+        nPorts=2)
     );
 
-  Fluid.Movers.FlowControlled_m_flow fan(
+  Fluid.Movers.BaseClasses.IdealSource fan(
     redeclare package Medium = Medium,
-    energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
-    final addPowerToMedium=true,
-    use_riseTime=false,
-    final m_flow_nominal=dat.m_flow_nominal,
-    dp_nominal=dat.dp_nominal,
-    per(
-      pressure(
-        V_flow=dat.m_flow_nominal/rho_default*{0,1,2},
-        dp=dat.dp_nominal*{1.12, 1, 0}),
-      powerOrEfficiencyIsHydraulic=false,
-      etaHydMet=Buildings.Fluid.Movers.BaseClasses.Types.HydraulicEfficiencyMethod.Efficiency_VolumeFlowRate,
-      etaMotMet=Buildings.Fluid.Movers.BaseClasses.Types.MotorEfficiencyMethod.Efficiency_VolumeFlowRate,
-      efficiency=dat.fanHydraulicEfficiency,
-      motorEfficiency_yMot=dat.fanMotorEfficiency_yMot),
-    final nominalValuesDefineDefaultPressureCurve=true,
-    final inputType=Buildings.Fluid.Types.InputType.Continuous,
-    final init=Modelica.Blocks.Types.Init.InitialOutput)
-    "Fan"
-    annotation (Placement(transformation(extent={{-40,10},{-20,-10}})));
+    allowFlowReversal=false,
+    m_flow_small=1E-4*dat.m_flow_nominal,
+    control_m_flow=true,
+    control_dp=false) "Mass flow source"
+    annotation (Placement(transformation(extent={{-60,10},{-40,-10}})));
+
+  Fluid.Sensors.VolumeFlowRate senVolFlo(
+    redeclare package Medium = Medium,
+    m_flow_nominal=dat.m_flow_nominal,
+    initType=Modelica.Blocks.Types.Init.InitialState) "Volume flow rate"
+    annotation (Placement(transformation(extent={{-20,-10},{0,10}})));
+
+  Buildings.Controls.OBC.CDL.Reals.MultiplyByParameter PFan(
+    u(final unit="1"),
+    y(final quantity="Power",
+      final unit="W"),
+    k=dat.PFan_nominal) "Electricity use of fan"
+    annotation (Placement(transformation(extent={{-60,-70},{-40,-50}})));
 
 protected
   parameter Modelica.Units.SI.SpecificHeatCapacity cp_default = Medium.specificHeatCapacityCp(
@@ -33,6 +32,24 @@ protected
 
   parameter Modelica.Units.SI.SpecificHeatCapacity rho_default = Medium.density(
     state_default) "Density";
+
+  parameter Real fanRelPowDer[size(dat.fanRelPow.r_V,1)] =
+    Buildings.Utilities.Math.Functions.splineDerivatives(
+        x=dat.fanRelPow.r_V,
+        y=dat.fanRelPow.r_P,
+        ensureMonotonicity=Buildings.Utilities.Math.Functions.isMonotonic(
+          x=dat.fanRelPow.r_P,
+          strict=false))
+    "Coefficients for fan relative power consumption as a function of control signal";
+
+  Modelica.Blocks.Sources.RealExpression PFan_y(y(
+      final quantity="Power",
+      final unit="W") =
+      Buildings.Fluid.HeatExchangers.CoolingTowers.BaseClasses.Characteristics.normalizedPower(
+      per=dat.fanRelPow,
+      r_V=u,
+      d=fanRelPowDer)) "Normalized electricity use of fan"
+    annotation (Placement(transformation(extent={{-90,-70},{-70,-50}})));
 
   Modelica.Units.SI.SpecificHeatCapacity cp = Medium.specificHeatCapacityCp(
     state_in) "Specific heat capacity";
@@ -42,7 +59,7 @@ protected
   Modelica.Blocks.Sources.RealExpression mSet_flow(
     y(final unit="kg/s")=Q_flow.y/(cp*dat.dTSet))
     "Set point for fan mass flow rate"
-    annotation (Placement(transformation(extent={{-80,-42},{-60,-22}})));
+    annotation (Placement(transformation(extent={{-90,-40},{-70,-20}})));
 
   parameter Medium.ThermodynamicState state_default=
     Medium.setState_phX(
@@ -57,21 +74,26 @@ protected
       inStream(port_a.Xi_outflow))
       "State of inflowing medium";
 equation
-  connect(mSet_flow.y,fan. m_flow_in)
-    annotation (Line(points={{-59,-32},{-30,-32},{-30,-12}},
-                                                       color={0,0,127}));
-  connect(preDro.port_b,fan. port_a)
-    annotation (Line(points={{-60,0},{-40,0}}, color={0,127,255}));
-  connect(fan.port_b, vol.ports[1])
-    annotation (Line(points={{-20,0},{59,0}}, color={0,127,255}));
   connect(Q_flow.y, PTot.u1) annotation (Line(points={{-59,50},{-30,50},{-30,36},
           {-22,36}}, color={0,0,127}));
-  connect(fan.P, PTot.u2) annotation (Line(points={{-19,-9},{-10,-9},{-10,16},{-28,
-          16},{-28,24},{-22,24}}, color={0,0,127}));
   connect(PTot.y, P) annotation (Line(points={{2,30},{80,30},{80,90},{110,90}},
         color={0,0,127}));
   connect(PTot.y, preHea.Q_flow) annotation (Line(points={{2,30},{10,30},{10,10},
           {20,10}}, color={0,0,127}));
+  connect(mSet_flow.y, fan.m_flow_in)
+    annotation (Line(points={{-69,-30},{-56,-30},{-56,-8}}, color={0,0,127}));
+  connect(port_a, fan.port_a)
+    annotation (Line(points={{-100,0},{-60,0}}, color={0,127,255}));
+  connect(fan.port_b, senVolFlo.port_a)
+    annotation (Line(points={{-40,0},{-20,0}}, color={0,127,255}));
+  connect(senVolFlo.port_b, vol.ports[1])
+    annotation (Line(points={{0,0},{60,0}}, color={0,127,255}));
+  connect(vol.ports[2], port_b)
+    annotation (Line(points={{60,0},{100,0}}, color={0,127,255}));
+  connect(PFan_y.y, PFan.u)
+    annotation (Line(points={{-69,-60},{-62,-60}}, color={0,0,127}));
+  connect(PFan.y, PTot.u2) annotation (Line(points={{-38,-60},{-30,-60},{-30,24},
+          {-22,24}}, color={0,0,127}));
 annotation (
   defaultComponentName="rac",
   Documentation(

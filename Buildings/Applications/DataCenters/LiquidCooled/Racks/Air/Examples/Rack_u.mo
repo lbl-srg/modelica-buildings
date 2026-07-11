@@ -6,8 +6,7 @@ model Rack_u "Example model for air cooled rack"
   parameter Modelica.Units.SI.HeatFlowRate P_nominal=10000
     "Design heat flow rate at u=1, also called Thermal Design Power (TDP)";
 
-  parameter Data.Generic dat(P_nominal=P_nominal)
-    "Performance data"
+  parameter Data.Generic dat(PIT_nominal=P_nominal) "Performance data"
     annotation (Placement(transformation(extent={{60,40},{80,60}})));
 
   Buildings.Controls.OBC.CDL.Reals.Sources.Pulse uti(

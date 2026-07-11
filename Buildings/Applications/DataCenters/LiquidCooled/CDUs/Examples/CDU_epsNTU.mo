@@ -48,8 +48,10 @@ model CDU_epsNTU "Example model of a CDU with varying load on the IT side"
     dpHeaExt_nominal=dpRac_nominal)
     "Data performance record for CDU"
     annotation (Placement(transformation(extent={{80,60},{100,80}})));
-  parameter Buildings.Applications.DataCenters.LiquidCooled.Racks.LiquidSinglePhase.Data.OCP_1kW_OAM_PG25 datRac(
-    P_nominal=PRac,
+  parameter
+    Buildings.Applications.DataCenters.LiquidCooled.Racks.LiquidSinglePhase.Data.OCP_1kW_OAM_PG25
+    datRac(
+    PIT_nominal=PRac,
     m_flow_nominal=mRac_flow_nominal,
     dp_nominal=dpRac_nominal) "Rack performance data"
     annotation (Placement(transformation(extent={{80,-100},{100,-80}})));

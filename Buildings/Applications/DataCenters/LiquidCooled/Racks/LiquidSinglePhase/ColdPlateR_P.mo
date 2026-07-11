@@ -6,8 +6,8 @@ model ColdPlateR_P
     constrainedby Buildings.Applications.DataCenters.LiquidCooled.Racks.LiquidSinglePhase.Data.Generic,
     vol(nPorts=2));
 
-  final parameter Modelica.Units.SI.TemperatureDifference dT_nominal=dat.P_nominal/(
-      dat.m_flow_nominal*cp_default)
+  final parameter Modelica.Units.SI.TemperatureDifference dT_nominal=dat.PIT_nominal/
+    (dat.m_flow_nominal*cp_default)
     "Design temperature differences, used to compute cold plate temperature"
     annotation (Dialog(group="Case temperature"));
 
@@ -17,11 +17,17 @@ model ColdPlateR_P
     "Design flow rate of one cold plate, used to compute the case temperature"
     annotation (Dialog(group="Case temperature"));
   // For number of rack, we use a Real to simplify solving optimizations that involves this parameter
-  parameter Real nColPla=dat.P_nominal/(VColPla_flow_nominal*d_default*cp_default
-      *dT_nominal)
+  parameter Real nColPla=dat.PIT_nominal/
+    (VColPla_flow_nominal*d_default*cp_default*dT_nominal)
     "Number of cold plates, used to compute the case temperature"
     annotation (Dialog(group="Case temperature"));
 
+  parameter Boolean linearized = false
+    "= true, use linear relation between m_flow and dp for any flow rate"
+    annotation(Evaluate=true, Dialog(tab="Advanced"));
+
+  Modelica.Units.SI.PressureDifference dp(displayUnit="Pa") = preDro.dp
+    "Pressure difference between port_a and port_b";
 
   Buildings.Applications.DataCenters.LiquidCooled.Racks.LiquidSinglePhase.BaseClasses.CaseTemperature casTem(
     final dat=dat.theRes,
@@ -55,6 +61,14 @@ protected
       "Inlet temperature"
     annotation (Placement(transformation(extent={{-60,64},{-40,84}})));
 
+  Fluid.FixedResistances.PressureDrop preDro(
+    redeclare package Medium = Medium,
+    final allowFlowReversal=allowFlowReversal,
+    final m_flow_nominal=dat.m_flow_nominal,
+    final dp_nominal=dat.dp_nominal,
+    final n=dat.n) "Flow resistance"
+    annotation (Placement(transformation(extent={{-60,-10},{-40,10}})));
+
   Modelica.Blocks.Math.Gain QCas_flow(final k=1/nColPla)
     "Gain to compute heat flow rate per case"
     annotation (Placement(transformation(extent={{-40,40},{-20,60}})));
@@ -68,11 +82,15 @@ equation
   connect(QCas_flow.y, casTem.Q_flow) annotation (Line(points={{-19,50},{-10,50},
           {-10,74},{19,74}}, color={0,0,127}));
   connect(preDro.port_b, vol.ports[1])
-    annotation (Line(points={{-60,0},{60,0}}, color={0,127,255}));
+    annotation (Line(points={{-40,0},{59,0}}, color={0,127,255}));
   connect(Q_flow.y, preHea.Q_flow) annotation (Line(points={{-59,50},{-52,50},{
           -52,28},{8,28},{8,10},{20,10}}, color={0,0,127}));
   connect(Q_flow.y, P) annotation (Line(points={{-59,50},{-52,50},{-52,28},{88,
           28},{88,90},{110,90}}, color={0,0,127}));
+  connect(preDro.port_a, port_a)
+    annotation (Line(points={{-60,0},{-100,0}}, color={0,127,255}));
+  connect(vol.ports[2], port_b)
+    annotation (Line(points={{60,0},{100,0}}, color={0,127,255}));
 annotation (
   defaultComponentName="rac",
   Documentation(

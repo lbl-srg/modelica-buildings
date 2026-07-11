@@ -1,29 +1,20 @@
 within Buildings.Applications.DataCenters.LiquidCooled.Racks.Air.Data;
 record Generic "Generic data record for air cooled rack"
-  extends Buildings.Applications.DataCenters.LiquidCooled.Racks.BaseClasses.Data.Generic(
-    m_flow_nominal = P_nominal/(dTSet*cp_default),
-    dp_nominal=200,
-    n=2);
+  extends
+    Buildings.Applications.DataCenters.LiquidCooled.Racks.BaseClasses.Data.Generic(
+      m_flow_nominal=PIT_nominal/(dTSet*cp_default));
 
-  parameter Buildings.Fluid.Movers.BaseClasses.Characteristics.efficiencyParameters
-    fanHydraulicEfficiency(
-      V_flow=m_flow_nominal/Buildings.Media.Air.dStp*{0},
-      eta={0.7}) "Fan hydraulic efficiency vs. volumetric flow rate";
+  parameter Modelica.Units.SI.Power PFan_nominal = 0.04*PIT_nominal
+    "Fan power at full IT load PIT_nominal"
+    annotation(Dialog(group="Fan power"));
 
-  parameter Modelica.Units.SI.Efficiency etaMot_max = 0.9
-    "Maximum fan motor efficiency"
-    annotation(Dialog(group="Motor efficiency and power"));
-  parameter Modelica.Units.SI.Power WMot_nominal = m_flow_nominal/Buildings.Media.Air.dStp *dp_nominal / etaMot_max / max(fanHydraulicEfficiency.eta)
-    "Approximate motor maximum power use. Used only to parameterize shape of efficiency curve, whose peak is given by etaMot_max"
-    annotation(Dialog(group="Motor efficiency and power"));
-
-  parameter Buildings.Fluid.Movers.BaseClasses.Characteristics.efficiencyParameters_yMot
-    fanMotorEfficiency_yMot=
-        Buildings.Fluid.Movers.BaseClasses.Characteristics.motorEfficiencyCurve(
-          P_nominal=WMot_nominal,
-          eta_max=etaMot_max)
-    "Fan motor efficiency vs part load"
-    annotation(Dialog(group="Motor efficiency and power"));
+  parameter Buildings.Fluid.HeatExchangers.CoolingTowers.BaseClasses.Characteristics.fan fanRelPow(
+       r_V = {0, 0.1,   0.3,   0.6,   1},
+       r_P = {0, 0.1^3, 0.3^3, 0.6^3, 1})
+    "Fan relative power consumption as a function of control signal, fanRelPow=P(y)/P(y=1)"
+    annotation (
+    Placement(transformation(extent={{22,70},{42,90}})),
+    Dialog(group="Fan"));
 
   constant Modelica.Units.SI.SpecificHeatCapacity cp_default = 1014.54
     "Specific heat capacity";
@@ -37,7 +28,19 @@ annotation (
   Documentation(info="<html>
 <p>
 Generic data record for air-cooled IT rack.
+</p>
 <p>
+The fan power consumption at full IT utilization is by default set to <i>4%</i> of the IT load.
+This setting can be changed through the parameter <code>PFan_nominal</code>.
+</p>
+<p>
+The parameter <code>fanRelPow</code> describes the normalized fan power consumption based
+on the normalized fan volume flow rate. By default, this is set to a cubic curve.
+</p>
+<p>
+The parameter <code>dTSet</code> is the set point for the air temperature raise across the rack,
+which by default is set to <i>10</i> Kelvin.
+</p>
 </html>", revisions="<html>
 <ul>
 <li>

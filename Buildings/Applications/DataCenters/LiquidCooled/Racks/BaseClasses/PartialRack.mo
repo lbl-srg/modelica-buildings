@@ -16,10 +16,6 @@ partial model PartialRack "Partial model of an IT rack, with utilization as inpu
     "Performance data"
     annotation (Placement(transformation(extent={{60,-80},{80,-60}})));
 
-  parameter Boolean linearized = false
-    "= true, use linear relation between m_flow and dp for any flow rate"
-    annotation(Evaluate=true, Dialog(tab="Advanced"));
-
   parameter Modelica.Fluid.Types.Dynamics energyDynamics=Modelica.Fluid.Types.Dynamics.DynamicFreeInitial
     "Type of energy balance: dynamic (3 initialization options) or steady state"
     annotation(Evaluate=true, Dialog(tab = "Dynamics", group="Conservation equations"));
@@ -43,13 +39,6 @@ partial model PartialRack "Partial model of an IT rack, with utilization as inpu
     annotation (Placement(transformation(extent={{100,80},{120,100}}),
         iconTransformation(extent={{100,70},{120,90}})));
 
-  Buildings.Fluid.FixedResistances.PressureDrop preDro(
-    redeclare package Medium = Medium,
-    final allowFlowReversal=allowFlowReversal,
-    final m_flow_nominal=dat.m_flow_nominal,
-    final dp_nominal=dat.dp_nominal,
-    final n=dat.n) "Flow resistance"
-    annotation (Placement(transformation(extent={{-80,-10},{-60,10}})));
   Fluid.Delays.DelayFirstOrder vol(
     redeclare final package Medium = Medium,
     final energyDynamics=energyDynamics,
@@ -57,17 +46,15 @@ partial model PartialRack "Partial model of an IT rack, with utilization as inpu
     final m_flow_nominal=dat.m_flow_nominal,
     final allowFlowReversal=allowFlowReversal,
     final tau=tau,
-    final prescribedHeatFlowRate=true,
-    nPorts=2)       "Fluid control volume"
+    final prescribedHeatFlowRate=true)
+    "Fluid control volume"
     annotation (Placement(transformation(extent={{50,0},{70,20}})));
 
   Modelica.Units.SI.MassFlowRate m_flow = port_a.m_flow
     "Mass flow rate from port_a to port_b";
 
-  Modelica.Units.SI.PressureDifference dp(displayUnit="Pa") = preDro.dp
-    "Pressure difference between port_a and port_b";
 protected
-  Modelica.Blocks.Math.Gain Q_flow(final k=dat.P_nominal)
+  Modelica.Blocks.Math.Gain Q_flow(final k=dat.PIT_nominal)
     "Gain to compute actual heat flow rate"
     annotation (Placement(transformation(extent={{-80,40},{-60,60}})));
 
@@ -79,10 +66,6 @@ equation
                 color={0,0,127}));
   connect(preHea.port,vol. heatPort) annotation (Line(points={{40,10},{50,10}},
                         color={191,0,0}));
-  connect(port_a, preDro.port_a)
-    annotation (Line(points={{-100,0},{-80,0}}, color={0,127,255}));
-  connect(port_b, vol.ports[2])
-    annotation (Line(points={{100,0},{60,0}}, color={0,127,255}));
 annotation (
   Documentation(
     info="<html>
