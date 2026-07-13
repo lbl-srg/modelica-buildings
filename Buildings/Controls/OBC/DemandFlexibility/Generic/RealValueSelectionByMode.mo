@@ -20,7 +20,7 @@ block RealValueSelectionByMode "Real value selection by mode"
     "Input value for the load-shed mode"
     annotation (Placement(transformation(extent={{-180,-60},{-140,-20}}),
         iconTransformation(extent={{-140,-60},{-100,-20}})));
-  Buildings.Controls.OBC.CDL.Interfaces.IntegerInput uMod
+  Buildings.Controls.OBC.CDL.Interfaces.IntegerInput demFleMod
     "Demand flexibility mode; 0 = pre-cool or pre-heat, 1 = default, 2 = load-shed, 3 = load-rebound"
     annotation (Placement(transformation(extent={{-180,60},{-140,100}}),
         iconTransformation(extent={{-140,60},{-100,100}})));
@@ -76,10 +76,10 @@ equation
   connect(conIntShe.y, intEquShe.u2)
     annotation (Line(points={{-58,-10},{-50,-10},{-50,2},{-42,2}},
       color={255,127,0}));
-  connect(uMod, intEquShe.u1)
+  connect(demFleMod, intEquShe.u1)
     annotation (Line(points={{-160,80},{-100,80},{-100,10},{-42,10}},
       color={255,127,0}));
-  connect(uMod, intEquReb.u1)
+  connect(demFleMod, intEquReb.u1)
     annotation (Line(points={{-160,80},{-100,80},{-100,-50},{-42,-50}},
       color={255,127,0}));
   connect(conIntReb.y, intEquReb.u2)
@@ -106,7 +106,7 @@ equation
   connect(conIntPre.y, intEquPre.u2)
     annotation (Line(points={{-58,50},{-50,50},{-50,62},{-42,62}},
       color={255,127,0}));
-  connect(uMod, intEquPre.u1)
+  connect(demFleMod, intEquPre.u1)
     annotation (Line(points={{-160,80},{-100,80},{-100,70},{-42,70}},
       color={255,127,0}));
   connect(uDef, pasThrDef.u)
@@ -132,15 +132,15 @@ equation
 This sequence serves to choose which of the input variables, including
 <code>uPre</code>, <code>uDef</code>, <code>uShe</code>, and <code>uReb</code>, to
 output as the output variable <code>y</code>, based on the demand flexibility mode
-<code>uMod</code>. 
+<code>demFleMod</code>. 
 </p>
 <p>
 The demand flexibility mode includes the pre-cool or pre-heat mode
-(<i>uMod = 0</i>), the default mode (<i>uMod = 1</i>), the load-shed mode
-(<i>uMod = 2</i>), and the load-rebound mode (<i>uMod = 3</i>). These modes
-correspond to the input variables <code>uPre</code>, <code>uDef</code>,
-<code>uShe</code>, and <code>uReb</code>. If <code>uMod</code> is any other integer,
-the output variable <code>y</code> takes the value of <code>uDef</code>.
+(<i>demFleMod = 0</i>), the default mode (<i>demFleMod = 1</i>), the load-shed mode
+(<i>demFleMod = 2</i>), and the load-rebound mode (<i>demFleMod = 3</i>). These
+modes correspond to the input variables <code>uPre</code>, <code>uDef</code>,
+<code>uShe</code>, and <code>uReb</code>. If <code>demFleMod</code> is any other
+integer, the output variable <code>y</code> takes the value of <code>uDef</code>.
 </p>
 <p>
 The parameter <code>use_pre</code> specifies whether the pre-cool/pre-heat mode

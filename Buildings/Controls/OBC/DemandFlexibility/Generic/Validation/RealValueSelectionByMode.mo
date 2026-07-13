@@ -5,7 +5,7 @@ model RealValueSelectionByMode "Real value selection by mode"
     use_pre=true)
     "Block for the real value selection by mode, including the pre-cool or pre-heat mode"
     annotation (Placement(transformation(extent={{60,20},{80,40}})));
-  Buildings.Controls.OBC.CDL.Integers.Sources.TimeTable uModHou(
+  Buildings.Controls.OBC.CDL.Integers.Sources.TimeTable demFleModHou(
     table=[0,1; 14,0; 16,2; 18,-1; 19,2; 21,3; 22,1; 24,1],
     timeScale=3600,
     period=86400)
@@ -28,7 +28,7 @@ model RealValueSelectionByMode "Real value selection by mode"
     "Constant for the load-rebound mode"
     annotation (Placement(transformation(extent={{-60,-80},{-40,-60}})));
 equation
-  connect(uModHou.y[1], reaValSelByModWitPre.uMod)
+  connect(demFleModHou.y[1], reaValSelByModWitPre.demFleMod)
     annotation (Line(points={{-58,70},{-20,70},{-20,38},{58,38}},
       color={255,127,0}));
   connect(conPre.y, reaValSelByModWitPre.uPre)
@@ -47,7 +47,7 @@ equation
   connect(conReb.y, reaValSelByModNoPre.uReb)
     annotation (Line(points={{-38,-70},{40,-70},{40,-18},{58,-18}},
       color={0,0,127}));
-  connect(uModHou.y[1], reaValSelByModNoPre.uMod)
+  connect(demFleModHou.y[1], reaValSelByModNoPre.demFleMod)
     annotation (Line(points={{-58,70},{-20,70},{-20,-2},{58,-2}},
       color={255,127,0}));
 annotation (experiment(StopTime=172800,Interval=60, Tolerance=1e-06),
