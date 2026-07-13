@@ -10,6 +10,9 @@ record EightPortFlowResistanceParameters
     "= true, use m_flow = f(dp) else dp = f(m_flow)"
     annotation (Evaluate=true, Dialog(enable = computeFlowResistance1,
                 tab="Flow resistance", group="Medium 1"));
+  parameter Real n1(min=1, max=2) = 2
+    "Flow exponent for side 1, n=1 for laminar, n=2 for turbulent"
+    annotation(Evaluate=true, Dialog(tab="Flow resistance", group="Medium 1"));
   parameter Modelica.Units.SI.Pressure dp1_nominal(min=0, displayUnit="Pa")
     "Pressure" annotation (Dialog(group="Nominal condition"));
   parameter Boolean linearizeFlowResistance1 = false
@@ -28,6 +31,9 @@ record EightPortFlowResistanceParameters
     "= true, use m_flow = f(dp) else dp = f(m_flow)"
     annotation (Evaluate=true, Dialog(enable = computeFlowResistance2,
                 tab="Flow resistance", group="Medium 2"));
+  parameter Real n2(min=1, max=2) = 2
+    "Flow exponent for side 2, n=1 for laminar, n=2 for turbulent"
+    annotation(Evaluate=true, Dialog(tab="Flow resistance", group="Medium 2"));
   parameter Modelica.Units.SI.Pressure dp2_nominal(min=0, displayUnit="Pa")
     "Pressure" annotation (Dialog(group="Nominal condition"));
   parameter Boolean linearizeFlowResistance2 = false
@@ -46,6 +52,9 @@ record EightPortFlowResistanceParameters
     "= true, use m_flow = f(dp) else dp = f(m_flow)"
     annotation (Evaluate=true, Dialog(enable = computeFlowResistance3,
                 tab="Flow resistance", group="Medium 3"));
+  parameter Real n3(min=1, max=2) = 2
+    "Flow exponent for side 3, n=1 for laminar, n=2 for turbulent"
+    annotation(Evaluate=true, Dialog(tab="Flow resistance", group="Medium 3"));
   parameter Modelica.Units.SI.Pressure dp3_nominal(min=0, displayUnit="Pa")
     "Pressure" annotation (Dialog(group="Nominal condition"));
   parameter Boolean linearizeFlowResistance3 = false
@@ -64,6 +73,9 @@ record EightPortFlowResistanceParameters
     "= true, use m_flow = f(dp) else dp = f(m_flow)"
     annotation (Evaluate=true, Dialog(enable = computeFlowResistance4,
                 tab="Flow resistance", group="Medium 4"));
+  parameter Real n4(min=1, max=2) = 2
+    "Flow exponent for side 4, n=1 for laminar, n=2 for turbulent"
+    annotation(Evaluate=true, Dialog(tab="Flow resistance", group="Medium 4"));
   parameter Modelica.Units.SI.Pressure dp4_nominal(min=0, displayUnit="Pa")
     "Pressure" annotation (Dialog(group="Nominal condition"));
   parameter Boolean linearizeFlowResistance4 = false
@@ -89,6 +101,14 @@ already declares it.
 </html>",
 revisions="<html>
 <ul>
+<li>
+June 17, 2026, by Michael Wetter:<br/>
+Updated implementation to allow a flow coefficient <code>n</code> that is different from <code>2</code>.
+This allows use of the model for not fully turbulent flow.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4620\">Buildings, #4620</a>.
+</li>
+
 <li>
 January 28, 2015, by Damien Picard:<br/>
 First implementation.

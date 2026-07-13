@@ -84,6 +84,7 @@ partial model PartialStorage
     each final show_T=show_T,
     final computeFlowResistance=computeFlowResistance,
     final from_dp=from_dp,
+    each final n=n,
     final linearizeFlowResistance=linearizeFlowResistance,
     final deltaM=deltaM,
     each final energyDynamics=energyDynamics,

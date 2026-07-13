@@ -21,12 +21,20 @@ partial model PartialWheel
     "= true, use m_flow = f(dp) else dp = f(m_flow)"
     annotation (Evaluate=true, Dialog(
                 tab="Flow resistance", group="Medium 1"));
+  parameter Real n1(min=1, max=2) = 2
+    "Flow exponent, n1=1 for laminar, n1=2 for turbulent"
+    annotation (Evaluate=true, Dialog(
+                tab="Flow resistance", group="Medium 1"));
   parameter Boolean linearizeFlowResistance1 = false
     "= true, use linear relation between m_flow and dp for any flow rate"
     annotation(Dialog(tab="Flow resistance", group="Medium 1"));
 
   parameter Boolean from_dp2 = false
     "= true, use m_flow = f(dp) else dp = f(m_flow)"
+    annotation (Evaluate=true, Dialog(
+                tab="Flow resistance", group="Medium 2"));
+  parameter Real n2(min=1, max=2) = 2
+    "Flow exponent, n2=1 for laminar, n2=2 for turbulent"
     annotation (Evaluate=true, Dialog(
                 tab="Flow resistance", group="Medium 2"));
   parameter Boolean linearizeFlowResistance2 = false
@@ -86,7 +94,9 @@ protected
     final allowFlowReversal1=allowFlowReversal1,
     final allowFlowReversal2=allowFlowReversal2,
     final from_dp1=from_dp1,
+    final n1=n1,
     final from_dp2=from_dp2,
+    final n2=n2,
     final linearizeFlowResistance1=linearizeFlowResistance1,
     final linearizeFlowResistance2=linearizeFlowResistance2)
     "Heat exchanger"
@@ -179,6 +189,14 @@ Partial model of a sensible heat recovery wheel.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+June 17, 2026, by Michael Wetter:<br/>
+Updated implementation to allow a flow coefficient <code>n</code> that is different from <code>2</code>.
+This allows use of the model for not fully turbulent flow.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4620\">Buildings, #4620</a>.
+</li>
+
 <li>
 January 8, 2023, by Sen Huang:<br/>
 First implementation.
