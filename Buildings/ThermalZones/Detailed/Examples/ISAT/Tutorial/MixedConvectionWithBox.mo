@@ -10,7 +10,7 @@ model MixedConvectionWithBox
   parameter Integer nSurBou=6
     "Number of surface that are connected to the room air volume";
   parameter Integer nConExt=0
-    "Number of exterior constructions withour a window";
+    "Number of exterior constructions without a window";
   parameter Integer nConPar=0 "Number of partition constructions";
   Modelica.Blocks.Sources.Constant qRadGai_flow(k=0) "Radiative heat gain"
     annotation (Placement(transformation(extent={{-40,20},{-20,40}})));
@@ -169,7 +169,7 @@ Name it as <span style=\"font-family: Courier New;\">roo</span>.
 </li>
 <li>
 <a href=\"modelica://Buildings.BoundaryConditions.WeatherData.ReaderTMY3\">Buildings.BoundaryConditions.WeatherData.ReaderTMY3</a>.
-Use weather data from OHare Intl. Airport, Chicago, Illinoi, U.S.A.
+Use weather data from OHare Intl. Airport, Chicago, Illinois, U.S.A.
 Name it as <span style=\"font-family: Courier New;\">weaDat</span>.
 </li>
 <li>
@@ -317,7 +317,7 @@ connect(bouOut.ports[1], roo.ports[2]);
 <p>// Section 2.0: Settings of numbers</p>
 <p>// Note: Users define numbers of inlets, blocks and walls, respectively, if</p>
 <p>// there exists at least one inlet, block or wall that will be</p>
-<p>// overwirtten by isat inputs. The number should be 0 if none of the inlets</p>
+<p>// overwritten by isat inputs. The number should be 0 if none of the inlets</p>
 <p>// blocks or walls will be overwritten by isat inputs</p>
 <p>//-------------------------------------------------------------------------</p>
 <p>/* inpu.inpu_name: names of inputs including inlet_temp, inlet_mass, inlet_vel, block_temp, block_hea, sur_temp, sur_hea */</p>
@@ -466,7 +466,7 @@ prob.Cp 1006.0 // Specific heat capacity
 prob.beta 0.00343 // Thermal expansion coefficient
 prob.diff 0.00001 // Diffusivity for contaminants
 prob.coeff_h 0.0004 // Convective heat transfer coefficient near the wall
-prob.Temp_Buoyancy 10.0 // Reference temperature for calculating buoyance force
+prob.Temp_Buoyancy 10.0 // Reference temperature for calculating buoyancy force
 bc.outlet_bc ZERO_GRADIENT // ZERO_GRADIENT, PRESCRIBED_VALUE
 init.T 10.0 // Initial condition for Temperature
 init.u 0.0 // Initial condition for velocity u

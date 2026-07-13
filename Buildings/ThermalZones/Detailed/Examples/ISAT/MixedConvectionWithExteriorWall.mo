@@ -121,9 +121,9 @@ empty room with an exterior wall.
 The schematic can be found in
 <a href=\"modelica://Buildings.ThermalZones.Detailed.Examples.ISAT.Tutorial.MixedConvection\">
 Buildings.ThermalZones.Detailed.Examples.ISAT.Tutorial.MixedConvection</a>.
-This case is to demenstrate a case with weather conditions involved by adding
+This case is to demonstrate a case with weather conditions involved by adding
 an exterior wall. Also, this case adopts a pretraining feature that trains the
-isat model before the start of the simulation, which can be adapted duringh
+isat model before the start of the simulation, which can be adapted during
 the simulation when needed.
 </p>
 <h4>Case Description</h4>

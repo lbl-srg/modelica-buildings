@@ -10,7 +10,7 @@ model NaturalConvection "Tutorial for the natural convection case"
   parameter Integer nSurBou=6
     "Number of surface that are connected to the room air volume";
   parameter Integer nConExt=0
-    "Number of exterior constructions withour a window";
+    "Number of exterior constructions without a window";
   parameter Integer nConPar=0 "Number of partition constructions";
   Modelica.Blocks.Sources.Constant qRadGai_flow(k=0) "Radiative heat gain"
     annotation (Placement(transformation(extent={{-60,0},{-40,20}})));
@@ -155,7 +155,7 @@ Name it as <span style=\"font-family: Courier New;\">roo</span>.
 </li>
 <li>
 <a href=\"modelica://Buildings.BoundaryConditions.WeatherData.ReaderTMY3\">Buildings.BoundaryConditions.WeatherData.ReaderTMY3</a>.
-Use weather data from OHare Intl. Airport, Chicago, Illinoi, U.S.A.
+Use weather data from OHare Intl. Airport, Chicago, Illinois, U.S.A.
 Name it as <span style=\"font-family: Courier New;\">weaDat</span>.
 </li>
 <li>
@@ -175,8 +175,8 @@ Name it as <span style=\"font-family: Courier New;\">multiple_x3</span>.
 <li>
 <a href=\"modelica://Buildings.HeatTransfer.Sources.FixedTemperature\">Buildings.HeatTransfer.Sources.FixedTemperature</a>.
 Two models are needed to specify the temperatures on the east and west walls.
-Name them as <span style=\"font-family: Courier New;\">TeasWal</span>
-and <span style=\"font-family: Courier New;\">TwesWal</span>, respectively.
+Name them as <span style=\"font-family: Courier New;\">TEasWal</span>
+and <span style=\"font-family: Courier New;\">TWesWal</span>, respectively.
 </li>
 </ul>
 <p>Note that for the other four walls with adiabatic boundary conditions,
@@ -266,7 +266,7 @@ Set <span style=\"font-family: Courier New;\">qRadGai_flow</span>,
 <p>// Section 2.0: Settings of numbers</p>
 <p>// Note: Users define numbers of inlets, blocks and walls, respectively, if</p>
 <p>// there exists at least one inlet, block or wall that will be</p>
-<p>// overwirtten by isat inputs. The number should be 0 if none of the inlets</p>
+<p>// overwritten by isat inputs. The number should be 0 if none of the inlets</p>
 <p>// blocks or walls will be overwritten by isat inputs</p>
 <p>//-------------------------------------------------------------------------</p>
 <p>/* inpu.inpu_name: names of inputs including inlet_temp, inlet_mass, inlet_vel, block_temp, block_hea, sur_temp, sur_hea */</p>
@@ -397,7 +397,7 @@ prob.beta 3e-3 // Thermal expansion coefficient
 prob.diff 0.00001 // Diffusivity for contaminants
 prob.alpha 2e-5 // Thermal diffusivity
 prob.coeff_h 0.0004 // Convective heat transfer coefficient near the wall
-prob.Temp_Buoyancy 0.0 // Reference temperature for calculating buoyance force
+prob.Temp_Buoyancy 0.0 // Reference temperature for calculating buoyancy force
 init.T 0.0 // Initial condition for Temperature
 init.u 0.0 // Initial condition for velocity u
 init.v 0.0 // Initial condition for velocity v

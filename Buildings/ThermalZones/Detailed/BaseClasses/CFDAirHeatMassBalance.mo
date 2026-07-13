@@ -269,11 +269,10 @@ protected
     "Offset used to connect CFD signals to outgoing trace substances for the fluid ports";
   final parameter Integer kSen=kFluIntC_outflow + nPorts*Medium.nC
     "Offset used to connect CFD signals to output sensor";
-
   final parameter Integer nSur=kSurBou + nSurBou "Number of surfaces";
+
 protected
   function assignSurfaceIdentifier
-
     input Integer nConExt(min=0) "Number of exterior constructions";
     input Integer nConExtWin(min=0) "Number of window constructions";
     input Integer nConPar(min=0) "Number of partition constructions";
@@ -282,30 +281,14 @@ protected
     input Integer nSurBou(min=0)
       "Number of surface heat transfer models that connect to constructions that are modeled outside of this room";
     input Integer nSur(min=2) "Total number of surfaces";
-
     input Boolean haveShade
       "Flag, set to true if any of the window in this room has a shade";
-    /*
-    // Declaration of counters used in the loop.
-    // This could be computed (again) in this function, but using it
-    // as a function arguments avoids code duplication.
-    input Integer kConExt "Offset used to connect CFD signals to conExt";
-    input Integer kConExtWin "Offset used to connect CFD signals to conExtWin";
-    input Integer kGlaUns "Offset used to connect CFD signals to glaUns";
-    input Integer kGlaSha "Offset used to connect CFD signals to glaSha";
-    input Integer kConExtWinFra "Offset used to connect CFD signals to glaSha";
-    input Integer kConPar_a "Offset used to connect CFD signals to conPar_a";
-    input Integer kConPar_b "Offset used to connect CFD signals to conPar_b";
-    input Integer kConBou "Offset used to connect CFD signals to conBou";
-    input Integer kSurBou "Offset used to connect CFD signals to surBou";
-*/
     // Declaration of construction data
     input String nameConExt[nConExt] "Surface name";
     input Modelica.Units.SI.Area AConExt[nConExt] "Surface area";
     input Modelica.Units.SI.Angle tilConExt[nConExt] "Surface tilt";
     input Buildings.ThermalZones.Detailed.Types.CFDBoundaryConditions bouConConExt[nConExt]
       "Boundary condition";
-
     input String nameConExtWin[nConExtWin] "Surface name";
     input Modelica.Units.SI.Area AConExtWin[nConExtWin] "Surface area";
     input Modelica.Units.SI.Angle tilConExtWin[nConExtWin] "Surface tilt";
@@ -319,13 +302,11 @@ protected
     input Modelica.Units.SI.Angle tilConPar[nConPar] "Surface tilt";
     input Buildings.ThermalZones.Detailed.Types.CFDBoundaryConditions bouConConPar[nConPar]
       "Boundary condition";
-
     input String nameConBou[nConBou] "Surface name";
     input Modelica.Units.SI.Area AConBou[nConBou] "Surface area";
     input Modelica.Units.SI.Angle tilConBou[nConBou] "Surface tilt";
     input Buildings.ThermalZones.Detailed.Types.CFDBoundaryConditions bouConConBou[nConBou]
       "Boundary condition";
-
     input String nameSurBou[nSurBou] "Surface name";
     input Modelica.Units.SI.Area ASurBou[nSurBou] "Surface area";
     input Modelica.Units.SI.Angle tilSurBou[nSurBou] "Surface tilt";
@@ -447,7 +428,7 @@ public
         transformation(extent={{-280,-238},{-240,-198}}), iconTransformation(
           extent={{-280,-238},{-240,-198}})));
 initial equation
-   startTime = time;
+  startTime = time;
 
   for i in 1:nPorts loop
     for j in 1:Medium.nXi loop
@@ -765,8 +746,7 @@ equation
   if haveSource then
     for i in 1:nSou loop
       connect(QIntSou[i], cfd.u[kQIntSou + i]) annotation (Line(points={{-260,-218},
-              {-60,-218},{-60,190},{-42,190}},
-                               color={0,0,127}));
+              {-60,-218},{-60,190},{-42,190}}, color={0,0,127}));
     end for;
   end if;
 
@@ -888,21 +868,10 @@ Buildings.ThermalZones.Detailed.UsersGuide.CFD</a>.
 </html>", revisions="<html>
 <ul>
 <li>
-July 10, 2026, by fix for Dymola translation error:<br/>
+July 10, 2026, by Jianjun Hu:<br/>
 Rewrote the body of function <code>assignSurfaceIdentifier</code> to
 assign each <code>CFDSurfaceIdentifier</code> record directly into a
-pre-allocated element of the output array using plain <code>for</code>
-loops, instead of assembling the array with array-constructor expressions
-(e.g. <code>{CFDSurfaceIdentifier(...) for i in 1:n}</code>) concatenated
-with <code>cat()</code>. Dymola failed to expand (inline) this function at
-translation time, reporting the internal errors
-\"failed to expand string\" and
-\"Unimplemented: No support for unexpanded array of records\", because it
-could not expand a function returning an array of records that is
-assembled from array-constructor/<code>cat()</code> expressions,
-especially when they also perform string concatenation with
-<code>+</code>. Writing directly into individual output array elements
-avoids this Dymola limitation.
+pre-allocated element of the output array.
 </li>
 <li>
 November 17, 2016, by Michael Wetter:<br/>

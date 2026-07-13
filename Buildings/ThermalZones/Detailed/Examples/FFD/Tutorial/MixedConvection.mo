@@ -170,7 +170,7 @@ Name it as <code>roo</code>.
 </li>
 <li>
 <a href=\"modelica://Buildings.BoundaryConditions.WeatherData.ReaderTMY3\">Buildings.BoundaryConditions.WeatherData.ReaderTMY3</a>.
-Use weather data from OHare Intl. Airport, Chicago, Illinoi, U.S.A.
+Use weather data from OHare Intl. Airport, Chicago, Illinois, U.S.A.
 Name it as <code>weaDat</code>.
 </li>
 <li>
@@ -339,7 +339,7 @@ Revise the FFD parameter input file <code>MixedConvection.ffd</code>
   prob.beta 0.00343 // Thermal expansion coefficient
   prob.diff 0.00001 // Diffusivity for contaminants
   prob.coeff_h 0.0004 // Convective heat transfer coefficient near the wall
-  prob.Temp_Buoyancy 10.0 // Reference temperature for calculating buoyance  force
+  prob.Temp_Buoyancy 10.0 // Reference temperature for calculating buoyancy  force
   init.T 10.0 // Initial condition for Temperature
   init.u 0.0 // Initial condition for velocity u
   init.v 0.0 // Initial condition for velocity v

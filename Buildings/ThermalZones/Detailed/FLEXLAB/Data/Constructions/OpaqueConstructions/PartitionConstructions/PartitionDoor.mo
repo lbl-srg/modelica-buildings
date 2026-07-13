@@ -9,7 +9,7 @@ defaultComponentPrefixes="parameter",
 defaultComponentName="datOpaCon",
 Documentation(info="<html>
     <p>
-    This is a model of a parition door. It is used in every test cell
+    This is a model of a partition door. It is used in every test cell
     as the door between the cell itself and the closet.
     </p>
     </html>", revisions="<html>

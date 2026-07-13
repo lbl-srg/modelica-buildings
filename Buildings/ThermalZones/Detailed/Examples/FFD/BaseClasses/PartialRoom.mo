@@ -8,7 +8,7 @@ partial model PartialRoom "Partial model for a room"
   parameter Integer nSurBou=0
     "Number of surface that are connected to the room air volume";
   parameter Integer nConExt=0
-    "Number of exterior constructions withour a window";
+    "Number of exterior constructions without a window";
   parameter Integer nConPar=0 "Number of partition constructions";
   parameter Integer nSou=0
     "Number of sources that are connected to CFD input";

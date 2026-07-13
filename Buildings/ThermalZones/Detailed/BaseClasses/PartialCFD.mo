@@ -42,8 +42,7 @@ partial model PartialCFD
     annotation(Dialog(group = "CFD"));
   parameter String cfdFilNam "CFD input file name"
     annotation (Dialog(group = "CFD",
-        loadSelector(caption=
-            "Select CFD input file")));
+      loadSelector(caption = "Select CFD input file")));
   parameter Integer nSou(min=0)
     "Number of sources that are connected to CFD input";
   parameter String sourceName[nSou]=fill("",nSou)
@@ -90,8 +89,7 @@ equation
       points={{-239,180},{420,180},{420,-42},{310.2,-42},{310.2,-25.6}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(irRadGai.uSha,conSha.y)
-                             annotation (Line(
+  connect(irRadGai.uSha,conSha.y) annotation (Line(
       points={{-100.833,-22.5},{-112,-22.5},{-112,180},{-239,180}},
       color={0,0,127},
       smooth=Smooth.None));
@@ -175,7 +173,9 @@ Journal of Building Performance Simulation, 11(1), pp. 99-112, 2018.
 </p>
 <p>
 Xu Han, Wei Tian, Wangda Zuo, Michael Wetter, James W. VanGilder.<br/>
-<a href=\"https://www.researchgate.net/profile/Wangda_Zuo/publication/333797408_Optimization_of_Workload_Distribution_of_Data_Centers_Based_on_a_Self-Learning_In_Situ_Adaptive_Tabulation_Model/links/5d0467bf299bf12e7be02981/Optimization-of-Workload-Distribution-of-Data-Centers-Based-on-a-Self-Learning-In-Situ-Adaptive-Tabulation-Model.pdf\">
+<a href=\"https://www.researchgate.net/profile/Wangda_Zuo/publication/
+333797408_Optimization_of_Workload_Distribution_of_Data_Centers_Based_on_a_Self-Learning_In_Situ_Adaptive_Tabulation_Model/
+links/5d0467bf299bf12e7be02981/Optimization-of-Workload-Distribution-of-Data-Centers-Based-on-a-Self-Learning-In-Situ-Adaptive-Tabulation-Model.pdf\">
 Optimization of Workload Distribution of Data Centers Based on a Self-Learning In
 Situ Adaptive Tabulation Model</a>.<br/>
 Proc. of the 16th Conference of International Building Performance Simulation

@@ -12,7 +12,7 @@ The room can have any number of constructions and surfaces that participate in t
 heat exchange through convection, conduction, infrared radiation and solar radiation.</p>
 <h4>Physical description</h4>
 <p>
-A description of the model assumptions and the implemention and validation of this room model can be found in
+A description of the model assumptions and the implementation and validation of this room model can be found in
 <a href=\"#WetterEtAl2011\">Wetter et al. (2011)</a>.
 Note that this paper describes a previous version of the room model.
 The equations have not changed. However, what is shown in Figure 2 in the paper has in this version
@@ -184,7 +184,6 @@ Buildings.HeatTransfer.Data</a> to create the following list of declarations:
 <span style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; -qt-user-state:8;\"><span style=\" font-family:'Courier New,courier';\">    haveExteriorShade=false,</span></span>
 <span style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; -qt-user-state:8;\"><span style=\" font-family:'Courier New,courier';\">    haveInteriorShade=true) </span><span style=\" font-family:'Courier New,courier'; color:#006400;\">\"Data record for the glazing system\"</span></span>
 <span style=\" font-family:'Courier New,courier'; color:#0000ff;\">annotation </span><span style=\" font-family:'Courier New,courier';\">(Placement(transformation(extent={{100,140},{120,160}})));</span>
-
 </pre>
 <p>
 Note that construction layers are assembled from the outside to the room-side. Thus, the construction
@@ -428,7 +427,7 @@ its declaration would be
 </pre>
 <p>
 This line can be placed below the declaration of <code>wWin</code>.
-This would instanciate the model
+This would instantiate the model
 <a href=\"modelica://Buildings.HeatTransfer.Windows.Overhang\">
 Buildings.HeatTransfer.Windows.Overhang</a> to model the overhang. See this class for a picture of the above dimensions.
 </p>
@@ -444,7 +443,7 @@ then its declaration would be
 <span style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; -qt-user-state:8;\"><span style=\" font-family:'Courier New,courier';\">              sidFin(h={0.5}, gap={0.1}, dep={1}),</span></span>
 </pre>
 <p>
-This would instanciate the model
+This would instantiate the model
 <a href=\"modelica://Buildings.HeatTransfer.Windows.SideFins\">
 Buildings.HeatTransfer.Windows.SideFins</a> to model the side fins. See this class for a picture of the above dimensions.
 </p>
@@ -644,7 +643,7 @@ in the CFD input file when declaring the inlet and outlet boundary conditions.
 </li>
 <li>
 The control signal of window shades is a constant rather than an input.
-Its value cannot be changed during the simulation as the FFD implemementation
+Its value cannot be changed during the simulation as the FFD implementation
 does not support moving areas for the boundary conditions.
 </li>
 <li>
@@ -659,7 +658,7 @@ a constant pressure during the whole simulation and does not use the pressure
 of the Modelica model.
 </li>
 </ul>
-A description of the model assumptions and the implemention and validation of
+A description of the model assumptions and the implementation and validation of
 this room model can be found in <a href=\"#ZuoEtAl2016\">Zuo et al. (2016)</a>
 and in <a href=\"#ZuoEtAl2014\">Zuo et al. (2014)</a>.
 <!-- +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
@@ -802,7 +801,7 @@ Buildings.ThermalZones.Detailed.BaseClasses.CFDExchange</a>.
 This block exchanges the following data with the CFD simulation:
 </p>
 <p>
-During the initialzation, the following data are sent from Modelica to CFD:
+During the initialization, the following data are sent from Modelica to CFD:
 </p>
 <ul>
 <li>
@@ -1031,10 +1030,10 @@ prediction of indoor airflow and thermal environment.
 </li>
 <li>
 The ISAT is linked with FFD program, which means ISAT calls FFD and returns results
-from FFD simulation when ISAT can not retrive it due to lack of data in ISAT database.
+from FFD simulation when ISAT can not retrieve it due to lack of data in ISAT database.
 </li>
 <li>
-Since ISAT is a data-driven model, more inputs and outputs will cause signifiantly
+Since ISAT is a data-driven model, more inputs and outputs will cause significantly
 increasing computing effort. Therefore, in our current settings, assumed fixed
 values are assigned for the heat flow rates from ports and surfaces.
 </li>
@@ -1047,16 +1046,18 @@ outputs including temp_roo, temp_occ, vel_occ, temp_sen, vel_sen and temp_rack.
 If the users would like to return heat flow rates for ports and surfaces, they
 should revise the source codes in cosimulation.c and utility_isat.c in
 <span style=\"font-family: Courier New;\">Buildings\\Resources\\src\\ISAT\\</span>
-by outputing target values and assign them to modelica-shared variables.
+by outputting target values and assign them to modelica-shared variables.
 </li>
 </ul>
 <p>
-A description of the model assumptions and the implemention and validation of this
+A description of the model assumptions and the implementation and validation of this
 room model can be found in
 <a href=\"https://www.tandfonline.com/doi/full/10.1080/19401493.2017.1288761\">
 Tian et al. (2018)</a>
 and in
-<a href=\"https://www.researchgate.net/profile/Wangda_Zuo/publication/333797408_Optimization_of_Workload_Distribution_of_Data_Centers_Based_on_a_Self-Learning_In_Situ_Adaptive_Tabulation_Model/links/5d0467bf299bf12e7be02981/Optimization-of-Workload-Distribution-of-Data-Centers-Based-on-a-Self-Learning-In-Situ-Adaptive-Tabulation-Model.pdf\">
+<a href=\"https://www.researchgate.net/profile/Wangda_Zuo/publication/
+333797408_Optimization_of_Workload_Distribution_of_Data_Centers_Based_on_a_Self-Learning_In_Situ_Adaptive_Tabulation_Model/
+links/5d0467bf299bf12e7be02981/Optimization-of-Workload-Distribution-of-Data-Centers-Based-on-a-Self-Learning-In-Situ-Adaptive-Tabulation-Model.pdf\">
 Han et al. (2019)</a>.
 </p>
 <p>
@@ -1076,7 +1077,7 @@ Interfacing ISAT with the Modelica room air heat and mass balance is done in the
 model <a href=\"modelica://Buildings.ThermalZones.Detailed.BaseClasses.ISATAirHeatMassBalance\">
 Buildings.ThermalZones.Detailed.BaseClasses.ISATAirHeatMassBalance</a>.
 The classes and conventions used in this model to interface variables from Modelica
-and ISAT are the the same as the CFD room model except for the external solver.
+and ISAT are the same as the CFD room model except for the external solver.
 </p>
 <h5>Data exchange with ISAT</h5>
 <p>
@@ -1087,7 +1088,7 @@ Buildings.ThermalZones.Detailed.BaseClasses.ISATExchange</a>.
 This block exchanges the following data with the ISAT simulation:
 </p>
 <p>
-During the initialzation and simulation, the data sent from Modelica to ISAT are
+During the initialization and simulation, the data sent from Modelica to ISAT are
 identical with that in <a href=\"modelica://Buildings.ThermalZones.Detailed.CFD\">
 Buildings.ThermalZones.Detailed.CFD</a>. The differences of the ISAT model are:
 </p>
@@ -1119,7 +1120,9 @@ Journal of Building Performance Simulation, 11(1), pp. 99-112, 2018.
 </p>
 <p>
 Xu Han, Wei Tian, Wangda Zuo, Michael Wetter, James W. VanGilder.<br/>
-<a href=\"https://www.researchgate.net/profile/Wangda_Zuo/publication/333797408_Optimization_of_Workload_Distribution_of_Data_Centers_Based_on_a_Self-Learning_In_Situ_Adaptive_Tabulation_Model/links/5d0467bf299bf12e7be02981/Optimization-of-Workload-Distribution-of-Data-Centers-Based-on-a-Self-Learning-In-Situ-Adaptive-Tabulation-Model.pdf\">
+<a href=\"https://www.researchgate.net/profile/Wangda_Zuo/publication/
+333797408_Optimization_of_Workload_Distribution_of_Data_Centers_Based_on_a_Self-Learning_In_Situ_Adaptive_Tabulation_Model/
+links/5d0467bf299bf12e7be02981/Optimization-of-Workload-Distribution-of-Data-Centers-Based-on-a-Self-Learning-In-Situ-Adaptive-Tabulation-Model.pdf\">
 Optimization of Workload Distribution of Data Centers Based on a Self-Learning In
 Situ Adaptive Tabulation Model</a>.<br/>
 Proc. of the 16th Conference of International Building Performance Simulation
@@ -1132,12 +1135,12 @@ Association (Building Simulation 2019), Italy, September 2-4, Rome, 2019.
 <p>The package <a href=\"modelica://Buildings.ThermalZones.Detailed\">Buildings.ThermalZones.Detailed</a> contains models for heat transfer through the building envelope. Multiple instances of these models can be connected to create a multi-zone building model. </p>
 <p>To compute the air exchange between rooms and between a room and the exterior, the room models can be connected to multi-zone air exchange models from the package <a href=\"modelica://Buildings.Airflow\">Buildings.Airflow</a>. </p>
 <p>The room models can also be linked to models of HVAC systems that are composed of the components in the package <a href=\"modelica://Buildings.Fluid\">Buildings.Fluid</a>. </p>
-<p>There are two different room models, one assumes the room air to be completely mixed, and the other implements a computuational fluid dynamic model to compute air flow, temperature and species distribution inside the room. </p>
+<p>There are two different room models, one assumes the room air to be completely mixed, and the other implements a computational fluid dynamic model to compute air flow, temperature and species distribution inside the room. </p>
 <p>These models are further described in their respective user&apos;s guide, <a href=\"modelica://Buildings.ThermalZones.Detailed.UsersGuide.MixedAir\">Buildings.ThermalZones.Detailed.UsersGuide.MixedAir</a>, <a href=\"modelica://Buildings.ThermalZones.Detailed.UsersGuide.CFD\">Buildings.ThermalZones.Detailed.UsersGuide.CFD</a> and <a href=\"modelica://Buildings.ThermalZones.Detailed.UsersGuide.ISAT\">Buildings.ThermalZones.Detailed.UsersGuide.ISAT</a>. </p>
 <h4>Modeling of conventional and electrochromic windows</h4>
 <p>Both models have the option of modeling electrochromic windows. The window properties are specified in a record <a href=\"modelica://Buildings.HeatTransfer.Data.GlazingSystems\">Buildings.HeatTransfer.Data.GlazingSystems</a> which contains for the glass layer the record <a href=\"modelica://Buildings.HeatTransfer.Data.Glasses\">Buildings.HeatTransfer.Data.Glasses</a>. </p>
 <p>If any glass layer has multiple properties, then the glass is assumed to be controllable, and the room model will have an input connector <span style=\"font-family: Courier New;\">uWin</span> that is used for the control input signal of the glass. </p>
-<p>This connnector is a vector in which each element is a control signal, with value between <i>0</i> and <i>1</i>, for a particular window. Hence, either all or none of the windows must be electrochromic. </p>
+<p>This connector is a vector in which each element is a control signal, with value between <i>0</i> and <i>1</i>, for a particular window. Hence, either all or none of the windows must be electrochromic. </p>
 <p>If your room has a mixture of conventional and electrochromic windows, then set all windows to be electrochromic, but simply use a constant control signal for the conventional windows, and set it to the off-state.</p>
 <p>If all windows are conventional, then the connector <span style=\"font-family: Courier New;\">uWin</span> is removed. However, its icon may still be visible as the visual rendering engine may not evaluate the equations that are needed to determine whether there are controllable windows. </p>
 <p>The model <a href=\"modelica://Buildings.ThermalZones.Detailed.Examples.ElectroChromicWindow\">Buildings.ThermalZones.Detailed.Examples.ElectroChromicWindow</a> shows how to configure electrochromic windows. </p>

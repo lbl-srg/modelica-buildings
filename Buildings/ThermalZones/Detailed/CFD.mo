@@ -70,7 +70,7 @@ revisions="<html>
 <ul>
 <li>
 April 5, 2020, by Xu Han, Wei Tian, Cary Faulkner, Wangda Zuo and Michael Wetter:<br/>
-Added interface for internal sources and changed strucuture in the modelica model. The FFD source codes has been updated, which 
+Added interface for internal sources and changed structure in the modelica model. The FFD source codes has been updated, which
 includes new features to simulate data center airflow and thermal environment.
 </li>
 <li>

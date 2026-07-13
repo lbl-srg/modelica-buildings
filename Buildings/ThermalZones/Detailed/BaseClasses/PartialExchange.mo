@@ -2,11 +2,9 @@ within Buildings.ThermalZones.Detailed.BaseClasses;
 block PartialExchange
   "Partial Block that exchanges data with the external solver"
   extends Modelica.Blocks.Interfaces.DiscreteBlock(
-    firstTrigger(start=false,
-                 fixed=true));
+    firstTrigger(start=false, fixed=true));
   parameter String cfdFilNam "CFD input file name" annotation (Dialog(
-        loadSelector(caption=
-            "Select CFD input file")));
+        loadSelector(caption="Select CFD input file")));
   parameter Boolean activateInterface=true
     "Set to false to deactivate interface and use instead yFixed as output"
     annotation (Evaluate=true);
@@ -44,7 +42,6 @@ block PartialExchange
   parameter String sourceName[:]
     "Names of sources as declared in the CFD input file";
 
-
   Modelica.Blocks.Interfaces.RealInput u[nWri] "Inputs to CFD"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
   discrete Modelica.Blocks.Interfaces.RealOutput y[nRea] "Outputs received from CFD"
@@ -76,7 +73,6 @@ protected
     "Current model time received from CFD";
 
   discrete Integer retVal(start=0, fixed=true) "Return value from CFD";
-
 
   ///////////////////////////////////////////////////////////////////////////
   // Function that extracts the name field of an array of CFDSurfaceIdentifier
@@ -229,8 +225,10 @@ equation
   annotation (
     Documentation(info="<html>
 <p>
-This partial model derives from <a href=\"modelica://Buildings.ThermalZones.Detailed.BaseClasses.CFDExchange\">
-Buildings.ThermalZones.Detailed.BaseClasses.CFDExchange</a>, which samples interface variables and exchanges data with the CFD or ISAT code.
+This partial model derives from
+<a href=\"modelica://Buildings.ThermalZones.Detailed.BaseClasses.CFDExchange\">
+Buildings.ThermalZones.Detailed.BaseClasses.CFDExchange</a>,
+which samples interface variables and exchanges data with the CFD or ISAT code.
 </p>
 <p>
 For a documentation of the exchange parameters and variables, see
@@ -240,23 +238,9 @@ Buildings.ThermalZones.Detailed.UsersGuide.CFD</a>.
 </html>", revisions="<html>
 <ul>
 <li>
-July 10, 2026, by fix for Dymola translation error:<br/>
+July 10, 2026, by Jianjun Hu:<br/>
 Introduced the protected parameter <code>surNam</code> and the function
-<code>getSurfaceNames</code>, which extracts the <code>name</code> field of
-the array of records <code>surIde</code> using an explicit <code>for</code>
-loop. Replaced all uses of the array projections <code>surIde.name</code>
-and <code>surIde[:].name</code> (in <code>assertStringsAreUnique</code> and
-in the diagnostic <code>Modelica.Utilities.Streams.print</code> statement)
-with <code>surNam</code>. Dymola's code generator failed to expand
-(inline) such array projections when a <code>String</code> field is
-extracted from an array of records, reporting the internal error
-\"failed to expand string\". This is also fixed in
-<a href=\"modelica://Buildings.ThermalZones.Detailed.BaseClasses.CFDExchange\">
-Buildings.ThermalZones.Detailed.BaseClasses.CFDExchange</a> and
-<a href=\"modelica://Buildings.ThermalZones.Detailed.BaseClasses.ISATExchange\">
-Buildings.ThermalZones.Detailed.BaseClasses.ISATExchange</a>, which now use
-<code>surNam</code> instead of <code>surIde[:].name</code> in the call to
-<code>sendParameters</code>.
+<code>getSurfaceNames</code>.
 </li>
 <li>
 April 5, 2020, by Xu Han, Wangda Zuo and Michael Wetter:<br/>

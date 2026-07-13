@@ -2,7 +2,7 @@ within Buildings.ThermalZones.Detailed.BaseClasses;
 class ISATThread "Class used to handle ISAT thread"
    extends ExternalObject;
    // constructor
-   function constructor "Allocate memeory for cosimulation variables"
+   function constructor "Allocate memory for cosimulation variables"
     output ISATThread ISATThre "Handler of ISAT thread";
     external "C" ISATThre = isatcosim()   annotation (Include="#include <isatcosim.c>",
       IncludeDirectory="modelica://Buildings/Resources/C-Sources",
