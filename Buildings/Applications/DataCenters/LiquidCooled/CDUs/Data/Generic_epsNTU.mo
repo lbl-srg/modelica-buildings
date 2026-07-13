@@ -389,7 +389,7 @@ The data record is structured as follows.
     </table>
 <p>
 The filter pressure drop and flow exponent is obtained from a data fit using catalogue data
-from VertivTM Liebert XDU 1350.
+from Vertiv Liebert XDU 1350.
 </p>
 <p>
 For the parameter <code>pumpExtHead</code>, it is recommended to use a array such as of the form
