@@ -75,11 +75,12 @@ at the end that makes it easy to accept improvements.
 </p>
 
 <h4>Third Party Licenses</h4>
-
 <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=\"0\"
 cellpadding=\"1\" style=\"border-collapse:collapse;\">
-<tr><td><b>In script <code>Buildings/Resources/C-Sources/getTimeSpan.c</code></b>
-    </td>
+<tr bgcolor=\"silver\">
+<td>To parse weather file, the function <code>getTimeSpan.c</code> uses third party
+code that uses the following license:
+</td>
 </tr>
 <tr><td valign=\"top\">
 <p>
@@ -119,9 +120,11 @@ POSSIBILITY OF SUCH DAMAGE.
 </p>
 </td>
 </tr>
-
-<tr><td><b>In script <code>Buildings/Resources/src/ISAT/ffd_isat.c</code></b>
-    </td>
+<tr bgcolor=\"silver\">
+<td>
+To run the room model in which the air is computed using in situ adaptive tabulation
+(ISAT) with the script <code>ffd_isat.c</code> that uses following licenses:
+</td>
 </tr>
 <tr><td valign=\"top\">
 <p>
