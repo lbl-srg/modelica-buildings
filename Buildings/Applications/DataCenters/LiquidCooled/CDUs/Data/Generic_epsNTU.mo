@@ -30,15 +30,23 @@ record Generic_epsNTU
   // Flow resistances
   parameter Modelica.Units.SI.PressureDifference dpHexPla_nominal(
     min=0,
-    displayUnit="Pa") "Heat exchanger design pressure drop"
+    displayUnit="Pa") "Heat exchanger design pressure drop at plant side"
     annotation (Dialog(group="Nominal condition"));
   parameter Real deltaMPla=0.1
     "Fraction of nominal flow rate where flow transitions to laminar on cooling plant side"
     annotation(Dialog(tab="Flow resistance", group="Medium 1"));
   parameter Modelica.Units.SI.PressureDifference dpHexRac_nominal(
     min=0,
-    displayUnit="Pa") = dpHexPla_nominal "Pressure difference"
+    displayUnit="Pa") = dpHexPla_nominal "Heat exchanger design pressure drop at rack side"
     annotation (Dialog(group="Nominal condition"));
+
+  parameter Modelica.Units.SI.PressureDifference dpFilRac_nominal(
+    min=0,
+    displayUnit="Pa")=65000
+    "Clean filter design pressure drop at rack-side"
+    annotation (Dialog(group="Nominal condition"));
+
+
 
   parameter Real nPla(min=1, max=2) = 2
     "Flow exponent, n=1 for laminar, n=2 for turbulent"
@@ -46,6 +54,10 @@ record Generic_epsNTU
                 tab="Flow resistance", group="Medium 1"));
   parameter Real nRac(min=1, max=2) = 2
     "Flow exponent, n=1 for laminar, n=2 for turbulent"
+    annotation (Evaluate=true, Dialog(
+                tab="Flow resistance", group="Medium 2"));
+  parameter Real nFilRac(min=1, max=2) = 1.76
+    "Flow exponent for filter on rack-side, n=1 for laminar, n=2 for turbulent"
     annotation (Evaluate=true, Dialog(
                 tab="Flow resistance", group="Medium 2"));
 
@@ -151,25 +163,35 @@ record Generic_epsNTU
     annotation (Dialog(tab="Dynamics", group="Valve"));
 
   // Pump configuration
-  parameter Modelica.Units.SI.PressureDifference dpHeaExt_nominal(
-    displayUnit="Pa")
-    "Nominal head for pressure available at the CDU's fluid ports. I.e., this is the head for resistances external to the CDU"
-    annotation (Dialog(group="Pump"));
-
   parameter Modelica.Units.SI.Time riseTime=30
     "Time needed to change motor speed between zero and full speed"
     annotation (Dialog(tab="Dynamics", group="Pump"));
 
   parameter Buildings.Fluid.Movers.BaseClasses.Characteristics.efficiencyParameters
     pumpEfficiency(
-      V_flow=mRac_flow_nominal/rhoRac_default*{0},
+      V_flow=mRac_flow_nominal/rhoRac_default*{1},
       eta={0.7}) "Total pump efficiency vs. volumetric flow rate";
 
-  parameter Buildings.Fluid.Movers.BaseClasses.Characteristics.flowParameters
-    pumpExternalPressure(
-      V_flow=mRac_flow_nominal/rhoRac_default*{0, 1, 2},
-      dp = dpHeaExt_nominal*{1.14, 1, 0.42})
-    "External head available for flow network that is connected to the CDU on the rack-side";
+  // Rack-side pump configuration
+  parameter Modelica.Units.SI.PressureDifference dpPumpExt_nominal(
+    displayUnit="Pa",
+    min=0)
+    "Pump head available for flow network that is connected to the CDU on the rack-side at m_flow_nominal"
+    annotation(Dialog(group="Pump"));
+  parameter Buildings.Fluid.Movers.BaseClasses.Characteristics.flowParameters pumpExtHead
+    "Pump head available for flow network that is connected to the CDU on the rack-side"
+    annotation(Dialog(group="Pump"));
+
+
+
+  parameter Buildings.Fluid.Movers.BaseClasses.Characteristics.flowParameters pumpHead(
+    V_flow=pumpExtHead.V_flow,
+    dp=pumpExtHead.dp +
+    {(pumpExtHead.V_flow[i]*rhoRac_default)^nRac * dpHexRac_nominal/mRac_flow_nominal^nRac for i in 1:size(pumpExtHead.V_flow, 1)} +
+    {(pumpExtHead.V_flow[i]*rhoRac_default)^nFilRac * dpFilRac_nominal/mRac_flow_nominal^nFilRac for i in 1:size(pumpExtHead.V_flow, 1)})
+    "Actual head of the pump, composed of external pump head, and head used for heat exchanger and filter"
+    annotation(Dialog(group="Pump"));
+
 
   parameter Real r_nominal(min=0)=
     (kPla_default * (mPla_flow_nominal/etaPla_default)^nConPla * PrPla_default^(1/3)) /
@@ -365,6 +387,24 @@ The data record is structured as follows.
             </tr>
         </tbody>
     </table>
+<p>
+The filter pressure drop and flow exponent is obtained from a data fit using catalogue data
+from VertivTM Liebert XDU 1350.
+</p>
+<p>
+For the parameter <code>pumpExtHead</code>, it is recommended to use a array such as of the form
+<pre>
+pumpExtHead(
+      V_flow = mRac_flow_nominal/rhoRac_default * {0.000, 0.250, 0.500, 0.750, 1.0},
+      dp     = dpPumpExt_nominal *                {11.90, 11.61, 9.810, 6.202, 1.0})
+</pre>
+With this setting, at design flow rate (the last element of <code>V_flow</code>, which is set to <code>1</code>),
+the pressure available to the flow network connected to the CDU is equal to <code>dpPumpExt_nominal</code>,
+and at lower volume flow rates, the available pressure will increase, as it is customary for pumps.
+The increase is steeper than is typical for a pump because the CDU-internal resistance for the heat exchanger
+and filter decrease as the volume flow rate decreases, and hence, the resulting curve for the pump head
+that is available for pressure drops that are outside the CDU is steep.
+</p>
 <p>
 The size of the expansion vessel <code>VExp</code> is by default set to the size used for the CDU
 <a href=\"modelica://Buildings.Applications.DataCenters.LiquidCooled.CDUs.Data.GoogleProjectDeschutes\">

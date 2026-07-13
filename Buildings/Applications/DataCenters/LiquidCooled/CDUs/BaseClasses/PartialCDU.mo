@@ -61,6 +61,8 @@ model PartialCDU "Partial model for a CDU"
     annotation (Dialog(tab="Dynamics", group="Pump"));
   parameter Real yPum_start=0 "Initial value of speed"
     annotation (Dialog(tab="Dynamics", group="Pump"));
+  parameter Boolean addPowerToMedium=true
+    "Set to false to avoid any power from the pump (=heat and flow work) being added to medium (may give simpler equations)";
 
   // Valve controller parameters
   parameter Controls.OBC.CDL.Types.SimpleController controllerTypeVal=Buildings.Controls.OBC.CDL.Types.SimpleController.PI
@@ -131,7 +133,7 @@ model PartialCDU "Partial model for a CDU"
     final Ti=TiPum,
     final Td=TdPum,
     final reverseActing=true,
-    r=dat.dpHeaExt_nominal,
+    r=dat.dpPumpExt_nominal,
     xi_start=1)
     "Controller for pump"
     annotation (Placement(transformation(extent={{-10,-110},{10,-90}})));
@@ -163,6 +165,8 @@ model PartialCDU "Partial model for a CDU"
         rotation=0,
         origin={-50,60})));
 
+  // Use sqrt for efficiency because input is the total efficiency, but this is split up into a
+  // motor and a hyraulic efficiency which are then multiplied with each other.
   Fluid.Movers.SpeedControlled_y pum(
     redeclare final package Medium = MediumRac,
     energyDynamics=energyDynamics,
@@ -173,16 +177,16 @@ model PartialCDU "Partial model for a CDU"
     final riseTime=dat.riseTime,
     final y_start=yPum_start,
     per(
-      pressure(
-        V_flow=dat.pumpExternalPressure.V_flow,
-        dp={dat.pumpExternalPressure.dp[i] +
-          (dat.pumpExternalPressure.V_flow[i]*dat.rhoRac_default)^dat.nRac * dat.dpHexRac_nominal/dat.mRac_flow_nominal^dat.nRac
-            for i in 1:size(dat.pumpExternalPressure.V_flow, 1)}),
-      powerOrEfficiencyIsHydraulic=false,
+      pressure=pumpHeadMonotone,
+      powerOrEfficiencyIsHydraulic=true,
       etaHydMet=Buildings.Fluid.Movers.BaseClasses.Types.HydraulicEfficiencyMethod.Efficiency_VolumeFlowRate,
       etaMotMet=Buildings.Fluid.Movers.BaseClasses.Types.MotorEfficiencyMethod.Efficiency_VolumeFlowRate,
-      efficiency=dat.pumpEfficiency,
-      motorEfficiency=dat.pumpEfficiency),
+      efficiency(
+        V_flow=dat.pumpEfficiency.V_flow,
+        eta={sqrt(dat.pumpEfficiency.eta[i]) for i in 1:size(dat.pumpEfficiency.eta, 1)}),
+      motorEfficiency(
+        V_flow=dat.pumpEfficiency.V_flow,
+        eta={sqrt(dat.pumpEfficiency.eta[i]) for i in 1:size(dat.pumpEfficiency.eta, 1)})),
     final inputType=Buildings.Fluid.Types.InputType.Continuous,
     final init=Modelica.Blocks.Types.Init.InitialOutput)
     "Pump on IT side" annotation (
@@ -190,6 +194,18 @@ model PartialCDU "Partial model for a CDU"
         extent={{10,10},{-10,-10}},
         rotation=90,
         origin={-20,-40})));
+
+  Fluid.FixedResistances.PressureDrop fil(
+    redeclare final package Medium = MediumRac,
+    final allowFlowReversal=allowFlowReversalRac,
+    final m_flow_nominal=mRac_flow_nominal,
+    final dp_nominal=dat.dpFilRac_nominal,
+    final n=dat.nFilRac)
+    "Filter"
+    annotation (Placement(transformation(
+        extent={{-10,-10},{10,10}},
+        rotation=90,
+      origin={40,-40})));
 
   Fluid.Storage.ExpansionVessel exp(
     redeclare package Medium = MediumRac,
@@ -207,8 +223,24 @@ model PartialCDU "Partial model for a CDU"
     "Temperature sensor for medium leaving towards IT racks"
     annotation (Placement(transformation(extent={{-60,-70},{-80,-50}})));
 
-  parameter Boolean addPowerToMedium=true
-    "Set to false to avoid any power from the pump (=heat and flow work) being added to medium (may give simpler equations)";
+  parameter Buildings.Fluid.Movers.BaseClasses.Characteristics.flowParameters pumpHeadMonotone(
+    V_flow=dat.pumpHead.V_flow,
+    dp=if pumpDP_isMonotonicDecreasing then dat.pumpHead.dp
+       else
+        cat(1,
+          {max(dat.pumpHead.dp[i], (1 + (nPumpDat-i)/nPumpDat/100) * max(dat.pumpHead.dp[i+1:nPumpDat])) for i in 1:nPumpDat-1},
+           {dat.pumpHead.dp[nPumpDat]}))
+    "Actual head of the pump, corrected to impose a minimum descent of the pump curve";
+
+protected
+  final parameter Integer nPumpDat = size(dat.pumpHead.dp, 1)
+    "Number of support point for pump data";
+
+  final parameter Boolean pumpDP_isMonotonicDecreasing = (dat.pumpHead.dp[1] > dat.pumpHead.dp[end]) and
+    Buildings.Utilities.Math.Functions.isMonotonic(
+      x=dat.pumpHead.dp,
+      strict=false)
+    "Flag, true if the pump pressure drop is monotonic";
 initial equation
   if checkMedia then
     // Assert that the media are consistent with the medium types declared in the parameter record
@@ -234,7 +266,15 @@ initial equation
       + "' does not match the medium type dat.medRac = "
       + String(dat.medRac) + " declared in the parameter record."
       + "\nSet the parameter checkMedia=false to avoid this check.");
-   end if;
+  end if;
+  assert(pumpDP_isMonotonicDecreasing,
+    "In " + getInstanceName() + ": Parameter dat.pumpHead is not monotonic decreasing.
+This is usually if dat.dpHexRac_nominal + dat.dpFilRac_nominal are too large compared to the decrease in dat.pumpExtHead.
+The model will use pumpHeadMonotone instead of dat.pumpHead. Please check your data to avoid this warning.
+Model has the following parameters:
+  dat.dpHexRac_nominal + dpFilRac_nominal = " + String(dat.dpHexRac_nominal) + " + " + String(dat.dpFilRac_nominal) + " = " + String(dat.dpHexRac_nominal + dat.dpFilRac_nominal) + " Pa
+  dat.pumpExtHead.dp[1] - dat.pumpExtHead.dp[end] =          " + String(dat.pumpExtHead.dp[1] - dat.pumpExtHead.dp[end]) + " Pa.",
+    level=AssertionLevel.warning);
 equation
   connect(port_aPla, val.port_a)
     annotation (Line(points={{-100,60},{-60,60}},          color={0,127,255}));
@@ -245,15 +285,13 @@ equation
           100,60}}, color={0,127,255}));
   connect(pum.port_a, hex.port_b2)
     annotation (Line(points={{-20,-30},{-20,-6},{-10,-6}}, color={0,127,255}));
-  connect(hex.port_a2, port_aRac) annotation (Line(points={{10,-6},{40,-6},{40,-60},
-          {100,-60}}, color={0,127,255}));
   connect(pum.P, P) annotation (Line(points={{-11,-51},{-11,-80},{68,-80},{68,90},
           {110,90}}, color={0,0,127}));
   connect(pum.port_a, exp.port_a)
     annotation (Line(points={{-20,-30},{-20,-20},{-50,-20},{-50,-8}},
                                                          color={0,127,255}));
-  connect(senRelPre.port_b, port_aRac) annotation (Line(points={{10,-140},{80,-140},
-          {80,-60},{100,-60}}, color={0,127,255}));
+  connect(senRelPre.port_b, port_aRac) annotation (Line(points={{10,-140},{40,-140},
+          {40,-60},{100,-60}}, color={0,127,255}));
   connect(senRelPre.port_a, port_bRac) annotation (Line(points={{-10,-140},{-88,
           -140},{-88,-60},{-100,-60}}, color={0,127,255}));
   connect(dpSet, conPum.u_s)
@@ -272,6 +310,10 @@ equation
           -20,-60},{-60,-60}}, color={0,127,255}));
   connect(senTemRacSup.port_b, port_bRac)
     annotation (Line(points={{-80,-60},{-100,-60}}, color={0,127,255}));
+  connect(port_aRac,fil. port_a)
+    annotation (Line(points={{100,-60},{40,-60},{40,-50}}, color={0,127,255}));
+  connect(fil.port_b, hex.port_a2)
+    annotation (Line(points={{40,-30},{40,-6},{10,-6}}, color={0,127,255}));
   annotation (Icon(
     coordinateSystem(
       extent={{-100,-100},{100,100}}),

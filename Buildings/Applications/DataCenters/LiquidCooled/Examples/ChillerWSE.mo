@@ -99,8 +99,8 @@ model ChillerWSE
     Q_flow_nominal=-PRac,
     mPla_flow_nominal=mPla_flow_nominal,
     mRac_flow_nominal=mRac_flow_nominal,
-    dpHexPla_nominal=dpHexChi_nominal,
-    dpHeaExt_nominal=50000)      "Data record for CDU"
+    dpHexPla_nominal=dpHexChi_nominal)
+                                 "Data record for CDU"
     annotation (Placement(transformation(extent={{60,60},{80,80}})));
   parameter Fluid.HeatExchangers.CoolingTowers.Data.DryCooler.Generic datCooTow(
     Q_flow_nominal=-PRac,

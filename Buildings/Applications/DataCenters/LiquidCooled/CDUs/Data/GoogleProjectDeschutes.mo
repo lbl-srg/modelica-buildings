@@ -6,10 +6,13 @@ record GoogleProjectDeschutes
     TApp_nominal=3,
     TRacOut_nominal=273.15 + 45,
     dpHexPla_nominal=80000,
-    dpHeaExt_nominal=60000,
     medPla=Buildings.Applications.DataCenters.LiquidCooled.Types.Media.Water,
     medRac=Buildings.Applications.DataCenters.LiquidCooled.Types.Media.PropyleneGlycol,
-    phiGlyRac=0.25);
+    phiGlyRac=0.25,
+    dpPumpExt_nominal=827000,
+    pumpExtHead(
+      V_flow=mRac_flow_nominal/rhoRac_default*{0.000, 0.250, 0.500, 0.750, 1.000},
+      dp=dpPumpExt_nominal*({11.90, 11.61, 9.810, 6.202, 1.0})));
 
   annotation (
   defaultComponentName="datCDU",

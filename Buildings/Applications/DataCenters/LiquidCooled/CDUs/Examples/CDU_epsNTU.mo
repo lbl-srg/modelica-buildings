@@ -45,7 +45,10 @@ model CDU_epsNTU "Example model of a CDU with varying load on the IT side"
     medRac=Buildings.Applications.DataCenters.LiquidCooled.Types.Media.PropyleneGlycol,
     phiGlyRac=0.25,
     TApp_nominal=6,
-    dpHeaExt_nominal=dpRac_nominal)
+    dpPumpExt_nominal(displayUnit="Pa") = dpRac_nominal,
+    pumpExtHead(
+      V_flow=mRac_flow_nominal/1010*{0.000, 0.250, 0.500, 0.750, 1.000},
+      dp=dpRac_nominal*({11.90, 11.61, 9.810, 6.202, 1.0})))
     "Data performance record for CDU"
     annotation (Placement(transformation(extent={{80,60},{100,80}})));
   parameter
