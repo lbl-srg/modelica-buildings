@@ -41,6 +41,14 @@ to <b style=\"color:blue\">existing</b> libraries:
                        This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4620\">Buildings, #4620</a>.
     </td>
     </tr>
+<tr><td colspan=\"2\"><b>Buildings.ThermalZones</b>
+    </td>
+</tr>
+<tr><td valign=\"top\"><p>Buildings.ThermalZones.Detailed.Examples.ISAT</p>
+    </td>
+    <td valign=\"top\"><p>Package with thermal airflow model using in situ adaptive tabulation.</p>
+    </td>
+</tr>
 </table>
 <!-- Backward compatible changes -->
 <p>
