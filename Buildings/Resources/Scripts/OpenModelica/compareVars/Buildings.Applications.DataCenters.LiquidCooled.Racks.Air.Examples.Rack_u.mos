@@ -4,5 +4,6 @@ compareVars :=
     "rac.port_a.m_flow",
     "rac.u",
     "senTIn.T",
-    "senTOut.T"
+    "senTOut.T",
+    "rac.P"
   };
