@@ -8,7 +8,7 @@ block ISATExchange "Block that exchanges data with the ISAT code"
   ///////////////////////////////////////////////////////////////////////////
   // Function that sends the parameters of the model from Modelica to CFD
 protected
-  function sendParameters
+  impure function sendParameters
     "Send model parameters from Modelica to CFD"
     input String cfdFilNam "CFD input file name";
     input String[nSur] name "Surface names";
@@ -243,6 +243,10 @@ algorithm
 Block to exchange data between Modelica and ISAT.
 </html>",   revisions="<html>
 <ul>
+<li>
+July 14, 2026, by Jianjun Hu:<br/>
+Declared <code>sendParameters</code> as <code>impure</code>.
+</li>
 <li>
 April 5, 2020, by Xu Han, Wangda Zuo and Michael Wetter:<br/>
 First implementation.

@@ -88,7 +88,31 @@ typedef struct{
   int started; /* 1 if cosimulation has been started, 0 otherwise */
 } CosimulationData;
 
-#define FFD_ISAT
+/* FFD_ISAT must NOT be defined here.
+ *
+ * This header is shared between two different builds:
+ *   1. The plain FFD library (Resources/src/FastFluidDynamics/makefile),
+ *      which builds libffd.so/ffd.dll and is used for FFD-Modelica
+ *      co-simulation (e.g. Buildings.ThermalZones.Detailed.Examples.FFD).
+ *   2. The ISAT library (Resources/src/ISAT/Linux/makefile), which
+ *      temporarily copies its own modelica_ffd_common.h (which DOES
+ *      define FFD_ISAT) over this file before compiling, and restores
+ *      this file afterwards.
+ *
+ * When FFD_ISAT is defined here, parameter_reader.c and sci_reader.c
+ * reference the extern globals "filepath" and "ffdInput", and ffd.c
+ * calls write_output_data(), all of which are only implemented in the
+ * ISAT-specific sources (Resources/src/ISAT/utility_isat.c and
+ * Resources/src/ISAT/ffd_wrap.c). These are not part of the plain FFD
+ * source list, so linking libffd.so fails with:
+ *   undefined reference to `write_output_data'
+ *   undefined reference to `ffdInput'
+ *   undefined reference to `filepath'
+ * Keep this macro undefined so the plain FFD build compiles and links
+ * correctly. The ISAT build defines FFD_ISAT via its own copy of this
+ * header (see the "all" target in Resources/src/ISAT/Linux/makefile).
+ */
+/* #define FFD_ISAT */
 
 #ifdef FFD_ISAT
 typedef enum { COSIM_WARNING, COSIM_ERROR, COSIM_NORMAL, COSIM_NEW } COSIM_MSG_TYPE;
