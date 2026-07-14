@@ -1,4 +1,4 @@
-within Buildings.Fluid.Humidifiers.EvaporativePads.Data.EvapcoTest;
+within Buildings.Fluid.Humidifiers.EvaporativePads.Data.EvapcoLabTest;
 record ManufacturerA6inchVersion1
   "Evapco test data for a 6-inch Version 1 evaporative pad from Manufacturer A"
   extends Buildings.Fluid.Humidifiers.EvaporativePads.Data.Generic (
@@ -16,7 +16,13 @@ defaultComponentName="per",
 Documentation(info="<html>
 <p>
 This data record contains performance data for a 6-inch Version 1 evaporative pad
-from Manufacturer A in the Evapco Test. 
+from Manufacturer A in the Evapco Lab Test. 
+</p>
+<p>
+For more information of the Evapco Lab Test and the evaporative pad naming
+conventions, refer to the documentation at
+<a href=\"modelica://Buildings.Fluid.Humidifiers.EvaporativePads.Data.EvapcoLabTest\">
+Buildings.Fluid.Humidifiers.EvaporativePads.Data.EvapcoLabTest</a>.
 </p>
 <p>
 The data points are digitized from
