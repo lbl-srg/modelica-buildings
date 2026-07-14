@@ -1,0 +1,62 @@
+{
+  "stickies" : [ ],
+  "stickyPositions" : [ ],
+  "plots" : [ {
+    "variables" : [ "Nu" ],
+    "independentVariable" : "time",
+    "x" : 0.0,
+    "y" : 0.0,
+    "width" : 8.0,
+    "height" : 2.0,
+    "title" : "analyze-dashboard-item-5ac3a794-5ca4-403f-88a4-97a52fb1e6b4",
+    "config" : {
+      "type" : "LINE",
+      "layout" : {
+        "title" : {
+          "text" : "Plot 1"
+        }
+      },
+      "common" : { },
+      "variables" : { }
+    },
+    "axes" : {
+      "x" : {
+        "type" : "default"
+      }
+    }
+  }, {
+    "variables" : [ "RConv" ],
+    "independentVariable" : "time",
+    "x" : 0.0,
+    "y" : 2.0,
+    "width" : 8.0,
+    "height" : 2.0,
+    "title" : "analyze-dashboard-item-2450e124-8d20-4817-b6e7-488f74af0fa6",
+    "config" : {
+      "type" : "LINE",
+      "layout" : {
+        "title" : {
+          "text" : "Plot 2"
+        }
+      },
+      "common" : { },
+      "variables" : { }
+    },
+    "axes" : {
+      "x" : {
+        "type" : "default"
+      }
+    }
+  } ],
+  "globalConfig" : {
+    "plot" : {
+      "common" : {
+        "showTitle" : true,
+        "colorMode" : "variable"
+      }
+    },
+    "experiment" : { }
+  },
+  "version" : "1",
+  "name" : "impact-analysis-dashboard-view-1984"
+}

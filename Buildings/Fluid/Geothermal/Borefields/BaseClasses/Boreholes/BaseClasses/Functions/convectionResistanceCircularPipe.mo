@@ -35,7 +35,7 @@ protected
       m_flow,
       m_flow_nominal/30);
   Real Re "Reynolds number";
-  Real NuTurb "Nusselt at Re=2400";
+  Real NuTurb "Nusselt at Re=4000";
   Real Nu "Nusselt";
 
 algorithm
@@ -43,7 +43,7 @@ algorithm
   k := 2/(muMed*Modelica.Constants.pi*rTub_in);
   Re := m_flow_abs*k;
 
-  if Re>=2400 then
+  if Re>=4000 then
     // Turbulent, fully-developped flow in a smooth circular pipe with the
     // Dittus-Boelter correlation: h = 0.023*k_f*Re*Pr/(2*rTub)
     // Re = rho*v*DTub / mue_f
@@ -55,10 +55,10 @@ algorithm
         delta=0.01*m_flow_nominal*k);
   else
     // Laminar, fully-developped flow in a smooth circular pipe with uniform
-    // imposed temperature: Nu=3.66 for Re<=2300. For 2300<Re<2400, a smooth
+    // imposed temperature: Nu=3.66 for Re<=2300. For 2300<Re<4000, a smooth
     // transition is created with the splice function.
-    NuTurb := 0.023*(cpMed*muMed/kMed)^(0.35)*(2400)^(0.8);
-    Nu := Buildings.Utilities.Math.Functions.spliceFunction(NuTurb,3.66,Re-(2300+2400)/2,((2300+2400)/2)-2300);
+    NuTurb := 0.023*(cpMed*muMed/kMed)^(0.35)*(4000)^(0.8);
+    Nu := Buildings.Utilities.Math.Functions.spliceFunction(NuTurb,3.66,Re-(2300+4000)/2,((2300+4000)/2)-2300);
   end if;
   h := Nu*kMed/(2*rTub_in);
 
@@ -83,7 +83,7 @@ where <i>Nu</i> is the Nusselt number and
 A value of <i>n=0.35</i> is used, as the reference uses <i>n=0.4</i> for heating and
 <i>n=0.3</i> for cooling. To ensure that the function is continuously differentiable,
 a smooth transition between the laminar and turbulent values is created for the
-range <i>2300 &lt; Re &lt; 2400</i>.
+range <i>2300 &lt; Re &lt; 4000</i>.
 </p>
 <h4>References</h4>
 <p>

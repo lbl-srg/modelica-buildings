@@ -1,0 +1,57 @@
+{
+  "name": "MBL_Issue4655_NusseltCorrelationUpdate",
+  "format": "1.0.0",
+  "dependencies": [],
+  "content": [
+    {
+      "relpath": "Buildings",
+      "contentType": "MODELICA",
+      "name": "Buildings",
+      "defaultDisabled": false,
+      "id": "241b68ea4d24439887f27f427ab91af2"
+    },
+    {
+      "relpath": "Resources/Views",
+      "contentType": "VIEWS",
+      "defaultDisabled": false,
+      "id": "95438af88a184194a3392150eb436827"
+    },
+    {
+      "relpath": "Resources/Favorites",
+      "contentType": "FAVORITES",
+      "defaultDisabled": false,
+      "id": "b727d07530644c59824fd3f64f8bbdcc"
+    },
+    {
+      "relpath": "Resources/CustomFunctions",
+      "contentType": "CUSTOM_FUNCTIONS",
+      "defaultDisabled": false,
+      "id": "da336d49431840af847062e8a80b6f06"
+    },
+    {
+      "relpath": "Resources/Custom",
+      "contentType": "GENERIC",
+      "defaultDisabled": false,
+      "id": "0abc6cd37ce54391997b9dd161088784"
+    },
+    {
+      "relpath": "ReferenceResults",
+      "contentType": "REFERENCE_RESULTS",
+      "defaultDisabled": false,
+      "id": "d3ac063b5c4849ba9831ae755f14e82d"
+    },
+    {
+      "relpath": "Resources/ExperimentDefinitions",
+      "contentType": "EXPERIMENT_DEFINITIONS",
+      "defaultDisabled": false,
+      "id": "91a6a18bd949433998bd83af0572ccb6"
+    },
+    {
+      "relpath": "bin",
+      "contentType": "GENERIC",
+      "defaultDisabled": true,
+      "id": "57b68e142d9d4d429a3d4cd2e72fa21d"
+    }
+  ],
+  "executionOptions": []
+}
