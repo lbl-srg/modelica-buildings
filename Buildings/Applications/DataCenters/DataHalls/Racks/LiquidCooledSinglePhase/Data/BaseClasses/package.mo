@@ -1,0 +1,4 @@
+within Buildings.Applications.DataCenters.DataHalls.Racks.LiquidCooledSinglePhase.Data;
+package BaseClasses "Package with base classes for data records"
+  extends Modelica.Icons.BasesPackage;
+end BaseClasses;
