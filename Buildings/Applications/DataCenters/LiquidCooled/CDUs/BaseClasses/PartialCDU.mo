@@ -204,8 +204,8 @@ model PartialCDU "Partial model for a CDU"
     "Filter"
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
-        rotation=90,
-      origin={40,-40})));
+        rotation=180,
+      origin={-40,-60})));
 
   Fluid.Storage.ExpansionVessel exp(
     redeclare package Medium = MediumRac,
@@ -306,14 +306,14 @@ equation
     annotation (Line(points={{-58,100},{-50,100},{-50,72}}, color={0,0,127}));
   connect(conPum.y, pum.y) annotation (Line(points={{12,-100},{20,-100},{20,-40},
           {-8,-40}}, color={0,0,127}));
-  connect(pum.port_b, senTemRacSup.port_a) annotation (Line(points={{-20,-50},{
-          -20,-60},{-60,-60}}, color={0,127,255}));
   connect(senTemRacSup.port_b, port_bRac)
     annotation (Line(points={{-80,-60},{-100,-60}}, color={0,127,255}));
-  connect(port_aRac,fil. port_a)
-    annotation (Line(points={{100,-60},{40,-60},{40,-50}}, color={0,127,255}));
-  connect(fil.port_b, hex.port_a2)
-    annotation (Line(points={{40,-30},{40,-6},{10,-6}}, color={0,127,255}));
+  connect(senTemRacSup.port_a, fil.port_b)
+    annotation (Line(points={{-60,-60},{-50,-60}}, color={0,127,255}));
+  connect(fil.port_a, pum.port_b) annotation (Line(points={{-30,-60},{-20,-60},
+          {-20,-50}}, color={0,127,255}));
+  connect(hex.port_a2, port_aRac) annotation (Line(points={{10,-6},{40,-6},{40,
+          -60},{100,-60}}, color={0,127,255}));
   annotation (Icon(
     coordinateSystem(
       extent={{-100,-100},{100,100}}),
