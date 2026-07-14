@@ -220,13 +220,13 @@ equation
 <p>
 Example model of a hybrid IT rack with both liquid-cooled and air-cooled components.
 The model demonstrates the operation of a rack that combines liquid cooling for
-high-power IT equipment (633.6 kW) using propylene glycol water (25% mass fraction)
-as the coolant, and air cooling for lower-power IT equipment (63.36 kW, which is 10%
-of the liquid-cooled load).
+high-power IT equipment of 633.6 kW using propylene glycol water with 25% mass fraction
+as the coolant, and air cooling for lower-power IT equipment of 63.36 kW, which is 10%
+of the liquid-cooled load.
 </p>
 <p>
 The liquid cooling loop uses a cooler upstream of a variable speed pump.
-The cooler maintains a constant supply temperature to the rack at 42°C (315.15 K).
+The cooler maintains a constant supply temperature to the rack at 42°C.
 The pump is controlled by a PI controller that maintains a constant pressure drop
 across the rack equal to the design pressure drop.
 The controller adjusts the pump speed between 10% and 100% to maintain the setpoint.
@@ -234,12 +234,12 @@ The pump has a nominal pressure rise of 50 kPa at the design flow rate.
 </p>
 <p>
 The IT loads for both cooling systems are specified using different control strategies.
-The liquid-cooled utilization (<code>utiLiq</code>) follows a time-based schedule
+The liquid-cooled utilization follows a time-based schedule
 that simulates a realistic data center load profile.
-Starting from zero utilization, the load ramps up to 80% over 15 minutes (from t=3600s to t=4500s),
+Starting from zero utilization, the load ramps up to 80% over 15 minutes from t=3600s to t=4500s,
 remains at 80% for 15 minutes, then drops to 40%, holds for 15 minutes,
 increases back to 80%, and holds for another 15 minutes.
-The air-cooled utilization (<code>utiAir</code>) is kept constant at 100%
+The air-cooled utilization is kept constant at 100%
 throughout the simulation.
 This load pattern is representative of workload variations in modern data centers
 running batch processing jobs or machine learning training tasks.

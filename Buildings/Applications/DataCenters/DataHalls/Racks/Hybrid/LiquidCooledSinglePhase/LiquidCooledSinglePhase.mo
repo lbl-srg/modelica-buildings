@@ -167,10 +167,10 @@ annotation (
 <p>
 Model of a hybrid IT rack that combines liquid-cooled and air-cooled components.
 This model integrates two separate cooling technologies in a single rack.
-The liquid cooling component (<code>liq</code>) uses cold plates and is based on
+The liquid cooling component uses cold plates and is based on
 <a href=\"modelica://Buildings.Applications.DataCenters.DataHalls.Racks.LiquidCooledSinglePhase.ColdPlateR_P\">
 Buildings.Applications.DataCenters.DataHalls.Racks.LiquidCooledSinglePhase.ColdPlateR_P</a>,
-while the air cooling component (<code>air</code>) with integrated fans is based on
+while the air cooling component with integrated fans is based on
 <a href=\"modelica://Buildings.Applications.DataCenters.DataHalls.Racks.AirCooled.Rack_u\">
 Buildings.Applications.DataCenters.DataHalls.Racks.AirCooled.Rack_u</a>.
 </p>
@@ -179,8 +179,8 @@ The model has separate fluid ports for each cooling loop.
 For liquid cooling, <code>portLiq_a</code> and <code>portLiq_b</code> serve as the inlet and outlet ports.
 For air cooling, <code>portAir_a</code> and <code>portAir_b</code> serve as the inlet and outlet ports.
 Each cooling system has its own utilization input on the left side of the model.
-The input <code>uLiq</code> specifies the normalized utilization (0 to 1) for liquid-cooled IT equipment,
-and the input <code>uAir</code> specifies the normalized utilization (0 to 1) for air-cooled IT equipment.
+The input <code>uLiq</code> specifies the normalized utilization from 0 to 1 for liquid-cooled IT equipment,
+and the input <code>uAir</code> specifies the normalized utilization from 0 to 1 for air-cooled IT equipment.
 </p>
 <p>
 The model provides three power consumption outputs on the right side.
