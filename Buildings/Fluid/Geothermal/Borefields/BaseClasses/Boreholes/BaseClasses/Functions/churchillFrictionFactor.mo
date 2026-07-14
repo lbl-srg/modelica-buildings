@@ -74,7 +74,7 @@ Churchill, S. W. (1977). Friction-factor equation spans all fluid-flow regimes.
 </html>", revisions="<html>
 <ul>
 <li>
-July 2025, by L. Meertens:<br/>
+July 14, 2026, by L. Meertens:<br/>
 First implementation.<br/>
 This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4655\">Buildings, #4655</a>.
 </li>
