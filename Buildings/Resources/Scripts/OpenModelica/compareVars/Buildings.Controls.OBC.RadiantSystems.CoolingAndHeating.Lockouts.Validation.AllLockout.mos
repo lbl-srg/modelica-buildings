@@ -1,0 +1,11 @@
+compareVars :=
+  {
+    "allLoc.yCoo",
+    "allLoc.hysLim.yCooNotLoc",
+    "allLoc.airTemLim.yCooTZon",
+    "allLoc.chwRetLim.yCooTChiWatRetLim",
+    "allLoc.yHea",
+    "allLoc.hysLim.yHeaNotLoc",
+    "allLoc.airTemLim.yHeaTZon",
+    "allLoc.nitFluLoc.yNigFluHea"
+  };

@@ -1,0 +1,17 @@
+simulateModel("Buildings.Controls.OBC.RadiantSystems.CoolingAndHeating.Lockouts.Validation.AllLockout", startTime=0.0, stopTime=172000.0, method="cvode",  tolerance=1E-06, resultFile="AllLockout");
+createPlot(id=1, position={15, 10, 924, 294},
+ y={"allLoc.yCoo","allLoc.hysLim.yCooNotLoc","allLoc.airTemLim.yCooTZon","allLoc.chwRetLim.yCooTChiWatRetLim"}, 
+ range={0.0, 172000.0, 0, 1},
+ autoscale = true,
+ autoerase = true,
+ autoreplot = true,
+ grid=true,
+ color=true);
+createPlot(id=2, position={15, 10, 924, 294},
+ y={"allLoc.yHea","allLoc.hysLim.yHeaNotLoc","allLoc.airTemLim.yHeaTZon","allLoc.nitFluLoc.yNigFluHea"}, 
+ range={0.0, 172000.0, 0, 1},
+ autoscale = true,
+ autoerase = true,
+ autoreplot = true,
+ grid=true,
+ color=true);
