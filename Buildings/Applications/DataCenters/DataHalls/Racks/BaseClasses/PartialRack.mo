@@ -33,12 +33,6 @@ partial model PartialRack "Partial model of an IT rack, with utilization as inpu
     "Normalized utilization, equal to actual power use over P_nominal" annotation (Placement(transformation(extent={{-140,30},
             {-100,70}}),     iconTransformation(extent={{-120,50},{-100,70}})));
 
-  Modelica.Blocks.Interfaces.RealOutput P(
-    final unit="W")
-    "Electrical power consumed by IT"
-    annotation (Placement(transformation(extent={{100,80},{120,100}}),
-        iconTransformation(extent={{100,70},{120,90}})));
-
   Fluid.Delays.DelayFirstOrder vol(
     redeclare final package Medium = Medium,
     final energyDynamics=energyDynamics,

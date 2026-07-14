@@ -7,7 +7,7 @@ model Rack_u "Model of an air-cooled rack, and utilization is input"
 
   Controls.OBC.CDL.Interfaces.RealOutput PFan(final unit="W")
     "Electrical power consumed by fan" annotation (Placement(transformation(
-          extent={{100,50},{120,70}}), iconTransformation(extent={{100,50},{120,
+          extent={{100,50},{120,70}}), iconTransformation(extent={{100,30},{140,
             70}})));
 
   Fluid.Movers.BaseClasses.IdealSource fan(
@@ -66,6 +66,12 @@ protected
     "Set point for fan mass flow rate"
     annotation (Placement(transformation(extent={{-90,-40},{-70,-20}})));
 
+public
+  Modelica.Blocks.Interfaces.RealOutput P(final unit="W")
+    "Electrical power consumed by IT and fan"
+    annotation (Placement(transformation(extent={{100,70},{120,90}}),
+        iconTransformation(extent={{100,70},{120,90}})));
+protected
   parameter Medium.ThermodynamicState state_default=
     Medium.setState_phX(
       Medium.p_default,
@@ -81,7 +87,7 @@ protected
 equation
   connect(Q_flow.y, PTot.u1) annotation (Line(points={{-59,50},{-30,50},{-30,36},
           {-22,36}}, color={0,0,127}));
-  connect(PTot.y, P) annotation (Line(points={{2,30},{80,30},{80,90},{110,90}},
+  connect(PTot.y, P) annotation (Line(points={{2,30},{80,30},{80,80},{110,80}},
         color={0,0,127}));
   connect(PTot.y, preHea.Q_flow) annotation (Line(points={{2,30},{10,30},{10,10},
           {20,10}}, color={0,0,127}));
@@ -171,5 +177,9 @@ First implementation.
           lineColor={0,0,255},
           pattern=LinePattern.None,
           fillColor={0,140,72},
-          fillPattern=FillPattern.Solid)}));
+          fillPattern=FillPattern.Solid),
+        Text(
+          extent={{62,66},{92,32}},
+          textColor={0,0,127},
+          textString="PFan")}));
 end Rack_u;

@@ -69,6 +69,12 @@ protected
     final n=dat.n) "Flow resistance"
     annotation (Placement(transformation(extent={{-60,-10},{-40,10}})));
 
+public
+  Modelica.Blocks.Interfaces.RealOutput P(final unit="W")
+    "Electrical power consumed by IT"
+    annotation (Placement(transformation(extent={{100,70},{120,90}}),
+        iconTransformation(extent={{100,70},{120,90}})));
+protected
   Modelica.Blocks.Math.Gain QCas_flow(final k=1/nColPla)
     "Gain to compute heat flow rate per case"
     annotation (Placement(transformation(extent={{-40,40},{-20,60}})));
@@ -85,8 +91,8 @@ equation
     annotation (Line(points={{-40,0},{59,0}}, color={0,127,255}));
   connect(Q_flow.y, preHea.Q_flow) annotation (Line(points={{-59,50},{-52,50},{
           -52,28},{8,28},{8,10},{20,10}}, color={0,0,127}));
-  connect(Q_flow.y, P) annotation (Line(points={{-59,50},{-52,50},{-52,28},{88,
-          28},{88,90},{110,90}}, color={0,0,127}));
+  connect(Q_flow.y, P) annotation (Line(points={{-59,50},{-52,50},{-52,28},{80,
+          28},{80,80},{110,80}}, color={0,0,127}));
   connect(preDro.port_a, port_a)
     annotation (Line(points={{-60,0},{-100,0}}, color={0,127,255}));
   connect(vol.ports[2], port_b)
