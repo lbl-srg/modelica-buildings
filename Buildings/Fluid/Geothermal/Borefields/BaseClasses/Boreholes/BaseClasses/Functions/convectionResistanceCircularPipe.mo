@@ -103,14 +103,19 @@ geometry.
 </p>
 <h4>References</h4>
 <p>
+Churchill, S. W. (1977). Friction-factor equation spans all fluid-flow regimes.
+<i>Chemical Engineering</i>, 84(24), 91&ndash;92.
+</p>
+<p>
 Gnielinski, V. (1975). Neue Gleichungen f&uuml;r den W&auml;rme- und den
 Stoff&uuml;bergang in turbulent durchstr&ouml;mten Rohren und Kan&auml;len.
 <i>Forschung im Ingenieurwesen</i>, 41(1), 8&ndash;16.
 <a href=\"https://doi.org/10.1007/BF02559682\">doi:10.1007/BF02559682</a>
 </p>
 <p>
-Churchill, S. W. (1977). Friction-factor equation spans all fluid-flow regimes.
-<i>Chemical Engineering</i>, 84(24), 91&ndash;92.
+Gnielinski, V. (2013). On heat transfer in tubes.
+<i>International Journal of Heat and Mass Transfer</i>, 63, 134&ndash;140.
+<a href=\"https://doi.org/10.1016/j.ijheatmasstransfer.2013.04.015\">doi:10.1016/j.ijheatmasstransfer.2013.04.015</a>
 </p>
 </html>", revisions="<html>
 <ul>
