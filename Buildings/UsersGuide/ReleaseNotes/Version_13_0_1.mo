@@ -296,6 +296,14 @@ have been <b style=\"color:blue\">improved</b> in a
                        This renamed existing parameters, and added multiple new required configuration and
                        sizing parameters for polyvalent heat pumps.<br/>
                        This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4512\">Buildings, #4512</a>.
+ <tr><td colspan=\"2\"><b>Buildings.ThermalZones.EnergyPlus_24_2_0</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.ThermalZones.EnergyPlus_24_2_0.BaseClasses.SpawnExternalObject
+    </td>
+    <td valign=\"top\">Corrected C function implementation to comply with Modelica Language Standard.<br/>
+                       This change only affects the C function implementation and does not impact the Modelica function signature.<br/>
+                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4658\">issue 4658</a>.
     </td>
 </tr>
 </table>
