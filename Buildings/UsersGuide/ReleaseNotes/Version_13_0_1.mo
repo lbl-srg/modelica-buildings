@@ -41,6 +41,14 @@ to <b style=\"color:blue\">existing</b> libraries:
                        This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4620\">Buildings, #4620</a>.
     </td>
     </tr>
+<tr><td colspan=\"2\"><b>Buildings.Electrical</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Electrical.AC.ThreePhasesBalanced.Loads.MotorDrive
+    </td>
+    <td valign=\"top\">Package with models for motor and motor driven devices.
+    </td>
+</tr>
 </table>
 <!-- Backward compatible changes -->
 <p>
