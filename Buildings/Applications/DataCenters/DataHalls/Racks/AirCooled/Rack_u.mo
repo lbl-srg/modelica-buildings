@@ -1,9 +1,14 @@
 within Buildings.Applications.DataCenters.DataHalls.Racks.AirCooled;
 model Rack_u "Model of an air-cooled rack, and utilization is input"
   extends Buildings.Applications.DataCenters.DataHalls.Racks.BaseClasses.PartialRack(
-    redeclare replaceable Buildings.Applications.DataCenters.DataHalls.Racks.AirCooled.Data.Generic dat, vol(
-        nPorts=2)
+    redeclare replaceable Buildings.Applications.DataCenters.DataHalls.Racks.AirCooled.Data.Generic dat,
+    vol(nPorts=2)
     );
+
+  Controls.OBC.CDL.Interfaces.RealOutput PFan(final unit="W")
+    "Electrical power consumed by fan" annotation (Placement(transformation(
+          extent={{100,50},{120,70}}), iconTransformation(extent={{100,50},{120,
+            70}})));
 
   Fluid.Movers.BaseClasses.IdealSource fan(
     redeclare package Medium = Medium,
@@ -19,10 +24,9 @@ model Rack_u "Model of an air-cooled rack, and utilization is input"
     initType=Modelica.Blocks.Types.Init.InitialState) "Volume flow rate"
     annotation (Placement(transformation(extent={{-20,-10},{0,10}})));
 
-  Buildings.Controls.OBC.CDL.Reals.MultiplyByParameter PFan(
+  Buildings.Controls.OBC.CDL.Reals.MultiplyByParameter PEleFan(
     u(final unit="1"),
-    y(final quantity="Power",
-      final unit="W"),
+    y(final quantity="Power", final unit="W"),
     k=dat.PFan_nominal) "Electricity use of fan"
     annotation (Placement(transformation(extent={{-60,-70},{-40,-50}})));
 
@@ -50,6 +54,7 @@ protected
       r_V=u,
       d=fanRelPowDer)) "Normalized electricity use of fan"
     annotation (Placement(transformation(extent={{-90,-70},{-70,-50}})));
+
 
   Modelica.Units.SI.SpecificHeatCapacity cp = Medium.specificHeatCapacityCp(
     state_in) "Specific heat capacity";
@@ -90,10 +95,12 @@ equation
     annotation (Line(points={{0,0},{60,0}}, color={0,127,255}));
   connect(vol.ports[2], port_b)
     annotation (Line(points={{60,0},{100,0}}, color={0,127,255}));
-  connect(PFan_y.y, PFan.u)
+  connect(PFan_y.y, PEleFan.u)
     annotation (Line(points={{-69,-60},{-62,-60}}, color={0,0,127}));
-  connect(PFan.y, PTot.u2) annotation (Line(points={{-38,-60},{-30,-60},{-30,24},
-          {-22,24}}, color={0,0,127}));
+  connect(PEleFan.y, PTot.u2) annotation (Line(points={{-38,-60},{-30,-60},{-30,
+          24},{-22,24}}, color={0,0,127}));
+  connect(PEleFan.y, PFan) annotation (Line(points={{-38,-60},{-30,-60},{-30,
+          -20},{88,-20},{88,60},{110,60}}, color={0,0,127}));
 annotation (
   defaultComponentName="rac",
   Documentation(
