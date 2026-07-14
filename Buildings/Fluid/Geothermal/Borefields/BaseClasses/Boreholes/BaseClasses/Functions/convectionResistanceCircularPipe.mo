@@ -35,8 +35,16 @@ protected
       m_flow,
       m_flow_nominal/30);
   Real Re "Reynolds number";
+  Real f "Darcy-Weisbach friction factor from Churchill (1977)";
   Real NuTurb "Nusselt at Re=4000";
   Real Nu "Nusselt";
+
+  // Pipe roughness for Churchill friction factor.
+  // eps = 0.001e-3 m is the default absolute roughness for smooth HDPE pipe.
+  Real eps(unit="m") = 0.001e-3
+    "Absolute pipe wall roughness (0.001 mm, smooth HDPE default)";
+  Real eps_D = eps / (2*rTub_in)
+    "Relative pipe roughness epsilon/D";
 
 algorithm
   // Convection resistance and Reynolds number
@@ -45,19 +53,22 @@ algorithm
 
   if Re>=4000 then
     // Turbulent, fully-developped flow in a smooth circular pipe with the
-    // Dittus-Boelter correlation: h = 0.023*k_f*Re*Pr/(2*rTub)
-    // Re = rho*v*DTub / mue_f
-    //    = m_flow/(pi r^2) * DTub/mue_f = 2*m_flow / ( mue*pi*rTub)
-    Nu := 0.023*(cpMed*muMed/kMed)^(0.35)*
-      Buildings.Utilities.Math.Functions.regNonZeroPower(
-        x=Re,
-        n=0.8,
-        delta=0.01*m_flow_nominal*k);
+    // Gnielinski (1975) correlation:
+    //   Nu = (f/8)*(Re-1000)*Pr / (1 + 12.7*sqrt(f/8)*(Pr^(2/3)-1))
+    // Friction factor from Churchill (1977): explicit, C-infinity smooth,
+    // valid for all flow regimes.
+    f  := Buildings.Fluid.Geothermal.Borefields.BaseClasses.Boreholes.BaseClasses.Functions.churchillFrictionFactor(
+            Re=Re, eps_D=eps_D);
+    Nu := (f/8)*(Re - 1000)*(cpMed*muMed/kMed) /
+            (1 + 12.7*sqrt(f/8)*((cpMed*muMed/kMed)^(2/3) - 1));
   else
     // Laminar, fully-developped flow in a smooth circular pipe with uniform
     // imposed temperature: Nu=3.66 for Re<=2300. For 2300<Re<4000, a smooth
     // transition is created with the splice function.
-    NuTurb := 0.023*(cpMed*muMed/kMed)^(0.35)*(4000)^(0.8);
+    f      := Buildings.Fluid.Geothermal.Borefields.BaseClasses.Boreholes.BaseClasses.Functions.churchillFrictionFactor(
+                Re=4000, eps_D=eps_D);
+    NuTurb := (f/8)*(4000 - 1000)*(cpMed*muMed/kMed) /
+                (1 + 12.7*sqrt(f/8)*((cpMed*muMed/kMed)^(2/3) - 1));
     Nu := Buildings.Utilities.Math.Functions.spliceFunction(NuTurb,3.66,Re-(2300+4000)/2,((2300+4000)/2)-2300);
   end if;
   h := Nu*kMed/(2*rTub_in);
@@ -67,31 +78,49 @@ algorithm
   annotation (Documentation(info="<html>
 <p>
 This model computes the convection resistance in the pipes of a borehole segment
-with heigth <i>h<sub>Seg</sub></i> using correlations suggested by Bergman et al. (2011).
+with heigth <i>h<sub>Seg</sub></i>.
 </p>
 <p>
 If the flow is laminar (<i>Re &le; 2300</i>, with <i>Re</i> being the Reynolds number of the flow),
 the Nusselt number of the flow is assumed to be constant at 3.66. If the flow is turbulent (<i>Re &gt; 2300</i>),
-the correlation of Dittus-Boelter is used to find the convection heat transfer coefficient as
+the correlation of Gnielinski (1975) is used to find the convection heat transfer coefficient as
 </p>
 <p align=\"center\" style=\"font-style:italic;\">
-  Nu = 0.023 &nbsp; Re<sup>0.8</sup> &nbsp; Pr<sup>n</sup>,
+  Nu = (f/8) (Re &minus; 1000) Pr / (1 + 12.7 &radic;(f/8) (Pr<sup>2/3</sup> &minus; 1))
 </p>
 <p>
-where <i>Nu</i> is the Nusselt number and
-<i>Pr</i> is the Prandlt number.
-A value of <i>n=0.35</i> is used, as the reference uses <i>n=0.4</i> for heating and
-<i>n=0.3</i> for cooling. To ensure that the function is continuously differentiable,
-a smooth transition between the laminar and turbulent values is created for the
-range <i>2300 &lt; Re &lt; 4000</i>.
+where the Darcy-Weisbach friction factor <i>f</i> is computed with the explicit,
+C&infin;-smooth Churchill (1977) correlation, valid for all flow regimes without
+regime switching. For the transition region
+2300 &lt; <i>Re</i> &lt; 4000, a smooth C<sup>1</sup>-continuous splice
+interpolation is applied between the laminar value (Nu = 3.66) and the turbulent
+value evaluated at Re = 4000.
+</p>
+<p>
+Pipe roughness is set to &epsilon; = 0.001 mm (smooth HDPE default). The
+relative roughness &epsilon;/<i>D</i> is computed internally from the tube
+geometry. 
 </p>
 <h4>References</h4>
 <p>
-Bergman, T. L., Incropera, F. P., DeWitt, D. P., &amp; Lavine, A. S. (2011). <i>Fundamentals of heat and mass
-transfer</i> (7th ed.). New York: John Wiley &amp; Sons.
+Gnielinski, V. (1975). Neue Gleichungen f&uuml;r den W&auml;rme- und den
+Stoff&uuml;bergang in turbulent durchstr&ouml;mten Rohren und Kan&auml;len.
+<i>Forschung im Ingenieurwesen</i>, 41(1), 8&ndash;16.
+<a href=\"https://doi.org/10.1007/BF02559682\">doi:10.1007/BF02559682</a>
+</p>
+<p>
+Churchill, S. W. (1977). Friction-factor equation spans all fluid-flow regimes.
+<i>Chemical Engineering</i>, 84(24), 91&ndash;92.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+July 14, 2026,by L. Meertens:<br/>
+Replaced Dittus-Boelter correlation with Gnielinski (1975).
+including Churchill (1977) friction factor.
+Extended turbulent transition region from Re=2400 to Re=4000.<br/>
+This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4655\">Buildings, #4655</a>.
+</li>
 <li>
 June 4, 2023, by Michael Wetter:<br/>
 Corrected variability.<br/>
