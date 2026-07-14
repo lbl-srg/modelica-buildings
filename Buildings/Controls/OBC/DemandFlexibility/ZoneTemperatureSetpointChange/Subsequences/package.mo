@@ -1,11 +1,9 @@
-within Buildings.Controls.OBC.DemandFlexibility;
-package Generic "Generic control sequences"
-    annotation (
-    Documentation(
-      info="<html>
+within Buildings.Controls.OBC.DemandFlexibility.ZoneTemperatureSetpointChange;
+package Subsequences "Package of subsequences for zone temperature setpoint change"
+
+  annotation (Documentation(info="<html>
 <p>
-This package contains generic control sequences that are used for demand flexibility
-control.
+This package contains the subsequences used in changing zone temperature setpoints.
 </p>
 </html>"),
     Icon(
@@ -48,4 +46,4 @@ control.
     Diagram(
       coordinateSystem(
         extent={{-100,-100},{100,100}})));
-end Generic;
+end Subsequences;
