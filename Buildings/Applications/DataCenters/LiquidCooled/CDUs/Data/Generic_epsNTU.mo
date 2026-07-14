@@ -277,7 +277,7 @@ The data record is structured as follows.
             </tr>
             <tr>
                 <td><code>dpHexPla_nominal</code></td>
-                <td>Heat exchanger design pressure drop (plant side).</td>
+                <td>Heat exchanger design pressure drop at plant side.</td>
                 <td><code>[Pa]</code></td>
             </tr>
             <tr>
@@ -292,10 +292,14 @@ The data record is structured as follows.
                 <td><code>[1]</code></td>
             </tr>
             <tr>
-                <td><code>dpHeaExt_nominal</code></td>
-                <td>Nominal pressure head at the fluid flanges of the CDU.
-                    The nominal pump head is set to <code>dpHeaExt_nominal+dpHexRac_nominal</code> for the configuration of the pressure curve.</td>
+                <td><code>dpPumpExt_nominal</code></td>
+                <td>Pump head available for flow network that is connected to the CDU on the rack-side at m_flow_nominal.</td>
                 <td><code>[Pa]</code></td>
+            </tr>
+            <tr>
+                <td><code>pumpExtHead</code></td>
+                <td>Pump head available for flow network that is connected to the CDU on the rack-side.</td>
+                <td><code>flowParameters</code></td>
             </tr>
         </tbody>
     </table>
@@ -321,9 +325,33 @@ The data record is structured as follows.
             </tr>
             <tr>
                 <td><code>dpHexRac_nominal</code></td>
-                <td>Heat exchanger design pressure drop (rack side).</td>
+                <td>Heat exchanger design pressure drop at rack side.</td>
                 <td><code>[Pa]</code></td>
                 <td><code>dpHexPla_nominal</code></td>
+            </tr>
+            <tr>
+                <td><code>dpFilRac_nominal</code></td>
+                <td>Clean filter design pressure drop at rack-side.</td>
+                <td><code>[Pa]</code></td>
+                <td><code>65000</code></td>
+            </tr>
+            <tr>
+                <td><code>nPla</code></td>
+                <td>Flow exponent, n=1 for laminar, n=2 for turbulent (plant side).</td>
+                <td><code>[1]</code></td>
+                <td><code>2</code></td>
+            </tr>
+            <tr>
+                <td><code>nRac</code></td>
+                <td>Flow exponent, n=1 for laminar, n=2 for turbulent (rack side).</td>
+                <td><code>[1]</code></td>
+                <td><code>2</code></td>
+            </tr>
+            <tr>
+                <td><code>nFilRac</code></td>
+                <td>Flow exponent for filter on rack-side, n=1 for laminar, n=2 for turbulent.</td>
+                <td><code>[1]</code></td>
+                <td><code>1.76</code></td>
             </tr>
             <tr>
                 <td><code>deltaMRac</code></td>
@@ -335,6 +363,7 @@ The data record is structured as follows.
                 <td><code>medPla</code></td>
                 <td>Media for which performance data are specified (plant side).</td>
                 <td><code>Types.Media</code></td>
+                <td><code>Water</code></td>
             </tr>
             <tr>
                 <td><code>phiGlyPla</code></td>
@@ -362,28 +391,40 @@ The data record is structured as follows.
                 <td><code>30</code></td>
             </tr>
             <tr>
+                <td><code>pumpEfficiency</code></td>
+                <td>Total pump efficiency vs. volumetric flow rate.</td>
+                <td><code>efficiencyParameters</code></td>
+                <td><code>V_flow = mRac_flow_nominal/rhoRac_default*{1}, eta = {0.7}</code></td>
+            </tr>
+            <tr>
+                <td><code>pumpHead</code></td>
+                <td>Actual head of the pump, composed of external pump head, and head used for heat exchanger and filter.</td>
+                <td><code>flowParameters</code></td>
+                <td><code>Computed from pumpExtHead, dpHexRac_nominal, dpFilRac_nominal</code></td>
+            </tr>
+            <tr>
                 <td><code>r_nominal</code></td>
                 <td>Ratio between convective heat transfer coefficients at nominal conditions (hAPla_nominal/hARac_nominal).</td>
                 <td><code>[1]</code></td>
-                <td><code>(kPla_default * (mPla_flow_nominal/etaPla_default)^nPla * PrPla_default^(1/3)) / (kRac_default * (mRac_flow_nominal/etaRac_default)^nRac * PrRac_default^(1/3))</code></td>
+                <td><code>(kPla_default * (mPla_flow_nominal/etaPla_default)^nConPla * PrPla_default^(1/3)) / (kRac_default * (mRac_flow_nominal/etaRac_default)^nConRac * PrRac_default^(1/3))</code></td>
             </tr>
             <tr>
-                <td><code>nPla</code></td>
-                <td>Exponent for convective heat transfer coefficient (<i>h~m_flow<sup>n</sup></i>) on plant side.</td>
+                <td><code>nConPla</code></td>
+                <td>Exponent for convective heat transfer coefficient (<i>h~m_flow<sup>nCon</sup></i>) on plant side.</td>
                 <td><code>[1]</code></td>
                 <td><code>0.8</code></td>
             </tr>
             <tr>
-                <td><code>nRac</code></td>
-                <td>Exponent for convective heat transfer coefficient (<i>h~m_flow<sup>n</sup></i>) on rack side.</td>
+                <td><code>nConRac</code></td>
+                <td>Exponent for convective heat transfer coefficient (<i>h~m_flow<sup>nCon</sup></i>) on rack side.</td>
                 <td><code>[1]</code></td>
-                <td><code>nPla</code></td>
+                <td><code>nConPla</code></td>
             </tr>
             <tr>
                 <td><code>VExp</code></td>
-                <td>Size of expansion vessel on rack side.</td>
-                <td><code>[m3]</code></td>
-                <td><code>0.056/2E6*Q_flow_nominal</code></td>
+                <td>Size of expansion vessel on IT loop side.</td>
+                <td><code>[m<sup>3</sup>]</code></td>
+                <td><code>-0.056/2E6*Q_flow_nominal</code></td>
             </tr>
         </tbody>
     </table>
@@ -487,6 +528,11 @@ Buildings.Applications.DataCenters.LiquidCooled.CDUs.Data.GoogleProjectDeschutes
                 <td><code>PrRac_default</code></td>
                 <td>Prandtl number for rack-side performance data.</td>
                 <td><code>[1]</code></td>
+            </tr>
+            <tr>
+                <td><code>rhoRac_default</code></td>
+                <td>Mass density for rack-side performance data.</td>
+                <td><code>[kg/m<sup>3</sup>]</code></td>
             </tr>
             <tr>
                 <td><code>CPla_flow_nominal</code></td>
