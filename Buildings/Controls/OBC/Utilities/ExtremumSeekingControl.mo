@@ -1,42 +1,82 @@
 within Buildings.Controls.OBC.Utilities;
 block ExtremumSeekingControl
-  "Block to implement extremum seeking control logic"
+  "Block to implement extremum seeking control (ESC) logic"
   parameter Boolean have_hol=false
-    "Set to true to allow holding the reset, false to continuously reset when enabled"
-    annotation(Evaluate=true);
-  parameter Real iniSet  "Initial setpoint";
-  parameter Real minSet  "Minimum setpoint";
-  parameter Real maxSet  "Maximum setpoint";
+    "Set to true to allow holding the ESC output, false to continuously update when enabled"
+    annotation(Dialog(group="General settings"), Evaluate=true);
+  parameter Real iniSet(
+    final unit="1",
+    displayUnit="1")
+    "Initial setpoint"
+    annotation(Dialog(group="General settings"));
+  parameter Real minSet(
+    final unit="1",
+    displayUnit="1")
+    "Minimum setpoint"
+    annotation(Dialog(group="General settings"));
+  parameter Real maxSet(
+    final unit="1",
+    displayUnit="1")
+    "Maximum setpoint"
+    annotation(Dialog(group="General settings"));
   parameter Real delTim(
     min=100*1E-15,
-    final unit="s") "Delay time";
+    final unit="s")
+    "Delay time between device being proven on and ESC start"
+    annotation(Dialog(group="General settings"));
   parameter Real samplePeriod(
     min=1E-3,
     final unit="s")
-    "Sample period of component";
-  parameter Integer numIgnReq "Number of ignored requests";
-  parameter Real a;
-  parameter Real K;
-  parameter Real tau;
-  parameter Real tauFil;
+    "Sample period of algorithm"
+    annotation(Dialog(group="General settings"));
+  parameter Real adjFac(
+    final unit="1",
+    displayUnit="1")
+    "Step-change divisor"
+    annotation(Dialog(group="General settings"));
+  final parameter Real a=Modelica.Math.exp(-samplePeriod/tauFil)
+    "Time-based filter for cost factor gradient";
+  final parameter Real K=samplePeriod*(maxSet-minSet)/(adjFac*(tau+tauFil))
+    "Integrator gain";
+  parameter Real tau(
+    final unit="s",
+    displayUnit="s",
+    final quantity="Time")
+    "Time-constant of device"
+    annotation(Dialog(group="Time constants"));
+  parameter Real tauFil(
+    final unit="s",
+    displayUnit="s",
+    final quantity="Time")
+    "Time-constant of cost factor gradient filter"
+    annotation(Dialog(group="Time constants"));
   parameter Real dtHol(
     min=0,
     start=0,
-    final unit="s")=0
+    final unit="s",
+    displayUnit="s",
+    final quantity="Time")=0
     "Minimum hold time"
-    annotation(Dialog(enable=have_hol));
+    annotation(Dialog(group="General settings",enable=have_hol));
 
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uDevSta
     "On/Off status of the associated device"
     annotation (Placement(transformation(extent={{-260,190},{-220,230}}),
-        iconTransformation(extent={{-140,60},{-100,100}})));
+        iconTransformation(extent={{-140,40},{-100,80}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uHol if have_hol
     "Hold signal"
-    annotation (Placement(
-        transformation(extent={{-260,0},{-220,40}}),  iconTransformation(extent={{-140,
-            -20},{-100,20}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealOutput y
-    "Setpoint that have been reset"
+    annotation (Placement(transformation(extent={{-260,0},{-220,40}}),
+      iconTransformation(extent={{-140,-20},{-100,20}})));
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput uCos(
+    final unit="1",
+    displayUnit="1")
+    "Cost-function value input"
+    annotation (Placement(transformation(extent={{-260,-140},{-220,-100}}),
+      iconTransformation(extent={{-140,-80},{-100,-40}})));
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput y(
+    final unit="1",
+    displayUnit="1")
+    "Setpoint"
     annotation (Placement(transformation(extent={{220,190},{260,230}}),
         iconTransformation(extent={{100,-20},{140,20}})));
 
@@ -46,67 +86,73 @@ block ExtremumSeekingControl
     "Send an on signal after some delay time"
     annotation (Placement(transformation(extent={{-200,200},{-180,220}})));
   Buildings.Controls.OBC.CDL.Reals.Switch swi
-    "Switch between initial setpoint and reseted setpoint"
+    "Switch between initial setpoint and reset setpoint"
     annotation (Placement(transformation(extent={{160,220},{180,200}})));
   Buildings.Controls.OBC.CDL.Reals.Switch swi2
-    "Reinitialize setpoint to initial setting when device become OFF"
+    "Reinitialize setpoint to initial setting when device becomes OFF"
     annotation (Placement(transformation(extent={{100,170},{120,190}})));
   Buildings.Controls.OBC.CDL.Discrete.Sampler sampler(
     final samplePeriod=samplePeriod)
-    "Sample number of requests"
+    "Sample the current value of the cost function at regular intervals"
     annotation (Placement(transformation(extent={{-200,-130},{-180,-110}})));
-  CDL.Discrete.UnitDelay                        uniDel(final samplePeriod=
+  Buildings.Controls.OBC.CDL.Discrete.UnitDelay                        uniDel(final samplePeriod=
         samplePeriod, final y_start=iniSet)
-    "Output the input signal with a unit delay"
+    "Output the setpoint signal with a unit delay"
     annotation (Placement(transformation(extent={{-80,54},{-60,74}})));
-  CDL.Interfaces.RealInput uCos "Cost-function value input" annotation (
-      Placement(transformation(extent={{-260,-140},{-220,-100}}),
-        iconTransformation(extent={{-140,-80},{-100,-40}})));
-  CDL.Discrete.UnitDelay                        uniDel1(final samplePeriod=
+
+  Buildings.Controls.OBC.CDL.Discrete.UnitDelay                        uniDel1(final samplePeriod=
         samplePeriod, final y_start=0)
-    "Output the input signal with a unit delay"
+    "Apply a time delay to the cost function"
     annotation (Placement(transformation(extent={{-200,-170},{-180,-150}})));
-  CDL.Reals.MultiplyByParameter gai(k=1/samplePeriod)
+  Buildings.Controls.OBC.CDL.Reals.MultiplyByParameter gai(k=1/samplePeriod)
+    "Divide by the sample period duration to get the derivative"
     annotation (Placement(transformation(extent={{-80,-150},{-60,-130}})));
-  CDL.Reals.Subtract sub
+  Buildings.Controls.OBC.CDL.Reals.Subtract sub
+    "Check the change in cost function between the previous and current time instants"
     annotation (Placement(transformation(extent={{-120,-150},{-100,-130}})));
-  CDL.Discrete.UnitDelay                        uniDel2(final samplePeriod=
+  Buildings.Controls.OBC.CDL.Discrete.UnitDelay                        uniDel2(final samplePeriod=
         samplePeriod, final y_start=0)
-    "Output the input signal with a unit delay"
+    "Apply a time period delay on the derivative"
     annotation (Placement(transformation(extent={{-40,-150},{-20,-130}})));
-  CDL.Reals.MultiplyByParameter gai1(k=a)
+  Buildings.Controls.OBC.CDL.Reals.MultiplyByParameter gai1(k=a)
+    "Multiply the cost function derivative by the filter value"
     annotation (Placement(transformation(extent={{0,-150},{20,-130}})));
-  CDL.Reals.Add add2
+  Buildings.Controls.OBC.CDL.Reals.Add add2
+    "Add the current cost function value differential to the derivative from the previous instant"
     annotation (Placement(transformation(extent={{40,-160},{60,-140}})));
-  CDL.Reals.GreaterThreshold greThr(h=0.05)
+  Buildings.Controls.OBC.CDL.Reals.GreaterThreshold greThr(h=1e-3)
+    "Check if the adjusted cost function differential is greater than zero"
     annotation (Placement(transformation(extent={{80,-160},{100,-140}})));
-  CDL.Discrete.Sampler                        sampler1(final samplePeriod=
+  Buildings.Controls.OBC.CDL.Discrete.Sampler                        sampler1(final samplePeriod=
         samplePeriod)
-    "Sample number of requests"
+    "Sample the cost function at the previous discrete instant"
     annotation (Placement(transformation(extent={{-160,-170},{-140,-150}})));
-  CDL.Logical.And and2
+  Buildings.Controls.OBC.CDL.Logical.And and2
+    "Start the timer when device is proven on and reset it when search direction is flipped"
     annotation (Placement(transformation(extent={{-80,-50},{-60,-30}})));
-  CDL.Logical.Not not2
+  Buildings.Controls.OBC.CDL.Logical.Not not2
+    "Generate false signal when the search direction is flipped"
     annotation (Placement(transformation(extent={{-140,-50},{-120,-30}})));
-  CDL.Logical.Pre pre
+  Buildings.Controls.OBC.CDL.Logical.Pre pre1 "Feedback delay for search direction flip signal"
     annotation (Placement(transformation(extent={{-180,-50},{-160,-30}})));
-  CDL.Logical.Timer tim1(t=tau + tauFil)
+  Buildings.Controls.OBC.CDL.Logical.Timer tim1(t=tau + tauFil)
+    "Check if minimum time between search direction flips has elapsed"
     annotation (Placement(transformation(extent={{-40,-50},{-20,-30}})));
-  CDL.Logical.And and1
+  Buildings.Controls.OBC.CDL.Logical.And and1
+    "Trigger the search direction flip when both the cost function differential condition and minimum time condition are satisfied"
     annotation (Placement(transformation(extent={{120,-160},{140,-140}})));
-  CDL.Logical.Toggle tog
+  Buildings.Controls.OBC.CDL.Logical.Toggle tog
+    "Switch the optimal setpoint search direction each time the conditions are satisfied"
     annotation (Placement(transformation(extent={{-160,-210},{-140,-190}})));
-  CDL.Logical.Sources.Constant con1(k=false)
+  Buildings.Controls.OBC.CDL.Logical.Sources.Constant con1(k=false) "Constant false Boolean signal"
     annotation (Placement(transformation(extent={{-200,-220},{-180,-200}})));
-  CDL.Conversions.BooleanToReal booToRea(realTrue=-1, realFalse=1)
+  Buildings.Controls.OBC.CDL.Conversions.BooleanToReal booToRea(realTrue=-1, realFalse=1)
+    "Convert the Boolean search direction into a Real value; The integer signs are based on the toggle behavior, which initially outputs False"
     annotation (Placement(transformation(extent={{-120,-210},{-100,-190}})));
-  CDL.Reals.MultiplyByParameter gai2(k=K)
+  Buildings.Controls.OBC.CDL.Reals.MultiplyByParameter gai2(k=K)
+    "Multiply the search direction by the constant step-change value"
     annotation (Placement(transformation(extent={{-80,-210},{-60,-190}})));
-  CDL.Discrete.UnitDelay                        uniDel3(final samplePeriod=
-        samplePeriod, final y_start=0)
-    "Output the input signal with a unit delay"
-    annotation (Placement(transformation(extent={{-80,-240},{-60,-220}})));
-  CDL.Reals.Add add1
+  Buildings.Controls.OBC.CDL.Reals.Add add1 "Add the step-change to the output at previous instant"
     annotation (Placement(transformation(extent={{-40,-220},{-20,-200}})));
 protected
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant iniSetCon(final k=iniSet)
@@ -118,7 +164,7 @@ protected
   Buildings.Controls.OBC.CDL.Reals.Min min1
     "Reset setpoint should not be higher than the maximum setpoint"
     annotation (Placement(transformation(extent={{12,130},{32,150}})));
-  Buildings.Controls.OBC.CDL.Logical.Not not1 "Logical Not"
+  Buildings.Controls.OBC.CDL.Logical.Not not1 "Return true when device is off"
     annotation (Placement(transformation(extent={{-90,170},{-70,190}})));
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant minSetCon(k=minSet)
     "Minimum setpoint constant"
@@ -233,7 +279,7 @@ equation
           {-82,-40}}, color={255,0,255}));
   connect(not2.y, and2.u2) annotation (Line(points={{-118,-40},{-100,-40},{-100,
           -48},{-82,-48}}, color={255,0,255}));
-  connect(pre.y, not2.u)
+  connect(pre1.y, not2.u)
     annotation (Line(points={{-158,-40},{-142,-40}}, color={255,0,255}));
   connect(and2.y, tim1.u)
     annotation (Line(points={{-58,-40},{-42,-40}}, color={255,0,255}));
@@ -241,7 +287,7 @@ equation
           -158},{118,-158}}, color={255,0,255}));
   connect(tim1.passed, and1.u1) annotation (Line(points={{-18,-48},{114,-48},{114,
           -150},{118,-150}}, color={255,0,255}));
-  connect(and1.y, pre.u) annotation (Line(points={{142,-150},{150,-150},{150,-20},
+  connect(and1.y, pre1.u) annotation (Line(points={{142,-150},{150,-150},{150,-20},
           {-190,-20},{-190,-40},{-182,-40}}, color={255,0,255}));
   connect(and1.y, tog.u) annotation (Line(points={{142,-150},{150,-150},{150,-180},
           {-170,-180},{-170,-200},{-162,-200}}, color={255,0,255}));
@@ -253,14 +299,12 @@ equation
     annotation (Line(points={{-98,-200},{-82,-200}}, color={0,0,127}));
   connect(gai2.y, add1.u1) annotation (Line(points={{-58,-200},{-50,-200},{-50,-204},
           {-42,-204}}, color={0,0,127}));
-  connect(uniDel3.y, add1.u2) annotation (Line(points={{-58,-230},{-50,-230},{-50,
-          -216},{-42,-216}}, color={0,0,127}));
-  connect(add1.y, uniDel3.u) annotation (Line(points={{-18,-210},{-10,-210},{-10,
-          -246},{-90,-246},{-90,-230},{-82,-230}}, color={0,0,127}));
   connect(add1.y, swiHol.u3) annotation (Line(points={{-18,-210},{168,-210},{168,
           8},{-54,8},{-54,34},{-50,34}}, color={0,0,127}));
+  connect(uniDel.y, add1.u2) annotation (Line(points={{-58,64},{198,64},{198,-240},
+          {-50,-240},{-50,-216},{-42,-216}}, color={0,0,127}));
 annotation (
-  defaultComponentName = "triRes",
+  defaultComponentName = "esc",
   Icon(coordinateSystem(extent={{-100,-100},{100,100}}),
        graphics={Rectangle(
         extent={{-100,-100},{100,100}},
@@ -276,7 +320,7 @@ annotation (
         Text(
           extent={{-88,58},{90,-42}},
           textColor={192,192,192},
-          textString="Trim & Respond")}),
+        textString="ESC")}),
    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-220,-260},{220,
             260}}),
            graphics={
@@ -305,124 +349,87 @@ Count time"),
           textString="Optional hold of the loop output")}),
    Documentation(info="<html>
 <p>
-This block implements the trim and respond logic according to Section 5.1.14.3 
-and 5.1.14.4 of ASHRAE Guideline 36, May 2020.
+This block implements an extremum seeking control (ESC) algorithm
+that automatically drives a setpoint towards the value that optimises
+a user-supplied cost function.
+</p>
+<h4>Algorithm</h4>
+<p>
+The block operates in discrete time with a fixed sample period
+<code>samplePeriod</code>.
+At each sample instant, the cost function value <code>uCos</code> is
+sampled and an approximate gradient is computed using a first-order
+exponential filter with time constant <code>tauFil</code>:
+</p>
+<p align=\"center\" style=\"font-style:italic;\">
+g<sub>k</sub> = a &middot; g<sub>k-1</sub>
++ (uCos<sub>k</sub> &minus; uCos<sub>k-1</sub>) / samplePeriod,
 </p>
 <p>
-For each upstream system or plant set point being controlled by a trim and respond
-loop, define the initial values in system or plant sequences. Values for trim,
-respond, time step, etc. shall be tuned to provide stable control.
+where
 </p>
-<table summary=\"summary\" border=\"1\">
-<tr><th> Variable </th> <th> Value </th> <th> Definition </th> </tr>
-<tr><td>Device</td><td>AHU Supply Fan</td> <td>Associated device</td></tr>
-<tr><td>SP0</td><td><code>iniSet</code></td><td>Initial setpoint</td></tr>
-<tr><td>SPmin</td><td><code>minSet</code></td><td>Minimum setpoint</td></tr>
-<tr><td>SPmax</td><td><code>maxSet</code></td><td>Maximum setpoint</td></tr>
-<tr><td>Td</td><td><code>delTim</code></td><td>Delay timer</td></tr>
-<tr><td>T</td><td><code>samplePeriod</code></td><td>Time step</td></tr>
-<tr><td>I</td><td><code>numIgnReq</code></td><td>Number of ignored requests</td></tr>
-<tr><td>R</td><td><code>numOfReq</code></td><td>Number of requests</td></tr>
-<tr><td>SPtrim</td><td><code>triAmo</code></td><td>Trim amount</td></tr>
-<tr><td>SPres</td><td><code>resAmo</code></td><td>Respond amount</td></tr>
-<tr><td>SPres_max</td><td><code>maxRes</code></td><td>Maximum response per time interval</td></tr>
-</table>
-<p>
-The trim and respond logic shall reset setpoint within the range <code>minSet</code> to
-<code>maxSet</code>.
-When the associated device is off (<code>uDevSta=false</code>), the setpoint
-shall be <code>iniSet</code>.
-The reset logic shall be active while the associated device is proven
-on (<code>uDevSta=true</code>), starting <code>delTim</code> after initial
-device start command.
-When active, every time step <code>samplePeriod</code>, trim the setpoint by
-<code>triAmo</code>.
-If there are more than <code>numIgnReq</code> requests, respond by changing
-the setpoint by <code>resAmo*(numOfReq-numIgnReq)</code>, i.e., the number of
-requests minus the number of ignored requests, but no more than <code>maxRes</code>.
+<p align=\"center\" style=\"font-style:italic;\">
+a = exp(-samplePeriod / tauFil)
 </p>
 <p>
-In other words, every time step <code>samplePeriod</code>:
-</p>
-<ul>
-<li>Change setpoint by <code>triAmo</code>; </li>
-<li>If <code>numOfReq > numIgnReq</code>, <i>also</i> change setpoint by <code>resAmo*(numOfReq
--numIgnReq)</code> but no more than <code>maxRes</code>.
-</li>
-</ul>
-<h4>Hold and release loop output</h4>
-<p>
-Optionally, if the parameter <code>have_hol</code> is set to true, an additional
-input signal <code>uHol</code> allows for holding the trim and respond loop output
-at a fixed value for the longer of the time the input <code>uHol</code> remains true 
-and the duration specified by the parameter <code>dtHol</code>.
-When <code>uHol</code> switches back to false, the hold is released and resetting
-continues from the previously held value (without reinitializing to <code>iniSet</code>
-or going through a delay time of <code>delTim</code>). 
+is the filter coefficient.
+When the filtered gradient exceeds zero, the search direction is reversed.
+To prevent rapid oscillation, a direction reversal cannot occur until a
+minimum inter-flip time of <i>tau + tauFil</i> seconds has elapsed since
+the last reversal.
 </p>
 <p>
-This is typically used in control sequences to freeze the reset logic during the plant
-staging process.
+The setpoint is incremented at each step by
+</p>
+<p align=\"center\" style=\"font-style:italic;\">
+&Delta;y = K &middot; d,
+</p>
+<p>
+where <i>d &isin; {-1, +1}</i> is the current search direction and
+</p>
+<p align=\"center\" style=\"font-style:italic;\">
+K = samplePeriod &middot; (maxSet &minus; minSet)
+/ (adjFac &middot; (tau + tauFil))
+</p>
+<p>
+is the step size. The output is clamped to
+[<code>minSet</code>, <code>maxSet</code>].
+</p>
+<p>
+The algorithm activates <code>delTim</code> seconds after the associated
+device switches on (<code>uDevSta = true</code>).
+While the device is off, the setpoint is held at <code>iniSet</code>.
+</p>
+<h4>Options</h4>
+<p>
+If <code>have_hol = true</code>, an optional Boolean input <code>uHol</code>
+allows the ESC loop output to be frozen at its current value for the longer
+of the duration that <code>uHol</code> remains true and the minimum hold
+time <code>dtHol</code>.
+When <code>uHol</code> switches back to false, the algorithm resumes from
+the held value without reinitialising to <code>iniSet</code> or waiting for
+<code>delTim</code>.
+</p>
+<p>
+This is typically used in control sequences to freeze the setpoint during
+the plant staging process.
 Consider for example the following specification:<br/>
-\"When a plant stage change is initiated, the reset logic shall be disabled and value
-fixed at its last value for the longer of <i>15</i> minutes and the time it takes 
+\"When a plant stage change is initiated, the ESC output shall be held at
+its last value for the longer of <i>15</i> minutes and the time it takes
 for the plant to successfully stage.\"<br/>
-Using this block with <code>have_hol=true</code> and <code>dtHol=15*60</code> 
+Using this block with <code>have_hol=true</code> and <code>dtHol=15*60</code>
 yields the following sequence of events.
 </p>
 <ul>
-<li>0:00 - Stage change is initiated. T&amp;R loop output is at <i>50&nbsp;%</i>.</li>
-<li>0:12 - Stage change is completed. T&amp;R loop output remains at <i>50&nbsp;%</i> 
+<li>0:00 - Stage change is initiated. ESC output is at <i>50&nbsp;%</i>.</li>
+<li>0:12 - Stage change is completed. ESC output remains at <i>50&nbsp;%</i>
 since <i>&lt;&nbsp;15&nbsp;</i>minutes have elapsed.</li>
-<li>0:15 - T&amp;R is released and continues resetting from <i>50&nbsp;%</i>.</li>
+<li>0:15 - ESC resumes and continues from <i>50&nbsp;%</i>.</li>
 </ul>
-<h4>Examples</h4>
-<p>
-The figure below illustrates the trim and respond logic with a negative trim amount,
-comparing scenarios with and without holding the loop output.
-</p>
-<p>
-<img alt=\"Trend graph for trim and response\"
-src=\"modelica://Buildings/Resources/Images/Controls/OBC/ASHRAE/G36/Generic/TrimAndRespond.png\"/>
-</p>
-<p>
-The figure below illustrates the trim and respond logic with a positive trim amount.
-</p>
-<p>
-<img alt=\"Trend graph for trim and response\"
-src=\"modelica://Buildings/Resources/Images/Controls/OBC/ASHRAE/G36/Generic/TrimAndRespond1.png\"/>
-</p>
-<p>
-The figure below illustrates the trim and respond logic with a negative trim amount,
-in a scenario where the equipment switches on and off.
-</p>
-<p>
-<img alt=\"Trend graph for trim and response\"
-src=\"modelica://Buildings/Resources/Images/Controls/OBC/ASHRAE/G36/Generic/TrimAndRespond2.png\"/>
-</p>
 </html>", revisions="<html>
 <ul>
 <li>
-June 6, 2024, by Antoine Gautier:<br/>
-Added logic to hold trim and respond loop output.
-This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3761\">#3761</a>.
-</li>
-<li>
-June 3, 2020, by Jianjun Hu:<br/>
-Upgraded according to G36 official release.
-</li>
-<li>
-April 13, 2020, by Jianjun Hu:<br/>
-Corrected to delay the true initial device status.
-This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1876\">#1876</a>.
-</li>
-<li>
-August 28, 2019, by Jianjun Hu:<br/>
-Added assertions and corrected implementation when response amount is negative.
-This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1530\">#1503</a>.
-</li>
-<li>
-July 10, 2017, by Jianjun Hu:<br/>
+July 13, 2026, by Karthik Devaprasad:<br/>
 First implementation.
 </li>
 </ul>
