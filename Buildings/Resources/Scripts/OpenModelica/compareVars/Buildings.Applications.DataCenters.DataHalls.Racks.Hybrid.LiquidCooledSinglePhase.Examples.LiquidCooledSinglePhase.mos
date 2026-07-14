@@ -1,0 +1,14 @@
+compareVars :=
+  {
+    "utiLiq.y[1]",
+    "utiAir.y",
+    "senTLiq_a.T",
+    "senTLiq_b.T",
+    "senTAir_a.T",
+    "senTAir_b.T",
+    "rac.PLiq",
+    "rac.PAir",
+    "rac.PFan",
+    "conPI.y",
+    "pum.y"
+  };
