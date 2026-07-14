@@ -5,4 +5,5 @@ multipoleFluidTemperature
 multipoleFmk
 multipoleThermalResistances
 partialInternalResistances
+churchillFrictionFactor
 Validation
