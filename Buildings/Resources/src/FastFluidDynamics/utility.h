@@ -72,16 +72,6 @@ void ffd_log(char* message, FFD_MSG_TYPE msg_type);
 | \return 0 if no error occurred
 ****************************************************************************/
 REAL outflow(PARA_DATA* para, REAL** var, REAL* psi, int** BINDEX);
-/*
-	* Check the residual of equation
-	*
-	* @param para Pointer to FFD parameters
-	* @param var Pointer to FFD simulation variables
-	* @param psi Pointer to the variable
-	*
-	* @return 0 if no error occurred
-	*/
-REAL check_residual(PARA_DATA *para, REAL **var, REAL *x);
 
 /****************************************************************************
 |  Check the inflow rate of the scalar psi

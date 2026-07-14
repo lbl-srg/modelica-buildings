@@ -1399,7 +1399,6 @@ int write_monitor_data(PARA_DATA *para, REAL **var){
   fclose(datafile);
   return 0;
 }
-} /* End of V_global_min()*/
 
 
 /*

@@ -1345,14 +1345,7 @@ int read_sci_input(PARA_DATA *para, REAL **var, int **BINDEX) {
 		  para->bc->RackMap[i][1] = 0;
 		  para->bc->RackMap[i][2] = 0;
 	  } /*end of for (i=0; i<para->bc->nb_rack;i++)*/
-
-      para->bc->blockName[i] = (char*) malloc((j+1)*sizeof(char));
-      if(para->bc->blockName[i]==NULL) {
-        sprintf(msg,"read_sci_input(): Could not allocate memory for "
-          "para->bc->blockName[%d].", i);
-        ffd_log(msg, FFD_ERROR);
-        return 1;
-      }
+  } /* end of if (para->bc->nb_rack != 0) */
 
   /* read data of all blocks and racks */
   if (para->bc->nb_block != 0) {
@@ -1940,6 +1933,8 @@ int read_sci_input(PARA_DATA *para, REAL **var, int **BINDEX) {
   }
 #endif
 
+  return 0;
+} /* End of read_sci_input() */
 
 	/*
 		* Read the file to identify the block cells in space
@@ -1950,68 +1945,6 @@ int read_sci_input(PARA_DATA *para, REAL **var, int **BINDEX) {
 		*
 		* @return 0 if no error occurred
 		*/
-int read_sci_zeroone(PARA_DATA *para, REAL **var, int **BINDEX) {
-  int i, j, k;
-  int delcount=0;
-  int mark;
-  int imax = para->geom->imax;
-  int jmax = para->geom->jmax;
-  int kmax = para->geom->kmax;
-  int index = para->geom->index;
-  int IMAX = imax+2, IJMAX = (imax+2)*(jmax+2);
-  REAL *flagp = var[FLAGP];
-
-  if( (file_params=fopen(para->inpu->block_file_name,"r")) == NULL ) {
-    sprintf(msg, "read_sci_input():Could not open file \"%s\"!\n",
-            para->inpu->block_file_name);
-    ffd_log(msg, FFD_ERROR);
-    return 1;
-  }
-
-  sprintf(msg, "read_sci_input(): start to read block information from \"%s\".",
-          para->inpu->block_file_name);
-  ffd_log(msg, FFD_NORMAL);
-
-  for(k=1;k<=kmax;k++)
-    for(j=1;j<=jmax;j++)
-      for(i=1;i<=imax;i++) {
-        fscanf(file_params,"%d" ,&mark);
-
-        /* mark=1 block cell;mark=0 fluid cell*/
-
-        if(mark==1) {
-          flagp[IX(i,j,k)] = SOLID;
-          BINDEX[0][index] = i;
-          BINDEX[1][index] = j;
-          BINDEX[2][index] = k;
-          index++;
-        }
-        delcount++;
-
-        if(delcount==imax) {
-          fscanf(file_params,"\n");
-          delcount=0;
-        }
-      }
-
-  fclose(file_params);
-  para->geom->index=index;
-
-  sprintf(msg, "read_sci_input(): end of reading zeroone.dat.");
-  ffd_log(msg, FFD_NORMAL);
-
-  return 0;
-} /* End of read_sci_input() */
-
-/*
-	* Read the file to identify the block cells in space
-	*
-	* @param para Pointer to FFD parameters
-	* @param var Pointer to FFD simulation variables
-	* @param BINDEX Pointer to boundary index
-	*
-	* @return 0 if no error occurred
-	*/
 int read_sci_zeroone(PARA_DATA* para, REAL** var, int** BINDEX) {
 	int i, j, k;
 	int delcount = 0;
