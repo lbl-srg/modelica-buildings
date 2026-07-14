@@ -1,6 +1,6 @@
 compareVars :=
   {
-    "uModHou.y[1]",
+    "demFleModHou.y[1]",
     "reaValSelByModWitPre.y",
     "reaValSelByModNoPre.y"
   };
