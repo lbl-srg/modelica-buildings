@@ -129,7 +129,7 @@ equation
     grid={2,2})),
     Documentation(info="<html>
 <p>
-This sequence serves to choose which of the input variables, including
+This block serves to choose which of the input variables, including
 <code>uPre</code>, <code>uDef</code>, <code>uShe</code>, and <code>uReb</code>, to
 output as the output variable <code>y</code>, based on the demand flexibility mode
 <code>demFleMod</code>. 

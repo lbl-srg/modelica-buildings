@@ -10,11 +10,11 @@ model SetpointChange "Setpoint change"
   Buildings.Controls.OBC.DemandFlexibility.Generic.SetpointChange setChaInc(
     setChaDel=0.5,
     ascSet=true,
-    incCha=true) "Incremental setpoint change block"
+    incSetCha=true) "Incremental setpoint change block"
     annotation (Placement(transformation(extent={{-20,40},{0,60}})));
   Buildings.Controls.OBC.DemandFlexibility.Generic.SetpointChange setChaOneSte(
     ascSet=true,
-    incCha=false) "One-step setpoint change block"
+    incSetCha=false) "One-step setpoint change block"
     annotation (Placement(transformation(extent={{-20,-40},{0,-20}})));
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant TAllMaxSet(
     k(final unit="K", displayUnit="degC") = 292.15)

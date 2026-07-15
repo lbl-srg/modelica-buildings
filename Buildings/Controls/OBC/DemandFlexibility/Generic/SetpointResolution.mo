@@ -71,7 +71,7 @@ First implementation.
 </ul>
 </html>", info="<html>
 <p>
-This sequence enforces the value of a setpoint to fall onto discrete resolution
+This block enforces the value of a setpoint to fall onto discrete resolution
 intervals.
 </p>
 <p>
