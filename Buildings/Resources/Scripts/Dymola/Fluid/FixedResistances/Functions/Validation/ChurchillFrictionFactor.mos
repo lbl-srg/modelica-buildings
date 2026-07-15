@@ -3,12 +3,13 @@ simulateModel("Buildings.Fluid.FixedResistances.Functions.Validation.ChurchillFr
 createPlot(
   id=1,
   position={0, 0, 1000, 600},
+  x="Re",
   y={"f_smooth", "f_rough", "f_lam"},
-  range={0, 30000, 0, 0.15},
-  autoscale=true,
-  autoerase=true,
-  subPlot=1,
-  colors={{28,108,200},{238,46,47},{0,140,72}},
-  patterns={LinePattern.Solid, LinePattern.Dash, LinePattern.Dot},
-  legends={"Churchill smooth (eps/D=0)", "Churchill rough (eps/D=1e-3)", "64/Re laminar ref"},
-  timeUnit="Re [-]");
+  autoscale = true,
+  autoerase = true,
+  autoreplot = true,
+  grid=true,
+  color=true,
+  filename="ChurchillFrictionFactor.mat",
+  leftTitleType = 1,
+  bottomTitleType = 1);
