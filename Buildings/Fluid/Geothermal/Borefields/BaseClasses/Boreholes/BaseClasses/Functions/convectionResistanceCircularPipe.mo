@@ -78,7 +78,7 @@ algorithm
     // Turbulent — fully-developed flow.
     // Gnielinski (1975) correlation with Churchill (1977) friction factor.
     // ------------------------------------------------------------------
-    f  := Buildings.Fluid.Geothermal.Borefields.BaseClasses.Boreholes.BaseClasses.Functions.churchillFrictionFactor(
+    f  := .Buildings.Fluid.FixedResistances.Functions.churchillFrictionFactor(
             Re=Re, eps_D=eps_D);
     Nu := (f/8)*(Re - 1000)*Pr /
             (1 + 12.7*sqrt(f/8)*(Pr^(2/3) - 1));
@@ -101,25 +101,25 @@ algorithm
     // ------------------------------------------------------------------
 
     // Anchor scalars at Re_turb via central finite differences
-    NuTurb   := (Buildings.Fluid.Geothermal.Borefields.BaseClasses.Boreholes.BaseClasses.Functions.churchillFrictionFactor(
+    NuTurb   := (.Buildings.Fluid.FixedResistances.Functions.churchillFrictionFactor(
                    Re=Re_turb, eps_D=eps_D)/8)
                 *(Re_turb - 1000)*Pr
                 / (1 + 12.7*sqrt(
-                     Buildings.Fluid.Geothermal.Borefields.BaseClasses.Boreholes.BaseClasses.Functions.churchillFrictionFactor(
+                     .Buildings.Fluid.FixedResistances.Functions.churchillFrictionFactor(
                        Re=Re_turb, eps_D=eps_D)/8)*(Pr^(2/3) - 1));
 
-    NuTurb_fdp := (Buildings.Fluid.Geothermal.Borefields.BaseClasses.Boreholes.BaseClasses.Functions.churchillFrictionFactor(
+    NuTurb_fdp := (.Buildings.Fluid.FixedResistances.Functions.churchillFrictionFactor(
                      Re=Re_turb + h_fd, eps_D=eps_D)/8)
                   *(Re_turb + h_fd - 1000)*Pr
                   / (1 + 12.7*sqrt(
-                       Buildings.Fluid.Geothermal.Borefields.BaseClasses.Boreholes.BaseClasses.Functions.churchillFrictionFactor(
+                       .Buildings.Fluid.FixedResistances.Functions.churchillFrictionFactor(
                          Re=Re_turb + h_fd, eps_D=eps_D)/8)*(Pr^(2/3) - 1));
 
-    NuTurb_fdm := (Buildings.Fluid.Geothermal.Borefields.BaseClasses.Boreholes.BaseClasses.Functions.churchillFrictionFactor(
+    NuTurb_fdm := (.Buildings.Fluid.FixedResistances.Functions.churchillFrictionFactor(
                      Re=Re_turb - h_fd, eps_D=eps_D)/8)
                   *(Re_turb - h_fd - 1000)*Pr
                   / (1 + 12.7*sqrt(
-                       Buildings.Fluid.Geothermal.Borefields.BaseClasses.Boreholes.BaseClasses.Functions.churchillFrictionFactor(
+                       .Buildings.Fluid.FixedResistances.Functions.churchillFrictionFactor(
                          Re=Re_turb - h_fd, eps_D=eps_D)/8)*(Pr^(2/3) - 1));
 
     dNuTurb_scaled  := (NuTurb_fdp - NuTurb_fdm) / (2*h_fd) * L_trans;

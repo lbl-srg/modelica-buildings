@@ -1,7 +1,7 @@
-within Buildings.Fluid.Geothermal.Borefields.BaseClasses.Boreholes.BaseClasses.Functions;
+within Buildings.Fluid.FixedResistances.Functions;
 function churchillFrictionFactor
   "Darcy-Weisbach friction factor for all flow regimes (Churchill, 1977)"
-  extends Modelica.Icons.Function;
+  extends .Modelica.Icons.Function;
 
   input Real Re(min=0)
     "Reynolds number";
@@ -18,7 +18,7 @@ protected
     "Churchill coefficient B";
 
 algorithm
-  A := (2.457*Modelica.Math.log(
+  A := (2.457*.Modelica.Math.log(
           1/((7/Re)^0.9 + 0.27*eps_D)))^16;
   B := (37530/Re)^16;
 
