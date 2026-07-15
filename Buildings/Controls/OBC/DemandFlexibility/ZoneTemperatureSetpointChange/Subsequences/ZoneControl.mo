@@ -1,5 +1,6 @@
 within Buildings.Controls.OBC.DemandFlexibility.ZoneTemperatureSetpointChange.Subsequences;
-block ZoneControl "Zone control"
+block ZoneControl "Zone temperature setpoint control"
+
   parameter Real dTShe(min=0,start=1)
     "Temperature setpoint change delta for the load-shed mode (positive value)"
     annotation (Dialog(enable = incSetCha));
@@ -10,134 +11,144 @@ block ZoneControl "Zone control"
     "Air conditioning mode; true for the heating mode, false for the cooling mode";
   parameter Boolean incSetCha
     "True: the setpoint change step is incremental for the load-shed mode and the load-rebound mode";
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uEna "True: enable setpoint change"
-    annotation (
-      Placement(transformation(extent={{-240,80},{-200,120}}),
-        iconTransformation(extent={{-140,80},{-100,120}})));
-  Buildings.Controls.OBC.CDL.Interfaces.IntegerInput demFleMod
-    "Demand flexibility mode; 0 = pre-cool or pre-heat, 1 = default, 2 = load-shed, 3 = load-rebound"
-    annotation (Placement(transformation(extent={{-240,40},{-200,80}}),
-        iconTransformation(extent={{-140,40},{-100,80}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput                        TPreTarSet
+
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput TPreTarSet
     "Pre-cool or pre-heat target temperature setpoint"
-                                             annotation (Placement(
-        transformation(extent={{-240,-40},{-200,0}}),    iconTransformation(
-          extent={{-140,-40},{-100,0}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput                        TDefSet
+    annotation (Placement(transformation(extent={{-240,-60},{-200,-20}}),
+      iconTransformation(extent={{-140,-40},{-100,0}})));
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput TDefSet
     "Default temperature setpoint"
-    annotation (Placement(transformation(extent={{-240,-80},{-200,-40}}),
-        iconTransformation(extent={{-140,-120},{-100,-80}})));
+    annotation (Placement(transformation(extent={{-240,-120},{-200,-80}}),
+      iconTransformation(extent={{-140,-120},{-100,-80}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TCurZonSet
     "Current zone temperature setpoint from the external setpoint controller"
-    annotation (Placement(transformation(extent={{-240,0},{-200,40}}),
-        iconTransformation(extent={{-140,-2},{-100,38}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput                        TSheTarSet
+    annotation (Placement(transformation(extent={{-240,20},{-200,60}}),
+      iconTransformation(extent={{-140,-2},{-100,38}})));
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput TSheTarSet
     "Load-shed target temperature setpoint"
-                                    annotation (Placement(transformation(extent={{-240,
-            -120},{-200,-80}}),        iconTransformation(extent={{-140,-80},{
-            -100,-40}})));
+    annotation (Placement(transformation(extent={{-240,-180},{-200,-140}}),
+      iconTransformation(extent={{-140,-80},{-100,-40}})));
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uEna
+    "True: enable setpoint change"
+    annotation (Placement(transformation(extent={{-240,140},{-200,180}}),
+      iconTransformation(extent={{-140,80},{-100,120}})));
+  Buildings.Controls.OBC.CDL.Interfaces.IntegerInput demFleMod
+    "Demand flexibility mode; 0 = pre-cool or pre-heat, 1 = default, 2 = load-shed, 3 = load-rebound"
+    annotation (Placement(transformation(extent={{-240,80},{-200,120}}),
+      iconTransformation(extent={{-140,40},{-100,80}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput TComZonSet
     "Commanded zone temperature setpoint to the external setpoint controller to change the current temperature setpoint"
     annotation (Placement(transformation(extent={{200,-20},{240,20}}),
-        iconTransformation(extent={{100,-20},{140,20}})));
-  Generic.SetpointChange setChaPre(final ascSet=airConMod, final incSetCha=
-        false)
-    annotation (Placement(transformation(extent={{40,140},{60,160}})));
-  Generic.SetpointChange setChaShe(
+      iconTransformation(extent={{100,-20},{140,20}})));
+protected
+  Buildings.Controls.OBC.DemandFlexibility.Generic.SetpointChange setChaPre(
+    final ascSet=airConMod,
+    final incSetCha=false)
+    "Setpoint change logic for the pre-cool or the pre-heat mode"
+    annotation (Placement(transformation(extent={{40,160},{60,180}})));
+  Buildings.Controls.OBC.DemandFlexibility.Generic.SetpointChange setChaShe(
     final setChaDel=dTShe,
     final ascSet=not airConMod,
     final incSetCha=incSetCha)
+    "Setpoint change logic for the load-shed mode"
     annotation (Placement(transformation(extent={{40,-40},{60,-20}})));
-  Generic.SetpointChange setChaReb(
+  Buildings.Controls.OBC.DemandFlexibility.Generic.SetpointChange setChaReb(
     final setChaDel=dTReb,
     final ascSet=airConMod,
     final incSetCha=incSetCha)
+    "Setpoint change logic for the load-rebound mode"
     annotation (Placement(transformation(extent={{40,-140},{60,-120}})));
-  Generic.RealValueSelectionByMode reaValSelByMod(final use_pre=true)
+  Buildings.Controls.OBC.DemandFlexibility.Generic.RealValueSelectionByMode zonSetSelByMod(
+    final use_pre=true)
+    "Output the corresponding commanded zone temperature setpoint value based on the demand flexibility mode"
     annotation (Placement(transformation(extent={{140,-10},{160,10}})));
-  CDL.Reals.Switch swi
-    annotation (Placement(transformation(extent={{-40,120},{-20,140}})));
-  CDL.Reals.Switch swi1
-    annotation (Placement(transformation(extent={{0,80},{20,100}})));
-  CDL.Reals.Switch swi2
-    annotation (Placement(transformation(extent={{-40,-60},{-20,-40}})));
-  CDL.Reals.Switch swi3
-    annotation (Placement(transformation(extent={{0,-100},{20,-80}})));
-  CDL.Reals.Switch swi4
-    annotation (Placement(transformation(extent={{-40,-160},{-20,-140}})));
-  CDL.Reals.Switch swi5
-    annotation (Placement(transformation(extent={{0,-200},{20,-180}})));
-protected
-  CDL.Logical.Sources.Constant conAirConMod(final k=airConMod)
-    "Constant for air conditioning mode"
+  Buildings.Controls.OBC.DemandFlexibility.Generic.DoubleSwitch TSetBouSwiPre
+    "Switch the maximum and minimum temperature setpoint bounds based on the air conditioning mode during pre-cool or pre-heat"
+    annotation (Placement(transformation(extent={{-20,120},{0,140}})));
+  Buildings.Controls.OBC.DemandFlexibility.Generic.DoubleSwitch TSetBouSwiShe
+    "Switch the maximum and minimum temperature setpoint bounds based on the air conditioning mode during load-shed"
+    annotation (Placement(transformation(extent={{-20,-80},{0,-60}})));
+  Buildings.Controls.OBC.DemandFlexibility.Generic.DoubleSwitch TSetBouSwiReb
+    "Switch the maximum and minimum temperature setpoint bounds based on the air conditioning mode during load-rebound"
+    annotation (Placement(transformation(extent={{-20,-180},{0,-160}})));
+  Buildings.Controls.OBC.CDL.Logical.Sources.Constant conAirConMod(
+    final k=airConMod)
+    "Constant for the air conditioning mode"
     annotation (Placement(transformation(extent={{-80,20},{-60,40}})));
 equation
-  connect(uEna, setChaPre.uEna) annotation (Line(points={{-220,100},{-180,100},
-          {-180,156},{38,156}}, color={255,0,255}));
-  connect(uEna, setChaShe.uEna) annotation (Line(points={{-220,100},{-119,100},
-          {-119,-24},{38,-24}}, color={255,0,255}));
-  connect(uEna, setChaReb.uEna) annotation (Line(points={{-220,100},{-119,100},
-          {-119,-124},{38,-124}}, color={255,0,255}));
-  connect(TCurZonSet, setChaPre.uCurSet) annotation (Line(points={{-220,20},{
-          -100,20},{-100,152},{38,152}}, color={0,0,127}));
-  connect(TCurZonSet, setChaShe.uCurSet) annotation (Line(points={{-220,20},{
-          -140,20},{-140,-28},{38,-28}}, color={0,0,127}));
-  connect(TCurZonSet, setChaReb.uCurSet) annotation (Line(points={{-220,20},{
-          -140,20},{-140,-128},{38,-128}}, color={0,0,127}));
-  connect(reaValSelByMod.y, TComZonSet)
+  connect(uEna, setChaPre.uEna)
+    annotation (Line(points={{-220,160},{-120,160},{-120,176},{38,176}},
+      color={255,0,255}));
+  connect(uEna, setChaShe.uEna)
+    annotation (Line(points={{-220,160},{-120,160},{-120,-24},{38,-24}},
+      color={255,0,255}));
+  connect(uEna, setChaReb.uEna)
+    annotation (Line(points={{-220,160},{-120,160},{-120,-124},{38,-124}},
+      color={255,0,255}));
+  connect(TCurZonSet, setChaPre.uCurSet)
+    annotation (Line(points={{-220,40},{-100,40},{-100,172},{38,172}},
+      color={0,0,127}));
+  connect(TCurZonSet, setChaShe.uCurSet)
+    annotation (Line(points={{-220,40},{-140,40},{-140,-28},{38,-28}},
+      color={0,0,127}));
+  connect(TCurZonSet, setChaReb.uCurSet)
+    annotation (Line(points={{-220,40},{-140,40},{-140,-128},{38,-128}},
+      color={0,0,127}));
+  connect(zonSetSelByMod.y, TComZonSet)
     annotation (Line(points={{162,0},{220,0}}, color={0,0,127}));
-  connect(demFleMod, reaValSelByMod.demFleMod) annotation (Line(points={{-220,
-          60},{120,60},{120,8},{138,8}}, color={255,127,0}));
-  connect(setChaPre.y, reaValSelByMod.uPre) annotation (Line(points={{62,150},{
-          80,150},{80,4},{138,4}}, color={0,0,127}));
-  connect(setChaShe.y, reaValSelByMod.uShe) annotation (Line(points={{62,-30},{
-          80,-30},{80,-4},{138,-4}}, color={0,0,127}));
-  connect(setChaReb.y, reaValSelByMod.uReb) annotation (Line(points={{62,-130},
+  connect(demFleMod,zonSetSelByMod. demFleMod)
+    annotation (Line(points={{-220,100},{120,100},{120,8},{138,8}},
+      color={255,127,0}));
+  connect(setChaPre.y,zonSetSelByMod. uPre)
+    annotation (Line(points={{62,170},{80,170},{80,4},{138,4}},
+      color={0,0,127}));
+  connect(setChaShe.y,zonSetSelByMod. uShe)
+    annotation (Line(points={{62,-30},{80,-30},{80,-4},{138,-4}},
+      color={0,0,127}));
+  connect(setChaReb.y,zonSetSelByMod. uReb) annotation (Line(points={{62,-130},
           {120,-130},{120,-8},{138,-8}}, color={0,0,127}));
-  connect(TDefSet, reaValSelByMod.uDef) annotation (Line(points={{-220,-60},{
-          -160,-60},{-160,0},{138,0}}, color={0,0,127}));
-  connect(conAirConMod.y, swi.u2) annotation (Line(points={{-58,30},{-50,30},{
-          -50,130},{-42,130}}, color={255,0,255}));
-  connect(conAirConMod.y, swi1.u2) annotation (Line(points={{-58,30},{-20,30},{
-          -20,90},{-2,90}}, color={255,0,255}));
-  connect(swi.y, setChaPre.uAllMaxSet) annotation (Line(points={{-18,130},{0,
-          130},{0,148.2},{38,148.2}}, color={0,0,127}));
-  connect(swi1.y, setChaPre.uAllMinSet) annotation (Line(points={{22,90},{30,90},
-          {30,144},{38,144}}, color={0,0,127}));
-  connect(swi2.y, setChaShe.uAllMaxSet) annotation (Line(points={{-18,-50},{0,
-          -50},{0,-31.8},{38,-31.8}}, color={0,0,127}));
-  connect(swi3.y, setChaShe.uAllMinSet) annotation (Line(points={{22,-90},{30,
-          -90},{30,-36},{38,-36}}, color={0,0,127}));
-  connect(swi4.y, setChaReb.uAllMaxSet) annotation (Line(points={{-18,-150},{0,
-          -150},{0,-131.8},{38,-131.8}}, color={0,0,127}));
-  connect(swi5.y, setChaReb.uAllMinSet) annotation (Line(points={{22,-190},{30,
-          -190},{30,-136},{38,-136}}, color={0,0,127}));
-  connect(conAirConMod.y, swi2.u2) annotation (Line(points={{-58,30},{-50,30},{
-          -50,-50},{-42,-50}}, color={255,0,255}));
-  connect(conAirConMod.y, swi3.u2) annotation (Line(points={{-58,30},{-50,30},{
-          -50,-90},{-2,-90}}, color={255,0,255}));
-  connect(conAirConMod.y, swi4.u2) annotation (Line(points={{-58,30},{-50,30},{
-          -50,-150},{-42,-150}}, color={255,0,255}));
-  connect(conAirConMod.y, swi5.u2) annotation (Line(points={{-58,30},{-50,30},{
-          -50,-190},{-2,-190}}, color={255,0,255}));
-  connect(TPreTarSet, swi.u1) annotation (Line(points={{-220,-20},{-170,-20},{
-          -170,138},{-42,138}}, color={0,0,127}));
-  connect(TDefSet, swi1.u1) annotation (Line(points={{-220,-60},{-160,-60},{
-          -160,98},{-2,98}}, color={0,0,127}));
-  connect(TPreTarSet, swi1.u3) annotation (Line(points={{-220,-20},{-170,-20},{
-          -170,82},{-2,82}}, color={0,0,127}));
-  connect(TDefSet, swi.u3) annotation (Line(points={{-220,-60},{-160,-60},{-160,
-          122},{-42,122}}, color={0,0,127}));
+  connect(TDefSet,zonSetSelByMod. uDef) annotation (Line(points={{-220,-100},{-160,
+          -100},{-160,0},{138,0}},     color={0,0,127}));
+  connect(conAirConMod.y, TSetBouSwiPre.u2) annotation (Line(points={{-58,30},{-40,
+          30},{-40,130},{-22,130}}, color={255,0,255}));
+  connect(conAirConMod.y, TSetBouSwiShe.u2) annotation (Line(points={{-58,30},{-40,
+          30},{-40,-70},{-22,-70}}, color={255,0,255}));
+  connect(conAirConMod.y, TSetBouSwiReb.u2) annotation (Line(points={{-58,30},{-40,
+          30},{-40,-170},{-22,-170}}, color={255,0,255}));
+  connect(TSetBouSwiPre.y1, setChaPre.uAllMaxSet) annotation (Line(points={{2,135},
+          {20,135},{20,168.2},{38,168.2}}, color={0,0,127}));
+  connect(setChaPre.uAllMinSet, TSetBouSwiPre.y2) annotation (Line(points={{38,164},
+          {30,164},{30,125},{2,125}}, color={0,0,127}));
+  connect(TSetBouSwiShe.y1, setChaShe.uAllMaxSet) annotation (Line(points={{2,-65},
+          {20,-65},{20,-31.8},{38,-31.8}}, color={0,0,127}));
+  connect(setChaShe.uAllMinSet, TSetBouSwiShe.y2) annotation (Line(points={{38,-36},
+          {30,-36},{30,-75},{2,-75}}, color={0,0,127}));
+  connect(TSetBouSwiReb.y1, setChaReb.uAllMaxSet) annotation (Line(points={{2,-165},
+          {20,-165},{20,-131.8},{38,-131.8}}, color={0,0,127}));
+  connect(TSetBouSwiReb.y2, setChaReb.uAllMinSet) annotation (Line(points={{2,-175},
+          {30,-175},{30,-136},{38,-136}}, color={0,0,127}));
+  connect(TPreTarSet, TSetBouSwiPre.u1) annotation (Line(points={{-220,-40},{-180,
+          -40},{-180,136},{-22,136}}, color={0,0,127}));
+  connect(TDefSet, TSetBouSwiPre.u3) annotation (Line(points={{-220,-100},{-160,
+          -100},{-160,124},{-22,124}}, color={0,0,127}));
+  connect(TDefSet, TSetBouSwiShe.u1) annotation (Line(points={{-220,-100},{-160,
+          -100},{-160,-64},{-22,-64}}, color={0,0,127}));
+  connect(TSheTarSet, TSetBouSwiShe.u3) annotation (Line(points={{-220,-160},{-80,
+          -160},{-80,-76},{-22,-76}}, color={0,0,127}));
+  connect(TDefSet, TSetBouSwiReb.u1) annotation (Line(points={{-220,-100},{-160,
+          -100},{-160,-164},{-22,-164}}, color={0,0,127}));
+  connect(TSheTarSet, TSetBouSwiReb.u3) annotation (Line(points={{-220,-160},{-80,
+          -160},{-80,-176},{-22,-176}}, color={0,0,127}));
   annotation (defaultComponentName="zonCon",
     Icon(coordinateSystem(preserveAspectRatio=false,
         extent={{-100,-100},{100,100}},
         grid={2,2}),                                  graphics={Rectangle(
-          extent={{-100,-100},{100,100}},
+          extent={{-100,-120},{100,120}},
           lineColor={0,0,0},
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid),
     Text(
-      extent={{-100,140},{100,100}},
+      extent={{-100,160},{100,120}},
       textColor={0,0,255},
       textString="%name")}),
     Diagram(coordinateSystem(preserveAspectRatio=false,
@@ -299,5 +310,12 @@ downstream temperature setpoint controller, which will process the setpoint chan
 and pass its new setpoint back to the input <code>TCurZonSet</code>, completing a
 full control loop.
 </p>
+</html>", revisions="<html>
+<ul>
+<li>
+July 15, 2026, by Weiping Huang:<br/>
+First implementation.
+</li>
+</ul>
 </html>"));
 end ZoneControl;
