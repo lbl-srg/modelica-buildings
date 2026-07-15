@@ -173,9 +173,7 @@ Journal of Building Performance Simulation, 11(1), pp. 99-112, 2018.
 </p>
 <p>
 Xu Han, Wei Tian, Wangda Zuo, Michael Wetter, James W. VanGilder.<br/>
-<a href=\"https://www.researchgate.net/profile/Wangda_Zuo/publication/
-333797408_Optimization_of_Workload_Distribution_of_Data_Centers_Based_on_a_Self-Learning_In_Situ_Adaptive_Tabulation_Model/
-links/5d0467bf299bf12e7be02981/Optimization-of-Workload-Distribution-of-Data-Centers-Based-on-a-Self-Learning-In-Situ-Adaptive-Tabulation-Model.pdf\">
+<a href=\"https://www.researchgate.net/profile/Wangda_Zuo/publication/333797408_Optimization_of_Workload_Distribution_of_Data_Centers_Based_on_a_Self-Learning_In_Situ_Adaptive_Tabulation_Model/links/5d0467bf299bf12e7be02981/Optimization-of-Workload-Distribution-of-Data-Centers-Based-on-a-Self-Learning-In-Situ-Adaptive-Tabulation-Model.pdf\">
 Optimization of Workload Distribution of Data Centers Based on a Self-Learning In
 Situ Adaptive Tabulation Model</a>.<br/>
 Proc. of the 16th Conference of International Building Performance Simulation
@@ -185,12 +183,9 @@ Association (Building Simulation 2019), Italy, September 2-4, Rome, 2019.
 revisions="<html>
 <ul>
 <li>
-July 8, 2026, by fix for Dymola translation error:<br/>
+July 8, 2026, by Jianjun Hu:<br/>
 Removed the default value <code>{\"port_\" + String(i) for i in 1:nPorts}</code>
-from parameter <code>portName</code> because Dymola cannot evaluate string
-for-comprehension expressions at translation time, causing the internal error
-\"failed to expand string\". All models using this partial class already provide
-explicit <code>portName</code> values.
+from parameter <code>portName</code>.
 </li>
 <li>
 November 1, 2019, by Xu Han, Wangda Zuo and Michael Wetter:<br/>
