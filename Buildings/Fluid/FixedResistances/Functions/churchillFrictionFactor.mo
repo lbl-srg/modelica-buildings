@@ -6,7 +6,7 @@ function churchillFrictionFactor
   input Real Re(min=0)
     "Reynolds number";
   input Real eps_D(min=0)
-    "Relative pipe roughness, epsilon/D (use 0 for smooth pipe)";
+    "Relative pipe roughness, epsilon/D";
 
   output Real f
     "Darcy-Weisbach friction factor";
