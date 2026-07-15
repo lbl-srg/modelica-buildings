@@ -12,17 +12,20 @@ function churchillFrictionFactor
     "Darcy-Weisbach friction factor";
 
 protected
+  Real ReEff
+    "Reynolds number limited to a small positive value to avoid division by zero";
   Real A
     "Churchill coefficient A";
   Real B
     "Churchill coefficient B";
 
 algorithm
+  ReEff := max(Re, 1e-6);
   A := (2.457*.Modelica.Math.log(
-          1/((7/Re)^0.9 + 0.27*eps_D)))^16;
-  B := (37530/Re)^16;
+          1/((7/ReEff)^0.9 + 0.27*eps_D)))^16;
+  B := (37530/ReEff)^16;
 
-  f := 8*((8/Re)^12 + 1/(A + B)^(3/2))^(1/12);
+  f := 8*((8/ReEff)^12 + 1/(A + B)^(3/2))^(1/12);
 
   annotation (Documentation(info="<html>
 <p>
