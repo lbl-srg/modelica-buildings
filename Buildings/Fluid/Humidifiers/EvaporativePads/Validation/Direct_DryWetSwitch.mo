@@ -123,8 +123,7 @@ annotation (
       StartTime=18144000,
       StopTime=18230400,
       Interval=60,
-      Tolerance=1e-06,
-      __Dymola_Algorithm="Dassl"),
+      Tolerance=1e-06),
   Documentation(info="<html>
 <p>
 This model validates the direct evaporative pad model
