@@ -79,6 +79,24 @@
 #define _COSIMULATION_H
 #include "cosimulation.h"
 #endif
+#else
+/* When building for ISAT (FFD_ISAT defined), FastFluidDynamics/cosimulation.h
+ * is intentionally NOT included above to avoid conflicting declarations with
+ * Resources/src/ISAT/cosimulation.h (different function signatures for
+ * read_cosim_data(), etc.). However, solver.c calls Sleep(10) in its FFD_solver()
+ * synchronization wait loop, and that macro is normally defined inside
+ * cosimulation.h for Linux. Without it, the compiler implicitly declares
+ * "Sleep" as an external function returning int, which does not exist on
+ * Linux, causing:
+ *   undefined reference to `Sleep'
+ * at link time when building libisat.so. Define the macro here so it is
+ * always available regardless of which cosimulation.h variant is used. */
+#ifndef _MSC_VER
+#include <unistd.h>
+#ifndef Sleep
+#define Sleep(x) usleep((unsigned int)((x) * 1000U))
+#endif
+#endif
 #endif
 
 /****************************************************************************

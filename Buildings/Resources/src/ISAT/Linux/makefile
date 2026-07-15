@@ -41,8 +41,15 @@ OBJS = advection.o boundary.o chen_zero_equ_model.o cosimulation.o \
        usrfgh.o utility_isat.o\
 
 LIB = libisat.so
-# LIBS = -lpthread -lc -lgfortran -llapack -lblas
-LIBS = -lpthread -lc -lgfortran
+# liblapack.a (bundled ISATAB LAPACK subset) only provides the higher-level
+# LAPACK routines used by ISATAB (e.g. dgqt, dpbtrf) and does NOT include the
+# lower-level BLAS routines that those LAPACK routines call internally
+# (e.g. drot_, dsyrk_, dtpmv_, dtpsv_, dtrmm_, dtrmv_). Without linking a BLAS
+# implementation, the final Dymola link of dsmodel against libisat.so fails
+# with "undefined reference to `drot_'" (and similarly for the other BLAS
+# symbols). The system BLAS library (package libblas3/libblas-dev, providing
+# libblas.so) supplies these symbols, so link against it explicitly.
+LIBS = -lpthread -lc -lgfortran -lblas
 
 # Note that -fPIC is recommended on Linux according to the Modelica specification
 

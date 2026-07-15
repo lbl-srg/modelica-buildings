@@ -1433,6 +1433,16 @@ void free_para(PARA_DATA *para) {
     if(para->bc->XiPort) free(para->bc->XiPort);
     if(para->bc->XiPortAve) free(para->bc->XiPortAve);
     if(para->bc->XiPortMean) free(para->bc->XiPortMean);
+    /* Reset to NULL so that a subsequent call to free_para() (e.g. from a
+     * coupled ISAT simulation, which calls ffd()/free_para() once for every
+     * FFD evaluation) does not free these pointers a second time. Without
+     * this reset, the second call sees the same stale, already-freed
+     * pointers and double-frees them, corrupting the heap and eventually
+     * causing a segmentation fault deep inside free_para() after many FFD
+     * evaluations. */
+    para->bc->XiPort = NULL;
+    para->bc->XiPortAve = NULL;
+    para->bc->XiPortMean = NULL;
   }
   /****************************************************************************
   | Free memory for Substances
@@ -1447,6 +1457,11 @@ void free_para(PARA_DATA *para) {
     if(para->bc->CPort) free(para->bc->CPort);
     if(para->bc->CPortAve) free(para->bc->CPortAve);
     if(para->bc->CPortMean) free(para->bc->CPortMean);
+    /* Same fix as above: reset to NULL to avoid a double free on the next
+     * call to free_para(). */
+    para->bc->CPort = NULL;
+    para->bc->CPortAve = NULL;
+    para->bc->CPortMean = NULL;
   }
   /*------------------------------------------------------------------------
   | Free memory for para->sens->sensorName
@@ -1474,8 +1489,18 @@ void free_para(PARA_DATA *para) {
 
   /*------------------------------------------------------------------------
   | Free the path string allocated in read_parameter()
+  |
+  | Defensive NULL checks added: in a coupled ISAT simulation, free_para()
+  | is called once per FFD evaluation (potentially thousands of times per
+  | run). If para->cosim (or para->cosim->para) is ever NULL - for example
+  | due to memory being corrupted elsewhere, or free_para() being invoked
+  | before the co-simulation handshake has completed - dereferencing it
+  | unconditionally causes a segmentation fault deep inside this function.
+  | Guarding against NULL here prevents a crash and instead safely skips
+  | the free.
   ------------------------------------------------------------------------*/
-  if(para->cosim->para->filePath) {
+  if(para->cosim != NULL && para->cosim->para != NULL &&
+     para->cosim->para->filePath != NULL) {
     free(para->cosim->para->filePath);
     para->cosim->para->filePath = NULL;
   }
