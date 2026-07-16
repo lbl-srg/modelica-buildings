@@ -1653,11 +1653,13 @@ block AirToWater
     if have_chiWat
     "For staging logic select primary sensor if both temperature and flow sensors available"
     annotation(Placement(transformation(extent={{-190,-50},{-170,-30}})));
-  StagingRotation.StageCompletion comStaCoo(nin=nHp + 2 * nPhp)
+  StagingRotation.StageCompletion comStaCoo(final nPhp=nPhp,
+                                            nin=nHp + 2 * nPhp)
     if have_chiWat
     "Check successful completion of cooling stage change"
     annotation(Placement(transformation(extent={{-40,20},{-20,40}})));
-  StagingRotation.StageCompletion comStaHea(nin=nHp + 2 * nPhp)
+  StagingRotation.StageCompletion comStaHea(final nPhp=nPhp,
+                                            nin=nHp + 2 * nPhp)
     if have_heaWat
     "Check successful completion of heating stage change"
     annotation(Placement(transformation(extent={{-40,280},{-20,300}})));
@@ -1850,19 +1852,24 @@ block AirToWater
     if have_pumHeaWatPri
     "Reroute primary HW pump status signal"
     annotation(Placement(transformation(extent={{-230,210},{-210,230}})));
-  Buildings.Controls.OBC.CDL.Utilities.Assert assMes(
+  Buildings.Controls.OBC.CDL.Utilities.Assert assPlaCfg(
     message="Primary-secondary plants with headered pumps are not supported when both reversible and polyvalent HP are present")
+    "Assert unsupported plant configuration"
     annotation(Placement(transformation(extent={{210,-450},{230,-430}})));
-  Buildings.Controls.OBC.CDL.Logical.Sources.Constant con(final k=is_priOnl)
+  Buildings.Controls.OBC.CDL.Logical.Sources.Constant conIsPriOnl(final k=is_priOnl)
+    "Constant flagging primary-only plant configuration"
     annotation(Placement(transformation(extent={{100,-430},{120,-410}})));
-  Buildings.Controls.OBC.CDL.Logical.Sources.Constant con1(
+  Buildings.Controls.OBC.CDL.Logical.Sources.Constant conNotRevPhp(
     k=typ <>
       Buildings.Templates.Plants.Controls.Types.PlantHeatPump.ReversiblePolyvalent)
+    "Constant flagging plant type other than reversible and polyvalent HP"
     annotation(Placement(transformation(extent={{130,-450},{150,-430}})));
-  Buildings.Controls.OBC.CDL.Logical.Sources.Constant con2(
+  Buildings.Controls.OBC.CDL.Logical.Sources.Constant conNotHavePumPriHdr(
     final k=not have_pumPriHdr)
+    "Constant flagging plant without headered primary pumps"
     annotation(Placement(transformation(extent={{100,-470},{120,-450}})));
-  Buildings.Controls.OBC.CDL.Logical.MultiOr mulOr(nin=3)
+  Buildings.Controls.OBC.CDL.Logical.MultiOr mulOrConfSupported(nin=3)
+    "Evaluate whether plant configuration is supported"
     annotation(Placement(transformation(extent={{170,-450},{190,-430}})));
   Buildings.Controls.OBC.CDL.Routing.RealScalarReplicator repTHeaWatSupPhpSet(
     final nout=nPhp)
@@ -1898,6 +1905,7 @@ block AirToWater
     final have_chiWat=have_chiWat,
     final nUni=nHp)
     if have_hp
+    "Assert HP minimum runtime"
     annotation(Placement(transformation(extent={{100,450},{80,470}})));
   Subsequences.AssertMinimumRuntime assMinOffTimHp(
     final have_chiWat=have_chiWat,
@@ -1905,6 +1913,7 @@ block AirToWater
     final nUni=nHp,
     dt_min=15 * 60)
     if have_hp
+    "Assert HP minimum off-time"
     annotation(Placement(transformation(extent={{70,450},{50,470}})));
 equation
   connect(u1SchHea, enaHea.u1Sch)
@@ -2670,18 +2679,18 @@ equation
   connect(u1PumHeaWatPriDedPhp_actual, rouPumHeaWatPri.u1PumPriDedPhp_actual)
     annotation(Line(points={{-280,200},{-256,200},{-256,211.8},{-232,211.8}},
       color={255,0,255}));
-  connect(con.y, mulOr.u[1])
+  connect(conIsPriOnl.y, mulOrConfSupported.u[1])
     annotation(Line(
       points={{122,-420},{160,-420},{160,-442.333},{168,-442.333}},
       color={255,0,255}));
-  connect(con1.y, mulOr.u[2])
+  connect(conNotRevPhp.y, mulOrConfSupported.u[2])
     annotation(Line(points={{152,-440},{168,-440}},
       color={255,0,255}));
-  connect(con2.y, mulOr.u[3])
+  connect(conNotHavePumPriHdr.y, mulOrConfSupported.u[3])
     annotation(Line(
       points={{122,-460},{160,-460},{160,-437.667},{168,-437.667}},
       color={255,0,255}));
-  connect(mulOr.y, assMes.u)
+  connect(mulOrConfSupported.y, assPlaCfg.u)
     annotation(Line(points={{192,-440},{208,-440}},
       color={255,0,255}));
   connect(resChiWat.TSupSet, repTChiWatSupPhpSet.u)

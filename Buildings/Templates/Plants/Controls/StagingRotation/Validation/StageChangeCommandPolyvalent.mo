@@ -11,7 +11,9 @@ model StageChangeCommandPolyvalent
         fill(capHeaPhp_nominal, 2),
         fill(capHeaPhpShc_nominal, 2)),
       staEqu=staPhp.staHea),
-    comSta(nin=6),
+    comSta(
+      nin=6,
+      nPhp=2),
     idxEquLeaLag(k={1, 2}));
   parameter Real capHeaHp_nominal = 1E5
     "Design heating capacity - Each heat pump (excluding polyvalent HP)";

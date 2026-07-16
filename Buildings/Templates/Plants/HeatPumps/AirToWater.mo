@@ -1076,8 +1076,7 @@ initial equation
     if typArrPumPri ==
       Buildings.Templates.Components.Types.PumpArrangement.Dedicated
     then
-      yPumHeaWatPriHdrSet = 0;
-      // Not used
+      yPumHeaWatPriHdrSet = 0; // Not used
       if have_hp then
         if is_yPumSetCal then
           0 = Buildings.Templates.Utilities.computeBalancingPressureDrop(

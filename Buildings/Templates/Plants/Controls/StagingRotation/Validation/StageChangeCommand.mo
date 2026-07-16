@@ -108,7 +108,7 @@ model StageChangeCommand "Validation model for stage change logic"
     "Evaluate equipment status"
     annotation (Placement(transformation(extent={{100,-10},{120,10}})));
   Buildings.Templates.Plants.Controls.StagingRotation.StageCompletion comSta(
-    nin=3)
+    nin=3, nPhp=0)
     "Check completion of stage change"
     annotation (Placement(transformation(extent={{-30,50},{-50,70}})));
 equation

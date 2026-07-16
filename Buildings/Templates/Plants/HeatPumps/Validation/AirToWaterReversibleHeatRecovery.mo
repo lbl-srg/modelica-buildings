@@ -50,7 +50,9 @@ model AirToWaterReversibleHeatRecovery
     linearized=true,
     show_T=true,
     ctl(nAirHan=1, nEquZon=0, have_senTPriRet_select=true),
-    is_dpBalYPumSetCal=true)
+    is_dpBalYPumSetCal=true,
+    dpChiWatLoo_nominal=datAll.pla.ctl.dpChiWatLocSet_max,
+    dpHeaWatLoo_nominal=datAll.pla.ctl.dpHeaWatLocSet_max)
     "Heat pump plant"
     annotation(Placement(transformation(extent={{-80,-100},{-40,-60}})));
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant TDum(

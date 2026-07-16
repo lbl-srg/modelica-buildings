@@ -195,6 +195,13 @@ have been <b style=\"color:blue\">improved</b> in a
                        This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4624\">Buildings, #4624</a>.
     </td>
 </tr>
+<tr><td valign=\"top\">Buildings.Templates.Plants.Controls.StagingRotation.StageCompletion
+    </td>
+    <td valign=\"top\">Use both enable command and returned status to handle multiple operating
+                       modes for polyvalent units.<br/>
+                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4512\">Buildings, #4512</a>.
+    </td>
+</tr>
 <tr><td valign=\"top\">Buildings.Templates.Plants.Controls.Utilities.TrueArrayConditional
     </td>
     <td valign=\"top\">Refactored using CDL Elementary Blocks.<br/>
