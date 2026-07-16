@@ -136,8 +136,7 @@ Icon(coordinateSystem(preserveAspectRatio=false), graphics={
           textColor={0,0,127},
           textString="TOUGH",
           textStyle={TextStyle.Bold})}),
-                                   Diagram(coordinateSystem(preserveAspectRatio=
-           false)),
+       Diagram(coordinateSystem(preserveAspectRatio=false)),
  Documentation(info="<html>
 <p>
 This model calculates the ground temperature response to obtain the temperature

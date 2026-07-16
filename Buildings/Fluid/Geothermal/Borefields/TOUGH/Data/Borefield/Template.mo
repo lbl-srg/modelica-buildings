@@ -4,8 +4,7 @@ record Template
   extends Modelica.Icons.Record;
   parameter Buildings.Fluid.Geothermal.Borefields.TOUGH.Data.Filling.Template filDat
     "Filling data";
-  parameter
-    Buildings.Fluid.Geothermal.Borefields.TOUGH.Data.Configuration.Template conDat
+  parameter Buildings.Fluid.Geothermal.Borefields.TOUGH.Data.Configuration.Template conDat
     "Configuration data";
 
   annotation (
