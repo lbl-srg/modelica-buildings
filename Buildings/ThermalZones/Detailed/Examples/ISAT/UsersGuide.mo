@@ -83,7 +83,7 @@ Linux using gcc and gfortran.
 <p>
 Compiled files are distributed with the <span style=\"font-family: Courier New;\">
 Buildings</span> library. If you want to compile the files yourself,
-please refer to the guides at the <a href=\"https://www.colorado.edu/lab/sbs/data-center-package\">
+please refer to the guides at the <a href=\"https://sites.psu.edu/sbslab/research/buildings/doe-datacenter/\">
 ISAT project website</a>.</p>
 </html>",
 revisions="<html>
