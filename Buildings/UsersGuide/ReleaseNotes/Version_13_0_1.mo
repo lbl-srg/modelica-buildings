@@ -226,12 +226,14 @@ have been <b style=\"color:blue\">improved</b> in a
 <b style=\"color:blue\">non-backward compatible</b> way:
 </p>
 <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\" style=\"border-collapse:collapse;\">
- <tr><td colspan=\"2\"><b>xxx</b>
+ <tr><td colspan=\"2\"><b>Buildings.ThermalZones.EnergyPlus_24_2_0</b>
     </td>
 </tr>
-<tr><td valign=\"top\">xxx
+<tr><td valign=\"top\">Buildings.ThermalZones.EnergyPlus_24_2_0.BaseClasses.SpawnExternalObject
     </td>
-    <td valign=\"top\">xxx.
+    <td valign=\"top\">Corrected C function implementation to comply with Modelica Language Standard.<br/>
+                       This change only affects the C function implementation and does not impact the Modelica function signature.<br/>
+                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4658\">issue 4658</a>.
     </td>
 </tr>
 </table>
@@ -241,12 +243,15 @@ The following <b style=\"color:red\">critical errors</b> have been fixed (i.e., 
 that can lead to wrong simulation results):
 </p>
 <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\" style=\"border-collapse:collapse;\">
-<tr><td colspan=\"2\"><b>xxx</b>
+<tr><td colspan=\"2\"><b>Buildings.Fluid.HeaExchangers</b>
     </td>
 </tr>
-<tr><td valign=\"top\">xxx
+<tr><td valign=\"top\">Buildings.Fluid.HeaExchangers.DryCooler
     </td>
-    <td valign=\"top\">xxx.
+    <td valign=\"top\">Corrected the initialization of the efficiency,
+                       which assumed counter flow rather than cross flow with both streams unmixed.<br/>
+                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4648\">Buildings, #4648</a>.
+
     </td>
 </tr>
 </table>
