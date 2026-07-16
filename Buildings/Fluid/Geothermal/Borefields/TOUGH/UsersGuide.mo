@@ -38,8 +38,8 @@ The coupling is implemented through the instance <code>pyt</code> in the class
 <a href=\"modelica://Buildings.Fluid.Geothermal.Borefields.TOUGH.BaseClasses.GroundResponse\">
 Buildings.Fluid.Geothermal.Borefields.TOUGH.BaseClasses.GroundResponse</a>.
 It instantiates the Python interface model
-<a href=\"modelica://Buildings.Utilities.IO.Python_3_12.Real_Real\">
-Buildings.Utilities.IO.Python_3_12.Real_Real</a>, which can send data to Python
+<a href=\"modelica://Buildings.Fluid.Geothermal.Borefields.TOUGH.BaseClasses.Real_Reall\">
+Buildings.Fluid.Geothermal.Borefields.TOUGH.BaseClasses.Real_Real</a>, which can send data to Python
 functions and receive data from it. It enables computations to be performed inside
 a Python module that calls an external simulator, which in this case is the TOUGH 3 simulator.
 </p>
@@ -48,12 +48,14 @@ a Python module that calls an external simulator, which in this case is the TOUG
 The interface is instantiated as follows:
 </p>
 <pre>    
-  Buildings.Utilities.IO.Python_3_12.Real_Real pyt(
+  Buildings.Fluid.Geothermal.Borefields.TOUGH.BaseClasses.Real_Real pyt(
+    final startTime=startTime,
     final moduleName=\"GroundResponse\",
     final functionName=\"doStep\",
     final nDblRea=nSeg+3*nInt,
     final nDblWri=2*nSeg + 6,
     final samplePeriod=samplePeriod,
+    final strWri={touWorDir},
     final flag=0,
     final passPythonObject=true)
 </pre>
