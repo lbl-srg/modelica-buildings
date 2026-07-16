@@ -13,13 +13,10 @@ model AirToWater
         final yPumChiWatPriDedPhpSet=yPumChiWatPriDedPhpSet,
         final yPumChiWatPriHdrSet=yPumChiWatPriHdrSet)),
     final typHp=Buildings.Templates.Components.Types.HeatPump.AirToWater);
-  parameter Boolean is_dpBalYPumSetCal(start=false) = false
+  parameter Boolean is_dpBalYPumSetCal = false
     "Set to true to automatically size balancing valves or evaluate pump speed providing design flow"
     annotation(Evaluate=true,
-      Dialog(tab="Advanced",
-        enable=typDis ==
-          Buildings.Templates.Plants.HeatPumps.Types.Distribution.Constant1Variable2
-          or have_hp and have_php));
+      Dialog(tab="Advanced"));
   final parameter Boolean is_dpBalCal = is_dpBalYPumSetCal
     and (typPumPri ==
       Buildings.Templates.Plants.HeatPumps.Types.PumpsPrimary.Constant
@@ -36,34 +33,223 @@ model AirToWater
       Buildings.Templates.Plants.HeatPumps.Types.PumpsPrimary.Variable
     "Set to true to automatically evaluate pump speed providing design flow"
     annotation(Evaluate=true);
-  // To size the HP balancing valves, we first need to scale the check valve
+  // To size the HP balancing valves, we first need to scale the pump check valve
   // pressure drop for configurations with common dedicated CHW and HW pumps.
-  final parameter Modelica.Units.SI.PressureDifference dpValCheHeaWatHp_nominal =
-    if have_hp
+  final parameter Modelica.Units.SI.PressureDifference dpValCheHeaWatBalHp_nominal =
+    if have_heaWat and have_hp
     then (if have_pumPriDedComHp
       then dat.dpValCheHeaWat_nominal[1] *
         (hp.mHeaWatHp_flow_nominal / dat.pumHeaWatPri.m_flow_nominal[1]) ^ 2
-      else dat.dpValCheHeaWat_nominal[1])
+      elseif typArrPumPri ==
+        Buildings.Templates.Components.Types.PumpArrangement.Dedicated
+      then dat.dpValCheHeaWat_nominal[1]
+      else dpValCheHeaWatBalHdr_nominal)
     else 0
     "HP primary (HW or common HW and CHW) pump check valve pressure drop at design HW flow rate";
-  final parameter Modelica.Units.SI.PressureDifference dpValCheChiWatHp_nominal =
-    if have_hp and have_chiWat
+  final parameter Modelica.Units.SI.PressureDifference dpValCheChiWatBalHp_nominal =
+    if have_chiWat and have_hp
     then (if have_pumPriDedComHp
       then dat.dpValCheHeaWat_nominal[1] *
         (hp.mChiWatHp_flow_nominal / dat.pumHeaWatPri.m_flow_nominal[1]) ^ 2
-      else dat.dpValCheChiWat_nominal[1])
+      elseif typArrPumPri ==
+        Buildings.Templates.Components.Types.PumpArrangement.Dedicated
+      then dat.dpValCheChiWat_nominal[1]
+      else dpValCheChiWatBalHdr_nominal)
     else 0
     "HP primary (CHW or common HW and CHW) pump check valve pressure drop at design CHW flow rate";
+  final parameter Modelica.Units.SI.PressureDifference dpValCheHeaWatBalPhp_nominal =
+    if have_php
+    then (if typArrPumPri ==
+      Buildings.Templates.Components.Types.PumpArrangement.Dedicated
+      then dat.dpValCheHeaWat_nominal[nPumHeaWatPri]
+      else dpValCheHeaWatBalHdr_nominal)
+    else 0
+    "Polyvalent HP primary HW pump check valve pressure drop at design HW flow rate";
+  final parameter Modelica.Units.SI.PressureDifference dpValCheChiWatBalPhp_nominal =
+    if have_php
+    then (if typArrPumPri ==
+      Buildings.Templates.Components.Types.PumpArrangement.Dedicated
+      then dat.dpValCheChiWat_nominal[nPumChiWatPri]
+      else dpValCheChiWatBalHdr_nominal)
+    else 0
+    "Polyvalent HP primary CHW pump check valve pressure drop at design CHW flow rate";
+  // To size the HP balancing valves in case of headered pumps, where the number of pumps may not match
+  // the number of heat pumps, we use the *total* pump flow and *equivalent* pressure curve.
+  final parameter Modelica.Units.SI.VolumeFlowRate VHeaWatBalHdr_nominal =
+    (nHp * dat.hp.mHeaWatHp_flow_nominal + nPhp *
+      dat.hp.mHeaWatPhp_flow_nominal) / rhoHeaWat_default
+    "Total design HW flow rate for balancing valve and pump speed calculation – Headered pumps";
+  final parameter Modelica.Units.SI.VolumeFlowRate VChiWatBalHdr_nominal =
+    (nHp * dat.hp.mChiWatHp_flow_nominal + nPhp *
+      dat.hp.mChiWatPhp_flow_nominal) / rhoChiWat_default
+    "Total design CHW flow rate for balancing valve and pump speed calculation – Headered pumps";
+  final parameter Modelica.Units.SI.VolumeFlowRate VHeaWatBalHp_nominal =
+    if typArrPumPri ==
+    Buildings.Templates.Components.Types.PumpArrangement.Dedicated
+    then dat.hp.mHeaWatHp_flow_nominal / rhoHeaWat_default
+    else VHeaWatBalHdr_nominal
+    "Target HW flow rate for HP balancing valve and pump speed calculation";
+  final parameter Modelica.Units.SI.VolumeFlowRate VChiWatBalHp_nominal =
+    if typArrPumPri ==
+    Buildings.Templates.Components.Types.PumpArrangement.Dedicated
+    then dat.hp.mChiWatHp_flow_nominal / rhoChiWat_default
+    else VChiWatBalHdr_nominal
+    "Target CHW flow rate for HP balancing valve and pump speed calculation";
+  final parameter Modelica.Units.SI.VolumeFlowRate VHeaWatBalPhp_nominal =
+    if typArrPumPri ==
+    Buildings.Templates.Components.Types.PumpArrangement.Dedicated
+    then dat.hp.mHeaWatPhp_flow_nominal / rhoHeaWat_default
+    else VHeaWatBalHdr_nominal
+    "Target HW flow rate for polyvalent HP balancing valve and pump speed calculation";
+  final parameter Modelica.Units.SI.VolumeFlowRate VChiWatBalPhp_nominal =
+    if typArrPumPri ==
+    Buildings.Templates.Components.Types.PumpArrangement.Dedicated
+    then dat.hp.mChiWatPhp_flow_nominal / rhoChiWat_default
+    else VChiWatBalHdr_nominal
+    "Target CHW flow rate for polyvalent HP balancing valve and pump speed calculation";
+  final parameter Modelica.Units.SI.PressureDifference dpValCheHeaWatBalHdr_nominal =
+    if typPumHeaWatPri ==
+    Buildings.Templates.Plants.HeatPumps.Types.PumpsPrimary.None then 0
+    else max(dat.dpValCheHeaWat_nominal) *
+      (VHeaWatBalHdr_nominal * rhoHeaWat_default / sum(
+        dat.pumHeaWatPri.m_flow_nominal)) ^ 2
+    "Primary HW pump check valve pressure drop at design HW flow rate – Headered pumps";
+  final parameter Modelica.Units.SI.PressureDifference dpValCheChiWatBalHdr_nominal =
+    if typPumChiWatPri ==
+    Buildings.Templates.Plants.HeatPumps.Types.PumpsPrimary.None then 0
+    else max(dat.dpValCheChiWat_nominal) *
+      (VChiWatBalHdr_nominal * rhoChiWat_default / sum(
+        dat.pumChiWatPri.m_flow_nominal)) ^ 2
+    "Primary CHW pump check valve pressure drop at design CHW flow rate – Headered pumps";
+  final parameter Integer nPoiPrePumHeaWat = size(
+    dat.pumHeaWatPri.per.pressure.V_flow, 2)
+    "Number of points in primary HW pump pressure curve";
+  final parameter Integer nPoiPrePumChiWat = size(
+    dat.pumChiWatPri.per.pressure.V_flow, 2)
+    "Number of points in primary CHW pump pressure curve";
+  final parameter Buildings.Fluid.Movers.BaseClasses.Characteristics.flowParameters prePumHeaWatBalHdr(
+    V_flow=if typPumHeaWatPri ==
+      Buildings.Templates.Plants.HeatPumps.Types.PumpsPrimary.None
+      then {0, 0, 0}
+      else {sum(
+        dat.pumHeaWatPri.per[:].pressure.V_flow[i]) for i in 1:nPoiPrePumHeaWat},
+    dp=if typPumHeaWatPri ==
+      Buildings.Templates.Plants.HeatPumps.Types.PumpsPrimary.None
+      then {0, 0, 0}
+      else {max(
+        dat.pumHeaWatPri.per[:].pressure.dp[i]) for i in 1:nPoiPrePumHeaWat})
+    "Equivalent pressure curve of parallel primary HW pumps – Headered pumps";
+  final parameter Buildings.Fluid.Movers.BaseClasses.Characteristics.flowParameters prePumChiWatBalHdr(
+    V_flow=if typPumChiWatPri ==
+      Buildings.Templates.Plants.HeatPumps.Types.PumpsPrimary.None
+      then {0, 0, 0}
+      else {sum(
+        dat.pumChiWatPri.per[:].pressure.V_flow[i]) for i in 1:nPoiPrePumChiWat},
+    dp=if typPumChiWatPri ==
+      Buildings.Templates.Plants.HeatPumps.Types.PumpsPrimary.None
+      then {0, 0, 0}
+      else {max(
+        dat.pumChiWatPri.per[:].pressure.dp[i]) for i in 1:nPoiPrePumChiWat})
+    "Equivalent pressure curve of parallel primary CHW pumps – Headered pumps";
+  final parameter Buildings.Fluid.Movers.BaseClasses.Characteristics.flowParameters prePumHeaWatBalHp =
+    if typArrPumPri ==
+    Buildings.Templates.Components.Types.PumpArrangement.Dedicated
+    then Buildings.Fluid.Movers.BaseClasses.Characteristics.flowParameters(
+      V_flow=if typPumHeaWatPri ==
+        Buildings.Templates.Plants.HeatPumps.Types.PumpsPrimary.None
+        then {0, 0, 0} else dat.pumHeaWatPri.per[1].pressure.V_flow,
+      dp=if typPumHeaWatPri ==
+        Buildings.Templates.Plants.HeatPumps.Types.PumpsPrimary.None
+        then {0, 0, 0} else dat.pumHeaWatPri.per[1].pressure.dp)
+    else prePumHeaWatBalHdr
+    "Pump pressure curve for HP HW balancing valve and pump speed calculation";
+  final parameter Buildings.Fluid.Movers.BaseClasses.Characteristics.flowParameters prePumChiWatBalHp =
+    if typArrPumPri ==
+    Buildings.Templates.Components.Types.PumpArrangement.Dedicated
+    then (if have_pumPriDedComHp then prePumHeaWatBalHp
+      else Buildings.Fluid.Movers.BaseClasses.Characteristics.flowParameters(
+        V_flow=if typPumChiWatPri ==
+          Buildings.Templates.Plants.HeatPumps.Types.PumpsPrimary.None
+          then {0, 0, 0} else dat.pumChiWatPri.per[1].pressure.V_flow,
+        dp=if typPumChiWatPri ==
+          Buildings.Templates.Plants.HeatPumps.Types.PumpsPrimary.None
+          then {0, 0, 0} else dat.pumChiWatPri.per[1].pressure.dp))
+    else prePumChiWatBalHdr
+    "Pump pressure curve for HP CHW balancing valve and pump speed calculation";
+  final parameter Buildings.Fluid.Movers.BaseClasses.Characteristics.flowParameters prePumHeaWatBalPhp =
+    if typArrPumPri ==
+    Buildings.Templates.Components.Types.PumpArrangement.Dedicated
+    then Buildings.Fluid.Movers.BaseClasses.Characteristics.flowParameters(
+      V_flow=if typPumHeaWatPri ==
+        Buildings.Templates.Plants.HeatPumps.Types.PumpsPrimary.None
+        then {0, 0, 0} else dat.pumHeaWatPri.per[nPumHeaWatPri].pressure.V_flow,
+      dp=if typPumHeaWatPri ==
+        Buildings.Templates.Plants.HeatPumps.Types.PumpsPrimary.None
+        then {0, 0, 0} else dat.pumHeaWatPri.per[nPumHeaWatPri].pressure.dp)
+    else prePumHeaWatBalHdr
+    "Pump pressure curve for polyvalent HP HW balancing valve and pump speed calculation";
+  final parameter Buildings.Fluid.Movers.BaseClasses.Characteristics.flowParameters prePumChiWatBalPhp =
+    if typArrPumPri ==
+    Buildings.Templates.Components.Types.PumpArrangement.Dedicated
+    then Buildings.Fluid.Movers.BaseClasses.Characteristics.flowParameters(
+      V_flow=if typPumChiWatPri ==
+        Buildings.Templates.Plants.HeatPumps.Types.PumpsPrimary.None
+        then {0, 0, 0} else dat.pumChiWatPri.per[nPumChiWatPri].pressure.V_flow,
+      dp=if typPumChiWatPri ==
+        Buildings.Templates.Plants.HeatPumps.Types.PumpsPrimary.None
+        then {0, 0, 0} else dat.pumChiWatPri.per[nPumChiWatPri].pressure.dp)
+    else prePumChiWatBalHdr
+    "Pump pressure curve for polyvalent HP CHW balancing valve and pump speed calculation";
+  // To size the HP balancing valves in case of primary-only plants, we must
+  // also consider the HW/CHW loop pressure drop.
+  parameter Modelica.Units.SI.PressureDifference dpHeaWatLoo_nominal(start=0)
+    "HW loop differential pressure at design flow rate"
+    annotation(Dialog(tab="Advanced",
+      enable=is_dpBalYPumSetCal
+        and have_heaWat
+        and typDis ==
+          Buildings.Templates.Plants.HeatPumps.Types.Distribution.Variable1Only
+        and not (cfg.typCtl ==
+          Buildings.Templates.Plants.HeatPumps.Types.Controller.AirToWater
+          and not cfg.have_senDpHeaWatRemWir)));
+  parameter Modelica.Units.SI.PressureDifference dpChiWatLoo_nominal(start=0)
+    "CHW loop differential pressure at design flow rate"
+    annotation(Dialog(tab="Advanced",
+      enable=is_dpBalYPumSetCal
+        and have_chiWat
+        and typDis ==
+          Buildings.Templates.Plants.HeatPumps.Types.Distribution.Variable1Only
+        and not (cfg.typCtl ==
+          Buildings.Templates.Plants.HeatPumps.Types.Controller.AirToWater
+          and not cfg.have_senDpChiWatRemWir)));
+  final parameter Modelica.Units.SI.PressureDifference dpHeaWatLooBal_nominal =
+    if typDis ==
+    Buildings.Templates.Plants.HeatPumps.Types.Distribution.Variable1Only
+    then (if cfg.typCtl ==
+      Buildings.Templates.Plants.HeatPumps.Types.Controller.AirToWater
+      and not cfg.have_senDpHeaWatRemWir then dat.ctl.dpHeaWatLocSet_max
+      else dpHeaWatLoo_nominal)
+    else 0
+    "HW loop differential pressure at design flow rate used for balancing valve and pump speed calculation";
+  final parameter Modelica.Units.SI.PressureDifference dpChiWatLooBal_nominal =
+    if typDis ==
+    Buildings.Templates.Plants.HeatPumps.Types.Distribution.Variable1Only
+    then (if cfg.typCtl ==
+      Buildings.Templates.Plants.HeatPumps.Types.Controller.AirToWater
+      and not cfg.have_senDpChiWatRemWir then dat.ctl.dpChiWatLocSet_max
+      else dpChiWatLoo_nominal)
+    else 0
+    "CHW loop differential pressure at design flow rate used for balancing valve and pump speed calculation";
   final parameter Modelica.Units.SI.PressureDifference dpBalHeaWatHp_nominal =
     if have_hp
     then (if is_dpBalCal
       then Buildings.Templates.Utilities.computeBalancingPressureDrop(
-        m_flow_nominal=hp.mHeaWatHp_flow_nominal,
+        V_flow_nominal=VHeaWatBalHp_nominal,
         dp_nominal=hp.dpHeaWatHp_nominal + max(
           valIso.dpValveHeaWat_nominal[1:nHp]) * ((if have_valHpInlIso then 1
           else 0) + (if have_valHpOutIso then 1 else 0)) +
-          dpValCheHeaWatHp_nominal,
-        datPum=dat.pumHeaWatPriSin[1])
+          dpValCheHeaWatBalHp_nominal + dpHeaWatLooBal_nominal,
+        prePum=prePumHeaWatBalHp)
       else dat.dpBalHeaWatHp_nominal)
     else 0
     "HP HW balancing valve pressure drop at design HW flow";
@@ -71,13 +257,12 @@ model AirToWater
     if have_hp and have_chiWat
     then (if is_dpBalCal
       then Buildings.Templates.Utilities.computeBalancingPressureDrop(
-        m_flow_nominal=hp.mChiWatHp_flow_nominal,
+        V_flow_nominal=VChiWatBalHp_nominal,
         dp_nominal=hp.dpChiWatHp_nominal + max(
           valIso.dpValveChiWat_nominal[1:nHp]) * ((if have_valHpInlIso then 1
           else 0) + (if have_valHpOutIso then 1 else 0)) +
-          dpValCheChiWatHp_nominal,
-        datPum=if have_pumPriDedComHp then dat.pumHeaWatPriSin[1]
-          else dat.pumChiWatPriSin[1])
+          dpValCheChiWatBalHp_nominal + dpChiWatLooBal_nominal,
+        prePum=prePumChiWatBalHp)
       else dat.dpBalChiWatHp_nominal)
     else 0
     "HP CHW balancing valve pressure drop at design CHW flow";
@@ -85,12 +270,12 @@ model AirToWater
     if have_php
     then (if is_dpBalCal
       then Buildings.Templates.Utilities.computeBalancingPressureDrop(
-        m_flow_nominal=dat.hp.mHeaWatPhp_flow_nominal,
+        V_flow_nominal=VHeaWatBalPhp_nominal,
         dp_nominal=dat.hp.dpHeaWatPhp_nominal + max(
           valIso.dpValveHeaWat_nominal[nHp + 1:nHp + nPhp]) *
           ((if have_valPhpInlIso then 1 else 0) + (if have_valPhpOutIso then 1
-            else 0)) + dat.dpValCheHeaWat_nominal[nPumHeaWatPri],
-        datPum=dat.pumHeaWatPriSin[nPumHeaWatPri])
+            else 0)) + dpValCheHeaWatBalPhp_nominal + dpHeaWatLooBal_nominal,
+        prePum=prePumHeaWatBalPhp)
       else dat.dpBalHeaWatPhp_nominal)
     else 0
     "Polyvalent unit HW balancing valve pressure drop at design HW flow";
@@ -98,12 +283,12 @@ model AirToWater
     if have_php
     then (if is_dpBalCal
       then Buildings.Templates.Utilities.computeBalancingPressureDrop(
-        m_flow_nominal=dat.hp.mChiWatPhp_flow_nominal,
+        V_flow_nominal=VChiWatBalPhp_nominal,
         dp_nominal=dat.hp.dpChiWatPhp_nominal + max(
           valIso.dpValveChiWat_nominal[nHp + 1:nHp + nPhp]) *
           ((if have_valPhpInlIso then 1 else 0) + (if have_valPhpOutIso then 1
-            else 0)) + dat.dpValCheChiWat_nominal[nPumChiWatPri],
-        datPum=dat.pumChiWatPriSin[nPumChiWatPri])
+            else 0)) + dpValCheChiWatBalPhp_nominal + dpChiWatLooBal_nominal,
+        prePum=prePumChiWatBalPhp)
       else dat.dpBalChiWatPhp_nominal)
     else 0
     "Polyvalent unit CHW balancing valve pressure drop at design CHW flow";
@@ -896,10 +1081,10 @@ initial equation
       if have_hp then
         if is_yPumSetCal then
           0 = Buildings.Templates.Utilities.computeBalancingPressureDrop(
-            m_flow_nominal=dat.hp.mHeaWatHp_flow_nominal,
+            V_flow_nominal=VHeaWatBalHp_nominal,
             dp_nominal=max(valIso.dpHeaWat_nominal[1:nHp]) +
-              dpValCheHeaWatHp_nominal,
-            datPum=dat.pumHeaWatPriSin[1],
+              dpValCheHeaWatBalHp_nominal + dpHeaWatLooBal_nominal,
+            prePum=prePumHeaWatBalHp,
             r_N=yPumHeaWatPriDedHpSet);
           assert(
             yPumHeaWatPriDedHpSet >= 0.1 and yPumHeaWatPriDedHpSet <= 2,
@@ -915,10 +1100,10 @@ initial equation
       if have_php then
         if is_yPumSetCal then
           0 = Buildings.Templates.Utilities.computeBalancingPressureDrop(
-            m_flow_nominal=dat.hp.mHeaWatPhp_flow_nominal,
+            V_flow_nominal=VHeaWatBalPhp_nominal,
             dp_nominal=max(valIso.dpHeaWat_nominal[nHp + 1:nHp + nPhp]) +
-              dat.dpValCheHeaWat_nominal[nPumHeaWatPri],
-            datPum=dat.pumHeaWatPriSin[nPumHeaWatPri],
+              dpValCheHeaWatBalPhp_nominal + dpHeaWatLooBal_nominal,
+            prePum=prePumHeaWatBalPhp,
             r_N=yPumHeaWatPriDedPhpSet);
           assert(
             yPumHeaWatPriDedPhpSet >= 0.1 and yPumHeaWatPriDedPhpSet <= 2,
@@ -938,10 +1123,10 @@ initial equation
       // Not used
       if is_yPumSetCal then
         0 = Buildings.Templates.Utilities.computeBalancingPressureDrop(
-          m_flow_nominal=dat.pumHeaWatPriSin[1].m_flow_nominal,
-          dp_nominal=max(valIso.dpHeaWat_nominal) + max(
-            dat.dpValCheHeaWat_nominal),
-          datPum=dat.pumHeaWatPriSin[1],
+          V_flow_nominal=VHeaWatBalHdr_nominal,
+          dp_nominal=max(valIso.dpHeaWat_nominal) +
+            dpValCheHeaWatBalHdr_nominal + dpHeaWatLooBal_nominal,
+          prePum=prePumHeaWatBalHdr,
           r_N=yPumHeaWatPriHdrSet);
         assert(
           yPumHeaWatPriHdrSet >= 0.1 and yPumHeaWatPriHdrSet <= 2,
@@ -968,11 +1153,10 @@ initial equation
       if have_hp then
         if is_yPumSetCal then
           0 = Buildings.Templates.Utilities.computeBalancingPressureDrop(
-            m_flow_nominal=dat.hp.mChiWatHp_flow_nominal,
+            V_flow_nominal=VChiWatBalHp_nominal,
             dp_nominal=max(valIso.dpChiWat_nominal[1:nHp]) +
-              dpValCheChiWatHp_nominal,
-            datPum=if have_pumPriDedComHp then dat.pumHeaWatPriSin[1]
-              else dat.pumChiWatPriSin[1],
+              dpValCheChiWatBalHp_nominal + dpChiWatLooBal_nominal,
+            prePum=prePumChiWatBalHp,
             r_N=yPumChiWatPriDedHpSet);
           assert(
             yPumChiWatPriDedHpSet >= 0.1 and yPumChiWatPriDedHpSet <= 2,
@@ -988,10 +1172,10 @@ initial equation
       if have_php then
         if is_yPumSetCal then
           0 = Buildings.Templates.Utilities.computeBalancingPressureDrop(
-            m_flow_nominal=dat.hp.mChiWatPhp_flow_nominal,
+            V_flow_nominal=VChiWatBalPhp_nominal,
             dp_nominal=max(valIso.dpChiWat_nominal[nHp + 1:nHp + nPhp]) +
-              dat.dpValCheChiWat_nominal[nPumChiWatPri],
-            datPum=dat.pumChiWatPriSin[nPumChiWatPri],
+              dpValCheChiWatBalPhp_nominal + dpChiWatLooBal_nominal,
+            prePum=prePumChiWatBalPhp,
             r_N=yPumChiWatPriDedPhpSet);
           assert(
             yPumChiWatPriDedPhpSet >= 0.1 and yPumChiWatPriDedPhpSet <= 2,
@@ -1011,10 +1195,10 @@ initial equation
       // Not used
       if is_yPumSetCal then
         0 = Buildings.Templates.Utilities.computeBalancingPressureDrop(
-          m_flow_nominal=dat.pumChiWatPriSin[1].m_flow_nominal,
-          dp_nominal=max(valIso.dpChiWat_nominal) + max(
-            dat.dpValCheChiWat_nominal),
-          datPum=dat.pumChiWatPriSin[1],
+          V_flow_nominal=VChiWatBalHdr_nominal,
+          dp_nominal=max(valIso.dpChiWat_nominal) +
+            dpValCheChiWatBalHdr_nominal + dpChiWatLooBal_nominal,
+          prePum=prePumChiWatBalHdr,
           r_N=yPumChiWatPriHdrSet);
         assert(
           yPumChiWatPriHdrSet >= 0.1 and yPumChiWatPriHdrSet <= 2,
@@ -1683,7 +1867,8 @@ annotation(defaultComponentName="pla",
   <li>
     July 10, 2026, by Antoine Gautier:<br />
     Refactored for plants with polyvalent heat pumps.<br />
-    This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4512\">#4512</a>.
+    This is for
+    <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4512\">#4512</a>.
   </li>
   <li>
     March 23, 2026, by Antoine Gautier:<br />

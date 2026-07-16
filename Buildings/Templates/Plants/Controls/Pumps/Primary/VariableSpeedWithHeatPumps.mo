@@ -465,15 +465,13 @@ block VariableSpeedWithHeatPumps
     final have_inp=have_pumPriCtlDp,
     final have_inpPh=false,
     final u_internal=yPumHeaWatPriHdrSet)
-    if have_heaWat and have_pumPriHdr
-    "Replace with fixed speed – HP XOR PHP (both NOT supported)"
+    if have_heaWat and have_pumPriHdr "Replace with fixed speed"
     annotation(Placement(transformation(extent={{50,130},{70,150}})));
   Utilities.PlaceholderReal phSpePumChiWatPri(
     final have_inp=have_pumPriCtlDp,
     final have_inpPh=false,
     final u_internal=yPumChiWatPriHdrSet)
-    if have_chiWat and have_pumPriHdr
-    "Replace with fixed speed – HP XOR PHP (both NOT supported)"
+    if have_chiWat and have_pumPriHdr "Replace with fixed speed"
     annotation(Placement(transformation(extent={{50,70},{70,90}})));
   Buildings.Controls.OBC.CDL.Reals.Switch setPumChiWatPriDedPhp[nPhp]
     if have_chiWat and not have_pumPriHdr and nPhp > 0

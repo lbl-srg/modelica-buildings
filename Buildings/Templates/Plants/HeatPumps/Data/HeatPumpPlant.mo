@@ -80,24 +80,6 @@ record HeatPumpPlant
         cfg.nPumHeaWatPri))
     "Primary HW pumps"
     annotation(Dialog(group="Primary HW loop"));
-  final parameter Buildings.Templates.Components.Data.PumpSingle pumHeaWatPriSin[max(
-    cfg.nPumHeaWatPri, 1)](
-    each typ=pumHeaWatPri.typ,
-    m_flow_nominal=if pumHeaWatPri.typ ==
-      Buildings.Templates.Components.Types.Pump.None then {0}
-      else pumHeaWatPri.m_flow_nominal,
-    dp_nominal=if pumHeaWatPri.typ ==
-      Buildings.Templates.Components.Types.Pump.None then {0}
-      else pumHeaWatPri.dp_nominal,
-    per(
-      pressure(
-        V_flow=if pumHeaWatPri.typ ==
-          Buildings.Templates.Components.Types.Pump.None then [0]
-          else pumHeaWatPri.per.pressure.V_flow,
-        dp=if pumHeaWatPri.typ == Buildings.Templates.Components.Types.Pump.None
-          then [0] else pumHeaWatPri.per.pressure.dp)),
-    each rho_default=pumHeaWatPri.rho_default)
-    "Cast multiple pump record into single pump record array";
   parameter Modelica.Units.SI.PressureDifference dpValCheHeaWat_nominal[cfg.nPumHeaWatPri](
     each start=0) = fill(
     Buildings.Templates.Data.Defaults.dpValChe, cfg.nPumHeaWatPri)
@@ -161,28 +143,10 @@ record HeatPumpPlant
       enable=cfg.typPumChiWatPriDedHp <>
         Buildings.Templates.Plants.HeatPumps.Types.PumpsPrimary.None
         or cfg.have_php));
-  final parameter Buildings.Templates.Components.Data.PumpSingle pumChiWatPriSin[max(
-    cfg.nPumChiWatPri, 1)](
-    each typ=pumChiWatPri.typ,
-    m_flow_nominal=if pumChiWatPri.typ ==
-      Buildings.Templates.Components.Types.Pump.None then {0}
-      else pumChiWatPri.m_flow_nominal,
-    dp_nominal=if pumChiWatPri.typ ==
-      Buildings.Templates.Components.Types.Pump.None then {0}
-      else pumChiWatPri.dp_nominal,
-    per(
-      pressure(
-        V_flow=if pumChiWatPri.typ ==
-          Buildings.Templates.Components.Types.Pump.None then [0]
-          else pumChiWatPri.per.pressure.V_flow,
-        dp=if pumChiWatPri.typ == Buildings.Templates.Components.Types.Pump.None
-          then [0] else pumChiWatPri.per.pressure.dp)),
-    each rho_default=pumChiWatPri.rho_default)
-    "Cast multiple pump record into single pump record array";
   parameter Modelica.Units.SI.PressureDifference dpValCheChiWat_nominal[cfg.nPumChiWatPri](
     each start=0) = fill(
     Buildings.Templates.Data.Defaults.dpValChe, cfg.nPumChiWatPri)
-    "Primary CHW pump check valve pressure drop at design CHW flow rate – Each unit"
+    "Primary CHW pump check valve pressure drop at design flow rate (selection conditions) – Each unit"
     annotation(Dialog(group="Primary CHW loop",
       enable=cfg.typPumChiWatPri <>
         Buildings.Templates.Plants.HeatPumps.Types.PumpsPrimary.None));

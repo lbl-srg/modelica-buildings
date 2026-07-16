@@ -350,30 +350,6 @@ model PumpsPrimaryDedicatedPolyvalent
       nPhp))
     "Dedicated primary CHW pump parameters – Polyvalent heat pumps"
     annotation(Placement(transformation(extent={{-120,240},{-100,260}})));
-  final parameter Buildings.Templates.Components.Data.PumpSingle datPumComSin[nHp +
-    nPhp](
-    each typ=datPumPriCom.typ,
-    m_flow_nominal=datPumPriCom.m_flow_nominal,
-    dp_nominal=datPumPriCom.dp_nominal,
-    per=datPumPriCom.per,
-    each rho_default=datPumPriCom.rho_default)
-    "Cast multiple pump record into single pump record array";
-  final parameter Buildings.Templates.Components.Data.PumpSingle datPumHeaWatHdrSin[nHp +
-    nPhp](
-    each typ=datPumHeaWatHdr.typ,
-    m_flow_nominal=datPumHeaWatHdr.m_flow_nominal,
-    dp_nominal=datPumHeaWatHdr.dp_nominal,
-    per=datPumHeaWatHdr.per,
-    each rho_default=datPumHeaWatHdr.rho_default)
-    "Cast multiple pump record into single pump record array";
-  final parameter Buildings.Templates.Components.Data.PumpSingle datPumChiWatHdrSin[nHp +
-    nPhp](
-    each typ=datPumChiWatHdr.typ,
-    m_flow_nominal=datPumChiWatHdr.m_flow_nominal,
-    dp_nominal=datPumChiWatHdr.dp_nominal,
-    per=datPumChiWatHdr.per,
-    each rho_default=datPumChiWatHdr.rho_default)
-    "Cast multiple pump record into single pump record array";
   Buildings.Templates.Plants.HeatPumps.Interfaces.Bus busPla2
     "Plant control bus"
     annotation(Placement(iconVisible=false,
@@ -491,13 +467,14 @@ model PumpsPrimaryDedicatedPolyvalent
       each m_flow_nominal=datHpPhp.mHeaWatHp_flow_nominal,
       each dpValve_nominal=Buildings.Templates.Data.Defaults.dpValIso,
       dpFixed_nominal=Buildings.Templates.Utilities.computeBalancingPressureDrop(
-        m_flow_nominal=fill(datHpPhp.mHeaWatHp_flow_nominal, nHp),
+        V_flow_nominal=fill(datHpPhp.mHeaWatHp_flow_nominal, nHp) /
+          datPumPriCom.rho_default,
         dp_nominal=pumPriCom.dpValCheHeaWat_nominal[1:nHp] *
           (datHpPhp.mHeaWatHp_flow_nominal / max(
             datHpPhp.mHeaWatHp_flow_nominal, datHpPhp.mChiWatHp_flow_nominal)) ^
           2 .+ fill(datHpPhp.dpHeaWatHp_nominal, nHp) .+
           valHeaWatIsoCom.dpValve_nominal,
-        datPum=datPumComSin[1:nHp])),
+        prePum=datPumPriCom.per[1:nHp].pressure)),
     each from_dp=true)
     "Primary HW loop isolation valve"
     annotation(Placement(transformation(extent={{10,270},{30,290}})));
@@ -508,13 +485,14 @@ model PumpsPrimaryDedicatedPolyvalent
       each m_flow_nominal=datHpPhp.mChiWatHp_flow_nominal,
       each dpValve_nominal=Buildings.Templates.Data.Defaults.dpValIso,
       dpFixed_nominal=Buildings.Templates.Utilities.computeBalancingPressureDrop(
-        m_flow_nominal=fill(datHpPhp.mChiWatHp_flow_nominal, nHp),
+        V_flow_nominal=fill(datHpPhp.mChiWatHp_flow_nominal, nHp) /
+          datPumPriCom.rho_default,
         dp_nominal=pumPriCom.dpValCheHeaWat_nominal[1:nHp] *
           (datHpPhp.mChiWatHp_flow_nominal / max(
             datHpPhp.mHeaWatHp_flow_nominal, datHpPhp.mChiWatHp_flow_nominal)) ^
           2 .+ fill(datHpPhp.dpChiWatHp_nominal, nHp) .+
           valChiWatIsoCom.dpValve_nominal,
-        datPum=datPumComSin[1:nHp])),
+        prePum=datPumPriCom.per[1:nHp].pressure)),
     each from_dp=true)
     "Primary CHW loop isolation valve"
     annotation(Placement(transformation(extent={{30,250},{50,270}})));
@@ -533,13 +511,13 @@ model PumpsPrimaryDedicatedPolyvalent
         fill(datHpPhp.mChiWatPhp_flow_nominal, nPhp)),
       each dpValve_nominal=Buildings.Templates.Data.Defaults.dpValIso,
       dpFixed_nominal=Buildings.Templates.Utilities.computeBalancingPressureDrop(
-        m_flow_nominal=valChiWatIsoHdr.m_flow_nominal,
+        V_flow_nominal=valChiWatIsoHdr.m_flow_nominal / datPumChiWatHdr.rho_default,
         dp_nominal=pumChiWatPriHdr.dpValChe_nominal .+ cat(
           1,
           fill(datHpPhp.dpChiWatHp_nominal, nHp),
           fill(datHpPhp.dpChiWatPhp_nominal, nPhp)) .+
           valChiWatIsoHdr.dpValve_nominal,
-        datPum=datPumChiWatHdrSin)),
+        prePum=datPumChiWatHdr.per.pressure)),
     each from_dp=true)
     "CHW isolation valve"
     annotation(Placement(transformation(extent={{20,-70},{40,-50}})));
@@ -553,13 +531,13 @@ model PumpsPrimaryDedicatedPolyvalent
         fill(datHpPhp.mHeaWatPhp_flow_nominal, nPhp)),
       each dpValve_nominal=Buildings.Templates.Data.Defaults.dpValIso,
       dpFixed_nominal=Buildings.Templates.Utilities.computeBalancingPressureDrop(
-        m_flow_nominal=valHeaWatIsoHdr.m_flow_nominal,
+        V_flow_nominal=valHeaWatIsoHdr.m_flow_nominal / datPumHeaWatHdr.rho_default,
         dp_nominal=pumHeaWatPriHdr.dpValChe_nominal .+ cat(
           1,
           fill(datHpPhp.dpHeaWatHp_nominal, nHp),
           fill(datHpPhp.dpHeaWatPhp_nominal, nPhp)) .+
           valHeaWatIsoHdr.dpValve_nominal,
-        datPum=datPumHeaWatHdrSin)),
+        prePum=datPumHeaWatHdr.per.pressure)),
     each from_dp=true)
     "HW isolation valve"
     annotation(Placement(transformation(extent={{-10,-50},{10,-30}})));
