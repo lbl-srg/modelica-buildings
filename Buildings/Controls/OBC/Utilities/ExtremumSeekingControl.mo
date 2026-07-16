@@ -58,6 +58,12 @@ block ExtremumSeekingControl
     final quantity="Time")=0
     "Minimum hold time"
     annotation(Dialog(group="General settings",enable=have_hol));
+  parameter Real dHys(
+    final min=1e-13,
+    final unit="1",
+    displayUnit="1")=K
+    "Hysteresis deadband"
+    annotation(Dialog(tab="Advanced"));
 
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uDevSta
     "On/Off status of the associated device"
@@ -104,29 +110,22 @@ block ExtremumSeekingControl
         samplePeriod, final y_start=0)
     "Apply a time delay to the cost function"
     annotation (Placement(transformation(extent={{-200,-170},{-180,-150}})));
-  Buildings.Controls.OBC.CDL.Reals.MultiplyByParameter gai(k=1/samplePeriod)
-    "Divide by the sample period duration to get the derivative"
-    annotation (Placement(transformation(extent={{-80,-150},{-60,-130}})));
   Buildings.Controls.OBC.CDL.Reals.Subtract sub
     "Check the change in cost function between the previous and current time instants"
     annotation (Placement(transformation(extent={{-120,-150},{-100,-130}})));
   Buildings.Controls.OBC.CDL.Discrete.UnitDelay                        uniDel2(final samplePeriod=
         samplePeriod, final y_start=0)
     "Apply a time period delay on the derivative"
-    annotation (Placement(transformation(extent={{-40,-150},{-20,-130}})));
+    annotation (Placement(transformation(extent={{-80,-150},{-60,-130}})));
   Buildings.Controls.OBC.CDL.Reals.MultiplyByParameter gai1(k=a)
     "Multiply the cost function derivative by the filter value"
-    annotation (Placement(transformation(extent={{0,-150},{20,-130}})));
+    annotation (Placement(transformation(extent={{-40,-150},{-20,-130}})));
   Buildings.Controls.OBC.CDL.Reals.Add add2
     "Add the current cost function value differential to the derivative from the previous instant"
-    annotation (Placement(transformation(extent={{40,-160},{60,-140}})));
-  Buildings.Controls.OBC.CDL.Reals.GreaterThreshold greThr(h=1e-3)
+    annotation (Placement(transformation(extent={{0,-160},{20,-140}})));
+  Buildings.Controls.OBC.CDL.Reals.GreaterThreshold greThr(h=1e-6)
     "Check if the adjusted cost function differential is greater than zero"
-    annotation (Placement(transformation(extent={{80,-160},{100,-140}})));
-  Buildings.Controls.OBC.CDL.Discrete.Sampler                        sampler1(final samplePeriod=
-        samplePeriod)
-    "Sample the cost function at the previous discrete instant"
-    annotation (Placement(transformation(extent={{-160,-170},{-140,-150}})));
+    annotation (Placement(transformation(extent={{40,-160},{60,-140}})));
   Buildings.Controls.OBC.CDL.Logical.And and2
     "Start the timer when device is proven on and reset it when search direction is flipped"
     annotation (Placement(transformation(extent={{-80,-50},{-60,-30}})));
@@ -139,8 +138,8 @@ block ExtremumSeekingControl
     "Check if minimum time between search direction flips has elapsed"
     annotation (Placement(transformation(extent={{-40,-50},{-20,-30}})));
   Buildings.Controls.OBC.CDL.Logical.And and1
-    "Trigger the search direction flip when both the cost function differential condition and minimum time condition are satisfied"
-    annotation (Placement(transformation(extent={{120,-160},{140,-140}})));
+    "Trigger the search direction flip when the cost function differential condition or setpoint limit conditions are satisfied in addition to the minimum time condition"
+    annotation (Placement(transformation(extent={{140,-50},{160,-30}})));
   Buildings.Controls.OBC.CDL.Logical.Toggle tog
     "Switch the optimal setpoint search direction each time the conditions are satisfied"
     annotation (Placement(transformation(extent={{-160,-210},{-140,-190}})));
@@ -154,6 +153,20 @@ block ExtremumSeekingControl
     annotation (Placement(transformation(extent={{-80,-210},{-60,-190}})));
   Buildings.Controls.OBC.CDL.Reals.Add add1 "Add the step-change to the output at previous instant"
     annotation (Placement(transformation(extent={{-40,-220},{-20,-200}})));
+  CDL.Reals.GreaterThreshold                        greThr1(t=minSet + dHys, h=
+        dHys) "Check if the setpoint output is not at minimum value"
+    annotation (Placement(transformation(extent={{10,-80},{30,-60}})));
+  CDL.Reals.LessThreshold lesThr(t=maxSet - dHys, h=dHys)
+    "Check if the setpoint output is not at maximum value"
+    annotation (Placement(transformation(extent={{10,-110},{30,-90}})));
+  CDL.Logical.And and3 "Check if setpoint output is between min and max values"
+    annotation (Placement(transformation(extent={{50,-90},{70,-70}})));
+  CDL.Logical.Not not3
+    "Trigger the search direction toggle if setpoint output is at minimum or maximum setpoint"
+    annotation (Placement(transformation(extent={{80,-90},{100,-70}})));
+  CDL.Logical.Or or2
+    "Check if the setpoint limit condition or the cost function differential condition is met"
+    annotation (Placement(transformation(extent={{110,-90},{130,-70}})));
 protected
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant iniSetCon(final k=iniSet)
     "Initial setpoint"
@@ -255,26 +268,20 @@ equation
           {-102,252},{-102,64},{-82,64}}, color={0,0,127}));
   connect(uCos, sampler.u)
     annotation (Line(points={{-240,-120},{-202,-120}}, color={0,0,127}));
-  connect(sub.y, gai.u)
-    annotation (Line(points={{-98,-140},{-82,-140}}, color={0,0,127}));
   connect(sampler.y, sub.u1) annotation (Line(points={{-178,-120},{-130,-120},{-130,
           -134},{-122,-134}}, color={0,0,127}));
-  connect(gai.y, uniDel2.u)
-    annotation (Line(points={{-58,-140},{-42,-140}}, color={0,0,127}));
   connect(uniDel2.y, gai1.u)
-    annotation (Line(points={{-18,-140},{-2,-140}}, color={0,0,127}));
-  connect(gai1.y, add2.u1) annotation (Line(points={{22,-140},{30,-140},{30,-144},
-          {38,-144}}, color={0,0,127}));
-  connect(sub.y, add2.u2) annotation (Line(points={{-98,-140},{-90,-140},{-90,-160},
-          {30,-160},{30,-156},{38,-156}}, color={0,0,127}));
+    annotation (Line(points={{-58,-140},{-42,-140}},color={0,0,127}));
+  connect(gai1.y, add2.u1) annotation (Line(points={{-18,-140},{-10,-140},{-10,
+          -144},{-2,-144}},
+                      color={0,0,127}));
+  connect(sub.y, add2.u2) annotation (Line(points={{-98,-140},{-90,-140},{-90,
+          -160},{-10,-160},{-10,-156},{-2,-156}},
+                                          color={0,0,127}));
   connect(add2.y, greThr.u)
-    annotation (Line(points={{62,-150},{78,-150}}, color={0,0,127}));
-  connect(uniDel1.y, sampler1.u)
-    annotation (Line(points={{-178,-160},{-162,-160}}, color={0,0,127}));
+    annotation (Line(points={{22,-150},{38,-150}}, color={0,0,127}));
   connect(uCos, uniDel1.u) annotation (Line(points={{-240,-120},{-210,-120},{-210,
           -160},{-202,-160}}, color={0,0,127}));
-  connect(sampler1.y, sub.u2) annotation (Line(points={{-138,-160},{-130,-160},{
-          -130,-146},{-122,-146}}, color={0,0,127}));
   connect(tim.y, and2.u1) annotation (Line(points={{-178,210},{-96,210},{-96,-40},
           {-82,-40}}, color={255,0,255}));
   connect(not2.y, and2.u2) annotation (Line(points={{-118,-40},{-100,-40},{-100,
@@ -283,14 +290,9 @@ equation
     annotation (Line(points={{-158,-40},{-142,-40}}, color={255,0,255}));
   connect(and2.y, tim1.u)
     annotation (Line(points={{-58,-40},{-42,-40}}, color={255,0,255}));
-  connect(greThr.y, and1.u2) annotation (Line(points={{102,-150},{110,-150},{110,
-          -158},{118,-158}}, color={255,0,255}));
-  connect(tim1.passed, and1.u1) annotation (Line(points={{-18,-48},{114,-48},{114,
-          -150},{118,-150}}, color={255,0,255}));
-  connect(and1.y, pre1.u) annotation (Line(points={{142,-150},{150,-150},{150,-20},
-          {-190,-20},{-190,-40},{-182,-40}}, color={255,0,255}));
-  connect(and1.y, tog.u) annotation (Line(points={{142,-150},{150,-150},{150,-180},
-          {-170,-180},{-170,-200},{-162,-200}}, color={255,0,255}));
+  connect(tim1.passed, and1.u1) annotation (Line(points={{-18,-48},{128,-48},{
+          128,-40},{138,-40}},
+                             color={255,0,255}));
   connect(con1.y, tog.clr) annotation (Line(points={{-178,-210},{-170,-210},{-170,
           -206},{-162,-206}}, color={255,0,255}));
   connect(tog.y, booToRea.u)
@@ -303,6 +305,30 @@ equation
           8},{-54,8},{-54,34},{-50,34}}, color={0,0,127}));
   connect(uniDel.y, add1.u2) annotation (Line(points={{-58,64},{198,64},{198,-240},
           {-50,-240},{-50,-216},{-42,-216}}, color={0,0,127}));
+  connect(uniDel1.y, sub.u2) annotation (Line(points={{-178,-160},{-130,-160},{
+          -130,-146},{-122,-146}}, color={0,0,127}));
+  connect(sub.y, uniDel2.u)
+    annotation (Line(points={{-98,-140},{-82,-140}}, color={0,0,127}));
+  connect(uniDel.y, greThr1.u) annotation (Line(points={{-58,64},{0,64},{0,-70},
+          {8,-70}},  color={0,0,127}));
+  connect(uniDel.y, lesThr.u) annotation (Line(points={{-58,64},{0,64},{0,-100},
+          {8,-100}}, color={0,0,127}));
+  connect(greThr1.y, and3.u1) annotation (Line(points={{32,-70},{40,-70},{40,
+          -80},{48,-80}}, color={255,0,255}));
+  connect(lesThr.y, and3.u2) annotation (Line(points={{32,-100},{40,-100},{40,
+          -88},{48,-88}}, color={255,0,255}));
+  connect(and3.y, not3.u)
+    annotation (Line(points={{72,-80},{78,-80}}, color={255,0,255}));
+  connect(not3.y, or2.u1)
+    annotation (Line(points={{102,-80},{108,-80}}, color={255,0,255}));
+  connect(or2.y, and1.u2) annotation (Line(points={{132,-80},{136,-80},{136,-48},
+          {138,-48}}, color={255,0,255}));
+  connect(greThr.y, or2.u2) annotation (Line(points={{62,-150},{104,-150},{104,
+          -88},{108,-88}}, color={255,0,255}));
+  connect(and1.y, tog.u) annotation (Line(points={{162,-40},{180,-40},{180,-182},
+          {-170,-182},{-170,-200},{-162,-200}}, color={255,0,255}));
+  connect(and1.y, pre1.u) annotation (Line(points={{162,-40},{180,-40},{180,-12},
+          {-190,-12},{-190,-40},{-182,-40}}, color={255,0,255}));
 annotation (
   defaultComponentName = "esc",
   Icon(coordinateSystem(extent={{-100,-100},{100,100}}),

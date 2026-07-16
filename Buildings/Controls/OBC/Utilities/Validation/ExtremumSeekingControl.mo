@@ -3,7 +3,7 @@ model ExtremumSeekingControl
   "Model validates the extremum seeking control block"
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant con(
     final k=true) "Logic true indicating device ON"
-    annotation (Placement(transformation(extent={{-80,50},{-60,70}})));
+    annotation (Placement(transformation(extent={{-110,50},{-90,70}})));
 
   Buildings.Controls.OBC.Utilities.ExtremumSeekingControl esc(
     have_hol=false,
@@ -16,42 +16,57 @@ model ExtremumSeekingControl
     tau=60,
     tauFil=5,
     dtHol=300) "Block implementing extremum seeking control"
-    annotation (Placement(transformation(extent={{60,-10},{80,10}})));
+    annotation (Placement(transformation(extent={{90,-10},{110,10}})));
   Modelica.Blocks.Sources.CombiTimeTable timTab(
     tableOnFile=true,
     tableName="refData",
-    smoothness=Modelica.Blocks.Types.Smoothness.ConstantSegments,
+    smoothness=Modelica.Blocks.Types.Smoothness.LinearSegments,
     extrapolation=Modelica.Blocks.Types.Extrapolation.Periodic,
     fileName=Modelica.Utilities.Files.loadResource("modelica://Buildings/Resources/Data/Controls/OBC/Utilities/Validation/ExtremumSeekingControl.mos"),
-    columns={2,3}) "Reference data"
-    annotation (Placement(transformation(extent={{-80,-80},{-60,-60}})));
-  Buildings.Controls.OBC.CDL.Reals.IntegratorWithReset intWitRes(k=0)
-    "Integrator with reset for cost function computation"
-    annotation (Placement(transformation(extent={{-20,-20},{0,0}})));
+    columns={2,3,4})
+                   "Reference data"
+    annotation (Placement(transformation(extent={{-110,10},{-90,30}})));
+  Buildings.Controls.OBC.CDL.Reals.IntegratorWithReset intWitRes(k=1/60)
+    "Integrator with reset for constructing first-order filter"
+    annotation (Placement(transformation(extent={{50,-10},{70,10}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant                        con1(final k=false)
     "Logic false"
-    annotation (Placement(transformation(extent={{-80,-50},{-60,-30}})));
+    annotation (Placement(transformation(extent={{-110,-80},{-90,-60}})));
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant con2(k=0) "Constant zero signal"
-    annotation (Placement(transformation(extent={{-80,-20},{-60,0}})));
+    annotation (Placement(transformation(extent={{-110,-50},{-90,-30}})));
   Buildings.Controls.OBC.CDL.Reals.Subtract sub
-    "Compute cost function as the difference between reference signal and integrator output"
-    annotation (Placement(transformation(extent={{20,-20},{40,0}})));
+    "Compute cost function as the difference between reference signal and current output"
+    annotation (Placement(transformation(extent={{-80,0},{-60,20}})));
+  CDL.Reals.Multiply mul
+    "Square of the difference to represent system dynamics"
+    annotation (Placement(transformation(extent={{-40,0},{-20,20}})));
+  CDL.Reals.Subtract                        sub1
+    "Subtraction function used for representation of first-order filter"
+    annotation (Placement(transformation(extent={{0,0},{20,20}})));
 equation
 
-  connect(con.y, esc.uDevSta) annotation (Line(points={{-58,60},{50,60},{50,6},
-          {58,6}}, color={255,0,255}));
-  connect(con1.y, intWitRes.trigger) annotation (Line(points={{-58,-40},{-10,
-          -40},{-10,-22}}, color={255,0,255}));
-  connect(con2.y, intWitRes.y_reset_in) annotation (Line(points={{-58,-10},{-40,
-          -10},{-40,-18},{-22,-18}}, color={0,0,127}));
-  connect(sub.y, esc.uCos) annotation (Line(points={{42,-10},{50,-10},{50,-6},{
-          58,-6}}, color={0,0,127}));
-  connect(esc.y, intWitRes.u) annotation (Line(points={{82,0},{90,0},{90,16},{
-          -32,16},{-32,-10},{-22,-10}}, color={0,0,127}));
-  connect(intWitRes.y, sub.u2) annotation (Line(points={{2,-10},{10,-10},{10,
-          -16},{18,-16}}, color={0,0,127}));
-  connect(timTab.y[1], sub.u1) annotation (Line(points={{-59,-70},{14,-70},{14,
-          -4},{18,-4}}, color={0,0,127}));
+  connect(con.y, esc.uDevSta) annotation (Line(points={{-88,60},{80,60},{80,6},
+          {88,6}}, color={255,0,255}));
+  connect(con1.y, intWitRes.trigger) annotation (Line(points={{-88,-70},{60,-70},
+          {60,-12}},       color={255,0,255}));
+  connect(con2.y, intWitRes.y_reset_in) annotation (Line(points={{-88,-40},{-40,
+          -40},{-40,-8},{48,-8}},    color={0,0,127}));
+  connect(esc.y, sub.u2) annotation (Line(points={{112,0},{116,0},{116,-20},{
+          -90,-20},{-90,4},{-82,4}}, color={0,0,127}));
+  connect(sub.y, mul.u1) annotation (Line(points={{-58,10},{-50,10},{-50,16},{
+          -42,16}}, color={0,0,127}));
+  connect(sub.y, mul.u2) annotation (Line(points={{-58,10},{-50,10},{-50,4},{
+          -42,4}}, color={0,0,127}));
+  connect(mul.y, sub1.u1) annotation (Line(points={{-18,10},{-10,10},{-10,16},{
+          -2,16}}, color={0,0,127}));
+  connect(intWitRes.y, esc.uCos)
+    annotation (Line(points={{72,0},{80,0},{80,-6},{88,-6}}, color={0,0,127}));
+  connect(intWitRes.y, sub1.u2) annotation (Line(points={{72,0},{80,0},{80,-16},
+          {-10,-16},{-10,4},{-2,4}}, color={0,0,127}));
+  connect(sub1.y, intWitRes.u)
+    annotation (Line(points={{22,10},{40,10},{40,0},{48,0}}, color={0,0,127}));
+  connect(timTab.y[2], sub.u1) annotation (Line(points={{-89,20},{-86,20},{-86,
+          16},{-82,16}}, color={0,0,127}));
 annotation (experiment(StopTime=10800.0, Tolerance=1e-06),
   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/Utilities/Validation/ExtremumSeekingControl.mos"
     "Simulate and plot"),
@@ -69,7 +84,7 @@ First implementation.
 </li>
 </ul>
 </html>"),
-    Icon(coordinateSystem(extent={{-100,-120},{100,100}}),
+    Icon(coordinateSystem(extent={{-120,-100},{120,100}}),
          graphics={
         Ellipse(lineColor = {75,138,73},
                 fillColor={255,255,255},
@@ -80,5 +95,5 @@ First implementation.
                 pattern = LinePattern.None,
                 fillPattern = FillPattern.Solid,
                 points = {{-36,60},{64,0},{-36,-60},{-36,60}})}),
-    Diagram(coordinateSystem(extent={{-100,-100},{100,100}})));
+    Diagram(coordinateSystem(extent={{-120,-100},{120,100}})));
 end ExtremumSeekingControl;

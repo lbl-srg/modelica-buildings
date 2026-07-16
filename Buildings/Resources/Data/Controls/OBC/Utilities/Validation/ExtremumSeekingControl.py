@@ -20,13 +20,13 @@ def convertData():
                 # "%.0f" formats the row index i as an integer (no decimal places)
                 # "%.6f" formats the input signal (row[1]) with 6 decimal places
                 # "%.6f" formats the output signal (row[3]) with 6 decimal places
-                lines.append("%.0f, %.6f, %.6f\n" % (i, float(row[1]), float(row[3])))
+                lines.append("%.0f, %.6f, %.6f, %.6f\n" % (i, float(row[1]), float(row[2]), float(row[3])))
                 previousRow = row
             except ValueError:
                 # Reached the last line, which contains non-numeric text
                 # Prepend a t=0 entry using the last valid row's values
                 # Same format specifiers as above; the row index is hardcoded to 0
-                l = "%.0f, %.6f, %.6f\n" % (0, float(previousRow[1]), float(previousRow[3]))
+                l = "%.0f, %.6f, %.6f, %.6f\n" % (0, float(previousRow[1]), float(previousRow[2]), float(previousRow[3]))
                 lines.insert(0, l)
             i = i + 1
 
@@ -35,8 +35,9 @@ def convertData():
 # The rows in this file are as follows:
 #  - time in seconds
 #  - Input signal (Dimensionless)
+#  - Setpoint (Dimensionless)
 #  - Output signal (Dimensionless)
-double refData(%s, 3)
+double refData(%s, 4)
 """ % len(lines))  # "%s" is replaced with the row count so the Modelica reader knows the matrix dimensions (rows x 3 columns)
         filOut.writelines(lines)
 
