@@ -16,6 +16,10 @@ function convectionResistanceCircularPipe
     "Specific heat capacity of the fluid";
   input Modelica.Units.SI.MassFlowRate m_flow "Mass flow rate";
   input Modelica.Units.SI.MassFlowRate m_flow_nominal "Nominal mass flow rate";
+  // eps = 0.001e-3 m is the default absolute roughness for smooth HDPE pipe.
+  input Modelica.Units.SI.Length roughness = 0.001e-3
+    "Absolute pipe wall roughness";
+
 
   // Outputs
   output Modelica.Units.SI.ThermalResistance RFluPip
@@ -40,10 +44,7 @@ protected
   Real Nu "Nusselt";
 
   // Pipe roughness for Churchill friction factor.
-  // eps = 0.001e-3 m is the default absolute roughness for smooth HDPE pipe.
-  Real eps(unit="m") = 0.001e-3
-    "Absolute pipe wall roughness (0.001 mm, smooth HDPE default)";
-  Real eps_D = eps / (2*rTub_in)
+  Real eps_D = roughness / (2*rTub_in)
     "Relative pipe roughness epsilon/D";
 
   // Quintic Hermite anchor scalars 

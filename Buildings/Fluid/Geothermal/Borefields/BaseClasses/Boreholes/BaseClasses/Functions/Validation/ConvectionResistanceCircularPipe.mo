@@ -15,6 +15,8 @@ model ConvectionResistanceCircularPipe
     "Specific heat capacity of the fluid";
   parameter Modelica.Units.SI.MassFlowRate m_flow_nominal=1
     "Nominal mass flow rate";
+  parameter Modelica.Units.SI.Length roughness = 0.001e-3
+    "Absolute pipe wall roughness";
 
   Real Re "Reynolds number";
   Real Nu "Reynolds number";
@@ -32,6 +34,7 @@ equation
     kMed=kMed,
     muMed=muMed,
     cpMed=cpMed,
+    roughness=roughness,
     m_flow=m_flow,
     m_flow_nominal=m_flow_nominal);
   Nu = 1/(kMed*Modelica.Constants.pi*hSeg*RConv);
