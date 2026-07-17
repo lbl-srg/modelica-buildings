@@ -4,7 +4,7 @@ record flowParameters "Record for flow parameters"
 
   parameter Modelica.Units.SI.VolumeFlowRate V_flow[:](each min=0)
     "Volume flow rate at user-selected operating points";
-  parameter Modelica.Units.SI.PressureDifference dp[size(V_flow, 1)](each min=0,
+  parameter Modelica.Units.SI.PressureDifference dp[:](each min=0,
       each displayUnit="Pa") "Fan or pump total pressure at these flow rates";
 
   annotation (Documentation(info="<html>
@@ -19,6 +19,12 @@ must have the same size.
 </html>",
 revisions="<html>
 <ul>
+<li>
+July 17, 2026, by Antoine Gautier:<br/>
+Declared <code>dp</code> as an array of unknown size.
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/pull/4653\">#4653</a>.
+</li>
 <li>
 January 22, 2016, by Michael Wetter:<br/>
 Corrected type declaration of pressure difference.
