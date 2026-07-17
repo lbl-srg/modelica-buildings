@@ -65,11 +65,12 @@ The coupled simulation calls the function
 The interface specifies through <code>nDblRea</code> the number of values read from
 the Python function,
 and through <code>nDblWri</code> the number of values written to the Python function.
-The argument <code>samplePeriod</code> specifies the sampling period, and <code>flag</code>
-configures whether to use the instantaneous value, an average over the interval, or
-the integral over the interval. Setting the parameter <code>passPythonObject</code>
-to <code>true</code> enables passing a Python object from one invocation to
-the next, thereby reusing Python data from one call to another.
+The argument <code>samplePeriod</code> specifies the sampling period,
+<code>strWri</code> specifies the temporary working directory for TOUGH simulation,
+and <code>flag</code> configures whether to use the instantaneous value, an average
+over the interval, or the integral over the interval. Setting the parameter
+<code>passPythonObject</code> to <code>true</code> enables passing a Python object
+from one invocation to the next, thereby reusing Python data from one call to another.
 More explanation about the Python setup can be found in
 <a href=\"modelica://Buildings.Utilities.IO.Python_3_12.UsersGuide\">
 Buildings.Utilities.IO.Python_3_12.UsersGuide</a>.
@@ -80,12 +81,14 @@ where only the major sections are illustrated:
 </p>
 <pre>
   def doStep(dblInp, state):
-    # Retrieve state of last invocation, including
-    #   -- the path of the TOUGH working directory
-    #   -- the end clock time of the last TOUGH simulation,
-    #   -- the heat flow rate on the borehole wall that was measured in Modelica at last invocation,
-    #   -- the borehole wall temperature at the end of the last TOUGH simulation.
+    # retrieve state of last invocation, including
+    #   -- the path of the working directory
+    #   -- the Modelica simulation start time
+    #   -- the end time of the last TOUGH simulation,
+    #   -- the heat flow on the borehole wall that was measured in Modelica at last invocation,
+    #   -- the borehole wall temperature at the end of last TOUGH simulation.
     tou_tmp = state['work_dir']
+    startTime = state['startTime']
     tLast = state['tLast']
     Q_stored = state['Q']
     T_stored = state['T_tough']
@@ -99,12 +102,19 @@ where only the major sections are illustrated:
     #   -- update the GENER for specifying the heat flow boundary condition
     write_incon()
 
-    # Conduct one step TOUGH simulation
-    os.system(\"/.../tough3-install/bin/tough3-eos1\")
+    # Conduct one step TOUGH simulation with TOUGH executable
+    # The TOUGH simulation requires:
+    #   -- the INCON as the initial condition, including temperature, pressure at the mesh points
+    #   -- the INFILE for specifying the ground properties and the initial and end simulation time,
+    #   -- the GENER file for the heat flux boundary condition at the borehole wall
+    # The simulation will generate a SAVE file.
+    # os.system(\"/opt/esd-tough/tough3-serial/tough3-install/bin/tough3-eos3\")
+    # Dummy code to imitate the TOUGH simulation. It is to demonstrate the
+    # Modelica-TOUGH coupling process
+    tough_avatar(Q_toTough, T_out, nInt)
 
     # Extract borehole wall temperature from TOUGH simulation result, for Modelica simulation
     read_save()
-
     data = extract_data('out.txt', nTouSeg, nInt)
     T_tough = data['T_Bor']
     
@@ -116,7 +126,7 @@ where only the major sections are illustrated:
     ToModelica = T_toModelica + data['p_Int'] + data['x_Int'] + data['T_Int']
 
     # Update state
-    state = {'tLast': tim, 'Q': Q, 'T_tough': T_tough, 'work_dir': tou_tmp}
+    state = {'tLast': tim, 'startTime': startTime, 'Q': Q, 'T_tough': T_tough, 'work_dir': tou_tmp}
   return [ToModelica, state]
 </pre>
 

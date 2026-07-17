@@ -83,7 +83,6 @@ initial equation
 
 equation
   // Delete the TOUGH temporary working folder
-  // Note that the working folder path is specified in the Python function.
   when {initial(), terminal()} then
     Modelica.Utilities.Files.remove(touWorDir);
   end when;
