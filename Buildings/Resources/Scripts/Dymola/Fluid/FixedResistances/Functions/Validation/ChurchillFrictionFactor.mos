@@ -1,0 +1,15 @@
+simulateModel("Buildings.Fluid.FixedResistances.Functions.Validation.ChurchillFrictionFactor", stopTime=30000, tolerance=1e-6, method="CVode", resultFile="ChurchillFrictionFactor");
+
+createPlot(
+  id=1,
+  position={0, 0, 1000, 600},
+  x="Re",
+  y={"f_smooth", "f_rough", "f_lam"},
+  autoscale = true,
+  autoerase = true,
+  autoreplot = true,
+  grid=true,
+  color=true,
+  filename="ChurchillFrictionFactor.mat",
+  leftTitleType = 1,
+  bottomTitleType = 1);

@@ -16,6 +16,10 @@ function convectionResistanceCircularPipe
     "Specific heat capacity of the fluid";
   input Modelica.Units.SI.MassFlowRate m_flow "Mass flow rate";
   input Modelica.Units.SI.MassFlowRate m_flow_nominal "Nominal mass flow rate";
+  // eps = 0.001e-3 m is the default absolute roughness for smooth HDPE pipe.
+  input Modelica.Units.SI.Length roughness = 0.001e-3
+    "Absolute pipe wall roughness";
+
 
   // Outputs
   output Modelica.Units.SI.ThermalResistance RFluPip
@@ -35,30 +39,100 @@ protected
       m_flow,
       m_flow_nominal/30);
   Real Re "Reynolds number";
-  Real NuTurb "Nusselt at Re=2400";
+  Real Pr "Prandtl number";
+  Real f "Darcy-Weisbach friction factor from Churchill (1977)";
   Real Nu "Nusselt";
+
+  // Pipe roughness for Churchill friction factor.
+  Real eps_D = roughness / (2*rTub_in)
+    "Relative pipe roughness epsilon/D";
+
+  // Quintic Hermite anchor scalars 
+  Real NuTurb
+    "Gnielinski Nu at Re = Re_turb (upper anchor of quintic Hermite)";
+  Real NuTurb_fdp
+    "Gnielinski Nu at Re = Re_turb + h_fd (finite-difference point)";
+  Real NuTurb_fdm
+    "Gnielinski Nu at Re = Re_turb - h_fd (finite-difference point)";
+  Real dNuTurb_scaled
+    "dNu/dRe at Re = Re_turb, rescaled by transition width L_trans";
+  Real d2NuTurb_scaled
+    "d2Nu/dRe2 at Re = Re_turb, rescaled by L_trans^2";
+  
+  // Hermite parameter and basis-function helpers
+  Real t "Hermite parameter in [0,1] mapping Re_lam -> Re_turb";
+
+  // Finite-difference step for Gnielinski derivatives at Re = 4000
+  constant Real h_fd = 0.5 "Finite-difference step (Re units)";
+  constant Real Re_lam   = 2300 "Upper Reynolds number of laminar regime";
+  constant Real Re_turb  = 4000 "Lower Reynolds number of turbulent regime";
+  constant Real L_trans  = 1700 "Transition width = Re_turb - Re_lam";
 
 algorithm
   // Convection resistance and Reynolds number
   k := 2/(muMed*Modelica.Constants.pi*rTub_in);
   Re := m_flow_abs*k;
+  Pr := cpMed*muMed/kMed;
 
-  if Re>=2400 then
-    // Turbulent, fully-developped flow in a smooth circular pipe with the
-    // Dittus-Boelter correlation: h = 0.023*k_f*Re*Pr/(2*rTub)
-    // Re = rho*v*DTub / mue_f
-    //    = m_flow/(pi r^2) * DTub/mue_f = 2*m_flow / ( mue*pi*rTub)
-    Nu := 0.023*(cpMed*muMed/kMed)^(0.35)*
-      Buildings.Utilities.Math.Functions.regNonZeroPower(
-        x=Re,
-        n=0.8,
-        delta=0.01*m_flow_nominal*k);
+  if Re>=4000 then
+    // ------------------------------------------------------------------
+    // Turbulent — fully-developed flow.
+    // Gnielinski (1975) correlation with Churchill (1977) friction factor.
+    // ------------------------------------------------------------------
+    f  := .Buildings.Fluid.FixedResistances.Functions.churchillFrictionFactor(
+            Re=Re, eps_D=eps_D);
+    Nu := (f/8)*(Re - 1000)*Pr /
+            (1 + 12.7*sqrt(f/8)*(Pr^(2/3) - 1));
   else
-    // Laminar, fully-developped flow in a smooth circular pipe with uniform
-    // imposed temperature: Nu=3.66 for Re<=2300. For 2300<Re<2400, a smooth
-    // transition is created with the splice function.
-    NuTurb := 0.023*(cpMed*muMed/kMed)^(0.35)*(2400)^(0.8);
-    Nu := Buildings.Utilities.Math.Functions.spliceFunction(NuTurb,3.66,Re-(2300+2400)/2,((2300+2400)/2)-2300);
+    // ------------------------------------------------------------------
+    // Laminar (Re <= Re_lam): Nu = 3.66.
+    // Transition (Re_lam < Re < Re_turb): C2-continuous quintic Hermite.
+    //
+    // Matches at Re_lam: value = 3.66, slope = 0, curvature = 0
+    // Matches at Re_turb: value, slope and curvature from Gnielinski
+    //
+    // Active basis functions (H01, H02 drop out since Nu'(0)=Nu''(0)=0):
+    //   Nu(t) = 3.66*H00(t) + NuTurb*H10(t)
+    //         + dNuTurb_scaled*H11(t) + d2NuTurb_scaled*H12(t)
+    //   H00 = 1 - 10t^3 + 15t^4 - 6t^5
+    //   H10 =     10t^3 - 15t^4 + 6t^5
+    //   H11 =    - 4t^3 +  7t^4 - 3t^5
+    //   H12 =    0.5t^3 -    t^4 + 0.5t^5
+    //   t   = (Re - Re_lam) / L_trans in [0,1]
+    // ------------------------------------------------------------------
+
+    // Anchor scalars at Re_turb via central finite differences
+    NuTurb   := (.Buildings.Fluid.FixedResistances.Functions.churchillFrictionFactor(
+                   Re=Re_turb, eps_D=eps_D)/8)
+                *(Re_turb - 1000)*Pr
+                / (1 + 12.7*sqrt(
+                     .Buildings.Fluid.FixedResistances.Functions.churchillFrictionFactor(
+                       Re=Re_turb, eps_D=eps_D)/8)*(Pr^(2/3) - 1));
+
+    NuTurb_fdp := (.Buildings.Fluid.FixedResistances.Functions.churchillFrictionFactor(
+                     Re=Re_turb + h_fd, eps_D=eps_D)/8)
+                  *(Re_turb + h_fd - 1000)*Pr
+                  / (1 + 12.7*sqrt(
+                       .Buildings.Fluid.FixedResistances.Functions.churchillFrictionFactor(
+                         Re=Re_turb + h_fd, eps_D=eps_D)/8)*(Pr^(2/3) - 1));
+
+    NuTurb_fdm := (.Buildings.Fluid.FixedResistances.Functions.churchillFrictionFactor(
+                     Re=Re_turb - h_fd, eps_D=eps_D)/8)
+                  *(Re_turb - h_fd - 1000)*Pr
+                  / (1 + 12.7*sqrt(
+                       .Buildings.Fluid.FixedResistances.Functions.churchillFrictionFactor(
+                         Re=Re_turb - h_fd, eps_D=eps_D)/8)*(Pr^(2/3) - 1));
+
+    dNuTurb_scaled  := (NuTurb_fdp - NuTurb_fdm) / (2*h_fd) * L_trans;
+    d2NuTurb_scaled := (NuTurb_fdp - 2*NuTurb + NuTurb_fdm) / h_fd^2 * L_trans^2;
+
+    t := max(0, min(1, (Re - Re_lam) / L_trans));
+
+    Nu := 3.66  *(1 - 10*t^3 + 15*t^4 - 6*t^5)
+        + NuTurb        *(    10*t^3 - 15*t^4 + 6*t^5)
+        + dNuTurb_scaled*(  - 4*t^3 +  7*t^4 - 3*t^5)
+        + d2NuTurb_scaled*( 0.5*t^3 -    t^4 + 0.5*t^5);
+
   end if;
   h := Nu*kMed/(2*rTub_in);
 
@@ -67,31 +141,58 @@ algorithm
   annotation (Documentation(info="<html>
 <p>
 This model computes the convection resistance in the pipes of a borehole segment
-with heigth <i>h<sub>Seg</sub></i> using correlations suggested by Bergman et al. (2011).
+with heigth <i>h<sub>Seg</sub></i>.
 </p>
 <p>
-If the flow is laminar (<i>Re &le; 2300</i>, with <i>Re</i> being the Reynolds number of the flow),
-the Nusselt number of the flow is assumed to be constant at 3.66. If the flow is turbulent (<i>Re &gt; 2300</i>),
-the correlation of Dittus-Boelter is used to find the convection heat transfer coefficient as
+If the flow is laminar (<i>Re</i> &le; 2300), the Nusselt number is constant at
+Nu = 3.66. If the flow is turbulent (<i>Re</i> &ge; 4000), the Gnielinski (1975)
+correlation is used:
 </p>
 <p align=\"center\" style=\"font-style:italic;\">
-  Nu = 0.023 &nbsp; Re<sup>0.8</sup> &nbsp; Pr<sup>n</sup>,
+  Nu = (f/8)(Re &minus; 1000) Pr / (1 + 12.7 &radic;(f/8) (Pr<sup>2/3</sup> &minus; 1))
 </p>
 <p>
-where <i>Nu</i> is the Nusselt number and
-<i>Pr</i> is the Prandlt number.
-A value of <i>n=0.35</i> is used, as the reference uses <i>n=0.4</i> for heating and
-<i>n=0.3</i> for cooling. To ensure that the function is continuously differentiable,
-a smooth transition between the laminar and turbulent values is created for the
-range <i>2300 &lt; Re &lt; 2400</i>.
+where <i>f</i> is the Churchill (1977) friction factor, explicit and
+C&infin;-smooth across all flow regimes.
+</p>
+<p>
+For the transition region 2300 &lt; <i>Re</i> &lt; 4000, a <b>C&sup2;-continuous
+quintic Hermite interpolation</b> is used. The polynomial matches value, slope and
+curvature from the laminar branch at Re = 2300 and from Gnielinski at Re = 4000, giving C&sup2; continuity at both boundaries. Slope and curvature at Re = 4000 are evaluated by central finite difference on Gnielinski with step &Delta;Re = 0.5. All three anchor
+scalars (Nu<sub>turb</sub>, dNu<sub>turb</sub>&middot;L, d&sup2;Nu<sub>turb</sub>&middot;L&sup2;) are recomputed at every function call.
+</p>
+<p>
+Pipe roughness is set to &epsilon; = 0.001 mm (smooth HDPE default). The
+relative roughness &epsilon;/<i>D</i> is computed internally from the tube
+geometry. 
 </p>
 <h4>References</h4>
 <p>
-Bergman, T. L., Incropera, F. P., DeWitt, D. P., &amp; Lavine, A. S. (2011). <i>Fundamentals of heat and mass
-transfer</i> (7th ed.). New York: John Wiley &amp; Sons.
+Churchill, S. W. (1977). Friction-factor equation spans all fluid-flow regimes.
+<i>Chemical Engineering</i>, 84(24), 91&ndash;92.
+</p>
+<p>
+Gnielinski, V. (1975). Neue Gleichungen f&uuml;r den W&auml;rme- und den
+Stoff&uuml;bergang in turbulent durchstr&ouml;mten Rohren und Kan&auml;len.
+<i>Forschung im Ingenieurwesen</i>, 41(1), 8&ndash;16.
+<a href=\"https://doi.org/10.1007/BF02559682\">doi:10.1007/BF02559682</a>
+</p>
+<p>
+Gnielinski, V. (2013). On heat transfer in tubes.
+<i>International Journal of Heat and Mass Transfer</i>, 63, 134&ndash;140.
+<a href=\"https://doi.org/10.1016/j.ijheatmasstransfer.2013.04.015\">doi:10.1016/j.ijheatmasstransfer.2013.04.015</a>
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+July 14, 2026,by L. Meertens:<br/>
+Replaced Dittus-Boelter correlation with Gnielinski (1975).
+including Churchill (1977) friction factor.
+Extended turbulent transition region from Re=2400 to Re=4000. 
+Replaced C&sup1; sinusoidal splice with C&sup2; quintic Hermite interpolation
+in the transition region. <br/>
+This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4655\">Buildings, #4655</a>.
+</li>
 <li>
 June 4, 2023, by Michael Wetter:<br/>
 Corrected variability.<br/>

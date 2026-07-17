@@ -40,12 +40,13 @@ record Template
     annotation (Dialog(group="Tubes"));
   parameter Modelica.Units.SI.ThermalConductivity kTub
     "Thermal conductivity of the tube" annotation (Dialog(group="Tubes"));
-
   parameter Modelica.Units.SI.Length eTub "Thickness of a tube"
     annotation (Dialog(group="Tubes"));
-
   parameter Modelica.Units.SI.Length xC
     "Shank spacing, defined as the distance between the center of a pipe and the center of the borehole"
+    annotation (Dialog(group="Tubes"));
+  parameter Modelica.Units.SI.Length roughness = 0.001e-3
+    "Absolute roughness of the vertical GHE pipes"
     annotation (Dialog(group="Tubes"));
 
   //------------------------- Advanced parameters ------------------------------
