@@ -65,7 +65,7 @@ class SpawnExternalObject
     input Real derivatives_delta[nDer]
       "Increments for derivative calculation";
     output SpawnExternalObject adapter;
-  external "C" adapter=allocate_Modelica_EnergyPlus_24_2_0(
+  external "C" adapter=Modelica_EnergyPlus_24_2_0_allocate(
     objectType,
     startTime,
     modelicaNameBuilding,
@@ -107,7 +107,7 @@ class SpawnExternalObject
     derivatives_delta,
     nDer)
     annotation (
-      Include="#include <EnergyPlus_24_2_0_Wrapper.c>",
+      Include="#include <Modelica_EnergyPlus_24_2_0_allocate.c>",
       IncludeDirectory="modelica://Buildings/Resources/C-Sources",
       Library={"ModelicaBuildingsEnergyPlus_24_2_0","fmilib_shared"});
     annotation (
@@ -122,6 +122,12 @@ class SpawnExternalObject
   </html>",
         revisions="<html>
   <ul>
+  <li>
+  July 10, 2026, by Michael Wetter:<br/>
+  Corrected C function implementation to comply with Modelica Language Standard.<br/>
+  This change only affects the C function implementation and does not impact the Modelica function signature.<br/>
+  This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4658\">issue 4658</a>.
+  </li>
   <li>
   April 21, 2022, by Michael Wetter:<br/>
   Added support for EnergyPlus <code>RunPeriod</code> object.<br/>
@@ -148,9 +154,9 @@ class SpawnExternalObject
     "Release storage"
     extends Modelica.Icons.Function;
     input SpawnExternalObject adapter;
-  external "C" free_Modelica_EnergyPlus_24_2_0(adapter)
+  external "C" Modelica_EnergyPlus_24_2_0_free(adapter)
     annotation (
-      Include="#include <EnergyPlus_24_2_0_Wrapper.c>",
+      Include="#include <Modelica_EnergyPlus_24_2_0_free.c>",
       IncludeDirectory="modelica://Buildings/Resources/C-Sources",
       Library={"ModelicaBuildingsEnergyPlus_24_2_0","fmilib_shared"});
     annotation (
@@ -163,6 +169,12 @@ Destructor that frees the memory of the object.
         revisions="<html>
 <ul>
 <li>
+July 10, 2026, by Michael Wetter:<br/>
+Corrected C function implementation to comply with Modelica Language Standard.<br/>
+This change only affects the C function implementation and does not impact the Modelica function signature.<br/>
+This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4658\">issue 4658</a>.
+</li>
+ <li>
 February 18, 2021, by Michael Wetter:<br/>
 Refactor synchronization of constructors.<br/>
 This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2360\">#2360</a>.
@@ -187,6 +199,12 @@ of the data structure needed to communicate with the EnergyPlus FMU.
 </html>",
       revisions="<html>
 <ul>
+<li>
+July 10, 2026, by Michael Wetter:<br/>
+Corrected C function implementation to comply with Modelica Language Standard.<br/>
+This change only affects the C function implementation and does not impact the Modelica function signature.<br/>
+This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4658\">issue 4658</a>.
+</li>
 <li>
 December 11, 2021, by Michael Wetter:<br/>
 Declared function as <code>pure</code> for MSL 4.0.0.
