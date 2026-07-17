@@ -23,7 +23,7 @@ revisions="<html>
 July 17, 2026, by Antoine Gautier:<br/>
 Declared <code>dp</code> as an array of unknown size.
 This is for
-<a href=\"https://github.com/lbl-srg/modelica-buildings/pull/4653\">#4653</a>.
+<a href=\"https://github.com/lbl-srg/modelica-buildings/pull/4653\">Buildings, #4653</a>.
 </li>
 <li>
 January 22, 2016, by Michael Wetter:<br/>

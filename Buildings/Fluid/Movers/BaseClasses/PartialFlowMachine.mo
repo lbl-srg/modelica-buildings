@@ -645,10 +645,10 @@ revisions="<html>
 <ul>
 <li>
 July 17, 2026, by Antoine Gautier:<br/>
-Added an assertion that <code>per.pressure.V_flow</code> and 
+Added an assertion that <code>per.pressure.V_flow</code> and
 <code>per.pressure.dp</code> have equal size.
 This is for
-<a href=\"https://github.com/lbl-srg/modelica-buildings/pull/4653\">#4653</a>.
+<a href=\"https://github.com/lbl-srg/modelica-buildings/pull/4653\">Buildings, #4653</a>.
 </li>
 <li>
 August 26, 2024, by Michael Wetter:<br/>
