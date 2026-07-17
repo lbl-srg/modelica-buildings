@@ -113,7 +113,7 @@ env:
     - TEST_ARG="make test-openmodelica  PACKAGE=\"Buildings.Templates\""
     - TEST_ARG="make test-optimica  PACKAGE=\"Buildings.Templates\""
     - TEST_ARG="make test-templates-dymola PACKAGE=\"Buildings.Templates.AirHandlersFans\" COVER=0.5"
-    - TEST_ARG="make test-templates-dymola PACKAGE=\"Buildings.Templates.Plants.HeatPumps\" COVER=0.2"
+    - TEST_ARG="make test-templates-dymola PACKAGE=\"Buildings.Templates.Plants.HeatPumps\" COVER=0.5"
     - TEST_ARG="make test-templates-dymola PACKAGE=\"Buildings.Templates.ZoneEquipment\""
 
 before_install:

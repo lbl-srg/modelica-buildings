@@ -194,7 +194,7 @@ from each of the remote loops.
 </li>
 </ul>
 <h4>Details</h4>
-<p>This logic is prescribed in ASHRAE, 2021 for:
+<p>This logic is prescribed in ASHRAE, 2024 for:
 </p>
 <ul>
 <li>
@@ -219,7 +219,7 @@ but a local DP sensor is hardwired to the secondary pump controller.
 <h4>References</h4>
 <ul>
 <li id=\"ASHRAE2021\">
-ASHRAE, 2021. Guideline 36-2021, High-Performance Sequences of Operation
+ASHRAE, 2024. Guideline 36-2024, High-Performance Sequences of Operation
 for HVAC Systems. Atlanta, GA.
 </li>
 </ul>

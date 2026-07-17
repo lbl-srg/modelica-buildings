@@ -1,5 +1,5 @@
 within Buildings.Templates.Plants.Controls.Utilities.Validation;
-model MultiMinInteger
+model MultiMinInteger "Validation model"
   Buildings.Templates.Plants.Controls.Utilities.MultiMinInteger mulMin(nin=5)
     "Block that outputs the minimum element of the input vector"
     annotation (Placement(transformation(extent={{0,-10},{20,10}})));

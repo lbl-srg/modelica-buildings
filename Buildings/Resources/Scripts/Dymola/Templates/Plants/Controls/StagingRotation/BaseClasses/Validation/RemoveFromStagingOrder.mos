@@ -1,0 +1,27 @@
+simulateModel("Buildings.Templates.Plants.Controls.StagingRotation.BaseClasses.Validation.RemoveFromStagingOrder",
+    method="cvode",
+    tolerance=1e-6,
+    stopTime=6.0,
+    resultFile="RemoveFromStagingOrder");
+createPlot(
+    id=1,
+    position={5, 5, 500, 600},
+    subPlot=1,
+    y={"remStaOrd.uIdxSor[1]", "remStaOrd.uIdxSor[2]", "remStaOrd.uIdxSor[3]", "remStaOrd.uIdxSor[4]"},
+    autoscale=true,
+    grid=true
+);
+createPlot(
+    id=1,
+    subPlot=2,
+    y={"remStaOrd.u1[1]", "remStaOrd.u1[2]", "remStaOrd.u1[3]", "remStaOrd.u1[4]"},
+    autoscale=true,
+    grid=true
+);
+createPlot(
+    id=1,
+    subPlot=3,
+    y={"remStaOrd.yIdxSor[1]", "remStaOrd.yIdxSor[2]", "remStaOrd.yIdxSor[3]", "remStaOrd.yIdxSor[4]"},
+    autoscale=true,
+    grid=true
+);

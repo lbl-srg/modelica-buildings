@@ -1,8 +1,9 @@
 within Buildings.Templates.Components.HeatPumps;
 model AirToWater
   "Air-to-water heat pump"
-  extends Buildings.Templates.Components.BaseClasses.PartialHeatPumpTableData2DLoadDep (
-    redeclare final package MediumSou=MediumAir,
+  extends
+    Buildings.Templates.Components.BaseClasses.PartialHeatPumpTableData2DLoadDep(
+    redeclare final package MediumSou = MediumAir,
     final typ=Buildings.Templates.Components.Types.HeatPump.AirToWater,
     final allowFlowReversalSou=false,
     hp(use_intSafCtr=false));
@@ -29,13 +30,15 @@ equation
   connect(y1Rea.y, mAir_flow.u)
     annotation (Line(points={{60,8},{60,-48}}, color={0,0,127}));
   connect(floSou.port_b, TSouEnt.port_a)
-    annotation (Line(points={{80,-80},{80,-20},{40,-20}},color={0,127,255}));
+    annotation (Line(points={{80,-80},{80,-40},{40,-40}},color={0,127,255}));
   connect(port_aSou, floSou.port_a)
     annotation (Line(points={{80,-140},{80,-100}},color={0,127,255}));
   connect(mAir_flow.y, floSou.m_flow_in)
     annotation (Line(points={{60,-72},{60,-96},{72,-96}},color={0,0,127}));
-  connect(hp.on, y1Rea.u) annotation (Line(points={{-12,-6},{-14,-6},{-14,12},{40,
+  connect(hp.on, y1Rea.u) annotation (Line(points={{-12,-8},{-14,-8},{-14,12},{40,
           12},{40,40},{60,40},{60,32}},     color={255,0,255}));
+  connect(onHeaOrCoo.y, y1Rea.u)
+    annotation (Line(points={{10,100},{60,100},{60,32}}, color={255,0,255}));
   annotation (
     defaultComponentName="hp",
     Documentation(
@@ -65,6 +68,11 @@ for a description of the available control input and output variables.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+July 10, 2026, by Antoine Gautier:<br/>
+Added connection to enable heating-only or cooling-only mode for polyvalent heat pumps.<br/>
+This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4512\">#4512</a>.
+</li>
 <li>
 August 21, 2025, by Antoine Gautier:<br/>
 Refactored with load-dependent 2D table data heat pump model.<br/>
