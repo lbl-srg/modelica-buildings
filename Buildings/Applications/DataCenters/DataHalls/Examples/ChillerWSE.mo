@@ -68,7 +68,7 @@ model ChillerWSE
     Buildings.Applications.DataCenters.DataHalls.Racks.LiquidCooledSinglePhase.Data.OCP_1kW_OAM_PG25
     datRac(PIT_nominal=PRac, m_flow_nominal=mRac_flow_nominal)
     "Performance data for IT rack"
-    annotation (Placement(transformation(extent={{60,-98},{80,-78}})));
+    annotation (Placement(transformation(extent={{40,-80},{60,-60}})));
 
   parameter Real COPc_nominal=5 "Chiller COP";
   parameter Real epsWSE_nominal(min=0.5, max=0.95) = QWSE_flow_nominal /
@@ -101,7 +101,7 @@ model ChillerWSE
     mRac_flow_nominal=mRac_flow_nominal,
     dpHexPla_nominal=dpHexChi_nominal)
                                  "Data record for CDU"
-    annotation (Placement(transformation(extent={{60,60},{80,80}})));
+    annotation (Placement(transformation(extent={{40,60},{60,80}})));
   parameter Fluid.HeatExchangers.CoolingTowers.Data.DryCooler.Generic datCooTow(
     Q_flow_nominal=-PRac,
     TCooIn_nominal=TTowSup_nominal,
@@ -114,14 +114,14 @@ model ChillerWSE
 
   Controls.OBC.CDL.Reals.Sources.Constant uti(k=0.6)
     "Utilization of hardware"
-    annotation (Placement(transformation(extent={{-60,-50},{-40,-30}})));
+    annotation (Placement(transformation(extent={{-60,-80},{-40,-60}})));
   Buildings.Applications.DataCenters.DataHalls.Racks.LiquidCooledSinglePhase.ColdPlateR_P rac(
     redeclare package Medium = MediumRac,
     allowFlowReversal=false,
     dat=datRac,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
     "Rack with cold plate heat exchangers, modeled for simplicity as one large rack"
-    annotation (Placement(transformation(extent={{-10,-70},{10,-50}})));
+    annotation (Placement(transformation(extent={{-10,-110},{10,-90}})));
   Buildings.Fluid.Sources.Boundary_pT bou(
     redeclare package Medium = MediumChi,
     p(displayUnit="Pa") = 300000,
@@ -154,14 +154,17 @@ model ChillerWSE
     allowFlowReversal=false,
     m_flow_nominal=mRac_flow_nominal,
     tau=0) "Rack inlet temperature"
-    annotation (Placement(transformation(extent={{-40,24},{-60,44}})));
+    annotation (Placement(transformation(extent={{-162,-110},{-142,-90}})));
   Fluid.Sensors.TemperatureTwoPort senTRac_b(
     redeclare package Medium = MediumRac,
     allowFlowReversal=false,
     m_flow_nominal=mRac_flow_nominal,
     tau=0) "Rack outlet temperature"
-    annotation (Placement(transformation(extent={{60,24},{40,44}})));
-  Controls.OBC.CDL.Reals.Sources.Constant dpSet(k=50000) "Set point for head"
+    annotation (Placement(transformation(extent={{-10,-10},{10,10}},
+        rotation=0,
+        origin={90,-100})));
+  Controls.OBC.CDL.Reals.Sources.Constant dpSet(k=datRac.dp_nominal + valRac.dp_nominal)
+                                                         "Set point for head"
     annotation (Placement(transformation(extent={{-100,50},{-80,70}})));
   Controls.OBC.CDL.Reals.Sources.Constant TSetRacIn(y(final unit="K",
         displayUnit="degC"), k(
@@ -518,11 +521,6 @@ model ChillerWSE
   Controls.OBC.CDL.Reals.AddParameter invValSig2(p=1)
     "Invert valve control signal"
     annotation (Placement(transformation(extent={{-280,470},{-260,490}})));
-  Controls.OBC.CDL.Reals.Sources.Ramp ram(
-    height=-0.7,
-    duration(displayUnit="d") = 31536000,
-    offset=1)
-    annotation (Placement(transformation(extent={{-140,-6},{-120,14}})));
   Fluid.Sensors.TemperatureTwoPort senTTow_a(
     redeclare package Medium = MediumTow,
     allowFlowReversal=false,
@@ -618,6 +616,32 @@ public
     annotation (Placement(transformation(extent={{-400,680},{-380,700}})));
   Controls.OBC.CDL.Reals.Max yTowFan "Fan control signal"
     annotation (Placement(transformation(extent={{100,686},{120,706}})));
+  Fluid.Actuators.Valves.TwoWayLinear valRac(
+    redeclare package Medium = MediumRac,
+    m_flow_nominal=mRac_flow_nominal,
+    final dpValve_nominal=dpVal_nominal,
+    strokeTime=30,
+    y_start=0) "Valve for rack flow control" annotation (Placement(
+        transformation(
+        extent={{10,10},{-10,-10}},
+        rotation=180,
+        origin={-90,-100})));
+  Controls.OBC.CDL.Reals.Sources.Constant TSetRacOut(y(final unit="K",
+        displayUnit="degC"), k(
+      final unit="K",
+      displayUnit="degC") = TRacRet_nominal)
+    "Set point for rack outlet temperature"
+    annotation (Placement(transformation(extent={{-160,-40},{-140,-20}})));
+  Controls.OBC.CDL.Reals.PID conVal(
+    yMin=0.05,
+    u_s(final unit="K", displayUnit="degC"),
+    u_m(final unit="K", displayUnit="degC"),
+    final controllerType=Buildings.Controls.OBC.CDL.Types.SimpleController.PI,
+    final reverseActing=false,
+    r=10,
+    xi_start=1)
+    "Controller for valve"
+    annotation (Placement(transformation(extent={{-120,-40},{-100,-20}})));
 protected
   parameter Modelica.Units.SI.SpecificHeatCapacity cpAir_default=
       MediumAir.specificHeatCapacityCp(staAir_default)
@@ -639,12 +663,13 @@ equation
     annotation (Line(points={{50,120},{272,120}},
                                                color={0,127,255}));
   connect(cdu.port_bRac, senTRac_a.port_a)
-    annotation (Line(points={{-10,34},{-40,34}}, color={0,127,255}));
-  connect(rac.port_b, senTRac_b.port_a) annotation (Line(points={{10,-60},{80,
-          -60},{80,34},{60,34}},
+    annotation (Line(points={{-10,34},{-210,34},{-210,-100},{-162,-100}},
+                                                 color={0,127,255}));
+  connect(rac.port_b, senTRac_b.port_a) annotation (Line(points={{10,-100},{80,
+          -100}},           color={0,127,255}));
+  connect(senTRac_b.port_b, cdu.port_aRac) annotation (Line(points={{100,-100},
+          {220,-100},{220,34},{10,34}},
                             color={0,127,255}));
-  connect(senTRac_b.port_b, cdu.port_aRac) annotation (Line(points={{40,34},{10,
-          34}},             color={0,127,255}));
   connect(senTCDU_b.port_b, pumCDU.port_a) annotation (Line(points={{50,120},{220,
           120},{220,160}}, color={0,127,255}));
   connect(pumCDU.port_b, jun3.port_1) annotation (Line(points={{220,180},{220,220},
@@ -766,8 +791,8 @@ equation
           {-35,619.5},{-35,620},{-60,620}}, color={0,127,255}));
   connect(senTTow_a.port_a, pumTow.port_b) annotation (Line(points={{-80,620},{
           -220,620},{-220,610}}, color={0,127,255}));
-  connect(uti.y, rac.u) annotation (Line(points={{-38,-40},{-20,-40},{-20,-54},
-          {-11,-54}},
+  connect(uti.y, rac.u) annotation (Line(points={{-38,-70},{-20,-70},{-20,-94},
+          {-11,-94}},
                     color={0,0,127}));
   connect(cooTow.TDryBul, weaBus.TDryBul) annotation (Line(points={{-11.9,623.3},
           {-40,623.3},{-40,650},{-61.95,650},{-61.95,650.05}},   color={0,0,127}),
@@ -822,8 +847,6 @@ equation
                      color={0,0,127}));
   connect(TSetRacIn.y, cdu.TSet) annotation (Line(points={{-78,90},{-24,90},{
           -24,42},{-12,42}}, color={0,0,127}));
-  connect(rac.port_a, senTRac_a.port_b) annotation (Line(points={{-10,-60},{-92,
-          -60},{-92,34},{-60,34}}, color={0,127,255}));
   connect(senTCDU_a.port_a, jun5.port_2) annotation (Line(points={{-50,120},{-212,
           120},{-212,220},{-190,220}}, color={0,127,255}));
   connect(senTEvaIn.T, errTFre.u1) annotation (Line(points={{-10,231},{-10,240},
@@ -842,6 +865,16 @@ equation
           {-416,690},{-402,690}}, color={0,0,127}));
   connect(conTow.y, yTowFan.u2) annotation (Line(points={{82,710},{90,710},{90,
           690},{98,690}}, color={0,0,127}));
+  connect(rac.port_a, valRac.port_b)
+    annotation (Line(points={{-10,-100},{-80,-100}}, color={0,127,255}));
+  connect(valRac.port_a, senTRac_a.port_b)
+    annotation (Line(points={{-100,-100},{-142,-100}}, color={0,127,255}));
+  connect(TSetRacOut.y, conVal.u_s)
+    annotation (Line(points={{-138,-30},{-122,-30}}, color={0,0,127}));
+  connect(conVal.y, valRac.y)
+    annotation (Line(points={{-98,-30},{-90,-30},{-90,-88}}, color={0,0,127}));
+  connect(senTRac_b.T, conVal.u_m) annotation (Line(points={{90,-89},{90,-50},{
+          -110,-50},{-110,-42}}, color={0,0,127}));
   annotation (Diagram(coordinateSystem(extent={{-580,-120},{540,780}})),
     Icon(
         coordinateSystem(extent={{-100,-100},{100,100}})),
