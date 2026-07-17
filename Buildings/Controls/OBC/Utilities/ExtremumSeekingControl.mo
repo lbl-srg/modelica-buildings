@@ -1,55 +1,67 @@
 within Buildings.Controls.OBC.Utilities;
 block ExtremumSeekingControl
   "Block to implement extremum seeking control (ESC) logic"
+
   parameter Boolean have_hol=false
     "Set to true to allow holding the ESC output, false to continuously update when enabled"
     annotation(Dialog(group="General settings"), Evaluate=true);
+
   parameter Real iniSet(
     final unit="1",
     displayUnit="1")
     "Initial setpoint"
     annotation(Dialog(group="General settings"));
+
   parameter Real minSet(
     final unit="1",
     displayUnit="1")
     "Minimum setpoint"
     annotation(Dialog(group="General settings"));
+
   parameter Real maxSet(
     final unit="1",
     displayUnit="1")
     "Maximum setpoint"
     annotation(Dialog(group="General settings"));
+
   parameter Real delTim(
     min=100*1E-15,
     final unit="s")
     "Delay time between device being proven on and ESC start"
     annotation(Dialog(group="General settings"));
+
   parameter Real samplePeriod(
     min=1E-3,
     final unit="s")
     "Sample period of algorithm"
     annotation(Dialog(group="General settings"));
+
   parameter Real adjFac(
     final unit="1",
     displayUnit="1")
     "Step-change divisor"
     annotation(Dialog(group="General settings"));
+
   final parameter Real a=Modelica.Math.exp(-samplePeriod/tauFil)
     "Time-based filter for cost factor gradient";
+
   final parameter Real K=samplePeriod*(maxSet-minSet)/(adjFac*(tau+tauFil))
     "Integrator gain";
+
   parameter Real tau(
     final unit="s",
     displayUnit="s",
     final quantity="Time")
     "Time-constant of device"
     annotation(Dialog(group="Time constants"));
+
   parameter Real tauFil(
     final unit="s",
     displayUnit="s",
     final quantity="Time")
     "Time-constant of cost factor gradient filter"
     annotation(Dialog(group="Time constants"));
+
   parameter Real dtHol(
     min=0,
     start=0,
@@ -58,6 +70,7 @@ block ExtremumSeekingControl
     final quantity="Time")=0
     "Minimum hold time"
     annotation(Dialog(group="General settings",enable=have_hol));
+
   parameter Real dHys(
     final min=1e-13,
     final unit="1",
@@ -68,147 +81,217 @@ block ExtremumSeekingControl
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uDevSta
     "On/Off status of the associated device"
     annotation (Placement(transformation(extent={{-260,190},{-220,230}}),
-        iconTransformation(extent={{-140,40},{-100,80}})));
+      iconTransformation(extent={{-140,40},{-100,80}})));
+
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uHol if have_hol
     "Hold signal"
     annotation (Placement(transformation(extent={{-260,0},{-220,40}}),
       iconTransformation(extent={{-140,-20},{-100,20}})));
+
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uCos(
     final unit="1",
     displayUnit="1")
     "Cost-function value input"
     annotation (Placement(transformation(extent={{-260,-140},{-220,-100}}),
       iconTransformation(extent={{-140,-80},{-100,-40}})));
+
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput y(
     final unit="1",
     displayUnit="1")
     "Setpoint"
     annotation (Placement(transformation(extent={{220,190},{260,230}}),
-        iconTransformation(extent={{100,-20},{140,20}})));
+      iconTransformation(extent={{100,-20},{140,20}})));
 
   Buildings.Controls.OBC.CDL.Logical.TrueDelay tim(
     final delayTime=delTim + samplePeriod,
     final delayOnInit=true)
     "Send an on signal after some delay time"
     annotation (Placement(transformation(extent={{-200,200},{-180,220}})));
+
   Buildings.Controls.OBC.CDL.Reals.Switch swi
     "Switch between initial setpoint and reset setpoint"
     annotation (Placement(transformation(extent={{160,220},{180,200}})));
+
   Buildings.Controls.OBC.CDL.Reals.Switch swi2
     "Reinitialize setpoint to initial setting when device becomes OFF"
     annotation (Placement(transformation(extent={{100,170},{120,190}})));
+
   Buildings.Controls.OBC.CDL.Discrete.Sampler sampler(
     final samplePeriod=samplePeriod)
     "Sample the current value of the cost function at regular intervals"
     annotation (Placement(transformation(extent={{-200,-130},{-180,-110}})));
-  Buildings.Controls.OBC.CDL.Discrete.UnitDelay                        uniDel(final samplePeriod=
-        samplePeriod, final y_start=iniSet)
+
+  Buildings.Controls.OBC.CDL.Discrete.UnitDelay uniDel(
+    final samplePeriod=samplePeriod,
+    final y_start=iniSet)
     "Output the setpoint signal with a unit delay"
     annotation (Placement(transformation(extent={{-80,54},{-60,74}})));
 
-  Buildings.Controls.OBC.CDL.Discrete.UnitDelay                        uniDel1(final samplePeriod=
-        samplePeriod, final y_start=0)
+  Buildings.Controls.OBC.CDL.Discrete.UnitDelay uniDel1(
+    final samplePeriod=samplePeriod,
+    final y_start=0)
     "Apply a time delay to the cost function"
     annotation (Placement(transformation(extent={{-200,-170},{-180,-150}})));
+
   Buildings.Controls.OBC.CDL.Reals.Subtract sub
     "Check the change in cost function between the previous and current time instants"
     annotation (Placement(transformation(extent={{-120,-150},{-100,-130}})));
-  Buildings.Controls.OBC.CDL.Discrete.UnitDelay                        uniDel2(final samplePeriod=
-        samplePeriod, final y_start=0)
+
+  Buildings.Controls.OBC.CDL.Discrete.UnitDelay uniDel2(
+    final samplePeriod=samplePeriod,
+    final y_start=0)
     "Apply a time period delay on the derivative"
     annotation (Placement(transformation(extent={{-80,-150},{-60,-130}})));
-  Buildings.Controls.OBC.CDL.Reals.MultiplyByParameter gai1(k=a)
+
+  Buildings.Controls.OBC.CDL.Reals.MultiplyByParameter gai1(
+    final k=a)
     "Multiply the cost function derivative by the filter value"
     annotation (Placement(transformation(extent={{-40,-150},{-20,-130}})));
+
   Buildings.Controls.OBC.CDL.Reals.Add add2
-    "Add the current cost function value differential to the derivative from the previous instant"
+    "Add the current cost function value differential to the derivative from the
+    previous instant"
     annotation (Placement(transformation(extent={{0,-160},{20,-140}})));
-  Buildings.Controls.OBC.CDL.Reals.GreaterThreshold greThr(h=1e-6)
+
+  Buildings.Controls.OBC.CDL.Reals.GreaterThreshold greThr(
+    final h=1e-6)
     "Check if the adjusted cost function differential is greater than zero"
     annotation (Placement(transformation(extent={{40,-160},{60,-140}})));
+
   Buildings.Controls.OBC.CDL.Logical.And and2
-    "Start the timer when device is proven on and reset it when search direction is flipped"
+    "Start the timer when device is proven on and reset it when search direction
+    is flipped"
     annotation (Placement(transformation(extent={{-80,-50},{-60,-30}})));
+
   Buildings.Controls.OBC.CDL.Logical.Not not2
     "Generate false signal when the search direction is flipped"
     annotation (Placement(transformation(extent={{-140,-50},{-120,-30}})));
-  Buildings.Controls.OBC.CDL.Logical.Pre pre1 "Feedback delay for search direction flip signal"
+
+  Buildings.Controls.OBC.CDL.Logical.Pre pre1
+    "Feedback delay for search direction flip signal"
     annotation (Placement(transformation(extent={{-180,-50},{-160,-30}})));
-  Buildings.Controls.OBC.CDL.Logical.Timer tim1(t=tau + tauFil)
+
+  Buildings.Controls.OBC.CDL.Logical.Timer tim1(
+    final t=tau + tauFil)
     "Check if minimum time between search direction flips has elapsed"
     annotation (Placement(transformation(extent={{-40,-50},{-20,-30}})));
+
   Buildings.Controls.OBC.CDL.Logical.And and1
-    "Trigger the search direction flip when the cost function differential condition or setpoint limit conditions are satisfied in addition to the minimum time condition"
+    "Trigger the search direction flip when the cost function differential condition
+    or setpoint limit conditions are satisfied in addition to the minimum time condition"
     annotation (Placement(transformation(extent={{140,-50},{160,-30}})));
+
   Buildings.Controls.OBC.CDL.Logical.Toggle tog
     "Switch the optimal setpoint search direction each time the conditions are satisfied"
     annotation (Placement(transformation(extent={{-160,-210},{-140,-190}})));
-  Buildings.Controls.OBC.CDL.Logical.Sources.Constant con1(k=false) "Constant false Boolean signal"
+
+  Buildings.Controls.OBC.CDL.Logical.Sources.Constant con1(
+    final k=false)
+    "Constant false Boolean signal"
     annotation (Placement(transformation(extent={{-200,-220},{-180,-200}})));
-  Buildings.Controls.OBC.CDL.Conversions.BooleanToReal booToRea(realTrue=-1, realFalse=1)
-    "Convert the Boolean search direction into a Real value; The integer signs are based on the toggle behavior, which initially outputs False"
+
+  Buildings.Controls.OBC.CDL.Conversions.BooleanToReal booToRea(
+    final realTrue=-1,
+    final realFalse=1)
+    "Convert the Boolean search direction into a Real value; The integer signs are
+    based on the toggle behavior, which initially outputs False"
     annotation (Placement(transformation(extent={{-120,-210},{-100,-190}})));
-  Buildings.Controls.OBC.CDL.Reals.MultiplyByParameter gai2(k=K)
+
+  Buildings.Controls.OBC.CDL.Reals.MultiplyByParameter gai2(
+    final k=K)
     "Multiply the search direction by the constant step-change value"
     annotation (Placement(transformation(extent={{-80,-210},{-60,-190}})));
-  Buildings.Controls.OBC.CDL.Reals.Add add1 "Add the step-change to the output at previous instant"
+
+  Buildings.Controls.OBC.CDL.Reals.Add add1
+    "Add the step-change to the output at previous instant"
     annotation (Placement(transformation(extent={{-40,-220},{-20,-200}})));
-  CDL.Reals.GreaterThreshold                        greThr1(t=minSet + dHys, h=
-        dHys) "Check if the setpoint output is not at minimum value"
+
+  Buildings.Controls.OBC.CDL.Reals.GreaterThreshold greThr1(
+    final t=minSet + dHys,
+    final h=dHys)
+    "Check if the setpoint output is not at minimum value"
     annotation (Placement(transformation(extent={{10,-80},{30,-60}})));
-  CDL.Reals.LessThreshold lesThr(t=maxSet - dHys, h=dHys)
+
+  Buildings.Controls.OBC.CDL.Reals.LessThreshold lesThr(
+    final t=maxSet - dHys,
+    final h=dHys)
     "Check if the setpoint output is not at maximum value"
     annotation (Placement(transformation(extent={{10,-110},{30,-90}})));
-  CDL.Logical.And and3 "Check if setpoint output is between min and max values"
+
+  Buildings.Controls.OBC.CDL.Logical.And and3
+    "Check if setpoint output is between min and max values"
     annotation (Placement(transformation(extent={{50,-90},{70,-70}})));
-  CDL.Logical.Not not3
-    "Trigger the search direction toggle if setpoint output is at minimum or maximum setpoint"
+
+  Buildings.Controls.OBC.CDL.Logical.Not not3
+    "Trigger the search direction toggle if setpoint output is at minimum or maximum
+    setpoint"
     annotation (Placement(transformation(extent={{80,-90},{100,-70}})));
-  CDL.Logical.Or or2
+
+  Buildings.Controls.OBC.CDL.Logical.Or or2
     "Check if the setpoint limit condition or the cost function differential condition is met"
     annotation (Placement(transformation(extent={{110,-90},{130,-70}})));
-protected
-  Buildings.Controls.OBC.CDL.Reals.Sources.Constant iniSetCon(final k=iniSet)
+
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant iniSetCon(
+    final k=iniSet)
     "Initial setpoint"
     annotation (Placement(transformation(extent={{-90,220},{-70,240}})));
-  Buildings.Controls.OBC.CDL.Reals.Sources.Constant maxSetCon(final k=maxSet)
+
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant maxSetCon(
+    final k=maxSet)
     "Maximum setpoint constant"
     annotation (Placement(transformation(extent={{-28,100},{-8,120}})));
+
   Buildings.Controls.OBC.CDL.Reals.Min min1
     "Reset setpoint should not be higher than the maximum setpoint"
     annotation (Placement(transformation(extent={{12,130},{32,150}})));
-  Buildings.Controls.OBC.CDL.Logical.Not not1 "Return true when device is off"
+
+  Buildings.Controls.OBC.CDL.Logical.Not not1
+    "Return true when device is off"
     annotation (Placement(transformation(extent={{-90,170},{-70,190}})));
-  Buildings.Controls.OBC.CDL.Reals.Sources.Constant minSetCon(k=minSet)
+
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant minSetCon(
+    final k=minSet)
     "Minimum setpoint constant"
     annotation (Placement(transformation(extent={{12,100},{32,120}})));
+
   Buildings.Controls.OBC.CDL.Reals.Max maxInp
     "Reset setpoint should not be lower than the minimum setpoint"
     annotation (Placement(transformation(extent={{52,130},{72,150}})));
-  Buildings.Controls.OBC.CDL.Logical.Sources.Constant fal(final k=false) if not
-    have_hol "Constant – Placeholder value if there is no hold signal"
+
+  Buildings.Controls.OBC.CDL.Logical.Sources.Constant fal(
+    final k=false) if not have_hol
+    "Constant – Placeholder value if there is no hold signal"
     annotation (Placement(transformation(extent={{-210,50},{-190,70}})));
+
   Buildings.Controls.OBC.CDL.Reals.Switch swiHol
     "Switch to zero reset until hold is released and sampler clock ticks"
     annotation (Placement(transformation(extent={{-48,32},{-28,52}})));
-  Buildings.Controls.OBC.CDL.Logical.Not notHol "Return true if hold is released"
+
+  Buildings.Controls.OBC.CDL.Logical.Not notHol
+    "Return true if hold is released"
     annotation (Placement(transformation(extent={{-170,50},{-150,70}})));
+
   Buildings.Controls.OBC.CDL.Logical.Latch lat
-    "True when hold is active and sampler clock ticks: enables applying the last calculated reset before freezing output"
+    "True when hold is active and sampler clock ticks: enables applying the last
+    calculated reset before freezing output"
     annotation (Placement(transformation(extent={{-90,10},{-70,30}})));
+
   Buildings.Controls.OBC.CDL.Logical.TrueFalseHold truHol(
     final trueHoldDuration=dtHol,
     final falseHoldDuration=0) if have_hol
     "Hold true for the longer of dtHol and the time uHol remains true"
     annotation (Placement(transformation(extent={{-210,10},{-190,30}})));
+
   Buildings.Controls.OBC.CDL.Logical.And notHolAndTic
     "Return true if hold is released and sampler clock ticks"
     annotation (Placement(transformation(extent={{-130,30},{-110,50}})));
+
   Buildings.Controls.OBC.CDL.Logical.Sources.SampleTrigger samTri(
     final period=samplePeriod,
     final shift=0)
     "Generate signal matching the request sampling frequency"
     annotation (Placement(transformation(extent={{-170,10},{-150,30}})));
+
 equation
   connect(iniSetCon.y, swi.u3)
     annotation (Line(points={{-68,230},{80,230},{80,218},{158,218}},
@@ -373,7 +456,8 @@ Count time"),
           textColor={0,0,255},
           horizontalAlignment=TextAlignment.Left,
           textString="Optional hold of the loop output")}),
-   Documentation(info="<html>
+  Documentation(info="<html>
+<body>
 <p>
 This block implements an extremum seeking control (ESC) algorithm
 that automatically drives a setpoint towards the value that optimises
@@ -452,6 +536,7 @@ yields the following sequence of events.
 since <i>&lt;&nbsp;15&nbsp;</i>minutes have elapsed.</li>
 <li>0:15 - ESC resumes and continues from <i>50&nbsp;%</i>.</li>
 </ul>
+</body>
 </html>", revisions="<html>
 <ul>
 <li>

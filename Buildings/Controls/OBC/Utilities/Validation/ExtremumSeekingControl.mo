@@ -1,22 +1,26 @@
 within Buildings.Controls.OBC.Utilities.Validation;
 model ExtremumSeekingControl
   "Model validates the extremum seeking control block"
+
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant con(
-    final k=true) "Logic true indicating device ON"
+    final k=true)
+    "Logic true indicating device ON"
     annotation (Placement(transformation(extent={{-110,50},{-90,70}})));
 
   Buildings.Controls.OBC.Utilities.ExtremumSeekingControl esc(
     have_hol=false,
-    final iniSet=0,
-    final minSet=0,
-    final maxSet=1,
-    final delTim=1e-13,
-    final samplePeriod=1,
+    iniSet=0,
+    minSet=0,
+    maxSet=1,
+    delTim=1e-13,
+    samplePeriod=1,
     adjFac=5,
     tau=60,
     tauFil=5,
-    dtHol=300) "Block implementing extremum seeking control"
+    dtHol=300)
+    "Block implementing extremum seeking control"
     annotation (Placement(transformation(extent={{90,-10},{110,10}})));
+
   Modelica.Blocks.Sources.CombiTimeTable timTab(
     tableOnFile=true,
     tableName="refData",
@@ -24,25 +28,36 @@ model ExtremumSeekingControl
     extrapolation=Modelica.Blocks.Types.Extrapolation.Periodic,
     fileName=Modelica.Utilities.Files.loadResource("modelica://Buildings/Resources/Data/Controls/OBC/Utilities/Validation/ExtremumSeekingControl.mos"),
     columns={2,3,4})
-                   "Reference data"
+    "Reference data"
     annotation (Placement(transformation(extent={{-110,10},{-90,30}})));
-  Buildings.Controls.OBC.CDL.Reals.IntegratorWithReset intWitRes(k=1/60)
+
+  Buildings.Controls.OBC.CDL.Reals.IntegratorWithReset intWitRes(
+    k=1/60)
     "Integrator with reset for constructing first-order filter"
     annotation (Placement(transformation(extent={{50,-10},{70,10}})));
-  Buildings.Controls.OBC.CDL.Logical.Sources.Constant                        con1(final k=false)
+
+  Buildings.Controls.OBC.CDL.Logical.Sources.Constant con1(
+    final k=false)
     "Logic false"
     annotation (Placement(transformation(extent={{-110,-80},{-90,-60}})));
-  Buildings.Controls.OBC.CDL.Reals.Sources.Constant con2(k=0) "Constant zero signal"
+
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant con2(
+    final k=0)
+    "Constant zero signal"
     annotation (Placement(transformation(extent={{-110,-50},{-90,-30}})));
+
   Buildings.Controls.OBC.CDL.Reals.Subtract sub
     "Compute cost function as the difference between reference signal and current output"
     annotation (Placement(transformation(extent={{-80,0},{-60,20}})));
-  CDL.Reals.Multiply mul
+
+  Buildings.Controls.OBC.CDL.Reals.Multiply mul
     "Square of the difference to represent system dynamics"
     annotation (Placement(transformation(extent={{-40,0},{-20,20}})));
-  CDL.Reals.Subtract                        sub1
+
+  Buildings.Controls.OBC.CDL.Reals.Subtract sub1
     "Subtraction function used for representation of first-order filter"
     annotation (Placement(transformation(extent={{0,0},{20,20}})));
+
 equation
 
   connect(con.y, esc.uDevSta) annotation (Line(points={{-88,60},{80,60},{80,6},
