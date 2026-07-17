@@ -27,14 +27,10 @@ record Fan "Record for fan model"
     annotation (
     Dialog(group="Nominal condition",
       enable=typ <> Buildings.Templates.Components.Types.Fan.None));
-  // HACK: The following parameter declaration and corresponding bindings in
-  // per.pressure are a workaround against a false positive model check error with Dymola 2026.x.
-  final parameter Buildings.Fluid.Movers.BaseClasses.Characteristics.flowParameters pressure(
-    V_flow={0, 1, 2} * m_flow_nominal / 1.2 / max(1, nFan),
-    dp={1.5, 1, 0} * dp_nominal)
-    "Pressure curve";
   replaceable parameter Buildings.Fluid.Movers.Data.Generic per(
-    pressure(V_flow=pressure.V_flow, dp=pressure.dp))
+    pressure(
+      V_flow={0, 1, 2} * m_flow_nominal / 1.2 / max(1, nFan),
+      dp={1.5, 1, 0} * dp_nominal))
     constrainedby Buildings.Fluid.Movers.Data.Generic
     "Performance data"
     annotation (

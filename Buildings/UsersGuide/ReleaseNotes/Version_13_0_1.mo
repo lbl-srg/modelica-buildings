@@ -189,6 +189,16 @@ have been <b style=\"color:blue\">improved</b> in a
 <tr><td colspan=\"2\"><b>Buildings.Templates</b>
     </td>
 </tr>
+<tr><td valign=\"top\">Buildings.Templates.Components.Fans.ArrayVariable
+                       Buildings.Templates.Components.Fans.SingleConstant
+                       Buildings.Templates.Components.Fans.SingleVariable
+                       Buildings.Templates.Components.Pumps.Multiple
+                       Buildings.Templates.Components.Pumps.Single
+    </td>
+    <td valign=\"top\">Refactored to use a compiler-friendly mover model.<br/>
+                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/pull/4653\">Buildings, #4653</a>.
+    </td>
+</tr>
 <tr><td valign=\"top\">Buildings.Templates.Plants.Controls.HeatPumps.AirToWater
     </td>
     <td valign=\"top\">Refactored with a single instance of <code>SortRuntime</code> for both modes.<br/>

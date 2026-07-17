@@ -24,17 +24,15 @@ record PumpMultiple "Record for multiple-pump models"
     "Total pressure rise - Each pump"
     annotation (Dialog(group="Nominal condition",
     enable=typ<>Buildings.Templates.Components.Types.Pump.None));
-  // HACK: The following parameter declaration and corresponding bindings in
-  // per.pressure are a workaround against a false positive model check error with Dymola 2026.x.
-  final parameter Buildings.Fluid.Movers.BaseClasses.Characteristics.flowParameters pressure[max(nPum, 1)](
-    V_flow=if typ == Buildings.Templates.Components.Types.Pump.None then [0,0,0]
-      else {{0, 1, 2} * m_flow_nominal[i] / rho_default for i in 1:nPum},
-    dp=if typ == Buildings.Templates.Components.Types.Pump.None then [0,0,0]
-      else {{1.14, 1, 0.42} * dp_nominal[i] for i in 1:nPum})
-    "Pressure curve";
   // HACK: Some tools don't support zero-sized records, so nPum=0 is remapped to max(nPum, 1).
+  // Also, using [0,0,0] instead of [0] for the None type causes Dymola 2026.x to freeze
+  // while translating Buildings.Templates.Plants.HeatPumps.Validation.AirToWater.
   replaceable parameter Fluid.Movers.Data.Generic per[max(nPum, 1)](
-    pressure(V_flow=pressure.V_flow, dp=pressure.dp))
+    pressure(
+      V_flow=if typ == Buildings.Templates.Components.Types.Pump.None then [0]
+        else {{0, 1, 2} * m_flow_nominal[i] / rho_default for i in 1:nPum},
+      dp=if typ == Buildings.Templates.Components.Types.Pump.None then [0]
+        else {{1.14, 1, 0.42} * dp_nominal[i] for i in 1:nPum}))
     constrainedby Buildings.Fluid.Movers.Data.Generic
     "Performance data – Each pump"
     annotation(Dialog(enable=typ<>Buildings.Templates.Components.Types.Pump.None));
