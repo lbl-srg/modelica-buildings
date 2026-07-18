@@ -2,7 +2,7 @@ within Buildings.Controls.OBC.DemandFlexibility.Types;
 type ZoneControlVariant = enumeration(
     Variant_1 "Single-step temperature setpoint adjustment",
     Variant_2 "Multiple-step temperature setpoint adjustment without an electricity demand target",
-    Variant_3 "Multiple-step temperature setpoint adjustment with a single electricity demand target",
+    Variant_3 "Multiple-step temperature setpoint adjustment with a constant electricity demand target",
     Variant_4 "Multiple-step temperature setpoint adjustment with a varying electricity demand target")
   "Zone temperature setpoint control variant" annotation (Documentation(
       revisions="<html>
@@ -31,7 +31,7 @@ Multiple-step temperature setpoint adjustment without an electricity demand targ
 </td></tr>
 <tr><td><code>Variant_3</code></td>
 <td>
-Multiple-step temperature setpoint adjustment with a single electricity demand target.
+Multiple-step temperature setpoint adjustment with a constant electricity demand target.
 </td></tr>
 <tr><td><code>Variant_4</code></td>
 <td>

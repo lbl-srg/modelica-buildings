@@ -100,49 +100,62 @@ equation
     annotation (Line(points={{-220,100},{120,100},{120,8},{138,8}},
       color={255,127,0}));
   connect(setChaPre.y,zonSetSelByMod. uPre)
-    annotation (Line(points={{62,170},{80,170},{80,4},{138,4}},
-      color={0,0,127}));
+    annotation (Line(points={{62,170},{80,170},{80,4},{138,4}}, color={0,0,127}));
   connect(setChaShe.y,zonSetSelByMod. uShe)
-    annotation (Line(points={{62,-30},{80,-30},{80,-4},{138,-4}},
+    annotation (Line(points={{62,-30},{80,-30},{80,-4},{138,-4}}, color={0,0,127}));
+  connect(setChaReb.y,zonSetSelByMod. uReb)
+    annotation (Line(points={{62,-130},{120,-130},{120,-8},{138,-8}},
       color={0,0,127}));
-  connect(setChaReb.y,zonSetSelByMod. uReb) annotation (Line(points={{62,-130},
-          {120,-130},{120,-8},{138,-8}}, color={0,0,127}));
-  connect(TDefSet,zonSetSelByMod. uDef) annotation (Line(points={{-220,-100},{-160,
-          -100},{-160,0},{138,0}},     color={0,0,127}));
-  connect(conAirConMod.y, TSetBouSwiPre.u2) annotation (Line(points={{-58,30},{-40,
-          30},{-40,130},{-22,130}}, color={255,0,255}));
-  connect(conAirConMod.y, TSetBouSwiShe.u2) annotation (Line(points={{-58,30},{-40,
-          30},{-40,-70},{-22,-70}}, color={255,0,255}));
-  connect(conAirConMod.y, TSetBouSwiReb.u2) annotation (Line(points={{-58,30},{-40,
-          30},{-40,-170},{-22,-170}}, color={255,0,255}));
-  connect(TSetBouSwiPre.y1, setChaPre.uAllMaxSet) annotation (Line(points={{2,135},
-          {20,135},{20,168.2},{38,168.2}}, color={0,0,127}));
-  connect(setChaPre.uAllMinSet, TSetBouSwiPre.y2) annotation (Line(points={{38,164},
-          {30,164},{30,125},{2,125}}, color={0,0,127}));
-  connect(TSetBouSwiShe.y1, setChaShe.uAllMaxSet) annotation (Line(points={{2,-65},
-          {20,-65},{20,-31.8},{38,-31.8}}, color={0,0,127}));
-  connect(setChaShe.uAllMinSet, TSetBouSwiShe.y2) annotation (Line(points={{38,-36},
-          {30,-36},{30,-75},{2,-75}}, color={0,0,127}));
-  connect(TSetBouSwiReb.y1, setChaReb.uAllMaxSet) annotation (Line(points={{2,-165},
-          {20,-165},{20,-131.8},{38,-131.8}}, color={0,0,127}));
-  connect(TSetBouSwiReb.y2, setChaReb.uAllMinSet) annotation (Line(points={{2,-175},
-          {30,-175},{30,-136},{38,-136}}, color={0,0,127}));
-  connect(TPreTarSet, TSetBouSwiPre.u1) annotation (Line(points={{-220,-40},{-180,
-          -40},{-180,136},{-22,136}}, color={0,0,127}));
-  connect(TDefSet, TSetBouSwiPre.u3) annotation (Line(points={{-220,-100},{-160,
-          -100},{-160,124},{-22,124}}, color={0,0,127}));
-  connect(TDefSet, TSetBouSwiShe.u1) annotation (Line(points={{-220,-100},{-160,
-          -100},{-160,-64},{-22,-64}}, color={0,0,127}));
-  connect(TSheTarSet, TSetBouSwiShe.u3) annotation (Line(points={{-220,-160},{-80,
-          -160},{-80,-76},{-22,-76}}, color={0,0,127}));
-  connect(TDefSet, TSetBouSwiReb.u1) annotation (Line(points={{-220,-100},{-160,
-          -100},{-160,-164},{-22,-164}}, color={0,0,127}));
-  connect(TSheTarSet, TSetBouSwiReb.u3) annotation (Line(points={{-220,-160},{-80,
-          -160},{-80,-176},{-22,-176}}, color={0,0,127}));
+  connect(TDefSet,zonSetSelByMod. uDef)
+    annotation (Line(points={{-220,-100},{-160,-100},{-160,0},{138,0}},
+      color={0,0,127}));
+  connect(conAirConMod.y, TSetBouSwiPre.u2)
+    annotation (Line(points={{-58,30},{-40,30},{-40,130},{-22,130}},
+      color={255,0,255}));
+  connect(conAirConMod.y, TSetBouSwiShe.u2)
+    annotation (Line(points={{-58,30},{-40,30},{-40,-70},{-22,-70}},
+      color={255,0,255}));
+  connect(conAirConMod.y, TSetBouSwiReb.u2)
+    annotation (Line(points={{-58,30},{-40,30},{-40,-170},{-22,-170}},
+      color={255,0,255}));
+  connect(TSetBouSwiPre.y1, setChaPre.uAllMaxSet)
+    annotation (Line(points={{2,135},{20,135},{20,168.2},{38,168.2}},
+      color={0,0,127}));
+  connect(setChaPre.uAllMinSet, TSetBouSwiPre.y2)
+    annotation (Line(points={{38,164},{30,164},{30,125},{2,125}}, color={0,0,127}));
+  connect(TSetBouSwiShe.y1, setChaShe.uAllMaxSet)
+    annotation (Line(points={{2,-65},{20,-65},{20,-31.8},{38,-31.8}},
+      color={0,0,127}));
+  connect(setChaShe.uAllMinSet, TSetBouSwiShe.y2)
+    annotation (Line(points={{38,-36},{30,-36},{30,-75},{2,-75}}, color={0,0,127}));
+  connect(TSetBouSwiReb.y1, setChaReb.uAllMaxSet)
+    annotation (Line(points={{2,-165},{20,-165},{20,-131.8},{38,-131.8}},
+      color={0,0,127}));
+  connect(TSetBouSwiReb.y2, setChaReb.uAllMinSet)
+    annotation (Line(points={{2,-175},{30,-175},{30,-136},{38,-136}},
+      color={0,0,127}));
+  connect(TPreTarSet, TSetBouSwiPre.u1)
+    annotation (Line(points={{-220,-40},{-180,-40},{-180,136},{-22,136}},
+      color={0,0,127}));
+  connect(TDefSet, TSetBouSwiPre.u3)
+    annotation (Line(points={{-220,-100},{-160,-100},{-160,124},{-22,124}},
+      color={0,0,127}));
+  connect(TDefSet, TSetBouSwiShe.u1)
+    annotation (Line(points={{-220,-100},{-160,-100},{-160,-64},{-22,-64}},
+      color={0,0,127}));
+  connect(TSheTarSet, TSetBouSwiShe.u3)
+    annotation (Line(points={{-220,-160},{-80,-160},{-80,-76},{-22,-76}},
+      color={0,0,127}));
+  connect(TDefSet, TSetBouSwiReb.u1)
+    annotation (Line(points={{-220,-100},{-160,-100},{-160,-164},{-22,-164}},
+      color={0,0,127}));
+  connect(TSheTarSet, TSetBouSwiReb.u3)
+    annotation (Line(points={{-220,-160},{-80,-160},{-80,-176},{-22,-176}},
+      color={0,0,127}));
   annotation (defaultComponentName="zonCon",
     Icon(coordinateSystem(preserveAspectRatio=false,
         extent={{-100,-100},{100,100}},
-        grid={2,2}),                                  graphics={Rectangle(
+        grid={2,2}), graphics={Rectangle(
           extent={{-100,-120},{100,120}},
           lineColor={0,0,0},
           fillColor={255,255,255},
