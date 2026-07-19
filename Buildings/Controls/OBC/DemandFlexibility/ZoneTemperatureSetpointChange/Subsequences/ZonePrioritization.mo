@@ -7,11 +7,17 @@ block ZonePrioritization
   parameter Boolean airConMod
     "Air conditioning mode; true for the heating mode, false for the cooling mode";
 
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput TZon[nZon]
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput TZon[nZon](
+    each final unit="K",
+    each displayUnit="degC",
+    each final quantity="ThermodynamicTemperature")
     "Zone temperature"
     annotation (Placement(transformation(extent={{-160,0},{-120,40}}),
         iconTransformation(extent={{-140,0},{-100,40}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput TZonSet[nZon]
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput TZonSet[nZon](
+    each final unit="K",
+    each displayUnit="degC",
+    each final quantity="ThermodynamicTemperature")
     "Zone temperature setpoint, can be either a heating setpoint or a cooling setpoint, depending on the air conditioning mode"
     annotation (Placement(transformation(extent={{-160,-40},{-120,0}}),
         iconTransformation(extent={{-140,-40},{-100,0}})));

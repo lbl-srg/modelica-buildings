@@ -2,24 +2,47 @@ within Buildings.Controls.OBC.DemandFlexibility.ZoneTemperatureSetpointChange;
 block HeatingOrCooling
   "Zone heating or cooling temperature setpoint change"
 
-  parameter Real dTShe(min=0)
+  parameter Real dTShe(
+    min=0,
+    unit="K",
+    displayUnit="K")
     "Temperature setpoint change delta for the load-shed mode (positive value)";
-  parameter Real dTReb(min=0)
+  parameter Real dTReb(
+    min=0,
+    unit="K",
+    displayUnit="K")
     "Temperature setpoint change delta for the load-rebound mode (positive value)";
-  parameter Real dTSheThr(min=0)
+  parameter Real dTSheThr(
+    min=0,
+    unit="K",
+    displayUnit="K")
     "Threshold of temperature difference to trigger setpoint change during the load-shed mode (positive value)";
-  parameter Real dTSheHys(min=0)
+  parameter Real dTSheHys(
+    min=0,
+    unit="K",
+    displayUnit="K")
     "Hysteresis for the temperature difference during the load-shed mode";
-  parameter Real PBuiHys(min=0,start=1)
+  parameter Real PBuiHys(
+    min=0,
+    start=1,
+    unit="W")
     "Hysteresis for the electricity demand of the building"
     annotation (Dialog(enable = zonConVar == Buildings.Controls.OBC.DemandFlexibility.Types.ZoneControlVariant.Variant_3
       or zonConVar == Buildings.Controls.OBC.DemandFlexibility.Types.ZoneControlVariant.Variant_4));
-  parameter Real PBuiThrCon(min=0,start=1)
+  parameter Real PBuiThrCon(
+    min=0,
+    start=1,
+    unit="W")
     "Constant threshold for the electricity demand of the building"
     annotation (Dialog(enable = zonConVar == Buildings.Controls.OBC.DemandFlexibility.Types.ZoneControlVariant.Variant_3));
-  parameter Real TResInt(min=0)
+  parameter Real TResInt(
+    min=0,
+    unit="K",
+    displayUnit="K")
     "Temperature resolution interval used by an external zone temperature controller";
-  parameter Real samPerSetCha(min=0)
+  parameter Real samPerSetCha(
+    min=0,
+    unit="s")
     "Sampling period for the setpoint change";
   parameter Boolean airConMod
     "Air conditioning mode; true for the heating mode, false for the cooling mode";
@@ -30,32 +53,51 @@ block HeatingOrCooling
   parameter Buildings.Controls.OBC.DemandFlexibility.Types.ZoneControlVariant zonConVar
     "Zone control variant, from Variant 1 through Variant 4";
 
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput TCurZon[nZon]
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput TCurZon[nZon](
+    each final unit="K",
+    each displayUnit="degC",
+    each final quantity="ThermodynamicTemperature")
     "Current zone temperature"
     annotation (Placement(transformation(extent={{-260,20},{-220,60}}),
       iconTransformation(extent={{-140,20},{-100,60}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput TCurZonSet[nZon]
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput TCurZonSet[nZon](
+    each final unit="K",
+    each displayUnit="degC",
+    each final quantity="ThermodynamicTemperature")
     "Current zone temperature setpoint from the external setpoint controller"
     annotation (Placement(transformation(extent={{-260,-20},{-220,20}}),
         iconTransformation(extent={{-140,-20},{-100,20}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput TPreTarSet[nZon]
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput TPreTarSet[nZon](
+    each final unit="K",
+    each displayUnit="degC",
+    each final quantity="ThermodynamicTemperature")
     "Pre-cool or pre-heat target temperature setpoint"
     annotation (Placement(transformation(extent={{-260,-100},{-220,-60}}),
       iconTransformation(extent={{-140,-100},{-100,-60}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput TSheTarSet[nZon]
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput TSheTarSet[nZon](
+    each final unit="K",
+    each displayUnit="degC",
+    each final quantity="ThermodynamicTemperature")
     "Load-shed target temperature setpoint"
     annotation (Placement(transformation(extent={{-260,-140},{-220,-100}}),
       iconTransformation(extent={{-140,-140},{-100,-100}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput TDefSet[nZon]
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput TDefSet[nZon](
+    each final unit="K",
+    each displayUnit="degC",
+    each final quantity="ThermodynamicTemperature")
     "Default temperature setpoint"
     annotation (Placement(transformation(extent={{-260,-180},{-220,-140}}),
         iconTransformation(extent={{-140,-180},{-100,-140}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput PBuiThrVar
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput PBuiThrVar(
+    final unit="W",
+    final quantity="Power")
     if zonConVar == Buildings.Controls.OBC.DemandFlexibility.Types.ZoneControlVariant.Variant_4
     "Variable threshold for the electricity demand of the building"
     annotation (Placement(transformation(extent={{-260,60},{-220,100}}),
         iconTransformation(extent={{-140,60},{-100,100}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput PBui
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput PBui(
+    final unit="W",
+    final quantity="Power")
     if zonConVar == Buildings.Controls.OBC.DemandFlexibility.Types.ZoneControlVariant.Variant_3
       or zonConVar == Buildings.Controls.OBC.DemandFlexibility.Types.ZoneControlVariant.Variant_4
     "Electricity demand of the building"
@@ -69,7 +111,10 @@ block HeatingOrCooling
     "Demand flexibility mode; 0 = pre-cool or pre-heat, 1 = default, 2 = load-shed, 3 = load-rebound"
     annotation (Placement(transformation(extent={{-260,-60},{-220,-20}}),
       iconTransformation(extent={{-140,-60},{-100,-20}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealOutput TComZonSet[nZon]
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput TComZonSet[nZon](
+    each final unit="K",
+    each displayUnit="degC",
+    each final quantity="ThermodynamicTemperature")
     "Commanded zone temperature setpoint to the external setpoint controller to change the current temperature setpoint"
     annotation (Placement(transformation(extent={{220,-20},{260,20}}),
         iconTransformation(extent={{100,-20},{140,20}})));
@@ -86,7 +131,10 @@ protected
     "The zone qualification logic block"
     annotation (Placement(transformation(extent={{-80,112},{-60,148}})));
   Buildings.Controls.OBC.DemandFlexibility.ZoneTemperatureSetpointChange.Subsequences.ZonePrioritization
-    zonPri(final nZon=nZon, final airConMod=airConMod) if nZon > 1
+    zonPri(
+    final nZon=nZon,
+    final airConMod=airConMod)
+    if nZon > 1
     "The zone prioritization logic block"
     annotation (Placement(transformation(extent={{60,80},{80,100}})));
   Buildings.Controls.OBC.DemandFlexibility.ZoneTemperatureSetpointChange.Subsequences.ZoneControl zonCon[nZon](

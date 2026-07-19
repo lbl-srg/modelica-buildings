@@ -1,14 +1,26 @@
 within Buildings.Controls.OBC.DemandFlexibility.ZoneTemperatureSetpointChange.Subsequences;
 block ZoneQualification "Zone qualification"
 
-  parameter Real dTSheThr(min=0)
+  parameter Real dTSheThr(
+    min=0,
+    unit="K",
+    displayUnit="K")
     "Threshold of temperature difference to trigger setpoint change during the load-shed mode (positive value)";
-  parameter Real dTSheHys(min=0)
+  parameter Real dTSheHys(
+    min=0,
+    unit="K",
+    displayUnit="K")
     "Hysteresis for the temperature difference during the load-shed mode";
-  parameter Real PBuiHys(min=0,start=1)
+  parameter Real PBuiHys(
+    min=0,
+    start=1,
+    unit="W")
     "Hysteresis for the electricity demand of the building"
     annotation (Dialog(enable = use_demCon));
-  parameter Real TResInt(min=0)
+  parameter Real TResInt(
+    min=0,
+    unit="K",
+    displayUnit="K")
     "Temperature resolution interval used by an external zone temperature controller";
   parameter Boolean airConMod
     "Air conditioning mode; true for the heating mode, false for the cooling mode";
@@ -17,31 +29,52 @@ block ZoneQualification "Zone qualification"
   parameter Integer nZon(min=1)
     "Number of zones in the building";
 
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput TZon[nZon]
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput TZon[nZon](
+    each final unit="K",
+    each displayUnit="degC",
+    each final quantity="ThermodynamicTemperature")
     "Zone temperature"
     annotation (Placement(transformation(extent={{-300,160},{-260,200}}),
         iconTransformation(extent={{-140,20},{-100,60}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput TZonSet[nZon]
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput TZonSet[nZon](
+    each final unit="K",
+    each displayUnit="degC",
+    each final quantity="ThermodynamicTemperature")
     "Zone temperature setpoint, can be either a heating setpoint or a cooling setpoint, depending on the air conditioning mode"
     annotation (Placement(transformation(extent={{-300,120},{-260,160}}),
         iconTransformation(extent={{-140,-20},{-100,20}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput TPreTarSet[nZon]
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput TPreTarSet[nZon](
+    each final unit="K",
+    each displayUnit="degC",
+    each final quantity="ThermodynamicTemperature")
     "Pre-cool or pre-heat target temperature setpoint"
     annotation (Placement(transformation(extent={{-300,-100},{-260,-60}}),
       iconTransformation(extent={{-140,-100},{-100,-60}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput TSheTarSet[nZon]
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput TSheTarSet[nZon](
+    each final unit="K",
+    each displayUnit="degC",
+    each final quantity="ThermodynamicTemperature")
     "Load-shed target temperature setpoint"
     annotation (Placement(transformation(extent={{-300,-180},{-260,-140}}),
       iconTransformation(extent={{-140,-140},{-100,-100}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput TDefSet[nZon]
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput TDefSet[nZon](
+    each final unit="K",
+    each displayUnit="degC",
+    each final quantity="ThermodynamicTemperature")
     "Default temperature setpoint"
     annotation (Placement(transformation(extent={{-300,-260},{-260,-220}}),
         iconTransformation(extent={{-140,-180},{-100,-140}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput PBuiThr if use_demCon
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput PBuiThr(
+    final unit="W",
+    final quantity="Power")
+    if use_demCon
     "Threshold for the electricity demand of the building"
     annotation (Placement(transformation(extent={{-300,200},{-260,240}}),
         iconTransformation(extent={{-140,60},{-100,100}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput PBui if use_demCon
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput PBui(
+    final unit="W",
+    final quantity="Power")
+    if use_demCon
     "Electricity demand of the building"
     annotation (Placement(transformation(extent={{-300,240},{-260,280}}),
         iconTransformation(extent={{-140,100},{-100,140}})));

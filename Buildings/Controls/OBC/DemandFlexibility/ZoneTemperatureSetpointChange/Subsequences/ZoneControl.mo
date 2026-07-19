@@ -1,10 +1,18 @@
 within Buildings.Controls.OBC.DemandFlexibility.ZoneTemperatureSetpointChange.Subsequences;
 block ZoneControl "Zone temperature setpoint control"
 
-  parameter Real dTShe(min=0,start=1)
+  parameter Real dTShe(
+    min=0,
+    start=1,
+    unit="K",
+    displayUnit="K")
     "Temperature setpoint change delta for the load-shed mode (positive value)"
     annotation (Dialog(enable = incSetCha));
-  parameter Real dTReb(min=0,start=1)
+  parameter Real dTReb(
+    min=0,
+    start=1,
+    unit="K",
+    displayUnit="K")
     "Temperature setpoint change delta for the load-rebound mode (positive value)"
     annotation (Dialog(enable = incSetCha));
   parameter Boolean airConMod
@@ -12,19 +20,31 @@ block ZoneControl "Zone temperature setpoint control"
   parameter Boolean incSetCha
     "True: the setpoint change step is incremental for the load-shed mode and the load-rebound mode";
 
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput TPreTarSet
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput TPreTarSet(
+    final unit="K",
+    displayUnit="degC",
+    final quantity="ThermodynamicTemperature")
     "Pre-cool or pre-heat target temperature setpoint"
     annotation (Placement(transformation(extent={{-240,-60},{-200,-20}}),
       iconTransformation(extent={{-140,-40},{-100,0}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput TDefSet
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput TDefSet(
+    final unit="K",
+    displayUnit="degC",
+    final quantity="ThermodynamicTemperature")
     "Default temperature setpoint"
     annotation (Placement(transformation(extent={{-240,-120},{-200,-80}}),
       iconTransformation(extent={{-140,-120},{-100,-80}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput TCurZonSet
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput TCurZonSet(
+    final unit="K",
+    displayUnit="degC",
+    final quantity="ThermodynamicTemperature")
     "Current zone temperature setpoint from the external setpoint controller"
     annotation (Placement(transformation(extent={{-240,20},{-200,60}}),
       iconTransformation(extent={{-140,-2},{-100,38}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput TSheTarSet
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput TSheTarSet(
+    final unit="K",
+    displayUnit="degC",
+    final quantity="ThermodynamicTemperature")
     "Load-shed target temperature setpoint"
     annotation (Placement(transformation(extent={{-240,-180},{-200,-140}}),
       iconTransformation(extent={{-140,-80},{-100,-40}})));
@@ -36,7 +56,10 @@ block ZoneControl "Zone temperature setpoint control"
     "Demand flexibility mode; 0 = pre-cool or pre-heat, 1 = default, 2 = load-shed, 3 = load-rebound"
     annotation (Placement(transformation(extent={{-240,80},{-200,120}}),
       iconTransformation(extent={{-140,40},{-100,80}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealOutput TComZonSet
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput TComZonSet(
+    final unit="K",
+    displayUnit="degC",
+    final quantity="ThermodynamicTemperature")
     "Commanded zone temperature setpoint to the external setpoint controller to change the current temperature setpoint"
     annotation (Placement(transformation(extent={{200,-20},{240,20}}),
       iconTransformation(extent={{100,-20},{140,20}})));
