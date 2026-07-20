@@ -49,6 +49,16 @@ have been <b style=\"color:blue\">improved</b> in a
 <b style=\"color:blue\">backward compatible</b> way:
 </p>
 <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\" style=\"border-collapse:collapse;\">
+<tr><td colspan=\"2\"><b>Buildings.Air.Systems.SingleZone.VAV.Examples.OptimalStart</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Air.Systems.SingleZone.VAV.Examples.OptimalStart.BaseClasses.ZoneWithAHUConventional<br/>
+                       Buildings.Air.Systems.SingleZone.VAV.Examples.OptimalStart.BaseClasses.ZoneWithAHUG36
+    </td>
+    <td valign=\"top\">Changed the class type from block to model.<br/>
+                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4606\">Buildings, issue 4606</a>.
+    </td>
+</tr>
 <tr><td colspan=\"2\"><b>Buildings.Fluid.FixedResistances</b>
     </td>
 </tr>
@@ -57,6 +67,12 @@ have been <b style=\"color:blue\">improved</b> in a
     <td valign=\"top\">Updated to allow a flow exponent between 1 and 2,
                        enabling modeling of partially turbulent flows such as in microchannel heat exchangers.<br/>
                        This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4620\">Buildings, #4620</a>.
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Fluid.FixedResistances.BaseClasses.PlugFlowTransportDelay
+    </td>
+    <td valign=\"top\">Added nominal attribute to state variable.<br/>
+                       This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/2132\">IBPSA, issue 2132</a>.
     </td>
 </tr>
 <tr><td colspan=\"2\"><b>Buildings.Fluid.HeatExchangers</b>
@@ -75,14 +91,37 @@ have been <b style=\"color:blue\">improved</b> in a
                        This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4620\">Buildings, #4620</a>.
     </td>
 </tr>
-<tr><td colspan=\"2\"><b>Buildings.Air.Systems.SingleZone.VAV.Examples.OptimalStart</b>
+<tr><td colspan=\"2\"><b>Buildings.Fluid.Interfaces</b>
     </td>
 </tr>
-<tr><td valign=\"top\">Buildings.Air.Systems.SingleZone.VAV.Examples.OptimalStart.BaseClasses.ZoneWithAHUConventional<br/>
-                       Buildings.Air.Systems.SingleZone.VAV.Examples.OptimalStart.BaseClasses.ZoneWithAHUG36
+<tr><td valign=\"top\">
+                       Buildings.Fluid.Interfaces.ConservationEquation
     </td>
-    <td valign=\"top\">Changed the class type from block to model.<br/>
-                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4606\">Buildings, issue 4606</a>.
+    <td valign=\"top\">Added nominal attribute to state variable.<br/>
+                       This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/2132\">IBPSA, issue 2132</a>.
+    </td>
+</tr>
+<tr><td colspan=\"2\"><b>Buildings.Fluid.Sensors</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Fluid.Sensors.DensityTwoPort<br/>
+                       Buildings.Fluid.Sensors.EnthalpyFlowRate<br/>
+                       Buildings.Fluid.Sensors.EntropyFlowRate<br/>
+                       Buildings.Fluid.Sensors.LatentEnthalpyFlowRate<br/>
+                       Buildings.Fluid.Sensors.MassFractionTwoPort<br/>
+                       Buildings.Fluid.Sensors.PPMTwoPort<br/>
+                       Buildings.Fluid.Sensors.RelativeHumidityTwoPort<br/>
+                       Buildings.Fluid.Sensors.SensibleEnthalpyFlowRate<br/>
+                       Buildings.Fluid.Sensors.SpecificEnthalpyTwoPort<br/>
+                       Buildings.Fluid.Sensors.SpecificEntropyTwoPort<br/>
+                       Buildings.Fluid.Sensors.TemperatureTwoPort<br/>
+                       Buildings.Fluid.Sensors.TemperatureWetBulbTwoPort<br/>
+                       Buildings.Fluid.Sensors.TraceSubstancesTwoPort<br/>
+                       Buildings.Fluid.Sensors.Velocity<br/>
+                       Buildings.Fluid.Sensors.VolumeFlowRate
+    </td>
+    <td valign=\"top\">Added nominal attribute to state variable.<br/>
+                       This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/2132\">IBPSA, issue 2132</a>.
     </td>
 </tr>
 <tr><td colspan=\"2\"><b>Buildings.HeatTransfer.Windows</b>
@@ -148,6 +187,16 @@ have been <b style=\"color:blue\">improved</b> in a
     </td>
 </tr>
 <tr><td colspan=\"2\"><b>Buildings.Templates</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Templates.Components.Fans.ArrayVariable
+                       Buildings.Templates.Components.Fans.SingleConstant
+                       Buildings.Templates.Components.Fans.SingleVariable
+                       Buildings.Templates.Components.Pumps.Multiple
+                       Buildings.Templates.Components.Pumps.Single
+    </td>
+    <td valign=\"top\">Refactored to use a compiler-friendly mover model.<br/>
+                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/pull/4653\">Buildings, #4653</a>.
     </td>
 </tr>
 <tr><td valign=\"top\">Buildings.Templates.Plants.Controls.HeatPumps.AirToWater

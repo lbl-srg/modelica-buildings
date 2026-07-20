@@ -13,7 +13,8 @@ model MassFractionTwoPort "Ideal two port mass fraction sensor"
   Modelica.Blocks.Interfaces.RealOutput X(min=-1e-3,
                                           max=1.001,
                                           start=X_start,
-                                          final unit="kg/kg")
+                                          final unit="kg/kg",
+                                          nominal=Medium.X_default[i_x])
     "Mass fraction of the passing fluid"
     annotation (Placement(transformation(
         origin={0,110},
@@ -80,6 +81,11 @@ Buildings.Fluid.Sensors.UsersGuide</a> for an explanation.
 </html>",
 revisions="<html>
 <ul>
+<li>
+June 25, 2026, by Michael Wetter:<br/>
+Added <code>nominal</code> attribute to state variable.<br/>
+This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/2132\">IBPSA, #2132</a>.
+</li>
 <li>
 February 25, 2020, by Michael Wetter:<br/>
 Changed icon to display its operating state.<br/>

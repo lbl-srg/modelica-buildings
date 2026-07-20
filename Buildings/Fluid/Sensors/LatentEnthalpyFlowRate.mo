@@ -7,7 +7,9 @@ model LatentEnthalpyFlowRate
     tau=0);
   extends Buildings.Fluid.BaseClasses.IndexMassFraction(final substanceName="water");
   extends Modelica.Icons.RoundSensor;
-  Modelica.Blocks.Interfaces.RealOutput H_flow(final unit="W")
+  Modelica.Blocks.Interfaces.RealOutput H_flow(
+    final unit="W",
+    nominal=h_out_start*m_flow_nominal)
     "Latent enthalpy flow rate, positive if from port_a to port_b"
     annotation (Placement(transformation(
         origin={0,110},
@@ -145,6 +147,11 @@ The sensor can only be used with medium models that implement the function
 </html>",
 revisions="<html>
 <ul>
+<li>
+June 25, 2026, by Michael Wetter:<br/>
+Added <code>nominal</code> attribute to state variable.<br/>
+This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/2132\">IBPSA, #2132</a>.
+</li>
 <li>
 October 19, 2020, by Antoine Gautier:<br/>
 Changed default value for <code>tau</code> from <code>1</code> to <code>0</code>.<br/>

@@ -1,4 +1,4 @@
-last-generated=2019-04-17
+last-generated=2026-07-16
 statistics-fmu-dependencies=
 {
   "Derivatives": {
@@ -27,32 +27,16 @@ statistics-fmu-dependencies=
       "theCon.G",
       "preHea.T_ref",
       "preHea.alpha",
-      "vol.p_start",
-      "vol.T_start",
       "TOutSou.k"
     ],
     "der(vol.dynBal.m)": [
       "fluPor[1].m_flow",
       "fluPor[2].m_flow"
     ],
-    "fluPor[1].backward.T": [
-      "vol.p_start",
-      "vol.T_start"
-    ],
-    "fluPor[2].backward.T": [
-      "vol.p_start",
-      "vol.T_start"
-    ],
-    "vol.dynBal.U": [
-      "V",
-      "vol.p_start",
-      "vol.T_start"
-    ],
-    "vol.dynBal.m": [
-      "V",
-      "vol.p_start",
-      "vol.T_start"
-    ]
+    "fluPor[1].backward.T": [],
+    "fluPor[2].backward.T": [],
+    "vol.dynBal.U": [],
+    "vol.dynBal.m": []
   },
   "Outputs": {
     "TOut": [],
