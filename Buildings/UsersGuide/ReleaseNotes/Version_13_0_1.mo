@@ -41,6 +41,16 @@ to <b style=\"color:blue\">existing</b> libraries:
                        This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4620\">Buildings, #4620</a>.
     </td>
     </tr>
+<tr><td colspan=\"2\"><b>Buildings.Fluid.CHPs</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Fluid.CHPs.DistrictCHP
+    </td>
+    <td valign=\"top\">Package of CHP models for district energy systems.<br/>
+                       This is for
+                       <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3284\">issue 3284</a>.
+    </td>
+</tr>
 </table>
 <!-- Backward compatible changes -->
 <p>
