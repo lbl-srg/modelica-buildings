@@ -118,6 +118,9 @@ block HeatingOrCooling
     "Commanded zone temperature setpoint to the external setpoint controller to change the current temperature setpoint"
     annotation (Placement(transformation(extent={{220,-20},{260,20}}),
         iconTransformation(extent={{100,-20},{140,20}})));
+  CDL.Logical.Not            enaOneZon[nZon] if nZon == 1
+    "When there is only one zone in a building, always enable setpoint change for this zone"
+    annotation (Placement(transformation(extent={{60,120},{80,140}})));
 protected
   Buildings.Controls.OBC.DemandFlexibility.ZoneTemperatureSetpointChange.Subsequences.ZoneQualification zonQua(
     final dTSheThr=dTSheThr,
@@ -162,11 +165,6 @@ protected
     if zonConVar == Buildings.Controls.OBC.DemandFlexibility.Types.ZoneControlVariant.Variant_3
     "A constant threshold value for the electricity demand of the building"
     annotation (Placement(transformation(extent={{-180,100},{-160,120}})));
-  Buildings.Controls.OBC.CDL.Logical.Sources.Constant enaOneZon[nZon](
-    final k=fill(true, nZon))
-    if nZon == 1
-    "When there is only one zone in a building, always enable setpoint change for this zone"
-    annotation (Placement(transformation(extent={{60,40},{80,60}})));
 equation
   connect(zonQua.disFla, zonPri.disFla)
     annotation (Line(points={{-58,130},{-40,130},{-40,96},{58,96}},
@@ -234,9 +232,10 @@ equation
   connect(conPBuiThr.y, zonQua.PBuiThr)
     annotation (Line(points={{-158,110},{-150,110},{-150,138},{-82,138}},
       color={0,0,127}));
-  connect(enaOneZon.y, zonCon.uEna)
-    annotation (Line(points={{82,50},{100,50},{100,-100},{118,-100}},
-      color={255,0,255}));
+  connect(zonQua.disFla, enaOneZon.u)
+    annotation (Line(points={{-58,130},{58,130}}, color={255,0,255}));
+  connect(enaOneZon.y, zonCon.uEna) annotation (Line(points={{82,130},{100,130},
+          {100,-100},{118,-100}}, color={255,0,255}));
   annotation (defaultComponentName="heaOrCoo",
     Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-180},{100,180}},
     grid={2,2}), graphics={Rectangle(

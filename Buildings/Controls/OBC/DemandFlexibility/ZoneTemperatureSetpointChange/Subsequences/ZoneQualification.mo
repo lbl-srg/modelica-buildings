@@ -116,10 +116,10 @@ protected
     if use_demCon
     "Scaling a boolean scalar that indicates Condition 2 is not met"
     annotation (Placement(transformation(extent={{20,240},{40,260}})));
-  Buildings.Controls.OBC.CDL.Logical.Sources.Constant conDisCon2[nZon](
-    final k=fill(true,nZon))
+  Buildings.Controls.OBC.CDL.Logical.Sources.Constant conDisCon2[nZon](final k=
+        fill(false, nZon))
     if not use_demCon
-    "When logic for Condition 2 is disabled, output true in place of the Condition 2 logic"
+    "When logic for Condition 2 is disabled, output false in place of the Condition 2 logic"
     annotation (Placement(transformation(extent={{20,200},{40,220}})));
   Buildings.Controls.OBC.CDL.Reals.Subtract dTZon[nZon]
     "Zone temperature difference"
@@ -236,12 +236,11 @@ protected
   Buildings.Controls.OBC.CDL.Integers.Equal intEquShe
     "Check whether it is the load-shed mode"
     annotation (Placement(transformation(extent={{-100,40},{-80,60}})));
-  Buildings.Controls.OBC.CDL.Integers.Equal intEquPre if use_pre
+  Buildings.Controls.OBC.CDL.Integers.Equal intEquPre
     "Check whether it is the pre-cool or pre-heat mode"
     annotation (Placement(transformation(extent={{-100,80},{-80,100}})));
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant conIntPre(
     final k=Buildings.Controls.OBC.DemandFlexibility.Types.DemandFlexibilityModes.preCondition)
-    if use_pre
     "Integer constant for the pre-cool or pre-heat mode"
     annotation (Placement(transformation(extent={{-160,60},{-140,80}})));
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant conIntReb(
