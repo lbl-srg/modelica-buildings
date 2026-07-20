@@ -99,8 +99,9 @@ model ChillerWSE
     Q_flow_nominal=-PRac,
     mPla_flow_nominal=mPla_flow_nominal,
     mRac_flow_nominal=mRac_flow_nominal,
-    dpHexPla_nominal=dpHexChi_nominal)
-                                 "Data record for CDU"
+    dpHexPla_nominal=dpHexChi_nominal,
+    dpPumpExt_nominal=datRac.dp_nominal + pipRacIn.dp_nominal + pipRacOut.dp_nominal)
+      "Data record for CDU"
     annotation (Placement(transformation(extent={{40,60},{60,80}})));
   parameter Fluid.HeatExchangers.CoolingTowers.Data.DryCooler.Generic datCooTow(
     Q_flow_nominal=-PRac,
@@ -125,7 +126,7 @@ model ChillerWSE
   Buildings.Fluid.Sources.Boundary_pT bou(
     redeclare package Medium = MediumChi,
     p(displayUnit="Pa") = 300000,
-      nPorts=1) "Pressure boundary condition"
+    nPorts=1)   "Pressure boundary condition"
     annotation (Placement(transformation(extent={{292,110},{272,130}})));
   Buildings.Fluid.Sensors.TemperatureTwoPort senTCDU_a(
     redeclare package Medium = MediumChi,
@@ -236,7 +237,8 @@ model ChillerWSE
     addPowerToMedium=false,
     riseTime=5,
     m_flow_nominal=mWSETow_flow_nominal,
-    dp_nominal=dpHexChi_nominal) "Pump for tower loop" annotation (Placement(
+    dp_nominal=dpHexChi_nominal + pipTowIn.dp_nominal + pipTowOut.dp_nominal)
+                                 "Pump for tower loop" annotation (Placement(
         transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
@@ -346,7 +348,8 @@ model ChillerWSE
     addPowerToMedium=false,
     use_riseTime=false,
     m_flow_nominal=mPla_flow_nominal,
-    dp_nominal=dpHexChi_nominal) "Pump chilled water circuit" annotation (
+    dp_nominal=dpHexChi_nominal + pipCDUIn.dp_nominal + pipCDUOut.dp_nominal)
+                                 "Pump chilled water circuit" annotation (
       Placement(transformation(
         extent={{10,10},{-10,-10}},
         rotation=270,
@@ -643,12 +646,48 @@ public
     "Controller for valve"
     annotation (Placement(transformation(extent={{-120,-40},{-100,-20}})));
   Modelica.Blocks.Math.Gain PITIn(
-    k(
-      final unit="W",
+    k(final unit="W",
       min=0) = datRac.PIT_nominal,
     u(final unit="1"),
     y(final unit="W")) "Power consumption by the IT equipment"
     annotation (Placement(transformation(extent={{-40,-80},{-20,-60}})));
+  replaceable model Pipe = Fluid.FixedResistances.HydraulicDiameter
+    constrainedby
+    Fluid.FixedResistances.HydraulicDiameter(
+      show_T=true,
+      v_nominal=5,
+      roughness=0.015E-3,
+      length=20,
+      fac=2)
+    "Pipe model";
+  Pipe pipTowIn(
+    redeclare package Medium = MediumTow,
+    m_flow_nominal=mWSETow_flow_nominal) "Pipe at tower inlet"
+    annotation (Placement(transformation(extent={{-178,610},{-158,630}})));
+  Pipe pipTowOut(
+    redeclare package Medium = MediumTow,
+    m_flow_nominal=mWSETow_flow_nominal) "Pipe at tower outlet"
+    annotation (Placement(transformation(extent={{120,610},{140,630}})));
+  Pipe pipCDUIn(
+    redeclare package Medium = MediumChi,
+    allowFlowReversal=false,
+    m_flow_nominal=mPla_flow_nominal) "Pipe at CDU inlet"
+    annotation (Placement(transformation(extent={{-190,110},{-170,130}})));
+  Pipe pipCDUOut(
+    redeclare package Medium = MediumChi,
+    allowFlowReversal=false,
+    m_flow_nominal=mPla_flow_nominal) "Pipe at CDU outlet"
+    annotation (Placement(transformation(extent={{150,110},{170,130}})));
+  Pipe pipRacIn(
+    redeclare package Medium = MediumRac,
+    allowFlowReversal=false,
+    m_flow_nominal=mRac_flow_nominal) "Pipe at rack inlet"
+    annotation (Placement(transformation(extent={{-200,-110},{-180,-90}})));
+  Pipe pipRacOut(
+    redeclare package Medium = MediumRac,
+    allowFlowReversal=false,
+    m_flow_nominal=mRac_flow_nominal) "Pipe at rack outlet"
+    annotation (Placement(transformation(extent={{138,-110},{158,-90}})));
 protected
   parameter Modelica.Units.SI.SpecificHeatCapacity cpAir_default=
       MediumAir.specificHeatCapacityCp(staAir_default)
@@ -666,19 +705,8 @@ equation
   connect(cdu.port_bPla, senTCDU_b.port_a) annotation (Line(points={{10,46},{20,
           46},{20,120},{30,120}},
                             color={0,127,255}));
-  connect(senTCDU_b.port_b, bou.ports[1])
-    annotation (Line(points={{50,120},{272,120}},
-                                               color={0,127,255}));
-  connect(cdu.port_bRac, senTRac_a.port_a)
-    annotation (Line(points={{-10,34},{-210,34},{-210,-100},{-162,-100}},
-                                                 color={0,127,255}));
   connect(rac.port_b, senTRac_b.port_a) annotation (Line(points={{10,-100},{80,
           -100}},           color={0,127,255}));
-  connect(senTRac_b.port_b, cdu.port_aRac) annotation (Line(points={{100,-100},
-          {220,-100},{220,34},{10,34}},
-                            color={0,127,255}));
-  connect(senTCDU_b.port_b, pumCDU.port_a) annotation (Line(points={{50,120},{220,
-          120},{220,160}}, color={0,127,255}));
   connect(pumCDU.port_b, jun3.port_1) annotation (Line(points={{220,180},{220,220},
           {170,220}}, color={0,127,255}));
   connect(jun2.port_2, senTEvaIn.port_a)
@@ -716,8 +744,6 @@ equation
   connect(cooTow.port_b, senTTow_b.port_a) annotation (Line(points={{9,619.5},{28.5,
           619.5},{28.5,620},{60,620}},
                                      color={0,127,255}));
-  connect(senTTow_b.port_b, jun1.port_1) annotation (Line(points={{80,620},{180,
-          620},{180,540},{170,540}}, color={0,127,255}));
   connect(weaBus, weaDat.weaBus) annotation (Line(
       points={{-62,650},{-102,650}},
       color={255,204,51},
@@ -730,8 +756,6 @@ equation
     annotation (Line(points={{182,170},{208,170}}, color={0,0,127}));
   connect(hysChi.y,yPumChi. u)
     annotation (Line(points={{-378,260},{-302,260}}, color={255,0,255}));
-  connect(senTTow_b.port_b, bou1.ports[1])
-    annotation (Line(points={{80,620},{228,620}}, color={0,127,255}));
   connect(TOffSet.u, TSetEva.y)
     annotation (Line(points={{-532,390},{-546,390}}, color={0,0,127}));
   connect(PFan.y, EFan.u)
@@ -796,8 +820,6 @@ equation
           260},{-278,260}}, color={0,0,127}));
   connect(cooTow.port_a, senTTow_a.port_b) annotation (Line(points={{-10,619.5},
           {-35,619.5},{-35,620},{-60,620}}, color={0,127,255}));
-  connect(senTTow_a.port_a, pumTow.port_b) annotation (Line(points={{-80,620},{
-          -220,620},{-220,610}}, color={0,127,255}));
   connect(cooTow.TDryBul, weaBus.TDryBul) annotation (Line(points={{-11.9,623.3},
           {-40,623.3},{-40,650},{-61.95,650},{-61.95,650.05}},   color={0,0,127}),
       Text(
@@ -851,8 +873,6 @@ equation
                      color={0,0,127}));
   connect(TSetRacIn.y, cdu.TSet) annotation (Line(points={{-78,90},{-24,90},{
           -24,42},{-12,42}}, color={0,0,127}));
-  connect(senTCDU_a.port_a, jun5.port_2) annotation (Line(points={{-50,120},{-212,
-          120},{-212,220},{-190,220}}, color={0,127,255}));
   connect(senTEvaIn.T, errTFre.u1) annotation (Line(points={{-10,231},{-10,240},
           {-470,240},{-470,276},{-442,276}}, color={0,0,127}));
   connect(errTFre.u2, TOffSet.y) annotation (Line(points={{-442,264},{-496,264},
@@ -883,6 +903,34 @@ equation
     annotation (Line(points={{-58,-70},{-42,-70}}, color={0,0,127}));
   connect(PITIn.y, rac.P) annotation (Line(points={{-19,-70},{-16,-70},{-16,-94},
           {-11,-94}}, color={0,0,127}));
+  connect(pumCDU.port_a, bou.ports[1]) annotation (Line(points={{220,160},{220,120},
+          {272,120}}, color={0,127,255}));
+  connect(jun1.port_1, bou1.ports[1]) annotation (Line(points={{170,540},{180,540},
+          {180,620},{228,620}}, color={0,127,255}));
+  connect(senTTow_a.port_a, pipTowIn.port_b)
+    annotation (Line(points={{-80,620},{-158,620}}, color={0,127,255}));
+  connect(pipTowIn.port_a, pumTow.port_b) annotation (Line(points={{-178,620},{-220,
+          620},{-220,610}}, color={0,127,255}));
+  connect(senTTow_b.port_b, pipTowOut.port_a)
+    annotation (Line(points={{80,620},{120,620}}, color={0,127,255}));
+  connect(pipTowOut.port_b, jun1.port_1) annotation (Line(points={{140,620},{180,
+          620},{180,540},{170,540}}, color={0,127,255}));
+  connect(senTCDU_a.port_a, pipCDUIn.port_b)
+    annotation (Line(points={{-50,120},{-170,120}}, color={0,127,255}));
+  connect(pipCDUIn.port_a, jun5.port_2) annotation (Line(points={{-190,120},{-200,
+          120},{-200,220},{-190,220}}, color={0,127,255}));
+  connect(senTCDU_b.port_b, pipCDUOut.port_a)
+    annotation (Line(points={{50,120},{150,120}}, color={0,127,255}));
+  connect(pipCDUOut.port_b, pumCDU.port_a) annotation (Line(points={{170,120},{220,
+          120},{220,160}}, color={0,127,255}));
+  connect(cdu.port_bRac, pipRacIn.port_a) annotation (Line(points={{-10,34},{-210,
+          34},{-210,-100},{-200,-100}}, color={0,127,255}));
+  connect(pipRacIn.port_b, senTRac_a.port_a)
+    annotation (Line(points={{-180,-100},{-162,-100}}, color={0,127,255}));
+  connect(senTRac_b.port_b, pipRacOut.port_a)
+    annotation (Line(points={{100,-100},{138,-100}}, color={0,127,255}));
+  connect(pipRacOut.port_b, cdu.port_aRac) annotation (Line(points={{158,-100},{
+          220,-100},{220,34},{10,34}}, color={0,127,255}));
   annotation (Diagram(coordinateSystem(extent={{-580,-120},{540,780}})),
     Icon(
         coordinateSystem(extent={{-100,-100},{100,100}})),
