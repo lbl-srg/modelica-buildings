@@ -88,31 +88,31 @@ model LiquidCooledSinglePhase
       iconTransformation(extent={{92,-50},{112,-30}})));
 
   // Control inputs on the left
-  Modelica.Blocks.Interfaces.RealInput uLiq(final unit="1", min=0)
-    "Normalized utilization for liquid-cooled IT"
-    annotation (Placement(transformation(extent={{-140,50},{-100,90}}),
-      iconTransformation(extent={{-120,70},{-100,90}})));
+  Modelica.Blocks.Interfaces.RealInput PLiq(final unit="W", min=0)
+    "Power consumed by for liquid-cooled IT"
+    annotation (Placement(transformation(extent={{-140,52},{-100,92}}),
+      iconTransformation(extent={{-120,72},{-100,92}})));
 
-  Modelica.Blocks.Interfaces.RealInput uAir(final unit="1", min=0)
-    "Normalized utilization for air-cooled IT"
+  Modelica.Blocks.Interfaces.RealInput PAir(final unit="W", min=0)
+    "Power consumed by air-cooled IT"
     annotation (Placement(transformation(extent={{-140,-110},{-100,-70}}),
       iconTransformation(extent={{-120,-90},{-100,-70}})));
 
   // Power outputs on the right
-  Controls.OBC.CDL.Interfaces.RealOutput PLiq(final unit="W")
-    "Electric power consumed by liquid-cooled IT"
-    annotation (Placement(transformation(extent={{100,60},{140,100}}),
-        iconTransformation(extent={{100,60},{140,100}})));
+  Modelica.Blocks.Interfaces.RealOutput PLiqTot(final unit="W")
+    "Electric power consumed by liquid-cooled IT" annotation (Placement(
+        transformation(extent={{100,80},{120,100}}), iconTransformation(extent={{100,80},
+            {120,100}})));
 
-  Controls.OBC.CDL.Interfaces.RealOutput PAir(final unit="W")
+  Modelica.Blocks.Interfaces.RealOutput PAirTot(final unit="W")
     "Electric power consumed by air-cooled IT, including fan energy"
     annotation (Placement(transformation(extent={{100,-80},{120,-60}}),
         iconTransformation(extent={{100,-80},{120,-60}})));
 
-  Controls.OBC.CDL.Interfaces.RealOutput PFan(final unit="W")
-    "Electric power consumed by fan for air-cooled IT"
-    annotation (Placement(transformation(extent={{100,-100},{120,-80}}),
-        iconTransformation(extent={{100,-110},{140,-70}})));
+  Modelica.Blocks.Interfaces.RealOutput PAirFan(final unit="W")
+    "Electric power consumed by fan for air-cooled IT" annotation (Placement(
+        transformation(extent={{100,-100},{120,-80}}), iconTransformation(
+          extent={{100,-100},{120,-80}})));
 
   // Component instances
   Buildings.Applications.DataCenters.DataHalls.Racks.LiquidCooledSinglePhase.ColdPlateR_P
@@ -146,20 +146,17 @@ equation
     annotation (Line(points={{-100,-40},{-10,-40}}, color={0,127,255}));
   connect(air.port_b, portAir_b)
     annotation (Line(points={{10,-40},{102,-40}}, color={0,127,255}));
-  connect(uLiq, liq.u)
-    annotation (Line(points={{-120,70},{-60,70},{-60,46},{-11,46}},
-        color={0,0,127}));
-  connect(uAir, air.u)
-    annotation (Line(points={{-120,-90},{-60,-90},{-60,-34},{-11,-34}},
-        color={0,0,127}));
-  connect(liq.P, PLiq)
-    annotation (Line(points={{11,48},{80,48},{80,80},{120,80}}, color={0,0,127}));
-  connect(air.P, PAir)
-    annotation (Line(points={{11,-32},{88,-32},{88,-70},{110,-70}},
-                                                                color={0,0,127}));
-  connect(air.PFan, PFan)
-    annotation (Line(points={{12,-35},{80,-35},{80,-90},{110,-90}}, color={0,0,127}));
 
+  connect(PLiq, PLiqTot) annotation (Line(points={{-120,72},{-40,72},{-40,90},{
+          110,90}}, color={0,0,127}));
+  connect(PAir, air.P) annotation (Line(points={{-120,-90},{-30,-90},{-30,-34},
+          {-11,-34}}, color={0,0,127}));
+  connect(air.PTot, PAirTot) annotation (Line(points={{11,-32},{60,-32},{60,-70},
+          {110,-70}}, color={0,0,127}));
+  connect(air.PFan, PAirFan) annotation (Line(points={{11,-35},{56,-35},{56,-90},
+          {110,-90}}, color={0,0,127}));
+  connect(liq.P, PLiq) annotation (Line(points={{-11,46},{-40,46},{-40,72},{
+          -120,72}}, color={0,0,127}));
 annotation (
   defaultComponentName="rac",
   Documentation(
@@ -178,15 +175,16 @@ Buildings.Applications.DataCenters.DataHalls.Racks.AirCooled.Rack_u</a>.
 The model has separate fluid ports for each cooling loop.
 For liquid cooling, <code>portLiq_a</code> and <code>portLiq_b</code> serve as the inlet and outlet ports.
 For air cooling, <code>portAir_a</code> and <code>portAir_b</code> serve as the inlet and outlet ports.
-Each cooling system has its own utilization input on the left side of the model.
-The input <code>uLiq</code> specifies the normalized utilization from 0 to 1 for liquid-cooled IT equipment,
-and the input <code>uAir</code> specifies the normalized utilization from 0 to 1 for air-cooled IT equipment.
+Each cooling system has its own input for the electrical power consumption by the IT equipment.
+The input <code>PLiq</code> specifies the power consumption for the liquid-cooled IT equipment,
+and the input <code>PAir</code> specifies the power consumption for the air-cooled IT equipment.
+Note that <code>PAir</code> does not include the power to operate the fan, as this is an output of the model.
 </p>
 <p>
 The model provides three power consumption outputs on the right side.
-The output <code>PLiq</code> is the electric power consumed by liquid-cooled IT.
-The output <code>PAir</code> is the total electric power consumed by air-cooled IT, including fan energy.
-The output <code>PFan</code> is the electric power consumed by the fan for air-cooled IT.
+The output <code>PLiqTot</code> is the electric power consumed by liquid-cooled IT.
+The output <code>PAirTot</code> is the total electric power consumed by air-cooled IT, including fan energy.
+The output <code>PAirFan</code> is the electric power consumed by the fan for air-cooled IT.
 </p>
 </html>",
 revisions="<html>
@@ -260,5 +258,25 @@ First implementation.
         Text(
           extent={{-139,-104},{161,-144}},
           textColor={0,0,255},
-          textString="%name")}));
+          textString="%name"),
+        Text(
+          extent={{58,100},{88,64}},
+          textColor={0,0,127},
+          textString="PLiqTot"),
+        Text(
+          extent={{60,-50},{90,-86}},
+          textColor={0,0,127},
+          textString="PAirTot"),
+        Text(
+          extent={{60,-70},{90,-106}},
+          textColor={0,0,127},
+          textString="PAirFan"),
+        Text(
+          extent={{-92,98},{-62,62}},
+          textColor={0,0,127},
+          textString="PLiq"),
+        Text(
+          extent={{-92,-62},{-62,-98}},
+          textColor={0,0,127},
+          textString="PAir")}));
 end LiquidCooledSinglePhase;

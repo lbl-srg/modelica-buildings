@@ -29,9 +29,14 @@ partial model PartialRack "Partial model of an IT rack, with utilization as inpu
     "Start value of temperature"
     annotation(Dialog(tab = "Initialization"));
 
-  Modelica.Blocks.Interfaces.RealInput u(final unit="1", min=0)
-    "Normalized utilization, equal to actual power use over P_nominal" annotation (Placement(transformation(extent={{-140,30},
+  Modelica.Blocks.Interfaces.RealInput P(final unit="W", min=0)
+    "Electrical power consumption"
+    annotation (Placement(transformation(extent={{-140,30},
             {-100,70}}),     iconTransformation(extent={{-120,50},{-100,70}})));
+
+  output Real utiIT(
+    final unit="1",
+    final min=0) = P / dat.PIT_nominal "IT utilization";
 
   Fluid.Delays.DelayFirstOrder vol(
     redeclare final package Medium = Medium,
@@ -48,16 +53,10 @@ partial model PartialRack "Partial model of an IT rack, with utilization as inpu
     "Mass flow rate from port_a to port_b";
 
 protected
-  Modelica.Blocks.Math.Gain Q_flow(final k=dat.PIT_nominal)
-    "Gain to compute actual heat flow rate"
-    annotation (Placement(transformation(extent={{-80,40},{-60,60}})));
-
   Buildings.HeatTransfer.Sources.PrescribedHeatFlow preHea
     "Prescribed heat flow rate"
     annotation (Placement(transformation(extent={{20,0},{40,20}})));
 equation
-  connect(Q_flow.u, u) annotation (Line(points={{-82,50},{-120,50}},
-                color={0,0,127}));
   connect(preHea.port,vol. heatPort) annotation (Line(points={{40,10},{50,10}},
                         color={191,0,0}));
 annotation (
@@ -68,12 +67,12 @@ Partial model of an IT rack.
 </p>
 <h4>Electrical and fluid characterization</h4>
 <p>
-The model takes as a parameter the thermal design power (TDB) <code>P_nominal</code>
-and as an input the utilization <code>u</code>.
-The heat added to the coolant fluid is then calculated as
+The model takes as an input the electrical power consumption,
+and assumes all is converted to the heat that needs to be rejected
+through the fluid ports, e.g.,
 </p>
 <p align=\"center\" style=\"font-style:italic;\">
-Q_flow = u P_nominal.
+Q_flow = P.
 </p>
 <p>
 The fluid outlet temperature is computed using a first order delay to mimic
@@ -145,15 +144,11 @@ First implementation.
         Text(
           extent={{-96,82},{-82,62}},
           textColor={0,0,127},
-          textString="u"),
+          textString="P"),
         Line(
           points={{-60,0},{0,0}},
           color={0,0,0},
           thickness=0.5,
           origin={-40,60},
-          rotation=360),
-        Text(
-          extent={{78,90},{92,70}},
-          textColor={0,0,127},
-          textString="P")}));
+          rotation=360)}));
 end PartialRack;

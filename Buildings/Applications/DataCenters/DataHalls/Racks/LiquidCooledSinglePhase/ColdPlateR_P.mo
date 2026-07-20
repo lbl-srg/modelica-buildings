@@ -69,11 +69,6 @@ protected
     final n=dat.n) "Flow resistance"
     annotation (Placement(transformation(extent={{-60,-10},{-40,10}})));
 
-public
-  Modelica.Blocks.Interfaces.RealOutput P(final unit="W")
-    "Electrical power consumed by IT"
-    annotation (Placement(transformation(extent={{100,70},{120,90}}),
-        iconTransformation(extent={{100,70},{120,90}})));
 protected
   Modelica.Blocks.Math.Gain QCas_flow(final k=1/nColPla)
     "Gain to compute heat flow rate per case"
@@ -83,20 +78,18 @@ equation
           {-28,88},{-39,88}}, color={0,0,127}));
   connect(casTem.TIn, TIn.y) annotation (Line(points={{19,80},{-28,80},{-28,74},
           {-39,74}}, color={0,0,127}));
-  connect(Q_flow.y, QCas_flow.u)
-    annotation (Line(points={{-59,50},{-42,50}}, color={0,0,127}));
   connect(QCas_flow.y, casTem.Q_flow) annotation (Line(points={{-19,50},{-10,50},
           {-10,74},{19,74}}, color={0,0,127}));
   connect(preDro.port_b, vol.ports[1])
-    annotation (Line(points={{-40,0},{59,0}}, color={0,127,255}));
-  connect(Q_flow.y, preHea.Q_flow) annotation (Line(points={{-59,50},{-52,50},{
-          -52,28},{8,28},{8,10},{20,10}}, color={0,0,127}));
-  connect(Q_flow.y, P) annotation (Line(points={{-59,50},{-52,50},{-52,28},{80,
-          28},{80,80},{110,80}}, color={0,0,127}));
+    annotation (Line(points={{-40,0},{60,0}}, color={0,127,255}));
   connect(preDro.port_a, port_a)
     annotation (Line(points={{-60,0},{-100,0}}, color={0,127,255}));
   connect(vol.ports[2], port_b)
     annotation (Line(points={{60,0},{100,0}}, color={0,127,255}));
+  connect(QCas_flow.u, P)
+    annotation (Line(points={{-42,50},{-120,50}}, color={0,0,127}));
+  connect(P, preHea.Q_flow) annotation (Line(points={{-120,50},{-60,50},{-60,10},
+          {20,10}}, color={0,0,127}));
 annotation (
   defaultComponentName="rac",
   Documentation(
@@ -107,12 +100,11 @@ of the Open Compute Project.
 </p>
 <h4>Electrical and fluid characterization</h4>
 <p>
-The model takes as a parameter the thermal design power (TDB) <code>P_nominal</code>
-and as an input the utilization <code>u</code>.
-The heat added to the coolant fluid is then calculated as
+The model takes as an input the electrical power conumption  <code>P</code>
+and adds it as heat added to the coolant fluid
 </p>
 <p align=\"center\" style=\"font-style:italic;\">
-Q_flow = u P_nominal.
+Q_flow = P.
 </p>
 <p>
 The fluid outlet temperature is computed using a first order delay to mimic
@@ -164,11 +156,11 @@ where
 <code>T_inlet</code> is the coolant inlet temperature and
 <code>Q_flow</code> is the heat emitted by the cold plate.
 Use of this equation requires knowledge of the heat flow rate of one cold plate <code>Q_flow</code>,
-but the component model takes as a parameter the total design heat flow rate <code>P_nominal</code>.
+but the component model takes as a parameter the total design heat flow rate <code>PIT_nominal</code>.
 The model approximates the number of cold plates using
 </p>
 <p align=\"center\" style=\"font-style:italic;\">
-n_col = P_nominal / (VColPla_flow_nominal * rho * c_p * dT_nominal),
+n_col = PIT_nominal / (VColPla_flow_nominal * rho * c_p * dT_nominal),
 </p>
 <p>
 where

@@ -66,7 +66,7 @@ model CDU_epsNTU "Example model of a CDU with varying load on the IT side"
     shift=900,
     offset=0.6)
     "Utilization of hardware"
-    annotation (Placement(transformation(extent={{-50,-40},{-30,-20}})));
+    annotation (Placement(transformation(extent={{-80,-40},{-60,-20}})));
   Buildings.Applications.DataCenters.DataHalls.Racks.LiquidCooledSinglePhase.ColdPlateR_P
     rac(
     redeclare package Medium = MediumRac,
@@ -129,9 +129,15 @@ model CDU_epsNTU "Example model of a CDU with varying load on the IT side"
     annotation (Placement(transformation(extent={{-60,72},{-40,92}})));
 
 
+  Modelica.Blocks.Math.Gain PITAir(
+    k(
+      final unit="W",
+      min=0) = datRac.PIT_nominal,
+    u(final unit="1"),
+    y(final unit="W"))
+    "Power consumption by the air-cooled IT equipment"
+    annotation (Placement(transformation(extent={{-40,-40},{-20,-20}})));
 equation
-  connect(uti.y, rac.u) annotation (Line(points={{-28,-30},{-20,-30},{-20,-54},
-          {-11,-54}},color={0,0,127}));
   connect(sou.ports[1], senTCDU_a.port_a)
     annotation (Line(points={{-80,120},{-50,120}},
                                                  color={0,127,255}));
@@ -159,6 +165,10 @@ equation
                      color={0,0,127}));
   connect(cdu.TSet, TSetRacIn.y) annotation (Line(points={{-12,28},{-24,28},{
           -24,82},{-38,82}}, color={0,0,127}));
+  connect(uti.y, PITAir.u)
+    annotation (Line(points={{-58,-30},{-42,-30}}, color={0,0,127}));
+  connect(PITAir.y, rac.P) annotation (Line(points={{-19,-30},{-16,-30},{-16,
+          -54},{-11,-54}}, color={0,0,127}));
   annotation (Diagram(coordinateSystem(extent={{-120,-120},{120,140}})), Icon(
         coordinateSystem(extent={{-100,-100},{100,100}})),
     experiment(

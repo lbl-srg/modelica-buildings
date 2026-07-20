@@ -43,10 +43,16 @@ model Rack_u "Example model for air cooled rack"
     tau=0) "Inlet temperature"
     annotation (Placement(transformation(extent={{-40,-10},{-20,10}})));
 
+  Modelica.Blocks.Math.Gain PITAir(
+    k(
+      final unit="W",
+      min=0) = dat.PIT_nominal,
+    u(final unit="1"),
+    y(final unit="W"))
+    "Power consumption by the air-cooled IT equipment"
+    annotation (Placement(transformation(extent={{-40,40},{-20,60}})));
 equation
 
-  connect(uti.y, rac.u) annotation (Line(points={{-58,50},{-10,50},{-10,6},{-1,6}},
-        color={0,0,127}));
   connect(rac.port_b, senTOut.port_a)
     annotation (Line(points={{20,0},{40,0}}, color={0,127,255}));
   connect(senTOut.port_b,sou. ports[1])
@@ -56,6 +62,10 @@ equation
     annotation (Line(points={{0,0},{-20,0}}, color={0,127,255}));
   connect(senTIn.port_a, sou.ports[2]) annotation (Line(points={{-40,0},{-62,0},
           {-62,-30},{11,-30}}, color={0,127,255}));
+  connect(uti.y, PITAir.u)
+    annotation (Line(points={{-58,50},{-42,50}}, color={0,0,127}));
+  connect(PITAir.y, rac.P) annotation (Line(points={{-19,50},{-10,50},{-10,6},{
+          -1,6}}, color={0,0,127}));
   annotation (
     experiment(
       StopTime=540,

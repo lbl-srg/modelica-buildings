@@ -6,9 +6,9 @@ compareVars :=
     "senTLiq_b.T",
     "senTAir_a.T",
     "senTAir_b.T",
-    "rac.PLiq",
-    "rac.PAir",
-    "rac.PFan",
+    "rac.PLiqTot",
+    "rac.PAirTot",
+    "rac.PAirFan",
     "conPI.y",
     "pum.y"
   };

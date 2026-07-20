@@ -64,6 +64,24 @@ model LiquidCooledSinglePhase
     "Utilization of air-cooled hardware"
     annotation (Placement(transformation(extent={{-160,-30},{-140,-10}})));
 
+  Modelica.Blocks.Math.Gain PITLiq(
+    k(
+      final unit="W",
+      min=0) = datLiq.PIT_nominal,
+    u(final unit="1"),
+    y(final unit="W"))
+    "Power consumption by the liquid-cooled IT equipment"
+    annotation (Placement(transformation(extent={{-120,0},{-100,20}})));
+
+  Modelica.Blocks.Math.Gain PITAir(
+    k(
+      final unit="W",
+      min=0) = datAir.PIT_nominal,
+    u(final unit="1"),
+    y(final unit="W"))
+    "Power consumption by the air-cooled IT equipment"
+    annotation (Placement(transformation(extent={{-120,-30},{-100,-10}})));
+
   Buildings.Applications.DataCenters.DataHalls.Racks.Hybrid.LiquidCooledSinglePhase.LiquidCooledSinglePhase
     rac(
     redeclare package MediumLiq = MediumLiq,
@@ -101,7 +119,7 @@ model LiquidCooledSinglePhase
     m_flow_nominal=mLiq_flow_nominal,
     tau=0)
     "Liquid inlet temperature to rack"
-    annotation (Placement(transformation(extent={{-28,30},{-8,50}})));
+    annotation (Placement(transformation(extent={{-30,30},{-10,50}})));
 
   Fluid.Sensors.TemperatureTwoPort senTLiq_b(
     redeclare package Medium = MediumLiq,
@@ -167,14 +185,8 @@ protected
     X=MediumLiq.X_default[1:MediumLiq.nXi]) "Medium state at default values";
 
 equation
-  connect(utiLiq.y[1], rac.uLiq) annotation (Line(points={{-138,10},{-20,10},{-20,
-          8},{9,8}},
-                  color={0,0,127}));
-  connect(utiAir.y, rac.uAir) annotation (Line(points={{-138,-20},{-20,-20},{-20,
-          -8},{9,-8}},
-                   color={0,0,127}));
   connect(senTLiq_a.port_b, rac.portLiq_a)
-    annotation (Line(points={{-8,40},{0,40},{0,4},{10,4}},
+    annotation (Line(points={{-10,40},{0,40},{0,4},{10,4}},
                                               color={0,127,255}));
   connect(rac.portLiq_b, senTLiq_b.port_a)
     annotation (Line(points={{30,4},{40,4},{40,40},{50,40}}, color={0,127,255}));
@@ -191,7 +203,7 @@ equation
   connect(senTAir_b.port_b, souAir.ports[2]) annotation (Line(points={{68,-40},{
           80,-40},{80,-80},{19,-80},{19,-90}},  color={0,127,255}));
   connect(pum.port_b, senTLiq_a.port_a)
-    annotation (Line(points={{-40,40},{-28,40}}, color={0,127,255}));
+    annotation (Line(points={{-40,40},{-30,40}}, color={0,127,255}));
   connect(bouLiq.ports[1], coo.port_a) annotation (Line(points={{100,40},{80,40},
           {80,100},{-128,100},{-128,40},{-110,40}},color={0,127,255}));
   connect(dpSet.y, conPI.u_s)
@@ -208,7 +220,15 @@ equation
           -70,90},{-70,108}},
                            color={0,0,127}));
   connect(senRelPre.port_a, senTLiq_a.port_b)
-    annotation (Line(points={{10,40},{-8,40}}, color={0,127,255}));
+    annotation (Line(points={{10,40},{-10,40}},color={0,127,255}));
+  connect(utiLiq.y[1], PITLiq.u)
+    annotation (Line(points={{-138,10},{-122,10}}, color={0,0,127}));
+  connect(PITLiq.y, rac.PLiq) annotation (Line(points={{-99,10},{-40,10},{-40,9},
+          {9,9}}, color={0,0,127}));
+  connect(utiAir.y, PITAir.u)
+    annotation (Line(points={{-138,-20},{-122,-20}}, color={0,0,127}));
+  connect(PITAir.y, rac.PAir) annotation (Line(points={{-99,-20},{-40,-20},{-40,
+          -7},{9,-7}}, color={0,0,127}));
   annotation (
     Diagram(coordinateSystem(extent={{-190,-120},{140,150}})),
     experiment(

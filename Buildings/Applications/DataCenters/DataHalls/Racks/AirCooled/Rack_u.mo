@@ -2,13 +2,17 @@ within Buildings.Applications.DataCenters.DataHalls.Racks.AirCooled;
 model Rack_u "Model of an air-cooled rack, and utilization is input"
   extends Buildings.Applications.DataCenters.DataHalls.Racks.BaseClasses.PartialRack(
     redeclare replaceable Buildings.Applications.DataCenters.DataHalls.Racks.AirCooled.Data.Generic dat,
-    vol(nPorts=2)
-    );
+    vol(nPorts=2));
 
-  Controls.OBC.CDL.Interfaces.RealOutput PFan(final unit="W")
-    "Electrical power consumed by fan" annotation (Placement(transformation(
-          extent={{100,50},{120,70}}), iconTransformation(extent={{100,30},{140,
-            70}})));
+  Modelica.Blocks.Interfaces.RealOutput PTot(final unit="W")
+    "Electrical power consumed by IT and fan"
+    annotation (Placement(transformation(extent={{100,70},{120,90}}),
+      iconTransformation(extent={{100,70},{120,90}})));
+
+  Modelica.Blocks.Interfaces.RealOutput PFan(final unit="W")
+    "Electrical power consumed by fan"
+    annotation (Placement(transformation(extent={{100,50},{120,70}}),
+      iconTransformation(extent={{100,40},{120,60}})));
 
   Fluid.Movers.BaseClasses.IdealSource fan(
     redeclare package Medium = Medium,
@@ -51,7 +55,7 @@ protected
       final unit="W") =
       Buildings.Fluid.HeatExchangers.CoolingTowers.BaseClasses.Characteristics.normalizedPower(
       per=dat.fanRelPow,
-      r_V=u,
+      r_V=utiIT,
       d=fanRelPowDer)) "Normalized electricity use of fan"
     annotation (Placement(transformation(extent={{-90,-70},{-70,-50}})));
 
@@ -59,19 +63,14 @@ protected
   Modelica.Units.SI.SpecificHeatCapacity cp = Medium.specificHeatCapacityCp(
     state_in) "Specific heat capacity";
 
-  Controls.OBC.CDL.Reals.Add PTot "Total power consumption"
+  Controls.OBC.CDL.Reals.Add PTotal "Total power consumption"
     annotation (Placement(transformation(extent={{-20,20},{0,40}})));
+
   Modelica.Blocks.Sources.RealExpression mSet_flow(
-    y(final unit="kg/s")=Q_flow.y/(cp*dat.dTSet))
+    y(final unit="kg/s")=P/(cp*dat.dTSet))
     "Set point for fan mass flow rate"
     annotation (Placement(transformation(extent={{-90,-40},{-70,-20}})));
 
-public
-  Modelica.Blocks.Interfaces.RealOutput P(final unit="W")
-    "Electrical power consumed by IT and fan"
-    annotation (Placement(transformation(extent={{100,70},{120,90}}),
-        iconTransformation(extent={{100,70},{120,90}})));
-protected
   parameter Medium.ThermodynamicState state_default=
     Medium.setState_phX(
       Medium.p_default,
@@ -85,11 +84,7 @@ protected
       inStream(port_a.Xi_outflow))
       "State of inflowing medium";
 equation
-  connect(Q_flow.y, PTot.u1) annotation (Line(points={{-59,50},{-30,50},{-30,36},
-          {-22,36}}, color={0,0,127}));
-  connect(PTot.y, P) annotation (Line(points={{2,30},{80,30},{80,80},{110,80}},
-        color={0,0,127}));
-  connect(PTot.y, preHea.Q_flow) annotation (Line(points={{2,30},{10,30},{10,10},
+  connect(PTotal.y, preHea.Q_flow) annotation (Line(points={{2,30},{10,30},{10,10},
           {20,10}}, color={0,0,127}));
   connect(mSet_flow.y, fan.m_flow_in)
     annotation (Line(points={{-69,-30},{-56,-30},{-56,-8}}, color={0,0,127}));
@@ -103,10 +98,14 @@ equation
     annotation (Line(points={{60,0},{100,0}}, color={0,127,255}));
   connect(PFan_y.y, PEleFan.u)
     annotation (Line(points={{-69,-60},{-62,-60}}, color={0,0,127}));
-  connect(PEleFan.y, PTot.u2) annotation (Line(points={{-38,-60},{-30,-60},{-30,
+  connect(PEleFan.y, PTotal.u2) annotation (Line(points={{-38,-60},{-30,-60},{-30,
           24},{-22,24}}, color={0,0,127}));
   connect(PEleFan.y, PFan) annotation (Line(points={{-38,-60},{-30,-60},{-30,
           -20},{88,-20},{88,60},{110,60}}, color={0,0,127}));
+  connect(PTotal.y, PTot) annotation (Line(points={{2,30},{10,30},{10,80},{110,80}},
+        color={0,0,127}));
+  connect(P, PTotal.u1) annotation (Line(points={{-120,50},{-72,50},{-72,36},{-22,
+          36}}, color={0,0,127}));
 annotation (
   defaultComponentName="rac",
   Documentation(
@@ -181,5 +180,9 @@ First implementation.
         Text(
           extent={{62,66},{92,32}},
           textColor={0,0,127},
-          textString="PFan")}));
+          textString="PFan"),
+        Text(
+          extent={{62,90},{88,68}},
+          textColor={0,0,127},
+          textString="PTot")}));
 end Rack_u;

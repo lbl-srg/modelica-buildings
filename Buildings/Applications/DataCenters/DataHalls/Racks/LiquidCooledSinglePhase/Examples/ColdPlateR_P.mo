@@ -15,6 +15,13 @@ model ColdPlateR_P "Example model for cold plate"
   final parameter Modelica.Units.SI.MassFlowRate m_flow_nominal=P_nominal/
       dT_nominal/cp_default "Nominal mass flow rate at TDP";
 
+  parameter Modelica.Units.SI.SpecificHeatCapacity cp_default=
+    Medium.specificHeatCapacityCp(state=state_default)
+    "Heat capacity, to compute additional dry mass";
+  parameter Data.OCP_1kW_OAM_PG25 dat(PIT_nominal=P_nominal,
+      m_flow_nominal=m_flow_nominal) "Performance data"
+    annotation (Placement(transformation(extent={{60,60},{80,80}})));
+
   Buildings.Controls.OBC.CDL.Reals.Sources.Pulse uti(
     amplitude=0.4,
     width=2/5,
@@ -53,12 +60,14 @@ model ColdPlateR_P "Example model for cold plate"
     tau=0) "Outlet temperature"
     annotation (Placement(transformation(extent={{40,-10},{60,10}})));
 
-  parameter Modelica.Units.SI.SpecificHeatCapacity cp_default=
-    Medium.specificHeatCapacityCp(state=state_default)
-    "Heat capacity, to compute additional dry mass";
-  parameter Data.OCP_1kW_OAM_PG25 dat(PIT_nominal=P_nominal,
-      m_flow_nominal=m_flow_nominal) "Performance data"
-    annotation (Placement(transformation(extent={{60,60},{80,80}})));
+  Modelica.Blocks.Math.Gain PIT(
+    k(
+      final unit="W",
+      min=0) = dat.PIT_nominal,
+    u(final unit="1"),
+    y(final unit="W"))
+    "Power consumption by the IT equipment"
+    annotation (Placement(transformation(extent={{-40,40},{-20,60}})));
 protected
   parameter Medium.ThermodynamicState state_default = Medium.setState_pTX(
     T=Medium.T_default,
@@ -70,12 +79,14 @@ equation
 
   connect(m_flow.y, sou.m_flow_in) annotation (Line(points={{-58,8},{-42,8}},
                             color={0,0,127}));
-  connect(uti.y, rac.u) annotation (Line(points={{-58,50},{-10,50},{-10,6},{-1,6}},
-        color={0,0,127}));
   connect(rac.port_b, senTOut.port_a)
     annotation (Line(points={{20,0},{40,0}}, color={0,127,255}));
   connect(senTOut.port_b, bou.ports[1])
     annotation (Line(points={{60,0},{70,0}}, color={0,127,255}));
+  connect(uti.y, PIT.u)
+    annotation (Line(points={{-58,50},{-42,50}}, color={0,0,127}));
+  connect(PIT.y, rac.P) annotation (Line(points={{-19,50},{-10,50},{-10,6},{-1,6}},
+        color={0,0,127}));
   annotation (
     experiment(
       StopTime=60,

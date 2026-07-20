@@ -2,8 +2,8 @@ compareVars :=
   {
     "rac.dat.m_flow_nominal",
     "rac.port_a.m_flow",
-    "rac.u",
+    "rac.utiIT",
     "senTIn.T",
     "senTOut.T",
-    "rac.P"
+    "rac.PTot"
   };

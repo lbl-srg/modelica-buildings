@@ -114,7 +114,7 @@ model ChillerWSE
 
   Controls.OBC.CDL.Reals.Sources.Constant uti(k=0.6)
     "Utilization of hardware"
-    annotation (Placement(transformation(extent={{-60,-80},{-40,-60}})));
+    annotation (Placement(transformation(extent={{-80,-80},{-60,-60}})));
   Buildings.Applications.DataCenters.DataHalls.Racks.LiquidCooledSinglePhase.ColdPlateR_P rac(
     redeclare package Medium = MediumRac,
     allowFlowReversal=false,
@@ -642,6 +642,13 @@ public
     xi_start=1)
     "Controller for valve"
     annotation (Placement(transformation(extent={{-120,-40},{-100,-20}})));
+  Modelica.Blocks.Math.Gain PITIn(
+    k(
+      final unit="W",
+      min=0) = datRac.PIT_nominal,
+    u(final unit="1"),
+    y(final unit="W")) "Power consumption by the IT equipment"
+    annotation (Placement(transformation(extent={{-40,-80},{-20,-60}})));
 protected
   parameter Modelica.Units.SI.SpecificHeatCapacity cpAir_default=
       MediumAir.specificHeatCapacityCp(staAir_default)
@@ -791,9 +798,6 @@ equation
           {-35,619.5},{-35,620},{-60,620}}, color={0,127,255}));
   connect(senTTow_a.port_a, pumTow.port_b) annotation (Line(points={{-80,620},{
           -220,620},{-220,610}}, color={0,127,255}));
-  connect(uti.y, rac.u) annotation (Line(points={{-38,-70},{-20,-70},{-20,-94},
-          {-11,-94}},
-                    color={0,0,127}));
   connect(cooTow.TDryBul, weaBus.TDryBul) annotation (Line(points={{-11.9,623.3},
           {-40,623.3},{-40,650},{-61.95,650},{-61.95,650.05}},   color={0,0,127}),
       Text(
@@ -875,6 +879,10 @@ equation
     annotation (Line(points={{-98,-30},{-90,-30},{-90,-88}}, color={0,0,127}));
   connect(senTRac_b.T, conVal.u_m) annotation (Line(points={{90,-89},{90,-50},{
           -110,-50},{-110,-42}}, color={0,0,127}));
+  connect(uti.y, PITIn.u)
+    annotation (Line(points={{-58,-70},{-42,-70}}, color={0,0,127}));
+  connect(PITIn.y, rac.P) annotation (Line(points={{-19,-70},{-16,-70},{-16,-94},
+          {-11,-94}}, color={0,0,127}));
   annotation (Diagram(coordinateSystem(extent={{-580,-120},{540,780}})),
     Icon(
         coordinateSystem(extent={{-100,-100},{100,100}})),
