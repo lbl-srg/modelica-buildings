@@ -69,8 +69,9 @@ annotation (defaultComponentName="indWetCal",
 <p>
 Block that calculates the water vapor mass flow rate addition in the 
 indirect evaporative cooler component. The calculations are based on the indirect 
-wet evaporative cooler model in the Engineering Reference document from EnergyPlus 
-v23.1.0.
+wet evaporative cooler model in the
+<a href=\"https://bigladdersoftware.com/epx/docs/23-1/engineering-reference/evaporative-coolers.html\">
+Engineering Reference document from EnergyPlus v23.1.0<a>.
 </p>
 <p>
 The effective efficiency of the heat exchanger <code>eff</code> is calculated using 

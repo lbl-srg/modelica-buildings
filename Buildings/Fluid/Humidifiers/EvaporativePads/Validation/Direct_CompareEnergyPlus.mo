@@ -11,7 +11,8 @@ model Direct_CompareEnergyPlus
   Buildings.Fluid.Humidifiers.EvaporativePads.Direct dirEvaPad(
     redeclare final package Medium = MediumA,
     final padAre=0.6,
-    redeclare Buildings.Fluid.Humidifiers.EvaporativePads.Data.EnergyPlus per)
+    redeclare Buildings.Fluid.Humidifiers.EvaporativePads.Data.EnergyPlus per(d
+        =0.2))
     "Direct evaporative pad"    annotation (Placement(
         transformation(origin={10,0},extent={{-10,-10},{10,10}})));
   Buildings.Fluid.Sources.Boundary_pT sin(
@@ -72,7 +73,8 @@ model Direct_CompareEnergyPlus
   Modelica.Blocks.Math.UnitConversions.To_degC to_degCOut
     "Convert outlet temperature from Kelvin to deg C"
     annotation (Placement(transformation(extent={{100,50},{120,70}})));
-  Buildings.Controls.OBC.CDL.Logical.Sources.Constant evaCooAct(k=true)
+  Buildings.Controls.OBC.CDL.Logical.Sources.Constant evaCooAct(
+    final k=true)
     "Boolean pulse signal for active evaporative cooling"
     annotation (Placement(transformation(extent={{-40,-80},{-20,-60}})));
 equation

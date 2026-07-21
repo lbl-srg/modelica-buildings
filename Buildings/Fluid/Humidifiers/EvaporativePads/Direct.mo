@@ -150,9 +150,8 @@ velocity <code>v_nominal</code>, and the flow exponent for pressure drop
 <code>n</code> from this data record.
 </p>
 <p>
-Note that air flow is designed to flow from <code>port_a</code> to
-<code>port_b</code>. Unexpected behaviors will occur if such flow direction is
-reversed.
+Note that this model works correctly only when the air flows from
+<code>port_a</code> to <code>port_b</code>.
 </p>
 </html>", revisions="<html>
 <ul>

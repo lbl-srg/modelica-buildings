@@ -22,7 +22,8 @@ model IndirectDry
     final m2_flow_nominal=m2_flow_nominal,
     final eps=0.67,
     final padAre=0.6,
-    final dep=0.2)
+    redeclare Buildings.Fluid.Humidifiers.EvaporativePads.Data.EnergyPlus per(d
+        =0.2))
     "Indirect dry evaporative cooler"
     annotation (Placement(transformation(origin={-2,0}, extent={{-10,-10},{10,10}})));
 
@@ -116,6 +117,10 @@ model IndirectDry
     "Mass flowrate for air rejected to outdoor air"
     annotation (Placement(transformation(extent={{-120,-40},{-100,-20}})));
 
+  Buildings.Controls.OBC.CDL.Logical.Sources.Constant evaCooAct(
+    final k=true)
+    "Boolean pulse signal for active evaporative cooling"
+    annotation (Placement(transformation(extent={{-80,-20},{-60,0}})));
 equation
   connect(combiTimeTable.y[5], from_degCPriIn.u) annotation (Line(points={{-159,90},
           {-140,90},{-140,50},{-122,50}}, color={0,0,127}));
@@ -158,6 +163,8 @@ equation
   connect(souSec.ports[1], indDryEvaCoo.port_a2) annotation (Line(points={{-40,-60},
           {-20,-60},{-20,-6},{-12,-6}}, color={0,127,255}));
 
+  connect(evaCooAct.y, indDryEvaCoo.evaCooAct) annotation (Line(points={{-58,-10},
+          {-40,-10},{-40,0},{-11,0}}, color={255,0,255}));
 annotation (
   Diagram(coordinateSystem(extent={{-200,-180},{180,180}})),
   Icon(coordinateSystem(extent={{-100,-100},{100,100}})),
