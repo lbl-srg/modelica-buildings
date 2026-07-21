@@ -41,6 +41,15 @@ env:
 
   jobs:
     - TEST_ARG="make test-openmodelica PACKAGE=\"Buildings.Fluid.Geothermal.Borefields.TOUGH\""
+    - TEST_ARG="make test-openmodelica PACKAGE=\"Buildings.Fluid.Geothermal.Borefields.TOUGH\""
+    - TEST_ARG="make test-openmodelica PACKAGE=\"Buildings.Fluid.Geothermal.Borefields.TOUGH\""
+    - TEST_ARG="make test-openmodelica PACKAGE=\"Buildings.Fluid.Geothermal.Borefields.TOUGH\""
+    - TEST_ARG="make test-openmodelica PACKAGE=\"Buildings.Fluid.Geothermal.Borefields.TOUGH\""
+    - TEST_ARG="make test-openmodelica PACKAGE=\"Buildings.Fluid.Geothermal.Borefields.TOUGH\""
+    - TEST_ARG="make test-openmodelica PACKAGE=\"Buildings.Fluid.Geothermal.Borefields.TOUGH\""
+    - TEST_ARG="make test-openmodelica PACKAGE=\"Buildings.Fluid.Geothermal.Borefields.TOUGH\""
+    - TEST_ARG="make test-openmodelica PACKAGE=\"Buildings.Fluid.Geothermal.Borefields.TOUGH\""
+    - TEST_ARG="make test-openmodelica PACKAGE=\"Buildings.Fluid.Geothermal.Borefields.TOUGH\""
 
 before_install:
   - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
