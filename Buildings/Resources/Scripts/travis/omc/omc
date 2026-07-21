@@ -92,7 +92,7 @@ chmod a+rwx "$cur_dir"
 # docker user and hence the calling process cannot remove them, which
 # causes an error if BuildingsPy cleans up the temporary directories.
 docker run \
-  --user=developer \
+  --user $(id -u):$(id -g) \
   -i \
   $DOCKER_INTERACTIVE \
   --detach=false \
