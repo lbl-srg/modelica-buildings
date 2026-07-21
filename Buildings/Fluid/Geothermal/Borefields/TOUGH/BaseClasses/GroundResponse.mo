@@ -80,12 +80,10 @@ model GroundResponse "Ground response calculated by the TOUGH simulator"
 
 initial equation
   startTime = time;
+  // Delete the TOUGH temporary working folder
+  Modelica.Utilities.Files.remove(touWorDir);
 
 equation
-  // Delete the TOUGH temporary working folder
-  when {initial(), terminal()} then
-    Modelica.Utilities.Files.remove(touWorDir);
-  end when;
   connect(pyt.yR[1:nSeg], TBorWal)
     annotation (Line(points={{61,0},{80,0},{80,60},{120,60}}, color={0,0,127}));
   connect(mul.y, pyt.uR)
@@ -154,6 +152,11 @@ for instructions.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+July 21, 2026, by Michael Wetter:<br/>
+Removed deletion of the TOUGH temporary working folder during <code>terminate()</code>
+as there seems to be a race condition when testing omc in a docker with BuildingsPy.
+</li>
 <li>
 March 8, 2024, by Jianjun Hu:<br/>
 First implementation.
