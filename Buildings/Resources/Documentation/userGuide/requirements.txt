@@ -15,7 +15,7 @@ MarkupSafe==2.1.5
 matplotlib==3.10.8
 numpy==2.4.2
 packaging==24.2
-pillow==12.2.0
+pillow==12.3.0
 pybtex==0.24.0
 pybtex-docutils==1.0.3
 Pygments==2.20.0
