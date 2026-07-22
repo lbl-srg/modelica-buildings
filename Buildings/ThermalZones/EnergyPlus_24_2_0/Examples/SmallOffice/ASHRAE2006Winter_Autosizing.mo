@@ -116,7 +116,7 @@ cooling temperature/humidity ratio set points.
       revisions="<html>
 <ul>
 <li>
-July 22, 2024, by David Blum:<br/>
+July 22, 2026, by David Blum:<br/>
 First implementation.
 </li>
 </ul>
