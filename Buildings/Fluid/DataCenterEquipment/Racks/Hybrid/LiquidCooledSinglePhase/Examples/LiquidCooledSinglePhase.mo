@@ -42,8 +42,7 @@ model LiquidCooledSinglePhase
     "Air-cooled rack performance data"
     annotation (Placement(transformation(extent={{100,60},{120,80}})));
 
-  parameter Buildings.Fluid.DataCenterEquipment.Racks.Hybrid.Data.LiquidCooledSinglePhase.Generic
-    dat(
+  parameter Buildings.Fluid.DataCenterEquipment.Racks.Hybrid.Data.LiquidCooledSinglePhase.Generic dat(
     liq=datLiq,
     air=datAir)
     "Hybrid rack performance data"
@@ -56,7 +55,8 @@ model LiquidCooledSinglePhase
            5400,0.8;
            5400,0.4;
            6300,0.4;
-           6300,0.8], extrapolation=Buildings.Controls.OBC.CDL.Types.Extrapolation.HoldLastPoint)
+           6300,0.8],
+    extrapolation=Buildings.Controls.OBC.CDL.Types.Extrapolation.HoldLastPoint)
     "Utilization of liquid-cooled hardware"
     annotation (Placement(transformation(extent={{-160,0},{-140,20}})));
 
