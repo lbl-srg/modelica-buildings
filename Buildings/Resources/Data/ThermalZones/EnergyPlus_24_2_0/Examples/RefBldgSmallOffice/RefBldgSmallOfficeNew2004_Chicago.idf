@@ -2529,7 +2529,7 @@
     NeutralSupplyAir,        !- Dedicated Outdoor Air System Control Strategy
     autosize,                !- Dedicated Outdoor Air Low Setpoint Temperature for Design {C}
     autosize,                !- Dedicated Outdoor Air High Setpoint Temperature for Design {C}
-    Sensible Load Only No Latent Load,  !- Zone Load Sizing Method
+    Sensible And Latent Load,  !- Zone Load Sizing Method
     HumidityRatioDifference, !- Zone Latent Cooling Design Supply Air Humidity Ratio Input Method
     ,                        !- Zone Dehumidification Design Supply Air Humidity Ratio {kgWater/kgDryAir}
     0.005,                   !- Zone Cooling Design Supply Air Humidity Ratio Difference {kgWater/kgDryAir}
@@ -2572,7 +2572,7 @@
     NeutralSupplyAir,        !- Dedicated Outdoor Air System Control Strategy
     autosize,                !- Dedicated Outdoor Air Low Setpoint Temperature for Design {C}
     autosize,                !- Dedicated Outdoor Air High Setpoint Temperature for Design {C}
-    Sensible Load Only No Latent Load,  !- Zone Load Sizing Method
+    Sensible And Latent Load,  !- Zone Load Sizing Method
     HumidityRatioDifference, !- Zone Latent Cooling Design Supply Air Humidity Ratio Input Method
     ,                        !- Zone Dehumidification Design Supply Air Humidity Ratio {kgWater/kgDryAir}
     0.005,                   !- Zone Cooling Design Supply Air Humidity Ratio Difference {kgWater/kgDryAir}
@@ -2615,7 +2615,7 @@
     NeutralSupplyAir,        !- Dedicated Outdoor Air System Control Strategy
     autosize,                !- Dedicated Outdoor Air Low Setpoint Temperature for Design {C}
     autosize,                !- Dedicated Outdoor Air High Setpoint Temperature for Design {C}
-    Sensible Load Only No Latent Load,  !- Zone Load Sizing Method
+    Sensible And Latent Load,  !- Zone Load Sizing Method
     HumidityRatioDifference, !- Zone Latent Cooling Design Supply Air Humidity Ratio Input Method
     ,                        !- Zone Dehumidification Design Supply Air Humidity Ratio {kgWater/kgDryAir}
     0.005,                   !- Zone Cooling Design Supply Air Humidity Ratio Difference {kgWater/kgDryAir}
@@ -2658,7 +2658,7 @@
     NeutralSupplyAir,        !- Dedicated Outdoor Air System Control Strategy
     autosize,                !- Dedicated Outdoor Air Low Setpoint Temperature for Design {C}
     autosize,                !- Dedicated Outdoor Air High Setpoint Temperature for Design {C}
-    Sensible Load Only No Latent Load,  !- Zone Load Sizing Method
+    Sensible And Latent Load,  !- Zone Load Sizing Method
     HumidityRatioDifference, !- Zone Latent Cooling Design Supply Air Humidity Ratio Input Method
     ,                        !- Zone Dehumidification Design Supply Air Humidity Ratio {kgWater/kgDryAir}
     0.005,                   !- Zone Cooling Design Supply Air Humidity Ratio Difference {kgWater/kgDryAir}
@@ -2701,7 +2701,7 @@
     NeutralSupplyAir,        !- Dedicated Outdoor Air System Control Strategy
     autosize,                !- Dedicated Outdoor Air Low Setpoint Temperature for Design {C}
     autosize,                !- Dedicated Outdoor Air High Setpoint Temperature for Design {C}
-    Sensible Load Only No Latent Load,  !- Zone Load Sizing Method
+    Sensible And Latent Load,  !- Zone Load Sizing Method
     HumidityRatioDifference, !- Zone Latent Cooling Design Supply Air Humidity Ratio Input Method
     ,                        !- Zone Dehumidification Design Supply Air Humidity Ratio {kgWater/kgDryAir}
     0.005,                   !- Zone Cooling Design Supply Air Humidity Ratio Difference {kgWater/kgDryAir}
