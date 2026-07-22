@@ -18,29 +18,50 @@ model Guideline36Winter_Autosizing
            THeaAirDis_nominal,
            THeaAirDis_nominal}),
       mCooAir_flow_nominal=flo.sysVAV1.sizCoo.QSen_flow/(cpAir*(TZonSetAve - hvac.TCooAirSup_nominal)),
-      mHeaVAV_flow_nominal={flo.sou.sizHea.QSen_flow/(cpAir*(hvac.VAVBox[1].THeaAirDis_nominal
-           - flo.sou.sizHea.TSet)),flo.eas.sizHea.QSen_flow/(cpAir*(hvac.VAVBox[
-          2].THeaAirDis_nominal - flo.eas.sizHea.TSet)),flo.nor.sizHea.QSen_flow
-          /(cpAir*(hvac.VAVBox[3].THeaAirDis_nominal - flo.nor.sizHea.TSet)),
-          flo.wes.sizHea.QSen_flow/(cpAir*(hvac.VAVBox[4].THeaAirDis_nominal -
-          flo.wes.sizHea.TSet)),flo.cor.sizHea.QSen_flow/(cpAir*(hvac.VAVBox[5].THeaAirDis_nominal
-           - flo.cor.sizHea.TSet))},
-      TCooAirMix_nominal=flo.sysVAV1.sizCoo.TOut,
-      wCooAirMix_nominal=flo.sysVAV1.sizCoo.XOut,
-      QCooAHU_flow_nominal = 1.3 * hvac.mCooAir_flow_nominal * cpAir *(hvac.TCooAirSup_nominal-hvac.TCooAirMix_nominal)),
+      mHeaVAV_flow_nominal=
+          {flo.sou.sizHea.QSen_flow/(cpAir*(hvac.VAVBox[1].THeaAirDis_nominal - flo.sou.sizHea.TSet)),
+           flo.eas.sizHea.QSen_flow/(cpAir*(hvac.VAVBox[2].THeaAirDis_nominal - flo.eas.sizHea.TSet)),
+           flo.nor.sizHea.QSen_flow/(cpAir*(hvac.VAVBox[3].THeaAirDis_nominal - flo.nor.sizHea.TSet)),
+           flo.wes.sizHea.QSen_flow/(cpAir*(hvac.VAVBox[4].THeaAirDis_nominal - flo.wes.sizHea.TSet)),
+           flo.cor.sizHea.QSen_flow/(cpAir*(hvac.VAVBox[5].THeaAirDis_nominal - flo.cor.sizHea.TSet))},
+      TCooAirMix_nominal = ((hvac.mCooAir_flow_nominal-flo.sysVAV1.sizCoo.mOut_flow)*TZonSetAve + flo.sysVAV1.sizCoo.mOut_flow*flo.sysVAV1.sizCoo.TOut)/hvac.mCooAir_flow_nominal,
+      wCooAirMix_nominal = ((hvac.mCooAir_flow_nominal-flo.sysVAV1.sizCoo.mOut_flow)*XZonSetAve + flo.sysVAV1.sizCoo.mOut_flow*flo.sysVAV1.sizCoo.XOut)/hvac.mCooAir_flow_nominal,
+      QCooAHU_flow_nominal=QCooSenAHU_flow_nominal + QCooLatAHU_flow_nominal,
+      Vot_flow_nominal=flo.sysVAV1.sizCoo.mOut_flow/1.2,
+      VZonOA_flow_nominal=
+          {flo.sou.sizHea.mOut_flow/1.2,
+           flo.eas.sizHea.mOut_flow/1.2,
+           flo.nor.sizHea.mOut_flow/1.2,
+           flo.wes.sizHea.mOut_flow/1.2,
+           flo.cor.sizHea.mOut_flow/1.2}),
     redeclare Buildings.ThermalZones.EnergyPlus_24_2_0.Examples.SmallOffice.BaseClasses.Floor_Autosizing flo);
 
   parameter Modelica.Units.SI.Temperature
     TZonSetAve = (flo.cor.sizCoo.TSet+flo.sou.sizCoo.TSet+flo.eas.sizCoo.TSet+flo.nor.sizCoo.TSet+flo.wes.sizCoo.TSet)/5
     "Average zone set point temperature to use in AHU airflow sizing";
+  parameter Modelica.Units.SI.MassFraction
+    XZonSetAve = (flo.cor.sizCoo.XSet+flo.sou.sizCoo.XSet+flo.eas.sizCoo.XSet+flo.nor.sizCoo.XSet+flo.wes.sizCoo.XSet)/5
+    "Average zone set point humidity ratio to use in AHU airflow sizing";
   parameter Modelica.Units.SI.Temperature
     TCooAirSup_nominal = 12+273.15
     "Nominal discharge air temperature for AHU during cooling";
+  parameter Modelica.Units.SI.MassFraction
+    XCooAirSup_nominal = 0.0085/(1+0.0085)
+    "Nominal discharge air humidity ratio for AHU during cooling";
+  parameter Modelica.Units.SI.HeatFlowRate
+    QCooSenAHU_flow_nominal = hvac.mCooAir_flow_nominal * cpAir *(TCooAirSup_nominal-hvac.TCooAirMix_nominal)
+    "Nominal sensible cooling load on AHU cooling coil";
+  parameter Modelica.Units.SI.HeatFlowRate
+    QCooLatAHU_flow_nominal = hvac.mCooAir_flow_nominal * h_fg *(XCooAirSup_nominal-hvac.wCooAirMix_nominal)
+    "Nominal latent cooling load on AHU cooling coil";
   parameter Modelica.Units.SI.Temperature
     THeaAirDis_nominal = 40+273.15
     "Nominal discharge air temperature for VAV boxes during heating";
-  parameter Modelica.Units.SI.SpecificHeatCapacity cpAir = 1005
+  constant Modelica.Units.SI.SpecificHeatCapacity cpAir = 1005
     "Specific heat capacity of air";
+  constant Modelica.Units.SI.SpecificEnergy h_fg=
+      Buildings.Media.Air.enthalpyOfCondensingGas(TCooAirSup_nominal)
+    "Latent heat of water vapor";
 
   annotation (
     __Dymola_Commands(
@@ -48,7 +69,9 @@ model Guideline36Winter_Autosizing
     experiment(
       StartTime=432000,
       StopTime=864000,
-      Tolerance=1e-07),
+      Interval=900.00288,
+      Tolerance=1e-07,
+      __Dymola_Algorithm="Cvode"),
     Icon(
       coordinateSystem(
         extent={{-100,-100},{100,100}},
@@ -56,71 +79,46 @@ model Guideline36Winter_Autosizing
     Documentation(
       info="<html>
 <p>
-This model consist of an HVAC system, a building envelope model and a model
-for air flow through building leakage and through open doors.
-</p>
-<p>
-The HVAC system is a variable air volume (VAV) flow system with economizer
-and a heating and cooling coil in the air handler unit. There is also a
-reheat coil and an air damper in each of the five zone inlet branches.
-</p>
-<p>
-See the model
-<a href=\"modelica://Buildings.Examples.VAVReheat.BaseClasses.PartialHVAC\">
-Buildings.Examples.VAVReheat.BaseClasses.PartialHVAC</a>
-for a description of the HVAC system,
-and see the model
-<a href=\"modelica://Buildings.ThermalZones.EnergyPlus_24_2_0.Examples.SmallOffice.BaseClasses.Floor\">
-Buildings.ThermalZones.EnergyPlus_24_2_0.Examples.SmallOffice.BaseClasses.Floor</a>
-for a description of the building envelope.
-</p>
-<p>
-The control is based on ASHRAE Guideline 36, and implemented
-using the sequences from the library
-<a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36\">
-Buildings.Controls.OBC.ASHRAE.G36</a> for
-multi-zone VAV systems with economizer. The schematic diagram of the HVAC and control
-sequence is shown in the figure below.
-</p>
-<p align=\"center\">
-<img alt=\"image\" src=\"modelica://Buildings/Resources/Images/Examples/VAVReheat/vavControlSchematics.png\" border=\"1\"/>
-</p>
-<p>
-A similar model but with a different control sequence can be found in
-<a href=\"modelica://Buildings.ThermalZones.EnergyPlus_24_2_0.Examples.SmallOffice.ASHRAE2006Winter\">
-Buildings.ThermalZones.EnergyPlus_24_2_0.Examples.SmallOffice.ASHRAE2006Winter</a>..
-Note that this model, because of the frequent time sampling,
-has longer computing time than
-<a href=\"modelica://Buildings.Examples.VAVReheat.ASHRAE2006\">
-Buildings.Examples.VAVReheat.ASHRAE2006</a>.
-The reason is that the time integrator cannot make large steps
-because it needs to set a time step each time the control samples
-its input.
+Same example as <a href=\"modelica://Buildings.ThermalZones.EnergyPlus_24_2_0.Examples.SmallOffice.Guideline36Winter\">
+Buildings.ThermalZones.EnergyPlus_24_2_0.Examples.SmallOffice.Guideline36Winter</a>,
+except that the HVAC system is sized using the autosizing feature in Spawn.
+The autosizing feature is used as follows:
+<ul>
+<li>
+Zone level heating and cooling nominal air flowrates for each VAV box are 
+sized using the autosized zone level design sensible heating and cooling loads 
+and design heating and cooling temperature set points.
+</li>
+<li>
+Zone level minimum outside air flowrates are specified using the autosized
+zone level design minimum outside air flowrates.
+</li>
+<li>
+AHU nominal air flowrate is specified using the autosized system level design
+sensible cooling load as well as an assumed average of the zone cooling
+temperature set points.
+</li>
+<li>
+AHU minimum outside air flowrate is specified using the autosized
+system level design minimum outside air flowrate.
+</li>
+<li>
+AHU cooling coil nominal capacity is calculated as the sum the design
+system level sensible and latent loads.  The sensible/latent load is calculated using a 
+design mixed air temperature/humidity ratio determined using mixing box mass and energy balance
+that makes use of the autosized system level cooling 
+design outside air temperature/humidity ratio and minimum outside air flowrate, along with
+the determined AHU nominal air flowrate and the assumed average of the zone 
+cooling temperature/humidity ratio set points.
+</li>
+</ul>
 </p>
 </html>",
       revisions="<html>
 <ul>
 <li>
-December 20, 2021, by Michael Wetter:<br/>
-Changed parameter declarations and added optimal start up.
-This is for
-<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2829\">issue #2829</a>.
-</li>
-<li>
-October 4, 2021, by Michael Wetter:<br/>
-Refactored <a href=\"modelica://Buildings.Examples.VAVReheat\">Buildings.Examples.VAVReheat</a>
-and its base classes to separate building from HVAC model.<br/>
-This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2652\">issue #2652</a>.
-</li>
-<li>
-September 3, 2021, by Michael Wetter:<br/>
-Updated documentation.<br/>
-This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2600\">issue #2600</a>.
-</li>
-<li>
-November 25, 2019, by Milica Grahovac:<br/>
-Impementation of <a href=\"modelica://Buildings.Examples.VAVReheat.Guideline36\">
-Buildings.Examples.VAVReheat.Guideline36</a> model with an EnergyPlus thermal zone instance.
+July 22, 2026, by David Blum:<br/>
+First implementation
 </li>
 </ul>
 </html>"));
