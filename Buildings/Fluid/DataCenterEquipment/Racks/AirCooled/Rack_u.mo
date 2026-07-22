@@ -1,7 +1,8 @@
 within Buildings.Fluid.DataCenterEquipment.Racks.AirCooled;
 model Rack_u "Model of an air-cooled rack, and utilization is input"
   extends Buildings.Fluid.DataCenterEquipment.Racks.BaseClasses.PartialRack(
-    redeclare replaceable Buildings.Fluid.DataCenterEquipment.Racks.AirCooled.Data.Generic dat,
+    redeclare replaceable Buildings.Fluid.DataCenterEquipment.Racks.AirCooled.Data.Generic dat
+      constrainedby Buildings.Fluid.DataCenterEquipment.Racks.AirCooled.Data.Generic,
     vol(nPorts=2));
 
   Modelica.Blocks.Interfaces.RealOutput PTot(final unit="W")
