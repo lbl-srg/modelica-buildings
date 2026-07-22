@@ -620,6 +620,133 @@ collect2: error: ld returned 1 exit status
 </pre>
 </html>"));
   end NotesForDymola;
+
+  class AutoSizing "AutoSizing"
+    extends Modelica.Icons.Information;
+    annotation (
+      preferredView="info",
+      Documentation(
+        info="<html>
+<h4>AutoSizing</h4>
+<p>
+Autosizing in Spawn of EnergyPlus is implemented to help users automatically
+size system equipment and components modeled in Modelica using sizing 
+capabilities in EnergyPlus.  The general workflow is to specify sizing
+objects in the idf file that are typically used in EnergyPlus workflows
+and propogate values from pre-defined sizing parameters in Modelica, whose
+values are obtained from the EnergyPlus sizing process during initialization,
+throughout the model as-needed.  More information about setting up autosizing
+and the pre-defined sizing parameters is described below.
+</p>
+<h5>Setting up Autosizing for Zones and Systems in Modelica</h5>
+<p>
+The process for setting up autosizing in Modelica is as follows:
+<ol>
+<li>
+Instantiate an instance of class 
+<a href=\"modelica://Buildings.ThermalZones.EnergyPlus_24_2_0.SystemSizing\">Buildings.ThermalZones.EnergyPlus_24_2_0.SystemSizing</a>.
+<ul>
+<li>
+Name the autosize system using the string parameter <code>hvacSystemName</code>.
+</li>
+<li>
+Toggle the boolean parameter <code>autosizeHVAC=true</code>.
+</li>
+</ul>
+<li>
+Add thermal zones to be autosized as part of the autosize system instantiated
+in the previous step by specifying the string parameter <code>hvacSystemName</code> in the thermal zone object
+so that it matches the name given to the system in the previous step.
+<ul>
+<li>
+You may assign multiple zones to the same autosize system.
+</li>
+<li>
+The value of the boolean parameter <code>autosizeHVAC</code> in the autosize system object
+will apply to all thermal zones specified as part of that system.
+</li>
+</ul>
+</li>
+</ol> 
+</p>
+<h5>Pre-defined Sizing Parameters in Modelica</h5>
+<p>
+The results of autosizing from EnergyPlus are populated into Modelica records
+that are accessible at the zone and system levels.  Two records exist that
+contain the same parameters: one for heating and one for cooling.
+</p>
+<p>
+The zone level records are:
+<ul>
+<li>
+<a href=\"modelica://Buildings.ThermalZones.EnergyPlus_24_2_0.ThermalZone\">Buildings.ThermalZones.EnergyPlus_24_2_0.ThermalZone</a>.sizHea
+</li>
+<li>
+<a href=\"modelica://Buildings.ThermalZones.EnergyPlus_24_2_0.ThermalZone\">Buildings.ThermalZones.EnergyPlus_24_2_0.ThermalZone</a>.sizCoo
+</li>
+</ul>
+</p>
+The system level records are:
+<ul>
+<li>
+<a href=\"modelica://Buildings.ThermalZones.EnergyPlus_24_2_0.SystemSizing\">Buildings.ThermalZones.EnergyPlus_24_2_0.SystemSizing</a>.sizHea
+</li>
+<li>
+<a href=\"modelica://Buildings.ThermalZones.EnergyPlus_24_2_0.SystemSizing\">Buildings.ThermalZones.EnergyPlus_24_2_0.SystemSizing</a>.sizCoo
+</li>
+</ul>
+</p>
+
+The parameters available within these records are:
+<ul>
+<li>
+<code>QSen_flow</code>: Design sensible load [W]
+</li>
+<li>
+<code>QLat_flow</code>: Design latent load [W]
+</li>
+<li>
+<code>TSet</code>: Indoor temperature set point at the design load [K]
+</li>
+<li>
+<code>XSet</code>: Indoor humidity ratio set point at the design load per total air mass [kg/kg]
+</li>
+<li>
+<code>TOut</code>: Outdoor drybulb temperature at the design load [K]
+</li>
+<li>
+<code>XOut</code>: Outdoor humidity ratio at the design load per total air mass [kg/kg]
+</li>
+<li>
+<code>mOut_flow</code>: Minimum outdoor air flow rate during the design load [kg/s]
+</li>
+<li>
+<code>t</code>: Time at which the design load occurred [s]
+</li>
+</ul>
+</p>
+
+<h5>Examples</h5>
+<ul>
+<li>
+<a href=\"modelica://Buildings.ThermalZones.EnergyPlus_24_2_0.Examples.SingleFamilyHouse.AirHeating_Autosizing\">
+Buildings.ThermalZones.EnergyPlus_24_2_0.Examples.SingleFamilyHouse.AirHeating_Autosizing</a>
+</li>
+<li>
+<a href=\"modelica://Buildings.ThermalZones.EnergyPlus_24_2_0.Examples.SmallOffice.IdealHeatingCoolingWinter_Autosizing\">
+Buildings.ThermalZones.EnergyPlus_24_2_0.Examples.SmallOffice.IdealHeatingCoolingWinter_Autosizing</a>
+</li>
+<li>
+<a href=\"modelica://Buildings.ThermalZones.EnergyPlus_24_2_0.Examples.SmallOffice.ASHRAE2006Winter_Autosizing\">
+Buildings.ThermalZones.EnergyPlus_24_2_0.Examples.SmallOffice.ASHRAE2006Winter_Autosizing</a>
+</li>
+<li>
+<a href=\"modelica://Buildings.ThermalZones.EnergyPlus_24_2_0.Examples.SmallOffice.Guideline36Winter_Autosizing\">
+Buildings.ThermalZones.EnergyPlus_24_2_0.Examples.SmallOffice.Guideline36Winter_Autosizing</a>
+</li>
+</ul>
+</html>"));
+  end AutoSizing;
   annotation (
     preferredView="info",
     Documentation(
