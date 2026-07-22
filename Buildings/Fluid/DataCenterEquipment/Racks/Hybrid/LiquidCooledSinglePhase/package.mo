@@ -1,6 +1,6 @@
 within Buildings.Fluid.DataCenterEquipment.Racks.Hybrid;
 package LiquidCooledSinglePhase "Package with examples for hybrid liquid-cooled single-phase racks"
-  extends Modelica.Icons.Package;
+  extends Modelica.Icons.VariantsPackage;
 
 annotation (Documentation(info="<html>
 <p>

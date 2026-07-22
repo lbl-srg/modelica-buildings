@@ -1,6 +1,6 @@
 within Buildings.Fluid.DataCenterEquipment.Racks;
 package AirCooled "Package with models for air-cooled IT racks"
-  extends Modelica.Icons.Package;
+  extends Modelica.Icons.VariantsPackage;
 annotation (preferredView="info", Documentation(info="<html>
 <p>
 This package contains models for single-phase liquid-cooled IT racks.

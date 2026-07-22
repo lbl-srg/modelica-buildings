@@ -11,7 +11,6 @@ partial model PartialRack "Partial model of an IT rack, with utilization as inpu
               X_a=0.25)
               "Propylene glycol water, 25% mass fraction")));
 
-
   replaceable parameter Buildings.Fluid.DataCenterEquipment.Racks.BaseClasses.Data.Generic dat
     "Performance data"
     annotation (Placement(transformation(extent={{60,-80},{80,-60}})));

@@ -1,6 +1,6 @@
 within Buildings.Fluid.DataCenterEquipment.Racks.Hybrid;
 package Data "Package with performance data for hybrid racks"
-  extends Modelica.Icons.Package;
+  extends Modelica.Icons.MaterialPropertiesPackage;
 
 annotation (Documentation(info="<html>
 <p>

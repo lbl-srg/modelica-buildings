@@ -1,6 +1,6 @@
 within Buildings.Fluid.DataCenterEquipment.Racks;
 package Hybrid "Package with hybrid liquid and air-cooled IT racks"
-  extends Modelica.Icons.Package;
+  extends Modelica.Icons.VariantsPackage;
 
 annotation (Documentation(info="<html>
 <p>
