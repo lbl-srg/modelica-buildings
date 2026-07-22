@@ -65,10 +65,10 @@ The configuration of the simulation is the same as
 Buildings.ThermalZones.Detailed.Examples.FFD.Tutorial.NaturalConvection</a>, except that a heater with PI controller is added to maintain the desired room temperature.
 </p>
 <p>
-The temperature at the central room is sent to the PI controller as measured temperature. Based on the difference of set temperature and measured temperaure PI
+The temperature at the central room is sent to the PI controller as measured temperature. Based on the difference of set temperature and measured temperature PI
 controller sends signal to the heater to yield the heat flow.
 The heat flow is then injected into the room through the heat port as convective heat flow.
-After receving the heat flow from Modelica, the FFD uniformly distributes it into the space.
+After receiving the heat flow from Modelica, the FFD uniformly distributes it into the space.
 </p>
 <p>
 Please note that<code> roo.yCFD[1]</code> is the temperature at the center of the room and <code> roo.yCFD[2]</code> is the velocity magnitude at the center of the room.

@@ -366,6 +366,62 @@
   openmodelica:
     comment: Time out after 300 s.
     translate: false
+- model_name: Buildings.ThermalZones.Detailed.Examples.FFD.ForcedConvection
+  openmodelica:
+    comment: 'Error: No system for the symbolic initialization was generated.'
+    translate: false
+- model_name: Buildings.ThermalZones.Detailed.Examples.FFD.NaturalConvectionWithControl
+  openmodelica:
+    comment: 'Error: No system for the symbolic initialization was generated.'
+    translate: false
+- model_name: Buildings.ThermalZones.Detailed.Examples.FFD.RoomOnlyConstructionBoundary
+  openmodelica:
+    comment: 'Error: No system for the symbolic initialization was generated.'
+    translate: false
+- model_name: Buildings.ThermalZones.Detailed.Examples.FFD.RoomOnlyExteriorWallNoWindow
+  openmodelica:
+    comment: 'Error: No system for the symbolic initialization was generated.'
+    translate: false
+- model_name: Buildings.ThermalZones.Detailed.Examples.FFD.RoomOnlySurfaceBoundary
+  openmodelica:
+    comment: 'Error: No system for the symbolic initialization was generated.'
+    translate: false
+- model_name: Buildings.ThermalZones.Detailed.Examples.FFD.Tutorial.MixedConvection
+  openmodelica:
+    comment: 'Error: No system for the symbolic initialization was generated.'
+    translate: false
+- model_name: Buildings.ThermalZones.Detailed.Examples.FFD.Tutorial.MixedConvectionWithBox
+  openmodelica:
+    comment: 'Error: No system for the symbolic initialization was generated.'
+    translate: false
+- model_name: Buildings.ThermalZones.Detailed.Examples.FFD.Tutorial.NaturalConvection
+  openmodelica:
+    comment: 'Error: No system for the symbolic initialization was generated.'
+    translate: false
+- model_name: Buildings.ThermalZones.Detailed.Examples.FFD.WindowWithShade
+  openmodelica:
+    comment: 'Error: No system for the symbolic initialization was generated.'
+    translate: false
+- model_name: Buildings.ThermalZones.Detailed.Examples.FFD.WindowWithoutShade
+  openmodelica:
+    comment: 'Error: No system for the symbolic initialization was generated.'
+    translate: false
+- model_name: Buildings.ThermalZones.Detailed.Examples.ISAT.MixedConvectionWithExteriorWall
+  openmodelica:
+    comment: 'Error: No system for the symbolic initialization was generated.'
+    translate: false
+- model_name: Buildings.ThermalZones.Detailed.Examples.ISAT.Tutorial.MixedConvection
+  openmodelica:
+    comment: 'Error: No system for the symbolic initialization was generated.'
+    translate: false
+- model_name: Buildings.ThermalZones.Detailed.Examples.ISAT.Tutorial.MixedConvectionWithBox
+  openmodelica:
+    comment: 'Error: No system for the symbolic initialization was generated.'
+    translate: false
+- model_name: Buildings.ThermalZones.Detailed.Examples.ISAT.Tutorial.NaturalConvection
+  openmodelica:
+    comment: 'Error: No system for the symbolic initialization was generated.'
+    translate: false
 - model_name: Buildings.ThermalZones.Detailed.FLEXLAB.Rooms.Examples.X3WithRadiantFloor
   openmodelica:
     comment: 'TimeoutExpired: translation timed out after 300 seconds'

@@ -62,7 +62,7 @@ Buildings.Types.Tilt</a>
 <ul>
 <li>
 October 28, 2014, by Michael Wetter:<br/>
-Removed <code>replacable</code> keyword for parameters that are records as this is not needed.
+Removed <code>replaceable</code> keyword for parameters that are records as this is not needed.
 </li>
 <li>
 October 27, 2014, by Michael Wetter:<br/>

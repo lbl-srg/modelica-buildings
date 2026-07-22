@@ -1,5 +1,5 @@
 within Buildings.ThermalZones.Detailed.Examples.FFD.Tutorial;
-model NaturalConvection "Tutorial for Natural Convection case"
+model NaturalConvection "Tutorial for the natural convection case"
   extends Modelica.Icons.Example;
   package MediumA =
       Buildings.Media.Air (
@@ -10,7 +10,7 @@ model NaturalConvection "Tutorial for Natural Convection case"
   parameter Integer nSurBou=6
     "Number of surface that are connected to the room air volume";
   parameter Integer nConExt=0
-    "Number of exterior constructions withour a window";
+    "Number of exterior constructions without a window";
   parameter Integer nConPar=0 "Number of partition constructions";
   Modelica.Blocks.Sources.Constant qRadGai_flow(k=0) "Radiative heat gain"
     annotation (Placement(transformation(extent={{-60,0},{-40,20}})));
@@ -42,6 +42,7 @@ model NaturalConvection "Tutorial for Natural Convection case"
    hRoo = 1,
    linearizeRadiation = false,
    useCFD = true,
+   nSou=0,
    sensorName = {"Occupied zone air temperature", "Velocity"},
    cfdFilNam = "modelica://Buildings/Resources/Data/ThermalZones/Detailed/Examples/FFD/Tutorial/NaturalConvection.ffd",
    nConExt = nConExt,
@@ -94,9 +95,9 @@ equation
       smooth=Smooth.None));
   annotation (Diagram(coordinateSystem(extent={{-80,-140},{180,80}},
           preserveAspectRatio=false)),
-          __Dymola_Commands(file =    "modelica://Buildings/Resources/Scripts/Dymola/ThermalZones/Detailed/Examples/FFD/Tutorial/NaturalConvection.mos"
+          __Dymola_Commands(file= "modelica://Buildings/Resources/Scripts/Dymola/ThermalZones/Detailed/Examples/FFD/Tutorial/NaturalConvection.mos"
         "Simulate and plot"),
-        experiment(Tolerance=1e-06, StopTime=3600),
+        experiment(Tolerance=1e-06, StopTime=7200),
        Documentation(info="<html>
 <p>
 This tutorial gives step by step instructions for building and simulating a natural convection model.
@@ -169,7 +170,7 @@ This model is used to implement the data exchange between Modelica and FFD. Name
 </li>
 <li>
 <a href=\"modelica://Buildings.BoundaryConditions.WeatherData.ReaderTMY3\">Buildings.BoundaryConditions.WeatherData.ReaderTMY3</a>.
-Use weather data from OHare Intl. Airport, Chicago, Illinoi, U.S.A. Name it as <code>weaDat</code>.
+Use weather data from OHare Intl. Airport, Chicago, Illinois, U.S.A. Name it as <code>weaDat</code>.
 </li>
 <li>
 <a href=\"modelica://Modelica.Blocks.Sources.Constant\">Modelica.Blocks.Sources.Constant</a>.
@@ -184,7 +185,7 @@ This block is used to combine three scalar signals to a vector. Name it as <code
 <a href=\"modelica://Buildings.HeatTransfer.Sources.FixedTemperature\">
 Buildings.HeatTransfer.Sources.FixedTemperature</a>.
 Two models are needed to specify the temperatures on the east and west walls.
-Name them as <code>TeasWal</code> and <code>TwesWal</code>, respectively.
+Name them as <code>TEasWal</code> and <code>TWesWal</code>, respectively.
 </li>
 </ul>
 Note that for the other four walls with adiabatic boundary conditions, we do not need to specify
@@ -303,7 +304,7 @@ Revise the FFD parameter input file <code>NaturalConvection.ffd</code>
   prob.diff 0.00001 // Diffusivity for contaminants
   prob.alpha 2e-5 // Thermal diffusivity
   prob.coeff_h 0.0004 // Convective heat transfer coefficient near the wall
-  prob.Temp_Buoyancy 0.0 // Reference temperature for calculating buoyance force
+  prob.Temp_Buoyancy 0.0 // Reference temperature for calculating buoyancy force
   init.T 0.0 // Initial condition for Temperature
   init.u 0.0 // Initial condition for velocity u
   init.v 0.0 // Initial condition for velocity v
@@ -363,7 +364,7 @@ First implementation.
 <p>
 <a name=\"ZuoEtAl2012\"/>
 Wangda Zuo, Mingang Jin, Qingyan Chen, 2012.<br/>
-<a href=\"http://doi.org/10.1080/19942060.2012.11015418\">
+<a href=\"https://doi.org/10.1080/19942060.2012.11015418\">
 Reduction of numerical viscosity in FFD model.</a><br/>
 Journal of Engineering Applications of Computational Fluid Mechanics, 6(2), p. 234-247.
 </p>

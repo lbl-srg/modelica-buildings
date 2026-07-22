@@ -157,7 +157,7 @@ model TestCell "Model of LBNL User Test Facility Cell X3A"
   </tr>
   </table>
   <p>
-  An eigth construction, not shown in the figure, models the ceiling. It is modeled in datConExt[3] using
+  An eighth construction, not shown in the figure, models the ceiling. It is modeled in datConExt[3] using
   the layer <code>R20Wal</code>.
   </p>
   <p>

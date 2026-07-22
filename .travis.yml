@@ -172,6 +172,8 @@ install:
     else
       export NPROC=10;
     fi;
+  - apt-get install libblas3 libopenblas-base liblapack3
+
 
 # Execute tests
 script:
