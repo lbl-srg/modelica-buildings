@@ -6,6 +6,9 @@
   optimica:
     comment: High solver tolerance required to avoid time out.
     rtol: 1.0e-08
+- model_name: Buildings.Applications.DataCenters.DXCooled.Examples.DXCooledAirsideEconomizer
+  openmodelica:
+    solver: cvode
 - model_name: Buildings.Controls.DemandResponse.Examples.ClientLBNL90
   openmodelica:
     comment: 'TimeoutExpired: omc timed out after 300 seconds'
@@ -110,8 +113,8 @@
     comment: Timeout after 300 seconds.
     simulate: false
   optimica:
-    comment: Slow computation with tolerance 1E-6
-    rtol: 1.0e-7
+    comment: Slow computation with tolerance 1E-6 and 1E-7
+    rtol: 1.0e-8
 - model_name: Buildings.Examples.FanCoils.FourPipe
   optimica:
     comment: Solves six times faster if tolerance is set to 1e-07
@@ -253,6 +256,10 @@
   openmodelica:
     comment: Internal error function createSimCode failed [Transformation from optimised DAE to simulation code structure failed].
     translate: false
+- model_name: Buildings.Fluid.HydronicConfigurations.ActiveNetworks.Examples.Decoupling
+  optimica:
+    comment: High solver tolerance required to avoid time out.
+    rtol: 1.0e-07
 - model_name: Buildings.Fluid.HydronicConfigurations.ActiveNetworks.Examples.DecouplingMixing
   openmodelica:
     comment: Timeout after 300 s. See also OpenModelica, issue 13341
