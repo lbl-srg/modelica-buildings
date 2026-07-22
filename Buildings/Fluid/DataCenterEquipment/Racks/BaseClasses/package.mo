@@ -1,5 +1,6 @@
 within Buildings.Fluid.DataCenterEquipment.Racks;
 package BaseClasses "Package with base classes for racks"
+  extends Modelica.Icons.BasesPackage;
 
   annotation (Documentation(info="<html>
 <p>
