@@ -23,7 +23,7 @@ model AirHeating_Autosizing
   Buildings.ThermalZones.EnergyPlus_24_2_0.ThermalZone zon(
     redeclare package Medium=Medium,
     zoneName="LIVING ZONE",
-    hvacSystemName="sys1",
+    hvacSystemName="sysHea",
     nPorts=4)
     "Thermal zone"
     annotation (Placement(transformation(extent={{20,80},{60,120}})));
@@ -61,13 +61,12 @@ model AirHeating_Autosizing
     "Controller for heater"
     annotation (Placement(transformation(extent={{-120,-110},{-100,-90}})));
   Buildings.Fluid.HeatExchangers.Heater_T hea(
-    redeclare final package Medium=Medium,
+    redeclare final package Medium = Medium,
     m_flow_nominal=mRec_flow_nominal,
     dp_nominal=200,
     tau=0,
     show_T=true,
-    QMax_flow=sizSys1.sizHea.QSen_flow)
-    "Ideal heater"
+    QMax_flow=sizSysHea.sizHea.QSen_flow) "Ideal heater"
     annotation (Placement(transformation(extent={{80,-30},{100,-10}})));
   Buildings.Fluid.Sources.Boundary_pT pAtm(
     redeclare package Medium=Medium,
@@ -123,8 +122,8 @@ model AirHeating_Autosizing
     annotation (Placement(transformation(extent={{-40,100},{-20,120}})));
   Buildings.Controls.OBC.CDL.Reals.MultiplyByParameter gai(final k=8) "Gain factor"
     annotation (Placement(transformation(extent={{-6,-90},{14,-70}})));
-  SystemSizing sizSys1(hvacSystemName="sys1", autosizeHVAC=true)
-    "Block for sizing of sys 1"
+  SystemSizing sizSysHea(hvacSystemName="sysHea", autosizeHVAC=true)
+    "Block for sizing of the heating system"
     annotation (Placement(transformation(extent={{-120,20},{-100,40}})));
 initial equation
   // Stop simulation if the hard-coded values differ from the ones computed by EnergyPlus.
@@ -192,8 +191,8 @@ equation
 <p>
 Same example as <a href=\"modelica://Buildings.ThermalZones.EnergyPlus_24_2_0.Examples.SingleFamilyHouse.AirHeating\">
 Buildings.ThermalZones.EnergyPlus_24_2_0.Examples.SingleFamilyHouse.AirHeating</a>,
-except that the heater size, in terms of max heating power, is determined
-from the autosizing feature in Spawn.
+except that the max heating power of the heater is determined by the
+system design heating load returned from the autosizing feature in Spawn.
 </p>
 </html>",
       revisions="<html>

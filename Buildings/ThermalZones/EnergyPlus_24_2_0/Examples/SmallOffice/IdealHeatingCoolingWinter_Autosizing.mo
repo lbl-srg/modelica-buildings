@@ -1,5 +1,6 @@
 within Buildings.ThermalZones.EnergyPlus_24_2_0.Examples.SmallOffice;
 model IdealHeatingCoolingWinter_Autosizing
+  "Example model with ideal heating/cooling where the systems are sized using the Spawn autosize feature"
   extends IdealHeatingCoolingWinter(
     redeclare Buildings.ThermalZones.EnergyPlus_24_2_0.Examples.SmallOffice.BaseClasses.Floor_Autosizing_MultipleSystems flo,
     coo(
@@ -30,11 +31,32 @@ model IdealHeatingCoolingWinter_Autosizing
         flo.nor.sizHea.TSet,
         flo.wes.sizHea.TSet,
         flo.cor.sizHea.TSet}));
-  annotation(
+  annotation(Documentation(
+      info="<html>
+<p>
+Same example as <a href=\"modelica://Buildings.ThermalZones.EnergyPlus_24_2_0.Examples.SmallOffice.IdealHeatingCoolingWinter\">
+Buildings.ThermalZones.EnergyPlus_24_2_0.Examples.SmallOffice.IdealHeatingCoolingWinter</a>,
+except that the autosizing feature in Spawn is used to define two HVAC systems,
+one serving the perimeter zones and one serving the core zone.  The system
+serving the perimeter zones has <code>autosizeHVAC=true</code>, while the one serving the 
+core zone has <code>autosizeHVAC=false</code>.  The zone level design sensible heating
+and cooling loads returned from the Spawn autosizing are used to size the 
+ideal heaters and coolers and the design heating and cooling temperature set points 
+are used to specify the set points for the controllers.
+</p>
+</html>",
+      revisions="<html>
+<ul>
+<li>
+July 22, 2026, by David Blum:<br/>
+First implementation.
+</li>
+</ul>
+</html>"),
     __Dymola_Commands(
       file="modelica://Buildings/Resources/Scripts/Dymola/ThermalZones/EnergyPlus_24_2_0/Examples/SmallOffice/IdealHeatingCoolingWinter_Autosizing.mos" "Simulate and plot"),
     experiment(
       StartTime=432000,
       StopTime=864000,
-      Tolerance=1e-07));
+      Tolerance=1e-06));
 end IdealHeatingCoolingWinter_Autosizing;
