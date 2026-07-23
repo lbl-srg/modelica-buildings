@@ -100,7 +100,8 @@ model ChillerWSE
     mPla_flow_nominal=mPla_flow_nominal,
     mRac_flow_nominal=mRac_flow_nominal,
     dpHexPla_nominal=dpHexChi_nominal,
-    dpPumpExt_nominal=datRac.dp_nominal + pipRacIn.dp_nominal + pipRacOut.dp_nominal)
+    dpPumpExt_nominal=datRac.dp_nominal + valRac.dp_nominal + pipRacIn.dp_nominal
+         + pipRacOut.dp_nominal)
       "Data record for CDU"
     annotation (Placement(transformation(extent={{40,60},{60,80}})));
   parameter Fluid.HeatExchangers.CoolingTowers.Data.DryCooler.Generic datCooTow(
@@ -164,7 +165,7 @@ model ChillerWSE
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},
         rotation=0,
         origin={90,-100})));
-  Controls.OBC.CDL.Reals.Sources.Constant dpSet(k=datRac.dp_nominal + valRac.dp_nominal)
+  Controls.OBC.CDL.Reals.Sources.Constant dpSet(k=datCDU.dpPumpExt_nominal)
                                                          "Set point for head"
     annotation (Placement(transformation(extent={{-100,50},{-80,70}})));
   Controls.OBC.CDL.Reals.Sources.Constant TSetRacIn(y(final unit="K",
@@ -348,8 +349,8 @@ model ChillerWSE
     addPowerToMedium=false,
     use_riseTime=false,
     m_flow_nominal=mPla_flow_nominal,
-    dp_nominal=dpHexChi_nominal + pipCDUIn.dp_nominal + pipCDUOut.dp_nominal)
-                                 "Pump chilled water circuit" annotation (
+    dp_nominal=dpHexChi_nominal + datCDU.dpValve_nominal + pipCDUIn.dp_nominal + pipCDUOut.dp_nominal)
+    "Pump chilled water circuit" annotation (
       Placement(transformation(
         extent={{10,10},{-10,-10}},
         rotation=270,
@@ -397,7 +398,7 @@ model ChillerWSE
     "Set point temperature for evaporator outlet temperature"
     annotation (Placement(transformation(extent={{-568,380},{-548,400}})));
   Controls.OBC.CDL.Reals.Sources.Constant pSetChiWatPum(
-    y(final unit="Pa"), k(final unit="Pa") = datCDU.dpHexPla_nominal + datCDU.dpValve_nominal)
+    y(final unit="Pa"), k(final unit="Pa") = pumCDU.dp_nominal)
     "Pressure setpoint for chilled water pump"
     annotation (Placement(transformation(extent={{160,160},{180,180}})));
   Controls.OBC.CDL.Reals.Hysteresis hysChi(
@@ -636,13 +637,12 @@ public
     "Set point for rack outlet temperature"
     annotation (Placement(transformation(extent={{-160,-40},{-140,-20}})));
   Controls.OBC.CDL.Reals.PID conVal(
+    Ti=60,
     yMin=0.05,
     u_s(final unit="K", displayUnit="degC"),
     u_m(final unit="K", displayUnit="degC"),
     final controllerType=Buildings.Controls.OBC.CDL.Types.SimpleController.PI,
-    final reverseActing=false,
-    r=10,
-    xi_start=1)
+    final reverseActing=false)
     "Controller for valve"
     annotation (Placement(transformation(extent={{-120,-40},{-100,-20}})));
   Modelica.Blocks.Math.Gain PITIn(

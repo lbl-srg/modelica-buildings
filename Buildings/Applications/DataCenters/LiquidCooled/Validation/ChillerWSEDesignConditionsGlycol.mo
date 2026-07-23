@@ -7,14 +7,15 @@ model ChillerWSEDesignConditionsGlycol
     uti(k=1),
     fraWSE=0.999999,
     yPumChi(realTrue=0),
-    cdu(addPowerToMedium=false)
+    cdu(
+      addPowerToMedium=false)
     );
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant TDryBulCon(
     y(final unit="K",
-      displayUnit="degC"), k(
-      final unit="K",
+      displayUnit="degC"),
+    k(final unit="K",
       displayUnit="degC") = datCooTow.TAirIn_nominal)
-                                    "Design dry bulb temperature"
+   "Design dry bulb temperature"
     annotation (Placement(transformation(extent={{-80,658},{-60,678}})));
 equation
   connect(TDryBulCon.y, cooTow.TDryBul) annotation (Line(points={{-58,668},
