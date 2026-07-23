@@ -638,9 +638,10 @@ values are obtained from the EnergyPlus sizing process during initialization,
 throughout the model as-needed.  More information about setting up autosizing
 and the pre-defined sizing parameters is described below.
 </p>
-<h5>Setting up Autosizing for Zones and Systems in Modelica</h5>
+<h5>Autosizing for Zones and Systems in Modelica</h5>
 <p>
-The process for setting up autosizing in Modelica is as follows:
+The process for setting up autosizing in Modelica is as follows, with related
+notes:
 <ol>
 <li>
 Instantiate an instance of class 
@@ -664,6 +665,20 @@ You may assign multiple zones to the same autosize system.
 <li>
 The value of the boolean parameter <code>autosizeHVAC</code> in the autosize system object
 will apply to all thermal zones specified as part of that system.
+</li>
+<li>
+The sizing values returned for each zone are for the design condition of each 
+zone individually, while the sizing values returned for each system are for the
+design condition of the system considering the coincident load from each zone
+that is part of that system.
+</li>
+<li>
+The sizing values returned for each zone part of any system whose parameter
+<code>autosizeHVAC=false</code> will be 0.
+<li>
+The sizing values returned for any zone not assigned to an autosize system 
+will be 0. 
+</li>
 </li>
 </ul>
 </li>
@@ -737,12 +752,24 @@ Buildings.ThermalZones.EnergyPlus_24_2_0.Examples.SingleFamilyHouse.AirHeating_A
 Buildings.ThermalZones.EnergyPlus_24_2_0.Examples.SmallOffice.IdealHeatingCoolingWinter_Autosizing</a>
 </li>
 <li>
+<a href=\"modelica://Buildings.ThermalZones.EnergyPlus_24_2_0.Examples.SmallOffice.IdealHeatingCoolingSummer_Autosizing\">
+Buildings.ThermalZones.EnergyPlus_24_2_0.Examples.SmallOffice.IdealHeatingCoolingSummer_Autosizing</a>
+</li>
+<li>
 <a href=\"modelica://Buildings.ThermalZones.EnergyPlus_24_2_0.Examples.SmallOffice.ASHRAE2006Winter_Autosizing\">
 Buildings.ThermalZones.EnergyPlus_24_2_0.Examples.SmallOffice.ASHRAE2006Winter_Autosizing</a>
 </li>
 <li>
+<a href=\"modelica://Buildings.ThermalZones.EnergyPlus_24_2_0.Examples.SmallOffice.ASHRAE2006Summer_Autosizing\">
+Buildings.ThermalZones.EnergyPlus_24_2_0.Examples.SmallOffice.ASHRAE2006Summer_Autosizing</a>
+</li>
+<li>
 <a href=\"modelica://Buildings.ThermalZones.EnergyPlus_24_2_0.Examples.SmallOffice.Guideline36Winter_Autosizing\">
 Buildings.ThermalZones.EnergyPlus_24_2_0.Examples.SmallOffice.Guideline36Winter_Autosizing</a>
+</li>
+<li>
+<a href=\"modelica://Buildings.ThermalZones.EnergyPlus_24_2_0.Examples.SmallOffice.Guideline36Summer_Autosizing\">
+Buildings.ThermalZones.EnergyPlus_24_2_0.Examples.SmallOffice.Guideline36Summer_Autosizing</a>
 </li>
 </ul>
 </html>"));
