@@ -1,6 +1,6 @@
 within Buildings.ThermalZones.EnergyPlus_24_2_0.Examples.SmallOffice;
 model IdealHeatingCoolingWinter_Autosizing
-  "Example model with ideal heating/cooling where the systems are sized using the Spawn autosize feature"
+  "Building with constant fresh air and ideal heating/cooling that exactly meets set point with HVAC sized using autosizing"
   extends IdealHeatingCoolingWinter(
     redeclare Buildings.ThermalZones.EnergyPlus_24_2_0.Examples.SmallOffice.BaseClasses.Floor_Autosizing_MultipleSystems flo,
     coo(
