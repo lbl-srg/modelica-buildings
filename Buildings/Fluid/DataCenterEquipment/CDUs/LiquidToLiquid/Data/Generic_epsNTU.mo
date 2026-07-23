@@ -241,7 +241,7 @@ The data record is structured as follows.
 </p>
     <h4>Required Parameters</h4>
     <p>These parameters have no default values and must be provided by the user.</p>
-    <table>
+    <table summary=\"Required parameters for CDU generic data record\">
         <thead>
             <tr>
                 <th>Parameter</th>
@@ -307,7 +307,7 @@ The data record is structured as follows.
     <h4>Defaulted Parameters (Overridable)</h4>
     <p>These parameters are pre-configured with default values or initial equations, but may be overridden by the user.
     </p>
-    <table>
+    <table summary=\"Defaulted parameters for CDU generic data record\">
         <thead>
             <tr>
                 <th>Parameter</th>
@@ -457,7 +457,7 @@ Buildings.Fluid.DataCenterEquipment.CDUs.LiquidToLiquid.Data.GoogleProjectDeschu
     <h4>Derived Parameters</h4>
     <p>These parameters are calculated by the model based on the above parameters and cannot be changed by the user.
     </p>
-    <table>
+    <table summary=\"Derived parameters for CDU generic data record\">
         <thead>
             <tr>
                 <th>Parameter</th>

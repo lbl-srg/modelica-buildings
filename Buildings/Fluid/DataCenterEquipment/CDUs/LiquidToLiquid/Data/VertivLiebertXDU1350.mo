@@ -25,7 +25,7 @@ record VertivLiebertXDU1350
 This data record is for a Vertiv Liebert XDU 1350.
 This unit is specified for the following data:
 </p>
-<table>
+<table summary=\"Vertiv Liebert XDU 1350 CDU specifications\">
   <thead>
     <tr>
       <th style=\"text-align: left;\">Description</th>
