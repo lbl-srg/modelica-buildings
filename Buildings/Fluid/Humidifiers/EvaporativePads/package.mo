@@ -2,7 +2,7 @@ within Buildings.Fluid.Humidifiers;
 package EvaporativePads "Package with evaporative pads"
 annotation (preferredView="info", Documentation(info="<html>
 <p>
-Package with evaporative cooler models based on EnergyPlus v23.1.0 Engineering Reference.
+Package with evaporative cooler models.
 </p>
 </html>"),
     Icon(graphics={
