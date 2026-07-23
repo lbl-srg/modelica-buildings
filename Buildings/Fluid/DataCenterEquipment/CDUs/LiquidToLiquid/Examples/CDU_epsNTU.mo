@@ -172,7 +172,7 @@ equation
         coordinateSystem(extent={{-100,-100},{100,100}})),
     experiment(
       StopTime=7200,
-      Tolerance=1e-05),
+      Tolerance=1e-06),
       __Dymola_Commands(
        file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/DataCenterEquipment/CDUs/LiquidToLiquid/Examples/CDU_epsNTU.mos" "Simulate and plot"),
     Documentation(info="<html>
