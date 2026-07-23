@@ -155,6 +155,10 @@
   openmodelica:
     comment: 'CalledProcessError: Command ''[''omc'', ''Buildings.Fluid.Chillers.ModularReversible.Validation.TableData2DLoadDep_HeatRecovery_translate.mos'']'' returned non-zero exit status 2.'
     translate: false
+- model_name: Buildings.Fluid.DataCenterEquipment.Racks.Hybrid.LiquidCooledSinglePhase.Examples.LiquidCooledSinglePhase
+  dymola:
+    comment: "Dassault bug report: SR01576125-01 due to problem with data record"
+    translate: false
 - model_name: Buildings.Fluid.Examples.FlowSystem.Basic
   openmodelica:
     comment: '''omc'' caused ''simulation terminated by an assertion at initialization''.'

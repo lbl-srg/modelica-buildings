@@ -1,0 +1,9 @@
+compareVars :=
+  {
+    "rac.dat.m_flow_nominal",
+    "rac.port_a.m_flow",
+    "rac.utiIT",
+    "senTIn.T",
+    "senTOut.T",
+    "rac.PTot"
+  };

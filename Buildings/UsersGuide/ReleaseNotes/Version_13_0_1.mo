@@ -13,11 +13,17 @@ Version 13.0.1 is ... xxx
 The following <b style=\"color:blue\">new libraries</b> have been added:
 </p>
 <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\">
-<tr><td valign=\"top\">xxx
+<tr><td valign=\"top\">Buildings.Applications.DataCenters.LiquidCooled
     </td>
-    <td valign=\"top\">xxx.
+    <td valign=\"top\">System models for liquid cooled data centers.
     </td>
-    </tr>
+</tr>
+<tr><td valign=\"top\">Buildings.Fluid.DataCenterEquipment
+    </td>
+    <td valign=\"top\">Component models for liquid cooled data centers,
+                       such as CDUs and racks.
+    </td>
+</tr>
 </table>
 <!-- New components for existing libraries -->
 <p>
