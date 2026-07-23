@@ -60,6 +60,9 @@ INVALID_REGEXP_IN_MO=[r"StopTime\s*=\s*\d\s*[*]\s*\d+",
                       r"(Documentation\s*\(((.|\r?\n)*?))font-size\s*:",
                       r"file\s*=\s*\"Resources", # This should be file="modelica://Buildings/Resources
                       r"parameter.*Boolean.*homotopyInitialization",
+                      # Checks for textString="%first" or "%second" which was sometimes
+                      # used in connect annotations (https://github.com/ibpsa/modelica-ibpsa/issues/2137)
+                      r'textString\s*=\s*"(?:%first|%second)"',
                       r"(Text\s*\([^\)]*)lineColor",
                       r"(Line\s*\([^\)]*)lineThickness"]
 # List of strings that are required in .mo files, except in Examples

@@ -96,9 +96,16 @@ model ConservationEquation "Lumped volume with mass and energy balance"
         X=X_start[1:Medium.nXi])) + (T_start - Medium.reference_T)*CSen,
       nominal=1E5) "Internal energy of fluid";
 
-  Modelica.Units.SI.Mass m(start=fluidVolume*rho_start, stateSelect=if
-        massDynamics == Modelica.Fluid.Types.Dynamics.SteadyState then
-        StateSelect.default else StateSelect.prefer) "Mass of fluid";
+  Modelica.Units.SI.Mass m(
+    start=fluidVolume*rho_start,
+    stateSelect=
+    if massDynamics == Modelica.Fluid.Types.Dynamics.SteadyState
+      then
+        StateSelect.default
+      else
+        StateSelect.prefer,
+    nominal=fluidVolume*rho_start)
+    "Mass of fluid";
 
   Modelica.Units.SI.Mass[Medium.nXi] mXi(
     each stateSelect=StateSelect.never,
@@ -429,6 +436,11 @@ Buildings.Fluid.MixingVolumes.MixingVolume</a>.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+June 25, 2026, by Michael Wetter:<br/>
+Added <code>nominal</code> attribute to <code>m</code>.<br/>
+This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/2163\">IBPSA, #2163</a>.
+</li>
 <li>
 June 18, 2024, by Michael Wetter:<br/>
 Added <code>start</code> and <code>nominal</code> attributes
