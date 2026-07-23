@@ -20,7 +20,7 @@ record GoogleProjectDeschutes_2MW
   Documentation(info="<html>
 <p>
 This data record is for the 5th generation CDU unit of Google, named
-"Project Deschutes". This unit is specified for the following data (OCP, 2026):
+<em>Project Deschutes</em>. This unit is specified for the following data (OCP, 2026):
 </p>
 <table summary=\"Google Project Deschutes CDU specifications\">
   <thead>
