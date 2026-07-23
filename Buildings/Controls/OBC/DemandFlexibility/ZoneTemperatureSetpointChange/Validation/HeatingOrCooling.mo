@@ -16,7 +16,7 @@ model HeatingOrCooling "Validation model for the heating or cooling block"
     timeScale=3600,
     period=86400)
     annotation (Placement(transformation(extent={{-120,0},{-100,20}})));
-  Generic.ZoneSetpointSource                              zoneSetpointSource(
+  Subsequences.ZoneSetpointGeneration zoneSetpointSource(
     TDefOccHeaSet=273.15 + 20,
     TDefUnoHeaSet=273.15 + 12,
     TDefOccCooSet=273.15 + 24,
@@ -25,7 +25,9 @@ model HeatingOrCooling "Validation model for the heating or cooling block"
     dTSheCooSet=4,
     dTPreHeaSet=1.5,
     dTPreCooSet=1.5,
-    occHouEnd=19)
+    occHouSta=7,
+    occHouEnd=19,
+    setChaEnaUnoFla=true)
     annotation (Placement(transformation(extent={{-100,-40},{-80,-20}})));
   Buildings.Controls.OBC.DemandFlexibility.ZoneTemperatureSetpointChange.HeatingOrCooling
     heaOrCoo(

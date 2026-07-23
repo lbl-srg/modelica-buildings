@@ -23,7 +23,7 @@ model ZoneControl
     timeScale=3600,
     period=86400)
     annotation (Placement(transformation(extent={{-120,0},{-100,20}})));
-  Generic.ZoneSetpointSource                              zoneSetpointSource(
+  ZoneSetpointGeneration zoneSetpointSource(
     TDefOccHeaSet=273.15 + 20,
     TDefUnoHeaSet=273.15 + 12,
     TDefOccCooSet=273.15 + 24,
@@ -46,12 +46,15 @@ equation
   connect(uniDelTSetInc.y, zonCon.TCurZonSet) annotation (Line(points={{82,30},{
           100,30},{100,0},{-60,0},{-60,31.8},{-22,31.8}}, color={0,0,127}));
   connect(zoneSetpointSource.TPreTarCooSet, zonCon.TPreTarSet) annotation (Line(
-        points={{-78,-32},{-72,-32},{-72,28},{-22,28}}, color={0,0,127}));
+        points={{-80,-31.4286},{-72,-31.4286},{-72,28},{-22,28}},
+                                                        color={0,0,127}));
   connect(zoneSetpointSource.TSheTarCooSet, zonCon.TSheTarSet) annotation (Line(
-        points={{-78,-34.6},{-56,-34.6},{-56,-34},{-36,-34},{-36,24},{-22,24}},
+        points={{-80,-33.2857},{-56,-33.2857},{-56,-34},{-36,-34},{-36,24},{-22,
+          24}},
         color={0,0,127}));
   connect(zoneSetpointSource.TDefCooSet, zonCon.TDefSet) annotation (Line(
-        points={{-78,-38.2},{-58,-38.2},{-58,-46},{-22,-46},{-22,20}}, color={0,
+        points={{-80,-35.8571},{-58,-35.8571},{-58,-46},{-22,-46},{-22,20}},
+                                                                       color={0,
           0,127}));
   annotation (experiment(StopTime=172800, Interval=60, Tolerance=1e-06),
   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/DemandFlexibility/Generic/Validation/SetpointChange.mos"

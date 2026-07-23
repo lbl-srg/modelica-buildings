@@ -512,23 +512,36 @@ Otherwise, another condition needs to be not met for <code>disFla</code> to beco
 </p>
 <h4>Condition 2</h4>
 <p>
-When the electricity demand of the building is lower than the electricity demand
-threshold minus a hysteresis (<code>PBui  &lt;= PBuiThr - PBuiHys</code>), and the
-demand flexibility mode <code>demFleMod = 2</code> (load-shed mode), all zones in
-the building will have <code>disFla = true</code>. When the electricity demand of
-the building is higher than the electricity demand threshold
-(<code>PBui &gt; PBuiThr</code>), or <code>demFleMod</code> has any other value
-except <i>2</i>, another condition needs to be not met for <code>disFla</code> to
-become <code>true</code>. This electricity demand condition is considered only if
-the flag of using demand-based control <code>use_demCon</code> is true. 
+If the electricity demand of the building <code>PBui</code> and the electricity
+demand <code>PBuiThr</code> meet any one of the following equations, this zone will
+have <code>disFla = true</code>. Note that <code>PBuiHys</code> is an electricity
+demand hysteresis value:
 </p>
+<ul>
+<li>
+<code>demFleMod = 2</code>, and <code>PBui  &lt;= PBuiThr - PBuiHys</code>
+</li>
+</ul>
+<p>
+If the electricity demand of the building <code>PBui</code> and the electricity
+demand <code>PBuiThr</code> meet any one of the following equations, another
+condition needs to be not met for <code>disFla</code> to become <code>true</code>:
+</p>
+<ul>
+<li>
+<code>demFleMod ≠ 2</code>
+</li>
+<li>
+<code>demFleMod = 2</code>, and <code>PBui  &gt; PBuiThr</code>
+</li>
+</ul>
 <h4>Condition 3</h4>
 <p>
 If the zone temperature setpoint <code>TZonSet</code> and the zone temperature
 <code>TZon</code> meet any one of the following equations, this zone will have
 <code>disFla = true</code>. Note that <code>dTSheThr</code> is the zone temperature
 difference threshold, and <code>dTSheHys</code> is the zone temperature difference
-hysteresis.
+hysteresis:
 </p>
 <ul>
 <li>
