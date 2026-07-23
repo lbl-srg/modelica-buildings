@@ -51,7 +51,7 @@ model ExtremumSeekingControl
     annotation (Placement(transformation(extent={{-80,0},{-60,20}})));
 
   Buildings.Controls.OBC.CDL.Reals.Multiply mul
-    "Square of the difference to represent system dynamics"
+    "Square of the difference to represent energy-like function"
     annotation (Placement(transformation(extent={{-40,0},{-20,20}})));
 
   Buildings.Controls.OBC.CDL.Reals.Subtract sub1
@@ -90,6 +90,23 @@ annotation (experiment(StopTime=10800.0, Tolerance=1e-06),
 This model validates
 <a href=\"modelica://Buildings.Controls.OBC.Utilities.ExtremumSeekingControl\">
 Buildings.Controls.OBC.Utilities.ExtremumSeekingControl</a>.
+</p>
+<p>
+The model consists of a setpoint tracking application of the Extremum Seeking
+Control (ESC) block <code>esc</code>. The cost function utilized by <code>esc</code>
+consists of tracking error being converted into a filtered energy-like function by
+the blocks <code>mul</code>, <code>sub1</code> and <code>intWitRes</code>. A larger
+deviation from the setpoint will result in a larger cost function, which <code>esc</code>
+will then attempt to minimize.
+</p>
+<p>
+The first plot shows the setpoint tracking perfromance of <code>esc</code>. The
+second plot shows the cost function, which has a peak whenever there is a step
+change in the setpoint. As defined in the algorithm. the module flips the search
+direction of the output when the cost function is increasing, unchanged or when
+the output hits the upper or lower limit. When a decrease is detected in the cost
+function, the block freezes the search direction and only applies increments to
+the output, until the cost function flattens out.
 </p>
 </html>", revisions="<html>
 <ul>
