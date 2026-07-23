@@ -2,9 +2,10 @@ within Buildings.Fluid.Actuators.BaseClasses;
 partial model PartialTwoWayValve "Partial model for a two way valve"
 
   extends Buildings.Fluid.BaseClasses.PartialResistance(
-       final dp_nominal=dpValve_nominal + dpFixed_nominal,
-       dp(nominal=6000),
-       final m_flow_turbulent = deltaM * abs(m_flow_nominal));
+    final dp_nominal=dpValve_nominal + dpFixed_nominal,
+    dp(nominal=6000),
+    final m_flow_turbulent = deltaM * abs(m_flow_nominal),
+    final n=2);
 
   extends Buildings.Fluid.Actuators.BaseClasses.ValveParameters(
       rhoStd=Medium.density_pTX(101325, 273.15+4, Medium.X_default));

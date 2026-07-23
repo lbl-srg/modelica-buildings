@@ -4,10 +4,11 @@ model SingleConstant "Single fan - Constant speed"
     final nFan=1,
     final typ=Buildings.Templates.Components.Types.Fan.SingleConstant);
 
-  Buildings.Fluid.Movers.SpeedControlled_y fan(
+  Buildings.Templates.Components.BaseClasses.MoverSpeedControlled_y fan(
     redeclare final package Medium = Medium,
     final inputType=Buildings.Fluid.Types.InputType.Continuous,
     final per=dat.per,
+    final m_flow_nominal=m_flow_nominal,
     final energyDynamics=energyDynamics,
     final tau=tau,
     use_riseTime=energyDynamics <> Modelica.Fluid.Types.Dynamics.SteadyState,
@@ -50,7 +51,7 @@ equation
       horizontalAlignment=TextAlignment.Right));
   connect(fan.port_b, V_flow.port_a)
     annotation (Line(points={{10,0},{70,0}}, color={0,127,255}));
-  annotation (Placement(transformation(extent={{-10,-10},{10,10}})),
+  annotation (
      Icon(
      coordinateSystem(preserveAspectRatio=false)), Diagram(
         coordinateSystem(preserveAspectRatio=false)),
@@ -69,6 +70,11 @@ A status signal <code>y1_actual</code> (Boolean) is returned.
 </ul>
 </html>", revisions="<html>
 <ul>
+<li>
+July 17, 2026, by Antoine Gautier:<br/>
+Refactored to use a compiler-friendly mover model. This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/pull/4653\">#4653</a>.
+</li>
 <li>
 November 18, 2022, by Antoine Gautier:<br/>
 First implementation.

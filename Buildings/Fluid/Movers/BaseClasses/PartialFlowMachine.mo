@@ -385,6 +385,12 @@ protected
   end Extractor;
 
 initial algorithm
+  assert(size(per.pressure.V_flow, 1) == size(per.pressure.dp, 1),
+    "*** Error in " + getInstanceName() +
+    ": The size of per.pressure.V_flow (" + String(size(per.pressure.V_flow, 1)) +
+    ") and per.pressure.dp (" + String(size(per.pressure.dp, 1)) +
+    ") must be equal.",
+    level=AssertionLevel.error);
   // The control signal is dp or m_flow but the user did not provide a fan or pump curve.
   // Hence, the speed is computed using default values, which likely are wrong.
   // Therefore, scaling the power using the speed is inaccurate.
@@ -637,6 +643,13 @@ See discussions in
 </html>",
 revisions="<html>
 <ul>
+<li>
+July 17, 2026, by Antoine Gautier:<br/>
+Added an assertion that <code>per.pressure.V_flow</code> and
+<code>per.pressure.dp</code> have equal size.
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/pull/4653\">Buildings, #4653</a>.
+</li>
 <li>
 August 26, 2024, by Michael Wetter:<br/>
 Implemented linear dynamics for change in motor speed.<br/>
