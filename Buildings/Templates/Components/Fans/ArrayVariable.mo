@@ -3,10 +3,11 @@ model ArrayVariable "Fan array - Variable speed"
   extends Buildings.Templates.Components.Interfaces.PartialFan(
     final typ=Buildings.Templates.Components.Types.Fan.ArrayVariable);
 
-  Buildings.Fluid.Movers.SpeedControlled_y fan(
+  Buildings.Templates.Components.BaseClasses.MoverSpeedControlled_y fan(
     redeclare final package Medium = Medium,
     final inputType=Buildings.Fluid.Types.InputType.Continuous,
     final per=dat.per,
+    final m_flow_nominal=m_flow_nominal / max(1, nFan),
     final energyDynamics=energyDynamics,
     final tau=tau,
     use_riseTime=energyDynamics <> Modelica.Fluid.Types.Dynamics.SteadyState,
@@ -100,7 +101,7 @@ equation
       thickness=0.5));
   connect(evaSta.y, bus.y1_actual) annotation (Line(points={{0,-52},{0,-60},{26,
           -60},{26,96},{6,96},{6,100},{0,100}}, color={255,0,255}));
-  annotation (Placement(transformation(extent={{-10,-10},{10,10}})),
+  annotation (
     Diagram(
         coordinateSystem(preserveAspectRatio=false)),
     Documentation(info="<html>
@@ -125,6 +126,11 @@ A unique status signal <code>y1_actual</code> (Boolean) is returned.<br/>
 </ul>
 </html>", revisions="<html>
 <ul>
+<li>
+July 17, 2026, by Antoine Gautier:<br/>
+Refactored to use a compiler-friendly mover model. This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/pull/4653\">#4653</a>.
+</li>
 <li>
 September 26, 2023, by Antoine Gautier:<br/>
 Refactored with flow rate multiplier.<br/>
