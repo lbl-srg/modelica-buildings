@@ -28,9 +28,11 @@ For water, the input argument <code>X_a</code> is not used.
 For glycol, set it to the mass fraction of glycol.
 </p>
 </html>", revisions="<html>
+<ul>
 <li>
 July 8, 2026, by Michael Wetter:<br/>
 First implementation.
 </li>
+</ul>
 </html>"));
 end density_TX_a;

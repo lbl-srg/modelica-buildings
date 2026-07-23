@@ -53,7 +53,7 @@ __Dymola_Commands(
     Documentation(info="<html>
 <p>
 This model is identical to
-<a href=\\\"modelica://Buildings.Applications.DataCenters.LiquidCooled.Examples.ChillerWSE\\\">
+<a href=\"modelica://Buildings.Applications.DataCenters.LiquidCooled.Examples.ChillerWSE\">
 Buildings.Applications.DataCenters.LiquidCooled.Examples.ChillerWSE</a>
 except that the supply and return pipes in each of the three fluid loops are
 modeled using a pipe model that has transport delay.

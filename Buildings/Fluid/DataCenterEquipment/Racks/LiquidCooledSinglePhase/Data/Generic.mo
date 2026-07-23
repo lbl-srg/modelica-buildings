@@ -24,7 +24,7 @@ annotation (
   Documentation(info="<html>
 <p>
 Generic data record for liquid-cooled single-phase IT rack.
-<p>
+</p>
 </html>", revisions="<html>
 <ul>
 <li>

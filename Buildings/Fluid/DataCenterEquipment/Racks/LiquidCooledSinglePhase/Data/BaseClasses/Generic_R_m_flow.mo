@@ -29,7 +29,7 @@ where
 <i>T<sub>inlet</sub></i> is the coolant inlet temperature and
 <i>Q&#775;</i> is the heat emitted by the cold plate.
 The case temperature is the external surface temperature
-of the component's packaging, typically the top-center point where a 
+of the component's packaging, typically the top-center point where a
 thermal interface material or heat sink is attached.
 </p>
 <p>
@@ -49,7 +49,7 @@ Eran Dagan, Assaf Dinstag,Jane Yao.
 <a href=\"https://www.opencompute.org/documents/oai-system-liquid-cooling-guidelines-in-ocp-template-mar-3-2023-update-pdf\">
 OCP OAI SYSTEM LIQUID COOLING GUIDELINES</a>.
 2023.
-<p>
+</p>
 </html>", revisions="<html>
 <ul>
 <li>

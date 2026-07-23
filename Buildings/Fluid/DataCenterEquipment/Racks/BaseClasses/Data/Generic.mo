@@ -15,7 +15,7 @@ record Generic "Generic data record for IT rack"
   Documentation(info="<html>
 <p>
 Data record for IT racks.
-<p>
+</p>
 </html>", revisions="<html>
 <ul>
 <li>

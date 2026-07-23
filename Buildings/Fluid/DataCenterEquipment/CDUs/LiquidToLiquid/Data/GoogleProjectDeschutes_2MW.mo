@@ -20,9 +20,8 @@ record GoogleProjectDeschutes_2MW
   Documentation(info="<html>
 <p>
 This data record is for the 5th generation CDU unit of Google, named
-\"Project Deschutes\". This unit is specified for the following data (OCP, 2026):
+"Project Deschutes". This unit is specified for the following data (OCP, 2026):
 </p>
-<p>
 <table>
   <thead>
     <tr>
@@ -79,7 +78,6 @@ This data record is for the 5th generation CDU unit of Google, named
     </tr>
   </tbody>
 </table>
-</p>
 <h4>References</h4>
 <p>
 OCP 2026. Open Compute Project meeting, CDU Information WP. March 24, 2026.

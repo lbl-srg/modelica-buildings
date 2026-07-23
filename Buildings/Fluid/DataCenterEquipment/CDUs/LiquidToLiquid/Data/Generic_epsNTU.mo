@@ -434,11 +434,13 @@ from Vertiv Liebert XDU 1350.
 </p>
 <p>
 For the parameter <code>pumpExtHead</code>, it is recommended to use a array such as of the form
+</p>
 <pre>
 pumpExtHead(
       V_flow = mRac_flow_nominal/rhoRac_default * {0.000, 0.250, 0.500, 0.750, 1.0},
       dp     = dpPumpExt_nominal *                {11.90, 11.61, 9.810, 6.202, 1.0})
 </pre>
+<p>
 With this setting, at design flow rate (the last element of <code>V_flow</code>, which is set to <code>1</code>),
 the pressure available to the flow network connected to the CDU is equal to <code>dpPumpExt_nominal</code>,
 and at lower volume flow rates, the available pressure will increase, as it is customary for pumps.

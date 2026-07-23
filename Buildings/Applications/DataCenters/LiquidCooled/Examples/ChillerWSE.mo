@@ -972,6 +972,7 @@ through the economizer.
 <p>
 For more detailed chilled water plant
 controls, see for example
+</p>
 <ul>
 <li>
 <a href=\"modelica://Buildings.Examples.ChillerPlant\">Buildings.Examples.ChillerPlant</a>,
@@ -983,7 +984,6 @@ controls, see for example
 the papers by Grahovac et al. (2023) or Wetter et al. (2014).
 </li>
 </ul>
-</p>
 <h4>References</h4>
 <ul>
 <li>

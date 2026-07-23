@@ -25,7 +25,6 @@ record VertivLiebertXDU1350
 This data record is for a Vertiv Liebert XDU 1350.
 This unit is specified for the following data:
 </p>
-<p>
 <table>
   <thead>
     <tr>
@@ -52,7 +51,6 @@ This unit is specified for the following data:
     </tr>
   </tbody>
 </table>
-</p>
 <h4>References</h4>
 <p>
 Vertiv, Liebert XDU 1350 data sheet, SL-70799 (R10/25)
