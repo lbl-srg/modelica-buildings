@@ -18,7 +18,7 @@ block ZoneControl "Zone temperature setpoint control"
   parameter Boolean airConMod
     "Air conditioning mode; true for the heating mode, false for the cooling mode";
   parameter Boolean incSetCha
-    "True: the setpoint change step is incremental for the load-shed mode and the load-rebound mode";
+    "If true, the setpoint change step is incremental for the load-shed mode and the load-rebound mode, with multiple steps; if false, there is a single setpoint change step";
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TPreTarSet(
     final unit="K",

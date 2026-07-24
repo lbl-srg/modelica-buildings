@@ -7,7 +7,7 @@ block SetpointChange "Setpoint change"
   parameter Boolean ascSet
     "True: ascending setpoint; False: descending setpoint";
   parameter Boolean incSetCha
-    "True: the setpoint change step is incremental";
+    "If true, the setpoint change step is incremental, with multiple steps; if false, there is a single setpoint change step";
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uAllMaxSet
     "Allowed maximum setpoint"
