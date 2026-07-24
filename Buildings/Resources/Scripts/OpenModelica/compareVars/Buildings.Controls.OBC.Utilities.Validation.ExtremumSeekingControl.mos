@@ -1,0 +1,6 @@
+compareVars :=
+  {
+    "esc.uCos",
+    "esc.y",
+    "timTab.y[2]"
+  };
