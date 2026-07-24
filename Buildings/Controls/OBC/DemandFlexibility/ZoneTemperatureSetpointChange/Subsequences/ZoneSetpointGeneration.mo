@@ -59,21 +59,21 @@ model ZoneSetpointGeneration
     final quantity="ThermodynamicTemperature")
     "Pre-heat target heating temperature setpoint"
     annotation (Placement(transformation(extent={{120,80},{160,120}}),
-        iconTransformation(extent={{100,60},{140,100}})));
+        iconTransformation(extent={{100,80},{140,120}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput TSheTarHeaSet(
     final unit="K",
     displayUnit="degC",
     final quantity="ThermodynamicTemperature")
     "Load-shed target heating temperature setpoint"
     annotation (Placement(transformation(extent={{120,40},{160,80}}),
-        iconTransformation(extent={{100,26},{140,66}})));
+        iconTransformation(extent={{100,40},{140,80}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput TDefHeaSet(
     final unit="K",
     displayUnit="degC",
     final quantity="ThermodynamicTemperature")
     "Default heating temperature setpoint"
     annotation (Placement(transformation(extent={{120,0},{160,40}}),
-        iconTransformation(extent={{100,-2},{140,38}})));
+        iconTransformation(extent={{100,0},{140,40}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput TPreTarCooSet(
     final unit="K",
     displayUnit="degC",
@@ -87,14 +87,14 @@ model ZoneSetpointGeneration
     final quantity="ThermodynamicTemperature")
     "Load-shed target cooling temperature setpoint"
     annotation (Placement(transformation(extent={{120,-80},{160,-40}}),
-        iconTransformation(extent={{100,-66},{140,-26}})));
+        iconTransformation(extent={{100,-80},{140,-40}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput TDefCooSet(
     final unit="K",
     displayUnit="degC",
     final quantity="ThermodynamicTemperature")
     "Default cooling temperature setpoint"
     annotation (Placement(transformation(extent={{120,-120},{160,-80}}),
-        iconTransformation(extent={{100,-102},{140,-62}})));
+        iconTransformation(extent={{100,-120},{140,-80}})));
 protected
   Buildings.Controls.OBC.CDL.Logical.Sources.TimeTable occHouNotMid(
     final table=[0,0; occHouSta,1; occHouEnd,0; 24,0],
@@ -258,11 +258,11 @@ equation
   annotation (defaultComponentName="zonSetGen",
     Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}},
     grid={2,2}), graphics={Rectangle(
-      extent={{-100,-100},{100,100}},
+      extent={{-100,-120},{100,120}},
       lineColor={0,0,0},
       fillColor={255,255,255},
       fillPattern=FillPattern.Solid), Text(
-      extent={{-100,140},{100,100}},
+      extent={{-100,160},{100,120}},
       textColor={0,0,255},
           textString="%name")}), Diagram(
     coordinateSystem(preserveAspectRatio=false,
