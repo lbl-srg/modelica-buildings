@@ -1,4 +1,4 @@
-within Buildings.Fluid.Humidifiers.EvaporativePads.Baseclasses.Characteristics;
+within Buildings.Fluid.Humidifiers.EvaporativePads.BaseXlasses.Characteristics;
 record saturationEfficiencyParameters
   "Record for saturation efficiency vs. air velocity"
   extends Modelica.Icons.Record;

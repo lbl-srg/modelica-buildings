@@ -1,4 +1,4 @@
-within Buildings.Fluid.Humidifiers.EvaporativePads.Baseclasses;
+within Buildings.Fluid.Humidifiers.EvaporativePads.BaseXlasses;
 block EvaporativePadInterface
   "Interface with performance curves for evaporative pads"
 
@@ -27,11 +27,12 @@ protected
     "Derivative for cubic spline of saturation efficiency vs. air velocity";
 
 equation
-  eta =min(1,max(0,
-    Buildings.Fluid.Humidifiers.EvaporativePads.Baseclasses.Characteristics.saturationEfficiency(
-    per=per.efficiency,
-    v=v,
-    d=etaDer)));
+  eta = min(1, max(
+    0,
+    Buildings.Fluid.Humidifiers.EvaporativePads.BaseXlasses.Characteristics.saturationEfficiency(
+      per=per.efficiency,
+      v=v,
+      d=etaDer)));
 annotation (defaultComponentName="evaPadInt",
     Icon(coordinateSystem(preserveAspectRatio=false), graphics={
           Rectangle(

@@ -3,7 +3,7 @@ record Generic "Generic data record for an evaporative pad"
   extends Modelica.Icons.Record;
 
   parameter
-    Buildings.Fluid.Humidifiers.EvaporativePads.Baseclasses.Characteristics.saturationEfficiencyParameters
+    Buildings.Fluid.Humidifiers.EvaporativePads.BaseXlasses.Characteristics.saturationEfficiencyParameters
     efficiency(v={0,2.5,5}, eta={0.89,0.8,0.72}) "Saturation efficiency vs. air velocity";
   parameter Modelica.Units.SI.PressureDifference dp_nominal(displayUnit="Pa")=200
     "Pressure drop at nominal mass flow rate";

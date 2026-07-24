@@ -1,6 +1,5 @@
-within Buildings.Fluid.Humidifiers.EvaporativePads.Data.MuntersCELdek;
-record CELdek7090dash15slash100mm
-  "Data for CELdek 7090-15/100mm evaporative pad"
+within Buildings.Fluid.Humidifiers.EvaporativePads.Data.Munters;
+record CELdek7090_15_100mm "Data for CELdek 7090-15/100mm evaporative pad"
   extends Buildings.Fluid.Humidifiers.EvaporativePads.Data.Generic (
     final efficiency(
       v={0,0.5,1,1.5,2,2.5,3,3.5,4,5,10},
@@ -15,7 +14,7 @@ defaultComponentName="per",
 Documentation(info="<html>
 <p>
 This data record contains performance data for a CELdek 7090-15/100mm evaporative
-pad. 
+pad from Munters. 
 </p>
 <p>
 The data points are digitized from
@@ -57,4 +56,4 @@ First implementation.
 </li>
 </ul>
 </html>"));
-end CELdek7090dash15slash100mm;
+end CELdek7090_15_100mm;

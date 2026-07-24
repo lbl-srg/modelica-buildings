@@ -79,7 +79,7 @@ model IndirectWet "Indirect wet evaporative cooler"
     "Mixing volume for primary fluid"
     annotation (Placement(transformation(origin={70,40}, extent={{-10,-10},{10,10}})));
 
-  Buildings.Fluid.Humidifiers.EvaporativePads.Baseclasses.IndirectWet indWetCal(final
+  Buildings.Fluid.Humidifiers.EvaporativePads.BaseXlasses.IndirectWet indWetCal(final
       maxEff=maxEff, final floRat=floRat)
     "Indirect wet evaporative cooling calculations"
     annotation (Placement(transformation(extent={{20,70},{40,90}})));
@@ -197,7 +197,7 @@ inlet.
 <li>
 Indirect wet evaporative cooling calculations for calculating primary outlet drybulb 
 temperature
-(<a href=\"modelica://Buildings.Fluid.Humidifiers.EvaporativePads.Baseclasses.IndirectWet\">
+(<a href=\"modelica://Buildings.Fluid.Humidifiers.EvaporativePads.BaseXlasses.IndirectWet\">
 Buildings.Fluid.Humidifiers.EvaporativeCoolers.Baseclasses.IndirectWet</a>).
 </li>
 <li>

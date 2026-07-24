@@ -1,4 +1,4 @@
-within Buildings.Fluid.Humidifiers.EvaporativePads.Baseclasses;
+within Buildings.Fluid.Humidifiers.EvaporativePads.BaseXlasses;
 block DirectCalculation
   "Calculates the water vapor mass flow rate of a direct evaporative pad"
 
@@ -75,7 +75,7 @@ protected
 equation
   v =abs(V_flow)/padAre;
   eta =
-    Buildings.Fluid.Humidifiers.EvaporativePads.Baseclasses.Characteristics.saturationEfficiency(
+    Buildings.Fluid.Humidifiers.EvaporativePads.BaseXlasses.Characteristics.saturationEfficiency(
     per=per.efficiency,
     v=v,
     d=etaDer);

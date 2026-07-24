@@ -1,4 +1,4 @@
-within Buildings.Fluid.Humidifiers.EvaporativePads.Baseclasses;
+within Buildings.Fluid.Humidifiers.EvaporativePads.BaseXlasses;
 package Validation "Collection of models that validate the baseclasses"
     extends Modelica.Icons.ExamplesPackage;
 

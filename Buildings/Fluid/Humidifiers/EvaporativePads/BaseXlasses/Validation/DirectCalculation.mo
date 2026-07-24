@@ -1,4 +1,4 @@
-within Buildings.Fluid.Humidifiers.EvaporativePads.Baseclasses.Validation;
+within Buildings.Fluid.Humidifiers.EvaporativePads.BaseXlasses.Validation;
 model DirectCalculation "Validation of the direct evaporative pad calculation"
   extends Modelica.Icons.Example;
 
@@ -13,22 +13,19 @@ model DirectCalculation "Validation of the direct evaporative pad calculation"
   parameter Modelica.Units.SI.VolumeFlowRate V_flow_nominal = 1
     "Nominal supply air volume flowrate";
 
-  Buildings.Fluid.Humidifiers.EvaporativePads.Baseclasses.DirectCalculation
-    dirEvaPadCal(
+  Buildings.Fluid.Humidifiers.EvaporativePads.BaseXlasses.DirectCalculation dirEvaPadCal(
     redeclare package Medium = Buildings.Media.Air,
     final padAre=padAre,
     redeclare Buildings.Fluid.Humidifiers.EvaporativePads.Data.Generic per)
     "Instance with time-varying volume flowrate signal" annotation (Placement(
         transformation(origin={30,50}, extent={{-10,-10},{10,10}})));
-  Buildings.Fluid.Humidifiers.EvaporativePads.Baseclasses.DirectCalculation
-    dirEvaPadCal1(
+  Buildings.Fluid.Humidifiers.EvaporativePads.BaseXlasses.DirectCalculation dirEvaPadCal1(
     redeclare package Medium = Buildings.Media.Air,
     final padAre=padAre,
     redeclare Buildings.Fluid.Humidifiers.EvaporativePads.Data.Generic per)
     "Instance with time-varying wetbulb temperature signal" annotation (
       Placement(transformation(origin={30,0}, extent={{-10,-10},{10,10}})));
-  Buildings.Fluid.Humidifiers.EvaporativePads.Baseclasses.DirectCalculation
-    dirEvaPadCal2(
+  Buildings.Fluid.Humidifiers.EvaporativePads.BaseXlasses.DirectCalculation dirEvaPadCal2(
     redeclare package Medium = Buildings.Media.Air,
     final padAre=padAre,
     redeclare Buildings.Fluid.Humidifiers.EvaporativePads.Data.Generic per)
@@ -108,7 +105,7 @@ equation
 annotation (Documentation(info="<html>
 <p>
 This model implements a validation of the block
-<a href=\"modelica://Buildings.Fluid.Humidifiers.EvaporativePads.Baseclasses.DirectCalculation\">
+<a href=\"modelica://Buildings.Fluid.Humidifiers.EvaporativePads.BaseXlasses.DirectCalculation\">
 Buildings.Fluid.Humidifiers.EvaporativePads.Baseclasses.Direct</a> that applies the
 peformance curve to calculate the water mass flow rate from a direct evaporative pad
 to the air stream.

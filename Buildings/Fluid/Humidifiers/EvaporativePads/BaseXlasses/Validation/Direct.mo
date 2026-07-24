@@ -1,4 +1,4 @@
-within Buildings.Fluid.Humidifiers.EvaporativePads.Baseclasses.Validation;
+within Buildings.Fluid.Humidifiers.EvaporativePads.BaseXlasses.Validation;
 model Direct "Validation of the Direct block"
   extends Modelica.Icons.Example;
 
@@ -20,25 +20,24 @@ model Direct "Validation of the Direct block"
   parameter Modelica.Units.SI.VolumeFlowRate V_flow_nominal = 1
     "Nominal supply air volume flowrate";
 
-  Buildings.Fluid.Humidifiers.EvaporativePads.Baseclasses.Direct dirEvaCoo(
+  Buildings.Fluid.Humidifiers.EvaporativePads.BaseXlasses.Direct dirEvaCoo(
     redeclare package Medium = Buildings.Media.Air,
     final padAre=padAre,
-    final dep=dep)
-    "Instance with time-varying volume flowrate signal"
-    annotation (Placement(transformation(origin={30,50}, extent={{-10,-10},{10,10}})));
+    final dep=dep) "Instance with time-varying volume flowrate signal"
+    annotation (Placement(transformation(origin={30,50}, extent={{-10,-10},{10,
+            10}})));
 
-  Buildings.Fluid.Humidifiers.EvaporativePads.Baseclasses.Direct dirEvaCoo1(
+  Buildings.Fluid.Humidifiers.EvaporativePads.BaseXlasses.Direct dirEvaCoo1(
     redeclare package Medium = Buildings.Media.Air,
     final padAre=padAre,
-    final dep=dep)
-    "Instance with time-varying wetbulb temperature signal"
-    annotation (Placement(transformation(origin={30,0}, extent={{-10,-10},{10,10}})));
+    final dep=dep) "Instance with time-varying wetbulb temperature signal"
+    annotation (Placement(transformation(origin={30,0}, extent={{-10,-10},{10,
+            10}})));
 
-  Buildings.Fluid.Humidifiers.EvaporativePads.Baseclasses.Direct dirEvaCoo2(
+  Buildings.Fluid.Humidifiers.EvaporativePads.BaseXlasses.Direct dirEvaCoo2(
     redeclare package Medium = Buildings.Media.Air,
     final padAre=padAre,
-    final dep=dep)
-    "Instance with time-varying drybulb temperature signal"
+    final dep=dep) "Instance with time-varying drybulb temperature signal"
     annotation (Placement(transformation(origin={30,-50}, extent={{-10,-10},{10,
             10}})));
 
@@ -116,7 +115,7 @@ equation
 annotation (Documentation(info="<html>
 <p>
 This model implements a validation of the block
-<a href=\"modelica://Buildings.Fluid.Humidifiers.EvaporativePads.Baseclasses.Direct\">
+<a href=\"modelica://Buildings.Fluid.Humidifiers.EvaporativePads.BaseXlasses.Direct\">
 Buildings.Fluid.Humidifiers.EvaporativePads.Baseclasses.Direct</a>
 that applies the peformance curve to calculate the water mass flow rate of a
 direct evaporative cooler.
