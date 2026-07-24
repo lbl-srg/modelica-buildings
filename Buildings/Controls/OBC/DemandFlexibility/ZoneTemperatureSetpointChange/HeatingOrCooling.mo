@@ -260,28 +260,295 @@ First implementation.
 This block performs zone setpoint change for either heating setpoints of all zones,
 or cooling setpoints of all zones, in a building. This block first checks whether
 each zone is qualified for setpoint change, then prioritizes setpoint change for
-certain zones based on the difference between the current zone setpoint and the
-current zone temperature, and finally executes the setpoint change by outputting new
-setpoints.
+certain zones based on the difference between the current zone temperature and the
+current zone temperature setpoint, and finally executes the setpoint change by
+outputting new setpoints.
+</p>
+<h4>Zone Qualification</h4>
+<p>
+This block contains a <code>ZoneQualification</code> sub-block to check whether each
+zone is qualified for setpoint change.
+</p>
+<p>
+Several conditions are used to determine that a zone is qualified, including:
+</p>
+<ul>
+<li>
+A zone is not a rogue zone.
+</li>
+<li>
+The electricity demand of the building where the zone is located is higher than an
+electricity demand threshold during the load-shed demand flexibility mode.
+</li>
+<li>
+The zone temperature is close enough to the zone temperature setpoint during the
+load-shed demand flexibility mode.
+</li>
+<li>
+The zone temperature setpoint has not reached a temperature setpoint limit that is
+imposed by the respective demand flexibility mode.
+</li>
+</ul>
+<p>
+Refer to the documentation of the
+<a href=\"modelica://Buildings.Controls.OBC.DemandFlexibility.ZoneTemperatureSetpointChange.Subsequences.ZoneQualification\">ZoneQualification</a>
+sub-block for more details on how each of these conditions is defined. Note that if
+the zone control variant parameter <code>zonConVar</code> in this block has a value
+of Variant <i>3</i> or Variant <i>4</i>, the use-demand-control parameter
+<code>use_demCon</code> within the <code>ZoneQualification</code> sub-block (not
+accessible in this block) will be set to <code>true</code>. Otherwise, the
+<code>use_demCon</code> parameter will be set to <code>false</code>. As a result, if
+the zone control variant is not Variant <i>3</i> or Variant <i>4</i>, the condition
+above that checks electricity demand of the building will not be considered for zone
+qualification. Refer also to the “Zone Control Variant” section later in this
+documentation for more information on what each zone control variant does.
+</p>
+<h4>Zone Prioritization</h4>
+
+<p>
+This block contains a <code>ZonePrioritization</code> sub-block to prioritize
+setpoint change for certain zones based on the difference between the current zone
+temperature <code>TCurZon</code> and the current zone temperature setpoint
+<code>TCurZonSet</code>.
+</p>
+<p>
+Zone temperature difference, an internal variable, is defined as the current zone
+temperature (<code>TCurZon</code>) minus the current zone temperature setpoint
+(<code>TCurZonSet</code>). <code>airConMod = true</code> represents the heating mode,
+whereas <code>airConMod = false</code> represents the cooling mode. The zone
+temperature setpoint input variable <code>TCurZonSet</code> must represent a heating
+setpoint when the air conditioning mode <code>airConMod = true</code>, and it must
+represent a cooling setpoint when <code>airConMod = false</code>.
+</p>
+<p>
+The parameter <code>nSel</code> represents the number of zones to select for the
+setpoint changer operation at each setpoint change sampling period
+<code>samPerSetCha</code>. For the heating mode (<code>airConMod = true</code>),
+the <code>nSel</code> zones with the smallest zone temperature difference will be
+selected, and thus will be prioritized for the setpoint change operation. For the
+cooling mode (<code>airConMod = false</code>), the <code>nSel</code> zones with the
+largest zone temperature difference will be selected for the setpoint change
+operation.
+</p>
+<p>
+Information from the <code>ZoneQualification</code> sub-block about whether a zone
+is qualified for the setpoint change operation will be passed to the
+<code>ZonePrioritization</code> sub-block. Any zones that are disqualified,
+determined by the <code>ZoneQualification</code> sub-block, will not participate in
+the ranking of the zone temperature difference to select the <code>nSel</code> zones
+in the <code>ZonePrioritization</code> sub-block, even if these zones have the
+largest or the smallest zone temperature difference. Only the qualified zones will
+be ranked, and the <code>nSel</code> zones with the largest or the smallest zone
+temperature difference from only the qualified zones will be selected. In the end,
+the disqualified zones will never be selected for the setpoint change operation by
+the <code>ZonePrioritization</code> sub-block. 
+</p>
+<p>
+Keep in mind that only the <code>nSel</code> zones being selected, rather than all
+zones that are qualified by the <code>ZoneQualification</code> sub-block, will go
+through the setpoint change operation.
+</p>
+<p>
+Note that if the number of zones <code>nZon</code> is equal to <i>1</i>, the
+<code>ZonePrioritization</code> sub-block will not be run in order to save
+computation memory. Instead, this <i>1</i> zone will be selected for the setpoint
+change operation by default, unless the <code>ZoneQualification</code> sub-block
+decides that this zone should be disqualified for the setpoint change operation.
 </p>
 <p>
 Refer to the documentation of the
-<a href=\"modelica://Buildings.Controls.OBC.DemandFlexibility.ZoneTemperatureSetpointChange.Subsequences.ZoneQualification\">
-ZoneQualification</a> block for conditions that qualify a zone for setpoint change.
-Refer to the documentation of the
-<a href=\"modelica://Buildings.Controls.OBC.DemandFlexibility.ZoneTemperatureSetpointChange.Subsequences.ZonePrioritization\">
-ZonePrioritization</a> block for how different zones are prioritized to perform
-setpoint change. Refer to the documentation of the
-<a href=\"modelica://Buildings.Controls.OBC.DemandFlexibility.ZoneTemperatureSetpointChange.Subsequences.ZoneControl\">
-ZoneControl</a> block for how setpoint change is executed.
+<a href=\"modelica://Buildings.Controls.OBC.DemandFlexibility.ZoneTemperatureSetpointChange.Subsequences.ZonePrioritization\">ZonePrioritization</a>
+sub-block for more details on how the prioritization works.
 </p>
+<h4>Zone Control</h4>
+<p>
+This block contains a <code>ZoneControl</code> sub-block to execute the setpoint
+change by outputting new setpoints.
+</p>
+<p>
+The input variable <code>TCurZonSet</code> in this block represents the current
+value of the temperature setpoint. The output variable <code>TComZonSet</code> in
+this block commands the temperature setpoint to take on a new value.
+<code>TCurZonSet</code> and <code>TComZonSet</code> must represent heating setpoints
+when <code>airConMod = true</code>, and they must represent cooling setpoints when
+<code>airConMod = false</code>.
+</p>
+<p>
+The demand flexibility mode <code>demFleMod</code> in this block can take values of
+<i>0</i> (pre-cool or pre-heat mode), <i>1</i> (default mode), <i>2</i> (load-shed
+mode), and <i>3</i> (load-rebound mode). The input variables <code>TPreTarSet</code>,
+<code>TDefSet</code>, and <code>TSheTarSet</code> in this block must take on
+reasonable values. For example, <code>TPreTarSet &gt; TDefSet &gt; TSheTarSet</code>
+must hold if the air conditioning system is in the heating mode
+(<code>airConMod = true</code>), and
+<code>TPreTarSet &lt; TDefSet &lt; TSheTarSet</code> must hold if the air
+conditioning system is in the cooling mode (<code>airConMod = false</code>). 
+</p>
+<p>
+The <code>ZoneControl</code> sub-block executes the setpoint change operation only
+for the <code>nSel</code> zones that are selected by the
+<code>ZonePrioritization</code> sub-block. Refer to the documentation of the
+<a href=\"modelica://Buildings.Controls.OBC.DemandFlexibility.ZoneTemperatureSetpointChange.Subsequences.ZoneControl\">ZoneControl</a>
+sub-block for a detailed description of how the setpoint change is executed under
+different demand flexibility modes (<code>demFleMod</code>) and different air
+conditioning modes (<code>airConMod</code>). A summary of this setpoint change
+operation is that, for each demand flexibility mode, a minimum and a maximum zone
+setpoint bounds are defined. When a zone is one of the <code>nSel</code> zones being
+selected for setpoint change at each setpoint change sampling period
+<code>samPerSetCha</code>, the temperature setpoint for this zone is increased or
+decreased by one step (<code>TComZonSet = TCurZonSet + one step</code>), provided
+that it is within the minimum and maximum zone setpoint bounds. When a zone is not
+one of the <code>nSel</code> zones being selected, the temperature setpoint for this
+zone will stay constant, neither increasing nor decreasing
+(<code>TComZonSet = TCurZonSet</code>). Within each demand flexibility mode, the zone
+temperature setpoint change will only have one direction, either increasing
+or decreasing. The zone temperature setpoint change will change direction
+only when the demand flexibility mode is changed.
+</p>
+<p>
+Note that if the zone control variant parameter <code>zonConVar</code> in this block
+has a value of Variant <i>1</i>, the incremental (or multiple-step) setpoint change
+flag parameter <code>incSetCha</code> within the <code>ZoneControl</code> sub-block
+(not accessible in this block) will be set to <code>false</code>. Otherwise, the
+<code>incSetCha</code> parameter will be set to <code>true</code>. Refer also to
+the “Zone Control Variant” section later in this documentation for more information
+on what each zone control variant does.
+</p>
+<p>
+Note that the output <code>TComZonSet</code> in this block is intended to be
+received by a downstream temperature setpoint controller, which will process the
+setpoint change and pass its new setpoint back to the input <code>TCurZonSet</code>
+in this block, completing a full control loop.
+</p>
+<h4>Aggregated Behaviors</h4>
 <p>
 The parameter <code>samPerSetCha</code> is a setpoint change sampling period, which
 specifies the time interval on how often the setpoint change operation is executed.
 </p>
 <p>
-There are <i>4</i> different variants of zone setpoint change. Each variant is
-described below:
+In the <code>ZoneQualification</code> sub-block, if the electricity demand of the
+building is lower than the electricity demand threshold during the load-shed demand
+flexibility mode for Variant <i>3</i> or Variant <i>4</i>, all zones in the building
+will be disqualified for setpoint change. Thus, the zone temperature setpoints will
+stay at the current value. Then, the zone temperatures can reach the zone
+temperature setpoints, turning on air conditioning. This will increase the
+electricity demand of the building, eventually making the electricity demand higher
+than the electricity demand threshold and causing most zones to be qualified for
+setpoint change. The zone temperature setpoints will then change, away from the zone
+temperatures, thus turning off air conditioning and reducing the electricity demand
+of the building. This completes one cycling period of zone control.
+</p>
+<p>
+In the <code>ZoneQualification</code> sub-block, another qualifying condition for
+zone temperature setpoint change is that the zone temperature is close enough to the
+zone temperature setpoint during the load-shed demand flexibility mode. If the zone
+temperature is not close enough to the zone temperature setpoint for a zone, this
+zone will be disqualified for the setpoint change, and the zone temperature setpoint
+will stay constant. This is designed to make the zone temperature setpoint during
+the load-shed mode change value only when necessary and not deviate too far, thereby
+minimizing occupant thermal discomfort.
+</p>
+<p>
+In the <code>ZoneQualification</code> sub-block, the last qualifying condition for
+zone temperature setpoint change is that the zone temperature setpoint has not
+reached a temperature setpoint limit that is imposed by the respective demand
+flexibility mode. Based on the <code>ZonePrioritization</code> sub-block and the
+<code>ZoneControl</code> sub-block, only the <code>nSel</code> zones with the largest
+or the smallest zone temperature difference will be selected for the setpoint change
+operation. Here, there is a chance that the zone temperature setpoint of a zone has
+reached a temperature setpoint limit, but this zone is still one of the
+<code>nSel</code> zones with the largest or the smallest zone temperature difference.
+This qualifying condition helps disqualify this zone immediately and lets other
+zones be selected as part of the <code>nSel</code> zones. Without this qualifying
+condition, this zone will continue to be one of the <code>nSel</code> selected zones.
+The zone temperature setpoint of this zone will receive the signal to further change
+its value, but because the temperature setpoint limit has reached, the zone
+temperature setpoint could only take the value of the temperature setpoint limit.
+Thus, the <code>ZonePrioritization</code> sub-block will get stuck by always
+selecting this zone for setpoint change, without moving on to other zones.
+</p>
+<p>
+Based on the <code>ZonePrioritization</code> sub-block and the
+<code>ZoneControl</code> sub-block, the <code>nSel</code> qualified zones with the
+largest or the smallest zone temperature difference will be selected for the
+setpoint change operation. This in turn changes the value of <code>TComZonSet</code>
+and <code>TCurZonSet</code>, thus the zone temperature difference itself is changed.
+This has different implications during different demand flexibility modes
+(<code>demFleMod</code>) and different air conditioning modes
+(<code>airConMod</code>). Below is a table that summarizes these different
+implications:
+</p>
+<table border=1>
+<tr>
+<th>demFleMod</th>
+<th>airConMod</th>
+<th>Implications of zone temperature difference</th>
+</tr>
+<tr>
+<td>0</td>
+<td>true</td>
+<td>Setpoint change will cause the zone temperature difference to be even more
+negative, making a zone to continuously be selected for setpoint change until the
+zone setpoint has reached an upper limit. This makes the zones with the largest
+pre-heat energy consumption to be selected first, while letting a few zones complete
+pre-heating first before the next zones start pre-heating. This makes the total
+electricity demand of all zones flatter with fewer spikes.</td>
+</tr>
+<tr>
+<td>0</td>
+<td>false</td>
+<td>Setpoint change will cause the zone temperature difference to be even more
+positive, making a zone to continuously be selected for setpoint change until the
+zone setpoint has reached a lower limit. This makes the zones with the largest
+pre-cool energy consumption to be selected first, while letting a few zones complete
+pre-cooling first before the next zones start pre-cooling. This makes the total
+electricity demand of all zones flatter with fewer spikes.</td>
+</tr>
+<tr>
+<td>2</td>
+<td>true</td>
+<td>Setpoint change will cause the zone temperature difference to be more positive,
+making way for other zones to be selected for setpoint change. This will result in
+the zone temperature difference across all zones to have similar, and hopefully
+positive, values. Thus, the maximum amount of the electricity demand of the building
+will be reduced.</td>
+</tr>
+<tr>
+<td>2</td>
+<td>false</td>
+<td>Setpoint change will cause the zone temperature difference to be more negative,
+making way for other zones to be selected for setpoint change. This will result in
+the zone temperature difference across all zones to have similar, and hopefully
+negative, values. Thus, the maximum amount of the electricity demand of the building
+will be reduced.</td>
+</tr>
+<tr>
+<td>3</td>
+<td>true</td>
+<td>Setpoint change will cause the zone temperature difference to be even more
+negative, making a zone to continuously be selected for setpoint change until the
+zone setpoint has reached an upper limit. This makes the zones with the largest
+load-rebound energy consumption to be selected first, while letting a few zones
+complete load-rebound first before the next zones start load-rebound. This makes the
+total electricity demand of all zones flatter with fewer spikes.</td>
+</tr>
+<tr>
+<td>3</td>
+<td>false</td>
+<td>Setpoint change will cause the zone temperature difference to be even more
+positive, making a zone to continuously be selected for setpoint change until the
+zone setpoint has reached a lower limit. This makes the zones with the largest
+load-rebound energy consumption to be selected first, while letting a few zones
+complete load-rebound first before the next zones start load-rebound. This makes the
+total electricity demand of all zones flatter with fewer spikes.</td>
+</tr>
+</table>
+<h4>Zone Control Variant</h4>
+<p>
+The zone control variant parameter <code>zonConVar</code> in this block can have
+<i>4</i> different values, from Variant <i>1</i> through Variant <i>4</i>. These
+<i>4</i> different variants represent different flavors of zone setpoint change. Each
+variant is described below:
 </p>
 <ul>
 <li>
