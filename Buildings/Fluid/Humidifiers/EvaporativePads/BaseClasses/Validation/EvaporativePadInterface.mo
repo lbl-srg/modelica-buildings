@@ -1,8 +1,8 @@
-within Buildings.Fluid.Humidifiers.EvaporativePads.BaseXlasses.Validation;
+within Buildings.Fluid.Humidifiers.EvaporativePads.BaseClasses.Validation;
 model EvaporativePadInterface
   "Simple model to validate EvaporativePadInterface"
   extends Modelica.Icons.Example;
-  Buildings.Fluid.Humidifiers.EvaporativePads.BaseXlasses.EvaporativePadInterface
+  Buildings.Fluid.Humidifiers.EvaporativePads.BaseClasses.EvaporativePadInterface
     evaPadInt(redeclare
       Buildings.Fluid.Humidifiers.EvaporativePads.Data.Generic per)
     "Model for the evaporative pad interface"

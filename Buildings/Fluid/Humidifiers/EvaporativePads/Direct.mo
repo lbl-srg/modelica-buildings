@@ -26,7 +26,7 @@ model Direct
     "True: the evaporative cooling is active" annotation (Placement(
         transformation(extent={{-140,-100},{-100,-60}}), iconTransformation(
           extent={{-110,-60},{-70,-20}})));
-  Buildings.Fluid.Humidifiers.EvaporativePads.BaseXlasses.DirectCalculation
+  Buildings.Fluid.Humidifiers.EvaporativePads.BaseClasses.DirectCalculation
     dirEvaPadCal(
     redeclare final package Medium = Medium,
     final padAre=padAre,

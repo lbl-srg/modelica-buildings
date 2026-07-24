@@ -1,4 +1,4 @@
-within Buildings.Fluid.Humidifiers.EvaporativePads.BaseXlasses;
+within Buildings.Fluid.Humidifiers.EvaporativePads.BaseClasses;
 block EvaporativePadInterface
   "Interface with performance curves for evaporative pads"
 
@@ -29,7 +29,7 @@ protected
 equation
   eta = min(1, max(
     0,
-    Buildings.Fluid.Humidifiers.EvaporativePads.BaseXlasses.Characteristics.saturationEfficiency(
+    Buildings.Fluid.Humidifiers.EvaporativePads.BaseClasses.Characteristics.saturationEfficiency(
       per=per.efficiency,
       v=v,
       d=etaDer)));

@@ -1,4 +1,4 @@
-within Buildings.Fluid.Humidifiers.EvaporativePads.BaseXlasses;
+within Buildings.Fluid.Humidifiers.EvaporativePads.BaseClasses;
 block Direct
   "Calculates the water vapor mass flow rate of a direct evaporative cooler"
 

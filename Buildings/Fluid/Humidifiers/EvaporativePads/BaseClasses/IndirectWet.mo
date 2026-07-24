@@ -1,4 +1,4 @@
-within Buildings.Fluid.Humidifiers.EvaporativePads.BaseXlasses;
+within Buildings.Fluid.Humidifiers.EvaporativePads.BaseClasses;
 block IndirectWet
   "Calculates the heat transfer in an indirect wet evaporative cooler"
 
