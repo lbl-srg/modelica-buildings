@@ -17,9 +17,12 @@ evaporative pads that are lab-tested include \"Manufacturer A 6-inch Version 1,\
 </p>
 <p>
 Details of the test and the resulting data points for each evaporative pad can be
-found in
+found in the Adiabatic Pad Saturation White Paper.
+</p>
+<h4>References</h4>
+<p>
 <a href=\"https://www.evapco.com/sites/evapco.com/files/2019-02/Adiabatic-Pad-Saturation-White-Paper-11.2018.pdf\">
-Adiabatic-Pad-Saturation-White-Paper-11.2018.pdf</a>.
+Adiabatic Pad Saturation White Paper</a>, July 26, 2026.
 </p>
 </html>"));
 end EvapcoLabTest;

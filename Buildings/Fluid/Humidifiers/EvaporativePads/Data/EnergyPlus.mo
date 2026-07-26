@@ -26,22 +26,20 @@ defaultComponentName="per",
 Documentation(info="<html>
 <p>
 This data record contains evaporative pad performance data from the EnergyPlus 23.1 
-engineering reference.
+Engineering Reference.
 </p>
 <p>
-From the
-<a href=\"https://bigladdersoftware.com/epx/docs/23-1/engineering-reference/evaporative-coolers.html#curve-fitting-evaporative-media\">
-Curve Fitting Evaporative Media</a> section of the EnergyPlus 23.1 engineering
-reference, the curve fitting equation that relates the saturation efficiency of an
-evaporative pad &eta; to the pad depth <i>d</i> and air velocity <i>v</i> through
-the pad is as follows:
+From the <i>Curve Fitting Evaporative Media</i> section of the EnergyPlus 23.1
+Engineering Reference, the curve fitting equation that relates the saturation
+efficiency of an evaporative pad <i>&eta;</i> to the pad depth <i>d</i> and air
+velocity <i>v</i> through the pad is as follows:
 </p>
 <p align=\"center\">
-<i>&eta; = 0.792714 + 0.958569&sdot;d - 0.25193&sdot;v - 1.03215&sdot;d<sup>2</sup>
-+ 0.0262659&sdot;v<sup>2</sup> + 0.914869&sdot;d&sdot;v -
-1.48241&sdot;v&sdot;d<sup>2</sup> - 0.018992&sdot;d&sdot;v<sup>3</sup> +
-1.13137&sdot;d<sup>3</sup>&sdot;v + 0.0327622&sdot;d<sup>2</sup>&sdot;v<sup>3</sup>
-- 0.145384&sdot;d<sup>3</sup>&sdot;v<sup>2</sup></i>
+<i>&eta; = 0.792714 + 0.958569 d - 0.25193 v - 1.03215 d<sup>2</sup>
++ 0.0262659 v<sup>2</sup> + 0.914869 d v -
+1.48241 v d<sup>2</sup> - 0.018992 d v<sup>3</sup> +
+1.13137 d<sup>3</sup> v + 0.0327622 d<sup>2</sup> v<sup>3</sup>
+- 0.145384 d<sup>3</sup> v<sup>2</sup></i>
 </p>
 <p>
 Data point pairs of saturation efficiency vs. air velocity are digitized from this
@@ -54,15 +52,24 @@ evaporative pads as a function of air velocity <i>v</i> and pad depth <i>d</i>.
 However, an equation of the following form is used:
 </p>
 <p align=\"center\">
-<i>dp = a&sdot;d&sdot;v<sup>n</sup></i>
+<i>dp = a d v<sup>n</sup></i>
 </p>
 <p>
-By setting <i>a = 95.545 Pa&sdot;m<sup>-1</sup>&sdot;(m/s)<sup>-n</sup></i> and
-<i>n = 1.9259</i>, the pressure drop <i>dp</i> aligns with the values from the 
-<a href=\"https://munters.sies.si/images/pdf/celdek7090.pdf\">CELdek 7090-15
-150mm evaporative pad</a> product. With nominal air velocity <i>v_nominal =
-3.5 m/s</i>, the nominal pressure drop <i>dp_nominal</i> can be calculated with the
-above pressure drop equation if the depth of the evaporative pad <i>d</i> is known.
+By setting <i>a = 95.545 Pa m<sup>-1</sup> (m/s)<sup>-n</sup></i> and
+<i>n = 1.9259</i>, the pressure drop <i>dp</i> aligns with the values from the
+evaporative pad with a 150mm depth in the Munters CELdek 7090-15 Evaporative Pad
+Specification Sheet. With nominal air velocity <i>v_nominal = 3.5 m/s</i>, the
+nominal pressure drop <i>dp_nominal</i> can be calculated with the above pressure
+drop equation if the depth of the evaporative pad <i>d</i> is known.
+</p>
+<h4>References</h4>
+<p>
+<a href=\"https://bigladdersoftware.com/epx/docs/23-1/engineering-reference/evaporative-coolers.html\">
+EnergyPlus 23.1 Engineering Reference</a>, July 26, 2026.
+</p>
+<p>
+<a href=\"https://munters.sies.si/images/pdf/celdek7090.pdf\">Munters CELdek 7090-15
+Evaporative Pad Specification Sheet</a>, July 26, 2026.
 </p>
 </html>", revisions="<html>
 <ul>

@@ -67,11 +67,9 @@ equation
 annotation (defaultComponentName="indWetCal",
   Documentation(info="<html>
 <p>
-Block that calculates the water vapor mass flow rate addition in the 
-indirect evaporative cooler component. The calculations are based on the indirect 
-wet evaporative cooler model in the
-<a href=\"https://bigladdersoftware.com/epx/docs/23-1/engineering-reference/evaporative-coolers.html\">
-Engineering Reference document from EnergyPlus v23.1.0<a>.
+Block that calculates the water vapor mass flow rate addition in the indirect
+evaporative cooler component. The calculations are based on the indirect wet
+evaporative cooler model in the EnergyPlus 23.1 Engineering Reference.
 </p>
 <p>
 The effective efficiency of the heat exchanger <code>eff</code> is calculated using 
@@ -98,6 +96,11 @@ TDryBulPriOut = TDryBulPriIn - eff*(TDryBulSecIn - TWetBulSecIn)
 where <code>TDryBulPriIn</code> is the inlet primary fluid drybulb temperature, 
 <code>TDryBulSecIn</code> is the inlet secondary fluid drybulb temperature and 
 <code>TWetBulSecIn</code> is the inlet secondary fluid wetbulb temperature.
+</p>
+<h4>References</h4>
+<p>
+<a href=\"https://bigladdersoftware.com/epx/docs/23-1/engineering-reference/evaporative-coolers.html\">
+EnergyPlus 23.1 Engineering Reference</a>, July 26, 2026.
 </p>
 </html>", revisions="<html>
 <ul>

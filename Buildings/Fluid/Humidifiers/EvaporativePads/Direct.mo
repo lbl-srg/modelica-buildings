@@ -128,10 +128,10 @@ is active (such that the evaporative pad is wet). When evaporative cooling is no
 active (the evaporative pad is dry), no water vapor is added to the air, and thus
 <code>dmWat_flow = 0</code>. The pressure drop through the evaporative
 pad is less than <i>10%</i> lower when the evaporative pad is dry compared to when
-the evaporative pad is wet (see
-<a href=\"https://munters.sies.si/images/pdf/celdek7090.pdf\">this reference</a>).
-Thus, this model assumes that the pressure drop is the same for a dry evaporative
-pad as for a wet evaporative pad.
+the evaporative pad is wet (see the Munters CELdek 7090-15 Evaporative Pad
+Specification Sheet in the <i>References</i> section below). Thus, this model
+assumes that the pressure drop is the same for a dry evaporative pad as for a wet
+evaporative pad.
 </p>
 <p>
 This model uses a data record <code>per</code> to provide data on the saturation
@@ -152,6 +152,11 @@ velocity <code>v_nominal</code>, and the flow exponent for pressure drop
 <p>
 Note that this model works correctly only when the air flows from
 <code>port_a</code> to <code>port_b</code>.
+</p>
+<h4>References</h4>
+<p>
+<a href=\"https://munters.sies.si/images/pdf/celdek7090.pdf\">Munters CELdek 7090-15
+Evaporative Pad Specification Sheet</a>, July 26, 2026.
 </p>
 </html>", revisions="<html>
 <ul>

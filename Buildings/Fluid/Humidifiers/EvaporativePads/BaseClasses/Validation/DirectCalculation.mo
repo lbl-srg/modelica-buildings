@@ -106,7 +106,7 @@ annotation (Documentation(info="<html>
 <p>
 This model implements a validation of the block
 <a href=\"modelica://Buildings.Fluid.Humidifiers.EvaporativePads.BaseClasses.DirectCalculation\">
-Buildings.Fluid.Humidifiers.EvaporativePads.Baseclasses.Direct</a> that applies the
+Buildings.Fluid.Humidifiers.EvaporativePads.BaseClasses.DirectCalculation</a> that applies the
 peformance curve to calculate the water mass flow rate from a direct evaporative pad
 to the air stream.
 </p>
@@ -168,6 +168,6 @@ experiment(
     Interval=1,
       Tolerance=1e-6),
     __Dymola_Commands(file=
-          "modelica://Buildings/Resources/Scripts/Dymola/Fluid/Humidifiers/EvaporativePads/Baseclasses/Validation/DirectCalculation.mos"
+          "modelica://Buildings/Resources/Scripts/Dymola/Fluid/Humidifiers/EvaporativePads/BaseClasses/Validation/DirectCalculation.mos"
         "Simulate and plot"));
 end DirectCalculation;

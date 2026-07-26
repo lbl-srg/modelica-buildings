@@ -17,14 +17,13 @@ This data record contains performance data for a CELdek 7090-15/150mm evaporativ
 pad from Munters. 
 </p>
 <p>
-The data points are digitized from
-<a href=\"https://munters.sies.si/images/pdf/celdek7090.pdf\">
-https://munters.sies.si/images/pdf/celdek7090.pdf</a>. Data points for pressure drop
-were extracted from the graph for air velocities between <i>0.6 - 3.5 m/s</i>. An
-equation of the following form was fitted into the pressure drop data points:
+The data points are digitized from the Munters CELdek 7090-15 Evaporative Pad
+Specification Sheet. Data points for pressure drop were extracted from the graph for
+air velocities between <i>0.6 - 3.5 m/s</i>. An equation of the following form was
+fitted into the pressure drop data points:
 </p>
 <p align=\"center\">
-<i>dp = a&sdot;v<sup>n</sup></i>
+<i>dp = a v<sup>n</sup></i>
 </p>
 <p>
 We found <i>a = 14.3956</i> and <i>n = 1.9259</i>. By setting the nominal air
@@ -39,13 +38,18 @@ velocities between <i>0.5 - 5 m/s</i>. An equation of the following form was fit
 into the saturation efficiency data points:
 </p>
 <p align=\"center\">
-<i>&eta; = e<sup>-b &sdot; (v - c)</sup></i>
+<i>&eta; = e<sup>-b (v - c)</sup></i>
 </p>
 <p>
 We found <i>b = 0.05258724</i> and <i>c = -1.46471901</i>. This fitted equation was
 used to calculate the saturation efficiency for air velocities at <i>0 m/s</i> and
 <i>10 m/s</i>. These additional saturation efficiency values were then added to the
 original set of saturation efficiency data points in this data record.
+</p>
+<h4>References</h4>
+<p>
+<a href=\"https://munters.sies.si/images/pdf/celdek7090.pdf\">Munters CELdek 7090-15
+Evaporative Pad Specification Sheet</a>, July 26, 2026.
 </p>
 </html>", revisions="<html>
 <ul>
