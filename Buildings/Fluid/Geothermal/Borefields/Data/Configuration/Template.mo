@@ -23,6 +23,12 @@ record Template
   parameter Boolean use_DarcyPressureDrop = false
     "Set to true to compute the vertical pipe pressure drop from Darcy-Weisbach"
     annotation (Dialog(tab="Advanced", group="Pressure drop"));
+  parameter Boolean use_TDepPressureDrop = false
+    "Set to true to evaluate density and viscosity from the medium temperature for the Darcy-Weisbach pressure drop"
+    annotation (Dialog(tab="Advanced", group="Pressure drop",enable=use_DarcyPressureDrop));
+  parameter Boolean use_TDepRConv = false
+    "Set to true to evaluate fluid thermal properties from the medium temperature for the pipe convection resistance"
+    annotation (Dialog(tab="Advanced", group="Heat transfer"));
 
   //------------------------- Geometrical parameters ---------------------------
   parameter Modelica.Units.SI.Height hBor "Total height of the borehole"
