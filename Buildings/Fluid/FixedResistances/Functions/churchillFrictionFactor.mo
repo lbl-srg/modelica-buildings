@@ -74,10 +74,6 @@ Buildings.Fluid.FixedResistances.Functions.churchillFrictionFactorRe2</a>,
 which returns the regularized modified friction coefficient
 <i>&lambda;<sub>2</sub> = f Re<sup>2</sup></i>.
 </p>
-<p>
-The input <code>eps_D</code> is the relative roughness &epsilon;/<i>D</i>.
-For smooth pipes, use <code>eps_D = 0</code>.
-</p>
 <h4>References</h4>
 <p>
 Churchill, S. W. (1977). Friction-factor equation spans all fluid-flow regimes.
