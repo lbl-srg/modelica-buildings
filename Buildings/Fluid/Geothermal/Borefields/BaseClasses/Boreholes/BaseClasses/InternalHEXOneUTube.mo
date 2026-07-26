@@ -26,7 +26,32 @@ model InternalHEXOneUTube
       final mSenFac=mSenFac));
 
 protected
-  parameter Real Rgg_val(fixed=false) "Thermal resistance between the two grout zones";
+  parameter Real Rgg_val(fixed=false)
+    "Thermal resistance between the two grout zones";
+
+  Medium.MassFraction X1[Medium.nX]
+    "Mass fractions used to evaluate medium properties in volume 1";
+  Medium.MassFraction X2[Medium.nX]
+    "Mass fractions used to evaluate medium properties in volume 2";
+
+  Medium.ThermodynamicState sta1
+    "Medium state used to evaluate temperature-dependent properties in volume 1";
+  Medium.ThermodynamicState sta2
+    "Medium state used to evaluate temperature-dependent properties in volume 2";
+
+  Modelica.Units.SI.SpecificHeatCapacity cpMed1Act
+    "Specific heat capacity used for convection resistance in volume 1";
+  Modelica.Units.SI.ThermalConductivity kMed1Act
+    "Thermal conductivity used for convection resistance in volume 1";
+  Modelica.Units.SI.DynamicViscosity muMed1Act
+    "Dynamic viscosity used for convection resistance in volume 1";
+
+  Modelica.Units.SI.SpecificHeatCapacity cpMed2Act
+    "Specific heat capacity used for convection resistance in volume 2";
+  Modelica.Units.SI.ThermalConductivity kMed2Act
+    "Thermal conductivity used for convection resistance in volume 2";
+  Modelica.Units.SI.DynamicViscosity muMed2Act
+    "Dynamic viscosity used for convection resistance in volume 2";
 
 public
   Modelica.Blocks.Sources.RealExpression RVol1(y=
@@ -35,9 +60,9 @@ public
       rTub=borFieDat.conDat.rTub,
       eTub=borFieDat.conDat.eTub,
       roughness=borFieDat.conDat.roughness,
-      kMed=kMed,
-      muMed=muMed,
-      cpMed=cpMed,
+      kMed=kMed1Act,
+      muMed=muMed1Act,
+      cpMed=cpMed1Act,
       m_flow=m1_flow,
       m_flow_nominal=m1_flow_nominal))
     "Convective and thermal resistance at fluid 1"
@@ -48,9 +73,9 @@ public
       rTub=borFieDat.conDat.rTub,
       eTub=borFieDat.conDat.eTub,
       roughness=borFieDat.conDat.roughness,
-      kMed=kMed,
-      muMed=muMed,
-      cpMed=cpMed,
+      kMed=kMed2Act,
+      muMed=muMed2Act,
+      cpMed=cpMed2Act,
       m_flow=m2_flow,
       m_flow_nominal=m2_flow_nominal))
     "Convective and thermal resistance at fluid 2"
@@ -97,6 +122,64 @@ initial equation
       instanceName=getInstanceName());
 
 equation
+  X1 =
+    if Medium.reducedX then
+      cat(1, vol1.Xi, {1 - sum(vol1.Xi)})
+    else
+      vol1.Xi;
+
+  X2 =
+    if Medium.reducedX then
+      cat(1, vol2.Xi, {1 - sum(vol2.Xi)})
+    else
+      vol2.Xi;
+
+  sta1 = Medium.setState_pTX(
+    p=vol1.p,
+    T=vol1.T,
+    X=X1);
+
+  sta2 = Medium.setState_pTX(
+    p=vol2.p,
+    T=vol2.T,
+    X=X2);
+
+  cpMed1Act =
+    if borFieDat.conDat.use_TDepRConv then
+      Medium.specificHeatCapacityCp(sta1)
+    else
+      cpMed;
+
+  kMed1Act =
+    if borFieDat.conDat.use_TDepRConv then
+      Medium.thermalConductivity(sta1)
+    else
+      kMed;
+
+  muMed1Act =
+    if borFieDat.conDat.use_TDepRConv then
+      Medium.dynamicViscosity(sta1)
+    else
+      muMed;
+
+  cpMed2Act =
+    if borFieDat.conDat.use_TDepRConv then
+      Medium.specificHeatCapacityCp(sta2)
+    else
+      cpMed;
+
+  kMed2Act =
+    if borFieDat.conDat.use_TDepRConv then
+      Medium.thermalConductivity(sta2)
+    else
+      kMed;
+
+  muMed2Act =
+    if borFieDat.conDat.use_TDepRConv then
+      Medium.dynamicViscosity(sta2)
+    else
+      muMed;
+
     assert(borFieDat.conDat.borCon == Buildings.Fluid.Geothermal.Borefields.Types.BoreholeConfiguration.SingleUTube,
   "This model should be used for single U-type borefield, not double U-type.
   Check that the conDat record has been correctly parametrized");
