@@ -29,6 +29,22 @@ record Template
   parameter Boolean use_TDepRConv = false
     "Set to true to evaluate fluid thermal properties from the medium temperature for the pipe convection resistance"
     annotation (Dialog(tab="Advanced", group="Heat transfer"));
+  parameter Buildings.Fluid.Geothermal.Borefields.Types.FluidPropertyEvaluation
+    fluidPropertyEvaluation=
+      Buildings.Fluid.Geothermal.Borefields.Types.FluidPropertyEvaluation.GenericMedium
+    "Method used to evaluate fluid properties for temperature-dependent heat-transfer and pressure-drop correlations"
+    annotation (Dialog(
+      tab="Advanced",
+      group="Fluid properties",
+      enable=use_TDepRConv or use_TDepPressureDrop));
+  parameter Modelica.Units.SI.MassFraction X_a(min=0, max=0.6) = 0.20
+    "Mass fraction of propylene glycol in water, used if fluidPropertyEvaluation is PropyleneGlycolWater"
+    annotation (Dialog(
+      tab="Advanced",
+      group="Fluid properties",
+      enable=(use_TDepRConv or use_TDepPressureDrop) and
+        fluidPropertyEvaluation == Buildings.Fluid.Geothermal.Borefields.Types.FluidPropertyEvaluation.PropyleneGlycolWater));
+
 
   //------------------------- Geometrical parameters ---------------------------
   parameter Modelica.Units.SI.Height hBor "Total height of the borehole"

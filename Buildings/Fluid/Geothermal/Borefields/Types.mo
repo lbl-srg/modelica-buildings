@@ -33,6 +33,14 @@ First implementation.
 </li>
 </ul>
 </html>"));
+  type FluidPropertyEvaluation = enumeration(
+      GenericMedium
+        "Evaluate properties through the Medium interface",
+      Water
+        "Evaluate water properties using local temperature-dependent correlations",
+      PropyleneGlycolWater
+        "Evaluate propylene-glycol/water properties using local temperature-dependent correlations")
+    "Enumeration to define how fluid properties are evaluated for heat-transfer and pressure-drop correlations";
   annotation (preferredView="info", Documentation(info="<html>
  <p>
  This package contains type definitions.
