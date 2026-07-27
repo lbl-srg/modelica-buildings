@@ -1,5 +1,5 @@
 within Buildings.Fluid.Geothermal.Borefields.Examples;
-model BorefieldsTDepRconvGlycolSeason
+model BorefieldsTDepRConvGlycolSeason
   "Seasonal glycol validation for temperature-dependent convection resistance"
   extends Modelica.Icons.Example;
 
@@ -258,7 +258,7 @@ equation
   annotation (
     experiment(StopTime=31536000, Tolerance=1e-6),
     __Dymola_Commands(file=
-        "modelica://Buildings/Resources/Scripts/Dymola/Fluid/Geothermal/Borefields/Examples/BorefieldsTDepRconvGlycolSeason.mos"
+        "modelica://Buildings/Resources/Scripts/Dymola/Fluid/Geothermal/Borefields/Examples/BorefieldsTDepRConvGlycolSeason.mos"
         "Simulate and plot"),
     Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-120,-80},{100,120}})),
     Documentation(info="<html>
@@ -300,4 +300,4 @@ This is for
 </ul>
 </html>"));
 
-end BorefieldsTDepRconvGlycolSeason;
+end BorefieldsTDepRConvGlycolSeason;

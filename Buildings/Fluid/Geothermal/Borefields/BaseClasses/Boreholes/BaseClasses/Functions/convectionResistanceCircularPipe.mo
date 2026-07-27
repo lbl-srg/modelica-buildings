@@ -40,12 +40,11 @@ protected
   Real Re "Reynolds number";
   Real Pr "Prandtl number";
   Real f "Darcy-Weisbach friction factor from Churchill (1977)";
-  Real Nu "Nusselt";
+  Real Nu "Nusselt number";
 
   // Pipe roughness for Churchill friction factor.
   Real eps_D = roughness / (2*rTub_in)
     "Relative pipe roughness epsilon/D";
-
 
   // Quintic Hermite anchor scalars 
   Real NuTurb

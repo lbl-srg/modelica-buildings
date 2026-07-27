@@ -1,4 +1,4 @@
-simulateModel("Buildings.Fluid.Geothermal.Borefields.Examples.BorefieldsTDepRconvGlycolSeason", startTime=0, stopTime=31536000, method="CVode", tolerance=1E-6, resultFile="BorefieldsTDepRconvGlycolSeason");
+simulateModel("Buildings.Fluid.Geothermal.Borefields.Examples.BorefieldsTDepRConvGlycolSeason", startTime=0, stopTime=31536000, method="CVode", tolerance=1E-6, resultFile="BorefieldsTDepRconvGlycolSeason");
 
 createPlot(
   id=1,
@@ -10,7 +10,7 @@ createPlot(
   autoreplot=true,
   grid=true,
   colors={{0,0,0}, {28,108,200}, {0,140,72}, {238,46,47}},
-  filename="BorefieldsTDepRconvGlycolSeason.mat",
+  filename="BorefieldsTDepRConvGlycolSeason.mat",
   leftTitleType=1,
   bottomTitleType=1);
 
@@ -24,7 +24,7 @@ createPlot(
   autoreplot=true,
   grid=true,
   colors={{238,46,47}, {217,67,180}, {0,140,72}},
-  filename="BorefieldsTDepRconvGlycolSeason.mat",
+  filename="BorefieldsTDepRConvGlycolSeason.mat",
   leftTitleType=1,
   bottomTitleType=1);
 
@@ -38,6 +38,6 @@ createPlot(
   autoreplot=true,
   grid=true,
   colors={{28,108,200}, {0,140,72}, {238,46,47}},
-  filename="BorefieldsTDepRconvGlycolSeason.mat",
+  filename="BorefieldsTDepRConvGlycolSeason.mat",
   leftTitleType=1,
   bottomTitleType=1);

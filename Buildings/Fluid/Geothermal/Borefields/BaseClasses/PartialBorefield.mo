@@ -1,6 +1,6 @@
 within Buildings.Fluid.Geothermal.Borefields.BaseClasses;
 partial model PartialBorefield
-  "Borefield model using single U-tube borehole heat exchanger configuration.Calculates the average fluid temperature T_fts of the borefield for a given (time dependent) load Q_flow"
+  "Partial borefield model with one representative borehole and borefield-level ground temperature response"
 
   extends Buildings.Fluid.Interfaces.PartialTwoPortInterface(
     final m_flow_nominal=borFieDat.conDat.mBorFie_flow_nominal);
@@ -302,7 +302,7 @@ is modeled using
 <a href=\"modelica://Buildings.Fluid.Geothermal.Borefields.BaseClasses.HeatTransfer.GroundTemperatureResponse\">
 Buildings.Fluid.Geothermal.Borefields.BaseClasses.HeatTransfer.GroundTemperatureResponse</a>,
 which uses a cell-shifting load aggregation technique to calculate the borehole wall
-temperature after calculating and/or read (from a previous calculation) the borefield's thermal response factor.
+temperature after calculating, or reading from a previous calculation, the borefield thermal response factor.
 </p>
 <p>
 The final parameter <code>VTubBorFie</code> exposes the total fluid volume in the

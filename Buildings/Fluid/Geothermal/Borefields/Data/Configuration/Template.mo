@@ -37,7 +37,7 @@ record Template
       tab="Advanced",
       group="Fluid properties",
       enable=use_TDepRConv or use_TDepPressureDrop));
-  parameter Modelica.Units.SI.MassFraction X_a(min=0, max=0.6) = 0.20
+  parameter Modelica.Units.SI.MassFraction X_a(min=0, max=0.6) = 0.25
     "Mass fraction of propylene glycol in water, used if fluidPropertyEvaluation is PropyleneGlycolWater"
     annotation (Dialog(
       tab="Advanced",

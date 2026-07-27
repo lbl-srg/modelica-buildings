@@ -1,5 +1,5 @@
 within Buildings.Fluid.Geothermal.Borefields.Examples;
-model BorefieldsTDepRconv
+model BorefieldsTDepRConv
   "Validation model for temperature-dependent convection resistance in single-U-tube borefields"
   extends Modelica.Icons.Example;
 
@@ -285,7 +285,7 @@ equation
   annotation (
     experiment(StopTime=36000, Tolerance=1e-6),
     __Dymola_Commands(file=
-        "modelica://Buildings/Resources/Scripts/Dymola/Fluid/Geothermal/Borefields/Examples/BorefieldsTDepRconv.mos"
+        "modelica://Buildings/Resources/Scripts/Dymola/Fluid/Geothermal/Borefields/Examples/BorefieldsTDepRConv.mos"
         "Simulate and plot"),
     Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-120,-100},{120,120}})),
     Documentation(info="<html>
@@ -319,7 +319,7 @@ the fixed-property glycol case.
 </html>", revisions="<html>
 <ul>
 <li>
-July 27,026, by Lone Meertens:<br/>
+July 27, 2026, by Lone Meertens:<br/>
 First implementation.<br/>
 This is for
 <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4483\">Buildings, #4483</a>.
@@ -327,4 +327,4 @@ This is for
 </ul>
 </html>"));
 
-end BorefieldsTDepRconv;
+end BorefieldsTDepRConv;

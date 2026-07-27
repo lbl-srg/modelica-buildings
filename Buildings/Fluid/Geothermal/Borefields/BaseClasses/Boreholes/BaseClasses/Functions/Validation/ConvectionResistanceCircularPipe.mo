@@ -17,7 +17,7 @@ model ConvectionResistanceCircularPipe
     "Nominal mass flow rate";
 
   Real Re "Reynolds number";
-  Real Nu "Reynolds number";
+  Real Nu "Nusselt number";
   Modelica.Units.SI.MassFlowRate m_flow "Mass flow rate";
   Modelica.Units.SI.ThermalResistance RConv "Convection resistance";
 

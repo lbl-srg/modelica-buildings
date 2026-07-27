@@ -9,7 +9,7 @@ package Types "Package with type definitions"
     "Double U-tube configuration with pipes connected in parallel",
       DoubleUTubeSeries
     "Double U-tube configuration with pipes connected in series")
-  "Enumaration to define the borehole configurations"
+  "Enumeration to define the borehole configurations"
   annotation (Documentation(info="<html>
 <p>
 Enumeration that defines the pipe configuration in the borehole.

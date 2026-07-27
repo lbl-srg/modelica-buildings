@@ -120,6 +120,11 @@ properties using
 or propylene-glycol/water properties using
 <code>Buildings.Media.Antifreeze.Functions.PropyleneGlycolWater</code>.
 </p>
+<p>
+The option <code>GenericMedium</code> is not evaluated in this function. For
+generic medium evaluation, call the corresponding medium property functions
+directly.
+</p>
 </html>", revisions="<html>
 <ul>
 <li>
