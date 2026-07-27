@@ -9,9 +9,17 @@
 - model_name: Buildings.Applications.DataCenters.DXCooled.Examples.DXCooledAirsideEconomizer
   openmodelica:
     solver: cvode
+- model_name: Buildings.Applications.DataCenters.LiquidCooled.Examples.ChillerWSEDynamicPipes
+  optimica:
+    comment: Selective model extension is only a prototype in OMC version 1.66
+    translate: false
+- model_name: Buildings.Applications.DataCenters.LiquidCooled.Validation.ChillerWSEDesignConditionsGlycol
+  optimica:
+    comment: Selective model extension is only a prototype in OMC version 1.66
+    translate: false
 - model_name: Buildings.Applications.DataCenters.LiquidCooled.Validation.ChillerWSEDesignConditionsWater
   optimica:
-    comment: Selective model extension is only a prototype
+    comment: Selective model extension is only a prototype in OMC version 1.66
     translate: false
 - model_name: Buildings.Controls.DemandResponse.Examples.ClientLBNL90
   openmodelica:
