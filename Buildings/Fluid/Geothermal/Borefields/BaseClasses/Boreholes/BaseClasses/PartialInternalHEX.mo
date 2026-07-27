@@ -44,6 +44,11 @@ protected
       Medium.p_default,
       Medium.T_default,
       Medium.X_default)) "Dynamic viscosity of the fluid";
+  parameter Modelica.Units.SI.Density rhoMed=
+      Medium.density(Medium.setState_pTX(
+      Medium.p_default,
+      Medium.T_default,
+      Medium.X_default)) "Density of the fluid";
   parameter Real Rgb_val(fixed=false)
     "Thermal resistance between grout zone and borehole wall";
   parameter Real RCondGro_val(fixed=false)
