@@ -23,14 +23,96 @@ model PressureDropCircularPipe
   parameter Real KUBend(unit="1", min=0) = 2
     "Minor-loss coefficient of one U-bend"
     annotation (Dialog(enable=computePressureDrop));
+  parameter Boolean use_TDepPressureDrop = false
+    "Set to true to evaluate density and viscosity from the current fluid temperature"
+    annotation (Dialog(enable=computePressureDrop));
+  parameter Buildings.Fluid.Geothermal.Borefields.Types.FluidPropertyEvaluation
+    fluidPropertyEvaluation=
+      Buildings.Fluid.Geothermal.Borefields.Types.FluidPropertyEvaluation.GenericMedium
+    "Method used to evaluate fluid properties for pressure drop"
+    annotation (Dialog(enable=computePressureDrop and use_TDepPressureDrop));
+  parameter Modelica.Units.SI.MassFraction X_a(min=0, max=0.6) = 0.40
+    "Mass fraction of propylene glycol in water"
+    annotation (Dialog(
+      enable=computePressureDrop and use_TDepPressureDrop and
+        fluidPropertyEvaluation ==
+          Buildings.Fluid.Geothermal.Borefields.Types.FluidPropertyEvaluation.PropyleneGlycolWater));
+
 
 protected
   final parameter Real KMinor(unit="1") = nUBend*KUBend
     "Total minor-loss coefficient";
 
+  Medium.MassFraction XiAct[Medium.nXi]
+    "Independent mass fractions of actual stream";
+
+  Medium.MassFraction XAct[Medium.nX]
+    "Mass fractions of actual stream";
+
+  Medium.ThermodynamicState staAct
+    "Actual stream state used for generic medium property evaluation";
+
+  Modelica.Units.SI.Temperature TAct
+    "Actual stream temperature used for property evaluation";
+
+  Modelica.Units.SI.SpecificHeatCapacity cpMedAct
+    "Specific heat capacity returned by property helper, not used for pressure drop";
+
+  Modelica.Units.SI.ThermalConductivity kMedAct
+    "Thermal conductivity returned by property helper, not used for pressure drop";
+
+  Modelica.Units.SI.DynamicViscosity muMedAct
+    "Dynamic viscosity used for pressure drop";
+
+  Modelica.Units.SI.Density rhoMedAct
+    "Density used for pressure drop";
+
+
 equation
   port_a.m_flow + port_b.m_flow = 0;
   m_flow = port_a.m_flow;
+
+    XiAct = actualStream(port_a.Xi_outflow);
+
+  XAct =
+    if Medium.nXi == 0 then
+      Medium.X_default
+    elseif Medium.reducedX then
+      cat(1, XiAct, {1 - sum(XiAct)})
+    else
+      XiAct;
+
+  staAct = Medium.setState_phX(
+    p=port_a.p,
+    h=actualStream(port_a.h_outflow),
+    X=XAct);
+
+  TAct = Medium.temperature(staAct);
+
+    if computePressureDrop and use_TDepPressureDrop and
+     fluidPropertyEvaluation ==
+       Buildings.Fluid.Geothermal.Borefields.Types.FluidPropertyEvaluation.GenericMedium then
+
+    rhoMedAct = Medium.density(staAct);
+    muMedAct = Medium.dynamicViscosity(staAct);
+    cpMedAct = Medium.specificHeatCapacityCp(staAct);
+    kMedAct = Medium.thermalConductivity(staAct);
+
+  else
+
+    (cpMedAct, kMedAct, muMedAct, rhoMedAct) =
+      Buildings.Fluid.Geothermal.Borefields.BaseClasses.Boreholes.BaseClasses.Functions.fluidProperties_T(
+        use_TDep=computePressureDrop and use_TDepPressureDrop,
+        fluidPropertyEvaluation=fluidPropertyEvaluation,
+        T=TAct,
+        p=port_a.p,
+        X_a=X_a,
+        cp_default=1,
+        k_default=1,
+        mu_default=muMed,
+        rho_default=rhoMed);
+
+  end if;
 
   dp =
     if computePressureDrop then
@@ -39,8 +121,8 @@ equation
         rTub=rTub,
         eTub=eTub,
         roughness=roughness,
-        rhoMed=rhoMed,
-        muMed=muMed,
+        rhoMed=rhoMedAct,
+        muMed=muMedAct,
         m_flow=m_flow,
         KMinor=KMinor)
     else

@@ -82,6 +82,9 @@ model TwoUTube "Double U-tube borehole heat exchanger"
       final m_flow_nominal=if borFieDat.conDat.borCon == Buildings.Fluid.Geothermal.Borefields.Types.BoreholeConfiguration.DoubleUTubeParallel
         then m_flow_nominal/2 else m_flow_nominal,
       final computePressureDrop=borFieDat.conDat.use_DarcyPressureDrop,
+      final use_TDepPressureDrop=borFieDat.conDat.use_TDepPressureDrop,
+      final fluidPropertyEvaluation=borFieDat.conDat.fluidPropertyEvaluation,
+      final X_a=borFieDat.conDat.X_a,
       final length=2*borFieDat.conDat.hBor,
       final rTub=borFieDat.conDat.rTub,
       final eTub=borFieDat.conDat.eTub,
@@ -97,6 +100,9 @@ model TwoUTube "Double U-tube borehole heat exchanger"
       final m_flow_nominal=if borFieDat.conDat.borCon == Buildings.Fluid.Geothermal.Borefields.Types.BoreholeConfiguration.DoubleUTubeParallel
         then m_flow_nominal/2 else m_flow_nominal,
       final computePressureDrop=borFieDat.conDat.use_DarcyPressureDrop,
+      final use_TDepPressureDrop=borFieDat.conDat.use_TDepPressureDrop,
+      final fluidPropertyEvaluation=borFieDat.conDat.fluidPropertyEvaluation,
+      final X_a=borFieDat.conDat.X_a,
       final length=2*borFieDat.conDat.hBor,
       final rTub=borFieDat.conDat.rTub,
       final eTub=borFieDat.conDat.eTub,
