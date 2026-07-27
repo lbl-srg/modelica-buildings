@@ -97,7 +97,7 @@ model InternalHEXTwoUTube
       kMed=kMed,
       muMed=muMed,
       cpMed=cpMed,
-      m_flow=m1_flow,
+      m_flow=m4_flow,
       m_flow_nominal=m4_flow_nominal))
     "Convective and thermal resistance at fluid 1"
     annotation (Placement(transformation(extent={{-68,12},{-54,28}})));
