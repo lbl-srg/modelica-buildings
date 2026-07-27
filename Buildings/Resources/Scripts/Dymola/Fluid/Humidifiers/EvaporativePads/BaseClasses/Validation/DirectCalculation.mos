@@ -1,4 +1,4 @@
-simulateModel("Buildings.Fluid.Humidifiers.EvaporativePads.BaseXlasses.Validation.DirectCalculation", method="CVode", tolerance=1e-06, stopTime=60, resultFile="DirectCalculation");
+simulateModel("Buildings.Fluid.Humidifiers.EvaporativePads.BaseClasses.Validation.DirectCalculation", method="CVode", tolerance=1e-06, stopTime=60, resultFile="DirectCalculation");
 createPlot(id=1, position={15, 15, 534, 336}, y={"dirEvaPadCal.V_flow"}, range={0.0, 60.0, 0.9, 1.6}, grid=true, colors={{28,108,200}});
 createPlot(id=1, position={15, 15, 534, 108}, y={"dirEvaPadCal.TDryBulIn", "dirEvaPadCal.TWetBulIn", "dirEvaPadCal.TDryBulOut"}, range={0.0, 60.0, 16.0, 24.0}, grid=true, subPlot=2, colors={{28,108,200}, {238,46,47}, {0,140,72}}, displayUnits={"degC", "degC", "degC"});
 createPlot(id=1, position={15, 15, 534, 109}, y={"dirEvaPadCal.dmWat_flow"}, range={0.0, 60.0, 0.0026, 0.004}, grid=true, subPlot=3, colors={{28,108,200}});
