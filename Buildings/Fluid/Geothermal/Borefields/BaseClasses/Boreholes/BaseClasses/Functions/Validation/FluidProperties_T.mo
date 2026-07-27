@@ -68,11 +68,31 @@ equation
 
   annotation (
     experiment(StopTime=3600, Tolerance=1e-6),
+    __Dymola_Commands(file=
+        "modelica://Buildings/Resources/Scripts/Dymola/Fluid/Geothermal/Borefields/BaseClasses/Boreholes/BaseClasses/Functions/Validation/FluidProperties_T.mos"
+        "Simulate and plot"),
     Documentation(info="<html>
 <p>
-This model validates the fluid property helper function for fixed properties,
-temperature-dependent water correlation properties, and temperature-dependent
-propylene-glycol/water correlation properties.
+This validation model tests
+<a href=\"modelica://Buildings.Fluid.Geothermal.Borefields.BaseClasses.Boreholes.BaseClasses.Functions.fluidProperties_T\">
+Buildings.Fluid.Geothermal.Borefields.BaseClasses.Boreholes.BaseClasses.Functions.fluidProperties_T</a>.
 </p>
+<p>
+The model compares fixed properties, temperature-dependent water properties,
+and temperature-dependent propylene-glycol/water properties over a prescribed
+temperature sweep. It is used to verify that the property evaluation function
+returns the expected trends for density, dynamic viscosity, thermal conductivity,
+and specific heat capacity.
+</p>
+</html>", revisions="<html>
+<ul>
+<li>
+July 27, 2026, by Lone Meertens:<br/>
+First implementation.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4483\">Buildings, #4483</a>.
+</li>
+</ul>
 </html>"));
+
 end FluidProperties_T;

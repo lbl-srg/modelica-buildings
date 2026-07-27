@@ -284,22 +284,47 @@ equation
 
   annotation (
     experiment(StopTime=36000, Tolerance=1e-6),
+    __Dymola_Commands(file=
+        "modelica://Buildings/Resources/Scripts/Dymola/Fluid/Geothermal/Borefields/Examples/BorefieldsTDepRconv.mos"
+        "Simulate and plot"),
     Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-120,-100},{120,120}})),
     Documentation(info="<html>
 <p>
 This validation model compares outlet temperatures of four single-U-tube
-borefield cases: fixed-property water, water with local temperature-dependent
-water correlations, fixed-property propylene-glycol/water, and
-propylene-glycol/water with local temperature-dependent glycol correlations.
+borefield cases:
 </p>
+<ul>
+<li>
+Fixed-property water.
+</li>
+<li>
+Water with local temperature-dependent water correlations for the pipe
+convection resistance.
+</li>
+<li>
+Fixed-property propylene-glycol/water.
+</li>
+<li>
+Propylene-glycol/water with local temperature-dependent glycol correlations
+for the pipe convection resistance.
+</li>
+</ul>
 <p>
-A common inlet temperature is used for all cases so the difference between fixed
-and temperature-dependent property evaluation is easier to interpret.
+A common inlet temperature is used for all cases so that the difference between
+fixed and temperature-dependent property evaluation is easier to interpret.
+The clean comparisons are the water temperature-dependent case against the
+fixed-property water case, and the glycol temperature-dependent case against
+the fixed-property glycol case.
 </p>
-<p>
-Only single-U-tube borefields are included because the two-U-tube internal heat
-exchanger has not yet been updated with the temperature-dependent property
-logic.
-</p>
+</html>", revisions="<html>
+<ul>
+<li>
+July 27,026, by Lone Meertens:<br/>
+First implementation.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4483\">Buildings, #4483</a>.
+</li>
+</ul>
 </html>"));
+
 end BorefieldsTDepRconv;

@@ -115,7 +115,7 @@ Buildings.Fluid.Geothermal.Borefields.BaseClasses.Boreholes.BaseClasses.Function
 revisions="<html>
 <ul>
 <li>
-July 18, 2026, by L. Meertens:<br/>
+July 18, 2026, by Lone Meertens:<br/>
 First implementation for Darcy-Weisbach pressure-drop calculation in vertical
 GHE pipes.<br/>
 This is for

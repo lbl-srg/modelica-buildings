@@ -257,6 +257,9 @@ equation
 
   annotation (
     experiment(StopTime=31536000, Tolerance=1e-6),
+    __Dymola_Commands(file=
+        "modelica://Buildings/Resources/Scripts/Dymola/Fluid/Geothermal/Borefields/Examples/BorefieldsTDepRconvGlycolSeason.mos"
+        "Simulate and plot"),
     Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-120,-80},{100,120}})),
     Documentation(info="<html>
 <p>
@@ -268,10 +271,12 @@ Three cases are simulated side by side:
 </p>
 <ul>
 <li>
-Fixed-property glycol evaluated at an average temperature of 293.15 K.
+Fixed-property propylene-glycol/water evaluated at an average temperature of
+293.15 K.
 </li>
 <li>
-Fixed-property glycol evaluated at a cold conservative temperature of 278.15 K.
+Fixed-property propylene-glycol/water evaluated at a cold conservative
+temperature of 278.15 K.
 </li>
 <li>
 Temperature-dependent convection resistance using the current fluid temperature
@@ -284,5 +289,15 @@ The seasonal inlet temperature is sinusoidal with mean 293.15 K and amplitude
 properties are representative and whether fixed cold properties are overly
 conservative during warm operation.
 </p>
+</html>", revisions="<html>
+<ul>
+<li>
+July 27, 2026, by Lone Meertens:<br/>
+First implementation.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4483\">Buildings, #4483</a>.
+</li>
+</ul>
 </html>"));
+
 end BorefieldsTDepRconvGlycolSeason;

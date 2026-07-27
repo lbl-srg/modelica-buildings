@@ -120,10 +120,14 @@ properties using
 or propylene-glycol/water properties using
 <code>Buildings.Media.Antifreeze.Functions.PropyleneGlycolWater</code>.
 </p>
-<p>
-The generic medium case is intentionally not handled here to avoid
-replaceable-package function-call syntax. Generic medium properties should be
-evaluated directly in the calling model using <code>Medium.*</code>.
-</p>
+</html>", revisions="<html>
+<ul>
+<li>
+July 27, 2026, by Lone Meertens:<br/>
+First implementation.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4483\">Buildings, #4483</a>.
+</li>
+</ul>
 </html>"));
 end fluidProperties_T;

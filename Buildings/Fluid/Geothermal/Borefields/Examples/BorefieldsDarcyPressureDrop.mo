@@ -62,7 +62,7 @@ both U-tube circuits in series.
 revisions="<html>
 <ul>
 <li>
-July 2026, by L. Meertens:<br/>
+July 2026, by Lone Meertens:<br/>
 First implementation for validating Darcy-Weisbach pressure drop in borefields
 at constant mass-flow conditions.<br/>
 This is for

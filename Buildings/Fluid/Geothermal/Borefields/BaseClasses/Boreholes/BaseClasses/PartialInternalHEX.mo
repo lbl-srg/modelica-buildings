@@ -93,6 +93,13 @@ need to be declared in models which extend this partial model:
 </html>", revisions="<html>
 <ul>
 <li>
+July 27, 2026, by Lone Meertens:<br/>
+Added the default medium density used by temperature-dependent borehole
+heat-transfer and pressure-drop correlations.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4483\">Buildings, #4483</a>.
+</li>
+<li>
 May 17, 2024, by Michael Wetter:<br/>
 Updated model due to removal of parameter <code>dynFil</code>.<br/>
 This is for

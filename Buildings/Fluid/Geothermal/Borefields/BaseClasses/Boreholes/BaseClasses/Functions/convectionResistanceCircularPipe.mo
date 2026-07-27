@@ -184,7 +184,7 @@ Gnielinski, V. (2013). On heat transfer in tubes.
 </html>", revisions="<html>
 <ul>
 <li>
-July 14, 2026,by L. Meertens:<br/>
+July 14, 2026,by Lone Meertens:<br/>
 Replaced Dittus-Boelter correlation with Gnielinski (1975).
 including Churchill (1977) friction factor.
 Extended turbulent transition region from Re=2400 to Re=4000. 

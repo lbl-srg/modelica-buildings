@@ -377,18 +377,49 @@ equation
 
   annotation (
     experiment(StopTime=3600, Tolerance=1e-6),
+    __Dymola_Commands(file=
+        "modelica://Buildings/Resources/Scripts/Dymola/Fluid/Geothermal/Borefields/BaseClasses/Boreholes/BaseClasses/Examples/InternalHEXTwoUTubeTDepRConvThreeCases.mos"
+        "Simulate and plot"),
     Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-130,-90},{130,120}})),
     Documentation(info="<html>
 <p>
-This validation model compares fixed and temperature-dependent convection
-resistance for water and propylene-glycol/water in a double U-tube internal
-heat exchanger.
+This validation model compares fixed and temperature-dependent pipe convection
+resistances in a double U-tube internal heat exchanger.
 </p>
+<p>
+Four cases are simulated side by side:
+</p>
+<ul>
+<li>
+Fixed-property water.
+</li>
+<li>
+Water using local temperature-dependent water correlations for the convection
+resistances.
+</li>
+<li>
+Fixed-property propylene-glycol/water.
+</li>
+<li>
+Propylene-glycol/water using local temperature-dependent glycol correlations
+for the convection resistances.
+</li>
+</ul>
 <p>
 The double U-tube configuration is parallel. Pipes 1 and 3 receive the cold
 inlet temperature, while pipes 2 and 4 receive the warm inlet temperature.
-The model is intended to verify that the active fluid-property evaluation is
-propagated to all four convection resistances.
+The model verifies that the active fluid-property evaluation is propagated to
+all four convection resistances.
 </p>
+</html>", revisions="<html>
+<ul>
+<li>
+July 27, 2026, by Lone Meertens:<br/>
+First implementation.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4483\">Buildings, #4483</a>.
+</li>
+</ul>
 </html>"));
+
 end InternalHEXTwoUTubeTDepRConvThreeCases;

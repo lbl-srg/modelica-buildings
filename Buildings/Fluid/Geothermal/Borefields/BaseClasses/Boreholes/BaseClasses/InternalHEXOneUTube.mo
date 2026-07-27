@@ -254,7 +254,15 @@ International Journal Of Energy Research, 35:312-320, 2011.
 </html>", revisions="<html>
 <ul>
 <li>
-July 18, 2026, by L. Meertens:<br/>
+July 27, 2026, by Lone Meertens:<br/>
+Added optional temperature-dependent fluid-property evaluation for the pipe
+convection resistance, including water and propylene-glycol/water correlation
+modes.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4483\">Buildings, #4483</a>.
+</li>
+<li>
+July 18, 2026, by Lone Meertens:<br/>
 Propagated pipe roughness from the borefield configuration data to the
 convective resistance calculation.<br/>
 This is for

@@ -85,7 +85,7 @@ imposed mass-flow signals.
 revisions="<html>
 <ul>
 <li>
-July 2026, by L. Meertens:<br/>
+July 2026, by Lone Meertens:<br/>
 First implementation for validating Darcy-Weisbach pressure drop under
 time-varying mass-flow conditions.<br/>
 This is for

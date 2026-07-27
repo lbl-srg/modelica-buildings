@@ -76,7 +76,7 @@ The laminar reference <i>f = 64/Re</i> is also output for comparison.
 </html>", revisions="<html>
 <ul>
 <li>
-July 14, 2026, by L. Meertens:<br/>
+July 14, 2026, by Lone Meertens:<br/>
 First implementation.<br/>
 This is for
 <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4655\">

@@ -1,0 +1,43 @@
+simulateModel("Buildings.Fluid.Geothermal.Borefields.BaseClasses.Boreholes.BaseClasses.Examples.InternalHEXOneUTubeTDepRConvThreeCases", stopTime=3600, method="CVode", tolerance=1E-6, resultFile="InternalHEXOneUTubeTDepRConvThreeCases");
+
+createPlot(
+  id=1,
+  position={0, 0, 1268, 736},
+  x="time",
+  y={"R1FixWat", "R1Wat", "R2FixWat", "R2Wat"},
+  autoscale=true,
+  autoerase=true,
+  autoreplot=true,
+  grid=true,
+  colors={{0,0,0}, {28,108,200}, {160,160,160}, {0,140,72}},
+  filename="InternalHEXOneUTubeTDepRConvThreeCases.mat",
+  leftTitleType=1,
+  bottomTitleType=1);
+
+createPlot(
+  id=2,
+  position={0, 0, 1268, 736},
+  x="time",
+  y={"R1FixGly", "R1Gly", "R2FixGly", "R2Gly"},
+  autoscale=true,
+  autoerase=true,
+  autoreplot=true,
+  grid=true,
+  colors={{0,0,0}, {238,46,47}, {160,160,160}, {217,67,180}},
+  filename="InternalHEXOneUTubeTDepRConvThreeCases.mat",
+  leftTitleType=1,
+  bottomTitleType=1);
+
+createPlot(
+  id=3,
+  position={0, 0, 1268, 736},
+  x="time",
+  y={"dR1Wat", "dR2Wat", "dR1Gly", "dR2Gly"},
+  autoscale=true,
+  autoerase=true,
+  autoreplot=true,
+  grid=true,
+  colors={{28,108,200}, {0,140,72}, {238,46,47}, {217,67,180}},
+  filename="InternalHEXOneUTubeTDepRConvThreeCases.mat",
+  leftTitleType=1,
+  bottomTitleType=1);
