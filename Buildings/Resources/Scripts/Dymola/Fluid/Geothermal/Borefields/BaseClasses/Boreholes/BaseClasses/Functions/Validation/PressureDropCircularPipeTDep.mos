@@ -1,0 +1,71 @@
+simulateModel("Buildings.Fluid.Geothermal.Borefields.BaseClasses.Boreholes.BaseClasses.Functions.Validation.PressureDropCircularPipeTDep", stopTime=3600.0, method="CVode", tolerance=1E-6, resultFile="FunctionPressureDropCircularPipeTDep");
+
+createPlot(
+  id = 1,
+  position = {35, 30, 631, 456},
+  x = "time",
+  y = {"TIn"},
+  autoscale = true,
+  autoerase = true,
+  autoreplot = true,
+  grid=true,
+  color=true,
+  filename="FunctionPressureDropCircularPipeTDep.mat",
+  leftTitleType = 1,
+  bottomTitleType = 1);
+
+createPlot(
+  id = 2,
+  position = {35, 30, 631, 456},
+  x = "time",
+  y = {"dpFixWat", "dpWat", "dpFixGly", "dpGly"},
+  autoscale = true,
+  autoerase = true,
+  autoreplot = true,
+  grid=true,
+  color=true,
+  filename="FunctionPressureDropCircularPipeTDep.mat",
+  leftTitleType = 1,
+  bottomTitleType = 1);
+
+createPlot(
+  id = 3,
+  position = {35, 30, 631, 456},
+  x = "time",
+  y = {"dDpWat", "dDpGly"},
+  autoscale = true,
+  autoerase = true,
+  autoreplot = true,
+  grid=true,
+  color=true,
+  filename="FunctionPressureDropCircularPipeTDep.mat",
+  leftTitleType = 1,
+  bottomTitleType = 1);
+
+createPlot(
+  id = 4,
+  position = {35, 30, 631, 456},
+  x = "time",
+  y = {"preDroFixWat.dp", "preDroWat.dp", "preDroFixGly.dp", "preDroGly.dp"},
+  autoscale = true,
+  autoerase = true,
+  autoreplot = true,
+  grid=true,
+  color=true,
+  filename="FunctionPressureDropCircularPipeTDep.mat",
+  leftTitleType = 1,
+  bottomTitleType = 1);
+
+createPlot(
+  id = 5,
+  position = {35, 30, 631, 456},
+  x = "TIn",
+  y = {"dpFixWat", "dpWat", "dpFixGly", "dpGly"},
+  autoscale = true,
+  autoerase = true,
+  autoreplot = true,
+  grid=true,
+  color=true,
+  filename="FunctionPressureDropCircularPipeTDep.mat",
+  leftTitleType = 1,
+  bottomTitleType = 1);
