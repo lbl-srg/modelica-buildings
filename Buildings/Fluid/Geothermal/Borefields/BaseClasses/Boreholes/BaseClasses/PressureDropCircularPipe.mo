@@ -70,9 +70,7 @@ protected
 
 equation
   port_a.m_flow + port_b.m_flow = 0;
-  m_flow = port_a.m_flow;
-
-    XiAct = actualStream(port_a.Xi_outflow);
+  XiAct = actualStream(port_a.Xi_outflow);
 
   XAct =
     if Medium.nXi == 0 then
