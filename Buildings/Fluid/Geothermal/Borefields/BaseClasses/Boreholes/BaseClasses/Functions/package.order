@@ -1,4 +1,5 @@
 convectionResistanceCircularPipe
+fluidProperties_T
 internalResistancesOneUTube
 internalResistancesTwoUTube
 multipoleFluidTemperature

@@ -1,4 +1,5 @@
 ConvectionResistanceCircularPipe
+FluidProperties_T
 InternalResistancesOneUTube
 InternalResistancesOneUTubeNegative
 InternalResistancesTwoUTube
