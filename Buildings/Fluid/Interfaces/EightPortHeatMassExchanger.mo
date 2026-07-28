@@ -249,7 +249,7 @@ protected
       T=Medium2.T_default, p=Medium2.p_default, X=Medium2.X_default);
   parameter Modelica.Units.SI.Density rho2_nominal=Medium2.density(sta2_nominal)
     "Density, used to compute fluid volume";
-  parameter Medium1.ThermodynamicState sta3_nominal=Medium3.setState_pTX(
+  parameter Medium3.ThermodynamicState sta3_nominal=Medium3.setState_pTX(
       T=Medium3.T_default, p=Medium3.p_default, X=Medium3.X_default);
   parameter Modelica.Units.SI.Density rho3_nominal=Medium3.density(sta3_nominal)
     "Density, used to compute fluid volume";
