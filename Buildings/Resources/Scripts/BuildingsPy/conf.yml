@@ -9,6 +9,18 @@
 - model_name: Buildings.Applications.DataCenters.DXCooled.Examples.DXCooledAirsideEconomizer
   openmodelica:
     solver: cvode
+- model_name: Buildings.Applications.DataCenters.LiquidCooled.Examples.ChillerWSEDynamicPipes
+  optimica:
+    comment: Selective model extension is only a prototype in OMC version 1.66
+    translate: false
+- model_name: Buildings.Applications.DataCenters.LiquidCooled.Validation.ChillerWSEDesignConditionsGlycol
+  optimica:
+    comment: Selective model extension is only a prototype in OMC version 1.66
+    translate: false
+- model_name: Buildings.Applications.DataCenters.LiquidCooled.Validation.ChillerWSEDesignConditionsWater
+  optimica:
+    comment: Selective model extension is only a prototype in OMC version 1.66
+    translate: false
 - model_name: Buildings.Controls.DemandResponse.Examples.ClientLBNL90
   openmodelica:
     comment: 'TimeoutExpired: omc timed out after 300 seconds'
@@ -154,6 +166,10 @@
 - model_name: Buildings.Fluid.Chillers.ModularReversible.Validation.TableData2DLoadDep_HeatRecovery
   openmodelica:
     comment: 'CalledProcessError: Command ''[''omc'', ''Buildings.Fluid.Chillers.ModularReversible.Validation.TableData2DLoadDep_HeatRecovery_translate.mos'']'' returned non-zero exit status 2.'
+    translate: false
+- model_name: Buildings.Fluid.DataCenterEquipment.Racks.Hybrid.LiquidCooledSinglePhase.Examples.LiquidCooledSinglePhase
+  dymola:
+    comment: "Dassault bug report: SR01576125-01 due to problem with data record"
     translate: false
 - model_name: Buildings.Fluid.Examples.FlowSystem.Basic
   openmodelica:
