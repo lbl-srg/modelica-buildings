@@ -1,0 +1,6 @@
+simulateModel("Buildings.Controls.OBC.DemandFlexibility.ZoneTemperatureSetpointChange.Validation.SingleZoneCoolingVariant1And2", method="Cvode", tolerance=1e-06, stopTime=172800, resultFile="SingleZoneCoolingVariant1And2");
+createPlot(id=1, position={15, 0, 569, 480}, y={"setChaConCooVar1.TCurZonSet[1]", "setChaConCooVar1.TComZonSet[1]", 
+"tabTCurZon.y[1]"}, range={0.0, 48.0, 10.0, 40.0}, grid=true, subPlot=101, colors={{28,108,200}, {238,46,47}, {0,140,72}}, timeUnit="h", displayUnits={"degC", "degC", "degC"});
+createPlot(id=1, position={15, 0, 569, 480}, y={"setChaConCooVar2.TCurZonSet[1]", "setChaConCooVar2.TComZonSet[1]", 
+"tabTCurZon.y[1]"}, range={0.0, 48.0, 10.0, 40.0}, grid=true, subPlot=102, colors={{28,108,200}, {238,46,47}, {0,140,72}}, timeUnit="h", displayUnits={"degC", "degC", "degC"});
+createPlot(id=1, position={15, 0, 569, 480}, y={"tabDemFleMod.y[1]"}, range={0.0, 48.0, -1.0, 4.0}, grid=true, subPlot=103, colors={{28,108,200}}, timeUnit="h");
