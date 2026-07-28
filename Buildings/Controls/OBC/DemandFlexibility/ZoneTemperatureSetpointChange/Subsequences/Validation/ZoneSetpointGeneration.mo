@@ -1,29 +1,20 @@
-within Buildings.Controls.OBC.DemandFlexibility.Generic.Validation;
-model DoubleSwitch "Double switch"
+within Buildings.Controls.OBC.DemandFlexibility.ZoneTemperatureSetpointChange.Subsequences.Validation;
+model ZoneSetpointGeneration "Zone setpoint generation"
 
-  Buildings.Controls.OBC.DemandFlexibility.Generic.DoubleSwitch douSwi
-    annotation (Placement(transformation(extent={{20,0},{40,20}})));
-  CDL.Reals.Sources.Sin sin(
-    amplitude=1,
-    freqHz=1/30,
-    offset=5)
-    annotation (Placement(transformation(extent={{-60,40},{-40,60}})));
-  CDL.Reals.Sources.Sin sin1(
-    amplitude=2,
-    freqHz=1/15,
-    offset=-5)
-    annotation (Placement(transformation(extent={{-60,-40},{-40,-20}})));
-  CDL.Logical.Sources.Pulse uEnaVar(period=60)
-    "Boolean variable to enable setpoint change when true"
-    annotation (Placement(transformation(extent={{-60,0},{-40,20}})));
-equation
-  connect(uEnaVar.y, douSwi.u2) annotation (Line(points={{-38,10},{18,10}},
-                        color={255,0,255}));
-  connect(sin.y, douSwi.u1) annotation (Line(points={{-38,50},{0,50},{0,16},{18,
-          16}}, color={0,0,127}));
-  connect(sin1.y, douSwi.u3) annotation (Line(points={{-38,-30},{0,-30},{0,4},{
-          18,4}},
-               color={0,0,127}));
+  Buildings.Controls.OBC.DemandFlexibility.ZoneTemperatureSetpointChange.Subsequences.ZoneSetpointGeneration zonSetGen(
+    TDefOccHeaSet=273.15 + 20,
+    TDefUnoHeaSet=273.15 + 12,
+    TDefOccCooSet=273.15 + 24,
+    TDefUnoCooSet=273.15 + 32,
+    dTSheHeaSet=4,
+    dTSheCooSet=4,
+    dTPreHeaSet=1.5,
+    dTPreCooSet=1.5,
+    occHouSta=7,
+    occHouEnd=19,
+    setChaEnaUnoFla=true)
+    "Block to generate zone setpoints and setpoint targets that vary with time"
+    annotation (Placement(transformation(extent={{0,0},{20,20}})));
 annotation (experiment(StopTime=60, Interval=1, Tolerance=1e-06),
   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/DemandFlexibility/Generic/Validation/SetpointResolution.mos"
     "Simulate and plot"),
@@ -54,4 +45,4 @@ First implementation.
                 points = {{-36,60},{64,0},{-36,-60},{-36,60}})}),
     Diagram(coordinateSystem(preserveAspectRatio=false,
       extent={{-100,-100},{100,100}})));
-end DoubleSwitch;
+end ZoneSetpointGeneration;
