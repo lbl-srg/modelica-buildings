@@ -1,4 +1,8 @@
+// This is for Dymola, service request SR01576125-01, for Dymola 2026x
+old_hidden_TestRecordEquations=Hidden.TestRecordEquations;
+Hidden.TestRecordEquations=2;
 simulateModel("Buildings.Fluid.DataCenterEquipment.Racks.Hybrid.LiquidCooledSinglePhase.Examples.LiquidCooledSinglePhase", stopTime=7200, method="CVode", tolerance=1e-06, resultFile="LiquidCooledSinglePhase");
+Hidden.TestRecordEquations=old_hidden_TestRecordEquations;
 createPlot(id=1,
  position={15, 10, 590, 440},
  y={"utiLiq.y[1]", "utiAir.y"},
