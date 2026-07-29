@@ -57,6 +57,13 @@ borefield. All boreholes in a zone have the same length
 same depth <code>dBor</code> below the ground surface (also known as the
 inactive borehole length).
 </p>
+<p>
+Each zone of boreholes has its own inlet and outlet fluid connections,
+and its mass flow rate can be varied arbitrarily, allowing for example
+to operate only some zones at a time.
+Moreover, to model boreholes that are piped in a series connection,
+the outlet of one zone can be connected to the inlet of another zone.
+</p>
 <p align=\"center\">
 <img alt=\"image\" src=\"modelica://Buildings/Resources/Images/Fluid/Geothermal/ZonedBorefields/BorefieldGeometry_01.png\" />
 </p>
