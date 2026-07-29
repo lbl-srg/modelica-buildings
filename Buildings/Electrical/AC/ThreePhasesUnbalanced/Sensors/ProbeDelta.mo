@@ -31,15 +31,9 @@ equation
             {100,100}}), graphics={Text(
           extent={{40,60},{100,40}},
           textColor={0,120,120},
-          pattern=LinePattern.Dash,
-          fillColor={0,120,120},
-          fillPattern=FillPattern.Solid,
           textString="V"), Text(
           extent={{18,-40},{140,-60}},
           textColor={0,120,120},
-          pattern=LinePattern.Dash,
-          fillColor={0,120,120},
-          fillPattern=FillPattern.Solid,
           textString="theta"),
         Line(
           points={{-20,-44},{0,-14},{20,-44},{-20,-44}},

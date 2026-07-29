@@ -83,7 +83,7 @@ model BuildingTimeSeriesAtETS
   // Buildings.DHC.Loads.Heating load time series
   parameter Boolean tableOnFile=false
     "= true, if table is defined on file or in function usertab"
-    annotation (Dialog(tab = "Load Profile", group="Table data definition"));
+    annotation (Evaluate=true, Dialog(tab = "Load Profile", group="Table data definition"));
   parameter Real QHeaLoa[:, :] = fill(0.0, 0, 2)
     "Table matrix (time = first column; e.g., table=[0, 0; 1, 1; 2, 4])"
     annotation (Dialog(tab = "Load Profile", group="Table data definition",enable=not tableOnFile));

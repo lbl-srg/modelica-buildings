@@ -332,12 +332,10 @@ annotation (
         Text(
           extent={{-96,88},{-46,72}},
           textColor={0,0,127},
-          pattern=LinePattern.Dash,
           textString="cooDowTim"),
         Text(
           extent={{-98,46},{-50,34}},
           textColor={0,0,127},
-          pattern=LinePattern.Dash,
           textString="warUpTim"),
         Text(
           extent={{-120,180},{100,140}},
@@ -346,72 +344,58 @@ annotation (
         Text(
           extent={{-100,-74},{-74,-84}},
           textColor={0,0,127},
-          pattern=LinePattern.Dash,
           textString="TZon"),
         Text(
           extent={{-100,-32},{-62,-42}},
           textColor={255,0,255},
-          pattern=LinePattern.Dash,
           textString="uWinSta"),
         Text(
           extent={{60,140},{98,124}},
           textColor={0,0,127},
-          pattern=LinePattern.Dash,
           textString="yCooTim"),
         Text(
           extent={{60,120},{98,104}},
           textColor={0,0,127},
-          pattern=LinePattern.Dash,
           textString="yWarTim"),
         Text(
           extent={{38,70},{96,54}},
           textColor={255,0,255},
-          pattern=LinePattern.Dash,
           textString="yOccHeaHig"),
         Text(
           extent={{42,20},{98,2}},
           textColor={255,0,255},
-          pattern=LinePattern.Dash,
           textString="yHigOccCoo"),
         Text(
           extent={{40,-30},{96,-46}},
           textColor={255,0,255},
-          pattern=LinePattern.Dash,
           textString="yUnoHeaHig"),
         Text(
           extent={{42,-102},{98,-118}},
           textColor={255,0,255},
-          pattern=LinePattern.Dash,
           textString="yHigUnoCoo"),
         Text(
           extent={{46,90},{96,74}},
           textColor={0,0,127},
-          pattern=LinePattern.Dash,
           textString="THeaSetOn"),
         Text(
           extent={{46,40},{96,24}},
           textColor={0,0,127},
-          pattern=LinePattern.Dash,
           textString="TCooSetOn"),
         Text(
           extent={{46,-10},{96,-26}},
           textColor={0,0,127},
-          pattern=LinePattern.Dash,
           textString="THeaSetOff"),
         Text(
           extent={{46,-80},{96,-96}},
           textColor={0,0,127},
-          pattern=LinePattern.Dash,
           textString="TCooSetOff"),
         Text(
           extent={{42,-50},{98,-66}},
           textColor={255,0,255},
-          pattern=LinePattern.Dash,
           textString="yEndSetBac"),
         Text(
           extent={{46,-124},{98,-138}},
           textColor={255,0,255},
-          pattern=LinePattern.Dash,
           textString="yEndSetUp")}),
    Documentation(info="<html>
 <p>

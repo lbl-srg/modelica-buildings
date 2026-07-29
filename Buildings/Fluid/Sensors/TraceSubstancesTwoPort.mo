@@ -3,7 +3,8 @@ model TraceSubstancesTwoPort "Ideal two port sensor for trace substance"
   extends Buildings.Fluid.Sensors.BaseClasses.PartialDynamicFlowSensor;
   extends Modelica.Icons.RoundSensor;
   Modelica.Blocks.Interfaces.RealOutput C(min=0,
-                                          start=C_start)
+                                          start=C_start,
+                                          nominal=m_flow_nominal * (if C_start > 1E-8 then C_start else 1))
     "Trace substance of the passing fluid"
     annotation (Placement(transformation(
         origin={0,110},
@@ -81,6 +82,11 @@ Buildings.Fluid.Sensors.UsersGuide</a> for an explanation.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+June 25, 2026, by Michael Wetter:<br/>
+Added <code>nominal</code> attribute to state variable.<br/>
+This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/2132\">IBPSA, #2132</a>.
+</li>
 <li>
 February 25, 2020, by Michael Wetter:<br/>
 Changed icon to display its operating state.<br/>

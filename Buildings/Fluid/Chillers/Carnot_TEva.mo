@@ -63,8 +63,6 @@ equation
         Text(
           extent={{-148,156},{-92,114}},
           textColor={0,0,127},
-          fillColor={255,255,255},
-          fillPattern=FillPattern.Solid,
           textString="TEva"),
         Line(points={{-100,90},{-80,90},{-80,-56}}, color={0,0,255})}),
 defaultComponentName="chi",

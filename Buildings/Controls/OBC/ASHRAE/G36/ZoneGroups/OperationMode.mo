@@ -671,44 +671,30 @@ annotation (
         Text(
           extent={{236,372},{326,354}},
           textColor={0,0,255},
-          fillColor={215,215,215},
-          fillPattern=FillPattern.Solid,
           textString="Occupied mode"),
         Text(
           extent={{158,10},{242,-12}},
           textColor={0,0,255},
-          fillColor={215,215,215},
-          fillPattern=FillPattern.Solid,
           textString="Setback mode"),
         Text(
           extent={{150,-226},{222,-248}},
           textColor={0,0,255},
-          fillColor={215,215,215},
-          fillPattern=FillPattern.Solid,
           textString="Setup mode"),
         Text(
           extent={{214,-338},{318,-368}},
           textColor={0,0,255},
-          fillColor={215,215,215},
-          fillPattern=FillPattern.Solid,
           textString="Unoccupied mode"),
         Text(
           extent={{180,-94},{352,-122}},
           textColor={0,0,255},
-          fillColor={215,215,215},
-          fillPattern=FillPattern.Solid,
           textString="Freeze protection setback mode"),
         Text(
           extent={{164,174},{252,150}},
           textColor={0,0,255},
-          fillColor={215,215,215},
-          fillPattern=FillPattern.Solid,
           textString="Warm-up mode"),
         Text(
           extent={{248,258},{336,230}},
           textColor={0,0,255},
-          fillColor={215,215,215},
-          fillPattern=FillPattern.Solid,
           textString="Cool-down mode")}),
    Icon(coordinateSystem(extent={{-100,-200},{100,200}}),
         graphics={
@@ -720,17 +706,14 @@ annotation (
         Text(
           extent={{-98,148},{-44,136}},
           textColor={0,0,127},
-          pattern=LinePattern.Dash,
           textString="maxCooDowTim"),
         Text(
           extent={{-98,106},{-50,96}},
           textColor={0,0,127},
-          pattern=LinePattern.Dash,
           textString="maxWarUpTim"),
         Text(
           extent={{58,12},{96,-10}},
           textColor={255,127,0},
-          pattern=LinePattern.Dash,
           textString="yOpeMod"),
         Text(
           extent={{-100,240},{100,200}},
@@ -739,62 +722,50 @@ annotation (
         Text(
           extent={{-100,168},{-68,152}},
           textColor={0,0,127},
-          pattern=LinePattern.Dash,
           textString="tNexOcc"),
         Text(
           extent={{-100,188},{-76,176}},
           textColor={255,0,255},
-          pattern=LinePattern.Dash,
           textString="u1Occ"),
         Text(
           extent={{-98,128},{-50,116}},
           textColor={255,0,255},
-          pattern=LinePattern.Dash,
           textString="u1HigOccCoo"),
         Text(
           extent={{-98,86},{-48,74}},
           textColor={255,0,255},
-          pattern=LinePattern.Dash,
           textString="u1OccHeaHig"),
         Text(
           extent={{-98,26},{-60,16}},
           textColor={255,127,0},
-          pattern=LinePattern.Dash,
           textString="totColZon"),
         Text(
           extent={{-98,-34},{-52,-46}},
           textColor={255,0,255},
-          pattern=LinePattern.Dash,
           textString="u1EndSetBac"),
         Text(
           extent={{-98,-74},{-64,-84}},
           textColor={0,0,127},
-          pattern=LinePattern.Dash,
           textString="TZonMin"),
         Text(
           extent={{-98,-114},{-62,-124}},
           textColor={255,127,0},
-          pattern=LinePattern.Dash,
           textString="totHotZon"),
         Text(
           extent={{-98,-174},{-52,-186}},
           textColor={255,0,255},
-          pattern=LinePattern.Dash,
           textString="u1EndSetUp"),
         Text(
           extent={{-98,-14},{-66,-26}},
           textColor={255,0,255},
-          pattern=LinePattern.Dash,
           textString="u1SetBac"),
         Text(
           extent={{-98,-154},{-66,-166}},
           textColor={255,0,255},
-          pattern=LinePattern.Dash,
           textString="u1SetUp"),
         Text(
           extent={{-100,46},{-62,36}},
           textColor={255,127,0},
-          pattern=LinePattern.Dash,
           textString="uOpeWin")}),
    Documentation(info="<html>
 <p>

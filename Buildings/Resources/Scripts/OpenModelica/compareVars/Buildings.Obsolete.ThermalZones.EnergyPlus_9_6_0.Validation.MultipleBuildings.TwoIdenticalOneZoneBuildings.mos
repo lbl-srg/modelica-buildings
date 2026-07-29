@@ -1,5 +1,0 @@
-compareVars :=
-  {
-    "bui[1].zon.TAir",
-    "bui[2].zon.TAir"
-  };

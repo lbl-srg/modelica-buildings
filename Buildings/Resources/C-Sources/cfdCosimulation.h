@@ -23,8 +23,10 @@
 #else /* Linux*/
 #include <dlfcn.h>  /*For load shared library*/
 #include <unistd.h> /*For Linux function*/
-#include <math.h>   /*For ceil function*/
-#define Sleep(x) sleep(ceil(x/1000.))
+/* Use usleep (microseconds) to avoid integer division truncation.
+ * The original sleep(ceil(x/1000.)) converts ms->s using integer sleep(),
+ * so Sleep(10) becomes sleep(1) = 1 second instead of 10 ms. */
+#define Sleep(x) usleep((unsigned int)((x) * 1000U))
 #endif
 
 #ifndef _MODELICA_FFD_COMMON_H
@@ -33,7 +35,7 @@
 #include <stdint.h> /* Needed to detect 32 vs. 64 bit using UINTPTR_MAX*/
 #endif
 
-CosimulationData *cosim;
+extern CosimulationData *cosim;
 
 /*declare the ffd_dll function in DLL*/
 void *ffd_dll(CosimulationData *cosim);

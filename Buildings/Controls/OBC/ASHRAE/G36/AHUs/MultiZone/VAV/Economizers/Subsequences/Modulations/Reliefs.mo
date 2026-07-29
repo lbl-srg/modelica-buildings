@@ -164,37 +164,30 @@ annotation (
         Text(
           extent={{-98,98},{-50,80}},
           textColor={0,0,127},
-          pattern=LinePattern.Dash,
           textString="uRetDam_max"),
         Text(
           extent={{-98,58},{-48,42}},
           textColor={0,0,127},
-          pattern=LinePattern.Dash,
           textString="uRetDam_min"),
         Text(
           extent={{-98,-40},{-48,-56}},
           textColor={0,0,127},
-          pattern=LinePattern.Dash,
           textString="uOutDam_max"),
         Text(
           extent={{-98,-80},{-46,-96}},
           textColor={0,0,127},
-          pattern=LinePattern.Dash,
           textString="uOutDam_min"),
         Text(
           extent={{62,-52},{98,-66}},
           textColor={0,0,127},
-          pattern=LinePattern.Dash,
           textString="yOutDam"),
         Text(
           extent={{64,68},{98,54}},
           textColor={0,0,127},
-          pattern=LinePattern.Dash,
           textString="yRetDam"),
         Text(
           extent={{-98,8},{-74,-6}},
           textColor={0,0,127},
-          pattern=LinePattern.Dash,
           textString="uTSup")}),
     Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-120,-120},{
             120,120}}), graphics={

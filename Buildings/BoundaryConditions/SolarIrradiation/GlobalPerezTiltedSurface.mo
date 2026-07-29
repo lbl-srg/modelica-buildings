@@ -1,5 +1,5 @@
 within Buildings.BoundaryConditions.SolarIrradiation;
-block GlobalPerezTiltedSurface
+model GlobalPerezTiltedSurface
   "Global solar irradiation on a tilted surface with diffuse irradiation calculation following Perez"
   extends
     Buildings.BoundaryConditions.SolarIrradiation.BaseClasses.PartialSolarIrradiation;
@@ -61,6 +61,11 @@ Buildings.BoundaryConditions.UsersGuide</a>.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+May 15, 2026, by Jianjun Hu:<br/>
+Changed the class type from block to model.<br/>
+This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/2122\">IBPSA, #2122</a>.
+</li>
 <li>
 Nov 14, 2022, by Laura Maier:<br/>
 First implementation.
