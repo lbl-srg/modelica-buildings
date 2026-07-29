@@ -1,44 +1,68 @@
 within Buildings.Controls.OBC.DemandFlexibility.ZoneTemperatureSetpointChange.Subsequences.Validation;
 model ZonePrioritization "Zone prioritization"
 
-  Buildings.Controls.OBC.DemandFlexibility.ZoneTemperatureSetpointChange.Subsequences.ZonePrioritization
-    zonPri(nZon=5, airConMod=true)
+  Buildings.Controls.OBC.DemandFlexibility.ZoneTemperatureSetpointChange.Subsequences.ZonePrioritization zonPri(
+    nZon=5,
+    airConMod=true)
+    "Zone prioritization block"
     annotation (Placement(transformation(extent={{40,-20},{60,0}})));
-  CDL.Reals.Sources.Constant                        con2[5](k={273.15 + 17,
-        273.15 + 23,273.15 + 15,273.15 + 12,273.15 + 13})
-    "A vector of four real constants"
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant TZonVal[5](
+    k={273.15 + 17,273.15 + 23,273.15 + 15,273.15 + 12,273.15 + 13})
+    "Zone temperature values for Zone 1 through 5"
     annotation (Placement(transformation(extent={{-80,0},{-60,20}})));
-  CDL.Reals.Sources.Constant                        con1[5](k=fill(273.15 + 20,
-        5))
-    "A vector of four real constants"
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant TZonSetVal[5](
+    k=fill(273.15 + 20, 5))
+    "Zone temperature setpoint values for Zone 1 through 5"
     annotation (Placement(transformation(extent={{-80,-40},{-60,-20}})));
-  CDL.Integers.Sources.Pulse intPul(period=60, offset=2)
+  Buildings.Controls.OBC.CDL.Integers.Sources.Pulse nSelVal(
+    period=60,
+    offset=2)
+    "An integer value for the number of zones to select for prioritization"
     annotation (Placement(transformation(extent={{-80,-80},{-60,-60}})));
-  CDL.Logical.Sources.Pulse                        booPul(period=30)
-    "True for half a second, false for the other half second"
+  Buildings.Controls.OBC.CDL.Logical.Sources.Pulse disFlaZon5(
+    period=30)
+    "A flag to disqualify Zone 5 for zone temperature comparison"
     annotation (Placement(transformation(extent={{-80,40},{-60,60}})));
-  CDL.Logical.Sources.Constant                        con3[4](k=fill(false, 4))
-    "A vector of four false boolean constants"
+  Buildings.Controls.OBC.CDL.Logical.Sources.Constant disFlaZon1234[4](
+    k=fill(false, 4))
+    "Flags to disqualify Zone 1 through 4 for zone temperature comparison"
     annotation (Placement(transformation(extent={{-40,60},{-20,80}})));
 equation
-  connect(con1.y, zonPri.TZonSet) annotation (Line(points={{-58,-30},{-40,-30},
-          {-40,-12},{38,-12}}, color={0,0,127}));
-  connect(con2.y, zonPri.TZon) annotation (Line(points={{-58,10},{-40,10},{-40,
-          -8},{38,-8}}, color={0,0,127}));
-  connect(intPul.y, zonPri.nSel) annotation (Line(points={{-58,-70},{-20,-70},{
-          -20,-16},{38,-16}}, color={255,127,0}));
-  connect(con3.y, zonPri.disFla[1:4]) annotation (Line(points={{-18,70},{0,70},
-          {0,-3.6},{38,-3.6}}, color={255,0,255}));
-  connect(booPul.y, zonPri.disFla[5]) annotation (Line(points={{-58,50},{0,50},
-          {0,-4},{38,-4},{38,-3.2}}, color={255,0,255}));
+  connect(TZonSetVal.y, zonPri.TZonSet)
+    annotation (Line(points={{-58,-30},{-40,-30},{-40,-12},{38,-12}},
+      color={0,0,127}));
+  connect(TZonVal.y, zonPri.TZon)
+    annotation (Line(points={{-58,10},{-40,10},{-40,-8},{38,-8}}, color={0,0,127}));
+  connect(nSelVal.y, zonPri.nSel)
+    annotation (Line(points={{-58,-70},{-20,-70},{-20,-16},{38,-16}},
+      color={255,127,0}));
+  connect(disFlaZon1234.y, zonPri.disFla[1:4])
+    annotation (Line(points={{-18,70},{0,70},{0,-3.6},{38,-3.6}},
+      color={255,0,255}));
+  connect(disFlaZon5.y, zonPri.disFla[5])
+    annotation (Line(points={{-58,50},{0,50},{0,-4},{38,-4},{38,-3.2}},
+      color={255,0,255}));
 annotation (experiment(StopTime=60, Interval=1, Tolerance=1e-06),
   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/DemandFlexibility/Generic/Validation/SetpointResolution.mos"
     "Simulate and plot"),
   Documentation(info="<html>
 <p>
 This example validates
-<a href=\"modelica://Buildings.Controls.OBC.DemandFlexibility.Generic.SetpointResolution\">
-Buildings.Controls.OBC.DemandFlexibility.Generic.SetpointResolution</a>.
+<a href=\"modelica://Buildings.Controls.OBC.DemandFlexibility.ZoneTemperatureSetpointChange.Subsequences.ZonePrioritization\">
+Buildings.Controls.OBC.DemandFlexibility.ZoneTemperatureSetpointChange.Subsequences.ZonePrioritization</a>
+for a 5-zone building under the heating operation.
+</p>
+<p>
+In this validation example, the zone disqualifying flag <code>disQua</code> is always
+<code>false</code> for the first <i>4</i> zones and alternating between <code>true</code>
+and <code>false</code> for the fifth zone. Each zone has a different zone temperature, but
+all <i>5</i> zones share the same zone temperature setpoint. The number of zones to select
+for prioritization <code>nSel</code> is alternating between <i>2</i> and <i>3</i>.
+</p>
+<p>
+This validation example shows how the <code>ZonePrioritization</code> block ranks zones based on the
+zone temperature and the zone temperature setpoint, as well as based on whether the zone is
+disqualified for the ranking or not.
 </p>
 </html>", revisions="<html>
 <ul>

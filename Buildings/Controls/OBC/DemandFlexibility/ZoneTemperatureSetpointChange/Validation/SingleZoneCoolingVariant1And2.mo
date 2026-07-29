@@ -45,10 +45,10 @@ model SingleZoneCoolingVariant1And2
     zonConVar=Buildings.Controls.OBC.DemandFlexibility.Types.ZoneControlVariant.Variant_1)
     "A zone temperature setpoint change controller for cooling under Variant 1 of zone control"
     annotation (Placement(transformation(extent={{0,52},{20,88}})));
-  Buildings.Controls.OBC.CDL.Reals.Sources.TimeTable tabTCurZon(table=[0,273.15 +
-        18; 4,273.15 + 14; 5,273.15 + 14; 11,273.15 + 20; 16,273.15 + 22; 18,273.15
-         + 28.5; 19,273.15 + 28; 19.25,273.15 + 33.5; 20,273.15 + 34; 21,273.15 +
-        31; 22,273.15 + 22; 24,273.15 + 18],
+  Buildings.Controls.OBC.CDL.Reals.Sources.TimeTable tabTCurZon(
+    table=[0,273.15 + 18; 4,273.15 + 14; 5,273.15 + 14; 11,273.15 + 20;
+      16,273.15 + 22; 18,273.15 + 28.5; 19,273.15 + 28; 19.25,273.15 + 33.5;
+      20,273.15 + 34; 21,273.15 + 31; 22,273.15 + 22; 24,273.15 + 18],
     timeScale=3600)
     "A table of a current zone temperature profile that repeats every day"
     annotation (Placement(transformation(extent={{-120,40},{-100,60}})));
@@ -71,9 +71,15 @@ model SingleZoneCoolingVariant1And2
     zonConVar=Buildings.Controls.OBC.DemandFlexibility.Types.ZoneControlVariant.Variant_2)
     "A zone temperature setpoint change controller for cooling under Variant 2 of zone control"
     annotation (Placement(transformation(extent={{0,-88},{20,-52}})));
-  Generic.SetpointResolution setResVar1(resInt=0.1, refSet=293.15)
+  Buildings.Controls.OBC.DemandFlexibility.Generic.SetpointResolution setResVar1(
+    resInt=0.1,
+    refSet=293.15)
+    "Add setpoint resolution for Variant 1 of zone control"
     annotation (Placement(transformation(extent={{80,60},{100,80}})));
-  Generic.SetpointResolution setResVar2(resInt=0.1, refSet=293.15)
+  Buildings.Controls.OBC.DemandFlexibility.Generic.SetpointResolution setResVar2(
+    resInt=0.1,
+    refSet=293.15)
+    "Add setpoint resolution for Variant 2 of zone control"
     annotation (Placement(transformation(extent={{80,-80},{100,-60}})));
 equation
   connect(zonSetGen.TPreTarCooSet, setChaConCooVar1.TPreTarSet[1])
@@ -84,7 +90,7 @@ equation
       color={0,0,127}));
   connect(zonSetGen.TDefCooSet, setChaConCooVar1.TDefSet[1])
     annotation (Line(points={{-98,-140},{-20,-140},{-20,54},{-2,54}},
-                                                                  color={0,0,127}));
+      color={0,0,127}));
   connect(tabDemFleMod.y[1], setChaConCooVar1.demFleMod)
     annotation (Line(points={{-98,-10},{-60,-10},{-60,66},{-2,66}},
       color={255,127,0}));
@@ -117,14 +123,14 @@ equation
     annotation (Line(points={{22,-70},{38,-70}}, color={0,0,127}));
   connect(delTZonSetVar1.y, setResVar1.uSet)
     annotation (Line(points={{62,70},{78,70}}, color={0,0,127}));
-  connect(setResVar1.ySet, setChaConCooVar1.TCurZonSet[1]) annotation (Line(
-        points={{102,70},{120,70},{120,28},{-10,28},{-10,70},{-2,70}}, color={0,
-          0,127}));
+  connect(setResVar1.ySet, setChaConCooVar1.TCurZonSet[1])
+    annotation (Line(points={{102,70},{120,70},{120,28},{-10,28},{-10,70},{-2,70}},
+      color={0,0,127}));
   connect(delTZonSetVar2.y, setResVar2.uSet)
     annotation (Line(points={{62,-70},{78,-70}}, color={0,0,127}));
-  connect(setResVar2.ySet, setChaConCooVar2.TCurZonSet[1]) annotation (Line(
-        points={{102,-70},{120,-70},{120,-100},{-10,-100},{-10,-70},{-2,-70}},
-        color={0,0,127}));
+  connect(setResVar2.ySet, setChaConCooVar2.TCurZonSet[1])
+    annotation (Line(points={{102,-70},{120,-70},{120,-100},{-10,-100},{-10,-70},
+      {-2,-70}}, color={0,0,127}));
   annotation (experiment(StopTime=172800, Interval=60, Tolerance=1e-06),
   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/DemandFlexibility/ZoneTemperatureSetpointChange/Validation/SingleZoneCoolingVariant1And2.mos"
     "Simulate and plot"),
@@ -143,14 +149,16 @@ temperature profile are provided as inputs. Two <code>HeatingOrCooling</code>
 controller blocks are used to represent Variant <i>1</i> and Variant <i>2</i> each.
 Two <code>UnitDelay</code> blocks emulate external zone temperature setpoint
 controllers that have a small delay of setpoint change after a new setpoint is
-received. The <code>zonSetGen</code> block generates zone setpoints and setpoint
-targets in such a way that the setpoint change is active not only in the occupied
-mode, but also in the unoccupied mode.
+received. Two <code>SetpointResolution</code> blocks emulate temperature setpoint
+resolution in the external zone temperature setpoint controllers. The
+<code>zonSetGen</code> block generates zone setpoints and setpoint targets in such a
+way that the setpoint change is active not only in the occupied mode, but also in
+the unoccupied mode.
 </p>
 <p>
 This validation example shows how the <code>HeatingOrCooling</code> controllers
 respond to each of the demand flexibility modes, including the pre-cool mode, the
-default mode, the load-shed mode, and the loadr-rebound mode, under Variant <i>1</i>
+default mode, the load-shed mode, and the load-rebound mode, under Variant <i>1</i>
 and Variant <i>2</i>. The <code>HeatingOrCooling</code> controller under Variant
 <i>1</i> changes the zone cooling temperature setpoint in a single step for each of
 the demand flexibility modes, whereas the <code>HeatingOrCooling</code> controller
@@ -165,8 +173,8 @@ First implementation.
 </li>
 </ul>
 </html>"),
-    Icon(coordinateSystem(preserveAspectRatio=false,extent={{-140,-160},{140,
-            160}}),
+    Icon(coordinateSystem(preserveAspectRatio=false,extent={{-100,-100},{100,
+            100}}),
         graphics={
         Ellipse(lineColor = {75,138,73},
                 fillColor={255,255,255},

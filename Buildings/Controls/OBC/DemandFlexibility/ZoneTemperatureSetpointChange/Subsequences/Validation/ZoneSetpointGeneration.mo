@@ -21,8 +21,8 @@ annotation (experiment(StopTime=60, Interval=1, Tolerance=1e-06),
   Documentation(info="<html>
 <p>
 This example validates
-<a href=\"modelica://Buildings.Controls.OBC.DemandFlexibility.Generic.SetpointResolution\">
-Buildings.Controls.OBC.DemandFlexibility.Generic.SetpointResolution</a>.
+<a href=\"modelica://Buildings.Controls.OBC.DemandFlexibility.ZoneTemperatureSetpointChange.Subsequences.ZoneSetpointGeneration\">
+Buildings.Controls.OBC.DemandFlexibility.ZoneTemperatureSetpointChange.Subsequences.ZoneSetpointGeneration</a>.
 </p>
 </html>", revisions="<html>
 <ul>

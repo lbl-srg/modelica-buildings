@@ -2,36 +2,39 @@ within Buildings.Controls.OBC.DemandFlexibility.Generic.Validation;
 model DoubleSwitch "Double switch"
 
   Buildings.Controls.OBC.DemandFlexibility.Generic.DoubleSwitch douSwi
+    "Double switch"
     annotation (Placement(transformation(extent={{20,0},{40,20}})));
-  CDL.Reals.Sources.Sin sin(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Sin sin1(
     amplitude=1,
     freqHz=1/30,
     offset=5)
+    "Sine wave for input variable 1"
     annotation (Placement(transformation(extent={{-60,40},{-40,60}})));
-  CDL.Reals.Sources.Sin sin1(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Sin sin3(
     amplitude=2,
     freqHz=1/15,
     offset=-5)
+    "Sine wave for input variable 3"
     annotation (Placement(transformation(extent={{-60,-40},{-40,-20}})));
-  CDL.Logical.Sources.Pulse uEnaVar(period=60)
-    "Boolean variable to enable setpoint change when true"
+  Buildings.Controls.OBC.CDL.Logical.Sources.Pulse pul2(
+    period=60)
+    "A pulse signal for input variable 2"
     annotation (Placement(transformation(extent={{-60,0},{-40,20}})));
 equation
-  connect(uEnaVar.y, douSwi.u2) annotation (Line(points={{-38,10},{18,10}},
-                        color={255,0,255}));
-  connect(sin.y, douSwi.u1) annotation (Line(points={{-38,50},{0,50},{0,16},{18,
-          16}}, color={0,0,127}));
-  connect(sin1.y, douSwi.u3) annotation (Line(points={{-38,-30},{0,-30},{0,4},{
-          18,4}},
-               color={0,0,127}));
+  connect(pul2.y, douSwi.u2)
+    annotation (Line(points={{-38,10},{18,10}}, color={255,0,255}));
+  connect(sin1.y, douSwi.u1)
+    annotation (Line(points={{-38,50},{0,50},{0,16},{18,16}}, color={0,0,127}));
+  connect(sin3.y, douSwi.u3)
+    annotation (Line(points={{-38,-30},{0,-30},{0,4},{18,4}}, color={0,0,127}));
 annotation (experiment(StopTime=60, Interval=1, Tolerance=1e-06),
   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/DemandFlexibility/Generic/Validation/SetpointResolution.mos"
     "Simulate and plot"),
   Documentation(info="<html>
 <p>
 This example validates
-<a href=\"modelica://Buildings.Controls.OBC.DemandFlexibility.Generic.SetpointResolution\">
-Buildings.Controls.OBC.DemandFlexibility.Generic.SetpointResolution</a>.
+<a href=\"modelica://Buildings.Controls.OBC.DemandFlexibility.Generic.DoubleSwitch\">
+Buildings.Controls.OBC.DemandFlexibility.Generic.DoubleSwitch</a>.
 </p>
 </html>", revisions="<html>
 <ul>
