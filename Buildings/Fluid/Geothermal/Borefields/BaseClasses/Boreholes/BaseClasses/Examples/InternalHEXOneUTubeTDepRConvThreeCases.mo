@@ -9,7 +9,7 @@ model InternalHEXOneUTubeTDepRConvThreeCases
   package MediumGly =
     Buildings.Media.Antifreeze.PropyleneGlycolWater(
       property_T=293.15,
-      X_a=0.40)
+      X_a=X_aGly)
     "Constant-property propylene glycol/water transport medium";
 
   parameter Integer nSeg(min=1) = 10
@@ -27,10 +27,20 @@ model InternalHEXOneUTubeTDepRConvThreeCases
   parameter Modelica.Units.SI.PressureDifference dp_nominal = 10000/nSeg
   "Nominal pressure drop per borehole segment";
 
+  constant Real X_aGly(unit="1", min=0, max=1) = 0.40
+    "Mass fraction of propylene glycol in the glycol-water mixture";
+
+  parameter Modelica.Units.SI.MassFlowRate mWat_flow_nominal = 0.12
+  "Nominal mass flow rate for water cases";
+
+  parameter Modelica.Units.SI.MassFlowRate mGly_flow_nominal = 0.4
+    "Nominal mass flow rate for glycol cases";
+
   parameter Buildings.Fluid.Geothermal.Borefields.Data.Borefield.Example
     borFieDatFixWat(
       conDat=Buildings.Fluid.Geothermal.Borefields.Data.Configuration.Example(
         borCon=Buildings.Fluid.Geothermal.Borefields.Types.BoreholeConfiguration.SingleUTube,
+        mBor_flow_nominal=mWat_flow_nominal,
         use_Rb=false,
         use_TDepRConv=false))
     "Borefield data for fixed-property water case"
@@ -40,6 +50,7 @@ model InternalHEXOneUTubeTDepRConvThreeCases
     borFieDatWat(
       conDat=Buildings.Fluid.Geothermal.Borefields.Data.Configuration.Example(
         borCon=Buildings.Fluid.Geothermal.Borefields.Types.BoreholeConfiguration.SingleUTube,
+        mBor_flow_nominal=mWat_flow_nominal,
         use_Rb=false,
         use_TDepRConv=true,
         fluidPropertyEvaluation=
@@ -51,9 +62,10 @@ model InternalHEXOneUTubeTDepRConvThreeCases
     borFieDatFixGly(
       conDat=Buildings.Fluid.Geothermal.Borefields.Data.Configuration.Example(
         borCon=Buildings.Fluid.Geothermal.Borefields.Types.BoreholeConfiguration.SingleUTube,
+        mBor_flow_nominal=mGly_flow_nominal,
         use_Rb=false,
         use_TDepRConv=false,
-        X_a=0.40))
+        X_a=X_aGly))
     "Borefield data for fixed-property glycol case"
     annotation (Placement(transformation(extent={{-55.0,102.0},{-35.0,122.0}},rotation = 0.0,origin = {0.0,0.0})));
 
@@ -61,11 +73,12 @@ model InternalHEXOneUTubeTDepRConvThreeCases
     borFieDatGly(
       conDat=Buildings.Fluid.Geothermal.Borefields.Data.Configuration.Example(
         borCon=Buildings.Fluid.Geothermal.Borefields.Types.BoreholeConfiguration.SingleUTube,
+        mBor_flow_nominal=mGly_flow_nominal,
         use_Rb=false,
         use_TDepRConv=true,
         fluidPropertyEvaluation=
           Buildings.Fluid.Geothermal.Borefields.Types.FluidPropertyEvaluation.PropyleneGlycolWater,
-        X_a=0.40))
+        X_a=X_aGly))
     "Borefield data for temperature-dependent glycol-correlation case"
     annotation (Placement(transformation(extent={{-25.0,102.0},{-5.0,122.0}},rotation = 0.0,origin = {0.0,0.0})));
 
@@ -250,15 +263,15 @@ model InternalHEXOneUTubeTDepRConvThreeCases
   Modelica.Units.SI.ThermalResistance R2Gly = intHexGly.RVol2.y
     "Pipe 2 convection resistance, glycol correlation";
 
-  Real dR1Wat(unit="K/W") = R1Wat - R1FixWat
-    "Difference between water-correlation and fixed-property water case for pipe 1";
-  Real dR2Wat(unit="K/W") = R2Wat - R2FixWat
-    "Difference between water-correlation and fixed-property water case for pipe 2";
+  Real relErrR1Wat(unit="1") = (R1Wat - R1FixWat)/R1FixWat
+    "Relative difference between water-correlation and fixed-property water case for pipe 1";
+  Real relErrR2Wat(unit="1") = (R2Wat - R2FixWat)/R2FixWat
+    "Relative difference between water-correlation and fixed-property water case for pipe 2";
 
-  Real dR1Gly(unit="K/W") = R1Gly - R1FixGly
-    "Difference between glycol-correlation and fixed-property glycol case for pipe 1";
-  Real dR2Gly(unit="K/W") = R2Gly - R2FixGly
-    "Difference between glycol-correlation and fixed-property glycol case for pipe 2";
+  Real relErrR1Gly(unit="1") = (R1Gly - R1FixGly)/R1FixGly
+    "Relative difference between glycol-correlation and fixed-property glycol case for pipe 1";
+  Real relErrR2Gly(unit="1") = (R2Gly - R2FixGly)/R2FixGly
+    "Relative difference between glycol-correlation and fixed-property glycol case for pipe 2";
 
 equation
 
@@ -337,6 +350,13 @@ Pipe 1 is exposed to a cold inlet temperature and pipe 2 is exposed to a warm
 inlet temperature. The model verifies that the temperature-dependent property
 evaluation changes the active fluid properties and therefore the convection
 resistance supplied to the convective resistors.
+</p>
+<p>
+The water and glycol mass flow rates are selected so that the local Reynolds
+numbers cross flow-regime boundaries when temperature-dependent fluid properties
+are used. This makes the effect of temperature-dependent viscosity on the
+convection resistance visible. The glycol mass fraction can be adjusted with
+<code>X_aGly</code>.
 </p>
 </html>", revisions="<html>
 <ul>
