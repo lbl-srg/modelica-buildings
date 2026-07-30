@@ -27,44 +27,26 @@ model FluidProperties_T
 equation
   T = 273.15 + 5 + 35*time/3600;
 
-  (cpFix, kFix, muFix, rhoFix) =
-    Buildings.Fluid.Geothermal.Borefields.BaseClasses.Boreholes.BaseClasses.Functions.fluidProperties_T(
-      use_TDep=false,
-      fluidPropertyEvaluation=
-        Buildings.Fluid.Geothermal.Borefields.Types.FluidPropertyEvaluation.Water,
-      T=T,
-      p=p,
-      X_a=0.40,
-      cp_default=4184,
-      k_default=0.6,
-      mu_default=1.0e-3,
-      rho_default=995.586);
+  cpFix = 4184;
+  kFix = 0.6;
+  muFix = 1.0e-3;
+  rhoFix = 995.586;
 
   (cpWat, kWat, muWat, rhoWat) =
     Buildings.Fluid.Geothermal.Borefields.BaseClasses.Boreholes.BaseClasses.Functions.fluidProperties_T(
-      use_TDep=true,
       fluidPropertyEvaluation=
         Buildings.Fluid.Geothermal.Borefields.Types.FluidPropertyEvaluation.Water,
       T=T,
       p=p,
-      X_a=0.40,
-      cp_default=4184,
-      k_default=0.6,
-      mu_default=1.0e-3,
-      rho_default=995.586);
+      X_a=0.40);
 
   (cpGly, kGly, muGly, rhoGly) =
     Buildings.Fluid.Geothermal.Borefields.BaseClasses.Boreholes.BaseClasses.Functions.fluidProperties_T(
-      use_TDep=true,
       fluidPropertyEvaluation=
         Buildings.Fluid.Geothermal.Borefields.Types.FluidPropertyEvaluation.PropyleneGlycolWater,
       T=T,
       p=p,
-      X_a=0.40,
-      cp_default=3600,
-      k_default=0.45,
-      mu_default=0.003,
-      rho_default=1030);
+      X_a=0.40);
 
   annotation (
     experiment(StopTime=3600, Tolerance=1e-6),
@@ -78,11 +60,11 @@ This validation model tests
 Buildings.Fluid.Geothermal.Borefields.BaseClasses.Boreholes.BaseClasses.Functions.fluidProperties_T</a>.
 </p>
 <p>
-The model compares fixed properties, temperature-dependent water properties,
-and temperature-dependent propylene-glycol/water properties over a prescribed
-temperature sweep. It is used to verify that the property evaluation function
-returns the expected trends for density, dynamic viscosity, thermal conductivity,
-and specific heat capacity.
+The model compares constant reference properties with temperature-dependent
+water properties and temperature-dependent propylene-glycol/water properties
+over a prescribed temperature sweep. The constant reference properties are
+assigned directly, while the temperature-dependent properties are evaluated
+with the property function.
 </p>
 </html>", revisions="<html>
 <ul>

@@ -3,9 +3,6 @@ function fluidProperties_T
   "Evaluate fluid properties for borehole heat-transfer and pressure-drop correlations"
   extends Modelica.Icons.Function;
 
-  input Boolean use_TDep
-    "Set to true to evaluate properties at the current fluid temperature";
-
   input Buildings.Fluid.Geothermal.Borefields.Types.FluidPropertyEvaluation
     fluidPropertyEvaluation=
       Buildings.Fluid.Geothermal.Borefields.Types.FluidPropertyEvaluation.Water
@@ -19,18 +16,6 @@ function fluidProperties_T
 
   input Modelica.Units.SI.MassFraction X_a=0.40
     "Mass fraction of propylene glycol in water";
-
-  input Modelica.Units.SI.SpecificHeatCapacity cp_default
-    "Default specific heat capacity, used if use_TDep=false";
-
-  input Modelica.Units.SI.ThermalConductivity k_default
-    "Default thermal conductivity, used if use_TDep=false";
-
-  input Modelica.Units.SI.DynamicViscosity mu_default
-    "Default dynamic viscosity, used if use_TDep=false";
-
-  input Modelica.Units.SI.Density rho_default
-    "Default density, used if use_TDep=false";
 
   output Modelica.Units.SI.SpecificHeatCapacity cp
     "Specific heat capacity used by the correlation";
@@ -53,13 +38,9 @@ protected
     "Water state for temperature-dependent water correlations";
 
 algorithm
-  if not use_TDep then
-    cp := cp_default;
-    k := k_default;
-    mu := mu_default;
-    rho := rho_default;
 
-  elseif fluidPropertyEvaluation ==
+
+  if fluidPropertyEvaluation ==
     Buildings.Fluid.Geothermal.Borefields.Types.FluidPropertyEvaluation.Water then
 
     staWat := Water.setState_pTX(
@@ -113,12 +94,12 @@ This function evaluates fluid properties used by borehole heat-transfer and
 pressure-drop correlations.
 </p>
 <p>
-If <code>use_TDep=false</code>, the function returns the supplied default
-properties. If <code>use_TDep=true</code>, the function evaluates either water
-properties using
+This function evaluates temperature-dependent water properties using
 <code>Buildings.Media.Specialized.Water.TemperatureDependentDensity</code>
-or propylene-glycol/water properties using
+or temperature-dependent propylene-glycol/water properties using
 <code>Buildings.Media.Antifreeze.Functions.PropyleneGlycolWater</code>.
+Fixed/default properties should be assigned directly by the caller and should
+not be evaluated through this function.
 </p>
 <p>
 The option <code>GenericMedium</code> is not evaluated in this function. For
