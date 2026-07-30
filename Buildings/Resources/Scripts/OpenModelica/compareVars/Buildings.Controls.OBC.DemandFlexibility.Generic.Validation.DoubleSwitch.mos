@@ -1,0 +1,8 @@
+compareVars :=
+  {
+    "douSwi.u1",
+    "douSwi.u3",
+    "douSwi.u2",
+    "douSwi.y1",
+    "douSwi.y2"
+  };

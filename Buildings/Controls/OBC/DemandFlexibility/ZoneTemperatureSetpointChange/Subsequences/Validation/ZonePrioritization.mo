@@ -43,7 +43,7 @@ equation
     annotation (Line(points={{-58,50},{0,50},{0,-4},{38,-4},{38,-3.2}},
       color={255,0,255}));
 annotation (experiment(StopTime=60, Interval=1, Tolerance=1e-06),
-  __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/DemandFlexibility/Generic/Validation/SetpointResolution.mos"
+  __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/DemandFlexibility/ZoneTemperatureSetpointChange/Subsequences/Validation/ZonePrioritization.mos"
     "Simulate and plot"),
   Documentation(info="<html>
 <p>

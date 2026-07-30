@@ -15,14 +15,16 @@ model ZoneSetpointGeneration "Zone setpoint generation"
     setChaEnaUnoFla=true)
     "Block to generate zone setpoints and setpoint targets that vary with time"
     annotation (Placement(transformation(extent={{0,0},{20,20}})));
-annotation (experiment(StopTime=60, Interval=1, Tolerance=1e-06),
-  __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/DemandFlexibility/Generic/Validation/SetpointResolution.mos"
+annotation (experiment(StopTime=172800, Interval=1, Tolerance=1e-06),
+  __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/DemandFlexibility/ZoneTemperatureSetpointChange/Subsequences/Validation/ZoneSetpointGeneration.mos"
     "Simulate and plot"),
   Documentation(info="<html>
 <p>
 This example validates
 <a href=\"modelica://Buildings.Controls.OBC.DemandFlexibility.ZoneTemperatureSetpointChange.Subsequences.ZoneSetpointGeneration\">
-Buildings.Controls.OBC.DemandFlexibility.ZoneTemperatureSetpointChange.Subsequences.ZoneSetpointGeneration</a>.
+Buildings.Controls.OBC.DemandFlexibility.ZoneTemperatureSetpointChange.Subsequences.ZoneSetpointGeneration</a>
+for the case where the setpoint change is active not only in the occupied mode, but
+also in the unoccupied mode.
 </p>
 </html>", revisions="<html>
 <ul>

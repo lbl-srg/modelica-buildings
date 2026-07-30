@@ -124,7 +124,8 @@ equation
   connect(delTZonSetVar1.y, setResVar1.uSet)
     annotation (Line(points={{62,70},{78,70}}, color={0,0,127}));
   connect(setResVar1.ySet, setChaConCooVar1.TCurZonSet[1])
-    annotation (Line(points={{102,70},{120,70},{120,28},{-10,28},{-10,70},{-2,70}},
+    annotation (Line(points={{102,70},{120,70},{120,40},{-10,40},{-10,70},{-2,
+          70}},
       color={0,0,127}));
   connect(delTZonSetVar2.y, setResVar2.uSet)
     annotation (Line(points={{62,-70},{78,-70}}, color={0,0,127}));

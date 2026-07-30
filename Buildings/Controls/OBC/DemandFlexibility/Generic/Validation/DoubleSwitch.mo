@@ -28,7 +28,7 @@ equation
   connect(sin3.y, douSwi.u3)
     annotation (Line(points={{-38,-30},{0,-30},{0,4},{18,4}}, color={0,0,127}));
 annotation (experiment(StopTime=60, Interval=1, Tolerance=1e-06),
-  __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/DemandFlexibility/Generic/Validation/SetpointResolution.mos"
+  __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/DemandFlexibility/Generic/Validation/DoubleSwitch.mos"
     "Simulate and plot"),
   Documentation(info="<html>
 <p>

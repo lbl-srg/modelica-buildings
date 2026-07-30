@@ -117,7 +117,7 @@ equation
     annotation (Line(points={{122,-50},{140,-50},{140,-80},{-30,-80},{-30,-48.2},
       {-22,-48.2}}, color={0,0,127}));
   annotation (experiment(StopTime=172800, Interval=60, Tolerance=1e-06),
-  __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/DemandFlexibility/Generic/Validation/SetpointChange.mos"
+  __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/DemandFlexibility/ZoneTemperatureSetpointChange/Subsequences/Validation/ZoneControl.mos"
     "Simulate and plot"),
   Documentation(info="<html>
 <p>

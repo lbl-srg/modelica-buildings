@@ -81,14 +81,33 @@ equation
     annotation (Line(points={{-58,-50},{-20,-50},{-20,-4},{58,-4}},
       color={255,127,0}));
 annotation (experiment(StopTime=172800, Interval=1, Tolerance=1e-06),
-  __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/DemandFlexibility/Generic/Validation/SetpointResolution.mos"
+  __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/DemandFlexibility/ZoneTemperatureSetpointChange/Subsequences/Validation/ZoneQualification.mos"
     "Simulate and plot"),
   Documentation(info="<html>
 <p>
 This example validates
 <a href=\"modelica://Buildings.Controls.OBC.DemandFlexibility.ZoneTemperatureSetpointChange.Subsequences.ZoneQualification\">
-Buildings.Controls.OBC.DemandFlexibility.ZoneTemperatureSetpointChange.Subsequences.ZoneQualification</a>.
+Buildings.Controls.OBC.DemandFlexibility.ZoneTemperatureSetpointChange.Subsequences.ZoneQualification</a>
+for a 5-zone building under the heating operation.
 </p>
+<p>
+In this validation example, the rogue zone flag <code>rouZonFla</code> is always
+<code>false</code> for the first <i>4</i> zones and alternating between
+<code>true</code> and <code>false</code> for the fifth zone. Each zone has a
+different zone temperature, but all <i>5</i> zones share the same zone temperature
+setpoint. A table of daily demand flexibility modes is provided as an input. Values
+such as the building electricity demand <code>PBui</code>, electricity demand
+threshold <code>PBuiThr</code>, pre-heat target temperature setpoint
+<code>TPreTarSet</code>, load-shed target temperature setpoint
+<code>TSheTarSet</code>, and default temperature setpoint <code>TDefSet</code> are
+also provided. 
+</p>
+<p>
+This validation example shows how the <code>ZoneQualification</code> block decides
+whether a zone should be disqualified for zone temperature comparison based on two
+out of the four zone disqualifying conditions: whether a zone is a rogue zone, and
+whether the building electricity demand drops below the electricity demand threshold.
+<p>
 </html>", revisions="<html>
 <ul>
 <li>
