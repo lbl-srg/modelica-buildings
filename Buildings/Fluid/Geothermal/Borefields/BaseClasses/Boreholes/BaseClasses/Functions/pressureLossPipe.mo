@@ -17,7 +17,7 @@ function pressureLossPipe
     "Fluid dynamic viscosity";
   input Modelica.Units.SI.MassFlowRate m_flow
     "Mass flow rate";
-  input Real KMinor(unit="1", min=0) = 0
+  input Real kMinor(unit="1", min=0) = 0
     "Sum of minor-loss coefficients";
   output Modelica.Units.SI.PressureDifference dp
     "Pressure drop";
@@ -48,8 +48,8 @@ algorithm
     "The fluid density rhoMed must be positive.");
   assert(muMed > 0,
     "The fluid dynamic viscosity muMed must be positive.");
-  assert(KMinor >= 0,
-    "The minor-loss coefficient KMinor must be non-negative.");
+  assert(kMinor >= 0,
+    "The minor-loss coefficient kMinor must be non-negative.");
 
   Re := diameter*abs(m_flow)/(crossArea*muMed);
 
@@ -66,17 +66,17 @@ algorithm
       lambda2 = f*Re^2.
     Minor loss:
       dp_minor =
-        sign(m_flow) * KMinor*rho*v^2/2
+        sign(m_flow) * kMinor*rho*v^2/2
     which can be written with Re as
       dp_minor =
-        sign(m_flow) * KMinor*mu^2*Re^2/(2*rho*D^2).
+        sign(m_flow) * kMinor*mu^2*Re^2/(2*rho*D^2).
   */
 
   dpAbsMajor :=
     length*muMed^2/(2*rhoMed*diameter^3)*lambda2;
 
   dpAbsMinor :=
-    KMinor*muMed^2/(2*rhoMed*diameter^2)*Re^2;
+    kMinor*muMed^2/(2*rhoMed*diameter^2)*Re^2;
 
   dp := smooth(1,
     if noEvent(m_flow >= 0) then
@@ -154,7 +154,7 @@ The total pressure loss is
 </p>
 
 <p>
-If <code>KMinor=0</code>, only the major Darcy-Weisbach pipe-friction loss is
+If <code>kMinor=0</code>, only the major Darcy-Weisbach pipe-friction loss is
 included.
 </p>
 

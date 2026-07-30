@@ -22,7 +22,7 @@ model PressureLossCircularPipe
   final parameter Modelica.Units.SI.Area crossArea =
     Modelica.Constants.pi*rTub_in^2
     "Inner cross-sectional area";
-  parameter Real KMinor(unit="1", min=0) = 2
+  parameter Real kMinor(unit="1", min=0) = 2
     "Total minor-loss coefficient";
 
   Modelica.Units.SI.ReynoldsNumber Re
@@ -52,7 +52,7 @@ equation
       rhoMed=rhoMed,
       muMed=muMed,
       m_flow=m_flow,
-      KMinor=KMinor);
+      kMinor=kMinor);
 
   dp_noMinor =
     Buildings.Fluid.Geothermal.Borefields.BaseClasses.Boreholes.BaseClasses.Functions.pressureLossPipe(
@@ -63,7 +63,7 @@ equation
       rhoMed=rhoMed,
       muMed=muMed,
       m_flow=m_flow,
-      KMinor=0);
+      kMinor=0);
 
   dp_minor = dp - dp_noMinor;
   

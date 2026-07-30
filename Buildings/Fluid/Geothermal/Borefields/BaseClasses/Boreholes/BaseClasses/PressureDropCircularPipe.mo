@@ -20,7 +20,7 @@ model PressureDropCircularPipe
   parameter Integer nUBend(min=0) = 1
     "Number of U-bends represented by this pressure-drop component"
     annotation (Dialog(enable=computePressureDrop));
-  parameter Real KUBend(unit="1", min=0) = 2
+  parameter Real kUBend(unit="1", min=0) = 2
     "Minor-loss coefficient of one U-bend"
     annotation (Dialog(enable=computePressureDrop));
   parameter Boolean use_TDepPressureDrop = false
@@ -40,7 +40,7 @@ model PressureDropCircularPipe
 
 
 protected
-  final parameter Real KMinor(unit="1") = nUBend*KUBend
+  final parameter Real kMinor(unit="1") = nUBend*kUBend
     "Total minor-loss coefficient";
 
   Medium.MassFraction XiAct[Medium.nXi]
@@ -122,7 +122,7 @@ equation
         rhoMed=rhoMedAct,
         muMed=muMedAct,
         m_flow=m_flow,
-        KMinor=KMinor)
+        kMinor=kMinor)
     else
       0;
 

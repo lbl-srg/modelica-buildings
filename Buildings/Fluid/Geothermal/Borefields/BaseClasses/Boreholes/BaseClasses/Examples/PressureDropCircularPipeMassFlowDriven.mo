@@ -25,10 +25,10 @@ model PressureDropCircularPipeMassFlowDriven
     "Fluid dynamic viscosity";
   parameter Integer nUBend(min=0) = 1
     "Number of U-bends";
-  parameter Real KUBend(unit="1", min=0) = 2
+  parameter Real kUBend(unit="1", min=0) = 2
     "Minor-loss coefficient of one U-bend";
 
-  final parameter Real KMinor(unit="1") = nUBend*KUBend
+  final parameter Real kMinor(unit="1") = nUBend*kUBend
     "Total minor-loss coefficient";
 
   .Buildings.Fluid.Sources.MassFlowSource_T sou(
@@ -58,7 +58,7 @@ model PressureDropCircularPipeMassFlowDriven
     rhoMed=rhoMed,
     muMed=muMed,
     nUBend=nUBend,
-    KUBend=KUBend)
+    kUBend=kUBend)
     "Pressure-drop component"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
 
@@ -105,7 +105,7 @@ equation
       rhoMed=rhoMed,
       muMed=muMed,
       m_flow=preDro.m_flow,
-      KMinor=KMinor);
+      kMinor=kMinor);
 
   dpFunNoMinor =
     .Buildings.Fluid.Geothermal.Borefields.BaseClasses.Boreholes.BaseClasses.Functions.pressureLossPipe(
@@ -116,7 +116,7 @@ equation
       rhoMed=rhoMed,
       muMed=muMed,
       m_flow=preDro.m_flow,
-      KMinor=0);
+      kMinor=0);
 
   dpMinor = dpFun - dpFunNoMinor;
 
