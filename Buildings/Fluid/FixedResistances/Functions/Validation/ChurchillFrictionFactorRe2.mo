@@ -21,9 +21,18 @@ model ChurchillFrictionFactorRe2
     "Relative roughness smooth pipe (eps/D)";
   parameter Real eps_D_rough = eps_rough / (2*rTub_in)
     "Relative roughness rough pipe (eps/D)";
+  
+  parameter Real Re_start(unit="1") = 0
+  "Start value for Reynolds number";
+  parameter Real Re_end(unit="1") = 30000
+    "End value for Reynolds number";
+  parameter Modelica.Units.SI.Time tEnd = 30
+    "Time used to sweep the Reynolds number";
+  parameter Real k(unit="1/s") = (Re_end - Re_start)/tEnd
+    "Conversion factor from time to Reynolds number";
 
-  Real Re
-    "Reynolds number = time";
+  Real Re(unit="1", start=Re_start)
+    "Reynolds number";
   Real lambda2_smooth
     "Modified friction coefficient — smooth HDPE pipe";
   Real lambda2_rough
@@ -32,7 +41,7 @@ model ChurchillFrictionFactorRe2
     "Laminar reference: lambda2 = 64*Re";
 
 equation
-  Re = time;
+  Re = Re_start + k*time;
 
   lambda2_smooth =
     Buildings.Fluid.FixedResistances.Functions.churchillFrictionFactorRe2(
@@ -47,7 +56,7 @@ equation
   lambda2_lam = 64*Re;
 
   annotation (
-    experiment(Tolerance=1e-6, StopTime=30000.0),
+    experiment(Tolerance=1e-6, StopTime=30),
     __Dymola_Commands(file=
       "modelica://Buildings/Resources/Scripts/Dymola/Fluid/FixedResistances/Functions/Validation/ChurchillFrictionFactorRe2.mos"
       "Simulate and plot"),
