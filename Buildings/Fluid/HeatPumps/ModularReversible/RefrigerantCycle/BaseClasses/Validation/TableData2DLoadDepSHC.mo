@@ -66,8 +66,8 @@ model TableData2DLoadDepSHC
     y(final unit="K", displayUnit="degC"))
     "Evaporator entering CHW temperature"
     annotation (Placement(transformation(extent={{-120,30},{-100,50}})));
-  Buildings.Controls.OBC.CDL.Logical.Sources.Constant on(k=true)
-    "On/off command"
+  Buildings.Controls.OBC.CDL.Logical.Sources.Constant onHeaCoo(k=true)
+    "Heating and cooling on/off command"
     annotation (Placement(transformation(extent={{-80,130},{-60,150}})));
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant mChw_flow(k=
         mChw_flow_nominal)
@@ -124,9 +124,6 @@ model TableData2DLoadDepSHC
     init=Modelica.Blocks.Types.Init.InitialOutput,
     y_start=TChwSup_nominal) "Filter to avoid algebraic loop"
     annotation (Placement(transformation(extent={{50,30},{30,50}})));
-  Buildings.Controls.OBC.CDL.Integers.Sources.Constant mode(k=Buildings.Fluid.HeatPumps.ModularReversible.Types.OperatingModes.shc)
-    "Operating mode command"
-    annotation (Placement(transformation(extent={{-80,90},{-60,110}})));
   Buildings.Controls.OBC.CDL.Integers.MultiSum sumNumUni(nin=3)
     "Total number of enabled modules"
     annotation (Placement(transformation(extent={{30,70},{50,90}})));
@@ -218,10 +215,8 @@ equation
           {60,120},{52,120}}, color={0,0,127}));
   connect(TEvaLvgHpSup.y, filter1.u) annotation (Line(points={{51,10},{60,10},{
           60,40},{52,40}}, color={0,0,127}));
-  connect(on.y, hpSup.on) annotation (Line(points={{-58,140},{-18,140},{-18,92},
-          {-2,92}}, color={255,0,255}));
-  connect(mode.y, hpSup.mode) annotation (Line(points={{-58,100},{-40,100},{-40,
-          90},{-2,90}}, color={255,127,0}));
+  connect(onHeaCoo.y, hpSup.onHea) annotation (Line(points={{-58,140},{-18,140},
+          {-18,92},{-2,92}}, color={255,0,255}));
   connect(hpSup.nUniHea, sumNumUni.u[1]) annotation (Line(points={{22,72},{26,
           72},{26,77.6667},{28,77.6667}}, color={255,127,0}));
   connect(hpSup.nUniCoo, sumNumUni.u[2]) annotation (Line(points={{22,68},{26,
@@ -246,10 +241,8 @@ equation
     annotation (Line(points={{52,-100},{58,-100}}, color={255,127,0}));
   connect(intLesEquThr1.y, assMes1.u)
     annotation (Line(points={{82,-100},{88,-100}}, color={255,0,255}));
-  connect(on.y, hpRet.on) annotation (Line(points={{-58,140},{-30,140},{-30,-90},
-          {-2,-90}}, color={255,0,255}));
-  connect(mode.y, hpRet.mode) annotation (Line(points={{-58,100},{-30,100},{-30,
-          -92},{-2,-92}}, color={255,127,0}));
+  connect(onHeaCoo.y, hpRet.onHea) annotation (Line(points={{-58,140},{-18,140},
+          {-18,-90},{-2,-90}}, color={255,0,255}));
   connect(TOut.y, hpRet.TAmbEnt) annotation (Line(points={{-58,60},{-30,60},{-30,
           -98},{-2,-98}}, color={0,0,127}));
   connect(mChw_flow.y, hpRet.mChw_flow) annotation (Line(points={{-98,0},{-52,0},
@@ -278,6 +271,10 @@ equation
           -116},{-2,-116}}, color={0,0,127}));
   connect(cp.y, hpRet.cpHw) annotation (Line(points={{-58,180},{-22,180},{-22,-108},
           {-2,-108}}, color={0,0,127}));
+  connect(onHeaCoo.y, hpSup.onCoo) annotation (Line(points={{-58,140},{-18,140},
+          {-18,90},{-2,90}}, color={255,0,255}));
+  connect(onHeaCoo.y, hpRet.onCoo) annotation (Line(points={{-58,140},{-18,140},
+          {-18,-92},{-2,-92}}, color={255,0,255}));
   annotation (Diagram(coordinateSystem(extent={{-140,-180},{140,200}})),
     __Dymola_Commands(
       file=
@@ -311,6 +308,13 @@ creating an algebraic loop.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+March 23, 2026, by Antoine Gautier:<br/>
+Refactored with two separate connectors 
+for heating and cooling on/off commands.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4507\">#4507</a>.
+</li>
 <li>
 July 1, 2025, by Antoine Gautier:<br/>
 First implementation.

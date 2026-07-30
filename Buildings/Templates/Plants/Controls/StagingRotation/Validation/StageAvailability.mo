@@ -37,8 +37,7 @@ equation
     annotation (Line(points={{-58,0},{-20,0},{-20,-20},{-12,-20}},color={255,0,255}));
   annotation (
     __Dymola_Commands(
-      file=
-        "modelica://Buildings/Resources/Scripts/Dymola/Templates/Plants/Controls/StagingRotation/Validation/StageAvailability.mos"
+      file="modelica://Buildings/Resources/Scripts/Dymola/Templates/Plants/Controls/StagingRotation/Validation/StageAvailability.mos"
         "Simulate and plot"),
     experiment(
       StopTime=7.0,

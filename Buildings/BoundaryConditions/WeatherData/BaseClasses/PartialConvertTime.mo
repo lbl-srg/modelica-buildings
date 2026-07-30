@@ -16,17 +16,24 @@ protected
   parameter Boolean canRepeatWeatherFile = abs(mod(lenWea, 365*24*3600)) < 1E-2
     "=true, if the weather file can be repeated, since it has the length of a year or a multiple of it";
 
-  discrete Modelica.Units.SI.Time tNext(start=0, fixed=true)
+  discrete Modelica.Units.SI.Time tNext
     "Start time of next period";
 
-equation
-  when {initial(), canRepeatWeatherFile and modTimAux > pre(tNext)} then
-    // simulation time stamp went over the end time of the weather file
-    //(last time stamp of the weather file + average increment)
-    tNext = if canRepeatWeatherFile then integer(modTimAux/lenWea)*lenWea + lenWea else time;
-  end when;
-  calTimAux = if canRepeatWeatherFile then modTimAux - tNext + lenWea else modTimAux;
+  Integer k "Period index";
 
+initial equation
+  k = integer(modTimAux/lenWea)+1;
+  tNext = if canRepeatWeatherFile then k * lenWea else time;
+
+equation
+  // simulation time stamp went over the end time of the weather file
+  // (last time stamp of the weather file + average increment)
+  when (canRepeatWeatherFile and modTimAux > pre(tNext)) then
+    k = pre(k) + 1;
+    tNext = k * lenWea;
+  end when;
+
+  calTimAux = if canRepeatWeatherFile then modTimAux - tNext + lenWea else modTimAux;
 
   annotation (
     defaultComponentName="conTim",
@@ -37,6 +44,12 @@ or a multiple of it, if this is the length of the weather file.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+February 18, 2026, by Jianjun Hu:<br/>
+Improved ill-posed integer rounding.<br/>
+This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4480\">Buildings #4480</a>
+and <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/2088\">IBPSA #2088</a>.
+</li>
 <li>
 March 27, 2023, by Ettore Zanetti:<br/>
 Added partial class for conversion from simulation time to calendar time, to be

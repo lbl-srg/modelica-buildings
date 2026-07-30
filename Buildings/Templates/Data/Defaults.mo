@@ -139,6 +139,9 @@ package Defaults
   constant Real COPHpWwCoo(
     unit="1")=5.07
     "Water(brine)-to-water heat pump cooling COP (ASHRAE 90.1 2022 at 7 °C CHWST, 35 °C source LWT)";
+  constant Real ratVLiqByCap(
+    unit="m3/W")=1E-5
+    "Ratio of total fluid volume in hydronic system by installed capacity (ranges from 5 to 30 L/kW)";
   annotation (
     Documentation(
       info="<html>

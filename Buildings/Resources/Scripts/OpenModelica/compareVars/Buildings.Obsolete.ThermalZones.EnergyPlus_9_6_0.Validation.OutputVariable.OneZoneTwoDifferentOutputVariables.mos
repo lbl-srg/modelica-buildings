@@ -1,6 +1,0 @@
-compareVars :=
-  {
-    "zon.TAir",
-    "equEle.y",
-    "incBeaSou.y"
-  };

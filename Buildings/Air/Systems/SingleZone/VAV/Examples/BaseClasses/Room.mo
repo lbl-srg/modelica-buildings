@@ -283,14 +283,14 @@ equation
       points={{-140,180},{-140,-10},{-40,-10},{-40,-9.8}},
       color={255,204,51},
       thickness=0.5), Text(
-      textString="%first",
+      string="%first",
       index=-1,
       extent={{-6,3},{-6,3}}));
   connect(weaBus, roo.weaBus) annotation (Line(
       points={{-140,180},{82,180},{82,112},{83.27,112},{83.27,23.27}},
       color={255,204,51},
       thickness=0.5), Text(
-      textString="%first",
+      string="%first",
       index=-1,
       extent={{-6,3},{-6,3}}));
   connect(senTZon.T, TRooAir) annotation (Line(points={{180,0},{210,0}},

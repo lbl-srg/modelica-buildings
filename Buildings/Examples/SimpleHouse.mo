@@ -274,8 +274,6 @@ equation
         Text(
           extent={{-63,182},{-197,198}},
           textColor={0,0,127},
-          fillColor={255,213,170},
-          fillPattern=FillPattern.Solid,
           textString="Cooling and ventilation"),
         Rectangle(
           extent={{0,60},{200,-60}},
@@ -285,20 +283,14 @@ equation
         Text(
           extent={{64.5,40.5},{-4.5,59.5}},
           textColor={0,0,127},
-          fillColor={255,213,170},
-          fillPattern=FillPattern.Solid,
           textString="Building"),
         Text(
           extent={{-137,-99},{-203,-81}},
           textColor={0,0,127},
-          fillColor={255,213,170},
-          fillPattern=FillPattern.Solid,
           textString="Heating"),
         Text(
           extent={{-141,41},{-199,59}},
           textColor={0,0,127},
-          fillColor={255,213,170},
-          fillPattern=FillPattern.Solid,
           textString="Weather")}),
     experiment(Tolerance=1e-06, StopTime=3.1536e+07),
     Documentation(revisions="<html>

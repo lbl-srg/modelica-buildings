@@ -103,7 +103,7 @@ equation
       color={255,204,51},
       thickness=0.5,
       smooth=Smooth.None), Text(
-      textString="%second",
+      string="%second",
       index=1,
       extent={{6,3},{6,3}}));
   connect(theCon1.port_b, vol1.heatPort) annotation (Line(points={{50,120},{50,120},
@@ -112,7 +112,7 @@ equation
           {60,40},{80,40}}, color={191,0,0}));
   connect(TAirOut.T, weaBus.TDryBul) annotation (Line(points={{-32,120},{-40,120},
           {-40,140},{120,140}}, color={0,0,127}), Text(
-      textString="%second",
+      string="%second",
       index=1,
       extent={{6,3},{6,3}}));
   connect(TAirOut.port, theCon1.port_a)
@@ -163,7 +163,6 @@ equation
           pattern=LinePattern.None),
         Text(
           extent={{68,132},{106,108}},
-          pattern=LinePattern.None,
           textColor={0,0,127},
           horizontalAlignment=TextAlignment.Left,
           textString="Very simplified
@@ -176,7 +175,6 @@ a thermal zone."),
           pattern=LinePattern.None),
         Text(
           extent={{68,-4},{106,-28}},
-          pattern=LinePattern.None,
           textColor={0,0,127},
           horizontalAlignment=TextAlignment.Left,
           textString="Very simplified

@@ -9,6 +9,7 @@ model WetCoil "Calculates wet coil condition "
     quantity="ThermodynamicTemperature",
     unit="K",
     start=288.15,
+    nominal=300,
     min=273.15,
     max=373.15) "Dry bulb temperature of air at ADP"
     annotation (Placement(transformation(extent={{100,-50},{120,-30}})));
@@ -222,9 +223,6 @@ First implementation.
         Text(
           extent={{-62,-18},{80,-54}},
           textColor={0,0,0},
-          lineThickness=0.5,
-          fillColor={85,170,255},
-          fillPattern=FillPattern.Solid,
           textString="Wet Coil"),
         Ellipse(
           extent={{2,14},{6,8}},

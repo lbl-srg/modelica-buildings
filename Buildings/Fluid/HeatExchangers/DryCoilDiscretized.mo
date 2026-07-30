@@ -38,10 +38,10 @@ model DryCoilDiscretized
      annotation(Dialog(group = "Geometry"));
   parameter Boolean use_dh1 = false
     "Set to true to specify hydraulic diameter for pipe pressure drop"
-       annotation(Evaluate=true, Dialog(enable = not linearizeFlowResistance1, tab="Advanced"));
+       annotation(Evaluate=true, Dialog(group="Nominal condition"));
   parameter Boolean use_dh2 = false
     "Set to true to specify hydraulic diameter for duct pressure drop)"
-       annotation(Evaluate=true, Dialog(tab="Advanced"));
+       annotation(Evaluate=true, Dialog(group="Nominal condition"));
 
   parameter Modelica.Fluid.Types.Dynamics energyDynamics=Modelica.Fluid.Types.Dynamics.DynamicFreeInitial
     "Formulation of energy balance"
@@ -52,21 +52,27 @@ model DryCoilDiscretized
         enable=use_dh1 and not linearizeFlowResistance1));
   parameter Real ReC_1=4000
     "Reynolds number where transition to turbulence starts inside pipes"
-     annotation(Dialog(enable = use_dh1 and not linearizeFlowResistance1, tab="Advanced"));
+     annotation(Dialog(enable = use_dh1 and not linearizeFlowResistance1, tab="Flow resistance", group="Medium 1"));
   parameter Real ReC_2=4000
     "Reynolds number where transition to turbulence starts inside ducts"
-     annotation(Dialog(enable = use_dh2 and not linearizeFlowResistance2, tab="Advanced"));
+     annotation(Dialog(enable = use_dh2 and not linearizeFlowResistance2, tab="Flow resistance", group="Medium 2"));
   parameter Modelica.Units.SI.Length dh2=1 "Hydraulic diameter for duct"
     annotation (Dialog(group="Geometry"));
   parameter Modelica.Units.SI.Time tau1=20
-    "Time constant at nominal flow for medium 1" annotation (Dialog(group=
-          "Nominal condition", enable=energyDynamics <> Modelica.Fluid.Types.Dynamics.SteadyState));
+    "Time constant at nominal flow for medium 1"
+    annotation (
+       Dialog(tab = "Dynamics", group="Conservation equations",
+         enable=not (energyDynamics == Modelica.Fluid.Types.Dynamics.SteadyState)));
   parameter Modelica.Units.SI.Time tau2=10
-    "Time constant at nominal flow for medium 2" annotation (Dialog(group=
-          "Nominal condition", enable=energyDynamics <> Modelica.Fluid.Types.Dynamics.SteadyState));
+    "Time constant at nominal flow for medium 2"
+    annotation (
+       Dialog(tab = "Dynamics", group="Conservation equations",
+         enable=not (energyDynamics == Modelica.Fluid.Types.Dynamics.SteadyState)));
   parameter Modelica.Units.SI.Time tau_m=20
     "Time constant of metal at nominal UA value"
-    annotation (Dialog(group="Nominal condition"));
+    annotation (
+       Dialog(tab = "Dynamics", group="Conservation equations",
+         enable=not (energyDynamics == Modelica.Fluid.Types.Dynamics.SteadyState)));
   parameter Boolean waterSideFlowDependent = false
     "Set to false to make water-side hA independent of mass flow rate"
     annotation(Dialog(tab="Heat transfer"));
@@ -76,6 +82,15 @@ model DryCoilDiscretized
   parameter Boolean waterSideTemperatureDependent = false
     "Set to false to make water-side hA independent of temperature"
     annotation(Dialog(tab="Heat transfer"));
+  parameter Real n_w=0.85
+    "Water-side exponent for convective heat transfer coefficient, h~m_flow^n_w"
+    annotation(Dialog(tab="Heat transfer"));
+  parameter Real n_a=0.8
+    "Air-side exponent for convective heat transfer coefficient, h~m_flow^n_a"
+    annotation(Dialog(tab="Heat transfer"));
+  parameter Real r_nominal=0.5
+    "Ratio between air-side and water-side convective heat transfer coefficient"
+    annotation(Dialog(tab="Heat transfer", group="Nominal condition"));
   parameter Modelica.Units.SI.MassFlowRate mStart_flow_a1=m1_flow_nominal
     "Guess value for mass flow rate at port_a1"
     annotation (Dialog(tab="General", group="Initialization"));
@@ -97,6 +112,8 @@ model DryCoilDiscretized
     each final nPipSeg=nPipSeg,
     each final m1_flow_nominal=m1_flow_nominal/nPipPar,
     each final m2_flow_nominal=m2_flow_nominal/nPipPar/nPipSeg,
+    each final n1=n1,
+    each final n2=n2,
     each tau1=tau1,
     each tau2=tau2,
     each tau_m=tau_m,
@@ -120,6 +137,7 @@ model DryCoilDiscretized
     final nPipPar=nPipPar,
     final m_flow_nominal=m1_flow_nominal,
     final dp_nominal=dp1_nominal,
+    final n=n1,
     final dh=dh1,
     final ReC=ReC_1,
     final mStart_flow_a=mStart_flow_a1,
@@ -152,6 +170,7 @@ model DryCoilDiscretized
     final nPipSeg = nPipSeg,
     final m_flow_nominal=m2_flow_nominal,
     final dp_nominal=dp2_nominal,
+    final n=n2,
     final dh=dh2,
     final ReC=ReC_2,
     final mStart_flow_a=mStart_flow_a2,
@@ -166,6 +185,9 @@ model DryCoilDiscretized
     final UA_nominal=UA_nominal,
     final m_flow_nominal_a=m2_flow_nominal,
     final m_flow_nominal_w=m1_flow_nominal,
+    final r_nominal=r_nominal,
+    final n_w=n_w,
+    final n_a=n_a,
     final waterSideTemperatureDependent=waterSideTemperatureDependent,
     final waterSideFlowDependent=waterSideFlowDependent,
     final airSideTemperatureDependent=airSideTemperatureDependent,
@@ -446,6 +468,12 @@ rather may be considered as approximated by these heat conductors.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+June 22, 2026, by Michael Wetter:<br/>
+Updated Dialog annotations, and revised heat exchanger models to consistently expose parameters
+<code>r_nominal</code>, <code>n_w</code> and <code>n_a</code>.<br/>
+This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4620\">#4620</a>.
+</li>
 <li>
 June 22, 2023 by Hongxiang Fu:<br/>
 Corrected the modification of <code>hexReg[nReg].m2_flow_nominal</code>.<br/>

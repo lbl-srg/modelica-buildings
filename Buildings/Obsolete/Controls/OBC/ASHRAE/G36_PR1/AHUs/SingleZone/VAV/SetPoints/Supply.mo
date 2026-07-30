@@ -423,44 +423,30 @@ annotation (
         Text(
           extent={{-98,104},{-72,82}},
           textColor={0,0,127},
-          fillColor={0,0,0},
-          fillPattern=FillPattern.Solid,
           textString="uHea"),
         Text(
           extent={{-98,68},{-72,46}},
           textColor={0,0,127},
-          fillColor={0,0,0},
-          fillPattern=FillPattern.Solid,
           textString="uCoo"),
         Text(
           extent={{68,72},{94,50}},
           textColor={0,0,127},
-          fillColor={0,0,0},
-          fillPattern=FillPattern.Solid,
           textString="TSupHeaEco"),
         Text(
           extent={{68,12},{94,-10}},
           textColor={0,0,127},
-          fillColor={0,0,0},
-          fillPattern=FillPattern.Solid,
           textString="TSupCoo"),
         Text(
           extent={{74,-50},{100,-72}},
           textColor={0,0,127},
-          fillColor={0,0,0},
-          fillPattern=FillPattern.Solid,
           textString="y"),
         Text(
           extent={{-96,-12},{-70,-34}},
           textColor={0,0,127},
-          fillColor={0,0,0},
-          fillPattern=FillPattern.Solid,
           textString="TZon"),
         Text(
           extent={{-98,-50},{-72,-72}},
           textColor={0,0,127},
-          fillColor={0,0,0},
-          fillPattern=FillPattern.Solid,
           textString="TOut"),
     Line(points={{-54,50},{-54,10}},  color={95,95,95}),
     Polygon(
@@ -478,14 +464,10 @@ annotation (
         Text(
           extent={{-96,30},{-70,8}},
           textColor={0,0,127},
-          fillColor={0,0,0},
-          fillPattern=FillPattern.Solid,
           textString="TZonSet"),
         Text(
           extent={{-98,-82},{-72,-104}},
           textColor={0,0,127},
-          fillColor={0,0,0},
-          fillPattern=FillPattern.Solid,
           textString="uFan")}),
         Diagram(
         coordinateSystem(preserveAspectRatio=false,
@@ -498,14 +480,10 @@ annotation (
         Text(
           extent={{46,-252},{82,-234}},
           textColor={0,0,0},
-          fillColor={215,215,215},
-          fillPattern=FillPattern.Solid,
           textString="0.25 < yCoo < 0.5"),
         Text(
           extent={{46,-316},{82,-298}},
           textColor={0,0,0},
-          fillColor={215,215,215},
-          fillPattern=FillPattern.Solid,
           textString="0.75 < yCoo < 1"),
         Rectangle(
           extent={{-76,-100},{88,-138}},
@@ -515,8 +493,6 @@ annotation (
         Text(
           extent={{46,-142},{82,-124}},
           textColor={0,0,0},
-          fillColor={215,215,215},
-          fillPattern=FillPattern.Solid,
           textString="0.5 < yCoo < 0.75"),
         Rectangle(
           extent={{-84,-16},{26,-86}},
@@ -526,14 +502,10 @@ annotation (
         Text(
           extent={{-16,-78},{14,-72}},
           textColor={0,0,0},
-          fillColor={215,215,215},
-          fillPattern=FillPattern.Solid,
           textString="heating"),
         Text(
           extent={{-74,-98},{96,-90}},
           textColor={0,0,0},
-          fillColor={215,215,215},
-          fillPattern=FillPattern.Solid,
           horizontalAlignment=TextAlignment.Left,
           textString="For cooling, compute the change relative to yMin, and then add the heating and
 cooling control signals to output yFan"),

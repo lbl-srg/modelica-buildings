@@ -56,6 +56,12 @@ Modelica.Media.Air.MoistAir</a>.
 </html>", revisions="<html>
 <ul>
 <li>
+June 22, 2026, by Michael Wetter:<br/>
+Updated Dialog annotations, and revised heat exchanger models to consistently expose parameters
+<code>r_nominal</code>, <code>n_w</code> and <code>n_a</code>.<br/>
+This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4620\">#4620</a>.
+</li>
+<li>
 July 5, 2022, by Antoine Gautier:<br/>
 Restored the addition of heat to <code>mas.T</code> in
 <a href=\"modelica://Buildings.Fluid.HeatExchangers.BaseClasses.HexElementLatent\">

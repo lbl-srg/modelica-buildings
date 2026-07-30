@@ -1,0 +1,9 @@
+//  Conversion script for Buildings library
+//  from: Version 13
+//  to:   Version 14.0.0
+
+// Conversion for https://github.com/lbl-srg/modelica-buildings/issues/4620
+convertElement("Buildings.Fluid.HeatExchangers.PlateHeatExchangerEffectivenessNTU",
+               "n1", "nCon1");
+convertElement("Buildings.Fluid.HeatExchangers.PlateHeatExchangerEffectivenessNTU",
+               "n2", "nCon2");

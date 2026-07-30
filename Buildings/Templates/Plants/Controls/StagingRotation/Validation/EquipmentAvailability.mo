@@ -7,53 +7,47 @@ model EquipmentAvailability "Validation model for the evaluation of equipment av
   Buildings.Controls.OBC.CDL.Logical.Sources.TimeTable u1Ava(
     table=[
       0, 1;
-      8, 0;
+      8.1, 0;
       9, 1],
     timeScale=1000,
     period=10000)
     "Equipment available signal"
     annotation (Placement(transformation(extent={{-80,-10},{-60,10}})));
-  Buildings.Controls.OBC.CDL.Logical.Sources.TimeTable u1_actual(
-    table=[
-      0, 1;
-      1, 0;
-      2.5, 1;
-      4.2, 0;
-      5, 1;
-      7, 1;
-      8, 0;
-      9, 1],
+  Buildings.Controls.OBC.CDL.Logical.Sources.TimeTable u1Coo(
+    table=[0,0; 5,1; 8,0; 9.7,1],
     timeScale=1000,
-    period=10000)
-    "Equipment status"
+    period=10000) "Equipment enabled in cooling mode"
+    annotation (Placement(transformation(extent={{-80,-50},{-60,-30}})));
+  Buildings.Controls.OBC.CDL.Logical.Sources.TimeTable u1Hea(
+    table=[0,1; 1,0; 2.5,1; 4.2,0; 8.5,1; 9.7,0],
+    timeScale=1000,
+    period=10000) "Equipment enabled in heating mode"
     annotation (Placement(transformation(extent={{-80,30},{-60,50}})));
-  Buildings.Controls.OBC.CDL.Logical.Sources.TimeTable u1Hea_actual(
-    table=[
-      0, 1;
-      1, 1;
-      2, 1;
-      5, 0;
-      8.5, 1;
-      9.7, 0],
-    timeScale=1000,
-    period=10000)
-    "Equipment operating mode"
-    annotation (Placement(transformation(extent={{-80,-48},{-60,-28}})));
   Buildings.Templates.Plants.Controls.StagingRotation.EquipmentAvailability
     avaHea(have_heaWat=true, have_chiWat=false)
     "Evaluate equipment availability – Heating only"
-    annotation (Placement(transformation(extent={{0,-70},{20,-50}})));
+    annotation (Placement(transformation(extent={{0,30},{20,50}})));
+  Buildings.Templates.Plants.Controls.StagingRotation.EquipmentAvailability avaCoo(
+      have_heaWat=false, have_chiWat=true)
+    "Evaluate equipment availability – Cooling only"
+    annotation (Placement(transformation(extent={{0,-50},{20,-30}})));
 equation
-  connect(u1Hea_actual.y[1], avaHeaCoo.u1Hea)
-    annotation (Line(points={{-58,-38},{-30,-38},{-30,-6},{-2,-6}},color={255,0,255}));
-  connect(u1_actual.y[1], avaHeaCoo.u1)
-    annotation (Line(points={{-58,40},{-20,40},{-20,6},{-2,6}},color={255,0,255}));
-  connect(u1_actual.y[1], avaHea.u1)
-    annotation (Line(points={{-58,40},{-20,40},{-20,-54},{-2,-54}},color={255,0,255}));
   connect(u1Ava.y[1], avaHeaCoo.u1Ava)
     annotation (Line(points={{-58,0},{-2,0}},color={255,0,255}));
   connect(u1Ava.y[1], avaHea.u1Ava)
-    annotation (Line(points={{-58,0},{-40,0},{-40,-60},{-2,-60}},color={255,0,255}));
+    annotation (Line(points={{-58,0},{-10,0},{-10,40},{-2,40}},  color={255,0,255}));
+  connect(u1Hea.y[1], avaHea.u1EnaHea) annotation (Line(points={{-58,40},{-20,
+          40},{-20,46},{-2,46}},
+                               color={255,0,255}));
+  connect(u1Hea.y[1], avaHeaCoo.u1EnaHea) annotation (Line(points={{-58,40},{
+          -20,40},{-20,6},{-2,6}},
+                               color={255,0,255}));
+  connect(u1Coo.y[1], avaHeaCoo.u1EnaCoo) annotation (Line(points={{-58,-40},{-20,
+          -40},{-20,-6},{-2,-6}}, color={255,0,255}));
+  connect(u1Ava.y[1], avaCoo.u1Ava) annotation (Line(points={{-58,0},{-10,0},{
+          -10,-40},{-2,-40}}, color={255,0,255}));
+  connect(u1Coo.y[1], avaCoo.u1EnaCoo) annotation (Line(points={{-58,-40},{-20,
+          -40},{-20,-46},{-2,-46}}, color={255,0,255}));
   annotation (
     __Dymola_Commands(
       file=

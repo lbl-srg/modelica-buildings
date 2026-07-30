@@ -3,7 +3,7 @@ model TemperatureResponseMatrix
   "This validation case test the calculation, writing and reading of the temperature step response"
   extends Modelica.Icons.Example;
 
-  parameter Modelica.Units.SI.Time timSer[26 + 50,2]=
+  parameter Real timSer[26 + 50,2]=
       Buildings.Fluid.Geothermal.Borefields.BaseClasses.HeatTransfer.LoadAggregation.temperatureResponseMatrix(
       nBor=1,
       cooBor={{0,0}},
@@ -20,7 +20,7 @@ model TemperatureResponseMatrix
       ttsMax=exp(5),
       sha="TemperatureResponseMatrix_validation",
       forceGFunCalc=true) "Resulting temperature response matrix";
-  Modelica.Units.SI.ThermalResistance TStep "Temperature step response";
+  Real TStep "Temperature step response";
 
 equation
   TStep = Modelica.Math.Vectors.interpolate(timSer[:,1],timSer[:,2],time);
@@ -37,6 +37,13 @@ the course of the first year.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+March 20, 2026, by Michael Wetter:<br/>
+Corrected type declaration of g-function.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4501\">
+Buildings, #4501</a>.
+</li>
 <li>
 July 18, 2018, by Alex Laferri&egrave;re:<br/>
 First implementation.

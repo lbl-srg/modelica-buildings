@@ -111,26 +111,18 @@ annotation (
         Text(
           extent={{-96,78},{-50,64}},
           textColor={0,0,127},
-          fillColor={0,0,0},
-          fillPattern=FillPattern.Solid,
           textString="uOutDam_min"),
         Text(
           extent={{-98,8},{-60,-6}},
           textColor={0,0,127},
-          fillColor={0,0,0},
-          fillPattern=FillPattern.Solid,
           textString="uOutDam"),
         Text(
           extent={{-100,-62},{-54,-76}},
           textColor={255,0,255},
-          fillColor={0,0,0},
-          fillPattern=FillPattern.Solid,
           textString="u1SupFan"),
         Text(
           extent={{52,8},{98,-6}},
           textColor={0,0,127},
-          fillColor={0,0,0},
-          fillPattern=FillPattern.Solid,
           textString="yRelDam")}),
   Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-120,-120},{120,120}})),
  Documentation(info="<html>
