@@ -88,8 +88,8 @@ model InternalHEXOneUTubeTDepRConvThreeCases
     intHexWat(
       redeclare package Medium = MediumWat,
       hSeg=hSeg,
-      dp1_nominal=10,
-      dp2_nominal=10,
+      dp1_nominal=dp_nominal,
+      dp2_nominal=dp_nominal,
       borFieDat=borFieDatWat,
       m1_flow_nominal=borFieDatWat.conDat.mBor_flow_nominal,
       m2_flow_nominal=borFieDatWat.conDat.mBor_flow_nominal,
@@ -103,8 +103,8 @@ model InternalHEXOneUTubeTDepRConvThreeCases
     intHexFixGly(
       redeclare package Medium = MediumGly,
       hSeg=hSeg,
-      dp1_nominal=10,
-      dp2_nominal=10,
+      dp1_nominal=dp_nominal,
+      dp2_nominal=dp_nominal,
       borFieDat=borFieDatFixGly,
       m1_flow_nominal=borFieDatFixGly.conDat.mBor_flow_nominal,
       m2_flow_nominal=borFieDatFixGly.conDat.mBor_flow_nominal,
@@ -118,8 +118,8 @@ model InternalHEXOneUTubeTDepRConvThreeCases
     intHexGly(
       redeclare package Medium = MediumGly,
       hSeg=hSeg,
-      dp1_nominal=10,
-      dp2_nominal=10,
+      dp1_nominal=dp_nominal,
+      dp2_nominal=dp_nominal,
       borFieDat=borFieDatGly,
       m1_flow_nominal=borFieDatGly.conDat.mBor_flow_nominal,
       m2_flow_nominal=borFieDatGly.conDat.mBor_flow_nominal,
