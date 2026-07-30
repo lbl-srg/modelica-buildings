@@ -1,5 +1,5 @@
 within Buildings.Fluid.Geothermal.Borefields.BaseClasses.Boreholes.BaseClasses.Functions;
-function pressureLossCircularPipe
+function pressureLossPipe
   "Pressure loss of a circular pipe using Darcy-Weisbach friction factor"
   extends Modelica.Icons.Function;
 
@@ -187,4 +187,4 @@ This is for
 </ul>
 </html>"));
 
-end pressureLossCircularPipe;
+end pressureLossPipe;

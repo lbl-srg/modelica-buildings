@@ -114,7 +114,7 @@ equation
 
   dp =
     if computePressureDrop then
-      Buildings.Fluid.Geothermal.Borefields.BaseClasses.Boreholes.BaseClasses.Functions.pressureLossCircularPipe(
+      Buildings.Fluid.Geothermal.Borefields.BaseClasses.Boreholes.BaseClasses.Functions.pressureLossPipe(
         length=length,
         rTub=rTub,
         eTub=eTub,

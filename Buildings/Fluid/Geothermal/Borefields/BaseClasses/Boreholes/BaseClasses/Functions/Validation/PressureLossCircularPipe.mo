@@ -44,7 +44,7 @@ equation
   m_flow = Re*crossArea*muMed/diameter;
 
   dp =
-    Buildings.Fluid.Geothermal.Borefields.BaseClasses.Boreholes.BaseClasses.Functions.pressureLossCircularPipe(
+    Buildings.Fluid.Geothermal.Borefields.BaseClasses.Boreholes.BaseClasses.Functions.pressureLossPipe(
       length=hSeg,
       rTub=rTub,
       eTub=eTub,
@@ -55,7 +55,7 @@ equation
       KMinor=KMinor);
 
   dp_noMinor =
-    Buildings.Fluid.Geothermal.Borefields.BaseClasses.Boreholes.BaseClasses.Functions.pressureLossCircularPipe(
+    Buildings.Fluid.Geothermal.Borefields.BaseClasses.Boreholes.BaseClasses.Functions.pressureLossPipe(
       length=hSeg,
       rTub=rTub,
       eTub=eTub,

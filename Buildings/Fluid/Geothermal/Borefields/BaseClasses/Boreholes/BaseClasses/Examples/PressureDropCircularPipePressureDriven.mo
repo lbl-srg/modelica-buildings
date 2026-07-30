@@ -110,7 +110,7 @@ equation
   dpSet = dpPre.y;
 
   dpFun =
-    .Buildings.Fluid.Geothermal.Borefields.BaseClasses.Boreholes.BaseClasses.Functions.pressureLossCircularPipe(
+    .Buildings.Fluid.Geothermal.Borefields.BaseClasses.Boreholes.BaseClasses.Functions.pressureLossPipe(
       length=length,
       rTub=rTub,
       eTub=eTub,
@@ -121,7 +121,7 @@ equation
       KMinor=KMinor);
 
   dpFunNoMinor =
-    .Buildings.Fluid.Geothermal.Borefields.BaseClasses.Boreholes.BaseClasses.Functions.pressureLossCircularPipe(
+    .Buildings.Fluid.Geothermal.Borefields.BaseClasses.Boreholes.BaseClasses.Functions.pressureLossPipe(
       length=length,
       rTub=rTub,
       eTub=eTub,
