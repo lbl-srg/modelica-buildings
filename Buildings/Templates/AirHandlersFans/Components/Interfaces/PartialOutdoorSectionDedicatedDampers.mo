@@ -37,7 +37,7 @@ partial model PartialOutdoorSectionDedicatedDampers
   Buildings.Templates.Components.Sensors.VolumeFlowRate VOutMin_flow(
     redeclare final package Medium = MediumAir,
     final allowFlowReversal=allowFlowReversal,
-    final have_sen=typ==Buildings.Controls.OBC.ASHRAE.G36-2018.Types.OutdoorAirSection.DedicatedDampersAirflow,
+    final have_sen=typ==Buildings.Controls.OBC.ASHRAE.G36_2018.Types.OutdoorAirSection.DedicatedDampersAirflow,
     final m_flow_nominal=mOutMin_flow_nominal,
     final typ=Buildings.Templates.Components.Types.SensorVolumeFlowRate.AFMS)
     "Minimum outdoor air volume flow rate sensor"
@@ -46,14 +46,14 @@ partial model PartialOutdoorSectionDedicatedDampers
     redeclare final package Medium = MediumAir,
     final allowFlowReversal=allowFlowReversal,
     final have_sen=
-      typCtlEco==Buildings.Controls.OBC.ASHRAE.G36-2018.Types.ControlEconomizer.FixedEnthalpyWithFixedDryBulb or
-      typCtlEco==Buildings.Controls.OBC.ASHRAE.G36-2018.Types.ControlEconomizer.DifferentialEnthalpyWithFixedDryBulb,
+      typCtlEco==Buildings.Controls.OBC.ASHRAE.G36_2018.Types.ControlEconomizer.FixedEnthalpyWithFixedDryBulb or
+      typCtlEco==Buildings.Controls.OBC.ASHRAE.G36_2018.Types.ControlEconomizer.DifferentialEnthalpyWithFixedDryBulb,
     final m_flow_nominal=mOutMin_flow_nominal)
     "Outdoor air enthalpy sensor"
     annotation (Placement(transformation(extent={{30,50},{50,70}})));
   Buildings.Templates.Components.Sensors.DifferentialPressure dpAirOutMin(
     redeclare final package Medium = MediumAir,
-    final have_sen=typ==Buildings.Controls.OBC.ASHRAE.G36-2018.Types.OutdoorAirSection.DedicatedDampersPressure)
+    final have_sen=typ==Buildings.Controls.OBC.ASHRAE.G36_2018.Types.OutdoorAirSection.DedicatedDampersPressure)
     "Minimum outdoor air damper differential pressure sensor"
     annotation (Placement(transformation(extent={{-10,90},{10,110}})));
   Buildings.Fluid.FixedResistances.Junction junInl(

@@ -109,7 +109,7 @@ block PlantReset
     "Differential pressure setpoint"
     annotation (Placement(transformation(extent={{120,0},{160,40}}),
       iconTransformation(extent={{100,40},{140,80}})));
-  Buildings.Controls.OBC.ASHRAE.G36-2018-2018.Generic.TrimAndRespond triRes(
+  Buildings.Controls.OBC.ASHRAE.G36_2018.Generic.TrimAndRespond triRes(
     final have_hol=true,
     final delTim=dtDel,
     final iniSet=res_init,

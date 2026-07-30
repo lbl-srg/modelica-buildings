@@ -32,12 +32,12 @@ record VAVMultiZone "Configuration parameters for multiple-zone VAV"
   parameter Buildings.Templates.Components.Types.Damper typDamRet
     "Return damper type"
     annotation (Evaluate=true, Dialog(group="Configuration", enable=false));
-  parameter Buildings.Controls.OBC.ASHRAE.G36-2018.Types.OutdoorAirSection typSecOut
+  parameter Buildings.Controls.OBC.ASHRAE.G36_2018.Types.OutdoorAirSection typSecOut
     "Type of outdoor air section"
     annotation (Evaluate=true);
-  parameter Buildings.Controls.OBC.ASHRAE.G36-2018.Types.PressureControl buiPreCon
+  parameter Buildings.Controls.OBC.ASHRAE.G36_2018.Types.PressureControl buiPreCon
     "Type of building pressure control system" annotation (Evaluate=true);
-  parameter Buildings.Controls.OBC.ASHRAE.G36-2018.Types.VentilationStandard stdVen
+  parameter Buildings.Controls.OBC.ASHRAE.G36_2018.Types.VentilationStandard stdVen
     "Ventilation standard"
     annotation(Evaluate=true);
 

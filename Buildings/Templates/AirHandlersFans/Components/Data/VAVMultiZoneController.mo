@@ -2,15 +2,15 @@ within Buildings.Templates.AirHandlersFans.Components.Data;
 record VAVMultiZoneController "Record for multiple-zone VAV controller"
   extends Buildings.Templates.AirHandlersFans.Components.Data.PartialController;
 
-  parameter Buildings.Controls.OBC.ASHRAE.G36-2018-2018.Types.OutdoorAirSection typSecOut
+  parameter Buildings.Controls.OBC.ASHRAE.G36_2018.Types.OutdoorAirSection typSecOut
     "Type of outdoor air section"
     annotation (Evaluate=true, Dialog(group="Configuration", enable=false));
 
-  parameter Buildings.Controls.OBC.ASHRAE.G36-2018-2018.Types.PressureControl buiPreCon
+  parameter Buildings.Controls.OBC.ASHRAE.G36_2018.Types.PressureControl buiPreCon
     "Type of building pressure control system"
     annotation (Evaluate=true, Dialog(group="Configuration", enable=false));
 
-  parameter Buildings.Controls.OBC.ASHRAE.G36-2018-2018.Types.VentilationStandard stdVen
+  parameter Buildings.Controls.OBC.ASHRAE.G36_2018.Types.VentilationStandard stdVen
     "Ventilation standard"
     annotation(Evaluate=true, Dialog(group="Energy and ventilation standards", enable=false));
 
@@ -47,25 +47,25 @@ record VAVMultiZoneController "Record for multiple-zone VAV controller"
     "Uncorrected design outdoor air flow rate, including diversity where applicable"
     annotation (Dialog(group="Ventilation setpoints",
       enable=typ==Buildings.Templates.AirHandlersFans.Types.Controller.G36VAVMultiZone and
-      stdVen==Buildings.Controls.OBC.ASHRAE.G36-2018.Types.VentilationStandard.ASHRAE62_1));
+      stdVen==Buildings.Controls.OBC.ASHRAE.G36_2018.Types.VentilationStandard.ASHRAE62_1));
   parameter Modelica.Units.SI.VolumeFlowRate VOutTot_flow_nominal(
     start=0)
     "Design total outdoor air flow rate"
     annotation (Dialog(group="Ventilation setpoints",
       enable=typ==Buildings.Templates.AirHandlersFans.Types.Controller.G36VAVMultiZone and
-      stdVen==Buildings.Controls.OBC.ASHRAE.G36-2018.Types.VentilationStandard.ASHRAE62_1));
+      stdVen==Buildings.Controls.OBC.ASHRAE.G36_2018.Types.VentilationStandard.ASHRAE62_1));
   parameter Modelica.Units.SI.VolumeFlowRate VOutAbsMin_flow_nominal(
     start=0)
     "Design outdoor air flow rate when all zones with CO2 sensors or occupancy sensors are unpopulated"
     annotation (Dialog(group="Ventilation setpoints",
       enable=typ==Buildings.Templates.AirHandlersFans.Types.Controller.G36VAVMultiZone and
-      stdVen==Buildings.Controls.OBC.ASHRAE.G36-2018.Types.VentilationStandard.California_Title_24));
+      stdVen==Buildings.Controls.OBC.ASHRAE.G36_2018.Types.VentilationStandard.California_Title_24));
   parameter Modelica.Units.SI.VolumeFlowRate VOutMin_flow_nominal(
     start=0)
     "Design minimum outdoor air flow rate when all zones are occupied at their design population, including diversity"
     annotation (Dialog(group="Ventilation setpoints",
       enable=typ==Buildings.Templates.AirHandlersFans.Types.Controller.G36VAVMultiZone and
-      stdVen==Buildings.Controls.OBC.ASHRAE.G36-2018.Types.VentilationStandard.California_Title_24));
+      stdVen==Buildings.Controls.OBC.ASHRAE.G36_2018.Types.VentilationStandard.California_Title_24));
 
   parameter Modelica.Units.SI.PressureDifference pAirSupSet_rel_max(
     final min=0,
@@ -81,8 +81,8 @@ record VAVMultiZoneController "Record for multiple-zone VAV controller"
     "Differential pressure across the minimum outdoor air damper that provides the absolute minimum outdoor airflow"
     annotation (Dialog(group="Information provided by testing, adjusting, and balancing contractor",
       enable=typ==Buildings.Templates.AirHandlersFans.Types.Controller.G36VAVMultiZone and
-        stdVen==Buildings.Controls.OBC.ASHRAE.G36-2018.Types.VentilationStandard.California_Title_24
-        and typSecOut == Buildings.Controls.OBC.ASHRAE.G36-2018-2018.Types.OutdoorAirSection.DedicatedDampersPressure));
+        stdVen==Buildings.Controls.OBC.ASHRAE.G36_2018.Types.VentilationStandard.California_Title_24
+        and typSecOut == Buildings.Controls.OBC.ASHRAE.G36_2018.Types.OutdoorAirSection.DedicatedDampersPressure));
   parameter Modelica.Units.SI.PressureDifference dpDamOutMin_nominal(
     final min=5,
     displayUnit="Pa",
@@ -90,7 +90,7 @@ record VAVMultiZoneController "Record for multiple-zone VAV controller"
     "Differential pressure across the minimum outdoor air damper that provides the design minimum outdoor airflow"
     annotation (Dialog(group="Information provided by testing, adjusting, and balancing contractor",
       enable=typ==Buildings.Templates.AirHandlersFans.Types.Controller.G36VAVMultiZone and
-        typSecOut==Buildings.Controls.OBC.ASHRAE.G36-2018.Types.OutdoorAirSection.DedicatedDampersPressure));
+        typSecOut==Buildings.Controls.OBC.ASHRAE.G36_2018.Types.OutdoorAirSection.DedicatedDampersPressure));
 
   parameter Modelica.Units.SI.PressureDifference pAirRetSet_rel_min(
     final min=2.4,
@@ -98,7 +98,7 @@ record VAVMultiZoneController "Record for multiple-zone VAV controller"
     "Return fan minimum discharge static pressure setpoint"
     annotation (Dialog(group="Information provided by testing, adjusting, and balancing contractor",
       enable=typ == Buildings.Templates.AirHandlersFans.Types.Controller.G36VAVMultiZone
-           and buiPreCon == Buildings.Controls.OBC.ASHRAE.G36-2018-2018.Types.PressureControl.ReturnFanDp));
+           and buiPreCon == Buildings.Controls.OBC.ASHRAE.G36_2018.Types.PressureControl.ReturnFanDp));
 
   parameter Modelica.Units.SI.PressureDifference pAirRetSet_rel_max(
     final min=10,
@@ -106,7 +106,7 @@ record VAVMultiZoneController "Record for multiple-zone VAV controller"
     "Return fan maximum discharge static pressure setpoint"
     annotation (Dialog(group="Information provided by testing, adjusting, and balancing contractor",
       enable=typ == Buildings.Templates.AirHandlersFans.Types.Controller.G36VAVMultiZone
-           and buiPreCon == Buildings.Controls.OBC.ASHRAE.G36-2018-2018.Types.PressureControl.ReturnFanDp));
+           and buiPreCon == Buildings.Controls.OBC.ASHRAE.G36_2018.Types.PressureControl.ReturnFanDp));
 
   parameter Modelica.Units.SI.VolumeFlowRate dVFanRet_flow(
     final min=0,
@@ -114,7 +114,7 @@ record VAVMultiZoneController "Record for multiple-zone VAV controller"
     "Airflow differential between supply and return fans to maintain building pressure at setpoint"
     annotation (Dialog(group="Information provided by testing, adjusting, and balancing contractor",
       enable=typ == Buildings.Templates.AirHandlersFans.Types.Controller.G36VAVMultiZone
-           and buiPreCon == Buildings.Controls.OBC.ASHRAE.G36-2018-2018.Types.PressureControl.ReturnFanMeasuredAir));
+           and buiPreCon == Buildings.Controls.OBC.ASHRAE.G36_2018.Types.PressureControl.ReturnFanMeasuredAir));
 
   parameter Real yFanSup_min(
     final unit="1",

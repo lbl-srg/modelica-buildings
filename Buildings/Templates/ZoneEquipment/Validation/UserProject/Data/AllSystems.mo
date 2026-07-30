@@ -2,9 +2,9 @@ within Buildings.Templates.ZoneEquipment.Validation.UserProject.Data;
 class AllSystems "Top-level (whole building) system parameters"
   extends Buildings.Templates.Data.AllSystems(
     sysUni=Buildings.Templates.Types.Units.SI,
-    ashCliZon=Buildings.Controls.OBC.ASHRAE.G36-2018.Types.ASHRAEClimateZone.Zone_3B,
-    stdVen=Buildings.Controls.OBC.ASHRAE.G36-2018.Types.VentilationStandard.ASHRAE62_1,
-    stdEne=Buildings.Controls.OBC.ASHRAE.G36-2018.Types.EnergyStandard.ASHRAE90_1);
+    ashCliZon=Buildings.Controls.OBC.ASHRAE.G36_2018.Types.ASHRAEClimateZone.Zone_3B,
+    stdVen=Buildings.Controls.OBC.ASHRAE.G36_2018.Types.VentilationStandard.ASHRAE62_1,
+    stdEne=Buildings.Controls.OBC.ASHRAE.G36_2018.Types.EnergyStandard.ASHRAE90_1);
 
   parameter Buildings.Templates.ZoneEquipment.Data.VAVBox VAVBox_1(
     id="VAVBox_1",

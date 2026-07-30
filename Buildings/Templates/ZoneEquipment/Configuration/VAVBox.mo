@@ -11,7 +11,7 @@ record VAVBox "Configuration parameters for VAV terminal unit"
   parameter Buildings.Templates.Components.Types.Valve typValCoiHea
     "Type of valve for heating coil"
     annotation (Evaluate=true);
-  parameter Buildings.Controls.OBC.ASHRAE.G36-2018.Types.VentilationStandard stdVen
+  parameter Buildings.Controls.OBC.ASHRAE.G36_2018.Types.VentilationStandard stdVen
     "Ventilation standard"
     annotation (Evaluate=true);
 

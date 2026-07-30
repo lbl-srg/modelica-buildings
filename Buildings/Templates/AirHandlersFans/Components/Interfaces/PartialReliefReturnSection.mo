@@ -33,7 +33,7 @@ partial model PartialReliefReturnSection "Interface class for relief/return air 
     "Set to true in case of heat recovery";
   parameter Buildings.Templates.AirHandlersFans.Types.ControlFanReturn typCtlFanRet
     "Return fan control type";
-  parameter Buildings.Controls.OBC.ASHRAE.G36-2018-2018.Types.ControlEconomizer typCtlEco
+  parameter Buildings.Controls.OBC.ASHRAE.G36_2018.Types.ControlEconomizer typCtlEco
     "Economizer control type";
 
   parameter

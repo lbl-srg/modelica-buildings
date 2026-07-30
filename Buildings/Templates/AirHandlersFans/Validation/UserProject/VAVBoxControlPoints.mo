@@ -2,7 +2,7 @@ within Buildings.Templates.AirHandlersFans.Validation.UserProject;
 block VAVBoxControlPoints "Emulation of VAV box control points"
   extends Modelica.Blocks.Icons.Block;
 
-  parameter Buildings.Controls.OBC.ASHRAE.G36-2018.Types.VentilationStandard stdVen
+  parameter Buildings.Controls.OBC.ASHRAE.G36_2018.Types.VentilationStandard stdVen
     "Ventilation standard"
     annotation(Evaluate=true);
 
@@ -33,10 +33,10 @@ block VAVBoxControlPoints "Emulation of VAV box control points"
     annotation (Placement(transformation(extent={{-140,30},{-120,50}})));
 
   Controls.OBC.CDL.Integers.Sources.Constant uOpeMod(
-    k=Buildings.Controls.OBC.ASHRAE.G36-2018.Types.OperationModes.occupied)
+    k=Buildings.Controls.OBC.ASHRAE.G36_2018.Types.OperationModes.occupied)
     "Operating mode"
     annotation (Placement(transformation(extent={{40,10},{60,30}})));
-  Buildings.Controls.OBC.ASHRAE.G36-2018.ZoneGroups.ZoneStatus sta
+  Buildings.Controls.OBC.ASHRAE.G36_2018.ZoneGroups.ZoneStatus sta
     "Evaluate zone temperature status"
     annotation (Placement(transformation(extent={{100,-74},{120,-46}})));
   Controls.OBC.CDL.Reals.Sources.Constant cooDowTim(final k=1800)
@@ -45,18 +45,18 @@ block VAVBoxControlPoints "Emulation of VAV box control points"
   Controls.OBC.CDL.Reals.Sources.Constant warUpTim(final k=1800)
                   "Warm-up time"
     annotation (Placement(transformation(extent={{40,-90},{60,-70}})));
-  Controls.OBC.ASHRAE.G36-2018.VentilationZones.Title24.Setpoints setMinOA_T24(
+  Controls.OBC.ASHRAE.G36_2018.VentilationZones.Title24.Setpoints setMinOA_T24(
     VOccMin_flow=2.5e-3,
     VAreMin_flow=3e-3,
     VMin_flow=5e-3) if stdVen==
-    Buildings.Controls.OBC.ASHRAE.G36-2018.Types.VentilationStandard.California_Title_24
+    Buildings.Controls.OBC.ASHRAE.G36_2018.Types.VentilationStandard.California_Title_24
     "Zone level calculation of the minimum outdoor airflow setpoint"
     annotation (Placement(transformation(extent={{100,-20},{120,0}})));
-  Buildings.Controls.OBC.ASHRAE.G36-2018.VentilationZones.ASHRAE62_1.Setpoints setMinOA_62_1(
+  Buildings.Controls.OBC.ASHRAE.G36_2018.VentilationZones.ASHRAE62_1.Setpoints setMinOA_62_1(
     VAreBreZon_flow=3e-3,
     VPopBreZon_flow=2.5e-3,
     VMin_flow=5.5e-3) if stdVen==
-    Buildings.Controls.OBC.ASHRAE.G36-2018.Types.VentilationStandard.ASHRAE62_1
+    Buildings.Controls.OBC.ASHRAE.G36_2018.Types.VentilationStandard.ASHRAE62_1
     "Zone level calculation of the minimum outdoor airflow setpoint"
     annotation (Placement(transformation(extent={{100,20},{120,40}})));
 equation

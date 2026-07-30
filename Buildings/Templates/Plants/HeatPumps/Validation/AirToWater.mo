@@ -96,10 +96,10 @@ model AirToWater
     "CHW differential pressure at one remote location"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},rotation=-90,
       origin={40,-80})));
-  Buildings.Controls.OBC.ASHRAE.G36-2018-2018.AHUs.MultiZone.VAV.SetPoints.PlantRequests reqPlaRes(
-    final heaCoi=Buildings.Controls.OBC.ASHRAE.G36-2018.Types.HeatingCoil.WaterBased,
-    final cooCoi=if have_chiWat then Buildings.Controls.OBC.ASHRAE.G36-2018-2018.Types.CoolingCoil.WaterBased
-      else Buildings.Controls.OBC.ASHRAE.G36-2018-2018.Types.CoolingCoil.None)
+  Buildings.Controls.OBC.ASHRAE.G36_2018.AHUs.MultiZone.VAV.SetPoints.PlantRequests reqPlaRes(
+    final heaCoi=Buildings.Controls.OBC.ASHRAE.G36_2018.Types.HeatingCoil.WaterBased,
+    final cooCoi=if have_chiWat then Buildings.Controls.OBC.ASHRAE.G36_2018.Types.CoolingCoil.WaterBased
+      else Buildings.Controls.OBC.ASHRAE.G36_2018.Types.CoolingCoil.None)
     "Plant and reset request"
     annotation (Placement(transformation(extent={{90,122},{70,142}})));
   AirHandlersFans.Interfaces.Bus busAirHan

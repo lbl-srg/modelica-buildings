@@ -41,27 +41,27 @@ block ControllerG36VAVBox "Guideline 36 controller for VAV terminal unit"
     start=1)=dat.VOutMinOcc_flow
     "Zone minimum outdoor airflow for occupants"
     annotation (Dialog(enable=
-      stdVen==Buildings.Controls.OBC.ASHRAE.G36-2018.Types.VentilationStandard.California_Title_24));
+      stdVen==Buildings.Controls.OBC.ASHRAE.G36_2018.Types.VentilationStandard.California_Title_24));
   final parameter Modelica.Units.SI.VolumeFlowRate VOutMinAre_flow(
     final min=0,
     start=1)=dat.VOutMinAre_flow
     "Zone minimum outdoor airflow for building area"
     annotation (Dialog(enable=
-      stdVen==Buildings.Controls.OBC.ASHRAE.G36-2018.Types.VentilationStandard.California_Title_24));
+      stdVen==Buildings.Controls.OBC.ASHRAE.G36_2018.Types.VentilationStandard.California_Title_24));
 
   final parameter Real VOutAre_flow(
     final unit = "m3/s")=
     dat.VOutAre_flow
     "Outdoor air flow rate per unit area"
     annotation (Dialog(enable=
-      stdVen==Buildings.Controls.OBC.ASHRAE.G36-2018.Types.VentilationStandard.ASHRAE62_1));
+      stdVen==Buildings.Controls.OBC.ASHRAE.G36_2018.Types.VentilationStandard.ASHRAE62_1));
 
   final parameter Real VOutOcc_flow(
     final unit = "m3/s")=
     dat.VOutOcc_flow
     "Outdoor air flow rate per occupant"
     annotation (Dialog(enable=
-      stdVen==Buildings.Controls.OBC.ASHRAE.G36-2018.Types.VentilationStandard.ASHRAE62_1));
+      stdVen==Buildings.Controls.OBC.ASHRAE.G36_2018.Types.VentilationStandard.ASHRAE62_1));
 
   final parameter Real effAirDisHea=
     dat.effAirDisHea
@@ -71,7 +71,7 @@ block ControllerG36VAVBox "Guideline 36 controller for VAV terminal unit"
      dat.effAirDisCoo
     "Zone air distribution effectiveness during cooling";
 
-  Buildings.Controls.OBC.ASHRAE.G36-2018-2018.TerminalUnits.Reheat.Controller ctlReh(
+  Buildings.Controls.OBC.ASHRAE.G36_2018.TerminalUnits.Reheat.Controller ctlReh(
     final venStd=stdVen,
     final have_winSen=have_winSen,
     final have_occSen=have_occSen,
@@ -92,7 +92,7 @@ block ControllerG36VAVBox "Guideline 36 controller for VAV terminal unit"
     "Terminal unit with reheat controller"
     annotation (Placement(transformation(extent={{0,-20},{20,20}})));
 
-  Buildings.Controls.OBC.ASHRAE.G36-2018-2018.TerminalUnits.CoolingOnly.Controller ctlCoo(
+  Buildings.Controls.OBC.ASHRAE.G36_2018.TerminalUnits.CoolingOnly.Controller ctlCoo(
     final venStd=stdVen,
     final have_winSen=have_winSen,
     final have_occSen=have_occSen,
@@ -109,13 +109,13 @@ block ControllerG36VAVBox "Guideline 36 controller for VAV terminal unit"
     "Terminal unit cooling only controller"
     annotation (Placement(transformation(extent={{0,40},{20,80}})));
 
-  Buildings.Controls.OBC.ASHRAE.G36-2018-2018.ThermalZones.Setpoints TZonSet(
+  Buildings.Controls.OBC.ASHRAE.G36_2018.ThermalZones.Setpoints TZonSet(
     final have_occSen=have_occSen,
     final have_winSen=have_winSen)
     "Compute zone temperature setpoints"
     annotation (Placement(transformation(extent={{-60,-20},{-40,20}})));
 
-  Buildings.Controls.OBC.ASHRAE.G36-2018-2018.ZoneGroups.ZoneStatus zonSta(
+  Buildings.Controls.OBC.ASHRAE.G36_2018.ZoneGroups.ZoneStatus zonSta(
     final have_winSen=have_winSen)
     "Evaluate zone temperature status"
     annotation (Placement(transformation(extent={{0,-120},{20,-92}})));
@@ -263,20 +263,20 @@ It contains the following components.
 </p>
 <ul>
 <li>
-<a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36-2018.TerminalUnits.Reheat.Controller\">
-Buildings.Controls.OBC.ASHRAE.G36-2018.TerminalUnits.Reheat.Controller</a> or
-<a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36-2018.TerminalUnits.CoolingOnly.Controller\">
-Buildings.Controls.OBC.ASHRAE.G36-2018.TerminalUnits.CoolingOnly.Controller</a>:
+<a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36_2018.TerminalUnits.Reheat.Controller\">
+Buildings.Controls.OBC.ASHRAE.G36_2018.TerminalUnits.Reheat.Controller</a> or
+<a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36_2018.TerminalUnits.CoolingOnly.Controller\">
+Buildings.Controls.OBC.ASHRAE.G36_2018.TerminalUnits.CoolingOnly.Controller</a>:
 Main controller for the terminal unit
 </li>
 <li>
-<a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36-2018.ThermalZones.Setpoints\">
-Buildings.Controls.OBC.ASHRAE.G36-2018.ThermalZones.Setpoints</a>:
+<a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36_2018.ThermalZones.Setpoints\">
+Buildings.Controls.OBC.ASHRAE.G36_2018.ThermalZones.Setpoints</a>:
 Computation of the zone temperature setpoints
 </li>
 <li>
-<a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36-2018.ZoneGroups.ZoneStatus\">
-Buildings.Controls.OBC.ASHRAE.G36-2018.ZoneGroups.ZoneStatus</a>:
+<a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36_2018.ZoneGroups.ZoneStatus\">
+Buildings.Controls.OBC.ASHRAE.G36_2018.ZoneGroups.ZoneStatus</a>:
 Computation of the zone warm-up and cooldown time
 </li>
 </ul>

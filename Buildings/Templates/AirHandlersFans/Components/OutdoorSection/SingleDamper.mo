@@ -3,7 +3,7 @@ model SingleDamper
   "Single damper for ventilation and economizer, with airflow measurement station"
   extends
     Buildings.Templates.AirHandlersFans.Components.Interfaces.PartialOutdoorSection(
-    final typ=Buildings.Controls.OBC.ASHRAE.G36-2018.Types.OutdoorAirSection.SingleDamper);
+    final typ=Buildings.Controls.OBC.ASHRAE.G36_2018.Types.OutdoorAirSection.SingleDamper);
 
   Buildings.Templates.Components.Actuators.Damper damOut(
     redeclare final package Medium = MediumAir,
@@ -36,8 +36,8 @@ model SingleDamper
   Buildings.Templates.Components.Sensors.SpecificEnthalpy hAirOut(
     redeclare final package Medium = MediumAir,
     final allowFlowReversal=allowFlowReversal,
-    final have_sen=typCtlEco == Buildings.Controls.OBC.ASHRAE.G36-2018-2018.Types.ControlEconomizer.FixedEnthalpyWithFixedDryBulb
-      or typCtlEco == Buildings.Controls.OBC.ASHRAE.G36-2018-2018.Types.ControlEconomizer.DifferentialEnthalpyWithFixedDryBulb,
+    final have_sen=typCtlEco == Buildings.Controls.OBC.ASHRAE.G36_2018.Types.ControlEconomizer.FixedEnthalpyWithFixedDryBulb
+      or typCtlEco == Buildings.Controls.OBC.ASHRAE.G36_2018.Types.ControlEconomizer.DifferentialEnthalpyWithFixedDryBulb,
     final m_flow_nominal=m_flow_nominal) "Outdoor air enthalpy sensor"
     annotation (Placement(transformation(extent={{20,-10},{40,10}})));
 

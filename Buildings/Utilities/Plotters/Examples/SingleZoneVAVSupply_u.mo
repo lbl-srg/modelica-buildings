@@ -34,7 +34,7 @@ the cooling loop signal (from 0 to +1).")
     "Scatter plot for fan speed"
     annotation (Placement(transformation(extent={{100,-60},{120,-40}})));
 
-  Buildings.Controls.OBC.ASHRAE.G36-2018.AHUs.SingleZone.VAV.SetPoints.Supply setPoiVAV(
+  Buildings.Controls.OBC.ASHRAE.G36_2018.AHUs.SingleZone.VAV.SetPoints.Supply setPoiVAV(
     maxHeaSpe=0.7,
     maxCooSpe=1,
     minSpe=0.3,
@@ -64,7 +64,7 @@ the cooling loop signal (from 0 to +1).")
     "Cooling control signal"
     annotation (Placement(transformation(extent={{-80,10},{-60,30}})));
 
-  Controls.OBC.CDL.Integers.Sources.Constant           opeMod(final k=Buildings.Controls.OBC.ASHRAE.G36-2018.Types.OperationModes.occupied)
+  Controls.OBC.CDL.Integers.Sources.Constant           opeMod(final k=Buildings.Controls.OBC.ASHRAE.G36_2018.Types.OperationModes.occupied)
     "AHU operation mode is occupied"
     annotation (Placement(transformation(extent={{-40,70},{-20,90}})));
   Controls.OBC.CDL.Reals.Sources.Constant           TZonCooSet(final k=
@@ -130,14 +130,14 @@ for a single zone VAV control logic
 the heating and cooling set point temperatures, and the fan speed,
 all as a function of the heating and cooling control signal.
 The sequence that will be used to plot the sequence diagram is
-<a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36-2018.AHUs.SingleZone.VAV.SetPoints.Supply\">
-Buildings.Controls.OBC.ASHRAE.G36-2018.AHUs.SingleZone.VAV.SetPoints.Supply</a>
+<a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36_2018.AHUs.SingleZone.VAV.SetPoints.Supply\">
+Buildings.Controls.OBC.ASHRAE.G36_2018.AHUs.SingleZone.VAV.SetPoints.Supply</a>
 and shown below.
 The plot will be generated in the file <code>plots.html</code>.
 </p>
 <p align=\"center\">
 <img alt=\"Image of set point reset\"
-src=\"modelica://Buildings/Resources/Images/Controls/OBC/ASHRAE/G36-2018/AHUs/SingleZone/VAV/SetPoints/Supply_Temperature.png\"/>
+src=\"modelica://Buildings/Resources/Images/Controls/OBC/ASHRAE/G36_2018/AHUs/SingleZone/VAV/SetPoints/Supply_Temperature.png\"/>
 </p>
 </html>", revisions="<html>
 <ul>

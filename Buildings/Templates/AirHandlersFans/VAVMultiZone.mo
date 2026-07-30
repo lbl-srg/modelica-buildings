@@ -201,8 +201,8 @@ model VAVMultiZone "Multiple-zone VAV"
     final allowFlowReversal=allowFlowReversalAir,
     final have_sen=
       secOutRel.have_eco and
-      (ctl.typCtlEco==Buildings.Controls.OBC.ASHRAE.G36-2018.Types.ControlEconomizer.DifferentialDryBulb or
-       ctl.typCtlEco==Buildings.Controls.OBC.ASHRAE.G36-2018.Types.ControlEconomizer.FixedDryBulbWithDifferentialDryBulb),
+      (ctl.typCtlEco==Buildings.Controls.OBC.ASHRAE.G36_2018.Types.ControlEconomizer.DifferentialDryBulb or
+       ctl.typCtlEco==Buildings.Controls.OBC.ASHRAE.G36_2018.Types.ControlEconomizer.FixedDryBulbWithDifferentialDryBulb),
     final typ=Buildings.Templates.Components.Types.SensorTemperature.Standard,
     final m_flow_nominal=mAirRet_flow_nominal)
     "Return air temperature sensor"
@@ -214,7 +214,7 @@ model VAVMultiZone "Multiple-zone VAV"
     final allowFlowReversal=allowFlowReversalAir,
     final have_sen=
       secOutRel.have_eco and
-      ctl.typCtlEco==Buildings.Controls.OBC.ASHRAE.G36-2018.Types.ControlEconomizer.DifferentialEnthalpyWithFixedDryBulb,
+      ctl.typCtlEco==Buildings.Controls.OBC.ASHRAE.G36_2018.Types.ControlEconomizer.DifferentialEnthalpyWithFixedDryBulb,
     final m_flow_nominal=mAirRet_flow_nominal)
     "Return air enthalpy sensor"
     annotation (

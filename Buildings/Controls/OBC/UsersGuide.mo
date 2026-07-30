@@ -180,8 +180,8 @@ This package contains control sequences for
 <ul>
 <li>
 HVAC airside system control
-<a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36-2018\">
-Buildings.Controls.OBC.ASHRAE.G36-2018</a>,
+<a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36_2018\">
+Buildings.Controls.OBC.ASHRAE.G36_2018</a>,
 </li>
 <li>
 radiant heating and cooling systems
