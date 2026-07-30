@@ -1,0 +1,9 @@
+compareVars :=
+  {
+    "zonSetGen.TPreTarHeaSet",
+    "zonSetGen.TSheTarHeaSet",
+    "zonSetGen.TDefHeaSet",
+    "zonSetGen.TPreTarCooSet",
+    "zonSetGen.TSheTarCooSet",
+    "zonSetGen.TDefCooSet"
+  };

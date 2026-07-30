@@ -1,0 +1,16 @@
+compareVars :=
+  {
+    "zonPri.yEna[1]",
+    "zonPri.yEna[2]",
+    "zonPri.yEna[3]",
+    "zonPri.yEna[4]",
+    "zonPri.yEna[5]",
+    "zonPri.TZon[1]",
+    "zonPri.TZon[2]",
+    "zonPri.TZon[3]",
+    "zonPri.TZon[4]",
+    "zonPri.TZon[5]",
+    "zonPri.TZonSet[1]",
+    "zonPri.nSel",
+    "zonPri.disFla[5]"
+  };
