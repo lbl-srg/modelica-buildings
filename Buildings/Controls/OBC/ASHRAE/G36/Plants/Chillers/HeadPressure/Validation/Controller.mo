@@ -128,14 +128,13 @@ pressure control. It has four instances:
 <br/>
 
 <p>
-It shows following process:
+It shows the following process:
 </p>
-
 <ul>
 <li>
 For instance <code>enaWSE</code>, since the economizer is enabled, the
 condenser water pump speed setpoint <code>yConWatPumSpeSet</code>
-equals to the design condenser water pump speed; the maximum tower
+equals the design condenser water pump speed; the maximum tower
 speed setpoint is maximum (1); and the head pressure control valve
 setpoint is mapped from the loop output.
 </li>
@@ -143,24 +142,23 @@ setpoint is mapped from the loop output.
 For instance <code>disWSE</code>, the economizer is disabled.
 The head pressure control valve is fully open. The maximum
 tower speed setpoint and the condenser water pump speed setpoint
-is mapped from the loop output, which ranges from 0 to 0.4. Thus the
-maximum tower speed setpoint is from 1 to 0.28 and the pump speed setpoint
-keeps at maximum (1).
+are mapped from the loop output, which ranges from 0 to 0.4. Thus, the
+maximum tower speed setpoint is from 1 to 0.28, and the pump speed setpoint
+is kept at maximum (1).
 </li>
-
 <li>
 For instance <code>conSpePum</code>, the pump speed is constant.
 The maximum tower speed setpoint and the head pressure control valve
-setpoint is mapped from the loop output, which ranges from 0 to 0.4. Thus the
-maximum tower speed setpoint is from 1 to 0.28 and the head pressure
-control valve setpoint keeps at maximum (1).
+setpoint is mapped from the loop output, which ranges from 0 to 0.4. Thus, the
+maximum tower speed setpoint is from 1 to 0.28, and the head pressure
+control valve setpoint is kept at maximum (1).
 </li>
 <li>
 For instance <code>varSpePum</code>, the pump speed is variable.
 The maximum tower speed setpoint and the condenser water pump speed setpoint
-is mapped from the loop output, which ranges from 0 to 0.4. Thus the
-maximum tower speed setpoint is from 1 to 0.28 and the pump speed setpoint
-keeps at the design condenser water pump speed.
+is mapped from the loop output, which ranges from 0 to 0.4. Thus, the
+maximum tower speed setpoint is from 1 to 0.28, and the pump speed setpoint
+is kept at the design condenser water pump speed.
 </li>
 </ul>
 </html>", revisions="<html>

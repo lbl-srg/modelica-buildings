@@ -5,7 +5,6 @@ model WSEOperation
   Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Towers.FanSpeed.EnabledWSE.Subsequences.WSEOperation
     wseOpe(
     fanSpeMin=0.1,
-    fanSpeMax=1,
     chiWatCon=Buildings.Controls.OBC.CDL.Types.SimpleController.PI,
     k=0.1,
     Ti=5)
@@ -16,36 +15,45 @@ model WSEOperation
     freqHz=1/1800,
     offset=273.15 + 7.1)
     "Chilled water supply temperature"
-    annotation (Placement(transformation(extent={{-80,10},{-60,30}})));
+    annotation (Placement(transformation(extent={{-80,-30},{-60,-10}})));
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant chiSupSet(
     k=273.15 + 7)
     "Chilled water supply water setpoint"
-    annotation (Placement(transformation(extent={{20,-40},{40,-20}})));
+    annotation (Placement(transformation(extent={{20,-80},{40,-60}})));
   Buildings.Controls.OBC.CDL.Reals.Sources.Ramp ram1(
     height=3,
     duration=3600,
     startTime=1500) "Ramp"
-    annotation (Placement(transformation(extent={{-80,-30},{-60,-10}})));
+    annotation (Placement(transformation(extent={{-80,-70},{-60,-50}})));
   Buildings.Controls.OBC.CDL.Reals.Add add2 "Add real inputs"
-    annotation (Placement(transformation(extent={{-20,-10},{0,10}})));
+    annotation (Placement(transformation(extent={{-20,-50},{0,-30}})));
   Buildings.Controls.OBC.CDL.Discrete.UnitDelay fanSpe(
     samplePeriod=1)
     "Current fan speed"
-    annotation (Placement(transformation(extent={{-20,50},{0,70}})));
-
+    annotation (Placement(transformation(extent={{-20,60},{0,80}})));
+  Buildings.Controls.OBC.CDL.Logical.Sources.Constant wseSta(k=true)
+    "WSE enabling status"
+    annotation (Placement(transformation(extent={{-20,0},{0,20}})));
+  CDL.Logical.Sources.Constant chiSta[2](final k=fill(false, 2))
+    "Chillers enabling status"
+    annotation (Placement(transformation(extent={{-80,30},{-60,50}})));
 equation
   connect(chiSupSet.y, wseOpe.TChiWatSupSet)
-    annotation (Line(points={{42,-30},{50,-30},{50,22},{58,22}}, color={0,0,127}));
+    annotation (Line(points={{42,-70},{50,-70},{50,38},{58,38}}, color={0,0,127}));
   connect(chiSup.y, add2.u1)
-    annotation (Line(points={{-58,20},{-40,20},{-40,6},{-22,6}}, color={0,0,127}));
+    annotation (Line(points={{-58,-20},{-40,-20},{-40,-34},{-22,-34}}, color={0,0,127}));
   connect(ram1.y, add2.u2)
-    annotation (Line(points={{-58,-20},{-40,-20},{-40,-6},{-22,-6}}, color={0,0,127}));
+    annotation (Line(points={{-58,-60},{-40,-60},{-40,-46},{-22,-46}}, color={0,0,127}));
   connect(add2.y, wseOpe.TChiWatSup)
-    annotation (Line(points={{2,0},{20,0},{20,30},{58,30}}, color={0,0,127}));
+    annotation (Line(points={{2,-40},{40,-40},{40,22},{58,22}}, color={0,0,127}));
   connect(wseOpe.ySpeSet, fanSpe.u) annotation (Line(points={{82,30},{90,30},{90,
-          80},{-30,80},{-30,60},{-22,60}}, color={0,0,127}));
-  connect(fanSpe.y, wseOpe.uFanSpe) annotation (Line(points={{2,60},{20,60},{20,
-          38},{58,38}}, color={0,0,127}));
+          90},{-30,90},{-30,70},{-22,70}}, color={0,0,127}));
+  connect(fanSpe.y, wseOpe.uFanSpe) annotation (Line(points={{2,70},{40,70},{40,
+          27},{58,27}}, color={0,0,127}));
+  connect(wseSta.y, wseOpe.uWse) annotation (Line(points={{2,10},{20,10},{20,31},
+          {58,31}}, color={255,0,255}));
+  connect(chiSta.y, wseOpe.uChi) annotation (Line(points={{-58,40},{0,40},{0,34},
+          {58,34}}, color={255,0,255}));
 annotation (experiment(StopTime=3600.0, Tolerance=1e-06),
   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/ASHRAE/G36/Plants/Chillers/Towers/FanSpeed/EnabledWSE/Subsequences/Validation/WSEOperation.mos"
     "Simulate and plot"),
@@ -54,29 +62,29 @@ annotation (experiment(StopTime=3600.0, Tolerance=1e-06),
 This example validates
 <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Towers.FanSpeed.EnabledWSE.Subsequences.WSEOperation\">
 Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Towers.FanSpeed.EnabledWSE.Subsequences.WSEOperation</a>.
-It shows following control process:
+It shows the following control process:
 </p>
 <ul>
 <li>
-In the begining period, the chilled water supply temperature is greater than the setpoint.
+In the beginning period, the chilled water supply temperature is greater than the setpoint.
 The direct acting PID controller increases the output to the maximum output so that
 the fan speed setpoint is 1. The measured fan speed becomes 1.
 </li>
 <li>
-In the following period, the chilled water supply temperature gradually reduces and
-till to becomes lower than the setpoint, the PID controller decreases the output to
+In the following period, the chilled water supply temperature gradually reduces until
+it becomes lower than the setpoint, the PID controller decreases the output to
 the minimum so that the fan speed setpoint becomes the minimum. The measured speed
 becomes the minimum as well.
 </li>
 <li>
-In the next period, after a 300 seconds during which both the chilled water supply
-temperature is lower than the setpoint and the fan speed stays at minimum value,
-the fan cycles off that the fan speed setpoint becomes zero. Thus the measured
+In the next period, after 300 seconds during which both the chilled water supply
+temperature is lower than the setpoint and the fan speed stays at the minimum value,
+the fan cycles off that the fan speed setpoint becomes zero. Thus, the measured
 speed becomes zero.
 </li>
 <li>
 After the fan has cycled off for more than 180 seconds, and the chilled water supply
-temperature becomes greater than the setpoint plus 1 &deg;F, the fan turns on and
+temperature becomes greater than the setpoint plus 1 &deg;F, the fan turns on, and
 the direct PID controller increases the output to the maximum output
 and so the fan speed setpoint becomes 1. The measured speed becomes 1.
 </li>

@@ -3,15 +3,15 @@ block SetpointController
   "Calculates the chiller stage status setpoint signal"
 
   parameter Boolean have_WSE = false
-    "true = plant has a WSE, false = plant does not have WSE"
+    "True = plant has a WSE, false = plant does not have WSE"
     annotation (Dialog(tab="General", group="Plant configuration parameters"));
 
   parameter Boolean have_serChi = false
-    "true = series chillers plant; false = parallel chillers plant"
+    "True = series chillers plant; false = parallel chillers plant"
     annotation (Dialog(tab="General", group="Plant configuration parameters"));
 
-  parameter Boolean have_locSen=false
-    "Flag of local DP sensor: true=local DP sensor hardwired to controller"
+  parameter Boolean have_senDpChiWatRemWir=true
+    "True = remote DP sensor hardwired to controller"
     annotation (Dialog(tab="General", group="Plant configuration parameters", enable=not have_serChi));
 
   parameter Integer nRemSen=2
@@ -56,7 +56,7 @@ block SetpointController
       "Time period for the capacity requirement rolling average"
     annotation (Dialog(tab="Time parameters", group="Hold and delay parameters"));
 
-  parameter Real delayStaCha(
+  parameter Real delStaCha(
     unit="s",
     displayUnit="h")=900
       "Hold period for each stage change"
@@ -139,25 +139,25 @@ block SetpointController
   parameter Real TDif(
     unit="K",
     displayUnit="degC")=1
-      "Offset between the chilled water supply temperature and its setpoint for staging down to WSE only"
+    "Offset between the chilled water supply temperature and its setpoint for staging down to WSE only"
     annotation (Dialog(tab="Conditionals", group="Value comparison parameters"));
 
   parameter Real TDifHys(
     unit="K",
     displayUnit="degC")=1
-      "Hysteresis deadband for temperature"
+    "Hysteresis deadband for temperature"
     annotation (Dialog(tab="Conditionals", group="Value comparison parameters"));
 
   parameter Real faiSafDpDif(
     unit="Pa",
     displayUnit="Pa")=2*6895
-      "Offset between the chilled water differential pressure and its setpoint"
+    "Offset between the chilled water differential pressure and its setpoint"
     annotation (Dialog(tab="Conditionals", group="Value comparison parameters"));
 
   parameter Real dpDifHys(
     unit="Pa",
     displayUnit="Pa")=0.5*6895
-      "Pressure difference hysteresis deadband"
+    "Pressure difference hysteresis deadband"
     annotation (Dialog(tab="Conditionals", group="Value comparison parameters"));
 
   parameter Real effConSigDif(unit="1")=0.05
@@ -165,11 +165,11 @@ block SetpointController
     annotation (Dialog(tab="Conditionals", group="Value comparison parameters"));
 
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uPla "Plant enable signal"
-    annotation (Placement(
-        transformation(extent={{-440,-120},{-400,-80}}), iconTransformation(
-          extent={{-140,110},{-100,150}})));
+    annotation (Placement(transformation(extent={{-440,-120},{-400,-80}}),
+      iconTransformation(extent={{-140,110},{-100,150}})));
 
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput chaPro "Stage change process status signal"
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput chaPro
+    "Stage change process status signal"
     annotation (Placement(transformation(extent={{-440,-160},{-400,-120}}),
         iconTransformation(extent={{-140,150},{-100,190}})));
 
@@ -187,19 +187,26 @@ block SetpointController
     final min=0,
     final max=nSta)
     "Chiller stage"
-    annotation (Placement(transformation(extent={{-440,
-            -80},{-400,-40}}), iconTransformation(extent={{-140,80},{-100,120}})));
+    annotation (Placement(transformation(extent={{-440,-80},{-400,-40}}),
+        iconTransformation(extent={{-140,80},{-100,120}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TWsePre(
     final quantity="ThermodynamicTemperature",
     final unit="K") if have_WSE
     "Predicted WSE outlet temperature"
-    annotation (Placement(transformation(extent={{-440,70},{-400,110}}),
+    annotation (Placement(transformation(extent={{-440,84},{-400,124}}),
        iconTransformation(extent={{-140,-210},{-100,-170}})));
+
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput TConWatRet(
+    final unit="K",
+    final quantity="ThermodynamicTemperature")
+    "Condenser water return temperature (condenser leaving)"
+    annotation (Placement(transformation(extent={{-440,30},{-400,70}}),
+        iconTransformation(extent={{-140,20},{-100,60}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uTowFanSpeMax if have_WSE
     "Maximum cooling tower fan speed"
-    annotation (Placement(transformation(extent={{-440,40},{-400,80}}),
+    annotation (Placement(transformation(extent={{-440,54},{-400,94}}),
         iconTransformation(extent={{-140,-160},{-100,-120}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uLifMin(
@@ -221,50 +228,47 @@ block SetpointController
     final quantity="ThermodynamicTemperature")
     "Chilled water supply temperature setpoint"
     annotation (Placement(transformation(extent={{-442,350},{-402,390}}),
-        iconTransformation(extent={{-140,50},{-100,90}})));
+        iconTransformation(extent={{-140,60},{-100,100}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TChiWatRet(
     final unit="K",
     final quantity="ThermodynamicTemperature")
     "Chilled water return temperature"
-    annotation (Placement(transformation(extent={{-440,280},{-400,320}}),
+    annotation (Placement(transformation(extent={{-440,294},{-400,334}}),
         iconTransformation(extent={{-140,-190},{-100,-150}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput VChiWat_flow(
     final quantity="VolumeFlowRate",
     final unit="m3/s") "Measured chilled water flow rate"
-    annotation (Placement(transformation(extent={{-440,250},{-400,290}}),
+    annotation (Placement(transformation(extent={{-440,264},{-400,304}}),
         iconTransformation(extent={{-140,-230},{-100,-190}})));
 
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput dpChiWatPumSet_local(
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput dpChiWatSet_local(
     final unit="Pa",
-    final quantity="PressureDifference")
-    if (not have_serChi) and have_locSen
-    "Chilled water pump differential static pressure setpoint for local sensor"
-    annotation (Placement(transformation(extent={{-440,220},{-400,260}}),
+    final quantity="PressureDifference") if (not have_serChi) and not have_senDpChiWatRemWir
+    "Chilled water local differential static pressure setpoint"
+    annotation (Placement(transformation(extent={{-440,234},{-400,274}}),
         iconTransformation(extent={{-140,-40},{-100,0}})));
 
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput dpChiWatPum_local(
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput dpChiWat_local(
     final unit="Pa",
-    final quantity="PressureDifference") if (not have_serChi) and have_locSen
+    final quantity="PressureDifference") if (not have_serChi) and not have_senDpChiWatRemWir
     "Chilled water pump differential static pressure from local sensor"
-    annotation (Placement(transformation(extent={{-440,190},{-400,230}}),
+    annotation (Placement(transformation(extent={{-440,204},{-400,244}}),
         iconTransformation(extent={{-140,-60},{-100,-20}})));
 
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput dpChiWatPumSet_remote[nRemSen](
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput dpChiWatSet_remote[nRemSen](
     final unit=fill("Pa", nRemSen),
-    final quantity=fill("PressureDifference",nRemSen))
-    if (not have_serChi) and (not have_locSen)
-    "Chilled water differential pressure setpoint for remote sensor"
-    annotation (Placement(transformation(extent={{-440,160},{-400,200}}),
+    final quantity=fill("PressureDifference",nRemSen)) if (not have_serChi) and (have_senDpChiWatRemWir)
+    "Chilled water remote differential pressure setpoint"
+    annotation (Placement(transformation(extent={{-440,174},{-400,214}}),
         iconTransformation(extent={{-140,-80},{-100,-40}})));
 
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput dpChiWatPum_remote[nRemSen](
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput dpChiWat_remote[nRemSen](
     final unit=fill("Pa", nRemSen),
-    final quantity=fill("PressureDifference",nRemSen))
-    if (not have_serChi) and (not have_locSen)
+    final quantity=fill("PressureDifference",nRemSen)) if (not have_serChi) and (have_senDpChiWatRemWir)
     "Chilled water differential pressure from remote sensor"
-    annotation (Placement(transformation(extent={{-440,130},{-400,170}}),
+    annotation (Placement(transformation(extent={{-440,144},{-400,184}}),
         iconTransformation(extent={{-140,-100},{-100,-60}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TChiWatSup(
@@ -272,19 +276,19 @@ block SetpointController
     final quantity="ThermodynamicTemperature")
     "Chilled water supply temperature"
     annotation (Placement(transformation(extent={{-442,320},{-402,360}}),
-    iconTransformation(extent={{-140,30},{-100,70}})));
+        iconTransformation(extent={{-140,40},{-100,80}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uTunPar if have_WSE
     "Tuning parameter as at last plant disable"
-    annotation (Placement(transformation(extent={{-440,100},{-400,140}}),
-      iconTransformation(extent={{-140,-140},{-100,-100}})));
+    annotation (Placement(transformation(extent={{-440,114},{-400,154}}),
+        iconTransformation(extent={{-140,-140},{-100,-100}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TOutWet(
     final unit="K",
     final quantity="ThermodynamicTemperature") if have_WSE
     "Outdoor air wet bulb temperature"
     annotation (Placement(transformation(extent={{-440,380},{-400,420}}),
-      iconTransformation(extent={{-140,-120},{-100,-80}})));
+        iconTransformation(extent={{-140,-120},{-100,-80}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yChiSet[nChi]
     "Chiller status setpoint vector for the current chiller stage setpoint"
@@ -316,17 +320,17 @@ block SetpointController
     final max=nSta)
     "Chiller stage integer setpoint"
     annotation (Placement(transformation(extent={{120,220},{160,260}}),
-      iconTransformation(extent={{100,-130},{140,-90}})));
+        iconTransformation(extent={{100,-130},{140,-90}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yUp
     "Stage up signal"
     annotation (Placement(transformation(extent={{120,60},{160,100}}),
-      iconTransformation(extent={{100,160},{140,200}})));
+        iconTransformation(extent={{100,160},{140,200}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yDow
     "Stage down signal"
     annotation (Placement(transformation(extent={{120,22},{156,58}}),
-      iconTransformation(extent={{100,130},{140,170}})));
+        iconTransformation(extent={{100,130},{140,170}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yOpeParLoaRatMin(
     final unit="1",
@@ -345,7 +349,7 @@ block SetpointController
   Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Staging.SetPoints.Subsequences.Up staUp(
     final have_WSE=have_WSE,
     final have_serChi=have_serChi,
-    final have_locSen=have_locSen,
+    final have_senDpChiWatRemWir=have_senDpChiWatRemWir,
     final nRemSen=nRemSen,
     final effConTruDelay=effConTruDelay,
     final faiSafTruDelay=faiSafTruDelay,
@@ -363,7 +367,7 @@ block SetpointController
   Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Staging.SetPoints.Subsequences.Down staDow(
     final have_WSE=have_WSE,
     final have_serChi=have_serChi,
-    final have_locSen=have_locSen,
+    final have_senDpChiWatRemWir=have_senDpChiWatRemWir,
     final nRemSen=nRemSen,
     final parLoaRatDelay=parLoaRatDelay,
     final faiSafTruDelay=faiSafTruDelay,
@@ -375,7 +379,7 @@ block SetpointController
 
   Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Staging.SetPoints.Subsequences.CapacityRequirement capReq(
     final avePer = avePer,
-    final holPer = delayStaCha) "Capacity requirement"
+    final holPer = delStaCha) "Capacity requirement"
     annotation (Placement(transformation(extent={{-320,300},{-300,320}})));
 
   Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Staging.SetPoints.Subsequences.Capacities cap(
@@ -388,7 +392,7 @@ protected
     if chiTyp[i] == Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Types.ChillersAndStages.PositiveDisplacement then 1
     else if chiTyp[i] == Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Types.ChillersAndStages.VariableSpeedCentrifugal then 2
     else 3 for i in 1:nChi}
-  "Convert chiller type to integer";
+    "Convert chiller type to integer";
 
   Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Staging.SetPoints.Subsequences.Initial iniSta(
     final have_WSE=have_WSE) "Initia stage"
@@ -407,7 +411,8 @@ protected
   Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Staging.SetPoints.Subsequences.Status sta(
     final nSta=nSta,
     final nChi=nChi,
-    final staMat=staMat) "First higher and lower available stage index, end stage boolean flags and chiller status setpoints"
+    final staMat=staMat)
+    "First higher and lower available stage index, end stage boolean flags and chiller status setpoints"
     annotation (Placement(transformation(extent={{-320,-220},{-300,-200}})));
 
   Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Staging.SetPoints.Subsequences.PartLoadRatios PLRs(
@@ -417,12 +422,13 @@ protected
     final conSpeCenMult=conSpeCenMult,
     final anyOutOfScoMult=anyOutOfScoMult,
     final varSpeStaMin=varSpeStaMin,
-    final varSpeStaMax=varSpeStaMax) "Operative and staging part load ratios"
+    final varSpeStaMax=varSpeStaMax)
+    "Operative and staging part load ratios"
     annotation (Placement(transformation(extent={{-182,-200},{-162,-160}})));
 
   Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Staging.SetPoints.Subsequences.Change cha(
     final nSta=nSta,
-    final delayStaCha=delayStaCha) "Stage change assignment"
+    final delStaCha=delStaCha) "Stage change assignment"
     annotation (Placement(transformation(extent={{-20,-180},{0,-160}})));
 
   Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Staging.SetPoints.Subsequences.ChillerIndices chiInd(
@@ -443,10 +449,10 @@ equation
           {-332,-216},{-322,-216}},color={255,0,255}));
   connect(TChiWatSupSet, capReq.TChiWatSupSet) annotation (Line(points={{-422,370},
           {-360,370},{-360,319},{-322,319}}, color={0,0,127}));
-  connect(TChiWatRet, capReq.TChiWatRet) annotation (Line(points={{-420,300},{-374,
-          300},{-374,314},{-322,314}}, color={0,0,127}));
-  connect(VChiWat_flow, capReq.VChiWat_flow) annotation (Line(points={{-420,270},
-          {-370,270},{-370,309},{-322,309}}, color={0,0,127}));
+  connect(TChiWatRet, capReq.TChiWatRet) annotation (Line(points={{-420,314},{-322,
+          314}},                       color={0,0,127}));
+  connect(VChiWat_flow, capReq.VChiWat_flow) annotation (Line(points={{-420,284},
+          {-370,284},{-370,309},{-322,309}}, color={0,0,127}));
   connect(conf.yDesCap, cap.uDesCap) annotation (Line(points={{-338,-162},{-322,
           -162},{-322,-161},{-272,-161}}, color={0,0,127}));
   connect(conf.yMinCap, cap.uMinCap) annotation (Line(points={{-338,-166},{-312,
@@ -458,92 +464,72 @@ equation
   connect(sta.yHig, cap.uHig) annotation (Line(points={{-298,-211},{-280,-211},
           {-280,-176},{-272,-176}},color={255,0,255}));
   connect(capReq.y, PLRs.uCapReq) annotation (Line(points={{-298,310},{-194,310},
-          {-194,-166},{-184,-166}},
-                                  color={0,0,127}));
+          {-194,-166},{-184,-166}}, color={0,0,127}));
   connect(cap.yDes, PLRs.uCapDes) annotation (Line(points={{-248,-162},{-234,
-          -162},{-234,-168},{-184,-168}},
-                                  color={0,0,127}));
+          -162},{-234,-168},{-184,-168}}, color={0,0,127}));
   connect(cap.yUpDes, PLRs.uUpCapDes) annotation (Line(points={{-248,-166},{
-          -236,-166},{-236,-170},{-184,-170}},
-                                  color={0,0,127}));
+          -236,-166},{-236,-170},{-184,-170}}, color={0,0,127}));
   connect(cap.yDowDes, PLRs.uDowCapDes) annotation (Line(points={{-248,-170},{
-          -238,-170},{-238,-172},{-184,-172}},
-                                       color={0,0,127}));
+          -238,-170},{-238,-172},{-184,-172}}, color={0,0,127}));
   connect(cap.yMin, PLRs.uCapMin) annotation (Line(points={{-248,-174},{-240,
-          -174},{-240,-175},{-184,-175}},
-                                  color={0,0,127}));
+          -174},{-240,-175},{-184,-175}}, color={0,0,127}));
   connect(cap.yUpMin, PLRs.uUpCapMin) annotation (Line(points={{-248,-178},{
-          -242,-178},{-242,-177},{-184,-177}},
-                                       color={0,0,127}));
+          -242,-178},{-242,-177},{-184,-177}}, color={0,0,127}));
   connect(uLifMax, PLRs.uLifMax) annotation (Line(points={{-420,20},{-212,20},{
-          -212,-182},{-184,-182}},
-                                 color={0,0,127}));
+          -212,-182},{-184,-182}}, color={0,0,127}));
   connect(uLifMin, PLRs.uLifMin) annotation (Line(points={{-420,-10},{-222,-10},
-          {-222,-184},{-184,-184}},
-                                 color={0,0,127}));
+          {-222,-184},{-184,-184}}, color={0,0,127}));
   connect(conf.yTyp, PLRs.uTyp) annotation (Line(points={{-338,-174},{-302,-174},
-          {-302,-188},{-184,-188}},                    color={255,127,0}));
+          {-302,-188},{-184,-188}}, color={255,127,0}));
   connect(sta.yAvaUp, PLRs.uUp) annotation (Line(points={{-298,-203},{-246,-203},
           {-246,-194},{-184,-194}}, color={255,127,0}));
   connect(sta.yAvaDow, PLRs.uDown)
     annotation (Line(points={{-298,-206},{-242,-206},{-242,-196},{-184,-196}},
-                                                       color={255,127,0}));
+          color={255,127,0}));
   connect(sta.yLow, cap.uLow) annotation (Line(points={{-298,-214},{-278,-214},
           {-278,-179},{-272,-179}},color={255,0,255}));
   connect(PLRs.yOpe, staUp.uOpe) annotation (Line(points={{-160,-172},{-136,
-          -172},{-136,-99},{-102,-99}},
-                             color={0,0,127}));
+          -172},{-136,-99},{-102,-99}}, color={0,0,127}));
   connect(PLRs.yStaUp, staUp.uStaUp) annotation (Line(points={{-160,-181},{-134,
-          -181},{-134,-101},{-102,-101}},
-                                color={0,0,127}));
+          -181},{-134,-101},{-102,-101}}, color={0,0,127}));
   connect(TChiWatSupSet, staUp.TChiWatSupSet) annotation (Line(points={{-422,
-          370},{-162,370},{-162,-103},{-102,-103}},
-                                       color={0,0,127}));
-  connect(TChiWatSup, staUp.TChiWatSup) annotation (Line(points={{-422,340},{
-          -386,340},{-386,284},{-164,284},{-164,-105},{-102,-105}},
-                                                         color={0,0,127}));
-  connect(dpChiWatPumSet_local, staUp.dpChiWatPumSet_local) annotation (Line(
-        points={{-420,240},{-144,240},{-144,-107},{-102,-107}}, color={0,0,127}));
-  connect(dpChiWatPum_local, staUp.dpChiWatPum_local) annotation (Line(points={{-420,
-          210},{-146,210},{-146,-109},{-102,-109}},      color={0,0,127}));
+          370},{-162,370},{-162,-103},{-102,-103}}, color={0,0,127}));
+  connect(TChiWatSup, staUp.TChiWatSup) annotation (Line(points={{-422,340},{-260,
+          340},{-260,284},{-164,284},{-164,-105},{-102,-105}},
+          color={0,0,127}));
+  connect(dpChiWatSet_local, staUp.dpChiWatSet_local) annotation (Line(points={
+          {-420,254},{-144,254},{-144,-107},{-102,-107}}, color={0,0,127}));
+  connect(dpChiWat_local, staUp.dpChiWat_local) annotation (Line(points={{-420,
+          224},{-146,224},{-146,-109},{-102,-109}}, color={0,0,127}));
   connect(PLRs.yOpeDow, staDow.uOpeDow) annotation (Line(points={{-160,-176},{
-          -142,-176},{-142,-219},{-102,-219}},
-                                color={0,0,127}));
+          -142,-176},{-142,-219},{-102,-219}}, color={0,0,127}));
   connect(staDow.uStaDow, PLRs.yStaDow) annotation (Line(points={{-102,-221},{
-          -144,-221},{-144,-183},{-160,-183}},
-                               color={0,0,127}));
-  connect(dpChiWatPumSet_local, staDow.dpChiWatPumSet_local) annotation (Line(
-        points={{-420,240},{-144,240},{-144,-223},{-102,-223}}, color={0,0,127}));
-  connect(dpChiWatPum_local, staDow.dpChiWatPum_local) annotation (Line(points={
-          {-420,210},{-146,210},{-146,-225},{-102,-225}}, color={0,0,127}));
+          -144,-221},{-144,-183},{-160,-183}}, color={0,0,127}));
+  connect(dpChiWatSet_local, staDow.dpChiWatSet_local) annotation (Line(points=
+          {{-420,254},{-144,254},{-144,-223},{-102,-223}}, color={0,0,127}));
+  connect(dpChiWat_local, staDow.dpChiWat_local) annotation (Line(points={{-420,
+          224},{-146,224},{-146,-225},{-102,-225}}, color={0,0,127}));
   connect(TChiWatSupSet, staDow.TChiWatSupSet) annotation (Line(points={{-422,370},
-          {-152,370},{-152,-231.2},{-102,-231.2}},
-                                         color={0,0,127}));
-  connect(TChiWatSup, staDow.TChiWatSup) annotation (Line(points={{-422,340},{-386,
-          340},{-386,284},{-154,284},{-154,-233.2},{-102,-233.2}},
-                                                       color={0,0,127}));
-  connect(TWsePre, staDow.TWsePre) annotation (Line(points={{-420,90},{-156,90},
-          {-156,-235.2},{-102,-235.2}},
-                            color={0,0,127}));
-  connect(uTowFanSpeMax, staDow.uTowFanSpeMax) annotation (Line(points={{-420,60},
-          {-158,60},{-158,-237.2},{-102,-237.2}},
-                                      color={0,0,127}));
+          {-152,370},{-152,-231.2},{-102,-231.2}}, color={0,0,127}));
+  connect(TChiWatSup, staDow.TChiWatSup) annotation (Line(points={{-422,340},{-260,
+          340},{-260,284},{-154,284},{-154,-233.2},{-102,-233.2}}, color={0,0,127}));
+  connect(TWsePre, staDow.TWsePre) annotation (Line(points={{-420,104},{-156,104},
+          {-156,-235.2},{-102,-235.2}}, color={0,0,127}));
+  connect(uTowFanSpeMax, staDow.uTowFanSpeMax) annotation (Line(points={{-420,74},
+          {-158,74},{-158,-237.2},{-102,-237.2}}, color={0,0,127}));
   connect(staDow.uWseSta, uWseSta) annotation (Line(points={{-102,-241},{-340,
-          -241},{-340,-260},{-420,-260}},
-                                    color={255,0,255}));
+          -241},{-340,-260},{-420,-260}}, color={255,0,255}));
   connect(uSta, sta.u) annotation (Line(points={{-420,-60},{-328,-60},{-328,-204},
           {-322,-204}}, color={255,127,0}));
   connect(sta.yAvaCur, staUp.uAvaCur) annotation (Line(points={{-298,-217},{
           -242,-217},{-242,-210},{-122,-210},{-122,-117},{-102,-117}},
-                                                           color={255,0,255}));
+           color={255,0,255}));
   connect(uSta, cap.u) annotation (Line(points={{-420,-60},{-328,-60},{-328,-167},
           {-272,-167}}, color={255,127,0}));
   connect(uSta, PLRs.u) annotation (Line(points={{-420,-60},{-232,-60},{-232,
-          -192},{-184,-192}},
-                        color={255,127,0}));
+          -192},{-184,-192}}, color={255,127,0}));
   connect(uSta, staUp.u) annotation (Line(points={{-420,-60},{-112,-60},{-112,
-          -115},{-102,-115}},
-                        color={255,127,0}));
+          -115},{-102,-115}}, color={255,127,0}));
   connect(uSta, staDow.u) annotation (Line(points={{-420,-60},{-328,-60},{-328,-239},
           {-102,-239}}, color={255,127,0}));
   connect(chaPro, capReq.chaPro) annotation (Line(points={{-420,-140},{-350,
@@ -555,22 +541,20 @@ equation
   connect(staUp.y, cha.uUp) annotation (Line(points={{-78,-110},{-50,-110},{-50,
           -172},{-22,-172}}, color={255,0,255}));
   connect(staDow.y, cha.uDow) annotation (Line(points={{-78,-230},{-60,-230},{
-          -60,-176},{-22,-176}},
-                             color={255,0,255}));
+          -60,-176},{-22,-176}}, color={255,0,255}));
   connect(uPla, cha.uPla) annotation (Line(points={{-420,-100},{-280,-100},{
-          -280,-140},{-70,-140},{-70,-180},{-22,-180}},
-                                             color={255,0,255}));
+          -280,-140},{-70,-140},{-70,-180},{-22,-180}}, color={255,0,255}));
   connect(cha.ySta, ySta) annotation (Line(points={{2,-166},{20,-166},{20,240},{
           140,240}}, color={255,127,0}));
   connect(cha.yChaEdg, yChaEdg) annotation (Line(points={{2,-174},{80,-174},{80,
-          -140},{140,-140}},     color={255,0,255}));
+          -140},{140,-140}}, color={255,0,255}));
   connect(chiInd.yChi, yChiSet) annotation (Line(points={{62,-230},{80,-230},{
           80,-260},{140,-260}}, color={255,0,255}));
   connect(cha.ySta, chiInd.u) annotation (Line(points={{2,-166},{20,-166},{20,
           -230},{38,-230}},  color={255,127,0}));
   connect(TChiWatSupSet, iniSta.TChiWatSupSet) annotation (Line(points={{-422,370},
           {-100,370},{-100,113},{-82,113}}, color={0,0,127}));
-  connect(uTunPar, iniSta.uTunPar) annotation (Line(points={{-420,120},{-104,120},
+  connect(uTunPar, iniSta.uTunPar) annotation (Line(points={{-420,134},{-104,134},
           {-104,116},{-82,116}}, color={0,0,127}));
   connect(iniSta.yIni, cha.uIni) annotation (Line(points={{-59,110},{-30,110},{-30,
           -160},{-22,-160}}, color={255,127,0}));
@@ -581,39 +565,35 @@ equation
   connect(uPla, iniSta.uPla) annotation (Line(points={{-420,-100},{-280,-100},{-280,
           104},{-82,104}}, color={255,0,255}));
   connect(cha.yChaUpEdg, yChaUpEdg) annotation (Line(points={{2,-170},{60,-170},
-          {60,-100},{140,-100}},
-                               color={255,0,255}));
+          {60,-100},{140,-100}}, color={255,0,255}));
   connect(cha.yChaDowEdg, yChaDowEdg) annotation (Line(points={{2,-178},{60,
-          -178},{60,-200},{140,-200}},
-                                  color={255,0,255}));
+          -178},{60,-200},{140,-200}}, color={255,0,255}));
   connect(PLRs.yOpeMin, yOpeParLoaRatMin) annotation (Line(points={{-160,-187},
-          {-130,-187},{-130,340},{140,340}},
-                               color={0,0,127}));
+          {-130,-187},{-130,340},{140,340}}, color={0,0,127}));
   connect(staUp.y, yUp) annotation (Line(points={{-78,-110},{-50,-110},{-50,80},
           {140,80}}, color={255,0,255}));
   connect(staDow.y, yDow) annotation (Line(points={{-78,-230},{-60,-230},{-60,
           40},{138,40}}, color={255,0,255}));
-  connect(TChiWatRet, lift.u1) annotation (Line(points={{-420,300},{-388,300},{-388,
-          46},{-262,46}}, color={0,0,127}));
   connect(TChiWatSupSet, lift.u2) annotation (Line(points={{-422,370},{-360,370},
           {-360,34},{-262,34}}, color={0,0,127}));
   connect(PLRs.uLif, lift.y) annotation (Line(points={{-184,-180},{-202,-180},{
-          -202,40},{-238,40}},
-                          color={0,0,127}));
+          -202,40},{-238,40}}, color={0,0,127}));
   connect(capReq.y, yCapReq) annotation (Line(points={{-298,310},{-194,310},{-194,
           390},{140,390}}, color={0,0,127}));
-  connect(dpChiWatPumSet_remote, staUp.dpChiWatPumSet_remote) annotation (Line(
-        points={{-420,180},{-148,180},{-148,-111},{-102,-111}}, color={0,0,127}));
-  connect(dpChiWatPumSet_remote, staDow.dpChiWatPumSet_remote) annotation (Line(
-        points={{-420,180},{-148,180},{-148,-227},{-102,-227}}, color={0,0,127}));
-  connect(dpChiWatPum_remote, staUp.dpChiWatPum_remote) annotation (Line(points={{-420,
-          150},{-150,150},{-150,-113},{-102,-113}},       color={0,0,127}));
-  connect(dpChiWatPum_remote, staDow.dpChiWatPum_remote) annotation (Line(
-        points={{-420,150},{-150,150},{-150,-229},{-102,-229}}, color={0,0,127}));
+  connect(dpChiWatSet_remote, staUp.dpChiWatSet_remote) annotation (Line(points
+        ={{-420,194},{-148,194},{-148,-111},{-102,-111}}, color={0,0,127}));
+  connect(dpChiWatSet_remote, staDow.dpChiWatSet_remote) annotation (Line(
+        points={{-420,194},{-148,194},{-148,-227},{-102,-227}}, color={0,0,127}));
+  connect(dpChiWat_remote, staUp.dpChiWat_remote) annotation (Line(points={{-420,
+          164},{-150,164},{-150,-113},{-102,-113}}, color={0,0,127}));
+  connect(dpChiWat_remote, staDow.dpChiWat_remote) annotation (Line(points={{-420,
+          164},{-150,164},{-150,-229},{-102,-229}}, color={0,0,127}));
   connect(iniSta.yIni, yIni) annotation (Line(points={{-59,110},{-30,110},{-30,300},
           {140,300}}, color={255,127,0}));
   connect(uPla, staUp.uPla) annotation (Line(points={{-420,-100},{-280,-100},{
           -280,-119},{-102,-119}}, color={255,0,255}));
+  connect(TConWatRet, lift.u1) annotation (Line(points={{-420,50},{-300,50},{-300,
+          46},{-262,46}}, color={0,0,127}));
   annotation (defaultComponentName = "staSetCon",
         Icon(coordinateSystem(extent={{-100,-220},{100,200}}, initialScale=0.2),
         graphics={
@@ -627,156 +607,132 @@ equation
           textColor={0,0,255},
           textString="%name"),
         Text(
-          extent={{-96,88},{-8,54}},
+          extent={{-96,98},{-8,64}},
           textColor={0,0,127},
-          pattern=LinePattern.Dash,
           textString="TChiWatSupSet"),
         Text(
-          extent={{-96,66},{-24,34}},
+          extent={{-96,76},{-24,44}},
           textColor={0,0,127},
-          pattern=LinePattern.Dash,
           textString="TChiWatSup"),
         Text(
           extent={{-96,-182},{-40,-198}},
           textColor={0,0,127},
-          pattern=LinePattern.Dash,
           textString="TWsePre"),
         Text(
           extent={{-98,-160},{-24,-178}},
           textColor={0,0,127},
-          pattern=LinePattern.Dash,
           textString="TChiWatRet"),
         Text(
           extent={{-98,-196},{-14,-222}},
           textColor={0,0,127},
-          pattern=LinePattern.Dash,
           textString="VChiWat_flow"),
         Text(
           extent={{-96,-128},{8,-152}},
           textColor={0,0,127},
-          pattern=LinePattern.Dash,
           textString="uTowFanSpeMax"),
         Text(
           extent={{-94,-10},{0,-32}},
           textColor={0,0,127},
-          pattern=LinePattern.Dash,
-          textString="dpChiWatPumSet_local",
-          visible=(not have_serChi) and have_locSen),
+          textString="dpChiWatSet_local",
+          visible=(not have_serChi) and not have_senDpChiWatRemWir),
         Text(
           extent={{-96,-28},{-10,-48}},
           textColor={0,0,127},
-          pattern=LinePattern.Dash,
-          textString="dpChiWatPum_local",
-          visible=(not have_serChi) and have_locSen),
+          textString="dpChiWat_local",
+          visible=(not have_serChi) and not have_senDpChiWatRemWir),
         Text(
           extent={{-96,8},{-48,-10}},
           textColor={0,0,127},
-          pattern=LinePattern.Dash,
           textString="uLifMin",
           visible=anyVsdCen),
         Text(
           extent={{-96,32},{-46,14}},
           textColor={0,0,127},
-          pattern=LinePattern.Dash,
           textString="uLifMax",
           visible=anyVsdCen),
         Text(
           extent={{-98,112},{-68,92}},
           textColor={244,125,35},
-          pattern=LinePattern.Dash,
           textString="uSta"),
         Text(
           extent={{-98,200},{-46,180}},
           textColor={217,67,180},
-          pattern=LinePattern.Dash,
           textString="uWseSta"),
         Text(
           extent={{-100,180},{-50,164}},
           textColor={217,67,180},
-          pattern=LinePattern.Dash,
           textString="chaPro"),
         Text(
           extent={{-96,142},{-68,120}},
           textColor={217,67,180},
-          pattern=LinePattern.Dash,
           textString="uPla"),
         Text(
           extent={{-96,160},{-44,142}},
           textColor={217,67,180},
-          pattern=LinePattern.Dash,
           textString="uChiAva"),
         Text(
           extent={{62,-116},{94,-100}},
           textColor={244,125,35},
-          pattern=LinePattern.Dash,
           textString="ySta"),
         Text(
           extent={{42,74},{94,50}},
           textColor={217,67,180},
-          pattern=LinePattern.Dash,
           textString="yChaEdg"),
         Text(
           extent={{40,-24},{92,-52}},
           textColor={217,67,180},
-          pattern=LinePattern.Dash,
           textString="yChiSet[]"),
         Text(
           extent={{-98,-110},{-48,-126}},
           textColor={0,0,127},
-          pattern=LinePattern.Dash,
           textString="uTunPar"),
         Text(
           extent={{-98,-90},{-46,-108}},
           textColor={0,0,127},
-          pattern=LinePattern.Dash,
           textString="TOutWet"),
         Text(
           extent={{28,112},{94,70}},
           textColor={217,67,180},
-          pattern=LinePattern.Dash,
           textString="yChaUpEdg"),
         Text(
           extent={{16,50},{94,14}},
           textColor={217,67,180},
-          pattern=LinePattern.Dash,
           textString="yChaDowEdg"),
         Text(
           extent={{-12,-154},{96,-200}},
           textColor={0,0,127},
-          pattern=LinePattern.Dash,
           textString="yOpeParLoaRatMin"),
         Text(
           extent={{54,194},{98,170}},
           textColor={217,67,180},
-          pattern=LinePattern.Dash,
           textString="yUp"),
         Text(
           extent={{52,164},{100,140}},
           textColor={217,67,180},
-          pattern=LinePattern.Dash,
           textString="yDow"),
         Text(
           extent={{42,-198},{94,-220}},
           textColor={0,0,127},
-          pattern=LinePattern.Dash,
           textString="yCapReq"),
         Text(
           extent={{-96,-48},{8,-72}},
           textColor={0,0,127},
-          pattern=LinePattern.Dash,
-          textString="dpChiWatPumSet_remote",
-          visible=(not have_serChi) and (not have_locSen)),
+          visible=(not have_serChi) and (have_senDpChiWatRemWir),
+          textString="dpChiWatSet_remote"),
         Text(
           extent={{-96,-68},{8,-92}},
           textColor={0,0,127},
-          pattern=LinePattern.Dash,
-          textString="dpChiWatPum_remote",
-          visible=(not have_serChi) and (not have_locSen)),
+          visible=(not have_serChi) and (have_senDpChiWatRemWir),
+          textString="dpChiWat_remote"),
         Text(
           extent={{62,-98},{94,-82}},
           textColor={244,125,35},
-          pattern=LinePattern.Dash,
-          textString="yIni")}),  Diagram(
+          textString="yIni"),
+        Text(
+          extent={{-98,56},{-26,24}},
+          textColor={0,0,127},
+          textString="TConWatRet")}),
+                                 Diagram(
         coordinateSystem(preserveAspectRatio=false,
         extent={{-400,-300},{120,420}})),
 Documentation(info="<html>
@@ -786,7 +742,7 @@ chiller stage integer index <code>ySta</code>, chiller stage change trigger sign
 <code>y</code> and a chiller status vector for the current stage <code>yChi</code>.
 </p>
 <p>
-It is implemented according to ASHRAE Guideline36-2021, section 5.20.4.1 - 15.
+It is implemented according to ASHRAE Guideline 36-2021, section 5.20.4.1 - 15.
 </p>
 <p>
 The controller contains the following subsequences:

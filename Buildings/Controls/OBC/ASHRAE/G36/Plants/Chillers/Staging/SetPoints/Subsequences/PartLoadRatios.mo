@@ -648,8 +648,6 @@ equation
         Text(
           extent={{-60,36},{64,-42}},
           textColor={0,0,127},
-          fillColor={255,255,255},
-          fillPattern=FillPattern.Solid,
           textString="PLR")}), Diagram(
         coordinateSystem(preserveAspectRatio=false,
         extent={{-380,-600},{380,340}})),
@@ -657,7 +655,7 @@ Documentation(info="<html>
 <p>
 Calculates operative part load ratios (OPLR) per sections 5.20.4.5, section 5.20.4.9,
 section 5.20.4.10 and stage part load ratios (SPLR, up or down) per section 5.20.4.14
-of Guideline36-2021.
+of Guideline 36-2021.
 </p>
 <p>
 OPLR is a ratio of the current capacity requirement to a given design or minimal

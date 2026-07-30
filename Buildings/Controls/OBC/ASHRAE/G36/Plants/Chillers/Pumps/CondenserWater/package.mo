@@ -4,8 +4,7 @@ package CondenserWater "Sequences for condenser water pump control"
 annotation (preferredView="info", Documentation(info="<html>
 <p>
 This package contains control sequences for condenser water pumps.
-The implementations are based on section 5.20.9 Condener water water pumps, 
-in ASHRAE Guideline36-2021.
+The implementations are based on section 5.20.9 in ASHRAE Guideline 36-2021.
 </p>
 </html>"), Icon(graphics={
         Rectangle(

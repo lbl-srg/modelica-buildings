@@ -5,7 +5,7 @@ annotation (
 preferredView="info", Documentation(info="<html>
 <p>
 This package contains sequences for cooling tower control.
-The implementation is based on section 5.20.12 in ASHRAE Guideline36-2021.
+The implementation is based on section 5.20.12 in ASHRAE Guideline 36-2021.
 </p>
 </html>"),
 Icon(graphics={

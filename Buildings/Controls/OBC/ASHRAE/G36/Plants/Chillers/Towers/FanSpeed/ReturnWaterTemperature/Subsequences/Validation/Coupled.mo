@@ -15,18 +15,13 @@ model Coupled
     final height=2,
     final duration=3600,
     final startTime=1500) "Ramp"
-    annotation (Placement(transformation(extent={{-80,50},{-60,70}})));
+    annotation (Placement(transformation(extent={{-80,70},{-60,90}})));
   Buildings.Controls.OBC.CDL.Reals.Add add2 "Add real inputs"
     annotation (Placement(transformation(extent={{-20,80},{0,100}})));
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant conRetSet(
     final k=273.15 + 32)
     "Condenser water return temperature setpoint"
     annotation (Placement(transformation(extent={{-20,110},{0,130}})));
-  Buildings.Controls.OBC.CDL.Reals.Sources.Ramp conWatPumSpe[2](
-    final height=fill(0.5, 2),
-    final duration=fill(3600, 2),
-    final startTime=fill(300, 2)) "Measured condenser water pump speed"
-    annotation (Placement(transformation(extent={{-20,40},{0,60}})));
   Buildings.Controls.OBC.CDL.Reals.Sources.Ramp towMaxSpe(
     final height=0.25,
     final duration=3600,
@@ -43,7 +38,7 @@ model Coupled
     final offset=0.9) "Maximum tower speed reset based on the partial load"
     annotation (Placement(transformation(extent={{0,-120},{20,-100}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Pulse chiSta1(
-    final width=0.2, final period=3600)  "Chiller one enabling status"
+    final width=0.2, final period=3600) "Chiller one enabling status"
     annotation (Placement(transformation(extent={{-80,-80},{-60,-60}})));
   Buildings.Controls.OBC.CDL.Logical.Not not1[2] "Logical not"
     annotation (Placement(transformation(extent={{-40,-100},{-20,-80}})));
@@ -57,18 +52,22 @@ model Coupled
     final period=3600)
     "Chiller one enabling status"
     annotation (Placement(transformation(extent={{-80,-120},{-60,-100}})));
+  Buildings.Controls.OBC.CDL.Logical.Sources.Pulse conWatPum[2](final width=
+        fill(0.1, 2), final period=fill(3600, 2)) "Condenser water pump status"
+    annotation (Placement(transformation(extent={{-80,30},{-60,50}})));
+  Buildings.Controls.OBC.CDL.Logical.Not not2[2]
+  "Logical not"
+    annotation (Placement(transformation(extent={{-20,30},{0,50}})));
 
 equation
   connect(conRetSet.y, couTowSpe.TConWatRetSet)
-    annotation (Line(points={{2,120},{20,120},{20,100},{58,100}}, color={0,0,127}));
+    annotation (Line(points={{2,120},{20,120},{20,99},{58,99}},   color={0,0,127}));
   connect(conRet.y, add2.u1)
     annotation (Line(points={{-58,120},{-40,120},{-40,96},{-22,96}}, color={0,0,127}));
   connect(ram1.y, add2.u2)
-    annotation (Line(points={{-58,60},{-40,60},{-40,84},{-22,84}}, color={0,0,127}));
+    annotation (Line(points={{-58,80},{-40,80},{-40,84},{-22,84}}, color={0,0,127}));
   connect(add2.y, couTowSpe.TConWatRet)
     annotation (Line(points={{2,90},{20,90},{20,96},{58,96}}, color={0,0,127}));
-  connect(conWatPumSpe.y, couTowSpe.uConWatPumSpe)
-    annotation (Line(points={{2,50},{26,50},{26,92},{58,92}},   color={0,0,127}));
   connect(chiSta1.y, not1[1].u)
     annotation (Line(points={{-58,-70},{-50,-70},{-50,-90},{-42,-90}},
       color={255,0,255}));
@@ -83,15 +82,18 @@ equation
       color={0,0,127}));
   connect(towMaxSpe.y, swi[1].u1)
     annotation (Line(points={{-58,10},{-20,10},{-20,-2},{-2,-2}}, color={0,0,127}));
-  connect(swi.y, couTowSpe.uMaxTowSpeSet)
-    annotation (Line(points={{22,-10},{32,-10},{32,88},{58,88}}, color={0,0,127}));
+  connect(swi.y, couTowSpe.uMaxSpeSet) annotation (Line(points={{22,-10},{32,-10},
+          {32,88},{58,88}}, color={0,0,127}));
   connect(zer.y, swi.u3)
     annotation (Line(points={{-18,-50},{-8,-50},{-8,-18},{-2,-18}}, color={0,0,127}));
   connect(not1.y, couTowSpe.uChi)
     annotation (Line(points={{-18,-90},{38,-90},{38,84},{58,84}}, color={255,0,255}));
   connect(plrTowMaxSpe.y, couTowSpe.plrTowMaxSpe)
-    annotation (Line(points={{22,-110},{44,-110},{44,80},{58,80}}, color={0,0,127}));
-
+    annotation (Line(points={{22,-110},{44,-110},{44,81},{58,81}}, color={0,0,127}));
+  connect(conWatPum.y, not2.u)
+    annotation (Line(points={{-58,40},{-22,40}}, color={255,0,255}));
+  connect(not2.y, couTowSpe.uConWatPum) annotation (Line(points={{2,40},{26,40},
+          {26,92},{58,92}}, color={255,0,255}));
 annotation (experiment(StopTime=3600.0, Tolerance=1e-06),
   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/ASHRAE/G36/Plants/Chillers/Towers/FanSpeed/ReturnWaterTemperature/Subsequences/Validation/Coupled.mos"
     "Simulate and plot"),
@@ -103,30 +105,30 @@ Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Towers.FanSpeed.ReturnWaterTem
 </p>
 <p>
 It shows tower fan speed control for a plant with 2 chillers. The chiller 2 becomes proven on
-since 360 seconds and the chiller 1 becomes proven on since 720 seconds. It shows following
+after 360 seconds, and the chiller 1 becomes proven on after 720 seconds. It shows the following
 processes:
 </p>
 <ul>
 <li>
-Before 360 seconds, no chiller is proven. Thus the two speed setpoint is 0.
+Before 360 seconds, no chiller is proven. Thus, the tow speed setpoint is 0.
 </li>
 <li>
 After 360 seconds, chiller 2 becomes proven on and the condenser water pump speed
 becomes greater than 0. When the pump speed becomes greater than the threshold
-and shows the pump is proven on at around 444 seconds, the PID controller retriggered
+and shows the pump is proven on at around 444 seconds, the PID controller is retriggered
 and the output starts from the minimum.
 However, before the condenser pump is proven on, the
 tow fan speed setpoint is 0.
 </li>
 <li>
 From around 444 seconds to 720 seconds, the tow fan speed setpoint is the minimum of
-<code>uMaxTowSpeSet[2]</code>, <code>plrTowMaxSpe</code> and the tower speed from
+<code>uMaxTowSpeSet[2]</code>, <code>plrTowMaxSpe</code>, and the tower speed from
 the loop mapping.
 </li>
 <li>
-After 720 seconds when the chiller 1 also becomes proven on, the tow fan speed
+After 720 seconds, when the chiller 1 also becomes proven on, the tow fan speed
 setpoint is the minimum of <code>uMaxTowSpeSet[1]</code>, 
-<code>uMaxTowSpeSet[2]</code>, <code>plrTowMaxSpe</code> and the tower speed from
+<code>uMaxTowSpeSet[2]</code>, <code>plrTowMaxSpe</code>, and the tower speed from
 the loop mapping.
 </li>
 </ul>

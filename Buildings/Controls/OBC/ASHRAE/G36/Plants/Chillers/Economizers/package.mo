@@ -5,7 +5,7 @@ annotation (
 preferredView="info", Documentation(info="<html>
 <p>
 This package contains waterside economizer (WSE) control sequences.
-The implementation is based on section 5.20.3. in ASHRAE Guideline36-2021.
+The implementation is based on section 5.20.3 of ASHRAE Guideline 36-2021.
 </p>
 </html>"),
 Icon(graphics={

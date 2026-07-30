@@ -17,13 +17,12 @@ The following <b style=\"color:blue\">new libraries</b> have been added:
     </td>
     <td valign=\"top\">System models for liquid cooled data centers.
     </td>
-</tr>
-<tr><td valign=\"top\">Buildings.Fluid.DataCenterEquipment
+    </tr>
+<tr><td valign=\"top\">Buildings.Controls.OBC.ASHRAE.G36.Plants
     </td>
-    <td valign=\"top\">Component models for liquid cooled data centers,
-                       such as CDUs and racks.
+    <td valign=\"top\">Package of sequences for chiller plants
     </td>
-</tr>
+    </tr>
 </table>
 <!-- New components for existing libraries -->
 <p>

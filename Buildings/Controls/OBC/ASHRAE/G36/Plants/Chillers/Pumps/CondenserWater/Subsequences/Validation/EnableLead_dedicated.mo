@@ -62,14 +62,14 @@ This example validates
 Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Pumps.CondenserWater.Subsequences.EnableLead_dedicated</a>.
 </p>
 <p>
-It shows the process of enabling and disabling lead condenser water pump
+It shows the process of enabling and disabling the lead condenser water pump
 of the plants with dedicated condenser water pumps.
 </p>
 <ul>
 <li>
 The instance <code>enaLeaConPum</code> shows that the lead pump
 is enabled at 300 seconds when the lead chiller is enabled. The pump
-becomes disabled at 2100 seconds when the lead chiller becomes not requiring 
+becomes disabled at 2100 seconds when the lead chiller no longer requires
 condenser water flow.
 </li>
 <li>

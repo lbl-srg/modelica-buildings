@@ -143,7 +143,7 @@ equation
       color={255,0,255}));
   connect(chiTwo.y, disHeaCon.uChiHeaCon[2])
     annotation (Line(points={{162,80},{170,80},{170,60},{52,60},{52,132.5},{58,132.5}},
-                 color={255,0,255}));
+          color={255,0,255}));
   connect(booPul2.y, staUp1.u)
     annotation (Line(points={{-118,-100},{-102,-100}}, color={255,0,255}));
   connect(booPul3.y, upStrDev1.u)
@@ -206,16 +206,16 @@ This example validates
 <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Staging.Processes.Subsequences.HeadControl\">
 Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Staging.Processes.Subsequences.HeadControl</a>.
 It has four instances as below to demonstrate the process of chiller head pressure
-control when the plant is in staging process.
+control when the plant is in the staging process.
 </p>
 <p>
 The instance <code>enaHeaCon</code> shows the head pressure control when the plant
-is in staging up process and it will enable chiller 2 (<code>nexChaChi=2</code>).
+is in the staging up process, and it will enable chiller 2 (<code>nexChaChi=2</code>).
 </p>
 <ul>
 <li>
 Before 18 seconds, the plant is not in the staging process, <code>uStaPro=false</code>.
-There is no change on the chiller head pressure control.
+There is no change in the chiller head pressure control.
 </li>
 <li>
 At 24 seconds, the condenser water pump speed (or number) has been changed
@@ -233,13 +233,13 @@ pressure control process is done (<code>yEnaHeaCon=true</code>).
 </ul>
 <p>
 The instance <code>disHeaCon</code> shows the head pressure control when the plant
-is in staging up process and it requires enabling a large chiller and disabling a
+is in the staging up process and it requires enabling a large chiller and disabling a
 small chiller. In this case, it disables chiller 2 (<code>nexChaChi=2</code>).
 </p>
 <ul>
 <li>
 Before 18 seconds, the plant is not in the staging process, <code>uStaPro=false</code>.
-There is no change on the chiller head pressure control.
+There is no change in the chiller head pressure control.
 </li>
 <li>
 At 24 seconds, the chiller 2 becomes not requesting for condenser water flow
@@ -249,13 +249,13 @@ and the head pressure control process is done (<code>yEnaHeaCon=true</code>).
 </ul>
 <p>
 The instance <code>disHeaCon1</code> shows the head pressure control when the plant
-is in staging down process and it requires disabling chiller 2
+is in the staging down process and it requires disabling chiller 2
 (<code>nexChaChi=2</code>).
 </p>
 <ul>
 <li>
 Before 18 seconds, the plant is not in the staging process, <code>uStaPro=false</code>.
-There is no change on the chiller head pressure control.
+There is no change in the chiller head pressure control.
 </li>
 <li>
 At 24 seconds, the chiller 2 becomes not requesting for condenser water flow
@@ -265,13 +265,13 @@ and the head pressure control process is done (<code>yEnaHeaCon=true</code>).
 </ul>
 <p>
 The instance <code>enaHeaCon1</code> shows the head pressure control when the plant
-is in staging down process and it requires disabling a large chiller and enabling
+is in the staging down process, and it requires disabling a large chiller and enabling
 a small chiller. In this case, it enables chiller 2 (<code>nexChaChi=2</code>).
 </p>
 <ul>
 <li>
 Before 18 seconds, the plant is not in the staging process, <code>uStaPro=false</code>.
-There is no change on the chiller head pressure control.
+There is no change in the chiller head pressure control.
 </li>
 <li>
 At 24 seconds, the minimum flow bypass valve has changed the position

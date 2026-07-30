@@ -110,26 +110,26 @@ Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.SetPoints.ChilledWaterPlantRes
 </p>
 <p>
 The instance <code>plaRes</code> shows the process of calculating the plant reset.
-It also shows that when the plant is in staging process, the reset value will be fixed
+It also shows that when the plant is in the staging process, the reset value will be fixed
 at the value when the staging process just starts.
 </p>
 <ul>
 <li>
-At the initial 1800 seconds, the plant is in the staging process. Thus the chilled
+At the initial 1800 seconds, the plant is in the staging process. Thus, the chilled
 water plant reset equals 0, which is the reset initial value.
 </li>
 <li>
 In the period between 1800 seconds and 3600 seconds, the plant is not in the staging
-process. Thus the plant reset equals the trim-respond output.
+process. Thus, the plant reset equals the trim-respond output.
 </li>
 <li>
-At the 3600 seconds, the staging process starts again and thus the plant reset
+At 3600 seconds, the staging process starts again, and thus the plant reset
 holds its value at 3600 seconds.
 </li>
 </ul>
 <p>
 The process of calculating the reset value follows the same steps.
-For the instance <code>devRes</code>, besides the same process as showing in the
+For the instance <code>devRes</code>, besides the same process as shown in the
 instance <code>plaRes</code>, the <code>devRes</code> also shows that the reset
 value will be zero when the device is disabled (<code>uDevSta=false</code>).
 </p>

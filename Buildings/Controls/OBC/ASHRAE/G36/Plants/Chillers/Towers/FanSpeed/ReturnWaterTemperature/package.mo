@@ -4,9 +4,9 @@ package ReturnWaterTemperature "Sequences of control tower fan speed for control
 annotation (
 preferredView="info", Documentation(info="<html>
 <p>
-This package contains sequences of cooling tower fan speed control, for control condenser
+This package contains sequences of cooling tower fan speed control, for controlling condenser
 water return temperature.
-The implementation is based on section 5.20.12.2, item a in ASHRAE Guideline36-2021.
+The implementation is based on section 5.20.12.2, item a in ASHRAE Guideline 36-2021.
 </p>
 </html>"),
 Icon(graphics={

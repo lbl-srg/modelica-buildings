@@ -59,24 +59,24 @@ annotation (
 This example validates
 <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Pumps.ChilledWater.Subsequences.EnableLead_dedicated\">
 Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Pumps.ChilledWater.Subsequences.EnableLead_dedicated</a>.
-The instances <code>enaLeaChiPum</code> and <code>disLeaChiPum</code> shows how the
-lead pump being enabled and disabled.
+The instances <code>enaLeaChiPum</code> and <code>disLeaChiPum</code> show how the
+lead pump is enabled and disabled.
 </p>
 <ul>
 <li>
 For the instance <code>enaLeaChiPum</code>, the plant enabling input becomes
-<code>true</code> at 200 second. At the meantime, the lead pump enabling output
+<code>true</code> at 200 seconds. At the meantime, the lead pump enabling output
 becomes <code>true</code>.
 </li>
 <li>
-For the instance <code>disLeaChiPum</code>, the plant and the lead chiller becomes
-disabled at 3000 second. The lead pump thus becomes disabled.
+For the instance <code>disLeaChiPum</code>, the plant and the lead chiller become
+disabled at 3000 seconds. The lead pump thus becomes disabled.
 </li>
 </ul>
 </html>", revisions="<html>
 <ul>
 <li>
-Arpil 4, 2019, by Jianjun Hu:<br/>
+April 4, 2019, by Jianjun Hu:<br/>
 First implementation.
 </li>
 </ul>

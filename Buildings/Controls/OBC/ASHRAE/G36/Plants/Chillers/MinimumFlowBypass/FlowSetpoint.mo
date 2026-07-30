@@ -326,10 +326,10 @@ protected
   Buildings.Controls.OBC.CDL.Logical.FallingEdge endSta
     "End staging change"
     annotation (Placement(transformation(extent={{240,50},{260,70}})));
-
   Buildings.Controls.OBC.CDL.Logical.Edge staChaSet1
     "Start changing the setpoint"
     annotation (Placement(transformation(extent={{180,-450},{200,-430}})));
+
 equation
   connect(uStaDow, not2.u)
     annotation (Line(points={{-460,-290},{-410,-290},{-410,-320},{-222,-320}},
@@ -658,7 +658,7 @@ equation
       color={0,0,127}));
   connect(multiMax6.y, byPasSet1.u1)
     annotation (Line(points={{-58,-10},{40,-10},{40,280},{380,280},{380,248},{398,
-          248}},     color={0,0,127}));
+          248}}, color={0,0,127}));
   connect(multiMax1.y, oneLeSet.f1)
     annotation (Line(points={{-58,-50},{60,-50},{60,-26},{98,-26}},
       color={0,0,127}));
@@ -692,8 +692,7 @@ equation
   connect(mul3.y, max1.u2) annotation (Line(points={{-98,-80},{-80,-80},{-80,-96},
           {-22,-96}},  color={0,0,127}));
   connect(reaScaRep.y[3], mul3.u1) annotation (Line(points={{-248,-69.3333},{
-          -180,-69.3333},{-180,-74},{-122,-74}},
-                                              color={0,0,127}));
+          -180,-69.3333},{-180,-74},{-122,-74}}, color={0,0,127}));
   connect(reaScaRep.y[1], mul1[1].u2) annotation (Line(points={{-248,-70.6667},
           {-180,-70.6667},{-180,144},{-162,144}},color={0,0,127}));
   connect(reaScaRep.y[2], mul1[2].u2) annotation (Line(points={{-248,-70},{-180,
@@ -729,8 +728,7 @@ equation
   connect(or3.y, logSwi.u2)
     annotation (Line(points={{-38,-440},{118,-440}}, color={255,0,255}));
   connect(edg.y, logSwi.u1) annotation (Line(points={{82,-370},{100,-370},{100,
-          -432},{118,-432}},
-                       color={255,0,255}));
+          -432},{118,-432}}, color={255,0,255}));
   connect(or3.y, notChaSet.u) annotation (Line(points={{-38,-440},{-20,-440},{-20,
           -480},{20,-480}}, color={255,0,255}));
   connect(notChaSet.y, logSwi.u3) annotation (Line(points={{44,-480},{100,-480},
@@ -759,12 +757,12 @@ equation
           114},{338,114}}, color={255,0,255}));
   connect(triSam1.y, byPasSet3.u3) annotation (Line(points={{362,80},{380,80},{380,
           112},{398,112}}, color={0,0,127}));
-  connect(byPasSet3.y, yChiWatMinFloSet)
-    annotation (Line(points={{422,120},{460,120}}, color={0,0,127}));
   connect(logSwi.y, staChaSet1.u)
     annotation (Line(points={{142,-440},{178,-440}}, color={255,0,255}));
   connect(staChaSet1.y, lat.u)
     annotation (Line(points={{202,-440},{238,-440}}, color={255,0,255}));
+  connect(byPasSet1.y, yChiWatMinFloSet) annotation (Line(points={{422,240},{
+          430,240},{430,120},{460,120}}, color={0,0,127}));
 annotation (
   defaultComponentName="minChiFloSet",
   Icon(coordinateSystem(extent={{-100,-100},{100,100}}),
@@ -874,7 +872,6 @@ annotation (
         Text(
           extent={{44,6},{98,-6}},
           textColor={0,0,127},
-          pattern=LinePattern.Dash,
           textString="yChiWatMinFloSet"),
         Text(
           extent={{58,-68},{96,-88}},
@@ -897,99 +894,71 @@ annotation (
         Text(
           extent={{-92,494},{14,478}},
           textColor={0,0,127},
-          fillColor={215,215,215},
-          fillPattern=FillPattern.Solid,
           horizontalAlignment=TextAlignment.Right,
           textString="Plant with parallel chillers"),
         Text(
           extent={{-80,22},{18,6}},
           textColor={0,0,127},
-          fillColor={215,215,215},
-          fillPattern=FillPattern.Solid,
           horizontalAlignment=TextAlignment.Right,
           textString="Plant with series chillers"),
         Text(
           extent={{-54,214},{18,198}},
           textColor={0,0,127},
-          fillColor={215,215,215},
-          fillPattern=FillPattern.Solid,
           horizontalAlignment=TextAlignment.Right,
           textString="Minimum flow setpoint when"),
         Text(
           extent={{-46,202},{18,188}},
           textColor={0,0,127},
-          fillColor={215,215,215},
-          fillPattern=FillPattern.Solid,
           horizontalAlignment=TextAlignment.Right,
           textString="enabling additional chiller"),
         Text(
           extent={{-34,102},{18,88}},
           textColor={0,0,127},
-          fillColor={215,215,215},
-          fillPattern=FillPattern.Solid,
           horizontalAlignment=TextAlignment.Right,
           textString="disabling one chiller"),
         Text(
           extent={{-54,114},{18,98}},
           textColor={0,0,127},
-          fillColor={215,215,215},
-          fillPattern=FillPattern.Solid,
           horizontalAlignment=TextAlignment.Right,
           textString="Minimum flow setpoint when"),
         Text(
           extent={{-38,-60},{26,-74}},
           textColor={0,0,127},
-          fillColor={215,215,215},
-          fillPattern=FillPattern.Solid,
           horizontalAlignment=TextAlignment.Right,
           textString="enabling additional chiller"),
         Text(
           extent={{-30,-142},{22,-156}},
           textColor={0,0,127},
-          fillColor={215,215,215},
-          fillPattern=FillPattern.Solid,
           horizontalAlignment=TextAlignment.Right,
           textString="disabling one chiller"),
         Text(
           extent={{-92,472},{10,456}},
           textColor={0,0,127},
-          fillColor={215,215,215},
-          fillPattern=FillPattern.Solid,
           horizontalAlignment=TextAlignment.Right,
           textString="Minimum flow setpoint according to"),
         Text(
           extent={{-54,460},{10,446}},
           textColor={0,0,127},
-          fillColor={215,215,215},
-          fillPattern=FillPattern.Solid,
           horizontalAlignment=TextAlignment.Right,
           textString="current chillers status"),
         Text(
           extent={{-88,402},{14,386}},
           textColor={0,0,127},
-          fillColor={215,215,215},
-          fillPattern=FillPattern.Solid,
           horizontalAlignment=TextAlignment.Right,
           textString="Minimum flow setpoint according to"),
         Text(
           extent={{-66,390},{14,376}},
           textColor={0,0,127},
-          fillColor={215,215,215},
-          fillPattern=FillPattern.Solid,
           horizontalAlignment=TextAlignment.Right,
           textString="chillers status at the moment"),
         Text(
           extent={{-62,380},{16,366}},
           textColor={0,0,127},
-          fillColor={215,215,215},
-          fillPattern=FillPattern.Solid,
           horizontalAlignment=TextAlignment.Right,
           textString="when  requiring stage change"),
         Text(
           extent={{-38,4},{26,-10}},
           textColor={0,0,127},
-          fillColor={215,215,215},
-          fillPattern=FillPattern.Solid,
           horizontalAlignment=TextAlignment.Right,
           textString="current chillers status"),
         Rectangle(
@@ -1001,19 +970,17 @@ annotation (
         Text(
           extent={{124,-330},{270,-350}},
           textColor={0,0,127},
-          fillColor={215,215,215},
-          fillPattern=FillPattern.Solid,
           horizontalAlignment=TextAlignment.Right,
           textString="Check if it is in the setpoint changing process")}),
   Documentation(info="<html>
 <p>
 Block that outputs chilled water minimum flow setpoint for primary-only
 plants with a minimum flow bypass valve,
-according to ASHRAE Guideline36-2021,
+according to ASHRAE Guideline 36-2021,
 section 5.20.8 Chilled water minimum flow bypass valve.
 </p>
 <p>
-1. For plants with parallel chillers, bypass valve shall modulate to maintain minimum
+1. For plants with parallel chillers, the bypass valve shall modulate to maintain minimum
 flow as measured by the chilled water flow meter at a setpoint that ensures minimum
 flow through all operating chillers, as follows:
 </p>
@@ -1052,7 +1019,7 @@ of <code>maxFloSet</code> for the operating chillers.
 <br/>
 
 <p>
-2. For plants with series chillers, bypass valve shall modulate to maintain minimum
+2. For plants with series chillers, the bypass valve shall modulate to maintain minimum
 flow as measured by the chilled water flow meter at a setpoint equal to the largest
 <code>minFloSet</code> of the operating chillers in current stage.
 </p>
@@ -1060,7 +1027,7 @@ flow as measured by the chilled water flow meter at a setpoint equal to the larg
 3. If there is any stage change requiring a chiller on and another chiller off,
 the minimum flow setpoint shall temporarily change to account for the
 <code>minFloSet</code> of both the chiller to be enabled and to be disabled
-prior to starting the newly enabled chiller.
+before starting the newly enabled chiller.
 </p>
 <p>
 Note that when there is a stage change requiring a change in the
