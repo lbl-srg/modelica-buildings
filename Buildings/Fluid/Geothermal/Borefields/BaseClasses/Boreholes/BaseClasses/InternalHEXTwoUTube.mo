@@ -47,59 +47,40 @@ model InternalHEXTwoUTube
       final m_flow_small=m4_flow_small,
       final V=VTubSeg,
       final mSenFac=mSenFac));
+  
+  Modelica.Units.SI.ThermalResistance RVol1_val
+    "Convective and thermal resistance at fluid 1";
+  Modelica.Units.SI.ThermalResistance RVol2_val
+    "Convective and thermal resistance at fluid 2";
+  Modelica.Units.SI.ThermalResistance RVol3_val
+    "Convective and thermal resistance at fluid 3";
+  Modelica.Units.SI.ThermalResistance RVol4_val
+    "Convective and thermal resistance at fluid 4";
+  Real Re1(unit="1")
+    "Reynolds number in pipe 1";
+  Real Re2(unit="1")
+    "Reynolds number in pipe 2";
+  Real Re3(unit="1")
+    "Reynolds number in pipe 3";
+  Real Re4(unit="1")
+    "Reynolds number in pipe 4";
 
-  Modelica.Blocks.Sources.RealExpression RVol1(y=
-    Buildings.Fluid.Geothermal.Borefields.BaseClasses.Boreholes.BaseClasses.Functions.convectionResistanceCircularPipe(
-      hSeg=hSeg,
-      rTub=borFieDat.conDat.rTub,
-      eTub=borFieDat.conDat.eTub,
-      roughness=borFieDat.conDat.roughness,
-      kMed=kMed1Act,
-      muMed=muMed1Act,
-      cpMed=cpMed1Act,
-      m_flow=m1_flow,
-      m_flow_nominal=m1_flow_nominal))
+  Modelica.Blocks.Sources.RealExpression RVol1(y=RVol1_val)
     "Convective and thermal resistance at fluid 1"
     annotation (Placement(transformation(extent={{-16,56},{-30,72}})));
-  Modelica.Blocks.Sources.RealExpression RVol2(y=
-    Buildings.Fluid.Geothermal.Borefields.BaseClasses.Boreholes.BaseClasses.Functions.convectionResistanceCircularPipe(
-      hSeg=hSeg,
-      rTub=borFieDat.conDat.rTub,
-      eTub=borFieDat.conDat.eTub,
-      roughness=borFieDat.conDat.roughness,
-      kMed=kMed2Act,
-      muMed=muMed2Act,
-      cpMed=cpMed2Act,
-      m_flow=m2_flow,
-      m_flow_nominal=m2_flow_nominal))
+
+  Modelica.Blocks.Sources.RealExpression RVol2(y=RVol2_val)
     "Convective and thermal resistance at fluid 2"
     annotation (Placement(transformation(extent={{88,-8},{72,-26}})));
-  Modelica.Blocks.Sources.RealExpression RVol3(y=
-    Buildings.Fluid.Geothermal.Borefields.BaseClasses.Boreholes.BaseClasses.Functions.convectionResistanceCircularPipe(
-      hSeg=hSeg,
-      rTub=borFieDat.conDat.rTub,
-      eTub=borFieDat.conDat.eTub,
-      roughness=borFieDat.conDat.roughness,
-      kMed=kMed3Act,
-      muMed=muMed3Act,
-      cpMed=cpMed3Act,
-      m_flow=m3_flow,
-      m_flow_nominal=m3_flow_nominal))
+
+  Modelica.Blocks.Sources.RealExpression RVol3(y=RVol3_val)
     "Convective and thermal resistance at fluid 3"
     annotation (Placement(transformation(extent={{-12,-60},{-26,-76}})));
-  Modelica.Blocks.Sources.RealExpression RVol4(y=
-    Buildings.Fluid.Geothermal.Borefields.BaseClasses.Boreholes.BaseClasses.Functions.convectionResistanceCircularPipe(
-      hSeg=hSeg,
-      rTub=borFieDat.conDat.rTub,
-      eTub=borFieDat.conDat.eTub,
-      roughness=borFieDat.conDat.roughness,
-      kMed=kMed4Act,
-      muMed=muMed4Act,
-      cpMed=cpMed4Act,
-      m_flow=m4_flow,
-      m_flow_nominal=m4_flow_nominal))
+
+  Modelica.Blocks.Sources.RealExpression RVol4(y=RVol4_val)
     "Convective and thermal resistance at fluid 4"
     annotation (Placement(transformation(extent={{-68,12},{-54,28}})));
+
   Buildings.Fluid.Geothermal.Borefields.BaseClasses.Boreholes.BaseClasses.InternalResistancesTwoUTube intRes2UTub(
     hSeg=hSeg,
     borFieDat=borFieDat,
@@ -332,6 +313,54 @@ equation
         rho_default=rhoMed);
 
   end if;
+
+  (RVol1_val, Re1) =
+    Buildings.Fluid.Geothermal.Borefields.BaseClasses.Boreholes.BaseClasses.Functions.convectionResistanceCircularPipe(
+      hSeg=hSeg,
+      rTub=borFieDat.conDat.rTub,
+      eTub=borFieDat.conDat.eTub,
+      roughness=borFieDat.conDat.roughness,
+      kMed=kMed1Act,
+      muMed=muMed1Act,
+      cpMed=cpMed1Act,
+      m_flow=m1_flow,
+      m_flow_nominal=m1_flow_nominal);
+
+  (RVol2_val, Re2) =
+    Buildings.Fluid.Geothermal.Borefields.BaseClasses.Boreholes.BaseClasses.Functions.convectionResistanceCircularPipe(
+      hSeg=hSeg,
+      rTub=borFieDat.conDat.rTub,
+      eTub=borFieDat.conDat.eTub,
+      roughness=borFieDat.conDat.roughness,
+      kMed=kMed2Act,
+      muMed=muMed2Act,
+      cpMed=cpMed2Act,
+      m_flow=m2_flow,
+      m_flow_nominal=m2_flow_nominal);
+
+  (RVol3_val, Re3) =
+    Buildings.Fluid.Geothermal.Borefields.BaseClasses.Boreholes.BaseClasses.Functions.convectionResistanceCircularPipe(
+      hSeg=hSeg,
+      rTub=borFieDat.conDat.rTub,
+      eTub=borFieDat.conDat.eTub,
+      roughness=borFieDat.conDat.roughness,
+      kMed=kMed3Act,
+      muMed=muMed3Act,
+      cpMed=cpMed3Act,
+      m_flow=m3_flow,
+      m_flow_nominal=m3_flow_nominal);
+
+  (RVol4_val, Re4) =
+    Buildings.Fluid.Geothermal.Borefields.BaseClasses.Boreholes.BaseClasses.Functions.convectionResistanceCircularPipe(
+      hSeg=hSeg,
+      rTub=borFieDat.conDat.rTub,
+      eTub=borFieDat.conDat.eTub,
+      roughness=borFieDat.conDat.roughness,
+      kMed=kMed4Act,
+      muMed=muMed4Act,
+      cpMed=cpMed4Act,
+      m_flow=m4_flow,
+      m_flow_nominal=m4_flow_nominal);
 
   assert(borFieDat.conDat.borCon == Buildings.Fluid.Geothermal.Borefields.Types.BoreholeConfiguration.DoubleUTubeParallel
      or borFieDat.conDat.borCon == Buildings.Fluid.Geothermal.Borefields.Types.BoreholeConfiguration.DoubleUTubeSeries,

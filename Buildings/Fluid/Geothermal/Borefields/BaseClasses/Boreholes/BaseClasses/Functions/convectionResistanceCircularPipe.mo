@@ -23,6 +23,8 @@ function convectionResistanceCircularPipe
   // Outputs
   output Modelica.Units.SI.ThermalResistance RFluPip
     "Convection resistance (or conduction in fluid if no mass flow)";
+  output Real Re(unit="1")
+    "Reynolds number";
 
 protected
   Modelica.Units.SI.Radius rTub_in=rTub - eTub "Pipe inner radius";
@@ -37,9 +39,8 @@ protected
       -m_flow,
       m_flow,
       m_flow_nominal/30);
-  Real Re "Reynolds number";
   Real Pr "Prandtl number";
-  Real f "Darcy-Weisbach friction factor from Churchill (1977)";
+  Real f "Darcy-Weisbach friction factor from Churchill";
   Real Nu "Nusselt number";
 
   // Pipe roughness for Churchill friction factor.
