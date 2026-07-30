@@ -295,11 +295,11 @@ model Load "Model of a load on a hydronic circuit"
     annotation (Placement(transformation(extent={{-90,130},{-70,150}})));
   Buildings.Controls.OBC.CDL.Routing.RealExtractor TAirEnt_actual(
     y(final unit="K", displayUnit="degC"), final nin=3)
-    "Actual value of entering air temperature"
-    annotation (Placement(transformation(extent={{-60,130},{-40,150}})));
+    "Select design value of entering air temperature depending on mode"
+    annotation (Placement(transformation(extent={{-62,130},{-42,150}})));
   Buildings.Controls.OBC.CDL.Routing.RealExtractor TAirLvg_actual(
     y(final unit="K", displayUnit="degC"), final nin=3)
-    "Actual value of leaving air temperature"
+    "Select design value of leaving air temperature depending on mode"
     annotation (Placement(transformation(extent={{40,130},{20,150}})));
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant TAirLvgVal(
     final k=TAirLvgChg_nominal) "Values of leaving air temperature"
@@ -397,10 +397,10 @@ equation
   connect(mode, ctl.mode)
     annotation (Line(points={{-120,40},{54,40},{54,48}}, color={255,127,0}));
   connect(TAirEntVal.y, TAirEnt_actual.u)
-    annotation (Line(points={{-68,140},{-62,140}}, color={0,0,127}));
+    annotation (Line(points={{-68,140},{-64,140}}, color={0,0,127}));
   connect(pro.y, TAirSupSet.u2)
     annotation (Line(points={{-2,60},{8,60},{8,54},{12,54}},color={0,0,127}));
-  connect(TAirEnt_actual.y, TAirSupSet.u1) annotation (Line(points={{-38,140},{
+  connect(TAirEnt_actual.y, TAirSupSet.u1) annotation (Line(points={{-40,140},{
           6,140},{6,66},{12,66}},
                                color={0,0,127}));
   connect(sub.y, pro.u1) annotation (Line(points={{-30,90},{-30,66},{-26,66}},
@@ -408,15 +408,15 @@ equation
   connect(u, pro.u2) annotation (Line(points={{-120,80},{-60,80},{-60,54},{-26,
           54}},
         color={0,0,127}));
-  connect(TAirEnt_actual.y, souAir.T_in) annotation (Line(points={{-38,140},{6,
+  connect(TAirEnt_actual.y, souAir.T_in) annotation (Line(points={{-40,140},{6,
           140},{6,34},{50,34},{50,8},{42,8}},
                                          color={0,0,127}));
   connect(sub.u1, TAirLvg_actual.y) annotation (Line(points={{-24,114},{-24,132},
           {10,132},{10,140},{18,140}}, color={0,0,127}));
   connect(TAirEnt_actual.y, sub.u2)
-    annotation (Line(points={{-38,140},{-36,140},{-36,114}}, color={0,0,127}));
+    annotation (Line(points={{-40,140},{-36,140},{-36,114}}, color={0,0,127}));
   connect(addPar.y, TAirEnt_actual.index) annotation (Line(points={{-80,112},{
-          -80,120},{-50,120},{-50,128}}, color={255,127,0}));
+          -80,120},{-52,120},{-52,128}}, color={255,127,0}));
   connect(addPar.y, TAirLvg_actual.index) annotation (Line(points={{-80,112},{
           -80,120},{30,120},{30,128}}, color={255,127,0}));
   connect(mode, addPar.u)

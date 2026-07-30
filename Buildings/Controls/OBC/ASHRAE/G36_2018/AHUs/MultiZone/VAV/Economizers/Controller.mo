@@ -552,12 +552,10 @@ annotation (defaultComponentName="ecoCon",
         Text(
           extent={{-96,200},{6,180}},
           textColor={0,0,127},
-          pattern=LinePattern.Dash,
           textString="VOutMinSet_flow_normalized"),
         Text(
           extent={{-96,178},{-12,164}},
           textColor={0,0,127},
-          pattern=LinePattern.Dash,
           textString="VOut_flow_normalized",
           visible=(minOADes == Buildings.Controls.OBC.ASHRAE.G36_2018.Types.OutdoorAirSection.DedicatedDampersAirflow
                or minOADes == Buildings.Controls.OBC.ASHRAE.G36_2018.Types.OutdoorAirSection.SingleDamper)),
@@ -571,18 +569,15 @@ annotation (defaultComponentName="ecoCon",
         Text(
           extent={{-96,30},{-30,12}},
           textColor={0,0,127},
-          pattern=LinePattern.Dash,
           textString="dpMinOutDam",
           visible=minOADes == Buildings.Controls.OBC.ASHRAE.G36_2018.Types.OutdoorAirSection.DedicatedDampersPressure),
         Text(
           extent={{-98,-2},{-66,-18}},
           textColor={0,0,127},
-          pattern=LinePattern.Dash,
           textString="uTSup"),
         Text(
           extent={{-100,-34},{-72,-48}},
           textColor={0,0,127},
-          pattern=LinePattern.Dash,
           textString="TOut"),
         Text(
           extent={{-100,-52},{-58,-66}},
@@ -608,17 +603,14 @@ annotation (defaultComponentName="ecoCon",
         Text(
           extent={{-98,-132},{-56,-146}},
           textColor={255,0,255},
-          pattern=LinePattern.Dash,
           textString="u1SupFan"),
         Text(
           extent={{-98,-184},{-42,-198}},
           textColor={255,127,0},
-          pattern=LinePattern.Dash,
           textString="uFreProSta"),
         Text(
           extent={{-100,-162},{-50,-176}},
           textColor={255,127,0},
-          pattern=LinePattern.Dash,
           textString="uOpeMod"),
         Text(
           extent={{34,142},{98,124}},
@@ -629,7 +621,6 @@ annotation (defaultComponentName="ecoCon",
         Text(
           extent={{40,70},{96,54}},
           textColor={0,0,127},
-          pattern=LinePattern.Dash,
           textString="yRetDam"),
         Text(
           extent={{42,-50},{98,-66}},
@@ -640,24 +631,20 @@ annotation (defaultComponentName="ecoCon",
         Text(
           extent={{42,-110},{98,-126}},
           textColor={0,0,127},
-          pattern=LinePattern.Dash,
           textString="yOutDam"),
         Text(
           extent={{34,200},{96,184}},
           textColor={0,0,127},
-          pattern=LinePattern.Dash,
           textString="yOutDam_min"),
         Text(
           extent={{-96,100},{6,80}},
           textColor={0,0,127},
-          pattern=LinePattern.Dash,
           textString="effAbsOutAir_normalized",
           visible=(minOADes == Buildings.Controls.OBC.ASHRAE.G36_2018.Types.OutdoorAirSection.DedicatedDampersPressure
                and venStd == Buildings.Controls.OBC.ASHRAE.G36_2018.Types.VentilationStandard.California_Title_24)),
         Text(
           extent={{-96,80},{6,60}},
           textColor={0,0,127},
-          pattern=LinePattern.Dash,
           textString="effDesOutAir_normalized",
           visible=minOADes == Buildings.Controls.OBC.ASHRAE.G36_2018.Types.OutdoorAirSection.DedicatedDampersPressure
                and venStd == Buildings.Controls.OBC.ASHRAE.G36_2018.Types.VentilationStandard.California_Title_24),
@@ -677,7 +664,6 @@ annotation (defaultComponentName="ecoCon",
         Text(
           extent={{42,180},{96,162}},
           textColor={255,0,255},
-          pattern=LinePattern.Dash,
           textString="yEnaMinOut")}),
   Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-240,-260},{260,260}}),
     graphics={

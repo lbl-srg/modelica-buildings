@@ -117,7 +117,7 @@ block ControllerDualMode
       iconTransformation(extent={{-140,0},{-100,40}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1ValChiWatOutIso[nEnaChiWat]
     if have_chiWat and have_valOutIso
-    "Equipment uutlet CHW isolation valve command"
+    "Equipment outlet CHW isolation valve command"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}}),
       iconTransformation(extent={{-140,-20},{-100,20}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yValChiWatMinByp(

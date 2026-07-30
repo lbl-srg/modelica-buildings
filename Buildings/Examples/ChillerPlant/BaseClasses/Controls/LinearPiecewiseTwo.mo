@@ -86,8 +86,7 @@ First implementation.
         Text(
           extent={{24,6},{34,-2}},
           textColor={128,0,255},
-          textString="y[2]",
-          lineThickness=1),
+          textString="y[2]"),
         Text(
           extent={{-74,-52},{-64,-60}},
           textColor={0,0,0},
@@ -115,8 +114,7 @@ First implementation.
         Text(
           extent={{48,-32},{58,-40}},
           textColor={128,0,255},
-          textString="y20",
-          lineThickness=1),
+          textString="y20"),
         Line(
           points={{-68,-42},{-14,30},{46,30}},
           color={0,0,0},

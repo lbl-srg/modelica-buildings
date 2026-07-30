@@ -13,7 +13,6 @@ connector Terminal_p "Terminal p for AC one phase systems"
         grid={2,2}), graphics={           Text(
           extent={{-60,60},{60,-60}},
           textColor={255,255,255},
-          pattern=LinePattern.None,
           textString=""),                    Polygon(
           points={{0,100},{-100,0},{0,-100},{100,0},{0,100}},
           lineColor={0,120,120},
@@ -30,7 +29,6 @@ connector Terminal_p "Terminal p for AC one phase systems"
         Text(
           extent={{14,16},{114,-84}},
           textColor={255,255,255},
-          pattern=LinePattern.None,
           textString=""),                    Polygon(
           points={{50,50},{0,0},{50,-50},{100,0},{50,50}},
           lineColor={0,120,120},

@@ -295,27 +295,22 @@ annotation (
         Text(
           extent={{-100,80},{-68,64}},
           textColor={0,0,127},
-          pattern=LinePattern.Dash,
           textString="TOut"),
         Text(
           extent={{-98,40},{-18,20}},
           textColor={255,127,0},
-          pattern=LinePattern.Dash,
           textString="uZonTemResReq"),
         Text(
           extent={{-98,-18},{-52,-42}},
           textColor={255,0,255},
-          pattern=LinePattern.Dash,
           textString="u1SupFan"),
         Text(
           extent={{-96,-60},{-52,-80}},
           textColor={255,127,0},
-          pattern=LinePattern.Dash,
           textString="uOpeMod"),
         Text(
           extent={{44,8},{96,-8}},
           textColor={0,0,127},
-          pattern=LinePattern.Dash,
           textString="TAirSupSet"),
         Text(
           extent={{-124,146},{96,108}},

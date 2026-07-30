@@ -1,5 +1,5 @@
 within Buildings.BoundaryConditions.SolarIrradiation;
-block DirectTiltedSurface "Direct solar irradiation on a tilted surface"
+model DirectTiltedSurface "Direct solar irradiation on a tilted surface"
   extends
     Buildings.BoundaryConditions.SolarIrradiation.BaseClasses.PartialSolarIrradiation;
 
@@ -29,7 +29,7 @@ equation
       points={{-100,5.55112e-16},{-80,5.55112e-16},{-80,12},{-4,12}},
       color={255,204,51},
       thickness=0.5), Text(
-      textString="%first",
+      string="%first",
       index=-1,
       extent={{-6,3},{-6,3}}));
   connect(incAng.y, inc) annotation (Line(
@@ -44,7 +44,7 @@ equation
       points={{-100,5.55112e-16},{-80,5.55112e-16},{-80,-20},{-50,-20}},
       color={255,204,51},
       thickness=0.5), Text(
-      textString="%first",
+      string="%first",
       index=-1,
       extent={{-6,3},{-6,3}}));
   annotation (
@@ -57,6 +57,11 @@ For a definition of the parameters, see the
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+May 15, 2026, by Jianjun Hu:<br/>
+Changed the class type from block to model.<br/>
+This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/2122\">IBPSA, #2122</a>.
+</li>
 <li>
 September 6, 2021, by Ettore Zanetti:<br/>
 Removed parameter <code>lat</code> as it is now obtained from the weather data bus.<br/>

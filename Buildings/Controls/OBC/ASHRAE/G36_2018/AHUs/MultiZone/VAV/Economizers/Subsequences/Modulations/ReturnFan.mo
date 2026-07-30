@@ -134,32 +134,26 @@ annotation (defaultComponentName="ecoMod",
         Text(
           extent={{-98,68},{-72,52}},
           textColor={0,0,127},
-          pattern=LinePattern.Dash,
           textString="uTSup"),
         Text(
           extent={{-98,10},{-44,-8}},
           textColor={0,0,127},
-          pattern=LinePattern.Dash,
           textString="uRetDam_max"),
         Text(
           extent={{-98,-50},{-44,-68}},
           textColor={0,0,127},
-          pattern=LinePattern.Dash,
           textString="uRetDam_min"),
         Text(
           extent={{60,68},{98,52}},
           textColor={0,0,127},
-          pattern=LinePattern.Dash,
           textString="yRetDam"),
         Text(
           extent={{58,10},{98,-8}},
           textColor={0,0,127},
-          pattern=LinePattern.Dash,
           textString="yRelDam"),
         Text(
           extent={{58,-50},{98,-68}},
           textColor={0,0,127},
-          pattern=LinePattern.Dash,
           textString="yOutDam")}),
   Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-120,-120},{120,120}})),
   Documentation(info="<html>

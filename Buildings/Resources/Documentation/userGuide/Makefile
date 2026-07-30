@@ -44,10 +44,10 @@ html:
 regressiontest: clean
 	@echo "Verify whether all files compile and no uncommitted changes exist"
 	@rm -rf virEnv
-	python -m venv virEnv
-	source virEnv/bin/activate
-	pip install -r requirements.txt --no-deps
-	$(SPHINXBUILD) -b html $(ALLSPHINXOPTS) $(BUILDDIR)/html
+	python3 -m venv virEnv
+	source virEnv/bin/activate && \
+	pip install -r requirements.txt --no-deps && \
+	$(SPHINXBUILD) -b html $(ALLSPHINXOPTS) $(BUILDDIR)/html && \
 	rm -rf virEnv
 	git diff --exit-code .
 

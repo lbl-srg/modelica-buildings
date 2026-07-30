@@ -436,7 +436,7 @@ equation
         Text(
           extent={{146,122},{188,74}},
           textColor={0,0,127},
-          textString="uFan"),
+          textString="yFan"),
         Line(points={{136,-10},{136,80},{200,80}}, color={0,0,0}),
         Line(points={{180,-46},{180,-80},{200,-80}}, color={0,0,0}),
         Ellipse(
@@ -573,7 +573,11 @@ equation
           fillColor={0,0,0},
           fillPattern=FillPattern.Solid,
           origin={20,-110},
-          rotation=90)}),
+          rotation=90),
+        Text(
+          extent={{138,-62},{190,-116}},
+          textColor={0,0,127},
+          textString="TAirSup")}),
     Diagram(coordinateSystem(preserveAspectRatio=false,
       extent={{-260,-140},{260,140}})),
 Documentation(info="<html>
