@@ -23,6 +23,9 @@ model InternalHEXOneUTubeTDepRConvThreeCases
 
   parameter Modelica.Units.SI.Temperature TWarm=318.15
     "Warm inlet temperature";
+  
+  parameter Modelica.Units.SI.PressureDifference dp_nominal = 10000/nSeg
+  "Nominal pressure drop per borehole segment";
 
   parameter Buildings.Fluid.Geothermal.Borefields.Data.Borefield.Example
     borFieDatFixWat(
@@ -70,8 +73,8 @@ model InternalHEXOneUTubeTDepRConvThreeCases
     intHexFixWat(
       redeclare package Medium = MediumWat,
       hSeg=hSeg,
-      dp1_nominal=10,
-      dp2_nominal=10,
+      dp1_nominal=dp_nominal,
+      dp2_nominal=dp_nominal,
       borFieDat=borFieDatFixWat,
       m1_flow_nominal=borFieDatFixWat.conDat.mBor_flow_nominal,
       m2_flow_nominal=borFieDatFixWat.conDat.mBor_flow_nominal,
