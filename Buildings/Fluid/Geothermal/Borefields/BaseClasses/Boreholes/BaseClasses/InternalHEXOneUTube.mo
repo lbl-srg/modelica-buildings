@@ -25,39 +25,6 @@ model InternalHEXOneUTube
       final V=VTubSeg,
       final mSenFac=mSenFac));
 
-protected
-  parameter Real Rgg_val(fixed=false)
-    "Thermal resistance between the two grout zones";
-
-  Medium.MassFraction X1[Medium.nX]
-    "Mass fractions used to evaluate medium properties in volume 1";
-  Medium.MassFraction X2[Medium.nX]
-    "Mass fractions used to evaluate medium properties in volume 2";
-
-  Medium.ThermodynamicState sta1
-    "Medium state used to evaluate temperature-dependent properties in volume 1";
-  Medium.ThermodynamicState sta2
-    "Medium state used to evaluate temperature-dependent properties in volume 2";
-
-  Modelica.Units.SI.SpecificHeatCapacity cpMed1Act
-    "Specific heat capacity used for convection resistance in volume 1";
-  Modelica.Units.SI.ThermalConductivity kMed1Act
-    "Thermal conductivity used for convection resistance in volume 1";
-  Modelica.Units.SI.DynamicViscosity muMed1Act
-    "Dynamic viscosity used for convection resistance in volume 1";
-  Modelica.Units.SI.Density rhoMed1Act
-    "Density used for correlations in volume 1";
-
-  Modelica.Units.SI.SpecificHeatCapacity cpMed2Act
-    "Specific heat capacity used for convection resistance in volume 2";
-  Modelica.Units.SI.ThermalConductivity kMed2Act
-    "Thermal conductivity used for convection resistance in volume 2";
-  Modelica.Units.SI.DynamicViscosity muMed2Act
-    "Dynamic viscosity used for convection resistance in volume 2";
-  Modelica.Units.SI.Density rhoMed2Act
-    "Density used for correlations in volume 2";
-
-public
   Modelica.Units.SI.ThermalResistance RVol1_val
     "Convective and thermal resistance at fluid 1";
 
@@ -99,6 +66,39 @@ public
     annotation (Placement(transformation(extent={{-12,-12},{12,12}},
         rotation=90,
         origin={0,28})));
+
+protected
+  parameter Real Rgg_val(fixed=false)
+    "Thermal resistance between the two grout zones";
+
+  Medium.MassFraction X1[Medium.nX]
+    "Mass fractions used to evaluate medium properties in volume 1";
+  Medium.MassFraction X2[Medium.nX]
+    "Mass fractions used to evaluate medium properties in volume 2";
+
+  Medium.ThermodynamicState sta1
+    "Medium state used to evaluate temperature-dependent properties in volume 1";
+  Medium.ThermodynamicState sta2
+    "Medium state used to evaluate temperature-dependent properties in volume 2";
+
+  Modelica.Units.SI.SpecificHeatCapacity cpMed1Act
+    "Specific heat capacity used for convection resistance in volume 1";
+  Modelica.Units.SI.ThermalConductivity kMed1Act
+    "Thermal conductivity used for convection resistance in volume 1";
+  Modelica.Units.SI.DynamicViscosity muMed1Act
+    "Dynamic viscosity used for convection resistance in volume 1";
+  Modelica.Units.SI.Density rhoMed1Act
+    "Density used for correlations in volume 1";
+
+  Modelica.Units.SI.SpecificHeatCapacity cpMed2Act
+    "Specific heat capacity used for convection resistance in volume 2";
+  Modelica.Units.SI.ThermalConductivity kMed2Act
+    "Thermal conductivity used for convection resistance in volume 2";
+  Modelica.Units.SI.DynamicViscosity muMed2Act
+    "Dynamic viscosity used for convection resistance in volume 2";
+  Modelica.Units.SI.Density rhoMed2Act
+    "Density used for correlations in volume 2";
+
 initial equation
   (x, Rgb_val, Rgg_val, RCondGro_val) =
     Buildings.Fluid.Geothermal.Borefields.BaseClasses.Boreholes.BaseClasses.Functions.internalResistancesOneUTube(
@@ -119,31 +119,31 @@ initial equation
       instanceName=getInstanceName());
 
 equation
-  X1 =
-    if Medium.reducedX then
-      cat(1, vol1.Xi, {1 - sum(vol1.Xi)})
-    else
-      vol1.Xi;
-
-  X2 =
-    if Medium.reducedX then
-      cat(1, vol2.Xi, {1 - sum(vol2.Xi)})
-    else
-      vol2.Xi;
-
-  sta1 = Medium.setState_pTX(
-    p=vol1.p,
-    T=vol1.T,
-    X=X1);
-
-  sta2 = Medium.setState_pTX(
-    p=vol2.p,
-    T=vol2.T,
-    X=X2);
-
   if borFieDat.conDat.use_TDepRConv and
      borFieDat.conDat.fluidPropertyEvaluation ==
        Buildings.Fluid.Geothermal.Borefields.Types.FluidPropertyEvaluation.GenericMedium then
+
+    X1 =
+      if Medium.reducedX then
+        cat(1, vol1.Xi, {1 - sum(vol1.Xi)})
+      else
+        vol1.Xi;
+
+    X2 =
+      if Medium.reducedX then
+        cat(1, vol2.Xi, {1 - sum(vol2.Xi)})
+      else
+        vol2.Xi;
+
+    sta1 = Medium.setState_pTX(
+      p=vol1.p,
+      T=vol1.T,
+      X=X1);
+
+    sta2 = Medium.setState_pTX(
+      p=vol2.p,
+      T=vol2.T,
+      X=X2);
 
     cpMed1Act = Medium.specificHeatCapacityCp(sta1);
     kMed1Act = Medium.thermalConductivity(sta1);
@@ -156,6 +156,23 @@ equation
     rhoMed2Act = Medium.density(sta2);
 
   else
+
+    X1 = zeros(Medium.nX);
+    X2 = zeros(Medium.nX);
+
+    /*
+      Dummy assignments only to keep the protected state records assigned.
+      These states are not used in this branch.
+    */
+    sta1 = Medium.setState_pTX(
+      p=Medium.p_default,
+      T=Medium.T_default,
+      X=Medium.X_default);
+
+    sta2 = Medium.setState_pTX(
+      p=Medium.p_default,
+      T=Medium.T_default,
+      X=Medium.X_default);
 
     (cpMed1Act, kMed1Act, muMed1Act, rhoMed1Act) =
       Buildings.Fluid.Geothermal.Borefields.BaseClasses.Boreholes.BaseClasses.Functions.fluidProperties_T(

@@ -194,53 +194,53 @@ initial equation
       instanceName=getInstanceName());
 
 equation
-  X1 =
-    if Medium.reducedX then
-      cat(1, vol1.Xi, {1 - sum(vol1.Xi)})
-    else
-      vol1.Xi;
-
-  X2 =
-    if Medium.reducedX then
-      cat(1, vol2.Xi, {1 - sum(vol2.Xi)})
-    else
-      vol2.Xi;
-
-  X3 =
-    if Medium.reducedX then
-      cat(1, vol3.Xi, {1 - sum(vol3.Xi)})
-    else
-      vol3.Xi;
-
-  X4 =
-    if Medium.reducedX then
-      cat(1, vol4.Xi, {1 - sum(vol4.Xi)})
-    else
-      vol4.Xi;
-
-  sta1 = Medium.setState_pTX(
-    p=vol1.p,
-    T=vol1.T,
-    X=X1);
-
-  sta2 = Medium.setState_pTX(
-    p=vol2.p,
-    T=vol2.T,
-    X=X2);
-
-  sta3 = Medium.setState_pTX(
-    p=vol3.p,
-    T=vol3.T,
-    X=X3);
-
-  sta4 = Medium.setState_pTX(
-    p=vol4.p,
-    T=vol4.T,
-    X=X4);
-
   if borFieDat.conDat.use_TDepRConv and
      borFieDat.conDat.fluidPropertyEvaluation ==
        Buildings.Fluid.Geothermal.Borefields.Types.FluidPropertyEvaluation.GenericMedium then
+
+    X1 =
+      if Medium.reducedX then
+        cat(1, vol1.Xi, {1 - sum(vol1.Xi)})
+      else
+        vol1.Xi;
+
+    X2 =
+      if Medium.reducedX then
+        cat(1, vol2.Xi, {1 - sum(vol2.Xi)})
+      else
+        vol2.Xi;
+
+    X3 =
+      if Medium.reducedX then
+        cat(1, vol3.Xi, {1 - sum(vol3.Xi)})
+      else
+        vol3.Xi;
+
+    X4 =
+      if Medium.reducedX then
+        cat(1, vol4.Xi, {1 - sum(vol4.Xi)})
+      else
+        vol4.Xi;
+
+    sta1 = Medium.setState_pTX(
+      p=vol1.p,
+      T=vol1.T,
+      X=X1);
+
+    sta2 = Medium.setState_pTX(
+      p=vol2.p,
+      T=vol2.T,
+      X=X2);
+
+    sta3 = Medium.setState_pTX(
+      p=vol3.p,
+      T=vol3.T,
+      X=X3);
+
+    sta4 = Medium.setState_pTX(
+      p=vol4.p,
+      T=vol4.T,
+      X=X4);
 
     cpMed1Act = Medium.specificHeatCapacityCp(sta1);
     kMed1Act = Medium.thermalConductivity(sta1);
@@ -263,6 +263,31 @@ equation
     rhoMed4Act = Medium.density(sta4);
 
   else
+
+    X1 = zeros(Medium.nX);
+    X2 = zeros(Medium.nX);
+    X3 = zeros(Medium.nX);
+    X4 = zeros(Medium.nX);
+
+    sta1 = Medium.setState_pTX(
+      p=Medium.p_default,
+      T=Medium.T_default,
+      X=Medium.X_default);
+
+    sta2 = Medium.setState_pTX(
+      p=Medium.p_default,
+      T=Medium.T_default,
+      X=Medium.X_default);
+
+    sta3 = Medium.setState_pTX(
+      p=Medium.p_default,
+      T=Medium.T_default,
+      X=Medium.X_default);
+
+    sta4 = Medium.setState_pTX(
+      p=Medium.p_default,
+      T=Medium.T_default,
+      X=Medium.X_default);
 
     (cpMed1Act, kMed1Act, muMed1Act, rhoMed1Act) =
       Buildings.Fluid.Geothermal.Borefields.BaseClasses.Boreholes.BaseClasses.Functions.fluidProperties_T(
