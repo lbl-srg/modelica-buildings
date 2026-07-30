@@ -3,23 +3,27 @@ function churchillFrictionFactor
   "Darcy-Weisbach friction factor for all flow regimes"
   extends .Modelica.Icons.Function;
 
-  input Real Re(min=0)
-    "Reynolds number";
+  input Real Re(min=10E-10)
+  "Reynolds number";
+
   input Real eps_D(min=0)
     "Relative pipe roughness, epsilon/D";
   output Real f
     "Darcy-Weisbach friction factor";
 
 protected
+  constant Real Re_min(unit="1") = 10E-10
+  "Smallest Reynolds number for evaluating the Churchill correlation";
   Real A
     "Churchill coefficient A";
   Real B
     "Churchill coefficient B";
 
 algorithm
-  assert(noEvent(Re > 0),
-    "churchillFrictionFactor requires Re > 0. "
-    + "Use churchillFrictionFactorRe2 for zero-flow pressure-loss regularization.");  
+  assert(noEvent(Re > Re_min),
+    "churchillFrictionFactor requires Re > " + String(Re_min) + ". "
+    + "Use churchillFrictionFactorRe2 for zero-flow pressure-loss regularization.");
+
   A := (2.457*.Modelica.Math.log(
           1/((7/Re)^0.9 + 0.27*eps_D)))^16;
   B := (37530/Re)^16;
