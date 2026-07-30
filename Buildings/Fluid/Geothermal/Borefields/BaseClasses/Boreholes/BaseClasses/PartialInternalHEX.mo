@@ -29,22 +29,22 @@ partial model PartialInternalHEX
     "Thermal connection for borehole wall"
     annotation (Placement(transformation(extent={{-10,90},{10,110}})));
 protected
-  parameter Modelica.Units.SI.SpecificHeatCapacity cpMed=
+  parameter Modelica.Units.SI.SpecificHeatCapacity cpMed_default=
       Medium.specificHeatCapacityCp(Medium.setState_pTX(
       Medium.p_default,
       Medium.T_default,
       Medium.X_default)) "Specific heat capacity of the fluid";
-  parameter Modelica.Units.SI.ThermalConductivity kMed=
+  parameter Modelica.Units.SI.ThermalConductivity kMed_default=
       Medium.thermalConductivity(Medium.setState_pTX(
       Medium.p_default,
       Medium.T_default,
       Medium.X_default)) "Thermal conductivity of the fluid";
-  parameter Modelica.Units.SI.DynamicViscosity muMed=Medium.dynamicViscosity(
+  parameter Modelica.Units.SI.DynamicViscosity muMed_default=Medium.dynamicViscosity(
       Medium.setState_pTX(
       Medium.p_default,
       Medium.T_default,
       Medium.X_default)) "Dynamic viscosity of the fluid";
-  parameter Modelica.Units.SI.Density rhoMed=
+  parameter Modelica.Units.SI.Density rhoMed_default=
       Medium.density(Medium.setState_pTX(
       Medium.p_default,
       Medium.T_default,
@@ -74,8 +74,8 @@ Partial model to implement models simulating the thermal and fluid behaviour of 
 </p>
 <p>
 The thermodynamic properties of the fluid circulating in the borehole are calculated
-as protected parameters in this partial model: <i>c<sub>p</sub></i> (<code>cpMed</code>),
-<i>k</i> (<code>kMed</code>) and <i>&mu;</i> (<code>muMed</code>). Additionally, the
+as protected parameters in this partial model: <i>c<sub>p</sub></i> (<code>cpMed_default</code>),
+<i>k</i> (<code>kMed_default</code>) and <i>&mu;</i> (<code>muMed_default</code>). Additionally, the
 following parameters are already declared as protected parameters and thus do not
 need to be declared in models which extend this partial model:
 </p>

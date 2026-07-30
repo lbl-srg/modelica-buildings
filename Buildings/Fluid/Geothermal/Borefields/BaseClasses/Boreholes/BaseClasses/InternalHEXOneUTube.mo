@@ -112,16 +112,16 @@ initial equation
       kTub=borFieDat.conDat.kTub,
       use_Rb=borFieDat.conDat.use_Rb,
       Rb=borFieDat.conDat.Rb,
-      kMed=kMed,
-      muMed=muMed,
-      cpMed=cpMed,
+      kMed=kMed_default,
+      muMed=muMed_default,
+      cpMed=cpMed_default,
       m_flow_nominal=m1_flow_nominal,
       instanceName=getInstanceName());
 
 equation
   if borFieDat.conDat.use_TDepRConv and
-     borFieDat.conDat.fluidPropertyEvaluation ==
-       Buildings.Fluid.Geothermal.Borefields.Types.FluidPropertyEvaluation.GenericMedium then
+    borFieDat.conDat.fluidPropertyEvaluation ==
+      Buildings.Fluid.Geothermal.Borefields.Types.FluidPropertyEvaluation.GenericMedium then
 
     X1 =
       if Medium.reducedX then
@@ -155,15 +155,11 @@ equation
     muMed2Act = Medium.dynamicViscosity(sta2);
     rhoMed2Act = Medium.density(sta2);
 
-  else
+  elseif borFieDat.conDat.use_TDepRConv then
 
     X1 = zeros(Medium.nX);
     X2 = zeros(Medium.nX);
 
-    /*
-      Dummy assignments only to keep the protected state records assigned.
-      These states are not used in this branch.
-    */
     sta1 = Medium.setState_pTX(
       p=Medium.p_default,
       T=Medium.T_default,
@@ -176,27 +172,42 @@ equation
 
     (cpMed1Act, kMed1Act, muMed1Act, rhoMed1Act) =
       Buildings.Fluid.Geothermal.Borefields.BaseClasses.Boreholes.BaseClasses.Functions.fluidProperties_T(
-        use_TDep=borFieDat.conDat.use_TDepRConv,
         fluidPropertyEvaluation=borFieDat.conDat.fluidPropertyEvaluation,
         T=vol1.T,
         p=vol1.p,
-        X_a=borFieDat.conDat.X_a,
-        cp_default=cpMed,
-        k_default=kMed,
-        mu_default=muMed,
-        rho_default=rhoMed);
+        X_a=borFieDat.conDat.X_a);
 
     (cpMed2Act, kMed2Act, muMed2Act, rhoMed2Act) =
       Buildings.Fluid.Geothermal.Borefields.BaseClasses.Boreholes.BaseClasses.Functions.fluidProperties_T(
-        use_TDep=borFieDat.conDat.use_TDepRConv,
         fluidPropertyEvaluation=borFieDat.conDat.fluidPropertyEvaluation,
         T=vol2.T,
         p=vol2.p,
-        X_a=borFieDat.conDat.X_a,
-        cp_default=cpMed,
-        k_default=kMed,
-        mu_default=muMed,
-        rho_default=rhoMed);
+        X_a=borFieDat.conDat.X_a);
+
+  else
+
+    X1 = zeros(Medium.nX);
+    X2 = zeros(Medium.nX);
+
+    sta1 = Medium.setState_pTX(
+      p=Medium.p_default,
+      T=Medium.T_default,
+      X=Medium.X_default);
+
+    sta2 = Medium.setState_pTX(
+      p=Medium.p_default,
+      T=Medium.T_default,
+      X=Medium.X_default);
+
+    cpMed1Act = cpMed_default;
+    kMed1Act = kMed_default;
+    muMed1Act = muMed_default;
+    rhoMed1Act = rhoMed_default;
+
+    cpMed2Act = cpMed_default;
+    kMed2Act = kMed_default;
+    muMed2Act = muMed_default;
+    rhoMed2Act = rhoMed_default;
 
   end if;
 
