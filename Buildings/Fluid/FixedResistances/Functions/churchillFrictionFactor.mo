@@ -1,6 +1,6 @@
 within Buildings.Fluid.FixedResistances.Functions;
 function churchillFrictionFactor
-  "Darcy-Weisbach friction factor for all flow regimes (Churchill, 1977)"
+  "Darcy-Weisbach friction factor for all flow regimes"
   extends .Modelica.Icons.Function;
 
   input Real Re(min=0)
@@ -55,19 +55,19 @@ Key properties of this correlation:
 Explicit &mdash; no iteration required.
 </li>
 <li>
-Smooth for <i>Re</i> &gt; 0 and continuous across laminar, transitional, and
+Smooth for <i>Re &gt; 0</i> and continuous across laminar, transitional, and
 turbulent regimes without regime switching.
 </li>
 <li>
-Asymptotes to <i>f</i> = 64/<i>Re</i> in the laminar regime.
+Asymptotes to <i>f = 64/Re</i> in the laminar regime.
 </li>
 <li>
 Agrees with Colebrook-White to within 2% in the turbulent regime.
 </li>
 </ul>
 <p>
-The raw friction factor is singular at <i>Re</i> = 0. Therefore, this function
-requires <i>Re</i> &gt; 0. For pressure-drop calculations that need to include
+The raw friction factor is singular at <i>Re= 0</i> . Therefore, this function
+requires <i>Re &gt; 0</i>. For pressure-drop calculations that need to include
 zero flow, use
 <a href=\"modelica://Buildings.Fluid.FixedResistances.Functions.churchillFrictionFactorRe2\">
 Buildings.Fluid.FixedResistances.Functions.churchillFrictionFactorRe2</a>,
@@ -76,7 +76,9 @@ which returns the regularized modified friction coefficient
 </p>
 <h4>References</h4>
 <p>
-Churchill, S. W. (1977). Friction-factor equation spans all fluid-flow regimes.
+Churchill, S. W. (1977).
+<a href=\"https://files.engineering.com/files/85c0f3a6-a102-4a22-9d35-f15858c0dd2b/CEM_-_Friction-factor_equation_(1977).pdf\">
+Friction-factor equation spans all fluid-flow regimes</a>.
 <i>Chemical Engineering</i>, 84(24), 91&ndash;92.
 </p>
 </html>", revisions="<html>

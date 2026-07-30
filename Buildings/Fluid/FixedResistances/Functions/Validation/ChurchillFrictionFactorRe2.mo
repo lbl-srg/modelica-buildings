@@ -59,7 +59,7 @@ Buildings.Fluid.FixedResistances.Functions.churchillFrictionFactorRe2</a>.
 </p>
 <p>
 The Reynolds number is prescribed as <code>Re = time</code>, sweeping the range
-from zero to 30000. This includes the zero-flow point, which is intentionally
+from <i>0</i> to <i>30000</i>. This includes the zero-flow point, which is intentionally
 allowed for the modified coefficient
 <i>&lambda;<sub>2</sub> = f Re<sup>2</sup></i>.
 </p>

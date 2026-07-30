@@ -1,6 +1,6 @@
 within Buildings.Fluid.FixedResistances.Functions.Validation;
 model ChurchillFrictionFactor
-  "Validation of the Churchill (1977) friction factor function"
+  "Validation of the Churchill friction factor function"
   extends Modelica.Icons.Example;
 
   // Pipe geometry
@@ -53,25 +53,25 @@ Buildings.Fluid.FixedResistances.Functions.churchillFrictionFactor</a>.
 </p>
 <p>
 The Reynolds number increases with time so that <i>Re = t + 10<sup>-6</sup></i>,
-which avoids evaluating the raw Darcy friction factor at <i>Re</i> = 0,
+which avoids evaluating the raw Darcy friction factor at <i>Re = 0</i>,
 sweeping the full laminar–transitional–turbulent range
-over the simulation interval 0–30 000 s.
+over the <i>0</i> to <i>30000</i> .
 Two cases are compared using the same pipe geometry
-(<i>r<sub>tub</sub></i> = 0.02 m, <i>e<sub>tub</sub></i> = 0.002 m,
-<i>D<sub>in</sub></i> = 0.036 m):
+(<i>r<sub>tub</sub> = 0.02</i> m, <i>e<sub>tub</sub> = 0.002</i> m,
+<i>D<sub>in</sub> = 0.036</i> m):
 </p>
 <ul>
 <li>
-Smooth HDPE pipe: <i>&epsilon;</i> = 0.001 mm
+Smooth HDPE pipe: <i>&epsilon; = 0.001</i> mm
 (&epsilon;/D = 2.78 &times; 10<sup>-5</sup>).
 </li>
 <li>
-Commercial steel pipe: <i>&epsilon;</i> = 0.046 mm
+Commercial steel pipe: <i>&epsilon; = 0.046</i> mm
 (&epsilon;/D = 1.28 &times; 10<sup>-3</sup>).
 </li>
 </ul>
 <p>
-The laminar reference <i>f = 64/Re</i> is also output for comparison.
+The laminar reference <i>f = 64/Re</i> is also computed for comparison.
 </p>
 </html>", revisions="<html>
 <ul>

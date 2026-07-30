@@ -57,7 +57,7 @@ Churchill (1977) correlation.
 
 <p>
 Using <i>&lambda;<sub>2</sub></i> is convenient for pressure-drop calculations
-because the raw friction factor <i>f</i> is singular at <i>Re</i> = 0, whereas
+because the raw friction factor <i>f</i> is singular at <i>Re = 0</i>, whereas
 <i>&lambda;<sub>2</sub></i> has a finite laminar limit. For laminar flow,
 </p>
 <p align=\"center\" style=\"font-style:italic;\">
@@ -104,7 +104,9 @@ need to include zero or near-zero mass flow.
 
 <h4>References</h4>
 <p>
-Churchill, S. W. (1977). Friction-factor equation spans all fluid-flow regimes.
+Churchill, S. W. (1977).
+<a href=\"https://files.engineering.com/files/85c0f3a6-a102-4a22-9d35-f15858c0dd2b/CEM_-_Friction-factor_equation_(1977).pdf\">
+Friction-factor equation spans all fluid-flow regimes</a>.
 <i>Chemical Engineering</i>, 84(24), 91&ndash;92.
 </p>
 </html>",

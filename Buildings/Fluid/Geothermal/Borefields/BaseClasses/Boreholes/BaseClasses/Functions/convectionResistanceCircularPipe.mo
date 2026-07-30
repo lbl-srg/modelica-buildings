@@ -143,8 +143,8 @@ This model computes the convection resistance in the pipes of a borehole segment
 with heigth <i>h<sub>Seg</sub></i>.
 </p>
 <p>
-If the flow is laminar (<i>Re</i> &le; 2300), the Nusselt number is constant at
-Nu = 3.66. If the flow is turbulent (<i>Re</i> &ge; 4000), the Gnielinski (1975)
+If the flow is laminar (<i>Re&le; 2300</i> ), the Nusselt number is constant at
+Nu = 3.66. If the flow is turbulent (<i>Re &ge; 4000</i>), the Gnielinski (1975)
 correlation is used:
 </p>
 <p align=\"center\" style=\"font-style:italic;\">
@@ -155,9 +155,9 @@ where <i>f</i> is the Churchill (1977) friction factor, explicit and
 C&infin;-smooth across all flow regimes.
 </p>
 <p>
-For the transition region 2300 &lt; <i>Re</i> &lt; 4000, a <b>C&sup2;-continuous
+For the transition region 2300 &lt; <i>Re &lt; 4000</i>, a <b>C&sup2;-continuous
 quintic Hermite interpolation</b> is used. The polynomial matches value, slope and
-curvature from the laminar branch at Re = 2300 and from Gnielinski at Re = 4000, giving C&sup2; continuity at both boundaries. Slope and curvature at Re = 4000 are evaluated by central finite difference on Gnielinski with step &Delta;Re = 0.5. All three anchor
+curvature from the laminar branch at Re = 2300 and from Gnielinski at <i>Re = 4000</i>, giving C&sup2; continuity at both boundaries. Slope and curvature at <i>Re = 4000</i> are evaluated by central finite difference on Gnielinski with step &Delta;Re = 0.5. All three anchor
 scalars (Nu<sub>turb</sub>, dNu<sub>turb</sub>&middot;L, d&sup2;Nu<sub>turb</sub>&middot;L&sup2;) are recomputed at every function call.
 </p>
 <p>
@@ -166,7 +166,9 @@ The relative roughness &epsilon;/<i>D</i> is computed from the input
 </p>
 <h4>References</h4>
 <p>
-Churchill, S. W. (1977). Friction-factor equation spans all fluid-flow regimes.
+Churchill, S. W. (1977).
+<a href=\"https://files.engineering.com/files/85c0f3a6-a102-4a22-9d35-f15858c0dd2b/CEM_-_Friction-factor_equation_(1977).pdf\">
+Friction-factor equation spans all fluid-flow regimes</a>.
 <i>Chemical Engineering</i>, 84(24), 91&ndash;92.
 </p>
 <p>
