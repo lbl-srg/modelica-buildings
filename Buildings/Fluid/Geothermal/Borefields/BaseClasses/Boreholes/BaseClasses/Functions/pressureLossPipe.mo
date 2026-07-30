@@ -84,91 +84,40 @@ algorithm
     smoothOrder=1,
     Documentation(info="<html>
 <p>
-This function computes the pressure loss in a circular pipe using the
-Darcy-Weisbach equation. The result includes the major pipe-friction loss and,
-optionally, a minor-loss contribution represented by a loss coefficient.
+This function computes the major Darcy-Weisbach pipe-friction loss and an
+optional minor-loss contribution.
 </p>
-
+<p>
+The mass flow rate is regularized near zero using
+<i>m&#775;<sub>reg</sub> = sqrt(m&#775;<sup>2</sup> + m&#775;<sub>small</sub><sup>2</sup>)</i>
+and <i>s = m&#775;/m&#775;<sub>reg</sub></i>. This avoids non-differentiable use of
+absolute value or sign functions.
+</p>
 <p>
 The Reynolds number is
-</p>
-<p align=\"center\" style=\"font-style:italic;\">
-  Re = D |m&#775;| / (A &mu;),
-</p>
-<p>
-where <i>Re</i> is the Reynolds number, <i>D</i> is the inner pipe diameter,
-<i>A</i> is the inner pipe cross-sectional area, <i>m&#775;</i> is the mass
-flow rate, and <i>&mu;</i> is the dynamic viscosity.
-</p>
-
-<p>
-The major pressure loss is evaluated as
-</p>
-<p align=\"center\" style=\"font-style:italic;\">
-  &Delta;p<sub>major</sub> =
-  sign(m&#775;) L &mu;<sup>2</sup> &lambda;<sub>2</sub> /
-  (2 &rho; D<sup>3</sup>),
-</p>
-<p>
-where <i>L</i> is the pipe length, <i>&rho;</i> is the fluid density, and
-</p>
-<p align=\"center\" style=\"font-style:italic;\">
-  &lambda;<sub>2</sub> = f Re<sup>2</sup>.
-</p>
-<p>
-The modified friction coefficient <i>&lambda;<sub>2</sub></i> is evaluated by
+<i>Re = D m&#775;<sub>reg</sub> / (A &mu;)</i>.
+The modified friction coefficient
+<i>&lambda;<sub>2</sub> = f Re<sup>2</sup></i> is evaluated by
 <a href=\"modelica://Buildings.Fluid.FixedResistances.Functions.churchillFrictionFactorRe2\">
 Buildings.Fluid.FixedResistances.Functions.churchillFrictionFactorRe2</a>.
-This avoids evaluating the singular raw friction factor at zero flow and gives
-the correct laminar limit near zero Reynolds number.
-</p>
-
-<p>
-The minor pressure loss is evaluated using
-</p>
-<p align=\"center\" style=\"font-style:italic;\">
-  &Delta;p<sub>minor</sub> =
-  sign(m&#775;) K<sub>minor</sub> &rho; v<sup>2</sup>/2,
 </p>
 <p>
-where <i>K<sub>minor</sub></i> is the sum of the minor-loss coefficients and
-<i>v = |m&#775;| / (&rho; A)</i> is the mean flow velocity. Equivalently, this
-is implemented as
-</p>
-<p align=\"center\" style=\"font-style:italic;\">
-  &Delta;p<sub>minor</sub> =
-  sign(m&#775;) K<sub>minor</sub> &mu;<sup>2</sup> Re<sup>2</sup> /
-  (2 &rho; D<sup>2</sup>).
-</p>
-
-<p>
-The total pressure loss is
-</p>
-<p align=\"center\" style=\"font-style:italic;\">
-  &Delta;p =
-  &Delta;p<sub>major</sub> + &Delta;p<sub>minor</sub>.
-</p>
-
-<p>
-If <code>kMinor=0</code>, only the major Darcy-Weisbach pipe-friction loss is
-included.
-</p>
-
-<p>
-Equivalent-length data may be converted to an approximate loss coefficient at a
-documented reference condition using
-</p>
-<p align=\"center\" style=\"font-style:italic;\">
-  K = f L<sub>eq</sub> / D.
+With <i>c = &mu;<sup>2</sup> / (2 &rho; D<sup>2</sup>)</i>, the signed pressure-drop
+contributions are
+<i>&Delta;p<sub>major</sub> = s c (L/D) &lambda;<sub>2</sub></i> and
+<i>&Delta;p<sub>minor</sub> = s c k<sub>minor</sub> Re<sup>2</sup></i>.
+The total pressure drop is
+<i>&Delta;p = &Delta;p<sub>major</sub> + &Delta;p<sub>minor</sub></i>.
 </p>
 <p>
-Because <i>f</i> depends on the flow regime, this conversion should be based on
-a specified nominal or reference condition.
+The separate outputs <code>dpMajor</code>, <code>dpMinor</code>, and <code>Re</code>
+support post-processing of major/minor loss contributions and flow regime.
 </p>
-
 <h4>References</h4>
 <p>
-Churchill, S. W. (1977). Friction-factor equation spans all fluid-flow regimes.
+Churchill, S. W. (1977).
+<a href=\"https://files.engineering.com/files/85c0f3a6-a102-4a22-9d35-f15858c0dd2b/CEM_-_Friction-factor_equation_(1977).pdf\">
+Friction-factor equation spans all fluid-flow regimes</a>.
 <i>Chemical Engineering</i>, 84(24), 91&ndash;92.
 </p>
 </html>",
