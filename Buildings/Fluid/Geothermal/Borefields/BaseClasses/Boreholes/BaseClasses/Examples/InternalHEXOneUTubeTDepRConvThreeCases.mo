@@ -31,7 +31,7 @@ model InternalHEXOneUTubeTDepRConvThreeCases
         use_Rb=false,
         use_TDepRConv=false))
     "Borefield data for fixed-property water case"
-    annotation (Placement(transformation(extent={{-100,80},{-80,100}})));
+    annotation (Placement(transformation(extent={{-115.0,102.0},{-95.0,122.0}},rotation = 0.0,origin = {0.0,0.0})));
 
   parameter Buildings.Fluid.Geothermal.Borefields.Data.Borefield.Example
     borFieDatWat(
@@ -42,7 +42,7 @@ model InternalHEXOneUTubeTDepRConvThreeCases
         fluidPropertyEvaluation=
           Buildings.Fluid.Geothermal.Borefields.Types.FluidPropertyEvaluation.Water))
     "Borefield data for temperature-dependent water-correlation case"
-    annotation (Placement(transformation(extent={{-70,80},{-50,100}})));
+    annotation (Placement(transformation(extent={{-85.0,102.0},{-65.0,122.0}},rotation = 0.0,origin = {0.0,0.0})));
 
   parameter Buildings.Fluid.Geothermal.Borefields.Data.Borefield.Example
     borFieDatFixGly(
@@ -52,7 +52,7 @@ model InternalHEXOneUTubeTDepRConvThreeCases
         use_TDepRConv=false,
         X_a=0.40))
     "Borefield data for fixed-property glycol case"
-    annotation (Placement(transformation(extent={{-40,80},{-20,100}})));
+    annotation (Placement(transformation(extent={{-55.0,102.0},{-35.0,122.0}},rotation = 0.0,origin = {0.0,0.0})));
 
   parameter Buildings.Fluid.Geothermal.Borefields.Data.Borefield.Example
     borFieDatGly(
@@ -64,7 +64,7 @@ model InternalHEXOneUTubeTDepRConvThreeCases
           Buildings.Fluid.Geothermal.Borefields.Types.FluidPropertyEvaluation.PropyleneGlycolWater,
         X_a=0.40))
     "Borefield data for temperature-dependent glycol-correlation case"
-    annotation (Placement(transformation(extent={{-10,80},{10,100}})));
+    annotation (Placement(transformation(extent={{-25.0,102.0},{-5.0,122.0}},rotation = 0.0,origin = {0.0,0.0})));
 
   Buildings.Fluid.Geothermal.Borefields.BaseClasses.Boreholes.BaseClasses.InternalHEXOneUTube
     intHexFixWat(
@@ -129,7 +129,7 @@ model InternalHEXOneUTubeTDepRConvThreeCases
   Buildings.HeatTransfer.Sources.FixedTemperature fixedTemperature(
     T=283.15)
     "Fixed grout/wall temperature"
-    annotation (Placement(transformation(extent={{-90,-10},{-70,10}})));
+    annotation (Placement(transformation(extent={{-128.0,-8.0},{-108.0,12.0}},rotation = 0.0,origin = {0.0,0.0})));
 
   Buildings.Fluid.Sources.MassFlowSource_T souFixWat1(
     redeclare package Medium = MediumWat,
@@ -147,13 +147,13 @@ model InternalHEXOneUTubeTDepRConvThreeCases
     m_flow=borFieDatFixWat.conDat.mBor_flow_nominal,
     T=TWarm)
     "Warm source for fixed-property water pipe 2"
-    annotation (Placement(transformation(extent={{90,38},{70,58}})));
+    annotation (Placement(transformation(extent={{90.0,62.0},{70.0,82.0}},rotation = 0.0,origin = {0.0,0.0})));
 
   Buildings.Fluid.Sources.Boundary_pT sinFixWat(
     redeclare package Medium = MediumWat,
     nPorts=2)
     "Sink for fixed-property water case"
-    annotation (Placement(transformation(extent={{90,62},{70,82}})));
+    annotation (Placement(transformation(extent={{90.0,90.0},{70.0,110.0}},rotation = 0.0,origin = {0.0,0.0})));
 
   Buildings.Fluid.Sources.MassFlowSource_T souWat1(
     redeclare package Medium = MediumWat,
@@ -171,13 +171,13 @@ model InternalHEXOneUTubeTDepRConvThreeCases
     m_flow=borFieDatWat.conDat.mBor_flow_nominal,
     T=TWarm)
     "Warm source for water-correlation pipe 2"
-    annotation (Placement(transformation(extent={{90,-2},{70,18}})));
+    annotation (Placement(transformation(extent={{90.0,4.0},{70.0,24.0}},rotation = 0.0,origin = {0.0,0.0})));
 
   Buildings.Fluid.Sources.Boundary_pT sinWat(
     redeclare package Medium = MediumWat,
     nPorts=2)
     "Sink for water-correlation case"
-    annotation (Placement(transformation(extent={{90,22},{70,42}})));
+    annotation (Placement(transformation(extent={{90.0,36.0},{70.0,56.0}},rotation = 0.0,origin = {0.0,0.0})));
 
   Buildings.Fluid.Sources.MassFlowSource_T souFixGly1(
     redeclare package Medium = MediumGly,
@@ -195,13 +195,13 @@ model InternalHEXOneUTubeTDepRConvThreeCases
     m_flow=borFieDatFixGly.conDat.mBor_flow_nominal,
     T=TWarm)
     "Warm source for fixed-property glycol pipe 2"
-    annotation (Placement(transformation(extent={{90,-42},{70,-22}})));
+    annotation (Placement(transformation(extent={{90.0,-46.0},{70.0,-26.0}},rotation = 0.0,origin = {0.0,0.0})));
 
   Buildings.Fluid.Sources.Boundary_pT sinFixGly(
     redeclare package Medium = MediumGly,
     nPorts=2)
     "Sink for fixed-property glycol case"
-    annotation (Placement(transformation(extent={{90,-18},{70,2}})));
+    annotation (Placement(transformation(extent={{90.0,-22.0},{70.0,-2.0}},rotation = 0.0,origin = {0.0,0.0})));
 
   Buildings.Fluid.Sources.MassFlowSource_T souGly1(
     redeclare package Medium = MediumGly,
@@ -219,13 +219,13 @@ model InternalHEXOneUTubeTDepRConvThreeCases
     m_flow=borFieDatGly.conDat.mBor_flow_nominal,
     T=TWarm)
     "Warm source for glycol-correlation pipe 2"
-    annotation (Placement(transformation(extent={{90,-82},{70,-62}})));
+    annotation (Placement(transformation(extent={{90.0,-114.0},{70.0,-94.0}},rotation = 0.0,origin = {0.0,0.0})));
 
   Buildings.Fluid.Sources.Boundary_pT sinGly(
     redeclare package Medium = MediumGly,
     nPorts=2)
     "Sink for glycol-correlation case"
-    annotation (Placement(transformation(extent={{90,-58},{70,-38}})));
+    annotation (Placement(transformation(extent={{90.0,-84.0},{70.0,-64.0}},rotation = 0.0,origin = {0.0,0.0})));
 
   Modelica.Units.SI.ThermalResistance R1FixWat = intHexFixWat.RVol1.y
     "Pipe 1 convection resistance, fixed-property water";
@@ -259,49 +259,49 @@ model InternalHEXOneUTubeTDepRConvThreeCases
 
 equation
   connect(fixedTemperature.port, intHexFixWat.port_wall)
-    annotation (Line(points={{-70,0},{0,0},{0,70}}, color={191,0,0}));
+    annotation (Line(points={{-108,2},{0,2},{0,70}}, color={191,0,0}));
   connect(fixedTemperature.port, intHexWat.port_wall)
-    annotation (Line(points={{-70,0},{0,0},{0,30}}, color={191,0,0}));
+    annotation (Line(points={{-108,2},{0,2},{0,30}}, color={191,0,0}));
   connect(fixedTemperature.port, intHexFixGly.port_wall)
-    annotation (Line(points={{-70,0},{0,0},{0,-10}}, color={191,0,0}));
+    annotation (Line(points={{-108,2},{0,2},{0,-10}}, color={191,0,0}));
   connect(fixedTemperature.port, intHexGly.port_wall)
-    annotation (Line(points={{-70,0},{0,0},{0,-50}}, color={191,0,0}));
+    annotation (Line(points={{-108,2},{0,2},{0,-50}}, color={191,0,0}));
 
   connect(souFixWat1.ports[1], intHexFixWat.port_a1)
     annotation (Line(points={{-70,72},{-10,72},{-10,66}}, color={0,127,255}));
   connect(souFixWat2.ports[1], intHexFixWat.port_a2)
-    annotation (Line(points={{70,48},{10,48},{10,54}}, color={0,127,255}));
+    annotation (Line(points={{70,72},{70,60},{10,60},{10,54}}, color={0,127,255}));
   connect(intHexFixWat.port_b1, sinFixWat.ports[1])
-    annotation (Line(points={{10,66},{70,66},{70,74}}, color={0,127,255}));
+    annotation (Line(points={{10,66},{10,88},{70,88},{70,100}}, color={0,127,255}));
   connect(intHexFixWat.port_b2, sinFixWat.ports[2])
-    annotation (Line(points={{-10,54},{-40,54},{-40,88},{70,88},{70,70}}, color={0,127,255}));
+    annotation (Line(points={{-10,54},{-40,54},{-40,88},{70,88},{70,100}}, color={0,127,255}));
 
   connect(souWat1.ports[1], intHexWat.port_a1)
     annotation (Line(points={{-70,32},{-10,32},{-10,26}}, color={0,127,255}));
   connect(souWat2.ports[1], intHexWat.port_a2)
-    annotation (Line(points={{70,8},{10,8},{10,14}}, color={0,127,255}));
+    annotation (Line(points={{70,14},{10,14}}, color={0,127,255}));
   connect(intHexWat.port_b1, sinWat.ports[1])
-    annotation (Line(points={{10,26},{70,26},{70,34}}, color={0,127,255}));
+    annotation (Line(points={{10,26},{70,26},{70,46}}, color={0,127,255}));
   connect(intHexWat.port_b2, sinWat.ports[2])
-    annotation (Line(points={{-10,14},{-40,14},{-40,48},{70,48},{70,30}}, color={0,127,255}));
+    annotation (Line(points={{-10,14},{-40,14},{-40,46},{70,46}}, color={0,127,255}));
 
   connect(souFixGly1.ports[1], intHexFixGly.port_a1)
     annotation (Line(points={{-70,-8},{-10,-8},{-10,-14}}, color={0,127,255}));
   connect(souFixGly2.ports[1], intHexFixGly.port_a2)
-    annotation (Line(points={{70,-32},{10,-32},{10,-26}}, color={0,127,255}));
+    annotation (Line(points={{70,-36},{10,-36},{10,-26}}, color={0,127,255}));
   connect(intHexFixGly.port_b1, sinFixGly.ports[1])
-    annotation (Line(points={{10,-14},{70,-14},{70,-6}}, color={0,127,255}));
+    annotation (Line(points={{10,-14},{70,-14},{70,-12}}, color={0,127,255}));
   connect(intHexFixGly.port_b2, sinFixGly.ports[2])
-    annotation (Line(points={{-10,-26},{-40,-26},{-40,8},{70,8},{70,-10}}, color={0,127,255}));
+    annotation (Line(points={{-10,-26},{-40,-26},{-40,8},{70,8},{70,-12}}, color={0,127,255}));
 
   connect(souGly1.ports[1], intHexGly.port_a1)
     annotation (Line(points={{-70,-48},{-10,-48},{-10,-54}}, color={0,127,255}));
   connect(souGly2.ports[1], intHexGly.port_a2)
-    annotation (Line(points={{70,-72},{10,-72},{10,-66}}, color={0,127,255}));
+    annotation (Line(points={{70,-104},{10,-104},{10,-66}}, color={0,127,255}));
   connect(intHexGly.port_b1, sinGly.ports[1])
-    annotation (Line(points={{10,-54},{70,-54},{70,-46}}, color={0,127,255}));
+    annotation (Line(points={{10,-54},{30,-54},{30,-74},{70,-74}}, color={0,127,255}));
   connect(intHexGly.port_b2, sinGly.ports[2])
-    annotation (Line(points={{-10,-66},{-40,-66},{-40,-32},{70,-32},{70,-50}}, color={0,127,255}));
+    annotation (Line(points={{-10,-66},{-40,-66},{-40,-44},{70,-44},{70,-74}}, color={0,127,255}));
 
   annotation (
     experiment(StopTime=3600, Tolerance=1e-6),
