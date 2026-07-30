@@ -129,7 +129,7 @@ model InternalHEXOneUTubeTDepRConvThreeCases
     "Glycol medium with local temperature-dependent glycol correlations"
     annotation (Placement(transformation(extent={{-10,-70},{10,-50}})));
 
-  Buildings.HeatTransfer.Sources.FixedTemperature fixedTemperature(
+  Buildings.HeatTransfer.Sources.FixedTemperature TGro(
     T=283.15)
     "Fixed grout/wall temperature"
     annotation (Placement(transformation(extent={{-128.0,-8.0},{-108.0,12.0}},rotation = 0.0,origin = {0.0,0.0})));
@@ -261,14 +261,6 @@ model InternalHEXOneUTubeTDepRConvThreeCases
     "Difference between glycol-correlation and fixed-property glycol case for pipe 2";
 
 equation
-  connect(fixedTemperature.port, intHexFixWat.port_wall)
-    annotation (Line(points={{-108,2},{0,2},{0,70}}, color={191,0,0}));
-  connect(fixedTemperature.port, intHexWat.port_wall)
-    annotation (Line(points={{-108,2},{0,2},{0,30}}, color={191,0,0}));
-  connect(fixedTemperature.port, intHexFixGly.port_wall)
-    annotation (Line(points={{-108,2},{0,2},{0,-10}}, color={191,0,0}));
-  connect(fixedTemperature.port, intHexGly.port_wall)
-    annotation (Line(points={{-108,2},{0,2},{0,-50}}, color={191,0,0}));
 
   connect(souFixWat1.ports[1], intHexFixWat.port_a1)
     annotation (Line(points={{-70,72},{-10,72},{-10,66}}, color={0,127,255}));
@@ -305,6 +297,10 @@ equation
     annotation (Line(points={{10,-54},{30,-54},{30,-74},{70,-74}}, color={0,127,255}));
   connect(intHexGly.port_b2, sinGly.ports[2])
     annotation (Line(points={{-10,-66},{-40,-66},{-40,-44},{70,-44},{70,-74}}, color={0,127,255}));
+    connect(TGro.port,intHexFixWat.port_wall) annotation(Line(points = {{-108,2},{0,2},{0,70}},color = {191,0,0}));
+    connect(TGro.port,intHexWat.port_wall) annotation(Line(points = {{-108,2},{0,2},{0,30}},color = {191,0,0}));
+    connect(TGro.port,intHexFixGly.port_wall) annotation(Line(points = {{-108,2},{0,2},{0,-10}},color = {191,0,0}));
+    connect(TGro.port,intHexGly.port_wall) annotation(Line(points = {{-108,2},{0,2},{0,-50}},color = {191,0,0}));
 
   annotation (
     experiment(StopTime=3600, Tolerance=1e-6),
