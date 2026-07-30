@@ -67,8 +67,9 @@ This example validates
 Buildings.Fluid.FixedResistances.Functions.churchillFrictionFactorRe2</a>.
 </p>
 <p>
-The Reynolds number is prescribed as <code>Re = time</code>, sweeping the range
-from <i>0</i> to <i>30000</i>. This includes the zero-flow point, which is intentionally
+The Reynolds number is prescribed as a dimensionless ramp from
+<i>0</i> to <i>30000</i> using an explicit conversion factor from
+simulation time. This includes the zero-flow point, which is intentionally
 allowed for the modified coefficient
 <i>&lambda;<sub>2</sub> = f Re<sup>2</sup></i>.
 </p>

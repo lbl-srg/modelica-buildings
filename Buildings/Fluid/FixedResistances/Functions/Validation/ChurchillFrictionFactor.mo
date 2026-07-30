@@ -63,10 +63,13 @@ This example validates the implementation of
 Buildings.Fluid.FixedResistances.Functions.churchillFrictionFactor</a>.
 </p>
 <p>
-The Reynolds number increases with time so that <i>Re = t + 10<sup>-6</sup></i>,
-which avoids evaluating the raw Darcy friction factor at <i>Re = 0</i>,
-sweeping the full laminar–transitional–turbulent range
-over the <i>0</i> to <i>30000</i> .
+The Reynolds number is prescribed as a dimensionless ramp from
+<i>100</i> to <i>30000</i> using an explicit conversion factor from
+simulation time. This sweeps the laminar, transitional, and turbulent
+range while avoiding the singularity of the raw Darcy friction factor at
+<i>Re = 0</i>.
+</p>
+<p>
 Two cases are compared using the same pipe geometry
 (<i>r<sub>tub</sub> = 0.02</i> m, <i>e<sub>tub</sub> = 0.002</i> m,
 <i>D<sub>in</sub> = 0.036</i> m):
