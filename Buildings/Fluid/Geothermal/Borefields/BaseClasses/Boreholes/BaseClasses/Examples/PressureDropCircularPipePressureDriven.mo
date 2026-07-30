@@ -137,7 +137,7 @@ equation
 
   annotation (
     __Dymola_Commands(file=
-      "modelica://Buildings/Resources/Scripts/Dymola/Fluid/Geothermal/Borefields/BaseClasses/Boreholes/BaseClasses/Validation/PressureDropCircularPipePressureDriven.mos"
+      "modelica://Buildings/Resources/Scripts/Dymola/Fluid/Geothermal/Borefields/BaseClasses/Boreholes/BaseClasses/Examples/PressureDropCircularPipePressureDriven.mos"
       "Simulate and plot"),
     experiment(
       StopTime=2000,
