@@ -1,5 +1,5 @@
 within Buildings.Fluid.Geothermal.Borefields.BaseClasses.Boreholes.BaseClasses.Examples;
-model PressureDropCircularPipeTDep
+model PressureDropPipeTDep
   "Validation model for temperature-dependent Darcy-Weisbach pressure drop"
   extends .Modelica.Icons.Example;
 
@@ -58,7 +58,7 @@ model PressureDropCircularPipeTDep
     "Sinusoidal inlet temperature"
     annotation (Placement(transformation(extent={{-110,80},{-90,100}})));
 
-  .Buildings.Fluid.Geothermal.Borefields.BaseClasses.Boreholes.BaseClasses.PressureDropCircularPipe
+  .Buildings.Fluid.Geothermal.Borefields.BaseClasses.Boreholes.BaseClasses.PressureDropPipe
     preDroFixWat(
       redeclare package Medium = MediumWat,
       m_flow_nominal=m_flow_nominal,
@@ -73,7 +73,7 @@ model PressureDropCircularPipeTDep
     "Fixed-property water pressure drop"
     annotation (Placement(transformation(extent={{-10,50},{10,70}})));
 
-  .Buildings.Fluid.Geothermal.Borefields.BaseClasses.Boreholes.BaseClasses.PressureDropCircularPipe
+  .Buildings.Fluid.Geothermal.Borefields.BaseClasses.Boreholes.BaseClasses.PressureDropPipe
     preDroWat(
       redeclare package Medium = MediumWat,
       m_flow_nominal=m_flow_nominal,
@@ -90,7 +90,7 @@ model PressureDropCircularPipeTDep
     "Temperature-dependent water pressure drop"
     annotation (Placement(transformation(extent={{-10,10},{10,30}})));
 
-  .Buildings.Fluid.Geothermal.Borefields.BaseClasses.Boreholes.BaseClasses.PressureDropCircularPipe
+  .Buildings.Fluid.Geothermal.Borefields.BaseClasses.Boreholes.BaseClasses.PressureDropPipe
     preDroFixGly(
       redeclare package Medium = MediumGly,
       m_flow_nominal=m_flow_nominal,
@@ -105,7 +105,7 @@ model PressureDropCircularPipeTDep
     "Fixed-property glycol pressure drop"
     annotation (Placement(transformation(extent={{-10,-30},{10,-10}})));
 
-  .Buildings.Fluid.Geothermal.Borefields.BaseClasses.Boreholes.BaseClasses.PressureDropCircularPipe
+  .Buildings.Fluid.Geothermal.Borefields.BaseClasses.Boreholes.BaseClasses.PressureDropPipe
     preDroGly(
       redeclare package Medium = MediumGly,
       m_flow_nominal=m_flow_nominal,
@@ -275,4 +275,4 @@ This is for
 </li>
 </ul>
 </html>"));
-end PressureDropCircularPipeTDep;
+end PressureDropPipeTDep;

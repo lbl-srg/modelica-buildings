@@ -76,7 +76,7 @@ model TwoUTube "Double U-tube borehole heat exchanger"
     final TGro_start=TGro_start) "Discretized borehole segments"
   annotation (Placement(transformation(extent={{-10,-30},{10,10}})));
 
-  Buildings.Fluid.Geothermal.Borefields.BaseClasses.Boreholes.BaseClasses.PressureDropCircularPipe
+  Buildings.Fluid.Geothermal.Borefields.BaseClasses.Boreholes.BaseClasses.PressureDropPipe
     preDro1(
       redeclare final package Medium = Medium,
       final m_flow_nominal=if borFieDat.conDat.borCon == Buildings.Fluid.Geothermal.Borefields.Types.BoreholeConfiguration.DoubleUTubeParallel
@@ -94,7 +94,7 @@ model TwoUTube "Double U-tube borehole heat exchanger"
     "Darcy-Weisbach pressure drop of the first vertical U-tube circuit"
     annotation (Placement(transformation(extent={{-70,0},{-50,20}})));
 
-  Buildings.Fluid.Geothermal.Borefields.BaseClasses.Boreholes.BaseClasses.PressureDropCircularPipe
+  Buildings.Fluid.Geothermal.Borefields.BaseClasses.Boreholes.BaseClasses.PressureDropPipe
     preDro2(
       redeclare final package Medium = Medium,
       final m_flow_nominal=if borFieDat.conDat.borCon == Buildings.Fluid.Geothermal.Borefields.Types.BoreholeConfiguration.DoubleUTubeParallel

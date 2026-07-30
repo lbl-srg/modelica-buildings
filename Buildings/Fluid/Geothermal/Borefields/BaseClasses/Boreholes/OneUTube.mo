@@ -35,7 +35,7 @@ model OneUTube "Single U-tube borehole heat exchanger"
     final TGro_start=TGro_start) "Borehole segments"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
   
-  Buildings.Fluid.Geothermal.Borefields.BaseClasses.Boreholes.BaseClasses.PressureDropCircularPipe
+  Buildings.Fluid.Geothermal.Borefields.BaseClasses.Boreholes.BaseClasses.PressureDropPipe
     preDro(
       redeclare final package Medium = Medium,
       final m_flow_nominal=m_flow_nominal,

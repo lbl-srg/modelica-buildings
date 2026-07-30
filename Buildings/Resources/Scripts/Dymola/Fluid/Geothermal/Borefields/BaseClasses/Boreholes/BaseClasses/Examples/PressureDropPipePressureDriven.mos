@@ -1,16 +1,16 @@
-simulateModel("Buildings.Fluid.Geothermal.Borefields.BaseClasses.Boreholes.BaseClasses.Examples.PressureDropCircularPipeMassFlowDriven", stopTime=2000, tolerance=1e-6, method="CVode", resultFile="PressureDropCircularPipeMassFlowDriven");
+simulateModel("Buildings.Fluid.Geothermal.Borefields.BaseClasses.Boreholes.BaseClasses.Examples.PressureDropPipePressureDriven", stopTime=2000, tolerance=1e-6, method="CVode", resultFile="PressureDropPipePressureDriven");
 
 createPlot(
   id=1,
   position={0, 0, 1000, 600},
   x="time",
-  y={"m_flowSet", "preDro.m_flow"},
+  y={"dpSet", "preDro.dp", "dpFun"},
   autoscale=true,
   autoerase=true,
   autoreplot=true,
   grid=true,
   color=true,
-  filename="PressureDropCircularPipeMassFlowDriven.mat",
+  filename="PressureDropPipePressureDriven.mat",
   leftTitleType=1,
   bottomTitleType=1);
 
@@ -18,13 +18,13 @@ createPlot(
   id=2,
   position={0, 0, 1000, 600},
   x="time",
-  y={"preDro.dp", "dpFun"},
+  y={"preDro.m_flow"},
   autoscale=true,
   autoerase=true,
   autoreplot=true,
   grid=true,
   color=true,
-  filename="PressureDropCircularPipeMassFlowDriven.mat",
+  filename="PressureDropPipePressureDriven.mat",
   leftTitleType=1,
   bottomTitleType=1);
 
@@ -38,7 +38,7 @@ createPlot(
   autoreplot=true,
   grid=true,
   color=true,
-  filename="PressureDropCircularPipeMassFlowDriven.mat",
+  filename="PressureDropPipePressureDriven.mat",
   leftTitleType=1,
   bottomTitleType=1);
 
@@ -52,6 +52,6 @@ createPlot(
   autoreplot=true,
   grid=true,
   color=true,
-  filename="PressureDropCircularPipeMassFlowDriven.mat",
+  filename="PressureDropPipePressureDriven.mat",
   leftTitleType=1,
   bottomTitleType=1);

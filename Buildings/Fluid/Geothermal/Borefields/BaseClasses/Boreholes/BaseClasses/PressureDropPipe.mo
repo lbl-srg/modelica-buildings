@@ -1,5 +1,5 @@
 within Buildings.Fluid.Geothermal.Borefields.BaseClasses.Boreholes.BaseClasses;
-model PressureDropCircularPipe
+model PressureDropPipe
   "Major and minor pressure loss of a circular vertical GHE pipe"
   extends Buildings.Fluid.Interfaces.PartialTwoPortInterface;
 
@@ -215,4 +215,4 @@ This is for
 </ul>
 </html>"));
 
-end PressureDropCircularPipe;
+end PressureDropPipe;

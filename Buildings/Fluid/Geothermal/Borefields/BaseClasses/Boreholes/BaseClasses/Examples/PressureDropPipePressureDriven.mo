@@ -1,5 +1,5 @@
 within Buildings.Fluid.Geothermal.Borefields.BaseClasses.Boreholes.BaseClasses.Examples;
-model PressureDropCircularPipePressureDriven
+model PressureDropPipePressureDriven
   "Validation of PressureDropCircularPipe with pressure-driven flow"
   extends .Modelica.Icons.Example;
 
@@ -46,7 +46,7 @@ model PressureDropCircularPipePressureDriven
     "Fixed downstream pressure boundary"
     annotation (Placement(transformation(extent={{60,-10},{80,10}})));
 
-  .Buildings.Fluid.Geothermal.Borefields.BaseClasses.Boreholes.BaseClasses.PressureDropCircularPipe preDro(
+  .Buildings.Fluid.Geothermal.Borefields.BaseClasses.Boreholes.BaseClasses.PressureDropPipe preDro(
     redeclare package Medium = Medium,
     m_flow_nominal=m_flow_nominal,
     computePressureDrop=true,
@@ -188,4 +188,4 @@ This is for
 </ul>
 </html>"));
 
-end PressureDropCircularPipePressureDriven;
+end PressureDropPipePressureDriven;

@@ -1,5 +1,5 @@
 within Buildings.Fluid.Geothermal.Borefields.BaseClasses.Boreholes.BaseClasses.Functions.Validation;
-model PressureLossCircularPipe
+model PressureLossPipe
   "Validation model for pressureLossCircularPipe"
   extends Modelica.Icons.Example;
 
@@ -127,4 +127,4 @@ This is for
 </li>
 </ul>
 </html>"));
-end PressureLossCircularPipe;
+end PressureLossPipe;
