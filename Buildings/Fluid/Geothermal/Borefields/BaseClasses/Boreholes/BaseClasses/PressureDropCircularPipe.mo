@@ -37,6 +37,12 @@ model PressureDropCircularPipe
       enable=computePressureDrop and use_TDepPressureDrop and
         fluidPropertyEvaluation ==
           Buildings.Fluid.Geothermal.Borefields.Types.FluidPropertyEvaluation.PropyleneGlycolWater));
+  Modelica.Units.SI.PressureDifference dpMajor
+    "Major Darcy-Weisbach pressure drop";
+  Modelica.Units.SI.PressureDifference dpMinor
+    "Minor pressure drop";
+  Modelica.Units.SI.ReynoldsNumber Re
+    "Reynolds number";
 
 
 protected
@@ -112,8 +118,8 @@ equation
 
   end if;
 
-  dp =
-    if computePressureDrop then
+  if computePressureDrop then
+    (dp, dpMajor, dpMinor, Re) =
       Buildings.Fluid.Geothermal.Borefields.BaseClasses.Boreholes.BaseClasses.Functions.pressureLossPipe(
         length=length,
         rTub=rTub,
@@ -122,9 +128,14 @@ equation
         rhoMed=rhoMedAct,
         muMed=muMedAct,
         m_flow=m_flow,
-        kMinor=kMinor)
-    else
-      0;
+        kMinor=kMinor);
+  else
+    dp = 0;
+    dpMajor = 0;
+    dpMinor = 0;
+    Re = 0;
+  end if;
+
 
   port_a.h_outflow = inStream(port_b.h_outflow);
   port_b.h_outflow = inStream(port_a.h_outflow);

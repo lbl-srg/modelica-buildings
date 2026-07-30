@@ -19,8 +19,17 @@ function pressureLossPipe
     "Mass flow rate";
   input Real kMinor(unit="1", min=0) = 0
     "Sum of minor-loss coefficients";
+  input Modelica.Units.SI.MassFlowRate m_flow_small(min=Modelica.Constants.eps) = 1e-4
+    "Small mass flow rate for regularization";
   output Modelica.Units.SI.PressureDifference dp
     "Pressure drop";
+  output Modelica.Units.SI.PressureDifference dpMajor
+    "Major Darcy-Weisbach pressure drop";
+  output Modelica.Units.SI.PressureDifference dpMinor
+    "Minor pressure drop";
+  output Modelica.Units.SI.ReynoldsNumber Re
+    "Reynolds number";
+
 
 protected
   Modelica.Units.SI.Radius rTub_in = rTub - eTub
@@ -32,14 +41,15 @@ protected
     "Inner cross-sectional area";
   Real eps_D = roughness/diameter
     "Relative roughness";
-  Modelica.Units.SI.ReynoldsNumber Re
-    "Reynolds number";
   Real lambda2
     "Modified friction coefficient, lambda*Re^2";
-  Modelica.Units.SI.PressureDifference dpAbsMajor
-    "Absolute major pressure drop";
-  Modelica.Units.SI.PressureDifference dpAbsMinor
-    "Absolute minor pressure drop";
+  Modelica.Units.SI.MassFlowRate m_flow_abs
+    "Regularized absolute mass flow rate";
+  Real s(unit="1")
+    "Regularized sign of mass flow rate";
+  Real c(unit="Pa")
+    "Common pressure-drop coefficient";
+
 
 algorithm
   assert(rTub > eTub,
@@ -51,38 +61,24 @@ algorithm
   assert(kMinor >= 0,
     "The minor-loss coefficient kMinor must be non-negative.");
 
-  Re := diameter*abs(m_flow)/(crossArea*muMed);
+  m_flow_abs := sqrt(m_flow^2 + m_flow_small^2);
+  s := m_flow/m_flow_abs;
+
+  Re := diameter*m_flow_abs/(crossArea*muMed);
 
   lambda2 :=
     Buildings.Fluid.FixedResistances.Functions.churchillFrictionFactorRe2(
       Re=Re,
       eps_D=eps_D);
 
-  /*
-    Major Darcy-Weisbach pressure loss:
-      dp_major =
-        sign(m_flow) * L*mu^2/(2*rho*D^3) * lambda2
-    with
-      lambda2 = f*Re^2.
-    Minor loss:
-      dp_minor =
-        sign(m_flow) * kMinor*rho*v^2/2
-    which can be written with Re as
-      dp_minor =
-        sign(m_flow) * kMinor*mu^2*Re^2/(2*rho*D^2).
-  */
+  c := muMed^2/(2*rhoMed*diameter^2);
 
-  dpAbsMajor :=
-    length*muMed^2/(2*rhoMed*diameter^3)*lambda2;
+  dpMajor := s*c*(length/diameter)*lambda2;
 
-  dpAbsMinor :=
-    kMinor*muMed^2/(2*rhoMed*diameter^2)*Re^2;
+  dpMinor := s*c*kMinor*Re^2;
 
-  dp := smooth(1,
-    if noEvent(m_flow >= 0) then
-      dpAbsMajor + dpAbsMinor
-    else
-     -dpAbsMajor - dpAbsMinor);
+  dp := dpMajor + dpMinor;
+
 
   annotation (
     smoothOrder=1,
