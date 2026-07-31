@@ -67,15 +67,15 @@ model PressureDropPipePressureDriven
     f=1/1000,
     offset=0)
     "Prescribed pressure difference"
-    annotation (Placement(transformation(extent={{-100,50},{-80,70}})));
+    annotation (Placement(transformation(extent={{-100.0,34.0},{-80.0,54.0}},rotation = 0.0,origin = {0.0,0.0})));
 
   .Modelica.Blocks.Sources.Constant pBas(k=p0)
     "Base pressure"
-    annotation (Placement(transformation(extent={{-100,20},{-80,40}})));
+    annotation (Placement(transformation(extent={{-100.0,68.0},{-80.0,88.0}},rotation = 0.0,origin = {0.0,0.0})));
 
   .Modelica.Blocks.Math.Add pA(k1=1, k2=1)
     "Upstream pressure"
-    annotation (Placement(transformation(extent={{-60,35},{-40,55}})));
+    annotation (Placement(transformation(extent={{-60.0,52.0},{-40.0,72.0}},rotation = 0.0,origin = {0.0,0.0})));
 
   .Modelica.Units.SI.PressureDifference dpSet
     "Prescribed pressure difference";
@@ -102,13 +102,13 @@ model PressureDropPipePressureDriven
 
 equation
   connect(pBas.y, pA.u1)
-    annotation (Line(points={{-79,30},{-70,30},{-70,51},{-62,51}}, color={0,0,127}));
+    annotation (Line(points={{-79,78},{-70,78},{-70,68},{-62,68}}, color={0,0,127}));
 
   connect(dpPre.y, pA.u2)
-    annotation (Line(points={{-79,60},{-70,60},{-70,39},{-62,39}}, color={0,0,127}));
+    annotation (Line(points={{-79,44},{-70,44},{-70,56},{-62,56}}, color={0,0,127}));
 
   connect(pA.y, bouA.p_in)
-    annotation (Line(points={{-39,45},{-34,45},{-34,8},{-82,8}}, color={0,0,127}));
+    annotation (Line(points={{-39,62},{-34,62},{-34,20},{-88,20},{-88,8},{-82,8}}, color={0,0,127}));
 
   connect(bouA.ports[1], preDro.port_a)
     annotation (Line(points={{-60,0},{-10,0}}, color={0,127,255}));
