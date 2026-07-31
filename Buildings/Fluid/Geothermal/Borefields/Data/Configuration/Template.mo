@@ -22,7 +22,7 @@ record Template
     annotation (Dialog(group="Nominal condition"));
   parameter Boolean use_DarcyPressureDrop = false
     "Set to true to compute the vertical pipe pressure drop from Darcy-Weisbach"
-    annotation (Dialog(tab="Advanced", group="Pressure drop"));
+    annotation (Evaluate=true, Dialog(tab="Advanced", group="Pressure drop"));
   parameter Boolean use_TDepPressureDrop = false
     "Set to true to evaluate density and viscosity from the medium temperature for the Darcy-Weisbach pressure drop"
     annotation (Dialog(tab="Advanced", group="Pressure drop",enable=use_DarcyPressureDrop));

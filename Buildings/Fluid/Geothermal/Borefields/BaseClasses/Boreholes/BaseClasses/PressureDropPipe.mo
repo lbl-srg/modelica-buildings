@@ -4,7 +4,8 @@ model PressureDropPipe
   extends Buildings.Fluid.Interfaces.PartialTwoPortInterface;
 
   parameter Boolean use_DarcyPressureDrop = false
-    "Set to true to use Darcy-Weisbach pressure drop";
+    "Set to true to use Darcy-Weisbach pressure drop"
+    annotation (Evaluate=true);
 
   parameter Boolean use_TDepPressureDrop = false
     "Set to true to evaluate density and viscosity from the current fluid temperature";
