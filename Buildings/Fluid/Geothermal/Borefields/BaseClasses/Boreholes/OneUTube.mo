@@ -22,6 +22,13 @@ model OneUTube "Single U-tube borehole heat exchanger"
       else
         0
       for i in 1:nSeg},
+    final nUBend1={
+      if i == nSeg then
+        1
+      else
+        0
+      for i in 1:nSeg},
+    each final nUBend2=0,
     each final dp2_nominal=0,
     each final m1_flow_nominal=m_flow_nominal,
     each final m2_flow_nominal=m_flow_nominal,
@@ -34,32 +41,10 @@ model OneUTube "Single U-tube borehole heat exchanger"
     final TFlu_start=TFlu_start,
     final TGro_start=TGro_start) "Borehole segments"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
-  
-  Buildings.Fluid.Geothermal.Borefields.BaseClasses.Boreholes.BaseClasses.PressureDropPipe
-    preDro(
-      redeclare final package Medium = Medium,
-      final m_flow_nominal=m_flow_nominal,
-      final computePressureDrop=borFieDat.conDat.use_DarcyPressureDrop,
-      final use_TDepPressureDrop=borFieDat.conDat.use_TDepPressureDrop,
-      final fluidPropertyEvaluation=borFieDat.conDat.fluidPropertyEvaluation,
-      final X_a=borFieDat.conDat.X_a,
-      final length=2*borFieDat.conDat.hBor,
-      final rTub=borFieDat.conDat.rTub,
-      final eTub=borFieDat.conDat.eTub,
-      final roughness=borFieDat.conDat.roughness,
-      final rhoMed=rho_default,
-      final muMed=mu_default)
-    "Darcy-Weisbach pressure drop of the vertical pipes"
-    annotation (Placement(transformation(extent={{-70,-10},{-50,10}})));
 
 equation
-  connect(port_a, preDro.port_a) annotation (Line(
-      points={{-100,5.55112e-016},{-70,0}},
-      color={0,127,255},
-      smooth=Smooth.None));
-
-  connect(preDro.port_b, intHex[1].port_a1) annotation (Line(
-      points={{-50,0},{-52,0},{-52,6},{-10,6}},
+  connect(port_a, intHex[1].port_a1) annotation (Line(
+      points={{-100,5.55112e-016},{-52,5.55112e-016},{-52,6},{-10,6}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(port_b, intHex[1].port_b2) annotation (Line(

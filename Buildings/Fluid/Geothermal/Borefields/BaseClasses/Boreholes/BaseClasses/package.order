@@ -5,6 +5,7 @@ InternalResistancesTwoUTube
 PartialBorehole
 PartialInternalHEX
 PartialInternalResistances
+PressureDropPipeDarcy
 PressureDropPipe
 Functions
 Examples

@@ -23,7 +23,43 @@ model InternalHEXOneUTube
       final prescribedHeatFlowRate=false,
       final m_flow_small=m2_flow_small,
       final V=VTubSeg,
-      final mSenFac=mSenFac));
+      final mSenFac=mSenFac),
+    redeclare final Buildings.Fluid.Geothermal.Borefields.BaseClasses.Boreholes.BaseClasses.PressureDropPipe preDro1(
+      final use_DarcyPressureDrop=borFieDat.conDat.use_DarcyPressureDrop,
+      final use_TDepPressureDrop=borFieDat.conDat.use_TDepPressureDrop,
+      final fluidPropertyEvaluation=borFieDat.conDat.fluidPropertyEvaluation,
+      final X_a=borFieDat.conDat.X_a,
+      final length=hSeg,
+      final rTub=borFieDat.conDat.rTub,
+      final eTub=borFieDat.conDat.eTub,
+      final roughness=borFieDat.conDat.roughness,
+      final nUBend=nUBend1,
+      final from_dp=from_dp1,
+      final linearized=linearizeFlowResistance1,
+      final n=n1,
+      final deltaM=deltaM1,
+      final dp_nominal=dp1_nominal),
+    redeclare final Buildings.Fluid.Geothermal.Borefields.BaseClasses.Boreholes.BaseClasses.PressureDropPipe preDro2(
+      final use_DarcyPressureDrop=borFieDat.conDat.use_DarcyPressureDrop,
+      final use_TDepPressureDrop=borFieDat.conDat.use_TDepPressureDrop,
+      final fluidPropertyEvaluation=borFieDat.conDat.fluidPropertyEvaluation,
+      final X_a=borFieDat.conDat.X_a,
+      final length=hSeg,
+      final rTub=borFieDat.conDat.rTub,
+      final eTub=borFieDat.conDat.eTub,
+      final roughness=borFieDat.conDat.roughness,
+      final nUBend=nUBend2,
+      final from_dp=from_dp2,
+      final linearized=linearizeFlowResistance2,
+      final n=n2,
+      final deltaM=deltaM2,
+      final dp_nominal=dp2_nominal));
+  
+  parameter Integer nUBend1(min=0) = 0
+    "Number of U-bends represented by pressure-drop model for pipe 1";
+
+  parameter Integer nUBend2(min=0) = 0
+    "Number of U-bends represented by pressure-drop model for pipe 2";
 
   Modelica.Units.SI.ThermalResistance RVol1_val
     "Convective and thermal resistance at fluid 1";

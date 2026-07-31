@@ -1,6 +1,7 @@
 within Buildings.Fluid.Geothermal.Borefields.BaseClasses.Boreholes.BaseClasses.Examples;
 model PressureDropPipePressureDriven
-  "Validation of PressureDropCircularPipe with pressure-driven flow"
+  "Validation of PressureDropPipeDarcy
+ with pressure-driven flow"
   extends .Modelica.Icons.Example;
 
   package Medium = .Buildings.Media.Water;
@@ -46,7 +47,7 @@ model PressureDropPipePressureDriven
     "Fixed downstream pressure boundary"
     annotation (Placement(transformation(extent={{60,-10},{80,10}})));
 
-  .Buildings.Fluid.Geothermal.Borefields.BaseClasses.Boreholes.BaseClasses.PressureDropPipe preDro(
+  .Buildings.Fluid.Geothermal.Borefields.BaseClasses.Boreholes.BaseClasses.PressureDropPipeDarcy preDro(
     redeclare package Medium = Medium,
     m_flow_nominal=m_flow_nominal,
     computePressureDrop=true,
@@ -54,8 +55,8 @@ model PressureDropPipePressureDriven
     rTub=rTub,
     eTub=eTub,
     roughness=roughness,
-    rhoMed=rhoMed,
-    muMed=muMed,
+    rhoMed_default=rhoMed,
+    muMed_default=muMed,
     nUBend=nUBend,
     kUBend=kUBend)
     "Pressure-drop component"
@@ -90,6 +91,14 @@ model PressureDropPipePressureDriven
 
   .Modelica.Units.SI.PressureDifference errDp
     "Difference between component pressure drop and function evaluation";
+  
+  .Modelica.Units.SI.PressureDifference dpFunMajor;
+  .Modelica.Units.SI.PressureDifference dpFunMinor;
+  .Modelica.Units.SI.ReynoldsNumber ReFun;
+
+  .Modelica.Units.SI.PressureDifference dpFunNoMinorMajor;
+  .Modelica.Units.SI.PressureDifference dpFunNoMinorMinor;
+  .Modelica.Units.SI.ReynoldsNumber ReFunNoMinor;
 
 equation
   connect(pBas.y, pA.u1)
@@ -109,7 +118,7 @@ equation
 
   dpSet = dpPre.y;
 
-  dpFun =
+  (dpFun, dpFunMajor, dpFunMinor, ReFun) =
     .Buildings.Fluid.Geothermal.Borefields.BaseClasses.Boreholes.BaseClasses.Functions.pressureLossPipe(
       length=length,
       rTub=rTub,
@@ -120,7 +129,7 @@ equation
       m_flow=preDro.m_flow,
       kMinor=kMinor);
 
-  dpFunNoMinor =
+  (dpFunNoMinor, dpFunNoMinorMajor, dpFunNoMinorMinor, ReFunNoMinor) =
     .Buildings.Fluid.Geothermal.Borefields.BaseClasses.Boreholes.BaseClasses.Functions.pressureLossPipe(
       length=length,
       rTub=rTub,
@@ -137,7 +146,7 @@ equation
 
   annotation (
     __Dymola_Commands(file=
-      "modelica://Buildings/Resources/Scripts/Dymola/Fluid/Geothermal/Borefields/BaseClasses/Boreholes/BaseClasses/Examples/PressureDropCircularPipePressureDriven.mos"
+      "modelica://Buildings/Resources/Scripts/Dymola/Fluid/Geothermal/Borefields/BaseClasses/Boreholes/BaseClasses/Examples/PressureDropPipePressureDriven.mos"
       "Simulate and plot"),
     experiment(
       StopTime=2000,
@@ -145,8 +154,8 @@ equation
     Documentation(info="<html>
 <p>
 This validation model checks the pressure-driven use case of
-<a href=\"modelica://Buildings.Fluid.Geothermal.Borefields.BaseClasses.Boreholes.BaseClasses.PressureDropCircularPipe\">
-Buildings.Fluid.Geothermal.Borefields.BaseClasses.Boreholes.BaseClasses.PressureDropCircularPipe</a>.
+<a href=\"modelica://Buildings.Fluid.Geothermal.Borefields.BaseClasses.Boreholes.BaseClasses.PressureDropPipeDarcy\">
+Buildings.Fluid.Geothermal.Borefields.BaseClasses.Boreholes.BaseClasses.PressureDropPipeDarcy</a>.
 </p>
 
 <p>

@@ -61,7 +61,7 @@ model PressureDropPipeTDep
     "Sinusoidal inlet temperature"
     annotation (Placement(transformation(extent={{-110,80},{-90,100}})));
 
-  .Buildings.Fluid.Geothermal.Borefields.BaseClasses.Boreholes.BaseClasses.PressureDropPipe
+  .Buildings.Fluid.Geothermal.Borefields.BaseClasses.Boreholes.BaseClasses.PressureDropPipeDarcy
     preDroFixWat(
       redeclare package Medium = MediumWat,
       m_flow_nominal=m_flow_nominal,
@@ -77,7 +77,7 @@ model PressureDropPipeTDep
     "Fixed-property water pressure drop"
     annotation (Placement(transformation(extent={{-10,50},{10,70}})));
 
-  .Buildings.Fluid.Geothermal.Borefields.BaseClasses.Boreholes.BaseClasses.PressureDropPipe
+  .Buildings.Fluid.Geothermal.Borefields.BaseClasses.Boreholes.BaseClasses.PressureDropPipeDarcy
     preDroWat(
       redeclare package Medium = MediumWat,
       m_flow_nominal=m_flow_nominal,
@@ -95,7 +95,7 @@ model PressureDropPipeTDep
     "Temperature-dependent water pressure drop"
     annotation (Placement(transformation(extent={{-10,10},{10,30}})));
 
-  .Buildings.Fluid.Geothermal.Borefields.BaseClasses.Boreholes.BaseClasses.PressureDropPipe
+  .Buildings.Fluid.Geothermal.Borefields.BaseClasses.Boreholes.BaseClasses.PressureDropPipeDarcy
     preDroFixGly(
       redeclare package Medium = MediumGly,
       m_flow_nominal=m_flow_nominal,
@@ -111,7 +111,7 @@ model PressureDropPipeTDep
     "Fixed-property glycol pressure drop"
     annotation (Placement(transformation(extent={{-10,-30},{10,-10}})));
 
-  .Buildings.Fluid.Geothermal.Borefields.BaseClasses.Boreholes.BaseClasses.PressureDropPipe
+  .Buildings.Fluid.Geothermal.Borefields.BaseClasses.Boreholes.BaseClasses.PressureDropPipeDarcy
     preDroGly(
       redeclare package Medium = MediumGly,
       m_flow_nominal=m_flow_nominal,

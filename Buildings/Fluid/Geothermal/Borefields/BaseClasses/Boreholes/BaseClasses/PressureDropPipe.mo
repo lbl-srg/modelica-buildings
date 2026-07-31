@@ -1,251 +1,168 @@
 within Buildings.Fluid.Geothermal.Borefields.BaseClasses.Boreholes.BaseClasses;
 model PressureDropPipe
-  "Major and minor pressure loss of a vertical GHE pipe"
+  "Pressure-drop model for borehole pipe segments"
   extends Buildings.Fluid.Interfaces.PartialTwoPortInterface;
 
-  parameter Boolean computePressureDrop = true
-    "Set to true to compute Darcy-Weisbach pressure drop";
+  parameter Boolean use_DarcyPressureDrop = false
+    "Set to true to use Darcy-Weisbach pressure drop";
+
+  parameter Boolean use_TDepPressureDrop = false
+    "Set to true to evaluate density and viscosity from the current fluid temperature";
+
+  parameter Buildings.Fluid.Geothermal.Borefields.Types.FluidPropertyEvaluation
+    fluidPropertyEvaluation =
+      Buildings.Fluid.Geothermal.Borefields.Types.FluidPropertyEvaluation.GenericMedium
+    "Method used to evaluate fluid properties for Darcy-Weisbach pressure drop";
+
+  parameter Modelica.Units.SI.MassFraction X_a(min=0, max=0.6)
+    "Mass fraction of propylene glycol in water";
+
   parameter Modelica.Units.SI.Length length
-    "Pipe length";
+    "Pipe length represented by this pressure-drop component";
+
   parameter Modelica.Units.SI.Radius rTub
     "Outer tube radius";
+
   parameter Modelica.Units.SI.Length eTub
     "Tube wall thickness";
+
   parameter Modelica.Units.SI.Length roughness = 0.001e-3
     "Absolute pipe wall roughness";
-  parameter Modelica.Units.SI.Density rhoMed_default =
-    Medium.density(Medium.setState_pTX(
-      Medium.p_default,
-      Medium.T_default,
-      Medium.X_default))
-    "Default fluid density";
-  parameter Modelica.Units.SI.DynamicViscosity muMed_default =
-    Medium.dynamicViscosity(Medium.setState_pTX(
-      Medium.p_default,
-      Medium.T_default,
-      Medium.X_default))
-    "Default fluid dynamic viscosity";
-  parameter Integer nUBend(min=0) = 1
-    "Number of U-bends represented by this pressure-drop component"
-    annotation (Dialog(enable=computePressureDrop));
+
+  parameter Integer nUBend(min=0) = 0
+    "Number of U-bends represented by this pressure-drop component";
+
   parameter Real kUBend(unit="1", min=0) = 2
-    "Minor-loss coefficient of one U-bend"
-    annotation (Dialog(enable=computePressureDrop));
-  parameter Boolean use_TDepPressureDrop = false
-    "Set to true to evaluate density and viscosity from the current fluid temperature"
-    annotation (Dialog(enable=computePressureDrop));
-  parameter Buildings.Fluid.Geothermal.Borefields.Types.FluidPropertyEvaluation
-    fluidPropertyEvaluation=
-      Buildings.Fluid.Geothermal.Borefields.Types.FluidPropertyEvaluation.GenericMedium
-    "Method used to evaluate fluid properties for pressure drop"
-    annotation (Dialog(enable=computePressureDrop and use_TDepPressureDrop));
-  parameter Modelica.Units.SI.MassFraction X_a(min=0, max=0.6) 
-    "Mass fraction of propylene glycol in water"
-    annotation (Dialog(
-      enable=computePressureDrop and use_TDepPressureDrop and
-        fluidPropertyEvaluation ==
-          Buildings.Fluid.Geothermal.Borefields.Types.FluidPropertyEvaluation.PropyleneGlycolWater));
-  Modelica.Units.SI.PressureDifference dpMajor
+    "Minor-loss coefficient of one U-bend";
+
+  parameter Boolean from_dp = false
+    "Set to true to use pressure drop as state";
+
+  parameter Boolean linearized = false
+    "Set to true to linearize pressure-flow relation";
+
+  parameter Real n(min=1, max=2) = 2
+    "Flow exponent for old pressure-drop formulation";
+
+  parameter Real deltaM(min=1E-6) = 0.3
+    "Fraction of nominal flow rate where transition to turbulent occurs";
+
+  constant Boolean homotopyInitialization = true
+    "Set to true to use homotopy method"
+    annotation (HideResult=true);
+
+  parameter Modelica.Units.SI.PressureDifference dp_nominal
+    "Nominal pressure drop for old pressure-drop formulation";
+
+  Buildings.Fluid.FixedResistances.PressureDrop preDroFix(
+    redeclare final package Medium = Medium,
+    final m_flow_nominal=m_flow_nominal,
+    final allowFlowReversal=allowFlowReversal,
+    final from_dp=from_dp,
+    final linearized=linearized,
+    final n=n,
+    final deltaM=deltaM,
+    final show_T=show_T,
+    final homotopyInitialization=homotopyInitialization,
+    final dp_nominal=if use_DarcyPressureDrop then 0 else dp_nominal)
+    "Nominal pressure-drop model"
+    annotation (Placement(transformation(extent={{-46.0,-10.0},{-26.0,10.0}},rotation = 0.0,origin = {0.0,0.0})));
+
+  Buildings.Fluid.Geothermal.Borefields.BaseClasses.Boreholes.BaseClasses.PressureDropPipeDarcy preDroDar(
+    redeclare final package Medium = Medium,
+    final m_flow_nominal=m_flow_nominal,
+    final allowFlowReversal=allowFlowReversal,
+    final computePressureDrop=use_DarcyPressureDrop,
+    final use_TDepPressureDrop=use_TDepPressureDrop,
+    final fluidPropertyEvaluation=fluidPropertyEvaluation,
+    final X_a=X_a,
+    final length=length,
+    final rTub=rTub,
+    final eTub=eTub,
+    final roughness=roughness,
+    final nUBend=nUBend,
+    final kUBend=kUBend)
+    "Darcy-Weisbach pressure-drop model"
+    annotation (Placement(transformation(extent={{30.0,-10.0},{50.0,10.0}},rotation = 0.0,origin = {0.0,0.0})));
+
+  Modelica.Units.SI.PressureDifference dpMajor = preDroDar.dpMajor
     "Major Darcy-Weisbach pressure drop";
-  Modelica.Units.SI.PressureDifference dpMinor
+
+  Modelica.Units.SI.PressureDifference dpMinor = preDroDar.dpMinor
     "Minor pressure drop";
-  Modelica.Units.SI.ReynoldsNumber Re
+
+  Modelica.Units.SI.ReynoldsNumber Re = preDroDar.Re
     "Reynolds number";
 
-
-protected
-  final parameter Real kMinor(unit="1") = nUBend*kUBend
-    "Total minor-loss coefficient";
-
-  Medium.MassFraction XiAct[Medium.nXi]
-    "Independent mass fractions of actual stream";
-
-  Medium.MassFraction XAct[Medium.nX]
-    "Mass fractions of actual stream";
-
-  Medium.SpecificEnthalpy hAct
-  "Specific enthalpy used for property evaluation";
-
-  Medium.ThermodynamicState staAct
-    "Actual stream state used for generic medium property evaluation";
-
-  Modelica.Units.SI.Temperature TAct
-    "Actual stream temperature used for property evaluation";
-
-  Modelica.Units.SI.DynamicViscosity muMedAct
-    "Dynamic viscosity used for pressure drop";
-
-  Modelica.Units.SI.Density rhoMedAct
-    "Density used for pressure drop";
-
-
 equation
-  port_a.m_flow + port_b.m_flow = 0;
-
-  if computePressureDrop and use_TDepPressureDrop then
-
-    XiAct =
-      if allowFlowReversal then
-        actualStream(port_a.Xi_outflow)
-      else
-        inStream(port_a.Xi_outflow);
-
-    XAct =
-      if Medium.nXi == 0 then
-        Medium.X_default
-      elseif Medium.reducedX then
-        cat(1, XiAct, {1 - sum(XiAct)})
-      else
-        XiAct;
-
-    hAct =
-      if allowFlowReversal then
-        actualStream(port_a.h_outflow)
-      else
-        inStream(port_a.h_outflow);
-
-    TAct = Medium.temperature_phX(
-      p=port_a.p,
-      h=hAct,
-      X=XAct);
-
-    if fluidPropertyEvaluation ==
-       Buildings.Fluid.Geothermal.Borefields.Types.FluidPropertyEvaluation.GenericMedium then
-
-      staAct = Medium.setState_phX(
-        p=port_a.p,
-        h=hAct,
-        X=XAct);
-
-      rhoMedAct = Medium.density(staAct);
-      muMedAct = Medium.dynamicViscosity(staAct);
-
-    else
-
-      staAct = Medium.setState_pTX(
-        p=Medium.p_default,
-        T=Medium.T_default,
-        X=Medium.X_default);
-
-      (muMedAct, rhoMedAct) =
-        Buildings.Fluid.Geothermal.Borefields.BaseClasses.Boreholes.BaseClasses.Functions.fluidDensityViscosity_T(
-          fluidPropertyEvaluation=fluidPropertyEvaluation,
-          T=TAct,
-          p=port_a.p,
-          X_a=X_a);
-
-    end if;
-
-  else
-    XiAct = zeros(Medium.nXi);
-    XAct = Medium.X_default;
-    hAct = Medium.h_default;
-
-    staAct = Medium.setState_pTX(
-      p=Medium.p_default,
-      T=Medium.T_default,
-      X=Medium.X_default);
-
-    TAct = Medium.T_default;
-
-    rhoMedAct = rhoMed_default;
-    muMedAct = muMed_default;
-
-  end if;
-
-  if computePressureDrop then
-    (dp, dpMajor, dpMinor, Re) =
-      Buildings.Fluid.Geothermal.Borefields.BaseClasses.Boreholes.BaseClasses.Functions.pressureLossPipe(
-        length=length,
-        rTub=rTub,
-        eTub=eTub,
-        roughness=roughness,
-        rhoMed=rhoMedAct,
-        muMed=muMedAct,
-        m_flow=m_flow,
-        kMinor=kMinor);
-  else
-    dp = 0;
-    dpMajor = 0;
-    dpMinor = 0;
-    Re = 0;
-  end if;
-
-  port_a.h_outflow = inStream(port_b.h_outflow);
-  port_b.h_outflow = inStream(port_a.h_outflow);
-
-  port_a.Xi_outflow = inStream(port_b.Xi_outflow);
-  port_b.Xi_outflow = inStream(port_a.Xi_outflow);
-
-  port_a.C_outflow = inStream(port_b.C_outflow);
-  port_b.C_outflow = inStream(port_a.C_outflow);
+  connect(preDroDar.port_b, port_b)
+    annotation (Line(points={{50,0},{100,0}}, color={0,127,255}));
+    connect(port_a,preDroFix.port_a) annotation(Line(points = {{-100,0},{-46,0}},color = {0,127,255}));
+    connect(preDroFix.port_b,preDroDar.port_a) annotation(Line(points = {{-26,0},{30,0}},color = {0,127,255}));
 
   annotation (
-    Icon(
-      coordinateSystem(
-        preserveAspectRatio=false,
-        extent={{-100,-100},{100,100}}),
-      graphics={
-        Line(
-          points={{-100,0},{-60,0}},
-          color={0,127,255},
-          thickness=1),
-        Line(
-          points={{60,0},{100,0}},
-          color={0,127,255},
-          thickness=1),
-        Line(
-          points={{-60,0},{-45,25},{-30,-25},{-15,25},{0,-25},{15,25},{30,-25},{45,25},{60,0}},
-          color={0,127,255},
-          thickness=1)}),
+    defaultComponentName="preDro",
+    Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,
+            -100},{100,100}}), graphics={
+        Rectangle(
+          extent={{-100,40},{100,-40}},
+          lineColor={0,0,0},
+          fillPattern=FillPattern.HorizontalCylinder,
+          fillColor={192,192,192}),
+        Rectangle(
+          extent={{-100,22},{100,-24}},
+          lineColor={0,0,0},
+          fillPattern=FillPattern.HorizontalCylinder,
+          fillColor={0,127,255}),
+        Rectangle(
+          visible=linearized,
+          extent={{-100,22},{100,-22}},
+          fillPattern=FillPattern.Backward,
+          fillColor={0,128,255},
+          pattern=LinePattern.None,
+          lineColor={255,255,255}),
+        Rectangle(
+          extent=DynamicSelect({{-100,10},{-100,10}}, {{100,10},{100+200*max(-1, min(0, m_flow/(abs(m_flow_nominal)))),-10}}),
+          lineColor={28,108,200},
+          fillColor={255,0,0},
+          fillPattern=FillPattern.Solid,
+          pattern=LinePattern.None),
+        Rectangle(
+          extent=DynamicSelect({{-100,10},{-100,10}}, {{-100,10},{-100+200*min(1, max(0, m_flow/abs(m_flow_nominal))),-10}}),
+          lineColor={28,108,200},
+          fillColor={0,0,0},
+          fillPattern=FillPattern.Solid,
+          pattern=LinePattern.None)}),
     Documentation(info="<html>
 <p>
-This model computes the pressure loss of a pipe.
-</p>
-
-<p>
-If <code>computePressureDrop=true</code>, the pressure drop is computed from the
-instantaneous mass flow rate using
-<a href=\"modelica://Buildings.Fluid.Geothermal.Borefields.BaseClasses.Boreholes.BaseClasses.Functions.pressureLossPipe\">
-Buildings.Fluid.Geothermal.Borefields.BaseClasses.Boreholes.BaseClasses.Functions.pressureLossPipe</a>.
-The calculation includes the major Darcy-Weisbach pipe-friction loss and the
-U-bend minor loss.
-</p>
-
-<p>
-The total U-bend minor-loss coefficient passed to the pressure-loss function is
-</p>
-<p align=\"center\" style=\"font-style:italic;\">
-  k<sub>minor</sub> = n<sub>UBend</sub> k<sub>UBend</sub>.
+This component provides the pressure-drop model used in borehole pipe segments.
+It switches between the nominal pressure-drop formulation from
+<a href=\"modelica://Buildings.Fluid.FixedResistances.PressureDrop\">
+Buildings.Fluid.FixedResistances.PressureDrop</a>
+and the Darcy-Weisbach formulation from
+<a href=\"modelica://Buildings.Fluid.Geothermal.Borefields.BaseClasses.Boreholes.BaseClasses.PressureDropPipeDarcy\">
+Buildings.Fluid.Geothermal.Borefields.BaseClasses.Boreholes.BaseClasses.PressureDropPipeDarcy</a>.
 </p>
 <p>
-For a single U-tube, use <code>nUBend=1</code>. For a double U-tube, use
-<code>nUBend=2</code>.
+If <code>use_DarcyPressureDrop=false</code>, the nominal pressure-drop model is
+active and the Darcy-Weisbach model imposes zero pressure drop.
 </p>
-
 <p>
-If <code>computePressureDrop=false</code>, this component imposes zero pressure
-drop and acts as a hydraulic pass-through. In that case, U-bend minor losses are
-not included.
+If <code>use_DarcyPressureDrop=true</code>, the nominal pressure-drop model has
+zero nominal pressure drop and the Darcy-Weisbach model is active.
 </p>
-
 <p>
-The equations used for the major and minor pressure-loss calculations are
-documented in
-<a href=\"modelica://Buildings.Fluid.Geothermal.Borefields.BaseClasses.Boreholes.BaseClasses.Functions.pressureLossPipe\">
-Buildings.Fluid.Geothermal.Borefields.BaseClasses.Boreholes.BaseClasses.Functions.pressureLossPipe</a>.
+The outputs <code>dpMajor</code>, <code>dpMinor</code>, and <code>Re</code> are
+forwarded from the Darcy-Weisbach model and are intended for post-processing.
 </p>
-</html>",
-revisions="<html>
+</html>", revisions="<html>
 <ul>
 <li>
-July 18, 2026, by Lone Meertens:<br/>
-First implementation for Darcy-Weisbach pressure-drop calculation in vertical
-GHE pipes.<br/>
+July 31, 2026, by Lone Meertens:<br/>
+First implementation.<br/>
 This is for
 <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4656\">Buildings, #4656</a>.
 </li>
 </ul>
 </html>"));
-
 end PressureDropPipe;

@@ -46,7 +46,79 @@ model InternalHEXTwoUTube
       final prescribedHeatFlowRate=false,
       final m_flow_small=m4_flow_small,
       final V=VTubSeg,
-      final mSenFac=mSenFac));
+      final mSenFac=mSenFac),
+    redeclare final Buildings.Fluid.Geothermal.Borefields.BaseClasses.Boreholes.BaseClasses.PressureDropPipe preDro1(
+      final use_DarcyPressureDrop=borFieDat.conDat.use_DarcyPressureDrop,
+      final use_TDepPressureDrop=borFieDat.conDat.use_TDepPressureDrop,
+      final fluidPropertyEvaluation=borFieDat.conDat.fluidPropertyEvaluation,
+      final X_a=borFieDat.conDat.X_a,
+      final length=hSeg,
+      final rTub=borFieDat.conDat.rTub,
+      final eTub=borFieDat.conDat.eTub,
+      final roughness=borFieDat.conDat.roughness,
+      final nUBend=nUBend1,
+      final from_dp=from_dp1,
+      final linearized=linearizeFlowResistance1,
+      final n=n1,
+      final deltaM=deltaM1,
+      final dp_nominal=dp1_nominal),
+    redeclare final Buildings.Fluid.Geothermal.Borefields.BaseClasses.Boreholes.BaseClasses.PressureDropPipe preDro2(
+      final use_DarcyPressureDrop=borFieDat.conDat.use_DarcyPressureDrop,
+      final use_TDepPressureDrop=borFieDat.conDat.use_TDepPressureDrop,
+      final fluidPropertyEvaluation=borFieDat.conDat.fluidPropertyEvaluation,
+      final X_a=borFieDat.conDat.X_a,
+      final length=hSeg,
+      final rTub=borFieDat.conDat.rTub,
+      final eTub=borFieDat.conDat.eTub,
+      final roughness=borFieDat.conDat.roughness,
+      final nUBend=nUBend2,
+      final from_dp=from_dp2,
+      final linearized=linearizeFlowResistance2,
+      final n=n2,
+      final deltaM=deltaM2,
+      final dp_nominal=dp2_nominal),
+    redeclare final Buildings.Fluid.Geothermal.Borefields.BaseClasses.Boreholes.BaseClasses.PressureDropPipe preDro3(
+      final use_DarcyPressureDrop=borFieDat.conDat.use_DarcyPressureDrop,
+      final use_TDepPressureDrop=borFieDat.conDat.use_TDepPressureDrop,
+      final fluidPropertyEvaluation=borFieDat.conDat.fluidPropertyEvaluation,
+      final X_a=borFieDat.conDat.X_a,
+      final length=hSeg,
+      final rTub=borFieDat.conDat.rTub,
+      final eTub=borFieDat.conDat.eTub,
+      final roughness=borFieDat.conDat.roughness,
+      final nUBend=nUBend3,
+      final from_dp=from_dp3,
+      final linearized=linearizeFlowResistance3,
+      final n=n3,
+      final deltaM=deltaM3,
+      final dp_nominal=dp3_nominal),
+    redeclare final Buildings.Fluid.Geothermal.Borefields.BaseClasses.Boreholes.BaseClasses.PressureDropPipe preDro4(
+      final use_DarcyPressureDrop=borFieDat.conDat.use_DarcyPressureDrop,
+      final use_TDepPressureDrop=borFieDat.conDat.use_TDepPressureDrop,
+      final fluidPropertyEvaluation=borFieDat.conDat.fluidPropertyEvaluation,
+      final X_a=borFieDat.conDat.X_a,
+      final length=hSeg,
+      final rTub=borFieDat.conDat.rTub,
+      final eTub=borFieDat.conDat.eTub,
+      final roughness=borFieDat.conDat.roughness,
+      final nUBend=nUBend4,
+      final from_dp=from_dp4,
+      final linearized=linearizeFlowResistance4,
+      final n=n4,
+      final deltaM=deltaM4,
+      final dp_nominal=dp4_nominal));
+  
+  parameter Integer nUBend1(min=0) = 0
+    "Number of U-bends represented by pressure-drop model for pipe 1";
+
+  parameter Integer nUBend2(min=0) = 0
+    "Number of U-bends represented by pressure-drop model for pipe 2";
+
+  parameter Integer nUBend3(min=0) = 0
+    "Number of U-bends represented by pressure-drop model for pipe 3";
+
+  parameter Integer nUBend4(min=0) = 0
+    "Number of U-bends represented by pressure-drop model for pipe 4";
   
   Modelica.Units.SI.ThermalResistance RVol1_val
     "Convective and thermal resistance at fluid 1";
@@ -71,7 +143,7 @@ model InternalHEXTwoUTube
 
   Modelica.Blocks.Sources.RealExpression RVol2(y=RVol2_val)
     "Convective and thermal resistance at fluid 2"
-    annotation (Placement(transformation(extent={{88,-8},{72,-26}})));
+    annotation (Placement(transformation(extent={{88.0,-8.0},{72.0,-26.0}},rotation = 0.0,origin = {0.0,0.0})));
 
   Modelica.Blocks.Sources.RealExpression RVol3(y=RVol3_val)
     "Convective and thermal resistance at fluid 3"
@@ -114,7 +186,7 @@ model InternalHEXTwoUTube
         rotation=180,
         origin={-34,0})));
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a port_wall
-    annotation (Placement(transformation(extent={{-10,90},{10,110}})));
+    annotation (Placement(transformation(extent={{-10.0,90.0},{10.0,110.0}},rotation = 0.0,origin = {0.0,0.0})));
 
 protected
   parameter Real Rgg1_val(fixed=false);
@@ -450,8 +522,7 @@ equation
           -32},{-8,-32}}, color={0,0,127}));
   connect(RVol2.y, RConv2.Rc)
     annotation (Line(points={{71.2,-17},{34,-17},{34,-8}}, color={0,0,127}));
-  connect(intRes2UTub.port_wall, port_wall) annotation (Line(points={{0,0},{6,0},
-          {6,20},{20,20},{20,100},{0,100}}, color={191,0,0}));
+  connect(intRes2UTub.port_wall, port_wall) annotation (Line(points={{0,0},{6,0},{6,20},{20,20},{20,100},{0,100}}, color={191,0,0}));
   annotation (
     Diagram(coordinateSystem(preserveAspectRatio=false, initialScale=0.1)),
     Icon(coordinateSystem(preserveAspectRatio=false, initialScale=0.1),

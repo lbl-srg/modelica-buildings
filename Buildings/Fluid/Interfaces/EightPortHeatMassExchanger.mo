@@ -190,7 +190,7 @@ model EightPortHeatMassExchanger
                                annotation (Placement(transformation(extent={{-50,-10},
             {-70,10}})));
 
-  Buildings.Fluid.FixedResistances.PressureDrop preDro1(
+  replaceable Buildings.Fluid.FixedResistances.PressureDrop preDro1(
     redeclare final package Medium = Medium1,
     final n=n1,
     final m_flow_nominal=m1_flow_nominal,
@@ -200,10 +200,14 @@ model EightPortHeatMassExchanger
     final from_dp=from_dp1,
     final linearized=linearizeFlowResistance1,
     final homotopyInitialization=homotopyInitialization,
-    final dp_nominal=dp1_nominal) "Pressure drop model for fluid 1"
+    final dp_nominal=dp1_nominal)
+    constrainedby Buildings.Fluid.Interfaces.PartialTwoPortInterface(
+      redeclare package Medium = Medium1,
+      final m_flow_nominal=m1_flow_nominal,
+      final allowFlowReversal=allowFlowReversal1) "Pressure drop model for fluid 1"
     annotation (Placement(transformation(extent={{-80,70},{-60,90}})));
 
-  Buildings.Fluid.FixedResistances.PressureDrop preDro2(
+  replaceable Buildings.Fluid.FixedResistances.PressureDrop preDro2(
     redeclare final package Medium = Medium2,
     final n=n2,
     final m_flow_nominal=m2_flow_nominal,
@@ -213,9 +217,14 @@ model EightPortHeatMassExchanger
     final from_dp=from_dp2,
     final linearized=linearizeFlowResistance2,
     final homotopyInitialization=homotopyInitialization,
-    final dp_nominal=dp2_nominal) "Pressure drop model for fluid 2"
+    final dp_nominal=dp2_nominal)
+    constrainedby Buildings.Fluid.Interfaces.PartialTwoPortInterface(
+      redeclare package Medium = Medium2,
+      final m_flow_nominal=m2_flow_nominal,
+      final allowFlowReversal=allowFlowReversal2) "Pressure drop model for fluid 2"
     annotation (Placement(transformation(extent={{90,20},{70,40}})));
-  Buildings.Fluid.FixedResistances.PressureDrop preDro3(
+
+  replaceable Buildings.Fluid.FixedResistances.PressureDrop preDro3(
     redeclare final package Medium = Medium3,
     final n=n3,
     final m_flow_nominal=m3_flow_nominal,
@@ -225,10 +234,14 @@ model EightPortHeatMassExchanger
     final from_dp=from_dp3,
     final linearized=linearizeFlowResistance3,
     final homotopyInitialization=homotopyInitialization,
-    final dp_nominal=dp3_nominal) "Pressure drop model for fluid 3"
+    final dp_nominal=dp3_nominal)
+    constrainedby Buildings.Fluid.Interfaces.PartialTwoPortInterface(
+      redeclare package Medium = Medium3,
+      final m_flow_nominal=m3_flow_nominal,
+      final allowFlowReversal=allowFlowReversal3) "Pressure drop model for fluid 3"
     annotation (Placement(transformation(extent={{-90,-42},{-70,-22}})));
 
-  Buildings.Fluid.FixedResistances.PressureDrop preDro4(
+  replaceable Buildings.Fluid.FixedResistances.PressureDrop preDro4(
     redeclare final package Medium = Medium4,
     final n=n4,
     final m_flow_nominal=m4_flow_nominal,
@@ -238,7 +251,11 @@ model EightPortHeatMassExchanger
     final from_dp=from_dp4,
     final linearized=linearizeFlowResistance4,
     final homotopyInitialization=homotopyInitialization,
-    final dp_nominal=dp4_nominal) "Pressure drop model for fluid 4"
+    final dp_nominal=dp4_nominal)
+    constrainedby Buildings.Fluid.Interfaces.PartialTwoPortInterface(
+      redeclare package Medium = Medium4,
+      final m_flow_nominal=m4_flow_nominal,
+      final allowFlowReversal=allowFlowReversal4) "Pressure drop model for fluid 4"
     annotation (Placement(transformation(extent={{86,-90},{66,-70}})));
 protected
   parameter Medium1.ThermodynamicState sta1_nominal=Medium1.setState_pTX(
