@@ -31,7 +31,7 @@ model PressureDropPipe
       Buildings.Fluid.Geothermal.Borefields.Types.FluidPropertyEvaluation.GenericMedium
     "Method used to evaluate fluid properties for pressure drop"
     annotation (Dialog(enable=computePressureDrop and use_TDepPressureDrop));
-  parameter Modelica.Units.SI.MassFraction X_a(min=0, max=0.6) = 0.40
+  parameter Modelica.Units.SI.MassFraction X_a(min=0, max=0.6) 
     "Mass fraction of propylene glycol in water"
     annotation (Dialog(
       enable=computePressureDrop and use_TDepPressureDrop and
