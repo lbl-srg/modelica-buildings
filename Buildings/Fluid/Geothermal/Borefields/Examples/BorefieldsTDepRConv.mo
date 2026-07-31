@@ -35,7 +35,7 @@ model BorefieldsTDepRConv
         use_TDepRConv=false,
         mBor_flow_nominal=mBor_flow_nominal_wat))
     "Borefield data for fixed-property water case"
-    annotation (Placement(transformation(extent={{-100,80},{-80,100}})));
+    annotation (Placement(transformation(extent={{-23.0,84.0},{-3.0,104.0}},rotation = 0.0,origin = {0.0,0.0})));
 
   parameter Buildings.Fluid.Geothermal.Borefields.Data.Borefield.Example
     borFieDatWat(
@@ -47,7 +47,7 @@ model BorefieldsTDepRConv
           Buildings.Fluid.Geothermal.Borefields.Types.FluidPropertyEvaluation.Water,
         mBor_flow_nominal=mBor_flow_nominal_wat))
     "Borefield data for temperature-dependent water-correlation case"
-    annotation (Placement(transformation(extent={{-70,80},{-50,100}})));
+    annotation (Placement(transformation(extent={{7.0,84.0},{27.0,104.0}},rotation = 0.0,origin = {0.0,0.0})));
 
   parameter Buildings.Fluid.Geothermal.Borefields.Data.Borefield.Example
     borFieDatFixGly(
@@ -58,7 +58,7 @@ model BorefieldsTDepRConv
         X_a=0.40,
         mBor_flow_nominal=mBor_flow_nominal_gly))
     "Borefield data for fixed-property glycol case"
-    annotation (Placement(transformation(extent={{-40,80},{-20,100}})));
+    annotation (Placement(transformation(extent={{37.0,84.0},{57.0,104.0}},rotation = 0.0,origin = {0.0,0.0})));
 
   parameter Buildings.Fluid.Geothermal.Borefields.Data.Borefield.Example
     borFieDatGly(
@@ -71,7 +71,7 @@ model BorefieldsTDepRConv
         X_a=0.40,
         mBor_flow_nominal=mBor_flow_nominal_gly))
     "Borefield data for temperature-dependent glycol-correlation case"
-    annotation (Placement(transformation(extent={{-10,80},{10,100}})));
+    annotation (Placement(transformation(extent={{67.0,84.0},{87.0,104.0}},rotation = 0.0,origin = {0.0,0.0})));
 
   Buildings.Fluid.Geothermal.Borefields.OneUTube borFieFixWat(
     redeclare package Medium = MediumWat,

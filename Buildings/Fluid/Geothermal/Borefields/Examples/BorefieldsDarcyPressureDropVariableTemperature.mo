@@ -39,7 +39,7 @@ model BorefieldsDarcyPressureDropVariableTemperature
     phase=-Modelica.Constants.pi/2,
     offset=TIn_mean)
     "Sinusoidal inlet temperature"
-    annotation (Placement(transformation(extent={{-112,82},{-92,102}})));
+    annotation (Placement(transformation(extent={{-10.0,-10.0},{10.0,10.0}},rotation = -180.0,origin = {-66.0,92.0})));
 
   parameter Buildings.Fluid.Geothermal.Borefields.Data.Borefield.Example
     borFieDatFixWat(
@@ -50,7 +50,7 @@ model BorefieldsDarcyPressureDropVariableTemperature
         use_TDepRConv=false,
         mBor_flow_nominal=mBor_flow_nominal_wat))
     "Borefield data for fixed-property water Darcy pressure-drop case"
-    annotation (Placement(transformation(extent={{-102,60},{-82,80}})));
+    annotation (Placement(transformation(extent={{-27.0,70.0},{-7.0,90.0}},rotation = 0.0,origin = {0.0,0.0})));
 
   parameter Buildings.Fluid.Geothermal.Borefields.Data.Borefield.Example
     borFieDatWat(
@@ -63,7 +63,7 @@ model BorefieldsDarcyPressureDropVariableTemperature
           Buildings.Fluid.Geothermal.Borefields.Types.FluidPropertyEvaluation.Water,
         mBor_flow_nominal=mBor_flow_nominal_wat))
     "Borefield data for temperature-dependent water Darcy pressure-drop case"
-    annotation (Placement(transformation(extent={{-72,60},{-52,80}})));
+    annotation (Placement(transformation(extent={{3.0,70.0},{23.0,90.0}},rotation = 0.0,origin = {0.0,0.0})));
 
   parameter Buildings.Fluid.Geothermal.Borefields.Data.Borefield.Example
     borFieDatFixGly(
@@ -75,7 +75,7 @@ model BorefieldsDarcyPressureDropVariableTemperature
         X_a=0.40,
         mBor_flow_nominal=mBor_flow_nominal_gly))
     "Borefield data for fixed-property glycol Darcy pressure-drop case"
-    annotation (Placement(transformation(extent={{-42,60},{-22,80}})));
+    annotation (Placement(transformation(extent={{33.0,70.0},{53.0,90.0}},rotation = 0.0,origin = {0.0,0.0})));
 
   parameter Buildings.Fluid.Geothermal.Borefields.Data.Borefield.Example
     borFieDatGly(
@@ -89,7 +89,7 @@ model BorefieldsDarcyPressureDropVariableTemperature
         X_a=0.40,
         mBor_flow_nominal=mBor_flow_nominal_gly))
     "Borefield data for temperature-dependent glycol Darcy pressure-drop case"
-    annotation (Placement(transformation(extent={{-12,60},{8,80}})));
+    annotation (Placement(transformation(extent={{63.0,70.0},{83.0,90.0}},rotation = 0.0,origin = {0.0,0.0})));
 
   Buildings.Fluid.Geothermal.Borefields.OneUTube borFieFixWat(
     redeclare package Medium = MediumWat,
@@ -274,13 +274,13 @@ model BorefieldsDarcyPressureDropVariableTemperature
 
 equation
   connect(TInSig.y, souFixWat.T_in)
-    annotation (Line(points={{-91,92},{-90,92},{-90,50},{-90,50},{-90,50},{-90,50}}, color={0,0,127}));
+    annotation (Line(points={{-77,92},{-96,92},{-96,50},{-90,50}}, color={0,0,127}));
   connect(TInSig.y, souWat.T_in)
-    annotation (Line(points={{-91,92},{-92,92},{-92,14},{-90,14}}, color={0,0,127}));
+    annotation (Line(points={{-77,92},{-96,92},{-96,14},{-90,14}}, color={0,0,127}));
   connect(TInSig.y, souFixGly.T_in)
-    annotation (Line(points={{-91,92},{-92,92},{-92,-22},{-90,-22}}, color={0,0,127}));
+    annotation (Line(points={{-77,92},{-96,92},{-96,-22},{-90,-22}}, color={0,0,127}));
   connect(TInSig.y, souGly.T_in)
-    annotation (Line(points={{-91,92},{-92,92},{-92,-58},{-90,-58}}, color={0,0,127}));
+    annotation (Line(points={{-77,92},{-96,92},{-96,-58},{-90,-58}}, color={0,0,127}));
 
   connect(souFixWat.ports[1], TInFixWat.port_a)
     annotation (Line(points={{-68,46},{-56,46}}, color={0,127,255}));

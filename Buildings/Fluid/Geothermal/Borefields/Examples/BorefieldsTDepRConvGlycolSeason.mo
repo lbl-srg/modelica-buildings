@@ -42,7 +42,7 @@ model BorefieldsTDepRConvGlycolSeason
     phase=-Modelica.Constants.pi/2,
     offset=TIn_mean)
     "Seasonal inlet temperature, starting at the cold extreme"
-    annotation (Placement(transformation(extent={{-112,80},{-92,100}})));
+    annotation (Placement(transformation(extent={{-10.0,-10.0},{10.0,10.0}},rotation = -180.0,origin = {-56.0,98.0})));
 
   parameter Buildings.Fluid.Geothermal.Borefields.Data.Borefield.Example
     borFieDatFixAvg(
@@ -53,7 +53,7 @@ model BorefieldsTDepRConvGlycolSeason
         X_a=X_a,
         mBor_flow_nominal=mBor_flow_nominal_gly))
     "Borefield data for fixed-property glycol case evaluated at average temperature"
-    annotation (Placement(transformation(extent={{-100,50},{-80,70}})));
+    annotation (Placement(transformation(extent={{-26.0,90.0},{-6.0,110.0}},rotation = 0.0,origin = {0.0,0.0})));
 
   parameter Buildings.Fluid.Geothermal.Borefields.Data.Borefield.Example
     borFieDatFixCold(
@@ -64,7 +64,7 @@ model BorefieldsTDepRConvGlycolSeason
         X_a=X_a,
         mBor_flow_nominal=mBor_flow_nominal_gly))
     "Borefield data for fixed-property glycol case evaluated at cold conservative temperature"
-    annotation (Placement(transformation(extent={{-100,10},{-80,30}})));
+    annotation (Placement(transformation(extent={{4.0,90.0},{24.0,110.0}},rotation = 0.0,origin = {0.0,0.0})));
 
   parameter Buildings.Fluid.Geothermal.Borefields.Data.Borefield.Example
     borFieDatTDep(
@@ -77,7 +77,7 @@ model BorefieldsTDepRConvGlycolSeason
         X_a=X_a,
         mBor_flow_nominal=mBor_flow_nominal_gly))
     "Borefield data for temperature-dependent glycol convection-resistance case"
-    annotation (Placement(transformation(extent={{-100,-30},{-80,-10}})));
+    annotation (Placement(transformation(extent={{34.0,90.0},{54.0,110.0}},rotation = 0.0,origin = {0.0,0.0})));
 
   Buildings.Fluid.Geothermal.Borefields.OneUTube borFieFixAvg(
     redeclare package Medium = MediumGlyAvg,
@@ -222,11 +222,11 @@ model BorefieldsTDepRConvGlycolSeason
 
 equation
   connect(TInSea.y, souFixAvg.T_in)
-    annotation (Line(points={{-91,90},{-82,90},{-82,64},{-72,64}}, color={0,0,127}));
+    annotation (Line(points={{-67,98},{-78,98},{-78,64},{-72,64}}, color={0,0,127}));
   connect(TInSea.y, souFixCold.T_in)
-    annotation (Line(points={{-91,90},{-82,90},{-82,24},{-72,24}}, color={0,0,127}));
+    annotation (Line(points={{-67,98},{-78,98},{-78,24},{-72,24}}, color={0,0,127}));
   connect(TInSea.y, souTDep.T_in)
-    annotation (Line(points={{-91,90},{-82,90},{-82,-16},{-72,-16}}, color={0,0,127}));
+    annotation (Line(points={{-67,98},{-78,98},{-78,-16},{-72,-16}}, color={0,0,127}));
 
   connect(souFixAvg.ports[1], TInFixAvg.port_a)
     annotation (Line(points={{-50,60},{-38,60}}, color={0,127,255}));

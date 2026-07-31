@@ -22,33 +22,33 @@ model BorefieldsDarcyPressureDropVariableFlow
     f=1/period,
     offset=borFieUTubDat.conDat.mBorFie_flow_nominal)
     "Mass-flow signal for the single U-tube borefield"
-    annotation (Placement(transformation(extent={{-130,-44},{-110,-24}})));
+    annotation (Placement(transformation(extent={{-90.0,-36.0},{-70.0,-16.0}},rotation = 0.0,origin = {0.0,0.0})));
 
   Modelica.Blocks.Sources.Sine mFlo2UTubPar(
     amplitude=relAmp*borFie2UTubParDat.conDat.mBorFie_flow_nominal,
     f=1/period,
     offset=borFie2UTubParDat.conDat.mBorFie_flow_nominal)
     "Mass-flow signal for the double U-tube parallel borefield"
-    annotation (Placement(transformation(extent={{-130,16},{-110,36}})));
+    annotation (Placement(transformation(extent={{-90.0,24.0},{-70.0,44.0}},rotation = 0.0,origin = {0.0,0.0})));
 
   Modelica.Blocks.Sources.Sine mFlo2UTubSer(
     amplitude=relAmp*borFie2UTubSerDat.conDat.mBorFie_flow_nominal,
     f=1/period,
     offset=borFie2UTubSerDat.conDat.mBorFie_flow_nominal)
     "Mass-flow signal for the double U-tube series borefield"
-    annotation (Placement(transformation(extent={{-130,76},{-110,96}})));
+    annotation (Placement(transformation(extent={{-92.0,80.0},{-72.0,100.0}},rotation = 0.0,origin = {0.0,0.0})));
 
 equation
   connect(mFloUTub.y, sou.m_flow_in)
-    annotation (Line(points={{-109,-34},{-100,-34},{-100,-52},{-94,-52}},
+    annotation (Line(points={{-69,-26},{-100,-26},{-100,-52},{-94,-52}},
       color={0,0,127}));
 
   connect(mFlo2UTubPar.y, sou1.m_flow_in)
-    annotation (Line(points={{-109,26},{-100,26},{-100,8},{-94,8}},
+    annotation (Line(points={{-69,34},{-100,34},{-100,8},{-94,8}},
       color={0,0,127}));
 
   connect(mFlo2UTubSer.y, sou2.m_flow_in)
-    annotation (Line(points={{-109,86},{-100,86},{-100,68},{-94,68}},
+    annotation (Line(points={{-71,90},{-100,90},{-100,68},{-94,68}},
       color={0,0,127}));
 
   annotation (
