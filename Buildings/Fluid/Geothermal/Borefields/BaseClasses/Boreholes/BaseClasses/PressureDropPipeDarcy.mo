@@ -125,7 +125,8 @@ equation
       rhoMedAct = Medium.density(staAct);
       muMedAct = Medium.dynamicViscosity(staAct);
 
-    else
+    elseif fluidPropertyEvaluation ==
+       Buildings.Fluid.Geothermal.Borefields.Types.FluidPropertyEvaluation.Water then
 
       staAct = Medium.setState_pTX(
         p=Medium.p_default,
@@ -139,7 +140,23 @@ equation
           p=port_a.p,
           X_a=0);
 
+    elseif fluidPropertyEvaluation ==
+       Buildings.Fluid.Geothermal.Borefields.Types.FluidPropertyEvaluation.PropyleneGlycolWater then
+
+      staAct = Medium.setState_pTX(
+        p=Medium.p_default,
+        T=Medium.T_default,
+        X=Medium.X_default);
+
+      (muMedAct, rhoMedAct) =
+        Buildings.Fluid.Geothermal.Borefields.BaseClasses.Boreholes.BaseClasses.Functions.fluidDensityViscosity_T(
+          fluidPropertyEvaluation=fluidPropertyEvaluation,
+          T=TAct,
+          p=port_a.p,
+          X_a=X_a);
+
     end if;
+
 
   else
     XiAct = zeros(Medium.nXi);
