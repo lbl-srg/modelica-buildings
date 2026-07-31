@@ -1,6 +1,6 @@
 within Buildings.Fluid.Geothermal.Borefields.BaseClasses.Boreholes.BaseClasses;
 model PressureDropPipe
-  "Major and minor pressure loss of a circular vertical GHE pipe"
+  "Major and minor pressure loss of a vertical GHE pipe"
   extends Buildings.Fluid.Interfaces.PartialTwoPortInterface;
 
   parameter Boolean computePressureDrop = true
@@ -13,10 +13,18 @@ model PressureDropPipe
     "Tube wall thickness";
   parameter Modelica.Units.SI.Length roughness = 0.001e-3
     "Absolute pipe wall roughness";
-  parameter Modelica.Units.SI.Density rhoMed
-    "Fluid density";
-  parameter Modelica.Units.SI.DynamicViscosity muMed
-    "Fluid dynamic viscosity";
+  parameter Modelica.Units.SI.Density rhoMed_default =
+    Medium.density(Medium.setState_pTX(
+      Medium.p_default,
+      Medium.T_default,
+      Medium.X_default))
+    "Default fluid density";
+  parameter Modelica.Units.SI.DynamicViscosity muMed_default =
+    Medium.dynamicViscosity(Medium.setState_pTX(
+      Medium.p_default,
+      Medium.T_default,
+      Medium.X_default))
+    "Default fluid dynamic viscosity";
   parameter Integer nUBend(min=0) = 1
     "Number of U-bends represented by this pressure-drop component"
     annotation (Dialog(enable=computePressureDrop));
@@ -55,17 +63,14 @@ protected
   Medium.MassFraction XAct[Medium.nX]
     "Mass fractions of actual stream";
 
+  Medium.SpecificEnthalpy hAct
+  "Specific enthalpy used for property evaluation";
+
   Medium.ThermodynamicState staAct
     "Actual stream state used for generic medium property evaluation";
 
   Modelica.Units.SI.Temperature TAct
     "Actual stream temperature used for property evaluation";
-
-  Modelica.Units.SI.SpecificHeatCapacity cpMedAct
-    "Specific heat capacity returned by property helper, not used for pressure drop";
-
-  Modelica.Units.SI.ThermalConductivity kMedAct
-    "Thermal conductivity returned by property helper, not used for pressure drop";
 
   Modelica.Units.SI.DynamicViscosity muMedAct
     "Dynamic viscosity used for pressure drop";
@@ -76,45 +81,75 @@ protected
 
 equation
   port_a.m_flow + port_b.m_flow = 0;
-  XiAct = actualStream(port_a.Xi_outflow);
 
-  XAct =
-    if Medium.nXi == 0 then
-      Medium.X_default
-    elseif Medium.reducedX then
-      cat(1, XiAct, {1 - sum(XiAct)})
-    else
-      XiAct;
+  if computePressureDrop and use_TDepPressureDrop then
 
-  staAct = Medium.setState_phX(
-    p=port_a.p,
-    h=actualStream(port_a.h_outflow),
-    X=XAct);
+    XiAct =
+      if allowFlowReversal then
+        actualStream(port_a.Xi_outflow)
+      else
+        inStream(port_a.Xi_outflow);
 
-  TAct = Medium.temperature(staAct);
+    XAct =
+      if Medium.nXi == 0 then
+        Medium.X_default
+      elseif Medium.reducedX then
+        cat(1, XiAct, {1 - sum(XiAct)})
+      else
+        XiAct;
 
-    if computePressureDrop and use_TDepPressureDrop and
-     fluidPropertyEvaluation ==
+    hAct =
+      if allowFlowReversal then
+        actualStream(port_a.h_outflow)
+      else
+        inStream(port_a.h_outflow);
+
+    TAct = Medium.temperature_phX(
+      p=port_a.p,
+      h=hAct,
+      X=XAct);
+
+    if fluidPropertyEvaluation ==
        Buildings.Fluid.Geothermal.Borefields.Types.FluidPropertyEvaluation.GenericMedium then
 
-    rhoMedAct = Medium.density(staAct);
-    muMedAct = Medium.dynamicViscosity(staAct);
-    cpMedAct = Medium.specificHeatCapacityCp(staAct);
-    kMedAct = Medium.thermalConductivity(staAct);
+      staAct = Medium.setState_phX(
+        p=port_a.p,
+        h=hAct,
+        X=XAct);
+
+      rhoMedAct = Medium.density(staAct);
+      muMedAct = Medium.dynamicViscosity(staAct);
+
+    else
+
+      staAct = Medium.setState_pTX(
+        p=Medium.p_default,
+        T=Medium.T_default,
+        X=Medium.X_default);
+
+      (muMedAct, rhoMedAct) =
+        Buildings.Fluid.Geothermal.Borefields.BaseClasses.Boreholes.BaseClasses.Functions.fluidDensityViscosity_T(
+          fluidPropertyEvaluation=fluidPropertyEvaluation,
+          T=TAct,
+          p=port_a.p,
+          X_a=X_a);
+
+    end if;
 
   else
+    XiAct = zeros(Medium.nXi);
+    XAct = Medium.X_default;
+    hAct = Medium.h_default;
 
-    (cpMedAct, kMedAct, muMedAct, rhoMedAct) =
-      Buildings.Fluid.Geothermal.Borefields.BaseClasses.Boreholes.BaseClasses.Functions.fluidProperties_T(
-        use_TDep=computePressureDrop and use_TDepPressureDrop,
-        fluidPropertyEvaluation=fluidPropertyEvaluation,
-        T=TAct,
-        p=port_a.p,
-        X_a=X_a,
-        cp_default=1,
-        k_default=1,
-        mu_default=muMed,
-        rho_default=rhoMed);
+    staAct = Medium.setState_pTX(
+      p=Medium.p_default,
+      T=Medium.T_default,
+      X=Medium.X_default);
+
+    TAct = Medium.T_default;
+
+    rhoMedAct = rhoMed_default;
+    muMedAct = muMed_default;
 
   end if;
 
@@ -135,7 +170,6 @@ equation
     dpMinor = 0;
     Re = 0;
   end if;
-
 
   port_a.h_outflow = inStream(port_b.h_outflow);
   port_b.h_outflow = inStream(port_a.h_outflow);
@@ -166,15 +200,14 @@ equation
           thickness=1)}),
     Documentation(info="<html>
 <p>
-This model computes the pressure loss of a circular vertical ground heat
-exchanger pipe.
+This model computes the pressure loss of a pipe.
 </p>
 
 <p>
 If <code>computePressureDrop=true</code>, the pressure drop is computed from the
 instantaneous mass flow rate using
-<a href=\"modelica://Buildings.Fluid.Geothermal.Borefields.BaseClasses.Boreholes.BaseClasses.Functions.pressureLossCircularPipe\">
-Buildings.Fluid.Geothermal.Borefields.BaseClasses.Boreholes.BaseClasses.Functions.pressureLossCircularPipe</a>.
+<a href=\"modelica://Buildings.Fluid.Geothermal.Borefields.BaseClasses.Boreholes.BaseClasses.Functions.pressureLossPipe\">
+Buildings.Fluid.Geothermal.Borefields.BaseClasses.Boreholes.BaseClasses.Functions.pressureLossPipe</a>.
 The calculation includes the major Darcy-Weisbach pipe-friction loss and the
 U-bend minor loss.
 </p>
@@ -183,7 +216,7 @@ U-bend minor loss.
 The total U-bend minor-loss coefficient passed to the pressure-loss function is
 </p>
 <p align=\"center\" style=\"font-style:italic;\">
-  K<sub>minor</sub> = n<sub>UBend</sub> K<sub>UBend</sub>.
+  k<sub>minor</sub> = n<sub>UBend</sub> k<sub>UBend</sub>.
 </p>
 <p>
 For a single U-tube, use <code>nUBend=1</code>. For a double U-tube, use
@@ -199,8 +232,8 @@ not included.
 <p>
 The equations used for the major and minor pressure-loss calculations are
 documented in
-<a href=\"modelica://Buildings.Fluid.Geothermal.Borefields.BaseClasses.Boreholes.BaseClasses.Functions.pressureLossCircularPipe\">
-Buildings.Fluid.Geothermal.Borefields.BaseClasses.Boreholes.BaseClasses.Functions.pressureLossCircularPipe</a>.
+<a href=\"modelica://Buildings.Fluid.Geothermal.Borefields.BaseClasses.Boreholes.BaseClasses.Functions.pressureLossPipe\">
+Buildings.Fluid.Geothermal.Borefields.BaseClasses.Boreholes.BaseClasses.Functions.pressureLossPipe</a>.
 </p>
 </html>",
 revisions="<html>

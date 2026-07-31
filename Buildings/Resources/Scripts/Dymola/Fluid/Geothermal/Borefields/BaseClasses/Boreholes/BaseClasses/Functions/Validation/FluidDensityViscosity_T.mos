@@ -1,0 +1,29 @@
+simulateModel("Buildings.Fluid.Geothermal.Borefields.BaseClasses.Boreholes.BaseClasses.Functions.Validation.FluidDensityViscosity_T", stopTime=3600, method="CVode", tolerance=1E-6, resultFile="FluidDensityViscosity_T");
+
+createPlot(
+  id=1,
+  position={35, 30, 1268, 736},
+  x="time",
+  y={"T", "muFix", "muWat", "muGly"},
+  autoscale=true,
+  autoerase=true,
+  autoreplot=true,
+  grid=true,
+  colors={{0,0,0}, {28,108,200}, {0,140,72}, {238,46,47}},
+  filename="FluidDensityViscosity_T.mat",
+  leftTitleType=1,
+  bottomTitleType=1);
+
+createPlot(
+  id=2,
+  position={35, 30, 1268, 736},
+  x="time",
+  y={"rhoFix", "rhoWat", "rhoGly"},
+  autoscale=true,
+  autoerase=true,
+  autoreplot=true,
+  grid=true,
+  colors={{0,0,0}, {28,108,200}, {238,46,47}},
+  filename="FluidDensityViscosity_T.mat",
+  leftTitleType=1,
+  bottomTitleType=1);

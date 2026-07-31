@@ -9,8 +9,11 @@ model PressureDropPipeTDep
   package MediumGly =
     .Buildings.Media.Antifreeze.PropyleneGlycolWater(
       property_T=293.15,
-      X_a=0.40)
+      X_a=X_aGly)
     "Constant-property propylene-glycol/water transport medium";
+  
+  constant Real X_aGly(unit="1", min=0, max=1) = 0.40
+    "Mass fraction of propylene glycol in the glycol-water mixture";
 
   parameter .Modelica.Units.SI.Length length=200
     "Total represented pipe length";
@@ -68,8 +71,9 @@ model PressureDropPipeTDep
       rTub=rTub,
       eTub=eTub,
       roughness=roughness,
-      rhoMed=MediumWat.density(staWatDef),
-      muMed=MediumWat.dynamicViscosity(staWatDef))
+      X_a=X_aGly,
+      rhoMed_default=MediumWat.density(staWatDef),
+      muMed_default=MediumWat.dynamicViscosity(staWatDef))
     "Fixed-property water pressure drop"
     annotation (Placement(transformation(extent={{-10,50},{10,70}})));
 
@@ -85,8 +89,9 @@ model PressureDropPipeTDep
       rTub=rTub,
       eTub=eTub,
       roughness=roughness,
-      rhoMed=MediumWat.density(staWatDef),
-      muMed=MediumWat.dynamicViscosity(staWatDef))
+      X_a=X_aGly,
+      rhoMed_default=MediumWat.density(staWatDef),
+      muMed_default=MediumWat.dynamicViscosity(staWatDef))
     "Temperature-dependent water pressure drop"
     annotation (Placement(transformation(extent={{-10,10},{10,30}})));
 
@@ -100,8 +105,9 @@ model PressureDropPipeTDep
       rTub=rTub,
       eTub=eTub,
       roughness=roughness,
-      rhoMed=MediumGly.density(staGlyDef),
-      muMed=MediumGly.dynamicViscosity(staGlyDef))
+      X_a=X_aGly,
+      rhoMed_default=MediumGly.density(staGlyDef),
+      muMed_default=MediumGly.dynamicViscosity(staGlyDef))
     "Fixed-property glycol pressure drop"
     annotation (Placement(transformation(extent={{-10,-30},{10,-10}})));
 
@@ -113,13 +119,13 @@ model PressureDropPipeTDep
       use_TDepPressureDrop=true,
       fluidPropertyEvaluation=
         .Buildings.Fluid.Geothermal.Borefields.Types.FluidPropertyEvaluation.PropyleneGlycolWater,
-      X_a=0.40,
+      X_a=X_aGly,
       length=length,
       rTub=rTub,
       eTub=eTub,
       roughness=roughness,
-      rhoMed=MediumGly.density(staGlyDef),
-      muMed=MediumGly.dynamicViscosity(staGlyDef))
+      rhoMed_default=MediumGly.density(staGlyDef),
+      muMed_default=MediumGly.dynamicViscosity(staGlyDef))
     "Temperature-dependent glycol pressure drop"
     annotation (Placement(transformation(extent={{-10,-70},{10,-50}})));
 
@@ -233,13 +239,13 @@ equation
   annotation (
     experiment(StopTime=3600, Tolerance=1e-6),
     __Dymola_Commands(file=
-      "modelica://Buildings/Resources/Scripts/Dymola/Fluid/Geothermal/Borefields/BaseClasses/Boreholes/BaseClasses/Examples/PressureDropCircularPipeTDep.mos"
+      "modelica://Buildings/Resources/Scripts/Dymola/Fluid/Geothermal/Borefields/BaseClasses/Boreholes/BaseClasses/Examples/PressureDropPipeTDep.mos"
       "Simulate and plot"),
     Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-120,-90},{100,110}})),
     Documentation(info="<html>
 <p>
 This validation model compares fixed and temperature-dependent
-Darcy-Weisbach pressure drop for a circular vertical ground heat exchanger pipe.
+Darcy-Weisbach pressure drop for a ground heat exchanger pipe.
 </p>
 <p>
 Four cases are simulated side by side:
