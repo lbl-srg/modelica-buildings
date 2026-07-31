@@ -741,7 +741,53 @@ The parameters available within these records are:
 </ul>
 </p>
 
-<h5>Examples</h5>
+<h5>Other Notes</h5>
+<p>
+Infiltration and Interzonal Air Exchange: All air infiltration and 
+interzonal air exchange is implemented 
+in Modelica, and any infiltration and interzonal air exchange information 
+in the .idf is ignored during both initialization and simulation.  
+Thus, for autosizing, any infiltration and interzonal 
+air exchange specified in the .idf is ignored.  Infiltration and interzonal
+air exchange loads should therefore be handled in any final equipment sizing 
+algorithms in Modelica.
+</p>
+<p>
+Internal Gains: Internal gain objects for people, lights, and equipment 
+in the .idf are considered by EnergyPlus during 
+autosizing, and are thus reflected in the sizing results returned to Modelica.  
+</p>
+<p>
+References for Autosizing in EnergyPlus: Autosizing objects in the .idf are used
+to direct the autosizing in Spawn, and the EnergyPlus algorithms are followed
+for the sizing calculations.  Key objects include Sizing:Zone, Sizing:System,
+and SimulationControl.  Thus, some useful references for working 
+with those objects and setting up sizing in the .idf are as follows:
+<ul>
+<li>
+Zone sizing:
+<a href=\"https://bigladdersoftware.com/epx/docs/22-2/engineering-reference/zone-design-loads-and-air-flow-rates.html\">
+https://bigladdersoftware.com/epx/docs/22-2/engineering-reference/zone-design-loads-and-air-flow-rates.html</a>
+</li>
+<li>
+System sizing:
+<a href=\"https://bigladdersoftware.com/epx/docs/25-1/engineering-reference/system-design-loads-and-air-flow-rates.html\">
+https://bigladdersoftware.com/epx/docs/25-1/engineering-reference/system-design-loads-and-air-flow-rates.html</a>
+</li>
+<li>
+Simulation control for autosizing:
+<a href=\"https://bigladdersoftware.com/epx/docs/22-2/input-output-reference/group-simulation-parameters.html#simulationcontrol\">
+https://bigladdersoftware.com/epx/docs/22-2/input-output-reference/group-simulation-parameters.html#simulationcontrol</a>
+</li>
+<li>
+Sizing manager and algorithm:
+<a href=\"https://bigladdersoftware.com/epx/docs/8-8/engineering-reference/sizing-manager.html\">
+https://bigladdersoftware.com/epx/docs/8-8/engineering-reference/sizing-manager.html</a>
+</li>
+</ul>
+</p>
+
+<h5>Example Models</h5>
 <ul>
 <li>
 <a href=\"modelica://Buildings.ThermalZones.EnergyPlus_24_2_0.Examples.SingleFamilyHouse.AirHeating_Autosizing\">
