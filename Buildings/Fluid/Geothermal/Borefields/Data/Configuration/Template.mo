@@ -37,7 +37,7 @@ record Template
       tab="Advanced",
       group="Fluid properties",
       enable=use_TDepRConv or use_TDepPressureDrop));
-  parameter Modelica.Units.SI.MassFraction X_a(min=0, max=0.6) = 0.25
+  parameter Modelica.Units.SI.MassFraction X_a(min=0, max=0.6) 
     "Mass fraction of propylene glycol in water, used if fluidPropertyEvaluation is PropyleneGlycolWater"
     annotation (Dialog(
       tab="Advanced",
@@ -78,7 +78,7 @@ record Template
     "Shank spacing, defined as the distance between the center of a pipe and the center of the borehole"
     annotation (Dialog(group="Tubes"));
   parameter Modelica.Units.SI.Length roughness = 0.001e-3
-    "Absolute roughness of the vertical GHE pipes"
+    "Absolute pipe wall roughness, default for smooth HDPE pipe"
     annotation (Dialog(group="Tubes"));
 
   //------------------------- Advanced parameters ------------------------------

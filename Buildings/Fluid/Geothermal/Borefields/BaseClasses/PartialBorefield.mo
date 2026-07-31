@@ -51,10 +51,6 @@ partial model PartialBorefield
   // General parameters of borefield
   parameter Buildings.Fluid.Geothermal.Borefields.Data.Borefield.Template borFieDat "Borefield data"
     annotation (choicesAllMatching=true,Placement(transformation(extent={{-80,-80},{-60,-60}})));
-  final parameter Modelica.Units.SI.Volume VTubBorFie=
-    borFieDat.conDat.VTubBorFie
-    "Total fluid volume in the vertical pipes of the borefield"
-    annotation (Dialog(tab="Advanced", group="Derived quantities", enable=false));
 
   // Temperature gradient in undisturbed soil
   parameter Modelica.Units.SI.Temperature TExt0_start=283.15
@@ -303,12 +299,6 @@ is modeled using
 Buildings.Fluid.Geothermal.Borefields.BaseClasses.HeatTransfer.GroundTemperatureResponse</a>,
 which uses a cell-shifting load aggregation technique to calculate the borehole wall
 temperature after calculating, or reading from a previous calculation, the borefield thermal response factor.
-</p>
-<p>
-The final parameter <code>VTubBorFie</code> exposes the total fluid volume in the
-vertical GHE pipes. Flow resistance computation is enabled if either the
-nominal pressure drop is non-zero or the Darcy-Weisbach pressure-drop option is
-selected in the borefield configuration data.
 </p>
 </html>", revisions="<html>
 <ul>
