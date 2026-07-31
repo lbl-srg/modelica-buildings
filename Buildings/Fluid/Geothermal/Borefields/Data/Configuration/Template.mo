@@ -31,7 +31,7 @@ record Template
     annotation (Dialog(tab="Advanced", group="Heat transfer"));
   parameter Buildings.Fluid.Geothermal.Borefields.Types.FluidPropertyEvaluation
     fluidPropertyEvaluation=
-      Buildings.Fluid.Geothermal.Borefields.Types.FluidPropertyEvaluation.GenericMedium
+      Buildings.Fluid.Geothermal.Borefields.Types.FluidPropertyEvaluation.use_MediaFunctions
     "Method used to evaluate fluid properties for temperature-dependent heat-transfer and pressure-drop correlations"
     annotation (Dialog(
       tab="Advanced",
