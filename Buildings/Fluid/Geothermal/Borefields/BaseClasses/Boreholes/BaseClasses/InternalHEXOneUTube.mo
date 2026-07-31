@@ -157,7 +157,7 @@ initial equation
 equation
   if borFieDat.conDat.use_TDepRConv and
     borFieDat.conDat.fluidPropertyEvaluation ==
-      Buildings.Fluid.Geothermal.Borefields.Types.FluidPropertyEvaluation.GenericMedium then
+      Buildings.Fluid.Geothermal.Borefields.Types.FluidPropertyEvaluation.use_MediaFunctions then
 
     X1 =
       if Medium.reducedX then
