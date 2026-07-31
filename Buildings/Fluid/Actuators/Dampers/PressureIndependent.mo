@@ -140,7 +140,7 @@ initial equation
   for i in 1:sizeSupSpl loop
     ySupSpl[i] = sum((if k == idx_sorted[i] then ySupSpl_raw[k] else 0) for k in 1:sizeSupSpl);
   end for;
-  invSplDer = Buildings.Utilities.Math.Functions.splineDerivatives(x=kSupSpl_raw, y=ySupSpl_raw);
+  invSplDer = Buildings.Utilities.Math.Functions.splineDerivatives(x=kSupSpl, y=ySupSpl);
 equation
   // From TwoWayPressureIndependent valve model
   m_flow_set = m_flow_nominal*phi;
@@ -330,6 +330,14 @@ variations.
 </html>",
 revisions="<html>
 <ul>
+<li>
+July 30, 2026, by Michael Wetter:<br/>
+Corrected argument for computing spline derivatives.
+Note that older models without this correction will fail to simulate due
+to an assertion in the spline derivative calculations.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/2130\">IBPSA #2130</a>.
+</li>
 <li>
 August 11, 2021, by Michael Wetter:<br/>
 Reformulated initial equation section to avoid warning in OPTIMICA about
