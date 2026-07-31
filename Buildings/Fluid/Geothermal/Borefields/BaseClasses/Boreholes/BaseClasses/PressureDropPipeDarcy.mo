@@ -33,13 +33,18 @@ model PressureDropPipeDarcy
     annotation (Dialog(enable=computePressureDrop));
   parameter Boolean use_TDepPressureDrop = false
     "Set to true to evaluate density and viscosity from the current fluid temperature"
-    annotation (Dialog(enable=computePressureDrop));
+    annotation (Evaluate=true, Dialog(enable=computePressureDrop));
   parameter Buildings.Fluid.Geothermal.Borefields.Types.FluidPropertyEvaluation
     fluidPropertyEvaluation=
       Buildings.Fluid.Geothermal.Borefields.Types.FluidPropertyEvaluation.use_MediaFunctions
     "Method used to evaluate fluid properties for pressure drop"
-    annotation (Dialog(enable=computePressureDrop and use_TDepPressureDrop));
-  parameter Modelica.Units.SI.MassFraction X_a(min=0, max=0.6) 
+    annotation (
+      Evaluate=true,
+      Dialog(enable=computePressureDrop and use_TDepPressureDrop));
+  parameter Modelica.Units.SI.MassFraction X_a(min=0, max=0.6)
+    if use_TDepPressureDrop and
+       fluidPropertyEvaluation ==
+         Buildings.Fluid.Geothermal.Borefields.Types.FluidPropertyEvaluation.PropyleneGlycolWater
     "Mass fraction of propylene glycol in water"
     annotation (Dialog(
       enable=computePressureDrop and use_TDepPressureDrop and
@@ -132,7 +137,7 @@ equation
           fluidPropertyEvaluation=fluidPropertyEvaluation,
           T=TAct,
           p=port_a.p,
-          X_a=X_a);
+          X_a=0);
 
     end if;
 
