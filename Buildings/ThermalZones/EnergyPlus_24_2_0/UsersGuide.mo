@@ -755,7 +755,8 @@ algorithms in Modelica.
 <p>
 Internal Gains: Internal gain objects for people, lights, and equipment 
 in the .idf are considered by EnergyPlus during 
-autosizing, and are thus reflected in the sizing results returned to Modelica.  
+autosizing, and are thus reflected in the sizing results returned to Modelica.
+Internal gain inputs specified in Modelica are not considered during sizing.  
 </p>
 <p>
 References for Autosizing in EnergyPlus: Autosizing objects in the .idf are used
