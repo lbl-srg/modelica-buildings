@@ -300,22 +300,22 @@ model InternalHEXTwoUTubeTDepRConvThreeCases
     "Pipe 4 convection resistance, glycol correlation";
 
 
-  Real relDifR1Wat(unit="1") = (R1Wat - R1FixWat)/R1FixWat
+  Real relErrR1Wat(unit="1") = (R1Wat - R1FixWat)/R1FixWat
     "Relative difference between water-correlation and fixed-property water case for pipe 1";
-  Real relDifR2Wat(unit="1") = (R2Wat - R2FixWat)/R2FixWat
+  Real relErrR2Wat(unit="1") = (R2Wat - R2FixWat)/R2FixWat
     "Relative difference between water-correlation and fixed-property water case for pipe 2";
-  Real relDifR3Wat(unit="1") = (R3Wat - R3FixWat)/R3FixWat
+  Real relErrR3Wat(unit="1") = (R3Wat - R3FixWat)/R3FixWat
     "Relative difference between water-correlation and fixed-property water case for pipe 3";
-  Real relDifR4Wat(unit="1") = (R4Wat - R4FixWat)/R4FixWat
+  Real relErrR4Wat(unit="1") = (R4Wat - R4FixWat)/R4FixWat
     "Relative difference between water-correlation and fixed-property water case for pipe 4";
 
-  Real relDifR1Gly(unit="1") = (R1Gly - R1FixGly)/R1FixGly
+  Real relErrR1Gly(unit="1") = (R1Gly - R1FixGly)/R1FixGly
     "Relative difference between glycol-correlation and fixed-property glycol case for pipe 1";
-  Real relDifR2Gly(unit="1") = (R2Gly - R2FixGly)/R2FixGly
+  Real relErrR2Gly(unit="1") = (R2Gly - R2FixGly)/R2FixGly
     "Relative difference between glycol-correlation and fixed-property glycol case for pipe 2";
-  Real relDifR3Gly(unit="1") = (R3Gly - R3FixGly)/R3FixGly
+  Real relErrR3Gly(unit="1") = (R3Gly - R3FixGly)/R3FixGly
     "Relative difference between glycol-correlation and fixed-property glycol case for pipe 3";
-  Real relDifR4Gly(unit="1") = (R4Gly - R4FixGly)/R4FixGly
+  Real relErrR4Gly(unit="1") = (R4Gly - R4FixGly)/R4FixGly
     "Relative difference between glycol-correlation and fixed-property glycol case for pipe 4";
 
 equation
