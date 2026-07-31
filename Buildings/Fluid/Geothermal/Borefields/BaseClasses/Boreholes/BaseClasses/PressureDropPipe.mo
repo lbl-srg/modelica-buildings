@@ -12,7 +12,7 @@ model PressureDropPipe
 
   parameter Buildings.Fluid.Geothermal.Borefields.Types.FluidPropertyEvaluation
     fluidPropertyEvaluation =
-      Buildings.Fluid.Geothermal.Borefields.Types.FluidPropertyEvaluation.GenericMedium
+      Buildings.Fluid.Geothermal.Borefields.Types.FluidPropertyEvaluation.use_MediaFunctions
     "Method used to evaluate fluid properties for Darcy-Weisbach pressure drop";
 
   parameter Modelica.Units.SI.MassFraction X_a(min=0, max=0.6)

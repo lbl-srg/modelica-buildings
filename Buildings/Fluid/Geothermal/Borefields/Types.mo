@@ -35,13 +35,13 @@ First implementation.
 </html>"));
 
   type FluidPropertyEvaluation = enumeration(
-      GenericMedium
-        "Evaluate properties through the Medium interface",
+      use_MediaFunctions
+        "Use functions from the redeclared Medium package",
       Water
-        "Evaluate water properties using local temperature-dependent correlations",
+        "Use water correlations",
       PropyleneGlycolWater
-        "Evaluate propylene-glycol/water properties using local temperature-dependent correlations")
-    "Enumeration to define how fluid properties are evaluated for heat-transfer and pressure-drop correlations"
+        "Use propylene-glycol/water correlations")
+    "Enumeration for fluid property evaluation"
     annotation (Documentation(info="<html>
 <p>
 Enumeration that defines how fluid properties are evaluated for heat-transfer

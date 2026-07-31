@@ -83,7 +83,7 @@ algorithm
   else
     assert(
       false,
-      "fluidProperties_T does not handle GenericMedium. Use Medium property calls directly for GenericMedium.");
+      "fluidProperties_T does not handle use_MediaFunctions. Use Medium property calls directly for use_MediaFunctions.");
   end if;
 
   annotation (
@@ -102,7 +102,7 @@ Fixed/default properties should be assigned directly by the caller and should
 not be evaluated through this function.
 </p>
 <p>
-The option <code>GenericMedium</code> is not evaluated in this function. For
+The option <code>use_MediaFunctions</code> is not evaluated in this function. For
 generic medium evaluation, call the corresponding medium property functions
 directly.
 </p>

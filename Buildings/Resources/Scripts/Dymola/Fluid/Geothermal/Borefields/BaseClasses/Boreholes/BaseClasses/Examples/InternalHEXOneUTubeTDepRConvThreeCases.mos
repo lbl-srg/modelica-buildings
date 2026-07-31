@@ -32,7 +32,7 @@ createPlot(
   id=3,
   position={0, 0, 1268, 736},
   x="time",
-  y={"dR1Wat", "dR2Wat", "dR1Gly", "dR2Gly"},
+  y={"relErrR1Wat", "relErrR2Wat", "relErrR1Gly", "relErrR2Gly"},
   autoscale=true,
   autoerase=true,
   autoreplot=true,

@@ -36,7 +36,7 @@ model PressureDropPipeDarcy
     annotation (Dialog(enable=computePressureDrop));
   parameter Buildings.Fluid.Geothermal.Borefields.Types.FluidPropertyEvaluation
     fluidPropertyEvaluation=
-      Buildings.Fluid.Geothermal.Borefields.Types.FluidPropertyEvaluation.GenericMedium
+      Buildings.Fluid.Geothermal.Borefields.Types.FluidPropertyEvaluation.use_MediaFunctions
     "Method used to evaluate fluid properties for pressure drop"
     annotation (Dialog(enable=computePressureDrop and use_TDepPressureDrop));
   parameter Modelica.Units.SI.MassFraction X_a(min=0, max=0.6) 
@@ -110,7 +110,7 @@ equation
       X=XAct);
 
     if fluidPropertyEvaluation ==
-       Buildings.Fluid.Geothermal.Borefields.Types.FluidPropertyEvaluation.GenericMedium then
+       Buildings.Fluid.Geothermal.Borefields.Types.FluidPropertyEvaluation.use_MediaFunctions then
 
       staAct = Medium.setState_phX(
         p=port_a.p,

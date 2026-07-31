@@ -44,7 +44,7 @@ model InternalHEXOneUTubeTDepRConvThreeCases
         use_Rb=false,
         use_TDepRConv=false))
     "Borefield data for fixed-property water case"
-    annotation (Placement(transformation(extent={{-115.0,102.0},{-95.0,122.0}},rotation = 0.0,origin = {0.0,0.0})));
+    annotation (Placement(transformation(extent={{-115.0,94.0},{-95.0,114.0}},rotation = 0.0,origin = {0.0,0.0})));
 
   parameter Buildings.Fluid.Geothermal.Borefields.Data.Borefield.Example
     borFieDatWat(
@@ -56,7 +56,7 @@ model InternalHEXOneUTubeTDepRConvThreeCases
         fluidPropertyEvaluation=
           Buildings.Fluid.Geothermal.Borefields.Types.FluidPropertyEvaluation.Water))
     "Borefield data for temperature-dependent water-correlation case"
-    annotation (Placement(transformation(extent={{-85.0,102.0},{-65.0,122.0}},rotation = 0.0,origin = {0.0,0.0})));
+    annotation (Placement(transformation(extent={{-85.0,94.0},{-65.0,114.0}},rotation = 0.0,origin = {0.0,0.0})));
 
   parameter Buildings.Fluid.Geothermal.Borefields.Data.Borefield.Example
     borFieDatFixGly(
@@ -67,7 +67,7 @@ model InternalHEXOneUTubeTDepRConvThreeCases
         use_TDepRConv=false,
         X_a=X_aGly))
     "Borefield data for fixed-property glycol case"
-    annotation (Placement(transformation(extent={{-55.0,102.0},{-35.0,122.0}},rotation = 0.0,origin = {0.0,0.0})));
+    annotation (Placement(transformation(extent={{-55.0,94.0},{-35.0,114.0}},rotation = 0.0,origin = {0.0,0.0})));
 
   parameter Buildings.Fluid.Geothermal.Borefields.Data.Borefield.Example
     borFieDatGly(
@@ -80,7 +80,7 @@ model InternalHEXOneUTubeTDepRConvThreeCases
           Buildings.Fluid.Geothermal.Borefields.Types.FluidPropertyEvaluation.PropyleneGlycolWater,
         X_a=X_aGly))
     "Borefield data for temperature-dependent glycol-correlation case"
-    annotation (Placement(transformation(extent={{-25.0,102.0},{-5.0,122.0}},rotation = 0.0,origin = {0.0,0.0})));
+    annotation (Placement(transformation(extent={{-25.0,94.0},{-5.0,114.0}},rotation = 0.0,origin = {0.0,0.0})));
 
   Buildings.Fluid.Geothermal.Borefields.BaseClasses.Boreholes.BaseClasses.InternalHEXOneUTube
     intHexFixWat(
@@ -145,7 +145,7 @@ model InternalHEXOneUTubeTDepRConvThreeCases
   Buildings.HeatTransfer.Sources.FixedTemperature TGro(
     T=283.15)
     "Fixed grout/wall temperature"
-    annotation (Placement(transformation(extent={{-126.0,-2.0},{-106.0,18.0}},rotation = 0.0,origin = {0.0,0.0})));
+    annotation (Placement(transformation(extent={{-116.0,-2.0},{-96.0,18.0}},rotation = 0.0,origin = {0.0,0.0})));
 
   Buildings.Fluid.Sources.MassFlowSource_T souFixWat1(
     redeclare package Medium = MediumWat,
@@ -310,10 +310,10 @@ equation
     annotation (Line(points={{10,-54},{30,-54},{30,-38},{100,-38},{100,-44}}, color={0,127,255}));
   connect(intHexGly.port_b2, sinGly.ports[2])
     annotation (Line(points={{-10,-66},{-40,-66},{-40,-38},{100,-38},{100,-44}}, color={0,127,255}));
-    connect(TGro.port,intHexFixWat.port_wall) annotation(Line(points = {{-106,8},{0,8},{0,70}},color = {191,0,0}));
-    connect(TGro.port,intHexWat.port_wall) annotation(Line(points = {{-106,8},{0,8},{0,30}},color = {191,0,0}));
-    connect(TGro.port,intHexFixGly.port_wall) annotation(Line(points = {{-106,8},{0,8},{0,-10}},color = {191,0,0}));
-    connect(TGro.port,intHexGly.port_wall) annotation(Line(points = {{-106,8},{0,8},{0,-50}},color = {191,0,0}));
+    connect(TGro.port,intHexFixWat.port_wall) annotation(Line(points = {{-96,8},{0,8},{0,70}},color = {191,0,0}));
+    connect(TGro.port,intHexWat.port_wall) annotation(Line(points = {{-96,8},{0,8},{0,30}},color = {191,0,0}));
+    connect(TGro.port,intHexFixGly.port_wall) annotation(Line(points = {{-96,8},{0,8},{0,-10}},color = {191,0,0}));
+    connect(TGro.port,intHexGly.port_wall) annotation(Line(points = {{-96,8},{0,8},{0,-50}},color = {191,0,0}));
 
   annotation (
     experiment(StopTime=3600, Tolerance=1e-6),

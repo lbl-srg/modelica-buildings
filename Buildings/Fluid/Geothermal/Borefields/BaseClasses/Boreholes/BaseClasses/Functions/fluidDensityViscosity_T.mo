@@ -63,7 +63,7 @@ algorithm
   else
     assert(
       false,
-      "fluidDensityViscosity_T does not handle GenericMedium. Use Medium property calls directly for GenericMedium.");
+      "fluidDensityViscosity_T does not handle use_MediaFunctions. Use Medium property calls directly for use_MediaFunctions.");
   end if;
 
   annotation (
