@@ -41,15 +41,13 @@ model PressureDropPipeDarcy
     annotation (
       Evaluate=true,
       Dialog(enable=computePressureDrop and use_TDepPressureDrop));
-  parameter Modelica.Units.SI.MassFraction X_a(min=0, max=0.6)
-    if use_TDepPressureDrop and
-       fluidPropertyEvaluation ==
-         Buildings.Fluid.Geothermal.Borefields.Types.FluidPropertyEvaluation.PropyleneGlycolWater
-    "Mass fraction of propylene glycol in water"
+  parameter Modelica.Units.SI.MassFraction X_a(min=0, max=0.6) = 0
+    "Mass fraction of propylene glycol in water, only used for propylene-glycol/water property evaluation"
     annotation (Dialog(
       enable=computePressureDrop and use_TDepPressureDrop and
         fluidPropertyEvaluation ==
           Buildings.Fluid.Geothermal.Borefields.Types.FluidPropertyEvaluation.PropyleneGlycolWater));
+
   Modelica.Units.SI.PressureDifference dpMajor
     "Major Darcy-Weisbach pressure drop";
   Modelica.Units.SI.PressureDifference dpMinor
