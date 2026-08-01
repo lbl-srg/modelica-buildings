@@ -45,6 +45,7 @@ model RectangularBorefield "Example model of a rectangular borefield"
     final eTub=0.002,
     final xC=0.05,
     final dp_nominal=dpBorFie_nominal,
+    final X_a=0,
     final cooBor = {{dBorHol*mod((i-1),nXBorHol), dBorHol*floor((i-1)/nXBorHol)} for i in 1:nBorHol})
     "Borefield configuration"
     annotation (Placement(transformation(extent={{80,40},{100,60}})));
