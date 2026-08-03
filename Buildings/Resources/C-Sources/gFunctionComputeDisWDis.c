@@ -1,5 +1,5 @@
 /*
- * Buildings_gFunctionComputeDisWDis.c
+ * gFunctionComputeDisWDis.c
  *
  * Computes the maximum number of unique separation distances across all
  * cluster pairs for the g-function evaluation of a geothermal borefield.
@@ -19,7 +19,7 @@
 #include <stdlib.h>
 #include <math.h>
 #include "ModelicaUtilities.h"
-#include "Buildings_gFunctionComputeDisWDis.h"
+#include "gFunctionComputeDisWDis.h"
 
 int Buildings_gFunctionCountMaxDis(
     int nBor, const double* cooBor,

@@ -18,7 +18,7 @@ pure function gFunctionCountMaxDis
   external "C" n_dis_max = Buildings_gFunctionCountMaxDis(
     nBor, cooBor, nClu, labels, cluSiz, rLin, relTol)
     annotation (
-      Include="#include <Buildings_gFunctionComputeDisWDis.c>",
+      Include="#include <gFunctionComputeDisWDis.c>",
       IncludeDirectory="modelica://Buildings/Resources/C-Sources");
 
 annotation (

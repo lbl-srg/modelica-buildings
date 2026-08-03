@@ -1,0 +1,2 @@
+simulateModel("Buildings.Fluid.Geothermal.Borefields.BaseClasses.HeatTransfer.ThermalResponseFactors.Validation.GFunction_LargeField_NDis", startTime=0, stopTime=1, tolerance=1E-6, method="CVode", resultFile="GFunction_LargeField_NDis");
+createPlot(id=3, position={95, 95, 592, 365}, y={"n_dis_max"}, range={0.0, 1.0, 200.0, 260.0}, grid=true, colors={{28,108,200}}, timeUnit="s");

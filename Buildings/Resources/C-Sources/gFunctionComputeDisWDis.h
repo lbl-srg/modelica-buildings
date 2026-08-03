@@ -1,5 +1,5 @@
 /*
- * Header for Buildings_gFunctionComputeDisWDis.c
+ * Header for gFunctionComputeDisWDis.c
  *
  * Provides dynamic-memory routines used by
  * Buildings.Fluid.Geothermal.Borefields.BaseClasses.HeatTransfer.
@@ -8,8 +8,8 @@
  *
  * Issue: https://github.com/lbl-srg/modelica-buildings/issues/4597
  */
-#ifndef BUILDINGS_GFUNCTION_COMPUTE_DIS_WDIS_H
-#define BUILDINGS_GFUNCTION_COMPUTE_DIS_WDIS_H
+#ifndef GFUNCTION_COMPUTE_DIS_WDIS_H
+#define GFUNCTION_COMPUTE_DIS_WDIS_H
 
 /* Returns the maximum number of unique separation distances found across
  * all nClu*nClu cluster pairs, using dynamically growing per-pair arrays.
@@ -29,4 +29,4 @@ int Buildings_gFunctionCountMaxDis(
     const int* cluSiz,
     double rLin, double relTol);
 
-#endif /* BUILDINGS_GFUNCTION_COMPUTE_DIS_WDIS_H */
+#endif /* GFUNCTION_COMPUTE_DIS_WDIS_H */

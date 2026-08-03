@@ -32,8 +32,20 @@ initial equation
 
 equation
 
-  annotation(experiment(StopTime=0),
+  annotation(
+    experiment(Tolerance=1e-6, StopTime=1),
+__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Geothermal/Borefields/BaseClasses/HeatTransfer/ThermalResponseFactors/Validation/GFunction_LargeField_NDis.mos"
+        "Simulate and plot"),
   Documentation(info="<html>
 <p>Lightweight model to measure n_dis_max vs old bound max(cluSiz.*cluSiz).</p>
+</html>",
+revisions="<html>
+<ul>
+<li>
+August 3, 2026, by Michael Wetter:<br/>
+First implementation.
+See <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4597\">#4597</a>.
+</li>
+</ul>
 </html>"));
 end GFunction_LargeField_NDis;

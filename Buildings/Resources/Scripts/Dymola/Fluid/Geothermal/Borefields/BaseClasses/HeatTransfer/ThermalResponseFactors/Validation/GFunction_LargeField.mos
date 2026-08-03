@@ -1,0 +1,17 @@
+simulateModel("Buildings.Fluid.Geothermal.Borefields.BaseClasses.HeatTransfer.ThermalResponseFactors.Validation.GFunction_LargeField", startTime=0, stopTime=1, tolerance=1E-6, method="CVode", resultFile="GFunction_LargeField");
+createPlot(id=3,
+position={15, 15, 592, 517},
+y={"gFun[1]", "gFun[13]", "gFun[26]", "gFun[51]", "gFun[76]"},
+range={0.0, 1.0, -100.0, 300.0},
+grid=true,
+subPlot=101,
+colors={{28,108,200}, {238,46,47}, {0,140,72}, {217,67,180}, {0,0,0}},
+timeUnit="s");
+createPlot(id=3,
+position={15, 15, 592, 517},
+y={"n_dis_max"},
+range={0.0, 1.0, 200.0, 260.0},
+grid=true,
+subPlot=102,
+colors={{28,108,200}},
+timeUnit="s");

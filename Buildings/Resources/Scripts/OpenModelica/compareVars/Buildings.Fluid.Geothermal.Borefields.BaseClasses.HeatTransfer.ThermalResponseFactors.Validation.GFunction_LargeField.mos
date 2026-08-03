@@ -1,0 +1,9 @@
+compareVars :=
+  {
+    "gFun[1]",
+    "gFun[13]",
+    "gFun[26]",
+    "gFun[51]",
+    "gFun[76]",
+    "n_dis_max"
+  };

@@ -73,8 +73,10 @@ initial equation
 equation
 
   annotation (
-    experiment(Tolerance=1e-6, StopTime=0),
+    experiment(Tolerance=1e-6, StopTime=1),
     __OpenModelica_simulationFlags(lv = "LOG_STATS"),
+    __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Geothermal/Borefields/BaseClasses/HeatTransfer/ThermalResponseFactors/Validation/GFunction_LargeField.mos"
+        "Simulate and plot"),
     Documentation(info="<html>
 <p>
 This example verifies that the g-function can be evaluated for a large
@@ -88,16 +90,16 @@ translation because the local arrays
 <code>dis[nClu,nClu,n_max]</code> and <code>wDis[nClu,nClu,n_max]</code>
 in
 <a href=\"modelica://Buildings.Fluid.Geothermal.Borefields.BaseClasses.HeatTransfer.ThermalResponseFactors.gFunction\">
-gFunction</a>
+Buildings.Fluid.Geothermal.Borefields.BaseClasses.HeatTransfer.ThermalResponseFactors.gFunction</a>
 were sized with <code>n_max = max(cluSiz.*cluSiz)</code>.
 For 5 clusters of approximately 500 boreholes each,
-<code>n_max &approx; 250,000</code>, giving array sizes on the order of
-50 MB as a stack allocation in generated C code.
+<code>n_max &approx; 368,000</code>, giving array sizes on the order of
+590 MB as a stack allocation in generated C code.
 </p>
 <p>
 After the fix, <code>n_max</code> is computed by
 <a href=\"modelica://Buildings.Fluid.Geothermal.Borefields.BaseClasses.HeatTransfer.ThermalResponseFactors.gFunctionCountMaxDis\">
-gFunctionCountMaxDis</a>,
+Buildings.Fluid.Geothermal.Borefields.BaseClasses.HeatTransfer.ThermalResponseFactors.gFunctionCountMaxDis</a>,
 which uses dynamic memory allocation in C to find the actual number of
 unique distances.
 For a regular rectangular grid, this is typically two to three orders of
@@ -114,7 +116,7 @@ Translation succeeds without an out-of-memory error.
 </li>
 <li>
 The value of <code>n_dis_max</code> is much smaller than the old bound
-<code>max(cluSiz.*cluSiz) &approx; 250,000</code>.
+<code>max(cluSiz.*cluSiz) &approx; 368,000</code>.
 </li>
 </ul>
 </html>", revisions="<html>
