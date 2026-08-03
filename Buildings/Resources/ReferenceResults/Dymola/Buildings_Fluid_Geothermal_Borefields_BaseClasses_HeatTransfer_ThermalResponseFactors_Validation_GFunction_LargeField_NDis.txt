@@ -1,0 +1,9 @@
+last-generated=2026-08-03
+statistics-simulation=
+{
+  "linear": " ",
+  "nonlinear": " ",
+  "numerical Jacobians": "0"
+}
+time=[0e+00, 1e+00]
+n_dis_max=[2.33e+02, 2.33e+02]
