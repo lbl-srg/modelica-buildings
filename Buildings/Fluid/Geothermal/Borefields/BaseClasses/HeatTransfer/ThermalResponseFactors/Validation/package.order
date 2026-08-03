@@ -9,9 +9,9 @@ FiniteLineSource_Integrand_Equivalent
 FiniteLineSource_Integrand_Length
 FiniteLineSource_SteadyState
 GFunction_100boreholes
+GFunction_1borehole_5meters
 GFunction_LargeField
 GFunction_LargeField_NDis
-GFunction_1borehole_5meters
 GFunction_SmallScaleValidation
 InfiniteLineSource
 ShaGFunction
