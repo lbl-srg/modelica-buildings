@@ -103,8 +103,8 @@ model InternalHEXTwoUTube
     Rgb_val=Rgb_val,
     Rgg1_val=Rgg1_val,
     Rgg2_val=Rgg2_val,
-    dynFil=dynFil,
     RCondGro_val=RCondGro_val,
+    dynFil=dynFil,
     energyDynamics=energyDynamics,
     T_start=TGro_start)
                    "Internal resistances for a double U-tube configuration"
