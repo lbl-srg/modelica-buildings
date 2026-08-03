@@ -8,6 +8,7 @@ finiteLineSource_Integrand
 finiteLineSource_Integrand_Equivalent
 finiteLineSource_SteadyState
 gFunction
+gFunctionCountMaxDis
 infiniteLineSource
 shaGFunction
 timeGeometric

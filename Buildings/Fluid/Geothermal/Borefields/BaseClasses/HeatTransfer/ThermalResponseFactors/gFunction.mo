@@ -35,13 +35,16 @@ protected
   Modelica.Units.SI.Time tSho[nTimSho]
     "Time vector for short time calculations";
   Modelica.Units.SI.Time tLon[nTimLon] "Time vector for long time calculations";
-  Integer n_max = max(cluSiz.*cluSiz);
+  Modelica.Units.SI.Radius rLin=0.0005*hBor
+    "Radius for evaluation of same-borehole line source solutions";
+  Integer n_max=
+    Buildings.Fluid.Geothermal.Borefields.BaseClasses.HeatTransfer.ThermalResponseFactors.gFunctionCountMaxDis(
+    nBor, cooBor, nClu, labels, cluSiz, rLin, relTol)
+    "Maximum number of unique distances across any cluster pair";
   Modelica.Units.SI.Distance dis[nClu,nClu,n_max] "Separation distance between boreholes";
   Modelica.Units.SI.Distance dis_ij "Separation distance between boreholes";
   Integer wDis[nClu,nClu,n_max] "Number of occurence of separation distances";
   Integer n_dis[nClu,nClu];
-  Modelica.Units.SI.Radius rLin=0.0005*hBor
-    "Radius for evaluation of same-borehole line source solutions";
   Real hSegRea[nSeg] "Real part of the FLS solution";
   Real hSegMir[2*nSeg-1] "Mirror part of the FLS solution";
   Modelica.Units.SI.Height dSeg "Buried depth of borehole segment";
@@ -311,6 +314,17 @@ doi:10.1080/19401493.2021.1968953</a>.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+August 3, 2026, by Michael Wetter:<br/>
+Replaced <code>n_max = max(cluSiz.*cluSiz)</code> with a call to
+<a href=\"modelica://Buildings.Fluid.Geothermal.Borefields.BaseClasses.HeatTransfer.ThermalResponseFactors.gFunctionCountMaxDis\">
+gFunctionCountMaxDis</a> so that the arrays
+<code>dis[nClu,nClu,n_max]</code> and <code>wDis[nClu,nClu,n_max]</code>
+are sized to the actual number of unique distances rather than the
+worst-case bound, reducing peak memory by several orders of magnitude for
+large borefields.<br/>
+See <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4597\">#4597</a>.
+</li>
 <li>
 June 9, 2022 by Massimo Cimmino:<br/>
 Updated the function to use the more efficient method of Prieto and Cimmino
