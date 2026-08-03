@@ -80,6 +80,18 @@ have been <b style=\"color:blue\">improved</b> in a
                        This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/2132\">IBPSA, issue 2132</a>.
     </td>
 </tr>
+<tr><td colspan=\"2\"><b>Buildings.Fluid.Geothermal</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Fluid.Geothermal.Borefields.BaseClasses.HeatTransfer.ThermalResponseFactors.gFunction
+    </td>
+    <td valign=\"top\">Replaced the worst-case array size bound with a call to the new function
+                       <a href=\"modelica://Buildings.Fluid.Geothermal.Borefields.BaseClasses.HeatTransfer.ThermalResponseFactors.gFunctionCountMaxDis\">gFunctionCountMaxDis</a>,
+                       which sizes the internal arrays <code>dis</code> and <code>wDis</code> to the actual number of unique
+                       borehole-pair distances, reducing peak memory by several orders of magnitude for large borefields.<br/>
+                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4597\">Buildings, #4597</a>.
+    </td>
+</tr>
 <tr><td colspan=\"2\"><b>Buildings.Fluid.HeatExchangers</b>
     </td>
 </tr>
