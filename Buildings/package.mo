@@ -4,23 +4,18 @@ package Buildings "Library with models for building energy and control systems"
 
 
 annotation (
-version="14.0.0",
-versionDate="2026-05-04",
+preferredView="info",
+version="11.1.2",
+versionDate="2025-03-17",
 dateModified="2026-05-04",
 uses(Modelica(version="4.1.0")),
 conversion(
-  noneFromVersion="14.0.0",
+  noneFromVersion="11.1.1",
+  noneFromVersion="11.1.0",
+  noneFromVersion="11.0.0",
+  noneFromVersion="11.1.0",
   from(
-    version={"13.0.0"},
-    script="modelica://Buildings/Resources/Scripts/Conversion/ConvertBuildings_from_13_to_14.0.0.mos"),
-  from(
-    version={"12.0.0", "12.1.0", "12.1.1"},
-    script="modelica://Buildings/Resources/Scripts/Conversion/ConvertBuildings_from_12_to_13.0.0.mos"),
-  from(
-    version={"11.0.0", "11.1.0", "11.1.1"},
-    script="modelica://Buildings/Resources/Scripts/Conversion/ConvertBuildings_from_11_to_12.0.0.mos"),
-  from(
-    version={"10.0.0", "10.1.0", "10.1.1"},
+    version={"10.0.0", "10.1.0"},
     script="modelica://Buildings/Resources/Scripts/Conversion/ConvertBuildings_from_10_to_11.0.0.mos"),
   from(
     version={"9.0.0", "9.1.0", "9.1.1", "9.1.2"},
@@ -29,7 +24,6 @@ conversion(
     version={"8.0.0", "8.1.0", "8.1.1", "8.1.2", "8.1.3"},
     to="9.0.0",
     script="modelica://Buildings/Resources/Scripts/Conversion/ConvertBuildings_from_8_to_9.0.0.mos")),
-preferredView="info",
 Documentation(info="<html>
 <p>
 The <code>Buildings</code> library is a free library

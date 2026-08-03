@@ -103,6 +103,7 @@ model InternalHEXTwoUTube
     Rgb_val=Rgb_val,
     Rgg1_val=Rgg1_val,
     Rgg2_val=Rgg2_val,
+    dynFil=dynFil,
     RCondGro_val=RCondGro_val,
     energyDynamics=energyDynamics,
     T_start=TGro_start)
