@@ -3,7 +3,7 @@ model InvertingPowerLaw_m_flow
   "Test model that inverts powerLaw_m_flow"
   extends Modelica.Icons.Example;
 
- parameter Real k = 0.5 "Flow coefficient";
+  parameter Real k = 0.5 "Flow coefficient";
   parameter Real n(min=1, max=2) = 1.5
     "Flow exponent, n=1 for laminar, n=2 for turbulent";
   parameter Modelica.Units.SI.MassFlowRate m_flow_nominal=0.5
