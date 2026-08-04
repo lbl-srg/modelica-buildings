@@ -1,4 +1,4 @@
 compareVars :=
   {
-    "polynominal.y"
+    "polynomial.y"
   };
