@@ -248,7 +248,7 @@ equation
   end if;
 
   (RVol1_val, Re1) =
-    Buildings.Fluid.Geothermal.Borefields.BaseClasses.Boreholes.BaseClasses.Functions.convectionResistanceCircularPipe(
+    Buildings.Fluid.Geothermal.Borefields.BaseClasses.Boreholes.BaseClasses.Functions.convectionResistancePipe(
       hSeg=hSeg,
       rTub=borFieDat.conDat.rTub,
       eTub=borFieDat.conDat.eTub,
@@ -260,7 +260,7 @@ equation
       m_flow_nominal=m1_flow_nominal);
 
   (RVol2_val, Re2) =
-    Buildings.Fluid.Geothermal.Borefields.BaseClasses.Boreholes.BaseClasses.Functions.convectionResistanceCircularPipe(
+    Buildings.Fluid.Geothermal.Borefields.BaseClasses.Boreholes.BaseClasses.Functions.convectionResistancePipe(
       hSeg=hSeg,
       rTub=borFieDat.conDat.rTub,
       eTub=borFieDat.conDat.eTub,

@@ -1,5 +1,5 @@
 within Buildings.Fluid.Geothermal.Borefields.BaseClasses.Boreholes.BaseClasses.Functions;
-function convectionResistanceCircularPipe
+function convectionResistancePipe
   "Thermal resistance from the fluid in pipes and the grout zones (Bauer et al. 2011)"
   extends Modelica.Icons.Function;
 
@@ -222,4 +222,4 @@ First implementation.
 </li>
 </ul>
 </html>"));
-end convectionResistanceCircularPipe;
+end convectionResistancePipe;
