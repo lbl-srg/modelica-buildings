@@ -77,7 +77,7 @@ partial model PartialStorage
     redeclare each final package Medium = Medium,
     final borFieDat=zonDat,
     each final nSeg=nSeg,
-    final m_flow_nominal=borFieDat.conDat.mZon_flow_nominal,
+    final m_flow_nominal=borFieDat.conDat.mBor_flow_nominal,
     final dp_nominal=dp_nominal,
     each final allowFlowReversal=allowFlowReversal,
     final m_flow_small=m_flow_small,
