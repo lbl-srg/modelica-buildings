@@ -1,13 +1,13 @@
 within Buildings.Fluid.Geothermal.Borefields.BaseClasses.Boreholes.BaseClasses.Examples;
 model PressureDropPipeTDep
   "Validation model for temperature-dependent Darcy-Weisbach pressure drop"
-  extends .Modelica.Icons.Example;
+  extends Modelica.Icons.Example;
 
-  package MediumWat = .Buildings.Media.Water
+  package MediumWat = Buildings.Media.Water
     "Constant-property water transport medium";
 
   package MediumGly =
-    .Buildings.Media.Antifreeze.PropyleneGlycolWater(
+    Buildings.Media.Antifreeze.PropyleneGlycolWater(
       property_T=293.15,
       X_a=X_aGly)
     "Constant-property propylene-glycol/water transport medium";
@@ -15,28 +15,28 @@ model PressureDropPipeTDep
   constant Real X_aGly(unit="1", min=0, max=1) = 0.40
     "Mass fraction of propylene glycol in the glycol-water mixture";
 
-  parameter .Modelica.Units.SI.Length length=200
+  parameter Modelica.Units.SI.Length length=200
     "Total represented pipe length";
 
-  parameter .Modelica.Units.SI.Radius rTub=0.02
+  parameter Modelica.Units.SI.Radius rTub=0.02
     "Outer tube radius";
 
-  parameter .Modelica.Units.SI.Length eTub=0.002
+  parameter Modelica.Units.SI.Length eTub=0.002
     "Tube wall thickness";
 
-  parameter .Modelica.Units.SI.Length roughness=0.001e-3
+  parameter Modelica.Units.SI.Length roughness=0.001e-3
     "Pipe roughness";
 
-  parameter .Modelica.Units.SI.MassFlowRate m_flow_nominal=0.20
+  parameter Modelica.Units.SI.MassFlowRate m_flow_nominal=0.20
     "Nominal mass flow rate";
 
-  parameter .Modelica.Units.SI.Time period=3600
+  parameter Modelica.Units.SI.Time period=3600
     "Period of inlet temperature variation";
 
-  parameter .Modelica.Units.SI.Temperature TIn_mean=293.15
+  parameter Modelica.Units.SI.Temperature TIn_mean=293.15
     "Mean inlet temperature";
 
-  parameter .Modelica.Units.SI.TemperatureDifference TIn_amp=20
+  parameter Modelica.Units.SI.TemperatureDifference TIn_amp=20
     "Amplitude of inlet temperature variation";
 
   parameter MediumWat.ThermodynamicState staWatDef=
@@ -53,15 +53,15 @@ model PressureDropPipeTDep
       X=MediumGly.X_default)
     "Default state for glycol";
 
-  .Modelica.Blocks.Sources.Sine TInSig(
+  Modelica.Blocks.Sources.Sine TInSig(
     amplitude=TIn_amp,
     f=1/period,
-    phase=-.Modelica.Constants.pi/2,
+    phase=-Modelica.Constants.pi/2,
     offset=TIn_mean)
     "Sinusoidal inlet temperature"
     annotation (Placement(transformation(extent={{-110,80},{-90,100}})));
 
-  .Buildings.Fluid.Geothermal.Borefields.BaseClasses.Boreholes.BaseClasses.PressureDropPipeDarcy
+  Buildings.Fluid.Geothermal.Borefields.BaseClasses.Boreholes.BaseClasses.PressureDropPipeDarcy
     preDroFixWat(
       redeclare package Medium = MediumWat,
       m_flow_nominal=m_flow_nominal,
@@ -77,14 +77,14 @@ model PressureDropPipeTDep
     "Fixed-property water pressure drop"
     annotation (Placement(transformation(extent={{-10,50},{10,70}})));
 
-  .Buildings.Fluid.Geothermal.Borefields.BaseClasses.Boreholes.BaseClasses.PressureDropPipeDarcy
+  Buildings.Fluid.Geothermal.Borefields.BaseClasses.Boreholes.BaseClasses.PressureDropPipeDarcy
     preDroWat(
       redeclare package Medium = MediumWat,
       m_flow_nominal=m_flow_nominal,
       computePressureDrop=true,
       use_TDepPressureDrop=true,
       fluidPropertyEvaluation=
-        .Buildings.Fluid.Geothermal.Borefields.Types.FluidPropertyEvaluation.Water,
+        Buildings.Fluid.Geothermal.Borefields.Types.FluidPropertyEvaluation.Water,
       length=length,
       rTub=rTub,
       eTub=eTub,
@@ -95,7 +95,7 @@ model PressureDropPipeTDep
     "Temperature-dependent water pressure drop"
     annotation (Placement(transformation(extent={{-10,10},{10,30}})));
 
-  .Buildings.Fluid.Geothermal.Borefields.BaseClasses.Boreholes.BaseClasses.PressureDropPipeDarcy
+  Buildings.Fluid.Geothermal.Borefields.BaseClasses.Boreholes.BaseClasses.PressureDropPipeDarcy
     preDroFixGly(
       redeclare package Medium = MediumGly,
       m_flow_nominal=m_flow_nominal,
@@ -111,14 +111,14 @@ model PressureDropPipeTDep
     "Fixed-property glycol pressure drop"
     annotation (Placement(transformation(extent={{-10,-30},{10,-10}})));
 
-  .Buildings.Fluid.Geothermal.Borefields.BaseClasses.Boreholes.BaseClasses.PressureDropPipeDarcy
+  Buildings.Fluid.Geothermal.Borefields.BaseClasses.Boreholes.BaseClasses.PressureDropPipeDarcy
     preDroGly(
       redeclare package Medium = MediumGly,
       m_flow_nominal=m_flow_nominal,
       computePressureDrop=true,
       use_TDepPressureDrop=true,
       fluidPropertyEvaluation=
-        .Buildings.Fluid.Geothermal.Borefields.Types.FluidPropertyEvaluation.PropyleneGlycolWater,
+        Buildings.Fluid.Geothermal.Borefields.Types.FluidPropertyEvaluation.PropyleneGlycolWater,
       X_a=X_aGly,
       length=length,
       rTub=rTub,
@@ -129,7 +129,7 @@ model PressureDropPipeTDep
     "Temperature-dependent glycol pressure drop"
     annotation (Placement(transformation(extent={{-10,-70},{10,-50}})));
 
-  .Buildings.Fluid.Sources.MassFlowSource_T souFixWat(
+  Buildings.Fluid.Sources.MassFlowSource_T souFixWat(
     redeclare package Medium = MediumWat,
     nPorts=1,
     use_T_in=true,
@@ -137,13 +137,13 @@ model PressureDropPipeTDep
     "Mass flow source for fixed-property water case"
     annotation (Placement(transformation(extent={{-80,50},{-60,70}})));
 
-  .Buildings.Fluid.Sources.Boundary_pT sinFixWat(
+  Buildings.Fluid.Sources.Boundary_pT sinFixWat(
     redeclare package Medium = MediumWat,
     nPorts=1)
     "Sink for fixed-property water case"
     annotation (Placement(transformation(extent={{80,50},{60,70}})));
 
-  .Buildings.Fluid.Sources.MassFlowSource_T souWat(
+  Buildings.Fluid.Sources.MassFlowSource_T souWat(
     redeclare package Medium = MediumWat,
     nPorts=1,
     use_T_in=true,
@@ -151,13 +151,13 @@ model PressureDropPipeTDep
     "Mass flow source for temperature-dependent water case"
     annotation (Placement(transformation(extent={{-80,10},{-60,30}})));
 
-  .Buildings.Fluid.Sources.Boundary_pT sinWat(
+  Buildings.Fluid.Sources.Boundary_pT sinWat(
     redeclare package Medium = MediumWat,
     nPorts=1)
     "Sink for temperature-dependent water case"
     annotation (Placement(transformation(extent={{80,10},{60,30}})));
 
-  .Buildings.Fluid.Sources.MassFlowSource_T souFixGly(
+  Buildings.Fluid.Sources.MassFlowSource_T souFixGly(
     redeclare package Medium = MediumGly,
     nPorts=1,
     use_T_in=true,
@@ -165,13 +165,13 @@ model PressureDropPipeTDep
     "Mass flow source for fixed-property glycol case"
     annotation (Placement(transformation(extent={{-80,-30},{-60,-10}})));
 
-  .Buildings.Fluid.Sources.Boundary_pT sinFixGly(
+  Buildings.Fluid.Sources.Boundary_pT sinFixGly(
     redeclare package Medium = MediumGly,
     nPorts=1)
     "Sink for fixed-property glycol case"
     annotation (Placement(transformation(extent={{80,-30},{60,-10}})));
 
-  .Buildings.Fluid.Sources.MassFlowSource_T souGly(
+  Buildings.Fluid.Sources.MassFlowSource_T souGly(
     redeclare package Medium = MediumGly,
     nPorts=1,
     use_T_in=true,
@@ -179,31 +179,31 @@ model PressureDropPipeTDep
     "Mass flow source for temperature-dependent glycol case"
     annotation (Placement(transformation(extent={{-80,-70},{-60,-50}})));
 
-  .Buildings.Fluid.Sources.Boundary_pT sinGly(
+  Buildings.Fluid.Sources.Boundary_pT sinGly(
     redeclare package Medium = MediumGly,
     nPorts=1)
     "Sink for temperature-dependent glycol case"
     annotation (Placement(transformation(extent={{80,-70},{60,-50}})));
 
-  .Modelica.Units.SI.Temperature TIn = TInSig.y
+  Modelica.Units.SI.Temperature TIn = TInSig.y
     "Inlet temperature";
 
-  .Modelica.Units.SI.PressureDifference dpFixWat = preDroFixWat.dp
+  Modelica.Units.SI.PressureDifference dpFixWat = preDroFixWat.dp
     "Pressure drop of fixed-property water case";
 
-  .Modelica.Units.SI.PressureDifference dpWat = preDroWat.dp
+  Modelica.Units.SI.PressureDifference dpWat = preDroWat.dp
     "Pressure drop of temperature-dependent water case";
 
-  .Modelica.Units.SI.PressureDifference dpFixGly = preDroFixGly.dp
+  Modelica.Units.SI.PressureDifference dpFixGly = preDroFixGly.dp
     "Pressure drop of fixed-property glycol case";
 
-  .Modelica.Units.SI.PressureDifference dpGly = preDroGly.dp
+  Modelica.Units.SI.PressureDifference dpGly = preDroGly.dp
     "Pressure drop of temperature-dependent glycol case";
 
-  .Modelica.Units.SI.PressureDifference dDpWat = dpWat - dpFixWat
+  Modelica.Units.SI.PressureDifference dDpWat = dpWat - dpFixWat
     "Difference between temperature-dependent and fixed-property water pressure drop";
 
-  .Modelica.Units.SI.PressureDifference dDpGly = dpGly - dpFixGly
+  Modelica.Units.SI.PressureDifference dDpGly = dpGly - dpFixGly
     "Difference between temperature-dependent and fixed-property glycol pressure drop";
 
 equation
