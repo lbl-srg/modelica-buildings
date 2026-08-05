@@ -17,12 +17,49 @@ record Template
   parameter Modelica.Units.SI.MassFlowRate[nZon] mBor_flow_nominal
     "Nominal mass flow rate per borehole in each zone"
     annotation (Dialog(group="Nominal condition"));
-  final parameter Modelica.Units.SI.MassFlowRate[nZon] mZon_flow_nominal = {mBor_flow_nominal[i] * nBorPerZon[i] for i in 1:nZon}
+
+  final parameter Modelica.Units.SI.MassFlowRate[nZon] mZon_flow_nominal =
+    {mBor_flow_nominal[i] * nBorPerZon[i] for i in 1:nZon}
     "Nominal mass flow rate of each borefield zone"
     annotation (Dialog(group="Nominal condition"));
+
   parameter Modelica.Units.SI.Pressure[nZon] dp_nominal(each displayUnit="Pa")
     "Pressure losses for each zone of the borefield"
     annotation (Dialog(group="Nominal condition"));
+
+  parameter Boolean use_DarcyPressureDrop = false
+    "Set to true to compute the vertical pipe pressure drop from Darcy-Weisbach"
+    annotation (Evaluate=true, Dialog(tab="Advanced", group="Pressure drop"));
+
+  parameter Boolean use_TDepPressureDrop = false
+    "Set to true to evaluate density and viscosity from the medium temperature for the Darcy-Weisbach pressure drop"
+    annotation (Dialog(
+      tab="Advanced",
+      group="Pressure drop",
+      enable=use_DarcyPressureDrop));
+
+  parameter Boolean use_TDepRConv = false
+    "Set to true to evaluate fluid thermal properties from the medium temperature for the pipe convection resistance"
+    annotation (Dialog(tab="Advanced", group="Heat transfer"));
+
+  parameter Buildings.Fluid.Geothermal.Borefields.Types.FluidPropertyEvaluation
+    fluidPropertyEvaluation =
+      Buildings.Fluid.Geothermal.Borefields.Types.FluidPropertyEvaluation.use_MediaFunctions
+    "Method used to evaluate fluid properties for temperature-dependent heat-transfer and pressure-drop correlations"
+    annotation (Dialog(
+      tab="Advanced",
+      group="Fluid properties",
+      enable=use_TDepRConv or use_TDepPressureDrop));
+
+  parameter Modelica.Units.SI.MassFraction X_a(min=0, max=0.6) = 0
+    "Mass fraction of propylene glycol in water, the default value 0 corresponds to pure water"
+    annotation (Dialog(
+      tab="Advanced",
+      group="Fluid properties",
+      enable=(use_TDepRConv or use_TDepPressureDrop) and
+        fluidPropertyEvaluation ==
+          Buildings.Fluid.Geothermal.Borefields.Types.FluidPropertyEvaluation.PropyleneGlycolWater));
+
   // -- Advanced flow parameters
   final parameter Modelica.Units.SI.MassFlowRate[nZon] mBor_flow_small(each min=0) =
     {1E-4*abs(mBor_flow_nominal[i]) for i in 1:nZon}
@@ -43,7 +80,8 @@ record Template
     annotation (Dialog(group="Borehole"));
   parameter Integer[nBor] iZon "Index of the zone corresponding to each borehole"
     annotation (Dialog(group="Borehole"));
-  final parameter Integer[nZon] nBorPerZon = {sum({if iZon[j]==i then 1 else 0 for j in 1:nBor}) for i in 1:nZon}
+  final parameter Integer[nZon] nBorPerZon =
+    {sum({if iZon[j] == i then 1 else 0 for j in 1:nBor}) for i in 1:nZon}
     "Number of boreholes per borefield zone"
     annotation (Dialog(group="Borehole"));
   parameter Modelica.Units.SI.Length[:,2] cooBor
@@ -56,16 +94,30 @@ record Template
   parameter Modelica.Units.SI.Radius rTub "Outer radius of the tubes"
     annotation (Dialog(group="Tubes"));
   parameter Modelica.Units.SI.ThermalConductivity kTub
-    "Thermal conductivity of the tube" annotation (Dialog(group="Tubes"));
+    "Thermal conductivity of the tube"
+    annotation (Dialog(group="Tubes"));
   parameter Modelica.Units.SI.Length eTub "Thickness of a tube"
     annotation (Dialog(group="Tubes"));
+  final parameter Modelica.Units.SI.Volume VTubBorFie =
+    nBor*
+    (if borCon == Buildings.Fluid.Geothermal.Borefields.Types.BoreholeConfiguration.SingleUTube
+       then 2 else 4)*
+    hBor*Modelica.Constants.pi*(rTub - eTub)^2
+    "Total fluid volume in the vertical pipes of the borefield"
+    annotation (Dialog(
+      tab="Advanced",
+      group="Derived quantities",
+      enable=false));
   parameter Modelica.Units.SI.Length xC
     "Shank spacing, defined as the distance between the center of a pipe and the center of the borehole"
     annotation (Dialog(group="Tubes"));
+  parameter Modelica.Units.SI.Length roughness = 0.001e-3
+    "Absolute pipe wall roughness, default for smooth HDPE pipe"
+    annotation (Dialog(group="Tubes"));
 
   annotation (
-  defaultComponentPrefixes="parameter",
-  defaultComponentName="conDat",
+    defaultComponentPrefixes="parameter",
+    defaultComponentName="conDat",
     Documentation(
 info="<html>
 <p>
@@ -81,6 +133,16 @@ for how to use this record.
 </html>",
 revisions="<html>
 <ul>
+<li>
+July, 2026, by Lone Meertens:<br/>
+Added parameters for Darcy-Weisbach pressure-drop calculation, temperature-dependent
+fluid-property evaluation, pipe roughness, propylene-glycol/water mass fraction,
+and total vertical GHE fluid volume.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4656\">Buildings, #4656</a>
+and
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4483\">Buildings, #4483</a>.
+</li>
 <li>
 February 2024, by Massimo Cimmino:<br/>
 First implementation.

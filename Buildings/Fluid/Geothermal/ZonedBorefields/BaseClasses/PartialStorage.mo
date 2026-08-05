@@ -5,12 +5,15 @@ partial model PartialStorage
     Buildings.Fluid.Geothermal.ZonedBorefields.Interfaces.PartialTwoNPortsInterface(
     final nPorts=nZon,
     final m_flow_nominal=borFieDat.conDat.mZon_flow_nominal);
-  extends
-    Buildings.Fluid.Geothermal.ZonedBorefields.Interfaces.TwoNPortsFlowResistanceParameters(
-    final nPorts=nZon,
-    final dp_nominal=borFieDat.conDat.dp_nominal,
-    final computeFlowResistance={_dp_nominal > Modelica.Constants.eps for _dp_nominal in borFieDat.conDat.dp_nominal})
-    annotation (IconMap(primitivesVisible = false));
+extends
+  Buildings.Fluid.Geothermal.ZonedBorefields.Interfaces.TwoNPortsFlowResistanceParameters(
+  final nPorts=nZon,
+  final dp_nominal=borFieDat.conDat.dp_nominal,
+  final computeFlowResistance={
+    borFieDat.conDat.use_DarcyPressureDrop or
+    _dp_nominal > Modelica.Constants.eps
+    for _dp_nominal in borFieDat.conDat.dp_nominal})
+  annotation (IconMap(primitivesVisible = false));
 
   replaceable package Medium = Modelica.Media.Interfaces.PartialMedium
     "Medium in the borehole pipes"
@@ -118,7 +121,32 @@ protected
   constant Real mSenFac(min=1)=1
     "Factor for scaling the sensible thermal mass of the volume";
 
-  parameter Modelica.Units.SI.Height z[nSeg]={borFieDat.conDat.hBor/nSeg*(i - 0.5) for i in 1:nSeg}
+  parameter Medium.ThermodynamicState staDef=
+    Medium.setState_pTX(
+      p=Medium.p_default,
+      T=Medium.T_default,
+      X=Medium.X_default)
+    "Default medium state used for consistency check";
+
+  parameter Modelica.Units.SI.SpecificHeatCapacity cpMedDef=
+    Medium.specificHeatCapacityCp(staDef)
+    "Specific heat capacity from the redeclared medium";
+
+  parameter Modelica.Units.SI.SpecificHeatCapacity cpGlyFunDat=
+    Buildings.Media.Antifreeze.Functions.PropyleneGlycolWater.specificHeatCapacityCp_TX_a(
+      T=Medium.T_default,
+      X_a=borFieDat.conDat.X_a)
+    "Specific heat capacity computed from the borefield data record mass fraction";
+
+  parameter Real cpRelErrX_a(unit="1")=
+    abs(cpMedDef - cpGlyFunDat)/cpMedDef
+    "Relative difference used to check consistency of X_a with the redeclared medium";
+
+  parameter Real cpRelTolX_a(unit="1")=1e-3
+    "Relative tolerance for checking consistency of X_a with the redeclared medium";
+
+  parameter Modelica.Units.SI.Height z[nSeg]=
+    {borFieDat.conDat.hBor/nSeg*(i - 0.5) for i in 1:nSeg}
     "Distance from the surface to the considered segment";
 
   // General parameters of the boreholes. These records are required because
@@ -137,6 +165,12 @@ protected
     mBor_flow_nominal=borFieDat.conDat.mBor_flow_nominal,
     mBorFie_flow_nominal=borFieDat.conDat.mZon_flow_nominal,
     dp_nominal=borFieDat.conDat.dp_nominal,
+    each use_DarcyPressureDrop=borFieDat.conDat.use_DarcyPressureDrop,
+    each use_TDepPressureDrop=borFieDat.conDat.use_TDepPressureDrop,
+    each use_TDepRConv=borFieDat.conDat.use_TDepRConv,
+    each fluidPropertyEvaluation=borFieDat.conDat.fluidPropertyEvaluation,
+    each X_a=borFieDat.conDat.X_a,
+    each roughness=borFieDat.conDat.roughness,
     each hBor=borFieDat.conDat.hBor,
     each rBor=borFieDat.conDat.rBor,
     each dBor=borFieDat.conDat.dBor,
@@ -194,6 +228,17 @@ protected
     annotation (Placement(transformation(extent={{50,70},{70,90}})));
 
 equation
+  assert(
+    noEvent(cpRelErrX_a <= cpRelTolX_a),
+    "In " + getInstanceName() + ": The borefield configuration parameter X_a = "
+    + String(borFieDat.conDat.X_a)
+    + " is inconsistent with the redeclared medium. "
+    + "If Buildings.Media.Water is used, set borFieDat.conDat.X_a=0. "
+    + "If Buildings.Media.Antifreeze.PropyleneGlycolWater is used, set "
+    + "borFieDat.conDat.X_a to the same mass fraction as the medium declaration. "
+    + "Relative difference in specific heat capacity is "
+    + String(cpRelErrX_a) + ", tolerance is " + String(cpRelTolX_a) + ".",
+    AssertionLevel.error);
 
   connect(borHol.port_wall, QBorHol.port_a) annotation (Line(points={{0,-30},{0,
           -25},{-6.10623e-16,-25},{-6.10623e-16,-20}}, color={191,0,0}));
