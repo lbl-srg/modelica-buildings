@@ -35,13 +35,15 @@ protected
   Modelica.Units.SI.Time tSho[nTimSho]
     "Time vector for short time calculations";
   Modelica.Units.SI.Time tLon[nTimLon] "Time vector for long time calculations";
-  Integer n_max = max(cluSiz.*cluSiz);
-  Modelica.Units.SI.Distance dis[nClu,nClu,n_max] "Separation distance between boreholes";
-  Modelica.Units.SI.Distance dis_ij "Separation distance between boreholes";
-  Integer wDis[nClu,nClu,n_max] "Number of occurence of separation distances";
-  Integer n_dis[nClu,nClu];
   Modelica.Units.SI.Radius rLin=0.0005*hBor
     "Radius for evaluation of same-borehole line source solutions";
+  Integer n_max=
+    Buildings.Fluid.Geothermal.Borefields.BaseClasses.HeatTransfer.ThermalResponseFactors.gFunctionGetNMax(
+      nBor, cooBor, rLin, nClu, labels, relTol)
+    "Maximum number of unique distances for any cluster pair";
+  Modelica.Units.SI.Distance dis[nClu,nClu,n_max] "Separation distance between boreholes";
+  Integer wDis[nClu,nClu,n_max] "Number of occurence of separation distances";
+  Integer n_dis[nClu,nClu];
   Real hSegRea[nSeg] "Real part of the FLS solution";
   Real hSegMir[2*nSeg-1] "Mirror part of the FLS solution";
   Modelica.Units.SI.Height dSeg "Buried depth of borehole segment";
@@ -51,43 +53,12 @@ protected
   Real FLS "Finite line source solution";
   Real ILS "Infinite line source solution";
   Real CHS "Cylindrical heat source solution";
-  Boolean found "Flag, true if a cluster has been found";
 
 algorithm
   // Distances between borehole clusters
-  n_dis := zeros(nClu,nClu);
-  wDis := zeros(nClu,nClu,n_max);
-  for i in 1:nBor loop
-    for j in i:nBor loop
-      // Distance between boreholes
-      if i <> j then
-        dis_ij := sqrt((cooBor[i,1] - cooBor[j,1])^2 + (cooBor[i,2] - cooBor[j,2])^2);
-      else
-        dis_ij := rLin;
-      end if;
-      found := false;
-      for n in 1:n_dis[labels[i],labels[j]] loop
-        if abs(dis_ij - dis[labels[i],labels[j],n]) / dis[labels[i],labels[j],n] < relTol then
-          wDis[labels[i],labels[j],n] := wDis[labels[i],labels[j],n] + 1;
-          found := true;
-          if i <> j then
-            wDis[labels[j],labels[i],n] := wDis[labels[j],labels[i],n] + 1;
-          end if;
-          break;
-        end if;
-      end for;
-      if not found then
-        n_dis[labels[i],labels[j]] := n_dis[labels[i],labels[j]] + 1;
-        wDis[labels[i],labels[j],n_dis[labels[i],labels[j]]] := wDis[labels[i],labels[j],n_dis[labels[i],labels[j]]] + 1;
-        dis[labels[i],labels[j],n_dis[labels[i],labels[j]]] := dis_ij;
-        if i <> j then
-          n_dis[labels[j],labels[i]] := n_dis[labels[j],labels[i]] + 1;
-          wDis[labels[j],labels[i],n_dis[labels[j],labels[i]]] := wDis[labels[j],labels[i],n_dis[labels[j],labels[i]]] + 1;
-          dis[labels[j],labels[i],n_dis[labels[j],labels[i]]] := dis_ij;
-        end if;
-      end if;
-    end for;
-  end for;
+  (dis, wDis, n_dis) :=
+    Buildings.Fluid.Geothermal.Borefields.BaseClasses.HeatTransfer.ThermalResponseFactors.gFunctionGetDis(
+      nBor, cooBor, rLin, nClu, labels, relTol, n_max);
 
   // Generate geometrically expanding time vectors
   tSho :=
@@ -311,6 +282,20 @@ doi:10.1080/19401493.2021.1968953</a>.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+August 4, 2025, by Michael Wetter:<br/>
+Replaced the Modelica distance-accumulation loop and the conservative
+upper bound <code>n_max = max(cluSiz.*cluSiz)</code> with two external
+C functions:
+<a href=\"modelica://Buildings.Fluid.Geothermal.Borefields.BaseClasses.HeatTransfer.ThermalResponseFactors.gFunctionGetNMax\">
+gFunctionGetNMax</a> computes the exact maximum number of unique
+distances via dynamic memory allocation, and
+<a href=\"modelica://Buildings.Fluid.Geothermal.Borefields.BaseClasses.HeatTransfer.ThermalResponseFactors.gFunctionGetDis\">
+gFunctionGetDis</a> fills the distance arrays using the same comparison
+code, reducing the memory footprint from cubic to sub-quadratic in the
+number of boreholes.
+See <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4597\">#4597</a>.
+</li>
 <li>
 June 9, 2022 by Massimo Cimmino:<br/>
 Updated the function to use the more efficient method of Prieto and Cimmino
