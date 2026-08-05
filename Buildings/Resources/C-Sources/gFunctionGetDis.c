@@ -10,13 +10,16 @@
   The caller (gFunction.mo) must have called gFunctionGetNMax first to
   obtain n_max, which sizes the third dimension of dis and wDis.
 
-  Array layout (Modelica column-major, first index varies fastest):
-    cooBor[nBor, 2]:           x-coords at 0..nBor-1,
-                               y-coords at nBor..2*nBor-1.
-    labels[nBor]:              1-indexed cluster labels.
-    dis [nClu, nClu, n_max]:   element [c1,c2,k] at c1 + c2*nClu + k*nClu*nClu.
-    wDis[nClu, nClu, n_max]:   same layout as dis.
-    n_dis[nClu, nClu]:         element [c1,c2] at c1 + c2*nClu.
+  Array layout (omc passes multi-dimensional arrays in row-major order,
+  last index varies fastest):
+    cooBor[nBor, 2]:   element [i,j] at (i-1)*2 + (j-1).
+                       x-coord of borehole i (1-indexed) at 2*(i-1),
+                       y-coord at 2*(i-1)+1.
+    labels[nBor]:      1-indexed cluster labels (1-D, no layout issue).
+    dis [nClu, nClu, n_max]: element [k1,k2,k3] at
+                       (k1-1)*nClu*n_max + (k2-1)*n_max + (k3-1).
+    wDis[nClu, nClu, n_max]: same layout as dis.
+    n_dis[nClu, nClu]:  element [k1,k2] at (k1-1)*nClu + (k2-1).
 */
 
 #ifndef G_FUNCTION_GET_DIS_C
@@ -42,8 +45,7 @@ void gFunctionGetDis(
     int i, j, li, lj, found_idx, k;
     double dis_ij, dxi, dyi;
 
-    /* Zero-initialise output arrays (mirrors  n_dis := zeros(...) and
-       wDis := zeros(...)  at the top of the Modelica algorithm section) */
+    /* Zero-initialise output arrays */
     memset(n_dis, 0, (size_t)nPairs * sizeof(int));
     memset(wDis,  0, (size_t)nPairs * n_max * sizeof(int));
 
@@ -55,10 +57,10 @@ void gFunctionGetDis(
     */
     for (i = 0; i < nBor; i++) {
         for (j = i; j < nBor; j++) {
-            /* Separation distance */
+            /* Separation distance (row-major cooBor: x at 2*i, y at 2*i+1) */
             if (i != j) {
-                dxi = cooBor[i] - cooBor[j];
-                dyi = cooBor[nBor + i] - cooBor[nBor + j];
+                dxi = cooBor[2*i] - cooBor[2*j];
+                dyi = cooBor[2*i+1] - cooBor[2*j+1];
                 dis_ij = sqrt(dxi * dxi + dyi * dyi);
             } else {
                 dis_ij = rLin;
@@ -67,33 +69,36 @@ void gFunctionGetDis(
             li = labels[i] - 1; /* convert 1-indexed Modelica label to 0-indexed */
             lj = labels[j] - 1;
 
-            /* Search for an existing distance within relTol in cluster pair (li, lj) */
+            /*
+              Row-major [nClu, nClu, n_max]: base pointer for pair (li, lj),
+              stride 1 (k varies fastest as last index).
+            */
             found_idx = gFunctionFindDis(
-                dis + li + (size_t)lj * nClu,
-                nPairs,
-                n_dis[li + lj * nClu],
+                dis + li * nClu * n_max + lj * n_max,
+                1,
+                n_dis[li * nClu + lj],
                 dis_ij,
                 relTol);
 
             if (found_idx >= 0) {
                 /* Distance already known: increment occurrence counters */
-                wDis[li + lj * nClu + (size_t)found_idx * nPairs] += 1;
+                wDis[li * nClu * n_max + lj * n_max + found_idx] += 1;
                 if (i != j) {
-                    wDis[lj + li * nClu + (size_t)found_idx * nPairs] += 1;
+                    wDis[lj * nClu * n_max + li * n_max + found_idx] += 1;
                 }
             } else {
                 /* New distance: append to cluster pair (li, lj) */
-                k = n_dis[li + lj * nClu];
-                n_dis[li + lj * nClu] = k + 1;
-                wDis[li + lj * nClu + (size_t)k * nPairs] += 1;
-                dis [li + lj * nClu + (size_t)k * nPairs]  = dis_ij;
+                k = n_dis[li * nClu + lj];
+                n_dis[li * nClu + lj] = k + 1;
+                wDis[li * nClu * n_max + lj * n_max + k] += 1;
+                dis [li * nClu * n_max + lj * n_max + k]  = dis_ij;
 
                 if (i != j) {
                     /* Symmetric update for cluster pair (lj, li) */
-                    k = n_dis[lj + li * nClu];
-                    n_dis[lj + li * nClu] = k + 1;
-                    wDis[lj + li * nClu + (size_t)k * nPairs] += 1;
-                    dis [lj + li * nClu + (size_t)k * nPairs]  = dis_ij;
+                    k = n_dis[lj * nClu + li];
+                    n_dis[lj * nClu + li] = k + 1;
+                    wDis[lj * nClu * n_max + li * n_max + k] += 1;
+                    dis [lj * nClu * n_max + li * n_max + k]  = dis_ij;
                 }
             }
         }

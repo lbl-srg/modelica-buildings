@@ -10,10 +10,15 @@
   is identical to the one used in gFunctionGetDis.c, ensuring that both
   functions produce exactly the same partition of distances into bins.
 
-  Array layout (Modelica column-major, first index varies fastest):
-    cooBor[nBor, 2]:  x-coords at indices 0 .. nBor-1,
-                      y-coords at indices nBor .. 2*nBor-1.
-    labels[nBor]:     1-indexed cluster labels.
+  Array layout (omc passes multi-dimensional arrays in row-major order,
+  last index varies fastest):
+    cooBor[nBor, 2]:  element [i,j] at flat index (i-1)*2 + (j-1).
+                      x-coord of borehole i (1-indexed) at 2*(i-1),
+                      y-coord of borehole i at 2*(i-1)+1.
+    labels[nBor]:     1-indexed cluster labels (1-D, no layout issue).
+
+  Internal arrays dis_dyn and n_dis are purely local to this function
+  and use column-major layout (first index fastest) for simplicity.
 */
 
 #ifndef G_FUNCTION_GET_N_MAX_C
@@ -55,10 +60,10 @@ int gFunctionGetNMax(
     */
     for (i = 0; i < nBor; i++) {
         for (j = i; j < nBor; j++) {
-            /* Separation distance */
+            /* Separation distance (row-major cooBor: x at 2*i, y at 2*i+1) */
             if (i != j) {
-                dxi = cooBor[i] - cooBor[j];
-                dyi = cooBor[nBor + i] - cooBor[nBor + j];
+                dxi = cooBor[2*i] - cooBor[2*j];
+                dyi = cooBor[2*i+1] - cooBor[2*j+1];
                 dis_ij = sqrt(dxi * dxi + dyi * dyi);
             } else {
                 dis_ij = rLin;
