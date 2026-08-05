@@ -366,6 +366,14 @@ to evaluate the total temperature change at each of the borehole segments.
 </html>", revisions="<html>
 <ul>
 <li>
+July 2026, by Lone Meertens:<br/>
+Added support for Darcy-Weisbach pressure drop with temperature-dependent
+pressure drop and convection resistance calculations, and corrected the
+borehole nominal mass flow rate used for pressure-drop calculations.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4656\">Buildings, #4656</a>.
+</li>
+<li>
 February 2024, by Massimo Cimmino:<br/>
 First implementation.
 </li>
