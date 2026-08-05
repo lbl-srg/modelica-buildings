@@ -37,8 +37,8 @@ record Template
       tab="Advanced",
       group="Fluid properties",
       enable=use_TDepRConv or use_TDepPressureDrop));
-  parameter Modelica.Units.SI.MassFraction X_a(min=0, max=0.6) 
-    "Mass fraction of propylene glycol in water, used if fluidPropertyEvaluation is PropyleneGlycolWater"
+  parameter Modelica.Units.SI.MassFraction X_a(min=0, max=0.6) = 0
+    "Mass fraction of propylene glycol in water, the default value 0 corresponds to pure water"
     annotation (Dialog(
       tab="Advanced",
       group="Fluid properties",
@@ -103,8 +103,7 @@ revisions="<html>
 <ul>
 <li>
 July 18, 2026, by L. Meertens:<br/>
-Added parameters for Darcy-Weisbach pressure-drop calculation, pipe roughness,
-and total vertical GHE fluid volume.<br/>
+Added parameters for Darcy-Weisbach pressure-drop calculation and pipe roughness.<br/>
 This is for
 <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4656\">Buildings, #4656</a>.
 </li>

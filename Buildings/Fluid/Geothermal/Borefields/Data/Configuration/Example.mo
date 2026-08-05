@@ -7,7 +7,7 @@ record Example
       cooBor={{0,0},{0,6},{6,0},{6,6}},
       mBor_flow_nominal=0.3,
       dp_nominal=5e4,
-      X_a=0.40,
+      X_a=0,
       hBor=100.0,
       rBor=0.075,
       dBor=1.0,
@@ -25,6 +25,13 @@ This record presents an example for how to define configuration data records
 using the template in
 <a href=\"modelica://Buildings.Fluid.Geothermal.Borefields.Data.Configuration.Template\">
 Buildings.Fluid.Geothermal.Borefields.Data.Configuration.Template</a>.
+</p>
+<p>
+The example configuration sets <code>X_a=0</code>, corresponding to pure water.
+Examples that use
+<a href=\"modelica://Buildings.Media.Antifreeze.PropyleneGlycolWater\">
+Buildings.Media.Antifreeze.PropyleneGlycolWater</a>
+must override <code>X_a</code> consistently with the medium declaration.
 </p>
 </html>",
 revisions="<html>

@@ -115,6 +115,30 @@ partial model PartialBorefield
     annotation (Placement(transformation(extent={{-10,-50},{10,-30}})));
 
 protected
+  parameter Medium.ThermodynamicState staDef=
+    Medium.setState_pTX(
+      p=Medium.p_default,
+      T=Medium.T_default,
+      X=Medium.X_default)
+    "Default medium state used for consistency check";
+
+  parameter Modelica.Units.SI.SpecificHeatCapacity cpMedDef=
+    Medium.specificHeatCapacityCp(staDef)
+    "Specific heat capacity from the redeclared medium";
+
+  parameter Modelica.Units.SI.SpecificHeatCapacity cpGlyFunDat=
+    Buildings.Media.Antifreeze.Functions.PropyleneGlycolWater.specificHeatCapacityCp_TX_a(
+      T=Medium.T_default,
+      X_a=borFieDat.conDat.X_a)
+    "Specific heat capacity computed from the borefield data record mass fraction";
+
+  parameter Real cpRelErrX_a(unit="1")=
+    abs(cpMedDef - cpGlyFunDat)/cpMedDef
+    "Relative difference used to check consistency of X_a with the redeclared medium";
+
+  parameter Real cpRelTolX_a(unit="1")=1e-3
+    "Relative tolerance for checking consistency of X_a with the redeclared medium";
+
   parameter Modelica.Units.SI.Height z[nSeg]={borFieDat.conDat.hBor/nSeg*(i -
       0.5) for i in 1:nSeg}
     "Distance from the surface to the considered segment";
@@ -173,6 +197,18 @@ protected
     annotation (Placement(transformation(extent={{60,70},{80,90}})));
 
 equation
+  assert(
+    noEvent(cpRelErrX_a <= cpRelTolX_a),
+    "In " + getInstanceName() + ": The borefield configuration parameter X_a = "
+    + String(borFieDat.conDat.X_a)
+    + " is inconsistent with the redeclared medium. "
+    + "If Buildings.Media.Water is used, set borFieDat.conDat.X_a=0. "
+    + "If Buildings.Media.Antifreeze.PropyleneGlycolWater is used, set "
+    + "borFieDat.conDat.X_a to the same mass fraction as the medium declaration. "
+    + "Relative difference in specific heat capacity is "
+    + String(cpRelErrX_a) + ", tolerance is " + String(cpRelTolX_a) + ".",
+    AssertionLevel.error);
+
   connect(masFloMul.port_b, port_b)
     annotation (Line(points={{80,-40},{90,-40},{90,0},{100,0}},
                                                      color={0,127,255}));
