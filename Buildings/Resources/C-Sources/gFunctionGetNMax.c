@@ -26,6 +26,7 @@
 
 #include <stdlib.h>
 #include <math.h>
+#include "ModelicaUtilities.h"
 #include "gFunctionDisShared.h"
 
 int gFunctionGetNMax(
@@ -49,7 +50,7 @@ int gFunctionGetNMax(
     if (!dis_dyn || !n_dis) {
         free(dis_dyn);
         free(n_dis);
-        return -1;
+        ModelicaError("gFunctionGetNMax: initial calloc failed.\n");
     }
 
     /*
@@ -93,7 +94,7 @@ int gFunctionGetNMax(
                 if (!new_dis) {
                     free(dis_dyn);
                     free(n_dis);
-                    return -1;
+                    ModelicaError("gFunctionGetNMax: realloc failed while growing dis_dyn.\n");
                 }
                 dis_dyn = new_dis;
                 cap = new_cap;
@@ -111,7 +112,7 @@ int gFunctionGetNMax(
                     if (!new_dis) {
                         free(dis_dyn);
                         free(n_dis);
-                        return -1;
+                        ModelicaError("gFunctionGetNMax: realloc failed while growing dis_dyn.\n");
                     }
                     dis_dyn = new_dis;
                     cap = new_cap;
