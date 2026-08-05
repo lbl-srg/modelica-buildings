@@ -8,6 +8,7 @@ model HexInternalElement
     redeclare package Medium = Medium,
     m1_flow_nominal=0.3,
     m2_flow_nominal=0.3,
+    X_a=0,
     rTub=0.02,
     kTub=0.5,
     rBor=0.1,

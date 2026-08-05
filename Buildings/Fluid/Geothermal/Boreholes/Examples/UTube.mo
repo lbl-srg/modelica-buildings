@@ -6,6 +6,7 @@ model UTube "Model that tests the borehole model"
     redeclare package Medium = Medium,
     hBor=150,
     dp_nominal=10000,
+    X_a=0,
     dT_dz=0.0015,
     samplePeriod=604800,
     m_flow_nominal=0.3,

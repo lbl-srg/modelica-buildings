@@ -10,6 +10,7 @@ model Analytic_20Years
       cooBor={{0,0}},
       mBor_flow_nominal=0.3,
       dp_nominal=5e4,
+      X_a=0,
       hBor=100,
       rBor=0.05,
       dBor=4,

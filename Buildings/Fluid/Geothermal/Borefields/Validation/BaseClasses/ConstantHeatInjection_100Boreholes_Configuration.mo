@@ -6,6 +6,7 @@ record ConstantHeatInjection_100Boreholes_Configuration
       cooBor={{7.5*mod(i-1,10), 7.5*floor((i-1)/10)} for i in 1:100},
       mBor_flow_nominal=0.3,
       dp_nominal=5e4,
+      X_a=0,
       hBor=150.0,
       rBor=0.075,
       dBor=4.0,
