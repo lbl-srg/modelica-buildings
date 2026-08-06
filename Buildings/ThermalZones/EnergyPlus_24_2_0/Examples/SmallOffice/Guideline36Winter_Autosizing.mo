@@ -37,11 +37,29 @@ model Guideline36Winter_Autosizing
     redeclare Buildings.ThermalZones.EnergyPlus_24_2_0.Examples.SmallOffice.BaseClasses.Floor_Autosizing flo);
 
   parameter Modelica.Units.SI.Temperature
-    TZonSetAve = (flo.cor.sizCoo.TSet+flo.sou.sizCoo.TSet+flo.eas.sizCoo.TSet+flo.nor.sizCoo.TSet+flo.wes.sizCoo.TSet)/5
-    "Average zone set point temperature to use in AHU airflow sizing";
+    TZonSetAve = (mCor_flow_nominal*flo.cor.sizCoo.TSet+
+                  mSou_flow_nominal*flo.sou.sizCoo.TSet+
+                  mEas_flow_nominal*flo.eas.sizCoo.TSet+
+                  mNor_flow_nominal*flo.nor.sizCoo.TSet+
+                  mWes_flow_nominal*flo.wes.sizCoo.TSet)/
+                 (mCor_flow_nominal+
+                  mSou_flow_nominal+
+                  mEas_flow_nominal+
+                  mNor_flow_nominal+
+                  mWes_flow_nominal)
+    "Average cooling zone temperature set point weighted by zone airflow";
   parameter Modelica.Units.SI.MassFraction
-    XZonSetAve = (flo.cor.sizCoo.XSet+flo.sou.sizCoo.XSet+flo.eas.sizCoo.XSet+flo.nor.sizCoo.XSet+flo.wes.sizCoo.XSet)/5
-    "Average zone set point humidity ratio to use in AHU airflow sizing";
+    XZonSetAve = (mCor_flow_nominal*flo.cor.sizCoo.XSet+
+                  mSou_flow_nominal*flo.sou.sizCoo.XSet+
+                  mEas_flow_nominal*flo.eas.sizCoo.XSet+
+                  mNor_flow_nominal*flo.nor.sizCoo.XSet+
+                  mWes_flow_nominal*flo.wes.sizCoo.XSet)/
+                 (mCor_flow_nominal+
+                  mSou_flow_nominal+
+                  mEas_flow_nominal+
+                  mNor_flow_nominal+
+                  mWes_flow_nominal)
+    "Average cooling zone humidity ratio cooling set point weighted by zone airflow";
   parameter Modelica.Units.SI.Temperature
     TCooAirSup_nominal = 12+273.15
     "Nominal discharge air temperature for AHU during cooling";
