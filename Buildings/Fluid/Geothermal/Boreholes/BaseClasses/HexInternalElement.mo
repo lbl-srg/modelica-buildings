@@ -48,6 +48,9 @@ model HexInternalElement "Internal part of a borehole"
 
   parameter Modelica.Units.SI.Length xC=0.05
     "Shank spacing, defined as half the center-to-center distance between the two pipes";
+  
+  parameter Real X_a(unit="1", min=0, max=1) = 0
+    "Mass fraction of propylene glycol in water";
 
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a port
     "Heat port that connects to filling material"
