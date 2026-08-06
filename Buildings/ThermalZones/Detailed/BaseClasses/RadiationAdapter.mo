@@ -16,8 +16,21 @@ public
 equation
   QRad_flow = rad.Q_flow;
   rad.T = TRad;
- annotation (Placement(transformation(extent={{-140,-20},{-100,20}})),
-            Documentation(info="<html>
+ annotation (Placement(transformation(extent={{-140,-20},{-100,20}})), Icon(graphics={
+            Rectangle(
+            extent={{-100,100},{100,-100}},
+            lineColor={0,0,0},
+            fillColor={255,255,255},
+            fillPattern=FillPattern.Solid),
+        Text(
+          extent={{-90,24},{-40,-26}},
+          textColor={0,0,127},
+          textString="TRad"),
+        Text(
+          extent={{50,14},{92,-12}},
+          textColor={0,0,127},
+          textString="Q")}),
+        Documentation(info="<html>
 This model can be used as a thermal adapter in situations where the temperature
 and the heat flow rate are computed in separate models.
 For example, this thermal adapter is used in the room model, which computes
@@ -34,40 +47,13 @@ separate models, and exposes these two quantities at its heat port.
         revisions="<html>
 <ul>
 <li>
-Feb. 2, 2011, by Michael Wetter:<br/>
-First implementation.
+August 3, 2026, by Michael Wetter:<br/>
+Removed duplicate annotation.
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/2158\">IBPSA, issue 2158</a>.
 </li>
-</ul>
-</html>"), Icon(graphics={
-            Rectangle(
-            extent={{-100,100},{100,-100}},
-            lineColor={0,0,0},
-            fillColor={255,255,255},
-            fillPattern=FillPattern.Solid),
-        Text(
-          extent={{-90,24},{-40,-26}},
-          textColor={0,0,127},
-          textString="TRad"),
-        Text(
-          extent={{50,14},{92,-12}},
-          textColor={0,0,127},
-          textString="Q")}),
-        Documentation(info = "<html>
-This is a dummy model that is required to implement the room
-model with a variable number of surface models.
-The model is required since arrays of models, such as used for the surfaces
-that model the construction outside of the room,
-must have at least one element, unless the whole array
-is conditionally removed if its size is zero.
-However, conditionally removing the surface models does not work in this
-situation since some models, such as for computing the radiative heat exchange
-between the surfaces, require access to the area and absorptivity of the surface models.
-
-</html>",
-        revisions="<html>
-<ul>
 <li>
-June 8 2010, by Michael Wetter:<br/>
+Feb. 2, 2011, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>

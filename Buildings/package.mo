@@ -24,7 +24,6 @@ conversion(
     version={"8.0.0", "8.1.0", "8.1.1", "8.1.2", "8.1.3"},
     to="9.0.0",
     script="modelica://Buildings/Resources/Scripts/Conversion/ConvertBuildings_from_8_to_9.0.0.mos")),
-preferredView="info",
 Documentation(info="<html>
 <p>
 The <code>Buildings</code> library is a free library
