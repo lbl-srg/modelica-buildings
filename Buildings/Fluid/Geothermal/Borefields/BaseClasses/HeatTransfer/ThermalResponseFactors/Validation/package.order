@@ -10,6 +10,7 @@ FiniteLineSource_Integrand_Length
 FiniteLineSource_SteadyState
 GFunction_100boreholes
 GFunction_1borehole_5meters
+GFunction_nMax
 GFunction_SmallScaleValidation
 InfiniteLineSource
 ShaGFunction

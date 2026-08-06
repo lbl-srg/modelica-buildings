@@ -28,9 +28,11 @@ protected
     "tmp/temperatureResponseMatrix/kappa_" + String(i) + "_" + sha + ".mat" for i in 1:nZon*nSeg}
     "File name used to save the temperature response matrix";
   Modelica.Units.SI.Time ts=hBor^2/(9*aSoi) "Characteristic time";
-  Integer n_max = max(nBorPerZon.*nBorPerZon);
+  Integer n_max=
+    Buildings.Fluid.Geothermal.Borefields.BaseClasses.HeatTransfer.ThermalResponseFactors.gFunctionGetNMax(
+      nBor, cooBor, rLin, nZon, iZon, relTol)
+    "Maximum number of unique distances for any zone pair";
   Modelica.Units.SI.Distance dis[nZon,nZon,n_max] "Separation distance between boreholes";
-  Modelica.Units.SI.Distance dis_ij "Separation distance between boreholes";
   Integer wDis[nZon,nZon,n_max] "Number of occurence of separation distances";
   Integer n_dis[nZon,nZon];
   Modelica.Units.SI.Radius rLin=0.0005*hBor
@@ -41,47 +43,14 @@ protected
   Real FLS "Finite line source solution";
   Real ILS "Infinite line source solution";
   Real CHS "Cylindrical heat source solution";
-  Boolean found "Flag, true if a cluster has been found";
 
 algorithm
   if not Modelica.Math.BooleanVectors.allTrue(Modelica.Utilities.Files.exist(fileName[:]))
       then
-    // ---------------------------------------------
-    // Distances between borehole in different zones
-    // ---------------------------------------------
-    n_dis := zeros(nZon,nZon);
-    wDis := zeros(nZon,nZon,n_max);
-    for i in 1:nBor loop
-      for j in i:nBor loop
-        // Distance between boreholes
-        if i <> j then
-          dis_ij := sqrt((cooBor[i,1] - cooBor[j,1])^2 + (cooBor[i,2] - cooBor[j,2])^2);
-        else
-          dis_ij := rLin;
-        end if;
-        found := false;
-        for n in 1:n_dis[iZon[i],iZon[j]] loop
-          if abs(dis_ij - dis[iZon[i],iZon[j],n]) / dis[iZon[i],iZon[j],n] < relTol then
-            wDis[iZon[i],iZon[j],n] := wDis[iZon[i],iZon[j],n] + 1;
-            found := true;
-            if i <> j then
-              wDis[iZon[j],iZon[i],n] := wDis[iZon[j],iZon[i],n] + 1;
-            end if;
-            break;
-          end if;
-        end for;
-        if not found then
-          n_dis[iZon[i],iZon[j]] := n_dis[iZon[i],iZon[j]] + 1;
-          wDis[iZon[i],iZon[j],n_dis[iZon[i],iZon[j]]] := wDis[iZon[i],iZon[j],n_dis[iZon[i],iZon[j]]] + 1;
-          dis[iZon[i],iZon[j],n_dis[iZon[i],iZon[j]]] := dis_ij;
-          if i <> j then
-            n_dis[iZon[j],iZon[i]] := n_dis[iZon[j],iZon[i]] + 1;
-            wDis[iZon[j],iZon[i],n_dis[iZon[j],iZon[i]]] := wDis[iZon[j],iZon[i],n_dis[iZon[j],iZon[i]]] + 1;
-            dis[iZon[j],iZon[i],n_dis[iZon[j],iZon[i]]] := dis_ij;
-          end if;
-        end if;
-      end for;
-    end for;
+    // Distances between borehole zones
+    (dis, wDis, n_dis) :=
+      Buildings.Fluid.Geothermal.Borefields.BaseClasses.HeatTransfer.ThermalResponseFactors.gFunctionGetDis(
+        nBor, cooBor, rLin, nZon, iZon, relTol, n_max);
 
     // ----------------------------------
     // Matrix of thermal response factors
@@ -274,6 +243,18 @@ doi:10.1080/19401493.2021.1968953</a>.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+August 4, 2025, by Michael Wetter:<br/>
+Replaced the conservative upper bound <code>n_max = max(nBorPerZon.*nBorPerZon)</code>
+and the Modelica distance-accumulation loop with calls to the external C functions
+<a href=\"modelica://Buildings.Fluid.Geothermal.Borefields.BaseClasses.HeatTransfer.ThermalResponseFactors.gFunctionGetNMax\">
+gFunctionGetNMax</a> and
+<a href=\"modelica://Buildings.Fluid.Geothermal.Borefields.BaseClasses.HeatTransfer.ThermalResponseFactors.gFunctionGetDis\">
+gFunctionGetDis</a>, reusing the same C code as the
+<a href=\"modelica://Buildings.Fluid.Geothermal.Borefields.BaseClasses.HeatTransfer.ThermalResponseFactors.gFunction\">
+gFunction</a> refactoring.
+See <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4597\">#4597</a>.
+</li>
 <li>
 March 20, 2026, by Michael Wetter:<br/>
 Corrected type declaration of g-function.<br/>
