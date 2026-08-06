@@ -32,7 +32,15 @@ still evaluated internally, but their values are weighted so that the borehole
 resistance matches the specified value.
 </li>
 <li>
-User-defined vertical discretization of boreholes are supported.
+The pipe convection resistance can be evaluated using nominal fluid properties,
+or using temperature-dependent fluid properties. The temperature-dependent
+formulation is useful when the fluid properties vary significantly over the
+operating temperature range, for example for water-glycol mixtures.
+</li>
+<li>
+User-defined vertical discretization of boreholes are supported.The same
+vertical segmentation is used for the borehole heat transfer, and can also be
+used for the detailed pressure-drop calculation.
 </li>
 <li>
 Borefields can consist of one or many boreholes. Each borehole can be positioned
@@ -46,7 +54,11 @@ The thermal response of the ground heat transfer is stored locally to avoid
 having to recalculate it for future simulations with the same borefield configuration.
 </li>
 <li>
-Pressure losses are calculated if the <code>dp_nominal</code> parameter is set to a non-zero value.
+Pressure losses are calculated if the <code>dp_nominal</code> parameter is set
+to a non-zero value. Alternatively, the vertical ground heat exchanger pipes can
+be modeled with a detailed Darcy-Weisbach pressure-drop calculation. The detailed
+pressure-drop calculation can optionally use temperature-dependent density and
+viscosity.
 </li>
 </ul>
 
@@ -92,6 +104,15 @@ to both a parallel double U-tube configuration and a double U-tube configuration
 but could not be set to a single U-tube configuration. An incompatible borehole
 configuration will stop the simulation.
 </p>
+<p>
+The <code>conDat</code> subrecord also contains the fluid composition parameter
+<code>X_a</code>. The default value <code>X_a = 0</code> corresponds to pure
+water. For glycol mixtures, <code>X_a</code> should be set consistently with
+the redeclared medium. This is particularly relevant when temperature-dependent
+fluid-property calculations are enabled.
+</p>
+
+
 <h5>Ground heat transfer parameters</h5>
 <p>
 Other than the parameters contained in the <code>borFieDat</code> record,
@@ -136,6 +157,32 @@ The <code>nSeg</code> parameter specifies the number of segments for the vertica
 of the borehole(s).
 Further information on this discretization can be found in the &#34;Model description&#34; section below.
 </p>
+<p>
+The zoned borefield models use the same internal borehole heat exchanger
+base classes as the borefield models. Therefore, the same options are available
+for temperature-dependent pipe convection resistance and detailed pressure-drop
+calculation.
+</p>
+<p>
+The parameter <code>use_TDepRConv</code> enables temperature-dependent pipe
+convection resistance. The parameter <code>use_DarcyPressureDrop</code> enables
+a detailed Darcy-Weisbach pressure-drop calculation for the vertical ground heat
+exchanger pipes. If the detailed pressure-drop calculation is used, the
+parameter <code>use_TDepPressureDrop</code> enables temperature-dependent
+density and viscosity in the pressure-drop calculation.
+</p>
+<p>
+These options are particularly relevant for zoned borefield simulations because
+the local fluid temperature, and therefore the local fluid properties, can vary
+between zones and along the borehole depth. The detailed pressure-drop
+calculation preserves the segment-wise formulation used for the heat-transfer
+calculation.
+</p>
+<p>
+For a more detailed description of these options, see
+<a href=\"modelica://Buildings.Fluid.Geothermal.Borefields.UsersGuide\">
+Buildings.Fluid.Geothermal.Borefields.UsersGuide</a>.
+</p>
 <h5>Fluid flow</h5>
 <p>
 In every zone, all boreholes are connected in parallel. Models that instantiate this borefield model need to provide the
@@ -177,7 +224,10 @@ The former is modeled as a vertical discretization of borehole segments, where a
 (due to heat injection or extraction) is superimposed to the far-field ground temperature to obtain the borehole wall
 temperature. The thermal effects of the circulating fluid (including the convection resistance),
 of the pipes and of the filling material are all taken into consideration, which allows modeling
-short-term thermal effects in the borehole. The borehole segments do not take into account axial effects,
+short-term thermal effects in the borehole. The pipe convection resistance and the optional detailed pressure-drop
+calculation use the same formulations as the borefield models. Further information is provided in
+<a href=\"modelica://Buildings.Fluid.Geothermal.Borefields.UsersGuide\">
+Buildings.Fluid.Geothermal.Borefields.UsersGuide</a>. The borehole segments do not take into account axial effects,
 thus only radial (horizontal) effects are considered within the borehole(s). The thermal
 behavior between the pipes and borehole wall are modeled as a resistance-capacitance network, with
 the grout capacitance being split in the number of pipes present in a borehole section.

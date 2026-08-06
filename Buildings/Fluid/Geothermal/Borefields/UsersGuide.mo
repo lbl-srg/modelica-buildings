@@ -30,7 +30,15 @@ still evaluated internally, but their values are weighted so that the borehole
 resistance matches the specified value.
 </li>
 <li>
-User-defined vertical discretization of boreholes are supported.
+The pipe convection resistance can be evaluated using nominal fluid properties,
+or using temperature-dependent fluid properties. The temperature-dependent
+formulation is useful when the fluid properties vary significantly over the
+operating temperature range, for example for water-glycol mixtures.
+</li>
+<li>
+User-defined vertical discretization of boreholes are supported.The same
+vertical segmentation is used for the borehole heat transfer, and can also be
+used for the detailed pressure-drop calculation.
 However, the borehole wall temperature
 is identical for each borehole, as the ground temperature response model only computes the average borehole wall temperature
 for all boreholes combined.
@@ -48,6 +56,10 @@ having to recalculate it for future simulations with the same borefield configur
 </li>
 <li>
 Pressure losses are calculated if the <code>dp_nominal</code> parameter is set to a non-zero value.
+Alternatively, the vertical ground heat exchanger pipes can
+be modeled with a detailed Darcy-Weisbach pressure-drop calculation. The detailed
+pressure-drop calculation can optionally use temperature-dependent density and
+viscosity.
 </li>
 </ul>
 
@@ -94,6 +106,15 @@ to both a parallel double U-tube configuration and a double U-tube configuration
 but could not be set to a single U-tube configuration. An incompatible borehole
 configuration will stop the simulation.
 </p>
+<p>
+The <code>conDat</code> subrecord also contains the fluid composition parameter
+<code>X_a</code>. The default value <code>X_a = 0</code> corresponds to pure
+water. For glycol mixtures, <code>X_a</code> should be set consistently with
+the redeclared medium. The borefield models check that the configuration data
+are consistent with the selected medium to avoid using glycol-related property
+calculations with inconsistent fluid-composition data.
+</p>
+
 <h5>Ground heat transfer parameters</h5>
 <p>
 Other than the parameters contained in the <code>borFieDat</code> record,
@@ -138,6 +159,40 @@ of the filling material in the borehole(s).
 The <code>nSeg</code> parameter specifies the number of segments for the vertical discretization of the borehole(s).
 Further information on this discretization can be found in the &#34;Model description&#34; section below.
 </p>
+<p>
+The pipe convection resistance can be evaluated using either nominal fluid
+properties or temperature-dependent fluid properties. The parameter
+<code>use_TDepRConv</code> enables the temperature-dependent formulation.
+This option is particularly useful for fluids whose viscosity and thermal
+properties vary significantly over the operating temperature range, for example
+water-glycol mixtures. The convection resistance is calculated in
+<a href=\"modelica://Buildings.Fluid.Geothermal.Borefields.BaseClasses.Boreholes.BaseClasses.Functions.convectionResistancePipe\">
+Buildings.Fluid.Geothermal.Borefields.BaseClasses.Boreholes.BaseClasses.Functions.convectionResistancePipe</a>,
+which also exposes the Reynolds number used in the calculation. The friction
+factor used by this formulation is computed with
+<a href=\"modelica://Buildings.Fluid.FixedResistances.Functions.churchillFrictionFactor\">
+Buildings.Fluid.FixedResistances.Functions.churchillFrictionFactor</a>.
+</p>
+<p>
+Pressure losses can be represented using the nominal pressure-drop formulation,
+which is enabled by setting <code>dp_nominal</code> to a non-zero value.
+Alternatively, the parameter <code>use_DarcyPressureDrop</code> enables a
+detailed Darcy-Weisbach pressure-drop calculation for the vertical ground heat
+exchanger pipes. This calculation is implemented in
+<a href=\"modelica://Buildings.Fluid.Geothermal.Borefields.BaseClasses.Boreholes.BaseClasses.PressureDropPipeDarcy\">
+Buildings.Fluid.Geothermal.Borefields.BaseClasses.Boreholes.BaseClasses.PressureDropPipeDarcy</a>.
+If this detailed pressure-drop calculation is used, the parameter
+<code>use_TDepPressureDrop</code> can be enabled to evaluate density and
+viscosity at the local fluid temperature. The pressure-drop formulation uses
+<a href=\"modelica://Buildings.Fluid.FixedResistances.Functions.churchillFrictionFactorRe2\">
+Buildings.Fluid.FixedResistances.Functions.churchillFrictionFactorRe2</a>.
+</p>
+<p>
+The detailed pressure-drop calculation is evaluated by segment, consistent with
+the segment-wise heat-transfer calculation. This allows the pressure-drop
+contribution to vary along the borehole when temperature-dependent fluid
+properties are used.
+</p>
 <h5>Running simulations</h5>
 <p>
 When running simulations using the borefield models,
@@ -175,12 +230,24 @@ The former is modeled as a vertical discretization of borehole segments, where a
 (due to heat injection or extraction) is superimposed to the far-field ground temperature to obtain the borehole wall
 temperature. The thermal effects of the circulating fluid (including the convection resistance),
 of the pipes and of the filling material are all taken into consideration, which allows modeling
-short-term thermal effects in the borehole. The borehole segments do not take into account axial effects,
+short-term thermal effects in the borehole. The pipe convection resistance is evaluated in
+<a href=\"modelica://Buildings.Fluid.Geothermal.Borefields.BaseClasses.Boreholes.BaseClasses.Functions.convectionResistancePipe\">
+Buildings.Fluid.Geothermal.Borefields.BaseClasses.Boreholes.BaseClasses.Functions.convectionResistancePipe</a>.
+This function uses the Churchill friction-factor formulation from
+<a href=\"modelica://Buildings.Fluid.FixedResistances.Functions.churchillFrictionFactor\">
+Buildings.Fluid.FixedResistances.Functions.churchillFrictionFactor</a>
+together with a Gnielinski Nussult correlation for the turbulent regime. This provides a
+continuous formulation across laminar, transitional and turbulent flow regimes.
+If <code>use_TDepRConv</code> is enabled, the fluid properties used for the
+convection resistance are evaluated at the local fluid temperature.
+The borehole segments do not take into account axial effects,
 thus only radial (horizontal) effects are considered within the borehole(s). The thermal
 behavior between the pipes and borehole wall are modeled as a resistance-capacitance network, with
 the grout capacitance being split in the number of pipes present in a borehole section.
 The capacitance is only present if the parameter <code>steadyState</code> of the filling
 material data record is <code>false</code>, which is the default setting.
+</p>
+<p>
 The figure below shows an example for a borehole section within a single U-tube configuration.
 </p>
 <p align=\"center\">
