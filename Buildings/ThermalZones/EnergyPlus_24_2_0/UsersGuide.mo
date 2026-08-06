@@ -767,23 +767,23 @@ with those objects and setting up sizing in the .idf are as follows:
 <ul>
 <li>
 Zone sizing:
-<a href=\"https://bigladdersoftware.com/epx/docs/22-2/engineering-reference/zone-design-loads-and-air-flow-rates.html\">
-https://bigladdersoftware.com/epx/docs/22-2/engineering-reference/zone-design-loads-and-air-flow-rates.html</a>
+<a href=\"https://bigladdersoftware.com/epx/docs/24-2/engineering-reference/zone-design-loads-and-air-flow-rates.html\">
+https://bigladdersoftware.com/epx/docs/24-2/engineering-reference/zone-design-loads-and-air-flow-rates.html</a>
 </li>
 <li>
 System sizing:
-<a href=\"https://bigladdersoftware.com/epx/docs/25-1/engineering-reference/system-design-loads-and-air-flow-rates.html\">
-https://bigladdersoftware.com/epx/docs/25-1/engineering-reference/system-design-loads-and-air-flow-rates.html</a>
+<a href=\"https://bigladdersoftware.com/epx/docs/24-2/engineering-reference/system-design-loads-and-air-flow-rates.html\">
+https://bigladdersoftware.com/epx/docs/24-2/engineering-reference/system-design-loads-and-air-flow-rates.html</a>
 </li>
 <li>
 Simulation control for autosizing:
-<a href=\"https://bigladdersoftware.com/epx/docs/22-2/input-output-reference/group-simulation-parameters.html#simulationcontrol\">
-https://bigladdersoftware.com/epx/docs/22-2/input-output-reference/group-simulation-parameters.html#simulationcontrol</a>
+<a href=\"https://bigladdersoftware.com/epx/docs/24-2/input-output-reference/group-simulation-parameters.html#simulationcontrol\">
+https://bigladdersoftware.com/epx/docs/24-2/input-output-reference/group-simulation-parameters.html#simulationcontrol</a>
 </li>
 <li>
 Sizing manager and algorithm:
-<a href=\"https://bigladdersoftware.com/epx/docs/8-8/engineering-reference/sizing-manager.html\">
-https://bigladdersoftware.com/epx/docs/8-8/engineering-reference/sizing-manager.html</a>
+<a href=\"https://bigladdersoftware.com/epx/docs/24-2/engineering-reference/sizing-manager.html\">
+https://bigladdersoftware.com/epx/docs/24-2/engineering-reference/sizing-manager.html</a>
 </li>
 </ul>
 </p>
