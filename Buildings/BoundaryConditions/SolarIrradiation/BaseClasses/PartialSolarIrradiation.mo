@@ -1,5 +1,5 @@
 within Buildings.BoundaryConditions.SolarIrradiation.BaseClasses;
-partial block PartialSolarIrradiation
+partial model PartialSolarIrradiation
   "Partial model that is used to compute the direct and diffuse solar irradiation"
   extends Modelica.Blocks.Icons.Block;
   parameter Modelica.Units.SI.Angle til(displayUnit="deg") "Surface tilt";
@@ -18,6 +18,11 @@ This is a partial model that is used to implement the direct and diffuse irradia
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+May 15, 2026, by Jianjun Hu:<br/>
+Changed the class type from block to model.<br/>
+This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/2122\">IBPSA, #2122</a>.
+</li>
 <li>
 Dec. 12, 2010, by Michael Wetter:<br/>
 Changed output signal to avoid ambiguity in blocks that output also other

@@ -1,5 +1,5 @@
 within Buildings.HeatTransfer.Windows.BaseClasses;
-block Overhang
+model Overhang
   "For a window with an overhang, outputs the fraction of the area that is sun exposed"
   extends Modelica.Blocks.Icons.Block;
   extends Buildings.ThermalZones.Detailed.BaseClasses.Overhang;
@@ -180,7 +180,7 @@ equation
       color={255,204,51},
       thickness=0.5,
       smooth=Smooth.None), Text(
-      textString="%first",
+      string="%first",
       index=-1,
       extent={{-6,3},{-6,3}}));
   connect(weaBus.solZen, solAzi.zen) annotation (Line(
@@ -188,18 +188,18 @@ equation
       color={255,204,51},
       thickness=0.5,
       smooth=Smooth.None), Text(
-      textString="%first",
+      string="%first",
       index=-1,
       extent={{-6,3},{-6,3}}));
   connect(weaBus.solDec, solAzi.decAng) annotation (Line(
-      points={{-102,5.55112e-16},{-92,5.55112e-16},{-92,1.22125e-15},{-82,
-          1.22125e-15},{-82,6.66134e-16},{-62,6.66134e-16}},
+      points={{-102,0},{-92,0},{-92,0},{-82,0},{-82,3.8},{-62,3.8}},
       color={255,204,51},
       thickness=0.5,
       smooth=Smooth.None), Text(
-      textString="%first",
+      string="%first",
       index=-1,
-      extent={{-6,3},{-6,3}}));
+      extent={{-2,2},{-2,5}},
+      horizontalAlignment=TextAlignment.Right));
 
   connect(weaBus.lat, solAzi.lat) annotation (Line(
       points={{-102,0},{-80,0},{-80,-10},{-62,-10}},
@@ -276,6 +276,11 @@ to calculate the shaded fraction of the window.
 </html>",
 revisions="<html>
 <ul>
+<li>
+May 19, 2026, by Jianjun Hu:<br/>
+Changed the class type from block to model.<br/>
+This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4606\">4606</a>.
+</li>
 <li>
 September 16, 2021, by Michael Wetter:<br/>
 Removed parameter <code>lat</code> because the latitude is now obtained from the weather data bus.<br/>

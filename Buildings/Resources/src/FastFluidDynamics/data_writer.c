@@ -18,6 +18,7 @@
 	*/
 
 #include "data_writer.h"
+#include <string.h>
 
 /*
 	* Write standard output data in a format for tecplot

@@ -51,7 +51,7 @@ model ThermalZone
     min=1)=fmuZon.mSenFac
     "Factor for scaling the sensible thermal mass of the zone air volume"
     annotation (Dialog(tab="Dynamics",group="Zone air"));
-  BaseClasses.Sizing sizCoo(
+  Buildings.ThermalZones.EnergyPlus_24_2_0.BaseClasses.Sizing sizCoo(
     final QSen_flow(fixed=true)=fmuZon.sizCoo.QSen_flow,
     final QLat_flow(fixed=true)=fmuZon.sizCoo.QLat_flow,
     final TSet(fixed=true)=fmuZon.sizCoo.TSet,
@@ -62,7 +62,7 @@ model ThermalZone
     final mOut_flow(fixed=true)=fmuZon.sizCoo.mOut_flow)
     "Sizing parameters for zone cooling load"
     annotation (Placement(transformation(extent={{-200,120},{-180,140}})));
-  BaseClasses.Sizing sizHea(
+  Buildings.ThermalZones.EnergyPlus_24_2_0.BaseClasses.Sizing sizHea(
     final QSen_flow(fixed=true)=fmuZon.sizHea.QSen_flow,
     final QLat_flow(fixed=true)=fmuZon.sizHea.QLat_flow,
     final TSet(fixed=true)=fmuZon.sizHea.TSet,
@@ -338,7 +338,9 @@ equation
           116},{-140,106},{-158,106}}, color={0,0,127}));
   connect(QRad_flow.u2, radHeaFloSen.Q_flow) annotation (Line(points={{38,104},
           {26,104},{26,40},{0,40},{0,49}},  color={0,0,127}));
-    annotation(Dialog(group="Autosizing"),
+  connect(pFlu.y, fmuZon.p) annotation (Line(points={{143,12},{150,12},{150,-66},
+          {74,-66},{74,-60},{78,-60}}, color={0,0,127}));
+  annotation (
     defaultComponentName="zon",
     Icon(
       coordinateSystem(
@@ -556,6 +558,12 @@ is not possible.
 </html>",
       revisions="<html>
 <ul>
+<li>
+March 30, 2026, by Michael Wetter:<br/>
+Added check for air pressure to be within reasonable limits.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3319\">#3319</a>.
+</li>
 <li>
 September 17, 2025, by Michael Wetter:<br/>
 Corrected graphical annotation for <code>Text</code>.

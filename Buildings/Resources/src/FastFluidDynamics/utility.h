@@ -35,8 +35,6 @@
 #endif
 
 
-FILE *file_log;
-
 /*
 	* Check the residual of equation
 	*
@@ -194,6 +192,16 @@ void free_index(int **BINDEX);
 	* @return 0 if no error occurred
 	*/
 void free_data(REAL **var);
+
+/*
+		* Free memory for FFD simulation variables
+		*
+		* @param var Pointer to FFD simulation variables
+		*
+		* @return 0 if no error occurred
+		*/
+void free_para(PARA_DATA *para);
+
 
 /*
 	* Determine the maximum value of given scalar variable

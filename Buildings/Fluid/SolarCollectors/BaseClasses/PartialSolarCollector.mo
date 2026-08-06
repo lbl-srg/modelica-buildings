@@ -82,6 +82,7 @@ partial model PartialSolarCollector "Partial model for solar collectors"
     annotation (Placement(transformation(extent={{-90,-11},{-70,11}})));
   Buildings.Fluid.FixedResistances.PressureDrop res(
     redeclare final package Medium = Medium,
+    final n=n,
     final from_dp=from_dp,
     final show_T=show_T,
     final m_flow_nominal=m_flow_nominal,
@@ -254,9 +255,17 @@ EnergyPlus 23.2.0 Engineering Reference</a>
 </html>", revisions="<html>
 <ul>
 <li>
+June 17, 2026, by Michael Wetter:<br/>
+Updated implementation to allow a flow coefficient <code>n</code> that is different from <code>2</code>.
+This allows use of the model for not fully turbulent flow.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4620\">Buildings, #4620</a>.
+</li>
+
+<li>
 February 4, 2025, by Jelger Jansen:<br/>
 Use <code>nPanels_internal</code> when calculating <code>nPanelsPar_internal</code> and <code>nPanelsSer_internal</code>.
-Only request <code>nPanelsPar</code> as an input for an array of collectors and 
+Only request <code>nPanelsPar</code> as an input for an array of collectors and
 add assert to check if the total collector area is an exact multitude of a single collector's area.
 This is for
 <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1956\">IBPSA, #1956</a>.

@@ -1,5 +1,5 @@
 within Buildings.BoundaryConditions.SolarIrradiation;
-block DiffuseIsotropic
+model DiffuseIsotropic
   "Diffuse solar irradiation on a tilted surface with an isotropic sky model"
   extends
     Buildings.BoundaryConditions.SolarIrradiation.BaseClasses.PartialSolarIrradiation;
@@ -28,14 +28,14 @@ equation
       points={{-100,5.55112e-16},{-51.5,5.55112e-16},{-51.5,4},{-22,4}},
       color={255,204,51},
       thickness=0.5), Text(
-      textString="%first",
+      string="%first",
       index=-1,
       extent={{-6,3},{-6,3}}));
   connect(weaBus.HDifHor, HDifTilIso.HDifHor) annotation (Line(
       points={{-100,5.55112e-16},{-51.5,5.55112e-16},{-51.5,-4},{-22,-4}},
       color={255,204,51},
       thickness=0.5), Text(
-      textString="%first",
+      string="%first",
       index=-1,
       extent={{-6,3},{-6,3}}));
 
@@ -74,6 +74,11 @@ Energy Received by Tilted Surface</i>,
 Solar Energy, 39(4): 301-305.
 </html>", revisions="<html>
 <ul>
+<li>
+May 15, 2026, by Jianjun Hu:<br/>
+Changed the class type from block to model.<br/>
+This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/2122\">IBPSA, #2122</a>.
+</li>
 <li>
 November 14, 2015, by Michael Wetter:<br/>
 Added <code>min</code>, <code>max</code> and <code>unit</code>
