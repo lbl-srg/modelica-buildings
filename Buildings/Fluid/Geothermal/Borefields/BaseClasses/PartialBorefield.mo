@@ -75,6 +75,14 @@ partial model PartialBorefield
     "Vertical temperature gradient of the undisturbed soil for h below z0"
     annotation (Dialog(tab="Initialization", group="Temperature profile"));
 
+  // Assert parameters
+  final parameter Boolean useGlycolData=
+    (borFieDat.conDat.use_TDepRConv or borFieDat.conDat.use_TDepPressureDrop)
+    and borFieDat.conDat.fluidPropertyEvaluation ==
+      Buildings.Fluid.Geothermal.Borefields.Types.FluidPropertyEvaluation.PropyleneGlycolWater
+    "Set to true if data-record X_a is used for glycol property evaluation";
+
+
   Modelica.Blocks.Interfaces.RealOutput TBorAve(final quantity="ThermodynamicTemperature",
                                                 final unit="K",
                                                 displayUnit = "degC",
@@ -115,6 +123,7 @@ partial model PartialBorefield
     annotation (Placement(transformation(extent={{-10,-50},{10,-30}})));
 
 protected
+
   parameter Medium.ThermodynamicState staDef=
     Medium.setState_pTX(
       p=Medium.p_default,
@@ -127,9 +136,12 @@ protected
     "Specific heat capacity from the redeclared medium";
 
   parameter Modelica.Units.SI.SpecificHeatCapacity cpGlyFunDat=
-    Buildings.Media.Antifreeze.Functions.PropyleneGlycolWater.specificHeatCapacityCp_TX_a(
-      T=Medium.T_default,
-      X_a=borFieDat.conDat.X_a)
+    if useGlycolData then
+      Buildings.Media.Antifreeze.Functions.PropyleneGlycolWater.specificHeatCapacityCp_TX_a(
+        T=Medium.T_default,
+        X_a=borFieDat.conDat.X_a)
+    else
+      cpMedDef
     "Specific heat capacity computed from the borefield data record mass fraction";
 
   parameter Real cpRelErrX_a(unit="1")=
@@ -198,12 +210,11 @@ protected
 
 equation
   assert(
-    noEvent(cpRelErrX_a <= cpRelTolX_a),
+    noEvent(not useGlycolData or cpRelErrX_a <= cpRelTolX_a),
     "In " + getInstanceName() + ": The borefield configuration parameter X_a = "
     + String(borFieDat.conDat.X_a)
     + " is inconsistent with the redeclared medium. "
-    + "If Buildings.Media.Water is used, set borFieDat.conDat.X_a=0. "
-    + "If Buildings.Media.Antifreeze.PropyleneGlycolWater is used, set "
+    + "If fluidPropertyEvaluation=PropyleneGlycolWater is used, set "
     + "borFieDat.conDat.X_a to the same mass fraction as the medium declaration. "
     + "Relative difference in specific heat capacity is "
     + String(cpRelErrX_a) + ", tolerance is " + String(cpRelTolX_a) + ".",
