@@ -17,8 +17,10 @@ model HexInternalElement "Internal part of a borehole"
          final prescribedHeatFlowRate=false,
          final V=m1_flow_nominal*tau1/rho1_nominal,
          final m_flow_small=m2_flow_small),
-    redeclare final Buildings.Fluid.FixedResistances.PressureDrop preDro1,
-    redeclare final Buildings.Fluid.FixedResistances.PressureDrop preDro2);
+    redeclare final Buildings.Fluid.FixedResistances.PressureDrop preDro1(
+      final dp_nominal=dp1_nominal),
+    redeclare final Buildings.Fluid.FixedResistances.PressureDrop preDro2(
+      final dp_nominal=dp2_nominal));
 
   replaceable package Medium = Modelica.Media.Interfaces.PartialMedium
     "Medium in the component" annotation (choicesAllMatching=true);
