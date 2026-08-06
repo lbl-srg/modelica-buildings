@@ -46,7 +46,7 @@ createPlot(
   id=4,
   position={35,30,631,456},
   x="time",
-  y={"pum.m_flow", "borHol.port_a[1].m_flow", "borHol.port_b[end].m_flow"},
+  y={"pum.m_flow", "borHol.port_a[1].m_flow", "borHol.port_b[2].m_flow"},
   autoscale=true,
   autoerase=true,
   autoreplot=true,
