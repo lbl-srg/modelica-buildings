@@ -38,10 +38,10 @@ model MSLAIT
         rotation=-90,
         origin={-104,110})));
   Modelica.Blocks.Sources.CombiTimeTable DataReader(
-    tableOnFile=true,
-    tableName="dat",
-    columns=2:pipeDataAIT151218.nCol,
-    fileName=pipeDataAIT151218.filNam)
+    final tableOnFile=true,
+    final tableName="dat",
+    final columns=2:pipeDataAIT151218.nCol,
+    final fileName=pipeDataAIT151218.filNam)
     "Read measurement data"
     annotation (Placement(transformation(extent={{34,-152},{54,-132}})));
   Data.PipeDataAIT151218 pipeDataAIT151218 "Record with measurement data"
@@ -505,6 +505,12 @@ Where the thermal conductivity of the ground <code>lambda_g</code> = 2.4 W/(m K)
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+April 29, 2026, by Michael Wetter:<br/>
+Changed configuration of table to cause the parameters to be evaluated, as this leads to more efficient code.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/2111\">IBPSA, #2111</a>.
+</li>
 <li>
 March 7, 2020, by Michael Wetter:<br/>
 Replaced measured data from specification in Modelica file to external table,

@@ -457,30 +457,29 @@ class ManufacturerData(object):
         """
         if not os.path.exists(tableTempDir):
             os.makedirs(tableTempDir)
-        f = open(os.path.join(tableTempDir, tableFileName), 'w')
-        f.write('#1\n')
-        f.write('double '
-                + tableName
-                + '(' + str(2*len(self.EWT_Source)) + ',5)\n')
-        if CoolingMode:
-            for i in range(len(self.EWT_Source)):
-                for j in [i, i + 1]:
-                    f.write('\t'
-                            + str(j)
-                            + '\t' + str(self.EWT_Load[i])
-                            + '\t' + str(self.EWT_Source[i])
-                            + '\t' + str(self.flowLoad[i])
-                            + '\t' + str(self.flowSource[i]) + '\n')
-        else:
-            for i in range(len(self.EWT_Source)):
-                for j in [i, i + 1]:
-                    f.write('\t'
-                            + str(j)
-                            + '\t' + str(self.EWT_Source[i])
-                            + '\t' + str(self.EWT_Load[i])
-                            + '\t' + str(self.flowSource[i])
-                            + '\t' + str(self.flowLoad[i]) + '\n')
-        f.close()
+        with open(os.path.join(tableTempDir, tableFileName), 'w') as f:
+            f.write('#1\n')
+            f.write('double '
+                    + tableName
+                    + '(' + str(2*len(self.EWT_Source)) + ',5)\n')
+            if CoolingMode:
+                for i in range(len(self.EWT_Source)):
+                    for j in [i, i + 1]:
+                        f.write('\t'
+                                + str(j)
+                                + '\t' + str(self.EWT_Load[i])
+                                + '\t' + str(self.EWT_Source[i])
+                                + '\t' + str(self.flowLoad[i])
+                                + '\t' + str(self.flowSource[i]) + '\n')
+            else:
+                for i in range(len(self.EWT_Source)):
+                    for j in [i, i + 1]:
+                        f.write('\t'
+                                + str(j)
+                                + '\t' + str(self.EWT_Source[i])
+                                + '\t' + str(self.EWT_Load[i])
+                                + '\t' + str(self.flowSource[i])
+                                + '\t' + str(self.flowLoad[i]) + '\n')
         return
 
 

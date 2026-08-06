@@ -4,7 +4,8 @@ model RelativeHumidityTwoPort "Ideal two port relative humidity sensor"
   extends Modelica.Icons.RoundSensor;
   Modelica.Blocks.Interfaces.RealOutput phi(final unit="1",
                                             min=0,
-                                            start=phi_start)
+                                            start=phi_start,
+                                            nominal=0.5)
     "Relative humidity of the passing fluid"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},
           rotation=90,
@@ -118,6 +119,11 @@ Buildings.Fluid.Sensors.UsersGuide</a> for an explanation.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+June 25, 2026, by Michael Wetter:<br/>
+Added <code>nominal</code> attribute to state variable.<br/>
+This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/2132\">IBPSA, #2132</a>.
+</li>
 <li>
 February 21, 2020, by Michael Wetter:<br/>
 Changed icon to display its operating state.<br/>

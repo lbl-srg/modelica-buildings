@@ -70,15 +70,13 @@ if __name__ == '__main__':
     subst = "https://doc.modelica.org\\g<2>/Resources/helpDymola/"
     for fil in files:
         filNam = helpDir + os.path.sep + fil
-        filObj=open(filNam, 'r')
-        lines = filObj.read()
-        filObj.close()
+        with open(filNam, 'r') as filObj:
+            lines = filObj.read()
 
         # You can manually specify the number of replacements by changing the 4th argument
         lines = re.sub(regex, subst, lines)
-        filObj=open(filNam, 'w')
-        filObj.write(lines)
-        filObj.close()
+        with open(filNam, 'w') as filObj:
+            filObj.write(lines)
 
     # Other replacements
     replacements = {'font-family: Arial, sans-serif;': '',
@@ -96,7 +94,9 @@ if __name__ == '__main__':
   <!-- Custom changes for Modelica -->
   <link href="../Resources/www/css/modelicaDoc.css" rel="stylesheet">
 
-</head>
+</head>''',
+                    '<body>':
+                     '''
 <body>
   <div id="navbar" class="navbar navbar-default ">
   <div class="container-fluid">
@@ -118,7 +118,7 @@ if __name__ == '__main__':
               <li><a href="{homepage}">Home</a></li>
               <li><a href="{library_name}.html">Modelica</a></li>
         </ul>
-      </div>
+    </div>
   </div>
 </div>
 <div class="page-content">'''.format( \
@@ -172,22 +172,19 @@ if __name__ == '__main__':
     # Substitute text
     for fil in files:
         filNam = helpDir + os.path.sep + fil
-        filObj=open(filNam, 'r')
-        lines = filObj.readlines()
-        filObj.close()
+        with open(filNam, 'r') as filObj:
+            lines = filObj.readlines()
         for old, new in replacements.items():
             for i in range(len(lines)):
                 lines[i] = lines[i].replace(old, new)
-        filObj=open(filNam, 'w')
-        filObj.writelines(lines)
-        filObj.close()
+        with open(filNam, 'w') as filObj:
+            filObj.writelines(lines)
 
     # Replace certain sections
     for fil in files:
         filNam = helpDir + os.path.sep + fil
-        filObj=open(filNam, 'r')
-        lines = filObj.readlines()
-        filObj.close()
+        with open(filNam, 'r') as filObj:
+            lines = filObj.readlines()
         # Dymola writes
         # <address>
         # <a href="http://www.3ds.com/">Automatically generated</a> Thu Mar 17 16:10:41 2016.
@@ -197,13 +194,22 @@ if __name__ == '__main__':
         # be nothing else than an address information, i.e., no date.
         # Hence, we change this entry.
         found = False
-        for iLin in range(len(lines)-2):
-            if "<address>" in lines[iLin].strip() and "</address>" in lines[iLin+2].strip():
-                lines[iLin+1] = '''<p></p>
+        for iLin in range(len(lines)):
+            linStr = lines[iLin].strip()
+            if linStr.startswith('<address>') or \
+            linStr.startswith('<a href="http://www.3ds.com/">Automatically generated</a>') or \
+            linStr.startswith('</address>') or \
+            linStr.startswith('</body>') or \
+            linStr.startswith('</html>'):
+                lines[iLin] = '\n'
+                found = True
+
+        lines.append('''
+</div> <!-- page-content -->
 <footer>
 <div class="footer">
   <p>
-    <a href=\"{homepage}\">{homepage}</a>
+    <a href="{homepage}">{homepage}</a>
   </p>
 </div>
 </footer>
@@ -212,25 +218,23 @@ if __name__ == '__main__':
 ================================================== -->
 <!-- Placed at the end of the document so the pages load faster -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-<script>window.jQuery || document.write('<script src="../Resources/www/js/jquery.min.js"><\/script>')</script>
+<script>window.jQuery || document.write('<script src="../Resources/www/js/jquery.min.js"><\\/script>')</script>
 <script src="../Resources/www/js/bootstrap.min.js"></script>
 <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
 <script src="../Resources/www/js/ie10-viewport-bug-workaround.js"></script>
 
   </body>
 
-</html>'''.format(homepage = HOMEPAGE)
-                found = True
+</html>'''.format(homepage = HOMEPAGE))
+
         if found:
-            filObj=open(filNam, 'w')
-            filObj.writelines(lines)
-            filObj.close()
+            with open(filNam, 'w') as filObj:
+                filObj.writelines(lines)
 
     # Validate the new files
     for fil in files:
         filNam = helpDir + os.path.sep + fil
         # Check if line contains a wrong string
-        filObj=open(filNam, 'r')
-        for lin in filObj.readlines():
-            validateLine(lin, filNam)
-            filObj.close()
+        with open(filNam, 'r') as filObj:
+            for lin in filObj.readlines():
+                validateLine(lin, filNam)

@@ -1,7 +1,7 @@
 compareVars :=
   {
-    "hpSup.on",
-    "hpSup.mode",
+    "hpSup.onHea",
+    "hpSup.onCoo",
     "hpSup.THwSet",
     "hpSup.THwEnt",
     "hpSup.THwLvg",

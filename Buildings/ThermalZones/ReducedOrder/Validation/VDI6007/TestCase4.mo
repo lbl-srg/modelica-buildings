@@ -36,20 +36,20 @@ model TestCase4 "VDI 6007 Test Case 4 model"
     "Outdoor convective heat transfer"
     annotation (Placement(transformation(extent={{36,6},{26,-4}})));
   Modelica.Blocks.Sources.CombiTimeTable intGai(
-    extrapolation=Modelica.Blocks.Types.Extrapolation.Periodic,
-    table=[0,0; 3600,0; 7200,0; 10800,0; 14400,0; 18000,0; 21600,0; 21600,1000;
+    final extrapolation=Modelica.Blocks.Types.Extrapolation.Periodic,
+    final table=[0,0; 3600,0; 7200,0; 10800,0; 14400,0; 18000,0; 21600,0; 21600,1000;
         25200,1000; 28800,1000; 32400,1000; 36000,1000; 39600,1000; 43200,1000;
         46800,1000; 50400,1000; 54000,1000; 57600,1000; 61200,1000; 64800,1000;
         64800,0; 68400,0; 72000,0; 75600,0; 79200,0; 82800,0; 86400,0],
-    columns={2})
+    final columns={2})
     "Table with internal gains"
     annotation (Placement(transformation(extent={{6,-60},{22,-44}})));
   Modelica.Blocks.Sources.CombiTimeTable reference(
-    tableOnFile=false,
-    columns={2},
-    extrapolation=Modelica.Blocks.Types.Extrapolation.HoldLastPoint,
-    smoothness=Modelica.Blocks.Types.Smoothness.ConstantSegments,
-    table=[0,22; 3600,22; 7200,22; 10800,22; 14400,22; 18000,22; 21600,22;
+    final tableOnFile=false,
+    final columns={2},
+    final extrapolation=Modelica.Blocks.Types.Extrapolation.HoldLastPoint,
+    final smoothness=Modelica.Blocks.Types.Smoothness.ConstantSegments,
+    final table=[0,22; 3600,22; 7200,22; 10800,22; 14400,22; 18000,22; 21600,22;
         25200,25.1; 28800,25.7; 32400,26.1; 36000,26.5; 39600,26.9; 43200,27.3;
         46800,27.7; 50400,28.1; 54000,28.5; 57600,28.9; 61200,29.3; 64800,29.7;
         68400,26.9; 72000,26.7; 75600,26.7; 79200,26.7; 82800,26.6; 86400,26.6;
@@ -63,7 +63,7 @@ model TestCase4 "VDI 6007 Test Case 4 model"
         5148000,52.4; 5151600,52.6; 5155200,52.8; 5158800,53; 5162400,53.2;
         5166000,50.2; 5169600,49.9; 5173200,49.7; 5176800,49.5; 5180400,49.2;
         5184000,49],
-    offset={273.15})
+    final offset={273.15})
     "Reference results"
     annotation (Placement(transformation(extent={{76,72},{96,92}})));
   Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow machinesRad
@@ -128,6 +128,12 @@ equation
   <p>This test validates basic functionalities.</p>
   </html>", revisions="<html>
   <ul>
+<li>
+April 29, 2026, by Michael Wetter:<br/>
+Changed configuration of table to cause the parameters to be evaluated, as this leads to more efficient code.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/2111\">IBPSA, #2111</a>.
+</li>
   <li>
   July 11, 2019, by Katharina Brinkmann:<br/>
   Renamed <code>alphaWall</code> to <code>hConWall</code>

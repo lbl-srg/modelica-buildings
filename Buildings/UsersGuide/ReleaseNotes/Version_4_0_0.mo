@@ -750,8 +750,7 @@ This closes <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/565\"
                           to all surfaces, proportional to their emissivity plus transmissivity times area.<br/>
                           This closes
                           <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/451\">issue 451</a>.
-" +
- "       </td>
+       </td>
     </tr>
 
    <tr><td valign=\"top\">Buildings.ThermalZones.Detailed.BaseClasses.CFDHeatGain
