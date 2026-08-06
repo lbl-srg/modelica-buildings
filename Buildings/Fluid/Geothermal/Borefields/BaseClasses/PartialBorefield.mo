@@ -75,14 +75,6 @@ partial model PartialBorefield
     "Vertical temperature gradient of the undisturbed soil for h below z0"
     annotation (Dialog(tab="Initialization", group="Temperature profile"));
 
-  // Assert parameters
-  final parameter Boolean useGlycolData=
-    (borFieDat.conDat.use_TDepRConv or borFieDat.conDat.use_TDepPressureDrop)
-    and borFieDat.conDat.fluidPropertyEvaluation ==
-      Buildings.Fluid.Geothermal.Borefields.Types.FluidPropertyEvaluation.PropyleneGlycolWater
-    "Set to true if data-record X_a is used for glycol property evaluation";
-
-
   Modelica.Blocks.Interfaces.RealOutput TBorAve(final quantity="ThermodynamicTemperature",
                                                 final unit="K",
                                                 displayUnit = "degC",
@@ -123,6 +115,12 @@ partial model PartialBorefield
     annotation (Placement(transformation(extent={{-10,-50},{10,-30}})));
 
 protected
+  // Assert parameters
+  final parameter Boolean useGlycolData=
+    (borFieDat.conDat.use_TDepRConv or borFieDat.conDat.use_TDepPressureDrop)
+    and borFieDat.conDat.fluidPropertyEvaluation ==
+      Buildings.Fluid.Geothermal.Borefields.Types.FluidPropertyEvaluation.PropyleneGlycolWater
+    "Set to true if data-record X_a is used for glycol property evaluation";
 
   parameter Medium.ThermodynamicState staDef=
     Medium.setState_pTX(
