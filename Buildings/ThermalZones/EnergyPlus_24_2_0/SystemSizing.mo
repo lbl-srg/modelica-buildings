@@ -32,8 +32,8 @@ protected
     fixed=false,
     start=0)
     "Total number of Spawn objects in building";
-  parameter String autosizeHVACStr = if autosizeHVAC then "true" else "false";
-  Buildings.ThermalZones.EnergyPlus_24_2_0.BaseClasses.SpawnExternalObject adapter=Buildings.ThermalZones.EnergyPlus_24_2_0.BaseClasses.SpawnExternalObject(
+  Buildings.ThermalZones.EnergyPlus_24_2_0.BaseClasses.SpawnExternalObject adapter=
+    Buildings.ThermalZones.EnergyPlus_24_2_0.BaseClasses.SpawnExternalObject(
     objectType=4,
     startTime=startTime,
     modelicaNameBuilding=modelicaNameBuilding,
@@ -52,7 +52,7 @@ protected
     logLevel=logLevel,
     printUnit=false,
     jsonName="hvacSystems",
-    jsonKeysValues="        \"name\": \""+hvacSystemName+"\",\n        \"autosize\": \""+autosizeHVACStr+"\"",
+    jsonKeysValues="        \"name\": \""+hvacSystemName+"\",\n        \"autosize\": \""+ String(autosizeHVAC) +"\"",
     parOutNames={"QCooSen_flow", "QCooLat_flow", "TOutCoo", "XOutCoo", "mOutCoo_flow", "tCoo",
                  "QHea_flow",                    "TOutHea", "XOutHea", "mOutHea_flow","tHea"},
     parOutUnits={"W", "W", "K", "1", "kg/s", "s",
