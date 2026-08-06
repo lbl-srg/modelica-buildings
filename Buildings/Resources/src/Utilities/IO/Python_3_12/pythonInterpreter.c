@@ -6,6 +6,10 @@
 #if defined(_WIN32)     /* Win32 or Win64              */
 #define putenv(x) (_putenv(x))
 #include <windows.h>
+/* The Microsoft Visual C runtime does not provide the POSIX strtok_r() */
+/* function. Its equivalent, strtok_s(), has the same signature and */
+/* argument order, so it can be used as a drop-in replacement. */
+#define strtok_r(str, delim, saveptr) strtok_s((str), (delim), (saveptr))
 #else
 #include <pthread.h>
 #endif
