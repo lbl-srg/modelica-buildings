@@ -37,8 +37,7 @@ model HydraulicDiameter
     rTub=0.0095,
     eTub=0.0015,
     roughness=0.001e-3,
-    nBend=1,
-    kBend=0.5)
+    kMinor=0)
     "Fixed resistance with pressure drop computed from pipe geometry"
     annotation (Placement(transformation(extent={{-10,-8},{10,12}})));
 
@@ -49,8 +48,7 @@ model HydraulicDiameter
     rTub=0.0615,
     eTub=0.005,
     roughness=0.001e-3,
-    nBend=1,
-    kBend=0.5)
+    kMinor=0)
     "Fixed resistance with pressure drop computed from geometry of a large pipe"
     annotation (Placement(transformation(extent={{-10,-50},{10,-30}})));
 

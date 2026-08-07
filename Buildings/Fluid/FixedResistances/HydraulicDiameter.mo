@@ -38,12 +38,8 @@ model HydraulicDiameter
       Medium.X_default))
     "Default fluid dynamic viscosity";
 
-  parameter Integer nBend(min=0) = 0
-    "Number of bends represented by this pressure-drop component"
-    annotation (Dialog(enable=computePressureDrop));
-
-  parameter Real kBend(unit="1", min=0) = 0
-    "Minor-loss coefficient of one bend"
+  parameter Real kMinor(unit="1", min=0) = 0
+    "Total minor-loss coefficient"
     annotation (Dialog(enable=computePressureDrop));
 
   parameter Boolean use_TDepPressureDrop = false
@@ -75,9 +71,6 @@ protected
       .Buildings.Fluid.BaseClasses.Media.Functions.massFractionFromMediumName(
         mediumName=Medium.mediumName)
     "Glycol mass fraction derived from the redeclared medium";
-
-  final parameter Real kMinor(unit="1") = nBend*kBend
-    "Total minor-loss coefficient";
 
   Medium.MassFraction XiAct[Medium.nXi]
     "Independent mass fractions of actual stream";
