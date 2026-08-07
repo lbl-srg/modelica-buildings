@@ -23,15 +23,18 @@ protected
     "True if mediumName identifies propylene glycol/water";
 
   Boolean isWater=
-    (.Modelica.Utilities.Strings.isEqual(
+    (Modelica.Utilities.Strings.isEqual(
       string1=mediumName,
       string2="Water") or
-     .Modelica.Utilities.Strings.isEqual(
+     Modelica.Utilities.Strings.isEqual(
       string1=mediumName,
-      string2="Buildings.Media.Water")) and
+      string2="Buildings.Media.Water") or
+     Modelica.Utilities.Strings.isEqual(
+      string1=mediumName,
+      string2="SimpleLiquidWater")) and
     not isEthyleneGlycolWater and
     not isPropyleneGlycolWater
-    "True if mediumName identifies water";
+    "True if mediumName identifies Buildings.Media.Water";
 
 algorithm
   isSupported :=

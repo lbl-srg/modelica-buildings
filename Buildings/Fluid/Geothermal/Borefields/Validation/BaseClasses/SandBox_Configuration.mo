@@ -9,7 +9,6 @@ record SandBox_Configuration
       cooBor={{0,0}},
       mBor_flow_nominal=0.197/998*1000,
       dp_nominal=5e4,
-      X_a=0,
       hBor=18.3,
       rBor=0.063,
       dBor=0.0,
