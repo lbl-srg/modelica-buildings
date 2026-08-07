@@ -27,39 +27,6 @@ record Template
     "Pressure losses for each zone of the borefield"
     annotation (Dialog(group="Nominal condition"));
 
-  parameter Boolean use_DarcyPressureDrop = false
-    "Set to true to compute the vertical pipe pressure drop from Darcy-Weisbach"
-    annotation (Evaluate=true, Dialog(tab="Advanced", group="Pressure drop"));
-
-  parameter Boolean use_TDepPressureDrop = false
-    "Set to true to evaluate density and viscosity from the medium temperature for the Darcy-Weisbach pressure drop"
-    annotation (Dialog(
-      tab="Advanced",
-      group="Pressure drop",
-      enable=use_DarcyPressureDrop));
-
-  parameter Boolean use_TDepRConv = false
-    "Set to true to evaluate fluid thermal properties from the medium temperature for the pipe convection resistance"
-    annotation (Dialog(tab="Advanced", group="Heat transfer"));
-
-  parameter Buildings.Fluid.Geothermal.Borefields.Types.FluidPropertyEvaluation
-    fluidPropertyEvaluation =
-      Buildings.Fluid.Geothermal.Borefields.Types.FluidPropertyEvaluation.use_MediaFunctions
-    "Method used to evaluate fluid properties for temperature-dependent heat-transfer and pressure-drop correlations"
-    annotation (Dialog(
-      tab="Advanced",
-      group="Fluid properties",
-      enable=use_TDepRConv or use_TDepPressureDrop));
-
-  parameter Modelica.Units.SI.MassFraction X_a(min=0, max=0.6) = 0
-    "Mass fraction of propylene glycol in water, the default value 0 corresponds to pure water"
-    annotation (Dialog(
-      tab="Advanced",
-      group="Fluid properties",
-      enable=(use_TDepRConv or use_TDepPressureDrop) and
-        fluidPropertyEvaluation ==
-          Buildings.Fluid.Geothermal.Borefields.Types.FluidPropertyEvaluation.PropyleneGlycolWater));
-
   // -- Advanced flow parameters
   final parameter Modelica.Units.SI.MassFlowRate[nZon] mBor_flow_small(each min=0) =
     {1E-4*abs(mBor_flow_nominal[i]) for i in 1:nZon}

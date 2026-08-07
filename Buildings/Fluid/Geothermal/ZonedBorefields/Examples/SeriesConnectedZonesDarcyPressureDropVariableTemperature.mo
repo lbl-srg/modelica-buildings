@@ -2,13 +2,11 @@ within Buildings.Fluid.Geothermal.ZonedBorefields.Examples;
 model SeriesConnectedZonesDarcyPressureDropVariableTemperature
   "Validation of temperature-dependent Darcy-Weisbach pressure drop"
   extends Buildings.Fluid.Geothermal.ZonedBorefields.Examples.SeriesConnectedZones(
-    conDat(
+    borHol(
       use_DarcyPressureDrop=true,
       use_TDepPressureDrop=true,
-      use_TDepRConv=false,
-      fluidPropertyEvaluation=
-        Buildings.Fluid.Geothermal.Borefields.Types.FluidPropertyEvaluation.Water,
-      X_a=0,
+      use_TDepRConv=false),
+    conDat(
       roughness=0.001e-3));
 
   Modelica.Units.SI.MassFlowRate m_flow = pum.m_flow
@@ -33,6 +31,16 @@ model SeriesConnectedZonesDarcyPressureDropVariableTemperature
 <p>
 This example validates temperature-dependent Darcy-Weisbach pressure drop in a
 zoned borefield.
+</p>
+<p>
+The Darcy-Weisbach pressure-drop calculation is enabled by setting
+<code>use_DarcyPressureDrop=true</code> on the zoned borefield model instance.
+Temperature-dependent density and viscosity for the pressure-drop calculation
+are enabled with <code>use_TDepPressureDrop=true</code>.
+</p>
+<p>
+The fluid type is derived from the redeclared <code>Medium</code>. No separate
+fluid-property selector is used in the configuration data record.
 </p>
 </html>", revisions="<html>
 <ul>

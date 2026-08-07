@@ -2,13 +2,11 @@ within Buildings.Fluid.Geothermal.ZonedBorefields.Examples;
 model SeriesConnectedZonesTDepRConv
   "Validation of temperature-dependent pipe convection resistance"
   extends Buildings.Fluid.Geothermal.ZonedBorefields.Examples.SeriesConnectedZones(
-    conDat(
+    borHol(
       use_DarcyPressureDrop=false,
       use_TDepPressureDrop=false,
-      use_TDepRConv=true,
-      fluidPropertyEvaluation=
-        Buildings.Fluid.Geothermal.Borefields.Types.FluidPropertyEvaluation.Water,
-      X_a=0,
+      use_TDepRConv=true),
+    conDat(
       roughness=0.001e-3));
 
   Modelica.Units.SI.MassFlowRate m_flow = pum.m_flow
@@ -34,9 +32,18 @@ model SeriesConnectedZonesTDepRConv
 This example validates temperature-dependent pipe convection resistance in a
 zoned borefield.
 </p>
+<p>
+Temperature-dependent pipe convection resistance is enabled by setting
+<code>use_TDepRConv=true</code> on the zoned borefield model instance.
+The Darcy-Weisbach pressure-drop option is disabled so the validation isolates
+the effect of temperature-dependent convection resistance.
+</p>
+<p>
+The fluid type is derived from the redeclared <code>Medium</code>. No separate
+fluid-property selector is used in the configuration data record.
+</p>
 </html>", revisions="<html>
 <ul>
-<li>
 July 2026, by Lone Meertens:<br/>
 First implementation.<br/>
 This is for
