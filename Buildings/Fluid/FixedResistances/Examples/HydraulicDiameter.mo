@@ -34,7 +34,7 @@ model HydraulicDiameter
     redeclare package Medium = Medium,
     m_flow_nominal=0.2,
     length=1,
-    rTub=0.015,
+    rTub=0.0095,
     eTub=0.0015,
     roughness=0.001e-3,
     nBend=1,
