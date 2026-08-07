@@ -8,17 +8,26 @@ partial model PartialBorefield
   extends Buildings.Fluid.Interfaces.TwoPortFlowResistanceParameters(
     final dp_nominal=borFieDat.conDat.dp_nominal,
     final computeFlowResistance=
-      borFieDat.conDat.use_DarcyPressureDrop or
+      use_DarcyPressureDrop or
       borFieDat.conDat.dp_nominal > Modelica.Constants.eps);
 
-  replaceable package Medium = Modelica.Media.Interfaces.PartialMedium "Medium in the component"
-      annotation (choices(
-        choice(redeclare package Medium = Buildings.Media.Water "Water"),
-        choice(redeclare package Medium =
-            Buildings.Media.Antifreeze.PropyleneGlycolWater (
-              property_T=293.15,
-              X_a=0.40)
-              "Propylene glycol water, 40% mass fraction")));
+  replaceable package Medium =
+    Modelica.Media.Interfaces.PartialMedium
+    "Medium in the component"
+    annotation (choices(
+      choice(redeclare package Medium =
+        Buildings.Media.Water
+        "Water"),
+      choice(redeclare package Medium =
+        Buildings.Media.Antifreeze.EthyleneGlycolWater(
+          property_T=293.15,
+          X_a=0.40)
+        "Ethylene glycol water, 40% mass fraction"),
+      choice(redeclare package Medium =
+        Buildings.Media.Antifreeze.PropyleneGlycolWater(
+          property_T=293.15,
+          X_a=0.40)
+        "Propylene glycol water, 40% mass fraction")));
 
   constant Real mSenFac(min=1)=1
     "Factor for scaling the sensible thermal mass of the volume";
@@ -51,6 +60,27 @@ partial model PartialBorefield
   // General parameters of borefield
   parameter Buildings.Fluid.Geothermal.Borefields.Data.Borefield.Template borFieDat "Borefield data"
     annotation (choicesAllMatching=true,Placement(transformation(extent={{-80,-80},{-60,-60}})));
+
+  // Advanced parameters of borefield
+  parameter Boolean use_DarcyPressureDrop = false
+    "Set to true to compute the vertical pipe pressure drop from Darcy-Weisbach instead of using the nominal borefield pressure drop"
+    annotation (
+      Evaluate=true,
+      Dialog(tab="Advanced", group="Pressure drop"));
+  parameter Boolean use_TDepPressureDrop = false
+    "Set to true to evaluate density and viscosity from the local medium state for the Darcy-Weisbach pressure drop"
+    annotation (
+      Evaluate=true,
+      Dialog(
+        tab="Advanced",
+        group="Pressure drop",
+        enable=use_DarcyPressureDrop));
+  parameter Boolean use_TDepRConv = false
+    "Set to true to evaluate fluid thermal properties from the local medium state for the pipe convection resistance"
+    annotation (
+      Evaluate=true,
+      Dialog(tab="Advanced", group="Heat transfer"));
+
 
   // Temperature gradient in undisturbed soil
   parameter Modelica.Units.SI.Temperature TExt0_start=283.15
@@ -111,44 +141,13 @@ partial model PartialBorefield
     final p_start=p_start,
     final mSenFac=mSenFac,
     final TFlu_start=TFlu_start,
-    final TGro_start=TGro_start) "Borehole"
+    final TGro_start=TGro_start,
+    final use_DarcyPressureDrop=use_DarcyPressureDrop,
+    final use_TDepPressureDrop=use_TDepPressureDrop,
+    final use_TDepRConv=use_TDepRConv) "Borehole"
     annotation (Placement(transformation(extent={{-10,-50},{10,-30}})));
 
 protected
-  // Assert parameters
-  final parameter Boolean useGlycolData=
-    (borFieDat.conDat.use_TDepRConv or borFieDat.conDat.use_TDepPressureDrop)
-    and borFieDat.conDat.fluidPropertyEvaluation ==
-      Buildings.Fluid.Geothermal.Borefields.Types.FluidPropertyEvaluation.PropyleneGlycolWater
-    "Set to true if data-record X_a is used for glycol property evaluation";
-
-  parameter Medium.ThermodynamicState staDef=
-    Medium.setState_pTX(
-      p=Medium.p_default,
-      T=Medium.T_default,
-      X=Medium.X_default)
-    "Default medium state used for consistency check";
-
-  parameter Modelica.Units.SI.SpecificHeatCapacity cpMedDef=
-    Medium.specificHeatCapacityCp(staDef)
-    "Specific heat capacity from the redeclared medium";
-
-  parameter Modelica.Units.SI.SpecificHeatCapacity cpGlyFunDat=
-    if useGlycolData then
-      Buildings.Media.Antifreeze.Functions.PropyleneGlycolWater.specificHeatCapacityCp_TX_a(
-        T=Medium.T_default,
-        X_a=borFieDat.conDat.X_a)
-    else
-      cpMedDef
-    "Specific heat capacity computed from the borefield data record mass fraction";
-
-  parameter Real cpRelErrX_a(unit="1")=
-    abs(cpMedDef - cpGlyFunDat)/cpMedDef
-    "Relative difference used to check consistency of X_a with the redeclared medium";
-
-  parameter Real cpRelTolX_a(unit="1")=1e-3
-    "Relative tolerance for checking consistency of X_a with the redeclared medium";
-
   parameter Modelica.Units.SI.Height z[nSeg]={borFieDat.conDat.hBor/nSeg*(i -
       0.5) for i in 1:nSeg}
     "Distance from the surface to the considered segment";
@@ -207,17 +206,6 @@ protected
     annotation (Placement(transformation(extent={{60,70},{80,90}})));
 
 equation
-  assert(
-    noEvent(not useGlycolData or cpRelErrX_a <= cpRelTolX_a),
-    "In " + getInstanceName() + ": The borefield configuration parameter X_a = "
-    + String(borFieDat.conDat.X_a)
-    + " is inconsistent with the redeclared medium. "
-    + "If fluidPropertyEvaluation=PropyleneGlycolWater is used, set "
-    + "borFieDat.conDat.X_a to the same mass fraction as the medium declaration. "
-    + "Relative difference in specific heat capacity is "
-    + String(cpRelErrX_a) + ", tolerance is " + String(cpRelTolX_a) + ".",
-    AssertionLevel.error);
-
   connect(masFloMul.port_b, port_b)
     annotation (Line(points={{80,-40},{90,-40},{90,0},{100,0}},
                                                      color={0,127,255}));
@@ -349,8 +337,9 @@ temperature after calculating, or reading from a previous calculation, the boref
 <ul>
 <li>
 July 18, 2026, by L. Meertens:<br/>
-Exposed the total vertical GHE fluid volume and enabled flow-resistance
-computation when the Darcy-Weisbach pressure-drop option is selected.<br/>
+Added borefield-level options for Darcy-Weisbach pressure-drop calculation and
+temperature-dependent fluid-property evaluation for pipe pressure drop and
+pipe convection resistance.
 This is for
 <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4656\">Buildings, #4656</a>.
 </li>

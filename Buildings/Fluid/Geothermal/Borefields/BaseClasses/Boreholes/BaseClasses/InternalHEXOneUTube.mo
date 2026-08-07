@@ -25,10 +25,8 @@ model InternalHEXOneUTube
       final V=VTubSeg,
       final mSenFac=mSenFac),
     redeclare final Buildings.Fluid.Geothermal.Borefields.BaseClasses.Boreholes.BaseClasses.PressureDropPipe preDro1(
-      final use_DarcyPressureDrop=borFieDat.conDat.use_DarcyPressureDrop,
-      final use_TDepPressureDrop=borFieDat.conDat.use_TDepPressureDrop,
-      final fluidPropertyEvaluation=borFieDat.conDat.fluidPropertyEvaluation,
-      final X_a=borFieDat.conDat.X_a,
+      final use_DarcyPressureDrop=use_DarcyPressureDrop,
+      final use_TDepPressureDrop=use_TDepPressureDrop,
       final length=hSeg,
       final rTub=borFieDat.conDat.rTub,
       final eTub=borFieDat.conDat.eTub,
@@ -40,10 +38,8 @@ model InternalHEXOneUTube
       final deltaM=deltaM1,
       final dp_nominal=dp1_nominal),
     redeclare final Buildings.Fluid.Geothermal.Borefields.BaseClasses.Boreholes.BaseClasses.PressureDropPipe preDro2(
-      final use_DarcyPressureDrop=borFieDat.conDat.use_DarcyPressureDrop,
-      final use_TDepPressureDrop=borFieDat.conDat.use_TDepPressureDrop,
-      final fluidPropertyEvaluation=borFieDat.conDat.fluidPropertyEvaluation,
-      final X_a=borFieDat.conDat.X_a,
+      final use_DarcyPressureDrop=use_DarcyPressureDrop,
+      final use_TDepPressureDrop=use_TDepPressureDrop,
       final length=hSeg,
       final rTub=borFieDat.conDat.rTub,
       final eTub=borFieDat.conDat.eTub,
@@ -107,16 +103,6 @@ protected
   parameter Real Rgg_val(fixed=false)
     "Thermal resistance between the two grout zones";
 
-  Medium.MassFraction X1[Medium.nX]
-    "Mass fractions used to evaluate medium properties in volume 1";
-  Medium.MassFraction X2[Medium.nX]
-    "Mass fractions used to evaluate medium properties in volume 2";
-
-  Medium.ThermodynamicState sta1
-    "Medium state used to evaluate temperature-dependent properties in volume 1";
-  Medium.ThermodynamicState sta2
-    "Medium state used to evaluate temperature-dependent properties in volume 2";
-
   Modelica.Units.SI.SpecificHeatCapacity cpMed1Act
     "Specific heat capacity used for convection resistance in volume 1";
   Modelica.Units.SI.ThermalConductivity kMed1Act
@@ -155,85 +141,23 @@ initial equation
       instanceName=getInstanceName());
 
 equation
-  if borFieDat.conDat.use_TDepRConv and
-    borFieDat.conDat.fluidPropertyEvaluation ==
-      Buildings.Fluid.Geothermal.Borefields.Types.FluidPropertyEvaluation.use_MediaFunctions then
-
-    X1 =
-      if Medium.reducedX then
-        cat(1, vol1.Xi, {1 - sum(vol1.Xi)})
-      else
-        vol1.Xi;
-
-    X2 =
-      if Medium.reducedX then
-        cat(1, vol2.Xi, {1 - sum(vol2.Xi)})
-      else
-        vol2.Xi;
-
-    sta1 = Medium.setState_pTX(
-      p=vol1.p,
-      T=vol1.T,
-      X=X1);
-
-    sta2 = Medium.setState_pTX(
-      p=vol2.p,
-      T=vol2.T,
-      X=X2);
-
-    cpMed1Act = Medium.specificHeatCapacityCp(sta1);
-    kMed1Act = Medium.thermalConductivity(sta1);
-    muMed1Act = Medium.dynamicViscosity(sta1);
-    rhoMed1Act = Medium.density(sta1);
-
-    cpMed2Act = Medium.specificHeatCapacityCp(sta2);
-    kMed2Act = Medium.thermalConductivity(sta2);
-    muMed2Act = Medium.dynamicViscosity(sta2);
-    rhoMed2Act = Medium.density(sta2);
-
-  elseif borFieDat.conDat.use_TDepRConv then
-
-    X1 = zeros(Medium.nX);
-    X2 = zeros(Medium.nX);
-
-    sta1 = Medium.setState_pTX(
-      p=Medium.p_default,
-      T=Medium.T_default,
-      X=Medium.X_default);
-
-    sta2 = Medium.setState_pTX(
-      p=Medium.p_default,
-      T=Medium.T_default,
-      X=Medium.X_default);
+  if use_TDepRConv then
 
     (cpMed1Act, kMed1Act, muMed1Act, rhoMed1Act) =
-      Buildings.Fluid.Geothermal.Borefields.BaseClasses.Boreholes.BaseClasses.Functions.fluidProperties_T(
-        fluidPropertyEvaluation=borFieDat.conDat.fluidPropertyEvaluation,
+      .Buildings.Fluid.BaseClasses.Media.Functions.fluidProperties_T(
+        fluid=tDepFluid,
         T=vol1.T,
         p=vol1.p,
-        X_a=borFieDat.conDat.X_a);
+        X_a=X_a_internal);
 
     (cpMed2Act, kMed2Act, muMed2Act, rhoMed2Act) =
-      Buildings.Fluid.Geothermal.Borefields.BaseClasses.Boreholes.BaseClasses.Functions.fluidProperties_T(
-        fluidPropertyEvaluation=borFieDat.conDat.fluidPropertyEvaluation,
+      .Buildings.Fluid.BaseClasses.Media.Functions.fluidProperties_T(
+        fluid=tDepFluid,
         T=vol2.T,
         p=vol2.p,
-        X_a=borFieDat.conDat.X_a);
+        X_a=X_a_internal);
 
   else
-
-    X1 = zeros(Medium.nX);
-    X2 = zeros(Medium.nX);
-
-    sta1 = Medium.setState_pTX(
-      p=Medium.p_default,
-      T=Medium.T_default,
-      X=Medium.X_default);
-
-    sta2 = Medium.setState_pTX(
-      p=Medium.p_default,
-      T=Medium.T_default,
-      X=Medium.X_default);
 
     cpMed1Act = cpMed_default;
     kMed1Act = kMed_default;
@@ -246,6 +170,7 @@ equation
     rhoMed2Act = rhoMed_default;
 
   end if;
+
 
   (RVol1_val, Re1) =
     Buildings.Fluid.Geothermal.Borefields.BaseClasses.Boreholes.BaseClasses.Functions.convectionResistancePipe(

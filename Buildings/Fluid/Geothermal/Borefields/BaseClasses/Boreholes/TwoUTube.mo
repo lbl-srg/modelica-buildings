@@ -6,22 +6,25 @@ model TwoUTube "Double U-tube borehole heat exchanger"
     intHex[nSeg](
     redeclare each final package Medium = Medium,
     each final borFieDat=borFieDat,
+    each final use_DarcyPressureDrop=use_DarcyPressureDrop,
+    each final use_TDepPressureDrop=use_TDepPressureDrop,
+    each final use_TDepRConv=use_TDepRConv,
     each final hSeg=borFieDat.conDat.hBor/nSeg,
     final dp1_nominal={
-      if i == 1 and not borFieDat.conDat.use_DarcyPressureDrop and
+      if i == 1 and not use_DarcyPressureDrop and
         borFieDat.conDat.borCon == Buildings.Fluid.Geothermal.Borefields.Types.BoreholeConfiguration.DoubleUTubeParallel then
         dp_nominal
-      elseif i == 1 and not borFieDat.conDat.use_DarcyPressureDrop and
+      elseif i == 1 and not use_DarcyPressureDrop and
             borFieDat.conDat.borCon == Buildings.Fluid.Geothermal.Borefields.Types.BoreholeConfiguration.DoubleUTubeSeries then
         dp_nominal/2
       else
         0
       for i in 1:nSeg},
     final dp3_nominal={
-      if i == 1 and not borFieDat.conDat.use_DarcyPressureDrop and
+      if i == 1 and not use_DarcyPressureDrop and
         borFieDat.conDat.borCon == Buildings.Fluid.Geothermal.Borefields.Types.BoreholeConfiguration.DoubleUTubeParallel then
         dp_nominal
-      elseif i == 1 and not borFieDat.conDat.use_DarcyPressureDrop and
+      elseif i == 1 and not use_DarcyPressureDrop and
             borFieDat.conDat.borCon == Buildings.Fluid.Geothermal.Borefields.Types.BoreholeConfiguration.DoubleUTubeSeries then
         dp_nominal/2
       else

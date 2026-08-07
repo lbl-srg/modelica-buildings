@@ -1,18 +1,48 @@
 within Buildings.Fluid.Geothermal.Borefields.BaseClasses.Boreholes.BaseClasses;
 partial model PartialInternalHEX
   "Partial model to implement the internal heat exchanger of a borehole segment"
+
   parameter Buildings.Fluid.Geothermal.Borefields.Data.Borefield.Template
     borFieDat "Borefield parameters"
     annotation (Placement(transformation(extent={{-100,-100},{-80,-80}})));
+
+  parameter Boolean use_DarcyPressureDrop = false
+    "Set to true to compute the vertical pipe pressure drop from Darcy-Weisbach"
+    annotation (
+      Evaluate=true,
+      Dialog(tab="Advanced", group="Pressure drop"));
+  parameter Boolean use_TDepPressureDrop = false
+    "Set to true to evaluate density and viscosity from the local medium state for the Darcy-Weisbach pressure drop"
+    annotation (
+      Evaluate=true,
+      Dialog(
+        tab="Advanced",
+        group="Pressure drop",
+        enable=use_DarcyPressureDrop));
+  parameter Boolean use_TDepRConv = false
+    "Set to true to evaluate fluid thermal properties from the local medium state for the pipe convection resistance"
+    annotation (
+      Evaluate=true,
+      Dialog(tab="Advanced", group="Heat transfer"));
+
   replaceable package Medium =
-    Modelica.Media.Interfaces.PartialMedium "Medium"
+    Modelica.Media.Interfaces.PartialMedium
+    "Medium"
     annotation (choices(
-        choice(redeclare package Medium = Buildings.Media.Water "Water"),
-        choice(redeclare package Medium =
-            Buildings.Media.Antifreeze.PropyleneGlycolWater (
-              property_T=293.15,
-              X_a=0.40)
-              "Propylene glycol water, 40% mass fraction")));
+      choice(redeclare package Medium =
+        Buildings.Media.Water
+        "Water"),
+      choice(redeclare package Medium =
+        Buildings.Media.Antifreeze.EthyleneGlycolWater(
+          property_T=293.15,
+          X_a=0.40)
+        "Ethylene glycol water, 40% mass fraction"),
+      choice(redeclare package Medium =
+        Buildings.Media.Antifreeze.PropyleneGlycolWater(
+          property_T=293.15,
+          X_a=0.40)
+        "Propylene glycol water, 40% mass fraction")));
+
   constant Real mSenFac=1
     "Factor for scaling the sensible thermal mass of the volume";
 
@@ -29,6 +59,20 @@ partial model PartialInternalHEX
     "Thermal connection for borehole wall"
     annotation (Placement(transformation(extent={{-10,90},{10,110}})));
 protected
+  final parameter .Buildings.Fluid.BaseClasses.Media.Types.TemperatureDependentPropertyFluid
+    tDepFluid=
+      .Buildings.Fluid.BaseClasses.Media.Functions.temperatureDependentFluidFromMediumName(
+        mediumName=Medium.mediumName)
+    "Temperature-dependent fluid-property method derived from the redeclared medium";
+  final parameter Modelica.Units.SI.MassFraction X_a_internal=
+    if tDepFluid ==
+      .Buildings.Fluid.BaseClasses.Media.Types.TemperatureDependentPropertyFluid.Water
+    then
+      0
+    else
+      .Buildings.Fluid.BaseClasses.Media.Functions.massFractionFromMediumName(
+        mediumName=Medium.mediumName)
+    "Glycol mass fraction derived from the redeclared medium";
   parameter Modelica.Units.SI.SpecificHeatCapacity cpMed_default=
       Medium.specificHeatCapacityCp(Medium.setState_pTX(
       Medium.p_default,

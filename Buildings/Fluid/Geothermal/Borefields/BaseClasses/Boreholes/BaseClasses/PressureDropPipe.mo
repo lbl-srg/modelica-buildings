@@ -10,14 +10,6 @@ model PressureDropPipe
   parameter Boolean use_TDepPressureDrop = false
     "Set to true to evaluate density and viscosity from the current fluid temperature";
 
-  parameter Buildings.Fluid.Geothermal.Borefields.Types.FluidPropertyEvaluation
-    fluidPropertyEvaluation =
-      Buildings.Fluid.Geothermal.Borefields.Types.FluidPropertyEvaluation.use_MediaFunctions
-    "Method used to evaluate fluid properties for Darcy-Weisbach pressure drop";
-
-  parameter Modelica.Units.SI.MassFraction X_a(min=0, max=0.6)
-    "Mass fraction of propylene glycol in water";
-
   parameter Modelica.Units.SI.Length length
     "Pipe length represented by this pressure-drop component";
 
@@ -75,8 +67,6 @@ model PressureDropPipe
     final allowFlowReversal=allowFlowReversal,
     final computePressureDrop=use_DarcyPressureDrop,
     final use_TDepPressureDrop=use_TDepPressureDrop,
-    final fluidPropertyEvaluation=fluidPropertyEvaluation,
-    final X_a=X_a,
     final length=length,
     final rTub=rTub,
     final eTub=eTub,

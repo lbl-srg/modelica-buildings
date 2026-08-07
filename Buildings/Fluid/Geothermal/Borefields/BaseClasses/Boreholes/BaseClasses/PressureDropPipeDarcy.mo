@@ -34,19 +34,6 @@ model PressureDropPipeDarcy
   parameter Boolean use_TDepPressureDrop = false
     "Set to true to evaluate density and viscosity from the current fluid temperature"
     annotation (Evaluate=true, Dialog(enable=computePressureDrop));
-  parameter Buildings.Fluid.Geothermal.Borefields.Types.FluidPropertyEvaluation
-    fluidPropertyEvaluation=
-      Buildings.Fluid.Geothermal.Borefields.Types.FluidPropertyEvaluation.use_MediaFunctions
-    "Method used to evaluate fluid properties for pressure drop"
-    annotation (
-      Evaluate=true,
-      Dialog(enable=computePressureDrop and use_TDepPressureDrop));
-  parameter Modelica.Units.SI.MassFraction X_a(min=0, max=0.6) = 0
-    "Mass fraction of propylene glycol in water, only used for propylene-glycol/water property evaluation"
-    annotation (Dialog(
-      enable=computePressureDrop and use_TDepPressureDrop and
-        fluidPropertyEvaluation ==
-          Buildings.Fluid.Geothermal.Borefields.Types.FluidPropertyEvaluation.PropyleneGlycolWater));
 
   Modelica.Units.SI.PressureDifference dpMajor
     "Major Darcy-Weisbach pressure drop";
@@ -57,6 +44,22 @@ model PressureDropPipeDarcy
 
 
 protected
+  final parameter .Buildings.Fluid.BaseClasses.Media.Types.TemperatureDependentPropertyFluid
+    tDepFluid=
+      .Buildings.Fluid.BaseClasses.Media.Functions.temperatureDependentFluidFromMediumName(
+        mediumName=Medium.mediumName)
+    "Temperature-dependent fluid-property method derived from the redeclared medium";
+
+  final parameter Modelica.Units.SI.MassFraction X_a_internal=
+    if tDepFluid ==
+      .Buildings.Fluid.BaseClasses.Media.Types.TemperatureDependentPropertyFluid.Water
+    then
+      0
+    else
+      .Buildings.Fluid.BaseClasses.Media.Functions.massFractionFromMediumName(
+        mediumName=Medium.mediumName)
+    "Glycol mass fraction derived from the redeclared medium";
+
   final parameter Real kMinor(unit="1") = nUBend*kUBend
     "Total minor-loss coefficient";
 
@@ -112,51 +115,20 @@ equation
       h=hAct,
       X=XAct);
 
-    if fluidPropertyEvaluation ==
-       Buildings.Fluid.Geothermal.Borefields.Types.FluidPropertyEvaluation.use_MediaFunctions then
+    staAct = Medium.setState_phX(
+      p=port_a.p,
+      h=hAct,
+      X=XAct);
 
-      staAct = Medium.setState_phX(
+    (muMedAct, rhoMedAct) =
+      .Buildings.Fluid.BaseClasses.Media.Functions.fluidDensityViscosity_T(
+        fluid=tDepFluid,
+        T=TAct,
         p=port_a.p,
-        h=hAct,
-        X=XAct);
-
-      rhoMedAct = Medium.density(staAct);
-      muMedAct = Medium.dynamicViscosity(staAct);
-
-    elseif fluidPropertyEvaluation ==
-       Buildings.Fluid.Geothermal.Borefields.Types.FluidPropertyEvaluation.Water then
-
-      staAct = Medium.setState_pTX(
-        p=Medium.p_default,
-        T=Medium.T_default,
-        X=Medium.X_default);
-
-      (muMedAct, rhoMedAct) =
-        Buildings.Fluid.Geothermal.Borefields.BaseClasses.Boreholes.BaseClasses.Functions.fluidDensityViscosity_T(
-          fluidPropertyEvaluation=fluidPropertyEvaluation,
-          T=TAct,
-          p=port_a.p,
-          X_a=0);
-
-    elseif fluidPropertyEvaluation ==
-       Buildings.Fluid.Geothermal.Borefields.Types.FluidPropertyEvaluation.PropyleneGlycolWater then
-
-      staAct = Medium.setState_pTX(
-        p=Medium.p_default,
-        T=Medium.T_default,
-        X=Medium.X_default);
-
-      (muMedAct, rhoMedAct) =
-        Buildings.Fluid.Geothermal.Borefields.BaseClasses.Boreholes.BaseClasses.Functions.fluidDensityViscosity_T(
-          fluidPropertyEvaluation=fluidPropertyEvaluation,
-          T=TAct,
-          p=port_a.p,
-          X_a=X_a);
-
-    end if;
-
+        X_a=X_a_internal);
 
   else
+
     XiAct = zeros(Medium.nXi);
     XAct = Medium.X_default;
     hAct = Medium.h_default;

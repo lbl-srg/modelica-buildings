@@ -17,7 +17,7 @@ model OneUTube "Single U-tube borehole heat exchanger"
     each final energyDynamics=energyDynamics,
     each final mSenFac=mSenFac,
     final dp1_nominal={
-      if i == 1 and not borFieDat.conDat.use_DarcyPressureDrop then
+      if i == 1 and not use_DarcyPressureDrop then
         dp_nominal
       else
         0
@@ -33,6 +33,9 @@ model OneUTube "Single U-tube borehole heat exchanger"
     each final m1_flow_nominal=m_flow_nominal,
     each final m2_flow_nominal=m_flow_nominal,
     each final borFieDat=borFieDat,
+    each final use_DarcyPressureDrop=use_DarcyPressureDrop,
+    each final use_TDepPressureDrop=use_TDepPressureDrop,
+    each final use_TDepRConv=use_TDepRConv,
     each final allowFlowReversal1=allowFlowReversal,
     each final allowFlowReversal2=allowFlowReversal,
     each final show_T=show_T,

@@ -4,17 +4,27 @@ partial model PartialBorehole
   extends Buildings.Fluid.Interfaces.PartialTwoPortInterface;
 
   extends Buildings.Fluid.Interfaces.TwoPortFlowResistanceParameters(
-    computeFlowResistance=dp_nominal > Modelica.Constants.eps);
+    computeFlowResistance=
+      use_DarcyPressureDrop or
+      dp_nominal > Modelica.Constants.eps);
 
   replaceable package Medium =
-    Modelica.Media.Interfaces.PartialMedium "Medium in the component"
-      annotation (choices(
-        choice(redeclare package Medium = Buildings.Media.Water "Water"),
-        choice(redeclare package Medium =
-            Buildings.Media.Antifreeze.PropyleneGlycolWater (
-              property_T=293.15,
-              X_a=0.40)
-              "Propylene glycol water, 40% mass fraction")));
+    Modelica.Media.Interfaces.PartialMedium
+    "Medium in the component"
+    annotation (choices(
+      choice(redeclare package Medium =
+        Buildings.Media.Water
+        "Water"),
+      choice(redeclare package Medium =
+        Buildings.Media.Antifreeze.EthyleneGlycolWater(
+          property_T=293.15,
+          X_a=0.40)
+        "Ethylene glycol water, 40% mass fraction"),
+      choice(redeclare package Medium =
+        Buildings.Media.Antifreeze.PropyleneGlycolWater(
+          property_T=293.15,
+          X_a=0.40)
+        "Propylene glycol water, 40% mass fraction")));
 
   constant Real mSenFac(min=1)=1
    "Factor for scaling the sensible thermal mass of the volume";
@@ -39,12 +49,41 @@ partial model PartialBorehole
 
   parameter Data.Borefield.Template borFieDat "Borefield parameters"
     annotation (Placement(transformation(extent={{-80,-80},{-60,-60}})));
+  
+  // Advanced parameters borehole
+  parameter Boolean use_DarcyPressureDrop = false
+    "Set to true to compute the vertical pipe pressure drop from Darcy-Weisbach instead of using the nominal borehole pressure drop"
+    annotation (
+      Evaluate=true,
+      Dialog(tab="Advanced", group="Pressure drop"));
+  parameter Boolean use_TDepPressureDrop = false
+    "Set to true to evaluate density and viscosity from the local medium state for the Darcy-Weisbach pressure drop"
+    annotation (
+      Evaluate=true,
+      Dialog(
+        tab="Advanced",
+        group="Pressure drop",
+        enable=use_DarcyPressureDrop));
+  parameter Boolean use_TDepRConv = false
+    "Set to true to evaluate fluid thermal properties from the local medium state for the pipe convection resistance"
+    annotation (
+      Evaluate=true,
+      Dialog(tab="Advanced", group="Heat transfer"));
 
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a port_wall[nSeg]
     "Thermal connection for borehole wall"
     annotation (Placement(transformation(extent={{-10,90},{10,110}})));
 
 protected
+  final parameter Boolean use_TDepFluidProperties=
+    use_TDepPressureDrop or use_TDepRConv
+    "Set to true if temperature-dependent fluid properties are requested";
+
+  final parameter Boolean isAllowedTDepMedium=
+    .Buildings.Fluid.BaseClasses.Media.Functions.isTemperatureDependentFluidMedium(
+      mediumName=Medium.mediumName)
+    "Set to true if the medium supports temperature-dependent borefield property evaluation";
+
   parameter Medium.ThermodynamicState state_default=
     Medium.setState_pTX(
       p=Medium.p_default,
@@ -60,6 +99,20 @@ protected
     Medium.dynamicViscosity(state_default)
     "Dynamic viscosity at default medium state";
 
+equation
+  assert(
+    noEvent(not use_TDepFluidProperties or isAllowedTDepMedium),
+    "In " + getInstanceName() + ": Temperature-dependent borefield fluid-property "
+    + "evaluation is only supported for the following media:\n"
+    + "  Buildings.Media.Water\n"
+    + "  Buildings.Media.Antifreeze.EthyleneGlycolWater\n"
+    + "  Buildings.Media.Antifreeze.PropyleneGlycolWater\n"
+    + "The redeclared medium has Medium.mediumName = \""
+    + Medium.mediumName + "\".\n"
+    + "Disable use_TDepPressureDrop and use_TDepRConv, or redeclare one of the "
+    + "supported media.",
+    AssertionLevel.error);
+
     annotation(Documentation(info="<html>
 <p>
 Partial model to implement models simulating geothermal U-tube boreholes modeled
@@ -69,11 +122,13 @@ as several borehole segments, with a uniform borehole wall boundary condition.
 <ul>
 <li>
 July 2026, by L. Meertens:<br/>
-Added default medium density and viscosity parameters for the Darcy-Weisbach
-pressure-drop calculation in vertical GHE pipes.<br/>
+Added borehole-level propagation parameters for Darcy-Weisbach pressure-drop
+calculation and temperature-dependent fluid-property evaluation for pipe
+pressure drop and pipe convection resistance.<br/>
 This is for
 <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4656\">Buildings, #4656</a>.
 </li>
+
 <li>
 May 17, 2024, by Michael Wetter:<br/>
 Updated model due to removal of parameter <code>dynFil</code>.<br/>
