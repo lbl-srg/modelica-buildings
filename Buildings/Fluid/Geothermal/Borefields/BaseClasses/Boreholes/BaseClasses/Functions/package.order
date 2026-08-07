@@ -1,6 +1,4 @@
 convectionResistancePipe
-fluidDensityViscosity_T
-fluidProperties_T
 internalResistancesOneUTube
 internalResistancesTwoUTube
 multipoleFluidTemperature

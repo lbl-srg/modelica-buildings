@@ -45,9 +45,6 @@ model BorefieldsDarcyPressureDropVariableTemperature
     borFieDatFixWat(
       conDat=Buildings.Fluid.Geothermal.Borefields.Data.Configuration.Example(
         borCon=Buildings.Fluid.Geothermal.Borefields.Types.BoreholeConfiguration.SingleUTube,
-        use_DarcyPressureDrop=true,
-        use_TDepPressureDrop=false,
-        use_TDepRConv=false,
         mBor_flow_nominal=mBor_flow_nominal_wat))
     "Borefield data for fixed-property water Darcy pressure-drop case"
     annotation (Placement(transformation(extent={{-27.0,70.0},{-7.0,90.0}},rotation = 0.0,origin = {0.0,0.0})));
@@ -56,11 +53,6 @@ model BorefieldsDarcyPressureDropVariableTemperature
     borFieDatWat(
       conDat=Buildings.Fluid.Geothermal.Borefields.Data.Configuration.Example(
         borCon=Buildings.Fluid.Geothermal.Borefields.Types.BoreholeConfiguration.SingleUTube,
-        use_DarcyPressureDrop=true,
-        use_TDepPressureDrop=true,
-        use_TDepRConv=false,
-        fluidPropertyEvaluation=
-          Buildings.Fluid.Geothermal.Borefields.Types.FluidPropertyEvaluation.Water,
         mBor_flow_nominal=mBor_flow_nominal_wat))
     "Borefield data for temperature-dependent water Darcy pressure-drop case"
     annotation (Placement(transformation(extent={{3.0,70.0},{23.0,90.0}},rotation = 0.0,origin = {0.0,0.0})));
@@ -69,10 +61,6 @@ model BorefieldsDarcyPressureDropVariableTemperature
     borFieDatFixGly(
       conDat=Buildings.Fluid.Geothermal.Borefields.Data.Configuration.Example(
         borCon=Buildings.Fluid.Geothermal.Borefields.Types.BoreholeConfiguration.SingleUTube,
-        use_DarcyPressureDrop=true,
-        use_TDepPressureDrop=false,
-        use_TDepRConv=false,
-        X_a=0.40,
         mBor_flow_nominal=mBor_flow_nominal_gly))
     "Borefield data for fixed-property glycol Darcy pressure-drop case"
     annotation (Placement(transformation(extent={{33.0,70.0},{53.0,90.0}},rotation = 0.0,origin = {0.0,0.0})));
@@ -81,12 +69,6 @@ model BorefieldsDarcyPressureDropVariableTemperature
     borFieDatGly(
       conDat=Buildings.Fluid.Geothermal.Borefields.Data.Configuration.Example(
         borCon=Buildings.Fluid.Geothermal.Borefields.Types.BoreholeConfiguration.SingleUTube,
-        use_DarcyPressureDrop=true,
-        use_TDepPressureDrop=true,
-        use_TDepRConv=false,
-        fluidPropertyEvaluation=
-          Buildings.Fluid.Geothermal.Borefields.Types.FluidPropertyEvaluation.PropyleneGlycolWater,
-        X_a=0.40,
         mBor_flow_nominal=mBor_flow_nominal_gly))
     "Borefield data for temperature-dependent glycol Darcy pressure-drop case"
     annotation (Placement(transformation(extent={{63.0,70.0},{83.0,90.0}},rotation = 0.0,origin = {0.0,0.0})));
@@ -97,7 +79,10 @@ model BorefieldsDarcyPressureDropVariableTemperature
     tLoaAgg=tLoaAgg,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     TExt0_start=TGro,
-    allowFlowReversal=false)
+    allowFlowReversal=false,
+    use_DarcyPressureDrop=true,
+    use_TDepPressureDrop=false,
+    use_TDepRConv=false)
     "Fixed-property water borefield with Darcy pressure drop"
     annotation (Placement(transformation(extent={{-10,36},{10,56}})));
 
@@ -107,7 +92,10 @@ model BorefieldsDarcyPressureDropVariableTemperature
     tLoaAgg=tLoaAgg,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     TExt0_start=TGro,
-    allowFlowReversal=false)
+    allowFlowReversal=false,
+    use_DarcyPressureDrop=true,
+    use_TDepPressureDrop=true,
+    use_TDepRConv=false)
     "Water borefield with temperature-dependent Darcy pressure drop"
     annotation (Placement(transformation(extent={{-10,0},{10,20}})));
 
@@ -117,7 +105,10 @@ model BorefieldsDarcyPressureDropVariableTemperature
     tLoaAgg=tLoaAgg,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     TExt0_start=TGro,
-    allowFlowReversal=false)
+    allowFlowReversal=false,
+    use_DarcyPressureDrop=true,
+    use_TDepPressureDrop=false,
+    use_TDepRConv=false)
     "Fixed-property glycol borefield with Darcy pressure drop"
     annotation (Placement(transformation(extent={{-10,-36},{10,-16}})));
 
@@ -127,9 +118,13 @@ model BorefieldsDarcyPressureDropVariableTemperature
     tLoaAgg=tLoaAgg,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     TExt0_start=TGro,
-    allowFlowReversal=false)
+    allowFlowReversal=false,
+    use_DarcyPressureDrop=true,
+    use_TDepPressureDrop=true,
+    use_TDepRConv=false)
     "Glycol borefield with temperature-dependent Darcy pressure drop"
     annotation (Placement(transformation(extent={{-10,-72},{10,-52}})));
+
 
   Buildings.Fluid.Sources.MassFlowSource_T souFixWat(
     redeclare package Medium = MediumWat,
@@ -349,9 +344,15 @@ Darcy-Weisbach pressure drop.
 </li>
 </ul>
 <p>
-The pipe convection resistance is kept fixed in all cases
-(<code>use_TDepRConv=false</code>) so the validation isolates the effect of
-temperature-dependent pressure-drop properties.
+The Darcy-Weisbach pressure-drop calculation is enabled by setting
+<code>use_DarcyPressureDrop=true</code> on the borefield model instances.
+Temperature-dependent pressure-drop properties are enabled with
+<code>use_TDepPressureDrop=true</code>.
+</p>
+<p>
+The fluid type and glycol mass fraction are derived from the redeclared
+<code>Medium</code>. For glycol-water media, the glycol mass fraction
+<code>X_a</code> is specified only in the medium redeclaration.
 </p>
 </html>", revisions="<html>
 <ul>

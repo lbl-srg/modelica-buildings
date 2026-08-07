@@ -67,6 +67,13 @@ and replaces the constant mass-flow boundary conditions with sinusoidal
 mass-flow inputs.
 </p>
 <p>
+The Darcy-Weisbach pressure-drop calculation is inherited from
+<a href=\"modelica://Buildings.Fluid.Geothermal.Borefields.Examples.BorefieldsDarcyPressureDrop\">
+Buildings.Fluid.Geothermal.Borefields.Examples.BorefieldsDarcyPressureDrop</a>,
+where <code>use_DarcyPressureDrop=true</code> is set on each borefield model
+instance.
+</p>
+<p>
 The mass-flow rate varies between 50% and 150% of the nominal borefield
 mass-flow rate. This verifies that the Darcy-Weisbach pressure drop in the
 vertical GHE pipes is recomputed from the instantaneous mass-flow rate.
@@ -84,6 +91,14 @@ imposed mass-flow signals.
 </html>",
 revisions="<html>
 <ul>
+<li>
+July 2026, by Lone Meertens:<br/>
+Updated documentation to reflect that the Darcy-Weisbach pressure-drop option
+is set on the borefield model instances rather than in the borefield
+configuration data records.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4656\">Buildings, #4656</a>.
+</li>
 <li>
 July 2026, by Lone Meertens:<br/>
 First implementation for validating Darcy-Weisbach pressure drop under

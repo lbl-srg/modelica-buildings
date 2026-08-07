@@ -31,8 +31,6 @@ model BorefieldsTDepRConv
     borFieDatFixWat(
       conDat=Buildings.Fluid.Geothermal.Borefields.Data.Configuration.Example(
         borCon=Buildings.Fluid.Geothermal.Borefields.Types.BoreholeConfiguration.SingleUTube,
-        use_Rb=false,
-        use_TDepRConv=false,
         mBor_flow_nominal=mBor_flow_nominal_wat))
     "Borefield data for fixed-property water case"
     annotation (Placement(transformation(extent={{-23.0,84.0},{-3.0,104.0}},rotation = 0.0,origin = {0.0,0.0})));
@@ -41,10 +39,6 @@ model BorefieldsTDepRConv
     borFieDatWat(
       conDat=Buildings.Fluid.Geothermal.Borefields.Data.Configuration.Example(
         borCon=Buildings.Fluid.Geothermal.Borefields.Types.BoreholeConfiguration.SingleUTube,
-        use_Rb=false,
-        use_TDepRConv=true,
-        fluidPropertyEvaluation=
-          Buildings.Fluid.Geothermal.Borefields.Types.FluidPropertyEvaluation.Water,
         mBor_flow_nominal=mBor_flow_nominal_wat))
     "Borefield data for temperature-dependent water-correlation case"
     annotation (Placement(transformation(extent={{7.0,84.0},{27.0,104.0}},rotation = 0.0,origin = {0.0,0.0})));
@@ -53,9 +47,6 @@ model BorefieldsTDepRConv
     borFieDatFixGly(
       conDat=Buildings.Fluid.Geothermal.Borefields.Data.Configuration.Example(
         borCon=Buildings.Fluid.Geothermal.Borefields.Types.BoreholeConfiguration.SingleUTube,
-        use_Rb=false,
-        use_TDepRConv=false,
-        X_a=0.40,
         mBor_flow_nominal=mBor_flow_nominal_gly))
     "Borefield data for fixed-property glycol case"
     annotation (Placement(transformation(extent={{37.0,84.0},{57.0,104.0}},rotation = 0.0,origin = {0.0,0.0})));
@@ -64,11 +55,6 @@ model BorefieldsTDepRConv
     borFieDatGly(
       conDat=Buildings.Fluid.Geothermal.Borefields.Data.Configuration.Example(
         borCon=Buildings.Fluid.Geothermal.Borefields.Types.BoreholeConfiguration.SingleUTube,
-        use_Rb=false,
-        use_TDepRConv=true,
-        fluidPropertyEvaluation=
-          Buildings.Fluid.Geothermal.Borefields.Types.FluidPropertyEvaluation.PropyleneGlycolWater,
-        X_a=0.40,
         mBor_flow_nominal=mBor_flow_nominal_gly))
     "Borefield data for temperature-dependent glycol-correlation case"
     annotation (Placement(transformation(extent={{67.0,84.0},{87.0,104.0}},rotation = 0.0,origin = {0.0,0.0})));
@@ -79,7 +65,10 @@ model BorefieldsTDepRConv
     tLoaAgg=tLoaAgg,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     TExt0_start=TGro,
-    allowFlowReversal=false)
+    allowFlowReversal=false,
+    use_DarcyPressureDrop=false,
+    use_TDepPressureDrop=false,
+    use_TDepRConv=false)
     "Fixed-property water borefield"
     annotation (Placement(transformation(extent={{-10,50},{10,70}})));
 
@@ -89,8 +78,11 @@ model BorefieldsTDepRConv
     tLoaAgg=tLoaAgg,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     TExt0_start=TGro,
-    allowFlowReversal=false)
-    "Water borefield with local temperature-dependent water correlations"
+    allowFlowReversal=false,
+    use_DarcyPressureDrop=false,
+    use_TDepPressureDrop=false,
+    use_TDepRConv=true)
+    "Water borefield with temperature-dependent pipe convection resistance"
     annotation (Placement(transformation(extent={{-10,10},{10,30}})));
 
   Buildings.Fluid.Geothermal.Borefields.OneUTube borFieFixGly(
@@ -99,7 +91,10 @@ model BorefieldsTDepRConv
     tLoaAgg=tLoaAgg,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     TExt0_start=TGro,
-    allowFlowReversal=false)
+    allowFlowReversal=false,
+    use_DarcyPressureDrop=false,
+    use_TDepPressureDrop=false,
+    use_TDepRConv=false)
     "Fixed-property glycol borefield"
     annotation (Placement(transformation(extent={{-10,-30},{10,-10}})));
 
@@ -109,8 +104,11 @@ model BorefieldsTDepRConv
     tLoaAgg=tLoaAgg,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     TExt0_start=TGro,
-    allowFlowReversal=false)
-    "Glycol borefield with local temperature-dependent glycol correlations"
+    allowFlowReversal=false,
+    use_DarcyPressureDrop=false,
+    use_TDepPressureDrop=false,
+    use_TDepRConv=true)
+    "Glycol borefield with temperature-dependent pipe convection resistance"
     annotation (Placement(transformation(extent={{-10,-70},{10,-50}})));
 
   Buildings.Fluid.Sources.MassFlowSource_T souFixWat(

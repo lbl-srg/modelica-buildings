@@ -41,8 +41,7 @@ model InternalHEXOneUTubeTDepRConvThreeCases
       conDat=Buildings.Fluid.Geothermal.Borefields.Data.Configuration.Example(
         borCon=Buildings.Fluid.Geothermal.Borefields.Types.BoreholeConfiguration.SingleUTube,
         mBor_flow_nominal=mWat_flow_nominal,
-        use_Rb=false,
-        use_TDepRConv=false))
+        use_Rb=false))
     "Borefield data for fixed-property water case"
     annotation (Placement(transformation(extent={{-115.0,94.0},{-95.0,114.0}},rotation = 0.0,origin = {0.0,0.0})));
 
@@ -51,10 +50,7 @@ model InternalHEXOneUTubeTDepRConvThreeCases
       conDat=Buildings.Fluid.Geothermal.Borefields.Data.Configuration.Example(
         borCon=Buildings.Fluid.Geothermal.Borefields.Types.BoreholeConfiguration.SingleUTube,
         mBor_flow_nominal=mWat_flow_nominal,
-        use_Rb=false,
-        use_TDepRConv=true,
-        fluidPropertyEvaluation=
-          Buildings.Fluid.Geothermal.Borefields.Types.FluidPropertyEvaluation.Water))
+        use_Rb=false))
     "Borefield data for temperature-dependent water-correlation case"
     annotation (Placement(transformation(extent={{-85.0,94.0},{-65.0,114.0}},rotation = 0.0,origin = {0.0,0.0})));
 
@@ -63,9 +59,7 @@ model InternalHEXOneUTubeTDepRConvThreeCases
       conDat=Buildings.Fluid.Geothermal.Borefields.Data.Configuration.Example(
         borCon=Buildings.Fluid.Geothermal.Borefields.Types.BoreholeConfiguration.SingleUTube,
         mBor_flow_nominal=mGly_flow_nominal,
-        use_Rb=false,
-        use_TDepRConv=false,
-        X_a=X_aGly))
+        use_Rb=false))
     "Borefield data for fixed-property glycol case"
     annotation (Placement(transformation(extent={{-55.0,94.0},{-35.0,114.0}},rotation = 0.0,origin = {0.0,0.0})));
 
@@ -74,11 +68,7 @@ model InternalHEXOneUTubeTDepRConvThreeCases
       conDat=Buildings.Fluid.Geothermal.Borefields.Data.Configuration.Example(
         borCon=Buildings.Fluid.Geothermal.Borefields.Types.BoreholeConfiguration.SingleUTube,
         mBor_flow_nominal=mGly_flow_nominal,
-        use_Rb=false,
-        use_TDepRConv=true,
-        fluidPropertyEvaluation=
-          Buildings.Fluid.Geothermal.Borefields.Types.FluidPropertyEvaluation.PropyleneGlycolWater,
-        X_a=X_aGly))
+        use_Rb=false))
     "Borefield data for temperature-dependent glycol-correlation case"
     annotation (Placement(transformation(extent={{-25.0,94.0},{-5.0,114.0}},rotation = 0.0,origin = {0.0,0.0})));
 
@@ -93,7 +83,10 @@ model InternalHEXOneUTubeTDepRConvThreeCases
       m2_flow_nominal=borFieDatFixWat.conDat.mBor_flow_nominal,
       energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
       TFlu_start=293.15,
-      TGro_start=283.15)
+      TGro_start=283.15,
+      use_DarcyPressureDrop=false,
+      use_TDepPressureDrop=false,
+      use_TDepRConv=false)
     "Fixed-property water case"
     annotation (Placement(transformation(extent={{-10,50},{10,70}})));
 
@@ -108,7 +101,10 @@ model InternalHEXOneUTubeTDepRConvThreeCases
       m2_flow_nominal=borFieDatWat.conDat.mBor_flow_nominal,
       energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
       TFlu_start=293.15,
-      TGro_start=283.15)
+      TGro_start=283.15,
+      use_DarcyPressureDrop=false,
+      use_TDepPressureDrop=false,
+      use_TDepRConv=true)
     "Water medium with local temperature-dependent water correlations"
     annotation (Placement(transformation(extent={{-10,10},{10,30}})));
 
@@ -123,7 +119,10 @@ model InternalHEXOneUTubeTDepRConvThreeCases
       m2_flow_nominal=borFieDatFixGly.conDat.mBor_flow_nominal,
       energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
       TFlu_start=293.15,
-      TGro_start=283.15)
+      TGro_start=283.15,
+      use_DarcyPressureDrop=false,
+      use_TDepPressureDrop=false,
+      use_TDepRConv=false)
     "Fixed-property glycol case"
     annotation (Placement(transformation(extent={{-10,-30},{10,-10}})));
 
@@ -138,7 +137,10 @@ model InternalHEXOneUTubeTDepRConvThreeCases
       m2_flow_nominal=borFieDatGly.conDat.mBor_flow_nominal,
       energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
       TFlu_start=293.15,
-      TGro_start=283.15)
+      TGro_start=283.15,
+      use_DarcyPressureDrop=false,
+      use_TDepPressureDrop=false,
+      use_TDepRConv=true)
     "Glycol medium with local temperature-dependent glycol correlations"
     annotation (Placement(transformation(extent={{-10,-70},{10,-50}})));
 
@@ -355,8 +357,14 @@ resistance supplied to the convective resistors.
 The water and glycol mass flow rates are selected so that the local Reynolds
 numbers cross flow-regime boundaries when temperature-dependent fluid properties
 are used. This makes the effect of temperature-dependent viscosity on the
-convection resistance visible. The glycol mass fraction can be adjusted with
-<code>X_aGly</code>.
+convection resistance visible. 
+</p>
+<p>
+Temperature-dependent pipe convection resistance is enabled by setting
+<code>use_TDepRConv=true</code> on the internal heat exchanger instances.
+The fluid type and glycol mass fraction are derived from the redeclared
+<code>Medium</code>. The glycol mass fraction can be adjusted with
+<code>X_aGly</code>, which is used only in the glycol medium redeclaration.
 </p>
 </html>", revisions="<html>
 <ul>

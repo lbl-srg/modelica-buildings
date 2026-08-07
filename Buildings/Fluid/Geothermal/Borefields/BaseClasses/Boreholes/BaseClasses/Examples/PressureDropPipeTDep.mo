@@ -71,7 +71,6 @@ model PressureDropPipeTDep
       rTub=rTub,
       eTub=eTub,
       roughness=roughness,
-      X_a=X_aGly,
       rhoMed_default=MediumWat.density(staWatDef),
       muMed_default=MediumWat.dynamicViscosity(staWatDef))
     "Fixed-property water pressure drop"
@@ -83,13 +82,10 @@ model PressureDropPipeTDep
       m_flow_nominal=m_flow_nominal,
       computePressureDrop=true,
       use_TDepPressureDrop=true,
-      fluidPropertyEvaluation=
-        Buildings.Fluid.Geothermal.Borefields.Types.FluidPropertyEvaluation.Water,
       length=length,
       rTub=rTub,
       eTub=eTub,
       roughness=roughness,
-      X_a=X_aGly,
       rhoMed_default=MediumWat.density(staWatDef),
       muMed_default=MediumWat.dynamicViscosity(staWatDef))
     "Temperature-dependent water pressure drop"
@@ -105,7 +101,6 @@ model PressureDropPipeTDep
       rTub=rTub,
       eTub=eTub,
       roughness=roughness,
-      X_a=X_aGly,
       rhoMed_default=MediumGly.density(staGlyDef),
       muMed_default=MediumGly.dynamicViscosity(staGlyDef))
     "Fixed-property glycol pressure drop"
@@ -117,9 +112,6 @@ model PressureDropPipeTDep
       m_flow_nominal=m_flow_nominal,
       computePressureDrop=true,
       use_TDepPressureDrop=true,
-      fluidPropertyEvaluation=
-        Buildings.Fluid.Geothermal.Borefields.Types.FluidPropertyEvaluation.PropyleneGlycolWater,
-      X_a=X_aGly,
       length=length,
       rTub=rTub,
       eTub=eTub,
@@ -270,6 +262,13 @@ for density and dynamic viscosity.
 The mass flow rate is constant and the inlet temperature is varied
 sinusoidally. The model verifies that only the temperature-dependent cases
 change pressure drop due to the fluid-property evaluation.
+</p>
+<p>
+The temperature-dependent pressure-drop cases are enabled by setting
+<code>use_TDepPressureDrop=true</code> on the pressure-drop components.
+The fluid type and glycol mass fraction are derived from the redeclared
+<code>Medium</code>. The glycol mass fraction can be adjusted with
+<code>X_aGly</code>, which is used only in the glycol medium redeclaration.
 </p>
 </html>", revisions="<html>
 <ul>

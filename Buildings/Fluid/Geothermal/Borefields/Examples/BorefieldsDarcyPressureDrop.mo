@@ -2,18 +2,12 @@ within Buildings.Fluid.Geothermal.Borefields.Examples;
 model BorefieldsDarcyPressureDrop
   "Validation model for Darcy-Weisbach pressure drop in borefields"
   extends Buildings.Fluid.Geothermal.Borefields.Examples.Borefields(
-    borFieUTubDat(
-      conDat=Buildings.Fluid.Geothermal.Borefields.Data.Configuration.Example(
-        borCon=Buildings.Fluid.Geothermal.Borefields.Types.BoreholeConfiguration.SingleUTube,
-        use_DarcyPressureDrop=true)),
-    borFie2UTubParDat(
-      conDat=Buildings.Fluid.Geothermal.Borefields.Data.Configuration.Example(
-        borCon=Buildings.Fluid.Geothermal.Borefields.Types.BoreholeConfiguration.DoubleUTubeParallel,
-        use_DarcyPressureDrop=true)),
-    borFie2UTubSerDat(
-      conDat=Buildings.Fluid.Geothermal.Borefields.Data.Configuration.Example(
-        borCon=Buildings.Fluid.Geothermal.Borefields.Types.BoreholeConfiguration.DoubleUTubeSeries,
-        use_DarcyPressureDrop=true)));
+    borFieUTub(
+      use_DarcyPressureDrop=true),
+    borFie2UTubPar(
+      use_DarcyPressureDrop=true),
+    borFie2UTubSer(
+      use_DarcyPressureDrop=true));
 
   annotation (
     __Dymola_Commands(file=
@@ -26,6 +20,12 @@ This validation model extends
 Buildings.Fluid.Geothermal.Borefields.Examples.Borefields</a>
 and enables the Darcy-Weisbach pressure-drop calculation for all borefield
 configurations.
+</p>
+<p>
+The Darcy-Weisbach pressure-drop calculation is enabled by setting
+<code>use_DarcyPressureDrop=true</code> on each borefield model instance.
+The borefield configuration data records are only used for geometry, nominal
+conditions, and borefield data.
 </p>
 <p>
 The model compares three borefield configurations:
@@ -61,6 +61,13 @@ both U-tube circuits in series.
 </html>",
 revisions="<html>
 <ul>
+<li>
+July 2026, by Lone Meertens:<br/>
+Moved the Darcy-Weisbach pressure-drop option from the borefield configuration
+data records to the borefield model instances.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4656\">Buildings, #4656</a>.
+</li>
 <li>
 July 2026, by Lone Meertens:<br/>
 First implementation for validating Darcy-Weisbach pressure drop in borefields

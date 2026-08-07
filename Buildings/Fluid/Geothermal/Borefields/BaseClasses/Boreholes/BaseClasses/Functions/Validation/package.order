@@ -1,6 +1,4 @@
 ConvectionResistancePipe
-FluidDensityViscosity_T
-FluidProperties_T
 InternalResistancesOneUTube
 InternalResistancesOneUTubeNegative
 InternalResistancesTwoUTube
