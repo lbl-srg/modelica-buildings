@@ -73,7 +73,7 @@ equation
 
   annotation (
     __Dymola_Commands(file=
-      "modelica://Buildings/Resources/Scripts/Dymola/Fluid/Geothermal/Borefields/BaseClasses/Boreholes/BaseClasses/Functions/Validation/PressureLossCircularPipe.mos"
+      "modelica://Buildings/Resources/Scripts/Dymola/Fluid/FixedResistances/Functions/Validation/PressureLossCircularPipe.mos"
       "Simulate and plot"),
     experiment(
       StopTime=10000.0,
@@ -81,8 +81,8 @@ equation
     Documentation(info="<html>
 <p>
 This validation model evaluates
-<a href=\"modelica://Buildings.Fluid.Geothermal.Borefields.BaseClasses.Boreholes.BaseClasses.Functions.pressureLossCircularPipe\">
-Buildings.Fluid.Geothermal.Borefields.BaseClasses.Boreholes.BaseClasses.Functions.pressureLossCircularPipe</a>
+<a href=\"modelica://Buildings.Fluid.FixedResistances.Functions.pressureLossPipe\">
+Buildings.Fluid.FixedResistances.Functions.pressureLossPipe</a>
 for Reynolds numbers between 0 and 10000.
 </p>
 
@@ -107,8 +107,8 @@ Reynolds number.
 
 <p>
 The pressure-loss equations are documented in
-<a href=\"modelica://Buildings.Fluid.Geothermal.Borefields.BaseClasses.Boreholes.BaseClasses.Functions.pressureLossCircularPipe\">
-Buildings.Fluid.Geothermal.Borefields.BaseClasses.Boreholes.BaseClasses.Functions.pressureLossCircularPipe</a>.
+<a href=\"modelica://Buildings.Fluid.FixedResistances.Functions.pressureLossPipe\">
+Buildings.Fluid.FixedResistances.Functions.pressureLossPipe</a>.
 </p>
 </html>",
 revisions="<html>
