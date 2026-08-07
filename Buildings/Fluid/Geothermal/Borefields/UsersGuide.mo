@@ -55,11 +55,13 @@ The thermal response of the ground heat transfer is stored locally to avoid
 having to recalculate it for future simulations with the same borefield configuration.
 </li>
 <li>
-Pressure losses are calculated if the <code>dp_nominal</code> parameter is set to a non-zero value.
-Alternatively, the vertical ground heat exchanger pipes can
-be modeled with a detailed Darcy-Weisbach pressure-drop calculation. The detailed
+Pressure losses are calculated with the nominal pressure-drop formulation if
+the <code>dp_nominal</code> parameter in the configuration data record is set
+to a non-zero value. Alternatively, the vertical ground heat exchanger pipes can
+be modeled with a detailed Darcy-Weisbach pressure-drop calculation by setting
+the model-level parameter <code>use_DarcyPressureDrop=true</code>. The detailed
 pressure-drop calculation can optionally use temperature-dependent density and
-viscosity.
+viscosity by setting <code>use_TDepPressureDrop=true</code>.
 </li>
 </ul>
 
@@ -105,14 +107,6 @@ borefield model is chosen, the <code>borCon</code> parameter could be set
 to both a parallel double U-tube configuration and a double U-tube configuration in series,
 but could not be set to a single U-tube configuration. An incompatible borehole
 configuration will stop the simulation.
-</p>
-<p>
-The <code>conDat</code> subrecord also contains the fluid composition parameter
-<code>X_a</code>. The default value <code>X_a = 0</code> corresponds to pure
-water. For glycol mixtures, <code>X_a</code> should be set consistently with
-the redeclared medium. The borefield models check that the configuration data
-are consistent with the selected medium to avoid using glycol-related property
-calculations with inconsistent fluid-composition data.
 </p>
 
 <h5>Ground heat transfer parameters</h5>
@@ -161,11 +155,35 @@ Further information on this discretization can be found in the &#34;Model descri
 </p>
 <p>
 The pipe convection resistance can be evaluated using either nominal fluid
-properties or temperature-dependent fluid properties. The parameter
+properties or temperature-dependent fluid properties. The model-level parameter
 <code>use_TDepRConv</code> enables the temperature-dependent formulation.
 This option is particularly useful for fluids whose viscosity and thermal
 properties vary significantly over the operating temperature range, for example
-water-glycol mixtures. The convection resistance is calculated in
+water-glycol mixtures.
+</p>
+<p>
+When <code>use_TDepRConv=true</code>, the fluid type and, for glycol-water
+media, the glycol mass fraction are derived from the redeclared
+<code>Medium</code>. The supported media for temperature-dependent property
+evaluation are
+</p>
+<ul>
+<li>
+<code>Buildings.Media.Water</code>,
+</li>
+<li>
+<code>Buildings.Media.Antifreeze.EthyleneGlycolWater</code>,
+</li>
+<li>
+<code>Buildings.Media.Antifreeze.PropyleneGlycolWater</code>.
+</li>
+</ul>
+<p>
+If temperature-dependent property evaluation is disabled, the borefield model
+can still be used with any compatible medium.
+</p>
+<p>
+The convection resistance is calculated in
 <a href=\"modelica://Buildings.Fluid.Geothermal.Borefields.BaseClasses.Boreholes.BaseClasses.Functions.convectionResistancePipe\">
 Buildings.Fluid.Geothermal.Borefields.BaseClasses.Boreholes.BaseClasses.Functions.convectionResistancePipe</a>,
 which also exposes the Reynolds number used in the calculation. The friction
@@ -175,18 +193,27 @@ Buildings.Fluid.FixedResistances.Functions.churchillFrictionFactor</a>.
 </p>
 <p>
 Pressure losses can be represented using the nominal pressure-drop formulation,
-which is enabled by setting <code>dp_nominal</code> to a non-zero value.
-Alternatively, the parameter <code>use_DarcyPressureDrop</code> enables a
-detailed Darcy-Weisbach pressure-drop calculation for the vertical ground heat
-exchanger pipes. This calculation is implemented in
+which is enabled by setting <code>dp_nominal</code> to a non-zero value in the
+configuration data record. Alternatively, the model-level parameter
+<code>use_DarcyPressureDrop</code> enables a detailed Darcy-Weisbach
+pressure-drop calculation for the vertical ground heat exchanger pipes. This
+calculation is implemented in
 <a href=\"modelica://Buildings.Fluid.Geothermal.Borefields.BaseClasses.Boreholes.BaseClasses.PressureDropPipeDarcy\">
 Buildings.Fluid.Geothermal.Borefields.BaseClasses.Boreholes.BaseClasses.PressureDropPipeDarcy</a>.
-If this detailed pressure-drop calculation is used, the parameter
+</p>
+<p>
+If the detailed pressure-drop calculation is used, the model-level parameter
 <code>use_TDepPressureDrop</code> can be enabled to evaluate density and
-viscosity at the local fluid temperature. The pressure-drop formulation uses
+viscosity at the local fluid temperature. As for temperature-dependent
+convection resistance, the fluid type and glycol mass fraction are derived from
+the redeclared <code>Medium</code>.
+</p>
+<p>
+The pressure-drop formulation uses
 <a href=\"modelica://Buildings.Fluid.FixedResistances.Functions.churchillFrictionFactorRe2\">
 Buildings.Fluid.FixedResistances.Functions.churchillFrictionFactorRe2</a>.
 </p>
+
 <p>
 The detailed pressure-drop calculation is evaluated by segment, consistent with
 the segment-wise heat-transfer calculation. This allows the pressure-drop

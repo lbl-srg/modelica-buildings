@@ -54,11 +54,13 @@ The thermal response of the ground heat transfer is stored locally to avoid
 having to recalculate it for future simulations with the same borefield configuration.
 </li>
 <li>
-Pressure losses are calculated if the <code>dp_nominal</code> parameter is set
+Pressure losses are calculated with the nominal pressure-drop formulation if
+the <code>dp_nominal</code> parameter in the configuration data record is set
 to a non-zero value. Alternatively, the vertical ground heat exchanger pipes can
-be modeled with a detailed Darcy-Weisbach pressure-drop calculation. The detailed
+be modeled with a detailed Darcy-Weisbach pressure-drop calculation by setting
+the model-level parameter <code>use_DarcyPressureDrop=true</code>. The detailed
 pressure-drop calculation can optionally use temperature-dependent density and
-viscosity.
+viscosity by setting <code>use_TDepPressureDrop=true</code>.
 </li>
 </ul>
 
@@ -103,13 +105,6 @@ borefield model is chosen, the <code>borCon</code> parameter could be set
 to both a parallel double U-tube configuration and a double U-tube configuration in series,
 but could not be set to a single U-tube configuration. An incompatible borehole
 configuration will stop the simulation.
-</p>
-<p>
-The <code>conDat</code> subrecord also contains the fluid composition parameter
-<code>X_a</code>. The default value <code>X_a = 0</code> corresponds to pure
-water. For glycol mixtures, <code>X_a</code> should be set consistently with
-the redeclared medium. This is particularly relevant when temperature-dependent
-fluid-property calculations are enabled.
 </p>
 
 
@@ -158,18 +153,46 @@ of the borehole(s).
 Further information on this discretization can be found in the &#34;Model description&#34; section below.
 </p>
 <p>
-The zoned borefield models use the same internal borehole heat exchanger
-base classes as the borefield models. Therefore, the same options are available
-for temperature-dependent pipe convection resistance and detailed pressure-drop
+The zoned borefield models use the same internal borehole heat exchanger base
+classes as the borefield models. Therefore, the same options are available for
+temperature-dependent pipe convection resistance and detailed pressure-drop
 calculation.
 </p>
 <p>
-The parameter <code>use_TDepRConv</code> enables temperature-dependent pipe
-convection resistance. The parameter <code>use_DarcyPressureDrop</code> enables
-a detailed Darcy-Weisbach pressure-drop calculation for the vertical ground heat
-exchanger pipes. If the detailed pressure-drop calculation is used, the
-parameter <code>use_TDepPressureDrop</code> enables temperature-dependent
-density and viscosity in the pressure-drop calculation.
+The model-level parameter <code>use_TDepRConv</code> enables
+temperature-dependent pipe convection resistance. The model-level parameter
+<code>use_DarcyPressureDrop</code> enables a detailed Darcy-Weisbach
+pressure-drop calculation for the vertical ground heat exchanger pipes. If the
+detailed pressure-drop calculation is used, the model-level parameter
+<code>use_TDepPressureDrop</code> enables temperature-dependent density and
+viscosity in the pressure-drop calculation.
+</p>
+<p>
+These options are set on the zoned borefield model instance and are propagated
+to the representative borehole model of each zone. They are not set in the
+configuration data record.
+</p>
+<p>
+When <code>use_TDepRConv=true</code> or
+<code>use_TDepPressureDrop=true</code>, the fluid type and, for glycol-water
+media, the glycol mass fraction are derived from the redeclared
+<code>Medium</code>. The supported media for temperature-dependent property
+evaluation are
+</p>
+<ul>
+<li>
+<code>Buildings.Media.Water</code>,
+</li>
+<li>
+<code>Buildings.Media.Antifreeze.EthyleneGlycolWater</code>,
+</li>
+<li>
+<code>Buildings.Media.Antifreeze.PropyleneGlycolWater</code>.
+</li>
+</ul>
+<p>
+If temperature-dependent property evaluation is disabled, the zoned borefield
+model can still be used with any compatible medium.
 </p>
 <p>
 These options are particularly relevant for zoned borefield simulations because
