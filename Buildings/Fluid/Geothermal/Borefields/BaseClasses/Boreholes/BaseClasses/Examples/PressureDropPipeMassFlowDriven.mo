@@ -106,7 +106,7 @@ equation
   m_flowSet = mFlo.y;
 
   (dpFun, dpFunMajor, dpFunMinor, ReFun) =
-    .Buildings.Fluid.Geothermal.Borefields.BaseClasses.Boreholes.BaseClasses.Functions.pressureLossPipe(
+    .Buildings.Fluid.FixedResistances.Functions.pressureLossPipe(
       length=length,
       rTub=rTub,
       eTub=eTub,
@@ -117,7 +117,7 @@ equation
       kMinor=kMinor);
 
   (dpFunNoMinor, dpFunNoMinorMajor, dpFunNoMinorMinor, ReFunNoMinor) =
-    .Buildings.Fluid.Geothermal.Borefields.BaseClasses.Boreholes.BaseClasses.Functions.pressureLossPipe(
+    .Buildings.Fluid.FixedResistances.Functions.pressureLossPipe(
       length=length,
       rTub=rTub,
       eTub=eTub,

@@ -147,7 +147,7 @@ equation
 
   if computePressureDrop then
     (dp, dpMajor, dpMinor, Re) =
-      Buildings.Fluid.Geothermal.Borefields.BaseClasses.Boreholes.BaseClasses.Functions.pressureLossPipe(
+      .Buildings.Fluid.FixedResistances.Functions.pressureLossPipe(
         length=length,
         rTub=rTub,
         eTub=eTub,

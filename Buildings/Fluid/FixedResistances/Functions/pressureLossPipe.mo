@@ -1,49 +1,49 @@
-within Buildings.Fluid.Geothermal.Borefields.BaseClasses.Boreholes.BaseClasses.Functions;
+within Buildings.Fluid.FixedResistances.Functions;
 function pressureLossPipe
   "Pressure loss of a circular pipe using Darcy-Weisbach friction factor"
-  extends Modelica.Icons.Function;
+  extends .Modelica.Icons.Function;
 
-  input Modelica.Units.SI.Length length
+  input .Modelica.Units.SI.Length length
     "Pipe length";
-  input Modelica.Units.SI.Radius rTub
+  input .Modelica.Units.SI.Radius rTub
     "Outer tube radius";
-  input Modelica.Units.SI.Length eTub
+  input .Modelica.Units.SI.Length eTub
     "Tube wall thickness";
-  input Modelica.Units.SI.Length roughness = 0.001e-3
+  input .Modelica.Units.SI.Length roughness = 0.001e-3
     "Absolute pipe wall roughness";
-  input Modelica.Units.SI.Density rhoMed
+  input .Modelica.Units.SI.Density rhoMed
     "Fluid density";
-  input Modelica.Units.SI.DynamicViscosity muMed
+  input .Modelica.Units.SI.DynamicViscosity muMed
     "Fluid dynamic viscosity";
-  input Modelica.Units.SI.MassFlowRate m_flow
+  input .Modelica.Units.SI.MassFlowRate m_flow
     "Mass flow rate";
   input Real kMinor(unit="1", min=0) = 0
     "Sum of minor-loss coefficients";
-  input Modelica.Units.SI.MassFlowRate m_flow_small(min=Modelica.Constants.eps) = 1e-4
+  input .Modelica.Units.SI.MassFlowRate m_flow_small(min=.Modelica.Constants.eps) = 1e-4
     "Small mass flow rate for regularization";
-  output Modelica.Units.SI.PressureDifference dp
+  output .Modelica.Units.SI.PressureDifference dp
     "Pressure drop";
-  output Modelica.Units.SI.PressureDifference dpMajor
+  output .Modelica.Units.SI.PressureDifference dpMajor
     "Major Darcy-Weisbach pressure drop";
-  output Modelica.Units.SI.PressureDifference dpMinor
+  output .Modelica.Units.SI.PressureDifference dpMinor
     "Minor pressure drop";
-  output Modelica.Units.SI.ReynoldsNumber Re
+  output .Modelica.Units.SI.ReynoldsNumber Re
     "Reynolds number";
 
 
 protected
-  Modelica.Units.SI.Radius rTub_in = rTub - eTub
+  .Modelica.Units.SI.Radius rTub_in = rTub - eTub
     "Inner tube radius";
-  Modelica.Units.SI.Diameter diameter = 2*rTub_in
+  .Modelica.Units.SI.Diameter diameter = 2*rTub_in
     "Inner tube diameter";
-  Modelica.Units.SI.Area crossArea =
-    Modelica.Constants.pi*rTub_in^2
+  .Modelica.Units.SI.Area crossArea =
+    .Modelica.Constants.pi*rTub_in^2
     "Inner cross-sectional area";
   Real eps_D = roughness/diameter
     "Relative roughness";
   Real lambda2
     "Modified friction coefficient, lambda*Re^2";
-  Modelica.Units.SI.MassFlowRate m_flow_abs
+  .Modelica.Units.SI.MassFlowRate m_flow_abs
     "Regularized absolute mass flow rate";
   Real s(unit="1")
     "Regularized sign of mass flow rate";
@@ -67,7 +67,7 @@ algorithm
   Re := diameter*m_flow_abs/(crossArea*muMed);
 
   lambda2 :=
-    Buildings.Fluid.FixedResistances.Functions.churchillFrictionFactorRe2(
+    .Buildings.Fluid.FixedResistances.Functions.churchillFrictionFactorRe2(
       Re=Re,
       eps_D=eps_D);
 
