@@ -102,18 +102,18 @@ Outside the turbulent region, the two models give the same result.
 However, inside the turbulent region, the results differ slightly because
 <a href=\"modelica://Buildings.Fluid.BaseClasses.FlowModels.powerLaw_dp\">
 Buildings.Fluid.BaseClasses.FlowModels.powerLaw_dp</a>
-uses a 5th order polynominal to ensure C2 continuity, while
+uses a 5th order polynomial to ensure C2 continuity, while
 <a href=\"modelica://Buildings.Airflow.Multizone.BaseClasses.powerLawFixedM\">
 Buildings.Airflow.Multizone.BaseClasses.powerLawFixedM</a>
 uses a 7th order polynomial.
-
-
 </p>
 </html>", revisions="<html>
 <ul>
 <li>
-December 19, 2025, by Michael Wetter:<br/>
-First implementation.
+May 30, 2026, by Michael Wetter:<br/>
+First implementation.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4620\">Buildings, #4620</a>.
 </li>
 </ul>
 </html>"));

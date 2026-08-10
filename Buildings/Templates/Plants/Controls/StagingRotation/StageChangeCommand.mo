@@ -143,15 +143,15 @@ block StageChangeCommand
     annotation(Placement(transformation(extent={{70,170},{90,190}})));
   Buildings.Controls.OBC.CDL.Reals.Greater gre(h=1E-4 * min(capEqu))
     "Compare OPLR to SPLR (hysteresis is to avoid chattering with some simulators)"
-    annotation(Placement(transformation(extent={{-90,-150},{-70,-130}})));
-  Buildings.Templates.Plants.Controls.Utilities.TimerWithReset timUp(
+    annotation (Placement(transformation(extent={{-90,-110},{-70,-90}})));
+  Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Generic.TimerWithReset timUp(
     final t=dtRun)
     "Timer"
     annotation(Placement(transformation(extent={{-50,-150},{-30,-130}})));
   Buildings.Controls.OBC.CDL.Reals.Less les(h=1E-4 * min(capEqu))
     "Compare OPLR to SPLR (hysteresis is to avoid chattering with some simulators)"
-    annotation(Placement(transformation(extent={{-90,-190},{-70,-170}})));
-  Buildings.Templates.Plants.Controls.Utilities.TimerWithReset timDow(
+    annotation (Placement(transformation(extent={{-90,-150},{-70,-130}})));
+  Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Generic.TimerWithReset timDow(
     final t=dtRun)
     "Timer"
     annotation(Placement(transformation(extent={{-50,-190},{-30,-170}})));
