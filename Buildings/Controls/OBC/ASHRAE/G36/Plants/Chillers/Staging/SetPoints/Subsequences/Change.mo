@@ -4,7 +4,7 @@ block Change "Calculates the chiller stage signal"
   parameter Integer nSta = 3
     "Number of chiller stages, does not include zero stage";
 
-  parameter Real delayStaCha(
+  parameter Real delStaCha(
     final unit="s",
     final quantity="Time",
     displayUnit="h")=900
@@ -25,9 +25,7 @@ block Change "Calculates the chiller stage signal"
     annotation (Placement(transformation(extent={{-480,-160},{-440,-120}}),
         iconTransformation(extent={{-140,-80},{-100,-40}})));
 
-  Buildings.Controls.OBC.CDL.Interfaces.IntegerInput uIni(
-    final min=0,
-    final max=nSta)
+  Buildings.Controls.OBC.CDL.Interfaces.IntegerInput uIni
     "Initial chiller stage (at plant enable)"
     annotation (Placement(transformation(extent={{-480,220},{-440,260}}),
         iconTransformation(extent={{-140,80},{-100,120}})));
@@ -61,9 +59,7 @@ block Change "Calculates the chiller stage signal"
     annotation (Placement(transformation(extent={{440,-142},{480,-102}}),
         iconTransformation(extent={{100,-100},{140,-60}})));
 
-  Buildings.Controls.OBC.CDL.Interfaces.IntegerOutput ySta(
-    final min=0,
-    final max = nSta)
+  Buildings.Controls.OBC.CDL.Interfaces.IntegerOutput ySta
     "Chiller stage integer setpoint"
     annotation (Placement(transformation(extent={{440,150},{480,190}}),
         iconTransformation(extent={{100,20},{140,60}})));
@@ -96,7 +92,7 @@ protected
     annotation (Placement(transformation(extent={{-40,230},{-20,250}})));
 
   Buildings.Controls.OBC.CDL.Logical.TrueFalseHold holIniSta(
-    final trueHoldDuration=delayStaCha,
+    final trueHoldDuration=delStaCha,
     final falseHoldDuration=0)
     "Holds stage switched to initial upon plant start"
     annotation (Placement(transformation(extent={{-320,160},{-300,180}})));
@@ -114,18 +110,20 @@ protected
   Buildings.Controls.OBC.CDL.Logical.Timer tim "Timer"
     annotation (Placement(transformation(extent={{-80,-240},{-60,-220}})));
 
-  Buildings.Controls.OBC.CDL.Logical.And and1 "Logical andEnsures the stage is changed at high load increases/decreases where a stage up or a stage down signal is uninterrupted after a single stage change as an another one is needed right away"
+  Buildings.Controls.OBC.CDL.Logical.And and1
+    "Logical andEnsures the stage is changed at high load increases/decreases where a stage up or a stage down signal is uninterrupted after a single stage change as an another one is needed right away"
     annotation (Placement(transformation(extent={{-140,-200},{-120,-180}})));
 
   Buildings.Controls.OBC.CDL.Reals.LessThreshold lesEquThr(
-    final t=delayStaCha) "Less equal threshold"
+    final t=delStaCha) "Less equal threshold"
     annotation (Placement(transformation(extent={{-40,-240},{-20,-220}})));
 
   Buildings.Controls.OBC.CDL.Discrete.TriggeredSampler triSam1
     "Triggered sampler"
     annotation (Placement(transformation(extent={{180,0},{200,20}})));
 
-  Buildings.Controls.OBC.CDL.Conversions.BooleanToReal booToRea "Type conveter"
+  Buildings.Controls.OBC.CDL.Conversions.BooleanToReal booToRea
+    "Type conveter"
     annotation (Placement(transformation(extent={{60,0},{80,20}})));
 
   Buildings.Controls.OBC.CDL.Reals.GreaterThreshold greThr1(
@@ -140,7 +138,7 @@ protected
     annotation (Placement(transformation(extent={{40,110},{60,130}})));
 
   Buildings.Controls.OBC.CDL.Logical.TrueFalseHold staChaHol1(
-    final trueHoldDuration=delayStaCha,
+    final trueHoldDuration=delStaCha,
     final falseHoldDuration=0)
     "Ensures stage change delay is kept at long stage up or down signals that cause multiple consecutive stage changes "
     annotation (Placement(transformation(extent={{-80,-180},{-60,-160}})));
@@ -163,13 +161,13 @@ protected
     annotation (Placement(transformation(extent={{-80,-30},{-60,-10}})));
 
   Buildings.Controls.OBC.CDL.Logical.TrueFalseHold staChaHol2(
-    final trueHoldDuration=delayStaCha,
+    final trueHoldDuration=delStaCha,
     final falseHoldDuration=0)
     "Stage change hold"
     annotation (Placement(transformation(extent={{80,-60},{100,-40}})));
 
   Buildings.Controls.OBC.CDL.Logical.TrueFalseHold staChaHol3(
-    final trueHoldDuration=delayStaCha,
+    final trueHoldDuration=delStaCha,
     final falseHoldDuration=0)
     "Stage change hold"
     annotation (Placement(transformation(extent={{340,-260},{360,-240}})));
@@ -395,7 +393,7 @@ equation
 Documentation(info="<html>
 <p>
 This subsequence is not directly specified in Guideline36 as it provides a side
-calculation pertaining to generalization of the staging sequences for any number
+calculation pertaining to the generalization of the staging sequences for any number
 of chillers and stages provided by the user.
 </p>
 <p>
@@ -444,16 +442,16 @@ subsequence
 If stage down and stage up happen at the same time for any faulty reason the staging down is performed.
 </p>
 <p>
-If stage down or stage up signal is held for a time longer than <code>delayStaCha</code>
+If stage down or stage up signal is held for a time longer than <code>delStaCha</code>
 multiple consecutive stage change signals are issued.
 </p>
 <p>
-At plant enable the intial stage <code>uIni</code> is held for at least <code>delayStaCha</code>
+At plant enable the intial stage <code>uIni</code> is held for at least <code>delStaCha</code>
 and until any stage up or down signal is generated.
 </p>
 <p>
-Per Guideline36-2021, section 5.20.4.15.a. Each stage shall have a minimum runtime
-of <code>delayStaCha</code>.
+Per Guideline 36-2021, section 5.20.4.15.a. Each stage shall have a minimum runtime
+of <code>delStaCha</code>.
 </p>
 </html>",
 revisions="<html>

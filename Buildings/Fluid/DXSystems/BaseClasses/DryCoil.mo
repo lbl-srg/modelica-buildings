@@ -49,9 +49,6 @@ First implementation.
         Text(
           extent={{-62,-18},{80,-54}},
           textColor={0,0,0},
-          lineThickness=0.5,
-          fillColor={85,170,255},
-          fillPattern=FillPattern.Solid,
           textString="Dry Coil"),
         Line(
           points={{-42,48},{-16,48}},

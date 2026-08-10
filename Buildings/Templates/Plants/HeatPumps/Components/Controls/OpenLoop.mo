@@ -9,13 +9,13 @@ block OpenLoop
       each displayUnit="degC"),
     each k=Buildings.Templates.Data.Defaults.THeaWatSupMed)
     "Heat pump HW supply temperature set point"
-    annotation (Placement(transformation(extent={{-80,330},{-100,350}})));
+    annotation (Placement(transformation(extent={{-140,330},{-160,350}})));
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant TChiWatSupSet[nHp](
     y(each final unit="K",
       each displayUnit="degC"),
     each k=Buildings.Templates.Data.Defaults.TChiWatSup)
     "Heat pump CHW supply temperature set point"
-    annotation (Placement(transformation(extent={{-80,290},{-100,310}})));
+    annotation (Placement(transformation(extent={{-140,290},{-160,310}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.TimeTable y1ValHeaWatHpInlIso[nHp](
     each table=[
       0, 0;
@@ -137,16 +137,6 @@ block OpenLoop
     if cfg.typPumChiWatSec <> Buildings.Templates.Plants.HeatPumps.Types.PumpsSecondary.None
     "Secondary CHW pump speed signal"
     annotation (Placement(transformation(extent={{-140,-250},{-160,-230}})));
-  Buildings.Controls.OBC.CDL.Reals.Switch TSet[nHp](
-    y(each final unit="K",
-      each displayUnit="degC"))
-    "Active supply temperature setpoint"
-    annotation (Placement(transformation(extent={{-140,310},{-160,330}})));
-  Buildings.Controls.OBC.CDL.Logical.Sources.Constant tru[nHp](
-    each final k=true)
-    if not cfg.is_rev
-    "Constant"
-    annotation (Placement(transformation(extent={{-80,250},{-100,270}})));
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant yPumHeaWatPriHdr(k=1)
     if cfg.have_heaWat and cfg.have_pumHeaWatPriVar and
       cfg.typArrPumPri==Buildings.Templates.Components.Types.PumpArrangement.Headered
@@ -184,18 +174,9 @@ equation
   connect(y1PumChiWatSec.y[1], busPumChiWatSec.y1);
   connect(y1Hp.y[1], busHp.y1);
   connect(y1HeaHp.y[1], busHp.y1Hea);
-  connect(TSet.y, busHp.TSet);
+  connect(TChiWatSupSet.y, busHp.TChiWatSet);
+  connect(THeaWatSupSet.y, busHp.THeaWatSet);
   /* Control point connection - stop */
-                                       connect(TChiWatSupSet.y, TSet.u3)
-    annotation (Line(points={{-102,300},{-120,300},{-120,312},{-138,312}},color={0,0,127}));
-  connect(THeaWatSupSet.y, TSet.u1)
-    annotation (Line(points={{-102,340},{-120,340},{-120,328},{-138,328}},color={0,0,127}));
-  connect(y1HeaHp.y[1], TSet.u2)
-    annotation (Line(points={{-202,300},{-210,300},{-210,280},{-130,280},{-130,
-          320},{-138,320}},
-      color={255,0,255}));
-  connect(tru.y, TSet.u2)
-    annotation (Line(points={{-102,260},{-130,260},{-130,320},{-138,320}},color={255,0,255}));
   annotation (
     defaultComponentName="ctl", Documentation(info="<html>
 <p>

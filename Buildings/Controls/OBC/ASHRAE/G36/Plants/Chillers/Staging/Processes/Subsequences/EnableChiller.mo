@@ -93,9 +93,6 @@ protected
     final nout=nChi)
     "Replicate boolean input"
     annotation (Placement(transformation(extent={{-60,-30},{-40,-10}})));
-  Buildings.Controls.OBC.CDL.Logical.Edge edg
-    "Rising edge, output true at the moment when input turns from false to true"
-    annotation (Placement(transformation(extent={{-100,-30},{-80,-10}})));
   Buildings.Controls.OBC.CDL.Routing.BooleanScalarReplicator booRep2(
     final nout=nChi)
     "Replicate boolean input"
@@ -141,7 +138,7 @@ equation
   connect(and2.y, booRep.u)
     annotation (Line(points={{-138,60},{-102,60}}, color={255,0,255}));
   connect(intEqu.y, and1.u1)
-    annotation (Line(points={{-78,120},{-42,120}},  color={255,0,255}));
+    annotation (Line(points={{-78,120},{-42,120}}, color={255,0,255}));
   connect(booRep.y, and1.u2)
     annotation (Line(points={{-78,60},{-60,60},{-60,112},{-42,112}},
       color={255,0,255}));
@@ -153,10 +150,8 @@ equation
     annotation (Line(points={{-220,0},{-162,0}}, color={255,0,255}));
   connect(booToRea.y, triSam.u)
     annotation (Line(points={{-138,0},{-22,0}}, color={0,0,127}));
-  connect(edg.y, booRep1.u)
-    annotation (Line(points={{-78,-20},{-62,-20}}, color={255,0,255}));
   connect(booRep1.y, triSam.trigger)
-    annotation (Line(points={{-38,-20},{-10,-20},{-10,-12}},   color={255,0,255}));
+    annotation (Line(points={{-38,-20},{-10,-20},{-10,-12}}, color={255,0,255}));
   connect(triSam.y, greEquThr.u)
     annotation (Line(points={{2,0},{18,0}}, color={0,0,127}));
   connect(and2.y, tim.u)
@@ -204,9 +199,6 @@ equation
   connect(intEqu1.y, and3.u2)
     annotation (Line(points={{-78,-150},{20,-150},{20,-118},{38,-118}},
       color={255,0,255}));
-  connect(uStaUp, edg.u)
-    annotation (Line(points={{-220,60},{-190,60},{-190,-20},{-102,-20}},
-      color={255,0,255}));
   connect(uStaUp, booRep4.u)
     annotation (Line(points={{-220,60},{-190,60},{-190,40},{-42,40}},
       color={255,0,255}));
@@ -237,7 +229,8 @@ equation
   connect(tim.passed, logSwi4.u3)
     annotation (Line(points={{-78,-118},{-40,-118},{-40,-178},{158,-178}},
       color={255,0,255}));
-
+  connect(uStaUp, booRep1.u) annotation (Line(points={{-220,60},{-190,60},{-190,
+          -20},{-62,-20}}, color={255,0,255}));
 annotation (
   defaultComponentName="enaChi",
   Icon(coordinateSystem(preserveAspectRatio=false), graphics={
@@ -272,42 +265,34 @@ annotation (
         Text(
           extent={{-98,96},{-50,84}},
           textColor={255,127,0},
-          pattern=LinePattern.Dash,
           textString="nexEnaChi"),
         Text(
           extent={{-98,-84},{-50,-96}},
           textColor={255,127,0},
-          pattern=LinePattern.Dash,
           textString="nexDisChi"),
         Text(
           extent={{-100,66},{-68,56}},
           textColor={255,0,255},
-          pattern=LinePattern.Dash,
           textString="uStaUp"),
         Text(
           extent={{-98,26},{-34,14}},
           textColor={255,0,255},
-          pattern=LinePattern.Dash,
           textString="uEnaChiWatIsoVal"),
         Text(
           extent={{-100,-14},{-78,-24}},
           textColor={255,0,255},
-          pattern=LinePattern.Dash,
           textString="uChi"),
         Text(
           extent={{-98,-54},{-72,-66}},
           textColor={255,0,255},
-          pattern=LinePattern.Dash,
           textString="uOnOff"),
         Text(
           extent={{74,86},{100,76}},
           textColor={255,0,255},
-          pattern=LinePattern.Dash,
           textString="yChi"),
         Text(
           extent={{60,-72},{98,-84}},
           textColor={255,0,255},
-          pattern=LinePattern.Dash,
           textString="yNewChiEna")}),                            Diagram(
         coordinateSystem(preserveAspectRatio=false, extent={{-200,-180},{200,180}}),
         graphics={
@@ -323,65 +308,47 @@ annotation (
           pattern=LinePattern.None),
           Text(
           extent={{14,174},{94,166}},
-          pattern=LinePattern.None,
-          fillColor={210,210,210},
-          fillPattern=FillPattern.Solid,
           textColor={0,0,127},
           horizontalAlignment=TextAlignment.Right,
           textString="Output new chiller status array:"),
           Text(
           extent={{40,-72},{120,-88}},
-          pattern=LinePattern.None,
-          fillColor={210,210,210},
-          fillPattern=FillPattern.Solid,
           textColor={0,0,127},
           horizontalAlignment=TextAlignment.Right,
           textString="Disable 
 small chiller"),
           Text(
           extent={{16,168},{208,148}},
-          pattern=LinePattern.None,
-          fillColor={210,210,210},
-          fillPattern=FillPattern.Solid,
           textColor={0,0,127},
           horizontalAlignment=TextAlignment.Left,
           textString=
               "1. When the stage change does not require one chiller off and another chiller on."),
           Text(
           extent={{16,154},{208,136}},
-          pattern=LinePattern.None,
-          fillColor={210,210,210},
-          fillPattern=FillPattern.Solid,
           textColor={0,0,127},
           horizontalAlignment=TextAlignment.Left,
           textString="2. When the stage change does require one chiller off and another chiller on, 
 but the enabled chiller has not yet finished starting."),
           Text(
           extent={{-24,-132},{56,-140}},
-          pattern=LinePattern.None,
-          fillColor={210,210,210},
-          fillPattern=FillPattern.Solid,
           textColor={0,0,127},
           horizontalAlignment=TextAlignment.Right,
           textString="Output new chiller status array:"),
           Text(
           extent={{-20,-142},{152,-158}},
-          pattern=LinePattern.None,
-          fillColor={210,210,210},
-          fillPattern=FillPattern.Solid,
           textColor={0,0,127},
           horizontalAlignment=TextAlignment.Left,
           textString="When the stage change does require one chiller off
 and another chiller on, and the enabled chiller has finished starting.")}),
 Documentation(info="<html>
 <p>
-Block that controlles chiller when there is staging up command <code>uStaUp=true</code>.
-This implementation is based on ASHRAE Guideline36-2021, section 5.20.4.16,
+Block that controlls chiller when there is a staging up command <code>uStaUp=true</code>.
+This implementation is based on ASHRAE Guideline 36-2021, section 5.20.4.16,
 item f and item g.1. These sections specify when the next chiller should be enabled
-and when the running smaller chiller should be diabled.
+and when the running smaller chiller should be disabled.
 </p>
 <p>
-When the stage-up process does not requires a smaller chiller being staged off and
+When the stage-up process does not require a smaller chiller being staged off and
 a larger chiller being staged on (<code>uOnOff=false</code>):
 </p>
 <ul>
@@ -391,7 +358,7 @@ Start the next stage chiller after the chilled water isolation valve is fully op
 </li>
 </ul>
 <p>
-For any stage change during which a smaller chiller is diabled and a larger chiller
+For any stage change during which a smaller chiller is disabled and a larger chiller
 is enabled (<code>uOnOff=true</code>):
 </p>
 <ul>

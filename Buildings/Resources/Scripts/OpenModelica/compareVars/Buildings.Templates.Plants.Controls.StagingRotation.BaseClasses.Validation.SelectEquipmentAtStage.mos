@@ -1,0 +1,16 @@
+compareVars :=
+  {
+    "idxSta.y[1]",
+    "selEquSta.u1Ava[1]",
+    "selEquSta.u1Ava[2]",
+    "selEquSta.u1Ava[3]",
+    "selEquSta.nTot",
+    "selEquSta.nReq",
+    "selEquSta.nAlt",
+    "selEquSta.y1ReqAndAva[1]",
+    "selEquSta.y1ReqAndAva[2]",
+    "selEquSta.y1ReqAndAva[3]",
+    "selEquSta.y1AltAndAva[1]",
+    "selEquSta.y1AltAndAva[2]",
+    "selEquSta.y1AltAndAva[3]"
+  };

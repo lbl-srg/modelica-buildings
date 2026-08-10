@@ -332,12 +332,12 @@ int TDMA_1D(REAL *ap, REAL *ae, REAL *aw, REAL *b, REAL *psi,
   REAL *P, *Q;
   int i;
 
-  P = (REAL *)malloc(LENGTH * sizeof(REAL));
+  P = (REAL *) malloc(LENGTH * sizeof(REAL));
   if(P==NULL) {
     ffd_log("TDMA_1D(): Could not allocate memory for P.", FFD_ERROR);
     return 1;
   }
-  Q = (REAL *)malloc(LENGTH * sizeof(REAL));
+  Q = (REAL *) malloc(LENGTH * sizeof(REAL));
   if(Q==NULL) {
     ffd_log("TDMA_1D(): Could not allocate memory for Q.", FFD_ERROR);
     return 1;

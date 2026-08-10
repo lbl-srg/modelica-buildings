@@ -25,3 +25,18 @@ createPlot(
     autoscale=true,
     grid=true
 );
+createPlot(
+    id=2,
+    subPlot=1,
+    position={315, 5, 300, 400},
+    y={"truArrSpaInp.u", "truArrSpaInp.uIdx[1]", "truArrSpaInp.uIdx[2]", "truArrSpaInp.uIdx[3]", "truArrSpaInp.uIdx[4]"},
+    autoscale=true,
+    grid=true
+);
+createPlot(
+    id=2,
+    subPlot=2,
+    y={"truArrSpaInp.y1[1]", "truArrSpaInp.y1[2]", "truArrSpaInp.y1[3]", "truArrSpaInp.y1[4]"},
+    autoscale=true,
+    grid=true
+);

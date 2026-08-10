@@ -282,32 +282,26 @@ annotation (
         Text(
           extent={{-94,92},{-42,66}},
           textColor={0,0,127},
-          pattern=LinePattern.Dash,
           textString="TZonSetAve"),
         Text(
           extent={{-96,46},{-68,34}},
           textColor={0,0,127},
-          pattern=LinePattern.Dash,
           textString="TOut"),
         Text(
           extent={{-94,-22},{-14,-58}},
           textColor={0,0,127},
-          pattern=LinePattern.Dash,
           textString="uZonTemResReq"),
         Text(
           extent={{-94,12},{-48,-12}},
           textColor={0,0,127},
-          pattern=LinePattern.Dash,
           textString="uSupFan"),
         Text(
           extent={{-94,-70},{-50,-90}},
           textColor={0,0,127},
-          pattern=LinePattern.Dash,
           textString="uOpeMod"),
         Text(
           extent={{68,8},{96,-8}},
           textColor={0,0,127},
-          pattern=LinePattern.Dash,
           textString="TSupSet"),
         Text(
           extent={{-124,146},{96,108}},

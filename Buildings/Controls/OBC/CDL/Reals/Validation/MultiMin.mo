@@ -3,8 +3,7 @@ model MultiMin
   "Validation model for the MultiMin block"
   parameter Integer sizOfVec=5
     "Size of the input vector";
-  Buildings.Controls.OBC.CDL.Reals.MultiMin minVal(
-    nin=sizOfVec)
+  Buildings.Controls.OBC.CDL.Reals.MultiMin minVal(nin=sizOfVec)
     "Block that outputs the minimum element of the input vector"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant con[sizOfVec](
@@ -13,10 +12,8 @@ model MultiMin
     annotation (Placement(transformation(extent={{-58,-10},{-38,10}})));
 
 equation
-  for i in 1:sizOfVec loop
-    connect(con[i].y,minVal.u[i])
-      annotation (Line(points={{-37,0},{-24.5,0},{-12,0}},color={0,0,127}));
-  end for;
+  connect(con.y, minVal.u)
+    annotation (Line(points={{-36,0},{-12,0}}, color={0,0,127}));
   annotation (
     experiment(
       StopTime=1.0,

@@ -4,8 +4,8 @@ compareVars :=
     "withWSE.u",
     "withWSE.uOpeDow",
     "withWSE.uStaDow",
-    "withWSE.dpChiWatPumSet_local",
-    "withWSE.dpChiWatPum_local",
+    "withWSE.dpChiWatSet_local",
+    "withWSE.dpChiWat_local",
     "withWSE.TChiWatSup",
     "withWSE.TChiWatSupSet",
     "withWSE.TWsePre",
@@ -14,8 +14,8 @@ compareVars :=
     "noWSE.u",
     "noWSE.uOpeDow",
     "noWSE.uStaDow",
-    "noWSE.dpChiWatPumSet_local",
-    "noWSE.dpChiWatPum_local",
+    "noWSE.dpChiWatSet_local",
+    "noWSE.dpChiWat_local",
     "noWSE.TChiWatSup",
     "noWSE.TChiWatSupSet",
     "withWSE1.y",
@@ -26,6 +26,6 @@ compareVars :=
     "withWSE1.uTowFanSpeMax",
     "withWSE1.TChiWatSup",
     "withWSE1.TChiWatSupSet",
-    "withWSE1.dpChiWatPumSet_local",
-    "withWSE1.dpChiWatPum_local"
+    "withWSE1.dpChiWatSet_local",
+    "withWSE1.dpChiWat_local"
   };

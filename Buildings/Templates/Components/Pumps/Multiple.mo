@@ -3,9 +3,10 @@ model Multiple "Multiple pumps in parallel"
   extends Buildings.Templates.Components.Interfaces.PartialPumpMultiple(
     final typ=Buildings.Templates.Components.Types.Pump.Multiple);
 
-  replaceable Buildings.Fluid.Movers.SpeedControlled_y pum[nPum](
+  replaceable Buildings.Templates.Components.BaseClasses.MoverSpeedControlled_y pum[nPum](
     redeclare each final package Medium=Medium,
     final per=dat.per,
+    final m_flow_nominal=m_flow_nominal,
     each final inputType=Buildings.Fluid.Types.InputType.Continuous,
     each final addPowerToMedium=addPowerToMedium,
     each final energyDynamics=energyDynamics,
@@ -170,6 +171,11 @@ properly parameterize the model.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+July 17, 2026, by Antoine Gautier:<br/>
+Refactored to use a compiler-friendly mover model. This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/pull/4653\">#4653</a>.
+</li>
 <li>
 November 18, 2022, by Antoine Gautier:<br/>
 First implementation.

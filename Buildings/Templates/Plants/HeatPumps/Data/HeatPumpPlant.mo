@@ -146,23 +146,12 @@ record HeatPumpPlant
     TChiWatSup_nominal=ctl.TChiWatSup_nominal)
     "Chiller"
     annotation (Dialog(group="Sidetream heat recovery chiller", enable=cfg.have_hrc));
-  /* HACK(AntoineGautier):
-  The bindings for per.pressure in the single pump record declarations below
-  are identical to the default bindings in the PumpSingle class definition.
-  However, they are needed for Dymola (version 2024x Refresh 1) that fails
-  to evaluate the size of per.pressure.dp otherwise.
-  */
   parameter Buildings.Templates.Components.Data.PumpSingle pumChiWatHrc(
     final rho_default=cfg.rhoChiWat_default,
     final typ=if cfg.have_hrc then Buildings.Templates.Components.Types.Pump.Single
       else Buildings.Templates.Components.Types.Pump.None,
     m_flow_nominal=hrc.mChiWat_flow_nominal,
-    dp_nominal=hrc.dpChiWat_nominal,
-    per(pressure(
-      V_flow=if pumChiWatHrc.typ<>Buildings.Templates.Components.Types.Pump.None then
-      {0, 1, 2} * pumChiWatHrc.m_flow_nominal / cfg.rhoChiWat_default else {0,0,0},
-      dp=if pumChiWatHrc.typ<>Buildings.Templates.Components.Types.Pump.None then
-      {1.14, 1, 0.42} * pumChiWatHrc.dp_nominal else {0,0,0})))
+    dp_nominal=hrc.dpChiWat_nominal)
     "HRC CHW pump"
     annotation (Dialog(group="Sidetream heat recovery chiller", enable=cfg.have_hrc));
   parameter Buildings.Templates.Components.Data.PumpSingle pumHeaWatHrc(
@@ -170,12 +159,7 @@ record HeatPumpPlant
     final typ=if cfg.have_hrc then Buildings.Templates.Components.Types.Pump.Single
       else Buildings.Templates.Components.Types.Pump.None,
     m_flow_nominal=hrc.mCon_flow_nominal,
-    dp_nominal=hrc.dpCon_nominal,
-    per(pressure(
-      V_flow=if pumHeaWatHrc.typ<>Buildings.Templates.Components.Types.Pump.None then
-      {0, 1, 2} * pumHeaWatHrc.m_flow_nominal / cfg.rhoHeaWat_default else {0,0,0},
-      dp=if pumHeaWatHrc.typ<>Buildings.Templates.Components.Types.Pump.None then
-      {1.14, 1, 0.42} * pumHeaWatHrc.dp_nominal else {0,0,0})))
+    dp_nominal=hrc.dpCon_nominal)
     "HRC HW pump"
     annotation (Dialog(group="Sidetream heat recovery chiller", enable=cfg.have_hrc));
   annotation (
@@ -212,6 +196,4 @@ please refer to the documentation of the block
 Buildings.Fluid.HeatPumps.ModularReversible.RefrigerantCycle.BaseClasses.TableData2DLoadDep</a>.
 </p>
 </html>"));
-
-
 end HeatPumpPlant;

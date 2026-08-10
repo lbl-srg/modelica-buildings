@@ -99,26 +99,23 @@ protected
 
 equation
   connect(heaExcPlr.u2, heaExcDes_flow.y) annotation (Line(points={{-62,44},{
-          -80,44},{-80,20},{-98,20}},    color={0,0,127}));
+          -80,44},{-80,20},{-98,20}}, color={0,0,127}));
   connect(VChiWat_flow, heaExcPlr.u1) annotation (Line(points={{-180,0},{-140,0},
           {-140,56},{-62,56}}, color={0,0,127}));
   connect(heaAppDes.y, pro.u2) annotation (Line(points={{22,30},{40,30},{40,44},
-          {58,44}},      color={0,0,127}));
+          {58,44}}, color={0,0,127}));
   connect(sub1.y, pro1.u1) annotation (Line(points={{-38,-50},{0,-50},{0,-64},{
-          58,-64}},        color={0,0,127}));
+          58,-64}}, color={0,0,127}));
   connect(uTunPar, pro1.u2) annotation (Line(points={{-180,-140},{20,-140},{20,
           -76},{58,-76}},  color={0,0,127}));
   connect(TOutWet, mulSum.u[1]) annotation (Line(points={{-180,140},{100,140},{
-          100,-0.75},{118,-0.75}},
-                            color={0,0,127}));
+          100,-0.75},{118,-0.75}}, color={0,0,127}));
   connect(pro.y, mulSum.u[2]) annotation (Line(points={{82,50},{90,50},{90,
-          -0.25},{118,-0.25}},
-                      color={0,0,127}));
+          -0.25},{118,-0.25}}, color={0,0,127}));
   connect(pro1.y, mulSum.u[3]) annotation (Line(points={{82,-70},{90,-70},{90,
           0.25},{118,0.25}},color={0,0,127}));
   connect(towAppDes.y, mulSum.u[4]) annotation (Line(points={{62,-110},{100,
-          -110},{100,-2},{118,-2},{118,0.75}},
-                                      color={0,0,127}));
+          -110},{100,-2},{118,-2},{118,0.75}}, color={0,0,127}));
   connect(mulSum.y, y)
     annotation (Line(points={{142,0},{180,0}}, color={0,0,127}));
   connect(TOutWet, sub1.u2) annotation (Line(points={{-180,140},{-150,140},{-150,
@@ -149,8 +146,8 @@ Documentation(info="<html>
 The waterside economizer (WSE) is enabled or disabled based on the predicted WSE
 heat exchanger (HX) leaving water temperature, <code>y</code>.
 This block predicts <code>y</code> based on current plant load
-and ambient wet bulb temperature with resepect to the design conditions, as described in
-ASHRAE Guideline36-2021, section 5.20.3.1.
+and ambient wet bulb temperature with respect to the design conditions, as described in
+ASHRAE Guideline 36-2021, section 5.20.3.1.
 </p>
 <p>
 The block calculates the predicted WSE output temperature <code>y</code> as a sum of these
@@ -158,7 +155,7 @@ three components:
 </p>
 <ul>
 <li>
-Current outoor air wet bulb temperature <code>TOutWet</code>.
+Current outdoor air wet bulb temperature <code>TOutWet</code>.
 </li>
 <li>
 Predicted heat exchanger approach at current part load flow, which equals
@@ -166,7 +163,7 @@ the product of the design heat exchanger approach <code>heaExcAppDes</code> and 
 lesser of 1 and predicted heat exchanger part load ratio (PLRHX). PRLHX is a ratio
 of the current chilled water flow rate for primary-only plants or the current secondary chilled water
 flow rate for primary-secondary plants, <code>VChiWat_flow</code>,
-divided by design HX chilled water flow rate <code>VHeaExcDes_flow</code>.
+divided by the design HX chilled water flow rate <code>VHeaExcDes_flow</code>.
 </li>
 <li>
 Predicted cooling tower approach, which is a sum of the:
@@ -174,7 +171,7 @@ Predicted cooling tower approach, which is a sum of the:
 <li>
 Product of the tuning parameter <code>uTunPar</code> and the
 difference between the design <code>TOutWetDes</code> and current
-wetbulb temepratures <code>TOutWet</code>.
+wetbulb temperatures <code>TOutWet</code>.
 The tuning parameter <code>uTunPar</code> is an output from the
 <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Economizers.Subsequences.Tuning\">
 Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Economizers.Subsequences.Tuning</a> sequence.

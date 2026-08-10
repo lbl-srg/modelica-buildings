@@ -36,8 +36,8 @@ model TestCase2 "VDI 6007 Test Case 2 model"
     "Outdoor convective heat transfer"
     annotation (Placement(transformation(extent={{36,6},{26,-4}})));
   Modelica.Blocks.Sources.CombiTimeTable intGai(
-    extrapolation=Modelica.Blocks.Types.Extrapolation.Periodic,
-    table=[0,0; 3600,0; 7200,0; 10800,0; 14400,0; 18000,0; 21600,0; 21600,1000;
+    final extrapolation=Modelica.Blocks.Types.Extrapolation.Periodic,
+    final table=[0,0; 3600,0; 7200,0; 10800,0; 14400,0; 18000,0; 21600,0; 21600,1000;
         25200,1000; 28800,1000; 32400,1000; 36000,1000; 39600,1000; 43200,1000;
         46800,1000; 50400,1000; 54000,1000; 57600,1000; 61200,1000; 64800,1000;
         64800,0; 68400,0; 72000,0; 75600,0; 79200,0; 82800,0; 86400,0],
@@ -45,12 +45,12 @@ model TestCase2 "VDI 6007 Test Case 2 model"
     "Table with internal gains"
     annotation (Placement(transformation(extent={{6,-60},{22,-44}})));
   Modelica.Blocks.Sources.CombiTimeTable reference(
-    tableOnFile=false,
-    columns={2},
-    extrapolation=Modelica.Blocks.Types.Extrapolation.HoldLastPoint,
-    smoothness=Modelica.Blocks.Types.Smoothness.ConstantSegments,
-    offset={273.15},
-    table=[0,22; 3600,22; 7200,22; 10800,22; 14400,22; 18000,22; 21600,22;
+    final tableOnFile=false,
+    final columns={2},
+    final extrapolation=Modelica.Blocks.Types.Extrapolation.HoldLastPoint,
+    final smoothness=Modelica.Blocks.Types.Smoothness.ConstantSegments,
+    final offset={273.15},
+    final table=[0,22; 3600,22; 7200,22; 10800,22; 14400,22; 18000,22; 21600,22;
         25200,22.6; 28800,22.9; 32400,23.1; 36000,23.3; 39600,23.5; 43200,23.7;
         46800,23.9; 50400,24.1; 54000,24.3; 57600,24.6; 61200,24.8; 64800,25;
         68400,24.5; 72000,24.5; 75600,24.5; 79200,24.5; 82800,24.5; 86400,24.5;
@@ -128,6 +128,12 @@ equation
   <p>This test validates basic functionalities.</p>
   </html>", revisions="<html>
   <ul>
+<li>
+April 29, 2026, by Michael Wetter:<br/>
+Changed configuration of table to cause the parameters to be evaluated, as this leads to more efficient code.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/2111\">IBPSA, #2111</a>.
+</li>
   <li>
   July 11, 2019, by Katharina Brinkmann:<br/>
   Renamed <code>alphaWall</code> to <code>hConWall</code>

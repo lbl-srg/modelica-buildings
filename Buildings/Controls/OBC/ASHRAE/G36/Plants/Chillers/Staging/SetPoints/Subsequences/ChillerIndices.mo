@@ -78,21 +78,21 @@ protected
 
 equation
   connect(intRep.y, intRep1.u)
-    annotation (Line(points={{-78,60},{-62,60}},   color={255,127,0}));
+    annotation (Line(points={{-78,60},{-62,60}}, color={255,127,0}));
   connect(intRep1.y, intEqu1.u1)
-    annotation (Line(points={{-38,60},{-2,60}},   color={255,127,0}));
+    annotation (Line(points={{-38,60},{-2,60}}, color={255,127,0}));
   connect(matMax.y, chiInSta.u)
-    annotation (Line(points={{62,-40},{78,-40}},  color={0,0,127}));
+    annotation (Line(points={{62,-40},{78,-40}}, color={0,0,127}));
   connect(staIndMatr.y, intEqu1.u2) annotation (Line(points={{-38,20},{-20,20},{
-          -20,52},{-2,52}},            color={255,127,0}));
+          -20,52},{-2,52}}, color={255,127,0}));
   connect(chiInSta.y, yChi)
-    annotation (Line(points={{102,-40},{140,-40}},  color={255,0,255}));
+    annotation (Line(points={{102,-40},{140,-40}}, color={255,0,255}));
   connect(proInt.y, intToRea.u)
     annotation (Line(points={{-18,-40},{-2,-40}}, color={255,127,0}));
   connect(intToRea.y, matMax.u)
     annotation (Line(points={{22,-40},{38,-40}}, color={0,0,127}));
   connect(intEqu1.y, booToInt.u)
-    annotation (Line(points={{22,60},{38,60}},     color={255,0,255}));
+    annotation (Line(points={{22,60},{38,60}}, color={255,0,255}));
   connect(chiStaMatr.y, proInt.u2) annotation (Line(points={{-58,-46},{-42,-46}},
           color={255,127,0}));
   connect(u, intRep.u) annotation (Line(points={{-140,60},{-102,60}},
@@ -115,8 +115,8 @@ equation
           extent={{-120,-100},{120,100}})),
 Documentation(info="<html>
 <p>
-This subsequence is not directly specified in Guideline36-2021 as it provides
-a side calculation pertaining to generalization of the staging 
+This subsequence is not directly specified in Guideline 36-2021 as it provides
+a side calculation about the generalization of the staging 
 sequences for any number of chillers and stages provided by the 
 user.
 </p>

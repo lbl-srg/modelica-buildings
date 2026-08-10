@@ -16,6 +16,7 @@
 	*/
 
 #include "ffd.h"
+#include <string.h>
 
 /* global variables */
 REAL **var;
@@ -75,13 +76,50 @@ int allocate_memory (PARA_DATA *para) {
   | BINDEX[3]: Fixed temperature or fixed heat flux
   | BINDEX[4]: Boundary ID to identify which boundary it belongs to
   ****************************************************************************/
-  BINDEX = (int **)malloc(5*sizeof(int*));
+  BINDEX = (int **) malloc(5*sizeof(int*));
   if(BINDEX==NULL) {
     ffd_log("allocate_memory(): Could not allocate memory for BINDEX.",
             FFD_ERROR);
     return 1;
   }
 
+  BINDEX[0] = (int *) malloc(size*sizeof(int));
+  if(BINDEX[0]==NULL) {
+    sprintf(msg,
+            "allocate_memory(): Could not allocate memory for BINDEX[0]");
+    ffd_log(msg, FFD_ERROR);
+    return 1;
+  }
+  BINDEX[1] = (int *) malloc(size*sizeof(int));
+  if(BINDEX[1]==NULL) {
+    sprintf(msg,
+            "allocate_memory(): Could not allocate memory for BINDEX[1]");
+    ffd_log(msg, FFD_ERROR);
+    return 1;
+  }
+  BINDEX[2] = (int *) malloc(size*sizeof(int));
+  if(BINDEX[2]==NULL) {
+    sprintf(msg,
+            "allocate_memory(): Could not allocate memory for BINDEX[2]");
+    ffd_log(msg, FFD_ERROR);
+    return 1;
+  }
+  BINDEX[3] = (int *) malloc(size*sizeof(int));
+  if(BINDEX[3]==NULL) {
+    sprintf(msg,
+            "allocate_memory(): Could not allocate memory for BINDEX[3]");
+    ffd_log(msg, FFD_ERROR);
+    return 1;
+  }
+  BINDEX[4] = (int *) malloc(size*sizeof(int));
+  if(BINDEX[4]==NULL) {
+    sprintf(msg,
+            "allocate_memory(): Could not allocate memory for BINDEX[4]");
+    ffd_log(msg, FFD_ERROR);
+    return 1;
+  }
+
+  /*
   for(i=0; i<5; i++) {
     BINDEX[i] = (int *) malloc(size*sizeof(int));
     if(BINDEX[i]==NULL) {
@@ -91,6 +129,7 @@ int allocate_memory (PARA_DATA *para) {
       return 1;
     }
   }
+  */
   return 0;
 } /* End of allocate_memory()*/
 
@@ -103,7 +142,7 @@ int allocate_memory (PARA_DATA *para) {
 		* @return 0 if no error occurred
 		*/
 int ffd_cosimulation(CosimulationData *cosim) {
-  para.cosim = (CosimulationData *) malloc(sizeof(CosimulationData));
+  /* para.cosim = (CosimulationData *) malloc(sizeof(CosimulationData)); */
   para.cosim = cosim;
 
   if(ffd(1)!=0) {
@@ -211,6 +250,7 @@ int ffd(int cosimulation) {
   /* Free the memory*/
   free_data(var);
   free_index(BINDEX);
+  free_para(&para);
 
   /* Inform Modelica the stopping command has been received*/
   if(para.solv->cosimulation==1) {
@@ -228,8 +268,8 @@ int ffd(int cosimulation) {
 		*
 		* @return no return
 		*/
-void modelicaError(char *msg) {
-  strcpy(para.cosim->ffd->msg, msg);
+void modelicaError(char *errMsg) {
+  strcpy(para.cosim->ffd->msg, errMsg);
   /* Write the command to stop the cosimulation*/
   para.cosim->para->flag = 2;
   /* Indicate there is an error*/

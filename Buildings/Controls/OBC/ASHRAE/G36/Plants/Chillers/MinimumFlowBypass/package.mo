@@ -4,7 +4,7 @@ package MinimumFlowBypass "Sequences for controlling chilled water minimum flow 
 annotation (preferredView="info", Documentation(info="<html>
 <p>
 This package contains chilled water minimum flow bypass valve control sequences.
-The implementation is based on section 5.20.8. in ASHRAE Guideline36-2021.
+The implementation is based on section 5.20.8, in ASHRAE Guideline 36-2021.
 </p>
 </html>"),
 Icon(graphics={

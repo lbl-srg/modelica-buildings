@@ -3,7 +3,7 @@ package Subsequences "Package of subsequences for staging up and down devices"
 
 annotation (preferredView="info", Documentation(info="<html>
 <p>
-This package contains subsequences for controlling devices when there is stage-up
+This package contains subsequences for controlling devices when there is a stage-up
 or stage-down command.
 </p>
 </html>"),

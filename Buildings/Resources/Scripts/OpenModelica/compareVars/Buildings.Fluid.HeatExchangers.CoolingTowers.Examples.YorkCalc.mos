@@ -2,7 +2,7 @@ compareVars :=
   {
     "TEnt.T",
     "tow.TLvg",
-    "tow.TAir",
+    "tow.TWetBul",
     "tow.TApp_nominal",
     "tow.TAppAct",
     "tow.FRAir",

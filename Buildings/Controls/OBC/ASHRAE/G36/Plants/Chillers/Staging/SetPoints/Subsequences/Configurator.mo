@@ -114,7 +114,8 @@ protected
     annotation (Placement(transformation(extent={{-140,-50},{-120,-30}})));
 
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant oneVec[nChi](
-    final k=fill(1, nChi)) "Mocks a case with all chillers available"
+    final k=fill(1, nChi))
+    "Mocks a case with all chillers available"
     annotation (Placement(transformation(extent={{-200,10},{-180,30}})));
 
   Buildings.Controls.OBC.CDL.Conversions.BooleanToReal booToRea[nChi]
@@ -180,18 +181,8 @@ protected
     annotation (Placement(transformation(extent={{140,-160},{160,-140}})));
 
 equation
-  connect(chiDesCaps.y, staDesCaps.u) annotation (Line(points={{-178,110},{-142,
-          110}}, color={0,0,127}));
-  connect(chiMinCaps.y, staMinCaps.u) annotation (Line(points={{-178,70},{-142,70}},
-                 color={0,0,127}));
   connect(uChiAva, booToRea.u)
     annotation (Line(points={{-240,-40},{-202,-40}}, color={255,0,255}));
-  connect(booToRea.y, sumNumAvaChi.u)
-    annotation (Line(points={{-178,-40},{-142,-40}}, color={0,0,127}));
-  connect(sumNumChi.y, sub2.u1) annotation (Line(points={{-118,20},{-100,20},{-100,
-          -4},{-82,-4}}, color={0,0,127}));
-  connect(sumNumAvaChi.y, sub2.u2) annotation (Line(points={{-118,-40},{-100.5,-40},
-          {-100.5,-16},{-82,-16}}, color={0,0,127}));
   connect(sub2.y,lesThr. u)
     annotation (Line(points={{-58,-10},{-42,-10}},  color={0,0,127}));
   connect(lesThr.y, yAva) annotation (Line(points={{-18,-10},{60,-10},{60,-80},{
@@ -203,30 +194,27 @@ equation
   connect(matMax.y,reaToInt. u)
     annotation (Line(points={{-78,-120},{-62,-120}}, color={0,0,127}));
   connect(reaToInt.y, yTyp) annotation (Line(points={{-38,-120},{240,-120}},
-                      color={255,127,0}));
+          color={255,127,0}));
   connect(reaToInt.y, intToRea1.u) annotation (Line(points={{-38,-120},{-30,
-          -120},{-30,-170},{-22,-170}},
-                                 color={255,127,0}));
+          -120},{-30,-170},{-22,-170}}, color={255,127,0}));
   connect(intToRea1.y, sort.u)
-    annotation (Line(points={{2,-170},{18,-170}},  color={0,0,127}));
+    annotation (Line(points={{2,-170},{18,-170}}, color={0,0,127}));
   connect(sort.y, reaToInt1.u)
-    annotation (Line(points={{42,-170},{58,-170}},   color={0,0,127}));
+    annotation (Line(points={{42,-170},{58,-170}}, color={0,0,127}));
   connect(reaToInt.y,intEqu. u1) annotation (Line(points={{-38,-120},{90,-120},{
-          90,-150},{98,-150}},   color={255,127,0}));
+          90,-150},{98,-150}}, color={255,127,0}));
   connect(reaToInt1.y,intEqu. u2) annotation (Line(points={{82,-170},{90,-170},{
-          90,-158},{98,-158}},    color={255,127,0}));
+          90,-158},{98,-158}}, color={255,127,0}));
   connect(mulAnd.y, assMes.u)
-    annotation (Line(points={{162,-150},{178,-150}},  color={255,0,255}));
+    annotation (Line(points={{162,-150},{178,-150}}, color={255,0,255}));
   connect(intEqu.y, mulAnd.u) annotation (Line(points={{122,-150},{138,-150}},
-    color={255,0,255}));
+          color={255,0,255}));
   connect(staType.y, pro.u1) annotation (Line(points={{-178,-100},{-160,-100},{-160,
           -114},{-142,-114}}, color={0,0,127}));
   connect(staDesCaps.y, yDesCap) annotation (Line(points={{-118,110},{100,110},{
           100,20},{240,20}}, color={0,0,127}));
   connect(staMinCaps.y, yMinCap) annotation (Line(points={{-118,70},{80,70},{80,
           -20},{240,-20}}, color={0,0,127}));
-  connect(oneVec.y, sumNumChi.u)
-    annotation (Line(points={{-178,20},{-142,20}}, color={0,0,127}));
   connect(sort1.u, chiDesCaps.y) annotation (Line(points={{-142,170},{-160,
           170},{-160,110},{-178,110}}, color={0,0,127}));
   connect(sort1.y, sub1.u1) annotation (Line(points={{-118,170},{-110,170},{-110,
@@ -241,6 +229,18 @@ equation
     annotation (Line(points={{2,170},{18,170}}, color={0,0,127}));
   connect(lesThr1.y, assMes1.u)
     annotation (Line(points={{42,170},{58,170}}, color={255,0,255}));
+  connect(chiMinCaps.y, staMinCaps.u)
+    annotation (Line(points={{-178,70},{-142,70}}, color={0,0,127}));
+  connect(booToRea.y, sumNumAvaChi.u)
+    annotation (Line(points={{-178,-40},{-142,-40}}, color={0,0,127}));
+  connect(sumNumChi.y, sub2.u1) annotation (Line(points={{-118,20},{-100,20},{
+          -100,-4},{-82,-4}}, color={0,0,127}));
+  connect(sumNumAvaChi.y, sub2.u2) annotation (Line(points={{-118,-40},{-100,
+          -40},{-100,-16},{-82,-16}}, color={0,0,127}));
+  connect(oneVec.y, sumNumChi.u)
+    annotation (Line(points={{-178,20},{-142,20}}, color={0,0,127}));
+  connect(chiDesCaps.y, staDesCaps.u)
+    annotation (Line(points={{-178,110},{-142,110}}, color={0,0,127}));
   annotation (defaultComponentName = "conf",
         Icon(graphics={
         Rectangle(
@@ -256,8 +256,8 @@ equation
           extent={{-220,-200},{220,200}})),
 Documentation(info="<html>
 <p>
-This subsequence is not directly specified in Guideline36-2021 as it provides
-a side calculation pertaining to generalization of the staging
+This subsequence is not directly specified in Guideline 36-2021 as it provides
+a side calculation about the generalization of the staging
 sequences for any number of chillers and stages provided by the
 user.
 </p>
@@ -267,17 +267,17 @@ Given the staging matrix input parameter <code>staMat</code> the staging configu
 <ul>
 <li>
 Stage availability vector <code>yAva</code> from the chiller availability <code>uChiAva</code>
-input vector according to Guideline36-2021, section 5.20.4.13
+input vector according to Guideline 36-2021, section 5.20.4.13
 </li>
 <li>
 Design stage capacity vector <code>yDesCap</code> from the design chiller capacity vector
 input parameter <code>chiDesCap</code>.
 The chillers need to be tagged in order of ascending chiller capacity if unequally sized. This is
-according to section 3.1.7.5.a of Guideline36-2021, otherwise a warning is thrown.
+according to section 3.1.7.5.a of Guideline 36-2021, otherwise a warning is thrown.
 </li>
 <li>
 Minimum stage capacity vector <code>yMinCap</code> from the chiller minimum cycling load input
-parameter <code>chiMinCap</code> according to section 3.1.7.6.a of Guideline36-2021.
+parameter <code>chiMinCap</code> according to section 3.1.7.6.a of Guideline 36-2021.
 </li>
 <li>
 Stage type vector <code>yTyp</code> from the chiller type vector input parameter
@@ -290,10 +290,12 @@ Stage type is, based on the chiller types in that stage and in the recommended s
 Positive displacement, for any stage with only positive displacement chiller(s)
 </li>
 <li>
-Variable speed centirfugal, for any stage with any variable speed chiller(s) and no constant speed chiller(s)
+Variable speed centrifugal, for any stage with any variable speed chiller(s) and no
+constant speed chiller(s)
 </li>
 <li>
-Constant speed centirfugal, for any stage with any constant speed centrifugal chiller(s)<br/>
+Constant speed centrifugal, for any stage with any constant speed centrifugal
+chiller(s)<br/>
 </li>
 </ul>
 This stage type is used in the

@@ -18,7 +18,8 @@ block Tuning
     displayUnit="h")=1800
       "Economizer enable time needed to allow increase of the tuning parameter";
 
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uWseSta "WSE enable disable status"
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uWseSta
+    "WSE enable disable status"
     annotation (Placement(transformation(extent={{-360,100},{-320,140}}),
         iconTransformation(extent={{-140,30},{-100,70}})));
 
@@ -26,7 +27,7 @@ block Tuning
     final unit="1")
     "Maximum cooling tower fan speed signal"
     annotation (Placement(transformation(
-    extent={{-360,-100},{-320,-60}}), iconTransformation(extent={{-140,-70},
+    extent={{-360,-170},{-320,-130}}),iconTransformation(extent={{-140,-70},
       {-100,-30}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput y(
@@ -34,7 +35,7 @@ block Tuning
     final min=minTunPar,
     final start=initTunPar)
     "Tuning parameter for the waterside economizer outlet temperature prediction"
-    annotation (Placement(transformation(extent={{320,50},{360,90}}),
+    annotation (Placement(transformation(extent={{320,70},{360,110}}),
         iconTransformation(extent={{100,-20},{140,20}})));
 
 protected
@@ -55,210 +56,219 @@ protected
 
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant resVal(
     final k=0) "Reset value"
-    annotation (Placement(transformation(extent={{120,0},{140,20}})));
+    annotation (Placement(transformation(extent={{200,-10},{220,10}})));
 
   Buildings.Controls.OBC.CDL.Reals.MultiSum mulSum(
     final k={-1*step,step,1}, nin=3) "Multiple input sum"
-    annotation (Placement(transformation(extent={{120,60},{140,80}})));
+    annotation (Placement(transformation(extent={{200,80},{220,100}})));
 
   Buildings.Controls.OBC.CDL.Reals.Subtract sub1 "Anti-windup adder"
-    annotation (Placement(transformation(extent={{200,20},{220,40}})));
+    annotation (Placement(transformation(extent={{280,40},{300,60}})));
 
-  Buildings.Controls.OBC.CDL.Logical.Timer tim(final t=wseOnTimDec) "Timer"
-    annotation (Placement(transformation(extent={{-260,140},{-240,160}})));
+  Buildings.Controls.OBC.CDL.Logical.Timer tim(
+    final t=wseOnTimDec) "Timer"
+    annotation (Placement(transformation(extent={{-280,168},{-260,188}})));
 
-  Buildings.Controls.OBC.CDL.Logical.FallingEdge falEdg "Falling edge"
-    annotation (Placement(transformation(extent={{-220,90},{-200,110}})));
+  Buildings.Controls.OBC.CDL.Logical.Not disWse "Disabled economizer"
+    annotation (Placement(transformation(extent={{-280,60},{-260,80}})));
 
-  Buildings.Controls.OBC.CDL.Logical.And and2 "And"
-    annotation (Placement(transformation(extent={{-140,140},{-120,160}})));
+  Buildings.Controls.OBC.CDL.Logical.And and2
+    "Economizer disabled after being enabled by more than threshold time"
+    annotation (Placement(transformation(extent={{-140,150},{-120,170}})));
 
-  Buildings.Controls.OBC.CDL.Logical.Timer tim1 "Timer"
-    annotation (Placement(transformation(extent={{-260,40},{-240,60}})));
+  Buildings.Controls.OBC.CDL.Logical.TimerAccumulating wseEnaTim
+    "Economizer enabling time"
+    annotation (Placement(transformation(extent={{-280,0},{-260,20}})));
 
-  Buildings.Controls.OBC.CDL.Logical.FallingEdge falEdg1 "Falling edge"
-    annotation (Placement(transformation(extent={{-220,-10},{-200,10}})));
-
-  Buildings.Controls.OBC.CDL.Logical.And and1 "And"
-    annotation (Placement(transformation(extent={{-140,0},{-120,20}})));
+  Buildings.Controls.OBC.CDL.Logical.And and1
+    "Economizer disabled after being enabled by less than threshold time"
+    annotation (Placement(transformation(extent={{-60,-30},{-40,-10}})));
 
   Buildings.Controls.OBC.CDL.Reals.LessThreshold lesThr(
-    final t=wseOnTimInc) "Less than"
-    annotation (Placement(transformation(extent={{-220,40},{-200,60}})));
+    final t=wseOnTimInc) "Less than threshold time"
+    annotation (Placement(transformation(extent={{-140,0},{-120,20}})));
 
   Buildings.Controls.OBC.CDL.Reals.Hysteresis hys(
     final uHigh=0.99,
     final uLow=0.98) "Checks if the signal is at its maximum"
-    annotation (Placement(transformation(extent={{-280,-90},{-260,-70}})));
-
-  Buildings.Controls.OBC.CDL.Discrete.TriggeredSampler triSam2(
-    final y_start=0) "Sampler"
-    annotation (Placement(transformation(extent={{-60,-90},{-40,-70}})));
-
-  Buildings.Controls.OBC.CDL.Reals.GreaterThreshold greThr(
-    final t=0.5) "Greater or equal than"
-    annotation (Placement(transformation(extent={{-20,-90},{0,-70}})));
-
-  Buildings.Controls.OBC.CDL.Conversions.BooleanToReal booToRea "Conversion"
-    annotation (Placement(transformation(extent={{-100,-90},{-80,-70}})));
-
-  Buildings.Controls.OBC.CDL.Logical.Not not1 "Not"
-    annotation (Placement(transformation(extent={{-260,-30},{-240,-10}})));
-
-  Buildings.Controls.OBC.CDL.Logical.Not not2 "Not"
-    annotation (Placement(transformation(extent={{-240,-150},{-220,-130}})));
-
-  Buildings.Controls.OBC.CDL.Logical.And and5 "And"
-    annotation (Placement(transformation(extent={{-200,-160},{-180,-140}})));
-
-  Buildings.Controls.OBC.CDL.Logical.And and6 "And"
-    annotation (Placement(transformation(extent={{-200,-120},{-180,-100}})));
-
-  Buildings.Controls.OBC.CDL.Logical.Or and4 "And"
-    annotation (Placement(transformation(extent={{-80,-120},{-60,-100}})));
-
-  Buildings.Controls.OBC.CDL.Logical.Latch lat "Latch"
-    annotation (Placement(transformation(extent={{-140,-140},{-120,-120}})));
+    annotation (Placement(transformation(extent={{-280,-160},{-260,-140}})));
 
   Buildings.Controls.OBC.CDL.Integers.OnCounter disCou
     "Counts the number of times the WSE got disabled"
-    annotation (Placement(transformation(extent={{-100,140},{-80,160}})));
+    annotation (Placement(transformation(extent={{20,150},{40,170}})));
 
   Buildings.Controls.OBC.CDL.Integers.OnCounter disCou1
     "Counts the number of times the WSE got disabled"
-    annotation (Placement(transformation(extent={{-80,0},{-60,20}})));
+    annotation (Placement(transformation(extent={{20,-30},{40,-10}})));
 
   Buildings.Controls.OBC.CDL.Conversions.IntegerToReal intToRea
     "Type converter"
-    annotation (Placement(transformation(extent={{60,140},{80,160}})));
+    annotation (Placement(transformation(extent={{120,150},{140,170}})));
 
   Buildings.Controls.OBC.CDL.Conversions.IntegerToReal intToRea1
     "Type converter"
-    annotation (Placement(transformation(extent={{0,0},{20,20}})));
+    annotation (Placement(transformation(extent={{120,-30},{140,-10}})));
 
   Buildings.Controls.OBC.CDL.Integers.Max maxInt
     "Greater or equal a threshold"
-    annotation (Placement(transformation(extent={{-40,70},{-20,90}})));
+    annotation (Placement(transformation(extent={{60,50},{80,70}})));
 
   Buildings.Controls.OBC.CDL.Integers.GreaterEqualThreshold intGreEquThr1(
     final t=larInt) "Greater or equal a threshold"
-    annotation (Placement(transformation(extent={{-10,70},{10,90}})));
+    annotation (Placement(transformation(extent={{100,50},{120,70}})));
 
   Buildings.Controls.OBC.CDL.Reals.Limiter lim(
     final uMax=maxTunPar,
     final uMin=minTunPar) "Limiter"
-    annotation (Placement(transformation(extent={{160,60},{180,80}})));
+    annotation (Placement(transformation(extent={{240,80},{260,100}})));
 
   Buildings.Controls.OBC.CDL.Reals.IntegratorWithReset intWitRes(
     final k=antWinGai)
     "Integrator with reset"
-    annotation (Placement(transformation(extent={{240,0},{260,20}})));
+    annotation (Placement(transformation(extent={{280,-20},{300,0}})));
 
   Buildings.Controls.OBC.CDL.Logical.Pre preRes
     "Breaks algebraic loop for the counter and integrator reset"
-    annotation (Placement(transformation(extent={{20,70},{40,90}})));
+    annotation (Placement(transformation(extent={{140,50},{160,70}})));
 
   Buildings.Controls.OBC.CDL.Logical.And and3
     "Logical and"
-    annotation (Placement(transformation(extent={{-108,0},{-88,20}})));
+    annotation (Placement(transformation(extent={{-20,-30},{0,-10}})));
+  Buildings.Controls.OBC.CDL.Logical.Latch lonEnaTim
+    "Enabled time is greater than threshold"
+    annotation (Placement(transformation(extent={{-220,160},{-200,180}})));
+
+  Buildings.Controls.OBC.CDL.Discrete.TriggeredSampler triSam1(
+    final y_start=0)
+    "Total enabled time at the moment when the economizer is disabled"
+    annotation (Placement(transformation(extent={{-200,0},{-180,20}})));
+
+  Buildings.Controls.OBC.CDL.Logical.Latch shoEnaTim
+    "Enabled time is less than threshold"
+    annotation (Placement(transformation(extent={{-100,0},{-80,20}})));
+
+  Buildings.Controls.OBC.CDL.Logical.Edge edg "Enabled economizer"
+    annotation (Placement(transformation(extent={{-280,110},{-260,130}})));
+
+  Buildings.Controls.OBC.CDL.Logical.TimerAccumulating accTim1
+    "Total time that the speed is not less than the threshold"
+    annotation (Placement(transformation(extent={{-200,-160},{-180,-140}})));
+
+  Buildings.Controls.OBC.CDL.Discrete.TriggeredSampler triSam2(
+    final y_start=0)
+    "Total time that the speed is not less than the threshold"
+    annotation (Placement(transformation(extent={{-160,-160},{-140,-140}})));
+
+  Buildings.Controls.OBC.CDL.Reals.LessThreshold lesThr1(
+    final t=5)
+    "Check if it is equal time"
+    annotation (Placement(transformation(extent={{-60,-110},{-40,-90}})));
+
+  Buildings.Controls.OBC.CDL.Logical.TrueDelay delWseDis(
+    final delayTime=5)
+    "Delay the economizer disable signal"
+    annotation (Placement(transformation(extent={{-200,-70},{-180,-50}})));
+
+  Buildings.Controls.OBC.CDL.Reals.Subtract timDif
+    "Difference of the economizer enabling time and the high tower speed time"
+    annotation (Placement(transformation(extent={{-100,-110},{-80,-90}})));
 
 equation
   connect(uWseSta, tim.u)
-    annotation (Line(points={{-340,120},{-280,120},{-280,150},{-262,150}},
+    annotation (Line(points={{-340,120},{-300,120},{-300,178},{-282,178}},
           color={255,0,255}));
-  connect(uWseSta, tim1.u) annotation (Line(points={{-340,120},{-280,120},{-280,
-          50},{-262,50}},color={255,0,255}));
+  connect(uWseSta, wseEnaTim.u) annotation (Line(points={{-340,120},{-300,120},{
+          -300,10},{-282,10}}, color={255,0,255}));
   connect(uTowFanSpeMax, hys.u)
-    annotation (Line(points={{-340,-80},{-282,-80}}, color={0,0,127}));
-  connect(triSam2.y, greThr.u)
-    annotation (Line(points={{-38,-80},{-22,-80}}, color={0,0,127}));
-  connect(booToRea.y, triSam2.u) annotation (Line(points={{-78,-80},{-62,-80}},
-          color={0,0,127}));
-  connect(uWseSta, falEdg.u) annotation (Line(points={{-340,120},{-280,120},{-280,
-          100},{-222,100}}, color={255,0,255}));
-  connect(falEdg.y, and2.u2) annotation (Line(points={{-198,100},{-150,100},{-150,
-          142},{-142,142}},color={255,0,255}));
-  connect(uWseSta, falEdg1.u) annotation (Line(points={{-340,120},{-280,120},{-280,
-          0},{-222,0}}, color={255,0,255}));
-  connect(and1.u2, falEdg1.y) annotation (Line(points={{-142,2},{-160,2},{-160,0},
-          {-198,0}},    color={255,0,255}));
-  connect(hys.y, booToRea.u)
-    annotation (Line(points={{-258,-80},{-102,-80}},color={255,0,255}));
-  connect(and4.y, triSam2.trigger) annotation (Line(points={{-58,-110},{-50,-110},
-          {-50,-92}},   color={255,0,255}));
-  connect(uWseSta, not1.u) annotation (Line(points={{-340,120},{-280,120},{-280,
-          -20},{-262,-20}},color={255,0,255}));
-  connect(hys.y, and6.u1) annotation (Line(points={{-258,-80},{-244,-80},{-244,-110},
-          {-202,-110}}, color={255,0,255}));
-  connect(not1.y, and6.u2) annotation (Line(points={{-238,-20},{-210,-20},{-210,
-          -118},{-202,-118}},color={255,0,255}));
-  connect(and4.u1, and6.y) annotation (Line(points={{-82,-110},{-178,-110}},
-           color={255,0,255}));
-  connect(uWseSta, and5.u2) annotation (Line(points={{-340,120},{-300,120},{-300,
-          -158},{-202,-158}}, color={255,0,255}));
-  connect(hys.y, not2.u) annotation (Line(points={{-258,-80},{-252,-80},{-252,-140},
-          {-242,-140}}, color={255,0,255}));
-  connect(and5.u1, not2.y)
-    annotation (Line(points={{-202,-150},{-210,-150},{-210,-140},{-218,-140}},
-          color={255,0,255}));
-  connect(and5.y, lat.u) annotation (Line(points={{-178,-150},{-172,-150},{-172,
-          -130},{-142,-130}}, color={255,0,255}));
-  connect(lat.y, and4.u2) annotation (Line(points={{-118,-130},{-90,-130},{-90,
-          -118},{-82,-118}},
-                       color={255,0,255}));
-  connect(not1.y, lat.clr) annotation (Line(points={{-238,-20},{-160,-20},{-160,
-          -136},{-142,-136}}, color={255,0,255}));
-  connect(tim1.y, lesThr.u)
-    annotation (Line(points={{-238,50},{-222,50}}, color={0,0,127}));
+    annotation (Line(points={{-340,-150},{-282,-150}}, color={0,0,127}));
+  connect(uWseSta, disWse.u) annotation (Line(points={{-340,120},{-300,120},{-300,
+          70},{-282,70}}, color={255,0,255}));
+  connect(disWse.y, and2.u2) annotation (Line(points={{-258,70},{-220,70},{-220,
+          152},{-142,152}}, color={255,0,255}));
   connect(intToRea.u, disCou.y)
-    annotation (Line(points={{58,150},{-78,150}},color={255,127,0}));
+    annotation (Line(points={{118,160},{42,160}},color={255,127,0}));
   connect(and2.y, disCou.trigger)
-    annotation (Line(points={{-118,150},{-102,150}}, color={255,0,255}));
+    annotation (Line(points={{-118,160},{18,160}},   color={255,0,255}));
   connect(disCou1.y, intToRea1.u)
-    annotation (Line(points={{-58,10},{-2,10}}, color={255,127,0}));
+    annotation (Line(points={{42,-20},{118,-20}}, color={255,127,0}));
   connect(lim.y, y)
-    annotation (Line(points={{182,70},{340,70}},                 color={0,0,127}));
+    annotation (Line(points={{262,90},{340,90}}, color={0,0,127}));
   connect(mulSum.y, lim.u)
-    annotation (Line(points={{142,70},{158,70}}, color={0,0,127}));
-  connect(lim.y, sub1.u1) annotation (Line(points={{182,70},{190,70},{190,36},{198,
-          36}},  color={0,0,127}));
-  connect(mulSum.y, sub1.u2) annotation (Line(points={{142,70},{152,70},{152,24},
-          {198,24}}, color={0,0,127}));
-  connect(sub1.y, intWitRes.u) annotation (Line(points={{222,30},{230,30},{230,10},
-          {238,10}},  color={0,0,127}));
+    annotation (Line(points={{222,90},{238,90}}, color={0,0,127}));
+  connect(lim.y, sub1.u1) annotation (Line(points={{262,90},{270,90},{270,56},{278,
+          56}}, color={0,0,127}));
+  connect(mulSum.y, sub1.u2) annotation (Line(points={{222,90},{230,90},{230,44},
+          {278,44}}, color={0,0,127}));
   connect(maxInt.y, intGreEquThr1.u)
-    annotation (Line(points={{-18,80},{-12,80}},color={255,127,0}));
-  connect(disCou.y, maxInt.u1) annotation (Line(points={{-78,150},{-50,150},{-50,
-          86},{-42,86}}, color={255,127,0}));
-  connect(disCou1.y, maxInt.u2) annotation (Line(points={{-58,10},{-50,10},{-50,
-          74},{-42,74}}, color={255,127,0}));
-  connect(intToRea.y, mulSum.u[1]) annotation (Line(points={{82,150},{100,150},
-          {100,69.3333},{118,69.3333}},color={0,0,127}));
-  connect(intToRea1.y, mulSum.u[2]) annotation (Line(points={{22,10},{80,10},{
-          80,70},{118,70}},
-                         color={0,0,127}));
-  connect(intWitRes.y, mulSum.u[3]) annotation (Line(points={{262,10},{280,10},
-          {280,-40},{110,-40},{110,70.6667},{118,70.6667}},color={0,0,127}));
+    annotation (Line(points={{82,60},{98,60}},  color={255,127,0}));
+  connect(disCou.y, maxInt.u1) annotation (Line(points={{42,160},{50,160},{50,66},
+          {58,66}}, color={255,127,0}));
+  connect(disCou1.y, maxInt.u2) annotation (Line(points={{42,-20},{50,-20},{50,54},
+          {58,54}}, color={255,127,0}));
+  connect(intToRea.y, mulSum.u[1]) annotation (Line(points={{142,160},{180,160},
+          {180,89.3333},{198,89.3333}},color={0,0,127}));
+  connect(intToRea1.y, mulSum.u[2]) annotation (Line(points={{142,-20},{180,-20},
+          {180,90},{198,90}}, color={0,0,127}));
+  connect(intWitRes.y, mulSum.u[3]) annotation (Line(points={{302,-10},{310,-10},
+          {310,-60},{180,-60},{180,90.6667},{198,90.6667}},color={0,0,127}));
   connect(intGreEquThr1.y, preRes.u)
-    annotation (Line(points={{12,80},{18,80}}, color={255,0,255}));
-  connect(preRes.y, disCou.reset) annotation (Line(points={{42,80},{50,80},{50,
-          120},{-90,120},{-90,138}}, color={255,0,255}));
-  connect(preRes.y, disCou1.reset) annotation (Line(points={{42,80},{50,80},{50,
-          -10},{-70,-10},{-70,-2}}, color={255,0,255}));
-  connect(preRes.y, intWitRes.trigger) annotation (Line(points={{42,80},{50,80},
-          {50,-10},{250,-10},{250,-2}}, color={255,0,255}));
-  connect(resVal.y, intWitRes.y_reset_in) annotation (Line(points={{142,10},{182,
-          10},{182,2},{238,2}}, color={0,0,127}));
+    annotation (Line(points={{122,60},{138,60}}, color={255,0,255}));
+  connect(preRes.y, disCou.reset) annotation (Line(points={{162,60},{170,60},{170,
+          120},{30,120},{30,148}}, color={255,0,255}));
+  connect(preRes.y, disCou1.reset) annotation (Line(points={{162,60},{170,60},{170,
+          -60},{30,-60},{30,-32}},     color={255,0,255}));
+  connect(preRes.y, intWitRes.trigger) annotation (Line(points={{162,60},{170,60},
+          {170,-40},{290,-40},{290,-22}},    color={255,0,255}));
+  connect(resVal.y, intWitRes.y_reset_in) annotation (Line(points={{222,0},{252,
+          0},{252,-18},{278,-18}},  color={0,0,127}));
   connect(disCou1.trigger, and3.y)
-    annotation (Line(points={{-82,10},{-86,10}}, color={255,0,255}));
+    annotation (Line(points={{18,-20},{2,-20}},  color={255,0,255}));
   connect(and1.y, and3.u1)
-    annotation (Line(points={{-118,10},{-110,10}}, color={255,0,255}));
-  connect(greThr.y, and3.u2) annotation (Line(points={{2,-80},{20,-80},{20,-20},
-          {-116,-20},{-116,2},{-110,2}}, color={255,0,255}));
-  connect(tim.passed, and2.u1) annotation (Line(points={{-238,142},{-220,142},{
-          -220,150},{-142,150}}, color={255,0,255}));
-  connect(lesThr.y, and1.u1) annotation (Line(points={{-198,50},{-180,50},{-180,
-          10},{-142,10}}, color={255,0,255}));
+    annotation (Line(points={{-38,-20},{-22,-20}}, color={255,0,255}));
+  connect(tim.passed, lonEnaTim.u)
+    annotation (Line(points={{-258,170},{-222,170}}, color={255,0,255}));
+  connect(lonEnaTim.y, and2.u1) annotation (Line(points={{-198,170},{-180,170},
+          {-180,160},{-142,160}}, color={255,0,255}));
+  connect(uWseSta, edg.u)
+    annotation (Line(points={{-340,120},{-282,120}}, color={255,0,255}));
+  connect(edg.y, lonEnaTim.clr) annotation (Line(points={{-258,120},{-240,120},{
+          -240,164},{-222,164}},  color={255,0,255}));
+  connect(wseEnaTim.y, triSam1.u)
+    annotation (Line(points={{-258,10},{-202,10}}, color={0,0,127}));
+  connect(triSam1.y, lesThr.u)
+    annotation (Line(points={{-178,10},{-142,10}}, color={0,0,127}));
+  connect(lesThr.y, shoEnaTim.u)
+    annotation (Line(points={{-118,10},{-102,10}}, color={255,0,255}));
+  connect(edg.y, shoEnaTim.clr) annotation (Line(points={{-258,120},{-110,120},{
+          -110,4},{-102,4}},    color={255,0,255}));
+  connect(disWse.y, triSam1.trigger) annotation (Line(points={{-258,70},{-220,70},
+          {-220,-28},{-190,-28},{-190,-2}}, color={255,0,255}));
+  connect(shoEnaTim.y, and1.u1) annotation (Line(points={{-78,10},{-70,10},{-70,
+          -20},{-62,-20}},     color={255,0,255}));
+  connect(disWse.y, and1.u2) annotation (Line(points={{-258,70},{-220,70},{-220,
+          -28},{-62,-28}}, color={255,0,255}));
+  connect(delWseDis.y, wseEnaTim.reset) annotation (Line(points={{-178,-60},{-170,
+          -60},{-170,-80},{-300,-80},{-300,2},{-282,2}}, color={255,0,255}));
+  connect(disWse.y, delWseDis.u) annotation (Line(points={{-258,70},{-220,70},{-220,
+          -60},{-202,-60}}, color={255,0,255}));
+  connect(hys.y, accTim1.u)
+    annotation (Line(points={{-258,-150},{-202,-150}}, color={255,0,255}));
+  connect(edg.y, accTim1.reset) annotation (Line(points={{-258,120},{-240,120},{
+          -240,-158},{-202,-158}},color={255,0,255}));
+  connect(accTim1.y, triSam2.u)
+    annotation (Line(points={{-178,-150},{-162,-150}}, color={0,0,127}));
+  connect(disWse.y, triSam2.trigger) annotation (Line(points={{-258,70},{-220,70},
+          {-220,-180},{-150,-180},{-150,-162}}, color={255,0,255}));
+  connect(triSam2.y, timDif.u2) annotation (Line(points={{-138,-150},{-120,-150},
+          {-120,-106},{-102,-106}}, color={0,0,127}));
+  connect(triSam1.y, timDif.u1) annotation (Line(points={{-178,10},{-160,10},{-160,
+          -94},{-102,-94}}, color={0,0,127}));
+  connect(timDif.y, lesThr1.u)
+    annotation (Line(points={{-78,-100},{-62,-100}}, color={0,0,127}));
+  connect(lesThr1.y, and3.u2) annotation (Line(points={{-38,-100},{-30,-100},{-30,
+          -28},{-22,-28}}, color={255,0,255}));
+  connect(sub1.y, intWitRes.u) annotation (Line(points={{302,50},{310,50},{310,20},
+          {262,20},{262,-10},{278,-10}}, color={0,0,127}));
   annotation (defaultComponentName = "wseTun",
         Icon(graphics={
         Rectangle(
@@ -275,7 +285,7 @@ equation
 Documentation(info="<html>
 <p>
 Waterside economizer outlet temperature prediction tuning parameter subsequence 
-per ASHRAE Guideline36-2021, section 5.20.3.3. 
+per ASHRAE Guideline 36-2021, section 5.20.3.3. 
 </p>
 <p>
 The subsequence calculates the tuning parameter <code>y</code> as follows:
@@ -283,22 +293,22 @@ The subsequence calculates the tuning parameter <code>y</code> as follows:
 <ul>
 <li>
 Decrease <code>y</code> in <code>step</code> when the WSE is disabled if the WSE remained
-enabled for greater than <code>wseOnTimDec</code> time period.
+enabled for more than <code>wseOnTimDec</code> period.
 </li>
 <li>
 Increase <code>y</code> in <code>step</code> when the WSE is disabled if the WSE 
-remained enabled for less than <code>wseOnTimInc</code> time period and 
+remained enabled for less than <code>wseOnTimInc</code> period and 
 the cooling tower fan speed signal <code>uTowFanSpeMax</code> did not decrease 
 below 100% speed while the WSE was enabled.
 </li>
 </ul>
 <p>
 <code>y</code> initializes at 0 upon first plant start up,
-it holds its value when the plant is disabled and tuning resumes from that value when the plant is re-enabled. 
-It is limited between -0.2 and 0.5.
+it holds its value when the plant is disabled, and tuning resumes from that value when the
+plant is re-enabled. It is limited between -0.2 and 0.5.
 </p>
 <p>
-In order to avoid large integer values above <code>larInt</code>, the counters 
+To avoid large integer values above <code>larInt</code>, the counters 
 get reset to 0 each time any of them reaches that value.
 </p>
 </html>",

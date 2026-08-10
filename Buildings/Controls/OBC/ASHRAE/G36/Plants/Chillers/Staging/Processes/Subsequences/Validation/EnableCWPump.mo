@@ -57,7 +57,7 @@ equation
     annotation (Line(points={{-38,40},{-30,40},{-30,62},{-2,62}},
       color={255,0,255}));
   connect(fal.y, staUpInd.uStaDow)
-    annotation (Line(points={{-38,0},{-20,0},{-20,58},{-2,58}},
+    annotation (Line(points={{-38,0},{-20,0},{-20,60},{-2,60}},
       color={255,0,255}));
   connect(upsDevSta.y, staDowInd.uUpsDevSta)
     annotation (Line(points={{-38,80},{60,80},{60,68},{78,68}},
@@ -66,7 +66,7 @@ equation
     annotation (Line(points={{-38,0},{60,0},{60,62},{78,62}},
       color={255,0,255}));
   connect(staCha.y, staDowInd.uStaDow)
-    annotation (Line(points={{-38,40},{66,40},{66,58},{78,58}},
+    annotation (Line(points={{-38,40},{66,40},{66,60},{78,60}},
       color={255,0,255}));
   connect(staCha.y, curSta.u2)
     annotation (Line(points={{-38,40},{-30,40},{-30,-40},{-22,-40}},
@@ -105,6 +105,10 @@ equation
   connect(reaToInt1[2].y, staDowInd.uStaSet)
     annotation (Line(points={{42,-60},{72,-60},{72,51},{78,51}}, color={255,127,0}));
 
+  connect(fal.y, staUpInd.uEnaPla) annotation (Line(points={{-38,0},{-20,0},{
+          -20,57},{-2,57}}, color={255,0,255}));
+  connect(fal.y, staDowInd.uEnaPla) annotation (Line(points={{-38,0},{60,0},{60,
+          57},{78,57}}, color={255,0,255}));
 annotation (
  experiment(StopTime=3600, Tolerance=1e-06),
   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/ASHRAE/G36/Plants/Chillers/Staging/Processes/Subsequences/Validation/EnableCWPump.mos"
@@ -124,14 +128,14 @@ For the instance <code>staUpInd</code>,
 </p>
 <ul>
 <li>
-Before 540 seconds, the plant is not in staging up process. The chiller stage
-<code>yChiSta</code> equals previous stage setpoint, which is 1.
+Before 540 seconds, the plant is not in the staging up process. The chiller stage
+<code>yChiSta</code> equals the previous stage setpoint, which is 1.
 </li>
 <li>
-In the period from 540 seconds to 720 seconds, the plant is in staging up process
+In the period from 540 seconds to 720 seconds, the plant is in the staging up process,
 but the process is not yet requiring changing the condenser water pumps
 (<code>uUpsDevSta=false</code>). The chiller stage <code>yChiSta</code> still
-equals previous stage setpoint (1) but not yet equals the new setpoint
+equals the previous stage setpoint (1) but not yet equals the new setpoint
 <code>uStaSet</code> (2).
 </li>
 <li>
@@ -145,14 +149,14 @@ For the instance <code>staDowInd</code>,
 </p>
 <ul>
 <li>
-Before 540 seconds, the plant is not in staging down process. The chiller stage
-<code>yChiSta</code> equals previous stage setpoint, which is 2.
+Before 540 seconds, the plant is not in the staging down process. The chiller stage
+<code>yChiSta</code> equals the previous stage setpoint, which is 2.
 </li>
 <li>
-In the period from 540 seconds to 720 seconds, the plant is in staging down process
+In the period from 540 seconds to 720 seconds, the plant is in the staging down process,
 but the process is not yet requiring changing the condenser water pumps
 (<code>uUpsDevSta=false</code>). The chiller stage <code>yChiSta</code> still
-equals previous stage setpoint (2) but not yet equals the new setpoint
+equals the previous stage setpoint (2) but not yet equals the new setpoint
 <code>uStaSet</code> (1).
 </li>
 <li>

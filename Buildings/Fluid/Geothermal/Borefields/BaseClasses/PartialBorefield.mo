@@ -97,6 +97,7 @@ partial model PartialBorefield
     final nSeg=nSeg,
     final m_flow_nominal=m_flow_nominal/borFieDat.conDat.nBor,
     final dp_nominal=dp_nominal,
+    final n=n,
     final allowFlowReversal=allowFlowReversal,
     final m_flow_small=m_flow_small,
     final show_T=show_T,

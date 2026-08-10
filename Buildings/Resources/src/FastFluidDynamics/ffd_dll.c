@@ -7,8 +7,8 @@
 * \author Wangda Zuo, Dan Li
 *         University of Miami
 *         W.Zuo@miami.edu
-					Wei Tian
-					W.Tian@umiami.edu
+				Wei Tian
+				W.Tian@umiami.edu
 *
 * \date   8/3/2013
 *
@@ -25,27 +25,57 @@ void *ffd_dll(CosimulationData *cosim) {
 /* Windows*/
 #ifdef _MSC_VER
   DWORD dummy;
-  HANDLE workerThreadHandle[1];
+  /* Allocate the thread-handle pointer on the heap so the returned void*
+   * remains valid after ffd_dll() returns.  Previously workerThreadHandle
+   * was a local stack array, making the returned void* a dangling pointer
+   * (undefined behaviour).  cfdStartCosimulation.c calls free() on the
+   * returned pointer, so it MUST be a heap allocation; calling free() on a
+   * stack address triggers STATUS_HEAP_CORRUPTION (exit code 0xC0000374)
+   * on Windows, while Linux glibc is more permissive and does not crash. */
+  HANDLE *workerThreadHandle = (HANDLE *) malloc(sizeof(HANDLE));
+  if (workerThreadHandle == NULL) {
+    ffd_log("ffd_dll(): Failed to allocate memory for thread handle.", FFD_ERROR);
+    return NULL;
+  }
 /*  Linux*/
 #else
-    pthread_t thread1[1];
+  /* Allocate thread handle on the heap so the returned pointer remains valid
+   * after ffd_dll() returns. Previously thread1 was a local stack variable,
+   * making the returned void* a dangling pointer (undefined behavior).
+   * The caller is responsible for freeing this pointer when done.
+   * We also detach the thread so it cleans up automatically on exit. */
+  pthread_t *thread1 = (pthread_t *) malloc(sizeof(pthread_t));
+  if (thread1 == NULL) {
+    ffd_log("ffd_dll(): Failed to allocate memory for thread handle.", FFD_ERROR);
+    return NULL;
+  }
 #endif
 
   /*printf("ffd_dll():Start to launch FFD\n");*/
 
 /* Windows*/
 #ifdef _MSC_VER
-  workerThreadHandle[0] = CreateThread(NULL, 0, ffd_thread, (void *)cosim, 0, &dummy);
+  *workerThreadHandle = CreateThread(NULL, 0, ffd_thread, (void *)cosim, 0, &dummy);
+  /* Close the Windows thread HANDLE immediately.  The thread itself
+   * continues to run independently; closing the handle only releases the
+   * kernel reference so it does not leak.  The malloc'd pointer is what
+   * we return so the caller can free() it safely. */
+  CloseHandle(*workerThreadHandle);
 /* Linux*/
 #else
-  void * (*foo) (void *);
-  foo=&ffd_thread;
-  pthread_create(&thread1[0], NULL, foo, (void *)cosim);
+  {
+    void * (*foo) (void *);
+    foo = &ffd_thread;
+    pthread_create(thread1, NULL, foo, (void *)cosim);
+    /* Detach so the thread cleans up automatically when it exits,
+     * avoiding resource leaks when the thread handle is freed by the caller. */
+    pthread_detach(*thread1);
+  }
 #endif
 
   /*printf("ffd_dll(): Launched FFD simulation.\n");*/
 	/* return the handle or thread*/
-#ifdef _MSC_VER	
+#ifdef _MSC_VER
   return workerThreadHandle;
 #else
 	return thread1;
