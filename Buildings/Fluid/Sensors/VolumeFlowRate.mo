@@ -17,7 +17,8 @@ model VolumeFlowRate "Ideal sensor for volume flow rate"
     "Mass fraction used to compute d_start"
     annotation (Dialog(group="Initialization"));
   Modelica.Blocks.Interfaces.RealOutput V_flow(final quantity="VolumeFlowRate",
-                                               final unit="m3/s")
+                                               final unit="m3/s",
+                                               nominal=m_flow_nominal/d_start)
     "Volume flow rate from port_a to port_b"
     annotation (Placement(transformation(
         origin={0,110},
@@ -97,6 +98,11 @@ Buildings.Fluid.Sensors.UsersGuide</a> for an explanation.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+June 25, 2026, by Michael Wetter:<br/>
+Added <code>nominal</code> attribute to state variable.<br/>
+This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/2132\">IBPSA, #2132</a>.
+</li>
 <li>
 October 19, 2020, by Antoine Gautier:<br/>
 Changed default value for <code>tau</code> from <code>1</code> to <code>0</code>.<br/>

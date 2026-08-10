@@ -1,0 +1,42 @@
+simulateModel("Buildings.Templates.Plants.Controls.StagingRotation.BaseClasses.Validation.SelectSortedAvailable",
+    method="cvode",
+    tolerance=1e-6,
+    stopTime=7.0,
+    resultFile="SelectSortedAvailable");
+createPlot(
+    id=1,
+    position={5, 5, 300, 400},
+    subPlot=1,
+    y={"idxSta.y[1]"},
+    autoscale=true,
+    grid=true
+);
+createPlot(
+    id=1,
+    subPlot=2,
+    y={"selSorAva.u1Ava[1]", "selSorAva.u1Ava[2]", "selSorAva.u1Ava[3]"},
+    autoscale=true,
+    grid=true
+);
+createPlot(
+    id=2,
+    position={315, 5, 300, 600},
+    subPlot=1,
+    y={"selSorAva.n"},
+    autoscale=true,
+    grid=true
+);
+createPlot(
+    id=2,
+    subPlot=2,
+    y={"selSorAva.uIdxSor[1]", "selSorAva.uIdxSor[2]"},
+    autoscale=true,
+    grid=true
+);
+createPlot(
+    id=2,
+    subPlot=3,
+    y={"selSorAva.y1[1]", "selSorAva.y1[2]", "selSorAva.y1[3]"},
+    autoscale=true,
+    grid=true
+);

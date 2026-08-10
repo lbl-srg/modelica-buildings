@@ -261,7 +261,7 @@ equation
       points={{-240,70},{-172,70}},
       color={255,204,51},
       thickness=0.5), Text(
-      textString="%first",
+      string="%first",
       index=-1,
       extent={{-6,3},{-6,3}}));
   connect(fan.port_b, roo.airPorts[1])

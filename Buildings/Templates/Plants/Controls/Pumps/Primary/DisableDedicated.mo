@@ -51,7 +51,7 @@ block DisableDedicated
     "Return true if lead equipment is proven off for specified duration"
     annotation (Placement(transformation(extent={{-50,-10},{-30,10}})));
   Buildings.Controls.OBC.CDL.Logical.And disAndOffOrNotReq
-    "Return true if lead equipment disbaled AND (proven off OR not requesting flow)"
+    "Return true if lead equipment disabled AND (proven off OR not requesting flow)"
     annotation (Placement(transformation(extent={{30,-70},{50,-50}})));
   Buildings.Controls.OBC.CDL.Logical.Edge edg
     "Trigger true signal when disable conditions turn true"

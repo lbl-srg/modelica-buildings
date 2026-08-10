@@ -193,7 +193,7 @@ equation
       color={255,204,51},
       thickness=0.5,
       smooth=Smooth.None), Text(
-      textString="%second",
+      string="%second",
       index=1,
       extent={{6,3},{6,3}}));
   connect(weaBus, HDirTil.weaBus) annotation (Line(
@@ -201,7 +201,7 @@ equation
       color={255,204,51},
       thickness=0.5,
       smooth=Smooth.None), Text(
-      textString="%first",
+      string="%first",
       index=-1,
       extent={{-6,3},{-6,3}}));
   connect(HDifTilIso.weaBus, weaBus) annotation (Line(
@@ -209,14 +209,14 @@ equation
       color={255,204,51},
       thickness=0.5,
       smooth=Smooth.None), Text(
-      textString="%second",
+      string="%second",
       index=1,
       extent={{6,3},{6,3}}));
   connect(TOuts.T, weaBus.TDryBul) annotation (Line(
       points={{-22,50},{-30,50},{-30,20},{20,20},{20,-10}},
       color={0,0,127},
       smooth=Smooth.None), Text(
-      textString="%second",
+      string="%second",
       index=1,
       extent={{6,3},{6,3}}));
   connect(uSha.y, winRad.uSha) annotation (Line(
@@ -233,7 +233,7 @@ equation
       color={255,204,51},
       thickness=0.5,
       smooth=Smooth.None), Text(
-      textString="%first",
+      string="%first",
       index=-1,
       extent={{-6,3},{-6,3}}));
   connect(weaBus.TDryBul, extCon.TOut) annotation (Line(
@@ -241,7 +241,7 @@ equation
       color={255,204,51},
       thickness=0.5,
       smooth=Smooth.None), Text(
-      textString="%first",
+      string="%first",
       index=-1,
       extent={{-6,3},{-6,3}}));
   connect(uSha.y, shaSig.u) annotation (Line(

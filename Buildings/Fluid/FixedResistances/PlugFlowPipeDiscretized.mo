@@ -11,9 +11,12 @@ model PlugFlowPipeDiscretized
   parameter Boolean from_dp=false
     "= true, use m_flow = f(dp) else dp = f(m_flow)"
     annotation (Dialog(tab="Advanced"));
+  parameter Real n(min=1, max=2) = 2
+    "Flow exponent, n=1 for laminar, n=2 for turbulent"
+    annotation(Evaluate=true);
 
   parameter Boolean have_pipCap=true
-    "= true, a mixing volume is added to each segment that corresponds 
+    "= true, a mixing volume is added to each segment that corresponds
     to the heat capacity of the pipe segment wall"
     annotation (Dialog(tab="Advanced"));
   parameter Boolean have_symmetry=true
@@ -104,6 +107,7 @@ model PlugFlowPipeDiscretized
     final m_flow_nominal=m_flow_nominal,
     final dh=dh,
     final from_dp=from_dp,
+    final n=n,
     final length=totLen,
     final roughness=roughness,
     final fac=fac,
@@ -254,6 +258,14 @@ equation
           thickness=0.5)}),
     Documentation(revisions="<html>
 <ul>
+<li>
+June 17, 2026, by Michael Wetter:<br/>
+Updated implementation to allow a flow coefficient <code>n</code> that is different from <code>2</code>.
+This allows use of the model for not fully turbulent flow.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4620\">Buildings, #4620</a>.
+</li>
+
 <li>
 January 5, 2026, by Michael Wetter:<br/>
 In <a href=\"modelica://Buildings.Fluid.FixedResistances.BaseClasses.PlugFlowPipe\">

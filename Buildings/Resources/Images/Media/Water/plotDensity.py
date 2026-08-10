@@ -18,8 +18,8 @@ for TC in T_degC:
 fig = plt.figure(figsize=(6, 2))
 ax = fig.add_subplot(111)
 ax.plot(T_degC, rho)
-ax.set_xlabel('$T \, [\mathrm{^\circ C}]$')
-ax.set_ylabel('$\\rho \, [\mathrm{kg/m^3}]$')
+ax.set_xlabel(r'$T \, [\mathrm{^\circ C}]$')
+ax.set_ylabel(r'$\rho \, [\mathrm{kg/m^3}]$')
 ax.grid(True)
 
 # The next line avoids the x-label to be cut off.

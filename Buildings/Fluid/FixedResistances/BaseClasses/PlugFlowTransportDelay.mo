@@ -28,7 +28,9 @@ model PlugFlowTransportDelay "Delay time for given normalized velocity"
   Modelica.Units.SI.Time time_out_rev "Reverse flow direction output time";
   Modelica.Units.SI.Time time_out_des "Design flow direction output time";
 
-  Real x(start=0) "Spatial coordinate for spatialDistribution operator";
+  Real x(
+    start=0,
+    nominal=length) "Spatial coordinate for spatialDistribution operator";
   Real u(unit="1/s") "Normalized fluid velocity (1/s)";
 
   Modelica.Blocks.Interfaces.RealInput m_flow "Mass flow of fluid" annotation (
@@ -130,6 +132,11 @@ No axial mixing takes place in the pipe.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+June 25, 2026, by Michael Wetter:<br/>
+Added <code>nominal</code> attribute to <code>x</code>.<br/>
+This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/2132\">IBPSA, #2132</a>.
+</li>
 <li>
 December 2, 2020, by Philipp Mehrfeld:<br/>
 Corrected calculation of <code>tau</code> and <code>tauRev</code> to be be 

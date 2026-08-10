@@ -54,6 +54,7 @@ protected
     final show_T=false,
     final homotopyInitialization=homotopyInitialization,
     final from_dp=from_dpWat,
+    final n=nWat,
     final linearizeFlowResistance=linearizeFlowResistanceWat,
     final deltaM=deltaMWat,
     final tau=tau,
