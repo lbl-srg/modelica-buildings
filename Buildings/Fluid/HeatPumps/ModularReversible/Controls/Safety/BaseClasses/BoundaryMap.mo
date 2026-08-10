@@ -68,9 +68,10 @@ protected
     "Maximal temperature of useful side";
   final parameter Modelica.Units.SI.Temperature TUseSidMin=0
     "Minimal value of useful side";
-  final parameter Real poi[size(scaTAmbSid, 1),2]=transpose({scaTAmbSidToPoi,
-      scaTUseSidToPoi}) "Points for dynamic annotation"
-    annotation (HideResult=false, HideResult=false);
+  final parameter Real poi[size(scaTAmbSid, 1),2]=
+    transpose({scaTAmbSidToPoi, scaTUseSidToPoi})
+    "Points for dynamic annotation"
+    annotation (HideResult=false);
   final parameter Modelica.Units.SI.Temperature scaTAmbSid[:]=tab[:, 1]
     "Helper array with only not ambient side temperature values";
   final parameter Modelica.Units.SI.Temperature scaTUseSid[:]=tab[:, 2]
@@ -174,6 +175,10 @@ equation
 </html>",
         revisions="<html>
 <ul>
+<li>
+August 3, 2026, by Michael Wetter:<br/>
+Removed duplicate <code>HideResult</code> annotation.
+</li>
 <li>
 November 17, 2025, by Michael Wetter:<br/>
 Corrected typo in annotation.<br/>

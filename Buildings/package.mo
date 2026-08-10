@@ -3,7 +3,6 @@ package Buildings "Library with models for building energy and control systems"
   extends Modelica.Icons.Package;
 
 annotation (
-preferredView="info",
 version="14.0.0",
 versionDate="2026-05-04",
 dateModified="2026-05-04",
