@@ -5,6 +5,64 @@
 
 #if defined(_WIN32)     /* Win32 or Win64              */
 #define putenv(x) (_putenv(x))
+#include <windows.h>
+/* The Microsoft Visual C runtime does not provide the POSIX strtok_r() */
+/* function. Its equivalent, strtok_s(), has the same signature and */
+/* argument order, so it can be used as a drop-in replacement. */
+#define strtok_r(str, delim, saveptr) strtok_s((str), (delim), (saveptr))
+#else
+#include <pthread.h>
+#endif
+
+/*
+ * Mutex used to serialize ALL calls into pythonExchangeValuesNoModelica().
+ *
+ * Some Modelica simulation tools may evaluate an external function
+ * from more than one native (non-Python-created) thread at
+ * the same time, for example during model initialization or during a
+ * finite-difference Jacobian evaluation. Embedding CPython safely in
+ * that scenario requires more than just holding the GIL while making
+ * C-API calls: operations such as (re-)initializing the interpreter, or
+ * importing a module for the first time from a thread that Python does
+ * not yet know about, have been observed to segfault when triggered
+ * concurrently from multiple native threads.
+ *
+ * Since the Python modules used through this interface (such as the
+ * TOUGH coupling module, which changes the process' current working
+ * directory and reads/writes shared files) are themselves not designed
+ * to be called concurrently, the safest and simplest fix is to
+ * serialize the entire body of pythonExchangeValuesNoModelica() with a
+ * single global mutex so that only one native thread executes it at a
+ * time.
+ */
+#if defined(_WIN32)
+static INIT_ONCE gLockOnceControl = INIT_ONCE_STATIC_INIT;
+static CRITICAL_SECTION gLock;
+
+static BOOL CALLBACK lockOnceCallback(
+    PINIT_ONCE InitOnce, PVOID Parameter, PVOID *lpContext) {
+    InitializeCriticalSection(&gLock);
+    return TRUE;
+}
+
+static void lockPython(void) {
+    InitOnceExecuteOnce(&gLockOnceControl, lockOnceCallback, NULL, NULL);
+    EnterCriticalSection(&gLock);
+}
+
+static void unlockPython(void) {
+    LeaveCriticalSection(&gLock);
+}
+#else
+static pthread_mutex_t gLock = PTHREAD_MUTEX_INITIALIZER;
+
+static void lockPython(void) {
+    pthread_mutex_lock(&gLock);
+}
+
+static void unlockPython(void) {
+    pthread_mutex_unlock(&gLock);
+}
 #endif
 
 #if PY_MAJOR_VERSION >= 3
@@ -85,8 +143,7 @@ void pythonExchangeValuesNoModelica(const char * moduleName,
     PyObject *pItemInt = NULL;
     PyObject* obj;
 
-    PyConfig config;
-    PyStatus status;
+    PyGILState_STATE gstate;
 
     wchar_t *argv[] = {L"BuildingsPythonAPI"};
     int argc = sizeof(argv) / sizeof(argv[0]);
@@ -96,6 +153,8 @@ void pythonExchangeValuesNoModelica(const char * moduleName,
     Py_ssize_t iRet = 0;
     Py_ssize_t nRet = 0;
     pythonPtr* ptrMemory = (pythonPtr*)memory;
+    char* pathCopy = NULL; /* Disposable copy of PYTHONPATH used for tokenizing */
+    char* saveptr = NULL;  /* Context pointer for strtok_r */
     char* token; /* Entry of PYTHONPATH */
 #ifdef _WIN32 /* Win32 or Win64 */
   const char delimiter[2] = ";";
@@ -107,13 +166,21 @@ void pythonExchangeValuesNoModelica(const char * moduleName,
 
     size_t lenPath = strlen("");
 
+    /*//////////////////////////////////////////////////////////////////////////*/
+    /* Serialize the whole function body with a global mutex so that only */
+    /* one native thread at a time executes any of the code below, including */
+    /* interpreter initialization, module import, and the call into Python. */
+    /* This is required because some Modelica simulation tools may evaluate */
+    /* this external function from more than one native thread (e.g. during */
+    /* model initialization or a finite-difference Jacobian evaluation), and */
+    /* embedding CPython safely in that scenario requires more than just */
+    /* holding the GIL while making individual C-API calls (see the note at */
+    /* the top of this file for more information).*/
+    lockPython();
 
     /*//////////////////////////////////////////////////////////////////////////*/
-    /* Initialize Python interpreter*/
-    PyConfig_InitPythonConfig(&config);
-    config.isolated = 1;
-
-    /* Set the PYTHONPATH */
+    /* Set the PYTHONPATH. This must be done before the interpreter is */
+    /* initialized for the first time, as it is only used once below.*/
     if (ptrMemory->pythonPath == NULL) {
         /* Construct the python path */
         ptrMemory->pythonPath = (char*) malloc(sizeof(char) * (lenPath + 1));
@@ -133,36 +200,75 @@ void pythonExchangeValuesNoModelica(const char * moduleName,
         */
     }
 
-    /* Initialize the Python interpreter */
-    /* Set the entries for sys.argv.*/
-    /* This is required if a script uses sys.argv, such as bacpypes.*/
-    /* See also http://stackoverflow.com/questions/19381441/python-modelica-connection-fails-due-to-import-error*/
-    status = PyConfig_SetArgv(&config, argc, argv);
-    if (PyStatus_Exception(status)) {
-        PyConfig_Clear(&config);
-        ModelicaFormatError("PyStatus_Exception when calling PyConfig_SetArgv. Error message %s.", ( status.err_msg ? status.err_msg : "n/a" ));
-    }
+    /*//////////////////////////////////////////////////////////////////////////*/
+    /* Initialize the Python interpreter. */
+    /* This must only be done once for the whole process. Calling */
+    /* Py_InitializeFromConfig()/Py_Initialize() again while the interpreter */
+    /* is already running is not supported by CPython. Since the whole */
+    /* function body is now serialized by lockPython() above, it is safe to */
+    /* simply check Py_IsInitialized() here without any additional locking.*/
+    if (!Py_IsInitialized()) {
+        PyConfig config;
+        PyStatus status;
 
-    status = Py_InitializeFromConfig(&config);
-    if (PyStatus_Exception(status)) {
-        PyConfig_Clear(&config);
-        ModelicaFormatError("PyStatus_Exception when calling Py_InitializeFromConfig. Error message: %s.", ( status.err_msg ? status.err_msg : "n/a" ));
-    }
+        PyConfig_InitPythonConfig(&config);
+        config.isolated = 1;
 
-    if (!Py_IsInitialized())
-        Py_Initialize();
-
-    PyObject* sysPath = PySys_GetObject("path");
-    token = strtok(ptrMemory->pythonPath, delimiter);
-    /* Iterate over each entry */
-    while (token != NULL){
-        
-        if ( PyList_Insert(sysPath, 0, PyUnicode_FromString(token)) ) {
+        /* Set the entries for sys.argv.*/
+        /* This is required if a script uses sys.argv, such as bacpypes.*/
+        /* See also http://stackoverflow.com/questions/19381441/python-modelica-connection-fails-due-to-import-error*/
+        status = PyConfig_SetArgv(&config, argc, argv);
+        if (PyStatus_Exception(status)) {
             PyConfig_Clear(&config);
-            ModelicaFormatError("PyStatus_Exception when parsing PYTHONPATH: %s.", pythonPath);
+            unlockPython();
+            ModelicaFormatError("PyStatus_Exception when calling PyConfig_SetArgv. Error message %s.", ( status.err_msg ? status.err_msg : "n/a" ));
         }
-        /* Get the next token */
-        token = strtok(NULL, delimiter);
+
+        status = Py_InitializeFromConfig(&config);
+        PyConfig_Clear(&config);
+        if (PyStatus_Exception(status)) {
+            unlockPython();
+            ModelicaFormatError("PyStatus_Exception when calling Py_InitializeFromConfig. Error message: %s.", ( status.err_msg ? status.err_msg : "n/a" ));
+        }
+
+        /* Release the GIL that was implicitly acquired by initializing the */
+        /* interpreter, so that the PyGILState_Ensure() call below behaves */
+        /* consistently regardless of whether this is the first call or not.*/
+        PyEval_SaveThread();
+    }
+
+    /* Acquire the GIL. Although the whole function body is already */
+    /* serialized by lockPython(), some Modelica tools may also call other */
+    /* Python-related external functions from a different thread, so this */
+    /* is kept as an extra safety measure.*/
+    gstate = PyGILState_Ensure();
+
+    /* Insert PYTHONPATH into sys.path. Only needs to be done once, since */
+    /* sys.path is process-global and persists between calls.*/
+    if (!ptrMemory->isInitialized) {
+        PyObject* sysPath = PySys_GetObject("path");
+        /* strtok() modifies its argument in place. Operate on a disposable */
+        /* copy so that ptrMemory->pythonPath remains intact for any future use.*/
+        pathCopy = (char*) malloc(sizeof(char) * (strlen(ptrMemory->pythonPath) + 1));
+        if (pathCopy == NULL) {
+            PyGILState_Release(gstate);
+            unlockPython();
+            ModelicaFormatError("Failed to allocate memory for a copy of PYTHONPATH in pythonExchangeValuesNoModelica for %s.", moduleName);
+        }
+        strcpy(pathCopy, ptrMemory->pythonPath);
+        token = strtok_r(pathCopy, delimiter, &saveptr);
+        /* Iterate over each entry */
+        while (token != NULL){
+            if ( PyList_Insert(sysPath, 0, PyUnicode_FromString(token)) ) {
+                free(pathCopy);
+                PyGILState_Release(gstate);
+                unlockPython();
+                ModelicaFormatError("PyStatus_Exception when parsing PYTHONPATH: %s.", pythonPath);
+            }
+            /* Get the next token */
+            token = strtok_r(NULL, delimiter, &saveptr);
+        }
+        free(pathCopy);
     }
 
     /*//////////////////////////////////////////////////////////////////////////*/
@@ -505,6 +611,12 @@ functionName, PyString_AsString(PyObject_Repr(pValue)));
     /* http://stackoverflow.com/questions/7676314/py-initialize-py-finalize-not-working-twice-with-numpy*/
     /**/
     /*  Py_Finalize();*/
+
+    /* Release the GIL that was acquired at the beginning of this function.*/
+    PyGILState_Release(gstate);
+
+    /* Release the global mutex acquired at the beginning of this function.*/
+    unlockPython();
 
     return;
 }
