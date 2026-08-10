@@ -30,8 +30,8 @@ class AllSystemsAirCooled
         (Buildings.Templates.Data.Defaults.TChiWatRet .-
           pla.ctl.TChiWatSupChi_nominal) / pla.cfg.rhoChiWat_default,
       VChiWatChi_flow_min=0.3 * pla.ctl.VChiWatChi_flow_nominal,
-      VConWatChi_flow_nominal=pla.ctl.capChi_nominal * (1 + 1 /
-        Buildings.Templates.Data.Defaults.COPChiWatCoo) /
+      VConWatChi_flow_nominal=pla.ctl.capChi_nominal * (1 +
+        1 / Buildings.Templates.Data.Defaults.COPChiWatCoo) /
         Buildings.Utilities.Psychrometrics.Constants.cpWatLiq /
         (Buildings.Templates.Data.Defaults.TConWatRet -
           Buildings.Templates.Data.Defaults.TConWatSup) /
@@ -78,15 +78,15 @@ class AllSystemsAirCooled
     pumChiWatPri(
       dp_nominal=fill(
         (if pla.cfg.typArrChi ==
-        Buildings.Templates.Plants.Chillers.Types.ChillerArrangement.Parallel
-        then max(pla.chi.dpChiWatChi_nominal)
-        else sum(pla.chi.dpChiWatChi_nominal)) * 1.5,
+          Buildings.Templates.Plants.Chillers.Types.ChillerArrangement.Parallel
+          then max(pla.chi.dpChiWatChi_nominal)
+          else sum(pla.chi.dpChiWatChi_nominal)) * 1.5,
         pla.cfg.nPumChiWatPri) + fill(
         (if pla.cfg.typDisChiWat ==
-        Buildings.Templates.Plants.Chillers.Types.Distribution.Constant1Only or
-        pla.cfg.typDisChiWat ==
-        Buildings.Templates.Plants.Chillers.Types.Distribution.Variable1Only
-        then pla.ctl.dpChiWatLocSet_max else 0),
+          Buildings.Templates.Plants.Chillers.Types.Distribution.Constant1Only
+          or pla.cfg.typDisChiWat ==
+            Buildings.Templates.Plants.Chillers.Types.Distribution.Variable1Only
+          then pla.ctl.dpChiWatLocSet_max else 0),
         pla.cfg.nChi)),
     pumChiWatSec(
       dp_nominal=fill(pla.ctl.dpChiWatLocSet_max, pla.cfg.nPumChiWatSec)),

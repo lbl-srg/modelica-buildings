@@ -56,16 +56,15 @@ model ChillersToPrimaryPumps
     "Size of vectorized fluid connectors on chiller side"
     annotation(Evaluate=true,
       Dialog(group="Configuration"));
-  final parameter Boolean have_valChiWatChiBypPar =
-    typArrChi ==
-      Buildings.Templates.Plants.Chillers.Types.ChillerArrangement.Parallel
-      and (typDisChiWat ==
-        Buildings.Templates.Plants.Chillers.Types.Distribution.Variable1Only
-        or typDisChiWat ==
-          Buildings.Templates.Plants.Chillers.Types.Distribution.Constant1Only)
-      and typArrPumChiWatPri ==
-        Buildings.Templates.Components.Types.PumpArrangement.Headered
-      and typEco <> Buildings.Templates.Plants.Chillers.Types.Economizer.None
+  final parameter Boolean have_valChiWatChiBypPar = typArrChi ==
+    Buildings.Templates.Plants.Chillers.Types.ChillerArrangement.Parallel
+    and (typDisChiWat ==
+      Buildings.Templates.Plants.Chillers.Types.Distribution.Variable1Only
+      or typDisChiWat ==
+        Buildings.Templates.Plants.Chillers.Types.Distribution.Constant1Only)
+    and typArrPumChiWatPri ==
+      Buildings.Templates.Components.Types.PumpArrangement.Headered
+    and typEco <> Buildings.Templates.Plants.Chillers.Types.Economizer.None
     "Set to true for parallel chillers with chiller CHW bypass valve"
     annotation(Evaluate=true,
       Dialog(group="Configuration"));
@@ -385,62 +384,62 @@ annotation(defaultComponentName="int",
       thickness=5,
       pattern=LinePattern.Dash),
     Line(visible=typArrChi ==
-      Buildings.Templates.Plants.Chillers.Types.ChillerArrangement.Parallel and
-      nChi >= 2,
+      Buildings.Templates.Plants.Chillers.Types.ChillerArrangement.Parallel
+      and nChi >= 2,
       points={{-200,1300 - icon_dy},{200,1300 - icon_dy}},
       color={0,0,0},
       thickness=5),
     Line(visible=typArrChi ==
-      Buildings.Templates.Plants.Chillers.Types.ChillerArrangement.Parallel and
-      nChi >= 3,
+      Buildings.Templates.Plants.Chillers.Types.ChillerArrangement.Parallel
+      and nChi >= 3,
       points={{-200,1300 - 2 * icon_dy},{200,1300 - 2 * icon_dy}},
       color={0,0,0},
       thickness=5),
     Line(visible=typArrChi ==
-      Buildings.Templates.Plants.Chillers.Types.ChillerArrangement.Parallel and
-      nChi >= 4,
+      Buildings.Templates.Plants.Chillers.Types.ChillerArrangement.Parallel
+      and nChi >= 4,
       points={{-200,1300 - 3 * icon_dy},{200,1300 - 3 * icon_dy}},
       color={0,0,0},
       thickness=5),
     Line(visible=typArrChi ==
-      Buildings.Templates.Plants.Chillers.Types.ChillerArrangement.Parallel and
-      nChi >= 5,
+      Buildings.Templates.Plants.Chillers.Types.ChillerArrangement.Parallel
+      and nChi >= 5,
       points={{-200,1300 - 4 * icon_dy},{200,1300 - 4 * icon_dy}},
       color={0,0,0},
       thickness=5),
     Line(visible=typArrChi ==
-      Buildings.Templates.Plants.Chillers.Types.ChillerArrangement.Parallel and
-      nChi >= 6,
+      Buildings.Templates.Plants.Chillers.Types.ChillerArrangement.Parallel
+      and nChi >= 6,
       points={{-200,1300 - 5 * icon_dy},{200,1300 - 5 * icon_dy}},
       color={0,0,0},
       thickness=5),
     Line(visible=typArrChi ==
-      Buildings.Templates.Plants.Chillers.Types.ChillerArrangement.Series and
-      nChi >= 2,
+      Buildings.Templates.Plants.Chillers.Types.ChillerArrangement.Series
+      and nChi >= 2,
       points={{100,1300 - icon_dy},{200,1300 - icon_dy}},
       color={0,0,0},
       thickness=5),
     Line(visible=typArrChi ==
-      Buildings.Templates.Plants.Chillers.Types.ChillerArrangement.Series and
-      nChi >= 3,
+      Buildings.Templates.Plants.Chillers.Types.ChillerArrangement.Series
+      and nChi >= 3,
       points={{100,1300 - 2 * icon_dy},{200,1300 - 2 * icon_dy}},
       color={0,0,0},
       thickness=5),
     Line(visible=typArrChi ==
-      Buildings.Templates.Plants.Chillers.Types.ChillerArrangement.Series and
-      nChi >= 4,
+      Buildings.Templates.Plants.Chillers.Types.ChillerArrangement.Series
+      and nChi >= 4,
       points={{100,1300 - 3 * icon_dy},{200,1300 - 3 * icon_dy}},
       color={0,0,0},
       thickness=5),
     Line(visible=typArrChi ==
-      Buildings.Templates.Plants.Chillers.Types.ChillerArrangement.Series and
-      nChi >= 5,
+      Buildings.Templates.Plants.Chillers.Types.ChillerArrangement.Series
+      and nChi >= 5,
       points={{100,1300 - 4 * icon_dy},{200,1300 - 4 * icon_dy}},
       color={0,0,0},
       thickness=5),
     Line(visible=typArrChi ==
-      Buildings.Templates.Plants.Chillers.Types.ChillerArrangement.Series and
-      nChi >= 6,
+      Buildings.Templates.Plants.Chillers.Types.ChillerArrangement.Series
+      and nChi >= 6,
       points={{100,1300 - 5 * icon_dy},{200,1300 - 5 * icon_dy}},
       color={0,0,0},
       thickness=5),
@@ -495,20 +494,20 @@ annotation(defaultComponentName="int",
         Buildings.Templates.Plants.Chillers.Types.Economizer.None,
       fileName="modelica://Buildings/Resources/Images/Templates/Components/Sensors/Temperature.svg"),
     Bitmap(extent={{-100,-100},{100,100}},
-      visible=have_senVChiWatPri and
-        locSenFloChiWatPri ==
-        Buildings.Templates.Plants.Chillers.Types.SensorLocation.Return,
+      visible=have_senVChiWatPri
+        and locSenFloChiWatPri ==
+          Buildings.Templates.Plants.Chillers.Types.SensorLocation.Return,
       fileName="modelica://Buildings/Resources/Images/Templates/Components/Sensors/VolumeFlowRateFlowMeter.svg",
       origin={-200,-910},
       rotation=-90),
     Bitmap(extent={{-40,-950},{40,-870}},
-      visible=have_senVChiWatPri and
-        locSenFloChiWatPri ==
-        Buildings.Templates.Plants.Chillers.Types.SensorLocation.Return,
+      visible=have_senVChiWatPri
+        and locSenFloChiWatPri ==
+          Buildings.Templates.Plants.Chillers.Types.SensorLocation.Return,
       fileName="modelica://Buildings/Resources/Images/Templates/Components/Sensors/VolumeFlowRate.svg"),
-    Line(visible=have_senVChiWatPri and
-      locSenFloChiWatPri ==
-      Buildings.Templates.Plants.Chillers.Types.SensorLocation.Return,
+    Line(visible=have_senVChiWatPri
+      and locSenFloChiWatPri ==
+        Buildings.Templates.Plants.Chillers.Types.SensorLocation.Return,
       points={{-166,-910},{-40,-910}},
       color={0,0,0}),
     Line(points={{200,1300},{-200,1300}},

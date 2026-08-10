@@ -13,11 +13,11 @@ model CoolerGroupCoolingTower
       Dialog(group="Nominal condition"));
   parameter Modelica.Units.SI.MassFlowRate mConWatCoo_flow_nominal[nCoo] =
     capCoo_nominal / Buildings.Utilities.Psychrometrics.Constants.cpWatLiq /
-      (TConWatRet_nominal - TConWatSup_nominal)
+    (TConWatRet_nominal - TConWatSup_nominal)
     "CW mass flow rate - Each cooler unit"
     annotation(Dialog(group="Nominal condition"));
-  final parameter Modelica.Units.SI.MassFlowRate mConWat_flow_nominal =
-    sum(mConWatCoo_flow_nominal)
+  final parameter Modelica.Units.SI.MassFlowRate mConWat_flow_nominal = sum(
+    mConWatCoo_flow_nominal)
     "Total CW mass flow rate (all units)";
   parameter Modelica.Units.SI.PressureDifference dpConWatFriCoo_nominal[nCoo] =
     fill(Buildings.Templates.Data.Defaults.dpConWatFriTow, nCoo)
@@ -29,11 +29,11 @@ model CoolerGroupCoolingTower
     annotation(Dialog(group="Nominal condition"));
   parameter Modelica.Units.SI.MassFlowRate mAirCoo_flow_nominal[nCoo] =
     mConWatCoo_flow_nominal /
-      Buildings.Templates.Data.Defaults.ratMFloConWatByMFloAirTow
+    Buildings.Templates.Data.Defaults.ratMFloConWatByMFloAirTow
     "Air mass flow rate"
     annotation(Dialog(group="Nominal condition"));
-  parameter Modelica.Units.SI.HeatFlowRate capCoo_nominal[nCoo] =
-    fill(1E6, nCoo)
+  parameter Modelica.Units.SI.HeatFlowRate capCoo_nominal[nCoo] = fill(
+    1E6, nCoo)
     "Cooling capacity - Each unit (>0)"
     annotation(Dialog(group="Nominal condition"));
   parameter Modelica.Units.SI.Temperature TAirEnt_nominal =

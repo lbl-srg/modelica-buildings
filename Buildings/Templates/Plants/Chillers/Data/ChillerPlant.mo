@@ -20,8 +20,8 @@ record ChillerPlant
     capChi_nominal=ctl.capChi_nominal,
     TChiWatSupChi_nominal=ctl.TChiWatSupChi_nominal,
     TConWatChi_nominal={if chi.perChi[i].use_TConOutForTab
-    then ctl.TConWatRetChi_nominal[i]
-    else ctl.TConWatSupChi_nominal[i] for i in 1:cfg.nChi})
+      then ctl.TConWatRetChi_nominal[i]
+      else ctl.TConWatSupChi_nominal[i] for i in 1:cfg.nChi})
     "Chiller group"
     annotation(Dialog(group="Chillers"));
   parameter Buildings.Templates.Components.Data.PumpMultiple pumChiWatPri(

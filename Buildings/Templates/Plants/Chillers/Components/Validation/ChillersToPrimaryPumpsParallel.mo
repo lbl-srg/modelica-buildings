@@ -10,15 +10,15 @@ model ChillersToPrimaryPumpsParallel
   parameter Integer nChi = 3 "Number of chillers";
   parameter Modelica.Units.SI.MassFlowRate mChiWatChi_flow_nominal[nChi] =
     capChi_nominal / Buildings.Utilities.Psychrometrics.Constants.cpWatLiq /
-      (TChiWatRet_nominal - TChiWatSup_nominal)
+    (TChiWatRet_nominal - TChiWatSup_nominal)
     "CHW mass flow rate - Each chiller"
     annotation(Dialog(group="Nominal condition"));
-  final parameter Modelica.Units.SI.MassFlowRate mChiWatPri_flow_nominal =
-    sum(mChiWatChi_flow_nominal)
+  final parameter Modelica.Units.SI.MassFlowRate mChiWatPri_flow_nominal = sum(
+    mChiWatChi_flow_nominal)
     "Primary CHW mass flow rate"
     annotation(Dialog(group="Nominal condition"));
-  parameter Modelica.Units.SI.MassFlowRate mChiWatEco_flow_nominal =
-    sum(mChiWatChi_flow_nominal)
+  parameter Modelica.Units.SI.MassFlowRate mChiWatEco_flow_nominal = sum(
+    mChiWatChi_flow_nominal)
     "WSE CHW mass flow rate"
     annotation(Dialog(group="Nominal condition"));
   parameter Modelica.Units.SI.PressureDifference dpChiWatChi_nominal[nChi] =

@@ -8,8 +8,7 @@ partial block PartialController
     "Plant configuration parameters";
   parameter Integer nAirHan(
     final min=if typ == Buildings.Templates.Plants.Chillers.Types.Controller.G36
-      and nEquZon == 0
-      then 1 else 0,
+      and nEquZon == 0 then 1 else 0,
     start=0)
     "Number of air handling units served by the plant"
     annotation(Dialog(group="Plant configuration",
@@ -17,8 +16,7 @@ partial block PartialController
       Evaluate=true);
   parameter Integer nEquZon(
     final min=if typ == Buildings.Templates.Plants.Chillers.Types.Controller.G36
-      and nAirHan == 0
-      then 1 else 0,
+      and nAirHan == 0 then 1 else 0,
     start=0)
     "Number of terminal units (zone equipment) served by the plant"
     annotation(Dialog(group="Plant configuration",
@@ -91,9 +89,8 @@ partial block PartialController
             Buildings.Templates.Plants.Chillers.Types.Distribution.Variable1And2
             or cfg.typDisChiWat ==
               Buildings.Templates.Plants.Chillers.Types.Distribution.Variable1And2Distributed)));
-  final parameter Boolean have_senVChiWatPri =
-    if cfg.typDisChiWat ==
-      Buildings.Templates.Plants.Chillers.Types.Distribution.Variable1Only
+  final parameter Boolean have_senVChiWatPri = if cfg.typDisChiWat ==
+    Buildings.Templates.Plants.Chillers.Types.Distribution.Variable1Only
     then true
     elseif cfg.typDisChiWat ==
       Buildings.Templates.Plants.Chillers.Types.Distribution.Variable1And2
@@ -112,13 +109,12 @@ partial block PartialController
       Dialog(group="Sensors",
         enable=typ == Buildings.Templates.Plants.Chillers.Types.Controller.G36
           and have_senVChiWatPri));
-  final parameter Boolean have_senVChiWatSec =
-    cfg.typDisChiWat ==
-      Buildings.Templates.Plants.Chillers.Types.Distribution.Constant1Variable2
-      or cfg.typDisChiWat ==
-        Buildings.Templates.Plants.Chillers.Types.Distribution.Variable1And2
-      or cfg.typDisChiWat ==
-        Buildings.Templates.Plants.Chillers.Types.Distribution.Variable1And2Distributed
+  final parameter Boolean have_senVChiWatSec = cfg.typDisChiWat ==
+    Buildings.Templates.Plants.Chillers.Types.Distribution.Constant1Variable2
+    or cfg.typDisChiWat ==
+      Buildings.Templates.Plants.Chillers.Types.Distribution.Variable1And2
+    or cfg.typDisChiWat ==
+      Buildings.Templates.Plants.Chillers.Types.Distribution.Variable1And2Distributed
     "Set to true for plants with secondary CHW flow sensor"
     annotation(Evaluate=true,
       Dialog(group="Sensors"));
@@ -138,12 +134,11 @@ partial block PartialController
             Buildings.Templates.Plants.Chillers.Types.Distribution.Constant1Only
           and cfg.typDisChiWat <>
             Buildings.Templates.Plants.Chillers.Types.Distribution.Variable1Only));
-  final parameter Boolean have_senTChiWatPriSup =
-    cfg.typDisChiWat ==
-      Buildings.Templates.Plants.Chillers.Types.Distribution.Constant1Only
-      or cfg.typDisChiWat ==
-        Buildings.Templates.Plants.Chillers.Types.Distribution.Variable1Only
-      or have_senTChiWatPriSup_select
+  final parameter Boolean have_senTChiWatPriSup = cfg.typDisChiWat ==
+    Buildings.Templates.Plants.Chillers.Types.Distribution.Constant1Only
+    or cfg.typDisChiWat ==
+      Buildings.Templates.Plants.Chillers.Types.Distribution.Variable1Only
+    or have_senTChiWatPriSup_select
     "Set to true for plants with CHW supply temperature sensor"
     annotation(Evaluate=true,
       Dialog(group="Sensors"));
@@ -156,9 +151,8 @@ partial block PartialController
             Buildings.Templates.Plants.Chillers.Types.Distribution.Constant1Only
           and cfg.typDisChiWat <>
             Buildings.Templates.Plants.Chillers.Types.Distribution.Variable1Only));
-  final parameter Boolean have_senTChiWatPlaRet =
-    if cfg.typDisChiWat ==
-      Buildings.Templates.Plants.Chillers.Types.Distribution.Constant1Only
+  final parameter Boolean have_senTChiWatPlaRet = if cfg.typDisChiWat ==
+    Buildings.Templates.Plants.Chillers.Types.Distribution.Constant1Only
     then false
     elseif cfg.typDisChiWat ==
       Buildings.Templates.Plants.Chillers.Types.Distribution.Variable1Only
@@ -168,15 +162,14 @@ partial block PartialController
     annotation(Evaluate=true,
       Dialog(group="Sensors"));
   // For plants with WSE, TChiWatEcoBef is used in place of TChiWatSecRet.
-  final parameter Boolean have_senTChiWatSecRet =
-    if cfg.typEco <> Buildings.Templates.Plants.Chillers.Types.Economizer.None
-    then false
+  final parameter Boolean have_senTChiWatSecRet = if cfg.typEco <>
+    Buildings.Templates.Plants.Chillers.Types.Economizer.None then false
     else cfg.typDisChiWat ==
-      Buildings.Templates.Plants.Chillers.Types.Distribution.Constant1Variable2 or
-      cfg.typDisChiWat ==
-      Buildings.Templates.Plants.Chillers.Types.Distribution.Variable1And2 or
-      cfg.typDisChiWat ==
-      Buildings.Templates.Plants.Chillers.Types.Distribution.Variable1And2Distributed
+      Buildings.Templates.Plants.Chillers.Types.Distribution.Constant1Variable2
+      or cfg.typDisChiWat ==
+        Buildings.Templates.Plants.Chillers.Types.Distribution.Variable1And2
+      or cfg.typDisChiWat ==
+        Buildings.Templates.Plants.Chillers.Types.Distribution.Variable1And2Distributed
     "Set to true for plants with secondary CHW return temperature sensor"
     annotation(Evaluate=true,
       Dialog(group="Sensors"));
@@ -324,9 +317,9 @@ annotation(Icon(coordinateSystem(preserveAspectRatio=false,
   Array instances of nested expandable connectors are systematically declared
   here to enhance support across various Modelica tools. A typical connect
   clause such as <code>connect(bus.nestedBus[:].y, sensor[:].y)</code> raises
-  issues when <code>nestedBus</code> is not explicitly declared because Modelica
-  compilers cannot decide to which variable the dimensionality should be
-  assigned between <code>nestedBus</code> and <code>y</code> inside
+  issues when <code>nestedBus</code> is not explicitly declared because
+  Modelica compilers cannot decide to which variable the dimensionality should
+  be assigned between <code>nestedBus</code> and <code>y</code> inside
   <code>nestedBus</code>.
 </p>
 </html>",

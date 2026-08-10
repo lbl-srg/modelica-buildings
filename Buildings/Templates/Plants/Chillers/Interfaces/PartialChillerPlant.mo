@@ -39,21 +39,19 @@ partial model PartialChillerPlant
     "Type of CHW distribution system"
     annotation(Evaluate=true,
       Dialog(group="Primary CHW loop"));
-  final parameter Boolean have_bypChiWatFix =
-    typDisChiWat ==
-      Buildings.Templates.Plants.Chillers.Types.Distribution.Constant1Variable2
-      or typDisChiWat ==
-        Buildings.Templates.Plants.Chillers.Types.Distribution.Variable1And2
-      or typDisChiWat ==
-        Buildings.Templates.Plants.Chillers.Types.Distribution.Variable1And2Distributed
+  final parameter Boolean have_bypChiWatFix = typDisChiWat ==
+    Buildings.Templates.Plants.Chillers.Types.Distribution.Constant1Variable2
+    or typDisChiWat ==
+      Buildings.Templates.Plants.Chillers.Types.Distribution.Variable1And2
+    or typDisChiWat ==
+      Buildings.Templates.Plants.Chillers.Types.Distribution.Variable1And2Distributed
     "Set to true if the plant has a fixed CHW bypass"
     annotation(Evaluate=true,
       Dialog(group="Primary CHW loop"));
-  final parameter Boolean have_pumChiWatSec =
-    typDisChiWat ==
-      Buildings.Templates.Plants.Chillers.Types.Distribution.Constant1Variable2
-      or typDisChiWat ==
-        Buildings.Templates.Plants.Chillers.Types.Distribution.Variable1And2
+  final parameter Boolean have_pumChiWatSec = typDisChiWat ==
+    Buildings.Templates.Plants.Chillers.Types.Distribution.Constant1Variable2
+    or typDisChiWat ==
+      Buildings.Templates.Plants.Chillers.Types.Distribution.Variable1And2
     "Set to true if the plant includes secondary CHW pumps"
     annotation(Evaluate=true,
       Dialog(group="Secondary CHW loop"));
@@ -76,8 +74,8 @@ partial model PartialChillerPlant
   // The following parameter stores the actual configuration setting.
   final parameter Buildings.Templates.Components.Types.PumpArrangement typArrPumChiWatPri =
     if typEco <> Buildings.Templates.Plants.Chillers.Types.Economizer.None
-      or typArrChi ==
-        Buildings.Templates.Plants.Chillers.Types.ChillerArrangement.Series
+    or typArrChi ==
+      Buildings.Templates.Plants.Chillers.Types.ChillerArrangement.Series
     then Buildings.Templates.Components.Types.PumpArrangement.Headered
     else typArrPumChiWatPri_select
     "Type of primary CHW pump arrangement"
@@ -94,11 +92,10 @@ partial model PartialChillerPlant
           or typDisChiWat ==
             Buildings.Templates.Plants.Chillers.Types.Distribution.Constant1Variable2));
   // The following parameter stores the actual configuration setting.
-  final parameter Boolean have_pumChiWatPriVar =
-    if (typDisChiWat ==
-      Buildings.Templates.Plants.Chillers.Types.Distribution.Constant1Only
-      or typDisChiWat ==
-        Buildings.Templates.Plants.Chillers.Types.Distribution.Constant1Variable2)
+  final parameter Boolean have_pumChiWatPriVar = if (typDisChiWat ==
+    Buildings.Templates.Plants.Chillers.Types.Distribution.Constant1Only
+    or typDisChiWat ==
+      Buildings.Templates.Plants.Chillers.Types.Distribution.Constant1Variable2)
     then have_pumChiWatPriVar_select else true
     "Set to true for variable speed primary CHW pumps, false for constant speed pumps"
     annotation(Evaluate=true,
@@ -107,11 +104,10 @@ partial model PartialChillerPlant
     "Set to true for single common speed signal for primary CHW pumps, false for dedicated signals"
     annotation(Evaluate=true,
       Dialog(group="Primary CHW loop"));
-  parameter Integer nPumChiWatSec(start=1, final min=0) =
-    if typDisChiWat ==
-      Buildings.Templates.Plants.Chillers.Types.Distribution.Constant1Only
-      or typDisChiWat ==
-        Buildings.Templates.Plants.Chillers.Types.Distribution.Variable1Only
+  parameter Integer nPumChiWatSec(start=1, final min=0) = if typDisChiWat ==
+    Buildings.Templates.Plants.Chillers.Types.Distribution.Constant1Only
+    or typDisChiWat ==
+      Buildings.Templates.Plants.Chillers.Types.Distribution.Variable1Only
     then 0 else nChi
     "Number of secondary CHW pumps"
     annotation(Evaluate=true,
@@ -139,8 +135,8 @@ partial model PartialChillerPlant
     start=if typChi == Buildings.Templates.Components.Types.Chiller.WaterCooled
       then 1 else 0,
     final min=if typChi ==
-      Buildings.Templates.Components.Types.Chiller.WaterCooled
-      then 1 else 0) = nChi
+      Buildings.Templates.Components.Types.Chiller.WaterCooled then 1 else 0) =
+    nChi
     "Number of cooler units"
     annotation(Evaluate=true,
       Dialog(group="Coolers",
@@ -150,8 +146,8 @@ partial model PartialChillerPlant
     start=if typChi == Buildings.Templates.Components.Types.Chiller.WaterCooled
       then 1 else 0,
     final min=if typChi ==
-      Buildings.Templates.Components.Types.Chiller.WaterCooled
-      then 1 else 0) = nChi
+      Buildings.Templates.Components.Types.Chiller.WaterCooled then 1 else 0) =
+    nChi
     "Number of CW pumps"
     annotation(Evaluate=true,
       Dialog(group="CW loop",
@@ -189,15 +185,14 @@ partial model PartialChillerPlant
           and typEco ==
             Buildings.Templates.Plants.Chillers.Types.Economizer.None));
   // The following parameter stores the actual configuration setting.
-  final parameter Boolean have_pumConWatVar =
-    if typEco <> Buildings.Templates.Plants.Chillers.Types.Economizer.None
-    then true else false
+  final parameter Boolean have_pumConWatVar = if typEco <>
+    Buildings.Templates.Plants.Chillers.Types.Economizer.None then true
+    else false
     "Set to true for variable speed CW pumps, false for constant speed pumps"
     annotation(Evaluate=true,
       Dialog(group="CW loop"));
-  final parameter Boolean have_pumConWatVarCom =
-    if typEco <> Buildings.Templates.Plants.Chillers.Types.Economizer.None
-    then true
+  final parameter Boolean have_pumConWatVarCom = if typEco <>
+    Buildings.Templates.Plants.Chillers.Types.Economizer.None then true
     elseif typArrPumConWat ==
       Buildings.Templates.Components.Types.PumpArrangement.Dedicated
     then false
@@ -279,14 +274,14 @@ partial model PartialChillerPlant
     "Configuration parameters";
   parameter Buildings.Templates.Plants.Chillers.Data.ChillerPlant dat
     "Design and operating parameters";
-  final parameter Modelica.Units.SI.MassFlowRate mChiWatPri_flow_nominal =
-    sum(dat.pumChiWatPri.m_flow_nominal)
+  final parameter Modelica.Units.SI.MassFlowRate mChiWatPri_flow_nominal = sum(
+    dat.pumChiWatPri.m_flow_nominal)
     "Primary CHW mass flow rate (total)";
   final parameter Modelica.Units.SI.MassFlowRate mChiWat_flow_nominal =
     if typDisChiWat ==
-      Buildings.Templates.Plants.Chillers.Types.Distribution.Constant1Variable2
-      or typDisChiWat ==
-        Buildings.Templates.Plants.Chillers.Types.Distribution.Variable1And2
+    Buildings.Templates.Plants.Chillers.Types.Distribution.Constant1Variable2
+    or typDisChiWat ==
+      Buildings.Templates.Plants.Chillers.Types.Distribution.Variable1And2
     then sum(dat.pumChiWatSec.m_flow_nominal)
     elseif typDisChiWat ==
       Buildings.Templates.Plants.Chillers.Types.Distribution.Variable1And2Distributed
@@ -295,21 +290,21 @@ partial model PartialChillerPlant
     "CHW mass flow rate (total, distributed to consumers)";
   final parameter Modelica.Units.SI.MassFlowRate mCon_flow_nominal =
     if typChi == Buildings.Templates.Components.Types.Chiller.WaterCooled
-      or typChi == Buildings.Templates.Components.Types.Chiller.AirCooled
+    or typChi == Buildings.Templates.Components.Types.Chiller.AirCooled
     then sum(dat.chi.mConChi_flow_nominal) else 0
     "Condenser cooling fluid mass flow rate (total)";
-  final parameter Modelica.Units.SI.HeatFlowRate cap_nominal =
-    sum(abs(dat.chi.capChi_nominal))
+  final parameter Modelica.Units.SI.HeatFlowRate cap_nominal = sum(
+    abs(dat.chi.capChi_nominal))
     "Cooling capacity (total)";
   final parameter Modelica.Units.SI.HeatFlowRate Q_flow_nominal(final max=0) =
     -cap_nominal
     "Design cooling heat flow rate (total)";
-  final parameter Modelica.Units.SI.Temperature TChiWatSup_nominal =
-    min(dat.chi.TChiWatSupChi_nominal)
+  final parameter Modelica.Units.SI.Temperature TChiWatSup_nominal = min(
+    dat.chi.TChiWatSupChi_nominal)
     "Minimum CHW supply temperature";
   final parameter Modelica.Units.SI.Temperature TChiWatRet_nominal =
-    TChiWatSup_nominal - Q_flow_nominal / cpChiWat_default /
-      mChiWat_flow_nominal
+    TChiWatSup_nominal -
+    Q_flow_nominal / cpChiWat_default / mChiWat_flow_nominal
     "CHW return temperature - Each heat pump"
     annotation(Dialog(group="Nominal condition"));
   parameter Modelica.Units.SI.Time tau = 30
@@ -334,8 +329,8 @@ partial model PartialChillerPlant
     "= true, use linear relation between m_flow and dp for all valves"
     annotation(Evaluate=true,
       Dialog(tab="Advanced"));
-  final parameter MediumChiWat.Density rhoChiWat_default =
-    MediumChiWat.density(staChiWat_default)
+  final parameter MediumChiWat.Density rhoChiWat_default = MediumChiWat.density(
+    staChiWat_default)
     "CHW default density";
   final parameter MediumChiWat.SpecificHeatCapacity cpChiWat_default =
     MediumChiWat.specificHeatCapacityCp(staChiWat_default)
@@ -346,8 +341,8 @@ partial model PartialChillerPlant
       p=MediumChiWat.p_default,
       X=MediumChiWat.X_default)
     "CHW default state";
-  final parameter MediumCon.Density rhoCon_default =
-    MediumCon.density(staCon_default)
+  final parameter MediumCon.Density rhoCon_default = MediumCon.density(
+    staCon_default)
     "Condenser cooling fluid default density";
   final parameter MediumCon.SpecificHeatCapacity cpCon_default =
     MediumCon.specificHeatCapacityCp(staCon_default)
@@ -411,8 +406,7 @@ partial model PartialChillerPlant
   Modelica.Units.SI.PressureDifference dp(start=_dp_start, displayUnit="Pa") =
     port_a.p - port_b.p
     "Pressure difference between port_a and port_b";
-  MediumChiWat.ThermodynamicState sta_a =
-    if allowFlowReversal
+  MediumChiWat.ThermodynamicState sta_a = if allowFlowReversal
     then MediumChiWat.setState_phX(
       port_a.p,
       noEvent(actualStream(port_a.h_outflow)),
@@ -423,8 +417,7 @@ partial model PartialChillerPlant
       noEvent(inStream(port_a.Xi_outflow)))
     if show_T
     "Medium properties in port_a";
-  MediumChiWat.ThermodynamicState sta_b =
-    if allowFlowReversal
+  MediumChiWat.ThermodynamicState sta_b = if allowFlowReversal
     then MediumChiWat.setState_phX(
       port_b.p,
       noEvent(actualStream(port_b.h_outflow)),
@@ -458,7 +451,7 @@ initial equation
       nPumConWat == nChi,
       "In " + getInstanceName() + ": " +
         "In case of dedicated pumps, the number of CW pumps (=" + String(
-        nPumConWat) + ") must be equal to the number of chillers (=" + String(
+          nPumConWat) + ") must be equal to the number of chillers (=" + String(
         nChi) + ").");
   end if;
 annotation(defaultComponentName="plaChiWat",

@@ -6,9 +6,8 @@ block G36
   final parameter Boolean closeCoupledPlant = is_clsCpl
     "True: the plant is close coupled, i.e. the pipe length from the chillers to cooling towers does not exceed approximately 100 feet";
   // ---- General: Chiller configuration ----
-  final parameter Boolean have_parChi =
-    cfg.typArrChi ==
-      Buildings.Templates.Plants.Chillers.Types.ChillerArrangement.Parallel
+  final parameter Boolean have_parChi = cfg.typArrChi ==
+    Buildings.Templates.Plants.Chillers.Types.ChillerArrangement.Parallel
     "Flag: true means that the plant has parallel chillers";
   parameter Boolean have_ponChi = false
     "True: have pony chiller"
@@ -40,15 +39,14 @@ block G36
   final parameter Real dTChiMaxLif[cfg.nChi] = dat.dTLifChi_nominal
     "Maximum LIFT of each chiller";
   // ---- General: Waterside economizer ----
-  final parameter Boolean have_WSE =
-    cfg.typEco <> Buildings.Templates.Plants.Chillers.Types.Economizer.None
+  final parameter Boolean have_WSE = cfg.typEco <>
+    Buildings.Templates.Plants.Chillers.Types.Economizer.None
     "True if the plant has waterside economizer. When the plant has waterside economizer, the condenser water pump speed must be variable";
   final parameter Real heaExcAppDes(unit="K", displayUnit="K") =
     dat.dTAppEco_nominal
     "Design heat exchanger approach";
-  final parameter Boolean have_byPasValCon =
-    cfg.typEco ==
-      Buildings.Templates.Plants.Chillers.Types.Economizer.HeatExchangerWithValve
+  final parameter Boolean have_byPasValCon = cfg.typEco ==
+    Buildings.Templates.Plants.Chillers.Types.Economizer.HeatExchangerWithValve
     "True: chilled water flow through economizer is controlled using heat exchanger bypass valve";
   // ----- General: Chilled water pump ---
   final parameter Integer nChiWatPum = cfg.nPumChiWatPri
@@ -60,9 +58,8 @@ block G36
     "Total number of condenser water pumps";
   final parameter Boolean have_fixSpeConWatPum = not cfg.have_pumConWatVar
     "True: the plant has fixed speed condenser water pumps. When the plant has waterside economizer, it must be false";
-  final parameter Boolean have_heaConWatPum =
-    cfg.typArrPumConWat ==
-      Buildings.Templates.Components.Types.PumpArrangement.Headered
+  final parameter Boolean have_heaConWatPum = cfg.typArrPumConWat ==
+    Buildings.Templates.Components.Types.PumpArrangement.Headered
     "True: headered condenser water pumps";
   // ---- General: Cooling tower ----
   final parameter Integer nTowCel = cfg.nCoo
@@ -123,7 +120,7 @@ block G36
   // ---- Staging up and down process ----
   final parameter Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Types.Actuator chiIsoValTyp =
     if cfg.typValChiWatChiIso ==
-      Buildings.Templates.Components.Types.Valve.TwoWayTwoPosition
+    Buildings.Templates.Components.Types.Valve.TwoWayTwoPosition
     then Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Types.Actuator.TwoPosition
     else Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Types.Actuator.Modulating
     "Chilled water isolation valve type"
@@ -151,15 +148,13 @@ block G36
     each displayUnit="degC") = dat.TConWatRetChi_nominal
     "Condenser water return temperature (condenser leaving) of each chiller";
   // ---- Cooling tower: staging ----
-  parameter Boolean have_towInlIsoVal =
-    cfg.typValCooInlIso ==
-      Buildings.Templates.Components.Types.Valve.TwoWayTwoPosition
+  parameter Boolean have_towInlIsoVal = cfg.typValCooInlIso ==
+    Buildings.Templates.Components.Types.Valve.TwoWayTwoPosition
     "True: tower cells have the inlet isolation valve"
     annotation(Evaluate=true,
       Dialog(group="Cooling tower configuration"));
-  parameter Boolean have_towOutIsoVal =
-    cfg.typValCooOutIso ==
-      Buildings.Templates.Components.Types.Valve.TwoWayTwoPosition
+  parameter Boolean have_towOutIsoVal = cfg.typValCooOutIso ==
+    Buildings.Templates.Components.Types.Valve.TwoWayTwoPosition
     "True: tower cells have the outlet isolation valve"
     annotation(Evaluate=true,
       Dialog(group="Cooling tower configuration"));
@@ -279,7 +274,7 @@ block G36
     annotation(Placement(transformation(extent={{-60,16},{-40,36}})));
   Buildings.Templates.Plants.Controls.Utilities.PlaceholderLogical y1PumChiWatRes[if cfg.typDisChiWat ==
     Buildings.Templates.Plants.Chillers.Types.Distribution.Variable1Only
-  then cfg.nPumChiWatPri else cfg.nPumChiWatSec](
+    then cfg.nPumChiWatPri else cfg.nPumChiWatSec](
     each final have_inp=cfg.typDisChiWat ==
       Buildings.Templates.Plants.Chillers.Types.Distribution.Variable1Only,
     each final have_inpPh=true)
@@ -321,7 +316,6 @@ equation
   connect(busValCooOutIso.y0_actual, ctl.u1TowOutIsoValClo);
   connect(busValCooOutIso.y1_actual, ctl.u1TowOutIsoValOpe);
   // Controller outputs
-  connect(ctl.TChiWatSupSet, bus.TChiWatSupSet);
   connect(ctl.TChiWatSupSet, busChi.TChiWatSet);
   connect(ctl.y1WseChiWatBypVal, busValChiWatChiBypPar.y1);
   connect(ctl.yChi, busChi.y1);

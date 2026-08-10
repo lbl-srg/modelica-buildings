@@ -47,8 +47,8 @@ partial model PartialCoolerGroup
   final parameter Modelica.Units.SI.MassFlowRate mConWatCoo_flow_nominal[nCoo] =
     dat.mConWatCoo_flow_nominal
     "CW mass flow rate - Each cooler unit";
-  final parameter Modelica.Units.SI.MassFlowRate mConWat_flow_nominal =
-    sum(mConWatCoo_flow_nominal)
+  final parameter Modelica.Units.SI.MassFlowRate mConWat_flow_nominal = sum(
+    mConWatCoo_flow_nominal)
     "Total CW mass flow rate (all units)";
   final parameter Modelica.Units.SI.PressureDifference dpConWatFriCoo_nominal[nCoo] =
     dat.dpConWatFriCoo_nominal
@@ -94,10 +94,10 @@ partial model PartialCoolerGroup
     "Outlet isolation valve parameters";
   final parameter Modelica.Units.SI.PressureDifference dpTotCoo_nominal[nCoo] =
     (if typValCooInlIso <> Buildings.Templates.Components.Types.Valve.None
-    then datValCooInlIso.dpValve_nominal else fill(0, nCoo)) .+
-      (if typValCooOutIso <> Buildings.Templates.Components.Types.Valve.None
+      then datValCooInlIso.dpValve_nominal else fill(0, nCoo)) .+
+    (if typValCooOutIso <> Buildings.Templates.Components.Types.Valve.None
       then datValCooOutIso.dpValve_nominal else fill(0, nCoo)) .+
-      dat.dpConWatFriCoo_nominal
+    dat.dpConWatFriCoo_nominal
     "Total pressure drop across each cooler, including isolation valves";
   parameter Modelica.Units.SI.Time tau = 30
     "Time constant at nominal flow"
@@ -231,8 +231,8 @@ annotation(Icon(coordinateSystem(preserveAspectRatio=false,
 </p>
 <ul>
   <li>
-    Connector <code>bus.coo</code>, with a dimensionality of zero,
-    storing the following cooler control points.
+    Connector <code>bus.coo</code>, with a dimensionality of zero, storing the
+    following cooler control points.
     <ul>
       <li>
         Start/Stop command (VFD Run): <code>y1</code> DO signal dedicated to
@@ -259,12 +259,12 @@ annotation(Icon(coordinateSystem(preserveAspectRatio=false,
   </li>
   <li>
     Connector <code>bus.valCooInlIso</code> (respectively
-    <code>bus.valCooOutIso</code>), with a dimensionality of one, storing
-    each unit's inlet (respectively outlet) isolation valve control points as
+    <code>bus.valCooOutIso</code>), with a dimensionality of one, storing each
+    unit's inlet (respectively outlet) isolation valve control points as
     specified in the documentation of
     <a href=\"modelica://Buildings.Templates.Components.Actuators.Valve\">
-      Buildings.Templates.Components.Actuators.Valve</a> for
-    two-position valves.
+      Buildings.Templates.Components.Actuators.Valve</a> for two-position
+    valves.
   </li>
 </ul>
 </html>",

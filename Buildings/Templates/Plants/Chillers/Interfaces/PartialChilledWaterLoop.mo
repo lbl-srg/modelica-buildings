@@ -158,8 +158,8 @@ partial model PartialChilledWaterLoop
   Buildings.Templates.Components.Routing.MultipleToMultiple inlConChi(
     redeclare final package Medium=MediumCon,
     final nPorts_a=if typChi ==
-      Buildings.Templates.Components.Types.Chiller.WaterCooled
-      then nPumConWat else nChi,
+      Buildings.Templates.Components.Types.Chiller.WaterCooled then nPumConWat
+      else nChi,
     final nPorts_b=nChi,
     final m_flow_nominal=mCon_flow_nominal,
     final have_comLeg=typChi ==
@@ -550,9 +550,8 @@ annotation(Documentation(
     color={0,0,0},
     pattern=LinePattern.Dash,
     thickness=0.5,
-    visible=typChi ==
-      Buildings.Templates.Components.Types.Chiller.WaterCooled and
-      typEco <> Buildings.Templates.Plants.Chillers.Types.Economizer.None),
+    visible=typChi == Buildings.Templates.Components.Types.Chiller.WaterCooled
+      and typEco <> Buildings.Templates.Plants.Chillers.Types.Economizer.None),
   Rectangle(extent={{280,0},{281,-260}},
     lineColor={0,0,0},
     visible=not ctl.have_senDpChiWatRemWir)}));

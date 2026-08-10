@@ -90,8 +90,8 @@ record ChillerGroup
     annotation(Dialog(group="Nominal condition",
       enable=typ == Buildings.Templates.Components.Types.Chiller.AirCooled));
   final parameter Modelica.Units.SI.Temperature TConChi_nominal[nChi](
-    each final min=273.15) =
-    if typ == Buildings.Templates.Components.Types.Chiller.WaterCooled
+    each final min=273.15) = if typ ==
+    Buildings.Templates.Components.Types.Chiller.WaterCooled
     then TConWatChi_nominal else fill(TOut_nominal, nChi)
     "Condenser entering or leaving fluid temperature (depending on per.use_TConOutForTab) - Each chiller"
     annotation(Dialog(group="Nominal condition"));

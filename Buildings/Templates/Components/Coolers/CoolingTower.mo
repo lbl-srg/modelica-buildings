@@ -123,8 +123,9 @@ annotation(defaultComponentName="coo",
   This is a model of a single cooling tower cell with a variable speed fan.
   The model is a wrapper for
   <a href=\"modelica://Buildings.Fluid.HeatExchangers.CoolingTowers.Merkel\">
-    Buildings.Fluid.HeatExchangers.CoolingTowers.Merkel</a> and uses Merkel's
-  method to calculate the cooling heat flow rate of the condenser water.
+    Buildings.Fluid.HeatExchangers.CoolingTowers.Merkel</a> and uses
+  Merkel's method to calculate the cooling heat flow rate of the condenser
+  water.
 </p>
 <p>
   The user may refer to the documentation of the above model for the modeling
@@ -144,10 +145,10 @@ annotation(defaultComponentName="coo",
 <p>
   The design parameters are specified with an instance of
   <a href=\"modelica://Buildings.Templates.Components.Data.Cooler\">
-    Buildings.Templates.Components.Data.Cooler</a>. Despite the fact that only
-  friction pressure losses are accounted for, the parameter record includes
-  the elevation head for open-circuit cooling towers. This parameter is used
-  to size the condenser water pumps and to prepare for future support.
+    Buildings.Templates.Components.Data.Cooler</a>. Despite the fact that
+  only friction pressure losses are accounted for, the parameter record
+  includes the elevation head for open-circuit cooling towers. This parameter
+  is used to size the condenser water pumps and to prepare for future support.
 </p>
 </html>"));
 end CoolingTower;

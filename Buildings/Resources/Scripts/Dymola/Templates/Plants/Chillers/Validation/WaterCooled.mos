@@ -49,6 +49,14 @@ createPlot(
     timeUnit="h"
 );
 createPlot(
+    id=3,
+    subPlot=2,
+    y={"pla.bus.valChiWatEcoByp.y"},
+    autoscale=true,
+    grid=true,
+    timeUnit="h"
+);
+createPlot(
     id=4,
     position={920, 5, 300, 600},
     subPlot=1,
@@ -109,7 +117,7 @@ createPlot(
 createPlot(
     id=7,
     position={350, 40, 300, 300},
-    y={"pla.bus.TChiWatSupSet[1]", "pla.bus.TChiWatPriSup", "pla.bus.TChiWatPlaRet"},
+    y={"pla.bus.chi[1].TChiWatSet", "pla.bus.TChiWatPriSup", "pla.bus.TChiWatEcoBef", "pla.bus.TChiWatPlaRet"},
     autoscale=true,
     grid=true,
     timeUnit="h"
@@ -125,7 +133,7 @@ createPlot(
 createPlot(
     id=8,
     subPlot=2,
-    y={"pla.bus.y1Coo[1]", "pla.bus.y1Coo[2]", "pla.bus.yCoo"},
+    y={"pla.bus.coo.y1[1]", "pla.bus.coo.y1[2]", "pla.bus.coo.y"},
     autoscale=true,
     grid=true,
     timeUnit="h"

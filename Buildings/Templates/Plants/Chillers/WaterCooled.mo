@@ -37,9 +37,9 @@ model WaterCooled
       final tau=tau,
       final allowFlowReversal=allowFlowReversal,
       final text_flip=true,
-      typValCooInlIso=if nChi==2 and nCoo==2 then
-      Buildings.Templates.Components.Types.Valve.None
-      else Buildings.Templates.Components.Types.Valve.TwoWayTwoPosition)
+      typValCooInlIso=if nChi == 2 and nCoo == 2
+        then Buildings.Templates.Components.Types.Valve.None
+        else Buildings.Templates.Components.Types.Valve.TwoWayTwoPosition)
     "Coolers"
     annotation(Dialog(group="Coolers"),
       Placement(transformation(extent={{-118,34},{-282,94}})));
@@ -314,9 +314,7 @@ annotation(Documentation(
     <td>
       <b>ASHRAE Guideline 36 controller</b>
     </td>
-    <td>
-      An open loop controller is also available for validation purposes only.
-    </td>
+    <td></td>
   </tr>
 </table>
 <h4>References</h4>

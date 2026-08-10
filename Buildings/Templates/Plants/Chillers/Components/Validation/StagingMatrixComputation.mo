@@ -8,21 +8,18 @@ model StagingMatrixComputation
     "Staging matrix with chiller stage as row index and chiller as column index"
     annotation(Dialog(tab="General",
       group="Staging configuration"));
-  final parameter Integer nStaChiOnl =
-    if not have_eco
-    then nSta - 1
+  final parameter Integer nStaChiOnl = if not have_eco then nSta - 1
     else sum({if sta[i, nUniSta] > 0 then 0 else 1 for i in 1:nSta}) - 1
     "Number of chiller stages, neither zero stage nor the stages with enabled waterside economizer is included"
     annotation(Evaluate=true,
       Dialog(tab="General",
         group="Staging configuration"));
-  final parameter Real desChiNum[nStaChiOnl + 1] =
-    {if i == 0 then 0 else sum(staMat[i]) for i in 0:nStaChiOnl}
+  final parameter Real desChiNum[nStaChiOnl + 1] = {if i == 0 then 0
+    else sum(staMat[i]) for i in 0:nStaChiOnl}
     "Design number of chiller that should be ON at each chiller stage, including the zero stage"
     annotation(Dialog(tab="General",
       group="Staging configuration"));
-  final parameter Real staTmp[nSta, nUniSta] =
-    {{if sta[i, j] > 0
+  final parameter Real staTmp[nSta, nUniSta] = {{if sta[i, j] > 0
     then (if j <= nChi then sta[i, j] else 0.5)
     else 0 for j in 1:nUniSta} for i in 1:nSta}
     "Intermediary parameter to compute staVec"
@@ -31,8 +28,8 @@ model StagingMatrixComputation
         group="Staging configuration"));
   final parameter Real staVec[nSta] = {sum(staTmp[i]) for i in 1:nSta}
     "Plant stage vector, element value like x.5 means chiller stage x plus WSE";
-  parameter Real sta[:, nUniSta] =
-    {{0, 0, 0}, {0, 0, 1}, {1, 0, 0}, {1, 0, 1}, {1, 1, 0}, {1, 1, 1}}
+  parameter Real sta[:, nUniSta] = {{0, 0, 0}, {0, 0, 1}, {1, 0, 0}, {1, 0, 1},
+    {1, 1, 0}, {1, 1, 1}}
     "Staging matrix with plant stage as row index and chiller as column index (nChi+1 for WSE)"
     annotation(Evaluate=true,
       Dialog(group="Configuration"));
@@ -56,8 +53,8 @@ initial algorithm
       end if;
     end for;
   else
-    staMat := {{if sta[k + 1, j] > 0
-    then 1 else 0 for j in 1:nChi} for k in 1:nStaChiOnl};
+    staMat := {{if sta[k + 1, j] > 0 then 1
+      else 0 for j in 1:nChi} for k in 1:nStaChiOnl};
   end if;
 equation
   /*

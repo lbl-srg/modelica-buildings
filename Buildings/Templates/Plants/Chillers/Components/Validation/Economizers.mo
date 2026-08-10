@@ -13,7 +13,7 @@ model Economizers
 
   parameter Modelica.Units.SI.MassFlowRate mChiWatEco_flow_nominal =
     capEco_nominal / Buildings.Utilities.Psychrometrics.Constants.cpWatLiq /
-      (TChiWatEcoEnt_nominal - TChiWatEcoLvg_nominal)
+    (TChiWatEcoEnt_nominal - TChiWatEcoLvg_nominal)
     "WSE CHW mass flow rate"
     annotation(Dialog(group="Nominal condition"));
   parameter Modelica.Units.SI.MassFlowRate mConWatEco_flow_nominal =

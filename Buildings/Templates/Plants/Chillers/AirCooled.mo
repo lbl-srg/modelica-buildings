@@ -194,9 +194,7 @@ annotation(Documentation(
     <td>
       <b>ASHRAE Guideline 36 controller</b>
     </td>
-    <td>
-      An open loop controller is also available for validation purposes only.
-    </td>
+    <td></td>
   </tr>
 </table>
 <h4>References</h4>
