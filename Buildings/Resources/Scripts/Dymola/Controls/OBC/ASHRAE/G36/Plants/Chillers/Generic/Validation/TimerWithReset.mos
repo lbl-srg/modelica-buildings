@@ -1,0 +1,11 @@
+simulateModel("Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Generic.Validation.TimerWithReset", stopTime=5.0, method="Cvode", tolerance=1e-06, resultFile="TimerWithReset");
+createPlot(id=1, position={15, 15, 710, 1044}, y={"noThr.u", "res.y"}, range={0.0, 5.0, -1.0, 2.0}, grid=true, subPlot=101, colors={{28,108,200}, {28,108,200}}, timeUnit="s");
+createPlot(id=1, position={15, 15, 710, 1044}, y={"noThr.t", "noThr.y", "noThrRes.y"}, range={0.0, 5.0, -1.0, 2.0}, grid=true, subPlot=102, colors={{28,108,200}, {238,46,47}, {0,140,72}}, timeUnit="s", displayUnits={"s", "s", "s"});
+createPlot(id=1, position={15, 15, 710, 1044}, y={"noThr.passed", "noThrRes.passed"}, range={0.0, 5.0, -1.0, 2.0}, grid=true, subPlot=103, colors={{28,108,200}, {28,108,200}}, timeUnit="s");
+createPlot(id=2, position={736, 16, 673, 1043}, y={"thrTim.u", "res.y"}, range={0.0, 5.0, -1.0, 2.0}, grid=true, subPlot=101, colors={{28,108,200}, {28,108,200}}, timeUnit="s");
+createPlot(id=2, position={736, 16, 673, 1043}, y={"thrTim.t", "thrTim.y", "thrTimRes.y"}, range={0.0, 5.0, -1.0, 2.0}, grid=true, subPlot=102, colors={{28,108,200}, {238,46,47}, {0,140,72}}, timeUnit="s", displayUnits={"s", "s", "s"});
+createPlot(id=2, position={736, 16, 673, 1043}, y={"thrTim.passed", "thrTimRes.passed"}, range={0.0, 5.0, -1.0, 2.0}, grid=true, subPlot=103, colors={{28,108,200}, {28,108,200}}, timeUnit="s");
+createPlot(id=3, position={1413, 20, 748, 1039}, y={"thrTim1.u", "res.y"}, range={0.0, 5.0, -1.0, 2.0}, grid=true, subPlot=101, colors={{28,108,200}, {28,108,200}}, timeUnit="s");
+createPlot(id=3, position={1413, 20, 748, 1039}, y={"thrTim1.t", "thrTim1.y", "thrTim1Res.y"}, range={0.0, 5.0, -1.0, 2.0}, grid=true, subPlot=102, colors={{28,108,200}, {238,46,47}, {0,140,72}}, timeUnit="s", displayUnits={"s", "s", "s"});
+createPlot(id=3, position={1413, 20, 748, 1039}, y={"thrTim1.passed", "thrTim1Res.passed"}, range={0.0, 5.0, -1.0, 2.0}, grid=true, subPlot=103, colors={{28,108,200}, {28,108,200}}, timeUnit="s");
+
