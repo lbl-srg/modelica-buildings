@@ -32,24 +32,25 @@ model DecouplingMixing
         extent={{-10,-10},{10,10}},
         rotation=0,
         origin={-50,190})));
-  Buildings.Controls.OBC.CDL.Reals.Sources.Constant yValSet(k=0.9, y(
-        final unit="1"))
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant yValSet(
+    k=0.9,
+    y(final unit="1"))
     "Valve opening set point"
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=0,
         origin={-130,230})));
-  Buildings.Controls.OBC.CDL.Reals.Sources.Constant one(final k=1.0,
-                                                                        y(
-        final unit="1"))
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant one(
+    final k=1.0,
+    y(final unit="1"))
     "One"
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=0,
         origin={-50,230})));
-  Buildings.Controls.OBC.CDL.Reals.Sources.Constant zer1(final k=0.0,
-                                                                         y(
-        final unit="1"))
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant zer1(
+    final k=0.0,
+    y(final unit="1"))
     "Zero"
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
@@ -122,8 +123,8 @@ equation
   connect(con1.port_a2, del2.ports[4])
     annotation (Line(points={{16,40},{40,40}}, color={0,127,255}));
    annotation (experiment(
-    StopTime=86400,
-    Tolerance=1e-6),
+      StopTime=86400,
+      Tolerance=1e-07),
     __Dymola_Commands(file=
     "modelica://Buildings/Resources/Scripts/Dymola/Fluid/HydronicConfigurations/ActiveNetworks/Examples/DecouplingMixing.mos"
     "Simulate and plot"),

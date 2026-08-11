@@ -16,8 +16,8 @@ BINDIR = ../../../../Library/linux$(ARCH)
 ## Compilation flags
 CC = gcc
 
-CC_FLAGS_32 = -Wall -std=c99 -pedantic -msse2 -mfpmath=sse -I$(PYTHONInc) -L$(PYTHONLib) -lpython3.12 -lm -m32
-CC_FLAGS_64 = -Wall -std=c99 -pedantic -msse2 -mfpmath=sse -I$(PYTHONInc) -L$(PYTHONLib) -lpython3.12 -lm -m64
+CC_FLAGS_32 = -Wall -std=c99 -pedantic -msse2 -mfpmath=sse -I$(PYTHONInc) -L$(PYTHONLib) -lpython3.12 -lm -lpthread -m32
+CC_FLAGS_64 = -Wall -std=c99 -pedantic -msse2 -mfpmath=sse -I$(PYTHONInc) -L$(PYTHONLib) -lpython3.12 -lm -lpthread -m64
 
 SRCS = pythonInterpreter.c
 OBJS = pythonInterpreter.o

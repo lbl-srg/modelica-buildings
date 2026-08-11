@@ -137,7 +137,8 @@ This is for
 </li>
 </ul>
 </html>"),
-    Icon(graphics={                Line(
+    Icon(graphics={
+        Line(
           points={{-80,-40},{-80,60},{80,-40},{80,60}},
           color={0,140,72},
           thickness=1), Text(
