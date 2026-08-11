@@ -16,5 +16,5 @@ compareVars :=
     "TChiWatChiEnt1[1].T",
     "TChiWatChiEnt1[2].T",
     "TChiWatChiEnt1[3].T",
-    "busPla.valChiWatChiByp.y1_actual"
+    "rou1.bus.valChiWatChiBypPar.y1_actual"
   };

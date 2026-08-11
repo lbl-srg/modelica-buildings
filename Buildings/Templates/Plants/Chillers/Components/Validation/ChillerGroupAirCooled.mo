@@ -77,7 +77,7 @@ model ChillerGroupAirCooled
       each use_TEvaOutForTab=true,
       each use_TConOutForTab=false))
     "Parameter record for chiller group"
-    annotation(Placement(transformation(extent={{-240,180},{-220,200}})));
+    annotation(Placement(transformation(extent={{-240,82},{-220,102}})));
   Buildings.Templates.Components.Routing.MultipleToSingle outPumChiWatPri(
     redeclare final package Medium=MediumChiWat,
     final nPorts=nChi,
@@ -192,19 +192,19 @@ model ChillerGroupAirCooled
     y(each final unit="K", each displayUnit="degC"),
     each k=Buildings.Templates.Data.Defaults.TChiWatSup)
     "CHW supply temperature set point"
-    annotation(Placement(transformation(extent={{-40,350},{-20,370}})));
+    annotation(Placement(transformation(extent={{-170,150},{-150,170}})));
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant yValChiWatChiIso[nChi](
     each k=1)
     if chi.typValChiWatChiIso ==
       Buildings.Templates.Components.Types.Valve.TwoWayModulating
     "Chiller CHW isolation valve opening signal"
-    annotation(Placement(transformation(extent={{-50,310},{-70,330}})));
+    annotation(Placement(transformation(extent={{-170,270},{-150,290}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.TimeTable y1Chi[nChi](
     each table=[0, 0; 1, 0; 1, 1; 2, 1],
     each timeScale=1000,
     each period=2000)
     "Chiller Start/Stop signal"
-    annotation(Placement(transformation(extent={{-100,370},{-80,390}})));
+    annotation(Placement(transformation(extent={{-200,170},{-180,190}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.TimeTable y1ValChiWatChiIso[nChi](
     each table=[0, 0; 1, 0; 1, 1; 2, 1],
     each timeScale=1000,
@@ -212,40 +212,40 @@ model ChillerGroupAirCooled
     if chi.typValChiWatChiIso ==
       Buildings.Templates.Components.Types.Valve.TwoWayTwoPosition
     "Chiller CHW isolation valve opening signal"
-    annotation(Placement(transformation(extent={{-80,330},{-100,350}})));
+    annotation(Placement(transformation(extent={{-200,290},{-180,310}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.TimeTable y1ValChiWatChiBypSer[nChi](
     each table=[0, 0; 1, 0; 1, 1; 2, 1],
     each timeScale=1000,
     each period=2000)
     "Chiller CHW bypass valve opening signal - Series chillers"
-    annotation(Placement(transformation(extent={{-80,290},{-100,310}})));
+    annotation(Placement(transformation(extent={{-170,230},{-150,250}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.TimeTable y1PumChiWatPri[nChi](
     each table=[0, 0; 1, 0; 1, 1; 2, 1],
     each timeScale=1000,
     each period=2000)
     "Primary CHW pump Start/Stop signal"
-    annotation(Placement(transformation(extent={{-110,230},{-90,250}})));
+    annotation(Placement(transformation(extent={{-170,190},{-150,210}})));
   protected
   Buildings.Templates.Components.Interfaces.Bus busValChiWatChiIso[nChi]
     "Chiller CHW isolation valve control bus"
-    annotation(Placement(transformation(extent={{-200,320},{-160,360}}),
+    annotation(Placement(transformation(extent={{-140,260},{-100,300}}),
       iconTransformation(extent={{-756,150},{-716,190}})));
   Buildings.Templates.Components.Interfaces.Bus busValChiWatChiBypSer[nChi]
     "Chiller CHW bypass valve control bus - Series chillers"
-    annotation(Placement(transformation(extent={{-200,280},{-160,320}}),
+    annotation(Placement(transformation(extent={{-140,220},{-100,260}}),
       iconTransformation(extent={{-422,198},{-382,238}})));
   Buildings.Templates.Components.Interfaces.Bus busChi[nChi]
     "Chiller control bus"
-    annotation(Placement(transformation(extent={{180,120},{220,160}}),
+    annotation(Placement(transformation(extent={{-140,140},{-100,180}}),
       iconTransformation(extent={{-422,198},{-382,238}})));
   Buildings.Templates.Plants.Chillers.Interfaces.Bus busPla
     "Plant control bus"
-    annotation(Placement(transformation(extent={{-100,120},{-60,160}}),
+    annotation(Placement(transformation(extent={{-120,120},{-80,160}}),
       iconTransformation(extent={{-432,12},{-412,32}})));
   protected
   Buildings.Templates.Components.Interfaces.Bus busPumChiWatPri
     "Primary CHW pumps control bus"
-    annotation(Placement(transformation(extent={{20,200},{60,240}}),
+    annotation(Placement(transformation(extent={{-140,180},{-100,220}}),
       iconTransformation(extent={{-316,184},{-276,224}})));
 equation
   connect(chi.ports_bCon, bouConAir.ports)
@@ -273,17 +273,17 @@ equation
     annotation(Line(points={{-40,100},{-40,100}},
       color={0,127,255}));
   connect(chi.bus, busPla)
-    annotation(Line(points={{-100,116.2},{-100,128},{-80,128},{-80,140}},
+    annotation(Line(points={{-100,116.2},{-100,140}},
       color={255,204,51},
       thickness=0.5));
   connect(busPla.pumChiWatPri, pumChiWatPri.bus)
-    annotation(Line(points={{-80,140},{-29,140},{-29,110},{-30,110}},
+    annotation(Line(points={{-100,140},{-29,140},{-29,110},{-30,110}},
       color={255,204,51},
       thickness=0.5),
       Text(string="%first",
         index=-1,
-        extent={{-6,3},{-6,3}},
-        horizontalAlignment=TextAlignment.Right));
+        extent={{2,2},{2,5}},
+        horizontalAlignment=TextAlignment.Left));
   connect(TChiWatPriRet.port_b, inlChiWatChi.port_b)
     annotation(Line(points={{-10,-80},{-32,-80}},
       color={0,127,255}));
@@ -297,11 +297,11 @@ equation
     annotation(Line(points={{240,38},{240,-74},{90,-74}},
       color={0,0,127}));
   connect(busChi.y1_actual, booToRea.u)
-    annotation(Line(points={{200,140},{240,140},{240,92}},
+    annotation(Line(points={{-120,160},{240,160},{240,92}},
       color={255,204,51},
       thickness=0.5));
   connect(busPla.chi, busChi)
-    annotation(Line(points={{-80,140},{200,140}},
+    annotation(Line(points={{-100,140},{-100,160},{-120,160}},
       color={255,204,51},
       thickness=0.5));
   connect(loa.port_b, TChiWatPriRet.port_a)
@@ -311,37 +311,37 @@ equation
     annotation(Line(points={{40,-90},{40,-80},{68,-80}},
       color={0,127,255}));
   connect(y1ValChiWatChiBypSer.y[1], busValChiWatChiBypSer.y1)
-    annotation(Line(points={{-102,300},{-180,300}},
+    annotation(Line(points={{-148,240},{-120,240}},
       color={255,0,255}));
   connect(y1ValChiWatChiIso.y[1], busValChiWatChiIso.y1)
-    annotation(Line(points={{-102,340},{-180,340}},
+    annotation(Line(points={{-178,300},{-120,300},{-120,280}},
       color={255,0,255}));
   connect(yValChiWatChiIso.y, busValChiWatChiIso.y)
-    annotation(Line(points={{-72,320},{-166,320},{-166,340},{-180,340}},
+    annotation(Line(points={{-148,280},{-120,280}},
       color={0,0,127}));
   connect(TChiWatSupSet.y, busChi.TChiWatSet)
-    annotation(Line(points={{-18,360},{200,360},{200,140}},
+    annotation(Line(points={{-148,160},{-120,160}},
       color={0,0,127}));
   connect(y1Chi.y[1], busChi.y1)
-    annotation(Line(points={{-78,380},{200,380},{200,140}},
+    annotation(Line(points={{-178,180},{-120,180},{-120,160}},
       color={255,0,255}));
   connect(busValChiWatChiBypSer, busPla.valChiWatChiByp)
-    annotation(Line(points={{-180,300},{-180,140},{-80,140}},
+    annotation(Line(points={{-120,240},{-120,140},{-100,140}},
       color={255,204,51},
       thickness=0.5));
   connect(busValChiWatChiIso, busPla.valChiWatChiIso)
     annotation(Line(
-      points={{-180,340},{-184,340},{-184,136},{-80,136},{-80,140}},
+      points={{-120,280},{-100,280},{-100,140}},
       color={255,204,51},
       thickness=0.5));
   connect(y1PumChiWatPri.y[1], busPumChiWatPri.y1)
-    annotation(Line(points={{-88,240},{40,240},{40,220}},
+    annotation(Line(points={{-148,200},{-120,200}},
       color={255,0,255}));
   connect(busPumChiWatPri, busPla.pumChiWatPri)
-    annotation(Line(points={{40,220},{40,140},{-80,140}},
+    annotation(Line(points={{-120,200},{-100,200},{-100,140}},
       color={255,204,51},
       thickness=0.5));
-annotation(Diagram(coordinateSystem(extent={{-260,-140},{260,220}})),
+annotation(Diagram(coordinateSystem(extent={{-260,-140},{260,320}}, grid={2,2})),
   experiment(StopTime=2000,
     Tolerance=1e-06),
   __Dymola_Commands(

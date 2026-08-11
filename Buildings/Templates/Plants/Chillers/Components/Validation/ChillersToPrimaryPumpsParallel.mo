@@ -108,10 +108,6 @@ model ChillersToPrimaryPumpsParallel
     final energyDynamics=energyDynamics)
     "Primary CHW pumps"
     annotation(Placement(transformation(extent={{-10,210},{10,230}})));
-  Buildings.Templates.Components.Interfaces.Bus busPumChiWatPri
-    "Primary CHW pumps control bus"
-    annotation(Placement(transformation(extent={{180,180},{220,220}}),
-      iconTransformation(extent={{-316,184},{-276,224}})));
   Fluid.Sensors.TemperatureTwoPort TChiWatChiEnt[nChi](
     redeclare each final package Medium=MediumChiWat,
     final m_flow_nominal=mChiWatChi_flow_nominal)
@@ -249,10 +245,6 @@ model ChillersToPrimaryPumpsParallel
     each final use_T_in=true)
     "Ideal cooling to input set point (representing chiller evaporator)"
     annotation(Placement(transformation(extent={{-180,-90},{-160,-70}})));
-  Buildings.Templates.Components.Interfaces.Bus busPumChiWatPri1
-    "Primary CHW pumps control bus"
-    annotation(Placement(transformation(extent={{180,-120},{220,-80}}),
-      iconTransformation(extent={{-316,184},{-276,224}})));
   Fluid.FixedResistances.PressureDrop resEco(
     redeclare final package Medium=MediumChiWat,
     final m_flow_nominal=mChiWatEco_flow_nominal,
@@ -283,23 +275,11 @@ model ChillersToPrimaryPumpsParallel
     annotation(Placement(transformation(extent={{-10,10},{10,-10}},
       rotation=90,
       origin={-120,-290})));
-  Buildings.Templates.Components.Interfaces.Bus busValChiWatEcoByp
-    "WSE CHW bypass valve control bus"
-    annotation(Placement(transformation(extent={{180,-300},{220,-260}}),
-      iconTransformation(extent={{-316,184},{-276,224}})));
   Buildings.Controls.OBC.CDL.Reals.Sources.TimeTable yValChiWatEcoByp(
     table=[0, 1; 1.5, 1; 1.5, 0; 2, 0],
     timeScale=1000)
     "WSE CHW bypass valve opening signal"
     annotation(Placement(transformation(extent={{-160,230},{-140,250}})));
-  Buildings.Templates.Components.Interfaces.Bus busValChiWatChiByp
-    "CHW bypass valves control bus"
-    annotation(Placement(transformation(extent={{180,-60},{220,-20}}),
-      iconTransformation(extent={{-316,184},{-276,224}})));
-  Buildings.Templates.Plants.Chillers.Interfaces.Bus busPla
-    "Plant control bus"
-    annotation(Placement(transformation(extent={{180,-80},{220,-40}}),
-      iconTransformation(extent={{-432,12},{-412,32}})));
   Buildings.Controls.OBC.CDL.Conversions.BooleanToReal booToRea[nChi]
     "Convert pump return signal to real"
     annotation(Placement(transformation(extent={{-10,-10},{10,10}},
@@ -330,6 +310,27 @@ model ChillersToPrimaryPumpsParallel
     annotation(Placement(transformation(extent={{-10,-10},{10,10}},
       rotation=90,
       origin={-100,30})));
+protected
+  Buildings.Templates.Components.Interfaces.Bus busPumChiWatPri
+    "Primary CHW pumps control bus"
+    annotation(Placement(transformation(extent={{180,180},{220,220}}),
+      iconTransformation(extent={{-316,184},{-276,224}})));
+  Buildings.Templates.Components.Interfaces.Bus busPumChiWatPri1
+    "Primary CHW pumps control bus"
+    annotation(Placement(transformation(extent={{180,-120},{220,-80}}),
+      iconTransformation(extent={{-316,184},{-276,224}})));
+  Buildings.Templates.Components.Interfaces.Bus busValChiWatEcoByp
+    "WSE CHW bypass valve control bus"
+    annotation(Placement(transformation(extent={{180,-300},{220,-260}}),
+      iconTransformation(extent={{-316,184},{-276,224}})));
+  Buildings.Templates.Components.Interfaces.Bus busValChiWatChiBypPar
+    "CHW bypass valves control bus"
+    annotation(Placement(transformation(extent={{180,-60},{220,-20}}),
+      iconTransformation(extent={{-316,184},{-276,224}})));
+  Buildings.Templates.Plants.Chillers.Interfaces.Bus busPla
+    "Plant control bus"
+    annotation(Placement(transformation(extent={{180,-80},{220,-40}}),
+      iconTransformation(extent={{-432,12},{-412,32}})));
 equation
   connect(pumChiWatPri.ports_b, outPumChiWatPri.ports_a)
     annotation(Line(points={{10,220},{20,220}},
@@ -463,7 +464,7 @@ equation
     annotation(Line(
       points={{-228,300},{180,300},{180,-96},{190,-96},{190,-100},{200,-100}},
       color={0,0,127}));
-  connect(y1ValChiWatChiByp.y[1], busValChiWatChiByp.y1)
+  connect(y1ValChiWatChiByp.y[1], busValChiWatChiBypPar.y1)
     annotation(Line(points={{-170,260},{170,260},{170,-40},{200,-40}},
       color={255,0,255}));
   connect(rou1.ports_bRet[nChi + 1], mChiWatEco_flow.port_a)
@@ -476,7 +477,7 @@ equation
   connect(valChiWatEcoByp.port_b, cooEco.port_b)
     annotation(Line(points={{-120,-280},{-120,-260},{-160,-260}},
       color={0,127,255}));
-  connect(busValChiWatChiByp, busPla.valChiWatChiByp)
+  connect(busValChiWatChiBypPar, busPla.valChiWatChiBypPar)
     annotation(Line(points={{200,-40},{200,-60}},
       color={255,204,51},
       thickness=0.5));

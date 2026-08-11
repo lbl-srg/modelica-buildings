@@ -108,7 +108,7 @@ model ChillerGroupWaterCooled
     if chi.typValConWatChiIso ==
       Buildings.Templates.Components.Types.Valve.TwoWayModulating
     "Chiller CW isolation valve opening signal"
-    annotation(Placement(transformation(extent={{-24,206},{-44,226}})));
+    annotation(Placement(transformation(extent={{-10,270},{-30,290}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.TimeTable y1ValConWatChiIso[nChi](
     each table=[0, 0; 1, 0; 1, 1; 2, 1],
     each timeScale=1000,
@@ -116,21 +116,21 @@ model ChillerGroupWaterCooled
     if chi.typValConWatChiIso ==
       Buildings.Templates.Components.Types.Valve.TwoWayTwoPosition
     "Chiller CW isolation valve opening signal"
-    annotation(Placement(transformation(extent={{-24,246},{-44,266}})));
+    annotation(Placement(transformation(extent={{20,290},{0,310}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.TimeTable y1PumConWat[nChi](
     each table=[0, 0; 1, 0; 1, 1; 2, 1],
     each timeScale=1000,
     each period=2000)
     "CW pump Start/Stop signal"
-    annotation(Placement(transformation(extent={{-534,178},{-514,198}})));
+    annotation(Placement(transformation(extent={{-10,190},{-30,210}})));
   protected
   Buildings.Templates.Components.Interfaces.Bus busValConWatChiIso[nChi]
     "Chiller CW isolation valve control bus"
-    annotation(Placement(transformation(extent={{-180,180},{-140,220}}),
+    annotation(Placement(transformation(extent={{-80,260},{-40,300}}),
       iconTransformation(extent={{-756,150},{-716,190}})));
   Buildings.Templates.Components.Interfaces.Bus busPumConWat
     "CW pumps control bus"
-    annotation(Placement(transformation(extent={{-414,168},{-374,208}}),
+    annotation(Placement(transformation(extent={{-80,180},{-40,220}}),
       iconTransformation(extent={{-316,184},{-276,224}})));
 equation
   connect(TConWat.y, tow.T_in)
@@ -152,10 +152,10 @@ equation
     annotation(Line(points={{-210,-80},{-200,-80},{-200,-100}},
       color={0,127,255}));
   connect(y1ValConWatChiIso.y[1], busValConWatChiIso.y1)
-    annotation(Line(points={{-46,256},{-84,256},{-84,200},{-160,200}},
+    annotation(Line(points={{-2,300},{-60,300},{-60,280}},
       color={255,0,255}));
   connect(yValConWatChiIso.y, busValConWatChiIso.y)
-    annotation(Line(points={{-46,216},{-84,216},{-84,200},{-160,200}},
+    annotation(Line(points={{-32,280},{-60,280}},
       color={0,0,127}));
   connect(chi.ports_bCon, outConWatChi.ports_b)
     annotation(Line(points={{-140,112},{-140,112}},
@@ -164,22 +164,22 @@ equation
     annotation(Line(points={{-140,-80},{-140,-80}},
       color={0,127,255}));
   connect(busValConWatChiIso, busPla.valConWatChiIso)
-    annotation(Line(points={{-160,200},{-160,140},{-80,140}},
+    annotation(Line(points={{-60,280},{-100,280},{-100,140}},
       color={255,204,51},
       thickness=0.5));
   connect(y1PumConWat.y[1], busPumConWat.y1)
-    annotation(Line(points={{-512,188},{-394,188}},
+    annotation(Line(points={{-32,200},{-60,200}},
       color={255,0,255}));
   connect(busPumConWat, busPla.pumConWat)
     annotation(Line(
-      points={{-394,188},{-230,188},{-230,192},{-80,192},{-80,140}},
+      points={{-60,200},{-100,200},{-100,140}},
       color={255,204,51},
       thickness=0.5));
   connect(busPla.pumConWat, pumConWat.bus)
-    annotation(Line(points={{-80,140},{-80,-70},{-170,-70}},
+    annotation(Line(points={{-100,140},{-170,140},{-170,-70}},
       color={255,204,51},
       thickness=0.5));
-annotation(Diagram(coordinateSystem(extent={{-260,-140},{260,220}})),
+annotation(
   experiment(StopTime=2000,
     Tolerance=1e-06),
   __Dymola_Commands(

@@ -1,12 +1,12 @@
-old_flag = Advanced.StoreProtectedVariables;
-Advanced.StoreProtectedVariables = true;
+old_flag = Advanced.Simulation.StoreProtectedVariables;
+Advanced.Simulation.StoreProtectedVariables = true;
 simulateModel("Buildings.Templates.Plants.Chillers.Validation.WaterCooled",
     method="cvode",
     tolerance=1e-6,
     startTime=0.0,
     stopTime=86400.0,
     resultFile="WaterCooledChillerPlant");
-Advanced.StoreProtectedVariables = old_flag;
+Advanced.Simulation.StoreProtectedVariables = old_flag;
 createPlot(
     id=1,
     position={5, 5, 300, 500},
@@ -93,7 +93,7 @@ createPlot(
 createPlot(
     id=5,
     subPlot=3,
-    y={"pla.ctl.ctl.chiWatPumCon.dpChiWat_local", "pla.ctl.resDpChiWatLoc.dpChiWatPumSet_local"},
+    y={"pla.ctl.ctl.chiWatPumCon.dpChiWat_local", "pla.ctl.resDpChiWatLoc.dpChiWatSet_local"},
     autoscale=true,
     grid=true,
     timeUnit="h"

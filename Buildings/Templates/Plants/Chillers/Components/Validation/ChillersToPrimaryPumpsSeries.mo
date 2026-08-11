@@ -591,7 +591,7 @@ equation
       color={0,127,255}));
   connect(TChiWat.y, coo3.T_in)
     annotation(Line(
-      points={{-228,220},{-220,220},{-220,-180},{-174,-180},{-174,-148}},
+      points={{-228,220},{-220,220},{-220,-140},{-174,-140},{-174,-148}},
       color={0,0,127}));
   connect(TChiWat.y, coo1.T_in)
     annotation(Line(points={{-228,220},{-174,220},{-174,192}},
@@ -629,7 +629,7 @@ equation
       thickness=0.5));
   connect(TChiWat[1].y, cooEco1.T_in)
     annotation(Line(
-      points={{-228,220},{-220,220},{-220,-280},{-174,-280},{-174,-248}},
+      points={{-228,220},{-220,220},{-220,-240},{-174,-240},{-174,-248}},
       color={0,0,127}));
   connect(cooEco1.port_b, rou3.ports_aSup[nChi + 1])
     annotation(Line(
