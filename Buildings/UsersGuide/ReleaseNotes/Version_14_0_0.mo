@@ -38,6 +38,17 @@ to <b style=\"color:blue\">existing</b> libraries:
     <td valign=\"top\"><p>Package with thermal airflow model using in situ adaptive tabulation.</p>
     </td>
 </tr>
+<tr><td colspan=\"2\"><b>Buildings.Fluid.Geothermal</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Fluid.Geothermal.Borefields.TOUGH
+    </td>
+    <td valign=\"top\">Created models and the user guide for coupled simulation between
+                       Modelica simulation and the TOUGH simulation that calculates
+                       the ground response.<br/>
+                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1495\">issue 1495</a>.
+    </td>
+</tr>
 <tr><td colspan=\"2\"><b>Buildings.Fluid.BaseClasses.FlowModels</b>
     </td>
 </tr>
