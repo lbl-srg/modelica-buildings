@@ -1,6 +1,6 @@
 simulateModel("Buildings.Fluid.FixedResistances.Examples.HydraulicDiameter", method="Cvode", tolerance=1e-6, stopTime=1.0, resultFile="HydraulicDiameter");
 
-createPlot(id=1, position={35, 30, 1533, 1376}, y={"res.m_flow", "resLarPip.m_flow"}, range={0.0, 1.0, -20.0, 20.0}, grid=true, colors={{28,108,200}, {238,46,47}});
-createPlot(id=1, position={35, 30, 1533, 341}, y={"res.dp", "resLarPip.dp"}, range={0.0, 1.0, -2500.0, 2500.0}, grid=true, subPlot=2, colors={{28,108,200}, {238,46,47}});
-createPlot(id=1, position={35, 30, 1533, 340}, y={"res.dpMajor", "res.dpMinor", "resLarPip.dpMajor", "resLarPip.dpMinor"}, range={0.0, 1.0, -2500.0, 2500.0}, grid=true, subPlot=3, colors={{28,108,200}, {238,46,47}, {0,140,72}, {217,67,180}});
-createPlot(id=1, position={35, 30, 1533, 340}, y={"res.Re", "resLarPip.Re"}, range={0.0, 1.0, -1000000.0, 1000000.0}, grid=true, subPlot=4, colors={{28,108,200}, {238,46,47}});
+createPlot(id=1, position={35, 30, 1533, 1376}, y={"resCon.m_flow", "resDefT.m_flow", "resActT.m_flow"}, range={0.0, 1.0, -2.0, 2.0}, grid=true, colors={{28,108,200}, {238,46,47}, {0,140,72}});
+createPlot(id=1, position={35, 30, 1533, 341}, y={"resCon.dp", "resDefT.dp", "resActT.dp"}, range={0.0, 1.0, -2500.0, 2500.0}, grid=true, subPlot=2, colors={{28,108,200}, {238,46,47}, {0,140,72}});
+createPlot(id=1, position={35, 30, 1533, 340}, y={"resDefT.dpMajor", "resDefT.dpMinor", "resActT.dpMajor", "resActT.dpMinor"}, range={0.0, 1.0, -2500.0, 2500.0}, grid=true, subPlot=3, colors={{28,108,200}, {238,46,47}, {0,140,72}, {217,67,180}});
+createPlot(id=1, position={35, 30, 1533, 340}, y={"resCon.Re", "resDefT.Re", "resActT.Re"}, range={0.0, 1.0, -100000.0, 100000.0}, grid=true, subPlot=4, colors={{28,108,200}, {238,46,47}, {0,140,72}});

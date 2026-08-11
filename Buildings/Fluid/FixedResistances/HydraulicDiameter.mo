@@ -10,41 +10,65 @@ model HydraulicDiameter
 
   parameter Boolean computePressureDrop = true
     "Set to true to compute Darcy-Weisbach pressure drop"
-    annotation (Evaluate=true);
+    annotation (
+      Evaluate=true,
+      Dialog(group="Pressure drop"));
 
   parameter Modelica.Units.SI.Length length
-    "Pipe length";
+    "Pipe length"
+    annotation (Dialog(group="Geometry"));
 
-  parameter Modelica.Units.SI.Radius rTub
-    "Outer tube radius";
-
-  parameter Modelica.Units.SI.Length eTub
-    "Tube wall thickness";
+  parameter Modelica.Units.SI.Length dh
+    "Hydraulic diameter"
+    annotation (Dialog(group="Geometry"));
 
   parameter Modelica.Units.SI.Length roughness = 0.001e-3
-    "Absolute pipe wall roughness";
-
-  parameter Modelica.Units.SI.Density rhoMed_default =
-    Medium.density(Medium.setState_pTX(
-      Medium.p_default,
-      Medium.T_default,
-      Medium.X_default))
-    "Default fluid density";
-
-  parameter Modelica.Units.SI.DynamicViscosity muMed_default =
-    Medium.dynamicViscosity(Medium.setState_pTX(
-      Medium.p_default,
-      Medium.T_default,
-      Medium.X_default))
-    "Default fluid dynamic viscosity";
+    "Absolute pipe wall roughness"
+    annotation (Dialog(group="Geometry"));
 
   parameter Real kMinor(unit="1", min=0) = 0
     "Total minor-loss coefficient"
-    annotation (Dialog(enable=computePressureDrop));
+    annotation (Dialog(
+      group="Pressure drop",
+      enable=computePressureDrop));
 
-  parameter Boolean use_TDepPressureDrop = false
-    "Set to true to evaluate density and viscosity from the current fluid temperature"
-    annotation (Evaluate=true, Dialog(enable=computePressureDrop));
+  parameter Buildings.Fluid.Types.FluidProperties fluidProperties =
+    Buildings.Fluid.Types.FluidProperties.DefaultTemperature
+    "Fluid-property evaluation for the pressure drop calculation"
+    annotation (
+      Evaluate=true,
+      Dialog(
+        group="Fluid properties",
+        enable=computePressureDrop));
+
+  parameter Modelica.Units.SI.Temperature T_ref = Medium.T_default
+    "Reference temperature for fluid-property evaluation"
+    annotation (Dialog(
+      group="Fluid properties",
+      enable=computePressureDrop and
+             fluidProperties == Buildings.Fluid.Types.FluidProperties.DefaultTemperature));
+
+  parameter Modelica.Units.SI.Density rhoMed =
+    Medium.density(Medium.setState_pTX(
+      Medium.p_default,
+      T_ref,
+      Medium.X_default))
+    "Constant fluid density used for pressure drop calculation"
+    annotation (Dialog(
+      group="Fluid properties",
+      enable=computePressureDrop and
+             fluidProperties == Buildings.Fluid.Types.FluidProperties.Constant));
+
+  parameter Modelica.Units.SI.DynamicViscosity muMed =
+    Medium.dynamicViscosity(Medium.setState_pTX(
+      Medium.p_default,
+      T_ref,
+      Medium.X_default))
+    "Constant fluid dynamic viscosity used for pressure drop calculation"
+    annotation (Dialog(
+      group="Fluid properties",
+      enable=computePressureDrop and
+             fluidProperties == Buildings.Fluid.Types.FluidProperties.Constant));
 
   Modelica.Units.SI.PressureDifference dpMajor
     "Major Darcy-Weisbach pressure drop";
@@ -84,6 +108,9 @@ protected
   Medium.ThermodynamicState staAct
     "Actual stream state used for generic medium property evaluation";
 
+  Medium.ThermodynamicState staRef
+    "Reference state used for fixed-temperature property evaluation";
+
   Modelica.Units.SI.Temperature TAct
     "Actual stream temperature used for property evaluation";
 
@@ -93,9 +120,19 @@ protected
   Modelica.Units.SI.Density rhoMedAct
     "Density used for pressure drop";
 
-equation
+  Modelica.Units.SI.DynamicViscosity muMedRef
+    "Dynamic viscosity at reference temperature";
 
-  if computePressureDrop and use_TDepPressureDrop then
+  Modelica.Units.SI.Density rhoMedRef
+    "Density at reference temperature";
+
+equation
+  assert(
+    dh > 0,
+    "In " + getInstanceName() + ": The hydraulic diameter dh must be positive.");
+
+  if computePressureDrop and
+     fluidProperties == Buildings.Fluid.Types.FluidProperties.ActualTemperature then
 
     XiAct =
       if allowFlowReversal then
@@ -134,21 +171,60 @@ equation
         p=port_a.p,
         X_a=X_a_internal);
 
+    staRef = Medium.setState_pTX(
+      p=Medium.p_default,
+      T=T_ref,
+      X=Medium.X_default);
+
+    muMedRef = Medium.dynamicViscosity(staRef);
+    rhoMedRef = Medium.density(staRef);
+
+  elseif computePressureDrop and
+         fluidProperties == Buildings.Fluid.Types.FluidProperties.DefaultTemperature then
+
+    XiAct = zeros(Medium.nXi);
+    XAct = Medium.X_default;
+    hAct = Medium.h_default;
+
+    TAct = T_ref;
+
+    staAct = Medium.setState_pTX(
+      p=Medium.p_default,
+      T=T_ref,
+      X=Medium.X_default);
+
+    staRef = staAct;
+
+    (muMedRef, rhoMedRef) =
+      .Buildings.Fluid.BaseClasses.Media.Functions.fluidDensityViscosity_T(
+        fluid=tDepFluid,
+        T=T_ref,
+        p=Medium.p_default,
+        X_a=X_a_internal);
+
+    muMedAct = muMedRef;
+    rhoMedAct = rhoMedRef;
+
   else
 
     XiAct = zeros(Medium.nXi);
     XAct = Medium.X_default;
     hAct = Medium.h_default;
 
+    TAct = T_ref;
+
     staAct = Medium.setState_pTX(
       p=Medium.p_default,
-      T=Medium.T_default,
+      T=T_ref,
       X=Medium.X_default);
 
-    TAct = Medium.T_default;
+    staRef = staAct;
 
-    rhoMedAct = rhoMed_default;
-    muMedAct = muMed_default;
+    muMedRef = muMed;
+    rhoMedRef = rhoMed;
+
+    muMedAct = muMed;
+    rhoMedAct = rhoMed;
 
   end if;
 
@@ -156,8 +232,8 @@ equation
     (dp, dpMajor, dpMinor, Re) =
       .Buildings.Fluid.FixedResistances.Functions.pressureLossPipe(
         length=length,
-        rTub=rTub,
-        eTub=eTub,
+        rTub=dh/2,
+        eTub=0,
         roughness=roughness,
         rhoMed=rhoMedAct,
         muMed=muMedAct,
@@ -237,20 +313,32 @@ If no minor losses should be included, keep the default values
 </p>
 <h4>Fluid properties</h4>
 <p>
-If <code>use_TDepPressureDrop=false</code>, the pressure drop calculation uses
-the default density <code>rhoMed_default</code> and default dynamic viscosity
-<code>muMed_default</code>. These are evaluated from the redeclared medium at
-the default pressure, temperature, and composition.
+The parameter <code>fluidProperties</code> controls how density and dynamic
+viscosity are evaluated for the pressure drop calculation.
 </p>
 <p>
-If <code>use_TDepPressureDrop=true</code>, the density and dynamic viscosity are
-evaluated from the current fluid temperature. This allows the pressure drop to
-change with the fluid state during the simulation.
+If <code>fluidProperties=Buildings.Fluid.Types.FluidProperties.Constant</code>,
+the pressure drop calculation uses the user-specified constant density
+<code>rhoMed</code> and dynamic viscosity <code>muMed</code>.
 </p>
 <p>
-Using temperature-dependent fluid properties can increase the computational
-cost, especially in large flow networks. For large systems, the default setting
-<code>use_TDepPressureDrop=false</code> is therefore usually more efficient.
+If <code>fluidProperties=Buildings.Fluid.Types.FluidProperties.DefaultTemperature</code>,
+the density and dynamic viscosity are evaluated at the fixed reference
+temperature <code>T_ref</code>. These values remain fixed during the simulation.
+This option is useful when the pressure drop should be computed with fixed
+fluid properties at a selected reference temperature.
+</p>
+<p>
+If <code>fluidProperties=Buildings.Fluid.Types.FluidProperties.ActualTemperature</code>,
+the density and dynamic viscosity are evaluated from the current fluid
+temperature during the simulation. This allows the pressure drop to vary with
+the fluid state.
+</p>
+<p>
+Using <code>ActualTemperature</code> can increase the computational cost,
+especially in large flow networks. For large systems, using
+<code>Constant</code> or <code>DefaultTemperature</code> is generally more
+efficient.
 </p>
 <h4>Flow reversal</h4>
 <p>

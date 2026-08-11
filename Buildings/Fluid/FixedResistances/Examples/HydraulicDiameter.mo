@@ -16,7 +16,7 @@ model HydraulicDiameter
     redeclare package Medium = Medium,
     T=273.15 + 20,
     use_p_in=true,
-    nPorts=2)
+    nPorts=3)
     "Pressure boundary condition"
     annotation (Placement(transformation(
           extent={{-50,-10},{-30,10}})));
@@ -24,53 +24,72 @@ model HydraulicDiameter
   Buildings.Fluid.Sources.Boundary_pT sin(
     redeclare package Medium = Medium,
     T=273.15 + 10,
-    nPorts=2,
+    nPorts=3,
     p(displayUnit="Pa") = 300000)
     "Pressure boundary condition"
     annotation (Placement(transformation(
           extent={{50,-10},{30,10}})));
 
-  Buildings.Fluid.FixedResistances.HydraulicDiameter res(
+  Buildings.Fluid.FixedResistances.HydraulicDiameter resCon(
     redeclare package Medium = Medium,
     m_flow_nominal=0.2,
     length=1,
-    rTub=0.0095,
-    eTub=0.0015,
+    dh=0.027, 
     roughness=0.001e-3,
-    kMinor=0)
-    "Fixed resistance with pressure drop computed from pipe geometry"
-    annotation (Placement(transformation(extent={{-10,-8},{10,12}})));
+    kMinor=0,
+    fluidProperties=Buildings.Fluid.Types.FluidProperties.Constant,
+    rhoMed=998.2,
+    muMed=1.002e-3,computePressureDrop = true)
+    "Resistance with user-specified constant fluid properties"
+    annotation (Placement(transformation(extent={{-10,32},{10,52}})));
 
-  Buildings.Fluid.FixedResistances.HydraulicDiameter resLarPip(
+  Buildings.Fluid.FixedResistances.HydraulicDiameter resDefT(
     redeclare package Medium = Medium,
-    m_flow_nominal=10,
-    length=100,
-    rTub=0.0615,
-    eTub=0.005,
+    m_flow_nominal=0.2,
+    length=1,
+    dh=0.027,   
     roughness=0.001e-3,
-    kMinor=0)
-    "Fixed resistance with pressure drop computed from geometry of a large pipe"
-    annotation (Placement(transformation(extent={{-10,-50},{10,-30}})));
+    kMinor=0,
+    fluidProperties=Buildings.Fluid.Types.FluidProperties.DefaultTemperature,
+    T_ref=293.15)
+    "Resistance with fluid properties evaluated at a fixed reference temperature"
+    annotation (Placement(transformation(extent={{-10.0,-10.0},{10.0,10.0}},rotation = 0.0,origin = {0.0,0.0})));
+
+  Buildings.Fluid.FixedResistances.HydraulicDiameter resActT(
+    redeclare package Medium = Medium,
+    m_flow_nominal=0.2,
+    length=1,
+    dh=0.027, 
+    roughness=0.001e-3,
+    kMinor=0,
+    fluidProperties=Buildings.Fluid.Types.FluidProperties.ActualTemperature)
+    "Resistance with fluid properties evaluated from the current fluid temperature"
+    annotation (Placement(transformation(extent={{-10,-48},{10,-28}})));
 
 equation
   connect(P.y, sou.p_in)
     annotation (Line(points={{-71,8},{-62,8},{-52,8}},
                     color={0,0,127}));
 
-  connect(sou.ports[1], res.port_a)
-    annotation (Line(points={{-30,2},{-10,2}},
+  connect(sou.ports[1], resCon.port_a)
+    annotation (Line(points={{-30,2},{-20,2},{-20,42},{-10,42}},
+                    color={0,127,255}));
+  connect(resCon.port_b, sin.ports[1])
+    annotation (Line(points={{10,42},{20,42},{20,2},{30,2}},
                     color={0,127,255}));
 
-  connect(res.port_b, sin.ports[1])
-    annotation (Line(points={{10,2},{30,2}},
+  connect(sou.ports[2], resDefT.port_a)
+    annotation (Line(points={{-30,0},{-10,0}},
+                    color={0,127,255}));
+  connect(resDefT.port_b, sin.ports[2])
+    annotation (Line(points={{10,0},{30,0}},
                     color={0,127,255}));
 
-  connect(resLarPip.port_a, sou.ports[2])
-    annotation (Line(points={{-10,-40},{-16,-40},{-16,-2},{-30,-2}},
+  connect(sou.ports[3], resActT.port_a)
+    annotation (Line(points={{-30,-2},{-20,-2},{-20,-38},{-10,-38}},
                     color={0,127,255}));
-
-  connect(resLarPip.port_b, sin.ports[2])
-    annotation (Line(points={{10,-40},{20,-40},{20,-2},{30,-2}},
+  connect(resActT.port_b, sin.ports[3])
+    annotation (Line(points={{10,-38},{20,-38},{20,-2},{30,-2}},
                     color={0,127,255}));
 
   annotation (
@@ -83,23 +102,33 @@ Example model for a fixed resistance that computes the pressure drop from pipe
 geometry using a Darcy-Weisbach pressure loss calculation.
 </p>
 <p>
-The model compares two pipe geometries. The pressure difference across the
-components is imposed by two pressure boundary conditions. The source pressure
-is ramped so that the pressure difference changes sign during the simulation.
+The example compares three options for evaluating the fluid properties used in
+the pressure drop calculation:
 </p>
+<ul>
+<li>
+<code>resCon</code> uses user-specified constant density and dynamic viscosity.
+</li>
+<li>
+<code>resDefT</code> evaluates density and dynamic viscosity at the fixed
+reference temperature <code>T_ref</code>.
+</li>
+<li>
+<code>resActT</code> evaluates density and dynamic viscosity from the current
+fluid temperature.
+</li>
+</ul>
 <p>
-The example can be used to inspect the resulting mass flow rate, total pressure
-drop, major pressure drop, minor pressure drop and Reynolds number.
+All three resistances use the same pipe geometry and are connected between the
+same pressure boundaries. The source pressure is ramped so that the pressure
+difference changes sign during the simulation.
 </p>
 </html>", revisions="<html>
 <ul>
 <li>
 August 7, 2026, by Lone Meertens:<br/>
-Updated the example for the Darcy-Weisbach implementation of
-<a href=\"modelica://Buildings.Fluid.FixedResistances.HydraulicDiameter\">
-Buildings.Fluid.FixedResistances.HydraulicDiameter</a>.
-The example now parameterizes the resistance using pipe geometry and plots
-the major pressure drop, minor pressure drop and Reynolds number.<br/>
+Updated the example for the Darcy-Weisbach implementation.
+The example now compares the available fluid-property evaluation options.<br/>
 This is for
 <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4687\">Buildings, #4687</a>.
 </li>
