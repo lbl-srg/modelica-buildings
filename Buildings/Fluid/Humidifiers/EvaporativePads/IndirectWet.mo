@@ -227,7 +227,6 @@ First implementation.
 Icon(graphics={
   Rectangle(lineColor = {0, 0, 255}, fillColor = {95, 95, 95}, pattern = LinePattern.None,
             fillPattern = FillPattern.Solid, extent={{-70,60},{70,-60}}),
-  Text(textColor = {0, 0, 127}, extent={{-52,-60},{58,-120}}, textString = "m=%m_flow_nominal"),
   Rectangle(lineColor = {0, 0, 255}, pattern = LinePattern.None,
             fillPattern = FillPattern.Solid, extent={{-102,65},{98,56}}),
   Polygon(lineColor = {255, 255, 255}, fillColor = {255, 255, 255},
@@ -244,5 +243,97 @@ Icon(graphics={
   Rectangle(lineColor = {0, 0, 255}, pattern = LinePattern.None,
             fillPattern = FillPattern.Solid, extent={{-100,-55},{100,-64}}),
   Rectangle(lineColor = {0, 0, 255}, fillColor = {0, 62, 0}, pattern = LinePattern.None,
-            fillPattern = FillPattern.Solid, extent={{ -70,68},{70,-66}})}));
+            fillPattern = FillPattern.Solid, extent={{ -70,68},{70,-66}}),
+        Rectangle(
+          extent={{10,40},{20,-40}},
+          fillColor={95,95,95},
+          fillPattern=FillPattern.Solid,
+          pattern=LinePattern.None),
+        Rectangle(
+          extent={{20,40},{30,-40}},
+          fillColor={0,127,0},
+          fillPattern=FillPattern.Solid,
+          pattern=LinePattern.None,
+          lineColor={0,0,0}),
+        Rectangle(
+          extent={{30,40},{40,-40}},
+          fillColor={95,95,95},
+          fillPattern=FillPattern.Solid,
+          pattern=LinePattern.None),
+        Rectangle(
+          extent={{40,40},{50,-40}},
+          fillColor={0,127,0},
+          fillPattern=FillPattern.Solid,
+          pattern=LinePattern.None,
+          lineColor={0,0,0}),
+        Rectangle(
+          extent={{-50,40},{-40,-40}},
+          fillColor={95,95,95},
+          fillPattern=FillPattern.Solid,
+          pattern=LinePattern.None),
+        Rectangle(
+          extent={{-40,40},{-30,-40}},
+          fillColor={0,127,0},
+          fillPattern=FillPattern.Solid,
+          pattern=LinePattern.None,
+          lineColor={0,0,0}),
+        Rectangle(
+          extent={{-30,40},{-20,-40}},
+          fillColor={95,95,95},
+          fillPattern=FillPattern.Solid,
+          pattern=LinePattern.None),
+        Rectangle(
+          extent={{-20,40},{-10,-40}},
+          fillColor={0,127,0},
+          fillPattern=FillPattern.Solid,
+          pattern=LinePattern.None,
+          lineColor={0,0,0}),
+        Rectangle(
+          extent={{-10,40},{0,-40}},
+          fillColor={95,95,95},
+          fillPattern=FillPattern.Solid,
+          pattern=LinePattern.None),
+        Rectangle(
+          extent={{0,40},{10,-40}},
+          fillColor={0,127,0},
+          fillPattern=FillPattern.Solid,
+          pattern=LinePattern.None,
+          lineColor={0,0,0}),
+        Polygon(
+          points={{-40,54},{-42,44},{-36,40},{-28,44},{-30,54},{-36,66},{-40,54}},
+          lineColor={0,255,255},
+          fillColor={0,255,255},
+          fillPattern=FillPattern.Solid,
+          smooth=Smooth.Bezier),
+        Polygon(
+          points={{-10,54},{-12,44},{-6,40},{2,44},{0,54},{-6,66},{-10,54}},
+          lineColor={0,255,255},
+          fillColor={0,255,255},
+          fillPattern=FillPattern.Solid,
+          smooth=Smooth.Bezier),
+        Polygon(
+          points={{20,54},{18,44},{24,40},{32,44},{30,54},{24,66},{20,54}},
+          lineColor={0,255,255},
+          fillColor={0,255,255},
+          fillPattern=FillPattern.Solid,
+          smooth=Smooth.Bezier),
+        Polygon(
+          points={{-30,-52},{-32,-62},{-26,-66},{-18,-62},{-20,-52},{-26,-40},{-30,
+              -52}},
+          lineColor={0,255,255},
+          fillColor={0,255,255},
+          fillPattern=FillPattern.Solid,
+          smooth=Smooth.Bezier),
+        Polygon(
+          points={{0,-52},{-2,-62},{4,-66},{12,-62},{10,-52},{4,-40},{0,-52}},
+          lineColor={0,255,255},
+          fillColor={0,255,255},
+          fillPattern=FillPattern.Solid,
+          smooth=Smooth.Bezier),
+        Polygon(
+          points={{30,-52},{28,-62},{34,-66},{42,-62},{40,-52},{34,-40},{30,-52}},
+          lineColor={0,255,255},
+          fillColor={0,255,255},
+          fillPattern=FillPattern.Solid,
+          smooth=Smooth.Bezier)}));
 end IndirectWet;

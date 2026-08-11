@@ -124,7 +124,6 @@ First implementation.
 </html>"),
 Icon(graphics={Rectangle(lineColor = {0, 0, 255}, fillColor = {95, 95, 95}, pattern = LinePattern.None,
             fillPattern = FillPattern.Solid, extent={{-70,60},{70,-60}}),
-  Text(textColor = {0, 0, 127}, extent={{-52,-60},{58,-120}}, textString = "m=%m_flow_nominal"),
   Rectangle(lineColor = {0, 0, 255}, pattern = LinePattern.None,
             fillPattern = FillPattern.Solid, extent={{-102,65},{98,56}}),
   Polygon(lineColor = {255, 255, 255}, fillColor = {255, 255, 255},
@@ -141,5 +140,43 @@ Icon(graphics={Rectangle(lineColor = {0, 0, 255}, fillColor = {95, 95, 95}, patt
   Rectangle(lineColor = {0, 0, 255}, pattern = LinePattern.None,
             fillPattern = FillPattern.Solid, extent={{-100,-55},{100,-64}}),
   Rectangle(lineColor = {0, 0, 255}, fillColor = {0, 62, 0}, pattern = LinePattern.None,
-            fillPattern = FillPattern.Solid, extent={{-70,68},{70,-66}})}));
+            fillPattern = FillPattern.Solid, extent={{-70,68},{70,-66}}),
+        Rectangle(
+          extent={{10,40},{20,-40}},
+          fillColor={95,95,95},
+          fillPattern=FillPattern.Solid,
+          pattern=LinePattern.None),
+        Rectangle(
+          extent={{20,40},{30,-40}},
+          fillColor={0,127,0},
+          fillPattern=FillPattern.Solid,
+          pattern=LinePattern.None,
+          lineColor={0,0,0}),
+        Rectangle(
+          extent={{30,40},{40,-40}},
+          fillColor={95,95,95},
+          fillPattern=FillPattern.Solid,
+          pattern=LinePattern.None),
+        Rectangle(
+          extent={{40,40},{50,-40}},
+          fillColor={0,127,0},
+          fillPattern=FillPattern.Solid,
+          pattern=LinePattern.None,
+          lineColor={0,0,0}),
+        Rectangle(
+          extent={{50,40},{60,-40}},
+          fillColor={95,95,95},
+          fillPattern=FillPattern.Solid,
+          pattern=LinePattern.None),
+  Polygon(lineColor={255, 255, 255}, fillColor={255, 255, 255}, fillPattern=FillPattern.Solid,
+          points={{-36,42},{-24,34},{-24,34},{-36,28},{-36,30},{-28,34},{-28,34},
+              {-36,40},{-36,42}}),
+  Polygon(lineColor={255,255,255}, fillColor={255,255,255}, fillPattern=FillPattern.Solid,
+          points={{-36,10},{-24,2},{-24,2},{-36,-4},{-36,-2},{-28,2},{-28,2},{
+              -36,8},{-36,10}}),
+  Polygon(lineColor={255, 255, 255}, fillColor={255, 255, 255}, fillPattern=FillPattern.Solid,
+          points={{-36,-26},{-24,-34},{-24,-34},{-36,-40},{-36,-38},{-28,-34},{
+              -28,-34},{-36,-28},{-36,-26}}),
+  Rectangle(lineColor={255, 255, 255}, fillColor={255, 255, 255},
+            fillPattern=FillPattern.Solid, extent={{-20,-54},{-24,52}})}));
 end IndirectDry;

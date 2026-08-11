@@ -74,11 +74,11 @@ protected
     "Density, used to compute fluid volume";
 equation
   v =abs(V_flow)/padAre;
-  eta =
+  eta = min(1, max(0,
     Buildings.Fluid.Humidifiers.EvaporativePads.BaseClasses.Characteristics.saturationEfficiency(
-    per=per.efficiency,
-    v=v,
-    d=etaDer);
+      per=per.efficiency,
+      v=v,
+      d=etaDer)));
   TDryBulOut = TDryBulIn - eta*(TDryBulIn - TWetBulIn);
   TDryBulIn = XWIn.TDryBul;
   TWetBulIn = XWIn.TWetBul;
@@ -129,6 +129,9 @@ The humidity ratio difference between the inlet and outlet air is used to calcul
 the added mass of water vapor <code>dmWat_flow</code>, with the humidity ratios
 being determined from psychrometric relationships, while assuming the outlet air
 wetbulb temperature is the same as inlet air wetbulb temperature.
+</p>
+<p>
+This block also enforces the saturation efficiency value <code>eta</code> to be between <i>0</i> and <i>1</i>.
 </p>
 </html>", revisions="<html>
 <ul>

@@ -98,7 +98,6 @@ annotation (defaultComponentName="dirEvaPad", Icon(graphics={
             fillPattern=FillPattern.Solid, extent={{-101,5},{100,-4}}),
   Rectangle(lineColor={0,0,255}, fillColor={255,0,0}, pattern=LinePattern.None,
             fillPattern=FillPattern.Solid, extent={{0, -4},{100, 5}}),
-  Text(textColor={0,0,127}, extent={{-52,-60}, {58,-120}}, textString="m=%m_flow_nominal"),
   Rectangle(lineColor={0,0,255}, pattern=LinePattern.None,
             fillPattern=FillPattern.Solid, extent={{-100, 5}, {101, -5}}),
   Rectangle(lineColor={0,0,255}, fillColor={0,62,0}, pattern=LinePattern.None,
@@ -111,6 +110,7 @@ annotation (defaultComponentName="dirEvaPad", Icon(graphics={
           points={{42,10},{54,2},{54,2},{42,-4},{42,-2},{50,2},{50,2},{42,8},{42,10}}),
   Polygon(lineColor={255, 255, 255}, fillColor={255, 255, 255}, fillPattern=FillPattern.Solid,
           points={{42,-26},{54,-34},{54,-34},{42,-40},{42,-38},{50,-34},{50,-34},{42,-28},{42,-26}})},
+
   coordinateSystem(grid={2,2})),
 Documentation(
 info="<html>
