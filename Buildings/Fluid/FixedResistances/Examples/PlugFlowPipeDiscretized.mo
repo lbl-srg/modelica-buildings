@@ -28,7 +28,12 @@ model PlugFlowPipeDiscretized "Simple example of discretized plug flow pipe"
     m_flow_nominal=10,
     thickness=0.0032,
     initDelay=true,
-    T_start_in=fill(323.15, nSeg)) "Pipe segments"
+    T_start_in=fill(323.15, nSeg),
+    disableComputeFlowResistance=false,
+    use_detailedPressureDrop=true,
+    kMinor=0,
+    fluidProperties=Buildings.Fluid.Types.FluidProperties.DefaultTemperature,
+    T_ref=293.15) "Pipe segments"
     annotation (Placement(transformation(extent={{0,-10},{20,10}})));
   Buildings.HeatTransfer.Sources.FixedTemperature
     bou[nSeg](T={283.15 + 2 * i for i in 1:nSeg})
