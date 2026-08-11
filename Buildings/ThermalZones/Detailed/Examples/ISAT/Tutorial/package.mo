@@ -9,7 +9,8 @@ convection, with step by step instructions for how to build such models.
 </p>
 <p>
 Except the examples demonstrated here, a data center case is also provided on the
-<a href=\"https://sites.psu.edu/sbslab/research/buildings/doe-datacenter/\">ISAT project website</a>.
+<a href=\"https://sites.psu.edu/sbslab/publications/tools/end-to-end-modeling-and-optimization-package-for-data-center-cooling/\">
+ISAT project website</a>.
 </p>
 </html>"));
 end Tutorial;
