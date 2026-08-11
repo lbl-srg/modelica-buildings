@@ -47,70 +47,62 @@ model InternalHEXTwoUTube
       final m_flow_small=m4_flow_small,
       final V=VTubSeg,
       final mSenFac=mSenFac),
-    redeclare final Buildings.Fluid.Geothermal.Borefields.BaseClasses.Boreholes.BaseClasses.PressureDropPipe preDro1(
-      final use_DarcyPressureDrop=use_DarcyPressureDrop,
-      final use_TDepPressureDrop=use_TDepPressureDrop,
+    redeclare final Buildings.Fluid.FixedResistances.PressureDropPipe preDro1(
+      final computePressureDrop=computePressureDrop,
+      final use_detailedPressureDrop=use_detailedPressureDrop,
       final length=hSeg,
-      final rTub=borFieDat.conDat.rTub,
-      final eTub=borFieDat.conDat.eTub,
+      final dh=2*(borFieDat.conDat.rTub - borFieDat.conDat.eTub),
       final roughness=borFieDat.conDat.roughness,
-      final nUBend=nUBend1,
+      final kMinor=kUBend/2,
+      final fluidProperties=fluidProperties,
+      final T_ref=T_ref,
       final from_dp=from_dp1,
       final linearized=linearizeFlowResistance1,
       final n=n1,
       final deltaM=deltaM1,
       final dp_nominal=dp1_nominal),
-    redeclare final Buildings.Fluid.Geothermal.Borefields.BaseClasses.Boreholes.BaseClasses.PressureDropPipe preDro2(
-      final use_DarcyPressureDrop=use_DarcyPressureDrop,
-      final use_TDepPressureDrop=use_TDepPressureDrop,
+    redeclare final Buildings.Fluid.FixedResistances.PressureDropPipe preDro2(
+      final computePressureDrop=computePressureDrop,
+      final use_detailedPressureDrop=use_detailedPressureDrop,
       final length=hSeg,
-      final rTub=borFieDat.conDat.rTub,
-      final eTub=borFieDat.conDat.eTub,
+      final dh=2*(borFieDat.conDat.rTub - borFieDat.conDat.eTub),
       final roughness=borFieDat.conDat.roughness,
-      final nUBend=nUBend2,
+      final kMinor=kUBend/2,
+      final fluidProperties=fluidProperties,
+      final T_ref=T_ref,
       final from_dp=from_dp2,
       final linearized=linearizeFlowResistance2,
       final n=n2,
       final deltaM=deltaM2,
       final dp_nominal=dp2_nominal),
-    redeclare final Buildings.Fluid.Geothermal.Borefields.BaseClasses.Boreholes.BaseClasses.PressureDropPipe preDro3(
-      final use_DarcyPressureDrop=use_DarcyPressureDrop,
-      final use_TDepPressureDrop=use_TDepPressureDrop,
+    redeclare final Buildings.Fluid.FixedResistances.PressureDropPipe preDro3(
+      final computePressureDrop=computePressureDrop,
+      final use_detailedPressureDrop=use_detailedPressureDrop,
       final length=hSeg,
-      final rTub=borFieDat.conDat.rTub,
-      final eTub=borFieDat.conDat.eTub,
+      final dh=2*(borFieDat.conDat.rTub - borFieDat.conDat.eTub),
       final roughness=borFieDat.conDat.roughness,
-      final nUBend=nUBend3,
+      final kMinor=kUBend/2,
+      final fluidProperties=fluidProperties,
+      final T_ref=T_ref,
       final from_dp=from_dp3,
       final linearized=linearizeFlowResistance3,
       final n=n3,
       final deltaM=deltaM3,
       final dp_nominal=dp3_nominal),
-    redeclare final Buildings.Fluid.Geothermal.Borefields.BaseClasses.Boreholes.BaseClasses.PressureDropPipe preDro4(
-      final use_DarcyPressureDrop=use_DarcyPressureDrop,
-      final use_TDepPressureDrop=use_TDepPressureDrop,
+    redeclare final Buildings.Fluid.FixedResistances.PressureDropPipe preDro4(
+      final computePressureDrop=computePressureDrop,
+      final use_detailedPressureDrop=use_detailedPressureDrop,
       final length=hSeg,
-      final rTub=borFieDat.conDat.rTub,
-      final eTub=borFieDat.conDat.eTub,
+      final dh=2*(borFieDat.conDat.rTub - borFieDat.conDat.eTub),
       final roughness=borFieDat.conDat.roughness,
-      final nUBend=nUBend4,
+      final kMinor=kUBend/2,
+      final fluidProperties=fluidProperties,
+      final T_ref=T_ref,
       final from_dp=from_dp4,
       final linearized=linearizeFlowResistance4,
       final n=n4,
       final deltaM=deltaM4,
       final dp_nominal=dp4_nominal));
-  
-  parameter Integer nUBend1(min=0) = 0
-    "Number of U-bends represented by pressure-drop model for pipe 1";
-
-  parameter Integer nUBend2(min=0) = 0
-    "Number of U-bends represented by pressure-drop model for pipe 2";
-
-  parameter Integer nUBend3(min=0) = 0
-    "Number of U-bends represented by pressure-drop model for pipe 3";
-
-  parameter Integer nUBend4(min=0) = 0
-    "Number of U-bends represented by pressure-drop model for pipe 4";
   
   Modelica.Units.SI.ThermalResistance RVol1_val
     "Convective and thermal resistance at fluid 1";

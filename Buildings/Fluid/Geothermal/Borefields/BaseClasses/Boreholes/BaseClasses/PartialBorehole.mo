@@ -5,8 +5,9 @@ partial model PartialBorehole
 
   extends Buildings.Fluid.Interfaces.TwoPortFlowResistanceParameters(
     computeFlowResistance=
-      use_DarcyPressureDrop or
-      dp_nominal > Modelica.Constants.eps);
+      computePressureDrop and (
+        use_detailedPressureDrop or
+        dp_nominal > Modelica.Constants.eps));
 
   replaceable package Medium =
     Modelica.Media.Interfaces.PartialMedium
@@ -51,19 +52,46 @@ partial model PartialBorehole
     annotation (Placement(transformation(extent={{-80,-80},{-60,-60}})));
   
   // Advanced parameters borehole
-  parameter Boolean use_DarcyPressureDrop = false
-    "Set to true to compute the vertical pipe pressure drop from Darcy-Weisbach instead of using the nominal borehole pressure drop"
+  parameter Boolean computePressureDrop = true
+    "Set to true to compute pressure drop"
     annotation (
       Evaluate=true,
       Dialog(tab="Advanced", group="Pressure drop"));
-  parameter Boolean use_TDepPressureDrop = false
-    "Set to true to evaluate density and viscosity from the local medium state for the Darcy-Weisbach pressure drop"
+
+  parameter Boolean use_detailedPressureDrop = false
+    "Set to true to compute the vertical pipe pressure drop from Darcy-Weisbach instead of using the nominal borehole pressure drop"
     annotation (
       Evaluate=true,
       Dialog(
         tab="Advanced",
         group="Pressure drop",
-        enable=use_DarcyPressureDrop));
+        enable=computePressureDrop));
+
+  parameter Buildings.Fluid.Types.FluidProperties fluidProperties =
+    Buildings.Fluid.Types.FluidProperties.DefaultTemperature
+    "Fluid-property evaluation for the detailed pressure drop calculation"
+    annotation (
+      Evaluate=true,
+      Dialog(
+        tab="Advanced",
+        group="Pressure drop",
+        enable=computePressureDrop and use_detailedPressureDrop));
+
+  parameter Modelica.Units.SI.Temperature T_ref = Medium.T_default
+    "Reference temperature for fluid-property evaluation"
+    annotation (Dialog(
+      tab="Advanced",
+      group="Pressure drop",
+      enable=computePressureDrop and use_detailedPressureDrop and
+             fluidProperties == Buildings.Fluid.Types.FluidProperties.DefaultTemperature));
+
+  parameter Real kUBend(unit="1", min=0) = 2
+    "Minor-loss coefficient of one U-bend"
+    annotation (Dialog(
+      tab="Advanced",
+      group="Pressure drop",
+      enable=computePressureDrop and use_detailedPressureDrop));
+
   parameter Boolean use_TDepRConv = false
     "Set to true to evaluate fluid thermal properties from the local medium state for the pipe convection resistance"
     annotation (
@@ -76,8 +104,10 @@ partial model PartialBorehole
 
 protected
   final parameter Boolean use_TDepFluidProperties=
-    use_TDepPressureDrop or use_TDepRConv
-    "Set to true if temperature-dependent fluid properties are requested";
+    fluidProperties <> Buildings.Fluid.Types.FluidProperties.Constant or
+    use_TDepRConv
+    "Set to true if borefield-specific fluid-property evaluation is requested";
+
 
   final parameter Boolean isAllowedTDepMedium=
     .Buildings.Fluid.BaseClasses.Media.Functions.isTemperatureDependentFluidMedium(
@@ -109,8 +139,8 @@ equation
     + "  Buildings.Media.Antifreeze.PropyleneGlycolWater\n"
     + "The redeclared medium has Medium.mediumName = \""
     + Medium.mediumName + "\".\n"
-    + "Disable use_TDepPressureDrop and use_TDepRConv, or redeclare one of the "
-    + "supported media.",
+    + "Set fluidProperties=Buildings.Fluid.Types.FluidProperties.Constant "
+    + "and disable use_TDepRConv, or redeclare one of the supported media.",
     AssertionLevel.error);
 
     annotation(Documentation(info="<html>

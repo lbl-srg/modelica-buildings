@@ -6,19 +6,42 @@ partial model PartialInternalHEX
     borFieDat "Borefield parameters"
     annotation (Placement(transformation(extent={{-100,-100},{-80,-80}})));
 
-  parameter Boolean use_DarcyPressureDrop = false
-    "Set to true to compute the vertical pipe pressure drop from Darcy-Weisbach"
+  parameter Boolean computePressureDrop = true
+    "Set to true to compute pressure drop"
     annotation (
       Evaluate=true,
-      Dialog(tab="Advanced", group="Pressure drop"));
-  parameter Boolean use_TDepPressureDrop = false
-    "Set to true to evaluate density and viscosity from the local medium state for the Darcy-Weisbach pressure drop"
+      Dialog(group="Pressure drop"));
+
+  parameter Boolean use_detailedPressureDrop = false
+    "Set to true to compute pressure drop from pipe geometry using Darcy-Weisbach equation"
     annotation (
       Evaluate=true,
       Dialog(
-        tab="Advanced",
         group="Pressure drop",
-        enable=use_DarcyPressureDrop));
+        enable=computePressureDrop));
+
+  parameter Buildings.Fluid.Types.FluidProperties fluidProperties =
+    Buildings.Fluid.Types.FluidProperties.DefaultTemperature
+    "Fluid-property evaluation for the detailed pressure drop calculation"
+    annotation (
+      Evaluate=true,
+      Dialog(
+        group="Fluid properties",
+        enable=computePressureDrop and use_detailedPressureDrop));
+
+  parameter Modelica.Units.SI.Temperature T_ref = Medium.T_default
+    "Reference temperature for fluid-property evaluation"
+    annotation (Dialog(
+      group="Fluid properties",
+      enable=computePressureDrop and use_detailedPressureDrop and
+             fluidProperties == Buildings.Fluid.Types.FluidProperties.DefaultTemperature));
+
+  parameter Real kUBend(unit="1", min=0) = 2
+    "Minor-loss coefficient of one U-bend"
+    annotation (Dialog(
+      group="Pressure drop",
+      enable=computePressureDrop and use_detailedPressureDrop));
+
   parameter Boolean use_TDepRConv = false
     "Set to true to evaluate fluid thermal properties from the local medium state for the pipe convection resistance"
     annotation (
