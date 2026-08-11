@@ -32,8 +32,15 @@ model PlugFlowPipe "Simple example of plug flow pipe"
     m_flow_start=m_flow_nominal,
     rhoPip=8000,
     T_start_in=323.15,
-    T_start_out=323.15) "Pipe"
+    T_start_out=323.15,
+    disableComputeFlowResistance=false,
+    use_detailedPressureDrop=true,
+    kMinor=0,
+    fluidProperties=Buildings.Fluid.Types.FluidProperties.DefaultTemperature,
+    T_ref=293.15)
+    "Pipe"
     annotation (Placement(transformation(extent={{0,10},{20,30}})));
+
   Buildings.HeatTransfer.Sources.FixedTemperature bou[2](each T=283.15)
     "Boundary temperature"
     annotation (Placement(transformation(extent={{-40,60},{-20,80}})));
@@ -76,8 +83,15 @@ model PlugFlowPipe "Simple example of plug flow pipe"
     m_flow_start=m_flow_nominal,
     rhoPip=8000,
     T_start_in=323.15,
-    T_start_out=323.15) "Pipe"
+    T_start_out=323.15,
+    disableComputeFlowResistance=false,
+    use_detailedPressureDrop=true,
+    kMinor=0,
+    fluidProperties=Buildings.Fluid.Types.FluidProperties.DefaultTemperature,
+    T_ref=293.15)
+    "Pipe"
     annotation (Placement(transformation(extent={{0,-30},{20,-10}})));
+
   Sensors.TemperatureTwoPort senTemOutNoMix(
     redeclare package Medium = Medium,
     m_flow_nominal=m_flow_nominal,
@@ -133,6 +147,18 @@ This test includes an inlet temperature step under a constant mass flow rate.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+August 7, 2026, by Lone Meertens:<br/>
+Set the pressure drop configuration explicitly for the new
+<a href=\"modelica://Buildings.Fluid.FixedResistances.PressureDropPipe\">
+Buildings.Fluid.FixedResistances.PressureDropPipe</a>
+implementation used by
+<a href=\"modelica://Buildings.Fluid.FixedResistances.PlugFlowPipe\">
+Buildings.Fluid.FixedResistances.PlugFlowPipe</a>.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4687\">Buildings, #4687</a>.
+</li>
+
 <li>July 27, 2021 by Baptiste Ravache<br/>Add case without mixing volume</li>
 </ul>
 <ul>
