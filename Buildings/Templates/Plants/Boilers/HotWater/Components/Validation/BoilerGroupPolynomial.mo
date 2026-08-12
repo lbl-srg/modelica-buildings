@@ -7,9 +7,9 @@ model BoilerGroupPolynomial
     constrainedby Modelica.Media.Interfaces.PartialMedium
     "HW medium";
 
-  parameter Integer nBoi(final min=0) = 3 "Number of boilers";
-  final parameter Modelica.Units.SI.MassFlowRate mHeaWat_flow_nominal =
-    sum(datBoi.mHeaWatBoi_flow_nominal)
+  parameter Integer nBoi(min=0) = 3 "Number of boilers";
+  final parameter Modelica.Units.SI.MassFlowRate mHeaWat_flow_nominal = sum(
+    datBoi.mHeaWatBoi_flow_nominal)
     "HW mass flow rate"
     annotation(Dialog(group="Nominal condition"));
   parameter Buildings.Templates.Plants.Boilers.HotWater.Components.Data.BoilerGroup datBoi(
@@ -111,43 +111,46 @@ model BoilerGroupPolynomial
     final energyDynamics=energyDynamics)
     "Boiler group inlet manifold"
     annotation(Placement(transformation(extent={{-10,-90},{-30,-70}})));
-  Buildings.Templates.Plants.Boilers.HotWater.Components.Controls.OpenLoop ctl(
-    cfg(
-      final have_boiCon=true,
-      have_boiConZerFlo=false,
-      final have_boiNon=false,
-      have_boiNonZerFlo=false,
-      final nBoiCon=nBoi,
-      final nBoiNon=0,
-      typ=Buildings.Templates.Plants.Boilers.HotWater.Types.Boiler.Condensing,
-      final typMod=boi.typMod,
-      final typArrPumHeaWatPriCon=boi.typArrPumHeaWatPri,
-      final typPumHeaWatSec=Buildings.Templates.Plants.Boilers.HotWater.Types.PumpsSecondary.None,
-      final nPumHeaWatPriCon=pumHeaWatPri.nPum,
-      have_valHeaWatMinBypCon=false,
-      have_valHeaWatMinBypNon=false,
-      have_pumHeaWatPriVarCon=false,
-      have_pumHeaWatPriVarNon=false,
-      have_senDpHeaWatRemWir=false,
-      have_senVHeaWatSec=false,
-      nAirHan=0,
-      nEquZon=0,
-      nLooHeaWatSec=1,
-      nPumHeaWatPriNon=0,
-      nPumHeaWatSec=0,
-      nSenDpHeaWatRem=1,
-      rhoHeaWat_default=Buildings.Media.Water.d_const,
-      typArrPumHeaWatPriNon=boi.typArrPumHeaWatPri,
-      typCtl=Buildings.Templates.Plants.Boilers.HotWater.Types.Controller.OpenLoop),
-    dat(
-      THeaWatSup_nominal=Buildings.Templates.Data.Defaults.THeaWatSupHig,
-      sta={fill(0, nBoi)}))
-    "Controller"
-    annotation(Placement(transformation(extent={{-10,110},{10,130}})));
+  Buildings.Controls.OBC.CDL.Logical.Sources.TimeTable y1BoiCon[nBoi](
+    each table=[0, 0; 1, 1; 2, 0],
+    each timeScale=1000,
+    each period=2000)
+    "Boiler Enable signal - Condensing Boilers"
+    annotation(Placement(transformation(extent={{-150,90},{-130,110}})));
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant THeaWatConSupSet[nBoi](
+    y(each final unit="K", each displayUnit="degC"),
+    each final k=Buildings.Templates.Data.Defaults.THeaWatSupHig)
+    "HW supply temperature set point - Condensing Boilers"
+    annotation(Placement(transformation(extent={{-150,130},{-130,150}})));
+  Buildings.Controls.OBC.CDL.Logical.Sources.TimeTable y1ValBoiConIso[nBoi](
+    table=y1BoiCon.table,
+    timeScale=y1BoiCon.timeScale,
+    period=y1BoiCon.period)
+    "Boiler isolation valve opening signal - Condensing Boilers"
+    annotation(Placement(transformation(extent={{-150,50},{-130,70}})));
+  Buildings.Controls.OBC.CDL.Logical.Sources.TimeTable y1PumHeaWatPriCon[nBoi](
+    table=y1BoiCon.table,
+    timeScale=y1BoiCon.timeScale,
+    period=y1BoiCon.period)
+    "Primary HW pump Enable signal - Condensing Boilers"
+    annotation(Placement(transformation(extent={{-10,90},{-30,110}})));
+  protected
   Buildings.Templates.Plants.Boilers.HotWater.Interfaces.Bus busPla
     "Plant control bus"
-    annotation(Placement(transformation(extent={{-100,60},{-60,100}}),
+    annotation(Placement(transformation(extent={{-100,20},{-60,60}}),
       iconTransformation(extent={{-310,60},{-270,100}})));
+  Buildings.Templates.Components.Interfaces.Bus busBoiCon[nBoi]
+    "Boiler control bus - Condensing boilers"
+    annotation(Placement(transformation(extent={{-120,100},{-80,140}}),
+      iconTransformation(extent={{-466,50},{-426,90}})));
+  Buildings.Templates.Components.Interfaces.Bus busValBoiConIso[nBoi]
+    "Boiler isolation valve control bus - Condensing boilers"
+    annotation(Placement(transformation(extent={{-120,40},{-80,80}}),
+      iconTransformation(extent={{-466,50},{-426,90}})));
+  Buildings.Templates.Components.Interfaces.Bus busPumHeaWatPriCon
+    "Primary HW pump control bus - Condensing boilers"
+    annotation(Placement(transformation(extent={{-80,80},{-40,120}}),
+      iconTransformation(extent={{-466,50},{-426,90}})));
 equation
   connect(inlPumHeaWatPri.ports_b, pumHeaWatPri.ports_a)
     annotation(Line(points={{-10,0},{0,0}},
@@ -167,10 +170,6 @@ equation
   connect(THeaWatRet.port_b, inlBoi.port_a)
     annotation(Line(points={{10,-80},{-10,-80}},
       color={0,127,255}));
-  connect(ctl.bus, busPla)
-    annotation(Line(points={{-10,120},{-80,120},{-80,80}},
-      color={255,204,51},
-      thickness=0.5));
   connect(pumHeaWatPri.ports_b, outPumHeaWatPri.ports_a)
     annotation(Line(points={{20,0},{30,0}},
       color={0,127,255}));
@@ -181,14 +180,39 @@ equation
     annotation(Line(points={{61,-90},{61,-80},{30,-80}},
       color={0,127,255}));
   connect(busPla, boi.bus)
-    annotation(Line(points={{-80,80},{-80,20}},
+    annotation(Line(points={{-80,40},{-80,20}},
       color={255,204,51},
       thickness=0.5));
   connect(busPla.pumHeaWatPriCon, pumHeaWatPri.bus)
-    annotation(Line(points={{-80,80},{10,80},{10,10}},
+    annotation(Line(points={{-80,40},{10,40},{10,10}},
       color={255,204,51},
       thickness=0.5));
-annotation(Diagram(coordinateSystem(extent={{-140,-140},{140,140}})),
+  connect(y1PumHeaWatPriCon.y[1], busPumHeaWatPriCon.y1)
+    annotation(Line(points={{-32,100},{-60,100}},
+      color={255,0,255}));
+  connect(y1BoiCon.y[1], busBoiCon.y1)
+    annotation(Line(points={{-128,100},{-100,100},{-100,120}},
+      color={255,0,255}));
+  connect(y1ValBoiConIso.y[1], busValBoiConIso.y1)
+    annotation(Line(points={{-128,60},{-100,60}},
+      color={255,0,255}));
+  connect(THeaWatConSupSet.y, busBoiCon.THeaWatSupSet)
+    annotation(Line(points={{-128,140},{-100,140},{-100,120}},
+      color={0,0,127}));
+  connect(busBoiCon, busPla.boiCon)
+    annotation(Line(points={{-100,120},{-80,120},{-80,40}},
+      color={255,204,51},
+      thickness=0.5));
+  connect(busValBoiConIso, busPla.valBoiConIso)
+    annotation(Line(points={{-100,60},{-80,60},{-80,40}},
+      color={255,204,51},
+      thickness=0.5));
+  connect(busPumHeaWatPriCon, busPla.pumHeaWatPriCon)
+    annotation(Line(points={{-60,100},{-80,100},{-80,40}},
+      color={255,204,51},
+      thickness=0.5));
+annotation(Diagram(coordinateSystem(extent={{-160,-140},{140,160}},
+  grid={2,2})),
   experiment(StopTime=2000,
     Tolerance=1e-06),
   __Dymola_Commands(
@@ -204,14 +228,6 @@ annotation(Diagram(coordinateSystem(extent={{-140,-140},{140,140}})),
   The HW supply temperature setpoint, the HW return temperature and the
   primary HW pump speed are fixed at their design value when the boilers are
   enabled.
-</p>
-<p>
-  The model illustrates a bug in Dymola (#SR01004314-01). The parameter
-  bindings for <code>pumHeaWatPri.dat</code> are not properly interpreted and
-  the start value is used for all those parameters without any warning being
-  issued. Hence, the total HW flow rate differs from its design value. OCT
-  properly propagates the parameter values from the composite component
-  binding.
 </p>
 </html>"));
 end BoilerGroupPolynomial;

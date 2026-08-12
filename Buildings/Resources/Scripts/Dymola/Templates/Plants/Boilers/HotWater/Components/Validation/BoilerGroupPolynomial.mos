@@ -1,11 +1,14 @@
+old_flag = Advanced.Simulation.StoreProtectedVariables;
+Advanced.Simulation.StoreProtectedVariables = true;
 simulateModel("Buildings.Templates.Plants.Boilers.HotWater.Components.Validation.BoilerGroupPolynomial",
   method="cvode",
   tolerance=1e-6,
   stopTime=2000.0,
   resultFile="BoilerGroupPolynomial");
+Advanced.Simulation.StoreProtectedVariables = old_flag;
 createPlot(id=1,
   position={19, 10, 508, 564},
-  y={"THeaWatRet.T", "THeaWatSup.T", "ctl.THeaWatConSupSet.y"},
+  y={"THeaWatRet.T", "THeaWatSup.T", "busPla.boiCon[1].THeaWatSupSet"},
   subPlot=101,
   autoscale=true,
   grid=true);

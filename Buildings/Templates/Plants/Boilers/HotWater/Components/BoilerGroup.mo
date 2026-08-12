@@ -22,7 +22,7 @@ model BoilerGroup
       Dialog(group="Configuration"));
   final parameter Buildings.Templates.Components.Types.Valve typValBoiIso =
     if typArrPumHeaWatPri ==
-      Buildings.Templates.Components.Types.PumpArrangement.Dedicated
+    Buildings.Templates.Components.Types.PumpArrangement.Dedicated
     then Buildings.Templates.Components.Types.Valve.None
     else Buildings.Templates.Components.Types.Valve.TwoWayTwoPosition
     "Type of boiler HW isolation valve";
@@ -246,37 +246,43 @@ annotation(Icon(coordinateSystem(preserveAspectRatio=false,
     extent={{-280,390},{-160,510}},
     fileName="modelica://Buildings/Resources/Images/Templates/Components/Boilers/ControllerOnboard.svg"),
   Bitmap(visible=typArrPumHeaWatPri ==
-    Buildings.Templates.Components.Types.PumpArrangement.Headered and nBoi >= 1,
+    Buildings.Templates.Components.Types.PumpArrangement.Headered
+    and nBoi >= 1,
     extent={{-100,-100},{100,100}},
     fileName="modelica://Buildings/Resources/Images/Templates/Components/Valves/TwoWay.svg",
     rotation=-90,
     origin={300,500}),
   Bitmap(visible=typArrPumHeaWatPri ==
-    Buildings.Templates.Components.Types.PumpArrangement.Headered and nBoi >= 1,
+    Buildings.Templates.Components.Types.PumpArrangement.Headered
+    and nBoi >= 1,
     extent={{260,560},{340,640}},
     fileName="modelica://Buildings/Resources/Images/Templates/Components/Actuators/TwoPosition.svg"),
   Bitmap(visible=nBoi >= 2,
     extent={{-280,90},{-160,212}},
     fileName="modelica://Buildings/Resources/Images/Templates/Components/Boilers/ControllerOnboard.svg"),
   Bitmap(visible=typArrPumHeaWatPri ==
-    Buildings.Templates.Components.Types.PumpArrangement.Headered and nBoi >= 2,
+    Buildings.Templates.Components.Types.PumpArrangement.Headered
+    and nBoi >= 2,
     extent={{-100,-100},{100,100}},
     fileName="modelica://Buildings/Resources/Images/Templates/Components/Valves/TwoWay.svg",
     rotation=-90,
     origin={300,200}),
   Bitmap(visible=typArrPumHeaWatPri ==
-    Buildings.Templates.Components.Types.PumpArrangement.Headered and nBoi >= 2,
+    Buildings.Templates.Components.Types.PumpArrangement.Headered
+    and nBoi >= 2,
     extent={{260,260},{340,340}},
     fileName="modelica://Buildings/Resources/Images/Templates/Components/Actuators/TwoPosition.svg"),
   Bitmap(visible=nBoi >= 3,
     extent={{-280,-212},{-160,-92}},
     fileName="modelica://Buildings/Resources/Images/Templates/Components/Boilers/ControllerOnboard.svg"),
   Bitmap(visible=typArrPumHeaWatPri ==
-    Buildings.Templates.Components.Types.PumpArrangement.Headered and nBoi >= 3,
+    Buildings.Templates.Components.Types.PumpArrangement.Headered
+    and nBoi >= 3,
     extent={{260,-40},{340,40}},
     fileName="modelica://Buildings/Resources/Images/Templates/Components/Actuators/TwoPosition.svg"),
   Bitmap(visible=typArrPumHeaWatPri ==
-    Buildings.Templates.Components.Types.PumpArrangement.Headered and nBoi >= 3,
+    Buildings.Templates.Components.Types.PumpArrangement.Headered
+    and nBoi >= 3,
     extent={{-100,-100},{100,100}},
     fileName="modelica://Buildings/Resources/Images/Templates/Components/Valves/TwoWay.svg",
     rotation=-90,
@@ -285,13 +291,15 @@ annotation(Icon(coordinateSystem(preserveAspectRatio=false,
     extent={{-280,-510},{-160,-390}},
     fileName="modelica://Buildings/Resources/Images/Templates/Components/Boilers/ControllerOnboard.svg"),
   Bitmap(visible=typArrPumHeaWatPri ==
-    Buildings.Templates.Components.Types.PumpArrangement.Headered and nBoi >= 4,
+    Buildings.Templates.Components.Types.PumpArrangement.Headered
+    and nBoi >= 4,
     extent={{-100,-100},{100,100}},
     fileName="modelica://Buildings/Resources/Images/Templates/Components/Valves/TwoWay.svg",
     rotation=-90,
     origin={300,-400}),
   Bitmap(visible=typArrPumHeaWatPri ==
-    Buildings.Templates.Components.Types.PumpArrangement.Headered and nBoi >= 4,
+    Buildings.Templates.Components.Types.PumpArrangement.Headered
+    and nBoi >= 4,
     extent={{260,-340},{340,-260}},
     fileName="modelica://Buildings/Resources/Images/Templates/Components/Actuators/TwoPosition.svg"),
   Rectangle(extent={{200,540},{-160,360}},
@@ -362,23 +370,23 @@ annotation(Icon(coordinateSystem(preserveAspectRatio=false,
   Line(points={{300,562},{300,500}},
     color={0,0,0},
     visible=typArrPumHeaWatPri ==
-      Buildings.Templates.Components.Types.PumpArrangement.Headered and
-      nBoi >= 1),
+      Buildings.Templates.Components.Types.PumpArrangement.Headered
+      and nBoi >= 1),
   Line(points={{300,262},{300,200}},
     color={0,0,0},
     visible=typArrPumHeaWatPri ==
-      Buildings.Templates.Components.Types.PumpArrangement.Headered and
-      nBoi >= 2),
+      Buildings.Templates.Components.Types.PumpArrangement.Headered
+      and nBoi >= 2),
   Line(points={{300,-38},{300,-100}},
     color={0,0,0},
     visible=typArrPumHeaWatPri ==
-      Buildings.Templates.Components.Types.PumpArrangement.Headered and
-      nBoi >= 3),
+      Buildings.Templates.Components.Types.PumpArrangement.Headered
+      and nBoi >= 3),
   Line(points={{300,-338},{300,-400}},
     color={0,0,0},
     visible=typArrPumHeaWatPri ==
-      Buildings.Templates.Components.Types.PumpArrangement.Headered and
-      nBoi >= 4)}),
+      Buildings.Templates.Components.Types.PumpArrangement.Headered
+      and nBoi >= 4)}),
   Diagram(coordinateSystem(extent={{-200,-180},{200,200}})),
   Documentation(
     info="<html>

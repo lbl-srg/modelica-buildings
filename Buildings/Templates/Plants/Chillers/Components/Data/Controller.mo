@@ -212,10 +212,10 @@ record Controller
        and (cfg.typDisChiWat == Buildings.Templates.Plants.Chillers.Types.Distribution.Variable1Only
        and not cfg.have_senDpChiWatRemWir)));
   parameter Real yPumConWatSta_nominal[:](
-    max=fill(1, nSta),
-    min=fill(0, nSta),
-    start=fill(1, nSta),
-    unit=fill("1", nSta))
+    final max=fill(1, nSta),
+    final min=fill(0, nSta),
+    final unit=fill("1", nSta),
+    start=fill(1, nSta))
     "CW pump speed delivering design CW flow through chillers and WSE - Each plant stage"
     annotation (Dialog(group=
       "Information provided by testing, adjusting, and balancing contractor",

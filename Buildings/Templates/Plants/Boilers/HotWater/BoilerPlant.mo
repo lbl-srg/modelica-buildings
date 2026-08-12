@@ -816,8 +816,9 @@ annotation(Documentation(
   <font color=\"gray\"><em>gray italics</em></font> are not currently
   supported by the plant controller
   <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.PrimaryController\">
-    Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.PrimaryController</a> and
-  cannot be selected. The user may refer to ASHRAE (2021) for further details.
+    Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.PrimaryController</a>
+  and cannot be selected. The user may refer to ASHRAE (2021) for further
+  details.
 </p>
 <table summary=\"summary\" border=\"1\">
   <tr>
@@ -843,8 +844,9 @@ annotation(Documentation(
       <font color=\"gray\"><em>Variable speed, provided with boiler with factory controls</em></font>
     </td>
     <td>
-    This setting is only available for non-condensing boilers.
-    Condensing boilers require variable speed primary HW pumps to prevent primary flow recirculation.
+      This setting is only available for non-condensing boilers. Condensing
+      boilers require variable speed primary HW pumps to prevent primary flow
+      recirculation.
     </td>
   </tr>
   <tr>
@@ -876,9 +878,7 @@ annotation(Documentation(
     <td>
       <b>ASHRAE Guideline 36 controller</b>
     </td>
-    <td>
-      An open loop controller is also available for validation purposes only.
-    </td>
+    <td></td>
   </tr>
 </table>
 <h4>Control points</h4>

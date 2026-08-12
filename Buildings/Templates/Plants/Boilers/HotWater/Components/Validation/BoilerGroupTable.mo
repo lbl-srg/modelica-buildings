@@ -20,13 +20,5 @@ annotation(Diagram(coordinateSystem(extent={{-220,-220},{220,220}})),
   primary HW pump speed are fixed at their design value when the boilers are
   enabled.
 </p>
-<p>
-  The model illustrates a bug in Dymola (#SR01004314-01). The parameter
-  bindings for <code>pumHeaWatPri.dat</code> are not properly interpreted and
-  the start value is used for all those parameters without any warning being
-  issued. Hence, the total HW flow rate differs from its design value. OCT
-  properly propagates the parameter values from the composite component
-  binding.
-</p>
 </html>"));
 end BoilerGroupTable;

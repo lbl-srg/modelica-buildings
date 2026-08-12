@@ -52,20 +52,20 @@ class AllSystems
       sta=[1, 0; 1, 1]),
     pumHeaWatPriCon(
       dp_nominal=fill(
-        max(pla.boiCon.dpHeaWatBoi_nominal) * 1.5,
-        pla.cfg.nPumHeaWatPriCon) + fill(
-        (if pla.cfg.typPumHeaWatSec ==
-        Buildings.Templates.Plants.Boilers.HotWater.Types.PumpsSecondary.None
-        then pla.ctl.dpHeaWatLocSet_max else 0),
-        pla.cfg.nPumHeaWatPriCon)),
+        max(pla.boiCon.dpHeaWatBoi_nominal) * 1.5, pla.cfg.nPumHeaWatPriCon) +
+        fill(
+          if pla.cfg.typPumHeaWatSec ==
+            Buildings.Templates.Plants.Boilers.HotWater.Types.PumpsSecondary.None
+            then pla.ctl.dpHeaWatLocSet_max else 0,
+          pla.cfg.nPumHeaWatPriCon)),
     pumHeaWatPriNon(
       dp_nominal=fill(
-        max(pla.boiNon.dpHeaWatBoi_nominal) * 1.5,
-        pla.cfg.nPumHeaWatPriNon) + fill(
-        (if pla.cfg.typPumHeaWatSec ==
-        Buildings.Templates.Plants.Boilers.HotWater.Types.PumpsSecondary.None
-        then pla.ctl.dpHeaWatLocSet_max else 0),
-        pla.cfg.nPumHeaWatPriNon)),
+        max(pla.boiNon.dpHeaWatBoi_nominal) * 1.5, pla.cfg.nPumHeaWatPriNon) +
+        fill(
+          if pla.cfg.typPumHeaWatSec ==
+            Buildings.Templates.Plants.Boilers.HotWater.Types.PumpsSecondary.None
+            then pla.ctl.dpHeaWatLocSet_max else 0,
+          pla.cfg.nPumHeaWatPriNon)),
     pumHeaWatSec(
       dp_nominal=fill(pla.ctl.dpHeaWatLocSet_max, pla.cfg.nPumHeaWatSec),
       m_flow_nominal=1.1 / max(1, pla.cfg.nPumHeaWatSec) * fill(

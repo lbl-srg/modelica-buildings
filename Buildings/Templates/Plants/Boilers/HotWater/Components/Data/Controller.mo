@@ -24,19 +24,19 @@ record Controller
     "Outdoor air lockout temperature above which the plant is prevented from operating"
     annotation(Dialog(group="Temperature setpoints",
       enable=cfg.typCtl ==
-      Buildings.Templates.Plants.Boilers.HotWater.Types.Controller.Guideline36));
-  /* HACK(AntoineGautier):
+        Buildings.Templates.Plants.Boilers.HotWater.Types.Controller.Guideline36));
+  /*
+   * HACK(AntoineGautier):
    * We use an unknown dimension [:] in the declarations below to avoid Dymola's
    * error "evaluate and check the size declaration".
-   * However, this requires explicitly providing a value with OCT, 
+   * However, this requires explicitly providing a value with OCT,
    * even if enable=false (the start attribute is not enough for OCT).
-   * Using fill instead of each for the start attribute also enhances tool
-   * compatibility.
+   * Using fill instead of each for the parameter attributes is then required.
    */
   parameter Modelica.Units.SI.VolumeFlowRate VHeaWatBoiCon_flow_nominal[:](
     start=fill(0.1, cfg.nBoiCon),
-    each displayUnit="L/s",
-    each final min=0)
+    displayUnit=fill("L/s", cfg.nBoiCon),
+    final min=fill(0, cfg.nBoiCon))
     "Design HW volume flow rate - Each condensing boiler"
     annotation(Dialog(group="Boiler flow setpoints",
       enable=cfg.typCtl ==
@@ -45,8 +45,8 @@ record Controller
         and cfg.have_valHeaWatMinBypCon));
   parameter Modelica.Units.SI.VolumeFlowRate VHeaWatBoiCon_flow_min[:](
     start=fill(0, cfg.nBoiCon),
-    each displayUnit="L/s",
-    each final min=0)
+    displayUnit=fill("L/s", cfg.nBoiCon),
+    final min=fill(0, cfg.nBoiCon))
     "Minimum HW volume flow rate - Each condensing boiler"
     annotation(Evaluate=true,
       Dialog(group="Boiler flow setpoints",
@@ -56,8 +56,8 @@ record Controller
           and not cfg.have_boiConZerFlo));
   parameter Modelica.Units.SI.VolumeFlowRate VHeaWatBoiNon_flow_nominal[:](
     start=fill(0.1, cfg.nBoiNon),
-    each displayUnit="L/s",
-    each final min=0)
+    displayUnit=fill("L/s", cfg.nBoiNon),
+    final min=fill(0, cfg.nBoiNon))
     "Design HW volume flow rate - Each non-condensing boiler"
     annotation(Dialog(group="Boiler flow setpoints",
       enable=cfg.typCtl ==
@@ -66,8 +66,8 @@ record Controller
         and cfg.have_valHeaWatMinBypNon));
   parameter Modelica.Units.SI.VolumeFlowRate VHeaWatBoiNon_flow_min[:](
     start=fill(0, cfg.nBoiNon),
-    each displayUnit="L/s",
-    each final min=0)
+    displayUnit=fill("L/s", cfg.nBoiNon),
+    final min=fill(0, cfg.nBoiNon))
     "Minimum HW volume flow rate - Each non-condensing boiler"
     annotation(Evaluate=true,
       Dialog(group="Boiler flow setpoints",
@@ -77,7 +77,7 @@ record Controller
           and not cfg.have_boiNonZerFlo));
   parameter Real ratFirBoiCon_min[:](
     start=fill(0.2, cfg.nBoiCon),
-    each final unit="1")
+    final unit=fill("1", cfg.nBoiNon))
     "Boiler minimum firing rate before cycling"
     annotation(Dialog(group="Minimum boiler firing rate",
       enable=cfg.typCtl ==
@@ -85,7 +85,7 @@ record Controller
         and cfg.have_boiCon));
   parameter Real ratFirBoiNon_min[:](
     start=fill(0.2, cfg.nBoiNon),
-    each final unit="1")
+    final unit=fill("1", cfg.nBoiCon))
     "Boiler minimum firing rate before cycling"
     annotation(Dialog(group="Minimum boiler firing rate",
       enable=cfg.typCtl ==
@@ -93,14 +93,14 @@ record Controller
         and cfg.have_boiCon));
   parameter Modelica.Units.SI.HeatFlowRate capBoiCon_nominal[:](
     start=fill(0, cfg.nBoiCon),
-    each final min=0)
+    final min=fill(0, cfg.nBoiCon))
     "Design capacity - Each condensing boiler"
     annotation(Dialog(group="Capacity",
       enable=cfg.typCtl ==
         Buildings.Templates.Plants.Boilers.HotWater.Types.Controller.Guideline36));
   parameter Modelica.Units.SI.HeatFlowRate capBoiNon_nominal[:](
     start=fill(0, cfg.nBoiNon),
-    each final min=0)
+    final min=fill(0, cfg.nBoiCon))
     "Design capacity - Each non-condensing boiler"
     annotation(Dialog(group="Capacity",
       enable=cfg.typCtl ==
@@ -148,7 +148,7 @@ record Controller
     start=fill(
       Buildings.Templates.Data.Defaults.dpHeaWatRemSet_max,
       cfg.nSenDpHeaWatRem),
-    each final min=0)
+    final min=fill(0, cfg.nSenDpHeaWatRem))
     "Design (maximum) HW differential pressure setpoint - Remote sensor"
     annotation(Dialog(
       group="Information provided by testing, adjusting, and balancing contractor",
@@ -187,11 +187,11 @@ record Controller
         Buildings.Templates.Plants.Boilers.HotWater.Types.Controller.Guideline36
         and cfg.typPumHeaWatSec <>
           Buildings.Templates.Plants.Boilers.HotWater.Types.PumpsSecondary.None));
-  parameter Real yPumHeaWatPriSta_min[nSta](
-    each final unit="1",
-    each final min=0,
-    each final max=1,
-    each start=0.3)
+  parameter Real yPumHeaWatPriSta_min[:](
+    final unit=fill("1", nSta),
+    final min=fill(0, nSta),
+    final max=fill(1, nSta),
+    start=fill(0.3, nSta))
     "Primary HW pump speed delivering minimum flow through boilers - Each plant stage"
     annotation(Dialog(
       group="Information provided by testing, adjusting, and balancing contractor",
@@ -217,7 +217,7 @@ annotation(defaultComponentName="datCtl",
     Buildings.Templates.Plants.Boilers.HotWater.Components.Controls</a>.
 </p>
 <p>
-  For hybrid plants, units shall be indexed so that condensing boilers have
+  For hybrid plants, boilers shall be indexed so that condensing boilers have
   the lowest indices and non-condensing boilers have the highest indices.
 </p>
 </html>"));

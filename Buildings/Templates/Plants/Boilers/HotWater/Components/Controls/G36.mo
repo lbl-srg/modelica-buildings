@@ -8,20 +8,17 @@ block G36
     annotation(Dialog(tab="General",
       group="Configuration",
       enable=have_heaPriPum));
-  final parameter Boolean have_priOnl =
-    cfg.typPumHeaWatSec ==
-      Buildings.Templates.Plants.Boilers.HotWater.Types.PumpsSecondary.None
+  final parameter Boolean have_priOnl = cfg.typPumHeaWatSec ==
+    Buildings.Templates.Plants.Boilers.HotWater.Types.PumpsSecondary.None
     "Is the boiler plant a primary-only, condensing boiler plant?";
-  final parameter Boolean have_heaPriPum =
-    cfg.typArrPumHeaWatPriCon ==
+  final parameter Boolean have_heaPriPum = cfg.typArrPumHeaWatPriCon ==
+    Buildings.Templates.Components.Types.PumpArrangement.Headered
+    or cfg.typArrPumHeaWatPriNon ==
       Buildings.Templates.Components.Types.PumpArrangement.Headered
-      or cfg.typArrPumHeaWatPriNon ==
-        Buildings.Templates.Components.Types.PumpArrangement.Headered
     "True: Headered primary hot water pumps;
      False: Dedicated primary hot water pumps";
-  final parameter Boolean have_varPriPum_select =
-    if cfg.typ ==
-      Buildings.Templates.Plants.Boilers.HotWater.Types.Boiler.NonCondensing
+  final parameter Boolean have_varPriPum_select = if cfg.typ ==
+    Buildings.Templates.Plants.Boilers.HotWater.Types.Boiler.NonCondensing
     then cfg.have_pumHeaWatPriVarNon else true
     "True: Variable-speed primary pumps;
     False: Fixed-speed primary pumps";
@@ -30,16 +27,15 @@ block G36
     speed control.
     True: Flowrate sensor in secondary loop;
     False: Flowrate sensor in decoupler";
-  final parameter Boolean have_priTemSen_select =
-    have_senTHeaWatPriSupCon or have_senTHeaWatPriSupNon
+  final parameter Boolean have_priTemSen_select = have_senTHeaWatPriSupCon
+    or have_senTHeaWatPriSupNon
     "True: Temperature sensor in primary loop.
     False: No temperature sensor in primary loop.";
   final parameter Integer nLooSec = cfg.nLooHeaWatSec
     "Number of secondary loops serviced by primary plant";
   final parameter Integer nBoi = cfg.nBoiCon + cfg.nBoiNon "Number of boilers";
-  final parameter Integer boiTyp_select =
-    if cfg.typ ==
-      Buildings.Templates.Plants.Boilers.HotWater.Types.Boiler.Condensing
+  final parameter Integer boiTyp_select = if cfg.typ ==
+    Buildings.Templates.Plants.Boilers.HotWater.Types.Boiler.Condensing
     then Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Types.Boilers.Condensing
     else Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Types.Boilers.NonCondensing
     "Boiler type";
@@ -55,23 +51,19 @@ block G36
     "Boiler lock-out temperature for outdoor air"
     annotation(Dialog(tab="Plant enable/disable parameters"));
   // Concatenation with array-comprehension to be CDL-compliant.
-  final parameter Real boiDesCap[nBoi] =
-    {if i <= cfg.nBoiCon
+  final parameter Real boiDesCap[nBoi] = {if i <= cfg.nBoiCon
     then dat.capBoiCon_nominal[i]
     else dat.capBoiNon_nominal[i - cfg.nBoiCon] for i in 1:nBoi}
     "Design boiler capacities vector";
-  final parameter Real boiFirMin[nBoi] =
-    {if i <= cfg.nBoiCon
+  final parameter Real boiFirMin[nBoi] = {if i <= cfg.nBoiCon
     then dat.ratFirBoiCon_min[i]
     else dat.ratFirBoiNon_min[i - cfg.nBoiCon] for i in 1:nBoi}
     "Boiler minimum firing ratio";
-  final parameter Real minFloSet[nBoi] =
-    {if i <= cfg.nBoiCon
+  final parameter Real minFloSet[nBoi] = {if i <= cfg.nBoiCon
     then dat.VHeaWatBoiCon_flow_min[i]
     else dat.VHeaWatBoiNon_flow_min[i - cfg.nBoiCon] for i in 1:nBoi}
     "Design minimum hot water flow through each boiler";
-  final parameter Real maxFloSet[nBoi] =
-    {if i <= cfg.nBoiCon
+  final parameter Real maxFloSet[nBoi] = {if i <= cfg.nBoiCon
     then dat.VHeaWatBoiCon_flow_nominal[i]
     else dat.VHeaWatBoiNon_flow_nominal[i - cfg.nBoiCon] for i in 1:nBoi}
     "Design HW volume flow rate - Each boiler";
@@ -81,17 +73,16 @@ block G36
     "Design (highest) HW supply temperature setpoint for condensing boilers";
   final parameter Real minPumSpePri = dat.yPumHeaWatPri_min
     "Minimum pump speed";
-  final parameter Real VHotWatPri_flow_nominal =
-    max(dat.VHeaWatPriCon_flow_nominal, dat.VHeaWatPriNon_flow_nominal)
+  final parameter Real VHotWatPri_flow_nominal = max(
+    dat.VHeaWatPriCon_flow_nominal, dat.VHeaWatPriNon_flow_nominal)
     "Plant design hot water flow rate through  primary loop";
-  final parameter Real boiDesFlo[nBoi] =
-    {if i <= cfg.nBoiCon
+  final parameter Real boiDesFlo[nBoi] = {if i <= cfg.nBoiCon
     then dat.VHeaWatBoiCon_flow_nominal[i]
     else dat.VHeaWatBoiNon_flow_nominal[i - cfg.nBoiCon] for i in 1:nBoi}
     "Vector of design flowrates for all boilers in plant";
   final parameter Real minSecPumSpe = dat.yPumHeaWatSec_min
     "Minimum secondary pump speed";
-  final parameter Real minPriPumSpeSta[dat.nSta] = dat.yPumHeaWatPriSta_min
+  final parameter Real minPriPumSpeSta[:] = dat.yPumHeaWatPriSta_min
     "Vector of minimum primary pump speed for each stage";
   final parameter Real VHotWatSec_flow_nominal = dat.VHeaWatSec_flow_nominal
     "Secondary loop design hot water flow rate";
@@ -101,14 +92,14 @@ block G36
     "Maximum remote differential pressure setpoint(s)";
   final parameter Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Types.PrimaryPumpSpeedControl speConTypPri =
     if cfg.typPumHeaWatSec ==
-      Buildings.Templates.Plants.Boilers.HotWater.Types.PumpsSecondary.None
+    Buildings.Templates.Plants.Boilers.HotWater.Types.PumpsSecondary.None
     then (if cfg.have_senDpHeaWatRemWir
       then Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Types.PrimaryPumpSpeedControl.RemoteDP
       else Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Types.PrimaryPumpSpeedControl.LocalDP)
     else (if typMeaCtlHeaWatPri ==
-      Buildings.Templates.Plants.Boilers.HotWater.Types.PrimaryOverflowMeasurement.FlowDecoupler or
-      typMeaCtlHeaWatPri ==
-      Buildings.Templates.Plants.Boilers.HotWater.Types.PrimaryOverflowMeasurement.FlowDifference
+      Buildings.Templates.Plants.Boilers.HotWater.Types.PrimaryOverflowMeasurement.FlowDecoupler
+      or typMeaCtlHeaWatPri ==
+        Buildings.Templates.Plants.Boilers.HotWater.Types.PrimaryOverflowMeasurement.FlowDifference
       then Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Types.PrimaryPumpSpeedControl.Flowrate
       else Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Types.PrimaryPumpSpeedControl.Temperature)
     "Primary pump speed regulation method";
@@ -299,10 +290,12 @@ equation
   connect(reqResHeaWat.y, ctlLooPri.resReq)
     annotation(Line(points={{170,120},{-18,120},{-18,26.9},{-12,26.9}},
       color={255,127,0}));
-  connect(VHeaWatSec_flow.y, ctlLooPri.VHotWatSec_flow) annotation (Line(points
-        ={{-188,-80},{-20,-80},{-20,-3.7},{-12,-3.7}}, color={0,0,127}));
-  connect(VHeaWatSec_flow.y[1], ctlPumHeaWatSec.VHotWat_flow) annotation (Line(
-        points={{-188,-80},{40,-80},{40,82},{48,82}}, color={0,0,127}));
+  connect(VHeaWatSec_flow.y, ctlLooPri.VHotWatSec_flow)
+    annotation(Line(points={{-188,-80},{-20,-80},{-20,-3.7},{-12,-3.7}},
+      color={0,0,127}));
+  connect(VHeaWatSec_flow.y[1], ctlPumHeaWatSec.VHotWat_flow)
+    annotation(Line(points={{-188,-80},{40,-80},{40,82},{48,82}},
+      color={0,0,127}));
 annotation(Documentation(
   info="<html>
 <h4>Description</h4>

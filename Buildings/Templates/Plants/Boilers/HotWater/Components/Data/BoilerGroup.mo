@@ -43,9 +43,10 @@ record BoilerGroup
       each fue=fue,
       Q_flow_nominal=if nBoi > 0 then capBoi_nominal else {0},
       TIn_nominal=if nBoi > 0
-        then THeaWatSupBoi_nominal - capBoi_nominal /
-          Buildings.Utilities.Psychrometrics.Constants.cpWatLiq ./
-          mHeaWatBoi_flow_nominal
+        then THeaWatSupBoi_nominal -
+          capBoi_nominal /
+            Buildings.Utilities.Psychrometrics.Constants.cpWatLiq ./
+            mHeaWatBoi_flow_nominal
         else {Buildings.Templates.Data.Defaults.THeaWatRetHig},
       m_flow_nominal=if nBoi > 0 then mHeaWatBoi_flow_nominal else {0},
       dp_nominal=if nBoi > 0 then dpHeaWatBoi_nominal else {0})

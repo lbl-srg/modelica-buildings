@@ -14,8 +14,7 @@ block PartialController
   parameter Integer nAirHan(
     final min=if typ ==
       Buildings.Templates.Plants.Boilers.HotWater.Types.Controller.Guideline36
-      and nEquZon == 0
-      then 1 else 0,
+      and nEquZon == 0 then 1 else 0,
     start=0)
     "Number of air handling units served by the plant"
     annotation(Evaluate=true,
@@ -25,8 +24,7 @@ block PartialController
   parameter Integer nEquZon(
     final min=if typ ==
       Buildings.Templates.Plants.Boilers.HotWater.Types.Controller.Guideline36
-      and nAirHan == 0
-      then 1 else 0,
+      and nAirHan == 0 then 1 else 0,
     start=0)
     "Number of terminal units (zone equipment) served by the plant"
     annotation(Evaluate=true,
@@ -43,12 +41,11 @@ block PartialController
           and cfg.typPumHeaWatSec <>
             Buildings.Templates.Plants.Boilers.HotWater.Types.PumpsSecondary.None
           and (cfg.have_boiCon and cfg.have_pumHeaWatPriVarCon
-          or cfg.have_boiNon and cfg.have_pumHeaWatPriVarNon)));
-  final parameter Boolean have_senVHeaWatPriCon =
-    cfg.have_boiCon
-      and (if cfg.have_pumHeaWatPriVarCon and
-      cfg.typPumHeaWatSec <>
-      Buildings.Templates.Plants.Boilers.HotWater.Types.PumpsSecondary.None
+            or cfg.have_boiNon and cfg.have_pumHeaWatPriVarNon)));
+  final parameter Boolean have_senVHeaWatPriCon = cfg.have_boiCon
+    and (if cfg.have_pumHeaWatPriVarCon
+      and cfg.typPumHeaWatSec <>
+        Buildings.Templates.Plants.Boilers.HotWater.Types.PumpsSecondary.None
       then typMeaCtlHeaWatPri ==
         Buildings.Templates.Plants.Boilers.HotWater.Types.PrimaryOverflowMeasurement.FlowDifference
       else cfg.typPumHeaWatSec ==
@@ -56,11 +53,10 @@ block PartialController
     "Set to true for primary HW flow sensor - Condensing boilers"
     annotation(Evaluate=true,
       Dialog(group="Configuration"));
-  final parameter Boolean have_senVHeaWatPriNon =
-    cfg.have_boiNon
-      and (if cfg.have_pumHeaWatPriVarNon and
-      cfg.typPumHeaWatSec <>
-      Buildings.Templates.Plants.Boilers.HotWater.Types.PumpsSecondary.None
+  final parameter Boolean have_senVHeaWatPriNon = cfg.have_boiNon
+    and (if cfg.have_pumHeaWatPriVarNon
+      and cfg.typPumHeaWatSec <>
+        Buildings.Templates.Plants.Boilers.HotWater.Types.PumpsSecondary.None
       then typMeaCtlHeaWatPri ==
         Buildings.Templates.Plants.Boilers.HotWater.Types.PrimaryOverflowMeasurement.FlowDifference
       else cfg.typPumHeaWatSec ==
@@ -78,12 +74,11 @@ block PartialController
           and have_senVHeaWatPriCon
           or have_senVHeaWatPriNon));
   // At least one flow sensor is needed, either in primary or secondary loop for staging.
-  final parameter Boolean have_senVHeaWatSec =
-    cfg.typPumHeaWatSec <>
-      Buildings.Templates.Plants.Boilers.HotWater.Types.PumpsSecondary.None
-      and (not have_senVHeaWatPriCon and not have_senVHeaWatPriNon
-        or typMeaCtlHeaWatPri ==
-          Buildings.Templates.Plants.Boilers.HotWater.Types.PrimaryOverflowMeasurement.FlowDifference)
+  final parameter Boolean have_senVHeaWatSec = cfg.typPumHeaWatSec <>
+    Buildings.Templates.Plants.Boilers.HotWater.Types.PumpsSecondary.None
+    and (not have_senVHeaWatPriCon and not have_senVHeaWatPriNon
+      or typMeaCtlHeaWatPri ==
+        Buildings.Templates.Plants.Boilers.HotWater.Types.PrimaryOverflowMeasurement.FlowDifference)
     "Set to true for secondary HW flow sensor"
     annotation(Evaluate=true,
       Dialog(group="Configuration"));
@@ -95,9 +90,8 @@ block PartialController
         enable=typ ==
           Buildings.Templates.Plants.Boilers.HotWater.Types.Controller.Guideline36
           and have_senVHeaWatSec));
-  final parameter Boolean have_senTHeaWatPriSupCon =
-    cfg.have_boiCon
-      and (if cfg.typPumHeaWatSec <>
+  final parameter Boolean have_senTHeaWatPriSupCon = cfg.have_boiCon
+    and (if cfg.typPumHeaWatSec <>
       Buildings.Templates.Plants.Boilers.HotWater.Types.PumpsSecondary.None
       then typMeaCtlHeaWatPri ==
         Buildings.Templates.Plants.Boilers.HotWater.Types.PrimaryOverflowMeasurement.TemperatureSupplySensor
@@ -105,9 +99,8 @@ block PartialController
     "Set to true for primary HW supply temperature sensor - Condensing boilers"
     annotation(Evaluate=true,
       Dialog(group="Configuration"));
-  final parameter Boolean have_senTHeaWatPriSupNon =
-    cfg.have_boiNon
-      and (if cfg.typPumHeaWatSec <>
+  final parameter Boolean have_senTHeaWatPriSupNon = cfg.have_boiNon
+    and (if cfg.typPumHeaWatSec <>
       Buildings.Templates.Plants.Boilers.HotWater.Types.PumpsSecondary.None
       then typMeaCtlHeaWatPri ==
         Buildings.Templates.Plants.Boilers.HotWater.Types.PrimaryOverflowMeasurement.TemperatureSupplySensor
@@ -123,15 +116,13 @@ block PartialController
     "Set to true for plant HW return temperature sensor - Non-condensing boilers"
     annotation(Evaluate=true,
       Dialog(group="Configuration"));
-  final parameter Boolean have_senTHeaWatSecSup =
-    cfg.typPumHeaWatSec <>
-      Buildings.Templates.Plants.Boilers.HotWater.Types.PumpsSecondary.None
+  final parameter Boolean have_senTHeaWatSecSup = cfg.typPumHeaWatSec <>
+    Buildings.Templates.Plants.Boilers.HotWater.Types.PumpsSecondary.None
     "Set to true for secondary HW supply temperature sensor"
     annotation(Evaluate=true,
       Dialog(group="Configuration"));
-  final parameter Boolean have_senTHeaWatSecRet =
-    cfg.typPumHeaWatSec <>
-      Buildings.Templates.Plants.Boilers.HotWater.Types.PumpsSecondary.None
+  final parameter Boolean have_senTHeaWatSecRet = cfg.typPumHeaWatSec <>
+    Buildings.Templates.Plants.Boilers.HotWater.Types.PumpsSecondary.None
     "Set to true for secondary HW return temperature sensor"
     annotation(Evaluate=true,
       Dialog(group="Configuration"));
@@ -279,16 +270,17 @@ equation
     annotation(Line(points={{-160,200},{-180,200},{-180,0},{-260,0}},
       color={255,204,51},
       thickness=0.5));
-  /* HACK(AntoineGautier)
+  /*
+   * HACK(AntoineGautier)
    * Dymola should remove this at translation if have_senVHeaWatSec is false
    * But it doesn't... We have to remove it explicitly.
    */
   if have_senVHeaWatSec then
     connect(bus.VHeaWatSec_flow, VHeaWatSec_flow.u[1])
-      annotation (Line(
+      annotation(Line(
         points={{-260,0},{-260,-14},{-240,-14},{-240,-80},{-212,-80}},
         color={255,204,51},
-          thickness=0.5));
+        thickness=0.5));
   end if;
 annotation(Icon(coordinateSystem(preserveAspectRatio=false)),
   Diagram(coordinateSystem(preserveAspectRatio=false,

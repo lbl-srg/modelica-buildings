@@ -5,7 +5,9 @@ record BoilerPlant
   parameter Buildings.Templates.Plants.Boilers.HotWater.Configuration.BoilerPlant cfg
     "Configuration parameters"
     annotation(Dialog(enable=false));
-  parameter String id = "" "System tag" annotation(Dialog(tab="Advanced"));
+  parameter String id = ""
+    "System tag"
+    annotation(Dialog(tab="Advanced"));
   parameter Buildings.Templates.Plants.Boilers.HotWater.Components.Data.Controller ctl(
     final cfg=cfg)
     "Controller"
@@ -15,8 +17,8 @@ record BoilerPlant
     final typMod=cfg.typMod,
     capBoi_nominal=ctl.capBoiCon_nominal,
     THeaWatSupBoi_nominal=fill(
-      if cfg.have_boiCon and cfg.have_boiNon
-      then ctl.THeaWatConSup_nominal else ctl.THeaWatSup_nominal,
+      if cfg.have_boiCon and cfg.have_boiNon then ctl.THeaWatConSup_nominal
+        else ctl.THeaWatSup_nominal,
       cfg.nBoiCon))
     "Condensing boilers"
     annotation(Dialog(group="Boilers",
@@ -37,8 +39,8 @@ record BoilerPlant
       else Buildings.Templates.Components.Types.Pump.None,
     m_flow_nominal=fill(
       if cfg.have_boiCon
-      then sum(boiCon.mHeaWatBoi_flow_nominal) / max(cfg.nPumHeaWatPriCon, 1)
-      else 0,
+        then sum(boiCon.mHeaWatBoi_flow_nominal) / max(cfg.nPumHeaWatPriCon, 1)
+        else 0,
       cfg.nPumHeaWatPriCon))
     "Primary HW pumps - Condensing boilers"
     annotation(Dialog(group="Primary HW loop",
@@ -51,8 +53,8 @@ record BoilerPlant
       else Buildings.Templates.Components.Types.Pump.None,
     m_flow_nominal=fill(
       if cfg.have_boiNon
-      then sum(boiNon.mHeaWatBoi_flow_nominal) / max(cfg.nPumHeaWatPriNon, 1)
-      else 0,
+        then sum(boiNon.mHeaWatBoi_flow_nominal) / max(cfg.nPumHeaWatPriNon, 1)
+        else 0,
       cfg.nPumHeaWatPriNon))
     "Primary HW pumps - Non-condensing boilers"
     annotation(Dialog(group="Primary HW loop",
