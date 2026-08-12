@@ -118,7 +118,7 @@ block LessCoupled
     annotation (Placement(transformation(extent={{160,-160},{200,-120}}),
       iconTransformation(extent={{100,-20},{140,20}})));
 
-  Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Generic.PIDWithEnable supCon(
+  Buildings.Controls.OBC.Utilities.PIDWithEnable supCon(
     final controllerType=supWatCon,
     final k=kSupCon,
     final Ti=TiSupCon,

@@ -4,6 +4,7 @@ EventSequencing
 FailsafeCondition
 LoadAverage
 SortRuntime
+SortRuntimeG36
 StageAvailability
 StageChangeCommand
 StageCompletion

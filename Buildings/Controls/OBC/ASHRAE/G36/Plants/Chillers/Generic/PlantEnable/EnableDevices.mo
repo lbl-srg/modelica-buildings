@@ -2,14 +2,10 @@ within Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Generic.PlantEnable;
 block EnableDevices
   "Enable devices when plants is enabled in chiller mode or waterside economizer mode"
 
-  parameter Integer nSta = 3
-    "Number of chiller stages";
   parameter Integer nChiWatPum = 2
     "Total number of chilled water pumps";
   parameter Integer nConWatPum = 2
     "Total number of condenser water pumps";
-  parameter Real iniPumDel(unit="s") = 5
-    "Time to delay pump operation when the plant is just initiated";
   parameter Boolean have_airCoo=false
     "True: the plant has air cooled chiller";
 
@@ -17,15 +13,11 @@ block EnableDevices
     "Plant enable signal"
     annotation (Placement(transformation(extent={{-200,80},{-160,120}}),
         iconTransformation(extent={{-140,60},{-100,100}})));
-  Buildings.Controls.OBC.CDL.Interfaces.IntegerInput uIni(
-    final min=0,
-    final max=nSta)
+  Buildings.Controls.OBC.CDL.Interfaces.IntegerInput uIni
     "Initial chiller stage (at plant enable)"
     annotation (Placement(transformation(extent={{-200,40},{-160,80}}),
         iconTransformation(extent={{-140,20},{-100,60}})));
-  Buildings.Controls.OBC.CDL.Interfaces.IntegerInput uChiSta(
-    final min=0,
-    final max=nSta)
+  Buildings.Controls.OBC.CDL.Interfaces.IntegerInput uChiSta
     "Current chiller stage"
     annotation (Placement(transformation(extent={{-200,0},{-160,40}}),
         iconTransformation(extent={{-140,-20},{-100,20}})));

@@ -4,7 +4,7 @@ compareVars :=
     "locDpSet.dpChiWat_remote[2]",
     "locDpSet.dpChiWatSet_remote[1]",
     "locDpSet.dpChiWatSet_remote[2]",
-    "locDpSet.dpChiWatPumSet_local",
+    "locDpSet.dpChiWatSet_local",
     "locDpSet.minLocDp",
     "locDpSet.maxLocDp",
     "locDpSet.uChiWatPum[1]",

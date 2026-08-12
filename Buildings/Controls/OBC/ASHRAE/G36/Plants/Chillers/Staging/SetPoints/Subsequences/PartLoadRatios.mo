@@ -648,8 +648,6 @@ equation
         Text(
           extent={{-60,36},{64,-42}},
           textColor={0,0,127},
-          fillColor={255,255,255},
-          fillPattern=FillPattern.Solid,
           textString="PLR")}), Diagram(
         coordinateSystem(preserveAspectRatio=false,
         extent={{-380,-600},{380,340}})),

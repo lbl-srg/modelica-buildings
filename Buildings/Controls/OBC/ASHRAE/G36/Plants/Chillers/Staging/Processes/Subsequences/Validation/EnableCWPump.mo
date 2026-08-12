@@ -57,7 +57,7 @@ equation
     annotation (Line(points={{-38,40},{-30,40},{-30,62},{-2,62}},
       color={255,0,255}));
   connect(fal.y, staUpInd.uStaDow)
-    annotation (Line(points={{-38,0},{-20,0},{-20,58},{-2,58}},
+    annotation (Line(points={{-38,0},{-20,0},{-20,60},{-2,60}},
       color={255,0,255}));
   connect(upsDevSta.y, staDowInd.uUpsDevSta)
     annotation (Line(points={{-38,80},{60,80},{60,68},{78,68}},
@@ -66,7 +66,7 @@ equation
     annotation (Line(points={{-38,0},{60,0},{60,62},{78,62}},
       color={255,0,255}));
   connect(staCha.y, staDowInd.uStaDow)
-    annotation (Line(points={{-38,40},{66,40},{66,58},{78,58}},
+    annotation (Line(points={{-38,40},{66,40},{66,60},{78,60}},
       color={255,0,255}));
   connect(staCha.y, curSta.u2)
     annotation (Line(points={{-38,40},{-30,40},{-30,-40},{-22,-40}},
@@ -105,6 +105,10 @@ equation
   connect(reaToInt1[2].y, staDowInd.uStaSet)
     annotation (Line(points={{42,-60},{72,-60},{72,51},{78,51}}, color={255,127,0}));
 
+  connect(fal.y, staUpInd.uEnaPla) annotation (Line(points={{-38,0},{-20,0},{
+          -20,57},{-2,57}}, color={255,0,255}));
+  connect(fal.y, staDowInd.uEnaPla) annotation (Line(points={{-38,0},{60,0},{60,
+          57},{78,57}}, color={255,0,255}));
 annotation (
  experiment(StopTime=3600, Tolerance=1e-06),
   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/ASHRAE/G36/Plants/Chillers/Staging/Processes/Subsequences/Validation/EnableCWPump.mos"

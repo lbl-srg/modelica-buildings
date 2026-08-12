@@ -143,10 +143,10 @@ model PlugFlowAIT
         rotation=90,
         origin={-50,-20})));
   Modelica.Blocks.Sources.CombiTimeTable DataReader(
-    tableOnFile=true,
-    tableName="dat",
-    columns=2:pipeDataAIT151218.nCol,
-    fileName=pipeDataAIT151218.filNam)
+    final tableOnFile=true,
+    final tableName="dat",
+    final columns=2:pipeDataAIT151218.nCol,
+    final fileName=pipeDataAIT151218.filNam)
     "Read measurement data"
     annotation (Placement(transformation(extent={{0,-140},{20,-120}})));
   Data.PipeDataAIT151218 pipeDataAIT151218 "Measurement data from AIT network"
@@ -433,6 +433,12 @@ R=1/(0.208)+1/(2 &nbsp; lambda_g &nbsp; Modelica.Constants.pi) &nbsp; log(1/0.18
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+April 29, 2026, by Michael Wetter:<br/>
+Changed configuration of table to cause the parameters to be evaluated, as this leads to more efficient code.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/2111\">IBPSA, #2111</a>.
+</li>
 <li>
 March 7, 2020, by Michael Wetter:<br/>
 Replaced measured data from specification in Modelica file to external table,

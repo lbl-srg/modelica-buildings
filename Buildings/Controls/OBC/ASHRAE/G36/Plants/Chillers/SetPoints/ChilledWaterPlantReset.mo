@@ -111,9 +111,6 @@ annotation (
           pattern=LinePattern.None),
           Text(
           extent={{-108,96},{44,80}},
-          pattern=LinePattern.None,
-          fillColor={210,210,210},
-          fillPattern=FillPattern.Solid,
           textColor={0,0,255},
           horizontalAlignment=TextAlignment.Left,
           textString="Calculate the plant reset, hold its last value when there is chiller stage change")}),
@@ -130,22 +127,18 @@ annotation (
         Text(
           extent={{-94,68},{-36,56}},
           textColor={255,0,255},
-          pattern=LinePattern.Dash,
           textString="uChiWatPum"),
         Text(
           extent={{-94,12},{-10,-10}},
           textColor={255,127,0},
-          pattern=LinePattern.Dash,
           textString="TChiWatSupResReq"),
         Text(
           extent={{-94,-52},{-56,-66}},
           textColor={255,0,255},
-          pattern=LinePattern.Dash,
           textString="chaPro"),
         Text(
           extent={{38,12},{96,-12}},
           textColor={0,0,127},
-          pattern=LinePattern.Dash,
           textString="yChiWatPlaRes")}),
 Documentation(info="<html>
 <p>

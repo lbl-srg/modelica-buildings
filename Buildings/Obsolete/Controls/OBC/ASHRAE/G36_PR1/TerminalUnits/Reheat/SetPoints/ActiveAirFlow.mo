@@ -608,25 +608,16 @@ annotation (
           fillPattern=FillPattern.Solid,
           pattern=LinePattern.None), Text(
           extent={{92,-58},{290,-94}},
-          pattern=LinePattern.None,
-          fillColor={210,210,210},
-          fillPattern=FillPattern.Solid,
           textColor={0,0,255},
           horizontalAlignment=TextAlignment.Left,
           textString="Occupied min airflow:
 reset based on CO2 control"),
        Text(extent={{116,-234},{332,-294}},
-          pattern=LinePattern.None,
-          fillColor={210,210,210},
-          fillPattern=FillPattern.Solid,
           textColor={0,0,255},
           textString="Occupied min airflow:
 reset based on occupancy",
           horizontalAlignment=TextAlignment.Left),
         Text(extent={{-252,-422},{28,-454}},
-          pattern=LinePattern.None,
-          fillColor={210,210,210},
-          fillPattern=FillPattern.Solid,
           textColor={0,0,255},
           horizontalAlignment=TextAlignment.Left,
           textString="Occupied min airflow:
@@ -637,9 +628,6 @@ define based on controllable minimum"),
           fillPattern=FillPattern.Solid,
           pattern=LinePattern.None),
         Text(extent={{-190,-492},{32,-564}},
-          pattern=LinePattern.None,
-          fillColor={210,210,210},
-          fillPattern=FillPattern.Solid,
           textColor={0,0,255},
           horizontalAlignment=TextAlignment.Left,
           textString="Occupied min airflow:
@@ -649,9 +637,6 @@ reset based on window status"),      Rectangle(
           fillPattern=FillPattern.Solid,
           pattern=LinePattern.None), Text(
           extent={{32,18},{254,-26}},
-          pattern=LinePattern.None,
-          fillColor={210,210,210},
-          fillPattern=FillPattern.Solid,
           textColor={0,0,255},
           horizontalAlignment=TextAlignment.Left,
           textString="Define active setpoints
@@ -674,54 +659,44 @@ according to operation modes")}),
           visible=have_CO2Sen,
           extent={{-98,48},{-70,36}},
           textColor={0,0,127},
-          pattern=LinePattern.Dash,
           textString="CO2"),
         Text(
           visible=have_occSen,
           extent={{-98,-32},{-70,-44}},
           textColor={0,0,127},
-          pattern=LinePattern.Dash,
           textString="nOcc"),
         Text(
           extent={{-94,90},{-48,72}},
           textColor={255,127,0},
-          pattern=LinePattern.Dash,
           textString="uOpeMod"),
         Text(
           visible=have_winSen,
           extent={{-98,-74},{-72,-84}},
           textColor={255,0,255},
-          pattern=LinePattern.Dash,
           textString="uWin"),
         Text(
           extent={{62,88},{98,74}},
           textColor={0,0,127},
-          pattern=LinePattern.Dash,
           textString="VActCooMax_flow"),
         Text(
           extent={{62,58},{98,44}},
           textColor={0,0,127},
-          pattern=LinePattern.Dash,
           textString="VActCooMin_flow"),
         Text(
           extent={{72,24},{98,14}},
           textColor={0,0,127},
-          pattern=LinePattern.Dash,
           textString="VActMin_flow"),
         Text(
           extent={{62,-2},{98,-16}},
           textColor={0,0,127},
-          pattern=LinePattern.Dash,
           textString="VActHeaMin_flow"),
         Text(
           extent={{62,-32},{98,-46}},
           textColor={0,0,127},
-          pattern=LinePattern.Dash,
           textString="VActHeaMax_flow"),
         Text(
           extent={{62,-72},{98,-86}},
           textColor={0,0,127},
-          pattern=LinePattern.Dash,
           textString="VOccDisMin_flow")}),
 Documentation(info="<html>
 <p>

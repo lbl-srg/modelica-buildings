@@ -229,15 +229,13 @@ equation
           visible=use_strokeTime,
           extent={{-20,94},{22,48}},
           textColor={0,0,0},
-          fillColor={135,135,135},
-          fillPattern=FillPattern.Solid,
           textString="M",
           textStyle={TextStyle.Bold}),
         Text(
           extent={{-40,126},{-160,76}},
           textColor={0,0,0},
           textString=DynamicSelect("", String(y, format=".2f"))),
-                                         Rectangle(
+    Rectangle(
       extent={{-60,40},{60,-40}},
       fillColor={255,255,255},
       fillPattern=FillPattern.Solid,
@@ -256,11 +254,11 @@ equation
       visible=use_strokeTime,
       points={{-30,40},{30,40}}),
     Line(
-      points={{0,40},{0,0}}),      Text(
-          extent={{-74,20},{-36,-24}},
-          textColor=DynamicSelect({255,255,255}, (1-y)*{255,255,255}),
-          fillPattern=FillPattern.Solid,
-          textString="%%")}), Documentation(revisions="<html>
+      points={{0,40},{0,0}}),
+    Text( extent={{-74,20},{-36,-24}},
+          textColor={255,255,255},
+      textString="%%")}),
+    Documentation(revisions="<html>
 <ul>
 <li>
 June 30, 2022, by Antoine Gautier:<br/>

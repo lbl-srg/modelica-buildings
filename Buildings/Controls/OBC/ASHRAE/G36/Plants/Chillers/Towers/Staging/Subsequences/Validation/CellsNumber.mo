@@ -137,7 +137,7 @@ which is 2.
 </li>
 <li>
 Between 300 seconds and 840 seconds, the chiller stage still equals
-to its setpoint (1), but the ecnomizer is enabled. Thus the plant
+to its setpoint (1), but the economizer is enabled. Thus the plant
 stage index is 4. The total number of tower cells should be
 <code>towCelOnSet[4]</code>, which is 4.
 </li>

@@ -48,9 +48,8 @@ model FMUZoneAdapterZones1
     "Inlet temperature"
     annotation (Placement(transformation(extent={{-90,-28},{-70,-8}})));
   Modelica.Blocks.Sources.RealExpression QGaiRad_flow(
-    y=0)
-    "Radiative heat gain for the zone"
-    annotation (Placement(transformation(extent={{-88,-50},{-68,-30}})));
+    y=0) "Radiative heat gain for the zone"
+    annotation (Placement(transformation(extent={{-90,-50},{-70,-30}})));
   Modelica.Blocks.Continuous.Integrator TZonCor(
     k=1/CZon,
     initType=Modelica.Blocks.Types.Init.InitialState,
@@ -60,25 +59,31 @@ model FMUZoneAdapterZones1
     "Zone air temperature"
     annotation (Placement(transformation(extent={{60,20},{80,40}})));
 
+  Modelica.Blocks.Sources.RealExpression p(
+    y(final unit="Pa")=101325)
+    "Air pressure"
+    annotation (Placement(transformation(extent={{-90,-70},{-70,-50}})));
 equation
   connect(X_w.y,fmuZonCor.X_w)
-    annotation (Line(points={{-69,50},{0,50},{0,34},{18,34}},color={0,0,127}));
+    annotation (Line(points={{-69,50},{0,50},{0,36},{18,36}},color={0,0,127}));
   connect(fmuZonCor.m_flow[1],mIn_flow.y)
-    annotation (Line(points={{18,29.5},{-4,29.5},{-4,10},{-69,10}},
+    annotation (Line(points={{18,31.5},{-4,31.5},{-4,10},{-69,10}},
                                                                color={0,0,127}));
   connect(mOut_flow.u,mIn_flow.y)
     annotation (Line(points={{-42,30},{-60,30},{-60,10},{-69,10}},color={0,0,127}));
   connect(mOut_flow.y,fmuZonCor.m_flow[2])
-    annotation (Line(points={{-19,30},{-10,30},{-10,30.5},{18,30.5}},
+    annotation (Line(points={{-19,30},{-10,30},{-10,32.5},{18,32.5}},
                                                                  color={0,0,127}));
   connect(TIn.y,fmuZonCor.TInlet)
-    annotation (Line(points={{-69,-18},{6,-18},{6,26},{18,26}},color={0,0,127}));
+    annotation (Line(points={{-69,-18},{6,-18},{6,28},{18,28}},color={0,0,127}));
   connect(fmuZonCor.QGaiRad_flow,QGaiRad_flow.y)
-    annotation (Line(points={{18,22},{10,22},{10,-40},{-67,-40}},color={0,0,127}));
+    annotation (Line(points={{18,24},{10,24},{10,-40},{-69,-40}},color={0,0,127}));
   connect(TZonCor.y,fmuZonCor.T)
-    annotation (Line(points={{81,30},{88,30},{88,60},{8,60},{8,38},{18,38}},color={0,0,127}));
+    annotation (Line(points={{81,30},{88,30},{88,60},{8,60},{8,40},{18,40}},color={0,0,127}));
   connect(fmuZonCor.QCon_flow,TZonCor.u)
     annotation (Line(points={{41,32},{48,32},{48,30},{58,30}},color={0,0,127}));
+  connect(p.y, fmuZonCor.p) annotation (Line(points={{-69,-60},{14,-60},{14,20},
+          {18,20}}, color={0,0,127}));
   annotation (
     Documentation(
       info="<html>

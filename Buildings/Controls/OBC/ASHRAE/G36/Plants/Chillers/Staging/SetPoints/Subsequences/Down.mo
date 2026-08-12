@@ -7,8 +7,8 @@ block Down "Generates a stage down signal"
   parameter Boolean have_serChi = false
     "true = series chillers plant; false = parallel chillers plant";
 
-  parameter Boolean have_locSen=false
-    "Flag of local DP sensor: true=local DP sensor hardwired to controller"
+  parameter Boolean have_senDpChiWatRemWir=true
+    "True=remote DP sensor hardwired to controller"
     annotation (Dialog(enable=not have_serChi));
 
   parameter Integer nRemSen=2
@@ -88,33 +88,32 @@ block Down "Generates a stage down signal"
     annotation (Placement(transformation(extent={{-220,110},{-180,150}}),
       iconTransformation(extent={{-140,-52},{-100,-12}})));
 
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput dpChiWatPumSet_local(
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput dpChiWatSet_local(
     final unit="Pa",
     final quantity="PressureDifference")
-    if (not have_serChi) and have_locSen
-    "Chilled water pump differential static pressure setpoint for local pressure sensor"
+    if (not have_serChi) and not have_senDpChiWatRemWir
+    "Chilled water local differential static pressure setpoint"
     annotation (Placement(transformation(extent={{-220,80},{-180,120}}),
         iconTransformation(extent={{-140,50},{-100,90}})));
 
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput dpChiWatPum_local(
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput dpChiWat_local(
     final unit="Pa",
-    final quantity="PressureDifference") if (not have_serChi) and have_locSen
-    "Chilled water pump differential static pressure"
+    final quantity="PressureDifference")
+    if (not have_serChi) and not have_senDpChiWatRemWir
+    "Chilled water pump differential static pressure from local sensor"
     annotation (Placement(transformation(extent={{-220,50},{-180,90}}),
         iconTransformation(extent={{-140,30},{-100,70}})));
 
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput dpChiWatPumSet_remote[nRemSen](
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput dpChiWatSet_remote[nRemSen](
     final unit=fill("Pa", nRemSen),
-    final quantity=fill("PressureDifference",nRemSen))
-    if (not have_serChi) and (not have_locSen)
-    "Chilled water differential pressure setpoint for remote sensor"
+    final quantity=fill("PressureDifference",nRemSen)) if (not have_serChi) and (have_senDpChiWatRemWir)
+    "Chilled water remote differential pressure setpoint"
     annotation (Placement(transformation(extent={{-220,10},{-180,50}}),
         iconTransformation(extent={{-140,10},{-100,50}})));
 
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput dpChiWatPum_remote[nRemSen](
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput dpChiWat_remote[nRemSen](
     final unit=fill("Pa", nRemSen),
-    final quantity=fill("PressureDifference",nRemSen))
-    if (not have_serChi) and (not have_locSen)
+    final quantity=fill("PressureDifference",nRemSen)) if (not have_serChi) and (have_senDpChiWatRemWir)
     "Chilled water differential pressure from remote sensor"
     annotation (Placement(transformation(extent={{-220,-20},{-180,20}}),
         iconTransformation(extent={{-140,-10},{-100,30}})));
@@ -139,7 +138,7 @@ block Down "Generates a stage down signal"
 protected
   Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Staging.SetPoints.Subsequences.FailsafeCondition faiSafCon(
     final have_serChi=have_serChi,
-    final have_locSen=have_locSen,
+    final have_senDpChiWatRemWir=have_senDpChiWatRemWir,
     final nRemSen=nRemSen,
     final faiSafTruDelay=faiSafTruDelay,
     final TDif=TDif,
@@ -214,10 +213,10 @@ protected
 equation
   connect(TChiWatSupSet, faiSafCon.TChiWatSupSet) annotation (Line(points={{-200,
           -40},{-160,-40},{-160,59},{-82,59}},color={0,0,127}));
-  connect(dpChiWatPumSet_local, faiSafCon.dpChiWatPumSet_local) annotation (
-      Line(points={{-200,100},{-130,100},{-130,51},{-82,51}}, color={0,0,127}));
-  connect(dpChiWatPum_local, faiSafCon.dpChiWatPum_local) annotation (Line(
-        points={{-200,70},{-140,70},{-140,48},{-82,48}}, color={0,0,127}));
+  connect(dpChiWatSet_local, faiSafCon.dpChiWatSet_local) annotation (Line(
+        points={{-200,100},{-130,100},{-130,51},{-82,51}}, color={0,0,127}));
+  connect(dpChiWat_local, faiSafCon.dpChiWat_local) annotation (Line(points={{-200,
+          70},{-140,70},{-140,48},{-82,48}}, color={0,0,127}));
   connect(u, intGreThr.u)
     annotation (Line(points={{-200,-160},{-122,-160}}, color={255,127,0}));
   connect(sub1.y,hysTSup. u)
@@ -254,10 +253,10 @@ equation
     annotation (Line(points={{122,0},{190,0}}, color={255,0,255}));
   connect(faiSafCon.y, not1.u)
     annotation (Line(points={{-58,50},{-42,50}}, color={255,0,255}));
-  connect(dpChiWatPumSet_remote, faiSafCon.dpChiWatPumSet_remote) annotation (
-      Line(points={{-200,30},{-130,30},{-130,44},{-82,44}}, color={0,0,127}));
-  connect(dpChiWatPum_remote, faiSafCon.dpChiWatPum_remote) annotation (Line(
-        points={{-200,0},{-120,0},{-120,41},{-82,41}}, color={0,0,127}));
+  connect(dpChiWatSet_remote, faiSafCon.dpChiWatSet_remote) annotation (Line(
+        points={{-200,30},{-130,30},{-130,44},{-82,44}}, color={0,0,127}));
+  connect(dpChiWat_remote, faiSafCon.dpChiWat_remote) annotation (Line(points={{
+          -200,0},{-120,0},{-120,41},{-82,41}}, color={0,0,127}));
   connect(uOpeDow, sub2.u2) annotation (Line(points={{-200,210},{-160,210},{-160,
           184},{-122,184}}, color={0,0,127}));
   connect(uStaDow, sub2.u1) annotation (Line(points={{-200,170},{-140,170},{-140,

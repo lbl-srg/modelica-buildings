@@ -4,8 +4,8 @@ model UpWithOnOff
 
   Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Staging.Processes.Up upProCon(
     final nChi=2,
-    final totSta=4,
-    final have_ponyChiller=true,
+    final nPlaSta=4,
+    final have_ponChi=true,
     final have_fixSpeConWatPum=false,
     final need_reduceChillerDemand=true,
     final chaChiWatIsoTim=300,
@@ -19,19 +19,13 @@ model UpWithOnOff
     annotation (Placement(transformation(extent={{20,80},{40,120}})));
 
 protected
-  Buildings.Controls.OBC.CDL.Reals.Sources.Ramp chiWatFlo(
-    final height=5/3 - 0.5,
-    final duration=300,
-    final offset=0.5,
-    final startTime=500) "Chilled water flow rate"
-    annotation (Placement(transformation(extent={{-200,-70},{-180,-50}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Pulse booPul(
     final width=0.075,
     final period=2000) "Boolean pulse"
     annotation (Placement(transformation(extent={{-200,120},{-180,140}})));
   Buildings.Controls.OBC.CDL.Logical.Not staUp "Stage up command"
     annotation (Placement(transformation(extent={{-160,120},{-140,140}})));
-  Buildings.Controls.OBC.CDL.Reals.Sources.Constant fulLoa(final k=2)
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant fulLoa(final k=2000)
     "Full load"
     annotation (Placement(transformation(extent={{-200,10},{-180,30}})));
   Buildings.Templates.Components.Controls.StatusEmulator chiOneSta(delayTime=0)
@@ -39,10 +33,6 @@ protected
     annotation (Placement(transformation(extent={{70,60},{90,80}})));
   Buildings.Controls.OBC.CDL.Reals.Switch loaOne "Chiller load one"
     annotation (Placement(transformation(extent={{-120,10},{-100,30}})));
-  Buildings.Controls.OBC.CDL.Discrete.ZeroOrderHold zerOrdHol[2](
-    final samplePeriod=fill(10, 2))
-    "Output the input signal with a zero order hold"
-    annotation (Placement(transformation(extent={{80,-190},{100,-170}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant wseSta(
     final k=false)
     "Waterside economizer status"
@@ -50,7 +40,7 @@ protected
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant zer3(final k=0)
     "Constant zero"
     annotation (Placement(transformation(extent={{80,100},{100,120}})));
-  Buildings.Controls.OBC.CDL.Reals.Sources.Constant chiLoa3(final k=2)
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant chiLoa3(final k=2000)
     "Chiller load"
     annotation (Placement(transformation(extent={{80,160},{100,180}})));
   Buildings.Controls.OBC.CDL.Reals.Switch chiLoa "Limited chiller load"
@@ -61,16 +51,6 @@ protected
   Buildings.Templates.Components.Controls.StatusEmulator chiTwoSta(delayTime=0)
     "Chiller two status"
     annotation (Placement(transformation(extent={{70,10},{90,30}})));
-  Buildings.Controls.OBC.CDL.Reals.Sources.Constant zerOpe(
-    final k=0) "Closed isolation valve"
-    annotation (Placement(transformation(extent={{-200,-270},{-180,-250}})));
-  Buildings.Controls.OBC.CDL.Reals.Sources.Constant fulOpe(
-    final k=1) "Full open isolation valve"
-    annotation (Placement(transformation(extent={{-200,-230},{-180,-210}})));
-  Buildings.Controls.OBC.CDL.Reals.Switch IsoValOne "Logical switch"
-    annotation (Placement(transformation(extent={{-120,-230},{-100,-210}})));
-  Buildings.Controls.OBC.CDL.Reals.Switch IsoValTwo "Logical switch"
-    annotation (Placement(transformation(extent={{-120,-270},{-100,-250}})));
   Buildings.Controls.OBC.CDL.Logical.Pre chiOneHea(
     final pre_u_start=true)
     "Chiller one head pressure control"
@@ -79,8 +59,6 @@ protected
     final samplePeriod=20)
     "Output the input signal with a zero order hold"
     annotation (Placement(transformation(extent={{80,-230},{100,-210}})));
-  Buildings.Controls.OBC.CDL.Reals.Switch chiWatFlo1 "Chilled water flow rate"
-    annotation (Placement(transformation(extent={{-120,-70},{-100,-50}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant staOneChi[2](
     final k={true,false})
     "Vector of chillers status setpoint at stage one"
@@ -136,9 +114,6 @@ protected
     final delayTime=0)
     "Chiller two head pressure control"
     annotation (Placement(transformation(extent={{80,-150},{100,-130}})));
-  Buildings.Templates.Components.Controls.StatusEmulator towStaUp(
-    final delayTime=0) "Stage up tower"
-    annotation (Placement(transformation(extent={{0,-70},{20,-50}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant con2(
     final k=true)
     "Constant true"
@@ -153,6 +128,13 @@ protected
   Buildings.Controls.OBC.CDL.Logical.Or or2
     "Check if there is any enabled chiller"
     annotation (Placement(transformation(extent={{120,80},{140,100}})));
+  Buildings.Controls.OBC.CDL.Logical.Sources.Constant plaEna(final k=true)
+    "Plant enabled"
+    annotation (Placement(transformation(extent={{-58,-290},{-38,-270}})));
+  Buildings.Controls.OBC.CDL.Reals.AddParameter addPar(
+    final p=0.1)
+    "Chilled water flow rate through bypass valve"
+    annotation (Placement(transformation(extent={{140,-230},{160,-210}})));
 equation
   connect(booPul.y, staUp.u)
     annotation (Line(points={{-178,130},{-162,130}}, color={255,0,255}));
@@ -164,45 +146,20 @@ equation
           {138,132}},      color={0,0,127}));
   connect(chiTwoSta.y1_actual, upProCon.uChi[2]) annotation (Line(points={{92,20},
           {100,20},{100,0},{-54,0},{-54,110.5},{18,110.5}},   color={255,0,255}));
-  connect(zerOpe.y, IsoValTwo.u3) annotation (Line(points={{-178,-260},{-160,-260},
-          {-160,-268},{-122,-268}}, color={0,0,127}));
-  connect(fulOpe.y, IsoValOne.u3) annotation (Line(points={{-178,-220},{-160,-220},
-          {-160,-228},{-122,-228}}, color={0,0,127}));
-  connect(staUp.y, IsoValOne.u2) annotation (Line(points={{-138,130},{-130,130},
-          {-130,-220},{-122,-220}}, color={255,0,255}));
-  connect(staUp.y, IsoValTwo.u2) annotation (Line(points={{-138,130},{-130,130},
-          {-130,-260},{-122,-260}}, color={255,0,255}));
-  connect(upProCon.yChiWatIsoVal, zerOrdHol.u) annotation (Line(points={{42,86},
-          {56,86},{56,-180},{78,-180}},  color={0,0,127}));
-  connect(zerOrdHol[1].y, IsoValOne.u1) annotation (Line(points={{102,-180},{120,
-          -180},{120,-200},{-140,-200},{-140,-212},{-122,-212}}, color={0,0,127}));
-  connect(zerOrdHol[2].y, IsoValTwo.u1) annotation (Line(points={{102,-180},{120,
-          -180},{120,-200},{-140,-200},{-140,-252},{-122,-252}}, color={0,0,127}));
   connect(chiTwoSta.y1_actual, upProCon.uChiConIsoVal[2]) annotation (Line(points={{92,20},
           {100,20},{100,0},{-48,0},{-48,105.5},{18,105.5}},   color={255,0,255}));
   connect(chiTwoSta.y1_actual, upProCon.uConWatReq[2]) annotation (Line(points={{92,20},
           {100,20},{100,0},{-42,0},{-42,98.5},{18,98.5}},   color={255,0,255}));
   connect(wseSta.y, upProCon.uWSE) annotation (Line(points={{-178,-180},{-40,-180},
           {-40,96},{18,96}},   color={255,0,255}));
-  connect(chiOneHea.y, upProCon.uChiHeaCon[1]) annotation (Line(points={{102,-100},
-          {120,-100},{120,-116},{-32,-116},{-32,84.5},{18,84.5}}, color={255,0,255}));
+  connect(chiOneHea.y, upProCon.uChiHeaCon[1]) annotation (Line(points={{102,
+          -100},{120,-100},{120,-116},{-32,-116},{-32,89.5},{18,89.5}}, color={255,0,255}));
   connect(upProCon.yChiHeaCon[1], chiOneHea.u) annotation (Line(points={{42,90.5},
           {50,90.5},{50,-100},{78,-100}}, color={255,0,255}));
-  connect(IsoValOne.y, upProCon.uChiWatIsoVal[1]) annotation (Line(points={{-98,
-          -220},{-30,-220},{-30,82.5},{18,82.5}}, color={0,0,127}));
-  connect(IsoValTwo.y, upProCon.uChiWatIsoVal[2]) annotation (Line(points={{-98,
-          -260},{-28,-260},{-28,83.5},{18,83.5}}, color={0,0,127}));
   connect(chiTwoSta.y1_actual, upProCon.uChiWatReq[2]) annotation (Line(points={{92,20},
-          {100,20},{100,0},{-24,0},{-24,81.5},{18,81.5}},   color={255,0,255}));
+          {100,20},{100,0},{-24,0},{-24,83.5},{18,83.5}},   color={255,0,255}));
   connect(upProCon.yChiWatMinFloSet, zerOrdHol3.u) annotation (Line(points={{42,111},
           {48,111},{48,-220},{78,-220}},      color={0,0,127}));
-  connect(chiWatFlo.y, chiWatFlo1.u3) annotation (Line(points={{-178,-60},{-160,
-          -60},{-160,-68},{-122,-68}}, color={0,0,127}));
-  connect(zerOrdHol3.y, chiWatFlo1.u1) annotation (Line(points={{102,-220},{120,
-          -220},{120,-240},{-90,-240},{-90,-40},{-140,-40},{-140,-52},{-122,-52}},
-        color={0,0,127}));
-  connect(chiWatFlo1.y, upProCon.VChiWat_flow) annotation (Line(points={{-98,-60},
-          {-52,-60},{-52,107.6},{18,107.6}}, color={0,0,127}));
   connect(upSta.y, swi.u1) annotation (Line(points={{-178,230},{-160,230},{-160,
           218},{-122,218}}, color={0,0,127}));
   connect(dowSta.y, swi.u3) annotation (Line(points={{-178,190},{-160,190},{
@@ -240,7 +197,7 @@ equation
   connect(wseSta.y, upProCon.uEnaPlaConPum) annotation (Line(points={{-178,-180},
           {-40,-180},{-40,101},{18,101}}, color={255,0,255}));
   connect(wseSta.y, upProCon.uEnaPlaConIso) annotation (Line(points={{-178,-180},
-          {-40,-180},{-40,90},{18,90}}, color={255,0,255}));
+          {-40,-180},{-40,93},{18,93}}, color={255,0,255}));
   connect(upProCon.yStaPro, falEdg.u) annotation (Line(points={{42,119},{52,119},
           {52,200},{118,200}}, color={255,0,255}));
   connect(upProCon.yChi[1], chiOneSta.y1) annotation (Line(points={{42,82.5},{60,
@@ -249,22 +206,17 @@ equation
           83.5},{58,20},{68,20}}, color={255,0,255}));
   connect(upProCon.yChiHeaCon[2], chiTwoHea.y1) annotation (Line(points={{42,
           91.5},{52,91.5},{52,-140},{78,-140}}, color={255,0,255}));
-  connect(chiTwoHea.y1_actual, upProCon.uChiHeaCon[2]) annotation (Line(points=
-          {{102,-140},{120,-140},{120,-120},{-34,-120},{-34,85.5},{18,85.5}},
+  connect(chiTwoHea.y1_actual, upProCon.uChiHeaCon[2]) annotation (Line(points={{102,
+          -140},{120,-140},{120,-120},{-34,-120},{-34,90.5},{18,90.5}},
         color={255,0,255}));
-  connect(upProCon.yTowStaUp, towStaUp.y1) annotation (Line(points={{42,107},{46,
-          107},{46,-42},{-12,-42},{-12,-60},{-2,-60}}, color={255,0,255}));
-  connect(towStaUp.y1_actual, chiWatFlo1.u2) annotation (Line(points={{22,-60},{
-          30,-60},{30,-76},{-134,-76},{-134,-60},{-122,-60}}, color={255,0,255}));
   connect(chiOneSta.y1_actual, upProCon.uChiConIsoVal[1]) annotation (Line(
         points={{92,70},{96,70},{96,54},{-50,54},{-50,104.5},{18,104.5}}, color
         ={255,0,255}));
   connect(chiOneSta.y1_actual, upProCon.uConWatReq[1]) annotation (Line(points=
           {{92,70},{96,70},{96,54},{-44,54},{-44,97.5},{18,97.5}}, color={255,0,
           255}));
-  connect(chiOneSta.y1_actual, upProCon.uChiWatReq[1]) annotation (Line(points=
-          {{92,70},{96,70},{96,54},{-26,54},{-26,80.5},{18,80.5}}, color={255,0,
-          255}));
+  connect(chiOneSta.y1_actual, upProCon.uChiWatReq[1]) annotation (Line(points={{92,70},
+          {96,70},{96,54},{-26,54},{-26,82.5},{18,82.5}}, color={255,0,255}));
   connect(con2.y, truDel.u) annotation (Line(points={{142,-30},{150,-30},{150,-10},
           {130,-10},{130,20},{138,20}}, color={255,0,255}));
   connect(truDel.y, logSwi1.u2)
@@ -289,6 +241,14 @@ equation
           {210,40},{-140,40},{-140,28},{-122,28}}, color={0,0,127}));
   connect(chiLoa3.y, chiLoa.u1) annotation (Line(points={{102,170},{120,170},{
           120,148},{138,148}}, color={0,0,127}));
+  connect(plaEna.y, upProCon.uPla) annotation (Line(points={{-36,-280},{-20,
+          -280},{-20,81},{18,81}}, color={255,0,255}));
+  connect(zerOrdHol3.y, addPar.u)
+    annotation (Line(points={{102,-220},{138,-220}}, color={0,0,127}));
+  connect(addPar.y, upProCon.VChiWat_flow) annotation (Line(points={{162,-220},{
+          180,-220},{180,-80},{-52,-80},{-52,107.6},{18,107.6}}, color={0,0,127}));
+  connect(falEdg.y, upProCon.uEndPro) annotation (Line(points={{142,200},{160,
+          200},{160,220},{10,220},{10,114},{18,114}}, color={255,0,255}));
 annotation (
  experiment(StopTime=2000, Tolerance=1e-06),
   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/ASHRAE/G36/Plants/Chillers/Staging/Processes/Validation/UpWithOnOff.mos"
@@ -311,41 +271,39 @@ Before 150 seconds, the plant is not in the staging process.
 </li>
 <li>
 At 150 seconds, the plant starts staging up. The operating chiller load is reduced
-from 2 A to 1.5 A (which is lower than 80% of the operating chiller load).
+from 2000 W to 1500 W (which is lower than 80% of the operating chiller load). Wait
+for 5 minutes till to 450 seconds.
 </li>
 <li>
-After 300 seconds (<code>byPasSetTim</code>) to 450 seconds, the minimum chilled
+After 300 seconds (<code>byPasSetTim</code>) to 750 seconds, the minimum chilled
 water flow setpoint slowly increases from 0.5 m3/s, to 1.667 m3/s which is for the
-case when both chiller 1 and 2 are operating. The setpoint is achieved at 750 seconds.
+case when both chiller 1 and 2 are operating. The setpoint is achieved at 760 seconds.
 </li>
 <li>
 Wait 60 seconds (<code>aftByPasSetTim</code>) to allow the loop to be stable,
 enabling the head pressure control of chiller 2 (<code>yChiHeaCon[2]=true</code>)
-at 850 seconds.
+at 820 seconds.
 </li>
 <li>
-After 30 seconds (<code>waiTim</code>) at 880 seconds, it starts slowly opens the chilled
+After 30 seconds (<code>waiTim</code>) at 850 seconds, it starts slowly opens the chilled
 water isolation valve of chiller 2 (<code>yChiWatIsoVal[2]</code>). After 300
-seconds (<code>chaChiWatIsoTim</code>) at 1180 seconds, the valve is fully open.
+seconds (<code>chaChiWatIsoTim</code>) at 1150 seconds, the valve is fully open.
 </li>
 <li>
-At 1180 seconds, the chiller 2 becomes enabled.
+At 1150 seconds, the chiller 2 becomes enabled.
 </li>
 <li>
-After 300 seconds (<code>proOnTim</code>) at 1480 seconds which allows the chiller
+After 300 seconds (<code>proOnTim</code>) at 1450 seconds which allows the chiller
 2 being operating correctly, the chiller 1 becomes disabled.
 </li>
 <li>
-At 1480 seconds, it slowly closes the chilled water isolation valve. After 300
-seconds (<code>chaChiWatIsoTim</code>) at 1780, the valve becomes fully closed.
+At 1450 seconds, it slowly closes the chilled water isolation valve. After 300
+seconds (<code>chaChiWatIsoTim</code>) at 1750, the valve becomes fully closed.
 </li>
 <li>
-At 1780 seconds, it disables chiller 1 head pressure control and changes the minimum
-chilled water flow setpoint to 1 m3/s.
-</li>
-<li>
-At 1800 seconds, the measured chilled water flow achieves the new setpoint. After
-60 seconds at 1860 seconds, the staging process is done, and the chiller load demand is released.
+At 1750 seconds, it disables chiller 1 head pressure control and changes the minimum
+chilled water flow setpoint to 1 m3/s. The staging process is done, and the chiller
+load demand is released.
 </li>
 </ul>
 </html>", revisions="<html>

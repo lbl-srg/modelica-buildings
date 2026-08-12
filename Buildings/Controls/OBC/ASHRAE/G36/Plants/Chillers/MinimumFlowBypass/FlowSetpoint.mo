@@ -326,10 +326,10 @@ protected
   Buildings.Controls.OBC.CDL.Logical.FallingEdge endSta
     "End staging change"
     annotation (Placement(transformation(extent={{240,50},{260,70}})));
-
   Buildings.Controls.OBC.CDL.Logical.Edge staChaSet1
     "Start changing the setpoint"
     annotation (Placement(transformation(extent={{180,-450},{200,-430}})));
+
 equation
   connect(uStaDow, not2.u)
     annotation (Line(points={{-460,-290},{-410,-290},{-410,-320},{-222,-320}},
@@ -757,12 +757,12 @@ equation
           114},{338,114}}, color={255,0,255}));
   connect(triSam1.y, byPasSet3.u3) annotation (Line(points={{362,80},{380,80},{380,
           112},{398,112}}, color={0,0,127}));
-  connect(byPasSet3.y, yChiWatMinFloSet)
-    annotation (Line(points={{422,120},{460,120}}, color={0,0,127}));
   connect(logSwi.y, staChaSet1.u)
     annotation (Line(points={{142,-440},{178,-440}}, color={255,0,255}));
   connect(staChaSet1.y, lat.u)
     annotation (Line(points={{202,-440},{238,-440}}, color={255,0,255}));
+  connect(byPasSet1.y, yChiWatMinFloSet) annotation (Line(points={{422,240},{
+          430,240},{430,120},{460,120}}, color={0,0,127}));
 annotation (
   defaultComponentName="minChiFloSet",
   Icon(coordinateSystem(extent={{-100,-100},{100,100}}),
@@ -872,7 +872,6 @@ annotation (
         Text(
           extent={{44,6},{98,-6}},
           textColor={0,0,127},
-          pattern=LinePattern.Dash,
           textString="yChiWatMinFloSet"),
         Text(
           extent={{58,-68},{96,-88}},
@@ -895,99 +894,71 @@ annotation (
         Text(
           extent={{-92,494},{14,478}},
           textColor={0,0,127},
-          fillColor={215,215,215},
-          fillPattern=FillPattern.Solid,
           horizontalAlignment=TextAlignment.Right,
           textString="Plant with parallel chillers"),
         Text(
           extent={{-80,22},{18,6}},
           textColor={0,0,127},
-          fillColor={215,215,215},
-          fillPattern=FillPattern.Solid,
           horizontalAlignment=TextAlignment.Right,
           textString="Plant with series chillers"),
         Text(
           extent={{-54,214},{18,198}},
           textColor={0,0,127},
-          fillColor={215,215,215},
-          fillPattern=FillPattern.Solid,
           horizontalAlignment=TextAlignment.Right,
           textString="Minimum flow setpoint when"),
         Text(
           extent={{-46,202},{18,188}},
           textColor={0,0,127},
-          fillColor={215,215,215},
-          fillPattern=FillPattern.Solid,
           horizontalAlignment=TextAlignment.Right,
           textString="enabling additional chiller"),
         Text(
           extent={{-34,102},{18,88}},
           textColor={0,0,127},
-          fillColor={215,215,215},
-          fillPattern=FillPattern.Solid,
           horizontalAlignment=TextAlignment.Right,
           textString="disabling one chiller"),
         Text(
           extent={{-54,114},{18,98}},
           textColor={0,0,127},
-          fillColor={215,215,215},
-          fillPattern=FillPattern.Solid,
           horizontalAlignment=TextAlignment.Right,
           textString="Minimum flow setpoint when"),
         Text(
           extent={{-38,-60},{26,-74}},
           textColor={0,0,127},
-          fillColor={215,215,215},
-          fillPattern=FillPattern.Solid,
           horizontalAlignment=TextAlignment.Right,
           textString="enabling additional chiller"),
         Text(
           extent={{-30,-142},{22,-156}},
           textColor={0,0,127},
-          fillColor={215,215,215},
-          fillPattern=FillPattern.Solid,
           horizontalAlignment=TextAlignment.Right,
           textString="disabling one chiller"),
         Text(
           extent={{-92,472},{10,456}},
           textColor={0,0,127},
-          fillColor={215,215,215},
-          fillPattern=FillPattern.Solid,
           horizontalAlignment=TextAlignment.Right,
           textString="Minimum flow setpoint according to"),
         Text(
           extent={{-54,460},{10,446}},
           textColor={0,0,127},
-          fillColor={215,215,215},
-          fillPattern=FillPattern.Solid,
           horizontalAlignment=TextAlignment.Right,
           textString="current chillers status"),
         Text(
           extent={{-88,402},{14,386}},
           textColor={0,0,127},
-          fillColor={215,215,215},
-          fillPattern=FillPattern.Solid,
           horizontalAlignment=TextAlignment.Right,
           textString="Minimum flow setpoint according to"),
         Text(
           extent={{-66,390},{14,376}},
           textColor={0,0,127},
-          fillColor={215,215,215},
-          fillPattern=FillPattern.Solid,
           horizontalAlignment=TextAlignment.Right,
           textString="chillers status at the moment"),
         Text(
           extent={{-62,380},{16,366}},
           textColor={0,0,127},
-          fillColor={215,215,215},
-          fillPattern=FillPattern.Solid,
           horizontalAlignment=TextAlignment.Right,
           textString="when  requiring stage change"),
         Text(
           extent={{-38,4},{26,-10}},
           textColor={0,0,127},
-          fillColor={215,215,215},
-          fillPattern=FillPattern.Solid,
           horizontalAlignment=TextAlignment.Right,
           textString="current chillers status"),
         Rectangle(
@@ -999,8 +970,6 @@ annotation (
         Text(
           extent={{124,-330},{270,-350}},
           textColor={0,0,127},
-          fillColor={215,215,215},
-          fillPattern=FillPattern.Solid,
           horizontalAlignment=TextAlignment.Right,
           textString="Check if it is in the setpoint changing process")}),
   Documentation(info="<html>

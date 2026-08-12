@@ -55,7 +55,7 @@ block Speed_primary_remoteDp
     annotation (Placement(transformation(extent={{60,-10},{80,10}})));
   Buildings.Controls.OBC.CDL.Reals.Line pumSpe "Pump speed"
     annotation (Placement(transformation(extent={{60,50},{80,70}})));
-  Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Generic.PIDWithEnable conPID[nSen](
+  Buildings.Controls.OBC.Utilities.PIDWithEnable conPID[nSen](
     final controllerType=fill(controllerType, nSen),
     final k=fill(k, nSen),
     final Ti=fill(Ti, nSen),
@@ -153,22 +153,18 @@ annotation (
         Text(
           extent={{-98,92},{-44,70}},
           textColor={255,0,255},
-          pattern=LinePattern.Dash,
           textString="uChiWatPum"),
         Text(
           extent={{-98,10},{-26,-10}},
           textColor={0,0,127},
-          pattern=LinePattern.Dash,
           textString="dpChiWat_remote"),
         Text(
           extent={{22,12},{98,-10}},
           textColor={0,0,127},
-          pattern=LinePattern.Dash,
           textString="yChiWatPumSpe"),
         Text(
           extent={{-98,-68},{-10,-88}},
           textColor={0,0,127},
-          pattern=LinePattern.Dash,
           textString="dpChiWatSet_remote")}),
   Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-120,-120},{120,120}})),
   Documentation(info="<html>

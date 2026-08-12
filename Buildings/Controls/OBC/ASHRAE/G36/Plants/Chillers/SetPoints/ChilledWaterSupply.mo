@@ -37,9 +37,9 @@ block ChilledWaterSupply
     "Chilled water plant reset"
     annotation (Placement(transformation(extent={{-120,-20},{-80,20}}),
         iconTransformation(extent={{-140,-20},{-100,20}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealOutput dpChiWatPumSet[nRemDpSen](
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput dpChiWatSet[nRemDpSen](
     final unit=fill("Pa", nRemDpSen),
-    final quantity=fill("PressureDifference",nRemDpSen))
+    final quantity=fill("PressureDifference", nRemDpSen))
     "Chilled water differential pressure setpoint"
     annotation (Placement(transformation(extent={{80,30},{120,70}}),
         iconTransformation(extent={{100,40},{140,80}})));
@@ -110,8 +110,8 @@ equation
   connect(minChiWatTem.y, chiWatTem.f2)
     annotation (Line(points={{2,-70},{20,-70},{20,-58},{38,-58}},
       color={0,0,127}));
-  connect(chiWatPumPre.y, dpChiWatPumSet)
-    annotation (Line(points={{62,50},{100,50}},color={0,0,127}));
+  connect(chiWatPumPre.y, dpChiWatSet)
+    annotation (Line(points={{62,50},{100,50}}, color={0,0,127}));
   connect(chiWatTem.y, TChiWatSupSet)
     annotation (Line(points={{62,-50},{100,-50}},color={0,0,127}));
   connect(uChiWatPlaRes, chiWatTem.u) annotation (Line(points={{-100,0},{-70,0},
@@ -137,17 +137,11 @@ annotation (
           pattern=LinePattern.None),
           Text(
           extent={{-26,118},{74,106}},
-          pattern=LinePattern.None,
-          fillColor={210,210,210},
-          fillPattern=FillPattern.Solid,
           textColor={0,0,255},
           horizontalAlignment=TextAlignment.Left,
           textString="Chilled water pump differential pressure setpoint"),
           Text(
           extent={{-22,-104},{74,-116}},
-          pattern=LinePattern.None,
-          fillColor={210,210,210},
-          fillPattern=FillPattern.Solid,
           textColor={0,0,255},
           horizontalAlignment=TextAlignment.Left,
           textString="Chilled water supply temperature setpoint")}),
@@ -189,34 +183,34 @@ annotation (
     Text(
       extent={{-20,-66},{22,-82}},
       textColor={95,95,95},
-          textString="Plant reset"),
+      textString="Plant reset"),
     Text(
       extent={{14,26},{68,6}},
       textColor={95,95,95},
-          horizontalAlignment=TextAlignment.Right,
-          textString="Temperature
+      horizontalAlignment=TextAlignment.Right,
+      textString="Temperature
 setpoint"),
     Text(
       extent={{-76,22},{-42,8}},
       textColor={95,95,95},
-          horizontalAlignment=TextAlignment.Right,
-          textString="DP
+      horizontalAlignment=TextAlignment.Right,
+      textString="DP
 setpoint"),
     Text(
       extent={{-14,-56},{12,-62}},
       textColor={95,95,95},
-          textString="0.5")}),
+      textString="0.5")}),
 Documentation(info="<html>
 <p>
 Block that outputs setpoints for the chilled water supply of primary-only and
 primary-secondary systems serving differential pressure controlled pumps.
 The outputs include supply temperature setpoint <code>TChiWatSupSet</code>
-and pump differential pressure setpoint <code>dpChiWatPumSet</code>, according
+and the differential pressure setpoint <code>dpChiWatSet</code>, according
 to ASHRAE Guideline 36-2021, section 5.20.5.2.
 </p>
 <p>
-Chilled water supply temperature setpoint <code>TChiWatSupSet</code> and pump
-differential pressure setpoint <code>dpChiWatPumSet</code> shall be reset based on
+Chilled water supply temperature setpoint <code>TChiWatSupSet</code> and the
+differential pressure setpoint <code>dpChiWatSet</code> shall be reset based on
 the current value of chilled water plant reset <code>uChiWatPlaRes</code>.
 </p>
 <p align=\"center\">

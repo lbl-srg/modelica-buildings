@@ -55,7 +55,7 @@ block Controller
     annotation (Placement(transformation(extent={{140,30},{180,70}}),
       iconTransformation(extent={{100,-20},{140,20}})));
 
-  Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Generic.PIDWithEnable valPos(
+  Buildings.Controls.OBC.Utilities.PIDWithEnable valPos(
     final controllerType=controllerType,
     final k=k,
     final Ti=Ti,
@@ -146,17 +146,14 @@ annotation (
         Text(
           extent={{-98,6},{-54,-4}},
           textColor={0,0,127},
-          pattern=LinePattern.Dash,
           textString="VChiWat_flow"),
         Text(
           extent={{68,6},{102,-4}},
           textColor={0,0,127},
-          pattern=LinePattern.Dash,
           textString="yValPos"),
         Text(
           extent={{-98,-74},{-42,-86}},
           textColor={0,0,127},
-          pattern=LinePattern.Dash,
           textString="VChiWatSet_flow")}),
   Diagram(coordinateSystem(preserveAspectRatio=false,
           extent={{-140,-100},{140,100}})),

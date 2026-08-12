@@ -1,12 +1,13 @@
 within Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Staging.SetPoints.Subsequences.Validation;
 model Up "Validate change stage up condition sequence"
   Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Staging.SetPoints.Subsequences.Up
-    staUp(have_locSen=true, effConTruDelay=900)
+    staUp(have_senDpChiWatRemWir=false,
+                            effConTruDelay=900)
           "Generates stage up signal"
     annotation (Placement(transformation(extent={{-40,50},{-20,70}})));
 
   Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Staging.SetPoints.Subsequences.Up
-    staUp1(final have_WSE=true, have_locSen=true)
+    staUp1(final have_WSE=true, have_senDpChiWatRemWir=false)
     "Generates stage up signal"
     annotation (Placement(transformation(extent={{140,50},{160,70}})));
 
@@ -118,10 +119,10 @@ equation
           -80,0},{-80,67},{-42,67}},    color={0,0,127}));
   connect(TCWSup.y, staUp.TChiWatSup) annotation (Line(points={{-138,-40},{-74,
           -40},{-74,65},{-42,65}},color={0,0,127}));
-  connect(dpChiWatSet.y, staUp.dpChiWatPumSet_local) annotation (Line(points={{-98,20},
-          {-68,20},{-68,63},{-42,63}},           color={0,0,127}));
-  connect(dpChiWat.y, staUp.dpChiWatPum_local) annotation (Line(points={{-98,-20},
-          {-62,-20},{-62,61},{-42,61}},      color={0,0,127}));
+  connect(dpChiWatSet.y, staUp.dpChiWatSet_local) annotation (Line(points={{-98,
+          20},{-68,20},{-68,63},{-42,63}}, color={0,0,127}));
+  connect(dpChiWat.y, staUp.dpChiWat_local) annotation (Line(points={{-98,-20},
+          {-62,-20},{-62,61},{-42,61}}, color={0,0,127}));
   connect(stage0.y, staUp.u) annotation (Line(points={{-138,120},{-56,120},{-56,
           55},{-42,55}}, color={255,127,0}));
   connect(StaUp1.y, staUp1.uStaUp) annotation (Line(points={{82,60},{92,60},{92,
@@ -132,10 +133,10 @@ equation
           100,0},{100,67},{138,67}},    color={0,0,127}));
   connect(TCWSup1.y, staUp1.TChiWatSup) annotation (Line(points={{42,-40},{106,
           -40},{106,65},{138,65}}, color={0,0,127}));
-  connect(dpChiWatSet1.y, staUp1.dpChiWatPumSet_local) annotation (Line(points={{82,20},
-          {112,20},{112,63},{138,63}},            color={0,0,127}));
-  connect(dpChiWat1.y, staUp1.dpChiWatPum_local) annotation (Line(points={{82,-20},
-          {118,-20},{118,61},{138,61}},      color={0,0,127}));
+  connect(dpChiWatSet1.y, staUp1.dpChiWatSet_local) annotation (Line(points={{
+          82,20},{112,20},{112,63},{138,63}}, color={0,0,127}));
+  connect(dpChiWat1.y, staUp1.dpChiWat_local) annotation (Line(points={{82,-20},
+          {118,-20},{118,61},{138,61}}, color={0,0,127}));
   connect(stage1.y, staUp1.u) annotation (Line(points={{42,120},{124,120},{124,
           55},{138,55}},
                     color={255,127,0}));

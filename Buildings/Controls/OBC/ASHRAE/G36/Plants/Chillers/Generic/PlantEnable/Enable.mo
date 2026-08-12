@@ -261,7 +261,7 @@ Added state chart illustration.
 </li>
 <li>
 March 12, 2020, by Milica Grahovac:<br/>
-Removed initial stage determination as it is imlemented as a separate sequence. This is for
+Removed initial stage determination as it is implemented as a separate sequence. This is for
 <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1831\">issue 1831</a>.
 </li>
 <li>

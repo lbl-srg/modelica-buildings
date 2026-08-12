@@ -10,8 +10,8 @@ compareVars :=
     "endUp1.uChiWatReq[2]",
     "endUp1.uConWatReq[1]",
     "endUp1.uConWatReq[2]",
-    "endUp1.yChiWatIsoVal[1]",
-    "endUp1.yChiWatIsoVal[2]",
+    "endUp1.y1ChiWatIsoVal[1]",
+    "endUp1.y1ChiWatIsoVal[2]",
     "endUp1.yChiHeaCon[1]",
     "endUp1.yChiHeaCon[2]",
     "endUp1.yChiWatMinSet"

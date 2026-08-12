@@ -1,7 +1,7 @@
 simulateModel("Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Pumps.ChilledWater.Subsequences.Validation.LocalDp_setpoint", method="Cvode", stopTime=10, tolerance=1e-06, resultFile="localDpSet");
 
 createPlot(id=1, position={35, 35, 1169, 1122}, y={"locDpSet.dpChiWat_remote[1]", "locDpSet.dpChiWat_remote[2]", "locDpSet.dpChiWatSet_remote[1]", "locDpSet.dpChiWatSet_remote[2]"}, range={0.0, 10.0, 40000.0, 70000.0}, grid=true, subPlot=101, colors={{28,108,200}, {238,46,47}, {0,140,72}, {217,67,180}}, timeUnit="s", displayUnits={"Pa", "Pa", "Pa", "Pa"});
-createPlot(id=1, position={35, 35, 1169, 1122}, y={"locDpSet.dpChiWatPumSet_local", "locDpSet.minLocDp", "locDpSet.maxLocDp"}, range={0.0, 10.0, 0.0, 150000.0}, grid=true, subPlot=102, colors={{28,108,200}, {238,46,47}, {0,140,72}}, timeUnit="s", displayUnits={"Pa", "Pa", "Pa"});
+createPlot(id=1, position={35, 35, 1169, 1122}, y={"locDpSet.dpChiWatSet_local", "locDpSet.minLocDp", "locDpSet.maxLocDp"}, range={0.0, 10.0, 0.0, 150000.0}, grid=true, subPlot=102, colors={{28,108,200}, {238,46,47}, {0,140,72}}, timeUnit="s", displayUnits={"Pa", "Pa", "Pa"});
 createPlot(id=1, position={35, 35, 1169, 1122}, y={"locDpSet.uChiWatPum[1]", "locDpSet.uChiWatPum[2]"}, range={0.0, 10.0, -0.5, 1.5}, grid=true, subPlot=103, colors={{28,108,200}, {28,108,200}}, timeUnit="s");
 createPlot(id=1, position={35, 35, 1169, 1122}, y={"locDpSet.conPID[1].y", "locDpSet.conPID[2].y"}, range={0.0, 10.0, -0.5, 1.5}, grid=true, subPlot=104, colors={{28,108,200}, {238,46,47}}, timeUnit="s");
 

@@ -146,7 +146,7 @@ becomes lower than the lockout temperature <code>TChiLocOut</code> by 0.556
 &deg;C. The plant becomes disabled.
 </li>
 <li>
-For instance <code>disPlaSch</code>, the chiller enabing schedule specifies
+For instance <code>disPlaSch</code>, the chiller enabling schedule specifies
 that the plant should be enabled at 600 seconds. However, the plant becomes
 enabled at 900 seconds as it allows the plant being disabled for 15 minutes.
 The plant becomes disabled at 68400 seconds, which is specified in the
@@ -181,24 +181,18 @@ First implementation.
         Text(
           extent={{40,90},{106,74}},
           textColor={0,0,255},
-          fillColor={255,255,255},
-          fillPattern=FillPattern.Solid,
           horizontalAlignment=TextAlignment.Left,
           textString="Disable plant 
 due to inactive schedule"),
         Text(
           extent={{40,-12},{98,-24}},
           textColor={0,0,255},
-          fillColor={255,255,255},
-          fillPattern=FillPattern.Solid,
           horizontalAlignment=TextAlignment.Left,
           textString="Disable plant 
 due to zero request"),
         Text(
           extent={{40,-102},{120,-116}},
           textColor={0,0,255},
-          fillColor={255,255,255},
-          fillPattern=FillPattern.Solid,
           horizontalAlignment=TextAlignment.Left,
           textString="Disable plant 
 due to low outdoor temperature")}));

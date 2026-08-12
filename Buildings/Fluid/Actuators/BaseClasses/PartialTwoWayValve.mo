@@ -2,9 +2,10 @@ within Buildings.Fluid.Actuators.BaseClasses;
 partial model PartialTwoWayValve "Partial model for a two way valve"
 
   extends Buildings.Fluid.BaseClasses.PartialResistance(
-       final dp_nominal=dpValve_nominal + dpFixed_nominal,
-       dp(nominal=6000),
-       final m_flow_turbulent = deltaM * abs(m_flow_nominal));
+    final dp_nominal=dpValve_nominal + dpFixed_nominal,
+    dp(nominal=6000),
+    final m_flow_turbulent = deltaM * abs(m_flow_nominal),
+    final n=2);
 
   extends Buildings.Fluid.Actuators.BaseClasses.ValveParameters(
       rhoStd=Medium.density_pTX(101325, 273.15+4, Medium.X_default));
@@ -96,7 +97,16 @@ each valve opening characteristics has different parameters.
 </html>",
 revisions="<html>
 <ul>
-
+<li>
+March 31, 2026, by Michael Wetter:<br/>
+Corrected unit propagation error that causes Dymola 2026x to not show certain units.<br/>
+See <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/2100\">#2100</a>.
+</li>
+<li>
+January 19, 2026, by Jelger Jansen:<br/>
+Added unit 1 to parameter <code>kVal</code> to avoid FMU unit errors.<br/>
+This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/2074\">#2074</a>.
+</li>
 <li>
 April 2, 2020, by Filip Jorissen:<br/>
 Added model name in assert message.<br/>

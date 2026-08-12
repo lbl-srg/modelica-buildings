@@ -24,6 +24,7 @@
 	*/
 
 #include "advection.h"
+char msg[1000];
 
 /*
 	* Entrance of advection step

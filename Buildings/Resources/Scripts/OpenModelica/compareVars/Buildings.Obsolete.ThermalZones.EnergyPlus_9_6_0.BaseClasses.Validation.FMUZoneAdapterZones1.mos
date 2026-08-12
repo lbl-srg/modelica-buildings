@@ -1,5 +1,0 @@
-compareVars :=
-  {
-    "fmuZonCor.T",
-    "fmuZonCor.QCon_flow"
-  };

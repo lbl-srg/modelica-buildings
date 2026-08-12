@@ -87,12 +87,10 @@ annotation (
         Text(
           extent={{-98,42},{-44,20}},
           textColor={255,0,255},
-          pattern=LinePattern.Dash,
           textString="uLeaChiEna"),
         Text(
           extent={{62,10},{98,-6}},
           textColor={255,0,255},
-          pattern=LinePattern.Dash,
           textString="yUp"),
         Text(
           extent={{-100,150},{100,110}},
@@ -101,17 +99,14 @@ annotation (
         Text(
           extent={{-98,-18},{-44,-40}},
           textColor={255,0,255},
-          pattern=LinePattern.Dash,
           textString="uLeaChiOn"),
         Text(
           extent={{-98,-68},{-26,-90}},
           textColor={255,0,255},
-          pattern=LinePattern.Dash,
           textString="uLeaChiWatReq"),
         Text(
           extent={{-94,90},{-74,74}},
           textColor={255,0,255},
-          pattern=LinePattern.Dash,
           textString="uPla")}),
   Diagram(coordinateSystem(preserveAspectRatio=false)),
   Documentation(info="<html>

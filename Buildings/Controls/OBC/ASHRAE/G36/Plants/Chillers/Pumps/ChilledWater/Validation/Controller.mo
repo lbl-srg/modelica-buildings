@@ -17,18 +17,13 @@ model Controller "Validate chiller water pump control sequence"
   Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Pumps.ChilledWater.Controller
     dedLoc(
     final have_heaPum=false,
-    final have_locSen=true,
+    final have_senDpChiWatRemWir=false,
     final nPum=3,
     final nPum_nominal=3)
     "Pump speed control for plant with dedicated primary chilled water pump and with local DP sensor"
     annotation (Placement(transformation(extent={{80,-90},{100,-60}})));
 
 protected
-  Buildings.Controls.OBC.CDL.Reals.Sources.Ramp isoVal[2](
-    duration=fill(1200, 2),
-    startTime={0,300})
-    "Chilled water isolation valve position"
-    annotation (Placement(transformation(extent={{-100,130},{-80,150}})));
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant conInt[3](
     final k={2,1,3})
     "Chilled water pump operating priority"
@@ -90,7 +85,11 @@ protected
     final startTime=500)
     "Local differential pressure setpoint"
     annotation (Placement(transformation(extent={{-60,-130},{-40,-110}})));
-
+  Buildings.Controls.OBC.CDL.Logical.Sources.Pulse isoVal1[2](
+    width={0.3,0.4},
+    period=fill(3600, 2),
+    shift={300,500}) "Isolation valves commanded posiiton"
+    annotation (Placement(transformation(extent={{-60,110},{-40,130}})));
 equation
   connect(conInt.y, heaNoLoc.uPumLeaLag)
     annotation (Line(points={{-38,160},{32,160},{32,158.929},{78,158.929}},
@@ -114,11 +113,9 @@ equation
     annotation (Line(points={{-78,-100},{50,-100},{50,-82.5},{78,-82.5}},
           color={0,0,127}));
   connect(enaPla.y, dedNoLoc.uPla) annotation (Line(points={{-38,60},{20,60},{
-          20,76.7857},{78,76.7857}},
-                                  color={255,0,255}));
+          20,76.7857},{78,76.7857}}, color={255,0,255}));
   connect(enaPla.y, dedLoc.uPla) annotation (Line(points={{-38,60},{20,60},{20,
-          -63.2143},{78,-63.2143}},
-                          color={255,0,255}));
+          -63.2143},{78,-63.2143}}, color={255,0,255}));
   connect(leaChiEna.y, dedNoLoc.uLeaChiEna) annotation (Line(points={{-38,10},{
           24,10},{24,72.5},{78,72.5}}, color={255,0,255}));
   connect(leaChiEna.y, dedLoc.uLeaChiEna) annotation (Line(points={{-38,10},{24,
@@ -128,8 +125,7 @@ equation
   connect(leaChiProOn.y, dedNoLoc.uLeaChiSta) annotation (Line(points={{2,-20},
           {28,-20},{28,70.3571},{78,70.3571}},color={255,0,255}));
   connect(leaChiProOn.y, dedLoc.uLeaChiSta) annotation (Line(points={{2,-20},{
-          28,-20},{28,-69.6429},{78,-69.6429}},
-                                             color={255,0,255}));
+          28,-20},{28,-69.6429},{78,-69.6429}}, color={255,0,255}));
   connect(leaChiProOn.y, dedNoLoc.uLeaChiWatReq) annotation (Line(points={{2,-20},
           {28,-20},{28,68.2143},{78,68.2143}}, color={255,0,255}));
   connect(leaChiProOn.y, dedLoc.uLeaChiWatReq) annotation (Line(points={{2,-20},
@@ -146,15 +142,14 @@ equation
           {56,-140},{56,131.071},{78,131.071}}, color={0,0,127}));
   connect(reaRep.y, dedNoLoc.dpChiWatSet_remote) annotation (Line(points={{22,-140},
           {56,-140},{56,51.0714},{78,51.0714}}, color={0,0,127}));
-  connect(isoVal.y, heaNoLoc.uChiWatIsoVal) annotation (Line(points={{-78,140},
-          {34,140},{34,142.857},{78,142.857}},color={0,0,127}));
   connect(heaNoLoc.yChiWatPum, sta.y1) annotation (Line(points={{102,145},{110,
           145},{110,100},{-10,100},{-10,120},{-2,120}}, color={255,0,255}));
   connect(sta.y1_actual, heaNoLoc.uChiWatPum) annotation (Line(points={{22,120},
           {38,120},{38,154.643},{78,154.643}}, color={255,0,255}));
   connect(locDpSet.y, dedLoc.dpChiWatSet_local) annotation (Line(points={{-38,
-          -120},{62,-120},{62,-84.6429},{78,-84.6429}},
-                                                  color={0,0,127}));
+          -120},{62,-120},{62,-84.6429},{78,-84.6429}}, color={0,0,127}));
+  connect(isoVal1.y, heaNoLoc.u1ChiWatIsoVal) annotation (Line(points={{-38,120},
+          {-20,120},{-20,142.857},{78,142.857}}, color={255,0,255}));
 annotation (
   experiment(StopTime=3600.0, Tolerance=1e-06),
   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/ASHRAE/G36/Plants/Chillers/Pumps/ChilledWater/Validation/Controller.mos"
@@ -168,7 +163,7 @@ Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Pumps.ChilledWater.Controller<
 </html>", revisions="<html>
 <ul>
 <li>
-Arpil 4, 2019, by Jianjun Hu:<br/>
+April 4, 2019, by Jianjun Hu:<br/>
 First implementation.
 </li>
 </ul>

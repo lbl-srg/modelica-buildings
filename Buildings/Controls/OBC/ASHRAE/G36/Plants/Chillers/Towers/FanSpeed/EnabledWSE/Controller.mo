@@ -2,7 +2,8 @@ within Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Towers.FanSpeed.Enabled
 block Controller "Tower fan speed control when waterside economizer is enabled"
 
   parameter Integer nChi=2 "Total number of chillers";
-  parameter Real fanSpeMin=0.1 "Minimum tower fan speed";
+  parameter Real fanSpeMin(
+    final unit="1")=0.1 "Minimum tower fan speed";
   parameter Real chiMinCap[nChi](
     each final unit="W",
     final quantity=fill("HeatFlowRate", nChi))={1e4,1e4}
@@ -54,7 +55,7 @@ block Controller "Tower fan speed control when waterside economizer is enabled"
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uWse
     "Waterside economizer enabling status: true=ON"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}}),
-      iconTransformation(extent={{-140,-20},{-100,20}})));
+      iconTransformation(extent={{-140,2},{-100,42}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TChiWatSup(
     final unit="K",
     displayUnit="degC",
@@ -91,6 +92,7 @@ protected
     annotation (Placement(transformation(extent={{-40,70},{-20,90}})));
   Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Towers.FanSpeed.EnabledWSE.Subsequences.WSEOperation
     wseOpe(
+    final nChi=nChi,
     final fanSpeMin=fanSpeMin,
     final fanSpeChe=fanSpeChe,
     final chiWatCon=chiWatCon,
@@ -105,18 +107,19 @@ protected
     annotation (Placement(transformation(extent={{0,30},{20,50}})));
   Buildings.Controls.OBC.CDL.Reals.Switch swi1 "Logical switch"
     annotation (Placement(transformation(extent={{60,-10},{80,10}})));
-  Buildings.Controls.OBC.CDL.Reals.Sources.Constant zer(final k=0) "Zero constant"
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant zer(final k=0)
+    "Zero constant"
     annotation (Placement(transformation(extent={{0,-30},{20,-10}})));
 
 equation
   connect(intOpe.uChi, uChi)
-    annotation (Line(points={{-42,88},{-80,88},{-80,40},{-120,40}}, color={255,0,255}));
+    annotation (Line(points={{-42,88},{-70,88},{-70,40},{-120,40}}, color={255,0,255}));
   connect(intOpe.uChiLoa, uChiLoa)
     annotation (Line(points={{-42,80},{-120,80}}, color={0,0,127}));
   connect(wseOpe.TChiWatSup, TChiWatSup)
-    annotation (Line(points={{-42,-60},{-120,-60}}, color={0,0,127}));
+    annotation (Line(points={{-42,-68},{-80,-68},{-80,-60},{-120,-60}}, color={0,0,127}));
   connect(wseOpe.TChiWatSupSet, TChiWatSupSet)
-    annotation (Line(points={{-42,-68},{-60,-68},{-60,-90},{-120,-90}}, color={0,0,127}));
+    annotation (Line(points={{-42,-52},{-60,-52},{-60,-90},{-120,-90}}, color={0,0,127}));
   connect(mulOr.y, swi.u2)
     annotation (Line(points={{-18,40},{-2,40}}, color={255,0,255}));
   connect(intOpe.ySpeSet, swi.u1)
@@ -134,9 +137,13 @@ equation
   connect(uChi, mulOr.u)
     annotation (Line(points={{-120,40},{-42,40}}, color={255,0,255}));
   connect(uWse, intOpe.uWse)
-    annotation (Line(points={{-120,0},{-60,0},{-60,72},{-42,72}}, color={255,0,255}));
+    annotation (Line(points={{-120,0},{-80,0},{-80,72},{-42,72}}, color={255,0,255}));
   connect(swi1.y, wseOpe.uFanSpe) annotation (Line(points={{82,0},{90,0},{90,
-          -40},{-60,-40},{-60,-52},{-42,-52}}, color={0,0,127}));
+          -40},{-50,-40},{-50,-63},{-42,-63}}, color={0,0,127}));
+  connect(uChi, wseOpe.uChi) annotation (Line(points={{-120,40},{-70,40},{-70,
+          -56},{-42,-56}}, color={255,0,255}));
+  connect(uWse, wseOpe.uWse) annotation (Line(points={{-120,0},{-80,0},{-80,-59},
+          {-42,-59}}, color={255,0,255}));
 annotation (
   defaultComponentName="towFanSpeWse",
   Icon(coordinateSystem(preserveAspectRatio=false), graphics={
@@ -188,7 +195,7 @@ annotation (
           textColor={255,0,255},
           textString="uChi"),
         Text(
-          extent={{-96,10},{-66,-8}},
+          extent={{-96,32},{-66,14}},
           textColor={255,0,255},
           textString="uWse"),
         Text(
@@ -202,7 +209,11 @@ annotation (
         Text(
           extent={{54,12},{98,-6}},
           textColor={0,0,127},
-          textString="ySpeSet")}),
+          textString="ySpeSet"),
+        Text(
+          extent={{-98,0},{-72,-18}},
+          textColor={255,0,255},
+          textString="uPla")}),
   Diagram(coordinateSystem(preserveAspectRatio=false)),
   Documentation(info="<html>
 <p>

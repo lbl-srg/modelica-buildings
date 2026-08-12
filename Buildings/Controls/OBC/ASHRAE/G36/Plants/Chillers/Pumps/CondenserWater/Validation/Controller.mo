@@ -15,7 +15,7 @@ model Controller "Validate condenser water pump control sequence"
   Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Pumps.CondenserWater.Controller
     heaNoWse(
     final have_WSE=false,
-    final totSta=4,
+    final nPlaSta=4,
     final staVec={0,1,2,3},
     final desConWatPumSpe={0,0.5,0.5,0.75},
     final desConWatPumNum={0,1,1,2})

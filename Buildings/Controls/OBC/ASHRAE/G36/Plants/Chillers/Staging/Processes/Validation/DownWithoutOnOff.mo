@@ -5,7 +5,7 @@ model DownWithoutOnOff
   Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Staging.Processes.Down
     dowProCon(
     final nChi=2,
-    final totSta=4,
+    final nPlaSta=4,
     final need_reduceChillerDemand=true,
     final chaChiWatIsoTim=300,
     final staVec={0,0.5,1,2},
@@ -24,9 +24,6 @@ protected
     final offset=2,
     final startTime=800) "Chilled water flow rate"
     annotation (Placement(transformation(extent={{-140,-110},{-120,-90}})));
-  Buildings.Controls.OBC.CDL.Routing.BooleanScalarReplicator booRep(
-    final nout=2) "Replicate boolean input"
-    annotation (Placement(transformation(extent={{-60,-210},{-40,-190}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Pulse booPul(final width=0.05,
     final period=1500) "Boolean pulse"
     annotation (Placement(transformation(extent={{-140,120},{-120,140}})));
@@ -38,9 +35,6 @@ protected
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant yOpeParLoaRatMin(
     final k=0.78) "Minimum cycling operative partial load ratio"
     annotation (Placement(transformation(extent={{-140,10},{-120,30}})));
-  Buildings.Controls.OBC.CDL.Reals.Sources.Constant fulOpe[2](
-    final k=fill(1, 2)) "Full open isolation valve"
-    annotation (Placement(transformation(extent={{-140,-240},{-120,-220}})));
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant zer1(final k=0)
     "Constant zero"
     annotation (Placement(transformation(extent={{-140,-70},{-120,-50}})));
@@ -49,15 +43,9 @@ protected
     annotation (Placement(transformation(extent={{100,30},{120,50}})));
   Buildings.Controls.OBC.CDL.Reals.Switch swi1 "Logical switch"
     annotation (Placement(transformation(extent={{-60,-50},{-40,-30}})));
-  Buildings.Controls.OBC.CDL.Reals.Switch IsoVal[2] "Logical switch"
-    annotation (Placement(transformation(extent={{-20,-240},{0,-220}})));
-  Buildings.Controls.OBC.CDL.Discrete.ZeroOrderHold zerOrdHol[2](
-    final samplePeriod=fill(10, 2))
-    "Output the input signal with a zero order hold"
-    annotation (Placement(transformation(extent={{100,-40},{120,-20}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant wseSta(final k=false)
     "Waterside economizer status"
-    annotation (Placement(transformation(extent={{-140,-280},{-120,-260}})));
+    annotation (Placement(transformation(extent={{-100,-270},{-80,-250}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant staTwoChi2[2](
     final k={true,true})
     "Vector of chillers status setpoint at stage two"
@@ -94,16 +82,22 @@ protected
     annotation (Placement(transformation(extent={{-20,-170},{0,-150}})));
   Buildings.Controls.OBC.CDL.Logical.FallingEdge falEdg
     "Check if the down process has ended"
-    annotation (Placement(transformation(extent={{80,130},{100,150}})));
+    annotation (Placement(transformation(extent={{80,180},{100,200}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant fal(final k=false)
     "Logical false"
-    annotation (Placement(transformation(extent={{80,100},{100,120}})));
+    annotation (Placement(transformation(extent={{80,150},{100,170}})));
   Buildings.Controls.OBC.CDL.Logical.Latch lat
     "True when it is not in process"
-    annotation (Placement(transformation(extent={{120,130},{140,150}})));
+    annotation (Placement(transformation(extent={{120,180},{140,200}})));
   Buildings.Controls.OBC.CDL.Logical.MultiOr mulOr(nin=2)
     "Check if there is any enabled chiller"
     annotation (Placement(transformation(extent={{-100,-50},{-80,-30}})));
+  Buildings.Controls.OBC.CDL.Logical.Sources.Constant plaEna(final k=true)
+    "Plant enabled"
+    annotation (Placement(transformation(extent={{-40,-290},{-20,-270}})));
+  Buildings.Controls.OBC.CDL.Logical.FallingEdge endPro
+    "Processing is done"
+    annotation (Placement(transformation(extent={{100,90},{120,110}})));
 equation
   connect(booPul.y,staDow. u)
     annotation (Line(points={{-118,130},{-102,130}}, color={255,0,255}));
@@ -131,35 +125,17 @@ equation
   connect(pre2.y, dowProCon.uChiHeaCon)
     annotation (Line(points={{122,40},{140,40},{140,0},{12,0},{12,71},{38,71}},
       color={255,0,255}));
-  connect(staDow.y, booRep.u)
-    annotation (Line(points={{-78,130},{-70,130},{-70,-200},{-62,-200}},
-      color={255,0,255}));
-  connect(booRep.y, IsoVal.u2)
-    annotation (Line(points={{-38,-200},{-30,-200},{-30,-230},{-22,-230}},
-      color={255,0,255}));
-  connect(fulOpe.y, IsoVal.u3)
-    annotation (Line(points={{-118,-230},{-100,-230},{-100,-238},{-22,-238}},
-      color={0,0,127}));
-  connect(dowProCon.yChiWatIsoVal, zerOrdHol.u)
-    annotation (Line(points={{62,74},{88,74},{88,-30},{98,-30}},
-      color={0,0,127}));
-  connect(zerOrdHol.y, IsoVal.u1)
-    annotation (Line(points={{122,-30},{150,-30},{150,-190},{-26,-190},{-26,-222},
-          {-22,-222}}, color={0,0,127}));
-  connect(IsoVal.y, dowProCon.uChiWatIsoVal)
-    annotation (Line(points={{2,-230},{14,-230},{14,68},{38,68}},
-      color={0,0,127}));
   connect(pre2.y, dowProCon.uChiWatReq)
-    annotation (Line(points={{122,40},{140,40},{140,0},{16,0},{16,65},{38,65}},
+    annotation (Line(points={{122,40},{140,40},{140,0},{16,0},{16,63},{38,63}},
       color={255,0,255}));
   connect(pre2.y, dowProCon.uConWatReq)
-    annotation (Line(points={{122,40},{140,40},{140,0},{18,0},{18,63},{38,63}},
+    annotation (Line(points={{122,40},{140,40},{140,0},{18,0},{18,61},{38,61}},
       color={255,0,255}));
   connect(pre2.y, dowProCon.uChiConIsoVal)
-    annotation (Line(points={{122,40},{140,40},{140,0},{20,0},{20,60},{38,60}},
+    annotation (Line(points={{122,40},{140,40},{140,0},{20,0},{20,58},{38,58}},
       color={255,0,255}));
   connect(wseSta.y, dowProCon.uWSE)
-    annotation (Line(points={{-118,-270},{22,-270},{22,57},{38,57}},
+    annotation (Line(points={{-78,-260},{22,-260},{22,55},{38,55}},
       color={255,0,255}));
   connect(staDow.y, booRep2.u)
     annotation (Line(points={{-78,130},{-62,130}}, color={255,0,255}));
@@ -188,19 +164,25 @@ equation
   connect(chiSta.y, sta.u)
     annotation (Line(points={{-38,-160},{-22,-160}}, color={0,0,127}));
   connect(dowProCon.yStaPro, falEdg.u) annotation (Line(points={{62,89},{70,89},
-          {70,140},{78,140}}, color={255,0,255}));
+          {70,190},{78,190}}, color={255,0,255}));
   connect(falEdg.y, lat.u)
-    annotation (Line(points={{102,140},{118,140}}, color={255,0,255}));
-  connect(fal.y, lat.clr) annotation (Line(points={{102,110},{110,110},{110,134},
-          {118,134}}, color={255,0,255}));
-  connect(lat.y, chiSta.u2) annotation (Line(points={{142,140},{154,140},{154,-180},
-          {-80,-180},{-80,-160},{-62,-160}}, color={255,0,255}));
+    annotation (Line(points={{102,190},{118,190}}, color={255,0,255}));
+  connect(fal.y, lat.clr) annotation (Line(points={{102,160},{110,160},{110,184},
+          {118,184}}, color={255,0,255}));
+  connect(lat.y, chiSta.u2) annotation (Line(points={{142,190},{154,190},{154,
+          -180},{-80,-180},{-80,-160},{-62,-160}}, color={255,0,255}));
   connect(sta.y, dowProCon.uChiSta) annotation (Line(points={{2,-160},{10,-160},
           {10,74},{38,74}}, color={255,127,0}));
   connect(mulOr.y, swi1.u2)
     annotation (Line(points={{-78,-40},{-62,-40}}, color={255,0,255}));
   connect(pre2.y, mulOr.u) annotation (Line(points={{122,40},{140,40},{140,0},{-110,
           0},{-110,-40},{-102,-40}}, color={255,0,255}));
+  connect(plaEna.y, dowProCon.uPla) annotation (Line(points={{-18,-280},{24,-280},
+          {24,51},{38,51}}, color={255,0,255}));
+  connect(dowProCon.yStaPro, endPro.u) annotation (Line(points={{62,89},{70,89},
+          {70,100},{98,100}}, color={255,0,255}));
+  connect(endPro.y, dowProCon.uEndPro) annotation (Line(points={{122,100},{130,
+          100},{130,120},{30,120},{30,85},{38,85}}, color={255,0,255}));
 annotation (
  experiment(StopTime=1500, Tolerance=1e-06),
   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/ASHRAE/G36/Plants/Chillers/Staging/Processes/Validation/DownWithoutOnOff.mos"

@@ -6,10 +6,10 @@ compareVars :=
     "bus.pumHeaWatHrc.y1",
     "TChiWatLvg.T",
     "inlChiWat.T",
-    "TSupSet.y",
+    "bus.hrc.TChiWatSet",
     "THeaWatLvg.T",
     "inlHeaWat.T",
-    "TSupSet.y",
+    "bus.hrc.THeaWatSet",
     "hrc.hrc.chi.PLR",
     "hrc.hrc.chi.COP",
     "hrc.hrc.chi.EER"

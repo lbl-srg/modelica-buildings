@@ -85,15 +85,19 @@ equation
   connect(chi.port_b1, port_b1) annotation (Line(points={{10,-48},{80,-48},{80,60},
           {100,60}}, color={0,127,255}));
   connect(bus.y1, chi.on) annotation (Line(
-      points={{0,100},{0,-40},{-20,-40},{-20,-54},{-12.2,-54}},
+      points={{0,100},{0,-40},{-20,-40},{-20,-56},{-12,-56}},
       color={255,204,51},
       thickness=0.5));
-  connect(bus.TSet, chi.TSet) annotation (Line(
-      points={{0,100},{0,-40},{-20,-40},{-20,-50},{-12,-50}},
+  connect(bus.TChiWatSet, chi.TChwSet) annotation (Line(
+      points={{0,100},{0,-40},{-20,-40},{-20,-54},{-12,-54}},
       color={255,204,51},
       thickness=0.5));
   connect(bus.y1Coo, chi.coo) annotation (Line(
-      points={{0,100},{0,-40},{-20,-40},{-20,-56},{-12.2,-56}},
+      points={{0,100},{0,-40},{-20,-40},{-20,-58},{-12,-58}},
+      color={255,204,51},
+      thickness=0.5));
+  connect(bus.THeaWatSet, chi.THwSet) annotation (Line(
+      points={{0,100},{0,-40},{-20,-40},{-20,-50},{-12,-50}},
       color={255,204,51},
       thickness=0.5));
   annotation (
@@ -126,23 +130,19 @@ The following input and output points are available.
 On/off command: <code>y1</code>, DO signal
 </li>
 <li>
-(Only if <code>have_switchover=true</code>) Operating mode command: <code>y1Coo</code>,
+For heat recovery chillers only (<code>have_switchover=true</code>),
+operating mode command: <code>y1Coo</code>,
 DO signal, true for cooling, false for heating
 </li>
 <li>
-Supply or return temperature setpoint <code>TSet</code>
+Supply or return CHW temperature setpoint <code>TChiWatSet</code>, AO signal
 (the choice between supply and return temperature tracking
-depends on the parameter: <code>use_TChiWatSupForCtl</code>),
-AO signal corresponding to
-<ul>
-<li>CHW temperature setpoint if
-<code>have_switchover=false</code> or if
-<code>have_switchover=true</code> and <code>y1Coo=true</code>, or
+depends on the parameter: <code>use_TChiWatSupForCtl</code>)
 </li>
-<li>HW temperature setpoint if
-<code>have_switchover=true</code> and <code>y1Coo=false</code>.
-</li>
-</ul>
+<li>For heat recovery chillers only (<code>have_switchover=true</code>),
+supply or return HW temperature setpoint <code>THeaWatSet</code>, AO signal
+(the choice between supply and return temperature tracking
+depends on the parameter: <code>use_TChiWatSupForCtl</code>)
 </li>
 <li>
 Chiller status: <code>y1_actual</code>, DI signal
@@ -164,6 +164,13 @@ Buildings.Templates.Components.Data.Chiller</a>.
 </html>",
       revisions="<html>
 <ul>
+<li>
+March 23, 2026, by Antoine Gautier:<br/>
+Refactored with two separate connectors
+for CHW and HW temperature setpoints.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4507\">#4507</a>.
+</li>
 <li>
 April 17, 2025, by Antoine Gautier:<br/>
 Refactored with load-dependent 2D table data chiller model.

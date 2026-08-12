@@ -20,10 +20,10 @@ record PumpSingle "Record for single pump model"
       enable=typ<>Buildings.Templates.Components.Types.Pump.None));
   replaceable parameter Buildings.Fluid.Movers.Data.Generic per(
     pressure(
-      V_flow=if typ<>Buildings.Templates.Components.Types.Pump.None then
-      {0, 1, 2} * m_flow_nominal / rho_default else {0,0,0},
-      dp=if typ<>Buildings.Templates.Components.Types.Pump.None then
-      {1.14, 1, 0.42} * dp_nominal else {0,0,0}))
+      V_flow=if typ == Buildings.Templates.Components.Types.Pump.None then {0,0,0}
+        else {0, 1, 2} * m_flow_nominal / rho_default,
+      dp=if typ == Buildings.Templates.Components.Types.Pump.None then {0,0,0}
+        else {1.14, 1, 0.42} * dp_nominal))
     constrainedby Buildings.Fluid.Movers.Data.Generic
     "Performance data"
     annotation(Dialog(enable=typ<>Buildings.Templates.Components.Types.Pump.None));
