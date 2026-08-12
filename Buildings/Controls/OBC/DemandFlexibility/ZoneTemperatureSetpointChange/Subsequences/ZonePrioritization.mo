@@ -121,9 +121,10 @@ have their <code>yEna</code> variable set to <code>false</code>.
 <p>
 Setting the disqualified flag vector <code>disFla=true</code> serves to disqualify
 certain zones from the zone prioritization; thus, these zones will have their
-<code>yEna</code> variable set to false. If the number of zones that do not have the
-disqualified flag is smaller than <code>nSel</code>, the final number of zones with
-<code>yEna</code> equal to <code>true</code> will be smaller than <code>nSel</code>.
+<code>yEna</code> variable set to <code>false</code>. If the number of zones that do
+not have the disqualified flag is smaller than <code>nSel</code>, the final number
+of zones with <code>yEna</code> equal to <code>true</code> will be smaller than
+<code>nSel</code>.
 </p>
 </html>"));
 end ZonePrioritization;

@@ -13,7 +13,7 @@ model ZoneControl "Zone control"
       origin={70,50})));
   Buildings.Controls.OBC.DemandFlexibility.ZoneTemperatureSetpointChange.Subsequences.ZoneControl zonConSinSte(
     airConMod=false,
-    incSetCha=false)
+    use_mulSteSetCha=false)
     "Zone control block for single-step cooling setpoint change"
     annotation (Placement(transformation(extent={{-20,40},{0,60}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Pulse uEnaVar(
@@ -44,7 +44,7 @@ model ZoneControl "Zone control"
     dTShe=0.5,
     dTReb=0.5,
     airConMod=false,
-    incSetCha=true)
+    use_mulSteSetCha=true)
     "Zone control block for incremental, multiple-step cooling setpoint change"
     annotation (Placement(transformation(extent={{-20,-60},{0,-40}})));
   Buildings.Controls.OBC.CDL.Discrete.Sampler samMulSte(
@@ -126,26 +126,6 @@ This example validates
 Buildings.Controls.OBC.DemandFlexibility.ZoneTemperatureSetpointChange.Subsequences.ZoneControl</a>
 for the cooling operation of a single zone under either a single-step setpoint
 change operation or an incremental, multiple-step setpoint change operation.
-</p>
-<p>
-In this validation example, the setpoint change enabling signal <code>uEna</code> is
-set to <code>true</code> for the first day and <code>false</code> for the second day.
-A table of daily demand flexibility modes is provided as an input. Two
-<code>ZoneControl</code> controller blocks are used to represent the single-step
-setpoint change operation and multiple-step setpoint change operation, respectively.
-Two <code>UnitDelay</code> blocks emulate external zone temperature setpoint
-controllers that have a small delay of setpoint change after a new setpoint is
-received. Two <code>SetpointResolution</code> blocks emulate temperature setpoint
-resolution in the external zone temperature setpoint controllers. The
-<code>zonSetGen</code> block generates zone setpoints and setpoint targets in such a
-way that the setpoint change is active not only in the occupied mode, but also in
-the unoccupied mode.
-</p>
-<p>
-This validation example shows how the <code>ZoneControl</code> controllers respond
-to each of the demand flexibility modes, including the pre-cool mode, the default
-mode, the load-shed mode, and the load-rebound mode,under either a single-step
-setpoint change operation or a multiple-step setpoint change operation.
 </p>
 </html>",revisions="<html>
 <ul>

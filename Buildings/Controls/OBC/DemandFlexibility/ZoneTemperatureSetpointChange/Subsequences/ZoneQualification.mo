@@ -448,8 +448,11 @@ First implementation.
 </ul>
 </html>", info="<html>
 <p>
-This block serves to determine whether a zone is qualified to participate in the
-zone temperature comparison. 
+This block serves to determine whether a zone is qualified to participate in zone
+temperature comparison through the
+<a href=\"modelica://Buildings.Controls.OBC.DemandFlexibility.ZoneTemperatureSetpointChange.Subsequences.ZonePrioritization\">
+Buildings.Controls.OBC.DemandFlexibility.ZoneTemperatureSetpointChange.Subsequences.ZonePrioritization</a>
+block. 
 </p>
 <p>
 Several conditions are used to determine that a zone is qualified, including:
@@ -500,7 +503,7 @@ conditioning system is in the heating mode (<code>airConMod = true</code>), and
 conditioning system is in the cooling mode (<code>airConMod = false</code>).
 </p>
 <p>
-Below is a detailed discussion of each of the 4 conditions. 
+Below is a detailed discussion of each of the <i>4</i> conditions. 
 </p>
 <h4>Condition 1</h4>
 <p>

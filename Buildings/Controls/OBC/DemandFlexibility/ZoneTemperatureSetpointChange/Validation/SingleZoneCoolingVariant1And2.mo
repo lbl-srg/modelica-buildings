@@ -143,29 +143,6 @@ Buildings.Controls.OBC.DemandFlexibility.ZoneTemperatureSetpointChange.HeatingOr
 for the cooling operation of a single zone building under Variant <i>1</i> and
 Variant <i>2</i> of zone temperature setpoint control.
 </p>
-<p>
-In this validation example, the single zone in the building is assumed to not be a
-rogue zone. A table of daily demand flexibility modes and a daily current zone
-temperature profile are provided as inputs. Two <code>HeatingOrCooling</code>
-controller blocks are used to represent Variant <i>1</i> and Variant <i>2</i> each.
-Two <code>UnitDelay</code> blocks emulate external zone temperature setpoint
-controllers that have a small delay of setpoint change after a new setpoint is
-received. Two <code>SetpointResolution</code> blocks emulate temperature setpoint
-resolution in the external zone temperature setpoint controllers. The
-<code>zonSetGen</code> block generates zone setpoints and setpoint targets in such a
-way that the setpoint change is active not only in the occupied mode, but also in
-the unoccupied mode.
-</p>
-<p>
-This validation example shows how the <code>HeatingOrCooling</code> controllers
-respond to each of the demand flexibility modes, including the pre-cool mode, the
-default mode, the load-shed mode, and the load-rebound mode, under Variant <i>1</i>
-and Variant <i>2</i>. The <code>HeatingOrCooling</code> controller under Variant
-<i>1</i> changes the zone cooling temperature setpoint in a single step for each of
-the demand flexibility modes, whereas the <code>HeatingOrCooling</code> controller
-under Variant <i>2</i> changes the zone cooling temperature setpoint in multiple
-smaller steps.
-</p>
 </html>",revisions="<html>
 <ul>
 <li>

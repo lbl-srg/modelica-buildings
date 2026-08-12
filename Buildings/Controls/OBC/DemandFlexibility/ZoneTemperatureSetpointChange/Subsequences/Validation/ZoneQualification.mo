@@ -91,18 +91,6 @@ Buildings.Controls.OBC.DemandFlexibility.ZoneTemperatureSetpointChange.Subsequen
 for a 5-zone building under the heating operation.
 </p>
 <p>
-In this validation example, the rogue zone flag <code>rouZonFla</code> is always
-<code>false</code> for the first <i>4</i> zones and alternating between
-<code>true</code> and <code>false</code> for the fifth zone. Each zone has a
-different zone temperature, but all <i>5</i> zones share the same zone temperature
-setpoint. A table of daily demand flexibility modes is provided as an input. Values
-such as the building electricity demand <code>PBui</code>, electricity demand
-threshold <code>PBuiThr</code>, pre-heat target temperature setpoint
-<code>TPreTarSet</code>, load-shed target temperature setpoint
-<code>TSheTarSet</code>, and default temperature setpoint <code>TDefSet</code> are
-also provided. 
-</p>
-<p>
 This validation example shows how the <code>ZoneQualification</code> block decides
 whether a zone should be disqualified for zone temperature comparison based on two
 out of the four zone disqualifying conditions: whether a zone is a rogue zone, and

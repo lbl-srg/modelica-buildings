@@ -7,18 +7,18 @@ block ZoneControl "Zone temperature setpoint control"
     unit="K",
     displayUnit="K")
     "Temperature setpoint change delta for the load-shed mode (positive value)"
-    annotation (Dialog(enable = incSetCha));
+    annotation (Dialog(enable = use_mulSteSetCha));
   parameter Real dTReb(
     min=0,
     start=1,
     unit="K",
     displayUnit="K")
     "Temperature setpoint change delta for the load-rebound mode (positive value)"
-    annotation (Dialog(enable = incSetCha));
+    annotation (Dialog(enable = use_mulSteSetCha));
   parameter Boolean airConMod
     "Air conditioning mode; true for the heating mode, false for the cooling mode";
-  parameter Boolean incSetCha
-    "If true, the setpoint change step is incremental for the load-shed mode and the load-rebound mode, with multiple steps; if false, there is a single setpoint change step";
+  parameter Boolean use_mulSteSetCha
+    "If true, there are multiple smaller and incremental setpoint change steps for the load-shed mode and the load-rebound mode; if false, there is a single setpoint change step";
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TPreTarSet(
     final unit="K",
@@ -66,19 +66,19 @@ block ZoneControl "Zone temperature setpoint control"
 protected
   Buildings.Controls.OBC.DemandFlexibility.Generic.SetpointChange setChaPre(
     final ascSet=airConMod,
-    final incSetCha=false)
+    final use_mulSteSetCha=false)
     "Setpoint change logic for the pre-cool or the pre-heat mode"
     annotation (Placement(transformation(extent={{40,160},{60,180}})));
   Buildings.Controls.OBC.DemandFlexibility.Generic.SetpointChange setChaShe(
     final setChaDel=dTShe,
     final ascSet=not airConMod,
-    final incSetCha=incSetCha)
+    final use_mulSteSetCha=use_mulSteSetCha)
     "Setpoint change logic for the load-shed mode"
     annotation (Placement(transformation(extent={{40,-40},{60,-20}})));
   Buildings.Controls.OBC.DemandFlexibility.Generic.SetpointChange setChaReb(
     final setChaDel=dTReb,
     final ascSet=airConMod,
-    final incSetCha=incSetCha)
+    final use_mulSteSetCha=use_mulSteSetCha)
     "Setpoint change logic for the load-rebound mode"
     annotation (Placement(transformation(extent={{40,-140},{60,-120}})));
   Buildings.Controls.OBC.DemandFlexibility.Generic.RealValueSelectionByMode zonSetSelByMod(
@@ -212,8 +212,8 @@ The demand flexibility mode <code>demFleMod</code> can take values of <i>0</i>
 </p>
 <p>
 This block conducts a setpoint change to output the commanded zone temperature
-setpoint <code>TComZonSet</code> as follows if the incremental setpoint change flag
-<code>incSetCha = true</code>:
+setpoint <code>TComZonSet</code> as follows if the multiple-step setpoint change flag
+<code>use_mulSteSetCha = true</code>:
 </p>
 <table border=\"1\">
 <tr>
@@ -273,8 +273,8 @@ setpoint <code>TComZonSet</code> as follows if the incremental setpoint change f
 </table>
 <p>
 This block conducts a setpoint change to output the commanded zone
-temperature setpoint <code>TComZonSet</code> as follows if the incremental setpoint
-change flag <code>incSetCha = false</code>:
+temperature setpoint <code>TComZonSet</code> as follows if the multiple-step
+setpoint change flag <code>use_mulSteSetCha = false</code>:
 </p>
 <table border=\"1\">
 <tr>

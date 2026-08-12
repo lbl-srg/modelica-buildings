@@ -3,11 +3,11 @@ block SetpointChange "Setpoint change"
 
   parameter Real setChaDel(min=0,start=0)
     "Setpoint change delta; always positive"
-    annotation (Dialog(enable = incSetCha));
+    annotation (Dialog(enable = use_mulSteSetCha));
   parameter Boolean ascSet
     "True: ascending setpoint; False: descending setpoint";
-  parameter Boolean incSetCha
-    "If true, the setpoint change step is incremental, with multiple steps; if false, there is a single setpoint change step";
+  parameter Boolean use_mulSteSetCha
+    "If true, there are multiple smaller and incremental setpoint change steps; if false, there is a single setpoint change step";
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uAllMaxSet
     "Allowed maximum setpoint"
@@ -45,13 +45,13 @@ protected
   Buildings.Controls.OBC.CDL.Conversions.BooleanToReal sigChaSetChaDel(
     final realTrue=setChaDel,
     final realFalse=-1*setChaDel)
-    if incSetCha
+    if use_mulSteSetCha
     "Sign change for the setpoint change delta"
     annotation (Placement(transformation(extent={{-100,60},{-80,80}})));
-  Buildings.Controls.OBC.CDL.Reals.Add addCurSet if incSetCha
+  Buildings.Controls.OBC.CDL.Reals.Add addCurSet if use_mulSteSetCha
     "Adding setpoint change delta to the current setpoint"
     annotation (Placement(transformation(extent={{-60,60},{-40,80}})));
-  Buildings.Controls.OBC.CDL.Reals.Switch swiMinMax if not incSetCha
+  Buildings.Controls.OBC.CDL.Reals.Switch swiMinMax if not use_mulSteSetCha
     "Switch between the allowed minimum and maximum setpoints"
     annotation (Placement(transformation(extent={{-60,-20},{-40,0}})));
 equation
@@ -121,14 +121,14 @@ If the setpoint change enabling input <code>uEna</code> is <code>true</code>:
 </li>
 <ul>
 <li>
-If <code>incSetCha</code> is <code>true</code>, the output is
+If <code>use_mulSteSetCha</code> is <code>true</code>, the output is
 <code>y = min(uAllMaxSet, max(uAllMinSet, uCurSet + setChaDel))</code> if the
 parameter <code>ascSet</code> is set to <code>true</code>, or is
 <code>y = min(uAllMaxSet, max(uAllMinSet, uCurSet - setChaDel))</code> if
 <code>ascSet</code> is set to <code>false</code>.
 </li>
 <li>
-If <code>incSetCha</code> is <code>false</code>, the output <code>y</code> equals the
+If <code>use_mulSteSetCha</code> is <code>false</code>, the output <code>y</code> equals the
 allowed maximum setpoint <code>uAllMaxSet</code> if the parameter
 <code>ascSet</code> is set to <code>true</code>, or equals the allowed minimum
 setpoint <code>uAllMinSet</code> if <code>ascSet</code> is set to <code>false</code>.

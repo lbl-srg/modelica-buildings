@@ -52,18 +52,6 @@ This example validates
 Buildings.Controls.OBC.DemandFlexibility.ZoneTemperatureSetpointChange.Subsequences.ZonePrioritization</a>
 for a 5-zone building under the heating operation.
 </p>
-<p>
-In this validation example, the zone disqualifying flag <code>disQua</code> is always
-<code>false</code> for the first <i>4</i> zones and alternating between <code>true</code>
-and <code>false</code> for the fifth zone. Each zone has a different zone temperature, but
-all <i>5</i> zones share the same zone temperature setpoint. The number of zones to select
-for prioritization <code>nSel</code> is alternating between <i>2</i> and <i>3</i>.
-</p>
-<p>
-This validation example shows how the <code>ZonePrioritization</code> block ranks zones based on the
-zone temperature and the zone temperature setpoint, as well as based on whether the zone is
-disqualified for the ranking or not.
-</p>
 </html>", revisions="<html>
 <ul>
 <li>

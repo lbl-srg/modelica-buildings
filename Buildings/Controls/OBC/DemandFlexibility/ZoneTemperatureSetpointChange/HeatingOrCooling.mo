@@ -144,7 +144,7 @@ protected
     final dTShe=fill(dTShe, nZon),
     final dTReb=fill(dTReb, nZon),
     final airConMod=fill(airConMod, nZon),
-    final incSetCha=fill(zonConVar <> Buildings.Controls.OBC.DemandFlexibility.Types.ZoneControlVariant.Variant_1, nZon))
+    final use_mulSteSetCha=fill(zonConVar <> Buildings.Controls.OBC.DemandFlexibility.Types.ZoneControlVariant.Variant_1, nZon))
     "The zone control logic block"
     annotation (Placement(transformation(extent={{120,-120},{140,-100}})));
   Buildings.Controls.OBC.CDL.Discrete.Sampler samSetCha[nZon](
@@ -407,10 +407,10 @@ only when the demand flexibility mode is changed.
 </p>
 <p>
 Note that if the zone control variant parameter <code>zonConVar</code> in this block
-has a value of Variant <i>1</i>, the incremental (or multiple-step) setpoint change
-flag parameter <code>incSetCha</code> within the <code>ZoneControl</code> sub-block
-(not accessible in this block) will be set to <code>false</code>. Otherwise, the
-<code>incSetCha</code> parameter will be set to <code>true</code>. Refer also to
+has a value of Variant <i>1</i>, the multiple-step setpoint change flag parameter
+<code>use_mulSteSetCha</code> within the <code>ZoneControl</code> sub-block (not
+accessible in this block) will be set to <code>false</code>. Otherwise, the
+<code>use_mulSteSetCha</code> parameter will be set to <code>true</code>. Refer also to
 the “Zone Control Variant” section later in this documentation for more information
 on what each zone control variant does.
 </p>
