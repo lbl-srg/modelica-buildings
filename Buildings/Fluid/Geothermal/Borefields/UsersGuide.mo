@@ -55,16 +55,20 @@ The thermal response of the ground heat transfer is stored locally to avoid
 having to recalculate it for future simulations with the same borefield configuration.
 </li>
 <li>
-Pressure losses are calculated with the nominal pressure-drop formulation if
-the <code>dp_nominal</code> parameter in the configuration data record is set
-to a non-zero value. Alternatively, the vertical ground heat exchanger pipes can
-be modeled with a detailed Darcy-Weisbach pressure-drop calculation by setting
-the model-level parameter <code>use_DarcyPressureDrop=true</code>. The detailed
-pressure-drop calculation can optionally use temperature-dependent density and
-viscosity by setting <code>use_TDepPressureDrop=true</code>.
+Pressure losses can be disabled, computed with the nominal pressure-drop
+formulation, or computed with a detailed Darcy-Weisbach formulation. If
+<code>computePressureDrop=false</code>, the borefield is hydraulically
+lossless. If <code>computePressureDrop=true</code> and
+<code>use_detailedPressureDrop=false</code>, the model uses the nominal
+<code>dp_nominal</code> / <code>m_flow_nominal</code> pressure-drop
+formulation. If <code>computePressureDrop=true</code> and
+<code>use_detailedPressureDrop=true</code>, the vertical ground heat exchanger
+pipes are modeled with a detailed Darcy-Weisbach pressure-drop calculation.
+The detailed calculation can use constant fluid properties, properties evaluated
+at a reference temperature, or properties evaluated at the local fluid
+temperature, depending on the value of <code>fluidProperties</code>.
 </li>
 </ul>
-
 <p>
 The model is limited to the simulation of borefields with boreholes connected in
 parallel, as shown on the figure below for a single U-tube configuration. All
@@ -192,34 +196,61 @@ factor used by this formulation is computed with
 Buildings.Fluid.FixedResistances.Functions.churchillFrictionFactor</a>.
 </p>
 <p>
-Pressure losses can be represented using the nominal pressure-drop formulation,
-which is enabled by setting <code>dp_nominal</code> to a non-zero value in the
-configuration data record. Alternatively, the model-level parameter
-<code>use_DarcyPressureDrop</code> enables a detailed Darcy-Weisbach
-pressure-drop calculation for the vertical ground heat exchanger pipes. This
-calculation is implemented in
-<a href=\"modelica://Buildings.Fluid.Geothermal.Borefields.BaseClasses.Boreholes.BaseClasses.PressureDropPipeDarcy\">
-Buildings.Fluid.Geothermal.Borefields.BaseClasses.Boreholes.BaseClasses.PressureDropPipeDarcy</a>.
+Pressure losses can be represented in three ways. If
+<code>computePressureDrop=false</code>, no pressure drop is computed. If
+<code>computePressureDrop=true</code> and
+<code>use_detailedPressureDrop=false</code>, the model uses the nominal
+pressure-drop formulation based on <code>dp_nominal</code> and
+<code>m_flow_nominal</code>. If <code>computePressureDrop=true</code> and
+<code>use_detailedPressureDrop=true</code>, the model uses a detailed
+Darcy-Weisbach pressure-drop calculation for the vertical ground heat exchanger
+pipes.
 </p>
 <p>
-If the detailed pressure-drop calculation is used, the model-level parameter
-<code>use_TDepPressureDrop</code> can be enabled to evaluate density and
-viscosity at the local fluid temperature. As for temperature-dependent
-convection resistance, the fluid type and glycol mass fraction are derived from
-the redeclared <code>Medium</code>.
+The pressure-drop calculation is implemented using
+<a href=\"modelica://Buildings.Fluid.FixedResistances.PressureDropPipe\">
+Buildings.Fluid.FixedResistances.PressureDropPipe</a>. This wrapper selects
+between a lossless pipe, the nominal pressure-drop model
+<a href=\"modelica://Buildings.Fluid.FixedResistances.PressureDrop\">
+Buildings.Fluid.FixedResistances.PressureDrop</a>, and the detailed
+Darcy-Weisbach model
+<a href=\"modelica://Buildings.Fluid.FixedResistances.HydraulicDiameter\">
+Buildings.Fluid.FixedResistances.HydraulicDiameter</a>.
 </p>
+<p>
+For the detailed Darcy-Weisbach calculation, the parameter
+<code>fluidProperties</code> controls how density and dynamic viscosity are
+evaluated:
+</p>
+<ul>
+<li>
+<code>Buildings.Fluid.Types.FluidProperties.Constant</code>: uses the
+user-specified constant values <code>rhoMed</code> and <code>muMed</code>.
+This is intended as an expert option and should be kept consistent with the
+redeclared <code>Medium</code>.
+</li>
+<li>
+<code>Buildings.Fluid.Types.FluidProperties.DefaultTemperature</code>: evaluates
+density and viscosity from the redeclared <code>Medium</code> at the reference
+temperature <code>T_ref</code>.
+</li>
+<li>
+<code>Buildings.Fluid.Types.FluidProperties.ActualTemperature</code>: evaluates
+density and viscosity from the local fluid temperature during the simulation.
+</li>
+</ul>
 <p>
 The pressure-drop formulation uses
 <a href=\"modelica://Buildings.Fluid.FixedResistances.Functions.churchillFrictionFactorRe2\">
 Buildings.Fluid.FixedResistances.Functions.churchillFrictionFactorRe2</a>.
 </p>
-
 <p>
 The detailed pressure-drop calculation is evaluated by segment, consistent with
 the segment-wise heat-transfer calculation. This allows the pressure-drop
 contribution to vary along the borehole when temperature-dependent fluid
 properties are used.
 </p>
+
 <h5>Running simulations</h5>
 <p>
 When running simulations using the borefield models,

@@ -54,13 +54,18 @@ The thermal response of the ground heat transfer is stored locally to avoid
 having to recalculate it for future simulations with the same borefield configuration.
 </li>
 <li>
-Pressure losses are calculated with the nominal pressure-drop formulation if
-the <code>dp_nominal</code> parameter in the configuration data record is set
-to a non-zero value. Alternatively, the vertical ground heat exchanger pipes can
-be modeled with a detailed Darcy-Weisbach pressure-drop calculation by setting
-the model-level parameter <code>use_DarcyPressureDrop=true</code>. The detailed
-pressure-drop calculation can optionally use temperature-dependent density and
-viscosity by setting <code>use_TDepPressureDrop=true</code>.
+Pressure losses can be disabled, computed with the nominal pressure-drop
+formulation, or computed with a detailed Darcy-Weisbach formulation. If
+<code>computePressureDrop=false</code>, the zoned borefield is hydraulically
+lossless. If <code>computePressureDrop=true</code> and
+<code>use_detailedPressureDrop=false</code>, the model uses the nominal
+<code>dp_nominal</code> / <code>m_flow_nominal</code> pressure-drop
+formulation for each zone. If <code>computePressureDrop=true</code> and
+<code>use_detailedPressureDrop=true</code>, the vertical ground heat exchanger
+pipes are modeled with a detailed Darcy-Weisbach pressure-drop calculation.
+The detailed calculation can use constant fluid properties, properties evaluated
+at a reference temperature, or properties evaluated at the local fluid
+temperature, depending on the value of <code>fluidProperties</code>.
 </li>
 </ul>
 
@@ -160,13 +165,39 @@ calculation.
 </p>
 <p>
 The model-level parameter <code>use_TDepRConv</code> enables
-temperature-dependent pipe convection resistance. The model-level parameter
-<code>use_DarcyPressureDrop</code> enables a detailed Darcy-Weisbach
-pressure-drop calculation for the vertical ground heat exchanger pipes. If the
-detailed pressure-drop calculation is used, the model-level parameter
-<code>use_TDepPressureDrop</code> enables temperature-dependent density and
-viscosity in the pressure-drop calculation.
+temperature-dependent pipe convection resistance. Pressure-drop calculation is
+controlled by <code>computePressureDrop</code> and
+<code>use_detailedPressureDrop</code>. If <code>computePressureDrop=false</code>,
+no pressure drop is computed. If <code>computePressureDrop=true</code> and
+<code>use_detailedPressureDrop=false</code>, the model uses the nominal
+pressure-drop formulation based on <code>dp_nominal</code> and
+<code>m_flow_nominal</code>. If <code>computePressureDrop=true</code> and
+<code>use_detailedPressureDrop=true</code>, the model uses a detailed
+Darcy-Weisbach pressure-drop calculation for the vertical ground heat exchanger
+pipes.
 </p>
+<p>
+For the detailed Darcy-Weisbach calculation, the parameter
+<code>fluidProperties</code> controls how density and dynamic viscosity are
+evaluated:
+</p>
+<ul>
+<li>
+<code>Buildings.Fluid.Types.FluidProperties.Constant</code>: uses the
+user-specified constant values <code>rhoMed</code> and <code>muMed</code>.
+This is intended as an expert option and should be kept consistent with the
+redeclared <code>Medium</code>.
+</li>
+<li>
+<code>Buildings.Fluid.Types.FluidProperties.DefaultTemperature</code>: evaluates
+density and viscosity from the redeclared <code>Medium</code> at the reference
+temperature <code>T_ref</code>.
+</li>
+<li>
+<code>Buildings.Fluid.Types.FluidProperties.ActualTemperature</code>: evaluates
+density and viscosity from the local fluid temperature during the simulation.
+</li>
+</ul>
 <p>
 These options are set on the zoned borefield model instance and are propagated
 to the representative borehole model of each zone. They are not set in the
@@ -174,10 +205,10 @@ configuration data record.
 </p>
 <p>
 When <code>use_TDepRConv=true</code> or
-<code>use_TDepPressureDrop=true</code>, the fluid type and, for glycol-water
-media, the glycol mass fraction are derived from the redeclared
-<code>Medium</code>. The supported media for temperature-dependent property
-evaluation are
+<code>fluidProperties=Buildings.Fluid.Types.FluidProperties.ActualTemperature</code>,
+the fluid type and, for glycol-water media, the glycol mass fraction are derived
+from the redeclared <code>Medium</code>. The supported media for
+temperature-dependent property evaluation are
 </p>
 <ul>
 <li>
