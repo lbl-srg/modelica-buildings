@@ -82,7 +82,7 @@ createPlot(
 createPlot(
     id=5,
     subPlot=3,
-    y={"pla.ctl.ctl.chiWatPumCon.dpChiWat_local", "pla.ctl.resDpChiWatLoc.dpChiWatPumSet_local"},
+    y={"pla.ctl.ctl.chiWatPumCon.dpChiWat_local", "pla.ctl.resDpChiWatLoc.dpChiWatSet_local"},
     autoscale=true,
     grid=true,
     timeUnit="h"

@@ -358,7 +358,7 @@ valve demand signal <code>yVal</code> as output.
 <h4>Modeling assumptions
 </h4>
 <p>
-The design pressure drop on the source side may be specified with 
+The design pressure drop on the source side may be specified with
 the parameter <code>dpLiq_nominal</code>.
 </p>
 <p>

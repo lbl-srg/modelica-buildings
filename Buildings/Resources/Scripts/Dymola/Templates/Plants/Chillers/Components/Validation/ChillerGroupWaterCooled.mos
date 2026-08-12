@@ -6,12 +6,12 @@ simulateModel("Buildings.Templates.Plants.Chillers.Components.Validation.Chiller
   resultFile="ChillerGroupWaterCooled");
 createPlot(id=1,
   position={5, 5, 400, 600},
-  y={"TChiWatPriRet.T", "TChiWatPriSup.T", "ctl.bus.chi[1].TSet", "TChiWatSup_nominal", "TChiWatRet_nominal"},
+  y={"TChiWatPriRet.T", "TChiWatPriSup.T", "chi.chi[1].bus.TChiWatSet", "TChiWatSup_nominal", "TChiWatRet_nominal"},
   subPlot=101,
   autoscale=true,
   grid=true);
 createPlot(id=1,
-  y={"ctl.bus.chi[1].y1","ctl.bus.chi[2].y1","ctl.bus.chi[3].y1"},
+  y={"chi.chi[1].bus.y1", "chi.chi[2].bus.y1", "chi.chi[3].bus.y1"},
   subPlot=102,
   autoscale=true,
   grid=true);
