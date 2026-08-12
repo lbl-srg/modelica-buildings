@@ -71,6 +71,32 @@ model PlugFlowPipeDiscretized
     "Initial value of mass flow rate through pipe"
     annotation (Dialog(tab="Initialization", enable=initDelay));
 
+  parameter Boolean use_detailedHeatTransfer = false
+    "Set to true to compute heat-transfer resistance from pipe geometry"
+    annotation (
+      Evaluate=true,
+      Dialog(group="Heat transfer"));
+  parameter Boolean use_TDepRConv = false
+    "Set to true to evaluate fluid properties from local fluid temperature for internal convection resistance"
+    annotation (
+      Evaluate=true,
+      Dialog(
+        group="Heat transfer",
+        enable=use_detailedHeatTransfer));
+  parameter Boolean includePipeWallResistance = true
+    "Set to true to include pipe wall conduction resistance"
+    annotation (
+      Evaluate=true,
+      Dialog(
+        group="Heat transfer",
+        enable=use_detailedHeatTransfer));
+  parameter Modelica.Units.SI.ThermalConductivity kPip = 0.4
+    "Thermal conductivity of pipe wall material"
+    annotation (Dialog(
+      group="Material",
+      enable=use_detailedHeatTransfer and includePipeWallResistance));
+
+
   parameter Real fac=1
     "Factor to take into account flow resistance of bends etc., fac=dp_nominal/dpStraightPipe_nominal";
 
@@ -170,6 +196,21 @@ model PlugFlowPipeDiscretized
 
   Modelica.Units.SI.ReynoldsNumber Re = res.Re
     "Reynolds number";
+  
+  Real RConv[nSeg](each unit="(m.K)/W") = pipSeg.RConv
+    "Internal convection resistance per unit pipe length in each segment";
+
+  Real RPip[nSeg](each unit="(m.K)/W") = pipSeg.RPip
+    "Pipe wall conduction resistance per unit pipe length in each segment";
+
+  Real RIns[nSeg](each unit="(m.K)/W") = pipSeg.RIns
+    "Insulation conduction resistance per unit pipe length in each segment";
+
+  Real RTot[nSeg](each unit="(m.K)/W") = pipSeg.RTot
+    "Total thermal resistance per unit length in each segment";
+
+  Real ReRConv[nSeg](each unit="1") = pipSeg.ReRConv
+    "Reynolds number used for internal convection resistance in each segment";
 
   Modelica.Units.SI.MassFlowRate m_flow=port_a.m_flow
     "Mass flow rate from port_a to port_b (m_flow > 0 is design flow direction)";
@@ -237,6 +278,10 @@ protected
     each final m_flow_nominal=m_flow_nominal,
     each final thickness=thickness,
     each final m_flow_small=m_flow_small,
+    each final use_detailedHeatTransfer=use_detailedHeatTransfer,
+    each final use_TDepRConv=use_TDepRConv,
+    each final includePipeWallResistance=includePipeWallResistance,
+    each final kPip=kPip,
     each final initDelay=initDelay,
     each final have_pipCap=have_pipCap,
     each final have_symmetry=have_symmetry,

@@ -37,7 +37,7 @@ model PlugFlowPipe "Simple example of plug flow pipe"
     use_detailedPressureDrop=true,
     kMinor=0,
     fluidProperties=Buildings.Fluid.Types.FluidProperties.DefaultTemperature,
-    T_ref=293.15)
+    T_ref=293.15,use_detailedHeatTransfer = false)
     "Pipe"
     annotation (Placement(transformation(extent={{0,10},{20,30}})));
 

@@ -162,6 +162,24 @@ Buildings.Fluid.FixedResistances.Validation.PlugFlowPipes.PlugFlowAIT</a>.
 This will avoid the numerical Jacobian that is otherwise created when
 the inlet ports of two instances of the plug flow model are connected together.
 </p>
+<p>
+If <code>use_detailedHeatTransfer=false</code>, the heat loss is computed using
+the user-specified thermal resistance per unit length <code>R</code>, preserving
+the previous behavior.
+</p>
+<p>
+If <code>use_detailedHeatTransfer=true</code>, the thermal resistance per unit
+length is computed from pipe geometry as the sum of the internal convection
+resistance, the pipe wall conduction resistance, and the insulation conduction
+resistance. The external ground or ambient resistance is not included and can be
+modeled by connecting an external thermal model to the pipe heat port.
+</p>
+<p>
+The internal convection resistance can optionally use temperature-dependent
+fluid properties by setting <code>use_TDepRConv=true</code>. In that case, the
+fluid type and, for glycol-water media, the glycol mass fraction are derived
+from the redeclared <code>Medium</code>, consistent with the borefield models.
+</p>
 <h4>Assumptions</h4>
 <ul>
 <li>

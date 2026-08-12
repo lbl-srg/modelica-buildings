@@ -8,3 +8,5 @@ PlugFlowPipeDiscretizedPressureDrop
 PlugFlowPipePressureDrop
 PressureDrop
 PressureDropPipe
+PlugFlowPipeHeatTransfer
+PlugFlowPipeDiscretizedHeatTransfer

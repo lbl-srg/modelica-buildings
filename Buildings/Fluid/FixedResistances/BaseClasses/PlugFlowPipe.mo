@@ -77,7 +77,38 @@ model PlugFlowPipe
   parameter Real R(unit="(m.K)/W")=1/(kIns*2*Modelica.Constants.pi/
     Modelica.Math.log((dh/2 + thickness + dIns)/(dh/2 + thickness)))
     "Thermal resistance per unit length from fluid to boundary temperature"
-    annotation (Dialog(group="Thermal resistance"));
+    annotation (Dialog(
+      group="Thermal resistance",
+      enable=not use_detailedHeatTransfer));
+  
+    parameter Boolean use_detailedHeatTransfer = false
+    "Set to true to compute heat-transfer resistance from pipe geometry"
+    annotation (
+      Evaluate=true,
+      Dialog(group="Heat transfer"));
+
+  parameter Boolean use_TDepRConv = false
+    "Set to true to evaluate fluid properties from local fluid temperature for internal convection resistance"
+    annotation (
+      Evaluate=true,
+      Dialog(
+        group="Heat transfer",
+        enable=use_detailedHeatTransfer));
+
+  parameter Boolean includePipeWallResistance = true
+    "Set to true to include pipe wall conduction resistance"
+    annotation (
+      Evaluate=true,
+      Dialog(
+        group="Heat transfer",
+        enable=use_detailedHeatTransfer));
+
+  parameter Modelica.Units.SI.ThermalConductivity kPip = 0.4
+    "Thermal conductivity of pipe wall material"
+    annotation (Dialog(
+      group="Material",
+      enable=use_detailedHeatTransfer and includePipeWallResistance));
+
 
   parameter Real fac=1
     "Factor to take into account flow resistance of bends etc.,
@@ -182,6 +213,22 @@ model PlugFlowPipe
 
   Modelica.Units.SI.ReynoldsNumber Re = res.Re
     "Reynolds number";
+  
+  Real RConv(unit="(m.K)/W")
+    "Internal convection resistance per unit pipe length";
+
+  Real RPip(unit="(m.K)/W")
+    "Pipe wall conduction resistance per unit pipe length";
+
+  Real RIns(unit="(m.K)/W")
+    "Insulation conduction resistance per unit pipe length";
+
+  Real RTot(unit="(m.K)/W")
+    "Total thermal resistance per unit length used by the plug-flow heat-loss model";
+
+  Real ReRConv(unit="1")
+    "Reynolds number used for internal convection resistance";
+
 
   Buildings.Fluid.FixedResistances.PressureDropPipe res(
     redeclare final package Medium = Medium,
@@ -237,10 +284,59 @@ protected
       p=Medium.p_default,
       T=Medium.T_default,
       X=Medium.X_default)
-    "Default density (e.g., rho_liquidWater = 995, rho_air = 1.2)"
-    annotation (Dialog(group="Advanced"));
+    "Default density (e.g., rho_liquidWater = 995, rho_air = 1.2)";
+  
+    final parameter Buildings.Fluid.BaseClasses.Media.Types.TemperatureDependentPropertyFluid
+    tDepFluid =
+      Buildings.Fluid.BaseClasses.Media.Functions.temperatureDependentFluidFromMediumName(
+        mediumName=Medium.mediumName)
+    "Temperature-dependent fluid-property method derived from the redeclared medium";
+
+  final parameter Modelica.Units.SI.MassFraction X_a_internal =
+    if tDepFluid ==
+      Buildings.Fluid.BaseClasses.Media.Types.TemperatureDependentPropertyFluid.Water
+    then
+      0
+    else
+      Buildings.Fluid.BaseClasses.Media.Functions.massFractionFromMediumName(
+        mediumName=Medium.mediumName)
+    "Glycol mass fraction derived from the redeclared medium";
+
+  final parameter Boolean isAllowedTDepMedium =
+    Buildings.Fluid.BaseClasses.Media.Functions.isTemperatureDependentFluidMedium(
+      mediumName=Medium.mediumName)
+    "Set to true if the medium supports temperature-dependent property evaluation";
+
+  Medium.MassFraction XiAct[Medium.nXi]
+    "Independent mass fractions of actual stream";
+
+  Medium.MassFraction XAct[Medium.nX]
+    "Mass fractions of actual stream";
+
+  Medium.SpecificEnthalpy hAct
+    "Specific enthalpy used for property evaluation";
+
+  Modelica.Units.SI.Temperature TAct
+    "Fluid temperature used for internal convection property evaluation";
+
+  Modelica.Units.SI.SpecificHeatCapacity cpMedAct
+    "Specific heat capacity used for internal convection resistance";
+
+  Modelica.Units.SI.ThermalConductivity kMedAct
+    "Thermal conductivity used for internal convection resistance";
+
+  Modelica.Units.SI.DynamicViscosity muMedAct
+    "Dynamic viscosity used for internal convection resistance";
+
+  Modelica.Units.SI.Density rhoMedAct
+    "Density used for internal convection resistance";
 
   parameter Boolean have_pipCap_a = have_pipCap and have_symmetry;
+
+  Modelica.Blocks.Sources.RealExpression RTotExp(y=RTot)
+    if use_detailedHeatTransfer
+    "Total thermal resistance per unit length"
+    annotation (Placement(transformation(extent={{-20,70},{0,90}})));
 
   BaseClasses.PlugFlow del(
     redeclare final package Medium = Medium,
@@ -255,24 +351,28 @@ protected
   BaseClasses.PlugFlowHeatLoss heaLos_a(
     redeclare final package Medium = Medium,
     final C=C,
+    final use_R_in=use_detailedHeatTransfer,
     final R=R,
     final m_flow_small=m_flow_small,
     final T_start=T_start_in,
     final m_flow_nominal=m_flow_nominal,
     final m_flow_start=m_flow_start,
     final show_T=false,
-    final show_V_flow=false) "Heat loss for flow from port_b to port_a"
+    final show_V_flow=false)
+    "Heat loss for flow from port_b to port_a"
     annotation (Placement(transformation(extent={{-40,-10},{-60,10}})));
   BaseClasses.PlugFlowHeatLoss heaLos_b(
     redeclare final package Medium = Medium,
     final C=C,
+    final use_R_in=use_detailedHeatTransfer,
     final R=R,
     final m_flow_small=m_flow_small,
     final T_start=T_start_out,
     final m_flow_nominal=m_flow_nominal,
     final m_flow_start=m_flow_start,
     final show_T=false,
-    final show_V_flow=false) "Heat loss for flow from port_a to port_b"
+    final show_V_flow=false)
+    "Heat loss for flow from port_a to port_b"
     annotation (Placement(transformation(extent={{40,-10},{60,10}})));
   Sensors.MassFlowRate senMasFlo(
     redeclare final package Medium = Medium)
@@ -339,6 +439,102 @@ initial equation
     level = AssertionLevel.warning);
 
 equation
+  assert(
+    noEvent(not use_TDepRConv or isAllowedTDepMedium),
+    "In " + getInstanceName() + ": Temperature-dependent pipe convection "
+    + "resistance is only supported for the following media:\n"
+    + "  Buildings.Media.Water\n"
+    + "  Buildings.Media.Antifreeze.EthyleneGlycolWater\n"
+    + "  Buildings.Media.Antifreeze.PropyleneGlycolWater\n"
+    + "The redeclared medium has Medium.mediumName = \""
+    + Medium.mediumName + "\".\n"
+    + "Disable use_TDepRConv or redeclare one of the supported media.",
+    AssertionLevel.error);
+
+  if use_detailedHeatTransfer and use_TDepRConv then
+
+    XiAct =
+      if allowFlowReversal then
+        actualStream(port_a.Xi_outflow)
+      else
+        inStream(port_a.Xi_outflow);
+
+    XAct =
+      if Medium.nXi == 0 then
+        Medium.X_default
+      elseif Medium.reducedX then
+        cat(1, XiAct, {1 - sum(XiAct)})
+      else
+        XiAct;
+
+    hAct =
+      if allowFlowReversal then
+        actualStream(port_a.h_outflow)
+      else
+        inStream(port_a.h_outflow);
+
+    TAct =
+      Medium.temperature_phX(
+        p=port_a.p,
+        h=hAct,
+        X=XAct);
+
+    (cpMedAct, kMedAct, muMedAct, rhoMedAct) =
+      Buildings.Fluid.BaseClasses.Media.Functions.fluidProperties_T(
+        fluid=tDepFluid,
+        T=TAct,
+        p=port_a.p,
+        X_a=X_a_internal);
+
+  else
+
+    XiAct = zeros(Medium.nXi);
+    XAct = Medium.X_default;
+    hAct = Medium.h_default;
+    TAct = Medium.T_default;
+
+    cpMedAct = cp_default;
+    kMedAct = Medium.thermalConductivity(sta_default);
+    muMedAct = Medium.dynamicViscosity(sta_default);
+    rhoMedAct = rho_default;
+
+  end if;
+
+  if use_detailedHeatTransfer then
+
+    (RConv, ReRConv) =
+      Buildings.Fluid.FixedResistances.Functions.convectionResistanceCircularPipe(
+        dh=dh,
+        roughness=roughness,
+        kMed=kMedAct,
+        muMed=muMedAct,
+        cpMed=cpMedAct,
+        m_flow=m_flow,
+        m_flow_nominal=m_flow_nominal);
+
+    RPip =
+      if includePipeWallResistance then
+        Modelica.Math.log((dh/2 + thickness)/(dh/2))/
+        (2*Modelica.Constants.pi*kPip)
+      else
+        0;
+
+    RIns =
+      Modelica.Math.log((dh/2 + thickness + dIns)/(dh/2 + thickness))/
+      (2*Modelica.Constants.pi*kIns);
+
+    RTot = RConv + RPip + RIns;
+
+  else
+
+    RConv = 0;
+    ReRConv = 0;
+    RPip = 0;
+    RIns = R;
+    RTot = R;
+
+  end if;
+
 
   connect(senMasFlo.m_flow,timDel. m_flow)
     annotation (Line(points={{-30,29},{-30,-40},{-12,-40}},
@@ -394,6 +590,13 @@ equation
     connect(noMixPip_a.port_b, heaLos_a.port_b) annotation (Line(points={{-70,-20},
             {-64,-20},{-64,0},{-60,0}}, color={0,127,255}));
   end if;
+    if use_detailedHeatTransfer then
+    connect(RTotExp.y, heaLos_a.R_in)
+      annotation (Line(points={{1,80},{-50,80},{-50,12}}, color={0,0,127}));
+    connect(RTotExp.y, heaLos_b.R_in)
+      annotation (Line(points={{1,80},{50,80},{50,12}}, color={0,0,127}));
+  end if;
+
 
 
   annotation (
