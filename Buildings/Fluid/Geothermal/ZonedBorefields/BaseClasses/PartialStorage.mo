@@ -10,8 +10,8 @@ extends
   final nPorts=nZon,
   final dp_nominal=borFieDat.conDat.dp_nominal,
   final computeFlowResistance={
-    use_detailedPressureDrop or
-    _dp_nominal > Modelica.Constants.eps
+    computePressureDrop and
+    (use_detailedPressureDrop or _dp_nominal > Modelica.Constants.eps)
     for _dp_nominal in borFieDat.conDat.dp_nominal})
   annotation (IconMap(primitivesVisible=false));
 
@@ -81,11 +81,19 @@ extends
     "Number of boreholes per borefield zone";
 
   // Advanced parameters of borefield
+  parameter Boolean computePressureDrop = true
+    "Set to true to compute pressure drop"
+    annotation (
+      Evaluate=true,
+      Dialog(tab="Advanced", group="Pressure drop"));
   parameter Boolean use_detailedPressureDrop = false
     "Set to true to compute the vertical pipe pressure drop from Darcy-Weisbach instead of using the nominal borefield pressure drop"
     annotation (
       Evaluate=true,
-      Dialog(tab="Advanced", group="Pressure drop"));
+      Dialog(
+        tab="Advanced",
+        group="Pressure drop",
+        enable=computePressureDrop));
   parameter Buildings.Fluid.Types.FluidProperties fluidProperties =
     Buildings.Fluid.Types.FluidProperties.DefaultTemperature
     "Fluid-property evaluation for the detailed pressure drop calculation"
@@ -94,7 +102,7 @@ extends
       Dialog(
         tab="Advanced",
         group="Pressure drop",
-        enable=use_detailedPressureDrop));
+        enable=computePressureDrop and use_detailedPressureDrop));
   parameter Modelica.Units.SI.Temperature T_ref = Medium.T_default
     "Reference temperature for fluid-property evaluation"
     annotation (Dialog(
