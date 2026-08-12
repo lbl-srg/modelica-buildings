@@ -88,8 +88,8 @@ model InternalHEXTwoUTubeTDepRConvThreeCases
       energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
       TFlu_start=293.15,
       TGro_start=283.15,
-      use_DarcyPressureDrop=false,
-      use_TDepPressureDrop=false,
+      use_detailedPressureDrop=true,
+      fluidProperties=Buildings.Fluid.Types.FluidProperties.DefaultTemperature,
       use_TDepRConv=false)
     "Fixed-property water case"
     annotation (Placement(transformation(extent={{-10,58},{10,78}})));
@@ -110,8 +110,8 @@ model InternalHEXTwoUTubeTDepRConvThreeCases
       energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
       TFlu_start=293.15,
       TGro_start=283.15,
-      use_DarcyPressureDrop=false,
-      use_TDepPressureDrop=false,
+      use_detailedPressureDrop=true,
+      fluidProperties=Buildings.Fluid.Types.FluidProperties.ActualTemperature,
       use_TDepRConv=true)
     "Water medium with local temperature-dependent water correlations"
     annotation (Placement(transformation(extent={{-10,18},{10,38}})));
@@ -132,8 +132,8 @@ model InternalHEXTwoUTubeTDepRConvThreeCases
       energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
       TFlu_start=293.15,
       TGro_start=283.15,
-      use_DarcyPressureDrop=false,
-      use_TDepPressureDrop=false,
+      use_detailedPressureDrop=true,
+      fluidProperties=Buildings.Fluid.Types.FluidProperties.DefaultTemperature,
       use_TDepRConv=false)
     "Fixed-property glycol case"
     annotation (Placement(transformation(extent={{-10,-22},{10,-2}})));
@@ -154,8 +154,8 @@ model InternalHEXTwoUTubeTDepRConvThreeCases
       energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
       TFlu_start=293.15,
       TGro_start=283.15,
-      use_DarcyPressureDrop=false,
-      use_TDepPressureDrop=false,
+      use_detailedPressureDrop=true,
+      fluidProperties=Buildings.Fluid.Types.FluidProperties.ActualTemperature,
       use_TDepRConv=true)
     "Glycol medium with local temperature-dependent glycol correlations"
     annotation (Placement(transformation(extent={{-10,-62},{10,-42}})));

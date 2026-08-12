@@ -84,8 +84,8 @@ model InternalHEXOneUTubeTDepRConvThreeCases
       energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
       TFlu_start=293.15,
       TGro_start=283.15,
-      use_DarcyPressureDrop=false,
-      use_TDepPressureDrop=false,
+      use_detailedPressureDrop=true,
+      fluidProperties=Buildings.Fluid.Types.FluidProperties.DefaultTemperature,
       use_TDepRConv=false)
     "Fixed-property water case"
     annotation (Placement(transformation(extent={{-10,50},{10,70}})));
@@ -102,8 +102,8 @@ model InternalHEXOneUTubeTDepRConvThreeCases
       energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
       TFlu_start=293.15,
       TGro_start=283.15,
-      use_DarcyPressureDrop=false,
-      use_TDepPressureDrop=false,
+      use_detailedPressureDrop=true,
+      fluidProperties=Buildings.Fluid.Types.FluidProperties.ActualTemperature,
       use_TDepRConv=true)
     "Water medium with local temperature-dependent water correlations"
     annotation (Placement(transformation(extent={{-10,10},{10,30}})));
@@ -120,8 +120,8 @@ model InternalHEXOneUTubeTDepRConvThreeCases
       energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
       TFlu_start=293.15,
       TGro_start=283.15,
-      use_DarcyPressureDrop=false,
-      use_TDepPressureDrop=false,
+      use_detailedPressureDrop=true,
+      fluidProperties=Buildings.Fluid.Types.FluidProperties.DefaultTemperature,
       use_TDepRConv=false)
     "Fixed-property glycol case"
     annotation (Placement(transformation(extent={{-10,-30},{10,-10}})));
@@ -138,8 +138,8 @@ model InternalHEXOneUTubeTDepRConvThreeCases
       energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
       TFlu_start=293.15,
       TGro_start=283.15,
-      use_DarcyPressureDrop=false,
-      use_TDepPressureDrop=false,
+      use_detailedPressureDrop=true,
+      fluidProperties=Buildings.Fluid.Types.FluidProperties.ActualTemperature,
       use_TDepRConv=true)
     "Glycol medium with local temperature-dependent glycol correlations"
     annotation (Placement(transformation(extent={{-10,-70},{10,-50}})));

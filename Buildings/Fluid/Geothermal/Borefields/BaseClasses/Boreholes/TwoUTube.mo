@@ -6,44 +6,33 @@ model TwoUTube "Double U-tube borehole heat exchanger"
     intHex[nSeg](
     redeclare each final package Medium = Medium,
     each final borFieDat=borFieDat,
-    each final use_DarcyPressureDrop=use_DarcyPressureDrop,
-    each final use_TDepPressureDrop=use_TDepPressureDrop,
+    each final computePressureDrop=computePressureDrop,
+    each final use_detailedPressureDrop=use_detailedPressureDrop,
+    each final fluidProperties=fluidProperties,
+    each final T_ref=T_ref,
+    each final kUBend=kUBend,
     each final use_TDepRConv=use_TDepRConv,
     each final hSeg=borFieDat.conDat.hBor/nSeg,
     final dp1_nominal={
-      if i == 1 and not use_DarcyPressureDrop and
+      if i == 1 and computePressureDrop and not use_detailedPressureDrop and
         borFieDat.conDat.borCon == Buildings.Fluid.Geothermal.Borefields.Types.BoreholeConfiguration.DoubleUTubeParallel then
         dp_nominal
-      elseif i == 1 and not use_DarcyPressureDrop and
-            borFieDat.conDat.borCon == Buildings.Fluid.Geothermal.Borefields.Types.BoreholeConfiguration.DoubleUTubeSeries then
+      elseif i == 1 and computePressureDrop and not use_detailedPressureDrop and
+        borFieDat.conDat.borCon == Buildings.Fluid.Geothermal.Borefields.Types.BoreholeConfiguration.DoubleUTubeSeries then
         dp_nominal/2
       else
         0
       for i in 1:nSeg},
     final dp3_nominal={
-      if i == 1 and not use_DarcyPressureDrop and
+      if i == 1 and computePressureDrop and not use_detailedPressureDrop and
         borFieDat.conDat.borCon == Buildings.Fluid.Geothermal.Borefields.Types.BoreholeConfiguration.DoubleUTubeParallel then
         dp_nominal
-      elseif i == 1 and not use_DarcyPressureDrop and
-            borFieDat.conDat.borCon == Buildings.Fluid.Geothermal.Borefields.Types.BoreholeConfiguration.DoubleUTubeSeries then
+      elseif i == 1 and computePressureDrop and not use_detailedPressureDrop and
+        borFieDat.conDat.borCon == Buildings.Fluid.Geothermal.Borefields.Types.BoreholeConfiguration.DoubleUTubeSeries then
         dp_nominal/2
       else
         0
       for i in 1:nSeg},
-    final nUBend1={
-      if i == nSeg then
-        1
-      else
-        0
-      for i in 1:nSeg},
-    each final nUBend2=0,
-    final nUBend3={
-      if i == nSeg then
-        1
-      else
-        0
-      for i in 1:nSeg},
-    each final nUBend4=0,
     each final dp2_nominal=0,
     each final dp4_nominal=0,
     each final show_T=show_T,

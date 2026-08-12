@@ -199,12 +199,16 @@ model PlugFlowPipeDiscretized
     final T_ref=T_ref,
     final rhoMed=rhoMed,
     final muMed=muMed,
-    dp(nominal=if use_detailedPressureDrop then
-      if rho_default > 500 then totLen * 200 else totLen * 2
-      else max(abs(dp_nominal), 1)))
+    dp(nominal=
+      if not disableComputeFlowResistance and use_detailedPressureDrop then
+        if rho_default > 500 then
+          totLen*200
+        else
+          totLen*2
+      else
+        max(abs(dp_nominal), 1)))
     "Pressure drop calculation for this pipe"
     annotation (Placement(transformation(extent={{60,-10},{80,10}})));
-
 
 protected
   parameter Modelica.Units.SI.Length rInt=dh/2 "Pipe interior radius";

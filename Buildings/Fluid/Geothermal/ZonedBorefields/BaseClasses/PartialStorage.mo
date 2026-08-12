@@ -10,10 +10,10 @@ extends
   final nPorts=nZon,
   final dp_nominal=borFieDat.conDat.dp_nominal,
   final computeFlowResistance={
-    use_DarcyPressureDrop or
+    use_detailedPressureDrop or
     _dp_nominal > Modelica.Constants.eps
     for _dp_nominal in borFieDat.conDat.dp_nominal})
-  annotation (IconMap(primitivesVisible = false));
+  annotation (IconMap(primitivesVisible=false));
 
   replaceable package Medium =
     Modelica.Media.Interfaces.PartialMedium
@@ -81,19 +81,55 @@ extends
     "Number of boreholes per borefield zone";
 
   // Advanced parameters of borefield
-  parameter Boolean use_DarcyPressureDrop = false
+  parameter Boolean use_detailedPressureDrop = false
     "Set to true to compute the vertical pipe pressure drop from Darcy-Weisbach instead of using the nominal borefield pressure drop"
     annotation (
       Evaluate=true,
       Dialog(tab="Advanced", group="Pressure drop"));
-  parameter Boolean use_TDepPressureDrop = false
-    "Set to true to evaluate density and viscosity from the local medium state for the Darcy-Weisbach pressure drop"
+  parameter Buildings.Fluid.Types.FluidProperties fluidProperties =
+    Buildings.Fluid.Types.FluidProperties.DefaultTemperature
+    "Fluid-property evaluation for the detailed pressure drop calculation"
     annotation (
       Evaluate=true,
       Dialog(
         tab="Advanced",
         group="Pressure drop",
-        enable=use_DarcyPressureDrop));
+        enable=use_detailedPressureDrop));
+  parameter Modelica.Units.SI.Temperature T_ref = Medium.T_default
+    "Reference temperature for fluid-property evaluation"
+    annotation (Dialog(
+      tab="Advanced",
+      group="Pressure drop",
+      enable=use_detailedPressureDrop and
+             fluidProperties == Buildings.Fluid.Types.FluidProperties.DefaultTemperature));
+  parameter Real kUBend(unit="1", min=0) = 2
+    "Minor-loss coefficient of one U-bend"
+    annotation (Dialog(
+      tab="Advanced",
+      group="Pressure drop",
+      enable=use_detailedPressureDrop));
+        parameter Modelica.Units.SI.Density rhoMed =
+    Medium.density(Medium.setState_pTX(
+      Medium.p_default,
+      T_ref,
+      Medium.X_default))
+    "User-specified density used only if fluidProperties=Constant; ensure consistency with Medium"
+    annotation (Dialog(
+      tab="Advanced",
+      group="Pressure drop",
+      enable=use_detailedPressureDrop and
+             fluidProperties == Buildings.Fluid.Types.FluidProperties.Constant));
+  parameter Modelica.Units.SI.DynamicViscosity muMed =
+    Medium.dynamicViscosity(Medium.setState_pTX(
+      Medium.p_default,
+      T_ref,
+      Medium.X_default))
+    "User-specified dynamic viscosity used only if fluidProperties=Constant; ensure consistency with Medium"
+    annotation (Dialog(
+      tab="Advanced",
+      group="Pressure drop",
+      enable=use_detailedPressureDrop and
+             fluidProperties == Buildings.Fluid.Types.FluidProperties.Constant));
   parameter Boolean use_TDepRConv = false
     "Set to true to evaluate fluid thermal properties from the local medium state for the pipe convection resistance"
     annotation (
@@ -115,6 +151,7 @@ extends
     final m_flow_small=m_flow_small,
     each final show_T=show_T,
     final computeFlowResistance=computeFlowResistance,
+    final computePressureDrop=computeFlowResistance,
     final from_dp=from_dp,
     each final n=n,
     final linearizeFlowResistance=linearizeFlowResistance,
@@ -124,8 +161,12 @@ extends
     each final mSenFac=mSenFac,
     each final TFlu_start=TFlu_start,
     each final TGro_start=TGro_start,
-    each final use_DarcyPressureDrop=use_DarcyPressureDrop,
-    each final use_TDepPressureDrop=use_TDepPressureDrop,
+    each final use_detailedPressureDrop=use_detailedPressureDrop,
+    each final fluidProperties=fluidProperties,
+    each final T_ref=T_ref,
+    each final rhoMed=rhoMed,
+    each final muMed=muMed,
+    each final kUBend=kUBend,
     each final use_TDepRConv=use_TDepRConv) "Borehole"
     annotation (Placement(transformation(extent={{-10,-50},{10,-30}})));
 
@@ -356,13 +397,11 @@ The ground thermal response at each borehole segment is evaluated using
 analytical thermal response factors. Spatial and temporal superposition are used
 to evaluate the total temperature change at each of the borehole segments.
 </p>
-<p>
 Darcy-Weisbach pressure-drop calculation and temperature-dependent fluid-property
 evaluation are configured at the zoned borefield model level using
-<code>use_DarcyPressureDrop</code>, <code>use_TDepPressureDrop</code>, and
+<code>use_detailedPressureDrop</code>, <code>fluidProperties</code>, and
 <code>use_TDepRConv</code>. These options are propagated to the representative
-borehole model of each zone. 
-</p>
+borehole model of each zone.
 </html>", revisions="<html>
 <ul>
 <li>

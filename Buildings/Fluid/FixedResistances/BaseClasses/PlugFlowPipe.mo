@@ -104,7 +104,7 @@ model PlugFlowPipe
   parameter Modelica.Units.SI.PressureDifference dp_nominal(displayUnit="Pa") = 0
     "Pressure drop at nominal mass flow rate"
     annotation (Dialog(
-      group="Nominal pressure drop",
+      group="Pressure drop",
       enable=computePressureDrop and not use_detailedPressureDrop));
 
   parameter Real deltaM(min=1E-6) = 0.3
@@ -113,7 +113,7 @@ model PlugFlowPipe
       Evaluate=true,
       Dialog(
         tab="Advanced",
-        group="Nominal pressure drop",
+        group="Pressure drop",
         enable=computePressureDrop and not use_detailedPressureDrop and
                abs(dp_nominal) > Modelica.Constants.eps and not linearized));
 
@@ -129,13 +129,13 @@ model PlugFlowPipe
     annotation (
       Evaluate=true,
       Dialog(
-        group="Fluid properties",
+        group="Pressure drop",
         enable=computePressureDrop and use_detailedPressureDrop));
 
   parameter Modelica.Units.SI.Temperature T_ref = Medium.T_default
     "Reference temperature for fluid-property evaluation"
     annotation (Dialog(
-      group="Fluid properties",
+      group="Pressure drop",
       enable=computePressureDrop and use_detailedPressureDrop and
              fluidProperties == Buildings.Fluid.Types.FluidProperties.DefaultTemperature));
 
@@ -144,9 +144,10 @@ model PlugFlowPipe
       Medium.p_default,
       T_ref,
       Medium.X_default))
-    "Constant fluid density used for detailed pressure drop calculation"
+    "User-specified density used only if fluidProperties=Constant; ensure consistency with Medium"
     annotation (Dialog(
-      group="Fluid properties",
+      tab="Advanced",
+      group="Pressure drop",
       enable=computePressureDrop and use_detailedPressureDrop and
              fluidProperties == Buildings.Fluid.Types.FluidProperties.Constant));
 
@@ -155,12 +156,13 @@ model PlugFlowPipe
       Medium.p_default,
       T_ref,
       Medium.X_default))
-    "Constant fluid dynamic viscosity used for detailed pressure drop calculation"
+    "User-specified dynamic viscosity used only if fluidProperties=Constant; ensure consistency with Medium"
     annotation (Dialog(
-      group="Fluid properties",
+      tab="Advanced",
+      group="Pressure drop",
       enable=computePressureDrop and use_detailedPressureDrop and
              fluidProperties == Buildings.Fluid.Types.FluidProperties.Constant));
-
+             
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a heatPort
     "Heat transfer to or from surroundings (positive if pipe is colder than surrounding)"
     annotation (Placement(transformation(extent={{-10,90},{10,110}})));
@@ -200,7 +202,11 @@ model PlugFlowPipe
     final T_ref=T_ref,
     final rhoMed=rhoMed,
     final muMed=muMed,
-    dp(nominal=if use_detailedPressureDrop then 200*length else max(abs(dp_nominal), 1)))
+    dp(nominal=
+      if computePressureDrop and use_detailedPressureDrop then
+        200*length
+      else
+        max(abs(dp_nominal), 1)))
     "Pressure drop calculation for this pipe"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},
         rotation=0,

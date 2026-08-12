@@ -3,11 +3,11 @@ model BorefieldsDarcyPressureDrop
   "Validation model for Darcy-Weisbach pressure drop in borefields"
   extends Buildings.Fluid.Geothermal.Borefields.Examples.Borefields(
     borFieUTub(
-      use_DarcyPressureDrop=true),
+      use_detailedPressureDrop=true),
     borFie2UTubPar(
-      use_DarcyPressureDrop=true),
+      use_detailedPressureDrop=true),
     borFie2UTubSer(
-      use_DarcyPressureDrop=true));
+      use_detailedPressureDrop=true));
 
   annotation (
     __Dymola_Commands(file=

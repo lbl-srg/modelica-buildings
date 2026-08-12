@@ -3,8 +3,8 @@ model SeriesConnectedZonesDarcyPressureDropVariableTemperature
   "Validation of temperature-dependent Darcy-Weisbach pressure drop"
   extends Buildings.Fluid.Geothermal.ZonedBorefields.Examples.SeriesConnectedZones(
     borHol(
-      use_DarcyPressureDrop=true,
-      use_TDepPressureDrop=true,
+      use_detailedPressureDrop=true,
+      fluidProperties=Buildings.Fluid.Types.FluidProperties.ActualTemperature,
       use_TDepRConv=false),
     conDat(
       roughness=0.001e-3));

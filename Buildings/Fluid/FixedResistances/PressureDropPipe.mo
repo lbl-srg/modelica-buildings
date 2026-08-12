@@ -141,13 +141,12 @@ protected
     annotation (Evaluate=true);
 
   final parameter Boolean use_nominalPressureDrop_internal =
-    computePressureDrop and not use_detailedPressureDrop and
-    abs(dp_nominal) > Modelica.Constants.eps
+    computePressureDrop and not use_detailedPressureDrop
     "Set to true to use nominal pressure drop model"
     annotation (Evaluate=true);
 
   final parameter Boolean use_losslessPipe_internal =
-    not use_detailedPressureDrop_internal and not use_nominalPressureDrop_internal
+    not computePressureDrop
     "Set to true to use lossless pipe model"
     annotation (Evaluate=true);
 
@@ -163,7 +162,7 @@ protected
     redeclare final package Medium = Medium,
     final allowFlowReversal=allowFlowReversal,
     final m_flow_nominal=m_flow_nominal,
-    final dp_nominal=dp_nominal,
+    final dp_nominal=if use_nominalPressureDrop_internal then dp_nominal else 1,
     final n=n,
     final from_dp=from_dp,
     final linearized=linearized,

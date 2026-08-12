@@ -3,8 +3,8 @@ model SeriesConnectedZonesDarcyPressureDropVariableFlow
   "Validation of Darcy-Weisbach pressure drop with variable flow"
   extends Buildings.Fluid.Geothermal.ZonedBorefields.Examples.SeriesConnectedZones(
     borHol(
-      use_DarcyPressureDrop=true,
-      use_TDepPressureDrop=false,
+      use_detailedPressureDrop=true,
+      fluidProperties=Buildings.Fluid.Types.FluidProperties.DefaultTemperature,
       use_TDepRConv=false),
     conDat(
       roughness=0.001e-3));

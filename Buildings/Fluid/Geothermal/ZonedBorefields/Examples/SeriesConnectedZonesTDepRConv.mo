@@ -3,8 +3,8 @@ model SeriesConnectedZonesTDepRConv
   "Validation of temperature-dependent pipe convection resistance"
   extends Buildings.Fluid.Geothermal.ZonedBorefields.Examples.SeriesConnectedZones(
     borHol(
-      use_DarcyPressureDrop=false,
-      use_TDepPressureDrop=false,
+      use_detailedPressureDrop=false,
+      fluidProperties=Buildings.Fluid.Types.FluidProperties.DefaultTemperature,
       use_TDepRConv=true),
     conDat(
       roughness=0.001e-3));

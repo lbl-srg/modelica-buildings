@@ -22,7 +22,6 @@ model OneUTube "Single U-tube borehole heat exchanger"
       else
         0
       for i in 1:nSeg},
-    each final nUBend2=0,
     each final dp2_nominal=0,
     each final m1_flow_nominal=m_flow_nominal,
     each final m2_flow_nominal=m_flow_nominal,

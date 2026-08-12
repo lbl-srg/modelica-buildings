@@ -35,6 +35,29 @@ partial model PartialInternalHEX
       group="Fluid properties",
       enable=computePressureDrop and use_detailedPressureDrop and
              fluidProperties == Buildings.Fluid.Types.FluidProperties.DefaultTemperature));
+  parameter Modelica.Units.SI.Density rhoMed =
+    Medium.density(Medium.setState_pTX(
+      Medium.p_default,
+      T_ref,
+      Medium.X_default))
+    "User-specified density used only if fluidProperties=Constant; ensure consistency with Medium"
+    annotation (Dialog(
+      tab="Advanced",
+      group="Fluid properties",
+      enable=computePressureDrop and use_detailedPressureDrop and
+             fluidProperties == Buildings.Fluid.Types.FluidProperties.Constant));
+
+  parameter Modelica.Units.SI.DynamicViscosity muMed =
+    Medium.dynamicViscosity(Medium.setState_pTX(
+      Medium.p_default,
+      T_ref,
+      Medium.X_default))
+    "User-specified dynamic viscosity used only if fluidProperties=Constant; ensure consistency with Medium"
+    annotation (Dialog(
+      tab="Advanced",
+      group="Fluid properties",
+      enable=computePressureDrop and use_detailedPressureDrop and
+             fluidProperties == Buildings.Fluid.Types.FluidProperties.Constant));
 
   parameter Real kUBend(unit="1", min=0) = 2
     "Minor-loss coefficient of one U-bend"

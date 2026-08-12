@@ -80,8 +80,8 @@ model BorefieldsDarcyPressureDropVariableTemperature
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     TExt0_start=TGro,
     allowFlowReversal=false,
-    use_DarcyPressureDrop=true,
-    use_TDepPressureDrop=false,
+    use_detailedPressureDrop=true,
+    fluidProperties=Buildings.Fluid.Types.FluidProperties.DefaultTemperature,
     use_TDepRConv=false)
     "Fixed-property water borefield with Darcy pressure drop"
     annotation (Placement(transformation(extent={{-10,36},{10,56}})));
@@ -93,8 +93,8 @@ model BorefieldsDarcyPressureDropVariableTemperature
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     TExt0_start=TGro,
     allowFlowReversal=false,
-    use_DarcyPressureDrop=true,
-    use_TDepPressureDrop=true,
+    use_detailedPressureDrop=true,
+    fluidProperties=Buildings.Fluid.Types.FluidProperties.ActualTemperature,
     use_TDepRConv=false)
     "Water borefield with temperature-dependent Darcy pressure drop"
     annotation (Placement(transformation(extent={{-10,0},{10,20}})));
@@ -107,7 +107,7 @@ model BorefieldsDarcyPressureDropVariableTemperature
     TExt0_start=TGro,
     allowFlowReversal=false,
     use_DarcyPressureDrop=true,
-    use_TDepPressureDrop=false,
+    fluidProperties=Buildings.Fluid.Types.FluidProperties.DefaultTemperature,
     use_TDepRConv=false)
     "Fixed-property glycol borefield with Darcy pressure drop"
     annotation (Placement(transformation(extent={{-10,-36},{10,-16}})));
@@ -119,8 +119,8 @@ model BorefieldsDarcyPressureDropVariableTemperature
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     TExt0_start=TGro,
     allowFlowReversal=false,
-    use_DarcyPressureDrop=true,
-    use_TDepPressureDrop=true,
+    use_detailedPressureDrop=true,
+    fluidProperties=Buildings.Fluid.Types.FluidProperties.ActualTemperature,
     use_TDepRConv=false)
     "Glycol borefield with temperature-dependent Darcy pressure drop"
     annotation (Placement(transformation(extent={{-10,-72},{10,-52}})));

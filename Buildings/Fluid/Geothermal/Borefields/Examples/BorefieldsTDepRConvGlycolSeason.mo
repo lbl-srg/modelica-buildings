@@ -72,8 +72,8 @@ model BorefieldsTDepRConvGlycolSeason
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     TExt0_start=TGro,
     allowFlowReversal=false,
-    use_DarcyPressureDrop=false,
-    use_TDepPressureDrop=false,
+    use_detailedPressureDrop=true,
+    fluidProperties=Buildings.Fluid.Types.FluidProperties.DefaultTemperature,
     use_TDepRConv=false)
     "Glycol borefield with fixed properties evaluated at average temperature"
     annotation (Placement(transformation(extent={{-10,50},{10,70}})));
@@ -85,8 +85,9 @@ model BorefieldsTDepRConvGlycolSeason
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     TExt0_start=TGro,
     allowFlowReversal=false,
-    use_DarcyPressureDrop=false,
-    use_TDepPressureDrop=false,
+    use_detailedPressureDrop=false,
+    use_detailedPressureDrop=true,
+    fluidProperties=Buildings.Fluid.Types.FluidProperties.DefaultTemperature,
     use_TDepRConv=false)
     "Glycol borefield with fixed properties evaluated at cold temperature"
     annotation (Placement(transformation(extent={{-10,10},{10,30}})));
@@ -98,8 +99,9 @@ model BorefieldsTDepRConvGlycolSeason
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     TExt0_start=TGro,
     allowFlowReversal=false,
-    use_DarcyPressureDrop=false,
-    use_TDepPressureDrop=false,
+    use_detailedPressureDrop=false,
+    use_detailedPressureDrop=true,
+    fluidProperties=Buildings.Fluid.Types.FluidProperties.DefaultTemperature,
     use_TDepRConv=true)
     "Glycol borefield with temperature-dependent pipe convection resistance"
     annotation (Placement(transformation(extent={{-10,-30},{10,-10}})));
