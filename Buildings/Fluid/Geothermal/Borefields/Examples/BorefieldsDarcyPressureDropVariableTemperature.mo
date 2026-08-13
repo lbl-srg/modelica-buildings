@@ -106,7 +106,7 @@ model BorefieldsDarcyPressureDropVariableTemperature
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     TExt0_start=TGro,
     allowFlowReversal=false,
-    use_DarcyPressureDrop=true,
+    use_detailedPressureDrop=true,
     fluidProperties=Buildings.Fluid.Types.FluidProperties.DefaultTemperature,
     use_TDepRConv=false)
     "Fixed-property glycol borefield with Darcy pressure drop"
