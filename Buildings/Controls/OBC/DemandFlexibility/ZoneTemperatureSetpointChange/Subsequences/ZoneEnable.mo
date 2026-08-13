@@ -1,5 +1,5 @@
 within Buildings.Controls.OBC.DemandFlexibility.ZoneTemperatureSetpointChange.Subsequences;
-block ZoneQualification "Zone qualification"
+block ZoneEnable "Zone enablement"
 
   parameter Real dTSheThr(
     min=0,
@@ -86,19 +86,18 @@ block ZoneQualification "Zone qualification"
     "Demand flexibility mode; 0 = pre-cool or pre-heat, 1 = default, 2 = load-shed, 3 = load-rebound"
     annotation (Placement(transformation(extent={{-300,20},{-260,60}}),
       iconTransformation(extent={{-140,-60},{-100,-20}})));
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput disFla[nZon]
-    "Flags to disqualify certain zones from zone temperature comparison; true to disqualify a zone"
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput enaFla[nZon]
+    "Flags to enable certain zones from zone temperature comparison and zone prioritization; true to enable a zone"
     annotation (Placement(transformation(extent={{260,20},{300,60}}),
         iconTransformation(extent={{100,-20},{140,20}})));
 protected
-  Buildings.Controls.OBC.CDL.Logical.Or orCon12[nZon]
-    "Condition 1 or Condition 2 is not met"
+  CDL.Logical.And andCon12[nZon] "Condition 1 and Condition 2 are met"
     annotation (Placement(transformation(extent={{60,280},{80,300}})));
-  Buildings.Controls.OBC.CDL.Logical.Or orCon123[nZon]
-    "Condition 1, Condition 2, or Condition 3 is not met"
+  CDL.Logical.And andCon123[nZon]
+    "Condition 1, Condition 2, and Condition 3 are met"
     annotation (Placement(transformation(extent={{120,160},{140,180}})));
-  Buildings.Controls.OBC.CDL.Logical.Or orCon1234[nZon]
-    "Condition 1, Condition 2, Condition 3, or Condition 4 is not met"
+  CDL.Logical.And andCon1234[nZon]
+    "Condition 1, Condition 2, Condition 3, or Condition 4 are met"
     annotation (Placement(transformation(extent={{220,30},{240,50}})));
   Buildings.Controls.OBC.CDL.Reals.Greater grePBui(
     final h=PBuiHys)
@@ -107,7 +106,7 @@ protected
     annotation (Placement(transformation(extent={{-220,240},{-200,260}})));
   Buildings.Controls.OBC.CDL.Logical.Not notGrePBui if use_demCon
     "Check whether the building electricity demand is no greater than the building electricity demand threshold"
-    annotation (Placement(transformation(extent={{-100,240},{-80,260}})));
+    annotation (Placement(transformation(extent={{-160,240},{-140,260}})));
   Buildings.Controls.OBC.CDL.Logical.And andPBuiLoaShe if use_demCon
     "Building electricity demand is less than a threshold and the system is in the load-shed mode"
     annotation (Placement(transformation(extent={{-20,240},{0,260}})));
@@ -224,7 +223,7 @@ protected
   Buildings.Controls.OBC.CDL.Routing.BooleanScalarReplicator booScaRepReb(
     final nout=nZon) "Repeat the boolean scalar for being in the load-rebound mode"
     annotation (Placement(transformation(extent={{-40,0},{-20,20}})));
-  Buildings.Controls.OBC.CDL.Logical.Or orCon4[nZon] "Condition 4 is not met"
+  CDL.Logical.And andCon4[nZon] "Condition 4 is met"
     annotation (Placement(transformation(extent={{160,-100},{180,-80}})));
   Buildings.Controls.OBC.CDL.Logical.Or orReaTSheTarSetTDefSet[nZon]
     "The zone temperature setpoint has either reached the load-shed target temperature setpoint during the load-shed mode, or reached the default temperature setpoint during the load-rebound mode"
@@ -250,18 +249,16 @@ protected
   Buildings.Controls.OBC.CDL.Integers.Equal intEquReb
     "Check whether it is the load-rebound mode"
     annotation (Placement(transformation(extent={{-100,0},{-80,20}})));
+  CDL.Logical.Not notRouZon[nZon] if use_demCon
+    "True if the corresponding zone is not a rogue zone"
+    annotation (Placement(transformation(extent={{-160,290},{-140,310}})));
 equation
-  connect(orCon12.y, orCon123.u1)
-    annotation (Line(points={{82,290},{100,290},{100,170},{118,170}},
-      color={255,0,255}));
-  connect(orCon123.y, orCon1234.u1)
-    annotation (Line(points={{142,170},{200,170},{200,40},{218,40}},
-      color={255,0,255}));
-  connect(orCon1234.y, disFla)
+  connect(andCon12.y, andCon123.u1) annotation (Line(points={{82,290},{100,290},
+          {100,170},{118,170}}, color={255,0,255}));
+  connect(andCon123.y, andCon1234.u1) annotation (Line(points={{142,170},{200,
+          170},{200,40},{218,40}}, color={255,0,255}));
+  connect(andCon1234.y, enaFla)
     annotation (Line(points={{242,40},{280,40}}, color={255,0,255}));
-  connect(rouZonFla, orCon12.u1)
-    annotation (Line(points={{-280,300},{20,300},{20,290},{58,290}},
-      color={255,0,255}));
   connect(PBui, grePBui.u1)
     annotation (Line(points={{-280,260},{-240,260},{-240,250},{-222,250}},
       color={0,0,127}));
@@ -269,20 +266,18 @@ equation
     annotation (Line(points={{-280,220},{-240,220},{-240,242},{-222,242}},
       color={0,0,127}));
   connect(grePBui.y, notGrePBui.u)
-    annotation (Line(points={{-198,250},{-102,250}}, color={255,0,255}));
+    annotation (Line(points={{-198,250},{-162,250}}, color={255,0,255}));
   connect(notGrePBui.y, andPBuiLoaShe.u1)
-    annotation (Line(points={{-78,250},{-22,250}}, color={255,0,255}));
+    annotation (Line(points={{-138,250},{-22,250}},color={255,0,255}));
   connect(intEquShe.y, andPBuiLoaShe.u2)
     annotation (Line(points={{-78,50},{-60,50},{-60,242},{-22,242}},
       color={255,0,255}));
   connect(andPBuiLoaShe.y, booScaRepCon2.u)
     annotation (Line(points={{2,250},{18,250}}, color={255,0,255}));
-  connect(booScaRepCon2.y, orCon12.u2)
-    annotation (Line(points={{42,250},{50,250},{50,282},{58,282}},
-      color={255,0,255}));
-  connect(conDisCon2.y, orCon12.u2)
-    annotation (Line(points={{42,210},{50,210},{50,282},{58,282}},
-      color={255,0,255}));
+  connect(booScaRepCon2.y, andCon12.u2) annotation (Line(points={{42,250},{50,
+          250},{50,282},{58,282}}, color={255,0,255}));
+  connect(conDisCon2.y, andCon12.u2) annotation (Line(points={{42,210},{50,210},
+          {50,282},{58,282}}, color={255,0,255}));
   connect(demFleMod, intEquShe.u1)
     annotation (Line(points={{-280,40},{-180,40},{-180,50},{-102,50}},
       color={255,127,0}));
@@ -309,9 +304,8 @@ equation
       color={0,0,127}));
   connect(posValDTZon.y, lesDTZon.u)
     annotation (Line(points={{-138,170},{-102,170}}, color={0,0,127}));
-  connect(andDTZonLoaShe.y, orCon123.u2)
-    annotation (Line(points={{62,170},{80,170},{80,162},{118,162}},
-      color={255,0,255}));
+  connect(andDTZonLoaShe.y, andCon123.u2) annotation (Line(points={{62,170},{80,
+          170},{80,162},{118,162}}, color={255,0,255}));
   connect(notLesDTZon.y, andDTZonLoaShe.u1)
     annotation (Line(points={{-18,170},{38,170}}, color={255,0,255}));
   connect(booScaRepShe.y, andDTZonLoaShe.u2)
@@ -413,7 +407,7 @@ equation
   connect(booScaRepReb.y, reaTDefSet.u1)
     annotation (Line(points={{-18,10},{0,10},{0,-250},{18,-250}},
       color={255,0,255}));
-  connect(reaTPreTarSet.y, orCon4.u1)
+  connect(reaTPreTarSet.y, andCon4.u1)
     annotation (Line(points={{82,-90},{158,-90}}, color={255,0,255}));
   connect(reaTDefSet.y, orReaTSheTarSetTDefSet.u2)
     annotation (Line(points={{42,-250},{80,-250},{80,-198},{98,-198}},
@@ -421,13 +415,15 @@ equation
   connect(reaTSheTarSet.y, orReaTSheTarSetTDefSet.u1)
     annotation (Line(points={{62,-170},{80,-170},{80,-190},{98,-190}},
       color={255,0,255}));
-  connect(orReaTSheTarSetTDefSet.y, orCon4.u2)
-    annotation (Line(points={{122,-190},{140,-190},{140,-98},{158,-98}},
-      color={255,0,255}));
-  connect(orCon4.y, orCon1234.u2)
-    annotation (Line(points={{182,-90},{200,-90},{200,32},{218,32}},
-      color={255,0,255}));
-  annotation (defaultComponentName="zonQua",
+  connect(orReaTSheTarSetTDefSet.y, andCon4.u2) annotation (Line(points={{122,-190},
+          {140,-190},{140,-98},{158,-98}}, color={255,0,255}));
+  connect(andCon4.y, andCon1234.u2) annotation (Line(points={{182,-90},{200,-90},
+          {200,32},{218,32}}, color={255,0,255}));
+  connect(rouZonFla, notRouZon.u)
+    annotation (Line(points={{-280,300},{-162,300}}, color={255,0,255}));
+  connect(notRouZon.y, andCon12.u1) annotation (Line(points={{-138,300},{-40,
+          300},{-40,290},{58,290}}, color={255,0,255}));
+  annotation (defaultComponentName="zonEna",
     Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-180},{100,180}},
     grid={2,2}), graphics={Rectangle(
       extent={{-100,-180},{100,180}},
@@ -448,14 +444,14 @@ First implementation.
 </ul>
 </html>", info="<html>
 <p>
-This block serves to determine whether a zone is qualified to participate in zone
-temperature comparison through the
+This block serves to determine whether a zone is enabled to participate in zone
+temperature comparison and zone prioritization through the
 <a href=\"modelica://Buildings.Controls.OBC.DemandFlexibility.ZoneTemperatureSetpointChange.Subsequences.ZonePrioritization\">
 Buildings.Controls.OBC.DemandFlexibility.ZoneTemperatureSetpointChange.Subsequences.ZonePrioritization</a>
 block. 
 </p>
 <p>
-Several conditions are used to determine that a zone is qualified, including:
+Several conditions are used to determine that a zone is enabled, including:
 </p>
 <ol>
 <li>
@@ -475,9 +471,10 @@ imposed by the respective demand flexibility mode.
 </li>
 </ol>
 <p>
-If any one of the above conditions is not met for a zone, the disqualified zone flag
-<code>disFla</code> for that zone will be set to <code>true</code>. Otherwise,
-<code>disFla</code> is set to <code>false</code>.
+Only if all of the above conditions are met for a zone, the enabled flag
+<code>enaFla</code> for that zone will be set to <code>true</code>. If any one of
+the above condition is not met, <code>enaFla</code> will be set to
+<code>false</code>.
 </p>
 <p>
 The parameter <code>airConMod</code> represents the air conditioning mode.
@@ -508,16 +505,16 @@ Below is a detailed discussion of each of the <i>4</i> conditions.
 <h4>Condition 1</h4>
 <p>
 When the rogue zone flag input <code>rouZonFla</code> is true for a specific zone,
-this zone is a rogue zone. Therefore, this zone is not qualified to participate in
-the zone temperature comparison. Hence, <code>disFla = true</code> for this zone.
-Otherwise, another condition needs to be not met for <code>disFla</code> to become
-<code>true</code>. 
+this zone is a rogue zone. Therefore, this zone is not enabled to participate in
+the zone temperature comparison. Hence, <code>enaFla = false</code> for this zone.
+Otherwise, another condition needs to be not met for <code>enaFla</code> to become
+<code>false</code>. 
 </p>
 <h4>Condition 2</h4>
 <p>
 If the electricity demand of the building <code>PBui</code> and the electricity
 demand <code>PBuiThr</code> meet any one of the following equations, this zone will
-have <code>disFla = true</code>. Note that <code>PBuiHys</code> is an electricity
+have <code>enaFla = false</code>. Note that <code>PBuiHys</code> is an electricity
 demand hysteresis value:
 </p>
 <ul>
@@ -528,7 +525,7 @@ demand hysteresis value:
 <p>
 If the electricity demand of the building <code>PBui</code> and the electricity
 demand <code>PBuiThr</code> meet any one of the following equations, another
-condition needs to be not met for <code>disFla</code> to become <code>true</code>:
+condition needs to be not met for <code>enaFla</code> to become <code>false</code>:
 </p>
 <ul>
 <li>
@@ -542,7 +539,7 @@ condition needs to be not met for <code>disFla</code> to become <code>true</code
 <p>
 If the zone temperature setpoint <code>TZonSet</code> and the zone temperature
 <code>TZon</code> meet any one of the following equations, this zone will have
-<code>disFla = true</code>. Note that <code>dTSheThr</code> is the zone temperature
+<code>enaFla = false</code>. Note that <code>dTSheThr</code> is the zone temperature
 difference threshold, and <code>dTSheHys</code> is the zone temperature difference
 hysteresis:
 </p>
@@ -559,7 +556,7 @@ hysteresis:
 <p>
 If the zone temperature setpoint <code>TZonSet</code> and the zone temperature
 <code>TZon</code> meet any one of the following equations, another condition needs
-to be not met for <code>disFla</code> to become <code>true</code>:
+to be not met for <code>enaFla</code> to become <code>false</code>:
 </p>
 <ul>
 <li>
@@ -577,7 +574,7 @@ to be not met for <code>disFla</code> to become <code>true</code>:
 <h4>Condition 4</h4>
 <p>
 If the zone temperature setpoint <code>TZonSet</code> of a zone meets any one of the
-following equations, this zone will have <code>disFla = true</code>. Since the
+following equations, this zone will have <code>enaFla = false</code>. Since the
 presence of a temperature resolution from the external temperature setpoint
 controller will make <code>TZonSet</code> only take a finite set of discrete values,
 the temperature resolution interval <code>TResInt</code> is used in the following
@@ -615,8 +612,8 @@ higher-level logic blocks under edge-case operations, while being less than
 </ul>
 <p>
 If the zone temperature setpoint <code>TZonSet</code> of a zone meets any one of the
-following conditions, another condition needs to be not met for <code>disFla</code>
-to become <code>true</code>:
+following conditions, another condition needs to be not met for <code>enaFla</code>
+to become <code>false</code>:
 </p>
 <ul>
 <li>
@@ -648,4 +645,4 @@ to become <code>true</code>:
 </li>
 </ul>
 </html>"));
-end ZoneQualification;
+end ZoneEnable;

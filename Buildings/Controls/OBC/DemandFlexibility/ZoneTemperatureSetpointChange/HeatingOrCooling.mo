@@ -122,16 +122,16 @@ block HeatingOrCooling
     "When there is only one zone in a building, always enable setpoint change for this zone"
     annotation (Placement(transformation(extent={{60,120},{80,140}})));
 protected
-  Buildings.Controls.OBC.DemandFlexibility.ZoneTemperatureSetpointChange.Subsequences.ZoneQualification zonQua(
+  Buildings.Controls.OBC.DemandFlexibility.ZoneTemperatureSetpointChange.Subsequences.ZoneEnable
+    zonEna(
     final dTSheThr=dTSheThr,
     final dTSheHys=dTSheHys,
     final PBuiHys=PBuiHys,
     final TResInt=TResInt,
     final airConMod=airConMod,
     final use_demCon=zonConVar == Buildings.Controls.OBC.DemandFlexibility.Types.ZoneControlVariant.Variant_3
-      or zonConVar == Buildings.Controls.OBC.DemandFlexibility.Types.ZoneControlVariant.Variant_4,
-    final nZon=nZon)
-    "The zone qualification logic block"
+         or zonConVar == Buildings.Controls.OBC.DemandFlexibility.Types.ZoneControlVariant.Variant_4,
+    final nZon=nZon) "The zone enablement logic block"
     annotation (Placement(transformation(extent={{-80,112},{-60,148}})));
   Buildings.Controls.OBC.DemandFlexibility.ZoneTemperatureSetpointChange.Subsequences.ZonePrioritization
     zonPri(
@@ -166,7 +166,7 @@ protected
     "A constant threshold value for the electricity demand of the building"
     annotation (Placement(transformation(extent={{-180,100},{-160,120}})));
 equation
-  connect(zonQua.disFla, zonPri.disFla)
+  connect(zonEna.enaFla, zonPri.disFla)
     annotation (Line(points={{-58,130},{-40,130},{-40,96},{58,96}},
       color={255,0,255}));
   connect(zonPri.yEna, zonCon.uEna)
@@ -177,31 +177,31 @@ equation
   connect(zonCon.TComZonSet, samSetCha.u)
     annotation (Line(points={{142,-110},{160,-110},{160,0},{178,0}},
       color={0,0,127}));
-  connect(rouZonFla, zonQua.rouZonFla)
+  connect(rouZonFla,zonEna. rouZonFla)
     annotation (Line(points={{-240,160},{-200,160},{-200,146},{-82,146}},
       color={255,0,255}));
-  connect(PBui, zonQua.PBui)
+  connect(PBui,zonEna. PBui)
     annotation (Line(points={{-240,120},{-200,120},{-200,142},{-82,142}},
       color={0,0,127}));
-  connect(PBuiThrVar, zonQua.PBuiThr)
+  connect(PBuiThrVar,zonEna. PBuiThr)
     annotation (Line(points={{-240,80},{-150,80},{-150,138},{-82,138}},
       color={0,0,127}));
-  connect(TCurZon, zonQua.TZon)
+  connect(TCurZon,zonEna. TZon)
     annotation (Line(points={{-240,40},{-140,40},{-140,134},{-82,134}},
       color={0,0,127}));
-  connect(TCurZonSet, zonQua.TZonSet)
+  connect(TCurZonSet,zonEna. TZonSet)
     annotation (Line(points={{-240,0},{-130,0},{-130,130},{-82,130}},
       color={0,0,127}));
-  connect(demFleMod, zonQua.demFleMod)
+  connect(demFleMod,zonEna. demFleMod)
     annotation (Line(points={{-240,-40},{-120,-40},{-120,126},{-82,126}},
       color={255,127,0}));
-  connect(TPreTarSet, zonQua.TPreTarSet)
+  connect(TPreTarSet,zonEna. TPreTarSet)
     annotation (Line(points={{-240,-80},{-110,-80},{-110,122},{-82,122}},
       color={0,0,127}));
-  connect(TSheTarSet, zonQua.TSheTarSet)
+  connect(TSheTarSet,zonEna. TSheTarSet)
     annotation (Line(points={{-240,-120},{-100,-120},{-100,118},{-82,118}},
       color={0,0,127}));
-  connect(TDefSet, zonQua.TDefSet)
+  connect(TDefSet,zonEna. TDefSet)
     annotation (Line(points={{-240,-160},{-90,-160},{-90,114},{-82,114}},
       color={0,0,127}));
   connect(TCurZon, zonPri.TZon)
@@ -229,10 +229,10 @@ equation
       color={0,0,127}));
   connect(conNSel.y, zonPri.nSel)
     annotation (Line(points={{22,50},{40,50},{40,84},{58,84}}, color={255,127,0}));
-  connect(conPBuiThr.y, zonQua.PBuiThr)
+  connect(conPBuiThr.y,zonEna. PBuiThr)
     annotation (Line(points={{-158,110},{-150,110},{-150,138},{-82,138}},
       color={0,0,127}));
-  connect(zonQua.disFla, enaOneZon.u)
+  connect(zonEna.enaFla, enaOneZon.u)
     annotation (Line(points={{-58,130},{58,130}}, color={255,0,255}));
   connect(enaOneZon.y, zonCon.uEna) annotation (Line(points={{82,130},{100,130},
           {100,-100},{118,-100}}, color={255,0,255}));
@@ -291,7 +291,7 @@ imposed by the respective demand flexibility mode.
 </ul>
 <p>
 Refer to the documentation of the
-<a href=\"modelica://Buildings.Controls.OBC.DemandFlexibility.ZoneTemperatureSetpointChange.Subsequences.ZoneQualification\">ZoneQualification</a>
+<a href=\"modelica://Buildings.Controls.OBC.DemandFlexibility.ZoneTemperatureSetpointChange.Subsequences.ZoneEnable\">ZoneQualification</a>
 sub-block for more details on how each of these conditions is defined. Note that if
 the zone control variant parameter <code>zonConVar</code> in this block has a value
 of Variant <i>3</i> or Variant <i>4</i>, the use-demand-control parameter

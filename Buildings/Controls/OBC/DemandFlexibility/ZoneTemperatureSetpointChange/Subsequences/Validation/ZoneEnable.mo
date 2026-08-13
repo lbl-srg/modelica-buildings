@@ -1,15 +1,15 @@
 within Buildings.Controls.OBC.DemandFlexibility.ZoneTemperatureSetpointChange.Subsequences.Validation;
-model ZoneQualification "Zone qualification"
+model ZoneEnable "Zone enablement"
 
-  Buildings.Controls.OBC.DemandFlexibility.ZoneTemperatureSetpointChange.Subsequences.ZoneQualification zonQua(
+  Buildings.Controls.OBC.DemandFlexibility.ZoneTemperatureSetpointChange.Subsequences.ZoneEnable
+    zonEna(
     dTSheThr=0.5,
     dTSheHys=0.5,
     PBuiHys=50,
     TResInt=0.5,
     airConMod=true,
     use_demCon=true,
-    nZon=5)
-    "Zone qualification block"
+    nZon=5) "Zone enablement block"
     annotation (Placement(transformation(extent={{60,-18},{80,18}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant rouZonFla1234[4](
     k=fill(false, 4))
@@ -55,46 +55,46 @@ model ZoneQualification "Zone qualification"
     "A table of demand flexibility modes that repeat every day"
     annotation (Placement(transformation(extent={{-80,-60},{-60,-40}})));
 equation
-  connect(rouZonFla1234.y, zonQua.rouZonFla[1:4])
+  connect(rouZonFla1234.y,zonEna. rouZonFla[1:4])
     annotation (Line(points={{-58,190},{40,190},{40,16.4},{58,16.4}},
       color={255,0,255}));
-  connect(rouZonFla5.y, zonQua.rouZonFla[5])
+  connect(rouZonFla5.y,zonEna. rouZonFla[5])
     annotation (Line(points={{-58,150},{40,150},{40,16.8},{58,16.8}},
       color={255,0,255}));
-  connect(PBuiThrVal.y, zonQua.PBuiThr)
+  connect(PBuiThrVal.y,zonEna. PBuiThr)
     annotation (Line(points={{-58,70},{0,70},{0,8},{58,8}}, color={0,0,127}));
-  connect(PBuiVal.y, zonQua.PBui)
+  connect(PBuiVal.y,zonEna. PBui)
     annotation (Line(points={{-58,110},{20,110},{20,12},{58,12}}, color={0,0,127}));
-  connect(TZonVal.y, zonQua.TZon)
+  connect(TZonVal.y,zonEna. TZon)
     annotation (Line(points={{-58,30},{-20,30},{-20,4},{58,4}}, color={0,0,127}));
-  connect(TZonSetVal.y, zonQua.TZonSet)
+  connect(TZonSetVal.y,zonEna. TZonSet)
     annotation (Line(points={{-58,-10},{-40,-10},{-40,0},{58,0}}, color={0,0,127}));
-  connect(TPreTarSetVal.y, zonQua.TPreTarSet)
+  connect(TPreTarSetVal.y,zonEna. TPreTarSet)
     annotation (Line(points={{-58,-90},{0,-90},{0,-8},{58,-8}}, color={0,0,127}));
-  connect(TSheTarSetVal.y, zonQua.TSheTarSet)
+  connect(TSheTarSetVal.y,zonEna. TSheTarSet)
     annotation (Line(points={{-58,-130},{20,-130},{20,-12},{58,-12}},
       color={0,0,127}));
-  connect(TDefSetVal.y, zonQua.TDefSet)
+  connect(TDefSetVal.y,zonEna. TDefSet)
     annotation (Line(points={{-58,-170},{40,-170},{40,-16},{58,-16}},
       color={0,0,127}));
-  connect(tabDemFleMod.y[1], zonQua.demFleMod)
+  connect(tabDemFleMod.y[1],zonEna. demFleMod)
     annotation (Line(points={{-58,-50},{-20,-50},{-20,-4},{58,-4}},
       color={255,127,0}));
 annotation (experiment(StopTime=172800, Interval=1, Tolerance=1e-06),
-  __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/DemandFlexibility/ZoneTemperatureSetpointChange/Subsequences/Validation/ZoneQualification.mos"
+  __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/DemandFlexibility/ZoneTemperatureSetpointChange/Subsequences/Validation/ZoneEnable.mos"
     "Simulate and plot"),
   Documentation(info="<html>
 <p>
 This example validates
-<a href=\"modelica://Buildings.Controls.OBC.DemandFlexibility.ZoneTemperatureSetpointChange.Subsequences.ZoneQualification\">
-Buildings.Controls.OBC.DemandFlexibility.ZoneTemperatureSetpointChange.Subsequences.ZoneQualification</a>
+<a href=\"modelica://Buildings.Controls.OBC.DemandFlexibility.ZoneTemperatureSetpointChange.Subsequences.ZoneEnable\">
+Buildings.Controls.OBC.DemandFlexibility.ZoneTemperatureSetpointChange.Subsequences.ZoneEnable</a>
 for a 5-zone building under the heating operation.
 </p>
 <p>
-This validation example shows how the <code>ZoneQualification</code> block decides
-whether a zone should be disqualified for zone temperature comparison based on two
-out of the four zone disqualifying conditions: whether a zone is a rogue zone, and
-whether the building electricity demand drops below the electricity demand threshold.
+This validation example shows how the <code>ZoneEnable</code> block decides whether
+a zone should be enabled for zone temperature comparison based on two out of the
+four zone enabling conditions: whether a zone is a rogue zone or not, and whether
+the building electricity demand rises above the electricity demand threshold.
 <p>
 </html>", revisions="<html>
 <ul>
@@ -117,4 +117,4 @@ First implementation.
                 points = {{-36,60},{64,0},{-36,-60},{-36,60}})}),
     Diagram(coordinateSystem(preserveAspectRatio=false,
       extent={{-100,-220},{100,220}})));
-end ZoneQualification;
+end ZoneEnable;
