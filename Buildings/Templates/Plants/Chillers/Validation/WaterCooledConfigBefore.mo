@@ -1,5 +1,5 @@
 within Buildings.Templates.Plants.Chillers.Validation;
-model WaterCooled
+model WaterCooledConfigBefore
   "Validation of water-cooled chiller plant template"
   extends Modelica.Icons.Example;
 
@@ -7,7 +7,10 @@ model WaterCooled
     constrainedby Modelica.Media.Interfaces.PartialMedium
     "Main medium (common for CHW and CW)";
 
-
+  replaceable parameter Buildings.Templates.Plants.Chillers.Validation.UserProject.Data.AllSystemsWaterCooled datAll(
+    pla(cfg=pla.cfg))
+    "Plant parameters"
+    annotation(Placement(transformation(extent={{-180,120},{-160,140}})));
   parameter Boolean allowFlowReversal = true
     "= true to allow flow reversal, false restricts to design direction (port_a -> port_b)"
     annotation(Dialog(tab="Assumptions"),
@@ -45,10 +48,6 @@ model WaterCooled
       chi(have_senTChiWatChiSup_select=true, have_senTChiWatChiRet=true))
     "Chiller plant"
     annotation(Placement(transformation(extent={{-80,-100},{-40,-60}})));
-  replaceable parameter Buildings.Templates.Plants.Chillers.Validation.UserProject.Data.AllSystemsWaterCooled datAll(
-    pla(cfg=pla.cfg))
-    "Plant parameters"
-    annotation(Placement(transformation(extent={{-180,120},{-160,140}})));
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant TAirSup(
     k=293.15,
     y(final unit="K", displayUnit="degC"))
@@ -250,4 +249,4 @@ annotation(__Dymola_Commands(
 </ul>
 </html>"),
   Diagram(coordinateSystem(extent={{-200,-160},{200,160}})));
-end WaterCooled;
+end WaterCooledConfigBefore;

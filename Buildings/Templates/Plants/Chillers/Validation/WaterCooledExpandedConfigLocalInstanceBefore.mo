@@ -1,13 +1,53 @@
 within Buildings.Templates.Plants.Chillers.Validation;
-model WaterCooled
+model WaterCooledExpandedConfigLocalInstanceBefore
   "Validation of water-cooled chiller plant template"
   extends Modelica.Icons.Example;
 
   replaceable package Medium = Buildings.Media.Water
     constrainedby Modelica.Media.Interfaces.PartialMedium
     "Main medium (common for CHW and CW)";
-
-
+  Trivial dum(nChi=2)
+    "Trivial component instance carrying the value 2";
+  replaceable parameter Buildings.Templates.Plants.Chillers.Validation.UserProject.Data.AllSystemsWaterCooled datAll(
+    pla(cfg(
+      typChi=pla.cfg.typChi,
+      nChi=dum.nChi,
+      typArrChi=pla.cfg.typArrChi,
+      typCtlHea=pla.cfg.typCtlHea,
+      typValChiWatChiIso=pla.cfg.typValChiWatChiIso,
+      typValConWatChiIso=pla.cfg.typValConWatChiIso,
+      have_valChiWatChiBypPar=pla.cfg.have_valChiWatChiBypPar,
+      typCtl=pla.cfg.typCtl,
+      nAirHan=pla.cfg.nAirHan,
+      nEquZon=pla.cfg.nEquZon,
+      rhoChiWat_default=pla.cfg.rhoChiWat_default,
+      cpChiWat_default=pla.cfg.cpChiWat_default,
+      rhoCon_default=pla.cfg.rhoCon_default,
+      cpCon_default=pla.cfg.cpCon_default,
+      typDisChiWat=pla.cfg.typDisChiWat,
+      typArrPumChiWatPri=pla.cfg.typArrPumChiWatPri,
+      have_pumChiWatPriVar=pla.cfg.have_pumChiWatPriVar,
+      have_pumChiWatPriVarCom=pla.cfg.have_pumChiWatPriVarCom,
+      nPumChiWatPri=pla.cfg.nPumChiWatPri,
+      have_pumChiWatSec=pla.cfg.have_pumChiWatSec,
+      nPumChiWatSec=pla.cfg.nPumChiWatSec,
+      nSenDpChiWatRem=pla.cfg.nSenDpChiWatRem,
+      typMeaCtlChiWatPri=pla.cfg.typMeaCtlChiWatPri,
+      have_senDpChiWatRemWir=pla.cfg.have_senDpChiWatRemWir,
+      nLooChiWatSec=pla.cfg.nLooChiWatSec,
+      have_senVChiWatSec=pla.cfg.have_senVChiWatSec,
+      typEco=pla.cfg.typEco,
+      nPumConWat=pla.cfg.nPumConWat,
+      typArrPumConWat=pla.cfg.typArrPumConWat,
+      have_pumConWatVar=pla.cfg.have_pumConWatVar,
+      have_pumConWatVarCom=pla.cfg.have_pumConWatVarCom,
+      typCoo=pla.cfg.typCoo,
+      nCoo=pla.cfg.nCoo,
+      have_senLevCoo=pla.cfg.have_senLevCoo,
+      typValCooInlIso=pla.cfg.typValCooInlIso,
+      typValCooOutIso=pla.cfg.typValCooOutIso)))
+    "Plant parameters"
+    annotation(Placement(transformation(extent={{-180,120},{-160,140}})));
   parameter Boolean allowFlowReversal = true
     "= true to allow flow reversal, false restricts to design direction (port_a -> port_b)"
     annotation(Dialog(tab="Assumptions"),
@@ -45,10 +85,6 @@ model WaterCooled
       chi(have_senTChiWatChiSup_select=true, have_senTChiWatChiRet=true))
     "Chiller plant"
     annotation(Placement(transformation(extent={{-80,-100},{-40,-60}})));
-  replaceable parameter Buildings.Templates.Plants.Chillers.Validation.UserProject.Data.AllSystemsWaterCooled datAll(
-    pla(cfg=pla.cfg))
-    "Plant parameters"
-    annotation(Placement(transformation(extent={{-180,120},{-160,140}})));
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant TAirSup(
     k=293.15,
     y(final unit="K", displayUnit="degC"))
@@ -250,4 +286,4 @@ annotation(__Dymola_Commands(
 </ul>
 </html>"),
   Diagram(coordinateSystem(extent={{-200,-160},{200,160}})));
-end WaterCooled;
+end WaterCooledExpandedConfigLocalInstanceBefore;
