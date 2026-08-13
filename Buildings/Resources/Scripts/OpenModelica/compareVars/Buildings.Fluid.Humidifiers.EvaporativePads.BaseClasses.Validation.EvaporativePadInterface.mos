@@ -1,5 +1,0 @@
-compareVars :=
-  {
-    "evaPadInt.v",
-    "evaPadInt.eta"
-  };

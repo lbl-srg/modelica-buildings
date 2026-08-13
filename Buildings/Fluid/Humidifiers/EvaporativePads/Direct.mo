@@ -81,8 +81,8 @@ equation
           {0,48},{18,48}}, color={0,0,127}));
   connect(evaCooAct, swiEvaCoo.u2) annotation (Line(points={{-120,-80},{-40,-80},
           {-40,-30},{58,-30}}, color={255,0,255}));
-  connect(dirEvaPadCal.dmWat_flow, swiEvaCoo.u1) annotation (Line(points={{42,50},
-          {50,50},{50,-22},{58,-22}}, color={0,0,127}));
+  connect(dirEvaPadCal.dmWat_flow, swiEvaCoo.u1) annotation (Line(points={{42,45},
+          {50,45},{50,-22},{58,-22}}, color={0,0,127}));
   connect(swiEvaCoo.y, dmWat_flow) annotation (Line(points={{82,-30},{90,-30},{90,
           80},{120,80}}, color={0,0,127}));
   connect(swiEvaCoo.y, vol.mWat_flow) annotation (Line(points={{82,-30},{90,-30},
@@ -102,14 +102,51 @@ annotation (defaultComponentName="dirEvaPad", Icon(graphics={
             fillPattern=FillPattern.Solid, extent={{-100, 5}, {101, -5}}),
   Rectangle(lineColor={0,0,255}, fillColor={0,62,0}, pattern=LinePattern.None,
             fillPattern=FillPattern.Solid, extent={{-70, 60}, {70, -60}}),
-  Polygon(lineColor={255, 255, 255}, fillColor={255, 255, 255}, fillPattern=FillPattern.Solid,
-          points={{42,42},{54,34},{54,34},{42,28},{42,30},{50,34},{50,34},{42,40},{42,42}}),
-  Rectangle(lineColor={255, 255, 255}, fillColor={255, 255, 255},
-            fillPattern=FillPattern.Solid, extent={{58, -54}, {54, 52}}),
-  Polygon(lineColor={255,255,255}, fillColor={255,255,255}, fillPattern=FillPattern.Solid,
-          points={{42,10},{54,2},{54,2},{42,-4},{42,-2},{50,2},{50,2},{42,8},{42,10}}),
-  Polygon(lineColor={255, 255, 255}, fillColor={255, 255, 255}, fillPattern=FillPattern.Solid,
-          points={{42,-26},{54,-34},{54,-34},{42,-40},{42,-38},{50,-34},{50,-34},{42,-28},{42,-26}})},
+  Rectangle(lineColor={255, 255, 255}, fillColor={255,236,32},
+            fillPattern=FillPattern.Solid, extent={{-26,-52},{-30,52}}),
+  Rectangle(lineColor={255, 255, 255}, fillColor={255,236,32},
+            fillPattern=FillPattern.Solid, extent={{30,-52},{26,52}}),
+  Rectangle(lineColor={255, 255, 255}, fillColor={255,236,32},
+            fillPattern=FillPattern.Solid, extent={{30,52},{-30,56}}),
+  Rectangle(lineColor={255, 255, 255}, fillColor={255,236,32},
+            fillPattern=FillPattern.Solid, extent={{30,-56},{-30,-52}}),
+        Polygon(
+          points={{-18,38},{-20,28},{-14,24},{-6,28},{-8,38},{-14,50},{-18,38}},
+          lineColor={0,255,255},
+          fillColor={0,255,255},
+          fillPattern=FillPattern.Solid,
+          smooth=Smooth.Bezier),
+        Polygon(
+          points={{-18,2},{-20,-8},{-14,-12},{-6,-8},{-8,2},{-14,14},{-18,2}},
+          lineColor={0,255,255},
+          fillColor={0,255,255},
+          fillPattern=FillPattern.Solid,
+          smooth=Smooth.Bezier),
+        Polygon(
+          points={{-18,-32},{-20,-42},{-14,-46},{-6,-42},{-8,-32},{-14,-20},{
+              -18,-32}},
+          lineColor={0,255,255},
+          fillColor={0,255,255},
+          fillPattern=FillPattern.Solid,
+          smooth=Smooth.Bezier),
+        Polygon(
+          points={{6,38},{4,28},{10,24},{18,28},{16,38},{10,50},{6,38}},
+          lineColor={0,255,255},
+          fillColor={0,255,255},
+          fillPattern=FillPattern.Solid,
+          smooth=Smooth.Bezier),
+        Polygon(
+          points={{6,2},{4,-8},{10,-12},{18,-8},{16,2},{10,14},{6,2}},
+          lineColor={0,255,255},
+          fillColor={0,255,255},
+          fillPattern=FillPattern.Solid,
+          smooth=Smooth.Bezier),
+        Polygon(
+          points={{6,-32},{4,-42},{10,-46},{18,-42},{16,-32},{10,-20},{6,-32}},
+          lineColor={0,255,255},
+          fillColor={0,255,255},
+          fillPattern=FillPattern.Solid,
+          smooth=Smooth.Bezier)},
 
   coordinateSystem(grid={2,2})),
 Documentation(

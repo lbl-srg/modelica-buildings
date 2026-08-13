@@ -168,15 +168,31 @@ Icon(graphics={Rectangle(lineColor = {0, 0, 255}, fillColor = {95, 95, 95}, patt
           fillColor={95,95,95},
           fillPattern=FillPattern.Solid,
           pattern=LinePattern.None),
-  Polygon(lineColor={255, 255, 255}, fillColor={255, 255, 255}, fillPattern=FillPattern.Solid,
-          points={{-36,42},{-24,34},{-24,34},{-36,28},{-36,30},{-28,34},{-28,34},
-              {-36,40},{-36,42}}),
-  Polygon(lineColor={255,255,255}, fillColor={255,255,255}, fillPattern=FillPattern.Solid,
-          points={{-36,10},{-24,2},{-24,2},{-36,-4},{-36,-2},{-28,2},{-28,2},{
-              -36,8},{-36,10}}),
-  Polygon(lineColor={255, 255, 255}, fillColor={255, 255, 255}, fillPattern=FillPattern.Solid,
-          points={{-36,-26},{-24,-34},{-24,-34},{-36,-40},{-36,-38},{-28,-34},{
-              -28,-34},{-36,-28},{-36,-26}}),
-  Rectangle(lineColor={255, 255, 255}, fillColor={255, 255, 255},
-            fillPattern=FillPattern.Solid, extent={{-20,-54},{-24,52}})}));
+  Rectangle(lineColor={255, 255, 255}, fillColor={255,236,32},
+            fillPattern=FillPattern.Solid, extent={{-20,52},{-60,56}}),
+  Rectangle(lineColor={255, 255, 255}, fillColor={255,236,32},
+            fillPattern=FillPattern.Solid, extent={{-56,-52},{-60,52}}),
+        Polygon(
+          points={{-46,38},{-48,28},{-42,24},{-34,28},{-36,38},{-42,50},{-46,38}},
+          lineColor={0,255,255},
+          fillColor={0,255,255},
+          fillPattern=FillPattern.Solid,
+          smooth=Smooth.Bezier),
+        Polygon(
+          points={{-46,2},{-48,-8},{-42,-12},{-34,-8},{-36,2},{-42,14},{-46,2}},
+          lineColor={0,255,255},
+          fillColor={0,255,255},
+          fillPattern=FillPattern.Solid,
+          smooth=Smooth.Bezier),
+        Polygon(
+          points={{-46,-32},{-48,-42},{-42,-46},{-34,-42},{-36,-32},{-42,-20},{
+              -46,-32}},
+          lineColor={0,255,255},
+          fillColor={0,255,255},
+          fillPattern=FillPattern.Solid,
+          smooth=Smooth.Bezier),
+  Rectangle(lineColor={255, 255, 255}, fillColor={255,236,32},
+            fillPattern=FillPattern.Solid, extent={{-20,-56},{-60,-52}}),
+  Rectangle(lineColor={255, 255, 255}, fillColor={255,236,32},
+            fillPattern=FillPattern.Solid, extent={{-20,-52},{-24,52}})}));
 end IndirectDry;
