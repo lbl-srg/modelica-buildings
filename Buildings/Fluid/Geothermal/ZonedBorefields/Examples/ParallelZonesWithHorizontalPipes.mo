@@ -1,6 +1,6 @@
 within Buildings.Fluid.Geothermal.ZonedBorefields.Examples;
 model ParallelZonesWithHorizontalPipes
-  "Parallel zoned borefield with horizontal plug-flow pipes and imbalanced zone loads"
+  "Parallel zoned borefield with horizontal plug-flow pipes"
   extends Modelica.Icons.Example;
 
   package Medium =
@@ -38,8 +38,11 @@ model ParallelZonesWithHorizontalPipes
   parameter Integer nSegBor(min=1)=8
     "Number of vertical segments in the boreholes";
 
-  parameter Integer nSegPip(min=1)=4
-    "Number of axial segments in each horizontal pipe";
+  parameter Modelica.Units.SI.Time tLoaAgg=86400
+    "Time resolution of load aggregation";
+
+  parameter Integer nCel(min=1)=3
+    "Number of cells per aggregation level";
 
   parameter Modelica.Units.SI.Temperature T_start=283.15
     "Initial temperature";
@@ -50,16 +53,31 @@ model ParallelZonesWithHorizontalPipes
   parameter Modelica.Units.SI.MassFlowRate m_flow_nominal=sum(mZon_flow_nominal)
     "Total nominal loop mass flow rate";
 
-  parameter Modelica.Units.SI.HeatFlowRate qBor_flow_nominal=800
+  parameter Modelica.Units.SI.HeatFlowRate qBor_flow_nominal=5000
     "Nominal heat flow rate per borehole";
 
   parameter Modelica.Units.SI.HeatFlowRate QZon_flow_nominal[nZon]=fill(10*qBor_flow_nominal, nZon)
     "Nominal load per zone";
 
-  parameter Modelica.Units.SI.Length lSupPip[nZon]={30,30,30}
+  parameter Modelica.Units.SI.Length lPipShort=10
+    "Horizontal pipe length for short zone connection";
+
+  parameter Modelica.Units.SI.Length lPipMedium=20
+    "Horizontal pipe length for medium zone connection";
+
+  parameter Modelica.Units.SI.Length lPipLong=30
+    "Horizontal pipe length for long zone connection";
+
+  parameter Modelica.Units.SI.Length lSupPip[nZon]={
+    lPipShort,
+    lPipMedium,
+    lPipLong}
     "Horizontal supply pipe length for each zone";
 
-  parameter Modelica.Units.SI.Length lRetPip[nZon]={30,30,30}
+  parameter Modelica.Units.SI.Length lRetPip[nZon]={
+    lPipShort,
+    lPipMedium,
+    lPipLong}
     "Horizontal return pipe length for each zone";
 
   parameter Modelica.Units.SI.Length dhPip=0.05
@@ -91,13 +109,15 @@ model ParallelZonesWithHorizontalPipes
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     borFieDat=borFieDat,
     nSeg=nSegBor,
+    tLoaAgg=tLoaAgg,
+    nCel=nCel,
     TExt0_start=T_start,
     dT_dz=0,
     allowFlowReversal=false,
     computePressureDrop=true,
     use_detailedPressureDrop=true,
     fluidProperties=Buildings.Fluid.Types.FluidProperties.ActualTemperature,
-    use_TDepRConv=true)
+    use_TDepRConv=false)
     "Zoned borefield with three parallel zones"
     annotation (Placement(transformation(extent={{40,-10},{60,10}})));
 
@@ -128,26 +148,24 @@ model ParallelZonesWithHorizontalPipes
     each p_start=300000,
     Q_flow_nominal=QZon_flow_nominal,
     each dp_nominal=5000)
-    "Imbalanced thermal loads, one per zone"
+    "Equal seasonal thermal loads, one per zone"
     annotation (Placement(transformation(extent={{-50,-10},{-30,10}})));
 
-  Buildings.Fluid.FixedResistances.PlugFlowPipeDiscretized supPip[nZon](
+  Buildings.Fluid.FixedResistances.PlugFlowPipe supPip[nZon](
     redeclare each package Medium = Medium,
-    each nSeg=nSegPip,
     final m_flow_nominal=mZon_flow_nominal,
     each dh=dhPip,
-    final totLen=lSupPip,
+    final length=lSupPip,
     each dIns=dIns,
     each kIns=kIns,
     each thickness=thickness,
     each cPip=cPip,
     each rhoPip=rhoPip,
     each roughness=roughnessPip,
-    each have_pipCap=true,
-    each have_symmetry=true,
+    each have_pipCap=false,
     each allowFlowReversal=false,
-    each T_start_in=fill(T_start, nSegPip),
-    each T_start_out=fill(T_start, nSegPip),
+    each T_start_in=T_start,
+    each T_start_out=T_start,
     each disableComputeFlowResistance=false,
     each use_detailedPressureDrop=true,
     each fluidProperties=Buildings.Fluid.Types.FluidProperties.ActualTemperature,
@@ -176,23 +194,21 @@ model ParallelZonesWithHorizontalPipes
     "Zone outlet temperatures"
     annotation (Placement(transformation(extent={{64,-10},{84,10}})));
 
-  Buildings.Fluid.FixedResistances.PlugFlowPipeDiscretized retPip[nZon](
+  Buildings.Fluid.FixedResistances.PlugFlowPipe retPip[nZon](
     redeclare each package Medium = Medium,
-    each nSeg=nSegPip,
     final m_flow_nominal=mZon_flow_nominal,
     each dh=dhPip,
-    final totLen=lRetPip,
+    final length=lRetPip,
     each dIns=dIns,
     each kIns=kIns,
     each thickness=thickness,
     each cPip=cPip,
     each rhoPip=rhoPip,
     each roughness=roughnessPip,
-    each have_pipCap=true,
-    each have_symmetry=true,
+    each have_pipCap=false,
     each allowFlowReversal=false,
-    each T_start_in=fill(T_start, nSegPip),
-    each T_start_out=fill(T_start, nSegPip),
+    each T_start_in=T_start,
+    each T_start_out=T_start,
     each disableComputeFlowResistance=false,
     each use_detailedPressureDrop=true,
     each fluidProperties=Buildings.Fluid.Types.FluidProperties.ActualTemperature,
@@ -211,15 +227,15 @@ model ParallelZonesWithHorizontalPipes
     "Expansion vessel / pressure reference for the closed loop"
     annotation (Placement(transformation(extent={{-108,-50},{-88,-30}})));
 
-  Buildings.HeatTransfer.Sources.FixedTemperature groSup[nZon,nSegPip](
+  Buildings.HeatTransfer.Sources.FixedTemperature groSup[nZon](
     each T=T_start)
     "Ground temperature boundary for supply pipes"
     annotation (Placement(transformation(extent={{-26,40},{-6,60}})));
 
-  Buildings.HeatTransfer.Sources.FixedTemperature groRet[nZon,nSegPip](
+  Buildings.HeatTransfer.Sources.FixedTemperature groRet[nZon](
     each T=T_start)
     "Ground temperature boundary for return pipes"
-    annotation (Placement(transformation(extent={{40.0,40.0},{60.0,60.0}},rotation = 0.0,origin = {0.0,0.0})));
+    annotation (Placement(transformation(extent={{40,40},{60,60}})));
 
   Modelica.Blocks.Sources.Sine sea(
     amplitude=1,
@@ -229,15 +245,15 @@ model ParallelZonesWithHorizontalPipes
     annotation (Placement(transformation(extent={{-120,70},{-100,90}})));
 
   Modelica.Blocks.Sources.RealExpression uLoa1(y=sea.y)
-    "Balanced seasonal load for zone 1"
+    "Seasonal load for zone 1"
     annotation (Placement(transformation(extent={{-90,70},{-70,90}})));
 
   Modelica.Blocks.Sources.RealExpression uLoa2(y=sea.y)
-    "Imbalanced seasonal load for middle zone with less regeneration"
+    "Seasonal load for zone 2"
     annotation (Placement(transformation(extent={{-90,56},{-70,76}})));
 
   Modelica.Blocks.Sources.RealExpression uLoa3(y=sea.y)
-    "Balanced seasonal load for zone 3"
+    "Seasonal load for zone 3"
     annotation (Placement(transformation(extent={{-90,42},{-70,62}})));
 
 equation
@@ -265,16 +281,12 @@ equation
 
     connect(retPip[i].port_b, pum.port_a)
       annotation (Line(points={{114,0},{130,0},{130,-60},{-110,-60},{-110,0},{-90,0}}, color={0,127,255}));
-  end for;
 
-  for i in 1:nZon loop
-    for j in 1:nSegPip loop
-      connect(groSup[i,j].port, supPip[i].heatPorts[j])
-        annotation (Line(points={{-6,50},{0,50},{0,10}}, color={191,0,0}));
+    connect(groSup[i].port, supPip[i].heatPort)
+      annotation (Line(points={{-6,50},{0,50},{0,10}}, color={191,0,0}));
 
-      connect(groRet[i,j].port, retPip[i].heatPorts[j])
-        annotation (Line(points={{60,50},{86,50},{86,10},{104,10}}, color={191,0,0}));
-    end for;
+    connect(groRet[i].port, retPip[i].heatPort)
+      annotation (Line(points={{60,50},{86,50},{86,10},{104,10}}, color={191,0,0}));
   end for;
 
   connect(exp.ports[1], pum.port_a)
@@ -292,15 +304,15 @@ equation
   annotation (
     Diagram(coordinateSystem(extent={{-140,-100},{140,100}})),
     Icon(coordinateSystem(extent={{-100,-100},{100,100}})),
-    experiment(StopTime=31536000, Tolerance=1e-6),
+    experiment(StopTime=7776000, Tolerance=1e-6),
     __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Geothermal/ZonedBorefields/Examples/ParallelZonesWithHorizontalPipes.mos"
       "Simulate and plot"),
     Documentation(info="<html>
 <p>
 This example combines a three-zone zoned borefield with horizontal distribution
 pipes modeled using
-<a href=\"modelica://Buildings.Fluid.FixedResistances.PlugFlowPipeDiscretized\">
-Buildings.Fluid.FixedResistances.PlugFlowPipeDiscretized</a>.
+<a href=\"modelica://Buildings.Fluid.FixedResistances.PlugFlowPipe\">
+Buildings.Fluid.FixedResistances.PlugFlowPipe</a>.
 </p>
 <p>
 The borefield consists of three parallel zones with ten boreholes per zone.
@@ -313,15 +325,15 @@ The three zones are hydraulically connected in parallel through ideal common
 supply and return headers.
 </p>
 <p>
-The middle zone has an imbalanced seasonal load:
+The same seasonal load is applied to all three zones. Differences in borehole
+wall temperature therefore come from the zoned borefield configuration and the
+thermal interaction between zones, not from an imposed load imbalance.
 </p>
-<pre>
-uLoa2 = 0.6*uLoa1 - 0.25
-</pre>
 <p>
-This gives the middle zone less regeneration and a larger net extraction over
-the simulated year. As a result, the middle zone should show faster thermal
-depletion than the two outer zones.
+The pipe lengths are exposed through the parameters <code>lPipShort</code>,
+<code>lPipMedium</code>, and <code>lPipLong</code>. They are currently set to
+the same value. They can be changed in follow-up examples to study hydraulic
+imbalance due to unequal horizontal pipe lengths.
 </p>
 </html>", revisions="<html>
 <ul>
