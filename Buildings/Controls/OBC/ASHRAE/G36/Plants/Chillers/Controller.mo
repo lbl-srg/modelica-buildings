@@ -2060,10 +2060,6 @@ equation
           574},{-790,-424},{-542,-424}}, color={255,0,255}));
   connect(plaEna.yPla, chiWatPumCon.uPla) annotation (Line(points={{-658,-500},
           {-580,-500},{-580,542.357},{414,542.357}},color={255,0,255}));
-  connect(enaDev.yLeaConPum, upProCon.uEnaPlaConPum) annotation (Line(points={{-518,
-          -423},{-110,-423},{-110,364},{172,364}}, color={255,0,255}));
-  connect(enaDev.yConWatIsoVal, upProCon.uEnaPlaConIso) annotation (Line(points={{-518,
-          -416},{70,-416},{70,332},{172,332}},         color={255,0,255}));
   connect(enaDev.yLeaTowCel, towCon.uEnaPla) annotation (Line(points={{-518,
           -426},{-400,-426},{-400,-656},{-268,-656}}, color={255,0,255}));
   connect(wseSta.yRetVal,yWseRetVal)  annotation (Line(points={{-656,321.6},{-610,
@@ -2377,6 +2373,8 @@ equation
   connect(pre.y, heaPreCon.uChiHeaCon) annotation (Line(points={{602,320},{740,
           320},{740,0},{120,0},{120,260},{-530,260},{-530,220},{-504,220}},
         color={255,0,255}));
+  connect(enaDev.yEnaPlaPro, upProCon.uEnaPla) annotation (Line(points={{-518,
+          -411},{-110,-411},{-110,364},{172,364}}, color={255,0,255}));
 annotation (
     defaultComponentName="chiPlaCon",
     Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-400},{100,400}}),
