@@ -2,18 +2,7 @@ within Buildings.Fluid.FixedResistances;
 model PlugFlowPipe
   "Pipe model using spatialDistribution for temperature delay"
   extends Buildings.Fluid.FixedResistances.BaseClasses.PlugFlowPipe(
-    redeclare final Buildings.Fluid.FixedResistances.HydraulicDiameter res(
-      final dh=dh,
-      final from_dp=from_dp,
-      final length=length,
-      final roughness=roughness,
-      final fac=fac,
-      final ReC=ReC,
-      final v_nominal=v_nominal,
-      final disableComputeFlowResistance=disableComputeFlowResistance,
-      final homotopyInitialization=homotopyInitialization,
-      final linearized=linearized,
-    dp(nominal=fac*200*length)));
+    final computePressureDrop=not disableComputeFlowResistance);
 
   parameter Boolean disableComputeFlowResistance=false
     "=false to disable computation of flow resistance"
@@ -68,6 +57,14 @@ model PlugFlowPipe
 <li>
 June 22, 2026, by Michael Wetter:<br/>
 Removed missplaced annotation.
+</li>
+<li>
+August 7, 2026, by Lone Meertens:<br/>
+Updated the pressure drop implementation to use
+<a href=\"modelica://Buildings.Fluid.FixedResistances.PressureDropPipe\">
+Buildings.Fluid.FixedResistances.PressureDropPipe</a>.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4687\">Buildings, #4687</a>.
 </li>
 <li>
 January 5, 2026, by Michael Wetter:<br/>
@@ -134,8 +131,10 @@ in opposite flow direction. Therefore it is used in front of and behind the time
 </p>
 <p>
 The pressure drop is implemented using
-<a href=\"modelica://Buildings.Fluid.FixedResistances.HydraulicDiameter\">
-Buildings.Fluid.FixedResistances.HydraulicDiameter</a>.
+<a href= \"modelica://Buildings.Fluid.FixedResistances.PressureDropPipe\">
+Buildings.Fluid.FixedResistances.PressureDropPipe</a>.
+This wrapper allows selecting between lossless, nominal and detailed
+Darcy-Weisbach pressure drop calculations.
 </p>
 <p>
 The thermal capacity of the pipe wall is implemented as a mixing volume
@@ -162,6 +161,24 @@ see for instance
 Buildings.Fluid.FixedResistances.Validation.PlugFlowPipes.PlugFlowAIT</a>.
 This will avoid the numerical Jacobian that is otherwise created when
 the inlet ports of two instances of the plug flow model are connected together.
+</p>
+<p>
+If <code>use_detailedHeatTransfer=false</code>, the heat loss is computed using
+the user-specified thermal resistance per unit length <code>R</code>, preserving
+the previous behavior.
+</p>
+<p>
+If <code>use_detailedHeatTransfer=true</code>, the thermal resistance per unit
+length is computed from pipe geometry as the sum of the internal convection
+resistance, the pipe wall conduction resistance, and the insulation conduction
+resistance. The external ground or ambient resistance is not included and can be
+modeled by connecting an external thermal model to the pipe heat port.
+</p>
+<p>
+The internal convection resistance can optionally use temperature-dependent
+fluid properties by setting <code>use_TDepRConv=true</code>. In that case, the
+fluid type and, for glycol-water media, the glycol mass fraction are derived
+from the redeclared <code>Medium</code>, consistent with the borefield models.
 </p>
 <h4>Assumptions</h4>
 <ul>

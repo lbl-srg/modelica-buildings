@@ -1,0 +1,43 @@
+simulateModel("Buildings.Fluid.Geothermal.Borefields.BaseClasses.Boreholes.BaseClasses.Examples.InternalHEXTwoUTubeTDepRConvThreeCases", stopTime=3600, method="CVode", tolerance=1E-6, resultFile="InternalHEXTwoUTubeTDepRConvThreeCases");
+
+createPlot(
+  id=1,
+  position={0, 0, 1268, 736},
+  x="time",
+  y={"R1FixWat", "R1Wat", "R2FixWat", "R2Wat", "R3FixWat", "R3Wat", "R4FixWat", "R4Wat"},
+  autoscale=true,
+  autoerase=true,
+  autoreplot=true,
+  grid=true,
+  color=true,
+  filename="InternalHEXTwoUTubeTDepRConvThreeCases.mat",
+  leftTitleType=1,
+  bottomTitleType=1);
+
+createPlot(
+  id=2,
+  position={0, 0, 1268, 736},
+  x="time",
+  y={"R1FixGly", "R1Gly", "R2FixGly", "R2Gly", "R3FixGly", "R3Gly", "R4FixGly", "R4Gly"},
+  autoscale=true,
+  autoerase=true,
+  autoreplot=true,
+  grid=true,
+  color=true,
+  filename="InternalHEXTwoUTubeTDepRConvThreeCases.mat",
+  leftTitleType=1,
+  bottomTitleType=1);
+
+createPlot(
+  id=3,
+  position={0, 0, 1268, 736},
+  x="time",
+  y={"relErrR1Wat", "relErrR2Wat", "relErrR3Wat", "relErrR4Wat", "relErrR1Gly", "relErrR2Gly", "relErrR3Gly", "relErrR4Gly"},
+  autoscale=true,
+  autoerase=true,
+  autoreplot=true,
+  grid=true,
+  color=true,
+  filename="InternalHEXTwoUTubeTDepRConvThreeCases.mat",
+  leftTitleType=1,
+  bottomTitleType=1);

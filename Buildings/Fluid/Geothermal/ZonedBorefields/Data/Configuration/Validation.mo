@@ -39,6 +39,17 @@ is shown in the figure below.
 revisions="<html>
 <ul>
 <li>
+July, 2026, by Lone Meertens:<br/>
+Added bindings for Darcy-Weisbach pressure-drop options, temperature-dependent
+fluid-property evaluation, propylene-glycol/water mass fraction, and pipe
+roughness.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4656\">Buildings, #4656</a>
+and
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4483\">Buildings, #4483</a>.
+</li>
+
+<li>
 May 2024, by Massimo Cimmino:<br/>
 First implementation.
 </li>

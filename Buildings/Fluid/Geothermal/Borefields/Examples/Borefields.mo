@@ -14,7 +14,7 @@ model Borefields
     borFieDat=borFie2UTubParDat,
     tLoaAgg=tLoaAgg,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
-    TExt0_start=TGro)
+    TExt0_start=TGro,computePressureDrop = true)
     "Borefield with a 2-U-tube connected in parallel borehole configuration"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
   Buildings.Fluid.Sources.MassFlowSource_T sou1(

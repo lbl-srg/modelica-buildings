@@ -16,7 +16,11 @@ model HexInternalElement "Internal part of a borehole"
          final massDynamics=energyDynamics,
          final prescribedHeatFlowRate=false,
          final V=m1_flow_nominal*tau1/rho1_nominal,
-         final m_flow_small=m2_flow_small));
+         final m_flow_small=m2_flow_small),
+    redeclare final Buildings.Fluid.FixedResistances.PressureDrop preDro1(
+      final dp_nominal=dp1_nominal),
+    redeclare final Buildings.Fluid.FixedResistances.PressureDrop preDro2(
+      final dp_nominal=dp2_nominal));
 
   replaceable package Medium = Modelica.Media.Interfaces.PartialMedium
     "Medium in the component" annotation (choicesAllMatching=true);
@@ -48,6 +52,9 @@ model HexInternalElement "Internal part of a borehole"
 
   parameter Modelica.Units.SI.Length xC=0.05
     "Shank spacing, defined as half the center-to-center distance between the two pipes";
+  
+  parameter Real X_a(unit="1", min=0, max=1) = 0
+    "Mass fraction of propylene glycol in water";
 
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a port
     "Heat port that connects to filling material"

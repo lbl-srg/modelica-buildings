@@ -1,0 +1,43 @@
+simulateModel("Buildings.Fluid.Geothermal.Borefields.Examples.BorefieldsTDepRConvGlycolSeason", startTime=0, stopTime=31536000, method="CVode", tolerance=1E-6, resultFile="BorefieldsTDepRconvGlycolSeason");
+
+createPlot(
+  id=1,
+  position={0, 0, 1268, 736},
+  x="time",
+  y={"TIn", "TOutFixAvg.T", "TOutFixCold.T", "TOutTDep.T"},
+  autoscale=true,
+  autoerase=true,
+  autoreplot=true,
+  grid=true,
+  colors={{0,0,0}, {28,108,200}, {0,140,72}, {238,46,47}},
+  filename="BorefieldsTDepRConvGlycolSeason.mat",
+  leftTitleType=1,
+  bottomTitleType=1);
+
+createPlot(
+  id=2,
+  position={0, 0, 1268, 736},
+  x="time",
+  y={"dTOutTDepAvg", "dTOutTDepCold", "dTOutColdAvg"},
+  autoscale=true,
+  autoerase=true,
+  autoreplot=true,
+  grid=true,
+  colors={{238,46,47}, {217,67,180}, {0,140,72}},
+  filename="BorefieldsTDepRConvGlycolSeason.mat",
+  leftTitleType=1,
+  bottomTitleType=1);
+
+createPlot(
+  id=3,
+  position={0, 0, 1268, 736},
+  x="time",
+  y={"dTAppFixAvg", "dTAppFixCold", "dTAppTDep"},
+  autoscale=true,
+  autoerase=true,
+  autoreplot=true,
+  grid=true,
+  colors={{28,108,200}, {0,140,72}, {238,46,47}},
+  filename="BorefieldsTDepRConvGlycolSeason.mat",
+  leftTitleType=1,
+  bottomTitleType=1);

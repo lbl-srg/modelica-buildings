@@ -5,22 +5,33 @@ partial model PartialStorage
     Buildings.Fluid.Geothermal.ZonedBorefields.Interfaces.PartialTwoNPortsInterface(
     final nPorts=nZon,
     final m_flow_nominal=borFieDat.conDat.mZon_flow_nominal);
-  extends
-    Buildings.Fluid.Geothermal.ZonedBorefields.Interfaces.TwoNPortsFlowResistanceParameters(
-    final nPorts=nZon,
-    final dp_nominal=borFieDat.conDat.dp_nominal,
-    final computeFlowResistance={_dp_nominal > Modelica.Constants.eps for _dp_nominal in borFieDat.conDat.dp_nominal})
-    annotation (IconMap(primitivesVisible = false));
+extends
+  Buildings.Fluid.Geothermal.ZonedBorefields.Interfaces.TwoNPortsFlowResistanceParameters(
+  final nPorts=nZon,
+  final dp_nominal=borFieDat.conDat.dp_nominal,
+  final computeFlowResistance={
+    computePressureDrop and
+    (use_detailedPressureDrop or _dp_nominal > Modelica.Constants.eps)
+    for _dp_nominal in borFieDat.conDat.dp_nominal})
+  annotation (IconMap(primitivesVisible=false));
 
-  replaceable package Medium = Modelica.Media.Interfaces.PartialMedium
+  replaceable package Medium =
+    Modelica.Media.Interfaces.PartialMedium
     "Medium in the borehole pipes"
-      annotation (choices(
-        choice(redeclare package Medium = Buildings.Media.Water "Water"),
-        choice(redeclare package Medium =
-            Buildings.Media.Antifreeze.PropyleneGlycolWater (
-              property_T=293.15,
-              X_a=0.40)
-              "Propylene glycol water, 40% mass fraction")));
+    annotation (choices(
+      choice(redeclare package Medium =
+        Buildings.Media.Water
+        "Water"),
+      choice(redeclare package Medium =
+        Buildings.Media.Antifreeze.EthyleneGlycolWater(
+          property_T=293.15,
+          X_a=0.40)
+        "Ethylene glycol water, 40% mass fraction"),
+      choice(redeclare package Medium =
+        Buildings.Media.Antifreeze.PropyleneGlycolWater(
+          property_T=293.15,
+          X_a=0.40)
+        "Propylene glycol water, 40% mass fraction")));
 
   // Simulation parameters
   parameter Modelica.Units.SI.Time tLoaAgg = 3600.0
@@ -69,6 +80,71 @@ partial model PartialStorage
   final parameter Integer[nZon] nBorPerZon(each min=1) = borFieDat.conDat.nBorPerZon
     "Number of boreholes per borefield zone";
 
+  // Advanced parameters of borefield
+  parameter Boolean computePressureDrop = true
+    "Set to true to compute pressure drop"
+    annotation (
+      Evaluate=true,
+      Dialog(tab="Advanced", group="Pressure drop"));
+  parameter Boolean use_detailedPressureDrop = false
+    "Set to true to compute the vertical pipe pressure drop from Darcy-Weisbach instead of using the nominal borefield pressure drop"
+    annotation (
+      Evaluate=true,
+      Dialog(
+        tab="Advanced",
+        group="Pressure drop",
+        enable=computePressureDrop));
+  parameter Buildings.Fluid.Types.FluidProperties fluidProperties =
+    Buildings.Fluid.Types.FluidProperties.DefaultTemperature
+    "Fluid-property evaluation for the detailed pressure drop calculation"
+    annotation (
+      Evaluate=true,
+      Dialog(
+        tab="Advanced",
+        group="Pressure drop",
+        enable=computePressureDrop and use_detailedPressureDrop));
+  parameter Modelica.Units.SI.Temperature T_ref = Medium.T_default
+    "Reference temperature for fluid-property evaluation"
+    annotation (Dialog(
+      tab="Advanced",
+      group="Pressure drop",
+      enable=use_detailedPressureDrop and
+             fluidProperties == Buildings.Fluid.Types.FluidProperties.DefaultTemperature));
+  parameter Real kUBend(unit="1", min=0) = 2
+    "Minor-loss coefficient of one U-bend"
+    annotation (Dialog(
+      tab="Advanced",
+      group="Pressure drop",
+      enable=use_detailedPressureDrop));
+        parameter Modelica.Units.SI.Density rhoMed =
+    Medium.density(Medium.setState_pTX(
+      Medium.p_default,
+      T_ref,
+      Medium.X_default))
+    "User-specified density used only if fluidProperties=Constant; ensure consistency with Medium"
+    annotation (Dialog(
+      tab="Advanced",
+      group="Pressure drop",
+      enable=use_detailedPressureDrop and
+             fluidProperties == Buildings.Fluid.Types.FluidProperties.Constant));
+  parameter Modelica.Units.SI.DynamicViscosity muMed =
+    Medium.dynamicViscosity(Medium.setState_pTX(
+      Medium.p_default,
+      T_ref,
+      Medium.X_default))
+    "User-specified dynamic viscosity used only if fluidProperties=Constant; ensure consistency with Medium"
+    annotation (Dialog(
+      tab="Advanced",
+      group="Pressure drop",
+      enable=use_detailedPressureDrop and
+             fluidProperties == Buildings.Fluid.Types.FluidProperties.Constant));
+  parameter Boolean use_TDepRConv = false
+    "Set to true to evaluate fluid thermal properties from the local medium state for the pipe convection resistance"
+    annotation (
+      Evaluate=true,
+      Dialog(tab="Advanced", group="Heat transfer"));
+
+
   // Models
   replaceable
     Buildings.Fluid.Geothermal.Borefields.BaseClasses.Boreholes.BaseClasses.PartialBorehole
@@ -77,12 +153,13 @@ partial model PartialStorage
     redeclare each final package Medium = Medium,
     final borFieDat=zonDat,
     each final nSeg=nSeg,
-    final m_flow_nominal=borFieDat.conDat.mZon_flow_nominal,
+    final m_flow_nominal=borFieDat.conDat.mBor_flow_nominal,
     final dp_nominal=dp_nominal,
     each final allowFlowReversal=allowFlowReversal,
     final m_flow_small=m_flow_small,
     each final show_T=show_T,
     final computeFlowResistance=computeFlowResistance,
+    final computePressureDrop=computeFlowResistance,
     final from_dp=from_dp,
     each final n=n,
     final linearizeFlowResistance=linearizeFlowResistance,
@@ -91,7 +168,14 @@ partial model PartialStorage
     each final p_start=p_start,
     each final mSenFac=mSenFac,
     each final TFlu_start=TFlu_start,
-    each final TGro_start=TGro_start) "Borehole"
+    each final TGro_start=TGro_start,
+    each final use_detailedPressureDrop=use_detailedPressureDrop,
+    each final fluidProperties=fluidProperties,
+    each final T_ref=T_ref,
+    each final rhoMed=rhoMed,
+    each final muMed=muMed,
+    each final kUBend=kUBend,
+    each final use_TDepRConv=use_TDepRConv) "Borehole"
     annotation (Placement(transformation(extent={{-10,-50},{10,-30}})));
 
   Buildings.Fluid.Geothermal.ZonedBorefields.BaseClasses.HeatTransfer.GroundTemperatureResponse groTemRes(
@@ -118,7 +202,8 @@ protected
   constant Real mSenFac(min=1)=1
     "Factor for scaling the sensible thermal mass of the volume";
 
-  parameter Modelica.Units.SI.Height z[nSeg]={borFieDat.conDat.hBor/nSeg*(i - 0.5) for i in 1:nSeg}
+  parameter Modelica.Units.SI.Height z[nSeg]=
+    {borFieDat.conDat.hBor/nSeg*(i - 0.5) for i in 1:nSeg}
     "Distance from the surface to the considered segment";
 
   // General parameters of the boreholes. These records are required because
@@ -137,6 +222,7 @@ protected
     mBor_flow_nominal=borFieDat.conDat.mBor_flow_nominal,
     mBorFie_flow_nominal=borFieDat.conDat.mZon_flow_nominal,
     dp_nominal=borFieDat.conDat.dp_nominal,
+    each roughness=borFieDat.conDat.roughness,
     each hBor=borFieDat.conDat.hBor,
     each rBor=borFieDat.conDat.rBor,
     each dBor=borFieDat.conDat.dBor,
@@ -194,6 +280,7 @@ protected
     annotation (Placement(transformation(extent={{50,70},{70,90}})));
 
 equation
+
 
   connect(borHol.port_wall, QBorHol.port_a) annotation (Line(points={{0,-30},{0,
           -25},{-6.10623e-16,-25},{-6.10623e-16,-20}}, color={191,0,0}));
@@ -318,8 +405,21 @@ The ground thermal response at each borehole segment is evaluated using
 analytical thermal response factors. Spatial and temporal superposition are used
 to evaluate the total temperature change at each of the borehole segments.
 </p>
+Darcy-Weisbach pressure-drop calculation and temperature-dependent fluid-property
+evaluation are configured at the zoned borefield model level using
+<code>use_detailedPressureDrop</code>, <code>fluidProperties</code>, and
+<code>use_TDepRConv</code>. These options are propagated to the representative
+borehole model of each zone.
 </html>", revisions="<html>
 <ul>
+<li>
+July 2026, by Lone Meertens:<br/>
+Added support for Darcy-Weisbach pressure drop with temperature-dependent
+pressure drop and convection resistance calculations, and corrected the
+borehole nominal mass flow rate used for pressure-drop calculations.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4656\">Buildings, #4656</a>.
+</li>
 <li>
 February 2024, by Massimo Cimmino:<br/>
 First implementation.

@@ -1,18 +1,94 @@
 within Buildings.Fluid.Geothermal.Borefields.BaseClasses.Boreholes.BaseClasses;
 partial model PartialInternalHEX
   "Partial model to implement the internal heat exchanger of a borehole segment"
+
   parameter Buildings.Fluid.Geothermal.Borefields.Data.Borefield.Template
     borFieDat "Borefield parameters"
     annotation (Placement(transformation(extent={{-100,-100},{-80,-80}})));
+
+  parameter Boolean computePressureDrop = true
+    "Set to true to compute pressure drop"
+    annotation (
+      Evaluate=true,
+      Dialog(group="Pressure drop"));
+
+  parameter Boolean use_detailedPressureDrop = false
+    "Set to true to compute pressure drop from pipe geometry using Darcy-Weisbach equation"
+    annotation (
+      Evaluate=true,
+      Dialog(
+        group="Pressure drop",
+        enable=computePressureDrop));
+
+  parameter Buildings.Fluid.Types.FluidProperties fluidProperties =
+    Buildings.Fluid.Types.FluidProperties.DefaultTemperature
+    "Fluid-property evaluation for the detailed pressure drop calculation"
+    annotation (
+      Evaluate=true,
+      Dialog(
+        group="Fluid properties",
+        enable=computePressureDrop and use_detailedPressureDrop));
+
+  parameter Modelica.Units.SI.Temperature T_ref = Medium.T_default
+    "Reference temperature for fluid-property evaluation"
+    annotation (Dialog(
+      group="Fluid properties",
+      enable=computePressureDrop and use_detailedPressureDrop and
+             fluidProperties == Buildings.Fluid.Types.FluidProperties.DefaultTemperature));
+  parameter Modelica.Units.SI.Density rhoMed =
+    Medium.density(Medium.setState_pTX(
+      Medium.p_default,
+      T_ref,
+      Medium.X_default))
+    "User-specified density used only if fluidProperties=Constant; ensure consistency with Medium"
+    annotation (Dialog(
+      tab="Advanced",
+      group="Fluid properties",
+      enable=computePressureDrop and use_detailedPressureDrop and
+             fluidProperties == Buildings.Fluid.Types.FluidProperties.Constant));
+
+  parameter Modelica.Units.SI.DynamicViscosity muMed =
+    Medium.dynamicViscosity(Medium.setState_pTX(
+      Medium.p_default,
+      T_ref,
+      Medium.X_default))
+    "User-specified dynamic viscosity used only if fluidProperties=Constant; ensure consistency with Medium"
+    annotation (Dialog(
+      tab="Advanced",
+      group="Fluid properties",
+      enable=computePressureDrop and use_detailedPressureDrop and
+             fluidProperties == Buildings.Fluid.Types.FluidProperties.Constant));
+
+  parameter Real kUBend(unit="1", min=0) = 2
+    "Minor-loss coefficient of one U-bend"
+    annotation (Dialog(
+      group="Pressure drop",
+      enable=computePressureDrop and use_detailedPressureDrop));
+
+  parameter Boolean use_TDepRConv = false
+    "Set to true to evaluate fluid thermal properties from the local medium state for the pipe convection resistance"
+    annotation (
+      Evaluate=true,
+      Dialog(tab="Advanced", group="Heat transfer"));
+
   replaceable package Medium =
-    Modelica.Media.Interfaces.PartialMedium "Medium"
+    Modelica.Media.Interfaces.PartialMedium
+    "Medium"
     annotation (choices(
-        choice(redeclare package Medium = Buildings.Media.Water "Water"),
-        choice(redeclare package Medium =
-            Buildings.Media.Antifreeze.PropyleneGlycolWater (
-              property_T=293.15,
-              X_a=0.40)
-              "Propylene glycol water, 40% mass fraction")));
+      choice(redeclare package Medium =
+        Buildings.Media.Water
+        "Water"),
+      choice(redeclare package Medium =
+        Buildings.Media.Antifreeze.EthyleneGlycolWater(
+          property_T=293.15,
+          X_a=0.40)
+        "Ethylene glycol water, 40% mass fraction"),
+      choice(redeclare package Medium =
+        Buildings.Media.Antifreeze.PropyleneGlycolWater(
+          property_T=293.15,
+          X_a=0.40)
+        "Propylene glycol water, 40% mass fraction")));
+
   constant Real mSenFac=1
     "Factor for scaling the sensible thermal mass of the volume";
 
@@ -29,21 +105,40 @@ partial model PartialInternalHEX
     "Thermal connection for borehole wall"
     annotation (Placement(transformation(extent={{-10,90},{10,110}})));
 protected
-  parameter Modelica.Units.SI.SpecificHeatCapacity cpMed=
+  final parameter .Buildings.Fluid.BaseClasses.Media.Types.TemperatureDependentPropertyFluid
+    tDepFluid=
+      .Buildings.Fluid.BaseClasses.Media.Functions.temperatureDependentFluidFromMediumName(
+        mediumName=Medium.mediumName)
+    "Temperature-dependent fluid-property method derived from the redeclared medium";
+  final parameter Modelica.Units.SI.MassFraction X_a_internal=
+    if tDepFluid ==
+      .Buildings.Fluid.BaseClasses.Media.Types.TemperatureDependentPropertyFluid.Water
+    then
+      0
+    else
+      .Buildings.Fluid.BaseClasses.Media.Functions.massFractionFromMediumName(
+        mediumName=Medium.mediumName)
+    "Glycol mass fraction derived from the redeclared medium";
+  parameter Modelica.Units.SI.SpecificHeatCapacity cpMed_default=
       Medium.specificHeatCapacityCp(Medium.setState_pTX(
       Medium.p_default,
       Medium.T_default,
       Medium.X_default)) "Specific heat capacity of the fluid";
-  parameter Modelica.Units.SI.ThermalConductivity kMed=
+  parameter Modelica.Units.SI.ThermalConductivity kMed_default=
       Medium.thermalConductivity(Medium.setState_pTX(
       Medium.p_default,
       Medium.T_default,
       Medium.X_default)) "Thermal conductivity of the fluid";
-  parameter Modelica.Units.SI.DynamicViscosity muMed=Medium.dynamicViscosity(
+  parameter Modelica.Units.SI.DynamicViscosity muMed_default=Medium.dynamicViscosity(
       Medium.setState_pTX(
       Medium.p_default,
       Medium.T_default,
       Medium.X_default)) "Dynamic viscosity of the fluid";
+  parameter Modelica.Units.SI.Density rhoMed_default=
+      Medium.density(Medium.setState_pTX(
+      Medium.p_default,
+      Medium.T_default,
+      Medium.X_default)) "Density of the fluid";
   parameter Real Rgb_val(fixed=false)
     "Thermal resistance between grout zone and borehole wall";
   parameter Real RCondGro_val(fixed=false)
@@ -69,8 +164,8 @@ Partial model to implement models simulating the thermal and fluid behaviour of 
 </p>
 <p>
 The thermodynamic properties of the fluid circulating in the borehole are calculated
-as protected parameters in this partial model: <i>c<sub>p</sub></i> (<code>cpMed</code>),
-<i>k</i> (<code>kMed</code>) and <i>&mu;</i> (<code>muMed</code>). Additionally, the
+as protected parameters in this partial model: <i>c<sub>p</sub></i> (<code>cpMed_default</code>),
+<i>k</i> (<code>kMed_default</code>) and <i>&mu;</i> (<code>muMed_default</code>). Additionally, the
 following parameters are already declared as protected parameters and thus do not
 need to be declared in models which extend this partial model:
 </p>
@@ -87,6 +182,13 @@ need to be declared in models which extend this partial model:
 </ul>
 </html>", revisions="<html>
 <ul>
+<li>
+July 27, 2026, by Lone Meertens:<br/>
+Added the default medium density used by temperature-dependent borehole
+heat-transfer and pressure-drop correlations.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4483\">Buildings, #4483</a>.
+</li>
 <li>
 May 17, 2024, by Michael Wetter:<br/>
 Updated model due to removal of parameter <code>dynFil</code>.<br/>

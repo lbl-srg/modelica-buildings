@@ -45,6 +45,57 @@ Users Guide</a>.
 </p>
 
 </html>"));
+  type FluidProperties = enumeration(
+      Constant
+        "Use user-specified constant density and dynamic viscosity",
+      DefaultTemperature
+        "Evaluate density and dynamic viscosity at a fixed reference temperature",
+      ActualTemperature
+        "Evaluate density and dynamic viscosity from the current fluid temperature")
+    "Enumeration to configure fluid-property evaluation"
+  annotation (Documentation(info="<html>
+<p>
+Enumeration to configure how fluid properties are evaluated in pressure drop
+calculations.
+</p>
+<p>
+The enumeration is used by models that can compute pressure drop from fluid
+density and dynamic viscosity, and that provide different options for evaluating
+these properties.
+</p>
+<h4>Options</h4>
+<ul>
+<li>
+<code>Constant</code>: The model uses user-specified constant values for density
+and dynamic viscosity.
+</li>
+<li>
+<code>DefaultTemperature</code>: The model evaluates density and dynamic
+viscosity at a fixed reference temperature. The resulting values remain fixed
+during the simulation.
+</li>
+<li>
+<code>ActualTemperature</code>: The model evaluates density and dynamic
+viscosity from the current fluid temperature during the simulation.
+</li>
+</ul>
+<p>
+Using <code>ActualTemperature</code> can increase the computational cost because
+the fluid properties are evaluated during the simulation. For large flow
+networks, <code>Constant</code> or <code>DefaultTemperature</code> can be more
+efficient.
+</p>
+</html>", revisions="<html>
+<ul>
+<li>
+August 7, 2026, by Lone Meertens:<br/>
+First implementation for configuring fluid-property evaluation in pressure drop
+calculations.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4687\">Buildings, #4687</a>.
+</li>
+</ul>
+</html>"));
   type HeatExchangerConfiguration = enumeration(
       ParallelFlow "Parallel flow",
       CounterFlow "Counter flow",

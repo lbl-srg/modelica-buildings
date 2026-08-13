@@ -6,33 +6,53 @@ model TwoUTube "Double U-tube borehole heat exchanger"
     intHex[nSeg](
     redeclare each final package Medium = Medium,
     each final borFieDat=borFieDat,
+    each final computePressureDrop=computePressureDrop,
+    each final use_detailedPressureDrop=use_detailedPressureDrop,
+    each final fluidProperties=fluidProperties,
+    each final T_ref=T_ref,
+    each final kUBend=kUBend,
+    each final use_TDepRConv=use_TDepRConv,
     each final hSeg=borFieDat.conDat.hBor/nSeg,
-    final dp1_nominal={if i == 1 and borFieDat.conDat.borCon == Buildings.Fluid.Geothermal.Borefields.Types.BoreholeConfiguration.DoubleUTubeParallel
-         then dp_nominal elseif i == 1 and borFieDat.conDat.borCon == Buildings.Fluid.Geothermal.Borefields.Types.BoreholeConfiguration.DoubleUTubeSeries
-         then dp_nominal/2 else 0 for i in 1:nSeg},
-    final dp3_nominal={if i == 1 and borFieDat.conDat.borCon == Buildings.Fluid.Geothermal.Borefields.Types.BoreholeConfiguration.DoubleUTubeParallel
-         then dp_nominal elseif i == 1 and borFieDat.conDat.borCon == Buildings.Fluid.Geothermal.Borefields.Types.BoreholeConfiguration.DoubleUTubeSeries
-         then dp_nominal/2 else 0 for i in 1:nSeg},
+    final dp1_nominal={
+      if i == 1 and computePressureDrop and not use_detailedPressureDrop and
+        borFieDat.conDat.borCon == Buildings.Fluid.Geothermal.Borefields.Types.BoreholeConfiguration.DoubleUTubeParallel then
+        dp_nominal
+      elseif i == 1 and computePressureDrop and not use_detailedPressureDrop and
+        borFieDat.conDat.borCon == Buildings.Fluid.Geothermal.Borefields.Types.BoreholeConfiguration.DoubleUTubeSeries then
+        dp_nominal/2
+      else
+        0
+      for i in 1:nSeg},
+    final dp3_nominal={
+      if i == 1 and computePressureDrop and not use_detailedPressureDrop and
+        borFieDat.conDat.borCon == Buildings.Fluid.Geothermal.Borefields.Types.BoreholeConfiguration.DoubleUTubeParallel then
+        dp_nominal
+      elseif i == 1 and computePressureDrop and not use_detailedPressureDrop and
+        borFieDat.conDat.borCon == Buildings.Fluid.Geothermal.Borefields.Types.BoreholeConfiguration.DoubleUTubeSeries then
+        dp_nominal/2
+      else
+        0
+      for i in 1:nSeg},
     each final dp2_nominal=0,
     each final dp4_nominal=0,
     each final show_T=show_T,
     each final energyDynamics=energyDynamics,
     each final m1_flow_nominal=if borFieDat.conDat.borCon == Buildings.Fluid.Geothermal.Borefields.Types.BoreholeConfiguration.DoubleUTubeParallel
-         then m_flow_nominal/2 else m_flow_nominal,
+        then m_flow_nominal/2 else m_flow_nominal,
     each final m2_flow_nominal=if borFieDat.conDat.borCon == Buildings.Fluid.Geothermal.Borefields.Types.BoreholeConfiguration.DoubleUTubeParallel
-         then m_flow_nominal/2 else m_flow_nominal,
+        then m_flow_nominal/2 else m_flow_nominal,
     each final m3_flow_nominal=if borFieDat.conDat.borCon == Buildings.Fluid.Geothermal.Borefields.Types.BoreholeConfiguration.DoubleUTubeParallel
-         then m_flow_nominal/2 else m_flow_nominal,
+        then m_flow_nominal/2 else m_flow_nominal,
     each final m4_flow_nominal=if borFieDat.conDat.borCon == Buildings.Fluid.Geothermal.Borefields.Types.BoreholeConfiguration.DoubleUTubeParallel
-         then m_flow_nominal/2 else m_flow_nominal,
+        then m_flow_nominal/2 else m_flow_nominal,
     each final m1_flow_small=if borFieDat.conDat.borCon == Buildings.Fluid.Geothermal.Borefields.Types.BoreholeConfiguration.DoubleUTubeParallel
-         then borFieDat.conDat.mBor_flow_small/2 else borFieDat.conDat.mBor_flow_small,
+        then borFieDat.conDat.mBor_flow_small/2 else borFieDat.conDat.mBor_flow_small,
     each final m2_flow_small=if borFieDat.conDat.borCon == Buildings.Fluid.Geothermal.Borefields.Types.BoreholeConfiguration.DoubleUTubeParallel
-         then borFieDat.conDat.mBor_flow_small/2 else borFieDat.conDat.mBor_flow_small,
+        then borFieDat.conDat.mBor_flow_small/2 else borFieDat.conDat.mBor_flow_small,
     each final m3_flow_small=if borFieDat.conDat.borCon == Buildings.Fluid.Geothermal.Borefields.Types.BoreholeConfiguration.DoubleUTubeParallel
-         then borFieDat.conDat.mBor_flow_small/2 else borFieDat.conDat.mBor_flow_small,
+        then borFieDat.conDat.mBor_flow_small/2 else borFieDat.conDat.mBor_flow_small,
     each final m4_flow_small=if borFieDat.conDat.borCon == Buildings.Fluid.Geothermal.Borefields.Types.BoreholeConfiguration.DoubleUTubeParallel
-         then borFieDat.conDat.mBor_flow_small/2 else borFieDat.conDat.mBor_flow_small,
+        then borFieDat.conDat.mBor_flow_small/2 else borFieDat.conDat.mBor_flow_small,
     each final mSenFac=mSenFac,
     each final allowFlowReversal1=allowFlowReversal,
     each final allowFlowReversal2=allowFlowReversal,
@@ -60,7 +80,8 @@ model TwoUTube "Double U-tube borehole heat exchanger"
     each final p4_start=p_start,
     final TFlu_start=TFlu_start,
     final TGro_start=TGro_start) "Discretized borehole segments"
-    annotation (Placement(transformation(extent={{-10,-30},{10,10}})));
+  annotation (Placement(transformation(extent={{-10,-30},{10,10}})));
+
 
 equation
   // Couple borehole port_a and port_b to first borehole segment.
@@ -192,8 +213,23 @@ pair of pipes, and a heat resistance between the pipes and the borehole wall.
 The heat capacity of the fluid and the heat capacity of the grout are taken
 into account. The vertical heat flow is assumed to be zero.
 </p>
+<p>
+If enabled in the borefield configuration data, the vertical pipe pressure drop
+is computed using Darcy-Weisbach pressure-drop components with a Churchill
+friction factor. The pressure drop is evaluated from the instantaneous mass-flow
+rate in each U-tube circuit. For the parallel configuration, the two circuits
+are modeled as parallel branches. For the series configuration, the two circuit
+pressure drops are added in series.
+</p>
 </html>", revisions="<html>
 <ul>
+<li>
+July 18, 2026, by L. Meertens:<br/>
+Added optional Darcy-Weisbach pressure-drop components for the vertical pipes of
+double U-tube boreholes in parallel and series configurations.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4656\">Buildings, #4656</a>.
+</li>
 <li>
 May 17, 2024, by Michael Wetter:<br/>
 Updated model due to removal of parameter <code>dynFil</code>.<br/>

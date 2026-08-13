@@ -25,6 +25,13 @@ using the template in
 <a href=\"modelica://Buildings.Fluid.Geothermal.Borefields.Data.Configuration.Template\">
 Buildings.Fluid.Geothermal.Borefields.Data.Configuration.Template</a>.
 </p>
+<p>
+The example configuration sets <code>X_a=0</code>, corresponding to pure water.
+Examples that use
+<a href=\"modelica://Buildings.Media.Antifreeze.PropyleneGlycolWater\">
+Buildings.Media.Antifreeze.PropyleneGlycolWater</a>
+must override <code>X_a</code> consistently with the medium declaration.
+</p>
 </html>",
 revisions="<html>
 <ul>

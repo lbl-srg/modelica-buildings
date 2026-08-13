@@ -1,0 +1,57 @@
+simulateModel("Buildings.Fluid.Geothermal.ZonedBorefields.Examples.SeriesConnectedZonesDarcyPressureDropVariableTemperature", stopTime=2592000.0, method="CVode", tolerance=1E-6, resultFile="SeriesConnectedZonesDarcyPressureDropVariableTemperature");
+
+createPlot(
+  id=1,
+  position={35,30,631,456},
+  x="time",
+  y={"TIn", "TOut"},
+  autoscale=true,
+  autoerase=true,
+  autoreplot=true,
+  grid=true,
+  color=true,
+  filename="SeriesConnectedZonesDarcyPressureDropVariableTemperature.mat",
+  leftTitleType=1,
+  bottomTitleType=1);
+
+createPlot(
+  id=2,
+  position={35,30,631,456},
+  x="time",
+  y={"dpBorFie"},
+  autoscale=true,
+  autoerase=true,
+  autoreplot=true,
+  grid=true,
+  color=true,
+  filename="SeriesConnectedZonesDarcyPressureDropVariableTemperature.mat",
+  leftTitleType=1,
+  bottomTitleType=1);
+
+createPlot(
+  id=3,
+  position={35,30,631,456},
+  x="time",
+  y={"m_flow"},
+  autoscale=true,
+  autoerase=true,
+  autoreplot=true,
+  grid=true,
+  color=true,
+  filename="SeriesConnectedZonesDarcyPressureDropVariableTemperature.mat",
+  leftTitleType=1,
+  bottomTitleType=1);
+
+createPlot(
+  id=4,
+  position={35,30,631,456},
+  x="time",
+  y={"pum.m_flow", "borHol.port_a[1].m_flow", "borHol.port_b[2].m_flow"},
+  autoscale=true,
+  autoerase=true,
+  autoreplot=true,
+  grid=true,
+  color=true,
+  filename="SeriesConnectedZonesDarcyPressureDropVariableTemperature.mat",
+  leftTitleType=1,
+  bottomTitleType=1);

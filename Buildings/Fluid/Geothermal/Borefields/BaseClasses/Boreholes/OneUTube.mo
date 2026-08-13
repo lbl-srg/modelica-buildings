@@ -16,11 +16,22 @@ model OneUTube "Single U-tube borehole heat exchanger"
     each final deltaM2=deltaM,
     each final energyDynamics=energyDynamics,
     each final mSenFac=mSenFac,
-    final dp1_nominal={if i == 1 then dp_nominal else 0 for i in 1:nSeg},
+    final dp1_nominal={
+      if i == 1 and computePressureDrop and not use_detailedPressureDrop then
+        dp_nominal
+      else
+        0
+      for i in 1:nSeg},
     each final dp2_nominal=0,
     each final m1_flow_nominal=m_flow_nominal,
     each final m2_flow_nominal=m_flow_nominal,
     each final borFieDat=borFieDat,
+    each final computePressureDrop=computePressureDrop,
+    each final use_detailedPressureDrop=use_detailedPressureDrop,
+    each final fluidProperties=fluidProperties,
+    each final T_ref=T_ref,
+    each final kUBend=kUBend,
+    each final use_TDepRConv=use_TDepRConv,
     each final allowFlowReversal1=allowFlowReversal,
     each final allowFlowReversal2=allowFlowReversal,
     each final show_T=show_T,
@@ -107,8 +118,27 @@ two pipes, and a heat resistance between the pipes and the borehole wall.
 The heat capacity of the fluid and the heat capacity of the grout are taken
 into account. The vertical heat flow is assumed to be zero.
 </p>
+<p>
+The vertical pipe pressure drop can be configured as lossless, nominal, or
+detailed Darcy-Weisbach pressure drop. The implementation uses
+<a href=\"modelica://Buildings.Fluid.FixedResistances.PressureDropPipe\">
+Buildings.Fluid.FixedResistances.PressureDropPipe</a>.
+For the detailed Darcy-Weisbach option, the pressure drop is evaluated from the
+instantaneous mass-flow rate, pipe geometry, fluid properties, and the U-bend
+minor-loss coefficient <code>kUBend</code>.
+</p>
+
 </html>", revisions="<html>
 <ul>
+<li>
+August 2026, by Lone Meertens:<br/>
+Updated pressure-drop propagation to use the generic
+<a href=\"modelica://Buildings.Fluid.FixedResistances.PressureDropPipe\">
+Buildings.Fluid.FixedResistances.PressureDropPipe</a>
+interface.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4687\">Buildings, #4687</a>.
+</li>
 <li>
 May 17, 2024, by Michael Wetter:<br/>
 Updated model due to removal of parameter <code>dynFil</code>.<br/>

@@ -1,16 +1,16 @@
-simulateModel("Buildings.Fluid.Geothermal.Borefields.BaseClasses.Boreholes.BaseClasses.Functions.Validation.ConvectionResistanceCircularPipe", stopTime=10000.0, method="CVode", tolerance=1E-6, resultFile="FunctionConvectionResistanceCircularPipe");
+simulateModel("Buildings.Fluid.FixedResistances.Functions.Validation.PressureLossPipe", stopTime=10000.0, method="CVode", tolerance=1E-6, resultFile="FunctionPressureLossPipe");
 
 createPlot(
   id = 1,
   position = {35, 30, 631, 456},
   x = "Re",
-  y = {"RConv"},
+  y = {"dp", "dp_lam"},
   autoscale = true,
   autoerase = true,
   autoreplot = true,
   grid=true,
   color=true,
-  filename="FunctionConvectionResistanceCircularPipe.mat",
+  filename="FunctionPressureLossPipe.mat",
   leftTitleType = 1,
   bottomTitleType = 1);
 
@@ -18,12 +18,13 @@ createPlot(
   id = 2,
   position = {35, 30, 631, 456},
   x = "Re",
-  y = {"Nu"},
+  y = {"m_flow"},
   autoscale = true,
   autoerase = true,
   autoreplot = true,
   grid=true,
   color=true,
-  filename="FunctionConvectionResistanceCircularPipe.mat",
+  filename="FunctionPressureLossPipe.mat",
   leftTitleType = 1,
   bottomTitleType = 1);
+
