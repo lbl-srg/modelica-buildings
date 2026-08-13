@@ -31,25 +31,25 @@ model Combined "Example of the usage of the combined model"
     p=30000,
     T=504.475,
     nPorts=1)
-    annotation (Placement(transformation(extent={{-80,-60},{-60,-40}})));
+    annotation (Placement(transformation(extent={{-80,-70},{-60,-50}})));
   Modelica.Fluid.Sources.FixedBoundary bou(
     redeclare package Medium = MediumS,
     p=1000000,
     T=523.15,
     nPorts=1) "Boundary condition"
-    annotation (Placement(transformation(extent={{80,-60},{60,-40}})));
+    annotation (Placement(transformation(extent={{80,-70},{60,-50}})));
   Modelica.Blocks.Continuous.Integrator mFuel(y(unit="kg/s"))
     "Mass flow of fuel consumption "
     annotation (Placement(transformation(extent={{60,20},{80,40}})));
   Modelica.Blocks.Continuous.Integrator STG_Ele(y(unit="W"))
     "Steam turbine electrical energy generated"
-    annotation (Placement(transformation(extent={{60,-20},{80,0}})));
+    annotation (Placement(transformation(extent={{60,-30},{80,-10}})));
   Modelica.Blocks.Continuous.Integrator GTG_Ele(y(unit="W"))
     "Gas turbine electrical energy generated"
     annotation (Placement(transformation(extent={{60,60},{80,80}})));
 equation
   connect(comCyc.port_b, bou.ports[1]) annotation (Line(points={{10,0},{40,0},{
-          40,-50},{60,-50}}, color={0,127,255}));
+          40,-60},{60,-60}}, color={0,127,255}));
   connect(loa.y[1], comCyc.y) annotation (Line(points={{-59,70},{-40,70},{-40,8},
           {-12,8}}, color={0,0,127}));
   connect(ambTem.y[1], comCyc.TAmb)
@@ -57,11 +57,11 @@ equation
   connect(comCyc.PEle_gasTur, GTG_Ele.u)
     annotation (Line(points={{12,9},{40,9},{40,70},{58,70}}, color={0,0,127}));
   connect(comCyc.PEle_steTur, STG_Ele.u) annotation (Line(points={{12,3},{52,3},
-          {52,-10},{58,-10}}, color={0,0,127}));
+          {52,-20},{58,-20}}, color={0,0,127}));
   connect(comCyc.mFue_flow, mFuel.u)
     annotation (Line(points={{12,6},{52,6},{52,30},{58,30}}, color={0,0,127}));
   connect(comCyc.port_a, sou.ports[1]) annotation (Line(points={{-10,0},{-40,0},
-          {-40,-50},{-60,-50}}, color={0,127,255}));
+          {-40,-60},{-60,-60}}, color={0,127,255}));
   annotation (
     Icon(
       coordinateSystem(preserveAspectRatio=false)),
