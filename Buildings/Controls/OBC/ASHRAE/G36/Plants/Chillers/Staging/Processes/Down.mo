@@ -406,6 +406,8 @@ protected
     final nout=nChi) if chiIsoValTyp == Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Types.Actuator.Modulating
     "Replicate boolean input"
     annotation (Placement(transformation(extent={{160,170},{180,190}})));
+  Buildings.Controls.OBC.CDL.Logical.Or or2 "Process ends"
+    annotation (Placement(transformation(extent={{-100,300},{-80,320}})));
 
 equation
   connect(nexChi.yEnaSmaChi,dowSta. nexEnaChi)
@@ -705,8 +707,12 @@ equation
           {220,70},{220,122},{192,122},{192,188},{198,188}},     color={0,0,127}));
   connect(con.y, disNexCWP.uEnaPla) annotation (Line(points={{-138,200},{-120,
           200},{-120,-163},{78,-163}}, color={255,0,255}));
-  connect(uEndPro, nexChi.endPro) annotation (Line(points={{-300,310},{-60,310},
-          {-60,333},{-42,333}}, color={255,0,255}));
+  connect(uEndPro, or2.u1)
+    annotation (Line(points={{-300,310},{-102,310}}, color={255,0,255}));
+  connect(or2.y, nexChi.endPro) annotation (Line(points={{-78,310},{-60,310},{-60,
+          333},{-42,333}}, color={255,0,255}));
+  connect(staEnd.y, or2.u2) annotation (Line(points={{262,-370},{270,-370},{270,
+          -390},{-190,-390},{-190,302},{-102,302}}, color={255,0,255}));
 annotation (
   defaultComponentName="dowProCon",
   Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-280,-400},{280,400}})),
