@@ -108,6 +108,9 @@ active (the evaporative pad is dry), no water vapor is added to the air.
 and ports b1 and b2 are used as outlet ports, for the primary and secondary flow
 respectively.
 </p>
+<p align=\"center\">
+<img alt=\"image\" src=\"modelica://Buildings/Resources/Images/Fluid/Humidifiers/EvaporativePads/IndirectDryEvaporativeCooler.png\" border=\"1\"/>
+</p>
 </html>", revisions="<html>
 <ul>
 <li>

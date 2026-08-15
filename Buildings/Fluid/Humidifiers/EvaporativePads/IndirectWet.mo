@@ -216,6 +216,9 @@ respectively. Also, the secondary air outlet conditions are not validated,
 and it is recommended that it be vented to an object acting as a sink without
 connecting any downstream components to it.
 </p>
+<p align=\"center\">
+<img alt=\"image\" src=\"modelica://Buildings/Resources/Images/Fluid/Humidifiers/EvaporativePads/IndirectWetEvaporativeCooler.png\" border=\"1\"/>
+</p>
 </html>", revisions="<html>
 <ul>
 <li>
