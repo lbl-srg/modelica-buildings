@@ -204,7 +204,6 @@ partial model PartialChillerGroup
     final TCon_nominal=dat.TConChi_nominal,
     final per=dat.perChi)
     "Parameter record - Each chiller";
-  // For series chillers, the following component is used to model the unique balancing valve after the last chiller.
   final parameter Buildings.Templates.Components.Data.Valve datValChiWatChiIsoPar[nChi](
     final typ=if typArrChi ==
       Buildings.Templates.Plants.Chillers.Types.ChillerArrangement.Parallel
