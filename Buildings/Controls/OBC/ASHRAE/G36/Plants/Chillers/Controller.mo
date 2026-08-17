@@ -2230,11 +2230,9 @@ equation
   connect(booToRea1.y, reaScaRep.u)
     annotation (Line(points={{-298,-390},{-282,-390}}, color={0,0,127}));
   connect(reaScaRep.y, chiIso.u2) annotation (Line(points={{-258,-390},{-250,
-          -390},{-250,-176},{-242,-176}},
-                                    color={0,0,127}));
+          -390},{-250,-176},{-242,-176}}, color={0,0,127}));
   connect(chiIso.y, wseSta.uChiIsoVal) annotation (Line(points={{-218,-170},{
-          -180,-170},{-180,-88},{-766,-88},{-766,302},{-704,302}},
-                                                                color={0,0,127}));
+          -180,-170},{-180,-88},{-766,-88},{-766,302},{-704,302}}, color={0,0,127}));
   connect(u1TowInlIsoValOpe, towCon.u1InlIsoValOpe) annotation (Line(points={{-920,-660},
           {-350,-660},{-350,-688},{-268,-688}}, color={255,0,255}));
   connect(u1TowOutIsoValOpe, towCon.u1OutIsoValOpe) annotation (Line(points={{-920,
@@ -2263,8 +2261,7 @@ equation
           -580,-500},{-580,284},{172,284}}, color={255,0,255}));
   connect(disChi.y1ChiWatIsoVal, chiWatPumCon.u1ChiWatIsoVal) annotation (Line(
         points={{762,-466},{800,-466},{800,-340},{20,-340},{20,500.571},{414,
-          500.571}},
-        color={255,0,255}));
+          500.571}}, color={255,0,255}));
   connect(u1ChiWatIsoValOpe, upProCon.u1ChiWatIsoValOpe) annotation (Line(
         points={{-920,-210},{50,-210},{50,312},{172,312}}, color={255,0,255}));
   connect(u1ChiWatIsoValOpe, dowProCon.u1ChiWatIsoValOpe) annotation (Line(
@@ -2304,11 +2301,9 @@ equation
   connect(disChi.yChiWatIsoVal, yChiWatIsoVal) annotation (Line(points={{762,-468},
           {814,-468},{814,-60},{940,-60}}, color={0,0,127}));
   connect(uChiWatIsoVal, chiIso.u1) annotation (Line(points={{-920,-170},{-260,
-          -170},{-260,-164},{-242,-164}},
-                                    color={0,0,127}));
+          -170},{-260,-164},{-242,-164}}, color={0,0,127}));
   connect(gai3.y, chiIso.u1) annotation (Line(points={{-398,-230},{-260,-230},{
-          -260,-164},{-242,-164}},
-                              color={0,0,127}));
+          -260,-164},{-242,-164}}, color={0,0,127}));
   connect(dowProCon.yChiWatIsoVal, gai3.u) annotation (Line(points={{268,-200},{
           306,-200},{306,-310},{-440,-310},{-440,-230},{-422,-230}}, color={0,0,
           127}));

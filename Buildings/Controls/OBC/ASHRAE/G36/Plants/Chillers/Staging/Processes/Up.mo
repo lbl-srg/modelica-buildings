@@ -143,12 +143,12 @@ block Up "Sequence for control devices when there is stage-up command"
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uConWatReq[nChi]
     if not have_airCoo
     "Condenser water requst status for each chiller"
-    annotation (Placement(transformation(extent={{-280,-90},{-240,-50}}),
+    annotation (Placement(transformation(extent={{-280,-110},{-240,-70}}),
       iconTransformation(extent={{-140,-40},{-100,0}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uWSE
     if have_WSE and not have_airCoo
     "Water side economizer status: true = ON, false = OFF"
-    annotation (Placement(transformation(extent={{-280,-110},{-240,-70}}),
+    annotation (Placement(transformation(extent={{-280,-140},{-240,-100}}),
       iconTransformation(extent={{-140,-60},{-100,-20}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uChiHeaCon[nChi]
     if not have_airCoo
@@ -323,7 +323,7 @@ protected
   Buildings.Controls.OBC.CDL.Logical.MultiOr mulOr1(final nin=nChi)
     if not have_airCoo
     "Multiple or"
-    annotation (Placement(transformation(extent={{-80,-80},{-60,-60}})));
+    annotation (Placement(transformation(extent={{-80,-100},{-60,-80}})));
   Buildings.Controls.OBC.CDL.Logical.Switch logSwi2[nChi]
     "Logical switch"
     annotation (Placement(transformation(extent={{200,-170},{220,-150}})));
@@ -426,7 +426,7 @@ equation
     annotation (Line(points={{-118,150},{-100,150},{-100,-8},{-2,-8}},
       color={255,0,255}));
   connect(conWatPumCon.uWSE, uWSE)
-    annotation (Line(points={{58,-69},{-6,-69},{-6,-90},{-260,-90}},
+    annotation (Line(points={{58,-69},{20,-69},{20,-120},{-260,-120}},
       color={255,0,255}));
   connect(enaNexCWP.yChiSta, conWatPumCon.uChiSta)
     annotation (Line(points={{22,-10},{36,-10},{36,-66},{58,-66}},
@@ -451,10 +451,10 @@ equation
     annotation (Line(points={{18,-261},{-220,-261},{-220,-270},{-260,-270}},
       color={255,0,255}));
   connect(uConWatReq, endUp.uConWatReq)
-    annotation (Line(points={{-260,-70},{-164,-70},{-164,-269},{18,-269}},
+    annotation (Line(points={{-260,-90},{-164,-90},{-164,-269},{18,-269}},
       color={255,0,255}));
   connect(uConWatReq, mulOr1.u)
-    annotation (Line(points={{-260,-70},{-82,-70}},
+    annotation (Line(points={{-260,-90},{-82,-90}},
       color={255,0,255}));
   connect(chiDemRed.yChiDem, yChiDem)
     annotation (Line(points={{-58,124},{12,124},{12,180},{260,180}},
@@ -531,7 +531,7 @@ equation
     annotation (Line(points={{-118,-54},{58,-54}},
       color={255,0,255}));
   connect(mulOr1.y, conWatPumCon.uLeaConWatReq)
-    annotation (Line(points={{-58,-70},{-10,-70},{-10,-60},{58,-60}},
+    annotation (Line(points={{-58,-90},{-10,-90},{-10,-60},{58,-60}},
       color={255,0,255}));
   connect(conWatPumCon.yConWatPumNum, yConWatPumNum)
     annotation (Line(points={{82,-66},{220,-66},{220,-90},{260,-90}},
@@ -629,10 +629,9 @@ equation
           {190,14},{-20,14},{-20,-136},{58,-136}}, color={255,0,255}));
   connect(uPla, disPla.u)
     annotation (Line(points={{-260,-300},{-230,-300},{-230,-290},{-202,-290}},
-                                                       color={255,0,255}));
+          color={255,0,255}));
   connect(disPla.y, staEnd.u1)
-    annotation (Line(points={{-178,-290},{78,-290}},
-         color={255,0,255}));
+    annotation (Line(points={{-178,-290},{78,-290}}, color={255,0,255}));
   connect(endUp.endStaTri, staEnd.u2) annotation (Line(points={{42,-269},{60,-269},
           {60,-298},{78,-298}}, color={255,0,255}));
   connect(staEnd.y, yEndStaTri) annotation (Line(points={{102,-290},{260,-290}},
