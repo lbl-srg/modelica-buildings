@@ -17,6 +17,8 @@ model ThermalZone
   parameter String hvacSystemName="none"
     "Name of the HVAC system that this zone belongs for auto-sizing"
     annotation(Dialog(group="Autosizing"));
+  parameter Real m_inf_flow=0.0 "Infiltration mass flow rate for auto-sizing"
+  annotation(Dialog(group="Autosizing"));
   parameter Integer nPorts=0
     "Number of fluid ports (equals to 2 for one inlet and one outlet)"
     annotation (Evaluate=true,Dialog(connectorSizing=true,tab="General",group="Ports"));
@@ -47,7 +49,6 @@ model ThermalZone
     annotation (Dialog(tab="Initialization",enable=Medium.nC > 0));
   final parameter Modelica.Units.SI.Volume V=fmuZon.V "Zone volume";
   final parameter Modelica.Units.SI.Area AFlo=fmuZon.AFlo "Floor area";
-  final parameter Real m_inf_flow=fmuZon.m_inf_flow "Infiltration mass flow rate";
   final parameter Real mSenFac(
     min=1)=fmuZon.mSenFac
     "Factor for scaling the sensible thermal mass of the zone air volume"
@@ -116,6 +117,7 @@ protected
     annotation (Dialog(tab="Advanced"), Evaluate=true);
   Buildings.ThermalZones.EnergyPlus_24_2_0.BaseClasses.ThermalZoneAdapter fmuZon(
     final modelicaNameBuilding=modelicaNameBuilding,
+    final m_inf_flow=m_inf_flow,
     final modelicaInstanceName=modelicaInstanceName,
     final spawnExe=spawnExe,
     final idfVersion=idfVersion,
