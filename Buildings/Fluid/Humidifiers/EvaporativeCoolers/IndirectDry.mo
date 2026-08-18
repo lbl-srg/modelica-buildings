@@ -49,7 +49,7 @@ model IndirectDry
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}}),
       iconTransformation(extent={{-110,-20},{-70,20}})));
 protected
-  Buildings.Fluid.Humidifiers.EvaporativeCoolers.Direct dirEvaPad(
+  Buildings.Fluid.Humidifiers.EvaporativeCoolers.Direct dirEvaCoo(
     redeclare final package Medium = Medium2,
     final padAre=padAre,
     per(final efficiency=per.efficiency,
@@ -69,7 +69,7 @@ protected
     "Heat exchanger for heat transfer between primary and secondary air"
     annotation (Placement(transformation(origin={0,10},extent = {{-10, -10}, {10, 10}})));
 equation
-  connect(port_a2,dirEvaPad. port_a)
+  connect(port_a2,dirEvaCoo. port_a)
     annotation (Line(points={{-100,-60},{-10,-60}}));
   connect(hex.port_b2, port_b2) annotation (
     Line(points={{-10,4},{-20,4},{-20,-20},{80,-20},{80,-60},{100,-60}}, color = {0, 127, 255}));
@@ -77,11 +77,11 @@ equation
     Line(points={{-100,60},{-20,60},{-20,16},{-10,16}}));
   connect(hex.port_b1, port_b1) annotation (
     Line(points={{10,16},{20,16},{20,60},{100,60}}, color = {0, 127, 255}));
-  connect(dirEvaPad.dmWat_flow, dmWat_flow) annotation (Line(points={{9,-56},{60,
+  connect(dirEvaCoo.dmWat_flow, dmWat_flow) annotation (Line(points={{9,-56},{60,
           -56},{60,90},{120,90}}, color={0,0,127}));
-  connect(dirEvaPad.port_b, hex.port_a2) annotation (Line(points={{10,-60},{20,-60},
+  connect(dirEvaCoo.port_b, hex.port_a2) annotation (Line(points={{10,-60},{20,-60},
           {20,4},{10,4}}, color={0,127,255}));
-  connect(evaCooAct, dirEvaPad.evaCooAct) annotation (Line(points={{-120,0},{-60,
+  connect(evaCooAct, dirEvaCoo.evaCooAct) annotation (Line(points={{-120,0},{-60,
           0},{-60,-64},{-9,-64}}, color={255,0,255}));
 annotation (defaultComponentName="indDryEva",
 Documentation(info="<html>

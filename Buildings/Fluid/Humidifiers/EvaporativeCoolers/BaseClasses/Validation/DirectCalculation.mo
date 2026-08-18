@@ -13,19 +13,19 @@ model DirectCalculation "Validation of the direct evaporative pad calculation"
   parameter Modelica.Units.SI.VolumeFlowRate V_flow_nominal = 1
     "Nominal supply air volume flowrate";
 
-  Buildings.Fluid.Humidifiers.EvaporativeCoolers.BaseClasses.DirectCalculation dirEvaPadCal(
+  Buildings.Fluid.Humidifiers.EvaporativeCoolers.BaseClasses.DirectCalculation dirEvaCooCal(
     redeclare package Medium = Buildings.Media.Air,
     final padAre=padAre,
     redeclare Buildings.Fluid.Humidifiers.EvaporativeCoolers.Data.Generic per)
     "Instance with time-varying volume flowrate signal" annotation (Placement(
         transformation(origin={30,50}, extent={{-10,-10},{10,10}})));
-  Buildings.Fluid.Humidifiers.EvaporativeCoolers.BaseClasses.DirectCalculation dirEvaPadCal1(
+  Buildings.Fluid.Humidifiers.EvaporativeCoolers.BaseClasses.DirectCalculation dirEvaCooCal1(
     redeclare package Medium = Buildings.Media.Air,
     final padAre=padAre,
     redeclare Buildings.Fluid.Humidifiers.EvaporativeCoolers.Data.Generic per)
     "Instance with time-varying wetbulb temperature signal" annotation (
       Placement(transformation(origin={30,0}, extent={{-10,-10},{10,10}})));
-  Buildings.Fluid.Humidifiers.EvaporativeCoolers.BaseClasses.DirectCalculation dirEvaPadCal2(
+  Buildings.Fluid.Humidifiers.EvaporativeCoolers.BaseClasses.DirectCalculation dirEvaCooCal2(
     redeclare package Medium = Buildings.Media.Air,
     final padAre=padAre,
     redeclare Buildings.Fluid.Humidifiers.EvaporativeCoolers.Data.Generic per)
@@ -77,29 +77,29 @@ protected
     annotation (Placement(transformation(origin={-80,-80}, extent={{-10,-10},
       {10,10}})));
 equation
-  connect(TWetBulSupCon.y, dirEvaPadCal.TWetBulIn) annotation (Line(points={{-69,
+  connect(TWetBulSupCon.y, dirEvaCooCal.TWetBulIn) annotation (Line(points={{-69,
           80},{-40,80},{-40,56},{18,56}}, color={0,0,127}));
-  connect(TDryBulSupCon.y, dirEvaPadCal.TDryBulIn) annotation (Line(points={{-69,
+  connect(TDryBulSupCon.y, dirEvaCooCal.TDryBulIn) annotation (Line(points={{-69,
           30},{-30,30},{-30,52},{18,52}}, color={0,0,127}));
-  connect(V_flowRam.y, dirEvaPadCal.V_flow) annotation (Line(points={{1,80},{10,
+  connect(V_flowRam.y, dirEvaCooCal.V_flow) annotation (Line(points={{1,80},{10,
           80},{10,48},{18,48}}, color={0,0,127}));
-  connect(TWetBulSupRam.y, dirEvaPadCal1.TWetBulIn)
+  connect(TWetBulSupRam.y, dirEvaCooCal1.TWetBulIn)
     annotation (Line(points={{1,20},{10,20},{10,6},{18,6}}, color={0,0,127}));
-  connect(V_flowCon.y, dirEvaPadCal1.V_flow) annotation (Line(points={{-69,-30},
+  connect(V_flowCon.y, dirEvaCooCal1.V_flow) annotation (Line(points={{-69,-30},
           {-60,-30},{-60,-2},{18,-2}}, color={0,0,127}));
-  connect(pCon.y, dirEvaPadCal.p) annotation (Line(points={{-69,-80},{-50,-80},{
+  connect(pCon.y, dirEvaCooCal.p) annotation (Line(points={{-69,-80},{-50,-80},{
           -50,44},{18,44}}, color={0,0,127}));
-  connect(TDryBulSupRam.y, dirEvaPadCal2.TDryBulIn) annotation (Line(points={{1,
+  connect(TDryBulSupRam.y, dirEvaCooCal2.TDryBulIn) annotation (Line(points={{1,
           -26},{10,-26},{10,-48},{18,-48}}, color={0,0,127}));
-  connect(TWetBulSupCon.y, dirEvaPadCal2.TWetBulIn) annotation (Line(points={{-69,
+  connect(TWetBulSupCon.y, dirEvaCooCal2.TWetBulIn) annotation (Line(points={{-69,
           80},{-40,80},{-40,-44},{18,-44}}, color={0,0,127}));
-  connect(TDryBulSupCon.y, dirEvaPadCal1.TDryBulIn) annotation (Line(points={{-69,
+  connect(TDryBulSupCon.y, dirEvaCooCal1.TDryBulIn) annotation (Line(points={{-69,
           30},{-30,30},{-30,2},{18,2}}, color={0,0,127}));
-  connect(V_flowCon.y, dirEvaPadCal2.V_flow) annotation (Line(points={{-69,-30},
+  connect(V_flowCon.y, dirEvaCooCal2.V_flow) annotation (Line(points={{-69,-30},
           {-60,-30},{-60,-52},{18,-52}}, color={0,0,127}));
-  connect(pCon.y, dirEvaPadCal1.p) annotation (Line(points={{-69,-80},{-50,-80},
+  connect(pCon.y, dirEvaCooCal1.p) annotation (Line(points={{-69,-80},{-50,-80},
           {-50,-6},{18,-6}}, color={0,0,127}));
-  connect(pCon.y, dirEvaPadCal2.p) annotation (Line(points={{-69,-80},{-50,-80},
+  connect(pCon.y, dirEvaCooCal2.p) annotation (Line(points={{-69,-80},{-50,-80},
           {-50,-56},{18,-56}}, color={0,0,127}));
 
 annotation (Documentation(info="<html>

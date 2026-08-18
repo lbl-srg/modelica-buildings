@@ -1,6 +1,6 @@
 within Buildings.Fluid.Humidifiers.EvaporativeCoolers.BaseClasses;
 block DirectCalculation
-  "Calculates the saturation efficiency and the water vapor mass flow rate of a direct evaporative pad"
+  "Calculates the saturation efficiency and the water vapor mass flow rate of a direct evaporative cooler"
 
   replaceable package Medium = Modelica.Media.Interfaces.PartialMedium
     "Medium";
@@ -91,7 +91,7 @@ equation
   TDryBulOut = XWOut.TDryBul;
   dmWat_flow = (XWOut.X_w - XWIn.X_w)*V_flow*rho_default;
 
-annotation (defaultComponentName="dirEvaPadCal",
+annotation (defaultComponentName="dirEvaCooCal",
   Icon(graphics={
   Text(extent={{-152,144},{148,104}}, textString="%name", textColor={0,0,255}),
   Rectangle(extent={{-100,100},{100,-100}}, lineColor={0,0,0},

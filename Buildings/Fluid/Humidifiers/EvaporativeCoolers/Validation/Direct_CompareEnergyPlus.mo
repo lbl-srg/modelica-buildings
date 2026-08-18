@@ -8,7 +8,7 @@ model Direct_CompareEnergyPlus
   parameter Modelica.Units.SI.MassFlowRate m_flow_nominal = 2
     "Nominal supply air volume flowrate";
 
-  Buildings.Fluid.Humidifiers.EvaporativeCoolers.Direct dirEvaPad(
+  Buildings.Fluid.Humidifiers.EvaporativeCoolers.Direct dirEvaCoo(
     redeclare final package Medium = MediumA,
     final padAre=0.6,
     redeclare Buildings.Fluid.Humidifiers.EvaporativeCoolers.Data.EnergyPlus per(d
@@ -78,7 +78,7 @@ model Direct_CompareEnergyPlus
     "Boolean pulse signal for active evaporative cooling"
     annotation (Placement(transformation(extent={{-40,-80},{-20,-60}})));
 equation
-  connect(dirEvaPad.port_b, senTem.port_a)
+  connect(dirEvaCoo.port_b, senTem.port_a)
     annotation (Line(points={{20,0},{30,0}}, color={0,127,255}));
   connect(senTem.T, mea.u)
     annotation (Line(points={{40,11},{40,60},{58,60}}, color={0,0,127}));
@@ -100,9 +100,9 @@ equation
     annotation (Line(points={{60,0},{50,0}}, color={0,127,255}));
   connect(senMasFra.port_b, sin.ports[1])
     annotation (Line(points={{80,0},{100,0}},color={0,127,255}));
-  connect(sou.ports[1],dirEvaPad. port_a)
+  connect(sou.ports[1],dirEvaCoo. port_a)
     annotation (Line(points={{-20,0},{0,0}},   color={0,127,255}));
-  connect(evaCooAct.y,dirEvaPad. evaCooAct) annotation (Line(points={{-18,-70},{
+  connect(evaCooAct.y,dirEvaCoo. evaCooAct) annotation (Line(points={{-18,-70},{
           -10,-70},{-10,-4},{1,-4}}, color={255,0,255}));
   connect(combiTimeTable.y[9], sou.m_flow_in) annotation (Line(points={{-109,40},
           {-100,40},{-100,8},{-42,8}}, color={0,0,127}));

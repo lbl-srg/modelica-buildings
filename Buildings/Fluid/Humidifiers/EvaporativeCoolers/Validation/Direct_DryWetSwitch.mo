@@ -8,14 +8,14 @@ model Direct_DryWetSwitch
   parameter Modelica.Units.SI.MassFlowRate m_flow_nominal = 2
     "Nominal supply air volume flowrate";
 
-  Buildings.Fluid.Humidifiers.EvaporativeCoolers.Direct dirEvaPad1(
+  Buildings.Fluid.Humidifiers.EvaporativeCoolers.Direct dirEvaCoo1(
     redeclare final package Medium = MediumA,
     final padAre=0.6,
     redeclare Buildings.Fluid.Humidifiers.EvaporativeCoolers.Data.Generic per)
     "Direct evaporative pad"
     annotation (Placement(transformation(origin={-50,0},
       extent={{-10,-10},{10,10}})));
-  Buildings.Fluid.Humidifiers.EvaporativeCoolers.Direct dirEvaPad2(
+  Buildings.Fluid.Humidifiers.EvaporativeCoolers.Direct dirEvaCoo2(
     redeclare final package Medium = MediumA,
     final padAre=0.6,
     redeclare Buildings.Fluid.Humidifiers.EvaporativeCoolers.Data.Generic per)
@@ -90,28 +90,28 @@ model Direct_DryWetSwitch
     annotation (Placement(transformation(origin={150,0},
       extent={{-10,-10},{10,10}})));
 equation
-  connect(dirEvaPad2.port_b, senTemOut.port_a)
+  connect(dirEvaCoo2.port_b, senTemOut.port_a)
     annotation (Line(points={{80,0},{100,0}}, color={0,127,255}));
   connect(senMasFraOut.port_a, senTemOut.port_b)
     annotation (Line(points={{140,0},{120,0}}, color={0,127,255}));
   connect(senMasFraOut.port_b, sin.ports[1])
     annotation (Line(points={{160,0},{180,0}}, color={0,127,255}));
-  connect(evaCooAct.y,dirEvaPad2. evaCooAct)
+  connect(evaCooAct.y,dirEvaCoo2. evaCooAct)
     annotation (Line(points={{-158,-70},{50,-70},{50,-4},{61,-4}},
       color={255,0,255}));
   connect(sou.ports[1], senTemIn.port_a)
     annotation (Line(points={{-160,0},{-140,0}}, color={0,127,255}));
   connect(senTemIn.port_b, senMasFraIn.port_a)
     annotation (Line(points={{-120,0},{-100,0}}, color={0,127,255}));
-  connect(senMasFraIn.port_b,dirEvaPad1. port_a)
+  connect(senMasFraIn.port_b,dirEvaCoo1. port_a)
     annotation (Line(points={{-80,0},{-60,0}}, color={0,127,255}));
-  connect(senTemMid.port_a,dirEvaPad1. port_b)
+  connect(senTemMid.port_a,dirEvaCoo1. port_b)
     annotation (Line(points={{-20,0},{-40,0}}, color={0,127,255}));
   connect(senTemMid.port_b, senMasFraMid.port_a)
     annotation (Line(points={{0,0},{20,0}}, color={0,127,255}));
-  connect(dirEvaPad2.port_a, senMasFraMid.port_b)
+  connect(dirEvaCoo2.port_a, senMasFraMid.port_b)
     annotation (Line(points={{60,0},{40,0}}, color={0,127,255}));
-  connect(evaCooAct.y,dirEvaPad1. evaCooAct)
+  connect(evaCooAct.y,dirEvaCoo1. evaCooAct)
     annotation (Line(points={{-158,-70},{-70,-70},{-70,-4},{-59,-4}},
       color={255,0,255}));
   connect(weaDat.weaBus, sou.weaBus)

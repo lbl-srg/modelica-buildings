@@ -1,5 +1,5 @@
 within Buildings.Fluid.Humidifiers;
-package EvaporativeCoolers "Package with evaporative pads"
+package EvaporativeCoolers "Package with evaporative coolers"
 annotation (preferredView="info", Documentation(info="<html>
 <p>
 Package with evaporative cooler models.
