@@ -104,8 +104,8 @@ void closeJSONModelArrayBracket(
    This function calls malloc on the returned value.
 */
 char* getStartDayOfYear(
-    const int startDayOfYear,
-  void (*SpawnFormatError)(const char *string, ...)){
+    const int dayOfWeekForStartDay,
+    void (*SpawnFormatError)(const char *string, ...)){
 
 
     int startDay;
@@ -115,7 +115,7 @@ char* getStartDayOfYear(
                            "Friday", "Saturday", "Sunday"};
     char* day;
 
-    startDay = startDayOfYear - 1;
+    startDay = dayOfWeekForStartDay - 1;
     /* 1 is Monday per Modelica implementation, but C has 0 as the first index. */
     sLen = strlen( days[startDay] ) + 1;
 
@@ -272,7 +272,7 @@ void buildJSONModelStructureForEnergyPlus(
   /* RunPeriod */
   saveAppend(buffer, "  \"RunPeriod\": {\n", size, SpawnFormatError);
 
-  startDayOfYear = getStartDayOfYear(bui->runPer->startDayOfYear, SpawnFormatError);
+  startDayOfYear = getStartDayOfYear(bui->runPer->dayOfWeekForStartDay, SpawnFormatError);
   buildJSONKeyStringValue(buffer, 2, "start_day_of_year",
     startDayOfYear,
     true, size, SpawnFormatError);

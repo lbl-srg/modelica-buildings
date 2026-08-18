@@ -46,6 +46,9 @@ model ThermalZoneAdapter
     "If true, then the radiative heat gain sent from Modelica to EnergyPlus is zero during the model initialization"
     annotation (Dialog(tab="Advanced"), Evaluate=true);
 
+  final parameter Real m_inf_flow=1000.0
+    "Infiltration mass flow rate";
+
   parameter Integer nFluPor
     "Number of fluid ports (Set to 2 for one inlet and one outlet)";
   final parameter Modelica.Units.SI.Area AFlo(fixed=false) "Floor area";
@@ -144,6 +147,7 @@ protected
     hvacSystemName=hvacSystemName,
     runPeriod=runPeriod,
     relativeSurfaceTolerance=relativeSurfaceTolerance,
+    m_inf_flow=m_inf_flow,
     usePrecompiledFMU=usePrecompiledFMU,
     fmuName=fmuName,
     buildingsRootFileLocation=Buildings.ThermalZones.EnergyPlus_24_2_0.BaseClasses.buildingsRootFileLocation,

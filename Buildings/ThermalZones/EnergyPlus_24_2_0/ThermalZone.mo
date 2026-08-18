@@ -47,6 +47,7 @@ model ThermalZone
     annotation (Dialog(tab="Initialization",enable=Medium.nC > 0));
   final parameter Modelica.Units.SI.Volume V=fmuZon.V "Zone volume";
   final parameter Modelica.Units.SI.Area AFlo=fmuZon.AFlo "Floor area";
+  final parameter Real m_inf_flow=fmuZon.m_inf_flow "Infiltration mass flow rate";
   final parameter Real mSenFac(
     min=1)=fmuZon.mSenFac
     "Factor for scaling the sensible thermal mass of the zone air volume"
@@ -278,12 +279,12 @@ equation
     connect(ports[i],senMasFlo[i].port_a)
       annotation (Line(points={{0,-150},{0,-120}},color={0,127,255}));
     connect(fmuZon.m_flow[i],senMasFlo[i].m_flow)
-      annotation (Line(points={{78,-50},{30,-50},{30,-110},{11,-110}},color={0,0,127}));
+      annotation (Line(points={{78,-48},{30,-48},{30,-110},{11,-110}},color={0,0,127}));
     connect(senMasFlo[i].port_b,vol.ports[i])
       annotation (Line(points={{0,-100},{0,-80}},                 color={0,127,255}));
   end for;
   connect(fmuZon.TInlet,TAirIn.y)
-    annotation (Line(points={{78,-54},{64,-54},{64,-70},{61,-70}},color={0,0,127}));
+    annotation (Line(points={{78,-52},{64,-52},{64,-70},{61,-70}},color={0,0,127}));
   connect(TFlu.y,preTem.T)
     annotation (Line(points={{61,0},{70,0},{70,16},{-90,16},{-90,0},{-82,0}},    color={0,0,127}));
   connect(heaFloSen.port_b,preTem.port)
@@ -291,13 +292,13 @@ equation
   connect(heaFloSen.port_a,heaPorAir)
     annotation (Line(points={{-20,0},{0,0}},                    color={191,0,0}));
   connect(TFlu.y,fmuZon.T)
-    annotation (Line(points={{61,0},{70,0},{70,-42},{78,-42}},color={0,0,127}));
+    annotation (Line(points={{61,0},{70,0},{70,-40},{78,-40}},color={0,0,127}));
   connect(TFlu.y,TAir)
     annotation (Line(points={{61,0},{210,0}},color={0,0,127}));
   connect(heaFloSen.Q_flow,vol.Q_flow)
     annotation (Line(points={{-30,-11},{-30,-64},{-12,-64}},color={0,0,127}));
   connect(vol.XiOut[1],fmuZon.X_w)
-    annotation (Line(points={{0,-59},{0,-46},{78,-46}},                  color={0,0,127}));
+    annotation (Line(points={{0,-59},{0,-44},{78,-44}},                  color={0,0,127}));
   connect(X_w.y,relHum.X_w)
     annotation (Line(points={{62,-22},{64,-22},{64,22},{159,22}},color={0,0,127}));
   connect(vol.mXiOut[1],X_w.u1)
@@ -332,8 +333,9 @@ equation
                                                       color={191,0,0}));
   connect(fmuZon.TRad, preRadTem.T) annotation (Line(points={{101,-44},{106,-44},
           {106,76},{-52,76},{-52,60},{-42,60}}, color={0,0,127}));
-  connect(fmuZon.QGaiRad_flow, QRad_flow.y) annotation (Line(points={{78,-58},{74,
-          -58},{74,110},{61,110}}, color={0,0,127}));
+  connect(fmuZon.QGaiRad_flow, QRad_flow.y) annotation (Line(points={{78,-56},{
+          74,-56},{74,110},{61,110}},
+                                   color={0,0,127}));
   connect(QRad_flow.u1, heaGai.QRad_flow) annotation (Line(points={{38,116},{-140,
           116},{-140,106},{-158,106}}, color={0,0,127}));
   connect(QRad_flow.u2, radHeaFloSen.Q_flow) annotation (Line(points={{38,104},

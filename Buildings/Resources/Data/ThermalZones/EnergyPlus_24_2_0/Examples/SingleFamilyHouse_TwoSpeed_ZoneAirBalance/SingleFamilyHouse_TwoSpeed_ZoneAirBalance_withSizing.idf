@@ -494,6 +494,15 @@ Sizing:Zone,
     autocalculate,           !- Ceiling Height {m}
     autocalculate;           !- Volume {m3}
 
+  ZoneList,
+    LivingZoneList,
+    LIVING ZONE;
+
+  ZoneGroup,
+    LivingZoneGroup,
+    LivingZoneList,
+    1;
+
   Zone,
     GARAGE ZONE,             !- Name
     0,                       !- Direction of Relative North {deg}
