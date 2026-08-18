@@ -142,7 +142,7 @@ block Up "Sequence for control devices when there is stage-up command"
         iconTransformation(extent={{-140,-10},{-100,30}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uConWatReq[nChi]
     if not have_airCoo
-    "Condenser water requst status for each chiller"
+    "Condenser water request status for each chiller"
     annotation (Placement(transformation(extent={{-280,-110},{-240,-70}}),
       iconTransformation(extent={{-140,-40},{-100,0}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uWSE
@@ -166,7 +166,7 @@ block Up "Sequence for control devices when there is stage-up command"
     annotation (Placement(transformation(extent={{-280,-240},{-240,-200}}),
         iconTransformation(extent={{-140,-160},{-100,-120}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uChiWatReq[nChi]
-    "Chilled water requst status for each chiller"
+    "Chilled water request status for each chiller"
     annotation (Placement(transformation(extent={{-280,-290},{-240,-250}}),
       iconTransformation(extent={{-140,-190},{-100,-150}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uPla

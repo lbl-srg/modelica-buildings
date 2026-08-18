@@ -140,12 +140,12 @@ block Down
     annotation (Placement(transformation(extent={{-320,20},{-280,60}}),
         iconTransformation(extent={{-140,-60},{-100,-20}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uChiWatReq[nChi]
-    "Chilled water requst status for each chiller"
+    "Chilled water request status for each chiller"
     annotation (Placement(transformation(extent={{-320,-30},{-280,10}}),
       iconTransformation(extent={{-140,-90},{-100,-50}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uConWatReq[nChi]
     if not have_airCoo
-    "Condenser water requst status for each chiller"
+    "Condenser water request status for each chiller"
     annotation (Placement(transformation(extent={{-320,-140},{-280,-100}}),
       iconTransformation(extent={{-140,-110},{-100,-70}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uChiConIsoVal[nChi]
