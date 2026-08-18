@@ -46,7 +46,7 @@ model ThermalZoneAdapter
     "If true, then the radiative heat gain sent from Modelica to EnergyPlus is zero during the model initialization"
     annotation (Dialog(tab="Advanced"), Evaluate=true);
 
-  final parameter Real m_inf_flow=1000.0
+  final parameter Real m_inf_flow=453.138*0.25/60/2118.88*1.2
     "Infiltration mass flow rate";
 
   parameter Integer nFluPor

@@ -46,7 +46,7 @@ protected
     hvacSystemName="n/a",
     runPeriod=building.runPeriod,
     relativeSurfaceTolerance=relativeSurfaceTolerance,
-    m_inf_flow=10.0,
+    m_inf_flow=0.0,
     usePrecompiledFMU=usePrecompiledFMU,
     fmuName=fmuName,
     buildingsRootFileLocation=Buildings.ThermalZones.EnergyPlus_24_2_0.BaseClasses.buildingsRootFileLocation,
