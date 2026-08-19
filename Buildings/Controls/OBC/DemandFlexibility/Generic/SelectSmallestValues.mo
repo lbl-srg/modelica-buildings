@@ -11,7 +11,7 @@ block SelectSmallestValues "Select smallest values"
     annotation (Placement(transformation(extent={{-320,-20},{-280,20}}),
         iconTransformation(extent={{-140,-20},{-100,20}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput disFla[nVal]
-    "A flag vector to disqualify certain values from comparison"
+    "A flag vector to disable certain values from comparison"
     annotation (Placement(transformation(extent={{-320,40},{-280,80}}),
         iconTransformation(extent={{-140,40},{-100,80}})));
   Buildings.Controls.OBC.CDL.Interfaces.IntegerInput nSel
@@ -137,9 +137,9 @@ boolean vector, where <code>true</code> means a value at the corresponding index
 one of the smallest values, and <code>false</code> means otherwise.
 </p>
 <p>
-The disqualified flag vector <code>disFla</code> serves to disqualify certain values
+The disabled flag vector <code>disFla</code> serves to disable certain values
 in the input vector from small-value comparison by changing these values to a large
-number. If the number of values that do not have the disqualified flag is smaller
+number. If the number of values that do not have the disabled flag is smaller
 than <code>nSel</code>, the final number of selected smallest values will be smaller
 than <code>nSel</code>.
 </p>

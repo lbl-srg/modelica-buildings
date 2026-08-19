@@ -87,7 +87,7 @@ block ZoneEnable "Zone enablement"
     annotation (Placement(transformation(extent={{-300,20},{-260,60}}),
       iconTransformation(extent={{-140,-60},{-100,-20}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput enaFla[nZon]
-    "Flags to enable certain zones for zone temperature comparison and zone prioritization; true to enable a zone"
+    "Flags to enable certain zones for the setpoint change operation; true to enable a zone"
     annotation (Placement(transformation(extent={{260,20},{300,60}}),
         iconTransformation(extent={{100,-20},{140,20}})));
 protected
@@ -457,11 +457,16 @@ First implementation.
 </ul>
 </html>", info="<html>
 <p>
-This block serves to determine whether a zone is enabled to participate in zone
-temperature comparison and zone prioritization through the
-<a href=\"modelica://Buildings.Controls.OBC.DemandFlexibility.ZoneTemperatureSetpointChange.Subsequences.ZonePrioritization\">
-Buildings.Controls.OBC.DemandFlexibility.ZoneTemperatureSetpointChange.Subsequences.ZonePrioritization</a>
-block. 
+This block serves to determine whether a zone is enabled to participate in the
+setpoint change operation. 
+</p>
+<p>
+The parameter <code>airConMod</code> represents the air conditioning mode.
+<code>airConMod = true</code> represents the heating mode, whereas
+<code>airConMod = false</code> represents the cooling mode. The demand flexibility
+mode parameter <code>demFleMod</code> can take values of <i>0</i> (pre-cool or
+pre-heat mode), <i>1</i> (default mode), <i>2</i> (load-shed mode), and <i>3</i>
+(load-rebound mode). 
 </p>
 <p>
 Several conditions are used to determine that a zone is enabled, including:
@@ -471,12 +476,12 @@ Several conditions are used to determine that a zone is enabled, including:
 A zone is not a rogue zone.
 </li>
 <li>
-The electricity demand of the building where the zone is located is higher than an
-electricity demand threshold during the load-shed demand flexibility mode.
+The electricity demand of the building in which the zone is located is higher than 
+the allowable electricity demand during the load-shed demand flexibility mode.
 </li>
 <li>
-The zone temperature is close enough to the zone temperature setpoint during the
-load-shed demand flexibility mode.
+The difference between the current zone temperature and the current zone temperature
+setpoint is below a threshold value during the load-shed demand flexibility mode.
 </li>
 <li>
 The zone temperature setpoint has not reached a temperature setpoint limit that is
@@ -487,14 +492,8 @@ imposed by the respective demand flexibility mode.
 Only if all of the above conditions are met for a zone, the enabled flag
 <code>enaFla</code> for that zone will be set to <code>true</code>. If any one of
 the above conditions is not met, <code>enaFla</code> will be set to
-<code>false</code>.
-</p>
-<p>
-The parameter <code>airConMod</code> represents the air conditioning mode.
-<code>airConMod = true</code> represents the heating mode, whereas
-<code>airConMod = false</code> represents the cooling mode. The demand flexibility
-mode <code>demFleMod</code> can take values of <i>0</i> (pre-cool or pre-heat mode),
-<i>1</i> (default mode), <i>2</i> (load-shed mode), and <i>3</i> (load-rebound mode). 
+<code>false</code>. If the parameter <code>use_demCon</code> is <code>false</code>,
+Condition <i>2</i> is not used. Otherwise, Condition <i>2</i> is used.
 </p>
 <p>
 Zone temperature difference, an internal variable, is defined as the zone
@@ -506,7 +505,7 @@ temperature (<code>TZon</code>) minus the zone temperature setpoint
 </p>
 <p>
 The input variables <code>TPreTarSet</code>, <code>TDefSet</code>, and
-<code>TSheTarSet</code> must represent reasonable values within a range. For example,
+<code>TSheTarSet</code> must represent specific sets of values. For example,
 <code>TPreTarSet &gt; TDefSet &gt; TSheTarSet</code> must hold if the air
 conditioning system is in the heating mode (<code>airConMod = true</code>), and
 <code>TPreTarSet &lt; TDefSet &lt; TSheTarSet</code> must hold if the air

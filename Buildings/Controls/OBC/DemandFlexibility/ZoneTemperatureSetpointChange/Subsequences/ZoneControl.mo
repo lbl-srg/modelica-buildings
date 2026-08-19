@@ -202,7 +202,7 @@ temperature setpoint to take on a new value. The parameter <code>airConMod</code
 represents the air conditioning mode. <code>airConMod = true</code> represents the
 heating mode, whereas <code>airConMod = false</code> represents the cooling mode.
 <code>TCurZonSet</code> and <code>TComZonSet</code> must represent heating setpoints
-when <code>airConMod = true</code>, and it must represent cooling setpoints when
+when <code>airConMod = true</code>, and they must represent cooling setpoints when
 <code>airConMod = false</code>.
 </p>
 <p>
@@ -334,7 +334,7 @@ setpoint change flag <code>use_mulSteSetCha = false</code>:
 </table>
 <p>
 The input variables <code>TPreTarSet</code>, <code>TDefSet</code>, and
-<code>TSheTarSet</code> must take on reasonable values. For example,
+<code>TSheTarSet</code> must take on specific sets of values. For example,
 <code>TPreTarSet &gt; TDefSet &gt; TSheTarSet</code> must hold if the air
 conditioning system is in the heating mode (<code>airConMod = true</code>), and
 <code>TPreTarSet &lt; TDefSet &lt; TSheTarSet</code> must hold if the air
@@ -345,6 +345,12 @@ Note that the output <code>TComZonSet</code> is intended to be received by a
 downstream temperature setpoint controller, which will process the setpoint change
 and pass its new setpoint back to the input <code>TCurZonSet</code>, completing a
 full control loop.
+</p>
+<p>
+Also note that within each demand flexibility mode, the changes in setpoint values of
+<code>TCurZonSet</code> and <code>TComZonSet</code> have only one direction: either
+increasing or decreasing. The setpoint values will change direction only when the
+demand flexibility mode is changed.
 </p>
 </html>", revisions="<html>
 <ul>

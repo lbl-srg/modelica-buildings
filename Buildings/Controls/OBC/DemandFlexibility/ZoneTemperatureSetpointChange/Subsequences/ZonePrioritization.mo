@@ -26,7 +26,7 @@ block ZonePrioritization
     annotation (Placement(transformation(extent={{120,-20},{160,20}}),
         iconTransformation(extent={{100,-20},{140,20}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput disFla[nZon]
-    "Flags to disqualify certain zones from zone temperature comparison; true to disqualify a zone"
+    "Flags to disable certain zones from zone temperature comparison; true to disable a zone"
     annotation (Placement(transformation(extent={{-160,40},{-120,80}}),
         iconTransformation(extent={{-140,40},{-100,80}})));
   Buildings.Controls.OBC.CDL.Interfaces.IntegerInput nSel
@@ -104,7 +104,8 @@ heating setpoint when <code>airConMod = true</code>, and it must represent a coo
 setpoint when <code>airConMod = false</code>.
 </p>
 <p>
-<code>nSel</code> represents the number of zones to select for prioritization.
+The parameter <code>nSel</code> represents the number of zones to select for
+prioritization.
 </p>
 <p>
 For the heating mode (<code>airConMod = true</code>), for <code>nSel</code> zones
@@ -119,12 +120,13 @@ with the largest zone temperature difference, these zones will have their
 have their <code>yEna</code> variable set to <code>false</code>. 
 </p>
 <p>
-Setting the disqualified flag vector <code>disFla=true</code> serves to disqualify
-certain zones from the zone prioritization; thus, these zones will have their
-<code>yEna</code> variable set to <code>false</code>. If the number of zones that do
-not have the disqualified flag is smaller than <code>nSel</code>, the final number
-of zones with <code>yEna</code> equal to <code>true</code> will be smaller than
-<code>nSel</code>.
+Setting the disabled flag vector <code>disFla=true</code> serves to exclude certain
+zones from the ranking of the zone temperature difference of each zone to determine
+which zones are prioritized for the setpoint change operation. Thus, these zones
+will have their <code>yEna</code> variable set to <code>false</code>. If the number
+of zones that do not have <code>disFla=true</code> is smaller than <code>nSel</code>,
+the final number of zones with <code>yEna</code> equal to <code>true</code> will be
+smaller than <code>nSel</code>.
 </p>
 </html>"));
 end ZonePrioritization;
