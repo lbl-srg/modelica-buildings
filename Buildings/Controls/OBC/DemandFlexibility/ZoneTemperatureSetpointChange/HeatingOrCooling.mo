@@ -118,9 +118,12 @@ block HeatingOrCooling
     "Commanded zone temperature setpoint to the external setpoint controller to change the current temperature setpoint"
     annotation (Placement(transformation(extent={{220,-20},{260,20}}),
         iconTransformation(extent={{100,-20},{140,20}})));
-  CDL.Logical.Not            enaOneZon[nZon] if nZon == 1
+  Buildings.Controls.OBC.DemandFlexibility.Generic.BooleanPassThrough enaOneZon[nZon] if nZon == 1
     "When there is only one zone in a building, always enable setpoint change for this zone"
     annotation (Placement(transformation(extent={{60,120},{80,140}})));
+  Buildings.Controls.OBC.CDL.Logical.Not notEna[nZon] if nZon == 1
+    "Zones are not enabled to participate in zone temperature comparison and zone prioritization"
+    annotation (Placement(transformation(extent={{-20,100},{0,120}})));
 protected
   Buildings.Controls.OBC.DemandFlexibility.ZoneTemperatureSetpointChange.Subsequences.ZoneEnable
     zonEna(
@@ -166,9 +169,6 @@ protected
     "A constant threshold value for the electricity demand of the building"
     annotation (Placement(transformation(extent={{-180,100},{-160,120}})));
 equation
-  connect(zonEna.enaFla, zonPri.disFla)
-    annotation (Line(points={{-58,130},{-40,130},{-40,96},{58,96}},
-      color={255,0,255}));
   connect(zonPri.yEna, zonCon.uEna)
     annotation (Line(points={{82,90},{100,90},{100,-100},{118,-100}},
       color={255,0,255}));
@@ -232,10 +232,14 @@ equation
   connect(conPBuiThr.y,zonEna. PBuiThr)
     annotation (Line(points={{-158,110},{-150,110},{-150,138},{-82,138}},
       color={0,0,127}));
-  connect(zonEna.enaFla, enaOneZon.u)
-    annotation (Line(points={{-58,130},{58,130}}, color={255,0,255}));
   connect(enaOneZon.y, zonCon.uEna) annotation (Line(points={{82,130},{100,130},
           {100,-100},{118,-100}}, color={255,0,255}));
+  connect(zonEna.enaFla, notEna.u) annotation (Line(points={{-58,130},{-40,130},
+          {-40,110},{-22,110}}, color={255,0,255}));
+  connect(notEna.y, zonPri.disFla) annotation (Line(points={{2,110},{40,110},{40,
+          96},{58,96}}, color={255,0,255}));
+  connect(enaOneZon.u, zonEna.enaFla)
+    annotation (Line(points={{58,130},{-58,130}}, color={255,0,255}));
   annotation (defaultComponentName="heaOrCoo",
     Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-180},{100,180}},
     grid={2,2}), graphics={Rectangle(
@@ -264,9 +268,9 @@ certain zones based on the difference between the current zone temperature and t
 current zone temperature setpoint, and finally executes the setpoint change by
 outputting new setpoints.
 </p>
-<h4>Zone Qualification</h4>
+<h4>Zone Enablement</h4>
 <p>
-This block contains a <code>ZoneQualification</code> sub-block to check whether each
+This block contains a <code>ZoneEnable</code> sub-block to check whether each
 zone is qualified for setpoint change.
 </p>
 <p>
@@ -291,11 +295,11 @@ imposed by the respective demand flexibility mode.
 </ul>
 <p>
 Refer to the documentation of the
-<a href=\"modelica://Buildings.Controls.OBC.DemandFlexibility.ZoneTemperatureSetpointChange.Subsequences.ZoneEnable\">ZoneQualification</a>
+<a href=\"modelica://Buildings.Controls.OBC.DemandFlexibility.ZoneTemperatureSetpointChange.Subsequences.ZoneEnable\">ZoneEnable</a>
 sub-block for more details on how each of these conditions is defined. Note that if
 the zone control variant parameter <code>zonConVar</code> in this block has a value
 of Variant <i>3</i> or Variant <i>4</i>, the use-demand-control parameter
-<code>use_demCon</code> within the <code>ZoneQualification</code> sub-block (not
+<code>use_demCon</code> within the <code>ZoneEnable</code> sub-block (not
 accessible in this block) will be set to <code>true</code>. Otherwise, the
 <code>use_demCon</code> parameter will be set to <code>false</code>. As a result, if
 the zone control variant is not Variant <i>3</i> or Variant <i>4</i>, the condition
@@ -331,10 +335,10 @@ largest zone temperature difference will be selected for the setpoint change
 operation.
 </p>
 <p>
-Information from the <code>ZoneQualification</code> sub-block about whether a zone
+Information from the <code>ZoneEnable</code> sub-block about whether a zone
 is qualified for the setpoint change operation will be passed to the
 <code>ZonePrioritization</code> sub-block. Any zones that are disqualified,
-determined by the <code>ZoneQualification</code> sub-block, will not participate in
+determined by the <code>ZoneEnable</code> sub-block, will not participate in
 the ranking of the zone temperature difference to select the <code>nSel</code> zones
 in the <code>ZonePrioritization</code> sub-block, even if these zones have the
 largest or the smallest zone temperature difference. Only the qualified zones will
@@ -345,14 +349,14 @@ the <code>ZonePrioritization</code> sub-block.
 </p>
 <p>
 Keep in mind that only the <code>nSel</code> zones being selected, rather than all
-zones that are qualified by the <code>ZoneQualification</code> sub-block, will go
+zones that are qualified by the <code>ZoneEnable</code> sub-block, will go
 through the setpoint change operation.
 </p>
 <p>
 Note that if the number of zones <code>nZon</code> is equal to <i>1</i>, the
 <code>ZonePrioritization</code> sub-block will not be run in order to save
 computation memory. Instead, this <i>1</i> zone will be selected for the setpoint
-change operation by default, unless the <code>ZoneQualification</code> sub-block
+change operation by default, unless the <code>ZoneEnable</code> sub-block
 decides that this zone should be disqualified for the setpoint change operation.
 </p>
 <p>
@@ -426,7 +430,7 @@ The parameter <code>samPerSetCha</code> is a setpoint change sampling period, wh
 specifies the time interval on how often the setpoint change operation is executed.
 </p>
 <p>
-In the <code>ZoneQualification</code> sub-block, if the electricity demand of the
+In the <code>ZoneEnable</code> sub-block, if the electricity demand of the
 building is lower than the electricity demand threshold during the load-shed demand
 flexibility mode for Variant <i>3</i> or Variant <i>4</i>, all zones in the building
 will be disqualified for setpoint change. Thus, the zone temperature setpoints will
@@ -439,7 +443,7 @@ temperatures, thus turning off air conditioning and reducing the electricity dem
 of the building. This completes one cycling period of zone control.
 </p>
 <p>
-In the <code>ZoneQualification</code> sub-block, another qualifying condition for
+In the <code>ZoneEnable</code> sub-block, another qualifying condition for
 zone temperature setpoint change is that the zone temperature is close enough to the
 zone temperature setpoint during the load-shed demand flexibility mode. If the zone
 temperature is not close enough to the zone temperature setpoint for a zone, this
@@ -449,7 +453,7 @@ the load-shed mode change value only when necessary and not deviate too far, the
 minimizing occupant thermal discomfort.
 </p>
 <p>
-In the <code>ZoneQualification</code> sub-block, the last qualifying condition for
+In the <code>ZoneEnable</code> sub-block, the last qualifying condition for
 zone temperature setpoint change is that the zone temperature setpoint has not
 reached a temperature setpoint limit that is imposed by the respective demand
 flexibility mode. Based on the <code>ZonePrioritization</code> sub-block and the

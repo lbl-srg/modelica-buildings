@@ -1,0 +1,2 @@
+simulateModel("Buildings.Controls.OBC.DemandFlexibility.Generic.Validation.BooleanPassThrough", method="Cvode", tolerance=1e-06, stopTime=60, resultFile="BooleanPassThrough");
+createPlot(id=1, position={32, 1, 488, 257}, y={"booPasThr.u", "booPasThr.y"}, range={0.0, 60.0, -0.2, 1.2}, grid=true, colors={{28,108,200}, {28,108,200}}, timeUnit="s");
