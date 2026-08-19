@@ -16,7 +16,7 @@ extern void* allocate_Spawn_EnergyPlus_24_2_0(
   const char* hvacZone,
   const runPeriod* runPer,
   double relativeSurfaceTolerance,
-  double m_inf_flow,
+  double ach_inf,
   int usePrecompiledFMU,
   const char* fmuName,
   const char* buildingsRootFileLocation,

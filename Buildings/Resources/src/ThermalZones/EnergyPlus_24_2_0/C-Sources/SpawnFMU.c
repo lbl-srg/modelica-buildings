@@ -30,7 +30,7 @@ size_t AllocateBuildingDataStructure(
   const char* epwName,
   const runPeriod* runPer,
   double relativeSurfaceTolerance,
-  double m_inf_flow,
+  double ach_inf,
   int usePrecompiledFMU,
   const char* fmuName,
   const char* buildingsRootFileLocation,

@@ -28,7 +28,7 @@ class SpawnExternalObject
       "EnergyPlus RunPeriod configuration";
     input Real relativeSurfaceTolerance
       "Relative tolerance of surface temperature calculations";
-    input Real m_inf_flow
+    input Real ach_inf
       "Infiltration mass flow rate";
     input Boolean usePrecompiledFMU
       "Set to true to use precompiled FMU with name specified by input fmuName";
@@ -87,7 +87,7 @@ class SpawnExternalObject
     runPeriod.use_weatherFileRainIndicators,
     runPeriod.use_weatherFileSnowIndicators,
     relativeSurfaceTolerance,
-    m_inf_flow,
+    ach_inf,
     usePrecompiledFMU,
     fmuName,
     buildingsRootFileLocation,
