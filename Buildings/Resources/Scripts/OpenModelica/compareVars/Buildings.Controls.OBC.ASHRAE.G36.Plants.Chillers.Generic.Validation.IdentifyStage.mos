@@ -1,0 +1,10 @@
+compareVars :=
+  {
+    "ideSta.uChi[1]",
+    "ideSta.uChi[2]",
+    "ideSta.ySta",
+    "ideSta1.uChi[1]",
+    "ideSta1.uChi[2]",
+    "ideSta1.uChi[3]",
+    "ideSta1.ySta"
+  };

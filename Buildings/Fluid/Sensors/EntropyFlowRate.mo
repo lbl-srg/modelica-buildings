@@ -3,7 +3,9 @@ model EntropyFlowRate "Ideal entropy flow rate sensor"
   extends Buildings.Fluid.Sensors.BaseClasses.PartialDynamicFlowSensor(
     tau=0);
   extends Modelica.Icons.RoundSensor;
-  Modelica.Blocks.Interfaces.RealOutput S_flow(final unit="W/K")
+  Modelica.Blocks.Interfaces.RealOutput S_flow(
+    final unit="W/K",
+    nominal=s_out_start*m_flow_nominal)
     "Entropy flow rate, positive if from port_a to port_b"
     annotation (Placement(transformation(
         origin={0,110},
@@ -89,6 +91,11 @@ Buildings.Fluid.Sensors.UsersGuide</a> for an explanation.
 </html>",
 revisions="<html>
 <ul>
+<li>
+June 25, 2026, by Michael Wetter:<br/>
+Added <code>nominal</code> attribute to state variable.<br/>
+This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/2132\">IBPSA, #2132</a>.
+</li>
 <li>
 October 19, 2020, by Antoine Gautier:<br/>
 Changed default value for <code>tau</code> from <code>1</code> to <code>0</code>.<br/>
