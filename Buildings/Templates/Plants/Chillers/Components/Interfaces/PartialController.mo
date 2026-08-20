@@ -276,8 +276,8 @@ partial block PartialController
     annotation(Placement(transformation(extent={{-260,100},{-220,140}}),
       iconTransformation(extent={{-422,198},{-382,238}})));
   Buildings.Templates.Components.Interfaces.Bus busValConWatEcoIso
-    if cfg.typEco ==
-      Buildings.Templates.Plants.Chillers.Types.Economizer.HeatExchangerWithValve
+    if cfg.typEco <>
+      Buildings.Templates.Plants.Chillers.Types.Economizer.None
     "WSE HX CW isolation valve control bus"
     annotation(Placement(transformation(extent={{-260,-220},{-220,-180}}),
       iconTransformation(extent={{-466,50},{-426,90}})));
