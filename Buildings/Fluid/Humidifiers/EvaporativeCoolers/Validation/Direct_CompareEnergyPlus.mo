@@ -1,6 +1,6 @@
 within Buildings.Fluid.Humidifiers.EvaporativeCoolers.Validation;
 model Direct_CompareEnergyPlus
-  "Validation model for a direct evaporative pad against EnergyPlus results"
+  "Validation model for a direct evaporative cooler against EnergyPlus results"
   extends Modelica.Icons.Example;
 
   replaceable package MediumA = Buildings.Media.Air
@@ -13,7 +13,7 @@ model Direct_CompareEnergyPlus
     final padAre=0.6,
     redeclare Buildings.Fluid.Humidifiers.EvaporativeCoolers.Data.EnergyPlus per(d
         =0.2))
-    "Direct evaporative pad"    annotation (Placement(
+    "Direct evaporative cooler"    annotation (Placement(
         transformation(origin={10,0},extent={{-10,-10},{10,10}})));
   Buildings.Fluid.Sources.Boundary_pT sin(
     redeclare final package Medium = MediumA,
@@ -111,7 +111,7 @@ annotation (
   experiment(StartTime=350000, StopTime=604800, Interval=60, Tolerance=1e-6),
   Documentation(info="<html>
 <p>
-This model validates the direct evaporative pad model
+This model validates the direct evaporative cooler model
 <a href=\"modelica://Buildings.Fluid.Humidifiers.EvaporativeCoolers.Direct\">
 Buildings.Fluid.Humidifiers.EvaporativeCoolers.Direct</a> against EnergyPlus results.
 </p>
@@ -159,7 +159,7 @@ and dry bulb temperature.
 <li>
 June 18, 2026, by Weiping Huang:<br/>
 Added an evaporative cooling on-and-off boolean flag for the direct evaporative
-pad model.
+cooler model.
 </li>
 <li>
 September 14, 2023 by Cerrina Mouchref, Karthikeya Devaprasad, Lingzhe Wang:<br/>

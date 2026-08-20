@@ -1,5 +1,5 @@
 within Buildings.Fluid.Humidifiers.EvaporativeCoolers.BaseClasses.Validation;
-model DirectCalculation "Validation of the direct evaporative pad calculation"
+model EvaporativePadCalculation "Validation of the evaporative pad calculation"
   extends Modelica.Icons.Example;
 
   parameter Modelica.Units.SI.Area padAre = 0.6
@@ -13,19 +13,22 @@ model DirectCalculation "Validation of the direct evaporative pad calculation"
   parameter Modelica.Units.SI.VolumeFlowRate V_flow_nominal = 1
     "Nominal supply air volume flowrate";
 
-  Buildings.Fluid.Humidifiers.EvaporativeCoolers.BaseClasses.DirectCalculation dirEvaCooCal(
+  Buildings.Fluid.Humidifiers.EvaporativeCoolers.BaseClasses.EvaporativePadCalculation
+    evaPadCal1(
     redeclare package Medium = Buildings.Media.Air,
     final padAre=padAre,
     redeclare Buildings.Fluid.Humidifiers.EvaporativeCoolers.Data.Generic per)
     "Instance with time-varying volume flowrate signal" annotation (Placement(
         transformation(origin={30,50}, extent={{-10,-10},{10,10}})));
-  Buildings.Fluid.Humidifiers.EvaporativeCoolers.BaseClasses.DirectCalculation dirEvaCooCal1(
+  Buildings.Fluid.Humidifiers.EvaporativeCoolers.BaseClasses.EvaporativePadCalculation
+    evaPadCal2(
     redeclare package Medium = Buildings.Media.Air,
     final padAre=padAre,
     redeclare Buildings.Fluid.Humidifiers.EvaporativeCoolers.Data.Generic per)
     "Instance with time-varying wetbulb temperature signal" annotation (
       Placement(transformation(origin={30,0}, extent={{-10,-10},{10,10}})));
-  Buildings.Fluid.Humidifiers.EvaporativeCoolers.BaseClasses.DirectCalculation dirEvaCooCal2(
+  Buildings.Fluid.Humidifiers.EvaporativeCoolers.BaseClasses.EvaporativePadCalculation
+    evaPadCal3(
     redeclare package Medium = Buildings.Media.Air,
     final padAre=padAre,
     redeclare Buildings.Fluid.Humidifiers.EvaporativeCoolers.Data.Generic per)
@@ -77,38 +80,38 @@ protected
     annotation (Placement(transformation(origin={-80,-80}, extent={{-10,-10},
       {10,10}})));
 equation
-  connect(TWetBulSupCon.y, dirEvaCooCal.TWetBulIn) annotation (Line(points={{-69,
-          80},{-40,80},{-40,56},{18,56}}, color={0,0,127}));
-  connect(TDryBulSupCon.y, dirEvaCooCal.TDryBulIn) annotation (Line(points={{-69,
-          30},{-30,30},{-30,52},{18,52}}, color={0,0,127}));
-  connect(V_flowRam.y, dirEvaCooCal.V_flow) annotation (Line(points={{1,80},{10,
-          80},{10,48},{18,48}}, color={0,0,127}));
-  connect(TWetBulSupRam.y, dirEvaCooCal1.TWetBulIn)
+  connect(TWetBulSupCon.y, evaPadCal1.TWetBulIn) annotation (Line(points={{-69,80},
+          {-40,80},{-40,56},{18,56}}, color={0,0,127}));
+  connect(TDryBulSupCon.y, evaPadCal1.TDryBulIn) annotation (Line(points={{-69,30},
+          {-30,30},{-30,52},{18,52}}, color={0,0,127}));
+  connect(V_flowRam.y, evaPadCal1.V_flow) annotation (Line(points={{1,80},{10,80},
+          {10,48},{18,48}}, color={0,0,127}));
+  connect(TWetBulSupRam.y, evaPadCal2.TWetBulIn)
     annotation (Line(points={{1,20},{10,20},{10,6},{18,6}}, color={0,0,127}));
-  connect(V_flowCon.y, dirEvaCooCal1.V_flow) annotation (Line(points={{-69,-30},
-          {-60,-30},{-60,-2},{18,-2}}, color={0,0,127}));
-  connect(pCon.y, dirEvaCooCal.p) annotation (Line(points={{-69,-80},{-50,-80},{
-          -50,44},{18,44}}, color={0,0,127}));
-  connect(TDryBulSupRam.y, dirEvaCooCal2.TDryBulIn) annotation (Line(points={{1,
-          -26},{10,-26},{10,-48},{18,-48}}, color={0,0,127}));
-  connect(TWetBulSupCon.y, dirEvaCooCal2.TWetBulIn) annotation (Line(points={{-69,
-          80},{-40,80},{-40,-44},{18,-44}}, color={0,0,127}));
-  connect(TDryBulSupCon.y, dirEvaCooCal1.TDryBulIn) annotation (Line(points={{-69,
-          30},{-30,30},{-30,2},{18,2}}, color={0,0,127}));
-  connect(V_flowCon.y, dirEvaCooCal2.V_flow) annotation (Line(points={{-69,-30},
-          {-60,-30},{-60,-52},{18,-52}}, color={0,0,127}));
-  connect(pCon.y, dirEvaCooCal1.p) annotation (Line(points={{-69,-80},{-50,-80},
-          {-50,-6},{18,-6}}, color={0,0,127}));
-  connect(pCon.y, dirEvaCooCal2.p) annotation (Line(points={{-69,-80},{-50,-80},
-          {-50,-56},{18,-56}}, color={0,0,127}));
+  connect(V_flowCon.y, evaPadCal2.V_flow) annotation (Line(points={{-69,-30},{-60,
+          -30},{-60,-2},{18,-2}}, color={0,0,127}));
+  connect(pCon.y, evaPadCal1.p) annotation (Line(points={{-69,-80},{-50,-80},{-50,
+          44},{18,44}}, color={0,0,127}));
+  connect(TDryBulSupRam.y, evaPadCal3.TDryBulIn) annotation (Line(points={{1,-26},
+          {10,-26},{10,-48},{18,-48}}, color={0,0,127}));
+  connect(TWetBulSupCon.y, evaPadCal3.TWetBulIn) annotation (Line(points={{-69,80},
+          {-40,80},{-40,-44},{18,-44}}, color={0,0,127}));
+  connect(TDryBulSupCon.y, evaPadCal2.TDryBulIn) annotation (Line(points={{-69,30},
+          {-30,30},{-30,2},{18,2}}, color={0,0,127}));
+  connect(V_flowCon.y, evaPadCal3.V_flow) annotation (Line(points={{-69,-30},{-60,
+          -30},{-60,-52},{18,-52}}, color={0,0,127}));
+  connect(pCon.y, evaPadCal2.p) annotation (Line(points={{-69,-80},{-50,-80},{-50,
+          -6},{18,-6}}, color={0,0,127}));
+  connect(pCon.y, evaPadCal3.p) annotation (Line(points={{-69,-80},{-50,-80},{-50,
+          -56},{18,-56}}, color={0,0,127}));
 
 annotation (Documentation(info="<html>
 <p>
 This model implements a validation of the block
-<a href=\"modelica://Buildings.Fluid.Humidifiers.EvaporativeCoolers.BaseClasses.DirectCalculation\">
-Buildings.Fluid.Humidifiers.EvaporativeCoolers.BaseClasses.DirectCalculation</a> that applies the
-peformance curve to calculate the water mass flow rate from a direct evaporative pad
-to the air stream.
+<a href=\"modelica://Buildings.Fluid.Humidifiers.EvaporativeCoolers.BaseClasses.EvaporativePadCalculation\">
+Buildings.Fluid.Humidifiers.EvaporativeCoolers.BaseClasses.EvaporativePadCalculation</a>
+that applies the peformance curve to calculate the water mass flow rate from an
+evaporative pad to the air stream.
 </p>
 <p>
 This model considers three validation instances with:
@@ -168,6 +171,6 @@ experiment(
     Interval=1,
       Tolerance=1e-6),
     __Dymola_Commands(file=
-          "modelica://Buildings/Resources/Scripts/Dymola/Fluid/Humidifiers/EvaporativeCoolers/BaseClasses/Validation/DirectCalculation.mos"
+          "modelica://Buildings/Resources/Scripts/Dymola/Fluid/Humidifiers/EvaporativeCoolers/BaseClasses/Validation/EvaporativePadCalculation.mos"
         "Simulate and plot"));
-end DirectCalculation;
+end EvaporativePadCalculation;

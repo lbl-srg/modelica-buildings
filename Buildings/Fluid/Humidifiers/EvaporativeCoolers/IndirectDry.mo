@@ -28,7 +28,7 @@ model IndirectDry
     "Nominal heat exchanger pressure drop of medium rejected to outdoor air";
   parameter Modelica.Units.SI.MassFlowRate m1_flow_nominal
     "Nominal heat exchanger mass flow rate of medium to be cooled";
-  parameter Modelica.Units.SI.MassFlowRate m2_flow_nominal
+  final parameter Modelica.Units.SI.MassFlowRate m2_flow_nominal=per.v_nominal*padAre*Medium2.dStp
     "Nominal heat exchanger mass flow rate of medium rejected to outdoor air";
   parameter Modelica.Units.SI.Area padAre
     "Area of the rigid media evaporative pad";
@@ -38,16 +38,16 @@ model IndirectDry
     annotation (choicesAllMatching=true,
       Placement(transformation(extent={{-80,20},{-60,40}})));
 
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput evaCooAct
+    "True: the evaporative cooling is active"
+    annotation (Placement(transformation(extent={{-140,-20},{-100,20}}),
+      iconTransformation(extent={{-110,-20},{-70,20}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput dmWat_flow(
     final unit="kg/s",
     final quantity="MassFlowRate")
     "Water vapor mass flow rate difference between inlet and outlet of secondary air"
     annotation (Placement(transformation(origin={120,90},extent={{-20,-20},{20,20}}),
       iconTransformation(origin={90,0}, extent={{-20,-20},{20,20}})));
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput evaCooAct
-    "True: the evaporative cooling is active"
-    annotation (Placement(transformation(extent={{-140,-20},{-100,20}}),
-      iconTransformation(extent={{-110,-20},{-70,20}})));
 protected
   Buildings.Fluid.Humidifiers.EvaporativeCoolers.Direct dirEvaCoo(
     redeclare final package Medium = Medium2,
@@ -56,7 +56,7 @@ protected
       final v_nominal=per.v_nominal,
       final dp_nominal=per.dp_nominal,
       final n=per.n))
-    "Direct evaporative pad for representing the cooling effect on the secondary air"
+    "Direct evaporative cooler for representing the cooling effect on the secondary air"
     annotation (Placement(transformation(origin={0,-60}, extent={{-10,-10},{10,10}})));
   Buildings.Fluid.HeatExchangers.ConstantEffectiveness hex(
     redeclare final package Medium1 = Medium1,
@@ -71,42 +71,45 @@ protected
 equation
   connect(port_a2,dirEvaCoo. port_a)
     annotation (Line(points={{-100,-60},{-10,-60}}));
-  connect(hex.port_b2, port_b2) annotation (
-    Line(points={{-10,4},{-20,4},{-20,-20},{80,-20},{80,-60},{100,-60}}, color = {0, 127, 255}));
-  connect(port_a1, hex.port_a1) annotation (
-    Line(points={{-100,60},{-20,60},{-20,16},{-10,16}}));
-  connect(hex.port_b1, port_b1) annotation (
-    Line(points={{10,16},{20,16},{20,60},{100,60}}, color = {0, 127, 255}));
-  connect(dirEvaCoo.dmWat_flow, dmWat_flow) annotation (Line(points={{9,-56},{60,
-          -56},{60,90},{120,90}}, color={0,0,127}));
-  connect(dirEvaCoo.port_b, hex.port_a2) annotation (Line(points={{10,-60},{20,-60},
-          {20,4},{10,4}}, color={0,127,255}));
-  connect(evaCooAct, dirEvaCoo.evaCooAct) annotation (Line(points={{-120,0},{-60,
-          0},{-60,-64},{-9,-64}}, color={255,0,255}));
+  connect(hex.port_b2, port_b2)
+    annotation (Line(points={{-10,4},{-20,4},{-20,-20},{80,-20},{80,-60},{100,-60}},
+      color = {0, 127, 255}));
+  connect(port_a1, hex.port_a1)
+    annotation (Line(points={{-100,60},{-20,60},{-20,16},{-10,16}}));
+  connect(hex.port_b1, port_b1)
+    annotation (Line(points={{10,16},{20,16},{20,60},{100,60}},
+      color = {0, 127, 255}));
+  connect(dirEvaCoo.dmWat_flow, dmWat_flow)
+    annotation (Line(points={{9,-56},{60,-56},{60,90},{120,90}}, color={0,0,127}));
+  connect(dirEvaCoo.port_b, hex.port_a2)
+    annotation (Line(points={{10,-60},{20,-60},{20,4},{10,4}}, color={0,127,255}));
+  connect(evaCooAct, dirEvaCoo.evaCooAct)
+    annotation (Line(points={{-120,0},{-60,0},{-60,-64},{-9,-64}},
+      color={255,0,255}));
 annotation (defaultComponentName="indDryEva",
 Documentation(info="<html>
 <p>
 Model for an indirect dry evaporative cooler.
 </p>
 <p>
-This model contains two components, a direct evaporative pad 
+This model contains two components, a direct evaporative cooler 
 (<a href=\"modelica://Buildings.Fluid.Humidifiers.EvaporativeCoolers.Direct\">
 Buildings.Fluid.Humidifiers.EvaporativeCoolers.Direct</a>) 
-and an air-to-air heat exchanger with constant effectiveness
+and a heat exchanger with constant effectiveness
 (<a href=\"modelica://Buildings.Fluid.HeatExchangers.ConstantEffectiveness\">
 Buildings.Fluid.HeatExchangers.ConstantEffectiveness</a>). 
-The secondary air travels through the evaporative pad and enters the air-to-air heat
-exchanger where it cools the primary air flowing through the heat exchanger tubes.
+The secondary air travels through the evaporative cooler and enters the heat
+exchanger where it cools the primary fluid flowing through the heat exchanger tubes.
 </p>
 <p>
-The input variable <code>evaCooAct</code> determines whether the evaporative cooling
-is active (such that the evaporative pad is wet). When evaporative cooling is not
-active (the evaporative pad is dry), no water vapor is added to the air.
+The input variable <code>evaCooAct</code> determines whether evaporative cooling is
+active for the direct evaporative cooler. When evaporative cooling is not active
+(the evaporative pad is dry), no water vapor is added to the air.
 </p>
 <p>
-<b>Note:</b> The model works correctly only when the ports a1 and a2 are used as inlet ports, 
-and ports b1 and b2 are used as outlet ports, for the primary and secondary flow
-respectively.
+<b>Note:</b> The model works correctly only when the ports a1 and a2 are used as
+inlet ports, and ports b1 and b2 are used as outlet ports, for the primary and
+secondary flow respectively.
 </p>
 <p>
 A diagram for this model is shown below:
@@ -120,7 +123,7 @@ A diagram for this model is shown below:
 July 21, 2026, by Weiping Huang:<br/>
 Added a Modelica data record to calculate saturation efficiency and pressure drop,
 as well as added a flag to turn on and off the evaporative cooling for the
-evaporative pad.
+evaporative cooler.
 </li>
 <li>
 September 20, 2023 by Cerrina Mouchref, Karthikeya Devaprasad, Lingzhe Wang:<br/>
@@ -147,30 +150,25 @@ Icon(graphics={Rectangle(lineColor = {0, 0, 255}, fillColor = {95, 95, 95}, patt
             fillPattern = FillPattern.Solid, extent={{-100,-55},{100,-64}}),
   Rectangle(lineColor = {0, 0, 255}, fillColor = {0, 62, 0}, pattern = LinePattern.None,
             fillPattern = FillPattern.Solid, extent={{-70,68},{70,-66}}),
-        Rectangle(
-          extent={{10,40},{20,-40}},
+  Rectangle(extent={{10,40},{20,-40}},
           fillColor={95,95,95},
           fillPattern=FillPattern.Solid,
           pattern=LinePattern.None),
-        Rectangle(
-          extent={{20,40},{30,-40}},
+  Rectangle(extent={{20,40},{30,-40}},
           fillColor={0,127,0},
           fillPattern=FillPattern.Solid,
           pattern=LinePattern.None,
           lineColor={0,0,0}),
-        Rectangle(
-          extent={{30,40},{40,-40}},
+  Rectangle(extent={{30,40},{40,-40}},
           fillColor={95,95,95},
           fillPattern=FillPattern.Solid,
           pattern=LinePattern.None),
-        Rectangle(
-          extent={{40,40},{50,-40}},
+  Rectangle(extent={{40,40},{50,-40}},
           fillColor={0,127,0},
           fillPattern=FillPattern.Solid,
           pattern=LinePattern.None,
           lineColor={0,0,0}),
-        Rectangle(
-          extent={{50,40},{60,-40}},
+  Rectangle(extent={{50,40},{60,-40}},
           fillColor={95,95,95},
           fillPattern=FillPattern.Solid,
           pattern=LinePattern.None),
@@ -178,20 +176,17 @@ Icon(graphics={Rectangle(lineColor = {0, 0, 255}, fillColor = {95, 95, 95}, patt
             fillPattern=FillPattern.Solid, extent={{-20,52},{-60,56}}),
   Rectangle(lineColor={255, 255, 255}, fillColor={255,236,32},
             fillPattern=FillPattern.Solid, extent={{-56,-52},{-60,52}}),
-        Polygon(
-          points={{-46,38},{-48,28},{-42,24},{-34,28},{-36,38},{-42,50},{-46,38}},
+  Polygon(points={{-46,38},{-48,28},{-42,24},{-34,28},{-36,38},{-42,50},{-46,38}},
           lineColor={0,255,255},
           fillColor={0,255,255},
           fillPattern=FillPattern.Solid,
           smooth=Smooth.Bezier),
-        Polygon(
-          points={{-46,2},{-48,-8},{-42,-12},{-34,-8},{-36,2},{-42,14},{-46,2}},
+  Polygon(points={{-46,2},{-48,-8},{-42,-12},{-34,-8},{-36,2},{-42,14},{-46,2}},
           lineColor={0,255,255},
           fillColor={0,255,255},
           fillPattern=FillPattern.Solid,
           smooth=Smooth.Bezier),
-        Polygon(
-          points={{-46,-32},{-48,-42},{-42,-46},{-34,-42},{-36,-32},{-42,-20},{
+  Polygon(points={{-46,-32},{-48,-42},{-42,-46},{-34,-42},{-36,-32},{-42,-20},{
               -46,-32}},
           lineColor={0,255,255},
           fillColor={0,255,255},

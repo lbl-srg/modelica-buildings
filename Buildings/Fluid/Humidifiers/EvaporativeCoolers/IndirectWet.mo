@@ -11,36 +11,39 @@ model IndirectWet "Indirect wet evaporative cooler"
         Buildings.Media.Antifreeze.PropyleneGlycolWater (
         property_T=293.15,
         X_a=0.40) "Propylene glycol water, 40% mass fraction")));
-
   replaceable package Medium2 = Modelica.Media.Interfaces.PartialMedium
     "Secondary Air stream to which heat is rejected to outdoor air"
     annotation (choices(
       choice(redeclare package Medium = Buildings.Media.Air "Moist air")));
-
   parameter Modelica.Units.SI.PressureDifference dp1_nominal
     "Pressure drop at nominal mass flow rate of medium being cooled";
-
   parameter Modelica.Units.SI.PressureDifference dp2_nominal
     "Pressure drop at nominal mass flow rate of medium rejected to outdoor air";
-
   parameter Modelica.Units.SI.MassFlowRate m1_flow_nominal
     "Cooled air nominal mass flow rate";
-
   parameter Modelica.Units.SI.MassFlowRate m2_flow_nominal
     "Rejected air nominal mass flow rate";
-
   parameter Real maxEff(
     unit="1")
     "Maximum efficiency of heat exchanger coil";
-
   parameter Real floRat(
     unit="1")
     "Coil flow ratio of actual to maximum heat transfer";
-
   parameter Modelica.Units.SI.Time tau=30
     "Time constant at nominal flow rate (if energyDynamics <> SteadyState)"
     annotation (Dialog(tab="Dynamics", group="Nominal condition"));
 
+protected
+  parameter Medium1.ThermodynamicState staPri_default=Medium1.setState_pTX(
+    T=Medium1.T_default, p=Medium1.p_default, X=Medium1.X_default)
+    "Default state of medium";
+  parameter Modelica.Units.SI.Density rhoPri_default=Medium1.density(staPri_default)
+    "Density, used to compute fluid volume";
+  parameter Medium1.ThermodynamicState staReject_default=Medium2.setState_pTX(
+    T=Medium2.T_default, p=Medium2.p_default, X=Medium2.X_default)
+    "Default state of medium";
+  parameter Modelica.Units.SI.Density rhoReject_default=Medium1.density(staReject_default)
+    "Density, used to compute fluid volume";
   Buildings.Fluid.Sensors.TemperatureTwoPort senTemDryPri(
     redeclare final package Medium = Medium1,
     final m_flow_nominal=m1_flow_nominal,
@@ -48,7 +51,6 @@ model IndirectWet "Indirect wet evaporative cooler"
     final T_start=298.15)
     "Primary fluid dry bulb temperature sensor"
     annotation (Placement(transformation(origin={-80,20}, extent={{-10,-10},{10,10}})));
-
   Buildings.Fluid.Sensors.TemperatureWetBulbTwoPort senTemWetPri(
     redeclare final package Medium = Medium1,
     final m_flow_nominal=m1_flow_nominal,
@@ -56,20 +58,17 @@ model IndirectWet "Indirect wet evaporative cooler"
     final TWetBul_start=296.15)
     "Primary fluid wet bulb temperature sensor"
     annotation (Placement(transformation(origin={-50,20}, extent={{-10,-10},{10,10}})));
-
   Buildings.Fluid.Sensors.VolumeFlowRate senVolFloPri(
     redeclare final package Medium=Medium1,
     final m_flow_nominal=m1_flow_nominal)
     "Primary fluid volume flow rate sensor"
     annotation (Placement(transformation(origin={-10,20}, extent={{-10,-10},{10,10}})));
-
   Buildings.Fluid.FixedResistances.PressureDrop resPri(
     redeclare final package Medium = Medium1,
     final dp_nominal=dp1_nominal,
     final m_flow_nominal=m1_flow_nominal)
     "Primary fluid pressure drop"
     annotation (Placement(transformation(origin={50,20}, extent={{-10,-10},{10,10}})));
-
   Buildings.Fluid.MixingVolumes.MixingVolume volPri(
     redeclare package Medium = Medium1,
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
@@ -78,12 +77,10 @@ model IndirectWet "Indirect wet evaporative cooler"
     nPorts=2)
     "Mixing volume for primary fluid"
     annotation (Placement(transformation(origin={70,40}, extent={{-10,-10},{10,10}})));
-
   Buildings.Fluid.Humidifiers.EvaporativeCoolers.BaseClasses.IndirectWet indWetCal(final
       maxEff=maxEff, final floRat=floRat)
     "Indirect wet evaporative cooling calculations"
     annotation (Placement(transformation(extent={{20,70},{40,90}})));
-
   Buildings.Fluid.Sensors.TemperatureTwoPort senTemDrySec(
     redeclare final package Medium = Medium2,
     final m_flow_nominal=m2_flow_nominal,
@@ -91,7 +88,6 @@ model IndirectWet "Indirect wet evaporative cooler"
     final T_start=298.15)
     "Secondary air dry bulb temperature sensor"
     annotation (Placement(transformation(origin={-64,-60},extent={{-10,-10},{10,10}})));
-
   Buildings.Fluid.Sensors.TemperatureWetBulbTwoPort senTemWetSec(
     redeclare final package Medium = Medium2,
     final m_flow_nominal=m2_flow_nominal,
@@ -99,38 +95,20 @@ model IndirectWet "Indirect wet evaporative cooler"
     final TWetBul_start=296.15)
     "Secondary air wet bulb temperature sensor"
     annotation (Placement(transformation(origin={-30,-60},extent={{-10,-10},{10,10}})));
-
   Buildings.Fluid.FixedResistances.PressureDrop resSec(
     redeclare package Medium = Medium2,
     final dp_nominal=dp2_nominal,
     final m_flow_nominal=m2_flow_nominal)
     "Secondary air pressure drop"
     annotation (Placement(transformation(origin={50,-60}, extent={{-10,-10},{10,10}})));
-
   Buildings.Fluid.Sensors.VolumeFlowRate senVolFloSec(
     redeclare final package Medium = Medium2,
     final m_flow_nominal=m2_flow_nominal)
     "Secondary air volume flow rate sensor"
     annotation (Placement(transformation(origin={10,-60}, extent={{-10,-10},{10,10}})));
-
   Buildings.HeatTransfer.Sources.PrescribedTemperature preTem
     "Boundary condition enforcing calculated outlet air drybulb temperature"
     annotation (Placement(transformation(extent={{60,70},{80,90}})));
-
-protected
-  parameter Medium1.ThermodynamicState staPri_default=Medium1.setState_pTX(
-    T=Medium1.T_default, p=Medium1.p_default, X=Medium1.X_default)
-    "Default state of medium";
-
-  parameter Modelica.Units.SI.Density rhoPri_default=Medium1.density(staPri_default)
-    "Density, used to compute fluid volume";
-
-  parameter Medium1.ThermodynamicState staReject_default=Medium2.setState_pTX(
-    T=Medium2.T_default, p=Medium2.p_default, X=Medium2.X_default)
-    "Default state of medium";
-
-  parameter Modelica.Units.SI.Density rhoReject_default=Medium1.density(staReject_default)
-    "Density, used to compute fluid volume";
 
 equation
   connect(senTemDryPri.port_b, senTemWetPri.port_a)
@@ -138,15 +116,19 @@ equation
   connect(senTemWetPri.port_b, senVolFloPri.port_a)
     annotation (Line(points={{-40,20},{-20,20}}));
   connect(senVolFloPri.port_b, resPri.port_a)
-    annotation (Line(points={{0,20},{40,20}},   color={0,127,255}));
-  connect(port_a1, senTemDryPri.port_a) annotation (Line(points={{-100,60},{-94,
-          60},{-94,20},{-90,20}}, color={0,127,255}));
+    annotation (Line(points={{0,20},{40,20}}, color={0,127,255}));
+  connect(port_a1, senTemDryPri.port_a)
+    annotation (Line(points={{-100,60},{-94,60},{-94,20},{-90,20}},
+      color={0,127,255}));
   connect(senTemDryPri.T, indWetCal.TDryBulPriIn)
-    annotation (Line(points={{-80,31},{-80,88.3333},{18.3333,88.3333}}, color={0,0,127}));
+    annotation (Line(points={{-80,31},{-80,88.3333},{18.3333,88.3333}},
+      color={0,0,127}));
   connect(senTemDrySec.T, indWetCal.TDryBulSecIn)
-    annotation (Line(points={{-64,-49},{-64,81.6667},{18.3333,81.6667}}, color={0,0,127}));
+    annotation (Line(points={{-64,-49},{-64,81.6667},{18.3333,81.6667}},
+      color={0,0,127}));
   connect(senTemWetSec.T, indWetCal.TWetBulSecIn)
-    annotation (Line(points={{-30,-49},{-30,78.3333},{18.3333,78.3333}}, color={0,0,127}));
+    annotation (Line(points={{-30,-49},{-30,78.3333},{18.3333,78.3333}},
+      color={0,0,127}));
   connect(senVolFloPri.V_flow, indWetCal.VPri_flow)
     annotation (Line(points={{-10,31},{-10,75},{18.3333,75}}, color={0,0,127}));
   connect(port_a2, senTemDrySec.port_a)
@@ -162,14 +144,16 @@ equation
         color={0,0,127}));
   connect(indWetCal.TDryBulPriOut, preTem.T)
     annotation (Line(points={{41.6667,80},{58,80}}, color={0,0,127}));
-  connect(preTem.port, volPri.heatPort) annotation (Line(points={{80,80},{90,80},
-          {90,60},{50,60},{50,40},{60,40}}, color={191,0,0}));
+  connect(preTem.port, volPri.heatPort)
+    annotation (Line(points={{80,80},{90,80},{90,60},{50,60},{50,40},{60,40}},
+      color={191,0,0}));
   connect(resSec.port_b, port_b2)
     annotation (Line(points={{60,-60},{100,-60}}, color={0,127,255}));
   connect(resPri.port_b, volPri.ports[1])
     annotation (Line(points={{60,20},{69,20},{69,30}}, color={0,127,255}));
-  connect(volPri.ports[2], port_b1) annotation (Line(points={{71,30},{72,30},{
-          72,20},{92,20},{92,60},{100,60}}, color={0,127,255}));
+  connect(volPri.ports[2], port_b1)
+    annotation (Line(points={{71,30},{72,30},{72,20},{92,20},{92,60},{100,60}},
+      color={0,127,255}));
 
 annotation (defaultComponentName = "indWetEva",
 Documentation(info="<html>
@@ -250,94 +234,78 @@ Icon(graphics={
             fillPattern = FillPattern.Solid, extent={{-100,-55},{100,-64}}),
   Rectangle(lineColor = {0, 0, 255}, fillColor = {0, 62, 0}, pattern = LinePattern.None,
             fillPattern = FillPattern.Solid, extent={{ -70,68},{70,-66}}),
-        Rectangle(
-          extent={{10,40},{20,-40}},
+  Rectangle(extent={{10,40},{20,-40}},
           fillColor={95,95,95},
           fillPattern=FillPattern.Solid,
           pattern=LinePattern.None),
-        Rectangle(
-          extent={{20,40},{30,-40}},
+  Rectangle(extent={{20,40},{30,-40}},
           fillColor={0,127,0},
           fillPattern=FillPattern.Solid,
           pattern=LinePattern.None,
           lineColor={0,0,0}),
-        Rectangle(
-          extent={{30,40},{40,-40}},
+  Rectangle(extent={{30,40},{40,-40}},
           fillColor={95,95,95},
           fillPattern=FillPattern.Solid,
           pattern=LinePattern.None),
-        Rectangle(
-          extent={{40,40},{50,-40}},
+  Rectangle(extent={{40,40},{50,-40}},
           fillColor={0,127,0},
           fillPattern=FillPattern.Solid,
           pattern=LinePattern.None,
           lineColor={0,0,0}),
-        Rectangle(
-          extent={{-50,40},{-40,-40}},
+  Rectangle(extent={{-50,40},{-40,-40}},
           fillColor={95,95,95},
           fillPattern=FillPattern.Solid,
           pattern=LinePattern.None),
-        Rectangle(
-          extent={{-40,40},{-30,-40}},
+  Rectangle(extent={{-40,40},{-30,-40}},
           fillColor={0,127,0},
           fillPattern=FillPattern.Solid,
           pattern=LinePattern.None,
           lineColor={0,0,0}),
-        Rectangle(
-          extent={{-30,40},{-20,-40}},
+  Rectangle(extent={{-30,40},{-20,-40}},
           fillColor={95,95,95},
           fillPattern=FillPattern.Solid,
           pattern=LinePattern.None),
-        Rectangle(
-          extent={{-20,40},{-10,-40}},
+  Rectangle(extent={{-20,40},{-10,-40}},
           fillColor={0,127,0},
           fillPattern=FillPattern.Solid,
           pattern=LinePattern.None,
           lineColor={0,0,0}),
-        Rectangle(
-          extent={{-10,40},{0,-40}},
+  Rectangle(extent={{-10,40},{0,-40}},
           fillColor={95,95,95},
           fillPattern=FillPattern.Solid,
           pattern=LinePattern.None),
-        Rectangle(
-          extent={{0,40},{10,-40}},
+  Rectangle(extent={{0,40},{10,-40}},
           fillColor={0,127,0},
           fillPattern=FillPattern.Solid,
           pattern=LinePattern.None,
           lineColor={0,0,0}),
-        Polygon(
-          points={{-40,54},{-42,44},{-36,40},{-28,44},{-30,54},{-36,66},{-40,54}},
+  Polygon(points={{-40,54},{-42,44},{-36,40},{-28,44},{-30,54},{-36,66},{-40,54}},
           lineColor={0,255,255},
           fillColor={0,255,255},
           fillPattern=FillPattern.Solid,
           smooth=Smooth.Bezier),
-        Polygon(
-          points={{-10,54},{-12,44},{-6,40},{2,44},{0,54},{-6,66},{-10,54}},
+  Polygon(points={{-10,54},{-12,44},{-6,40},{2,44},{0,54},{-6,66},{-10,54}},
           lineColor={0,255,255},
           fillColor={0,255,255},
           fillPattern=FillPattern.Solid,
           smooth=Smooth.Bezier),
-        Polygon(
-          points={{20,54},{18,44},{24,40},{32,44},{30,54},{24,66},{20,54}},
+  Polygon(points={{20,54},{18,44},{24,40},{32,44},{30,54},{24,66},{20,54}},
           lineColor={0,255,255},
           fillColor={0,255,255},
           fillPattern=FillPattern.Solid,
           smooth=Smooth.Bezier),
-        Polygon(
-          points={{-30,-52},{-32,-62},{-26,-66},{-18,-62},{-20,-52},{-26,-40},{-30,
+  Polygon(points={{-30,-52},{-32,-62},{-26,-66},{-18,-62},{-20,-52},{-26,-40},{-30,
               -52}},
           lineColor={0,255,255},
           fillColor={0,255,255},
           fillPattern=FillPattern.Solid,
           smooth=Smooth.Bezier),
-        Polygon(
-          points={{0,-52},{-2,-62},{4,-66},{12,-62},{10,-52},{4,-40},{0,-52}},
+  Polygon(points={{0,-52},{-2,-62},{4,-66},{12,-62},{10,-52},{4,-40},{0,-52}},
           lineColor={0,255,255},
           fillColor={0,255,255},
           fillPattern=FillPattern.Solid,
           smooth=Smooth.Bezier),
-        Polygon(
-          points={{30,-52},{28,-62},{34,-66},{42,-62},{40,-52},{34,-40},{30,-52}},
+  Polygon(points={{30,-52},{28,-62},{34,-66},{42,-62},{40,-52},{34,-40},{30,-52}},
           lineColor={0,255,255},
           fillColor={0,255,255},
           fillPattern=FillPattern.Solid,

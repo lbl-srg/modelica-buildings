@@ -8,7 +8,10 @@
    version="1.1"
    id="svg1"
    inkscape:version="1.4.2 (f4327f4, 2025-05-13)"
-   sodipodi:docname="drawing1.svg"
+   sodipodi:docname="DirectEvaporativeCooler.svg"
+   inkscape:export-filename="DirectEvaporativeCooler_200.png"
+   inkscape:export-xdpi="200"
+   inkscape:export-ydpi="200"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns="http://www.w3.org/2000/svg"
@@ -24,8 +27,8 @@
      inkscape:deskcolor="#d1d1d1"
      inkscape:document-units="mm"
      inkscape:zoom="2.750954"
-     inkscape:cx="104.69096"
-     inkscape:cy="136.31635"
+     inkscape:cx="113.59696"
+     inkscape:cy="126.50157"
      inkscape:window-width="1920"
      inkscape:window-height="1076"
      inkscape:window-x="-12"
@@ -213,16 +216,31 @@
        width="77.064178"
        height="16.357962"
        id="rect9-0-9-2" />
+    <marker
+       style="overflow:visible"
+       id="ConcaveTriangle-4"
+       refX="0"
+       refY="0"
+       orient="auto-start-reverse"
+       inkscape:stockid="Concave triangle arrow"
+       markerWidth="1"
+       markerHeight="1"
+       viewBox="0 0 1 1"
+       inkscape:isstock="true"
+       inkscape:collect="always"
+       preserveAspectRatio="xMidYMid">
+      <path
+         transform="scale(0.7)"
+         d="M -2,-4 9,0 -2,4 c 2,-2.33 2,-5.66 0,-8 z"
+         style="fill:context-stroke;fill-rule:evenodd;stroke:none"
+         id="path7-8" />
+    </marker>
   </defs>
   <g
      inkscape:label="Layer 1"
      inkscape:groupmode="layer"
      id="layer1"
      style="display:inline">
-    <path
-       style="display:inline;opacity:1;fill:#ffffff;stroke:#000000;stroke-width:0.148737;stroke-dasharray:0.297474, 0.148737;stroke-dashoffset:0;marker-end:url(#marker5-5)"
-       d="m 38.216267,14.565238 c 9.291082,10.414338 15.807789,8.800671 15.807789,8.800671"
-       id="path9" />
     <path
        style="fill:#ffffff;stroke:#000000;stroke-width:0.499999"
        d="M 11.32303,7.7193875 H 56.888831"
@@ -270,19 +288,19 @@
        id="path2" />
     <path
        style="fill:#ffffff;stroke:#000000;stroke-width:0.2;stroke-dasharray:none;marker-end:url(#marker5)"
-       d="m 5.578368,13.413995 h 8.866556"
+       d="M 5.3996384,13.542063 H 14.266194"
        id="path4" />
     <path
        style="display:inline;fill:#ffffff;stroke:#000000;stroke-width:0.2;stroke-dasharray:none;marker-end:url(#marker5-1)"
-       d="M 5.2209088,24.011732 H 14.087465"
+       d="M 5.3996383,23.939873 H 14.266195"
        id="path4-4" />
     <path
        style="display:inline;fill:#ffffff;stroke:#000000;stroke-width:0.2;stroke-dasharray:none;marker-end:url(#marker5-3)"
-       d="m 52.385298,13.670131 h 8.866556"
+       d="m 52.808329,13.542063 h 8.866555"
        id="path4-2" />
     <path
        style="display:inline;fill:#ffffff;stroke:#000000;stroke-width:0.2;stroke-dasharray:none;marker-end:url(#marker5-9)"
-       d="m 53.231359,23.868015 h 8.866556"
+       d="m 52.808328,23.939873 h 8.866556"
        id="path4-8" />
     <path
        style="display:inline;fill:#ffffff;stroke:#000000;stroke-width:0.2;stroke-dasharray:none;marker-end:url(#marker5-0)"
@@ -296,26 +314,30 @@
        style="fill:#ffffff;stroke:#000000;stroke-width:0.166252;stroke-dasharray:0.332504, 0.166252;stroke-dashoffset:0;marker-end:url(#ConcaveTriangle)"
        d="M 34.431994,1.2473865 V 10.485176"
        id="path6" />
+    <path
+       style="display:inline;fill:#ffffff;stroke:#000000;stroke-width:0.185712;stroke-dasharray:0.371424, 0.185712;stroke-dashoffset:0;marker-end:url(#ConcaveTriangle-4)"
+       d="M 39.651683,23.939873 H 51.17866"
+       id="path6-4" />
     <text
        xml:space="preserve"
        transform="matrix(0.18362479,0,0,0.18678576,14.730515,-33.465744)"
        id="text9"
-       style="text-align:start;writing-mode:lr-tb;direction:ltr;white-space:pre;shape-inside:url(#rect9);opacity:1;fill:#ffffff;fill-opacity:0;stroke:#000000;stroke-width:0.188976;stroke-dasharray:none;stroke-dashoffset:0"><tspan
+       style="text-align:start;writing-mode:lr-tb;direction:ltr;white-space:pre;shape-inside:url(#rect9);display:inline;opacity:1;fill:#ffffff;fill-opacity:0;stroke:#000000;stroke-width:0.188976;stroke-dasharray:none;stroke-dashoffset:0"><tspan
          x="30.535156"
          y="204.69796"
-         id="tspan5"><tspan
+         id="tspan2"><tspan
            style="fill:#000000;fill-opacity:1;stroke-linecap:round"
-           id="tspan3">dmWat_flow</tspan></tspan></text>
+           id="tspan1">dmWat_flow</tspan></tspan></text>
     <text
        xml:space="preserve"
-       transform="matrix(0.18362479,0,0,0.18678576,38.405643,-18.638705)"
+       transform="matrix(0.18362479,0,0,0.18678576,36.145442,-15.609074)"
        id="text9-1"
        style="text-align:start;writing-mode:lr-tb;direction:ltr;white-space:pre;shape-inside:url(#rect9-0);display:inline;fill:#ffffff;fill-opacity:0;stroke:#000000;stroke-width:0.188976;stroke-dasharray:none;stroke-dashoffset:0"><tspan
          x="30.535156"
          y="204.69796"
-         id="tspan7"><tspan
+         id="tspan4"><tspan
            style="fill:#000000;fill-opacity:1;stroke-linecap:round"
-           id="tspan6">dmWat_flow</tspan></tspan></text>
+           id="tspan3">dmWat_flow</tspan></tspan></text>
     <text
        xml:space="preserve"
        transform="matrix(0.18362479,0,0,0.18678576,43.673716,-0.35189076)"
@@ -323,9 +345,9 @@
        style="text-align:start;writing-mode:lr-tb;direction:ltr;white-space:pre;shape-inside:url(#rect9-0-9);display:inline;fill:#ffffff;fill-opacity:0;stroke:#000000;stroke-width:0.188976;stroke-dasharray:none;stroke-dashoffset:0"><tspan
          x="30.535156"
          y="204.69796"
-         id="tspan9"><tspan
+         id="tspan6"><tspan
            style="fill:#000000;fill-opacity:1"
-           id="tspan8">air flow</tspan></tspan></text>
+           id="tspan5">air flow</tspan></tspan></text>
     <text
        xml:space="preserve"
        transform="matrix(0.18362479,0,0,0.18678576,43.848628,3.4241349)"
@@ -333,8 +355,8 @@
        style="text-align:start;writing-mode:lr-tb;direction:ltr;white-space:pre;shape-inside:url(#rect9-0-9-2);display:inline;fill:#ffffff;fill-opacity:0;stroke:#000000;stroke-width:0.188976;stroke-dasharray:none;stroke-dashoffset:0"><tspan
          x="30.535156"
          y="204.69796"
-         id="tspan11"><tspan
+         id="tspan8"><tspan
            style="fill:#000000;fill-opacity:1"
-           id="tspan10">water flow</tspan></tspan></text>
+           id="tspan7">water flow</tspan></tspan></text>
   </g>
 </svg>

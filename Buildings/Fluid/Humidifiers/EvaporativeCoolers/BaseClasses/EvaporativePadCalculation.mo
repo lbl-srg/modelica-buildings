@@ -1,6 +1,6 @@
 within Buildings.Fluid.Humidifiers.EvaporativeCoolers.BaseClasses;
-block DirectCalculation
-  "Calculates the saturation efficiency and the water vapor mass flow rate of a direct evaporative cooler"
+block EvaporativePadCalculation
+  "Calculates the saturation efficiency and the water vapor mass flow rate of an evaporative pad"
 
   replaceable package Medium = Modelica.Media.Interfaces.PartialMedium
     "Medium";
@@ -23,6 +23,7 @@ block DirectCalculation
   Modelica.Units.SI.ThermodynamicTemperature TDryBulOut(
     displayUnit="degC")
     "Dry bulb temperature of the outlet air";
+
   Buildings.Controls.OBC.CDL.Interfaces.RealInput V_flow(
     final unit="m3/s",
     final quantity = "VolumeFlowRate")
@@ -60,13 +61,6 @@ block DirectCalculation
     "Evaporative humidifier efficiency"
     annotation (Placement(transformation(origin={120,50},extent={{-20,-20},{20,20}}),
       iconTransformation(origin={120,50},extent={{-20,-20},{20,20}})));
-  Buildings.Utilities.Psychrometrics.Xw_TDryBulTWetBul XWOut(
-    redeclare package Medium = Medium)
-    "Water vapor mass fraction at the outlet";
-  Buildings.Utilities.Psychrometrics.Xw_TDryBulTWetBul XWIn(
-    redeclare package Medium =  Medium)
-    "Water vapor mass fraction at the inlet";
-
 protected
   parameter Medium.ThermodynamicState sta_default=Medium.setState_pTX(
     T=Medium.T_default,
@@ -75,6 +69,12 @@ protected
     "Default state of medium";
   parameter Modelica.Units.SI.Density rho_default=Medium.density(sta_default)
     "Density, used to compute fluid volume";
+  Buildings.Utilities.Psychrometrics.Xw_TDryBulTWetBul XWOut(
+    redeclare package Medium = Medium)
+    "Water vapor mass fraction at the outlet";
+  Buildings.Utilities.Psychrometrics.Xw_TDryBulTWetBul XWIn(
+    redeclare package Medium =  Medium)
+    "Water vapor mass fraction at the inlet";
 equation
   v =abs(V_flow)/padAre;
   eta = min(1, max(0,
@@ -91,23 +91,23 @@ equation
   TDryBulOut = XWOut.TDryBul;
   dmWat_flow = (XWOut.X_w - XWIn.X_w)*V_flow*rho_default;
 
-annotation (defaultComponentName="dirEvaCooCal",
+annotation (defaultComponentName="evaPadCal",
   Icon(graphics={
   Text(extent={{-152,144},{148,104}}, textString="%name", textColor={0,0,255}),
   Rectangle(extent={{-100,100},{100,-100}}, lineColor={0,0,0},
      fillColor={255,255,255}, fillPattern=FillPattern.Solid),
-        Line(
-          points={{-80,82},{-50,80},{-2,64},{26,38}},
-          color={0,0,0},
-          smooth=Smooth.Bezier),
-        Line(
-          points={{-84,88},{-84,36}},
-          color={0,0,0},
-          smooth=Smooth.Bezier),
-        Line(
-          points={{-84,36},{36,36}},
-          color={0,0,0},
-          smooth=Smooth.Bezier),
+  Line(
+    points={{-80,82},{-50,80},{-2,64},{26,38}},
+    color={0,0,0},
+    smooth=Smooth.Bezier),
+  Line(
+    points={{-84,88},{-84,36}},
+    color={0,0,0},
+    smooth=Smooth.Bezier),
+  Line(
+    points={{-84,36},{36,36}},
+    color={0,0,0},
+    smooth=Smooth.Bezier),
   Rectangle(lineColor={255, 255, 255}, fillColor={217,203,0},
             fillPattern=FillPattern.Solid, extent={{0,16},{-60,24}}),
   Rectangle(lineColor={255, 255, 255}, fillColor={217,203,0},
@@ -116,58 +116,57 @@ annotation (defaultComponentName="dirEvaCooCal",
             fillPattern=FillPattern.Solid, extent={{0,-96},{-60,-88}}),
   Rectangle(lineColor={255, 255, 255}, fillColor={217,203,0},
             fillPattern=FillPattern.Solid, extent={{0,-88},{-8,16}}),
-        Polygon(
-          points={{-48,2},{-50,-8},{-44,-12},{-36,-8},{-38,2},{-44,14},{-48,2}},
-          lineColor={28,108,200},
-          fillColor={28,108,200},
-          fillPattern=FillPattern.Solid,
-          smooth=Smooth.Bezier),
-        Polygon(
-          points={{-48,-34},{-50,-44},{-44,-48},{-36,-44},{-38,-34},{-44,-22},{-48,
-              -34}},
-          lineColor={28,108,200},
-          fillColor={28,108,200},
-          fillPattern=FillPattern.Solid,
-          smooth=Smooth.Bezier),
-        Polygon(
-          points={{-48,-68},{-50,-78},{-44,-82},{-36,-78},{-38,-68},{-44,-56},{-48,
-              -68}},
-          lineColor={28,108,200},
-          fillColor={28,108,200},
-          fillPattern=FillPattern.Solid,
-          smooth=Smooth.Bezier),
-        Polygon(
-          points={{-24,2},{-26,-8},{-20,-12},{-12,-8},{-14,2},{-20,14},{-24,2}},
-          lineColor={28,108,200},
-          fillColor={28,108,200},
-          fillPattern=FillPattern.Solid,
-          smooth=Smooth.Bezier),
-        Polygon(
-          points={{-24,-34},{-26,-44},{-20,-48},{-12,-44},{-14,-34},{-20,-22},{-24,
-              -34}},
-          lineColor={28,108,200},
-          fillColor={28,108,200},
-          fillPattern=FillPattern.Solid,
-          smooth=Smooth.Bezier),
-        Polygon(
-          points={{-24,-68},{-26,-78},{-20,-82},{-12,-78},{-14,-68},{-20,-56},{-24,
-              -68}},
-          lineColor={28,108,200},
-          fillColor={28,108,200},
-          fillPattern=FillPattern.Solid,
-          smooth=Smooth.Bezier),
-        Text(extent={{58,60},{100,40}},
-          textColor={0,0,127},
-          textString="eta"),
-        Text(extent={{38,-40},{98,-60}},
-          textColor={0,0,127},
-          textString="dmWat_flow")}),
+  Polygon(
+    points={{-48,2},{-50,-8},{-44,-12},{-36,-8},{-38,2},{-44,14},{-48,2}},
+    lineColor={28,108,200},
+    fillColor={28,108,200},
+    fillPattern=FillPattern.Solid,
+    smooth=Smooth.Bezier),
+  Polygon(
+    points={{-48,-34},{-50,-44},{-44,-48},{-36,-44},{-38,-34},{-44,-22},{-48,
+        -34}},
+    lineColor={28,108,200},
+    fillColor={28,108,200},
+    fillPattern=FillPattern.Solid,
+    smooth=Smooth.Bezier),
+  Polygon(
+    points={{-48,-68},{-50,-78},{-44,-82},{-36,-78},{-38,-68},{-44,-56},{-48,
+        -68}},
+    lineColor={28,108,200},
+    fillColor={28,108,200},
+    fillPattern=FillPattern.Solid,
+    smooth=Smooth.Bezier),
+  Polygon(
+    points={{-24,2},{-26,-8},{-20,-12},{-12,-8},{-14,2},{-20,14},{-24,2}},
+    lineColor={28,108,200},
+    fillColor={28,108,200},
+    fillPattern=FillPattern.Solid,
+    smooth=Smooth.Bezier),
+  Polygon(
+    points={{-24,-34},{-26,-44},{-20,-48},{-12,-44},{-14,-34},{-20,-22},{-24,
+        -34}},
+    lineColor={28,108,200},
+    fillColor={28,108,200},
+    fillPattern=FillPattern.Solid,
+    smooth=Smooth.Bezier),
+  Polygon(
+    points={{-24,-68},{-26,-78},{-20,-82},{-12,-78},{-14,-68},{-20,-56},{-24,
+        -68}},
+    lineColor={28,108,200},
+    fillColor={28,108,200},
+    fillPattern=FillPattern.Solid,
+    smooth=Smooth.Bezier),
+  Text(extent={{58,60},{100,40}},
+    textColor={0,0,127},
+    textString="eta"),
+  Text(extent={{38,-40},{98,-60}},
+    textColor={0,0,127},
+    textString="dmWat_flow")}),
 
     Documentation(info="<html>
 <p>
-This block calculates the saturation efficiency of the direct evaporative pad, as
-well as the water vapor mass flow rate addition into the air stream from the direct
-evaporative pad.
+This block calculates the saturation efficiency of an evaporative pad, as well as
+the water vapor mass flow rate addition into the air stream from the evaporative pad.
 </p>
 <p>
 The saturation efficiency of an evaporative pad <code>eta</code> is calculated using 
@@ -179,7 +178,7 @@ a function of the velocity of the air stream <code>v</code>.
 </p>
 <p>
 <code>v</code> is calculated from the volume flow rate <code>V_flow</code> and
-evaporative media cross-sectional area <code>padAre</code> using:
+evaporative pad cross-sectional area <code>padAre</code> using:
 </p>
 <p align=\"center\" style=\"font-style:italic;\">
 v = V_flow/padAre
@@ -217,4 +216,4 @@ First implementation.
 </li>
 </ul>
 </html>"));
-end DirectCalculation;
+end EvaporativePadCalculation;
