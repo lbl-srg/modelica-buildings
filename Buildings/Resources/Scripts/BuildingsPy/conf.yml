@@ -441,6 +441,8 @@
     comment: 'Error: No system for the symbolic initialization was generated.'
     translate: false
 - model_name: Buildings.ThermalZones.Detailed.Examples.ISAT.MixedConvectionWithExteriorWall
+  dymola:
+    time_out: 900
   openmodelica:
     comment: 'Error: No system for the symbolic initialization was generated.'
     translate: false
@@ -449,6 +451,8 @@
     comment: 'Error: No system for the symbolic initialization was generated.'
     translate: false
 - model_name: Buildings.ThermalZones.Detailed.Examples.ISAT.Tutorial.MixedConvectionWithBox
+  dymola:
+    time_out: 900
   openmodelica:
     comment: 'Error: No system for the symbolic initialization was generated.'
     translate: false

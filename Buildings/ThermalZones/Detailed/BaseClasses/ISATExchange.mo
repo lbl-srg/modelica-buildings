@@ -76,7 +76,7 @@ protected
   end sendParameters;
 
 
-  function isatStartCosimulation
+  impure function isatStartCosimulation
     "Start the coupled simulation with ISAT"
     input String cfdFilNam "CFD input file name";
     input String[nSur] name "Surface names";
@@ -149,7 +149,7 @@ First implementation.
 
   end isatStartCosimulation;
 
-  function isatExchangeData "Exchange data with the C implementation"
+  impure function isatExchangeData "Exchange data with the C implementation"
     input Integer flag "Communication flag to CFD";
     input Modelica.Units.SI.Time t "Current Modelica simulation time to CFD";
     input Modelica.Units.SI.Time dt(min=100*Modelica.Constants.eps)
