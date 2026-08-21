@@ -9,6 +9,5 @@ PlaceholderInteger
 PlaceholderLogical
 PlaceholderReal
 StageIndex
-TimerWithReset
 TrueArrayConditional
 Validation
