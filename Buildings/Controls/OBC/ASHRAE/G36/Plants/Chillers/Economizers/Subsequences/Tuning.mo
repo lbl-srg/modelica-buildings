@@ -172,14 +172,17 @@ protected
     "Difference of the economizer enabling time and the high tower speed time"
     annotation (Placement(transformation(extent={{-100,-90},{-80,-70}})));
 
-  Buildings.Controls.OBC.CDL.Logical.And and4 "Less than threshold time"
+  Buildings.Controls.OBC.CDL.Logical.And and4
+    "Output false if the economizer is enabled after a small delay"
     annotation (Placement(transformation(extent={{-140,80},{-120,100}})));
 
-  Buildings.Controls.OBC.CDL.Logical.TrueDelay delWseEna(final delayTime=5)
+  Buildings.Controls.OBC.CDL.Logical.TrueDelay delWseEna(
+    final delayTime=5)
     "Delay the economizer enable signal"
     annotation (Placement(transformation(extent={{-220,80},{-200,100}})));
 
-  Buildings.Controls.OBC.CDL.Logical.Not disWse1 "Delayed economizer disable"
+  Buildings.Controls.OBC.CDL.Logical.Not disWse1
+    "Disabled economizer"
     annotation (Placement(transformation(extent={{-178,80},{-158,100}})));
 
 equation
@@ -213,8 +216,7 @@ equation
   connect(disCou.y, maxInt.u1) annotation (Line(points={{42,160},{50,160},{50,66},
           {58,66}}, color={255,127,0}));
   connect(disCou1.y, maxInt.u2) annotation (Line(points={{42,-40},{50,-40},{50,
-          54},{58,54}},
-                    color={255,127,0}));
+          54},{58,54}}, color={255,127,0}));
   connect(intToRea.y, mulSum.u[1]) annotation (Line(points={{142,160},{180,160},
           {180,89.3333},{198,89.3333}},color={0,0,127}));
   connect(intToRea1.y, mulSum.u[2]) annotation (Line(points={{142,-40},{180,-40},
@@ -268,8 +270,7 @@ equation
   connect(triSam2.y, timDif.u2) annotation (Line(points={{-138,-150},{-120,-150},
           {-120,-86},{-102,-86}},   color={0,0,127}));
   connect(triSam1.y, timDif.u1) annotation (Line(points={{-198,10},{-190,10},{
-          -190,-74},{-102,-74}},
-                            color={0,0,127}));
+          -190,-74},{-102,-74}}, color={0,0,127}));
   connect(timDif.y, lesThr1.u)
     annotation (Line(points={{-78,-80},{-62,-80}},   color={0,0,127}));
   connect(lesThr1.y, and3.u2) annotation (Line(points={{-38,-80},{-30,-80},{-30,
