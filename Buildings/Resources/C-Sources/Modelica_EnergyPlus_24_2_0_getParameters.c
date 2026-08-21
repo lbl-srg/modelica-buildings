@@ -37,7 +37,7 @@ void Modelica_EnergyPlus_24_2_0_getParameters(
                }
             }
             /* Calculate infiltration load and add to zone parameter */
-            m_inf_flow = ptrSpaObj->ach_inf * (V*35.3147) / 60 / 2118.88 * ptrSpaObj->rhoAir;
+            m_inf_flow = ptrSpaObj->airChaRatInf * (V*35.3147) * 60 / 2118.88 * ptrSpaObj->rhoAir;
             parOut[i] +=  m_inf_flow * ptrSpaObj->cpAir * (TSetHea - TOutHea);
          }
       }
@@ -59,7 +59,7 @@ void Modelica_EnergyPlus_24_2_0_getParameters(
                }
             }
             /* Calculate infiltration load and add to zone parameter */
-            m_inf_flow = ptrSpaObj->ach_inf * (V*35.3147) / 60 / 2118.88 * ptrSpaObj->rhoAir;
+            m_inf_flow = ptrSpaObj->airChaRatInf * (V*35.3147) * 60 / 2118.88 * ptrSpaObj->rhoAir;
             parOut[i] += m_inf_flow * ptrSpaObj->cpAir * (TOutCoo - TSetCoo);
          }
       }
@@ -81,7 +81,7 @@ void Modelica_EnergyPlus_24_2_0_getParameters(
                }
             }
             /* Calculate infiltration load and add to zone parameter */
-            m_inf_flow = ptrSpaObj->ach_inf * (V*35.3147) / 60 / 2118.88 * ptrSpaObj->rhoAir;
+            m_inf_flow = ptrSpaObj->airChaRatInf * (V*35.3147) * 60 / 2118.88 * ptrSpaObj->rhoAir;
             parOut[i] += m_inf_flow * ptrSpaObj->hfgWater * (XOutCoo - XSetCoo);
          }
       }
@@ -121,10 +121,10 @@ void Modelica_EnergyPlus_24_2_0_getParameters(
                      }
                   }
                   /* Calculate infiltration load contributed from the zone and add it to the system sum */
-                  m_inf_flow = zone->ach_inf * (V*35.3147) / 60 / 2118.88 * zone->rhoAir;
+                  m_inf_flow = zone->airChaRatInf * (V*35.3147) * 60 / 2118.88 * zone->rhoAir;
                   sumInfiltration += m_inf_flow * zone->cpAir * (TSetHea - TOutHea);
-                  bui->SpawnFormatMessage("Zone %s with V %0.3f part of hvacZone %s with epName %s, adding infiltration using TSetHea %0.3f and TOutHea %0.3f and ach_inf %0.3f and cp %0.3f and hfg %0.3f and rho %0.3f\n", 
-                  zone->epName, V, zone->hvacZone, ptrSpaObj->epName, TSetHea, TOutHea, zone->ach_inf, zone->cpAir, zone->hfgWater, zone->rhoAir);
+                  bui->SpawnFormatMessage("Zone %s with V %0.3f part of hvacZone %s with epName %s, adding infiltration using TSetHea %0.3f and TOutHea %0.3f and airChaRatInf %0.3f and cp %0.3f and hfg %0.3f and rho %0.3f\n",
+                  zone->epName, V, zone->hvacZone, ptrSpaObj->epName, TSetHea, TOutHea, zone->airChaRatInf*3600, zone->cpAir, zone->hfgWater, zone->rhoAir);
                }
             }
             /* Add the system sum to the system parameter */
@@ -167,10 +167,10 @@ void Modelica_EnergyPlus_24_2_0_getParameters(
                      }
                   }
                   /* Calculate infiltration load contributed from the zone and add it to the system sum */
-                  m_inf_flow = zone->ach_inf * (V*35.3147) / 60 / 2118.88 * zone->rhoAir;
+                  m_inf_flow = zone->airChaRatInf * (V*35.3147) * 60 / 2118.88 * zone->rhoAir;
                   sumInfiltration += m_inf_flow * zone->cpAir * (TOutCoo - TSetCoo);
-                  bui->SpawnFormatMessage("Zone %s with V %0.3f part of hvacZone %s with epName %s, adding infiltration using TSetCoo %0.3f and TOutCoo %0.3f and ach_inf %0.3f\n", 
-                  zone->epName, V, zone->hvacZone, ptrSpaObj->epName, TSetCoo, TOutCoo, zone->ach_inf );
+                  bui->SpawnFormatMessage("Zone %s with V %0.3f part of hvacZone %s with epName %s, adding infiltration using TSetCoo %0.3f and TOutCoo %0.3f and airChaRatInf %0.3f\n",
+                  zone->epName, V, zone->hvacZone, ptrSpaObj->epName, TSetCoo, TOutCoo, zone->airChaRatInf*3600);
                }
             }
             /* Add the system sum to the system parameter */
@@ -213,10 +213,10 @@ void Modelica_EnergyPlus_24_2_0_getParameters(
                      }
                   }
                   /* Calculate infiltration load contributed from the zone and add it to the system sum */
-                  m_inf_flow = zone->ach_inf * (V*35.3147) / 60 / 2118.88 * zone->rhoAir;
+                  m_inf_flow = zone->airChaRatInf * (V*35.3147) * 60 / 2118.88 * zone->rhoAir;
                   sumInfiltration += m_inf_flow * zone->hfgWater * (XOutCoo - XSetCoo);
-                  bui->SpawnFormatMessage("Zone %s with V %0.3f part of hvacZone %s with epName %s, adding infiltration using XSetCoo %0.3f and XOutCoo %0.3f and ach_inf %0.3f\n", 
-                  zone->epName, V, zone->hvacZone, ptrSpaObj->epName, XSetCoo, XOutCoo, zone->ach_inf );
+                  bui->SpawnFormatMessage("Zone %s with V %0.3f part of hvacZone %s with epName %s, adding infiltration using XSetCoo %0.3f and XOutCoo %0.3f and airChaRatInf %0.3f\n",
+                  zone->epName, V, zone->hvacZone, ptrSpaObj->epName, XSetCoo, XOutCoo, zone->airChaRatInf*3600);
                }
             }
             /* Add the system sum to the system parameter */

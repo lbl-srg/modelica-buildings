@@ -45,7 +45,7 @@ protected
     hvacSystemName="n/a",
     runPeriod=runPeriod,
     relativeSurfaceTolerance=relativeSurfaceTolerance,
-    ach_inf=0.0,
+    airChaRatInf=0.0,
     cpAir=0.0,
     hfgWater=0.0,
     rhoAir=0.0,

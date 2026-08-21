@@ -24,7 +24,7 @@ LBNL_Spawn_EXPORT void* allocate_Spawn_EnergyPlus_24_2_0(
   const char* hvacZone,
   const runPeriod* runPer,
   double relativeSurfaceTolerance,
-  double ach_inf,
+  double airChaRatInf,
   double cpAir,
   double hfgWater,
   double rhoAir,

@@ -24,7 +24,7 @@ model AirHeating_Autosizing
     redeclare package Medium=Medium,
     zoneName="LIVING ZONE",
     hvacSystemName="sysHea",
-    ach_inf=0.25,
+    airChaRatInf=6.9444444444444e-05,
     nPorts=4)
     "Thermal zone"
     annotation (Placement(transformation(extent={{20,80},{60,120}})));

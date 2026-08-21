@@ -46,7 +46,7 @@ model ThermalZoneAdapter
     "If true, then the radiative heat gain sent from Modelica to EnergyPlus is zero during the model initialization"
     annotation (Dialog(tab="Advanced"), Evaluate=true);
 
-  final parameter Real ach_inf "Infiltration air change per hour for auto-sizing";
+  final parameter Real airChaRatInf(final unit="1/s", displayUnit="1/h") "Infiltration air change rate for auto-sizing";
   final parameter Modelica.Units.SI.SpecificHeatCapacity cpAir "Specific heat capacity of air";
   final parameter Modelica.Units.SI.SpecificEnergy hfgWater "Latent heat of water vapor";
   final parameter Modelica.Units.SI.Density rhoAir "Density of air";
@@ -149,7 +149,7 @@ protected
     hvacSystemName=hvacSystemName,
     runPeriod=runPeriod,
     relativeSurfaceTolerance=relativeSurfaceTolerance,
-    ach_inf=ach_inf,
+    airChaRatInf=airChaRatInf,
     cpAir=cpAir,
     hfgWater=hfgWater,
     rhoAir=rhoAir,

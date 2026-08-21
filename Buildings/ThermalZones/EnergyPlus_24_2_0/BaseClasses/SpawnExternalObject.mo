@@ -28,7 +28,7 @@ class SpawnExternalObject
       "EnergyPlus RunPeriod configuration";
     input Real relativeSurfaceTolerance
       "Relative tolerance of surface temperature calculations";
-    input Real ach_inf
+    input Real airChaRatInf
       "Infiltration mass flow rate";
     input Modelica.Units.SI.SpecificHeatCapacity cpAir
       "Specific heat capacity of air";
@@ -93,7 +93,7 @@ class SpawnExternalObject
     runPeriod.use_weatherFileRainIndicators,
     runPeriod.use_weatherFileSnowIndicators,
     relativeSurfaceTolerance,
-    ach_inf,
+    airChaRatInf,
     cpAir,
     hfgWater,
     rhoAir,

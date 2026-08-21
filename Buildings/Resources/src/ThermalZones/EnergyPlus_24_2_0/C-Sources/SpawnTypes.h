@@ -149,7 +149,7 @@ typedef struct SpawnObject
                                 of the FMU */
   bool valueReferenceIsSet;         /* Flag, set to true after value references are set,
                                        and used to check for Dymola 2020x whether the flag 'Hidden.AvoidDoubleComputation=true' is set */
-  double ach_inf;             /* Infiltration air change per hour */
+  double airChaRatInf;             /* Infiltration air change rate */
   double cpAir;               /* Heat capacity of air */
   double hfgWater;            /* Heat of vaporization of water */
   double rhoAir;              /* Density of air */

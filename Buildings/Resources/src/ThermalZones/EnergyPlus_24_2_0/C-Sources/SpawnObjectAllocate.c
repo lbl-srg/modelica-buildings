@@ -191,7 +191,7 @@ void* allocate_Spawn_EnergyPlus_24_2_0(
   */
   ptrSpaObj->isInstantiated = fmi2False;
   ptrSpaObj->isInitialized = fmi2False;
-  ptrSpaObj->ach_inf = ach_inf;
+  ptrSpaObj->airChaRatInf = airChaRatInf;
   ptrSpaObj->cpAir = cpAir;
   ptrSpaObj->hfgWater = hfgWater;
   ptrSpaObj->rhoAir = rhoAir;
@@ -353,7 +353,7 @@ void* allocate_Spawn_EnergyPlus_24_2_0(
       epwName,
       runPer,
       relativeSurfaceTolerance,
-      ach_inf,
+      airChaRatInf,
       cpAir,
       hfgWater,
       rhoAir,

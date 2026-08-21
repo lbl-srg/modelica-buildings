@@ -29,7 +29,7 @@ size_t AllocateBuildingDataStructure(
   const char* epwName,
   const runPeriod* runPer,
   double relativeSurfaceTolerance,
-  double ach_inf,
+  double airChaRatInf,
   double cpAir,
   double hfgWater,
   double rhoAir,

@@ -2,11 +2,11 @@ within Buildings.ThermalZones.EnergyPlus_24_2_0.Examples.SmallOffice.BaseClasses
 model Floor_Autosizing_MultipleSystems
   "Extension of floor model with autosizing for multiple systems"
   extends Floor(
-    eas(hvacSystemName="perimeter", ach_inf=0.25),
-    sou(hvacSystemName="perimeter", ach_inf=0.25),
+    eas(hvacSystemName="perimeter", airChaRatInf=6.9444444444444e-05),
+    sou(hvacSystemName="perimeter", airChaRatInf=6.9444444444444e-05),
     cor(hvacSystemName="core"),
-    nor(hvacSystemName="perimeter", ach_inf=0.25),
-    wes(hvacSystemName="perimeter", ach_inf=0.25));
+    nor(hvacSystemName="perimeter", airChaRatInf=6.9444444444444e-05),
+    wes(hvacSystemName="perimeter", airChaRatInf=6.9444444444444e-05));
 public
   SystemSizing sysSizPer(hvacSystemName="perimeter", autosizeHVAC=true)
     "System sizing object for perimeter system"
