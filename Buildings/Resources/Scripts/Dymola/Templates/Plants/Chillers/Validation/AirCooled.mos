@@ -6,8 +6,8 @@ simulateModel("Buildings.Templates.Plants.Chillers.Validation.AirCooled",
     resultFile="AirCooledChillerPlant");
 createPlot(
     id=1,
-    position={5, 5, 300, 500},
-    y={"pla.ctl.ctl.staSetCon.capReq.y", "pla.cap_nominal"},
+    position={5, 5, 300, 600},
+    y={"pla.ctl.ctl.TOut", "pla.ctl.dat.TOutChiWatLck"},
     autoscale=true,
     grid=true,
     timeUnit="h"
@@ -15,7 +15,15 @@ createPlot(
 createPlot(
     id=1,
     subPlot=2,
-    y={"pla.ctl.ctl.TOut", "pla.ctl.dat.TOutChiWatLck"},
+    y={"pla.ctl.ctl.staSetCon.capReq.y", "pla.cap_nominal"},
+    autoscale=true,
+    grid=true,
+    timeUnit="h"
+);
+createPlot(
+    id=1,
+    subPlot=3,
+    y={"loa.u", "loa.y_actual"},
     autoscale=true,
     grid=true,
     timeUnit="h"

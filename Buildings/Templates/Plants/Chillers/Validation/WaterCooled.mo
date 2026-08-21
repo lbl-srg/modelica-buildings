@@ -7,10 +7,6 @@ model WaterCooled
     constrainedby Modelica.Media.Interfaces.PartialMedium
     "Main medium (common for CHW and CW)";
 
-  replaceable parameter Buildings.Templates.Plants.Chillers.Validation.UserProject.Data.AllSystemsWaterCooled datAll(
-    pla(cfg=pla.cfg))
-    "Plant parameters"
-    annotation(Placement(transformation(extent={{-180,120},{-160,140}})));
   parameter Boolean allowFlowReversal = true
     "= true to allow flow reversal, false restricts to design direction (port_a -> port_b)"
     annotation(Dialog(tab="Assumptions"),
@@ -47,6 +43,22 @@ model WaterCooled
       chi(have_senTChiWatChiSup_select=true, have_senTChiWatChiRet=true))
     "Chiller plant"
     annotation(Placement(transformation(extent={{-80,-100},{-40,-60}})));
+  /*
+   * HACK(AntoineGautier):
+   * Keep 'datAll' declared after 'pla' below.
+   * With Dymola 2026x Refresh 1, declaring 'datAll' *before* 'pla' yields a
+   * 6x overhead in checkModel/translateModel.
+   * The overhead traces to a single binding: datAll.pla.cfg.nChi, which sizes
+   * the array of performance data records 'perChi[nChi]' in
+   * Buildings.Templates.Plants.Chillers.Components.Data.ChillerGroup. That
+   * array holds unknown-size matrix parameters, and when its dimension can
+   * only be resolved through a forward component reference, Dymola's front
+   * end appears to fall back to a much slower elaboration path.
+   */
+  replaceable parameter Buildings.Templates.Plants.Chillers.Validation.UserProject.Data.AllSystemsWaterCooled datAll(
+    pla(cfg=pla.cfg))
+    "Plant parameters"
+    annotation(Placement(transformation(extent={{-180,120},{-160,140}})));
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant TAirSup(
     k=293.15,
     y(final unit="K", displayUnit="degC"))
