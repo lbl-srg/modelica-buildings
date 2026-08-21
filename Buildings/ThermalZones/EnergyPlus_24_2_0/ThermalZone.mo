@@ -109,7 +109,17 @@ model ThermalZone
     annotation (Placement(transformation(extent={{200,-130},{220,-110}}),iconTransformation(extent={{200,90},{220,110}})));
 protected
   constant Modelica.Units.SI.SpecificEnergy h_fg=Medium.enthalpyOfCondensingGas(
-      273.15 + 37) "Latent heat of water vapor";
+      Medium.T_default) "Latent heat of water vapor";
+  constant Modelica.Units.SI.Density rhoAir=Medium.density(Medium.setState_pTX(
+      Medium.p_default,
+      Medium.T_default,
+      Medium.X_default))
+    "Density of air at default medium state";
+  constant Modelica.Units.SI.SpecificHeatCapacity cpAir=Medium.specificHeatCapacityCp(Medium.setState_pTX(
+      Medium.p_default,
+      Medium.T_default,
+      Medium.X_default))
+      "Specific heat capacity of air at default medium state";
   final parameter Modelica.Units.SI.MassFlowRate m_flow_nominal=V*3/3600
     "Nominal mass flow rate (used for regularization)";
   final parameter Boolean setInitialRadiativeHeatGainToZero = building.setInitialRadiativeHeatGainToZero
@@ -118,6 +128,9 @@ protected
   Buildings.ThermalZones.EnergyPlus_24_2_0.BaseClasses.ThermalZoneAdapter fmuZon(
     final modelicaNameBuilding=modelicaNameBuilding,
     final ach_inf=ach_inf,
+    final cpAir=cpAir,
+    final hfgWater=h_fg,
+    final rhoAir=rhoAir,
     final modelicaInstanceName=modelicaInstanceName,
     final spawnExe=spawnExe,
     final idfVersion=idfVersion,
