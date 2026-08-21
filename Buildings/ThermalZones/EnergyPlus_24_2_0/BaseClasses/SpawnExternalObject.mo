@@ -28,6 +28,14 @@ class SpawnExternalObject
       "EnergyPlus RunPeriod configuration";
     input Real relativeSurfaceTolerance
       "Relative tolerance of surface temperature calculations";
+    input Real ach_inf
+      "Infiltration mass flow rate";
+    input Modelica.Units.SI.SpecificHeatCapacity cpAir
+      "Specific heat capacity of air";
+    input Modelica.Units.SI.SpecificEnergy hfgWater
+      "Latent heat of water vapor";
+    input Modelica.Units.SI.Density rhoAir
+      "Density of air";
     input Boolean usePrecompiledFMU
       "Set to true to use precompiled FMU with name specified by input fmuName";
     input String fmuName
@@ -85,6 +93,10 @@ class SpawnExternalObject
     runPeriod.use_weatherFileRainIndicators,
     runPeriod.use_weatherFileSnowIndicators,
     relativeSurfaceTolerance,
+    ach_inf,
+    cpAir,
+    hfgWater,
+    rhoAir,
     usePrecompiledFMU,
     fmuName,
     buildingsRootFileLocation,

@@ -66,14 +66,7 @@ typedef enum {instantiationMode, initializationMode, eventMode, continuousTimeMo
 enum logLevels {ERRORS = 1, WARNINGS = 2, QUIET = 3, MEDIUM = 4, TIMESTEP = 5};
 enum objectTypes {THERMALZONE = 1, SCHEDULE = 2, ACTUATOR = 3, OUTPUT = 4, SURFACE = 5, DETAILEDSURFACE = 6};
 
-typedef struct {
-  int startDayOfYear; /* Day of week from Buildings.ThermalZones.EnergyPlus_24_2_0.Types.WeekDays */
-  int applyWeekEndHolidayRule;
-  int use_weatherFileDaylightSavingPeriod;
-  int use_weatherFileHolidaysAndSpecialDays;
-  int use_weatherFileRainIndicators;
-  int use_weatherFileSnowIndicators;
-} runPeriod;
+#include "../../../../C-Sources/EnergyPlus_24_2_0_definitions.h"
 
 typedef struct FMUBuilding
 {
@@ -156,7 +149,12 @@ typedef struct SpawnObject
                                 of the FMU */
   bool valueReferenceIsSet;         /* Flag, set to true after value references are set,
                                        and used to check for Dymola 2020x whether the flag 'Hidden.AvoidDoubleComputation=true' is set */
+  double ach_inf;             /* Infiltration air change per hour */
+  double cpAir;               /* Heat capacity of air */
+  double hfgWater;            /* Heat of vaporization of water */
+  double rhoAir;              /* Density of air */
 
 } SpawnObject;
 
 #endif
+

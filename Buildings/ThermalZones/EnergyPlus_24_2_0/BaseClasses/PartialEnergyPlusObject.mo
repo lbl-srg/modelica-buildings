@@ -24,7 +24,6 @@ protected
     "Name of the EnergyPlus weather file (but with mos extension)";
   final parameter Real relativeSurfaceTolerance=building.relativeSurfaceTolerance
     "Relative tolerance of surface temperature calculations";
-
   final parameter Buildings.ThermalZones.EnergyPlus_24_2_0.Data.RunPeriod runPeriod=building.runPeriod
       "EnergyPlus RunPeriod configuration"
     annotation (Dialog(tab="Run period"));

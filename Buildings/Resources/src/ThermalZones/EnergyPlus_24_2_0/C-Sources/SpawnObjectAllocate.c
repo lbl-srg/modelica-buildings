@@ -99,6 +99,10 @@ void* allocate_Spawn_EnergyPlus_24_2_0(
   const char* hvacZone,
   const runPeriod* runPer,
   double relativeSurfaceTolerance,
+  double ach_inf,
+  double cpAir,
+  double hfgWater,
+  double rhoAir,
   int usePrecompiledFMU,
   const char* fmuName,
   const char* buildingsRootFileLocation,
@@ -187,6 +191,10 @@ void* allocate_Spawn_EnergyPlus_24_2_0(
   */
   ptrSpaObj->isInstantiated = fmi2False;
   ptrSpaObj->isInitialized = fmi2False;
+  ptrSpaObj->ach_inf = ach_inf;
+  ptrSpaObj->cpAir = cpAir;
+  ptrSpaObj->hfgWater = hfgWater;
+  ptrSpaObj->rhoAir = rhoAir;
 
   ptrSpaObj->valueReferenceIsSet = fmi2False;
 
@@ -345,6 +353,10 @@ void* allocate_Spawn_EnergyPlus_24_2_0(
       epwName,
       runPer,
       relativeSurfaceTolerance,
+      ach_inf,
+      cpAir,
+      hfgWater,
+      rhoAir,
       usePrecompiledFMU,
       fmuName,
       buildingsRootFileLocation,
