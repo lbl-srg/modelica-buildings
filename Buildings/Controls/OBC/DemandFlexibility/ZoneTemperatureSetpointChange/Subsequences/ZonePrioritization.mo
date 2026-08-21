@@ -34,44 +34,36 @@ block ZonePrioritization
     annotation (Placement(transformation(extent={{-160,-80},{-120,-40}}),
       iconTransformation(extent={{-140,-80},{-100,-40}})));
 protected
-  Buildings.Controls.OBC.CDL.Reals.Subtract dTZon[nZon]
-    "Zone temperature difference"
-    annotation (Placement(transformation(extent={{-80,-10},{-60,10}})));
+  Buildings.Controls.OBC.CDL.Reals.Subtract dTZonHea[nZon] if airConMod
+    "Zone temperature difference during the heating mode"
+    annotation (Placement(transformation(extent={{-40,20},{-20,40}})));
+  Buildings.Controls.OBC.CDL.Reals.Subtract dTZonCoo[nZon] if not airConMod
+    "Zone temperature difference during the cooling mode"
+    annotation (Placement(transformation(extent={{-40,-40},{-20,-20}})));
   Buildings.Controls.OBC.DemandFlexibility.Generic.SelectSmallestValues selSmaDTZon(
     final nVal=nZon)
-    if airConMod
     "Select the zones with the smallest zone temperature difference"
-    annotation (Placement(transformation(extent={{20,40},{40,60}})));
-  Buildings.Controls.OBC.DemandFlexibility.Generic.SelectLargestValues selLarDTZon(
-    final nVal=nZon)
-    if not airConMod
-    "Select the zones with the largest zone temperature difference"
-    annotation (Placement(transformation(extent={{20,-60},{40,-40}})));
+    annotation (Placement(transformation(extent={{80,-10},{100,10}})));
 equation
-  connect(TZon, dTZon.u1)
-    annotation (Line(points={{-140,20},{-100,20},{-100,6},{-82,6}},
-      color={0,0,127}));
-  connect(TZonSet, dTZon.u2)
-    annotation (Line(points={{-140,-20},{-100,-20},{-100,-6},{-82,-6}},
-      color={0,0,127}));
+  connect(TZon, dTZonHea.u1) annotation (Line(points={{-140,20},{-100,20},{-100,
+          36},{-42,36}}, color={0,0,127}));
+  connect(TZonSet, dTZonHea.u2) annotation (Line(points={{-140,-20},{-60,-20},{-60,
+          24},{-42,24}}, color={0,0,127}));
   connect(disFla, selSmaDTZon.disFla)
-    annotation (Line(points={{-140,60},{0,60},{0,56},{18,56}}, color={255,0,255}));
-  connect(disFla, selLarDTZon.disFla)
-    annotation (Line(points={{-140,60},{0,60},{0,-44},{18,-44}}, color={255,0,255}));
-  connect(dTZon.y, selSmaDTZon.u)
-    annotation (Line(points={{-58,0},{-20,0},{-20,50},{18,50}}, color={0,0,127}));
-  connect(dTZon.y, selLarDTZon.u)
-    annotation (Line(points={{-58,0},{-20,0},{-20,-50},{18,-50}}, color={0,0,127}));
-  connect(nSel, selLarDTZon.nSel)
-    annotation (Line(points={{-140,-60},{-40,-60},{-40,-56},{18,-56}},
-      color={255,127,0}));
+    annotation (Line(points={{-140,60},{60,60},{60,6},{78,6}}, color={255,0,255}));
+  connect(dTZonHea.y, selSmaDTZon.u) annotation (Line(points={{-18,30},{20,30},{
+          20,0},{78,0}}, color={0,0,127}));
   connect(nSel, selSmaDTZon.nSel)
-    annotation (Line(points={{-140,-60},{-40,-60},{-40,44},{18,44}},
+    annotation (Line(points={{-140,-60},{60,-60},{60,-6},{78,-6}},
       color={255,127,0}));
   connect(selSmaDTZon.y, yEna)
-    annotation (Line(points={{42,50},{80,50},{80,0},{140,0}}, color={255,0,255}));
-  connect(selLarDTZon.y, yEna)
-    annotation (Line(points={{42,-50},{80,-50},{80,0},{140,0}}, color={255,0,255}));
+    annotation (Line(points={{102,0},{140,0}},                color={255,0,255}));
+  connect(TZonSet, dTZonCoo.u1) annotation (Line(points={{-140,-20},{-60,-20},{-60,
+          -24},{-42,-24}}, color={0,0,127}));
+  connect(TZon, dTZonCoo.u2) annotation (Line(points={{-140,20},{-100,20},{-100,
+          -36},{-42,-36}}, color={0,0,127}));
+  connect(dTZonCoo.y, selSmaDTZon.u) annotation (Line(points={{-18,-30},{20,-30},
+          {20,0},{78,0}}, color={0,0,127}));
   annotation (defaultComponentName="zonPri",
     Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}},
     grid={2,2}), graphics={Rectangle(
@@ -97,10 +89,13 @@ This block compares the zone temperatures and setpoints in order to prioritize z
 to enable zone temperature setpoint change.
 </p>
 <p>
-Zone temperature difference, an internal variable, is defined as the zone temperature
-(<code>TZon</code>) minus the zone temperature setpoint (<code>TZonSet</code>). The
-zone temperature setpoint input variable <code>TZonSet</code> must represent a
-heating setpoint when <code>airConMod = true</code>, and it must represent a cooling
+Zone temperature difference <code>dTZon</code>, an internal variable, is defined as
+the zone temperature <code>TZon</code> minus the zone temperature setpoint
+<code>TZonSet</code> during the heating mode (<code>airConMod = true</code>). On the
+other hand, <code>dTZon</code> is defined as <code>TZonSet</code> minus
+<code>TZon</code> during the cooling mode (<code>airConMod = false</code>). The zone
+temperature setpoint input variable <code>TZonSet</code> must represent a heating
+setpoint when <code>airConMod = true</code>, and it must represent a cooling
 setpoint when <code>airConMod = false</code>.
 </p>
 <p>
@@ -108,16 +103,9 @@ The parameter <code>nSel</code> represents the number of zones to select for
 prioritization.
 </p>
 <p>
-For the heating mode (<code>airConMod = true</code>), for <code>nSel</code> zones
-with the smallest zone temperature difference, these zones will have their
-<code>yEna</code> variable set to <code>true</code>, and the remaining zones will
-have their <code>yEna</code> variable set to <code>false</code>. 
-</p>
-<p>
-For the cooling mode (<code>airConMod = false</code>), for <code>nSel</code> zones
-with the largest zone temperature difference, these zones will have their
-<code>yEna</code> variable set to <code>true</code>, and the remaining zones will
-have their <code>yEna</code> variable set to <code>false</code>. 
+For <code>nSel</code> zones with the smallest <code>dTZon</code>, these zones will
+have their <code>yEna</code> variable set to <code>true</code>, and the remaining
+zones will have their <code>yEna</code> variable set to <code>false</code>. 
 </p>
 <p>
 Setting the disabled flag vector <code>disFla=true</code> serves to exclude certain

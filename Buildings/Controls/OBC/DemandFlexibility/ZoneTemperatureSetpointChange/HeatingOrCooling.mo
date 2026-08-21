@@ -40,7 +40,7 @@ block HeatingOrCooling
     unit="K",
     displayUnit="K")
     "Temperature resolution interval used by an external zone temperature controller";
-  parameter Real samPerSetCha(
+  parameter Real setChaWaiTim(
     min=0,
     unit="s")
     "Sampling period for the setpoint change";
@@ -151,7 +151,7 @@ protected
     "The zone control logic block"
     annotation (Placement(transformation(extent={{120,-120},{140,-100}})));
   Buildings.Controls.OBC.CDL.Discrete.Sampler samSetCha[nZon](
-    final samplePeriod=fill(samPerSetCha,nZon))
+    final samplePeriod=fill(setChaWaiTim,nZon))
     "Sampling block for the setpoint change"
     annotation (Placement(transformation(extent={{180,-10},{200,10}})));
   Buildings.Controls.OBC.CDL.Routing.IntegerScalarReplicator repDemFleMod(
@@ -268,7 +268,7 @@ zones based on the difference between the current zone temperature and the curre
 zone temperature setpoint, and finally executes the setpoint change operation by
 outputting new setpoints.
 </p>
-<h4>Zone Control Variant</h4>
+<h4>Parameter Definitions</h4>
 <p>
 The zone control variant parameter <code>zonConVar</code> in this block can have
 <i>4</i> different values based on enumeration, from Variant <i>1</i> through
@@ -277,11 +277,28 @@ Variant <i>4</i>. Refer to the documentation of
 Buildings.Controls.OBC.DemandFlexibility.Types.ZoneControlVariant</a>
 for more information on these <i>4</i> variants.
 </p>
-<h4>Demand Flexibility Modes</h4>
 <p>
 The demand flexibility mode parameter <code>demFleMod</code> can take values of
 <i>0</i> (pre-cool or pre-heat mode), <i>1</i> (default mode), <i>2</i> (load-shed
 mode), and <i>3</i> (load-rebound mode).
+</p>
+<p>
+The input variable <code>TCurZonSet</code> represents the current value of the
+temperature setpoint. The output variable <code>TComZonSet</code> commands the
+temperature setpoint to take on a new value. The parameter <code>airConMod</code>
+represents the air conditioning mode. <code>airConMod = true</code> represents the
+heating mode, whereas <code>airConMod = false</code> represents the cooling mode.
+<code>TCurZonSet</code> and <code>TComZonSet</code> must represent heating setpoints
+when <code>airConMod = true</code>, and they must represent cooling setpoints when
+<code>airConMod = false</code>.
+</p>
+<p>
+Zone temperature difference <code>dTZon</code>, an internal variable, is defined as
+the current zone temperature <code>TCurZon</code> minus the current zone temperature
+setpoint <code>TCurZonSet</code> during the heating mode
+(<code>airConMod = true</code>). On the other hand, <code>dTZon</code> is defined as
+<code>TCurZonSet</code> minus <code>TCurZon</code> during the cooling mode
+(<code>airConMod = false</code>). 
 </p>
 <h4>Zone Enablement</h4>
 <p>
@@ -339,61 +356,34 @@ accessible in this block) will be set to <code>false</code>. Otherwise, the
 </p>
 <h4>Aggregated Behaviors</h4>
 <p>
-The parameter <code>samPerSetCha</code> is a setpoint change sampling period, which
+The parameter <code>setChaWaiTim</code> is the setpoint change wait time, which
 specifies the time interval on how often the setpoint change operation is executed.
 </p>
 <p>
-In the <code>ZoneEnable</code> sub-block, if the electricity demand of the
-building is lower than the electricity demand threshold during the load-shed demand
-flexibility mode for Variant <i>3</i> or Variant <i>4</i>, all zones in the building
-will be disqualified for setpoint change. Thus, the zone temperature setpoints will
-stay at the current value. Then, the zone temperatures can reach the zone
-temperature setpoints, turning on air conditioning. This will increase the
-electricity demand of the building, eventually making the electricity demand higher
-than the electricity demand threshold and causing most zones to be qualified for
-setpoint change. The zone temperature setpoints will then change, away from the zone
-temperatures, thus turning off air conditioning and reducing the electricity demand
-of the building. This completes one cycling period of zone control.
-</p>
-<p>
-In the <code>ZoneEnable</code> sub-block, another qualifying condition for
-zone temperature setpoint change is that the zone temperature is close enough to the
-zone temperature setpoint during the load-shed demand flexibility mode. If the zone
-temperature is not close enough to the zone temperature setpoint for a zone, this
-zone will be disqualified for the setpoint change, and the zone temperature setpoint
-will stay constant. This is designed to make the zone temperature setpoint during
-the load-shed mode change value only when necessary and not deviate too far, thereby
-minimizing occupant thermal discomfort.
-</p>
-<p>
-In the <code>ZoneEnable</code> sub-block, the last qualifying condition for
-zone temperature setpoint change is that the zone temperature setpoint has not
-reached a temperature setpoint limit that is imposed by the respective demand
-flexibility mode. Based on the <code>ZonePrioritization</code> sub-block and the
-<code>ZoneControl</code> sub-block, only the <code>nSel</code> zones with the largest
-or the smallest zone temperature difference will be selected for the setpoint change
-operation. Here, there is a chance that the zone temperature setpoint of a zone has
-reached a temperature setpoint limit, but this zone is still one of the
-<code>nSel</code> zones with the largest or the smallest zone temperature difference.
-This qualifying condition helps disqualify this zone immediately and lets other
-zones be selected as part of the <code>nSel</code> zones. Without this qualifying
-condition, this zone will continue to be one of the <code>nSel</code> selected zones.
-The zone temperature setpoint of this zone will receive the signal to further change
-its value, but because the temperature setpoint limit has reached, the zone
-temperature setpoint could only take the value of the temperature setpoint limit.
-Thus, the <code>ZonePrioritization</code> sub-block will get stuck by always
-selecting this zone for setpoint change, without moving on to other zones.
+In the <code>ZoneEnable</code> sub-block, one of the conditions to enable zone
+temperature setpoint change is that the zone temperature setpoint has not reached a
+temperature setpoint limit that is imposed by the respective demand flexibility mode.
+Based on the <code>ZonePrioritization</code> sub-block and the
+<code>ZoneControl</code> sub-block, only the <code>nSel</code> zones with the
+smallest <code>dTZon</code> will be selected for the setpoint change operation. Here,
+there is a chance that the zone temperature setpoint of a zone has reached a
+temperature setpoint limit, but this zone is still one of the <code>nSel</code>
+zones with the smallest <code>dTZon</code>. This zone enablement condition helps
+disable this zone immediately and lets other zones be selected as part of the
+<code>nSel</code> zones. Without this zone enablement condition, the
+<code>ZonePrioritization</code> sub-block will get stuck by always selecting this
+zone for setpoint change without moving on to other zones, even though this zone can
+no longer change its setpoint past the setpoint limit.
 </p>
 <p>
 Based on the <code>ZonePrioritization</code> sub-block and the
-<code>ZoneControl</code> sub-block, the <code>nSel</code> qualified zones with the
-largest or the smallest zone temperature difference will be selected for the
-setpoint change operation. This in turn changes the value of <code>TComZonSet</code>
-and <code>TCurZonSet</code>, thus the zone temperature difference itself is changed.
-This has different implications during different demand flexibility modes
-(<code>demFleMod</code>) and different air conditioning modes
-(<code>airConMod</code>). Below is a table that summarizes these different
-implications:
+<code>ZoneControl</code> sub-block, the <code>nSel</code> enabled zones with the
+smallest <code>dTZon</code> will be selected for the setpoint change operation. This
+in turn changes the value of <code>TComZonSet</code> and <code>TCurZonSet</code>,
+thus <code>dTZon</code> itself is changed. This has different implications during
+different demand flexibility modes (<code>demFleMod</code>) and different air
+conditioning modes (<code>airConMod</code>). Below is a table that summarizes these
+different implications:
 </p>
 <table border=1>
 <tr>

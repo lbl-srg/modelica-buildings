@@ -119,9 +119,6 @@ protected
     if not use_demCon
     "When logic for Condition 2 is disabled, output true in place of the Condition 2 logic"
     annotation (Placement(transformation(extent={{20,200},{40,220}})));
-  Buildings.Controls.OBC.CDL.Reals.Subtract dTZon[nZon]
-    "Zone temperature difference"
-    annotation (Placement(transformation(extent={{-220,160},{-200,180}})));
   Buildings.Controls.OBC.CDL.Reals.LessThreshold lesDTZon[nZon](
     final t=fill(dTSheThr,nZon),
     final h=fill(dTSheHys,nZon))
@@ -136,16 +133,6 @@ protected
   Buildings.Controls.OBC.CDL.Routing.BooleanScalarReplicator booScaRepShe(
     final nout=nZon) "Repeat the boolean scalar for being in the load-shed mode"
     annotation (Placement(transformation(extent={{-40,40},{-20,60}})));
-  Buildings.Controls.OBC.CDL.Reals.MultiplyByParameter posValDTZon[nZon](
-    final k=fill(1,nZon))
-    if airConMod
-    "Use the positive value of the zone temperature difference during the heating mode"
-    annotation (Placement(transformation(extent={{-160,160},{-140,180}})));
-  Buildings.Controls.OBC.CDL.Reals.MultiplyByParameter negValDTZon[nZon](
-    final k=fill(-1,nZon))
-    if not airConMod
-    "Use the negative value of the zone temperature difference during the cooling mode"
-    annotation (Placement(transformation(extent={{-160,120},{-140,140}})));
   Buildings.Controls.OBC.CDL.Reals.Greater greTSetPreHea[nZon](
     final h=fill(0.5*TResInt,nZon))
     if airConMod
@@ -261,6 +248,12 @@ protected
   Buildings.Controls.OBC.CDL.Logical.Not con4[nZon]
     "The zone temperature setpoint has not reached a setpoint limit, or the system is at the default demand flexibility mode, indicating that Condition 4 is met"
     annotation (Placement(transformation(extent={{180,-100},{200,-80}})));
+  Buildings.Controls.OBC.CDL.Reals.Subtract dTZonHea[nZon] if airConMod
+    "Zone temperature difference during the heating mode"
+    annotation (Placement(transformation(extent={{-180,180},{-160,200}})));
+  Buildings.Controls.OBC.CDL.Reals.Subtract dTZonCoo[nZon] if not airConMod
+    "Zone temperature difference during the cooling mode"
+    annotation (Placement(transformation(extent={{-180,140},{-160,160}})));
 equation
   connect(andCon12.y, andCon123.u1) annotation (Line(points={{82,290},{100,290},
           {100,170},{118,170}}, color={255,0,255}));
@@ -291,26 +284,14 @@ equation
   connect(conIntShe.y, intEquShe.u2)
     annotation (Line(points={{-138,30},{-120,30},{-120,42},{-102,42}},
       color={255,127,0}));
-  connect(TZon, dTZon.u1)
-    annotation (Line(points={{-280,180},{-240,180},{-240,176},{-222,176}},
-      color={0,0,127}));
-  connect(TZonSet, dTZon.u2)
-    annotation (Line(points={{-280,140},{-240,140},{-240,164},{-222,164}},
-      color={0,0,127}));
+  connect(TZon, dTZonHea.u1) annotation (Line(points={{-280,180},{-240,180},{-240,
+          196},{-182,196}}, color={0,0,127}));
+  connect(TZonSet, dTZonHea.u2) annotation (Line(points={{-280,140},{-220,140},{
+          -220,184},{-182,184}}, color={0,0,127}));
   connect(lesDTZon.y, notLesDTZon.u)
     annotation (Line(points={{-78,170},{-42,170}}, color={255,0,255}));
   connect(intEquShe.y, booScaRepShe.u)
     annotation (Line(points={{-78,50},{-42,50}}, color={255,0,255}));
-  connect(dTZon.y, posValDTZon.u)
-    annotation (Line(points={{-198,170},{-162,170}}, color={0,0,127}));
-  connect(dTZon.y, negValDTZon.u)
-    annotation (Line(points={{-198,170},{-180,170},{-180,130},{-162,130}},
-      color={0,0,127}));
-  connect(negValDTZon.y, lesDTZon.u)
-    annotation (Line(points={{-138,130},{-120,130},{-120,170},{-102,170}},
-      color={0,0,127}));
-  connect(posValDTZon.y, lesDTZon.u)
-    annotation (Line(points={{-138,170},{-102,170}}, color={0,0,127}));
   connect(notLesDTZon.y, andDTZonLoaShe.u1)
     annotation (Line(points={{-18,170},{18,170}}, color={255,0,255}));
   connect(booScaRepShe.y, andDTZonLoaShe.u2)
@@ -436,6 +417,14 @@ equation
           -110},{170,-90},{178,-90}}, color={255,0,255}));
   connect(notRouZon.y, andCon12.u1) annotation (Line(points={{-138,300},{-40,300},
           {-40,290},{58,290}}, color={255,0,255}));
+  connect(TZonSet, dTZonCoo.u1) annotation (Line(points={{-280,140},{-220,140},{
+          -220,156},{-182,156}}, color={0,0,127}));
+  connect(TZon, dTZonCoo.u2) annotation (Line(points={{-280,180},{-240,180},{-240,
+          144},{-182,144}}, color={0,0,127}));
+  connect(dTZonHea.y, lesDTZon.u) annotation (Line(points={{-158,190},{-120,190},
+          {-120,170},{-102,170}}, color={0,0,127}));
+  connect(dTZonCoo.y, lesDTZon.u) annotation (Line(points={{-158,150},{-120,150},
+          {-120,170},{-102,170}}, color={0,0,127}));
   annotation (defaultComponentName="zonEna",
     Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-180},{100,180}},
     grid={2,2}), graphics={Rectangle(
@@ -496,20 +485,15 @@ the above conditions is not met, <code>enaFla</code> will be set to
 Condition <i>2</i> is not used. Otherwise, Condition <i>2</i> is used.
 </p>
 <p>
-Zone temperature difference, an internal variable, is defined as the zone
-temperature (<code>TZon</code>) minus the zone temperature setpoint
-(<code>TZonSet</code>). The zone temperature setpoint input variable
-<code>TZonSet</code> must represent a heating setpoint when
-<code>airConMod = true</code>, and it must represent a cooling setpoint when
-<code>airConMod = false</code>.
-</p>
-<p>
-The input variables <code>TPreTarSet</code>, <code>TDefSet</code>, and
-<code>TSheTarSet</code> must represent specific sets of values. For example,
-<code>TPreTarSet &gt; TDefSet &gt; TSheTarSet</code> must hold if the air
-conditioning system is in the heating mode (<code>airConMod = true</code>), and
-<code>TPreTarSet &lt; TDefSet &lt; TSheTarSet</code> must hold if the air
-conditioning system is in the cooling mode (<code>airConMod = false</code>).
+The zone temperature setpoint input variable <code>TZonSet</code> must represent a
+heating setpoint when <code>airConMod = true</code>, and it must represent a cooling
+setpoint when <code>airConMod = false</code>. The input variables
+<code>TPreTarSet</code>, <code>TDefSet</code>, and <code>TSheTarSet</code> must
+represent specific sets of values. For example, <code>TPreTarSet &gt; TDefSet &gt;
+TSheTarSet</code> must hold if the air conditioning system is in the heating mode
+(<code>airConMod = true</code>), and <code>TPreTarSet &lt; TDefSet &lt;
+TSheTarSet</code> must hold if the air conditioning system is in the cooling mode
+(<code>airConMod = false</code>).
 </p>
 <p>
 Below is a detailed discussion of each of the <i>4</i> conditions. 
@@ -550,26 +534,26 @@ to become <code>false</code>:
 </ul>
 <h4>Condition 3</h4>
 <p>
-If the zone temperature setpoint <code>TZonSet</code> and the zone temperature
-<code>TZon</code> meet any one of the following equations, this zone will have
+Zone temperature difference <code>dTZon</code>, an internal variable, is defined as
+the zone temperature <code>TZon</code> minus the zone temperature setpoint
+<code>TZonSet</code> during the heating mode (<code>airConMod = true</code>). On the
+other hand, <code>dTZon</code> is defined as <code>TZonSet</code> minus
+<code>TZon</code> during the cooling mode (<code>airConMod = false</code>). 
+</p>
+<p>
+If <code>dTZon</code> meets the following equation, this zone will have
 <code>enaFla = false</code>. Note that <code>dTSheThr</code> is the zone temperature
 difference threshold, and <code>dTSheHys</code> is the zone temperature difference
 hysteresis:
 </p>
 <ul>
 <li>
-<code>airConMod = true</code>, and <code>demFleMod = 2</code>, and
-<code>TZon - TZonSet &gt;=  dTSheThr + dTSheHys</code>
-</li>
-<li>
-<code>airConMod = false</code>, and <code>demFleMod = 2</code>, and
-<code>-(TZon - TZonSet) &gt;=  dTSheThr + dTSheHys</code>
+<code>demFleMod = 2</code> and <code>dTZon &gt;=  dTSheThr + dTSheHys</code>
 </li>
 </ul>
 <p>
-If the zone temperature setpoint <code>TZonSet</code> and the zone temperature
-<code>TZon</code> meet any one of the following equations, Condition <i>3</i> is met,
-and another condition needs to be not met for <code>enaFla</code> to become
+If <code>dTZon</code> meets any one of the following equations, Condition <i>3</i>
+is met, and another condition needs to be not met for <code>enaFla</code> to become
 <code>false</code>:
 </p>
 <ul>
@@ -577,12 +561,7 @@ and another condition needs to be not met for <code>enaFla</code> to become
 <code>demFleMod ≠ 2</code>
 </li>
 <li>
-<code>airConMod = true</code>, and <code>demFleMod = 2</code>, and
-<code>TZon - TZonSet &lt;  dTSheThr</code>
-</li>
-<li>
-<code>airConMod = false</code>, and <code>demFleMod = 2</code>, and
-<code>-(TZon - TZonSet) &lt;  dTSheThr</code>
+<code>demFleMod = 2</code> and <code>dTZon &lt;  dTSheThr</code>
 </li>
 </ul>
 <h4>Condition 4</h4>
