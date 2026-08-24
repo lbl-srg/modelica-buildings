@@ -743,20 +743,29 @@ The parameters available within these records are:
 
 <h5>Other Notes</h5>
 <p>
-Infiltration and Interzonal Air Exchange: All air infiltration and 
-interzonal air exchange is implemented 
-in Modelica, and any infiltration and interzonal air exchange information 
-in the .idf is ignored during both initialization and simulation.  
-Thus, for autosizing, any infiltration and interzonal 
-air exchange specified in the .idf is ignored.  Infiltration and interzonal
-air exchange loads should therefore be handled in any final equipment sizing 
-algorithms in Modelica.
+Infiltration: All zone air infiltration is implemented 
+in Modelica, and any infiltration information 
+in the .idf is ignored during both autosizing and simulation.  
+However, for autosizing, zone air infiltration can be considered
+using the parameter <code>ThermalZone.airChaRatInf</code>, which
+will add sensible and latent infiltration loads to the design zone heating
+and cooling loads at the specified air exchange rate using the temperature 
+and humidity ratio zone set points and outdoor air conditions at the time of the zone 
+design loads.  The infiltration loads will also be added to the system level 
+from each zone that is part of the system, with each zone's contribution calculated
+using the outdoor air conditions for the system level design load and each zone's
+zone level set points.
 </p>
 <p>
 Internal Gains: Internal gain objects for people, lights, and equipment 
 in the .idf are considered by EnergyPlus during 
 autosizing, and are thus reflected in the sizing results returned to Modelica.
-Internal gain inputs specified in Modelica are not considered during sizing.  
+Internal gain inputs specified in Modelica are ignored during autosizing.  
+</p>
+<p>
+Interzonal Air Exchange: All interzonal air exchange is implemented 
+in Modelica, and any interzonal air exchange information 
+in the .idf is ignored during both autosizing and simulation.
 </p>
 <p>
 References for Autosizing in EnergyPlus: Autosizing objects in the .idf are used
