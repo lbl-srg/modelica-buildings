@@ -1,0 +1,15 @@
+compareVars :=
+  {
+    "setChaConHeaVar3.TCurZonSet[1]",
+    "setChaConHeaVar3.TComZonSet[1]",
+    "tabTCurZon.y[1]",
+    "setChaConHeaVar4.TCurZonSet[1]",
+    "setChaConHeaVar4.TComZonSet[1]",
+    "tabTCurZon.y[1]",
+    "rouZonFla.y",
+    "tabDemFleMod.y[1]",
+    "setChaConHeaVar3.PBui",
+    "setChaConHeaVar3.PBuiThrCon",
+    "setChaConHeaVar4.PBui",
+    "setChaConHeaVar4.PBuiThrVar"
+  };

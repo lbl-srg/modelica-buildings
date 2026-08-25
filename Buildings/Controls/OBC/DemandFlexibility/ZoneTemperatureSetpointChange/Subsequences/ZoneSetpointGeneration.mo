@@ -270,22 +270,25 @@ equation
         extent={{-120,-140},{120,140}})),
     Documentation(info="<html>
 <p>
-This block generates zone setpoints and setpoint targets that change with time based on occupancy status.
+This block generates zone setpoints and setpoint targets that change with time
+based on occupancy status.
 </p>
 <p>
-Occupancy status is defined by two parameters: the occupancy starting hour <code>occHouSta</code>
-and the occupancy ending hour <code>occHouEnd</code>. The occupied period is defined as
-the hours between <code>occHouSta</code> and <code>occHouEnd</code>. The occupied period repeats every
-day. If <code>occHouSta &lt;= occHouEnd</code>, the occupied period is assumed to be within a
-single day and to not include the midnight point. If <code>occHouSta &gt; occHouEnd</code>,
-the occupied period is assumed to span <i>2</i> different days and include the midnight point.
+Occupancy status is defined by two parameters: the occupancy starting hour
+<code>occHouSta</code> and the occupancy ending hour <code>occHouEnd</code>.
+The occupied period is defined as the hours between <code>occHouSta</code>
+and <code>occHouEnd</code>. The occupied period repeats every day. If
+<code>occHouSta &lt;= occHouEnd</code>, the occupied period is assumed to be
+within a single day and to not include the midnight point. If
+<code>occHouSta &gt; occHouEnd</code>, the occupied period is assumed to span
+<i>2</i> different days and include the midnight point.
 </p>
 <p>
 All output variables of this block represent zone setpoints or setpoint
-targets, and their values are calculated based on the parameters of this block.
-The values of the output variables are calculated based on the following table.
-Note that the parameter <code>setChaEnaUnoFla</code> represents whether setpoint change is
-enabled during the unoccupied period:
+targets, and their values are calculated based on the parameters of this
+block. The values of the output variables are calculated based on the
+following table. Note that the parameter <code>setChaEnaUnoFla</code>
+represents whether setpoint change is enabled during the unoccupied period:
 </p>
 <table border=1>
 <tr>

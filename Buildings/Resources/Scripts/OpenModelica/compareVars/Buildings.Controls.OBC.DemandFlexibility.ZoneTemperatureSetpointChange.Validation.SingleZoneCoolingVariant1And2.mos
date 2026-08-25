@@ -6,5 +6,6 @@ compareVars :=
     "setChaConCooVar2.TCurZonSet[1]",
     "setChaConCooVar2.TComZonSet[1]",
     "tabTCurZon.y[1]",
+    "rouZonFla.y",
     "tabDemFleMod.y[1]"
   };

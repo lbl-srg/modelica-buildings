@@ -45,25 +45,29 @@ protected
     "Select the zones with the smallest zone temperature difference"
     annotation (Placement(transformation(extent={{80,-10},{100,10}})));
 equation
-  connect(TZon, dTZonHea.u1) annotation (Line(points={{-140,20},{-100,20},{-100,
-          36},{-42,36}}, color={0,0,127}));
-  connect(TZonSet, dTZonHea.u2) annotation (Line(points={{-140,-20},{-60,-20},{-60,
-          24},{-42,24}}, color={0,0,127}));
+  connect(TZon, dTZonHea.u1)
+    annotation (Line(points={{-140,20},{-100,20},{-100,36},{-42,36}},
+      color={0,0,127}));
+  connect(TZonSet, dTZonHea.u2)
+    annotation (Line(points={{-140,-20},{-60,-20},{-60,24},{-42,24}},
+      color={0,0,127}));
   connect(disFla, selSmaDTZon.disFla)
     annotation (Line(points={{-140,60},{60,60},{60,6},{78,6}}, color={255,0,255}));
-  connect(dTZonHea.y, selSmaDTZon.u) annotation (Line(points={{-18,30},{20,30},{
-          20,0},{78,0}}, color={0,0,127}));
+  connect(dTZonHea.y, selSmaDTZon.u)
+    annotation (Line(points={{-18,30},{20,30},{20,0},{78,0}}, color={0,0,127}));
   connect(nSel, selSmaDTZon.nSel)
     annotation (Line(points={{-140,-60},{60,-60},{60,-6},{78,-6}},
       color={255,127,0}));
   connect(selSmaDTZon.y, yEna)
-    annotation (Line(points={{102,0},{140,0}},                color={255,0,255}));
-  connect(TZonSet, dTZonCoo.u1) annotation (Line(points={{-140,-20},{-60,-20},{-60,
-          -24},{-42,-24}}, color={0,0,127}));
-  connect(TZon, dTZonCoo.u2) annotation (Line(points={{-140,20},{-100,20},{-100,
-          -36},{-42,-36}}, color={0,0,127}));
-  connect(dTZonCoo.y, selSmaDTZon.u) annotation (Line(points={{-18,-30},{20,-30},
-          {20,0},{78,0}}, color={0,0,127}));
+    annotation (Line(points={{102,0},{140,0}}, color={255,0,255}));
+  connect(TZonSet, dTZonCoo.u1)
+    annotation (Line(points={{-140,-20},{-60,-20},{-60,-24},{-42,-24}},
+      color={0,0,127}));
+  connect(TZon, dTZonCoo.u2)
+    annotation (Line(points={{-140,20},{-100,20},{-100,-36},{-42,-36}},
+      color={0,0,127}));
+  connect(dTZonCoo.y, selSmaDTZon.u)
+    annotation (Line(points={{-18,-30},{20,-30},{20,0},{78,0}}, color={0,0,127}));
   annotation (defaultComponentName="zonPri",
     Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}},
     grid={2,2}), graphics={Rectangle(

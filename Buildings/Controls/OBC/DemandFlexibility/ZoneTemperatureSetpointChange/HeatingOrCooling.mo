@@ -121,7 +121,7 @@ block HeatingOrCooling
   Buildings.Controls.OBC.DemandFlexibility.Generic.BooleanPassThrough enaOneZon[nZon] if nZon == 1
     "When there is only one zone in a building, always enable setpoint change for this zone"
     annotation (Placement(transformation(extent={{60,120},{80,140}})));
-  Buildings.Controls.OBC.CDL.Logical.Not notEna[nZon] if nZon == 1
+  Buildings.Controls.OBC.CDL.Logical.Not notEna[nZon] if nZon > 1
     "Zones are not enabled to participate in zone temperature comparison and zone prioritization"
     annotation (Placement(transformation(extent={{-20,100},{0,120}})));
 protected
@@ -232,12 +232,14 @@ equation
   connect(conPBuiThr.y,zonEna. PBuiThr)
     annotation (Line(points={{-158,110},{-150,110},{-150,138},{-82,138}},
       color={0,0,127}));
-  connect(enaOneZon.y, zonCon.uEna) annotation (Line(points={{82,130},{100,130},
-          {100,-100},{118,-100}}, color={255,0,255}));
-  connect(zonEna.enaFla, notEna.u) annotation (Line(points={{-58,130},{-40,130},
-          {-40,110},{-22,110}}, color={255,0,255}));
-  connect(notEna.y, zonPri.disFla) annotation (Line(points={{2,110},{40,110},{40,
-          96},{58,96}}, color={255,0,255}));
+  connect(enaOneZon.y, zonCon.uEna)
+    annotation (Line(points={{82,130},{100,130},{100,-100},{118,-100}},
+      color={255,0,255}));
+  connect(zonEna.enaFla, notEna.u)
+    annotation (Line(points={{-58,130},{-40,130},{-40,110},{-22,110}},
+      color={255,0,255}));
+  connect(notEna.y, zonPri.disFla)
+    annotation (Line(points={{2,110},{40,110},{40,96},{58,96}}, color={255,0,255}));
   connect(enaOneZon.u, zonEna.enaFla)
     annotation (Line(points={{58,130},{-58,130}}, color={255,0,255}));
   annotation (defaultComponentName="heaOrCoo",
@@ -381,75 +383,38 @@ Based on the <code>ZonePrioritization</code> sub-block and the
 smallest <code>dTZon</code> will be selected for the setpoint change operation. This
 in turn changes the value of <code>TComZonSet</code> and <code>TCurZonSet</code>,
 thus <code>dTZon</code> itself is changed. This has different implications during
-different demand flexibility modes (<code>demFleMod</code>) and different air
-conditioning modes (<code>airConMod</code>). Below is a table that summarizes these
-different implications:
+different demand flexibility modes (<code>demFleMod</code>). Below is a table that
+summarizes these different implications:
 </p>
 <table border=1>
 <tr>
 <th>demFleMod</th>
-<th>airConMod</th>
 <th>Implications of zone temperature difference</th>
 </tr>
 <tr>
 <td>0</td>
-<td>true</td>
-<td>Setpoint change will cause the zone temperature difference to be even more
-negative, making a zone to continuously be selected for setpoint change until the
-zone setpoint has reached an upper limit. This makes the zones with the largest
-pre-heat energy consumption to be selected first, while letting a few zones complete
-pre-heating first before the next zones start pre-heating. This makes the total
-electricity demand of all zones flatter with fewer spikes.</td>
-</tr>
-<tr>
-<td>0</td>
-<td>false</td>
-<td>Setpoint change will cause the zone temperature difference to be even more
-positive, making a zone to continuously be selected for setpoint change until the
-zone setpoint has reached a lower limit. This makes the zones with the largest
-pre-cool energy consumption to be selected first, while letting a few zones complete
-pre-cooling first before the next zones start pre-cooling. This makes the total
-electricity demand of all zones flatter with fewer spikes.</td>
-</tr>
-<tr>
-<td>2</td>
-<td>true</td>
-<td>Setpoint change will cause the zone temperature difference to be more positive,
-making way for other zones to be selected for setpoint change. This will result in
-the zone temperature difference across all zones to have similar, and hopefully
-positive, values. Thus, the maximum amount of the electricity demand of the building
-will be reduced.</td>
-</tr>
-<tr>
-<td>2</td>
-<td>false</td>
-<td>Setpoint change will cause the zone temperature difference to be more negative,
-making way for other zones to be selected for setpoint change. This will result in
-the zone temperature difference across all zones to have similar, and hopefully
-negative, values. Thus, the maximum amount of the electricity demand of the building
-will be reduced.</td>
-</tr>
-<tr>
-<td>3</td>
-<td>true</td>
-<td>Setpoint change will cause the zone temperature difference to be even more
-negative, making a zone to continuously be selected for setpoint change until the
-zone setpoint has reached an upper limit. This makes the zones with the largest
-load-rebound energy consumption to be selected first, while letting a few zones
-complete load-rebound first before the next zones start load-rebound. This makes the
+<td>Setpoint change will cause <code>dTZon</code> to be more negative, making a zone
+to continuously be selected for setpoint change until the zone setpoint has reached
+the pre-heat or pre-cool setpoint limit. This makes the zones with the largest
+pre-heat or pre-cool energy consumption potential to be selected first, while zones
+with a smaller energy consumption potential will be selected later. This makes the
 total electricity demand of all zones flatter with fewer spikes.</td>
 </tr>
-<tr>
+<td>2</td>
+<td>Setpoint change will cause the <code>dTZon</code> to be more positive, making
+way for other zones to be selected for setpoint change. This will result in the
+<code>dTZon</code> across all zones to have similar, and hopefully positive, values.
+Thus, the maximum amount of the electricity demand of the building will be reduced.
+</td>
+</tr>
 <td>3</td>
-<td>false</td>
-<td>Setpoint change will cause the zone temperature difference to be even more
-positive, making a zone to continuously be selected for setpoint change until the
-zone setpoint has reached a lower limit. This makes the zones with the largest
-load-rebound energy consumption to be selected first, while letting a few zones
-complete load-rebound first before the next zones start load-rebound. This makes the
-total electricity demand of all zones flatter with fewer spikes.</td>
+<td>Setpoint change will cause <code>dTZon</code> to be more negative, making a zone
+to continuously be selected for setpoint change until the zone setpoint has reached
+the load-rebound setpoint limit. This makes the zones with the largest load-rebound
+energy consumption potential to be selected first, while zones with a smaller energy
+consumption potential will be selected later. This makes the total electricity
+demand of all zones flatter with fewer spikes.</td>
 </tr>
 </table>
-
 </html>"));
 end HeatingOrCooling;

@@ -1,6 +1,6 @@
 within Buildings.Controls.OBC.DemandFlexibility.ZoneTemperatureSetpointChange.Validation;
 model SingleZoneCoolingVariant1And2
-  "Validation model for single zone cooling temperature setpoint change with Variant 1 and 2"
+  "Validation model for single-zone cooling temperature setpoint change with Variant 1 and 2"
 
   Buildings.Controls.OBC.CDL.Discrete.UnitDelay delTZonSetVar1(
     samplePeriod=10,
@@ -8,9 +8,7 @@ model SingleZoneCoolingVariant1And2
     "Emulates an external zone temperature setpoint controller that has a small delay of setpoint change after a new setpoint is received; used for Variant 1 of zone control"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}}, rotation=0,
       origin={50,70})));
-  Buildings.Controls.OBC.CDL.Logical.Sources.Constant conRouZonFla(
-    k=false)
-    "Boolean constant for the rogue zone flag"
+  Buildings.Controls.OBC.CDL.Logical.Sources.Pulse rouZonFla(period=172800) "Rogue zone flag"
     annotation (Placement(transformation(extent={{-120,100},{-100,120}})));
   Buildings.Controls.OBC.CDL.Integers.Sources.TimeTable tabDemFleMod(
     table=[0,1; 14,0; 16,2; 21,3; 23,1; 24,1],
@@ -94,7 +92,7 @@ equation
   connect(tabDemFleMod.y[1], setChaConCooVar1.demFleMod)
     annotation (Line(points={{-98,-10},{-60,-10},{-60,66},{-2,66}},
       color={255,127,0}));
-  connect(conRouZonFla.y, setChaConCooVar1.rouZonFla[1])
+  connect(rouZonFla.y, setChaConCooVar1.rouZonFla[1])
     annotation (Line(points={{-98,110},{-50,110},{-50,86},{-2,86}},
       color={255,0,255}));
   connect(tabTCurZon.y[1], setChaConCooVar1.TCurZon[1])
@@ -108,7 +106,7 @@ equation
   connect(zonSetGen.TDefCooSet, setChaConCooVar2.TDefSet[1])
     annotation (Line(points={{-98,-140},{-20,-140},{-20,-86},{-2,-86}},
       color={0,0,127}));
-  connect(conRouZonFla.y, setChaConCooVar2.rouZonFla[1])
+  connect(rouZonFla.y, setChaConCooVar2.rouZonFla[1])
     annotation (Line(points={{-98,110},{-50,110},{-50,-54},{-2,-54}},
       color={255,0,255}));
   connect(tabTCurZon.y[1], setChaConCooVar2.TCurZon[1])
@@ -124,8 +122,7 @@ equation
   connect(delTZonSetVar1.y, setResVar1.uSet)
     annotation (Line(points={{62,70},{78,70}}, color={0,0,127}));
   connect(setResVar1.ySet, setChaConCooVar1.TCurZonSet[1])
-    annotation (Line(points={{102,70},{120,70},{120,40},{-10,40},{-10,70},{-2,
-          70}},
+    annotation (Line(points={{102,70},{120,70},{120,40},{-10,40},{-10,70},{-2,70}},
       color={0,0,127}));
   connect(delTZonSetVar2.y, setResVar2.uSet)
     annotation (Line(points={{62,-70},{78,-70}}, color={0,0,127}));
@@ -141,7 +138,8 @@ This example validates
 <a href=\"modelica://Buildings.Controls.OBC.DemandFlexibility.ZoneTemperatureSetpointChange.HeatingOrCooling\">
 Buildings.Controls.OBC.DemandFlexibility.ZoneTemperatureSetpointChange.HeatingOrCooling</a>
 for the cooling operation of a single zone building under Variant <i>1</i> and
-Variant <i>2</i> of zone temperature setpoint control.
+Variant <i>2</i> of zone temperature setpoint control while responding to a rogue
+zone flag signal.
 </p>
 </html>",revisions="<html>
 <ul>

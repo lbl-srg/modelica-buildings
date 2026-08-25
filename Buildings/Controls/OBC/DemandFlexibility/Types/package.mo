@@ -1,5 +1,5 @@
 within Buildings.Controls.OBC.DemandFlexibility;
-package Types
+package Types "Package with type definitions for demand flexibility control sequences"
 
   annotation (Documentation(info="<html>
 <p>

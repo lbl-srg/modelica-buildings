@@ -1,0 +1,5 @@
+compareVars :=
+  {
+    "booPasThr.u",
+    "booPasThr.y"
+  };
