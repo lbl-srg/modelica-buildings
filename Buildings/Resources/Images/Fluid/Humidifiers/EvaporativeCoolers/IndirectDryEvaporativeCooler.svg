@@ -9,6 +9,9 @@
    id="svg1"
    inkscape:version="1.4.2 (f4327f4, 2025-05-13)"
    sodipodi:docname="IndirectDryEvaporativeCooler.svg"
+   inkscape:export-filename="C:\Users\btuser\Documents\Dymola\modelica-buildings\Buildings\Resources\Images\Fluid\Humidifiers\EvaporativeCoolers\IndirectDryEvaporativeCooler100.png"
+   inkscape:export-xdpi="100"
+   inkscape:export-ydpi="100"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns="http://www.w3.org/2000/svg"
@@ -23,9 +26,9 @@
      inkscape:pagecheckerboard="0"
      inkscape:deskcolor="#d1d1d1"
      inkscape:document-units="mm"
-     inkscape:zoom="1.9452182"
-     inkscape:cx="254.98424"
-     inkscape:cy="151.13985"
+     inkscape:zoom="3.8904364"
+     inkscape:cx="142.01492"
+     inkscape:cy="152.16802"
      inkscape:window-width="1920"
      inkscape:window-height="1076"
      inkscape:window-x="-12"
@@ -315,16 +318,31 @@
          style="fill:context-stroke;fill-rule:evenodd;stroke:none"
          id="path5-0-1-6-9" />
     </marker>
+    <marker
+       style="overflow:visible"
+       id="ConcaveTriangle-1"
+       refX="0"
+       refY="0"
+       orient="auto-start-reverse"
+       inkscape:stockid="Concave triangle arrow"
+       markerWidth="1"
+       markerHeight="1"
+       viewBox="0 0 1 1"
+       inkscape:isstock="true"
+       inkscape:collect="always"
+       preserveAspectRatio="xMidYMid">
+      <path
+         transform="scale(0.7)"
+         d="M -2,-4 9,0 -2,4 c 2,-2.33 2,-5.66 0,-8 z"
+         style="fill:context-stroke;fill-rule:evenodd;stroke:none"
+         id="path7-7" />
+    </marker>
   </defs>
   <g
      inkscape:label="Layer 1"
      inkscape:groupmode="layer"
      id="layer1"
      style="display:inline">
-    <path
-       style="display:inline;opacity:1;fill:#ffffff;stroke:#000000;stroke-width:0.148737;stroke-dasharray:0.297474, 0.148737;stroke-dashoffset:0;marker-end:url(#marker5-5)"
-       d="m 29.102581,23.614695 c 9.291082,10.414338 15.807789,8.800671 15.807789,8.800671"
-       id="path9" />
     <rect
        style="display:inline;opacity:1;fill:#ffffff;fill-opacity:0;stroke:#000000;stroke-width:0.508537"
        id="rect2"
@@ -333,67 +351,67 @@
        x="19.696671"
        y="17.907928" />
     <g
-       id="g8"
-       transform="translate(40.316935,-36.940892)">
+       id="g1"
+       transform="translate(23.715343,-73.833028)">
       <path
          style="display:inline;fill:#000000;stroke:#000000;stroke-width:0.25;stroke-linecap:round;stroke-dasharray:none"
-         d="m 20.558299,55.736139 c 14.603902,0 14.603902,0 14.603902,0"
+         d="m 37.599975,92.42027 c 14.603902,0 14.603902,0 14.603902,0"
          id="path8-8" />
       <path
          style="display:inline;fill:#000000;stroke:#000000;stroke-width:0.25;stroke-linecap:round;stroke-dasharray:none"
-         d="m 20.558299,63.095839 c 14.603902,0 14.603902,0 14.603902,0"
+         d="m 37.599975,100.00788 c 14.603902,0 14.603902,0 14.603902,0"
          id="path8-8-5" />
       <path
          style="display:inline;fill:#000000;stroke:#000000;stroke-width:0.25;stroke-linecap:round;stroke-dasharray:none"
-         d="m 20.558299,65.572528 c 14.603902,0 14.603902,0 14.603902,0"
+         d="m 37.599975,102.36436 c 14.603902,0 14.603902,0 14.603902,0"
          id="path8-8-5-3" />
       <path
          style="display:inline;fill:#000000;stroke:#000000;stroke-width:0.25;stroke-linecap:round;stroke-dasharray:none"
-         d="m 20.558299,70.911367 c 14.603902,0 14.603902,0 14.603902,0"
+         d="m 37.599975,107.5955 c 14.603902,0 14.603902,0 14.603902,0"
          id="path8-8-5-3-3" />
       <path
          style="display:inline;fill:#000000;stroke:#000000;stroke-width:0.25;stroke-linecap:round;stroke-dasharray:none"
-         d="m 20.558299,73.460837 c 14.603902,0 14.603902,0 14.603902,0"
+         d="m 37.599975,110.14497 c 14.603902,0 14.603902,0 14.603902,0"
          id="path8-8-5-3-7" />
       <path
          style="display:inline;fill:#000000;stroke:#000000;stroke-width:0.25;stroke-linecap:round;stroke-dasharray:none"
-         d="m 20.558299,57.899611 c 14.603902,0 14.603902,0 14.603902,0"
+         d="m 37.599975,94.583742 c 14.603902,0 14.603902,0 14.603902,0"
          id="path8" />
       <rect
          style="display:inline;fill:#ffffff;fill-opacity:0.799618;stroke:#000000;stroke-width:0.261458;stroke-dasharray:none"
          id="rect2-8"
          width="2.1346517"
          height="32.419632"
-         x="22.429886"
-         y="49.172112" />
+         x="39.471561"
+         y="85.327072" />
       <rect
          style="display:inline;fill:#ffffff;fill-opacity:0.803435;stroke:#000000;stroke-width:0.261458;stroke-dasharray:none"
          id="rect2-8-1"
          width="2.1346517"
          height="32.419632"
-         x="24.547556"
-         y="49.172112" />
+         x="41.589233"
+         y="85.327072" />
       <rect
          style="display:inline;fill:#ffffff;fill-opacity:0.799618;stroke:#000000;stroke-width:0.261458;stroke-dasharray:none"
          id="rect2-8-2"
          width="2.1346517"
          height="32.419632"
-         x="26.711029"
-         y="49.172112" />
+         x="43.752705"
+         y="85.327072" />
       <rect
          style="display:inline;fill:#ffffff;fill-opacity:0.803435;stroke:#000000;stroke-width:0.261458;stroke-dasharray:none"
          id="rect2-8-23"
          width="2.1346517"
          height="32.419632"
-         x="28.804478"
-         y="49.172112" />
+         x="45.846153"
+         y="85.327072" />
       <rect
          style="display:inline;fill:#ffffff;fill-opacity:0.799618;stroke:#000000;stroke-width:0.261458;stroke-dasharray:none"
          id="rect2-8-8"
          width="2.1346517"
          height="32.419632"
-         x="30.946196"
-         y="49.172115" />
+         x="47.987873"
+         y="85.32708" />
     </g>
     <path
        id="path3"
@@ -431,27 +449,27 @@
        id="path2" />
     <path
        style="fill:#ffffff;stroke:#000000;stroke-width:0.2;stroke-dasharray:none;marker-end:url(#marker5)"
-       d="M 1.1778141,23.551052 H 10.044365"
+       d="M 1.1912586,23.551052 H 10.057809"
        id="path4" />
     <path
        style="display:inline;fill:#ffffff;stroke:#000000;stroke-width:0.2;stroke-dasharray:none;marker-end:url(#marker5-1)"
-       d="M 1.2047021,33.130643 H 10.071254"
+       d="M 1.1912581,33.117003 H 10.05781"
        id="path4-4" />
     <path
        style="display:inline;fill:#ffffff;stroke:#000000;stroke-width:0.2;stroke-dasharray:none;marker-end:url(#marker5-3)"
-       d="m 43.993137,23.551052 h 8.866556"
+       d="M 44.151584,23.551052 H 53.01814"
        id="path4-2" />
     <path
        style="display:inline;fill:#ffffff;stroke:#000000;stroke-width:0.2;stroke-dasharray:none;marker-end:url(#marker5-3-8)"
-       d="m 80.086525,23.551052 h 8.866548"
+       d="m 80.1754,23.551052 h 8.866548"
        id="path4-2-9" />
     <path
        style="display:inline;fill:#ffffff;stroke:#000000;stroke-width:0.2;stroke-dasharray:none;marker-end:url(#marker5-9)"
-       d="m 44.310031,33.130643 h 8.866556"
+       d="M 44.151584,33.117003 H 53.01814"
        id="path4-8" />
     <path
        style="display:inline;fill:#ffffff;stroke:#000000;stroke-width:0.2;stroke-dasharray:none;marker-end:url(#marker5-9-6)"
-       d="m 80.264276,33.130643 h 8.866547"
+       d="m 80.1754,33.117003 h 8.866547"
        id="path4-8-9" />
     <path
        style="display:inline;fill:#ffffff;stroke:#000000;stroke-width:0.2;stroke-dasharray:none;marker-end:url(#marker5-0)"
@@ -467,36 +485,40 @@
        id="path4-0-6" />
     <path
        style="display:inline;fill:#ffffff;stroke:#000000;stroke-width:0.2;stroke-dasharray:1.6, 0.4, 0.2, 0.4;stroke-dashoffset:0;marker-end:url(#marker5-5-3-4)"
-       d="M 68.505556,0.98805543 V 9.8546063"
+       d="M 68.617269,0.98805543 V 9.8546063"
        id="path4-0-6-6" />
     <path
        style="display:inline;fill:#ffffff;stroke:#000000;stroke-width:0.2;stroke-dasharray:1.6, 0.4, 0.2, 0.4;stroke-dashoffset:0;marker-end:url(#marker5-5-3-4-4)"
-       d="m 68.505556,45.618201 v 8.866556"
+       d="M 68.617269,45.089034 V 53.95559"
        id="path4-0-6-6-7" />
     <path
        style="fill:#ffffff;stroke:#000000;stroke-width:0.166252;stroke-dasharray:0.332504, 0.166252;stroke-dashoffset:0;marker-end:url(#ConcaveTriangle)"
        d="m 25.510666,10.008308 v 9.237789"
        id="path6" />
+    <path
+       style="display:inline;fill:#ffffff;stroke:#000000;stroke-width:0.185724;stroke-dasharray:0.371447, 0.185724;stroke-dashoffset:0;marker-end:url(#ConcaveTriangle-1)"
+       d="M 30.943853,33.117003 H 42.472255"
+       id="path6-5" />
     <text
        xml:space="preserve"
        transform="matrix(0.18362479,0,0,0.18678576,5.8091894,-24.704823)"
        id="text9"
-       style="text-align:start;writing-mode:lr-tb;direction:ltr;white-space:pre;shape-inside:url(#rect9);opacity:1;fill:#ffffff;fill-opacity:0;stroke:#000000;stroke-width:0.188976;stroke-dasharray:none;stroke-dashoffset:0"><tspan
+       style="text-align:start;writing-mode:lr-tb;direction:ltr;white-space:pre;shape-inside:url(#rect9);display:inline;opacity:1;fill:#ffffff;fill-opacity:0;stroke:#000000;stroke-width:0.188976;stroke-dasharray:none;stroke-dashoffset:0"><tspan
          x="30.535156"
          y="204.69796"
-         id="tspan12"><tspan
+         id="tspan2"><tspan
            style="fill:#000000;fill-opacity:1;stroke-linecap:round"
-           id="tspan4">dmWat_flow</tspan></tspan></text>
+           id="tspan1">dmWat_flow</tspan></tspan></text>
     <text
        xml:space="preserve"
-       transform="matrix(0.18362479,0,0,0.18678576,29.388136,-9.4930622)"
+       transform="matrix(0.18362479,0,0,0.18678576,26.939825,-6.3646642)"
        id="text9-1"
        style="text-align:start;writing-mode:lr-tb;direction:ltr;white-space:pre;shape-inside:url(#rect9-0);display:inline;fill:#ffffff;fill-opacity:0;stroke:#000000;stroke-width:0.188976;stroke-dasharray:none;stroke-dashoffset:0"><tspan
          x="30.535156"
          y="204.69796"
-         id="tspan14"><tspan
+         id="tspan4"><tspan
            style="fill:#000000;fill-opacity:1;stroke-linecap:round"
-           id="tspan13">dmWat_flow</tspan></tspan></text>
+           id="tspan3">dmWat_flow</tspan></tspan></text>
     <path
        style="display:inline;fill:#ffffff;stroke:#000000;stroke-width:0.673909"
        d="M 2.4017065,16.055755 H 85.177356"
@@ -508,9 +530,9 @@
        style="text-align:start;writing-mode:lr-tb;direction:ltr;white-space:pre;shape-inside:url(#rect9-0-9);display:inline;fill:#ffffff;fill-opacity:0;stroke:#000000;stroke-width:0.188976;stroke-dasharray:none;stroke-dashoffset:0"><tspan
          x="30.535156"
          y="204.69796"
-         id="tspan16"><tspan
+         id="tspan6"><tspan
            style="fill:#000000;fill-opacity:1"
-           id="tspan15">air flow (secondary loop)</tspan></tspan></text>
+           id="tspan5">air flow (secondary loop)</tspan></tspan></text>
     <text
        xml:space="preserve"
        transform="matrix(0.18362479,0,0,0.18678576,11.643952,19.593394)"
@@ -518,9 +540,9 @@
        style="text-align:start;writing-mode:lr-tb;direction:ltr;white-space:pre;shape-inside:url(#rect9-0-9-2);display:inline;fill:#ffffff;fill-opacity:0;stroke:#000000;stroke-width:0.188976;stroke-dasharray:none;stroke-dashoffset:0"><tspan
          x="30.535156"
          y="204.69796"
-         id="tspan18"><tspan
+         id="tspan8"><tspan
            style="fill:#000000;fill-opacity:1"
-           id="tspan17">water flow (secondary loop)</tspan></tspan></text>
+           id="tspan7">water flow (secondary loop)</tspan></tspan></text>
     <text
        xml:space="preserve"
        transform="matrix(0.17340952,0,0,0.1868948,11.963981,11.853325)"
@@ -528,8 +550,8 @@
        style="text-align:start;writing-mode:lr-tb;direction:ltr;white-space:pre;shape-inside:url(#rect9-0-9-2-2);display:inline;fill:#ffffff;fill-opacity:0;stroke:#000000;stroke-width:0.188976;stroke-dasharray:none;stroke-dashoffset:0"><tspan
          x="30.535156"
          y="204.69796"
-         id="tspan20"><tspan
+         id="tspan10"><tspan
            style="fill:#000000;fill-opacity:1"
-           id="tspan19">air or water flow (primary loop)</tspan></tspan></text>
+           id="tspan9">air or water flow (primary loop)</tspan></tspan></text>
   </g>
 </svg>

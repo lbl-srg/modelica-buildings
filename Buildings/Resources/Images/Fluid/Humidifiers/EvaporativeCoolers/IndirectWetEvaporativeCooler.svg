@@ -9,6 +9,9 @@
    id="svg1"
    inkscape:version="1.4.2 (f4327f4, 2025-05-13)"
    sodipodi:docname="IndirectWetEvaporativeCooler.svg"
+   inkscape:export-filename="IndirectWetEvaporativeCooler.png"
+   inkscape:export-xdpi="150"
+   inkscape:export-ydpi="150"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns="http://www.w3.org/2000/svg"
@@ -23,9 +26,9 @@
      inkscape:pagecheckerboard="0"
      inkscape:deskcolor="#d1d1d1"
      inkscape:document-units="mm"
-     inkscape:zoom="1.9452182"
-     inkscape:cx="165.02005"
-     inkscape:cy="154.22434"
+     inkscape:zoom="2.750954"
+     inkscape:cx="172.66738"
+     inkscape:cy="90.877566"
      inkscape:window-width="1920"
      inkscape:window-height="1076"
      inkscape:window-x="-12"
@@ -35,6 +38,42 @@
      showgrid="false" />
   <defs
      id="defs1">
+    <inkscape:path-effect
+       effect="bspline"
+       id="path-effect5"
+       is_visible="true"
+       lpeversion="1.3"
+       weight="33.333333"
+       steps="2"
+       helper_size="0"
+       apply_no_weight="true"
+       apply_with_weight="true"
+       only_selected="false"
+       uniform="false" />
+    <inkscape:path-effect
+       effect="bspline"
+       id="path-effect4"
+       is_visible="true"
+       lpeversion="1.3"
+       weight="33.333333"
+       steps="2"
+       helper_size="0"
+       apply_no_weight="true"
+       apply_with_weight="true"
+       only_selected="false"
+       uniform="false" />
+    <inkscape:path-effect
+       effect="bspline"
+       id="path-effect3"
+       is_visible="true"
+       lpeversion="1.3"
+       weight="33.333333"
+       steps="2"
+       helper_size="0"
+       apply_no_weight="true"
+       apply_with_weight="true"
+       only_selected="false"
+       uniform="false" />
     <inkscape:path-effect
        effect="bspline"
        id="path-effect12"
@@ -248,25 +287,6 @@
          d="M -2,-4 9,0 -2,4 c 2,-2.33 2,-5.66 0,-8 z"
          style="fill:context-stroke;fill-rule:evenodd;stroke:none"
          id="path5-0-1-6" />
-    </marker>
-    <marker
-       style="overflow:visible"
-       id="marker5-5-3-4-4"
-       refX="0"
-       refY="0"
-       orient="auto-start-reverse"
-       inkscape:stockid="Concave triangle arrow"
-       markerWidth="1"
-       markerHeight="1"
-       viewBox="0 0 1 1"
-       inkscape:isstock="true"
-       inkscape:collect="always"
-       preserveAspectRatio="xMidYMid">
-      <path
-         transform="scale(0.7)"
-         d="M -2,-4 9,0 -2,4 c 2,-2.33 2,-5.66 0,-8 z"
-         style="fill:context-stroke;fill-rule:evenodd;stroke:none"
-         id="path5-0-1-6-9" />
     </marker>
     <marker
        style="overflow:visible"
@@ -553,6 +573,101 @@
          style="fill:context-stroke;fill-rule:evenodd;stroke:none"
          id="path5-8-3-9-2-1-7" />
     </marker>
+    <marker
+       style="overflow:visible"
+       id="ConcaveTriangle-6"
+       refX="0"
+       refY="0"
+       orient="auto-start-reverse"
+       inkscape:stockid="Concave triangle arrow"
+       markerWidth="1"
+       markerHeight="1"
+       viewBox="0 0 1 1"
+       inkscape:isstock="true"
+       inkscape:collect="always"
+       preserveAspectRatio="xMidYMid">
+      <path
+         transform="scale(0.7)"
+         d="M -2,-4 9,0 -2,4 c 2,-2.33 2,-5.66 0,-8 z"
+         style="fill:context-stroke;fill-rule:evenodd;stroke:none"
+         id="path7-1" />
+    </marker>
+    <marker
+       style="overflow:visible"
+       id="ConcaveTriangle-6-1"
+       refX="0"
+       refY="0"
+       orient="auto-start-reverse"
+       inkscape:stockid="Concave triangle arrow"
+       markerWidth="1"
+       markerHeight="1"
+       viewBox="0 0 1 1"
+       inkscape:isstock="true"
+       inkscape:collect="always"
+       preserveAspectRatio="xMidYMid">
+      <path
+         transform="scale(0.7)"
+         d="M -2,-4 9,0 -2,4 c 2,-2.33 2,-5.66 0,-8 z"
+         style="fill:context-stroke;fill-rule:evenodd;stroke:none"
+         id="path7-1-6" />
+    </marker>
+    <marker
+       style="overflow:visible"
+       id="ConcaveTriangle-6-17"
+       refX="0"
+       refY="0"
+       orient="auto-start-reverse"
+       inkscape:stockid="Concave triangle arrow"
+       markerWidth="1"
+       markerHeight="1"
+       viewBox="0 0 1 1"
+       inkscape:isstock="true"
+       inkscape:collect="always"
+       preserveAspectRatio="xMidYMid">
+      <path
+         transform="scale(0.7)"
+         d="M -2,-4 9,0 -2,4 c 2,-2.33 2,-5.66 0,-8 z"
+         style="fill:context-stroke;fill-rule:evenodd;stroke:none"
+         id="path7-1-1" />
+    </marker>
+    <marker
+       style="overflow:visible"
+       id="ConcaveTriangle-6-17-1"
+       refX="0"
+       refY="0"
+       orient="auto-start-reverse"
+       inkscape:stockid="Concave triangle arrow"
+       markerWidth="1"
+       markerHeight="1"
+       viewBox="0 0 1 1"
+       inkscape:isstock="true"
+       inkscape:collect="always"
+       preserveAspectRatio="xMidYMid">
+      <path
+         transform="scale(0.7)"
+         d="M -2,-4 9,0 -2,4 c 2,-2.33 2,-5.66 0,-8 z"
+         style="fill:context-stroke;fill-rule:evenodd;stroke:none"
+         id="path7-1-1-4" />
+    </marker>
+    <marker
+       style="overflow:visible"
+       id="marker5-5-3-4-4"
+       refX="0"
+       refY="0"
+       orient="auto-start-reverse"
+       inkscape:stockid="Concave triangle arrow"
+       markerWidth="1"
+       markerHeight="1"
+       viewBox="0 0 1 1"
+       inkscape:isstock="true"
+       inkscape:collect="always"
+       preserveAspectRatio="xMidYMid">
+      <path
+         transform="scale(0.7)"
+         d="M -2,-4 9,0 -2,4 c 2,-2.33 2,-5.66 0,-8 z"
+         style="fill:context-stroke;fill-rule:evenodd;stroke:none"
+         id="path5-0-1-6-3" />
+    </marker>
   </defs>
   <g
      inkscape:label="Layer 1"
@@ -561,106 +676,136 @@
      style="display:inline">
     <g
        id="g1"
-       transform="rotate(-90,64.864696,84.731212)">
+       transform="translate(-56.190049,5.5767094)"
+       style="display:inline">
       <path
          style="display:inline;fill:#000000;stroke:#000000;stroke-width:0.25;stroke-linecap:round;stroke-dasharray:none"
-         d="m 108.48129,43.550396 c 14.6039,0 14.6039,0 14.6039,0"
+         d="m 80.524211,37.170116 c 0,-14.6039 0,-14.6039 0,-14.6039"
          id="path8-8" />
       <path
          style="display:inline;fill:#000000;stroke:#000000;stroke-width:0.25;stroke-linecap:round;stroke-dasharray:none"
-         d="m 108.48129,51.439263 c 14.6039,0 14.6039,0 14.6039,0"
+         d="m 88.376408,37.170116 c 0,-14.6039 0,-14.6039 0,-14.6039"
          id="path8-8-5" />
       <path
          style="display:inline;fill:#000000;stroke:#000000;stroke-width:0.25;stroke-linecap:round;stroke-dasharray:none"
-         d="m 108.48129,53.915952 c 14.6039,0 14.6039,0 14.6039,0"
+         d="m 90.997463,37.170116 c 0,-14.6039 0,-14.6039 0,-14.6039"
          id="path8-8-5-3" />
       <path
          style="display:inline;fill:#000000;stroke:#000000;stroke-width:0.25;stroke-linecap:round;stroke-dasharray:none"
-         d="m 108.48129,59.254791 c 14.6039,0 14.6039,0 14.6039,0"
+         d="m 96.228606,37.170116 c 0,-14.6039 0,-14.6039 0,-14.6039"
          id="path8-8-5-3-3" />
       <path
          style="display:inline;fill:#000000;stroke:#000000;stroke-width:0.25;stroke-linecap:round;stroke-dasharray:none"
-         d="m 108.48129,61.804261 c 14.6039,0 14.6039,0 14.6039,0"
+         d="m 98.778076,37.170116 c 0,-14.6039 0,-14.6039 0,-14.6039"
          id="path8-8-5-3-7" />
       <path
          style="display:inline;fill:#000000;stroke:#000000;stroke-width:0.25;stroke-linecap:round;stroke-dasharray:none"
-         d="m 108.48129,46.243035 c 14.6039,0 14.6039,0 14.6039,0"
+         d="m 83.21685,37.170116 c 0,-14.6039 0,-14.6039 0,-14.6039"
          id="path8" />
       <rect
          style="display:inline;fill:#ffffff;fill-opacity:0.799618;stroke:#000000;stroke-width:0.261458;stroke-dasharray:none"
          id="rect2-8"
          width="2.1346517"
          height="32.419632"
-         x="110.35287"
-         y="36.98637" />
+         x="-35.298538"
+         y="73.431015"
+         transform="rotate(-90)" />
       <rect
          style="display:inline;fill:#ffffff;fill-opacity:0.803435;stroke:#000000;stroke-width:0.261458;stroke-dasharray:none"
          id="rect2-8-1"
          width="2.1346517"
          height="32.419632"
-         x="112.47055"
-         y="36.98637" />
+         x="-33.180855"
+         y="73.431015"
+         transform="rotate(-90)" />
       <rect
          style="display:inline;fill:#ffffff;fill-opacity:0.799618;stroke:#000000;stroke-width:0.261458;stroke-dasharray:none"
          id="rect2-8-2"
          width="2.1346517"
          height="32.419632"
-         x="114.63402"
-         y="36.98637" />
+         x="-31.017387"
+         y="73.431015"
+         transform="rotate(-90)" />
       <rect
          style="display:inline;fill:#ffffff;fill-opacity:0.803435;stroke:#000000;stroke-width:0.261458;stroke-dasharray:none"
          id="rect2-8-23"
          width="2.1346517"
          height="32.419632"
-         x="116.72747"
-         y="36.98637" />
+         x="-28.923935"
+         y="73.431015"
+         transform="rotate(-90)" />
       <rect
          style="display:inline;fill:#ffffff;fill-opacity:0.799618;stroke:#000000;stroke-width:0.261458;stroke-dasharray:none"
          id="rect2-8-8"
          width="2.1346517"
          height="32.419632"
-         x="118.86919"
-         y="36.986374" />
+         x="-26.782219"
+         y="73.431023"
+         transform="rotate(-90)" />
     </g>
-    <path
-       style="fill:#ffffff;stroke:#000000;stroke-width:0.527689"
-       d="M 20.135262,53.95485 V 4.868821"
-       id="path2" />
     <path
        style="display:inline;fill:#ffffff;stroke:#000000;stroke-width:0.52842"
        d="M 46.542571,53.95485 V 4.732809"
        id="path2-1" />
     <path
+       style="display:inline;fill:#ffffff;stroke:#000000;stroke-width:0.23;stroke-dasharray:0.46000113,0.23;stroke-dashoffset:0;marker-end:url(#ConcaveTriangle-6-1)"
+       d="M 37.23512,16.63195 V 46.17453"
+       id="path6-3-7" />
+    <path
+       style="display:inline;fill:#ffffff;stroke:#000000;stroke-width:0.23;stroke-dasharray:0.46000223,0.23;stroke-dashoffset:0;marker-end:url(#ConcaveTriangle-6)"
+       d="M 29.603494,16.698452 V 46.17596"
+       id="path6-3" />
+    <path
+       style="display:inline;fill:#ffffff;stroke:#000000;stroke-width:0.23;stroke-dasharray:0.460001, 0.23;stroke-dashoffset:0;marker-end:url(#ConcaveTriangle-6-17)"
+       d="M 25.551447,37.742685 V 28.050499"
+       id="path6-3-2" />
+    <path
+       style="display:inline;fill:#ffffff;stroke:#000000;stroke-width:0.23;stroke-dasharray:0.460001, 0.23;stroke-dashoffset:0;marker-end:url(#ConcaveTriangle-6-17-1)"
+       d="M 41.240978,37.742685 V 28.050499"
+       id="path6-3-2-2" />
+    <path
+       style="display:inline;fill:#ffffff;stroke:#000000;stroke-width:0.23;stroke-dasharray:0.460001, 0.23;stroke-dashoffset:0"
+       d="m 37.170513,37.77702 h 4.113818"
+       id="path6-3-2-2-6" />
+    <path
+       style="display:inline;fill:#ffffff;stroke:#000000;stroke-width:0.23;stroke-dasharray:0.460001, 0.23;stroke-dashoffset:0"
+       d="m 25.529673,37.77702 h 4.113818"
+       id="path6-3-2-2-6-7" />
+    <path
        style="display:inline;fill:#ffffff;stroke:#000000;stroke-width:0.2;stroke-dasharray:none;marker-end:url(#marker5-3)"
-       d="M 25.034153,57.064441 V 48.197883"
+       d="M 25.56332,57.064441 V 48.197883"
        id="path4-2" />
     <path
        style="display:inline;fill:#ffffff;stroke:#000000;stroke-width:0.2;stroke-dasharray:none;marker-end:url(#marker5-3-0)"
-       d="M 40.685049,57.064439 V 48.197883"
+       d="M 41.214216,57.064439 V 48.197883"
        id="path4-2-1" />
     <path
+       style="display:inline;fill:#ffffff;stroke:#000000;stroke-width:0.527689"
+       d="M 20.135262,53.95485 V 4.868821"
+       id="path2" />
+    <path
        style="display:inline;fill:#ffffff;stroke:#000000;stroke-width:0.2;stroke-dasharray:none;marker-end:url(#marker5-3-0-0)"
-       d="M 25.034154,26.068984 V 17.202427"
+       d="M 25.563321,26.068984 V 17.202427"
        id="path4-2-1-8" />
     <path
        style="display:inline;fill:#ffffff;stroke:#000000;stroke-width:0.2;stroke-dasharray:none;marker-end:url(#marker5-3-0-0-1)"
-       d="M 40.685048,26.068984 V 17.202427"
+       d="M 41.214215,26.068984 V 17.202427"
        id="path4-2-1-8-6" />
     <path
        style="display:inline;fill:#ffffff;stroke:#000000;stroke-width:0.2;stroke-dasharray:none;marker-end:url(#marker5-3-0-0-1-6)"
-       d="M 25.034154,12.240803 V 3.3742499"
+       d="M 25.563321,12.240803 V 3.3742499"
        id="path4-2-1-8-6-8" />
     <path
        style="display:inline;fill:#ffffff;stroke:#000000;stroke-width:0.2;stroke-dasharray:none;marker-end:url(#marker5-3-0-0-1-6-7)"
-       d="M 32.789001,12.240803 V 3.3742499"
+       d="M 33.318168,12.240803 V 3.3742499"
        id="path4-2-1-8-6-8-3" />
     <path
        style="display:inline;fill:#ffffff;stroke:#000000;stroke-width:0.2;stroke-dasharray:none;marker-end:url(#marker5-3-0-0-1-6-0)"
-       d="M 32.789001,57.064441 V 48.197882"
+       d="M 33.318168,57.064441 V 48.197882"
        id="path4-2-1-8-6-8-9" />
     <path
        style="display:inline;fill:#ffffff;stroke:#000000;stroke-width:0.2;stroke-dasharray:none;marker-end:url(#marker5-3-0-0-1-4)"
-       d="M 40.685048,12.240803 V 3.3742499"
+       d="M 41.214215,12.240803 V 3.3742499"
        id="path4-2-1-8-6-80" />
     <path
        style="display:inline;fill:#ffffff;stroke:#000000;stroke-width:0.2;stroke-dasharray:none;marker-end:url(#marker5-0)"
@@ -676,14 +821,14 @@
        id="path4-0-6" />
     <path
        style="display:inline;fill:#ffffff;stroke:#000000;stroke-width:0.2;stroke-dasharray:1.6, 0.4, 0.2, 0.4;stroke-dashoffset:0;marker-end:url(#marker5-5-3-4)"
-       d="M 4.4516863,35.257817 H 13.318233"
+       d="M 5.5100197,35.444875 H 14.376567"
        id="path4-0-6-6" />
     <path
        style="display:inline;fill:#ffffff;stroke:#000000;stroke-width:0.2;stroke-dasharray:1.6, 0.4, 0.2, 0.4;stroke-dashoffset:0;marker-end:url(#marker5-5-3-4-4)"
-       d="m 51.921721,35.257817 h 8.86655"
-       id="path4-0-6-6-7" />
+       d="m 51.336971,35.444875 h 8.866546"
+       id="path4-0-6-6-3" />
     <path
-       style="fill:#ffffff;stroke:#000000;stroke-width:0.166252;stroke-dasharray:0.332504, 0.166252;stroke-dashoffset:0;marker-end:url(#ConcaveTriangle)"
+       style="fill:#ffffff;stroke:#000000;stroke-width:0.2;stroke-dasharray:0.4,0.2;stroke-dashoffset:0;marker-end:url(#ConcaveTriangle)"
        d="M 1.7746238,13.313576 H 11.012408"
        id="path6" />
     <g
@@ -774,12 +919,5 @@
          id="tspan12"><tspan
            style="fill:#000000;fill-opacity:1"
            id="tspan11">air or water flow (primary loop)</tspan></tspan></text>
-    <path
-       style="fill:#000000;fill-opacity:0;stroke:#000000;stroke-width:0.185004;stroke-linecap:butt;stroke-dasharray:0.370007, 0.185004;stroke-dashoffset:0;marker-end:url(#marker5-5)"
-       d="m 48.150126,66.376443 c 3.44577,3.672466 6.891542,7.344934 6.846168,10.201317 -0.04537,2.856383 -3.581756,4.896603 -3.763079,7.480964 -0.181324,2.584361 2.99235,5.712696 3.037658,8.523745 0.04531,2.811048 -3.037689,5.304649 -6.120747,7.798301"
-       id="path11"
-       inkscape:path-effect="#path-effect12"
-       inkscape:original-d="m 48.150126,66.376443 c 3.445769,3.672467 6.891541,7.344934 10.337313,11.017401 -3.536519,2.0403 -7.0729,4.080521 -10.60935,6.120778 3.173802,3.128463 6.347476,6.256798 9.521211,9.385194 -3.08312,2.493701 -6.166117,4.987301 -9.249174,7.480954"
-       transform="matrix(1.0045594,0,0,0.89687019,-17.331219,-43.540968)" />
   </g>
 </svg>
