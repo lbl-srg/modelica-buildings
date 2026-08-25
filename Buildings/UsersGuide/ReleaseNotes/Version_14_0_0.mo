@@ -173,15 +173,6 @@ have been <b style=\"color:blue\">improved</b> in a
                        This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4581\">Buildings, issue 4581</a>.
     </td>
 </tr>
-<tr><td colspan=\"2\"><b>Buildings.ThermalZones.Detailed</b>
-    </td>
-</tr>
-<tr><td valign=\"top\">Buildings.ThermalZones.Detailed.Examples.FFD
-    </td>
-    <td valign=\"top\">Improved C source codes and recompiled FFD library to allow the examples being simulated with OpenModelica.<br/>
-                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4015\">Buildings, #4015</a>.<br/>
-    </td>
-</tr>
 <tr><td colspan=\"2\"><b>Buildings.Fluid.Sources</b>
     </td>
 </tr>
@@ -205,10 +196,10 @@ have been <b style=\"color:blue\">improved</b> in a
 <tr><td colspan=\"2\"><b>Buildings.Templates</b>
     </td>
 </tr>
-<tr><td valign=\"top\">Buildings.Templates.Components.Fans.ArrayVariable
-                       Buildings.Templates.Components.Fans.SingleConstant
-                       Buildings.Templates.Components.Fans.SingleVariable
-                       Buildings.Templates.Components.Pumps.Multiple
+<tr><td valign=\"top\">Buildings.Templates.Components.Fans.ArrayVariable<br/>
+                       Buildings.Templates.Components.Fans.SingleConstant<br/>
+                       Buildings.Templates.Components.Fans.SingleVariable<br/>
+                       Buildings.Templates.Components.Pumps.Multiple<br/>
                        Buildings.Templates.Components.Pumps.Single
     </td>
     <td valign=\"top\">Refactored to use a compiler-friendly mover model.<br/>
@@ -218,12 +209,6 @@ have been <b style=\"color:blue\">improved</b> in a
 <tr><td valign=\"top\">Buildings.Templates.Plants.Controls.HeatPumps.AirToWater
     </td>
     <td valign=\"top\">Refactored with a single instance of <code>SortRuntime</code> for both modes.<br/>
-                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4624\">Buildings, #4624</a>.
-    </td>
-</tr>
-<tr><td valign=\"top\">Buildings.Templates.Plants.Controls.StagingRotation.EquipmentAvailability
-    </td>
-    <td valign=\"top\">Removed unnecessary <code>Or</code> and <code>And</code> blocks.<br/>
                        This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4624\">Buildings, #4624</a>.
     </td>
 </tr>
@@ -242,10 +227,26 @@ have been <b style=\"color:blue\">improved</b> in a
                        This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4624\">Buildings, #4624</a>.
     </td>
 </tr>
+<tr><td valign=\"top\">Buildings.Templates.Plants.Controls.StagingRotation.StageCompletion
+    </td>
+    <td valign=\"top\">Use both enable command and returned status to handle multiple operating
+                       modes for polyvalent units.<br/>
+                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4512\">Buildings, #4512</a>.
+    </td>
+</tr>
 <tr><td valign=\"top\">Buildings.Templates.Plants.Controls.Utilities.TrueArrayConditional
     </td>
     <td valign=\"top\">Refactored using CDL Elementary Blocks.<br/>
                        This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4624\">Buildings, #4624</a>.
+    </td>
+</tr>
+<tr><td colspan=\"2\"><b>Buildings.ThermalZones.Detailed</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.ThermalZones.Detailed.Examples.FFD
+    </td>
+    <td valign=\"top\">Improved C source codes and recompiled FFD library to allow the examples being simulated with OpenModelica.<br/>
+                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4015\">Buildings, #4015</a>.<br/>
     </td>
 </tr>
 <tr><td colspan=\"2\"><b>Buildings.ThermalZones.EnergyPlus_24_2_0</b>
@@ -280,7 +281,72 @@ have been <b style=\"color:blue\">improved</b> in a
 <b style=\"color:blue\">non-backward compatible</b> way:
 </p>
 <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\" style=\"border-collapse:collapse;\">
- <tr><td colspan=\"2\"><b>Buildings.ThermalZones.EnergyPlus_24_2_0</b>
+<tr><td colspan=\"2\"><b>Buildings.Templates.Components</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Templates.Components.Data.HeatPump<br/>
+                       Buildings.Templates.Components.Interfaces.PartialHeatPump
+    </td>
+    <td valign=\"top\">Replaced the <code>is_rev</code> parameter with <code>typMod</code>,
+                       of the new type <code>Buildings.Templates.Components.Types.HeatPumpCapability</code>,
+                       to also support polyvalent heat pumps.<br/>
+                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4512\">Buildings, #4512</a>.
+    </td>
+</tr>
+<tr><td colspan=\"2\"><b>Buildings.Templates.Plants.Controls</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Templates.Plants.Controls.MinimumFlow.ControllerDualMode
+    </td>
+    <td valign=\"top\">Renamed to <code>Buildings.Templates.Plants.Controls.MinimumFlow.ControllerHeatPumps</code>
+                       and refactored to support plants with polyvalent heat pumps.<br/>
+                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4512\">Buildings, #4512</a>.
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Templates.Plants.Controls.Pumps.Primary.VariableSpeed
+    </td>
+    <td valign=\"top\">Renamed to <code>Buildings.Templates.Plants.Controls.Pumps.Primary.VariableSpeedWithHeatPumps</code>
+                       and refactored to support plants with polyvalent heat pumps.<br/>
+                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4512\">Buildings, #4512</a>.
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Templates.Plants.Controls.StagingRotation.EquipmentAvailability<br/>
+                       Buildings.Templates.Plants.Controls.StagingRotation.EventSequencing
+    </td>
+    <td valign=\"top\">Removed and replaced with
+                       <code>Buildings.Templates.Plants.Controls.HeatPumps.Subsequences.EquipmentAvailability</code>,
+                       <code>EventSequencingSingle</code>,
+                       which also support polyvalent heat pumps.<br/>
+                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4512\">Buildings, #4512</a>.
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Templates.Plants.Controls.Utilities.Initialization
+    </td>
+    <td valign=\"top\">Removed as it is no longer used.<br/>
+                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4512\">Buildings, #4512</a>.
+    </td>
+</tr>
+<tr><td colspan=\"2\"><b>Buildings.Templates.Plants.HeatPumps</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Templates.Plants.HeatPumps.AirToWater<br/>
+                       Buildings.Templates.Plants.HeatPumps.Components.Data.Controller<br/>
+                       Buildings.Templates.Plants.HeatPumps.Components.Data.HeatPumpGroup<br/>
+                       Buildings.Templates.Plants.HeatPumps.Components.Interfaces.PartialHeatPumpGroup<br/>
+                       Buildings.Templates.Plants.HeatPumps.Components.PumpsPrimaryDedicated<br/>
+                       Buildings.Templates.Plants.HeatPumps.Components.ValvesIsolation<br/>
+                       Buildings.Templates.Plants.HeatPumps.Configuration.HeatPumpPlant<br/>
+                       Buildings.Templates.Plants.HeatPumps.Data.HeatPumpPlant<br/>
+                       Buildings.Templates.Plants.HeatPumps.Interfaces.PartialHeatPumpPlant<br/>
+    </td>
+    <td valign=\"top\">Refactored the heat pump plant template and its components to support polyvalent
+                       heat pumps.
+                       This renamed existing parameters, and added multiple new required configuration and
+                       sizing parameters for polyvalent heat pumps.<br/>
+                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4512\">Buildings, #4512</a>.
+    </td>
+</tr>
+<tr><td colspan=\"2\"><b>Buildings.ThermalZones.EnergyPlus_24_2_0</b>
     </td>
 </tr>
 <tr><td valign=\"top\">Buildings.ThermalZones.EnergyPlus_24_2_0.BaseClasses.SpawnExternalObject

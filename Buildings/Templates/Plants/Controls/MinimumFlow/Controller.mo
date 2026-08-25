@@ -1,22 +1,24 @@
 within Buildings.Templates.Plants.Controls.MinimumFlow;
 block Controller
   "Minimum flow bypass valve controller"
-  parameter Boolean have_valInlIso
-    "Set to true to enable control loop based on inlet isolation valve command"
+  // use_val = Modelica.Math.BooleanVectors.anyTrue(use_valEqu) but not valid CDL.
+  parameter Boolean use_val
+    "Set to true to use isolation valve command to enable control loop – Any unit"
     annotation (Evaluate=true);
-  parameter Boolean have_valOutIso
-    "Set to true to enable control loop based on outlet isolation valve command"
+  parameter Boolean use_valEqu[nEqu](start=fill(false, nEqu))
+    "Set to true to use isolation valve command to enable control loop – Each unit"
+    annotation (Evaluate=true, Dialog(enable=use_val));
+  // use_pumPriDed = Modelica.Math.BooleanVectors.anyTrue(use_pumPriDedEqu) but not valid CDL.
+  parameter Boolean use_pumPriDed(start=false)
+    "Set to true to use dedicated primary pump status to enable control loop – Any unit"
     annotation (Evaluate=true);
+  parameter Boolean use_pumPriDedEqu[nEqu](start=fill(false, nEqu))
+    "Set to true to use dedicated primary pump status to enable control loop – Each unit"
+    annotation (Evaluate=true, Dialog(enable=use_pumPriDed));
   parameter Integer nEqu(
     final min=1)=0
     "Number of plant equipment"
-    annotation (Evaluate=true,
-    Dialog(connectorSizing=true),HideResult=true);
-  parameter Integer nEna(
-    final min=1)=0
-    "Number of enable signals – Valve command or pump status"
-    annotation (Evaluate=true,
-    Dialog(connectorSizing=true),HideResult=true);
+    annotation (Evaluate=true);
   parameter Real V_flow_nominal[:](
     each final unit="m3/s")
     "Design flow rate – Each unit";
@@ -32,27 +34,19 @@ block Controller
   Buildings.Controls.OBC.CDL.Interfaces.RealInput VPri_flow(
     final unit="m3/s")
     "Primary volume flow rate"
-    annotation (Placement(transformation(extent={{-140,-100},{-100,-60}}),
-      iconTransformation(extent={{-140,-100},{-100,-60}})));
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1PumPri_actual[nEna]
-    if not have_valInlIso and not have_valOutIso
-    "Primary pump status"
-    annotation (Placement(transformation(extent={{-140,-60},{-100,-20}}),
+    annotation (Placement(transformation(extent={{-160,-120},{-120,-80}}),
       iconTransformation(extent={{-140,-60},{-100,-20}})));
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1ValInlIso[nEna]
-    if have_valInlIso
-    "Inlet isolation valve command"
-    annotation (Placement(transformation(extent={{-140,20},{-100,60}}),
-      iconTransformation(extent={{-140,20},{-100,60}})));
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1ValOutIso[nEna]
-    if have_valOutIso
-    "Outlet isolation valve command"
-    annotation (Placement(transformation(extent={{-140,-20},{-100,20}}),
-      iconTransformation(extent={{-140,-20},{-100,20}})));
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1PumPri_actual[nEqu]
+    if use_pumPriDed "Dedicated primary pump status" annotation (Placement(
+        transformation(extent={{-160,-80},{-120,-40}}), iconTransformation(
+          extent={{-140,-20},{-100,20}})));
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1ValIso[nEqu] if use_val
+    "Isolation valve command" annotation (Placement(transformation(extent={{-160,0},
+            {-120,40}}),     iconTransformation(extent={{-140,20},{-100,60}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput y(
     final unit="1")
     "Valve command"
-    annotation (Placement(transformation(extent={{100,-20},{140,20}}),
+    annotation (Placement(transformation(extent={{120,-20},{160,20}}),
       iconTransformation(extent={{100,-20},{140,20}})));
   Buildings.Controls.OBC.Utilities.PIDWithEnable ctl(
     final k=k,
@@ -61,44 +55,10 @@ block Controller
     y_reset=1,
     y_neutral=1)
     "PI controller"
-    annotation (Placement(transformation(extent={{30,-10},{50,10}})));
-  Buildings.Controls.OBC.CDL.Logical.MultiOr anyValInlIso(
-    final nin=nEna)
-    if have_valInlIso
-    "True if any valve commanded open"
-    annotation (Placement(transformation(extent={{-90,30},{-70,50}})));
-  Buildings.Controls.OBC.CDL.Logical.MultiOr anyValOutIso(
-    final nin=nEna)
-    if have_valOutIso
-    "True if any valve commanded open"
-    annotation (Placement(transformation(extent={{-90,-10},{-70,10}})));
-  Buildings.Controls.OBC.CDL.Logical.MultiOr anyPumPri(
-    final nin=nEna)
-    if not have_valInlIso and not have_valOutIso
-    "True if any pump proven on"
-    annotation (Placement(transformation(extent={{-90,-50},{-70,-30}})));
-  Utilities.PlaceholderLogical phValInlIso(
-    final have_inp=have_valInlIso,
-    u_internal=false)
-    "Placeholder signal"
-    annotation (Placement(transformation(extent={{-50,30},{-30,50}})));
-  Utilities.PlaceholderLogical phValOutIso(
-    final have_inp=have_valOutIso,
-    u_internal=false)
-    "Placeholder signal"
-    annotation (Placement(transformation(extent={{-50,-10},{-30,10}})));
-  Utilities.PlaceholderLogical phPrumPri(
-    final have_inp=not have_valInlIso and not have_valOutIso,
-    u_internal=false)
-    "Placeholder signal"
-    annotation (Placement(transformation(extent={{-50,-50},{-30,-30}})));
-  Buildings.Controls.OBC.CDL.Logical.MultiOr any(
-    nin=3)
-    "True if any enable condition met"
-    annotation (Placement(transformation(extent={{-10,-30},{10,-10}})));
+    annotation (Placement(transformation(extent={{90,-10},{110,10}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1Equ[nEqu]
     "Equipment enable command"
-    annotation (Placement(transformation(extent={{-140,60},{-100,100}}),
+    annotation (Placement(transformation(extent={{-160,60},{-120,100}}),
       iconTransformation(extent={{-140,60},{-100,100}})));
   Setpoint setFloMin(
     final V_flow_nominal=V_flow_nominal,
@@ -109,41 +69,70 @@ block Controller
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput VPriSet_flow(
     final unit="m3/s")
     "Primary flow setpoint"
-    annotation (Placement(transformation(extent={{100,60},{140,100}}),
+    annotation (Placement(transformation(extent={{120,60},{160,100}}),
       iconTransformation(extent={{100,40},{140,80}})));
+  Buildings.Controls.OBC.CDL.Logical.And valIsoOpeAndPumPriDed[nEqu]
+    "Valve commanded open and dedicated primary pump proven on"
+    annotation (Placement(transformation(extent={{10,-30},{30,-10}})));
+  Buildings.Controls.OBC.CDL.Logical.Sources.Constant notUseVal[nEqu](final k={
+        not use_valEqu[i] for i in 1:nEqu})
+    "True if valve command not required"
+    annotation (Placement(transformation(extent={{-110,30},{-90,50}})));
+  Buildings.Controls.OBC.CDL.Logical.Or valIsoOpeOrNotUse[nEqu] if use_val
+    "Valve commanded open or valve signal not required"
+    annotation (Placement(transformation(extent={{-70,10},{-50,30}})));
+  Buildings.Controls.OBC.CDL.Logical.Sources.Constant notUsePumPriDed[nEqu](
+      final k={not use_pumPriDedEqu[i] for i in 1:nEqu})
+    "True if dedicated primary pump status not required"
+    annotation (Placement(transformation(extent={{-110,-30},{-90,-10}})));
+  Buildings.Controls.OBC.CDL.Logical.Or pumPriDedOrNotUse[nEqu] if
+    use_pumPriDed
+    "Dedicated primary pump proven on or pump signal not required"
+    annotation (Placement(transformation(extent={{-70,-30},{-50,-10}})));
+  Utilities.PlaceholderLogical phPumPriDedOrNotUse[nEqu](each final have_inp=
+        use_pumPriDed, each final u_internal=true) "Placeholder signal"
+    annotation (Placement(transformation(extent={{-40,-30},{-20,-10}})));
+  Utilities.PlaceholderLogical phValIsoOpeOrNotUse[nEqu](each final have_inp=
+        use_val, each final u_internal=true) "Placeholder signal"
+    annotation (Placement(transformation(extent={{-40,10},{-20,30}})));
+  Buildings.Controls.OBC.CDL.Logical.MultiOr anyValIsoOpeAndPumPriDed(final nin
+      =nEqu) "True if any isolation valve open and dedicated pump proven on"
+    annotation (Placement(transformation(extent={{40,-30},{60,-10}})));
 equation
-  connect(anyValInlIso.u, u1ValInlIso)
-    annotation (Line(points={{-92,40},{-120,40}},color={255,0,255}));
-  connect(anyValOutIso.u, u1ValOutIso)
-    annotation (Line(points={{-92,0},{-120,0}},color={255,0,255}));
-  connect(anyPumPri.u, u1PumPri_actual)
-    annotation (Line(points={{-92,-40},{-120,-40}},color={255,0,255}));
   connect(VPri_flow, ctl.u_m)
-    annotation (Line(points={{-120,-80},{40,-80},{40,-12}},color={0,0,127}));
-  connect(anyValInlIso.y, phValInlIso.u)
-    annotation (Line(points={{-68,40},{-52,40}},color={255,0,255}));
-  connect(anyValOutIso.y, phValOutIso.u)
-    annotation (Line(points={{-68,0},{-52,0}},color={255,0,255}));
-  connect(anyPumPri.y, phPrumPri.u)
-    annotation (Line(points={{-68,-40},{-52,-40}},color={255,0,255}));
-  connect(phValInlIso.y, any.u[1])
-    annotation (Line(points={{-28,40},{-18,40},{-18,-22.3333},{-12,-22.3333}},
-      color={255,0,255}));
-  connect(phValOutIso.y, any.u[2])
-    annotation (Line(points={{-28,0},{-20,0},{-20,-20},{-12,-20}},color={255,0,255}));
-  connect(phPrumPri.y, any.u[3])
-    annotation (Line(points={{-28,-40},{-16,-40},{-16,-17.6667},{-12,-17.6667}},
-      color={255,0,255}));
-  connect(any.y, ctl.uEna)
-    annotation (Line(points={{12,-20},{36,-20},{36,-12}},color={255,0,255}));
+    annotation (Line(points={{-140,-100},{100,-100},{100,-12}},
+                                                           color={0,0,127}));
   connect(ctl.y, y)
-    annotation (Line(points={{52,0},{120,0}},color={0,0,127}));
+    annotation (Line(points={{112,0},{140,0}},
+                                             color={0,0,127}));
   connect(u1Equ, setFloMin.u1)
-    annotation (Line(points={{-120,80},{-12,80}},color={255,0,255}));
+    annotation (Line(points={{-140,80},{-12,80}},color={255,0,255}));
   connect(setFloMin.VPriSet_flow, ctl.u_s)
-    annotation (Line(points={{12,80},{20,80},{20,0},{28,0}},color={0,0,127}));
+    annotation (Line(points={{12,80},{60,80},{60,0},{88,0}},color={0,0,127}));
   connect(setFloMin.VPriSet_flow, VPriSet_flow)
-    annotation (Line(points={{12,80},{120,80}},color={0,0,127}));
+    annotation (Line(points={{12,80},{140,80}},color={0,0,127}));
+  connect(notUseVal.y, valIsoOpeOrNotUse.u1) annotation (Line(points={{-88,40},{
+          -80,40},{-80,20},{-72,20}}, color={255,0,255}));
+  connect(u1ValIso, valIsoOpeOrNotUse.u2) annotation (Line(points={{-140,20},{-100,
+          20},{-100,12},{-72,12}}, color={255,0,255}));
+  connect(notUsePumPriDed.y, pumPriDedOrNotUse.u1)
+    annotation (Line(points={{-88,-20},{-72,-20}}, color={255,0,255}));
+  connect(u1PumPri_actual, pumPriDedOrNotUse.u2) annotation (Line(points={{-140,
+          -60},{-80,-60},{-80,-28},{-72,-28}}, color={255,0,255}));
+  connect(pumPriDedOrNotUse.y, phPumPriDedOrNotUse.u)
+    annotation (Line(points={{-48,-20},{-42,-20}}, color={255,0,255}));
+  connect(phPumPriDedOrNotUse.y, valIsoOpeAndPumPriDed.u2) annotation (Line(
+        points={{-18,-20},{-10,-20},{-10,-28},{8,-28}},color={255,0,255}));
+  connect(valIsoOpeOrNotUse.y, phValIsoOpeOrNotUse.u)
+    annotation (Line(points={{-48,20},{-42,20}}, color={255,0,255}));
+  connect(phValIsoOpeOrNotUse.y, valIsoOpeAndPumPriDed.u1)
+    annotation (Line(points={{-18,20},{0,20},{0,-20},{8,-20}},
+                                                color={255,0,255}));
+  connect(valIsoOpeAndPumPriDed.y, anyValIsoOpeAndPumPriDed.u)
+    annotation (Line(points={{32,-20},{38,-20}},
+        color={255,0,255}));
+  connect(anyValIsoOpeAndPumPriDed.y, ctl.uEna)
+    annotation (Line(points={{62,-20},{96,-20},{96,-12}}, color={255,0,255}));
   annotation (
     defaultComponentName="ctlFloMin",
     Icon(
@@ -164,6 +153,12 @@ equation
       revisions="<html>
 <ul>
 <li>
+July 10, 2026, by Antoine Gautier:<br/>
+Added per-unit isolation valve and dedicated pump status options
+to enable the control loop.<br/>
+This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4512\">#4512</a>.
+</li>
+<li>
 May 31, 2024, by Antoine Gautier:<br/>
 First implementation.
 </li>
@@ -171,25 +166,26 @@ First implementation.
 </html>",
       info="<html>
 <p>
-The minimum flow bypass valve is modulated based on a reverse acting control loop 
+The minimum flow bypass valve is modulated based on a reverse acting control loop
 to maintain the primary flow rate at setpoint.
-The setpoint is calculated as described in 
+The setpoint is calculated as described in
 <a href=\"modelica://Buildings.Templates.Plants.Controls.MinimumFlow.Setpoint\">
 Buildings.Templates.Plants.Controls.MinimumFlow.Setpoint</a>.
 </p>
 <p>
 <b>When using isolation valve command signals</b>
 (<code>have_valInlIso=true</code> or <code>have_valOutIso=true</code>):
-When any valve is commanded open, the bypass valve control loop is enabled. 
-The valve is opened <i>100&nbsp;%</i> otherwise. 
+When any valve is commanded open, the bypass valve control loop is enabled.
+The valve is opened <i>100&nbsp;%</i> otherwise.
 When enabled, the bypass valve loop shall be biased to start with the valve <i>100&nbsp;%</i> open.
 </p>
 <p>
 <b>Otherwise</b>
 (<code>have_valInlIso=false</code> and <code>have_valOutIso=false</code>):
-When any primary pump is proven on, the bypass valve control loop is enabled. 
-The valve is opened <i>100&nbsp;%</i> otherwise. 
+When any primary pump is proven on, the bypass valve control loop is enabled.
+The valve is opened <i>100&nbsp;%</i> otherwise.
 When enabled, the bypass valve loop shall be biased to start with the valve <i>100&nbsp;%</i> open.
 </p>
-</html>"));
+</html>"),
+    Diagram(coordinateSystem(extent={{-120,-120},{120,120}}, grid={2,2})));
 end Controller;

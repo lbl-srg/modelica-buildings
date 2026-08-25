@@ -1,0 +1,129 @@
+simulateModel("Buildings.Templates.Plants.HeatPumps.Validation.AirToWaterPolyvalent",
+    method="cvode",
+    tolerance=1e-6,
+    startTime=0.0,
+    stopTime=86400.0,
+    resultFile="AirToWaterPolyvalentPlant");
+createPlot(
+    id=1,
+    position={5, 5, 300, 600},
+    y={"pla.ctl.ctl.TOut", "pla.ctl.ctl.TOutChiWatLck", "pla.ctl.ctl.TOutHeaWatLck"},
+    autoscale=true,
+    grid=true,
+    timeUnit="h"
+);
+createPlot(
+    id=1,
+    subPlot=2,
+    y={"pla.ctl.ctl.chaStaHea.capReq.QReq_flow", "pla.ctl.ctl.chaStaCoo.capReq.QReq_flow", "pla.capHea_nominal", "pla.capCoo_nominal"},
+    autoscale=true,
+    grid=true,
+    timeUnit="h"
+);
+createPlot(
+    id=1,
+    subPlot=3,
+    y={"loaHea.u", "loaHea.yLoa_actual", "loaCoo.u", "loaCoo.yLoa_actual"},
+    autoscale=true,
+    grid=true,
+    timeUnit="h"
+);
+createPlot(
+    id=2,
+    position={310, 5, 300, 500},
+    y={"pla.ctl.ctl.nReqPlaHeaWat", "pla.ctl.ctl.nReqPlaChiWat", "pla.ctl.ctl.enaHea.y1", "pla.ctl.ctl.enaCoo.y1"},
+    autoscale=true,
+    grid=true,
+    timeUnit="h"
+);
+createPlot(
+    id=2,
+    subPlot=2,
+    y={"pla.ctl.ctl.idxStaHea.y", "pla.ctl.ctl.idxStaCoo.y"},
+    autoscale=true,
+    grid=true,
+    timeUnit="h"
+);
+createPlot(
+    id=3,
+    position={615, 5, 300, 500},
+    subPlot=1,
+    y={"pla.ctl.ctl.y1HeaPhp[1]", "pla.ctl.ctl.y1HeaPhp[2]", "pla.ctl.ctl.y1HeaPhp[3]"},
+    autoscale=true,
+    grid=true,
+    timeUnit="h"
+);
+createPlot(
+    id=3,
+    subPlot=2,
+    y={"pla.ctl.ctl.y1CooPhp[1]", "pla.ctl.ctl.y1CooPhp[2]", "pla.ctl.ctl.y1CooPhp[3]"},
+    autoscale=true,
+    grid=true,
+    timeUnit="h"
+);
+createPlot(
+    id=4,
+    position={920, 5, 300, 500},
+    subPlot=1,
+    y={"pla.ctl.ctl.y1PumHeaWatPriHdr[1]", "pla.ctl.ctl.y1PumHeaWatPriHdr[2]"},
+    autoscale=true,
+    grid=true,
+    timeUnit="h"
+);
+createPlot(
+    id=4,
+    subPlot=2,
+    y={"pla.ctl.ctl.y1PumChiWatPriHdr[1]", "pla.ctl.ctl.y1PumChiWatPriHdr[2]"},
+    autoscale=true,
+    grid=true,
+    timeUnit="h"
+);
+createPlot(
+    id=5,
+    position={1225, 5, 300, 500},
+    subPlot=1,
+    y={"pla.ctl.ctl.nReqResHeaWat", "pla.ctl.ctl.nReqResChiWat"},
+    autoscale=true,
+    grid=true,
+    timeUnit="h"
+);
+createPlot(
+    id=5,
+    subPlot=2,
+    y={"pla.bus.dpHeaWatRem[1]", "pla.bus.dpHeaWatRemSet[1]", "pla.bus.dpChiWatRem[1]", "pla.bus.dpChiWatRemSet[1]"},
+    autoscale=true,
+    grid=true,
+    timeUnit="h"
+);
+createPlot(
+    id=6,
+    position={40, 40, 300, 500},
+    y={"pla.bus.VHeaWatPri_flow", "datAll.pla.ctl.VHeaWatPri_flow_nominal"},
+    autoscale=true,
+    grid=true,
+    timeUnit="h"
+);
+createPlot(
+    id=6,
+    subPlot=2,
+    y={"pla.bus.VChiWatPri_flow", "datAll.pla.ctl.VChiWatPri_flow_nominal"},
+    autoscale=true,
+    grid=true,
+    timeUnit="h"
+);
+createPlot(
+    id=7,
+    position={345, 40, 300, 500},
+    y={"pla.bus.THeaWatSupSet", "pla.bus.THeaWatPriSup", "pla.bus.THeaWatPriRet"},
+    autoscale=true,
+    grid=true,
+    timeUnit="h"
+);
+createPlot(
+    id=7,
+    subPlot=2,
+    y={"pla.bus.TChiWatSupSet", "pla.bus.TChiWatPriSup", "pla.bus.TChiWatPriRet"},
+    autoscale=true,
+    grid=true,
+    timeUnit="h"
+);

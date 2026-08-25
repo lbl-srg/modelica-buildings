@@ -34,10 +34,10 @@ block SelectSortedAvailable
   Buildings.Controls.OBC.CDL.Routing.IntegerExtractor avaIntIdxEquAlt[nEquAlt](
     each final nin=nEqu)
     "Available signals of lead/lag alternate equipment reordered based on idxEquAlt"
-    annotation(Placement(transformation(extent={{-20,-10},{0,10}})));
+    annotation(Placement(transformation(extent={{-30,-10},{-10,10}})));
   Buildings.Controls.OBC.CDL.Integers.Multiply excUna[nEquAlt]
     "Filter out unavailable units"
-    annotation(Placement(transformation(extent={{20,-40},{40,-20}})));
+    annotation(Placement(transformation(extent={{10,-40},{30,-20}})));
   Utilities.TrueArrayConditional truArrCon(final nout=nEqu, nin=nEquAlt)
     "Generate array of size nEqu with nAltReq true elements at uIdxAltSor indices "
     annotation(Placement(transformation(extent={{60,-10},{80,10}})));
@@ -46,10 +46,10 @@ equation
     annotation(Line(points={{-120,0},{-92,0}},
       color={255,0,255}));
   connect(avaIntAltRep.y, avaIntIdxEquAlt.u)
-    annotation(Line(points={{-38,0},{-22,0}},
+    annotation(Line(points={{-38,0},{-32,0}},
       color={255,127,0}));
   connect(avaIntIdxEquAlt.y, excUna.u1)
-    annotation(Line(points={{2,0},{10,0},{10,-24},{18,-24}},
+    annotation(Line(points={{-8,0},{0,0},{0,-24},{8,-24}},
       color={255,127,0}));
   connect(avaInt.y, avaIntAltRep.u)
     annotation(Line(points={{-68,0},{-62,0}},
@@ -58,16 +58,16 @@ equation
     annotation(Line(points={{82,0},{120,0}},
       color={255,0,255}));
   connect(n, truArrCon.u)
-    annotation(Line(points={{-120,60},{50,60},{50,0},{58,0}},
+    annotation(Line(points={{-120,60},{40,60},{40,0},{58,0}},
       color={255,127,0}));
   connect(uIdxSor, avaIntIdxEquAlt.index)
-    annotation(Line(points={{-120,-60},{-10,-60},{-10,-12}},
+    annotation(Line(points={{-120,-60},{-20,-60},{-20,-12}},
       color={255,127,0}));
   connect(uIdxSor, excUna.u2)
-    annotation(Line(points={{-120,-60},{-10,-60},{-10,-36},{18,-36}},
+    annotation(Line(points={{-120,-60},{-20,-60},{-20,-36},{8,-36}},
       color={255,127,0}));
   connect(excUna.y, truArrCon.uIdx)
-    annotation(Line(points={{42,-30},{50,-30},{50,-6},{58,-6}},
+    annotation(Line(points={{32,-30},{40,-30},{40,-6},{58,-6}},
       color={255,127,0}));
 annotation(defaultComponentName="selSorAva",
   Icon(coordinateSystem(preserveAspectRatio=false),

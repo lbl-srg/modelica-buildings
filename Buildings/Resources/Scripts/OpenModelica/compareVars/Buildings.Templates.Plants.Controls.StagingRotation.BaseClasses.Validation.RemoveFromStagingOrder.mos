@@ -1,0 +1,15 @@
+compareVars :=
+  {
+    "remStaOrd.uIdxSor[1]",
+    "remStaOrd.uIdxSor[2]",
+    "remStaOrd.uIdxSor[3]",
+    "remStaOrd.uIdxSor[4]",
+    "remStaOrd.u1[1]",
+    "remStaOrd.u1[2]",
+    "remStaOrd.u1[3]",
+    "remStaOrd.u1[4]",
+    "remStaOrd.yIdxSor[1]",
+    "remStaOrd.yIdxSor[2]",
+    "remStaOrd.yIdxSor[3]",
+    "remStaOrd.yIdxSor[4]"
+  };

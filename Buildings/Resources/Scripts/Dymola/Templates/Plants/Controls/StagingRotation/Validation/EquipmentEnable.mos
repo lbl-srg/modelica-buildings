@@ -6,7 +6,7 @@ simulateModel("Buildings.Templates.Plants.Controls.StagingRotation.Validation.Eq
 createPlot(
     id=1,
     position={5, 5, 300, 250},
-    y={"u1AvaEqu.y[1]", "u1AvaEqu.y[2]", "u1AvaEqu.y[3]"},
+    y={"u1Ava.y[1]", "u1Ava.y[2]", "u1Ava.y[3]"},
     autoscale=true,
     grid=true
 );

@@ -1,0 +1,15 @@
+compareVars :=
+  {
+    "uStaHea.y[1]",
+    "uStaCoo.y[1]",
+    "selMod.y1HeaHp[1]",
+    "selMod.y1HeaHp[2]",
+    "selMod.y1CooHp[1]",
+    "selMod.y1CooHp[2]",
+    "selMod.y1HeaPhp[1]",
+    "selMod.y1HeaPhp[2]",
+    "selMod.y1CooPhp[1]",
+    "selMod.y1CooPhp[2]",
+    "selMod.y1ShcPhp[1]",
+    "selMod.y1ShcPhp[2]"
+  };

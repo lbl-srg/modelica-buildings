@@ -10,5 +10,13 @@ compareVars :=
     "avaStaOneTwo.y1[2]",
     "avaStaOneTwo.y1[3]",
     "avaStaOneTwo.y1[4]",
-    "avaStaOneTwo.y1[5]"
+    "avaStaOneTwo.y1[5]",
+    "u1AvaEqu.y[1]",
+    "u1AvaEqu.y[2]",
+    "u1AvaEqu.y[3]",
+    "u1AvaEqu.y[4]",
+    "avaStaPhp.uStaOpp",
+    "avaStaPhp.y1[1]",
+    "avaStaPhp.y1[2]",
+    "avaStaPhp.y1[3]"
   };

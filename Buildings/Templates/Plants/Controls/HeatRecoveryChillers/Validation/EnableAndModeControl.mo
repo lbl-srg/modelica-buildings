@@ -65,15 +65,13 @@ model EnableAndModeControl
     annotation (Placement(transformation(extent={{-150,-80},{-130,-60}})));
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant THeaWatRet(
     final k=THeaWatRet_nominal,
-    y(
-      final unit="K",
+    y(final unit="K",
       displayUnit="degC"))
     "HWRT"
     annotation (Placement(transformation(extent={{-120,50},{-100,70}})));
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant TChiWatRet(
     final k=TChiWatRet_nominal,
-    y(
-      final unit="K",
+    y(final unit="K",
       displayUnit="degC"))
     "CHWRT"
     annotation (Placement(transformation(extent={{-120,-10},{-100,10}})));
@@ -87,15 +85,13 @@ model EnableAndModeControl
     annotation (Placement(transformation(extent={{-110,-110},{-90,-90}})));
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant THeaWatSup(
     final k=THeaWatSup_nominal,
-    y(
-      final unit="K",
+    y(final unit="K",
       displayUnit="degC"))
     "HWST"
     annotation (Placement(transformation(extent={{-150,70},{-130,90}})));
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant TChiWatSup(
     final k=TChiWatSup_nominal,
-    y(
-      final unit="K",
+    y(final unit="K",
       displayUnit="degC"))
     "CHWST"
     annotation (Placement(transformation(extent={{-150,10},{-130,30}})));

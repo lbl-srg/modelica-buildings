@@ -1,0 +1,16 @@
+compareVars :=
+  {
+    "iHea.y[1]",
+    "extSta.y[1, 1]",
+    "extSta.y[1, 3]",
+    "extSta.y[2, 3]",
+    "extSta.y[2, 5]",
+    "extSta.y[4, 3]",
+    "extSta.y[4, 5]",
+    "extStaTra.y[1, 1]",
+    "extStaTra.y[3, 1]",
+    "extStaTra.y[3, 2]",
+    "extStaTra.y[5, 2]",
+    "extStaTra.y[3, 4]",
+    "extStaTra.y[5, 4]"
+  };
