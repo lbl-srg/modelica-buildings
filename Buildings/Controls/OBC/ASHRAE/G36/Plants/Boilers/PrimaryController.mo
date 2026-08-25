@@ -17,10 +17,17 @@ model PrimaryController
     False: The boiler plant is primary-secondary"
     annotation(Dialog(tab="General", group="Boiler plant configuration parameters"));
 
-  parameter Boolean have_heaPriPum = true
+  parameter Boolean have_heaPriPum_select
     "True: Headered primary hot water pumps;
     False: Dedicated primary hot water pumps"
-    annotation(Dialog(tab="General", group="Boiler plant configuration parameters"));
+    annotation(Dialog(tab="General",
+      group="Boiler plant configuration parameters",
+      enable=not have_priOnl));
+
+  final parameter Boolean have_heaPriPum = have_priOnl or have_heaPriPum_select
+    "True: Headered primary hot water pumps;
+    False: Dedicated primary hot water pumps;
+    Parameter is automatically set to true when the plant is primary-only";
 
   parameter Boolean have_isoValSen = false
     "True: Open and closed position sensors for boiler isolation valves;
@@ -1434,6 +1441,7 @@ protected
 
   Buildings.Controls.OBC.CDL.Logical.MultiAnd mulAnd(
     final nin=nBoi)
+    "Output true only if all flowrate values are positive"
     annotation (Placement(transformation(extent={{260,-470},{280,-450}})));
 
 equation
