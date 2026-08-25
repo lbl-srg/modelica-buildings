@@ -22,7 +22,6 @@ model PrimaryController
     maxFloSet={0.0003,0.0003},
     bypSetRat=0.00001,
     nPumPri=2,
-    have_heaPriPum=true,
     TMinSupNonConBoi=333.2,
     boiDesFlo={0.0003,0.0003},
     minPriPumSpeSta={0,0,0})
@@ -31,6 +30,7 @@ model PrimaryController
 
   Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.PrimaryController controller1(
     have_priOnl=false,
+    have_heaPriPum_select=true,
     have_secFloSen_select=true,
     have_priTemSen_select=true,
     nLooSec=1,
@@ -50,7 +50,6 @@ model PrimaryController
     maxFloSet={0.0003,0.0003},
     bypSetRat=0.00001,
     nPumPri=2,
-    have_heaPriPum=true,
     TMinSupNonConBoi=333.2,
     boiDesFlo={0.0003,0.0003},
     minPriPumSpeSta={0,0,0})
@@ -59,6 +58,7 @@ model PrimaryController
 
   Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.PrimaryController controller2(
     have_priOnl=false,
+    have_heaPriPum_select=false,
     have_secFloSen_select=true,
     have_priTemSen_select=true,
     nLooSec=1,
@@ -78,7 +78,6 @@ model PrimaryController
     maxFloSet={0.0003,0.0003},
     bypSetRat=0.00001,
     nPumPri=2,
-    have_heaPriPum=false,
     TMinSupNonConBoi=333.2,
     boiDesFlo={0.0003,0.0003},
     minPriPumSpeSta={0,0,0})

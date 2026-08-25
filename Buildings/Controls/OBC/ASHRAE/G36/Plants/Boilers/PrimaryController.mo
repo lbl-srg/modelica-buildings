@@ -17,7 +17,8 @@ model PrimaryController
     False: The boiler plant is primary-secondary"
     annotation(Dialog(tab="General", group="Boiler plant configuration parameters"));
 
-  parameter Boolean have_heaPriPum_select
+  parameter Boolean have_heaPriPum_select(
+    final start=true)
     "True: Headered primary hot water pumps;
     False: Dedicated primary hot water pumps"
     annotation(Dialog(tab="General",
