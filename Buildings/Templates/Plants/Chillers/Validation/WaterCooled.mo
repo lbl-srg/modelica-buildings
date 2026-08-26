@@ -30,8 +30,7 @@ model WaterCooled
     redeclare replaceable Buildings.Templates.Plants.Chillers.Components.Economizers.HeatExchangerWithValve eco
       "Heat exchanger with bypass valve for CHW flow control",
     ctl(
-      typCtlHea=Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Types.HeadPressureControl.ByChiller,
-      typCtlFanCoo=Buildings.Templates.Plants.Chillers.Types.CoolerFanSpeedControl.SupplyTemperature))
+      typCtlHea=Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Types.HeadPressureControl.ByChiller))
     constrainedby Buildings.Templates.Plants.Chillers.Interfaces.PartialChilledWaterLoop(
       redeclare final package MediumChiWat=Medium,
       nChi=2,
