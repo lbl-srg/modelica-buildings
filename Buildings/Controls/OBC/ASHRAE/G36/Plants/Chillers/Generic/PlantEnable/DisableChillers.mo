@@ -28,7 +28,7 @@ block DisableChillers
     annotation (Placement(transformation(extent={{-240,260},{-200,300}}),
         iconTransformation(extent={{-140,130},{-100,170}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uChiWatReq[nChi]
-    "Chilled water requst status for each chiller"
+    "Chilled water request status for each chiller"
     annotation (Placement(transformation(extent={{-240,230},{-200,270}}),
       iconTransformation(extent={{-140,110},{-100,150}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1ChiWatIsoVal[nChi]
@@ -44,7 +44,7 @@ block DisableChillers
       iconTransformation(extent={{-140,70},{-100,110}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uConWatReq[nChi]
     if not have_airCoo
-    "Condenser water requst status for each chiller"
+    "Condenser water request status for each chiller"
     annotation (Placement(transformation(extent={{-240,80},{-200,120}}),
       iconTransformation(extent={{-140,40},{-100,80}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uConWatIsoVal[nChi](

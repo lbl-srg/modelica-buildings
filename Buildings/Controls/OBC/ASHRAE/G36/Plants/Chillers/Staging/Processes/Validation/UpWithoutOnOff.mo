@@ -164,10 +164,8 @@ equation
           174}}, color={255,0,255}));
   connect(lat.y, chiSta.u2) annotation (Line(points={{82,180},{90,180},{90,-80},
           {-140,-80},{-140,-110},{-122,-110}}, color={255,0,255}));
-  connect(wseSta.y, upProCon.uEnaPlaConPum) annotation (Line(points={{-178,-170},
-          {-46,-170},{-46,69},{-22,69}}, color={255,0,255}));
-  connect(wseSta.y, upProCon.uEnaPlaConIso) annotation (Line(points={{-178,-170},
-          {-46,-170},{-46,61},{-22,61}}, color={255,0,255}));
+  connect(wseSta.y, upProCon.uEnaPla) annotation (Line(points={{-178,-170},{-46,
+          -170},{-46,69},{-22,69}}, color={255,0,255}));
   connect(con2.y, truDel.u) annotation (Line(points={{62,20},{80,20},{80,40},{98,
           40}}, color={255,0,255}));
   connect(con2.y, chiOneSta.u3) annotation (Line(points={{62,20},{130,20},{130,32},

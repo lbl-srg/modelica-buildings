@@ -194,10 +194,8 @@ equation
           {178,194}}, color={255,0,255}));
   connect(lat.y, chiSta.u2) annotation (Line(points={{202,200},{214,200},{214,-84},
           {-140,-84},{-140,-120},{-122,-120}}, color={255,0,255}));
-  connect(wseSta.y, upProCon.uEnaPlaConPum) annotation (Line(points={{-178,-180},
-          {-40,-180},{-40,101},{18,101}}, color={255,0,255}));
-  connect(wseSta.y, upProCon.uEnaPlaConIso) annotation (Line(points={{-178,-180},
-          {-40,-180},{-40,93},{18,93}}, color={255,0,255}));
+  connect(wseSta.y, upProCon.uEnaPla) annotation (Line(points={{-178,-180},{-40,
+          -180},{-40,101},{18,101}}, color={255,0,255}));
   connect(upProCon.yStaPro, falEdg.u) annotation (Line(points={{42,119},{52,119},
           {52,200},{118,200}}, color={255,0,255}));
   connect(upProCon.yChi[1], chiOneSta.y1) annotation (Line(points={{42,82.5},{60,
