@@ -205,13 +205,12 @@ annotation(Documentation(
     <td>
       If the CW pumps are dedicated, the option with no isolation valve is
       automatically selected.<br />
-      <p style=\"color: #ff0000\">
-        This raises the question of chiller head pressure control in case of
-        constant speed CW pumps that are dedicated.<br />
-      </p>
-      CW isolation valves may be two-position for chillers that do not require
+      Two-position CW isolation valves are automatically selected for chillers that do not require
       head pressure control or for plants with variable speed condenser pumps
-      but no waterside economizer.
+      but no waterside economizer. 
+      (This is for compatibility with the controller implementation, whereas ASHRAE (2021)
+       allows for two-position or modulating valves in these cases.)<br />
+      Modulating valves are automatically selected for other plant configurations.  
     </td>
   </tr>
   <tr>

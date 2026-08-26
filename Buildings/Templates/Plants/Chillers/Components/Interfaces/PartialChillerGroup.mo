@@ -99,6 +99,13 @@ partial model PartialChillerGroup
     "Type of chiller CHW isolation valve"
     annotation(Evaluate=true,
       Dialog(group="Configuration"));
+  /*
+   * G36 2024: CW isolation valves ***may*** be two-position for chillers that do not
+   * require head pressure control or for plants with variable speed CW pumps but no WSE.
+   * BUT the controller only outputs an open/close command in these cases, never a modulating signal.
+   * We keep the original declarations for consistency with G36 but make
+   * typValConWatChiIso_select final for compatibility with the controller.
+   */
   final parameter Boolean enaTypValConWatChiIso = typArrPumConWat ==
     Buildings.Templates.Components.Types.PumpArrangement.Headered
     and (typCtlHea ==
@@ -108,9 +115,9 @@ partial model PartialChillerGroup
     "Enable choices of chiller CW isolation valve type"
     annotation(Evaluate=true,
       Dialog(group="Configuration"));
-  // The following parameter stores the user selection.
-  parameter Buildings.Templates.Components.Types.Valve typValConWatChiIso_select(
-    start=Buildings.Templates.Components.Types.Valve.TwoWayModulating)
+  final parameter Buildings.Templates.Components.Types.Valve typValConWatChiIso_select(
+    start=Buildings.Templates.Components.Types.Valve.TwoWayTwoPosition) =
+    Buildings.Templates.Components.Types.Valve.TwoWayTwoPosition
     "Type of chiller CW isolation valve"
     annotation(Evaluate=true,
       choices(
