@@ -70,8 +70,8 @@ block EnableDevices
   Buildings.Controls.OBC.CDL.Logical.Edge edg
     "Plant enable edge"
     annotation (Placement(transformation(extent={{-100,90},{-80,110}})));
-  Buildings.Controls.OBC.CDL.Logical.Latch ecoMod
-    "Plant enabled in economizer mode"
+  Buildings.Controls.OBC.CDL.Logical.Latch enaPro
+    "True: plant enabled, false once chiller stage departs initial stage"
     annotation (Placement(transformation(extent={{0,90},{20,110}})));
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant conInt(
     final k=1)
@@ -112,15 +112,15 @@ equation
     annotation (Line(points={{-180,20},{-140,20},{-140,52},{-102,52}}, color={255,127,0}));
   connect(intEqu1.y, not1.u)
     annotation (Line(points={{-78,60},{-62,60}}, color={255,0,255}));
-  connect(edg.y, ecoMod.u)
+  connect(edg.y,enaPro. u)
     annotation (Line(points={{-78,100},{-2,100}}, color={255,0,255}));
-  connect(ecoMod.y, yEnaPlaPro)
+  connect(enaPro.y, yEnaPlaPro)
     annotation (Line(points={{22,100},{180,100}}, color={255,0,255}));
   connect(conInt.y, intChiMod.u2) annotation (Line(points={{-98,0},{-60,0},{-60,
           22},{-42,22}}, color={255,127,0}));
   connect(uIni, intChiMod.u1) annotation (Line(points={{-180,60},{-120,60},{-120,
           30},{-42,30}}, color={255,127,0}));
-  connect(ecoMod.y, and1.u2) annotation (Line(points={{22,100},{80,100},{80,22},
+  connect(enaPro.y, and1.u2) annotation (Line(points={{22,100},{80,100},{80,22},
           {98,22}}, color={255,0,255}));
   connect(and1.y, yChiWatIsoVal)
     annotation (Line(points={{122,30},{180,30}}, color={255,0,255}));
@@ -140,15 +140,15 @@ equation
           0},{60,-120},{98,-120}},color={255,0,255}));
   connect(and3.y, yLeaChi)
     annotation (Line(points={{122,-120},{180,-120}},color={255,0,255}));
-  connect(not1.y, ecoMod.clr) annotation (Line(points={{-38,60},{-20,60},{-20,94},
+  connect(not1.y,enaPro. clr) annotation (Line(points={{-38,60},{-20,60},{-20,94},
           {-2,94}}, color={255,0,255}));
   connect(intChiMod.y, and1.u1)
     annotation (Line(points={{-18,30},{98,30}}, color={255,0,255}));
-  connect(ecoMod.y, yLeaPriChiPum) annotation (Line(points={{22,100},{80,100},{80,
+  connect(enaPro.y, yLeaPriChiPum) annotation (Line(points={{22,100},{80,100},{80,
           -30},{180,-30}},    color={255,0,255}));
-  connect(ecoMod.y, yLeaConPum) annotation (Line(points={{22,100},{80,100},{80,-60},
+  connect(enaPro.y, yLeaConPum) annotation (Line(points={{22,100},{80,100},{80,-60},
           {180,-60}},      color={255,0,255}));
-  connect(ecoMod.y, yLeaTowCel) annotation (Line(points={{22,100},{80,100},{80,-90},
+  connect(enaPro.y, yLeaTowCel) annotation (Line(points={{22,100},{80,100},{80,-90},
           {180,-90}},      color={255,0,255}));
   connect(con.y, and2.u2) annotation (Line(points={{-38,-110},{-20,-110},{-20,-68},
           {-2,-68}}, color={255,0,255}));
