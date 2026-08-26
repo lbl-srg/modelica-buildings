@@ -37,7 +37,7 @@ partial model PartialCFD
   parameter String sensorName[:]
     "Names of sensors as declared in the CFD input file"
     annotation(Dialog(group = "CFD"));
-  parameter String portName[nPorts]
+  parameter String portName[nPorts] = {"port_" + String(i) for i in 1:nPorts}
     "Names of fluid ports as declared in the CFD input file"
     annotation(Dialog(group = "CFD"));
   parameter String cfdFilNam "CFD input file name"
@@ -182,11 +182,6 @@ Association (Building Simulation 2019), Italy, September 2-4, Rome, 2019.
 </html>",
 revisions="<html>
 <ul>
-<li>
-July 8, 2026, by Jianjun Hu:<br/>
-Removed the default value <code>{\"port_\" + String(i) for i in 1:nPorts}</code>
-from parameter <code>portName</code>.
-</li>
 <li>
 November 1, 2019, by Xu Han, Wangda Zuo and Michael Wetter:<br/>
 First Implementation.

@@ -1,8 +1,4 @@
-<<<<<<< HEAD
-last-generated=2024-06-11
-=======
-last-generated=2025-09-26
->>>>>>> master
+last-generated=2026-08-26
 statistics-initialization=
 {
   "linear": "20"
