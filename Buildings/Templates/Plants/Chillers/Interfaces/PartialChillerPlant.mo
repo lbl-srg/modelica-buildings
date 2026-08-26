@@ -187,7 +187,7 @@ partial model PartialChillerPlant
   // The following parameter stores the actual configuration setting.
   final parameter Boolean have_pumConWatVar = if typEco <>
     Buildings.Templates.Plants.Chillers.Types.Economizer.None then true
-    else false
+    else have_pumConWatVar_select
     "Set to true for variable speed CW pumps, false for constant speed pumps"
     annotation(Evaluate=true,
       Dialog(group="CW loop"));

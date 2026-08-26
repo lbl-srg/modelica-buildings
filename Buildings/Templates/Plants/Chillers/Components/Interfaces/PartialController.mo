@@ -36,14 +36,6 @@ partial block PartialController
       Dialog(group="Cooling tower configuration",
         enable=typ ==
           Buildings.Templates.Plants.Chillers.Types.Controller.G36));
-  parameter Buildings.Templates.Plants.Chillers.Types.CoolerFanSpeedControl typCtlFanCoo =
-    Buildings.Templates.Plants.Chillers.Types.CoolerFanSpeedControl.SupplyTemperature
-    "Cooler fan speed control"
-    annotation(Evaluate=true,
-      Dialog(group="Cooling tower configuration",
-        enable=typ == Buildings.Templates.Plants.Chillers.Types.Controller.G36
-          and cfg.typChi ==
-            Buildings.Templates.Components.Types.Chiller.WaterCooled));
   parameter Boolean have_senLevCoo = false
     "Set to true if cooling towers have level sensor for makeup water control"
     annotation(Evaluate=true,
@@ -276,8 +268,7 @@ partial block PartialController
     annotation(Placement(transformation(extent={{-260,100},{-220,140}}),
       iconTransformation(extent={{-422,198},{-382,238}})));
   Buildings.Templates.Components.Interfaces.Bus busValConWatEcoIso
-    if cfg.typEco <>
-      Buildings.Templates.Plants.Chillers.Types.Economizer.None
+    if cfg.typEco <> Buildings.Templates.Plants.Chillers.Types.Economizer.None
     "WSE HX CW isolation valve control bus"
     annotation(Placement(transformation(extent={{-260,-220},{-220,-180}}),
       iconTransformation(extent={{-466,50},{-426,90}})));

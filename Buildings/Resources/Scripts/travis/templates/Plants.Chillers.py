@@ -31,7 +31,6 @@ import core
 
 MODELS = [
     'Buildings.Templates.Plants.Chillers.Validation.WaterCooled',
-    # 'Buildings.Templates.Plants.Chillers.Validation.WaterCooledG36',
 ]
 
 MODIF_GRID = {
@@ -54,44 +53,45 @@ MODIF_GRID = {
             'Buildings.Templates.Plants.Chillers.Components.Economizers.HeatExchangerWithValve',
             'Buildings.Templates.Plants.Chillers.Components.Economizers.None',
         ],
+        # Always enabled: have_senVChiWatPri is `final` true because typDisChiWat is `final`
+        # bound to Variable1Only.
+        pla__ctl__locSenFloChiWatPri=[
+            'Buildings.Templates.Plants.Chillers.Types.SensorLocation.Return',
+            'Buildings.Templates.Plants.Chillers.Types.SensorLocation.Supply',
+        ],
+        # Always enabled for the same reason.
+        pla__ctl__have_senDpChiWatRemWir=[
+            'true',
+            'false',
+        ],
     ),
 }
 
 
 # See docstring of `prune_modifications` function for the structure of EXCLUDE.
 EXCLUDE = {
-    'Buildings.Templates.Plants.Chillers.Validation.WaterCooled': [
-        [
-            'Economizers.HeatExchanger',
-            'have_pumConWatVar_select=false',
-        ],
-        [
-            'typCtlHea=Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Types.HeadPressureControl.ByChiller',
-            'have_pumConWatVar_select=false',
-            'typValConWatChiIso_select=Buildings.Templates.Components.Types.Valve.TwoWayTwoPosition',
-        ],
-        [
-            'typCtlHea=Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Types.HeadPressureControl.ByPlant',
-            'have_pumConWatVar_select=false',
-            'typValConWatChiIso_select=Buildings.Templates.Components.Types.Valve.TwoWayTwoPosition',
-        ],
-    ],
 }
 
 # See docstring of `prune_modifications` function for the structure of REMOVE_MODIF.
 REMOVE_MODIF = {
     'Buildings.Templates.Plants.Chillers.Validation.WaterCooled': [
+        # chi.typValConWatChiIso_select (chiller CW isolation valve type) only has an effect if
+        # `enaTypValConWatChiIso` is true:
+        #   enaTypValConWatChiIso = typArrPumConWat == Headered
+        #     and (typCtlHea == NotRequired
+        #       or have_pumConWatVar and typEco == None)
+        # In Buildings.Templates.Plants.Chillers.WaterCooled, typArrPumConWat_select is `final`
+        # bound to Headered, so typArrPumConWat is always Headered here, and the condition
+        # simplifies to:
+        #   typCtlHea == NotRequired or (have_pumConWatVar_select and typEco == None)
+        # (have_pumConWatVar is forced to true whenever typEco <> None, see the second entry
+        # below, so the "have_pumConWatVar and typEco == None" term can only be true through
+        # have_pumConWatVar_select). Hence, when typCtlHea <> NotRequired, the valve type
+        # selection is redundant (final value forced to TwoWayModulating) unless there is no WSE
+        # and the user selected variable-speed CW pumps.
         (
             [
-                'Buildings.Templates.Plants.Chillers.Types.ChillerLiftControl.(?!None)',
-            ],
-            [
-                'typValConWatChiIso_select',
-            ],
-        ),
-        (
-            [
-                'have_pumConWatVar_select=true',
+                'Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Types.HeadPressureControl.(?!NotRequired)',
                 'Buildings.Templates.Plants.Chillers.Components.Economizers.(?!None)',
             ],
             [
@@ -100,11 +100,18 @@ REMOVE_MODIF = {
         ),
         (
             [
+                'Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Types.HeadPressureControl.(?!NotRequired)',
+                'have_pumConWatVar_select=false',
+            ],
+            [
+                'typValConWatChiIso_select',
+            ],
+        ),
+        (
+            [
                 'Buildings.Templates.Plants.Chillers.Components.Economizers.(?!None)',
             ],
             [
-                'typArrPumChiWatPri_select',
-                'typArrPumConWat_select',
                 'have_pumConWatVar_select',
             ],
         ),
