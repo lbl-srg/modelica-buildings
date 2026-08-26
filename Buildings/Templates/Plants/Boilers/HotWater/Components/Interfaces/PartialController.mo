@@ -41,15 +41,13 @@ block PartialController
           and cfg.typPumHeaWatSec <>
             Buildings.Templates.Plants.Boilers.HotWater.Types.PumpsSecondary.None
           and (cfg.have_boiCon and cfg.have_pumHeaWatPriVarCon
-            or cfg.have_boiNon and cfg.have_pumHeaWatPriVarNon)));
+          or cfg.have_boiNon and cfg.have_pumHeaWatPriVarNon)));
+  // Primary flow sensor required in
+  // - primary-only plants
+  // - primary-secondary plants in the condensing boiler loop (if any)
+  // - variable primary-variable secondary plants in the non-condensing boiler loop
+  //   if using flow difference for primary pump control.
   final parameter Boolean have_senVHeaWatPriCon = cfg.have_boiCon
-    and (if cfg.have_pumHeaWatPriVarCon
-      and cfg.typPumHeaWatSec <>
-        Buildings.Templates.Plants.Boilers.HotWater.Types.PumpsSecondary.None
-      then typMeaCtlHeaWatPri ==
-        Buildings.Templates.Plants.Boilers.HotWater.Types.PrimaryOverflowMeasurement.FlowDifference
-      else cfg.typPumHeaWatSec ==
-        Buildings.Templates.Plants.Boilers.HotWater.Types.PumpsSecondary.None)
     "Set to true for primary HW flow sensor - Condensing boilers"
     annotation(Evaluate=true,
       Dialog(group="Configuration"));
