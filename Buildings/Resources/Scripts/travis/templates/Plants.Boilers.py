@@ -97,6 +97,8 @@ EXCLUDE = {}
 # See docstring of `prune_modifications` function for the structure of REMOVE_MODIF.
 REMOVE_MODIF = {
     'Buildings.Templates.Plants.Boilers.HotWater.Validation.BoilerPlant': [
+        # PartialController.typMeaCtlHeaWatPri and .locSenVHeaWatSec are enabled only if
+        # cfg.typPumHeaWatSec <> None
         (
             [
                 'typ=Buildings.Templates.Plants.Boilers.HotWater.Types.Boiler.(?!Hybrid)',
@@ -109,7 +111,8 @@ REMOVE_MODIF = {
         ),
         (
             [
-                'typPumHeaWatSec(1|2)_select=Buildings.Templates.Plants.Boilers.HotWater.Types.PumpsSecondary.(?!None)',
+                'typ=Buildings.Templates.Plants.Boilers.HotWater.Types.Boiler.Condensing',
+                'typPumHeaWatSec1_select=Buildings.Templates.Plants.Boilers.HotWater.Types.PumpsSecondary.(?!None)',
                 'typMeaCtlHeaWatPri=Buildings.Templates.Plants.Boilers.HotWater.Types.PrimaryOverflowMeasurement.(?!FlowDifference)',
             ],
             [
@@ -118,9 +121,9 @@ REMOVE_MODIF = {
         ),
         (
             [
-                'typ=Buildings.Templates.Plants.Boilers.HotWater.Types.Boiler.(Non)?Condensing',
+                'typ=Buildings.Templates.Plants.Boilers.HotWater.Types.Boiler.NonCondensing',
                 'typPumHeaWatSec1_select=Buildings.Templates.Plants.Boilers.HotWater.Types.PumpsSecondary.(?!None)',
-                'typPumHeaWatPri(Con|Non)=Buildings.Templates.Plants.Boilers.HotWater.Types.PumpsPrimary.(Factory)?Constant',
+                'typPumHeaWatPriNon=Buildings.Templates.Plants.Boilers.HotWater.Types.PumpsPrimary.(Factory)?Constant',
             ],
             [
                 'typMeaCtlHeaWatPri',
@@ -129,15 +132,16 @@ REMOVE_MODIF = {
         ),
         (
             [
-                'typ=Buildings.Templates.Plants.Boilers.HotWater.Types.Boiler.(Non)?Condensing',
+                'typ=Buildings.Templates.Plants.Boilers.HotWater.Types.Boiler.NonCondensing',
                 'typPumHeaWatSec1_select=Buildings.Templates.Plants.Boilers.HotWater.Types.PumpsSecondary.(?!None)',
-                'typPumHeaWatPri(Con|Non)=Buildings.Templates.Plants.Boilers.HotWater.Types.PumpsPrimary.(Factory)?Variable',
+                'typPumHeaWatPriNon=Buildings.Templates.Plants.Boilers.HotWater.Types.PumpsPrimary.(Factory)?Variable',
                 'typMeaCtlHeaWatPri=Buildings.Templates.Plants.Boilers.HotWater.Types.PrimaryOverflowMeasurement.(?!FlowDifference)',
             ],
             [
                 'locSenVHeaWatPri',
             ],
         ),
+        # PartialBoilerPlant parameters specific to the non-condensing boiler loop
         (
             [
                 'typ=Buildings.Templates.Plants.Boilers.HotWater.Types.Boiler.Condensing',
@@ -149,6 +153,7 @@ REMOVE_MODIF = {
                 'have_boiNonZerFlo',
             ],
         ),
+        # PartialBoilerPlant parameters specific to the condensing boiler loop
         (
             [
                 'typ=Buildings.Templates.Plants.Boilers.HotWater.Types.Boiler.NonCondensing',
@@ -156,7 +161,6 @@ REMOVE_MODIF = {
             [
                 'typArrPumHeaWatPriCon_select',
                 'nBoiCon_select',
-                'typPumHeaWatPriCon',
                 'have_boiConZerFlo',
             ],
         ),
