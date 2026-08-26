@@ -142,7 +142,8 @@ North &amp; South wall, Ceiling, Floor: Fixed heat flux at <i>0</i> W/m<sup>2</s
 Figure (a)
 </p>
 <p>
-Figure (b) shows the velocity vectors and temperature contour in degree Celsius on the X-Z plane at <i>Y = 0.5</i> m as simulated by the FFD.
+Figure (b) shows the velocity vectors and temperature contour in degree Celsius on
+the X-Z plane at <i>Y = 0.5</i> m as simulated by the FFD.
 </p>
 <p align=\"center\">
 <img alt=\"image\" src=\"modelica://Buildings/Resources/Images/ThermalZones/Detailed/Examples/FFD/Tutorial/NaturalConvection.png\" border=\"1\"/>
@@ -169,13 +170,16 @@ Add the following component models to the <code>NaturalConvection</code> model:
 This model is used to implement the data exchange between Modelica and FFD. Name it as <code>roo</code>.
 </li>
 <li>
-<a href=\"modelica://Buildings.BoundaryConditions.WeatherData.ReaderTMY3\">Buildings.BoundaryConditions.WeatherData.ReaderTMY3</a>.
+<a href=\"modelica://Buildings.BoundaryConditions.WeatherData.ReaderTMY3\">
+Buildings.BoundaryConditions.WeatherData.ReaderTMY3</a>.
 Use weather data from OHare Intl. Airport, Chicago, Illinois, U.S.A. Name it as <code>weaDat</code>.
 </li>
 <li>
 <a href=\"modelica://Modelica.Blocks.Sources.Constant\">Modelica.Blocks.Sources.Constant</a>.
-Three models are needed to specify that internal radiation, internal convective heat gain and internal latent heat gain  zero.
-Name these models as <code>qRadGai_flow</code>, <code>qConGai_flow</code> and <code>qLatGai_flow</code>, respectively.
+Three models are needed to specify that internal radiation, internal convective heat
+gain and internal latent heat gain  zero.
+Name these models as <code>qRadGai_flow</code>, <code>qConGai_flow</code> and
+<code>qLatGai_flow</code>, respectively.
 </li>
 <li>
 <a href=\"modelica://Modelica.Blocks.Routing.Multiplex3\">Modelica.Blocks.Routing.Multiplex3</a>.
@@ -279,10 +283,12 @@ Use a 20 x 20 x 20 uniform grid.
 Set the time step size of the FFD to <i>10</i> seconds.
 </li>
 <li>
-Generate the input files which have the default names <code>input.cfd</code> (mesh file) and <code>zeroone.dat</code> (obstacles file).
+Generate the input files which have the default names <code>input.cfd</code> (mesh file)
+and <code>zeroone.dat</code> (obstacles file).
 </li>
 <li>
-Rename the files as <code>NaturalConvection.cfd</code> and <code>NaturalConvection.dat</code>, respectively.
+Rename the files as <code>NaturalConvection.cfd</code> and <code>NaturalConvection.dat</code>,
+respectively.
 </li>
 </ul>
 </li>
@@ -311,15 +317,18 @@ Revise the FFD parameter input file <code>NaturalConvection.ffd</code>
   init.w 0.0 // Initial condition for velocity w
 </pre>
 <p>
-Please note that some of the physical properties were manipulated to obtain the desired Rayleigh Number of <i>10<sup>5</sup></i>.
+Please note that some of the physical properties were manipulated to obtain the
+desired Rayleigh Number of <i>10<sup>5</sup></i>.
 </p>
 </li>
 <li>
-Store <code>NaturalConvection.ffd</code>, <code>NaturalConvection.dat</code>, and <code>NaturalConvection.cfd</code>
+Store <code>NaturalConvection.ffd</code>, <code>NaturalConvection.dat</code>, and
+<code>NaturalConvection.cfd</code>
 at <code>Buildings/Resources/Data/ThermalZones/Detailed/Examples/FFD/Tutorial</code>.
 </li>
 <li>
-Set simulation the stop time of the Modelica model <code>3600</code> seconds and choose for example the CVode solver.
+Set simulation the stop time of the Modelica model <code>3600</code> seconds and
+choose for example the CVode solver.
 </li>
 <li>
 Translate the model and start the simulation.
@@ -335,7 +344,8 @@ Note: Tecplot is needed for this.
 <ul>
 <li>
 September 16, 2021, by Michael Wetter:<br/>
-Removed assignment of parameter <code>lat</code> as this is now obtained from the weather data reader.<br/>
+Removed assignment of parameter <code>lat</code> as this is now obtained from the
+weather data reader.<br/>
 This is for
 <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1477\">IBPSA, #1477</a>.
 </li>

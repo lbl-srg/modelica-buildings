@@ -135,11 +135,13 @@ with the FFD program by simulating ventilation with mixed convection in an empty
 </p>
 <h4>Case Description</h4>
 <p>
-The temperature of the floor is fixed at <i>30</i>&deg;C and the temperature of the walls and the ceiling are fixed
+The temperature of the floor is fixed at <i>30</i>&deg;C and the temperature of the
+walls and the ceiling are fixed
 at <i>10</i>&deg;C. The supply air temperature is fixed at <i>10</i>&deg;C.
 </p>
 <p>
-Figure (a) shows the schematic of the FFD simulation and Figure (b) shows the velocity vectors and temperatures on the X-Z plane at <i>Y = 0.5</i> m as simulated by the FFD.
+Figure (a) shows the schematic of the FFD simulation and Figure (b) shows the velocity
+vectors and temperatures on the X-Z plane at <i>Y = 0.5</i> m as simulated by the FFD.
 </p>
 <p align=\"center\">
 <img alt=\"image\" src=\"modelica://Buildings/Resources/Images/ThermalZones/Detailed/Examples/FFD/Tutorial/MixedConvectionSchematic.png\" border=\"1\"/>
@@ -169,14 +171,17 @@ This model is used to implement data exchange between Modelica and FFD.
 Name it as <code>roo</code>.
 </li>
 <li>
-<a href=\"modelica://Buildings.BoundaryConditions.WeatherData.ReaderTMY3\">Buildings.BoundaryConditions.WeatherData.ReaderTMY3</a>.
+<a href=\"modelica://Buildings.BoundaryConditions.WeatherData.ReaderTMY3\">
+Buildings.BoundaryConditions.WeatherData.ReaderTMY3</a>.
 Use weather data from OHare Intl. Airport, Chicago, Illinois, U.S.A.
 Name it as <code>weaDat</code>.
 </li>
 <li>
 <a href=\"modelica://Modelica.Blocks.Sources.Constant\">Modelica.Blocks.Sources.Constant</a>.
-Three models are needed to specify that internal radiation, internal convective heat gain and internal latent heat gain are zero.
-Name these models as <code>qRadGai_flow</code>, <code>qConGai_flow</code> and <code>qLatGai_flow</code>, respectively.
+Three models are needed to specify that internal radiation, internal convective heat
+gain and internal latent heat gain are zero.
+Name these models as <code>qRadGai_flow</code>, <code>qConGai_flow</code> and
+<code>qLatGai_flow</code>, respectively.
 </li>
 <li>
 <a href=\"modelica://Modelica.Blocks.Routing.Multiplex3\">Modelica.Blocks.Routing.Multiplex3</a>.
@@ -347,11 +352,13 @@ Revise the FFD parameter input file <code>MixedConvection.ffd</code>
 </pre>
 </li>
 <li>
-Put the files <code>MixedConvection.ffd</code>, <code>MixedConvection.dat</code>, and <code>MixedConvection.cfd</code> in the
+Put the files <code>MixedConvection.ffd</code>, <code>MixedConvection.dat</code>,
+and <code>MixedConvection.cfd</code> in the
 directory <code>Buildings/Resources/Data/ThermalZones/Detailed/Examples/FFD/Tutorial/</code>.
 </li>
 <li>
-Set the simulation stop time of the Modelica model to <code>180</code> seconds and choose, for example, the CVode solver.
+Set the simulation stop time of the Modelica model to <code>180</code> seconds and
+choose, for example, the CVode solver.
 </li>
 <li>
 Translate the model and start the simulation.
