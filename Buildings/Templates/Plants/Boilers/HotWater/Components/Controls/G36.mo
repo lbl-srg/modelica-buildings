@@ -8,9 +8,9 @@ block G36
     annotation(Dialog(tab="General",
       group="Configuration",
       enable=cfg.typArrPumHeaWatPriCon ==
-    Buildings.Templates.Components.Types.PumpArrangement.Headered
-    or cfg.typArrPumHeaWatPriNon ==
-      Buildings.Templates.Components.Types.PumpArrangement.Headered));
+        Buildings.Templates.Components.Types.PumpArrangement.Headered
+        or cfg.typArrPumHeaWatPriNon ==
+          Buildings.Templates.Components.Types.PumpArrangement.Headered));
   final parameter Boolean have_priOnl = cfg.typPumHeaWatSec ==
     Buildings.Templates.Plants.Boilers.HotWater.Types.PumpsSecondary.None
     "Is the boiler plant a primary-only, condensing boiler plant?";
@@ -195,6 +195,27 @@ initial equation
     "In " + getInstanceName() + ": " +
       "The plant model requires at least one air handler or one zone equipment " +
       "generating HW plant requests and HW reset requests.");
+  assert(
+    if ctlLooPri.have_heaPriPum
+      then (cfg.typ ==
+        Buildings.Templates.Plants.Boilers.HotWater.Types.Boiler.Condensing
+        and cfg.typArrPumHeaWatPriCon ==
+          Buildings.Templates.Components.Types.PumpArrangement.Headered
+        or cfg.typ ==
+          Buildings.Templates.Plants.Boilers.HotWater.Types.Boiler.NonCondensing
+          and cfg.typArrPumHeaWatPriNon ==
+            Buildings.Templates.Components.Types.PumpArrangement.Headered)
+      else (cfg.typ ==
+        Buildings.Templates.Plants.Boilers.HotWater.Types.Boiler.Condensing
+        and cfg.typArrPumHeaWatPriCon ==
+          Buildings.Templates.Components.Types.PumpArrangement.Dedicated
+        or cfg.typ ==
+          Buildings.Templates.Plants.Boilers.HotWater.Types.Boiler.NonCondensing
+          and cfg.typArrPumHeaWatPriNon ==
+            Buildings.Templates.Components.Types.PumpArrangement.Dedicated),
+    "In " + getInstanceName() + ": " +
+      "The plant model is configured with a different primary pump arrangement than its controller (ctl.ctlLooPri.have_heaPriPum is " +
+      String(ctlLooPri.have_heaPriPum) + ").");
 equation
   /* Control point connection - start */
   // Primary loop controller inputs from plant control bus

@@ -41,7 +41,7 @@ block PartialController
           and cfg.typPumHeaWatSec <>
             Buildings.Templates.Plants.Boilers.HotWater.Types.PumpsSecondary.None
           and (cfg.have_boiCon and cfg.have_pumHeaWatPriVarCon
-          or cfg.have_boiNon and cfg.have_pumHeaWatPriVarNon)));
+            or cfg.have_boiNon and cfg.have_pumHeaWatPriVarNon)));
   // Primary flow sensor required in
   // - primary-only plants
   // - primary-secondary plants in the condensing boiler loop (if any)
