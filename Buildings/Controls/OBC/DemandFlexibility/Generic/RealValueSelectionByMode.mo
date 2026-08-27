@@ -32,16 +32,16 @@ protected
   Buildings.Controls.OBC.CDL.Reals.MultiplyByParameter pasThrDef(final k=1)
     if not use_pre
     "Simple pass-through block for the default mode input value"
-    annotation (Placement(transformation(extent={{20,-20},{40,0}})));
+    annotation (Placement(transformation(extent={{20,20},{40,40}})));
   Buildings.Controls.OBC.CDL.Reals.Switch swiPre if use_pre
     "True: output the value for the pre-cool or pre-heat mode; False: output the value for the default mode"
-    annotation (Placement(transformation(extent={{20,80},{40,100}})));
+    annotation (Placement(transformation(extent={{20,90},{40,110}})));
   Buildings.Controls.OBC.CDL.Reals.Switch swiShe
     "True: output the value for the load-shed mode; False: output the value for other demand flexibility modes"
-    annotation (Placement(transformation(extent={{60,0},{80,20}})));
+    annotation (Placement(transformation(extent={{60,-10},{80,10}})));
   Buildings.Controls.OBC.CDL.Reals.Switch swiReb
     "True: output the value for the load-rebound mode; False: output the value for other demand flexibility modes"
-    annotation (Placement(transformation(extent={{100,-80},{120,-60}})));
+    annotation (Placement(transformation(extent={{100,-70},{120,-50}})));
   Buildings.Controls.OBC.CDL.Integers.Equal intEquPre if use_pre
     "Check whether it is the pre-cool or pre-heat mode"
     annotation (Placement(transformation(extent={{-40,60},{-20,80}})));
@@ -52,68 +52,66 @@ protected
     annotation (Placement(transformation(extent={{-80,40},{-60,60}})));
   Buildings.Controls.OBC.CDL.Integers.Equal intEquShe
     "Check whether it is the load-shed mode"
-    annotation (Placement(transformation(extent={{-40,0},{-20,20}})));
+    annotation (Placement(transformation(extent={{-40,-20},{-20,0}})));
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant conIntShe(
     final k=Buildings.Controls.OBC.DemandFlexibility.Types.DemandFlexibilityModes.loadShed)
     "Integer constant for the load-shed mode"
-    annotation (Placement(transformation(extent={{-80,-20},{-60,0}})));
+    annotation (Placement(transformation(extent={{-80,-40},{-60,-20}})));
   Buildings.Controls.OBC.CDL.Integers.Equal intEquReb
     "Check whether it is the load-rebound mode"
-    annotation (Placement(transformation(extent={{-40,-60},{-20,-40}})));
+    annotation (Placement(transformation(extent={{-40,-90},{-20,-70}})));
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant conIntReb(
     final k=Buildings.Controls.OBC.DemandFlexibility.Types.DemandFlexibilityModes.loadRebound)
     "Integer constant for the load-rebound mode"
-    annotation (Placement(transformation(extent={{-80,-80},{-60,-60}})));
+    annotation (Placement(transformation(extent={{-80,-110},{-60,-90}})));
 equation
   connect(uPre, swiPre.u1)
-    annotation (Line(points={{-160,40},{-130,40},{-130,98},{18,98}},
+    annotation (Line(points={{-160,40},{-130,40},{-130,108},{18,108}},
       color={0,0,127}));
   connect(swiReb.y, y)
-    annotation (Line(points={{122,-70},{130,-70},{130,0},{160,0}},
+    annotation (Line(points={{122,-60},{130,-60},{130,0},{160,0}},
       color={0,0,127}));
   connect(intEquPre.y, swiPre.u2)
-    annotation (Line(points={{-18,70},{10,70},{10,90},{18,90}}, color={255,0,255}));
+    annotation (Line(points={{-18,70},{10,70},{10,100},{18,100}}, color={255,0,255}));
   connect(conIntShe.y, intEquShe.u2)
-    annotation (Line(points={{-58,-10},{-50,-10},{-50,2},{-42,2}},
+    annotation (Line(points={{-58,-30},{-50,-30},{-50,-18},{-42,-18}},
       color={255,127,0}));
   connect(demFleMod, intEquShe.u1)
-    annotation (Line(points={{-160,80},{-100,80},{-100,10},{-42,10}},
+    annotation (Line(points={{-160,80},{-90,80},{-90,-10},{-42,-10}},
       color={255,127,0}));
   connect(demFleMod, intEquReb.u1)
-    annotation (Line(points={{-160,80},{-100,80},{-100,-50},{-42,-50}},
+    annotation (Line(points={{-160,80},{-90,80},{-90,-80},{-42,-80}},
       color={255,127,0}));
   connect(conIntReb.y, intEquReb.u2)
-    annotation (Line(points={{-58,-70},{-50,-70},{-50,-58},{-42,-58}},
+    annotation (Line(points={{-58,-100},{-50,-100},{-50,-88},{-42,-88}},
       color={255,127,0}));
   connect(intEquShe.y, swiShe.u2)
-    annotation (Line(points={{-18,10},{58,10}}, color={255,0,255}));
+    annotation (Line(points={{-18,-10},{20,-10},{20,0},{58,0}}, color={255,0,255}));
   connect(intEquReb.y, swiReb.u2)
-    annotation (Line(points={{-18,-50},{40,-50},{40,-70},{98,-70}},
+    annotation (Line(points={{-18,-80},{40,-80},{40,-60},{98,-60}},
       color={255,0,255}));
   connect(uShe, swiShe.u1)
-    annotation (Line(points={{-160,-40},{-110,-40},{-110,-100},{0,-100},{0,18},
-      {58,18}}, color={0,0,127}));
+    annotation (Line(points={{-160,-40},{-110,-40},{-110,8},{58,8}}, color={0,0,127}));
   connect(uReb, swiReb.u1)
-    annotation (Line(points={{-160,-80},{-120,-80},{-120,-110},{60,-110},{60,-62},
-      {98,-62}}, color={0,0,127}));
+    annotation (Line(points={{-160,-80},{-100,-80},{-100,-52},{98,-52}}, color={0,0,127}));
   connect(swiPre.y, swiShe.u3)
-    annotation (Line(points={{42,90},{50,90},{50,2},{58,2}}, color={0,0,127}));
+    annotation (Line(points={{42,100},{50,100},{50,-8},{58,-8}}, color={0,0,127}));
   connect(swiShe.y, swiReb.u3)
-    annotation (Line(points={{82,10},{90,10},{90,-78},{98,-78}}, color={0,0,127}));
+    annotation (Line(points={{82,0},{90,0},{90,-68},{98,-68}}, color={0,0,127}));
   connect(uDef, swiPre.u3)
-    annotation (Line(points={{-160,0},{-120,0},{-120,90},{0,90},{0,82},{18,82}},
+    annotation (Line(points={{-160,0},{-120,0},{-120,92},{18,92}},
       color={0,0,127}));
   connect(conIntPre.y, intEquPre.u2)
     annotation (Line(points={{-58,50},{-50,50},{-50,62},{-42,62}},
       color={255,127,0}));
   connect(demFleMod, intEquPre.u1)
-    annotation (Line(points={{-160,80},{-100,80},{-100,70},{-42,70}},
+    annotation (Line(points={{-160,80},{-90,80},{-90,70},{-42,70}},
       color={255,127,0}));
   connect(uDef, pasThrDef.u)
-    annotation (Line(points={{-160,0},{-120,0},{-120,-30},{10,-30},{10,-10},
-      {18,-10}}, color={0,0,127}));
+    annotation (Line(points={{-160,0},{-120,0},{-120,30},{18,30}},
+      color={0,0,127}));
   connect(pasThrDef.y, swiShe.u3)
-    annotation (Line(points={{42,-10},{50,-10},{50,2},{58,2}}, color={0,0,127}));
+    annotation (Line(points={{42,30},{50,30},{50,-8},{58,-8}}, color={0,0,127}));
   annotation (defaultComponentName="reaValSelByMod",
     Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}},
     grid={2,2}), graphics={Rectangle(

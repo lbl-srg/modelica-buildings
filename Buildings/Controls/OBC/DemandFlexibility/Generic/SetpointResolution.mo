@@ -7,7 +7,7 @@ block SetpointResolution "Setpoint resolution"
     "Reference setpoint for resolution calculation; set to 293.15 for temperature setpoints and zero for other setpoints";
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uSet "Setpoint input"
-    annotation (Placement(transformation(extent={{-160,-20},{-120,20}}),
+    annotation (Placement(transformation(extent={{-160,26},{-120,66}}),
         iconTransformation(extent={{-140,-20},{-100,20}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput ySet
     "Setpoint output that follows the resolution interval"
@@ -16,13 +16,13 @@ block SetpointResolution "Setpoint resolution"
 protected
   Buildings.Controls.OBC.CDL.Reals.AddParameter subRefSet(final p=-refSet)
     "Subtract the reference setpoint"
-    annotation (Placement(transformation(extent={{-100,-10},{-80,10}})));
+    annotation (Placement(transformation(extent={{-100,36},{-80,56}})));
   Buildings.Controls.OBC.CDL.Reals.Divide div
     "Divide the difference from the reference setpoint by the resolution interval to get the number of resolution intervals"
-    annotation (Placement(transformation(extent={{-40,-10},{-20,10}})));
+    annotation (Placement(transformation(extent={{-40,30},{-20,50}})));
   Buildings.Controls.OBC.CDL.Reals.Round rouNumResInt(final n=0)
     "Round the number of resolution intervals to an integer"
-    annotation (Placement(transformation(extent={{0,-10},{20,10}})));
+    annotation (Placement(transformation(extent={{0,30},{20,50}})));
   Buildings.Controls.OBC.CDL.Reals.Multiply mul
     "Multiple the integer number of resolution intervals by the resolution interval"
     annotation (Placement(transformation(extent={{40,-10},{60,10}})));
@@ -34,20 +34,20 @@ protected
     annotation (Placement(transformation(extent={{-100,-80},{-80,-60}})));
 equation
   connect(subRefSet.y, div.u1)
-    annotation (Line(points={{-78,0},{-60,0},{-60,6},{-42,6}}, color={0,0,127}));
+    annotation (Line(points={{-78,46},{-42,46}}, color={0,0,127}));
   connect(div.y, rouNumResInt.u)
-    annotation (Line(points={{-18,0},{-2,0}}, color={0,0,127}));
+    annotation (Line(points={{-18,40},{-2,40}}, color={0,0,127}));
   connect(rouNumResInt.y, mul.u1)
-    annotation (Line(points={{22,0},{30,0},{30,6},{38,6}}, color={0,0,127}));
+    annotation (Line(points={{22,40},{30,40},{30,6},{38,6}}, color={0,0,127}));
   connect(addRefSet.y, ySet)
     annotation (Line(points={{102,0},{140,0}}, color={0,0,127}));
   connect(conResInt.y, div.u2)
-    annotation (Line(points={{-78,-70},{-60,-70},{-60,-6},{-42,-6}},
+    annotation (Line(points={{-78,-70},{-60,-70},{-60,34},{-42,34}},
     color={0,0,127}));
   connect(conResInt.y, mul.u2)
-    annotation (Line(points={{-78,-70},{30,-70},{30,-6},{38,-6}}, color={0,0,127}));
+    annotation (Line(points={{-78,-70},{-60,-70},{-60,-6},{38,-6}}, color={0,0,127}));
   connect(uSet, subRefSet.u)
-    annotation (Line(points={{-140,0},{-102,0}}, color={0,0,127}));
+    annotation (Line(points={{-140,46},{-102,46}}, color={0,0,127}));
   connect(mul.y, addRefSet.u)
     annotation (Line(points={{62,0},{78,0}}, color={0,0,127}));
   annotation (defaultComponentName="setRes",

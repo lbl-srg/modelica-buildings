@@ -157,7 +157,7 @@ protected
   Buildings.Controls.OBC.CDL.Routing.IntegerScalarReplicator repDemFleMod(
     final nout=nZon)
     "Repeat the demand flexibility mode as a vector"
-    annotation (Placement(transformation(extent={{-40,-60},{-20,-40}})));
+    annotation (Placement(transformation(extent={{-40,-50},{-20,-30}})));
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant conNSel(
     final k=nSel)
     if nZon>1
@@ -208,24 +208,25 @@ equation
     annotation (Line(points={{-240,40},{-140,40},{-140,92},{58,92}},
       color={0,0,127}));
   connect(TCurZonSet, zonPri.TZonSet)
-    annotation (Line(points={{-240,0},{-40,0},{-40,88},{58,88}}, color={0,0,127}));
+    annotation (Line(points={{-240,0},{-130,0},{-130,88},{58,88}},
+                                                                 color={0,0,127}));
   connect(demFleMod, repDemFleMod.u)
-    annotation (Line(points={{-240,-40},{-120,-40},{-120,-50},{-42,-50}},
+    annotation (Line(points={{-240,-40},{-42,-40}},
       color={255,127,0}));
   connect(repDemFleMod.y, zonCon.demFleMod)
-    annotation (Line(points={{-18,-50},{80,-50},{80,-104},{118,-104}},
+    annotation (Line(points={{-18,-40},{80,-40},{80,-104},{118,-104}},
       color={255,127,0}));
   connect(TCurZonSet, zonCon.TCurZonSet)
-    annotation (Line(points={{-240,0},{60,0},{60,-108.2},{118,-108.2}},
+    annotation (Line(points={{-240,0},{-130,0},{-130,-108.2},{118,-108.2}},
       color={0,0,127}));
   connect(TPreTarSet, zonCon.TPreTarSet)
-    annotation (Line(points={{-240,-80},{40,-80},{40,-112},{118,-112}},
+    annotation (Line(points={{-240,-80},{-110,-80},{-110,-112},{118,-112}},
       color={0,0,127}));
   connect(TSheTarSet, zonCon.TSheTarSet)
-    annotation (Line(points={{-240,-120},{80,-120},{80,-116},{118,-116}},
+    annotation (Line(points={{-240,-120},{-100,-120},{-100,-116},{118,-116}},
       color={0,0,127}));
   connect(TDefSet, zonCon.TDefSet)
-    annotation (Line(points={{-240,-160},{100,-160},{100,-120},{118,-120}},
+    annotation (Line(points={{-240,-160},{-90,-160},{-90,-120},{118,-120}},
       color={0,0,127}));
   connect(conNSel.y, zonPri.nSel)
     annotation (Line(points={{22,50},{40,50},{40,84},{58,84}}, color={255,127,0}));

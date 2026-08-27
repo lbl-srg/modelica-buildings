@@ -11,7 +11,7 @@ block SetpointChange "Setpoint change"
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uAllMaxSet
     "Allowed maximum setpoint"
-    annotation (Placement(transformation(extent={{-200,-60},{-160,-20}}),
+    annotation (Placement(transformation(extent={{-200,-80},{-160,-40}}),
         iconTransformation(extent={{-140,-38},{-100,2}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uAllMinSet
     "Allowed minimum setpoint"
@@ -27,74 +27,75 @@ block SetpointChange "Setpoint change"
         iconTransformation(extent={{-140,40},{-100,80}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput y
     "New setpoint"
-    annotation (Placement(transformation(extent={{160,-20},{200,20}}),
+    annotation (Placement(transformation(extent={{160,-100},{200,-60}}),
         iconTransformation(extent={{100,-20},{140,20}})));
 protected
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant conAscSet(final k=ascSet)
     "Constant for ascending setpoint change"
-    annotation (Placement(transformation(extent={{-140,60},{-120,80}})));
+    annotation (Placement(transformation(extent={{-140,80},{-120,100}})));
   Buildings.Controls.OBC.CDL.Reals.Switch swiEna
     "Switch for enabling setpoint change"
-    annotation (Placement(transformation(extent={{0,-60},{20,-40}})));
+    annotation (Placement(transformation(extent={{0,-50},{20,-30}})));
   Buildings.Controls.OBC.CDL.Reals.Min uCurSetAllMin
     "Current setpoint should not be smaller than the allowed minimum setpoint"
-    annotation (Placement(transformation(extent={{120,-10},{140,10}})));
+    annotation (Placement(transformation(extent={{120,-90},{140,-70}})));
   Buildings.Controls.OBC.CDL.Reals.Max uCurSetAllMax
     "Current setpoint should not be larger than the allowed maximum setpoint"
-    annotation (Placement(transformation(extent={{60,-10},{80,10}})));
+    annotation (Placement(transformation(extent={{60,-112},{80,-92}})));
   Buildings.Controls.OBC.CDL.Conversions.BooleanToReal sigChaSetChaDel(
     final realTrue=setChaDel,
     final realFalse=-1*setChaDel)
     if use_mulSteSetCha
     "Sign change for the setpoint change delta"
-    annotation (Placement(transformation(extent={{-100,60},{-80,80}})));
+    annotation (Placement(transformation(extent={{-100,80},{-80,100}})));
   Buildings.Controls.OBC.CDL.Reals.Add addCurSet if use_mulSteSetCha
     "Adding setpoint change delta to the current setpoint"
-    annotation (Placement(transformation(extent={{-60,60},{-40,80}})));
+    annotation (Placement(transformation(extent={{-60,36},{-40,56}})));
   Buildings.Controls.OBC.CDL.Reals.Switch swiMinMax if not use_mulSteSetCha
     "Switch between the allowed minimum and maximum setpoints"
-    annotation (Placement(transformation(extent={{-60,-20},{-40,0}})));
+    annotation (Placement(transformation(extent={{-60,-10},{-40,10}})));
 equation
   connect(uEna, swiEna.u2)
-    annotation (Line(points={{-180,120},{-10,120},{-10,-50},{-2,-50}},
+    annotation (Line(points={{-180,120},{-10,120},{-10,-40},{-2,-40}},
       color={255,0,255}));
   connect(uCurSet, swiEna.u3)
-    annotation (Line(points={{-180,40},{-140,40},{-140,-58},{-2,-58}},
+    annotation (Line(points={{-180,40},{-140,40},{-140,-48},{-2,-48}},
       color={0,0,127}));
   connect(uAllMaxSet,uCurSetAllMin. u1)
-    annotation (Line(points={{-180,-40},{-120,-40},{-120,30},{100,30},{100,6},
-      {118,6}}, color={0,0,127}));
+    annotation (Line(points={{-180,-60},{-120,-60},{-120,-74},{118,-74}},
+      color={0,0,127}));
   connect(uCurSetAllMax.y,uCurSetAllMin. u2)
-    annotation (Line(points={{82,0},{100,0},{100,-6},{118,-6}}, color={0,0,127}));
+    annotation (Line(points={{82,-102},{100,-102},{100,-86},{118,-86}},
+      color={0,0,127}));
   connect(uCurSetAllMin.y, y)
-    annotation (Line(points={{142,0},{180,0}}, color={0,0,127}));
+    annotation (Line(points={{142,-80},{180,-80}}, color={0,0,127}));
   connect(conAscSet.y, sigChaSetChaDel.u)
-    annotation (Line(points={{-118,70},{-102,70}}, color={255,0,255}));
+    annotation (Line(points={{-118,90},{-102,90}}, color={255,0,255}));
   connect(addCurSet.y, swiEna.u1)
-    annotation (Line(points={{-38,70},{-20,70},{-20,-42},{-2,-42}},
+    annotation (Line(points={{-38,46},{-20,46},{-20,-32},{-2,-32}},
       color={0,0,127}));
   connect(uAllMaxSet,swiMinMax. u1)
-    annotation (Line(points={{-180,-40},{-120,-40},{-120,-2},{-62,-2}},
+    annotation (Line(points={{-180,-60},{-120,-60},{-120,8},{-62,8}},
       color={0,0,127}));
   connect(conAscSet.y, swiMinMax.u2)
-    annotation (Line(points={{-118,70},{-110,70},{-110,-10},{-62,-10}},
+    annotation (Line(points={{-118,90},{-110,90},{-110,0},{-62,0}},
       color={255,0,255}));
   connect(swiMinMax.y, swiEna.u1)
-    annotation (Line(points={{-38,-10},{-20,-10},{-20,-42},{-2,-42}},
+    annotation (Line(points={{-38,0},{-20,0},{-20,-32},{-2,-32}},
       color={0,0,127}));
   connect(swiMinMax.u3, uAllMinSet)
-    annotation (Line(points={{-62,-18},{-80,-18},{-80,-120},{-180,-120}},
+    annotation (Line(points={{-62,-8},{-100,-8},{-100,-120},{-180,-120}},
     color={0,0,127}));
   connect(sigChaSetChaDel.y, addCurSet.u1)
-    annotation (Line(points={{-78,70},{-70,70},{-70,76},{-62,76}},
+    annotation (Line(points={{-78,90},{-70,90},{-70,52},{-62,52}},
       color={0,0,127}));
   connect(uCurSet, addCurSet.u2)
-    annotation (Line(points={{-180,40},{-70,40},{-70,64},{-62,64}},
+    annotation (Line(points={{-180,40},{-62,40}},
       color={0,0,127}));
   connect(swiEna.y, uCurSetAllMax.u1)
-    annotation (Line(points={{22,-50},{40,-50},{40,6},{58,6}}, color={0,0,127}));
+    annotation (Line(points={{22,-40},{40,-40},{40,-96},{58,-96}}, color={0,0,127}));
   connect(uAllMinSet, uCurSetAllMax.u2)
-    annotation (Line(points={{-180,-120},{50,-120},{50,-6},{58,-6}},
+    annotation (Line(points={{-180,-120},{-100,-120},{-100,-108},{58,-108}},
       color={0,0,127}));
   annotation (defaultComponentName="setCha",
     Icon(coordinateSystem(preserveAspectRatio=false,
