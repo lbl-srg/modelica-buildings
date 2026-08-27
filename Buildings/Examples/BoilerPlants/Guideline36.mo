@@ -39,7 +39,7 @@ model Guideline36 "Closed loop testing model"
   Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.PrimaryController conBoiPri(
     controllerType_priPum=Buildings.Controls.OBC.CDL.Types.SimpleController.PI,
     final have_priOnl=false,
-    final have_heaPriPum=true,
+    final have_heaPriPum_select=true,
     final have_isoValSen=true,
     final have_secFloSen_select=false,
     final have_priTemSen_select=true,
