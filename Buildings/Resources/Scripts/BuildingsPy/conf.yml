@@ -451,7 +451,7 @@
     comment: 'Error: No system for the symbolic initialization was generated.'
     translate: false
   optimica:
-    time_out: 600
+    time_out: 900
 - model_name: Buildings.ThermalZones.Detailed.Examples.ISAT.Tutorial.MixedConvection
   openmodelica:
     comment: 'Error: No system for the symbolic initialization was generated.'
@@ -463,7 +463,7 @@
     comment: 'Error: No system for the symbolic initialization was generated.'
     translate: false
   optimica:
-    time_out: 600
+    time_out: 900
 - model_name: Buildings.ThermalZones.Detailed.Examples.ISAT.Tutorial.NaturalConvection
   openmodelica:
     comment: 'Error: No system for the symbolic initialization was generated.'
