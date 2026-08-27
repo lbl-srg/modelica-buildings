@@ -7,11 +7,14 @@ block G36
     "Set to true for isolation valve end switch status feedback"
     annotation(Dialog(tab="General",
       group="Configuration",
-      enable=have_heaPriPum));
+      enable=cfg.typArrPumHeaWatPriCon ==
+    Buildings.Templates.Components.Types.PumpArrangement.Headered
+    or cfg.typArrPumHeaWatPriNon ==
+      Buildings.Templates.Components.Types.PumpArrangement.Headered));
   final parameter Boolean have_priOnl = cfg.typPumHeaWatSec ==
     Buildings.Templates.Plants.Boilers.HotWater.Types.PumpsSecondary.None
     "Is the boiler plant a primary-only, condensing boiler plant?";
-  final parameter Boolean have_heaPriPum = cfg.typArrPumHeaWatPriCon ==
+  final parameter Boolean have_heaPriPum_select = cfg.typArrPumHeaWatPriCon ==
     Buildings.Templates.Components.Types.PumpArrangement.Headered
     or cfg.typArrPumHeaWatPriNon ==
       Buildings.Templates.Components.Types.PumpArrangement.Headered
@@ -114,7 +117,7 @@ block G36
     final boiDesFlo=boiDesFlo,
     final boiFirMin=boiFirMin,
     final boiTyp_select=boiTyp_select,
-    final have_heaPriPum=have_heaPriPum,
+    final have_heaPriPum_select=have_heaPriPum_select,
     final have_priOnl=have_priOnl,
     final have_priTemSen_select=have_priTemSen_select,
     final have_secFloSen_select=have_secFloSen_select,
