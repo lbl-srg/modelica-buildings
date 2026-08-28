@@ -247,12 +247,14 @@ block Controller
     "Speed regulation method"
     annotation (Dialog(group="Plant parameters", enable=have_varPriPum));
 
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uStaUp if not have_priOnl
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uStaUp
+    if not have_priOnl or not have_heaPriPum
     "Stage up signal"
     annotation (Placement(transformation(extent={{-320,-210},{-280,-170}}),
       iconTransformation(extent={{-140,90},{-100,130}})));
 
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uOnOff if not have_priOnl
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uOnOff
+    if not have_priOnl or not have_heaPriPum
     "Signal indicating stage change with simultaneous enabling and disabling of boilers"
     annotation (Placement(transformation(extent={{-320,-240},{-280,-200}}),
       iconTransformation(extent={{-140,60},{-100,100}})));
@@ -267,12 +269,14 @@ block Controller
     annotation (Placement(transformation(extent={{-320,90},{-280,130}}),
       iconTransformation(extent={{-140,210},{-100,250}})));
 
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uBoi[nBoi] if not have_priOnl
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uBoi[nBoi]
+    if not have_priOnl or not have_heaPriPum
     "Boiler enable signals"
     annotation (Placement(transformation(extent={{-320,-90},{-280,-50}}),
       iconTransformation(extent={{-140,120},{-100,160}})));
 
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uPumChaPro if not have_priOnl
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uPumChaPro
+    if not have_priOnl or not have_heaPriPum
     "Signal indicating start of pump change process"
     annotation (Placement(transformation(extent={{-320,-270},{-280,-230}}),
       iconTransformation(extent={{-140,30},{-100,70}})));
@@ -612,7 +616,8 @@ protected
     "Sum of integer inputs"
     annotation (Placement(transformation(extent={{-202,-250},{-182,-230}})));
 
-  Buildings.Controls.OBC.CDL.Logical.Or or1 if not have_priOnl
+  Buildings.Controls.OBC.CDL.Logical.Or or1
+    if not have_priOnl or not have_heaPriPum
     "Logical or"
     annotation (Placement(transformation(extent={{-250,-200},{-230,-180}})));
 
@@ -634,7 +639,8 @@ protected
     "Check if less boilers than pumps are enabled"
     annotation (Placement(transformation(extent={{-38,-250},{-18,-230}})));
 
-  Buildings.Controls.OBC.CDL.Logical.Latch lat if not have_priOnl
+  Buildings.Controls.OBC.CDL.Logical.Latch lat
+    if not have_priOnl or not have_heaPriPum
     "Hold true signal when a pump needs to be enabled for stage change"
     annotation (Placement(transformation(extent={{-200,-200},{-180,-180}})));
 
@@ -718,27 +724,33 @@ protected
     "Boolean False signal"
     annotation (Placement(transformation(extent={{128,0},{148,20}})));
 
-  Buildings.Controls.OBC.CDL.Logical.Latch lat1 if not have_priOnl
+  Buildings.Controls.OBC.CDL.Logical.Latch lat1
+    if not have_priOnl or not have_heaPriPum
     "Latch to hold process completion signal"
     annotation (Placement(transformation(extent={{-60,-400},{-40,-380}})));
 
-  Buildings.Controls.OBC.CDL.Logical.Xor xor[nPum] if not have_priOnl
+  Buildings.Controls.OBC.CDL.Logical.Xor xor[nPum]
+    if not have_priOnl or not have_heaPriPum
     "Check if all pumps are enabled and disabled as required"
     annotation (Placement(transformation(extent={{-180,-400},{-160,-380}})));
 
-  Buildings.Controls.OBC.CDL.Logical.Not not4[nPum] if not have_priOnl
+  Buildings.Controls.OBC.CDL.Logical.Not not4[nPum]
+    if not have_priOnl or not have_heaPriPum
     "True signal for pumps that are at correct state"
     annotation (Placement(transformation(extent={{-140,-400},{-120,-380}})));
 
-  Buildings.Controls.OBC.CDL.Logical.MultiAnd mulAnd(nin=nPum) if not have_priOnl
+  Buildings.Controls.OBC.CDL.Logical.MultiAnd mulAnd(nin=nPum)
+    if not have_priOnl or not have_heaPriPum
     "Check if all pumps are at desired status"
     annotation (Placement(transformation(extent={{-100,-400},{-80,-380}})));
 
-  Buildings.Controls.OBC.CDL.Logical.Pre pre1[nPum] if not have_priOnl
+  Buildings.Controls.OBC.CDL.Logical.Pre pre1[nPum]
+    if not have_priOnl or not have_heaPriPum
     "Logical pre block"
     annotation (Placement(transformation(extent={{-220,-400},{-200,-380}})));
 
-  Buildings.Controls.OBC.CDL.Logical.Not not5 if not have_priOnl
+  Buildings.Controls.OBC.CDL.Logical.Not not5
+    if not have_priOnl or not have_heaPriPum
     "Generate true signal when process is incomplete"
     annotation (Placement(transformation(extent={{-20,-400},{0,-380}})));
 

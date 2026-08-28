@@ -139,8 +139,8 @@ block Down
     annotation (Placement(transformation(extent={{280,20},{320,60}}),
       iconTransformation(extent={{100,60},{140,100}})));
 
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yPumChaPro if not
-    have_priOnl
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yPumChaPro
+    if not have_priOnl or not have_heaPriPum
     "Rising edge indicating start of pump change process"
     annotation (Placement(transformation(extent={{280,-260},{320,-220}}),
       iconTransformation(extent={{100,-140},{140,-100}})));
@@ -240,15 +240,18 @@ protected
     "Detect change in process completion status and send out pulse signal"
     annotation (Placement(transformation(extent={{240,30},{260,50}})));
 
-  Buildings.Controls.OBC.CDL.Logical.Edge edg1 if not have_priOnl
+  Buildings.Controls.OBC.CDL.Logical.Edge edg1
+    if not have_priOnl or not have_heaPriPum
     "Generate pulse to signal start of pump change process"
     annotation (Placement(transformation(extent={{-40,-250},{-20,-230}})));
 
-  Buildings.Controls.OBC.CDL.Logical.Edge edg2 if not have_priOnl
+  Buildings.Controls.OBC.CDL.Logical.Edge edg2
+    if not have_priOnl or not have_heaPriPum
     "Generate pulse to signal start of pump change process"
     annotation (Placement(transformation(extent={{140,-246},{160,-226}})));
 
-  Buildings.Controls.OBC.CDL.Logical.Or or2 if not have_priOnl
+  Buildings.Controls.OBC.CDL.Logical.Or or2
+    if not have_priOnl or not have_heaPriPum
     "Check for pump change proces start signal"
     annotation (Placement(transformation(extent={{210,-250},{230,-230}})));
 
@@ -293,7 +296,8 @@ protected
     "Boolean True signal"
     annotation (Placement(transformation(extent={{-160,-140},{-140,-120}})));
 
-  Buildings.Controls.OBC.CDL.Logical.And and2 if not have_priOnl
+  Buildings.Controls.OBC.CDL.Logical.And and2
+    if not have_priOnl or not have_heaPriPum
     "Logical And"
     annotation (Placement(transformation(extent={{-80,-250},{-60,-230}})));
 
@@ -340,8 +344,8 @@ equation
   connect(nexBoi.uBoiSet, uBoiSet) annotation (Line(points={{-172,-66},{-190,-66},
           {-190,40},{-260,40}},      color={255,0,255}));
 
-  connect(uStaSet, nexBoi.uStaSet) annotation (Line(points={{-260,-80},{-234,-80},
-          {-234,-59},{-172,-59}},      color={255,127,0}));
+  connect(uStaSet, nexBoi.uStaSet) annotation (Line(points={{-260,-80},{-234,
+          -80},{-234,-60},{-172,-60}}, color={255,127,0}));
 
   connect(uStaDowPro, lat.u)
     annotation (Line(points={{-260,0},{-224,0}}, color={255,0,255}));
@@ -423,14 +427,15 @@ equation
   connect(truDel1.y, logSwi.u1) annotation (Line(points={{22,100},{36,100},{36,-32},
           {38,-32}}, color={255,0,255}));
 
-  connect(nexBoi.yEnaSmaBoi, enaHotWatIsoVal.nexChaBoi) annotation (Line(points=
-         {{-148,-75},{-76,-75},{-76,8},{-72,8}}, color={255,127,0}));
+  connect(nexBoi.yEnaSmaBoi, enaHotWatIsoVal.nexChaBoi) annotation (Line(points={{-148,
+          -74},{-76,-74},{-76,8},{-72,8}},       color={255,127,0}));
 
   connect(lat.y, disBoi.uStaDow) annotation (Line(points={{-200,0},{-196,0},{-196,
           -20},{44,-20},{44,6},{58,6}}, color={255,0,255}));
 
-  connect(nexBoi.yEnaSmaBoi, disBoi.nexEnaBoi) annotation (Line(points={{-148,-75},
-          {-76,-75},{-76,20},{50,20},{50,9},{58,9}}, color={255,127,0}));
+  connect(nexBoi.yEnaSmaBoi, disBoi.nexEnaBoi) annotation (Line(points={{-148,
+          -74},{-76,-74},{-76,20},{50,20},{50,9},{58,9}},
+                                                     color={255,127,0}));
 
   connect(nexBoi.yLasDisBoi, disBoi.nexDisBoi) annotation (Line(points={{-148,-70},
           {26,-70},{26,-5},{58,-5}}, color={255,127,0}));
@@ -465,8 +470,9 @@ equation
   connect(lat.y, mulOr.u[1]) annotation (Line(points={{-200,0},{-196,0},{-196,60},
           {-172,60}}, color={255,0,255}));
 
-  connect(mulOr.y, lat5.u) annotation (Line(points={{-148,60},{-110,60},{-110,40},
-          {-72,40}}, color={255,0,255}));
+  connect(mulOr.y, lat5.u) annotation (Line(points={{-148,60},{-110,60},{-110,
+          40},{-72,40}},
+                     color={255,0,255}));
 
   connect(mulOr.y, enaHotWatIsoVal.uUpsDevSta) annotation (Line(points={{-148,60},
           {-110,60},{-110,-5},{-72,-5}}, color={255,0,255}));
@@ -474,8 +480,9 @@ equation
   connect(mulOr.y, booRep.u) annotation (Line(points={{-148,60},{-110,60},{-110,
           -140},{-42,-140}},color={255,0,255}));
 
-  connect(nexBoi.yEnaSmaBoi, yNexEnaBoi) annotation (Line(points={{-148,-75},{-76,
-          -75},{-76,-86},{260,-86},{260,-150},{300,-150}}, color={255,127,0}));
+  connect(nexBoi.yEnaSmaBoi, yNexEnaBoi) annotation (Line(points={{-148,-74},{
+          -76,-74},{-76,-86},{260,-86},{260,-150},{300,-150}},
+                                                           color={255,127,0}));
 
   connect(con.y, and1.u2) annotation (Line(points={{-138,-130},{-48,-130},{-48,-26},
           {-10,-26},{-10,-8},{-2,-8}}, color={255,0,255}));
@@ -501,8 +508,9 @@ equation
 
   connect(and2.y, edg1.u)
     annotation (Line(points={{-58,-240},{-42,-240}}, color={255,0,255}));
-  connect(mulOr.y, and2.u1) annotation (Line(points={{-148,60},{-110,60},{-110,-240},
-          {-82,-240}}, color={255,0,255}));
+  connect(mulOr.y, and2.u1) annotation (Line(points={{-148,60},{-110,60},{-110,
+          -240},{-82,-240}},
+                       color={255,0,255}));
   connect(nexBoi.yOnOff, and2.u2) annotation (Line(points={{-148,-66},{-100,-66},
           {-100,-248},{-82,-248}}, color={255,0,255}));
   connect(uHotWatIsoVal, enaHotWatIsoVal.uHotWatIsoVal) annotation (Line(points
@@ -541,14 +549,17 @@ equation
   connect(uBoi, disBoi.uBoi) annotation (Line(points={{-260,160},{-216,160},{-216,
           80},{40,80},{40,-2},{58,-2}},                                   color
         ={255,0,255}));
-  connect(uStaChaPro,nexBoi.uStaChaPro)  annotation (Line(points={{-260,-130},{-230,
-          -130},{-230,-73},{-172,-73}}, color={255,0,255}));
+  connect(uStaChaPro,nexBoi.uStaChaPro)  annotation (Line(points={{-260,-130},{
+          -230,-130},{-230,-72},{-172,-72}},
+                                        color={255,0,255}));
   connect(or3.y, and8.u2) annotation (Line(points={{102,-110},{120,-110},{120,-80},
           {216,-80},{216,-68},{218,-68}}, color={255,0,255}));
   connect(logSwi.y, disBoi.uUpsDevSta) annotation (Line(points={{62,-40},{68,-40},
           {68,-24},{52,-24},{52,2},{58,2}}, color={255,0,255}));
   connect(lat.y, logSwi.u3) annotation (Line(points={{-200,0},{-196,0},{-196,-48},
           {38,-48}}, color={255,0,255}));
+  connect(minBypRes.yMinBypRes, and2.u1) annotation (Line(points={{-148,20},{
+          -110,20},{-110,-240},{-82,-240}}, color={255,0,255}));
 annotation (
   defaultComponentName="dowProCon",
   Diagram(coordinateSystem(preserveAspectRatio=false,

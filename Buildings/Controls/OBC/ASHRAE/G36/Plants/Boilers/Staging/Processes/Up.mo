@@ -173,8 +173,8 @@ block Up
     annotation (Placement(transformation(extent={{340,-20},{380,20}}),
       iconTransformation(extent={{100,60},{140,100}})));
 
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yPumChaPro if not
-    have_priOnl
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yPumChaPro
+    if not have_priOnl or not have_heaPriPum
     "Pulse indicating start of pump change process"
     annotation (Placement(transformation(extent={{340,-260},{380,-220}}),
       iconTransformation(extent={{100,-140},{140,-100}})));
@@ -282,15 +282,18 @@ protected
     "Detect change in process completion status and send out pulse signal"
     annotation (Placement(transformation(extent={{310,-10},{330,10}})));
 
-  Buildings.Controls.OBC.CDL.Logical.Edge edg1 if not have_priOnl
+  Buildings.Controls.OBC.CDL.Logical.Edge edg1
+    if not have_priOnl or not have_heaPriPum
     "Generate pulse to signal start of pump change process"
     annotation (Placement(transformation(extent={{-90,-250},{-70,-230}})));
 
-  Buildings.Controls.OBC.CDL.Logical.Edge edg2 if not have_priOnl
+  Buildings.Controls.OBC.CDL.Logical.Edge edg2
+    if not have_priOnl or not have_heaPriPum
     "Generate pulse to signal start of pump change process"
     annotation (Placement(transformation(extent={{170,-240},{190,-220}})));
 
-  Buildings.Controls.OBC.CDL.Logical.Or or2 if not have_priOnl
+  Buildings.Controls.OBC.CDL.Logical.Or or2
+    if not have_priOnl or not have_heaPriPum
     "Check for pump change proces start signal"
     annotation (Placement(transformation(extent={{210,-250},{230,-230}})));
 
@@ -335,7 +338,8 @@ protected
     "Hold status when plant enable is detected"
     annotation (Placement(transformation(extent={{-180,-130},{-160,-110}})));
 
-  Buildings.Controls.OBC.CDL.Logical.And and2 if not have_priOnl
+  Buildings.Controls.OBC.CDL.Logical.And and2
+    if not have_priOnl or not have_heaPriPum
     "Signal pump change if a boiler has been disabled"
     annotation (Placement(transformation(extent={{140,-240},{160,-220}})));
 
@@ -396,7 +400,7 @@ protected
 
 equation
   connect(nexBoi.yNexEnaBoi, enaHotWatIsoVal.nexChaBoi) annotation (Line(points={{-148,
-          -51},{-90,-51},{-90,8},{-72,8}},       color={255,127,0}));
+          -52},{-90,-52},{-90,8},{-72,8}},       color={255,127,0}));
 
   connect(lat.y, minBypRes.uUpsDevSta) annotation (Line(points={{-200,0},{-196,
           0},{-196,28},{-172,28}},
@@ -430,7 +434,7 @@ equation
                                      color={255,127,0}));
 
   connect(nexBoi.yNexEnaBoi, enaBoi.nexEnaBoi) annotation (Line(points={{-148,
-          -51},{-90,-51},{-90,-40},{38,-40},{38,9},{58,9}},
+          -52},{-90,-52},{-90,-40},{38,-40},{38,9},{58,9}},
                                                        color={255,127,0}));
 
   connect(VHotWat_flow, minBypRes.VHotWat_flow) annotation (Line(points={{-260,
@@ -447,7 +451,7 @@ equation
           -60},{-190,40},{-260,40}}, color={255,0,255}));
 
   connect(uStaSet, nexBoi.uStaSet) annotation (Line(points={{-260,-80},{-234,
-          -80},{-234,-53},{-172,-53}}, color={255,127,0}));
+          -80},{-234,-54},{-172,-54}}, color={255,127,0}));
 
   connect(uStaSet, hotWatSupTemRes.uStaSet) annotation (Line(points={{-260,-80},
           {-234,-80},{-234,-27},{-172,-27}}, color={255,127,0}));
@@ -494,8 +498,8 @@ equation
   connect(nexBoi.yOnOff, yOnOff) annotation (Line(points={{-148,-60},{190,-60},
           {190,-110},{360,-110}}, color={255,0,255}));
 
-  connect(nexBoi.yNexEnaBoi, yNexEnaBoi) annotation (Line(points={{-148,-51},{-90,
-          -51},{-90,-40},{148,-40},{148,-150},{360,-150}},
+  connect(nexBoi.yNexEnaBoi, yNexEnaBoi) annotation (Line(points={{-148,-52},{
+          -90,-52},{-90,-40},{148,-40},{148,-150},{360,-150}},
                                            color={255,127,0}));
 
   connect(lat5.y, and1.u1) annotation (Line(points={{-48,40},{-6,40},{-6,0},{-2,
@@ -603,8 +607,9 @@ equation
                                                    color={255,0,255}));
   connect(or4.y, yHotWatIsoVal) annotation (Line(points={{322,-70},{360,-70}},
                                color={255,0,255}));
-  connect(uStaChaPro,nexBoi.uStaChaPro)  annotation (Line(points={{-260,-150},{-228,
-          -150},{-228,-68},{-172,-68},{-172,-67}}, color={255,0,255}));
+  connect(uStaChaPro,nexBoi.uStaChaPro)  annotation (Line(points={{-260,-150},{
+          -228,-150},{-228,-68},{-172,-68},{-172,-66}},
+                                                   color={255,0,255}));
   connect(uBoi, enaBoi.uBoi) annotation (Line(points={{-260,80},{48,80},{48,-2},
           {58,-2}}, color={255,0,255}));
   connect(or5.y, enaHotWatIsoVal.chaPro) annotation (Line(points={{-110,18},{-88,

@@ -4,6 +4,7 @@ model PrimaryController
 
   Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.PrimaryController controller(
     have_priOnl=true,
+    have_heaPriPum=false,
     have_isoValSen=true,
     nBoi=2,
     boiTyp_select=Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Types.Boilers.Condensing,
@@ -30,7 +31,7 @@ model PrimaryController
 
   Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.PrimaryController controller1(
     have_priOnl=false,
-    have_heaPriPum_select=true,
+    have_heaPriPum=true,
     have_secFloSen_select=true,
     have_priTemSen_select=true,
     nLooSec=1,
@@ -58,7 +59,7 @@ model PrimaryController
 
   Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.PrimaryController controller2(
     have_priOnl=false,
-    have_heaPriPum_select=false,
+    have_heaPriPum=false,
     have_secFloSen_select=true,
     have_priTemSen_select=true,
     nLooSec=1,
