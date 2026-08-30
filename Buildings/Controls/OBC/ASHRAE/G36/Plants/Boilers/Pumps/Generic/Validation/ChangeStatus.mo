@@ -6,7 +6,7 @@ model ChangeStatus
     chaPumSta(
     final nPum=3)
     "Scenario testing pump status changer"
-    annotation (Placement(transformation(extent={{28,-10},{50,10}})));
+    annotation (Placement(transformation(extent={{30,-10},{50,10}})));
 
   Buildings.Controls.OBC.CDL.Logical.TrueFalseHold truFalHol2(
     final trueHoldDuration=1,
@@ -62,14 +62,13 @@ protected
     annotation (Placement(transformation(extent={{-132,-60},{-112,-40}})));
 
   Buildings.Controls.OBC.CDL.Logical.TrueDelay truDel[3](
-    final delayTime=2)
+    final delayTime=fill(2,3))
     "Time delay for mimicking time delay for pump proven on process"
     annotation (Placement(transformation(extent={{70,0},{90,20}})));
 
 equation
   connect(pre.y, chaPumSta.uHotWatPum) annotation (Line(points={{142,10},{152,10},
-          {152,40},{16,40},{16,0},{25.8,0}},
-                                           color={255,0,255}));
+          {152,40},{16,40},{16,0},{28,0}}, color={255,0,255}));
 
   connect(samTri.y, onCouInt.trigger)
     annotation (Line(points={{-140,0},{-133.2,0}}, color={255,0,255}));
@@ -79,7 +78,7 @@ equation
                                                  color={255,127,0}));
 
   connect(onCouInt.y, chaPumSta.uNexLagPum) annotation (Line(points={{-118.8,0},
-          {-116,0},{-116,-20},{-12,-20},{-12,-4},{25.8,-4}},
+          {-116,0},{-116,-20},{-12,-20},{-12,-4},{28,-4}},
                                                        color={255,127,0}));
 
   connect(samTri.y, logSwi1.u1) annotation (Line(points={{-140,0},{-138,0},{-138,
@@ -104,15 +103,15 @@ equation
     annotation (Line(points={{-50,20},{-44,20}}, color={255,0,255}));
 
   connect(not1.y, chaPumSta.uLasLagPumSta) annotation (Line(points={{-20,20},{-2,
-          20},{-2,3.8},{25.8,3.8}},
+          20},{-2,3.8},{28,3.8}},
                               color={255,0,255}));
 
   connect(logSwi.y, chaPumSta.uNexLagPumSta) annotation (Line(points={{-50,50},{
-          20,50},{20,7.8},{25.8,7.8}},
+          20,50},{20,7.8},{28,7.8}},
                                   color={255,0,255}));
 
   connect(subInt.y, chaPumSta.uLasLagPum) annotation (Line(points={{-50,-40},{20,
-          -40},{20,-8},{25.8,-8}},  color={255,127,0}));
+          -40},{20,-8},{28,-8}},    color={255,127,0}));
 
   connect(con.y, onCouInt.reset) annotation (Line(points={{-140,80},{-136,80},{-136,
           -14},{-126,-14},{-126,-7.2}},
@@ -122,11 +121,11 @@ equation
           -34},{-74,-34}}, color={255,127,0}));
   connect(onCouInt.y,subInt. u2) annotation (Line(points={{-118.8,0},{-116,0},{-116,
           -20},{-82,-20},{-82,-46},{-74,-46}}, color={255,127,0}));
-  connect(chaPumSta.yPumStaCom, truFalHol2.u) annotation (Line(points={{52.2,-4},
-          {60,-4},{60,-30},{68,-30}},
+  connect(chaPumSta.yPumStaCom, truFalHol2.u) annotation (Line(points={{52,-4},{
+          60,-4},{60,-30},{68,-30}},
                                 color={255,0,255}));
-  connect(chaPumSta.yHotWatPum, truDel.u) annotation (Line(points={{52.2,4},{60,
-          4},{60,10},{68,10}},         color={255,0,255}));
+  connect(chaPumSta.yHotWatPum, truDel.u) annotation (Line(points={{52,4},{60,4},
+          {60,10},{68,10}},            color={255,0,255}));
   connect(truDel.y, pre.u) annotation (Line(points={{92,10},{118,10}},
                                       color={255,0,255}));
 annotation (
@@ -138,6 +137,11 @@ annotation (
 This example validates
 <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Pumps.Generic.ChangeStatus\">
 Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Pumps.Generic.ChangeStatus</a>.
+</p>
+<p>
+The validation plot demonstrates the sequential pump enable and disable process
+<code>chaPumSta.yHotWatPum[:]</code>, and the detected pump status change completion
+signal <code>truFalHol2.y</code>.
 </p>
 </html>", revisions="<html>
 <ul>
