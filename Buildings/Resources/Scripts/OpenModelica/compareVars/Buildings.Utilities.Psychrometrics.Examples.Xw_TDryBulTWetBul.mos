@@ -1,0 +1,8 @@
+compareVars :=
+  {
+    "watVap.TDryBul",
+    "watVap.TWetBul",
+    "watVap.p",
+    "watVap.X_w",
+    "watVapApp.X_w"
+  };
