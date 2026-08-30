@@ -83,7 +83,8 @@ block Down
       Placement(transformation(extent={{-280,-150},{-240,-110}}),
         iconTransformation(extent={{-140,-140},{-100,-100}})));
 
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uPumChaPro if not have_priOnl
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uPumChaPro
+    if not have_priOnl or not have_heaPriPum
     "Rising edge indicating all pump change processes have been completed and pumps have been proved on"
     annotation (Placement(transformation(extent={{-280,-210},{-240,-170}}),
       iconTransformation(extent={{-140,-180},{-100,-140}})));
@@ -224,15 +225,18 @@ protected
     "Time delay after boiler status has been changed"
     annotation (Placement(transformation(extent={{100,-10},{120,10}})));
 
-  Buildings.Controls.OBC.CDL.Logical.Latch lat3 if not have_priOnl
+  Buildings.Controls.OBC.CDL.Logical.Latch lat3
+    if not have_priOnl or not have_heaPriPum
     "Hold process completion signal after pump enable process"
     annotation (Placement(transformation(extent={{-140,-200},{-120,-180}})));
 
-  Buildings.Controls.OBC.CDL.Logical.Latch lat4 if not have_priOnl
+  Buildings.Controls.OBC.CDL.Logical.Latch lat4
+    if not have_priOnl or not have_heaPriPum
     "Hold process completion signal after pump disable process"
     annotation (Placement(transformation(extent={{160,-200},{180,-180}})));
 
-  Buildings.Controls.OBC.CDL.Logical.And and4 if not have_priOnl
+  Buildings.Controls.OBC.CDL.Logical.And and4
+    if not have_priOnl or not have_heaPriPum
     "Check for pump disable completion after start of pump disable process"
     annotation (Placement(transformation(extent={{132,-200},{152,-180}})));
 
@@ -292,7 +296,7 @@ protected
     annotation (Placement(transformation(extent={{-170,50},{-150,70}})));
 
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant con(
-    final k=true) if have_priOnl
+    final k=true) if have_priOnl and have_heaPriPum
     "Boolean True signal"
     annotation (Placement(transformation(extent={{-160,-140},{-140,-120}})));
 

@@ -96,8 +96,8 @@ block Up
     annotation (Placement(transformation(extent={{-280,-20},{-240,20}}),
       iconTransformation(extent={{-140,-40},{-100,0}})));
 
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uPumChaPro if not
-    have_priOnl
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uPumChaPro
+    if not have_priOnl or not have_heaPriPum
     "Pulse indicating all pump change processes have been completed and pumps have been proved on"
     annotation (Placement(transformation(extent={{-280,-210},{-240,-170}}),
       iconTransformation(extent={{-140,-240},{-100,-200}})));
@@ -266,15 +266,18 @@ protected
     "Time delay after boiler status has been changed"
     annotation (Placement(transformation(extent={{100,-10},{120,10}})));
 
-  Buildings.Controls.OBC.CDL.Logical.Latch lat3 if not have_priOnl
+  Buildings.Controls.OBC.CDL.Logical.Latch lat3
+    if not have_priOnl or not have_heaPriPum
     "Hold process completion signal after pump enable process"
     annotation (Placement(transformation(extent={{-180,-200},{-160,-180}})));
 
-  Buildings.Controls.OBC.CDL.Logical.Latch lat4 if not have_priOnl
+  Buildings.Controls.OBC.CDL.Logical.Latch lat4
+    if not have_priOnl or not have_heaPriPum
     "Hold process completion signal after pump disable process"
     annotation (Placement(transformation(extent={{160,-200},{180,-180}})));
 
-  Buildings.Controls.OBC.CDL.Logical.And and4 if not have_priOnl
+  Buildings.Controls.OBC.CDL.Logical.And and4
+    if not have_priOnl or not have_heaPriPum
     "Check for pump disable completion after start of pump disable process"
     annotation (Placement(transformation(extent={{132,-200},{152,-180}})));
 
@@ -325,14 +328,14 @@ protected
     annotation (Placement(transformation(extent={{-32,-120},{-12,-100}})));
 
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant con(
-    final k=true) if have_priOnl
+    final k=true) if have_priOnl and have_heaPriPum
     "Boolean True signal for primary-only systems that don't require a pump change
     process completion signal"
     annotation (Placement(transformation(extent={{-180,-160},{-160,-140}})));
 
   Buildings.Controls.OBC.CDL.Logical.Or or1
     "Pass signal when plant is enabled or when stage-up process is initiated"
-    annotation (Placement(transformation(extent={{-130,-130},{-110,-110}})));
+    annotation (Placement(transformation(extent={{-130,-140},{-110,-120}})));
 
   Buildings.Controls.OBC.CDL.Logical.Latch lat2
     "Hold status when plant enable is detected"
@@ -536,35 +539,36 @@ equation
           {-10,-30},{-10,-8},{-2,-8}}, color={255,0,255}));
   connect(con.y, and3.u2) annotation (Line(points={{-158,-150},{-48,-150},{-48,-30},
           {-10,-30},{-10,26},{204,26},{204,42},{208,42}},      color={255,0,255}));
-  connect(lat2.y, or1.u1)
-    annotation (Line(points={{-158,-120},{-132,-120}}, color={255,0,255}));
-  connect(minBypRes.yMinBypRes, or1.u2) annotation (Line(points={{-148,20},{-146,
-          20},{-146,-128},{-132,-128}}, color={255,0,255}));
+  connect(minBypRes.yMinBypRes, or1.u2) annotation (Line(points={{-148,20},{
+          -144,20},{-144,-138},{-132,-138}},
+                                        color={255,0,255}));
   connect(hotWatSupTemRes.yHotWatSupTemRes, or1.u2) annotation (Line(points={{-148,
-          -20},{-146,-20},{-146,-128},{-132,-128}}, color={255,0,255}));
-  connect(or1.y, lat5.u) annotation (Line(points={{-108,-120},{-104,-120},{-104,
+          -20},{-144,-20},{-144,-138},{-132,-138}}, color={255,0,255}));
+  connect(or1.y, lat5.u) annotation (Line(points={{-108,-130},{-104,-130},{-104,
           40},{-72,40}}, color={255,0,255}));
-  connect(or1.y, booRep.u) annotation (Line(points={{-108,-120},{-44,-120},{-44,
+  connect(or1.y, booRep.u) annotation (Line(points={{-108,-130},{-44,-130},{-44,
           -140},{-34,-140}},color={255,0,255}));
-  connect(or1.y, enaHotWatIsoVal.uUpsDevSta) annotation (Line(points={{-108,-120},
-          {-104,-120},{-104,-5},{-72,-5}}, color={255,0,255}));
+  connect(or1.y, enaHotWatIsoVal.uUpsDevSta) annotation (Line(points={{-108,
+          -130},{-104,-130},{-104,-5},{-72,-5}},
+                                           color={255,0,255}));
   connect(nexBoi.yDisSmaBoi, yLasDisBoi) annotation (Line(points={{-148,-56},{136,
           -56},{136,-164},{328,-164},{328,-190},{360,-190}}, color={255,127,0}));
   connect(uStaChaPro, lat.clr) annotation (Line(points={{-260,-150},{-228,-150},
           {-228,-6},{-224,-6}}, color={255,0,255}));
-  connect(uStaChaPro, lat2.clr) annotation (Line(points={{-260,-150},{-190,-150},
-          {-190,-126},{-182,-126}}, color={255,0,255}));
+  connect(uStaChaPro, lat2.clr) annotation (Line(points={{-260,-150},{-260,-152},
+          {-212,-152},{-212,-126},{-182,-126}},
+                                    color={255,0,255}));
   connect(uStaChaPro, lat3.clr) annotation (Line(points={{-260,-150},{-190,-150},
           {-190,-196},{-182,-196}}, color={255,0,255}));
-  connect(uStaChaPro, lat5.clr) annotation (Line(points={{-260,-150},{-190,-150},
-          {-190,-100},{-98,-100},{-98,34},{-72,34}}, color={255,0,255}));
-  connect(uStaChaPro, lat6.clr) annotation (Line(points={{-260,-150},{-190,-150},
-          {-190,-100},{-98,-100},{-98,70},{132,70},{132,34},{148,34}}, color={
+  connect(uStaChaPro, lat5.clr) annotation (Line(points={{-260,-150},{-210,-150},
+          {-210,-100},{-98,-100},{-98,34},{-72,34}}, color={255,0,255}));
+  connect(uStaChaPro, lat6.clr) annotation (Line(points={{-260,-150},{-210,-150},
+          {-210,-100},{-98,-100},{-98,70},{132,70},{132,34},{148,34}}, color={
           255,0,255}));
-  connect(uStaChaPro, lat1.clr) annotation (Line(points={{-260,-150},{-190,-150},
-          {-190,-100},{-98,-100},{-98,-116},{-34,-116}}, color={255,0,255}));
-  connect(uStaChaPro, lat4.clr) annotation (Line(points={{-260,-150},{-190,-150},
-          {-190,-100},{-98,-100},{-98,70},{132,70},{132,-168},{156,-168},{156,
+  connect(uStaChaPro, lat1.clr) annotation (Line(points={{-260,-150},{-210,-150},
+          {-210,-100},{-98,-100},{-98,-116},{-34,-116}}, color={255,0,255}));
+  connect(uStaChaPro, lat4.clr) annotation (Line(points={{-260,-150},{-210,-150},
+          {-210,-100},{-98,-100},{-98,70},{132,70},{132,-168},{156,-168},{156,
           -196},{158,-196}}, color={255,0,255}));
   connect(and2.y, edg2.u)
     annotation (Line(points={{162,-230},{168,-230}}, color={255,0,255}));
@@ -572,7 +576,7 @@ equation
           {138,-230}}, color={255,0,255}));
   connect(nexBoi.yOnOff, and2.u2) annotation (Line(points={{-148,-60},{-54,-60},
           {-54,-238},{138,-238}}, color={255,0,255}));
-  connect(or1.y, edg1.u) annotation (Line(points={{-108,-120},{-104,-120},{-104,
+  connect(or1.y, edg1.u) annotation (Line(points={{-108,-130},{-104,-130},{-104,
           -240},{-92,-240}}, color={255,0,255}));
   connect(uPlaEna, lat2.u)
     annotation (Line(points={{-260,-120},{-182,-120}}, color={255,0,255}));
@@ -616,11 +620,8 @@ equation
           18},{-88,-8},{-72,-8}}, color={255,0,255}));
   connect(or5.y, enaBoi.uStaUp) annotation (Line(points={{-110,18},{52,18},{52,6},
           {58,6}}, color={255,0,255}));
-  connect(lat.y, or5.u1) annotation (Line(points={{-200,0},{-196,0},{-196,24},{-184,
-          24},{-184,40},{-134,40},{-134,18}}, color={255,0,255}));
-  connect(lat2.y, or5.u2) annotation (Line(points={{-158,-120},{-152,-120},{-152,
-          -80},{-180,-80},{-180,-40},{-144,-40},{-144,-24},{-140,-24},{-140,4},{
-          -144,4},{-144,10},{-134,10}}, color={255,0,255}));
+  connect(lat.y, or5.u1) annotation (Line(points={{-200,0},{-196,0},{-196,50},{
+          -140,50},{-140,18},{-134,18}},      color={255,0,255}));
   connect(and8.u1, not2.y)
     annotation (Line(points={{248,-80},{232,-80}}, color={255,0,255}));
   connect(or3.y, and8.u2) annotation (Line(points={{122,-100},{240,-100},{240,-88},
@@ -645,6 +646,10 @@ equation
           {248,22}}, color={255,0,255}));
   connect(lat.y, and11.u2) annotation (Line(points={{-200,0},{-196,0},{-196,84},
           {196,84},{196,12},{210,12}}, color={255,0,255}));
+  connect(lat2.y, or1.u1) annotation (Line(points={{-158,-120},{-140,-120},{
+          -140,-130},{-132,-130}}, color={255,0,255}));
+  connect(lat2.y, or5.u2) annotation (Line(points={{-158,-120},{-140,-120},{
+          -140,10},{-134,10}}, color={255,0,255}));
 annotation (
   defaultComponentName="upProCon",
   Diagram(coordinateSystem(preserveAspectRatio=false,
