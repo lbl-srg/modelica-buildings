@@ -1,0 +1,9 @@
+compareVars :=
+  {
+    "botCyc.steBoi.mWat_flow",
+    "botCyc.steBoi.mSte_flow",
+    "valDat.y[4]",
+    "valDat.y[2]",
+    "botCyc.PEle_ST",
+    "valDat.y[3]"
+  };
