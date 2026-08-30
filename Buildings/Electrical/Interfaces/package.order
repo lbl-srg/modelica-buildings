@@ -4,8 +4,10 @@ Ground
 Impedance
 InductiveLoad
 Load
+PartialBaseOnePort
 PartialBaseTwoPort
 PartialConversion
+PartialOnePort
 PartialPV
 PartialPVOriented
 PartialPvBase

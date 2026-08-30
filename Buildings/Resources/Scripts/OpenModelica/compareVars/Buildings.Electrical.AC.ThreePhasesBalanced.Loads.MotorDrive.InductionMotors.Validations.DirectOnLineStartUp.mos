@@ -1,0 +1,11 @@
+compareVars :=
+  {
+    "motDri.speBlo.N",
+    "speRef.y[1]",
+    "motDri.speBlo.tau_e",
+    "torRef.y[1]",
+    "motDri.curBlo.I_a",
+    "curRef.y[1]",
+    "sou.P.real",
+    "powRef.y[1]"
+  };
