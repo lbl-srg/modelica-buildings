@@ -306,22 +306,22 @@ protected
     annotation (Placement(transformation(extent={{40,-90},{60,-70}})));
 
   Buildings.Controls.OBC.CDL.Logical.TrueDelay truDel[2](
-    delayTime=30)
+    delayTime=fill(30, 2))
     "Time delay to mimic pump proven on process"
     annotation (Placement(transformation(extent={{-60,150},{-40,170}})));
 
   Buildings.Controls.OBC.CDL.Logical.TrueDelay truDel1[2](
-    delayTime=30)
+    delayTime=fill(30, 2))
     "Time delay to mimic pump proven on process"
     annotation (Placement(transformation(extent={{-60,-20},{-40,0}})));
 
   Buildings.Controls.OBC.CDL.Logical.TrueDelay truDel2[2](
-    delayTime=30)
+    delayTime=fill(30, 2))
     "Time delay to mimic pump proven on process"
     annotation (Placement(transformation(extent={{230,140},{250,160}})));
 
   Buildings.Controls.OBC.CDL.Logical.TrueDelay truDel3[2](
-    delayTime=30)
+    delayTime=fill(30, 2))
     "Time delay to mimic pump proven on process"
     annotation (Placement(transformation(extent={{230,-40},{250,-20}})));
 
