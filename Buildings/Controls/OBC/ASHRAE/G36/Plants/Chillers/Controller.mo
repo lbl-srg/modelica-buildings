@@ -1516,10 +1516,6 @@ block Controller "Chiller plant controller"
     "Chiller commanded status"
     annotation (Placement(transformation(extent={{640,340},{660,360}})));
 
-  Buildings.Controls.OBC.CDL.Logical.Pre preConPumLeaSta if not have_airCoo
-    "Lead condenser water pump status from previous step"
-    annotation (Placement(transformation(extent={{480,-260},{500,-240}})));
-
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant conInt1[nChiWatPum](
     final k=chiPumLeaLag) if have_heaChiWatPum
     "Chilled water pump lead and lag index"
@@ -1540,10 +1536,6 @@ block Controller "Chiller plant controller"
   Buildings.Controls.OBC.CDL.Integers.Switch conWatPumNum if not have_airCoo
     "Total number of enablded condenser water pump"
     annotation (Placement(transformation(extent={{440,10},{460,30}})));
-
-  Buildings.Controls.OBC.CDL.Logical.Switch conPumLeaSta if not have_airCoo
-    "Pick the condenser water pump lead status"
-    annotation (Placement(transformation(extent={{440,-260},{460,-240}})));
 
   Buildings.Controls.OBC.CDL.Logical.Switch chiIsoVal[nChi]
     "Chiller isolation valve position setpoint"
@@ -1718,10 +1710,6 @@ protected
     if not need_heaPreCon and not have_airCoo
     "Dummy block"
     annotation (Placement(transformation(extent={{-260,210},{-240,230}})));
-
-  Buildings.Controls.OBC.CDL.Logical.Edge edg
-    "Edge when the plant becomes enabled"
-    annotation (Placement(transformation(extent={{-480,-400},{-460,-380}})));
 
   Buildings.Controls.OBC.CDL.Logical.Latch lat "Enabled plant"
     annotation (Placement(transformation(extent={{-440,-400},{-420,-380}})));
@@ -1987,14 +1975,6 @@ equation
           {370,340},{370,28},{438,28}},          color={255,127,0}));
   connect(dowProCon.yConWatPumNum, conWatPumNum.u3) annotation (Line(points={{268,
           -272},{370,-272},{370,12},{438,12}},     color={255,127,0}));
-  connect(chiStaUp.y, conPumLeaSta.u2) annotation (Line(points={{402,320},{420,320},
-          {420,-250},{438,-250}},      color={255,0,255}));
-  connect(dowProCon.yLeaPum, conPumLeaSta.u3) annotation (Line(points={{268,-248},
-          {380,-248},{380,-258},{438,-258}},       color={255,0,255}));
-  connect(upProCon.yLeaPum, conPumLeaSta.u1) annotation (Line(points={{268,372},
-          {290,372},{290,-242},{438,-242}}, color={255,0,255}));
-  connect(conPumLeaSta.y, preConPumLeaSta.u)
-    annotation (Line(points={{462,-250},{478,-250}}, color={255,0,255}));
   connect(chiMinFloSet.y, yChiWatMinFloSet)
     annotation (Line(points={{502,120},{940,120}}, color={0,0,127}));
   connect(inUpPro.y, chiIsoVal.u2) annotation (Line(points={{482,350},{510,350},
@@ -2219,10 +2199,6 @@ equation
           234},{658,234}}, color={0,0,127}));
   connect(TChiWatSupChi, heaPreCon.TChiWatSup) annotation (Line(points={{-920,
           210},{-660,210},{-660,204},{-504,204}}, color={0,0,127}));
-  connect(enaDev.yChiWatIsoVal, edg.u) annotation (Line(points={{-518,-414},{-490,
-          -414},{-490,-390},{-482,-390}}, color={255,0,255}));
-  connect(edg.y, lat.u)
-    annotation (Line(points={{-458,-390},{-442,-390}}, color={255,0,255}));
   connect(con.y, lat.clr) annotation (Line(points={{-458,-450},{-450,-450},{-450,
           -396},{-442,-396}}, color={255,0,255}));
   connect(lat.y, booToRea1.u)
@@ -2370,6 +2346,8 @@ equation
         color={255,0,255}));
   connect(enaDev.yEnaPlaPro, upProCon.uEnaPla) annotation (Line(points={{-518,
           -411},{-110,-411},{-110,364},{172,364}}, color={255,0,255}));
+  connect(enaDev.yChiWatIsoVal, lat.u) annotation (Line(points={{-518,-414},{
+          -500,-414},{-500,-390},{-442,-390}}, color={255,0,255}));
 annotation (
     defaultComponentName="chiPlaCon",
     Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-400},{100,400}}),

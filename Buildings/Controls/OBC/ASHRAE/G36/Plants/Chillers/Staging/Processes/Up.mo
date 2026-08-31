@@ -375,9 +375,6 @@ protected
     final delayTime=1,
     final delayOnInit=true) "Check if it has passed initial time"
     annotation (Placement(transformation(extent={{-140,230},{-120,250}})));
-  Buildings.Controls.OBC.CDL.Logical.Edge edg
-    "Rising edge when the new setpoint has been achieved"
-    annotation (Placement(transformation(extent={{120,70},{140,90}})));
   Buildings.Controls.OBC.CDL.Logical.And and3
     "Logical and"
     annotation (Placement(transformation(extent={{100,110},{120,130}})));
@@ -591,12 +588,8 @@ equation
           250},{-42,250}}, color={255,0,255}));
   connect(minChiWatFlo.yChaSet, minBypSet.uSetChaPro) annotation (Line(points={
           {42,32},{46,32},{46,72},{58,72}}, color={255,0,255}));
-  connect(edg.y, lat2.u) annotation (Line(points={{142,80},{150,80},{150,70},{158,
-          70}}, color={255,0,255}));
   connect(minBypSet.yMinBypRes, and3.u2) annotation (Line(points={{82,80},{90,
           80},{90,112},{98,112}}, color={255,0,255}));
-  connect(and3.y, edg.u) annotation (Line(points={{122,120},{130,120},{130,100},
-          {110,100},{110,80},{118,80}}, color={255,0,255}));
   connect(lat.y, and3.u1) annotation (Line(points={{-118,150},{80,150},{80,120},
           {98,120}}, color={255,0,255}));
   connect(lat.y, and4.u1) annotation (Line(points={{-118,150},{80,150},{80,160},
@@ -698,6 +691,8 @@ equation
           -310},{-214,-310},{-214,162},{-202,162}}, color={255,0,255}));
   connect(or5.y, nexChi.endPro) annotation (Line(points={{-178,170},{-160,170},{
           -160,183},{-82,183}}, color={255,0,255}));
+  connect(and3.y, lat2.u) annotation (Line(points={{122,120},{140,120},{140,70},
+          {158,70}}, color={255,0,255}));
 annotation (
   defaultComponentName="upProCon",
   Diagram(coordinateSystem(preserveAspectRatio=false,
