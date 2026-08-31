@@ -171,17 +171,15 @@ equation
     annotation(Line(points={{-32,200},{-60,200}},
       color={255,0,255}));
   connect(busPumConWat, busPla.pumConWat)
-    annotation(Line(
-      points={{-60,200},{-100,200},{-100,140}},
+    annotation(Line(points={{-60,200},{-100,200},{-100,140}},
       color={255,204,51},
       thickness=0.5));
   connect(busPla.pumConWat, pumConWat.bus)
     annotation(Line(points={{-100,140},{-170,140},{-170,-70}},
       color={255,204,51},
       thickness=0.5));
-annotation(
-  experiment(StopTime=2000,
-    Tolerance=1e-06),
+annotation(experiment(StopTime=2000,
+  Tolerance=1e-06),
   __Dymola_Commands(
     file="modelica://Buildings/Resources/Scripts/Dymola/Templates/Plants/Chillers/Components/Validation/ChillerGroupWaterCooled.mos"
       "Simulate and plot"),

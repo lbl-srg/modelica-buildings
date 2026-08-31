@@ -144,7 +144,7 @@ annotation(Documentation(
   option (shown in <b>bold</b>) represents the default plant configuration.
   Options shown in <font color=\"gray\"><em>gray italics</em></font> are not
   currently supported by the plant controller
-  <a href=\\\"modelica://Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Controller\\\">
+  <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Controller\">
     Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Controller</a> and
   cannot be selected. The user may refer to ASHRAE (2021) for further details.
 </p>
@@ -205,12 +205,13 @@ annotation(Documentation(
     <td>
       If the CW pumps are dedicated, the option with no isolation valve is
       automatically selected.<br />
-      Two-position CW isolation valves are automatically selected for chillers that do not require
-      head pressure control or for plants with variable speed condenser pumps
-      but no waterside economizer. 
-      (This is for compatibility with the controller implementation, whereas ASHRAE (2021)
-       allows for two-position or modulating valves in these cases.)<br />
-      Modulating valves are automatically selected for other plant configurations.  
+      Two-position CW isolation valves are automatically selected for chillers
+      that do not require head pressure control or for plants with variable
+      speed condenser pumps but no waterside economizer. (This is for
+      compatibility with the controller implementation, whereas ASHRAE (2021)
+      allows for two-position or modulating valves in these cases.)<br />
+      Modulating valves are automatically selected for other plant
+      configurations.
     </td>
   </tr>
   <tr>

@@ -137,7 +137,6 @@ annotation(defaultComponentName="coo",
 <p>The following input and output points are available.</p>
 <ul>
   <li>Start command: <code>y1</code>, DO signal</li>
-  <li></li>
   <li>Fan speed command (VFD speed): <code>y</code>, AO signal</li>
   <li>Fan status (VFD status): <code>y1_actual</code>, DI signal</li>
 </ul>

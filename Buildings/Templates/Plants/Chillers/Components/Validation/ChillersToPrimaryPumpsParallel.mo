@@ -310,7 +310,7 @@ model ChillersToPrimaryPumpsParallel
     annotation(Placement(transformation(extent={{-10,-10},{10,10}},
       rotation=90,
       origin={-100,30})));
-protected
+  protected
   Buildings.Templates.Components.Interfaces.Bus busPumChiWatPri
     "Primary CHW pumps control bus"
     annotation(Placement(transformation(extent={{180,180},{220,220}}),
