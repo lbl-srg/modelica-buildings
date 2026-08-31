@@ -3,15 +3,14 @@ block Pre
   "Breaks algebraic loops by adding a delay of the output without advancing time (y = pre(u): event iteration continues until u = pre(u))"
   parameter Boolean pre_u_start=false
     "Start value of pre(u) at initial time";
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u(
+    final fixed=true,
+    final start=pre_u_start)
     "Input to be delayed by one event iteration"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput y
     "Input delayed by one event iteration"
     annotation (Placement(transformation(extent={{100,-20},{140,20}})));
-
-initial equation
-  pre(u)=pre_u_start;
 
 equation
   y=pre(u);

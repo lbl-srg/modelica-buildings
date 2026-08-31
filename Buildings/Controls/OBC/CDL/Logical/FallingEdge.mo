@@ -3,7 +3,9 @@ block FallingEdge
   "Output y is true, if the input u has a falling edge (y = edge(not u))"
   parameter Boolean pre_u_start=false
     "Start value of pre(u) at initial time";
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u(
+    final fixed=true,
+    final start=pre_u_start)
     "Input to be monitored"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput y
@@ -11,11 +13,10 @@ block FallingEdge
     annotation (Placement(transformation(extent={{100,-20},{140,20}})));
 
 protected
-  Boolean not_u=not u
+  Boolean not_u(
+    final fixed=true,
+    final start=not pre_u_start)=not u
     "Boolean not of the input";
-
-initial equation
-  pre(not_u)=not pre_u_start;
 
 equation
   y=edge(not_u);

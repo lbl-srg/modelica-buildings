@@ -3,15 +3,14 @@ block Edge
   "Output y is true, if the input u has a rising edge (y = edge(u))"
   parameter Boolean pre_u_start=false
     "Start value of pre(u) at initial time";
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u(
+    final fixed=true,
+    final start=pre_u_start)
     "Input to be monitored"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput y
     "Outputs true when the input switches to true"
     annotation (Placement(transformation(extent={{100,-20},{140,20}})));
-
-initial equation
-  pre(u)=pre_u_start;
 
 equation
   y=edge(u);
