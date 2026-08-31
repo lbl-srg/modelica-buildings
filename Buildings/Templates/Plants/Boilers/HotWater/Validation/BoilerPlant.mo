@@ -24,12 +24,12 @@ model BoilerPlant
   Buildings.Templates.Plants.Boilers.HotWater.BoilerPlant pla(
     redeclare final package Medium=Medium,
     nBoiCon_select=2,
-    typArrPumHeaWatPriCon_select=Buildings.Templates.Components.Types.PumpArrangement.Dedicated,
+    typArrPumHeaWatPriCon_select=Buildings.Templates.Components.Types.PumpArrangement.Headered,
     typ=Buildings.Templates.Plants.Boilers.HotWater.Types.Boiler.Condensing,
     nBoiNon_select=2,
     typPumHeaWatPriNon=Buildings.Templates.Plants.Boilers.HotWater.Types.PumpsPrimary.Constant,
     typArrPumHeaWatPriNon_select=Buildings.Templates.Components.Types.PumpArrangement.Dedicated,
-    typPumHeaWatSec1_select=Buildings.Templates.Plants.Boilers.HotWater.Types.PumpsSecondary.None,
+    typPumHeaWatSec1_select=Buildings.Templates.Plants.Boilers.HotWater.Types.PumpsSecondary.Centralized,
     final energyDynamics=energyDynamics,
     final tau=tau,
     final dat=datAll.pla,
@@ -80,9 +80,10 @@ model BoilerPlant
     annotation(Placement(transformation(extent={{-10,-10},{10,10}},
       rotation=-90,
       origin={80,-80})));
-  Fluid.Sensors.MassFlowRate mHeaWatLoo_flow(
-    redeclare final package Medium=Medium)
-    "HW loop mass flow rate"
+  Fluid.Sensors.VolumeFlowRate VHeaWatLoo_flow(
+    redeclare final package Medium=Medium,
+    m_flow_nominal=pla.mHeaWat_flow_nominal)
+    "HW loop volume flow rate"
     annotation(Placement(transformation(extent={{-10,-10},{10,10}},
       rotation=-90,
       origin={160,-80})));
@@ -137,14 +138,14 @@ equation
   connect(cst.y, mulInt.u1)
     annotation(Line(points={{88,80},{60,80},{60,46},{22,46}},
       color={255,127,0}));
-  connect(mHeaWatLoo_flow.port_b, dpHeaWatRem[1].port_b)
+  connect(VHeaWatLoo_flow.port_b, dpHeaWatRem[1].port_b)
     annotation(Line(points={{160,-90},{160,-100},{80,-100},{80,-90}},
       color={0,127,255}));
   connect(sigBAS.bus, busPla)
     annotation(Line(points={{-130,-20},{-80,-20}},
       color={255,204,51},
       thickness=0.5));
-  connect(mHeaWatLoo_flow.port_b, pipHeaWat.port_a)
+  connect(VHeaWatLoo_flow.port_b, pipHeaWat.port_a)
     annotation(Line(points={{160,-90},{160,-100},{40,-100}},
       color={0,127,255}));
   connect(mulInt[1].y, busAirHan.reqPlaHeaWat)
@@ -165,7 +166,7 @@ equation
   connect(pla.port_b, THeaWatSup.port_a)
     annotation(Line(points={{-39.8,-80},{-20,-80},{-20,-60},{-10,-60}},
       color={0,127,255}));
-  connect(loa.port_b, mHeaWatLoo_flow.port_a)
+  connect(loa.port_b, VHeaWatLoo_flow.port_a)
     annotation(Line(points={{130,-60},{160,-60},{160,-70}},
       color={0,127,255}));
   connect(dpHeaWatRem[1].port_a, loa.port_a)
@@ -205,7 +206,7 @@ annotation(__Dymola_Commands(
 </p>
 <p>
   Two equally sized condensing boilers are modeled. A unique aggregated load
-  is modeled on the CHW loop using a heat exchanger component exposed to
+  is modeled on the HW loop using a heat exchanger component exposed to
   conditioned space air, and a two-way modulating valve. An importance
   multiplier of <i>10</i> is applied to the plant requests and reset requests
   generated from the valve position.
