@@ -1,0 +1,14 @@
+compareVars :=
+  {
+    "TChiWatPriRet.T",
+    "TChiWatPriSup.T",
+    "chi.chi[1].bus.TChiWatSet",
+    "TChiWatSup_nominal",
+    "TChiWatRet_nominal",
+    "chi.chi[1].bus.y1",
+    "chi.chi[2].bus.y1",
+    "chi.chi[3].bus.y1",
+    "chi.chi[1].chi.PLR",
+    "chi.chi[2].chi.PLR",
+    "chi.chi[3].chi.PLR"
+  };

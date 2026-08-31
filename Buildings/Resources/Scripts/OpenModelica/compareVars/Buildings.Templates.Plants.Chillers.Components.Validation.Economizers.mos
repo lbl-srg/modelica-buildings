@@ -1,0 +1,16 @@
+compareVars :=
+  {
+    "ecoVal.bus.valConWatEcoIso.y1",
+    "ecoVal.bus.valChiWatEcoByp.y",
+    "ecoVal.hex.m1_flow",
+    "ecoVal.hex.m2_flow",
+    "ecoVal.mConWat_flow_nominal",
+    "ecoVal.mChiWat_flow_nominal",
+    "ecoPum.bus.valConWatEcoIso.y1",
+    "ecoPum.bus.pumChiWatEco.y1",
+    "ecoPum.bus.pumChiWatEco.y",
+    "ecoPum.hex.m1_flow",
+    "ecoPum.hex.m2_flow",
+    "ecoPum.mConWat_flow_nominal",
+    "ecoPum.mChiWat_flow_nominal"
+  };
