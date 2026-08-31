@@ -28,6 +28,20 @@ CRED = '\033[91m'
 CGREEN = '\033[92m'
 CEND = '\033[0m'
 
+# Solver names accepted by buildingspy.simulate.Optimica.Simulator.setSolver(), keyed by
+# their lowercase spelling so mos/conf.yml/EXPERIMENT_MODIF values can be matched
+# case-insensitively and re-cased into the exact (case-sensitive) name Optimica expects.
+OPTIMICA_SOLVERS = {
+    'cvode': 'CVode',
+    'radau5ode': 'Radau5ODE',
+    'rungekutta34': 'RungeKutta34',
+    'dopri5': 'Dopri5',
+    'rodasode': 'RodasODE',
+    'lsodar': 'LSODAR',
+    'expliciteuler': 'ExplicitEuler',
+    'impliciteuler': 'ImplicitEuler',
+}
+
 # Parse conf.yml.
 with open('./Resources/Scripts/BuildingsPy/conf.yml', 'r') as FH:
     CONF = yaml.safe_load(FH)
@@ -82,6 +96,29 @@ def parse_args():
     return args
 
 
+def normalize_attributes(attributes):
+    """Normalize experiment attribute values in place, regardless of their origin.
+
+    Args:
+        attributes: dict: Experiment attributes for a single Modelica tool, e.g.,
+            `get_experiment_attributes(model_name)['dymola']`.
+
+    Returns:
+        dict: The same dict, mutated in place, with normalized values.
+    """
+    if 'method' in attributes:
+        # This is for optimica which only accepts specific, case-sensitive solver names.
+        # Names not in OPTIMICA_SOLVERS (e.g., Dymola-only solvers such as `Dassl`) are left
+        # untouched: Optimica's own setSolver() will warn if it does not recognize them.
+        attributes['method'] = OPTIMICA_SOLVERS.get(
+            str(attributes['method']).lower(), attributes['method']
+        )
+    for key in ('tolerance', 'startTime', 'stopTime'):
+        if key in attributes:
+            attributes[key] = float(attributes[key])
+    return attributes
+
+
 def get_experiment_attributes(model_name, conf=CONF):
     """Get experiment attributes from mos script and conf.yml file."""
     default_attributes = dict(
@@ -111,10 +148,6 @@ def get_experiment_attributes(model_name, conf=CONF):
     for arg in simu_args:
         if (key := re.sub(r'\s', '', arg.group(1))) in default_attributes:
             value = re.sub(r',|\)|;| |\n|"', '', arg.group(2))
-            if value.lower() == 'cvode':
-                value = 'CVode'  # This is for optimica which only accepts case-sensitive solver names.
-            if key in ['tolerance', 'startTime', 'stopTime']:
-                value = float(value)
             default_attributes[key] = value
 
     # We apply the default attributes for all Modelica tools.
@@ -140,6 +173,11 @@ def get_experiment_attributes(model_name, conf=CONF):
                         ]
                     if 'simulate' in el_conf[tool]:
                         attributes[tool]['simulate'] = el_conf[tool]['simulate']
+
+    # Normalize values once all overrides (mos script and conf.yml) have been applied.
+    for tool_attributes in attributes.values():
+        normalize_attributes(tool_attributes)
+
     return attributes
 
 
@@ -259,7 +297,8 @@ def simulate_cases(
     Args:
         args: list[tuple[str, list[str]]]: List of tuples containing (model name, list of class modifications, suffix for mat file name).
         simulator: str: Modelica tool for simulating the model.
-        all_experiment_attributes: dict: Dict with model name as key and return value of get_experiment_attributes(model_name) as value (dict).
+        all_experiment_attributes: dict: Dict with the combination tag as key and experiment
+            attributes as value, as returned by `apply_experiment_modifications`.
         n_cpu: int: Number of CPU cores to use for running simulations.
         asy: bool: If True run simulations asynchronously.
 
@@ -267,7 +306,7 @@ def simulate_cases(
         list[tuple[int, str]]: List of (error code, log).
     """
     args_with_fixed = [
-        (el, simulator, all_experiment_attributes[el[0]]) for el in args
+        (el, simulator, all_experiment_attributes[el[2]]) for el in args
     ]
     results = []
     pool = Pool(n_cpu)
@@ -490,6 +529,76 @@ def prune_modifications(
     return combinations
 
 
+def apply_experiment_modifications(
+    combinations, all_experiment_attributes, experiment_modif
+):
+    """Compute per-case experiment attributes, overriding defaults based on class modifications.
+
+    Args:
+        combinations: list[tuple[str, list[str], str]]: List of combinations as generated
+            by `generate_combinations` (and typically pruned by `prune_modifications`).
+        all_experiment_attributes: dict[str, dict]: Dict with model name as key and
+            return value of `get_experiment_attributes(model_name)` as value.
+        experiment_modif: dict[str, list[tuple[list[str], dict]]]: Dictionary providing
+            experiment attribute overrides to be applied to matching combinations, see below.
+
+    Returns:
+        dict[str, dict]: Dict with the combination tag (unique within `combinations`) as key,
+            and the corresponding experiment attributes as value, in the same structure as
+            each value of `all_experiment_attributes`.
+
+    Details:
+        For a given combination:
+            - Start from a copy of `all_experiment_attributes[model]`.
+            - Look for the model (key) in experiment_modif (dict).
+            - Iterate over the list of (patterns, attribute overrides) 2-tuples for this model.
+            - For a given list of patterns, if all patterns are found in the original class
+            modifications of the combination (concatenated), the attribute overrides are applied,
+            for all Modelica tools, on top of the case's current experiment attributes.
+            - If several items match a given combination, they are applied in order, each one
+            on top of the previous.
+            - Once all matching overrides have been applied, values are normalized with
+            `normalize_attributes` (e.g., `method='cvode'` is cased into `method='CVode'`),
+            so override values do not need to be pre-normalized by the caller.
+            - Note: re patterns are supported, e.g., negative lookahead using (?!pattern)
+
+        Example:
+            EXPERIMENT_MODIF = {
+                'Buildings.Templates.Plants.Chillers.Validation.WaterCooled': [
+                    (
+                        [
+                            r'Buildings\\.Templates\\.Plants\\.Chillers\\.Components\\.Economizers\\.(?!None)',
+                            r'have_senDpChiWatRemWir=false',
+                        ],
+                        {
+                            'method': 'CVode',
+                        },
+                    ),
+                ],
+            }
+            Combinations of `WaterCooled` with an economizer other than `None`, and with
+            `have_senDpChiWatRemWir=false`, are simulated with `method='CVode'`.
+    """
+    case_experiment_attributes = dict()
+    for model, modif, tag in combinations:
+        attributes = {
+            tool: attr.copy()
+            for tool, attr in all_experiment_attributes[model].items()
+        }
+        if experiment_modif is not None and model in experiment_modif:
+            modif_concat = ''.join(modif)
+            for patterns, overrides in experiment_modif[model]:
+                if all(re.search(pattern, modif_concat) for pattern in patterns):
+                    for tool_attributes in attributes.values():
+                        tool_attributes.update(overrides)
+            # Normalize values once all matching overrides have been applied.
+            for tool_attributes in attributes.values():
+                normalize_attributes(tool_attributes)
+        case_experiment_attributes[tag] = attributes
+
+    return case_experiment_attributes
+
+
 def report_clean(combinations, results, keep_going=False):
     """Report, clean and exit(1) if any simulations failed.
 
@@ -546,7 +655,7 @@ def report_clean(combinations, results, keep_going=False):
     return has_failure
 
 
-def main(models, modif_grid, exclude, remove_modif):
+def main(models, modif_grid, exclude, remove_modif, experiment_modif=None):
     """Main function."""
     args = parse_args()
     tool = args.tool.lower()
@@ -612,11 +721,18 @@ def main(models, modif_grid, exclude, remove_modif):
             os.unlink(file)
 
             if len(combinations) > 0:
+                # Compute per-case experiment attributes (overridden based on class modifications).
+                case_experiment_attributes = apply_experiment_modifications(
+                    combinations=combinations,
+                    all_experiment_attributes=all_experiment_attributes,
+                    experiment_modif=experiment_modif,
+                )
+
                 # Simulate cases.
                 results = simulate_cases(
                     combinations,
                     simulator=tool,
-                    all_experiment_attributes=all_experiment_attributes,
+                    all_experiment_attributes=case_experiment_attributes,
                     n_cpu=args.n_cpu,
                     asy=False,
                 )
