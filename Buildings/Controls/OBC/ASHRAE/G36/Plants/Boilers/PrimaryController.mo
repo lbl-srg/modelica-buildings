@@ -17,18 +17,12 @@ model PrimaryController
     False: The boiler plant is primary-secondary"
     annotation(Dialog(tab="General", group="Boiler plant configuration parameters"));
 
-  parameter Boolean have_heaPriPum_select(
+  parameter Boolean have_heaPriPum(
     final start=true)
     "True: Headered primary hot water pumps;
     False: Dedicated primary hot water pumps"
     annotation(Dialog(tab="General",
-      group="Boiler plant configuration parameters",
-      enable=not have_priOnl));
-
-  final parameter Boolean have_heaPriPum = have_priOnl or have_heaPriPum_select
-    "True: Headered primary hot water pumps;
-    False: Dedicated primary hot water pumps;
-    Parameter is automatically set to true when the plant is primary-only";
+      group="Boiler plant configuration parameters"));
 
   parameter Boolean have_isoValSen = false
     "True: Open and closed position sensors for boiler isolation valves;
@@ -1286,11 +1280,13 @@ protected
     "Plant disable process controller"
     annotation (Placement(transformation(extent={{240,60},{260,80}})));
 
-  Buildings.Controls.OBC.CDL.Integers.Switch intSwi1 if not have_priOnl
+  Buildings.Controls.OBC.CDL.Integers.Switch intSwi1
+    if not have_priOnl or not have_heaPriPum
     "Switch input signal between stage-up and stage-down processes"
     annotation (Placement(transformation(extent={{64,280},{84,300}})));
 
-  Buildings.Controls.OBC.CDL.Logical.Or or1 if not have_priOnl
+  Buildings.Controls.OBC.CDL.Logical.Or or1
+    if not have_priOnl or not have_heaPriPum
     "Or operator for pump stage change signal from up-staging, down-staging and
     plant disable process controllers"
     annotation (Placement(transformation(extent={{58,-220},{78,-200}})));
@@ -1369,34 +1365,6 @@ protected
     documentation for allowed selections.")
     "Error message for non-compliant configuration selection"
     annotation (Placement(transformation(extent={{-160,-490},{-140,-470}})));
-
-  Buildings.Controls.OBC.CDL.Logical.Sources.Constant conHavPriOnl1(
-    final k=have_priOnl)
-    "Boolean parameter selection for plant configuration"
-    annotation (Placement(transformation(extent={{-40,-490},{-20,-470}})));
-
-  Buildings.Controls.OBC.CDL.Logical.Sources.Constant conIntLocDp1(
-    final k=have_heaPriPum)
-    "Primary pump configuration type signal"
-    annotation (Placement(transformation(extent={{-40,-450},{-20,-430}})));
-
-  Buildings.Controls.OBC.CDL.Logical.And and8
-    "Check if valid pump configuration type for selected configuration"
-    annotation (Placement(transformation(extent={{20,-450},{40,-430}})));
-
-  Buildings.Controls.OBC.CDL.Logical.Not not3
-    "Alternative selection for boiler plant configuration"
-    annotation (Placement(transformation(extent={{20,-490},{40,-470}})));
-
-  Buildings.Controls.OBC.CDL.Logical.Or or4
-    "Check compliance with all configuration selection rules"
-    annotation (Placement(transformation(extent={{60,-470},{80,-450}})));
-
-  Buildings.Controls.OBC.CDL.Utilities.Assert assMes1(
-    final message="Invalid primary pump configuration selections. Please refer to
-    documentation for allowed configuration selections.")
-    "Error message for non-compliant configuration selection"
-    annotation (Placement(transformation(extent={{100,-470},{120,-450}})));
 
   Buildings.Controls.OBC.CDL.Reals.MultiSum mulSum(
     final nin=nLooSec) if not have_priOnl and have_secFloSen
@@ -1823,18 +1791,6 @@ equation
   connect(plaDis.yHotWatIsoVal, priPumCon.uHotIsoVal) annotation (Line(points={{262,68},
           {280,68},{280,-100},{104,-100},{104,-161.333},{118,-161.333}},
         color={255,0,255}));
-  connect(conHavPriOnl1.y, and8.u2) annotation (Line(points={{-18,-480},{10,-480},
-          {10,-448},{18,-448}},  color={255,0,255}));
-  connect(conHavPriOnl1.y, not3.u) annotation (Line(points={{-18,-480},{18,-480}},
-                                  color={255,0,255}));
-  connect(conIntLocDp1.y, and8.u1)
-    annotation (Line(points={{-18,-440},{18,-440}}, color={255,0,255}));
-  connect(or4.y, assMes1.u)
-    annotation (Line(points={{82,-460},{98,-460}}, color={255,0,255}));
-  connect(and8.y, or4.u1) annotation (Line(points={{42,-440},{52,-440},{52,-460},
-          {58,-460}}, color={255,0,255}));
-  connect(not3.y, or4.u2) annotation (Line(points={{42,-480},{52,-480},{52,-468},
-          {58,-468}}, color={255,0,255}));
   connect(VHotWatSec_flow, mulSum.u) annotation (Line(points={{-420,-80},{-372,-80},
           {-372,-90},{-362,-90}},            color={0,0,127}));
   connect(mulSum.y, staSetCon.VHotWatSec_flow) annotation (Line(points={{-338,

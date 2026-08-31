@@ -247,12 +247,14 @@ block Controller
     "Speed regulation method"
     annotation (Dialog(group="Plant parameters", enable=have_varPriPum));
 
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uStaUp if not have_priOnl
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uStaUp
+    if not have_priOnl or not have_heaPriPum
     "Stage up signal"
     annotation (Placement(transformation(extent={{-320,-210},{-280,-170}}),
       iconTransformation(extent={{-140,90},{-100,130}})));
 
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uOnOff if not have_priOnl
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uOnOff
+    if not have_priOnl or not have_heaPriPum
     "Signal indicating stage change with simultaneous enabling and disabling of boilers"
     annotation (Placement(transformation(extent={{-320,-240},{-280,-200}}),
       iconTransformation(extent={{-140,60},{-100,100}})));
@@ -267,12 +269,14 @@ block Controller
     annotation (Placement(transformation(extent={{-320,90},{-280,130}}),
       iconTransformation(extent={{-140,210},{-100,250}})));
 
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uBoi[nBoi] if not have_priOnl
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uBoi[nBoi]
+    if not have_priOnl or not have_heaPriPum
     "Boiler enable signals"
     annotation (Placement(transformation(extent={{-320,-90},{-280,-50}}),
       iconTransformation(extent={{-140,120},{-100,160}})));
 
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uPumChaPro if not have_priOnl
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uPumChaPro
+    if not have_priOnl or not have_heaPriPum
     "Signal indicating start of pump change process"
     annotation (Placement(transformation(extent={{-320,-270},{-280,-230}}),
       iconTransformation(extent={{-140,30},{-100,70}})));
@@ -605,14 +609,15 @@ protected
   Buildings.Controls.OBC.CDL.Conversions.BooleanToInteger booToInt2[nPum] if
     have_heaPriPum and (not have_priOnl)
     "Convert boolean to integer"
-    annotation (Placement(transformation(extent={{-248,-250},{-228,-230}})));
+    annotation (Placement(transformation(extent={{-248,-242},{-228,-222}})));
 
   Buildings.Controls.OBC.CDL.Integers.MultiSum mulSumInt2(
     final nin=nBoi) if have_heaPriPum and (not have_priOnl)
     "Sum of integer inputs"
-    annotation (Placement(transformation(extent={{-202,-250},{-182,-230}})));
+    annotation (Placement(transformation(extent={{-202,-242},{-182,-222}})));
 
-  Buildings.Controls.OBC.CDL.Logical.Or or1 if not have_priOnl
+  Buildings.Controls.OBC.CDL.Logical.Or or1
+    if not have_priOnl or not have_heaPriPum
     "Logical or"
     annotation (Placement(transformation(extent={{-250,-200},{-230,-180}})));
 
@@ -634,7 +639,8 @@ protected
     "Check if less boilers than pumps are enabled"
     annotation (Placement(transformation(extent={{-38,-250},{-18,-230}})));
 
-  Buildings.Controls.OBC.CDL.Logical.Latch lat if not have_priOnl
+  Buildings.Controls.OBC.CDL.Logical.Latch lat
+    if not have_priOnl or not have_heaPriPum
     "Hold true signal when a pump needs to be enabled for stage change"
     annotation (Placement(transformation(extent={{-200,-200},{-180,-180}})));
 
@@ -657,25 +663,25 @@ protected
     chaPumSta(final nPum=nPum)
     if not have_heaPriPum
     "Change lead pump status for dedicated primary pumps"
-    annotation (Placement(transformation(extent={{58,100},{80,120}})));
+    annotation (Placement(transformation(extent={{60,100},{80,120}})));
 
   Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Pumps.Generic.ChangeStatus
     chaPumSta1(
     final nPum=nPum) if have_heaPriPum
     "Change lead pump status for headered primary pumps"
-    annotation (Placement(transformation(extent={{58,66},{80,86}})));
+    annotation (Placement(transformation(extent={{60,66},{80,86}})));
 
   Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Pumps.Generic.ChangeStatus
     chaPumSta2(
     final nPum=nPum) if have_priOnl and have_heaPriPum
     "Change lag pump status for headered primary pumps in a plant that is primary-only"
-    annotation (Placement(transformation(extent={{128,-42},{150,-22}})));
+    annotation (Placement(transformation(extent={{130,-42},{150,-22}})));
 
   Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Pumps.Generic.ChangeStatus
     chaPumSta3(
     final nPum=nPum) if have_heaPriPum and (not have_priOnl)
     "Change lag pump status for headered primary pumps in a plant that is not primary-only"
-    annotation (Placement(transformation(extent={{130,-182},{152,-162}})));
+    annotation (Placement(transformation(extent={{132,-182},{152,-162}})));
 
   Buildings.Controls.OBC.CDL.Logical.And and1 if not have_heaPriPum
     "Lag pump enable"
@@ -689,7 +695,7 @@ protected
     chaPumSta4(
     final nPum=nPum) if not have_heaPriPum
     "Change lag pump status for dedicated primary pumps"
-    annotation (Placement(transformation(extent={{62,-314},{84,-294}})));
+    annotation (Placement(transformation(extent={{64,-314},{84,-294}})));
 
   Buildings.Controls.OBC.CDL.Logical.Or or2 if not have_heaPriPum
     "Lag pump disable"
@@ -718,29 +724,24 @@ protected
     "Boolean False signal"
     annotation (Placement(transformation(extent={{128,0},{148,20}})));
 
-  Buildings.Controls.OBC.CDL.Logical.Latch lat1 if not have_priOnl
-    "Latch to hold process completion signal"
-    annotation (Placement(transformation(extent={{-60,-400},{-40,-380}})));
-
-  Buildings.Controls.OBC.CDL.Logical.Xor xor[nPum] if not have_priOnl
-    "Check if all pumps are enabled and disabled as required"
-    annotation (Placement(transformation(extent={{-180,-400},{-160,-380}})));
-
-  Buildings.Controls.OBC.CDL.Logical.Not not4[nPum] if not have_priOnl
-    "True signal for pumps that are at correct state"
-    annotation (Placement(transformation(extent={{-140,-400},{-120,-380}})));
-
-  Buildings.Controls.OBC.CDL.Logical.MultiAnd mulAnd(nin=nPum) if not have_priOnl
-    "Check if all pumps are at desired status"
-    annotation (Placement(transformation(extent={{-100,-400},{-80,-380}})));
-
-  Buildings.Controls.OBC.CDL.Logical.Pre pre1[nPum] if not have_priOnl
+  Buildings.Controls.OBC.CDL.Logical.Pre pre2 if not have_priOnl or not have_heaPriPum
     "Logical pre block"
-    annotation (Placement(transformation(extent={{-220,-400},{-200,-380}})));
+    annotation (Placement(transformation(extent={{-60,-380},{-80,-360}})));
 
-  Buildings.Controls.OBC.CDL.Logical.Not not5 if not have_priOnl
-    "Generate true signal when process is incomplete"
-    annotation (Placement(transformation(extent={{-20,-400},{0,-380}})));
+  Buildings.Controls.OBC.CDL.Logical.Or orProComDed if not have_heaPriPum
+    "Combine process completion signals from lead and lag modules for dedicated
+    pumps"
+    annotation (Placement(transformation(extent={{244,-318},{264,-298}})));
+
+  Buildings.Controls.OBC.CDL.Logical.Or orProComHea if have_heaPriPum and (not have_priOnl)
+    "Combine process completion signals from lead and lag modules for headered
+    pumps"
+    annotation (Placement(transformation(extent={{244,-222},{264,-202}})));
+
+  Buildings.Controls.OBC.CDL.Logical.Pre pre1 if not have_heaPriPum
+    "Pre block to trigger the pump enable only after the external lead pump index
+    signal has been generated by the staging process module"
+    annotation (Placement(transformation(extent={{-90,100},{-70,120}})));
 
 equation
   connect(enaDedLeaPum.uPlaEna, uPlaEna) annotation (Line(points={{-202,115},{-240,
@@ -854,11 +855,13 @@ equation
   connect(booToInt1.y, mulSumInt1.u[1:nPum]) annotation (Line(points={{-228,-156},
           {-202,-156}}, color={255,127,0}));
 
-  connect(booToInt2.y,mulSumInt2. u[1:nPum]) annotation (Line(points={{-226,-240},
-          {-204,-240}}, color={255,127,0}));
+  connect(booToInt2.y,mulSumInt2. u[1:nPum]) annotation (Line(points={{-226,
+          -232},{-204,-232}},
+                        color={255,127,0}));
 
-  connect(uHotWatPum, booToInt2.u) annotation (Line(points={{-300,140},{-260,140},
-          {-260,-240},{-250,-240}}, color={255,0,255}));
+  connect(uHotWatPum, booToInt2.u) annotation (Line(points={{-300,140},{-260,
+          140},{-260,-232},{-250,-232}},
+                                    color={255,0,255}));
 
   connect(or1.u1, uStaUp)
     annotation (Line(points={{-252,-190},{-300,-190}}, color={255,0,255}));
@@ -881,14 +884,16 @@ equation
   connect(intSwi.y, intGre.u1)
     annotation (Line(points={{-74,-190},{-42,-190}}, color={255,127,0}));
 
-  connect(mulSumInt2.y, intGre.u2) annotation (Line(points={{-180,-240},{-72,-240},
-          {-72,-198},{-42,-198}}, color={255,127,0}));
+  connect(mulSumInt2.y, intGre.u2) annotation (Line(points={{-180,-232},{-72,
+          -232},{-72,-198},{-42,-198}},
+                                  color={255,127,0}));
 
   connect(intSwi.y, intLes.u1) annotation (Line(points={{-74,-190},{-56,-190},{-56,
           -240},{-40,-240}}, color={255,127,0}));
 
-  connect(mulSumInt2.y, intLes.u2) annotation (Line(points={{-180,-240},{-72,-240},
-          {-72,-248},{-40,-248}}, color={255,127,0}));
+  connect(mulSumInt2.y, intLes.u2) annotation (Line(points={{-180,-232},{-72,
+          -232},{-72,-248},{-40,-248}},
+                                  color={255,127,0}));
 
   connect(or1.y, lat.u)
     annotation (Line(points={{-228,-190},{-202,-190}}, color={255,0,255}));
@@ -920,41 +925,35 @@ equation
   connect(uMinPriPumSpeCon, max.u1)
     annotation (Line(points={{-300,-540},{132,-540}}, color={0,0,127}));
 
-  connect(enaDedLeaPum.yLea, chaPumSta.uNexLagPumSta) annotation (Line(points={
-          {-178,110},{22,110},{22,118},{56,118}}, color={255,0,255}));
-
-  connect(enaDedLeaPum.yLea, chaPumSta.uLasLagPumSta) annotation (Line(points={
-          {-178,110},{22,110},{22,115},{56,115}}, color={255,0,255}));
-
   connect(reaToInt.y, chaPumSta1.uNexLagPum) annotation (Line(points={{-18,230},
-          {46,230},{46,72},{56,72}}, color={255,127,0}));
+          {46,230},{46,72},{58,72}}, color={255,127,0}));
 
   connect(reaToInt.y, chaPumSta1.uLasLagPum) annotation (Line(points={{-18,230},
-          {46,230},{46,68},{56,68}}, color={255,127,0}));
+          {46,230},{46,68},{58,68}}, color={255,127,0}));
 
-  connect(enaHeaLeaPum.yLea, chaPumSta1.uNexLagPumSta) annotation (Line(points=
-          {{-178,70},{36,70},{36,84},{56,84}}, color={255,0,255}));
+  connect(enaHeaLeaPum.yLea, chaPumSta1.uNexLagPumSta) annotation (Line(points={{-178,70},
+          {36,70},{36,83.8},{58,83.8}},        color={255,0,255}));
 
-  connect(enaHeaLeaPum.yLea, chaPumSta1.uLasLagPumSta) annotation (Line(points=
-          {{-178,70},{36,70},{36,81},{56,81}}, color={255,0,255}));
+  connect(enaHeaLeaPum.yLea, chaPumSta1.uLasLagPumSta) annotation (Line(points={{-178,70},
+          {36,70},{36,79.8},{58,79.8}},        color={255,0,255}));
 
   connect(uHotWatPum, chaPumSta.uHotWatPum) annotation (Line(points={{-300,140},
-          {26,140},{26,110},{56,110}}, color={255,0,255}));
+          {26,140},{26,110},{58,110}}, color={255,0,255}));
 
   connect(uHotWatPum, chaPumSta1.uHotWatPum) annotation (Line(points={{-300,140},
-          {26,140},{26,76},{56,76}}, color={255,0,255}));
+          {26,140},{26,76},{58,76}}, color={255,0,255}));
 
   connect(reaToInt1.y, chaPumSta2.uNexLagPum) annotation (Line(points={{-18,-50},
-          {30,-50},{30,-36},{126,-36}},color={255,127,0}));
+          {30,-50},{30,-36},{128,-36}},color={255,127,0}));
 
   connect(reaToInt2.y, chaPumSta2.uLasLagPum) annotation (Line(points={{-18,
-          -100},{34,-100},{34,-40},{126,-40}},color={255,127,0}));
+          -100},{34,-100},{34,-40},{128,-40}},color={255,127,0}));
 
   connect(reaToInt1.y, chaPumSta3.uNexLagPum) annotation (Line(points={{-18,-50},
-          {30,-50},{30,-176},{128,-176}},color={255,127,0}));
+          {30,-50},{30,-176},{130,-176}},color={255,127,0}));
 
   connect(reaToInt2.y, chaPumSta3.uLasLagPum) annotation (Line(points={{-18,
-          -100},{34,-100},{34,-180},{128,-180}},color={255,127,0}));
+          -100},{34,-100},{34,-180},{130,-180}},color={255,127,0}));
 
   connect(lat.y, and1.u1) annotation (Line(points={{-178,-190},{-170,-190},{
           -170,-284},{-150,-284}}, color={255,0,255}));
@@ -966,20 +965,20 @@ equation
           -118,-310},{-112,-310}}, color={255,0,255}));
 
   connect(uNexEnaBoi, chaPumSta4.uNexLagPum) annotation (Line(points={{-300,
-          -300},{-188,-300},{-188,-334},{26,-334},{26,-308},{60,-308}}, color={
+          -300},{-188,-300},{-188,-334},{26,-334},{26,-308},{62,-308}}, color={
           255,127,0}));
 
   connect(uLasDisBoi, chaPumSta4.uLasLagPum) annotation (Line(points={{-300,
-          -340},{32,-340},{32,-312},{60,-312}}, color={255,127,0}));
+          -340},{32,-340},{32,-312},{62,-312}}, color={255,127,0}));
 
-  connect(chaPumSta.yHotWatPum, chaPumSta4.uHotWatPum) annotation (Line(points=
-          {{80,110},{104,110},{104,-266},{52,-266},{52,-304},{60,-304}}, color=
+  connect(chaPumSta.yHotWatPum, chaPumSta4.uHotWatPum) annotation (Line(points={{82,114},
+          {104,114},{104,-266},{52,-266},{52,-304},{62,-304}},           color=
           {255,0,255}));
 
-  connect(chaPumSta1.yHotWatPum, chaPumSta2.uHotWatPum) annotation (Line(points={{80,76},
-          {100,76},{100,-32},{126,-32}}, color={255,0,255}));
-  connect(chaPumSta1.yHotWatPum, chaPumSta3.uHotWatPum) annotation (Line(points={{80,76},
-          {100,76},{100,-172},{128,-172}}, color={255,0,255}));
+  connect(chaPumSta1.yHotWatPum, chaPumSta2.uHotWatPum) annotation (Line(points={{82,80},
+          {100,80},{100,-32},{128,-32}}, color={255,0,255}));
+  connect(chaPumSta1.yHotWatPum, chaPumSta3.uHotWatPum) annotation (Line(points={{82,80},
+          {100,80},{100,-172},{130,-172}}, color={255,0,255}));
 
   connect(greThr.u, extIndSig.y)
     annotation (Line(points={{-194,-70},{-200,-70}}, color={0,0,127}));
@@ -991,17 +990,21 @@ equation
   connect(or2.y, or3.u1) annotation (Line(points={{-88,-302},{-70,-302},{-70,-318},
           {-50,-318}},color={255,0,255}));
   connect(and2.y, chaPumSta4.uNexLagPumSta) annotation (Line(points={{-24,-284},
-          {-20,-284},{-20,-296},{60,-296}}, color={255,0,255}));
-  connect(or3.y, chaPumSta4.uLasLagPumSta) annotation (Line(points={{-26,-318},{
-          48,-318},{48,-299},{60,-299}}, color={255,0,255}));
+          {-20,-284},{-20,-296.2},{62,-296.2}},
+                                            color={255,0,255}));
+  connect(or3.y, chaPumSta4.uLasLagPumSta) annotation (Line(points={{-26,-318},
+          {48,-318},{48,-300.2},{62,-300.2}},
+                                         color={255,0,255}));
   connect(intGreEquThr1.y, and3.u1)
     annotation (Line(points={{-8,32},{68,32}}, color={255,0,255}));
   connect(enaLagHotPum.yUp, and3.u2) annotation (Line(points={{-178,4},{2,4},{2,
           24},{68,24}}, color={255,0,255}));
   connect(or4.y, chaPumSta2.uLasLagPumSta) annotation (Line(points={{94,-10},{
-          108,-10},{108,-27},{126,-27}}, color={255,0,255}));
+          108,-10},{108,-28.2},{128,-28.2}},
+                                         color={255,0,255}));
   connect(and3.y, chaPumSta2.uNexLagPumSta) annotation (Line(points={{92,32},{
-          112,32},{112,-24},{126,-24}}, color={255,0,255}));
+          112,32},{112,-24.2},{128,-24.2}},
+                                        color={255,0,255}));
   connect(intLesEquThr1.y, or4.u1)
     annotation (Line(points={{40,-10},{70,-10}}, color={255,0,255}));
   connect(enaLagHotPum.yDown, or4.u2) annotation (Line(points={{-178,-4},{2,-4},
@@ -1009,11 +1012,13 @@ equation
   connect(and4.y, and3.u2) annotation (Line(points={{22,-190},{50,-190},{50,24},
           {68,24}}, color={255,0,255}));
   connect(not1.y, or4.u2) annotation (Line(points={{72,-240},{76,-240},{76,-212},
-          {54,-212},{54,-28},{66,-28},{66,-18},{70,-18}}, color={255,0,255}));
+          {54,-212},{54,-18},{70,-18}},                   color={255,0,255}));
   connect(or4.y, chaPumSta3.uLasLagPumSta) annotation (Line(points={{94,-10},{
-          108,-10},{108,-167},{128,-167}}, color={255,0,255}));
+          108,-10},{108,-168.2},{130,-168.2}},
+                                           color={255,0,255}));
   connect(and3.y, chaPumSta3.uNexLagPumSta) annotation (Line(points={{92,32},{
-          112,32},{112,-164},{128,-164}}, color={255,0,255}));
+          112,32},{112,-164.2},{130,-164.2}},
+                                          color={255,0,255}));
   connect(mulSumInt.y, intGreEquThr1.u) annotation (Line(points={{-178,-120},{
           -48,-120},{-48,32},{-32,32}}, color={255,127,0}));
   connect(mulSumInt.y, intLesEquThr1.u) annotation (Line(points={{-178,-120},{8,
@@ -1026,22 +1031,22 @@ equation
     annotation (Line(points={{-178,40},{-122,40}}, color={255,0,255}));
   connect(truDel.y, booRep.u) annotation (Line(points={{-98,40},{-48,40},{-48,54},
           {122,54},{122,40},{140,40}}, color={255,0,255}));
-  connect(chaPumSta2.yHotWatPum, logSwi.u3) annotation (Line(points={{150,-32},{
-          166,-32},{166,-40},{180,-40}}, color={255,0,255}));
+  connect(chaPumSta2.yHotWatPum, logSwi.u3) annotation (Line(points={{152,-28},
+          {166,-28},{166,-40},{180,-40}},color={255,0,255}));
   connect(booRep.y, logSwi.u2) annotation (Line(points={{164,40},{174,40},{174,-32},
           {180,-32}}, color={255,0,255}));
   connect(con1.y, logSwi.u1) annotation (Line(points={{150,10},{166,10},{166,-24},
           {180,-24}}, color={255,0,255}));
   connect(logSwi.y, yHotWatPum) annotation (Line(points={{204,-32},{248,-32},{248,
           0},{300,0}}, color={255,0,255}));
-  connect(chaPumSta3.yHotWatPum, logSwi.u3) annotation (Line(points={{152,-172},
-          {166,-172},{166,-40},{180,-40}}, color={255,0,255}));
-  connect(chaPumSta4.yHotWatPum, logSwi.u3) annotation (Line(points={{84,-304},{
-          166,-304},{166,-40},{180,-40}}, color={255,0,255}));
+  connect(chaPumSta3.yHotWatPum, logSwi.u3) annotation (Line(points={{154,-168},
+          {166,-168},{166,-40},{180,-40}}, color={255,0,255}));
+  connect(chaPumSta4.yHotWatPum, logSwi.u3) annotation (Line(points={{86,-300},
+          {166,-300},{166,-40},{180,-40}},color={255,0,255}));
   connect(uNexEnaBoi, chaPumSta.uNexLagPum) annotation (Line(points={{-300,-300},
-          {-278,-300},{-278,98},{22,98},{22,106},{56,106}}, color={255,127,0}));
+          {-278,-300},{-278,98},{22,98},{22,106},{58,106}}, color={255,127,0}));
   connect(uLasDisBoi, chaPumSta.uLasLagPum) annotation (Line(points={{-300,-340},
-          {-264,-340},{-264,96},{28,96},{28,102},{56,102}}, color={255,127,0}));
+          {-264,-340},{-264,96},{28,96},{28,102},{58,102}}, color={255,127,0}));
   connect(uHotWatPum, pumSpeLocDp.uHotWatPum) annotation (Line(points={{-300,
           140},{-260,140},{-260,-478},{-62,-478}}, color={255,0,255}));
   connect(uHotWatPum, pumSpeRemDp.uHotWatPum) annotation (Line(points={{-300,140},
@@ -1052,43 +1057,42 @@ equation
           {-260,140},{-260,-592},{-62,-592}}, color={255,0,255}));
   connect(max.y, yPumSpe)
     annotation (Line(points={{156,-546},{300,-546}}, color={0,0,127}));
-  connect(xor.y, not4.u)
-    annotation (Line(points={{-158,-390},{-142,-390}}, color={255,0,255}));
-  connect(not4.y, mulAnd.u[1:nPum]) annotation (Line(points={{-118,-390},{-110,-390},
-          {-110,-390},{-102,-390}}, color={255,0,255}));
-  connect(mulAnd.y, lat1.u)
-    annotation (Line(points={{-78,-390},{-62,-390}}, color={255,0,255}));
-  connect(pre1.y, xor.u1)
-    annotation (Line(points={{-198,-390},{-182,-390}}, color={255,0,255}));
-  connect(logSwi.y, pre1.u) annotation (Line(points={{204,-32},{248,-32},{248,-370},
-          {-240,-370},{-240,-390},{-222,-390}}, color={255,0,255}));
-  connect(uHotWatPum, xor.u2) annotation (Line(points={{-300,140},{-260,140},{-260,
-          -360},{-190,-360},{-190,-398},{-182,-398}}, color={255,0,255}));
-  connect(uPumChaPro, lat1.clr) annotation (Line(points={{-300,-250},{-274,-250},
-          {-274,-410},{-70,-410},{-70,-396},{-62,-396}}, color={255,0,255}));
-  connect(lat1.y, not5.u)
-    annotation (Line(points={{-38,-390},{-22,-390}}, color={255,0,255}));
   connect(intGreEquThr1.y, and2.u2) annotation (Line(points={{-8,32},{58,32},{58,
           -206},{82,-206},{82,-260},{-58,-260},{-58,-292},{-48,-292}}, color={255,
           0,255}));
   connect(intLesEquThr1.y, or3.u2) annotation (Line(points={{40,-10},{62,-10},{62,
           -200},{88,-200},{88,-342},{-64,-342},{-64,-326},{-50,-326}}, color={255,
           0,255}));
-  connect(lat1.y, lat.clr) annotation (Line(points={{-38,-390},{-34,-390},{-34,
-          -366},{-176,-366},{-176,-206},{-216,-206},{-216,-196},{-202,-196}},
-        color={255,0,255}));
-  connect(not5.y, not2.u) annotation (Line(points={{2,-390},{20,-390},{20,-360},
-          {-160,-360},{-160,-320},{-150,-320}}, color={255,0,255}));
-  connect(not5.y, and1.u2) annotation (Line(points={{2,-390},{20,-390},{20,-360},
-          {-160,-360},{-160,-292},{-150,-292}}, color={255,0,255}));
-  connect(not5.y, and4.u2) annotation (Line(points={{2,-390},{20,-390},{20,-360},
-          {-160,-360},{-160,-266},{-10,-266},{-10,-198},{-2,-198}}, color={255,
-          0,255}));
-  connect(not5.y, and5.u2) annotation (Line(points={{2,-390},{20,-390},{20,-360},
-          {-160,-360},{-160,-266},{-10,-266},{-10,-248},{-2,-248}}, color={255,
-          0,255}));
   connect(uHotIsoVal, enaHeaLeaPum.uHotWatIsoVal)
     annotation (Line(points={{-300,70},{-202,70}}, color={255,0,255}));
+  connect(chaPumSta3.yPumStaCom, orProComHea.u1) annotation (Line(points={{154,-176},
+          {220,-176},{220,-212},{242,-212}}, color={255,0,255}));
+  connect(chaPumSta4.yPumStaCom, orProComDed.u1)
+    annotation (Line(points={{86,-308},{242,-308}}, color={255,0,255}));
+  connect(chaPumSta1.yPumStaCom, orProComHea.u2) annotation (Line(points={{82,72},
+          {212,72},{212,-220},{242,-220}}, color={255,0,255}));
+  connect(chaPumSta.yPumStaCom, orProComDed.u2) annotation (Line(points={{82,106},
+          {216,106},{216,-316},{242,-316}}, color={255,0,255}));
+  connect(orProComHea.y, pre2.u) annotation (Line(points={{266,-212},{276,-212},
+          {276,-370},{-58,-370}}, color={255,0,255}));
+  connect(orProComDed.y, pre2.u) annotation (Line(points={{266,-308},{276,-308},
+          {276,-370},{-58,-370}}, color={255,0,255}));
+  connect(pre2.y, lat.clr) annotation (Line(points={{-82,-370},{-212,-370},{
+          -212,-196},{-202,-196}}, color={255,0,255}));
+  connect(uPumChaPro, not2.u) annotation (Line(points={{-300,-250},{-182,-250},
+          {-182,-320},{-150,-320}}, color={255,0,255}));
+  connect(uPumChaPro, and5.u2) annotation (Line(points={{-300,-250},{-90,-250},
+          {-90,-256},{-8,-256},{-8,-248},{-2,-248}}, color={255,0,255}));
+  connect(uPumChaPro, and4.u2) annotation (Line(points={{-300,-250},{-90,-250},
+          {-90,-208},{-14,-208},{-14,-198},{-2,-198}}, color={255,0,255}));
+  connect(uPumChaPro, and1.u2) annotation (Line(points={{-300,-250},{-182,-250},
+          {-182,-292},{-150,-292}}, color={255,0,255}));
+  connect(enaDedLeaPum.yLea, pre1.u)
+    annotation (Line(points={{-178,110},{-92,110}}, color={255,0,255}));
+  connect(pre1.y, chaPumSta.uNexLagPumSta) annotation (Line(points={{-68,110},{4,
+          110},{4,117.8},{58,117.8}}, color={255,0,255}));
+  connect(pre1.y, chaPumSta.uLasLagPumSta) annotation (Line(points={{-68,110},{4,
+          110},{4,113.8},{58,113.8}}, color={255,0,255}));
 annotation (defaultComponentName="priPumCon",
   Diagram(coordinateSystem(preserveAspectRatio=false,extent={{-280,-720},{280,260}}),
   graphics={

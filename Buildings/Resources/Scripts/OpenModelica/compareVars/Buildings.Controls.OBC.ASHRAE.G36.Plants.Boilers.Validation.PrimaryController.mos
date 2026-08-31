@@ -20,8 +20,8 @@ compareVars :=
     "controller1.yPriPum[1]",
     "controller1.yBoi[1]",
     "controller1.yHotWatIsoVal[2]",
-    "controller1.yBoi[2]",
     "controller1.yPriPum[2]",
+    "controller1.yBoi[2]",
     "controller1.VHotWatPri_flow",
     "controller1.VHotWatSec_flow[1]",
     "controller1.yPriPumSpe",
@@ -33,5 +33,17 @@ compareVars :=
     "controller2.yBoi[2]",
     "controller2.VHotWatPri_flow",
     "controller2.VHotWatSec_flow[1]",
-    "controller2.yPriPumSpe"
+    "controller2.yPriPumSpe",
+    "controller3.resReq",
+    "controller3.staSetCon.ySta",
+    "controller3.yPriPum[1]",
+    "controller3.yBoi[1]",
+    "controller3.yPriPum[2]",
+    "controller3.yBoi[2]",
+    "controller3.VHotWatPri_flow",
+    "controller3.VHotWatPri_flow_nominal",
+    "controller3.dpHotWatPri_rem[1]",
+    "controller3.maxLocDpPri",
+    "controller3.minLocDpPri",
+    "controller3.yPriPumSpe"
   };

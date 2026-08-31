@@ -49,25 +49,33 @@ block PlantDisable
     annotation (Placement(transformation(extent={{180,-140},{220,-100}}),
       iconTransformation(extent={{100,-80},{140,-40}})));
 
-  CDL.Interfaces.BooleanOutput                     yHotWatIsoVal[nBoi] if have_heaPriPum
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yHotWatIsoVal[nBoi] if have_heaPriPum
     "Boiler hot water isolation valve signal"
     annotation (Placement(transformation(extent={{180,-70},{220,-30}}),
       iconTransformation(extent={{100,-40},{140,0}})));
 
-  CDL.Logical.And and4[nBoi] if have_heaPriPum
-    annotation (Placement(transformation(extent={{100,-40},{120,-20}})));
-  CDL.Logical.And and5[nBoi] if have_heaPriPum
-    annotation (Placement(transformation(extent={{100,-70},{120,-50}})));
-  CDL.Logical.Not not2[nBoi] if have_heaPriPum
-    annotation (Placement(transformation(extent={{20,-60},{40,-40}})));
-  CDL.Logical.Or or1[nBoi] if have_heaPriPum
-    annotation (Placement(transformation(extent={{140,-60},{160,-40}})));
-// protected
+protected
   parameter Integer boiInd[nBoi]={i for i in 1:nBoi}
     "Boiler index vector";
 
-  Subsequences.HWIsoVal                                                          disHotWatIsoVal[nBoi]
-                                                       if have_heaPriPum
+  Buildings.Controls.OBC.CDL.Logical.And and4[nBoi] if have_heaPriPum
+    "Close valves when boiler cooling delay has elapsed and all isolation valves are closed"
+    annotation (Placement(transformation(extent={{100,-40},{120,-20}})));
+
+  Buildings.Controls.OBC.CDL.Logical.And and5[nBoi] if have_heaPriPum
+    "Pass through valve positions when plant is enabled"
+    annotation (Placement(transformation(extent={{100,-70},{120,-50}})));
+
+  Buildings.Controls.OBC.CDL.Logical.Not not2[nBoi] if have_heaPriPum
+    "Check when plant is enabled"
+    annotation (Placement(transformation(extent={{20,-60},{40,-40}})));
+
+  Buildings.Controls.OBC.CDL.Logical.Or or1[nBoi] if have_heaPriPum
+    "Combine valve signals from staging blocks and plant disable block"
+    annotation (Placement(transformation(extent={{140,-60},{160,-40}})));
+
+  Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Generic.Subsequences.HWIsoVal                                                          disHotWatIsoVal[nBoi]
+    if have_heaPriPum
     "Disable boiler hot water isolation valve for all disabled boilers simultaneously"
     annotation (Placement(transformation(extent={{20,-12},{40,8}})));
 
@@ -103,8 +111,8 @@ block PlantDisable
     "Logical Or"
     annotation (Placement(transformation(extent={{120,-130},{140,-110}})));
 
-  Buildings.Controls.OBC.CDL.Logical.MultiAnd mulAnd1(nin=nBoi)
-                    if have_priOnl and have_heaPriPum
+  Buildings.Controls.OBC.CDL.Logical.MultiAnd mulAnd1(
+    final nin=nBoi) if have_priOnl and have_heaPriPum
     "Multi And"
     annotation (Placement(transformation(extent={{80,-126},{100,-106}})));
 
@@ -125,8 +133,8 @@ block PlantDisable
     annotation (Placement(transformation(extent={{150,-130},{170,-110}})));
 
 
-  Buildings.Controls.OBC.CDL.Logical.MultiAnd mulAnd2(nin=nBoi)
-                    if not have_priOnl and have_heaPriPum
+  Buildings.Controls.OBC.CDL.Logical.MultiAnd mulAnd2(
+    final nin=nBoi) if not have_priOnl and have_heaPriPum
     "Multi And"
     annotation (Placement(transformation(extent={{80,-100},{100,-80}})));
 
@@ -138,6 +146,12 @@ block PlantDisable
   Buildings.Controls.OBC.CDL.Logical.And and3 if not have_priOnl
     "Indicate pump change completion only when plant is disabled"
     annotation (Placement(transformation(extent={{-90,-80},{-70,-60}})));
+
+  Buildings.Controls.OBC.CDL.Logical.Sources.Constant con(
+    final k=false)
+    if have_priOnl and not have_heaPriPum
+    "Constant false"
+    annotation (Placement(transformation(extent={{152,-82},{172,-62}})));
 
 equation
   connect(uBoi, logSwi.u1) annotation (Line(points={{-180,50},{-120,50},{-120,
@@ -238,6 +252,9 @@ equation
           {{42,4},{60,4},{60,-116},{78,-116}}, color={255,0,255}));
   connect(disHotWatIsoVal.yDisHotWatIsoVal, mulAnd2.u) annotation (Line(points=
           {{42,4},{60,4},{60,-90},{78,-90}}, color={255,0,255}));
+  connect(con.y, or2.u1) annotation (Line(points={{174,-72},{174,-94},{226,-94},
+          {226,-146},{112,-146},{112,-136},{110,-136},{110,-120},{118,-120}},
+        color={255,0,255}));
   annotation (defaultComponentName="plaDis",
     Icon(graphics={
       Rectangle(

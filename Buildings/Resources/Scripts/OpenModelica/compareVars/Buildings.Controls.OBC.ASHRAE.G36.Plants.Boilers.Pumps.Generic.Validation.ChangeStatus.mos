@@ -4,5 +4,6 @@ compareVars :=
     "chaPumSta.uLasLagPum",
     "chaPumSta.yHotWatPum[1]",
     "chaPumSta.yHotWatPum[2]",
-    "chaPumSta.yHotWatPum[3]"
+    "chaPumSta.yHotWatPum[3]",
+    "truFalHol2.y"
   };
