@@ -97,7 +97,7 @@ package Defaults
   constant Modelica.Units.SI.PressureDifference dpHeaWatRemSet_max = 5E4
     "Maximum HW differential pressure setpoint remote from the HW plant";
   constant Modelica.Units.SI.PressureDifference dpHeaWatLocSet_max = 15E4
-    "Maximum HW differential pressure setpoint local to the CHW plant";
+    "Maximum HW differential pressure setpoint local to the HW plant";
   constant Modelica.Units.SI.PressureDifference dpHeaWatHp = 3E4
     "Heat pump HW pressure drop across condenser barrel";
   constant Modelica.Units.SI.Temperature THeaWatSupHig = 60 + 273.15
@@ -127,9 +127,9 @@ package Defaults
   constant Real COPHpAwCoo(unit="1") = 2.84
     "Air-to-water heat pump cooling COP (ASHRAE 90.1 2022 at 7 °C CHWST, 35 °C OAT)";
   constant Real COPHpWwHea(unit="1") = 3.61
-    "Water(brine)-to-water heat pump heating COP (ASHRAE 90.1 2022 at 50 °C HWST, 7 °C source LWT)";
+    "Water(or brine)-to-water heat pump heating COP (ASHRAE 90.1 2022 at 50 °C HWST, 7 °C source LWT)";
   constant Real COPHpWwCoo(unit="1") = 5.07
-    "Water(brine)-to-water heat pump cooling COP (ASHRAE 90.1 2022 at 7 °C CHWST, 35 °C source LWT)";
+    "Water(or brine)-to-water heat pump cooling COP (ASHRAE 90.1 2022 at 7 °C CHWST, 35 °C source LWT)";
   constant Real ratVLiqByCap(unit="m3/W") = 1E-5
     "Ratio of total fluid volume in hydronic system by installed capacity (ranges from 5 to 30 L/kW)";
 annotation(Documentation(

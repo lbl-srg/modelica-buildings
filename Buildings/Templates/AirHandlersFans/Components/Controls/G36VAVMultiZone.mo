@@ -65,10 +65,10 @@ block G36VAVMultiZone
       coiHeaReh.typ==Buildings.Templates.Components.Types.Coil.WaterBasedHeating
       then Buildings.Controls.OBC.ASHRAE.G36.Types.HeatingCoil.WaterBased
     elseif coiHeaPre.typ==Buildings.Templates.Components.Types.Coil.ElectricHeating or
-      coiHeaPre.typ==Buildings.Templates.Components.Types.Coil.ElectricHeating
+      coiHeaReh.typ==Buildings.Templates.Components.Types.Coil.ElectricHeating
       then Buildings.Controls.OBC.ASHRAE.G36.Types.HeatingCoil.Electric
     else Buildings.Controls.OBC.ASHRAE.G36.Types.HeatingCoil.None
-    "Type of cooling coil"
+    "Type of heating coil"
     annotation(Evaluate=true);
 
   parameter Boolean have_perZonRehBox=false

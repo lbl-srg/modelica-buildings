@@ -352,7 +352,7 @@ annotation(defaultComponentName="loa",
 <p>
 This model represents a thermal load on a hydronic circuit, typically
 a terminal unit with recirculating air such as a fan coil unit. It takes the
-fraction of the design load  <code>u</code> as input and returns the control
+fraction of the design load <code>u</code> as input and returns the control
 valve demand signal <code>yVal</code> as output.
 </p>
 <h4>Modeling assumptions

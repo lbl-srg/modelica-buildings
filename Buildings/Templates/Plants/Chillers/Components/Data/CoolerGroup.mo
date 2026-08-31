@@ -84,7 +84,7 @@ annotation(defaultComponentName="datCoo",
 <p>
   Design temperature conditions are common to all units and have a
   dimensionality of zero. Mass flow rates, pressure drops and fan power are
-  specific to each unit. and have a dimensionality of one.
+  specific to each unit and have a dimensionality of one.
 </p>
 </html>"));
 end CoolerGroup;

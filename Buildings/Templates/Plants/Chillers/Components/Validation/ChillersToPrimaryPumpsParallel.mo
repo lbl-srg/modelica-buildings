@@ -533,7 +533,7 @@ annotation(Diagram(coordinateSystem(extent={{-260,-400},{260,320}})),
     revisions="<html>
 <ul>
   <li>
-    April 17, 2025, by Antoine Gautier:<br />
+    September 1, 2026, by Antoine Gautier:<br />
     First implementation.
   </li>
 </ul>

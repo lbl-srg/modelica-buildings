@@ -1,6 +1,6 @@
 within Buildings.Templates.Plants.Chillers.Components.Validation;
 model ChillerGroupAirCooled
-  "Validation model for water-cooled chiller group"
+  "Validation model for air-cooled chiller group"
   extends Modelica.Icons.Example;
 
   replaceable package MediumChiWat = Buildings.Media.Water
@@ -366,7 +366,7 @@ annotation(Diagram(coordinateSystem(extent={{-260,-140},{260,320}},
     revisions="<html>
 <ul>
   <li>
-    April 17, 2025, by Antoine Gautier:<br />
+    September 1, 2026, by Antoine Gautier:<br />
     First implementation.
   </li>
 </ul>

@@ -305,7 +305,7 @@ partial model PartialChillerPlant
   final parameter Modelica.Units.SI.Temperature TChiWatRet_nominal =
     TChiWatSup_nominal -
     Q_flow_nominal / cpChiWat_default / mChiWat_flow_nominal
-    "CHW return temperature - Each heat pump"
+    "CHW return temperature"
     annotation(Dialog(group="Nominal condition"));
   parameter Modelica.Units.SI.Time tau = 30
     "Time constant at nominal flow"
@@ -668,7 +668,7 @@ annotation(defaultComponentName="plaChiWat",
     revisions="<html>
 <ul>
   <li>
-    November 18, 2022, by Antoine Gautier:<br />
+    September 1, 2026, by Antoine Gautier:<br />
     First implementation.
   </li>
 </ul>

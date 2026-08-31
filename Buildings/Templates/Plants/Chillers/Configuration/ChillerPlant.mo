@@ -128,10 +128,10 @@ annotation(defaultComponentPrefixes="parameter",
   Documentation(
     info="<html>
 <p>
-  This record provides the set of configuration parameters for the heat pump
+  This record provides the set of configuration parameters for the chiller
   plant models within
-  <a href=\"modelica://Buildings.Templates.Plants.HeatPumps\">
-    Buildings.Templates.Plants.HeatPumps</a>.
+  <a href=\"modelica://Buildings.Templates.Plants.Chillers\">
+    Buildings.Templates.Plants.Chillers</a>.
 </p>
 </html>"));
 end ChillerPlant;

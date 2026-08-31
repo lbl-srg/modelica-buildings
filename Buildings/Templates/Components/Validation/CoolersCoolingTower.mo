@@ -135,7 +135,7 @@ annotation(Diagram(coordinateSystem(extent={{-100,-100},{100,100}},
     revisions="<html>
 <ul>
   <li>
-    April 17, 2025, by Antoine Gautier:<br />
+    September 1, 2026, by Antoine Gautier:<br />
     First implementation.
   </li>
 </ul>
