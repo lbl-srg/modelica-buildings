@@ -175,11 +175,11 @@ The capacity (and power) computed from the external performance data file
 will be scaled to match the value provided at design conditions.
 </p>
 <p>
-Also note that placeholders values are assigned to some parameters
+Also note that placeholder values are assigned to some parameters
 of the subrecord <code>perCoo</code> which is used to specify
 the performance data in cooling mode.
 These values should be overwritten for reversible heat pumps.
-This overwriting happens automatically when redeclaring or reassigning 
+This overwriting happens automatically when redeclaring or reassigning
 the performance record <code>perCoo</code>.
 </p>
 </html>"));

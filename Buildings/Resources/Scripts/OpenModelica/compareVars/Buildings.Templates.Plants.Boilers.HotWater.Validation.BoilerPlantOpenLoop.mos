@@ -1,0 +1,12 @@
+compareVars :=
+  {
+    "THeaWatRet.T",
+    "pla.bus.looNon.THeaWatPlaRet",
+    "pla.bus.looNon.THeaWatPriSup",
+    "pla.bus.boiNon[1].THeaWatSupSet",
+    "pla.boiNon.boiPol[1].boi.T",
+    "pla.bus.boiNon[1].y1",
+    "pla.bus.boiNon[1].y_actual",
+    "pla.bus.looNon.VHeaWatPri_flow",
+    "VHeaWat_flow.V_flow"
+  };

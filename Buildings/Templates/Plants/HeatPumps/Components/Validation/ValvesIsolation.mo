@@ -458,25 +458,25 @@ for the following configurations.
 <ul>
 <li>
 Heating and cooling system with common dedicated primary HW and CHW pumps
-and isolation valves at both heat pump inlet and outlet: 
+and isolation valves at both heat pump inlet and outlet:
 component <code>valIsoCom</code>.
 </li>
 <li>
-Heating-only system with isolation valves at heat pump inlet: 
+Heating-only system with isolation valves at heat pump inlet:
 component <code>valIsoHeaInl</code>.
 </li>
 <li>
 Heating and cooling system with separate dedicated primary HW and CHW pumps
-and isolation valves at heat pump inlet: 
+and isolation valves at heat pump inlet:
 component <code>valIsoSep</code>.
 </li>
 </ul>
 <p>
-In each configuration, two identical heat pumps are represented by fixed 
-flow resistances (components <code>hp*</code>). 
+In each configuration, two identical heat pumps are represented by fixed
+flow resistances (components <code>hp*</code>).
 </p>
 <p>
-The model uses open loop controls and the simulation allows verifying that design 
+The model uses open loop controls and the simulation allows verifying that design
 flow is obtained in each loop and each heat pump when the valves are open.
 </p>
 </html>"));

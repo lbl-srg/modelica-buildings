@@ -1,0 +1,11 @@
+compareVars :=
+  {
+    "boilerPlant.yZonTem",
+    "boilerPlant.uPumSpe",
+    "boilerPlant.ySupTem",
+    "boilerPlant.uBoiSta[1]",
+    "boilerPlant.uBoiSta[2]",
+    "boilerPlant.uHotIsoVal[1]",
+    "boilerPlant.yHotWatIsoVal[1]",
+    "boilerPlant.VHotWat_flow"
+  };

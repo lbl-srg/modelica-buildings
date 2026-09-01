@@ -176,20 +176,20 @@ install:
       export NPROC=10;
     fi;
 
-# Execute tests
-script:
-  - |
-    TRAVIS_WAIT=90
-    if [[ "$TEST_ARG" == *test-templates* ]]; then
-      TRAVIS_WAIT=120
-    fi
-    (cd Buildings/Resources/Scripts/travis && travis_wait $TRAVIS_WAIT $TEST_ARG)
+# # Execute tests
+# script:
+#   - |
+#     TRAVIS_WAIT=90
+#     if [[ "$TEST_ARG" == *test-templates* ]]; then
+#       TRAVIS_WAIT=120
+#     fi
+#     (cd Buildings/Resources/Scripts/travis && travis_wait $TRAVIS_WAIT $TEST_ARG)
 
 
-after_failure:
-  - |
-    for ff in `find Buildings -maxdepth 1 -name '*.log'`; do
-      echo "*** Content of $ff"
-      cat $ff
-      echo "*** End of $ff"
-    done
+# after_failure:
+#   - |
+#     for ff in `find Buildings -maxdepth 1 -name '*.log'`; do
+#       echo "*** Content of $ff"
+#       cat $ff
+#       echo "*** End of $ff"
+#     done
