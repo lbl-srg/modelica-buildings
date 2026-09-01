@@ -91,7 +91,7 @@ package Defaults
   constant Modelica.Units.SI.PressureDifference dpHeaWatRemSet_max = 5E4
     "Maximum HW differential pressure setpoint remote from the HW plant";
   constant Modelica.Units.SI.PressureDifference dpHeaWatLocSet_max = 15E4
-    "Maximum HW differential pressure setpoint local to the CHW plant";
+    "Maximum HW differential pressure setpoint local to the HW plant";
   constant Modelica.Units.SI.PressureDifference dpHeaWatHp = 3E4
     "Heat pump HW pressure drop across condenser barrel";
   constant Modelica.Units.SI.Temperature THeaWatSupHig = 60 + 273.15

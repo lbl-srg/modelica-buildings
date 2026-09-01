@@ -26,6 +26,9 @@ partial model PartialBoilerHotWater
   final parameter Modelica.Units.SI.Temperature THeaWatSup_nominal =
     dat.THeaWatSup_nominal
     "HW supply temperature";
+  final parameter Modelica.Units.SI.Temperature THeaWatRet_nominal =
+    dat.THeaWatRet_nominal
+    "HW return temperature";
   parameter Modelica.Fluid.Types.Dynamics energyDynamics =
     Modelica.Fluid.Types.Dynamics.DynamicFreeInitial
     "Type of energy balance: dynamic (3 initialization options) or steady state"
@@ -73,6 +76,14 @@ initial equation
         " W) should be lower than the value from " +
         "the performance data record (" + String(dat.per.Q_flow_nominal) +
         " W)",
+      level=AssertionLevel.warning);
+    assert(
+      THeaWatRet_nominal <= dat.per.TIn_nominal,
+      "In " + getInstanceName() + ": " +
+      "The design HW return temperature of the boiler model (" + String(THeaWatRet_nominal) +
+        " K) should be lower than the value from " +
+        "the performance data record (" + String(dat.per.TIn_nominal) +
+        " K)",
       level=AssertionLevel.warning);
   end if;
 equation
@@ -138,7 +149,7 @@ annotation(Documentation(
   revisions="<html>
 <ul>
   <li>
-    April 28, 2023, by Antoine Gautier:<br />
+    September 1, 2026, by Antoine Gautier:<br />
     First implementation.
   </li>
 </ul>

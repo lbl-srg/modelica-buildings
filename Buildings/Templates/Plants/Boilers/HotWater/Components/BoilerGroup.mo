@@ -71,6 +71,9 @@ model BoilerGroup
   final parameter Modelica.Units.SI.Temperature THeaWatSupBoi_nominal[nBoi] =
     dat.THeaWatSupBoi_nominal
     "HW supply temperature - Each boiler";
+  final parameter Modelica.Units.SI.Temperature THeaWatRetBoi_nominal[nBoi] =
+    dat.THeaWatRetBoi_nominal
+    "HW return temperature - Each boiler";
   parameter Modelica.Fluid.Types.Dynamics energyDynamics =
     Modelica.Fluid.Types.Dynamics.DynamicFreeInitial
     "Type of energy balance: dynamic (3 initialization options) or steady state"
@@ -136,7 +139,7 @@ model BoilerGroup
     each final linearized=linearized)
     "Boiler isolation valve"
     annotation(Placement(transformation(extent={{150,110},{170,130}})));
-  protected
+protected
   Buildings.Templates.Components.Interfaces.Bus busBoiCon[nBoi]
     if is_con
     "Boiler control bus - Condensing boilers"
@@ -152,7 +155,6 @@ model BoilerGroup
     "Boiler isolation valve control bus - Non-condensing boilers"
     annotation(Placement(transformation(extent={{80,140},{120,180}}),
       iconTransformation(extent={{-350,6},{-310,46}})));
-  protected
   Buildings.Templates.Components.Interfaces.Bus busValBoiConIso[nBoi]
     if is_con
     "Boiler isolation valve control bus - Condensing boilers"
@@ -467,7 +469,7 @@ annotation(Icon(coordinateSystem(preserveAspectRatio=false,
     revisions="<html>
 <ul>
   <li>
-    April 28, 2023, by Antoine Gautier:<br />
+    September 1, 2026, by Antoine Gautier:<br />
     First implementation.
   </li>
 </ul>

@@ -47,7 +47,7 @@ record BoilerPlant
     "Number of primary HW pumps - Condensing boilers"
     annotation(Evaluate=true);
   parameter Integer nPumHeaWatPriNon
-    "Number of primary HW pumps - Non-cCondensing boilers"
+    "Number of primary HW pumps - Non-condensing boilers"
     annotation(Evaluate=true);
   parameter Buildings.Templates.Components.Types.PumpArrangement typArrPumHeaWatPriCon
     "Type of primary HW pump arrangement - Condensing boilers";
@@ -90,10 +90,10 @@ annotation(defaultComponentPrefixes="parameter",
   Documentation(
     info="<html>
 <p>
-  This record provides the set of configuration parameters for the heat pump
+  This record provides the set of configuration parameters for the boiler
   plant models within
-  <a href=\"modelica://Buildings.Templates.Plants.HeatPumps\">
-    Buildings.Templates.Plants.HeatPumps</a>.
+  <a href=\"modelica://Buildings.Templates.Plants.Boilers.HotWater\">
+    Buildings.Templates.Plants.Boilers.HotWater</a>.
 </p>
 </html>"));
 end BoilerPlant;

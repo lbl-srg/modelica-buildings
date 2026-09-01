@@ -203,7 +203,7 @@ block PartialController
       iconTransformation(extent={{-466,50},{-426,90}})));
   Buildings.Templates.Components.Interfaces.Bus busPumHeaWatPriNon
     if cfg.have_boiNon
-    "Primary HW pump control bus - Condensing boilers"
+    "Primary HW pump control bus - Non-condensing boilers"
     annotation(Placement(transformation(extent={{-180,60},{-140,100}}),
       iconTransformation(extent={{-466,50},{-426,90}})));
   Buildings.Templates.Components.Interfaces.Bus busPumHeaWatSec
@@ -294,7 +294,7 @@ annotation(Icon(coordinateSystem(preserveAspectRatio=false)),
     revisions="<html>
 <ul>
   <li>
-    April 28, 2023, by Antoine Gautier:<br />
+    September 1, 2026, by Antoine Gautier:<br />
     First implementation.
   </li>
 </ul>

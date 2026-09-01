@@ -55,8 +55,8 @@ It illustrates
 <ul>
 <li>
 how to assign a value to the efficiency curve either manually 
-(<code>datBoiTabLoc.per.effCur</code>) or by the means of a record redeclaration 
-(<code>datBoiTabRed.per.effCur</code>) or record binding (<code>datBoiTab.per.effCur</code>),
+(<code>datBoiTabLoc.per.effCur</code>) or by means of a record redeclaration 
+(<code>datBoiTabRed.per.effCur</code>) or a record binding (<code>datBoiTab.per.effCur</code>),
 </li>
 <li>
 how the original bindings for other design parameters such as the 

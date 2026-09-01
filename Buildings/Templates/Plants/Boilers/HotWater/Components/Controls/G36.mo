@@ -326,8 +326,8 @@ annotation(Documentation(
 <p>
   This is an implementation of the control sequence specified in ASHRAE (2021)
   for hot water plants. It is based on
-  <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Controller\">
-    Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Controller</a>.
+  <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.PrimaryController\">
+    Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.PrimaryController</a>.
 </p>
 <h4>Details</h4>
 <p>
@@ -337,8 +337,8 @@ annotation(Documentation(
 <p>
   Distributed secondary pumps are currently not supported. This limitation
   stems from the Guideline 36 controller implementation in
-  <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Controller\">
-    Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Controller</a>.
+  <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.PrimaryController\">
+    Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.PrimaryController</a>.
 </p>
 <h4>Control points</h4>
 <p>
@@ -383,7 +383,7 @@ annotation(Documentation(
   revisions="<html>
 <ul>
   <li>
-    April 28, 2023, by Antoine Gautier:<br />
+    September 1, 2026, by Antoine Gautier:<br />
     First implementation.
   </li>
 </ul>

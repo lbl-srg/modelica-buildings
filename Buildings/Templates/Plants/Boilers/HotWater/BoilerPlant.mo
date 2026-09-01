@@ -886,7 +886,7 @@ annotation(Documentation(
   Some input control points are required in addition to the ones already
   connected inside this model, see the documentation of
   <a href=\"modelica://Buildings.Templates.Plants.Boilers.HotWater.Components.Controls.G36\">
-    Buildings.Templates.Plants.Boilers.HotWater.Components.Controls.Guideline36</a>.
+    Buildings.Templates.Plants.Boilers.HotWater.Components.Controls.G36</a>.
 </p>
 <h4>References</h4>
 <ul>
@@ -899,7 +899,7 @@ annotation(Documentation(
   revisions="<html>
 <ul>
   <li>
-    April 28, 2023, by Antoine Gautier:<br />
+    September 1, 2026, by Antoine Gautier:<br />
     First implementation.
   </li>
 </ul>

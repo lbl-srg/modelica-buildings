@@ -115,24 +115,24 @@ model BoilerGroupPolynomial
     each table=[0, 0; 1, 1; 2, 0],
     each timeScale=1000,
     each period=2000)
-    "Boiler Enable signal - Condensing Boilers"
+    "Boiler Enable signal - Condensing boilers"
     annotation(Placement(transformation(extent={{-150,90},{-130,110}})));
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant THeaWatConSupSet[nBoi](
     y(each final unit="K", each displayUnit="degC"),
     each final k=Buildings.Templates.Data.Defaults.THeaWatSupHig)
-    "HW supply temperature set point - Condensing Boilers"
+    "HW supply temperature setpoint - Condensing boilers"
     annotation(Placement(transformation(extent={{-150,130},{-130,150}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.TimeTable y1ValBoiConIso[nBoi](
     table=y1BoiCon.table,
     timeScale=y1BoiCon.timeScale,
     period=y1BoiCon.period)
-    "Boiler isolation valve opening signal - Condensing Boilers"
+    "Boiler isolation valve opening signal - Condensing boilers"
     annotation(Placement(transformation(extent={{-150,50},{-130,70}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.TimeTable y1PumHeaWatPriCon[nBoi](
     table=y1BoiCon.table,
     timeScale=y1BoiCon.timeScale,
     period=y1BoiCon.period)
-    "Primary HW pump Enable signal - Condensing Boilers"
+    "Primary HW pump Enable signal - Condensing boilers"
     annotation(Placement(transformation(extent={{-10,90},{-30,110}})));
   protected
   Buildings.Templates.Plants.Boilers.HotWater.Interfaces.Bus busPla

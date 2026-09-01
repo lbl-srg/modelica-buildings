@@ -11,7 +11,7 @@ block DistributionControlPoints
     "HW differential pressure used for HW pump speed control"
     annotation(Placement(transformation(extent={{-8,-10},{12,10}})));
   Interfaces.Bus bus
-    "CHW plant control bus"
+    "HW plant control bus"
     annotation(Placement(transformation(extent={{-20,-20},{20,20}},
       rotation=-90,
       origin={100,0}),

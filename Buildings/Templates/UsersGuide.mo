@@ -61,7 +61,6 @@ The following abbreviations are used in that package.<br/>
 <tr><td>DOAS</td><td>Dedicated outdoor air system</td></tr>
 <tr><td>DP</td><td>Differential pressure</td></tr>
 <tr><td>FCU</td><td>Fan coil unit</td></tr>
-<tr><td>DP</td><td>Differential pressure</td></tr>
 <tr><td>HW or HHW</td><td>Hot water (heating)</td></tr>
 <tr><td>MS</td><td>Motor starter</td></tr>
 <tr><td>OA</td><td>Outdoor air</td></tr>
@@ -184,7 +183,7 @@ template parameters.
 When creating a model for a complete HVAC system with multiple instances of
 different templates, the class
 <a href=\"modelica://Buildings.Templates.Data.AllSystems\">
-Buildings.Templates.Data.AllSystems</a>.
+Buildings.Templates.Data.AllSystems</a>
 can be used at the top level of the model to assign all design and operating parameters.
 This class allows the use of Modelica outer components to retrieve the configuration
 parameter values for each template instance based on the instance name.

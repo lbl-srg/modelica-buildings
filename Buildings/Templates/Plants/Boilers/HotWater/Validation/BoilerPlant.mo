@@ -70,7 +70,7 @@ model BoilerPlant
     "AHU control bus"
     annotation(Placement(transformation(extent={{-60,20},{-20,60}}),
       iconTransformation(extent={{-340,-140},{-300,-100}})));
-  HeatPumps.Interfaces.Bus busPla
+  Buildings.Templates.Plants.Boilers.HotWater.Interfaces.Bus busPla
     "Plant control bus"
     annotation(Placement(transformation(extent={{-100,-40},{-60,0}}),
       iconTransformation(extent={{-370,-70},{-330,-30}})));

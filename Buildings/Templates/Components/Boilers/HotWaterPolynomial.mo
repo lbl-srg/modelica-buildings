@@ -30,11 +30,18 @@ annotation(defaultComponentName="boi",
   <a href=\"modelica://Buildings.Templates.Components.Interfaces.BoilerHotWater\">
     Buildings.Templates.Components.Interfaces.BoilerHotWater</a>.
 </p>
+<h4>Model parameters</h4>
+<p>
+  The design parameters and the efficiency curve are specified with an
+  instance of
+  <a href=\"modelica://Buildings.Templates.Components.Data.BoilerHotWater\">
+    Buildings.Templates.Components.Data.BoilerHotWater</a>.
+</p>
 </html>",
     revisions="<html>
 <ul>
   <li>
-    April 28, 2023, by Antoine Gautier:<br />
+    September 1, 2026, by Antoine Gautier:<br />
     First implementation.
   </li>
 </ul>

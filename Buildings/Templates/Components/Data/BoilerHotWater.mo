@@ -26,14 +26,18 @@ record BoilerHotWater "Data for hot water boilers"
     final min=260)
     "HW supply temperature"
     annotation(Dialog(group="Nominal condition"));
+  final parameter Modelica.Units.SI.Temperature THeaWatRet_nominal =
+    THeaWatSup_nominal -
+        abs(cap_nominal)/
+        Buildings.Utilities.Psychrometrics.Constants.cpWatLiq/
+        mHeaWat_flow_nominal
+    "HW return temperature"
+    annotation(Dialog(group="Nominal condition"));
 
   replaceable parameter Buildings.Fluid.Boilers.Data.Generic per(fue=fue)
     constrainedby Buildings.Fluid.Boilers.Data.Generic(
       Q_flow_nominal=abs(cap_nominal),
-      TIn_nominal=THeaWatSup_nominal -
-        abs(cap_nominal)/
-        Buildings.Utilities.Psychrometrics.Constants.cpWatLiq/
-        mHeaWat_flow_nominal,
+      TIn_nominal=THeaWatRet_nominal,
       m_flow_nominal=mHeaWat_flow_nominal,
       dp_nominal=dpHeaWat_nominal)
     "Boiler performance data"
@@ -59,15 +63,15 @@ record BoilerHotWater "Data for hot water boilers"
 annotation (
   defaultComponentName="datBoi", Documentation(info="<html>
 <p>
-This record provides the set of sizing and operating parameters for 
+This record provides the set of sizing and operating parameters for
 the classes within
 <a href=\"modelica://Buildings.Templates.Components.Boilers\">
 Buildings.Templates.Components.Boilers</a>.
 </p>
 <p>
-When using the boiler model where the efficiency is based on a lookup table 
+When using the boiler model where the efficiency is based on a lookup table
 (<code>typMod=Buildings.Templates.Components.Types.BoilerHotWaterModel.Table</code>),
-the design values declared at the top-level  are propagated by default to the 
+the design values declared at the top-level are propagated by default to the
 performance data record <code>per</code> under the assumption that the nominal 
 conditions from the performance data match the design conditions.
 Redeclaring the parameter <code>per</code> allows assigning a value to the efficiency curve
@@ -76,21 +80,21 @@ This is the recommended approach.
 Alternatively, <i>assigning</i> the parameter <code>per</code> to a local instance of a 
 compatible record allows completely overwriting all the parameters inside <code>per</code>.
 In this case, the consistency between the design parameters and the values from the
-subrecord <code>per</code> is checked and a warning is issued if the design capacity or
-HW flow rate (resp. pressure drop) is higher (resp. lower) than the value from the 
-performance data record.
+subrecord <code>per</code> is checked and a warning is issued if the design capacity,
+HW flow rate or return temperature (resp. pressure drop) is higher (resp. lower) 
+than the value from the performance data record.
 This check is performed within
 <a href=\"modelica://Buildings.Templates.Components.Interfaces.PartialBoilerHotWater\">
 Buildings.Templates.Components.Interfaces.PartialBoilerHotWater</a>.
 The validation model
 <a href=\"modelica://Buildings.Templates.Components.Validation.BoilerHotWaterRecord\">
-Buildings.Templates.Components.Validation.BoilerHotWater</a> 
+Buildings.Templates.Components.Validation.BoilerHotWaterRecord</a>
 illustrates the different use cases of this record.
 </p>
 </html>", revisions="<html>
 <ul>
 <li>
-April 28, 2023, by Antoine Gautier:<br/>
+September 1, 2026, by Antoine Gautier:<br/>
 First implementation.
 </li>
 </ul>

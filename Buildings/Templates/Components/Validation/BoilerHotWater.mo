@@ -137,30 +137,15 @@ equation
   "Simulate and plot"),
   Documentation(info="<html>
 <p>
-This model validates the parameter propagation within the record class
-<a href=\"modelica://Buildings.Templates.ChilledWaterPlants.Components.Data.ChillerGroup\">
-Buildings.Templates.ChilledWaterPlants.Components.Data.ChillerGroup</a>.
-It illustrates
+This model validates the boiler models
+<a href=\"modelica://Buildings.Templates.Components.Boilers.HotWaterTable\">
+Buildings.Templates.Components.Boilers.HotWaterTable</a> and
+<a href=\"modelica://Buildings.Templates.Components.Boilers.HotWaterPolynomial\">
+Buildings.Templates.Components.Boilers.HotWaterPolynomial</a>.
+Each boiler is connected to boundary conditions representing the HW
+distribution system and is enabled for the whole simulation period, while
+the HW return temperature is ramped up so that the boiler firing rate spans
+its whole operating range.
 </p>
-<ul>
-<li>
-the manual propagation of the nominal value of the condenser cooling
-fluid temperature <code>TConEnt_nominal</code>
-when redeclaring the performance data record <code>per</code>,
-</li>
-<li>
-how the original bindings for other design parameters such as the
-CHW and CW flow rates persist when redeclaring the performance data record,
-</li>
-<li>
-how to overwrite such persistent bindings if the nominal conditions
-used to assess the performance data differ from the design conditions:
-see the parameter binding for <code>QEva_flow_nominal</code>,
-</li>
-<li>
-how different performance curves may be assigned to each chiller
-inside the same group.
-</li>
-</ul>
 </html>"));
 end BoilerHotWater;
