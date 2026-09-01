@@ -1,0 +1,2181 @@
+Automatically generated BuildingsPy dump file for failed translations.
+
+===============================
+=====START OF NEW LOG FILE=====
+===============================
+﻿ = true
+
+
+rCheck = checkModel("Buildings.Examples.BoilerPlants.Guideline36");
+Pedantic check of Buildings.Examples.BoilerPlants.Guideline36
+Error: Unit propagation failed.
+Error: Incompatible units in
+  conBoiPri.minBoiFloSet1[1].swi.y = smooth(0, (if conBoiPri.minBoiFloSet1[1].swi.u2   then conBoiPri.minBoiFloSet1[1].swi.u1 else conBoiPri.minBoiFloSet1[1].swi.u3));
+The part
+  conBoiPri.minBoiFloSet1[1].swi.y
+has unit m3/s
+Deduced units
+  conBoiPri.minBoiFloSet1[1].swi.y(unit= "m3/s")
+from the equation
+conBoiPri.minBoiFloSet1[1].swi.y = conBoiPri.minBoiFloSet1[1].lin.f2;
+ 
+  conBoiPri.minBoiFloSet1[1].lin.f2(unit= "m3/s")
+from the equation
+conBoiPri.minBoiFloSet1[1].lin.b = (conBoiPri.minBoiFloSet1[1].lin.f2-  conBoiPri.minBoiFloSet1[1].lin.f1)/(conBoiPri.minBoiFloSet1[1].lin.x2-  conBoiPri.minBoiFloSet1[1].lin.x1);
+ 
+  conBoiPri.minBoiFloSet1[1].lin.b(unit= "m3/s2")
+from the equation
+conBoiPri.minBoiFloSet1[1].lin.y = conBoiPri.minBoiFloSet1[1].lin.a+  conBoiPri.minBoiFloSet1[1].lin.b*conBoiPri.minBoiFloSet1[1].lin.xLim;
+ 
+  conBoiPri.minBoiFloSet1[1].lin.f1(unit= "m3/s")
+from the equation
+conBoiPri.minBoiFloSet1[1].lin.f1 = conBoiPri.minBoiFloSet1[1].intWitRes.y;
+ 
+  conBoiPri.minBoiFloSet1[1].intWitRes.y(unit= "m3/s")
+from the equation
+when conBoiPri.minBoiFloSet1[1].intWitRes.trigger then
+  reinit(conBoiPri.minBoiFloSet1[1].intWitRes.y, conBoiPri.minBoiFloSet1[1].intWitRes.y_reset_in);
+end when;
+ 
+  conBoiPri.minBoiFloSet1[1].lin.a(unit= "m3/s")
+from the equation
+conBoiPri.minBoiFloSet1[1].lin.a = conBoiPri.minBoiFloSet1[1].lin.f2-  conBoiPri.minBoiFloSet1[1].lin.b*conBoiPri.minBoiFloSet1[1].lin.x2;
+ 
+  conBoiPri.minBoiFloSet1[1].lin.xLim(unit= "s")
+from the equation
+if (conBoiPri.minBoiFloSet1[1].lin.limitBelow and conBoiPri.minBoiFloSet1[1].lin.limitAbove)   then 
+  conBoiPri.minBoiFloSet1[1].lin.xLim = min(conBoiPri.minBoiFloSet1[1].lin.x2,     max(conBoiPri.minBoiFloSet1[1].lin.x1, conBoiPri.minBoiFloSet1[1].lin.u));
+elseif (conBoiPri.minBoiFloSet1[1].lin.limitBelow) then 
+  conBoiPri.minBoiFloSet1[1].lin.xLim = max(conBoiPri.minBoiFloSet1[1].lin.x1,     conBoiPri.minBoiFloSet1[1].lin.u);
+elseif (conBoiPri.minBoiFloSet1[1].lin.limitAbove) then 
+  conBoiPri.minBoiFloSet1[1].lin.xLim = min(conBoiPri.minBoiFloSet1[1].lin.x2,     conBoiPri.minBoiFloSet1[1].lin.u);
+else
+  conBoiPri.minBoiFloSet1[1].lin.xLim = conBoiPri.minBoiFloSet1[1].lin.u;
+end if;
+ 
+  conBoiPri.minBoiFloSet1[1].lin.y(unit= "m3/s")
+from the equation
+conBoiPri.minBoiFloSet1[1].lin.y = conBoiPri.minBoiFloSet1[1].lin.a+  conBoiPri.minBoiFloSet1[1].lin.b*conBoiPri.minBoiFloSet1[1].lin.xLim;
+ 
+  conBoiPri.minBoiFloSet1[1].intWitRes.y_reset_in(unit= "m3/s")
+from the equation
+conBoiPri.minBoiFloSet1[1].intWitRes.y_reset_in = conBoiPri.minBoiFloSet1[1].VHotWatMinSet_flow;
+ 
+  conBoiPri.minBoiFloSet1[1].lin.u(unit= "s")
+from the equation
+conBoiPri.minBoiFloSet1[1].lin.u = conBoiPri.minBoiFloSet1[1].gre.u1;
+ 
+  conBoiPri.minBoiFloSet1[1].gre.u1(unit= "s")
+from the equation
+conBoiPri.minBoiFloSet1[1].tim.y = conBoiPri.minBoiFloSet1[1].gre.u1;
+ 
+The part
+  smooth(0, (if conBoiPri.minBoiFloSet1[1].swi.u2 then conBoiPri.minBoiFloSet1[1].swi.u1   else conBoiPri.minBoiFloSet1[1].swi.u3))
+has unit m4.kg2.s-6
+Deduced units
+  conBoiPri.minBoiFloSet1[1].swi.u1(unit= "m4.kg2.s-6")
+from the equation
+conBoiPri.minBoiFloSet1[1].swi.u1 = conBoiPri.minBoiFloSet1[1].pro2.y;
+ 
+  conBoiPri.minBoiFloSet1[1].swi.u3(unit= "m4.kg2.s-6")
+from the equation
+conBoiPri.minBoiFloSet1[1].swi.y = smooth(0, (if conBoiPri.minBoiFloSet1[1].swi.u2   then conBoiPri.minBoiFloSet1[1].swi.u1 else conBoiPri.minBoiFloSet1[1].swi.u3));
+ 
+  conBoiPri.minBoiFloSet1[1].pro2.y(unit= "m4.kg2.s-6")
+from the equation
+conBoiPri.minBoiFloSet1[1].pro2.y = conBoiPri.minBoiFloSet1[1].pro2.u1*  conBoiPri.minBoiFloSet1[1].pro2.u2;
+ 
+  conBoiPri.minBoiFloSet1[1].swi.y(unit= "m3/s")
+from the equation
+conBoiPri.minBoiFloSet1[1].swi.y = conBoiPri.minBoiFloSet1[1].lin.f2;
+ 
+  conBoiPri.minBoiFloSet1[1].lin.f2(unit= "m3/s")
+from the equation
+conBoiPri.minBoiFloSet1[1].lin.b = (conBoiPri.minBoiFloSet1[1].lin.f2-  conBoiPri.minBoiFloSet1[1].lin.f1)/(conBoiPri.minBoiFloSet1[1].lin.x2-  conBoiPri.minBoiFloSet1[1].lin.x1);
+ 
+  conBoiPri.minBoiFloSet1[1].pro2.u1(unit= "W")
+from the equation
+conBoiPri.minBoiFloSet1[1].pro2.u1 = conBoiPri.minBoiFloSet1[1].max.y;
+ 
+  conBoiPri.minBoiFloSet1[1].pro2.u2(unit= "W")
+from the equation
+conBoiPri.minBoiFloSet1[1].pro2.u2 = conBoiPri.minBoiFloSet1[1].add2.y;
+ 
+  conBoiPri.minBoiFloSet1[1].add2.y(unit= "W")
+from the equation
+conBoiPri.minBoiFloSet1[1].add2.y = conBoiPri.minBoiFloSet1[1].add2.u1+  conBoiPri.minBoiFloSet1[1].add2.u2;
+ 
+  conBoiPri.minBoiFloSet1[1].lin.b(unit= "m3/s2")
+from the equation
+conBoiPri.minBoiFloSet1[1].lin.y = conBoiPri.minBoiFloSet1[1].lin.a+  conBoiPri.minBoiFloSet1[1].lin.b*conBoiPri.minBoiFloSet1[1].lin.xLim;
+ 
+  conBoiPri.minBoiFloSet1[1].lin.f1(unit= "m3/s")
+from the equation
+conBoiPri.minBoiFloSet1[1].lin.f1 = conBoiPri.minBoiFloSet1[1].intWitRes.y;
+ 
+  conBoiPri.minBoiFloSet1[1].max.y(unit= "W")
+from the equation
+conBoiPri.minBoiFloSet1[1].max.y = max(conBoiPri.minBoiFloSet1[1].max.u1,   conBoiPri.minBoiFloSet1[1].max.u2);
+ 
+  conBoiPri.minBoiFloSet1[1].add2.u1(unit= "W")
+from the equation
+conBoiPri.minBoiFloSet1[1].zerStaIndCor.yCapMod = conBoiPri.minBoiFloSet1[1].add2.u1;
+ 
+  conBoiPri.minBoiFloSet1[1].add2.u2(unit= "W")
+from the equation
+conBoiPri.minBoiFloSet1[1].add2.y = conBoiPri.minBoiFloSet1[1].add2.u1+  conBoiPri.minBoiFloSet1[1].add2.u2;
+ 
+  conBoiPri.minBoiFloSet1[1].intWitRes.y(unit= "m3/s")
+from the equation
+when conBoiPri.minBoiFloSet1[1].intWitRes.trigger then
+  reinit(conBoiPri.minBoiFloSet1[1].intWitRes.y, conBoiPri.minBoiFloSet1[1].intWitRes.y_reset_in);
+end when;
+ 
+  conBoiPri.minBoiFloSet1[1].lin.a(unit= "m3/s")
+from the equation
+conBoiPri.minBoiFloSet1[1].lin.a = conBoiPri.minBoiFloSet1[1].lin.f2-  conBoiPri.minBoiFloSet1[1].lin.b*conBoiPri.minBoiFloSet1[1].lin.x2;
+ 
+  conBoiPri.minBoiFloSet1[1].lin.xLim(unit= "s")
+from the equation
+if (conBoiPri.minBoiFloSet1[1].lin.limitBelow and conBoiPri.minBoiFloSet1[1].lin.limitAbove)   then 
+  conBoiPri.minBoiFloSet1[1].lin.xLim = min(conBoiPri.minBoiFloSet1[1].lin.x2,     max(conBoiPri.minBoiFloSet1[1].lin.x1, conBoiPri.minBoiFloSet1[1].lin.u));
+elseif (conBoiPri.minBoiFloSet1[1].lin.limitBelow) then 
+  conBoiPri.minBoiFloSet1[1].lin.xLim = max(conBoiPri.minBoiFloSet1[1].lin.x1,     conBoiPri.minBoiFloSet1[1].lin.u);
+elseif (conBoiPri.minBoiFloSet1[1].lin.limitAbove) then 
+  conBoiPri.minBoiFloSet1[1].lin.xLim = min(conBoiPri.minBoiFloSet1[1].lin.x2,     conBoiPri.minBoiFloSet1[1].lin.u);
+else
+  conBoiPri.minBoiFloSet1[1].lin.xLim = conBoiPri.minBoiFloSet1[1].lin.u;
+end if;
+ 
+  conBoiPri.minBoiFloSet1[1].lin.y(unit= "m3/s")
+from the equation
+conBoiPri.minBoiFloSet1[1].lin.y = conBoiPri.minBoiFloSet1[1].lin.a+  conBoiPri.minBoiFloSet1[1].lin.b*conBoiPri.minBoiFloSet1[1].lin.xLim;
+ 
+  conBoiPri.minBoiFloSet1[1].max.u1(unit= "W")
+from the equation
+conBoiPri.minBoiFloSet1[1].zerStaIndCor3.yCapMod = conBoiPri.minBoiFloSet1[1].max.u1;
+ 
+  conBoiPri.minBoiFloSet1[1].intWitRes.y_reset_in(unit= "m3/s")
+from the equation
+conBoiPri.minBoiFloSet1[1].intWitRes.y_reset_in = conBoiPri.minBoiFloSet1[1].VHotWatMinSet_flow;
+ 
+  conBoiPri.minBoiFloSet1[1].lin.u(unit= "s")
+from the equation
+conBoiPri.minBoiFloSet1[1].lin.u = conBoiPri.minBoiFloSet1[1].gre.u1;
+ 
+  conBoiPri.minBoiFloSet1[1].gre.u1(unit= "s")
+from the equation
+conBoiPri.minBoiFloSet1[1].tim.y = conBoiPri.minBoiFloSet1[1].gre.u1;
+ 
+Error: The unit issue reported appeared in the equation
+  conBoiPri.minBoiFloSet1[1].swi.y = smooth(0, (if conBoiPri.minBoiFloSet1[1].swi.u2   then conBoiPri.minBoiFloSet1[1].swi.u1 else conBoiPri.minBoiFloSet1[1].swi.u3));
+Found in class Buildings.Controls.OBC.CDL.Reals.Switch, /tmp/tmp-Buildings-0-sz0f2v0b/Buildings/Controls/OBC/CDL/Reals/Switch.mo at line 18, and used in component conBoiPri.minBoiFloSet1[1].swi.
+Error: Unit propagation failed.
+Error: Incompatible units in
+  conBoiPri.minBoiFloSet1[1].swi2.y = smooth(0, (if conBoiPri.minBoiFloSet1[1].swi2.u2   then conBoiPri.minBoiFloSet1[1].swi2.u1 else conBoiPri.minBoiFloSet1[1].swi2.u3));
+The part
+  conBoiPri.minBoiFloSet1[1].swi2.y
+has unit m3/s
+Deduced units
+  conBoiPri.minBoiFloSet1[1].swi2.y(unit= "m3/s")
+from the equation
+conBoiPri.minBoiFloSet1[1].swi2.y = conBoiPri.minBoiFloSet1[1].lin1.f2;
+ 
+  conBoiPri.minBoiFloSet1[1].lin1.f2(unit= "m3/s")
+from the equation
+conBoiPri.minBoiFloSet1[1].lin1.b = (conBoiPri.minBoiFloSet1[1].lin1.f2-  conBoiPri.minBoiFloSet1[1].lin1.f1)/(conBoiPri.minBoiFloSet1[1].lin1.x2-  conBoiPri.minBoiFloSet1[1].lin1.x1);
+ 
+  conBoiPri.minBoiFloSet1[1].lin1.b(unit= "m3/s2")
+from the equation
+conBoiPri.minBoiFloSet1[1].lin1.y = conBoiPri.minBoiFloSet1[1].lin1.a+  conBoiPri.minBoiFloSet1[1].lin1.b*conBoiPri.minBoiFloSet1[1].lin1.xLim;
+ 
+  conBoiPri.minBoiFloSet1[1].lin1.f1(unit= "m3/s")
+from the equation
+conBoiPri.minBoiFloSet1[1].lin1.f1 = conBoiPri.minBoiFloSet1[1].intWitRes.y;
+ 
+  conBoiPri.minBoiFloSet1[1].intWitRes.y(unit= "m3/s")
+from the equation
+when conBoiPri.minBoiFloSet1[1].intWitRes.trigger then
+  reinit(conBoiPri.minBoiFloSet1[1].intWitRes.y, conBoiPri.minBoiFloSet1[1].intWitRes.y_reset_in);
+end when;
+ 
+  conBoiPri.minBoiFloSet1[1].lin1.a(unit= "m3/s")
+from the equation
+conBoiPri.minBoiFloSet1[1].lin1.a = conBoiPri.minBoiFloSet1[1].lin1.f2-  conBoiPri.minBoiFloSet1[1].lin1.b*conBoiPri.minBoiFloSet1[1].lin1.x2;
+ 
+  conBoiPri.minBoiFloSet1[1].lin1.xLim(unit= "s")
+from the equation
+if (conBoiPri.minBoiFloSet1[1].lin1.limitBelow and conBoiPri.minBoiFloSet1[1].lin1.limitAbove)   then 
+  conBoiPri.minBoiFloSet1[1].lin1.xLim = min(conBoiPri.minBoiFloSet1[1].lin1.x2,     max(conBoiPri.minBoiFloSet1[1].lin1.x1, conBoiPri.minBoiFloSet1[1].lin1.u));
+elseif (conBoiPri.minBoiFloSet1[1].lin1.limitBelow) then 
+  conBoiPri.minBoiFloSet1[1].lin1.xLim = max(conBoiPri.minBoiFloSet1[1].lin1.x1,     conBoiPri.minBoiFloSet1[1].lin1.u);
+elseif (conBoiPri.minBoiFloSet1[1].lin1.limitAbove) then 
+  conBoiPri.minBoiFloSet1[1].lin1.xLim = min(conBoiPri.minBoiFloSet1[1].lin1.x2,     conBoiPri.minBoiFloSet1[1].lin1.u);
+else
+  conBoiPri.minBoiFloSet1[1].lin1.xLim = conBoiPri.minBoiFloSet1[1].lin1.u;
+end if;
+ 
+  conBoiPri.minBoiFloSet1[1].lin1.y(unit= "m3/s")
+from the equation
+conBoiPri.minBoiFloSet1[1].lin1.y = conBoiPri.minBoiFloSet1[1].lin1.a+  conBoiPri.minBoiFloSet1[1].lin1.b*conBoiPri.minBoiFloSet1[1].lin1.xLim;
+ 
+  conBoiPri.minBoiFloSet1[1].intWitRes.y_reset_in(unit= "m3/s")
+from the equation
+conBoiPri.minBoiFloSet1[1].intWitRes.y_reset_in = conBoiPri.minBoiFloSet1[1].VHotWatMinSet_flow;
+ 
+  conBoiPri.minBoiFloSet1[1].lin1.u(unit= "s")
+from the equation
+conBoiPri.minBoiFloSet1[1].lin1.u = conBoiPri.minBoiFloSet1[1].gre.u1;
+ 
+  conBoiPri.minBoiFloSet1[1].gre.u1(unit= "s")
+from the equation
+conBoiPri.minBoiFloSet1[1].tim.y = conBoiPri.minBoiFloSet1[1].gre.u1;
+ 
+The part
+  smooth(0, (if conBoiPri.minBoiFloSet1[1].swi2.u2 then conBoiPri.minBoiFloSet1[1].swi2.u1   else conBoiPri.minBoiFloSet1[1].swi2.u3))
+has unit m4.kg2.s-6
+Deduced units
+  conBoiPri.minBoiFloSet1[1].swi2.u1(unit= "m4.kg2.s-6")
+from the equation
+conBoiPri.minBoiFloSet1[1].swi2.u1 = conBoiPri.minBoiFloSet1[1].pro4.y;
+ 
+  conBoiPri.minBoiFloSet1[1].swi2.u3(unit= "m4.kg2.s-6")
+from the equation
+conBoiPri.minBoiFloSet1[1].swi2.y = smooth(0, (if conBoiPri.minBoiFloSet1[1].swi2.u2   then conBoiPri.minBoiFloSet1[1].swi2.u1 else conBoiPri.minBoiFloSet1[1].swi2.u3));
+ 
+  conBoiPri.minBoiFloSet1[1].pro4.y(unit= "m4.kg2.s-6")
+from the equation
+conBoiPri.minBoiFloSet1[1].pro4.y = conBoiPri.minBoiFloSet1[1].pro4.u1*  conBoiPri.minBoiFloSet1[1].pro4.u2;
+ 
+  conBoiPri.minBoiFloSet1[1].swi2.y(unit= "m3/s")
+from the equation
+conBoiPri.minBoiFloSet1[1].swi2.y = conBoiPri.minBoiFloSet1[1].lin1.f2;
+ 
+  conBoiPri.minBoiFloSet1[1].lin1.f2(unit= "m3/s")
+from the equation
+conBoiPri.minBoiFloSet1[1].lin1.b = (conBoiPri.minBoiFloSet1[1].lin1.f2-  conBoiPri.minBoiFloSet1[1].lin1.f1)/(conBoiPri.minBoiFloSet1[1].lin1.x2-  conBoiPri.minBoiFloSet1[1].lin1.x1);
+ 
+  conBoiPri.minBoiFloSet1[1].pro4.u1(unit= "W")
+from the equation
+conBoiPri.minBoiFloSet1[1].pro4.u1 = conBoiPri.minBoiFloSet1[1].max1.y;
+ 
+  conBoiPri.minBoiFloSet1[1].pro4.u2(unit= "W")
+from the equation
+conBoiPri.minBoiFloSet1[1].pro4.u2 = conBoiPri.minBoiFloSet1[1].add1.y;
+ 
+  conBoiPri.minBoiFloSet1[1].add1.y(unit= "W")
+from the equation
+conBoiPri.minBoiFloSet1[1].add1.y = conBoiPri.minBoiFloSet1[1].add1.u1+  conBoiPri.minBoiFloSet1[1].add1.u2;
+ 
+  conBoiPri.minBoiFloSet1[1].lin1.b(unit= "m3/s2")
+from the equation
+conBoiPri.minBoiFloSet1[1].lin1.y = conBoiPri.minBoiFloSet1[1].lin1.a+  conBoiPri.minBoiFloSet1[1].lin1.b*conBoiPri.minBoiFloSet1[1].lin1.xLim;
+ 
+  conBoiPri.minBoiFloSet1[1].lin1.f1(unit= "m3/s")
+from the equation
+conBoiPri.minBoiFloSet1[1].lin1.f1 = conBoiPri.minBoiFloSet1[1].intWitRes.y;
+ 
+  conBoiPri.minBoiFloSet1[1].max1.y(unit= "W")
+from the equation
+conBoiPri.minBoiFloSet1[1].max1.y = max(conBoiPri.minBoiFloSet1[1].max1.u1,   conBoiPri.minBoiFloSet1[1].max1.u2);
+ 
+  conBoiPri.minBoiFloSet1[1].add1.u1(unit= "W")
+from the equation
+conBoiPri.minBoiFloSet1[1].add1.y = conBoiPri.minBoiFloSet1[1].add1.u1+  conBoiPri.minBoiFloSet1[1].add1.u2;
+ 
+  conBoiPri.minBoiFloSet1[1].add1.u2(unit= "W")
+from the equation
+conBoiPri.minBoiFloSet1[1].zerStaIndCor1.yCapMod = conBoiPri.minBoiFloSet1[1].add1.u2;
+ 
+  conBoiPri.minBoiFloSet1[1].intWitRes.y(unit= "m3/s")
+from the equation
+when conBoiPri.minBoiFloSet1[1].intWitRes.trigger then
+  reinit(conBoiPri.minBoiFloSet1[1].intWitRes.y, conBoiPri.minBoiFloSet1[1].intWitRes.y_reset_in);
+end when;
+ 
+  conBoiPri.minBoiFloSet1[1].lin1.a(unit= "m3/s")
+from the equation
+conBoiPri.minBoiFloSet1[1].lin1.a = conBoiPri.minBoiFloSet1[1].lin1.f2-  conBoiPri.minBoiFloSet1[1].lin1.b*conBoiPri.minBoiFloSet1[1].lin1.x2;
+ 
+  conBoiPri.minBoiFloSet1[1].lin1.xLim(unit= "s")
+from the equation
+if (conBoiPri.minBoiFloSet1[1].lin1.limitBelow and conBoiPri.minBoiFloSet1[1].lin1.limitAbove)   then 
+  conBoiPri.minBoiFloSet1[1].lin1.xLim = min(conBoiPri.minBoiFloSet1[1].lin1.x2,     max(conBoiPri.minBoiFloSet1[1].lin1.x1, conBoiPri.minBoiFloSet1[1].lin1.u));
+elseif (conBoiPri.minBoiFloSet1[1].lin1.limitBelow) then 
+  conBoiPri.minBoiFloSet1[1].lin1.xLim = max(conBoiPri.minBoiFloSet1[1].lin1.x1,     conBoiPri.minBoiFloSet1[1].lin1.u);
+elseif (conBoiPri.minBoiFloSet1[1].lin1.limitAbove) then 
+  conBoiPri.minBoiFloSet1[1].lin1.xLim = min(conBoiPri.minBoiFloSet1[1].lin1.x2,     conBoiPri.minBoiFloSet1[1].lin1.u);
+else
+  conBoiPri.minBoiFloSet1[1].lin1.xLim = conBoiPri.minBoiFloSet1[1].lin1.u;
+end if;
+ 
+  conBoiPri.minBoiFloSet1[1].lin1.y(unit= "m3/s")
+from the equation
+conBoiPri.minBoiFloSet1[1].lin1.y = conBoiPri.minBoiFloSet1[1].lin1.a+  conBoiPri.minBoiFloSet1[1].lin1.b*conBoiPri.minBoiFloSet1[1].lin1.xLim;
+ 
+  conBoiPri.minBoiFloSet1[1].max1.u2(unit= "W")
+from the equation
+conBoiPri.minBoiFloSet1[1].zerStaIndCor2.yCapMod = conBoiPri.minBoiFloSet1[1].max1.u2;
+ 
+  conBoiPri.minBoiFloSet1[1].intWitRes.y_reset_in(unit= "m3/s")
+from the equation
+conBoiPri.minBoiFloSet1[1].intWitRes.y_reset_in = conBoiPri.minBoiFloSet1[1].VHotWatMinSet_flow;
+ 
+  conBoiPri.minBoiFloSet1[1].lin1.u(unit= "s")
+from the equation
+conBoiPri.minBoiFloSet1[1].lin1.u = conBoiPri.minBoiFloSet1[1].gre.u1;
+ 
+  conBoiPri.minBoiFloSet1[1].gre.u1(unit= "s")
+from the equation
+conBoiPri.minBoiFloSet1[1].tim.y = conBoiPri.minBoiFloSet1[1].gre.u1;
+ 
+Error: The unit issue reported appeared in the equation
+  conBoiPri.minBoiFloSet1[1].swi2.y = smooth(0, (if conBoiPri.minBoiFloSet1[1].swi2.u2   then conBoiPri.minBoiFloSet1[1].swi2.u1 else conBoiPri.minBoiFloSet1[1].swi2.u3));
+Found in class Buildings.Controls.OBC.CDL.Reals.Switch, /tmp/tmp-Buildings-0-sz0f2v0b/Buildings/Controls/OBC/CDL/Reals/Switch.mo at line 18, and used in component conBoiPri.minBoiFloSet1[1].swi2.
+Error: Unit propagation failed.
+Error: Incompatible units in
+  conBoiPri.minBoiFloSet1[2].swi.y = smooth(0, (if conBoiPri.minBoiFloSet1[2].swi.u2   then conBoiPri.minBoiFloSet1[2].swi.u1 else conBoiPri.minBoiFloSet1[2].swi.u3));
+The part
+  conBoiPri.minBoiFloSet1[2].swi.y
+has unit m3/s
+Deduced units
+  conBoiPri.minBoiFloSet1[2].swi.y(unit= "m3/s")
+from the equation
+conBoiPri.minBoiFloSet1[2].swi.y = conBoiPri.minBoiFloSet1[2].lin.f2;
+ 
+  conBoiPri.minBoiFloSet1[2].lin.f2(unit= "m3/s")
+from the equation
+conBoiPri.minBoiFloSet1[2].lin.b = (conBoiPri.minBoiFloSet1[2].lin.f2-  conBoiPri.minBoiFloSet1[2].lin.f1)/(conBoiPri.minBoiFloSet1[2].lin.x2-  conBoiPri.minBoiFloSet1[2].lin.x1);
+ 
+  conBoiPri.minBoiFloSet1[2].lin.b(unit= "m3/s2")
+from the equation
+conBoiPri.minBoiFloSet1[2].lin.y = conBoiPri.minBoiFloSet1[2].lin.a+  conBoiPri.minBoiFloSet1[2].lin.b*conBoiPri.minBoiFloSet1[2].lin.xLim;
+ 
+  conBoiPri.minBoiFloSet1[2].lin.f1(unit= "m3/s")
+from the equation
+conBoiPri.minBoiFloSet1[2].lin.f1 = conBoiPri.minBoiFloSet1[2].intWitRes.y;
+ 
+  conBoiPri.minBoiFloSet1[2].intWitRes.y(unit= "m3/s")
+from the equation
+when conBoiPri.minBoiFloSet1[2].intWitRes.trigger then
+  reinit(conBoiPri.minBoiFloSet1[2].intWitRes.y, conBoiPri.minBoiFloSet1[2].intWitRes.y_reset_in);
+end when;
+ 
+  conBoiPri.minBoiFloSet1[2].lin.a(unit= "m3/s")
+from the equation
+conBoiPri.minBoiFloSet1[2].lin.a = conBoiPri.minBoiFloSet1[2].lin.f2-  conBoiPri.minBoiFloSet1[2].lin.b*conBoiPri.minBoiFloSet1[2].lin.x2;
+ 
+  conBoiPri.minBoiFloSet1[2].lin.xLim(unit= "s")
+from the equation
+if (conBoiPri.minBoiFloSet1[2].lin.limitBelow and conBoiPri.minBoiFloSet1[2].lin.limitAbove)   then 
+  conBoiPri.minBoiFloSet1[2].lin.xLim = min(conBoiPri.minBoiFloSet1[2].lin.x2,     max(conBoiPri.minBoiFloSet1[2].lin.x1, conBoiPri.minBoiFloSet1[2].lin.u));
+elseif (conBoiPri.minBoiFloSet1[2].lin.limitBelow) then 
+  conBoiPri.minBoiFloSet1[2].lin.xLim = max(conBoiPri.minBoiFloSet1[2].lin.x1,     conBoiPri.minBoiFloSet1[2].lin.u);
+elseif (conBoiPri.minBoiFloSet1[2].lin.limitAbove) then 
+  conBoiPri.minBoiFloSet1[2].lin.xLim = min(conBoiPri.minBoiFloSet1[2].lin.x2,     conBoiPri.minBoiFloSet1[2].lin.u);
+else
+  conBoiPri.minBoiFloSet1[2].lin.xLim = conBoiPri.minBoiFloSet1[2].lin.u;
+end if;
+ 
+  conBoiPri.minBoiFloSet1[2].lin.y(unit= "m3/s")
+from the equation
+conBoiPri.minBoiFloSet1[2].lin.y = conBoiPri.minBoiFloSet1[2].lin.a+  conBoiPri.minBoiFloSet1[2].lin.b*conBoiPri.minBoiFloSet1[2].lin.xLim;
+ 
+  conBoiPri.minBoiFloSet1[2].intWitRes.y_reset_in(unit= "m3/s")
+from the equation
+conBoiPri.minBoiFloSet1[2].intWitRes.y_reset_in = conBoiPri.minBoiFloSet1[2].VHotWatMinSet_flow;
+ 
+  conBoiPri.minBoiFloSet1[2].lin.u(unit= "s")
+from the equation
+conBoiPri.minBoiFloSet1[2].lin.u = conBoiPri.minBoiFloSet1[2].gre.u1;
+ 
+  conBoiPri.minBoiFloSet1[2].gre.u1(unit= "s")
+from the equation
+conBoiPri.minBoiFloSet1[2].tim.y = conBoiPri.minBoiFloSet1[2].gre.u1;
+ 
+The part
+  smooth(0, (if conBoiPri.minBoiFloSet1[2].swi.u2 then conBoiPri.minBoiFloSet1[2].swi.u1   else conBoiPri.minBoiFloSet1[2].swi.u3))
+has unit m4.kg2.s-6
+Deduced units
+  conBoiPri.minBoiFloSet1[2].swi.u1(unit= "m4.kg2.s-6")
+from the equation
+conBoiPri.minBoiFloSet1[2].swi.u1 = conBoiPri.minBoiFloSet1[2].pro2.y;
+ 
+  conBoiPri.minBoiFloSet1[2].swi.u3(unit= "m4.kg2.s-6")
+from the equation
+conBoiPri.minBoiFloSet1[2].swi.y = smooth(0, (if conBoiPri.minBoiFloSet1[2].swi.u2   then conBoiPri.minBoiFloSet1[2].swi.u1 else conBoiPri.minBoiFloSet1[2].swi.u3));
+ 
+  conBoiPri.minBoiFloSet1[2].pro2.y(unit= "m4.kg2.s-6")
+from the equation
+conBoiPri.minBoiFloSet1[2].pro2.y = conBoiPri.minBoiFloSet1[2].pro2.u1*  conBoiPri.minBoiFloSet1[2].pro2.u2;
+ 
+  conBoiPri.minBoiFloSet1[2].swi.y(unit= "m3/s")
+from the equation
+conBoiPri.minBoiFloSet1[2].swi.y = conBoiPri.minBoiFloSet1[2].lin.f2;
+ 
+  conBoiPri.minBoiFloSet1[2].lin.f2(unit= "m3/s")
+from the equation
+conBoiPri.minBoiFloSet1[2].lin.b = (conBoiPri.minBoiFloSet1[2].lin.f2-  conBoiPri.minBoiFloSet1[2].lin.f1)/(conBoiPri.minBoiFloSet1[2].lin.x2-  conBoiPri.minBoiFloSet1[2].lin.x1);
+ 
+  conBoiPri.minBoiFloSet1[2].pro2.u1(unit= "W")
+from the equation
+conBoiPri.minBoiFloSet1[2].pro2.u1 = conBoiPri.minBoiFloSet1[2].max.y;
+ 
+  conBoiPri.minBoiFloSet1[2].pro2.u2(unit= "W")
+from the equation
+conBoiPri.minBoiFloSet1[2].pro2.u2 = conBoiPri.minBoiFloSet1[2].add2.y;
+ 
+  conBoiPri.minBoiFloSet1[2].add2.y(unit= "W")
+from the equation
+conBoiPri.minBoiFloSet1[2].add2.y = conBoiPri.minBoiFloSet1[2].add2.u1+  conBoiPri.minBoiFloSet1[2].add2.u2;
+ 
+  conBoiPri.minBoiFloSet1[2].lin.b(unit= "m3/s2")
+from the equation
+conBoiPri.minBoiFloSet1[2].lin.y = conBoiPri.minBoiFloSet1[2].lin.a+  conBoiPri.minBoiFloSet1[2].lin.b*conBoiPri.minBoiFloSet1[2].lin.xLim;
+ 
+  conBoiPri.minBoiFloSet1[2].lin.f1(unit= "m3/s")
+from the equation
+conBoiPri.minBoiFloSet1[2].lin.f1 = conBoiPri.minBoiFloSet1[2].intWitRes.y;
+ 
+  conBoiPri.minBoiFloSet1[2].max.y(unit= "W")
+from the equation
+conBoiPri.minBoiFloSet1[2].max.y = max(conBoiPri.minBoiFloSet1[2].max.u1,   conBoiPri.minBoiFloSet1[2].max.u2);
+ 
+  conBoiPri.minBoiFloSet1[2].add2.u1(unit= "W")
+from the equation
+conBoiPri.minBoiFloSet1[2].zerStaIndCor.yCapMod = conBoiPri.minBoiFloSet1[2].add2.u1;
+ 
+  conBoiPri.minBoiFloSet1[2].add2.u2(unit= "W")
+from the equation
+conBoiPri.minBoiFloSet1[2].add2.y = conBoiPri.minBoiFloSet1[2].add2.u1+  conBoiPri.minBoiFloSet1[2].add2.u2;
+ 
+  conBoiPri.minBoiFloSet1[2].intWitRes.y(unit= "m3/s")
+from the equation
+when conBoiPri.minBoiFloSet1[2].intWitRes.trigger then
+  reinit(conBoiPri.minBoiFloSet1[2].intWitRes.y, conBoiPri.minBoiFloSet1[2].intWitRes.y_reset_in);
+end when;
+ 
+  conBoiPri.minBoiFloSet1[2].lin.a(unit= "m3/s")
+from the equation
+conBoiPri.minBoiFloSet1[2].lin.a = conBoiPri.minBoiFloSet1[2].lin.f2-  conBoiPri.minBoiFloSet1[2].lin.b*conBoiPri.minBoiFloSet1[2].lin.x2;
+ 
+  conBoiPri.minBoiFloSet1[2].lin.xLim(unit= "s")
+from the equation
+if (conBoiPri.minBoiFloSet1[2].lin.limitBelow and conBoiPri.minBoiFloSet1[2].lin.limitAbove)   then 
+  conBoiPri.minBoiFloSet1[2].lin.xLim = min(conBoiPri.minBoiFloSet1[2].lin.x2,     max(conBoiPri.minBoiFloSet1[2].lin.x1, conBoiPri.minBoiFloSet1[2].lin.u));
+elseif (conBoiPri.minBoiFloSet1[2].lin.limitBelow) then 
+  conBoiPri.minBoiFloSet1[2].lin.xLim = max(conBoiPri.minBoiFloSet1[2].lin.x1,     conBoiPri.minBoiFloSet1[2].lin.u);
+elseif (conBoiPri.minBoiFloSet1[2].lin.limitAbove) then 
+  conBoiPri.minBoiFloSet1[2].lin.xLim = min(conBoiPri.minBoiFloSet1[2].lin.x2,     conBoiPri.minBoiFloSet1[2].lin.u);
+else
+  conBoiPri.minBoiFloSet1[2].lin.xLim = conBoiPri.minBoiFloSet1[2].lin.u;
+end if;
+ 
+  conBoiPri.minBoiFloSet1[2].lin.y(unit= "m3/s")
+from the equation
+conBoiPri.minBoiFloSet1[2].lin.y = conBoiPri.minBoiFloSet1[2].lin.a+  conBoiPri.minBoiFloSet1[2].lin.b*conBoiPri.minBoiFloSet1[2].lin.xLim;
+ 
+  conBoiPri.minBoiFloSet1[2].max.u1(unit= "W")
+from the equation
+conBoiPri.minBoiFloSet1[2].zerStaIndCor3.yCapMod = conBoiPri.minBoiFloSet1[2].max.u1;
+ 
+  conBoiPri.minBoiFloSet1[2].intWitRes.y_reset_in(unit= "m3/s")
+from the equation
+conBoiPri.minBoiFloSet1[2].intWitRes.y_reset_in = conBoiPri.minBoiFloSet1[2].VHotWatMinSet_flow;
+ 
+  conBoiPri.minBoiFloSet1[2].lin.u(unit= "s")
+from the equation
+conBoiPri.minBoiFloSet1[2].lin.u = conBoiPri.minBoiFloSet1[2].gre.u1;
+ 
+  conBoiPri.minBoiFloSet1[2].gre.u1(unit= "s")
+from the equation
+conBoiPri.minBoiFloSet1[2].tim.y = conBoiPri.minBoiFloSet1[2].gre.u1;
+ 
+Error: The unit issue reported appeared in the equation
+  conBoiPri.minBoiFloSet1[2].swi.y = smooth(0, (if conBoiPri.minBoiFloSet1[2].swi.u2   then conBoiPri.minBoiFloSet1[2].swi.u1 else conBoiPri.minBoiFloSet1[2].swi.u3));
+Found in class Buildings.Controls.OBC.CDL.Reals.Switch, /tmp/tmp-Buildings-0-sz0f2v0b/Buildings/Controls/OBC/CDL/Reals/Switch.mo at line 18, and used in component conBoiPri.minBoiFloSet1[2].swi.
+Error: Unit propagation failed.
+Error: Incompatible units in
+  conBoiPri.minBoiFloSet1[2].swi2.y = smooth(0, (if conBoiPri.minBoiFloSet1[2].swi2.u2   then conBoiPri.minBoiFloSet1[2].swi2.u1 else conBoiPri.minBoiFloSet1[2].swi2.u3));
+The part
+  conBoiPri.minBoiFloSet1[2].swi2.y
+has unit m3/s
+Deduced units
+  conBoiPri.minBoiFloSet1[2].swi2.y(unit= "m3/s")
+from the equation
+conBoiPri.minBoiFloSet1[2].swi2.y = conBoiPri.minBoiFloSet1[2].lin1.f2;
+ 
+  conBoiPri.minBoiFloSet1[2].lin1.f2(unit= "m3/s")
+from the equation
+conBoiPri.minBoiFloSet1[2].lin1.b = (conBoiPri.minBoiFloSet1[2].lin1.f2-  conBoiPri.minBoiFloSet1[2].lin1.f1)/(conBoiPri.minBoiFloSet1[2].lin1.x2-  conBoiPri.minBoiFloSet1[2].lin1.x1);
+ 
+  conBoiPri.minBoiFloSet1[2].lin1.b(unit= "m3/s2")
+from the equation
+conBoiPri.minBoiFloSet1[2].lin1.y = conBoiPri.minBoiFloSet1[2].lin1.a+  conBoiPri.minBoiFloSet1[2].lin1.b*conBoiPri.minBoiFloSet1[2].lin1.xLim;
+ 
+  conBoiPri.minBoiFloSet1[2].lin1.f1(unit= "m3/s")
+from the equation
+conBoiPri.minBoiFloSet1[2].lin1.f1 = conBoiPri.minBoiFloSet1[2].intWitRes.y;
+ 
+  conBoiPri.minBoiFloSet1[2].intWitRes.y(unit= "m3/s")
+from the equation
+when conBoiPri.minBoiFloSet1[2].intWitRes.trigger then
+  reinit(conBoiPri.minBoiFloSet1[2].intWitRes.y, conBoiPri.minBoiFloSet1[2].intWitRes.y_reset_in);
+end when;
+ 
+  conBoiPri.minBoiFloSet1[2].lin1.a(unit= "m3/s")
+from the equation
+conBoiPri.minBoiFloSet1[2].lin1.a = conBoiPri.minBoiFloSet1[2].lin1.f2-  conBoiPri.minBoiFloSet1[2].lin1.b*conBoiPri.minBoiFloSet1[2].lin1.x2;
+ 
+  conBoiPri.minBoiFloSet1[2].lin1.xLim(unit= "s")
+from the equation
+if (conBoiPri.minBoiFloSet1[2].lin1.limitBelow and conBoiPri.minBoiFloSet1[2].lin1.limitAbove)   then 
+  conBoiPri.minBoiFloSet1[2].lin1.xLim = min(conBoiPri.minBoiFloSet1[2].lin1.x2,     max(conBoiPri.minBoiFloSet1[2].lin1.x1, conBoiPri.minBoiFloSet1[2].lin1.u));
+elseif (conBoiPri.minBoiFloSet1[2].lin1.limitBelow) then 
+  conBoiPri.minBoiFloSet1[2].lin1.xLim = max(conBoiPri.minBoiFloSet1[2].lin1.x1,     conBoiPri.minBoiFloSet1[2].lin1.u);
+elseif (conBoiPri.minBoiFloSet1[2].lin1.limitAbove) then 
+  conBoiPri.minBoiFloSet1[2].lin1.xLim = min(conBoiPri.minBoiFloSet1[2].lin1.x2,     conBoiPri.minBoiFloSet1[2].lin1.u);
+else
+  conBoiPri.minBoiFloSet1[2].lin1.xLim = conBoiPri.minBoiFloSet1[2].lin1.u;
+end if;
+ 
+  conBoiPri.minBoiFloSet1[2].lin1.y(unit= "m3/s")
+from the equation
+conBoiPri.minBoiFloSet1[2].lin1.y = conBoiPri.minBoiFloSet1[2].lin1.a+  conBoiPri.minBoiFloSet1[2].lin1.b*conBoiPri.minBoiFloSet1[2].lin1.xLim;
+ 
+  conBoiPri.minBoiFloSet1[2].intWitRes.y_reset_in(unit= "m3/s")
+from the equation
+conBoiPri.minBoiFloSet1[2].intWitRes.y_reset_in = conBoiPri.minBoiFloSet1[2].VHotWatMinSet_flow;
+ 
+  conBoiPri.minBoiFloSet1[2].lin1.u(unit= "s")
+from the equation
+conBoiPri.minBoiFloSet1[2].lin1.u = conBoiPri.minBoiFloSet1[2].gre.u1;
+ 
+  conBoiPri.minBoiFloSet1[2].gre.u1(unit= "s")
+from the equation
+conBoiPri.minBoiFloSet1[2].tim.y = conBoiPri.minBoiFloSet1[2].gre.u1;
+ 
+The part
+  smooth(0, (if conBoiPri.minBoiFloSet1[2].swi2.u2 then conBoiPri.minBoiFloSet1[2].swi2.u1   else conBoiPri.minBoiFloSet1[2].swi2.u3))
+has unit m4.kg2.s-6
+Deduced units
+  conBoiPri.minBoiFloSet1[2].swi2.u1(unit= "m4.kg2.s-6")
+from the equation
+conBoiPri.minBoiFloSet1[2].swi2.u1 = conBoiPri.minBoiFloSet1[2].pro4.y;
+ 
+  conBoiPri.minBoiFloSet1[2].swi2.u3(unit= "m4.kg2.s-6")
+from the equation
+conBoiPri.minBoiFloSet1[2].swi2.y = smooth(0, (if conBoiPri.minBoiFloSet1[2].swi2.u2   then conBoiPri.minBoiFloSet1[2].swi2.u1 else conBoiPri.minBoiFloSet1[2].swi2.u3));
+ 
+  conBoiPri.minBoiFloSet1[2].pro4.y(unit= "m4.kg2.s-6")
+from the equation
+conBoiPri.minBoiFloSet1[2].pro4.y = conBoiPri.minBoiFloSet1[2].pro4.u1*  conBoiPri.minBoiFloSet1[2].pro4.u2;
+ 
+  conBoiPri.minBoiFloSet1[2].swi2.y(unit= "m3/s")
+from the equation
+conBoiPri.minBoiFloSet1[2].swi2.y = conBoiPri.minBoiFloSet1[2].lin1.f2;
+ 
+  conBoiPri.minBoiFloSet1[2].lin1.f2(unit= "m3/s")
+from the equation
+conBoiPri.minBoiFloSet1[2].lin1.b = (conBoiPri.minBoiFloSet1[2].lin1.f2-  conBoiPri.minBoiFloSet1[2].lin1.f1)/(conBoiPri.minBoiFloSet1[2].lin1.x2-  conBoiPri.minBoiFloSet1[2].lin1.x1);
+ 
+  conBoiPri.minBoiFloSet1[2].pro4.u1(unit= "W")
+from the equation
+conBoiPri.minBoiFloSet1[2].pro4.u1 = conBoiPri.minBoiFloSet1[2].max1.y;
+ 
+  conBoiPri.minBoiFloSet1[2].pro4.u2(unit= "W")
+from the equation
+conBoiPri.minBoiFloSet1[2].pro4.u2 = conBoiPri.minBoiFloSet1[2].add1.y;
+ 
+  conBoiPri.minBoiFloSet1[2].add1.y(unit= "W")
+from the equation
+conBoiPri.minBoiFloSet1[2].add1.y = conBoiPri.minBoiFloSet1[2].add1.u1+  conBoiPri.minBoiFloSet1[2].add1.u2;
+ 
+  conBoiPri.minBoiFloSet1[2].lin1.b(unit= "m3/s2")
+from the equation
+conBoiPri.minBoiFloSet1[2].lin1.y = conBoiPri.minBoiFloSet1[2].lin1.a+  conBoiPri.minBoiFloSet1[2].lin1.b*conBoiPri.minBoiFloSet1[2].lin1.xLim;
+ 
+  conBoiPri.minBoiFloSet1[2].lin1.f1(unit= "m3/s")
+from the equation
+conBoiPri.minBoiFloSet1[2].lin1.f1 = conBoiPri.minBoiFloSet1[2].intWitRes.y;
+ 
+  conBoiPri.minBoiFloSet1[2].max1.y(unit= "W")
+from the equation
+conBoiPri.minBoiFloSet1[2].max1.y = max(conBoiPri.minBoiFloSet1[2].max1.u1,   conBoiPri.minBoiFloSet1[2].max1.u2);
+ 
+  conBoiPri.minBoiFloSet1[2].add1.u1(unit= "W")
+from the equation
+conBoiPri.minBoiFloSet1[2].add1.y = conBoiPri.minBoiFloSet1[2].add1.u1+  conBoiPri.minBoiFloSet1[2].add1.u2;
+ 
+  conBoiPri.minBoiFloSet1[2].add1.u2(unit= "W")
+from the equation
+conBoiPri.minBoiFloSet1[2].zerStaIndCor1.yCapMod = conBoiPri.minBoiFloSet1[2].add1.u2;
+ 
+  conBoiPri.minBoiFloSet1[2].intWitRes.y(unit= "m3/s")
+from the equation
+when conBoiPri.minBoiFloSet1[2].intWitRes.trigger then
+  reinit(conBoiPri.minBoiFloSet1[2].intWitRes.y, conBoiPri.minBoiFloSet1[2].intWitRes.y_reset_in);
+end when;
+ 
+  conBoiPri.minBoiFloSet1[2].lin1.a(unit= "m3/s")
+from the equation
+conBoiPri.minBoiFloSet1[2].lin1.a = conBoiPri.minBoiFloSet1[2].lin1.f2-  conBoiPri.minBoiFloSet1[2].lin1.b*conBoiPri.minBoiFloSet1[2].lin1.x2;
+ 
+  conBoiPri.minBoiFloSet1[2].lin1.xLim(unit= "s")
+from the equation
+if (conBoiPri.minBoiFloSet1[2].lin1.limitBelow and conBoiPri.minBoiFloSet1[2].lin1.limitAbove)   then 
+  conBoiPri.minBoiFloSet1[2].lin1.xLim = min(conBoiPri.minBoiFloSet1[2].lin1.x2,     max(conBoiPri.minBoiFloSet1[2].lin1.x1, conBoiPri.minBoiFloSet1[2].lin1.u));
+elseif (conBoiPri.minBoiFloSet1[2].lin1.limitBelow) then 
+  conBoiPri.minBoiFloSet1[2].lin1.xLim = max(conBoiPri.minBoiFloSet1[2].lin1.x1,     conBoiPri.minBoiFloSet1[2].lin1.u);
+elseif (conBoiPri.minBoiFloSet1[2].lin1.limitAbove) then 
+  conBoiPri.minBoiFloSet1[2].lin1.xLim = min(conBoiPri.minBoiFloSet1[2].lin1.x2,     conBoiPri.minBoiFloSet1[2].lin1.u);
+else
+  conBoiPri.minBoiFloSet1[2].lin1.xLim = conBoiPri.minBoiFloSet1[2].lin1.u;
+end if;
+ 
+  conBoiPri.minBoiFloSet1[2].lin1.y(unit= "m3/s")
+from the equation
+conBoiPri.minBoiFloSet1[2].lin1.y = conBoiPri.minBoiFloSet1[2].lin1.a+  conBoiPri.minBoiFloSet1[2].lin1.b*conBoiPri.minBoiFloSet1[2].lin1.xLim;
+ 
+  conBoiPri.minBoiFloSet1[2].max1.u2(unit= "W")
+from the equation
+conBoiPri.minBoiFloSet1[2].zerStaIndCor2.yCapMod = conBoiPri.minBoiFloSet1[2].max1.u2;
+ 
+  conBoiPri.minBoiFloSet1[2].intWitRes.y_reset_in(unit= "m3/s")
+from the equation
+conBoiPri.minBoiFloSet1[2].intWitRes.y_reset_in = conBoiPri.minBoiFloSet1[2].VHotWatMinSet_flow;
+ 
+  conBoiPri.minBoiFloSet1[2].lin1.u(unit= "s")
+from the equation
+conBoiPri.minBoiFloSet1[2].lin1.u = conBoiPri.minBoiFloSet1[2].gre.u1;
+ 
+  conBoiPri.minBoiFloSet1[2].gre.u1(unit= "s")
+from the equation
+conBoiPri.minBoiFloSet1[2].tim.y = conBoiPri.minBoiFloSet1[2].gre.u1;
+ 
+Error: The unit issue reported appeared in the equation
+  conBoiPri.minBoiFloSet1[2].swi2.y = smooth(0, (if conBoiPri.minBoiFloSet1[2].swi2.u2   then conBoiPri.minBoiFloSet1[2].swi2.u1 else conBoiPri.minBoiFloSet1[2].swi2.u3));
+Found in class Buildings.Controls.OBC.CDL.Reals.Switch, /tmp/tmp-Buildings-0-sz0f2v0b/Buildings/Controls/OBC/CDL/Reals/Switch.mo at line 18, and used in component conBoiPri.minBoiFloSet1[2].swi2.
+Error: Unit propagation failed.
+Error: Incompatible units in
+  conBoiPri.minBoiFloSet1[3].swi.y = smooth(0, (if conBoiPri.minBoiFloSet1[3].swi.u2   then conBoiPri.minBoiFloSet1[3].swi.u1 else conBoiPri.minBoiFloSet1[3].swi.u3));
+The part
+  conBoiPri.minBoiFloSet1[3].swi.y
+has unit m3/s
+Deduced units
+  conBoiPri.minBoiFloSet1[3].swi.y(unit= "m3/s")
+from the equation
+conBoiPri.minBoiFloSet1[3].swi.y = conBoiPri.minBoiFloSet1[3].lin.f2;
+ 
+  conBoiPri.minBoiFloSet1[3].lin.f2(unit= "m3/s")
+from the equation
+conBoiPri.minBoiFloSet1[3].lin.b = (conBoiPri.minBoiFloSet1[3].lin.f2-  conBoiPri.minBoiFloSet1[3].lin.f1)/(conBoiPri.minBoiFloSet1[3].lin.x2-  conBoiPri.minBoiFloSet1[3].lin.x1);
+ 
+  conBoiPri.minBoiFloSet1[3].lin.b(unit= "m3/s2")
+from the equation
+conBoiPri.minBoiFloSet1[3].lin.y = conBoiPri.minBoiFloSet1[3].lin.a+  conBoiPri.minBoiFloSet1[3].lin.b*conBoiPri.minBoiFloSet1[3].lin.xLim;
+ 
+  conBoiPri.minBoiFloSet1[3].lin.f1(unit= "m3/s")
+from the equation
+conBoiPri.minBoiFloSet1[3].lin.f1 = conBoiPri.minBoiFloSet1[3].intWitRes.y;
+ 
+  conBoiPri.minBoiFloSet1[3].intWitRes.y(unit= "m3/s")
+from the equation
+when conBoiPri.minBoiFloSet1[3].intWitRes.trigger then
+  reinit(conBoiPri.minBoiFloSet1[3].intWitRes.y, conBoiPri.minBoiFloSet1[3].intWitRes.y_reset_in);
+end when;
+ 
+  conBoiPri.minBoiFloSet1[3].lin.a(unit= "m3/s")
+from the equation
+conBoiPri.minBoiFloSet1[3].lin.a = conBoiPri.minBoiFloSet1[3].lin.f2-  conBoiPri.minBoiFloSet1[3].lin.b*conBoiPri.minBoiFloSet1[3].lin.x2;
+ 
+  conBoiPri.minBoiFloSet1[3].lin.xLim(unit= "s")
+from the equation
+if (conBoiPri.minBoiFloSet1[3].lin.limitBelow and conBoiPri.minBoiFloSet1[3].lin.limitAbove)   then 
+  conBoiPri.minBoiFloSet1[3].lin.xLim = min(conBoiPri.minBoiFloSet1[3].lin.x2,     max(conBoiPri.minBoiFloSet1[3].lin.x1, conBoiPri.minBoiFloSet1[3].lin.u));
+elseif (conBoiPri.minBoiFloSet1[3].lin.limitBelow) then 
+  conBoiPri.minBoiFloSet1[3].lin.xLim = max(conBoiPri.minBoiFloSet1[3].lin.x1,     conBoiPri.minBoiFloSet1[3].lin.u);
+elseif (conBoiPri.minBoiFloSet1[3].lin.limitAbove) then 
+  conBoiPri.minBoiFloSet1[3].lin.xLim = min(conBoiPri.minBoiFloSet1[3].lin.x2,     conBoiPri.minBoiFloSet1[3].lin.u);
+else
+  conBoiPri.minBoiFloSet1[3].lin.xLim = conBoiPri.minBoiFloSet1[3].lin.u;
+end if;
+ 
+  conBoiPri.minBoiFloSet1[3].lin.y(unit= "m3/s")
+from the equation
+conBoiPri.minBoiFloSet1[3].lin.y = conBoiPri.minBoiFloSet1[3].lin.a+  conBoiPri.minBoiFloSet1[3].lin.b*conBoiPri.minBoiFloSet1[3].lin.xLim;
+ 
+  conBoiPri.minBoiFloSet1[3].intWitRes.y_reset_in(unit= "m3/s")
+from the equation
+conBoiPri.minBoiFloSet1[3].intWitRes.y_reset_in = conBoiPri.minBoiFloSet1[3].VHotWatMinSet_flow;
+ 
+  conBoiPri.minBoiFloSet1[3].lin.u(unit= "s")
+from the equation
+conBoiPri.minBoiFloSet1[3].lin.u = conBoiPri.minBoiFloSet1[3].gre.u1;
+ 
+  conBoiPri.minBoiFloSet1[3].gre.u1(unit= "s")
+from the equation
+conBoiPri.minBoiFloSet1[3].tim.y = conBoiPri.minBoiFloSet1[3].gre.u1;
+ 
+The part
+  smooth(0, (if conBoiPri.minBoiFloSet1[3].swi.u2 then conBoiPri.minBoiFloSet1[3].swi.u1   else conBoiPri.minBoiFloSet1[3].swi.u3))
+has unit m4.kg2.s-6
+Deduced units
+  conBoiPri.minBoiFloSet1[3].swi.u1(unit= "m4.kg2.s-6")
+from the equation
+conBoiPri.minBoiFloSet1[3].swi.u1 = conBoiPri.minBoiFloSet1[3].pro2.y;
+ 
+  conBoiPri.minBoiFloSet1[3].swi.u3(unit= "m4.kg2.s-6")
+from the equation
+conBoiPri.minBoiFloSet1[3].swi.y = smooth(0, (if conBoiPri.minBoiFloSet1[3].swi.u2   then conBoiPri.minBoiFloSet1[3].swi.u1 else conBoiPri.minBoiFloSet1[3].swi.u3));
+ 
+  conBoiPri.minBoiFloSet1[3].pro2.y(unit= "m4.kg2.s-6")
+from the equation
+conBoiPri.minBoiFloSet1[3].pro2.y = conBoiPri.minBoiFloSet1[3].pro2.u1*  conBoiPri.minBoiFloSet1[3].pro2.u2;
+ 
+  conBoiPri.minBoiFloSet1[3].swi.y(unit= "m3/s")
+from the equation
+conBoiPri.minBoiFloSet1[3].swi.y = conBoiPri.minBoiFloSet1[3].lin.f2;
+ 
+  conBoiPri.minBoiFloSet1[3].lin.f2(unit= "m3/s")
+from the equation
+conBoiPri.minBoiFloSet1[3].lin.b = (conBoiPri.minBoiFloSet1[3].lin.f2-  conBoiPri.minBoiFloSet1[3].lin.f1)/(conBoiPri.minBoiFloSet1[3].lin.x2-  conBoiPri.minBoiFloSet1[3].lin.x1);
+ 
+  conBoiPri.minBoiFloSet1[3].pro2.u1(unit= "W")
+from the equation
+conBoiPri.minBoiFloSet1[3].pro2.u1 = conBoiPri.minBoiFloSet1[3].max.y;
+ 
+  conBoiPri.minBoiFloSet1[3].pro2.u2(unit= "W")
+from the equation
+conBoiPri.minBoiFloSet1[3].pro2.u2 = conBoiPri.minBoiFloSet1[3].add2.y;
+ 
+  conBoiPri.minBoiFloSet1[3].add2.y(unit= "W")
+from the equation
+conBoiPri.minBoiFloSet1[3].add2.y = conBoiPri.minBoiFloSet1[3].add2.u1+  conBoiPri.minBoiFloSet1[3].add2.u2;
+ 
+  conBoiPri.minBoiFloSet1[3].lin.b(unit= "m3/s2")
+from the equation
+conBoiPri.minBoiFloSet1[3].lin.y = conBoiPri.minBoiFloSet1[3].lin.a+  conBoiPri.minBoiFloSet1[3].lin.b*conBoiPri.minBoiFloSet1[3].lin.xLim;
+ 
+  conBoiPri.minBoiFloSet1[3].lin.f1(unit= "m3/s")
+from the equation
+conBoiPri.minBoiFloSet1[3].lin.f1 = conBoiPri.minBoiFloSet1[3].intWitRes.y;
+ 
+  conBoiPri.minBoiFloSet1[3].max.y(unit= "W")
+from the equation
+conBoiPri.minBoiFloSet1[3].max.y = max(conBoiPri.minBoiFloSet1[3].max.u1,   conBoiPri.minBoiFloSet1[3].max.u2);
+ 
+  conBoiPri.minBoiFloSet1[3].add2.u1(unit= "W")
+from the equation
+conBoiPri.minBoiFloSet1[3].zerStaIndCor.yCapMod = conBoiPri.minBoiFloSet1[3].add2.u1;
+ 
+  conBoiPri.minBoiFloSet1[3].add2.u2(unit= "W")
+from the equation
+conBoiPri.minBoiFloSet1[3].add2.y = conBoiPri.minBoiFloSet1[3].add2.u1+  conBoiPri.minBoiFloSet1[3].add2.u2;
+ 
+  conBoiPri.minBoiFloSet1[3].intWitRes.y(unit= "m3/s")
+from the equation
+when conBoiPri.minBoiFloSet1[3].intWitRes.trigger then
+  reinit(conBoiPri.minBoiFloSet1[3].intWitRes.y, conBoiPri.minBoiFloSet1[3].intWitRes.y_reset_in);
+end when;
+ 
+  conBoiPri.minBoiFloSet1[3].lin.a(unit= "m3/s")
+from the equation
+conBoiPri.minBoiFloSet1[3].lin.a = conBoiPri.minBoiFloSet1[3].lin.f2-  conBoiPri.minBoiFloSet1[3].lin.b*conBoiPri.minBoiFloSet1[3].lin.x2;
+ 
+  conBoiPri.minBoiFloSet1[3].lin.xLim(unit= "s")
+from the equation
+if (conBoiPri.minBoiFloSet1[3].lin.limitBelow and conBoiPri.minBoiFloSet1[3].lin.limitAbove)   then 
+  conBoiPri.minBoiFloSet1[3].lin.xLim = min(conBoiPri.minBoiFloSet1[3].lin.x2,     max(conBoiPri.minBoiFloSet1[3].lin.x1, conBoiPri.minBoiFloSet1[3].lin.u));
+elseif (conBoiPri.minBoiFloSet1[3].lin.limitBelow) then 
+  conBoiPri.minBoiFloSet1[3].lin.xLim = max(conBoiPri.minBoiFloSet1[3].lin.x1,     conBoiPri.minBoiFloSet1[3].lin.u);
+elseif (conBoiPri.minBoiFloSet1[3].lin.limitAbove) then 
+  conBoiPri.minBoiFloSet1[3].lin.xLim = min(conBoiPri.minBoiFloSet1[3].lin.x2,     conBoiPri.minBoiFloSet1[3].lin.u);
+else
+  conBoiPri.minBoiFloSet1[3].lin.xLim = conBoiPri.minBoiFloSet1[3].lin.u;
+end if;
+ 
+  conBoiPri.minBoiFloSet1[3].lin.y(unit= "m3/s")
+from the equation
+conBoiPri.minBoiFloSet1[3].lin.y = conBoiPri.minBoiFloSet1[3].lin.a+  conBoiPri.minBoiFloSet1[3].lin.b*conBoiPri.minBoiFloSet1[3].lin.xLim;
+ 
+  conBoiPri.minBoiFloSet1[3].max.u1(unit= "W")
+from the equation
+conBoiPri.minBoiFloSet1[3].zerStaIndCor3.yCapMod = conBoiPri.minBoiFloSet1[3].max.u1;
+ 
+  conBoiPri.minBoiFloSet1[3].intWitRes.y_reset_in(unit= "m3/s")
+from the equation
+conBoiPri.minBoiFloSet1[3].intWitRes.y_reset_in = conBoiPri.minBoiFloSet1[3].VHotWatMinSet_flow;
+ 
+  conBoiPri.minBoiFloSet1[3].lin.u(unit= "s")
+from the equation
+conBoiPri.minBoiFloSet1[3].lin.u = conBoiPri.minBoiFloSet1[3].gre.u1;
+ 
+  conBoiPri.minBoiFloSet1[3].gre.u1(unit= "s")
+from the equation
+conBoiPri.minBoiFloSet1[3].tim.y = conBoiPri.minBoiFloSet1[3].gre.u1;
+ 
+Error: The unit issue reported appeared in the equation
+  conBoiPri.minBoiFloSet1[3].swi.y = smooth(0, (if conBoiPri.minBoiFloSet1[3].swi.u2   then conBoiPri.minBoiFloSet1[3].swi.u1 else conBoiPri.minBoiFloSet1[3].swi.u3));
+Found in class Buildings.Controls.OBC.CDL.Reals.Switch, /tmp/tmp-Buildings-0-sz0f2v0b/Buildings/Controls/OBC/CDL/Reals/Switch.mo at line 18, and used in component conBoiPri.minBoiFloSet1[3].swi.
+Error: Unit propagation failed.
+Error: Incompatible units in
+  conBoiPri.minBoiFloSet1[3].swi2.y = smooth(0, (if conBoiPri.minBoiFloSet1[3].swi2.u2   then conBoiPri.minBoiFloSet1[3].swi2.u1 else conBoiPri.minBoiFloSet1[3].swi2.u3));
+The part
+  conBoiPri.minBoiFloSet1[3].swi2.y
+has unit m3/s
+Deduced units
+  conBoiPri.minBoiFloSet1[3].swi2.y(unit= "m3/s")
+from the equation
+conBoiPri.minBoiFloSet1[3].swi2.y = conBoiPri.minBoiFloSet1[3].lin1.f2;
+ 
+  conBoiPri.minBoiFloSet1[3].lin1.f2(unit= "m3/s")
+from the equation
+conBoiPri.minBoiFloSet1[3].lin1.b = (conBoiPri.minBoiFloSet1[3].lin1.f2-  conBoiPri.minBoiFloSet1[3].lin1.f1)/(conBoiPri.minBoiFloSet1[3].lin1.x2-  conBoiPri.minBoiFloSet1[3].lin1.x1);
+ 
+  conBoiPri.minBoiFloSet1[3].lin1.b(unit= "m3/s2")
+from the equation
+conBoiPri.minBoiFloSet1[3].lin1.y = conBoiPri.minBoiFloSet1[3].lin1.a+  conBoiPri.minBoiFloSet1[3].lin1.b*conBoiPri.minBoiFloSet1[3].lin1.xLim;
+ 
+  conBoiPri.minBoiFloSet1[3].lin1.f1(unit= "m3/s")
+from the equation
+conBoiPri.minBoiFloSet1[3].lin1.f1 = conBoiPri.minBoiFloSet1[3].intWitRes.y;
+ 
+  conBoiPri.minBoiFloSet1[3].intWitRes.y(unit= "m3/s")
+from the equation
+when conBoiPri.minBoiFloSet1[3].intWitRes.trigger then
+  reinit(conBoiPri.minBoiFloSet1[3].intWitRes.y, conBoiPri.minBoiFloSet1[3].intWitRes.y_reset_in);
+end when;
+ 
+  conBoiPri.minBoiFloSet1[3].lin1.a(unit= "m3/s")
+from the equation
+conBoiPri.minBoiFloSet1[3].lin1.a = conBoiPri.minBoiFloSet1[3].lin1.f2-  conBoiPri.minBoiFloSet1[3].lin1.b*conBoiPri.minBoiFloSet1[3].lin1.x2;
+ 
+  conBoiPri.minBoiFloSet1[3].lin1.xLim(unit= "s")
+from the equation
+if (conBoiPri.minBoiFloSet1[3].lin1.limitBelow and conBoiPri.minBoiFloSet1[3].lin1.limitAbove)   then 
+  conBoiPri.minBoiFloSet1[3].lin1.xLim = min(conBoiPri.minBoiFloSet1[3].lin1.x2,     max(conBoiPri.minBoiFloSet1[3].lin1.x1, conBoiPri.minBoiFloSet1[3].lin1.u));
+elseif (conBoiPri.minBoiFloSet1[3].lin1.limitBelow) then 
+  conBoiPri.minBoiFloSet1[3].lin1.xLim = max(conBoiPri.minBoiFloSet1[3].lin1.x1,     conBoiPri.minBoiFloSet1[3].lin1.u);
+elseif (conBoiPri.minBoiFloSet1[3].lin1.limitAbove) then 
+  conBoiPri.minBoiFloSet1[3].lin1.xLim = min(conBoiPri.minBoiFloSet1[3].lin1.x2,     conBoiPri.minBoiFloSet1[3].lin1.u);
+else
+  conBoiPri.minBoiFloSet1[3].lin1.xLim = conBoiPri.minBoiFloSet1[3].lin1.u;
+end if;
+ 
+  conBoiPri.minBoiFloSet1[3].lin1.y(unit= "m3/s")
+from the equation
+conBoiPri.minBoiFloSet1[3].lin1.y = conBoiPri.minBoiFloSet1[3].lin1.a+  conBoiPri.minBoiFloSet1[3].lin1.b*conBoiPri.minBoiFloSet1[3].lin1.xLim;
+ 
+  conBoiPri.minBoiFloSet1[3].intWitRes.y_reset_in(unit= "m3/s")
+from the equation
+conBoiPri.minBoiFloSet1[3].intWitRes.y_reset_in = conBoiPri.minBoiFloSet1[3].VHotWatMinSet_flow;
+ 
+  conBoiPri.minBoiFloSet1[3].lin1.u(unit= "s")
+from the equation
+conBoiPri.minBoiFloSet1[3].lin1.u = conBoiPri.minBoiFloSet1[3].gre.u1;
+ 
+  conBoiPri.minBoiFloSet1[3].gre.u1(unit= "s")
+from the equation
+conBoiPri.minBoiFloSet1[3].tim.y = conBoiPri.minBoiFloSet1[3].gre.u1;
+ 
+The part
+  smooth(0, (if conBoiPri.minBoiFloSet1[3].swi2.u2 then conBoiPri.minBoiFloSet1[3].swi2.u1   else conBoiPri.minBoiFloSet1[3].swi2.u3))
+has unit m4.kg2.s-6
+Deduced units
+  conBoiPri.minBoiFloSet1[3].swi2.u1(unit= "m4.kg2.s-6")
+from the equation
+conBoiPri.minBoiFloSet1[3].swi2.u1 = conBoiPri.minBoiFloSet1[3].pro4.y;
+ 
+  conBoiPri.minBoiFloSet1[3].swi2.u3(unit= "m4.kg2.s-6")
+from the equation
+conBoiPri.minBoiFloSet1[3].swi2.y = smooth(0, (if conBoiPri.minBoiFloSet1[3].swi2.u2   then conBoiPri.minBoiFloSet1[3].swi2.u1 else conBoiPri.minBoiFloSet1[3].swi2.u3));
+ 
+  conBoiPri.minBoiFloSet1[3].pro4.y(unit= "m4.kg2.s-6")
+from the equation
+conBoiPri.minBoiFloSet1[3].pro4.y = conBoiPri.minBoiFloSet1[3].pro4.u1*  conBoiPri.minBoiFloSet1[3].pro4.u2;
+ 
+  conBoiPri.minBoiFloSet1[3].swi2.y(unit= "m3/s")
+from the equation
+conBoiPri.minBoiFloSet1[3].swi2.y = conBoiPri.minBoiFloSet1[3].lin1.f2;
+ 
+  conBoiPri.minBoiFloSet1[3].lin1.f2(unit= "m3/s")
+from the equation
+conBoiPri.minBoiFloSet1[3].lin1.b = (conBoiPri.minBoiFloSet1[3].lin1.f2-  conBoiPri.minBoiFloSet1[3].lin1.f1)/(conBoiPri.minBoiFloSet1[3].lin1.x2-  conBoiPri.minBoiFloSet1[3].lin1.x1);
+ 
+  conBoiPri.minBoiFloSet1[3].pro4.u1(unit= "W")
+from the equation
+conBoiPri.minBoiFloSet1[3].pro4.u1 = conBoiPri.minBoiFloSet1[3].max1.y;
+ 
+  conBoiPri.minBoiFloSet1[3].pro4.u2(unit= "W")
+from the equation
+conBoiPri.minBoiFloSet1[3].pro4.u2 = conBoiPri.minBoiFloSet1[3].add1.y;
+ 
+  conBoiPri.minBoiFloSet1[3].add1.y(unit= "W")
+from the equation
+conBoiPri.minBoiFloSet1[3].add1.y = conBoiPri.minBoiFloSet1[3].add1.u1+  conBoiPri.minBoiFloSet1[3].add1.u2;
+ 
+  conBoiPri.minBoiFloSet1[3].lin1.b(unit= "m3/s2")
+from the equation
+conBoiPri.minBoiFloSet1[3].lin1.y = conBoiPri.minBoiFloSet1[3].lin1.a+  conBoiPri.minBoiFloSet1[3].lin1.b*conBoiPri.minBoiFloSet1[3].lin1.xLim;
+ 
+  conBoiPri.minBoiFloSet1[3].lin1.f1(unit= "m3/s")
+from the equation
+conBoiPri.minBoiFloSet1[3].lin1.f1 = conBoiPri.minBoiFloSet1[3].intWitRes.y;
+ 
+  conBoiPri.minBoiFloSet1[3].max1.y(unit= "W")
+from the equation
+conBoiPri.minBoiFloSet1[3].max1.y = max(conBoiPri.minBoiFloSet1[3].max1.u1,   conBoiPri.minBoiFloSet1[3].max1.u2);
+ 
+  conBoiPri.minBoiFloSet1[3].add1.u1(unit= "W")
+from the equation
+conBoiPri.minBoiFloSet1[3].add1.y = conBoiPri.minBoiFloSet1[3].add1.u1+  conBoiPri.minBoiFloSet1[3].add1.u2;
+ 
+  conBoiPri.minBoiFloSet1[3].add1.u2(unit= "W")
+from the equation
+conBoiPri.minBoiFloSet1[3].zerStaIndCor1.yCapMod = conBoiPri.minBoiFloSet1[3].add1.u2;
+ 
+  conBoiPri.minBoiFloSet1[3].intWitRes.y(unit= "m3/s")
+from the equation
+when conBoiPri.minBoiFloSet1[3].intWitRes.trigger then
+  reinit(conBoiPri.minBoiFloSet1[3].intWitRes.y, conBoiPri.minBoiFloSet1[3].intWitRes.y_reset_in);
+end when;
+ 
+  conBoiPri.minBoiFloSet1[3].lin1.a(unit= "m3/s")
+from the equation
+conBoiPri.minBoiFloSet1[3].lin1.a = conBoiPri.minBoiFloSet1[3].lin1.f2-  conBoiPri.minBoiFloSet1[3].lin1.b*conBoiPri.minBoiFloSet1[3].lin1.x2;
+ 
+  conBoiPri.minBoiFloSet1[3].lin1.xLim(unit= "s")
+from the equation
+if (conBoiPri.minBoiFloSet1[3].lin1.limitBelow and conBoiPri.minBoiFloSet1[3].lin1.limitAbove)   then 
+  conBoiPri.minBoiFloSet1[3].lin1.xLim = min(conBoiPri.minBoiFloSet1[3].lin1.x2,     max(conBoiPri.minBoiFloSet1[3].lin1.x1, conBoiPri.minBoiFloSet1[3].lin1.u));
+elseif (conBoiPri.minBoiFloSet1[3].lin1.limitBelow) then 
+  conBoiPri.minBoiFloSet1[3].lin1.xLim = max(conBoiPri.minBoiFloSet1[3].lin1.x1,     conBoiPri.minBoiFloSet1[3].lin1.u);
+elseif (conBoiPri.minBoiFloSet1[3].lin1.limitAbove) then 
+  conBoiPri.minBoiFloSet1[3].lin1.xLim = min(conBoiPri.minBoiFloSet1[3].lin1.x2,     conBoiPri.minBoiFloSet1[3].lin1.u);
+else
+  conBoiPri.minBoiFloSet1[3].lin1.xLim = conBoiPri.minBoiFloSet1[3].lin1.u;
+end if;
+ 
+  conBoiPri.minBoiFloSet1[3].lin1.y(unit= "m3/s")
+from the equation
+conBoiPri.minBoiFloSet1[3].lin1.y = conBoiPri.minBoiFloSet1[3].lin1.a+  conBoiPri.minBoiFloSet1[3].lin1.b*conBoiPri.minBoiFloSet1[3].lin1.xLim;
+ 
+  conBoiPri.minBoiFloSet1[3].max1.u2(unit= "W")
+from the equation
+conBoiPri.minBoiFloSet1[3].zerStaIndCor2.yCapMod = conBoiPri.minBoiFloSet1[3].max1.u2;
+ 
+  conBoiPri.minBoiFloSet1[3].intWitRes.y_reset_in(unit= "m3/s")
+from the equation
+conBoiPri.minBoiFloSet1[3].intWitRes.y_reset_in = conBoiPri.minBoiFloSet1[3].VHotWatMinSet_flow;
+ 
+  conBoiPri.minBoiFloSet1[3].lin1.u(unit= "s")
+from the equation
+conBoiPri.minBoiFloSet1[3].lin1.u = conBoiPri.minBoiFloSet1[3].gre.u1;
+ 
+  conBoiPri.minBoiFloSet1[3].gre.u1(unit= "s")
+from the equation
+conBoiPri.minBoiFloSet1[3].tim.y = conBoiPri.minBoiFloSet1[3].gre.u1;
+ 
+Error: The unit issue reported appeared in the equation
+  conBoiPri.minBoiFloSet1[3].swi2.y = smooth(0, (if conBoiPri.minBoiFloSet1[3].swi2.u2   then conBoiPri.minBoiFloSet1[3].swi2.u1 else conBoiPri.minBoiFloSet1[3].swi2.u3));
+Found in class Buildings.Controls.OBC.CDL.Reals.Switch, /tmp/tmp-Buildings-0-sz0f2v0b/Buildings/Controls/OBC/CDL/Reals/Switch.mo at line 18, and used in component conBoiPri.minBoiFloSet1[3].swi2.
+The following parameters have enable=false and don't have any value, only a start value:
+    conBoiPri.boiDesFlo(start = {0, 0})
+    conBoiPri.have_varPriPum_select(start = false)
+    conBoiPri.maxFloSet(start = {0.00168, 0.0037799999999999995})
+    conBoiPri.maxLocDpPri(start = conBoiPri.minLocDpPri)
+    conBoiPri.maxRemDpPri(start = {conBoiPri.minRemDpPri[1]})
+    conBoiPri.TConBoiHotWatSetMax(start = 353.15)
+    conBoiPri.VHotWatPri_flow_nominal(start = 1E-06)
+    secLoo1.loa.con.dp1_nominal(start = 0)
+    secLoo2.loa.con.dp1_nominal(start = 0)
+ 
+The model has the same number of unknowns and equations: 8574
+The model could not be deduced to be symbolically well-posed.
+The model has
+  8552+conBoiPri.staSetCon.boiInd.matMax.nCol+conBoiPri.staSetCon.conf.matMax.nRow  +conBoiPri.staSetCon.conf.matMax1.nRow+2*conBoiPri.priPumCon.enaHeaLeaPum.mulOr.nin  +conBoiPri.minBoiFloSet1[1].matMax.nRow+conBoiPri.minBoiFloSet1[2].matMax.nRow  +conBoiPri.minBoiFloSet1[3].matMax.nRow+max([
+[1]; size(timTab.offset, 1)])
+scalar unknowns and
+  8412+(if conBoiPri.plaEna.mulAnd.nin > 1 then 5 else (if conBoiPri.plaEna.mulAnd.nin   == 1 then 2 else 1))+(if conBoiPri.plaEna.mulOr.nin > 1 then 4 else (if   conBoiPri.plaEna.mulOr.nin == 1 then 2 else 1))+(if conBoiPri.staSetCon.cha.mulAnd.nin   > 1 then 5 else (if conBoiPri.staSetCon.cha.mulAnd.nin == 1 then 2 else 1))+  conBoiPri.staSetCon.boiInd.matMax.nCol+conBoiPri.staSetCon.conf.matMax.nRow+(  if conBoiPri.staSetCon.conf.mulAnd.nin > 1 then 4 else (if conBoiPri.staSetCon.conf.mulAnd.nin   == 1 then 2 else 1))+conBoiPri.staSetCon.conf.matMax1.nRow+(if   conBoiPri.staSetCon.sta.mulOr.nin > 1 then 4 else (if conBoiPri.staSetCon.sta.mulOr.nin   == 1 then 2 else 1))+(if conBoiPri.staSetCon.staUp.mulOr.nin > 1 then 4 else   (if conBoiPri.staSetCon.staUp.mulOr.nin == 1 then 2 else 1))+(if   conBoiPri.mulOr.nin > 1 then 3 else (if conBoiPri.mulOr.nin == 1 then 2 else 1))  +(if conBoiPri.upProCon.nexBoi.anyEnaBoi.nin > 1 then 3 else (if   conBoiPri.upProCon.nexBoi.anyEnaBoi.nin == 1 then 2 else 1))+(if   conBoiPri.upProCon.nexBoi.anyDisBoi.nin > 1 then 3 else (if conBoiPri.upProCon.nexBoi.anyDisBoi.nin   == 1 then 2 else 1))+(if conBoiPri.upProCon.enaHotWatIsoVal.mulAnd1.nin > 1   then 4 else (if conBoiPri.upProCon.enaHotWatIsoVal.mulAnd1.nin == 1 then 2   else 1))+(if conBoiPri.upProCon.enaBoi.mulAnd.nin > 1 then 4 else (if   conBoiPri.upProCon.enaBoi.mulAnd.nin == 1 then 2 else 1))+(if conBoiPri.upProCon.disHotWatIsoVal1.mulAnd1.nin   > 1 then 4 else (if conBoiPri.upProCon.disHotWatIsoVal1.mulAnd1.nin == 1   then 2 else 1))+(if conBoiPri.dowProCon.nexBoi.anyEnaBoi.nin > 1 then 3 else   (if conBoiPri.dowProCon.nexBoi.anyEnaBoi.nin == 1 then 2 else 1))+(if   conBoiPri.dowProCon.nexBoi.anyDisBoi.nin > 1 then 3 else (if conBoiPri.dowProCon.nexBoi.anyDisBoi.nin   == 1 then 2 else 1))+(if conBoiPri.dowProCon.enaHotWatIsoVal.mulAnd1.nin > 1   then 4 else (if conBoiPri.dowProCon.enaHotWatIsoVal.mulAnd1.nin == 1 then 2   else 1))+(if conBoiPri.dowProCon.disHotWatIsoVal1.mulAnd1.nin > 1 then 4   else (if conBoiPri.dowProCon.disHotWatIsoVal1.mulAnd1.nin == 1 then 2 else 1))  +(if conBoiPri.dowProCon.mulOr.nin > 1 then 2 else (if conBoiPri.dowProCon.mulOr.nin   == 1 then 2 else 1))+(if conBoiPri.priPumCon.enaHeaLeaPum.mulOr.nin > 1 then 1  +conBoiPri.priPumCon.enaHeaLeaPum.mulOr.nin else (if conBoiPri.priPumCon.enaHeaLeaPum.mulOr.nin   == 1 then 2 else 1))+(if conBoiPri.priPumCon.pumSpeFlo.mulOr.nin > 1 then 3   else (if conBoiPri.priPumCon.pumSpeFlo.mulOr.nin == 1 then 2 else 1))+(if   conBoiPri.priPumCon.chaPumSta1.mulAnd.nin > 1 then 3 else (if conBoiPri.priPumCon.chaPumSta1.mulAnd.nin   == 1 then 2 else 1))+(if conBoiPri.priPumCon.chaPumSta1.mulAnd1.nin > 1 then 3   else (if conBoiPri.priPumCon.chaPumSta1.mulAnd1.nin == 1 then 2 else 1))+(if   conBoiPri.priPumCon.chaPumSta1.mulOr.nin > 1 then 3 else (if conBoiPri.priPumCon.chaPumSta1.mulOr.nin   == 1 then 2 else 1))+(if conBoiPri.priPumCon.chaPumSta3.mulAnd.nin > 1 then 3   else (if conBoiPri.priPumCon.chaPumSta3.mulAnd.nin == 1 then 2 else 1))+(if   conBoiPri.priPumCon.chaPumSta3.mulAnd1.nin > 1 then 3 else (if   conBoiPri.priPumCon.chaPumSta3.mulAnd1.nin == 1 then 2 else 1))+(if   conBoiPri.priPumCon.chaPumSta3.mulOr.nin > 1 then 3 else (if conBoiPri.priPumCon.chaPumSta3.mulOr.nin   == 1 then 2 else 1))+(if conBoiPri.hotWatSupTemRes.mulOr.nin > 1 then 3 else   (if conBoiPri.hotWatSupTemRes.mulOr.nin == 1 then 2 else 1))+2*  conBoiPri.minBoiFloSet1[1].matMax.nRow+2*conBoiPri.minBoiFloSet1[2].matMax.nRow  +2*conBoiPri.minBoiFloSet1[3].matMax.nRow+(if conBoiPri.plaDis.disHotWatIsoVal[1].and5.nin   > 1 then 3 else (if conBoiPri.plaDis.disHotWatIsoVal[1].and5.nin == 1 then 2   else 1))+(if conBoiPri.plaDis.disHotWatIsoVal[2].and5.nin > 1 then 3 else (  if conBoiPri.plaDis.disHotWatIsoVal[2].and5.nin == 1 then 2 else 1))+(if   conBoiPri.plaDis.mulAnd2.nin > 1 then 3 else (if conBoiPri.plaDis.mulAnd2.nin   == 1 then 2 else 1))+(if conBoiPri.mulOr1.nin > 1 then 5 else (if   conBoiPri.mulOr1.nin == 1 then 2 else 1))+(if conBoiPri.mulAnd.nin > 1 then 3   else (if conBoiPri.mulAnd.nin == 1 then 2 else 1))+(if conPumSec2.pumSpeRemDp.mulOr.nin   > 1 then 2 else (if conPumSec2.pumSpeRemDp.mulOr.nin == 1 then 2 else 1))+(  if conPumSec2.chaPumSta1.mulAnd.nin > 1 then 2 else (if conPumSec2.chaPumSta1.mulAnd.nin   == 1 then 2 else 1))+(if conPumSec2.chaPumSta1.mulAnd1.nin > 1 then 2 else (  if conPumSec2.chaPumSta1.mulAnd1.nin == 1 then 2 else 1))+(if conPumSec2.chaPumSta1.mulOr.nin   > 1 then 2 else (if conPumSec2.chaPumSta1.mulOr.nin == 1 then 2 else 1))+(if   conPumSec2.chaPumSta4.mulAnd.nin > 1 then 2 else (if conPumSec2.chaPumSta4.mulAnd.nin   == 1 then 2 else 1))+(if conPumSec2.chaPumSta4.mulAnd1.nin > 1 then 2 else (  if conPumSec2.chaPumSta4.mulAnd1.nin == 1 then 2 else 1))+(if conPumSec2.chaPumSta4.mulOr.nin   > 1 then 2 else (if conPumSec2.chaPumSta4.mulOr.nin == 1 then 2 else 1))+(if   conPumSec1.pumSpeRemDp.mulOr.nin > 1 then 2 else (if conPumSec1.pumSpeRemDp.mulOr.nin   == 1 then 2 else 1))+(if conPumSec1.chaPumSta1.mulAnd.nin > 1 then 2 else (  if conPumSec1.chaPumSta1.mulAnd.nin == 1 then 2 else 1))+(if conPumSec1.chaPumSta1.mulAnd1.nin   > 1 then 2 else (if conPumSec1.chaPumSta1.mulAnd1.nin == 1 then 2 else 1))+(  if conPumSec1.chaPumSta1.mulOr.nin > 1 then 2 else (if conPumSec1.chaPumSta1.mulOr.nin   == 1 then 2 else 1))+(if conPumSec1.chaPumSta4.mulAnd.nin > 1 then 2 else (  if conPumSec1.chaPumSta4.mulAnd.nin == 1 then 2 else 1))+(if conPumSec1.chaPumSta4.mulAnd1.nin   > 1 then 2 else (if conPumSec1.chaPumSta4.mulAnd1.nin == 1 then 2 else 1))+(  if conPumSec1.chaPumSta4.mulOr.nin > 1 then 2 else (if conPumSec1.chaPumSta4.mulOr.nin   == 1 then 2 else 1))+max([
+[1]; size(timTab.offset, 1)])
+scalar equations.
+However, exploiting the given bindings parameters gives the same number of unknowns and equations:
+  8574
+Error: ERRORS have been issued.
+Declaring variable: Boolean rCheck ;
+
+Modelica.Utilities.Streams.print("    { \"file\" :  \"Buildings/Resources/Scripts/Dymola/Examples/BoilerPlants/Guideline36.mos\",", "Buildings.Examples.BoilerPlants.Guideline36.statistics.log");
+Modelica.Utilities.Streams.print("      \"model\" : \"Buildings.Examples.BoilerPlants.Guideline36\",", "Buildings.Examples.BoilerPlants.Guideline36.statistics.log");
+Modelica.Utilities.Streams.print("      \"check\" : {", "Buildings.Examples.BoilerPlants.Guideline36.statistics.log");
+Modelica.Utilities.Streams.print("        \"command\" : \"checkModel(\\\"Buildings.Examples.BoilerPlants.Guideline36\\\");\",", "Buildings.Examples.BoilerPlants.Guideline36.statistics.log");
+Modelica.Utilities.Streams.print("        \"result\"  : " + String(rCheck), "Buildings.Examples.BoilerPlants.Guideline36.statistics.log");
+Modelica.Utilities.Streams.print("      },", "Buildings.Examples.BoilerPlants.Guideline36.statistics.log");
+
+
+rScript=RunScript("modelica://Buildings/Resources/Scripts/Dymola/Examples/BoilerPlants/Guideline36.mos");
+simulateModel("Buildings.Examples.BoilerPlants.Guideline36", startTime=86400,tolerance=1e-5, stopTime=259200, outputInterval=60, method="dassl", resultFile="Buildings.Examples.BoilerPlants.Guideline36");
+Pedantic translation of Buildings.Examples.BoilerPlants.Guideline36
+Error: Unit propagation failed.
+Error: Incompatible units in
+  conBoiPri.minBoiFloSet1[1].swi.y = smooth(0, (if conBoiPri.minBoiFloSet1[1].swi.u2   then conBoiPri.minBoiFloSet1[1].swi.u1 else conBoiPri.minBoiFloSet1[1].swi.u3));
+The part
+  conBoiPri.minBoiFloSet1[1].swi.y
+has unit m3/s
+Deduced units
+  conBoiPri.minBoiFloSet1[1].swi.y(unit= "m3/s")
+from the equation
+conBoiPri.minBoiFloSet1[1].swi.y = conBoiPri.minBoiFloSet1[1].lin.f2;
+ 
+  conBoiPri.minBoiFloSet1[1].lin.f2(unit= "m3/s")
+from the equation
+conBoiPri.minBoiFloSet1[1].lin.b = (conBoiPri.minBoiFloSet1[1].lin.f2-  conBoiPri.minBoiFloSet1[1].lin.f1)/(conBoiPri.minBoiFloSet1[1].lin.x2-  conBoiPri.minBoiFloSet1[1].lin.x1);
+ 
+  conBoiPri.minBoiFloSet1[1].lin.b(unit= "m3/s2")
+from the equation
+conBoiPri.minBoiFloSet1[1].lin.y = conBoiPri.minBoiFloSet1[1].lin.a+  conBoiPri.minBoiFloSet1[1].lin.b*conBoiPri.minBoiFloSet1[1].lin.xLim;
+ 
+  conBoiPri.minBoiFloSet1[1].lin.f1(unit= "m3/s")
+from the equation
+conBoiPri.minBoiFloSet1[1].lin.f1 = conBoiPri.minBoiFloSet1[1].intWitRes.y;
+ 
+  conBoiPri.minBoiFloSet1[1].intWitRes.y(unit= "m3/s")
+from the equation
+when conBoiPri.minBoiFloSet1[1].intWitRes.trigger then
+  reinit(conBoiPri.minBoiFloSet1[1].intWitRes.y, conBoiPri.minBoiFloSet1[1].intWitRes.y_reset_in);
+end when;
+ 
+  conBoiPri.minBoiFloSet1[1].lin.a(unit= "m3/s")
+from the equation
+conBoiPri.minBoiFloSet1[1].lin.a = conBoiPri.minBoiFloSet1[1].lin.f2-  conBoiPri.minBoiFloSet1[1].lin.b*conBoiPri.minBoiFloSet1[1].lin.x2;
+ 
+  conBoiPri.minBoiFloSet1[1].lin.xLim(unit= "s")
+from the equation
+if (conBoiPri.minBoiFloSet1[1].lin.limitBelow and conBoiPri.minBoiFloSet1[1].lin.limitAbove)   then 
+  conBoiPri.minBoiFloSet1[1].lin.xLim = min(conBoiPri.minBoiFloSet1[1].lin.x2,     max(conBoiPri.minBoiFloSet1[1].lin.x1, conBoiPri.minBoiFloSet1[1].lin.u));
+elseif (conBoiPri.minBoiFloSet1[1].lin.limitBelow) then 
+  conBoiPri.minBoiFloSet1[1].lin.xLim = max(conBoiPri.minBoiFloSet1[1].lin.x1,     conBoiPri.minBoiFloSet1[1].lin.u);
+elseif (conBoiPri.minBoiFloSet1[1].lin.limitAbove) then 
+  conBoiPri.minBoiFloSet1[1].lin.xLim = min(conBoiPri.minBoiFloSet1[1].lin.x2,     conBoiPri.minBoiFloSet1[1].lin.u);
+else
+  conBoiPri.minBoiFloSet1[1].lin.xLim = conBoiPri.minBoiFloSet1[1].lin.u;
+end if;
+ 
+  conBoiPri.minBoiFloSet1[1].lin.y(unit= "m3/s")
+from the equation
+conBoiPri.minBoiFloSet1[1].lin.y = conBoiPri.minBoiFloSet1[1].lin.a+  conBoiPri.minBoiFloSet1[1].lin.b*conBoiPri.minBoiFloSet1[1].lin.xLim;
+ 
+  conBoiPri.minBoiFloSet1[1].intWitRes.y_reset_in(unit= "m3/s")
+from the equation
+conBoiPri.minBoiFloSet1[1].intWitRes.y_reset_in = conBoiPri.minBoiFloSet1[1].VHotWatMinSet_flow;
+ 
+  conBoiPri.minBoiFloSet1[1].lin.u(unit= "s")
+from the equation
+conBoiPri.minBoiFloSet1[1].lin.u = conBoiPri.minBoiFloSet1[1].gre.u1;
+ 
+  conBoiPri.minBoiFloSet1[1].gre.u1(unit= "s")
+from the equation
+conBoiPri.minBoiFloSet1[1].tim.y = conBoiPri.minBoiFloSet1[1].gre.u1;
+ 
+The part
+  smooth(0, (if conBoiPri.minBoiFloSet1[1].swi.u2 then conBoiPri.minBoiFloSet1[1].swi.u1   else conBoiPri.minBoiFloSet1[1].swi.u3))
+has unit m4.kg2.s-6
+Deduced units
+  conBoiPri.minBoiFloSet1[1].swi.u1(unit= "m4.kg2.s-6")
+from the equation
+conBoiPri.minBoiFloSet1[1].swi.u1 = conBoiPri.minBoiFloSet1[1].pro2.y;
+ 
+  conBoiPri.minBoiFloSet1[1].swi.u3(unit= "m4.kg2.s-6")
+from the equation
+conBoiPri.minBoiFloSet1[1].swi.y = smooth(0, (if conBoiPri.minBoiFloSet1[1].swi.u2   then conBoiPri.minBoiFloSet1[1].swi.u1 else conBoiPri.minBoiFloSet1[1].swi.u3));
+ 
+  conBoiPri.minBoiFloSet1[1].pro2.y(unit= "m4.kg2.s-6")
+from the equation
+conBoiPri.minBoiFloSet1[1].pro2.y = conBoiPri.minBoiFloSet1[1].pro2.u1*  conBoiPri.minBoiFloSet1[1].pro2.u2;
+ 
+  conBoiPri.minBoiFloSet1[1].swi.y(unit= "m3/s")
+from the equation
+conBoiPri.minBoiFloSet1[1].swi.y = conBoiPri.minBoiFloSet1[1].lin.f2;
+ 
+  conBoiPri.minBoiFloSet1[1].lin.f2(unit= "m3/s")
+from the equation
+conBoiPri.minBoiFloSet1[1].lin.b = (conBoiPri.minBoiFloSet1[1].lin.f2-  conBoiPri.minBoiFloSet1[1].lin.f1)/(conBoiPri.minBoiFloSet1[1].lin.x2-  conBoiPri.minBoiFloSet1[1].lin.x1);
+ 
+  conBoiPri.minBoiFloSet1[1].pro2.u1(unit= "W")
+from the equation
+conBoiPri.minBoiFloSet1[1].pro2.u1 = conBoiPri.minBoiFloSet1[1].max.y;
+ 
+  conBoiPri.minBoiFloSet1[1].pro2.u2(unit= "W")
+from the equation
+conBoiPri.minBoiFloSet1[1].pro2.u2 = conBoiPri.minBoiFloSet1[1].add2.y;
+ 
+  conBoiPri.minBoiFloSet1[1].add2.y(unit= "W")
+from the equation
+conBoiPri.minBoiFloSet1[1].add2.y = conBoiPri.minBoiFloSet1[1].add2.u1+  conBoiPri.minBoiFloSet1[1].add2.u2;
+ 
+  conBoiPri.minBoiFloSet1[1].lin.b(unit= "m3/s2")
+from the equation
+conBoiPri.minBoiFloSet1[1].lin.y = conBoiPri.minBoiFloSet1[1].lin.a+  conBoiPri.minBoiFloSet1[1].lin.b*conBoiPri.minBoiFloSet1[1].lin.xLim;
+ 
+  conBoiPri.minBoiFloSet1[1].lin.f1(unit= "m3/s")
+from the equation
+conBoiPri.minBoiFloSet1[1].lin.f1 = conBoiPri.minBoiFloSet1[1].intWitRes.y;
+ 
+  conBoiPri.minBoiFloSet1[1].max.y(unit= "W")
+from the equation
+conBoiPri.minBoiFloSet1[1].max.y = max(conBoiPri.minBoiFloSet1[1].max.u1,   conBoiPri.minBoiFloSet1[1].max.u2);
+ 
+  conBoiPri.minBoiFloSet1[1].add2.u1(unit= "W")
+from the equation
+conBoiPri.minBoiFloSet1[1].zerStaIndCor.yCapMod = conBoiPri.minBoiFloSet1[1].add2.u1;
+ 
+  conBoiPri.minBoiFloSet1[1].add2.u2(unit= "W")
+from the equation
+conBoiPri.minBoiFloSet1[1].add2.y = conBoiPri.minBoiFloSet1[1].add2.u1+  conBoiPri.minBoiFloSet1[1].add2.u2;
+ 
+  conBoiPri.minBoiFloSet1[1].intWitRes.y(unit= "m3/s")
+from the equation
+when conBoiPri.minBoiFloSet1[1].intWitRes.trigger then
+  reinit(conBoiPri.minBoiFloSet1[1].intWitRes.y, conBoiPri.minBoiFloSet1[1].intWitRes.y_reset_in);
+end when;
+ 
+  conBoiPri.minBoiFloSet1[1].lin.a(unit= "m3/s")
+from the equation
+conBoiPri.minBoiFloSet1[1].lin.a = conBoiPri.minBoiFloSet1[1].lin.f2-  conBoiPri.minBoiFloSet1[1].lin.b*conBoiPri.minBoiFloSet1[1].lin.x2;
+ 
+  conBoiPri.minBoiFloSet1[1].lin.xLim(unit= "s")
+from the equation
+if (conBoiPri.minBoiFloSet1[1].lin.limitBelow and conBoiPri.minBoiFloSet1[1].lin.limitAbove)   then 
+  conBoiPri.minBoiFloSet1[1].lin.xLim = min(conBoiPri.minBoiFloSet1[1].lin.x2,     max(conBoiPri.minBoiFloSet1[1].lin.x1, conBoiPri.minBoiFloSet1[1].lin.u));
+elseif (conBoiPri.minBoiFloSet1[1].lin.limitBelow) then 
+  conBoiPri.minBoiFloSet1[1].lin.xLim = max(conBoiPri.minBoiFloSet1[1].lin.x1,     conBoiPri.minBoiFloSet1[1].lin.u);
+elseif (conBoiPri.minBoiFloSet1[1].lin.limitAbove) then 
+  conBoiPri.minBoiFloSet1[1].lin.xLim = min(conBoiPri.minBoiFloSet1[1].lin.x2,     conBoiPri.minBoiFloSet1[1].lin.u);
+else
+  conBoiPri.minBoiFloSet1[1].lin.xLim = conBoiPri.minBoiFloSet1[1].lin.u;
+end if;
+ 
+  conBoiPri.minBoiFloSet1[1].lin.y(unit= "m3/s")
+from the equation
+conBoiPri.minBoiFloSet1[1].lin.y = conBoiPri.minBoiFloSet1[1].lin.a+  conBoiPri.minBoiFloSet1[1].lin.b*conBoiPri.minBoiFloSet1[1].lin.xLim;
+ 
+  conBoiPri.minBoiFloSet1[1].max.u1(unit= "W")
+from the equation
+conBoiPri.minBoiFloSet1[1].zerStaIndCor3.yCapMod = conBoiPri.minBoiFloSet1[1].max.u1;
+ 
+  conBoiPri.minBoiFloSet1[1].intWitRes.y_reset_in(unit= "m3/s")
+from the equation
+conBoiPri.minBoiFloSet1[1].intWitRes.y_reset_in = conBoiPri.minBoiFloSet1[1].VHotWatMinSet_flow;
+ 
+  conBoiPri.minBoiFloSet1[1].lin.u(unit= "s")
+from the equation
+conBoiPri.minBoiFloSet1[1].lin.u = conBoiPri.minBoiFloSet1[1].gre.u1;
+ 
+  conBoiPri.minBoiFloSet1[1].gre.u1(unit= "s")
+from the equation
+conBoiPri.minBoiFloSet1[1].tim.y = conBoiPri.minBoiFloSet1[1].gre.u1;
+ 
+Error: The unit issue reported appeared in the equation
+  conBoiPri.minBoiFloSet1[1].swi.y = smooth(0, (if conBoiPri.minBoiFloSet1[1].swi.u2   then conBoiPri.minBoiFloSet1[1].swi.u1 else conBoiPri.minBoiFloSet1[1].swi.u3));
+Found in class Buildings.Controls.OBC.CDL.Reals.Switch, /tmp/tmp-Buildings-0-sz0f2v0b/Buildings/Controls/OBC/CDL/Reals/Switch.mo at line 18, and used in component conBoiPri.minBoiFloSet1[1].swi.
+Error: Unit propagation failed.
+Error: Incompatible units in
+  conBoiPri.minBoiFloSet1[1].swi2.y = smooth(0, (if conBoiPri.minBoiFloSet1[1].swi2.u2   then conBoiPri.minBoiFloSet1[1].swi2.u1 else conBoiPri.minBoiFloSet1[1].swi2.u3));
+The part
+  conBoiPri.minBoiFloSet1[1].swi2.y
+has unit m3/s
+Deduced units
+  conBoiPri.minBoiFloSet1[1].swi2.y(unit= "m3/s")
+from the equation
+conBoiPri.minBoiFloSet1[1].swi2.y = conBoiPri.minBoiFloSet1[1].lin1.f2;
+ 
+  conBoiPri.minBoiFloSet1[1].lin1.f2(unit= "m3/s")
+from the equation
+conBoiPri.minBoiFloSet1[1].lin1.b = (conBoiPri.minBoiFloSet1[1].lin1.f2-  conBoiPri.minBoiFloSet1[1].lin1.f1)/(conBoiPri.minBoiFloSet1[1].lin1.x2-  conBoiPri.minBoiFloSet1[1].lin1.x1);
+ 
+  conBoiPri.minBoiFloSet1[1].lin1.b(unit= "m3/s2")
+from the equation
+conBoiPri.minBoiFloSet1[1].lin1.y = conBoiPri.minBoiFloSet1[1].lin1.a+  conBoiPri.minBoiFloSet1[1].lin1.b*conBoiPri.minBoiFloSet1[1].lin1.xLim;
+ 
+  conBoiPri.minBoiFloSet1[1].lin1.f1(unit= "m3/s")
+from the equation
+conBoiPri.minBoiFloSet1[1].lin1.f1 = conBoiPri.minBoiFloSet1[1].intWitRes.y;
+ 
+  conBoiPri.minBoiFloSet1[1].intWitRes.y(unit= "m3/s")
+from the equation
+when conBoiPri.minBoiFloSet1[1].intWitRes.trigger then
+  reinit(conBoiPri.minBoiFloSet1[1].intWitRes.y, conBoiPri.minBoiFloSet1[1].intWitRes.y_reset_in);
+end when;
+ 
+  conBoiPri.minBoiFloSet1[1].lin1.a(unit= "m3/s")
+from the equation
+conBoiPri.minBoiFloSet1[1].lin1.a = conBoiPri.minBoiFloSet1[1].lin1.f2-  conBoiPri.minBoiFloSet1[1].lin1.b*conBoiPri.minBoiFloSet1[1].lin1.x2;
+ 
+  conBoiPri.minBoiFloSet1[1].lin1.xLim(unit= "s")
+from the equation
+if (conBoiPri.minBoiFloSet1[1].lin1.limitBelow and conBoiPri.minBoiFloSet1[1].lin1.limitAbove)   then 
+  conBoiPri.minBoiFloSet1[1].lin1.xLim = min(conBoiPri.minBoiFloSet1[1].lin1.x2,     max(conBoiPri.minBoiFloSet1[1].lin1.x1, conBoiPri.minBoiFloSet1[1].lin1.u));
+elseif (conBoiPri.minBoiFloSet1[1].lin1.limitBelow) then 
+  conBoiPri.minBoiFloSet1[1].lin1.xLim = max(conBoiPri.minBoiFloSet1[1].lin1.x1,     conBoiPri.minBoiFloSet1[1].lin1.u);
+elseif (conBoiPri.minBoiFloSet1[1].lin1.limitAbove) then 
+  conBoiPri.minBoiFloSet1[1].lin1.xLim = min(conBoiPri.minBoiFloSet1[1].lin1.x2,     conBoiPri.minBoiFloSet1[1].lin1.u);
+else
+  conBoiPri.minBoiFloSet1[1].lin1.xLim = conBoiPri.minBoiFloSet1[1].lin1.u;
+end if;
+ 
+  conBoiPri.minBoiFloSet1[1].lin1.y(unit= "m3/s")
+from the equation
+conBoiPri.minBoiFloSet1[1].lin1.y = conBoiPri.minBoiFloSet1[1].lin1.a+  conBoiPri.minBoiFloSet1[1].lin1.b*conBoiPri.minBoiFloSet1[1].lin1.xLim;
+ 
+  conBoiPri.minBoiFloSet1[1].intWitRes.y_reset_in(unit= "m3/s")
+from the equation
+conBoiPri.minBoiFloSet1[1].intWitRes.y_reset_in = conBoiPri.minBoiFloSet1[1].VHotWatMinSet_flow;
+ 
+  conBoiPri.minBoiFloSet1[1].lin1.u(unit= "s")
+from the equation
+conBoiPri.minBoiFloSet1[1].lin1.u = conBoiPri.minBoiFloSet1[1].gre.u1;
+ 
+  conBoiPri.minBoiFloSet1[1].gre.u1(unit= "s")
+from the equation
+conBoiPri.minBoiFloSet1[1].tim.y = conBoiPri.minBoiFloSet1[1].gre.u1;
+ 
+The part
+  smooth(0, (if conBoiPri.minBoiFloSet1[1].swi2.u2 then conBoiPri.minBoiFloSet1[1].swi2.u1   else conBoiPri.minBoiFloSet1[1].swi2.u3))
+has unit m4.kg2.s-6
+Deduced units
+  conBoiPri.minBoiFloSet1[1].swi2.u1(unit= "m4.kg2.s-6")
+from the equation
+conBoiPri.minBoiFloSet1[1].swi2.u1 = conBoiPri.minBoiFloSet1[1].pro4.y;
+ 
+  conBoiPri.minBoiFloSet1[1].swi2.u3(unit= "m4.kg2.s-6")
+from the equation
+conBoiPri.minBoiFloSet1[1].swi2.y = smooth(0, (if conBoiPri.minBoiFloSet1[1].swi2.u2   then conBoiPri.minBoiFloSet1[1].swi2.u1 else conBoiPri.minBoiFloSet1[1].swi2.u3));
+ 
+  conBoiPri.minBoiFloSet1[1].pro4.y(unit= "m4.kg2.s-6")
+from the equation
+conBoiPri.minBoiFloSet1[1].pro4.y = conBoiPri.minBoiFloSet1[1].pro4.u1*  conBoiPri.minBoiFloSet1[1].pro4.u2;
+ 
+  conBoiPri.minBoiFloSet1[1].swi2.y(unit= "m3/s")
+from the equation
+conBoiPri.minBoiFloSet1[1].swi2.y = conBoiPri.minBoiFloSet1[1].lin1.f2;
+ 
+  conBoiPri.minBoiFloSet1[1].lin1.f2(unit= "m3/s")
+from the equation
+conBoiPri.minBoiFloSet1[1].lin1.b = (conBoiPri.minBoiFloSet1[1].lin1.f2-  conBoiPri.minBoiFloSet1[1].lin1.f1)/(conBoiPri.minBoiFloSet1[1].lin1.x2-  conBoiPri.minBoiFloSet1[1].lin1.x1);
+ 
+  conBoiPri.minBoiFloSet1[1].pro4.u1(unit= "W")
+from the equation
+conBoiPri.minBoiFloSet1[1].pro4.u1 = conBoiPri.minBoiFloSet1[1].max1.y;
+ 
+  conBoiPri.minBoiFloSet1[1].pro4.u2(unit= "W")
+from the equation
+conBoiPri.minBoiFloSet1[1].pro4.u2 = conBoiPri.minBoiFloSet1[1].add1.y;
+ 
+  conBoiPri.minBoiFloSet1[1].add1.y(unit= "W")
+from the equation
+conBoiPri.minBoiFloSet1[1].add1.y = conBoiPri.minBoiFloSet1[1].add1.u1+  conBoiPri.minBoiFloSet1[1].add1.u2;
+ 
+  conBoiPri.minBoiFloSet1[1].lin1.b(unit= "m3/s2")
+from the equation
+conBoiPri.minBoiFloSet1[1].lin1.y = conBoiPri.minBoiFloSet1[1].lin1.a+  conBoiPri.minBoiFloSet1[1].lin1.b*conBoiPri.minBoiFloSet1[1].lin1.xLim;
+ 
+  conBoiPri.minBoiFloSet1[1].lin1.f1(unit= "m3/s")
+from the equation
+conBoiPri.minBoiFloSet1[1].lin1.f1 = conBoiPri.minBoiFloSet1[1].intWitRes.y;
+ 
+  conBoiPri.minBoiFloSet1[1].max1.y(unit= "W")
+from the equation
+conBoiPri.minBoiFloSet1[1].max1.y = max(conBoiPri.minBoiFloSet1[1].max1.u1,   conBoiPri.minBoiFloSet1[1].max1.u2);
+ 
+  conBoiPri.minBoiFloSet1[1].add1.u1(unit= "W")
+from the equation
+conBoiPri.minBoiFloSet1[1].add1.y = conBoiPri.minBoiFloSet1[1].add1.u1+  conBoiPri.minBoiFloSet1[1].add1.u2;
+ 
+  conBoiPri.minBoiFloSet1[1].add1.u2(unit= "W")
+from the equation
+conBoiPri.minBoiFloSet1[1].zerStaIndCor1.yCapMod = conBoiPri.minBoiFloSet1[1].add1.u2;
+ 
+  conBoiPri.minBoiFloSet1[1].intWitRes.y(unit= "m3/s")
+from the equation
+when conBoiPri.minBoiFloSet1[1].intWitRes.trigger then
+  reinit(conBoiPri.minBoiFloSet1[1].intWitRes.y, conBoiPri.minBoiFloSet1[1].intWitRes.y_reset_in);
+end when;
+ 
+  conBoiPri.minBoiFloSet1[1].lin1.a(unit= "m3/s")
+from the equation
+conBoiPri.minBoiFloSet1[1].lin1.a = conBoiPri.minBoiFloSet1[1].lin1.f2-  conBoiPri.minBoiFloSet1[1].lin1.b*conBoiPri.minBoiFloSet1[1].lin1.x2;
+ 
+  conBoiPri.minBoiFloSet1[1].lin1.xLim(unit= "s")
+from the equation
+if (conBoiPri.minBoiFloSet1[1].lin1.limitBelow and conBoiPri.minBoiFloSet1[1].lin1.limitAbove)   then 
+  conBoiPri.minBoiFloSet1[1].lin1.xLim = min(conBoiPri.minBoiFloSet1[1].lin1.x2,     max(conBoiPri.minBoiFloSet1[1].lin1.x1, conBoiPri.minBoiFloSet1[1].lin1.u));
+elseif (conBoiPri.minBoiFloSet1[1].lin1.limitBelow) then 
+  conBoiPri.minBoiFloSet1[1].lin1.xLim = max(conBoiPri.minBoiFloSet1[1].lin1.x1,     conBoiPri.minBoiFloSet1[1].lin1.u);
+elseif (conBoiPri.minBoiFloSet1[1].lin1.limitAbove) then 
+  conBoiPri.minBoiFloSet1[1].lin1.xLim = min(conBoiPri.minBoiFloSet1[1].lin1.x2,     conBoiPri.minBoiFloSet1[1].lin1.u);
+else
+  conBoiPri.minBoiFloSet1[1].lin1.xLim = conBoiPri.minBoiFloSet1[1].lin1.u;
+end if;
+ 
+  conBoiPri.minBoiFloSet1[1].lin1.y(unit= "m3/s")
+from the equation
+conBoiPri.minBoiFloSet1[1].lin1.y = conBoiPri.minBoiFloSet1[1].lin1.a+  conBoiPri.minBoiFloSet1[1].lin1.b*conBoiPri.minBoiFloSet1[1].lin1.xLim;
+ 
+  conBoiPri.minBoiFloSet1[1].max1.u2(unit= "W")
+from the equation
+conBoiPri.minBoiFloSet1[1].zerStaIndCor2.yCapMod = conBoiPri.minBoiFloSet1[1].max1.u2;
+ 
+  conBoiPri.minBoiFloSet1[1].intWitRes.y_reset_in(unit= "m3/s")
+from the equation
+conBoiPri.minBoiFloSet1[1].intWitRes.y_reset_in = conBoiPri.minBoiFloSet1[1].VHotWatMinSet_flow;
+ 
+  conBoiPri.minBoiFloSet1[1].lin1.u(unit= "s")
+from the equation
+conBoiPri.minBoiFloSet1[1].lin1.u = conBoiPri.minBoiFloSet1[1].gre.u1;
+ 
+  conBoiPri.minBoiFloSet1[1].gre.u1(unit= "s")
+from the equation
+conBoiPri.minBoiFloSet1[1].tim.y = conBoiPri.minBoiFloSet1[1].gre.u1;
+ 
+Error: The unit issue reported appeared in the equation
+  conBoiPri.minBoiFloSet1[1].swi2.y = smooth(0, (if conBoiPri.minBoiFloSet1[1].swi2.u2   then conBoiPri.minBoiFloSet1[1].swi2.u1 else conBoiPri.minBoiFloSet1[1].swi2.u3));
+Found in class Buildings.Controls.OBC.CDL.Reals.Switch, /tmp/tmp-Buildings-0-sz0f2v0b/Buildings/Controls/OBC/CDL/Reals/Switch.mo at line 18, and used in component conBoiPri.minBoiFloSet1[1].swi2.
+Error: Unit propagation failed.
+Error: Incompatible units in
+  conBoiPri.minBoiFloSet1[2].swi.y = smooth(0, (if conBoiPri.minBoiFloSet1[2].swi.u2   then conBoiPri.minBoiFloSet1[2].swi.u1 else conBoiPri.minBoiFloSet1[2].swi.u3));
+The part
+  conBoiPri.minBoiFloSet1[2].swi.y
+has unit m3/s
+Deduced units
+  conBoiPri.minBoiFloSet1[2].swi.y(unit= "m3/s")
+from the equation
+conBoiPri.minBoiFloSet1[2].swi.y = conBoiPri.minBoiFloSet1[2].lin.f2;
+ 
+  conBoiPri.minBoiFloSet1[2].lin.f2(unit= "m3/s")
+from the equation
+conBoiPri.minBoiFloSet1[2].lin.b = (conBoiPri.minBoiFloSet1[2].lin.f2-  conBoiPri.minBoiFloSet1[2].lin.f1)/(conBoiPri.minBoiFloSet1[2].lin.x2-  conBoiPri.minBoiFloSet1[2].lin.x1);
+ 
+  conBoiPri.minBoiFloSet1[2].lin.b(unit= "m3/s2")
+from the equation
+conBoiPri.minBoiFloSet1[2].lin.y = conBoiPri.minBoiFloSet1[2].lin.a+  conBoiPri.minBoiFloSet1[2].lin.b*conBoiPri.minBoiFloSet1[2].lin.xLim;
+ 
+  conBoiPri.minBoiFloSet1[2].lin.f1(unit= "m3/s")
+from the equation
+conBoiPri.minBoiFloSet1[2].lin.f1 = conBoiPri.minBoiFloSet1[2].intWitRes.y;
+ 
+  conBoiPri.minBoiFloSet1[2].intWitRes.y(unit= "m3/s")
+from the equation
+when conBoiPri.minBoiFloSet1[2].intWitRes.trigger then
+  reinit(conBoiPri.minBoiFloSet1[2].intWitRes.y, conBoiPri.minBoiFloSet1[2].intWitRes.y_reset_in);
+end when;
+ 
+  conBoiPri.minBoiFloSet1[2].lin.a(unit= "m3/s")
+from the equation
+conBoiPri.minBoiFloSet1[2].lin.a = conBoiPri.minBoiFloSet1[2].lin.f2-  conBoiPri.minBoiFloSet1[2].lin.b*conBoiPri.minBoiFloSet1[2].lin.x2;
+ 
+  conBoiPri.minBoiFloSet1[2].lin.xLim(unit= "s")
+from the equation
+if (conBoiPri.minBoiFloSet1[2].lin.limitBelow and conBoiPri.minBoiFloSet1[2].lin.limitAbove)   then 
+  conBoiPri.minBoiFloSet1[2].lin.xLim = min(conBoiPri.minBoiFloSet1[2].lin.x2,     max(conBoiPri.minBoiFloSet1[2].lin.x1, conBoiPri.minBoiFloSet1[2].lin.u));
+elseif (conBoiPri.minBoiFloSet1[2].lin.limitBelow) then 
+  conBoiPri.minBoiFloSet1[2].lin.xLim = max(conBoiPri.minBoiFloSet1[2].lin.x1,     conBoiPri.minBoiFloSet1[2].lin.u);
+elseif (conBoiPri.minBoiFloSet1[2].lin.limitAbove) then 
+  conBoiPri.minBoiFloSet1[2].lin.xLim = min(conBoiPri.minBoiFloSet1[2].lin.x2,     conBoiPri.minBoiFloSet1[2].lin.u);
+else
+  conBoiPri.minBoiFloSet1[2].lin.xLim = conBoiPri.minBoiFloSet1[2].lin.u;
+end if;
+ 
+  conBoiPri.minBoiFloSet1[2].lin.y(unit= "m3/s")
+from the equation
+conBoiPri.minBoiFloSet1[2].lin.y = conBoiPri.minBoiFloSet1[2].lin.a+  conBoiPri.minBoiFloSet1[2].lin.b*conBoiPri.minBoiFloSet1[2].lin.xLim;
+ 
+  conBoiPri.minBoiFloSet1[2].intWitRes.y_reset_in(unit= "m3/s")
+from the equation
+conBoiPri.minBoiFloSet1[2].intWitRes.y_reset_in = conBoiPri.minBoiFloSet1[2].VHotWatMinSet_flow;
+ 
+  conBoiPri.minBoiFloSet1[2].lin.u(unit= "s")
+from the equation
+conBoiPri.minBoiFloSet1[2].lin.u = conBoiPri.minBoiFloSet1[2].gre.u1;
+ 
+  conBoiPri.minBoiFloSet1[2].gre.u1(unit= "s")
+from the equation
+conBoiPri.minBoiFloSet1[2].tim.y = conBoiPri.minBoiFloSet1[2].gre.u1;
+ 
+The part
+  smooth(0, (if conBoiPri.minBoiFloSet1[2].swi.u2 then conBoiPri.minBoiFloSet1[2].swi.u1   else conBoiPri.minBoiFloSet1[2].swi.u3))
+has unit m4.kg2.s-6
+Deduced units
+  conBoiPri.minBoiFloSet1[2].swi.u1(unit= "m4.kg2.s-6")
+from the equation
+conBoiPri.minBoiFloSet1[2].swi.u1 = conBoiPri.minBoiFloSet1[2].pro2.y;
+ 
+  conBoiPri.minBoiFloSet1[2].swi.u3(unit= "m4.kg2.s-6")
+from the equation
+conBoiPri.minBoiFloSet1[2].swi.y = smooth(0, (if conBoiPri.minBoiFloSet1[2].swi.u2   then conBoiPri.minBoiFloSet1[2].swi.u1 else conBoiPri.minBoiFloSet1[2].swi.u3));
+ 
+  conBoiPri.minBoiFloSet1[2].pro2.y(unit= "m4.kg2.s-6")
+from the equation
+conBoiPri.minBoiFloSet1[2].pro2.y = conBoiPri.minBoiFloSet1[2].pro2.u1*  conBoiPri.minBoiFloSet1[2].pro2.u2;
+ 
+  conBoiPri.minBoiFloSet1[2].swi.y(unit= "m3/s")
+from the equation
+conBoiPri.minBoiFloSet1[2].swi.y = conBoiPri.minBoiFloSet1[2].lin.f2;
+ 
+  conBoiPri.minBoiFloSet1[2].lin.f2(unit= "m3/s")
+from the equation
+conBoiPri.minBoiFloSet1[2].lin.b = (conBoiPri.minBoiFloSet1[2].lin.f2-  conBoiPri.minBoiFloSet1[2].lin.f1)/(conBoiPri.minBoiFloSet1[2].lin.x2-  conBoiPri.minBoiFloSet1[2].lin.x1);
+ 
+  conBoiPri.minBoiFloSet1[2].pro2.u1(unit= "W")
+from the equation
+conBoiPri.minBoiFloSet1[2].pro2.u1 = conBoiPri.minBoiFloSet1[2].max.y;
+ 
+  conBoiPri.minBoiFloSet1[2].pro2.u2(unit= "W")
+from the equation
+conBoiPri.minBoiFloSet1[2].pro2.u2 = conBoiPri.minBoiFloSet1[2].add2.y;
+ 
+  conBoiPri.minBoiFloSet1[2].add2.y(unit= "W")
+from the equation
+conBoiPri.minBoiFloSet1[2].add2.y = conBoiPri.minBoiFloSet1[2].add2.u1+  conBoiPri.minBoiFloSet1[2].add2.u2;
+ 
+  conBoiPri.minBoiFloSet1[2].lin.b(unit= "m3/s2")
+from the equation
+conBoiPri.minBoiFloSet1[2].lin.y = conBoiPri.minBoiFloSet1[2].lin.a+  conBoiPri.minBoiFloSet1[2].lin.b*conBoiPri.minBoiFloSet1[2].lin.xLim;
+ 
+  conBoiPri.minBoiFloSet1[2].lin.f1(unit= "m3/s")
+from the equation
+conBoiPri.minBoiFloSet1[2].lin.f1 = conBoiPri.minBoiFloSet1[2].intWitRes.y;
+ 
+  conBoiPri.minBoiFloSet1[2].max.y(unit= "W")
+from the equation
+conBoiPri.minBoiFloSet1[2].max.y = max(conBoiPri.minBoiFloSet1[2].max.u1,   conBoiPri.minBoiFloSet1[2].max.u2);
+ 
+  conBoiPri.minBoiFloSet1[2].add2.u1(unit= "W")
+from the equation
+conBoiPri.minBoiFloSet1[2].zerStaIndCor.yCapMod = conBoiPri.minBoiFloSet1[2].add2.u1;
+ 
+  conBoiPri.minBoiFloSet1[2].add2.u2(unit= "W")
+from the equation
+conBoiPri.minBoiFloSet1[2].add2.y = conBoiPri.minBoiFloSet1[2].add2.u1+  conBoiPri.minBoiFloSet1[2].add2.u2;
+ 
+  conBoiPri.minBoiFloSet1[2].intWitRes.y(unit= "m3/s")
+from the equation
+when conBoiPri.minBoiFloSet1[2].intWitRes.trigger then
+  reinit(conBoiPri.minBoiFloSet1[2].intWitRes.y, conBoiPri.minBoiFloSet1[2].intWitRes.y_reset_in);
+end when;
+ 
+  conBoiPri.minBoiFloSet1[2].lin.a(unit= "m3/s")
+from the equation
+conBoiPri.minBoiFloSet1[2].lin.a = conBoiPri.minBoiFloSet1[2].lin.f2-  conBoiPri.minBoiFloSet1[2].lin.b*conBoiPri.minBoiFloSet1[2].lin.x2;
+ 
+  conBoiPri.minBoiFloSet1[2].lin.xLim(unit= "s")
+from the equation
+if (conBoiPri.minBoiFloSet1[2].lin.limitBelow and conBoiPri.minBoiFloSet1[2].lin.limitAbove)   then 
+  conBoiPri.minBoiFloSet1[2].lin.xLim = min(conBoiPri.minBoiFloSet1[2].lin.x2,     max(conBoiPri.minBoiFloSet1[2].lin.x1, conBoiPri.minBoiFloSet1[2].lin.u));
+elseif (conBoiPri.minBoiFloSet1[2].lin.limitBelow) then 
+  conBoiPri.minBoiFloSet1[2].lin.xLim = max(conBoiPri.minBoiFloSet1[2].lin.x1,     conBoiPri.minBoiFloSet1[2].lin.u);
+elseif (conBoiPri.minBoiFloSet1[2].lin.limitAbove) then 
+  conBoiPri.minBoiFloSet1[2].lin.xLim = min(conBoiPri.minBoiFloSet1[2].lin.x2,     conBoiPri.minBoiFloSet1[2].lin.u);
+else
+  conBoiPri.minBoiFloSet1[2].lin.xLim = conBoiPri.minBoiFloSet1[2].lin.u;
+end if;
+ 
+  conBoiPri.minBoiFloSet1[2].lin.y(unit= "m3/s")
+from the equation
+conBoiPri.minBoiFloSet1[2].lin.y = conBoiPri.minBoiFloSet1[2].lin.a+  conBoiPri.minBoiFloSet1[2].lin.b*conBoiPri.minBoiFloSet1[2].lin.xLim;
+ 
+  conBoiPri.minBoiFloSet1[2].max.u1(unit= "W")
+from the equation
+conBoiPri.minBoiFloSet1[2].zerStaIndCor3.yCapMod = conBoiPri.minBoiFloSet1[2].max.u1;
+ 
+  conBoiPri.minBoiFloSet1[2].intWitRes.y_reset_in(unit= "m3/s")
+from the equation
+conBoiPri.minBoiFloSet1[2].intWitRes.y_reset_in = conBoiPri.minBoiFloSet1[2].VHotWatMinSet_flow;
+ 
+  conBoiPri.minBoiFloSet1[2].lin.u(unit= "s")
+from the equation
+conBoiPri.minBoiFloSet1[2].lin.u = conBoiPri.minBoiFloSet1[2].gre.u1;
+ 
+  conBoiPri.minBoiFloSet1[2].gre.u1(unit= "s")
+from the equation
+conBoiPri.minBoiFloSet1[2].tim.y = conBoiPri.minBoiFloSet1[2].gre.u1;
+ 
+Error: The unit issue reported appeared in the equation
+  conBoiPri.minBoiFloSet1[2].swi.y = smooth(0, (if conBoiPri.minBoiFloSet1[2].swi.u2   then conBoiPri.minBoiFloSet1[2].swi.u1 else conBoiPri.minBoiFloSet1[2].swi.u3));
+Found in class Buildings.Controls.OBC.CDL.Reals.Switch, /tmp/tmp-Buildings-0-sz0f2v0b/Buildings/Controls/OBC/CDL/Reals/Switch.mo at line 18, and used in component conBoiPri.minBoiFloSet1[2].swi.
+Error: Unit propagation failed.
+Error: Incompatible units in
+  conBoiPri.minBoiFloSet1[2].swi2.y = smooth(0, (if conBoiPri.minBoiFloSet1[2].swi2.u2   then conBoiPri.minBoiFloSet1[2].swi2.u1 else conBoiPri.minBoiFloSet1[2].swi2.u3));
+The part
+  conBoiPri.minBoiFloSet1[2].swi2.y
+has unit m3/s
+Deduced units
+  conBoiPri.minBoiFloSet1[2].swi2.y(unit= "m3/s")
+from the equation
+conBoiPri.minBoiFloSet1[2].swi2.y = conBoiPri.minBoiFloSet1[2].lin1.f2;
+ 
+  conBoiPri.minBoiFloSet1[2].lin1.f2(unit= "m3/s")
+from the equation
+conBoiPri.minBoiFloSet1[2].lin1.b = (conBoiPri.minBoiFloSet1[2].lin1.f2-  conBoiPri.minBoiFloSet1[2].lin1.f1)/(conBoiPri.minBoiFloSet1[2].lin1.x2-  conBoiPri.minBoiFloSet1[2].lin1.x1);
+ 
+  conBoiPri.minBoiFloSet1[2].lin1.b(unit= "m3/s2")
+from the equation
+conBoiPri.minBoiFloSet1[2].lin1.y = conBoiPri.minBoiFloSet1[2].lin1.a+  conBoiPri.minBoiFloSet1[2].lin1.b*conBoiPri.minBoiFloSet1[2].lin1.xLim;
+ 
+  conBoiPri.minBoiFloSet1[2].lin1.f1(unit= "m3/s")
+from the equation
+conBoiPri.minBoiFloSet1[2].lin1.f1 = conBoiPri.minBoiFloSet1[2].intWitRes.y;
+ 
+  conBoiPri.minBoiFloSet1[2].intWitRes.y(unit= "m3/s")
+from the equation
+when conBoiPri.minBoiFloSet1[2].intWitRes.trigger then
+  reinit(conBoiPri.minBoiFloSet1[2].intWitRes.y, conBoiPri.minBoiFloSet1[2].intWitRes.y_reset_in);
+end when;
+ 
+  conBoiPri.minBoiFloSet1[2].lin1.a(unit= "m3/s")
+from the equation
+conBoiPri.minBoiFloSet1[2].lin1.a = conBoiPri.minBoiFloSet1[2].lin1.f2-  conBoiPri.minBoiFloSet1[2].lin1.b*conBoiPri.minBoiFloSet1[2].lin1.x2;
+ 
+  conBoiPri.minBoiFloSet1[2].lin1.xLim(unit= "s")
+from the equation
+if (conBoiPri.minBoiFloSet1[2].lin1.limitBelow and conBoiPri.minBoiFloSet1[2].lin1.limitAbove)   then 
+  conBoiPri.minBoiFloSet1[2].lin1.xLim = min(conBoiPri.minBoiFloSet1[2].lin1.x2,     max(conBoiPri.minBoiFloSet1[2].lin1.x1, conBoiPri.minBoiFloSet1[2].lin1.u));
+elseif (conBoiPri.minBoiFloSet1[2].lin1.limitBelow) then 
+  conBoiPri.minBoiFloSet1[2].lin1.xLim = max(conBoiPri.minBoiFloSet1[2].lin1.x1,     conBoiPri.minBoiFloSet1[2].lin1.u);
+elseif (conBoiPri.minBoiFloSet1[2].lin1.limitAbove) then 
+  conBoiPri.minBoiFloSet1[2].lin1.xLim = min(conBoiPri.minBoiFloSet1[2].lin1.x2,     conBoiPri.minBoiFloSet1[2].lin1.u);
+else
+  conBoiPri.minBoiFloSet1[2].lin1.xLim = conBoiPri.minBoiFloSet1[2].lin1.u;
+end if;
+ 
+  conBoiPri.minBoiFloSet1[2].lin1.y(unit= "m3/s")
+from the equation
+conBoiPri.minBoiFloSet1[2].lin1.y = conBoiPri.minBoiFloSet1[2].lin1.a+  conBoiPri.minBoiFloSet1[2].lin1.b*conBoiPri.minBoiFloSet1[2].lin1.xLim;
+ 
+  conBoiPri.minBoiFloSet1[2].intWitRes.y_reset_in(unit= "m3/s")
+from the equation
+conBoiPri.minBoiFloSet1[2].intWitRes.y_reset_in = conBoiPri.minBoiFloSet1[2].VHotWatMinSet_flow;
+ 
+  conBoiPri.minBoiFloSet1[2].lin1.u(unit= "s")
+from the equation
+conBoiPri.minBoiFloSet1[2].lin1.u = conBoiPri.minBoiFloSet1[2].gre.u1;
+ 
+  conBoiPri.minBoiFloSet1[2].gre.u1(unit= "s")
+from the equation
+conBoiPri.minBoiFloSet1[2].tim.y = conBoiPri.minBoiFloSet1[2].gre.u1;
+ 
+The part
+  smooth(0, (if conBoiPri.minBoiFloSet1[2].swi2.u2 then conBoiPri.minBoiFloSet1[2].swi2.u1   else conBoiPri.minBoiFloSet1[2].swi2.u3))
+has unit m4.kg2.s-6
+Deduced units
+  conBoiPri.minBoiFloSet1[2].swi2.u1(unit= "m4.kg2.s-6")
+from the equation
+conBoiPri.minBoiFloSet1[2].swi2.u1 = conBoiPri.minBoiFloSet1[2].pro4.y;
+ 
+  conBoiPri.minBoiFloSet1[2].swi2.u3(unit= "m4.kg2.s-6")
+from the equation
+conBoiPri.minBoiFloSet1[2].swi2.y = smooth(0, (if conBoiPri.minBoiFloSet1[2].swi2.u2   then conBoiPri.minBoiFloSet1[2].swi2.u1 else conBoiPri.minBoiFloSet1[2].swi2.u3));
+ 
+  conBoiPri.minBoiFloSet1[2].pro4.y(unit= "m4.kg2.s-6")
+from the equation
+conBoiPri.minBoiFloSet1[2].pro4.y = conBoiPri.minBoiFloSet1[2].pro4.u1*  conBoiPri.minBoiFloSet1[2].pro4.u2;
+ 
+  conBoiPri.minBoiFloSet1[2].swi2.y(unit= "m3/s")
+from the equation
+conBoiPri.minBoiFloSet1[2].swi2.y = conBoiPri.minBoiFloSet1[2].lin1.f2;
+ 
+  conBoiPri.minBoiFloSet1[2].lin1.f2(unit= "m3/s")
+from the equation
+conBoiPri.minBoiFloSet1[2].lin1.b = (conBoiPri.minBoiFloSet1[2].lin1.f2-  conBoiPri.minBoiFloSet1[2].lin1.f1)/(conBoiPri.minBoiFloSet1[2].lin1.x2-  conBoiPri.minBoiFloSet1[2].lin1.x1);
+ 
+  conBoiPri.minBoiFloSet1[2].pro4.u1(unit= "W")
+from the equation
+conBoiPri.minBoiFloSet1[2].pro4.u1 = conBoiPri.minBoiFloSet1[2].max1.y;
+ 
+  conBoiPri.minBoiFloSet1[2].pro4.u2(unit= "W")
+from the equation
+conBoiPri.minBoiFloSet1[2].pro4.u2 = conBoiPri.minBoiFloSet1[2].add1.y;
+ 
+  conBoiPri.minBoiFloSet1[2].add1.y(unit= "W")
+from the equation
+conBoiPri.minBoiFloSet1[2].add1.y = conBoiPri.minBoiFloSet1[2].add1.u1+  conBoiPri.minBoiFloSet1[2].add1.u2;
+ 
+  conBoiPri.minBoiFloSet1[2].lin1.b(unit= "m3/s2")
+from the equation
+conBoiPri.minBoiFloSet1[2].lin1.y = conBoiPri.minBoiFloSet1[2].lin1.a+  conBoiPri.minBoiFloSet1[2].lin1.b*conBoiPri.minBoiFloSet1[2].lin1.xLim;
+ 
+  conBoiPri.minBoiFloSet1[2].lin1.f1(unit= "m3/s")
+from the equation
+conBoiPri.minBoiFloSet1[2].lin1.f1 = conBoiPri.minBoiFloSet1[2].intWitRes.y;
+ 
+  conBoiPri.minBoiFloSet1[2].max1.y(unit= "W")
+from the equation
+conBoiPri.minBoiFloSet1[2].max1.y = max(conBoiPri.minBoiFloSet1[2].max1.u1,   conBoiPri.minBoiFloSet1[2].max1.u2);
+ 
+  conBoiPri.minBoiFloSet1[2].add1.u1(unit= "W")
+from the equation
+conBoiPri.minBoiFloSet1[2].add1.y = conBoiPri.minBoiFloSet1[2].add1.u1+  conBoiPri.minBoiFloSet1[2].add1.u2;
+ 
+  conBoiPri.minBoiFloSet1[2].add1.u2(unit= "W")
+from the equation
+conBoiPri.minBoiFloSet1[2].zerStaIndCor1.yCapMod = conBoiPri.minBoiFloSet1[2].add1.u2;
+ 
+  conBoiPri.minBoiFloSet1[2].intWitRes.y(unit= "m3/s")
+from the equation
+when conBoiPri.minBoiFloSet1[2].intWitRes.trigger then
+  reinit(conBoiPri.minBoiFloSet1[2].intWitRes.y, conBoiPri.minBoiFloSet1[2].intWitRes.y_reset_in);
+end when;
+ 
+  conBoiPri.minBoiFloSet1[2].lin1.a(unit= "m3/s")
+from the equation
+conBoiPri.minBoiFloSet1[2].lin1.a = conBoiPri.minBoiFloSet1[2].lin1.f2-  conBoiPri.minBoiFloSet1[2].lin1.b*conBoiPri.minBoiFloSet1[2].lin1.x2;
+ 
+  conBoiPri.minBoiFloSet1[2].lin1.xLim(unit= "s")
+from the equation
+if (conBoiPri.minBoiFloSet1[2].lin1.limitBelow and conBoiPri.minBoiFloSet1[2].lin1.limitAbove)   then 
+  conBoiPri.minBoiFloSet1[2].lin1.xLim = min(conBoiPri.minBoiFloSet1[2].lin1.x2,     max(conBoiPri.minBoiFloSet1[2].lin1.x1, conBoiPri.minBoiFloSet1[2].lin1.u));
+elseif (conBoiPri.minBoiFloSet1[2].lin1.limitBelow) then 
+  conBoiPri.minBoiFloSet1[2].lin1.xLim = max(conBoiPri.minBoiFloSet1[2].lin1.x1,     conBoiPri.minBoiFloSet1[2].lin1.u);
+elseif (conBoiPri.minBoiFloSet1[2].lin1.limitAbove) then 
+  conBoiPri.minBoiFloSet1[2].lin1.xLim = min(conBoiPri.minBoiFloSet1[2].lin1.x2,     conBoiPri.minBoiFloSet1[2].lin1.u);
+else
+  conBoiPri.minBoiFloSet1[2].lin1.xLim = conBoiPri.minBoiFloSet1[2].lin1.u;
+end if;
+ 
+  conBoiPri.minBoiFloSet1[2].lin1.y(unit= "m3/s")
+from the equation
+conBoiPri.minBoiFloSet1[2].lin1.y = conBoiPri.minBoiFloSet1[2].lin1.a+  conBoiPri.minBoiFloSet1[2].lin1.b*conBoiPri.minBoiFloSet1[2].lin1.xLim;
+ 
+  conBoiPri.minBoiFloSet1[2].max1.u2(unit= "W")
+from the equation
+conBoiPri.minBoiFloSet1[2].zerStaIndCor2.yCapMod = conBoiPri.minBoiFloSet1[2].max1.u2;
+ 
+  conBoiPri.minBoiFloSet1[2].intWitRes.y_reset_in(unit= "m3/s")
+from the equation
+conBoiPri.minBoiFloSet1[2].intWitRes.y_reset_in = conBoiPri.minBoiFloSet1[2].VHotWatMinSet_flow;
+ 
+  conBoiPri.minBoiFloSet1[2].lin1.u(unit= "s")
+from the equation
+conBoiPri.minBoiFloSet1[2].lin1.u = conBoiPri.minBoiFloSet1[2].gre.u1;
+ 
+  conBoiPri.minBoiFloSet1[2].gre.u1(unit= "s")
+from the equation
+conBoiPri.minBoiFloSet1[2].tim.y = conBoiPri.minBoiFloSet1[2].gre.u1;
+ 
+Error: The unit issue reported appeared in the equation
+  conBoiPri.minBoiFloSet1[2].swi2.y = smooth(0, (if conBoiPri.minBoiFloSet1[2].swi2.u2   then conBoiPri.minBoiFloSet1[2].swi2.u1 else conBoiPri.minBoiFloSet1[2].swi2.u3));
+Found in class Buildings.Controls.OBC.CDL.Reals.Switch, /tmp/tmp-Buildings-0-sz0f2v0b/Buildings/Controls/OBC/CDL/Reals/Switch.mo at line 18, and used in component conBoiPri.minBoiFloSet1[2].swi2.
+Error: Unit propagation failed.
+Error: Incompatible units in
+  conBoiPri.minBoiFloSet1[3].swi.y = smooth(0, (if conBoiPri.minBoiFloSet1[3].swi.u2   then conBoiPri.minBoiFloSet1[3].swi.u1 else conBoiPri.minBoiFloSet1[3].swi.u3));
+The part
+  conBoiPri.minBoiFloSet1[3].swi.y
+has unit m3/s
+Deduced units
+  conBoiPri.minBoiFloSet1[3].swi.y(unit= "m3/s")
+from the equation
+conBoiPri.minBoiFloSet1[3].swi.y = conBoiPri.minBoiFloSet1[3].lin.f2;
+ 
+  conBoiPri.minBoiFloSet1[3].lin.f2(unit= "m3/s")
+from the equation
+conBoiPri.minBoiFloSet1[3].lin.b = (conBoiPri.minBoiFloSet1[3].lin.f2-  conBoiPri.minBoiFloSet1[3].lin.f1)/(conBoiPri.minBoiFloSet1[3].lin.x2-  conBoiPri.minBoiFloSet1[3].lin.x1);
+ 
+  conBoiPri.minBoiFloSet1[3].lin.b(unit= "m3/s2")
+from the equation
+conBoiPri.minBoiFloSet1[3].lin.y = conBoiPri.minBoiFloSet1[3].lin.a+  conBoiPri.minBoiFloSet1[3].lin.b*conBoiPri.minBoiFloSet1[3].lin.xLim;
+ 
+  conBoiPri.minBoiFloSet1[3].lin.f1(unit= "m3/s")
+from the equation
+conBoiPri.minBoiFloSet1[3].lin.f1 = conBoiPri.minBoiFloSet1[3].intWitRes.y;
+ 
+  conBoiPri.minBoiFloSet1[3].intWitRes.y(unit= "m3/s")
+from the equation
+when conBoiPri.minBoiFloSet1[3].intWitRes.trigger then
+  reinit(conBoiPri.minBoiFloSet1[3].intWitRes.y, conBoiPri.minBoiFloSet1[3].intWitRes.y_reset_in);
+end when;
+ 
+  conBoiPri.minBoiFloSet1[3].lin.a(unit= "m3/s")
+from the equation
+conBoiPri.minBoiFloSet1[3].lin.a = conBoiPri.minBoiFloSet1[3].lin.f2-  conBoiPri.minBoiFloSet1[3].lin.b*conBoiPri.minBoiFloSet1[3].lin.x2;
+ 
+  conBoiPri.minBoiFloSet1[3].lin.xLim(unit= "s")
+from the equation
+if (conBoiPri.minBoiFloSet1[3].lin.limitBelow and conBoiPri.minBoiFloSet1[3].lin.limitAbove)   then 
+  conBoiPri.minBoiFloSet1[3].lin.xLim = min(conBoiPri.minBoiFloSet1[3].lin.x2,     max(conBoiPri.minBoiFloSet1[3].lin.x1, conBoiPri.minBoiFloSet1[3].lin.u));
+elseif (conBoiPri.minBoiFloSet1[3].lin.limitBelow) then 
+  conBoiPri.minBoiFloSet1[3].lin.xLim = max(conBoiPri.minBoiFloSet1[3].lin.x1,     conBoiPri.minBoiFloSet1[3].lin.u);
+elseif (conBoiPri.minBoiFloSet1[3].lin.limitAbove) then 
+  conBoiPri.minBoiFloSet1[3].lin.xLim = min(conBoiPri.minBoiFloSet1[3].lin.x2,     conBoiPri.minBoiFloSet1[3].lin.u);
+else
+  conBoiPri.minBoiFloSet1[3].lin.xLim = conBoiPri.minBoiFloSet1[3].lin.u;
+end if;
+ 
+  conBoiPri.minBoiFloSet1[3].lin.y(unit= "m3/s")
+from the equation
+conBoiPri.minBoiFloSet1[3].lin.y = conBoiPri.minBoiFloSet1[3].lin.a+  conBoiPri.minBoiFloSet1[3].lin.b*conBoiPri.minBoiFloSet1[3].lin.xLim;
+ 
+  conBoiPri.minBoiFloSet1[3].intWitRes.y_reset_in(unit= "m3/s")
+from the equation
+conBoiPri.minBoiFloSet1[3].intWitRes.y_reset_in = conBoiPri.minBoiFloSet1[3].VHotWatMinSet_flow;
+ 
+  conBoiPri.minBoiFloSet1[3].lin.u(unit= "s")
+from the equation
+conBoiPri.minBoiFloSet1[3].lin.u = conBoiPri.minBoiFloSet1[3].gre.u1;
+ 
+  conBoiPri.minBoiFloSet1[3].gre.u1(unit= "s")
+from the equation
+conBoiPri.minBoiFloSet1[3].tim.y = conBoiPri.minBoiFloSet1[3].gre.u1;
+ 
+The part
+  smooth(0, (if conBoiPri.minBoiFloSet1[3].swi.u2 then conBoiPri.minBoiFloSet1[3].swi.u1   else conBoiPri.minBoiFloSet1[3].swi.u3))
+has unit m4.kg2.s-6
+Deduced units
+  conBoiPri.minBoiFloSet1[3].swi.u1(unit= "m4.kg2.s-6")
+from the equation
+conBoiPri.minBoiFloSet1[3].swi.u1 = conBoiPri.minBoiFloSet1[3].pro2.y;
+ 
+  conBoiPri.minBoiFloSet1[3].swi.u3(unit= "m4.kg2.s-6")
+from the equation
+conBoiPri.minBoiFloSet1[3].swi.y = smooth(0, (if conBoiPri.minBoiFloSet1[3].swi.u2   then conBoiPri.minBoiFloSet1[3].swi.u1 else conBoiPri.minBoiFloSet1[3].swi.u3));
+ 
+  conBoiPri.minBoiFloSet1[3].pro2.y(unit= "m4.kg2.s-6")
+from the equation
+conBoiPri.minBoiFloSet1[3].pro2.y = conBoiPri.minBoiFloSet1[3].pro2.u1*  conBoiPri.minBoiFloSet1[3].pro2.u2;
+ 
+  conBoiPri.minBoiFloSet1[3].swi.y(unit= "m3/s")
+from the equation
+conBoiPri.minBoiFloSet1[3].swi.y = conBoiPri.minBoiFloSet1[3].lin.f2;
+ 
+  conBoiPri.minBoiFloSet1[3].lin.f2(unit= "m3/s")
+from the equation
+conBoiPri.minBoiFloSet1[3].lin.b = (conBoiPri.minBoiFloSet1[3].lin.f2-  conBoiPri.minBoiFloSet1[3].lin.f1)/(conBoiPri.minBoiFloSet1[3].lin.x2-  conBoiPri.minBoiFloSet1[3].lin.x1);
+ 
+  conBoiPri.minBoiFloSet1[3].pro2.u1(unit= "W")
+from the equation
+conBoiPri.minBoiFloSet1[3].pro2.u1 = conBoiPri.minBoiFloSet1[3].max.y;
+ 
+  conBoiPri.minBoiFloSet1[3].pro2.u2(unit= "W")
+from the equation
+conBoiPri.minBoiFloSet1[3].pro2.u2 = conBoiPri.minBoiFloSet1[3].add2.y;
+ 
+  conBoiPri.minBoiFloSet1[3].add2.y(unit= "W")
+from the equation
+conBoiPri.minBoiFloSet1[3].add2.y = conBoiPri.minBoiFloSet1[3].add2.u1+  conBoiPri.minBoiFloSet1[3].add2.u2;
+ 
+  conBoiPri.minBoiFloSet1[3].lin.b(unit= "m3/s2")
+from the equation
+conBoiPri.minBoiFloSet1[3].lin.y = conBoiPri.minBoiFloSet1[3].lin.a+  conBoiPri.minBoiFloSet1[3].lin.b*conBoiPri.minBoiFloSet1[3].lin.xLim;
+ 
+  conBoiPri.minBoiFloSet1[3].lin.f1(unit= "m3/s")
+from the equation
+conBoiPri.minBoiFloSet1[3].lin.f1 = conBoiPri.minBoiFloSet1[3].intWitRes.y;
+ 
+  conBoiPri.minBoiFloSet1[3].max.y(unit= "W")
+from the equation
+conBoiPri.minBoiFloSet1[3].max.y = max(conBoiPri.minBoiFloSet1[3].max.u1,   conBoiPri.minBoiFloSet1[3].max.u2);
+ 
+  conBoiPri.minBoiFloSet1[3].add2.u1(unit= "W")
+from the equation
+conBoiPri.minBoiFloSet1[3].zerStaIndCor.yCapMod = conBoiPri.minBoiFloSet1[3].add2.u1;
+ 
+  conBoiPri.minBoiFloSet1[3].add2.u2(unit= "W")
+from the equation
+conBoiPri.minBoiFloSet1[3].add2.y = conBoiPri.minBoiFloSet1[3].add2.u1+  conBoiPri.minBoiFloSet1[3].add2.u2;
+ 
+  conBoiPri.minBoiFloSet1[3].intWitRes.y(unit= "m3/s")
+from the equation
+when conBoiPri.minBoiFloSet1[3].intWitRes.trigger then
+  reinit(conBoiPri.minBoiFloSet1[3].intWitRes.y, conBoiPri.minBoiFloSet1[3].intWitRes.y_reset_in);
+end when;
+ 
+  conBoiPri.minBoiFloSet1[3].lin.a(unit= "m3/s")
+from the equation
+conBoiPri.minBoiFloSet1[3].lin.a = conBoiPri.minBoiFloSet1[3].lin.f2-  conBoiPri.minBoiFloSet1[3].lin.b*conBoiPri.minBoiFloSet1[3].lin.x2;
+ 
+  conBoiPri.minBoiFloSet1[3].lin.xLim(unit= "s")
+from the equation
+if (conBoiPri.minBoiFloSet1[3].lin.limitBelow and conBoiPri.minBoiFloSet1[3].lin.limitAbove)   then 
+  conBoiPri.minBoiFloSet1[3].lin.xLim = min(conBoiPri.minBoiFloSet1[3].lin.x2,     max(conBoiPri.minBoiFloSet1[3].lin.x1, conBoiPri.minBoiFloSet1[3].lin.u));
+elseif (conBoiPri.minBoiFloSet1[3].lin.limitBelow) then 
+  conBoiPri.minBoiFloSet1[3].lin.xLim = max(conBoiPri.minBoiFloSet1[3].lin.x1,     conBoiPri.minBoiFloSet1[3].lin.u);
+elseif (conBoiPri.minBoiFloSet1[3].lin.limitAbove) then 
+  conBoiPri.minBoiFloSet1[3].lin.xLim = min(conBoiPri.minBoiFloSet1[3].lin.x2,     conBoiPri.minBoiFloSet1[3].lin.u);
+else
+  conBoiPri.minBoiFloSet1[3].lin.xLim = conBoiPri.minBoiFloSet1[3].lin.u;
+end if;
+ 
+  conBoiPri.minBoiFloSet1[3].lin.y(unit= "m3/s")
+from the equation
+conBoiPri.minBoiFloSet1[3].lin.y = conBoiPri.minBoiFloSet1[3].lin.a+  conBoiPri.minBoiFloSet1[3].lin.b*conBoiPri.minBoiFloSet1[3].lin.xLim;
+ 
+  conBoiPri.minBoiFloSet1[3].max.u1(unit= "W")
+from the equation
+conBoiPri.minBoiFloSet1[3].zerStaIndCor3.yCapMod = conBoiPri.minBoiFloSet1[3].max.u1;
+ 
+  conBoiPri.minBoiFloSet1[3].intWitRes.y_reset_in(unit= "m3/s")
+from the equation
+conBoiPri.minBoiFloSet1[3].intWitRes.y_reset_in = conBoiPri.minBoiFloSet1[3].VHotWatMinSet_flow;
+ 
+  conBoiPri.minBoiFloSet1[3].lin.u(unit= "s")
+from the equation
+conBoiPri.minBoiFloSet1[3].lin.u = conBoiPri.minBoiFloSet1[3].gre.u1;
+ 
+  conBoiPri.minBoiFloSet1[3].gre.u1(unit= "s")
+from the equation
+conBoiPri.minBoiFloSet1[3].tim.y = conBoiPri.minBoiFloSet1[3].gre.u1;
+ 
+Error: The unit issue reported appeared in the equation
+  conBoiPri.minBoiFloSet1[3].swi.y = smooth(0, (if conBoiPri.minBoiFloSet1[3].swi.u2   then conBoiPri.minBoiFloSet1[3].swi.u1 else conBoiPri.minBoiFloSet1[3].swi.u3));
+Found in class Buildings.Controls.OBC.CDL.Reals.Switch, /tmp/tmp-Buildings-0-sz0f2v0b/Buildings/Controls/OBC/CDL/Reals/Switch.mo at line 18, and used in component conBoiPri.minBoiFloSet1[3].swi.
+Error: Unit propagation failed.
+Error: Incompatible units in
+  conBoiPri.minBoiFloSet1[3].swi2.y = smooth(0, (if conBoiPri.minBoiFloSet1[3].swi2.u2   then conBoiPri.minBoiFloSet1[3].swi2.u1 else conBoiPri.minBoiFloSet1[3].swi2.u3));
+The part
+  conBoiPri.minBoiFloSet1[3].swi2.y
+has unit m3/s
+Deduced units
+  conBoiPri.minBoiFloSet1[3].swi2.y(unit= "m3/s")
+from the equation
+conBoiPri.minBoiFloSet1[3].swi2.y = conBoiPri.minBoiFloSet1[3].lin1.f2;
+ 
+  conBoiPri.minBoiFloSet1[3].lin1.f2(unit= "m3/s")
+from the equation
+conBoiPri.minBoiFloSet1[3].lin1.b = (conBoiPri.minBoiFloSet1[3].lin1.f2-  conBoiPri.minBoiFloSet1[3].lin1.f1)/(conBoiPri.minBoiFloSet1[3].lin1.x2-  conBoiPri.minBoiFloSet1[3].lin1.x1);
+ 
+  conBoiPri.minBoiFloSet1[3].lin1.b(unit= "m3/s2")
+from the equation
+conBoiPri.minBoiFloSet1[3].lin1.y = conBoiPri.minBoiFloSet1[3].lin1.a+  conBoiPri.minBoiFloSet1[3].lin1.b*conBoiPri.minBoiFloSet1[3].lin1.xLim;
+ 
+  conBoiPri.minBoiFloSet1[3].lin1.f1(unit= "m3/s")
+from the equation
+conBoiPri.minBoiFloSet1[3].lin1.f1 = conBoiPri.minBoiFloSet1[3].intWitRes.y;
+ 
+  conBoiPri.minBoiFloSet1[3].intWitRes.y(unit= "m3/s")
+from the equation
+when conBoiPri.minBoiFloSet1[3].intWitRes.trigger then
+  reinit(conBoiPri.minBoiFloSet1[3].intWitRes.y, conBoiPri.minBoiFloSet1[3].intWitRes.y_reset_in);
+end when;
+ 
+  conBoiPri.minBoiFloSet1[3].lin1.a(unit= "m3/s")
+from the equation
+conBoiPri.minBoiFloSet1[3].lin1.a = conBoiPri.minBoiFloSet1[3].lin1.f2-  conBoiPri.minBoiFloSet1[3].lin1.b*conBoiPri.minBoiFloSet1[3].lin1.x2;
+ 
+  conBoiPri.minBoiFloSet1[3].lin1.xLim(unit= "s")
+from the equation
+if (conBoiPri.minBoiFloSet1[3].lin1.limitBelow and conBoiPri.minBoiFloSet1[3].lin1.limitAbove)   then 
+  conBoiPri.minBoiFloSet1[3].lin1.xLim = min(conBoiPri.minBoiFloSet1[3].lin1.x2,     max(conBoiPri.minBoiFloSet1[3].lin1.x1, conBoiPri.minBoiFloSet1[3].lin1.u));
+elseif (conBoiPri.minBoiFloSet1[3].lin1.limitBelow) then 
+  conBoiPri.minBoiFloSet1[3].lin1.xLim = max(conBoiPri.minBoiFloSet1[3].lin1.x1,     conBoiPri.minBoiFloSet1[3].lin1.u);
+elseif (conBoiPri.minBoiFloSet1[3].lin1.limitAbove) then 
+  conBoiPri.minBoiFloSet1[3].lin1.xLim = min(conBoiPri.minBoiFloSet1[3].lin1.x2,     conBoiPri.minBoiFloSet1[3].lin1.u);
+else
+  conBoiPri.minBoiFloSet1[3].lin1.xLim = conBoiPri.minBoiFloSet1[3].lin1.u;
+end if;
+ 
+  conBoiPri.minBoiFloSet1[3].lin1.y(unit= "m3/s")
+from the equation
+conBoiPri.minBoiFloSet1[3].lin1.y = conBoiPri.minBoiFloSet1[3].lin1.a+  conBoiPri.minBoiFloSet1[3].lin1.b*conBoiPri.minBoiFloSet1[3].lin1.xLim;
+ 
+  conBoiPri.minBoiFloSet1[3].intWitRes.y_reset_in(unit= "m3/s")
+from the equation
+conBoiPri.minBoiFloSet1[3].intWitRes.y_reset_in = conBoiPri.minBoiFloSet1[3].VHotWatMinSet_flow;
+ 
+  conBoiPri.minBoiFloSet1[3].lin1.u(unit= "s")
+from the equation
+conBoiPri.minBoiFloSet1[3].lin1.u = conBoiPri.minBoiFloSet1[3].gre.u1;
+ 
+  conBoiPri.minBoiFloSet1[3].gre.u1(unit= "s")
+from the equation
+conBoiPri.minBoiFloSet1[3].tim.y = conBoiPri.minBoiFloSet1[3].gre.u1;
+ 
+The part
+  smooth(0, (if conBoiPri.minBoiFloSet1[3].swi2.u2 then conBoiPri.minBoiFloSet1[3].swi2.u1   else conBoiPri.minBoiFloSet1[3].swi2.u3))
+has unit m4.kg2.s-6
+Deduced units
+  conBoiPri.minBoiFloSet1[3].swi2.u1(unit= "m4.kg2.s-6")
+from the equation
+conBoiPri.minBoiFloSet1[3].swi2.u1 = conBoiPri.minBoiFloSet1[3].pro4.y;
+ 
+  conBoiPri.minBoiFloSet1[3].swi2.u3(unit= "m4.kg2.s-6")
+from the equation
+conBoiPri.minBoiFloSet1[3].swi2.y = smooth(0, (if conBoiPri.minBoiFloSet1[3].swi2.u2   then conBoiPri.minBoiFloSet1[3].swi2.u1 else conBoiPri.minBoiFloSet1[3].swi2.u3));
+ 
+  conBoiPri.minBoiFloSet1[3].pro4.y(unit= "m4.kg2.s-6")
+from the equation
+conBoiPri.minBoiFloSet1[3].pro4.y = conBoiPri.minBoiFloSet1[3].pro4.u1*  conBoiPri.minBoiFloSet1[3].pro4.u2;
+ 
+  conBoiPri.minBoiFloSet1[3].swi2.y(unit= "m3/s")
+from the equation
+conBoiPri.minBoiFloSet1[3].swi2.y = conBoiPri.minBoiFloSet1[3].lin1.f2;
+ 
+  conBoiPri.minBoiFloSet1[3].lin1.f2(unit= "m3/s")
+from the equation
+conBoiPri.minBoiFloSet1[3].lin1.b = (conBoiPri.minBoiFloSet1[3].lin1.f2-  conBoiPri.minBoiFloSet1[3].lin1.f1)/(conBoiPri.minBoiFloSet1[3].lin1.x2-  conBoiPri.minBoiFloSet1[3].lin1.x1);
+ 
+  conBoiPri.minBoiFloSet1[3].pro4.u1(unit= "W")
+from the equation
+conBoiPri.minBoiFloSet1[3].pro4.u1 = conBoiPri.minBoiFloSet1[3].max1.y;
+ 
+  conBoiPri.minBoiFloSet1[3].pro4.u2(unit= "W")
+from the equation
+conBoiPri.minBoiFloSet1[3].pro4.u2 = conBoiPri.minBoiFloSet1[3].add1.y;
+ 
+  conBoiPri.minBoiFloSet1[3].add1.y(unit= "W")
+from the equation
+conBoiPri.minBoiFloSet1[3].add1.y = conBoiPri.minBoiFloSet1[3].add1.u1+  conBoiPri.minBoiFloSet1[3].add1.u2;
+ 
+  conBoiPri.minBoiFloSet1[3].lin1.b(unit= "m3/s2")
+from the equation
+conBoiPri.minBoiFloSet1[3].lin1.y = conBoiPri.minBoiFloSet1[3].lin1.a+  conBoiPri.minBoiFloSet1[3].lin1.b*conBoiPri.minBoiFloSet1[3].lin1.xLim;
+ 
+  conBoiPri.minBoiFloSet1[3].lin1.f1(unit= "m3/s")
+from the equation
+conBoiPri.minBoiFloSet1[3].lin1.f1 = conBoiPri.minBoiFloSet1[3].intWitRes.y;
+ 
+  conBoiPri.minBoiFloSet1[3].max1.y(unit= "W")
+from the equation
+conBoiPri.minBoiFloSet1[3].max1.y = max(conBoiPri.minBoiFloSet1[3].max1.u1,   conBoiPri.minBoiFloSet1[3].max1.u2);
+ 
+  conBoiPri.minBoiFloSet1[3].add1.u1(unit= "W")
+from the equation
+conBoiPri.minBoiFloSet1[3].add1.y = conBoiPri.minBoiFloSet1[3].add1.u1+  conBoiPri.minBoiFloSet1[3].add1.u2;
+ 
+  conBoiPri.minBoiFloSet1[3].add1.u2(unit= "W")
+from the equation
+conBoiPri.minBoiFloSet1[3].zerStaIndCor1.yCapMod = conBoiPri.minBoiFloSet1[3].add1.u2;
+ 
+  conBoiPri.minBoiFloSet1[3].intWitRes.y(unit= "m3/s")
+from the equation
+when conBoiPri.minBoiFloSet1[3].intWitRes.trigger then
+  reinit(conBoiPri.minBoiFloSet1[3].intWitRes.y, conBoiPri.minBoiFloSet1[3].intWitRes.y_reset_in);
+end when;
+ 
+  conBoiPri.minBoiFloSet1[3].lin1.a(unit= "m3/s")
+from the equation
+conBoiPri.minBoiFloSet1[3].lin1.a = conBoiPri.minBoiFloSet1[3].lin1.f2-  conBoiPri.minBoiFloSet1[3].lin1.b*conBoiPri.minBoiFloSet1[3].lin1.x2;
+ 
+  conBoiPri.minBoiFloSet1[3].lin1.xLim(unit= "s")
+from the equation
+if (conBoiPri.minBoiFloSet1[3].lin1.limitBelow and conBoiPri.minBoiFloSet1[3].lin1.limitAbove)   then 
+  conBoiPri.minBoiFloSet1[3].lin1.xLim = min(conBoiPri.minBoiFloSet1[3].lin1.x2,     max(conBoiPri.minBoiFloSet1[3].lin1.x1, conBoiPri.minBoiFloSet1[3].lin1.u));
+elseif (conBoiPri.minBoiFloSet1[3].lin1.limitBelow) then 
+  conBoiPri.minBoiFloSet1[3].lin1.xLim = max(conBoiPri.minBoiFloSet1[3].lin1.x1,     conBoiPri.minBoiFloSet1[3].lin1.u);
+elseif (conBoiPri.minBoiFloSet1[3].lin1.limitAbove) then 
+  conBoiPri.minBoiFloSet1[3].lin1.xLim = min(conBoiPri.minBoiFloSet1[3].lin1.x2,     conBoiPri.minBoiFloSet1[3].lin1.u);
+else
+  conBoiPri.minBoiFloSet1[3].lin1.xLim = conBoiPri.minBoiFloSet1[3].lin1.u;
+end if;
+ 
+  conBoiPri.minBoiFloSet1[3].lin1.y(unit= "m3/s")
+from the equation
+conBoiPri.minBoiFloSet1[3].lin1.y = conBoiPri.minBoiFloSet1[3].lin1.a+  conBoiPri.minBoiFloSet1[3].lin1.b*conBoiPri.minBoiFloSet1[3].lin1.xLim;
+ 
+  conBoiPri.minBoiFloSet1[3].max1.u2(unit= "W")
+from the equation
+conBoiPri.minBoiFloSet1[3].zerStaIndCor2.yCapMod = conBoiPri.minBoiFloSet1[3].max1.u2;
+ 
+  conBoiPri.minBoiFloSet1[3].intWitRes.y_reset_in(unit= "m3/s")
+from the equation
+conBoiPri.minBoiFloSet1[3].intWitRes.y_reset_in = conBoiPri.minBoiFloSet1[3].VHotWatMinSet_flow;
+ 
+  conBoiPri.minBoiFloSet1[3].lin1.u(unit= "s")
+from the equation
+conBoiPri.minBoiFloSet1[3].lin1.u = conBoiPri.minBoiFloSet1[3].gre.u1;
+ 
+  conBoiPri.minBoiFloSet1[3].gre.u1(unit= "s")
+from the equation
+conBoiPri.minBoiFloSet1[3].tim.y = conBoiPri.minBoiFloSet1[3].gre.u1;
+ 
+Error: The unit issue reported appeared in the equation
+  conBoiPri.minBoiFloSet1[3].swi2.y = smooth(0, (if conBoiPri.minBoiFloSet1[3].swi2.u2   then conBoiPri.minBoiFloSet1[3].swi2.u1 else conBoiPri.minBoiFloSet1[3].swi2.u3));
+Found in class Buildings.Controls.OBC.CDL.Reals.Switch, /tmp/tmp-Buildings-0-sz0f2v0b/Buildings/Controls/OBC/CDL/Reals/Switch.mo at line 18, and used in component conBoiPri.minBoiFloSet1[3].swi2.
+The DAE has 8574 scalar unknowns and 8574 scalar equations.
+Redundant consistent initial conditions.
+Removed the following equations which are redundant and consistent: 
+  if (secLoo2.loa.loa.coi.heaCooHum_u.vol.dynBal.massDynamics ==     Modelica.Fluid.Types.Dynamics.FixedInitial) then 
+    if (secLoo2.loa.loa.coi.heaCooHum_u.vol.dynBal.initialize_p) then 
+      secLoo2.loa.loa.coi.heaCooHum_u.vol.dynBal.medium.p = secLoo2.loa.loa.coi.heaCooHum_u.vol.dynBal.p_start;
+    end if;
+  else
+    if (secLoo2.loa.loa.coi.heaCooHum_u.vol.dynBal.massDynamics ==       Modelica.Fluid.Types.Dynamics.SteadyStateInitial) then 
+      if (secLoo2.loa.loa.coi.heaCooHum_u.vol.dynBal.initialize_p) then 
+        der(secLoo2.loa.loa.coi.heaCooHum_u.vol.dynBal.medium.p) = 0;
+      end if;
+    end if;
+  end if;
+  if (secLoo1.loa.loa.coi.heaCooHum_u.vol.dynBal.massDynamics ==     Modelica.Fluid.Types.Dynamics.FixedInitial) then 
+    if (secLoo1.loa.loa.coi.heaCooHum_u.vol.dynBal.initialize_p) then 
+      secLoo1.loa.loa.coi.heaCooHum_u.vol.dynBal.medium.p = secLoo1.loa.loa.coi.heaCooHum_u.vol.dynBal.p_start;
+    end if;
+  else
+    if (secLoo1.loa.loa.coi.heaCooHum_u.vol.dynBal.massDynamics ==       Modelica.Fluid.Types.Dynamics.SteadyStateInitial) then 
+      if (secLoo1.loa.loa.coi.heaCooHum_u.vol.dynBal.initialize_p) then 
+        der(secLoo1.loa.loa.coi.heaCooHum_u.vol.dynBal.medium.p) = 0;
+      end if;
+    end if;
+  end if;
+ 
+This required evaluation of 
+the interactive parameters 
+    secLoo1.loa.loa.outAir.p(start = 101325)
+    secLoo2.loa.loa.outAir.p(start = 101325)
+ 
+The redundancies involve
+initial equations: 
+  secLoo2.loa.loa.coi.heaCooHum_u.vol.dynBal.medium.p = 101325.0;
+  secLoo1.loa.loa.coi.heaCooHum_u.vol.dynBal.medium.p = 101325.0;
+ 
+ 
+Statistics
+ 
+Original Model
+  Number of components: 2682
+  Variables: 15514
+  Constants: 220 (263 scalars)
+  Parameters: 6269 (7292 scalars)
+  Unknowns: 9025 (8731 scalars)
+  Differentiated variables: 73 scalars
+  Equations: 8074
+  Nontrivial: 7129
+Translated Model
+  Constants: 6568 scalars
+  Free parameters: 920 scalars
+  Parameter depending: 1905 scalars
+  Outputs: 2 scalars
+  Continuous time states: 53 scalars
+  Time-varying variables: 2141 scalars
+  Alias variables: 4752 scalars
+  Number of mixed real/discrete systems of equations: 2
+  Sizes of linear systems of equations: {4, 4}
+  Sizes after manipulation of the linear systems: {0, 0}
+  Sizes of nonlinear systems of equations: {23, 40, 40, 3, 3, 3}
+  Sizes after manipulation of the nonlinear systems: {4, 2, 2, 1, 1, 1}
+  Number of numerical Jacobians: 0
+  Initialization problem
+    Sizes of nonlinear systems of equations: {3, 3, 25, 1, 46, 46}
+    Sizes after manipulation of the nonlinear systems: {1, 1, 4, 0, 2, 2}
+    Sizes of simplified homotopy nonlinear systems of equations: {23, 1, 45, 45}
+    Sizes after manipulation of the simplified homotopy nonlinear systems: {4, 0, 2, 2}
+    Number of numerical Jacobians: 0
+ 
+Settings
+OutputCPUtime = true
+Selected continuous time states
+Statically selected continuous time states
+boiPlaPri.boi1.heaCapDry.T
+boiPlaPri.boi2.heaCapDry.T
+boiPlaPri.conPIDBoi[1].I.y
+boiPlaPri.conPIDBoi[2].I.y
+boiPlaPri.pum1.motSpe.y
+boiPlaPri.pum1.vol.dynBal.U
+boiPlaPri.pum2.motSpe.y
+boiPlaPri.pum2.vol.dynBal.U
+boiPlaPri.senTem.T
+boiPlaPri.senTem2.T
+boiPlaPri.senTem3.T
+boiPlaPri.senTem4.T
+boiPlaPri.spl1.vol.dynBal.U
+boiPlaPri.spl2.vol.dynBal.U
+boiPlaPri.spl3.vol.dynBal.U
+boiPlaPri.spl4.vol.dynBal.U
+boiPlaPri.spl5.vol.dynBal.U
+boiPlaPri.spl6.vol.dynBal.U
+boiPlaPri.val1.actPos.y
+boiPlaPri.val2.actPos.y
+conBoiPri.intWitRes.y
+conBoiPri.intWitRes1.y
+conBoiPri.minBoiFloSet1[1].intWitRes.y
+conBoiPri.minBoiFloSet1[2].intWitRes.y
+conBoiPri.minBoiFloSet1[3].intWitRes.y
+conBoiPri.priPumCon.pumSpeFlo.conPID.I.y
+conBoiPri.staSetCon.capReq1.movMea.mu
+conPumSec1.pumSpeRemDp.conPID[1].I.y
+conPumSec2.pumSpeRemDp.conPID[1].I.y
+secLoo1.loa.con.val.valEqu.actPos.y
+secLoo1.loa.loa.coi.dryWetCalcs.fullyWet.TWatOutEst
+secLoo1.loa.loa.coi.heaCoo.vol.dynBal.U
+secLoo1.loa.loa.coi.heaCooHum_u.vol.dynBal.medium.Xi[1]
+secLoo1.loa.loa.coi.heaCooHum_u.vol.dynBal.U
+secLoo1.loa.loa.conPID.conPID.I.y
+secLoo1.loa.loa.TAirLvg.T
+secLoo1.loa.loa.TLiqEnt.T
+secLoo1.loa.loa.TLiqLvg.T
+secLoo1.pum.motSpe.y
+secLoo1.pum.vol.dynBal.U
+secLoo2.loa.con.val.valEqu.actPos.y
+secLoo2.loa.loa.coi.dryWetCalcs.fullyWet.TWatOutEst
+secLoo2.loa.loa.coi.heaCoo.vol.dynBal.U
+secLoo2.loa.loa.coi.heaCooHum_u.vol.dynBal.medium.Xi[1]
+secLoo2.loa.loa.coi.heaCooHum_u.vol.dynBal.U
+secLoo2.loa.loa.conPID.conPID.I.y
+secLoo2.loa.loa.TAirLvg.T
+secLoo2.loa.loa.TLiqEnt.T
+secLoo2.loa.loa.TLiqLvg.T
+secLoo2.pum.motSpe.y
+secLoo2.pum.vol.dynBal.U
+spl1.vol.dynBal.U
+spl4.vol.dynBal.U
+The following parameters have enable=false and don't have any value, only a start value:
+    conBoiPri.boiDesFlo(start = {0, 0})
+    conBoiPri.have_varPriPum_select(start = false)
+    conBoiPri.maxFloSet(start = {0.00168, 0.0037799999999999995})
+    conBoiPri.maxLocDpPri(start = conBoiPri.minLocDpPri)
+    conBoiPri.maxRemDpPri(start = {conBoiPri.minRemDpPri[1]})
+    conBoiPri.TConBoiHotWatSetMax(start = 353.15)
+    conBoiPri.VHotWatPri_flow_nominal(start = 1E-06)
+    secLoo1.loa.con.dp1_nominal(start = 0)
+    secLoo2.loa.con.dp1_nominal(start = 0)
+ 
+Warning: Some variables are iteration variables of the initialization problem:
+but they are not given any explicit start values. Zero will be used.
+Iteration variables:
+conPumSec1.chaPumSta4.booRep2.u
+conPumSec1.chaPumSta4.enaPum[1].y
+conPumSec1.chaPumSta4.intEqu2[1].y
+conPumSec1.chaPumSta4.intEqu3[1].y
+conPumSec1.chaPumSta4.intRep.u
+conPumSec1.chaPumSta4.intRep1.u
+conPumSec1.chaPumSta4.lasLagPumSta[1].y
+conPumSec1.chaPumSta4.nexLagPumSta[1].y
+conPumSec1.chaPumSta4.pumSta[1].y
+conPumSec1.chaPumSta4.remPum[1].y
+conPumSec1.enaLagSecPum.hys.y
+conPumSec1.enaLagSecPum.hys1.y
+conPumSec1.enaLagSecPum.hys2.y
+conPumSec1.enaLagSecPum.not3.y
+conPumSec1.enaLagSecPum.tim.u
+conPumSec1.enaLagSecPum.tim1.u
+conPumSec1.enaLagSecPum.tim2.u
+conPumSec1.logSwi[1].u3
+conPumSec2.chaPumSta4.booRep2.u
+conPumSec2.chaPumSta4.enaPum[1].y
+conPumSec2.chaPumSta4.intEqu2[1].y
+conPumSec2.chaPumSta4.intEqu3[1].y
+conPumSec2.chaPumSta4.intRep.u
+conPumSec2.chaPumSta4.intRep1.u
+conPumSec2.chaPumSta4.lasLagPumSta[1].y
+conPumSec2.chaPumSta4.nexLagPumSta[1].y
+conPumSec2.chaPumSta4.pumSta[1].y
+conPumSec2.chaPumSta4.remPum[1].y
+conPumSec2.enaLagSecPum.hys.y
+conPumSec2.enaLagSecPum.hys1.y
+conPumSec2.enaLagSecPum.hys2.y
+conPumSec2.enaLagSecPum.not3.y
+conPumSec2.enaLagSecPum.tim.u
+conPumSec2.enaLagSecPum.tim1.u
+conPumSec2.enaLagSecPum.tim2.u
+conPumSec2.logSwi[1].u3
+secLoo1.uPum
+secLoo2.uPum
+Error detected when generating code.
+Translation aborted.
+Warning: WARNINGS have been issued.
+Error: ERRORS have been issued.
+ = false
+
+
+
+Declaring variable: Boolean rScript ;
+
+savelog("Buildings.Examples.BoilerPlants.Guideline36.translation.log");
+
+

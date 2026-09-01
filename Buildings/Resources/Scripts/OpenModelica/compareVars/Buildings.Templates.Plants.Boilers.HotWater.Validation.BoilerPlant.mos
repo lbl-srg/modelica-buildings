@@ -21,6 +21,7 @@ compareVars :=
     "datAll.pla.ctl.dpHeaWatRemSet_max[1]",
     "pla.bus.looCon.VHeaWatPri_flow",
     "datAll.pla.ctl.VHeaWatPriCon_flow_nominal",
+    "VHeaWatLoo_flow.V_flow",
     "pla.bus.boiCon[1].y_actual",
     "pla.bus.boiCon[2].y_actual",
     "pla.bus.boiCon[1].THeaWatSupSet",

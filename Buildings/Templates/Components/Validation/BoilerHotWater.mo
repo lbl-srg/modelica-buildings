@@ -17,7 +17,7 @@ model BoilerHotWater "Test model for the hot water boiler model"
     mHeaWat_flow_nominal=datBoiTab.cap_nominal/15/Buildings.Utilities.Psychrometrics.Constants.cpWatLiq,
     cap_nominal=1000E3,
     dpHeaWat_nominal(displayUnit="Pa") = 5000,
-    THeaWatSup_nominal=333.15)
+    THeaWatSup_nominal=Buildings.Templates.Data.Defaults.THeaWatSupHig)
     "Design and operating parameters for the boiler model using a polynomial"
     annotation (Placement(transformation(extent={{40,40},{60,60}})));
 
@@ -32,7 +32,7 @@ model BoilerHotWater "Test model for the hot water boiler model"
     redeclare final package Medium = Medium,
     p=Buildings.Templates.Data.Defaults.pHeaWat_rel_nominal + boiTab.dpHeaWat_nominal,
     use_T_in=true,
-    T=datBoiTab.THeaWatSup_nominal - 15,
+    T=Buildings.Templates.Data.Defaults.THeaWatRetHig,
     nPorts=2) "Boundary conditions for HW distribution system"
     annotation (Placement(transformation(extent={{-40,-30},{-20,-10}})));
 
@@ -63,7 +63,7 @@ model BoilerHotWater "Test model for the hot water boiler model"
       Placement(transformation(extent={{-20,20},{20,60}}), iconTransformation(
           extent={{-296,-74},{-256,-34}})));
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant THeaWatSupSet(
-    k=Buildings.Templates.Data.Defaults.THeaWatSup,
+    k=Buildings.Templates.Data.Defaults.THeaWatSupHig,
     y(final unit="K", displayUnit="degC"))
     "HW supply temperature setpoint"
     annotation (Placement(transformation(extent={{-80,30},{-60,50}})));

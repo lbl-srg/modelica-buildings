@@ -12,7 +12,7 @@ model BoilerHotWaterRecord
     mHeaWat_flow_nominal=datBoiTab.cap_nominal/15/Buildings.Utilities.Psychrometrics.Constants.cpWatLiq,
     cap_nominal=1000E3,
     dpHeaWat_nominal(displayUnit="Pa") = 5000,
-    THeaWatSup_nominal=333.15)
+    THeaWatSup_nominal=Buildings.Templates.Data.Defaults.THeaWatSupHig)
     "Design and operating parameters for the boiler model using a lookup table"
     annotation (Placement(transformation(extent={{10,70},{30,90}})));
 
@@ -23,7 +23,7 @@ model BoilerHotWaterRecord
     mHeaWat_flow_nominal=datBoiTab.cap_nominal/15/Buildings.Utilities.Psychrometrics.Constants.cpWatLiq,
     cap_nominal=1000E3,
     dpHeaWat_nominal(displayUnit="Pa") = 5000,
-    THeaWatSup_nominal=333.15)
+    THeaWatSup_nominal=Buildings.Templates.Data.Defaults.THeaWatSupHig)
     "Design and operating parameters for the boiler model using a lookup table with redeclaration"
     annotation (Placement(transformation(extent={{68,70},{88,90}})));
 
@@ -34,7 +34,7 @@ model BoilerHotWaterRecord
     mHeaWat_flow_nominal=datBoiTab.cap_nominal/15/Buildings.Utilities.Psychrometrics.Constants.cpWatLiq,
     cap_nominal=1000E3,
     dpHeaWat_nominal(displayUnit="Pa") = 5000,
-    THeaWatSup_nominal=333.15)
+    THeaWatSup_nominal=Buildings.Templates.Data.Defaults.THeaWatSupHig)
     "Design and operating parameters for the boiler model using a local assignment of the efficiency curve "
     annotation (Placement(transformation(extent={{40,70},{60,90}})));
 
