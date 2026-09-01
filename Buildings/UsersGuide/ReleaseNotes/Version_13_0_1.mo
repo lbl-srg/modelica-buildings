@@ -91,6 +91,15 @@ have been <b style=\"color:blue\">improved</b> in a
                        This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4581\">Buildings, issue 4581</a>.
     </td>
 </tr>
+<tr><td valign=\"top\">Buildings.Controls.OBC.CDL.Logical.Edge<br/>
+                       Buildings.Controls.OBC.CDL.Logical.FallingEdge<br/>
+                       Buildings.Controls.OBC.CDL.Logical.Pre<br/>
+                       Buildings.Controls.OBC.CDL.Logical.TrueFalseHold
+    </td>
+    <td valign=\"top\">Replaced initial equation with start attribute on input.<br/>
+                       This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/2136\">IBPSA, #2136</a>.
+    </td>
+</tr>
 <tr><td colspan=\"2\"><b>Buildings.ThermalZones.Detailed</b>
     </td>
 </tr>
@@ -144,6 +153,15 @@ have been <b style=\"color:blue\">improved</b> in a
                        This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4607\">Buildings, #4607</a>.
     </td>
 </tr>
+<tr><td colspan=\"2\"><b>Buildings.Utilities.Psychrometrics</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Utilities.Psychrometrics.TWetBul_TDryBulXi
+    </td>
+    <td valign=\"top\">Added nominal attribute for temperature.<br/>
+                       This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/2155\">IBPSA, #2155</a>.
+    </td>
+</tr>
 </table>
 <!-- Non-backward compatible changes to existing components -->
 <p>
@@ -183,12 +201,15 @@ that do <b style=\"color:red\">not</b> lead to wrong simulation results, e.g.,
 units are wrong or errors in documentation):
 </p>
 <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\" style=\"border-collapse:collapse;\">
-<tr><td colspan=\"2\"><b>xxx</b>
+<tr><td colspan=\"2\"><b>Buildings.Fluid.HeatPumps.ModularReversible.BaseClasses</b>
     </td>
 </tr>
-<tr><td valign=\"top\">xxx
+<tr><td valign=\"top\">Buildings.Fluid.HeatPumps.ModularReversible.BaseClasses.PartialReversibleRefrigerantMachine
     </td>
-    <td valign=\"top\">xxx.
+    <td valign=\"top\">Corrected the flow reversal parameter in the condenser mass flow sensor
+                       (<code>allowFlowReversalEva</code> was used instead of <code>allowFlowReversalCon</code>).
+                       Also corrected the sensor description from evaporator to condenser.<br/>
+                       This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/2162\">IBPSA, #2162</a>.
     </td>
 </tr>
 </table>
