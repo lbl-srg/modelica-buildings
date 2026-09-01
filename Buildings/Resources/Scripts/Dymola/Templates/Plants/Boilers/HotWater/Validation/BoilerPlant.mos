@@ -98,7 +98,7 @@ createPlot(
 createPlot(
   id=6,
   position={40, 40, 300, 600},
-  y={"pla.bus.looCon.VHeaWatPri_flow", "datAll.pla.ctl.VHeaWatPriCon_flow_nominal"},
+  y={"pla.bus.looCon.VHeaWatPri_flow", "datAll.pla.ctl.VHeaWatPriCon_flow_nominal", "VHeaWatLoo_flow.V_flow"},
   autoscale=true,
   grid=true,
   timeUnit="h"

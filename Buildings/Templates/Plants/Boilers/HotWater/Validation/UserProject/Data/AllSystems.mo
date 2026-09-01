@@ -52,26 +52,26 @@ class AllSystems
       sta=[1, 0; 1, 1]),
     pumHeaWatPriCon(
       dp_nominal=fill(
-        max(pla.boiCon.dpHeaWatBoi_nominal) * 1.5, pla.cfg.nPumHeaWatPriCon) +
-        fill(
-          if pla.cfg.typPumHeaWatSec ==
+        max(pla.boiCon.dpHeaWatBoi_nominal) +
+        Buildings.Templates.Data.Defaults.dpValIso +
+        Buildings.Templates.Data.Defaults.dpValChe +
+        (if pla.cfg.typPumHeaWatSec ==
             Buildings.Templates.Plants.Boilers.HotWater.Types.PumpsSecondary.None
-            then pla.ctl.dpHeaWatLocSet_max else 0,
+            then pla.ctl.dpHeaWatLocSet_max else 0),
           pla.cfg.nPumHeaWatPriCon)),
     pumHeaWatPriNon(
       dp_nominal=fill(
-        max(pla.boiNon.dpHeaWatBoi_nominal) * 1.5, pla.cfg.nPumHeaWatPriNon) +
-        fill(
-          if pla.cfg.typPumHeaWatSec ==
+        max(pla.boiNon.dpHeaWatBoi_nominal) +
+        Buildings.Templates.Data.Defaults.dpValIso +
+        Buildings.Templates.Data.Defaults.dpValChe +
+          (if pla.cfg.typPumHeaWatSec ==
             Buildings.Templates.Plants.Boilers.HotWater.Types.PumpsSecondary.None
-            then pla.ctl.dpHeaWatLocSet_max else 0,
+            then pla.ctl.dpHeaWatLocSet_max else 0),
           pla.cfg.nPumHeaWatPriNon)),
     pumHeaWatSec(
       dp_nominal=fill(pla.ctl.dpHeaWatLocSet_max, pla.cfg.nPumHeaWatSec),
-      m_flow_nominal=1.1 / max(1, pla.cfg.nPumHeaWatSec) * fill(
-        max(
-          sum(pla.pumHeaWatPriCon.m_flow_nominal),
-          sum(pla.pumHeaWatPriNon.m_flow_nominal)),
+      m_flow_nominal=fill(
+        pla.ctl.VHeaWatSec_flow_nominal * pla.cfg.rhoHeaWat_default / max(1, pla.cfg.nPumHeaWatSec),
         pla.cfg.nPumHeaWatSec)))
     "HW plant parameters";
 annotation(Documentation(

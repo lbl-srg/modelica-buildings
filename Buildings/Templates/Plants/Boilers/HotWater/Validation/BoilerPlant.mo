@@ -205,11 +205,12 @@ annotation(__Dymola_Commands(
   <i>24</i>-hour period during which the heating loads reach their peak value.
 </p>
 <p>
-  Two equally sized condensing boilers are modeled. A unique aggregated load
-  is modeled on the HW loop using a heat exchanger component exposed to
-  conditioned space air, and a two-way modulating valve. An importance
-  multiplier of <i>10</i> is applied to the plant requests and reset requests
-  generated from the valve position.
+  Two equally sized condensing boilers are modeled in a variable
+  primary-variable secondary plant. A unique aggregated load is modeled on the
+  HW loop using a heat exchanger component exposed to conditioned space air,
+  and a two-way modulating valve. An importance multiplier of <i>10</i> is
+  applied to the plant requests and reset requests generated from the valve
+  position.
 </p>
 <p>
   Advanced equipment and control options can be modified via the parameter
@@ -217,18 +218,32 @@ annotation(__Dymola_Commands(
 </p>
 <p>Simulating this model shows how the plant responds to a varying load by</p>
 <ul>
-  <li>staging or unstaging the boilers,</li>
+  <li>
+    staging or unstaging the boilers and the corresponding primary pumps,
+  </li>
+  <li>
+    controlling the primary pump speed to limit primary flow recirculation,
+    which is detrimental to condensing boiler efficiency,
+  </li>
   <li>resetting the supply temperature based on the valve position,</li>
   <li>
-    staging and controlling the primary pumps to meet the remote differential
-    pressure setpoint.
+    staging and controlling the secondary pumps to meet the remote
+    differential pressure setpoint.
   </li>
 </ul>
 <p>
   A Python script is provided with this model to test all supported system
   configurations, see
-  <code>Buildings/Resources/Scripts/travis/templates/BoilerPlant.py</code>.
+  <code>Buildings/Resources/Scripts/travis/templates/Plants.Boilers.py</code>.
 </p>
+</html>",
+    revisions="<html>
+<ul>
+  <li>
+    September 1, 2026, by Antoine Gautier:<br />
+    First implementation.
+  </li>
+</ul>
 </html>"),
   Diagram(coordinateSystem(extent={{-180,-140},{180,140}})));
 end BoilerPlant;

@@ -331,12 +331,8 @@ annotation(Documentation(
 </p>
 <h4>Details</h4>
 <p>
-  For hybrid plants, units shall be indexed so that condensing boilers have
-  the lowest indices and non-condensing boilers have the highest indices.
-</p>
-<p>
-  Distributed secondary pumps are currently not supported. This limitation
-  stems from the Guideline 36 controller implementation in
+  Hybrid plants or distributed secondary pumps are currently not supported. 
+  These limitations stem from the Guideline 36 controller implementation in
   <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.PrimaryController\">
     Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.PrimaryController</a>.
 </p>

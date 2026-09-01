@@ -31,6 +31,7 @@ model BoilerGroup
     final typMod=typMod)
     "Parameter record for boiler group"
     annotation(Placement(transformation(extent={{-180,160},{-160,180}})));
+  // Boiler pressure drop is included in the valve component, set to zero in the record instance.
   final parameter Buildings.Templates.Components.Data.BoilerHotWater datBoi[nBoi](
     final typMod=fill(typMod, nBoi),
     each final fue=dat.fue,
@@ -38,7 +39,16 @@ model BoilerGroup
     final cap_nominal=capBoi_nominal,
     final dpHeaWat_nominal=fill(0, nBoi),
     final THeaWatSup_nominal=dat.THeaWatSupBoi_nominal,
-    final per=dat.per)
+    final per(
+      effCur=dat.per.effCur,
+      TIn_nominal=dat.per.TIn_nominal,
+      fue=dat.per.fue,
+      Q_flow_nominal=dat.per.Q_flow_nominal,
+      UA=dat.per.UA,
+      VWat=dat.per.VWat,
+      mDry=dat.per.mDry,
+      m_flow_nominal=dat.per.m_flow_nominal,
+      dp_nominal=fill(0, nBoi)))
     "Parameter record of each boiler";
   final parameter Buildings.Templates.Components.Data.Valve datValBoiIso[nBoi](
     final typ=fill(typValBoiIso, nBoi),
@@ -122,7 +132,7 @@ model BoilerGroup
       Buildings.Templates.Components.Types.BoilerHotWaterModel.Polynomial
     "Boiler - Polynomial"
     annotation(Placement(transformation(extent={{-10,-10},{10,10}})));
-  Buildings.Templates.Components.Boilers.HotWaterPolynomial boiTab[nBoi](
+  Buildings.Templates.Components.Boilers.HotWaterTable boiTab[nBoi](
     redeclare each final package Medium=Medium,
     each final is_con=is_con,
     final dat=datBoi,

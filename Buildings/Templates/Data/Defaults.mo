@@ -82,7 +82,7 @@ package Defaults
     "CHW system gauge pressure at design conditions";
   constant Modelica.Units.SI.PressureDifference pHeaWat_rel_nominal = 2.5E5
     "HHW system gauge pressure at design conditions";
-  constant Modelica.Units.SI.PressureDifference dpHeaWatBoi = 5E3
+  constant Modelica.Units.SI.PressureDifference dpHeaWatBoi = 3E4
     "Boiler HW pressure drop";
   constant Modelica.Units.SI.Temperature TOutHeaWatLck = 21 + 273.15
     "Outdoor air lockout temperature above which the HW system is prevented from operating";
