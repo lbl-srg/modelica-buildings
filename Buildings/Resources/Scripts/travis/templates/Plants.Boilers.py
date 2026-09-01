@@ -1,5 +1,4 @@
 #!/usr/bin/env python
-# coding: utf-8
 
 """Generate combinations and run simulations.
 
@@ -167,6 +166,19 @@ REMOVE_MODIF = {
     ],
 }
 
+# See docstring of `apply_experiment_modifications` function for the structure of EXPERIMENT_MODIF.
+EXPERIMENT_MODIF = {
+    'Buildings.Templates.Plants.Boilers.HotWater.Validation.BoilerPlant': [
+        (
+            [
+                '.*',
+            ],
+            {
+                'method': 'dassl',
+            },
+        ),
+    ],
+}
 
 if __name__ == '__main__':
     core.main(
@@ -174,4 +186,5 @@ if __name__ == '__main__':
         modif_grid=MODIF_GRID,
         exclude=EXCLUDE,
         remove_modif=REMOVE_MODIF,
+        experiment_modif=EXPERIMENT_MODIF,
     )
