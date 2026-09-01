@@ -232,9 +232,6 @@ block DisableChillers
     final k=false) if not have_WSE and not have_airCoo
     "Logical false"
     annotation (Placement(transformation(extent={{-20,-290},{0,-270}})));
-  Buildings.Controls.OBC.CDL.Logical.And and7[nChi] if not have_airCoo
-    "Condenser water isolation valve commended setpoint"
-    annotation (Placement(transformation(extent={{140,70},{160,90}})));
   Buildings.Controls.OBC.CDL.Logical.And conWatPum[nConWatPum]
     if not have_airCoo
     "Condenser water pump commanded status"
@@ -278,6 +275,14 @@ block DisableChillers
   Buildings.Controls.OBC.CDL.Logical.Or enaConIsoVal if not have_airCoo
     "Enable condenser water isolation valve"
     annotation (Placement(transformation(extent={{-100,110},{-80,130}})));
+  Buildings.Controls.OBC.CDL.Logical.Sources.Constant con5[nChi](
+    final k=fill(false, nChi))
+    "Logical false"
+    annotation (Placement(transformation(extent={{20,90},{40,110}})));
+  Buildings.Controls.OBC.CDL.Logical.Switch logSwi1[nChi] if not have_airCoo
+    "Condenser water isolation valve commended setpoint"
+    annotation (Placement(transformation(extent={{140,70},{160,90}})));
+
 equation
   connect(uChiWatReq, mulOr.u)
     annotation (Line(points={{-220,250},{-182,250}}, color={255,0,255}));
@@ -363,12 +368,6 @@ equation
           {78,-258}}, color={255,0,255}));
   connect(noChi.y, truDel.u)
     annotation (Line(points={{-118,280},{-102,280}}, color={255,0,255}));
-  connect(u1ConWatIsoVal, and7.u2) annotation (Line(points={{-220,30},{70,30},{70,
-          72},{138,72}}, color={255,0,255}));
-  connect(booScaRep2.y, and7.u1) annotation (Line(points={{82,140},{100,140},{100,
-          80},{138,80}}, color={255,0,255}));
-  connect(and7.y, y1ConWatIsoVal)
-    annotation (Line(points={{162,80},{220,80}}, color={255,0,255}));
   connect(booScaRep5.y, not2.u) annotation (Line(points={{122,-170},{158,-170}},
           color={255,0,255}));
   connect(not2.y, conWatPum.u1) annotation (Line(points={{182,-170},{190,-170},{
@@ -433,6 +432,14 @@ equation
           {-150,140},{-142,140}}, color={255,0,255}));
   connect(uChiWatPum, chiWatPum1.u1) annotation (Line(points={{-220,0},{80,0},{80,
           40},{158,40}}, color={255,0,255}));
+  connect(booScaRep2.y, logSwi1.u2) annotation (Line(points={{82,140},{100,140},
+          {100,80},{138,80}}, color={255,0,255}));
+  connect(con5.y, logSwi1.u1) annotation (Line(points={{42,100},{120,100},{120,88},
+          {138,88}}, color={255,0,255}));
+  connect(u1ConWatIsoVal, logSwi1.u3) annotation (Line(points={{-220,30},{70,30},
+          {70,72},{138,72}}, color={255,0,255}));
+  connect(logSwi1.y, y1ConWatIsoVal)
+    annotation (Line(points={{162,80},{220,80}}, color={255,0,255}));
 annotation (defaultComponentName = "disChi",
   Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-160},{100,160}}),
     graphics={
