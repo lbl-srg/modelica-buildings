@@ -1,0 +1,11 @@
+compareVars :=
+  {
+    "disPlaReq.ignReq",
+    "disPlaReq.chiPlaReq",
+    "disPlaReq.yPla",
+    "disPlaOutTem.TOut",
+    "disPlaOutTem.TChiLocOut",
+    "disPlaOutTem.yPla",
+    "disPlaSch.uPlaSchEna",
+    "disPlaSch.yPla"
+  };

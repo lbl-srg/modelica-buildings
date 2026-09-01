@@ -15,7 +15,7 @@ record EightPortFlowResistanceParameters
     "Flow exponent for side 1, n=1 for laminar, n=2 for turbulent"
     annotation(Evaluate=true, Dialog(tab="Flow resistance", group="Medium 1"));
   parameter Modelica.Units.SI.Pressure dp1_nominal(min=0, displayUnit="Pa")
-    "Pressure" annotation (Dialog(group="Nominal condition"));
+    "Pressure difference" annotation (Dialog(group="Nominal condition"));
   parameter Boolean linearizeFlowResistance1 = false
     "= true, use linear relation between m_flow and dp for any flow rate"
     annotation(Dialog(enable = computeFlowResistance1,
@@ -36,7 +36,7 @@ record EightPortFlowResistanceParameters
     "Flow exponent for side 2, n=1 for laminar, n=2 for turbulent"
     annotation(Evaluate=true, Dialog(tab="Flow resistance", group="Medium 2"));
   parameter Modelica.Units.SI.Pressure dp2_nominal(min=0, displayUnit="Pa")
-    "Pressure" annotation (Dialog(group="Nominal condition"));
+    "Pressure difference" annotation (Dialog(group="Nominal condition"));
 
   parameter Boolean linearizeFlowResistance2 = false
     "= true, use linear relation between m_flow and dp for any flow rate"
@@ -58,7 +58,7 @@ record EightPortFlowResistanceParameters
     "Flow exponent for side 3, n=1 for laminar, n=2 for turbulent"
     annotation(Evaluate=true, Dialog(tab="Flow resistance", group="Medium 3"));
   parameter Modelica.Units.SI.Pressure dp3_nominal(min=0, displayUnit="Pa")
-    "Pressure" annotation (Dialog(group="Nominal condition"));
+    "Pressure difference" annotation (Dialog(group="Nominal condition"));
 
   parameter Boolean linearizeFlowResistance3 = false
     "= true, use linear relation between m_flow and dp for any flow rate"
@@ -81,7 +81,7 @@ record EightPortFlowResistanceParameters
     "Flow exponent for side 4, n=1 for laminar, n=2 for turbulent"
     annotation(Evaluate=true, Dialog(tab="Flow resistance", group="Medium 4"));
   parameter Modelica.Units.SI.Pressure dp4_nominal(min=0, displayUnit="Pa")
-    "Pressure" annotation (Dialog(group="Nominal condition"));
+    "Pressure difference" annotation (Dialog(group="Nominal condition"));
 
   parameter Boolean linearizeFlowResistance4 = false
     "= true, use linear relation between m_flow and dp for any flow rate"
