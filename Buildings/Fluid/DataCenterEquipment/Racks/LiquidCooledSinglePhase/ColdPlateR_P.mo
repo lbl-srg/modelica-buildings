@@ -114,8 +114,8 @@ For exact transient response, this value should be identified based on measureme
 </p>
 <p>
 To compute the pressure drop, the model uses
-<a href=\"modelica://Buildings.Fluid.FixedResistances.PressureDropPartiallyTurbulent\">
-Buildings.Fluid.FixedResistances.PressureDropPartiallyTurbulent</a>.
+<a href=\"modelica://Buildings.Fluid.FixedResistances.PressureDrop\">
+Buildings.Fluid.FixedResistances.PressureDrop</a>.
 Therefore, the mass flow rate and pressure drop are related as
 </p>
 <p align=\"center\" style=\"font-style:italic;\">
