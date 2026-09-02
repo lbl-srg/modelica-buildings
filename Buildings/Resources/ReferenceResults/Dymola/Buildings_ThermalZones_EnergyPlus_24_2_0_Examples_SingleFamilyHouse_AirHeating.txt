@@ -1,4 +1,10 @@
-last-generated=2024-11-07
+last-generated=2026-08-06
+statistics-initialization=
+{
+  "linear": "0",
+  "nonlinear": "0, 0, 0, 0",
+  "numerical Jacobians": "0"
+}
 statistics-simulation=
 {
   "linear": "0",

@@ -27,7 +27,7 @@
 #error Modelica Spawn coupling is only supported for Windows and Linux 64 bit. Your operating system is not 64 bit.
 #endif
 
-#include "ModelicaUtilities.h"
+/*#include "ModelicaUtilities.h"*/
 
 typedef struct {
   int dayOfWeekForStartDay; /* Day of week from Buildings.ThermalZones.EnergyPlus_24_2_0.Types.WeekDays */

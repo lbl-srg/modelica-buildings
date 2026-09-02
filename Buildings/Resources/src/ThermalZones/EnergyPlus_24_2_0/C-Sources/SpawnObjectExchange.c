@@ -91,7 +91,7 @@ void exchange_Spawn_EnergyPlus_24_2_0(
   if ((!initialCall) && bui->mode == initializationMode){
     if (bui->logLevel >= MEDIUM)
       SpawnFormatMessage("%.3f %s: Enter exit initialization mode of FMU in exchange().\n", bui->time, ptrSpaObj->modelicaName);
-    status = fmi2_import_exit_initialization_mode(bui->fmu);
+    status = (fmi2Status)fmi2_import_exit_initialization_mode(bui->fmu);
     if( status != (fmi2Status)fmi2_status_ok ){
       SpawnFormatError("Failed to exit initialization mode for FMU for building %s and exchange %s",
         bui->modelicaNameBuilding, ptrSpaObj->modelicaName);

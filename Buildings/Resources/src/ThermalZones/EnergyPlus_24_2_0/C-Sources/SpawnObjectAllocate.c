@@ -95,9 +95,14 @@ void* allocate_Spawn_EnergyPlus_24_2_0(
   const char* idfVersion,
   const char* idfName,
   const char* epwName,
+  const char* epName,
+  const char* hvacZone,
   const runPeriod* runPer,
   double relativeSurfaceTolerance,
-  const char* epName,
+  double ach_inf,
+  double cpAir,
+  double hfgWater,
+  double rhoAir,
   int usePrecompiledFMU,
   const char* fmuName,
   const char* buildingsRootFileLocation,
@@ -186,6 +191,10 @@ void* allocate_Spawn_EnergyPlus_24_2_0(
   */
   ptrSpaObj->isInstantiated = fmi2False;
   ptrSpaObj->isInitialized = fmi2False;
+  ptrSpaObj->airChaRatInf = airChaRatInf;
+  ptrSpaObj->cpAir = cpAir;
+  ptrSpaObj->hfgWater = hfgWater;
+  ptrSpaObj->rhoAir = rhoAir;
 
   ptrSpaObj->valueReferenceIsSet = fmi2False;
 
@@ -199,6 +208,22 @@ void* allocate_Spawn_EnergyPlus_24_2_0(
     &(ptrSpaObj->modelicaName),
     SpawnFormatError);
   strcpy(ptrSpaObj->modelicaName, modelicaName);
+
+  /* Assign the EnergyPlus instance name */
+  mallocString(
+    strlen(epName)+1,
+    "Not enough memory in allocate_Spawn_EnergyPlus_9_6_0.c. to allocate EnergyPlus instance name.",
+    &(ptrSpaObj->epName),
+    SpawnFormatError);
+  strcpy(ptrSpaObj->epName, epName);
+
+  /* Assign the HVAC zone name */
+  mallocString(
+    strlen(hvacZone)+1,
+    "Not enough memory in allocate_Spawn_EnergyPlus_9_6_0.c. to allocate HVAC zone name.",
+    &(ptrSpaObj->hvacZone),
+    SpawnFormatError);
+  strcpy(ptrSpaObj->hvacZone, hvacZone);
 
   /* Assign the json name */
   mallocString(
@@ -328,6 +353,10 @@ void* allocate_Spawn_EnergyPlus_24_2_0(
       epwName,
       runPer,
       relativeSurfaceTolerance,
+      airChaRatInf,
+      cpAir,
+      hfgWater,
+      rhoAir,
       usePrecompiledFMU,
       fmuName,
       buildingsRootFileLocation,

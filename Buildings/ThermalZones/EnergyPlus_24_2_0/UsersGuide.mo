@@ -93,14 +93,14 @@ the binaries can be downloaded from the following links:
 </tr>
 <tr>
 <td>Linux</td>
-<td><a href=\"https://spawn.s3.amazonaws.com/custom/Spawn-light-0.6.0-9f1b36b00b-Linux.tar.gz\">
-https://spawn.s3.amazonaws.com/custom/Spawn-light-0.6.0-9f1b36b00b-Linux.tar.gz</a>
+<td><a href=\"https://spawn.s3.amazonaws.com/custom/Spawn-light-0.6.0-2fed94529c-Linux.tar.gz\">
+https://spawn.s3.amazonaws.com/custom/Spawn-light-0.6.0-2fed94529c-Linux.tar.gz</a>
 </td>
 </tr>
 <tr>
 <td>Windows</td>
-<td><a href=\"https://spawn.s3.amazonaws.com/custom/Spawn-light-0.6.0-9f1b36b00b-win64.zip\">
-https://spawn.s3.amazonaws.com/custom/Spawn-light-0.6.0-9f1b36b00b-win64.zip</a>
+<td><a href=\"https://spawn.s3.amazonaws.com/custom/Spawn-light-0.6.0-2fed94529c-win64.zip\">
+https://spawn.s3.amazonaws.com/custom/Spawn-light-0.6.0-2fed94529c-win64.zip</a>
 </td>
 </tr>
 </table>
@@ -117,9 +117,9 @@ To install, proceed as follows:
 Run from a terminal
 </p>
 <pre>
-wget https://spawn.s3.amazonaws.com/custom/Spawn-light-0.6.0-9f1b36b00b-Linux.tar.gz;
-tar xzf Spawn-light-0.6.0-9f1b36b00b-Linux.tar.gz;
-export PATH=${PATH}:`pwd`/Spawn-light-0.6.0-9f1b36b00b-Linux/bin
+wget https://spawn.s3.amazonaws.com/custom/Spawn-light-0.6.0-2fed94529c-Linux.tar.gz;
+tar xzf Spawn-light-0.6.0-2fed94529c-Linux.tar.gz;
+export PATH=${PATH}:`pwd`/Spawn-light-0.6.0-2fed94529c-Linux/bin
 </pre>
 <p>
 and restart your Modelica environment. You may put the last line in your <code>${HOME}/.bashrc</code> file
@@ -135,10 +135,10 @@ to make the setting persistent when you log in the next time.
 Download the binary from the link above.
 </li>
 <li>
-Unzip <code>Spawn-light-0.6.0-9f1b36b00b-win64.zip</code> at your desired location.
+Unzip <code>Spawn-light-0.6.0-2fed94529c-win64.zip</code> at your desired location.
 </li>
 <li>
-Add the directory <code>xyz/Spawn-light-0.6.0-9f1b36b00b-win64/bin</code>
+Add the directory <code>xyz/Spawn-light-0.6.0-2fed94529c-win64/bin</code>
 to your <code>PATH</code> environment variable.
 </li>
 <li>
@@ -151,17 +151,17 @@ Restart your Modelica environment.
 
 <h4>How is spawn invoked?</h4>
 <p>
-Modelica tries to invoke <code>spawn-0.6.0-9f1b36b00b[.exe]</code> in this order:
+Modelica tries to invoke <code>spawn-0.6.0-2fed94529c[.exe]</code> in this order:
 </p>
 <ol>
 <li>
 On Linux, it searches for
 <pre>
-Buildings[ x.y.z]/Resources/bin/spawn-0.6.0-9f1b36b00b/linux64/bin/spawn-0.6.0-9f1b36b00b
+Buildings[ x.y.z]/Resources/bin/spawn-0.6.0-2fed94529c/linux64/bin/spawn-0.6.0-2fed94529c
 </pre>
 and on Windows, it searches for
 <pre>
-Buildings[ x.y.z]/Resources/bin/spawn-0.6.0-9f1b36b00b/win64/bin/spawn-0.6.0-9f1b36b00b.exe
+Buildings[ x.y.z]/Resources/bin/spawn-0.6.0-2fed94529c/win64/bin/spawn-0.6.0-2fed94529c.exe
 </pre>
 where <code>Buildings[ x.y.z]</code> is the installation folder of the Modelica Buildings Library.
 This file is distributed with the Modelica Buildings Library installation,
@@ -169,11 +169,11 @@ together with all files needed to translate and simulate a model in a Modelica e
 </li>
 <li>
 If not found, it searches on the environment variable <code>SPAWNPATH</code> for
-<code>spawn-0.6.0-9f1b36b00b[.exe]</code>.
+<code>spawn-0.6.0-2fed94529c[.exe]</code>.
 </li>
 <li>
 If not found, it searches on the environment variable <code>PATH</code> for
-<code>spawn-0.6.0-9f1b36b00b[.exe]</code>.
+<code>spawn-0.6.0-2fed94529c[.exe]</code>.
 </li>
 </ol>
 <p>
@@ -406,6 +406,10 @@ method can be used.
 The coupling time step is determined by EnergyPlus based on the zone time step,
 as declared in the idf file.
 </li>
+<li>
+In EnergyPlus, a year of simulation always has 365 days, i.e., leap years are not considered.
+This is done because in the Modelica Buildings Library, weather files are assumed to have a periodicity of 365 days.
+</li>
 </ul>
 </html>"));
   end Conventions;
@@ -616,6 +620,216 @@ collect2: error: ld returned 1 exit status
 </pre>
 </html>"));
   end NotesForDymola;
+
+  class AutoSizing "AutoSizing"
+    extends Modelica.Icons.Information;
+    annotation (
+      preferredView="info",
+      Documentation(
+        info="<html>
+<h4>AutoSizing</h4>
+<p>
+Autosizing in Spawn of EnergyPlus is implemented to help users automatically
+size system equipment and components modeled in Modelica using sizing 
+capabilities in EnergyPlus.  The general workflow is to specify sizing
+objects in the idf file that are typically used in EnergyPlus workflows
+and propogate values from pre-defined sizing parameters in Modelica, whose
+values are obtained from the EnergyPlus sizing process during initialization,
+throughout the model as-needed.  More information about setting up autosizing
+and the pre-defined sizing parameters is described below.
+</p>
+<h5>Autosizing for Zones and Systems in Modelica</h5>
+<p>
+The process for setting up autosizing in Modelica is as follows, with related
+notes:
+<ol>
+<li>
+Instantiate an instance of class 
+<a href=\"modelica://Buildings.ThermalZones.EnergyPlus_24_2_0.SystemSizing\">Buildings.ThermalZones.EnergyPlus_24_2_0.SystemSizing</a>.
+<ul>
+<li>
+Name the autosize system using the string parameter <code>hvacSystemName</code>.
+</li>
+<li>
+Toggle the boolean parameter <code>autosizeHVAC=true</code>.
+</li>
+</ul>
+<li>
+Add thermal zones to be autosized as part of the autosize system instantiated
+in the previous step by specifying the string parameter <code>hvacSystemName</code> in the thermal zone object
+so that it matches the name given to the system in the previous step.
+<ul>
+<li>
+You may assign multiple zones to the same autosize system.
+</li>
+<li>
+The value of the boolean parameter <code>autosizeHVAC</code> in the autosize system object
+will apply to all thermal zones specified as part of that system.
+</li>
+<li>
+The sizing values returned for each zone are for the design condition of each 
+zone individually, while the sizing values returned for each system are for the
+design condition of the system considering the coincident load from each zone
+that is part of that system.
+</li>
+<li>
+The sizing values returned for each zone part of any system whose parameter
+<code>autosizeHVAC=false</code> will be 0.
+<li>
+The sizing values returned for any zone not assigned to an autosize system 
+will be 0. 
+</li>
+</li>
+</ul>
+</li>
+</ol> 
+</p>
+<h5>Pre-defined Sizing Parameters in Modelica</h5>
+<p>
+The results of autosizing from EnergyPlus are populated into Modelica records
+that are accessible at the zone and system levels.  Two records exist that
+contain the same parameters: one for heating and one for cooling.
+</p>
+<p>
+The zone level records are:
+<ul>
+<li>
+<a href=\"modelica://Buildings.ThermalZones.EnergyPlus_24_2_0.ThermalZone\">Buildings.ThermalZones.EnergyPlus_24_2_0.ThermalZone</a>.sizHea
+</li>
+<li>
+<a href=\"modelica://Buildings.ThermalZones.EnergyPlus_24_2_0.ThermalZone\">Buildings.ThermalZones.EnergyPlus_24_2_0.ThermalZone</a>.sizCoo
+</li>
+</ul>
+</p>
+The system level records are:
+<ul>
+<li>
+<a href=\"modelica://Buildings.ThermalZones.EnergyPlus_24_2_0.SystemSizing\">Buildings.ThermalZones.EnergyPlus_24_2_0.SystemSizing</a>.sizHea
+</li>
+<li>
+<a href=\"modelica://Buildings.ThermalZones.EnergyPlus_24_2_0.SystemSizing\">Buildings.ThermalZones.EnergyPlus_24_2_0.SystemSizing</a>.sizCoo
+</li>
+</ul>
+</p>
+
+The parameters available within these records are:
+<ul>
+<li>
+<code>QSen_flow</code>: Design sensible load [W]
+</li>
+<li>
+<code>QLat_flow</code>: Design latent load [W]
+</li>
+<li>
+<code>TSet</code>: Indoor temperature set point at the design load [K]
+</li>
+<li>
+<code>XSet</code>: Indoor humidity ratio set point at the design load per total air mass [kg/kg]
+</li>
+<li>
+<code>TOut</code>: Outdoor drybulb temperature at the design load [K]
+</li>
+<li>
+<code>XOut</code>: Outdoor humidity ratio at the design load per total air mass [kg/kg]
+</li>
+<li>
+<code>mOut_flow</code>: Minimum outdoor air flow rate during the design load [kg/s]
+</li>
+<li>
+<code>t</code>: Time at which the design load occurred [s]
+</li>
+</ul>
+</p>
+
+<h5>Other Notes</h5>
+<p>
+Infiltration: All zone air infiltration is implemented 
+in Modelica, and any infiltration information 
+in the .idf is ignored during both autosizing and simulation.  
+However, for autosizing, zone air infiltration can be considered
+using the parameter <code>ThermalZone.airChaRatInf</code>, which
+will add sensible and latent infiltration loads to the design zone heating
+and cooling loads at the specified air exchange rate using the temperature 
+and humidity ratio zone set points and outdoor air conditions at the time of the zone 
+design loads.  The infiltration loads will also be added to the system level 
+from each zone that is part of the system, with each zone's contribution calculated
+using the outdoor air conditions for the system level design load and each zone's
+zone level set points.
+</p>
+<p>
+Internal Gains: Internal gain objects for people, lights, and equipment 
+in the .idf are considered by EnergyPlus during 
+autosizing, and are thus reflected in the sizing results returned to Modelica.
+Internal gain inputs specified in Modelica are ignored during autosizing.  
+</p>
+<p>
+Interzonal Air Exchange: All interzonal air exchange is implemented 
+in Modelica, and any interzonal air exchange information 
+in the .idf is ignored during both autosizing and simulation.
+</p>
+<p>
+References for Autosizing in EnergyPlus: Autosizing objects in the .idf are used
+to direct the autosizing in Spawn, and the EnergyPlus algorithms are followed
+for the sizing calculations.  Key objects include Sizing:Zone, Sizing:System,
+and SimulationControl.  Thus, some useful references for working 
+with those objects and setting up sizing in the .idf are as follows:
+<ul>
+<li>
+Zone sizing:
+<a href=\"https://bigladdersoftware.com/epx/docs/24-2/engineering-reference/zone-design-loads-and-air-flow-rates.html\">
+https://bigladdersoftware.com/epx/docs/24-2/engineering-reference/zone-design-loads-and-air-flow-rates.html</a>
+</li>
+<li>
+System sizing:
+<a href=\"https://bigladdersoftware.com/epx/docs/24-2/engineering-reference/system-design-loads-and-air-flow-rates.html\">
+https://bigladdersoftware.com/epx/docs/24-2/engineering-reference/system-design-loads-and-air-flow-rates.html</a>
+</li>
+<li>
+Simulation control for autosizing:
+<a href=\"https://bigladdersoftware.com/epx/docs/24-2/input-output-reference/group-simulation-parameters.html#simulationcontrol\">
+https://bigladdersoftware.com/epx/docs/24-2/input-output-reference/group-simulation-parameters.html#simulationcontrol</a>
+</li>
+<li>
+Sizing manager and algorithm:
+<a href=\"https://bigladdersoftware.com/epx/docs/24-2/engineering-reference/sizing-manager.html\">
+https://bigladdersoftware.com/epx/docs/24-2/engineering-reference/sizing-manager.html</a>
+</li>
+</ul>
+</p>
+
+<h5>Example Models</h5>
+<ul>
+<li>
+<a href=\"modelica://Buildings.ThermalZones.EnergyPlus_24_2_0.Examples.SingleFamilyHouse.AirHeating_Autosizing\">
+Buildings.ThermalZones.EnergyPlus_24_2_0.Examples.SingleFamilyHouse.AirHeating_Autosizing</a>
+</li>
+<li>
+<a href=\"modelica://Buildings.ThermalZones.EnergyPlus_24_2_0.Examples.SmallOffice.IdealHeatingCoolingWinter_Autosizing\">
+Buildings.ThermalZones.EnergyPlus_24_2_0.Examples.SmallOffice.IdealHeatingCoolingWinter_Autosizing</a>
+</li>
+<li>
+<a href=\"modelica://Buildings.ThermalZones.EnergyPlus_24_2_0.Examples.SmallOffice.IdealHeatingCoolingSummer_Autosizing\">
+Buildings.ThermalZones.EnergyPlus_24_2_0.Examples.SmallOffice.IdealHeatingCoolingSummer_Autosizing</a>
+</li>
+<li>
+<a href=\"modelica://Buildings.ThermalZones.EnergyPlus_24_2_0.Examples.SmallOffice.ASHRAE2006Winter_Autosizing\">
+Buildings.ThermalZones.EnergyPlus_24_2_0.Examples.SmallOffice.ASHRAE2006Winter_Autosizing</a>
+</li>
+<li>
+<a href=\"modelica://Buildings.ThermalZones.EnergyPlus_24_2_0.Examples.SmallOffice.ASHRAE2006Summer_Autosizing\">
+Buildings.ThermalZones.EnergyPlus_24_2_0.Examples.SmallOffice.ASHRAE2006Summer_Autosizing</a>
+</li>
+<li>
+<a href=\"modelica://Buildings.ThermalZones.EnergyPlus_24_2_0.Examples.SmallOffice.Guideline36Winter_Autosizing\">
+Buildings.ThermalZones.EnergyPlus_24_2_0.Examples.SmallOffice.Guideline36Winter_Autosizing</a>
+</li>
+<li>
+<a href=\"modelica://Buildings.ThermalZones.EnergyPlus_24_2_0.Examples.SmallOffice.Guideline36Summer_Autosizing\">
+Buildings.ThermalZones.EnergyPlus_24_2_0.Examples.SmallOffice.Guideline36Summer_Autosizing</a>
+</li>
+</ul>
+</html>"));
+  end AutoSizing;
   annotation (
     preferredView="info",
     Documentation(

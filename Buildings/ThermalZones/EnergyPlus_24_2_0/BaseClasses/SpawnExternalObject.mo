@@ -20,12 +20,22 @@ class SpawnExternalObject
       "Name of the IDF";
     input String epwName
       "Name of the weather file";
+    input String epName
+      "Name of the object in EnergyPlus";
+    input String hvacSystemName
+      "Name of the HVAC system to which the thermal zone belongs to, or n/a for other objects. Used for autosizing";
     input Buildings.ThermalZones.EnergyPlus_24_2_0.Data.RunPeriod runPeriod
       "EnergyPlus RunPeriod configuration";
     input Real relativeSurfaceTolerance
       "Relative tolerance of surface temperature calculations";
-    input String epName
-      "Name of the object in EnergyPlus";
+    input Real airChaRatInf
+      "Infiltration mass flow rate";
+    input Modelica.Units.SI.SpecificHeatCapacity cpAir
+      "Specific heat capacity of air";
+    input Modelica.Units.SI.SpecificEnergy hfgWater
+      "Latent heat of water vapor";
+    input Modelica.Units.SI.Density rhoAir
+      "Density of air";
     input Boolean usePrecompiledFMU
       "Set to true to use precompiled FMU with name specified by input fmuName";
     input String fmuName
@@ -74,6 +84,8 @@ class SpawnExternalObject
     idfVersion,
     idfName,
     epwName,
+    epName,
+    hvacSystemName,
     runPeriod.startDayOfYear,
     runPeriod.applyWeekEndHolidayRule,
     runPeriod.use_weatherFileDaylightSavingPeriod,
@@ -81,7 +93,10 @@ class SpawnExternalObject
     runPeriod.use_weatherFileRainIndicators,
     runPeriod.use_weatherFileSnowIndicators,
     relativeSurfaceTolerance,
-    epName,
+    airChaRatInf,
+    cpAir,
+    hfgWater,
+    rhoAir,
     usePrecompiledFMU,
     fmuName,
     buildingsRootFileLocation,
@@ -113,13 +128,13 @@ class SpawnExternalObject
     annotation (
       Documentation(
         info="<html>
-  <p>
-  The function <code>constructor</code> is a C function that is called by a Modelica simulator
-  exactly once during the initialization.
-  The function returns the object <code>adapter</code> that
-  will be used to store the data structure needed to communicate with EnergyPlus.
-  </p>
-  </html>",
+<p>
+The function <code>constructor</code> is a C function that is called by a Modelica simulator
+exactly once during the initialization.
+The function returns the object <code>adapter</code> that
+will be used to store the data structure needed to communicate with EnergyPlus.
+</p>
+</html>",
         revisions="<html>
   <ul>
   <li>

@@ -4,14 +4,14 @@ model IdealHeatingCoolingWinter
   extends Buildings.ThermalZones.EnergyPlus_24_2_0.Examples.SmallOffice.Unconditioned;
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant THeaSet[5](
     each k(
-      final unit="K",
-      displayUnit="degC")=293.15)
+      each final unit="K",
+      each displayUnit="degC")=293.15)
     "Set point temperature for heating"
     annotation (Placement(transformation(extent={{-120,70},{-100,90}})));
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant THeaCoo[5](
     each k(
-      final unit="K",
-      displayUnit="degC")=299.15)
+      each final unit="K",
+      each displayUnit="degC")=299.15)
     "Set point temperature for cooling"
     annotation (Placement(transformation(extent={{-120,130},{-100,150}})));
   BaseClasses.IdealHeaterCooler[5] hea(
@@ -92,7 +92,7 @@ but an ideal heating/cooling device that exactly meets the load.
 <ul>
 <li>
 November 25, 2024, by Jianjun Hu:<br/>
-Changed tolerance to 1e-07.
+Changed tolerance to 1e-07.<br/>
 This is for
 <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4063\">issue #4063</a>.
 </li>
