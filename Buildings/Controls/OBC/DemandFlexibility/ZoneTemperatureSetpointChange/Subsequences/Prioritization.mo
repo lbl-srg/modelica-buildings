@@ -1,11 +1,11 @@
 within Buildings.Controls.OBC.DemandFlexibility.ZoneTemperatureSetpointChange.Subsequences;
-block ZonePrioritization
+block Prioritization
   "Zone prioritization based on the zone temperature and the zone tempearture setpoint"
 
   parameter Integer nZon(min=1)
     "Number of zones in the building";
-  parameter Boolean airConMod
-    "Air conditioning mode; true for the heating mode, false for the cooling mode";
+  parameter Buildings.Controls.OBC.DemandFlexibility.Types.AirConditioningMode airConMod
+    "Air conditioning mode";
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TZon[nZon](
     each final unit="K",
@@ -34,10 +34,12 @@ block ZonePrioritization
     annotation (Placement(transformation(extent={{-160,-80},{-120,-40}}),
       iconTransformation(extent={{-140,-80},{-100,-40}})));
 protected
-  Buildings.Controls.OBC.CDL.Reals.Subtract dTZonHea[nZon] if airConMod
+  Buildings.Controls.OBC.CDL.Reals.Subtract dTZonHea[nZon]
+    if airConMod == Buildings.Controls.OBC.DemandFlexibility.Types.AirConditioningMode.Heating
     "Zone temperature difference during the heating mode"
     annotation (Placement(transformation(extent={{-40,20},{-20,40}})));
-  Buildings.Controls.OBC.CDL.Reals.Subtract dTZonCoo[nZon] if not airConMod
+  Buildings.Controls.OBC.CDL.Reals.Subtract dTZonCoo[nZon]
+    if airConMod == Buildings.Controls.OBC.DemandFlexibility.Types.AirConditioningMode.Cooling
     "Zone temperature difference during the cooling mode"
     annotation (Placement(transformation(extent={{-40,-40},{-20,-20}})));
   Buildings.Controls.OBC.DemandFlexibility.Generic.SelectSmallestValues selSmaDTZon(
@@ -95,12 +97,12 @@ to enable zone temperature setpoint change.
 <p>
 Zone temperature difference <code>dTZon</code>, an internal variable, is defined as
 the zone temperature <code>TZon</code> minus the zone temperature setpoint
-<code>TZonSet</code> during the heating mode (<code>airConMod = true</code>). On the
+<code>TZonSet</code> during the heating mode (<code>airConMod = Heating</code>). On the
 other hand, <code>dTZon</code> is defined as <code>TZonSet</code> minus
-<code>TZon</code> during the cooling mode (<code>airConMod = false</code>). The zone
+<code>TZon</code> during the cooling mode (<code>airConMod = Cooling</code>). The zone
 temperature setpoint input variable <code>TZonSet</code> must represent a heating
-setpoint when <code>airConMod = true</code>, and it must represent a cooling
-setpoint when <code>airConMod = false</code>.
+setpoint when <code>airConMod = Heating</code>, and it must represent a cooling
+setpoint when <code>airConMod = Cooling</code>.
 </p>
 <p>
 The parameter <code>nSel</code> represents the number of zones to select for
@@ -121,4 +123,4 @@ the final number of zones with <code>yEna</code> equal to <code>true</code> will
 smaller than <code>nSel</code>.
 </p>
 </html>"));
-end ZonePrioritization;
+end Prioritization;

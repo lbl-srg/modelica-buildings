@@ -1,5 +1,5 @@
 within Buildings.Controls.OBC.DemandFlexibility.ZoneTemperatureSetpointChange.Subsequences;
-model ZoneSetpointGeneration
+model Setpoints
   "Block to generate zone setpoints and setpoint targets"
 
   parameter Real TDefOccHeaSet(
@@ -342,4 +342,4 @@ First implementation.
 </li>
 </ul>
 </html>"));
-end ZoneSetpointGeneration;
+end Setpoints;

@@ -1,5 +1,5 @@
 within Buildings.Controls.OBC.DemandFlexibility.ZoneTemperatureSetpointChange.Subsequences;
-block ZoneEnable "Zone enablement"
+block Enable "Zone enablement"
 
   parameter Real dTSheThr(
     min=0,
@@ -22,12 +22,12 @@ block ZoneEnable "Zone enablement"
     unit="K",
     displayUnit="K")
     "Temperature resolution interval used by an external zone temperature controller";
-  parameter Boolean airConMod
-    "Air conditioning mode; true for the heating mode, false for the cooling mode";
   parameter Boolean use_demCon
     "True: use demand-based control";
   parameter Integer nZon(min=1)
     "Number of zones in the building";
+  parameter Buildings.Controls.OBC.DemandFlexibility.Types.AirConditioningMode airConMod
+    "Air conditioning mode";
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TZon[nZon](
     each final unit="K",
@@ -112,7 +112,8 @@ protected
     annotation (Placement(transformation(extent={{-60,240},{-40,260}})));
   Buildings.Controls.OBC.CDL.Routing.BooleanScalarReplicator booScaRepCon2(
     final nout=nZon)
-    if use_demCon "Scaling a boolean scalar that indicates Condition 2 is met"
+    if use_demCon
+    "Scaling a boolean scalar that indicates Condition 2 is met"
     annotation (Placement(transformation(extent={{20,240},{40,260}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant conDisCon2[nZon](
     final k=fill(true, nZon))
@@ -135,62 +136,62 @@ protected
     annotation (Placement(transformation(extent={{-40,40},{-20,60}})));
   Buildings.Controls.OBC.CDL.Reals.Greater greTSetPreHea[nZon](
     final h=fill(0.5*TResInt,nZon))
-    if airConMod
+    if airConMod == Buildings.Controls.OBC.DemandFlexibility.Types.AirConditioningMode.Heating
     "The zone heating temperature setpoint is greater than the pre-heat target temperature setpoint, taking into account of the temperature resolution"
     annotation (Placement(transformation(extent={{-60,-80},{-40,-60}})));
   Buildings.Controls.OBC.CDL.Reals.Less lesTSetPreCoo[nZon](
     final h=fill(0.5*TResInt,nZon))
-    if not airConMod
+    if airConMod == Buildings.Controls.OBC.DemandFlexibility.Types.AirConditioningMode.Cooling
     "The zone cooling temperature setpoint is less than the pre-cool target temperature setpoint, taking into account of the temperature resolution"
     annotation (Placement(transformation(extent={{-60,-120},{-40,-100}})));
   Buildings.Controls.OBC.CDL.Reals.Less lesTSetSheHea[nZon](
     final h=fill(0.5*TResInt,nZon))
-    if airConMod
+    if airConMod == Buildings.Controls.OBC.DemandFlexibility.Types.AirConditioningMode.Heating
     "The zone heating temperature setpoint is less than the load-shed heating target temperature setpoint, taking into account of the temperature resolution"
     annotation (Placement(transformation(extent={{-60,-160},{-40,-140}})));
   Buildings.Controls.OBC.CDL.Reals.Greater greTSetSheCoo[nZon](
     final h=fill(0.5*TResInt,nZon))
-    if not airConMod
+    if airConMod == Buildings.Controls.OBC.DemandFlexibility.Types.AirConditioningMode.Cooling
     "The zone cooling temperature setpoint is greater than the load-shed cooling target temperature setpoint, taking into account of the temperature resolution"
     annotation (Placement(transformation(extent={{-60,-200},{-40,-180}})));
   Buildings.Controls.OBC.CDL.Reals.Greater greTSetRebHea[nZon](
     final h=fill(0.5*TResInt,nZon))
-    if airConMod
+    if airConMod == Buildings.Controls.OBC.DemandFlexibility.Types.AirConditioningMode.Heating
     "The zone heating temperature setpoint is greater than the default heating temperature setpoint during the load-rebound mode, taking into account of the temperature resolution"
     annotation (Placement(transformation(extent={{-60,-240},{-40,-220}})));
   Buildings.Controls.OBC.CDL.Reals.Less lesTSetRebCoo[nZon](
     final h=fill(0.5*TResInt,nZon))
-    if not airConMod
+    if airConMod == Buildings.Controls.OBC.DemandFlexibility.Types.AirConditioningMode.Cooling
     "The zone cooling temperature setpoint is less than the default cooling temperature setpoint during the load-rebound mode, taking into account of the temperature resolution"
     annotation (Placement(transformation(extent={{-60,-280},{-40,-260}})));
   Buildings.Controls.OBC.CDL.Reals.AddParameter subTResIntPreHea[nZon](
     final p=fill(-0.99*TResInt,nZon))
-    if airConMod
+    if airConMod == Buildings.Controls.OBC.DemandFlexibility.Types.AirConditioningMode.Heating
     "Subtract 0.99 times the temperature resolution interval during the pre-heat mode"
     annotation (Placement(transformation(extent={{-140,-100},{-120,-80}})));
   Buildings.Controls.OBC.CDL.Reals.AddParameter addTResIntPreCoo[nZon](
     final p=fill(0.99*TResInt,nZon))
-    if not airConMod
+    if airConMod == Buildings.Controls.OBC.DemandFlexibility.Types.AirConditioningMode.Cooling
     "Add 0.99 times the temperature resolution interval during the pre-cool mode"
     annotation (Placement(transformation(extent={{-140,-140},{-120,-120}})));
   Buildings.Controls.OBC.CDL.Reals.AddParameter addTResIntSheHea[nZon](
     final p=fill(0.99*TResInt,nZon))
-    if airConMod
+    if airConMod == Buildings.Controls.OBC.DemandFlexibility.Types.AirConditioningMode.Heating
     "Add 0.99 times the temperature resolution interval during the heating load-shed mode"
     annotation (Placement(transformation(extent={{-140,-180},{-120,-160}})));
   Buildings.Controls.OBC.CDL.Reals.AddParameter subTResIntSheCoo[nZon](
     final p=fill(-0.99*TResInt,nZon))
-    if not airConMod
+    if airConMod == Buildings.Controls.OBC.DemandFlexibility.Types.AirConditioningMode.Cooling
     "Subtract 0.99 times the temperature resolution interval during the cooling load-shed mode"
     annotation (Placement(transformation(extent={{-140,-220},{-120,-200}})));
   Buildings.Controls.OBC.CDL.Reals.AddParameter subTResIntRebHea[nZon](
     final p=fill(-0.99*TResInt,nZon))
-    if airConMod
+    if airConMod == Buildings.Controls.OBC.DemandFlexibility.Types.AirConditioningMode.Heating
     "Subtract 0.99 times the temperature resolution interval during the heating load-rebound mode"
     annotation (Placement(transformation(extent={{-140,-260},{-120,-240}})));
   Buildings.Controls.OBC.CDL.Reals.AddParameter addTResIntRebCoo[nZon](
     final p=fill(0.99*TResInt,nZon))
-    if not airConMod
+    if airConMod == Buildings.Controls.OBC.DemandFlexibility.Types.AirConditioningMode.Cooling
     "Add 0.99 times the temperature resolution interval during the cooling load-rebound mode"
     annotation (Placement(transformation(extent={{-140,-300},{-120,-280}})));
   Buildings.Controls.OBC.CDL.Logical.And reaTPreTarSet[nZon]
@@ -248,10 +249,12 @@ protected
   Buildings.Controls.OBC.CDL.Logical.Not con4[nZon]
     "The zone temperature setpoint has not reached a setpoint limit, or the system is at the default demand flexibility mode, indicating that Condition 4 is met"
     annotation (Placement(transformation(extent={{180,-100},{200,-80}})));
-  Buildings.Controls.OBC.CDL.Reals.Subtract dTZonHea[nZon] if airConMod
+  Buildings.Controls.OBC.CDL.Reals.Subtract dTZonHea[nZon]
+    if airConMod == Buildings.Controls.OBC.DemandFlexibility.Types.AirConditioningMode.Heating
     "Zone temperature difference during the heating mode"
     annotation (Placement(transformation(extent={{-180,180},{-160,200}})));
-  Buildings.Controls.OBC.CDL.Reals.Subtract dTZonCoo[nZon] if not airConMod
+  Buildings.Controls.OBC.CDL.Reals.Subtract dTZonCoo[nZon]
+    if airConMod == Buildings.Controls.OBC.DemandFlexibility.Types.AirConditioningMode.Cooling
     "Zone temperature difference during the cooling mode"
     annotation (Placement(transformation(extent={{-180,140},{-160,160}})));
 equation
@@ -469,8 +472,8 @@ setpoint change operation.
 </p>
 <p>
 The parameter <code>airConMod</code> represents the air conditioning mode.
-<code>airConMod = true</code> represents the heating mode, whereas
-<code>airConMod = false</code> represents the cooling mode. The demand flexibility
+<code>airConMod = Heating</code> represents the heating mode, whereas
+<code>airConMod = Cooling</code> represents the cooling mode. The demand flexibility
 mode parameter <code>demFleMod</code> can take values of <i>0</i> (pre-cool or
 pre-heat mode), <i>1</i> (default mode), <i>2</i> (load-shed mode), and <i>3</i>
 (load-rebound mode). 
@@ -504,14 +507,14 @@ Condition <i>2</i> is not used. Otherwise, Condition <i>2</i> is used.
 </p>
 <p>
 The zone temperature setpoint input variable <code>TZonSet</code> must represent a
-heating setpoint when <code>airConMod = true</code>, and it must represent a cooling
-setpoint when <code>airConMod = false</code>. The input variables
+heating setpoint when <code>airConMod = Heating</code>, and it must represent a cooling
+setpoint when <code>airConMod = Cooling</code>. The input variables
 <code>TPreTarSet</code>, <code>TDefSet</code>, and <code>TSheTarSet</code> must
 represent specific sets of values. For example, <code>TPreTarSet &gt; TDefSet &gt;
 TSheTarSet</code> must hold if the air conditioning system is in the heating mode
-(<code>airConMod = true</code>), and <code>TPreTarSet &lt; TDefSet &lt;
+(<code>airConMod = Heating</code>), and <code>TPreTarSet &lt; TDefSet &lt;
 TSheTarSet</code> must hold if the air conditioning system is in the cooling mode
-(<code>airConMod = false</code>).
+(<code>airConMod = Cooling</code>).
 </p>
 <p>
 Below is a detailed discussion of each of the <i>4</i> conditions. 
@@ -554,9 +557,9 @@ to become <code>false</code>:
 <p>
 Zone temperature difference <code>dTZon</code>, an internal variable, is defined as
 the zone temperature <code>TZon</code> minus the zone temperature setpoint
-<code>TZonSet</code> during the heating mode (<code>airConMod = true</code>). On the
+<code>TZonSet</code> during the heating mode (<code>airConMod = Heating</code>). On the
 other hand, <code>dTZon</code> is defined as <code>TZonSet</code> minus
-<code>TZon</code> during the cooling mode (<code>airConMod = false</code>). 
+<code>TZon</code> during the cooling mode (<code>airConMod = Cooling</code>). 
 </p>
 <p>
 If <code>dTZon</code> meets the following equation, this zone will have
@@ -597,27 +600,27 @@ higher-level logic blocks under edge-case operations, while being less than
 </p>
 <ul>
 <li>
-<code>airConMod = true</code>, and <code>demFleMod = 0</code>, and
+<code>airConMod = Heating</code>, and <code>demFleMod = 0</code>, and
 <code>TZonSet &gt; TPreTarSet - 0.99 * TResInt</code>
 </li>
 <li>
-<code>airConMod = true</code>, and <code>demFleMod = 2</code>, and
+<code>airConMod = Heating</code>, and <code>demFleMod = 2</code>, and
 <code>TZonSet &lt; TSheTarSet + 0.99 * TResInt</code>
 </li>
 <li>
-<code>airConMod = true</code>, and <code>demFleMod = 3</code>, and
+<code>airConMod = Heating</code>, and <code>demFleMod = 3</code>, and
 <code>TZonSet &gt; TDefSet - 0.99 * TResInt</code>
 </li>
 <li>
-<code>airConMod = false</code>, and <code>demFleMod = 0</code>, and
+<code>airConMod = Cooling</code>, and <code>demFleMod = 0</code>, and
 <code>TZonSet &lt; TPreTarSet + 0.99 * TResInt</code>
 </li>
 <li>
-<code>airConMod = false</code>, and <code>demFleMod = 2</code>, and
+<code>airConMod = Cooling</code>, and <code>demFleMod = 2</code>, and
 <code>TZonSet &gt; TSheTarSet - 0.99 * TResInt</code>
 </li>
 <li>
-<code>airConMod = false</code>, and <code>demFleMod = 3</code>, and
+<code>airConMod = Cooling</code>, and <code>demFleMod = 3</code>, and
 <code>TZonSet &lt; TDefSet + 0.99 * TResInt</code>
 </li>
 </ul>
@@ -631,29 +634,29 @@ not met for <code>enaFla</code> to become <code>false</code>:
 <code>demFleMod = 1</code>
 </li>
 <li>
-<code>airConMod = true</code>, and <code>demFleMod = 0</code>, and
+<code>airConMod = Heating</code>, and <code>demFleMod = 0</code>, and
 <code>TZonSet &lt; TPreTarSet - 0.99 * TResInt - 0.5 * TResInt</code>
 </li>
 <li>
-<code>airConMod = true</code>, and <code>demFleMod = 2</code>, and
+<code>airConMod = Heating</code>, and <code>demFleMod = 2</code>, and
 <code>TZonSet &gt; TSheTarSet + 0.99 * TResInt + 0.5 * TResInt</code>
 </li>
 <li>
-<code>airConMod = true</code>, and <code>demFleMod = 3</code>, and
+<code>airConMod = Heating</code>, and <code>demFleMod = 3</code>, and
 <code>TZonSet &lt; TDefSet - 0.99 * TResInt - 0.5 * TResInt</code>
 </li>
 <li>
-<code>airConMod = false</code>, and <code>demFleMod = 0</code>, and
+<code>airConMod = Cooling</code>, and <code>demFleMod = 0</code>, and
 <code>TZonSet &gt; TPreTarSet + 0.99 * TResInt + 0.5 * TResInt</code>
 </li>
 <li>
-<code>airConMod = false</code>, and <code>demFleMod = 2</code>, and
+<code>airConMod = Cooling</code>, and <code>demFleMod = 2</code>, and
 <code>TZonSet &lt; TSheTarSet - 0.99 * TResInt - 0.5 * TResInt</code>
 </li>
 <li>
-<code>airConMod = false</code>, and <code>demFleMod = 3</code>, and
+<code>airConMod = Cooling</code>, and <code>demFleMod = 3</code>, and
 <code>TZonSet &gt; TDefSet + 0.99 * TResInt + 0.5 * TResInt</code>
 </li>
 </ul>
 </html>"));
-end ZoneEnable;
+end Enable;

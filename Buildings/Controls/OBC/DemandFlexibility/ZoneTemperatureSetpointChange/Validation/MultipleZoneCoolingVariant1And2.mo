@@ -14,7 +14,7 @@ model MultipleZoneCoolingVariant1And2
     period=86400)
     "A table of demand flexibility modes that repeat every day"
     annotation (Placement(transformation(extent={{-140,-20},{-120,0}})));
-  Buildings.Controls.OBC.DemandFlexibility.ZoneTemperatureSetpointChange.Subsequences.ZoneSetpointGeneration zonSetGen(
+  Buildings.Controls.OBC.DemandFlexibility.ZoneTemperatureSetpointChange.Subsequences.Setpoints zonSetGen(
     TDefOccHeaSet=273.15 + 20,
     TDefUnoHeaSet=273.15 + 12,
     TDefOccCooSet=273.15 + 24,
@@ -48,7 +48,7 @@ model MultipleZoneCoolingVariant1And2
     dTSheHys=0.5,
     TResInt=0.5,
     setChaWaiTim=150,
-    airConMod=false,
+    airConMod=Buildings.Controls.OBC.DemandFlexibility.Types.AirConditioningMode.Cooling,
     nZon=nZon,
     nSel=1,
     zonConVar=Buildings.Controls.OBC.DemandFlexibility.Types.ZoneControlVariant.Variant_2)
@@ -84,7 +84,7 @@ model MultipleZoneCoolingVariant1And2
     dTSheHys=0.5,
     TResInt=0.5,
     setChaWaiTim=600,
-    airConMod=false,
+    airConMod=Buildings.Controls.OBC.DemandFlexibility.Types.AirConditioningMode.Cooling,
     nZon=nZon,
     nSel=1,
     zonConVar=Buildings.Controls.OBC.DemandFlexibility.Types.ZoneControlVariant.Variant_1)

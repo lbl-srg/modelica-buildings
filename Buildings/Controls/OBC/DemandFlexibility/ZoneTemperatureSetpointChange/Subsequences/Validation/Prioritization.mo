@@ -1,9 +1,8 @@
 within Buildings.Controls.OBC.DemandFlexibility.ZoneTemperatureSetpointChange.Subsequences.Validation;
-model ZonePrioritization "Zone prioritization"
+model Prioritization "Zone prioritization"
 
-  Buildings.Controls.OBC.DemandFlexibility.ZoneTemperatureSetpointChange.Subsequences.ZonePrioritization zonPri(
-    nZon=5,
-    airConMod=true)
+  Buildings.Controls.OBC.DemandFlexibility.ZoneTemperatureSetpointChange.Subsequences.Prioritization zonPri(
+    nZon=5, airConMod=Buildings.Controls.OBC.DemandFlexibility.Types.AirConditioningMode.Heating)
     "Zone prioritization block"
     annotation (Placement(transformation(extent={{40,-20},{60,0}})));
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant TZonVal[5](
@@ -43,13 +42,13 @@ equation
     annotation (Line(points={{-58,50},{0,50},{0,-4},{38,-4},{38,-3.2}},
       color={255,0,255}));
 annotation (experiment(StopTime=60, Interval=1, Tolerance=1e-06),
-  __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/DemandFlexibility/ZoneTemperatureSetpointChange/Subsequences/Validation/ZonePrioritization.mos"
+  __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/DemandFlexibility/ZoneTemperatureSetpointChange/Subsequences/Validation/Prioritization.mos"
     "Simulate and plot"),
   Documentation(info="<html>
 <p>
 This example validates
-<a href=\"modelica://Buildings.Controls.OBC.DemandFlexibility.ZoneTemperatureSetpointChange.Subsequences.ZonePrioritization\">
-Buildings.Controls.OBC.DemandFlexibility.ZoneTemperatureSetpointChange.Subsequences.ZonePrioritization</a>
+<a href=\"modelica://Buildings.Controls.OBC.DemandFlexibility.ZoneTemperatureSetpointChange.Subsequences.Prioritization\">
+Buildings.Controls.OBC.DemandFlexibility.ZoneTemperatureSetpointChange.Subsequences.Prioritization</a>
 for a 5-zone building under the heating operation.
 </p>
 </html>", revisions="<html>
@@ -73,4 +72,4 @@ First implementation.
                 points = {{-36,60},{64,0},{-36,-60},{-36,60}})}),
     Diagram(coordinateSystem(preserveAspectRatio=false,
       extent={{-100,-100},{100,100}})));
-end ZonePrioritization;
+end Prioritization;

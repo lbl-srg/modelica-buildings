@@ -1,5 +1,5 @@
 within Buildings.Controls.OBC.DemandFlexibility.ZoneTemperatureSetpointChange.Subsequences;
-block ZoneControl "Zone temperature setpoint control"
+block Selection "Zone selection"
 
   parameter Real dTShe(
     min=0,
@@ -15,10 +15,10 @@ block ZoneControl "Zone temperature setpoint control"
     displayUnit="K")
     "Temperature setpoint change delta for the load-rebound mode (positive value)"
     annotation (Dialog(enable = use_mulSteSetCha));
-  parameter Boolean airConMod
-    "Air conditioning mode; true for the heating mode, false for the cooling mode";
   parameter Boolean use_mulSteSetCha
     "If true, there are multiple smaller and incremental setpoint change steps for the load-shed mode and the load-rebound mode; if false, there is a single setpoint change step";
+  parameter Buildings.Controls.OBC.DemandFlexibility.Types.AirConditioningMode airConMod
+    "Air conditioning mode";
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TPreTarSet(
     final unit="K",
@@ -65,19 +65,19 @@ block ZoneControl "Zone temperature setpoint control"
       iconTransformation(extent={{100,-20},{140,20}})));
 protected
   Buildings.Controls.OBC.DemandFlexibility.Generic.SetpointChange setChaPre(
-    final ascSet=airConMod,
+    final ascSet=airConMod == Buildings.Controls.OBC.DemandFlexibility.Types.AirConditioningMode.Heating,
     final use_mulSteSetCha=false)
     "Setpoint change logic for the pre-cool or the pre-heat mode"
     annotation (Placement(transformation(extent={{40,160},{60,180}})));
   Buildings.Controls.OBC.DemandFlexibility.Generic.SetpointChange setChaShe(
     final setChaDel=dTShe,
-    final ascSet=not airConMod,
+    final ascSet=airConMod == Buildings.Controls.OBC.DemandFlexibility.Types.AirConditioningMode.Cooling,
     final use_mulSteSetCha=use_mulSteSetCha)
     "Setpoint change logic for the load-shed mode"
     annotation (Placement(transformation(extent={{40,-40},{60,-20}})));
   Buildings.Controls.OBC.DemandFlexibility.Generic.SetpointChange setChaReb(
     final setChaDel=dTReb,
-    final ascSet=airConMod,
+    final ascSet=airConMod == Buildings.Controls.OBC.DemandFlexibility.Types.AirConditioningMode.Heating,
     final use_mulSteSetCha=use_mulSteSetCha)
     "Setpoint change logic for the load-rebound mode"
     annotation (Placement(transformation(extent={{40,-140},{60,-120}})));
@@ -95,8 +95,8 @@ protected
     "Switch the maximum and minimum temperature setpoint bounds based on the air conditioning mode during load-rebound"
     annotation (Placement(transformation(extent={{-20,-180},{0,-160}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant conAirConMod(
-    final k=airConMod)
-    "Constant for the air conditioning mode"
+    final k=airConMod == Buildings.Controls.OBC.DemandFlexibility.Types.AirConditioningMode.Heating)
+    "Constant for the air conditioning mode; true for heating, false for cooling"
     annotation (Placement(transformation(extent={{-80,20},{-60,40}})));
 equation
   connect(uEna, setChaPre.uEna)
@@ -175,7 +175,7 @@ equation
   connect(TSheTarSet, TSetBouSwiReb.u3)
     annotation (Line(points={{-220,-160},{-80,-160},{-80,-176},{-22,-176}},
       color={0,0,127}));
-  annotation (defaultComponentName="zonCon",
+  annotation (defaultComponentName="zonSel",
     Icon(coordinateSystem(preserveAspectRatio=false,
         extent={{-100,-100},{100,100}},
         grid={2,2}), graphics={Rectangle(
@@ -199,11 +199,11 @@ change enabling signal input and the demand flexibility mode.
 The input variable <code>TCurZonSet</code> represents the current value of the
 temperature setpoint. The output variable <code>TComZonSet</code> commands the
 temperature setpoint to take on a new value. The parameter <code>airConMod</code>
-represents the air conditioning mode. <code>airConMod = true</code> represents the
-heating mode, whereas <code>airConMod = false</code> represents the cooling mode.
+represents the air conditioning mode. <code>airConMod = Heating</code> represents the
+heating mode, whereas <code>airConMod = Cooling</code> represents the cooling mode.
 <code>TCurZonSet</code> and <code>TComZonSet</code> must represent heating setpoints
-when <code>airConMod = true</code>, and they must represent cooling setpoints when
-<code>airConMod = false</code>.
+when <code>airConMod = Heating</code>, and they must represent cooling setpoints when
+<code>airConMod = Cooling</code>.
 </p>
 <p>
 The demand flexibility mode <code>demFleMod</code> can take values of <i>0</i>
@@ -224,49 +224,49 @@ setpoint <code>TComZonSet</code> as follows if the multiple-step setpoint change
 </tr>
 <tr>
 <td>0</td>
-<td>true</td>
+<td>Heating</td>
 <td>TPreTarSet</td>
 <td>min(TPreTarSet, max(TDefSet, TCurZonSet))</td>
 </tr>
 <tr>
 <td>0</td>
-<td>false</td>
+<td>Cooling</td>
 <td>TPreTarSet</td>
 <td>min(TDefSet, max(TPreTarSet, TCurZonSet))</td>
 </tr>
 <tr>
 <td>1</td>
-<td>true</td>
+<td>Heating</td>
 <td>TDefSet</td>
 <td>TDefSet</td>
 </tr>
 <tr>
 <td>1</td>
-<td>false</td>
+<td>Cooling</td>
 <td>TDefSet</td>
 <td>TDefSet</td>
 </tr>
 <tr>
 <td>2</td>
-<td>true</td>
+<td>Heating</td>
 <td>min(TDefSet, max(TSheTarSet, TCurZonSet - dTShe))</td>
 <td>min(TDefSet, max(TSheTarSet, TCurZonSet))</td>
 </tr>
 <tr>
 <td>2</td>
-<td>false</td>
+<td>Cooling</td>
 <td>min(TSheTarSet, max(TDefSet, TCurZonSet + dTShe))</td>
 <td>min(TSheTarSet, max(TDefSet, TCurZonSet))</td>
 </tr>
 <tr>
 <td>3</td>
-<td>true</td>
+<td>Heating</td>
 <td>min(TDefSet, max(TSheTarSet, TCurZonSet + dTReb))</td>
 <td>min(TDefSet, max(TSheTarSet, TCurZonSet))</td>
 </tr>
 <tr>
 <td>3</td>
-<td>false</td>
+<td>Cooling</td>
 <td>min(TSheTarSet, max(TDefSet, TCurZonSet - dTReb))</td>
 <td>min(TSheTarSet, max(TDefSet, TCurZonSet))</td>
 </tr>
@@ -285,49 +285,49 @@ setpoint change flag <code>use_mulSteSetCha = false</code>:
 </tr>
 <tr>
 <td>0</td>
-<td>true</td>
+<td>Heating</td>
 <td>TPreTarSet</td>
 <td>min(TPreTarSet, max(TDefSet, TCurZonSet))</td>
 </tr>
 <tr>
 <td>0</td>
-<td>false</td>
+<td>Cooling</td>
 <td>TPreTarSet</td>
 <td>min(TDefSet, max(TPreTarSet, TCurZonSet))</td>
 </tr>
 <tr>
 <td>1</td>
-<td>true</td>
+<td>Heating</td>
 <td>TDefSet</td>
 <td>TDefSet</td>
 </tr>
 <tr>
 <td>1</td>
-<td>false</td>
+<td>Cooling</td>
 <td>TDefSet</td>
 <td>TDefSet</td>
 </tr>
 <tr>
 <td>2</td>
-<td>true</td>
+<td>Heating</td>
 <td>TSheTarSet</td>
 <td>min(TDefSet, max(TSheTarSet, TCurZonSet))</td>
 </tr>
 <tr>
 <td>2</td>
-<td>false</td>
+<td>Cooling</td>
 <td>TSheTarSet</td>
 <td>min(TSheTarSet, max(TDefSet, TCurZonSet))</td>
 </tr>
 <tr>
 <td>3</td>
-<td>true</td>
+<td>Heating</td>
 <td>TDefSet</td>
 <td>min(TDefSet, max(TSheTarSet, TCurZonSet))</td>
 </tr>
 <tr>
 <td>3</td>
-<td>false</td>
+<td>Cooling</td>
 <td>TDefSet</td>
 <td>min(TSheTarSet, max(TDefSet, TCurZonSet))</td>
 </tr>
@@ -336,9 +336,9 @@ setpoint change flag <code>use_mulSteSetCha = false</code>:
 The input variables <code>TPreTarSet</code>, <code>TDefSet</code>, and
 <code>TSheTarSet</code> must take on specific sets of values. For example,
 <code>TPreTarSet &gt; TDefSet &gt; TSheTarSet</code> must hold if the air
-conditioning system is in the heating mode (<code>airConMod = true</code>), and
+conditioning system is in the heating mode (<code>airConMod = Heating</code>), and
 <code>TPreTarSet &lt; TDefSet &lt; TSheTarSet</code> must hold if the air
-conditioning system is in the cooling mode (<code>airConMod = false</code>). 
+conditioning system is in the cooling mode (<code>airConMod = Cooling</code>). 
 </p>
 <p>
 Note that the output <code>TComZonSet</code> is intended to be received by a
@@ -360,4 +360,4 @@ First implementation.
 </li>
 </ul>
 </html>"));
-end ZoneControl;
+end Selection;

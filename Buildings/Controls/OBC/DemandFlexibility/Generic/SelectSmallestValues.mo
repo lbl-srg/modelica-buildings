@@ -25,7 +25,7 @@ block SelectSmallestValues "Select smallest values"
 protected
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant numSeq[nVal](
     final k={i for i in 1:nVal})
-    "A numerical sequence from one up to the number of values"
+    "An ascending numerical sequence from one up to the number of values"
     annotation (Placement(transformation(extent={{-260,-40},{-240,-20}})));
   Buildings.Controls.OBC.CDL.Reals.MultiplyByParameter scaSmaNum[nVal](
     final k=fill(smaNum, nVal))
@@ -135,6 +135,11 @@ This block selects the <code>nSel</code> smallest values out of a total of
 <code>nVal</code> values from the input vector <code>u</code>. The output is a
 boolean vector, where <code>true</code> means a value at the corresponding index is
 one of the smallest values, and <code>false</code> means otherwise.
+</p>
+<p>
+If there are equal values from the input vector <code>u</code>, this block will
+prioritize values that appear first in the input vector <code>u</code> when
+selecting the <code>nSel</code> smallest values.
 </p>
 <p>
 The disabled flag vector <code>disFla</code> serves to disable certain values

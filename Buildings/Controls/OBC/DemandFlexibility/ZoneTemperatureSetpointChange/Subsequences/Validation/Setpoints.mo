@@ -1,7 +1,7 @@
 within Buildings.Controls.OBC.DemandFlexibility.ZoneTemperatureSetpointChange.Subsequences.Validation;
-model ZoneSetpointGeneration "Zone setpoint generation"
+model Setpoints "Zone setpoint generation"
 
-  Buildings.Controls.OBC.DemandFlexibility.ZoneTemperatureSetpointChange.Subsequences.ZoneSetpointGeneration zonSetGen(
+  Buildings.Controls.OBC.DemandFlexibility.ZoneTemperatureSetpointChange.Subsequences.Setpoints zonSetGen(
     TDefOccHeaSet=273.15 + 20,
     TDefUnoHeaSet=273.15 + 12,
     TDefOccCooSet=273.15 + 24,
@@ -16,13 +16,13 @@ model ZoneSetpointGeneration "Zone setpoint generation"
     "Block to generate zone setpoints and setpoint targets that vary with time"
     annotation (Placement(transformation(extent={{0,0},{20,20}})));
 annotation (experiment(StopTime=172800, Interval=1, Tolerance=1e-06),
-  __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/DemandFlexibility/ZoneTemperatureSetpointChange/Subsequences/Validation/ZoneSetpointGeneration.mos"
+  __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/DemandFlexibility/ZoneTemperatureSetpointChange/Subsequences/Validation/Setpoints.mos"
     "Simulate and plot"),
   Documentation(info="<html>
 <p>
 This example validates
-<a href=\"modelica://Buildings.Controls.OBC.DemandFlexibility.ZoneTemperatureSetpointChange.Subsequences.ZoneSetpointGeneration\">
-Buildings.Controls.OBC.DemandFlexibility.ZoneTemperatureSetpointChange.Subsequences.ZoneSetpointGeneration</a>
+<a href=\"modelica://Buildings.Controls.OBC.DemandFlexibility.ZoneTemperatureSetpointChange.Subsequences.Setpoints\">
+Buildings.Controls.OBC.DemandFlexibility.ZoneTemperatureSetpointChange.Subsequences.Setpoints</a>
 for the case where the setpoint change is active not only in the occupied mode, but
 also in the unoccupied mode.
 </p>
@@ -47,4 +47,4 @@ First implementation.
                 points = {{-36,60},{64,0},{-36,-60},{-36,60}})}),
     Diagram(coordinateSystem(preserveAspectRatio=false,
       extent={{-100,-100},{100,100}})));
-end ZoneSetpointGeneration;
+end Setpoints;

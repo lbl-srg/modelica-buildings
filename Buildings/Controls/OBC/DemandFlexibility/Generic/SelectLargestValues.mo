@@ -23,9 +23,9 @@ block SelectLargestValues "Select largest values"
     annotation (Placement(transformation(extent={{200,0},{240,40}}),
         iconTransformation(extent={{100,-20},{140,20}})));
 protected
-  Buildings.Controls.OBC.CDL.Reals.Sources.Constant conNumSeq[nVal](
-    final k={i for i in 1:nVal})
-    "A numerical sequence from one up to the number of values"
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant numSeq[nVal](final k={i
+        for i in nVal:-1:1})
+    "A descending numerical sequence from the number of values down to one"
     annotation (Placement(transformation(extent={{-160,50},{-140,70}})));
   Buildings.Controls.OBC.CDL.Reals.MultiplyByParameter scaSmaNum[nVal](
     final k=fill(smaNum, nVal))
@@ -93,7 +93,7 @@ equation
     annotation (Line(points={{-98,-80},{-82,-80}}, color={0,0,127}));
   connect(subOne.y, minRep.u)
     annotation (Line(points={{62,120},{78,120}}, color={0,0,127}));
-  connect(conNumSeq.y, scaSmaNum.u)
+  connect(numSeq.y, scaSmaNum.u)
     annotation (Line(points={{-138,60},{-122,60}}, color={0,0,127}));
   connect(scaSmaNum.y, addSmaNum.u2)
     annotation (Line(points={{-98,60},{-80,60},{-80,94},{-62,94}},
@@ -144,6 +144,11 @@ This block selects the <code>nSel</code> largest values out of a total of
 <code>nVal</code> values from the input vector <code>u</code>. The output is a
 boolean vector, where <code>true</code> means a value at the corresponding index is
 one of the largest values, and <code>false</code> means otherwise.
+</p>
+<p>
+If there are equal values from the input vector <code>u</code>, this block will
+prioritize values that appear first in the input vector <code>u</code> when
+selecting the <code>nSel</code> largest values.
 </p>
 <p>
 The disabled flag vector <code>disFla</code> serves to disable certain values

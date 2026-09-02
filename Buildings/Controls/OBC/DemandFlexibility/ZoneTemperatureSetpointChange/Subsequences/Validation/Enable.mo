@@ -1,13 +1,13 @@
 within Buildings.Controls.OBC.DemandFlexibility.ZoneTemperatureSetpointChange.Subsequences.Validation;
-model ZoneEnable "Zone enablement"
+model Enable "Zone enablement"
 
-  Buildings.Controls.OBC.DemandFlexibility.ZoneTemperatureSetpointChange.Subsequences.ZoneEnable
+  Buildings.Controls.OBC.DemandFlexibility.ZoneTemperatureSetpointChange.Subsequences.Enable
     zonEna(
     dTSheThr=0.5,
     dTSheHys=0.5,
     PBuiHys=50,
     TResInt=0.5,
-    airConMod=true,
+    airConMod=Buildings.Controls.OBC.DemandFlexibility.Types.AirConditioningMode.Heating,
     use_demCon=true,
     nZon=5) "Zone enablement block"
     annotation (Placement(transformation(extent={{60,-18},{80,18}})));
@@ -81,17 +81,17 @@ equation
     annotation (Line(points={{-58,-50},{-20,-50},{-20,-4},{58,-4}},
       color={255,127,0}));
 annotation (experiment(StopTime=172800, Interval=1, Tolerance=1e-06),
-  __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/DemandFlexibility/ZoneTemperatureSetpointChange/Subsequences/Validation/ZoneEnable.mos"
+  __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/DemandFlexibility/ZoneTemperatureSetpointChange/Subsequences/Validation/Enable.mos"
     "Simulate and plot"),
   Documentation(info="<html>
 <p>
 This example validates
-<a href=\"modelica://Buildings.Controls.OBC.DemandFlexibility.ZoneTemperatureSetpointChange.Subsequences.ZoneEnable\">
-Buildings.Controls.OBC.DemandFlexibility.ZoneTemperatureSetpointChange.Subsequences.ZoneEnable</a>
+<a href=\"modelica://Buildings.Controls.OBC.DemandFlexibility.ZoneTemperatureSetpointChange.Subsequences.Enable\">
+Buildings.Controls.OBC.DemandFlexibility.ZoneTemperatureSetpointChange.Subsequences.Enable</a>
 for a 5-zone building under the heating operation.
 </p>
 <p>
-This validation example shows how the <code>ZoneEnable</code> block decides whether
+This validation example shows how the <code>Enable</code> block decides whether
 a zone should be enabled for zone temperature comparison based on two out of the
 four zone enabling conditions: whether a zone is a rogue zone or not, and whether
 the building electricity demand rises above the electricity demand threshold.
@@ -117,4 +117,4 @@ First implementation.
                 points = {{-36,60},{64,0},{-36,-60},{-36,60}})}),
     Diagram(coordinateSystem(preserveAspectRatio=false,
       extent={{-100,-220},{100,220}})));
-end ZoneEnable;
+end Enable;
