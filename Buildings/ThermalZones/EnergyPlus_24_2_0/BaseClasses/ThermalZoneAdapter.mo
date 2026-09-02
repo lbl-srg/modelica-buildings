@@ -46,10 +46,10 @@ model ThermalZoneAdapter
     "If true, then the radiative heat gain sent from Modelica to EnergyPlus is zero during the model initialization"
     annotation (Dialog(tab="Advanced"), Evaluate=true);
 
-  final parameter Real airChaRatInf(final unit="1/s", displayUnit="1/h") "Infiltration air change rate for auto-sizing";
-  final parameter Modelica.Units.SI.SpecificHeatCapacity cpAir "Specific heat capacity of air";
-  final parameter Modelica.Units.SI.SpecificEnergy hfgWater "Latent heat of water vapor";
-  final parameter Modelica.Units.SI.Density rhoAir "Density of air";
+  parameter Real airChaRatInf(final unit="1/s", displayUnit="1/h") "Infiltration air change rate for auto-sizing";
+  parameter Modelica.Units.SI.SpecificHeatCapacity cpAir "Specific heat capacity of air";
+  parameter Modelica.Units.SI.SpecificEnergy hfgWater "Latent heat of water vapor";
+  parameter Modelica.Units.SI.Density rhoAir "Density of air";
 
   parameter Integer nFluPor
     "Number of fluid ports (Set to 2 for one inlet and one outlet)";
