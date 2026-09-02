@@ -8,7 +8,7 @@ block SelectLargestValues "Select largest values"
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput u[nVal]
     "A vector of all values"
-    annotation (Placement(transformation(extent={{-240,86},{-200,126}}),
+    annotation (Placement(transformation(extent={{-240,90},{-200,130}}),
         iconTransformation(extent={{-140,-20},{-100,20}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput disFla[nVal]
     "A flag vector to exclude values from comparison. Set to true if the value should be excluded"
@@ -88,7 +88,7 @@ equation
       color={255,0,255}));
   connect(minRep.y, swi.u1)
     annotation (Line(points={{102,120},{120,120},{120,-20},{-140,-20},{-140,-72},
-          {-122,-72}}, color={0,0,127}));
+      {-122,-72}}, color={0,0,127}));
   connect(swi.y, sort.u)
     annotation (Line(points={{-98,-80},{-82,-80}}, color={0,0,127}));
   connect(subOne.y, minRep.u)
@@ -99,11 +99,11 @@ equation
     annotation (Line(points={{-98,60},{-80,60},{-80,94},{-62,94}},
       color={0,0,127}));
   connect(u, addSmaNum.u1)
-    annotation (Line(points={{-220,106},{-62,106}},
+    annotation (Line(points={{-220,110},{-80,110},{-80,106},{-62,106}},
       color={0,0,127}));
   connect(addSmaNum.y, swi.u3)
     annotation (Line(points={{-38,100},{-20,100},{-20,-10},{-150,-10},{-150,-88},
-          {-122,-88}}, color={0,0,127}));
+      {-122,-88}}, color={0,0,127}));
   connect(addSmaNum.y, mulMin.u)
     annotation (Line(points={{-38,100},{-20,100},{-20,120},{-2,120}},
       color={0,0,127}));
