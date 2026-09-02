@@ -115,8 +115,8 @@ partial model PartialAirTerminal
     redeclare final package Medium =MediumAir,
     m_flow(max=if allowFlowReversalAir then +Modelica.Constants.inf else 0),
     h_outflow(start=MediumAir.h_default, nominal=MediumAir.h_default))
-    if typ == Buildings.Templates.ZoneEquipment.Types.Configuration.FanPowered
-     or typ == Buildings.Templates.ZoneEquipment.Types.Configuration.Induction
+    if typ == Buildings.Templates.ZoneEquipment.Types.Configuration.VAVBoxFanParallelConstant
+     or typ == Buildings.Templates.ZoneEquipment.Types.Configuration.VAVBoxFanSeriesConstant
     "Return air"
     annotation (Placement(
         transformation(extent={{290,-90},{310,-70}}), iconTransformation(

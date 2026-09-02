@@ -8,7 +8,7 @@ partial block PartialControllerVAVBox
         stdVen=stdVen));
 
   parameter Boolean have_CO2Sen=false
-    "Set to true if the zone has CO2 sensor"
+    "Set to true if the zone has a CO2 sensor"
     annotation (Evaluate=true, Dialog(group="Configuration"));
 
   final parameter Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard stdVen=

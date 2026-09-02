@@ -4,6 +4,10 @@ block G36VAVBoxReheat
   extends Buildings.Templates.ZoneEquipment.Components.Interfaces.ControllerG36VAVBox(
     final typ=Buildings.Templates.ZoneEquipment.Types.Controller.G36VAVBoxReheat);
 
+  parameter Boolean have_reqNeeHea=false
+    "Set to true if the controller generates a 'Need Heat' request"
+    annotation (Evaluate=true, Dialog(group="Configuration"));
+
   annotation (
     defaultComponentName="ctl",
     Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(

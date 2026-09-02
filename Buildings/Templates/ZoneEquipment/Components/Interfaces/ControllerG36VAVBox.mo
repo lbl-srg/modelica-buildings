@@ -4,11 +4,19 @@ block ControllerG36VAVBox "Guideline 36 controller for VAV terminal unit"
     Buildings.Templates.ZoneEquipment.Components.Interfaces.PartialControllerVAVBox;
 
   parameter Boolean have_occSen=false
-    "Set to true if the zone has occupancy sensor"
+    "Set to true if the zone has an occupancy sensor"
     annotation (Evaluate=true, Dialog(group="Configuration"));
 
-  parameter Boolean have_winSen=false
-    "Set to true if the zone has window status sensor"
+  parameter Boolean have_relHumSen=false
+    "Set to true if the zone has a relative humidity sensor"
+    annotation (Evaluate=true, Dialog(group="Configuration"));
+
+  parameter Boolean have_reqNeeCoo=false
+    "Set to true if the controller generates a 'Need Cool' request"
+    annotation (Evaluate=true, Dialog(group="Configuration"));
+
+  final parameter Boolean have_winSen=false
+    "Set to true if the zone has a window status sensor"
     annotation (Evaluate=true, Dialog(group="Configuration"));
 
   final parameter Boolean have_hotWatCoi=
