@@ -37,9 +37,9 @@ model PrimaryController
     False: Fixed-speed primary pumps"
     annotation(Dialog(tab="General",
       group="Boiler plant configuration parameters",
-      enable=not have_allCon));
+      enable=not have_priOnl));
 
-  final parameter Boolean have_varPriPum = have_allCon or have_varPriPum_select
+  final parameter Boolean have_varPriPum = have_priOnl or have_varPriPum_select
     "Parameter selection for variable speed primary pumps in cases where user interface
     may not be exposed";
 
