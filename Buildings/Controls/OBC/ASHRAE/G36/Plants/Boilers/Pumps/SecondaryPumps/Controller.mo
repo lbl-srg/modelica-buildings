@@ -879,9 +879,6 @@ for variable-speed pumps without a flowrate sensor in the secondary loop
 <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Pumps.SecondaryPumps.Subsequences.EnableLag_pumpSpeed\">
 Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Pumps.SecondaryPumps.Subsequences.EnableLag_pumpSpeed</a>.
 </li>
-<li>
-for fixed-speed pumps.
-</li>
 </ul>
 </li>
 <li>
