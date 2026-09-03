@@ -72,7 +72,7 @@ equation
             {200,200}})),        __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/ThermalZones/Detailed/Validation/RoomCapacityMultiplier.mos"
         "Simulate and plot"),
     Documentation(info="<html>
-    This model validates the room capacity multipler of
+    This model validates the room capacity multiplier of
 <a href=\"modelica://Buildings.ThermalZones.Detailed.MixedAir\">
 Buildings.ThermalZones.Detailed.MixedAir</a>.
 The rooms are adiabatic, but have different heat capacities.
