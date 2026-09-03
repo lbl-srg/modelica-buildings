@@ -1,0 +1,6 @@
+compareVars :=
+  {
+    "err.TSlaSet",
+    "err.TSla",
+    "err.slaTemErr"
+  };
