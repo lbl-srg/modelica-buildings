@@ -528,6 +528,10 @@ protected
     "Constant one signal"
     annotation (Placement(transformation(extent={{102,-424},{122,-404}})));
 
+  Buildings.Controls.OBC.CDL.Logical.Pre pre1[nPum]
+    "Pre block for secondary pump enable signals"
+    annotation (Placement(transformation(extent={{140,-264},{120,-244}})));
+
 equation
   connect(uPumLeaLag, intToRea.u)
     annotation (Line(points={{-300,230},{-222,230}}, color={255,127,0}));
@@ -727,10 +731,6 @@ equation
           22},{158,-8},{190,-8}}, color={255,0,255}));
   connect(logSwi.y, yHotWatPum)
     annotation (Line(points={{214,0},{300,0}}, color={255,0,255}));
-  connect(logSwi.y, pumSpeLocDp.uHotWatPum) annotation (Line(points={{214,0},{274,
-          0},{274,-264},{-74,-264},{-74,-326},{-62,-326}}, color={255,0,255}));
-  connect(logSwi.y, pumSpeRemDp.uHotWatPum) annotation (Line(points={{214,0},{274,
-          0},{274,-264},{-74,-264},{-74,-362},{-62,-362}}, color={255,0,255}));
   connect(booToInt1.y, mulSumInt1.u[1:2]) annotation (Line(points={{-228,-156},{
           -216,-156},{-216,-156},{-202,-156}},     color={255,127,0}));
   connect(min.y, yPumSpe)
@@ -769,6 +769,12 @@ equation
           {-116,118},{-106,118}}, color={255,0,255}));
   connect(not3.y, booRep.u)
     annotation (Line(points={{-82,118},{-68,118}}, color={255,0,255}));
+  connect(logSwi.y, pre1.u) annotation (Line(points={{214,0},{270,0},{270,-254},
+          {142,-254}}, color={255,0,255}));
+  connect(pre1.y, pumSpeRemDp.uHotWatPum) annotation (Line(points={{118,-254},{
+          -66,-254},{-66,-362},{-62,-362}}, color={255,0,255}));
+  connect(pre1.y, pumSpeLocDp.uHotWatPum) annotation (Line(points={{118,-254},{
+          -66,-254},{-66,-326},{-62,-326}}, color={255,0,255}));
 annotation (defaultComponentName="conPumSec",
   Diagram(coordinateSystem(preserveAspectRatio=false,
           extent={{-280,-440},{280,260}}),
