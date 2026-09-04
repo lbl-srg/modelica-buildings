@@ -322,6 +322,12 @@ units are wrong or errors in documentation):
                        This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4455\">#4455</a>.
     </td>
 </tr>
+<tr><td valign=\"top\">Buildings.Fluid.DXSystems.Cooling.BaseClasses.Evaporation
+    </td>
+    <td valign=\"top\">Added missing variable assignment for unused variable in a branch that will not compute evaporation.<br/>
+                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4715\">Buildings, #4715</a>.
+    </td>
+</tr>
 <tr><td valign=\"top\">Buildings.Fluid.DXSystems.Cooling.BaseClasses.PartialCapacity
     </td>
     <td valign=\"top\">Avoided unsafe array access that relied on short-circuiting.<br/>
