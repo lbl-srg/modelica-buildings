@@ -38,7 +38,7 @@ equation
   connect(conIntOne.y, zerStaIndCor1.uInd) annotation (Line(points={{42,40},{50,
           40},{50,4},{58,4}}, color={255,127,0}));
 annotation (
-__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/ASHRAE/G36/Plants/Boilers/Staging/SetPoints/Subsequences/Validation/Up.mos"
+__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/ASHRAE/G36/Plants/Boilers/Generic/Validation/ZeroIndexCorrection.mos"
     "Simulate and plot"),
 Documentation(info="<html>
 <p>
