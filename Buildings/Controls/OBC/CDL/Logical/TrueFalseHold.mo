@@ -141,6 +141,12 @@ alt=\"Input and output of the block\"/>
       revisions="<html>
 <ul>
 <li>
+July 17, 2026, by Antoine Gautier:<br/>
+Replaced initial equation with start attribute on input.
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/2136\">IBPSA, #2136</a>.
+</li>
+<li>
 January 13, 2025, by Antoine Gautier:<br/>
 Merge <code>elsewhen</code> clauses.<br/>
 This is for

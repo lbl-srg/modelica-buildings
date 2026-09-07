@@ -62,6 +62,12 @@ Otherwise the output is <code>false</code>.
       revisions="<html>
 <ul>
 <li>
+July 17, 2026, by Antoine Gautier:<br/>
+Replaced initial equation with start attribute on input.
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/2136\">IBPSA, #2136</a>.
+</li>
+<li>
 January 3, 2017, by Michael Wetter:<br/>
 First implementation, based on the implementation of the
 Modelica Standard Library.

@@ -39,7 +39,7 @@ block HeadControl
     annotation (Placement(transformation(extent={{180,-100},{220,-60}}),
       iconTransformation(extent={{100,-80},{140,-40}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yEnaHeaCon
-    "Status of heat pressure control: true=enabled head pressure control"
+    "Status of head pressure control: true=enabled head pressure control"
     annotation (Placement(transformation(extent={{180,80},{220,120}}),
       iconTransformation(extent={{100,40},{140,80}})));
 
@@ -49,9 +49,6 @@ protected
   Buildings.Controls.OBC.CDL.Logical.Timer tim
     "Count the time after condenser water pump being reset"
     annotation (Placement(transformation(extent={{-60,50},{-40,70}})));
-  Buildings.Controls.OBC.CDL.Logical.Edge edg
-    "Rising edge, output true at the moment when input turns from false to true"
-    annotation (Placement(transformation(extent={{-160,90},{-140,110}})));
   Buildings.Controls.OBC.CDL.Logical.Latch lat
     "Logical latch, maintain ON signal until condition changes"
     annotation (Placement(transformation(extent={{-100,50},{-80,70}})));
@@ -143,9 +140,6 @@ equation
     annotation (Line(points={{-200,-110},{-162,-110}}, color={255,0,255}));
   connect(booToRea.y, triSam.u)
     annotation (Line(points={{-138,-110},{-62,-110}}, color={0,0,127}));
-  connect(edg.y, and2.u1)
-    annotation (Line(points={{-138,100},{-120,100},{-120,80},{-170,80},{-170,60},
-          {-162,60}}, color={255,0,255}));
   connect(uStaPro, and2.u2)
     annotation (Line(points={{-200,52},{-162,52}}, color={255,0,255}));
   connect(and2.y, lat.u)
@@ -240,8 +234,8 @@ equation
           {98,92}}, color={255,0,255}));
   connect(uUpsDevSta, or1.u2) annotation (Line(points={{-200,130},{-160,130},{-160,
           152},{-142,152}}, color={255,0,255}));
-  connect(or1.y, edg.u) annotation (Line(points={{-118,160},{-100,160},{-100,
-          120},{-170,120},{-170,100},{-162,100}}, color={255,0,255}));
+  connect(or1.y, and2.u1) annotation (Line(points={{-118,160},{-100,160},{-100,
+          100},{-170,100},{-170,60},{-162,60}}, color={255,0,255}));
 annotation (
   defaultComponentName="enaHeaCon",
   Diagram(coordinateSystem(preserveAspectRatio=false,
@@ -296,18 +290,18 @@ annotation (
           textString="uEnaPla")}),
   Documentation(info="<html>
 <p>
-Block that generates chiller head pressure control enabling status array when 
-there is a stage change command (<code>chaPro=true</code>). It also generates status 
+Block that generates chiller head pressure control enabling status array when
+there is a stage change command (<code>chaPro=true</code>). It also generates status
 to indicate if the head pressure control status change process has finished.
 This development is based on ASHRAE Guideline 36-2021.
 </p>
 <p>
-In the stage-up process, section 5.20.4.16, item d: 
+In the stage-up process, section 5.20.4.16, item d:
 </p>
 <ul>
 <li>
 After the condenser water pumps speed or number has been changed by <code>thrTimEnb</code>,
-e.g. 10 seconds, enable head pressure control for the chiller being enabled. 
+e.g. 10 seconds, enable head pressure control for the chiller being enabled.
 Wait 30 seconds (<code>waiTim=30</code>).
 </li>
 </ul>
@@ -318,7 +312,7 @@ being enabled, section 5.20.4.16, item g.3:
 <ul>
 <li>
 When the controller of the smaller chiller being shut off indicates no request for
-condenser water flow, disable the chiller's head pressure control loop, 
+condenser water flow, disable the chiller's head pressure control loop,
 (<code>thrTimEnb=0</code> and <code>waiTim=0</code>).
 </li>
 </ul>
