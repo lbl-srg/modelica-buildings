@@ -64,12 +64,10 @@ annotation (
         Text(
           extent={{-94,12},{-40,-10}},
           textColor={255,0,255},
-          pattern=LinePattern.Dash,
           textString="uHotIsoVal"),
         Text(
           extent={{42,12},{96,-10}},
           textColor={255,0,255},
-          pattern=LinePattern.Dash,
           textString="yLeaPum")}),
   Diagram(coordinateSystem(preserveAspectRatio=false)),
   Documentation(info="<html>
