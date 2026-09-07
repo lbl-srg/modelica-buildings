@@ -1,5 +1,4 @@
 #!/usr/bin/env python
-# coding: utf-8
 
 """Provide definitions and common declarations used by other scripts in the same directory."""
 
@@ -483,6 +482,8 @@ def prune_modifications(
                     for list_modif_ex in exclude[arg[0]]
                 ):
                     indices_to_pop.append(i)
+        # Convert to set to avoid overhead in list comprehension below.
+        indices_to_pop = set(indices_to_pop)
         combinations = [
             el
             for idx, el in enumerate(combinations)
@@ -502,7 +503,7 @@ def prune_modifications(
                                 if re.search(pattern_to_remove, modif):
                                     indices_to_pop.append(j)
             # The tuple combinations[i] is immutable, but modifying inplace one of its elements is possible though.
-            remove_items_by_indices(combinations[i][1], indices_to_pop)
+            remove_items_by_indices(arg[1], indices_to_pop)
 
     # Remove elements with duplicated (model, modif) within combinations.
     df_model_modif = pd.DataFrame(
@@ -511,7 +512,10 @@ def prune_modifications(
             modif=[''.join(el[1]) for el in combinations],
         )
     )
-    indices_to_pop = df_model_modif[df_model_modif.duplicated()].index.tolist()
+    # Convert to set to avoid overhead in list comprehension below.
+    indices_to_pop = set(
+        df_model_modif[df_model_modif.duplicated()].index.tolist()
+    )
     combinations = [
         el for idx, el in enumerate(combinations) if idx not in indices_to_pop
     ]
@@ -588,7 +592,9 @@ def apply_experiment_modifications(
         if experiment_modif is not None and model in experiment_modif:
             modif_concat = ''.join(modif)
             for patterns, overrides in experiment_modif[model]:
-                if all(re.search(pattern, modif_concat) for pattern in patterns):
+                if all(
+                    re.search(pattern, modif_concat) for pattern in patterns
+                ):
                     for tool_attributes in attributes.values():
                         tool_attributes.update(overrides)
             # Normalize values once all matching overrides have been applied.
@@ -631,13 +637,13 @@ def report_clean(combinations, results, keep_going=False):
     # Log and exit if any simulations failed.
     if has_failure:
         with open('unitTestsTemplates.log', 'a') as FH:
-            for idx in df[df.errorcode != 0].index:
-                FH.write(
-                    f'*** Simulation failed for {df.iloc[idx].model} with the error code {df.iloc[idx].errorcode} '
-                    + 'and the following class modifications and error log.\n\n'
-                    + ',\n'.join(df.iloc[idx].modif)
-                    + f'\n\n{df.iloc[idx].errorlog}\n\n'
-                )
+            FH.writelines(
+                f'*** Simulation failed for {df.iloc[idx].model} with the error code {df.iloc[idx].errorcode} '
+                + 'and the following class modifications and error log.\n\n'
+                + ',\n'.join(df.iloc[idx].modif)
+                + f'\n\n{df.iloc[idx].errorlog}\n\n'
+                for idx in df[df.errorcode != 0].index
+            )
         number_failure = df.errorcode.apply(lambda x: 1 if x != 0 else 0).sum()
         print(
             CRED
