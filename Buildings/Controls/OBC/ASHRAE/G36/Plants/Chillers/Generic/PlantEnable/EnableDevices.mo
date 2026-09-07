@@ -67,9 +67,6 @@ block EnableDevices
   Buildings.Controls.OBC.CDL.Logical.Not not1
     "Not in initial stage"
     annotation (Placement(transformation(extent={{-60,50},{-40,70}})));
-  Buildings.Controls.OBC.CDL.Logical.Edge edg
-    "Plant enable edge"
-    annotation (Placement(transformation(extent={{-100,90},{-80,110}})));
   Buildings.Controls.OBC.CDL.Logical.Latch enaPro
     "True: plant enabled, false once chiller stage departs initial stage"
     annotation (Placement(transformation(extent={{0,90},{20,110}})));
@@ -104,16 +101,12 @@ block EnableDevices
     annotation (Placement(transformation(extent={{-60,-120},{-40,-100}})));
 
 equation
-  connect(uPla, edg.u)
-    annotation (Line(points={{-180,100},{-102,100}}, color={255,0,255}));
   connect(uIni, intEqu1.u1) annotation (Line(points={{-180,60},{-102,60}},
           color={255,127,0}));
   connect(uChiSta, intEqu1.u2)
     annotation (Line(points={{-180,20},{-140,20},{-140,52},{-102,52}}, color={255,127,0}));
   connect(intEqu1.y, not1.u)
     annotation (Line(points={{-78,60},{-62,60}}, color={255,0,255}));
-  connect(edg.y,enaPro. u)
-    annotation (Line(points={{-78,100},{-2,100}}, color={255,0,255}));
   connect(enaPro.y, yEnaPlaPro)
     annotation (Line(points={{22,100},{180,100}}, color={255,0,255}));
   connect(conInt.y, intChiMod.u2) annotation (Line(points={{-98,0},{-60,0},{-60,
@@ -152,6 +145,8 @@ equation
           {180,-90}},      color={255,0,255}));
   connect(con.y, and2.u2) annotation (Line(points={{-38,-110},{-20,-110},{-20,-68},
           {-2,-68}}, color={255,0,255}));
+  connect(uPla, enaPro.u)
+    annotation (Line(points={{-180,100},{-2,100}}, color={255,0,255}));
 annotation (defaultComponentName = "enaDev",
   Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}}),
     graphics={

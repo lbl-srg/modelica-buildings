@@ -75,9 +75,6 @@ protected
   Buildings.Controls.OBC.CDL.Logical.Latch lat1
     "Check if the valve is being changed"
     annotation (Placement(transformation(extent={{80,-130},{100,-110}})));
-  Buildings.Controls.OBC.CDL.Logical.Edge edg
-    "Edge when the valve has been reset successfully"
-    annotation (Placement(transformation(extent={{120,-10},{140,10}})));
   Buildings.Controls.OBC.CDL.Logical.Edge edg3
     "Edge when it starts changing the minimum bypass flow valve"
     annotation (Placement(transformation(extent={{20,-130},{40,-110}})));
@@ -131,8 +128,6 @@ equation
           -10,-8},{-2,-8}},   color={255,0,255}));
   connect(and1.y, and4.u1) annotation (Line(points={{142,120},{150,120},{150,40},
           {70,40},{70,0},{78,0}},   color={255,0,255}));
-  connect(and4.y, edg.u)
-    annotation (Line(points={{102,0},{118,0}},   color={255,0,255}));
   connect(uStaPro, edg3.u) annotation (Line(points={{-180,80},{-60,80},{-60,-120},
           {18,-120}},       color={255,0,255}));
   connect(edg3.y, lat1.clr) annotation (Line(points={{42,-120},{60,-120},{60,-126},
@@ -155,8 +150,6 @@ equation
     annotation (Line(points={{22,0},{38,0}}, color={255,0,255}));
   connect(and6.y, lat.u) annotation (Line(points={{22,0},{30,0},{30,80},{78,80}},
         color={255,0,255}));
-  connect(edg.y, lat1.u) annotation (Line(points={{142,0},{150,0},{150,-40},{70,
-          -40},{70,-120},{78,-120}}, color={255,0,255}));
   connect(VChiWat_flow, relFlo.u1) annotation (Line(points={{-180,10},{-150,10},
           {-150,6},{-142,6}}, color={0,0,127}));
   connect(relFlo.y, achSet.u)
@@ -169,6 +162,8 @@ equation
           -32},{-150,-32},{-150,-6},{-142,-6}}, color={0,0,127}));
   connect(achSet.y, and3.u2) annotation (Line(points={{-78,0},{-70,0},{-70,-8},{
           -42,-8}}, color={255,0,255}));
+  connect(and4.y, lat1.u) annotation (Line(points={{102,0},{110,0},{110,-40},{
+          70,-40},{70,-120},{78,-120}}, color={255,0,255}));
 annotation (
   defaultComponentName="minBypRes",
   Icon(coordinateSystem(extent={{-100,-100},{100,100}}),
