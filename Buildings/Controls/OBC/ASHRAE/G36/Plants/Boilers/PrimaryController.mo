@@ -1861,9 +1861,6 @@ equation
             pattern=LinePattern.None),
           Text(
             extent={{-362,304},{-298,288}},
-            pattern=LinePattern.None,
-            fillColor={255,255,255},
-            fillPattern=FillPattern.Solid,
             textColor={0,0,127},
             textString="Enable boiler plant"),
           Rectangle(
@@ -1873,9 +1870,6 @@ equation
             pattern=LinePattern.None),
           Text(
             extent={{-140,56},{-76,40}},
-            pattern=LinePattern.None,
-            fillColor={255,255,255},
-            fillPattern=FillPattern.Solid,
             textColor={0,0,127},
           textString="Calculate stage setpoint"),
           Rectangle(
@@ -1885,9 +1879,6 @@ equation
             pattern=LinePattern.None),
           Text(
             extent={{-226,236},{-156,218}},
-            pattern=LinePattern.None,
-            fillColor={255,255,255},
-            fillPattern=FillPattern.Solid,
             textColor={0,0,127},
           textString="Calculate hot water supply
 temperature setpoint",
@@ -1899,9 +1890,6 @@ temperature setpoint",
             pattern=LinePattern.None),
           Text(
             extent={{-94,-118},{0,-136}},
-            pattern=LinePattern.None,
-            fillColor={255,255,255},
-            fillPattern=FillPattern.Solid,
             textColor={0,0,127},
           horizontalAlignment=TextAlignment.Left,
           textString="Calculate condensation
@@ -1913,9 +1901,6 @@ control setpoints"),
             pattern=LinePattern.None),
           Text(
             extent={{146,-106},{224,-114}},
-            pattern=LinePattern.None,
-            fillColor={255,255,255},
-            fillPattern=FillPattern.Solid,
             textColor={0,0,127},
           horizontalAlignment=TextAlignment.Left,
           textString="Primary pump controller"),
@@ -1926,9 +1911,6 @@ control setpoints"),
             pattern=LinePattern.None),
           Text(
             extent={{152,4},{226,-8}},
-            pattern=LinePattern.None,
-            fillColor={255,255,255},
-            fillPattern=FillPattern.Solid,
             textColor={0,0,127},
           horizontalAlignment=TextAlignment.Left,
           textString="Staging process controllers"),
@@ -1939,9 +1921,6 @@ control setpoints"),
             pattern=LinePattern.None),
           Text(
             extent={{152,392},{226,354}},
-            pattern=LinePattern.None,
-            fillColor={255,255,255},
-            fillPattern=FillPattern.Solid,
             textColor={0,0,127},
           horizontalAlignment=TextAlignment.Left,
           textString="Pass signal from
@@ -1955,9 +1934,6 @@ on the appropriate process"),
             pattern=LinePattern.None),
           Text(
             extent={{298,358},{346,312}},
-            pattern=LinePattern.None,
-            fillColor={255,255,255},
-            fillPattern=FillPattern.Solid,
             textColor={0,0,127},
           horizontalAlignment=TextAlignment.Left,
           textString="Calculate minimum flow
@@ -1969,9 +1945,6 @@ setpoint for current stage"),
             pattern=LinePattern.None),
           Text(
             extent={{-366,-26},{-292,-64}},
-            pattern=LinePattern.None,
-            fillColor={255,255,255},
-            fillPattern=FillPattern.Solid,
             textColor={0,0,127},
           horizontalAlignment=TextAlignment.Left,
           textString="Calculate minimum flow
@@ -1983,9 +1956,6 @@ setpoint for all stages"),
             pattern=LinePattern.None),
           Text(
             extent={{156,-34},{192,-58}},
-            pattern=LinePattern.None,
-            fillColor={255,255,255},
-            fillPattern=FillPattern.Solid,
             textColor={0,0,127},
           horizontalAlignment=TextAlignment.Left,
           textString="Bypass
