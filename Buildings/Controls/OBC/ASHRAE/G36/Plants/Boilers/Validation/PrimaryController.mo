@@ -32,6 +32,7 @@ model PrimaryController
   Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.PrimaryController controller1(
     have_priOnl=false,
     have_heaPriPum=true,
+    have_varPriPum_select=true,
     have_secFloSen_select=true,
     have_priTemSen_select=true,
     nLooSec=1,
@@ -60,6 +61,7 @@ model PrimaryController
   Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.PrimaryController controller2(
     have_priOnl=false,
     have_heaPriPum=false,
+    have_varPriPum_select=true,
     have_secFloSen_select=true,
     have_priTemSen_select=true,
     nLooSec=1,

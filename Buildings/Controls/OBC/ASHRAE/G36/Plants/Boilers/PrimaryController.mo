@@ -37,9 +37,9 @@ model PrimaryController
     False: Fixed-speed primary pumps"
     annotation(Dialog(tab="General",
       group="Boiler plant configuration parameters",
-      enable=not have_allCon));
+      enable=not have_priOnl));
 
-  final parameter Boolean have_varPriPum = have_allCon or have_varPriPum_select
+  final parameter Boolean have_varPriPum = have_priOnl or have_varPriPum_select
     "Parameter selection for variable speed primary pumps in cases where user interface
     may not be exposed";
 
@@ -2081,10 +2081,14 @@ Buildings.Examples.BoilerPlants.Guideline36
     <th>6</th>
     <th>7</th>
     <th>8</th>
+    <th>9</th>
+    <th>10</th>
   </tr></thead>
 <tbody>
   <tr>
     <td>have_priOnl</td>
+    <td>True</td>
+    <td>True</td>
     <td>True</td>
     <td>True</td>
     <td>False</td>
@@ -2098,6 +2102,8 @@ Buildings.Examples.BoilerPlants.Guideline36
     <td>have_heaPriPum</td>
     <td>True</td>
     <td>True</td>
+    <td>False</td>
+    <td>False</td>
     <td>True</td>
     <td>True</td>
     <td>True</td>
@@ -2106,7 +2112,9 @@ Buildings.Examples.BoilerPlants.Guideline36
     <td>False</td>
   </tr>
   <tr>
-    <td>have_varPriPum</td>
+    <td>have_varPriPum_select</td>
+    <td>True</td>
+    <td>True</td>
     <td>True</td>
     <td>True</td>
     <td>True</td>
@@ -2118,6 +2126,8 @@ Buildings.Examples.BoilerPlants.Guideline36
   </tr>
   <tr>
     <td>speConTypPri</td>
+    <td>localDP</td>
+    <td>remoteDP</td>
     <td>localDP</td>
     <td>remoteDP</td>
     <td>flowrate</td>
@@ -2132,6 +2142,10 @@ Buildings.Examples.BoilerPlants.Guideline36
 
 <p>Note:</p>
 <ol>
+<li>
+The parameter <code>have_varPriPum_select</code> is only exposed to the user in
+primary-secondary plant configurations.
+</li>
 <li>
 The controller currently assumes the boilers are constantly available. Future
 modifications will include logic for detecting availability.

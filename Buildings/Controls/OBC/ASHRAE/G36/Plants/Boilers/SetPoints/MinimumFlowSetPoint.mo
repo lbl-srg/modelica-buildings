@@ -551,34 +551,34 @@ equation
           30},{-86,34},{-82,34}}, color={255,127,0}));
   connect(zerStaIndCor.yIndMod, extIndSig3.index)
     annotation (Line(points={{-58,34},{-2,34},{-2,38}}, color={255,127,0}));
-  connect(zerStaIndCor.yCapMod, add2.u1) annotation (Line(points={{-58,26},{38,26},
+  connect(zerStaIndCor.yValMod, add2.u1) annotation (Line(points={{-58,26},{38,26},
           {38,46},{58,46}}, color={0,0,127}));
-  connect(extIndSig3.y, zerStaIndCor.uCap) annotation (Line(points={{10,50},{20,
+  connect(extIndSig3.y,zerStaIndCor.uVal)  annotation (Line(points={{10,50},{20,
           50},{20,66},{-90,66},{-90,26},{-82,26}}, color={0,0,127}));
   connect(uLasDisBoi, zerStaIndCor1.uInd) annotation (Line(points={{-160,30},{-132,
           30},{-132,-274},{-112,-274}}, color={255,127,0}));
   connect(zerStaIndCor1.yIndMod, extIndSig5.index) annotation (Line(points={{-88,
           -274},{-30,-274},{-30,-272}}, color={255,127,0}));
-  connect(zerStaIndCor1.yCapMod, add1.u2) annotation (Line(points={{-88,-282},{0,
+  connect(zerStaIndCor1.yValMod, add1.u2) annotation (Line(points={{-88,-282},{0,
           -282},{0,-306},{98,-306}}, color={0,0,127}));
-  connect(extIndSig5.y, zerStaIndCor1.uCap) annotation (Line(points={{-18,-260},
+  connect(extIndSig5.y,zerStaIndCor1.uVal)  annotation (Line(points={{-18,-260},
           {-10,-260},{-10,-244},{-120,-244},{-120,-282},{-112,-282}}, color={0,0,
           127}));
   connect(addInt1.y, zerStaIndCor2.uInd) annotation (Line(points={{-58,-300},{-50,
           -300},{-50,-296},{-42,-296}}, color={255,127,0}));
   connect(zerStaIndCor2.yIndMod, extIndSig4.index) annotation (Line(points={{-18,
           -296},{70,-296},{70,-282}}, color={255,127,0}));
-  connect(zerStaIndCor2.yCapMod, max1.u2) annotation (Line(points={{-18,-304},{90,
+  connect(zerStaIndCor2.yValMod, max1.u2) annotation (Line(points={{-18,-304},{90,
           -304},{90,-256},{98,-256}}, color={0,0,127}));
-  connect(extIndSig4.y, zerStaIndCor2.uCap) annotation (Line(points={{82,-270},{
+  connect(extIndSig4.y,zerStaIndCor2.uVal)  annotation (Line(points={{82,-270},{
           86,-270},{86,-320},{-50,-320},{-50,-304},{-42,-304}}, color={0,0,127}));
   connect(subInt.y, zerStaIndCor3.uInd) annotation (Line(points={{-38,80},{-20,80},
           {-20,84},{-10,84}}, color={255,127,0}));
   connect(zerStaIndCor3.yIndMod, extIndSig1.index) annotation (Line(points={{14,
           84},{30,84},{30,60},{70,60},{70,68}}, color={255,127,0}));
-  connect(zerStaIndCor3.yCapMod, max.u1) annotation (Line(points={{14,76},{20,76},
+  connect(zerStaIndCor3.yValMod, max.u1) annotation (Line(points={{14,76},{20,76},
           {20,106},{98,106}}, color={0,0,127}));
-  connect(extIndSig1.y, zerStaIndCor3.uCap) annotation (Line(points={{82,80},{84,
+  connect(extIndSig1.y,zerStaIndCor3.uVal)  annotation (Line(points={{82,80},{84,
           80},{84,100},{-14,100},{-14,76},{-10,76}}, color={0,0,127}));
 annotation (
   defaultComponentName="minBoiFloSet",
