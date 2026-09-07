@@ -186,45 +186,45 @@ equation
           -160,124},{-122,124}}, color={255,127,0}));
   connect(zerStaIndCor.yIndMod, cap.index) annotation (Line(points={{-98,124},{-90,
           124},{-90,138}}, color={255,127,0}));
-  connect(cap.y, zerStaIndCor.uCap) annotation (Line(points={{-78,150},{-74,150},
+  connect(cap.y,zerStaIndCor.uVal)  annotation (Line(points={{-78,150},{-74,150},
           {-74,172},{-130,172},{-130,116},{-122,116}}, color={0,0,127}));
-  connect(zerStaIndCor.yCapMod, gai.u) annotation (Line(points={{-98,116},{-70,116},
+  connect(zerStaIndCor.yValMod, gai.u) annotation (Line(points={{-98,116},{-70,116},
           {-70,120},{-62,120}}, color={0,0,127}));
-  connect(zerStaIndCor.yCapMod, yDes) annotation (Line(points={{-98,116},{-70,116},
+  connect(zerStaIndCor.yValMod, yDes) annotation (Line(points={{-98,116},{-70,116},
           {-70,150},{220,150}}, color={0,0,127}));
   connect(zerStaIndCor1.yIndMod, upCap.index)
     annotation (Line(points={{2,54},{10,54},{10,68}}, color={255,127,0}));
   connect(uUp, zerStaIndCor1.uInd) annotation (Line(points={{-220,60},{-60,60},{
           -60,54},{-22,54}}, color={255,127,0}));
-  connect(upCap.y, zerStaIndCor1.uCap) annotation (Line(points={{22,80},{30,80},
+  connect(upCap.y,zerStaIndCor1.uVal)  annotation (Line(points={{22,80},{30,80},
           {30,100},{-30,100},{-30,46},{-22,46}}, color={0,0,127}));
-  connect(zerStaIndCor1.yCapMod, swi2.u3) annotation (Line(points={{2,46},{20,46},
+  connect(zerStaIndCor1.yValMod, swi2.u3) annotation (Line(points={{2,46},{20,46},
           {20,52},{158,52}}, color={0,0,127}));
   connect(uDown, zerStaIndCor2.uInd) annotation (Line(points={{-220,0},{-128,0},
           {-128,4},{-122,4}}, color={255,127,0}));
   connect(zerStaIndCor2.yIndMod, dowCap.index)
     annotation (Line(points={{-98,4},{-90,4},{-90,68}}, color={255,127,0}));
-  connect(dowCap.y, zerStaIndCor2.uCap) annotation (Line(points={{-78,80},{-70,80},
+  connect(dowCap.y,zerStaIndCor2.uVal)  annotation (Line(points={{-78,80},{-70,80},
           {-70,100},{-132,100},{-132,-4},{-122,-4}}, color={0,0,127}));
-  connect(zerStaIndCor2.yCapMod, swi1.u3) annotation (Line(points={{-98,-4},{-80,
+  connect(zerStaIndCor2.yValMod, swi1.u3) annotation (Line(points={{-98,-4},{-80,
           -4},{-80,12},{98,12}}, color={0,0,127}));
   connect(uUp, zerStaIndCor3.uInd) annotation (Line(points={{-220,60},{-60,60},{
           -60,-46},{-42,-46}}, color={255,127,0}));
   connect(zerStaIndCor3.yIndMod, upCapMin.index) annotation (Line(points={{-18,-46},
           {-10,-46},{-10,-50},{10,-50},{10,-42}}, color={255,127,0}));
-  connect(upCapMin.y, zerStaIndCor3.uCap) annotation (Line(points={{22,-30},{30,
+  connect(upCapMin.y,zerStaIndCor3.uVal)  annotation (Line(points={{22,-30},{30,
           -30},{30,-10},{-50,-10},{-50,-54},{-42,-54}}, color={0,0,127}));
-  connect(zerStaIndCor3.yCapMod, swi4.u3) annotation (Line(points={{-18,-54},{40,
+  connect(zerStaIndCor3.yValMod, swi4.u3) annotation (Line(points={{-18,-54},{40,
           -54},{40,-98},{158,-98}}, color={0,0,127}));
   connect(u, zerStaIndCor4.uInd) annotation (Line(points={{-220,120},{-160,120},
           {-160,-86},{-42,-86}}, color={255,127,0}));
   connect(zerStaIndCor4.yIndMod, capMin.index)
     annotation (Line(points={{-18,-86},{10,-86},{10,-82}}, color={255,127,0}));
-  connect(zerStaIndCor4.yCapMod, swi1.u1) annotation (Line(points={{-18,-94},{70,
+  connect(zerStaIndCor4.yValMod, swi1.u1) annotation (Line(points={{-18,-94},{70,
           -94},{70,28},{98,28}}, color={0,0,127}));
-  connect(zerStaIndCor4.yCapMod, yMin) annotation (Line(points={{-18,-94},{70,-94},
+  connect(zerStaIndCor4.yValMod, yMin) annotation (Line(points={{-18,-94},{70,-94},
           {70,-20},{220,-20}}, color={0,0,127}));
-  connect(capMin.y, zerStaIndCor4.uCap) annotation (Line(points={{22,-70},{30,-70},
+  connect(capMin.y,zerStaIndCor4.uVal)  annotation (Line(points={{22,-70},{30,-70},
           {30,-110},{-50,-110},{-50,-94},{-42,-94}}, color={0,0,127}));
 annotation (defaultComponentName = "cap",
         Icon(graphics={

@@ -199,28 +199,28 @@ equation
           {64,84},{-90,84},{-90,64},{-82,64}}, color={255,127,0}));
   connect(zerStaIndCor.yIndMod, extIndSig.index)
     annotation (Line(points={{-58,64},{-50,64},{-50,88}}, color={255,127,0}));
-  connect(zerStaIndCor.yCapMod, reaToInt1.u) annotation (Line(points={{-58,56},{
+  connect(zerStaIndCor.yValMod, reaToInt1.u) annotation (Line(points={{-58,56},{
           -34,56},{-34,100},{18,100}}, color={0,0,127}));
-  connect(zerStaIndCor.yCapMod, greThr.u) annotation (Line(points={{-58,56},{-34,
+  connect(zerStaIndCor.yValMod, greThr.u) annotation (Line(points={{-58,56},{-34,
           56},{-34,70},{-32,70}}, color={0,0,127}));
-  connect(extIndSig.y, zerStaIndCor.uCap) annotation (Line(points={{-38,100},{-36,
+  connect(extIndSig.y,zerStaIndCor.uVal)  annotation (Line(points={{-38,100},{-36,
           100},{-36,80},{-86,80},{-86,56},{-82,56}}, color={0,0,127}));
   connect(reaToInt2.y, zerStaIndCor1.uInd) annotation (Line(points={{-38,-100},{
           -30,-100},{-30,-120},{-96,-120},{-96,-176},{-92,-176}}, color={255,127,
           0}));
   connect(zerStaIndCor1.yIndMod, extIndSig1.index) annotation (Line(points={{-68,
           -176},{-50,-176},{-50,-152}}, color={255,127,0}));
-  connect(zerStaIndCor1.yCapMod, reaToInt3.u) annotation (Line(points={{-68,-184},
+  connect(zerStaIndCor1.yValMod, reaToInt3.u) annotation (Line(points={{-68,-184},
           {0,-184},{0,-140},{18,-140}}, color={0,0,127}));
-  connect(extIndSig1.y, zerStaIndCor1.uCap) annotation (Line(points={{-38,-140},
+  connect(extIndSig1.y,zerStaIndCor1.uVal)  annotation (Line(points={{-38,-140},
           {-30,-140},{-30,-196},{-96,-196},{-96,-184},{-92,-184}}, color={0,0,127}));
   connect(reaToInt2.y, zerStaIndCor2.uInd) annotation (Line(points={{-38,-100},{
           -36,-100},{-36,-46},{-22,-46}}, color={255,127,0}));
   connect(zerStaIndCor2.yIndMod, extIndSig2.index) annotation (Line(points={{2,-46},
           {8,-46},{8,-34},{-20,-34},{-20,-32}}, color={255,127,0}));
-  connect(extIndSig2.y, zerStaIndCor2.uCap) annotation (Line(points={{-8,-20},{-4,
+  connect(extIndSig2.y,zerStaIndCor2.uVal)  annotation (Line(points={{-8,-20},{-4,
           -20},{-4,0},{-40,0},{-40,-54},{-22,-54}}, color={0,0,127}));
-  connect(zerStaIndCor2.yCapMod, greThr1.u) annotation (Line(points={{2,-54},{12,
+  connect(zerStaIndCor2.yValMod, greThr1.u) annotation (Line(points={{2,-54},{12,
           -54},{12,-20},{18,-20}}, color={0,0,127}));
   annotation (
     Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}}),

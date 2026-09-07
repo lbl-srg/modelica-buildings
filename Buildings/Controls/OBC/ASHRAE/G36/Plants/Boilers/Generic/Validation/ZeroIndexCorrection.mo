@@ -29,9 +29,9 @@ protected
     annotation (Placement(transformation(extent={{20,30},{40,50}})));
 
 equation
-  connect(conCap.y, zerStaIndCor.uCap) annotation (Line(points={{-58,-40},{-50,-40},
+  connect(conCap.y,zerStaIndCor.uVal)  annotation (Line(points={{-58,-40},{-50,-40},
           {-50,-4},{-42,-4}}, color={0,0,127}));
-  connect(conCap.y, zerStaIndCor1.uCap) annotation (Line(points={{-58,-40},{50,-40},
+  connect(conCap.y,zerStaIndCor1.uVal)  annotation (Line(points={{-58,-40},{50,-40},
           {50,-4},{58,-4}}, color={0,0,127}));
   connect(conIntZer.y, zerStaIndCor.uInd) annotation (Line(points={{-58,40},{-50,
           40},{-50,4},{-42,4}}, color={255,127,0}));

@@ -1,17 +1,14 @@
 within Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Generic;
 block ZeroIndexCorrection
-  "Block to pass the correct capacity details when index signal is zero, while avoiding assert errors"
+  "Block to pass modified list item values when index signal is zero, while avoiding assert errors"
 
   Buildings.Controls.OBC.CDL.Interfaces.IntegerInput uInd
     "Index signal"
     annotation (Placement(transformation(extent={{-140,20},{-100,60}}),
       iconTransformation(extent={{-140,20},{-100,60}})));
 
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput uCap(
-    final unit="W",
-    displayUnit="W",
-    final quantity="Power")
-    "Capacity signal"
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput uVal
+    "List item value"
     annotation (Placement(transformation(extent={{-140,-60},{-100,-20}}),
       iconTransformation(extent={{-140,-60},{-100,-20}})));
 
@@ -20,11 +17,8 @@ block ZeroIndexCorrection
     annotation (Placement(transformation(extent={{100,20},{140,60}}),
       iconTransformation(extent={{100,20},{140,60}})));
 
-  Buildings.Controls.OBC.CDL.Interfaces.RealOutput yCapMod(
-    final unit="W",
-    displayUnit="W",
-    final quantity="Power")
-    "Modified capacity value"
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput yValMod
+    "Modified list item value"
     annotation (Placement(transformation(extent={{100,-60},{140,-20}}),
       iconTransformation(extent={{100,-60},{140,-20}})));
 
@@ -71,11 +65,11 @@ equation
           {38,74}}, color={255,127,0}));
   connect(addInt.y, yIndMod) annotation (Line(points={{62,80},{80,80},{80,40},{120,
           40}}, color={255,127,0}));
-  connect(mul.y, yCapMod)
+  connect(mul.y,yValMod)
     annotation (Line(points={{62,-40},{120,-40}}, color={0,0,127}));
   connect(booToRea.y, mul.u1) annotation (Line(points={{22,20},{30,20},{30,-34},
           {38,-34}}, color={0,0,127}));
-  connect(uCap, mul.u2) annotation (Line(points={{-120,-40},{30,-40},{30,-46},{38,
+  connect(uVal, mul.u2) annotation (Line(points={{-120,-40},{30,-40},{30,-46},{38,
           -46}}, color={0,0,127}));
   annotation (defaultComponentName="zerIndCor",
     Icon(coordinateSystem(preserveAspectRatio=false),
@@ -92,30 +86,35 @@ equation
     Diagram(coordinateSystem(preserveAspectRatio=false)),
 Documentation(info="<html>
 <p>
-This block has been implemented to overcome the zero-index errors being 
-reported in the block 
-<a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Staging.SetPoints.Subsequences.Capacities\">
-Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Staging.SetPoints.Subsequences.Capacities</a>.
-The current staging setpoint logic uses an index value of 0 to represent the 
-block being turned off. This is resulting in errors reported in the instances
-of the
+This block has been implemented to retain the original interpretation and
+implementation of the boilr plant sequences in
+<a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers\">
+Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers</a> while accommodating changes
+to the real-value extractor block 
 <a href=\"modelica://Buildings.Controls.OBC.CDL.Routing.RealExtractor\">
-RealExtractor</a> block.
+Buildings.Controls.OBC.CDL.Routing.RealExtractor</a>.
 </p>
 <p>
-To overcome this, the block accepts input signals <code>uInd</code> for the
-current index value, and <code>uCap</code> for the current capacity signal. 
+Some of the calculations in the the boiler plant sequence implementation rely on
+the use of zero capacity and flowrate values corresponding to the zero plant stage
+representing plant disabled status. Since the <code>RealExtractor</code> block no
+longer allows the assignment of a specific value at index values lower than 1,
+this block has been implemented to assign the requiered zero value at zero index.
+</p>
+<p>
+The block accepts input signals <code>uInd</code> for the
+current index value, and <code>uVal</code> for the current list value signal. 
 It outputs a modified index signal <code>yIndMod</code> and a modified 
-capacity signal <code>yCapMod</code>.
+value signal <code>yValMod</code>.
 </p>
 <ul>
 <li>
-<code>yIndMod</code> is set to 1 and <code>yCapMod</code> is set to zero 
+<code>yIndMod</code> is set to 1 and <code>yValMod</code> is set to zero 
 when <code>uInd</code> is zero.
 </li>
 <li>
-<code>yIndMod</code> is set to <code>uInd</code> and <code>yCapMod</code> is
-set to <code>uCap</code> when <code>uInd</code> is not zero.
+<code>yIndMod</code> is set to <code>uInd</code> and <code>yValMod</code> is
+set to <code>uVal</code> when <code>uInd</code> is not zero.
 </li>
 </ul>
 <p>

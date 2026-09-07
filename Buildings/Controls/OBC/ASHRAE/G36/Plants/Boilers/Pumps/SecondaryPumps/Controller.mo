@@ -739,17 +739,17 @@ equation
     annotation (Line(points={{-110,-70},{-104,-70}}, color={255,127,0}));
   connect(zerStaIndCor.yIndMod, nexLagPum.index) annotation (Line(points={{-80,-70},
           {-70,-70},{-70,-62}}, color={255,127,0}));
-  connect(zerStaIndCor.yCapMod, reaToInt1.u) annotation (Line(points={{-80,-78},
+  connect(zerStaIndCor.yValMod, reaToInt1.u) annotation (Line(points={{-80,-78},
           {-46,-78},{-46,-50},{-10,-50}}, color={0,0,127}));
-  connect(nexLagPum.y, zerStaIndCor.uCap) annotation (Line(points={{-58,-50},{-52,
+  connect(nexLagPum.y,zerStaIndCor.uVal)  annotation (Line(points={{-58,-50},{-52,
           -50},{-52,-32},{-108,-32},{-108,-78},{-104,-78}}, color={0,0,127}));
   connect(mulSumInt.y, zerStaIndCor1.uInd)
     annotation (Line(points={{-178,-120},{-116,-120}}, color={255,127,0}));
   connect(zerStaIndCor1.yIndMod, lasLagPum.index) annotation (Line(points={{-92,
           -120},{-70,-120},{-70,-112}}, color={255,127,0}));
-  connect(zerStaIndCor1.yCapMod, reaToInt2.u) annotation (Line(points={{-92,-128},
+  connect(zerStaIndCor1.yValMod, reaToInt2.u) annotation (Line(points={{-92,-128},
           {-44,-128},{-44,-100},{-10,-100}}, color={0,0,127}));
-  connect(lasLagPum.y, zerStaIndCor1.uCap) annotation (Line(points={{-58,-100},{
+  connect(lasLagPum.y,zerStaIndCor1.uVal)  annotation (Line(points={{-58,-100},{
           -50,-100},{-50,-86},{-122,-86},{-122,-128},{-116,-128}}, color={0,0,127}));
   connect(con.y, leaPum.u) annotation (Line(points={{-170,246},{-100,246},{-100,
           230},{-82,230}}, color={0,0,127}));
