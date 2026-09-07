@@ -168,16 +168,6 @@ REMOVE_MODIF = {
 
 # See docstring of `apply_experiment_modifications` function for the structure of EXPERIMENT_MODIF.
 EXPERIMENT_MODIF = {
-    'Buildings.Templates.Plants.Boilers.HotWater.Validation.BoilerPlant': [
-        (
-            [
-                '.*',
-            ],
-            {
-                'method': 'dassl',
-            },
-        ),
-    ],
 }
 
 if __name__ == '__main__':
