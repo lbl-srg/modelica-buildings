@@ -63,4 +63,12 @@ record Cooler
     annotation(Dialog(group="Nominal condition"));
   parameter Real y_min(final unit="1", final min=0, final max=1) = 0.3
     "Minimum fan speed";
+  annotation (Documentation(info="<html>
+<p>
+This record provides the set of sizing parameters for
+the classes within
+<a href=\"modelica://Buildings.Templates.Components.Coolers\">
+Buildings.Templates.Components.Coolers</a>.
+</p>
+</html>"));
 end Cooler;

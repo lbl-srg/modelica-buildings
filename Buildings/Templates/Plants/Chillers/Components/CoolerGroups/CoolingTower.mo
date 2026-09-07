@@ -6,7 +6,7 @@ model CoolingTower
       Buildings.Templates.Components.Types.CoolingTower.Open
       then Buildings.Templates.Components.Types.Cooler.CoolingTowerOpen
       elseif typTow == Buildings.Templates.Components.Types.CoolingTower.Closed
-      then Buildings.Templates.Components.Types.Cooler.CoolingTowerOpen
+      then Buildings.Templates.Components.Types.Cooler.CoolingTowerClosed
       else Buildings.Templates.Components.Types.Cooler.None);
   parameter Buildings.Templates.Components.Types.CoolingTower typTow =
     Buildings.Templates.Components.Types.CoolingTower.Open
@@ -119,7 +119,7 @@ annotation(defaultComponentName="coo",
     revisions="<html>
 <ul>
   <li>
-    April 17, 2025, by Antoine Gautier:<br />
+    September 1, 2026, by Antoine Gautier:<br />
     First implementation.
   </li>
 </ul>

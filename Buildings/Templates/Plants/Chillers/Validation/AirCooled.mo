@@ -10,7 +10,7 @@ model AirCooled
     constrainedby Modelica.Media.Interfaces.PartialMedium
     "Air medium";
 annotation(experiment(StartTime=19612800,
-  StopTime=19615000,
+  StopTime=19699200,
   Tolerance=1e-06),
   __Dymola_Commands(
     file="modelica://Buildings/Resources/Scripts/Dymola/Templates/Plants/Chillers/Validation/AirCooled.mos"
@@ -19,7 +19,7 @@ annotation(experiment(StartTime=19612800,
     revisions="<html>
 <ul>
   <li>
-    August 8, 2025, by Antoine Gautier:<br />
+    September 1, 2026, by Antoine Gautier:<br />
     First implementation.
   </li>
 </ul>
@@ -33,10 +33,10 @@ annotation(experiment(StartTime=19612800,
 </p>
 <p>
   Two equally sized chillers are modeled. A unique aggregated load is modeled
-  on the CHW loop by means of a heating component controlled to maintain a
-  constant <i>&Delta;T</i>, and a modulating valve controlled to track a
-  prescribed flow rate. An importance multiplier of <i>10</i> is applied to
-  the plant requests and reset requests generated from the valve position.
+  on the CHW loop using a heat exchanger component exposed to conditioned
+  space air, and a two-way modulating valve. An importance multiplier of
+  <i>10</i> is applied to the plant requests and reset requests generated from
+  the valve position.
 </p>
 <p>
   Advanced equipment and control options can be modified via the parameter

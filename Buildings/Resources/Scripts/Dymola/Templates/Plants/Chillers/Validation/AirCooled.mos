@@ -1,8 +1,8 @@
 simulateModel("Buildings.Templates.Plants.Chillers.Validation.AirCooled",
     method="cvode",
     tolerance=1e-6,
-    startTime=0.0,
-    stopTime=86400.0,
+    startTime=19612800.0,
+    stopTime=19699200.0,
     resultFile="AirCooledChillerPlant");
 createPlot(
     id=1,
@@ -23,7 +23,7 @@ createPlot(
 createPlot(
     id=1,
     subPlot=3,
-    y={"loa.u", "loa.y_actual"},
+    y={"loa.u", "loa.yLoa_actual"},
     autoscale=true,
     grid=true,
     timeUnit="h"
@@ -114,7 +114,7 @@ createPlot(
 createPlot(
     id=7,
     position={350, 40, 300, 300},
-    y={"pla.bus.TChiWatSupSet[1]", "pla.bus.TChiWatPriSup", "pla.bus.TChiWatPlaRet"},
+    y={"pla.bus.chi[1].TChiWatSet", "pla.bus.TChiWatPriSup", "pla.bus.TChiWatPlaRet"},
     autoscale=true,
     grid=true,
     timeUnit="h"

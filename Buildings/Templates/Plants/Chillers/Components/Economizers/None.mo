@@ -11,14 +11,16 @@ annotation(defaultComponentName="eco",
   Diagram(coordinateSystem(preserveAspectRatio=false)),
   Documentation(
     info="<html>
-When no waterside economizer is considered this model shall be used in
-replacement of the waterside economizer component. The model resolves into a
-simple fluid pass-through on the CHW side,
+<p>
+  When no waterside economizer is considered, this model shall be used in
+  replacement of the waterside economizer component. The model resolves into a
+  simple fluid pass-through on the CHW side.
+</p>
 </html>",
     revisions="<html>
 <ul>
   <li>
-    November 18, 2022, by Antoine Gautier:<br />
+    September 1, 2026, by Antoine Gautier:<br />
     First implementation.
   </li>
 </ul>

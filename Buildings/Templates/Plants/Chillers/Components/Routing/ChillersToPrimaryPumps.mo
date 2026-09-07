@@ -533,15 +533,11 @@ annotation(defaultComponentName="int",
     with modulating valve for variable primary-only systems).
   </li>
 </ul>
-<h4>Implementation details</h4>
-<p>
-  In the case of series chillers, the chiller CHW bypass valves that serve
-</p>
 </html>",
     revisions="<html>
 <ul>
   <li>
-    November 18, 2022, by Antoine Gautier:<br />
+    September 1, 2026, by Antoine Gautier:<br />
     First implementation.
   </li>
 </ul>

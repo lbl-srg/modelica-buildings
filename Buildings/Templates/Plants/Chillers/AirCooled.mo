@@ -142,18 +142,17 @@ annotation(Documentation(
       <b>Variable primary-only</b><br />
       <font color=\"gray\"><em>Constant primary-only</em></font><br />
       <font color=\"gray\"><em>Constant primary-variable secondary</em></font><br />
-      <font color=\"gray\"><em>Variable primary-variable secondary with centralized secondary pumps</em></font><br />
-      <font color=\"gray\"><em>Variable primary-variable secondary with distributed secondary pumps</em></font>
+      <font color=\"gray\"><em>Variable primary-variable secondary centralized</em></font><br />
+      <font color=\"gray\"><em>Variable primary-variable secondary distributed</em></font>
     </td>
     <td>
       Constant primary-only systems are typically encountered when only one or
       two very large air handlers are served by the plant.<br />
-      Variable primary-variable secondary with centralized secondary pumps
-      refers to configurations with a single group of secondary pumps that is
-      typically integrated into the plant.<br />
-      Variable secondary with distributed secondary pumps refers to
-      configurations with multiple secondary loops, each loop being served by
-      a dedicated group of secondary pumps.
+      \"Variable secondary centralized\" refers to configurations with a single
+      group of secondary pumps that is typically integrated into the plant.<br />
+      \"Variable secondary distributed\" refers to configurations with multiple
+      secondary loops, each loop being served by a dedicated group of
+      secondary pumps.
     </td>
   </tr>
   <tr>
@@ -208,7 +207,7 @@ annotation(Documentation(
   revisions="<html>
 <ul>
   <li>
-    April 17, 2025, by Antoine Gautier:<br />
+    September 1, 2026, by Antoine Gautier:<br />
     First implementation.
   </li>
 </ul>

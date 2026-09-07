@@ -1,6 +1,6 @@
 within Buildings.Templates.Plants.Chillers.Components.Validation;
 model ChillerGroupAirCooled
-  "Validation model for water-cooled chiller group"
+  "Validation model for air-cooled chiller group"
   extends Modelica.Icons.Example;
 
   replaceable package MediumChiWat = Buildings.Media.Water
@@ -330,8 +330,7 @@ equation
       color={255,204,51},
       thickness=0.5));
   connect(busValChiWatChiIso, busPla.valChiWatChiIso)
-    annotation(Line(
-      points={{-120,280},{-100,280},{-100,140}},
+    annotation(Line(points={{-120,280},{-100,280},{-100,140}},
       color={255,204,51},
       thickness=0.5));
   connect(y1PumChiWatPri.y[1], busPumChiWatPri.y1)
@@ -341,7 +340,8 @@ equation
     annotation(Line(points={{-120,200},{-100,200},{-100,140}},
       color={255,204,51},
       thickness=0.5));
-annotation(Diagram(coordinateSystem(extent={{-260,-140},{260,320}}, grid={2,2})),
+annotation(Diagram(coordinateSystem(extent={{-260,-140},{260,320}},
+  grid={2,2})),
   experiment(StopTime=2000,
     Tolerance=1e-06),
   __Dymola_Commands(
@@ -366,7 +366,7 @@ annotation(Diagram(coordinateSystem(extent={{-260,-140},{260,320}}, grid={2,2}))
     revisions="<html>
 <ul>
   <li>
-    April 17, 2025, by Antoine Gautier:<br />
+    September 1, 2026, by Antoine Gautier:<br />
     First implementation.
   </li>
 </ul>

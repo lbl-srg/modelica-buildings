@@ -4,7 +4,7 @@ block G36
   extends Buildings.Templates.Plants.Chillers.Components.Interfaces.PartialController(
     final typ=Buildings.Templates.Plants.Chillers.Types.Controller.G36);
   final parameter Boolean closeCoupledPlant = is_clsCpl
-    "True: the plant is close coupled, i.e. the pipe length from the chillers to cooling towers does not exceed approximately 100 feet";
+    "True: the plant is close coupled, i.e. the pipe length from the chillers to cooling towers does not exceed approximately 30 m";
   // ---- General: Chiller configuration ----
   final parameter Boolean have_parChi = cfg.typArrChi ==
     Buildings.Templates.Plants.Chillers.Types.ChillerArrangement.Parallel
@@ -41,7 +41,7 @@ block G36
   // ---- General: Waterside economizer ----
   final parameter Boolean have_WSE = cfg.typEco <>
     Buildings.Templates.Plants.Chillers.Types.Economizer.None
-    "True if the plant has waterside economizer. When the plant has waterside economizer, the condenser water pump speed must be variable";
+    "True if the plant has a waterside economizer. When the plant has a waterside economizer, the condenser water pump speed must be variable";
   final parameter Real heaExcAppDes(unit="K", displayUnit="K") =
     dat.dTAppEco_nominal
     "Design heat exchanger approach";
@@ -109,11 +109,11 @@ block G36
   final parameter Real dpChiWatMin[nSenChiWatPum](
     each final unit="Pa",
     each displayUnit="Pa") = dat.dpChiWatRemSet_min
-    "Minimum chilled water differential pressure setpoint, the array size equals to the number of remote pressure sensor";
+    "Minimum chilled water differential pressure setpoint, the array size equals the number of remote pressure sensors";
   final parameter Real dpChiWatMax[nSenChiWatPum](
     each final unit="Pa",
     each displayUnit="Pa") = dat.dpChiWatRemSet_max
-    "Maximum chilled water differential pressure setpoint, the array size equals to the number of remote pressure sensor";
+    "Maximum chilled water differential pressure setpoint, the array size equals the number of remote pressure sensors";
   final parameter Real TPlaChiWatSupMax(final unit="K", displayUnit="degC") =
     dat.TChiWatSup_max
     "Maximum chilled water supply temperature setpoint used in plant reset logic";
@@ -448,7 +448,7 @@ annotation(Documentation(
   revisions="<html>
 <ul>
   <li>
-    November 18, 2022, by Antoine Gautier:<br />
+    September 1, 2026, by Antoine Gautier:<br />
     First implementation.
   </li>
 </ul>

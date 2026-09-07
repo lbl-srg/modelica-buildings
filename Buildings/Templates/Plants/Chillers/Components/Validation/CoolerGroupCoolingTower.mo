@@ -360,7 +360,7 @@ annotation(Diagram(coordinateSystem(extent={{-260,-300},{260,300}})),
 <p>
   This model validates the cooler group model
   <a href=\"modelica://Buildings.Templates.Plants.Chillers.Components.CoolerGroups.CoolingTower\">
-    Buildings.Templates.Plants.Chillers.Components.CoolerGroups.CoolingTowerOpen</a>
+    Buildings.Templates.Plants.Chillers.Components.CoolerGroups.CoolingTower</a>
   with open-loop controls.
 </p>
 <p>
@@ -372,7 +372,7 @@ annotation(Diagram(coordinateSystem(extent={{-260,-300},{260,300}})),
     revisions="<html>
 <ul>
   <li>
-    April 17, 2025, by Antoine Gautier:<br />
+    September 1, 2026, by Antoine Gautier:<br />
     First implementation.
   </li>
 </ul>

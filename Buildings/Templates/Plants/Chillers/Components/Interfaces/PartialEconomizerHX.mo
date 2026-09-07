@@ -69,7 +69,7 @@ annotation(Documentation(
   revisions="<html>
 <ul>
   <li>
-    November 18, 2022, by Antoine Gautier:<br />
+    September 1, 2026, by Antoine Gautier:<br />
     First implementation.
   </li>
 </ul>

@@ -27,19 +27,19 @@ model WaterCooled
       final typValChiWatChiIso_select=Buildings.Templates.Components.Types.Valve.TwoWayModulating),
     final typArrPumConWat_select=Buildings.Templates.Components.Types.PumpArrangement.Headered);
   // Coolers
-  replaceable Buildings.Templates.Plants.Chillers.Components.CoolerGroups.CoolingTower coo
-    constrainedby Buildings.Templates.Plants.Chillers.Components.Interfaces.PartialCoolerGroup(
-      redeclare final package MediumConWat=MediumCon,
-      final have_varCom=true,
-      final nCoo=nCoo,
-      final dat=dat.coo,
-      final energyDynamics=energyDynamics,
-      final tau=tau,
-      final allowFlowReversal=allowFlowReversal,
-      final text_flip=true,
-      typValCooInlIso=if nChi == 2 and nCoo == 2
-        then Buildings.Templates.Components.Types.Valve.None
-        else Buildings.Templates.Components.Types.Valve.TwoWayTwoPosition)
+  Buildings.Templates.Plants.Chillers.Components.CoolerGroups.CoolingTower coo(
+    redeclare final package MediumConWat=MediumCon,
+    final typTow=Buildings.Templates.Components.Types.CoolingTower.Open,
+    final have_varCom=true,
+    final nCoo=nCoo,
+    final dat=dat.coo,
+    final energyDynamics=energyDynamics,
+    final tau=tau,
+    final allowFlowReversal=allowFlowReversal,
+    final text_flip=true,
+    typValCooInlIso=if nChi == 2 and nCoo == 2
+      then Buildings.Templates.Components.Types.Valve.None
+      else Buildings.Templates.Components.Types.Valve.TwoWayTwoPosition)
     "Coolers"
     annotation(Dialog(group="Coolers"),
       Placement(transformation(extent={{-118,34},{-282,94}})));
@@ -144,7 +144,7 @@ annotation(Documentation(
   option (shown in <b>bold</b>) represents the default plant configuration.
   Options shown in <font color=\"gray\"><em>gray italics</em></font> are not
   currently supported by the plant controller
-  <a href=\\\"modelica://Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Controller\\\">
+  <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Controller\">
     Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Controller</a> and
   cannot be selected. The user may refer to ASHRAE (2021) for further details.
 </p>
@@ -172,8 +172,8 @@ annotation(Documentation(
     <td>
       No default option is provided: the user must select the suitable
       option.<br />
-      Currently, the template ony supports plant configurations where all
-      chillers have the same head pressure control.
+      Currently, the template only supports plant configurations where all
+      chillers have the same head pressure control logic.
     </td>
   </tr>
   <tr>
@@ -205,12 +205,13 @@ annotation(Documentation(
     <td>
       If the CW pumps are dedicated, the option with no isolation valve is
       automatically selected.<br />
-      Two-position CW isolation valves are automatically selected for chillers that do not require
-      head pressure control or for plants with variable speed condenser pumps
-      but no waterside economizer. 
-      (This is for compatibility with the controller implementation, whereas ASHRAE (2021)
-       allows for two-position or modulating valves in these cases.)<br />
-      Modulating valves are automatically selected for other plant configurations.  
+      Two-position CW isolation valves are automatically selected for chillers
+      that do not require head pressure control or for plants with variable
+      speed condenser pumps but no waterside economizer. (This is for
+      compatibility with the controller implementation, whereas ASHRAE (2021)
+      allows for two-position or modulating valves in these cases.)<br />
+      Modulating valves are automatically selected for other plant
+      configurations.
     </td>
   </tr>
   <tr>
@@ -219,18 +220,17 @@ annotation(Documentation(
       <b>Variable primary-only</b><br />
       <font color=\"gray\"><em>Constant primary-only</em></font><br />
       <font color=\"gray\"><em>Constant primary-variable secondary</em></font><br />
-      <font color=\"gray\"><em>Variable primary-variable secondary with centralized secondary pumps</em></font><br />
-      <font color=\"gray\"><em>Variable primary-variable secondary with distributed secondary pumps</em></font>
+      <font color=\"gray\"><em>Variable primary-variable secondary centralized</em></font><br />
+      <font color=\"gray\"><em>Variable primary-variable secondary distributed</em></font>
     </td>
     <td>
       Constant primary-only systems are typically encountered when only one or
       two very large air handlers are served by the plant.<br />
-      Variable primary-variable secondary with centralized secondary pumps
-      refers to configurations with a single group of secondary pumps that is
-      typically integrated into the plant.<br />
-      Variable secondary with distributed secondary pumps refers to
-      configurations with multiple secondary loops, each loop being served by
-      a dedicated group of secondary pumps.
+      \"Variable secondary centralized\" refers to configurations with a single
+      group of secondary pumps that is typically integrated into the plant.<br />
+      \"Variable secondary distributed\" refers to configurations with multiple
+      secondary loops, each loop being served by a dedicated group of
+      secondary pumps.
     </td>
   </tr>
   <tr>
@@ -327,7 +327,7 @@ annotation(Documentation(
   revisions="<html>
 <ul>
   <li>
-    April 17, 2025, by Antoine Gautier:<br />
+    September 1, 2026, by Antoine Gautier:<br />
     First implementation.
   </li>
 </ul>

@@ -95,6 +95,8 @@ declare -A checksum_dirs=(
                     Controls/OBC/ASHRAE/G36/TerminalUnits/Reheat"
   ["Buildings.Templates.Plants.Boilers"]="Templates/Plants/Boilers
                     Controls/OBC/ASHRAE/G36/Plants/Boilers"
+  ["Buildings.Templates.Plants.Chillers"]="Templates/Plants/Chillers
+                        Controls/OBC/ASHRAE/G36/Plants/Chillers"
   ["Buildings.Templates.Plants.HeatPumps"]="Templates/Plants/HeatPumps
                     Templates/Plants/Controls"
 )
@@ -102,10 +104,11 @@ declare -A checksum_dirs=(
 # Each key is a full Modelica package name (with . as separator).
 # Each value is a string containing the script path (relative to `modelica-buildings/Buildings`).
 declare -A test_script=(
-  # ["Buildings.Templates.AirHandlersFans"]="./Resources/Scripts/travis/templates/VAVMultiZone.py"
-  # ["Buildings.Templates.ZoneEquipment"]="./Resources/Scripts/travis/templates/VAVBox.py"
+  ["Buildings.Templates.AirHandlersFans"]="./Resources/Scripts/travis/templates/VAVMultiZone.py"
+  ["Buildings.Templates.ZoneEquipment"]="./Resources/Scripts/travis/templates/VAVBox.py"
   ["Buildings.Templates.Plants.Boilers"]="./Resources/Scripts/travis/templates/Plants.Boilers.py"
-  # ["Buildings.Templates.Plants.HeatPumps"]="./Resources/Scripts/travis/templates/Plants.HeatPumps.py"
+  ["Buildings.Templates.Plants.Chillers"]="./Resources/Scripts/travis/templates/Plants.Chillers.py"
+  ["Buildings.Templates.Plants.HeatPumps"]="./Resources/Scripts/travis/templates/Plants.HeatPumps.py"
 )
 
 # Validate single-package argument if provided
