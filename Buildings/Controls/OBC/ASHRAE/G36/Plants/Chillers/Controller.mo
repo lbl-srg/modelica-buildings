@@ -1564,7 +1564,7 @@ block Controller "Chiller plant controller"
 
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant fulOpeVal[nChi](
     final k=fill(1, nChi))
-    if not have_WSE and not have_fixSpeConWatPum and not have_airCoo
+    if not have_WSE and not have_fixSpeConWatPum and not have_airCoo and need_heaPreCon
     "Full open head pressure control valve"
     annotation (Placement(transformation(extent={{240,180},{260,200}})));
 
@@ -1702,7 +1702,8 @@ protected
     "Chiller head control enabling status"
     annotation (Placement(transformation(extent={{580,310},{600,330}})));
 
-  Buildings.Controls.OBC.CDL.Reals.MultiplyByParameter gai2(final k=1) if not need_heaPreCon
+  Buildings.Controls.OBC.CDL.Reals.MultiplyByParameter gai2(final k=1)
+    if not need_heaPreCon and (not have_fixSpeConWatPum and not have_airCoo)
     "Dummy block"
     annotation (Placement(transformation(extent={{-80,190},{-60,210}})));
 
