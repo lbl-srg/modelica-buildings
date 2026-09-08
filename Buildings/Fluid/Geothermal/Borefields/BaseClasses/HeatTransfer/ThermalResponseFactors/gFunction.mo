@@ -45,8 +45,10 @@ protected
   Real hSegRea[nSeg] "Real part of the FLS solution";
   Real hSegMir[2*nSeg-1] "Mirror part of the FLS solution";
   Modelica.Units.SI.Height dSeg "Buried depth of borehole segment";
-  Real A[nSeg*nClu+1, nSeg*nClu+1] "Coefficient matrix for system of equations";
-  Real B[nSeg*nClu+1] "Coefficient vector for system of equations";
+  Real A[nSeg*nClu+1, nSeg*nClu+1] = zeros(nSeg*nClu+1, nSeg*nClu+1)
+    "Coefficient matrix for system of equations";
+  Real B[nSeg*nClu+1] = zeros(nSeg*nClu+1)
+    "Coefficient vector for system of equations";
   Real X[nSeg*nClu+1] "Solution vector for system of equations";
   Real FLS "Finite line source solution";
   Real ILS "Infinite line source solution";
@@ -311,6 +313,11 @@ doi:10.1080/19401493.2021.1968953</a>.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+September 3, 2026, by Michael Wetter:<br/>
+Initialized variables <code>A</code> and <code>B</code>.<br/>
+This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4707\">Buildings, #4707</a>.
+</li>
 <li>
 June 9, 2022 by Massimo Cimmino:<br/>
 Updated the function to use the more efficient method of Prieto and Cimmino
