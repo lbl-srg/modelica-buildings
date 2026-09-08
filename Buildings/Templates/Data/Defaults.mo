@@ -94,6 +94,10 @@ package Defaults
     "Maximum HW differential pressure setpoint local to the HW plant";
   constant Modelica.Units.SI.PressureDifference dpHeaWatHp = 3E4
     "Heat pump HW pressure drop across condenser barrel";
+  constant Modelica.Units.SI.Temperature THeaWatSupNon = 80 + 273.15
+    "HW supply temperature - Non-condensing boilers";
+  constant Modelica.Units.SI.Temperature THeaWatRetNon = 60 + 273.15
+    "HW return temperature - Non-condensing boilers";
   constant Modelica.Units.SI.Temperature THeaWatSupHig = 60 + 273.15
     "HW supply temperature - High temperature level (AHRI 551/591)";
   constant Modelica.Units.SI.Temperature THeaWatRetHig = 50 + 273.15

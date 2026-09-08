@@ -136,12 +136,12 @@ partial model PartialBoilerPlant
     "Set to true if the condensing boiler group has a HW minimum flow bypass valve"
     annotation(Evaluate=true,
       Dialog(group="Primary HW loop - Condensing boilers"));
+  // Minimum flow bypass valve required in all primary-only configurations
+  // for condensation control.
   final parameter Boolean have_valHeaWatMinBypNon = typ ==
     Buildings.Templates.Plants.Boilers.HotWater.Types.Boiler.NonCondensing
-    and have_pumHeaWatPriVarNon
     and typPumHeaWatSec ==
       Buildings.Templates.Plants.Boilers.HotWater.Types.PumpsSecondary.None
-    and not have_boiNonZerFlo
     "Set to true if the non-condensing boiler group has a HW minimum flow bypass valve"
     annotation(Evaluate=true,
       Dialog(group="Primary HW loop - Non-condensing boilers"));

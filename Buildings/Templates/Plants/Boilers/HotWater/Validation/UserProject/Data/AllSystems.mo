@@ -14,7 +14,7 @@ class AllSystems
       mHeaWatBoi_flow_nominal=pla.ctl.capBoiCon_nominal /
         Buildings.Utilities.Psychrometrics.Constants.cpWatLiq ./
         (pla.ctl.THeaWatConSup_nominal -
-          Buildings.Templates.Data.Defaults.THeaWatRetMed)),
+          Buildings.Templates.Data.Defaults.THeaWatRetHig)),
     boiNon(
       fue=Buildings.Fluid.Data.Fuels.NaturalGasHigherHeatingValue(),
       dpHeaWatBoi_nominal=fill(
@@ -22,10 +22,12 @@ class AllSystems
       mHeaWatBoi_flow_nominal=pla.ctl.capBoiNon_nominal /
         Buildings.Utilities.Psychrometrics.Constants.cpWatLiq ./
         (pla.ctl.THeaWatSup_nominal -
-          Buildings.Templates.Data.Defaults.THeaWatRetHig)),
+          Buildings.Templates.Data.Defaults.THeaWatRetNon)),
     ctl(
-      THeaWatSup_nominal=Buildings.Templates.Data.Defaults.THeaWatSupHig,
-      THeaWatConSup_nominal=Buildings.Templates.Data.Defaults.THeaWatSupMed,
+      THeaWatSup_nominal=if pla.cfg.have_boiNon
+        then Buildings.Templates.Data.Defaults.THeaWatSupNon
+        else Buildings.Templates.Data.Defaults.THeaWatSupHig,
+      THeaWatConSup_nominal=Buildings.Templates.Data.Defaults.THeaWatSupHig,
       TOutLck=Buildings.Templates.Data.Defaults.TOutHeaWatLck,
       VHeaWatBoiCon_flow_nominal=pla.boiCon.mHeaWatBoi_flow_nominal /
         pla.cfg.rhoHeaWat_default,
@@ -53,25 +55,26 @@ class AllSystems
     pumHeaWatPriCon(
       dp_nominal=fill(
         max(pla.boiCon.dpHeaWatBoi_nominal) +
-        Buildings.Templates.Data.Defaults.dpValIso +
-        Buildings.Templates.Data.Defaults.dpValChe +
-        (if pla.cfg.typPumHeaWatSec ==
-            Buildings.Templates.Plants.Boilers.HotWater.Types.PumpsSecondary.None
-            then pla.ctl.dpHeaWatLocSet_max else 0),
-          pla.cfg.nPumHeaWatPriCon)),
-    pumHeaWatPriNon(
-      dp_nominal=fill(
-        max(pla.boiNon.dpHeaWatBoi_nominal) +
-        Buildings.Templates.Data.Defaults.dpValIso +
-        Buildings.Templates.Data.Defaults.dpValChe +
+          Buildings.Templates.Data.Defaults.dpValIso +
+          Buildings.Templates.Data.Defaults.dpValChe +
           (if pla.cfg.typPumHeaWatSec ==
             Buildings.Templates.Plants.Boilers.HotWater.Types.PumpsSecondary.None
             then pla.ctl.dpHeaWatLocSet_max else 0),
-          pla.cfg.nPumHeaWatPriNon)),
+        pla.cfg.nPumHeaWatPriCon)),
+    pumHeaWatPriNon(
+      dp_nominal=fill(
+        max(pla.boiNon.dpHeaWatBoi_nominal) +
+          Buildings.Templates.Data.Defaults.dpValIso +
+          Buildings.Templates.Data.Defaults.dpValChe +
+          (if pla.cfg.typPumHeaWatSec ==
+            Buildings.Templates.Plants.Boilers.HotWater.Types.PumpsSecondary.None
+            then pla.ctl.dpHeaWatLocSet_max else 0),
+        pla.cfg.nPumHeaWatPriNon)),
     pumHeaWatSec(
       dp_nominal=fill(pla.ctl.dpHeaWatLocSet_max, pla.cfg.nPumHeaWatSec),
       m_flow_nominal=fill(
-        pla.ctl.VHeaWatSec_flow_nominal * pla.cfg.rhoHeaWat_default / max(1, pla.cfg.nPumHeaWatSec),
+        pla.ctl.VHeaWatSec_flow_nominal * pla.cfg.rhoHeaWat_default / max(
+          1, pla.cfg.nPumHeaWatSec),
         pla.cfg.nPumHeaWatSec)))
     "HW plant parameters";
 annotation(Documentation(

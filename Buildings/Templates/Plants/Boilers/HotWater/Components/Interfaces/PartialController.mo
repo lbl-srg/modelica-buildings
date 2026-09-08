@@ -93,7 +93,7 @@ block PartialController
       Buildings.Templates.Plants.Boilers.HotWater.Types.PumpsSecondary.None
       then typMeaCtlHeaWatPri ==
         Buildings.Templates.Plants.Boilers.HotWater.Types.PrimaryOverflowMeasurement.TemperatureSupplySensor
-      else cfg.have_pumHeaWatPriVarCon)
+      else true)
     "Set to true for primary HW supply temperature sensor - Condensing boilers"
     annotation(Evaluate=true,
       Dialog(group="Configuration"));
@@ -102,7 +102,7 @@ block PartialController
       Buildings.Templates.Plants.Boilers.HotWater.Types.PumpsSecondary.None
       then typMeaCtlHeaWatPri ==
         Buildings.Templates.Plants.Boilers.HotWater.Types.PrimaryOverflowMeasurement.TemperatureSupplySensor
-      else cfg.have_pumHeaWatPriVarNon)
+      else true)
     "Set to true for primary HW supply temperature sensor - Non-condensing boilers"
     annotation(Evaluate=true,
       Dialog(group="Configuration"));
@@ -280,7 +280,14 @@ equation
         color={255,204,51},
         thickness=0.5));
   end if;
-annotation(Icon(coordinateSystem(preserveAspectRatio=false)),
+annotation(Icon(coordinateSystem(preserveAspectRatio=false),
+  graphics={Rectangle(extent={{-100,100},{100,-100}},
+    lineColor={0,0,255},
+    fillColor={255,255,255},
+    fillPattern=FillPattern.Solid),
+  Text(extent={{-150,150},{150,110}},
+    textString="%name",
+    textColor={0,0,255})}),
   Diagram(coordinateSystem(preserveAspectRatio=false,
     extent={{-260,-280},{260,280}},
     grid={2,2})),
