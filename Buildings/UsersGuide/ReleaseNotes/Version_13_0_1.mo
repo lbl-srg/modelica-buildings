@@ -192,6 +192,16 @@ units are wrong or errors in documentation):
                        This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4715\">Buildings, #4715</a>.
     </td>
 </tr>
+<tr><td colspan=\"2\"><b>Buildings.Fluid.Geothermal.Borefields.BaseClasses.HeatTransfer.ThermalResponseFactors</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Fluid.Geothermal.Borefields.BaseClasses.HeatTransfer.ThermalResponseFactors.gFunction
+    </td>
+    <td valign=\"top\">Initialized local variables <code>A</code> and <code>B</code> to avoid use of uninitialized elements
+                       of a matrix. This update does not change the results.<br/>
+                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4707\">Buildings, #4707</a>.
+    </td>
+</tr>
 </table>
 <p>
 Note:
