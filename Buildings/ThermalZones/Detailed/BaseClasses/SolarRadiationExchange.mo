@@ -129,7 +129,7 @@ initial equation
   // Window glass
   for i in 1:NConExtWin loop
     // We simplify and assume that the shaded and unshaded part of the window
-    // have the same solar absorbtance.
+    // have the same solar absorptance.
     // A further simplification is that the window is assumed to have the
     // optical properties of state 1, which for electrochromic windows is
     // the uncontrolled state. The error should be small as in the controlled state,
@@ -158,7 +158,7 @@ initial equation
     tau[NOpa+i] = tauGla[i];
   end for;
 
-  // Sum of surface areas and products of emmissivity, transmissivity and area
+  // Sum of surface areas and products of emissivity, transmissivity and area
   AFlo = sum( (if is_flo[i] then A[i] else 0) for i in 1:NTot);
   epsTauA = (eps .+ tau).*A;
   sumEpsTauA = sum(epsTauA[i] for i in 1:NTot);
@@ -398,7 +398,7 @@ radiation.
 <h4>Main assumptions</h4>
 <p>
 The main assumptions or simplifications are that the shaded and unshaded part of the window
-have the same solar absorbtance.
+have the same solar absorptance.
 Furthermore, if the room has electrochromic windows, the optical properties
 are taken from the state 1, which generally is
 the uncontrolled state. The error should be small as in the controlled state,
@@ -448,7 +448,7 @@ This is required to avoid a singularity.
 </li>
 <li>
 November 6, 2011, by Michael Wetter:<br/>
-Fixed bug as in the old version, the absorbtance and reflectance
+Fixed bug as in the old version, the absorptance and reflectance
 of the infrared spectrum has been used instead of the solar spectrum.
 </li>
 <li>

@@ -128,7 +128,7 @@ model MixedAir
     T=T_start) "Boundary condition"
     annotation (Placement(transformation(extent={{0,0},{20,20}})));
 
-  Modelica.Blocks.Sources.Constant HSol(k=0) "Solar irradition"
+  Modelica.Blocks.Sources.Constant HSol(k=0) "Solar irradiation"
     annotation (Placement(transformation(extent={{130,110},{150,130}})));
   Modelica.Blocks.Sources.Constant T(k=T_start)
     "Dry bulb and black body sky temperature"

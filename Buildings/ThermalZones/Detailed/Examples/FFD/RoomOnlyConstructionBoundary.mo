@@ -54,7 +54,7 @@ equation
     experiment(Tolerance=1e-06, StopTime=900),
     Documentation(info="<html>
 <p>
-This model tests the copuled simulation of
+This model tests the coupled simulation of
 <a href=\"modelica://Buildings.ThermalZones.Detailed.CFD\">
 Buildings.ThermalZones.Detailed.CFD</a>
 with the FFD program by simulating the natural convection in an empty room with only construction boundaries.
