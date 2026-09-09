@@ -1,5 +1,5 @@
 within Buildings.Controls.OBC.DemandFlexibility.ZoneTemperatureSetpointChange.Subsequences;
-block Selection "Zone selection"
+block Adjustment "Zone setpoint adjustment"
 
   parameter Real dTShe(
     min=0,
@@ -175,7 +175,7 @@ equation
   connect(TSheTarSet, TSetBouSwiReb.u3)
     annotation (Line(points={{-220,-160},{-80,-160},{-80,-176},{-22,-176}},
       color={0,0,127}));
-  annotation (defaultComponentName="zonSel",
+  annotation (defaultComponentName="zonSetAdj",
     Icon(coordinateSystem(preserveAspectRatio=false,
         extent={{-100,-100},{100,100}},
         grid={2,2}), graphics={Rectangle(
@@ -360,4 +360,4 @@ First implementation.
 </li>
 </ul>
 </html>"));
-end Selection;
+end Adjustment;

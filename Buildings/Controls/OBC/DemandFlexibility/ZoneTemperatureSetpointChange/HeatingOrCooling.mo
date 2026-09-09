@@ -143,12 +143,13 @@ protected
     if nZon > 1
     "The zone prioritization logic block"
     annotation (Placement(transformation(extent={{60,80},{80,100}})));
-  Buildings.Controls.OBC.DemandFlexibility.ZoneTemperatureSetpointChange.Subsequences.Selection zonSel[nZon](
+  Buildings.Controls.OBC.DemandFlexibility.ZoneTemperatureSetpointChange.Subsequences.Adjustment
+    zonSetAdj[nZon](
     final dTShe=fill(dTShe, nZon),
     final dTReb=fill(dTReb, nZon),
     final airConMod=fill(airConMod, nZon),
-    final use_mulSteSetCha=fill(zonConVar <> Buildings.Controls.OBC.DemandFlexibility.Types.ZoneControlVariant.Variant_1, nZon))
-    "The zone selection logic block"
+    final use_mulSteSetCha=fill(zonConVar <> Buildings.Controls.OBC.DemandFlexibility.Types.ZoneControlVariant.Variant_1,
+        nZon)) "The zone setpoint adjustment logic block"
     annotation (Placement(transformation(extent={{120,-120},{140,-100}})));
   Buildings.Controls.OBC.CDL.Discrete.Sampler samSetCha[nZon](
     final samplePeriod=fill(setChaWaiTim,nZon))
@@ -169,14 +170,12 @@ protected
     "A constant threshold value for the electricity demand of the building"
     annotation (Placement(transformation(extent={{-180,100},{-160,120}})));
 equation
-  connect(zonPri.yEna,zonSel. uEna)
-    annotation (Line(points={{82,90},{100,90},{100,-100},{118,-100}},
-      color={255,0,255}));
+  connect(zonPri.yEna, zonSetAdj.uEna) annotation (Line(points={{82,90},{100,90},
+          {100,-100},{118,-100}}, color={255,0,255}));
   connect(samSetCha.y, TComZonSet)
     annotation (Line(points={{202,0},{240,0}}, color={0,0,127}));
-  connect(zonSel.TComZonSet, samSetCha.u)
-    annotation (Line(points={{142,-110},{160,-110},{160,0},{178,0}},
-      color={0,0,127}));
+  connect(zonSetAdj.TComZonSet, samSetCha.u) annotation (Line(points={{142,-110},
+          {160,-110},{160,0},{178,0}}, color={0,0,127}));
   connect(rouZonFla,zonEna. rouZonFla)
     annotation (Line(points={{-240,160},{-200,160},{-200,146},{-82,146}},
       color={255,0,255}));
@@ -213,29 +212,23 @@ equation
   connect(demFleMod, repDemFleMod.u)
     annotation (Line(points={{-240,-40},{-42,-40}},
       color={255,127,0}));
-  connect(repDemFleMod.y,zonSel. demFleMod)
-    annotation (Line(points={{-18,-40},{80,-40},{80,-104},{118,-104}},
-      color={255,127,0}));
-  connect(TCurZonSet,zonSel. TCurZonSet)
-    annotation (Line(points={{-240,0},{-130,0},{-130,-108.2},{118,-108.2}},
-      color={0,0,127}));
-  connect(TPreTarSet,zonSel. TPreTarSet)
-    annotation (Line(points={{-240,-80},{-110,-80},{-110,-112},{118,-112}},
-      color={0,0,127}));
-  connect(TSheTarSet,zonSel. TSheTarSet)
-    annotation (Line(points={{-240,-120},{-100,-120},{-100,-116},{118,-116}},
-      color={0,0,127}));
-  connect(TDefSet,zonSel. TDefSet)
-    annotation (Line(points={{-240,-160},{-90,-160},{-90,-120},{118,-120}},
-      color={0,0,127}));
+  connect(repDemFleMod.y, zonSetAdj.demFleMod) annotation (Line(points={{-18,-40},
+          {80,-40},{80,-104},{118,-104}}, color={255,127,0}));
+  connect(TCurZonSet, zonSetAdj.TCurZonSet) annotation (Line(points={{-240,0},{
+          -130,0},{-130,-108.2},{118,-108.2}}, color={0,0,127}));
+  connect(TPreTarSet, zonSetAdj.TPreTarSet) annotation (Line(points={{-240,-80},
+          {-110,-80},{-110,-112},{118,-112}}, color={0,0,127}));
+  connect(TSheTarSet, zonSetAdj.TSheTarSet) annotation (Line(points={{-240,-120},
+          {-100,-120},{-100,-116},{118,-116}}, color={0,0,127}));
+  connect(TDefSet, zonSetAdj.TDefSet) annotation (Line(points={{-240,-160},{-90,
+          -160},{-90,-120},{118,-120}}, color={0,0,127}));
   connect(conNSel.y, zonPri.nSel)
     annotation (Line(points={{22,50},{40,50},{40,84},{58,84}}, color={255,127,0}));
   connect(conPBuiThr.y,zonEna. PBuiThr)
     annotation (Line(points={{-158,110},{-150,110},{-150,138},{-82,138}},
       color={0,0,127}));
-  connect(enaOneZon.y,zonSel. uEna)
-    annotation (Line(points={{82,130},{100,130},{100,-100},{118,-100}},
-      color={255,0,255}));
+  connect(enaOneZon.y, zonSetAdj.uEna) annotation (Line(points={{82,130},{100,
+          130},{100,-100},{118,-100}}, color={255,0,255}));
   connect(zonEna.enaFla, notEna.u)
     annotation (Line(points={{-58,130},{-40,130},{-40,110},{-22,110}},
       color={255,0,255}));
@@ -338,12 +331,12 @@ for the setpoint change operation by default, unless the <code>Enable</code>
 sub-block decides that this zone should be disabled for the setpoint change
 operation.
 </p>
-<h4>Zone Selection</h4>
+<h4>Zone Setpoint Adjustment</h4>
 <p>
 This block executes the setpoint change opeartion by outputting new setpoints. Refer
 to the documentation of the sub-block
-<a href=\"modelica://Buildings.Controls.OBC.DemandFlexibility.ZoneTemperatureSetpointChange.Subsequences.Selection\">
-Buildings.Controls.OBC.DemandFlexibility.ZoneTemperatureSetpointChange.Subsequences.Selection</a>
+<a href=\"modelica://Buildings.Controls.OBC.DemandFlexibility.ZoneTemperatureSetpointChange.Subsequences.Adjustment\">
+Buildings.Controls.OBC.DemandFlexibility.ZoneTemperatureSetpointChange.Subsequences.Adjustment</a>
 for a more detailed description.
 </p>
 <p>
@@ -351,9 +344,9 @@ The setpoint change operation will only be executed for zones that are both “e
 and “prioritized” for such operation. Information from the
 <code>Prioritization</code> sub-block about whether a zone is both enabled and
 prioritized for the setpoint change operation is passed to the
-<code>Selection</code> sub-block. Note that if <code>zonConVar</code> has a value
+<code>Adjustment</code> sub-block. Note that if <code>zonConVar</code> has a value
 of Variant <i>1</i>, the multiple-step setpoint change flag parameter
-<code>use_mulSteSetCha</code> within the <code>Selection</code> sub-block (not
+<code>use_mulSteSetCha</code> within the <code>Adjustment</code> sub-block (not
 accessible in this block) will be set to <code>false</code>. Otherwise, the
 <code>use_mulSteSetCha</code> parameter will be set to <code>true</code>.
 </p>
@@ -367,7 +360,7 @@ In the <code>Enable</code> sub-block, one of the conditions to enable zone
 temperature setpoint change is that the zone temperature setpoint has not reached a
 temperature setpoint limit that is imposed by the respective demand flexibility mode.
 Based on the <code>Prioritization</code> sub-block and the
-<code>Selection</code> sub-block, only the <code>nSel</code> zones with the
+<code>Adjustment</code> sub-block, only the <code>nSel</code> zones with the
 smallest <code>dTZon</code> will be selected for the setpoint change operation. Here,
 there is a chance that the zone temperature setpoint of a zone has reached a
 temperature setpoint limit, but this zone is still one of the <code>nSel</code>
@@ -380,7 +373,7 @@ no longer change its setpoint past the setpoint limit.
 </p>
 <p>
 Based on the <code>Prioritization</code> sub-block and the
-<code>Selection</code> sub-block, the <code>nSel</code> enabled zones with the
+<code>Adjustment</code> sub-block, the <code>nSel</code> enabled zones with the
 smallest <code>dTZon</code> will be selected for the setpoint change operation. This
 in turn changes the value of <code>TComZonSet</code> and <code>TCurZonSet</code>,
 thus <code>dTZon</code> itself is changed. This has different implications during
