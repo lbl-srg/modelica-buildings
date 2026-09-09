@@ -2,8 +2,7 @@ within Buildings.Templates.Plants.Chillers.Components.Economizers;
 model HeatExchangerWithPump
   "Heat exchanger with pump for CHW flow control"
   extends Buildings.Templates.Plants.Chillers.Components.Interfaces.PartialEconomizerHX(
-    final typ=Buildings.Templates.Plants.Chillers.Types.Economizer.HeatExchangerWithPump,
-    hex(from_dp2=true));
+    final typ=Buildings.Templates.Plants.Chillers.Types.Economizer.HeatExchangerWithPump);
   Buildings.Templates.Components.Sensors.Temperature TChiWatEcoEnt(
     redeclare final package Medium=MediumChiWat,
     final allowFlowReversal=allowFlowReversal,
@@ -29,8 +28,7 @@ model HeatExchangerWithPump
   Fluid.FixedResistances.PressureDrop resChiWatByp(
     redeclare final package Medium=MediumChiWat,
     final m_flow_nominal=mChiWat_flow_nominal,
-    from_dp=true,
-    final dp_nominal=100)
+    final dp_nominal=0)
     "Bypass flow resistance"
     annotation(Placement(transformation(extent={{-10,-10},{10,10}})));
 equation

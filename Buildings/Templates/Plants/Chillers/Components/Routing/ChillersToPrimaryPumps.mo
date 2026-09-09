@@ -75,7 +75,7 @@ model ChillersToPrimaryPumps
     final typ=Buildings.Templates.Components.Types.Valve.TwoWayTwoPosition,
     final m_flow_nominal=mChiWatPri_flow_nominal,
     dpValve_nominal=Buildings.Templates.Data.Defaults.dpValIso)
-    "Chiller CHW bypass valve parameters (identical for all valves in case of series chillers)"
+    "Chiller CHW bypass valve parameters"
     annotation(Dialog(enable=have_valChiWatChiBypPar));
   parameter Modelica.Units.SI.Time tau = 10
     "Time constant at nominal flow"
@@ -138,7 +138,7 @@ model ChillersToPrimaryPumps
     final allowFlowReversal=allowFlowReversal,
     final dat=datValChiWatChiByp)
     if have_valChiWatChiBypPar
-    "Chiller CHW bypass valve - Parallel chillers with WSE and primary-only distribution)"
+    "Chiller CHW bypass valve - Parallel chillers with WSE and primary-only distribution"
     annotation(Placement(transformation(extent={{10,10},{-10,-10}},
       rotation=270)));
   Buildings.Templates.Components.Routing.MultipleToMultiple rouSupPar(
