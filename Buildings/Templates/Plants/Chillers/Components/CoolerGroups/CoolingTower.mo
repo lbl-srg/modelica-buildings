@@ -30,7 +30,9 @@ model CoolingTower
     final dat=datValCooInlIso,
     each final show_T=show_T,
     each final allowFlowReversal=allowFlowReversal,
-    each final m_flow_small=m_flow_small)
+    each final m_flow_small=m_flow_small,
+    each chaTwo=Buildings.Templates.Components.Types.ValveCharacteristicTwoWay.Linear,
+    lin(each l=1E-3))
     "Inlet isolation valve"
     annotation(Placement(transformation(extent={{-50,-10},{-30,10}})));
   Buildings.Templates.Components.Actuators.Valve valCooOutIso[nCoo](
@@ -39,7 +41,9 @@ model CoolingTower
     final dat=datValCooOutIso,
     each final show_T=show_T,
     each final allowFlowReversal=allowFlowReversal,
-    each final m_flow_small=m_flow_small)
+    each final m_flow_small=m_flow_small,
+    each chaTwo=Buildings.Templates.Components.Types.ValveCharacteristicTwoWay.Linear,
+    lin(each l=1E-3))
     "Outlet isolation valve"
     annotation(Placement(transformation(extent={{30,-10},{50,10}})));
   Buildings.Templates.Components.Routing.SingleToMultiple inlCoo(
