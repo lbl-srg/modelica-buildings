@@ -405,6 +405,7 @@ model ValvesIsolation
       iconTransformation(extent={{-20,380},{20,420}})));
   Buildings.Templates.Components.Actuators.Valve valHeaWatUniOutIso[nHp + nPhp](
     redeclare each final package Medium=Medium,
+    each chaTwo=Buildings.Templates.Components.Types.ValveCharacteristicTwoWay.Linear,
     final dat=datValHeaWatUniOutIso,
     final typ=cat(1, fill(typValHpOutIso, nHp), fill(typValPhpOutIso, nPhp)),
     each final use_strokeTime=use_strokeTime,
@@ -419,6 +420,7 @@ model ValvesIsolation
       origin={-160,0})));
   Buildings.Templates.Components.Actuators.Valve valChiWatUniOutIso[nHp + nPhp](
     redeclare each final package Medium=Medium,
+    each chaTwo=Buildings.Templates.Components.Types.ValveCharacteristicTwoWay.Linear,
     final dat=datValChiWatUniOutIso,
     final typ=cat(1, fill(typValHpOutIso, nHp), fill(typValPhpOutIso, nPhp)),
     each final use_strokeTime=use_strokeTime,
@@ -434,6 +436,7 @@ model ValvesIsolation
       origin={-80,0})));
   Buildings.Templates.Components.Actuators.Valve valHeaWatUniInlIso[nHp + nPhp](
     redeclare each final package Medium=Medium,
+    each chaTwo=Buildings.Templates.Components.Types.ValveCharacteristicTwoWay.Linear,
     final dat=datValHeaWatUniInlIso,
     final typ=cat(1, fill(typValHpInlIso, nHp), fill(typValPhpInlIso, nPhp)),
     each final use_strokeTime=use_strokeTime,
@@ -448,6 +451,7 @@ model ValvesIsolation
       origin={80,0})));
   Buildings.Templates.Components.Actuators.Valve valChiWatUniInlIso[nHp + nPhp](
     redeclare each final package Medium=Medium,
+    each chaTwo=Buildings.Templates.Components.Types.ValveCharacteristicTwoWay.Linear,
     final dat=datValChiWatUniInlIso,
     final typ=cat(1, fill(typValHpInlIso, nHp), fill(typValPhpInlIso, nPhp)),
     each final use_strokeTime=use_strokeTime,

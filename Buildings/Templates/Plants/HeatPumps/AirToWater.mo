@@ -438,7 +438,7 @@ model AirToWater
     redeclare final package Medium=MediumChiWat,
     final nPorts=nPumChiWatPri,
     final m_flow_nominal=mChiWatPri_flow_nominal,
-    final energyDynamics=energyDynamics,
+    final energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
     final allowFlowReversal=allowFlowReversal,
     final icon_pipe=Buildings.Templates.Components.Types.IntegrationPoint.Supply,
     final icon_dy=300)
@@ -451,7 +451,7 @@ model AirToWater
     redeclare final package Medium=MediumChiWat,
     final nPorts=nPumChiWatPri,
     final m_flow_nominal=mChiWatPri_flow_nominal,
-    final energyDynamics=energyDynamics,
+    final energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
     final allowFlowReversal=allowFlowReversal,
     final icon_pipe=Buildings.Templates.Components.Types.IntegrationPoint.Supply,
     final icon_dy=300)
@@ -602,7 +602,7 @@ model AirToWater
     redeclare final package Medium=MediumChiWat,
     final nPorts=nPumChiWatSec,
     final m_flow_nominal=mChiWat_flow_nominal,
-    final energyDynamics=energyDynamics,
+    final energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
     final allowFlowReversal=allowFlowReversal,
     final icon_pipe=Buildings.Templates.Components.Types.IntegrationPoint.Supply,
     final icon_dy=300)
@@ -615,7 +615,7 @@ model AirToWater
     redeclare final package Medium=MediumChiWat,
     final nPorts=nPumChiWatSec,
     final m_flow_nominal=mChiWat_flow_nominal,
-    final energyDynamics=energyDynamics,
+    final energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
     final allowFlowReversal=allowFlowReversal,
     final icon_pipe=Buildings.Templates.Components.Types.IntegrationPoint.Supply,
     final icon_dy=300)
@@ -681,7 +681,7 @@ model AirToWater
     redeclare final package Medium=MediumHeaWat,
     final nPorts=nPumHeaWatPri,
     final m_flow_nominal=mHeaWatPri_flow_nominal,
-    final energyDynamics=energyDynamics,
+    final energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
     final allowFlowReversal=allowFlowReversal,
     final icon_pipe=Buildings.Templates.Components.Types.IntegrationPoint.Supply,
     final icon_dy=300)
@@ -709,7 +709,7 @@ model AirToWater
     redeclare final package Medium=MediumHeaWat,
     final nPorts=nPumHeaWatPri,
     final m_flow_nominal=mHeaWatPri_flow_nominal,
-    final energyDynamics=energyDynamics,
+    final energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
     final allowFlowReversal=allowFlowReversal,
     final icon_pipe=Buildings.Templates.Components.Types.IntegrationPoint.Supply,
     final icon_dy=300)
@@ -856,7 +856,7 @@ model AirToWater
     redeclare final package Medium=MediumHeaWat,
     final nPorts=nPumHeaWatSec,
     final m_flow_nominal=mHeaWat_flow_nominal,
-    final energyDynamics=energyDynamics,
+    final energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
     final allowFlowReversal=allowFlowReversal,
     final icon_pipe=Buildings.Templates.Components.Types.IntegrationPoint.Supply,
     final icon_dy=300)
@@ -868,7 +868,7 @@ model AirToWater
     redeclare final package Medium=MediumHeaWat,
     final nPorts=nPumHeaWatSec,
     final m_flow_nominal=mHeaWat_flow_nominal,
-    final energyDynamics=energyDynamics,
+    final energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
     final allowFlowReversal=allowFlowReversal,
     final icon_pipe=Buildings.Templates.Components.Types.IntegrationPoint.Supply,
     final icon_dy=300)
