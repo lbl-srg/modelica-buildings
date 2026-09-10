@@ -137,7 +137,7 @@ model ChillersToPrimaryPumps
     final typ=Buildings.Templates.Components.Types.Valve.TwoWayTwoPosition,
     final allowFlowReversal=allowFlowReversal,
     chaTwo=Buildings.Templates.Components.Types.ValveCharacteristicTwoWay.Linear,
-    lin(l=1E-3),
+    l=1E-3,
     final dat=datValChiWatChiByp)
     if have_valChiWatChiBypPar
     "Chiller CHW bypass valve - Parallel chillers with WSE and primary-only distribution"

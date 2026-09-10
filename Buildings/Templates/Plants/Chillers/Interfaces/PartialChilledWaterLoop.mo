@@ -89,7 +89,7 @@ partial model PartialChilledWaterLoop
     final dat=dat.valChiWatMinByp,
     final allowFlowReversal=allowFlowReversal,
     chaTwo=Buildings.Templates.Components.Types.ValveCharacteristicTwoWay.Linear,
-    lin(l=1E-3),
+    l=1E-3,
     final linearized=linearized)
     if typDisChiWat ==
       Buildings.Templates.Plants.Chillers.Types.Distribution.Variable1Only
