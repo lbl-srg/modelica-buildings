@@ -47,7 +47,6 @@ model AirToWaterReversibleHeatRecovery
     nPumHeaWatSec_select=2,
     nPumChiWatSec_select=2,
     final allowFlowReversal=allowFlowReversal,
-    linearized=true,
     show_T=true,
     ctl(nAirHan=1, nEquZon=0, have_senTPriRet_select=true),
     is_dpBalYPumSetCal=true,
