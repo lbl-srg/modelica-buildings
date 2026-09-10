@@ -63,9 +63,6 @@ protected
   Buildings.Controls.OBC.CDL.Reals.Switch swi "Switch"
     annotation (Placement(transformation(extent={{80,120},{100,140}})));
 
-  Buildings.Controls.OBC.CDL.Logical.Edge edg "Edge"
-    annotation (Placement(transformation(extent={{-100,100},{-80,120}})));
-
   Buildings.Controls.OBC.CDL.Logical.TrueFalseHold truFalHol(
     final trueHoldDuration=holPer,
     final falseHoldDuration=0) "True hold"
@@ -128,10 +125,6 @@ equation
           {98,-76}}, color={0,0,127}));
   connect(max.y, triSam.u) annotation (Line(points={{122,-70},{130,-70},{130,20},
           {-60,20},{-60,130},{-42,130}}, color={0,0,127}));
-  connect(chaPro, edg.u)
-    annotation (Line(points={{-160,110},{-102,110}}, color={255,0,255}));
-  connect(edg.y, triSam.trigger) annotation (Line(points={{-78,110},{-30,110},{-30,
-          118}}, color={255,0,255}));
   connect(triSam.y, swi.u1) annotation (Line(points={{-18,130},{10,130},{10,138},
           {78,138}}, color={0,0,127}));
   connect(max.y, swi.u3) annotation (Line(points={{122,-70},{130,-70},{130,60},{
@@ -146,7 +139,8 @@ equation
           -120,-26},{-82,-26}}, color={0,0,127}));
   connect(TChiWatRet, sub1.u1) annotation (Line(points={{-160,-50},{-100,-50},{-100,
           -14},{-82,-14}}, color={0,0,127}));
-
+  connect(chaPro, triSam.trigger) annotation (Line(points={{-160,110},{-30,110},
+          {-30,118}}, color={255,0,255}));
   annotation (defaultComponentName = "capReq",
         Icon(graphics={
         Rectangle(

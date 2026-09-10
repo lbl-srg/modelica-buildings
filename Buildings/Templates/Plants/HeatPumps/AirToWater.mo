@@ -15,7 +15,8 @@ model AirToWater
     final typHp=Buildings.Templates.Components.Types.HeatPump.AirToWater);
   parameter Boolean is_dpBalYPumSetCal = false
     "Set to true to automatically size balancing valves or evaluate pump speed providing design flow"
-    annotation(Evaluate=true,
+    annotation(__ctrlFlow(enable=false),
+      Evaluate=true,
       Dialog(tab="Advanced"));
   final parameter Boolean is_dpBalCal = is_dpBalYPumSetCal
     and (typPumPri ==

@@ -119,9 +119,10 @@ partial model PartialHeatPumpPlant
     final nSenDpHeaWatRem=ctl.nSenDpHeaWatRem,
     final have_senDpChiWatRemWir=ctl.have_senDpChiWatRemWir,
     final nSenDpChiWatRem=ctl.nSenDpChiWatRem,
-    final have_inpSch=ctl.have_inpSch) "Configuration parameters"
-    annotation (__ctrlFlow(enable=false));
-  parameter Buildings.Templates.Plants.HeatPumps.Data.HeatPumpPlant dat(cfg=cfg)
+    final have_inpSch=ctl.have_inpSch)
+    "Configuration parameters";
+  parameter Buildings.Templates.Plants.HeatPumps.Data.HeatPumpPlant dat(
+    cfg=cfg)
     "Design and operating parameters"
     annotation(Placement(transformation(extent={{-120,360},{-100,380}})));
   // RFE(AntoineGautier): Allow specifying subset of units dedicated to HW, CHW or DHW production.
@@ -516,8 +517,9 @@ partial model PartialHeatPumpPlant
         group="Conservation equations"));
   parameter Boolean allowFlowReversal = true
     "= true to allow flow reversal, false restricts to design direction (port_a -> port_b)"
-    annotation(Dialog(tab="Assumptions"),
-      Evaluate=true);
+    annotation (Dialog(tab="Assumptions"),
+      Evaluate=true,
+      __ctrlFlow(enable=false));
   parameter Boolean linearized = false
     "= true, use linear relation between m_flow and dp for all valves"
     annotation(Evaluate=true,
