@@ -2,6 +2,7 @@ compareVars :=
   {
     "y1.y[1]",
     "y1Hea.y[1]",
+    "y1Coo.y[1]",
     "weaDat.weaBus.TDryBul",
     "TRet.T",
     "TSup.T",
@@ -34,5 +35,17 @@ compareVars :=
     "hpWw.mHeaWat_flow_nominal",
     "hpWw.mChiWat_flow_nominal",
     "hpWw.hp.refCyc.sigBus.yMea",
-    "hpWw.hp.COP"
+    "hpWw.hp.COP",
+    "THeaWatRetPhp.T",
+    "THeaWatSupPhp.T",
+    "php.bus.THeaWatSet",
+    "php.THeaWatRet_nominal",
+    "TChiWatRetPhp.T",
+    "TChiWatSupPhp.T",
+    "php.bus.TChiWatSet",
+    "php.TChiWatRet_nominal",
+    "php.port_a.m_flow",
+    "php.port_aChiWat.m_flow",
+    "php.mHeaWat_flow_nominal",
+    "php.mChiWat_flow_nominal"
   };

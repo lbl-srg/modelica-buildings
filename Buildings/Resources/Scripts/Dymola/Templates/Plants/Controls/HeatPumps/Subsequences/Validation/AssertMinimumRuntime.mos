@@ -1,0 +1,26 @@
+simulateModel("Buildings.Templates.Plants.Controls.HeatPumps.Subsequences.Validation.AssertMinimumRuntime",
+    method="cvode",
+    tolerance=1e-6,
+    stopTime=100.0,
+    resultFile="AssertMinimumRuntime");
+createPlot(
+    id=1,
+    position={5, 5, 300, 400},
+    y={"u1.y[1]", "u1.y[2]"},
+    autoscale=true,
+    grid=true
+);
+createPlot(
+    id=1,
+    subPlot=2,
+    y={"u1Hea.y[1]", "u1Hea.y[2]"},
+    autoscale=true,
+    grid=true
+);
+createPlot(
+    id=2,
+    position={315, 5, 300, 400},
+    y={"u1Off.y[1]"},
+    autoscale=true,
+    grid=true
+);

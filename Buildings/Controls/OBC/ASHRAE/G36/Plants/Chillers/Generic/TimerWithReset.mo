@@ -1,26 +1,24 @@
 within Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Generic;
 block TimerWithReset
   "Timer measuring the time from the time instant where the Boolean input became true"
-  parameter Real t(
-    final quantity="Time",
-    final unit="s")=0
+  parameter Real t(final quantity="Time", final unit="s") = 0
     "Threshold time for comparison";
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u
     "Input that switches timer on if true, and off if false"
-    annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
+    annotation(Placement(transformation(extent={{-140,-20},{-100,20}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput reset
     "Reset signal"
-    annotation (Placement(transformation(extent={{-140,-100},{-100,-60}}),
+    annotation(Placement(transformation(extent={{-140,-100},{-100,-60}}),
       iconTransformation(extent={{-140,-100},{-100,-60}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput y(
     final quantity="Time",
     final unit="s")
     "Elapsed time"
-    annotation (Placement(transformation(extent={{100,-20},{140,20}}),
+    annotation(Placement(transformation(extent={{100,-20},{140,20}}),
       iconTransformation(extent={{100,-20},{140,20}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput passed
     "True if the elapsed time is greater than threshold"
-    annotation (Placement(transformation(extent={{100,-100},{140,-60}}),
+    annotation(Placement(transformation(extent={{100,-100},{140,-60}}),
       iconTransformation(extent={{100,-100},{140,-60}})));
 
 protected
@@ -124,15 +122,15 @@ June 5, 2026, by Jianjun Hu:<br/>
 First implementation.
 </li>
 </ul>
-</html>", info="<html>
+</html>",
+    info="<html>
 <p>
-This block is similar to
-<a href=\"modelica://Buildings.Controls.OBC.CDL.Logical.Timer\">
-Buildings.Controls.OBC.CDL.Logical.Timer</a>,
-but introduces an additional Boolean input signal <code>reset</code>,
-which resets the timer.
-When <code>reset</code> becomes true:
-<code>y=0</code> and <code>passed=false</code>.
+  This block is similar to
+  <a href=\"modelica://Buildings.Controls.OBC.CDL.Logical.Timer\">
+    Buildings.Controls.OBC.CDL.Logical.Timer</a>, but introduces an
+  additional Boolean input signal <code>reset</code>, which resets the timer.
+  When <code>reset</code> becomes true: <code>y=0</code> and
+  <code>passed=false</code>.
 </p>
 </html>"));
 end TimerWithReset;

@@ -1,0 +1,55 @@
+simulateModel("Buildings.Templates.Plants.Controls.PolyvalentHeatPumps.Validation.ModeAlternation",
+    method="cvode",
+    tolerance=1e-6,
+    stopTime=150.0,
+    resultFile="ModeAlternation");
+createPlot(
+    id=1,
+    position={5, 5, 300, 500},
+    y={"nHea.y[1]", "nCoo.y[1]", "nShc.y[1]"},
+    autoscale=true,
+    grid=true
+);
+createPlot(
+    id=1,
+    subPlot=2,
+    y={"u1Hea.y[1]", "u1Hea.y[2]"},
+    autoscale=true,
+    grid=true
+);
+createPlot(
+    id=1,
+    subPlot=3,
+    y={"u1Coo.y[1]", "u1Coo.y[2]"},
+    autoscale=true,
+    grid=true
+);
+createPlot(
+    id=1,
+    subPlot=4,
+    y={"u1Shc.y[1]", "u1Shc.y[2]"},
+    autoscale=true,
+    grid=true
+);
+createPlot(
+    id=2,
+    position={315, 5, 300, 500},
+    subPlot=1,
+    y={"selModPhp.yIdxSorHea[1]", "selModPhp.yIdxSorHea[2]"},
+    autoscale=true,
+    grid=true
+);
+createPlot(
+    id=2,
+    subPlot=2,
+    y={"selModPhp.yIdxSorCoo[1]", "selModPhp.yIdxSorCoo[2]"},
+    autoscale=true,
+    grid=true
+);
+createPlot(
+    id=2,
+    subPlot=3,
+    y={"selModPhp.yIdxSorShc[1]", "selModPhp.yIdxSorShc[2]"},
+    autoscale=true,
+    grid=true
+);
