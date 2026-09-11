@@ -7,7 +7,7 @@ model Tanks
     "Liquid medium";
   parameter Modelica.Units.SI.MassFlowRate m_flow_nominal=1
     "Nominal mass flow rate";
-  parameter Modelica.Units.SI.Volume V=60 * m_flow_nominal / Modelica.Media.Water.ConstantPropertyLiquidWater.d_const
+  parameter Modelica.Units.SI.Volume V=60 * m_flow_nominal / Buildings.Media.Water.d_const
     "Tank volume";
   Fluid.Sources.MassFlowSource_T sou(
     redeclare final package Medium=Medium,
@@ -78,8 +78,8 @@ equation
       StopTime=500),
     Documentation(
       info="<html>
-<p> 
-This model validates the models within 
+<p>
+This model validates the models within
 <a href=\"modelica://Buildings.Templates.Components.Tanks\">
 Buildings.Templates.Components.Tanks</a>.
 </p>

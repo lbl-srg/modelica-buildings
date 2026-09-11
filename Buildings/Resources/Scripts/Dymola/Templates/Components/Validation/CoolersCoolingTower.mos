@@ -1,0 +1,42 @@
+simulateModel("Buildings.Templates.Components.Validation.CoolersCoolingTower",
+  method="cvode",
+  tolerance=1e-6,
+  startTime=0.0,
+  stopTime=1000.0,
+  resultFile="CoolersCoolingTower");
+createPlot(
+  id=1,
+  position={5, 5, 300, 400},
+  y={"coo.bus.y1", "coo.bus.y"},
+  autoscale=true,
+  grid=true
+);
+createPlot(
+  id=1,
+  subPlot=2,
+  y={"TConWatRet.T", "TConWatSup.T", "dat.TConWatRet_nominal", "dat.TConWatSup_nominal", "dat.TConWatSup_nominal"},
+  autoscale=true,
+  grid=true
+);
+createPlot(
+  id=2,
+  position={315, 5, 300, 600},
+  subPlot=1,
+  y={"coo.m_flow", "dat.mConWat_flow_nominal"},
+  autoscale=true,
+  grid=true
+);
+createPlot(
+  id=2,
+  subPlot=2,
+  y={"coo.dp", "dat.dpConWatFri_nominal"},
+  autoscale=true,
+  grid=true
+);
+createPlot(
+  id=2,
+  subPlot=3,
+  y={"coo.tow.PFan", "dat.PFan_nominal"},
+  autoscale=true,
+  grid=true
+);
