@@ -9,7 +9,7 @@ python:
 branches:
   only:
     - master
-    - /^maint_.*$/
+    - /^maint_[0-9]+\.x$/
     - release
 
 cache:
