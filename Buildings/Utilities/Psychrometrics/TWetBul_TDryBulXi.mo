@@ -4,7 +4,8 @@ block TWetBul_TDryBulXi
   extends Modelica.Blocks.Icons.Block;
 
   replaceable package Medium =
-    Modelica.Media.Interfaces.PartialCondensingGases "Medium model"                          annotation (
+    Modelica.Media.Interfaces.PartialCondensingGases "Medium model"
+    annotation (
       choicesAllMatching = true);
 
   parameter Boolean approximateWetBulb=false
@@ -16,12 +17,14 @@ block TWetBul_TDryBulXi
     final unit="K",
     min=0) "Dry bulb temperature"
     annotation (Placement(transformation(extent={{-120,70},{-100,90}})));
-  Modelica.Blocks.Interfaces.RealInput p(  final quantity="Pressure",
-                                           final unit="Pa",
-                                           min = 0) "Pressure"
+  Modelica.Blocks.Interfaces.RealInput p(final quantity="Pressure",
+                                         final unit="Pa",
+                                         nominal=100000,
+                                         min = 0) "Pressure"
     annotation (Placement(transformation(extent={{-120,-90},{-100,-70}})));
   Modelica.Blocks.Interfaces.RealOutput TWetBul(
     start=293,
+    nominal=300,
     final quantity="ThermodynamicTemperature",
     final unit="K",
     min=0) "Wet bulb temperature"
@@ -170,6 +173,12 @@ DOI: 10.1175/JAMC-D-11-0143.1
 </html>",
 revisions="<html>
 <ul>
+<li>
+July 29, 2026, by Michael Wetter:<br/>
+Added nominal attribute for temperature.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/2155\">IBPSA, #2155</a>.
+</li>
 <li>
 March 6, 2023, by Michael Wetter:<br/>
 Added a constant in order for unit check to pass.<br/>
