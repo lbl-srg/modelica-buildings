@@ -2,7 +2,7 @@ within Buildings.Controls.OBC.DemandFlexibility.Generic;
 block DoubleSwitch "Double switch"
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput u1
-  "Input variable 1"
+    "Input variable 1"
     annotation (Placement(transformation(extent={{-140,40},{-100,80}}),
       iconTransformation(extent={{-140,40},{-100,80}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput u3

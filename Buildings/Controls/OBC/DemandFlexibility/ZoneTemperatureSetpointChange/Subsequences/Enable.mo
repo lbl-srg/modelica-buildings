@@ -468,7 +468,7 @@ First implementation.
 </html>", info="<html>
 <p>
 This block serves to determine whether a zone is enabled to participate in the
-setpoint change operation. 
+setpoint change operation.
 </p>
 <p>
 The parameter <code>airConMod</code> represents the air conditioning mode.
@@ -476,28 +476,28 @@ The parameter <code>airConMod</code> represents the air conditioning mode.
 <code>airConMod = Cooling</code> represents the cooling mode. The demand flexibility
 mode parameter <code>demFleMod</code> can take values of <i>0</i> (pre-cool or
 pre-heat mode), <i>1</i> (default mode), <i>2</i> (load-shed mode), and <i>3</i>
-(load-rebound mode). 
+(load-rebound mode).
 </p>
 <p>
-Several conditions are used to determine that a zone is enabled, including:
+Following conditions are used to determine if a zone should be enabled:
 </p>
-<ol>
+<ul>
 <li>
-A zone is not a rogue zone.
+Condition 1: A zone is not a rogue zone.
 </li>
 <li>
-The electricity demand of the building in which the zone is located is higher than 
+Condition 2: The electricity demand of the building in which the zone is located is higher than
 the allowable electricity demand during the load-shed demand flexibility mode.
 </li>
 <li>
-The difference between the current zone temperature and the current zone temperature
+Condition 3: The difference between the current zone temperature and the current zone temperature
 setpoint is below a threshold value during the load-shed demand flexibility mode.
 </li>
 <li>
-The zone temperature setpoint has not reached a temperature setpoint limit that is
+Condition 4: The zone temperature setpoint has not reached a temperature setpoint limit that is
 imposed by the respective demand flexibility mode.
 </li>
-</ol>
+</ul>
 <p>
 Only if all of the above conditions are met for a zone, the enabled flag
 <code>enaFla</code> for that zone will be set to <code>true</code>. If any one of
@@ -517,7 +517,7 @@ TSheTarSet</code> must hold if the air conditioning system is in the cooling mod
 (<code>airConMod = Cooling</code>).
 </p>
 <p>
-Below is a detailed discussion of each of the <i>4</i> conditions. 
+Below is a detailed discussion of each of the <i>4</i> conditions.
 </p>
 <h4>Condition 1</h4>
 <p>
@@ -525,7 +525,7 @@ When the rogue zone flag input <code>rouZonFla</code> is true for a specific zon
 this zone is a rogue zone. Therefore, this zone is not enabled to participate in
 the zone temperature comparison. Hence, <code>enaFla = false</code> for this zone.
 Otherwise, Condition <i>1</i> is met, and another condition needs to be not met for
-<code>enaFla</code> to become <code>false</code>. 
+<code>enaFla</code> to become <code>false</code>.
 </p>
 <h4>Condition 2</h4>
 <p>
@@ -559,7 +559,7 @@ Zone temperature difference <code>dTZon</code>, an internal variable, is defined
 the zone temperature <code>TZon</code> minus the zone temperature setpoint
 <code>TZonSet</code> during the heating mode (<code>airConMod = Heating</code>). On the
 other hand, <code>dTZon</code> is defined as <code>TZonSet</code> minus
-<code>TZon</code> during the cooling mode (<code>airConMod = Cooling</code>). 
+<code>TZon</code> during the cooling mode (<code>airConMod = Cooling</code>).
 </p>
 <p>
 If <code>dTZon</code> meets the following equation, this zone will have

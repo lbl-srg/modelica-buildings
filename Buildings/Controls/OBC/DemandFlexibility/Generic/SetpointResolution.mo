@@ -31,7 +31,7 @@ protected
     annotation (Placement(transformation(extent={{80,-10},{100,10}})));
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant conResInt(final k=resInt)
     "Constant for the setpoint resolution interval"
-    annotation (Placement(transformation(extent={{-100,-80},{-80,-60}})));
+    annotation (Placement(transformation(extent={{-100,-70},{-80,-50}})));
 equation
   connect(subRefSet.y, div.u1)
     annotation (Line(points={{-78,46},{-42,46}}, color={0,0,127}));
@@ -42,10 +42,10 @@ equation
   connect(addRefSet.y, ySet)
     annotation (Line(points={{102,0},{140,0}}, color={0,0,127}));
   connect(conResInt.y, div.u2)
-    annotation (Line(points={{-78,-70},{-60,-70},{-60,34},{-42,34}},
+    annotation (Line(points={{-78,-60},{-60,-60},{-60,34},{-42,34}},
     color={0,0,127}));
   connect(conResInt.y, mul.u2)
-    annotation (Line(points={{-78,-70},{-60,-70},{-60,-6},{38,-6}}, color={0,0,127}));
+    annotation (Line(points={{-78,-60},{-60,-60},{-60,-6},{38,-6}}, color={0,0,127}));
   connect(uSet, subRefSet.u)
     annotation (Line(points={{-140,46},{-102,46}}, color={0,0,127}));
   connect(mul.y, addRefSet.u)

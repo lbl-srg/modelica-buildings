@@ -1,6 +1,6 @@
 within Buildings.Controls.OBC.DemandFlexibility.ZoneTemperatureSetpointChange.Subsequences;
 block Prioritization
-  "Zone prioritization based on the zone temperature and the zone tempearture setpoint"
+  "Zone prioritization based on the zone temperature and the setpoint"
 
   parameter Integer nZon(min=1)
     "Number of zones in the building";
@@ -26,7 +26,7 @@ block Prioritization
     annotation (Placement(transformation(extent={{120,-20},{160,20}}),
         iconTransformation(extent={{100,-20},{140,20}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput disFla[nZon]
-    "Flags to disable certain zones from zone temperature comparison; true to disable a zone"
+    "True: disable zones from temperature comparison"
     annotation (Placement(transformation(extent={{-160,40},{-120,80}}),
         iconTransformation(extent={{-140,40},{-100,80}})));
   Buildings.Controls.OBC.CDL.Interfaces.IntegerInput nSel
@@ -95,32 +95,25 @@ This block compares the zone temperatures and setpoints in order to prioritize z
 to enable zone temperature setpoint change.
 </p>
 <p>
-Zone temperature difference <code>dTZon</code>, an internal variable, is defined as
-the zone temperature <code>TZon</code> minus the zone temperature setpoint
-<code>TZonSet</code> during the heating mode (<code>airConMod = Heating</code>). On the
-other hand, <code>dTZon</code> is defined as <code>TZonSet</code> minus
-<code>TZon</code> during the cooling mode (<code>airConMod = Cooling</code>). The zone
-temperature setpoint input variable <code>TZonSet</code> must represent a heating
-setpoint when <code>airConMod = Heating</code>, and it must represent a cooling
-setpoint when <code>airConMod = Cooling</code>.
+The zone temperature setpoint input variable <code>TZonSet</code> must be heating
+setpoint if it is used for heating mode (<code>airConMod = Heating</code>), and it must
+be cooling setpoint if it is used for cooling mode (<code>airConMod = Cooling</code>).
 </p>
 <p>
 The parameter <code>nSel</code> represents the number of zones to select for
 prioritization.
+For <code>nSel</code> zones with the smallest zone temperature difference,
+<code>dTZon = abs(TZonSet - TZon)</code>, these zones will
+have their setpoint change flags <code>yEna = true</code>, and other zones will
+have their flags <code>yEna = false</code>.
 </p>
 <p>
-For <code>nSel</code> zones with the smallest <code>dTZon</code>, these zones will
-have their <code>yEna</code> variable set to <code>true</code>, and the remaining
-zones will have their <code>yEna</code> variable set to <code>false</code>. 
-</p>
-<p>
-Setting the disabled flag vector <code>disFla=true</code> serves to exclude certain
-zones from the ranking of the zone temperature difference of each zone to determine
-which zones are prioritized for the setpoint change operation. Thus, these zones
-will have their <code>yEna</code> variable set to <code>false</code>. If the number
-of zones that do not have <code>disFla=true</code> is smaller than <code>nSel</code>,
-the final number of zones with <code>yEna</code> equal to <code>true</code> will be
-smaller than <code>nSel</code>.
+Setting the disabled flag vector <code>disFla=true</code> serves to exclude
+zones from the ranking of the zone temperature difference. These zones
+have the setpoint change flags <code>yEna=false</code>.
+If total number of zones after the excluding is less than the <code>nSel</code>,
+the remaining zones will have the setpoint change flags
+<code>yEna = true</code>.
 </p>
 </html>"));
 end Prioritization;

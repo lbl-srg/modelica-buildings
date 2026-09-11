@@ -51,7 +51,7 @@ model Setpoints
     max=24)
     "Ending hour for the occupancy status";
   parameter Boolean setChaEnaUnoFla
-    "A boolean flag to enable setpoint change during the unoccupied period; true to enable";
+    "True: enable setpoint change during the unoccupied period";
 
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput TPreTarHeaSet(
     final unit="K",
@@ -59,14 +59,14 @@ model Setpoints
     final quantity="ThermodynamicTemperature")
     "Pre-heat target heating temperature setpoint"
     annotation (Placement(transformation(extent={{120,80},{160,120}}),
-        iconTransformation(extent={{100,80},{140,120}})));
+        iconTransformation(extent={{100,60},{140,100}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput TSheTarHeaSet(
     final unit="K",
     displayUnit="degC",
     final quantity="ThermodynamicTemperature")
     "Load-shed target heating temperature setpoint"
     annotation (Placement(transformation(extent={{120,40},{160,80}}),
-        iconTransformation(extent={{100,40},{140,80}})));
+        iconTransformation(extent={{100,30},{140,70}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput TDefHeaSet(
     final unit="K",
     displayUnit="degC",
@@ -87,14 +87,14 @@ model Setpoints
     final quantity="ThermodynamicTemperature")
     "Load-shed target cooling temperature setpoint"
     annotation (Placement(transformation(extent={{120,-80},{160,-40}}),
-        iconTransformation(extent={{100,-80},{140,-40}})));
+        iconTransformation(extent={{100,-70},{140,-30}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput TDefCooSet(
     final unit="K",
     displayUnit="degC",
     final quantity="ThermodynamicTemperature")
     "Default cooling temperature setpoint"
     annotation (Placement(transformation(extent={{120,-120},{160,-80}}),
-        iconTransformation(extent={{100,-120},{140,-80}})));
+        iconTransformation(extent={{100,-100},{140,-60}})));
 protected
   Buildings.Controls.OBC.CDL.Logical.Sources.TimeTable occHouNotMid(
     final table=[0,0; occHouSta,1; occHouEnd,0; 24,0],
@@ -258,11 +258,11 @@ equation
   annotation (defaultComponentName="zonSetGen",
     Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}},
     grid={2,2}), graphics={Rectangle(
-      extent={{-100,-120},{100,120}},
+      extent={{-100,-100},{100,100}},
       lineColor={0,0,0},
       fillColor={255,255,255},
       fillPattern=FillPattern.Solid), Text(
-      extent={{-100,160},{100,120}},
+      extent={{-100,140},{100,100}},
       textColor={0,0,255},
           textString="%name")}), Diagram(
     coordinateSystem(preserveAspectRatio=false,
@@ -274,14 +274,11 @@ This block generates zone setpoints and setpoint targets that change with time
 based on occupancy status.
 </p>
 <p>
-Occupancy status is defined by two parameters: the occupancy starting hour
-<code>occHouSta</code> and the occupancy ending hour <code>occHouEnd</code>.
 The occupied period is defined as the hours between <code>occHouSta</code>
-and <code>occHouEnd</code>. The occupied period repeats every day. If
+and <code>occHouEnd</code> and the occupied period repeats 24 hours. If
 <code>occHouSta &lt;= occHouEnd</code>, the occupied period is assumed to be
-within a single day and to not include the midnight point. If
-<code>occHouSta &gt; occHouEnd</code>, the occupied period is assumed to span
-<i>2</i> different days and include the midnight point.
+in the daytime. If <code>occHouSta &gt; occHouEnd</code>, the occupied period is
+assumed to be in nighttime and it includes the midnight point.
 </p>
 <p>
 All output variables of this block represent zone setpoints or setpoint

@@ -6,7 +6,7 @@ block BooleanPassThrough "Pass a Boolean signal through without modification"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}}),
       iconTransformation(extent={{-140,-20},{-100,20}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput y
-  "Connector of Boolean output signal"
+    "Connector of Boolean output signal"
     annotation (Placement(transformation(extent={{100,-20},{140,20}}),
       iconTransformation(extent={{100,-20},{140,20}})));
 equation
