@@ -290,7 +290,7 @@ block. The values of the output variables are calculated based on the
 following table. Note that the parameter <code>setChaEnaUnoFla</code>
 represents whether setpoint change is enabled during the unoccupied period:
 </p>
-<table border=1>
+<table summary=\"summary\" border=\"1\">
 <tr>
 <th>Output variables</th>
 <th>Occupied period</th>

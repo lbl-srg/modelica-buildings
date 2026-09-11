@@ -169,8 +169,7 @@ equation
   annotation (experiment(
       StartTime=43200,
       StopTime=86400,
-      Tolerance=1e-06,
-      __Dymola_Algorithm="Cvode"),
+      Tolerance=1e-06),
   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/DemandFlexibility/ZoneTemperatureSetpointChange/Validation/MultipleZoneCoolingVariant1And2.mos"
     "Simulate and plot"),
   Documentation(info="<html>

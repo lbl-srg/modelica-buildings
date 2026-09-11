@@ -95,7 +95,7 @@ This validation example shows how the <code>Enable</code> block decides whether
 a zone should be enabled for zone temperature comparison based on two out of the
 four zone enabling conditions: whether a zone is a rogue zone or not, and whether
 the building electricity demand rises above the electricity demand threshold.
-<p>
+</p>
 </html>", revisions="<html>
 <ul>
 <li>

@@ -119,7 +119,6 @@ This block conducts a setpoint change as follows:
 <ul>
 <li>
 If the setpoint change enabling input <code>uEna</code> is <code>true</code>:
-</li>
 <ul>
 <li>
 If <code>use_mulSteSetCha</code> is <code>true</code>, the output is
@@ -135,6 +134,7 @@ allowed maximum setpoint <code>uAllMaxSet</code> if the parameter
 setpoint <code>uAllMinSet</code> if <code>ascSet</code> is set to <code>false</code>.
 </li>
 </ul>
+</li>
 <li>
 If the setpoint change enabling input <code>uEna</code> is <code>false</code>, the
 output is <code>y = min(uAllMaxSet, max(uAllMinSet, uCurSet))</code>.

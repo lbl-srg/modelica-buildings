@@ -215,7 +215,7 @@ This block conducts a setpoint change to output the commanded zone temperature
 setpoint <code>TComZonSet</code> as follows if the multiple-step setpoint change flag
 <code>use_mulSteSetCha = true</code>:
 </p>
-<table border=\"1\">
+<table summary=\"summary\" border=\"1\">
 <tr>
 <th>demFleMod</th>
 <th>airConMod</th>
@@ -276,7 +276,7 @@ This block conducts a setpoint change to output the commanded zone
 temperature setpoint <code>TComZonSet</code> as follows if the multiple-step
 setpoint change flag <code>use_mulSteSetCha = false</code>:
 </p>
-<table border=\"1\">
+<table summary=\"summary\" border=\"1\">
 <tr>
 <th>demFleMod</th>
 <th>airConMod</th>

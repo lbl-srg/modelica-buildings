@@ -380,7 +380,7 @@ thus <code>dTZon</code> itself is changed. This has different implications durin
 different demand flexibility modes (<code>demFleMod</code>). Below is a table that
 summarizes these different implications:
 </p>
-<table border=1>
+<table summary=\"summary\" border=\"1\">
 <tr>
 <th>demFleMod</th>
 <th>Implications of zone temperature difference</th>
@@ -394,6 +394,7 @@ pre-heat or pre-cool energy consumption potential to be selected first, while zo
 with a smaller energy consumption potential will be selected later. This makes the
 total electricity demand of all zones flatter with fewer spikes.</td>
 </tr>
+<tr>
 <td>2</td>
 <td>Setpoint change will cause the <code>dTZon</code> to be more positive, making
 way for other zones to be selected for setpoint change. This will result in the
@@ -401,6 +402,7 @@ way for other zones to be selected for setpoint change. This will result in the
 Thus, the maximum amount of the electricity demand of the building will be reduced.
 </td>
 </tr>
+<tr>
 <td>3</td>
 <td>Setpoint change will cause <code>dTZon</code> to be more negative, making a zone
 to continuously be selected for setpoint change until the zone setpoint has reached
