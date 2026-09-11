@@ -432,6 +432,6 @@ First implementation.
       StartTime=86400,
       StopTime=259200,
       Interval=60,
-      Tolerance=1e-05),
+      Tolerance=1e-06),
     Icon(coordinateSystem(extent={{-100,-100},{100,100}})));
 end Guideline36;
