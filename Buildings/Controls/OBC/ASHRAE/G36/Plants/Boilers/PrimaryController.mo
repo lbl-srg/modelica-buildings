@@ -37,9 +37,9 @@ model PrimaryController
     False: Fixed-speed primary pumps"
     annotation(Dialog(tab="General",
       group="Boiler plant configuration parameters",
-      enable=not have_priOnl));
+      enable=not have_priOnl and not have_allCon));
 
-  final parameter Boolean have_varPriPum = have_priOnl or have_varPriPum_select
+  final parameter Boolean have_varPriPum = have_priOnl or have_allCon or have_varPriPum_select
     "Parameter selection for variable speed primary pumps in cases where user interface
     may not be exposed";
 
@@ -2114,7 +2114,7 @@ Buildings.Examples.BoilerPlants.Guideline36
 <ol>
 <li>
 The parameter <code>have_varPriPum_select</code> is only exposed to the user in
-primary-secondary plant configurations.
+primary-secondary plants with non-condensing boilers.
 </li>
 <li>
 The controller currently assumes the boilers are constantly available. Future

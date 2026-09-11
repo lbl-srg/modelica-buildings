@@ -155,8 +155,6 @@ protected
 
 equation
   connect(swi2.y, yUpDes) annotation (Line(points={{182,60},{220,60}}, color={0,0,127}));
-  connect(yMin, yMin)
-    annotation (Line(points={{220,-20},{220,-20}}, color={0,0,127}));
   connect(swi4.y, yUpMin) annotation (Line(points={{182,-90},{220,-90}}, color={0,0,127}));
   connect(uMinCap, upCapMin.u) annotation (Line(points={{-220,-180},{-120,-180},
           {-120,-30},{-2,-30}}, color={0,0,127}));
@@ -179,9 +177,6 @@ equation
   connect(gai.y, swi4.u1) annotation (Line(points={{-38,120},{60,120},{60,-82},{
           158,-82}}, color={0,0,127}));
   connect(swi1.y, yDowDes) annotation (Line(points={{122,20},{220,20}}, color={0,0,127}));
-  connect(yUpMin, yUpMin)
-    annotation (Line(points={{220,-90},{220,-90}}, color={0,0,127}));
-
   connect(u, zerStaIndCor.uInd) annotation (Line(points={{-220,120},{-160,120},{
           -160,124},{-122,124}}, color={255,127,0}));
   connect(zerStaIndCor.yIndMod, cap.index) annotation (Line(points={{-98,124},{-90,
