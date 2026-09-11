@@ -415,7 +415,6 @@ of enabled boilers. The primary pump speed regulates the flow measured in the
 decoupler leg to zero flowrate.
 </li>
 </ol>
-</p>
 </html>", revisions="<html>
 <ul>
 <li>
