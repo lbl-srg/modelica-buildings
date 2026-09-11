@@ -21,14 +21,18 @@ model ThermalZoneAdapter
     "Name of the IDF file that contains this zone";
   parameter String epwName
     "Name of the Energyplus weather file including the epw extension";
+  parameter String zoneName
+    "Name of the thermal zone as specified in the EnergyPlus input";
+  parameter String hvacSystemName
+    "Name of the HVAC system that this zone belongs to for auto-sizing"
+    annotation(Dialog(group="Auto-sizing"));
+
   parameter Real relativeSurfaceTolerance
     "Relative tolerance of surface temperature calculations";
+
   parameter Buildings.ThermalZones.EnergyPlus_24_2_0.Data.RunPeriod runPeriod
       "EnergyPlus RunPeriod configuration"
     annotation (Dialog(tab="Run period"));
-
-  parameter String zoneName
-    "Name of the thermal zone as specified in the EnergyPlus input";
   parameter Boolean usePrecompiledFMU=false
     "Set to true to use pre-compiled FMU with name specified by fmuName"
     annotation (Dialog(tab="Debug"));
@@ -42,14 +46,22 @@ model ThermalZoneAdapter
     "If true, then the radiative heat gain sent from Modelica to EnergyPlus is zero during the model initialization"
     annotation (Dialog(tab="Advanced"), Evaluate=true);
 
+  parameter Real airChaRatInf(final unit="1/s", displayUnit="1/h") "Infiltration air change rate for auto-sizing";
+  parameter Modelica.Units.SI.SpecificHeatCapacity cpAir "Specific heat capacity of air";
+  parameter Modelica.Units.SI.SpecificEnergy hfgWater "Latent heat of water vapor";
+  parameter Modelica.Units.SI.Density rhoAir "Density of air";
+
   parameter Integer nFluPor
     "Number of fluid ports (Set to 2 for one inlet and one outlet)";
   final parameter Modelica.Units.SI.Area AFlo(fixed=false) "Floor area";
   final parameter Modelica.Units.SI.Volume V(fixed=false) "Zone volume";
+  final parameter Real XOutCoo(fixed=false) "Humidity ratio at cooling design from E+";
+  final parameter Real XOutHea(fixed=false) "Humidity ratio at heating design from E+";
+  final parameter Real XSetCoo(fixed=false) "Zone cooling set point humidity used for sizing from E+";
+  final parameter Real XSetHea(fixed=false) "Zone heating set point humidity used for sizing from E+";
   final parameter Real mSenFac(
     fixed=false)
     "Factor for scaling the sensible thermal mass of the zone air volume";
-
   Modelica.Blocks.Interfaces.RealInput T(
     final unit="K",
     displayUnit="degC")
@@ -91,18 +103,25 @@ model ThermalZoneAdapter
     final unit="W")
     "Total heat gain from people, to be used for optional computation of CO2 released"
     annotation (Placement(transformation(extent={{100,-70},{120,-50}}),iconTransformation(extent={{100,-70},{120,-50}})));
+  Sizing sizCoo "Sizing parameters for zone cooling load"
+    annotation (Placement(transformation(extent={{-80,80},{-60,100}})));
+  Sizing sizHea "Sizing parameters for zone heating load"
+    annotation (Placement(transformation(extent={{-40,80},{-20,100}})));
+
   Modelica.Blocks.Interfaces.RealInput p(
     final unit="Pa")
-    "Absolute pressure of room air" annotation (Placement(transformation(extent={{-140,
-            -120},{-100,-80}}),      iconTransformation(extent={{-140,-120},{-100,
-            -80}})));
+    "Absolute pressure of room air"
+    annotation (
+      Placement(
+        transformation(extent={{-140,-120},{-100,-80}}),
+        iconTransformation(extent={{-140,-120},{-100,-80}})));
 protected
   constant Modelica.Units.SI.AbsolutePressure pMin = 30E3
      "Minimum allowed pressure; this is below the pressure on 8000 m, and hence certainly a modeling error";
   constant Modelica.Units.SI.AbsolutePressure pMax = 110E3
     "Maximum allowed pressure; this is higher than the maximum pressure measured in an anti-cyclone, and hence certainly a modeling error";
 
-  constant Integer nParOut=3
+  constant Integer nParOut=18
     "Number of parameter values retrieved from EnergyPlus";
   constant Integer nInp=5
     "Number of inputs";
@@ -126,9 +145,14 @@ protected
     idfVersion=idfVersion,
     idfName=idfName,
     epwName=epwName,
+    epName=zoneName,
+    hvacSystemName=hvacSystemName,
     runPeriod=runPeriod,
     relativeSurfaceTolerance=relativeSurfaceTolerance,
-    epName=zoneName,
+    airChaRatInf=airChaRatInf,
+    cpAir=cpAir,
+    hfgWater=hfgWater,
+    rhoAir=rhoAir,
     usePrecompiledFMU=usePrecompiledFMU,
     fmuName=fmuName,
     buildingsRootFileLocation=Buildings.ThermalZones.EnergyPlus_24_2_0.BaseClasses.buildingsRootFileLocation,
@@ -136,8 +160,12 @@ protected
     printUnit=false,
     jsonName="zones",
     jsonKeysValues="        \"name\": \""+zoneName+"\"",
-    parOutNames={"AFlo","V","mSenFac"},
-    parOutUnits={"m2","m3","1"},
+    parOutNames={"AFlo","V","mSenFac",
+      "QCooSen_flow", "QCooLat_flow", "TOutCoo", "TSetCoo", "XSetCoo", "XOutCoo", "mOutCoo_flow", "tCoo",
+      "QHea_flow",                    "TOutHea", "TSetHea", "XSetHea", "XOutHea", "mOutHea_flow","tHea"},
+    parOutUnits={"m2","m3","1",
+      "W", "W", "K", "K", "1", "1", "kg/s", "s",
+      "W",      "K", "K", "1", "1", "kg/s", "s"},
     nParOut=nParOut,
     inpNames={"T","X","mInlets_flow","TAveInlet","QGaiRad_flow"},
     inpUnits={"K","1","kg/s","K","W"},
@@ -201,16 +229,11 @@ protected
     output Real y;
 
   algorithm
-    y :=
-      if
-        (u > 0) then
-        floor(
-          u/accuracy+0.5)*accuracy
-      else
-        ceil(
-          u/accuracy-0.5)*accuracy;
+    y := if (u > 0) then
+           floor(u/accuracy+0.5)*accuracy
+         else
+           ceil(u/accuracy-0.5)*accuracy;
   end round;
-
 initial equation
   if usePrecompiledFMU then
     assert(
@@ -222,11 +245,21 @@ initial equation
     adapter=adapter,
     isSynchronized=building.isSynchronized);
 
-  {AFlo, V, mSenFac}=Buildings.ThermalZones.EnergyPlus_24_2_0.BaseClasses.getParameters(
-    adapter=adapter,
-    nParOut=nParOut,
-    isSynchronized=nObj);
+  sizHea.QLat_flow=0;
+  {AFlo,V,mSenFac,
+    sizCoo.QSen_flow, sizCoo.QLat_flow, sizCoo.TOut, sizCoo.TSet, XSetCoo, XOutCoo, sizCoo.mOut_flow, sizCoo.t,
+    sizHea.QSen_flow,                   sizHea.TOut, sizHea.TSet, XSetHea, XOutHea, sizHea.mOut_flow, sizHea.t} =
+      Buildings.ThermalZones.EnergyPlus_24_2_0.BaseClasses.getParameters(
+        adapter=adapter,
+        nParOut=nParOut,
+        isSynchronized=nObj);
+  // Below is for conversion from kg/kg_dry_air (EnergyPlus) to kg/kg_total_air (Modelica)
+  XOutCoo=sizCoo.XOut/(1-sizCoo.XOut);
+  XOutHea=sizHea.XOut/(1-sizHea.XOut);
+  XSetCoo=sizCoo.XSet/(1-sizCoo.XSet);
+  XSetHea=sizHea.XSet/(1-sizHea.XSet);
 
+  // m_flow_small
   m_flow_small=V*3*1.2/3600*1E-10;
   startTime=time;
 
@@ -246,7 +279,7 @@ initial equation
   yEP=Buildings.ThermalZones.EnergyPlus_24_2_0.BaseClasses.exchange(
     adapter=adapter,
     nY=nY,
-    u={ T, X_w/(1.-X_w), mInlet_flow, TAveInlet, QGaiRadAve_flow, round(time,1E-3)},
+    u={T, X_w/(1.-X_w), mInlet_flow, TAveInlet, QGaiRadAve_flow, round(time,1E-3)},
     dummy=AFlo);
 
   TRad=yEP[1];
