@@ -1,0 +1,7 @@
+compareVars :=
+  {
+    "proReg.THotWatRet",
+    "proReg.TRetSet",
+    "proReg.TRetMinAll",
+    "proReg.yRegSig"
+  };

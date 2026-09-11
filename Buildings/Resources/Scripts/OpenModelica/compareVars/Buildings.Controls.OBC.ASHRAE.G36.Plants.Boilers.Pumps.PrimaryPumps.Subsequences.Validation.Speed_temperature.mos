@@ -1,0 +1,15 @@
+compareVars :=
+  {
+    "hotPumSpe.uHotWatPum[1]",
+    "hotPumSpe.uHotWatPum[2]",
+    "hotPumSpe.THotWatPri",
+    "hotPumSpe.THotWatSec",
+    "hotPumSpe.intSwi1.y",
+    "hotPumSpe.yHotWatPumSpe",
+    "hotPumSpe1.uHotWatPum[1]",
+    "hotPumSpe1.uHotWatPum[2]",
+    "hotPumSpe1.THotWatBoiSupWeiAve",
+    "hotPumSpe1.THotWatSec",
+    "hotPumSpe1.intSwi1.y",
+    "hotPumSpe1.yHotWatPumSpe"
+  };

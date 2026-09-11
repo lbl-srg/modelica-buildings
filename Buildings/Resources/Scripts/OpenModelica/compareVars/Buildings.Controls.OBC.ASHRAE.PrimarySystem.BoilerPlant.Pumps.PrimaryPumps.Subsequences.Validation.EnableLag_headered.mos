@@ -1,0 +1,13 @@
+compareVars :=
+  {
+    "enaLagPriPum.hotWatFloRat.y",
+    "enaLagPriPum.addPar2.y",
+    "enaLagPriPum.hys.y",
+    "nexLagPum.y",
+    "enaLagPriPum.hys1.y",
+    "preLagPum.y",
+    "enaLagPriPum.tim.y",
+    "enaLagPriPum.tim1.y",
+    "nexLagPum.y",
+    "preLagPum.y"
+  };
