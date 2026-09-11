@@ -29,16 +29,16 @@ protected
     annotation (Placement(transformation(extent={{20,30},{40,50}})));
 
 equation
-  connect(conCap.y, zerStaIndCor.uCap) annotation (Line(points={{-58,-40},{-50,-40},
+  connect(conCap.y,zerStaIndCor.uVal)  annotation (Line(points={{-58,-40},{-50,-40},
           {-50,-4},{-42,-4}}, color={0,0,127}));
-  connect(conCap.y, zerStaIndCor1.uCap) annotation (Line(points={{-58,-40},{50,-40},
+  connect(conCap.y,zerStaIndCor1.uVal)  annotation (Line(points={{-58,-40},{50,-40},
           {50,-4},{58,-4}}, color={0,0,127}));
   connect(conIntZer.y, zerStaIndCor.uInd) annotation (Line(points={{-58,40},{-50,
           40},{-50,4},{-42,4}}, color={255,127,0}));
   connect(conIntOne.y, zerStaIndCor1.uInd) annotation (Line(points={{42,40},{50,
           40},{50,4},{58,4}}, color={255,127,0}));
 annotation (
-__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/ASHRAE/G36/Plants/Boilers/Staging/SetPoints/Subsequences/Validation/Up.mos"
+__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/ASHRAE/G36/Plants/Boilers/Generic/Validation/ZeroIndexCorrection.mos"
     "Simulate and plot"),
 Documentation(info="<html>
 <p>

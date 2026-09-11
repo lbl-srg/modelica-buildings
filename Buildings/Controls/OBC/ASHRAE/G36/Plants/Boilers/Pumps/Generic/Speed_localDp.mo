@@ -238,27 +238,22 @@ annotation (
         Text(
           extent={{-98,52},{-44,30}},
           textColor={255,0,255},
-          pattern=LinePattern.Dash,
           textString="uHotWatPum"),
         Text(
           extent={{-98,-30},{-30,-52}},
           textColor={0,0,127},
-          pattern=LinePattern.Dash,
           textString="dpHotWat_remote"),
         Text(
           extent={{22,12},{98,-10}},
           textColor={0,0,127},
-          pattern=LinePattern.Dash,
           textString="yHotWatPumSpe"),
         Text(
           extent={{-98,-68},{-34,-90}},
           textColor={0,0,127},
-          pattern=LinePattern.Dash,
           textString="dpHotWatSet"),
         Text(
           extent={{-98,92},{-30,70}},
           textColor={0,0,127},
-          pattern=LinePattern.Dash,
           textString="dpHotWat_local")}),
   Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-140,-140},{140,140}})),
   Documentation(info="<html>

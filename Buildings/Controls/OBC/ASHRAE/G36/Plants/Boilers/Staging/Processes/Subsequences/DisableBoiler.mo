@@ -502,33 +502,21 @@ annotation (
           pattern=LinePattern.None),
           Text(
           extent={{100,188},{170,168}},
-          pattern=LinePattern.None,
-          fillColor={210,210,210},
-          fillPattern=FillPattern.Solid,
           textColor={0,0,127},
           horizontalAlignment=TextAlignment.Right,
           textString="Enable small boiler"),
           Text(
           extent={{102,-6},{172,-24}},
-          pattern=LinePattern.None,
-          fillColor={210,210,210},
-          fillPattern=FillPattern.Solid,
           textColor={0,0,127},
           horizontalAlignment=TextAlignment.Right,
           textString="Disable large boiler"),
           Text(
           extent={{-164,-244},{190,-286}},
-          pattern=LinePattern.None,
-          fillColor={210,210,210},
-          fillPattern=FillPattern.Solid,
           textColor={0,0,127},
           horizontalAlignment=TextAlignment.Right,
           textString="Disable boiler when the down-process does not require any other boiler being disabled"),
           Text(
           extent={{-144,278},{166,258}},
-          pattern=LinePattern.None,
-          fillColor={210,210,210},
-          fillPattern=FillPattern.Solid,
           textColor={0,0,127},
           horizontalAlignment=TextAlignment.Right,
           textString=

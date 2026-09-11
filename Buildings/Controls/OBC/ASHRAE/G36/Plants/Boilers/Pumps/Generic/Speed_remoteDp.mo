@@ -196,22 +196,18 @@ annotation (
         Text(
           extent={{-98,92},{-44,70}},
           textColor={255,0,255},
-          pattern=LinePattern.Dash,
           textString="uHotWatPum"),
         Text(
           extent={{-98,10},{-44,-12}},
           textColor={0,0,127},
-          pattern=LinePattern.Dash,
           textString="dpHotWat"),
         Text(
           extent={{22,12},{98,-10}},
           textColor={0,0,127},
-          pattern=LinePattern.Dash,
           textString="yHotWatPumSpe"),
         Text(
           extent={{-98,-68},{-34,-90}},
           textColor={0,0,127},
-          pattern=LinePattern.Dash,
           textString="dpHotWatSet")}),
   Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-120,-120},{120,120}})),
   Documentation(info="<html>

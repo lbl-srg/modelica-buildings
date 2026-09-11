@@ -394,42 +394,34 @@ annotation (
         Text(
           extent={{-98,96},{-50,84}},
           textColor={255,127,0},
-          pattern=LinePattern.Dash,
           textString="nexEnaBoi"),
         Text(
           extent={{-98,-84},{-50,-96}},
           textColor={255,127,0},
-          pattern=LinePattern.Dash,
           textString="nexDisBoi"),
         Text(
           extent={{-100,66},{-68,56}},
           textColor={255,0,255},
-          pattern=LinePattern.Dash,
           textString="uStaUp"),
         Text(
           extent={{-98,26},{-34,14}},
           textColor={255,0,255},
-          pattern=LinePattern.Dash,
           textString="uUpsDevSta"),
         Text(
           extent={{-100,-14},{-78,-24}},
           textColor={255,0,255},
-          pattern=LinePattern.Dash,
           textString="uBoi"),
         Text(
           extent={{-98,-54},{-72,-66}},
           textColor={255,0,255},
-          pattern=LinePattern.Dash,
           textString="uOnOff"),
         Text(
           extent={{74,86},{100,76}},
           textColor={255,0,255},
-          pattern=LinePattern.Dash,
           textString="yBoi"),
         Text(
           extent={{60,-72},{98,-84}},
           textColor={255,0,255},
-          pattern=LinePattern.Dash,
           textString="yNewBoiEna")}),
         Diagram(
           coordinateSystem(preserveAspectRatio=false, extent={{-200,-260},{200,180}}),
@@ -446,17 +438,11 @@ annotation (
           pattern=LinePattern.None),
           Text(
           extent={{20,158},{100,150}},
-          pattern=LinePattern.None,
-          fillColor={210,210,210},
-          fillPattern=FillPattern.Solid,
           textColor={0,0,127},
           horizontalAlignment=TextAlignment.Left,
           textString="Output new boiler status array:\n1. When the stage change does not require one boiler off and another boiler on.\n2. When the stage change does require one boiler off and another boiler on,\n    but the enabled boiler has not yet finished starting."),
           Text(
           extent={{34,-140},{114,-148}},
-          pattern=LinePattern.None,
-          fillColor={210,210,210},
-          fillPattern=FillPattern.Solid,
           textColor={0,0,127},
           horizontalAlignment=TextAlignment.Left,
           textString="Output new boiler status array:\nWhen the stage change does require one boiler off and another boiler on,\nand the enabled boiler has finished starting.")}),

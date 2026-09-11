@@ -144,8 +144,6 @@ equation
         Text(
           extent={{-62,88},{60,-76}},
           textColor={0,0,0},
-          fillColor={255,255,255},
-          fillPattern=FillPattern.Solid,
           textString="Load")}),
     Diagram(coordinateSystem(preserveAspectRatio=false,
       extent={{-120,-100},{120,100}})),

@@ -180,22 +180,18 @@ annotation (
         Text(
           extent={{50,8},{98,-8}},
           textColor={255,0,255},
-          pattern=LinePattern.Dash,
           textString="yMinBypRes"),
         Text(
           extent={{-98,-32},{-50,-46}},
           textColor={0,0,127},
-          pattern=LinePattern.Dash,
           textString="VHotWat_flow"),
         Text(
           extent={{-98,-72},{-30,-88}},
           textColor={0,0,127},
-          pattern=LinePattern.Dash,
           textString="VMinHotWat_setpoint"),
         Text(
           extent={{-98,46},{-66,36}},
           textColor={255,0,255},
-          pattern=LinePattern.Dash,
           textString="chaPro"),
       Text(
         extent={{-100,100},{100,-100}},
@@ -204,7 +200,6 @@ annotation (
         Text(
           extent={{-98,88},{-52,76}},
           textColor={255,0,255},
-          pattern=LinePattern.Dash,
           textString="uUpsDevSta")}),
   Diagram(coordinateSystem(preserveAspectRatio=false,
           extent={{-160,-100},{160,100}})),

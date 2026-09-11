@@ -131,9 +131,6 @@ annotation (
         pattern=LinePattern.None),
       Text(
         extent={{-156,158},{54,124}},
-        pattern=LinePattern.None,
-        fillColor={210,210,210},
-        fillPattern=FillPattern.Solid,
         textColor={0,0,127},
         horizontalAlignment=TextAlignment.Left,
           textString="Check if all enabled HW isolation valves
@@ -152,22 +149,18 @@ have been fully open")}),
       Text(
         extent={{-96,-54},{-60,-66}},
         textColor={255,0,255},
-        pattern=LinePattern.Dash,
         textString="chaPro"),
       Text(
         extent={{-96,8},{-66,-6}},
         textColor={255,0,255},
-        pattern=LinePattern.Dash,
         textString="uUpsDevSta"),
       Text(
         extent={{-96,68},{-42,56}},
         textColor={0,0,127},
-        pattern=LinePattern.Dash,
         textString="uHotWatIsoVal"),
       Text(
         extent={{32,70},{96,54}},
         textColor={255,0,255},
-        pattern=LinePattern.Dash,
         textString="yEnaHotWatIsoVal"),
       Polygon(
         points={{-60,40},{-60,-40},{0,0},{-60,40}},
@@ -182,7 +175,6 @@ have been fully open")}),
       Text(
         extent={{44,-54},{98,-66}},
         textColor={0,0,127},
-        pattern=LinePattern.Dash,
         textString="yHotWatIsoVal")}),
   Documentation(info="<html>
   <p>

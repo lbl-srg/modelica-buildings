@@ -149,8 +149,6 @@ annotation (defaultComponentName="bypValPos",
               Text(
                 extent={{-70,20},{70,-20}},
                 textColor={0,0,0},
-                fillColor={255,255,255},
-                fillPattern=FillPattern.None,
                 textString="bypValPos"),
               Text(
                 extent={{-100,146},{100,108}},

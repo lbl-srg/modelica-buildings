@@ -41,6 +41,7 @@ model Guideline36 "Closed loop testing model"
     final have_priOnl=false,
     final have_heaPriPum=true,
     final have_isoValSen=true,
+    final have_varPriPum_select=true,
     final have_secFloSen_select=false,
     final have_priTemSen_select=true,
     final nLooSec=2,
