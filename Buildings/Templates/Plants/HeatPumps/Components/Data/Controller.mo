@@ -73,10 +73,14 @@ record Controller
     annotation (Dialog(group=
       "Information provided by designer",
       enable=cfg.have_heaWat and cfg.typCtl==Buildings.Templates.Plants.HeatPumps.Types.Controller.AirToWater));
-  // HACK(AntoineGautier):
-  // Using cfg.nSenDpHeaWatRem for size(dpHeaWatRemSet_max, 1) is not supported by Dymola which fails to "evaluate and check the size declaration".
-  // So the size is kept unassigned.
-  // This requires explicitely providing a value with OCT, even if enable=false.
+  /* HACK(AntoineGautier):
+   * We use an unknown dimension [:] in the declaration below to avoid Dymola's
+   * error "evaluate and check the size declaration".
+   * However, this requires explicitly providing a value with OCT, 
+   * even if enable=false (the start attribute is not enough for OCT).
+   * Using fill instead of each for the start attribute also enhances tool
+   * compatibility.
+   */
   parameter Modelica.Units.SI.PressureDifference dpHeaWatRemSet_max[:](
     start=fill(Buildings.Templates.Data.Defaults.dpHeaWatRemSet_max, cfg.nSenDpHeaWatRem),
     final min=fill(0, cfg.nSenDpHeaWatRem))
@@ -201,10 +205,14 @@ record Controller
       enable=cfg.have_chiWat and cfg.typCtl==Buildings.Templates.Plants.HeatPumps.Types.Controller.AirToWater
         and (cfg.typDis==Buildings.Templates.Plants.HeatPumps.Types.Distribution.Variable1Only
         or cfg.typPumChiWatSec<>Buildings.Templates.Plants.HeatPumps.Types.PumpsSecondary.None)));
-  // HACK(AntoineGautier):
-  // Using cfg.nSenDpChiWatRem for size(dpChiWatRemSet_max, 1) is not supported by Dymola which fails to "evaluate and check the size declaration".
-  // So the size is kept unassigned.
-  // This requires explicitely providing a value with OCT, even if enable=false.
+  /* HACK(AntoineGautier):
+   * We use an unknown dimension [:] in the declaration below to avoid Dymola's
+   * error "evaluate and check the size declaration".
+   * However, this requires explicitly providing a value with OCT, 
+   * even if enable=false (the start attribute is not enough for OCT).
+   * Using fill instead of each for the start attribute also enhances tool
+   * compatibility.
+   */
   parameter Modelica.Units.SI.PressureDifference dpChiWatRemSet_max[:](
     start=fill(Buildings.Templates.Data.Defaults.dpChiWatRemSet_max, cfg.nSenDpChiWatRem),
     final min=fill(0, cfg.nSenDpChiWatRem))

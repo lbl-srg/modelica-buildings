@@ -1125,7 +1125,7 @@ variable speed pumps controlling the loop differential pressure.
 While the flow rate directed towards the loads varies,
 the bypass valve control loop ensures a constant primary flow
 for a given number of staged units.<br/>
-\"Centralized secondary pumps\" refers to configurations with a single
+\"Variable secondary centralized\" refers to configurations with a single
 group of secondary pumps that is typically integrated into the plant.<br/>
 Distributed secondary pumps with multiple secondary loops served
 by dedicated secondary pumps are currently not supported.

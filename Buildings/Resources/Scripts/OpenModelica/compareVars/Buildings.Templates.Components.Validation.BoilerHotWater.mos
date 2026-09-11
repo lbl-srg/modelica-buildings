@@ -1,0 +1,15 @@
+compareVars :=
+  {
+    "THeaWatRet.y",
+    "THeaWatSupSet.y",
+    "boiTab.bus.THeaWatSup",
+    "boiPol.bus.THeaWatSup",
+    "boiTab.boi.Q_flow_nominal",
+    "boiPol.boi.Q_flow_nominal",
+    "boiTab.boi.QWat_flow",
+    "boiPol.boi.QWat_flow",
+    "boiTab.boi.m_flow_nominal",
+    "boiPol.boi.m_flow_nominal",
+    "boiTab.boi.m_flow",
+    "boiPol.boi.m_flow"
+  };
