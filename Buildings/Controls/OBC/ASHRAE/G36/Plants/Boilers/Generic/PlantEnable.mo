@@ -129,8 +129,6 @@ protected
     annotation (Placement(transformation(extent={{-10,-80},{10,-60}})));
 
 equation
-  connect(yPla, yPla)
-    annotation (Line(points={{180,0},{180,0}}, color={255,0,255}));
   connect(hys.u, addPar.y) annotation (Line(points={{-122,-50},{-128,-50},{-128,
           -34},{-96,-34},{-96,-20},{-98,-20}},                              color={0,0,127}));
   connect(not3.y, tim1.u)
