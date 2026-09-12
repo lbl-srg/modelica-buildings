@@ -21,7 +21,7 @@ void* jsonWriterInit(
   const char* fileName,
   const int dumpAtDestruction,
   const int numKeys,
-  char** varKeys){
+  const char** varKeys){
 
   int i;
   FileWriter* ID = (FileWriter*)allocateFileWriter(instanceName, fileName);
