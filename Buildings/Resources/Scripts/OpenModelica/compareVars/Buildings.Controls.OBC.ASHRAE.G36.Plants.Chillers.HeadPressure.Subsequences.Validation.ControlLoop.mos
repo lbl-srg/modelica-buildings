@@ -1,0 +1,9 @@
+compareVars :=
+  {
+    "chiHeaPreLoo.uHeaPreEna",
+    "chiHeaPreLoo.TConWatRet",
+    "chiHeaPreLoo.TChiWatSup",
+    "chiHeaPreLoo.conPID.u_s",
+    "chiHeaPreLoo.conPID.u_m",
+    "chiHeaPreLoo.conPID.y"
+  };

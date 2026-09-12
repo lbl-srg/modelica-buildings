@@ -83,11 +83,11 @@ block StagingHeaderedDeltaP
     p=- dVOffUp)
     "Calculate stage up flow point"
     annotation (Placement(transformation(extent={{-80,110},{-60,130}})));
-  Buildings.Templates.Plants.Controls.Utilities.TimerWithReset timHigV(final t=
+  Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Generic.TimerWithReset timHigV(final t=
         dtRun)
     "Return true if stage up condition is true for specified duration"
     annotation (Placement(transformation(extent={{10,50},{30,70}})));
-  Buildings.Templates.Plants.Controls.Utilities.TimerWithReset timLowV(final t=
+  Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Generic.TimerWithReset timLowV(final t=
         dtRun)
     "Return true if stage down condition is true for specified duration"
     annotation (Placement(transformation(extent={{10,10},{30,30}})));
@@ -115,7 +115,7 @@ block StagingHeaderedDeltaP
   Buildings.Controls.OBC.CDL.Reals.GreaterThreshold higY(final t=yUp)
     "True if pump speed command exceeds high limit"
     annotation (Placement(transformation(extent={{-110,-30},{-90,-10}})));
-  Utilities.TimerWithReset timHigY(final t=dtRunFaiSaf)
+  Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Generic.TimerWithReset timHigY(final t=dtRunFaiSaf)
                                                      "Timer"
     annotation (Placement(transformation(extent={{-70,-30},{-50,-10}})));
   Buildings.Controls.OBC.CDL.Reals.Subtract delDpSet[nSenDp]
@@ -125,7 +125,7 @@ block StagingHeaderedDeltaP
         dpOff)
     "True if dp < setpoint - dpOff"
     annotation (Placement(transformation(extent={{-110,-130},{-90,-110}})));
-  Utilities.TimerWithReset timLowDp[nSenDp](each final t=dtRunFaiSaf)
+  Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Generic.TimerWithReset timLowDp[nSenDp](each final t=dtRunFaiSaf)
                                                                  "Timer"
     annotation (Placement(transformation(extent={{-70,-130},{-50,-110}})));
   Buildings.Controls.OBC.CDL.Logical.And higYAndLowDp
@@ -137,10 +137,10 @@ block StagingHeaderedDeltaP
   Buildings.Controls.OBC.CDL.Reals.LessThreshold lowY(final t=yDow)
     "True if pump speed command is less than low limit"
     annotation (Placement(transformation(extent={{-110,-70},{-90,-50}})));
-  Utilities.TimerWithReset timLowY(final t=dtRunFaiSafLowY)
+  Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Generic.TimerWithReset timLowY(final t=dtRunFaiSafLowY)
                                                      "Timer"
     annotation (Placement(transformation(extent={{-70,-70},{-50,-50}})));
-  Utilities.TimerWithReset timHigDp[nSenDp](each final t=dtRunFaiSaf)
+  Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Generic.TimerWithReset timHigDp[nSenDp](each final t=dtRunFaiSaf)
                                                                  "Timer"
     annotation (Placement(transformation(extent={{-70,-170},{-50,-150}})));
   Buildings.Controls.OBC.CDL.Reals.GreaterThreshold higDp[nSenDp](each final t=

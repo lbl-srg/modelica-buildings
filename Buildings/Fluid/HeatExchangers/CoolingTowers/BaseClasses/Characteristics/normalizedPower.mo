@@ -32,7 +32,8 @@ algorithm
     y2d=d[i+1]);
   end if;
 
-annotation(smoothOrder=1,
+annotation(
+smoothOrder=1,
 Documentation(info="<html>
 <p>
 This function computes the fan normalized power consumption
@@ -57,6 +58,12 @@ If the data <i>d</i> define a monotone decreasing sequence, then
 </html>", revisions="<html>
 <ul>
 <li>
+August 3, 2026, by Michael Wetter:<br/>
+Removed duplicate annotation.
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/2158\">IBPSA, issue 2158</a>.
+</li>
+<li>
 December, 22, 2019, by Kathryn Hinkelman:<br/>
 Corrected cubic hermite spline calculation.<br/>
 This is for
@@ -75,5 +82,5 @@ September 28, 2011, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>
-</html>"), smoothOrder=1);
+</html>"));
 end normalizedPower;

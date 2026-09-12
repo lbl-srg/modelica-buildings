@@ -245,12 +245,7 @@ equation
           -68,-78},{-62,-78}}, color={255,0,255}));
   connect(and3.y, not1.u)
     annotation (Line(points={{-38,-70},{-22,-70}}, color={255,0,255}));
-annotation (Placement(transformation(extent={{-20,110},{0,130}})),
-                Placement(transformation(extent={{-20,20},{0,40}})),
-                Placement(transformation(extent={{60,90},{80,110}})),
-                Placement(transformation(extent={{-140,130},{-120,150}})),
-                Placement(transformation(extent={{-140,-30},{-120,-10}})),
-                Placement(transformation(extent={{-140,160},{-120,180}})),
+annotation (
                 Placement(transformation(extent={{-140,0},{-120,20}})),
     defaultComponentName = "damLim",
     Icon(graphics={
@@ -418,6 +413,12 @@ src=\"modelica://Buildings/Resources/Images/Obsolete/Controls/OBC/ASHRAE/G36_PR1
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+August 3, 2026, by Michael Wetter:<br/>
+Removed duplicate annotation.
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/2158\">IBPSA, issue 2158</a>.
+</li>
 <li>
 March 13, 2020, by Jianjun Hu:<br/>
 Replaced multiAnd block with and3 block to avoid vector related implementation.<br/>

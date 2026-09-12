@@ -22,44 +22,7 @@ model HeatGain "Model to convert internal heat gain signals"
 equation
   {QRad_flow, QCon_flow, QLat_flow} = AFlo .* qGai_flow;
 
- annotation(Documentation(info="<html>
-<p>
-This model computes the radiant, convective sensible and latent heat flow rate.
-Input into this model are these three components in units of [W/m2].
-The inputs need to be positive quantities if heat or moisture is added
-to the room.
-The outputs are
-</p>
-<ul>
-<li>
-the radiant heat flow in Watts,
-</li>
-<li>
-the convective heat flow in Watts, and
-</li>
-<li>
-the water vapor released into the air.
-</li>
-</ul>
-</html>",
-revisions="<html>
-<ul>
-<li>
-October 25, 2021, by Michael Wetter:<br/>
-Updated documentation to improve clarity.
-</li>
-<li>
-May 2, 2016, by Michael Wetter:<br/>
-Refactored implementation of latent heat gain.
-This is for
-<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/515\">issue 515</a>.
-</li>
-<li>
-August 1, 2013, by Michael Wetter:<br/>
-First implementation.
-</li>
-</ul>
-</html>"), Icon(graphics={
+ annotation( Icon(graphics={
             Rectangle(
             extent={{-100,100},{100,-100}},
             lineColor={0,0,0},
@@ -98,26 +61,46 @@ First implementation.
           extent={{20,-44},{94,-66}},
           textColor={0,0,127},
           textString="QLat_flow")}),
-        Documentation(info = "<html>
-This is a dummy model that is required to implement the room
-model with a variable number of surface models.
-The model is required since arrays of models, such as used for the surfaces
-that model the construction outside of the room,
-must have at least one element, unless the whole array
-is conditionally removed if its size is zero.
-However, conditionally removing the surface models does not work in this
-situation since some models, such as for computing the radiative heat exchange
-between the surfaces, require access to the area and absorptivity of the surface models.
-
-</html>",
-        revisions="<html>
+        Documentation(info="<html>
+<p>
+This model computes the radiant, convective sensible and latent heat flow rate.
+Input into this model are these three components in units of [W/m2].
+The inputs need to be positive quantities if heat or moisture is added
+to the room.
+The outputs are
+</p>
 <ul>
 <li>
-February 22, by Michael Wetter:<br/>
-Improved the code that searches for the index of 'water' in the medium model.
+the radiant heat flow in Watts,
 </li>
 <li>
-June 8 2010, by Michael Wetter:<br/>
+the convective heat flow in Watts, and
+</li>
+<li>
+the water vapor released into the air.
+</li>
+</ul>
+</html>",
+revisions="<html>
+<ul>
+<li>
+August 3, 2026, by Michael Wetter:<br/>
+Removed duplicate annotation.
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/2158\">IBPSA, issue 2158</a>.
+</li>
+<li>
+October 25, 2021, by Michael Wetter:<br/>
+Updated documentation to improve clarity.
+</li>
+<li>
+May 2, 2016, by Michael Wetter:<br/>
+Refactored implementation of latent heat gain.
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/515\">issue 515</a>.
+</li>
+<li>
+August 1, 2013, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>

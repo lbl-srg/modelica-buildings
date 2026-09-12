@@ -79,6 +79,10 @@ particular package.<br/>
    </td>
    <td valign=\"top\">Package with models for geothermal borefields.</td>
 </tr>
+<tr><td valign=\"top\"><a href=\"modelica://Buildings.Fluid.Geothermal.Borefields.TOUGH\">Fluid.Geothermal.Borefields.TOUGH</a>
+   </td>
+   <td valign=\"top\">Package with models for geothermal borefield with ground response calculated by TOUGH simulator.</td>
+</tr>
 <tr><td valign=\"top\"><a href=\"modelica://Buildings.Fluid.Geothermal.ZonedBorefields\">Fluid.Geothermal.ZonedBorefields</a>
    </td>
    <td valign=\"top\">Package with models for zoned geothermal borefields in which individual zones of the borefield can be

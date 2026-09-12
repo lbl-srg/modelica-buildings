@@ -1,0 +1,5 @@
+simulateModel("Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Staging.Processes.Subsequences.Validation.ResetMinBypass", method="Cvode", stopTime=600, tolerance=1e-06, resultFile="resMinByp");
+createPlot(id=1, position={20, 10, 800, 1183}, y={"minBypRes.uUpsDevSta", "minBypRes.uStaPro", "minBypRes.uSetChaPro"}, range={0.0, 600.0, -0.5, 1.5}, grid=true, subPlot=101, colors={{28,108,200}, {28,108,200}, {28,108,200}}, timeUnit="s");
+createPlot(id=1, position={20, 10, 800, 1183}, y={"minBypRes.VChiWat_flow", "minBypRes.VMinChiWat_setpoint"}, range={0.0, 600.0, 0.8, 1.6}, grid=true, subPlot=102, colors={{28,108,200}, {238,46,47}}, timeUnit="s", displayUnits={"m3/s", "m3/s"});
+createPlot(id=1, position={20, 10, 800, 1183}, y={"minBypRes.yMinBypRes"}, range={0.0, 600.0, -0.5, 1.5}, grid=true, subPlot=103, colors={{28,108,200}}, timeUnit="s");
+

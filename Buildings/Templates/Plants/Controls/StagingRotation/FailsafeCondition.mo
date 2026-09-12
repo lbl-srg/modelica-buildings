@@ -73,11 +73,11 @@ block FailsafeCondition
     "Reset timers to zero at completion of stage change"
     annotation (Placement(transformation(extent={{-178,80},{-138,120}}),
       iconTransformation(extent={{-140,60},{-100,100}})));
-  Utilities.TimerWithReset timPriSet(
+  Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Generic.TimerWithReset timPriSet(
     final t=dtPri)
     "Timer"
     annotation (Placement(transformation(extent={{-10,30},{10,50}})));
-  Utilities.TimerWithReset timSecPri(
+  Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Generic.TimerWithReset timSecPri(
     final t=dtSec)
     if have_pumSec
     "Timer"
@@ -111,7 +111,7 @@ block FailsafeCondition
     if have_pumSec
     "True if Delta-T less than threshold"
     annotation (Placement(transformation(extent={{-50,-50},{-30,-30}})));
-  Utilities.TimerWithReset timSecSet(
+  Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Generic.TimerWithReset timSecSet(
     final t=dtSec)
     if have_pumSec
     "Timer"

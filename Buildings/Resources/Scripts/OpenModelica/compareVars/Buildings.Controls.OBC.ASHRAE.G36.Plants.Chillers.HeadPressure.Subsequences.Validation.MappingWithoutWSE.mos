@@ -1,0 +1,12 @@
+compareVars :=
+  {
+    "fixPumSpe.uHeaPreCon",
+    "fixPumSpe.yMaxTowSpeSet",
+    "fixPumSpe.yHeaPreConVal",
+    "fixPumSpe.uHeaPreEna",
+    "varPumSpe.uHeaPreCon",
+    "varPumSpe.yMaxTowSpeSet",
+    "varPumSpe.yConWatPumSpeSet",
+    "varPumSpe.desConWatPumSpe",
+    "varPumSpe.uHeaPreEna"
+  };

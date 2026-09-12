@@ -58,7 +58,7 @@ partial model PartialHeatPumpPlant
     "Type of heat pump"
     annotation (Evaluate=true,
     Dialog(group="Heat pumps"));
-  parameter Buildings.Templates.Plants.HeatPumps.Configuration.HeatPumpPlant cfg(
+  final parameter Buildings.Templates.Plants.HeatPumps.Configuration.HeatPumpPlant cfg(
     final cpChiWat_default=cpChiWat_default,
     final cpHeaWat_default=cpHeaWat_default,
     final cpSou_default=cpSou_default,
@@ -99,8 +99,7 @@ partial model PartialHeatPumpPlant
     final have_senDpChiWatRemWir=ctl.have_senDpChiWatRemWir,
     final nSenDpChiWatRem=ctl.nSenDpChiWatRem,
     final have_inpSch=ctl.have_inpSch)
-    "Configuration parameters"
-    annotation (__ctrlFlow(enable=false));
+    "Configuration parameters";
   parameter Buildings.Templates.Plants.HeatPumps.Data.HeatPumpPlant dat(
     cfg=cfg)
     "Design and operating parameters"
@@ -395,13 +394,15 @@ partial model PartialHeatPumpPlant
   parameter Boolean allowFlowReversal=true
     "= true to allow flow reversal, false restricts to design direction (port_a -> port_b)"
     annotation (Dialog(tab="Assumptions"),
-    Evaluate=true);
+    Evaluate=true, __ctrlFlow(enable=false));
   parameter Boolean linearized = false
     "= true, use linear relation between m_flow and dp for all valves"
-    annotation(Evaluate=true, Dialog(tab="Advanced"));
+    annotation(Evaluate=true, Dialog(tab="Advanced"),
+      __ctrlFlow(enable=false));
   parameter Boolean show_T=false
     "= true, if actual temperature at port is computed"
-    annotation (Dialog(tab="Advanced",group="Diagnostics"));
+    annotation (Dialog(tab="Advanced", group="Diagnostics"),
+      __ctrlFlow(enable=false));
   final parameter MediumHeaWat.Density rhoHeaWat_default=MediumHeaWat.density(staHeaWat_default)
     "HW default density"
     annotation (Evaluate=true);

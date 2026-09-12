@@ -1,0 +1,12 @@
+compareVars :=
+  {
+    "intOpe.uChi[1]",
+    "intOpe.uChi[2]",
+    "intOpe.uWse",
+    "intOpe.uChiLoa",
+    "intOpe.chiMinCap[1]",
+    "intOpe.ySpeSet",
+    "intOpe.fanSpe.u3",
+    "intOpe.fanSpe.u1",
+    "intOpe.fanSpe.u2"
+  };
