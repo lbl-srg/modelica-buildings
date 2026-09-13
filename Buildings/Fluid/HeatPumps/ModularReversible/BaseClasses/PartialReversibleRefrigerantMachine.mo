@@ -300,15 +300,19 @@ partial model PartialReversibleRefrigerantMachine
         rotation=0,
         origin={-111,89})));
 
-  Buildings.Fluid.Sensors.MassFlowRate mEva_flow(redeclare final package Medium =
-        MediumEva, final allowFlowReversal=allowFlowReversalEva)
-    "Mass flow sensor at the evaporator" annotation (Placement(transformation(
+  Buildings.Fluid.Sensors.MassFlowRate mEva_flow(
+    redeclare final package Medium=MediumEva,
+    final allowFlowReversal=allowFlowReversalEva)
+    "Mass flow sensor at the evaporator"
+    annotation (Placement(transformation(
         origin={70,-60},
         extent={{10,-10},{-10,10}},
         rotation=0)));
-  Buildings.Fluid.Sensors.MassFlowRate mCon_flow(final allowFlowReversal=
-        allowFlowReversalEva, redeclare final package Medium = MediumCon)
-    "Mass flow sensor at the evaporator" annotation (Placement(transformation(
+  Buildings.Fluid.Sensors.MassFlowRate mCon_flow(
+    redeclare final package Medium=MediumCon,
+    final allowFlowReversal=allowFlowReversalCon)
+    "Mass flow sensor at the condenser"
+    annotation (Placement(transformation(
         origin={-50,100},
         extent={{-10,10},{10,-10}},
         rotation=0)));
@@ -678,6 +682,12 @@ equation
           fillPattern=FillPattern.Solid)}),
        Diagram(coordinateSystem(extent={{-140,-160},{140,160}})),
     Documentation(revisions="<html><ul>
+  <li>
+    <i>August 11, 2026</i> by Antoine Gautier:<br/>
+    Corrected flow reversal parameter in condenser mass flow sensor.<br/>
+    This is for
+    <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/2162\">IBPSA #2162</a>.
+  </li>
   <li>
     <i>February 27, 2025</i> by Jianjun Hu:<br/>
     Corrected conditions for removing COP and EER output connector.<br/>
