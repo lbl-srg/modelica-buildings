@@ -268,6 +268,19 @@ PyString_AsString(PyObject_Repr(pValue)));
 		/* In the first call, put Py_None int obj, but in subsequent calls, use ptr. */
 		obj = (ptrMemory->ptr == NULL) ? Py_None : ptrMemory->ptr;
 
+		/* PyTuple_SetItem() steals a reference to obj. However, ptrMemory->ptr is only*/
+		/* a borrowed reference that was obtained from PyList_GetItem() at the end of the*/
+		/* previous invocation of this function (see below): this code never owns an*/
+		/* incremented reference count for it. Without this Py_INCREF(), the*/
+		/* Py_DECREF(pArgs) below decrements the object's reference count once too often,*/
+		/* which can drop it to zero and free the object while it is still reachable,*/
+		/* e.g. from the list that was returned by the previous call and that is*/
+		/* intentionally never released (see the comment further below explaining why*/
+		/* Py_DECREF(pValue) is commented out). This can cause an intermittent*/
+		/* use-after-free / segmentation fault the next time the object is accessed or*/
+		/* Python's cyclic garbage collector traverses the dangling pointer left behind*/
+		/* in that leaked list.*/
+		Py_INCREF(obj);
 		PyTuple_SetItem(pArgs, iArg, obj);
 		iArg++;
 	}

@@ -38,7 +38,7 @@ The coupling is implemented through the instance <code>pyt</code> in the class
 <a href=\"modelica://Buildings.Fluid.Geothermal.Borefields.TOUGH.BaseClasses.GroundResponse\">
 Buildings.Fluid.Geothermal.Borefields.TOUGH.BaseClasses.GroundResponse</a>.
 It instantiates the Python interface model
-<a href=\"modelica://Buildings.Fluid.Geothermal.Borefields.TOUGH.BaseClasses.Real_Reall\">
+<a href=\"modelica://Buildings.Fluid.Geothermal.Borefields.TOUGH.BaseClasses.Real_Real\">
 Buildings.Fluid.Geothermal.Borefields.TOUGH.BaseClasses.Real_Real</a>, which can send data to Python
 functions and receive data from it. It enables computations to be performed inside
 a Python module that calls an external simulator, which in this case is the TOUGH 3 simulator.

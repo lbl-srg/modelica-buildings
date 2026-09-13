@@ -49,9 +49,6 @@ protected
   Buildings.Controls.OBC.CDL.Logical.Timer tim
     "Count the time after condenser water pump being reset"
     annotation (Placement(transformation(extent={{-60,50},{-40,70}})));
-  Buildings.Controls.OBC.CDL.Logical.Edge edg
-    "Rising edge, output true at the moment when input turns from false to true"
-    annotation (Placement(transformation(extent={{-160,90},{-140,110}})));
   Buildings.Controls.OBC.CDL.Logical.Latch lat
     "Logical latch, maintain ON signal until condition changes"
     annotation (Placement(transformation(extent={{-100,50},{-80,70}})));
@@ -143,9 +140,6 @@ equation
     annotation (Line(points={{-200,-110},{-162,-110}}, color={255,0,255}));
   connect(booToRea.y, triSam.u)
     annotation (Line(points={{-138,-110},{-62,-110}}, color={0,0,127}));
-  connect(edg.y, and2.u1)
-    annotation (Line(points={{-138,100},{-120,100},{-120,80},{-170,80},{-170,60},
-          {-162,60}}, color={255,0,255}));
   connect(uStaPro, and2.u2)
     annotation (Line(points={{-200,52},{-162,52}}, color={255,0,255}));
   connect(and2.y, lat.u)
@@ -240,8 +234,8 @@ equation
           {98,92}}, color={255,0,255}));
   connect(uUpsDevSta, or1.u2) annotation (Line(points={{-200,130},{-160,130},{-160,
           152},{-142,152}}, color={255,0,255}));
-  connect(or1.y, edg.u) annotation (Line(points={{-118,160},{-100,160},{-100,
-          120},{-170,120},{-170,100},{-162,100}}, color={255,0,255}));
+  connect(or1.y, and2.u1) annotation (Line(points={{-118,160},{-100,160},{-100,
+          100},{-170,100},{-170,60},{-162,60}}, color={255,0,255}));
 annotation (
   defaultComponentName="enaHeaCon",
   Diagram(coordinateSystem(preserveAspectRatio=false,

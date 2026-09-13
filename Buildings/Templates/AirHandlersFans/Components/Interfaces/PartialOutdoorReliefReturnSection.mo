@@ -54,7 +54,7 @@ partial model PartialOutdoorReliefReturnSection
   parameter Buildings.Templates.AirHandlersFans.Types.ControlFanReturn typCtlFanRet=
     Buildings.Templates.AirHandlersFans.Types.ControlFanReturn.AirflowMeasured
     "Return fan control type"
-    annotation (__ctrlFlow(enable=false),
+    annotation (
       Evaluate=true,
       Dialog(
         group="Configuration",
@@ -62,7 +62,7 @@ partial model PartialOutdoorReliefReturnSection
   parameter Buildings.Controls.OBC.ASHRAE.G36.Types.ControlEconomizer typCtlEco=
     Buildings.Controls.OBC.ASHRAE.G36.Types.ControlEconomizer.FixedDryBulb
     "Economizer control type"
-    annotation (__ctrlFlow(enable=false),
+    annotation (
       Evaluate=true,
       Dialog(
         group="Configuration",
