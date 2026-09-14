@@ -39,7 +39,7 @@ protected
   parameter Modelica.Units.SI.SpecificHeatCapacity cp_default = Medium.specificHeatCapacityCp(
     state_default) "Specific heat capacity";
 
-  parameter Modelica.Units.SI.SpecificHeatCapacity rho_default = Medium.density(
+  parameter Modelica.Units.SI.Density rho_default = Medium.density(
     state_default) "Density";
 
   parameter Real fanRelPowDer[size(dat.fanRelPow.r_V,1)] =
