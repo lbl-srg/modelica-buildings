@@ -16,7 +16,7 @@ model Borefield
     annotation (Placement(transformation(extent={{-140,40},{-100,80}}),
     iconTransformation(extent={{-140,40},{-100,80}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yPum(
-    final unit="kg/s")
+    final unit="1")
     "Control signal for borefield pump"
     annotation (Placement(transformation(extent={{100,40},{140,80}}),
     iconTransformation(extent={{100,40},{140,80}})));
@@ -153,6 +153,10 @@ equation
     Documentation(
       revisions="<html>
 <ul>
+<li>
+September 14, 2026, by Michael Wetter:<br/>
+Corrected wrong unit for <code>yPum</code>.
+</li>
 <li>
 July 31, 2020, by Antoine Gautier:<br/>
 First implementation.
