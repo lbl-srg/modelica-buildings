@@ -29,7 +29,7 @@ model CFDSurfaceInterface
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a port "Heat ports"
     annotation (Placement(transformation(extent={{90,-10},{110,10}})));
 
-  // Internal connectors to change causality depending on the specifie
+  // Internal connectors to change causality depending on the specified
   // boundary condition
 protected
   Modelica.Blocks.Interfaces.RealInput Q_flow_internal "Surface heat flow rate";

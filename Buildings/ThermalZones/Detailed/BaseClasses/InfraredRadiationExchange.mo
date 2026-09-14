@@ -360,7 +360,7 @@ is the surface area,
 is the absorptivity in the infrared spectrum, and
 <i>T<sup>i</sup></i>
 is the surface temperature.
-If the parameter <code>linearizeRadidation</code> is set to <code>true</code>,
+If the parameter <code>linearizeRadiation</code> is set to <code>true</code>,
 then the term <i>(T<sup>i</sup>)<sup>4</sup></i> is replaced with
 <i>T<sub>0</sub><sup>3</sup> T<sup>i</sup></i>,
 where <i>T<sub>0</sub> = 20&deg;C</i> is a parameter.

@@ -62,7 +62,8 @@ This model tests the coupled simulation of
 <a href=\"modelica://Buildings.ThermalZones.Detailed.CFD\">
 Buildings.ThermalZones.Detailed.CFD</a>
 with the FFD program by simulating the ventilation with forced convection in an empty room.
-Figure (a) shows the schematic of the FFD simulation and Figure (b) shows streamlines and contours of the horizontal velocity U as simulated by the FFD.
+Figure (a) shows the schematic of the FFD simulation and Figure (b) shows streamlines
+and contours of the horizontal velocity U as simulated by the FFD.
 </p>
 <p align=\"center\">
 <img alt=\"image\" src=\"modelica://Buildings/Resources/Images/ThermalZones/Detailed/Examples/FFD/ConvectionSchematic.png\" border=\"1\"/>

@@ -803,7 +803,7 @@ equation
           temperature data, located in y[4] of the external data file. The three room models use different
           air mass flow rates. airCon uses the flow rate from y[1] in the data file, airConClo uses the
           flow rate from y[2], and airConEle uses the flow rate from y[3]. Thus, the other entries
-          for each row in the table are left blank because the data is innapropriate for that particular
+          for each row in the table are left blank because the data is inappropriate for that particular
           model.</li>
           </ul>
           <p>

@@ -1,32 +1,32 @@
-/*
-	*
-	* \file   solver_tdma.c
-	*
-	* \brief Tri-Diagonal Matrix Algorithm Solver
-	*
-	* \author Mingang Jin, Qingyan Chen
-	*         Purdue University
-	*         Jin55@purdue.edu, YanChen@purdue.edu
-	*         Wangda Zuo
-	*         University of Miami
-	*         W.Zuo@miami.edu
-	*
-	* \date   8/3/2013
-	*
-	*/
+/****************************************************************************
+|
+|  \file   solver_tdma.c
+|
+|  \brief  Gauss-Seidel solvers
+|
+|  \author Mingang Jin, Qingyan Chen
+|          Purdue University
+|          Jin55@purdue.edu, YanChen@purdue.edu
+|          Wangda Zuo
+|          University of Miami, University of Colorado Boulder
+|          W.Zuo@miami.edu, wangda.zuo@colorado.edu
+|
+|  \date   8/3/2013
+|
+****************************************************************************/
 
 #include "solver_tdma.h"
 
-	/*
-		* TDMA solver for 3D
-		*
-		* @param para Pointer to FFD parameters
-		* @param var Pointer to FFD simulation variables
-		* @param type Type of variable
-		* @param psi Pointer to variable
-		*
-		* @return 0 if no error occurred
-		*/
+/*
+	* TDMA solver for 3D
+	*
+	* @param para Pointer to FFD parameters
+	* @param var Pointer to FFD simulation variables
+	* @param type Type of variable
+	* @param psi Pointer to variable
+	*
+	* @return 0 if no error occurred
+	*/
 int TDMA_3D(PARA_DATA *para, REAL **var, int type, REAL *psi) {
   int imax = para->geom->imax;
   int jmax = para->geom->jmax;
@@ -78,16 +78,16 @@ int TDMA_3D(PARA_DATA *para, REAL **var, int type, REAL *psi) {
   return 0;
 }/* end of TDMA_3D()*/
 
-	/*
-		* TDMA solver for XY-plane
-		*
-		* @param para Pointer to FFD parameters
-		* @param var Pointer to FFD simulation variables
-		* @param psi Pointer to variable
-		* @param k K-index of the plane
-		*
-		* @return 0 if no error occurred
-		*/
+/*
+	* TDMA solver for XY-plane
+	*
+	* @param para Pointer to FFD parameters
+	* @param var Pointer to FFD simulation variables
+	* @param psi Pointer to variable
+	* @param k K-index of the plane
+	*
+	* @return 0 if no error occurred
+	*/
 int TDMA_XY(PARA_DATA *para, REAL **var, REAL *psi, int k) {
   int imax = para->geom->imax, jmax = para->geom->jmax;
   int i, j;
@@ -155,16 +155,16 @@ int TDMA_XY(PARA_DATA *para, REAL **var, REAL *psi, int k) {
   return 0;
 } /* End of TDMA_XY()*/
 
-	/*
-		* TDMA solver for YZ-plane
-		*
-		* @param para Pointer to FFD parameters
-		* @param var Pointer to FFD simulation variables
-		* @param psi Pointer to variable
-		* @param i I-index of the plane
-		*
-		* @return 0 if no error occurred
-		*/
+/*
+	* TDMA solver for YZ-plane
+	*
+	* @param para Pointer to FFD parameters
+	* @param var Pointer to FFD simulation variables
+	* @param psi Pointer to variable
+	* @param i I-index of the plane
+	*
+	* @return 0 if no error occurred
+	*/
 int TDMA_YZ(PARA_DATA *para, REAL **var, REAL *psi, int i)
 {
   int imax = para->geom->imax;
@@ -235,16 +235,16 @@ int TDMA_YZ(PARA_DATA *para, REAL **var, REAL *psi, int i)
   return 0;
 } /* End of TDMA_YZ()*/
 
-	/*
-		* TDMA solver for ZX-plane
-		*
-		* @param para Pointer to FFD parameters
-		* @param var Pointer to FFD simulation variables
-		* @param psi Pointer to variable
-		* @param j J-index of the plane
-		*
-		* @return 0 if no error occurred
-		*/
+/*
+	* TDMA solver for ZX-plane
+	*
+	* @param para Pointer to FFD parameters
+	* @param var Pointer to FFD simulation variables
+	* @param psi Pointer to variable
+	* @param j J-index of the plane
+	*
+	* @return 0 if no error occurred
+	*/
 int TDMA_ZX(PARA_DATA *para, REAL **var, REAL *psi, int j)
 {
   int imax = para->geom->imax;
@@ -315,18 +315,18 @@ int TDMA_ZX(PARA_DATA *para, REAL **var, REAL *psi, int j)
   return 0;
 } /* End of TDMA_ZX()*/
 
-	/*
-		* TDMA solver for 1D array
-		*
-		* @param ap Pointer to coefficient for center
-		* @param ae Pointer to coefficient for east
-		* @param aw Pointer to coefficient for west
-		* @param b Pointer to b
-		* @param psi Pointer to variable
-		* @param LENGTH Length of the array
-		*
-		* @return 0 if no error occurred
-		*/
+/*
+	* TDMA solver for 1D array
+	*
+	* @param ap Pointer to coefficient for center
+	* @param ae Pointer to coefficient for east
+	* @param aw Pointer to coefficient for west
+	* @param b Pointer to b
+	* @param psi Pointer to variable
+	* @param LENGTH Length of the array
+	*
+	* @return 0 if no error occurred
+	*/
 int TDMA_1D(REAL *ap, REAL *ae, REAL *aw, REAL *b, REAL *psi,
              int LENGTH) {
   REAL *P, *Q;

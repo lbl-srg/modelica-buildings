@@ -290,7 +290,7 @@ protected
     "Infrared transmissivity of shade for radiation coming from the glass"
     annotation (Dialog(group="Shading"));
 
-  // If at least one glass layer in the room has mutiple states, then
+  // If at least one glass layer in the room has multiple states, then
   // set haveControllableWindow=true. In this case, the input connector for
   // the control signal will be enabled. Otherwise, it is removed.
   final parameter Boolean haveControllableWindow=
@@ -950,7 +950,7 @@ the opaque constructions.
 </li>
 <li>
 December 12, 2011, by Wangda Zuo:<br/>
-Add glass thickness as a parameter for conExtWinRad. It is needed by the claculation of property for uncoated glass.
+Add glass thickness as a parameter for conExtWinRad. It is needed by the calculation of property for uncoated glass.
 </li>
 <li>
 December 6, 2011, by Michael Wetter:<br/>

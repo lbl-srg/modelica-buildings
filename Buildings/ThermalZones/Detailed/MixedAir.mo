@@ -255,7 +255,7 @@ the opaque constructions.
 </li>
 <li>
 December 12, 2011, by Wangda Zuo:<br/>
-Add glass thickness as a parameter for conExtWinRad. It is needed by the claculation of property for uncoated glass.
+Add glass thickness as a parameter for conExtWinRad. It is needed by the calculation of property for uncoated glass.
 </li>
 <li>
 December 6, 2011, by Michael Wetter:<br/>

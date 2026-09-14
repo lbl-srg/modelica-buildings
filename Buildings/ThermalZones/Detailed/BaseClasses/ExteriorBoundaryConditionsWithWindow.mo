@@ -110,7 +110,7 @@ model ExteriorBoundaryConditionsWithWindow
     annotation (Placement(transformation(extent={{0,60},{-20,80}})));
   Modelica.Blocks.Interfaces.RealOutput HDir[nCon](
      each final quantity="RadiantEnergyFluenceRate",
-     each final unit="W/m2") "Direct solar irradition on tilted surface"
+     each final unit="W/m2") "Direct solar irradiation on tilted surface"
     annotation (Placement(transformation(extent={{300,110},{320,130}})));
   Modelica.Blocks.Interfaces.RealOutput HDif[nCon](
      each final quantity="RadiantEnergyFluenceRate",

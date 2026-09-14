@@ -110,7 +110,7 @@ initial equation
   end for;
 ////////////////////////////////////////////////////////////////////
 equation
-  // Conditional connnector
+  // Conditional connector
   connect(glaUns, glaUns_internal);
   connect(glaSha, glaSha_internal);
   connect(sha, sha_internal);
@@ -243,8 +243,8 @@ where
 <i>T<sup>i</sup></i> are the surface temperatures.
 </p>
 <p>
-If a the windows have a shade, then the equation is modified to take the actual shaded and non-shaded
-surface area into account. In this situation, the shaded part of a window has a infrared radiative power
+If the windows have a shade, then the equation is modified to take the actual shaded and non-shaded
+surface area into account. In this situation, the shaded part of a window has an infrared radiative power
 of</p>
 <p align=\"center\" style=\"font-style:italic;\">
  E = A &nbsp; ( u &nbsp; &epsilon;<sub>s</sub> &nbsp; T<sub>s</sub> +

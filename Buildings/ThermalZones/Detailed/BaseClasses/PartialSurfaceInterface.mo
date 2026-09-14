@@ -58,19 +58,25 @@ protected
     input Integer n "Number of surfaces";
     input Modelica.Units.SI.Area A[:] "Surface areas";
     input String name "Name of the surface data record, used in error message";
+  protected
+    String areaStr
+      "String representation of areas, pre-computed to avoid Dymola 'failed to expand string' error when used inline in assert";
   algorithm
+    // Pre-compute string to avoid Dymola internal error when a string-returning
+    // function is used inline inside an assert message argument.
+    areaStr := Modelica.Math.Vectors.toString(A);
     if n == 0 then
       assert(Modelica.Math.Vectors.norm(v=A, p=1) < 1E-10,
       "Error in declaration of room model: Construction record '" +
       name +
       "' has the following areas: " +
-      Modelica.Math.Vectors.toString(A) +
+      areaStr +
       "However, the room model is declared as having zero surfaces.
 Check the parameters of the room model.");
     else
       for i in 1:n loop
         assert(A[i] > 0, "Error in declaration of room model: Construction record '" + name + "' has the following areas: " +
-      Modelica.Math.Vectors.toString(A) +
+      areaStr +
       "However, the surface areas must be bigger than zero.
 Check the parameters of the room model.");
       end for;

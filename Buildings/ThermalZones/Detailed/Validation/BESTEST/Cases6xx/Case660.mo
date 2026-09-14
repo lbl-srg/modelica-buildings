@@ -37,7 +37,7 @@ First implementation.
 </html>", info="<html>
 <p>
 This model is the case 660 of the BESTEST validation suite. Case 660 differs from
-case 600 in that it has low-emissivity windwos with Argon gas.
+case 600 in that it has low-emissivity windows with Argon gas.
 </p>
 </html>"));
 end Case660;

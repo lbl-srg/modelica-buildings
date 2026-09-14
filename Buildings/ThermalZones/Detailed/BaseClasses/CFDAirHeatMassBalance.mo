@@ -34,8 +34,14 @@ model CFDAirHeatMassBalance
     "Names of fluid ports as declared in the CFD input file";
   parameter Real uSha_fixed[nConExtWin]
     "Constant control signal for the shading device (0: unshaded; 1: fully shaded)";
+  parameter Boolean haveSource
+    "Flag, true if the model has at least one source";
+  parameter Integer nSou(min=0)
+    "Number of sources that are connected to CFD output";
+  parameter String sourceName[nSou]
+    "Names of sources as declared in the CFD input file";
 
-  CFDExchange cfd(
+  replaceable CFDExchange cfd(
     final cfdFilNam=cfdFilNam,
     final startTime=startTime,
     final activateInterface=useCFD,
@@ -51,6 +57,9 @@ model CFDAirHeatMassBalance
     final yFixed=yFixed,
     final nXi=Medium.nXi,
     final nC=Medium.nC,
+    final haveSource=haveSource,
+    final nSou=nSou,
+    final sourceName=sourceName,
     rho_start=rho_start,
     nConExtWin=NConExtWin) "Block that exchanges data with the CFD simulation"
     annotation (Placement(transformation(extent={{-40,180},{-20,200}})));
@@ -105,31 +114,30 @@ protected
       nSurBou=nSurBou,
       nSur=nSur,
       haveShade=haveShade,
-      nameConExt=datConExt.name,
-      AConExt=datConExt.A,
-      tilConExt=datConExt.til,
-      bouConConExt=datConExt.boundaryCondition,
-      nameConExtWin=datConExtWin.name,
-      AConExtWin=datConExtWin.AOpa,
-      tilConExtWin=datConExtWin.til,
-      bouConConExtWin=datConExtWin.boundaryCondition,
-      AGla=datConExtWin.AGla,
-      AFra=datConExtWin.AFra,
+      nameConExt=datConExt[1:nConExt].name,
+      AConExt=datConExt[1:nConExt].A,
+      tilConExt=datConExt[1:nConExt].til,
+      bouConConExt=datConExt[1:nConExt].boundaryCondition,
+      nameConExtWin=datConExtWin[1:nConExtWin].name,
+      AConExtWin=datConExtWin[1:nConExtWin].AOpa,
+      tilConExtWin=datConExtWin[1:nConExtWin].til,
+      bouConConExtWin=datConExtWin[1:nConExtWin].boundaryCondition,
+      AGla=datConExtWin[1:nConExtWin].AGla,
+      AFra=datConExtWin[1:nConExtWin].AFra,
       uSha=uSha_fixed,
-      nameConPar=datConPar.name,
-      AConPar=datConPar.A,
-      tilConPar=datConPar.til,
-      bouConConPar=datConPar.boundaryCondition,
-      nameConBou=datConBou.name,
-      AConBou=datConBou.A,
-      tilConBou=datConBou.til,
-      bouConConBou=datConBou.boundaryCondition,
-      nameSurBou=surBou.name,
-      ASurBou=surBou.A,
-      tilSurBou=surBou.til,
-      bouConSurBou=surBou.boundaryCondition)
-    "Names of all surfaces in the order in which their properties are sent to CFD"
-    annotation (Evaluate=true);
+      nameConPar=datConPar[1:nConPar].name,
+      AConPar=datConPar[1:nConPar].A,
+      tilConPar=datConPar[1:nConPar].til,
+      bouConConPar=datConPar[1:nConPar].boundaryCondition,
+      nameConBou=datConBou[1:nConBou].name,
+      AConBou=datConBou[1:nConBou].A,
+      tilConBou=datConBou[1:nConBou].til,
+      bouConConBou=datConBou[1:nConBou].boundaryCondition,
+      nameSurBou=surBou[1:nSurBou].name,
+      ASurBou=surBou[1:nSurBou].A,
+      tilSurBou=surBou[1:nSurBou].til,
+      bouConSurBou=surBou[1:nSurBou].boundaryCondition)
+    "Names of all surfaces in the order in which their properties are sent to CFD";
 
   // Interfaces between the CFD block and the heat ports of this model
   // Here, we directly access datConExt instead of surIde. The reason is
@@ -235,7 +243,10 @@ protected
   final parameter Integer kQLatGai_flow=kQConGai_flow + 1
     "Offset used to connect CFD signals to input signal for connect radiative heat gain";
 
-  final parameter Integer kFluIntP=kQLatGai_flow + 1
+  final parameter Integer kQIntSou=kQLatGai_flow + 1
+    "Offset used to connect CFD signals to input signal for internal source heat gain";
+
+  final parameter Integer kFluIntP=kQIntSou + nSou
     "Offset used to connect CFD signals to input signal for pressure from the fluid ports";
 
   final parameter Integer kFluIntM_flow=kFluIntP + 1
@@ -258,11 +269,10 @@ protected
     "Offset used to connect CFD signals to outgoing trace substances for the fluid ports";
   final parameter Integer kSen=kFluIntC_outflow + nPorts*Medium.nC
     "Offset used to connect CFD signals to output sensor";
-
   final parameter Integer nSur=kSurBou + nSurBou "Number of surfaces";
+
 protected
   function assignSurfaceIdentifier
-
     input Integer nConExt(min=0) "Number of exterior constructions";
     input Integer nConExtWin(min=0) "Number of window constructions";
     input Integer nConPar(min=0) "Number of partition constructions";
@@ -271,30 +281,14 @@ protected
     input Integer nSurBou(min=0)
       "Number of surface heat transfer models that connect to constructions that are modeled outside of this room";
     input Integer nSur(min=2) "Total number of surfaces";
-
     input Boolean haveShade
       "Flag, set to true if any of the window in this room has a shade";
-    /*
-    // Declaration of counters used in the loop.
-    // This could be computed (again) in this function, but using it
-    // as a function arguments avoids code duplication.
-    input Integer kConExt "Offset used to connect CFD signals to conExt";
-    input Integer kConExtWin "Offset used to connect CFD signals to conExtWin";
-    input Integer kGlaUns "Offset used to connect CFD signals to glaUns";
-    input Integer kGlaSha "Offset used to connect CFD signals to glaSha";
-    input Integer kConExtWinFra "Offset used to connect CFD signals to glaSha";
-    input Integer kConPar_a "Offset used to connect CFD signals to conPar_a";
-    input Integer kConPar_b "Offset used to connect CFD signals to conPar_b";
-    input Integer kConBou "Offset used to connect CFD signals to conBou";
-    input Integer kSurBou "Offset used to connect CFD signals to surBou";
-*/
     // Declaration of construction data
     input String nameConExt[nConExt] "Surface name";
     input Modelica.Units.SI.Area AConExt[nConExt] "Surface area";
     input Modelica.Units.SI.Angle tilConExt[nConExt] "Surface tilt";
     input Buildings.ThermalZones.Detailed.Types.CFDBoundaryConditions bouConConExt[nConExt]
       "Boundary condition";
-
     input String nameConExtWin[nConExtWin] "Surface name";
     input Modelica.Units.SI.Area AConExtWin[nConExtWin] "Surface area";
     input Modelica.Units.SI.Angle tilConExtWin[nConExtWin] "Surface tilt";
@@ -308,13 +302,11 @@ protected
     input Modelica.Units.SI.Angle tilConPar[nConPar] "Surface tilt";
     input Buildings.ThermalZones.Detailed.Types.CFDBoundaryConditions bouConConPar[nConPar]
       "Boundary condition";
-
     input String nameConBou[nConBou] "Surface name";
     input Modelica.Units.SI.Area AConBou[nConBou] "Surface area";
     input Modelica.Units.SI.Angle tilConBou[nConBou] "Surface tilt";
     input Buildings.ThermalZones.Detailed.Types.CFDBoundaryConditions bouConConBou[nConBou]
       "Boundary condition";
-
     input String nameSurBou[nSurBou] "Surface name";
     input Modelica.Units.SI.Area ASurBou[nSurBou] "Surface area";
     input Modelica.Units.SI.Angle tilSurBou[nSurBou] "Surface tilt";
@@ -322,56 +314,104 @@ protected
       "Boundary condition";
 
     output CFDSurfaceIdentifier id[nSur] "Name of all surfaces";
-
+  protected
+    // Local offsets into the output array id[nSur], computed the same
+    // way as the corresponding k* parameters in the enclosing model.
+    Integer offConExt "Offset for exterior constructions";
+    Integer offConExtWin "Offset for exterior constructions with window";
+    Integer offGlaUns "Offset for unshaded glass";
+    Integer offGlaSha "Offset for shaded glass";
+    Integer offConExtWinFra "Offset for window frame";
+    Integer offConPar_a "Offset for partition constructions, surface a";
+    Integer offConPar_b "Offset for partition constructions, surface b";
+    Integer offConBou "Offset for constructions with exterior boundary";
+    Integer offSurBou "Offset for surfaces modeled outside of this room";
   algorithm
-    id := cat(
-        1,
-        {CFDSurfaceIdentifier(
-          name=nameConExt[i],
-          A=AConExt[i],
-          til=tilConExt[i],
-          bouCon=bouConConExt[i]) for i in 1:nConExt},
-        {CFDSurfaceIdentifier(
-          name=nameConExtWin[i],
-          A=AConExtWin[i],
-          til=tilConExtWin[i],
-          bouCon=bouConConExtWin[i]) for i in 1:nConExtWin},
-        {CFDSurfaceIdentifier(
-          name=nameConExtWin[i] + " (glass, unshaded)",
-          A=AGla[i]*(1-uSha[i]),
-          til=tilConExtWin[i],
-          bouCon=bouConConExtWin[i]) for i in 1:nConExtWin},
-        {CFDSurfaceIdentifier(
-          name=nameConExtWin[i] + " (glass, shaded)",
-          A=AGla[i]*uSha[i],
-          til=tilConExtWin[i],
-          bouCon=bouConConExtWin[i]) for i in 1:(if haveShade then nConExtWin
-         else 0)},
-        {CFDSurfaceIdentifier(
-          name=nameConExtWin[i] + " (frame)",
-          A=AFra[i],
-          til=tilConExtWin[i],
-          bouCon=bouConConExtWin[i]) for i in 1:nConExtWin},
-        {CFDSurfaceIdentifier(
-          name=nameConPar[i] + " (surface a)",
-          A=AConPar[i],
-          til=tilConPar[i],
-          bouCon=bouConConPar[i]) for i in 1:nConPar},
-        {CFDSurfaceIdentifier(
-          name=nameConPar[i] + " (surface b)",
-          A=AConPar[i],
-          til=tilConPar[i] + Modelica.Constants.pi/180,
-          bouCon=bouConConPar[i]) for i in 1:nConPar},
-        {CFDSurfaceIdentifier(
-          name=nameConBou[i],
-          A=AConBou[i],
-          til=tilConBou[i],
-          bouCon=bouConConBou[i]) for i in 1:nConBou},
-        {CFDSurfaceIdentifier(
-          name=nameSurBou[i],
-          A=ASurBou[i],
-          til=tilSurBou[i],
-          bouCon=bouConSurBou[i]) for i in 1:nSurBou});
+    // Note: The identifiers are assigned by writing each record
+    // individually into a pre-allocated element of the output array
+    // using plain for loops, rather than assembling the array with
+    // array-constructor expressions such as {record(...) for i in 1:n}
+    // combined with cat(). Dymola's code generator has been observed to
+    // fail to expand (inline) a function that returns an array of
+    // records when the algorithm uses such array-constructor/cat()
+    // patterns, reporting the internal errors "failed to expand string"
+    // and "Unimplemented: No support for unexpanded array of records."
+    // Writing directly into individual array elements avoids this
+    // limitation.
+    offConExt := 0;
+    offConExtWin := offConExt + nConExt;
+    offGlaUns := offConExtWin + nConExtWin;
+    offGlaSha := offGlaUns + nConExtWin;
+    offConExtWinFra := if haveShade then offGlaSha + nConExtWin else offGlaSha;
+    offConPar_a := offConExtWinFra + nConExtWin;
+    offConPar_b := offConPar_a + nConPar;
+    offConBou := offConPar_b + nConPar;
+    offSurBou := offConBou + nConBou;
+
+    for i in 1:nConExt loop
+      id[offConExt + i].name := nameConExt[i];
+      id[offConExt + i].A := AConExt[i];
+      id[offConExt + i].til := tilConExt[i];
+      id[offConExt + i].bouCon := bouConConExt[i];
+    end for;
+
+    for i in 1:nConExtWin loop
+      id[offConExtWin + i].name := nameConExtWin[i];
+      id[offConExtWin + i].A := AConExtWin[i];
+      id[offConExtWin + i].til := tilConExtWin[i];
+      id[offConExtWin + i].bouCon := bouConConExtWin[i];
+    end for;
+
+    for i in 1:nConExtWin loop
+      id[offGlaUns + i].name := nameConExtWin[i] + " (glass, unshaded)";
+      id[offGlaUns + i].A := AGla[i]*(1 - uSha[i]);
+      id[offGlaUns + i].til := tilConExtWin[i];
+      id[offGlaUns + i].bouCon := bouConConExtWin[i];
+    end for;
+
+    if haveShade then
+      for i in 1:nConExtWin loop
+        id[offGlaSha + i].name := nameConExtWin[i] + " (glass, shaded)";
+        id[offGlaSha + i].A := AGla[i]*uSha[i];
+        id[offGlaSha + i].til := tilConExtWin[i];
+        id[offGlaSha + i].bouCon := bouConConExtWin[i];
+      end for;
+    end if;
+
+    for i in 1:nConExtWin loop
+      id[offConExtWinFra + i].name := nameConExtWin[i] + " (frame)";
+      id[offConExtWinFra + i].A := AFra[i];
+      id[offConExtWinFra + i].til := tilConExtWin[i];
+      id[offConExtWinFra + i].bouCon := bouConConExtWin[i];
+    end for;
+
+    for i in 1:nConPar loop
+      id[offConPar_a + i].name := nameConPar[i] + " (surface a)";
+      id[offConPar_a + i].A := AConPar[i];
+      id[offConPar_a + i].til := tilConPar[i];
+      id[offConPar_a + i].bouCon := bouConConPar[i];
+    end for;
+
+    for i in 1:nConPar loop
+      id[offConPar_b + i].name := nameConPar[i] + " (surface b)";
+      id[offConPar_b + i].A := AConPar[i];
+      id[offConPar_b + i].til := tilConPar[i] + Modelica.Constants.pi/180;
+      id[offConPar_b + i].bouCon := bouConConPar[i];
+    end for;
+
+    for i in 1:nConBou loop
+      id[offConBou + i].name := nameConBou[i];
+      id[offConBou + i].A := AConBou[i];
+      id[offConBou + i].til := tilConBou[i];
+      id[offConBou + i].bouCon := bouConConBou[i];
+    end for;
+
+    for i in 1:nSurBou loop
+      id[offSurBou + i].name := nameSurBou[i];
+      id[offSurBou + i].A := ASurBou[i];
+      id[offSurBou + i].til := tilSurBou[i];
+      id[offSurBou + i].bouCon := bouConSurBou[i];
+    end for;
   end assignSurfaceIdentifier;
 
 public
@@ -383,8 +423,12 @@ public
     annotation (Placement(transformation(extent={{-210,-10},{-190,10}})));
   to_W QTotCon_flow_W
     annotation (Placement(transformation(extent={{-140,-60},{-120,-40}})));
+  Modelica.Blocks.Interfaces.RealInput QIntSou[nSou] if haveSource
+    "Heat gains from internal heat sources" annotation (Placement(
+        transformation(extent={{-280,-238},{-240,-198}}), iconTransformation(
+          extent={{-280,-238},{-240,-198}})));
 initial equation
-   startTime = time;
+  startTime = time;
 
   for i in 1:nPorts loop
     for j in 1:Medium.nXi loop
@@ -698,6 +742,14 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
 
+  // Connections to internal heat sources
+  if haveSource then
+    for i in 1:nSou loop
+      connect(QIntSou[i], cfd.u[kQIntSou + i]) annotation (Line(points={{-260,-218},
+              {-60,-218},{-60,190},{-42,190}}, color={0,0,127}));
+    end for;
+  end if;
+
   // Connections to fluid port
   connect(ports, fluInt.ports) annotation (Line(
       points={{0,-238},{0,-198}},
@@ -777,7 +829,7 @@ equation
       color={191,0,0},
       smooth=Smooth.None));
   connect(senHeaFlo.Q_flow, QTotCon_flow.u1) annotation (Line(
-      points={{-200,-10},{-200,-44},{-182,-44}},
+      points={{-200,-11},{-200,-44},{-182,-44}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(QCon_flow, QTotCon_flow.u2) annotation (Line(
@@ -792,14 +844,18 @@ equation
   annotation (
     preferredView="info",
     Diagram(coordinateSystem(preserveAspectRatio=false,extent={{-240,-240},{240,
-            240}}), graphics),
+            240}})),
     Icon(coordinateSystem(preserveAspectRatio=false,extent={{-240,-240},{240,
             240}}), graphics={Rectangle(
           extent={{-144,184},{148,-200}},
           pattern=LinePattern.None,
           lineColor={0,0,0},
           fillColor={170,213,255},
-          fillPattern=FillPattern.Sphere)}),
+          fillPattern=FillPattern.Sphere),
+        Text(
+          extent={{-230,-242},{-180,-192}},
+          textColor={0,0,127},
+          textString="QSou")}),
     Documentation(info="<html>
 <p>
 This model computes the heat and mass balance of the air using Computational Fluid Dynamics program.
@@ -811,6 +867,12 @@ Buildings.ThermalZones.Detailed.UsersGuide.CFD</a>.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+July 10, 2026, by Jianjun Hu:<br/>
+Rewrote the body of function <code>assignSurfaceIdentifier</code> to
+assign each <code>CFDSurfaceIdentifier</code> record directly into a
+pre-allocated element of the output array.
+</li>
 <li>
 November 17, 2016, by Michael Wetter:<br/>
 Removed protected parameter <code>uStart</code>, which is not needed.<br/>

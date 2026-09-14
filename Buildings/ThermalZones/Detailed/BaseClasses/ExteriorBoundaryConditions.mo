@@ -1,6 +1,6 @@
 within Buildings.ThermalZones.Detailed.BaseClasses;
 model ExteriorBoundaryConditions
-  "Model for convection and radiation bounary condition of exterior constructions"
+  "Model for convection and radiation boundary condition of exterior constructions"
   parameter Integer nCon(min=1) "Number of exterior constructions"
   annotation (Dialog(group="Exterior constructions"));
 

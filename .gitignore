@@ -73,3 +73,11 @@ Buildings/Resources/src/fluid/heatpumps/calibration/doc/build/doctrees
 eplus*
 sqlite*
 Buildings/spawn-*
+
+# Ignore ISAT temporary files
+#########################################
+isat_1.op
+isat_1.log
+log.ffd
+log.isat
+result.plt

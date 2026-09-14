@@ -3,7 +3,7 @@ class CFDThread "class used to handle CFD thread"
    extends ExternalObject;
 
    // constructor
-   function constructor "allocate memeory for cosimulation variables"
+   function constructor "allocate memory for cosimulation variables"
     extends Modelica.Icons.Function;
     output CFDThread FFDThre "the handler of FFD thread";
     external"C" FFDThre = cfdcosim()   annotation (Include="#include <cfdcosim.c>",

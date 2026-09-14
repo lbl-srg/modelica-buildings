@@ -58,7 +58,7 @@ This model tests the coupled simulation of
 <a href=\"modelica://Buildings.ThermalZones.Detailed.CFD\">
 Buildings.ThermalZones.Detailed.CFD</a>
 with the FFD program by simulating the natural convection in an empty room with only surface boundaries.
-It is also used to test the adiabatic boundary conditon in the FFD code.
+It is also used to test the adiabatic boundary condition in the FFD code.
 </p>
 <p>
 Figure (a) shows the schematic of the FFD simulation.
