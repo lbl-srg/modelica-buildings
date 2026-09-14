@@ -24,7 +24,14 @@ Buildings.Utilities.IO.Files.CSVWriter</a>,
 the simulation stops with an error.
 </p>
 </html>", revisions="<html>
-c
+<ul>
+<li>
+September 4, 2026, by Michael Wetter:<br/>
+Corrected signature in C-code for string array.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/2166\">IBPSA, #2166</a>.
+</li>
+</ul>
 </html>"));
   end constructor;
 
