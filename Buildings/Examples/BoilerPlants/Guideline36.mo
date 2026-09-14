@@ -415,7 +415,6 @@ of enabled boilers. The primary pump speed regulates the flow measured in the
 decoupler leg to zero flowrate.
 </li>
 </ol>
-</p>
 </html>", revisions="<html>
 <ul>
 <li>
@@ -433,6 +432,6 @@ First implementation.
       StartTime=86400,
       StopTime=259200,
       Interval=60,
-      Tolerance=1e-05),
+      Tolerance=1e-06),
     Icon(coordinateSystem(extent={{-100,-100},{100,100}})));
 end Guideline36;
