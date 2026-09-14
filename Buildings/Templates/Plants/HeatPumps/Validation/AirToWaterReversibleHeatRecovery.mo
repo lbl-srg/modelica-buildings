@@ -47,6 +47,7 @@ model AirToWaterReversibleHeatRecovery
     nPumHeaWatSec_select=2,
     nPumChiWatSec_select=2,
     final allowFlowReversal=allowFlowReversal,
+    linearized=true,
     show_T=true,
     ctl(nAirHan=1, nEquZon=0, have_senTPriRet_select=true),
     is_dpBalYPumSetCal=true,
@@ -374,6 +375,15 @@ annotation(__Dymola_Commands(
     Buildings.Templates.Plants.Controls.HeatRecoveryChillers.Enable</a> is
   never triggered. This limitation may lead to overestimating the HRC
   operating time.
+</p>
+<h4>Details</h4>
+<p>
+  By default, all valves within the plant are modeled considering a linear
+  variation of the pressure drop with the flow rate
+  (<code>pla.linearized=true</code>), as opposed to the quadratic relationship
+  usually considered for a turbulent flow regime. By limiting the size of the
+  system of nonlinear equations, this setting reduces the risk of solver
+  failure and the time to solution for testing various plant configurations.
 </p>
 </html>",
     revisions="<html>
