@@ -298,7 +298,7 @@ annotation (
  experiment(
       StopTime=14000,
       Tolerance=1e-06),
-  __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/ASHRAE/G36/Plants/Chillers/Staging/SetPoints/Validation/SetpointController_noWSE.mos"
+  __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/ASHRAE/G36_2021/Plants/Chillers/Staging/SetPoints/Validation/SetpointController_noWSE.mos"
     "Simulate and plot"),
   Documentation(info="<html>
 <p>

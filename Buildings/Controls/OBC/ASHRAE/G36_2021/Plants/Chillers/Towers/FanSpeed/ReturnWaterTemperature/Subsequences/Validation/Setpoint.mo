@@ -61,7 +61,7 @@ equation
     annotation (Line(points={{-18,60},{50,60},{50,12},{58,12}}, color={255,0,255}));
 
 annotation (experiment(StopTime=3600.0, Tolerance=1e-06),
-  __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/ASHRAE/G36/Plants/Chillers/Towers/FanSpeed/ReturnWaterTemperature/Subsequences/Validation/Setpoint.mos"
+  __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/ASHRAE/G36_2021/Plants/Chillers/Towers/FanSpeed/ReturnWaterTemperature/Subsequences/Validation/Setpoint.mos"
     "Simulate and plot"),
   Documentation(info="<html>
 <p>

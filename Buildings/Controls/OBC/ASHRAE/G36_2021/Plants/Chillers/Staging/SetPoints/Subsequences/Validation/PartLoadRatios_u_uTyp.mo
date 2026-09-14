@@ -558,7 +558,7 @@ equation
           270},{398,193},{418,193}}, color={0,0,127}));
 annotation (
  experiment(StopTime=1200.0, Tolerance=1e-06),
-  __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/ASHRAE/G36/Plants/Chillers/Staging/SetPoints/Subsequences/Validation/PartLoadRatios_u_uTyp.mos"
+  __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/ASHRAE/G36_2021/Plants/Chillers/Staging/SetPoints/Subsequences/Validation/PartLoadRatios_u_uTyp.mos"
     "Simulate and plot"),
   Documentation(info="<html>
 <p>

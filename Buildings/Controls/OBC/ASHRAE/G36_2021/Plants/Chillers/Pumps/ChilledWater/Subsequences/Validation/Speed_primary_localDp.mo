@@ -36,7 +36,7 @@ equation
     annotation (Line(points={{-38,0},{18,0}}, color={0,0,127}));
 annotation (
   experiment(StopTime=10.0, Tolerance=1e-06),
-  __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/ASHRAE/G36/Plants/Chillers/Pumps/ChilledWater/Subsequences/Validation/Speed_primary_localDp.mos"
+  __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/ASHRAE/G36_2021/Plants/Chillers/Pumps/ChilledWater/Subsequences/Validation/Speed_primary_localDp.mos"
     "Simulate and plot"),
   Documentation(info="<html>
 <p>

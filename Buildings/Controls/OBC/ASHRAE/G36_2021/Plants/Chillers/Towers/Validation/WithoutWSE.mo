@@ -198,7 +198,7 @@ equation
   connect(conWatPumSta.y, towCon.uConWatPum) annotation (Line(points={{42,-150},
           {80,-150},{80,360},{198,360}}, color={255,0,255}));
 annotation (experiment(StopTime=3500.0, Tolerance=1e-06),
-  __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/ASHRAE/G36/Plants/Chillers/Towers/Validation/WithoutWSE.mos"
+  __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/ASHRAE/G36_2021/Plants/Chillers/Towers/Validation/WithoutWSE.mos"
     "Simulate and plot"),
   Documentation(info="<html>
 <p>

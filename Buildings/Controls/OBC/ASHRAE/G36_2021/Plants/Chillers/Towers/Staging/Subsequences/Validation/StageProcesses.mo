@@ -301,7 +301,7 @@ equation
   connect(pre5.y, disPro2.uTowSta) annotation (Line(points={{2,-280},{20,-280},{
           20,-310},{-120,-310},{-120,-268},{-102,-268}}, color={255,0,255}));
 annotation (experiment(StopTime=1000.0, Tolerance=1e-06),
-  __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/ASHRAE/G36/Plants/Chillers/Towers/Staging/Subsequences/Validation/StageProcesses.mos"
+  __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/ASHRAE/G36_2021/Plants/Chillers/Towers/Staging/Subsequences/Validation/StageProcesses.mos"
     "Simulate and plot"),
   Documentation(info="<html>
 <p>

@@ -185,7 +185,7 @@ equation
           100},{130,120},{30,120},{30,85},{38,85}}, color={255,0,255}));
 annotation (
  experiment(StopTime=1500, Tolerance=1e-06),
-  __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/ASHRAE/G36/Plants/Chillers/Staging/Processes/Validation/DownWithoutOnOff.mos"
+  __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/ASHRAE/G36_2021/Plants/Chillers/Staging/Processes/Validation/DownWithoutOnOff.mos"
     "Simulate and plot"),
   Documentation(info="<html>
 <p>

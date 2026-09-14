@@ -96,7 +96,7 @@ equation
           18,13}},  color={255,127,0}));
 annotation (
  experiment(StopTime=10.0, Tolerance=1e-06),
-  __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/ASHRAE/G36/Plants/Chillers/Staging/SetPoints/Subsequences/Validation/Capacities_uLow_uHig.mos"
+  __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/ASHRAE/G36_2021/Plants/Chillers/Staging/SetPoints/Subsequences/Validation/Capacities_uLow_uHig.mos"
     "Simulate and plot"),
   Documentation(info="<html>
 <p>

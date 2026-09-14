@@ -25,7 +25,7 @@ equation
   connect(enaTowCel.yTowSta, pre.u) annotation (Line(points={{42,4},{60,4},{60,-60},
           {-70,-60},{-70,-40},{-62,-40}}, color={255,0,255}));
 annotation (experiment(StopTime=3600.0, Tolerance=1e-06),
-  __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/ASHRAE/G36/Plants/Chillers/Towers/Staging/Subsequences/Validation/ChangeCells.mos"
+  __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/ASHRAE/G36_2021/Plants/Chillers/Towers/Staging/Subsequences/Validation/ChangeCells.mos"
     "Simulate and plot"),
   Documentation(info="<html>
 <p>

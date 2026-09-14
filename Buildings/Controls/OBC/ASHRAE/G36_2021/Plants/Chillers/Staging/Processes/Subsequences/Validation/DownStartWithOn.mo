@@ -204,7 +204,7 @@ equation
           {170,210},{170,240},{-30,240},{-30,146.2},{-2,146.2}}, color={0,0,127}));
 annotation (
  experiment(StopTime=1200, Tolerance=1e-06),
-  __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/ASHRAE/G36/Plants/Chillers/Staging/Processes/Subsequences/Validation/DownStartWithOn.mos"
+  __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/ASHRAE/G36_2021/Plants/Chillers/Staging/Processes/Subsequences/Validation/DownStartWithOn.mos"
     "Simulate and plot"),
   Documentation(info="<html>
 <p>

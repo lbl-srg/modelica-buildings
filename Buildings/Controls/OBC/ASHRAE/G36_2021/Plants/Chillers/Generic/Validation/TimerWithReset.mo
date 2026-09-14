@@ -75,7 +75,7 @@ equation
       StopTime=5.0,
       Tolerance=1e-06),
     __Dymola_Commands(
-      file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/ASHRAE/G36/Plants/Chillers/Generic/Validation//TimerWithReset.mos" "Simulate and plot"),
+      file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/ASHRAE/G36_2021/Plants/Chillers/Generic/Validation//TimerWithReset.mos" "Simulate and plot"),
     Documentation(
       info="<html>
 <p>

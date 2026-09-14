@@ -142,7 +142,7 @@ equation
       color={255,127,0}));
 
 annotation (experiment(StopTime=3600.0, Tolerance=1e-06),
-  __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/ASHRAE/G36/Plants/Chillers/Towers/FanSpeed/ReturnWaterTemperature/Subsequences/Validation/Enable.mos"
+  __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/ASHRAE/G36_2021/Plants/Chillers/Towers/FanSpeed/ReturnWaterTemperature/Subsequences/Validation/Enable.mos"
     "Simulate and plot"),
   Documentation(info="<html>
 <p>

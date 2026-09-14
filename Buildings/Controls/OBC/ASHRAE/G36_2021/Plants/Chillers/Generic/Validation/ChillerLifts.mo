@@ -16,7 +16,7 @@ equation
     annotation (Line(points={{-18,0},{38,0}}, color={255,0,255}));
 annotation (
   experiment(StopTime=1.0, Tolerance=1e-06),
-  __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/ASHRAE/G36/Plants/Chillers/Generic/Validation/ChillerLifts.mos"
+  __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/ASHRAE/G36_2021/Plants/Chillers/Generic/Validation/ChillerLifts.mos"
     "Simulate and plot"),
   Documentation(info="<html>
 <p>

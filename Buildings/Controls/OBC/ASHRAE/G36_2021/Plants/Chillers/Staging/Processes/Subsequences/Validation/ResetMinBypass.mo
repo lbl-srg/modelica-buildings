@@ -62,7 +62,7 @@ equation
           -50,8},{-50,-78},{-42,-78}}, color={255,0,255}));
 annotation (
  experiment(StopTime=600, Tolerance=1e-06),
-  __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/ASHRAE/G36/Plants/Chillers/Staging/Processes/Subsequences/Validation/ResetMinBypass.mos"
+  __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/ASHRAE/G36_2021/Plants/Chillers/Staging/Processes/Subsequences/Validation/ResetMinBypass.mos"
     "Simulate and plot"),
   Documentation(info="<html>
 <p>

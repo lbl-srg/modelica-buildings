@@ -400,7 +400,7 @@ equation
           {-30,0},{-30,-75.2381},{58,-75.2381}}, color={0,0,127}));
 annotation (
  experiment(StopTime=14000.0, Tolerance=1e-06),
-  __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/ASHRAE/G36/Plants/Chillers/Staging/SetPoints/Validation/SetpointController_WSE.mos"
+  __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/ASHRAE/G36_2021/Plants/Chillers/Staging/SetPoints/Validation/SetpointController_WSE.mos"
     "Simulate and plot"),
   Documentation(info="<html>
 <p>

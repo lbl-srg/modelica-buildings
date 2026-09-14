@@ -95,7 +95,7 @@ equation
           -90}}, color={255,127,0}));
 annotation (
  experiment(StopTime=10.0, Tolerance=1e-06),
-  __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/ASHRAE/G36/Plants/Chillers/Staging/SetPoints/Subsequences/Validation/ChillerIndices_u.mos"
+  __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/ASHRAE/G36_2021/Plants/Chillers/Staging/SetPoints/Subsequences/Validation/ChillerIndices_u.mos"
     "Simulate and plot"),
   Documentation(info="<html>
 <p>

@@ -36,7 +36,7 @@ equation
 
 annotation (
   experiment(StopTime=5.0, Tolerance=1e-06),
-  __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/ASHRAE/G36/Plants/Chillers/HeadPressure/Subsequences/Validation/MappingWithoutWSE.mos"
+  __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/ASHRAE/G36_2021/Plants/Chillers/HeadPressure/Subsequences/Validation/MappingWithoutWSE.mos"
     "Simulate and plot"),
   Documentation(info="<html>
 <p>

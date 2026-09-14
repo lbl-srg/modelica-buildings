@@ -111,7 +111,7 @@ equation
           57},{78,57}}, color={255,0,255}));
 annotation (
  experiment(StopTime=3600, Tolerance=1e-06),
-  __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/ASHRAE/G36/Plants/Chillers/Staging/Processes/Subsequences/Validation/EnableCWPump.mos"
+  __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/ASHRAE/G36_2021/Plants/Chillers/Staging/Processes/Subsequences/Validation/EnableCWPump.mos"
     "Simulate and plot"),
   Documentation(info="<html>
 <p>

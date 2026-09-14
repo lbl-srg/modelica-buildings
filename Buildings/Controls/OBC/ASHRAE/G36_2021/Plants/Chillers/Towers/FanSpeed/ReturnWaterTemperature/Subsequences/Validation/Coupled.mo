@@ -95,7 +95,7 @@ equation
   connect(not2.y, couTowSpe.uConWatPum) annotation (Line(points={{2,40},{26,40},
           {26,92},{58,92}}, color={255,0,255}));
 annotation (experiment(StopTime=3600.0, Tolerance=1e-06),
-  __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/ASHRAE/G36/Plants/Chillers/Towers/FanSpeed/ReturnWaterTemperature/Subsequences/Validation/Coupled.mos"
+  __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/ASHRAE/G36_2021/Plants/Chillers/Towers/FanSpeed/ReturnWaterTemperature/Subsequences/Validation/Coupled.mos"
     "Simulate and plot"),
   Documentation(info="<html>
 <p>

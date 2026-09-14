@@ -218,7 +218,7 @@ equation
           {50,220},{-40,220},{-40,82},{-22,82}}, color={255,0,255}));
 annotation (
  experiment(StopTime=2000, Tolerance=1e-06),
-  __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/ASHRAE/G36/Plants/Chillers/Staging/Processes/Validation/UpWithoutOnOff.mos"
+  __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/ASHRAE/G36_2021/Plants/Chillers/Staging/Processes/Validation/UpWithoutOnOff.mos"
     "Simulate and plot"),
   Documentation(info="<html>
 <p>

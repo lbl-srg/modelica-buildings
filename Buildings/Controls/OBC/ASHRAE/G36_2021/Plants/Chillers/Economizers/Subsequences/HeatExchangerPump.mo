@@ -84,7 +84,7 @@ block HeatExchangerPump
   Buildings.Controls.OBC.CDL.Integers.Switch resSpeReq
     "Pump speed reset request"
     annotation (Placement(transformation(extent={{0,-20},{20,0}})));
-  Buildings.Controls.OBC.ASHRAE.G36.Generic.TrimAndRespond resSpe(
+  Buildings.Controls.OBC.ASHRAE.G36_2018.Generic.TrimAndRespond resSpe(
     have_hol=true,
     final iniSet=desSpe,
     final minSet=minSpe,

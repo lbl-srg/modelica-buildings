@@ -55,7 +55,7 @@ equation
   connect(chiSta.y, wseOpe.uChi) annotation (Line(points={{-58,40},{0,40},{0,34},
           {58,34}}, color={255,0,255}));
 annotation (experiment(StopTime=3600.0, Tolerance=1e-06),
-  __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/ASHRAE/G36/Plants/Chillers/Towers/FanSpeed/EnabledWSE/Subsequences/Validation/WSEOperation.mos"
+  __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/ASHRAE/G36_2021/Plants/Chillers/Towers/FanSpeed/EnabledWSE/Subsequences/Validation/WSEOperation.mos"
     "Simulate and plot"),
   Documentation(info="<html>
 <p>
