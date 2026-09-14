@@ -33,10 +33,10 @@ model Guideline36 "Chiller plant model with Guideline36 controller"
     annotation (Placement(transformation(extent={{-600,-180},{-560,-140}}),
         iconTransformation(extent={{-200,-150},{-160,-110}})));
 
-  Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Controller chiPlaCon(
+  Buildings.Controls.OBC.ASHRAE.G36_2021.Plants.Chillers.Controller chiPlaCon(
     nChi=2,
-    chiTyp={Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Types.ChillersAndStages.PositiveDisplacement,
-        Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Types.ChillersAndStages.PositiveDisplacement},
+    chiTyp={Buildings.Controls.OBC.ASHRAE.G36_2021.Plants.Chillers.Types.ChillersAndStages.PositiveDisplacement,
+        Buildings.Controls.OBC.ASHRAE.G36_2021.Plants.Chillers.Types.ChillersAndStages.PositiveDisplacement},
     TChiWatSupMin={278.15,278.15},
     dTChiMinLif={12,12},
     dTChiMaxLif={18,18},
@@ -629,8 +629,8 @@ equation
 Documentation(info="<HTML>
 <p>
 This model instantiates the chiller plant sequence
-<a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Controller\">
-Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Controller</a>
+<a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36_2021.Plants.Chillers.Controller\">
+Buildings.Controls.OBC.ASHRAE.G36_2021.Plants.Chillers.Controller</a>
 and connects it with the chiller plant system model 
 <a href=\"modelica://Buildings.Examples.ChillerPlant.Guideline36.BaseClasses.PartialChillerPlant\">
 Buildings.Examples.ChillerPlant.Guideline36.BaseClasses.PartialChillerPlant</a>.

@@ -1,0 +1,16 @@
+compareVars :=
+  {
+    "towCon.uChi[1]",
+    "towCon.yLeaCel",
+    "towCon.yMakUp",
+    "towCon.watLev",
+    "towCon.watLevMin",
+    "towCon.watLevMax",
+    "towCon.uConWatPum[1]",
+    "towCon.uConWatPum[2]",
+    "towCon.uChiSta",
+    "towCon.uChiStaSet",
+    "towCon.uTowSta[1]",
+    "towCon.uTowSta[2]",
+    "towCon.ySpeSet"
+  };
