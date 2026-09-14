@@ -1,6 +1,0 @@
-compareVars :=
-  {
-    "effCon.uOpe",
-    "effCon.uStaUp",
-    "effCon.y"
-  };

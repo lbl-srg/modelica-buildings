@@ -1,7 +1,0 @@
-compareVars :=
-  {
-    "minBypValCon.uChiWatPum",
-    "minBypValCon.VChiWat_flow",
-    "minBypValCon.VChiWatSet_flow",
-    "minBypValCon.yValPos"
-  };

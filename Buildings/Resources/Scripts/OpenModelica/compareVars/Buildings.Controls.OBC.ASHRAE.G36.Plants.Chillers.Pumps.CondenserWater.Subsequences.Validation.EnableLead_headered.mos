@@ -1,6 +1,0 @@
-compareVars :=
-  {
-    "enaLeaConPum.uChiConIsoVal[1]",
-    "enaLeaConPum.uWseConIsoVal",
-    "enaLeaConPum.yLea"
-  };

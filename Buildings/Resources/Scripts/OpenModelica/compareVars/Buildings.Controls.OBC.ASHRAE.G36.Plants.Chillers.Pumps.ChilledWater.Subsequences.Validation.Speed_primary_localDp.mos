@@ -1,8 +1,0 @@
-compareVars :=
-  {
-    "chiPumSpe.dpChiWat_local",
-    "chiPumSpe.dpChiWatSet_local",
-    "chiPumSpe.uChiWatPum[1]",
-    "chiPumSpe.uChiWatPum[2]",
-    "chiPumSpe.yChiWatPumSpe"
-  };
