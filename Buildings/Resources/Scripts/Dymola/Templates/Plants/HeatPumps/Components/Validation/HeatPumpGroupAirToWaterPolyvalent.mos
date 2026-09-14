@@ -1,0 +1,93 @@
+simulateModel("Buildings.Templates.Plants.HeatPumps.Components.Validation.HeatPumpGroupAirToWaterPolyvalent",
+    method="cvode",
+    tolerance=1e-6,
+    startTime=10497600.0,
+    stopTime=10505600.0,
+    resultFile="HeatPumpGroupAirToWaterPolyvalent");
+createPlot(
+    id=1,
+    position={5, 5, 300, 600},
+    y={"php.bus.php[1].y1Hea", "php.bus.php[1].y1Coo"},
+    autoscale=true,
+    grid=true
+);
+createPlot(
+    id=1,
+    subPlot=2,
+    y={"hpPhp.bus.hp[1].y1", "hpPhp.bus.hp[1].y1Hea", "hpPhp.bus.php[1].y1Hea", "hpPhp.bus.php[1].y1Coo"},
+    autoscale=true,
+    grid=true
+);
+createPlot(
+    id=1,
+    subPlot=3,
+    y={"weaDat.weaBus.TDryBul", "hpPhp.TSouHeaHp_nominal", "hpPhp.TSouCooHp_nominal"},
+    autoscale=true,
+    grid=true
+);
+createPlot(
+    id=2,
+    position={310, 5, 300, 600},
+    subPlot=1,
+    y={"php.sta_aHeaWatPhp[1].T", "php.sta_bHeaWatPhp[1].T", "php.bus.php[1].THeaWatSet", "datPhp.THeaWatRetPhp_nominal"},
+    autoscale=true,
+    grid=true
+);
+createPlot(
+    id=2,
+    subPlot=2,
+    y={"php.sta_aChiWatPhp[1].T", "php.sta_bChiWatPhp[1].T", "php.bus.php[1].TChiWatSet", "datPhp.TChiWatRetPhp_nominal"},
+    autoscale=true,
+    grid=true
+);
+createPlot(
+    id=2,
+    subPlot=3,
+    y={"php.php[1].port_a.m_flow", "php.php[1].port_aChiWat.m_flow", "datPhp.mHeaWatPhp_flow_nominal", "datPhp.mChiWatPhp_flow_nominal"},
+    autoscale=true,
+    grid=true
+);
+createPlot(
+    id=3,
+    position={620, 5, 300, 600},
+    subPlot=1,
+    y={"TChiHeaWatRetHp[1].T", "TChiHeaWatSupHp[1].T", "hpPhp.bus.hp[1].TChiWatSet", "hpPhp.bus.hp[1].THeaWatSet", "hpPhp.THeaWatRetHp_nominal", "hpPhp.TChiWatRetHp_nominal"},
+    autoscale=true,
+    grid=true
+);
+createPlot(
+    id=3,
+    subPlot=2,
+    y={"hpPhp.hp[1].port_a.m_flow", "hpPhp.mHeaWatHp_flow_nominal", "hpPhp.mChiWatHp_flow_nominal"},
+    autoscale=true,
+    grid=true
+);
+createPlot(
+    id=3,
+    subPlot=3,
+    y={"hpPhp.hp[1].hp.PLR", "hpPhp.hp[1].hp.COP", "hpPhp.hp[1].hp.EER"},
+    autoscale=true,
+    grid=true
+);
+createPlot(
+    id=4,
+    position={930, 5, 300, 600},
+    subPlot=1,
+    y={"hpPhp.sta_aHeaWatPhp[1].T", "hpPhp.sta_bHeaWatPhp[1].T", "hpPhp.bus.php[1].THeaWatSet", "datHpPhp.THeaWatRetPhp_nominal"},
+    autoscale=true,
+    grid=true
+);
+createPlot(
+    id=4,
+    subPlot=2,
+    y={"hpPhp.sta_aChiWatPhp[1].T", "hpPhp.sta_bChiWatPhp[1].T", "hpPhp.bus.php[1].TChiWatSet", "datHpPhp.TChiWatRetPhp_nominal"},
+    autoscale=true,
+    grid=true
+);
+createPlot(
+    id=4,
+    subPlot=3,
+    y={"hpPhp.php[1].port_a.m_flow", "hpPhp.php[1].port_aChiWat.m_flow", "datHpPhp.mHeaWatPhp_flow_nominal", "datHpPhp.mChiWatPhp_flow_nominal"},
+    autoscale=true,
+    grid=true
+);
