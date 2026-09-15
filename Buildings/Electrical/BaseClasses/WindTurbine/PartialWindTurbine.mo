@@ -15,8 +15,8 @@ protected
   Modelica.Blocks.Tables.CombiTable1Ds per(
     final tableOnFile=tableOnFile,
     final table=cat(1, cat(1, [0, 0], table),
-                    [vOut+10*Modelica.Constants.eps, 0;
-                     vOut+20*Modelica.Constants.eps, 0]),
+                    [vOut+1E-9, 0;
+                     vOut+2E-9, 0]),
     final tableName=tableName,
     final fileName=fileName,
     final columns=2:2,
