@@ -204,7 +204,7 @@ connecting any downstream components to it.
 A diagram for this model is shown below:
 </p>
 <p align=\"center\">
-<img alt=\"image\" src=\"modelica://Buildings/Resources/Images/Fluid/Humidifiers/EvaporativeCoolers/IndirectWetEvaporativeCooler.png\" border=\"1\"/>
+<img alt=\"image\" src=\"modelica://Buildings/Resources/Images/Fluid/Humidifiers/EvaporativeCoolers/IndirectWetEvaporativeCooler.png\"/>
 </p>
 </html>", revisions="<html>
 <ul>

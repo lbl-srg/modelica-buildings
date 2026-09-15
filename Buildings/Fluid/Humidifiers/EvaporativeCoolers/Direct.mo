@@ -189,7 +189,7 @@ Note that this model works correctly only when the air flows from
 A diagram for this model is shown below:
 </p>
 <p align=\"center\">
-<img alt=\"image\" src=\"modelica://Buildings/Resources/Images/Fluid/Humidifiers/EvaporativeCoolers/DirectEvaporativeCooler.png\" border=\"1\"/>
+<img alt=\"image\" src=\"modelica://Buildings/Resources/Images/Fluid/Humidifiers/EvaporativeCoolers/DirectEvaporativeCooler.png\"/>
 </p>
 <h4>References</h4>
 <p>

@@ -7,11 +7,11 @@
    viewBox="0 0 92 60"
    version="1.1"
    id="svg1"
-   inkscape:version="1.4.2 (f4327f4, 2025-05-13)"
+   inkscape:version="1.2.2 (b0a8486541, 2022-12-01)"
    sodipodi:docname="IndirectDryEvaporativeCooler.svg"
-   inkscape:export-filename="C:\Users\btuser\Documents\Dymola\modelica-buildings\Buildings\Resources\Images\Fluid\Humidifiers\EvaporativeCoolers\IndirectDryEvaporativeCooler100.png"
-   inkscape:export-xdpi="100"
-   inkscape:export-ydpi="100"
+   inkscape:export-filename="IndirectDryEvaporativeCooler.png"
+   inkscape:export-xdpi="142.51936"
+   inkscape:export-ydpi="142.51936"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns="http://www.w3.org/2000/svg"
@@ -28,11 +28,11 @@
      inkscape:document-units="mm"
      inkscape:zoom="3.8904364"
      inkscape:cx="142.01492"
-     inkscape:cy="152.16802"
-     inkscape:window-width="1920"
-     inkscape:window-height="1076"
-     inkscape:window-x="-12"
-     inkscape:window-y="-12"
+     inkscape:cy="152.81062"
+     inkscape:window-width="3992"
+     inkscape:window-height="2275"
+     inkscape:window-x="0"
+     inkscape:window-y="0"
      inkscape:window-maximized="1"
      inkscape:current-layer="layer1"
      showgrid="false" />
@@ -349,7 +349,10 @@
        width="12.369036"
        height="19.571117"
        x="19.696671"
-       y="17.907928" />
+       y="17.907928"
+       inkscape:export-filename="IndirectDryEvaporativeCooler.png"
+       inkscape:export-xdpi="228.03099"
+       inkscape:export-ydpi="228.03099" />
     <g
        id="g1"
        transform="translate(23.715343,-73.833028)">
@@ -476,27 +479,27 @@
        d="M 5.7033297,53.290761 H 14.569883"
        id="path4-24" />
     <path
-       style="display:inline;fill:#ffffff;stroke:#000000;stroke-width:0.2;stroke-dasharray:0.4, 0.2;stroke-dashoffset:0;marker-end:url(#marker5-5)"
+       style="display:inline;fill:#ffffff;stroke:#000000;stroke-width:0.2;stroke-dasharray:1.20000002,1.20000002;stroke-dashoffset:0;marker-end:url(#marker5-5)"
        d="M 5.6554247,57.067521 H 14.521978"
        id="path4-0" />
     <path
-       style="display:inline;fill:#ffffff;stroke:#000000;stroke-width:0.2;stroke-dasharray:1.6, 0.4, 0.2, 0.4;stroke-dashoffset:0;marker-end:url(#marker5-5-3)"
+       style="display:inline;fill:#ffffff;stroke:#000000;stroke-width:0.2;stroke-dasharray:1.60000002,0.40000001,0.2,0.40000001;stroke-dashoffset:0.04;marker-end:url(#marker5-5-3)"
        d="M 5.6200217,49.432247 H 14.486575"
        id="path4-0-6" />
     <path
-       style="display:inline;fill:#ffffff;stroke:#000000;stroke-width:0.2;stroke-dasharray:1.6, 0.4, 0.2, 0.4;stroke-dashoffset:0;marker-end:url(#marker5-5-3-4)"
+       style="display:inline;fill:#ffffff;stroke:#000000;stroke-width:0.2;stroke-dasharray:1.60000002,0.40000001,0.2,0.40000001;stroke-dashoffset:0.06;marker-end:url(#marker5-5-3-4)"
        d="M 68.617269,0.98805543 V 9.8546063"
        id="path4-0-6-6" />
     <path
-       style="display:inline;fill:#ffffff;stroke:#000000;stroke-width:0.2;stroke-dasharray:1.6, 0.4, 0.2, 0.4;stroke-dashoffset:0;marker-end:url(#marker5-5-3-4-4)"
+       style="display:inline;fill:#ffffff;stroke:#000000;stroke-width:0.2;stroke-dasharray:1.60000002,0.40000001,0.2,0.40000001;stroke-dashoffset:0;marker-end:url(#marker5-5-3-4-4)"
        d="M 68.617269,45.089034 V 53.95559"
        id="path4-0-6-6-7" />
     <path
-       style="fill:#ffffff;stroke:#000000;stroke-width:0.166252;stroke-dasharray:0.332504, 0.166252;stroke-dashoffset:0;marker-end:url(#ConcaveTriangle)"
+       style="fill:#ffffff;stroke:#000000;stroke-width:0.2;stroke-dasharray:1.19999997,1.19999997;stroke-dashoffset:0;marker-end:url(#ConcaveTriangle)"
        d="m 25.510666,10.008308 v 9.237789"
        id="path6" />
     <path
-       style="display:inline;fill:#ffffff;stroke:#000000;stroke-width:0.185724;stroke-dasharray:0.371447, 0.185724;stroke-dashoffset:0;marker-end:url(#ConcaveTriangle-1)"
+       style="display:inline;fill:#ffffff;stroke:#000000;stroke-width:0.2;stroke-dasharray:1.19999997,1.19999997;stroke-dashoffset:0;marker-end:url(#ConcaveTriangle-1)"
        d="M 30.943853,33.117003 H 42.472255"
        id="path6-5" />
     <text
@@ -505,20 +508,20 @@
        id="text9"
        style="text-align:start;writing-mode:lr-tb;direction:ltr;white-space:pre;shape-inside:url(#rect9);display:inline;opacity:1;fill:#ffffff;fill-opacity:0;stroke:#000000;stroke-width:0.188976;stroke-dasharray:none;stroke-dashoffset:0"><tspan
          x="30.535156"
-         y="204.69796"
-         id="tspan2"><tspan
+         y="204.6685"
+         id="tspan1479"><tspan
            style="fill:#000000;fill-opacity:1;stroke-linecap:round"
-           id="tspan1">dmWat_flow</tspan></tspan></text>
+           id="tspan1477">dmWat_flow</tspan></tspan></text>
     <text
        xml:space="preserve"
        transform="matrix(0.18362479,0,0,0.18678576,26.939825,-6.3646642)"
        id="text9-1"
        style="text-align:start;writing-mode:lr-tb;direction:ltr;white-space:pre;shape-inside:url(#rect9-0);display:inline;fill:#ffffff;fill-opacity:0;stroke:#000000;stroke-width:0.188976;stroke-dasharray:none;stroke-dashoffset:0"><tspan
          x="30.535156"
-         y="204.69796"
-         id="tspan4"><tspan
+         y="204.6685"
+         id="tspan1483"><tspan
            style="fill:#000000;fill-opacity:1;stroke-linecap:round"
-           id="tspan3">dmWat_flow</tspan></tspan></text>
+           id="tspan1481">dmWat_flow</tspan></tspan></text>
     <path
        style="display:inline;fill:#ffffff;stroke:#000000;stroke-width:0.673909"
        d="M 2.4017065,16.055755 H 85.177356"
@@ -529,29 +532,32 @@
        id="text9-1-7"
        style="text-align:start;writing-mode:lr-tb;direction:ltr;white-space:pre;shape-inside:url(#rect9-0-9);display:inline;fill:#ffffff;fill-opacity:0;stroke:#000000;stroke-width:0.188976;stroke-dasharray:none;stroke-dashoffset:0"><tspan
          x="30.535156"
-         y="204.69796"
-         id="tspan6"><tspan
+         y="204.6685"
+         id="tspan1487"><tspan
            style="fill:#000000;fill-opacity:1"
-           id="tspan5">air flow (secondary loop)</tspan></tspan></text>
+           id="tspan1485">air flow (secondary loop)</tspan></tspan></text>
     <text
        xml:space="preserve"
        transform="matrix(0.18362479,0,0,0.18678576,11.643952,19.593394)"
        id="text9-1-7-3"
        style="text-align:start;writing-mode:lr-tb;direction:ltr;white-space:pre;shape-inside:url(#rect9-0-9-2);display:inline;fill:#ffffff;fill-opacity:0;stroke:#000000;stroke-width:0.188976;stroke-dasharray:none;stroke-dashoffset:0"><tspan
          x="30.535156"
-         y="204.69796"
-         id="tspan8"><tspan
+         y="204.6685"
+         id="tspan1491"><tspan
            style="fill:#000000;fill-opacity:1"
-           id="tspan7">water flow (secondary loop)</tspan></tspan></text>
+           id="tspan1489">water flow (secondary loop)</tspan></tspan></text>
     <text
        xml:space="preserve"
        transform="matrix(0.17340952,0,0,0.1868948,11.963981,11.853325)"
        id="text9-1-7-3-0"
-       style="text-align:start;writing-mode:lr-tb;direction:ltr;white-space:pre;shape-inside:url(#rect9-0-9-2-2);display:inline;fill:#ffffff;fill-opacity:0;stroke:#000000;stroke-width:0.188976;stroke-dasharray:none;stroke-dashoffset:0"><tspan
+       style="text-align:start;writing-mode:lr-tb;direction:ltr;white-space:pre;shape-inside:url(#rect9-0-9-2-2);display:inline;fill:#ffffff;fill-opacity:0;stroke:#000000;stroke-width:0.188976;stroke-dasharray:none;stroke-dashoffset:0"
+       inkscape:export-filename="IndirectDryEvaporativeCooler.png"
+       inkscape:export-xdpi="142.51936"
+       inkscape:export-ydpi="142.51936"><tspan
          x="30.535156"
-         y="204.69796"
-         id="tspan10"><tspan
+         y="204.6685"
+         id="tspan1495"><tspan
            style="fill:#000000;fill-opacity:1"
-           id="tspan9">air or water flow (primary loop)</tspan></tspan></text>
+           id="tspan1493">air or water flow (primary loop)</tspan></tspan></text>
   </g>
 </svg>

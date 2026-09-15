@@ -115,7 +115,7 @@ secondary flow respectively.
 A diagram for this model is shown below:
 </p>
 <p align=\"center\">
-<img alt=\"image\" src=\"modelica://Buildings/Resources/Images/Fluid/Humidifiers/EvaporativeCoolers/IndirectDryEvaporativeCooler.png\" border=\"1\"/>
+<img alt=\"image\" src=\"modelica://Buildings/Resources/Images/Fluid/Humidifiers/EvaporativeCoolers/IndirectDryEvaporativeCooler.png\"/>
 </p>
 </html>", revisions="<html>
 <ul>

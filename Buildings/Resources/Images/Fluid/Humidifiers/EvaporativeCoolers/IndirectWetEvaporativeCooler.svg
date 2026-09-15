@@ -7,7 +7,7 @@
    viewBox="0 0 115 60"
    version="1.1"
    id="svg1"
-   inkscape:version="1.4.2 (f4327f4, 2025-05-13)"
+   inkscape:version="1.2.2 (b0a8486541, 2022-12-01)"
    sodipodi:docname="IndirectWetEvaporativeCooler.svg"
    inkscape:export-filename="IndirectWetEvaporativeCooler.png"
    inkscape:export-xdpi="150"
@@ -26,13 +26,13 @@
      inkscape:pagecheckerboard="0"
      inkscape:deskcolor="#d1d1d1"
      inkscape:document-units="mm"
-     inkscape:zoom="2.750954"
-     inkscape:cx="172.66738"
-     inkscape:cy="90.877566"
-     inkscape:window-width="1920"
-     inkscape:window-height="1076"
-     inkscape:window-x="-12"
-     inkscape:window-y="-12"
+     inkscape:zoom="3.8904365"
+     inkscape:cx="111.68413"
+     inkscape:cy="42.283174"
+     inkscape:window-width="3992"
+     inkscape:window-height="2275"
+     inkscape:window-x="0"
+     inkscape:window-y="0"
      inkscape:window-maximized="1"
      inkscape:current-layer="layer1"
      showgrid="false" />
@@ -677,7 +677,10 @@
     <g
        id="g1"
        transform="translate(-56.190049,5.5767094)"
-       style="display:inline">
+       style="display:inline"
+       inkscape:export-filename="IndirectWetEvaporativeCooler.png"
+       inkscape:export-xdpi="240.18587"
+       inkscape:export-ydpi="240.18587">
       <path
          style="display:inline;fill:#000000;stroke:#000000;stroke-width:0.25;stroke-linecap:round;stroke-dasharray:none"
          d="m 80.524211,37.170116 c 0,-14.6039 0,-14.6039 0,-14.6039"
@@ -748,27 +751,27 @@
        d="M 46.542571,53.95485 V 4.732809"
        id="path2-1" />
     <path
-       style="display:inline;fill:#ffffff;stroke:#000000;stroke-width:0.23;stroke-dasharray:0.46000113,0.23;stroke-dashoffset:0;marker-end:url(#ConcaveTriangle-6-1)"
+       style="display:inline;fill:#ffffff;stroke:#000000;stroke-width:0.23;stroke-dasharray:1.38000003,1.38000003;stroke-dashoffset:0;marker-end:url(#ConcaveTriangle-6-1)"
        d="M 37.23512,16.63195 V 46.17453"
        id="path6-3-7" />
     <path
-       style="display:inline;fill:#ffffff;stroke:#000000;stroke-width:0.23;stroke-dasharray:0.46000223,0.23;stroke-dashoffset:0;marker-end:url(#ConcaveTriangle-6)"
+       style="display:inline;fill:#ffffff;stroke:#000000;stroke-width:0.2;stroke-dasharray:1.19999997,1.19999997;stroke-dashoffset:0;marker-end:url(#ConcaveTriangle-6)"
        d="M 29.603494,16.698452 V 46.17596"
        id="path6-3" />
     <path
-       style="display:inline;fill:#ffffff;stroke:#000000;stroke-width:0.23;stroke-dasharray:0.460001, 0.23;stroke-dashoffset:0;marker-end:url(#ConcaveTriangle-6-17)"
+       style="display:inline;fill:#ffffff;stroke:#000000;stroke-width:0.2;stroke-dasharray:1.19999997,1.19999997;stroke-dashoffset:0;marker-end:url(#ConcaveTriangle-6-17)"
        d="M 25.551447,37.742685 V 28.050499"
        id="path6-3-2" />
     <path
-       style="display:inline;fill:#ffffff;stroke:#000000;stroke-width:0.23;stroke-dasharray:0.460001, 0.23;stroke-dashoffset:0;marker-end:url(#ConcaveTriangle-6-17-1)"
+       style="display:inline;fill:#ffffff;stroke:#000000;stroke-width:0.2;stroke-dasharray:1.19999997,1.19999997;stroke-dashoffset:0;marker-end:url(#ConcaveTriangle-6-17-1)"
        d="M 41.240978,37.742685 V 28.050499"
        id="path6-3-2-2" />
     <path
-       style="display:inline;fill:#ffffff;stroke:#000000;stroke-width:0.23;stroke-dasharray:0.460001, 0.23;stroke-dashoffset:0"
+       style="display:inline;fill:#ffffff;stroke:#000000;stroke-width:0.2;stroke-dasharray:1.19999997,1.19999997;stroke-dashoffset:0"
        d="m 37.170513,37.77702 h 4.113818"
        id="path6-3-2-2-6" />
     <path
-       style="display:inline;fill:#ffffff;stroke:#000000;stroke-width:0.23;stroke-dasharray:0.460001, 0.23;stroke-dashoffset:0"
+       style="display:inline;fill:#ffffff;stroke:#000000;stroke-width:0.2;stroke-dasharray:1.19999997,1.19999997;stroke-dashoffset:0"
        d="m 25.529673,37.77702 h 4.113818"
        id="path6-3-2-2-6-7" />
     <path
@@ -809,15 +812,15 @@
        id="path4-2-1-8-6-80" />
     <path
        style="display:inline;fill:#ffffff;stroke:#000000;stroke-width:0.2;stroke-dasharray:none;marker-end:url(#marker5-0)"
-       d="m 63.555097,7.4751465 h 8.866502"
+       d="m 55.088425,9.0626466 h 8.866502"
        id="path4-24" />
     <path
-       style="display:inline;fill:#ffffff;stroke:#000000;stroke-width:0.2;stroke-dasharray:0.4, 0.2;stroke-dashoffset:0;marker-end:url(#marker5-5)"
-       d="m 63.507187,11.251905 h 8.866502"
+       style="display:inline;fill:#ffffff;stroke:#000000;stroke-width:0.2;stroke-dasharray:1.2, 1.2;stroke-dashoffset:0;marker-end:url(#marker5-5)"
+       d="m 55.040515,12.839406 h 8.866502"
        id="path4-0" />
     <path
        style="display:inline;fill:#ffffff;stroke:#000000;stroke-width:0.2;stroke-dasharray:1.6, 0.4, 0.2, 0.4;stroke-dashoffset:0;marker-end:url(#marker5-5-3)"
-       d="m 63.47179,3.6166349 h 8.866499"
+       d="m 55.005118,5.204135 h 8.866499"
        id="path4-0-6" />
     <path
        style="display:inline;fill:#ffffff;stroke:#000000;stroke-width:0.2;stroke-dasharray:1.6, 0.4, 0.2, 0.4;stroke-dashoffset:0;marker-end:url(#marker5-5-3-4)"
@@ -828,7 +831,7 @@
        d="m 51.336971,35.444875 h 8.866546"
        id="path4-0-6-6-3" />
     <path
-       style="fill:#ffffff;stroke:#000000;stroke-width:0.2;stroke-dasharray:0.4,0.2;stroke-dashoffset:0;marker-end:url(#ConcaveTriangle)"
+       style="fill:#ffffff;stroke:#000000;stroke-width:0.2;stroke-dasharray:1.20000002,1.20000002;stroke-dashoffset:0;marker-end:url(#ConcaveTriangle)"
        d="M 1.7746238,13.313576 H 11.012408"
        id="path6" />
     <g
@@ -891,33 +894,33 @@
     </g>
     <text
        xml:space="preserve"
-       transform="matrix(0.18362479,0,0,0.18678576,69.513124,-30.190606)"
+       transform="matrix(0.18362479,0,0,0.18678576,61.046452,-28.603105)"
        id="text9-1-7"
        style="text-align:start;writing-mode:lr-tb;direction:ltr;white-space:pre;shape-inside:url(#rect9-0-9);display:inline;fill:#ffffff;fill-opacity:0;stroke:#000000;stroke-width:0.188976;stroke-dasharray:none;stroke-dashoffset:0"><tspan
          x="30.535156"
-         y="204.69796"
-         id="tspan8"><tspan
+         y="204.6685"
+         id="tspan3090"><tspan
            style="fill:#000000;fill-opacity:1"
-           id="tspan7">air flow (secondary loop)</tspan></tspan></text>
+           id="tspan3088">air flow (secondary loop)</tspan></tspan></text>
     <text
        xml:space="preserve"
-       transform="matrix(0.18362479,0,0,0.18678576,69.495684,-26.22222)"
+       transform="matrix(0.18362479,0,0,0.18678576,61.029012,-24.634719)"
        id="text9-1-7-3"
        style="text-align:start;writing-mode:lr-tb;direction:ltr;white-space:pre;shape-inside:url(#rect9-0-9-2);display:inline;fill:#ffffff;fill-opacity:0;stroke:#000000;stroke-width:0.188976;stroke-dasharray:none;stroke-dashoffset:0"><tspan
          x="30.535156"
-         y="204.69796"
-         id="tspan10"><tspan
+         y="204.6685"
+         id="tspan3094"><tspan
            style="fill:#000000;fill-opacity:1"
-           id="tspan9">water flow (secondary loop)</tspan></tspan></text>
+           id="tspan3092">water flow (secondary loop)</tspan></tspan></text>
     <text
        xml:space="preserve"
-       transform="matrix(0.17340952,0,0,0.1868948,69.815714,-33.962291)"
+       transform="matrix(0.17340952,0,0,0.1868948,61.349042,-32.37479)"
        id="text9-1-7-3-0"
        style="text-align:start;writing-mode:lr-tb;direction:ltr;white-space:pre;shape-inside:url(#rect9-0-9-2-2);display:inline;fill:#ffffff;fill-opacity:0;stroke:#000000;stroke-width:0.188976;stroke-dasharray:none;stroke-dashoffset:0"><tspan
          x="30.535156"
-         y="204.69796"
-         id="tspan12"><tspan
+         y="204.6685"
+         id="tspan3098"><tspan
            style="fill:#000000;fill-opacity:1"
-           id="tspan11">air or water flow (primary loop)</tspan></tspan></text>
+           id="tspan3096">air or water flow (primary loop)</tspan></tspan></text>
   </g>
 </svg>
