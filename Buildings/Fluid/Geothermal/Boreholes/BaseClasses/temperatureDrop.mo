@@ -1,5 +1,5 @@
 within Buildings.Fluid.Geothermal.Boreholes.BaseClasses;
-function temperatureDrop
+impure function temperatureDrop
   "Calculate the temperature drop of the soil at the external boundary of the cylinder"
 input ExtendableArray table
     "External object that contains the history terms of the heat flux";
@@ -100,6 +100,11 @@ Publication of the National Water Well Association.
 </html>",
 revisions="<html>
 <ul>
+<li>
+September 11, 2026, by Michael Wetter:<br/>
+Declared function as <code>impure</code> as it calls the impure function <code>exchange</code>.
+This avoids a warning in OpenModelica.
+</li>
 <li>
 July 27, 2011, by Pierre Vigouroux:<br/>
 First implementation.

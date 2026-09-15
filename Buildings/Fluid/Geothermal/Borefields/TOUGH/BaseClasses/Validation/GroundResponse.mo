@@ -7,7 +7,7 @@ model GroundResponse
     nSeg=10,
     nInt=10,
     nTouSeg=33,
-    touWorDir="tmp-tou-wor",
+    touWorDir="tmp-tou-wor-GroundResponse",
     samplePeriod=60) "Ground response calculated by TOUGH simulator"
     annotation (Placement(transformation(extent={{40,-10},{60,10}})));
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant con[10](
