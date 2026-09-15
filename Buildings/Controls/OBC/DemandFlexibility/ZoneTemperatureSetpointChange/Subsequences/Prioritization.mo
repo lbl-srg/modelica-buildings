@@ -102,8 +102,9 @@ be cooling setpoint if it is used for cooling mode (<code>airConMod = Cooling</c
 <p>
 The parameter <code>nSel</code> represents the number of zones to select for
 prioritization.
-For <code>nSel</code> zones with the smallest zone temperature difference,
-<code>dTZon = abs(TZonSet - TZon)</code>, these zones will
+For <code>nSel</code> zones with the smallest and the most negative zone temperature
+difference, <code>dTZon = TZon - TZonSet</code> for heating mode and
+<code>dTZon = TZonSet - TZon</code> for cooling mode, these zones will
 have their setpoint change flags <code>yEna = true</code>, and other zones will
 have their flags <code>yEna = false</code>.
 </p>
@@ -111,7 +112,7 @@ have their flags <code>yEna = false</code>.
 Setting the disabled flag vector <code>disFla=true</code> serves to exclude
 zones from the ranking of the zone temperature difference. These zones
 have the setpoint change flags <code>yEna=false</code>.
-If total number of zones after the excluding is less than the <code>nSel</code>,
+If total number of zones after the excluding is less than <code>nSel</code>,
 the remaining zones will have the setpoint change flags
 <code>yEna = true</code>.
 </p>
