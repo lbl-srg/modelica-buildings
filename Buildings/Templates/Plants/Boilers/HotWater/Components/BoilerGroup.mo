@@ -143,6 +143,7 @@ model BoilerGroup
     annotation(Placement(transformation(extent={{-10,-60},{10,-40}})));
   Buildings.Templates.Components.Actuators.Valve valBoiIso[nBoi](
     redeclare each final package Medium=Medium,
+    each chaTwo=Buildings.Templates.Components.Types.ValveCharacteristicTwoWay.Linear,
     each final typ=typValBoiIso,
     final dat=datValBoiIso,
     each final allowFlowReversal=allowFlowReversal,

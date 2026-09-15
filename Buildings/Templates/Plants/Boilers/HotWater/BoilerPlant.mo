@@ -91,6 +91,7 @@ model BoilerPlant
     annotation(Placement(transformation(extent={{-70,-150},{-50,-130}})));
   Buildings.Templates.Components.Actuators.Valve valHeaWatMinBypCon(
     redeclare final package Medium=Medium,
+    chaTwo=Buildings.Templates.Components.Types.ValveCharacteristicTwoWay.Linear,
     final typ=if have_valHeaWatMinBypCon
       then Buildings.Templates.Components.Types.Valve.TwoWayModulating
       else Buildings.Templates.Components.Types.Valve.None,
@@ -307,6 +308,7 @@ model BoilerPlant
     annotation(Placement(transformation(extent={{-70,-10},{-50,10}})));
   Buildings.Templates.Components.Actuators.Valve valHeaWatMinBypNon(
     redeclare final package Medium=Medium,
+    chaTwo=Buildings.Templates.Components.Types.ValveCharacteristicTwoWay.Linear,
     final typ=if have_valHeaWatMinBypNon
       then Buildings.Templates.Components.Types.Valve.TwoWayModulating
       else Buildings.Templates.Components.Types.Valve.None,
