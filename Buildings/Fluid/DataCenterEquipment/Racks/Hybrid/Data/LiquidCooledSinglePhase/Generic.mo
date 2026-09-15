@@ -5,11 +5,11 @@ record Generic
 
   parameter Buildings.Fluid.DataCenterEquipment.Racks.LiquidCooledSinglePhase.Data.Generic liq
     "Performance data for liquid-cooled component"
-    annotation (Placement(transformation(extent={{-80,60},{-60,80}})));
+    annotation (Placement(transformation(extent={{20,60},{40,80}})));
 
   parameter Buildings.Fluid.DataCenterEquipment.Racks.AirCooled.Data.Generic air
     "Performance data for air-cooled component"
-    annotation (Placement(transformation(extent={{60,60},{80,80}})));
+    annotation (Placement(transformation(extent={{20,20},{40,40}})));
 
 annotation (
   defaultComponentName="dat",

@@ -19,7 +19,7 @@ partial model LiquidCooledSinglePhase
 
   replaceable parameter Buildings.Fluid.DataCenterEquipment.Racks.Hybrid.Data.LiquidCooledSinglePhase.Generic dat
     "Performance data"
-    annotation (Placement(transformation(extent={{60,-10},{80,10}})));
+    annotation (Placement(transformation(extent={{60,62},{80,82}})));
 
   // Liquid-cooled parameters
   parameter Modelica.Fluid.Types.Dynamics energyDynamicsLiq=Modelica.Fluid.Types.Dynamics.DynamicFreeInitial
