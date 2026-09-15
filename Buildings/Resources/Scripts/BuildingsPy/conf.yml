@@ -372,6 +372,40 @@
   openmodelica:
     comment: Translation failed.
     translate: false
+- model_name: Buildings.Templates.Plants.Chillers.Components.Validation.ChillerGroupAirCooled
+  openmodelica:
+    comment: Translation failed.
+    translate: false
+- model_name: Buildings.Templates.Plants.Chillers.Components.Validation.ChillerGroupWaterCooled
+  openmodelica:
+    comment: Translation failed.
+    translate: false
+- model_name: Buildings.Templates.Plants.Chillers.Components.Validation.ChillersToPrimaryPumpsParallel
+  openmodelica:
+    comment: Translation failed.
+    translate: false
+- model_name: Buildings.Templates.Plants.Chillers.Components.Validation.CoolerGroupCoolingTower
+  openmodelica:
+    comment: Translation failed.
+    translate: false
+- model_name: Buildings.Templates.Plants.Chillers.Components.Validation.Economizers
+  openmodelica:
+    comment: Translation failed.
+    translate: false
+- model_name: Buildings.Templates.Plants.Chillers.Validation.AirCooled
+  openmodelica:
+    comment: Translation failed.
+    translate: false
+  optimica:
+    comment: Failing due to the controller using a when-guard in an algebraic loop.
+    translate: false
+- model_name: Buildings.Templates.Plants.Chillers.Validation.WaterCooled
+  openmodelica:
+    comment: Translation failed.
+    translate: false
+  optimica:
+    comment: Failing due to the controller using a when-guard in an algebraic loop.
+    translate: false
 - model_name: Buildings.Templates.Plants.HeatPumps.Components.Validation.HeatPumpGroupAirToWater
   openmodelica:
     comment: Translation failed.

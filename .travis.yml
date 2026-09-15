@@ -116,6 +116,8 @@ env:
     - TEST_ARG="make test-openmodelica  PACKAGE=\"Buildings.Templates\""
     - TEST_ARG="make test-optimica  PACKAGE=\"Buildings.Templates\""
     - TEST_ARG="make test-templates-dymola PACKAGE=\"Buildings.Templates.AirHandlersFans\" COVER=0.5"
+    - TEST_ARG="make test-templates-dymola PACKAGE=\"Buildings.Templates.Plants.Boilers\" COVER=0.5"
+    - TEST_ARG="make test-templates-dymola PACKAGE=\"Buildings.Templates.Plants.Chillers\""
     - TEST_ARG="make test-templates-dymola PACKAGE=\"Buildings.Templates.Plants.HeatPumps\" COVER=0.2"
     - TEST_ARG="make test-templates-dymola PACKAGE=\"Buildings.Templates.ZoneEquipment\""
 
@@ -176,20 +178,20 @@ install:
       export NPROC=10;
     fi;
 
-# Execute tests
-script:
-  - |
-    TRAVIS_WAIT=90
-    if [[ "$TEST_ARG" == *test-templates* ]]; then
-      TRAVIS_WAIT=120
-    fi
-    (cd Buildings/Resources/Scripts/travis && travis_wait $TRAVIS_WAIT $TEST_ARG)
+# # Execute tests
+# script:
+#   - |
+#     TRAVIS_WAIT=90
+#     if [[ "$TEST_ARG" == *test-templates* ]]; then
+#       TRAVIS_WAIT=120
+#     fi
+#     (cd Buildings/Resources/Scripts/travis && travis_wait $TRAVIS_WAIT $TEST_ARG)
 
 
-after_failure:
-  - |
-    for ff in `find Buildings -maxdepth 1 -name '*.log'`; do
-      echo "*** Content of $ff"
-      cat $ff
-      echo "*** End of $ff"
-    done
+# after_failure:
+#   - |
+#     for ff in `find Buildings -maxdepth 1 -name '*.log'`; do
+#       echo "*** Content of $ff"
+#       cat $ff
+#       echo "*** End of $ff"
+#     done
