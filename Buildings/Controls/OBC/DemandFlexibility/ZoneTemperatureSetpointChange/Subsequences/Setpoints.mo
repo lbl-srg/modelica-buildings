@@ -6,42 +6,50 @@ model Setpoints
     min=0,
     unit="K",
     displayUnit="degC")
-    "Occupied heating temperature setpoint for the default mode";
+    "Occupied heating temperature setpoint for the default mode"
+    annotation (Dialog(group="Heating"));
   parameter Real TDefUnoHeaSet(
     min=0,
     unit="K",
     displayUnit="degC")
-    "Unoccupied heating temperature setpoint for the default mode";
+    "Unoccupied heating temperature setpoint for the default mode"
+    annotation (Dialog(group="Heating"));
   parameter Real TDefOccCooSet(
     min=0,
     unit="K",
     displayUnit="degC")
-    "Occupied cooling temperature setpoint for the default mode";
+    "Occupied cooling temperature setpoint for the default mode"
+    annotation (Dialog(group="Cooling"));
   parameter Real TDefUnoCooSet(
     min=0,
     unit="K",
     displayUnit="degC")
-    "Unoccupied cooling temperature setpoint for the default mode";
+    "Unoccupied cooling temperature setpoint for the default mode"
+    annotation (Dialog(group="Cooling"));
   parameter Real dTSheHeaSet(
     min=0,
     unit="K",
     displayUnit="K")
-    "Zone heating temperature setpoint delta for the load-shed mode (always positive)";
+    "Zone heating temperature setpoint delta for the load-shed mode (always positive)"
+    annotation (Dialog(group="Heating"));
   parameter Real dTSheCooSet(
     min=0,
     unit="K",
     displayUnit="K")
-    "Zone cooling temperature setpoint delta for the load-shed mode (always positive)";
+    "Zone cooling temperature setpoint delta for the load-shed mode (always positive)"
+    annotation (Dialog(group="Cooling"));
   parameter Real dTPreHeaSet(
     min=0,
     unit="K",
     displayUnit="K")
-    "Zone heating temperature setpoint delta for the pre-heat mode (always positive)";
+    "Zone heating temperature setpoint delta for the pre-heat mode (always positive)"
+    annotation (Dialog(group="Heating"));
   parameter Real dTPreCooSet(
     min=0,
     unit="K",
     displayUnit="K")
-    "Zone cooling temperature setpoint delta for the pre-cool mode (always positive)";
+    "Zone cooling temperature setpoint delta for the pre-cool mode (always positive)"
+    annotation (Dialog(group="Cooling"));
   parameter Real occHouSta(
     min=0,
     max=24)

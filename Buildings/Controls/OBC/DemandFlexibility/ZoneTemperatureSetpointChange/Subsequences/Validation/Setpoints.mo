@@ -1,7 +1,8 @@
 within Buildings.Controls.OBC.DemandFlexibility.ZoneTemperatureSetpointChange.Subsequences.Validation;
 model Setpoints "Zone setpoint generation"
 
-  Buildings.Controls.OBC.DemandFlexibility.ZoneTemperatureSetpointChange.Subsequences.Setpoints zonSetGen(
+  Buildings.Controls.OBC.DemandFlexibility.ZoneTemperatureSetpointChange.Subsequences.Setpoints
+    zonSetGenDayEnaUno(
     TDefOccHeaSet=273.15 + 20,
     TDefUnoHeaSet=273.15 + 12,
     TDefOccCooSet=273.15 + 24,
@@ -13,8 +14,38 @@ model Setpoints "Zone setpoint generation"
     occHouSta=7,
     occHouEnd=19,
     setChaEnaUnoFla=true)
-    "Block to generate zone setpoints and setpoint targets that vary with time"
+    "Zone setpoint generation with daytime occupancy and enabled unoccupied period setpoint change "
+    annotation (Placement(transformation(extent={{0,60},{20,80}})));
+  Buildings.Controls.OBC.DemandFlexibility.ZoneTemperatureSetpointChange.Subsequences.Setpoints
+    zonSetGenDayDisUno(
+    TDefOccHeaSet=273.15 + 20,
+    TDefUnoHeaSet=273.15 + 12,
+    TDefOccCooSet=273.15 + 24,
+    TDefUnoCooSet=273.15 + 32,
+    dTSheHeaSet=4,
+    dTSheCooSet=4,
+    dTPreHeaSet=1.5,
+    dTPreCooSet=1.5,
+    occHouSta=7,
+    occHouEnd=19,
+    setChaEnaUnoFla=false)
+    "Zone setpoint generation with daytime occupancy and disabled unoccupied period setpoint change "
     annotation (Placement(transformation(extent={{0,0},{20,20}})));
+  Buildings.Controls.OBC.DemandFlexibility.ZoneTemperatureSetpointChange.Subsequences.Setpoints
+    zonSetGenNigEnaUno(
+    TDefOccHeaSet=273.15 + 20,
+    TDefUnoHeaSet=273.15 + 12,
+    TDefOccCooSet=273.15 + 24,
+    TDefUnoCooSet=273.15 + 32,
+    dTSheHeaSet=4,
+    dTSheCooSet=4,
+    dTPreHeaSet=1.5,
+    dTPreCooSet=1.5,
+    occHouSta=19,
+    occHouEnd=7,
+    setChaEnaUnoFla=true)
+    "Zone setpoint generation with nighttime occupancy and enabled unoccupied period setpoint change "
+    annotation (Placement(transformation(extent={{0,-60},{20,-40}})));
 annotation (experiment(StopTime=172800, Interval=1, Tolerance=1e-06),
   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/DemandFlexibility/ZoneTemperatureSetpointChange/Subsequences/Validation/Setpoints.mos"
     "Simulate and plot"),
@@ -23,8 +54,9 @@ annotation (experiment(StopTime=172800, Interval=1, Tolerance=1e-06),
 This example validates
 <a href=\"modelica://Buildings.Controls.OBC.DemandFlexibility.ZoneTemperatureSetpointChange.Subsequences.Setpoints\">
 Buildings.Controls.OBC.DemandFlexibility.ZoneTemperatureSetpointChange.Subsequences.Setpoints</a>
-for the case where the setpoint change is active not only in the occupied mode, but
-also in the unoccupied mode.
+by comparing the zone setpoints and setpoint targets during daytime occupancy vs.
+nighttime occupancy,  as well as for enabled unoccupied period setpoint change and
+disabled unoccupied period setpoint change.
 </p>
 </html>", revisions="<html>
 <ul>

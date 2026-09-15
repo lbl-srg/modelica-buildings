@@ -335,9 +335,9 @@ setpoint change flag <code>use_mulSteSetCha = false</code>:
 <p>
 The input variables <code>TPreTarSet</code>, <code>TDefSet</code>, and
 <code>TSheTarSet</code> must take on specific sets of values. For example,
-<code>TPreTarSet &gt; TDefSet &gt; TSheTarSet</code> must hold if the air
+<code>TPreTarSet &gt;= TDefSet &gt;= TSheTarSet</code> must hold if the air
 conditioning system is in the heating mode (<code>airConMod = Heating</code>), and
-<code>TPreTarSet &lt; TDefSet &lt; TSheTarSet</code> must hold if the air
+<code>TPreTarSet &lt;= TDefSet &lt;= TSheTarSet</code> must hold if the air
 conditioning system is in the cooling mode (<code>airConMod = Cooling</code>). 
 </p>
 <p>
@@ -348,8 +348,8 @@ full control loop.
 </p>
 <p>
 Also note that within each demand flexibility mode, the changes in setpoint values of
-<code>TCurZonSet</code> and <code>TComZonSet</code> have only one direction: either
-increasing or decreasing. The setpoint values will change direction only when the
+<code>TCurZonSet</code> and <code>TComZonSet</code> will have only one direction:
+either increasing or decreasing. The setpoint values change direction only when the
 demand flexibility mode is changed.
 </p>
 </html>", revisions="<html>

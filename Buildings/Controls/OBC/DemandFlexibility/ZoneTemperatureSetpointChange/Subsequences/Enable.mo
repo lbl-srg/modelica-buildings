@@ -510,9 +510,9 @@ The zone temperature setpoint input variable <code>TZonSet</code> must represent
 heating setpoint when <code>airConMod = Heating</code>, and it must represent a cooling
 setpoint when <code>airConMod = Cooling</code>. The input variables
 <code>TPreTarSet</code>, <code>TDefSet</code>, and <code>TSheTarSet</code> must
-represent specific sets of values. For example, <code>TPreTarSet &gt; TDefSet &gt;
+represent specific sets of values. For example, <code>TPreTarSet &gt;= TDefSet &gt;=
 TSheTarSet</code> must hold if the air conditioning system is in the heating mode
-(<code>airConMod = Heating</code>), and <code>TPreTarSet &lt; TDefSet &lt;
+(<code>airConMod = Heating</code>), and <code>TPreTarSet &lt;= TDefSet &lt;=
 TSheTarSet</code> must hold if the air conditioning system is in the cooling mode
 (<code>airConMod = Cooling</code>).
 </p>

@@ -1,9 +1,21 @@
 compareVars :=
   {
-    "zonSetGen.TPreTarHeaSet",
-    "zonSetGen.TSheTarHeaSet",
-    "zonSetGen.TDefHeaSet",
-    "zonSetGen.TPreTarCooSet",
-    "zonSetGen.TSheTarCooSet",
-    "zonSetGen.TDefCooSet"
+    "zonSetGenDayEnaUno.TPreTarHeaSet",
+    "zonSetGenDayEnaUno.TSheTarHeaSet",
+    "zonSetGenDayEnaUno.TDefHeaSet",
+    "zonSetGenDayEnaUno.TPreTarCooSet",
+    "zonSetGenDayEnaUno.TSheTarCooSet",
+    "zonSetGenDayEnaUno.TDefCooSet",
+    "zonSetGenDayDisUno.TPreTarHeaSet",
+    "zonSetGenDayDisUno.TSheTarHeaSet",
+    "zonSetGenDayDisUno.TDefHeaSet",
+    "zonSetGenDayDisUno.TPreTarCooSet",
+    "zonSetGenDayDisUno.TSheTarCooSet",
+    "zonSetGenDayDisUno.TDefCooSet",
+    "zonSetGenNigEnaUno.TPreTarHeaSet",
+    "zonSetGenNigEnaUno.TSheTarHeaSet",
+    "zonSetGenNigEnaUno.TDefHeaSet",
+    "zonSetGenNigEnaUno.TPreTarCooSet",
+    "zonSetGenNigEnaUno.TSheTarCooSet",
+    "zonSetGenNigEnaUno.TDefCooSet"
   };
