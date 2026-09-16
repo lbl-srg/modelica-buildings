@@ -192,6 +192,12 @@ This implies a constant COP over different design sizes:
   To model an inverter controlled chiller, the relative
   compressor speed <code>yMea</code> is used to scale
   the ouput of the tables linearly.
+  For a model that uses the part load performance data, use
+  <a href=\"modelica://Buildings.Fluid.Chillers.ModularReversible.TableData2DLoadDep</a>
+  Buildings.Fluid.Chillers.ModularReversible.TableData2DLoadDep</a>,
+  which uses
+  <a href=\"modelica://Buildings.Fluid.Chillers.ModularReversible.RefrigerantCycle.TableData2DLoadDep\">
+  Buildings.Fluid.Chillers.ModularReversible.RefrigerantCycle.TableData2DLoadDep</a>.
   For models including the compressor speed, check the SDF-Library
   dependent refrigerant cycle models in the
   <a href=\"https://github.com/RWTH-EBC/AixLib\">AixLib</a> Library.
