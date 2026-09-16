@@ -142,7 +142,7 @@ model Down
     "Hold true pulse signal for visualization"
     annotation (Placement(transformation(extent={{-120,-150},{-100,-130}})));
 
-// protected
+protected
   Buildings.Controls.OBC.CDL.Logical.And and2[nBoi]
     "Pass stage-1 boiler setpoints only when stage setpoint is 1"
     annotation (Placement(transformation(extent={{-280,120},{-260,140}})));
