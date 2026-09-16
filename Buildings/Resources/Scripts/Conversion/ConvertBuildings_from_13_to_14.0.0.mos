@@ -4,7 +4,25 @@
 
 // Conversion for https://github.com/lbl-srg/modelica-buildings/pull/2299
 convertClass("Buildings.Templates.Plants.Controls.Utilities.TimerWithReset",
-             "Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Generic.TimerWithReset");
+             "Buildings.Controls.OBC.ASHRAE.G36_2021.Plants.Chillers.Generic.TimerWithReset");
+convertClass("Buildings.Controls.OBC.ASHRAE.G36.AHUs",
+             "Buildings.Controls.OBC.ASHRAE.G36_2018.AHUs");
+convertClass("Buildings.Controls.OBC.ASHRAE.G36.FanCoilUnits",
+             "Buildings.Controls.OBC.ASHRAE.G36_2018.FanCoilUnits");
+convertClass("Buildings.Controls.OBC.ASHRAE.G36.Generic",
+             "Buildings.Controls.OBC.ASHRAE.G36_2018.Generic");
+convertClass("Buildings.Controls.OBC.ASHRAE.G36.TerminalUnits",
+             "Buildings.Controls.OBC.ASHRAE.G36_2018.TerminalUnits");
+convertClass("Buildings.Controls.OBC.ASHRAE.G36.ThermalZones",
+             "Buildings.Controls.OBC.ASHRAE.G36_2018.ThermalZones");
+convertClass("Buildings.Controls.OBC.ASHRAE.G36.VentilationZones",
+             "Buildings.Controls.OBC.ASHRAE.G36_2018.VentilationZones");
+convertClass("Buildings.Controls.OBC.ASHRAE.G36.ZoneGroups",
+             "Buildings.Controls.OBC.ASHRAE.G36_2018.ZoneGroups");
+convertClass("Buildings.Controls.OBC.ASHRAE.G36.Types",
+             "Buildings.Controls.OBC.ASHRAE.G36_2018.Types");
+convertClass("Buildings.Controls.OBC.ASHRAE.G36.Plants",
+             "Buildings.Controls.OBC.ASHRAE.G36_2021.Plants");
 
 // Conversion for https://github.com/lbl-srg/modelica-buildings/issues/4620
 convertElement("Buildings.Fluid.HeatExchangers.PlateHeatExchangerEffectivenessNTU",
