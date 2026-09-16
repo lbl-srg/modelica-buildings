@@ -1,9 +1,13 @@
 within Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Types;
-type Boilers = enumeration(
-  Condensing "Condensing boiler",
-  NonCondensing "Non-condensing boiler"
+package Boilers
+  "Definitions for boiler types"
 
-) "Definitions for boiler types"
+  constant Integer Condensing = 1
+    "Condensing boiler";
+
+  constant Integer NonCondensing = 2
+    "Non-condensing boiler";
+
 annotation (
   Documentation(info="<html>
     <p>
@@ -20,4 +24,16 @@ annotation (
     First implementation.
     </li>
     </ul>
-    </html>"));
+    </html>"),
+    Icon(graphics={
+         Rectangle(
+           lineColor={200,200,200},
+           fillColor={248,248,248},
+           fillPattern=FillPattern.HorizontalCylinder,
+           extent={{-100.0,-100.0},{100.0,100.0}},
+           radius=25.0),
+         Rectangle(
+           lineColor={128,128,128},
+           extent={{-100.0,-100.0},{100.0,100.0}},
+           radius=25.0)}));
+end Boilers;
