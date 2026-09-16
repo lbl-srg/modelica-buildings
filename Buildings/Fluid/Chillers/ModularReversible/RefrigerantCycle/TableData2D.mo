@@ -193,7 +193,7 @@ This implies a constant COP over different design sizes:
   compressor speed <code>yMea</code> is used to scale
   the ouput of the tables linearly.
   For a model that uses the part load performance data, use
-  <a href=\"modelica://Buildings.Fluid.Chillers.ModularReversible.TableData2DLoadDep</a>
+  <a href=\"modelica://Buildings.Fluid.Chillers.ModularReversible.TableData2DLoadDep\">
   Buildings.Fluid.Chillers.ModularReversible.TableData2DLoadDep</a>,
   which uses
   <a href=\"modelica://Buildings.Fluid.Chillers.ModularReversible.RefrigerantCycle.TableData2DLoadDep\">
