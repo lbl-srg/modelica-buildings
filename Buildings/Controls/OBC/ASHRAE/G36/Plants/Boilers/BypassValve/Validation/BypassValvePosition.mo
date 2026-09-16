@@ -1,5 +1,6 @@
 within Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.BypassValve.Validation;
 block BypassValvePosition
+  "Validation model for bypass valve control module"
 
   Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.BypassValve.BypassValvePosition
     bypValPos(
