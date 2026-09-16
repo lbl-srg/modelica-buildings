@@ -53,7 +53,7 @@ partial model PartialChilledWaterLoop
     final typEco=typEco,
     final mChiWatPri_flow_nominal=mChiWatPri_flow_nominal,
     final tau=tau,
-    final energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
+    final energyDynamics=energyDynamics,
     final allowFlowReversal=allowFlowReversal)
     "Hydronic interface between chillers (and optional WSE) and primary CHW pumps"
     annotation(Placement(transformation(extent={{40,-264},{80,4}})));
@@ -72,7 +72,7 @@ partial model PartialChilledWaterLoop
     redeclare final package Medium=MediumChiWat,
     final nPorts=nPumChiWatPri,
     final m_flow_nominal=mChiWatPri_flow_nominal,
-    final energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
+    final energyDynamics=energyDynamics,
     final tau=tau,
     final allowFlowReversal=allowFlowReversal,
     icon_dy=-360,
@@ -166,7 +166,7 @@ partial model PartialChilledWaterLoop
       Buildings.Templates.Components.Types.Chiller.WaterCooled
       and typArrPumConWat ==
         Buildings.Templates.Components.Types.PumpArrangement.Headered,
-    final energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
+    final energyDynamics=energyDynamics,
     final tau=tau,
     final allowFlowReversal=allowFlowReversal,
     icon_xout=200,
@@ -185,7 +185,7 @@ partial model PartialChilledWaterLoop
       and typEco <> Buildings.Templates.Plants.Chillers.Types.Economizer.None
       then nChi + 1 else nChi,
     final m_flow_nominal=mCon_flow_nominal,
-    final energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
+    final energyDynamics=energyDynamics,
     final tau=tau,
     final allowFlowReversal=allowFlowReversal,
     icon_dy=-360,
@@ -201,7 +201,7 @@ partial model PartialChilledWaterLoop
     redeclare final package Medium=MediumChiWat,
     final nPorts=nPumChiWatSec,
     final m_flow_nominal=mChiWat_flow_nominal,
-    final energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
+    final energyDynamics=energyDynamics,
     final allowFlowReversal=allowFlowReversal,
     icon_dy=300,
     icon_pipe=Buildings.Templates.Components.Types.IntegrationPoint.Supply)
@@ -223,7 +223,7 @@ partial model PartialChilledWaterLoop
     redeclare final package Medium=MediumChiWat,
     final nPorts=nPumChiWatSec,
     final m_flow_nominal=mChiWat_flow_nominal,
-    final energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
+    final energyDynamics=energyDynamics,
     final tau=tau,
     final allowFlowReversal=allowFlowReversal,
     icon_dy=300,
