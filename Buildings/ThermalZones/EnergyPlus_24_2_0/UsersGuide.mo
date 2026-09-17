@@ -721,16 +721,16 @@ The parameters available within these records are:
 <code>QLat_flow</code>: Design latent load [W] (if not sized, equals <i>0</i>)
 </li>
 <li>
-<code>TSet</code>: Indoor temperature set point at the design load [K] (if not sized, equals <i>21</i>&deg;C for zone heating, <i>24</i>&deg;C for zone cooling, <i>-273.15</i>&deg;C for system group heating and cooling)
+<code>TSet</code>: Indoor temperature set point at the design load [K] (if not sized, equals <i>0</i>&deg;C for zone heating and cooling, <i>-273.15</i>&deg;C for system group heating and cooling)
 </li>
 <li>
-<code>XSet</code>: Indoor humidity ratio set point at the design load per total air mass [kg/kg] (if not sized, equals <i>0.00788</i> for zone heating, <i>0.00964</i> for zone cooling, <i>0</i> for system group heating and cooling)
+<code>XSet</code>: Indoor humidity ratio set point at the design load per total air mass [kg/kg] (if not sized, equals <i>0</i>)
 </li>
 <li>
 <code>TOut</code>: Outdoor drybulb temperature at the design load [K] (if not sized, equals <i>0</i>&deg;C for zone heating and cooling, <i>21</i>&deg;C for system group heating and cooling)
 </li>
 <li>
-<code>XOut</code>: Outdoor humidity ratio at the design load per total air mass [kg/kg] (if not sized, equals <i>0</i> for zone heating and cooling, <i>0</i> for system group heating and cooling)
+<code>XOut</code>: Outdoor humidity ratio at the design load per total air mass [kg/kg] (if not sized, equals <i>0</i>)
 </li>
 <li>
 <code>mOut_flow</code>: Minimum outdoor air flow rate during the design load [kg/s] (if not sized, equals <i>0</i>)
