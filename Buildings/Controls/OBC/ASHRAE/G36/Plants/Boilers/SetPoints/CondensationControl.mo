@@ -9,7 +9,7 @@ block CondensationControl
     "True: Variable speed pumps in primary loop; False: Constant speed pumps in primary loop"
     annotation(Evaluate=true,Dialog(enable=(not have_priOnl)));
 
-  parameter Integer nSta=5
+  parameter Integer nSta
     "Number of stages";
 
   parameter Real TRetSet(
@@ -32,10 +32,10 @@ block CondensationControl
     "Minimum secondary pump speed";
 
   parameter Real minPriPumSpeSta[nSta](
-    final unit="1",
-    final displayUnit="1",
-    final min=0,
-    final max=1) = {0,0,0,0,0}
+    final unit=fill("1",nSta),
+    final displayUnit=fill("1",nSta),
+    final min=fill(0,nSta),
+    final max=fill(1,nSta)) = fill(0,nSta)
     "Vector of minimum primary pump speed for each stage";
 
   Buildings.Controls.OBC.CDL.Interfaces.IntegerInput uCurSta
