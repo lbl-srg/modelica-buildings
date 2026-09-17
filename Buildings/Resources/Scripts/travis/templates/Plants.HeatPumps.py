@@ -24,6 +24,8 @@ Details:
     - This allows reducing the number of simulations by excluding class modifications that
       yield the same model, i.e., modifications to parameters that are not used (disabled) in
       the given configuration.
+    - Override experiment attributes (e.g., the integration method) for the combinations
+      matching the patterns provided in `EXPERIMENT_MODIF`.
     - For the remaining combinations: run the corresponding simulations for the models in `MODELS`.
 """
 
@@ -209,10 +211,28 @@ REMOVE_MODIF[
     )
 )
 
+# See docstring of `apply_experiment_modifications` function for the structure of EXPERIMENT_MODIF.
+EXPERIMENT_MODIF = {
+    'Buildings.Templates.Plants.HeatPumps.Validation.AirToWaterReversibleHeatRecovery': [
+        (
+            [
+                'typDis_select1=Buildings.Templates.Plants.HeatPumps.Types.Distribution.Variable1Only',
+                'typArrPumPri_select=Buildings.Templates.Components.Types.PumpArrangement.Headered',
+                'have_senDpHeaWatRemWir=false',
+                'typ=Buildings.Templates.Plants.Controls.Types.PlantHeatPump.ReversibleHeatRecovery',
+            ],
+            {
+                'method': 'dassl',
+            },
+        ),
+    ],
+}
+
 if __name__ == '__main__':
     core.main(
         models=MODELS,
         modif_grid=MODIF_GRID,
         exclude=EXCLUDE,
         remove_modif=REMOVE_MODIF,
+        experiment_modif=EXPERIMENT_MODIF,
     )
