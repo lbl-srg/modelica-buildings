@@ -49,11 +49,13 @@ model ControlledFan "Fan with integrated PI temperature controller"
     allowFlowReversal=allowFlowReversal,
     per(
       pressure(
-        V_flow={0, V_flow_nominal, 2*V_flow_nominal},
-        dp={2*dp_nominal, dp_nominal, 0}),
-      power(
-        V_flow={0.1, 0.3, 0.6, 1} .* V_flow_nominal,
-        P={0.1^3, 0.3^3, 0.6^3, 1} .* PFan_nominal),
+        V_flow={0, 2*V_flow_nominal},
+        dp={2*dp_nominal, 0}),
+      etaHydMet=Buildings.Fluid.Movers.BaseClasses.Types.HydraulicEfficiencyMethod.Power_VolumeFlowRate,
+      etaMotMet=Buildings.Fluid.Movers.BaseClasses.Types.MotorEfficiencyMethod.Efficiency_MotorPartLoadRatio,
+      motorEfficiency_yMot(y={0}, eta={eta_nominal}),
+      power(V_flow={0, 0.1,0.3,0.6,1} .* V_flow_nominal, P={0, 0.1^3,0.3^3,0.6^3,1} .*
+            PFan_nominal),
       powerOrEfficiencyIsHydraulic=false))
     "Fan"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
