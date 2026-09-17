@@ -8,7 +8,7 @@ package Boilers
   constant Integer NonCondensing = 2
     "Non-condensing boiler";
 
-annotation (
+annotation (defaultComponentName="boiTyp",
   Documentation(info="<html>
     <p>
     This package provides constants that indicate the boiler type based on the

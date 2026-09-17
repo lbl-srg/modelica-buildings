@@ -96,7 +96,7 @@ model Down
     final boiChaProOnTim=boiChaProOnTim,
     final relFloDif=relFloDif)
     "Stage down process for primary-secondary plant with dedicated pumps"
-    annotation (Placement(transformation(extent={{210,166},{230,206}})));
+    annotation (Placement(transformation(extent={{360,166},{380,206}})));
 
   Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Staging.Processes.Down dowProCon4(
     final have_priOnl=true,
@@ -122,7 +122,7 @@ model Down
     final trueHoldDuration=10,
     final falseHoldDuration=0)
     "Hold true pulse signal for visualization"
-    annotation (Placement(transformation(extent={{250,150},{270,170}})));
+    annotation (Placement(transformation(extent={{400,150},{420,170}})));
 
   Buildings.Controls.OBC.CDL.Logical.TrueFalseHold yStaChaPro(
     final trueHoldDuration=10,
@@ -134,142 +134,219 @@ model Down
     final trueHoldDuration=10,
     final falseHoldDuration=0)
     "Hold true pulse signal for visualization"
-    annotation (Placement(transformation(extent={{250,190},{270,210}})));
+    annotation (Placement(transformation(extent={{400,180},{420,200}})));
 
   Buildings.Controls.OBC.CDL.Logical.TrueFalseHold yStaChaPro4(
     final trueHoldDuration=10,
     final falseHoldDuration=0)
     "Hold true pulse signal for visualization"
-    annotation (Placement(transformation(extent={{-120,-140},{-100,-120}})));
+    annotation (Placement(transformation(extent={{-120,-150},{-100,-130}})));
 
-  CDL.Logical.And and2[nBoi]
-    annotation (Placement(transformation(extent={{-210,120},{-190,140}})));
-  CDL.Logical.And and1[nBoi]
-    annotation (Placement(transformation(extent={{-210,90},{-190,110}})));
-  CDL.Logical.And and3[nBoi]
-    annotation (Placement(transformation(extent={{-210,60},{-190,80}})));
-  CDL.Integers.Equal intEqu
-    annotation (Placement(transformation(extent={{-270,140},{-250,160}})));
-  CDL.Integers.Equal intEqu1
-    annotation (Placement(transformation(extent={{-270,100},{-250,120}})));
-  CDL.Routing.BooleanScalarReplicator booScaRep(nout=nBoi)
-    annotation (Placement(transformation(extent={{-240,140},{-220,160}})));
-  CDL.Routing.BooleanScalarReplicator booScaRep1(nout=nBoi)
-    annotation (Placement(transformation(extent={{-240,100},{-220,120}})));
-  CDL.Integers.Equal intEqu2
-    annotation (Placement(transformation(extent={{-268,60},{-248,80}})));
-  CDL.Routing.BooleanScalarReplicator booScaRep2(nout=nBoi)
-    annotation (Placement(transformation(extent={{-238,60},{-218,80}})));
-  CDL.Logical.Or or7[nBoi]
-    annotation (Placement(transformation(extent={{-120,110},{-100,130}})));
-  CDL.Logical.Or or2[nBoi]
-    annotation (Placement(transformation(extent={{-160,110},{-140,130}})));
-  CDL.Integers.OnCounter onCouInt(y_start=0)
-    annotation (Placement(transformation(extent={{-300,220},{-280,240}})));
-  CDL.Logical.Or or6
-    annotation (Placement(transformation(extent={{-332,220},{-312,240}})));
-  CDL.Logical.And and4[nBoi]
-    annotation (Placement(transformation(extent={{150,120},{170,140}})));
-  CDL.Logical.And and5[nBoi]
-    annotation (Placement(transformation(extent={{150,90},{170,110}})));
-  CDL.Logical.And and6[nBoi]
-    annotation (Placement(transformation(extent={{150,60},{170,80}})));
-  CDL.Integers.Equal intEqu3
-    annotation (Placement(transformation(extent={{90,140},{110,160}})));
-  CDL.Integers.Equal intEqu4
-    annotation (Placement(transformation(extent={{90,100},{110,120}})));
-  CDL.Routing.BooleanScalarReplicator booScaRep3(nout=nBoi)
-    annotation (Placement(transformation(extent={{120,140},{140,160}})));
-  CDL.Routing.BooleanScalarReplicator booScaRep4(nout=nBoi)
-    annotation (Placement(transformation(extent={{120,100},{140,120}})));
-  CDL.Integers.Equal intEqu5
-    annotation (Placement(transformation(extent={{92,60},{112,80}})));
-  CDL.Routing.BooleanScalarReplicator booScaRep5(nout=nBoi)
-    annotation (Placement(transformation(extent={{122,60},{142,80}})));
-  CDL.Logical.Or or1[nBoi]
-    annotation (Placement(transformation(extent={{240,110},{260,130}})));
-  CDL.Logical.Or or3[nBoi]
-    annotation (Placement(transformation(extent={{200,110},{220,130}})));
-  CDL.Integers.OnCounter onCouInt1(y_start=0)
-    annotation (Placement(transformation(extent={{90,200},{110,220}})));
-  CDL.Logical.Or or4
-    annotation (Placement(transformation(extent={{60,200},{80,220}})));
-  CDL.Logical.And and7[nBoi]
-    annotation (Placement(transformation(extent={{-208,-220},{-188,-200}})));
-  CDL.Logical.And and8[nBoi]
-    annotation (Placement(transformation(extent={{-208,-250},{-188,-230}})));
-  CDL.Logical.And and9[nBoi]
-    annotation (Placement(transformation(extent={{-208,-280},{-188,-260}})));
-  CDL.Integers.Equal intEqu6
-    annotation (Placement(transformation(extent={{-268,-200},{-248,-180}})));
-  CDL.Integers.Equal intEqu7
-    annotation (Placement(transformation(extent={{-268,-240},{-248,-220}})));
-  CDL.Routing.BooleanScalarReplicator booScaRep6(nout=nBoi)
-    annotation (Placement(transformation(extent={{-238,-200},{-218,-180}})));
-  CDL.Routing.BooleanScalarReplicator booScaRep7(nout=nBoi)
-    annotation (Placement(transformation(extent={{-238,-240},{-218,-220}})));
-  CDL.Integers.Equal intEqu8
-    annotation (Placement(transformation(extent={{-266,-280},{-246,-260}})));
-  CDL.Routing.BooleanScalarReplicator booScaRep8(nout=nBoi)
-    annotation (Placement(transformation(extent={{-236,-280},{-216,-260}})));
-  CDL.Logical.Or or5[nBoi]
-    annotation (Placement(transformation(extent={{-118,-230},{-98,-210}})));
-  CDL.Logical.Or or8[nBoi]
-    annotation (Placement(transformation(extent={{-158,-230},{-138,-210}})));
-  CDL.Integers.OnCounter onCouInt2(y_start=0)
-    annotation (Placement(transformation(extent={{-300,-120},{-280,-100}})));
-  CDL.Logical.Or or9
-    annotation (Placement(transformation(extent={{-330,-120},{-310,-100}})));
-  CDL.Integers.Subtract intSub
-    annotation (Placement(transformation(extent={{-260,220},{-240,240}})));
-  CDL.Integers.Sources.Constant conInt2(k=4)
-    annotation (Placement(transformation(extent={{-300,260},{-280,280}})));
-  CDL.Logical.Or or10[nBoi]
-    annotation (Placement(transformation(extent={{-180,260},{-200,280}})));
-  CDL.Routing.BooleanScalarReplicator booScaRep9(nout=nBoi)
-    annotation (Placement(transformation(extent={{-140,270},{-160,290}})));
-  CDL.Logical.Latch lat
-    annotation (Placement(transformation(extent={{-260,290},{-240,310}})));
-  CDL.Logical.Not not1
-    annotation (Placement(transformation(extent={{-220,290},{-200,310}})));
-  CDL.Logical.Or or11[nBoi]
-    annotation (Placement(transformation(extent={{-60,240},{-80,260}})));
-  CDL.Integers.Subtract intSub1
-    annotation (Placement(transformation(extent={{120,200},{140,220}})));
-  CDL.Integers.Sources.Constant conInt6(k=4)
-    annotation (Placement(transformation(extent={{80,240},{100,260}})));
-  CDL.Logical.Latch lat1
-    annotation (Placement(transformation(extent={{120,270},{140,290}})));
-  CDL.Logical.Not not2
-    annotation (Placement(transformation(extent={{160,270},{180,290}})));
-  CDL.Routing.BooleanScalarReplicator booScaRep10(nout=nBoi)
-    annotation (Placement(transformation(extent={{200,270},{220,290}})));
-  CDL.Logical.Or or13[nBoi]
-    annotation (Placement(transformation(extent={{200,240},{180,260}})));
-  CDL.Integers.Subtract intSub2
-    annotation (Placement(transformation(extent={{-260,-120},{-240,-100}})));
-  CDL.Integers.Sources.Constant conInt8(k=4)
-    annotation (Placement(transformation(extent={{-300,-90},{-280,-70}})));
-  CDL.Logical.Latch lat2
-    annotation (Placement(transformation(extent={{-320,-50},{-300,-30}})));
-  CDL.Logical.Not not3
-    annotation (Placement(transformation(extent={{-280,-50},{-260,-30}})));
-  CDL.Routing.BooleanScalarReplicator booScaRep11(nout=nBoi)
-    annotation (Placement(transformation(extent={{-240,-50},{-220,-30}})));
-  CDL.Logical.Or or12[nBoi]
-    annotation (Placement(transformation(extent={{-180,-70},{-200,-50}})));
-  CDL.Logical.Or or14[nBoi]
-    annotation (Placement(transformation(extent={{-80,-170},{-60,-150}})));
 protected
+  Buildings.Controls.OBC.CDL.Logical.And and2[nBoi]
+    "Pass stage-1 boiler setpoints only when stage setpoint is 1"
+    annotation (Placement(transformation(extent={{-280,120},{-260,140}})));
+
+  Buildings.Controls.OBC.CDL.Logical.And and1[nBoi]
+    "Pass stage-2 boiler setpoints only when stage setpoint is 2"
+    annotation (Placement(transformation(extent={{-280,80},{-260,100}})));
+
+  Buildings.Controls.OBC.CDL.Logical.And and3[nBoi]
+    "Pass stage-3 boiler setpoints only when stage setpoint is 3"
+    annotation (Placement(transformation(extent={{-280,20},{-260,40}})));
+
+  Buildings.Controls.OBC.CDL.Integers.Equal intEqu
+    "Check if next stage setpoint is 1"
+    annotation (Placement(transformation(extent={{-360,140},{-340,160}})));
+
+  Buildings.Controls.OBC.CDL.Integers.Equal intEqu1
+    "Check if next stage setpoint is 2"
+    annotation (Placement(transformation(extent={{-360,90},{-340,110}})));
+
+  Buildings.Controls.OBC.CDL.Routing.BooleanScalarReplicator booScaRep(
+    final nout=nBoi)
+    "Replicate stage detection signal"
+    annotation (Placement(transformation(extent={{-320,140},{-300,160}})));
+
+  Buildings.Controls.OBC.CDL.Routing.BooleanScalarReplicator booScaRep1(
+    final nout=nBoi)
+    "Replicate stage detection signal"
+    annotation (Placement(transformation(extent={{-320,90},{-300,110}})));
+
+  Buildings.Controls.OBC.CDL.Integers.Equal intEqu2
+    "Check if next stage setpoint is 3"
+    annotation (Placement(transformation(extent={{-360,40},{-340,60}})));
+
+  Buildings.Controls.OBC.CDL.Routing.BooleanScalarReplicator booScaRep2(
+    final nout=nBoi)
+    "Replicate stage detection signal"
+    annotation (Placement(transformation(extent={{-320,40},{-300,60}})));
+
+  Buildings.Controls.OBC.CDL.Logical.Or or7[nBoi]
+    "Consolidate boiler setpoint signals"
+    annotation (Placement(transformation(extent={{-200,60},{-180,80}})));
+
+  Buildings.Controls.OBC.CDL.Logical.Or or2[nBoi]
+    "Consolidate boiler setpoint signals"
+    annotation (Placement(transformation(extent={{-240,100},{-220,120}})));
+
+  Buildings.Controls.OBC.CDL.Integers.OnCounter onCouInt(
+    final y_start=0)
+    "Count number of stage changes initiated"
+    annotation (Placement(transformation(extent={{-440,220},{-420,240}})));
+
+  Buildings.Controls.OBC.CDL.Logical.Or or6
+    "Generate stage change signal when simulation is initiated or previous change is completed"
+    annotation (Placement(transformation(extent={{-470,220},{-450,240}})));
+
+  Buildings.Controls.OBC.CDL.Logical.And and4[nBoi]
+    "Pass stage-1 boiler setpoints only when stage setpoint is 1"
+    annotation (Placement(transformation(extent={{240,140},{260,160}})));
+
+  Buildings.Controls.OBC.CDL.Logical.And and5[nBoi]
+    "Pass stage-2 boiler setpoints only when stage setpoint is 2"
+    annotation (Placement(transformation(extent={{240,100},{260,120}})));
+
+  Buildings.Controls.OBC.CDL.Logical.And and6[nBoi]
+    "Pass stage-3 boiler setpoints only when stage setpoint is 3"
+    annotation (Placement(transformation(extent={{240,60},{260,80}})));
+
+  Buildings.Controls.OBC.CDL.Integers.Equal intEqu3
+    "Check if next stage setpoint is 1"
+    annotation (Placement(transformation(extent={{172,140},{192,160}})));
+
+  Buildings.Controls.OBC.CDL.Integers.Equal intEqu4
+    "Check if next stage setpoint is 2"
+    annotation (Placement(transformation(extent={{172,100},{192,120}})));
+
+  Buildings.Controls.OBC.CDL.Routing.BooleanScalarReplicator booScaRep3(
+    final nout=nBoi)
+    "Replicate stage detection signal"
+    annotation (Placement(transformation(extent={{200,140},{220,160}})));
+
+  Buildings.Controls.OBC.CDL.Routing.BooleanScalarReplicator booScaRep4(
+    final nout=nBoi)
+    "Replicate stage detection signal"
+    annotation (Placement(transformation(extent={{200,100},{220,120}})));
+
+  Buildings.Controls.OBC.CDL.Integers.Equal intEqu5
+    "Check if next stage setpoint is 3"
+    annotation (Placement(transformation(extent={{174,60},{194,80}})));
+
+  Buildings.Controls.OBC.CDL.Routing.BooleanScalarReplicator booScaRep5(
+    final nout=nBoi)
+    "Replicate stage detection signal"
+    annotation (Placement(transformation(extent={{200,60},{220,80}})));
+
+  Buildings.Controls.OBC.CDL.Logical.Or or1[nBoi]
+    "Consolidate boiler setpoint signals"
+    annotation (Placement(transformation(extent={{320,110},{340,130}})));
+
+  Buildings.Controls.OBC.CDL.Logical.Or or3[nBoi]
+    "Consolidate boiler setpoint signals"
+    annotation (Placement(transformation(extent={{280,120},{300,140}})));
+
+  Buildings.Controls.OBC.CDL.Integers.OnCounter onCouInt1(
+    final y_start=0)
+    "Count number of stage changes initiated"
+    annotation (Placement(transformation(extent={{100,200},{120,220}})));
+
+  Buildings.Controls.OBC.CDL.Logical.Or or4
+    "Generate stage change signal when simulation is initiated or previous change is completed"
+    annotation (Placement(transformation(extent={{60,200},{80,220}})));
+
+  Buildings.Controls.OBC.CDL.Logical.And and7[nBoi]
+    "Pass stage-1 boiler setpoints only when stage setpoint is 1"
+    annotation (Placement(transformation(extent={{-280,-200},{-260,-180}})));
+
+  Buildings.Controls.OBC.CDL.Logical.And and8[nBoi]
+    "Pass stage-2 boiler setpoints only when stage setpoint is 2"
+    annotation (Placement(transformation(extent={{-280,-250},{-260,-230}})));
+
+  Buildings.Controls.OBC.CDL.Logical.And and9[nBoi]
+    "Pass stage-3 boiler setpoints only when stage setpoint is 3"
+    annotation (Placement(transformation(extent={{-280,-280},{-260,-260}})));
+
+  Buildings.Controls.OBC.CDL.Integers.Equal intEqu6
+    "Check if next stage setpoint is 1"
+    annotation (Placement(transformation(extent={{-350,-200},{-330,-180}})));
+
+  Buildings.Controls.OBC.CDL.Integers.Equal intEqu7
+    "Check if next stage setpoint is 2"
+    annotation (Placement(transformation(extent={{-350,-240},{-330,-220}})));
+
+  Buildings.Controls.OBC.CDL.Routing.BooleanScalarReplicator booScaRep6(
+    final nout=nBoi)
+    "Replicate stage detection signal"
+    annotation (Placement(transformation(extent={{-320,-200},{-300,-180}})));
+
+  Buildings.Controls.OBC.CDL.Routing.BooleanScalarReplicator booScaRep7(
+    final nout=nBoi)
+    "Replicate stage detection signal"
+    annotation (Placement(transformation(extent={{-320,-240},{-300,-220}})));
+
+  Buildings.Controls.OBC.CDL.Integers.Equal intEqu8
+    "Check if next stage setpoint is 3"
+    annotation (Placement(transformation(extent={{-348,-280},{-328,-260}})));
+
+  Buildings.Controls.OBC.CDL.Routing.BooleanScalarReplicator booScaRep8(
+    final nout=nBoi)
+    "Replicate stage detection signal"
+    annotation (Placement(transformation(extent={{-320,-280},{-300,-260}})));
+
+  Buildings.Controls.OBC.CDL.Logical.Or or5[nBoi]
+    "Consolidate boiler setpoint signals"
+    annotation (Placement(transformation(extent={{-200,-260},{-180,-240}})));
+
+  Buildings.Controls.OBC.CDL.Logical.Or or8[nBoi]
+    "Consolidate boiler setpoint signals"
+    annotation (Placement(transformation(extent={{-240,-220},{-220,-200}})));
+
+  Buildings.Controls.OBC.CDL.Integers.OnCounter onCouInt2(
+    final y_start=0)
+    "Count number of stage changes initiated"
+    annotation (Placement(transformation(extent={{-430,-140},{-410,-120}})));
+
+  Buildings.Controls.OBC.CDL.Logical.Or or9
+    "Generate stage change signal when simulation is initiated or previous change is completed"
+    annotation (Placement(transformation(extent={{-460,-140},{-440,-120}})));
+
+  Buildings.Controls.OBC.CDL.Integers.Subtract intSub
+    "Count down next stage change based on number of changes initiated"
+    annotation (Placement(transformation(extent={{-400,220},{-380,240}})));
+
+  Buildings.Controls.OBC.CDL.Integers.Sources.Constant conInt2(
+    final k=3)
+    "Highest available stage"
+    annotation (Placement(transformation(extent={{-440,260},{-420,280}})));
+
+  Buildings.Controls.OBC.CDL.Integers.Subtract intSub1
+    "Count down next stage change based on number of changes initiated"
+    annotation (Placement(transformation(extent={{130,200},{150,220}})));
+
+  Buildings.Controls.OBC.CDL.Integers.Sources.Constant conInt6(
+    final k=3)
+    "Highest available stage"
+    annotation (Placement(transformation(extent={{78,240},{98,260}})));
+
+  Buildings.Controls.OBC.CDL.Integers.Subtract intSub2
+    "Count down next stage change based on number of changes initiated"
+    annotation (Placement(transformation(extent={{-390,-140},{-370,-120}})));
+
+  Buildings.Controls.OBC.CDL.Integers.Sources.Constant conInt8(
+    final k=3)
+    "Highest available stage"
+    annotation (Placement(transformation(extent={{-430,-100},{-410,-80}})));
+
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant con1[nBoi](
     final k={false,true})
     "Boiler setpoints for stage 2"
-    annotation (Placement(transformation(extent={{-370,90},{-350,110}})));
+    annotation (Placement(transformation(extent={{-440,70},{-420,90}})));
 
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant con2[nBoi](
     final k={true,false})
-    "Boiler setpoints for stage 3"
-    annotation (Placement(transformation(extent={{-370,130},{-350,150}})));
+    "Boiler setpoints for stage 1"
+    annotation (Placement(transformation(extent={{-440,120},{-420,140}})));
 
   Buildings.Controls.OBC.CDL.Logical.FallingEdge falEdg
     "Falling edge detector"
@@ -277,29 +354,33 @@ protected
 
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant conInt(
     final k=1)
-    "Stage 3 setpoint"
-    annotation (Placement(transformation(extent={{-330,150},{-310,170}})));
+    "Stage 1 setpoint"
+    annotation (Placement(transformation(extent={{-400,140},{-380,160}})));
 
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant conInt1(
     final k=2)
     "Stage 2 setpoint"
-    annotation (Placement(transformation(extent={{-330,110},{-310,130}})));
+    annotation (Placement(transformation(extent={{-400,90},{-380,110}})));
 
-  Buildings.Controls.OBC.CDL.Logical.Sources.Pulse booPul(final width=0.1/1800,
-      final period=1800) "Boolean pulse to start initial stage change"
-    annotation (Placement(transformation(extent={{-370,250},{-350,270}})));
+  Buildings.Controls.OBC.CDL.Logical.Sources.Pulse booPul(
+    final width=1/1800,
+    final period=1800,
+    final shift=1)
+    "Boolean pulse to start initial stage change"
+    annotation (Placement(transformation(extent={{-508,250},{-488,270}})));
 
-  CDL.Logical.Pre pre8[nBoi](
-    final pre_u_start=fill(true,nBoi)) "Zero order hold"
-    annotation (Placement(transformation(extent={{-60,170},{-40,190}})));
+  Buildings.Controls.OBC.CDL.Logical.Pre pre8[nBoi](
+    final pre_u_start=fill(true,nBoi))
+    "Logical pre block"
+    annotation (Placement(transformation(extent={{-80,260},{-100,280}})));
 
   Buildings.Controls.OBC.CDL.Logical.Pre pre1
     "Logical pre block"
-    annotation (Placement(transformation(extent={{-40,130},{-20,150}})));
+    annotation (Placement(transformation(extent={{-40,130},{-60,150}})));
 
   Buildings.Controls.OBC.CDL.Logical.Pre pre2
     "Logical pre block"
-    annotation (Placement(transformation(extent={{-28,190},{-8,210}})));
+    annotation (Placement(transformation(extent={{-40,190},{-20,210}})));
 
   Buildings.Controls.OBC.CDL.Logical.FallingEdge falEdg1
     "Falling edge detector"
@@ -307,505 +388,471 @@ protected
 
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant con4[nBoi](
     final k={true,true})
-    "Initial boiler setpoints for stage 1"
-    annotation (Placement(transformation(extent={{-370,50},{-350,70}})));
+    "Boiler setpoints for stage 3"
+    annotation (Placement(transformation(extent={{-440,10},{-420,30}})));
 
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant conInt3(
     final k=3)
-    "Stage 1 setpoint"
-    annotation (Placement(transformation(extent={{-330,70},{-310,90}})));
+    "Stage 3 setpoint"
+    annotation (Placement(transformation(extent={{-400,40},{-380,60}})));
 
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant con5[nBoi](
     final k={false,true})
     "Boiler setpoints for stage 2"
-    annotation (Placement(transformation(extent={{12,100},{32,120}})));
+    annotation (Placement(transformation(extent={{80,80},{100,100}})));
 
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant con6[nBoi](
-    final k={true,false})
-    "Boiler setpoints for stage 3"
-    annotation (Placement(transformation(extent={{12,140},{32,160}})));
+    final k={true,false}) "Boiler setpoints for stage 1"
+    annotation (Placement(transformation(extent={{80,120},{100,140}})));
 
   Buildings.Controls.OBC.CDL.Logical.FallingEdge falEdg3
     "Falling edge detector"
-    annotation (Placement(transformation(extent={{280,150},{300,170}})));
+    annotation (Placement(transformation(extent={{440,150},{460,170}})));
 
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant conInt4(
     final k=1)
     "Stage 3 setpoint"
-    annotation (Placement(transformation(extent={{52,160},{72,180}})));
+    annotation (Placement(transformation(extent={{130,140},{150,160}})));
 
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant conInt5(
     final k=2)
     "Stage 2 setpoint"
-    annotation (Placement(transformation(extent={{52,120},{72,140}})));
+    annotation (Placement(transformation(extent={{130,100},{150,120}})));
 
-  Buildings.Controls.OBC.CDL.Logical.Sources.Pulse booPul1(final width=0.1/1800,
-      final period=1800) "Boolean pulse to start initial stage change"
-    annotation (Placement(transformation(extent={{12,230},{32,250}})));
+  Buildings.Controls.OBC.CDL.Logical.Sources.Pulse booPul1(
+    final width=1/1800,
+    final period=1800,
+    final shift=1)
+    "Boolean pulse to start initial stage change"
+    annotation (Placement(transformation(extent={{20,170},{40,190}})));
 
   Buildings.Controls.OBC.CDL.Logical.Pre pre5
     "Logical pre block"
-    annotation (Placement(transformation(extent={{320,150},{340,170}})));
+    annotation (Placement(transformation(extent={{490,130},{470,150}})));
 
   Buildings.Controls.OBC.CDL.Logical.Pre pre6
     "Logical pre block"
-    annotation (Placement(transformation(extent={{340,190},{360,210}})));
+    annotation (Placement(transformation(extent={{470,180},{490,200}})));
 
   Buildings.Controls.OBC.CDL.Logical.FallingEdge falEdg4
     "Falling edge detector"
-    annotation (Placement(transformation(extent={{280,190},{300,210}})));
+    annotation (Placement(transformation(extent={{440,180},{460,200}})));
 
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant con9[nBoi](
-    final k={true,true})
-    "Initial boiler setpoints for stage 1"
-    annotation (Placement(transformation(extent={{12,60},{32,80}})));
+    final k={true,true}) "Boiler setpoints for stage 3"
+    annotation (Placement(transformation(extent={{80,40},{100,60}})));
 
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant conInt7(
     final k=3)
     "Stage 1 setpoint"
-    annotation (Placement(transformation(extent={{52,80},{72,100}})));
+    annotation (Placement(transformation(extent={{130,60},{150,80}})));
 
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant con20[nBoi](
     final k={false,true})
     "Boiler setpoints for stage 2"
-    annotation (Placement(transformation(extent={{-370,-270},{-350,-250}})));
+    annotation (Placement(transformation(extent={{-440,-260},{-420,-240}})));
 
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant con21[nBoi](
-    final k={true,
-        false})
-    "Boiler setpoints for stage 3"
-    annotation (Placement(transformation(extent={{-370,-230},{-350,-210}})));
+    final k={true,false}) "Boiler setpoints for stage 1"
+    annotation (Placement(transformation(extent={{-440,-220},{-420,-200}})));
 
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant conInt16(
     final k=1)
     "Stage 3 setpoint"
-    annotation (Placement(transformation(extent={{-330,-210},{-310,-190}})));
+    annotation (Placement(transformation(extent={{-400,-200},{-380,-180}})));
 
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant conInt17(
     final k=2)
     "Stage 2 setpoint"
-    annotation (Placement(transformation(extent={{-330,-250},{-310,-230}})));
+    annotation (Placement(transformation(extent={{-400,-240},{-380,-220}})));
 
-  Buildings.Controls.OBC.CDL.Logical.Sources.Pulse booPul4(final width=0.1/1800,
-      final period=1800) "Boolean pulse to start initial stage change"
-    annotation (Placement(transformation(extent={{-370,-80},{-350,-60}})));
+  Buildings.Controls.OBC.CDL.Logical.Sources.Pulse booPul4(
+    final width=1/1800,
+    final period=1800,
+    final shift=1)
+    "Boolean pulse to start initial stage change"
+    annotation (Placement(transformation(extent={{-500,-80},{-480,-60}})));
 
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant con23(
     final k=VNom_flow)
     "Calculated minimum flow rate signal"
-    annotation (Placement(transformation(extent={{-220,-130},{-200,-110}})));
+    annotation (Placement(transformation(extent={{-280,-140},{-260,-120}})));
 
-  CDL.Logical.Pre                                   pre4      [nBoi](
-      pre_u_start=fill(true, nBoi))
-    "Zero order hold"
-    annotation (Placement(transformation(extent={{-120,-170},{-100,-150}})));
+  Buildings.Controls.OBC.CDL.Logical.Pre pre4[nBoi](
+    pre_u_start=fill(true, nBoi))
+    "Logical pre block"
+    annotation (Placement(transformation(extent={{-120,-180},{-100,-160}})));
 
   Buildings.Controls.OBC.CDL.Logical.Pre pre15
     "Logical pre block"
-    annotation (Placement(transformation(extent={{-40,-140},{-20,-120}})));
+    annotation (Placement(transformation(extent={{-40,-150},{-20,-130}})));
 
   Buildings.Controls.OBC.CDL.Logical.FallingEdge falEdg13
     "Falling edge detector"
-    annotation (Placement(transformation(extent={{-80,-140},{-60,-120}})));
+    annotation (Placement(transformation(extent={{-80,-150},{-60,-130}})));
 
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant  con24[nBoi](
     final k={true,true})
-    "Initial boiler setpoints for stage 1"
-    annotation (Placement(transformation(extent={{-370,-310},{-350,-290}})));
+    "Boiler setpoints for stage 3"
+    annotation (Placement(transformation(extent={{-440,-310},{-420,-290}})));
 
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant conInt19(
     final k=3)
     "Stage 1 setpoint"
-    annotation (Placement(transformation(extent={{-330,-290},{-310,-270}})));
+    annotation (Placement(transformation(extent={{-400,-280},{-380,-260}})));
 
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant con12(
     final k=1.1*VNom_flow)
     "Calculated minimum flow rate signal"
-    annotation (Placement(transformation(extent={{-90,-26},{-70,-6}})));
+    annotation (Placement(transformation(extent={{-280,-70},{-260,-50}})));
 
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant con17(
     final k=VNom_flow)
     "Calculated minimum flow rate signal"
-    annotation (Placement(transformation(extent={{-90,-66},{-70,-46}})));
+    annotation (Placement(transformation(extent={{-280,-110},{-260,-90}})));
 
   Buildings.Controls.OBC.CDL.Reals.Switch swi2
     "Pass different instances of measured flow-rate after stage change"
-    annotation (Placement(transformation(extent={{-50,-46},{-30,-26}})));
+    annotation (Placement(transformation(extent={{-240,-90},{-220,-70}})));
 
   Buildings.Controls.OBC.CDL.Logical.Latch lat10
     "Hold true signal after stage change"
-    annotation (Placement(transformation(extent={{-130,-46},{-110,-26}})));
+    annotation (Placement(transformation(extent={{-320,-90},{-300,-70}})));
 
-  CDL.Logical.Pre                        pre14
+  Buildings.Controls.OBC.CDL.Logical.Pre pre14
+    "Logical pre block for additional delay on next stage change process start signal"
+    annotation (Placement(transformation(extent={{-510,220},{-490,240}})));
+
+  Buildings.Controls.OBC.CDL.Logical.Sources.Constant con7(
+    final k=false) "Constant false signal"
+    annotation (Placement(transformation(extent={{-510,190},{-490,210}})));
+
+  Buildings.Controls.OBC.CDL.Logical.Sources.Constant con3(
+    final k=false)
+    "Constant false signal"
+    annotation (Placement(transformation(extent={{20,140},{40,160}})));
+
+  Buildings.Controls.OBC.CDL.Logical.Pre pre3
+    "Logical pre block for additional delay on next stage change process start signal"
+    annotation (Placement(transformation(extent={{20,200},{40,220}})));
+
+  Buildings.Controls.OBC.CDL.Logical.Pre pre7
     "Logical pre block"
-    annotation (Placement(transformation(extent={{-372,220},{-352,240}})));
-  CDL.Logical.Sources.Constant con7(final k=false) "Constant false signal"
-    annotation (Placement(transformation(extent={{-372,194},{-352,214}})));
-  CDL.Logical.Sources.Constant con3(final k=false) "Constant false signal"
-    annotation (Placement(transformation(extent={{12,170},{32,190}})));
-  CDL.Logical.Pre                        pre3
+    annotation (Placement(transformation(extent={{-500,-150},{-480,-130}})));
+
+  Buildings.Controls.OBC.CDL.Logical.Sources.Constant con8(
+    final k=false)
+    "Constant false signal"
+    annotation (Placement(transformation(extent={{-500,-180},{-480,-160}})));
+
+  Buildings.Controls.OBC.CDL.Logical.Pre pre9[nBoi](
+    final pre_u_start=fill(true, nBoi))
     "Logical pre block"
-    annotation (Placement(transformation(extent={{10,200},{30,220}})));
-  CDL.Logical.Pre                        pre7
+    annotation (Placement(transformation(extent={{-80,230},{-100,250}})));
+
+  Buildings.Controls.OBC.CDL.Logical.Pre pre10[nBoi](
+    final pre_u_start=fill(true, nBoi))
     "Logical pre block"
-    annotation (Placement(transformation(extent={{-370,-120},{-350,-100}})));
-  CDL.Logical.Sources.Constant con8(final k=false) "Constant false signal"
-    annotation (Placement(transformation(extent={{-370,-146},{-350,-126}})));
-  CDL.Logical.Pre pre9[nBoi](final pre_u_start=fill(true, nBoi))
-                                       "Zero order hold"
-    annotation (Placement(transformation(extent={{-140,230},{-160,250}})));
-  CDL.Logical.Pre pre10
-                      [nBoi](final pre_u_start=fill(true, nBoi))
-                                       "Zero order hold"
-    annotation (Placement(transformation(extent={{230,230},{210,250}})));
-  CDL.Logical.Pre pre11
-                      [nBoi](final pre_u_start=fill(true, nBoi))
-                                       "Zero order hold"
-    annotation (Placement(transformation(extent={{-140,-90},{-160,-70}})));
+    annotation (Placement(transformation(extent={{380,220},{360,240}})));
+
+  Buildings.Controls.OBC.CDL.Logical.Pre pre11[nBoi](
+    final pre_u_start=fill(true, nBoi))
+    "Logical pre block"
+    annotation (Placement(transformation(extent={{-140,-110},{-160,-90}})));
+
 equation
 
   connect(yPumChaPro.y, falEdg.u)
     annotation (Line(points={{-98,160},{-92,160}}, color={255,0,255}));
 
-  connect(falEdg.y, pre1.u) annotation (Line(points={{-68,160},{-46,160},{-46,
-          140},{-42,140}}, color={255,0,255}));
+  connect(falEdg.y, pre1.u) annotation (Line(points={{-68,160},{-38,160},{-38,140}},
+                           color={255,0,255}));
 
   connect(yStaChaPro.y, falEdg1.u)
     annotation (Line(points={{-98,200},{-92,200}}, color={255,0,255}));
 
   connect(falEdg1.y, pre2.u)
-    annotation (Line(points={{-68,200},{-30,200}}, color={255,0,255}));
+    annotation (Line(points={{-68,200},{-42,200}}, color={255,0,255}));
 
   connect(yPumChaPro1.y, falEdg3.u)
-    annotation (Line(points={{272,160},{278,160}}, color={255,0,255}));
+    annotation (Line(points={{422,160},{438,160}}, color={255,0,255}));
 
-  connect(falEdg3.y, pre5.u) annotation (Line(points={{302,160},{318,160}},
-                      color={255,0,255}));
+  connect(falEdg3.y, pre5.u) annotation (Line(points={{462,160},{496,160},{496,140},
+          {492,140}}, color={255,0,255}));
 
   connect(yStaChaPro1.y, falEdg4.u)
-    annotation (Line(points={{272,200},{278,200}}, color={255,0,255}));
+    annotation (Line(points={{422,190},{438,190}}, color={255,0,255}));
 
   connect(falEdg4.y,pre6. u)
-    annotation (Line(points={{302,200},{338,200}}, color={255,0,255}));
+    annotation (Line(points={{462,190},{468,190}}, color={255,0,255}));
 
   connect(yStaChaPro4.y, falEdg13.u)
-    annotation (Line(points={{-98,-130},{-82,-130}},
+    annotation (Line(points={{-98,-140},{-82,-140}},
                                                    color={255,0,255}));
 
   connect(falEdg13.y, pre15.u)
-    annotation (Line(points={{-58,-130},{-42,-130}},
+    annotation (Line(points={{-58,-140},{-42,-140}},
                                                    color={255,0,255}));
 
-  connect(con12.y, swi2.u1) annotation (Line(points={{-68,-16},{-60,-16},{-60,-28},
-          {-52,-28}},      color={0,0,127}));
+  connect(con12.y, swi2.u1) annotation (Line(points={{-258,-60},{-250,-60},{-250,
+          -72},{-242,-72}},color={0,0,127}));
 
-  connect(con17.y, swi2.u3) annotation (Line(points={{-68,-56},{-60,-56},{-60,-44},
-          {-52,-44}},      color={0,0,127}));
+  connect(con17.y, swi2.u3) annotation (Line(points={{-258,-100},{-250,-100},{-250,
+          -88},{-242,-88}},color={0,0,127}));
 
   connect(lat10.y, swi2.u2)
-    annotation (Line(points={{-108,-36},{-52,-36}},color={255,0,255}));
+    annotation (Line(points={{-298,-80},{-242,-80}},
+                                                   color={255,0,255}));
 
-  connect(pre15.y, lat10.u) annotation (Line(points={{-18,-130},{-12,-130},{-12,
-          0},{-144,0},{-144,-36},{-132,-36}},  color={255,0,255}));
+  connect(pre15.y, lat10.u) annotation (Line(points={{-18,-140},{-10,-140},{-10,
+          -40},{-332,-40},{-332,-80},{-322,-80}},
+                                               color={255,0,255}));
 
-  connect(pre1.y, dowProCon.uPumChaPro) annotation (Line(points={{-18,140},{-10,
-          140},{-10,120},{-80,120},{-80,140},{-166,140},{-166,166},{-162,166}},
+  connect(pre1.y, dowProCon.uPumChaPro) annotation (Line(points={{-62,140},{-168,
+          140},{-168,166},{-162,166}},
         color={255,0,255}));
 
   connect(dowProCon.yStaChaPro, yStaChaPro.u) annotation (Line(points={{-138,196},
           {-126,196},{-126,200},{-122,200}}, color={255,0,255}));
 
   connect(dowProCon.yPumChaPro, yPumChaPro.u) annotation (Line(points={{-138,171},
-          {-130,171},{-130,160},{-122,160}}, color={255,0,255}));
+          {-138,160},{-122,160}},            color={255,0,255}));
 
-  connect(pre5.y, dowProCon1.uPumChaPro) annotation (Line(points={{342,160},{
-          352,160},{352,144},{196,144},{196,166},{208,166}},
+  connect(pre5.y, dowProCon1.uPumChaPro) annotation (Line(points={{468,140},{340,
+          140},{340,166},{358,166}},
         color={255,0,255}));
 
-  connect(dowProCon1.yStaChaPro, yStaChaPro1.u) annotation (Line(points={{232,196},
-          {244,196},{244,200},{248,200}}, color={255,0,255}));
+  connect(dowProCon1.yStaChaPro, yStaChaPro1.u) annotation (Line(points={{382,196},
+          {390,196},{390,190},{398,190}}, color={255,0,255}));
 
-  connect(con23.y, dowProCon4.VMinHotWatSet_flow) annotation (Line(points={{-198,
-          -120},{-172,-120},{-172,-135},{-162,-135}},                     color=
+  connect(con23.y, dowProCon4.VMinHotWatSet_flow) annotation (Line(points={{-258,
+          -130},{-224,-130},{-224,-135},{-162,-135}},                     color=
          {0,0,127}));
 
-  connect(swi2.y, dowProCon4.VHotWat_flow) annotation (Line(points={{-28,-36},{
-          -20,-36},{-20,-96},{-166,-96},{-166,-130},{-162,-130}},
-                                                              color={0,0,127}));
+  connect(swi2.y, dowProCon4.VHotWat_flow) annotation (Line(points={{-218,-80},{
+          -210,-80},{-210,-130},{-162,-130}},                 color={0,0,127}));
 
   connect(dowProCon4.yStaChaPro, yStaChaPro4.u) annotation (Line(points={{-138,-140},
-          {-126,-140},{-126,-130},{-122,-130}}, color={255,0,255}));
+          {-122,-140}},                         color={255,0,255}));
 
-  connect(dowProCon1.yPumChaPro, yPumChaPro1.u) annotation (Line(points={{232,171},
-          {240,171},{240,160},{248,160}}, color={255,0,255}));
+  connect(dowProCon1.yPumChaPro, yPumChaPro1.u) annotation (Line(points={{382,171},
+          {390,171},{390,160},{398,160}}, color={255,0,255}));
 
-  connect(pre2.y, dowProCon.uStaChaPro) annotation (Line(points={{-6,200},{0,
-          200},{0,90},{-180,90},{-180,171},{-162,171}},
-                                                     color={255,0,255}));
-  connect(pre6.y, dowProCon1.uStaChaPro) annotation (Line(points={{362,200},{
-          372,200},{372,130},{186,130},{186,171},{208,171}},
-                                                         color={255,0,255}));
-  connect(pre15.y, dowProCon4.uStaChaPro) annotation (Line(points={{-18,-130},{
-          -12,-130},{-12,-196},{-128,-196},{-128,-184},{-172,-184},{-172,-165},
-          {-162,-165}},                                        color={255,0,255}));
+  connect(pre2.y, dowProCon.uStaChaPro) annotation (Line(points={{-18,200},{-10,
+          200},{-10,122},{-162,122},{-162,171}},     color={255,0,255}));
+  connect(pre6.y, dowProCon1.uStaChaPro) annotation (Line(points={{492,190},{500,
+          190},{500,280},{330,280},{330,171},{358,171}}, color={255,0,255}));
+  connect(pre15.y, dowProCon4.uStaChaPro) annotation (Line(points={{-18,-140},{-10,
+          -140},{-10,-194},{-166,-194},{-166,-165},{-162,-165}},
+                                                               color={255,0,255}));
   connect(dowProCon.yHotWatIsoVal, pre8.u) annotation (Line(points={{-138,191},{
-          -128,191},{-128,180},{-62,180}}, color={255,0,255}));
+          -128,191},{-128,184},{-56,184},{-56,270},{-78,270}},
+                                           color={255,0,255}));
   connect(intEqu.y, booScaRep.u)
-    annotation (Line(points={{-248,150},{-242,150}}, color={255,0,255}));
-  connect(booScaRep.y, and2.u1) annotation (Line(points={{-218,150},{-214,150},{
-          -214,130},{-212,130}}, color={255,0,255}));
+    annotation (Line(points={{-338,150},{-322,150}}, color={255,0,255}));
+  connect(booScaRep.y, and2.u1) annotation (Line(points={{-298,150},{-290,150},{
+          -290,130},{-282,130}}, color={255,0,255}));
   connect(intEqu1.y, booScaRep1.u)
-    annotation (Line(points={{-248,110},{-242,110}}, color={255,0,255}));
-  connect(booScaRep1.y, and1.u1) annotation (Line(points={{-218,110},{-216,110},
-          {-216,100},{-212,100}}, color={255,0,255}));
+    annotation (Line(points={{-338,100},{-322,100}}, color={255,0,255}));
+  connect(booScaRep1.y, and1.u1) annotation (Line(points={{-298,100},{-292,100},
+          {-292,90},{-282,90}},   color={255,0,255}));
   connect(intEqu2.y, booScaRep2.u)
-    annotation (Line(points={{-246,70},{-240,70}}, color={255,0,255}));
+    annotation (Line(points={{-338,50},{-322,50}}, color={255,0,255}));
   connect(booScaRep2.y, and3.u1)
-    annotation (Line(points={{-216,70},{-212,70}}, color={255,0,255}));
-  connect(and2.y, or2.u1) annotation (Line(points={{-188,130},{-176,130},{-176,120},
-          {-162,120}}, color={255,0,255}));
-  connect(and1.y, or2.u2) annotation (Line(points={{-188,100},{-176,100},{-176,112},
-          {-162,112}}, color={255,0,255}));
-  connect(and3.y, or7.u2) annotation (Line(points={{-188,70},{-122,70},{-122,112}},
+    annotation (Line(points={{-298,50},{-290,50},{-290,30},{-282,30}},
+                                                   color={255,0,255}));
+  connect(and2.y, or2.u1) annotation (Line(points={{-258,130},{-250,130},{-250,110},
+          {-242,110}}, color={255,0,255}));
+  connect(and1.y, or2.u2) annotation (Line(points={{-258,90},{-250,90},{-250,102},
+          {-242,102}}, color={255,0,255}));
+  connect(and3.y, or7.u2) annotation (Line(points={{-258,30},{-210,30},{-210,62},
+          {-202,62}},
         color={255,0,255}));
   connect(or2.y, or7.u1)
-    annotation (Line(points={{-138,120},{-122,120}}, color={255,0,255}));
-  connect(con7.y, onCouInt.reset) annotation (Line(points={{-350,204},{-290,204},
-          {-290,218}}, color={255,0,255}));
+    annotation (Line(points={{-218,110},{-210,110},{-210,70},{-202,70}},
+                                                     color={255,0,255}));
+  connect(con7.y, onCouInt.reset) annotation (Line(points={{-488,200},{-430,200},
+          {-430,218}}, color={255,0,255}));
   connect(or6.y, onCouInt.trigger)
-    annotation (Line(points={{-310,230},{-302,230}}, color={255,0,255}));
-  connect(pre14.y, or6.u2) annotation (Line(points={{-350,230},{-350,222},{-334,
+    annotation (Line(points={{-448,230},{-442,230}}, color={255,0,255}));
+  connect(pre14.y, or6.u2) annotation (Line(points={{-488,230},{-488,222},{-472,
           222}}, color={255,0,255}));
-  connect(booPul.y, or6.u1) annotation (Line(points={{-348,260},{-340,260},{
-          -340,230},{-334,230}},
-                            color={255,0,255}));
-  connect(pre2.y, pre14.u) annotation (Line(points={{-6,200},{0,200},{0,90},{
-          -180,90},{-180,184},{-376,184},{-376,230},{-374,230}},
-                                                            color={255,0,255}));
-  connect(conInt.y, intEqu.u2) annotation (Line(points={{-308,160},{-284,160},{-284,
-          142},{-272,142}}, color={255,127,0}));
-  connect(conInt1.y, intEqu1.u2) annotation (Line(points={{-308,120},{-284,120},
-          {-284,102},{-272,102}}, color={255,127,0}));
-  connect(conInt3.y, intEqu2.u2) annotation (Line(points={{-308,80},{-292,80},{-292,
-          62},{-270,62}}, color={255,127,0}));
-  connect(con2.y, and2.u2) annotation (Line(points={{-348,140},{-284,140},{-284,
-          128},{-212,128},{-212,122}}, color={255,0,255}));
-  connect(con1.y, and1.u2) annotation (Line(points={{-348,100},{-284,100},{-284,
-          92},{-212,92}}, color={255,0,255}));
-  connect(con4.y, and3.u2) annotation (Line(points={{-348,60},{-280,60},{-280,52},
-          {-212,52},{-212,62}}, color={255,0,255}));
-  connect(or7.y, dowProCon.uBoiSet) annotation (Line(points={{-98,120},{-92,120},
-          {-92,144},{-172,144},{-172,186},{-162,186}},     color={255,0,255}));
+  connect(booPul.y, or6.u1) annotation (Line(points={{-486,260},{-478,260},{-478,
+          230},{-472,230}}, color={255,0,255}));
+  connect(pre2.y, pre14.u) annotation (Line(points={{-18,200},{-10,200},{-10,300},
+          {-514,300},{-514,230},{-512,230}},                color={255,0,255}));
+  connect(con2.y, and2.u2) annotation (Line(points={{-418,130},{-364,130},{-364,
+          122},{-282,122}},            color={255,0,255}));
+  connect(con1.y, and1.u2) annotation (Line(points={{-418,80},{-356,80},{-356,82},
+          {-282,82}},     color={255,0,255}));
+  connect(con4.y, and3.u2) annotation (Line(points={{-418,20},{-292,20},{-292,22},
+          {-282,22}},           color={255,0,255}));
+  connect(or7.y, dowProCon.uBoiSet) annotation (Line(points={{-178,70},{-172,70},
+          {-172,186},{-162,186}},                          color={255,0,255}));
   connect(intEqu3.y, booScaRep3.u)
-    annotation (Line(points={{112,150},{118,150}}, color={255,0,255}));
-  connect(booScaRep3.y, and4.u1) annotation (Line(points={{142,150},{146,150},{146,
-          130},{148,130}}, color={255,0,255}));
+    annotation (Line(points={{194,150},{198,150}}, color={255,0,255}));
+  connect(booScaRep3.y, and4.u1) annotation (Line(points={{222,150},{238,150}},
+                           color={255,0,255}));
   connect(intEqu4.y, booScaRep4.u)
-    annotation (Line(points={{112,110},{118,110}}, color={255,0,255}));
-  connect(booScaRep4.y, and5.u1) annotation (Line(points={{142,110},{144,110},{144,
-          100},{148,100}}, color={255,0,255}));
+    annotation (Line(points={{194,110},{198,110}}, color={255,0,255}));
+  connect(booScaRep4.y, and5.u1) annotation (Line(points={{222,110},{238,110}},
+                           color={255,0,255}));
   connect(intEqu5.y, booScaRep5.u)
-    annotation (Line(points={{114,70},{120,70}}, color={255,0,255}));
+    annotation (Line(points={{196,70},{198,70}}, color={255,0,255}));
   connect(booScaRep5.y, and6.u1)
-    annotation (Line(points={{144,70},{148,70}}, color={255,0,255}));
-  connect(and4.y, or3.u1) annotation (Line(points={{172,130},{184,130},{184,120},
-          {198,120}}, color={255,0,255}));
-  connect(and5.y, or3.u2) annotation (Line(points={{172,100},{184,100},{184,112},
-          {198,112}}, color={255,0,255}));
+    annotation (Line(points={{222,70},{238,70}}, color={255,0,255}));
+  connect(and4.y, or3.u1) annotation (Line(points={{262,150},{270,150},{270,130},
+          {278,130}}, color={255,0,255}));
+  connect(and5.y, or3.u2) annotation (Line(points={{262,110},{270,110},{270,122},
+          {278,122}}, color={255,0,255}));
   connect(and6.y, or1.u2)
-    annotation (Line(points={{172,70},{238,70},{238,112}}, color={255,0,255}));
+    annotation (Line(points={{262,70},{318,70},{318,112}}, color={255,0,255}));
   connect(or3.y, or1.u1)
-    annotation (Line(points={{222,120},{238,120}}, color={255,0,255}));
+    annotation (Line(points={{302,130},{312,130},{312,120},{318,120}},
+                                                   color={255,0,255}));
   connect(or4.y, onCouInt1.trigger)
-    annotation (Line(points={{82,210},{88,210}}, color={255,0,255}));
-  connect(pre3.y, or4.u2) annotation (Line(points={{32,210},{48,210},{48,202},{58,
-          202}}, color={255,0,255}));
-  connect(con3.y, onCouInt1.reset) annotation (Line(points={{34,180},{44,180},{44,
-          188},{100,188},{100,198}}, color={255,0,255}));
-  connect(booPul1.y, or4.u1) annotation (Line(points={{34,240},{48,240},{48,216},
-          {52,216},{52,210},{58,210}}, color={255,0,255}));
-  connect(pre6.y, pre3.u) annotation (Line(points={{362,200},{368,200},{368,260},
-          {4,260},{4,220},{0,220},{0,210},{8,210}}, color={255,0,255}));
-  connect(or1.y, dowProCon1.uBoiSet) annotation (Line(points={{262,120},{272,
-          120},{272,140},{184,140},{184,186},{208,186}},color={255,0,255}));
-  connect(or6.y, dowProCon.uStaDowPro) annotation (Line(points={{-310,230},{
-          -306,230},{-306,252},{-180,252},{-180,188},{-176,188},{-176,181},{
-          -162,181}},
+    annotation (Line(points={{82,210},{98,210}}, color={255,0,255}));
+  connect(con3.y, onCouInt1.reset) annotation (Line(points={{42,150},{110,150},{
+          110,198}},                 color={255,0,255}));
+  connect(pre6.y, pre3.u) annotation (Line(points={{492,190},{500,190},{500,280},
+          {10,280},{10,210},{18,210}},              color={255,0,255}));
+  connect(or1.y, dowProCon1.uBoiSet) annotation (Line(points={{342,120},{350,120},
+          {350,186},{358,186}},                         color={255,0,255}));
+  connect(or6.y, dowProCon.uStaDowPro) annotation (Line(points={{-448,230},{-444,
+          230},{-444,252},{-314,252},{-314,181},{-162,181}},
         color={255,0,255}));
-  connect(or4.y, dowProCon1.uStaDowPro) annotation (Line(points={{82,210},{82,
-          228},{188,228},{188,181},{208,181}},color={255,0,255}));
-  connect(conInt4.y, intEqu3.u2) annotation (Line(points={{74,170},{84,170},{84,
-          160},{80,160},{80,142},{88,142}}, color={255,127,0}));
-  connect(conInt5.y, intEqu4.u2) annotation (Line(points={{74,130},{84,130},{84,
-          120},{80,120},{80,102},{88,102}}, color={255,127,0}));
-  connect(conInt7.y, intEqu5.u2) annotation (Line(points={{74,90},{84,90},{84,62},
-          {90,62}}, color={255,127,0}));
-  connect(con6.y, and4.u2) annotation (Line(points={{34,150},{44,150},{44,48},{180,
-          48},{180,122},{148,122}}, color={255,0,255}));
-  connect(con5.y, and5.u2) annotation (Line(points={{34,110},{76,110},{76,100},{
-          84,100},{84,92},{148,92}}, color={255,0,255}));
-  connect(con9.y, and6.u2) annotation (Line(points={{34,70},{80,70},{80,52},{148,
-          52},{148,62}}, color={255,0,255}));
+  connect(or4.y, dowProCon1.uStaDowPro) annotation (Line(points={{82,210},{90,210},
+          {90,181},{358,181}},                color={255,0,255}));
+  connect(con6.y, and4.u2) annotation (Line(points={{102,130},{230,130},{230,142},
+          {238,142}},               color={255,0,255}));
+  connect(con5.y, and5.u2) annotation (Line(points={{102,90},{230,90},{230,102},
+          {238,102}},                color={255,0,255}));
+  connect(con9.y, and6.u2) annotation (Line(points={{102,50},{230,50},{230,62},{
+          238,62}},      color={255,0,255}));
   connect(dowProCon4.yHotWatIsoVal, pre4.u) annotation (Line(points={{-138,-145},
-          {-136,-145},{-136,-152},{-122,-152},{-122,-160}}, color={255,0,255}));
+          {-138,-144},{-130,-144},{-130,-170},{-122,-170}}, color={255,0,255}));
   connect(intEqu6.y, booScaRep6.u)
-    annotation (Line(points={{-246,-190},{-240,-190}}, color={255,0,255}));
-  connect(booScaRep6.y, and7.u1) annotation (Line(points={{-216,-190},{-212,-190},
-          {-212,-210},{-210,-210}}, color={255,0,255}));
+    annotation (Line(points={{-328,-190},{-322,-190}}, color={255,0,255}));
+  connect(booScaRep6.y, and7.u1) annotation (Line(points={{-298,-190},{-282,-190}},
+                                    color={255,0,255}));
   connect(intEqu7.y, booScaRep7.u)
-    annotation (Line(points={{-246,-230},{-240,-230}}, color={255,0,255}));
-  connect(booScaRep7.y, and8.u1) annotation (Line(points={{-216,-230},{-214,-230},
-          {-214,-240},{-210,-240}}, color={255,0,255}));
+    annotation (Line(points={{-328,-230},{-322,-230}}, color={255,0,255}));
+  connect(booScaRep7.y, and8.u1) annotation (Line(points={{-298,-230},{-292,-230},
+          {-292,-240},{-282,-240}}, color={255,0,255}));
   connect(intEqu8.y, booScaRep8.u)
-    annotation (Line(points={{-244,-270},{-238,-270}}, color={255,0,255}));
+    annotation (Line(points={{-326,-270},{-322,-270}}, color={255,0,255}));
   connect(booScaRep8.y, and9.u1)
-    annotation (Line(points={{-214,-270},{-210,-270}}, color={255,0,255}));
-  connect(and7.y, or8.u1) annotation (Line(points={{-186,-210},{-174,-210},{-174,
-          -220},{-160,-220}}, color={255,0,255}));
-  connect(and8.y, or8.u2) annotation (Line(points={{-186,-240},{-174,-240},{-174,
-          -228},{-160,-228}}, color={255,0,255}));
-  connect(and9.y, or5.u2) annotation (Line(points={{-186,-270},{-120,-270},{-120,
-          -228}}, color={255,0,255}));
+    annotation (Line(points={{-298,-270},{-282,-270}}, color={255,0,255}));
+  connect(and7.y, or8.u1) annotation (Line(points={{-258,-190},{-250,-190},{-250,
+          -210},{-242,-210}}, color={255,0,255}));
+  connect(and8.y, or8.u2) annotation (Line(points={{-258,-240},{-250,-240},{-250,
+          -218},{-242,-218}}, color={255,0,255}));
+  connect(and9.y, or5.u2) annotation (Line(points={{-258,-270},{-210,-270},{-210,
+          -258},{-202,-258}},
+                  color={255,0,255}));
   connect(or8.y, or5.u1)
-    annotation (Line(points={{-136,-220},{-120,-220}}, color={255,0,255}));
+    annotation (Line(points={{-218,-210},{-210,-210},{-210,-250},{-202,-250}},
+                                                       color={255,0,255}));
   connect(or9.y, onCouInt2.trigger)
-    annotation (Line(points={{-308,-110},{-302,-110}}, color={255,0,255}));
-  connect(pre7.y, or9.u2) annotation (Line(points={{-348,-110},{-348,-118},{-332,
-          -118}}, color={255,0,255}));
-  connect(con8.y, onCouInt2.reset) annotation (Line(points={{-348,-136},{-290,-136},
-          {-290,-122}}, color={255,0,255}));
-  connect(booPul4.y, or9.u1) annotation (Line(points={{-348,-70},{-348,-72},{-340,
-          -72},{-340,-110},{-332,-110}}, color={255,0,255}));
-  connect(or9.y, dowProCon4.uStaDowPro) annotation (Line(points={{-308,-110},{
-          -308,-155},{-162,-155}},color={255,0,255}));
-  connect(or5.y, dowProCon4.uBoiSet) annotation (Line(points={{-96,-220},{-88,
-          -220},{-88,-192},{-192,-192},{-192,-150},{-162,-150}},
-                                                               color={255,0,255}));
-  connect(conInt16.y, intEqu6.u2) annotation (Line(points={{-308,-200},{-304,-198},
-          {-270,-198}}, color={255,127,0}));
-  connect(conInt17.y, intEqu7.u2) annotation (Line(points={{-308,-240},{-304,-238},
-          {-270,-238}}, color={255,127,0}));
-  connect(conInt19.y, intEqu8.u2) annotation (Line(points={{-308,-280},{-304,-278},
-          {-268,-278}}, color={255,127,0}));
-  connect(con21.y, and7.u2) annotation (Line(points={{-348,-220},{-340,-220},{-340,
-          -260},{-288,-260},{-288,-292},{-180,-292},{-180,-276},{-176,-276},{-176,
-          -244},{-180,-244},{-180,-218},{-210,-218}}, color={255,0,255}));
-  connect(con20.y, and8.u2) annotation (Line(points={{-348,-260},{-340,-260},{-340,
-          -264},{-276,-264},{-276,-248},{-210,-248}}, color={255,0,255}));
-  connect(con24.y, and9.u2) annotation (Line(points={{-348,-300},{-284,-300},{-284,
-          -288},{-210,-288},{-210,-278}}, color={255,0,255}));
-  connect(booPul4.y, lat10.clr) annotation (Line(points={{-348,-70},{-166,-70},
-          {-166,-42},{-132,-42}},color={255,0,255}));
-  connect(pre15.y, pre7.u) annotation (Line(points={{-18,-130},{-12,-130},{-12,
-          0},{-378,0},{-378,-110},{-372,-110}},                    color={255,0,
+    annotation (Line(points={{-438,-130},{-432,-130}}, color={255,0,255}));
+  connect(pre7.y, or9.u2) annotation (Line(points={{-478,-140},{-470,-140},{-470,
+          -138},{-462,-138}},
+                  color={255,0,255}));
+  connect(con8.y, onCouInt2.reset) annotation (Line(points={{-478,-170},{-420,-170},
+          {-420,-142}}, color={255,0,255}));
+  connect(booPul4.y, or9.u1) annotation (Line(points={{-478,-70},{-472,-70},{-472,
+          -130},{-462,-130}},            color={255,0,255}));
+  connect(or9.y, dowProCon4.uStaDowPro) annotation (Line(points={{-438,-130},{-434,
+          -130},{-434,-155},{-162,-155}},
+                                  color={255,0,255}));
+  connect(or5.y, dowProCon4.uBoiSet) annotation (Line(points={{-178,-250},{-172,
+          -250},{-172,-150},{-162,-150}},                      color={255,0,255}));
+  connect(con21.y, and7.u2) annotation (Line(points={{-418,-210},{-282,-210},{-282,
+          -198}},                                     color={255,0,255}));
+  connect(con20.y, and8.u2) annotation (Line(points={{-418,-250},{-292,-250},{-292,
+          -248},{-282,-248}},                         color={255,0,255}));
+  connect(con24.y, and9.u2) annotation (Line(points={{-418,-300},{-282,-300},{-282,
+          -278}},                         color={255,0,255}));
+  connect(booPul4.y, lat10.clr) annotation (Line(points={{-478,-70},{-340,-70},{
+          -340,-86},{-322,-86}}, color={255,0,255}));
+  connect(pre15.y, pre7.u) annotation (Line(points={{-18,-140},{-10,-140},{-10,-40},
+          {-516,-40},{-516,-140},{-502,-140}},                     color={255,0,
           255}));
-  connect(onCouInt.y, intSub.u2) annotation (Line(points={{-278,230},{-272,230},
-          {-272,224},{-262,224}}, color={255,127,0}));
-  connect(conInt2.y, intSub.u1) annotation (Line(points={{-278,270},{-272,270},
-          {-272,236},{-262,236}}, color={255,127,0}));
-  connect(intSub.y, dowProCon.uStaSet) annotation (Line(points={{-238,230},{
-          -232,230},{-232,176},{-162,176}}, color={255,127,0}));
-  connect(intSub.y, intEqu.u1) annotation (Line(points={{-238,230},{-232,230},{
-          -232,168},{-280,168},{-280,150},{-272,150}}, color={255,127,0}));
-  connect(intSub.y, intEqu1.u1) annotation (Line(points={{-238,230},{-232,230},
-          {-232,168},{-280,168},{-280,110},{-272,110}}, color={255,127,0}));
-  connect(intSub.y, intEqu2.u1) annotation (Line(points={{-238,230},{-232,230},
-          {-232,168},{-280,168},{-280,70},{-270,70}}, color={255,127,0}));
-  connect(dowProCon.yBoi, pre9.u) annotation (Line(points={{-138,201},{-140,201},
-          {-140,224},{-132,224},{-132,240},{-138,240}}, color={255,0,255}));
-  connect(dowProCon1.yBoi, pre10.u) annotation (Line(points={{232,201},{232,202},
-          {240,202},{240,240},{232,240}}, color={255,0,255}));
-  connect(dowProCon4.yBoi, pre11.u) annotation (Line(points={{-138,-135},{-132,
-          -135},{-132,-80},{-138,-80}}, color={255,0,255}));
-  connect(pre9.y, or10.u2) annotation (Line(points={{-162,240},{-170,240},{-170,
-          262},{-178,262}}, color={255,0,255}));
-  connect(or10.y, dowProCon.uBoi) annotation (Line(points={{-202,270},{-210,270},
-          {-210,196},{-162,196}}, color={255,0,255}));
-  connect(booScaRep9.y, or10.u1) annotation (Line(points={{-162,280},{-170,280},
-          {-170,270},{-178,270}}, color={255,0,255}));
-  connect(lat.y, not1.u)
-    annotation (Line(points={{-238,300},{-222,300}}, color={255,0,255}));
-  connect(not1.y, booScaRep9.u) annotation (Line(points={{-198,300},{-132,300},
-          {-132,280},{-138,280}}, color={255,0,255}));
-  connect(con7.y, lat.clr) annotation (Line(points={{-350,204},{-290,204},{-290,
-          212},{-228,212},{-228,284},{-272,284},{-272,294},{-262,294}}, color={
-          255,0,255}));
-  connect(intEqu1.y, lat.u) annotation (Line(points={{-248,110},{-248,180},{
-          -380,180},{-380,300},{-262,300}}, color={255,0,255}));
-  connect(pre8.y, or11.u2) annotation (Line(points={{-38,180},{-34,180},{-34,
-          242},{-58,242}}, color={255,0,255}));
-  connect(booScaRep9.y, or11.u1) annotation (Line(points={{-162,280},{-170,280},
-          {-170,268},{-168,268},{-168,260},{-88,260},{-88,268},{-52,268},{-52,
-          250},{-58,250}}, color={255,0,255}));
-  connect(or11.y, dowProCon.uHotWatIsoVal) annotation (Line(points={{-82,250},{
-          -128,250},{-128,220},{-172,220},{-172,191},{-162,191}}, color={255,0,
+  connect(onCouInt.y, intSub.u2) annotation (Line(points={{-418,230},{-410,230},
+          {-410,224},{-402,224}}, color={255,127,0}));
+  connect(conInt2.y, intSub.u1) annotation (Line(points={{-418,270},{-410,270},{
+          -410,236},{-402,236}},  color={255,127,0}));
+  connect(intSub.y, dowProCon.uStaSet) annotation (Line(points={{-378,230},{-370,
+          230},{-370,176},{-162,176}},      color={255,127,0}));
+  connect(dowProCon.yBoi, pre9.u) annotation (Line(points={{-138,201},{-130,201},
+          {-130,220},{-60,220},{-60,240},{-78,240}},    color={255,0,255}));
+  connect(dowProCon1.yBoi, pre10.u) annotation (Line(points={{382,201},{390,201},
+          {390,230},{382,230}},           color={255,0,255}));
+  connect(dowProCon4.yBoi, pre11.u) annotation (Line(points={{-138,-135},{-130,-135},
+          {-130,-100},{-138,-100}},     color={255,0,255}));
+  connect(onCouInt1.y, intSub1.u2) annotation (Line(points={{122,210},{122,208},
+          {128,208},{128,204}}, color={255,127,0}));
+  connect(conInt6.y, intSub1.u1) annotation (Line(points={{100,250},{128,250},{128,
+          216}},     color={255,127,0}));
+  connect(intSub1.y, dowProCon1.uStaSet) annotation (Line(points={{152,210},{320,
+          210},{320,176},{358,176}},     color={255,127,0}));
+  connect(conInt8.y, intSub2.u1) annotation (Line(points={{-408,-90},{-402,-90},
+          {-402,-124},{-392,-124}}, color={255,127,0}));
+  connect(onCouInt2.y, intSub2.u2) annotation (Line(points={{-408,-130},{-402,-130},
+          {-402,-136},{-392,-136}},       color={255,127,0}));
+  connect(intSub2.y, dowProCon4.uStaSet) annotation (Line(points={{-368,-130},{-360,
+          -130},{-360,-160},{-162,-160}},      color={255,127,0}));
+  connect(pre9.y, dowProCon.uBoi) annotation (Line(points={{-102,240},{-166,240},
+          {-166,196},{-162,196}}, color={255,0,255}));
+  connect(pre8.y, dowProCon.uHotWatIsoVal) annotation (Line(points={{-102,270},{
+          -172,270},{-172,191},{-162,191}}, color={255,0,255}));
+  connect(pre10.y, dowProCon1.uBoi) annotation (Line(points={{358,230},{350,230},
+          {350,196},{358,196}}, color={255,0,255}));
+  connect(conInt.y, intEqu.u1)
+    annotation (Line(points={{-378,150},{-362,150}}, color={255,127,0}));
+  connect(conInt1.y, intEqu1.u1)
+    annotation (Line(points={{-378,100},{-362,100}}, color={255,127,0}));
+  connect(conInt3.y, intEqu2.u1)
+    annotation (Line(points={{-378,50},{-362,50}}, color={255,127,0}));
+  connect(intSub.y, intEqu.u2) annotation (Line(points={{-378,230},{-370,230},{-370,
+          142},{-362,142}}, color={255,127,0}));
+  connect(intSub.y, intEqu1.u2) annotation (Line(points={{-378,230},{-370,230},{
+          -370,92},{-362,92}}, color={255,127,0}));
+  connect(intSub.y, intEqu2.u2) annotation (Line(points={{-378,230},{-370,230},{
+          -370,42},{-362,42}}, color={255,127,0}));
+  connect(conInt7.y, intEqu5.u1)
+    annotation (Line(points={{152,70},{172,70}}, color={255,127,0}));
+  connect(conInt5.y, intEqu4.u1)
+    annotation (Line(points={{152,110},{170,110}}, color={255,127,0}));
+  connect(conInt4.y, intEqu3.u1)
+    annotation (Line(points={{152,150},{170,150}}, color={255,127,0}));
+  connect(intSub1.y, intEqu5.u2) annotation (Line(points={{152,210},{160,210},{160,
+          62},{172,62}}, color={255,127,0}));
+  connect(intSub1.y, intEqu4.u2) annotation (Line(points={{152,210},{160,210},{160,
+          102},{170,102}}, color={255,127,0}));
+  connect(intSub1.y, intEqu3.u2) annotation (Line(points={{152,210},{160,210},{160,
+          142},{170,142}}, color={255,127,0}));
+  connect(pre3.y, or4.u1)
+    annotation (Line(points={{42,210},{58,210}}, color={255,0,255}));
+  connect(booPul1.y, or4.u2) annotation (Line(points={{42,180},{52,180},{52,202},
+          {58,202}}, color={255,0,255}));
+  connect(pre11.y, dowProCon4.uBoi) annotation (Line(points={{-162,-100},{-180,-100},
+          {-180,-140},{-162,-140}}, color={255,0,255}));
+  connect(pre4.y, dowProCon4.uHotWatIsoVal) annotation (Line(points={{-98,-170},
+          {-90,-170},{-90,-80},{-190,-80},{-190,-145},{-162,-145}}, color={255,0,
           255}));
-  connect(onCouInt1.y, intSub1.u2) annotation (Line(points={{112,210},{112,208},
-          {118,208},{118,204}}, color={255,127,0}));
-  connect(conInt6.y, intSub1.u1) annotation (Line(points={{102,250},{118,250},{
-          118,216}}, color={255,127,0}));
-  connect(intSub1.y, dowProCon1.uStaSet) annotation (Line(points={{142,210},{
-          192,210},{192,176},{208,176}}, color={255,127,0}));
-  connect(intSub1.y, intEqu3.u1) annotation (Line(points={{142,210},{148,210},{
-          148,168},{88,168},{88,150}}, color={255,127,0}));
-  connect(intSub1.y, intEqu4.u1) annotation (Line(points={{142,210},{116,210},{
-          116,110},{88,110}}, color={255,127,0}));
-  connect(intSub1.y, intEqu5.u1) annotation (Line(points={{142,210},{192,210},{
-          192,44},{76,44},{76,70},{90,70}}, color={255,127,0}));
-  connect(con3.y, lat1.clr) annotation (Line(points={{34,180},{44,180},{44,274},
-          {118,274}}, color={255,0,255}));
-  connect(intEqu4.y, lat1.u) annotation (Line(points={{112,110},{112,132},{144,
-          132},{144,148},{152,148},{152,300},{112,300},{112,280},{118,280}},
-        color={255,0,255}));
-  connect(lat1.y, not2.u)
-    annotation (Line(points={{142,280},{158,280}}, color={255,0,255}));
-  connect(not2.y, booScaRep10.u)
-    annotation (Line(points={{182,280},{198,280}}, color={255,0,255}));
-  connect(booScaRep10.y, or13.u1) annotation (Line(points={{222,280},{240,280},
-          {240,244},{244,244},{244,224},{202,224},{202,250}}, color={255,0,255}));
-  connect(pre10.y, or13.u2) annotation (Line(points={{208,240},{208,242},{202,
-          242}}, color={255,0,255}));
-  connect(or13.y, dowProCon1.uBoi) annotation (Line(points={{178,250},{172,250},
-          {172,232},{200,232},{200,196},{208,196}}, color={255,0,255}));
-  connect(conInt8.y, intSub2.u1) annotation (Line(points={{-278,-80},{-272,-80},
-          {-272,-104},{-262,-104}}, color={255,127,0}));
-  connect(onCouInt2.y, intSub2.u2) annotation (Line(points={{-278,-110},{-272,
-          -110},{-272,-116},{-262,-116}}, color={255,127,0}));
-  connect(intSub2.y, dowProCon4.uStaSet) annotation (Line(points={{-238,-110},{
-          -232,-110},{-232,-160},{-162,-160}}, color={255,127,0}));
-  connect(intSub2.y, intEqu6.u1) annotation (Line(points={{-238,-110},{-232,
-          -110},{-232,-172},{-280,-172},{-280,-190},{-270,-190}}, color={255,
-          127,0}));
-  connect(intSub2.y, intEqu7.u1) annotation (Line(points={{-238,-110},{-232,
-          -110},{-232,-172},{-280,-172},{-280,-230},{-270,-230}}, color={255,
-          127,0}));
-  connect(intSub2.y, intEqu8.u1) annotation (Line(points={{-238,-110},{-232,
-          -110},{-232,-172},{-280,-172},{-280,-270},{-268,-270}}, color={255,
-          127,0}));
-  connect(con8.y, lat2.clr) annotation (Line(points={{-348,-136},{-336,-136},{
-          -336,-46},{-322,-46}}, color={255,0,255}));
-  connect(intEqu7.y, lat2.u) annotation (Line(points={{-246,-230},{-248,-230},{
-          -248,-252},{-284,-252},{-284,-160},{-386,-160},{-386,-40},{-322,-40}},
-        color={255,0,255}));
-  connect(lat2.y, not3.u)
-    annotation (Line(points={{-298,-40},{-282,-40}}, color={255,0,255}));
-  connect(not3.y, booScaRep11.u)
-    annotation (Line(points={{-258,-40},{-242,-40}}, color={255,0,255}));
-  connect(pre11.y, or12.u2) annotation (Line(points={{-162,-80},{-178,-80},{
-          -178,-68}}, color={255,0,255}));
-  connect(booScaRep11.y, or12.u1) annotation (Line(points={{-218,-40},{-172,-40},
-          {-172,-60},{-178,-60}}, color={255,0,255}));
-  connect(dowProCon4.uBoi, or12.y) annotation (Line(points={{-162,-140},{-176,
-          -140},{-176,-84},{-208,-84},{-208,-68},{-212,-68},{-212,-60},{-202,
-          -60}}, color={255,0,255}));
-  connect(pre4.y, or14.u1)
-    annotation (Line(points={{-98,-160},{-82,-160}}, color={255,0,255}));
-  connect(booScaRep11.y, or14.u2) annotation (Line(points={{-218,-40},{-172,-40},
-          {-172,-116},{-128,-116},{-128,-112},{-92,-112},{-92,-168},{-82,-168}},
-        color={255,0,255}));
-  connect(or14.y, dowProCon4.uHotWatIsoVal) annotation (Line(points={{-58,-160},
-          {-52,-160},{-52,-188},{-204,-188},{-204,-145},{-162,-145}}, color={
-          255,0,255}));
+  connect(conInt16.y, intEqu6.u1)
+    annotation (Line(points={{-378,-190},{-352,-190}}, color={255,127,0}));
+  connect(conInt17.y, intEqu7.u1)
+    annotation (Line(points={{-378,-230},{-352,-230}}, color={255,127,0}));
+  connect(conInt19.y, intEqu8.u1)
+    annotation (Line(points={{-378,-270},{-350,-270}}, color={255,127,0}));
+  connect(intSub2.y, intEqu6.u2) annotation (Line(points={{-368,-130},{-360,-130},
+          {-360,-198},{-352,-198}}, color={255,127,0}));
+  connect(intSub2.y, intEqu7.u2) annotation (Line(points={{-368,-130},{-360,-130},
+          {-360,-238},{-352,-238}}, color={255,127,0}));
+  connect(intSub2.y, intEqu8.u2) annotation (Line(points={{-368,-130},{-360,-130},
+          {-360,-278},{-350,-278}}, color={255,127,0}));
 annotation (
  experiment(
       StopTime=1200,
@@ -838,5 +885,5 @@ Icon(coordinateSystem(extent={{-100,-100},{100,100}}),
                 pattern = LinePattern.None,
                 fillPattern = FillPattern.Solid,
                 points = {{-36,60},{64,0},{-36,-60},{-36,60}})}),Diagram(
-        coordinateSystem(preserveAspectRatio=false, extent={{-380,-340},{380,340}})));
+        coordinateSystem(preserveAspectRatio=false, extent={{-520,-340},{520,340}})));
 end Down;

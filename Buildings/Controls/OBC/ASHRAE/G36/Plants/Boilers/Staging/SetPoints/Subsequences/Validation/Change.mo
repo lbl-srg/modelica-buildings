@@ -254,12 +254,24 @@ protected
     final trueHoldDuration=121,
     final falseHoldDuration=0)
     "True hold to represent staging process delay"
-    annotation (Placement(transformation(extent={{40,120},{60,140}})));
+    annotation (Placement(transformation(extent={{30,120},{50,140}})));
 
   Buildings.Controls.OBC.CDL.Logical.TrueDelay truDel2(
     final delayTime=120)
     "True delay to represent staging process"
-    annotation (Placement(transformation(extent={{70,120},{90,140}})));
+    annotation (Placement(transformation(extent={{60,120},{80,140}})));
+
+  Buildings.Controls.OBC.CDL.Logical.Pre pre1
+    "Pre block to break algebraic loop"
+    annotation (Placement(transformation(extent={{90,120},{110,140}})));
+
+  Buildings.Controls.OBC.CDL.Logical.Pre pre2
+    "Pre block to break algebraic loop"
+    annotation (Placement(transformation(extent={{100,-60},{120,-40}})));
+
+  Buildings.Controls.OBC.CDL.Logical.Pre pre3
+    "Pre block to break algebraic loop"
+    annotation (Placement(transformation(extent={{100,-240},{120,-220}})));
 
 equation
   connect(timeTable.y[1], greThr.u)
@@ -369,8 +381,6 @@ equation
   connect(greThr1.y, cha2.uPla) annotation (Line(points={{-138,30},{-88,30},{-88,
           -165},{-42,-165}},     color={255,0,255}));
 
-  connect(truDel.y, cha2.uStaChaProEnd) annotation (Line(points={{92,-230},{100,
-          -230},{100,-260},{-39,-260},{-39,-182}}, color={255,0,255}));
   connect(truFalHol2.y, truFalHol3.u)
     annotation (Line(points={{22,-230},{38,-230}}, color={255,0,255}));
   connect(truDel.u, truFalHol3.y)
@@ -379,14 +389,10 @@ equation
     annotation (Line(points={{22,-50},{38,-50}}, color={255,0,255}));
   connect(truFalHol4.y, truDel1.u)
     annotation (Line(points={{62,-50},{68,-50}}, color={255,0,255}));
-  connect(truDel1.y, cha1.uStaChaProEnd) annotation (Line(points={{92,-50},{100,
-          -50},{100,-80},{-39,-80},{-39,-2}}, color={255,0,255}));
   connect(truFalHol.y, truFalHol5.u)
-    annotation (Line(points={{22,130},{38,130}}, color={255,0,255}));
+    annotation (Line(points={{22,130},{28,130}}, color={255,0,255}));
   connect(truFalHol5.y, truDel2.u)
-    annotation (Line(points={{62,130},{68,130}}, color={255,0,255}));
-  connect(truDel2.y, cha.uStaChaProEnd) annotation (Line(points={{92,130},{100,130},
-          {100,100},{-39,100},{-39,178}}, color={255,0,255}));
+    annotation (Line(points={{52,130},{58,130}}, color={255,0,255}));
   connect(cha.yChaUpEdg, truFalHol6.u) annotation (Line(points={{-18,192},{-10,192},
           {-10,230},{-2,230}}, color={255,0,255}));
   connect(truFalHol9.u, cha1.yChaDowEdg) annotation (Line(points={{38,50},{30,50},
@@ -401,6 +407,18 @@ equation
           18},{-42,18}}, color={255,0,255}));
   connect(con.y, cha2.uStaAva) annotation (Line(points={{-98,270},{-56,270},{-56,
           -162},{-42,-162}}, color={255,0,255}));
+  connect(truDel2.y, pre1.u)
+    annotation (Line(points={{82,130},{88,130}}, color={255,0,255}));
+  connect(pre1.y, cha.uStaChaProEnd) annotation (Line(points={{112,130},{120,130},
+          {120,114},{-39,114},{-39,178}}, color={255,0,255}));
+  connect(truDel1.y, pre2.u)
+    annotation (Line(points={{92,-50},{98,-50}}, color={255,0,255}));
+  connect(pre2.y, cha1.uStaChaProEnd) annotation (Line(points={{122,-50},{130,-50},
+          {130,-66},{-39,-66},{-39,-2}}, color={255,0,255}));
+  connect(truDel.y, pre3.u)
+    annotation (Line(points={{92,-230},{98,-230}}, color={255,0,255}));
+  connect(pre3.y, cha2.uStaChaProEnd) annotation (Line(points={{122,-230},{130,-230},
+          {130,-246},{-39,-246},{-39,-182}}, color={255,0,255}));
 annotation (
  experiment(StopTime=14000.0, Tolerance=1e-06),
   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/ASHRAE/G36/Plants/Boilers/Staging/SetPoints/Subsequences/Validation/Change.mos"

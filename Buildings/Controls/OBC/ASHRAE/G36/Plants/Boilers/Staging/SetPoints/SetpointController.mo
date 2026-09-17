@@ -324,8 +324,8 @@ block SetpointController
       iconTransformation(extent={{100,80},{140,120}})));
 
   Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Staging.SetPoints.Subsequences.CapacityRequirement capReq1(
-    final avePer=avePer)
-    "Capacity requirement calculator"
+    final avePer=avePer) if not have_secFloSen
+    "Capacity requirement calculator when secondary loop flow sensor is not present"
     annotation (Placement(transformation(extent={{-360,240},{-340,260}})));
 
   Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Staging.SetPoints.Subsequences.Capacities cap(
@@ -413,6 +413,11 @@ protected
     "Identify minimum flow rate for the next higher available stage"
     annotation (Placement(transformation(extent={{-240,-120},{-220,-100}})));
 
+  Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Staging.SetPoints.Subsequences.CapacityRequirement capReq2(
+    final avePer=avePer) if have_secFloSen
+    "Capacity requirement calculator when secondary loop flow sensor is present"
+    annotation (Placement(transformation(extent={{-320,260},{-300,280}})));
+
 equation
   connect(uPla, cha.uPla) annotation (Line(points={{-420,-100},{-280,-100},{-280,
           -140},{-60,-140},{-60,-165},{-22,-165}},
@@ -427,18 +432,6 @@ equation
   connect(capReq1.TSupSet, THotWatSupSet) annotation (Line(points={{-362,257},{
           -380,257},{-380,290},{-420,290}},
                                        color={0,0,127}));
-  if not have_secFloSen then
-  connect(capReq1.VHotWat_flow, VHotWatPri_flow) annotation (Line(points={{-362,
-          243},{-380,243},{-380,210},{-420,210}}, color={0,0,127}));
-  connect(THotWatRetPri, capReq1.TRet) annotation (Line(points={{-420,30},{-386,
-          30},{-386,250},{-362,250}}, color={0,0,127}));
-  else
-    connect(THotWatRetSec, capReq1.TRet) annotation (Line(points={{-420,-10},{-372,
-          -10},{-372,250},{-362,250}}, color={0,0,127}));
-  connect(VHotWatSec_flow, capReq1.VHotWat_flow) annotation (Line(points={{-420,
-          180},{-392,180},{-392,242},{-380,242},{-380,243},{-362,243}}, color={0,
-          0,127}));
-  end if;
   connect(conf.uBoiAva,uBoiAva)  annotation (Line(points={{-382,-170},{-402,-170},
           {-402,-190},{-420,-190}}, color={255,0,255}));
   connect(sta.uAva, conf.yAva) annotation (Line(points={{-312,-216},{-332,-216},
@@ -535,9 +528,22 @@ equation
           {-150,-280},{-150,-115},{-142,-115}},         color={255,0,255}));
   connect(conf.yAva, cha.uStaAva) annotation (Line(points={{-358,-176},{-332,
           -176},{-332,-280},{-30,-280},{-30,-162},{-22,-162}}, color={255,0,255}));
-  connect(conf.yTyp, yStaTyp) annotation (Line(points={{-358,-172},{-336,-172},
-          {-336,200},{140,200}},
-                               color={255,127,0}));
+  connect(conf.yTyp, yStaTyp) annotation (Line(points={{-358,-172},{-298,-172},{
+          -298,200},{140,200}},color={255,127,0}));
+  connect(THotWatSupSet, capReq2.TSupSet) annotation (Line(points={{-420,290},{-330,
+          290},{-330,277},{-322,277}}, color={0,0,127}));
+  connect(VHotWatSec_flow, capReq2.VHotWat_flow) annotation (Line(points={{-420,
+          180},{-326,180},{-326,263},{-322,263}}, color={0,0,127}));
+  connect(THotWatRetSec, capReq2.TRet) annotation (Line(points={{-420,-10},{-332,
+          -10},{-332,270},{-322,270}}, color={0,0,127}));
+  connect(capReq2.y, staUp.uCapReq) annotation (Line(points={{-298,270},{-164,270},
+          {-164,-85},{-142,-85}}, color={0,0,127}));
+  connect(capReq2.y, staDow.uCapReq) annotation (Line(points={{-298,270},{-164,270},
+          {-164,-237},{-142,-237}}, color={0,0,127}));
+  connect(VHotWatPri_flow, capReq1.VHotWat_flow) annotation (Line(points={{-420,
+          210},{-370,210},{-370,243},{-362,243}}, color={0,0,127}));
+  connect(THotWatRetPri, capReq1.TRet) annotation (Line(points={{-420,30},{-380,
+          30},{-380,250},{-362,250}}, color={0,0,127}));
   annotation (defaultComponentName = "staSetCon",
         Icon(coordinateSystem(extent={{-100,-240},{100,240}}),
              graphics={
