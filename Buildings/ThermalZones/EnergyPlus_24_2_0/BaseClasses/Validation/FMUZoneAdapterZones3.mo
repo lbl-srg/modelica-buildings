@@ -22,11 +22,12 @@ model FMUZoneAdapterZones3
     final idfVersion=building.idfVersion,
     final idfName=building.idfName,
     final epwName=building.epwName,
+    hvacSystemName="hvac1",
     final relativeSurfaceTolerance=building.relativeSurfaceTolerance,
     final zoneName="Core_ZN",
     usePrecompiledFMU=true,
     final fmuName=Modelica.Utilities.Files.loadResource(
-      "modelica://Buildings/Resources/src/ThermalZones/EnergyPlus/FMUs/Zones3.fmu"),
+      "modelica://Buildings/Resources/src/ThermalZones/EnergyPlus_24_2_0/FMUs/Zones3.fmu"),
     logLevel=building.logLevel,
     setInitialRadiativeHeatGainToZero=true,
     final nFluPor=2)
@@ -66,11 +67,12 @@ model FMUZoneAdapterZones3
     final idfVersion=building.idfVersion,
     final idfName=building.idfName,
     final epwName=building.epwName,
+    hvacSystemName="hvac1",
     final relativeSurfaceTolerance=building.relativeSurfaceTolerance,
     final zoneName="South_ZN",
     usePrecompiledFMU=true,
     final fmuName=Modelica.Utilities.Files.loadResource(
-      "modelica://Buildings/Resources/src/ThermalZones/EnergyPlus/FMUs/Zones3.fmu"),
+      "modelica://Buildings/Resources/src/ThermalZones/EnergyPlus_24_2_0/FMUs/Zones3.fmu"),
     logLevel=building.logLevel,
     setInitialRadiativeHeatGainToZero=true,
     final nFluPor=2)
@@ -90,11 +92,12 @@ model FMUZoneAdapterZones3
     final idfVersion=building.idfVersion,
     final idfName=building.idfName,
     final epwName=building.epwName,
+    hvacSystemName="hvac1",
     final relativeSurfaceTolerance=building.relativeSurfaceTolerance,
     final zoneName="North_ZN",
     usePrecompiledFMU=true,
     final fmuName=Modelica.Utilities.Files.loadResource(
-      "modelica://Buildings/Resources/src/ThermalZones/EnergyPlus/FMUs/Zones3.fmu"),
+      "modelica://Buildings/Resources/src/ThermalZones/EnergyPlus_24_2_0/FMUs/Zones3.fmu"),
     logLevel=building.logLevel,
     setInitialRadiativeHeatGainToZero=true,
     final nFluPor=2)
