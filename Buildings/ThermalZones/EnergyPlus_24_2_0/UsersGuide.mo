@@ -671,13 +671,8 @@ The sizing values returned for each zone are for the design condition of each
 zone individually, while the sizing values returned for each system are for the
 design condition of the system considering the coincident load from each zone
 that is part of that system.
-</li>
 <li>
-The sizing values returned for each zone part of any system whose parameter
-<code>autosizeHVAC=false</code> will be 0.
-<li>
-The sizing values returned for any zone not assigned to an autosize system 
-will be 0. 
+Any zone not assigned to a system will not be autosized.
 </li>
 </li>
 </ul>
