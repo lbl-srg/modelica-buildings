@@ -16,6 +16,19 @@ model ControlledFan "Fan with integrated PI temperature controller"
   parameter Modelica.Units.SI.Power PFan_nominal(min=0)
     "Fan electricity consumption at design flow rate";
 
+  parameter Modelica.Fluid.Types.Dynamics energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState
+    "Type of energy balance: dynamic (3 initialization options) or steady state";
+  parameter Boolean use_riseTime=false
+    "Set to true to continuously change motor speed";
+  parameter Modelica.Units.SI.Time riseTime=30
+    "Time needed to change motor speed between zero and full speed";
+  parameter Modelica.Units.SI.Time tau=1
+    "Time constant of fluid volume for nominal flow, used if energy or mass balance is dynamic";
+  parameter Movers.BaseClasses.Characteristics.powerParameters power(
+      V_flow={0.1,0.3,0.6,1} .* m_flow_nominal / rho_default,
+      P={0.1^3,0.3^3,0.6^3,1} .* PFan_nominal)
+    "Fan power vs. volumetric flow rate";
+
   parameter Real k(
     final unit="1",
     min=Modelica.Constants.small) = 1
@@ -56,14 +69,13 @@ model ControlledFan "Fan with integrated PI temperature controller"
     final energyDynamics=energyDynamics,
     final tau=tau,
     final allowFlowReversal=allowFlowReversal,
+    final use_riseTime=use_riseTime,
+    final riseTime=riseTime,
     per(
       pressure(V_flow={0,2*V_flow_nominal}, dp={2*dp_nominal,0}),
-      etaHydMet=Buildings.Fluid.Movers.BaseClasses.Types.HydraulicEfficiencyMethod.EulerNumber,
-      etaMotMet=Buildings.Fluid.Movers.BaseClasses.Types.MotorEfficiencyMethod.Efficiency_MotorPartLoadRatio,
-      motorEfficiency_yMot(y={0}, eta={eta_nominal}),
-      powerOrEfficiencyIsHydraulic=false),
-    final use_riseTime=use_riseTime,
-    final riseTime=riseTime)
+      final power=power,
+      etaHydMet=Buildings.Fluid.Movers.BaseClasses.Types.HydraulicEfficiencyMethod.Power_VolumeFlowRate,
+      powerOrEfficiencyIsHydraulic=false))
     "Fan"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
 
@@ -95,15 +107,6 @@ protected
     PFan_nominal * eta_nominal / V_flow_nominal
     "Fan pressure rise at nominal conditions";
 
-public
-  parameter Modelica.Fluid.Types.Dynamics energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState
-    "Type of energy balance: dynamic (3 initialization options) or steady state";
-  parameter Boolean use_riseTime=false
-    "Set to true to continuously change motor speed";
-  parameter Modelica.Units.SI.Time riseTime=30
-    "Time needed to change motor speed between zero and full speed";
-  parameter Modelica.Units.SI.Time tau=1
-    "Time constant of fluid volume for nominal flow, used if energy or mass balance is dynamic";
 equation
   connect(port_a, fan.port_a)
     annotation (Line(points={{-100,0},{-10,0}}, color={0,127,255}));
