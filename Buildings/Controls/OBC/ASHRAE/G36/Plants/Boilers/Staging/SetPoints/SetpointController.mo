@@ -540,6 +540,10 @@ equation
           {-164,-85},{-142,-85}}, color={0,0,127}));
   connect(capReq2.y, staDow.uCapReq) annotation (Line(points={{-298,270},{-164,270},
           {-164,-237},{-142,-237}}, color={0,0,127}));
+  connect(VHotWatPri_flow, capReq1.VHotWat_flow) annotation (Line(points={{-420,
+          210},{-370,210},{-370,243},{-362,243}}, color={0,0,127}));
+  connect(THotWatRetPri, capReq1.TRet) annotation (Line(points={{-420,30},{-380,
+          30},{-380,250},{-362,250}}, color={0,0,127}));
   annotation (defaultComponentName = "staSetCon",
         Icon(coordinateSystem(extent={{-100,-240},{100,240}}),
              graphics={
