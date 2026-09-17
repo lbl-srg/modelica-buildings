@@ -165,5 +165,5 @@ First implementation.
 </ul>
 </html>"),
     Diagram(coordinateSystem(extent={{-140,-100},{140,100}})),
-    Icon(coordinateSystem(extent={{-140,-100},{140,100}})));
+    Icon(coordinateSystem(extent={{-100,-100},{100,100}})));
 end ControlledFan;
