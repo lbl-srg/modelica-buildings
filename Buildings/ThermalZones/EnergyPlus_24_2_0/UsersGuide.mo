@@ -715,38 +715,42 @@ The system level records are:
 The parameters available within these records are:
 <ul>
 <li>
-<code>QSen_flow</code>: Design sensible load [W]
+<code>QSen_flow</code>: Design sensible load [W] (if not sized, equals <i>0</i>)
 </li>
 <li>
-<code>QLat_flow</code>: Design latent load [W]
+<code>QLat_flow</code>: Design latent load [W] (if not sized, equals <i>0</i>)
 </li>
 <li>
-<code>TSet</code>: Indoor temperature set point at the design load [K]
+<code>TSet</code>: Indoor temperature set point at the design load [K] (if not sized, equals <i>21</i>&deg;C for zone heating, <i>24</i>&deg;C for zone cooling, <i>-273.15</i>&deg;C for system group heating and cooling)
 </li>
 <li>
-<code>XSet</code>: Indoor humidity ratio set point at the design load per total air mass [kg/kg]
+<code>XSet</code>: Indoor humidity ratio set point at the design load per total air mass [kg/kg] (if not sized, equals <i>0.00788</i> for zone heating, <i>0.00964</i> for zone cooling, <i>0</i> for system group heating and cooling)
 </li>
 <li>
-<code>TOut</code>: Outdoor drybulb temperature at the design load [K]
+<code>TOut</code>: Outdoor drybulb temperature at the design load [K] (if not sized, equals <i>0</i>&deg;C for zone heating and cooling, <i>21</i>&deg;C for system group heating and cooling)
 </li>
 <li>
-<code>XOut</code>: Outdoor humidity ratio at the design load per total air mass [kg/kg]
+<code>XOut</code>: Outdoor humidity ratio at the design load per total air mass [kg/kg] (if not sized, equals <i>0</i> for zone heating and cooling, <i>0</i> for system group heating and cooling)
 </li>
 <li>
-<code>mOut_flow</code>: Minimum outdoor air flow rate during the design load [kg/s]
+<code>mOut_flow</code>: Minimum outdoor air flow rate during the design load [kg/s] (if not sized, equals <i>0</i>)
 </li>
 <li>
-<code>t</code>: Time at which the design load occurred [s]
+<code>t</code>: Time within the sizing day at which the design load occurred [s] (if not sized, equals <i>0</i>)
 </li>
 </ul>
 </p>
 
 <h5>Other Notes</h5>
 <p>
-Infiltration: All zone air infiltration is implemented 
-in Modelica, and any infiltration information 
-in the .idf is ignored during both autosizing and simulation.  
-However, for autosizing, zone air infiltration can be considered
+Infiltration: All zone air infiltration for thermal zones connected
+to EnergyPlus is implemented 
+in Modelica, and any infiltration information for these zones
+in the .idf is ignored during autosizing.  For zones
+in the .idf not connected to Modelica thermal zones, infilatration information
+is still utilized during autosizing.  
+For autosizing zones in Modelica connected to EnergyPLus, 
+zone air infiltration can be considered
 using the parameter <code>ThermalZone.airChaRatInf</code>, which
 will add sensible and latent infiltration loads to the design zone heating
 and cooling loads at the specified air exchange rate using the temperature 
@@ -760,7 +764,8 @@ zone level set points.
 Internal Gains: Internal gain objects for people, lights, and equipment 
 in the .idf are considered by EnergyPlus during 
 autosizing, and are thus reflected in the sizing results returned to Modelica.
-Internal gain inputs specified in Modelica are ignored during autosizing.  
+If internal gain inputs are specified in Modelica, they are ignored during 
+autosizing, but used in place of .idf objects during simulation.  
 </p>
 <p>
 Interzonal Air Exchange: All interzonal air exchange is implemented 
@@ -768,10 +773,21 @@ in Modelica, and any interzonal air exchange information
 in the .idf is ignored during both autosizing and simulation.
 </p>
 <p>
+Thermostat and Humidistat Controls: Spawn uses thermostat and humidistat
+controls specified in the .idf for autosizing thermal zones connected
+to Modelica.  For thermal zones connected to Modelica that do not have
+thermostat nor humidistat controls specified in the .idf, Spawn
+automatically adds a dual-setpoint thermostat with heating and cooling
+set points of <i>20</i>&deg;C and <i>22</i>&deg;C respectively and a dual-set 
+point humidistat with humidifying and dehumidifying relative humidity 
+set points of <i>45</i>% and <i>55</i>% respectively. 
+</p>
+<p>
 References for Autosizing in EnergyPlus: Autosizing objects in the .idf are used
 to direct the autosizing in Spawn, and the EnergyPlus algorithms are followed
-for the sizing calculations.  Key objects include Sizing:Zone, Sizing:System,
-and SimulationControl.  Thus, some useful references for working 
+for the sizing calculations.  However, note that Spawn replaces the 
+SimulationControl object specified in the .idf to invoke autosizing on its own.
+Some useful references for working 
 with those objects and setting up sizing in the .idf are as follows:
 <ul>
 <li>
@@ -783,11 +799,6 @@ https://bigladdersoftware.com/epx/docs/24-2/engineering-reference/zone-design-lo
 System sizing:
 <a href=\"https://bigladdersoftware.com/epx/docs/24-2/engineering-reference/system-design-loads-and-air-flow-rates.html\">
 https://bigladdersoftware.com/epx/docs/24-2/engineering-reference/system-design-loads-and-air-flow-rates.html</a>
-</li>
-<li>
-Simulation control for autosizing:
-<a href=\"https://bigladdersoftware.com/epx/docs/24-2/input-output-reference/group-simulation-parameters.html#simulationcontrol\">
-https://bigladdersoftware.com/epx/docs/24-2/input-output-reference/group-simulation-parameters.html#simulationcontrol</a>
 </li>
 <li>
 Sizing manager and algorithm:
