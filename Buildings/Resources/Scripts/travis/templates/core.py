@@ -28,6 +28,11 @@ CRED = '\033[91m'
 CGREEN = '\033[92m'
 CEND = '\033[0m'
 
+# Maximum number of lines kept from each auxiliary Dymola log (buildlog.txt, dslog.txt)
+# appended to the error log of a failed simulation. Only the tail is kept: that is where
+# the compiler and the solver report what went wrong.
+AUX_LOG_MAX_LINES = 200
+
 # Parse conf.yml.
 with open('./Resources/Scripts/BuildingsPy/conf.yml', 'r') as FH:
     CONF = yaml.safe_load(FH)
@@ -247,6 +252,25 @@ def simulate_case(arg, simulator, experiment_attributes):
             shutil.rmtree(output_dir_path, ignore_errors=True)
             # We delete the log of successful simulations to limit memory usage.
             log = None
+        elif simulator == 'dymola':
+            # simulator.log only contains Dymola's command log, which reports a failure as a
+            # bare `Failed` followed by ` = false`. The diagnostics that explain the failure
+            # are written to buildlog.txt (compilation) and dslog.txt (integration), which are
+            # otherwise lost with the CI worker. We append their tail so that a failure can be
+            # diagnosed from the CI log alone.
+            for aux in ['buildlog.txt', 'dslog.txt']:
+                try:
+                    with open(os.path.join(output_dir_path, aux)) as fh:
+                        lines = fh.readlines()
+                except OSError:
+                    continue
+                excerpt = ''.join(lines[-AUX_LOG_MAX_LINES:])
+                if len(lines) > AUX_LOG_MAX_LINES:
+                    excerpt = (
+                        f'[First {len(lines) - AUX_LOG_MAX_LINES} lines omitted.]\n'
+                        + excerpt
+                    )
+                log = f'{log}\n\n*** Content of {aux}\n\n{excerpt}'
 
     return toreturn, log
 
