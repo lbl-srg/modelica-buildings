@@ -39,7 +39,7 @@ protected
   parameter Modelica.Units.SI.SpecificHeatCapacity cp_default = Medium.specificHeatCapacityCp(
     state_default) "Specific heat capacity";
 
-  parameter Modelica.Units.SI.SpecificHeatCapacity rho_default = Medium.density(
+  parameter Modelica.Units.SI.Density rho_default = Medium.density(
     state_default) "Density";
 
   parameter Real fanRelPowDer[size(dat.fanRelPow.r_V,1)] =
@@ -131,8 +131,8 @@ For exact transient response, this value should be identified based on measureme
 </p>
 <p>
 To compute the pressure drop, the model uses
-<a href=\"modelica://Buildings.Fluid.FixedResistances.PressureDropPartiallyTurbulent\">
-Buildings.Fluid.FixedResistances.PressureDropPartiallyTurbulent</a>.
+<a href=\"modelica://Buildings.Fluid.FixedResistances.PressureDrop\">
+Buildings.Fluid.FixedResistances.PressureDrop</a>.
 Therefore, the mass flow rate and pressure drop are related as
 </p>
 <p align=\"center\" style=\"font-style:italic;\">
