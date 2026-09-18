@@ -32,9 +32,9 @@ Details:
 import core
 
 MODELS = [
-    # 'Buildings.Templates.Plants.HeatPumps.Validation.AirToWaterPolyvalent',
+    'Buildings.Templates.Plants.HeatPumps.Validation.AirToWaterPolyvalent',
     'Buildings.Templates.Plants.HeatPumps.Validation.AirToWaterReversibleHeatRecovery',
-    # 'Buildings.Templates.Plants.HeatPumps.Validation.AirToWaterReversiblePolyvalent',
+    'Buildings.Templates.Plants.HeatPumps.Validation.AirToWaterReversiblePolyvalent',
 ]
 
 # See docstring of `generate_combinations` function for the structure of MODIF_GRID.
