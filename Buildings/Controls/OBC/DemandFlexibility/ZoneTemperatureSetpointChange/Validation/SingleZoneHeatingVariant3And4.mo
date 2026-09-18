@@ -35,7 +35,7 @@ model SingleZoneHeatingVariant3And4
     dTReb=0.5,
     dTSheThr=0.5,
     dTSheHys=0.5,
-    PBuiHys=100,
+    PBui_nominal=2000,
     PBuiThrCon=1000,
     TResInt=0.5,
     setChaWaiTim=300,
@@ -63,7 +63,7 @@ model SingleZoneHeatingVariant3And4
     dTReb=0.5,
     dTSheThr=0.5,
     dTSheHys=0.5,
-    PBuiHys=100,
+    PBui_nominal=2000,
     TResInt=0.5,
     setChaWaiTim=300,
     airConMod=Buildings.Controls.OBC.DemandFlexibility.Types.AirConditioningMode.Heating,
@@ -93,10 +93,10 @@ model SingleZoneHeatingVariant3And4
     annotation (Placement(transformation(extent={{-120,-100},{-100,-80}})));
 equation
   connect(zonSetGen.TPreTarHeaSet,setChaConHeaVar3. TPreTarSet[1])
-    annotation (Line(points={{-98,-120},{-40,-120},{-40,62},{-2,62}},
+    annotation (Line(points={{-98,-122},{-40,-122},{-40,62},{-2,62}},
       color={0,0,127}));
   connect(zonSetGen.TSheTarHeaSet,setChaConHeaVar3. TSheTarSet[1])
-    annotation (Line(points={{-98,-124},{-30,-124},{-30,58},{-2,58}},
+    annotation (Line(points={{-98,-125},{-30,-125},{-30,58},{-2,58}},
       color={0,0,127}));
   connect(zonSetGen.TDefHeaSet,setChaConHeaVar3. TDefSet[1])
     annotation (Line(points={{-98,-128},{-20,-128},{-20,54},{-2,54}},
@@ -110,10 +110,10 @@ equation
   connect(tabTCurZon.y[1],setChaConHeaVar3. TCurZon[1])
     annotation (Line(points={{-98,50},{-80,50},{-80,74},{-2,74}}, color={0,0,127}));
   connect(zonSetGen.TPreTarHeaSet,setChaConHeaVar4. TPreTarSet[1])
-    annotation (Line(points={{-98,-120},{-40,-120},{-40,-78},{-2,-78}},
+    annotation (Line(points={{-98,-122},{-40,-122},{-40,-78},{-2,-78}},
       color={0,0,127}));
   connect(zonSetGen.TSheTarHeaSet,setChaConHeaVar4. TSheTarSet[1])
-    annotation (Line(points={{-98,-124},{-30,-124},{-30,-82},{-2,-82}},
+    annotation (Line(points={{-98,-125},{-30,-125},{-30,-82},{-2,-82}},
       color={0,0,127}));
   connect(zonSetGen.TDefHeaSet,setChaConHeaVar4. TDefSet[1])
     annotation (Line(points={{-98,-128},{-20,-128},{-20,-86},{-2,-86}},

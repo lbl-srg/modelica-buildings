@@ -66,203 +66,233 @@ model Setpoints
     displayUnit="degC",
     final quantity="ThermodynamicTemperature")
     "Pre-heat target heating temperature setpoint"
-    annotation (Placement(transformation(extent={{120,80},{160,120}}),
+    annotation (Placement(transformation(extent={{180,120},{220,160}}),
         iconTransformation(extent={{100,60},{140,100}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput TSheTarHeaSet(
     final unit="K",
     displayUnit="degC",
     final quantity="ThermodynamicTemperature")
     "Load-shed target heating temperature setpoint"
-    annotation (Placement(transformation(extent={{120,40},{160,80}}),
+    annotation (Placement(transformation(extent={{180,80},{220,120}}),
         iconTransformation(extent={{100,30},{140,70}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput TDefHeaSet(
     final unit="K",
     displayUnit="degC",
     final quantity="ThermodynamicTemperature")
     "Default heating temperature setpoint"
-    annotation (Placement(transformation(extent={{120,0},{160,40}}),
+    annotation (Placement(transformation(extent={{180,40},{220,80}}),
         iconTransformation(extent={{100,0},{140,40}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput TPreTarCooSet(
     final unit="K",
     displayUnit="degC",
     final quantity="ThermodynamicTemperature")
     "Pre-cool target cooling temperature setpoint"
-    annotation (Placement(transformation(extent={{120,-40},{160,0}}),
+    annotation (Placement(transformation(extent={{180,-80},{220,-40}}),
         iconTransformation(extent={{100,-40},{140,0}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput TSheTarCooSet(
     final unit="K",
     displayUnit="degC",
     final quantity="ThermodynamicTemperature")
     "Load-shed target cooling temperature setpoint"
-    annotation (Placement(transformation(extent={{120,-80},{160,-40}}),
+    annotation (Placement(transformation(extent={{180,-120},{220,-80}}),
         iconTransformation(extent={{100,-70},{140,-30}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput TDefCooSet(
     final unit="K",
     displayUnit="degC",
     final quantity="ThermodynamicTemperature")
     "Default cooling temperature setpoint"
-    annotation (Placement(transformation(extent={{120,-120},{160,-80}}),
+    annotation (Placement(transformation(extent={{180,-160},{220,-120}}),
         iconTransformation(extent={{100,-100},{140,-60}})));
 protected
+  Buildings.Controls.OBC.CDL.Reals.Subtract subTPreTarSet
+    "The pre-cool target temperature setpoint minus the pre-heat target temperature setpoint"
+    annotation (Placement(transformation(extent={{20,0},{40,20}})));
+  Buildings.Controls.OBC.CDL.Reals.LessThreshold lesTPreTarSet(t=0.5)
+    "Check if the difference between the two target temperature setpoints is less than 0.5 degree Kelvin"
+    annotation (Placement(transformation(extent={{60,0},{80,20}})));
+  Buildings.Controls.OBC.CDL.Logical.Not notLesTPreTarSet
+    "Check if the difference between the two target temperature setpoints is greater than or equal to 0.5 degree Kelvin"
+    annotation (Placement(transformation(extent={{100,0},{120,20}})));
+  Buildings.Controls.OBC.CDL.Utilities.Assert assMesTPreTarSet(
+    message="Error: the difference between the pre-cool target temperature setpoint and the pre-heat target temperature setpoint is less than 0.5 degree Kelvin")
+    "Raise a warning message if the difference between the two target temperature setpoints is less than 0.5 degree Kelvin"
+    annotation (Placement(transformation(extent={{140,0},{160,20}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.TimeTable occHouNotMid(
     final table=[0,0; occHouSta,1; occHouEnd,0; 24,0],
     final timeScale=3600,
     final period=86400)
     if occHouSta <= occHouEnd
     "Occupied hours that do not span the midnight"
-    annotation (Placement(transformation(extent={{-100,-20},{-80,0}})));
+    annotation (Placement(transformation(extent={{-160,-20},{-140,0}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.TimeTable occHouSpaMid(
     final table=[0,1; occHouEnd,0; occHouSta,1; 24,1],
     final timeScale=3600,
     final period=86400)
     if occHouSta > occHouEnd
     "Occupied hours that span the midnight"
-    annotation (Placement(transformation(extent={{-100,-80},{-80,-60}})));
+    annotation (Placement(transformation(extent={{-160,-80},{-140,-60}})));
   Buildings.Controls.OBC.CDL.Conversions.BooleanToReal TDefHeaSetVal(
     final realTrue=TDefOccHeaSet,
     final realFalse=TDefUnoHeaSet)
     "Value for the default heating temperature setpoint"
-    annotation (Placement(transformation(extent={{20,20},{40,40}})));
+    annotation (Placement(transformation(extent={{-60,60},{-40,80}})));
   Buildings.Controls.OBC.CDL.Conversions.BooleanToReal TDefCooSetVal(
     final realTrue=TDefOccCooSet,
     final realFalse=TDefUnoCooSet)
     "Value for the default cooling temperature setpoint"
-    annotation (Placement(transformation(extent={{20,-100},{40,-80}})));
+    annotation (Placement(transformation(extent={{-60,-140},{-40,-120}})));
   Buildings.Controls.OBC.CDL.Conversions.BooleanToReal TPreTarHeaSetValEnaUno(
     final realTrue=TDefOccHeaSet + dTPreHeaSet,
     final realFalse=TDefUnoHeaSet + dTPreHeaSet)
     if setChaEnaUnoFla
     "Value for the pre-heat target heating temperature setpoint when setpoint change is enabled for the unoccupied period"
-    annotation (Placement(transformation(extent={{20,100},{40,120}})));
+    annotation (Placement(transformation(extent={{-60,140},{-40,160}})));
   Buildings.Controls.OBC.CDL.Conversions.BooleanToReal TPreTarHeaSetValDisUno(
     final realTrue=TDefOccHeaSet + dTPreHeaSet,
     final realFalse=TDefUnoHeaSet)
     if not setChaEnaUnoFla
     "Value for the pre-heat target heating temperature setpoint when setpoint change is disabled for the unoccupied period"
-    annotation (Placement(transformation(extent={{-20,80},{0,100}})));
+    annotation (Placement(transformation(extent={{-100,120},{-80,140}})));
   Buildings.Controls.OBC.CDL.Conversions.BooleanToReal TSheTarHeaSetEnaUno(
     final realTrue=TDefOccHeaSet - dTSheHeaSet,
     final realFalse=TDefUnoHeaSet - dTSheHeaSet)
     if setChaEnaUnoFla
     "Value for the load-shed target heating temperature setpoint when setpoint change is enabled for the unoccupied period"
-    annotation (Placement(transformation(extent={{20,60},{40,80}})));
+    annotation (Placement(transformation(extent={{-60,100},{-40,120}})));
   Buildings.Controls.OBC.CDL.Conversions.BooleanToReal TSheTarHeaSetDisUno(
     final realTrue=TDefOccHeaSet - dTSheHeaSet,
     final realFalse=TDefUnoHeaSet)
     if not setChaEnaUnoFla
     "Value for the load-shed target heating temperature setpoint when setpoint change is disabled for the unoccupied period"
-    annotation (Placement(transformation(extent={{-20,40},{0,60}})));
+    annotation (Placement(transformation(extent={{-100,80},{-80,100}})));
   Buildings.Controls.OBC.CDL.Conversions.BooleanToReal TPreTarCooSetValEnaUno(
     final realTrue=TDefOccCooSet - dTPreCooSet,
     final realFalse=TDefUnoCooSet - dTPreCooSet)
     if setChaEnaUnoFla
     "Value for the pre-cool target cooling temperature setpoint when setpoint change is enabled for the unoccupied period"
-    annotation (Placement(transformation(extent={{20,-20},{40,0}})));
+    annotation (Placement(transformation(extent={{-60,-60},{-40,-40}})));
   Buildings.Controls.OBC.CDL.Conversions.BooleanToReal TPreTarCooSetValDisUno(
     final realTrue=TDefOccCooSet - dTPreCooSet,
     final realFalse=TDefUnoCooSet)
     if not setChaEnaUnoFla
     "Value for the pre-cool target cooling temperature setpoint when setpoint change is disabled for the unoccupied period"
-    annotation (Placement(transformation(extent={{-20,-40},{0,-20}})));
+    annotation (Placement(transformation(extent={{-100,-80},{-80,-60}})));
   Buildings.Controls.OBC.CDL.Conversions.BooleanToReal TSheTarCooSetValEnaUno(
     final realTrue=TDefOccCooSet + dTSheCooSet,
     final realFalse=TDefUnoCooSet + dTSheCooSet)
     if setChaEnaUnoFla
     "Value for the load-shed target cooling temperature setpoint when setpoint change is enabled for the unoccupied period"
-    annotation (Placement(transformation(extent={{20,-60},{40,-40}})));
+    annotation (Placement(transformation(extent={{-60,-100},{-40,-80}})));
   Buildings.Controls.OBC.CDL.Conversions.BooleanToReal TSheTarCooSetValDisUno(
     final realTrue=TDefOccCooSet + dTSheCooSet,
     final realFalse=TDefUnoCooSet)
     if not setChaEnaUnoFla
     "Value for the load-shed target cooling temperature setpoint when setpoint change is disabled for the unoccupied period"
-    annotation (Placement(transformation(extent={{-20,-80},{0,-60}})));
+    annotation (Placement(transformation(extent={{-100,-120},{-80,-100}})));
 equation
   connect(occHouNotMid.y[1], TDefHeaSetVal.u)
-    annotation (Line(points={{-78,-10},{-60,-10},{-60,30},{18,30}},
+    annotation (Line(points={{-138,-10},{-120,-10},{-120,70},{-62,70}},
       color={255,0,255}));
   connect(occHouNotMid.y[1], TDefCooSetVal.u)
-    annotation (Line(points={{-78,-10},{-60,-10},{-60,-90},{18,-90}},
+    annotation (Line(points={{-138,-10},{-120,-10},{-120,-130},{-62,-130}},
       color={255,0,255}));
   connect(TDefHeaSetVal.y, TDefHeaSet)
-    annotation (Line(points={{42,30},{80,30},{80,20},{140,20}},
+    annotation (Line(points={{-38,70},{20,70},{20,60},{200,60}},
       color={0,0,127}));
   connect(TDefCooSetVal.y, TDefCooSet)
-    annotation (Line(points={{42,-90},{80,-90},{80,-100},{140,-100}},
+    annotation (Line(points={{-38,-130},{20,-130},{20,-140},{200,-140}},
       color={0,0,127}));
   connect(occHouNotMid.y[1], TPreTarHeaSetValEnaUno.u)
-    annotation (Line(points={{-78,-10},{-60,-10},{-60,110},{18,110}},
+    annotation (Line(points={{-138,-10},{-120,-10},{-120,150},{-62,150}},
       color={255,0,255}));
   connect(occHouNotMid.y[1], TPreTarHeaSetValDisUno.u)
-    annotation (Line(points={{-78,-10},{-60,-10},{-60,90},{-22,90}},
+    annotation (Line(points={{-138,-10},{-120,-10},{-120,130},{-102,130}},
       color={255,0,255}));
   connect(occHouNotMid.y[1], TSheTarHeaSetEnaUno.u)
-    annotation (Line(points={{-78,-10},{-60,-10},{-60,70},{18,70}},
+    annotation (Line(points={{-138,-10},{-120,-10},{-120,110},{-62,110}},
       color={255,0,255}));
   connect(occHouNotMid.y[1], TSheTarHeaSetDisUno.u)
-    annotation (Line(points={{-78,-10},{-60,-10},{-60,50},{-22,50}},
+    annotation (Line(points={{-138,-10},{-120,-10},{-120,90},{-102,90}},
       color={255,0,255}));
   connect(occHouNotMid.y[1], TPreTarCooSetValEnaUno.u)
-    annotation (Line(points={{-78,-10},{18,-10}}, color={255,0,255}));
+    annotation (Line(points={{-138,-10},{-120,-10},{-120,-50},{-62,-50}},
+      color={255,0,255}));
   connect(occHouNotMid.y[1], TPreTarCooSetValDisUno.u)
-    annotation (Line(points={{-78,-10},{-60,-10},{-60,-30},{-22,-30}},
+    annotation (Line(points={{-138,-10},{-120,-10},{-120,-70},{-102,-70}},
       color={255,0,255}));
   connect(occHouNotMid.y[1], TSheTarCooSetValEnaUno.u)
-    annotation (Line(points={{-78,-10},{-60,-10},{-60,-50},{18,-50}},
+    annotation (Line(points={{-138,-10},{-120,-10},{-120,-90},{-62,-90}},
       color={255,0,255}));
   connect(occHouNotMid.y[1], TSheTarCooSetValDisUno.u)
-    annotation (Line(points={{-78,-10},{-60,-10},{-60,-70},{-22,-70}},
+    annotation (Line(points={{-138,-10},{-120,-10},{-120,-110},{-102,-110}},
       color={255,0,255}));
   connect(occHouSpaMid.y[1], TPreTarHeaSetValEnaUno.u)
-    annotation (Line(points={{-78,-70},{-60,-70},{-60,110},{18,110}},
+    annotation (Line(points={{-138,-70},{-120,-70},{-120,150},{-62,150}},
       color={255,0,255}));
   connect(occHouSpaMid.y[1], TPreTarHeaSetValDisUno.u)
-    annotation (Line(points={{-78,-70},{-60,-70},{-60,90},{-22,90}},
+    annotation (Line(points={{-138,-70},{-120,-70},{-120,130},{-102,130}},
       color={255,0,255}));
   connect(occHouSpaMid.y[1], TSheTarHeaSetEnaUno.u)
-    annotation (Line(points={{-78,-70},{-60,-70},{-60,70},{18,70}},
+    annotation (Line(points={{-138,-70},{-120,-70},{-120,110},{-62,110}},
       color={255,0,255}));
   connect(occHouSpaMid.y[1], TSheTarHeaSetDisUno.u)
-    annotation (Line(points={{-78,-70},{-60,-70},{-60,50},{-22,50}},
+    annotation (Line(points={{-138,-70},{-120,-70},{-120,90},{-102,90}},
       color={255,0,255}));
   connect(occHouSpaMid.y[1], TDefHeaSetVal.u)
-    annotation (Line(points={{-78,-70},{-60,-70},{-60,30},{18,30}},
+    annotation (Line(points={{-138,-70},{-120,-70},{-120,70},{-62,70}},
       color={255,0,255}));
   connect(occHouSpaMid.y[1], TPreTarCooSetValEnaUno.u)
-    annotation (Line(points={{-78,-70},{-60,-70},{-60,-10},{18,-10}},
+    annotation (Line(points={{-138,-70},{-120,-70},{-120,-50},{-62,-50}},
       color={255,0,255}));
   connect(occHouSpaMid.y[1], TPreTarCooSetValDisUno.u)
-    annotation (Line(points={{-78,-70},{-60,-70},{-60,-30},{-22,-30}},
+    annotation (Line(points={{-138,-70},{-102,-70}},
       color={255,0,255}));
   connect(occHouSpaMid.y[1], TSheTarCooSetValEnaUno.u)
-    annotation (Line(points={{-78,-70},{-60,-70},{-60,-50},{18,-50}},
+    annotation (Line(points={{-138,-70},{-120,-70},{-120,-90},{-62,-90}},
       color={255,0,255}));
   connect(occHouSpaMid.y[1], TSheTarCooSetValDisUno.u)
-    annotation (Line(points={{-78,-70},{-22,-70}}, color={255,0,255}));
+    annotation (Line(points={{-138,-70},{-120,-70},{-120,-110},{-102,-110}},
+                                                   color={255,0,255}));
   connect(occHouSpaMid.y[1], TDefCooSetVal.u)
-    annotation (Line(points={{-78,-70},{-60,-70},{-60,-90},{18,-90}},
+    annotation (Line(points={{-138,-70},{-120,-70},{-120,-130},{-62,-130}},
       color={255,0,255}));
   connect(TPreTarHeaSetValEnaUno.y, TPreTarHeaSet)
-    annotation (Line(points={{42,110},{80,110},{80,100},{140,100}},
+    annotation (Line(points={{-38,150},{-20,150},{-20,140},{200,140}},
       color={0,0,127}));
   connect(TPreTarHeaSetValDisUno.y, TPreTarHeaSet)
-    annotation (Line(points={{2,90},{80,90},{80,100},{140,100}},
+    annotation (Line(points={{-78,130},{-20,130},{-20,140},{200,140}},
       color={0,0,127}));
   connect(TSheTarHeaSetEnaUno.y, TSheTarHeaSet)
-    annotation (Line(points={{42,70},{80,70},{80,60},{140,60}},
+    annotation (Line(points={{-38,110},{20,110},{20,100},{200,100}},
       color={0,0,127}));
   connect(TSheTarHeaSetDisUno.y, TSheTarHeaSet)
-    annotation (Line(points={{2,50},{80,50},{80,60},{140,60}},
+    annotation (Line(points={{-78,90},{20,90},{20,100},{200,100}},
       color={0,0,127}));
   connect(TPreTarCooSetValEnaUno.y, TPreTarCooSet)
-    annotation (Line(points={{42,-10},{80,-10},{80,-20},{140,-20}},
+    annotation (Line(points={{-38,-50},{0,-50},{0,-60},{200,-60}},
       color={0,0,127}));
   connect(TPreTarCooSetValDisUno.y, TPreTarCooSet)
-    annotation (Line(points={{2,-30},{80,-30},{80,-20},{140,-20}}, color={0,0,127}));
+    annotation (Line(points={{-78,-70},{0,-70},{0,-60},{200,-60}}, color={0,0,127}));
   connect(TSheTarCooSetValEnaUno.y, TSheTarCooSet)
-    annotation (Line(points={{42,-50},{80,-50},{80,-60},{140,-60}},
+    annotation (Line(points={{-38,-90},{20,-90},{20,-100},{200,-100}},
       color={0,0,127}));
   connect(TSheTarCooSetValDisUno.y, TSheTarCooSet)
-    annotation (Line(points={{2,-70},{80,-70},{80,-60},{140,-60}}, color={0,0,127}));
+    annotation (Line(points={{-78,-110},{20,-110},{20,-100},{200,-100}},
+      color={0,0,127}));
+  connect(TPreTarCooSetValEnaUno.y, subTPreTarSet.u1)
+    annotation (Line(points={{-38,-50},{0,-50},{0,16},{18,16}}, color={0,0,127}));
+  connect(TPreTarCooSetValDisUno.y, subTPreTarSet.u1)
+    annotation (Line(points={{-78,-70},{0,-70},{0,16},{18,16}}, color={0,0,127}));
+  connect(TPreTarHeaSetValEnaUno.y, subTPreTarSet.u2)
+    annotation (Line(points={{-38,150},{-20,150},{-20,4},{18,4}}, color={0,0,127}));
+  connect(TPreTarHeaSetValDisUno.y, subTPreTarSet.u2)
+    annotation (Line(points={{-78,130},{-20,130},{-20,4},{18,4}}, color={0,0,127}));
+  connect(subTPreTarSet.y, lesTPreTarSet.u)
+    annotation (Line(points={{42,10},{58,10}}, color={0,0,127}));
+  connect(lesTPreTarSet.y, notLesTPreTarSet.u)
+    annotation (Line(points={{82,10},{98,10}}, color={255,0,255}));
+  connect(notLesTPreTarSet.y, assMesTPreTarSet.u)
+    annotation (Line(points={{122,10},{138,10}}, color={255,0,255}));
   annotation (defaultComponentName="zonSetGen",
     Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}},
     grid={2,2}), graphics={Rectangle(
@@ -275,7 +305,7 @@ equation
           textString="%name")}), Diagram(
     coordinateSystem(preserveAspectRatio=false,
     grid={2,2},
-        extent={{-120,-140},{120,140}})),
+        extent={{-180,-180},{180,180}})),
     Documentation(info="<html>
 <p>
 This block generates zone setpoints and setpoint targets that change with time

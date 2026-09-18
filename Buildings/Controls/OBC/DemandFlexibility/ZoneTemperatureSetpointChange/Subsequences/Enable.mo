@@ -16,9 +16,15 @@ block Enable "Zone enablement"
   parameter Real PBuiHys(
     min=0,
     start=1,
-    unit="W")
+    unit="W")=0.05*PBui_nominal
     "Hysteresis for the electricity demand of the building"
     annotation (Dialog(enable = use_demCon, tab="Advanced", group="Hysteresis"));
+  parameter Real PBui_nominal(
+    min=0,
+    start=1,
+    unit="W")
+    "Nominal electricity demand of the building"
+    annotation (Dialog(enable = use_demCon, group="Electricity demand parameters"));
   parameter Real TResInt(
     min=0,
     unit="K",
@@ -612,8 +618,8 @@ the zone temperature comparison. Hence, <code>enaFla = false</code> for this zon
 <p>
 If the electricity demand of the building <code>PBui</code> and the electricity
 demand <code>PBuiThr</code> meet any one of the following equations, this zone will
-have <code>enaFla = false</code>. Note that <code>PBuiHys</code> is an electricity
-demand hysteresis value:
+have <code>enaFla = false</code>. Note that <code>PBuiHys</code> is the electricity
+demand hysteresis, with a default value of <code>0.05 * PBui_nominal</code>:
 </p>
 <ul>
 <li>

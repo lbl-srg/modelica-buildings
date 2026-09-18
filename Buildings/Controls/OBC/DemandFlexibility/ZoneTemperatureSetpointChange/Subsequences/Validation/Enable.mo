@@ -5,7 +5,7 @@ model Enable "Zone enablement"
     zonEna(
     dTSheThr=0.5,
     dTSheHys=0.5,
-    PBuiHys=50,
+    PBui_nominal=1000,
     TResInt=0.5,
     airConMod=Buildings.Controls.OBC.DemandFlexibility.Types.AirConditioningMode.Heating,
     use_demCon=true,

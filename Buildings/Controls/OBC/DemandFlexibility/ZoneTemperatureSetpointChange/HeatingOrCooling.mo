@@ -29,11 +29,19 @@ block HeatingOrCooling
   parameter Real PBuiHys(
     min=0,
     start=1,
-    unit="W")
+    unit="W")=0.05*PBui_nominal
     "Hysteresis for the electricity demand of the building"
     annotation (Dialog(enable = zonConVar == Buildings.Controls.OBC.DemandFlexibility.Types.ZoneControlVariant.Variant_3
       or zonConVar == Buildings.Controls.OBC.DemandFlexibility.Types.ZoneControlVariant.Variant_4,
       tab="Advanced", group="Hysteresis"));
+  parameter Real PBui_nominal(
+    min=0,
+    start=1,
+    unit="W")
+    "Nominal electricity demand of the building"
+    annotation (Dialog(enable = zonConVar == Buildings.Controls.OBC.DemandFlexibility.Types.ZoneControlVariant.Variant_3
+      or zonConVar == Buildings.Controls.OBC.DemandFlexibility.Types.ZoneControlVariant.Variant_4,
+      group="Electricity demand parameters"));
   parameter Real PBuiThrCon(
     min=0,
     start=1,
@@ -136,7 +144,8 @@ protected
     zonEna(
     final dTSheThr=dTSheThr,
     final dTSheHys=dTSheHys,
-    final PBuiHys=PBuiHys,
+    PBuiHys=PBuiHys,
+    PBui_nominal=PBui_nominal,
     final TResInt=TResInt,
     final airConMod=airConMod,
     final use_demCon=zonConVar == Buildings.Controls.OBC.DemandFlexibility.Types.ZoneControlVariant.Variant_3
