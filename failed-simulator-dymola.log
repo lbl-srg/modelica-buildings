@@ -1,0 +1,540 @@
+Automatically generated BuildingsPy dump file for failed translations.
+
+===============================
+=====START OF NEW LOG FILE=====
+===============================
+﻿ = true
+
+
+rCheck = checkModel("Buildings.Templates.Plants.Chillers.Validation.WaterCooled");
+Pedantic check of Buildings.Templates.Plants.Chillers.Validation.WaterCooled
+The following parameters have enable=false and don't have any value, only a start value:
+    datAll.pla.chi.TOut_nominal(start = 308.15)
+    datAll.tit24CliZon(start = Buildings.Controls.OBC.ASHRAE.G36.Types.Title24ClimateZone.      Zone_1)
+    loa.con.dp1_nominal(start = 0)
+    pla.ctl.typMeaCtlChiWatPri(start = Buildings.Templates.Plants.Chillers.Types.PrimaryOverflowMeasurement.      FlowDecoupler)
+    pla.ctl.y1PumChiWatRes[1].u_internal(start = true)
+    pla.ctl.y1PumChiWatRes[2].u_internal(start = true)
+ 
+The model has the same number of unknowns and equations: 13642
+The model has the same number of unknowns and equations
+for the given numerical settings of parameters: 13642
+Check of Buildings.Templates.Plants.Chillers.Validation.WaterCooled successful.
+Declaring variable: Boolean rCheck ;
+
+Modelica.Utilities.Streams.print("    { \"file\" :  \"Buildings/Resources/Scripts/Dymola/Templates/Plants/Chillers/Validation/WaterCooled.mos\",", "Buildings.Templates.Plants.Chillers.Validation.WaterCooled.statistics.log");
+Modelica.Utilities.Streams.print("      \"model\" : \"Buildings.Templates.Plants.Chillers.Validation.WaterCooled\",", "Buildings.Templates.Plants.Chillers.Validation.WaterCooled.statistics.log");
+Modelica.Utilities.Streams.print("      \"check\" : {", "Buildings.Templates.Plants.Chillers.Validation.WaterCooled.statistics.log");
+Modelica.Utilities.Streams.print("        \"command\" : \"checkModel(\\\"Buildings.Templates.Plants.Chillers.Validation.WaterCooled\\\");\",", "Buildings.Templates.Plants.Chillers.Validation.WaterCooled.statistics.log");
+Modelica.Utilities.Streams.print("        \"result\"  : " + String(rCheck), "Buildings.Templates.Plants.Chillers.Validation.WaterCooled.statistics.log");
+Modelica.Utilities.Streams.print("      },", "Buildings.Templates.Plants.Chillers.Validation.WaterCooled.statistics.log");
+
+
+rScript=RunScript("modelica://Buildings/Resources/Scripts/Dymola/Templates/Plants/Chillers/Validation/WaterCooled.mos");
+old_flag = Advanced.Simulation.StoreProtectedVariables;
+Declaring variable: Boolean old_flag ;
+Advanced.Simulation.StoreProtectedVariables = true;
+simulateModel("Buildings.Templates.Plants.Chillers.Validation.WaterCooled",
+    method="cvode",
+    tolerance=1e-6,
+    startTime=0.0,
+    stopTime=86400.0,
+    resultFile="Buildings.Templates.Plants.Chillers.Validation.WaterCooled");
+Pedantic translation of Buildings.Templates.Plants.Chillers.Validation.WaterCooled
+The DAE has 13642 scalar unknowns and 13642 scalar equations.
+Redundant consistent initial conditions.
+Removed the following equations which are redundant and consistent: 
+  if (loa.loa.coi.heaCooHum_u.vol.dynBal.massDynamics == Modelica.Fluid.Types.Dynamics.    FixedInitial) then 
+    if (loa.loa.coi.heaCooHum_u.vol.dynBal.initialize_p) then 
+      loa.loa.coi.heaCooHum_u.vol.dynBal.medium.p = loa.loa.coi.heaCooHum_u.vol.dynBal.p_start;
+    end if;
+  else
+    if (loa.loa.coi.heaCooHum_u.vol.dynBal.massDynamics == Modelica.Fluid.Types.Dynamics.      SteadyStateInitial) then 
+      if (loa.loa.coi.heaCooHum_u.vol.dynBal.initialize_p) then 
+        der(loa.loa.coi.heaCooHum_u.vol.dynBal.medium.p) = 0;
+      end if;
+    end if;
+  end if;
+ 
+This required evaluation of 
+the interactive parameters 
+    loa.loa.outAir.p(start = 101325)
+ 
+The redundancies involve
+initial equations: 
+  loa.loa.coi.heaCooHum_u.vol.dynBal.medium.p = 101325.0;
+ 
+ 
+Statistics
+ 
+Original Model
+  Number of components: 4163
+  Variables: 24026
+  Constants: 195 (195 scalars)
+  Parameters: 10380 (12307 scalars)
+  Unknowns: 13451 (13907 scalars)
+  Differentiated variables: 72 scalars
+  Equations: 12924
+  Nontrivial: 11630
+Translated Model
+  Constants: 9178 scalars
+  Free parameters: 1717 scalars
+  Parameter depending: 3560 scalars
+  Outputs: 71 scalars
+  Continuous time states: 55 scalars
+  Time-varying variables: 3572 scalars
+  Alias variables: 8382 scalars
+  Number of mixed real/discrete systems of equations: 1
+  Sizes of linear systems of equations: {13}
+  Sizes after manipulation of the linear systems: {3}
+  Sizes of nonlinear systems of equations: {21, 18, 43, 3, 7, 7, 3}
+  Sizes after manipulation of the nonlinear systems: {3, 3, 2, 1, 1, 1, 1}
+  Number of numerical Jacobians: 0
+  Initialization problem
+    Number of mixed real/discrete systems of equations: 1
+    Sizes of linear systems of equations: {13}
+    Sizes after manipulation of the linear systems: {2}
+    Sizes of nonlinear systems of equations: {2, 2, 3, 23, 1, 20, 49}
+    Sizes after manipulation of the nonlinear systems: {1, 1, 1, 3, 0, 3, 2}
+    Sizes of simplified homotopy nonlinear systems of equations: {21, 1, 48}
+    Sizes after manipulation of the simplified homotopy nonlinear systems: {3, 0, 2}
+    Number of numerical Jacobians: 0
+ 
+Settings
+Advanced.StoreProtectedVariables = true
+OutputCPUtime = true
+Selected continuous time states
+Statically selected continuous time states
+loa.con.val.valEqu.actPos.y
+loa.loa.coi.dryWetCalcs.fullyWet.TWatOutEst
+loa.loa.coi.heaCoo.vol.dynBal.U
+loa.loa.coi.heaCooHum_u.vol.dynBal.medium.Xi[1]
+loa.loa.coi.heaCooHum_u.vol.dynBal.U
+loa.loa.conPID.conPID.I.y
+loa.loa.TAirLvg.T
+loa.loa.TLiqEnt.T
+loa.loa.TLiqLvg.T
+pla.chi.chi[1].chi.con.vol.dynBal.U
+pla.chi.chi[1].chi.eva.vol.dynBal.U
+pla.chi.chi[2].chi.con.vol.dynBal.U
+pla.chi.chi[2].chi.eva.vol.dynBal.U
+pla.chi.ctlHea[1].conPID.conPID.I.y
+pla.chi.ctlHea[2].conPID.conPID.I.y
+pla.chi.valChiWatChiIsoPar[1].lin.actPos.y
+pla.chi.valChiWatChiIsoPar[2].lin.actPos.y
+pla.chi.valConWatChiIso[1].lin.actPos.y
+pla.chi.valConWatChiIso[2].lin.actPos.y
+pla.coo.coo[1].tow.vol.dynBal.U
+pla.coo.coo[2].tow.vol.dynBal.U
+pla.coo.inlCoo.del.dynBal.U
+pla.coo.outCoo.del.dynBal.U
+pla.ctl.ctl.chiWatPumCon.pumSpeLocDp.conPID.conPID.I.y
+pla.ctl.ctl.minBypValCon.valPos.conPID.I.y
+pla.ctl.ctl.staSetCon.capReq.movMea.mu
+pla.ctl.ctl.staSetCon.PLRs.movMea.mu
+pla.ctl.ctl.towCon.towFanSpe.fanSpeRetTem.couTowSpe.conPID.conPID.I.y
+pla.ctl.ctl.towCon.towFanSpe.fanSpeWse.intOpe.loaCon.conPID.I.y
+pla.ctl.ctl.towCon.towFanSpe.fanSpeWse.wseOpe.chiWatTemCon.conPID.I.y
+pla.ctl.ctl.wseSta.wseTun.intWitRes.y
+pla.ctl.ctl.wseSta.wseVal.conPID.conPID.I.y
+pla.ctl.resDpChiWatLoc.conPID[1].conPID.I.y
+pla.eco.TConWatEcoRet.senTem.T
+pla.eco.valChiWatByp.equ.actPos.y
+pla.eco.valConWatIso.lin.actPos.y
+pla.inlPumConWat.del.dynBal.U
+pla.intChi.TChiWatEcoAft.senTem.T
+pla.intChi.TChiWatEcoBef.senTem.T
+pla.intChi.TChiWatPlaRet.senTem.T
+pla.intChi.valChiWatChiBypPar.lin.actPos.y
+pla.junByp.vol.dynBal.U
+pla.pumChiWatPri.pum[1].motSpe.y
+pla.pumChiWatPri.pum[1].vol.dynBal.U
+pla.pumChiWatPri.pum[2].motSpe.y
+pla.pumChiWatPri.pum[2].vol.dynBal.U
+pla.pumConWat.pum[1].motSpe.y
+pla.pumConWat.pum[1].vol.dynBal.U
+pla.pumConWat.pum[2].motSpe.y
+pla.pumConWat.pum[2].vol.dynBal.U
+pla.TChiWatPriSup.senTem.T
+pla.TConWatRet.senTem.T
+pla.TConWatSup.senTem.T
+pla.valChiWatMinByp.lin.actPos.y
+vol.dynBal.U
+The following parameters have enable=false and don't have any value, only a start value:
+    datAll.pla.chi.TOut_nominal(start = 308.15)
+    datAll.tit24CliZon(start = Buildings.Controls.OBC.ASHRAE.G36.Types.Title24ClimateZone.      Zone_1)
+    loa.con.dp1_nominal(start = 0)
+    pla.ctl.typMeaCtlChiWatPri(start = Buildings.Templates.Plants.Chillers.Types.PrimaryOverflowMeasurement.      FlowDecoupler)
+    pla.ctl.y1PumChiWatRes[1].u_internal(start = true)
+    pla.ctl.y1PumChiWatRes[2].u_internal(start = true)
+ 
+Warning: Some variables are iteration variables of the initialization problem:
+but they are not given any explicit start values. Zero will be used.
+Iteration variables:
+busPla.pumChiWatPri.y1
+pla.ctl.ctl.chiComSta[1].y
+pla.ctl.ctl.chiComSta[2].y
+pla.ctl.ctl.chiStaUp.y
+pla.ctl.ctl.chiWatPlaRes.mulAnd.u
+pla.ctl.ctl.chiWatPlaRes.mulAnd.y
+pla.ctl.ctl.chiWatPlaRes.triRes.netRes.u2
+pla.ctl.ctl.chiWatPlaRes.triRes.swi2.u2
+pla.ctl.ctl.chiWatPlaRes.triRes.tim.u
+pla.ctl.ctl.chiWatPlaRes.triRes.tim.y
+pla.ctl.ctl.chiWatPumCon.addPum[1].u3
+pla.ctl.ctl.chiWatPumCon.addPum[1].y
+pla.ctl.ctl.chiWatPumCon.addPum[2].u3
+pla.ctl.ctl.chiWatPumCon.addPum[2].y
+pla.ctl.ctl.chiWatPumCon.enaHeaLeaPum.anyIsoVal.y
+pla.ctl.ctl.chiWatPumCon.enaHeaLeaPum.leaPumSta.u2
+pla.ctl.ctl.chiWatPumCon.enaPum[1].y
+pla.ctl.ctl.chiWatPumCon.enaPum[2].y
+pla.ctl.ctl.chiWatPumCon.leaPumSta[1].y
+pla.ctl.ctl.chiWatPumCon.leaPumSta[2].y
+pla.ctl.ctl.chiWatPumCon.pumSta[1].y
+pla.ctl.ctl.chiWatPumCon.pumSta[2].y
+pla.ctl.ctl.chiWatPumCon.yLea
+pla.ctl.ctl.disChi.and2.u2
+pla.ctl.ctl.disChi.booScaRep1.u
+pla.ctl.ctl.disChi.chiWatPum1[1].u2
+pla.ctl.ctl.disChi.chiWatPum1[2].u2
+pla.ctl.ctl.disChi.cloChiIsoVal.y
+pla.ctl.ctl.disChi.disChi1.y
+pla.ctl.ctl.disChi.enaIsoVal.y
+pla.ctl.ctl.disChi.noChi.u
+pla.ctl.ctl.disChi.noChiWatReq.u
+pla.ctl.ctl.disChi.noChiWatReq.y
+pla.ctl.ctl.disChi.swi2.u2
+pla.ctl.ctl.disChi.truDel.u
+pla.ctl.ctl.disChi.truDel.y
+pla.ctl.ctl.disChi.u1ChiWatIsoVal
+pla.ctl.ctl.disChi.y1ChiWatIsoVal
+pla.ctl.ctl.dowProCon.and1.u2
+pla.ctl.ctl.dowProCon.and4.y
+pla.ctl.ctl.dowProCon.cha.down
+pla.ctl.ctl.dowProCon.curDisChi.index
+pla.ctl.ctl.dowProCon.disChiIsoVal.edg.y
+pla.ctl.ctl.dowProCon.disChiIsoVal.greThr[1].y
+pla.ctl.ctl.dowProCon.disChiIsoVal.greThr[2].y
+pla.ctl.ctl.dowProCon.disChiIsoVal.intEqu[1].y
+pla.ctl.ctl.dowProCon.disChiIsoVal.intEqu[2].y
+pla.ctl.ctl.dowProCon.disChiIsoVal.intRep.u
+pla.ctl.ctl.dowProCon.disChiIsoVal.lat.u
+pla.ctl.ctl.dowProCon.disChiIsoVal.lat.y
+pla.ctl.ctl.dowProCon.disChiIsoVal.lat3.u
+pla.ctl.ctl.dowProCon.disChiIsoVal.lat3.y
+pla.ctl.ctl.dowProCon.disChiIsoVal.mulOr.u
+pla.ctl.ctl.dowProCon.disChiIsoVal.truDel.u
+pla.ctl.ctl.dowProCon.dowSta.chiDemRed.finRedDem.y
+pla.ctl.ctl.dowProCon.dowSta.chiDemRed.lat.u
+pla.ctl.ctl.dowProCon.dowSta.chiDemRed.lat.y
+pla.ctl.ctl.dowProCon.dowSta.chiDemRed.notReqRed.y
+pla.ctl.ctl.dowProCon.dowSta.chiDemRed.tim.u
+pla.ctl.ctl.dowProCon.dowSta.chiDemRed.triSam.trigger
+pla.ctl.ctl.dowProCon.dowSta.chiDemRed.upFroZer.y
+pla.ctl.ctl.dowProCon.dowSta.chiDemRed.yChiDemRed
+pla.ctl.ctl.dowProCon.dowSta.disChi.and1[1].u1
+pla.ctl.ctl.dowProCon.dowSta.disChi.and1[2].u1
+pla.ctl.ctl.dowProCon.dowSta.disChi.and3[1].u2
+pla.ctl.ctl.dowProCon.dowSta.disChi.and3[2].u2
+pla.ctl.ctl.dowProCon.dowSta.disChi.and4[1].y
+pla.ctl.ctl.dowProCon.dowSta.disChi.and4[2].y
+pla.ctl.ctl.dowProCon.dowSta.disChi.logSwi1[1].u2
+pla.ctl.ctl.dowProCon.dowSta.disChi.logSwi1[1].y
+pla.ctl.ctl.dowProCon.dowSta.disChi.logSwi1[2].u2
+pla.ctl.ctl.dowProCon.dowSta.disChi.logSwi1[2].y
+pla.ctl.ctl.dowProCon.dowSta.disChi.logSwi2[1].y
+pla.ctl.ctl.dowProCon.dowSta.disChi.logSwi2[2].y
+pla.ctl.ctl.dowProCon.dowSta.disChi.logSwi3[1].y
+pla.ctl.ctl.dowProCon.dowSta.disChi.logSwi3[2].y
+pla.ctl.ctl.dowProCon.dowSta.disChi.logSwi4[1].u1
+pla.ctl.ctl.dowProCon.dowSta.disChi.logSwi4[1].u3
+pla.ctl.ctl.dowProCon.dowSta.disChi.logSwi4[2].u1
+pla.ctl.ctl.dowProCon.dowSta.disChi.logSwi4[2].u3
+pla.ctl.ctl.dowProCon.dowSta.disChi.logSwi[1].u2
+pla.ctl.ctl.dowProCon.dowSta.disChi.logSwi[1].y
+pla.ctl.ctl.dowProCon.dowSta.disChi.logSwi[2].u2
+pla.ctl.ctl.dowProCon.dowSta.disChi.logSwi[2].y
+pla.ctl.ctl.dowProCon.dowSta.disChi.tim.u
+pla.ctl.ctl.dowProCon.dowSta.enaChiIsoVal.edg.y
+pla.ctl.ctl.dowProCon.dowSta.enaChiIsoVal.greThr[1].y
+pla.ctl.ctl.dowProCon.dowSta.enaChiIsoVal.greThr[2].y
+pla.ctl.ctl.dowProCon.dowSta.enaChiIsoVal.intEqu[1].y
+pla.ctl.ctl.dowProCon.dowSta.enaChiIsoVal.intEqu[2].y
+pla.ctl.ctl.dowProCon.dowSta.enaChiIsoVal.intRep.u
+pla.ctl.ctl.dowProCon.dowSta.enaChiIsoVal.lat.u
+pla.ctl.ctl.dowProCon.dowSta.enaChiIsoVal.lat.y
+pla.ctl.ctl.dowProCon.dowSta.enaChiIsoVal.lat2.y
+pla.ctl.ctl.dowProCon.dowSta.enaChiIsoVal.lat3.y
+pla.ctl.ctl.dowProCon.dowSta.enaChiIsoVal.truDel.u
+pla.ctl.ctl.dowProCon.dowSta.enaChiIsoVal.truDel.y
+pla.ctl.ctl.dowProCon.dowSta.enaChiIsoVal.y1ChiWatIsoVal
+pla.ctl.ctl.dowProCon.dowSta.enaHeaCon.greThr1.y
+pla.ctl.ctl.dowProCon.dowSta.enaHeaCon.lat.clr
+pla.ctl.ctl.dowProCon.dowSta.enaHeaCon.lat.u
+pla.ctl.ctl.dowProCon.dowSta.enaHeaCon.lat.y
+pla.ctl.ctl.dowProCon.dowSta.enaHeaCon.yEnaHeaCon
+pla.ctl.ctl.dowProCon.dowSta.lat1.y
+pla.ctl.ctl.dowProCon.dowSta.lat2.y
+pla.ctl.ctl.dowProCon.dowSta.lat3.y
+pla.ctl.ctl.dowProCon.dowSta.lat4.y
+pla.ctl.ctl.dowProCon.dowSta.minBypRes.achSet.greHys.y
+pla.ctl.ctl.dowProCon.dowSta.minBypRes.and1.y
+pla.ctl.ctl.dowProCon.dowSta.minBypRes.and3.y
+pla.ctl.ctl.dowProCon.dowSta.minBypRes.and4.y
+pla.ctl.ctl.dowProCon.dowSta.minBypRes.and5.y
+pla.ctl.ctl.dowProCon.dowSta.minBypRes.lat.clr
+pla.ctl.ctl.dowProCon.dowSta.minBypRes.lat.y
+pla.ctl.ctl.dowProCon.dowSta.minBypRes.lat1.clr
+pla.ctl.ctl.dowProCon.dowSta.minBypRes.lat1.y
+pla.ctl.ctl.dowProCon.dowSta.minBypRes.notChaSet.y
+pla.ctl.ctl.dowProCon.dowSta.minBypRes.tim.u
+pla.ctl.ctl.dowProCon.dowSta.minBypRes.truDel.u
+pla.ctl.ctl.dowProCon.dowSta.minBypRes.truDel.y
+pla.ctl.ctl.dowProCon.dowSta.minBypRes.uSetChaPro
+pla.ctl.ctl.dowProCon.dowSta.minBypRes.yMinBypRes
+pla.ctl.ctl.dowProCon.dowSta.minChiWatSet.and5.y
+pla.ctl.ctl.dowProCon.dowSta.minChiWatSet.intEqu[1].y
+pla.ctl.ctl.dowProCon.dowSta.minChiWatSet.intEqu[2].y
+pla.ctl.ctl.dowProCon.dowSta.minChiWatSet.intGreEquThr.y
+pla.ctl.ctl.dowProCon.dowSta.minChiWatSet.intLesEquThr.y
+pla.ctl.ctl.dowProCon.dowSta.minChiWatSet.lat.clr
+pla.ctl.ctl.dowProCon.dowSta.minChiWatSet.lat.y
+pla.ctl.ctl.dowProCon.dowSta.minChiWatSet.logSwi.y
+pla.ctl.ctl.dowProCon.dowSta.minChiWatSet.nexChiMaxFlo.index
+pla.ctl.ctl.dowProCon.dowSta.minChiWatSet.nexChiRat.index
+pla.ctl.ctl.dowProCon.dowSta.minChiWatSet.not2.y
+pla.ctl.ctl.dowProCon.dowSta.minChiWatSet.notChaSet.y
+pla.ctl.ctl.dowProCon.dowSta.minChiWatSet.xor[1].y
+pla.ctl.ctl.dowProCon.dowSta.minChiWatSet.xor[2].y
+pla.ctl.ctl.dowProCon.dowSta.y1ChiWatIsoVal
+pla.ctl.ctl.dowProCon.lat2.y
+pla.ctl.ctl.dowProCon.lesEquThr.y
+pla.ctl.ctl.dowProCon.logSwi2.y
+pla.ctl.ctl.dowProCon.nexChi.anyDisChi.y
+pla.ctl.ctl.dowProCon.nexChi.anyEnaChi.y
+pla.ctl.ctl.dowProCon.nexChi.booToInt1[2].y
+pla.ctl.ctl.dowProCon.nexChi.booToInt2.y
+pla.ctl.ctl.dowProCon.nexChi.booToInt4.y
+pla.ctl.ctl.dowProCon.nexChi.booToInt[2].y
+pla.ctl.ctl.dowProCon.nexChi.cha.down
+pla.ctl.ctl.dowProCon.nexChi.disChi[1].u
+pla.ctl.ctl.dowProCon.nexChi.disChi[1].y
+pla.ctl.ctl.dowProCon.nexChi.disChi[2].u
+pla.ctl.ctl.dowProCon.nexChi.disChi[2].y
+pla.ctl.ctl.dowProCon.nexChi.disChiInd.u
+pla.ctl.ctl.dowProCon.nexChi.disChiInd.y
+pla.ctl.ctl.dowProCon.nexChi.dowPro.y
+pla.ctl.ctl.dowProCon.nexChi.edg[1].y
+pla.ctl.ctl.dowProCon.nexChi.edg[2].y
+pla.ctl.ctl.dowProCon.nexChi.enaChi[1].u
+pla.ctl.ctl.dowProCon.nexChi.enaChi[1].y
+pla.ctl.ctl.dowProCon.nexChi.enaChi[2].u
+pla.ctl.ctl.dowProCon.nexChi.enaChi[2].y
+pla.ctl.ctl.dowProCon.nexChi.enaChiInd.u
+pla.ctl.ctl.dowProCon.nexChi.enaChiInd.y
+pla.ctl.ctl.dowProCon.nexChi.endPro
+pla.ctl.ctl.dowProCon.nexChi.falEdg[1].y
+pla.ctl.ctl.dowProCon.nexChi.falEdg[2].y
+pla.ctl.ctl.dowProCon.nexChi.proInt5.y
+pla.ctl.ctl.dowProCon.nexChi.proInt6.y
+pla.ctl.ctl.dowProCon.nexChi.proInt7.y
+pla.ctl.ctl.dowProCon.nexChi.yEnaSmaChi
+pla.ctl.ctl.dowProCon.nexChi.yOnOff
+pla.ctl.ctl.dowProCon.uEndPro
+pla.ctl.ctl.dowProCon.y1ChiWatIsoVal
+pla.ctl.ctl.dowProCon.yChi
+pla.ctl.ctl.enaDev.enaPro.y
+pla.ctl.ctl.enaDev.intEqu1.y
+pla.ctl.ctl.enaDev.not1.y
+pla.ctl.ctl.inStaPro.y
+pla.ctl.ctl.staSetCon.cha.and4.u2
+pla.ctl.ctl.staSetCon.cha.and6.u1
+pla.ctl.ctl.staSetCon.cha.lat1.clr
+pla.ctl.ctl.staSetCon.cha.lat1.y
+pla.ctl.ctl.staSetCon.cha.or2.y
+pla.ctl.ctl.staSetCon.cha.reaToInt.y
+pla.ctl.ctl.staSetCon.cha.switch1.u2
+pla.ctl.ctl.staSetCon.cha.triSam1.trigger
+pla.ctl.ctl.staSetCon.chiInd.intEqu1[1, 1].y
+pla.ctl.ctl.staSetCon.chiInd.intEqu1[2, 1].y
+pla.ctl.ctl.staSetCon.chiInd.intEqu1[2, 2].y
+pla.ctl.ctl.staSetCon.chiInd.proInt[1, 1].u1
+pla.ctl.ctl.staSetCon.chiInd.proInt[2, 1].u1
+pla.ctl.ctl.staSetCon.chiInd.proInt[2, 2].u1
+pla.ctl.ctl.staSetCon.staDow.and0.u2
+pla.ctl.ctl.staSetCon.staDow.and0.y
+pla.ctl.ctl.staSetCon.staDow.and1.u2
+pla.ctl.ctl.staSetCon.staDow.and1.y
+pla.ctl.ctl.staSetCon.staDow.faiSafCon.hysTSup.y
+pla.ctl.ctl.staSetCon.staDow.faiSafCon.truDel.u
+pla.ctl.ctl.staSetCon.staDow.faiSafCon.truDel.y
+pla.ctl.ctl.staSetCon.staDow.faiSafCon.y
+pla.ctl.ctl.staSetCon.staDow.hys.y
+pla.ctl.ctl.staSetCon.staDow.hysTSup.y
+pla.ctl.ctl.staSetCon.staDow.logSwi.u3
+pla.ctl.ctl.staSetCon.staUp.faiSafCon.hysTSup.y
+pla.ctl.ctl.staSetCon.staUp.faiSafCon.truDel.u
+pla.ctl.ctl.staSetCon.staUp.faiSafCon.truDel.y
+pla.ctl.ctl.staSetCon.staUp.faiSafCon.y
+pla.ctl.ctl.staSetCon.staUp.hysTSup.y
+pla.ctl.ctl.staSetCon.staUp.hysTSup1.y
+pla.ctl.ctl.staSetCon.staUp.lat.y
+pla.ctl.ctl.staSetCon.staUp.logSwi.y
+pla.ctl.ctl.staSetCon.staUp.orStaUp.u1
+pla.ctl.ctl.staSetCon.staUp.orStaUp.y
+pla.ctl.ctl.staSetCon.staUp.truDel.u
+pla.ctl.ctl.staSetCon.staUp.truDel1.u
+pla.ctl.ctl.staSetCon.yDow
+pla.ctl.ctl.staSetCon.yUp
+pla.ctl.ctl.upProCon.and1.u2
+pla.ctl.ctl.upProCon.and1.y
+pla.ctl.ctl.upProCon.and4.u2
+pla.ctl.ctl.upProCon.and4.y
+pla.ctl.ctl.upProCon.cha.up
+pla.ctl.ctl.upProCon.chiDemRed.finRedDem.y
+pla.ctl.ctl.upProCon.chiDemRed.lat.u
+pla.ctl.ctl.upProCon.chiDemRed.lat.y
+pla.ctl.ctl.upProCon.chiDemRed.notReqRed.y
+pla.ctl.ctl.upProCon.chiDemRed.tim.u
+pla.ctl.ctl.upProCon.chiDemRed.triSam.trigger
+pla.ctl.ctl.upProCon.chiDemRed.upFroZer.y
+pla.ctl.ctl.upProCon.enaChiIsoVal.edg.y
+pla.ctl.ctl.upProCon.enaChiIsoVal.greThr[1].y
+pla.ctl.ctl.upProCon.enaChiIsoVal.greThr[2].y
+pla.ctl.ctl.upProCon.enaChiIsoVal.intEqu[1].y
+pla.ctl.ctl.upProCon.enaChiIsoVal.intEqu[2].y
+pla.ctl.ctl.upProCon.enaChiIsoVal.intRep.u
+pla.ctl.ctl.upProCon.enaChiIsoVal.lat.u
+pla.ctl.ctl.upProCon.enaChiIsoVal.lat.y
+pla.ctl.ctl.upProCon.enaChiIsoVal.lat2.y
+pla.ctl.ctl.upProCon.enaChiIsoVal.lat3.y
+pla.ctl.ctl.upProCon.enaChiIsoVal.truDel.u
+pla.ctl.ctl.upProCon.enaChiIsoVal.truDel.y
+pla.ctl.ctl.upProCon.enaChiIsoVal.y1ChiWatIsoVal
+pla.ctl.ctl.upProCon.enaHeaCon.and2.u1
+pla.ctl.ctl.upProCon.enaHeaCon.greThr1.y
+pla.ctl.ctl.upProCon.enaHeaCon.lat.clr
+pla.ctl.ctl.upProCon.enaHeaCon.lat.u
+pla.ctl.ctl.upProCon.enaHeaCon.lat.y
+pla.ctl.ctl.upProCon.enaHeaCon.yEnaHeaCon
+pla.ctl.ctl.upProCon.endUp.and1.u1
+pla.ctl.ctl.upProCon.endUp.and4.u2
+pla.ctl.ctl.upProCon.endUp.chiStaHol[1].y
+pla.ctl.ctl.upProCon.endUp.chiStaHol[2].y
+pla.ctl.ctl.upProCon.endUp.curDisChi.index
+pla.ctl.ctl.upProCon.endUp.curDisChi.y
+pla.ctl.ctl.upProCon.endUp.disChiIsoVal.edg.y
+pla.ctl.ctl.upProCon.endUp.disChiIsoVal.greThr[1].y
+pla.ctl.ctl.upProCon.endUp.disChiIsoVal.greThr[2].y
+pla.ctl.ctl.upProCon.endUp.disChiIsoVal.intEqu[1].y
+pla.ctl.ctl.upProCon.endUp.disChiIsoVal.intEqu[2].y
+pla.ctl.ctl.upProCon.endUp.disChiIsoVal.intRep.u
+pla.ctl.ctl.upProCon.endUp.disChiIsoVal.lat.u
+pla.ctl.ctl.upProCon.endUp.disChiIsoVal.lat.y
+pla.ctl.ctl.upProCon.endUp.disChiIsoVal.lat3.y
+pla.ctl.ctl.upProCon.endUp.disChiIsoVal.truDel.u
+pla.ctl.ctl.upProCon.endUp.disChiIsoVal.y1ChiWatIsoVal
+pla.ctl.ctl.upProCon.endUp.enaChi.and1[1].u1
+pla.ctl.ctl.upProCon.endUp.enaChi.and1[2].u1
+pla.ctl.ctl.upProCon.endUp.enaChi.and3[1].u2
+pla.ctl.ctl.upProCon.endUp.enaChi.and3[2].u2
+pla.ctl.ctl.upProCon.endUp.enaChi.logSwi1[1].u2
+pla.ctl.ctl.upProCon.endUp.enaChi.logSwi1[1].y
+pla.ctl.ctl.upProCon.endUp.enaChi.logSwi1[2].u2
+pla.ctl.ctl.upProCon.endUp.enaChi.logSwi1[2].y
+pla.ctl.ctl.upProCon.endUp.enaChi.logSwi[1].u2
+pla.ctl.ctl.upProCon.endUp.enaChi.logSwi[1].u3
+pla.ctl.ctl.upProCon.endUp.enaChi.logSwi[1].y
+pla.ctl.ctl.upProCon.endUp.enaChi.logSwi[2].u2
+pla.ctl.ctl.upProCon.endUp.enaChi.logSwi[2].u3
+pla.ctl.ctl.upProCon.endUp.enaChi.logSwi[2].y
+pla.ctl.ctl.upProCon.endUp.enaChi.or2.u1
+pla.ctl.ctl.upProCon.endUp.enaChi.or2.y
+pla.ctl.ctl.upProCon.endUp.enaChi.tim.u
+pla.ctl.ctl.upProCon.endUp.enaChi.yNewChiEna
+pla.ctl.ctl.upProCon.endUp.intGreEquThr.y
+pla.ctl.ctl.upProCon.endUp.intLesEquThr.y
+pla.ctl.ctl.upProCon.endUp.lat1.y
+pla.ctl.ctl.upProCon.endUp.not1.y
+pla.ctl.ctl.upProCon.endUp.not2.y
+pla.ctl.ctl.upProCon.endUp.y1ChiWatIsoVal
+pla.ctl.ctl.upProCon.lat.u
+pla.ctl.ctl.upProCon.lat1.y
+pla.ctl.ctl.upProCon.lat2.u
+pla.ctl.ctl.upProCon.lat2.y
+pla.ctl.ctl.upProCon.lat4.y
+pla.ctl.ctl.upProCon.lat5.y
+pla.ctl.ctl.upProCon.minBypSet.achSet.greHys.y
+pla.ctl.ctl.upProCon.minBypSet.and1.y
+pla.ctl.ctl.upProCon.minBypSet.and3.y
+pla.ctl.ctl.upProCon.minBypSet.and4.y
+pla.ctl.ctl.upProCon.minBypSet.and5.y
+pla.ctl.ctl.upProCon.minBypSet.lat.clr
+pla.ctl.ctl.upProCon.minBypSet.lat.y
+pla.ctl.ctl.upProCon.minBypSet.lat1.clr
+pla.ctl.ctl.upProCon.minBypSet.lat1.y
+pla.ctl.ctl.upProCon.minBypSet.notChaSet.y
+pla.ctl.ctl.upProCon.minBypSet.tim.u
+pla.ctl.ctl.upProCon.minBypSet.truDel.u
+pla.ctl.ctl.upProCon.minBypSet.truDel.y
+pla.ctl.ctl.upProCon.minBypSet.yMinBypRes
+pla.ctl.ctl.upProCon.minChiWatFlo.and5.y
+pla.ctl.ctl.upProCon.minChiWatFlo.byPasSet1.u2
+pla.ctl.ctl.upProCon.minChiWatFlo.intEqu[1].y
+pla.ctl.ctl.upProCon.minChiWatFlo.intEqu[2].y
+pla.ctl.ctl.upProCon.minChiWatFlo.intGreEquThr.y
+pla.ctl.ctl.upProCon.minChiWatFlo.intLesEquThr.y
+pla.ctl.ctl.upProCon.minChiWatFlo.lat.clr
+pla.ctl.ctl.upProCon.minChiWatFlo.lat.y
+pla.ctl.ctl.upProCon.minChiWatFlo.logSwi.y
+pla.ctl.ctl.upProCon.minChiWatFlo.nexChiMaxFlo.index
+pla.ctl.ctl.upProCon.minChiWatFlo.nexChiRat.index
+pla.ctl.ctl.upProCon.minChiWatFlo.notChaSet.y
+pla.ctl.ctl.upProCon.minChiWatFlo.uUpsDevSta
+pla.ctl.ctl.upProCon.minChiWatFlo.xor[1].y
+pla.ctl.ctl.upProCon.minChiWatFlo.xor[2].y
+pla.ctl.ctl.upProCon.minChiWatFlo.yChaSet
+pla.ctl.ctl.upProCon.nexChi.anyDisChi.y
+pla.ctl.ctl.upProCon.nexChi.anyEnaChi.y
+pla.ctl.ctl.upProCon.nexChi.booToInt1[2].y
+pla.ctl.ctl.upProCon.nexChi.booToInt2.y
+pla.ctl.ctl.upProCon.nexChi.booToInt3.y
+pla.ctl.ctl.upProCon.nexChi.booToInt[2].y
+pla.ctl.ctl.upProCon.nexChi.cha.up
+pla.ctl.ctl.upProCon.nexChi.disChi[1].u
+pla.ctl.ctl.upProCon.nexChi.disChi[1].y
+pla.ctl.ctl.upProCon.nexChi.disChi[2].u
+pla.ctl.ctl.upProCon.nexChi.disChi[2].y
+pla.ctl.ctl.upProCon.nexChi.disChiInd.u
+pla.ctl.ctl.upProCon.nexChi.disChiInd.y
+pla.ctl.ctl.upProCon.nexChi.edg[1].y
+pla.ctl.ctl.upProCon.nexChi.edg[2].y
+pla.ctl.ctl.upProCon.nexChi.enaChi[1].u
+pla.ctl.ctl.upProCon.nexChi.enaChi[1].y
+pla.ctl.ctl.upProCon.nexChi.enaChi[2].u
+pla.ctl.ctl.upProCon.nexChi.enaChi[2].y
+pla.ctl.ctl.upProCon.nexChi.enaChiInd.u
+pla.ctl.ctl.upProCon.nexChi.enaChiInd.y
+pla.ctl.ctl.upProCon.nexChi.endPro
+pla.ctl.ctl.upProCon.nexChi.falEdg[1].y
+pla.ctl.ctl.upProCon.nexChi.falEdg[2].y
+pla.ctl.ctl.upProCon.nexChi.proInt2.y
+pla.ctl.ctl.upProCon.nexChi.proInt3.y
+pla.ctl.ctl.upProCon.nexChi.proInt4.y
+pla.ctl.ctl.upProCon.nexChi.upPro.y
+pla.ctl.ctl.upProCon.nexChi.yDisSmaChi
+pla.ctl.ctl.upProCon.nexChi.yNexEnaChi
+pla.ctl.ctl.upProCon.nexChi.yOnOff
+pla.ctl.ctl.upProCon.y1ChiWatIsoVal
+pla.ctl.ctl.wseSta.wseTun.disCou1.trigger
+Warning: WARNINGS have been issued.
+Failed
+ = false
+Advanced.Simulation.StoreProtectedVariables = old_flag;
+
+Declaring variable: Boolean rScript ;
+
+savelog("Buildings.Templates.Plants.Chillers.Validation.WaterCooled.translation.log");
+
+
