@@ -1,19 +1,16 @@
 within Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Staging.SetPoints.Subsequences;
 block Configurator "Configures boiler staging"
 
-  parameter Integer nSta = 5
+  parameter Integer nSta
     "Number of boiler stages";
 
-  parameter Integer nBoi = 3
+  parameter Integer nBoi
     "Number of boilers";
 
-  parameter Integer boiTyp[nBoi]={
-    Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Types.Boilers.Condensing,
-    Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Types.Boilers.NonCondensing,
-    Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Types.Boilers.NonCondensing}
+  parameter Integer boiTyp[nBoi]
     "Boiler type. Recommended staging order: 1. condensing boilers, 2. non-codensing boilers";
 
-  parameter Integer staMat[nSta, nBoi] = {{1,0,0},{0,1,0},{1,1,0},{0,1,1},{1,1,1}}
+  parameter Integer staMat[nSta, nBoi]
     "Staging matrix with stage as row index and boiler as column index";
 
   parameter Real boiDesCap[nBoi](
