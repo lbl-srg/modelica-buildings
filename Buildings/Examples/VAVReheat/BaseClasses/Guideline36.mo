@@ -70,7 +70,6 @@ model Guideline36
     final eneStd=Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard.ASHRAE90_1,
 
     final venStd=Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.ASHRAE62_1,
-
     final ashCliZon=Buildings.Controls.OBC.ASHRAE.G36.Types.ASHRAEClimateZone.Zone_5A,
 
     final freSta=Buildings.Controls.OBC.ASHRAE.G36.Types.FreezeStat.No_freeze_stat,
@@ -429,7 +428,7 @@ The control is based on ASHRAE Guideline 36, and implemented
 using the sequences from the library
 <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36\">
 Buildings.Controls.OBC.ASHRAE.G36</a> for
-multi-zone VAV systems with economizer. 
+multi-zone VAV systems with economizer.
 The figures below shows the schematic diagram and controls of an HVAC system that supplies 5 zones:
 </p>
 <p align=\"center\">

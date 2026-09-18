@@ -1,0 +1,16 @@
+last-generated=2026-09-01
+statistics-simulation=
+{
+  "linear": " ",
+  "nonlinear": " ",
+  "numerical Jacobians": "0"
+}
+time=[0e+00, 1e+00]
+per.Q_flow_nominal=[1.4213946875e+05, 1.4213946875e+05]
+datBoiTab.per.Q_flow_nominal=[1.4213946875e+05, 1.4213946875e+05]
+datBoiTabRed.per.Q_flow_nominal=[1e+06, 1e+06]
+datBoiTabLoc.per.Q_flow_nominal=[1e+06, 1e+06]
+per.effCur[4, 11]=[8.678321838378906e-01, 8.678321838378906e-01]
+datBoiTab.per.effCur[4, 11]=[8.678321838378906e-01, 8.678321838378906e-01]
+datBoiTabRed.per.effCur[4, 11]=[8.678321838378906e-01, 8.678321838378906e-01]
+datBoiTabLoc.per.effCur[4, 11]=[8.678321838378906e-01, 8.678321838378906e-01]
