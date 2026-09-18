@@ -1,0 +1,26 @@
+simulateModel("Buildings.Templates.Plants.Controls.PolyvalentHeatPumps.Validation.ExtractStagingMatrix",
+    method="cvode",
+    tolerance=1e-6,
+    stopTime=1,
+    resultFile="ExtractStagingMatrix");
+createPlot(
+    id=1,
+    position={5, 5, 500, 600},
+    y={"iHea.y[1]"},
+    autoscale=true,
+    grid=true
+);
+createPlot(
+    id=1,
+    subPlot=2,
+    y={"extSta.y[1, 1]", "extSta.y[1, 3]", "extSta.y[2, 3]", "extSta.y[2, 5]", "extSta.y[4, 3]", "extSta.y[4, 5]"},
+    autoscale=true,
+    grid=true
+);
+createPlot(
+    id=1,
+    subPlot=3,
+    y={"extStaTra.y[1, 1]", "extStaTra.y[3, 1]", "extStaTra.y[3, 2]", "extStaTra.y[5, 2]", "extStaTra.y[3, 4]", "extStaTra.y[5, 4]"},
+    autoscale=true,
+    grid=true
+);
