@@ -186,8 +186,7 @@ experiment(
     StopTime=60,
     Interval=1,
       Tolerance=1e-6),
-    __Dymola_Commands(file=
-          "modelica://Buildings/Resources/Scripts/Dymola/Fluid/Humidifiers/EvaporativeCoolers/Baseclasses/Validation/IndirectWet.mos"
+    __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Humidifiers/EvaporativeCoolers/Baseclasses/Validation/IndirectWet.mos"
         "Simulate and plot"),
     Diagram(coordinateSystem(extent={{-100,-120},{100,120}})),
     Icon(coordinateSystem(extent={{-100,-100},{100,100}})));

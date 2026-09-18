@@ -24,10 +24,10 @@ block EvaporativePadCalculation
     displayUnit="degC")
     "Dry bulb temperature of the outlet air";
 
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput V_flow(
-    final unit="m3/s",
-    final quantity = "VolumeFlowRate")
-    "Air volume flow rate"
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput m_flow(
+    final unit="kg/s",
+    final quantity="MassFlowRate")
+    "Mass flow rate"
     annotation (Placement(transformation(origin={-120,-20},extent={{-20,-20},{20,20}}),
       iconTransformation(origin={-120,-20}, extent={{-20,-20},{20,20}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TDryBulIn(
@@ -76,7 +76,7 @@ protected
     redeclare package Medium =  Medium)
     "Water vapor mass fraction at the inlet";
 equation
-  v =abs(V_flow)/padAre;
+  v =(abs(m_flow)/rho_default)/padAre;
   eta = min(1, max(0,
     Buildings.Fluid.Humidifiers.EvaporativeCoolers.BaseClasses.Characteristics.saturationEfficiency(
       per=per.efficiency,
@@ -89,7 +89,7 @@ equation
   TWetBulIn = XWOut.TWetBul;
   p = XWOut.p;
   TDryBulOut = XWOut.TDryBul;
-  dmWat_flow = (XWOut.X_w - XWIn.X_w)*V_flow*rho_default;
+  dmWat_flow = (XWOut.X_w - XWIn.X_w)*m_flow;
 
 annotation (defaultComponentName="evaPadCal",
   Icon(graphics={
@@ -177,11 +177,12 @@ provides a performance map of discrete data points on how <code>eta</code> varie
 a function of the velocity of the air stream <code>v</code>.
 </p>
 <p>
-<code>v</code> is calculated from the volume flow rate <code>V_flow</code> and
-evaporative pad cross-sectional area <code>padAre</code> using:
+The velocity <code>v</code> is calculated from the mass flow rate <code>m_flow</code>,
+evaporative pad cross-sectional area <code>padAre</code>, and air density <code>rho</code>
+using:
 </p>
 <p align=\"center\" style=\"font-style:italic;\">
-v = V_flow/padAre
+v = m_flow/rho/padAre
 </p>
 <p>
 The outlet air drybulb temperature <code>TDryBulOut</code> is calculated using the

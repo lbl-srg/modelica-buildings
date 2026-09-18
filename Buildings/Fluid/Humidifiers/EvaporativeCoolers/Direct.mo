@@ -17,9 +17,9 @@ model Direct
       Placement(transformation(extent={{60,60},{80,80}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput evaCooAct
-    "True: the evaporative cooling is active" annotation (Placement(
-        transformation(extent={{-140,-100},{-100,-60}}), iconTransformation(
-          extent={{-110,-60},{-70,-20}})));
+    "True: the evaporative cooling is active"
+    annotation (Placement(transformation(extent={{-140,-100},{-100,-60}}),
+      iconTransformation(extent={{-110,-60},{-70,-20}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput dmWat_flow(
     final unit="kg/s",
     final quantity="MassFlowRate")
@@ -52,9 +52,8 @@ protected
     y=port_a.p)
     "Inlet air pressure"
     annotation (Placement(transformation(extent={{-100,50},{-80,70}})));
-  Modelica.Blocks.Sources.RealExpression V_flow(
-    y=port_a.m_flow/Medium.density(staInl))
-    "Inlet air volume flowrate"
+  Modelica.Blocks.Sources.RealExpression masflo(y=port_a.m_flow)
+    "Inlet air mass flow rate"
     annotation (Placement(transformation(extent={{-100,20},{-80,40}})));
   Buildings.Utilities.Psychrometrics.TWetBul_TDryBulXi wetBul(
     redeclare package Medium = Medium)
@@ -77,7 +76,7 @@ equation
     annotation (Line(points={{-79,80},{-21,80}}, color={0,0,127}));
   connect(pInl.y, evaPadCal.p) annotation (Line(points={{-79,60},{-60,60},{-60,
           44},{18,44}}, color={0,0,127}));
-  connect(V_flow.y, evaPadCal.V_flow) annotation (Line(points={{-79,30},{0,30},
+  connect(masflo.y,evaPadCal.m_flow)  annotation (Line(points={{-79,30},{0,30},
           {0,48},{18,48}}, color={0,0,127}));
   connect(evaCooAct, swiEvaCoo.u2)
     annotation (Line(points={{-120,-80},{-40,-80},{-40,-30},{58,-30}},
