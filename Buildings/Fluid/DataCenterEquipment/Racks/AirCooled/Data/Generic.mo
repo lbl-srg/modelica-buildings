@@ -2,25 +2,20 @@ within Buildings.Fluid.DataCenterEquipment.Racks.AirCooled.Data;
 record Generic "Generic data record for air cooled rack"
   extends
     Buildings.Fluid.DataCenterEquipment.Racks.BaseClasses.Data.Generic(
-      m_flow_nominal=PIT_nominal/(dTSet*cp_default));
+      m_flow_nominal=PIT_nominal/(dTSet*Buildings.Utilities.Psychrometrics.Constants.cpAir));
 
   parameter Modelica.Units.SI.Power PFan_nominal = 0.04*PIT_nominal
     "Fan power at full IT load PIT_nominal"
-    annotation(Dialog(group="Fan power"));
+    annotation(Dialog(group="Fan"));
 
-  parameter Buildings.Fluid.HeatExchangers.CoolingTowers.BaseClasses.Characteristics.fan fanRelPow(
-       r_V = {0, 0.1,   0.3,   0.6,   1},
-       r_P = {0, 0.1^3, 0.3^3, 0.6^3, 1})
-    "Fan relative power consumption as a function of control signal, fanRelPow=P(y)/P(y=1)"
-    annotation (
-    Placement(transformation(extent={{22,70},{42,90}})),
-    Dialog(group="Fan"));
-
-  constant Modelica.Units.SI.SpecificHeatCapacity cp_default = 1014.54
-    "Specific heat capacity";
+  parameter Real eta_nominal(
+    final unit="1",
+    final min=Modelica.Constants.small) = 0.7
+    "Fan and motor combined efficiency at nominal conditions"
+    annotation(Dialog(group="Fan"));
 
   parameter Modelica.Units.SI.TemperatureDifference dTSet(min=1) = 10
-    "Set point for temperature raise across rack";
+    "Set point for temperature rise across rack";
 
 annotation (
   defaultComponentName="dat",
@@ -40,6 +35,8 @@ on the normalized fan volume flow rate. By default, this is set to a cubic curve
 <p>
 The parameter <code>dTSet</code> is the set point for the air temperature raise across the rack,
 which by default is set to <i>10</i> Kelvin.
+This value is used, together with <code>PFan_nominal</code>, to compute the fan
+design mass flow rate <code>m_flow_nominal</code>.
 </p>
 </html>", revisions="<html>
 <ul>

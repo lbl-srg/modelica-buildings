@@ -2,7 +2,7 @@ within Buildings.Fluid.DataCenterEquipment.Racks.AirCooled;
 model Rack_u "Model of an air-cooled rack, and utilization is input"
   extends Buildings.Fluid.DataCenterEquipment.Racks.BaseClasses.PartialRack(
     redeclare replaceable Buildings.Fluid.DataCenterEquipment.Racks.AirCooled.Data.Generic dat
-      constrainedby Buildings.Fluid.DataCenterEquipment.Racks.AirCooled.Data.Generic,
+    constrainedby Buildings.Fluid.DataCenterEquipment.Racks.AirCooled.Data.Generic,
     vol(nPorts=2));
 
   Modelica.Blocks.Interfaces.RealOutput PTot(final unit="W")
@@ -15,25 +15,14 @@ model Rack_u "Model of an air-cooled rack, and utilization is input"
     annotation (Placement(transformation(extent={{100,50},{120,70}}),
       iconTransformation(extent={{100,40},{120,60}})));
 
-  Fluid.Movers.BaseClasses.IdealSource fan(
+  BaseClasses.ControlledFan fan(
     redeclare package Medium = Medium,
-    allowFlowReversal=false,
-    m_flow_small=1E-4*dat.m_flow_nominal,
-    control_m_flow=true,
-    control_dp=false) "Mass flow source"
-    annotation (Placement(transformation(extent={{-60,10},{-40,-10}})));
-
-  Fluid.Sensors.VolumeFlowRate senVolFlo(
-    redeclare package Medium = Medium,
-    m_flow_nominal=dat.m_flow_nominal,
-    initType=Modelica.Blocks.Types.Init.InitialState) "Volume flow rate"
+    final allowFlowReversal=allowFlowReversal,
+    final eta_nominal=dat.eta_nominal,
+    final m_flow_nominal=dat.m_flow_nominal,
+    final PFan_nominal=dat.PFan_nominal)
+    "Fans to cool IT equipment"
     annotation (Placement(transformation(extent={{-20,-10},{0,10}})));
-
-  Buildings.Controls.OBC.CDL.Reals.MultiplyByParameter PEleFan(
-    u(final unit="1"),
-    y(final quantity="Power", final unit="W"),
-    k=dat.PFan_nominal) "Electricity use of fan"
-    annotation (Placement(transformation(extent={{-60,-70},{-40,-50}})));
 
 protected
   parameter Modelica.Units.SI.SpecificHeatCapacity cp_default = Medium.specificHeatCapacityCp(
@@ -42,71 +31,70 @@ protected
   parameter Modelica.Units.SI.Density rho_default = Medium.density(
     state_default) "Density";
 
-  parameter Real fanRelPowDer[size(dat.fanRelPow.r_V,1)] =
-    Buildings.Utilities.Math.Functions.splineDerivatives(
-        x=dat.fanRelPow.r_V,
-        y=dat.fanRelPow.r_P,
-        ensureMonotonicity=Buildings.Utilities.Math.Functions.isMonotonic(
-          x=dat.fanRelPow.r_P,
-          strict=false))
-    "Coefficients for fan relative power consumption as a function of control signal";
-
-  Modelica.Blocks.Sources.RealExpression PFan_y(y(
-      final quantity="Power",
-      final unit="W") =
-      Buildings.Fluid.HeatExchangers.CoolingTowers.BaseClasses.Characteristics.normalizedPower(
-      per=dat.fanRelPow,
-      r_V=utiIT,
-      d=fanRelPowDer)) "Normalized electricity use of fan"
-    annotation (Placement(transformation(extent={{-90,-70},{-70,-50}})));
-
-
-  Modelica.Units.SI.SpecificHeatCapacity cp = Medium.specificHeatCapacityCp(
-    state_in) "Specific heat capacity";
-
-  Controls.OBC.CDL.Reals.Add PTotal "Total power consumption"
-    annotation (Placement(transformation(extent={{-20,20},{0,40}})));
-
-  Modelica.Blocks.Sources.RealExpression mSet_flow(
-    y(final unit="kg/s")=P/(cp*dat.dTSet))
-    "Set point for fan mass flow rate"
-    annotation (Placement(transformation(extent={{-90,-40},{-70,-20}})));
-
   parameter Medium.ThermodynamicState state_default=
     Medium.setState_phX(
       Medium.p_default,
       Medium.h_default,
       Medium.X_default[1:Medium.nXi])
     "Default medium state";
-  Medium.ThermodynamicState state_in=
-    Medium.setState_phX(
-      port_a.p,
-      inStream(port_a.h_outflow),
-      inStream(port_a.Xi_outflow))
-      "State of inflowing medium";
+
+  parameter Modelica.Units.SI.PressureDifference dp_nominal(displayUnit="Pa") =
+    dat.PFan_nominal * dat.eta_nominal / (dat.m_flow_nominal/rho_default)
+    "Fan pressure rise at nominal conditions, used also to parameterize internal flow resistance";
+
+  Controls.OBC.CDL.Reals.Add PTotal "Total power consumption"
+    annotation (Placement(transformation(extent={{20,70},{40,90}})));
+
+  Controls.OBC.CDL.Reals.AddParameter TOutSet(p=dat.dTSet)
+    "Setpoint for leaving air temperature"
+    annotation (Placement(transformation(extent={{-60,20},{-40,40}})));
+  Modelica.Thermal.HeatTransfer.Sensors.TemperatureSensor TAirLvg
+    "Leaving air temperature"
+    annotation (Placement(transformation(extent={{20,-30},{40,-10}})));
+  FixedResistances.PressureDrop res(
+    redeclare package Medium = Medium,
+    allowFlowReversal=allowFlowReversal,
+    m_flow_nominal=dat.m_flow_nominal,
+    from_dp=true,
+    dp_nominal=dp_nominal)
+    "Flow resistance"
+    annotation (Placement(transformation(extent={{60,-10},{80,10}})));
+
+  Modelica.Blocks.Sources.RealExpression TIn(
+    y(final unit="K", displayUnit="degC")=Medium.temperature(
+      Medium.setState_phX(
+        port_a.p,
+        inStream(port_a.h_outflow),
+        inStream(port_a.Xi_outflow))))
+      "Inlet temperature"
+    annotation (Placement(transformation(extent={{-90,20},{-70,40}})));
 equation
-  connect(PTotal.y, preHea.Q_flow) annotation (Line(points={{2,30},{10,30},{10,10},
-          {20,10}}, color={0,0,127}));
-  connect(mSet_flow.y, fan.m_flow_in)
-    annotation (Line(points={{-69,-30},{-56,-30},{-56,-8}}, color={0,0,127}));
-  connect(port_a, fan.port_a)
-    annotation (Line(points={{-100,0},{-60,0}}, color={0,127,255}));
-  connect(fan.port_b, senVolFlo.port_a)
-    annotation (Line(points={{-40,0},{-20,0}}, color={0,127,255}));
-  connect(senVolFlo.port_b, vol.ports[1])
-    annotation (Line(points={{0,0},{60,0}}, color={0,127,255}));
-  connect(vol.ports[2], port_b)
-    annotation (Line(points={{60,0},{100,0}}, color={0,127,255}));
-  connect(PFan_y.y, PEleFan.u)
-    annotation (Line(points={{-69,-60},{-62,-60}}, color={0,0,127}));
-  connect(PEleFan.y, PTotal.u2) annotation (Line(points={{-38,-60},{-30,-60},{-30,
-          24},{-22,24}}, color={0,0,127}));
-  connect(PEleFan.y, PFan) annotation (Line(points={{-38,-60},{-30,-60},{-30,
-          -20},{88,-20},{88,60},{110,60}}, color={0,0,127}));
-  connect(PTotal.y, PTot) annotation (Line(points={{2,30},{10,30},{10,80},{110,80}},
+  connect(PTotal.y, PTot) annotation (Line(points={{42,80},{110,80}},
         color={0,0,127}));
-  connect(P, PTotal.u1) annotation (Line(points={{-120,50},{-72,50},{-72,36},{-22,
-          36}}, color={0,0,127}));
+  connect(P, PTotal.u1) annotation (Line(points={{-120,50},{-70,50},{-70,86},{18,
+          86}}, color={0,0,127}));
+  connect(P, preHea.Q_flow) annotation (Line(points={{-120,50},{-40,50}},
+                   color={0,0,127}));
+  connect(TOutSet.y, fan.TSet) annotation (Line(points={{-38,30},{-30,30},{-30,8},
+          {-22,8}}, color={0,0,127}));
+  connect(TAirLvg.port, vol.heatPort) annotation (Line(points={{20,-20},{10,-20},
+          {10,10},{20,10}},color={191,0,0}));
+  connect(TAirLvg.T, fan.TMea) annotation (Line(points={{41,-20},{50,-20},{50,-40},
+          {-30,-40},{-30,4},{-22,4}},color={0,0,127}));
+  connect(TIn.y, TOutSet.u)
+    annotation (Line(points={{-69,30},{-62,30}}, color={0,0,127}));
+  connect(port_a, fan.port_a)
+    annotation (Line(points={{-100,0},{-20,0}}, color={0,127,255}));
+  connect(fan.port_b, vol.ports[1])
+    annotation (Line(points={{0,0},{30,0}}, color={0,127,255}));
+  connect(vol.ports[2], res.port_a)
+    annotation (Line(points={{30,0},{60,0}}, color={0,127,255}));
+  connect(res.port_b, port_b)
+    annotation (Line(points={{80,0},{100,0}}, color={0,127,255}));
+  connect(fan.P, PTotal.u2)
+    annotation (Line(points={{1,6},{4,6},{4,74},{18,74}}, color={0,0,127}));
+  connect(fan.P, PFan)
+    annotation (Line(points={{1,6},{4,6},{4,60},{110,60}}, color={0,0,127}));
 annotation (
   defaultComponentName="rac",
   Documentation(
@@ -145,16 +133,29 @@ where
 <code>dp_nominal</code> is a parameter for the design pressure difference, and
 <code>m</code> is a parameter for the flow exponent.
 </p>
-<h4>Fan mass flow rate</h4>
 <p>
-The model has a built-in fan, configured to have zero back pressure.
-The fan has an ideal controller that maintains a temperature difference across
-the rack equal to the parameter <code>dTSet</code>, before adding the fan
-energy to that air stream.
-Note that therefore, the actual rack outlet temperature is slightly higher because the
-fan energy is not included in the calculation of the mass flow rate.
-If it were included, the model would have a nonlinear system of equations,
-or would require a PI controller.
+Because the pressure drop of the rack is typically no a known design quantity,
+the model computes it internally based on the fan power consumption and
+the fan efficiency.
+</p>
+<h4>Fan</h4>
+<p>
+The model has a built-in fan which uses a constant total efficiency, specified through the
+parameter <code>dat.eta_nominal</code>.
+The fan has a PI controller that maintains a temperature difference across
+the rack equal to the parameter <code>dTSet</code>.
+</p>
+<h4>Implementation</h4>
+<p>
+The implementation uses a fan model with prescribed speed, and, as explained above,
+it computes a flow resistance which is then used in the simulations.
+This implementation is used to allow use of this model with active rear door heat exchangers.
+As active rear-door heat exchangers also have a fan, in such a configuration there will
+be two fans in series. Prescribing the mass flow rate instead of the fan
+may give in this situation an overspecified system of equations.
+Thefore, rack model and rear-door heat exchangers use the fan model
+<a href=\\\"modelica://Buildings.Fluid.DataCenterEquipment.Racks.BaseClasses.ControlledFan\\\">
+Buildings.Fluid.DataCenterEquipment.Racks.BaseClasses.ControlledFan</a>.
 </p>
 </html>",
 revisions="<html>

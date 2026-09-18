@@ -2,40 +2,42 @@ within Buildings.Fluid.DataCenterEquipment.Racks.BaseClasses;
 model ControlledFan "Fan with integrated PI temperature controller"
   extends Buildings.Fluid.Interfaces.PartialTwoPort;
 
-  parameter Modelica.Units.SI.Temperature TAirOutSet
-    "Set point for the leaving air temperature";
-
   parameter Real eta_nominal(
     final unit="1",
     final min=Modelica.Constants.small) = 0.7
-    "Fan and motor combined efficiency at nominal conditions";
+    "Fan and motor combined efficiency at nominal conditions"
+    annotation(Dialog(group="Fan"));
 
   parameter Modelica.Units.SI.MassFlowRate m_flow_nominal(min=0)
-    "Design air mass flow rate";
+    "Design air mass flow rate"
+    annotation(Dialog(group="Fan"));
 
   parameter Modelica.Units.SI.Power PFan_nominal(min=0)
-    "Fan electricity consumption at design flow rate";
+    "Fan electricity consumption at design flow rate"
+    annotation(Dialog(group="Fan"));
 
   parameter Modelica.Fluid.Types.Dynamics energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState
-    "Type of energy balance: dynamic (3 initialization options) or steady state";
+    "Type of energy balance: dynamic (3 initialization options) or steady state"
+    annotation(Dialog(group="Fan", tab="Dynamics"));
   parameter Boolean use_riseTime=false
-    "Set to true to continuously change motor speed";
+    "Set to true to continuously change motor speed"
+    annotation(Dialog(group="Fan", tab="Dynamics"));
   parameter Modelica.Units.SI.Time riseTime=30
-    "Time needed to change motor speed between zero and full speed";
+    "Time needed to change motor speed between zero and full speed"
+    annotation(Dialog(group="Fan", tab="Dynamics"));
   parameter Modelica.Units.SI.Time tau=1
-    "Time constant of fluid volume for nominal flow, used if energy or mass balance is dynamic";
-  parameter Movers.BaseClasses.Characteristics.powerParameters power(
-      V_flow={0.1,0.3,0.6,1} .* m_flow_nominal / rho_default,
-      P={0.1^3,0.3^3,0.6^3,1} .* PFan_nominal)
-    "Fan power vs. volumetric flow rate";
+    "Time constant of fluid volume for nominal flow, used if energy or mass balance is dynamic"
+    annotation(Dialog(group="Fan", tab="Dynamics"));
 
   parameter Real k(
     final unit="1",
     min=Modelica.Constants.small) = 1
-    "Gain of PI controller";
+    "Gain of PI controller"
+    annotation(Dialog(group="Controller"));
 
   parameter Modelica.Units.SI.Time Ti(min=Modelica.Constants.small) = 60
-    "Integrator time constant of PI controller";
+    "Integrator time constant of PI controller"
+    annotation(Dialog(group="Controller"));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TMea(
     final unit="K",
@@ -73,8 +75,10 @@ model ControlledFan "Fan with integrated PI temperature controller"
     final riseTime=riseTime,
     per(
       pressure(V_flow={0,2*V_flow_nominal}, dp={2*dp_nominal,0}),
-      final power=power,
-      etaHydMet=Buildings.Fluid.Movers.BaseClasses.Types.HydraulicEfficiencyMethod.Power_VolumeFlowRate,
+      etaHydMet=Buildings.Fluid.Movers.BaseClasses.Types.HydraulicEfficiencyMethod.EulerNumber,
+      etaMotMet=Buildings.Fluid.Movers.BaseClasses.Types.MotorEfficiencyMethod.Efficiency_VolumeFlowRate,
+      motorEfficiency(V_flow={0}, eta={sqrt(eta_nominal)}),
+      etaMot_max=sqrt(eta_nominal),
       powerOrEfficiencyIsHydraulic=false))
     "Fan"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));

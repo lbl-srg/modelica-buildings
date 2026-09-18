@@ -16,14 +16,14 @@ model ControlledFan "Validation of the controlled fan model"
   Buildings.Fluid.DataCenterEquipment.Racks.BaseClasses.ControlledFan fan(
     redeclare package Medium = Medium,
     m_flow_nominal=m_flow_nominal,
-    PFan_nominal=PFan_nominal,
-    TAirOutSet=TAirOutSet)
+    PFan_nominal=PFan_nominal)
     "Controlled fan"
     annotation (Placement(transformation(extent={{-40,-10},{-20,10}})));
 
   Buildings.Fluid.FixedResistances.PressureDrop res(
     redeclare package Medium = Medium,
     m_flow_nominal=m_flow_nominal,
+    from_dp=true,
     dp_nominal=dp_nominal)
     "Flow resistance"
     annotation (Placement(transformation(extent={{0,-10},{20,10}})));
@@ -43,8 +43,7 @@ model ControlledFan "Validation of the controlled fan model"
     redeclare package Medium = Medium,
     m_flow_nominal=m_flow_nominal,
     allowFlowReversal=false,
-    tau=0)
-    "Outlet air temperature sensor"
+    tau=0) "Outlet air temperature sensor"
     annotation (Placement(transformation(extent={{80,-10},{100,10}})));
 
   Buildings.Fluid.Sources.Boundary_pT sou(
@@ -59,7 +58,7 @@ model ControlledFan "Validation of the controlled fan model"
 
   Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow preHea
     "Prescribed heat flow rate"
-    annotation (Placement(transformation(extent={{20,30},{40,50}})));
+    annotation (Placement(transformation(extent={{10,30},{30,50}})));
 
   Modelica.Blocks.Sources.Ramp ram(
     height=Q_flow_nominal,
@@ -119,9 +118,10 @@ equation
   connect(senT.T, fan.TMea) annotation (Line(points={{90,11},{90,56},{-86,56},{
           -86,4},{-42,4}}, color={0,0,127}));
   connect(ram.y, preHea.Q_flow)
-    annotation (Line(points={{1,40},{20,40}},  color={0,0,127}));
+    annotation (Line(points={{1,40},{10,40}},  color={0,0,127}));
   connect(preHea.port, vol.heatPort)
-    annotation (Line(points={{40,40},{50,40},{50,10}}, color={191,0,0}));
+    annotation (Line(points={{30,40},{40,40},{40,10},{50,10}},
+                                                       color={191,0,0}));
 
   connect(TOutSet.y, fan.TSet) annotation (Line(points={{-58,20},{-50,20},{-50,
           8},{-41,8}}, color={0,0,127}));

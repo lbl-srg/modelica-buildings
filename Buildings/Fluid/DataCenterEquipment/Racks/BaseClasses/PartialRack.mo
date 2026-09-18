@@ -46,7 +46,7 @@ partial model PartialRack "Partial model of an IT rack, with utilization as inpu
     final tau=tau,
     final prescribedHeatFlowRate=true)
     "Fluid control volume"
-    annotation (Placement(transformation(extent={{50,0},{70,20}})));
+    annotation (Placement(transformation(extent={{20,0},{40,20}})));
 
   Modelica.Units.SI.MassFlowRate m_flow = port_a.m_flow
     "Mass flow rate from port_a to port_b";
@@ -54,9 +54,10 @@ partial model PartialRack "Partial model of an IT rack, with utilization as inpu
 protected
   Buildings.HeatTransfer.Sources.PrescribedHeatFlow preHea
     "Prescribed heat flow rate"
-    annotation (Placement(transformation(extent={{20,0},{40,20}})));
+    annotation (Placement(transformation(extent={{-40,40},{-20,60}})));
 equation
-  connect(preHea.port,vol. heatPort) annotation (Line(points={{40,10},{50,10}},
+  connect(preHea.port,vol. heatPort) annotation (Line(points={{-20,50},{10,50},
+          {10,10},{20,10}},
                         color={191,0,0}));
 annotation (
   Documentation(
