@@ -19,7 +19,9 @@ partial model LiquidCooledSinglePhase
 
   replaceable parameter Buildings.Fluid.DataCenterEquipment.Racks.Hybrid.Data.LiquidCooledSinglePhase.Generic dat
     "Performance data"
-    annotation (Placement(transformation(extent={{60,62},{80,82}})));
+    annotation (
+      Dialog(group="Performance data"),
+      Placement(transformation(extent={{60,52},{80,72}})));
 
   // Liquid-cooled parameters
   parameter Modelica.Fluid.Types.Dynamics energyDynamicsLiq=Modelica.Fluid.Types.Dynamics.DynamicFreeInitial
@@ -101,18 +103,18 @@ partial model LiquidCooledSinglePhase
   // Power outputs on the right
   Modelica.Blocks.Interfaces.RealOutput PLiqTot(final unit="W")
     "Electric power consumed by liquid-cooled IT" annotation (Placement(
-        transformation(extent={{100,80},{120,100}}), iconTransformation(extent={{100,80},
-            {120,100}})));
+        transformation(extent={{100,70},{120,90}}),  iconTransformation(extent={{100,70},
+            {120,90}})));
 
   Modelica.Blocks.Interfaces.RealOutput PAirTot(final unit="W")
     "Electric power consumed by air-cooled IT, including fan energy"
     annotation (Placement(transformation(extent={{100,-80},{120,-60}}),
-        iconTransformation(extent={{100,-80},{120,-60}})));
+        iconTransformation(extent={{100,-90},{120,-70}})));
 
   Modelica.Blocks.Interfaces.RealOutput PAirFan(final unit="W")
     "Electric power consumed by fan for air-cooled IT" annotation (Placement(
-        transformation(extent={{100,-100},{120,-80}}), iconTransformation(
-          extent={{100,-100},{120,-80}})));
+        transformation(extent={{100,-102},{120,-82}}), iconTransformation(
+          extent={{100,-110},{120,-90}})));
 
   // Component instances
   Buildings.Fluid.DataCenterEquipment.Racks.LiquidCooledSinglePhase.ColdPlateR_P
@@ -145,14 +147,14 @@ equation
   connect(portAir_a, air.port_a)
     annotation (Line(points={{-100,-40},{-10,-40}}, color={0,127,255}));
 
-  connect(PLiq, PLiqTot) annotation (Line(points={{-120,72},{-40,72},{-40,90},{
-          110,90}}, color={0,0,127}));
+  connect(PLiq, PLiqTot) annotation (Line(points={{-120,72},{-38,72},{-38,80},{110,
+          80}},     color={0,0,127}));
   connect(PAir, air.P) annotation (Line(points={{-120,-90},{-30,-90},{-30,-34},
           {-11,-34}}, color={0,0,127}));
-  connect(air.PTot, PAirTot) annotation (Line(points={{11,-32},{60,-32},{60,-70},
+  connect(air.PTot, PAirTot) annotation (Line(points={{11,-32},{86,-32},{86,-70},
           {110,-70}}, color={0,0,127}));
-  connect(air.PFan, PAirFan) annotation (Line(points={{11,-35},{56,-35},{56,-90},
-          {110,-90}}, color={0,0,127}));
+  connect(air.PFan, PAirFan) annotation (Line(points={{11,-35},{80,-35},{80,-92},
+          {110,-92}}, color={0,0,127}));
   connect(liq.P, PLiq) annotation (Line(points={{-11,46},{-40,46},{-40,72},{
           -120,72}}, color={0,0,127}));
 annotation (
@@ -267,11 +269,11 @@ First implementation.
           textColor={0,0,127},
           textString="PLiqTot"),
         Text(
-          extent={{60,-50},{90,-86}},
+          extent={{64,-62},{94,-98}},
           textColor={0,0,127},
           textString="PAirTot"),
         Text(
-          extent={{60,-70},{90,-106}},
+          extent={{64,-86},{94,-122}},
           textColor={0,0,127},
           textString="PAirFan"),
         Text(

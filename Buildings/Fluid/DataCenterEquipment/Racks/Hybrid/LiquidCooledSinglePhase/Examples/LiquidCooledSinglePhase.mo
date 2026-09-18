@@ -35,34 +35,33 @@ model LiquidCooledSinglePhase
     PIT_nominal=PLiq,
     m_flow_nominal=mLiq_flow_nominal)
     "Liquid-cooled rack performance data"
-    annotation (Placement(transformation(extent={{100,90},{120,110}})));
+    annotation (Placement(transformation(extent={{160,110},{180,130}})));
 
   parameter Buildings.Fluid.DataCenterEquipment.Racks.AirCooled.Data.Generic
     datAir(PIT_nominal=PAir)
     "Air-cooled rack performance data"
-    annotation (Placement(transformation(extent={{100,60},{120,80}})));
+    annotation (Placement(transformation(extent={{160,80},{180,100}})));
 
-  parameter Buildings.Fluid.DataCenterEquipment.Racks.Hybrid.Data.LiquidCooledSinglePhase.Generic dat(
-    liq=datLiq,
-    air=datAir)
-    "Hybrid rack performance data"
-    annotation (Placement(transformation(extent={{100,120},{120,140}})));
+  replaceable parameter Buildings.Fluid.DataCenterEquipment.Racks.Hybrid.Data.LiquidCooledSinglePhase.Generic dat
+    constrainedby Buildings.Fluid.DataCenterEquipment.Racks.Hybrid.Data.LiquidCooledSinglePhase.Generic(
+      liq=datLiq,
+      air=datAir) "Hybrid rack performance data"
+    annotation (Placement(transformation(extent={{160,140},{180,160}})));
 
   Buildings.Controls.OBC.CDL.Reals.Sources.TimeTable utiLiq(
     table=[0,0;
-           3600,0;
-           4500,0.8;
-           5400,0.8;
-           5400,0.4;
-           6300,0.4;
-           6300,0.8],
+            900,0;
+           1800,0.5;
+           5400,0.5;
+           6300,1;
+           7200,1],
     extrapolation=Buildings.Controls.OBC.CDL.Types.Extrapolation.HoldLastPoint)
     "Utilization of liquid-cooled hardware"
-    annotation (Placement(transformation(extent={{-160,0},{-140,20}})));
+    annotation (Placement(transformation(extent={{-220,0},{-200,20}})));
 
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant utiAir(k=1)
     "Utilization of air-cooled hardware"
-    annotation (Placement(transformation(extent={{-160,-30},{-140,-10}})));
+    annotation (Placement(transformation(extent={{-220,-30},{-200,-10}})));
 
   Modelica.Blocks.Math.Gain PITLiq(
     k(final unit="W",
@@ -70,7 +69,7 @@ model LiquidCooledSinglePhase
     u(final unit="1"),
     y(final unit="W"))
     "Power consumption by the liquid-cooled IT equipment"
-    annotation (Placement(transformation(extent={{-120,0},{-100,20}})));
+    annotation (Placement(transformation(extent={{-180,0},{-160,20}})));
 
   Modelica.Blocks.Math.Gain PITAir(
     k(final unit="W",
@@ -78,30 +77,30 @@ model LiquidCooledSinglePhase
     u(final unit="1"),
     y(final unit="W"))
     "Power consumption by the air-cooled IT equipment"
-    annotation (Placement(transformation(extent={{-120,-30},{-100,-10}})));
+    annotation (Placement(transformation(extent={{-180,-30},{-160,-10}})));
 
-  Buildings.Fluid.DataCenterEquipment.Racks.Hybrid.LiquidCooledSinglePhase.LiquidCooledSinglePhase
-    rac(
+  replaceable Buildings.Fluid.DataCenterEquipment.Racks.Hybrid.LiquidCooledSinglePhase.LiquidCooledSinglePhase rac
+    constrainedby Buildings.Fluid.DataCenterEquipment.Racks.Hybrid.LiquidCooledSinglePhase.LiquidCooledSinglePhase(
     redeclare package MediumLiq = MediumLiq,
     redeclare package MediumAir = MediumAir,
     dat=dat,
     energyDynamicsLiq=Modelica.Fluid.Types.Dynamics.FixedInitial,
     energyDynamicsAir=Modelica.Fluid.Types.Dynamics.FixedInitial)
     "Liquid and air-cooled rack"
-    annotation (Placement(transformation(extent={{10,-10},{30,10}})));
+    annotation (Placement(transformation(extent={{40,-10},{60,10}})));
 
   Buildings.Fluid.Movers.Preconfigured.SpeedControlled_y pum(
     redeclare package Medium = MediumLiq,
     m_flow_nominal=mLiq_flow_nominal,
-    dp_nominal=50000)
+    dp_nominal=datLiq.dp_nominal + dpValve_nominal)
     "Pump for liquid cooling loop"
-    annotation (Placement(transformation(extent={{-60,30},{-40,50}})));
+    annotation (Placement(transformation(extent={{-120,50},{-100,70}})));
 
   Buildings.Fluid.Sources.Boundary_pT bouLiq(
     redeclare package Medium = MediumLiq,
     nPorts=1)
     "Pressure boundary condition for liquid loop"
-    annotation (Placement(transformation(extent={{120,30},{100,50}})));
+    annotation (Placement(transformation(extent={{180,50},{160,70}})));
 
   Buildings.Fluid.Sources.Boundary_pT souAir(
     redeclare package Medium = MediumAir,
@@ -117,7 +116,7 @@ model LiquidCooledSinglePhase
     m_flow_nominal=mLiq_flow_nominal,
     tau=0)
     "Liquid inlet temperature to rack"
-    annotation (Placement(transformation(extent={{-30,30},{-10,50}})));
+    annotation (Placement(transformation(extent={{-30,50},{-10,70}})));
 
   Fluid.Sensors.TemperatureTwoPort senTLiq_b(
     redeclare package Medium = MediumLiq,
@@ -125,7 +124,7 @@ model LiquidCooledSinglePhase
     m_flow_nominal=mLiq_flow_nominal,
     tau=0)
     "Liquid outlet temperature from rack"
-    annotation (Placement(transformation(extent={{50,30},{70,50}})));
+    annotation (Placement(transformation(extent={{100,50},{120,70}})));
 
   Fluid.Sensors.TemperatureTwoPort senTAir_a(
     redeclare package Medium = MediumAir,
@@ -139,9 +138,8 @@ model LiquidCooledSinglePhase
     redeclare package Medium = MediumAir,
     allowFlowReversal=false,
     m_flow_nominal=datAir.m_flow_nominal,
-    tau=0)
-    "Air outlet temperature"
-    annotation (Placement(transformation(extent={{48,-50},{68,-30}})));
+    tau=0) "Air outlet temperature"
+    annotation (Placement(transformation(extent={{98,-50},{118,-30}})));
 
   Buildings.Controls.OBC.CDL.Reals.PID conPI(
     controllerType=Buildings.Controls.OBC.CDL.Types.SimpleController.PI,
@@ -153,7 +151,32 @@ model LiquidCooledSinglePhase
     "PI controller for pump speed to maintain constant pressure across rack"
     annotation (Placement(transformation(extent={{-80,110},{-60,130}})));
 
-  Buildings.Controls.OBC.CDL.Reals.Sources.Constant dpSet(k=datLiq.dp_nominal)
+  Actuators.Valves.TwoWayLinear val(
+    redeclare package Medium = MediumLiq,
+    m_flow_nominal=mLiq_flow_nominal,
+    dpValve_nominal=dpValve_nominal) "Valve"
+                                    annotation (Placement(transformation(
+        extent={{-10,-10},{10,10}},
+        rotation=270,
+        origin={0,30})));
+  Controls.OBC.CDL.Reals.Sources.Constant TSetRet(k=TRac_a+dTLiq_nominal)
+    "Temperature setpoint for return water"
+    annotation (Placement(transformation(extent={{-120,150},{-100,170}})));
+
+  Controls.OBC.CDL.Reals.PID conVal(
+    controllerType=Buildings.Controls.OBC.CDL.Types.SimpleController.PI,
+    Ti=30,
+    yMax=1,
+    yMin=0.1,
+    reverseActing=false,
+    u_s(final unit="K", displayUnit="degC"),
+    u_m(final unit="K", displayUnit="degC"))
+              "PI controller for valve to control return temperature"
+    annotation (Placement(transformation(extent={{-80,150},{-60,170}})));
+
+
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant dpSet(k=datLiq.dp_nominal +
+        dpValve_nominal)
     "Pressure drop setpoint across rack"
     annotation (Placement(transformation(extent={{-120,110},{-100,130}})));
 
@@ -163,18 +186,18 @@ model LiquidCooledSinglePhase
     dp_nominal=0,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
     "Cooler to maintain supply temperature"
-    annotation (Placement(transformation(extent={{-110,30},{-90,50}})));
+    annotation (Placement(transformation(extent={{-170,50},{-150,70}})));
 
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant TSetCoo(k=TRac_a)
     "Temperature setpoint for cooler"
-    annotation (Placement(transformation(extent={{-160,38},{-140,58}})));
+    annotation (Placement(transformation(extent={{-220,58},{-200,78}})));
 
   Fluid.Sensors.RelativePressure senRelPre(redeclare package Medium = MediumLiq)
     "Relative pressure sensor across rack"
     annotation (Placement(transformation(
         extent={{10,-10},{-10,10}},
         rotation=180,
-        origin={20,40})));
+        origin={50,60})));
 
 protected
   parameter MediumLiq.ThermodynamicState state_default = MediumLiq.setState_pTX(
@@ -182,53 +205,68 @@ protected
     p=MediumLiq.p_default,
     X=MediumLiq.X_default[1:MediumLiq.nXi]) "Medium state at default values";
 
+public
+  parameter Modelica.Units.SI.PressureDifference dpValve_nominal=5000
+    "Nominal pressure drop of fully open valve";
 equation
-  connect(senTLiq_a.port_b, rac.portLiq_a)
-    annotation (Line(points={{-10,40},{0,40},{0,4},{10,4}},
-                                              color={0,127,255}));
   connect(rac.portLiq_b, senTLiq_b.port_a)
-    annotation (Line(points={{30,4},{40,4},{40,40},{50,40}}, color={0,127,255}));
+    annotation (Line(points={{60,4},{80,4},{80,60},{100,60}},color={0,127,255}));
   connect(senTLiq_b.port_b, bouLiq.ports[1])
-    annotation (Line(points={{70,40},{100,40}}, color={0,127,255}));
+    annotation (Line(points={{120,60},{160,60}},color={0,127,255}));
   connect(senTAir_a.port_b, rac.portAir_a)
-    annotation (Line(points={{-10,-40},{0,-40},{0,-4},{10,-4}},
+    annotation (Line(points={{-10,-40},{0,-40},{0,-4},{40,-4}},
                                                 color={0,127,255}));
   connect(rac.portAir_b, senTAir_b.port_a)
-    annotation (Line(points={{30.2,-4},{40,-4},{40,-40},{48,-40}},
+    annotation (Line(points={{60.2,-4},{80,-4},{80,-40},{98,-40}},
                                                                  color={0,127,255}));
   connect(senTAir_a.port_a, souAir.ports[1]) annotation (Line(points={{-30,-40},
           {-80,-40},{-80,-80},{21,-80},{21,-90}}, color={0,127,255}));
-  connect(senTAir_b.port_b, souAir.ports[2]) annotation (Line(points={{68,-40},{
-          80,-40},{80,-80},{19,-80},{19,-90}},  color={0,127,255}));
+  connect(senTAir_b.port_b, souAir.ports[2]) annotation (Line(points={{118,-40},
+          {140,-40},{140,-80},{19,-80},{19,-90}},
+                                                color={0,127,255}));
   connect(pum.port_b, senTLiq_a.port_a)
-    annotation (Line(points={{-40,40},{-30,40}}, color={0,127,255}));
-  connect(bouLiq.ports[1], coo.port_a) annotation (Line(points={{100,40},{80,40},
-          {80,100},{-128,100},{-128,40},{-110,40}},color={0,127,255}));
+    annotation (Line(points={{-100,60},{-30,60}},color={0,127,255}));
+  connect(bouLiq.ports[1], coo.port_a) annotation (Line(points={{160,60},{140,60},
+          {140,88},{-180,88},{-180,60},{-170,60}}, color={0,127,255}));
   connect(dpSet.y, conPI.u_s)
     annotation (Line(points={{-98,120},{-82,120}}, color={0,0,127}));
-  connect(conPI.y, pum.y) annotation (Line(points={{-58,120},{-50,120},{-50,52}},
+  connect(conPI.y, pum.y) annotation (Line(points={{-58,120},{-50,120},{-50,94},
+          {-110,94},{-110,72}},
           color={0,0,127}));
   connect(coo.port_b, pum.port_a)
-    annotation (Line(points={{-90,40},{-60,40}}, color={0,127,255}));
-  connect(TSetCoo.y, coo.TSet) annotation (Line(points={{-138,48},{-112,48}},
+    annotation (Line(points={{-150,60},{-120,60}},
+                                                 color={0,127,255}));
+  connect(TSetCoo.y, coo.TSet) annotation (Line(points={{-198,68},{-172,68}},
                               color={0,0,127}));
-  connect(senTLiq_b.port_a, senRelPre.port_b) annotation (Line(points={{50,40},{
-          30,40}},                           color={0,127,255}));
-  connect(senRelPre.p_rel, conPI.u_m) annotation (Line(points={{20,49},{20,90},{
-          -70,90},{-70,108}},
+  connect(senTLiq_b.port_a, senRelPre.port_b) annotation (Line(points={{100,60},
+          {60,60}},                          color={0,127,255}));
+  connect(senRelPre.p_rel, conPI.u_m) annotation (Line(points={{50,69},{50,100},
+          {-70,100},{-70,108}},
                            color={0,0,127}));
   connect(senRelPre.port_a, senTLiq_a.port_b)
-    annotation (Line(points={{10,40},{-10,40}},color={0,127,255}));
+    annotation (Line(points={{40,60},{-10,60}},color={0,127,255}));
   connect(utiLiq.y[1], PITLiq.u)
-    annotation (Line(points={{-138,10},{-122,10}}, color={0,0,127}));
-  connect(PITLiq.y, rac.PLiq) annotation (Line(points={{-99,10},{-40,10},{-40,9},
-          {9,9}}, color={0,0,127}));
+    annotation (Line(points={{-198,10},{-182,10}}, color={0,0,127}));
+  connect(PITLiq.y, rac.PLiq) annotation (Line(points={{-159,10},{-40,10},{-40,8.2},
+          {39,8.2}},
+                  color={0,0,127}));
   connect(utiAir.y, PITAir.u)
-    annotation (Line(points={{-138,-20},{-122,-20}}, color={0,0,127}));
-  connect(PITAir.y, rac.PAir) annotation (Line(points={{-99,-20},{-40,-20},{-40,
-          -7},{9,-7}}, color={0,0,127}));
+    annotation (Line(points={{-198,-20},{-182,-20}}, color={0,0,127}));
+  connect(PITAir.y, rac.PAir) annotation (Line(points={{-159,-20},{-40,-20},{-40,
+          -8},{39,-8}},color={0,0,127}));
+  connect(val.port_b, rac.portLiq_a)
+    annotation (Line(points={{0,20},{0,4},{40,4}}, color={0,127,255}));
+  connect(val.port_a, senTLiq_a.port_b)
+    annotation (Line(points={{0,40},{0,60},{-10,60}}, color={0,127,255}));
+  connect(conVal.u_m, senTLiq_b.T) annotation (Line(points={{-70,148},{-70,140},
+          {110,140},{110,71}},
+                          color={0,0,127}));
+  connect(TSetRet.y, conVal.u_s)
+    annotation (Line(points={{-98,160},{-82,160}},color={0,0,127}));
+  connect(conVal.y, val.y) annotation (Line(points={{-58,160},{30,160},{30,30},{
+          12,30}}, color={0,0,127}));
   annotation (
-    Diagram(coordinateSystem(extent={{-190,-120},{140,150}})),
+    Diagram(coordinateSystem(extent={{-240,-120},{200,180}})),
     experiment(
       StopTime=7200,
       Tolerance=1e-06),
@@ -245,22 +283,17 @@ of the liquid-cooled load.
 <p>
 The liquid cooling loop uses a cooler upstream of a variable speed pump.
 The cooler maintains a constant supply temperature to the rack at 42°C.
+A control valve regulates the coolant mass flow rate to track a leaving coolant
+temperature setpoint.
 The pump is controlled by a PI controller that maintains a constant pressure drop
 across the rack equal to the design pressure drop.
-The controller adjusts the pump speed between 10% and 100% to maintain the setpoint.
-The pump has a nominal pressure rise of 50 kPa at the design flow rate.
+The controller adjusts the pump speed between 10% and 100% to maintain the pressure setpoint.
 </p>
 <p>
 The IT loads for both cooling systems are specified using different control strategies.
-The liquid-cooled utilization follows a time-based schedule
-that simulates a realistic data center load profile.
-Starting from zero utilization, the load ramps up to 80% over 15 minutes from t=3600s to t=4500s,
-remains at 80% for 15 minutes, then drops to 40%, holds for 15 minutes,
-increases back to 80%, and holds for another 15 minutes.
+The liquid-cooled utilization follows a time-based schedule.
 The air-cooled utilization is kept constant at 100%
 throughout the simulation.
-This load pattern is representative of workload variations in modern data centers
-running batch processing jobs or machine learning training tasks.
 </p>
 <p>
 The air cooling loop uses simple pressure boundary conditions that allow
@@ -277,5 +310,6 @@ July 14, 2026, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>
-</html>"));
+</html>"),
+    Icon(coordinateSystem(extent={{-100,-100},{100,100}})));
 end LiquidCooledSinglePhase;

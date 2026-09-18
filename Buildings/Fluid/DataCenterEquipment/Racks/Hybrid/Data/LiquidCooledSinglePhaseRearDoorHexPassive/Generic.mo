@@ -1,9 +1,9 @@
-within Buildings.Fluid.DataCenterEquipment.Racks.Hybrid.Data.LiquidCooledSinglePhaseRearDoorHex;
+within Buildings.Fluid.DataCenterEquipment.Racks.Hybrid.Data.LiquidCooledSinglePhaseRearDoorHexPassive;
 record Generic
-  "Generic data record for hybrid liquid-cooled single-phase and air-cooled rack with rear door heat exchanger"
+  "Generic data record for hybrid liquid-cooled single-phase and air-cooled rack with passive rear door heat exchanger"
   extends Buildings.Fluid.DataCenterEquipment.Racks.Hybrid.Data.LiquidCooledSinglePhase.Generic;
 
-  parameter Buildings.Fluid.DataCenterEquipment.Racks.Hybrid.Data.LiquidCooledSinglePhaseRearDoorHex.BaseClasses.RearDoorHex reaDooHex
+  parameter Buildings.Fluid.DataCenterEquipment.Racks.Hybrid.Data.LiquidCooledSinglePhaseRearDoorHexPassive.BaseClasses.RearDoorHex reaDooHex
     "Rear door heat exchanger performance data"
     annotation (Placement(transformation(extent={{60,20},{80,40}})));
 
@@ -21,8 +21,8 @@ This record extends
 Buildings.Fluid.DataCenterEquipment.Racks.Hybrid.Data.LiquidCooledSinglePhase.Generic</a>
 and adds a sub-record <code>reaDooHex</code> with performance data for the rear door
 heat exchanger, based on
-<a href=\"modelica://Buildings.Fluid.DataCenterEquipment.Racks.Hybrid.Data.LiquidCooledSinglePhaseRearDoorHex.BaseClasses.RearDoorHex\">
-Buildings.Fluid.DataCenterEquipment.Racks.Hybrid.Data.LiquidCooledSinglePhaseRearDoorHex.BaseClasses.RearDoorHex</a>.
+<a href=\"modelica://Buildings.Fluid.DataCenterEquipment.Racks.Hybrid.Data.LiquidCooledSinglePhaseRearDoorHexPassive.BaseClasses.RearDoorHex\">
+Buildings.Fluid.DataCenterEquipment.Racks.Hybrid.Data.LiquidCooledSinglePhaseRearDoorHexPassive.BaseClasses.RearDoorHex</a>.
 </p>
 </html>", revisions="<html>
 <ul>

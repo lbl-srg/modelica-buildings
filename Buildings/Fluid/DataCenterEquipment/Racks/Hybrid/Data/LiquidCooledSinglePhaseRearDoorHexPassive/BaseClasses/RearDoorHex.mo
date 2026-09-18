@@ -1,9 +1,9 @@
-within Buildings.Fluid.DataCenterEquipment.Racks.Hybrid.Data.LiquidCooledSinglePhaseRearDoorHex.BaseClasses;
-record RearDoorHex "Data record for rear door heat exchanger"
+within Buildings.Fluid.DataCenterEquipment.Racks.Hybrid.Data.LiquidCooledSinglePhaseRearDoorHexPassive.BaseClasses;
+record RearDoorHex "Data record for passive rear door heat exchanger"
   extends Modelica.Icons.Record;
 
   parameter Modelica.Units.SI.MassFlowRate mAir_flow_nominal
-    "Design air mass flow rate for heat exchanger and fan parameterization"
+    "Design air mass flow rate for heat exchanger"
     annotation (Dialog(group="Nominal condition"));
 
   parameter Modelica.Units.SI.MassFlowRate mCoo_flow_nominal
@@ -17,10 +17,6 @@ record RearDoorHex "Data record for rear door heat exchanger"
   parameter Modelica.Units.SI.HeatFlowRate Q_flow_nominal(max=0)
     "Cooling capacity at design condition (negative number)"
     annotation (Dialog(group="Nominal condition"));
-
-  parameter Modelica.Units.SI.Power PFan_nominal=0.04*Q_flow_nominal
-    "Fan power at full speed"
-    annotation (Dialog(group="Fan power"));
 
   parameter Real eta_nominal(
     final unit="1",
@@ -55,8 +51,7 @@ record RearDoorHex "Data record for rear door heat exchanger"
       (TAirIn_nominal - TCooIn_nominal))
     "Heat exchanger effectiveness";
 
-  final parameter Modelica.Units.SI.TemperatureDifference dTAir_nominal=
-    -Q_flow_nominal/(mAir_flow_nominal*Buildings.Utilities.Psychrometrics.Constants.cpAir)
+  parameter Modelica.Units.SI.TemperatureDifference dTAir_nominal(min=1) = 10
     "Air temperature difference across rear door heat exchanger";
 
   final parameter Modelica.Units.SI.TemperatureDifference dTCoo_nominal=

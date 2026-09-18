@@ -1,0 +1,8 @@
+compareVars :=
+  {
+    "senTAirIn.T",
+    "senTAirOut.T",
+    "senTCooIn.T",
+    "senTCooOut.T",
+    "hx.reaDooHex.Q2_flow"
+  };

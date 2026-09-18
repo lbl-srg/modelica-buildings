@@ -78,18 +78,18 @@ equation
           {-28,88},{-39,88}}, color={0,0,127}));
   connect(casTem.TIn, TIn.y) annotation (Line(points={{19,80},{-28,80},{-28,74},
           {-39,74}}, color={0,0,127}));
-  connect(QCas_flow.y, casTem.Q_flow) annotation (Line(points={{-19,50},{-10,50},
-          {-10,74},{19,74}}, color={0,0,127}));
+  connect(QCas_flow.y, casTem.Q_flow) annotation (Line(points={{-19,50},{-8,50},
+          {-8,74},{19,74}},  color={0,0,127}));
   connect(preDro.port_b, vol.ports[1])
-    annotation (Line(points={{-40,0},{60,0}}, color={0,127,255}));
+    annotation (Line(points={{-40,0},{30,0}}, color={0,127,255}));
   connect(preDro.port_a, port_a)
     annotation (Line(points={{-60,0},{-100,0}}, color={0,127,255}));
   connect(vol.ports[2], port_b)
-    annotation (Line(points={{60,0},{100,0}}, color={0,127,255}));
+    annotation (Line(points={{30,0},{100,0}}, color={0,127,255}));
   connect(QCas_flow.u, P)
     annotation (Line(points={{-42,50},{-120,50}}, color={0,0,127}));
-  connect(P, preHea.Q_flow) annotation (Line(points={{-120,50},{-60,50},{-60,10},
-          {20,10}}, color={0,0,127}));
+  connect(P, preHea.Q_flow) annotation (Line(points={{-120,50},{-60,50},{-60,20},
+          {-40,20}},color={0,0,127}));
 annotation (
   defaultComponentName="rac",
   Documentation(
