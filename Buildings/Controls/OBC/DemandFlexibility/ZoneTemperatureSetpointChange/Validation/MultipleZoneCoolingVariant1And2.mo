@@ -125,10 +125,10 @@ equation
     annotation (Line(points={{-118,-132},{-110,-132},{-110,-50},{-82,-50}},
       color={0,0,127}));
   connect(zonSetGen.TSheTarCooSet, TSheTarCooSetRep.u)
-    annotation (Line(points={{-118,-136},{-100,-136},{-100,-90},{-82,-90}},
+    annotation (Line(points={{-118,-135},{-100,-135},{-100,-90},{-82,-90}},
       color={0,0,127}));
   connect(zonSetGen.TDefCooSet, TDefCooSetRep.u)
-    annotation (Line(points={{-118,-140},{-90,-140},{-90,-130},{-82,-130}},
+    annotation (Line(points={{-118,-138},{-90,-138},{-90,-130},{-82,-130}},
       color={0,0,127}));
   connect(TPreTarCooSetRep.y, setChaConCooVar2.TPreTarSet)
     annotation (Line(points={{-58,-50},{0,-50},{0,-118},{38,-118}},

@@ -64,120 +64,212 @@ block Adjustment "Zone setpoint adjustment"
     annotation (Placement(transformation(extent={{200,-20},{240,20}}),
       iconTransformation(extent={{100,-20},{140,20}})));
 protected
+  Buildings.Controls.OBC.CDL.Reals.Less lesTPreTarSet
+    if airConMod == Buildings.Controls.OBC.DemandFlexibility.Types.AirConditioningMode.Heating
+    "Check if the pre-heat target temperature setpoint is less than the default temperature setpoint"
+    annotation (Placement(transformation(extent={{-40,-140},{-20,-120}})));
+  Buildings.Controls.OBC.CDL.Reals.Greater greTSheTarSet
+    if airConMod == Buildings.Controls.OBC.DemandFlexibility.Types.AirConditioningMode.Heating
+    "Check if the load-shed target temperature setpoint is greater than the default temperature setpoint"
+    annotation (Placement(transformation(extent={{-40,-180},{-20,-160}})));
+  Buildings.Controls.OBC.CDL.Logical.Not notLesTPreTarSet
+    if airConMod == Buildings.Controls.OBC.DemandFlexibility.Types.AirConditioningMode.Heating
+    "Check if the pre-heat target temperature setpoint is no less than the default temperature setpoint"
+    annotation (Placement(transformation(extent={{20,-140},{40,-120}})));
+  Buildings.Controls.OBC.CDL.Logical.Not notGreTSheTarSet
+    if airConMod == Buildings.Controls.OBC.DemandFlexibility.Types.AirConditioningMode.Heating
+    "Check if the load-shed target temperature setpoint is no greater than the default temperature setpoint"
+    annotation (Placement(transformation(extent={{20,-180},{40,-160}})));
+  Buildings.Controls.OBC.CDL.Reals.Greater greTPreTarSet
+    if airConMod == Buildings.Controls.OBC.DemandFlexibility.Types.AirConditioningMode.Cooling
+    "Check if the pre-cool target temperature setpoint is greater than the default temperature setpoint"
+    annotation (Placement(transformation(extent={{-40,-220},{-20,-200}})));
+  Buildings.Controls.OBC.CDL.Reals.Less lesTSheTarSet
+    if airConMod == Buildings.Controls.OBC.DemandFlexibility.Types.AirConditioningMode.Cooling
+    "Check if the load-shed target temperature setpoint is less than the default temperature setpoint"
+    annotation (Placement(transformation(extent={{-40,-260},{-20,-240}})));
+  Buildings.Controls.OBC.CDL.Logical.Not notGreTPreTarSet
+    if airConMod == Buildings.Controls.OBC.DemandFlexibility.Types.AirConditioningMode.Cooling
+    "Check if the pre-cool target temperature setpoint is no greater than the default temperature setpoint"
+    annotation (Placement(transformation(extent={{20,-220},{40,-200}})));
+  Buildings.Controls.OBC.CDL.Logical.Not notLesTSheTarSet
+    if airConMod == Buildings.Controls.OBC.DemandFlexibility.Types.AirConditioningMode.Cooling
+    "Check if the load-shed target temperature setpoint is no less than the default temperature setpoint"
+    annotation (Placement(transformation(extent={{20,-260},{40,-240}})));
+  Buildings.Controls.OBC.CDL.Utilities.Assert assMesTPreTarHeaSet(
+    message="Error: the pre-heat target temperature setpoint must be greater than or equal to the default temperature setpoint during the heating mode.")
+    if airConMod == Buildings.Controls.OBC.DemandFlexibility.Types.AirConditioningMode.Heating
+    "Error message for the pre-heat target temperature setpoint during the heating mode"
+    annotation (Placement(transformation(extent={{80,-140},{100,-120}})));
+  Buildings.Controls.OBC.CDL.Utilities.Assert assMesTSheTarHeaSet(
+    message="Error: the load-shed target temperature setpoint must be less than or equal to the default temperature setpoint during the heating mode.")
+    if airConMod == Buildings.Controls.OBC.DemandFlexibility.Types.AirConditioningMode.Heating
+    "Error message for the load-shed target heating temperature setpoint during the heating mode"
+    annotation (Placement(transformation(extent={{80,-180},{100,-160}})));
+  Buildings.Controls.OBC.CDL.Utilities.Assert assMesTPreTarCooSet(
+    message="Error: the pre-cool target temperature setpoint must be less than or equal to the default temperature setpoint during the cooling mode.")
+    if airConMod == Buildings.Controls.OBC.DemandFlexibility.Types.AirConditioningMode.Cooling
+    "Error message for the pre-cool target temperature setpoint during the cooling mode"
+    annotation (Placement(transformation(extent={{80,-220},{100,-200}})));
+  Buildings.Controls.OBC.CDL.Utilities.Assert assMesTSheTarCooSet(
+    message="Error: the load-shed target temperature setpoint must be greater than or equal to the default temperature setpoint during the cooling mode.")
+    if airConMod == Buildings.Controls.OBC.DemandFlexibility.Types.AirConditioningMode.Cooling
+    "Error message for the load-shed target cooling temperature setpoint during the cooling mode"
+    annotation (Placement(transformation(extent={{80,-260},{100,-240}})));
   Buildings.Controls.OBC.DemandFlexibility.Generic.SetpointChange setChaPre(
     final ascSet=airConMod == Buildings.Controls.OBC.DemandFlexibility.Types.AirConditioningMode.Heating,
     final use_mulSteSetCha=false)
     "Setpoint change logic for the pre-cool or the pre-heat mode"
-    annotation (Placement(transformation(extent={{40,160},{60,180}})));
+    annotation (Placement(transformation(extent={{40,240},{60,260}})));
   Buildings.Controls.OBC.DemandFlexibility.Generic.SetpointChange setChaShe(
     final setChaDel=dTShe,
     final ascSet=airConMod == Buildings.Controls.OBC.DemandFlexibility.Types.AirConditioningMode.Cooling,
     final use_mulSteSetCha=use_mulSteSetCha)
     "Setpoint change logic for the load-shed mode"
-    annotation (Placement(transformation(extent={{40,-40},{60,-20}})));
+    annotation (Placement(transformation(extent={{40,40},{60,60}})));
   Buildings.Controls.OBC.DemandFlexibility.Generic.SetpointChange setChaReb(
     final setChaDel=dTReb,
     final ascSet=airConMod == Buildings.Controls.OBC.DemandFlexibility.Types.AirConditioningMode.Heating,
     final use_mulSteSetCha=use_mulSteSetCha)
     "Setpoint change logic for the load-rebound mode"
-    annotation (Placement(transformation(extent={{40,-140},{60,-120}})));
+    annotation (Placement(transformation(extent={{40,-60},{60,-40}})));
   Buildings.Controls.OBC.DemandFlexibility.Generic.RealValueSelectionByMode zonSetSelByMod(
     final use_pre=true)
     "Output the corresponding commanded zone temperature setpoint value based on the demand flexibility mode"
-    annotation (Placement(transformation(extent={{140,-10},{160,10}})));
+    annotation (Placement(transformation(extent={{140,70},{160,90}})));
   Buildings.Controls.OBC.DemandFlexibility.Generic.DoubleSwitch TSetBouSwiPre
     "Switch the maximum and minimum temperature setpoint bounds based on the air conditioning mode during pre-cool or pre-heat"
-    annotation (Placement(transformation(extent={{-20,120},{0,140}})));
+    annotation (Placement(transformation(extent={{-20,200},{0,220}})));
   Buildings.Controls.OBC.DemandFlexibility.Generic.DoubleSwitch TSetBouSwiShe
     "Switch the maximum and minimum temperature setpoint bounds based on the air conditioning mode during load-shed"
-    annotation (Placement(transformation(extent={{-20,-80},{0,-60}})));
+    annotation (Placement(transformation(extent={{-20,0},{0,20}})));
   Buildings.Controls.OBC.DemandFlexibility.Generic.DoubleSwitch TSetBouSwiReb
     "Switch the maximum and minimum temperature setpoint bounds based on the air conditioning mode during load-rebound"
-    annotation (Placement(transformation(extent={{-20,-180},{0,-160}})));
+    annotation (Placement(transformation(extent={{-20,-100},{0,-80}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant conAirConMod(
     final k=airConMod == Buildings.Controls.OBC.DemandFlexibility.Types.AirConditioningMode.Heating)
     "Constant for the air conditioning mode; true for heating, false for cooling"
-    annotation (Placement(transformation(extent={{-80,20},{-60,40}})));
+    annotation (Placement(transformation(extent={{-80,140},{-60,160}})));
 equation
   connect(uEna, setChaPre.uEna)
-    annotation (Line(points={{-220,160},{-120,160},{-120,176},{38,176}},
+    annotation (Line(points={{-220,160},{-120,160},{-120,256},{38,256}},
       color={255,0,255}));
   connect(uEna, setChaShe.uEna)
-    annotation (Line(points={{-220,160},{-120,160},{-120,-24},{38,-24}},
+    annotation (Line(points={{-220,160},{-120,160},{-120,56},{38,56}},
       color={255,0,255}));
   connect(uEna, setChaReb.uEna)
-    annotation (Line(points={{-220,160},{-120,160},{-120,-124},{38,-124}},
+    annotation (Line(points={{-220,160},{-120,160},{-120,-44},{38,-44}},
       color={255,0,255}));
   connect(TCurZonSet, setChaPre.uCurSet)
-    annotation (Line(points={{-220,40},{-100,40},{-100,172},{38,172}},
+    annotation (Line(points={{-220,40},{-100,40},{-100,252},{38,252}},
       color={0,0,127}));
   connect(TCurZonSet, setChaShe.uCurSet)
-    annotation (Line(points={{-220,40},{-140,40},{-140,-28},{38,-28}},
+    annotation (Line(points={{-220,40},{-140,40},{-140,52},{38,52}},
       color={0,0,127}));
   connect(TCurZonSet, setChaReb.uCurSet)
-    annotation (Line(points={{-220,40},{-140,40},{-140,-128},{38,-128}},
+    annotation (Line(points={{-220,40},{-140,40},{-140,-48},{38,-48}},
       color={0,0,127}));
   connect(zonSetSelByMod.y, TComZonSet)
-    annotation (Line(points={{162,0},{220,0}}, color={0,0,127}));
+    annotation (Line(points={{162,80},{192,80},{192,0},{220,0}}, color={0,0,127}));
   connect(demFleMod,zonSetSelByMod. demFleMod)
-    annotation (Line(points={{-220,100},{120,100},{120,8},{138,8}},
+    annotation (Line(points={{-220,100},{120,100},{120,88},{138,88}},
       color={255,127,0}));
   connect(setChaPre.y,zonSetSelByMod. uPre)
-    annotation (Line(points={{62,170},{80,170},{80,4},{138,4}}, color={0,0,127}));
+    annotation (Line(points={{62,250},{80,250},{80,84},{138,84}}, color={0,0,127}));
   connect(setChaShe.y,zonSetSelByMod. uShe)
-    annotation (Line(points={{62,-30},{80,-30},{80,-4},{138,-4}}, color={0,0,127}));
+    annotation (Line(points={{62,50},{80,50},{80,76},{138,76}}, color={0,0,127}));
   connect(setChaReb.y,zonSetSelByMod. uReb)
-    annotation (Line(points={{62,-130},{120,-130},{120,-8},{138,-8}},
+    annotation (Line(points={{62,-50},{120,-50},{120,72},{138,72}},
       color={0,0,127}));
   connect(TDefSet,zonSetSelByMod. uDef)
-    annotation (Line(points={{-220,-100},{-160,-100},{-160,0},{138,0}},
+    annotation (Line(points={{-220,-100},{-160,-100},{-160,80},{138,80}},
       color={0,0,127}));
   connect(conAirConMod.y, TSetBouSwiPre.u2)
-    annotation (Line(points={{-58,30},{-40,30},{-40,130},{-22,130}},
+    annotation (Line(points={{-58,150},{-40,150},{-40,210},{-22,210}},
       color={255,0,255}));
   connect(conAirConMod.y, TSetBouSwiShe.u2)
-    annotation (Line(points={{-58,30},{-40,30},{-40,-70},{-22,-70}},
+    annotation (Line(points={{-58,150},{-40,150},{-40,10},{-22,10}},
       color={255,0,255}));
   connect(conAirConMod.y, TSetBouSwiReb.u2)
-    annotation (Line(points={{-58,30},{-40,30},{-40,-170},{-22,-170}},
+    annotation (Line(points={{-58,150},{-40,150},{-40,-90},{-22,-90}},
       color={255,0,255}));
   connect(TSetBouSwiPre.y1, setChaPre.uAllMaxSet)
-    annotation (Line(points={{2,135},{20,135},{20,168.2},{38,168.2}},
+    annotation (Line(points={{2,215},{20,215},{20,248.2},{38,248.2}},
       color={0,0,127}));
   connect(setChaPre.uAllMinSet, TSetBouSwiPre.y2)
-    annotation (Line(points={{38,164},{30,164},{30,125},{2,125}}, color={0,0,127}));
+    annotation (Line(points={{38,244},{30,244},{30,205},{2,205}}, color={0,0,127}));
   connect(TSetBouSwiShe.y1, setChaShe.uAllMaxSet)
-    annotation (Line(points={{2,-65},{20,-65},{20,-31.8},{38,-31.8}},
+    annotation (Line(points={{2,15},{20,15},{20,48.2},{38,48.2}},
       color={0,0,127}));
   connect(setChaShe.uAllMinSet, TSetBouSwiShe.y2)
-    annotation (Line(points={{38,-36},{30,-36},{30,-75},{2,-75}}, color={0,0,127}));
+    annotation (Line(points={{38,44},{30,44},{30,5},{2,5}}, color={0,0,127}));
   connect(TSetBouSwiReb.y1, setChaReb.uAllMaxSet)
-    annotation (Line(points={{2,-165},{20,-165},{20,-131.8},{38,-131.8}},
+    annotation (Line(points={{2,-85},{20,-85},{20,-51.8},{38,-51.8}},
       color={0,0,127}));
   connect(TSetBouSwiReb.y2, setChaReb.uAllMinSet)
-    annotation (Line(points={{2,-175},{30,-175},{30,-136},{38,-136}},
+    annotation (Line(points={{2,-95},{30,-95},{30,-56},{38,-56}},
       color={0,0,127}));
   connect(TPreTarSet, TSetBouSwiPre.u1)
-    annotation (Line(points={{-220,-40},{-180,-40},{-180,136},{-22,136}},
+    annotation (Line(points={{-220,-40},{-180,-40},{-180,216},{-22,216}},
       color={0,0,127}));
   connect(TDefSet, TSetBouSwiPre.u3)
-    annotation (Line(points={{-220,-100},{-160,-100},{-160,124},{-22,124}},
+    annotation (Line(points={{-220,-100},{-160,-100},{-160,204},{-22,204}},
       color={0,0,127}));
   connect(TDefSet, TSetBouSwiShe.u1)
-    annotation (Line(points={{-220,-100},{-160,-100},{-160,-64},{-22,-64}},
+    annotation (Line(points={{-220,-100},{-160,-100},{-160,16},{-22,16}},
       color={0,0,127}));
   connect(TSheTarSet, TSetBouSwiShe.u3)
-    annotation (Line(points={{-220,-160},{-80,-160},{-80,-76},{-22,-76}},
+    annotation (Line(points={{-220,-160},{-80,-160},{-80,4},{-22,4}},
       color={0,0,127}));
   connect(TDefSet, TSetBouSwiReb.u1)
-    annotation (Line(points={{-220,-100},{-160,-100},{-160,-164},{-22,-164}},
+    annotation (Line(points={{-220,-100},{-160,-100},{-160,-84},{-22,-84}},
       color={0,0,127}));
   connect(TSheTarSet, TSetBouSwiReb.u3)
-    annotation (Line(points={{-220,-160},{-80,-160},{-80,-176},{-22,-176}},
+    annotation (Line(points={{-220,-160},{-80,-160},{-80,-96},{-22,-96}},
+      color={0,0,127}));
+  connect(TPreTarSet, lesTPreTarSet.u1)
+    annotation (Line(points={{-220,-40},{-180,-40},{-180,-130},{-42,-130}},
+      color={0,0,127}));
+  connect(TDefSet, lesTPreTarSet.u2)
+    annotation (Line(points={{-220,-100},{-160,-100},{-160,-138},{-42,-138}},
+      color={0,0,127}));
+  connect(lesTPreTarSet.y, notLesTPreTarSet.u)
+    annotation (Line(points={{-18,-130},{18,-130}}, color={255,0,255}));
+  connect(greTSheTarSet.y, notGreTSheTarSet.u)
+    annotation (Line(points={{-18,-170},{18,-170}}, color={255,0,255}));
+  connect(lesTSheTarSet.y, notLesTSheTarSet.u)
+    annotation (Line(points={{-18,-250},{18,-250}}, color={255,0,255}));
+  connect(TPreTarSet, greTPreTarSet.u1)
+    annotation (Line(points={{-220,-40},{-180,-40},{-180,-210},{-42,-210}},
+      color={0,0,127}));
+  connect(TDefSet, greTPreTarSet.u2)
+    annotation (Line(points={{-220,-100},{-160,-100},{-160,-218},{-42,-218}},
+      color={0,0,127}));
+  connect(greTPreTarSet.y, notGreTPreTarSet.u)
+    annotation (Line(points={{-18,-210},{18,-210}}, color={255,0,255}));
+  connect(notLesTPreTarSet.y, assMesTPreTarHeaSet.u)
+    annotation (Line(points={{42,-130},{78,-130}}, color={255,0,255}));
+  connect(notGreTSheTarSet.y, assMesTSheTarHeaSet.u)
+    annotation (Line(points={{42,-170},{78,-170}}, color={255,0,255}));
+  connect(notGreTPreTarSet.y, assMesTPreTarCooSet.u)
+    annotation (Line(points={{42,-210},{78,-210}}, color={255,0,255}));
+  connect(notLesTSheTarSet.y, assMesTSheTarCooSet.u)
+    annotation (Line(points={{42,-250},{78,-250}}, color={255,0,255}));
+  connect(TDefSet, greTSheTarSet.u2)
+    annotation (Line(points={{-220,-100},{-160,-100},{-160,-178},{-42,-178}},
+      color={0,0,127}));
+  connect(TDefSet, lesTSheTarSet.u2)
+    annotation (Line(points={{-220,-100},{-160,-100},{-160,-258},{-42,-258}},
+      color={0,0,127}));
+  connect(TSheTarSet, greTSheTarSet.u1)
+    annotation (Line(points={{-220,-160},{-80,-160},{-80,-170},{-42,-170}},
+      color={0,0,127}));
+  connect(TSheTarSet, lesTSheTarSet.u1)
+    annotation (Line(points={{-220,-160},{-80,-160},{-80,-250},{-42,-250}},
       color={0,0,127}));
   annotation (defaultComponentName="zonSetAdj",
     Icon(coordinateSystem(preserveAspectRatio=false,
-        extent={{-100,-100},{100,100}},
+        extent={{-100,-120},{100,120}},
         grid={2,2}), graphics={Rectangle(
           extent={{-100,-120},{100,120}},
           lineColor={0,0,0},
@@ -188,7 +280,7 @@ equation
       textColor={0,0,255},
       textString="%name")}),
     Diagram(coordinateSystem(preserveAspectRatio=false,
-        extent={{-200,-200},{200,200}},
+        extent={{-200,-280},{200,280}},
         grid={2,2})),
     Documentation(info="<html>
 <p>

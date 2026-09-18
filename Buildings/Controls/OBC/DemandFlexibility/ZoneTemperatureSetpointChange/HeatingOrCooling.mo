@@ -6,40 +6,47 @@ block HeatingOrCooling
     min=0,
     unit="K",
     displayUnit="K")
-    "Temperature setpoint change delta for the load-shed mode (positive value)";
+    "Temperature setpoint change delta for the load-shed mode (positive value)"
+    annotation (Dialog(group="Temperature setpoint parameters"));
   parameter Real dTReb(
     min=0,
     unit="K",
     displayUnit="K")
-    "Temperature setpoint change delta for the load-rebound mode (positive value)";
+    "Temperature setpoint change delta for the load-rebound mode (positive value)"
+    annotation (Dialog(group="Temperature setpoint parameters"));
   parameter Real dTSheThr(
     min=0,
     unit="K",
     displayUnit="K")
-    "Threshold of temperature difference to trigger setpoint change during the load-shed mode (positive value)";
+    "Threshold of temperature difference to trigger setpoint change during the load-shed mode (positive value)"
+    annotation (Dialog(group="Temperature setpoint parameters"));
   parameter Real dTSheHys(
     min=0,
     unit="K",
     displayUnit="K")
-    "Hysteresis for the temperature difference during the load-shed mode";
+    "Hysteresis for the temperature difference during the load-shed mode"
+    annotation (Dialog(tab="Advanced", group="Hysteresis"));
   parameter Real PBuiHys(
     min=0,
     start=1,
     unit="W")
     "Hysteresis for the electricity demand of the building"
     annotation (Dialog(enable = zonConVar == Buildings.Controls.OBC.DemandFlexibility.Types.ZoneControlVariant.Variant_3
-      or zonConVar == Buildings.Controls.OBC.DemandFlexibility.Types.ZoneControlVariant.Variant_4));
+      or zonConVar == Buildings.Controls.OBC.DemandFlexibility.Types.ZoneControlVariant.Variant_4,
+      tab="Advanced", group="Hysteresis"));
   parameter Real PBuiThrCon(
     min=0,
     start=1,
     unit="W")
     "Constant threshold for the electricity demand of the building"
-    annotation (Dialog(enable = zonConVar == Buildings.Controls.OBC.DemandFlexibility.Types.ZoneControlVariant.Variant_3));
+    annotation (Dialog(enable = zonConVar == Buildings.Controls.OBC.DemandFlexibility.Types.ZoneControlVariant.Variant_3,
+      group="Electricity demand parameters"));
   parameter Real TResInt(
     min=0,
     unit="K",
     displayUnit="K")
-    "Temperature resolution interval used by an external zone temperature controller";
+    "Temperature resolution interval used by an external zone temperature controller"
+    annotation (Dialog(group="Temperature setpoint parameters"));
   parameter Real setChaWaiTim(
     min=0,
     unit="s")
@@ -171,7 +178,8 @@ protected
     annotation (Placement(transformation(extent={{-180,100},{-160,120}})));
 equation
   connect(zonPri.yEna, zonSetAdj.uEna) annotation (Line(points={{82,90},{100,90},
-          {100,-100},{118,-100}}, color={255,0,255}));
+          {100,-101.667},{118,-101.667}},
+                                  color={255,0,255}));
   connect(samSetCha.y, TComZonSet)
     annotation (Line(points={{202,0},{240,0}}, color={0,0,127}));
   connect(zonSetAdj.TComZonSet, samSetCha.u) annotation (Line(points={{142,-110},
@@ -213,22 +221,25 @@ equation
     annotation (Line(points={{-240,-40},{-42,-40}},
       color={255,127,0}));
   connect(repDemFleMod.y, zonSetAdj.demFleMod) annotation (Line(points={{-18,-40},
-          {80,-40},{80,-104},{118,-104}}, color={255,127,0}));
-  connect(TCurZonSet, zonSetAdj.TCurZonSet) annotation (Line(points={{-240,0},{
-          -130,0},{-130,-108.2},{118,-108.2}}, color={0,0,127}));
+          {80,-40},{80,-105},{118,-105}}, color={255,127,0}));
+  connect(TCurZonSet, zonSetAdj.TCurZonSet) annotation (Line(points={{-240,0},{-130,
+          0},{-130,-108.5},{118,-108.5}},      color={0,0,127}));
   connect(TPreTarSet, zonSetAdj.TPreTarSet) annotation (Line(points={{-240,-80},
-          {-110,-80},{-110,-112},{118,-112}}, color={0,0,127}));
+          {-110,-80},{-110,-111.667},{118,-111.667}},
+                                              color={0,0,127}));
   connect(TSheTarSet, zonSetAdj.TSheTarSet) annotation (Line(points={{-240,-120},
-          {-100,-120},{-100,-116},{118,-116}}, color={0,0,127}));
+          {-100,-120},{-100,-115},{118,-115}}, color={0,0,127}));
   connect(TDefSet, zonSetAdj.TDefSet) annotation (Line(points={{-240,-160},{-90,
-          -160},{-90,-120},{118,-120}}, color={0,0,127}));
+          -160},{-90,-118.333},{118,-118.333}},
+                                        color={0,0,127}));
   connect(conNSel.y, zonPri.nSel)
     annotation (Line(points={{22,50},{40,50},{40,84},{58,84}}, color={255,127,0}));
   connect(conPBuiThr.y,zonEna. PBuiThr)
     annotation (Line(points={{-158,110},{-150,110},{-150,138},{-82,138}},
       color={0,0,127}));
   connect(enaOneZon.y, zonSetAdj.uEna) annotation (Line(points={{82,130},{100,
-          130},{100,-100},{118,-100}}, color={255,0,255}));
+          130},{100,-101.667},{118,-101.667}},
+                                       color={255,0,255}));
   connect(zonEna.enaFla, notEna.u)
     annotation (Line(points={{-58,130},{-40,130},{-40,110},{-22,110}},
       color={255,0,255}));
