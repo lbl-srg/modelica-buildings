@@ -1,8 +1,7 @@
 within Buildings.Fluid.DataCenterEquipment.Racks.AirCooled.Data;
 record Generic "Generic data record for air cooled rack"
-  extends
-    Buildings.Fluid.DataCenterEquipment.Racks.BaseClasses.Data.Generic(
-      m_flow_nominal=PIT_nominal/(dTSet*Buildings.Utilities.Psychrometrics.Constants.cpAir));
+  extends Buildings.Fluid.DataCenterEquipment.Racks.BaseClasses.Data.Generic(
+      m_flow_nominal=PIT_nominal/(dTAir_nominal*Buildings.Utilities.Psychrometrics.Constants.cpAir));
 
   parameter Modelica.Units.SI.Power PFan_nominal = 0.04*PIT_nominal
     "Fan power at full IT load PIT_nominal"
@@ -14,8 +13,8 @@ record Generic "Generic data record for air cooled rack"
     "Fan and motor combined efficiency at nominal conditions"
     annotation(Dialog(group="Fan"));
 
-  parameter Modelica.Units.SI.TemperatureDifference dTSet(min=1) = 10
-    "Set point for temperature rise across rack";
+  parameter Modelica.Units.SI.TemperatureDifference dTAir_nominal(min=1) = 10
+    "Set point for temperature rise across rack, also used to size fan";
 
 annotation (
   defaultComponentName="dat",
@@ -33,10 +32,10 @@ The parameter <code>fanRelPow</code> describes the normalized fan power consumpt
 on the normalized fan volume flow rate. By default, this is set to a cubic curve.
 </p>
 <p>
-The parameter <code>dTSet</code> is the set point for the air temperature raise across the rack,
-which by default is set to <i>10</i> Kelvin.
-This value is used, together with <code>PFan_nominal</code>, to compute the fan
-design mass flow rate <code>m_flow_nominal</code>.
+The parameter <code>dTAir_nominal</code> is used,
+together with <code>PFan_nominal</code>, to size the fan.
+It is also used as the set point for the air temperature raise across the rack.
+By default, it is set to <i>10</i> Kelvin.
 </p>
 </html>", revisions="<html>
 <ul>

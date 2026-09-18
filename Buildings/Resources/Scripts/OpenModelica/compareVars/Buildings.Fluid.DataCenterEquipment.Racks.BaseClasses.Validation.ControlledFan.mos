@@ -1,7 +1,7 @@
 compareVars :=
   {
-    "senT.T",
-    "fan.TAirOutSet",
+    "fan.TSet",
+    "fan.TMea",
     "fan.con.y",
     "fan.P",
     "fan.PFan_nominal"

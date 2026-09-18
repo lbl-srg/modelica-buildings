@@ -22,13 +22,11 @@ record RearDoorHex "Data record for rear door heat exchanger"
     "Fan power at full speed"
     annotation (Dialog(group="Fan power"));
 
-  parameter Buildings.Fluid.HeatExchangers.CoolingTowers.BaseClasses.Characteristics.fan fanRelPow(
-    r_V={0, 0.1,   0.3,   0.6,   1},
-    r_P={0, 0.1^3, 0.3^3, 0.6^3, 1})
-    "Fan relative power consumption as a function of control signal, fanRelPow=P(y)/P(y=1)"
-    annotation (
-    Placement(transformation(extent={{40,60},{60,80}})),
-    Dialog(group="Fan"));
+  parameter Real eta_nominal(
+    final unit="1",
+    final min=Modelica.Constants.small) = 0.7
+    "Fan and motor combined efficiency at nominal conditions"
+    annotation(Dialog(group="Fan"));
 
   parameter Modelica.Units.SI.Temperature TAirIn_nominal
     "Air inlet nominal temperature (air entering rear door heat exchanger)"

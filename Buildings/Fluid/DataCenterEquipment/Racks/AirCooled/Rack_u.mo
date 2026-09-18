@@ -45,7 +45,7 @@ protected
   Controls.OBC.CDL.Reals.Add PTotal "Total power consumption"
     annotation (Placement(transformation(extent={{20,70},{40,90}})));
 
-  Controls.OBC.CDL.Reals.AddParameter TOutSet(p=dat.dTSet)
+  Controls.OBC.CDL.Reals.AddParameter TOutSet(p=dat.dTAir_nominal)
     "Setpoint for leaving air temperature"
     annotation (Placement(transformation(extent={{-60,20},{-40,40}})));
   Modelica.Thermal.HeatTransfer.Sensors.TemperatureSensor TAirLvg

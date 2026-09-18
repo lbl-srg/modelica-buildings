@@ -58,15 +58,16 @@ model LiquidCooledSinglePhaseRearDoorHex
     "Air-cooled rack performance data"
     annotation (Placement(transformation(extent={{100,100},{120,120}})));
 
-  parameter Buildings.Fluid.DataCenterEquipment.Racks.Hybrid.Data.LiquidCooledSinglePhaseRearDoorHex.BaseClasses.RearDoorHex datReaDooHex(
+  parameter
+    Buildings.Fluid.DataCenterEquipment.Racks.Hybrid.Data.LiquidCooledSinglePhaseRearDoorHex.BaseClasses.RearDoorHex
+    datReaDooHex(
     mAir_flow_nominal=datAir.m_flow_nominal,
     mCoo_flow_nominal=PAir/10/Buildings.Utilities.Psychrometrics.Constants.cpWatLiq,
     cpCoo_flow_nominal=Buildings.Utilities.Psychrometrics.Constants.cpWatLiq,
     Q_flow_nominal=-PAir,
     TCooIn_nominal=TReaDoo_a,
-    TAirIn_nominal=TAirIn + datAir.dTSet,
-    PFan_nominal=0.04*PAir)
-    "Rear door heat exchanger performance data"
+    TAirIn_nominal=TAirIn + datAir.dTAir_nominal,
+    PFan_nominal=0.04*PAir) "Rear door heat exchanger performance data"
     annotation (Placement(transformation(extent={{100,70},{120,90}})));
 
   parameter Buildings.Fluid.DataCenterEquipment.Racks.Hybrid.Data.LiquidCooledSinglePhaseRearDoorHex.Generic dat(
