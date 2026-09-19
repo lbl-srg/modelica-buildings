@@ -1,0 +1,8 @@
+compareVars :=
+  {
+    "TWeiAve.THotWatBoiSup[1]",
+    "TWeiAve.THotWatBoiSup[2]",
+    "TWeiAve.uBoiSta[1]",
+    "TWeiAve.uBoiSta[2]",
+    "TWeiAve.TSupAveWei"
+  };
