@@ -3,7 +3,8 @@ model Passive
   "Hybrid rack model combining liquid-cooled and air-cooled components with a rear door heat exchanger"
   extends Buildings.Fluid.DataCenterEquipment.Racks.Hybrid.LiquidCooledSinglePhaseRearDoorHex.BaseClasses.PartialRack(
     redeclare parameter Buildings.Fluid.DataCenterEquipment.Racks.Hybrid.Data.LiquidCooledSinglePhaseRearDoorHexPassive.Generic dat,
-    redeclare final RearDoorHeatExchangers.Passive reaDooHex);
+    redeclare final RearDoorHeatExchangers.Passive reaDooHex(
+      dat=dat.reaDooHex));
 
   annotation (
   defaultComponentName="rac",

@@ -1,67 +1,16 @@
 within Buildings.Fluid.DataCenterEquipment.Racks.Hybrid.LiquidCooledSinglePhaseRearDoorHex.Examples;
 model Active
   "Example model for hybrid liquid-cooled and air-cooled rack with active rear door heat exchanger"
-  extends Buildings.Fluid.DataCenterEquipment.Racks.Hybrid.LiquidCooledSinglePhase.Examples.LiquidCooledSinglePhase(
-    redeclare replaceable Buildings.Fluid.DataCenterEquipment.Racks.Hybrid.Data.LiquidCooledSinglePhaseRearDoorHexActive.Generic dat(
-      reaDooHex=datReaDooHex),
-    redeclare replaceable Buildings.Fluid.DataCenterEquipment.Racks.Hybrid.LiquidCooledSinglePhaseRearDoorHex.Active rac
-    constrainedby Buildings.Fluid.DataCenterEquipment.Racks.Hybrid.LiquidCooledSinglePhaseRearDoorHex.BaseClasses.PartialRack(
-      redeclare package MediumReaDooHex = MediumReaDooHex));
+  extends Buildings.Fluid.DataCenterEquipment.Racks.Hybrid.LiquidCooledSinglePhaseRearDoorHex.Examples.Passive(
+    redeclare replaceable Buildings.Fluid.DataCenterEquipment.Racks.Hybrid.Data.LiquidCooledSinglePhaseRearDoorHexActive.Generic dat,
+    redeclare replaceable Buildings.Fluid.DataCenterEquipment.Racks.Hybrid.LiquidCooledSinglePhaseRearDoorHex.Active rac);
 
-  package MediumReaDooHex = Buildings.Media.Water
-    "Water for rear door heat exchanger loop";
-  parameter Modelica.Units.SI.Temperature TReaDoo_a = 273.15+25
-    "Rear door heat exchanger coolant supply temperature";
-
-  parameter Modelica.Units.SI.Temperature TReaDoo_b_set = 273.15+35
-    "Rear door heat exchanger coolant outlet temperature setpoint";
-
-  parameter Modelica.Units.SI.Temperature TAirIn = 273.15+40
-    "Air inlet temperature (hot room air entering the rack)";
-
-  final parameter Modelica.Units.SI.MassFlowRate mReaDoo_flow_nominal=
-    PAir/((TReaDoo_b_set - TReaDoo_a)*Buildings.Utilities.Psychrometrics.Constants.cpWatLiq)
-    "Nominal mass flow rate for rear door heat exchanger at design conditions";
-
-  replaceable parameter Buildings.Fluid.DataCenterEquipment.Racks.Hybrid.Data.LiquidCooledSinglePhaseRearDoorHexActive.BaseClasses.RearDoorHex datReaDooHex
-    constrainedby Buildings.Fluid.DataCenterEquipment.Racks.Hybrid.Data.LiquidCooledSinglePhaseRearDoorHexActive.BaseClasses.RearDoorHex(
-    mAir_flow_nominal=datAir.m_flow_nominal,
-    mCoo_flow_nominal=mReaDoo_flow_nominal,
-    cpCoo_flow_nominal=Buildings.Utilities.Psychrometrics.Constants.cpWatLiq,
-    Q_flow_nominal=-PAir,
-    TCooIn_nominal=TReaDoo_a,
-    TAirIn_nominal=TAirIn + datAir.dTAir_nominal) "Rear door heat exchanger performance data"
-    annotation (Placement(transformation(extent={{120,140},{140,160}})));
-
-  Buildings.Fluid.Sources.Boundary_pT souReaDoo(
-    redeclare package Medium = MediumReaDooHex,
-    T=TReaDoo_a,
-    p=Buildings.Media.Water.p_default + datReaDooHex.dpCoo_nominal,
-    nPorts=1)
-    "Rear door heat exchanger coolant supply at elevated pressure"
-    annotation (Placement(transformation(extent={{-80,-12},{-60,8}})));
-
-  Sources.Boundary_pT sinReaDoo(
-    redeclare package Medium = MediumReaDooHex,
-    p=Buildings.Media.Water.p_default,
-    nPorts=1)                          "Sink rear door heat exchanger coolant"
-    annotation (Placement(transformation(extent={{182,-10},{162,10}})));
-
-  Sensors.TemperatureTwoPort senTReaDooLvg(
-    redeclare package Medium = MediumReaDooHex,
-    allowFlowReversal=false,
-    m_flow_nominal=mReaDoo_flow_nominal,
-    tau=0) "Coolant outlet temperature from rear door heat exchanger"
-    annotation (Placement(transformation(extent={{100,-10},{120,10}})));
-
-
+  Controls.OBC.CDL.Reals.Sources.Constant TSetReaDooRet(k=273.15 + 35)
+    "Temperature setpoint for return water from rear door heat exchanger"
+    annotation (Placement(transformation(extent={{40,20},{60,40}})));
 equation
-  connect(sinReaDoo.ports[1], senTReaDooLvg.port_b)
-    annotation (Line(points={{162,0},{120,0}}, color={0,127,255}));
-  connect(senTReaDooLvg.port_a, rac.portReaDooHex_b)
-    annotation (Line(points={{100,0},{60,0}}, color={0,127,255}));
-  connect(souReaDoo.ports[1], rac.portReaDooHex_a) annotation (Line(points={{-60,
-          -2},{-12,-2},{-12,0},{40,0}}, color={0,127,255}));
+  connect(TSetReaDooRet.y, rac.TSetReaDooHex) annotation (Line(points={{62,30},
+          {70,30},{70,14},{50,14},{50,12}}, color={0,0,127}));
   annotation (
     experiment(
       StopTime=7200,

@@ -4,7 +4,7 @@ model Active
   extends Buildings.Fluid.DataCenterEquipment.Racks.Hybrid.LiquidCooledSinglePhaseRearDoorHex.BaseClasses.PartialRack(
     redeclare parameter Buildings.Fluid.DataCenterEquipment.Racks.Hybrid.Data.LiquidCooledSinglePhaseRearDoorHexActive.Generic dat,
     redeclare final RearDoorHeatExchangers.Active reaDooHex(
-      dat=dat));
+      dat=dat.reaDooHex));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TSetReaDooHex(
     final unit="K",

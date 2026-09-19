@@ -6,7 +6,8 @@ model Passive
       reaDooHex=datReaDooHex),
     redeclare replaceable Buildings.Fluid.DataCenterEquipment.Racks.Hybrid.LiquidCooledSinglePhaseRearDoorHex.Passive rac
     constrainedby Buildings.Fluid.DataCenterEquipment.Racks.Hybrid.LiquidCooledSinglePhaseRearDoorHex.BaseClasses.PartialRack(
-      redeclare package MediumReaDooHex = MediumReaDooHex));
+      redeclare package MediumReaDooHex = MediumReaDooHex),
+    souAir(T=308.15)                                      );
 
   package MediumReaDooHex = Buildings.Media.Water
     "Water for rear door heat exchanger loop";
@@ -36,13 +37,13 @@ model Passive
   Buildings.Fluid.Sources.Boundary_pT souReaDoo(
     redeclare package Medium = MediumReaDooHex,
     T=TReaDoo_a,
-    p=Buildings.Media.Water.p_default + datReaDooHex.dpCoo_nominal,
+    p=MediumReaDooHex.p_default + datReaDooHex.dpCoo_nominal,
     nPorts=1) "Rear door heat exchanger coolant supply at elevated pressure"
-    annotation (Placement(transformation(extent={{-80,-12},{-60,8}})));
+    annotation (Placement(transformation(extent={{-80,-10},{-60,10}})));
 
   Sources.Boundary_pT sinReaDoo(
     redeclare package Medium = MediumReaDooHex,
-    p=Buildings.Media.Water.p_default,
+    p=MediumReaDooHex.p_default,
     nPorts=1) "Sink rear door heat exchanger coolant"
     annotation (Placement(transformation(extent={{182,-10},{162,10}})));
 
@@ -53,8 +54,8 @@ model Passive
     tau=0) "Coolant outlet temperature from rear door heat exchanger"
     annotation (Placement(transformation(extent={{100,-10},{120,10}})));
 equation
-  connect(rac.portReaDooHex_a, souReaDoo.ports[1]) annotation (Line(points={{40,
-          0},{-48,0},{-48,-2},{-60,-2}}, color={0,127,255}));
+  connect(rac.portReaDooHex_a, souReaDoo.ports[1]) annotation (Line(points={{40,0},{
+          -60,0}},                       color={0,127,255}));
   connect(rac.portReaDooHex_b, senTReaDooLvg.port_a)
     annotation (Line(points={{60,0},{100,0}}, color={0,127,255}));
   connect(senTReaDooLvg.port_b, sinReaDoo.ports[1]) annotation (Line(points={{120,
