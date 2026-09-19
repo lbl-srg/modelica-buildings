@@ -126,9 +126,6 @@ equation
     annotation (Line(points={{-120,70},{-92,70}},
                                                 color={0,0,127}));
 
-  connect(yMinBypValPos, yMinBypValPos)
-    annotation (Line(points={{120,20},{120,20}}, color={0,0,127}));
-
   connect(uStaTyp, intToRea.u)
     annotation (Line(points={{-120,-70},{-92,-70}},
                                                   color={255,127,0}));
