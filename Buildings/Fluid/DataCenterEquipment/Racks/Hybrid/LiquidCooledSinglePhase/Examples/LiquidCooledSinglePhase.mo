@@ -12,34 +12,40 @@ model LiquidCooledSinglePhase
   package MediumAir = Buildings.Media.Air
     "Medium for air cooling loop";
 
-  parameter Modelica.Units.SI.Power PLiq = 48*13200
+  parameter Modelica.Units.SI.Power PLiq_nominal=48*13200
     "Design power for liquid-cooled IT";
-  parameter Modelica.Units.SI.Power PAir = 0.1*PLiq
+  parameter Modelica.Units.SI.Power PAir_nominal=0.1*PLiq_nominal
     "Design power for air-cooled IT";
 
   parameter Modelica.Units.SI.TemperatureDifference dTLiq_nominal = 7
     "Design temperature difference of liquid coolant";
 
-  parameter Modelica.Units.SI.Temperature TRac_a = 273.15+42
+  parameter Modelica.Units.SI.Temperature TLiqIn_nominal=273.15 + 42
     "Supply coolant temperature to rack at design conditions";
 
   final parameter Modelica.Units.SI.MassFlowRate mLiq_flow_nominal=
-    PLiq/dTLiq_nominal/cp_default
+    PLiq_nominal/dTLiq_nominal/cpLiq_default
     "Nominal mass flow rate for liquid cooling at design conditions";
 
-  parameter Modelica.Units.SI.SpecificHeatCapacity cp_default=
-    MediumLiq.specificHeatCapacityCp(state=state_default)
-    "Heat capacity of liquid coolant";
+  parameter Modelica.Units.SI.SpecificHeatCapacity cpLiq_default=
+      MediumLiq.specificHeatCapacityCp(
+        state=MediumLiq.setState_pTX(
+          T=MediumLiq.T_default,
+          p=MediumLiq.p_default,
+        X=MediumLiq.X_default[1:MediumLiq.nXi]))
+   "Heat capacity of liquid coolant";
+
+  parameter Modelica.Units.SI.PressureDifference dpValve_nominal=5000
+    "Nominal pressure drop of fully open valve";
 
   parameter Buildings.Fluid.DataCenterEquipment.Racks.LiquidCooledSinglePhase.Data.OCP_1kW_OAM_PG25 datLiq(
-    PIT_nominal=PLiq,
-    m_flow_nominal=mLiq_flow_nominal)
+      PIT_nominal=PLiq_nominal,
+      m_flow_nominal=mLiq_flow_nominal)
     "Liquid-cooled rack performance data"
     annotation (Placement(transformation(extent={{160,110},{180,130}})));
 
-  parameter Buildings.Fluid.DataCenterEquipment.Racks.AirCooled.Data.Generic
-    datAir(PIT_nominal=PAir)
-    "Air-cooled rack performance data"
+  parameter Buildings.Fluid.DataCenterEquipment.Racks.AirCooled.Data.Generic datAir(
+    PIT_nominal=PAir_nominal) "Air-cooled rack performance data"
     annotation (Placement(transformation(extent={{160,80},{180,100}})));
 
   replaceable parameter Buildings.Fluid.DataCenterEquipment.Racks.Hybrid.Data.LiquidCooledSinglePhase.Generic dat
@@ -48,6 +54,8 @@ model LiquidCooledSinglePhase
       air=datAir) "Hybrid rack performance data"
     annotation (Placement(transformation(extent={{160,140},{180,160}})));
 
+  parameter Modelica.Units.SI.Temperature TAirDatHal = 303.15
+    "Air temperature in data hall";
   Buildings.Controls.OBC.CDL.Reals.Sources.TimeTable utiLiq(
     table=[0,0;
             900,0;
@@ -102,10 +110,10 @@ model LiquidCooledSinglePhase
     "Pressure boundary condition for liquid loop"
     annotation (Placement(transformation(extent={{180,50},{160,70}})));
 
-  Buildings.Fluid.Sources.Boundary_pT souAir(
+  Buildings.Fluid.Sources.Boundary_pT datHal(
     redeclare package Medium = MediumAir,
-    nPorts=2)
-    "Pressure boundary condition for air loop"
+    T=TAirDatHal,
+    nPorts=2) "Temperature and pressure of air in data hall"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},
         rotation=90,
         origin={20,-100})));
@@ -159,8 +167,8 @@ model LiquidCooledSinglePhase
         extent={{-10,-10},{10,10}},
         rotation=270,
         origin={0,30})));
-  Controls.OBC.CDL.Reals.Sources.Constant TSetRet(k=TRac_a+dTLiq_nominal)
-    "Temperature setpoint for return water"
+  Controls.OBC.CDL.Reals.Sources.Constant TSetRet(k=TLiqIn_nominal +
+        dTLiq_nominal) "Temperature setpoint for return water"
     annotation (Placement(transformation(extent={{-120,150},{-100,170}})));
 
   Controls.OBC.CDL.Reals.PID conVal(
@@ -188,7 +196,7 @@ model LiquidCooledSinglePhase
     "Cooler to maintain supply temperature"
     annotation (Placement(transformation(extent={{-170,50},{-150,70}})));
 
-  Buildings.Controls.OBC.CDL.Reals.Sources.Constant TSetCoo(k=TRac_a)
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant TSetCoo(k=TLiqIn_nominal)
     "Temperature setpoint for cooler"
     annotation (Placement(transformation(extent={{-220,58},{-200,78}})));
 
@@ -199,15 +207,6 @@ model LiquidCooledSinglePhase
         rotation=180,
         origin={50,60})));
 
-protected
-  parameter MediumLiq.ThermodynamicState state_default = MediumLiq.setState_pTX(
-    T=MediumLiq.T_default,
-    p=MediumLiq.p_default,
-    X=MediumLiq.X_default[1:MediumLiq.nXi]) "Medium state at default values";
-
-public
-  parameter Modelica.Units.SI.PressureDifference dpValve_nominal=5000
-    "Nominal pressure drop of fully open valve";
 equation
   connect(rac.portLiq_b, senTLiq_b.port_a)
     annotation (Line(points={{60,4},{80,4},{80,60},{100,60}},color={0,127,255}));
@@ -219,9 +218,9 @@ equation
   connect(rac.portAir_b, senTAir_b.port_a)
     annotation (Line(points={{60.2,-4},{80,-4},{80,-40},{98,-40}},
                                                                  color={0,127,255}));
-  connect(senTAir_a.port_a, souAir.ports[1]) annotation (Line(points={{-30,-40},
+  connect(senTAir_a.port_a,datHal. ports[1]) annotation (Line(points={{-30,-40},
           {-80,-40},{-80,-80},{21,-80},{21,-90}}, color={0,127,255}));
-  connect(senTAir_b.port_b, souAir.ports[2]) annotation (Line(points={{118,-40},
+  connect(senTAir_b.port_b,datHal. ports[2]) annotation (Line(points={{118,-40},
           {140,-40},{140,-80},{19,-80},{19,-90}},
                                                 color={0,127,255}));
   connect(pum.port_b, senTLiq_a.port_a)

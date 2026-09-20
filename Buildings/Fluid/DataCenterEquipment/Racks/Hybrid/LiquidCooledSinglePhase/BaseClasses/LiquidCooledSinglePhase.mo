@@ -117,8 +117,7 @@ partial model LiquidCooledSinglePhase
           extent={{100,-110},{120,-90}})));
 
   // Component instances
-  Buildings.Fluid.DataCenterEquipment.Racks.LiquidCooledSinglePhase.ColdPlateR_P
-    liq(
+  Buildings.Fluid.DataCenterEquipment.Racks.LiquidCooledSinglePhase.ColdPlateR_P liq(
     redeclare package Medium = MediumLiq,
     dat=dat.liq,
     energyDynamics=energyDynamicsLiq,

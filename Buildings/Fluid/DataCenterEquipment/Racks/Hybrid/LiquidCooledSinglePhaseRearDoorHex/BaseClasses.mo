@@ -45,9 +45,6 @@ package BaseClasses "Base classes for rear door heat exchanger models"
       annotation (Placement(transformation(extent={{20,-16},{40,4}})));
 
   equation
-    connect(air.port_b, reaDooHex.portAir_a)
-      annotation (Line(points={{10,-40},{50,-40},{50,-12},{40,-12}},
-                                                            color={0,127,255}));
     connect(reaDooHex.portAir_b, portAir_b)
       annotation (Line(points={{20,-12},{14,-12},{14,-26},{90,-26},{90,-40},{102,-40}},
                                                                       color={0,127,255}));
@@ -56,6 +53,8 @@ package BaseClasses "Base classes for rear door heat exchanger models"
     connect(reaDooHex.portCoo_b, portReaDooHex_b)
       annotation (Line(points={{40,0},{100,0}},                   color={0,127,255}));
 
+    connect(air.port_b, reaDooHex.portAir_a) annotation (Line(points={{10,-40},
+            {52,-40},{52,-12},{40,-12}}, color={0,127,255}));
     annotation (
     defaultComponentName="rac",
     Documentation(

@@ -30,7 +30,7 @@ model Active
     final eta_nominal=dat.eta_nominal,
     energyDynamics=energyDynamics)
     "Rear door heat exchanger fan"
-    annotation (Placement(transformation(extent={{-60,-50},{-40,-30}})));
+    annotation (Placement(transformation(extent={{50,-70},{30,-50}})));
 
   Buildings.Fluid.Sensors.TemperatureTwoPort senTAirOut(
     redeclare final package Medium = MediumAir,
@@ -38,27 +38,27 @@ model Active
     final tau=0,
     allowFlowReversal=false)
     "Air temperature leaving rear door heat exchanger"
-    annotation (Placement(transformation(extent={{-18,-88},{2,-68}})));
+    annotation (Placement(transformation(extent={{-40,-70},{-60,-50}})));
 
 equation
-  connect(portAir_a, fan.port_a)
-    annotation (Line(points={{100,-60},{20,-60},{20,-40},{-60,-40}},
-                                                    color={0,127,255}));
   connect(fan.port_b, reaDooHex.port_a2)
-    annotation (Line(points={{-40,-40},{-20,-40},{-20,-16},{10,-16}},  color={0,127,255}));
+    annotation (Line(points={{30,-60},{16,-60},{16,-6},{10,-6}},       color={0,127,255}));
   connect(reaDooHex.port_b2, senTAirOut.port_a)
-    annotation (Line(points={{-10,-16},{-14,-16},{-14,-64},{-22,-64},{-22,-78},
-          {-18,-78}},                                              color={0,127,255}));
+    annotation (Line(points={{-10,-6},{-20,-6},{-20,-60},{-40,-60}},
+                                                                   color={0,127,255}));
   connect(senTAirOut.port_b, portAir_b)
-    annotation (Line(points={{2,-78},{6,-78},{6,-92},{-100,-92},{-100,-60}},
+    annotation (Line(points={{-60,-60},{-100,-60}},
                                                   color={0,127,255}));
   connect(senTAirOut.T, fan.TMea)
-    annotation (Line(points={{-8,-67},{-8,-54},{-72,-54},{-72,-36},{-62,-36}}, color={0,0,127}));
+    annotation (Line(points={{-50,-49},{-50,-40},{56,-40},{56,-56},{52,-56}},  color={0,0,127}));
   connect(TSet, fan.TSet)
-    annotation (Line(points={{-120,80},{-80,80},{-80,-32},{-62,-32}}, color={0,0,127}));
+    annotation (Line(points={{-120,80},{-30,80},{-30,-20},{58,-20},{58,-52},{52,
+          -52}},                                                      color={0,0,127}));
   connect(fan.P, PFan)
-    annotation (Line(points={{-39,-33},{60,-33},{60,40},{110,40}}, color={0,0,127}));
+    annotation (Line(points={{29,-54},{26,-54},{26,40},{110,40}},  color={0,0,127}));
 
+  connect(senTAirReaDooHexIn.port_b, fan.port_a)
+    annotation (Line(points={{60,-60},{50,-60}}, color={0,127,255}));
 annotation (
   defaultComponentName="reaDooHex",
   Documentation(

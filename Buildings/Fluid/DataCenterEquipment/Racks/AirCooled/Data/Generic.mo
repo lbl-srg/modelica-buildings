@@ -1,7 +1,7 @@
 within Buildings.Fluid.DataCenterEquipment.Racks.AirCooled.Data;
 record Generic "Generic data record for air cooled rack"
   extends Buildings.Fluid.DataCenterEquipment.Racks.BaseClasses.Data.Generic(
-      m_flow_nominal=PIT_nominal/(dTAir_nominal*Buildings.Utilities.Psychrometrics.Constants.cpAir));
+      m_flow_nominal=(PIT_nominal+PFan_nominal)/(dTAir_nominal*Buildings.Utilities.Psychrometrics.Constants.cpAir));
 
   parameter Modelica.Units.SI.Power PFan_nominal = 0.04*PIT_nominal
     "Fan power at full IT load PIT_nominal"

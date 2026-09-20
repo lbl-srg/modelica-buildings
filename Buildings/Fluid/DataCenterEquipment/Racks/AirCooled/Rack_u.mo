@@ -47,7 +47,7 @@ protected
 
   Controls.OBC.CDL.Reals.AddParameter TOutSet(p=dat.dTAir_nominal)
     "Setpoint for leaving air temperature"
-    annotation (Placement(transformation(extent={{-60,20},{-40,40}})));
+    annotation (Placement(transformation(extent={{-60,40},{-40,60}})));
   Modelica.Thermal.HeatTransfer.Sensors.TemperatureSensor TAirLvg
     "Leaving air temperature"
     annotation (Placement(transformation(extent={{20,-30},{40,-10}})));
@@ -73,16 +73,18 @@ equation
         color={0,0,127}));
   connect(P, PTotal.u1) annotation (Line(points={{-120,50},{-70,50},{-70,86},{18,
           86}}, color={0,0,127}));
-  connect(P, preHea.Q_flow) annotation (Line(points={{-120,50},{-40,50}},
+  connect(P, preHea.Q_flow) annotation (Line(points={{-120,50},{-80,50},{-80,20},
+          {-40,20}},
                    color={0,0,127}));
-  connect(TOutSet.y, fan.TSet) annotation (Line(points={{-38,30},{-30,30},{-30,8},
-          {-22,8}}, color={0,0,127}));
+  connect(TOutSet.y, fan.TSet) annotation (Line(points={{-38,50},{-22,50},{-22,
+          8}},      color={0,0,127}));
   connect(TAirLvg.port, vol.heatPort) annotation (Line(points={{20,-20},{10,-20},
           {10,10},{20,10}},color={191,0,0}));
   connect(TAirLvg.T, fan.TMea) annotation (Line(points={{41,-20},{50,-20},{50,-40},
           {-30,-40},{-30,4},{-22,4}},color={0,0,127}));
   connect(TIn.y, TOutSet.u)
-    annotation (Line(points={{-69,30},{-62,30}}, color={0,0,127}));
+    annotation (Line(points={{-69,30},{-64,30},{-64,42},{-66,42},{-66,50},{-62,
+          50}},                                  color={0,0,127}));
   connect(port_a, fan.port_a)
     annotation (Line(points={{-100,0},{-20,0}}, color={0,127,255}));
   connect(fan.port_b, vol.ports[1])

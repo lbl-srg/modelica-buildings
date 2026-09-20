@@ -4,11 +4,12 @@ model Passive
   extends Buildings.Fluid.DataCenterEquipment.Racks.RearDoorHeatExchangers.BaseClasses.PartialRearDoorHeatExchanger;
 
 equation
-  connect(portAir_a, reaDooHex.port_a2)
-    annotation (Line(points={{-100,-40},{-56,-40},{-56,-16},{-10,-16}}, color={0,127,255}));
   connect(reaDooHex.port_b2, portAir_b)
-    annotation (Line(points={{10,-16},{56,-16},{56,-40},{100,-40}}, color={0,127,255}));
+    annotation (Line(points={{-10,-6},{-20,-6},{-20,-60},{-100,-60}},
+                                                                    color={0,127,255}));
 
+  connect(senTAirReaDooHexIn.port_b, reaDooHex.port_a2) annotation (Line(points
+        ={{60,-60},{20,-60},{20,-6},{10,-6}}, color={0,127,255}));
 annotation (
   defaultComponentName="reaDooHex",
   Documentation(

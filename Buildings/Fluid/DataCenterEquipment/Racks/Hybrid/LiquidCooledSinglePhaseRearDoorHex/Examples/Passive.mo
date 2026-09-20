@@ -6,37 +6,40 @@ model Passive
       reaDooHex=datReaDooHex),
     redeclare replaceable Buildings.Fluid.DataCenterEquipment.Racks.Hybrid.LiquidCooledSinglePhaseRearDoorHex.Passive rac
     constrainedby Buildings.Fluid.DataCenterEquipment.Racks.Hybrid.LiquidCooledSinglePhaseRearDoorHex.BaseClasses.PartialRack(
-      redeclare package MediumReaDooHex = MediumReaDooHex),
-    souAir(T=308.15)                                      );
+      redeclare package MediumReaDooHex = MediumReaDooHex));
 
   package MediumReaDooHex = Buildings.Media.Water
     "Water for rear door heat exchanger loop";
-  parameter Modelica.Units.SI.Temperature TReaDoo_a = 273.15+25
+  parameter Modelica.Units.SI.Temperature TReaDooCooIn_nominal=273.15 + 25
     "Rear door heat exchanger coolant supply temperature";
 
-  parameter Modelica.Units.SI.Temperature TReaDoo_b_set = 273.15+35
-    "Rear door heat exchanger coolant outlet temperature setpoint";
+  parameter Modelica.Units.SI.Temperature TReaDooCooOut_nominal=273.15 + 35
+    "Rear door heat exchanger coolant return temperature";
 
-  parameter Modelica.Units.SI.Temperature TAirIn = 273.15+40
+  parameter Modelica.Units.SI.Temperature TAirReaDooIn_nominal=TAirDatHal + datAir.dTAir_nominal
     "Air inlet temperature (hot room air entering the rack)";
 
   final parameter Modelica.Units.SI.MassFlowRate mReaDoo_flow_nominal=
-    PAir/((TReaDoo_b_set - TReaDoo_a)*Buildings.Utilities.Psychrometrics.Constants.cpWatLiq)
+      PAir_nominal/((TReaDooCooOut_nominal - TReaDooCooIn_nominal)*Buildings.Utilities.Psychrometrics.Constants.cpWatLiq)
     "Nominal mass flow rate for rear door heat exchanger at design conditions";
 
-  replaceable parameter Buildings.Fluid.DataCenterEquipment.Racks.Hybrid.Data.LiquidCooledSinglePhaseRearDoorHexPassive.BaseClasses.RearDoorHex datReaDooHex
-    constrainedby Buildings.Fluid.DataCenterEquipment.Racks.Hybrid.Data.LiquidCooledSinglePhaseRearDoorHexPassive.BaseClasses.RearDoorHex(
+  replaceable parameter
+    Buildings.Fluid.DataCenterEquipment.Racks.Hybrid.Data.LiquidCooledSinglePhaseRearDoorHexPassive.BaseClasses.RearDoorHex
+    datReaDooHex constrainedby
+    Buildings.Fluid.DataCenterEquipment.Racks.Hybrid.Data.LiquidCooledSinglePhaseRearDoorHexPassive.BaseClasses.RearDoorHex
+    (
     mAir_flow_nominal=datAir.m_flow_nominal,
     mCoo_flow_nominal=mReaDoo_flow_nominal,
     cpCoo_flow_nominal=Buildings.Utilities.Psychrometrics.Constants.cpWatLiq,
-    Q_flow_nominal=-PAir,
-    TCooIn_nominal=TReaDoo_a,
-    TAirIn_nominal=TAirIn + datAir.dTAir_nominal) "Rear door heat exchanger performance data"
+    Q_flow_nominal=-PAir_nominal,
+    TCooIn_nominal=TReaDooCooIn_nominal,
+    TAirIn_nominal=TAirReaDooIn_nominal + datAir.dTAir_nominal)
+    "Rear door heat exchanger performance data"
     annotation (Placement(transformation(extent={{120,140},{140,160}})));
 
   Buildings.Fluid.Sources.Boundary_pT souReaDoo(
     redeclare package Medium = MediumReaDooHex,
-    T=TReaDoo_a,
+    T=TReaDooCooIn_nominal,
     p=MediumReaDooHex.p_default + datReaDooHex.dpCoo_nominal,
     nPorts=1) "Rear door heat exchanger coolant supply at elevated pressure"
     annotation (Placement(transformation(extent={{-80,-10},{-60,10}})));

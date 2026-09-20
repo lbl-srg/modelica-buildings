@@ -9,8 +9,8 @@ model Active
     "Temperature setpoint for return water from rear door heat exchanger"
     annotation (Placement(transformation(extent={{40,20},{60,40}})));
 equation
-  connect(TSetReaDooRet.y, rac.TSetReaDooHex) annotation (Line(points={{62,30},
-          {70,30},{70,14},{50,14},{50,12}}, color={0,0,127}));
+  connect(TSetReaDooRet.y, rac.TSetReaDooHexAir) annotation (Line(points={{62,
+          30},{70,30},{70,14},{38,14},{38,2}}, color={0,0,127}));
   annotation (
     experiment(
       StopTime=7200,

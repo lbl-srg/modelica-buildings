@@ -6,14 +6,10 @@ model Active
     redeclare final RearDoorHeatExchangers.Active reaDooHex(
       dat=dat.reaDooHex));
 
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput TSetReaDooHex(
-    final unit="K",
-    displayUnit="degC")
+  Controls.OBC.CDL.Interfaces.RealInput TSetReaDooHexAir(final unit="K",
+      displayUnit="degC")
     "Set point for air temperature leaving rear door heat exchanger"
-    annotation (Placement(transformation(extent={{-140,0},{-100,40}}),
-      iconTransformation(extent={{-20,-20},{20,20}},
-        rotation=270,
-        origin={0,120})));
+    annotation (Placement(transformation(extent={{-140,0},{-100,40}})));
 
   Modelica.Blocks.Interfaces.RealOutput PReaDooHexFan(
     final quantity="Power",
@@ -24,8 +20,8 @@ model Active
 
 equation
 
-  connect(reaDooHex.TSet, TSetReaDooHex) annotation (Line(points={{19,2.8},{-40,
-          2.8},{-40,20},{-120,20}}, color={0,0,127}));
+  connect(reaDooHex.TSet, TSetReaDooHexAir) annotation (Line(points={{19,2.8},{
+          -40,2.8},{-40,20},{-120,20}}, color={0,0,127}));
   connect(reaDooHex.PFan, PReaDooHexFan) annotation (Line(points={{41,3},{80,3},
           {80,20},{110,20}}, color={0,0,127}));
 annotation (
