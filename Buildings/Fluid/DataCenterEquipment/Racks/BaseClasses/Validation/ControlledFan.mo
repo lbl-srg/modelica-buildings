@@ -18,7 +18,7 @@ model ControlledFan "Validation of the controlled fan model"
     m_flow_nominal=m_flow_nominal,
     PFan_nominal=PFan_nominal)
     "Controlled fan"
-    annotation (Placement(transformation(extent={{-40,-10},{-20,10}})));
+    annotation (Placement(transformation(extent={{0,-10},{20,10}})));
 
   Buildings.Fluid.FixedResistances.PressureDrop res(
     redeclare package Medium = Medium,
@@ -26,7 +26,9 @@ model ControlledFan "Validation of the controlled fan model"
     from_dp=true,
     dp_nominal=dp_nominal)
     "Flow resistance"
-    annotation (Placement(transformation(extent={{0,-10},{20,10}})));
+    annotation (Placement(transformation(extent={{-10,-10},{10,10}},
+        rotation=180,
+        origin={60,-40})));
 
   Buildings.Fluid.MixingVolumes.MixingVolume vol(
     redeclare package Medium = Medium,
@@ -53,8 +55,8 @@ model ControlledFan "Validation of the controlled fan model"
     "Pressure and temperature boundary"
     annotation (Placement(transformation(
         extent={{-10,10},{10,-10}},
-        rotation=0,
-        origin={-110,0})));
+        rotation=90,
+        origin={0,-70})));
 
   Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow preHea
     "Prescribed heat flow rate"
@@ -95,36 +97,36 @@ protected
 
   parameter Modelica.Units.SI.HeatFlowRate Q_flow_nominal = m_flow_nominal * cp_default * 10
     "Heat at full load giving a temperature rise of 10 K";
-  Controls.OBC.CDL.Reals.Sources.Constant           TOutSet(final k=TAirOutSet)
+  Controls.OBC.CDL.Reals.Sources.Constant TOutSet(
+    y(final unit="K", displayUnit="degC"),
+    final k=TAirOutSet)
     "Temperature set point"
     annotation (Placement(transformation(
-      origin={0,90},
+      origin={20,100},
       extent={{-80,-80},{-60,-60}})));
 
 equation
-  connect(sou.ports[1], fan.port_a)
-    annotation (Line(points={{-100,1},{-50,1},{-50,0},{-40,0}},
-      color={0,127,255}));
-  connect(fan.port_b, res.port_a)
-    annotation (Line(points={{-20,0},{0,0}},   color={0,127,255}));
-  connect(res.port_b, vol.ports[1])
-    annotation (Line(points={{20,0},{59,0}},color={0,127,255}));
-  connect(vol.ports[2], senT.port_a)
-    annotation (Line(points={{61,0},{80,0}}, color={0,127,255}));
-  connect(senT.port_b, sou.ports[2])
-    annotation (Line(points={{100,0},{110,0},{110,-30},{-90,-30},{-90,0},{-100,
-          0},{-100,-1}},
-      color={0,127,255}));
-  connect(senT.T, fan.TMea) annotation (Line(points={{90,11},{90,56},{-86,56},{
-          -86,4},{-42,4}}, color={0,0,127}));
+  connect(vol.ports[1], senT.port_a)
+    annotation (Line(points={{59,0},{80,0}}, color={0,127,255}));
+  connect(senT.T, fan.TMea) annotation (Line(points={{90,11},{90,56},{-70,56},{
+          -70,10},{-36,10},{-36,4},{-2,4}},
+                           color={0,0,127}));
   connect(ram.y, preHea.Q_flow)
     annotation (Line(points={{1,40},{10,40}},  color={0,0,127}));
   connect(preHea.port, vol.heatPort)
     annotation (Line(points={{30,40},{40,40},{40,10},{50,10}},
                                                        color={191,0,0}));
 
-  connect(TOutSet.y, fan.TSet) annotation (Line(points={{-58,20},{-50,20},{-50,
-          8},{-41,8}}, color={0,0,127}));
+  connect(TOutSet.y, fan.TSet) annotation (Line(points={{-38,30},{-30,30},{-30,
+          8},{-2,8}},  color={0,0,127}));
+  connect(senT.port_b, res.port_a) annotation (Line(points={{100,0},{110,0},{
+          110,-40},{70,-40}}, color={0,127,255}));
+  connect(fan.port_b, vol.ports[2])
+    annotation (Line(points={{20,0},{61,0}}, color={0,127,255}));
+  connect(fan.port_a, sou.ports[1]) annotation (Line(points={{0,0},{-70,0},{-70,
+          -40},{-1,-40},{-1,-60}}, color={0,127,255}));
+  connect(res.port_b, sou.ports[2])
+    annotation (Line(points={{50,-40},{1,-40},{1,-60}}, color={0,127,255}));
   annotation (
     experiment(
       StopTime=2400,

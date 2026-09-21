@@ -1,11 +1,7 @@
 within Buildings.Fluid.DataCenterEquipment.Racks.RearDoorHeatExchangers.Examples;
 model Passive
   "Example model for a passive rear door heat exchanger"
-  extends Buildings.Fluid.DataCenterEquipment.Racks.RearDoorHeatExchangers.Examples.BaseClasses.PartialExample(
-    mAir_flow_nominal=-Q_flow_nominal/(dTAir_nominal*Buildings.Utilities.Psychrometrics.Constants.cpAir));
-
-  parameter Modelica.Units.SI.HeatFlowRate Q_flow_nominal = -10000
-    "Nominal cooling duty (negative = heat removed from air)";
+  extends Buildings.Fluid.DataCenterEquipment.Racks.RearDoorHeatExchangers.Examples.BaseClasses.PartialExample;
 
   Buildings.Fluid.DataCenterEquipment.Racks.RearDoorHeatExchangers.Passive hex(
     redeclare package MediumCoo = MediumCoo,
@@ -19,15 +15,29 @@ model Passive
     "Passive rear door heat exchanger"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
 
+  Sources.MassFlowSource_T                 airSou(
+    redeclare package Medium = MediumAir,
+    nPorts=1,
+    use_m_flow_in=false,
+    m_flow=mAir_flow_nominal,
+    T=TAirIn_nominal)
+    "Air source at nominal conditions"
+    annotation (Placement(transformation(extent={{80,-50},{60,-30}})));
 equation
   connect(senTAirIn.port_b, hex.portAir_a)
-    annotation (Line(points={{-14,-40},{-10,-40},{-10,-4}}, color={0,127,255}));
+    annotation (Line(points={{20,-40},{16,-40},{16,-6},{10,-6}},
+                                                            color={0,127,255}));
   connect(hex.portAir_b, senTAirOut.port_a)
-    annotation (Line(points={{10,-4},{10,-40},{14,-40}}, color={0,127,255}));
+    annotation (Line(points={{-10,-6},{-16,-6},{-16,-40},{-20,-40}},
+                                                         color={0,127,255}));
   connect(senTCooIn.port_b, hex.portCoo_a)
-    annotation (Line(points={{-14,0},{-10,0}}, color={0,127,255}));
+    annotation (Line(points={{-20,40},{-16,40},{-16,6},{-10,6}},
+                                               color={0,127,255}));
   connect(hex.portCoo_b, senTCooOut.port_a)
-    annotation (Line(points={{10,0},{14,0}}, color={0,127,255}));
+    annotation (Line(points={{10,6},{14,6},{14,40},{20,40}},
+                                             color={0,127,255}));
+  connect(airSou.ports[1], senTAirIn.port_a)
+    annotation (Line(points={{60,-40},{40,-40}}, color={0,127,255}));
   annotation (
     experiment(
       StopTime=3600,

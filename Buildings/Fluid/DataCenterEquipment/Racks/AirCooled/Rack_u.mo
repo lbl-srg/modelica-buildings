@@ -15,18 +15,16 @@ model Rack_u "Model of an air-cooled rack, and utilization is input"
     annotation (Placement(transformation(extent={{100,50},{120,70}}),
       iconTransformation(extent={{100,40},{120,60}})));
 
-  BaseClasses.ControlledFan conFan(
+  Buildings.Fluid.DataCenterEquipment.Racks.BaseClasses.ControlledFan conFan(
     redeclare package Medium = Medium,
     final allowFlowReversal=allowFlowReversal,
     final eta_nominal=dat.eta_nominal,
     final m_flow_nominal=dat.m_flow_nominal,
-    final PFan_nominal=dat.PFan_nominal) "Controlled fans to cool IT equipment"
+    final PFan_nominal=dat.PFan_nominal,
+    final energyDynamics=energyDynamics) "Controlled fans to cool IT equipment"
     annotation (Placement(transformation(extent={{-20,-10},{0,10}})));
 
 protected
-  parameter Modelica.Units.SI.SpecificHeatCapacity cp_default = Medium.specificHeatCapacityCp(
-    state_default) "Specific heat capacity";
-
   parameter Modelica.Units.SI.Density rho_default = Medium.density(
     state_default) "Density";
 
@@ -41,16 +39,13 @@ protected
     dat.PFan_nominal * dat.eta_nominal / (dat.m_flow_nominal/rho_default)
     "Fan pressure rise at nominal conditions, used also to parameterize internal flow resistance";
 
-  Controls.OBC.CDL.Reals.Add PTotal "Total power consumption"
+  Buildings.Controls.OBC.CDL.Reals.Add PTotal "Total power consumption"
     annotation (Placement(transformation(extent={{20,70},{40,90}})));
 
-  Controls.OBC.CDL.Reals.AddParameter TOutSet(p=dat.dTAir_nominal)
-    "Setpoint for leaving air temperature"
-    annotation (Placement(transformation(extent={{-60,40},{-40,60}})));
   Modelica.Thermal.HeatTransfer.Sensors.TemperatureSensor TAirLvg
     "Leaving air temperature"
     annotation (Placement(transformation(extent={{20,-30},{40,-10}})));
-  FixedResistances.PressureDrop res(
+  Buildings.Fluid.FixedResistances.PressureDrop res(
     redeclare package Medium = Medium,
     allowFlowReversal=allowFlowReversal,
     m_flow_nominal=dat.m_flow_nominal,
@@ -59,31 +54,27 @@ protected
     "Flow resistance"
     annotation (Placement(transformation(extent={{60,-10},{80,10}})));
 
-  Modelica.Blocks.Sources.RealExpression TIn(
-    y(final unit="K", displayUnit="degC")=Medium.temperature(
-      Medium.setState_phX(
-        port_a.p,
-        inStream(port_a.h_outflow),
-        inStream(port_a.Xi_outflow))))
-      "Inlet temperature"
-    annotation (Placement(transformation(extent={{-90,20},{-70,40}})));
+protected
+  Modelica.Blocks.Sources.RealExpression TSet(
+    y(final unit="K",
+      displayUnit="degC") =
+        Medium.temperature(
+          Medium.setState_phX(
+            port_a.p,
+            inStream(port_a.h_outflow),
+           inStream(port_a.Xi_outflow)))
+        + dat.dTAir_nominal) "Set point for outlet temperature"
+    annotation (Placement(transformation(extent={{-70,-2},{-50,18}})));
 equation
   connect(PTotal.y, PTot) annotation (Line(points={{42,80},{110,80}},
         color={0,0,127}));
-  connect(P, PTotal.u1) annotation (Line(points={{-120,50},{-70,50},{-70,86},{18,
+  connect(P, PTotal.u1) annotation (Line(points={{-120,50},{-90,50},{-90,86},{18,
           86}}, color={0,0,127}));
-  connect(P, preHea.Q_flow) annotation (Line(points={{-120,50},{-80,50},{-80,20},
+  connect(P, preHea.Q_flow) annotation (Line(points={{-120,50},{-90,50},{-90,20},
           {-40,20}},
                    color={0,0,127}));
-  connect(TOutSet.y, conFan.TSet)
-    annotation (Line(points={{-38,50},{-22,50},{-22,8}}, color={0,0,127}));
   connect(TAirLvg.port, vol.heatPort) annotation (Line(points={{20,-20},{10,-20},
           {10,10},{20,10}},color={191,0,0}));
-  connect(TAirLvg.T, conFan.TMea) annotation (Line(points={{41,-20},{50,-20},{
-          50,-40},{-30,-40},{-30,4},{-22,4}}, color={0,0,127}));
-  connect(TIn.y, TOutSet.u)
-    annotation (Line(points={{-69,30},{-64,30},{-64,42},{-66,42},{-66,50},{-62,
-          50}},                                  color={0,0,127}));
   connect(port_a, conFan.port_a)
     annotation (Line(points={{-100,0},{-20,0}}, color={0,127,255}));
   connect(conFan.port_b, vol.ports[1])
@@ -93,9 +84,15 @@ equation
   connect(res.port_b, port_b)
     annotation (Line(points={{80,0},{100,0}}, color={0,127,255}));
   connect(conFan.P, PTotal.u2)
-    annotation (Line(points={{1,6},{4,6},{4,74},{18,74}}, color={0,0,127}));
+    annotation (Line(points={{1,4.8},{4,4.8},{4,74},{18,74}},
+                                                          color={0,0,127}));
   connect(conFan.P, PFan)
-    annotation (Line(points={{1,6},{4,6},{4,60},{110,60}}, color={0,0,127}));
+    annotation (Line(points={{1,4.8},{4,4.8},{4,60},{110,60}},
+                                                           color={0,0,127}));
+  connect(TSet.y, conFan.TSet)
+    annotation (Line(points={{-49,8},{-22,8}}, color={0,0,127}));
+  connect(TAirLvg.T, conFan.TMea) annotation (Line(points={{41,-20},{50,-20},{50,
+          -34},{-32,-34},{-32,4},{-22,4}}, color={0,0,127}));
 annotation (
   defaultComponentName="rac",
   Documentation(

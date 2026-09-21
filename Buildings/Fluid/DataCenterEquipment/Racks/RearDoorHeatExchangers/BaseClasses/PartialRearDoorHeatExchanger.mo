@@ -18,6 +18,14 @@ partial model PartialRearDoorHeatExchanger
     annotation (choices(
       choice(redeclare package MediumAir = Buildings.Media.Air "Air")));
 
+
+  parameter Boolean allowFlowReversalCoo = true
+    "= false to simplify equations on coolant side, assuming, but not enforcing, no flow reversal"
+    annotation(Dialog(tab="Assumptions"), Evaluate=true);
+  parameter Boolean allowFlowReversalAir = true
+    "= false to simplify equations on air side, assuming, but not enforcing, no flow reversal"
+    annotation(Dialog(tab="Assumptions"), Evaluate=true);
+
   replaceable parameter Buildings.Fluid.DataCenterEquipment.Racks.Hybrid.Data.LiquidCooledSinglePhaseRearDoorHexPassive.BaseClasses.RearDoorHex dat
     "Heat exchanger performance data"
     annotation (
@@ -58,12 +66,16 @@ partial model PartialRearDoorHeatExchanger
     final dp2_nominal=dat.dpAir_nominal,
     final use_Q_flow_nominal=false,
     final eps_nominal=dat.eps_nominal,
+    final allowFlowReversal1 = allowFlowReversalCoo,
+    final allowFlowReversal2 = allowFlowReversalAir,
     configuration=Buildings.Fluid.Types.HeatExchangerConfiguration.CrossFlowUnmixed)
     "Rear door heat exchanger"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
 
-  Sensors.TemperatureTwoPort senTAirReaDooHexIn(redeclare package Medium =
-        MediumAir, m_flow_nominal=dat.mAir_flow_nominal)
+  Sensors.TemperatureTwoPort senTAirReaDooHexIn(
+    redeclare package Medium = MediumAir,
+    final allowFlowReversal=allowFlowReversalAir,
+    m_flow_nominal=dat.mAir_flow_nominal)
     "Air temperature entering rear door heat exchanger" annotation (Placement(
         transformation(
         extent={{10,-10},{-10,10}},

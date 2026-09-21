@@ -41,8 +41,7 @@ model ControlledFan "Fan with integrated PI temperature controller"
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TMea(
     final unit="K",
-    displayUnit="degC")
-    "Measured air temperature"
+    displayUnit="degC") "Measured air temperature"
     annotation (Placement(transformation(extent={{-140,20},{-100,60}}),
         iconTransformation(extent={{-140,20},{-100,60}})));
 
@@ -63,8 +62,8 @@ model ControlledFan "Fan with integrated PI temperature controller"
     final unit="W")
     "Fan power consumption"
     annotation (Placement(
-      transformation(extent={{100,50},{120,70}}),
-      iconTransformation(extent={{100,50},{120,70}})));
+      transformation(extent={{100,38},{120,58}}),
+      iconTransformation(extent={{100,38},{120,58}})));
 
   Buildings.Fluid.Movers.SpeedControlled_y fan(
     redeclare final package Medium = Medium,
@@ -74,7 +73,9 @@ model ControlledFan "Fan with integrated PI temperature controller"
     final use_riseTime=use_riseTime,
     final riseTime=riseTime,
     per(
-      pressure(V_flow={0,2*V_flow_nominal}, dp={2*dp_nominal,0}),
+      pressure(
+        V_flow={0,2*V_flow_nominal},
+        dp={2*dp_nominal,0}),
       etaHydMet=Buildings.Fluid.Movers.BaseClasses.Types.HydraulicEfficiencyMethod.EulerNumber,
       etaMotMet=Buildings.Fluid.Movers.BaseClasses.Types.MotorEfficiencyMethod.Efficiency_VolumeFlowRate,
       motorEfficiency(V_flow={0}, eta={sqrt(eta_nominal)}),
@@ -116,16 +117,17 @@ equation
     annotation (Line(points={{-100,0},{-10,0}}, color={0,127,255}));
   connect(fan.port_b, port_b)
     annotation (Line(points={{10,0},{100,0}}, color={0,127,255}));
-  connect(con.y, fan.y)
-    annotation (Line(points={{-18,80},{0,80},{0,12}}, color={0,0,127}));
   connect(fan.P, P)
-    annotation (Line(points={{11,9},{80,9},{80,60},{110,60}}, color={0,0,127}));
+    annotation (Line(points={{11,9},{80,9},{80,48},{110,48}}, color={0,0,127}));
   connect(TMea, con.u_m)
     annotation (Line(points={{-120,40},{-30,40},{-30,68}},
                                                       color={0,0,127}));
 
   connect(TSet, con.u_s)
     annotation (Line(points={{-120,80},{-42,80}}, color={0,0,127}));
+  connect(con.y, fan.y)
+      annotation (Line(points={{-18,80},{0,80},{0,12}}, color={0,0,127}));
+
   annotation (
     Icon(graphics={
         Rectangle(
@@ -166,15 +168,22 @@ equation
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid),
         Line(points={{-100,80},{-80,80}}, color={0,0,127}),
-        Line(points={{-40,80},{0,80},{0,44}}, color={0,0,127}),
+        Line(points={{-40,80},{-2,80},{-2,44}},
+                                              color={0,0,127}),
         Text(
-          extent={{78,96},{96,66}},
+          extent={{76,44},{94,14}},
           textColor={0,0,127},
           textString="P"),
-        Line(points={{14,40},{60,40},{60,60},{100,60}},
+        Line(points={{14,38},{60,38},{60,48},{100,48}},
                                               color={0,0,127}),
         Line(points={{-100,40},{-90,40},{-90,80}},
-                                              color={0,0,127})}),
+                                              color={0,0,127}),
+        Text(
+          extent={{-46,-42},{6,-84}},
+          textColor={0,0,0},
+          textString=DynamicSelect("",String(con.y,
+            leftJustified=false,
+            significantDigits=3)))}),
     defaultComponentName="fan",
     Documentation(
       info="<html>

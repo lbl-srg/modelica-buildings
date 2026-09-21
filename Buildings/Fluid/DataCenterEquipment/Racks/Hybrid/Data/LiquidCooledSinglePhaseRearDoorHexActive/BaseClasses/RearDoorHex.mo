@@ -2,7 +2,7 @@ within Buildings.Fluid.DataCenterEquipment.Racks.Hybrid.Data.LiquidCooledSingleP
 record RearDoorHex "Data record for active rear door heat exchanger"
   extends Buildings.Fluid.DataCenterEquipment.Racks.Hybrid.Data.LiquidCooledSinglePhaseRearDoorHexPassive.BaseClasses.RearDoorHex;
 
-  parameter Modelica.Units.SI.Power PFan_nominal=0.04*Q_flow_nominal
+  parameter Modelica.Units.SI.Power PFan_nominal(final min=0)=-0.04*Q_flow_nominal
     "Fan power at full speed"
     annotation (Dialog(group="Fan power"));
 
