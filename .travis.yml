@@ -31,7 +31,7 @@ services:
 env:
   global:
     - DOCKER_REPONAME=lbnlblum
-    - BUILDINGSPY_VERSION=BuildingsPy@v5.2.0
+    - BUILDINGSPY_VERSION=BuildingsPy@v5.2.1
     - OMC_VERSION=ubuntu-2404-omc:1.26.3-1
     - OPTIMICA_VERSION=travis-ubuntu-2404-optimica:1.66
     - DYMOLA_VERSION=travis_ubuntu-2404_dymola:2026x-x86_64
