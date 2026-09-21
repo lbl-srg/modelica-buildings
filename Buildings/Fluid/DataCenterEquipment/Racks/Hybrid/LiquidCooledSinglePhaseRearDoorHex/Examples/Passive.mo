@@ -2,7 +2,8 @@ within Buildings.Fluid.DataCenterEquipment.Racks.Hybrid.LiquidCooledSinglePhaseR
 model Passive
   "Example model for hybrid liquid-cooled and air-cooled rack with rear door heat exchanger"
   extends Buildings.Fluid.DataCenterEquipment.Racks.Hybrid.LiquidCooledSinglePhase.Examples.LiquidCooledSinglePhase(
-    redeclare replaceable Buildings.Fluid.DataCenterEquipment.Racks.Hybrid.Data.LiquidCooledSinglePhaseRearDoorHexPassive.Generic dat(
+    redeclare replaceable Buildings.Fluid.DataCenterEquipment.Racks.Hybrid.Data.LiquidCooledSinglePhaseRearDoorHexPassive.Generic dat
+    constrainedby Buildings.Fluid.DataCenterEquipment.Racks.Hybrid.Data.LiquidCooledSinglePhaseRearDoorHexPassive.Generic(
       reaDooHex=datReaDooHex),
     redeclare replaceable Buildings.Fluid.DataCenterEquipment.Racks.Hybrid.LiquidCooledSinglePhaseRearDoorHex.Passive rac
     constrainedby Buildings.Fluid.DataCenterEquipment.Racks.Hybrid.LiquidCooledSinglePhaseRearDoorHex.BaseClasses.PartialRack(
@@ -74,28 +75,32 @@ equation
 <p>
 Example model of a hybrid IT rack with liquid-cooled, air-cooled, and rear door
 heat exchanger components.
-This model extends the structure of
+This model extends
 <a href=\"modelica://Buildings.Fluid.DataCenterEquipment.Racks.Hybrid.LiquidCooledSinglePhase.Examples.LiquidCooledSinglePhase\">
 Buildings.Fluid.DataCenterEquipment.Racks.Hybrid.LiquidCooledSinglePhase.Examples.LiquidCooledSinglePhase</a>
-by adding a rear door heat exchanger cooling loop.
+and replaces the rack with a rack that has a passive rear door heat exchanger.
 </p>
 <p>
-The room inlet air temperature is set to <i>40</i> &deg;C (hot room).
-The air-cooled rack raises the air temperature by <i>10</i> K, so the air
-entering the rear door heat exchanger is at approximately <i>50</i> &deg;C.
+The room inlet air temperature is set to <i>30</i> &deg;C.
+The air-cooled rack raises the air temperature around <i>11.7</i> K, so the air
+entering the rear door heat exchanger is at approximately <i>41.7</i> &deg;C.
+Note that these values are slightly higher than the ones in
+<a href=\"modelica://Buildings.Fluid.DataCenterEquipment.Racks.Hybrid.LiquidCooledSinglePhase.Examples.LiquidCooledSinglePhase\">
+Buildings.Fluid.DataCenterEquipment.Racks.Hybrid.LiquidCooledSinglePhase.Examples.LiquidCooledSinglePhase</a>.
+The reason is that the rear door heat exchanger is passive, i.e., it does not have fans.
+Due to its air-side flow resistance, the air flow rate through the rack is therefore
+slightly lower, leading the higher rack outlet temperature before the rear door heat exchanger.
+The air leaving the rear door heat exchanger is <i>33.6</i>&deg;C.
 </p>
 <p>
 Water at <i>25</i> &deg;C is supplied to the rear door heat exchanger.
-A PI controller maintains the coolant outlet temperature at <i>35</i> &deg;C
-by adjusting the position of a two-way valve on the supply side.
-When the coolant outlet temperature falls below the setpoint, the controller
-opens the valve further to increase the coolant flow rate until the setpoint
-is reached.
+In this simplified model, the water flow rate is uncontrolled, leading to
+an leaving water temperature of <i>30.4</i>&deg;C, which is below the design
+temperature of <i>35</i>&deg;C due to the reduced air flow rate.
 </p>
 <p>
 The liquid cooling and pump control loops operate identically to the
-base example, with a supply temperature of <i>42</i> &deg;C maintained
-by a sensible cooler upstream of the variable-speed pump.
+base example.
 </p>
 </html>", revisions="<html>
 <ul>

@@ -18,12 +18,6 @@ record RearDoorHex "Data record for passive rear door heat exchanger"
     "Cooling capacity at design condition (negative number)"
     annotation (Dialog(group="Nominal condition"));
 
-  parameter Real eta_nominal(
-    final unit="1",
-    final min=Modelica.Constants.small) = 0.7
-    "Fan and motor combined efficiency at nominal conditions"
-    annotation(Dialog(group="Fan"));
-
   parameter Modelica.Units.SI.Temperature TAirIn_nominal
     "Air inlet nominal temperature (air entering rear door heat exchanger)"
     annotation (Dialog(group="Nominal condition"));

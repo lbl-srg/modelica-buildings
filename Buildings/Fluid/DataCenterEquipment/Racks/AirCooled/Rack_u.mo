@@ -15,13 +15,12 @@ model Rack_u "Model of an air-cooled rack, and utilization is input"
     annotation (Placement(transformation(extent={{100,50},{120,70}}),
       iconTransformation(extent={{100,40},{120,60}})));
 
-  BaseClasses.ControlledFan fan(
+  BaseClasses.ControlledFan conFan(
     redeclare package Medium = Medium,
     final allowFlowReversal=allowFlowReversal,
     final eta_nominal=dat.eta_nominal,
     final m_flow_nominal=dat.m_flow_nominal,
-    final PFan_nominal=dat.PFan_nominal)
-    "Fans to cool IT equipment"
+    final PFan_nominal=dat.PFan_nominal) "Controlled fans to cool IT equipment"
     annotation (Placement(transformation(extent={{-20,-10},{0,10}})));
 
 protected
@@ -76,26 +75,26 @@ equation
   connect(P, preHea.Q_flow) annotation (Line(points={{-120,50},{-80,50},{-80,20},
           {-40,20}},
                    color={0,0,127}));
-  connect(TOutSet.y, fan.TSet) annotation (Line(points={{-38,50},{-22,50},{-22,
-          8}},      color={0,0,127}));
+  connect(TOutSet.y, conFan.TSet)
+    annotation (Line(points={{-38,50},{-22,50},{-22,8}}, color={0,0,127}));
   connect(TAirLvg.port, vol.heatPort) annotation (Line(points={{20,-20},{10,-20},
           {10,10},{20,10}},color={191,0,0}));
-  connect(TAirLvg.T, fan.TMea) annotation (Line(points={{41,-20},{50,-20},{50,-40},
-          {-30,-40},{-30,4},{-22,4}},color={0,0,127}));
+  connect(TAirLvg.T, conFan.TMea) annotation (Line(points={{41,-20},{50,-20},{
+          50,-40},{-30,-40},{-30,4},{-22,4}}, color={0,0,127}));
   connect(TIn.y, TOutSet.u)
     annotation (Line(points={{-69,30},{-64,30},{-64,42},{-66,42},{-66,50},{-62,
           50}},                                  color={0,0,127}));
-  connect(port_a, fan.port_a)
+  connect(port_a, conFan.port_a)
     annotation (Line(points={{-100,0},{-20,0}}, color={0,127,255}));
-  connect(fan.port_b, vol.ports[1])
+  connect(conFan.port_b, vol.ports[1])
     annotation (Line(points={{0,0},{30,0}}, color={0,127,255}));
   connect(vol.ports[2], res.port_a)
     annotation (Line(points={{30,0},{60,0}}, color={0,127,255}));
   connect(res.port_b, port_b)
     annotation (Line(points={{80,0},{100,0}}, color={0,127,255}));
-  connect(fan.P, PTotal.u2)
+  connect(conFan.P, PTotal.u2)
     annotation (Line(points={{1,6},{4,6},{4,74},{18,74}}, color={0,0,127}));
-  connect(fan.P, PFan)
+  connect(conFan.P, PFan)
     annotation (Line(points={{1,6},{4,6},{4,60},{110,60}}, color={0,0,127}));
 annotation (
   defaultComponentName="rac",

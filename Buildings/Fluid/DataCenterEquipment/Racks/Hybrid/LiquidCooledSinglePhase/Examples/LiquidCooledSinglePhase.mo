@@ -67,7 +67,7 @@ model LiquidCooledSinglePhase
     "Utilization of liquid-cooled hardware"
     annotation (Placement(transformation(extent={{-220,0},{-200,20}})));
 
-  Buildings.Controls.OBC.CDL.Reals.Sources.Constant utiAir(k=1)
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant utiAir(k=0.8)
     "Utilization of air-cooled hardware"
     annotation (Placement(transformation(extent={{-220,-30},{-200,-10}})));
 
@@ -281,7 +281,7 @@ of the liquid-cooled load.
 </p>
 <p>
 The liquid cooling loop uses a cooler upstream of a variable speed pump.
-The cooler maintains a constant supply temperature to the rack at 42°C.
+The cooler maintains a constant supply temperature to the rack at 42&deg;C.
 A control valve regulates the coolant mass flow rate to track a leaving coolant
 temperature setpoint.
 The pump is controlled by a PI controller that maintains a constant pressure drop
@@ -297,10 +297,9 @@ throughout the simulation.
 <p>
 The air cooling loop uses simple pressure boundary conditions that allow
 free circulation of air through the rack component.
-Temperature sensors are placed at both the inlet and outlet of each cooling loop
-to monitor the thermal performance of the system.
-A relative pressure sensor measures the pressure drop across the rack,
-which is used as feedback for the pump controller.
+The air inlet temperature is <i>30</i>&deg;C
+and the fan is sized to have a temperature difference across the
+rack of <i>10</i> K, leading a <i>40</i>&deg;C outlet air temperature.
 </p>
 </html>", revisions="<html>
 <ul>

@@ -6,6 +6,11 @@ record RearDoorHex "Data record for active rear door heat exchanger"
     "Fan power at full speed"
     annotation (Dialog(group="Fan power"));
 
+  parameter Real eta_nominal(
+    final unit="1",
+    final min=Modelica.Constants.small) = 0.7
+    "Fan and motor combined efficiency at nominal conditions"
+    annotation(Dialog(group="Fan"));
 annotation (
   defaultComponentPrefixes="parameter",
   Documentation(info="<html>

@@ -5,12 +5,12 @@ model Active
     redeclare replaceable Buildings.Fluid.DataCenterEquipment.Racks.Hybrid.Data.LiquidCooledSinglePhaseRearDoorHexActive.Generic dat,
     redeclare replaceable Buildings.Fluid.DataCenterEquipment.Racks.Hybrid.LiquidCooledSinglePhaseRearDoorHex.Active rac);
 
-  Controls.OBC.CDL.Reals.Sources.Constant TSetReaDooRet(k=273.15 + 35)
-    "Temperature setpoint for return water from rear door heat exchanger"
-    annotation (Placement(transformation(extent={{40,20},{60,40}})));
+  Controls.OBC.CDL.Reals.Sources.Constant TSetReaDooRet(k=273.15 + 30)
+    "Temperature setpoint for air leaving rear door heat exchanger"
+    annotation (Placement(transformation(extent={{6,-50},{26,-30}})));
 equation
-  connect(TSetReaDooRet.y, rac.TSetReaDooHexAir) annotation (Line(points={{62,
-          30},{70,30},{70,14},{38,14},{38,2}}, color={0,0,127}));
+  connect(TSetReaDooRet.y, rac.TSetReaDooHexAir) annotation (Line(points={{28,-40},
+          {32,-40},{32,2},{38,2}},             color={0,0,127}));
   annotation (
     experiment(
       StopTime=7200,
