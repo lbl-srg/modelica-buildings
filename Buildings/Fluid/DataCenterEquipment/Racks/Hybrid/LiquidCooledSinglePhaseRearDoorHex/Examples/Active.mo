@@ -2,8 +2,22 @@ within Buildings.Fluid.DataCenterEquipment.Racks.Hybrid.LiquidCooledSinglePhaseR
 model Active
   "Example model for hybrid liquid-cooled and air-cooled rack with active rear door heat exchanger"
   extends Buildings.Fluid.DataCenterEquipment.Racks.Hybrid.LiquidCooledSinglePhaseRearDoorHex.Examples.Passive(
-    redeclare replaceable Buildings.Fluid.DataCenterEquipment.Racks.Hybrid.Data.LiquidCooledSinglePhaseRearDoorHexActive.Generic dat,
-    redeclare replaceable Buildings.Fluid.DataCenterEquipment.Racks.Hybrid.LiquidCooledSinglePhaseRearDoorHex.Active rac);
+    redeclare replaceable Buildings.Fluid.DataCenterEquipment.Racks.Hybrid.Data.LiquidCooledSinglePhaseRearDoorHexActive.Generic dat
+    constrainedby Buildings.Fluid.DataCenterEquipment.Racks.Hybrid.Data.LiquidCooledSinglePhaseRearDoorHexActive.Generic(
+      liq=datLiq,
+      air=datAir,
+      reaDooHex=datReaDooHex),
+    redeclare replaceable Buildings.Fluid.DataCenterEquipment.Racks.Hybrid.LiquidCooledSinglePhaseRearDoorHex.Active rac
+    constrainedby Buildings.Fluid.DataCenterEquipment.Racks.Hybrid.LiquidCooledSinglePhaseRearDoorHex.BaseClasses.PartialRack(
+      redeclare package MediumLiq = MediumLiq,
+      redeclare package MediumAir = MediumAir,
+      redeclare package MediumReaDooHex = MediumReaDooHex,
+      dat=dat),
+    redeclare replaceable parameter
+      Buildings.Fluid.DataCenterEquipment.Racks.Hybrid.Data.LiquidCooledSinglePhaseRearDoorHexActive.BaseClasses.RearDoorHex
+      datReaDooHex
+    constrainedby
+      Buildings.Fluid.DataCenterEquipment.Racks.Hybrid.Data.LiquidCooledSinglePhaseRearDoorHexPassive.BaseClasses.RearDoorHex);
 
   Controls.OBC.CDL.Reals.Sources.Constant TSetReaDooRet(k=273.15 + 30)
     "Temperature setpoint for air leaving rear door heat exchanger"

@@ -4,10 +4,21 @@ model Passive
   extends Buildings.Fluid.DataCenterEquipment.Racks.Hybrid.LiquidCooledSinglePhase.Examples.LiquidCooledSinglePhase(
     redeclare replaceable Buildings.Fluid.DataCenterEquipment.Racks.Hybrid.Data.LiquidCooledSinglePhaseRearDoorHexPassive.Generic dat
     constrainedby Buildings.Fluid.DataCenterEquipment.Racks.Hybrid.Data.LiquidCooledSinglePhaseRearDoorHexPassive.Generic(
-      reaDooHex=datReaDooHex),
+      liq=datLiq,
+      air=datAir,
+      reaDooHex(
+        mAir_flow_nominal=datAir.m_flow_nominal,
+        mCoo_flow_nominal=mReaDoo_flow_nominal,
+        cpCoo_flow_nominal=Buildings.Utilities.Psychrometrics.Constants.cpWatLiq,
+        Q_flow_nominal=-PAir_nominal,
+        TCooIn_nominal=TReaDooCooIn_nominal,
+        TAirIn_nominal=TAirReaDooIn_nominal + datAir.dTAir_nominal)),
     redeclare replaceable Buildings.Fluid.DataCenterEquipment.Racks.Hybrid.LiquidCooledSinglePhaseRearDoorHex.Passive rac
     constrainedby Buildings.Fluid.DataCenterEquipment.Racks.Hybrid.LiquidCooledSinglePhaseRearDoorHex.BaseClasses.PartialRack(
-      redeclare package MediumReaDooHex = MediumReaDooHex));
+      redeclare package MediumLiq = MediumLiq,
+      redeclare package MediumAir = MediumAir,
+      redeclare package MediumReaDooHex = MediumReaDooHex,
+      dat=dat));
 
   package MediumReaDooHex = Buildings.Media.Water
     "Water for rear door heat exchanger loop";
