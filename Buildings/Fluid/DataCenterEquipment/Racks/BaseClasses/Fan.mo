@@ -1,5 +1,5 @@
 within Buildings.Fluid.DataCenterEquipment.Racks.BaseClasses;
-model ControlledFan "Fan with integrated PI temperature controller"
+model Fan "Preconfigured server fan"
   extends Buildings.Fluid.Interfaces.PartialTwoPort;
 
   parameter Real eta_nominal(
@@ -19,51 +19,30 @@ model ControlledFan "Fan with integrated PI temperature controller"
   parameter Modelica.Fluid.Types.Dynamics energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState
     "Type of energy balance: dynamic (3 initialization options) or steady state"
     annotation(Dialog(group="Fan", tab="Dynamics"));
-  parameter Boolean use_riseTime=false
+  parameter Boolean use_riseTime=true
     "Set to true to continuously change motor speed"
     annotation(Dialog(group="Fan", tab="Dynamics"));
-  parameter Modelica.Units.SI.Time riseTime=30
+  parameter Modelica.Units.SI.Time riseTime=2
     "Time needed to change motor speed between zero and full speed"
     annotation(Dialog(group="Fan", tab="Dynamics"));
   parameter Modelica.Units.SI.Time tau=1
     "Time constant of fluid volume for nominal flow, used if energy or mass balance is dynamic"
     annotation(Dialog(group="Fan", tab="Dynamics"));
 
-  parameter Real k(
-    final unit="1",
-    min=Modelica.Constants.small) = 1
-    "Gain of PI controller"
-    annotation(Dialog(group="Controller"));
-
-  parameter Modelica.Units.SI.Time Ti(min=Modelica.Constants.small) = 60
-    "Integrator time constant of PI controller"
-    annotation(Dialog(group="Controller"));
-
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput TMea(
-    final unit="K",
-    displayUnit="degC") "Measured air temperature"
-    annotation (Placement(transformation(extent={{-140,20},{-100,60}}),
-        iconTransformation(extent={{-140,20},{-100,60}})));
-
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput TSet(
-    final unit="K",
-    displayUnit="degC")
-    "Set point for air temperature"
-    annotation (Placement(
-      transformation(
-        origin={-120,80},
-        extent={{-20,-20},{20,20}}),
-      iconTransformation(
-        origin={-120,80},
-        extent={{-20,-20},{20,20}})));
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput y(
+    min=1,
+    max=1,
+    final unit="1")
+    "Normalized fan speed control signal"
+    annotation (Placement(transformation(extent={{-140,40},{-100,80}})));
 
   Modelica.Blocks.Interfaces.RealOutput P(
     final quantity="Power",
     final unit="W")
     "Fan power consumption"
     annotation (Placement(
-      transformation(extent={{100,38},{120,58}}),
-      iconTransformation(extent={{100,38},{120,58}})));
+      transformation(extent={{100,50},{120,70}}),
+      iconTransformation(extent={{100,50},{120,70}})));
 
   Buildings.Fluid.Movers.SpeedControlled_y fan(
     redeclare final package Medium = Medium,
@@ -83,19 +62,6 @@ model ControlledFan "Fan with integrated PI temperature controller"
       powerOrEfficiencyIsHydraulic=false))
     "Fan"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
-
-  Buildings.Controls.OBC.CDL.Reals.PID con(
-    controllerType=Buildings.Controls.OBC.CDL.Types.SimpleController.PI,
-    final k=k,
-    final Ti=Ti,
-    r(final unit="K")=1,
-    final reverseActing=false,
-    u_s(final unit="K", displayUnit="degC"),
-    u_m(final unit="K", displayUnit="degC"))
-    "Fan speed PI controller"
-    annotation (Placement(transformation(
-      origin={-30,130},
-      extent={{-10,-60},{10,-40}})));
 
 protected
   parameter Modelica.Units.SI.Density rho_default = Medium.density(
@@ -118,16 +84,10 @@ equation
   connect(fan.port_b, port_b)
     annotation (Line(points={{10,0},{100,0}}, color={0,127,255}));
   connect(fan.P, P)
-    annotation (Line(points={{11,9},{80,9},{80,48},{110,48}}, color={0,0,127}));
-  connect(TMea, con.u_m)
-    annotation (Line(points={{-120,40},{-30,40},{-30,68}},
-                                                      color={0,0,127}));
+    annotation (Line(points={{11,9},{86,9},{86,60},{110,60}}, color={0,0,127}));
 
-  connect(TSet, con.u_s)
-    annotation (Line(points={{-120,80},{-42,80}}, color={0,0,127}));
-  connect(con.y, fan.y)
-      annotation (Line(points={{-18,80},{0,80},{0,12}}, color={0,0,127}));
-
+  connect(fan.y, y)
+    annotation (Line(points={{0,12},{0,60},{-120,60}}, color={0,0,127}));
   annotation (
     Icon(graphics={
         Rectangle(
@@ -157,42 +117,29 @@ equation
           lineColor={0,0,0},
           fillPattern=FillPattern.Sphere,
           fillColor={0,100,199}),
-        Rectangle(
-          extent={{-80,92},{-40,66}},
-          lineColor={0,0,127},
-          fillColor={255,255,255},
-          fillPattern=FillPattern.Solid),
-        Polygon(
-          points={{-80,92},{-80,66},{-62,80},{-80,92}},
-          lineColor={0,0,127},
-          fillColor={255,255,255},
-          fillPattern=FillPattern.Solid),
-        Line(points={{-100,80},{-80,80}}, color={0,0,127}),
-        Line(points={{-40,80},{-2,80},{-2,44}},
-                                              color={0,0,127}),
+        Line(points={{-100,60},{0,60},{0,44}},color={0,0,127}),
         Text(
-          extent={{76,44},{94,14}},
+          extent={{78,90},{96,60}},
           textColor={0,0,127},
           textString="P"),
-        Line(points={{14,38},{60,38},{60,48},{100,48}},
-                                              color={0,0,127}),
-        Line(points={{-100,40},{-90,40},{-90,80}},
+        Line(points={{14,38},{60,38},{60,60},{100,60}},
                                               color={0,0,127}),
         Text(
           extent={{-46,-42},{6,-84}},
           textColor={0,0,0},
-          textString=DynamicSelect("",String(con.y,
+          textString=DynamicSelect("",String(y,
             leftJustified=false,
-            significantDigits=3)))}),
+            significantDigits=3))),
+        Text(
+          extent={{-96,92},{-78,62}},
+          textColor={0,0,127},
+          textString="y")}),
     defaultComponentName="fan",
     Documentation(
       info="<html>
 <p>
-Model of a fan with an integrated PI controller that regulates the leaving air temperature.
-The fan speed is modulated to track a leaving air temperature <code>TAirOut</code>
-to a set point <code>TAirOutSet</code>.
+Preconfigured fan model.
 </p>
-<h4>Fan model</h4>
 <p>
 The fan is modelled using
 <a href=\"modelica://Buildings.Fluid.Movers.SpeedControlled_y\">
@@ -205,17 +152,13 @@ dp<sub>0</sub> = P<sub>fan,0</sub> &eta;<sub>0</sub> &frasl; V&#775;<sub>0</sub>
 <p>
 The fan uses a constant total efficiency, which is set by the parameters <code>eta_nominal</code>.
 </p>
-<h4>Controller</h4>
-<p>
-The controller is a PI controller that modulates the fan speed so that
-the measured temperatures <code>TMea</code> tracks the set point <code>TAirSet</code>.
 </html>",
       revisions="<html>
 <ul>
 <li>
-September 15, 2026, by Michael Wetter:<br/>
+September 21, 2026, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>
 </html>"));
-end ControlledFan;
+end Fan;

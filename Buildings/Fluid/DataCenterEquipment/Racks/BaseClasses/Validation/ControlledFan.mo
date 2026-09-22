@@ -13,11 +13,11 @@ model ControlledFan "Validation of the controlled fan model"
   parameter Modelica.Units.SI.Temperature TAirOutSet = T_start + 10
     "Controller set point, inlet temperature plus 10 K";
 
-  Buildings.Fluid.DataCenterEquipment.Racks.BaseClasses.ControlledFan fan(
+  Buildings.Fluid.DataCenterEquipment.Racks.FanControllers.OutletTemperature
+    fan(
     redeclare package Medium = Medium,
     m_flow_nominal=m_flow_nominal,
-    PFan_nominal=PFan_nominal)
-    "Controlled fan"
+    PFan_nominal=PFan_nominal) "Controlled fan"
     annotation (Placement(transformation(extent={{0,-10},{20,10}})));
 
   Buildings.Fluid.FixedResistances.PressureDrop res(
@@ -138,7 +138,7 @@ equation
       info="<html>
 <p>
 Validation model for
-<a href=\"modelica://Buildings.Fluid.DataCenterEquipment.Racks.BaseClasses.ControlledFan\">
+<a href=\"modelica://Buildings.Fluid.DataCenterEquipment.Racks.FanControllers.OutletTemperature\">
 Buildings.Fluid.DataCenterEquipment.Racks.BaseClasses.ControlledFan</a>.
 </p>
 <p>

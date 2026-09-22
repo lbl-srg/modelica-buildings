@@ -64,6 +64,32 @@ partial model LiquidCooledSinglePhase
     "Start value of air temperature"
     annotation(Dialog(tab = "Initialization", group="Air cooling"));
 
+  // Fan control
+  parameter Buildings.Fluid.DataCenterEquipment.Racks.FanControllers.Types.Strategy fanControl =
+    Buildings.Fluid.DataCenterEquipment.Racks.FanControllers.Types.Strategy.Load
+    "Type of fan control strategy"
+    annotation(Dialog(
+      group = "Fan controller"));
+
+  parameter Real fanSpeed[:,:]=[0.0,0.0; 1.0,1.0]
+    "Load and fan speed matrix (1st column normalized IT load, 2nd fan speed), e.g., fanSpeed=[0, 0; 0.5, 0.7; 1, 1])"
+    annotation(Dialog(
+      enable=(fanControl == Buildings.Fluid.DataCenterEquipment.Racks.FanControllers.Types.Strategy.Load),
+      group = "Fan controller"));
+  parameter Modelica.Units.SI.Temperature TAirOut_set=dat.air.TOut_nominal
+    "Set point temperature for rack outlet air" annotation (Dialog(enable=(
+          fanControl == Buildings.Fluid.DataCenterEquipment.Racks.FanControllers.Types.Strategy.OutletTemperature),
+        group="Fan controller"));
+  parameter Real k=1 "Gain of fan PI controller"
+    annotation(Dialog(
+      enable=(fanControl == Buildings.Fluid.DataCenterEquipment.Racks.FanControllers.Types.Strategy.OutletTemperature),
+      group = "Fan controller"));
+  parameter Modelica.Units.SI.Time Ti=60
+    "Integrator time constant of fan PI controller"
+    annotation(Dialog(
+      enable=(fanControl == Buildings.Fluid.DataCenterEquipment.Racks.FanControllers.Types.Strategy.OutletTemperature),
+      group = "Fan controller"));
+
   // Fluid ports
   Modelica.Fluid.Interfaces.FluidPort_a portLiq_a(
     redeclare package Medium = MediumLiq)
@@ -119,22 +145,27 @@ partial model LiquidCooledSinglePhase
   // Component instances
   Buildings.Fluid.DataCenterEquipment.Racks.LiquidCooledSinglePhase.ColdPlateR_P liq(
     redeclare package Medium = MediumLiq,
-    dat=dat.liq,
-    energyDynamics=energyDynamicsLiq,
-    tau=tauLiq,
-    T_start=TLiq_start,
-    VColPla_flow_nominal=VColPla_flow_nominal,
-    nColPla=nColPla,
-    linearized=linearizedLiq)
+    final dat=dat.liq,
+    final energyDynamics=energyDynamicsLiq,
+    final tau=tauLiq,
+    final T_start=TLiq_start,
+    final VColPla_flow_nominal=VColPla_flow_nominal,
+    final nColPla=nColPla,
+    final linearized=linearizedLiq)
     "Liquid-cooled rack component"
     annotation (Placement(transformation(extent={{-10,30},{10,50}})));
 
   Buildings.Fluid.DataCenterEquipment.Racks.AirCooled.Rack_u air(
     redeclare package Medium = MediumAir,
-    dat=dat.air,
-    energyDynamics=energyDynamicsAir,
-    tau=tauAir,
-    T_start=TAir_start)
+    final dat=dat.air,
+    final energyDynamics=energyDynamicsAir,
+    final tau=tauAir,
+    final T_start=TAir_start,
+    final fanControl=fanControl,
+    final fanSpeed=fanSpeed,
+    final TAirOut_set=TAirOut_set,
+    final k=k,
+    final Ti=Ti)
     "Air-cooled rack component"
     annotation (Placement(transformation(extent={{-10,-50},{10,-30}})));
 

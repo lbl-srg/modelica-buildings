@@ -19,12 +19,6 @@ model Active
     constrainedby
       Buildings.Fluid.DataCenterEquipment.Racks.Hybrid.Data.LiquidCooledSinglePhaseRearDoorHexPassive.BaseClasses.RearDoorHex);
 
-  Controls.OBC.CDL.Reals.Sources.Constant TSetReaDooRet(k=273.15 + 30)
-    "Temperature setpoint for air leaving rear door heat exchanger"
-    annotation (Placement(transformation(extent={{6,-50},{26,-30}})));
-equation
-  connect(TSetReaDooRet.y, rac.TSetReaDooHexAir) annotation (Line(points={{28,-40},
-          {32,-40},{32,2},{38,2}},             color={0,0,127}));
   annotation (
     experiment(
       StopTime=7200,

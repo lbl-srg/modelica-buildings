@@ -45,7 +45,8 @@ record RearDoorHex "Data record for passive rear door heat exchanger"
       (TAirIn_nominal - TCooIn_nominal))
     "Heat exchanger effectiveness";
 
-  parameter Modelica.Units.SI.TemperatureDifference dTAir_nominal(min=1) = 10
+  final parameter Modelica.Units.SI.TemperatureDifference dTAir_nominal(min=1) =
+    -Q_flow_nominal/(mAir_flow_nominal*Buildings.Utilities.Psychrometrics.Constants.cpAir)
     "Air temperature difference across rear door heat exchanger";
 
   final parameter Modelica.Units.SI.TemperatureDifference dTCoo_nominal=

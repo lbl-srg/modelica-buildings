@@ -20,7 +20,8 @@ model Rack_u "Example model for air cooled rack"
   Buildings.Fluid.DataCenterEquipment.Racks.AirCooled.Rack_u rac(
     redeclare package Medium = Medium,
     dat=dat,
-    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
+    fanControl=Buildings.Fluid.DataCenterEquipment.Racks.FanControllers.Types.Strategy.OutletTemperature)
     "Air-cooled rack"
     annotation (Placement(transformation(extent={{0,-10},{20,10}})));
   Buildings.Fluid.Sources.Boundary_pT sou(

@@ -3,13 +3,17 @@ model Active
   "Hybrid rack model combining liquid-cooled and air-cooled components with an active rear door heat exchanger"
   extends Buildings.Fluid.DataCenterEquipment.Racks.Hybrid.LiquidCooledSinglePhaseRearDoorHex.BaseClasses.PartialRack(
     redeclare parameter Buildings.Fluid.DataCenterEquipment.Racks.Hybrid.Data.LiquidCooledSinglePhaseRearDoorHexActive.Generic dat,
-    redeclare final RearDoorHeatExchangers.Active reaDooHex(
-      dat=dat.reaDooHex));
+    redeclare final Buildings.Fluid.DataCenterEquipment.Racks.Hybrid.LiquidCooledSinglePhaseRearDoorHex.Active reaDooHex(
+      final k=kReaDooHex,
+      final Ti=TiReaDooHex));
 
-  Controls.OBC.CDL.Interfaces.RealInput TSetReaDooHexAir(final unit="K",
-      displayUnit="degC")
-    "Set point for air temperature leaving rear door heat exchanger"
-    annotation (Placement(transformation(extent={{-140,0},{-100,40}})));
+  parameter Real kReaDooHex=1 "Gain of PI controller"
+    annotation(
+      Dialog(group="Rear door heat exchanger fan controller"));
+  parameter Modelica.Units.SI.Time TiReaDooHex=10
+    "Integrator time constant of PI controller"
+    annotation(
+      Dialog(group="Rear door heat exchanger fan controller"));
 
   Modelica.Blocks.Interfaces.RealOutput PReaDooHexFan(
     final quantity="Power",
@@ -20,9 +24,7 @@ model Active
 
 equation
 
-  connect(reaDooHex.TSet, TSetReaDooHexAir) annotation (Line(points={{19,2.8},{
-          -40,2.8},{-40,20},{-120,20}}, color={0,0,127}));
-  connect(reaDooHex.PFan, PReaDooHexFan) annotation (Line(points={{41,3},{80,3},
+  connect(reaDooHex.PFan, PReaDooHexFan) annotation (Line(points={{41,-6},{80,-6},
           {80,20},{110,20}}, color={0,0,127}));
 annotation (
   defaultComponentName="rac",
@@ -58,6 +60,14 @@ through <code>portReaDooHex_a</code> (inlet) and <code>portReaDooHex_b</code> (o
 The medium for the rear door heat exchanger coolant is <code>MediumReaDooHex</code>,
 which is separate from the liquid cooling medium <code>MediumLiq</code> used by the
 cold plate components.
+</p>
+<p>
+If the fan of the air-cooled IT is controlled based on the rack outlet temperature,
+then the temperature between the rack and the rear door heat exchanger is used as
+the measurement signal; otherwise, the IT load is used as an input for the fan controller.
+The fan of the rear door heat exchanger is controlled to have zero back pressure.
+Therefore, if the CPU fan speed increases, it will build up back pressure, and
+the rear door heat exchanger then increases its speed as well.
 </p>
 </html>",
     revisions="<html>

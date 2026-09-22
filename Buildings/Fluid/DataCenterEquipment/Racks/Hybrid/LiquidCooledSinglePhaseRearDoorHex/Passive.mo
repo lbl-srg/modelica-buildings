@@ -2,9 +2,7 @@ within Buildings.Fluid.DataCenterEquipment.Racks.Hybrid.LiquidCooledSinglePhaseR
 model Passive
   "Hybrid rack model combining liquid-cooled and air-cooled components with a rear door heat exchanger"
   extends Buildings.Fluid.DataCenterEquipment.Racks.Hybrid.LiquidCooledSinglePhaseRearDoorHex.BaseClasses.PartialRack(
-    redeclare parameter Buildings.Fluid.DataCenterEquipment.Racks.Hybrid.Data.LiquidCooledSinglePhaseRearDoorHexPassive.Generic dat,
-    redeclare final RearDoorHeatExchangers.Passive reaDooHex(
-      dat=dat.reaDooHex));
+    redeclare final Buildings.Fluid.DataCenterEquipment.Racks.Hybrid.LiquidCooledSinglePhaseRearDoorHex.Passive reaDooHex);
 
   annotation (
   defaultComponentName="rac",
@@ -40,6 +38,11 @@ For liquid cooling, <code>portLiq_a</code> and <code>portLiq_b</code> serve as t
 For air cooling, <code>portAir_a</code> and <code>portAir_b</code> serve as the inlet and outlet ports.
 For the rear door heat exchanger coolant, <code>portReaDooHex_a</code> and <code>portReaDooHex_b</code>
 serve as the inlet and outlet ports.
+</p>
+<p>
+If the fan of the air-cooled IT is controlled based on the rack outlet temperature,
+then the temperature between the rack and the rear door heat exchanger is used as
+the measurement signal; otherwise, the IT load is used as an input for the fan controller
 </p>
 </html>",
     revisions="<html>

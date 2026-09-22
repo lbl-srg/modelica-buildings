@@ -1,7 +1,10 @@
 within Buildings.Fluid.DataCenterEquipment.Racks.Hybrid.LiquidCooledSinglePhaseRearDoorHex.BaseClasses;
 partial model PartialRack
   "Partial model for hybrid rack combining liquid-cooled and air-cooled components with a rear door heat exchanger"
-  extends Buildings.Fluid.DataCenterEquipment.Racks.Hybrid.LiquidCooledSinglePhase.BaseClasses.LiquidCooledSinglePhase;
+  extends Buildings.Fluid.DataCenterEquipment.Racks.Hybrid.LiquidCooledSinglePhase.BaseClasses.LiquidCooledSinglePhase(
+    redeclare replaceable parameter Buildings.Fluid.DataCenterEquipment.Racks.Hybrid.Data.LiquidCooledSinglePhaseRearDoorHexPassive.Generic dat
+    constrainedby Buildings.Fluid.DataCenterEquipment.Racks.Hybrid.Data.LiquidCooledSinglePhaseRearDoorHexPassive.Generic(
+      reaDooHex=dat.reaDooHex));
 
   replaceable package MediumReaDooHex = Modelica.Media.Interfaces.PartialMedium
     "Medium for rear door heat exchanger coolant loop"
@@ -36,7 +39,6 @@ partial model PartialRack
       Q_flow_nominal=dat.reaDooHex.Q_flow_nominal,
       TAirIn_nominal=dat.reaDooHex.TAirIn_nominal,
       TCooIn_nominal=dat.reaDooHex.TCooIn_nominal,
-      dTAir_nominal=dat.reaDooHex.dTAir_nominal,
       dpCoo_nominal=dat.reaDooHex.dpCoo_nominal,
       dpAir_nominal=dat.reaDooHex.dpAir_nominal)) "Rear door heat exchanger"
     annotation (Placement(transformation(extent={{20,-16},{40,4}})));
@@ -50,8 +52,8 @@ equation
   connect(reaDooHex.portCoo_b, portReaDooHex_b)
     annotation (Line(points={{40,0},{100,0}},                   color={0,127,255}));
 
-  connect(air.port_b, reaDooHex.portAir_a) annotation (Line(points={{10,-40},
-          {52,-40},{52,-12},{40,-12}}, color={0,127,255}));
+  connect(air.port_b, reaDooHex.portAir_a) annotation (Line(points={{10,-40},{52,
+          -40},{52,-12},{40,-12}},     color={0,127,255}));
   annotation (
   defaultComponentName="rac",
   Documentation(

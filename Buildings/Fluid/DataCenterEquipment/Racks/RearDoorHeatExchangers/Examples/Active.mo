@@ -18,20 +18,14 @@ model Active
     "Active rear door heat exchanger"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
 
-  Modelica.Blocks.Sources.Constant TAirOutSet(k=TAirOut_nominal)
-    "Air outlet temperature set point"
-    annotation (Placement(transformation(extent={{-60,-10},{-40,10}})));
-
   Sources.Boundary_pT airSou(
     redeclare package Medium = MediumAir,
-    p=MediumAir.p_default + 10,
+    p=MediumAir.p_default + 200,
     nPorts=1,
     T=TAirIn_nominal)
     "Air source at nominal conditions"
     annotation (Placement(transformation(extent={{80,-50},{60,-30}})));
 equation
-  connect(TAirOutSet.y, hex.TSet)
-    annotation (Line(points={{-39,0},{-12,0}}, color={0,0,127}));
   connect(senTAirIn.port_b, hex.portAir_a)
     annotation (Line(points={{20,-40},{16,-40},{16,-6},{10,-6}},
                                                             color={0,127,255}));
