@@ -364,7 +364,7 @@ model TableData2DLoadDepSHC1Only
           pumChwPri.nPum) .+ pumChwPri.dpValChe_nominal,
       rho_default=Medium.d_const),
     final nPum=hp.nUni) "Primary CHW pumps"
-    annotation (Placement(transformation(extent={{-20,2},{0,22}})));
+    annotation (Placement(transformation(extent={{-20,-30},{0,-10}})));
   Templates.Components.Routing.MultipleToSingle outPumChwPri(
     redeclare final package Medium = Medium,
     final energyDynamics=energyDynamics,
@@ -446,12 +446,6 @@ model TableData2DLoadDepSHC1Only
   Templates.Components.Interfaces.Bus busPumHwPri "Primary HW pump control bus"
     annotation (Placement(transformation(extent={{-70,-144},{-30,-104}}),
         iconTransformation(extent={{-230,-40},{-190,0}})));
-  Buildings.Controls.OBC.CDL.Logical.MultiOr anyPumHwPri(nin=pumHwPri.nPum)
-    "True if any primary HW pump is proven on"
-    annotation (Placement(transformation(extent={{-26,-104},{-6,-84}})));
-  Buildings.Controls.OBC.CDL.Logical.MultiOr anyPumChwPri(nin=pumChwPri.nPum)
-    "True if any primary CHW pump is proven on"
-    annotation (Placement(transformation(extent={{-26,96},{-6,116}})));
   FixedResistances.Junction junChwBypSup(
     redeclare final package Medium = Medium,
     final energyDynamics=energyDynamics,
@@ -637,7 +631,7 @@ equation
           -32,50},{-32,72},{-42,72},{-42,76},{-50,76}},
                                                     color={0,0,127}));
   connect(busPumChwPri, pumChwPri.bus) annotation (Line(
-      points={{-50,76},{-10,76},{-10,22}},
+      points={{-50,76},{-10,76},{-10,-10}},
       color={255,204,51},
       thickness=0.5));
   connect(busPumChwPri.y1_actual, ctlPumChwPri.y1_actual) annotation (Line(
@@ -720,16 +714,12 @@ equation
   connect(dpRemSet[1].y, ctlPumHwPri.dpRemSet[1]) annotation (Line(points={{-238,
           110},{-78,110},{-78,-146},{-62,-146}},
                                                color={0,0,127}));
-  connect(staPumHwPri.y1_actual, anyPumHwPri.u)
-    annotation (Line(points={{-38,-94},{-28,-94}},   color={255,0,255}));
-  connect(anyPumHwPri.y, ctlValHwByp.uEna) annotation (Line(points={{-4,-94},{0,
-          -94},{0,-74},{-74,-74},{-74,-196},{-54,-196},{-54,-192}},  color={255,
+  connect(staPumHwPri.y1Hdr_actual, ctlValHwByp.uEna) annotation (Line(points={{-38,-96},
+          {0,-96},{0,-74},{-74,-74},{-74,-196},{-54,-196},{-54,-192}},
+                                                                     color={255,
           0,255}));
-  connect(staPumChwPri.y1_actual, anyPumChwPri.u)
-    annotation (Line(points={{-38,106},{-28,106}},
-                                                 color={255,0,255}));
-  connect(anyPumChwPri.y, ctlValChwByp.uEna) annotation (Line(points={{-4,106},
-          {0,106},{0,126},{-76,126},{-76,6},{-54,6},{-54,8}},   color={255,0,255}));
+  connect(staPumChwPri.y1Hdr_actual, ctlValChwByp.uEna) annotation (Line(points={{-38,104},
+          {0,104},{0,126},{-76,126},{-76,6},{-54,6},{-54,8}},   color={255,0,255}));
   connect(valChwByp.port_a, junChwBypSup.port_3)
     annotation (Line(points={{40,-30},{40,-30}}, color={0,127,255}));
   connect(outPumChwPri.port_b, junChwBypSup.port_1)
@@ -755,9 +745,9 @@ equation
   connect(junHwBypRet.port_2, THwRetPla.port_a)
     annotation (Line(points={{30,-260},{-110,-260}}, color={0,127,255}));
   connect(inlPumChwPri.ports_b, pumChwPri.ports_a)
-    annotation (Line(points={{-20,-20},{-20,12}}, color={0,127,255}));
+    annotation (Line(points={{-20,-20},{-20,-20}},color={0,127,255}));
   connect(outPumChwPri.ports_a, pumChwPri.ports_b)
-    annotation (Line(points={{0,-20},{0,12}}, color={0,127,255}));
+    annotation (Line(points={{0,-20},{0,-20}},color={0,127,255}));
   connect(enaCoo.y1, hp.onCoo) annotation (Line(points={{28,220},{-222,220},{
           -222,-58},{-192,-58}}, color={255,0,255}));
   connect(enaHea.y1, hp.onHea) annotation (Line(points={{28,260},{-224,260},{

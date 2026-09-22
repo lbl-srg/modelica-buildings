@@ -1,0 +1,21 @@
+simulateModel("Buildings.Templates.Plants.Controls.HeatPumps.Subsequences.Validation.EquipmentAvailability",
+    method="cvode",
+    tolerance=1e-6,
+    stopTime=10000.0,
+    resultFile="EquipmentAvailabilityHP");
+createPlot(
+    id=1,
+    position={5, 5, 300, 500},
+    y={"u1Hea.y[1]", "u1Coo.y[1]", "u1Ava.y[1]"},
+    autoscale=true,
+    grid=true,
+    timeUnit="min"
+);
+createPlot(
+    id=1,
+    subPlot=2,
+    y={"avaHeaCoo.y1Hea", "avaHeaCoo.y1Coo", "avaHea.y1Hea", "avaCoo.y1Coo"},
+    autoscale=true,
+    grid=true,
+    timeUnit="min"
+);
