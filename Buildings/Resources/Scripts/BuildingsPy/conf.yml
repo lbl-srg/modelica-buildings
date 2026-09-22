@@ -396,6 +396,9 @@
   openmodelica:
     comment: Translation fails with OMC 1.26.3 but succeeds with 1.27.0.
     translate: false
+  optimica:
+    comment: Translation fails with OCT 1.66 due to MemoryError (compilation process unexpectedly killed by the system).
+    translate: false
 - model_name: Buildings.Templates.Plants.HeatPumps.Components.Validation.HeatPumpGroupAirToWater
   openmodelica:
     comment: Translation failed.
