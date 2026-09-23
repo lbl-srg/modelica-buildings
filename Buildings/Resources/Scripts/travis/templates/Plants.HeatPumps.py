@@ -142,8 +142,28 @@ REMOVE_MODIF = {
     ]
 }
 
+# See docstring of `apply_experiment_modifications` function for the structure of EXPERIMENT_MODIF.
+EXPERIMENT_MODIF = {
+    'Buildings.Templates.Plants.HeatPumps.Validation.AirToWater': [
+        (
+            [
+                'have_chiWat=true',
+                'typDis_select1=Buildings.Templates.Plants.HeatPumps.Types.Distribution.Variable1Only',
+                'typArrPumPri=Buildings.Templates.Components.Types.PumpArrangement.Dedicated',
+                'have_pumChiWatPriDed_select=true',
+            ],
+            {
+                'method': 'dassl',
+            },
+        ),
+    ],
+}
 
 if __name__ == '__main__':
     core.main(
-        models=MODELS, modif_grid=MODIF_GRID, exclude=EXCLUDE, remove_modif=REMOVE_MODIF
+        models=MODELS,
+        modif_grid=MODIF_GRID,
+        exclude=EXCLUDE,
+        remove_modif=REMOVE_MODIF,
+        experiment_modif=EXPERIMENT_MODIF,
     )
