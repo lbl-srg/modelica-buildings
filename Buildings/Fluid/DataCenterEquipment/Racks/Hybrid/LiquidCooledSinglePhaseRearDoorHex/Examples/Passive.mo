@@ -12,7 +12,7 @@ model Passive
         cpCoo_flow_nominal=Buildings.Utilities.Psychrometrics.Constants.cpWatLiq,
         Q_flow_nominal=-PAir_nominal,
         TCooIn_nominal=TReaDooCooIn_nominal,
-        TAirIn_nominal=TAirReaDooIn_nominal + datAir.dTAir_nominal)),
+        TAirIn_nominal=TAirReaDooIn_nominal)),
     redeclare replaceable Buildings.Fluid.DataCenterEquipment.Racks.Hybrid.LiquidCooledSinglePhaseRearDoorHex.Passive rac
     constrainedby Buildings.Fluid.DataCenterEquipment.Racks.Hybrid.LiquidCooledSinglePhaseRearDoorHex.BaseClasses.PartialRack(
       redeclare package MediumLiq = MediumLiq,
@@ -28,8 +28,9 @@ model Passive
   parameter Modelica.Units.SI.Temperature TReaDooCooOut_nominal=273.15 + 35
     "Rear door heat exchanger coolant return temperature";
 
-  parameter Modelica.Units.SI.Temperature TAirReaDooIn_nominal=TAirDatHal + datAir.dTAir_nominal
-    "Air inlet temperature (hot room air entering the rack)";
+  parameter Modelica.Units.SI.Temperature TAirReaDooIn_nominal=
+      TAirDatHal + (datAir.TOut_nominal - datAir.TIn_nominal)
+    "Nominal air temperature entering the rear door heat exchanger";
 
   final parameter Modelica.Units.SI.MassFlowRate mReaDoo_flow_nominal=
       PAir_nominal/((TReaDooCooOut_nominal - TReaDooCooIn_nominal)*Buildings.Utilities.Psychrometrics.Constants.cpWatLiq)
@@ -45,7 +46,7 @@ model Passive
     cpCoo_flow_nominal=Buildings.Utilities.Psychrometrics.Constants.cpWatLiq,
     Q_flow_nominal=-PAir_nominal,
     TCooIn_nominal=TReaDooCooIn_nominal,
-    TAirIn_nominal=TAirReaDooIn_nominal + datAir.dTAir_nominal)
+    TAirIn_nominal=TAirReaDooIn_nominal)
     "Rear door heat exchanger performance data"
     annotation (Placement(transformation(extent={{120,140},{140,160}})));
 

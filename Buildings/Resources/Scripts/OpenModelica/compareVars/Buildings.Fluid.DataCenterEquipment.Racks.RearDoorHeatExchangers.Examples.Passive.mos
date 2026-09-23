@@ -4,5 +4,5 @@ compareVars :=
     "senTAirOut.T",
     "senTCooIn.T",
     "senTCooOut.T",
-    "hx.reaDooHex.Q2_flow"
+    "hex.reaDooHex.Q2_flow"
   };

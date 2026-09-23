@@ -80,7 +80,7 @@ partial model PartialRearDoorHeatExchanger
         transformation(
         extent={{10,-10},{-10,10}},
         rotation=0,
-        origin={70,-60})));
+        origin={50,-60})));
 equation
   connect(portCoo_a, reaDooHex.port_a1)
     annotation (Line(points={{-100,60},{-20,60},{-20,6},{-10,6}}, color={0,127,255}));
@@ -88,7 +88,7 @@ equation
     annotation (Line(points={{10,6},{20,6},{20,60},{100,60}}, color={0,127,255}));
 
   connect(senTAirReaDooHexIn.port_a, portAir_a)
-    annotation (Line(points={{80,-60},{100,-60}}, color={0,127,255}));
+    annotation (Line(points={{60,-60},{100,-60}}, color={0,127,255}));
 annotation (
   Icon(graphics={
       Rectangle(

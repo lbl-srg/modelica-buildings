@@ -6,40 +6,54 @@ model Active
   parameter Modelica.Units.SI.Power PIT_nominal = 10000
     "Nominal IT load power handled by rear door heat exchanger";
 
-  Buildings.Fluid.DataCenterEquipment.Racks.RearDoorHeatExchangers.Active hex(
-    redeclare package MediumCoo = MediumCoo,
-    redeclare package MediumAir = MediumAir,
-    redeclare parameter Buildings.Fluid.DataCenterEquipment.Racks.Hybrid.Data.LiquidCooledSinglePhaseRearDoorHexActive.BaseClasses.RearDoorHex dat(
+  parameter Buildings.Fluid.DataCenterEquipment.Racks.Hybrid.Data.LiquidCooledSinglePhaseRearDoorHexActive.BaseClasses.RearDoorHex dat(
       mAir_flow_nominal=mAir_flow_nominal,
       mCoo_flow_nominal=mCoo_flow_nominal,
       Q_flow_nominal=-PIT_nominal,
       TAirIn_nominal=TAirIn_nominal,
-      TCooIn_nominal=TCooIn_nominal))
+    TCooIn_nominal=TCooIn_nominal)
+    "Performance data"
+    annotation (Placement(transformation(extent={{60,60},{80,80}})));
+
+  Buildings.Fluid.DataCenterEquipment.Racks.RearDoorHeatExchangers.Active hex(
+    redeclare package MediumCoo = MediumCoo,
+    redeclare package MediumAir = MediumAir,
+    dat = dat)
     "Active rear door heat exchanger"
-    annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
+    annotation (Placement(transformation(extent={{-30,-10},{-10,10}})));
 
   Sources.Boundary_pT airSou(
     redeclare package Medium = MediumAir,
-    p=MediumAir.p_default + 200,
+    p=MediumAir.p_default + dat.dpAir_nominal,
     nPorts=1,
     T=TAirIn_nominal)
     "Air source at nominal conditions"
-    annotation (Placement(transformation(extent={{80,-50},{60,-30}})));
+    annotation (Placement(transformation(extent={{10,-10},{-10,10}},
+        rotation=0,
+        origin={82,-40})));
+
+  FixedResistances.PressureDrop res(
+    redeclare package Medium = MediumAir,
+    m_flow_nominal=dat.mAir_flow_nominal,
+    dp_nominal=dat.dpAir_nominal) "Resistance of upstream rack"
+    annotation (Placement(transformation(extent={{64,-50},{44,-30}})));
 equation
   connect(senTAirIn.port_b, hex.portAir_a)
-    annotation (Line(points={{20,-40},{16,-40},{16,-6},{10,-6}},
+    annotation (Line(points={{10,-40},{-4,-40},{-4,-6},{-10,-6}},
                                                             color={0,127,255}));
   connect(hex.portAir_b, senTAirOut.port_a)
-    annotation (Line(points={{-10,-6},{-16,-6},{-16,-40},{-20,-40}},
+    annotation (Line(points={{-30,-6},{-34,-6},{-34,-40},{-40,-40}},
                                                          color={0,127,255}));
   connect(senTCooIn.port_b, hex.portCoo_a)
-    annotation (Line(points={{-20,40},{-16,40},{-16,6},{-10,6}},
+    annotation (Line(points={{-40,40},{-36,40},{-36,6},{-30,6}},
                                                color={0,127,255}));
   connect(hex.portCoo_b, senTCooOut.port_a)
-    annotation (Line(points={{10,6},{14,6},{14,40},{20,40}},
+    annotation (Line(points={{-10,6},{-4,6},{-4,40},{10,40}},
                                              color={0,127,255}));
-  connect(airSou.ports[1], senTAirIn.port_a)
-    annotation (Line(points={{60,-40},{40,-40}}, color={0,127,255}));
+  connect(airSou.ports[1], res.port_a)
+    annotation (Line(points={{72,-40},{64,-40}}, color={0,127,255}));
+  connect(res.port_b, senTAirIn.port_a)
+    annotation (Line(points={{44,-40},{30,-40}}, color={0,127,255}));
   annotation (
     experiment(
       StopTime=3600,

@@ -3,7 +3,7 @@ model Active
   "Hybrid rack model combining liquid-cooled and air-cooled components with an active rear door heat exchanger"
   extends Buildings.Fluid.DataCenterEquipment.Racks.Hybrid.LiquidCooledSinglePhaseRearDoorHex.BaseClasses.PartialRack(
     redeclare parameter Buildings.Fluid.DataCenterEquipment.Racks.Hybrid.Data.LiquidCooledSinglePhaseRearDoorHexActive.Generic dat,
-    redeclare final Buildings.Fluid.DataCenterEquipment.Racks.Hybrid.LiquidCooledSinglePhaseRearDoorHex.Active reaDooHex(
+    redeclare final Buildings.Fluid.DataCenterEquipment.Racks.RearDoorHeatExchangers.Active reaDooHex(
       final k=kReaDooHex,
       final Ti=TiReaDooHex));
 

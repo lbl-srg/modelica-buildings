@@ -13,7 +13,7 @@ model Passive
       TAirIn_nominal=TAirIn_nominal,
       TCooIn_nominal=TCooIn_nominal))
     "Passive rear door heat exchanger"
-    annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
+    annotation (Placement(transformation(extent={{-30,-10},{-10,10}})));
 
   Sources.MassFlowSource_T                 airSou(
     redeclare package Medium = MediumAir,
@@ -22,22 +22,22 @@ model Passive
     m_flow=mAir_flow_nominal,
     T=TAirIn_nominal)
     "Air source at nominal conditions"
-    annotation (Placement(transformation(extent={{80,-50},{60,-30}})));
+    annotation (Placement(transformation(extent={{88,-50},{68,-30}})));
 equation
   connect(senTAirIn.port_b, hex.portAir_a)
-    annotation (Line(points={{20,-40},{16,-40},{16,-6},{10,-6}},
+    annotation (Line(points={{10,-40},{-4,-40},{-4,-6},{-10,-6}},
                                                             color={0,127,255}));
   connect(hex.portAir_b, senTAirOut.port_a)
-    annotation (Line(points={{-10,-6},{-16,-6},{-16,-40},{-20,-40}},
+    annotation (Line(points={{-30,-6},{-34,-6},{-34,-40},{-40,-40}},
                                                          color={0,127,255}));
   connect(senTCooIn.port_b, hex.portCoo_a)
-    annotation (Line(points={{-20,40},{-16,40},{-16,6},{-10,6}},
+    annotation (Line(points={{-40,40},{-36,40},{-36,6},{-30,6}},
                                                color={0,127,255}));
   connect(hex.portCoo_b, senTCooOut.port_a)
-    annotation (Line(points={{10,6},{14,6},{14,40},{20,40}},
+    annotation (Line(points={{-10,6},{-4,6},{-4,40},{10,40}},
                                              color={0,127,255}));
   connect(airSou.ports[1], senTAirIn.port_a)
-    annotation (Line(points={{60,-40},{40,-40}}, color={0,127,255}));
+    annotation (Line(points={{68,-40},{30,-40}}, color={0,127,255}));
   annotation (
     experiment(
       StopTime=3600,

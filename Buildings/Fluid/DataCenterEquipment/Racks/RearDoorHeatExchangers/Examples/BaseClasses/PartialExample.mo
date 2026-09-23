@@ -52,7 +52,7 @@ partial model PartialExample
     redeclare package Medium = MediumAir,
     nPorts=1)
     "Air pressure reference"
-    annotation (Placement(transformation(extent={{-80,-50},{-60,-30}})));
+    annotation (Placement(transformation(extent={{-90,-50},{-70,-30}})));
 
   Buildings.Fluid.Sources.MassFlowSource_T cooSou(
     redeclare package Medium = MediumCoo,
@@ -61,47 +61,47 @@ partial model PartialExample
     m_flow=mCoo_flow_nominal,
     T=TCooIn_nominal)
     "Coolant source at nominal conditions"
-    annotation (Placement(transformation(extent={{-82,30},{-62,50}})));
+    annotation (Placement(transformation(extent={{-92,30},{-72,50}})));
 
   Buildings.Fluid.Sources.Boundary_pT cooSin(
     redeclare package Medium = MediumCoo,
     nPorts=1)
     "Coolant pressure reference"
-    annotation (Placement(transformation(extent={{80,30},{60,50}})));
+    annotation (Placement(transformation(extent={{90,30},{70,50}})));
 
   Buildings.Fluid.Sensors.TemperatureTwoPort senTAirIn(
     redeclare package Medium = MediumAir,
     m_flow_nominal=mAir_flow_nominal)
     "Air inlet temperature sensor"
-    annotation (Placement(transformation(extent={{40,-50},{20,-30}})));
+    annotation (Placement(transformation(extent={{30,-50},{10,-30}})));
 
   Buildings.Fluid.Sensors.TemperatureTwoPort senTAirOut(
     redeclare package Medium = MediumAir,
     m_flow_nominal=mAir_flow_nominal)
     "Air outlet temperature sensor"
-    annotation (Placement(transformation(extent={{-20,-50},{-40,-30}})));
+    annotation (Placement(transformation(extent={{-40,-50},{-60,-30}})));
 
   Buildings.Fluid.Sensors.TemperatureTwoPort senTCooIn(
     redeclare package Medium = MediumCoo,
     m_flow_nominal=mCoo_flow_nominal)
     "Coolant inlet temperature sensor"
-    annotation (Placement(transformation(extent={{-40,30},{-20,50}})));
+    annotation (Placement(transformation(extent={{-60,30},{-40,50}})));
 
   Buildings.Fluid.Sensors.TemperatureTwoPort senTCooOut(
     redeclare package Medium = MediumCoo,
     m_flow_nominal=mCoo_flow_nominal)
     "Coolant outlet temperature sensor"
-    annotation (Placement(transformation(extent={{20,30},{40,50}})));
+    annotation (Placement(transformation(extent={{10,30},{30,50}})));
 
 equation
   connect(senTAirOut.port_b, airSin.ports[1])
-    annotation (Line(points={{-40,-40},{-60,-40}},
+    annotation (Line(points={{-60,-40},{-70,-40}},
                                                  color={0,127,255}));
   connect(cooSou.ports[1], senTCooIn.port_a)
-    annotation (Line(points={{-62,40},{-40,40}},
+    annotation (Line(points={{-72,40},{-60,40}},
                                                color={0,127,255}));
   connect(senTCooOut.port_b, cooSin.ports[1])
-    annotation (Line(points={{40,40},{60,40}},
+    annotation (Line(points={{30,40},{70,40}},
                                              color={0,127,255}));
   annotation (
     Documentation(

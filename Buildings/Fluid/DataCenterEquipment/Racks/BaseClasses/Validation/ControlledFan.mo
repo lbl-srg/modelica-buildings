@@ -13,12 +13,15 @@ model ControlledFan "Validation of the controlled fan model"
   parameter Modelica.Units.SI.Temperature TAirOutSet = T_start + 10
     "Controller set point, inlet temperature plus 10 K";
 
-  Buildings.Fluid.DataCenterEquipment.Racks.FanControllers.OutletTemperature
-    fan(
+  Buildings.Fluid.DataCenterEquipment.Racks.FanControllers.OutletTemperature con
+    "Fan controller"
+    annotation (Placement(transformation(extent={{-60,70},{-40,90}})));
+
+  Buildings.Fluid.DataCenterEquipment.Racks.BaseClasses.Fan fan(
     redeclare package Medium = Medium,
     m_flow_nominal=m_flow_nominal,
     PFan_nominal=PFan_nominal) "Controlled fan"
-    annotation (Placement(transformation(extent={{0,-10},{20,10}})));
+    annotation (Placement(transformation(extent={{-20,-10},{0,10}})));
 
   Buildings.Fluid.FixedResistances.PressureDrop res(
     redeclare package Medium = Medium,
@@ -102,31 +105,34 @@ protected
     final k=TAirOutSet)
     "Temperature set point"
     annotation (Placement(transformation(
-      origin={20,100},
+      origin={-20,150},
       extent={{-80,-80},{-60,-60}})));
 
 equation
   connect(vol.ports[1], senT.port_a)
     annotation (Line(points={{59,0},{80,0}}, color={0,127,255}));
-  connect(senT.T, fan.TMea) annotation (Line(points={{90,11},{90,56},{-70,56},{
-          -70,10},{-36,10},{-36,4},{-2,4}},
-                           color={0,0,127}));
   connect(ram.y, preHea.Q_flow)
     annotation (Line(points={{1,40},{10,40}},  color={0,0,127}));
   connect(preHea.port, vol.heatPort)
     annotation (Line(points={{30,40},{40,40},{40,10},{50,10}},
                                                        color={191,0,0}));
 
-  connect(TOutSet.y, fan.TSet) annotation (Line(points={{-38,30},{-30,30},{-30,
-          8},{-2,8}},  color={0,0,127}));
   connect(senT.port_b, res.port_a) annotation (Line(points={{100,0},{110,0},{
           110,-40},{70,-40}}, color={0,127,255}));
   connect(fan.port_b, vol.ports[2])
-    annotation (Line(points={{20,0},{61,0}}, color={0,127,255}));
-  connect(fan.port_a, sou.ports[1]) annotation (Line(points={{0,0},{-70,0},{-70,
-          -40},{-1,-40},{-1,-60}}, color={0,127,255}));
+    annotation (Line(points={{0,0},{61,0}},  color={0,127,255}));
+  connect(fan.port_a, sou.ports[1]) annotation (Line(points={{-20,0},{-40,0},{
+          -40,-40},{-1,-40},{-1,-60}},
+                                   color={0,127,255}));
   connect(res.port_b, sou.ports[2])
     annotation (Line(points={{50,-40},{1,-40},{1,-60}}, color={0,127,255}));
+  connect(TOutSet.y, con.TSet)
+    annotation (Line(points={{-78,80},{-62,80}}, color={0,0,127}));
+  connect(con.TMea, senT.T) annotation (Line(points={{-50,68},{-50,58},{90,58},{
+          90,11}}, color={0,0,127}));
+  connect(con.y, fan.y) annotation (Line(points={{-38,80},{-30,80},{-30,20},{
+          -10,20},{-10,12}},
+        color={0,0,127}));
   annotation (
     experiment(
       StopTime=2400,

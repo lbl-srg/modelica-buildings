@@ -2,7 +2,8 @@ within Buildings.Fluid.DataCenterEquipment.Racks.RearDoorHeatExchangers;
 model Active
   "Active rear door heat exchanger with integrated temperature controlled fan"
   extends Buildings.Fluid.DataCenterEquipment.Racks.RearDoorHeatExchangers.BaseClasses.PartialRearDoorHeatExchanger(
-    redeclare replaceable parameter Buildings.Fluid.DataCenterEquipment.Racks.Hybrid.Data.LiquidCooledSinglePhaseRearDoorHexActive.BaseClasses.RearDoorHex dat);
+    redeclare replaceable parameter Buildings.Fluid.DataCenterEquipment.Racks.Hybrid.Data.LiquidCooledSinglePhaseRearDoorHexActive.BaseClasses.RearDoorHex dat
+    constrainedby Buildings.Fluid.DataCenterEquipment.Racks.Hybrid.Data.LiquidCooledSinglePhaseRearDoorHexActive.BaseClasses.RearDoorHex);
 
   parameter Modelica.Fluid.Types.Dynamics energyDynamics=
     Modelica.Fluid.Types.Dynamics.SteadyState
@@ -26,12 +27,13 @@ model Active
 
   Buildings.Fluid.DataCenterEquipment.Racks.BaseClasses.Fan fan(
     redeclare final package Medium = MediumAir,
+    final inputType=Buildings.Fluid.Types.InputType.Continuous,
     final allowFlowReversal=allowFlowReversalAir,
     final m_flow_nominal=dat.mAir_flow_nominal,
     final PFan_nominal=dat.PFan_nominal,
     final eta_nominal=dat.eta_nominal,
     final energyDynamics=energyDynamics) "Rear door heat exchanger fan"
-    annotation (Placement(transformation(extent={{20,-70},{0,-50}})));
+    annotation (Placement(transformation(extent={{-20,-70},{-40,-50}})));
 
   Buildings.Fluid.Sensors.TemperatureTwoPort senTAirOut(
     redeclare final package Medium = MediumAir,
@@ -39,39 +41,42 @@ model Active
     final tau=0,
     final allowFlowReversal=allowFlowReversalAir)
     "Air temperature leaving rear door heat exchanger"
-    annotation (Placement(transformation(extent={{-40,-70},{-60,-50}})));
+    annotation (Placement(transformation(extent={{-52,-70},{-72,-50}})));
 
   FanControllers.BackPressure con(k=k, Ti=Ti) "Controller for fan"
     annotation (Placement(transformation(extent={{-60,-30},{-40,-10}})));
   Sensors.Pressure senPreIn(redeclare package Medium = MediumAir)
     "Inlet pressure"
-    annotation (Placement(transformation(extent={{90,-50},{70,-30}})));
+    annotation (Placement(transformation(extent={{90,-46},{70,-26}})));
   Sensors.Pressure senPreOut(redeclare package Medium = MediumAir)
     "Outlet pressure"
-    annotation (Placement(transformation(extent={{-90,-50},{-70,-30}})));
+    annotation (Placement(transformation(extent={{-90,-30},{-70,-10}})));
 equation
-  connect(fan.port_b, reaDooHex.port_a2) annotation (Line(points={{0,-60},{-10,-60},
-          {-10,-14},{16,-14},{16,-6},{10,-6}}, color={0,127,255}));
   connect(senTAirOut.port_b, portAir_b)
-    annotation (Line(points={{-60,-60},{-100,-60}},
+    annotation (Line(points={{-72,-60},{-100,-60}},
                                                   color={0,127,255}));
-  connect(fan.P, PFan) annotation (Line(points={{-1,-54},{-4,-54},{-4,-34},{60,-34},
-          {60,0},{110,0}}, color={0,0,127}));
+  connect(fan.P, PFan) annotation (Line(points={{-41,-51},{-50,-51},{-50,-40},{
+          60,-40},{60,0},{110,0}},
+                           color={0,0,127}));
 
-  connect(senTAirReaDooHexIn.port_b, fan.port_a)
-    annotation (Line(points={{60,-60},{20,-60}}, color={0,127,255}));
-  connect(reaDooHex.port_b2, senTAirOut.port_a) annotation (Line(points={{-10,-6},
-          {-20,-6},{-20,-60},{-40,-60}}, color={0,127,255}));
-  connect(senPreOut.port, portAir_b) annotation (Line(points={{-80,-50},{-80,-60},
-          {-100,-60}}, color={0,127,255}));
-  connect(con.pSet, senPreOut.p) annotation (Line(points={{-62,-20},{-66,-20},{-66,
-          -40},{-69,-40}}, color={0,0,127}));
+  connect(senPreOut.port, portAir_b) annotation (Line(points={{-80,-30},{-80,
+          -60},{-100,-60}},
+                       color={0,127,255}));
+  connect(con.pSet, senPreOut.p) annotation (Line(points={{-62,-20},{-69,-20}},
+                           color={0,0,127}));
   connect(con.pMea, senPreIn.p)
-    annotation (Line(points={{-50,-32},{-50,-40},{69,-40}}, color={0,0,127}));
+    annotation (Line(points={{-50,-32},{-50,-36},{69,-36}}, color={0,0,127}));
   connect(senPreIn.port, senTAirReaDooHexIn.port_a)
-    annotation (Line(points={{80,-50},{80,-60}}, color={0,127,255}));
-  connect(con.y, fan.y) annotation (Line(points={{-38,-20},{28,-20},{28,-54},{22,
-          -54}}, color={0,0,127}));
+    annotation (Line(points={{80,-46},{80,-60},{60,-60}},
+                                                 color={0,127,255}));
+  connect(con.y, fan.y) annotation (Line(points={{-38,-20},{-30,-20},{-30,-48}},
+                 color={0,0,127}));
+  connect(reaDooHex.port_b2, fan.port_a) annotation (Line(points={{-10,-6},{-14,
+          -6},{-14,-60},{-20,-60}}, color={0,127,255}));
+  connect(senTAirReaDooHexIn.port_b, reaDooHex.port_a2) annotation (Line(points
+        ={{40,-60},{20,-60},{20,-6},{10,-6}}, color={0,127,255}));
+  connect(fan.port_b, senTAirOut.port_a)
+    annotation (Line(points={{-40,-60},{-52,-60}}, color={0,127,255}));
 annotation (
   defaultComponentName="reaDooHex",
   Documentation(

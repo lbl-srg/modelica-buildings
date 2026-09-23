@@ -5,7 +5,7 @@ compareVars :=
     "TSetSrc.y",
     "senTCooIn.T",
     "senTCooOut.T",
-    "hx.PFan",
-    "hx.dat.PFan_nominal",
-    "hx.reaDooHex.Q2_flow"
+    "hex.PFan",
+    "hex.dat.PFan_nominal",
+    "hex.reaDooHex.Q2_flow"
   };

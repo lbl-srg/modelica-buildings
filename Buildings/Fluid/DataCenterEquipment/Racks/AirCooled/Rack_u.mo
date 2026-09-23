@@ -16,7 +16,7 @@ model Rack_u "Model of an air-cooled rack, and utilization is input"
     annotation(Dialog(
       enable=(fanControl == Buildings.Fluid.DataCenterEquipment.Racks.FanControllers.Types.Strategy.Load),
       group = "Fan controller"));
-  parameter Modelica.Units.SI.Temperature TAirOut_set = dat.TAirOut_nominal "Set point temperature for rack outlet air"
+  parameter Modelica.Units.SI.Temperature TAirOut_set = dat.TOut_nominal "Set point temperature for rack outlet air"
     annotation(Dialog(
       enable=(fanControl == Buildings.Fluid.DataCenterEquipment.Racks.FanControllers.Types.Strategy.OutletTemperature),
       group = "Fan controller"));

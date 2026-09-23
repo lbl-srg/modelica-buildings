@@ -36,7 +36,7 @@ model BackPressure
     controllerType=Buildings.Controls.OBC.CDL.Types.SimpleController.PI,
     final k=k,
     final Ti=Ti,
-    r(final unit="Pa")=10,
+    r(final unit="Pa") = 10,
     final reverseActing=false,
     u_s(final unit="Pa"),
     u_m(final unit="Pa"))
@@ -96,11 +96,11 @@ equation
         Text(
           extent={{-96,40},{-56,-8}},
           textColor={0,0,127},
-          textString="TSet"),
+          textString="pSet"),
         Text(
           extent={{-48,-62},{-8,-110}},
           textColor={0,0,127},
-          textString="TMea"),
+          textString="pMea"),
         Line(points={{0,-100},{0,-28}},   color={0,0,127}),
         Line(points={{44,0},{108,0}},     color={0,0,127})}),
     defaultComponentName="con",

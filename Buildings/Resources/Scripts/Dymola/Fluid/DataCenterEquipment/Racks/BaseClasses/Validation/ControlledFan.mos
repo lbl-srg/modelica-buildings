@@ -1,4 +1,4 @@
 simulateModel("Buildings.Fluid.DataCenterEquipment.Racks.BaseClasses.Validation.ControlledFan", stopTime=2400, tolerance=1e-06, resultFile="ControlledFan");
-createPlot(id=1, position={15, 15, 917, 858}, y={"fan.TSet", "fan.TMea"}, range={0.0, 2400.0, 288.0, 310.0}, grid=true, subPlot=101, colors={{28,108,200}, {238,46,47}}, timeUnit="s", displayUnits={"degC", "degC"});
-createPlot(id=1, position={15, 15, 917, 858}, y={"fan.con.y"}, range={0.0, 2400.0, 0.0, 1.1}, grid=true, subPlot=102, colors={{28,108,200}}, timeUnit="s", displayUnits={"1"});
+createPlot(id=1, position={15, 15, 917, 858}, y={"con.TSet", "con.TMea"}, range={0.0, 2400.0, 288.0, 310.0}, grid=true, subPlot=101, colors={{28,108,200}, {238,46,47}}, timeUnit="s", displayUnits={"degC", "degC"});
+createPlot(id=1, position={15, 15, 917, 858}, y={"fan.y"}, range={0.0, 2400.0, 0.0, 1.1}, grid=true, subPlot=102, colors={{28,108,200}}, timeUnit="s", displayUnits={"1"});
 createPlot(id=1, position={15, 15, 917, 858}, y={"fan.P", "fan.PFan_nominal"}, range={0.0, 2400.0, 0.0, 500.0}, grid=true, subPlot=103, colors={{28,108,200}, {238,46,47}}, timeUnit="s", displayUnits={"W", "W"});
