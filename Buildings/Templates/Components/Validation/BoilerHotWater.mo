@@ -1,0 +1,151 @@
+within Buildings.Templates.Components.Validation;
+model BoilerHotWater "Test model for the hot water boiler model"
+  extends Buildings.Templates.Components.Validation.BoilerHotWaterRecord;
+
+  replaceable package Medium=Buildings.Media.Water
+    constrainedby Modelica.Media.Interfaces.PartialMedium
+    "HW medium";
+
+  parameter Modelica.Fluid.Types.Dynamics energyDynamics=
+    Modelica.Fluid.Types.Dynamics.FixedInitial
+    "Type of energy balance: dynamic (3 initialization options) or steady state"
+    annotation(Evaluate=true, Dialog(tab="Dynamics", group="Conservation equations"));
+
+  parameter Buildings.Templates.Components.Data.BoilerHotWater datBoiPol(
+    final typMod=Buildings.Templates.Components.Types.BoilerHotWaterModel.Polynomial,
+    fue=Buildings.Fluid.Data.Fuels.NaturalGasLowerHeatingValue(),
+    mHeaWat_flow_nominal=datBoiTab.cap_nominal/15/Buildings.Utilities.Psychrometrics.Constants.cpWatLiq,
+    cap_nominal=1000E3,
+    dpHeaWat_nominal(displayUnit="Pa") = 5000,
+    THeaWatSup_nominal=Buildings.Templates.Data.Defaults.THeaWatSupHig)
+    "Design and operating parameters for the boiler model using a polynomial"
+    annotation (Placement(transformation(extent={{40,40},{60,60}})));
+
+  Buildings.Templates.Components.Boilers.HotWaterTable boiTab(
+    redeclare final package Medium = Medium,
+    final energyDynamics=energyDynamics,
+    final dat=datBoiTabRed,
+    is_con=false)
+    "Boiler model with efficiency described by a table"
+    annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
+  Fluid.Sources.Boundary_pT retHeaWat(
+    redeclare final package Medium = Medium,
+    p=Buildings.Templates.Data.Defaults.pHeaWat_rel_nominal + boiTab.dpHeaWat_nominal,
+    use_T_in=true,
+    T=Buildings.Templates.Data.Defaults.THeaWatRetHig,
+    nPorts=2) "Boundary conditions for HW distribution system"
+    annotation (Placement(transformation(extent={{-40,-30},{-20,-10}})));
+
+  Fluid.Sources.Boundary_pT supHeaWat(redeclare final package Medium =Medium,
+    p=Buildings.Templates.Data.Defaults.pHeaWat_rel_nominal,
+    nPorts=2)
+    "Boundary conditions for HW distribution system"
+    annotation (Placement(transformation(extent={{90,-30},{70,-10}})));
+  Fluid.Sensors.TemperatureTwoPort THeaWatSup(redeclare final package Medium =
+        Medium, final m_flow_nominal=datBoiTab.mHeaWat_flow_nominal)
+    "HW supply temperature"
+    annotation (Placement(transformation(extent={{30,-10},{50,10}})));
+  Buildings.Controls.OBC.CDL.Reals.Sources.Ramp THeaWatRet(
+    y(final unit="K", displayUnit="degC"),
+    height=35,
+    duration=500,
+    offset=datBoiTab.THeaWatSup_nominal - 25,
+    startTime=100) "HW return temperature value"
+    annotation (Placement(transformation(extent={{-80,-10},{-60,10}})));
+  Buildings.Controls.OBC.CDL.Logical.Sources.TimeTable y1Boi(
+    table=[0,1; 1,1],
+    timeScale=3600,
+    period=3600) "Boiler Enable signal"
+    annotation (Placement(transformation(extent={{-80,70},{-60,90}})));
+  Buildings.Templates.Components.Interfaces.Bus bus
+    "Boiler control bus"
+    annotation (
+      Placement(transformation(extent={{-20,20},{20,60}}), iconTransformation(
+          extent={{-296,-74},{-256,-34}})));
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant THeaWatSupSet(
+    k=Buildings.Templates.Data.Defaults.THeaWatSupHig,
+    y(final unit="K", displayUnit="degC"))
+    "HW supply temperature setpoint"
+    annotation (Placement(transformation(extent={{-80,30},{-60,50}})));
+  Boilers.HotWaterPolynomial boiPol(
+    redeclare final package Medium = Medium,
+    final energyDynamics=energyDynamics,
+    final dat=datBoiPol,
+    is_con=false)
+    "Boiler model with efficiency described by a polynomial"
+    annotation (Placement(transformation(extent={{-10,-90},{10,-70}})));
+  Fluid.Sensors.TemperatureTwoPort THeaWatSup1(
+    redeclare final package Medium =Medium,
+    final m_flow_nominal=datBoiTab.mHeaWat_flow_nominal)
+    "HW supply temperature"
+    annotation (Placement(transformation(extent={{30,-90},{50,-70}})));
+  Buildings.Templates.Components.Interfaces.Bus bus1
+    "Boiler control bus"
+    annotation (
+      Placement(transformation(extent={{-20,-60},{20,-20}}),
+      iconTransformation(extent={{-296,-74},{-256,-34}})));
+equation
+  connect(retHeaWat.ports[1], boiTab.port_a) annotation (Line(points={{-20,-21},
+          {-20,0},{-10,0}},         color={0,127,255}));
+  connect(boiTab.port_b, THeaWatSup.port_a)
+    annotation (Line(points={{10,0},{30,0}}, color={0,127,255}));
+  connect(THeaWatSup.port_b, supHeaWat.ports[1])
+    annotation (Line(points={{50,0},{60,0},{60,-21},{70,-21}},
+                                             color={0,127,255}));
+  connect(THeaWatRet.y, retHeaWat.T_in) annotation (Line(points={{-58,0},{-50,0},
+          {-50,-16},{-42,-16}},
+                            color={0,0,127}));
+  connect(boiTab.bus, bus) annotation (Line(
+      points={{0,10},{0,10},{0,40}},
+      color={255,204,51},
+      thickness=0.5), Text(
+      string="%second",
+      index=1,
+      extent={{6,3},{6,3}},
+      horizontalAlignment=TextAlignment.Left));
+  connect(y1Boi.y[1], bus.y1) annotation (Line(points={{-58,80},{0,80},{0,40}},
+        color={255,0,255}), Text(
+      string="%second",
+      index=1,
+      extent={{6,3},{6,3}},
+      horizontalAlignment=TextAlignment.Left));
+  connect(THeaWatSupSet.y, bus.THeaWatSupSet)
+    annotation (Line(points={{-58,40},{0,40}}, color={0,0,127}));
+  connect(retHeaWat.ports[2], boiPol.port_a)
+    annotation (Line(points={{-20,-19},{-20,-80},{-10,-80}},
+                                                           color={0,127,255}));
+  connect(THeaWatSup1.port_b, supHeaWat.ports[2]) annotation (Line(points={{50,-80},
+          {60,-80},{60,-19},{70,-19}},
+                                   color={0,127,255}));
+  connect(boiPol.port_b, THeaWatSup1.port_a)
+    annotation (Line(points={{10,-80},{30,-80}}, color={0,127,255}));
+  connect(bus1, boiPol.bus) annotation (Line(
+      points={{0,-40},{0,-70}},
+      color={255,204,51},
+      thickness=0.5));
+  connect(THeaWatSupSet.y, bus1.THeaWatSupSet) annotation (Line(points={{-58,40},
+          {-50,40},{-50,-38},{0,-38},{0,-40}},
+                                       color={0,0,127}));
+  connect(y1Boi.y[1], bus1.y1) annotation (Line(points={{-58,80},{-52,80},{-52,-40},
+          {0,-40}}, color={255,0,255}));
+  annotation (
+  experiment(
+    StopTime=2000,
+    Tolerance=1e-06),
+  __Dymola_Commands(file=
+  "modelica://Buildings/Resources/Scripts/Dymola/Templates/Components/Validation/BoilerHotWater.mos"
+  "Simulate and plot"),
+  Documentation(info="<html>
+<p>
+This model validates the boiler models
+<a href=\"modelica://Buildings.Templates.Components.Boilers.HotWaterTable\">
+Buildings.Templates.Components.Boilers.HotWaterTable</a> and
+<a href=\"modelica://Buildings.Templates.Components.Boilers.HotWaterPolynomial\">
+Buildings.Templates.Components.Boilers.HotWaterPolynomial</a>.
+Each boiler is connected to boundary conditions representing the HW
+distribution system and is enabled for the whole simulation period, while
+the HW return temperature is ramped up so that the boiler firing rate spans
+its whole operating range.
+</p>
+</html>"));
+end BoilerHotWater;
