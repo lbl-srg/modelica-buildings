@@ -98,8 +98,8 @@ EXPERIMENT_MODIF = {
     'Buildings.Templates.Plants.Chillers.Validation.WaterCooled': [
         (
             [
-                'Buildings.Templates.Plants.Chillers.Components.Economizers.HeatExchangerWithPump',
-                'have_senDpChiWatRemWir=false',
+                'have_senDpChiWatRemWir=true',
+                'Buildings.Templates.Plants.Chillers.Components.Economizers.HeatExchangerWithValve eco',
             ],
             {
                 'method': 'dassl',
