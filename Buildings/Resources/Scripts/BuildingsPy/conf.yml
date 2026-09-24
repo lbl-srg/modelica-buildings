@@ -29,6 +29,10 @@
   openmodelica:
     comment: 'Translation failure caused by internal CSE error. See also OpenModelica, issue 16839'
     translate: false
+- model_name: Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Validation.PrimaryController
+  optimica:
+    comment: 'Simulation fails due to time event phase failure (bug in delay operator): Modelon ticket #7916'
+    simulate: false
 - model_name: Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Validation.Controller
   openmodelica:
     comment: 'Non-linear equations within when-equations is not supported'
