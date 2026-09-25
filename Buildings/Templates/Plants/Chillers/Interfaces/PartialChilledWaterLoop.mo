@@ -52,6 +52,7 @@ partial model PartialChilledWaterLoop
     final typArrPumChiWatPri=typArrPumChiWatPri,
     final typEco=typEco,
     final mChiWatPri_flow_nominal=mChiWatPri_flow_nominal,
+    final linearized=linearized,
     final tau=tau,
     final energyDynamics=energyDynamics,
     final allowFlowReversal=allowFlowReversal)
@@ -288,6 +289,7 @@ partial model PartialChilledWaterLoop
       redeclare final package MediumChiWat=MediumChiWat,
       redeclare final package MediumConWat=MediumCon,
       final dat=dat.eco,
+      final linearized=linearized,
       final allowFlowReversal=allowFlowReversal,
       final energyDynamics=energyDynamics)
     "Waterside economizer"

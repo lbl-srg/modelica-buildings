@@ -9,6 +9,7 @@ model HeatExchangerWithValve
     final typ=Buildings.Templates.Components.Types.Valve.TwoWayModulating,
     final allowFlowReversal=allowFlowReversal,
     final dat=datValChiWatByp,
+    final linearized=linearized,
     from_dp=true)
     "WSE CHW bypass valve"
     annotation(Placement(transformation(extent={{-10,-10},{10,10}})));
