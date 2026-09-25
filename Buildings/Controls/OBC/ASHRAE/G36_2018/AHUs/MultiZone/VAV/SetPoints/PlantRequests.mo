@@ -349,7 +349,6 @@ annotation (
         Text(
           extent={{-98,-72},{-36,-88}},
           textColor={0,0,127},
-          pattern=LinePattern.Dash,
           visible=heaCoi==Buildings.Controls.OBC.ASHRAE.G36_2018.Types.HeatingCoil.WaterBased,
           textString="uHeaCoiSet"),
         Text(

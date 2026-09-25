@@ -562,7 +562,6 @@ annotation (defaultComponentName="ecoCon",
         Text(
           extent={{-96,128},{-56,112}},
           textColor={0,0,127},
-          pattern=LinePattern.Dash,
           visible=(minOADes == Buildings.Controls.OBC.ASHRAE.G36_2018.Types.OutdoorAirSection.DedicatedDampersAirflow
                or minOADes == Buildings.Controls.OBC.ASHRAE.G36_2018.Types.OutdoorAirSection.DedicatedDampersPressure),
           textString="uSupFan"),
@@ -582,21 +581,18 @@ annotation (defaultComponentName="ecoCon",
         Text(
           extent={{-100,-52},{-58,-66}},
           textColor={0,0,127},
-          pattern=LinePattern.Dash,
           visible=(ecoHigLimCon == Buildings.Controls.OBC.ASHRAE.G36_2018.Types.ControlEconomizer.DifferentialDryBulb
                or ecoHigLimCon == Buildings.Controls.OBC.ASHRAE.G36_2018.Types.ControlEconomizer.FixedDryBulbWithDifferentialDryBulb),
           textString="TAirRet"),
         Text(
           extent={{-100,-82},{-58,-98}},
           textColor={0,0,127},
-          pattern=LinePattern.Dash,
           visible=(ecoHigLimCon == Buildings.Controls.OBC.ASHRAE.G36_2018.Types.ControlEconomizer.DifferentialEnthalpyWithFixedDryBulb
                or ecoHigLimCon == Buildings.Controls.OBC.ASHRAE.G36_2018.Types.ControlEconomizer.FixedEnthalpyWithFixedDryBulb),
           textString="hAirOut"),
         Text(
           extent={{-98,-104},{-62,-120}},
           textColor={0,0,127},
-          pattern=LinePattern.Dash,
           visible=(eneStd == Buildings.Controls.OBC.ASHRAE.G36_2018.Types.EnergyStandard.ASHRAE90_1
                and ecoHigLimCon == Buildings.Controls.OBC.ASHRAE.G36_2018.Types.ControlEconomizer.DifferentialEnthalpyWithFixedDryBulb),
           textString="hAirRet"),
@@ -615,7 +611,6 @@ annotation (defaultComponentName="ecoCon",
         Text(
           extent={{34,142},{98,124}},
           textColor={0,0,127},
-          pattern=LinePattern.Dash,
           visible=minOADes == Buildings.Controls.OBC.ASHRAE.G36_2018.Types.OutdoorAirSection.DedicatedDampersAirflow,
           textString="yMinOutDam"),
         Text(
@@ -625,7 +620,6 @@ annotation (defaultComponentName="ecoCon",
         Text(
           extent={{42,-50},{98,-66}},
           textColor={0,0,127},
-          pattern=LinePattern.Dash,
           visible=buiPreCon == Buildings.Controls.OBC.ASHRAE.G36_2018.Types.PressureControl.ReturnFanMeasuredAir,
           textString="yRelDam"),
         Text(
@@ -651,14 +645,12 @@ annotation (defaultComponentName="ecoCon",
         Text(
           extent={{-96,58},{-28,40}},
           textColor={0,0,127},
-          pattern=LinePattern.Dash,
           visible=(have_CO2Sen and venStd == Buildings.Controls.OBC.ASHRAE.G36_2018.Types.VentilationStandard.California_Title_24)
                and minOADes == Buildings.Controls.OBC.ASHRAE.G36_2018.Types.OutdoorAirSection.DedicatedDampersPressure,
           textString="uCO2Loo_max"),
         Text(
           extent={{34,120},{98,102}},
           textColor={255,0,255},
-          pattern=LinePattern.Dash,
           visible=minOADes == Buildings.Controls.OBC.ASHRAE.G36_2018.Types.OutdoorAirSection.DedicatedDampersPressure,
           textString="y1MinOutDam"),
         Text(

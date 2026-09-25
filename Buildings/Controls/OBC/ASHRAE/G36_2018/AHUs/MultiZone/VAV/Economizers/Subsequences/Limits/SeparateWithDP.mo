@@ -481,7 +481,6 @@ annotation (
         Text(
           extent={{-96,78},{-36,64}},
           textColor={0,0,127},
-          pattern=LinePattern.Dash,
           visible=have_CO2Sen and venStd == Buildings.Controls.OBC.ASHRAE.G36_2018.Types.VentilationStandard.California_Title_24,
           textString="uCO2Loo_max")}),
   Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-220,-360},{220,360}})),

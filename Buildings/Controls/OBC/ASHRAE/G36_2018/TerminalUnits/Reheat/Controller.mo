@@ -721,7 +721,6 @@ annotation (defaultComponentName="rehBoxCon",
         Text(
           extent={{-96,-180},{-60,-196}},
           textColor={255,0,255},
-          pattern=LinePattern.Dash,
           visible=heaCoi==Buildings.Controls.OBC.ASHRAE.G36_2018.Types.HeatingCoil.WaterBased,
           textString="u1HotPla"),
         Text(

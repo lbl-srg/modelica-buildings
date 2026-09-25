@@ -1358,8 +1358,6 @@ equation
         Text(
           extent={{-196,-128},{-164,-148}},
           textColor={0,0,127},
-          fillColor={0,0,0},
-          fillPattern=FillPattern.Solid,
           visible=ecoHigLimCon == Buildings.Controls.OBC.ASHRAE.G36_2018.Types.ControlEconomizer.DifferentialDryBulb,
           textString="TAirRet"),
         Text(
@@ -1457,23 +1455,17 @@ equation
         Text(
           extent={{130,-2},{200,-18}},
           textColor={0,0,127},
-          fillColor={0,0,0},
-          fillPattern=FillPattern.Solid,
           visible=(buiPreCon == Buildings.Controls.OBC.ASHRAE.G36_2018.Types.PressureControl.ReturnFanMeasuredAir
                or buiPreCon == Buildings.Controls.OBC.ASHRAE.G36_2018.Types.PressureControl.ReturnFanDp),
           textString="yRetFan"),
         Text(
           extent={{128,-50},{198,-66}},
           textColor={0,0,127},
-          fillColor={0,0,0},
-          fillPattern=FillPattern.Solid,
           visible=buiPreCon == Buildings.Controls.OBC.ASHRAE.G36_2018.Types.PressureControl.ReliefFan,
           textString="yRelFan"),
         Text(
           extent={{130,-200},{200,-216}},
           textColor={0,0,127},
-          fillColor={0,0,0},
-          fillPattern=FillPattern.Solid,
           visible=buiPreCon == Buildings.Controls.OBC.ASHRAE.G36_2018.Types.PressureControl.ReliefDamper
                or (have_ahuRelFan and buiPreCon == Buildings.Controls.OBC.ASHRAE.G36_2018.Types.PressureControl.ReliefFan),
           textString="yRelDam"),

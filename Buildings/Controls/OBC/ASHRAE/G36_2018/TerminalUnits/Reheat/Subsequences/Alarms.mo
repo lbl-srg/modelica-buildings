@@ -699,7 +699,6 @@ annotation (defaultComponentName="ala",
         Text(
           extent={{-98,-44},{-66,-56}},
           textColor={255,0,255},
-          pattern=LinePattern.Dash,
           visible=heaCoi==Buildings.Controls.OBC.ASHRAE.G36_2018.Types.HeatingCoil.WaterBased,
           textString="u1HotPla"),
         Text(
