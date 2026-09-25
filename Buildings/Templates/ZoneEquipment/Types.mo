@@ -5,8 +5,8 @@ package Types
 
   type Configuration = enumeration(
     DualDuct "Dual duct system",
-    VAVBoxFanParallelConstant "Parallel fan-powered terminal unit - Constant volume",
-    VAVBoxFanSeriesConstant "Series fan-powered terminal unit - Constant volume",
+    VAVBoxFanParallelConstant "Parallel fan-powered terminal unit - Constant volume fan",
+    VAVBoxFanSeriesConstant "Series fan-powered terminal unit - Constant volume fan",
     VAVBoxCoolingOnly "VAV terminal unit cooling only",
     VAVBoxReheat "VAV terminal unit with reheat")
     "Enumeration to configure the terminal unit";

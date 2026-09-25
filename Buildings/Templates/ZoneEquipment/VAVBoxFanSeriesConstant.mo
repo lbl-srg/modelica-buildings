@@ -1,6 +1,6 @@
 within Buildings.Templates.ZoneEquipment;
 model VAVBoxFanSeriesConstant
-  "Series fan-powered terminal unit - Constant volume"
+  "Series fan-powered terminal unit - Constant volume fan"
   extends Buildings.Templates.ZoneEquipment.Interfaces.VAVBox(
     final typ=Buildings.Templates.ZoneEquipment.Types.Configuration.VAVBoxFanSeriesConstant,
     redeclare replaceable

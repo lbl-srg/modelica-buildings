@@ -1,6 +1,6 @@
 within Buildings.Templates.ZoneEquipment;
 model VAVBoxFanParallelConstant
-  "Parallel fan-powered terminal unit - Constant volume"
+  "Parallel fan-powered terminal unit - Constant volume fan"
   extends Buildings.Templates.ZoneEquipment.Interfaces.VAVBox(
     final typ=Buildings.Templates.ZoneEquipment.Types.Configuration.VAVBoxFanParallelConstant,
     redeclare replaceable
