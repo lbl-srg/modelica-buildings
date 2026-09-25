@@ -25,7 +25,7 @@
   openmodelica:
     comment: 'TimeoutExpired: omc timed out after 300 seconds'
     time_out: 600
-- model_name: Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Validation.Controller
+- model_name: Buildings.Controls.OBC.ASHRAE.G36_2021.Plants.Chillers.Validation.Controller
   openmodelica:
     comment: 'Non-linear equations within when-equations is not supported'
     translate: false

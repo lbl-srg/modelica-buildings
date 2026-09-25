@@ -89,10 +89,10 @@ done
 # Each value is a string containing directory paths (relative to `modelica-buildings/Buildings`).
 declare -A checksum_dirs=(
   ["Buildings.Templates.AirHandlersFans"]="Templates/AirHandlersFans
-                       Controls/OBC/ASHRAE/G36/AHUs/MultiZone/VAV"
+                       Controls/OBC/ASHRAE/G36_2018/AHUs/MultiZone/VAV"
   ["Buildings.Templates.ZoneEquipment"]="Templates/ZoneEquipment
-                     Controls/OBC/ASHRAE/G36/TerminalUnits/CoolingOnly
-                     Controls/OBC/ASHRAE/G36/TerminalUnits/Reheat"
+                     Controls/OBC/ASHRAE/G36_2018/TerminalUnits/CoolingOnly
+                     Controls/OBC/ASHRAE/G36_2018/TerminalUnits/Reheat"
   ["Buildings.Templates.Plants.HeatPumps"]="Templates/Plants/HeatPumps
                         Templates/Plants/Controls"
 )
