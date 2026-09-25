@@ -76,17 +76,17 @@ It is composed of a set of parameters corresponding to the design
 the chiller performance data.
 The design capacity is used to parameterize the chiller model.
 The capacity (and power) computed from the external performance data file
-is automatically scaled by the chiller model to match the value provided 
+is automatically scaled by the chiller model to match the value provided
 at design conditions.
 </p>
 <p>
-Note that the design value for condenser cooling fluid (e.g., condenser water) 
+Note that the design value for condenser cooling fluid (e.g., condenser water)
 mass flow rate is only required for water-cooled chillers.
 Air-cooled chillers use a default outdoor air flow assignment
 since the chiller model doesn't explicitly calculate fan power based on
-outdoor air flow and condenser pressure drop. Instead, fan power 
+outdoor air flow and condenser pressure drop. Instead, fan power
 is integrated into the chiller power computed from the performance data.
-This is because both US (AHRI Standard 550/590) and European (EN14511) 
+This is because both US (AHRI Standard 550/590) and European (EN14511)
 chiller performance rating standards incorporate fan power into the rated
 total input power.
 </p>
