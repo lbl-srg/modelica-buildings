@@ -26,7 +26,6 @@ model WaterCooled
       origin={-170,-40})));
   replaceable Buildings.Templates.Plants.Chillers.WaterCooled pla(
     redeclare final package MediumCon=Medium,
-    linearized=true,
     chi(have_senTConWatChiSup=true, have_senTConWatChiRet_select=true),
     redeclare replaceable Buildings.Templates.Plants.Chillers.Components.Economizers.HeatExchangerWithValve eco
       "Heat exchanger with bypass valve for CHW flow control",
