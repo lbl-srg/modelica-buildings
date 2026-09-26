@@ -145,9 +145,11 @@ The performance data are provided through the record <code>dat</code>.
 <p>
 The coolant connections (port_a1 to port_b1) are included in this partial model.
 The air connections are left to the extending models, because the
-<a href=\"modelica://Buildings.Fluid.DataCenterEquipment.Racks.RearDoorHeatExchangers.Active\">Active</a>
+<a href=\"modelica://Buildings.Fluid.DataCenterEquipment.Racks.RearDoorHeatExchangers.Active\">
+Buildings.Fluid.DataCenterEquipment.Racks.RearDoorHeatExchangers.Active</a>
 model inserts a fan in the air path while the
-<a href=\"modelica://Buildings.Fluid.DataCenterEquipment.Racks.RearDoorHeatExchangers.Passive\">Passive</a>
+<a href=\"modelica://Buildings.Fluid.DataCenterEquipment.Racks.RearDoorHeatExchangers.Passive\">
+Buildings.Fluid.DataCenterEquipment.Racks.RearDoorHeatExchangers.Passive</a>
 model connects the ports directly.
 </p>
 </html>",

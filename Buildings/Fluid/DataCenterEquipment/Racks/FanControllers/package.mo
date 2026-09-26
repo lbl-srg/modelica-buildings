@@ -22,5 +22,9 @@ package FanControllers "Package with fan controllers for racks"
           lineColor={0,0,0},
           pattern=LinePattern.None,
           fillPattern=FillPattern.HorizontalCylinder,
-          fillColor={255,255,255})}));
+          fillColor={255,255,255})}), Documentation(info="<html>
+<p>
+Package with fan controllers.
+</p>
+</html>"));
 end FanControllers;

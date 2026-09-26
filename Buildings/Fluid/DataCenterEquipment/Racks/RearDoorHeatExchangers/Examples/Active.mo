@@ -69,13 +69,10 @@ equation
 Example model for an active rear door heat exchanger.
 </p>
 <p>
-The model simulates a 10 kW rear door heat exchanger using water as coolant
-at 18&deg;C supply temperature. The server exhaust air enters at 50&deg;C.
-A PI-controlled fan drives the air through the heat exchanger and maintains
-the air outlet temperature at a set point of 35&deg;C (= 50&deg;C - 15 K).
-</p>
-<p>
-The simulation runs for 3600 s at steady-state conditions.
+The model uses a constant water mass flow rate.
+The air mass flow rate is determined by the fan control.
+Because the IT load and the water mass flow rate are constant,
+the air mass flow rate is also constant after the initial transient.
 </p>
 </html>",
       revisions="<html>

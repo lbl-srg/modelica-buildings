@@ -53,12 +53,7 @@ equation
 Example model for a passive rear door heat exchanger.
 </p>
 <p>
-The model simulates a 10 kW rear door heat exchanger using water as coolant
-at 18&deg;C supply temperature. The server exhaust air enters at 50&deg;C at the nominal
-mass flow rate and is cooled by approximately 15 K.
-</p>
-<p>
-The simulation runs for 3600 s at steady-state conditions.
+The model uses a constant air and water mass flow rate.
 </p>
 </html>",
       revisions="<html>

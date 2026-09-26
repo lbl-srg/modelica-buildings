@@ -101,8 +101,7 @@ Model of an active rear door heat exchanger (RDHx) for IT racks.
 <p>
 In this configuration, an integrated fan drives the warm server exhaust air through
 the heat exchanger mounted at the rear door of the rack.
-The fan speed is modulated by a PI controller to maintain the air outlet temperature
-at the set point <code>TSet</code>.
+The fan speed is modulated by a PI controller to maintain zero back pressure.
 The fan power is reported through the output <code>PFan</code>.
 </p>
 <p>
@@ -114,9 +113,7 @@ exhaust), passes through the fan and then through the heat exchanger, and exits 
 <p>
 The performance data are provided through the record <code>dat</code> of type
 <a href=\"modelica://Buildings.Fluid.DataCenterEquipment.Racks.Hybrid.Data.LiquidCooledSinglePhaseRearDoorHexActive.BaseClasses.RearDoorHex\">
-Buildings.Fluid.DataCenterEquipment.Racks.Hybrid.Data.LiquidCooledSinglePhaseRearDoorHexActive.BaseClasses.RearDoorHex</a>,
-which specifies the nominal IT load <code>PIT_nominal</code>, the target air temperature
-rise <code>dTAir_nominal</code>, and the fan nominal power <code>PFan_nominal</code>.
+Buildings.Fluid.DataCenterEquipment.Racks.Hybrid.Data.LiquidCooledSinglePhaseRearDoorHexActive.BaseClasses.RearDoorHex</a>.
 </p>
 </html>",
     revisions="<html>
