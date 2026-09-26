@@ -54,9 +54,9 @@ partial model PartialRack "Partial model of an IT rack, with utilization as inpu
 protected
   Buildings.HeatTransfer.Sources.PrescribedHeatFlow preHea
     "Prescribed heat flow rate"
-    annotation (Placement(transformation(extent={{-40,10},{-20,30}})));
+    annotation (Placement(transformation(extent={{-40,40},{-20,60}})));
 equation
-  connect(preHea.port,vol. heatPort) annotation (Line(points={{-20,20},{10,20},
+  connect(preHea.port,vol. heatPort) annotation (Line(points={{-20,50},{10,50},
           {10,10},{20,10}},
                         color={191,0,0}));
 annotation (

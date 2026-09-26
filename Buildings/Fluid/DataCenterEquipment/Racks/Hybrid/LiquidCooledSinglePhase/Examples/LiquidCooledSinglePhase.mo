@@ -45,7 +45,8 @@ model LiquidCooledSinglePhase
     annotation (Placement(transformation(extent={{160,110},{180,130}})));
 
   parameter Buildings.Fluid.DataCenterEquipment.Racks.AirCooled.Data.Generic datAir(
-    PIT_nominal=PAir_nominal) "Air-cooled rack performance data"
+    PIT_nominal=PAir_nominal, cpAir_nominal=cpAir_default)
+                                 "Air-cooled rack performance data"
     annotation (Placement(transformation(extent={{160,80},{180,100}})));
 
   replaceable parameter Buildings.Fluid.DataCenterEquipment.Racks.Hybrid.Data.LiquidCooledSinglePhase.Generic dat
@@ -65,11 +66,11 @@ model LiquidCooledSinglePhase
            7200,1],
     extrapolation=Buildings.Controls.OBC.CDL.Types.Extrapolation.HoldLastPoint)
     "Utilization of liquid-cooled hardware"
-    annotation (Placement(transformation(extent={{-220,0},{-200,20}})));
+    annotation (Placement(transformation(extent={{-220,10},{-200,30}})));
 
-  Buildings.Controls.OBC.CDL.Reals.Sources.Constant utiAir(k=0.8)
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant utiAir(k=1)
     "Utilization of air-cooled hardware"
-    annotation (Placement(transformation(extent={{-220,-30},{-200,-10}})));
+    annotation (Placement(transformation(extent={{-220,-32},{-200,-12}})));
 
   Modelica.Blocks.Math.Gain PITLiq(
     k(final unit="W",
@@ -77,7 +78,7 @@ model LiquidCooledSinglePhase
     u(final unit="1"),
     y(final unit="W"))
     "Power consumption by the liquid-cooled IT equipment"
-    annotation (Placement(transformation(extent={{-180,0},{-160,20}})));
+    annotation (Placement(transformation(extent={{-180,10},{-160,30}})));
 
   Modelica.Blocks.Math.Gain PITAir(
     k(final unit="W",
@@ -85,7 +86,7 @@ model LiquidCooledSinglePhase
     u(final unit="1"),
     y(final unit="W"))
     "Power consumption by the air-cooled IT equipment"
-    annotation (Placement(transformation(extent={{-180,-30},{-160,-10}})));
+    annotation (Placement(transformation(extent={{-180,-32},{-160,-12}})));
 
   replaceable Buildings.Fluid.DataCenterEquipment.Racks.Hybrid.LiquidCooledSinglePhase.LiquidCooledSinglePhase rac
     constrainedby Buildings.Fluid.DataCenterEquipment.Racks.Hybrid.LiquidCooledSinglePhase.LiquidCooledSinglePhase(
@@ -96,6 +97,14 @@ model LiquidCooledSinglePhase
     energyDynamicsAir=Modelica.Fluid.Types.Dynamics.FixedInitial)
     "Liquid and air-cooled rack"
     annotation (Placement(transformation(extent={{40,-10},{60,10}})));
+
+  final parameter Modelica.Units.SI.SpecificHeatCapacity cpAir_default=
+    MediumAir.specificHeatCapacityCp(
+      MediumAir.setState_pTX(
+        T=MediumAir.T_default,
+        p=MediumAir.p_default,
+        X=MediumAir.X_default[1:MediumAir.nXi]))
+    "Specific heat capacity of air";
 
   Buildings.Fluid.Movers.Preconfigured.SpeedControlled_y pum(
     redeclare package Medium = MediumLiq,
@@ -124,7 +133,7 @@ model LiquidCooledSinglePhase
     m_flow_nominal=mLiq_flow_nominal,
     tau=0)
     "Liquid inlet temperature to rack"
-    annotation (Placement(transformation(extent={{-30,50},{-10,70}})));
+    annotation (Placement(transformation(extent={{-50,50},{-30,70}})));
 
   Fluid.Sensors.TemperatureTwoPort senTLiq_b(
     redeclare package Medium = MediumLiq,
@@ -147,7 +156,7 @@ model LiquidCooledSinglePhase
     allowFlowReversal=false,
     m_flow_nominal=datAir.m_flow_nominal,
     tau=0) "Air outlet temperature"
-    annotation (Placement(transformation(extent={{98,-50},{118,-30}})));
+    annotation (Placement(transformation(extent={{100,-50},{120,-30}})));
 
   Buildings.Controls.OBC.CDL.Reals.PID conPI(
     controllerType=Buildings.Controls.OBC.CDL.Types.SimpleController.PI,
@@ -166,7 +175,7 @@ model LiquidCooledSinglePhase
                                     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=270,
-        origin={0,30})));
+        origin={0,40})));
   Controls.OBC.CDL.Reals.Sources.Constant TSetRet(k=TLiqIn_nominal +
         dTLiq_nominal) "Temperature setpoint for return water"
     annotation (Placement(transformation(extent={{-120,150},{-100,170}})));
@@ -216,15 +225,15 @@ equation
     annotation (Line(points={{-10,-40},{0,-40},{0,-4},{40,-4}},
                                                 color={0,127,255}));
   connect(rac.portAir_b, senTAir_b.port_a)
-    annotation (Line(points={{60.2,-4},{80,-4},{80,-40},{98,-40}},
+    annotation (Line(points={{60.2,-4},{80,-4},{80,-40},{100,-40}},
                                                                  color={0,127,255}));
   connect(senTAir_a.port_a,datHal. ports[1]) annotation (Line(points={{-30,-40},
           {-80,-40},{-80,-80},{21,-80},{21,-90}}, color={0,127,255}));
-  connect(senTAir_b.port_b,datHal. ports[2]) annotation (Line(points={{118,-40},
+  connect(senTAir_b.port_b,datHal. ports[2]) annotation (Line(points={{120,-40},
           {140,-40},{140,-80},{19,-80},{19,-90}},
                                                 color={0,127,255}));
   connect(pum.port_b, senTLiq_a.port_a)
-    annotation (Line(points={{-100,60},{-30,60}},color={0,127,255}));
+    annotation (Line(points={{-100,60},{-50,60}},color={0,127,255}));
   connect(bouLiq.ports[1], coo.port_a) annotation (Line(points={{160,60},{140,60},
           {140,88},{-180,88},{-180,60},{-170,60}}, color={0,127,255}));
   connect(dpSet.y, conPI.u_s)
@@ -243,27 +252,28 @@ equation
           {-70,100},{-70,108}},
                            color={0,0,127}));
   connect(senRelPre.port_a, senTLiq_a.port_b)
-    annotation (Line(points={{40,60},{-10,60}},color={0,127,255}));
+    annotation (Line(points={{40,60},{-30,60}},color={0,127,255}));
   connect(utiLiq.y[1], PITLiq.u)
-    annotation (Line(points={{-198,10},{-182,10}}, color={0,0,127}));
-  connect(PITLiq.y, rac.PLiq) annotation (Line(points={{-159,10},{-40,10},{-40,8.2},
-          {39,8.2}},
+    annotation (Line(points={{-198,20},{-182,20}}, color={0,0,127}));
+  connect(PITLiq.y, rac.PLiq) annotation (Line(points={{-159,20},{-40,20},{-40,
+          8.2},{39,8.2}},
                   color={0,0,127}));
   connect(utiAir.y, PITAir.u)
-    annotation (Line(points={{-198,-20},{-182,-20}}, color={0,0,127}));
-  connect(PITAir.y, rac.PAir) annotation (Line(points={{-159,-20},{-40,-20},{-40,
-          -8},{39,-8}},color={0,0,127}));
+    annotation (Line(points={{-198,-22},{-182,-22}}, color={0,0,127}));
+  connect(PITAir.y, rac.PAir) annotation (Line(points={{-159,-22},{-40,-22},{
+          -40,-8},{39,-8}},
+                       color={0,0,127}));
   connect(val.port_b, rac.portLiq_a)
-    annotation (Line(points={{0,20},{0,4},{40,4}}, color={0,127,255}));
+    annotation (Line(points={{0,30},{0,4},{40,4}}, color={0,127,255}));
   connect(val.port_a, senTLiq_a.port_b)
-    annotation (Line(points={{0,40},{0,60},{-10,60}}, color={0,127,255}));
+    annotation (Line(points={{0,50},{0,60},{-30,60}}, color={0,127,255}));
   connect(conVal.u_m, senTLiq_b.T) annotation (Line(points={{-70,148},{-70,140},
           {110,140},{110,71}},
                           color={0,0,127}));
   connect(TSetRet.y, conVal.u_s)
     annotation (Line(points={{-98,160},{-82,160}},color={0,0,127}));
-  connect(conVal.y, val.y) annotation (Line(points={{-58,160},{30,160},{30,30},{
-          12,30}}, color={0,0,127}));
+  connect(conVal.y, val.y) annotation (Line(points={{-58,160},{30,160},{30,40},
+          {12,40}},color={0,0,127}));
   annotation (
     Diagram(coordinateSystem(extent={{-240,-120},{200,180}})),
     experiment(

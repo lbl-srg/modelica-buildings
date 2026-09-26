@@ -99,14 +99,16 @@ Note that these values are slightly higher than the ones in
 Buildings.Fluid.DataCenterEquipment.Racks.Hybrid.LiquidCooledSinglePhase.Examples.LiquidCooledSinglePhase</a>.
 The reason is that the rear door heat exchanger is passive, i.e., it does not have fans.
 Due to its air-side flow resistance, the air flow rate through the rack is therefore
-slightly lower, leading the higher rack outlet temperature before the rear door heat exchanger.
-The air leaving the rear door heat exchanger is <i>33.6</i>&deg;C.
+slightly lower, leading the higher rack outlet temperature, which is upstream of the rear door heat exchanger.
+The air leaving the rear door heat exchanger is <i>30.1</i>&deg;C.
 </p>
 <p>
 Water at <i>25</i> &deg;C is supplied to the rear door heat exchanger.
 In this simplified model, the water flow rate is uncontrolled, leading to
-an leaving water temperature of <i>30.4</i>&deg;C, which is below the design
-temperature of <i>35</i>&deg;C due to the reduced air flow rate.
+a leaving water temperature of <i>35.3</i>&deg;C, which is above the design
+temperature of <i>35</i>&deg;C due to the reduced air flow rate that causes
+the air inlet temperature into the rear door heat exchanger to be slightly warmer
+than the design temperature.
 </p>
 <p>
 The liquid cooling and pump control loops operate identically to the

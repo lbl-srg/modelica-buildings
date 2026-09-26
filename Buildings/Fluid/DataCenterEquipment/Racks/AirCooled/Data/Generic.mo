@@ -1,8 +1,7 @@
 within Buildings.Fluid.DataCenterEquipment.Racks.AirCooled.Data;
 record Generic "Generic data record for air cooled rack"
   extends Buildings.Fluid.DataCenterEquipment.Racks.BaseClasses.Data.Generic(
-      m_flow_nominal=(PIT_nominal + PFan_nominal)/((TOut_nominal - TIn_nominal)
-        *Buildings.Utilities.Psychrometrics.Constants.cpAir));
+      m_flow_nominal=(PIT_nominal + PFan_nominal)/((TOut_nominal - TIn_nominal)*cpAir_nominal));
 
   parameter Modelica.Units.SI.Power PFan_nominal = 0.04*PIT_nominal
     "Fan power at full IT load PIT_nominal"
@@ -18,6 +17,10 @@ record Generic "Generic data record for air cooled rack"
     "Rack design inlet air temperature";
   parameter Modelica.Units.SI.Temperature TOut_nominal=313.15
     "Rack design outlet air temperature";
+
+  parameter Modelica.Units.SI.SpecificHeatCapacity cpAir_nominal =
+    Buildings.Utilities.Psychrometrics.Constants.cpAir
+    "Specific heat capacity of air";
 
 annotation (
   defaultComponentName="dat",

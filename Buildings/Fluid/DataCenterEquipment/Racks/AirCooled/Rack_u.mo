@@ -40,27 +40,29 @@ model Rack_u "Model of an air-cooled rack, and utilization is input"
     annotation (Placement(transformation(extent={{100,50},{120,70}}),
       iconTransformation(extent={{100,40},{120,60}})));
 
-  Buildings.Fluid.DataCenterEquipment.Racks.FanControllers.OutletTemperature conFanTem(k=k, Ti=
-        Ti)
+  Buildings.Fluid.DataCenterEquipment.Racks.FanControllers.OutletTemperature conFanTem(
+    final k=k,
+    final Ti=Ti)
     if fanControl == Buildings.Fluid.DataCenterEquipment.Racks.FanControllers.Types.Strategy.OutletTemperature
     "Controlled fans to cool IT equipment"
-    annotation (Placement(transformation(extent={{-60,-80},{-40,-60}})));
+    annotation (Placement(transformation(extent={{-60,-40},{-40,-20}})));
 
   Buildings.Fluid.DataCenterEquipment.Racks.FanControllers.Load conFanLoa(
     final P_nominal=dat.PIT_nominal,
     final fanSpeed=fanSpeed)
     if fanControl == Buildings.Fluid.DataCenterEquipment.Racks.FanControllers.Types.Strategy.Load
     "Fan controller based on IT load"
-    annotation (Placement(transformation(extent={{-60,-40},{-40,-20}})));
+    annotation (Placement(transformation(extent={{-60,20},{-40,40}})));
 
   BaseClasses.Fan fan(
     redeclare package Medium = Medium,
-    allowFlowReversal=allowFlowReversal,
-    eta_nominal=dat.eta_nominal,
+    final allowFlowReversal=allowFlowReversal,
+    final eta_nominal=dat.eta_nominal,
     m_flow_nominal=dat.m_flow_nominal,
-    PFan_nominal=dat.PFan_nominal,
-    energyDynamics=energyDynamics) "Fan"
-    annotation (Placement(transformation(extent={{-24,-10},{-4,10}})));
+    final PFan_nominal=dat.PFan_nominal,
+    energyDynamics=energyDynamics,
+    addPowerToMedium=true) "Fan"
+    annotation (Placement(transformation(extent={{-20,-10},{0,10}})));
 
 protected
   parameter Modelica.Units.SI.Density rho_default = Medium.density(
@@ -82,7 +84,7 @@ protected
 
   Modelica.Thermal.HeatTransfer.Sensors.TemperatureSensor TAirLvg
     "Leaving air temperature"
-    annotation (Placement(transformation(extent={{20,-30},{40,-10}})));
+    annotation (Placement(transformation(extent={{0,-70},{-20,-50}})));
   Buildings.Fluid.FixedResistances.PressureDrop res(
     redeclare package Medium = Medium,
     allowFlowReversal=allowFlowReversal,
@@ -98,37 +100,38 @@ protected
       displayUnit="degC")=TAirOut_set,
     y(final unit="K",
       displayUnit="degC")) "Set point for outlet temperature"
-    annotation (Placement(transformation(extent={{-90,-80},{-70,-60}})));
+    annotation (Placement(transformation(extent={{-90,-40},{-70,-20}})));
 equation
   connect(PTotal.y, PTot) annotation (Line(points={{42,80},{110,80}},
         color={0,0,127}));
-  connect(P, PTotal.u1) annotation (Line(points={{-120,50},{-90,50},{-90,86},{18,
+  connect(P, PTotal.u1) annotation (Line(points={{-120,50},{-80,50},{-80,86},{18,
           86}}, color={0,0,127}));
-  connect(P, preHea.Q_flow) annotation (Line(points={{-120,50},{-90,50},{-90,20},
-          {-40,20}},
+  connect(P, preHea.Q_flow) annotation (Line(points={{-120,50},{-80,50},{-80,50},
+          {-40,50}},
                    color={0,0,127}));
-  connect(TAirLvg.port, vol.heatPort) annotation (Line(points={{20,-20},{10,-20},
+  connect(TAirLvg.port, vol.heatPort) annotation (Line(points={{0,-60},{10,-60},
           {10,10},{20,10}},color={191,0,0}));
   connect(res.port_b, port_b)
     annotation (Line(points={{80,0},{100,0}}, color={0,127,255}));
   connect(TSet.y, conFanTem.TSet)
-    annotation (Line(points={{-69,-70},{-62,-70}}, color={0,0,127}));
-  connect(TAirLvg.T, conFanTem.TMea) annotation (Line(points={{41,-20},{46,-20},
-          {46,-90},{-50,-90},{-50,-82}}, color={0,0,127}));
+    annotation (Line(points={{-68,-30},{-62,-30}}, color={0,0,127}));
+  connect(TAirLvg.T, conFanTem.TMea) annotation (Line(points={{-21,-60},{-50,-60},
+          {-50,-42}},                    color={0,0,127}));
   connect(port_a, fan.port_a)
-    annotation (Line(points={{-100,0},{-24,0}}, color={0,127,255}));
+    annotation (Line(points={{-100,0},{-20,0}}, color={0,127,255}));
   connect(fan.P, PTotal.u2)
-    annotation (Line(points={{-3,6},{6,6},{6,74},{18,74}}, color={0,0,127}));
+    annotation (Line(points={{1,9},{6,9},{6,74},{18,74}},  color={0,0,127}));
   connect(fan.P, PFan)
-    annotation (Line(points={{-3,6},{6,6},{6,60},{110,60}}, color={0,0,127}));
-  connect(conFanLoa.P, P) annotation (Line(points={{-61,-30},{-80,-30},{-80,50},
-          {-120,50}}, color={0,0,127}));
-  connect(conFanLoa.y, fan.y) annotation (Line(points={{-38,-30},{-32,-30},{-32,
-          6},{-26,6}}, color={0,0,127}));
-  connect(conFanTem.y, fan.y) annotation (Line(points={{-38,-70},{-32,-70},{-32,
-          6},{-26,6}}, color={0,0,127}));
+    annotation (Line(points={{1,9},{6,9},{6,60},{110,60}},  color={0,0,127}));
+  connect(conFanLoa.P, P) annotation (Line(points={{-61,30},{-80,30},{-80,50},{-120,
+          50}},       color={0,0,127}));
+  connect(conFanLoa.y, fan.y) annotation (Line(points={{-38,30},{-10,30},{-10,12}},
+                       color={0,0,127}));
+  connect(conFanTem.y, fan.y) annotation (Line(points={{-38,-30},{-32,-30},{-32,
+          30},{-10,30},{-10,12}},
+                       color={0,0,127}));
   connect(fan.port_b, vol.ports[1])
-    annotation (Line(points={{-4,0},{30,0}}, color={0,127,255}));
+    annotation (Line(points={{0,0},{30,0}},  color={0,127,255}));
   connect(vol.ports[2], res.port_a)
     annotation (Line(points={{30,0},{60,0}}, color={0,127,255}));
 annotation (

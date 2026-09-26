@@ -5,11 +5,11 @@ model Passive
 
 equation
   connect(reaDooHex.port_b2, portAir_b)
-    annotation (Line(points={{-10,-6},{-20,-6},{-20,-60},{-100,-60}},
+    annotation (Line(points={{-10,48},{-20,48},{-20,-60},{-100,-60}},
                                                                     color={0,127,255}));
 
   connect(senTAirReaDooHexIn.port_b, reaDooHex.port_a2) annotation (Line(points={{40,-60},
-          {20,-60},{20,-6},{10,-6}},          color={0,127,255}));
+          {20,-60},{20,48},{10,48}},          color={0,127,255}));
 annotation (
   defaultComponentName="reaDooHex",
   Documentation(

@@ -79,10 +79,6 @@ First implementation.
 </ul>
 </html>"),
   Icon(graphics={
-        Text(
-          extent={{-34,104},{-4,68}},
-          textColor={0,0,127},
-          textString="TSet"),
         Ellipse(
           extent={{80,16},{90,6}},
           lineColor={0,127,255},
@@ -95,5 +91,8 @@ First implementation.
           pattern=LinePattern.None,
           fillColor={0,0,0},
           fillPattern=FillPattern.Solid),
-        Line(points={{0,100},{0,74},{56,74},{56,26}}, color={0,0,127})}));
+        Text(
+          extent={{24,-46},{98,-80}},
+          textColor={0,0,127},
+          textString="PReaDooHexFan")}));
 end Active;

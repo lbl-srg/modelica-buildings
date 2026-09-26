@@ -43,13 +43,13 @@ record RearDoorHex "Data record for passive rear door heat exchanger"
     "Air-side pressure drop at nominal flow rate"
     annotation (Dialog(group="Nominal condition"));
 
-  final parameter Modelica.Units.SI.TemperatureDifference dTAir_nominal(min=1) =
-    -Q_flow_nominal/(mAir_flow_nominal*cpAir_nominal)
-    "Air temperature difference across rear door heat exchanger";
+//  final parameter Modelica.Units.SI.TemperatureDifference dTAir_nominal(min=1) =
+//    -Q_flow_nominal/(mAir_flow_nominal*cpAir_nominal)
+//    "Air temperature difference across rear door heat exchanger";
 
-  final parameter Modelica.Units.SI.TemperatureDifference dTCoo_nominal=
-    Q_flow_nominal/(mCoo_flow_nominal*cpCoo_nominal)
-    "Rear door coolant temperature difference";
+//  final parameter Modelica.Units.SI.TemperatureDifference dTCoo_nominal=
+//    Q_flow_nominal/(mCoo_flow_nominal*cpCoo_nominal)
+//    "Rear door coolant temperature difference";
 
 annotation (
   defaultComponentName="reaDooHex",
