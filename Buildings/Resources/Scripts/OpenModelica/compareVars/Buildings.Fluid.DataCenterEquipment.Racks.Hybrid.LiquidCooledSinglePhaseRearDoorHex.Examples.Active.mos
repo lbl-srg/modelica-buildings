@@ -10,5 +10,5 @@ compareVars :=
     "rac.PAirTot",
     "rac.PAirFan",
     "rac.PReaDooHexFan",
-    "senTReaDoo_b.T"
+    "senTAir_b.T"
   };
