@@ -14,8 +14,7 @@ model Active
       redeclare package MediumReaDooHex = MediumReaDooHex,
       dat=dat),
     redeclare replaceable parameter
-      Buildings.Fluid.DataCenterEquipment.Racks.Hybrid.Data.LiquidCooledSinglePhaseRearDoorHexActive.BaseClasses.RearDoorHex
-      datReaDooHex
+    Buildings.Fluid.DataCenterEquipment.Racks.Hybrid.Data.LiquidCooledSinglePhaseRearDoorHexActive.BaseClasses.RearDoorHex datReaDooHex
     constrainedby
       Buildings.Fluid.DataCenterEquipment.Racks.Hybrid.Data.LiquidCooledSinglePhaseRearDoorHexPassive.BaseClasses.RearDoorHex);
 
