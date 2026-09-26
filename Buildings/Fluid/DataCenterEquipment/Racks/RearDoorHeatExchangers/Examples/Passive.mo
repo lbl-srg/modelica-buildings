@@ -11,11 +11,13 @@ model Passive
       mCoo_flow_nominal=mCoo_flow_nominal,
       Q_flow_nominal=Q_flow_nominal,
       TAirIn_nominal=TAirIn_nominal,
-      TCooIn_nominal=TCooIn_nominal))
+      TCooIn_nominal=TCooIn_nominal,
+      cpAir_nominal=cpAir_default,
+      cpCoo_nominal=cpCoo_default))
     "Passive rear door heat exchanger"
     annotation (Placement(transformation(extent={{-30,-10},{-10,10}})));
 
-  Sources.MassFlowSource_T                 airSou(
+  Sources.MassFlowSource_T airSou(
     redeclare package Medium = MediumAir,
     nPorts=1,
     use_m_flow_in=false,

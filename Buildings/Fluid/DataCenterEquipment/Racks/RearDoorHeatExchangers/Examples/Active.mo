@@ -11,7 +11,9 @@ model Active
       mCoo_flow_nominal=mCoo_flow_nominal,
       Q_flow_nominal=-PIT_nominal,
       TAirIn_nominal=TAirIn_nominal,
-    TCooIn_nominal=TCooIn_nominal)
+      TCooIn_nominal=TCooIn_nominal,
+      cpAir_nominal=cpAir_default,
+      cpCoo_nominal=cpCoo_default)
     "Performance data"
     annotation (Placement(transformation(extent={{60,60},{80,80}})));
 

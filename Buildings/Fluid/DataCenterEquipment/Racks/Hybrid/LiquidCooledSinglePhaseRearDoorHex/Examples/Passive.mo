@@ -9,7 +9,6 @@ model Passive
       reaDooHex(
         mAir_flow_nominal=datAir.m_flow_nominal,
         mCoo_flow_nominal=mReaDoo_flow_nominal,
-        cpCoo_flow_nominal=Buildings.Utilities.Psychrometrics.Constants.cpWatLiq,
         Q_flow_nominal=-PAir_nominal,
         TCooIn_nominal=TReaDooCooIn_nominal,
         TAirIn_nominal=TAirReaDooIn_nominal)),
@@ -43,7 +42,6 @@ model Passive
     (
     mAir_flow_nominal=datAir.m_flow_nominal,
     mCoo_flow_nominal=mReaDoo_flow_nominal,
-    cpCoo_flow_nominal=Buildings.Utilities.Psychrometrics.Constants.cpWatLiq,
     Q_flow_nominal=-PAir_nominal,
     TCooIn_nominal=TReaDooCooIn_nominal,
     TAirIn_nominal=TAirReaDooIn_nominal)

@@ -64,13 +64,15 @@ partial model PartialRearDoorHeatExchanger
     final m2_flow_nominal=dat.mAir_flow_nominal,
     final dp1_nominal=dat.dpCoo_nominal,
     final dp2_nominal=dat.dpAir_nominal,
-    final use_Q_flow_nominal=false,
-    final eps_nominal=dat.eps_nominal,
+    final use_Q_flow_nominal=true,
+    final Q_flow_nominal=dat.Q_flow_nominal,
+    final T_a1_nominal=dat.TCooIn_nominal,
+    final T_a2_nominal=dat.TAirIn_nominal,
     final allowFlowReversal1 = allowFlowReversalCoo,
     final allowFlowReversal2 = allowFlowReversalAir,
     configuration=Buildings.Fluid.Types.HeatExchangerConfiguration.CrossFlowUnmixed)
     "Rear door heat exchanger"
-    annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
+    annotation (Placement(transformation(extent={{0,-10},{20,10}})));
 
   Sensors.TemperatureTwoPort senTAirReaDooHexIn(
     redeclare package Medium = MediumAir,
@@ -83,9 +85,9 @@ partial model PartialRearDoorHeatExchanger
         origin={50,-60})));
 equation
   connect(portCoo_a, reaDooHex.port_a1)
-    annotation (Line(points={{-100,60},{-20,60},{-20,6},{-10,6}}, color={0,127,255}));
+    annotation (Line(points={{-100,60},{-10,60},{-10,6},{0,6}},   color={0,127,255}));
   connect(reaDooHex.port_b1, portCoo_b)
-    annotation (Line(points={{10,6},{20,6},{20,60},{100,60}}, color={0,127,255}));
+    annotation (Line(points={{20,6},{30,6},{30,60},{100,60}}, color={0,127,255}));
 
   connect(senTAirReaDooHexIn.port_a, portAir_a)
     annotation (Line(points={{60,-60},{100,-60}}, color={0,127,255}));
