@@ -285,10 +285,6 @@ Dissertation. University of California at Berkeley. 2004.
 </html>", revisions="<html>
 <ul>
 <li>
-September 27, 2026, by Michael Wetter:<br/>
-Added unit specification to avoid warning in Dymola.
-</li>
-<li>
 June 7, 2016, by Michael Wetter:<br/>
 Removed output <code>QTra_flow</code> and introduced instead
 <code>QTraDif_flow</code> and <code>QTraDir_flow</code>.
