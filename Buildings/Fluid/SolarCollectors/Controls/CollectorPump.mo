@@ -3,7 +3,7 @@ model CollectorPump
   "Controller which activates a circulation pump when solar radiation is above a critical level"
   extends Modelica.Blocks.Icons.Block;
 
-  parameter Modelica.Units.SI.HeatFlowRate delQ_flow(min=1)=10
+  parameter Modelica.Units.SI.HeatFlux delQ_flow(min=1)=10
     "Required estimated heat gain per unit area of collector to switch system on";
   parameter Modelica.Units.SI.Angle azi(displayUnit="deg")
     "Surface azimuth (0 for south-facing; -90 degree for east-facing; +90 degree for west facing";
@@ -66,8 +66,9 @@ equation
   connect(TIn, criSol.TIn)    annotation (Line(
       points={{-120,-40},{-84,-40},{-84,-16},{-62,-16}},
       color={0,0,127}));
-  connect(weaBus.TDryBul, criSol.TEnv)    annotation (Line(points={{-102,60},{-84,
-          60},{-84,-4},{-62,-4}}, color = {255, 204, 51}, thickness = 0.5));
+  connect(weaBus.TDryBul, criSol.TEnv)    annotation (Line(points={{-101.95,60.05},
+          {-84,60.05},{-84,-4},{-62,-4}},
+                                  color = {255, 204, 51}, thickness = 0.5));
   connect(HDirTil.weaBus, weaBus) annotation (Line(
       points={{-60,30},{-84,30},{-84,60},{-102,60}},
       color={255,204,51},
@@ -121,6 +122,10 @@ John Wiley &amp; Sons, Inc.<br/>
 </html>",
 revisions="<html>
 <ul>
+<li>
+September 27, 2026, by Michael Wetter:<br/>
+Corrected type specification.
+</li>
 <li>
 November 7, 2022, by Michael Wetter:<br/>
 Corrected implementation to make comparison based on total irradiation on tilted surface
