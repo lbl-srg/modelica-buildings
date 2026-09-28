@@ -136,7 +136,8 @@ Note:
 </p>
 <ul>
 <li>
-xxx
+Unit declarations was added to various models to avoid
+a translation warning in Dymola 2025x.
 </li>
 </ul>
 </html>"));
