@@ -123,8 +123,11 @@ John Wiley &amp; Sons, Inc.<br/>
 revisions="<html>
 <ul>
 <li>
-September 27, 2026, by Michael Wetter:<br/>
-Corrected type specification.
+September 13, 2026, by Michael Wetter:<br/>
+Corrected unit declaration for parameter <code>delQ_flow</code> and
+removed wrong annotation.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/2173\">IBPSA, #2173</a>.
 </li>
 <li>
 November 7, 2022, by Michael Wetter:<br/>
@@ -142,12 +145,5 @@ January 15, 2013 by Peter Grant:<br/>
 First implementation.
 </li>
 </ul>
-</html>"),
-    Icon(graphics={
-      Text(
-        extent={{226,60},{106,10}},
-        textColor={0,0,0},
-        textString=DynamicSelect("",String(y,
-          leftJustified=false,
-          significantDigits=3)))}));
+</html>"));
 end CollectorPump;

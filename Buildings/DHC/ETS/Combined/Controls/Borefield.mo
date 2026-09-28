@@ -154,8 +154,8 @@ equation
       revisions="<html>
 <ul>
 <li>
-September 28, 2026, by Michael Wetter:<br/>
-Corrected unit specification for <code>yPum</code>.
+September 14, 2026, by Michael Wetter:<br/>
+Corrected wrong unit for <code>yPum</code>.
 </li>
 <li>
 July 31, 2020, by Antoine Gautier:<br/>
