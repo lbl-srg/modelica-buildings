@@ -1,6 +1,6 @@
 within Buildings.Fluid.DataCenters.Racks;
 package RearDoorHeatExchangers "Package with models for rear door heat exchangers"
-  extends Modelica.Icons.VariantsPackage;
+  extends Modelica.Icons.Package;
 
 annotation (
   Documentation(
@@ -36,5 +36,29 @@ September 18, 2026, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>
-</html>"));
+</html>"), Icon(graphics={
+        Rectangle(
+          lineColor={128,128,128},
+          extent={{-100,-100},{100,100}},
+          radius=25.0),
+        Rectangle(
+          extent={{-82,63},{86,56}},
+          lineColor={0,0,255},
+          pattern=LinePattern.None,
+          fillColor={0,0,0},
+          fillPattern=FillPattern.Solid),
+        Rectangle(
+          extent={{-84,-57},{84,-64}},
+          lineColor={0,0,255},
+          pattern=LinePattern.None,
+          fillColor={0,0,0},
+          fillPattern=FillPattern.Solid),
+        Rectangle(
+          extent={{-54,88},{56,-84}},
+          lineColor={0,0,0},
+          lineThickness=0.5,
+          fillColor={255,255,255},
+          fillPattern=FillPattern.Solid),
+        Line(points={{56,88},{-54,-84}}, color={0,0,0},
+          thickness=0.5)}));
 end RearDoorHeatExchangers;

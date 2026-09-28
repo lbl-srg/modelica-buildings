@@ -5,10 +5,8 @@ partial model PartialExample
 
   package MediumCoo = Buildings.Media.Water
     "Coolant medium";
-
   package MediumAir = Buildings.Media.Air
     "Air medium";
-
   parameter Modelica.Units.SI.HeatFlowRate Q_flow_nominal = -10000
   "Nominal cooling duty (negative = heat removed from air)";
 
