@@ -2,7 +2,7 @@ within Buildings.Fluid.DataCenterEquipment.CDUs.LiquidToLiquid;
 model CDU_epsNTU "CDU using epsilon-NTU for heat transfer"
   extends
     Buildings.Fluid.DataCenterEquipment.CDUs.BaseClasses.PartialCDU(
-      redeclare Fluid.HeatExchangers.PlateHeatExchangerEffectivenessNTU hex(
+      redeclare Buildings.Fluid.HeatExchangers.PlateHeatExchangerEffectivenessNTU hex(
       final from_dp1=from_dpPla,
       final dp1_nominal=dat.dpHexPla_nominal,
       final linearizeFlowResistance1=linearizeFlowResistancePla,

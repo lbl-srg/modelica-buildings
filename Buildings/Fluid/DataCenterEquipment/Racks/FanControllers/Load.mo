@@ -14,10 +14,10 @@ model Load
           extent={{-140,-20},{-100,20}}), iconTransformation(extent={{-120,-10},
             {-100,10}})));
 
-  Controls.OBC.CDL.Interfaces.RealOutput y "Fan control signal"
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput y "Fan control signal"
     annotation (Placement(transformation(extent={{100,-20},{140,20}})));
 
-    Controls.OBC.CDL.Reals.MultiplyByParameter nor(
+    Buildings.Controls.OBC.CDL.Reals.MultiplyByParameter nor(
     k=1/P_nominal,
     u(final unit="W"),
     y(final unit="1")) "Normalized IT power"

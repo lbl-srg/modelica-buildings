@@ -100,7 +100,7 @@ protected
 
   parameter Modelica.Units.SI.HeatFlowRate Q_flow_nominal = m_flow_nominal * cp_default * 10
     "Heat at full load giving a temperature rise of 10 K";
-  Controls.OBC.CDL.Reals.Sources.Constant TOutSet(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant TOutSet(
     y(final unit="K", displayUnit="degC"),
     final k=TAirOutSet)
     "Temperature set point"

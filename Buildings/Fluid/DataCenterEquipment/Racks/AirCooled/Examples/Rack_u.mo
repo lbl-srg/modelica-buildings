@@ -30,14 +30,14 @@ model Rack_u "Example model for air cooled rack"
     annotation (Placement(transformation(extent={{10,-10},{-10,10}},
         rotation=270,
         origin={10,-40})));
-  Fluid.Sensors.TemperatureTwoPort senTOut(
+  Buildings.Fluid.Sensors.TemperatureTwoPort senTOut(
     redeclare package Medium = Medium,
     allowFlowReversal=false,
     m_flow_nominal=dat.m_flow_nominal,
     tau=0) "Outlet temperature"
     annotation (Placement(transformation(extent={{40,-10},{60,10}})));
 
-  Fluid.Sensors.TemperatureTwoPort senTIn(
+  Buildings.Fluid.Sensors.TemperatureTwoPort senTIn(
     redeclare package Medium = Medium,
     allowFlowReversal=false,
     m_flow_nominal=dat.m_flow_nominal,

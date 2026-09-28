@@ -24,7 +24,7 @@ model Active
     "Active rear door heat exchanger"
     annotation (Placement(transformation(extent={{-30,-10},{-10,10}})));
 
-  Sources.Boundary_pT airSou(
+  Buildings.Fluid.Sources.Boundary_pT airSou(
     redeclare package Medium = MediumAir,
     p=MediumAir.p_default + dat.dpAir_nominal,
     nPorts=1,
@@ -34,7 +34,7 @@ model Active
         rotation=0,
         origin={82,-40})));
 
-  FixedResistances.PressureDrop res(
+  Buildings.Fluid.FixedResistances.PressureDrop res(
     redeclare package Medium = MediumAir,
     m_flow_nominal=dat.mAir_flow_nominal,
     dp_nominal=dat.dpAir_nominal) "Resistance of upstream rack"

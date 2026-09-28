@@ -66,7 +66,7 @@ record Generic_epsNTU
     annotation(Dialog(tab="Flow resistance", group="Medium 2"));
 
   // Volume fractions
-  parameter Fluid.DataCenterEquipment.CDUs.Types.Media medPla=Buildings.Fluid.DataCenterEquipment.CDUs.Types.Media.Water
+  parameter Buildings.Fluid.DataCenterEquipment.CDUs.Types.Media medPla=Buildings.Fluid.DataCenterEquipment.CDUs.Types.Media.Water
     "Media for which performance data are specified"
     annotation (Dialog(group="Plant-side medium for performance data"));
   parameter Real phiGlyPla = 0
@@ -88,7 +88,7 @@ record Generic_epsNTU
       "Glycol mass fraction for which performance data are specified. Set to 0 if only water is used."
     annotation(Dialog(group="Plant-side medium for performance data"));
 
-  parameter Fluid.DataCenterEquipment.CDUs.Types.Media medRac
+  parameter Buildings.Fluid.DataCenterEquipment.CDUs.Types.Media medRac
     "Media for which performance data are specified"
     annotation (Dialog(group="Rack-side medium for performance data"));
   parameter Real phiGlyRac(

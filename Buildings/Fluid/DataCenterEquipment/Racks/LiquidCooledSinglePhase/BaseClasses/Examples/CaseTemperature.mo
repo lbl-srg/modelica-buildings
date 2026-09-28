@@ -6,7 +6,7 @@ model CaseTemperature "Example model for case temperature"
   Buildings.Fluid.DataCenterEquipment.Racks.LiquidCooledSinglePhase.BaseClasses.CaseTemperature
     casTem(dat=ocpOAM3, V_flow_nominal=2.5/60/1000) "Case temperature"
     annotation (Placement(transformation(extent={{10,-10},{30,10}})));
-  Controls.OBC.CDL.Reals.Sources.Ramp V_flow(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Ramp V_flow(
    y(final unit="m3/s"),
     height(
       final unit="m3/s",
@@ -17,10 +17,10 @@ model CaseTemperature "Example model for case temperature"
       displayUnit="dm3/min") = 0.0001,
     startTime=0) "Volume flow rate"
     annotation (Placement(transformation(extent={{-80,20},{-60,40}})));
-  Controls.OBC.CDL.Reals.Sources.Constant TIn(k=273.15 + 30)
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant TIn(k=273.15 + 30)
                                                         "Inlet temperature"
     annotation (Placement(transformation(extent={{-80,-10},{-60,10}})));
-  Controls.OBC.CDL.Reals.Sources.Constant P(k=1000) "Heat flow rate"
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant P(k=1000) "Heat flow rate"
     annotation (Placement(transformation(extent={{-80,-40},{-60,-20}})));
   parameter Data.BaseClasses.Generic_R_m_flow ocpOAM3(
     V_flow=nPar*{1.5,2.0,2.5,3.0,3.5}/60/1000,

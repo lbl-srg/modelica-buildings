@@ -17,7 +17,7 @@ model Passive
     "Passive rear door heat exchanger"
     annotation (Placement(transformation(extent={{-30,-10},{-10,10}})));
 
-  Sources.MassFlowSource_T airSou(
+  Buildings.Fluid.Sources.MassFlowSource_T airSou(
     redeclare package Medium = MediumAir,
     nPorts=1,
     use_m_flow_in=false,

@@ -65,7 +65,7 @@ model PartialCDU "Partial model for a CDU"
     "Set to false to avoid any power from the pump (=heat and flow work) being added to medium (may give simpler equations)";
 
   // Valve controller parameters
-  parameter Controls.OBC.CDL.Types.SimpleController controllerTypeVal=Buildings.Controls.OBC.CDL.Types.SimpleController.PI
+  parameter Buildings.Controls.OBC.CDL.Types.SimpleController controllerTypeVal=Buildings.Controls.OBC.CDL.Types.SimpleController.PI
     "Type of controller for valve"
     annotation(Dialog(group="Valve controller"));
   parameter Real kVal=1 "Gain of controller for valve"
@@ -80,7 +80,7 @@ model PartialCDU "Partial model for a CDU"
       enable=controllerTypeVal==Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
 
   // Pump controller parameters
-  parameter Controls.OBC.CDL.Types.SimpleController controllerTypePum=Buildings.Controls.OBC.CDL.Types.SimpleController.PI
+  parameter Buildings.Controls.OBC.CDL.Types.SimpleController controllerTypePum=Buildings.Controls.OBC.CDL.Types.SimpleController.PI
     "Type of controller for pump"
     annotation(Dialog(group="Pump controller"));
   parameter Real kPum=1 "Gain of controller for pump"
@@ -113,7 +113,7 @@ model PartialCDU "Partial model for a CDU"
         iconTransformation(extent={{100,80},{120,100}})));
 
   // Components
-  Controls.OBC.CDL.Reals.PID conVal(
+  Buildings.Controls.OBC.CDL.Reals.PID conVal(
     u_s(final unit="K", displayUnit="degC"),
     u_m(final unit="K", displayUnit="degC"),
     final controllerType=controllerTypeVal,
@@ -125,7 +125,7 @@ model PartialCDU "Partial model for a CDU"
     xi_start=1)
     "Controller for valve"
     annotation (Placement(transformation(extent={{-80,90},{-60,110}})));
-  Controls.OBC.CDL.Reals.PID conPum(
+  Buildings.Controls.OBC.CDL.Reals.PID conPum(
     u_s(final unit="Pa"),
     u_m(final unit="Pa"),
     final controllerType=controllerTypePum,
@@ -148,7 +148,7 @@ model PartialCDU "Partial model for a CDU"
       final show_T=show_T) "Heat exchanger"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
 
-  Fluid.Actuators.Valves.TwoWayEqualPercentage val(
+  Buildings.Fluid.Actuators.Valves.TwoWayEqualPercentage val(
     redeclare final package Medium = MediumPla,
     final allowFlowReversal=allowFlowReversalPla,
     m_flow_nominal=dat.mPla_flow_nominal,
@@ -167,7 +167,7 @@ model PartialCDU "Partial model for a CDU"
 
   // Use sqrt for efficiency because input is the total efficiency, but this is split up into a
   // motor and a hyraulic efficiency which are then multiplied with each other.
-  Fluid.Movers.SpeedControlled_y pum(
+  Buildings.Fluid.Movers.SpeedControlled_y pum(
     redeclare final package Medium = MediumRac,
     energyDynamics=energyDynamics,
     final allowFlowReversal=allowFlowReversalRac,
@@ -195,7 +195,7 @@ model PartialCDU "Partial model for a CDU"
         rotation=90,
         origin={-20,-40})));
 
-  Fluid.FixedResistances.PressureDrop fil(
+  Buildings.Fluid.FixedResistances.PressureDrop fil(
     redeclare final package Medium = MediumRac,
     final allowFlowReversal=allowFlowReversalRac,
     final m_flow_nominal=mRac_flow_nominal,
@@ -207,16 +207,16 @@ model PartialCDU "Partial model for a CDU"
         rotation=180,
       origin={-40,-60})));
 
-  Fluid.Storage.ExpansionVessel exp(
+  Buildings.Fluid.Storage.ExpansionVessel exp(
     redeclare package Medium = MediumRac,
     final V_start=dat.VExp) "Expansion vessel"
     annotation (Placement(transformation(extent={{-60,-8},{-40,12}})));
 
-  Fluid.Sensors.RelativePressure senRelPre(
+  Buildings.Fluid.Sensors.RelativePressure senRelPre(
     redeclare package Medium = MediumRac)
     "Differential pressure sensor"
     annotation (Placement(transformation(extent={{-10,-130},{10,-150}})));
-  Fluid.Sensors.TemperatureTwoPort senTemRacSup(
+  Buildings.Fluid.Sensors.TemperatureTwoPort senTemRacSup(
     redeclare final package Medium = MediumRac,
     final allowFlowReversal=allowFlowReversalRac,
     final m_flow_nominal=mRac_flow_nominal)

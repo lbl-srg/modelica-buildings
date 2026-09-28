@@ -53,7 +53,7 @@ model ColdPlateR_P "Example model for cold plate"
     nPorts=1) "Pressure boundary condition"
     annotation (Placement(transformation(extent={{90,-10},{70,10}})));
 
-  Fluid.Sensors.TemperatureTwoPort senTOut(
+  Buildings.Fluid.Sensors.TemperatureTwoPort senTOut(
     redeclare package Medium = Medium,
     allowFlowReversal=false,
     m_flow_nominal=m_flow_nominal,

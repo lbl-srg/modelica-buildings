@@ -96,7 +96,7 @@ model CDU_epsNTU "Example model of a CDU with varying load on the IT side"
     allowFlowReversalPla=false,
     yPum_start=1) "CDU, modelled for simplicity as one large CDU"
     annotation (Placement(transformation(extent={{-10,16},{10,36}})));
-  Fluid.Sources.Boundary_pT sou(redeclare package Medium = MediumChi,
+  Buildings.Fluid.Sources.Boundary_pT sou(redeclare package Medium = MediumChi,
     p=300000 + 2*dpHexChi_nominal,
     T=TChi_a,
     nPorts=1)
@@ -104,27 +104,27 @@ model CDU_epsNTU "Example model of a CDU with varying load on the IT side"
         extent={{-10,-10},{10,10}},
         rotation=0,
         origin={-90,120})));
-  Fluid.Sensors.TemperatureTwoPort senTCDU_b(
+  Buildings.Fluid.Sensors.TemperatureTwoPort senTCDU_b(
     redeclare package Medium = MediumChi,
     allowFlowReversal=false,
     m_flow_nominal=mChi_flow_nominal,
     tau=0) "Outlet temperature"
     annotation (Placement(transformation(extent={{30,110},{50,130}})));
-  Fluid.Sensors.TemperatureTwoPort senTRac_a(
+  Buildings.Fluid.Sensors.TemperatureTwoPort senTRac_a(
     redeclare package Medium = MediumRac,
     allowFlowReversal=false,
     m_flow_nominal=mRac_flow_nominal,
     tau=0) "Rack inlet temperature"
     annotation (Placement(transformation(extent={{-70,10},{-90,30}})));
-  Fluid.Sensors.TemperatureTwoPort senTRac_b(
+  Buildings.Fluid.Sensors.TemperatureTwoPort senTRac_b(
     redeclare package Medium = MediumRac,
     allowFlowReversal=false,
     m_flow_nominal=mRac_flow_nominal,
     tau=0) "Rack outlet temperature"
     annotation (Placement(transformation(extent={{80,10},{60,30}})));
-  Controls.OBC.CDL.Reals.Sources.Constant dpSet(k=50000) "Set point for head"
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant dpSet(k=50000) "Set point for head"
     annotation (Placement(transformation(extent={{-60,30},{-40,50}})));
-  Controls.OBC.CDL.Reals.Sources.Constant TSetRacIn(k=TRac_a)
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant TSetRacIn(k=TRac_a)
     "Set point for rack inlet temperature"
     annotation (Placement(transformation(extent={{-60,72},{-40,92}})));
 

@@ -48,13 +48,13 @@ model Active
     final k=k,
     final Ti=Ti) "Controller for fan"
     annotation (Placement(transformation(extent={{-40,-30},{-20,-10}})));
-  Sensors.Pressure senPreIn(redeclare package Medium = MediumAir)
+  Buildings.Fluid.Sensors.Pressure senPreIn(redeclare package Medium = MediumAir)
     "Inlet pressure"
     annotation (Placement(transformation(extent={{90,-46},{70,-26}})));
-  Sensors.Pressure senPreOut(redeclare package Medium = MediumAir)
+  Buildings.Fluid.Sensors.Pressure senPreOut(redeclare package Medium = MediumAir)
     "Outlet pressure"
     annotation (Placement(transformation(extent={{-90,-30},{-70,-10}})));
-  Sensors.TemperatureTwoPort senTAirReaDooHexOut(
+  Buildings.Fluid.Sensors.TemperatureTwoPort senTAirReaDooHexOut(
     redeclare package Medium = MediumAir,
     final allowFlowReversal=allowFlowReversalAir,
     m_flow_nominal=dat.mAir_flow_nominal)

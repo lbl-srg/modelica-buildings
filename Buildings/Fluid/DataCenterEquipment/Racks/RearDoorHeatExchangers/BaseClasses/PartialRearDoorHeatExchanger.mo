@@ -75,7 +75,7 @@ partial model PartialRearDoorHeatExchanger
     "Rear door heat exchanger"
     annotation (Placement(transformation(extent={{-10,44},{10,64}})));
 
-  Sensors.TemperatureTwoPort senTAirReaDooHexIn(
+  Buildings.Fluid.Sensors.TemperatureTwoPort senTAirReaDooHexIn(
     redeclare package Medium = MediumAir,
     final allowFlowReversal=allowFlowReversalAir,
     m_flow_nominal=dat.mAir_flow_nominal)

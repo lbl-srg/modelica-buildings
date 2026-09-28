@@ -45,7 +45,7 @@ model BackPressure
       origin={0,50},
       extent={{-10,-60},{10,-40}})));
 
-  Controls.OBC.CDL.Interfaces.RealOutput y "Fan control signal"
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput y "Fan control signal"
     annotation (Placement(transformation(extent={{100,-20},{140,20}})));
 equation
   connect(pSet, con.u_s)

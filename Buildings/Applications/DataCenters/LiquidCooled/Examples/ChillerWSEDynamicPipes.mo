@@ -10,7 +10,7 @@ model ChillerWSEDynamicPipes
       TiVal=30,
       kPum=0.5,
       TiPum=30));
-  Controls.OBC.CDL.Reals.Sources.TimeTable utiLiq(
+  Buildings.Controls.OBC.CDL.Reals.Sources.TimeTable utiLiq(
     table=[
       0,  0.5;
       120,0.5;

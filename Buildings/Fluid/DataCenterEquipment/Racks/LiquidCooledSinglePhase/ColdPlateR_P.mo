@@ -61,7 +61,7 @@ protected
       "Inlet temperature"
     annotation (Placement(transformation(extent={{-60,64},{-40,84}})));
 
-  Fluid.FixedResistances.PressureDrop preDro(
+  Buildings.Fluid.FixedResistances.PressureDrop preDro(
     redeclare package Medium = Medium,
     final allowFlowReversal=allowFlowReversal,
     final m_flow_nominal=dat.m_flow_nominal,

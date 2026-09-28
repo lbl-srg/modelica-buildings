@@ -127,7 +127,7 @@ model LiquidCooledSinglePhase
         rotation=90,
         origin={20,-100})));
 
-  Fluid.Sensors.TemperatureTwoPort senTLiq_a(
+  Buildings.Fluid.Sensors.TemperatureTwoPort senTLiq_a(
     redeclare package Medium = MediumLiq,
     allowFlowReversal=false,
     m_flow_nominal=mLiq_flow_nominal,
@@ -135,7 +135,7 @@ model LiquidCooledSinglePhase
     "Liquid inlet temperature to rack"
     annotation (Placement(transformation(extent={{-50,50},{-30,70}})));
 
-  Fluid.Sensors.TemperatureTwoPort senTLiq_b(
+  Buildings.Fluid.Sensors.TemperatureTwoPort senTLiq_b(
     redeclare package Medium = MediumLiq,
     allowFlowReversal=false,
     m_flow_nominal=mLiq_flow_nominal,
@@ -143,7 +143,7 @@ model LiquidCooledSinglePhase
     "Liquid outlet temperature from rack"
     annotation (Placement(transformation(extent={{100,50},{120,70}})));
 
-  Fluid.Sensors.TemperatureTwoPort senTAir_a(
+  Buildings.Fluid.Sensors.TemperatureTwoPort senTAir_a(
     redeclare package Medium = MediumAir,
     allowFlowReversal=false,
     m_flow_nominal=datAir.m_flow_nominal,
@@ -151,7 +151,7 @@ model LiquidCooledSinglePhase
     "Air inlet temperature"
     annotation (Placement(transformation(extent={{-30,-50},{-10,-30}})));
 
-  Fluid.Sensors.TemperatureTwoPort senTAir_b(
+  Buildings.Fluid.Sensors.TemperatureTwoPort senTAir_b(
     redeclare package Medium = MediumAir,
     allowFlowReversal=false,
     m_flow_nominal=datAir.m_flow_nominal,
@@ -168,7 +168,7 @@ model LiquidCooledSinglePhase
     "PI controller for pump speed to maintain constant pressure across rack"
     annotation (Placement(transformation(extent={{-80,110},{-60,130}})));
 
-  Actuators.Valves.TwoWayLinear val(
+  Buildings.Fluid.Actuators.Valves.TwoWayLinear val(
     redeclare package Medium = MediumLiq,
     m_flow_nominal=mLiq_flow_nominal,
     dpValve_nominal=dpValve_nominal) "Valve"
@@ -176,11 +176,11 @@ model LiquidCooledSinglePhase
         extent={{-10,-10},{10,10}},
         rotation=270,
         origin={0,40})));
-  Controls.OBC.CDL.Reals.Sources.Constant TSetRet(k=TLiqIn_nominal +
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant TSetRet(k=TLiqIn_nominal +
         dTLiq_nominal) "Temperature setpoint for return water"
     annotation (Placement(transformation(extent={{-120,150},{-100,170}})));
 
-  Controls.OBC.CDL.Reals.PID conVal(
+  Buildings.Controls.OBC.CDL.Reals.PID conVal(
     controllerType=Buildings.Controls.OBC.CDL.Types.SimpleController.PI,
     Ti=30,
     yMax=1,
@@ -209,7 +209,7 @@ model LiquidCooledSinglePhase
     "Temperature setpoint for cooler"
     annotation (Placement(transformation(extent={{-220,58},{-200,78}})));
 
-  Fluid.Sensors.RelativePressure senRelPre(redeclare package Medium = MediumLiq)
+  Buildings.Fluid.Sensors.RelativePressure senRelPre(redeclare package Medium = MediumLiq)
     "Relative pressure sensor across rack"
     annotation (Placement(transformation(
         extent={{10,-10},{-10,10}},

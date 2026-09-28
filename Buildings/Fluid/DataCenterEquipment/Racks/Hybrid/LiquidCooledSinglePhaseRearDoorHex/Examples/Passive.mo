@@ -49,13 +49,13 @@ model Passive
     nPorts=1) "Rear door heat exchanger coolant supply at elevated pressure"
     annotation (Placement(transformation(extent={{-80,-10},{-60,10}})));
 
-  Sources.Boundary_pT sinReaDoo(
+  Buildings.Fluid.Sources.Boundary_pT sinReaDoo(
     redeclare package Medium = MediumReaDooHex,
     p=MediumReaDooHex.p_default,
     nPorts=1) "Sink rear door heat exchanger coolant"
     annotation (Placement(transformation(extent={{182,-10},{162,10}})));
 
-  Sensors.TemperatureTwoPort senTReaDooLvg(
+  Buildings.Fluid.Sensors.TemperatureTwoPort senTReaDooLvg(
     redeclare package Medium = MediumReaDooHex,
     allowFlowReversal=false,
     m_flow_nominal=mReaDoo_flow_nominal,

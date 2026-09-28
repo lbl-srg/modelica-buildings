@@ -37,7 +37,7 @@ partial model PartialRack "Partial model of an IT rack, with utilization as inpu
     final unit="1",
     final min=0) = P / dat.PIT_nominal "IT utilization";
 
-  Fluid.Delays.DelayFirstOrder vol(
+  Buildings.Fluid.Delays.DelayFirstOrder vol(
     redeclare final package Medium = Medium,
     final energyDynamics=energyDynamics,
     final T_start=T_start,
