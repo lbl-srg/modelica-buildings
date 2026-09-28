@@ -43,7 +43,7 @@ model BoilerPlantPrimary
     "Boiler-2 nominal mass flow rate"
     annotation(Dialog(group="Boiler parameters"));
 
-  final constant Buildings.Fluid.Boilers.Data.Lochinvar.Crest.FBdash2501 perBoiOri
+  final parameter Buildings.Fluid.Boilers.Data.Lochinvar.Crest.FBdash2501 perBoiOri
     "Original record for boiler performance data is scaled below";
 
   final parameter Buildings.Fluid.Boilers.Data.Lochinvar.Crest.FBdash2501 perBoi1(
@@ -231,7 +231,7 @@ model BoilerPlantPrimary
     final p=100000,
     nPorts=1)
     "Source for pressure and to account for thermal expansion of water"
-    annotation (Placement(transformation(extent={{-80,-160},{-60,-140}})));
+    annotation (Placement(transformation(extent={{240,-200},{220,-180}})));
 
   Buildings.Fluid.Boilers.BoilerTable boi2(
     redeclare package Medium = MediumW,
@@ -595,9 +595,8 @@ equation
   connect(senTem4.T, TRetSec) annotation (Line(points={{190,171},{190,180},{248,
           180},{248,140},{340,140}},
                            color={0,0,127}));
-  connect(preSou.ports[1], spl1.port_2) annotation (Line(points={{-60,-150},{-60,
-          -152},{-48,-152},{-48,-132},{-30,-132},{-30,-140}},      color={0,127,
-          255}));
+  connect(preSou.ports[1], spl6.port_2) annotation (Line(points={{220,-190},{180,
+          -190},{180,-150},{160,-150}}, color={0,127,255}));
   connect(cheVal1.port_b, pum1.port_a)
     annotation (Line(points={{-30,-70},{-30,-60}}, color={0,127,255}));
   connect(cheVal2.port_b,pum2. port_a)
