@@ -65,7 +65,7 @@ model ChillerWSE
   parameter Modelica.Units.SI.PressureDifference dPRac_nominal = 60000
     "Rack design pressure drop";
   parameter
-    Buildings.Fluid.DataCenterEquipment.Racks.LiquidCooledSinglePhase.Data.OCP_1kW_OAM_PG25
+    Buildings.Fluid.DataCenters.Racks.Liquid.Data.OCP_1kW_OAM_PG25
     datRac(PIT_nominal=PRac, m_flow_nominal=mRac_flow_nominal)
     "Performance data for IT rack"
     annotation (Placement(transformation(extent={{40,-80},{60,-60}})));
@@ -89,12 +89,12 @@ model ChillerWSE
   final parameter Modelica.Units.SI.MassFlowRate mWSEPla_flow_nominal(min=0)=-QWSE_flow_nominal/dTPla_nominal/cpChi_default
     "Nominal mass flow rate at WSE on chilled water side";
 
-  parameter Fluid.DataCenterEquipment.CDUs.LiquidToLiquid.Data.Generic_2MW datCDU(
+  parameter Fluid.DataCenters.CDUs.LiquidToLiquid.Data.Generic_2MW datCDU(
     TApp_nominal=TApp_nominal,
     TRacOut_nominal=TRacSup_nominal,
-    medPla=Buildings.Fluid.DataCenterEquipment.CDUs.Types.Media.Water,
+    medPla=Buildings.Fluid.DataCenters.CDUs.Types.Media.Water,
     phiGlyPla=0,
-    medRac=Buildings.Fluid.DataCenterEquipment.CDUs.Types.Media.PropyleneGlycol,
+    medRac=Buildings.Fluid.DataCenters.CDUs.Types.Media.PropyleneGlycol,
     phiGlyRac=0.25,
     Q_flow_nominal=-PRac,
     mPla_flow_nominal=mPla_flow_nominal,
@@ -117,7 +117,7 @@ model ChillerWSE
   Controls.OBC.CDL.Reals.Sources.Constant uti(k=0.6)
     "Utilization of hardware"
     annotation (Placement(transformation(extent={{-80,-80},{-60,-60}})));
-  Buildings.Fluid.DataCenterEquipment.Racks.LiquidCooledSinglePhase.ColdPlateR_P rac(
+  Buildings.Fluid.DataCenters.Racks.Liquid.ColdPlateR_P rac(
     redeclare package Medium = MediumRac,
     allowFlowReversal=false,
     dat=datRac,
@@ -136,7 +136,7 @@ model ChillerWSE
     tau=0) "Chilled water supply temperature"
     annotation (Placement(transformation(extent={{-50,110},{-30,130}})));
 
-  Buildings.Fluid.DataCenterEquipment.CDUs.LiquidToLiquid.CDU_epsNTU cdu(
+  Buildings.Fluid.DataCenters.CDUs.LiquidToLiquid.CDU_epsNTU cdu(
     redeclare package MediumPla = MediumChi,
     redeclare package MediumRac = MediumRac,
     show_T=true,

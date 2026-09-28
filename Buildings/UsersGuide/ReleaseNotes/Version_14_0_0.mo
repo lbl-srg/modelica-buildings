@@ -17,7 +17,7 @@ The following <b style=\"color:blue\">new libraries</b> have been added:
     <td valign=\"top\">System models for liquid cooled data centers.
     </td>
 </tr>
-<tr><td valign=\"top\">Buildings.Fluid.DataCenterEquipment
+<tr><td valign=\"top\">Buildings.Fluid.DataCenters
     </td>
     <td valign=\"top\">Component models for liquid cooled data centers,
                        such as CDUs and racks.
