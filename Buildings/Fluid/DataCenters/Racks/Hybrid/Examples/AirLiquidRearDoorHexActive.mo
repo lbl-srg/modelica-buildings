@@ -1,21 +1,26 @@
 within Buildings.Fluid.DataCenters.Racks.Hybrid.Examples;
 model AirLiquidRearDoorHexActive
   "Example model for hybrid liquid-cooled and air-cooled rack with active rear door heat exchanger"
-  extends Buildings.Fluid.DataCenters.Racks.Hybrid.Examples.AirLiquidRearDoorHexPassive(
-    redeclare replaceable Buildings.Fluid.DataCenters.Racks.Hybrid.Data.AirLiquidRearDoorHex.Active.Generic dat
-    constrainedby Buildings.Fluid.DataCenters.Racks.Hybrid.Data.AirLiquidRearDoorHex.Active.Generic(
+  extends
+    Buildings.Fluid.DataCenters.Racks.Hybrid.Examples.AirLiquidRearDoorHexPassive(
+    redeclare replaceable
+      Buildings.Fluid.DataCenters.Racks.Hybrid.Data.AirLiquidRearDoorHexActive.Generic
+      dat constrainedby
+      Buildings.Fluid.DataCenters.Racks.Hybrid.Data.AirLiquidRearDoorHexActive.Generic(
       liq=datLiq,
       air=datAir,
       reaDooHex=datReaDooHex),
-    redeclare replaceable Buildings.Fluid.DataCenters.Racks.Hybrid.AirLiquidRearDoorHexActive rac
-    constrainedby Buildings.Fluid.DataCenters.Racks.Hybrid.BaseClasses.PartialAirLiquidRearDoorHex(
+    redeclare replaceable
+      Buildings.Fluid.DataCenters.Racks.Hybrid.AirLiquidRearDoorHexActive rac
+      constrainedby
+      Buildings.Fluid.DataCenters.Racks.Hybrid.BaseClasses.PartialAirLiquidRearDoorHex(
       redeclare package MediumLiq = MediumLiq,
       redeclare package MediumAir = MediumAir,
       redeclare package MediumReaDooHex = MediumReaDooHex,
       dat=dat),
     redeclare replaceable parameter
-    Buildings.Fluid.DataCenters.Racks.RearDoorHeatExchangers.Data.Active.Generic datReaDooHex
-    constrainedby
+      Buildings.Fluid.DataCenters.Racks.RearDoorHeatExchangers.Data.Active.Generic
+      datReaDooHex constrainedby
       Buildings.Fluid.DataCenters.Racks.RearDoorHeatExchangers.Data.Passive.Generic);
 
   annotation (

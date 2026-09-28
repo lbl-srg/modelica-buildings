@@ -2,9 +2,11 @@ within Buildings.Fluid.DataCenters.Racks.Hybrid.BaseClasses;
 partial model PartialAirLiquidRearDoorHex
   "Partial model for hybrid rack combining liquid-cooled and air-cooled components with a rear door heat exchanger"
   extends Buildings.Fluid.DataCenters.Racks.Hybrid.BaseClasses.AirLiquid(
-    redeclare replaceable parameter Buildings.Fluid.DataCenters.Racks.Hybrid.Data.AirLiquidRearDoorHex.Passive.Generic dat
-    constrainedby Buildings.Fluid.DataCenters.Racks.Hybrid.Data.AirLiquidRearDoorHex.Passive.Generic(
-      reaDooHex=dat.reaDooHex));
+      redeclare replaceable parameter
+      Buildings.Fluid.DataCenters.Racks.Hybrid.Data.AirLiquidRearDoorHexPassive.Generic
+      dat constrainedby
+      Buildings.Fluid.DataCenters.Racks.Hybrid.Data.AirLiquidRearDoorHexPassive.Generic(
+        reaDooHex=dat.reaDooHex));
 
   replaceable package MediumReaDooHex = Modelica.Media.Interfaces.PartialMedium
     "Medium for rear door heat exchanger coolant loop"
