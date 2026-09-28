@@ -4,7 +4,7 @@ TODO on main branches:
 
 - Chiller:
   - [x] `pla(intChi(valChiWatChiBypPar(from_dp=true)))`: solves HardCase1 with 7 NL failures (`linearized=true` has 6), HardCase2 NL failures 4 → 0
-- 
+-
 
 
 
@@ -113,13 +113,23 @@ pumChiWat.valChe[1].dp := pumChiWat.pum[1].dpMachine - (pipChiWat.dp + loaCoo.co
 pumChiWat.valChe[2].dp := pumChiWat.pum[2].dpMachine - (pipChiWat.dp + loaCoo.con.val.valEqu.dp + valChiWatUniInlIso[2].lin.dp)
 ```
 
-With the CHW isolation valves and load valve closed and the CHW pumps off, two iteration variables are tied to the residuals only through closed elements one defect each:
+With the CHW isolation valves and load valve closed and the CHW pumps off, two iteration variables are tied to the residuals only through closed elements:
 
 - **A. `port_aChiWat.m_flow` is the CHW loop flow = closed branch of two parallel branches.**
   The load valve (closed) and the minimum flow bypass (open) are in parallel.
-  Tearing selects the flow through the *closed* load valve as the iteration variable (`port_aChiWat.m_flow`) and computes the parallel branch ∆p from the inverse flow function of the valve, `valChiWatMinByp.lin.dp ≈ R_load · port_aChiWat.m_flow` with `R_load = 0.375 · deltaM · Δp_nom / (l² · ṁ_nom) = 3.14e8 Pa/(kg/s)`. The flow through the open bypass valve is calculated from that ∆p.
-  Row 7 therefore sees the loop flow with gain `1 + g_byp · R_load`: 1.4e5 at a bypass ∆p of 20 kPa, 1.7e7 inside the bypass's regularization band. The solution, a loop flow of zero, lies in that band.
-- **B. `valChe[3].dp` is determined by leakage equations.** It reaches rows 1–4 and 6 through the reverse flow of check valve 3 and through the isolation valve ∆p, which feed the leak laws of the three isolation valves and of check valves 1 and 2. Leak conductance `g = 1.40625 · l² · ṁ_nom / (deltaM · Δp_nom)` = 1.7e-7 kg/s/Pa for a closed check valve (`l = 1e-3` by default), 1.7e-8 for a closed isolation valve (`l = 1e-4` by default). Its Jacobian column is O(1e-7) against row norms of 17–1200. So the residuals barely constrain `valChe[3].dp`, and the Jacobian is close to rank-deficient in that direction.
+  Tearing selects the flow through the *closed* load valve as the iteration variable (`port_aChiWat.m_flow`) and computes the parallel branch ∆p from the valve's m-form flow law `basicFlowFunction_m_flow`: `valChiWatMinByp.lin.dp ≈ R_load · port_aChiWat.m_flow` with `R_load = 0.375 · deltaM · Δp_nom / (l² · ṁ_nom) = 3.14e8 Pa/(kg/s)`.
+  The bypass flow is then computed from that ∆p, and row 7, the mass balance at the bypass tee, closes the loop: `r7 = port_aChiWat.m_flow − valIso.port_aChiWat.m_flow + m_byp(R_load · port_aChiWat.m_flow)`.
+  Its derivative with respect to the iteration variable is `1 + g_byp · R_load`, where `g_byp = dm_byp/d∆p` is the local conductance of the open bypass.
+  The solution, a loop flow of about zero since no CHW pump runs, puts the bypass inside its regularization band, `|∆p| < ∆p_t = (m_flow_turbulent / k)² = (0.53 / 0.14)² ≈ 14 Pa`, i.e. a loop flow below `∆p_t / R_load ≈ 4.5e-8 kg/s`.
+  Beyond the band the bypass law is a square root of ∆p, so the derivative of r7 falls as `1/√∆p`: from 1.7e7 inside the band to 1.4e5 at 20 kPa. The last iterate in the log, `port_aChiWat.m_flow = 4.08e-5 kg/s`, is about 900 times the band width: it gives a bypass ∆p of 12.8 kPa and a bypass flow of `0.14 · √12.8e3 = 15.9 kg/s`, which is exactly the residual of row 7 at failure.
+  Newton iteration trace up to the failure (`Advanced.Simulation.Debug.LogNonlinearIterations`):
+  - 47 % of the 41,286 iterates of `port_aChiWat.m_flow` lie outside the 4.5e-8 kg/s band, up to 0.021 kg/s (bypass ∆p ≈ 6.5 MPa). Accordingly, the row scale of row 7 (`J_sum`) varies between 588 and 1.7e7 across Jacobian evaluations.
+  - In the failing solve, the other rows reach 1e-8 to 1e-4 kg/s while the loop flow changes sign with overshoot (e.g. −3.9e-6 → +3.0e-5 kg/s) and row 7 stagnates at 9–15 kg/s until the limit of function calls is reached.
+  - The loop flow never leaves the load valve's own band (1.43 kg/s), so the quadratic branch of the m-form is not involved.
+
+  With `from_dp=true` on the load valve, the iteration variable is `loaCoo.con.val.valEqu.dp`. Its 22,675 logged iterates stay below 0.054 Pa, well inside the 14 Pa band, and the simulation passes 22015 s.
+  Inside its band the load valve's m-form law is linear, so for row 7 the two formulations differ only by a linear change of the iteration variable, which Newton's method is invariant to in exact arithmetic. The difference therefore comes from the solver implementation (step control, scaling, convergence test): in m-form the band spans 4.5e-8 kg/s, far below the flow increments the solver takes, whereas in ∆p form it spans 14 Pa.
+- **B. `valChe[3].dp` is determined by leakage equations.** It reaches rows 1–4 and 6 through the reverse flow of check valve 3 and through the isolation valve ∆p, which feed the leakage equations of the three isolation valves and of check valves 1 and 2. Leakage conductance `g = 1.40625 · l² · ṁ_nom / (deltaM · Δp_nom)` = 1.7e-7 kg/s/Pa for a closed check valve (`l = 1e-3` by default), 1.7e-8 for a closed isolation valve (`l = 1e-4` by default). Its Jacobian column is O(1e-7), and the rows it enters (1–4, 6) are dominated by pump and header flows of O(17 kg/s), so its contribution is below the row resolution. This near-singularity is physical — the node pressure is set by leakage alone, with sensitivity 1/g ≈ 1e7 Pa/(kg/s) — and it is independent of the valve formulation (`from_dp`).
 
 ### NL log
 
@@ -340,3 +350,18 @@ Both failures share one cause, defect A: the tearing takes the flow through the 
 Only the CHW loop can lose its pressure reference, so in principle the HW compliance is redundant. It is not: besides adding a state it **splits the block**. With both, the HW loop is its own 1×1 system (`0 = loaHea.val.dp − comHeaWatSup.p + pipHeaWat.dp + bouHeaWat.p`) and block 1 holds 8 CHW/check valve unknowns; with CHW only, the HW supply pressure is rebuilt algebraically and the HW loop flow and min-bypass row join block 1 (9 unknowns). The run still completes (58.5 s, faster than either), but three Newton failures survive: `initialization.nonlinear[3]` (772 residues, rescued by global homotopy; 2 residues with both) and two at t = 19172.6 / 19174.3, the start of HW pump 1.
 
 These two failures are defect A on its own. There the CHW side is dead (all pumps off, load valve shut) yet not idle: pump 1 pulls node 1 down 24.2 kPa below `comChiWatSup.p` and pushes 4.07e-4 kg/s through the closed `valChiWatUniInlIso[1]`, out through the min bypass. `comChiWatSup.p` is a state, but `port_aChiWat.m_flow` *still* reaches the rows only through the inverse law of the closed load valve, so it must be resolved at 2.4e-11 with `∂r/∂m_load = 1 + g_byp·R_load = 1.66e7` on the bypass row (row 8 of this 9×9 block; log: `J_sum` = 1.65737e7). The HW transient in the same block keeps kicking it past the bypass breakpoint `dp_turb = 14.0 Pa` ⇔ `m_load = 4.5e-8`: at the stall the iterate sits at −9.58e-8, i.e. −30 Pa across the bypass and a phantom 0.77 kg/s of bypass flow — exactly the printed residual. `J_sum` of that row alternates 5.3e5 ↔ 5e6 and the scaled residual limit-cycles between 1.2e-6 and 1.1e-5, never reaching tolerance; `cond = 2.2e6`, nowhere near singular. The trajectory is unaffected (both were rejected steps).
+
+
+
+OCT findings
+
+
+
+Several torn equations compute a closed valve’s Δp from its flow, via basicFlowFunction_m_flow ***even with from_dp=true***:
+
+- valHeaWatUniInlIso[1], valChiWatUniInlIso[1] and valChiWatUniInlIso[2]: HP 1 is isolated, and HP 2’s CHW side is closed.
+- valHeaWatUniInlIso[3], plus the load valves loaCoo and loaHea. This is the load-side defect A from earlier.
+
+Why setting from_dp doesn’t help?
+
+basicFlowFunction_dp and basicFlowFunction_m_flow each carry an inverse() annotation pointing to the other. So even with from_dp=true, the default in ValvesIsolation, the compiler is allowed to invert the law, and OCT does so for closed valves. Changing from_dp or other tearing hints on the valves is therefore unlikely to fix this.

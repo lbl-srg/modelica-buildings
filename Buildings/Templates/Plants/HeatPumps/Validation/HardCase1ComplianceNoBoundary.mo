@@ -1,42 +1,44 @@
 within Buildings.Templates.Plants.HeatPumps.Validation;
-model HardCase1Compliance "Validation of AWHP plant template"
+model HardCase1ComplianceNoBoundary
+  "Validation of AWHP plant template"
   extends Buildings.Templates.Plants.HeatPumps.Validation.HardCase1(
-    pla(use_cpl=true))
-  annotation(IconMap(primitivesVisible = false));
+    pla(use_cpl=true, use_bouHeaWat=false, use_bouChiWat=false))
+    annotation(IconMap(primitivesVisible = false));
 annotation(experiment(StopTime=86400,
   Tolerance=1e-06,
-  __Dymola_Algorithm="Cvode"), Documentation(info="Sizes after manipulation of the nonlinear systems: {1, 8, 1, 1, 1, 1, 1}
-Number of numerical Jacobians: 2
+  __Dymola_Algorithm="Cvode"), Documentation(info="SUNDIALS: CVODE CVode At t = 51197.3, mxstep steps taken before reaching tout.
+SUNDIALS: CVODE CVode At t = 64596.9, mxstep steps taken before reaching tout.
 
 Integration terminated successfully at T = 86400
-   CPU-time for integration                  : 4.43472 seconds
-   CPU-time for initialization               : 0.319882 seconds
-   Number of result points                   : 1637
+   CPU-time for integration                  : 4.59872 seconds
+   CPU-time for initialization               : 0.322768 seconds
+   Number of result points                   : 1629
    Number of grid points                     : 501
-   Number of accepted steps                  : 20709
-   Number of rejected steps                  : 797
-   Number of f-evaluations (dynamics)        : 30657
-   Number of non-linear iteration            : 29436
-   Number of non-linear convergence failures : 896
-   Number of Jacobian-evaluations            : 1415
-   Number of crossing function evaluations   : 23423
-   Number of model time events               : 420
-   Number of state events                    : 150
+   Number of accepted steps                  : 18298
+   Number of rejected steps                  : 608
+   Number of f-evaluations (dynamics)        : 28063
+   Number of non-linear iteration            : 26855
+   Number of non-linear convergence failures : 978
+   Number of Jacobian-evaluations            : 1468
+   Number of crossing function evaluations   : 20903
+   Number of model time events               : 419
+   Number of state events                    : 147
    Number of step events                     : 0
    Maximum integration order                 : 5
 
-SUCCESSFUL simulation of Buildings.Templates.Plants.HeatPumps.Validation.HardCase1Compliance
+SUCCESSFUL simulation of Buildings.Templates.Plants.HeatPumps.Validation.HardCase1ComplianceNoBoundary
 
- Number of steps                                 : 21600
- Number of function evaluations                  : 32709
- Number of Jacobian evaluations                  : 1523
+
+ Number of steps                                 : 18744
+ Number of function evaluations                  : 29233
+ Number of Jacobian evaluations                  : 1574
  Number of function eval. due to Jacobian eval.  : 0
- Number of error test failures                   : 795
- Number of nonlinear iterations                  : 30270
- Number of nonlinear convergence failures        : 336
- Number of state function evaluations            : 25393
- Number of state events                          : 192
- Number of time events                           : 417
+ Number of error test failures                   : 615
+ Number of nonlinear iterations                  : 26981
+ Number of nonlinear convergence failures        : 442
+ Number of state function evaluations            : 21267
+ Number of state events                          : 146
+ Number of time events                           : 415
 
 Solver options:
 
@@ -58,12 +60,8 @@ Solver options:
  Tolerances (relative)    : 1e-06
 
 Simulation interval    : 0.0 - 86400.0 seconds.
-Elapsed simulation time: 26.99222283800009 seconds."),
+Elapsed simulation time: 26.254564670000036 seconds."),
     Icon(graphics={
-        Ellipse(lineColor = {75,138,73},
-                fillColor={255,255,255},
-                fillPattern = FillPattern.Solid,
-                extent={{-100,-100},{100,100}}),
         Polygon(lineColor = {0,0,255},
                 fillColor={0,140,72},
                 pattern = LinePattern.None,
@@ -74,4 +72,4 @@ Elapsed simulation time: 26.99222283800009 seconds."),
                 pattern = LinePattern.None,
                 fillPattern=FillPattern.Solid,
                 points={{0,20},{100,-40},{0,-100},{0,20}})}));
-end HardCase1Compliance;
+end HardCase1ComplianceNoBoundary;

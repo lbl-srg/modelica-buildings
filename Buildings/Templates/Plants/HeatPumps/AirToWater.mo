@@ -19,6 +19,9 @@ model AirToWater
   parameter Boolean use_bouChiWat = false
     "Set to true to force using CHW boundary pressure for all plant configurations"
     annotation(Evaluate=true, Dialog(tab="Advanced"));
+  parameter Boolean use_bouHeaWat = true
+    "Set to false to remove HW boundary pressure"
+    annotation(Evaluate=true, Dialog(tab="Advanced"));
   parameter Boolean use_cpl = false
     "Set to true to use hydraulic compliance"
     annotation(Evaluate=true, Dialog(tab="Dynamics", group="Hydraulic compliance"));
@@ -1073,7 +1076,7 @@ model AirToWater
   Fluid.Sources.Boundary_pT bouHeaWat(
     redeclare final package Medium=MediumHeaWat,
     p=Buildings.Templates.Data.Defaults.pHeaWat_rel_nominal + 101325,
-    nPorts=1) if have_heaWat and locBou <> Buildings.Templates.Plants.HeatPumps.Types.LocationBoundary.HeatPumpOutlet
+    nPorts=1) if have_heaWat and use_bouHeaWat and locBou <> Buildings.Templates.Plants.HeatPumps.Types.LocationBoundary.HeatPumpOutlet
     "Pressure boundary condition mimicking expansion tank"
     annotation(Placement(transformation(extent={{10,-10},{-10,10}},
       rotation=90,

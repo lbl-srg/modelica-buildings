@@ -24,11 +24,11 @@ from plotly.subplots import make_subplots
 RUN_A = ("HardCase1_dassl.mat", "Base")
 # The variants the base run can be compared against, in dropdown order.
 RUNS_B = {
-    "Boundary at pump suction": "HardCase1BoundaryPumpSuction.mat",
-    # "Compliance C=1e-5": "HardCase1Compliance.mat",
-    # "Compliance C=1e-3": "HardCase1ComplianceHighC.mat",
+    # "Boundary at pump suction": "HardCase1BoundaryPumpSuction.mat",
+    "Compliance C=1e-5": "HardCase1Compliance.mat",
+    "Compliance C=1e-4 no pressure boundary": "HardCase1ComplianceHighCNoBoundary.mat",
     # "Leakage": "HardCase1Leakage.mat",
-    "Linearized bypass": "HardCase1LinearizedBypass.mat",
+    # "Linearized bypass": "HardCase1LinearizedBypass.mat",
 }
 DEFAULT_B = next(iter(RUNS_B))
 OUT = "compare.html"

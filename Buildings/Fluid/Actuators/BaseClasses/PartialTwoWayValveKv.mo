@@ -3,6 +3,10 @@ partial model PartialTwoWayValveKv
   "Partial model for a two way valve using a Kv characteristic"
   extends Buildings.Fluid.Actuators.BaseClasses.PartialTwoWayValve;
 
+  parameter Boolean use_inv = true
+    "Set to true to use inverse annotation in basicFlowFunction_dp"
+    annotation(Evaluate=true);
+
 equation
  kVal = phi*Kv_SI;
  if (dpFixed_nominal > Modelica.Constants.eps) then
@@ -18,7 +22,10 @@ equation
  else
    if homotopyInitialization then
      if from_dp then
-         m_flow=homotopy(actual=Buildings.Fluid.BaseClasses.FlowModels.basicFlowFunction_dp(dp=dp, k=k,
+       m_flow=homotopy(actual=if use_inv then
+         Buildings.Fluid.BaseClasses.FlowModels.basicFlowFunction_dp(dp=dp, k=k,
+           m_flow_turbulent=m_flow_turbulent)
+         else Buildings.Fluid.BaseClasses.FlowModels.basicFlowFunction_dpNoInv(dp=dp, k=k,
                                 m_flow_turbulent=m_flow_turbulent),
                                 simplified=m_flow_nominal_pos*dp/dp_nominal_pos);
       else
@@ -28,8 +35,10 @@ equation
      end if;
    else // do not use homotopy
      if from_dp then
-       m_flow=Buildings.Fluid.BaseClasses.FlowModels.basicFlowFunction_dp(dp=dp, k=k,
-                                m_flow_turbulent=m_flow_turbulent);
+       m_flow=if use_inv then Buildings.Fluid.BaseClasses.FlowModels.basicFlowFunction_dp(dp=dp, k=k,
+         m_flow_turbulent=m_flow_turbulent)
+         else Buildings.Fluid.BaseClasses.FlowModels.basicFlowFunction_dpNoInv(dp=dp, k=k,
+         m_flow_turbulent=m_flow_turbulent);
       else
         dp=Buildings.Fluid.BaseClasses.FlowModels.basicFlowFunction_m_flow(m_flow=m_flow, k=k,
                                 m_flow_turbulent=m_flow_turbulent);
