@@ -20,7 +20,9 @@ The following <b style=\"color:blue\">new libraries</b> have been added:
 <tr><td valign=\"top\">Buildings.Fluid.DataCenters
     </td>
     <td valign=\"top\">Component models for liquid cooled data centers,
-                       such as CDUs and racks.
+                       such as CDUs and racks that are air-cooled, liquid-cooled,
+                       or hybrid liquid- and air-cooled. The racks
+                       can also have an optional active or passive rear door heat exchanger.
     </td>
 </tr>
 </table>
