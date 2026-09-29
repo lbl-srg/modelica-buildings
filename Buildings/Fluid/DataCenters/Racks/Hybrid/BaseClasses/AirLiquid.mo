@@ -90,27 +90,39 @@ partial model AirLiquid
       enable=(fanControl == Buildings.Fluid.DataCenters.Racks.FanControllers.Types.Strategy.OutletTemperature),
       group = "Fan controller"));
 
+  parameter Boolean allowFlowReversalAir = true
+    "= false to simplify equations, assuming, but not enforcing, no flow reversal for air loop"
+    annotation(Dialog(tab="Assumptions"), Evaluate=true);
+
+  parameter Boolean allowFlowReversalLiq = true
+    "= false to simplify equations, assuming, but not enforcing, no flow reversal for liquid loop"
+    annotation(Dialog(tab="Assumptions"), Evaluate=true);
+
   // Fluid ports
   Modelica.Fluid.Interfaces.FluidPort_a portLiq_a(
-    redeclare package Medium = MediumLiq)
+    redeclare package Medium = MediumLiq,
+    m_flow(min=if allowFlowReversalLiq then -Modelica.Constants.inf else 0))
     "Liquid cooling inlet port"
     annotation (Placement(transformation(extent={{-110,30},{-90,50}}),
       iconTransformation(extent={{-110,30},{-90,50}})));
 
   Modelica.Fluid.Interfaces.FluidPort_b portLiq_b(
-    redeclare package Medium = MediumLiq)
+    redeclare package Medium = MediumLiq,
+    m_flow(max=if allowFlowReversalLiq then +Modelica.Constants.inf else 0))
     "Liquid cooling outlet port"
     annotation (Placement(transformation(extent={{90,30},{110,50}}),
       iconTransformation(extent={{90,30},{110,50}})));
 
   Modelica.Fluid.Interfaces.FluidPort_a portAir_a(
-    redeclare package Medium = MediumAir)
+    redeclare package Medium = MediumAir,
+    m_flow(min=if allowFlowReversalAir then -Modelica.Constants.inf else 0))
     "Air cooling inlet port"
     annotation (Placement(transformation(extent={{-110,-50},{-90,-30}}),
       iconTransformation(extent={{-110,-50},{-90,-30}})));
 
   Modelica.Fluid.Interfaces.FluidPort_b portAir_b(
-    redeclare package Medium = MediumAir)
+    redeclare package Medium = MediumAir,
+    m_flow(max=if allowFlowReversalAir then +Modelica.Constants.inf else 0))
     "Air cooling outlet port"
     annotation (Placement(transformation(extent={{92,-50},{112,-30}}),
       iconTransformation(extent={{92,-50},{112,-30}})));
@@ -145,6 +157,7 @@ partial model AirLiquid
   // Component instances
   Buildings.Fluid.DataCenters.Racks.Liquid.ColdPlateR_P liq(
     redeclare package Medium = MediumLiq,
+    final allowFlowReversal=allowFlowReversalLiq,
     final dat=dat.liq,
     final energyDynamics=energyDynamicsLiq,
     final tau=tauLiq,
@@ -157,6 +170,7 @@ partial model AirLiquid
 
   Buildings.Fluid.DataCenters.Racks.Air.Rack_P air(
     redeclare package Medium = MediumAir,
+    final allowFlowReversal=allowFlowReversalAir,
     final dat=dat.air,
     final energyDynamics=energyDynamicsAir,
     final tau=tauAir,

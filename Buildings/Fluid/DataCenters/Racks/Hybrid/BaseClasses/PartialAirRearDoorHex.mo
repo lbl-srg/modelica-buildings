@@ -16,14 +16,20 @@ partial model PartialAirRearDoorHex
               X_a=0.25)
               "Propylene glycol water, 25% mass fraction")));
 
+  parameter Boolean allowFlowReversalCoo = true
+    "= false to simplify equations, assuming, but not enforcing, no flow reversal for rear door heat exchanger coolant"
+    annotation(Dialog(tab="Assumptions"), Evaluate=true);
+
   Modelica.Fluid.Interfaces.FluidPort_a portReaDooHex_a(
-    redeclare final package Medium = MediumReaDooHex)
+    redeclare final package Medium = MediumReaDooHex,
+    m_flow(min=if allowFlowReversalCoo then -Modelica.Constants.inf else 0))
     "Rear door heat exchanger coolant inlet port"
     annotation (Placement(transformation(extent={{-110,-10},{-90,10}}),
       iconTransformation(extent={{-110,-10},{-90,10}})));
 
   Modelica.Fluid.Interfaces.FluidPort_b portReaDooHex_b(
-    redeclare final package Medium = MediumReaDooHex)
+    redeclare final package Medium = MediumReaDooHex,
+    m_flow(max=if allowFlowReversalCoo then +Modelica.Constants.inf else 0))
     "Rear door heat exchanger coolant outlet port"
     annotation (Placement(transformation(extent={{90,-10},{110,10}}),
       iconTransformation(extent={{90,-10},{110,10}})));
@@ -32,6 +38,8 @@ partial model PartialAirRearDoorHex
     constrainedby Buildings.Fluid.DataCenters.Racks.RearDoorHeatExchangers.BaseClasses.PartialRearDoorHeatExchanger(
       redeclare package MediumCoo = MediumReaDooHex,
       redeclare package MediumAir = MediumAir,
+      final allowFlowReversalCoo=allowFlowReversalCoo,
+      final allowFlowReversalAir=allowFlowReversal,
       dat(
         mAir_flow_nominal=dat.reaDooHex.mAir_flow_nominal,
         mCoo_flow_nominal=dat.reaDooHex.mCoo_flow_nominal,

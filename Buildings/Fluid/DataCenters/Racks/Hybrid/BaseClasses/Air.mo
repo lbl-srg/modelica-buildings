@@ -52,15 +52,21 @@ partial model Air
       enable=(fanControl == Buildings.Fluid.DataCenters.Racks.FanControllers.Types.Strategy.OutletTemperature),
       group = "Fan controller"));
 
+  parameter Boolean allowFlowReversal = true
+    "= false to simplify equations, assuming, but not enforcing, no flow reversal"
+    annotation(Dialog(tab="Assumptions"), Evaluate=true);
+
   // Fluid ports
   Modelica.Fluid.Interfaces.FluidPort_a portAir_a(
-    redeclare package Medium = MediumAir)
+    redeclare package Medium = MediumAir,
+    m_flow(min=if allowFlowReversal then -Modelica.Constants.inf else 0))
     "Air cooling inlet port"
     annotation (Placement(transformation(extent={{-110,-50},{-90,-30}}),
       iconTransformation(extent={{-110,-50},{-90,-30}})));
 
   Modelica.Fluid.Interfaces.FluidPort_b portAir_b(
-    redeclare package Medium = MediumAir)
+    redeclare package Medium = MediumAir,
+    m_flow(max=if allowFlowReversal then +Modelica.Constants.inf else 0))
     "Air cooling outlet port"
     annotation (Placement(transformation(extent={{92,-50},{112,-30}}),
       iconTransformation(extent={{92,-50},{112,-30}})));
@@ -85,6 +91,7 @@ partial model Air
   // Component instances
   Buildings.Fluid.DataCenters.Racks.Air.Rack_P air(
     redeclare package Medium = MediumAir,
+    final allowFlowReversal=allowFlowReversal,
     final dat=dat.air,
     final energyDynamics=energyDynamicsAir,
     final tau=tauAir,
