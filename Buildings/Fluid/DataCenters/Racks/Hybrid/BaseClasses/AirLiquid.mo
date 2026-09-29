@@ -177,8 +177,8 @@ equation
   connect(portAir_a, air.port_a)
     annotation (Line(points={{-100,-40},{-10,-40}}, color={0,127,255}));
 
-  connect(PLiq, PLiqTot) annotation (Line(points={{-120,72},{-38,72},{-38,80},{110,
-          80}},     color={0,0,127}));
+  connect(PLiq, PLiqTot) annotation (Line(points={{-120,72},{-40,72},{-40,80},{
+          110,80}}, color={0,0,127}));
   connect(PAir, air.P) annotation (Line(points={{-120,-90},{-30,-90},{-30,-34},
           {-11,-34}}, color={0,0,127}));
   connect(air.PTot, PAirTot) annotation (Line(points={{11,-32},{86,-32},{86,-70},
