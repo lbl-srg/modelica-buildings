@@ -108,14 +108,14 @@ model ThermalZone
     "Relative humidity"
     annotation (Placement(transformation(extent={{200,-130},{220,-110}}),iconTransformation(extent={{200,90},{220,110}})));
 protected
-  constant Modelica.Units.SI.SpecificEnergy h_fg=Medium.enthalpyOfCondensingGas(
+  final parameter Modelica.Units.SI.SpecificEnergy h_fg=Medium.enthalpyOfCondensingGas(
       Medium.T_default) "Latent heat of water vapor";
-  constant Modelica.Units.SI.Density rhoAir=Medium.density(Medium.setState_pTX(
+  final parameter Modelica.Units.SI.Density rhoAir=Medium.density(Medium.setState_pTX(
       Medium.p_default,
       Medium.T_default,
       Medium.X_default))
     "Density of air at default medium state";
-  constant Modelica.Units.SI.SpecificHeatCapacity cpAir=Medium.specificHeatCapacityCp(Medium.setState_pTX(
+  final parameter Modelica.Units.SI.SpecificHeatCapacity cpAir=Medium.specificHeatCapacityCp(Medium.setState_pTX(
       Medium.p_default,
       Medium.T_default,
       Medium.X_default))

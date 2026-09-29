@@ -75,11 +75,16 @@ model Guideline36Winter_Autosizing
   parameter Modelica.Units.SI.Temperature
     THeaAirDis_nominal = 40+273.15
     "Nominal discharge air temperature for VAV boxes during heating";
-  constant Modelica.Units.SI.SpecificHeatCapacity cpAir = 1005
-    "Specific heat capacity of air";
-  constant Modelica.Units.SI.SpecificEnergy h_fg=
-      Buildings.Media.Air.enthalpyOfCondensingGas(TCooAirSup_nominal)
+  final parameter Modelica.Units.SI.SpecificHeatCapacity cpAir=MediumA.specificHeatCapacityCp(state_default)
+      "Specific heat capacity of air at default medium state";
+   final parameter Modelica.Units.SI.SpecificEnergy h_fg=
+      MediumA.enthalpyOfCondensingGas(TCooAirSup_nominal)
     "Latent heat of water vapor";
+  protected
+    parameter MediumA.ThermodynamicState state_default = MediumA.setState_pTX(
+      MediumA.p_default,
+      MediumA.T_default,
+      MediumA.X_default) "Default state";
 
   annotation (
     __Dymola_Commands(
@@ -103,8 +108,8 @@ except that the HVAC system is sized using the autosizing feature in Spawn.
 The autosizing feature is used as follows:
 <ul>
 <li>
-Zone level heating and cooling nominal air flowrates for each VAV box are 
-sized using the autosized zone level design sensible heating and cooling loads 
+Zone level heating and cooling nominal air flowrates for each VAV box are
+sized using the autosized zone level design sensible heating and cooling loads
 and design heating and cooling temperature set points.
 </li>
 <li>
@@ -122,11 +127,11 @@ system level design minimum outside air flowrate.
 </li>
 <li>
 AHU cooling coil nominal capacity is calculated as the sum the design
-system level sensible and latent loads.  The sensible/latent load is calculated using a 
+system level sensible and latent loads.  The sensible/latent load is calculated using a
 design mixed air temperature/humidity ratio determined using mixing box mass and energy balance
-that makes use of the autosized system level cooling 
+that makes use of the autosized system level cooling
 design outside air temperature/humidity ratio and minimum outside air flowrate, along with
-the determined AHU nominal air flowrate and the assumed average of the zone 
+the determined AHU nominal air flowrate and the assumed average of the zone
 cooling temperature/humidity ratio set points.
 </li>
 </ul>
