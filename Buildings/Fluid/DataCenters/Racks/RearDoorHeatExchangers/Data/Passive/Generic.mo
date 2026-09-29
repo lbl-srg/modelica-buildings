@@ -23,11 +23,11 @@ record Generic "Data record for passive rear door heat exchanger"
     "Cooling capacity at design condition (negative number)"
     annotation (Dialog(group="Nominal condition"));
 
-  parameter Modelica.Units.SI.Temperature TAirIn_nominal
+  parameter Modelica.Units.SI.Temperature TAirIn_nominal(displayUnit="degC")
     "Air inlet nominal temperature (air entering rear door heat exchanger)"
     annotation (Dialog(group="Nominal condition"));
 
-  parameter Modelica.Units.SI.Temperature TCooIn_nominal
+  parameter Modelica.Units.SI.Temperature TCooIn_nominal(displayUnit="degC")
     "Rear door coolant inlet nominal temperature"
     annotation (Dialog(group="Nominal condition"));
 

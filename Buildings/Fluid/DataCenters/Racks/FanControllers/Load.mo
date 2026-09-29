@@ -58,7 +58,6 @@ equation
           pattern=LinePattern.None,
           fillPattern=FillPattern.HorizontalCylinder,
           fillColor={255,255,255}),
-        Line(points={{-120,0},{-36,0}},   color={0,0,127}),
         Text(
           extent={{74,38},{92,8}},
           textColor={0,0,127},
@@ -73,7 +72,6 @@ equation
           extent={{-100,36},{-70,6}},
           textColor={0,0,127},
           textString="P"),
-        Line(points={{24,0},{100,0}},     color={0,0,127}),
     Line(points={{24,40},{24,-40}}),
     Rectangle(fillColor={255,215,136},
       fillPattern=FillPattern.Solid,

@@ -13,9 +13,9 @@ record Generic "Generic data record for air cooled rack"
     "Fan and motor combined efficiency at nominal conditions"
     annotation(Dialog(group="Fan"));
 
-  parameter Modelica.Units.SI.Temperature TIn_nominal=303.15
+  parameter Modelica.Units.SI.Temperature TIn_nominal(displayUnit="degC")=303.15
     "Rack design inlet air temperature";
-  parameter Modelica.Units.SI.Temperature TOut_nominal=313.15
+  parameter Modelica.Units.SI.Temperature TOut_nominal(displayUnit="degC")=313.15
     "Rack design outlet air temperature";
 
   parameter Modelica.Units.SI.SpecificHeatCapacity cpAir_nominal =

@@ -1,8 +1,8 @@
 within Buildings.Fluid.DataCenters.Racks.Hybrid;
-model AirLiquidRearDoorHexActive
-  "Hybrid rack model combining liquid-cooled and air-cooled components with an active rear door heat exchanger"
-  extends Buildings.Fluid.DataCenters.Racks.Hybrid.BaseClasses.PartialAirLiquidRearDoorHex(
-    redeclare parameter Buildings.Fluid.DataCenters.Racks.Hybrid.Data.AirLiquidRearDoorHexActive.Generic dat,
+model AirRearDoorHexActive
+  "Air-cooled rack model with an active rear door heat exchanger"
+  extends Buildings.Fluid.DataCenters.Racks.Hybrid.BaseClasses.PartialAirRearDoorHex(
+    redeclare parameter Buildings.Fluid.DataCenters.Racks.Hybrid.Data.AirRearDoorHexActive.Generic dat,
     redeclare final Buildings.Fluid.DataCenters.Racks.RearDoorHeatExchangers.Active reaDooHex(
       final k=kReaDooHex,
       final Ti=TiReaDooHex));
@@ -26,24 +26,26 @@ equation
 
   connect(reaDooHex.PFan, PReaDooHexFan) annotation (Line(points={{41,-6},{80,-6},
           {80,20},{110,20}}, color={0,0,127}));
-annotation (
+  annotation (
   defaultComponentName="rac",
   Documentation(
     info="<html>
 <p>
-Model of a hybrid IT rack that combines liquid-cooled and air-cooled components
+Model of an air-cooled IT rack
 with an active rear door heat exchanger.
+</p>
+<p>
 This model extends
-<a href=\"modelica://Buildings.Fluid.DataCenters.Racks.Hybrid.BaseClasses.AirLiquid\">
-Buildings.Fluid.DataCenters.Racks.Hybrid.BaseClasses.AirLiquid</a>
+<a href=\"modelica://Buildings.Fluid.DataCenters.Racks.Hybrid.BaseClasses.PartialAirRearDoorHex\">
+Buildings.Fluid.DataCenters.Racks.Hybrid.BaseClasses.PartialAirRearDoorHex</a>
 and adds an active rear door heat exchanger using
 <a href=\"modelica://Buildings.Fluid.DataCenters.Racks.RearDoorHeatExchangers.Active\">
 Buildings.Fluid.DataCenters.Racks.RearDoorHeatExchangers.Active</a>.
 </p>
 <p>
 Unlike
-<a href=\"modelica://Buildings.Fluid.DataCenters.Racks.Hybrid.AirLiquidRearDoorHexPassive\">
-Buildings.Fluid.DataCenters.Racks.Hybrid.AirLiquidRearDoorHexPassive</a>,
+<a href=\"modelica://Buildings.Fluid.DataCenters.Racks.Hybrid.AirRearDoorHexPassive\">
+Buildings.Fluid.DataCenters.Racks.Hybrid.AirRearDoorHexPassive</a>,
 this model includes a dedicated fan that actively drives air flow through the
 heat exchanger. The fan speed is modulated by a PI controller to maintain
 zero back pressure. The fan power is reported through the output
@@ -56,9 +58,7 @@ The rear door heat exchanger cools the warm rack exhaust air using a coolant loo
 through <code>portReaDooHex_a</code> (inlet) and <code>portReaDooHex_b</code> (outlet).
 </p>
 <p>
-The medium for the rear door heat exchanger coolant is <code>MediumReaDooHex</code>,
-which is separate from the liquid cooling medium <code>MediumLiq</code> used by the
-cold plate components.
+The medium for the rear door heat exchanger coolant is <code>MediumReaDooHex</code>.
 </p>
 <p>
 If the fan of the air-cooled IT is controlled based on the rack outlet temperature,
@@ -72,7 +72,7 @@ the rear door heat exchanger then increases its speed as well.
     revisions="<html>
 <ul>
 <li>
-September 17, 2026, by Michael Wetter:<br/>
+September 29, 2026, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>
@@ -95,4 +95,4 @@ First implementation.
                                                         lineColor={0,0,0}),
         Polygon(points={{68,-40},{52,-32},{52,-48},{68,-40}}, lineColor={0,0,0}),
         Polygon(points={{68,8},{52,16},{52,0},{68,8}},    lineColor={0,0,0})}));
-end AirLiquidRearDoorHexActive;
+end AirRearDoorHexActive;
