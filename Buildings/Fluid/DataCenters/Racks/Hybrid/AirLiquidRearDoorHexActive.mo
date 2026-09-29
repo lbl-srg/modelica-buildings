@@ -79,20 +79,21 @@ First implementation.
 </ul>
 </html>"),
   Icon(graphics={
-        Ellipse(
-          extent={{80,16},{90,6}},
-          lineColor={0,127,255},
-          pattern=LinePattern.None,
-          fillColor={0,0,0},
-          fillPattern=FillPattern.Solid),
-        Rectangle(
-          extent={{84,8},{86,-6}},
-          lineColor={0,127,255},
-          pattern=LinePattern.None,
-          fillColor={0,0,0},
-          fillPattern=FillPattern.Solid),
         Text(
           extent={{24,-46},{98,-80}},
           textColor={0,0,127},
-          textString="PReaDooHexFan")}));
+          textString="PReaDooHexFan"),
+        Ellipse(extent={{48,18},{68,-2}}, lineColor={0,0,0},
+          fillColor={255,255,255},
+          fillPattern=FillPattern.Solid),
+        Ellipse(extent={{48,-6},{68,-26}},lineColor={0,0,0},
+          fillColor={255,255,255},
+          fillPattern=FillPattern.Solid),
+        Ellipse(extent={{48,-30},{68,-50}}, lineColor={0,0,0},
+          fillColor={255,255,255},
+          fillPattern=FillPattern.Solid),
+        Polygon(points={{68,-16},{52,-8},{52,-24},{68,-16}},
+                                                        lineColor={0,0,0}),
+        Polygon(points={{68,-40},{52,-32},{52,-48},{68,-40}}, lineColor={0,0,0}),
+        Polygon(points={{68,8},{52,16},{52,0},{68,8}},    lineColor={0,0,0})}));
 end AirLiquidRearDoorHexActive;
