@@ -54,7 +54,7 @@ model FMUZoneAdapterZones3
     "Radiative heat gain for the zone"
     annotation (Placement(transformation(extent={{-88,-46},{-68,-26}})));
   Modelica.Blocks.Continuous.Integrator TZonCor(
-    k=1/CZon,
+    k(unit="K/J")=1/CZon,
     initType=Modelica.Blocks.Types.Init.InitialState,
     y_start=294.15,
     y(final unit="K",
@@ -79,7 +79,7 @@ model FMUZoneAdapterZones3
     "Adapter to EnergyPlus"
     annotation (Placement(transformation(extent={{20,-20},{40,0}})));
   Modelica.Blocks.Continuous.Integrator TZonSou(
-    k=1/CZon,
+    k(unit="K/J")=1/CZon,
     initType=Modelica.Blocks.Types.Init.InitialState,
     y_start=294.15,
     y(final unit="K",
@@ -104,7 +104,7 @@ model FMUZoneAdapterZones3
     "Adapter to EnergyPlus"
     annotation (Placement(transformation(extent={{20,-60},{40,-40}})));
   Modelica.Blocks.Continuous.Integrator TZonNor(
-    k=1/CZon,
+    k(unit="K/J")=1/CZon,
     initType=Modelica.Blocks.Types.Init.InitialState,
     y_start=294.15,
     y(final unit="K",
@@ -188,6 +188,10 @@ for Linux 64 bit by JModelica.
 </html>",
       revisions="<html>
 <ul>
+<li>
+September 27, 2026, by Michael Wetter:<br/>
+Added unit specification to avoid warning in Dymola 2025x.
+</li>
 <li>
 March 23, 2022, by Michael Wetter:<br/>
 Changed model to use the instance name of the <code>building</code> instance as is done for the other Spawn models.
