@@ -42,10 +42,8 @@ model AirRearDoorHexPassive
     (PAir_nominal + datAir.PFan_nominal)/((TReaDooCooOut_nominal - TReaDooCooIn_nominal)*Buildings.Utilities.Psychrometrics.Constants.cpWatLiq)
     "Nominal mass flow rate for rear door heat exchanger at design conditions";
 
-  replaceable parameter
-    Buildings.Fluid.DataCenters.Racks.RearDoorHeatExchangers.Data.Passive.Generic datReaDooHex
-    constrainedby
-    Buildings.Fluid.DataCenters.Racks.RearDoorHeatExchangers.Data.Passive.Generic(
+  replaceable parameter Buildings.Fluid.DataCenters.Racks.RearDoorHeatExchangers.Data.Passive.Generic datReaDooHex
+    constrainedby Buildings.Fluid.DataCenters.Racks.RearDoorHeatExchangers.Data.Passive.Generic(
       mAir_flow_nominal=datAir.m_flow_nominal,
       mCoo_flow_nominal=mReaDoo_flow_nominal,
       Q_flow_nominal=-PAir_nominal - datAir.PFan_nominal,
