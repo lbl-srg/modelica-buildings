@@ -12,7 +12,7 @@ record OCP_1kW_OAM_PG25 "OpenCompute example for 1 kW OAM with PG25 as working f
   Documentation(info="<html>
 <p>
 This specification is for a 1 kW Open Accelerator Module (OAM) based on the Open Compute Project (OCP)
-report by Cheng et al. (2023).
+report by Chen et al. (2023).
 The data is based on Figure 7, which is for a single cold plate with PG25 as the working fluid.
 </p>
 <p>
@@ -22,7 +22,7 @@ as no data for these parameters were found.
 <h4>References</h4>
 <p>
 Cheng Chen, Dennis Trieu, Tejas Shah, Allen Guo, Jaylen Cheng, Christopher Chapman, Sukhvinder Kang,
-Eran Dagan, Assaf Dinstag,Jane Yao.
+Eran Dagan, Assaf Dinstag, Jane Yao.
 <a href=\"https://www.opencompute.org/documents/oai-system-liquid-cooling-guidelines-in-ocp-template-mar-3-2023-update-pdf\">
 OCP OAI SYSTEM LIQUID COOLING GUIDELINES</a>.
 2023.

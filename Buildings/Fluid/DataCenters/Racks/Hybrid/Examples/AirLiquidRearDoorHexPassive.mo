@@ -96,7 +96,7 @@ Note that these values are slightly higher than the ones in
 Buildings.Fluid.DataCenters.Racks.Hybrid.Examples.AirLiquid</a>.
 The reason is that the rear door heat exchanger is passive, i.e., it does not have fans.
 Due to its air-side flow resistance, the air flow rate through the rack is therefore
-slightly lower, leading the higher rack outlet temperature, which is upstream of the rear door heat exchanger.
+slightly lower, leading to a higher rack outlet temperature, which is upstream of the rear door heat exchanger.
 The air leaving the rear door heat exchanger is <i>30.1</i>&deg;C.
 </p>
 <p>

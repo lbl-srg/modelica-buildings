@@ -1,6 +1,6 @@
 within Buildings.Applications.DataCenters.LiquidCooled.Examples;
 model ChillerWSE
-  "Example model of a simple liquid cooled data center with chiller and water-side economizer"
+  "Example model of a simple liquid-cooled data center with chiller and water-side economizer"
   extends Modelica.Icons.Example;
 
   package MediumAir = Buildings.Media.Air(T_default=TDryBul_nominal) "Medium for air";
@@ -960,18 +960,18 @@ to the IT rack.
 The chilled water is cooled by an economizer -- if the temperatures permit --
 and if the water temperature after the economizer is higher than a temperature set point,
 the chiller is enabled. The chiller tracks a leaving water set point temperature.
-Note that the control is quite simple, and multiple parallel equipment as is common in data centers
-is here simplified with one component only.
+Note that the control is quite simple, and multiple parallel units, as is common in data centers,
+are simplified here to one component.
 </p>
 <p>
 The model has a parameter <code>dTOffSet</code> which can be used to shift the design temperatures
-up or down. This allows to push the model into temperature regimes that need no chiller.
+up or down. This allows one to push the model into temperature regimes that need no chiller.
 For example, if <code>dTOffSet=0</code>, the chiller never operates, and all cooling is done
 through the economizer.
 </p>
 <p>
 For more detailed chilled water plant
-controls, see for example
+controls, see, for example,
 </p>
 <ul>
 <li>

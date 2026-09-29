@@ -100,8 +100,8 @@ Example model of a cold plate with different GPU utilization.
 The GPU utilization is modeled as a pulse that is parameterized based on the data of Patel et al. (2024),
 Figure 6(b) which is for the Llama2-50B LLM, neglecting the very high frequency and approximating
 the change in utilization with a periodic pulse input.
-The cold plate has a constant flow rate at the start of the simulation, and then ramps down to
-half the design flow rate to show the change in case temperature.
+The cold plate operates at a constant flow rate at the start of the simulation.
+The flow rate then ramps down to half the design value to show the change in case temperature.
 </p>
 <h4>References</h4>
 <p>Pratyush Patel, Esha Choukse, Chaojie Zhang, Íñigo Goiri, Brijesh Warrier, Nithish Mahalingam, and Ricardo Bianchini.<br/>

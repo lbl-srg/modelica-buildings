@@ -23,7 +23,7 @@ annotation (
   defaultComponentPrefixes="parameter",
   Documentation(info="<html>
 <p>
-Generic data record for liquid-cooled single-phase IT rack.
+Generic data record for a liquid-cooled single-phase IT rack.
 </p>
 </html>", revisions="<html>
 <ul>

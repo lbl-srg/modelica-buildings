@@ -1,6 +1,6 @@
 within Buildings.Fluid.DataCenters.Racks.Hybrid.Data;
 package AirLiquidRearDoorHexActive
-  "Package with performance data for hybrid liquid-cooled single-phase racks with active rear door heat exchanger"
+  "Package with performance data for hybrid liquid-cooled single-phase racks with an active rear door heat exchanger"
   extends Modelica.Icons.MaterialPropertiesPackage;
 
 annotation (Documentation(info="<html>

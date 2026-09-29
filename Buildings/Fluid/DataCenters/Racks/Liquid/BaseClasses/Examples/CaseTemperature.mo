@@ -47,7 +47,7 @@ equation
 Example model that computes the cold plate case temperature
 for different volume flow rates and constant heat input of
 <i>1</i> kW.
-The data is based on Figure 13 from Chen et al. (2022).
+The data is based on Figure 13 from Chen et al. (2023).
 </p>
 <h4>References</h4>
 <p>

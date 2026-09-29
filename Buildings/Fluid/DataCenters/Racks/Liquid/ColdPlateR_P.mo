@@ -100,7 +100,7 @@ of the Open Compute Project.
 </p>
 <h4>Electrical and fluid characterization</h4>
 <p>
-The model takes as an input the electrical power conumption  <code>P</code>
+The model takes as an input the electrical power consumption <code>P</code>
 and adds it as heat added to the coolant fluid
 </p>
 <p align=\"center\" style=\"font-style:italic;\">
@@ -127,7 +127,7 @@ where
 <code>dp</code> is the pressure difference between inlet and outlet,
 <code>dp_nominal</code> is a parameter for the design pressure difference, and
 <code>m</code> is a parameter for the flow exponent.
-Based on a data fit using the data in Chen et al., (2024), the default value is <code>m=1.85</code>.
+Based on a data fit using the data in Chen et al. (2023), the default value is <code>m=1.85</code>.
 The model assumes a default pressure drop <code>dp_nominal</code> of
 <code>dp_nominal=50</code> kPa, which is the pressure drop of the OCP specified
 cold plate with a 8x1 loop at <i>10</i> l/min flow rate with 25% PGW.
@@ -141,9 +141,9 @@ thermal interface material or heat sink is attached.
 <p>
 The case temperature is computed based on the coolant inlet temperature and the
 heat dissipated by the chip, using the case-to-inlet thermal resistance of a cold plate.
-Thefore, the model assumes sufficient mass flow rate, e.g., this
+Therefore, the model assumes sufficient mass flow rate, i.e., this
 model simplifies the case temperature as being independent of the coolant mass flow rate,
-other than through the variation of the thermal resistance on that mass flow rate.
+other than through the variation of the thermal resistance with the coolant mass flow rate.
 This follows the convention used in the Open Compute Project report by
 Chen et al. (2023), which uses for the case-to-inlet thermal resistance the definition
 </p>

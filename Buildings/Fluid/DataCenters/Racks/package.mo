@@ -3,7 +3,7 @@ package Racks "Package with IT racks"
   extends Modelica.Icons.Package;
   annotation (Documentation(info="<html>
 <p>
-This package contains models for liquid cooled data center IT racks.
+This package contains models for liquid-cooled data center IT racks.
 </p>
 </html>"), Icon(graphics={
         Rectangle(

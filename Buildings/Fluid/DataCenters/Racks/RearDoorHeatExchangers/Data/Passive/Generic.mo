@@ -66,7 +66,7 @@ the design heat duty, the inlet temperatures, and the minimum capacity flow rate
 </p>
 <p>
 The parameter <code>cpCoo_nominal</code> is the specific heat capacity
-of the coolant at nominal conditions, which defaults to water.
+of the coolant at nominal conditions, which defaults to the value for water.
 </p>
 </html>", revisions="<html>
 <ul>
