@@ -4,8 +4,7 @@ record Generic
   extends Buildings.Fluid.DataCenters.Racks.Hybrid.Data.AirRearDoorHexPassive.Generic(
     redeclare replaceable parameter
       Buildings.Fluid.DataCenters.Racks.RearDoorHeatExchangers.Data.Active.Generic reaDooHex
-      constrainedby Buildings.Fluid.DataCenters.Racks.RearDoorHeatExchangers.Data.Passive.Generic
-      annotation (Placement(transformation(extent={{60,20},{80,40}}))));
+      constrainedby Buildings.Fluid.DataCenters.Racks.RearDoorHeatExchangers.Data.Passive.Generic);
 
 annotation (
   defaultComponentName="dat",
