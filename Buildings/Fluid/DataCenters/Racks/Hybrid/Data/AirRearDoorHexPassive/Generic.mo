@@ -7,7 +7,8 @@ record Generic
     "Performance data for air-cooled component"
     annotation (Placement(transformation(extent={{20,20},{40,40}})));
 
-  parameter Buildings.Fluid.DataCenters.Racks.RearDoorHeatExchangers.Data.Passive.Generic reaDooHex
+  replaceable parameter Buildings.Fluid.DataCenters.Racks.RearDoorHeatExchangers.Data.Passive.Generic reaDooHex
+    constrainedby Buildings.Fluid.DataCenters.Racks.RearDoorHeatExchangers.Data.Passive.Generic
     "Rear door heat exchanger performance data"
     annotation (Placement(transformation(extent={{60,20},{80,40}})));
 
