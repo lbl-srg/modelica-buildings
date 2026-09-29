@@ -16,11 +16,11 @@ model AirToWater
   parameter Buildings.Templates.Plants.HeatPumps.Types.LocationBoundary locBou=
       Buildings.Templates.Plants.HeatPumps.Types.LocationBoundary.Return
     annotation (Evaluate=true, Dialog(tab="Advanced"));
-  parameter Boolean use_bouChiWat = false
-    "Set to true to force using CHW boundary pressure for all plant configurations"
+  parameter Boolean use_bouChiWat = typ ==Buildings.Templates.Plants.Controls.Types.PlantHeatPump.Polyvalent
+    "Set to true to use CHW boundary pressure"
     annotation(Evaluate=true, Dialog(tab="Advanced"));
   parameter Boolean use_bouHeaWat = true
-    "Set to false to remove HW boundary pressure"
+    "Set to true to use HW boundary pressure"
     annotation(Evaluate=true, Dialog(tab="Advanced"));
   parameter Boolean use_cpl = false
     "Set to true to use hydraulic compliance"
@@ -1086,8 +1086,7 @@ model AirToWater
     p=Buildings.Templates.Data.Defaults.pChiWat_rel_nominal + 101325 + (if
         locBou == Buildings.Templates.Plants.HeatPumps.Types.LocationBoundary.Supply
          then 1 else 0),
-    nPorts=1) if (typ == Buildings.Templates.Plants.Controls.Types.PlantHeatPump.Polyvalent
-     or use_bouChiWat) and locBou <> Buildings.Templates.Plants.HeatPumps.Types.LocationBoundary.HeatPumpOutlet
+    nPorts=1) if have_chiWat and use_bouChiWat and locBou <> Buildings.Templates.Plants.HeatPumps.Types.LocationBoundary.HeatPumpOutlet
     "Pressure boundary condition mimicking expansion tank"
     annotation(Placement(transformation(extent={{-10,-10},{10,10}},
       rotation=90,
@@ -1096,14 +1095,14 @@ model AirToWater
     redeclare final package Medium = MediumChiWat,
     final C=C,
     final p_start=Buildings.Templates.Data.Defaults.pChiWat_rel_nominal + 101325)
-    if use_cpl and have_chiWat and typ <> Buildings.Templates.Plants.Controls.Types.PlantHeatPump.Polyvalent
+    if use_cpl and have_chiWat
     "Hydraulic compliance on CHW supply"
     annotation(Placement(transformation(extent={{280,100},{300,120}})));
   Buildings.Templates.Components.Routing.Compliance cplHeaWatSup(
     redeclare final package Medium = MediumHeaWat,
     final C=C,
     final p_start=Buildings.Templates.Data.Defaults.pHeaWat_rel_nominal + 101325)
-    if use_cpl and have_heaWat and typ <> Buildings.Templates.Plants.Controls.Types.PlantHeatPump.Polyvalent
+    if use_cpl and have_heaWat
     "Hydraulic compliance on HW supply"
     annotation (Placement(transformation(extent={{280,-260},{300,-240}})));
 initial equation

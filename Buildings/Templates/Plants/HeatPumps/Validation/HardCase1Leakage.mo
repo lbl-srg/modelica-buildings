@@ -33,13 +33,14 @@ Integration terminated successfully at T = 86400
 
 SUCCESSFUL simulation of Buildings.Templates.Plants.HeatPumps.Validation.HardCase1Leakage"),
     Icon(graphics={
-        Ellipse(lineColor = {75,138,73},
-                fillColor={255,255,255},
-                fillPattern = FillPattern.Solid,
-                extent={{-100,-100},{100,100}}),
         Polygon(lineColor = {0,0,255},
-                fillColor = {75,138,73},
+                fillColor={0,140,72},
                 pattern = LinePattern.None,
-                fillPattern = FillPattern.Solid,
-                points={{-36,60},{64,0},{-36,-60},{-36,60}})}));
+                fillPattern=FillPattern.Solid,
+                points={{-80,100},{20,40},{-80,-20},{-80,100}}),
+        Polygon(lineColor = {0,0,255},
+                fillColor={238,46,47},
+                pattern = LinePattern.None,
+                fillPattern=FillPattern.Solid,
+                points={{0,20},{100,-40},{0,-100},{0,20}})}));
 end HardCase1Leakage;

@@ -12,9 +12,42 @@ model HardCase4 "Validation of AWHP plant template"
 annotation(experiment(StopTime=86400,
   Tolerance=1e-06,
   __Dymola_Algorithm="Cvode"),
-    Documentation(info="Integration terminated successfully at T = 86400
-   CPU-time for integration                  : 7.75864 seconds
-   CPU-time for initialization               : 0.430361 seconds
+    Documentation(info="Model: Buildings.Templates.Plants.HeatPumps.Validation.HardCase4
+Integration started at 0 using integration method:
+cvode from sundials
+
+
+Warning: Failed to solve nonlinear system using Newton solver.
+  Time: 57067.9470950238
+  Tag: simulation.nonlinear[1]
+
+  Common causes:
+   * The system of equations has no solution - the residual will be above zero.
+     - In some cases the event-logic can cause this.
+   * Starting values are too far from the solution.
+     - In rare cases this could occur at events.
+   * The equations are too discontinuous for the nonlinear solver - the residual will have knees.
+     - Likely caused by over-using noEvent.
+
+  To get more information consider the options:
+   * Simulation/Setup/Translation/Generate listing of translated Modelica code in dsmodel.mof
+   * Simulation/Setup/Translation/List non-linear iteration variables
+   * The options under the group Simulation/Setup/Debug/Nonlinear solver diagnostics
+
+  Jacobian inverse norm estimate: 3.55669e+07
+  Condition number estimate: 739720
+  1-norm of the residual = 99751.9
+
+  Last value of the solution:
+    pla.port_aChiWat.m_flow = 26.4602
+    pla.pumChiWatSec.valChe[2].dp = 74654.9
+  Last value of the residual:
+    { -99700.6, -51.3541 }
+ 
+
+Integration terminated successfully at T = 86400
+   CPU-time for integration                  : 6.09439 seconds
+   CPU-time for initialization               : 0.342518 seconds
    Number of result points                   : 2127
    Number of grid points                     : 501
    Number of accepted steps                  : 19001
@@ -32,8 +65,8 @@ annotation(experiment(StopTime=86400,
 SUCCESSFUL simulation of Buildings.Templates.Plants.HeatPumps.Validation.HardCase4
 
 
-
 ---------------------------------------------------------------------------
+
 CVodeError                                Traceback (most recent call last)
 File /mnt/home/reituag/gitrepo/docker-ubuntu-optimica/jmodelica.py:113
     109     mod.set('_log_level', 4)

@@ -73,7 +73,7 @@ CVodeError: 'The right-hand side function had repeated recoverable errors. At ti
         Ellipse(lineColor = {75,138,73},
                 fillColor={255,255,255},
                 fillPattern = FillPattern.Solid,
-                extent={{-100,-100},{100,100}}),
+                extent={{-100,-102},{100,98}}),
         Polygon(lineColor = {0,0,255},
                 fillColor={0,140,72},
                 pattern = LinePattern.None,
@@ -83,5 +83,5 @@ CVodeError: 'The right-hand side function had repeated recoverable errors. At ti
                 fillColor={238,46,47},
                 pattern = LinePattern.None,
                 fillPattern=FillPattern.Solid,
-                points={{0,20},{100,-40},{0,-100},{0,20}})}));
+                points={{0,18},{100,-42},{0,-102},{0,18}})}));
 end HardCase1BoundaryHPOutlet;

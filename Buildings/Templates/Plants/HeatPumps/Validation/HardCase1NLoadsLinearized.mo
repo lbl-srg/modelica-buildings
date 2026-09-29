@@ -7,16 +7,7 @@ annotation(experiment(StopTime=86400,
   Tolerance=1e-06,
   __Dymola_Algorithm="Cvode"),
   Documentation(
-    info="<html>
-<p>
-  This model is identical to
-  <a href=\"modelica://Buildings.Templates.Plants.HeatPumps.Validation.HardCase1NLoads\">
-    Buildings.Templates.Plants.HeatPumps.Validation.HardCase1NLoads</a>
-  except that a hydraulic compliance is added at the CHW and HW supply
-  junctions of the isolation valve component, which provides a pressure state
-  to each of these nodes.
-</p>
-</html>",
+    info="",
     revisions="<html>
 <ul>
 <li>

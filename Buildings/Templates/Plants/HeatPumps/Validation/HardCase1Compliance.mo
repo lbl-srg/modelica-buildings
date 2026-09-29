@@ -27,6 +27,8 @@ Integration terminated successfully at T = 86400
 
 SUCCESSFUL simulation of Buildings.Templates.Plants.HeatPumps.Validation.HardCase1Compliance
 
+------------------ OCT 368 NonlinearBlockConvergenceError
+
  Number of steps                                 : 21600
  Number of function evaluations                  : 32709
  Number of Jacobian evaluations                  : 1523
@@ -70,7 +72,7 @@ Elapsed simulation time: 26.99222283800009 seconds."),
                 fillPattern=FillPattern.Solid,
                 points={{-80,100},{20,40},{-80,-20},{-80,100}}),
         Polygon(lineColor = {0,0,255},
-                fillColor={0,140,72},
+                fillColor={244,125,35},
                 pattern = LinePattern.None,
                 fillPattern=FillPattern.Solid,
                 points={{0,20},{100,-40},{0,-100},{0,20}})}));

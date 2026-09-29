@@ -6,7 +6,9 @@ model HardCase1NoInverse "Validation of AWHP plant template"
         valHeaWatUniOutIso(lin(each use_inv=false)),
         valHeaWatUniInlIso(lin(each use_inv=false)),
         valChiWatUniOutIso(lin(each use_inv=false)),
-             valChiWatUniInlIso(lin(each use_inv=false)))))
+        valChiWatUniInlIso(lin(each use_inv=false))),
+      valHeaWatMinByp(lin(use_inv=false)),
+      valChiWatMinByp(lin(use_inv=false))))
   annotation(IconMap(primitivesVisible = false));
 annotation(experiment(StopTime=86400,
   Tolerance=1e-06,
@@ -64,10 +66,6 @@ Solver options:
 Simulation interval    : 0.0 - 86400.0 seconds.
 Elapsed simulation time: 19.816927906000274 seconds."),
     Icon(graphics={
-        Ellipse(lineColor = {75,138,73},
-                fillColor={255,255,255},
-                fillPattern = FillPattern.Solid,
-                extent={{-100,-100},{100,100}}),
         Polygon(lineColor = {0,0,255},
                 fillColor={238,46,47},
                 pattern = LinePattern.None,

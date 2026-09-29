@@ -1,8 +1,6 @@
 within Buildings.Templates.Plants.HeatPumps.Validation;
 model HardCase1NLoads
   "Validation of AWHP plant template with a distributed set of terminal loads"
-  extends Modelica.Icons.Example;
-
   replaceable package Medium = Buildings.Media.Water
     constrainedby Modelica.Media.Interfaces.PartialMedium
     "Main medium (common for CHW and HW)";
@@ -196,7 +194,7 @@ model HardCase1NLoads
       dpValve_nominal + (nLoa - i) * dpChiWatDis_nominal / nLoa for i in 1:nLoa},
     each final TLiqEnt_nominal=pla.TChiWatSup_nominal,
     each final TLiqLvg_nominal=pla.TChiWatRet_nominal,
-    each con(val(y_start=0)))
+    con(val(each y_start=0)))
     if have_chiWat
     "Cooling loads"
     annotation(Placement(transformation(extent={{70,-50},{90,-30}})));
@@ -211,7 +209,7 @@ model HardCase1NLoads
       dpValve_nominal + (nLoa - i) * dpHeaWatDis_nominal / nLoa for i in 1:nLoa},
     each final TLiqEnt_nominal=pla.THeaWatSup_nominal,
     each final TLiqLvg_nominal=pla.THeaWatRet_nominal,
-    each con(val(y_start=0)))
+    con(val(each y_start=0)))
     "Heating loads"
     annotation(Placement(transformation(extent={{70,-110},{90,-90}})));
   Buildings.Controls.OBC.CDL.Reals.MultiMax yValCoo_max(nin=nLoa)
@@ -439,5 +437,16 @@ First implementation.
 </li>
 </ul>
 </html>"),
-  Diagram(coordinateSystem(extent={{-200,-160},{200,160}})));
+  Diagram(coordinateSystem(extent={{-200,-160},{200,160}})),
+    Icon(graphics={
+        Polygon(lineColor = {0,0,255},
+                fillColor={238,46,47},
+                pattern = LinePattern.None,
+                fillPattern=FillPattern.Solid,
+                points={{0,20},{100,-40},{0,-100},{0,20}}),
+        Polygon(lineColor = {0,0,255},
+                fillColor={0,140,72},
+                pattern = LinePattern.None,
+                fillPattern=FillPattern.Solid,
+                points={{-80,100},{20,40},{-80,-20},{-80,100}})}));
 end HardCase1NLoads;
