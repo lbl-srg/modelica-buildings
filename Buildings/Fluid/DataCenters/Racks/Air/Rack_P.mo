@@ -166,7 +166,7 @@ Therefore, the mass flow rate and pressure drop are related as
 m_flow &frasl; m_flow_nominal = (dp &frasl; dp_nominal)<sup>m</sup>,
 </p>
 <p>
-where 
+where
 <code>m_flow_nominal</code> is a parameter for the design flow rate,
 <code>dp</code> is the pressure difference between inlet and outlet,
 <code>dp_nominal</code> is a parameter for the design pressure difference, and
@@ -193,7 +193,7 @@ As active rear-door heat exchangers also have a fan, in such a configuration the
 be two fans in series. Prescribing the mass flow rate instead of the fan
 may give in this situation an overspecified system of equations.
 Thefore, rack model and rear-door heat exchangers use the fan model
-<a href=\\\"modelica://Buildings.Fluid.DataCenters.Racks.BaseClasses.ControlledFan\\\">
+<a href=\"modelica://Buildings.Fluid.DataCenters.Racks.BaseClasses.ControlledFan\">
 Buildings.Fluid.DataCenters.Racks.BaseClasses.ControlledFan</a>.
 </p>
 </html>",
