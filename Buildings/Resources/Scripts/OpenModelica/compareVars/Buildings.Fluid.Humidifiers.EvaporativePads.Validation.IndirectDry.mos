@@ -1,0 +1,8 @@
+compareVars :=
+  {
+    "souPri.m_flow_in",
+    "TOut_mean.y",
+    "combiTimeTable.y[7]",
+    "XOut_mean.y",
+    "toTotAirPriOut.XiTotalAir"
+  };
