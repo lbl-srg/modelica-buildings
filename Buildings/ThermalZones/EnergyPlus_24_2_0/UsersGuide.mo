@@ -642,6 +642,7 @@ and the pre-defined sizing parameters is described below.
 <p>
 The process for setting up autosizing in Modelica is as follows, with related
 notes:
+</p>
 <ol>
 <li>
 Instantiate an instance of class 
@@ -654,6 +655,7 @@ Name the autosize system using the string parameter <code>hvacSystemName</code>.
 Toggle the boolean parameter <code>autosizeHVAC=true</code>.
 </li>
 </ul>
+</li>
 <li>
 Add thermal zones to be autosized as part of the autosize system instantiated
 in the previous step by specifying the string parameter <code>hvacSystemName</code> in the thermal zone object
@@ -671,14 +673,13 @@ The sizing values returned for each zone are for the design condition of each
 zone individually, while the sizing values returned for each system are for the
 design condition of the system considering the coincident load from each zone
 that is part of that system.
+</li>
 <li>
 Any zone not assigned to a system will not be autosized.
 </li>
-</li>
 </ul>
 </li>
-</ol> 
-</p>
+</ol>
 <h5>Pre-defined Sizing Parameters in Modelica</h5>
 <p>
 The results of autosizing from EnergyPlus are populated into Modelica records
@@ -687,6 +688,7 @@ contain the same parameters: one for heating and one for cooling.
 </p>
 <p>
 The zone level records are:
+</p>
 <ul>
 <li>
 <a href=\"modelica://Buildings.ThermalZones.EnergyPlus_24_2_0.ThermalZone\">Buildings.ThermalZones.EnergyPlus_24_2_0.ThermalZone</a>.sizHea
@@ -695,8 +697,9 @@ The zone level records are:
 <a href=\"modelica://Buildings.ThermalZones.EnergyPlus_24_2_0.ThermalZone\">Buildings.ThermalZones.EnergyPlus_24_2_0.ThermalZone</a>.sizCoo
 </li>
 </ul>
-</p>
+<p>
 The system level records are:
+</p>
 <ul>
 <li>
 <a href=\"modelica://Buildings.ThermalZones.EnergyPlus_24_2_0.SystemSizing\">Buildings.ThermalZones.EnergyPlus_24_2_0.SystemSizing</a>.sizHea
@@ -705,9 +708,9 @@ The system level records are:
 <a href=\"modelica://Buildings.ThermalZones.EnergyPlus_24_2_0.SystemSizing\">Buildings.ThermalZones.EnergyPlus_24_2_0.SystemSizing</a>.sizCoo
 </li>
 </ul>
-</p>
-
+<p>
 The parameters available within these records are:
+</p>
 <ul>
 <li>
 <code>QSen_flow</code>: Design sensible load [W] (if not sized, equals <i>0</i>)
@@ -734,7 +737,6 @@ The parameters available within these records are:
 <code>t</code>: Time within the sizing day at which the design load occurred [s] (if not sized, equals <i>0</i>)
 </li>
 </ul>
-</p>
 
 <h5>Other Notes</h5>
 <p>
@@ -782,8 +784,9 @@ References for Autosizing in EnergyPlus: Autosizing objects in the .idf are used
 to direct the autosizing in Spawn, and the EnergyPlus algorithms are followed
 for the sizing calculations.  However, note that Spawn replaces the 
 SimulationControl object specified in the .idf to invoke autosizing on its own.
-Some useful references for working 
+Some useful references for working
 with those objects and setting up sizing in the .idf are as follows:
+</p>
 <ul>
 <li>
 Zone sizing:
@@ -801,7 +804,6 @@ Sizing manager and algorithm:
 https://bigladdersoftware.com/epx/docs/24-2/engineering-reference/sizing-manager.html</a>
 </li>
 </ul>
-</p>
 
 <h5>Example Models</h5>
 <ul>

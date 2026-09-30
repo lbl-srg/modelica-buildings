@@ -106,6 +106,7 @@ Same example as <a href=\"modelica://Buildings.ThermalZones.EnergyPlus_24_2_0.Ex
 Buildings.ThermalZones.EnergyPlus_24_2_0.Examples.SmallOffice.ASHRAE2006Winter</a>,
 except that the HVAC system is sized using the autosizing feature in Spawn.
 The autosizing feature is used as follows:
+</p>
 <ul>
 <li>
 Zone level heating and cooling nominal air flowrates for each VAV box are
@@ -135,7 +136,6 @@ the determined AHU nominal air flowrate and the assumed average of the zone
 cooling temperature/humidity ratio set points.
 </li>
 </ul>
-</p>
 </html>",
       revisions="<html>
 <ul>

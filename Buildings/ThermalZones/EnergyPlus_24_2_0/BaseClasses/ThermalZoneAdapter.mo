@@ -49,7 +49,7 @@ model ThermalZoneAdapter
   parameter Real airChaRatInf(final unit="1/s", displayUnit="1/h") "Infiltration air change rate for auto-sizing";
   parameter Modelica.Units.SI.SpecificHeatCapacity cpAir "Specific heat capacity of air";
   parameter Modelica.Units.SI.SpecificEnergy hfgWater "Latent heat of water vapor";
-  parameter Modelica.Units.SI.Density rhoAir "Density of air";
+  parameter Modelica.Units.SI.Density rhoAir(displayUnit="kg/s") "Density of air";
 
   parameter Integer nFluPor
     "Number of fluid ports (Set to 2 for one inlet and one outlet)";
