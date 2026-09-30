@@ -191,7 +191,7 @@ model SingleBoiler "A generic steam plant with a single boiler that discharges
     y_start=yPum_start)
     "Pump control"
     annotation (Placement(transformation(extent={{-80,100},{-60,120}})));
-  Modelica.Blocks.Math.Gain VNor(final k=1/VBoiWatSet)
+  Modelica.Blocks.Math.Gain VNor(final k(unit="1/m3")=1/VBoiWatSet)
     "Normalized volume setpoint"
     annotation (Placement(transformation(extent={{160,60},{140,80}})));
   Buildings.Controls.Continuous.LimPID conBoi(
@@ -233,9 +233,9 @@ model SingleBoiler "A generic steam plant with a single boiler that discharges
     annotation (Placement(transformation(extent={{38,-10},{58,10}})));
 equation
   connect(port_aSerHea, pumFW.port_a)
-    annotation (Line(points={{-300,0},{-40,0}}, color={0,127,255}));
+    annotation (Line(points={{-380,0},{-40,0}}, color={0,127,255}));
   connect(boi.port_b, port_bSerHea)
-    annotation (Line(points={{160,0},{300,0}}, color={0,127,255}));
+    annotation (Line(points={{160,0},{380,0}}, color={0,127,255}));
   connect(conPum.y, pumFW.y)
     annotation (Line(points={{-59,110},{-30,110},{-30,12}},
                                                           color={0,0,127}));
@@ -260,10 +260,10 @@ equation
     annotation (Line(points={{-159,110},{-150,110},{-150,-72},{78,-72}},
       color={0,0,127}));
   connect(QFue_flow, boi.QFueFlo)
-    annotation (Line(points={{320,120},{200,120},{200,9},{161,9}},
+    annotation (Line(points={{400,120},{200,120},{200,9},{161,9}},
       color={0,0,127}));
   connect(PPum, pumFW.P)
-    annotation (Line(points={{320,160},{0,160},{0,9},{-19,9}},
+    annotation (Line(points={{400,160},{0,160},{0,9},{-19,9}},
       color={0,0,127}));
   connect(tanFW.port_a, pumFW.port_a)
     annotation (Line(points={{-70,20},{-70,0},{-40,0}}, color={0,127,255}));
@@ -301,6 +301,10 @@ Energy Systems (OSMSES 2022)</i>, Aachen, German, April 4-5, 2022.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+September 27, 2026, by Michael Wetter:<br/>
+Added unit specification to avoid warning in Dymola 2025x.
+</li>
 <li>
 September 15, 2023, by Kathryn Hinkelman:<br/>
 Added publication references.

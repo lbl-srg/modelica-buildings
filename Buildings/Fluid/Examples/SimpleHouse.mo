@@ -137,7 +137,7 @@ model SimpleHouse
   Modelica.Blocks.Sources.Constant const_dp(k=dpAir_nominal) "Pressure head"
     annotation (Placement(transformation(extent={{-52,150},{-32,170}})));
 
-  Modelica.Blocks.Math.Gain gaiWin(k=A_win*g_win)
+  Modelica.Blocks.Math.Gain gaiWin(k(unit="m2")=A_win*g_win)
     "Gain for window solar transmittance and area as HGloHor is in W/m2"
     annotation (Placement(transformation(extent={{-60,-36},{-40,-16}})));
   Modelica.Blocks.Math.BooleanToInteger booleanToInt "Boolean to integer"
@@ -171,7 +171,8 @@ equation
   connect(wallRes.port_b, walCap.port) annotation (Line(points={{86,0},{132,0},{
           132,-6},{132,-8}},    color={191,0,0}));
   connect(Tout.T, weaBus.TDryBul)
-    annotation (Line(points={{-22,0},{-152,0},{-152,-8}}, color={0,0,127}));
+    annotation (Line(points={{-22,0},{-151.95,0},{-151.95,-7.95}},
+                                                          color={0,0,127}));
   connect(Tout.port, wallRes.port_a)
     annotation (Line(points={{0,0},{0,0},{66,0}},    color={191,0,0}));
   connect(heaWat.port_b, rad.port_a) annotation (Line(points={{64,-106},{84,-106},
@@ -186,11 +187,11 @@ equation
   connect(window.port, walCap.port) annotation (Line(points={{0,-26},{132,-26},{
           132,-12},{132,-8}},
                          color={191,0,0}));
-  connect(bouAir.ports[1], hexRec.port_b1) annotation (Line(points={{-102,142},{
+  connect(bouAir.ports[1], hexRec.port_b1) annotation (Line(points={{-102,139},{
           -102,139.6},{-84,139.6}},
                               color={0,127,255}));
   connect(hexRec.port_a1, zone.ports[1]) annotation (Line(points={{-54,139.6},{85,
-          139.6},{85,140},{94,140}},      color={0,127,255}));
+          139.6},{85,140},{93,140}},      color={0,127,255}));
   connect(rad.heatPortCon, zone.heatPort) annotation (Line(points={{112,-98.8},{
           112,-98.8},{112,48},{112,150},{102,150}},   color={191,0,0}));
   connect(rad.heatPortRad, walCap.port) annotation (Line(points={{116,-98.8},{116,
@@ -209,20 +210,21 @@ equation
   connect(gaiWin.y, window.Q_flow) annotation (Line(points={{-39,-26},{-34,-26},
           {-30,-26},{-20,-26}}, color={0,0,127}));
   connect(gaiWin.u, weaBus.HGloHor) annotation (Line(points={{-62,-26},{-90,-26},
-          {-152,-26},{-152,-8}}, color={0,0,127}));
+          {-151.95,-26},{-151.95,-7.95}},
+                                 color={0,0,127}));
   connect(booleanToInt.u, not1.y) annotation (Line(points={{-18,-134},{-22,-134},
           {-22,-100},{-25,-100}}, color={255,0,255}));
   connect(booleanToInt.y, pump.stage) annotation (Line(points={{5,-134},{32,-134},
           {70,-134},{70,-158}}, color={255,127,0}));
-  connect(bouAir.ports[2], hexRec.port_a2) annotation (Line(points={{-102,138},{
+  connect(bouAir.ports[2], hexRec.port_a2) annotation (Line(points={{-102,141},{
           -102,142},{-90,142},{-90,120.4},{-84,120.4}}, color={0,127,255}));
   connect(hexRec.port_b2, fan.port_a) annotation (Line(points={{-54,120.4},{-44,
           120.4},{-44,120},{-32,120}}, color={0,127,255}));
   connect(vavDam.port_b, zone.ports[2])
-    annotation (Line(points={{82,120},{90,120},{90,140}}, color={0,127,255}));
-  connect(senTemZonAir.T, hysRad.u) annotation (Line(points={{60,180},{60,180},{
+    annotation (Line(points={{82,120},{91,120},{91,140}}, color={0,127,255}));
+  connect(senTemZonAir.T, hysRad.u) annotation (Line(points={{59,180},{59,180},{
           -132,180},{-132,-100},{-76,-100}},  color={0,0,127}));
-  connect(senTemZonAir.T,conDam. u_s) annotation (Line(points={{60,180},{60,180},
+  connect(senTemZonAir.T,conDam. u_s) annotation (Line(points={{59,180},{59,180},
           {-132,180},{-132,90},{-62,90},{-22,90}},
                                           color={0,0,127}));
   connect(conDam.y, vavDam.y) annotation (Line(points={{1,90},{26,90},{72,90},{72,
@@ -236,8 +238,8 @@ equation
     annotation (Line(points={{50,120},{50,120},{62,120}}, color={0,127,255}));
   connect(TSupAirCoo.y, cooAir.TSet) annotation (Line(points={{9,160},{20,160},{
           20,128},{28,128}}, color={0,0,127}));
-  connect(bouAir.T_in, weaBus.TDryBul) annotation (Line(points={{-124,144},{
-          -152,144},{-152,-8}}, color={0,0,127}));
+  connect(bouAir.T_in, weaBus.TDryBul) annotation (Line(points={{-124,144},{-151.95,
+          144},{-151.95,-7.95}},color={0,0,127}));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-240,
             -220},{200,220}}), graphics={
         Rectangle(
@@ -279,6 +281,10 @@ equation
     experiment(Tolerance=1e-06, StopTime=3.1536e+07),
     Documentation(revisions="<html>
 <ul>
+<li>
+September 27, 2026, by Michael Wetter:<br/>
+Added unit specification to avoid warning in Dymola 2025x.
+</li>
 <li>
 June 15, 2022, by Hongxiang Fu:<br/>
 Changed <code>conDam.yMin</code> from 0.1 to 0.25.<br/>

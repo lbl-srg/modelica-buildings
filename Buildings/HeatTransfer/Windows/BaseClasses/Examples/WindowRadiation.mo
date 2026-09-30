@@ -30,7 +30,7 @@ model WindowRadiation "Test model for window radiation"
   Modelica.Blocks.Sources.Constant shaCon(k=if (glaSys.haveShade) then 0.5 else
               0)
     annotation (Placement(transformation(extent={{60,-40},{80,-20}})));
-  Modelica.Blocks.Math.Gain HRoo(k=0.1) "Solar irradiation from room"
+  Modelica.Blocks.Math.Gain HRoo(k(unit="1/m2")=0.1) "Solar irradiation from room"
     annotation (Placement(transformation(extent={{20,-40},{40,-20}})));
   Buildings.HeatTransfer.Windows.BaseClasses.WindowRadiation winRad(
     AWin=1,
@@ -80,7 +80,7 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   connect(winRad.QTraDif_flow, HRoo.u) annotation (Line(
-      points={{81,2},{94,2},{94,-90},{-10,-90},{-10,-30},{18,-30}},
+      points={{81,4},{94,4},{94,-90},{-10,-90},{-10,-30},{18,-30}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(winRad.HDir, HDirTil.H) annotation (Line(
@@ -103,6 +103,10 @@ __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/HeatTransf
 This example illustrates modeling of window radiation.
 </html>", revisions="<html>
 <ul>
+<li>
+September 27, 2026, by Michael Wetter:<br/>
+Added unit specification to avoid warning in Dymola 2025x.
+</li>
 <li>
 September 16, 2021, by Michael Wetter:<br/>
 Removed parameter <code>lat</code> as this is now obtained from the weather data reader.<br/>

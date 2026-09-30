@@ -356,7 +356,7 @@ Note:
 </p>
 <ul>
 <li>
-xxx
+Added unit specification to avoid a warning in Dymola 2025x.
 </li>
 </ul>
 </html>"));
