@@ -49,8 +49,7 @@ block SortRuntime
     "Sort equipment by increasing weighted runtime"
     annotation (Placement(transformation(extent={{120,-10},{140,10}})));
   Buildings.Controls.OBC.CDL.Conversions.BooleanToReal weiOffAva[nEquAlt](
-    each final realTrue=1E10,
-    each final realFalse=1)
+    each final realTrue=1E10, each final realFalse=0)
     "Weight to be applied to runtime of equipment off and available"
     annotation (Placement(transformation(extent={{-50,30},{-30,50}})));
   Buildings.Controls.OBC.CDL.Reals.Add      appWeiOffAva[nEquAlt]
@@ -242,6 +241,11 @@ the equipment with the most operating hours as determined by
 Staging Runtime is made the last stage equipment and the one
 with the least number of hours is made the lead stage equipment.
 </p>
+<p><i>
+Note: This strategy effectively makes it such that equipment are not
+\"hot swapped\", e.g., a pump would not be started and another stopped
+during operation just for runtime equalization.
+</i></p>
 <p>
 In the case of unavailable equipment,
 the equipment that alarmed most recently is sent to the last position.
@@ -257,12 +261,12 @@ The sorting logic is implemented using the following method.
 If a unit is on and available, its staging runtime is used as is.
 </li>
 <li>
-If a unit is off and available, its staging runtime is increased 
+If a unit is off and available, its staging runtime is increased
 by <i>1E10</i>&nbsp;s.
 </li>
 <li>
-If a unit is unavailable, its staging runtime is replaced by  
-<i>1E20</i>&nbsp;s minus the time elapsed since it became 
+If a unit is unavailable, its staging runtime is replaced by
+<i>1E20</i>&nbsp;s minus the time elapsed since it became
 unavailable.
 </li>
 <li>
@@ -272,7 +276,7 @@ the different units.
 </ul>
 <p>
 This is effectively the same as sorting the units within
-the three following subsets: units that are on and available, 
+the three following subsets: units that are on and available,
 units that are off and available, units that are unavailable.
 In particular, the order index of a given unit remains unchanged
 if it is the only element of a given subset.
@@ -295,6 +299,10 @@ to the input vectors (full set of equipment).
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+July 10, 2026, by Antoine Gautier:<br/>
+Corrected the runtime replacement value for staged-off equipment.
+</li>
 <li>
 June 10, 2026, by Antoine Gautier:<br/>
 Corrected runtime weighting for unavailable units.
