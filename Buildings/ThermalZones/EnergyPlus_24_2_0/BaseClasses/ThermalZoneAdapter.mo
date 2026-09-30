@@ -49,16 +49,16 @@ model ThermalZoneAdapter
   parameter Real airChaRatInf(final unit="1/s", displayUnit="1/h") "Infiltration air change rate for auto-sizing";
   parameter Modelica.Units.SI.SpecificHeatCapacity cpAir "Specific heat capacity of air";
   parameter Modelica.Units.SI.SpecificEnergy h_fg "Latent heat of water vapor";
-  parameter Modelica.Units.SI.Density rhoAir(displayUnit="kg/s") "Density of air";
+  parameter Modelica.Units.SI.Density rhoAir(displayUnit="kg/m3") "Density of air";
 
   parameter Integer nFluPor
     "Number of fluid ports (Set to 2 for one inlet and one outlet)";
   final parameter Modelica.Units.SI.Area AFlo(fixed=false) "Floor area";
   final parameter Modelica.Units.SI.Volume V(fixed=false) "Zone volume";
-  final parameter Real XOutCoo(fixed=false) "Humidity ratio at cooling design from E+";
-  final parameter Real XOutHea(fixed=false) "Humidity ratio at heating design from E+";
-  final parameter Real XSetCoo(fixed=false) "Zone cooling set point humidity used for sizing from E+";
-  final parameter Real XSetHea(fixed=false) "Zone heating set point humidity used for sizing from E+";
+  final parameter Real XOutCoo(fixed=false) "Humidity ratio at cooling design from EnergyPlus";
+  final parameter Real XOutHea(fixed=false) "Humidity ratio at heating design from EnergyPlus";
+  final parameter Real XSetCoo(fixed=false) "Zone cooling set point humidity used for sizing from EnergyPlus";
+  final parameter Real XSetHea(fixed=false) "Zone heating set point humidity used for sizing from EnergyPlus";
   final parameter Real mSenFac(
     fixed=false)
     "Factor for scaling the sensible thermal mass of the zone air volume";
