@@ -138,7 +138,7 @@ model SimpleHouse
   Modelica.Blocks.Sources.Constant con_dp(k=dpAir_nominal) "Pressure head"
     annotation (Placement(transformation(extent={{-50,90},{-30,110}})));
 
-  Modelica.Blocks.Math.Gain gaiWin(k=AWin*gWin)
+  Modelica.Blocks.Math.Gain gaiWin(k(unit="m2")=AWin*gWin)
     "Gain for window solar transmittance and area as HGloHor is in W/m2"
     annotation (Placement(transformation(extent={{20,-50},{40,-30}})));
   Modelica.Blocks.Math.BooleanToInteger booToInt "Boolean to integer"
@@ -171,7 +171,8 @@ equation
           1.77636e-15},{160,1.77636e-15}},
                          color={191,0,0}));
   connect(TOut.T, weaBus.TDryBul)
-    annotation (Line(points={{-82,0},{-130,0}},           color={0,0,127}));
+    annotation (Line(points={{-82,0},{-106,0},{-106,0.05},{-129.95,0.05}},
+                                                          color={0,0,127}));
   connect(TOut.port, walRes.port_a)
     annotation (Line(points={{-60,0},{60,0}},     color={191,0,0}));
   connect(heaWat.port_b, rad.port_a) annotation (Line(points={{80,-130},{120,-130}},
@@ -199,8 +200,8 @@ equation
           118}},           color={0,0,127}));
   connect(gaiWin.y, win.Q_flow) annotation (Line(points={{41,-40},{60,-40}},
                            color={0,0,127}));
-  connect(gaiWin.u, weaBus.HGloHor) annotation (Line(points={{18,-40},{-130,-40},
-          {-130,0}},             color={0,0,127}));
+  connect(gaiWin.u, weaBus.HGloHor) annotation (Line(points={{18,-40},{-129.95,-40},
+          {-129.95,0.05}},       color={0,0,127}));
   connect(booToInt.u, not1.y) annotation (Line(points={{-2,-150},{-11,-150},{-11,
           -110},{-19,-110}}, color={255,0,255}));
   connect(booToInt.y, pum.stage) annotation (Line(points={{21,-150},{130,-150},{
@@ -225,8 +226,8 @@ equation
     annotation (Line(points={{50,130},{100,130}},         color={0,127,255}));
   connect(TSupAirCoo.y, cooAir.TSet) annotation (Line(points={{21,100},{24,100},
           {24,122},{28,122}},color={0,0,127}));
-  connect(bouAir.T_in, weaBus.TDryBul) annotation (Line(points={{-122,144},{
-          -130,144},{-130,0}},  color={0,0,127}));
+  connect(bouAir.T_in, weaBus.TDryBul) annotation (Line(points={{-122,144},{-129.95,
+          144},{-129.95,0.05}}, color={0,0,127}));
   connect(bouAir.ports[2], hexRec.port_a2) annotation (Line(points={{-100,141},{
           -100,130.4},{-75,130.4}}, color={0,127,255}));
   connect(hexRec.port_a1, zon.ports[2]) annotation (Line(points={{-45,149.6},{171,
@@ -278,6 +279,10 @@ equation
     experiment(Tolerance=1e-06, StopTime=3.1536e+07),
     Documentation(revisions="<html>
 <ul>
+<li>
+September 27, 2026, by Michael Wetter:<br/>
+Added unit specification to avoid warning in Dymola 2025x.
+</li>
 <li>
 September 15, 2023, by Jelger Jansen:<br/>
 Move the example model to <a href=\"modelica://Buildings.Examples\">Buildings.Examples</a>, 

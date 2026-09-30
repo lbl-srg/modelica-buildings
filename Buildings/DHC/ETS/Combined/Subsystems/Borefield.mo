@@ -89,8 +89,8 @@ model Borefield
     final unit="W")
     "Pump power"
     annotation (Placement(transformation(extent={{100,20},{140,60}}),iconTransformation(extent={{100,20},{140,60}})));
-  Buildings.Controls.OBC.CDL.Reals.MultiplyByParameter gai1(final k=
-        m_flow_nominal) "Scale to nominal mass flow rate" annotation (Placement(
+  Buildings.Controls.OBC.CDL.Reals.MultiplyByParameter gai1(
+    final k(unit="kg/s")=m_flow_nominal) "Scale to nominal mass flow rate" annotation (Placement(
         transformation(
         extent={{10,-10},{-10,10}},
         rotation=90,

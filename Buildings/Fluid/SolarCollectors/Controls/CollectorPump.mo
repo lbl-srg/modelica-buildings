@@ -66,8 +66,9 @@ equation
   connect(TIn, criSol.TIn)    annotation (Line(
       points={{-120,-40},{-84,-40},{-84,-16},{-62,-16}},
       color={0,0,127}));
-  connect(weaBus.TDryBul, criSol.TEnv)    annotation (Line(points={{-102,60},{-84,
-          60},{-84,-4},{-62,-4}}, color = {255, 204, 51}, thickness = 0.5));
+  connect(weaBus.TDryBul, criSol.TEnv)    annotation (Line(points={{-101.95,60.05},
+          {-84,60.05},{-84,-4},{-62,-4}},
+                                  color = {255, 204, 51}, thickness = 0.5));
   connect(HDirTil.weaBus, weaBus) annotation (Line(
       points={{-60,30},{-84,30},{-84,60},{-102,60}},
       color={255,204,51},
