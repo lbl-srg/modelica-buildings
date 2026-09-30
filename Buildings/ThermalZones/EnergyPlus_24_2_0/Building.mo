@@ -1,6 +1,6 @@
 within Buildings.ThermalZones.EnergyPlus_24_2_0;
 model Building
-  "Model that declares a building to which EnergyPlus objects belong to"
+  "Model that declares a building to which EnergyPlus objects belong"
   extends Modelica.Blocks.Icons.Block;
 
   constant String spawnExe="spawn-0.6.0-638b8408fd"
@@ -58,7 +58,7 @@ model Building
     "Weather data bus"
     annotation (Placement(transformation(extent={{90,-10},{110,10}})));
   BaseClasses.Synchronize.SynchronizeConnector synchronize
-    "Connector that synchronizes all Spawn objects of this buildings"
+    "Connector that synchronizes all Spawn objects of this building"
     annotation (HideResult=true);
   Real isSynchronized
     "Flag used to synchronize Spawn objects"
@@ -183,7 +183,7 @@ a nonlinear equation is formed.
 Because in EnergyPlus, computing the radiative temperature involves an iterative solution,
 this can cause convergence problems due to having two nested solvers,
 the outer being the Modelica solver that solves for the radiative heat flow rate <code>QGaiRad_flow</code>,
-and the innner being the EnergyPlus solver that solves for the radiative temperature <code>TRad</code>.
+and the inner being the EnergyPlus solver that solves for the radiative temperature <code>TRad</code>.
 Hence, we recommend to leave <code>setInitialRadiativeHeatGainToZero = true</code>.
 </p>
 <p>

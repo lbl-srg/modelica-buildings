@@ -16,7 +16,7 @@ model OpaqueConstruction
   Modelica.Units.SI.HeatFlux qFro_flow
     "Heat flow rate at front surface per unit area";
   Modelica.Units.SI.HeatFlux qBac_flow
-    "Heat flow rate at front surface per unit area";
+    "Heat flow rate at back surface per unit area";
 
 protected
   constant Integer nParOut=1
@@ -165,7 +165,7 @@ absorbed infrared radiation minus emitted infrared radiation.
 </li>
 </ul>
 <p>
-For the back-side surface, the above quanties, but now for the back-side of the construction,
+For the back-side surface, the above quantities, but now for the back-side of the construction,
 are also returned if the back-side faces another thermal zone or the outside.
 If the back-side surface is above ground, then the heat flow rate from the ground is returned.
 </p>
@@ -192,7 +192,7 @@ By convention, if a surface cools the thermal zone,
 then <code>heaPorFro.Q_flow &lt; 0</code> for a front surface and <code>heaPorBac.Q_flow &lt; 0</code> for a back surface.
 </p>
 <p>
-The variable <code>qFro_flow</code> is equal to <code>qFro_flow = heaPorFor.Q_flow/A</code>, where
+The variable <code>qFro_flow</code> is equal to <code>qFro_flow = heaPorFro.Q_flow/A</code>, where
 <code>A</code> is the area of the heat transfer surface as obtained from EnergyPlus.
 Similarly, use <code>qBac_flow</code> to check the back side heat flux.
 </p>
@@ -226,7 +226,7 @@ Buildings.ThermalZones.EnergyPlus_24_2_0.OpaqueConstruction attFlo(surfaceName=\
     \"Floor of the attic above the living room\";
 </pre>
 <p>
-The heat port <code>attFlo.heaPorFor</code> can then be connected to the heat port of the upward facing
+The heat port <code>attFlo.heaPorFro</code> can then be connected to the heat port of the upward facing
 surface of a radiant slab, and the
 heat port <code>attFlo.heaPorBac</code> can be connected to the downward facing surface of the radiant slab
 that cool the living room via the surface <code>Living:Ceiling</code>.

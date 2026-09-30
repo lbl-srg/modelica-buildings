@@ -84,7 +84,7 @@ Revised implementation for efficiency.
 </li>
 <li>
 November 8, 2019, by Michael Wetter:<br/>
-First implementation..
+First implementation.
 </li>
 </ul>
 </html>"));

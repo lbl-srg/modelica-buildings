@@ -20,7 +20,7 @@ model ThermalZoneAdapter
   parameter String idfName
     "Name of the IDF file that contains this zone";
   parameter String epwName
-    "Name of the Energyplus weather file including the epw extension";
+    "Name of the EnergyPlus weather file including the epw extension";
   parameter String zoneName
     "Name of the thermal zone as specified in the EnergyPlus input";
   parameter String hvacSystemName
@@ -385,7 +385,7 @@ This is for
 <li>
 March 22, 2024, by Michael Wetter:<br/>
 Changed radiative heat flow rate sent to EnergyPlus to be the average over the last
-synchronization time step rather than the instantaneuous value, and set the initial value to zero.
+synchronization time step rather than the instantaneous value, and set the initial value to zero.
 This avoids a nonlinear system of equation during the time integration for models in which
 the radiative heat gain is a function of the room radiative temperature, such as
 when a radiator is connected to the room model.<br/>

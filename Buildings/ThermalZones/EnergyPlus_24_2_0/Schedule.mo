@@ -154,7 +154,7 @@ the simulation will stop with an error.
 </p>
 <h4>Usage</h4>
 <p>
-To use an schedule, set up the schedule in the EnergyPlus idf file.
+To use a schedule, set up the schedule in the EnergyPlus idf file.
 For example, an entry may be
 </p>
 <pre>
@@ -170,7 +170,7 @@ Schedule:Compact,
   Until: 24:00,0.0;        !- Field 10
 </pre>
 <p>
-Next, instantiate the actuator in Modelica. For the above
+Next, instantiate the schedule in Modelica. For the above
 <code>Schedule:Compact</code>, the Modelica instantiation would be
 </p>
 <pre>

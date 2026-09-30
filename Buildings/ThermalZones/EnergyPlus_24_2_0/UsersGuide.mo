@@ -300,7 +300,7 @@ shows how to set the equipment schedule in Modelica and override the schedule in
 It also uses the unconditioned thermal zone to keep it simple.
 </li>
 <li>
-<a href=\"modelica//:Buildings.ThermalZones.EnergyPlus_24_2_0.Examples.SingleFamilyHouse.LightsControl\">
+<a href=\"modelica://Buildings.ThermalZones.EnergyPlus_24_2_0.Examples.SingleFamilyHouse.LightsControl\">
 Buildings.ThermalZones.EnergyPlus_24_2_0.Examples.SingleFamilyHouse.LightsControl</a>
 is showing how to set the value of an EMS Actuator, here the one that sets internal gains
 caused by the lights which are controlled by Modelica based on time of day and sun position.
@@ -559,7 +559,7 @@ in the same way as a conventional EnergyPlus simulation.
 The first day of the simulation is repeated, but Spawn uses a different criteria for stopping
 the iteration compared to a conventional EnergyPlus simulation. In EnergyPlus, the first day is repeated
 until the zone air temperature reaches a periodic steady state as indicated by the minimum and maximum temperatures
-for the warmup day stablizing. In Spawn, the exit criteria is similarly based on reaching a periodic steady state,
+for the warmup day stabilizing. In Spawn, the exit criteria is similarly based on reaching a periodic steady state,
 however Spawn exits warmup when the surface temperatures stabilize instead of the air temperature.
 </p>
 </li>
@@ -633,7 +633,7 @@ Autosizing in Spawn of EnergyPlus is implemented to help users automatically
 size system equipment and components modeled in Modelica using sizing 
 capabilities in EnergyPlus.  The general workflow is to specify sizing
 objects in the idf file that are typically used in EnergyPlus workflows
-and propogate values from pre-defined sizing parameters in Modelica, whose
+and propagate values from pre-defined sizing parameters in Modelica, whose
 values are obtained from the EnergyPlus sizing process during initialization,
 throughout the model as-needed.  More information about setting up autosizing
 and the pre-defined sizing parameters is described below.
@@ -744,9 +744,9 @@ Infiltration: All zone air infiltration for thermal zones connected
 to EnergyPlus is implemented 
 in Modelica, and any infiltration information for these zones
 in the .idf is ignored during autosizing.  For zones
-in the .idf not connected to Modelica thermal zones, infilatration information
+in the .idf not connected to Modelica thermal zones, infiltration information
 is still utilized during autosizing.  
-For autosizing zones in Modelica connected to EnergyPLus, 
+For autosizing zones in Modelica connected to EnergyPlus,
 zone air infiltration can be considered
 using the parameter <code>ThermalZone.airChaRatInf</code>, which
 will add sensible and latent infiltration loads to the design zone heating

@@ -489,11 +489,11 @@ and a heat port <code>heaPorRad</code> that connects to the radiative heat balan
 If heat is added to <code>heaPorRad.Q_flow</code>, then this heat is sent to EnergyPlus as if it were
 a radiant heat gain of the zone.
 The heat port temperature <code>heaPorRad.T</code> is the radiant temperature
-of the room. Hence, these two ports <code>heatPorAir</code> and <code>heaPorRad</code> could
+of the room. Hence, these two ports <code>heaPorAir</code> and <code>heaPorRad</code> could
 be used to connect a radiator. Note, however, that such a coupling is an approximation
 as the surface temperature of the radiator will not be reflected in the radiative temperature
 of the room.
-Also, read to section <i>Notes about modeling components that are connected to the radiative heat port</i> below.
+Also, read the section <i>Notes about modeling components that are connected to the radiative heat port</i> below.
 </p>
 
 <h5>Contaminant balance</h5>
@@ -588,7 +588,7 @@ Corrected graphical annotation for <code>Text</code>.
 <li>
 March 22, 2024, by Michael Wetter:<br/>
 Changed radiative heat flow rate sent to EnergyPlus to be the average over the last
-synchronization time step rather than the instantaneuous value, and set the initial value by default to zero.
+synchronization time step rather than the instantaneous value, and set the initial value by default to zero.
 Introduced parameter <code>setInitialRadiativeHeatGainToZero</code>.
 This avoids a nonlinear system of equation during the time integration for models in which
 the radiative heat gain is a function of the room radiative temperature, such as

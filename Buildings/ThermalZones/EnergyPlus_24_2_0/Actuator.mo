@@ -137,7 +137,7 @@ the simulation will stop with an error.
 </p>
 <h4>Usage</h4>
 <p>
-This section explain how to use actuators for different EnergyPlus objects.
+This section explains how to use actuators for different EnergyPlus objects.
 For other actuators, please see the EnergyPlus EMS Application Guide.
 </p>
 <!-- Actuator for lights -->

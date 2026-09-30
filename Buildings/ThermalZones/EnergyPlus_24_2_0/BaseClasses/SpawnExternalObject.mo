@@ -205,7 +205,7 @@ First implementation.
     Documentation(
       info="<html>
 <p>
-Class derived from <code>ExternalObject</code> having two local external function definition,
+Class derived from <code>ExternalObject</code> having two local external function definitions,
 named <code>destructor</code> and <code>constructor</code> respectively.
 <p>
 These functions create and release an external object that allows the storage
