@@ -129,7 +129,7 @@ protected
     final modelicaNameBuilding=modelicaNameBuilding,
     final airChaRatInf=airChaRatInf,
     final cpAir=cpAir,
-    final hfgWater=h_fg,
+    final h_fg=h_fg,
     final rhoAir=rhoAir,
     final modelicaInstanceName=modelicaInstanceName,
     final spawnExe=spawnExe,

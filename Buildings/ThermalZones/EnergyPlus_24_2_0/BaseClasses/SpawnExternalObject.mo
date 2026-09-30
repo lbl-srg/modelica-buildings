@@ -32,7 +32,7 @@ class SpawnExternalObject
       "Infiltration mass flow rate";
     input Modelica.Units.SI.SpecificHeatCapacity cpAir
       "Specific heat capacity of air";
-    input Modelica.Units.SI.SpecificEnergy hfgWater
+    input Modelica.Units.SI.SpecificEnergy h_fg
       "Latent heat of water vapor";
     input Modelica.Units.SI.Density rhoAir
       "Density of air";
@@ -95,7 +95,7 @@ class SpawnExternalObject
     relativeSurfaceTolerance,
     airChaRatInf,
     cpAir,
-    hfgWater,
+    h_fg,
     rhoAir,
     usePrecompiledFMU,
     fmuName,

@@ -48,7 +48,7 @@ model ThermalZoneAdapter
 
   parameter Real airChaRatInf(final unit="1/s", displayUnit="1/h") "Infiltration air change rate for auto-sizing";
   parameter Modelica.Units.SI.SpecificHeatCapacity cpAir "Specific heat capacity of air";
-  parameter Modelica.Units.SI.SpecificEnergy hfgWater "Latent heat of water vapor";
+  parameter Modelica.Units.SI.SpecificEnergy h_fg "Latent heat of water vapor";
   parameter Modelica.Units.SI.Density rhoAir(displayUnit="kg/s") "Density of air";
 
   parameter Integer nFluPor
@@ -151,7 +151,7 @@ protected
     relativeSurfaceTolerance=relativeSurfaceTolerance,
     airChaRatInf=airChaRatInf,
     cpAir=cpAir,
-    hfgWater=hfgWater,
+    h_fg=h_fg,
     rhoAir=rhoAir,
     usePrecompiledFMU=usePrecompiledFMU,
     fmuName=fmuName,

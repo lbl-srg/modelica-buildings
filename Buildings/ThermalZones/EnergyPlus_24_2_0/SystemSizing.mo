@@ -48,7 +48,7 @@ protected
     relativeSurfaceTolerance=relativeSurfaceTolerance,
     airChaRatInf=0.0,
     cpAir=0.0,
-    hfgWater=0.0,
+    h_fg=0.0,
     rhoAir=0.0,
     usePrecompiledFMU=usePrecompiledFMU,
     fmuName=fmuName,
