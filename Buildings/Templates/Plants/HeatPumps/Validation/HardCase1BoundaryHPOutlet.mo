@@ -5,12 +5,56 @@ model HardCase1BoundaryHPOutlet "Validation of AWHP plant template"
   annotation(IconMap(primitivesVisible = false));
 annotation(experiment(StopTime=86400,
   Tolerance=1e-06,
-  __Dymola_Algorithm="Cvode"), Documentation(info="Sizes after manipulation of the nonlinear systems: {9, 1, 1, 1, 1, 1}
-Number of numerical Jacobians: 2
+  __Dymola_Algorithm="Cvode"), Documentation(info="Warning: Failed to solve nonlinear system using Newton solver.
+  During initialization at time: 0
+  Tag: initialization.nonlinear[3]
+
+  Common causes:
+   * The system of equations has no solution - the residual will be above zero.
+     - This may be caused by initial conditions not being fully specified, check the translation log.
+     - In some cases the event-logic can cause this.
+   * Starting values are too far from the solution, see homotopy in the manual.
+     - In rare cases this could occur at events.
+   * The equations are too discontinuous for the nonlinear solver - the residual will have knees.
+     - Likely caused by over-using noEvent.
+  Especially consider the first two items above when the nonlinear solver fails during initialization.
+
+  To get more information consider the options:
+   * Simulation/Setup/Translation/Generate listing of translated Modelica code in dsmodel.mof
+   * Simulation/Setup/Translation/List non-linear iteration variables
+   * Simulation/Setup/Debug/Store variables after failed initialization
+     - If a failure to solve a nonlinear equation caused failed initialization.
+   * The options under the group Simulation/Setup/Debug/Nonlinear solver diagnostics
+
+  Jacobian inverse norm estimate: 1.02357e+12
+  Condition number estimate: 5.11527e+11
+  1-norm of the residual = 1.54498
+  The estimates indicate that the Jacobian is close to singular, suggesting that there is no solution.
+
+  Last value of the solution:
+    pla.pumPri.pumChiWat.valChe[3].dp = -0.148709
+    pla.pumPri.pumChiWat.valChe[2].dp = -0.161935
+    pla.valIso.valHeaWatUniInlIso[2].port_b.p = 351346
+    pla.valIso.port_bHeaWat.m_flow = -0.00781534
+    pipHeaWat.dp = 8.78717E-06
+    pla.pumPri.pumHeaWat.valChe[1].dp = -35.167
+    loaHea.port_a.p = 351360
+    pla.pumPri.pumChiWat.valChe[1].dp = -20.721
+    pla.valIso.port_aChiWat.m_flow = -3.53439E-06
+    pipChiWat.dp = 3.73778E-06
+  Last value of the residual:
+    { -0.0061924, -0.00453339, -0.0740343, 0.0863898, 1.74623E-10,
+      1.0265E-12, 0.759999, 0.161062, 0.201756, 0.251015 }
+ 
+Trying to solve non-linear system using global homotopy-method.
+Model: Buildings.Templates.Plants.HeatPumps.Validation.HardCase1BoundaryHPOutlet
+Integration started at 0 using integration method:
+cvode from sundials
+
 
 Integration terminated successfully at T = 86400
-   CPU-time for integration                  : 3.86927 seconds
-   CPU-time for initialization               : 0.336529 seconds
+   CPU-time for integration                  : 6.5698 seconds
+   CPU-time for initialization               : 0.674811 seconds
    Number of result points                   : 1617
    Number of grid points                     : 501
    Number of accepted steps                  : 16089
@@ -26,6 +70,8 @@ Integration terminated successfully at T = 86400
    Maximum integration order                 : 5
 
 SUCCESSFUL simulation of Buildings.Templates.Plants.HeatPumps.Validation.HardCase1BoundaryHPOutlet
+
+-------------------- OCT
 
 
 [CVode Warning] b'Internal t = 21159.8 and h = 8.83044e-13 are such that t + h = t on the next step. The solver will continue anyway.'

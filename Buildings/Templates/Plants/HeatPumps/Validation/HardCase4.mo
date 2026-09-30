@@ -12,7 +12,10 @@ model HardCase4 "Validation of AWHP plant template"
 annotation(experiment(StopTime=86400,
   Tolerance=1e-06,
   __Dymola_Algorithm="Cvode"),
-    Documentation(info="Model: Buildings.Templates.Plants.HeatPumps.Validation.HardCase4
+    Documentation(info="Sizes after manipulation of the nonlinear systems: {2, 3, 1, 2, 1, 1, 1, 1, 1, 1}
+Number of numerical Jacobians: 2
+
+Model: Buildings.Templates.Plants.HeatPumps.Validation.HardCase4
 Integration started at 0 using integration method:
 cvode from sundials
 

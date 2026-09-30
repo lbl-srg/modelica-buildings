@@ -76,8 +76,7 @@ Solver options:
 Simulation interval    : 0.0 - 86400.0 seconds.
 Elapsed simulation time: 37.59234046700294 seconds.
 
-"),
-    Icon(graphics={
+"), Icon(graphics={
         Ellipse(fillColor={255,255,0},
                 fillPattern=FillPattern.Solid,
                 extent={{-100,-100},{100,100}},

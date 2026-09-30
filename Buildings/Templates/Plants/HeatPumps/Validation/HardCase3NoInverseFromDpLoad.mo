@@ -76,8 +76,7 @@ Solver options:
 Simulation interval    : 0.0 - 86400.0 seconds.
 Elapsed simulation time: 35.574740289001056 seconds.
 
-"),
-    Icon(graphics={
+"), Icon(graphics={
         Polygon(lineColor = {0,0,255},
                 fillColor={0,140,72},
                 pattern = LinePattern.None,

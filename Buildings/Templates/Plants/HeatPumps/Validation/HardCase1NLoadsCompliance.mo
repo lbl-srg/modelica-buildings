@@ -7,7 +7,11 @@ annotation(experiment(StopTime=86400,
   Tolerance=1e-06,
   __Dymola_Algorithm="Cvode"),
   Documentation(
-    info="Model: Buildings.Templates.Plants.HeatPumps.Validation.HardCase1NLoadsCompliance
+    info="Sizes after manipulation of the nonlinear systems: {19, 12, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1}
+Number of numerical Jacobians: 24
+
+
+Model: Buildings.Templates.Plants.HeatPumps.Validation.HardCase1NLoadsCompliance
 Integration started at 0 using integration method:
 cvode from sundials
 
@@ -145,8 +149,8 @@ and    m_flow=12.315270935961
 
 
 Integration terminated successfully at T = 86400
-   CPU-time for integration                  : 33.5166 seconds
-   CPU-time for initialization               : 0.391439 seconds
+   CPU-time for integration                  : 33.9513 seconds
+   CPU-time for initialization               : 0.400729 seconds
    Number of result points                   : 1637
    Number of grid points                     : 501
    Number of accepted steps                  : 17935
@@ -161,7 +165,44 @@ Integration terminated successfully at T = 86400
    Number of step events                     : 0
    Maximum integration order                 : 5
 
-SUCCESSFUL simulation of Buildings.Templates.Plants.HeatPumps.Validation.HardCase1NLoadsCompliance",
+SUCCESSFUL simulation of Buildings.Templates.Plants.HeatPumps.Validation.HardCase1NLoadsCompliance
+
+-------------------- OCT 368 NonlinearBlockConvergenceError
+
+Final Run Statistics: ---
+
+ Number of steps                                 : 21600
+ Number of function evaluations                  : 32709
+ Number of Jacobian evaluations                  : 1523
+ Number of function eval. due to Jacobian eval.  : 0
+ Number of error test failures                   : 795
+ Number of nonlinear iterations                  : 30270
+ Number of nonlinear convergence failures        : 336
+ Number of state function evaluations            : 25393
+ Number of state events                          : 192
+ Number of time events                           : 417
+
+Solver options:
+
+ Solver                   : CVode
+ Linear multistep method  : BDF
+ Nonlinear solver         : Newton
+ Linear solver type       : DENSE
+ Maximal order            : 5
+ Tolerances (absolute)    : [3.e-04 3.e-04 3.e-04 3.e-04 1.e-01 1.e-01 1.e-08 3.e-04 3.e-04 3.e-04
+ 3.e-04 1.e-01 1.e-01 1.e-08 3.e-04 3.e-04 3.e-04 3.e-04 1.e-01 1.e-01
+ 1.e-08 1.e-01 1.e-06 1.e-01 1.e-06 1.e-01 1.e-06 1.e-01 1.e-06 1.e-01
+ 1.e-06 1.e-01 1.e-06 1.e-06 1.e-06 1.e-06 1.e-06 1.e-06 1.e-06 1.e-01
+ 1.e-01 1.e-01 1.e-01 1.e-01 3.e-04 1.e-01 3.e-04 1.e-06 1.e-01 3.e-04
+ 1.e-01 3.e-04 3.e-04 1.e-01 1.e-06 1.e-01 3.e-04 1.e-01 1.e-01 1.e-01
+ 1.e-01 1.e-01 1.e-01 1.e-06 1.e-06 1.e-06 1.e-06 1.e-06 1.e-06 1.e-06
+ 1.e-06 3.e-04 1.e-01 1.e-01 1.e-08 3.e-04 1.e-06 3.e-04 3.e-04 1.e-06
+ 3.e-04 1.e-01 1.e-01 1.e-08 3.e-04 1.e-06 3.e-04 3.e-04 1.e-06 1.e-01
+ 1.e-01]
+ Tolerances (relative)    : 1e-06
+
+Simulation interval    : 0.0 - 86400.0 seconds.
+Elapsed simulation time: 26.218182697000884 seconds.",
     revisions="<html>
 <ul>
 <li>

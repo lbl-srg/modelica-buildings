@@ -17,7 +17,10 @@ annotation(experiment(StopTime=86400,
   Tolerance=1e-06,
   __Dymola_Algorithm="Cvode"),
   Documentation(
-    info="Model: Buildings.Templates.Plants.HeatPumps.Validation.HardCase1NLoadsNoInverseFromDpLoad
+    info="Sizes after manipulation of the nonlinear systems: {31, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1}
+Number of numerical Jacobians: 24
+
+Model: Buildings.Templates.Plants.HeatPumps.Validation.HardCase1NLoadsNoInverseFromDpLoad
 Integration started at 0 using integration method:
 cvode from sundials
 

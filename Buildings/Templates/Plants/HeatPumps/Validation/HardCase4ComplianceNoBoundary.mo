@@ -7,7 +7,10 @@ model HardCase4ComplianceNoBoundary
 annotation(experiment(StopTime=86400,
   Tolerance=1e-06,
   __Dymola_Algorithm="Cvode"),
-    Documentation(info="Warning: Failed to solve nonlinear system using Newton solver.
+    Documentation(info="Sizes after manipulation of the nonlinear systems: {9, 1, 1, 1, 1, 1, 1}
+Number of numerical Jacobians: 2
+
+Warning: Failed to solve nonlinear system using Newton solver.
   During initialization at time: 0
   Tag: initialization.nonlinear[3]
 

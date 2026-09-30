@@ -159,8 +159,7 @@ SUCCESSFUL simulation of Buildings.Templates.Plants.HeatPumps.Validation.HardCas
 
 -------------------- OCT
 
-"),
-    Icon(graphics={
+"), Icon(graphics={
         Polygon(lineColor = {0,0,255},
                 fillColor={244,125,35},
                 pattern = LinePattern.None,

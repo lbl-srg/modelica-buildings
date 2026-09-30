@@ -5,12 +5,39 @@ model HardCase1Compliance "Validation of AWHP plant template"
   annotation(IconMap(primitivesVisible = false));
 annotation(experiment(StopTime=86400,
   Tolerance=1e-06,
-  __Dymola_Algorithm="Cvode"), Documentation(info="Sizes after manipulation of the nonlinear systems: {1, 8, 1, 1, 1, 1, 1}
-Number of numerical Jacobians: 2
+  __Dymola_Algorithm="Cvode"), Documentation(info="Model: Buildings.Templates.Plants.HeatPumps.Validation.HardCase1Compliance
+Integration started at 0 using integration method:
+cvode from sundials
+
+Warning: The following was detected at time: 27247.35556836889
+  *** Warning in HardCase1Compliance.loaHea.loa.coi: The flow direction reversed.
+      However, because the constant use_dynamicFlowRegime is set to false,
+      the model does not change equations based on the actual flow regime.
+      To switch equations based on the actual flow regime during the simulation,
+      set the constant use_dynamicFlowRegime=true.
+      Note that this can lead to slow simulation because of events.
+With: m_flow=-71.086746265623
+and    m_flow=147.78325123153
+  Failed condition: noEvent(loaHea.port_a.m_flow > -4.481357552581262) and noEvent(loaHea.loa.coi.port_a2.m_flow > -14.77832512315271)
+
+Warning: The following was detected at time: 27258.64247126772
+  *** Warning in HardCase1Compliance.loaHea.loa.coi: The flow direction reversed.
+      However, because the constant use_dynamicFlowRegime is set to false,
+      the model does not change equations based on the actual flow regime.
+      To switch equations based on the actual flow regime during the simulation,
+      set the constant use_dynamicFlowRegime=true.
+      Note that this can lead to slow simulation because of events.
+With: m_flow=-45.909218488635
+and    m_flow=147.78325123153
+  Failed condition: noEvent(loaHea.port_a.m_flow > -4.481357552581262) and noEvent(loaHea.loa.coi.port_a2.m_flow > -14.77832512315271)
+
+SUNDIALS: CVODE CVode At t = 36166.2, mxstep steps taken before reaching tout.
+SUNDIALS: CVODE CVode At t = 49503.2, mxstep steps taken before reaching tout.
+SUNDIALS: CVODE CVode At t = 49803.1, mxstep steps taken before reaching tout.
 
 Integration terminated successfully at T = 86400
-   CPU-time for integration                  : 4.43472 seconds
-   CPU-time for initialization               : 0.319882 seconds
+   CPU-time for integration                  : 4.54734 seconds
+   CPU-time for initialization               : 0.314748 seconds
    Number of result points                   : 1637
    Number of grid points                     : 501
    Number of accepted steps                  : 20709
@@ -27,7 +54,10 @@ Integration terminated successfully at T = 86400
 
 SUCCESSFUL simulation of Buildings.Templates.Plants.HeatPumps.Validation.HardCase1Compliance
 
+
 ------------------ OCT 368 NonlinearBlockConvergenceError
+
+Final Run Statistics: ---
 
  Number of steps                                 : 21600
  Number of function evaluations                  : 32709
@@ -60,7 +90,7 @@ Solver options:
  Tolerances (relative)    : 1e-06
 
 Simulation interval    : 0.0 - 86400.0 seconds.
-Elapsed simulation time: 26.99222283800009 seconds."),
+Elapsed simulation time: 26.218182697000884 seconds."),
     Icon(graphics={
         Ellipse(lineColor = {75,138,73},
                 fillColor={255,255,255},

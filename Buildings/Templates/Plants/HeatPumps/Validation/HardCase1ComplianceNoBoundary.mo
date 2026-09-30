@@ -6,12 +6,16 @@ model HardCase1ComplianceNoBoundary
     annotation(IconMap(primitivesVisible = false));
 annotation(experiment(StopTime=86400,
   Tolerance=1e-06,
-  __Dymola_Algorithm="Cvode"), Documentation(info="SUNDIALS: CVODE CVode At t = 51197.3, mxstep steps taken before reaching tout.
+  __Dymola_Algorithm="Cvode"), Documentation(info="Model: Buildings.Templates.Plants.HeatPumps.Validation.HardCase1ComplianceNoBoundary
+Integration started at 0 using integration method:
+cvode from sundials
+
+SUNDIALS: CVODE CVode At t = 51197.3, mxstep steps taken before reaching tout.
 SUNDIALS: CVODE CVode At t = 64596.9, mxstep steps taken before reaching tout.
 
 Integration terminated successfully at T = 86400
-   CPU-time for integration                  : 4.59872 seconds
-   CPU-time for initialization               : 0.322768 seconds
+   CPU-time for integration                  : 4.40695 seconds
+   CPU-time for initialization               : 0.329016 seconds
    Number of result points                   : 1629
    Number of grid points                     : 501
    Number of accepted steps                  : 18298
@@ -28,7 +32,7 @@ Integration terminated successfully at T = 86400
 
 SUCCESSFUL simulation of Buildings.Templates.Plants.HeatPumps.Validation.HardCase1ComplianceNoBoundary
 
------------------- OCT 152 NonlinearBlockConvergenceError
+-------------------- OCT 152 NonlinearBlockConvergenceError
 
 Final Run Statistics: ---
 
@@ -63,8 +67,8 @@ Solver options:
  Tolerances (relative)    : 1e-06
 
 Simulation interval    : 0.0 - 86400.0 seconds.
-Elapsed simulation time: 27.73620094099897 seconds."),
-    Icon(graphics={
+Elapsed simulation time: 26.404839145998267 seconds.
+"), Icon(graphics={
         Polygon(lineColor = {0,0,255},
                 fillColor={0,140,72},
                 pattern = LinePattern.None,
