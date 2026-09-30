@@ -2,7 +2,7 @@
 #define Modelica_EnergyPlus_24_2_0_getParameters_declared
 
 #include "Modelica_EnergyPlus_24_2_0_getParameters.h"
-#include "../src/ThermalZones/EnergyPlus_24_2_0/C-Sources/SpawnTypes.h"
+#include "Modelica_EnergyPlus_24_2_0_Types.h"
 #include <string.h>
 
 /* *********************************************************
