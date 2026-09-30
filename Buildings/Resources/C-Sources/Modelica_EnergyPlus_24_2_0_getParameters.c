@@ -3,6 +3,7 @@
 
 #include "Modelica_EnergyPlus_24_2_0_getParameters.h"
 #include "Modelica_EnergyPlus_24_2_0_Types.h"
+#include "ModelicaUtilities.h"
 #include <stdlib.h>
 #include <string.h>
 
@@ -112,7 +113,8 @@ void Modelica_EnergyPlus_24_2_0_getParameters(
             for (k = 0; k < bui->nExcObj; k++) {
                SpawnObject* zone = (SpawnObject*)bui->exchange[k];
                zoneParOut = (double*)malloc(zone->parameters->n * sizeof(double));
-               if (zoneParOut == NULL) return;
+               if (zoneParOut == NULL)
+                  ModelicaError("Failed to allocate memory for zoneParOut when computing system level sensible heating load in Modelica_EnergyPlus_24_2_0_getParameters.c.");
                getParameters_Spawn_EnergyPlus_24_2_0(zone, zoneParOut);
                if (zone->hvacZone && strstr(ptrSpaObj->epName, zone->hvacZone)) {
                   for (j = 0; j < zone->parameters->n; j++) {
@@ -155,7 +157,8 @@ void Modelica_EnergyPlus_24_2_0_getParameters(
             for (k = 0; k < bui->nExcObj; k++) {
                SpawnObject* zone = (SpawnObject*)bui->exchange[k];
                zoneParOut = (double*)malloc(zone->parameters->n * sizeof(double));
-               if (zoneParOut == NULL) return;
+               if (zoneParOut == NULL)
+                  ModelicaError("Failed to allocate memory for zoneParOut when computing system level sensible cooling load in Modelica_EnergyPlus_24_2_0_getParameters.c.");
                getParameters_Spawn_EnergyPlus_24_2_0(zone, zoneParOut);
                if (zone->hvacZone && strstr(ptrSpaObj->epName, zone->hvacZone)) {
                   for (j = 0; j < zone->parameters->n; j++) {
@@ -198,7 +201,8 @@ void Modelica_EnergyPlus_24_2_0_getParameters(
             for (k = 0; k < bui->nExcObj; k++) {
                SpawnObject* zone = (SpawnObject*)bui->exchange[k];
                zoneParOut = (double*)malloc(zone->parameters->n * sizeof(double));
-               if (zoneParOut == NULL) return;
+               if (zoneParOut == NULL)
+                  ModelicaError("Failed to allocate memory for zoneParOut when computing system level latent cooling load in Modelica_EnergyPlus_24_2_0_getParameters.c.");
                getParameters_Spawn_EnergyPlus_24_2_0(zone, zoneParOut);
                if (zone->hvacZone && strstr(ptrSpaObj->epName, zone->hvacZone)) {
                   for (j = 0; j < zone->parameters->n; j++) {
