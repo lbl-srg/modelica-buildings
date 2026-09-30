@@ -11,7 +11,6 @@ model FMUZoneAdapterZones1
     "modelica://Buildings/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.epw"),
     weaName=Modelica.Utilities.Files.loadResource(
       "modelica://Buildings/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos"),
-    logLevel=Buildings.ThermalZones.EnergyPlus_24_2_0.Types.LogLevels.Debug,
     computeWetBulbTemperature=false,
     usePrecompiledFMU=false)
     "Building model"
