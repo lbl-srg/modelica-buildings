@@ -24,4 +24,6 @@ LBNL_Spawn_EXPORT void initialize_Spawn_EnergyPlus_24_2_0(void* object, int *nOb
 
 LBNL_Spawn_EXPORT void getParameters_Spawn_EnergyPlus_24_2_0(void* object, double *parOut);
 
+LBNL_Spawn_EXPORT void getParametersWithInfiltration_Spawn_EnergyPlus_24_2_0(void* object, double *parOut);
+
 #endif
