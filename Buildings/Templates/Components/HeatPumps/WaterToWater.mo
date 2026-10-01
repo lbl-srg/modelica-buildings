@@ -1,13 +1,17 @@
 within Buildings.Templates.Components.HeatPumps;
 model WaterToWater
   "Water-to-water heat pump"
-  extends Buildings.Templates.Components.BaseClasses.PartialHeatPumpTableData2DLoadDep
-                                                                                     (
-    final typ=Buildings.Templates.Components.Types.HeatPump.WaterToWater, hp(
+  extends
+    Buildings.Templates.Components.BaseClasses.PartialHeatPumpTableData2DLoadDep(
+      final typ=Buildings.Templates.Components.Types.HeatPump.WaterToWater, hp(
         use_intSafCtr=false));
+initial equation
+  assert(typMod <> Buildings.Templates.Components.Types.HeatPumpCapability.Polyvalent,
+    "In " + getInstanceName() +
+    ": Water-to-water polyvalent units (6-pipe) are not yet supported.");
 equation
   connect(port_aSou, TSouEnt.port_a)
-    annotation (Line(points={{80,-140},{80,-20},{40,-20}},color={0,127,255}));
+    annotation (Line(points={{80,-140},{80,-40},{40,-40}},color={0,127,255}));
   annotation (
     defaultComponentName="hp",
     Documentation(
@@ -37,6 +41,12 @@ for a description of the available control input and output variables.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+July 10, 2026, by Antoine Gautier:<br/>
+Added assertion that polyvalent (6-pipe) water-to-water heat pumps
+are not yet supported.<br/>
+This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4512\">#4512</a>.
+</li>
 <li>
 August 21, 2025, by Antoine Gautier:<br/>
 Refactored with load-dependent 2D table data heat pump model.<br/>

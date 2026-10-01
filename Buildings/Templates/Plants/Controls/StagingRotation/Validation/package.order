@@ -1,10 +1,9 @@
-EquipmentAvailability
 EquipmentEnable
-EventSequencing
 FailsafeCondition
 LoadAverage
 SortRuntime
 SortRuntimeG36
 StageAvailability
 StageChangeCommand
+StageChangeCommandPolyvalent
 StageCompletion

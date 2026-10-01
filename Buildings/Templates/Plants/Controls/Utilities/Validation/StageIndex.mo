@@ -33,8 +33,7 @@ model StageIndex
   Buildings.Templates.Plants.Controls.Utilities.StageIndex idxStaRun(
     have_inpAva=false,
     final nSta=nSta,
-    dtRun=25)
-    "Compute stage index - Minimum runtime, all stages available"
+    dtRun=25) "Compute stage index - Minimum runtime, all stages available"
     annotation (Placement(transformation(extent={{20,-40},{40,-20}})));
   Buildings.Templates.Plants.Controls.Utilities.StageIndex idxStaRunUna(
     final nSta=nSta,
@@ -63,6 +62,16 @@ model StageIndex
       falseHoldDuration=0, trueHoldDuration=0.1)
     "Hold stage down command for plotting"
     annotation (Placement(transformation(extent={{0,-110},{20,-90}})));
+  Buildings.Templates.Plants.Controls.Utilities.StageIndex idxStaRunTwoMod(
+    have_inpAva=false,
+    use_twoMod=true,
+    final nSta=nSta,
+    dtRun(displayUnit="s") = 15)
+    "Compute stage index - Minimum runtime for heating and cooling stage combinations"
+    annotation (Placement(transformation(extent={{90,-10},{110,10}})));
+  Buildings.Controls.OBC.CDL.Integers.Sources.TimeTable staOppMod(table=[0,0;
+        30,1; 45,2; 60,3; 75,4], period=160) "Opposite mode stage index"
+    annotation (Placement(transformation(extent={{-90,-60},{-70,-40}})));
 equation
   connect(ena.y, idxSta.u1Lea)
     annotation (Line(points={{-68,60},{0,60},{0,66},{18,66}},color={255,0,255}));
@@ -104,6 +113,14 @@ equation
     annotation (Line(points={{-18,20},{-10,20},{-10,100},{-2,100}},color={255,0,255}));
   connect(u1Dow.y, u1DowHol.u)
     annotation (Line(points={{-18,-20},{-4,-20},{-4,-100},{-2,-100}},color={255,0,255}));
+  connect(u1Dow.y, idxStaRunTwoMod.u1Dow) annotation (Line(points={{-18,-20},{
+          -4,-20},{-4,-2},{88,-2}}, color={255,0,255}));
+  connect(u1Up.y, idxStaRunTwoMod.u1Up) annotation (Line(points={{-18,20},{-10,
+          20},{-10,2},{88,2}}, color={255,0,255}));
+  connect(ena.y, idxStaRunTwoMod.u1Lea) annotation (Line(points={{-68,60},{0,60},
+          {0,6},{88,6}}, color={255,0,255}));
+  connect(staOppMod.y[1], idxStaRunTwoMod.uStaOpp) annotation (Line(points={{
+          -68,-50},{56,-50},{56,-8},{88,-8}}, color={255,127,0}));
   annotation (
     __Dymola_Commands(
       file=
