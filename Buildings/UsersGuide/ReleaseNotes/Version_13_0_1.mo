@@ -94,8 +94,8 @@ have been <b style=\"color:blue\">improved</b> in a
     </td>
     <td valign=\"top\">Removed deprecated <code>cardinality</code> function.<br/>
                        Removed protected parameter <code>flowDirection</code> as it was set to <code>Bidirectional</code> and had no effect on the model.
-                       The annoation <code>mayOnlyConnectOnce</code> must not be used for these models as they are often used to set the
-                       reference presssure in closed system flow networks.<br/>
+                       The annotation <code>mayOnlyConnectOnce</code> must not be used for these models as they are often used to set the
+                       reference pressure in closed system flow networks.<br/>
                        This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4607\">Buildings, #4607</a>.
     </td>
 </tr>
