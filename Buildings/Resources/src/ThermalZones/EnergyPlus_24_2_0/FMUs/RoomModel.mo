@@ -7,6 +7,36 @@ model RoomModel "Model of a thermal zones"
   parameter Modelica.Units.SI.Volume V "Volume";
   parameter Modelica.Units.SI.Area AFlo "Floor area";
   parameter Real mSenFac "Factor for scaling sensible thermal mass of volume";
+  parameter Modelica.Units.SI.Power QCooSen_flow
+    "Design sensible load for cooling";
+  parameter Modelica.Units.SI.Power QCooLat_flow
+    "Design latent load for cooling";
+  parameter Modelica.Units.SI.Temperature TSetCoo
+    "Indoor temperature set point at the design load for cooling";
+  parameter Modelica.Units.SI.MassFraction XSetCoo
+    "Indoor humidity ratio set point at the design load per total air mass for cooling";
+  parameter Modelica.Units.SI.Temperature TOutCoo
+    "Outdoor drybulb temperature at the design load for cooling";
+  parameter Modelica.Units.SI.MassFraction XOutCoo
+    "Outdoor humidity ratio at the design load per total air mass for cooling";
+  parameter Modelica.Units.SI.MassFlowRate mOutCoo_flow
+    "Minimum outdoor air flow rate during the design load for cooling";
+  parameter Modelica.Units.SI.Time tCoo
+    "Time at which the design load occurred for cooling";
+   parameter Modelica.Units.SI.Power QHeaSen_flow
+    "Design sensible load for heating";
+  parameter Modelica.Units.SI.Temperature TSetHea
+    "Indoor temperature set point at the design load for heating";
+  parameter Modelica.Units.SI.MassFraction XSetHea
+    "Indoor humidity ratio set point at the design load per total air mass for heating";
+  parameter Modelica.Units.SI.Temperature TOutHea
+    "Outdoor drybulb temperature at the design load for heating";
+  parameter Modelica.Units.SI.MassFraction XOutHea
+    "Outdoor humidity ratio at the design load per total air mass for heating";
+  parameter Modelica.Units.SI.MassFlowRate mOutHea_flow
+    "Minimum outdoor air flow rate during the design load for heating";
+  parameter Modelica.Units.SI.Time tHea
+    "Time at which the design load occurred for heating";
 
   Modelica.Units.NonSI.Temperature_degC T "Temperature of the zone air";
   Real X(min=0, final unit="1") "Water vapor mass fraction in kg water/kg dry air";
