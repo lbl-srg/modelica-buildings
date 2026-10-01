@@ -17,7 +17,30 @@ The following major changes have been done compared to release 13.0.0:
 </p>
 <ul>
 <li>
-xxx
+The packages <code>Buildings.Applications.DataCenters.LiquidCooled</code>
+and <code>Buildings.Fluid.DataCenterEquipment</code>
+have been added with system and component models for liquid-cooled data centers,
+such as CDUs and racks.
+</li>
+<li>
+The package <code>Buildings.Fluid.Geothermal.Borefields.TOUGH</code>
+has been added with models and a user guide for coupled simulation
+between Modelica and the TOUGH simulator that calculates the ground response.
+</li>
+<li>
+New functions for pressure drop calculations with flow exponents between 1 and 2
+have been added to <code>Buildings.Fluid.BaseClasses.FlowModels</code>,
+enabling modeling of partially turbulent flows such as in microchannel heat exchangers.
+The model <code>Buildings.Fluid.FixedResistances.PressureDrop</code> and
+several heat exchangers in <code>Buildings.Fluid.HeatExchangers</code>
+have been updated to expose these parameters.
+</li>
+<li>
+Various blocks in <code>Buildings.BoundaryConditions</code>,
+<code>Buildings.Controls.OBC.CDL</code>, and
+<code>Buildings.HeatTransfer.Windows</code>
+have been changed from <code>block</code> to <code>model</code>
+to improve compliance with the Modelica Language Standard.
 </li>
 </ul>
 <p>
