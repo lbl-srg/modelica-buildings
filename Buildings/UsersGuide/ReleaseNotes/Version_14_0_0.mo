@@ -4,7 +4,24 @@ class Version_14_0_0 "Version 14.0.0"
     annotation (Documentation(info="<html>
 <div class=\"release-summary\">
 <p>
-Version 14.0.0 is ... xxx
+Version 14.0.0 is a major release that adds various new packages and models.
+</p>
+<p>
+The library has been tested with
+Dymola 2026x,
+OpenModelica 1.26.3,
+OPTIMICA 1.66 and recent versions of Impact.
+</p>
+<p>
+The following major changes have been done compared to release 13.0.0:
+</p>
+<ul>
+<li>
+xxx
+</li>
+</ul>
+<p>
+Also, many models have been updated to improve performance, to improve compliance with the Modelica Language Standard and to correct model errors.
 </p>
 </div>
 <!-- New libraries -->
