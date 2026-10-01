@@ -1,5 +1,5 @@
 within Buildings.Controls.OBC.DemandFlexibility.ZoneTemperatureSetpointChange.Subsequences;
-block Enable "Zone enablement"
+block Enable "Decide the zones for setpoint change"
 
   parameter Real dTSheThr(
     min=0,
@@ -575,33 +575,28 @@ First implementation.
 </html>", info="<html>
 <p>
 This block serves to determine whether a zone is enabled to participate in the
-setpoint change operation.
+setpoint change operation. It can be used for either heating mode
+(<code>airConMod = Heating</code>), or cooling mode (<code>airConMod = Cooling</code>).
 </p>
 <p>
-The parameter <code>airConMod</code> represents the air conditioning mode.
-<code>airConMod = Heating</code> represents the heating mode, whereas
-<code>airConMod = Cooling</code> represents the cooling mode. The demand flexibility
-mode parameter <code>demFleMod</code> can take values of <i>0</i> (pre-cool or
-pre-heat mode), <i>1</i> (default mode), <i>2</i> (load-shed mode), and <i>3</i>
+The demand flexibility mode input <code>demFleMod</code> can be: <i>0</i> (pre-cool or
+pre-heat mode), <i>1</i> (default mode), <i>2</i> (load-shed mode), or <i>3</i>
 (load-rebound mode).
 </p>
 <p>
-The zone temperature setpoint input variable <code>TZonSet</code> must represent a
-heating setpoint when <code>airConMod = Heating</code>, and it must represent a cooling
-setpoint when <code>airConMod = Cooling</code>. The input variables
-<code>TPreTarSet</code>, <code>TDefSet</code>, and <code>TSheTarSet</code> must
-represent specific sets of values. For example, <code>TPreTarSet &gt;= TDefSet &gt;=
-TSheTarSet</code> must hold if the air conditioning system is in the heating mode
+The zone temperature setpoint input <code>TZonSet</code> must be
+heating setpoint when <code>airConMod = Heating</code>, and it must be cooling
+setpoint when <code>airConMod = Cooling</code>. <code>TPreTarSet &gt;= TDefSet &gt;=
+TSheTarSet</code> must hold if it is in the heating mode
 (<code>airConMod = Heating</code>), and <code>TPreTarSet &lt;= TDefSet &lt;=
-TSheTarSet</code> must hold if the air conditioning system is in the cooling mode
+TSheTarSet</code> must hold if it is in the cooling mode
 (<code>airConMod = Cooling</code>).
 </p>
 <p>
 The following <i>4</i> conditions are used to determine if a zone should be enabled
 to participate in the setpoint change operation. Only if all <i>4</i> conditions are
 met for a zone, the enabled flag <code>enaFla</code> for that zone will be set to
-<code>true</code>. If any one of the above conditions is not met,
-<code>enaFla</code> will be set to <code>false</code>. If the parameter
+<code>true</code>. If the parameter
 <code>use_demCon</code> is <code>false</code>, Condition <i>2</i> is not used.
 Otherwise, Condition <i>2</i> is used.
 </p>
@@ -610,135 +605,74 @@ Below is a detailed discussion of each of the <i>4</i> conditions:
 </p>
 <h4>Condition 1</h4>
 <p>
-When the rogue zone flag input <code>rouZonFla</code> is true for a specific zone,
-this zone is a rogue zone. Therefore, this zone is not enabled to participate in
-the zone temperature comparison. Hence, <code>enaFla = false</code> for this zone.
+The zone is not a rogue zone (<code>rouZonFla=false</code>).
 </p>
 <h4>Condition 2</h4>
 <p>
-If the electricity demand of the building <code>PBui</code> and the electricity
-demand <code>PBuiThr</code> meet any one of the following equations, this zone will
-have <code>enaFla = false</code>. Note that <code>PBuiHys</code> is the electricity
-demand hysteresis, with a default value of <code>0.05 * PBui_nominal</code>:
+If the demand flexibility mode <code>demFleMod</code>, the electricity demand of
+the building <code>PBui</code> and the electricity demand <code>PBuiThr</code> have
+any:
 </p>
 <ul>
 <li>
-<code>demFleMod = 2</code>, and <code>PBui  &lt;= PBuiThr - PBuiHys</code>
-</li>
-</ul>
-<p>
-If the electricity demand of the building <code>PBui</code> and the electricity
-demand <code>PBuiThr</code> meet any one of the following equations, Condition
-<i>2</i> is met:
-</p>
-<ul>
-<li>
-<code>demFleMod ≠ 2</code>
+<code>demFleMod ≠ 2</code>,
 </li>
 <li>
-<code>demFleMod = 2</code>, and <code>PBui  &gt; PBuiThr</code>
+or, <code>demFleMod = 2</code>, and <code>PBui  &gt; PBuiThr</code>
 </li>
 </ul>
 <h4>Condition 3</h4>
 <p>
-Zone temperature difference <code>dTZon</code>, an internal variable, is defined as
-the zone temperature <code>TZon</code> minus the zone temperature setpoint
-<code>TZonSet</code> during the heating mode (<code>airConMod = Heating</code>). On the
-other hand, <code>dTZon</code> is defined as <code>TZonSet</code> minus
-<code>TZon</code> during the cooling mode (<code>airConMod = Cooling</code>).
-</p>
-<p>
-If <code>dTZon</code> meets the following equation, this zone will have
-<code>enaFla = false</code>. Note that <code>dTSheThr</code> is the zone temperature
-difference threshold, and <code>dTSheHys</code> is the zone temperature difference
-hysteresis:
-</p>
-<ul>
-<li>
-<code>demFleMod = 2</code> and <code>dTZon &gt;=  dTSheThr + dTSheHys</code>
-</li>
-</ul>
-<p>
-If <code>dTZon</code> meets any one of the following equations, Condition <i>3</i>
-is met:
+If the demand flexibility mode <code>demFleMod</code>, the zone teperature
+difference (<code>dTZon = |TZon - TZonSet|</code>) have any:
 </p>
 <ul>
 <li>
 <code>demFleMod ≠ 2</code>
 </li>
 <li>
-<code>demFleMod = 2</code> and <code>dTZon &lt;  dTSheThr</code>
+or, <code>demFleMod = 2</code> and <code>dTZon &lt;  dTSheThr</code>
 </li>
 </ul>
 <h4>Condition 4</h4>
 <p>
-If the zone temperature setpoint <code>TZonSet</code> of a zone meets any one of the
-following equations, this zone will have <code>enaFla = false</code>. Since the
+Since the
 presence of a temperature resolution from the external temperature setpoint
-controller will make <code>TZonSet</code> only take a finite set of discrete values,
+controller will make the setpoint <code>TZonSet</code> only take a finite set of discrete values,
 the temperature resolution interval <code>TResInt</code> is used in the following
 equations. <code>0.99 * TResInt</code> is used to prevent unexpected behaviors from
 higher-level logic blocks under edge-case operations, while being less than
 <code>1 * TResInt</code> to achieve the same behaviors as the case where
 <code>TResInt</code> were not used under non-edge-case operations. On the other hand,
-<code>0.5 * TResInt</code> is used as a hysteresis value:
-</p>
-<ul>
-<li>
-<code>airConMod = Heating</code>, and <code>demFleMod = 0</code>, and
-<code>TZonSet &gt; TPreTarSet - 0.99 * TResInt</code>
-</li>
-<li>
-<code>airConMod = Heating</code>, and <code>demFleMod = 2</code>, and
-<code>TZonSet &lt; TSheTarSet + 0.99 * TResInt</code>
-</li>
-<li>
-<code>airConMod = Heating</code>, and <code>demFleMod = 3</code>, and
-<code>TZonSet &gt; TDefSet - 0.99 * TResInt</code>
-</li>
-<li>
-<code>airConMod = Cooling</code>, and <code>demFleMod = 0</code>, and
-<code>TZonSet &lt; TPreTarSet + 0.99 * TResInt</code>
-</li>
-<li>
-<code>airConMod = Cooling</code>, and <code>demFleMod = 2</code>, and
-<code>TZonSet &gt; TSheTarSet - 0.99 * TResInt</code>
-</li>
-<li>
-<code>airConMod = Cooling</code>, and <code>demFleMod = 3</code>, and
-<code>TZonSet &lt; TDefSet + 0.99 * TResInt</code>
-</li>
-</ul>
-<p>
-If the zone temperature setpoint <code>TZonSet</code> of a zone meets any one of the
-following conditions, Condition <i>4</i> is met:
+<code>0.5 * TResInt</code> is used as a hysteresis value.
+If the zone temperature setpoint <code>TZonSet</code> have any:
 </p>
 <ul>
 <li>
 <code>demFleMod = 1</code>
 </li>
 <li>
-<code>airConMod = Heating</code>, and <code>demFleMod = 0</code>, and
+or: <code>airConMod = Heating</code>, and <code>demFleMod = 0</code>, and
 <code>TZonSet &lt; TPreTarSet - 0.99 * TResInt - 0.5 * TResInt</code>
 </li>
 <li>
-<code>airConMod = Heating</code>, and <code>demFleMod = 2</code>, and
+or: <code>airConMod = Heating</code>, and <code>demFleMod = 2</code>, and
 <code>TZonSet &gt; TSheTarSet + 0.99 * TResInt + 0.5 * TResInt</code>
 </li>
 <li>
-<code>airConMod = Heating</code>, and <code>demFleMod = 3</code>, and
+or: <code>airConMod = Heating</code>, and <code>demFleMod = 3</code>, and
 <code>TZonSet &lt; TDefSet - 0.99 * TResInt - 0.5 * TResInt</code>
 </li>
 <li>
-<code>airConMod = Cooling</code>, and <code>demFleMod = 0</code>, and
+or: <code>airConMod = Cooling</code>, and <code>demFleMod = 0</code>, and
 <code>TZonSet &gt; TPreTarSet + 0.99 * TResInt + 0.5 * TResInt</code>
 </li>
 <li>
-<code>airConMod = Cooling</code>, and <code>demFleMod = 2</code>, and
+or: <code>airConMod = Cooling</code>, and <code>demFleMod = 2</code>, and
 <code>TZonSet &lt; TSheTarSet - 0.99 * TResInt - 0.5 * TResInt</code>
 </li>
 <li>
-<code>airConMod = Cooling</code>, and <code>demFleMod = 3</code>, and
+or: <code>airConMod = Cooling</code>, and <code>demFleMod = 3</code>, and
 <code>TZonSet &gt; TDefSet + 0.99 * TResInt + 0.5 * TResInt</code>
 </li>
 </ul>
