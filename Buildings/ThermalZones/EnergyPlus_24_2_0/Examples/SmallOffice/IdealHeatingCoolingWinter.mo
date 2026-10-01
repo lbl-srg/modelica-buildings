@@ -3,15 +3,15 @@ model IdealHeatingCoolingWinter
   "Building with constant fresh air and ideal heating/cooling that exactly meets set point"
   extends Buildings.ThermalZones.EnergyPlus_24_2_0.Examples.SmallOffice.Unconditioned;
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant THeaSet[5](
-    each k(
-      final unit="K",
-      displayUnit="degC")=293.15)
+    k(
+      each final unit="K",
+      each displayUnit="degC")=fill(293.15, 5))
     "Set point temperature for heating"
     annotation (Placement(transformation(extent={{-120,70},{-100,90}})));
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant THeaCoo[5](
-    each k(
-      final unit="K",
-      displayUnit="degC")=299.15)
+    k(
+      each final unit="K",
+      each displayUnit="degC")=fill(299.15, 5))
     "Set point temperature for cooling"
     annotation (Placement(transformation(extent={{-120,130},{-100,150}})));
   BaseClasses.IdealHeaterCooler[5] hea(
