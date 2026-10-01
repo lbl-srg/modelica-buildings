@@ -1,0 +1,16 @@
+compareVars :=
+  {
+    "coo.bus.y1",
+    "coo.bus.y",
+    "TConWatRet.T",
+    "TConWatSup.T",
+    "dat.TConWatRet_nominal",
+    "dat.TConWatSup_nominal",
+    "dat.TConWatSup_nominal",
+    "coo.m_flow",
+    "dat.mConWat_flow_nominal",
+    "coo.dp",
+    "dat.dpConWatFri_nominal",
+    "coo.tow.PFan",
+    "dat.PFan_nominal"
+  };

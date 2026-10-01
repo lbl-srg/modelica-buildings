@@ -1,6 +1,8 @@
 Bus
+PartialBoilerHotWater
 PartialChiller
 PartialCoil
+PartialCooler
 PartialFan
 PartialHeatPump
 PartialPump
