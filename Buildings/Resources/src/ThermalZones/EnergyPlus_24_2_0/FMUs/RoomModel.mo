@@ -7,6 +7,36 @@ model RoomModel "Model of a thermal zones"
   parameter Modelica.Units.SI.Volume V "Volume";
   parameter Modelica.Units.SI.Area AFlo "Floor area";
   parameter Real mSenFac "Factor for scaling sensible thermal mass of volume";
+  parameter Modelica.Units.SI.Power QCooSen_flow = -1500
+    "Design sensible load for cooling";
+  parameter Modelica.Units.SI.Power QCooLat_flow = -500
+    "Design latent load for cooling";
+  parameter Modelica.Units.SI.Temperature TSetCoo = 299.15
+    "Indoor temperature set point at the design load for cooling";
+  parameter Modelica.Units.SI.MassFraction XSetCoo = 0.0104
+    "Indoor humidity ratio set point at the design load per total air mass for cooling";
+  parameter Modelica.Units.SI.Temperature TOutCoo = 308.15
+    "Outdoor drybulb temperature at the design load for cooling";
+  parameter Modelica.Units.SI.MassFraction XOutCoo = 0.0140
+    "Outdoor humidity ratio at the design load per total air mass for cooling";
+  parameter Modelica.Units.SI.MassFlowRate mOutCoo_flow = 0.05
+    "Minimum outdoor air flow rate during the design load for cooling";
+  parameter Modelica.Units.SI.Time tCoo = 17420400
+    "Time at which the design load occurred for cooling";
+  parameter Modelica.Units.SI.Power QHeaSen_flow = 1000
+    "Design sensible load for heating";
+  parameter Modelica.Units.SI.Temperature TSetHea = 294.15
+    "Indoor temperature set point at the design load for heating";
+  parameter Modelica.Units.SI.MassFraction XSetHea = 0.0061
+    "Indoor humidity ratio set point at the design load per total air mass for heating";
+  parameter Modelica.Units.SI.Temperature TOutHea = 268.15
+    "Outdoor drybulb temperature at the design load for heating";
+  parameter Modelica.Units.SI.MassFraction XOutHea = 0.0020
+    "Outdoor humidity ratio at the design load per total air mass for heating";
+  parameter Modelica.Units.SI.MassFlowRate mOutHea_flow = 0.05
+    "Minimum outdoor air flow rate during the design load for heating";
+  parameter Modelica.Units.SI.Time tHea = 1749600
+    "Time at which the design load occurred for heating";
 
   Modelica.Units.NonSI.Temperature_degC T "Temperature of the zone air";
   Real X(min=0, final unit="1") "Water vapor mass fraction in kg water/kg dry air";
