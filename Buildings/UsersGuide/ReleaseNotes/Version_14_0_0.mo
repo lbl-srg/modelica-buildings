@@ -35,13 +35,6 @@ The model <code>Buildings.Fluid.FixedResistances.PressureDrop</code> and
 several heat exchangers in <code>Buildings.Fluid.HeatExchangers</code>
 have been updated to expose these parameters.
 </li>
-<li>
-Various blocks in <code>Buildings.BoundaryConditions</code>,
-<code>Buildings.Controls.OBC.CDL</code>, and
-<code>Buildings.HeatTransfer.Windows</code>
-have been changed from <code>block</code> to <code>model</code>
-to improve compliance with the Modelica Language Standard.
-</li>
 </ul>
 <p>
 Also, many models have been updated to improve performance, to improve compliance with the Modelica Language Standard and to correct model errors.
