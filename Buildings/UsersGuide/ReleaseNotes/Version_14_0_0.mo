@@ -96,7 +96,25 @@ to <b style=\"color:blue\">existing</b> libraries:
                        enabling modeling of partially turbulent flows such as in microchannel heat exchangers.<br/>
                        This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4620\">Buildings, #4620</a>.
     </td>
-    </tr>
+</tr>
+<tr><td colspan=\"2\"><b>Buildings.Templates.Plants.Controls</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Templates.Plants.Controls.PolyvalentHeatPumps
+    </td>
+    <td valign=\"top\">Added a package of subsequences specific to polyvalent heat pump controls
+                       (mode alternation, staging parameters and minimum runtime assertion).<br/>
+                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4512\">Buildings, #4512</a>.
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Templates.Plants.Controls.Utilities.ConcatenateLogical<br/>
+                       Buildings.Templates.Plants.Controls.Utilities.ConcatenateParameterLogical<br/>
+                       Buildings.Templates.Plants.Controls.Utilities.ConcatenateSelectLogical
+    </td>
+    <td valign=\"top\">Added blocks to concatenate Boolean arrays.<br/>
+                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4512\">Buildings, #4512</a>.
+    </td>
+</tr>
 </table>
 <!-- Backward compatible changes -->
 <p>
