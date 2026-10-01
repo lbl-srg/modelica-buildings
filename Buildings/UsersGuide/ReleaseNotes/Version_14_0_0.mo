@@ -18,7 +18,7 @@ The following major changes have been done compared to release 13.0.0:
 <ul>
 <li>
 The packages <code>Buildings.Applications.DataCenters.LiquidCooled</code>
-and <code>Buildings.Fluid.DataCenterEquipment</code>
+and <code>Buildings.Fluid.DataCenters</code>
 have been added with system and component models for liquid-cooled data centers,
 such as CDUs and racks.
 </li>
