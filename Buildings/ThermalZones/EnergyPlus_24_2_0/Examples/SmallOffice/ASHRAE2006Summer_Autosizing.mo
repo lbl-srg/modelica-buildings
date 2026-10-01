@@ -8,8 +8,7 @@ model ASHRAE2006Summer_Autosizing
     experiment(
       StartTime=16848000,
       StopTime=17280000,
-      Tolerance=1e-07,
-      __Dymola_Algorithm="Cvode"),
+      Tolerance=1e-07),
     Icon(
       coordinateSystem(
         extent={{-100,-100},{100,100}},

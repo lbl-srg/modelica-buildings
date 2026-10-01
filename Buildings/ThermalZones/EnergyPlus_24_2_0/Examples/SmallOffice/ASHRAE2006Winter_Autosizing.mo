@@ -93,8 +93,7 @@ model ASHRAE2006Winter_Autosizing
       StartTime=432000,
       StopTime=864000,
       Interval=900,
-      Tolerance=1e-07,
-      __Dymola_Algorithm="Cvode"),
+      Tolerance=1e-07),
     Icon(
       coordinateSystem(
         extent={{-100,-100},{100,100}},
