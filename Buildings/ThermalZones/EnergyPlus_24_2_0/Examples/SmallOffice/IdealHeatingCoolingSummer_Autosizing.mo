@@ -6,7 +6,7 @@ model IdealHeatingCoolingSummer_Autosizing
     __Dymola_Commands(
       file="modelica://Buildings/Resources/Scripts/Dymola/ThermalZones/EnergyPlus_24_2_0/Examples/SmallOffice/IdealHeatingCoolingSummer_Autosizing.mos" "Simulate and plot"),
     experiment(
-      StartTime=15552000,
+      StartTime=16848000,
       StopTime=17280000,
       Tolerance=1e-07,
       __Dymola_Algorithm="Dassl"),
