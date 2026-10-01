@@ -489,10 +489,10 @@ char * getFileNameWithoutExtension(
   const char* idfName,
   void (*SpawnFormatError)(const char *string, ...))
   {
-  char * namWitSla;
-  char * nam;
+  const char * namWitSla;
+  const char * nam;
   char * namOnl;
-  char * ext;
+  const char * ext;
   size_t lenNam;
 
   namWitSla = strrchr(idfName, '/');
