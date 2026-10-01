@@ -217,8 +217,11 @@ void SHA1Update(
         SHA1Transform(context->state, context->buffer);
         for (; i + 63 < len; i += 64)
         {
-            /* This creates a warning but is OK, see https://gcc.gnu.org/bugzilla/show_bug.cgi?id=106709 */
+            /* GCC false positive, see https://gcc.gnu.org/bugzilla/show_bug.cgi?id=106709 */
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wstringop-overread"
             SHA1Transform(context->state, &data[i]);
+#pragma GCC diagnostic pop
         }
         j = 0;
     }
