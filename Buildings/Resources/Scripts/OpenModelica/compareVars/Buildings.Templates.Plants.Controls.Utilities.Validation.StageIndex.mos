@@ -7,8 +7,10 @@ compareVars :=
     "u1AvaSta[2].y",
     "u1AvaSta[3].y",
     "u1AvaSta[4].y",
+    "staOppMod.y[1]",
     "idxSta.y",
     "idxStaUna.y",
     "idxStaRun.y",
-    "idxStaRunUna.y"
+    "idxStaRunUna.y",
+    "idxStaRunTwoMod.y"
   };
