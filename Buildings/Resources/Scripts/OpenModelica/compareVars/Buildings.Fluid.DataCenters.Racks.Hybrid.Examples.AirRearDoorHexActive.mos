@@ -1,0 +1,9 @@
+compareVars :=
+  {
+    "utiAir.y",
+    "senTAir_a.T",
+    "senTAir_b.T",
+    "rac.PAirTot",
+    "rac.PAirFan",
+    "rac.PReaDooHexFan"
+  };
