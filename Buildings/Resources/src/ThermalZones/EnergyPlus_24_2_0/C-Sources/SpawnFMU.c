@@ -30,6 +30,10 @@ size_t AllocateBuildingDataStructure(
   const char* epwName,
   const runPeriod* runPer,
   double relativeSurfaceTolerance,
+  double airChaRatInf,
+  double cpAir,
+  double hfgWater,
+  double rhoAir,
   int usePrecompiledFMU,
   const char* fmuName,
   const char* buildingsRootFileLocation,
@@ -296,11 +300,11 @@ void FMUBuildingFree(FMUBuilding* bui){
        ((bui->mode == continuousTimeMode) || (bui->mode == eventMode)) ){
       if (bui->logLevel >= MEDIUM)
         SpawnFormatMessage("%.3f %s: Calling fmi2_import_terminate to terminate EnergyPlus.\n", bui->time, bui->modelicaNameBuilding);
-      status = fmi2_import_terminate(bui->fmu);
+      status = (fmi2Status)fmi2_import_terminate(bui->fmu);
        if (status != fmi2OK){
         SpawnFormatMessage("%.3f %s: fmi2Terminate returned with status %s.\n",
           bui->time, bui->modelicaNameBuilding,
-          fmi2_status_to_string(status));
+          fmi2_status_to_string((fmi2_status_t)status));
       }
       setFMUMode(bui, terminatedMode);
     }
@@ -336,11 +340,28 @@ void FMUBuildingFree(FMUBuilding* bui){
       free(bui->tmpDir);
     if (bui->modelHash != NULL)
       free(bui->modelHash);
+    const size_t freedIdx = bui->iFMU; /* must be read before free(bui) */
     free(bui);
+    decrementBuildings_nFMU();
+    if (getBuildings_nFMU() == 0){
+      free(Buildings_FMUS);
+      Buildings_FMUS = NULL;
+    } else {
+      /* Compact the array: swap the freed slot with the last live entry so
+         no dangling pointer remains in the range [0, Buildings_nFMU).
+         Without this, the next call to free_Spawn_EnergyPlus_24_2_0 iterates
+         Buildings_FMUS[0..Buildings_nFMU-1] and dereferences the freed slot,
+         causing heap corruption (SIGABRT) when two or more buildings are simulated. */
+      if (freedIdx < getBuildings_nFMU()){
+        Buildings_FMUS[freedIdx] = Buildings_FMUS[getBuildings_nFMU()];
+        Buildings_FMUS[freedIdx]->iFMU = freedIdx;
+      }
+      Buildings_FMUS[getBuildings_nFMU()] = NULL; /* clear now-unused last slot */
+    }
   }
-  decrementBuildings_nFMU();
-  if (getBuildings_nFMU() == 0){
-    free(Buildings_FMUS);
-  }
+  /* Note: the unconditional decrementBuildings_nFMU() that was previously outside
+     the if(bui != NULL) block has been moved inside, since decrementing without
+     a corresponding compaction leaves a dangling pointer. The bui == NULL path
+     does not occur in normal operation. */
 }
 #endif

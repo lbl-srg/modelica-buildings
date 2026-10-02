@@ -12,7 +12,7 @@ model OneZoneControlledFloorTemperature
       displayUnit="degC")=293.15,
     y(final unit="K",
       displayUnit="degC"))
-    "Room temperture set point for heating"
+    "Room temperature set point for heating"
     annotation (Placement(transformation(extent={{-96,40},{-76,60}})));
   Buildings.Controls.OBC.CDL.Reals.PID conHea(
     controllerType=Buildings.Controls.OBC.CDL.Types.SimpleController.PI,
@@ -26,7 +26,7 @@ model OneZoneControlledFloorTemperature
       displayUnit="degC")=297.15,
     y(final unit="K",
       displayUnit="degC"))
-    "Room temperture set point for cooling"
+    "Room temperature set point for cooling"
     annotation (Placement(transformation(extent={{-96,70},{-76,90}})));
   Buildings.Controls.OBC.CDL.Reals.PID conCoo(
     controllerType=Buildings.Controls.OBC.CDL.Types.SimpleController.PI,
@@ -88,7 +88,7 @@ equation
 Model that uses EnergyPlus and controls the floor temperature to a track a heating and cooling set point.
 </p>
 <p>
-The model has two PI controllers, one for tracking the heating and and for tracking the cooling set point temperature.
+The model has two PI controllers, one for tracking the heating and one for tracking the cooling set point temperature.
 The model sets the surface temperature of the floor to provide heating or cooling if either control signal is non-zero.
 Note that this model assumes that the surface temperature can be perfectly controlled.
 </p>
