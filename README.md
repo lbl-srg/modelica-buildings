@@ -29,7 +29,7 @@ The main project site is http://simulationresearch.lbl.gov/modelica.
 
 ## Current release
 
-Download [Buildings Library 12.1.1 (2026-05-04)](https://github.com/lbl-srg/modelica-buildings/releases/download/v12.1.1/Buildings-v12.1.1.zip)
+Download [Buildings Library 12.1.2 (2026-10-01)](https://github.com/lbl-srg/modelica-buildings/releases/download/v12.1.2/Buildings-v12.1.2.zip)
 
 ## License
 
