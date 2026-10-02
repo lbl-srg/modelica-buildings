@@ -1090,7 +1090,7 @@ model AirToWater
     "Pressure boundary condition mimicking expansion tank"
     annotation(Placement(transformation(extent={{-10,-10},{10,10}},
       rotation=90,
-      origin={0,-22})));
+      origin={0,-40})));
   Buildings.Templates.Components.Routing.Compliance cplChiWatSup(
     redeclare final package Medium = MediumChiWat,
     final C=C,
@@ -1677,12 +1677,12 @@ equation
   connect(bouHeaWat.ports[1], tanHeaWatSup.port_a) annotation (Line(points={{0,-328},
             {120,-328},{120,-280}},        color={0,127,255}));
   connect(bouChiWat.ports[1], tanChiWatSup.port_a)
-    annotation (Line(points={{0,-12},{0,-12},{0,40},{120,40},{120,80}},
+    annotation (Line(points={{0,-30},{0,40},{120,40},{120,80}},
                                                           color={0,127,255}));
   elseif locBou == Buildings.Templates.Plants.HeatPumps.Types.LocationBoundary.Return
        then
         connect(bouChiWat.ports[1], TChiWatPriRet.port_b)
-    annotation (Line(points={{0,-12},{0,0},{50,0}},   color={0,127,255}));
+    annotation (Line(points={{0,-30},{0,0},{50,0}},   color={0,127,255}));
   connect(bouHeaWat.ports[1], THeaWatPriRet.port_b) annotation (Line(points={{0,-328},
             {0,-360},{50,-360}},      color={0,127,255}));
   end if;

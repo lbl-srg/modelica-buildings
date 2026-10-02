@@ -21,12 +21,17 @@ import plotly.graph_objects as go
 from buildingspy.io.outputfile import Reader
 from plotly.subplots import make_subplots
 
-RUN_A = ("HardCase1_dassl.mat", "Base")
+RUN_A = (
+    # "Base", "HardCase1_dassl.mat"
+    "Base", "Buildings/HardCase1OCT.mat"
+)
 # The variants the base run can be compared against, in dropdown order.
 RUNS_B = {
-    "Boundary p at HP outlet": "HardCase1BoundaryHPOutletNoInverseFromDpLoad.mat",
-    "Compliance": "HardCase1ComplianceNoBoundary.mat",
-    "Leakage": "HardCase1Leakage.mat",
+    # "Boundary p at HP outlet": "HardCase1BoundaryHPOutletNoInverseFromDpLoad.mat",
+    # "Compliance": "HardCase1ComplianceNoBoundary.mat",
+    # "Leakage": "HardCase1Leakage.mat",
+    "Two boundaries" :"Buildings/HardCase1OCTTwoBoundariesNoInverseFromDpLoad.mat",
+    "Compliance": "Buildings/HardCase1OCTComplianceNoInverseFromDpLoad.mat",
 }
 DEFAULT_B = next(iter(RUNS_B))
 OUT = "compare.html"
@@ -232,7 +237,7 @@ def runs():
     """The base run and every variant, keyed by name, each file read once."""
     global _RUNS
     if _RUNS is None:
-        _RUNS = {RUN_A[1]: read(RUN_A[0])}
+        _RUNS = {RUN_A[0]: read(RUN_A[1])}
         _RUNS.update((name, read(path)) for name, path in RUNS_B.items())
     return _RUNS
 
@@ -275,9 +280,9 @@ def visibility(selected):
     vis = {name: [] for name in RUNS_B}
     for i in selected:
         for _ in panels()[i][3]:
-            for run in [RUN_A[1]] + list(RUNS_B):
+            for run in [RUN_A[0]] + list(RUNS_B):
                 for name in vis:
-                    vis[name].append(run in (RUN_A[1], name))
+                    vis[name].append(run in (RUN_A[0], name))
     return vis
 
 
@@ -310,7 +315,7 @@ def make_figure(selected, theme, variant=None):
         lane = len(sigs) - 1
         for slot, sig in enumerate(sigs):
             var, label = sig[0], sig[1]
-            for run, dash in [(RUN_A[1], "solid")] + [(b, "dot") for b in RUNS_B]:
+            for run, dash in [(RUN_A[0], "solid")] + [(b, "dot") for b in RUNS_B]:
                 t, v = data[run][0](var)
                 if kind == "bin":
                     y, cd, hov = ([lane - slot + 0.78 * x for x in v], v,
@@ -323,7 +328,7 @@ def make_figure(selected, theme, variant=None):
                         x=t, y=y, customdata=cd,
                         name=f"{label} · {run}", meta=run,
                         legend=f"legend{row if row > 1 else ''}",
-                        mode="lines", visible=run in (RUN_A[1], variant),
+                        mode="lines", visible=run in (RUN_A[0], variant),
                         line=dict(
                             color=theme["series"][slot % 5], width=1.9, dash=dash,
                             shape="hv" if kind in ("stp", "bin") else "linear",
@@ -527,7 +532,7 @@ def write_html(path):
                for name in RUNS_B}
     with open(path, "w") as out:
         out.write(PAGE % dict(
-            title=f"{RUN_A[1]} vs variants", css=STYLE, base=RUN_A[0],
+            title=f"{RUN_A[0]} vs variants", css=STYLE, base=RUN_A[1],
             options=opts, chips=chips, charts=charts,
             visible=json.dumps(visible),
         ))
@@ -539,13 +544,13 @@ def build_app():
 
     titles = [p[0] for p in panels()]
     gone = absent()
-    app = Dash(__name__, title=f"{RUN_A[1]} vs variants")
+    app = Dash(__name__, title=f"{RUN_A[0]} vs variants")
     app.index_string = INDEX
 
     app.layout = html.Div([
         html.Header([
-            html.Div([html.B(RUN_A[1]),
-                      html.Span(f" {RUN_A[0]} — solid", className="note")]),
+            html.Div([html.B(RUN_A[0]),
+                      html.Span(f" {RUN_A[1]} — solid", className="note")]),
             html.Div([
                 html.B("Variants"),
                 dcc.Dropdown(id="variant", clearable=False, searchable=False,
@@ -568,7 +573,7 @@ def build_app():
         dcc.Graph(id="chart", config={
             "displaylogo": False, "responsive": True,
             "toImageButtonOptions": {"format": "png", "scale": 2,
-                                     "filename": f"{RUN_A[1]}_vs_variant"},
+                                     "filename": f"{RUN_A[0]}_vs_variant"},
         }),
         html.Details([
             html.Summary("Signals dropped because at least one run does not "
@@ -617,7 +622,7 @@ def build_app():
             if (!fig) return window.dash_clientside.no_update;
             return {...fig, data: fig.data.map(t => ({...t,
                 visible: t.meta === %s || t.meta === variant}))};
-        }""" % json.dumps(RUN_A[1]),
+        }""" % json.dumps(RUN_A[0]),
         Output("chart", "figure"), Input("fig", "data"),
         Input("variant", "value"))
 
