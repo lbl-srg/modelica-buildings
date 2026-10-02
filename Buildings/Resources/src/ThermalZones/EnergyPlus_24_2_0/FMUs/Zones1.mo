@@ -18,6 +18,10 @@ model Zones1 "Model of a thermal zone"
     "Time at which the design load occurred";
   parameter Modelica.Units.SI.MassFlowRate Core_ZN_mOutCoo_flow = Core_ZN_V * 1.2 * 0.3 / 3600
     "Minimum outdoor air flow rate during the design load";
+  parameter Modelica.Units.NonSI.Temperature_degC Core_ZN_TSetCoo = 26
+    "Zone cooling temperature setpoint";
+  parameter Modelica.Units.SI.MassFraction Core_ZN_XSetCoo = 0.01
+    "Zone cooling humidity ratio setpoint";
 
   parameter Modelica.Units.SI.Power Core_ZN_QHea_flow = 1000
     "Design heating load";
@@ -29,6 +33,10 @@ model Zones1 "Model of a thermal zone"
     "Time at which the design load occurred";
   parameter Modelica.Units.SI.MassFlowRate Core_ZN_mOutHea_flow = Core_ZN_V * 1.2 * 0.3 / 3600
     "Minimum outdoor air flow rate during the design load";
+  parameter Modelica.Units.NonSI.Temperature_degC Core_ZN_TSetHea = 20
+    "Zone heating temperature setpoint";
+  parameter Modelica.Units.SI.MassFraction Core_ZN_XSetHea = 0.01
+    "Zone heating humidity ratio setpoint";
 
   /* Inputs to the model */
   input Modelica.Units.NonSI.Temperature_degC Core_ZN_T "Temperature of the zone air";
