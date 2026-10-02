@@ -353,7 +353,9 @@ model PumpsPrimaryDedicated
     have_pumPriComHp=true,
     have_pumHeaWatPriVar=false,
     have_pumChiWatPriVar=false,
-    datPumHeaWat=datPumPriCom,
+    datPumHeaWat(
+      m_flow_nominal=datPumPriCom.m_flow_nominal,
+      dp_nominal=datPumPriCom.dp_nominal),
     final energyDynamics=energyDynamics)
     "Primary pumps - Heating and cooling system with common constant speed dedicated primary pumps"
     annotation(Placement(transformation(extent={{-240,160},{240,240}})));
@@ -403,7 +405,9 @@ model PumpsPrimaryDedicated
     have_var=false,
     final energyDynamics=energyDynamics,
     nPum=nHp,
-    dat=datPumHeaWatHdr)
+    dat(
+      m_flow_nominal=datPumHeaWatHdr.m_flow_nominal,
+      dp_nominal=datPumHeaWatHdr.dp_nominal))
     "Headered primary HW pumps"
     annotation(Placement(transformation(extent={{-70,70},{-50,90}})));
   Buildings.Templates.Plants.HeatPumps.Interfaces.Bus busPla
@@ -420,8 +424,12 @@ model PumpsPrimaryDedicated
     have_pumPriComHp=false,
     have_pumHeaWatPriVar=false,
     have_pumChiWatPriVar=false,
-    datPumHeaWat=datPumHeaWat,
-    final datPumChiWat=datPumChiWat,
+    datPumHeaWat(
+      m_flow_nominal=datPumHeaWat.m_flow_nominal,
+      dp_nominal=datPumHeaWat.dp_nominal),
+    final datPumChiWat(
+      m_flow_nominal=datPumChiWat.m_flow_nominal,
+      dp_nominal=datPumChiWat.dp_nominal),
     final energyDynamics=energyDynamics)
     "Primary pumps - Heating and cooling system with separate constant speed dedicated CHW pumps"
     annotation(Placement(transformation(extent={{-240,-260},{240,-180}})));
@@ -511,7 +519,9 @@ model PumpsPrimaryDedicated
     have_pumPriComHp=false,
     have_pumHeaWatPriVar=true,
     have_pumChiWatPriVar=false,
-    datPumHeaWat=datPumHeaWatHea,
+    datPumHeaWat(
+      m_flow_nominal=datPumHeaWatHea.m_flow_nominal,
+      dp_nominal=datPumHeaWatHea.dp_nominal),
     final energyDynamics=energyDynamics)
     "Primary pumps - Heating-only system with variable speed dedicated primary pumps"
     annotation(Placement(transformation(extent={{-240,-460},{240,-380}})));
@@ -569,7 +579,9 @@ model PumpsPrimaryDedicated
     have_var=false,
     final energyDynamics=energyDynamics,
     nPum=nHp,
-    dat=datPumChiWatHdr)
+    dat(
+      m_flow_nominal=datPumChiWatHdr.m_flow_nominal,
+      dp_nominal=datPumChiWatHdr.dp_nominal))
     "Headered primary CHW pumps"
     annotation(Placement(transformation(extent={{0,30},{20,50}})));
 initial equation
