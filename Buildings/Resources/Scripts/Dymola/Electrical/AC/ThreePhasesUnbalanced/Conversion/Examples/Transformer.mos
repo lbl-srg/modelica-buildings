@@ -2,10 +2,7 @@
 // Plot commands
 simulateModel("Buildings.Electrical.AC.ThreePhasesUnbalanced.Conversion.Examples.Transformer", method="Radau", tolerance=1e-6, stopTime=1.0, resultFile="Transformer3phu");
 removePlots();
-Advanced.FilenameInLegend = false;
-Advanced.SequenceInLegend = true;
-Advanced.PlotLegendTooltip = true;
-Advanced.FullPlotTooltip = true;
+
 createPlot(id=1, position={15, 10, 853, 509},
 y={"probe_Y_1.V[1]", "probe_Y_1.V[2]", "probe_Y_1.V[3]", "probe_D_1.V[1]", "probe_D_1.V[2]", "probe_D_1.V[3]"},
 range={0.0, 1.0, 250.0, 500.0},

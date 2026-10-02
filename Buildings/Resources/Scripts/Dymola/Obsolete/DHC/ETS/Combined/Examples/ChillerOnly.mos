@@ -4,7 +4,7 @@ simulateModel("Buildings.Obsolete.DHC.ETS.Combined.Examples.ChillerOnly",
     startTime=6.5E6,
     stopTime=7E6,
     resultFile="ChillerOnlyExamples");
-Advanced.FilenameInLegend = true;
+
 createPlot(id=1,
     position={4, 5, 546, 906},
     y={"ets.tanHeaWat.TTop", "ets.tanHeaWat.TBot", "senTHeaWatSup.T", "senTHeaWatRet.T", "ets.conSup.THeaWatSupPreSet", "ets.conSup.THeaWatSupSet"},
