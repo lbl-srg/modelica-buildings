@@ -10,7 +10,7 @@ createPlot(
     y={"pla.ctl.ctl.TOut", "pla.ctl.ctl.TOutChiWatLck", "pla.ctl.ctl.TOutHeaWatLck"},
     autoscale=true,
     grid=true,
-    timeUnit="h"
+    timeUnit="s"
 );
 createPlot(
     id=1,
@@ -18,7 +18,7 @@ createPlot(
     y={"pla.ctl.ctl.chaStaHea.capReq.QReq_flow", "pla.ctl.ctl.chaStaCoo.capReq.QReq_flow", "pla.capHea_nominal", "pla.capCoo_nominal"},
     autoscale=true,
     grid=true,
-    timeUnit="h"
+    timeUnit="s"
 );
 createPlot(
     id=1,
@@ -26,7 +26,7 @@ createPlot(
     y={"loaHea.u", "loaHea.yLoa_actual", "loaCoo.u", "loaCoo.yLoa_actual"},
     autoscale=true,
     grid=true,
-    timeUnit="h"
+    timeUnit="s"
 );
 createPlot(
     id=2,
@@ -34,7 +34,7 @@ createPlot(
     y={"pla.ctl.ctl.nReqPlaHeaWat", "pla.ctl.ctl.nReqPlaChiWat", "pla.ctl.ctl.enaHea.y1", "pla.ctl.ctl.enaCoo.y1"},
     autoscale=true,
     grid=true,
-    timeUnit="h"
+    timeUnit="s"
 );
 createPlot(
     id=2,
@@ -42,7 +42,7 @@ createPlot(
     y={"pla.ctl.ctl.idxStaHea.y", "pla.ctl.ctl.idxStaCoo.y"},
     autoscale=true,
     grid=true,
-    timeUnit="h"
+    timeUnit="s"
 );
 createPlot(
     id=3,
@@ -51,7 +51,7 @@ createPlot(
     y={"pla.ctl.ctl.y1Hp[1]", "pla.ctl.ctl.y1Hp[2]"},
     autoscale=true,
     grid=true,
-    timeUnit="h"
+    timeUnit="s"
 );
 createPlot(
     id=3,
@@ -59,7 +59,7 @@ createPlot(
     y={"pla.ctl.ctl.y1HeaHp[1]", "pla.ctl.ctl.y1HeaHp[2]"},
     autoscale=true,
     grid=true,
-    timeUnit="h"
+    timeUnit="s"
 );
 createPlot(
     id=3,
@@ -67,7 +67,7 @@ createPlot(
     y={"pla.ctl.ctl.y1HeaPhp[1]", "pla.ctl.ctl.y1CooPhp[1]"},
     autoscale=true,
     grid=true,
-    timeUnit="h"
+    timeUnit="s"
 );
 createPlot(
     id=4,
@@ -76,7 +76,7 @@ createPlot(
     y={"pla.ctl.ctl.y1PumHeaWatPriDedHp[1]", "pla.ctl.ctl.y1PumHeaWatPriDedHp[2]", "pla.ctl.ctl.y1PumHeaWatPriDedPhp[1]", "pla.ctl.ctl.y1PumChiWatPriDedPhp[1]"},
     autoscale=true,
     grid=true,
-    timeUnit="h"
+    timeUnit="s"
 );
 createPlot(
     id=4,
@@ -84,7 +84,7 @@ createPlot(
     y={"pla.ctl.ctl.y1PumHeaWatSec[1]", "pla.ctl.ctl.y1PumHeaWatSec[2]"},
     autoscale=true,
     grid=true,
-    timeUnit="h"
+    timeUnit="s"
 );
 createPlot(
     id=4,
@@ -92,7 +92,7 @@ createPlot(
     y={"pla.ctl.ctl.y1PumChiWatSec[1]", "pla.ctl.ctl.y1PumChiWatSec[2]"},
     autoscale=true,
     grid=true,
-    timeUnit="h"
+    timeUnit="s"
 );
 createPlot(
     id=5,
@@ -101,7 +101,7 @@ createPlot(
     y={"pla.ctl.ctl.nReqResHeaWat", "pla.ctl.ctl.nReqResChiWat"},
     autoscale=true,
     grid=true,
-    timeUnit="h"
+    timeUnit="s"
 );
 createPlot(
     id=5,
@@ -109,7 +109,7 @@ createPlot(
     y={"pla.bus.dpHeaWatRem[1]", "pla.bus.dpHeaWatRemSet[1]", "pla.bus.dpChiWatRem[1]", "pla.bus.dpChiWatRemSet[1]"},
     autoscale=true,
     grid=true,
-    timeUnit="h"
+    timeUnit="s"
 );
 createPlot(
     id=6,
@@ -117,7 +117,7 @@ createPlot(
     y={"pla.bus.VHeaWatSec_flow", "datAll.pla.ctl.VHeaWatSec_flow_nominal"},
     autoscale=true,
     grid=true,
-    timeUnit="h"
+    timeUnit="s"
 );
 createPlot(
     id=6,
@@ -125,7 +125,7 @@ createPlot(
     y={"pla.bus.VChiWatSec_flow", "datAll.pla.ctl.VChiWatSec_flow_nominal"},
     autoscale=true,
     grid=true,
-    timeUnit="h"
+    timeUnit="s"
 );
 createPlot(
     id=6,
@@ -133,7 +133,7 @@ createPlot(
     y={"pla.hp.hp[1].hp.PLR", "pla.hp.hp[2].hp.PLR"},
     autoscale=true,
     grid=true,
-    timeUnit="h"
+    timeUnit="s"
 );
 createPlot(
     id=7,
@@ -141,7 +141,7 @@ createPlot(
     y={"pla.bus.THeaWatSupSet", "pla.bus.THeaWatPriSup", "pla.bus.THeaWatSecSup", "pla.bus.THeaWatPriRet", "pla.bus.THeaWatSecRet"},
     autoscale=true,
     grid=true,
-    timeUnit="h"
+    timeUnit="s"
 );
 createPlot(
     id=7,
@@ -149,5 +149,5 @@ createPlot(
     y={"pla.bus.TChiWatSupSet", "pla.bus.TChiWatPriSup", "pla.bus.TChiWatSecSup", "pla.bus.TChiWatPriRet", "pla.bus.TChiWatSecRet"},
     autoscale=true,
     grid=true,
-    timeUnit="h"
+    timeUnit="s"
 );

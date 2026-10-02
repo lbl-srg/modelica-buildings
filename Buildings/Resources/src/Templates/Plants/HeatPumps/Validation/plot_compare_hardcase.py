@@ -1,6 +1,5 @@
 #!/usr/bin/env python3
-"""Compare the HardCase1 base run with its variants over the trajectories
-listed in Resources/Scripts/Dymola/.../Chillers/Validation/WaterCooled.mos.
+"""Compare HardCase base run with its variants.
 
 The base run is drawn solid and is always shown; the variant compared against
 it is drawn dotted and picked from the dropdown in the page header, in the
@@ -8,11 +7,8 @@ Dash app and in the static HTML alike.  Every variant is loaded into the
 figure, so the dropdown switches between them without reloading any data.
 Panels can be folded away individually, in both too.
 
-The result files are the Dymola names of
-Buildings.Templates.Plants.Chillers.Validation.HardCase1 and its variants.
-
-    python3 plot_compare_hardcase1.py           # Dash app on 127.0.0.1:8052
-    python3 plot_compare_hardcase1.py --html    # static HTML, no server needed
+    python3 plot_compare_hardcase.py           # Dash app on 127.0.0.1:8051
+    python3 plot_compare_hardcase.py --html    # static HTML, no server needed
 """
 import json
 import sys
@@ -24,17 +20,25 @@ import plotly.graph_objects as go
 from buildingspy.io.outputfile import Reader
 from plotly.subplots import make_subplots
 
-RUN_A = ("HardCase1_dassl_chiller.mat", "Base")
+RUN_A = (
+    "Base", "HardCase1_dassl.mat"
+)
+# RUN_A = (
+#     "Base", "Buildings/HardCase1OCT.mat"
+# )
 # The variants the base run can be compared against, in dropdown order.
 RUNS_B = {
-    "Compliance": "HardCase1Compliance_chiller.mat",
-    "Leakage": "HardCase1Leakage_chiller.mat",
-    "Linearized": "HardCase1Linearized_chiller.mat",
+    "Boundary p at HP outlet": "HardCase1BoundaryHPOutletNoInverseFromDpLoad.mat",
+    "Compliance": "HardCase1ComplianceNoBoundary.mat",
+    "Leakage": "HardCase1Leakage.mat",
 }
+# RUNS_B = {
+#     "Two boundaries" :"Buildings/HardCase1OCTTwoBoundariesNoInverseFromDpLoad.mat",
+#     "Compliance": "Buildings/HardCase1OCTComplianceNoInverseFromDpLoad.mat",
+# }
 DEFAULT_B = next(iter(RUNS_B))
-
 OUT = "compare.html"
-PORT = 8052
+PORT = 8051
 
 K = 273.15
 
@@ -42,137 +46,175 @@ K = 273.15
 # kind: "lin" continuous, "stp" stepped, "bin" stepped binary shown as a
 # timing diagram with one lane per signal.
 PANELS = [
-    ("Outdoor air temperature and lockout", "°C", "lin", [
+    ("Outdoor air temperature and lockouts", "°C", "lin", [
         ("pla.ctl.ctl.TOut", "TOut"),
-        ("pla.ctl.dat.TOutChiWatLck", "TOutChiWatLck"),
+        ("pla.ctl.ctl.TOutChiWatLck", "TOutChiWatLck"),
+        ("pla.ctl.ctl.TOutHeaWatLck", "TOutHeaWatLck"),
     ], -K, 1),
     ("Capacity requirement vs. installed capacity", "kW", "lin", [
-        ("pla.ctl.ctl.staSetCon.capReq.y", "capReq.y"),
-        ("pla.cap_nominal", "cap_nominal"),
+        ("pla.ctl.ctl.chaStaHea.capReq.QReq_flow", "QReq_flow heating"),
+        ("pla.ctl.ctl.chaStaCoo.capReq.QReq_flow", "QReq_flow cooling"),
+        ("pla.capHea_nominal", "capHea_nominal"),
+        ("pla.capCoo_nominal", "capCoo_nominal"),
     ], 0, 1e-3),
     ("Load signals", "1", "lin", [
-        ("loa.u", "loa.u"),
-        ("loa.yLoa_actual", "loa.yLoa_actual"),
-        ("loa.yVal_actual", "loa.yVal_actual"),
+        ("loaHea.u", "loaHea.u"),
+        ("loaHea.yLoa_actual", "loaHea.yLoa_actual"),
+        ("loaCoo.u", "loaCoo.u"),
+        ("loaCoo.yLoa_actual", "loaCoo.yLoa_actual"),
     ], 0, 1),
-    ("Plant and reset requests", "count", "stp", [
-        ("pla.ctl.reqPlaChiWat.y", "reqPlaChiWat"),
-        ("pla.ctl.reqResChiWat.y", "reqResChiWat"),
+    ("Plant requests", "count", "stp", [
+        ("pla.ctl.ctl.nReqPlaHeaWat", "nReqPlaHeaWat"),
+        ("pla.ctl.ctl.nReqPlaChiWat", "nReqPlaChiWat"),
     ], 0, 1),
     ("Plant enable", "", "bin", [
-        ("pla.ctl.ctl.plaEna.yPla", "plaEna.yPla", "Pla"),
+        ("pla.ctl.ctl.enaHea.y1", "enaHea.y1", "Hea"),
+        ("pla.ctl.ctl.enaCoo.y1", "enaCoo.y1", "Coo"),
     ], 0, 1),
     ("Stage index", "stage", "stp", [
-        ("pla.ctl.ctl.staSetCon.ySta", "staSetCon.ySta"),
+        ("pla.ctl.ctl.idxStaHea.y", "idxStaHea.y"),
+        ("pla.ctl.ctl.idxStaCoo.y", "idxStaCoo.y"),
     ], 0, 1),
-    ("Chiller enable", "", "bin", [
-        ("pla.bus.chi[1].y1", "chi[1].y1", "[1]"),
-        ("pla.bus.chi[2].y1", "chi[2].y1", "[2]"),
+    ("Heat pump enable", "", "bin", [
+        ("pla.ctl.ctl.y1Hp[1]", "y1Hp[1]", "[1]"),
+        ("pla.ctl.ctl.y1Hp[2]", "y1Hp[2]", "[2]"),
+        ("pla.ctl.ctl.y1Hp[3]", "y1Hp[3]", "[3]"),
     ], 0, 1),
-    ("Chiller CHW isolation valve command", "1", "lin", [
-        ("pla.bus.valChiWatChiIso[1].y", "valChiWatChiIso[1]"),
-        ("pla.bus.valChiWatChiIso[2].y", "valChiWatChiIso[2]"),
+    ("Heat pump heating mode", "", "bin", [
+        ("pla.ctl.ctl.y1HeaHp[1]", "y1HeaHp[1]", "[1]"),
+        ("pla.ctl.ctl.y1HeaHp[2]", "y1HeaHp[2]", "[2]"),
+        ("pla.ctl.ctl.y1HeaHp[3]", "y1HeaHp[3]", "[3]"),
     ], 0, 1),
-    ("Chiller CW isolation valve command", "1", "lin", [
-        ("pla.bus.valConWatChiIso[1].y", "valConWatChiIso[1]"),
-        ("pla.bus.valConWatChiIso[2].y", "valConWatChiIso[2]"),
+    ("4-pipe heat pump heating enable", "", "bin", [
+        ("pla.ctl.ctl.y1HeaPhp[1]", "y1HeaPhp[1]", "[1]"),
+        ("pla.ctl.ctl.y1HeaPhp[2]", "y1HeaPhp[2]", "[2]"),
+        ("pla.ctl.ctl.y1HeaPhp[3]", "y1HeaPhp[3]", "[3]"),
     ], 0, 1),
-    ("Primary CHW pump enable", "", "bin", [
-        ("pla.bus.pumChiWatPri.y1[1]", "pumChiWatPri.y1[1]", "[1]"),
-        ("pla.bus.pumChiWatPri.y1[2]", "pumChiWatPri.y1[2]", "[2]"),
+    ("4-pipe heat pump cooling enable", "", "bin", [
+        ("pla.ctl.ctl.y1CooPhp[1]", "y1CooPhp[1]", "[1]"),
+        ("pla.ctl.ctl.y1CooPhp[2]", "y1CooPhp[2]", "[2]"),
+        ("pla.ctl.ctl.y1CooPhp[3]", "y1CooPhp[3]", "[3]"),
     ], 0, 1),
-    ("CW pump enable", "", "bin", [
-        ("pla.bus.pumConWat.y1[1]", "pumConWat.y1[1]", "[1]"),
-        ("pla.bus.pumConWat.y1[2]", "pumConWat.y1[2]", "[2]"),
+    ("Dedicated primary HW pumps", "", "bin", [
+        ("pla.ctl.ctl.y1PumHeaWatPriDedHp[1]", "y1PumHeaWatPriDedHp[1]", "[1]"),
+        ("pla.ctl.ctl.y1PumHeaWatPriDedHp[2]", "y1PumHeaWatPriDedHp[2]", "[2]"),
+        ("pla.ctl.ctl.y1PumHeaWatPriDedHp[3]", "y1PumHeaWatPriDedHp[3]", "[3]"),
     ], 0, 1),
-    ("Primary CHW pump speed", "1", "lin", [
-        ("pla.bus.pumChiWatPri.y", "pumChiWatPri.y"),
+    ("Dedicated primary CHW pumps", "", "bin", [
+        ("pla.ctl.ctl.y1PumChiWatPriDedHp[1]", "y1PumChiWatPriDedHp[1]", "[1]"),
+        ("pla.ctl.ctl.y1PumChiWatPriDedHp[2]", "y1PumChiWatPriDedHp[2]", "[2]"),
+        ("pla.ctl.ctl.y1PumChiWatPriDedHp[3]", "y1PumChiWatPriDedHp[3]", "[3]"),
+    ], 0, 1),
+    ("Secondary HW pumps", "", "bin", [
+        ("pla.ctl.ctl.y1PumHeaWatSec[1]", "y1PumHeaWatSec[1]", "[1]"),
+        ("pla.ctl.ctl.y1PumHeaWatSec[2]", "y1PumHeaWatSec[2]", "[2]"),
+    ], 0, 1),
+    ("Secondary CHW pumps", "", "bin", [
+        ("pla.ctl.ctl.y1PumChiWatSec[1]", "y1PumChiWatSec[1]", "[1]"),
+        ("pla.ctl.ctl.y1PumChiWatSec[2]", "y1PumChiWatSec[2]", "[2]"),
+    ], 0, 1),
+    ("Reset requests", "count", "stp", [
+        ("pla.ctl.ctl.nReqResHeaWat", "nReqResHeaWat"),
+        ("pla.ctl.ctl.nReqResChiWat", "nReqResChiWat"),
     ], 0, 1),
     ("Remote differential pressure", "kPa", "lin", [
+        ("pla.bus.dpHeaWatRem[1]", "dpHeaWatRem[1]"),
+        ("pla.bus.dpHeaWatRemSet[1]", "dpHeaWatRemSet[1]"),
         ("pla.bus.dpChiWatRem[1]", "dpChiWatRem[1]"),
-        ("pla.ctl.resDpChiWatLoc.dpChiWatSet_remote[1]", "dpChiWatSet_remote[1]"),
+        ("pla.bus.dpChiWatRemSet[1]", "dpChiWatRemSet[1]"),
     ], 0, 1e-3),
-    ("Local differential pressure", "kPa", "lin", [
-        ("pla.ctl.ctl.chiWatPumCon.dpChiWat_local", "dpChiWat_local"),
-        ("pla.ctl.resDpChiWatLoc.dpChiWatSet_local", "dpChiWatSet_local"),
-    ], 0, 1e-3),
-    ("Primary CHW volume flow rate", "L/s", "lin", [
+    ("HW volume flow rate", "L/s", "lin", [
+        ("pla.bus.VHeaWatPri_flow", "VHeaWatPri_flow"),
+        ("datAll.pla.ctl.VHeaWatPri_flow_nominal", "VHeaWatPri_flow_nominal"),
+        ("pla.bus.VHeaWatSec_flow", "VHeaWatSec_flow"),
+    ], 0, 1e3),
+    ("CHW volume flow rate", "L/s", "lin", [
         ("pla.bus.VChiWatPri_flow", "VChiWatPri_flow"),
         ("datAll.pla.ctl.VChiWatPri_flow_nominal", "VChiWatPri_flow_nominal"),
+        ("pla.bus.VChiWatSec_flow", "VChiWatSec_flow"),
     ], 0, 1e3),
-    ("Chiller part load ratio", "1", "lin", [
-        ("pla.chi.chi[1].chi.PLR", "chi[1].PLR"),
-        ("pla.chi.chi[2].chi.PLR", "chi[2].PLR"),
+    ("Heat pump part load ratio", "1", "lin", [
+        ("pla.hp.hp[1].hp.PLR", "hp[1].PLR"),
+        ("pla.hp.hp[2].hp.PLR", "hp[2].PLR"),
+        ("pla.hp.hp[3].hp.PLR", "hp[3].PLR"),
     ], 0, 1),
-    ("Chiller power", "kW", "lin", [
-        ("pla.chi.chi[1].chi.P", "chi[1].P"),
-        ("pla.chi.chi[2].chi.P", "chi[2].P"),
+    ("Heat pump power", "kW", "lin", [
+        ("pla.hp.hp[1].hp.P", "hp[1].P"),
+        ("pla.hp.hp[2].hp.P", "hp[2].P"),
+        ("pla.hp.hp[3].hp.P", "hp[3].P"),
+    ], 0, 1e-3),
+    ("Primary HW pump power", "kW", "lin", [
+        ("pla.pumPri.pumHeaWat.pum[1].P", "pumHeaWat[1].P"),
+        ("pla.pumPri.pumHeaWat.pum[2].P", "pumHeaWat[2].P"),
+        ("pla.pumPri.pumHeaWat.pum[3].P", "pumHeaWat[3].P"),
     ], 0, 1e-3),
     ("Primary CHW pump power", "kW", "lin", [
-        ("pla.pumChiWatPri.pum[1].P", "pumChiWatPri[1].P"),
-        ("pla.pumChiWatPri.pum[2].P", "pumChiWatPri[2].P"),
+        ("pla.pumPri.pumChiWat.pum[1].P", "pumChiWat[1].P"),
+        ("pla.pumPri.pumChiWat.pum[2].P", "pumChiWat[2].P"),
+        ("pla.pumPri.pumChiWat.pum[3].P", "pumChiWat[3].P"),
     ], 0, 1e-3),
-    ("CW pump power", "kW", "lin", [
-        ("pla.pumConWat.pum[1].P", "pumConWat[1].P"),
-        ("pla.pumConWat.pum[2].P", "pumConWat[2].P"),
-    ], 0, 1e-3),
-    ("Cooling tower fan power", "kW", "lin", [
-        ("pla.coo.coo[1].tow.PFan", "coo[1].PFan"),
-        ("pla.coo.coo[2].tow.PFan", "coo[2].PFan"),
-    ], 0, 1e-3),
-    ("Chiller CHW isolation valve flow", "kg/s", "lin", [
-        ("pla.chi.valChiWatChiIsoPar[1].m_flow", "valChiWatChiIsoPar[1]"),
-        ("pla.chi.valChiWatChiIsoPar[2].m_flow", "valChiWatChiIsoPar[2]"),
+    ("HW inlet isolation valve flow", "kg/s", "lin", [
+        ("pla.valIso.valHeaWatUniInlIso[1].m_flow", "valHeaWatUniInlIso[1]"),
+        ("pla.valIso.valHeaWatUniInlIso[2].m_flow", "valHeaWatUniInlIso[2]"),
+        ("pla.valIso.valHeaWatUniInlIso[3].m_flow", "valHeaWatUniInlIso[3]"),
     ], 0, 1),
-    ("Chiller CW isolation valve flow", "kg/s", "lin", [
-        ("pla.chi.valConWatChiIso[1].m_flow", "valConWatChiIso[1]"),
-        ("pla.chi.valConWatChiIso[2].m_flow", "valConWatChiIso[2]"),
+    ("CHW inlet isolation valve flow", "kg/s", "lin", [
+        ("pla.valIso.valChiWatUniInlIso[1].m_flow", "valChiWatUniInlIso[1]"),
+        ("pla.valIso.valChiWatUniInlIso[2].m_flow", "valChiWatUniInlIso[2]"),
+        ("pla.valIso.valChiWatUniInlIso[3].m_flow", "valChiWatUniInlIso[3]"),
+    ], 0, 1),
+    ("Primary HW pump check valve flow", "kg/s", "lin", [
+        ("pla.pumPri.pumHeaWat.valChe[1].m_flow", "valChe[1]", "[1]"),
+        ("pla.pumPri.pumHeaWat.valChe[2].m_flow", "valChe[2]", "[2]"),
+        ("pla.pumPri.pumHeaWat.valChe[3].m_flow", "valChe[3]", "[3]"),
     ], 0, 1),
     ("Primary CHW pump check valve flow", "kg/s", "lin", [
-        ("pla.pumChiWatPri.valChe[1].m_flow", "valChe[1]"),
-        ("pla.pumChiWatPri.valChe[2].m_flow", "valChe[2]"),
+        ("pla.pumPri.pumChiWat.valChe[1].m_flow", "valChe[1]", "[1]"),
+        ("pla.pumPri.pumChiWat.valChe[2].m_flow", "valChe[2]", "[2]"),
+        ("pla.pumPri.pumChiWat.valChe[3].m_flow", "valChe[3]", "[3]"),
     ], 0, 1),
-    ("Chiller bypass and economizer flow", "kg/s", "lin", [
-        ("pla.intChi.valChiWatChiBypPar.m_flow", "valChiWatChiBypPar"),
-        ("pla.eco.valChiWatByp.m_flow", "eco.valChiWatByp"),
-        ("pla.eco.valConWatIso.m_flow", "eco.valConWatIso"),
+    ("Heat pump flow", "kg/s", "lin", [
+        ("pla.hp.hp[1].m_flow", "hp[1].m_flow"),
+        ("pla.hp.hp[2].m_flow", "hp[2].m_flow"),
+        ("pla.hp.hp[3].m_flow", "hp[3].m_flow"),
     ], 0, 1),
+    ("Heat pump entering HW temperature", "°C", "lin", [
+        ("pla.hp.hp[1].THeaWatEnt.T", "hp[1].THeaWatEnt"),
+        ("pla.hp.hp[2].THeaWatEnt.T", "hp[2].THeaWatEnt"),
+        ("pla.hp.hp[3].THeaWatEnt.T", "hp[3].THeaWatEnt"),
+    ], -K, 1),
+    ("Hot water temperatures", "°C", "lin", [
+        ("pla.bus.THeaWatSupSet", "THeaWatSupSet"),
+        ("pla.bus.THeaWatPriSup", "THeaWatPriSup"),
+        ("pla.bus.THeaWatPriRet", "THeaWatPriRet"),
+        ("pla.bus.THeaWatSecSup", "THeaWatSecSup"),
+        ("pla.bus.THeaWatSecRet", "THeaWatSecRet"),
+    ], -K, 1),
     ("Chilled water temperatures", "°C", "lin", [
-        ("pla.bus.chi[1].TChiWatSet", "chi[1].TChiWatSet"),
+        ("pla.bus.TChiWatSupSet", "TChiWatSupSet"),
         ("pla.bus.TChiWatPriSup", "TChiWatPriSup"),
-        ("pla.bus.TChiWatEcoBef", "TChiWatEcoBef"),
-        ("pla.bus.TChiWatEcoAft", "TChiWatEcoAft"),
-        ("pla.bus.TChiWatPlaRet", "TChiWatPlaRet"),
+        ("pla.bus.TChiWatPriRet", "TChiWatPriRet"),
+        ("pla.bus.TChiWatSecSup", "TChiWatSecSup"),
+        ("pla.bus.TChiWatSecRet", "TChiWatSecRet"),
     ], -K, 1),
-    ("Condenser water temperatures", "°C", "lin", [
-        ("pla.ctl.ctl.towCon.TConWatRetSet", "TConWatRetSet"),
-        ("pla.bus.TConWatRet", "TConWatRet"),
-        ("pla.bus.TConWatSup", "TConWatSup"),
+    ("Heat recovery chiller enable", "", "bin", [
+        ("pla.bus.hrc.y1", "hrc.y1", "On"),
+        ("pla.bus.hrc.y1Coo", "hrc.y1Coo", "Coo"),
+    ], 0, 1),
+    ("Heat recovery chiller part load ratio", "1", "lin", [
+        ("pla.hrc.hrc.chi.PLR", "hrc.PLR"),
+    ], 0, 1),
+    ("Heat recovery chiller temperatures", "°C", "lin", [
+        ("pla.bus.hrc.TChiWatSet", "hrc.TChiWatSet"),
+        ("pla.bus.TChiWatRetUpsHrc", "TChiWatRetUpsHrc"),
+        ("pla.bus.hrc.THeaWatSet", "hrc.THeaWatSet"),
+        ("pla.bus.THeaWatRetUpsHrc", "THeaWatRetUpsHrc"),
     ], -K, 1),
-    ("Cooling tower enable", "", "bin", [
-        ("pla.bus.coo.y1[1]", "coo.y1[1]", "[1]"),
-        ("pla.bus.coo.y1[2]", "coo.y1[2]", "[2]"),
-    ], 0, 1),
-    ("Cooling tower fan speed", "1", "lin", [
-        ("pla.bus.coo.y", "coo.y"),
-    ], 0, 1),
-    ("Economizer CHW bypass valve", "1", "lin", [
-        ("pla.bus.valChiWatEcoByp.y", "valChiWatEcoByp.y"),
-        ("pla.eco.valChiWatByp.y_actual.y", "valChiWatByp.y_actual"),
-    ], 0, 1),
-    ("Minimum flow bypass valve", "1", "lin", [
-        ("pla.bus.valChiWatMinByp.y", "valChiWatMinByp.y"),
-        ("pla.bus.valChiWatMinByp.y_actual", "valChiWatMinByp.y_actual"),
+    ("Minimum flow bypass valve opening", "", "lin", [
+        ("pla.valChiWatMinByp.y_actual.y", "valChiWatMinByp"),
+        ("pla.valHeaWatMinByp.y_actual.y", "valHeaWatMinByp"),
     ], 0, 1),
 ]
-
-# The .mos script plots the CW return temperature setpoint as
-# pla.ctl.ctl.towCon.towFanSpe.fanSpeRetTem.conWatRetSet.TConWatRetSet, which no
-# longer resolves; the signal is exposed one level up, on towCon itself.
-RENAMED = [(
-    "pla.ctl.ctl.towCon.towFanSpe.fanSpeRetTem.conWatRetSet.TConWatRetSet",
-    "pla.ctl.ctl.towCon.TConWatRetSet",
-)]
 
 LIGHT = dict(
     surface="#fcfcfb", primary="#0b0b0b", secondary="#52514e", muted="#84837c",
@@ -195,7 +237,7 @@ def read(path):
     def get(name):
         if name not in cache:
             t, v = r.values(name)
-            cache[name] = ([x / 3600.0 for x in t], list(v))
+            cache[name] = (list(t), list(v))
         return cache[name]
 
     return get, names
@@ -208,7 +250,7 @@ def runs():
     """The base run and every variant, keyed by name, each file read once."""
     global _RUNS
     if _RUNS is None:
-        _RUNS = {RUN_A[1]: read(RUN_A[0])}
+        _RUNS = {RUN_A[0]: read(RUN_A[1])}
         _RUNS.update((name, read(path)) for name, path in RUNS_B.items())
     return _RUNS
 
@@ -251,9 +293,9 @@ def visibility(selected):
     vis = {name: [] for name in RUNS_B}
     for i in selected:
         for _ in panels()[i][3]:
-            for run in [RUN_A[1]] + list(RUNS_B):
+            for run in [RUN_A[0]] + list(RUNS_B):
                 for name in vis:
-                    vis[name].append(run in (RUN_A[1], name))
+                    vis[name].append(run in (RUN_A[0], name))
     return vis
 
 
@@ -261,16 +303,24 @@ ROW_PX = 210   # vertical budget per panel
 MARG_T = 34
 MARG_B = 56
 
+# Time units the axis can be shown in, as seconds per unit, and the span and
+# tick spacing of the axis in seconds.
+TUNITS = {"s": 1, "h": 3600}
+DEFAULT_TUNIT = "s"
+SPAN = 24 * 3600
+DTICK = 2 * 3600
 
-def make_figure(selected, theme, variant=None):
+
+def make_figure(selected, theme, variant=None, tunit=DEFAULT_TUNIT):
     """Build the figure over `selected` panel indices, in `theme` colors.
 
     Every run is drawn and only the base run and `variant` are left visible,
     so the dropdown of the page switches variants by restyling the traces the
-    figure already holds.
+    figure already holds.  Time is shown in `tunit`, a key of TUNITS.
     """
     data = runs()
     variant = variant if variant in RUNS_B else DEFAULT_B
+    per = TUNITS[tunit]
     selected = list(selected)
     chosen = [panels()[i] for i in selected]
     n = max(len(chosen), 1)
@@ -286,7 +336,7 @@ def make_figure(selected, theme, variant=None):
         lane = len(sigs) - 1
         for slot, sig in enumerate(sigs):
             var, label = sig[0], sig[1]
-            for run, dash in [(RUN_A[1], "solid")] + [(b, "dot") for b in RUNS_B]:
+            for run, dash in [(RUN_A[0], "solid")] + [(b, "dot") for b in RUNS_B]:
                 t, v = data[run][0](var)
                 if kind == "bin":
                     y, cd, hov = ([lane - slot + 0.78 * x for x in v], v,
@@ -296,10 +346,10 @@ def make_figure(selected, theme, variant=None):
                                   "%{y:.4g}")
                 fig.add_trace(
                     go.Scatter(
-                        x=t, y=y, customdata=cd,
+                        x=[x / per for x in t], y=y, customdata=cd,
                         name=f"{label} · {run}", meta=run,
                         legend=f"legend{row if row > 1 else ''}",
-                        mode="lines", visible=run in (RUN_A[1], variant),
+                        mode="lines", visible=run in (RUN_A[0], variant),
                         line=dict(
                             color=theme["series"][slot % 5], width=1.9, dash=dash,
                             shape="hv" if kind in ("stp", "bin") else "linear",
@@ -331,7 +381,8 @@ def make_figure(selected, theme, variant=None):
     fig.update_xaxes(
         showspikes=True, spikemode="across", spikesnap="cursor",
         spikethickness=1, spikedash="solid", spikecolor=theme["muted"],
-        dtick=2, range=[0, 24], uirevision="time",
+        # A zoom is kept per unit, as a range in one unit is wrong in another.
+        dtick=DTICK / per, range=[0, SPAN / per], uirevision=f"time {tunit}",
         gridcolor=theme["grid"], linecolor=theme["grid"],
         zerolinecolor=theme["zero"], tickcolor=theme["grid"],
     )
@@ -340,7 +391,7 @@ def make_figure(selected, theme, variant=None):
         zerolinecolor=theme["zero"], tickcolor=theme["grid"],
     )
     if chosen:
-        fig.update_xaxes(row=n, col=1, title_text="time (h)")
+        fig.update_xaxes(row=n, col=1, title_text=f"time ({tunit})")
 
     # One legend per panel, parked in the right margin beside its own panel.
     for row in range(1, len(chosen) + 1):
@@ -395,6 +446,14 @@ button:hover { color:var(--ink); }
   margin:0 6px 6px 0; cursor:pointer; opacity:.6; }
 #chips label:has(input:checked) { color:var(--ink); border-color:var(--ink3); opacity:1; }
 #chips input { position:absolute; opacity:0; width:0; height:0; }
+.unit { display:flex; }
+.unit label { display:inline-block; font-size:12.5px; color:var(--ink3);
+  border:1px solid var(--rule); padding:3px 10px; margin-left:-1px; cursor:pointer; }
+.unit label:first-child { border-radius:6px 0 0 6px; margin-left:0; }
+.unit label:last-child { border-radius:0 6px 6px 0; }
+.unit label:has(input:checked) { color:var(--ink); border-color:var(--ink3);
+  position:relative; }
+.unit input { position:absolute; opacity:0; width:0; height:0; }
 #absent { padding:10px 20px 24px; color:var(--ink3); font-size:12.5px; }
 code { font-size:12px; }
 """
@@ -428,6 +487,7 @@ PAGE = """<!DOCTYPE html>
 <div class="pick"><b>Variant</b>
 <select id="variant">%(options)s</select>
 <span class="note">— dotted</span></div>
+<div class="pick"><b>Time</b><div class="unit">%(tunits)s</div></div>
 </header>
 <div id="bar"><span class="lab">Panels</span>
 <div id="chips">%(chips)s</div>
@@ -445,6 +505,22 @@ const sel = document.getElementById("variant");
 // Variant: flip trace visibility in every panel, folded ones included.
 sel.addEventListener("change", () =>
   plots.forEach((gd, i) => Plotly.restyle(gd, {visible: VIS[sel.value][i]})));
+
+// Time unit: rescale the time of every trace, and the range and ticks of the
+// time axis, so a zoom is kept across units.
+const PER = %(tunit_per)s;
+let unit = %(tunit)s;
+document.querySelectorAll(".unit input").forEach(r => r.addEventListener(
+  "change", () => {
+    const f = PER[unit] / PER[r.value];
+    unit = r.value;
+    plots.forEach(gd => {
+      const ax = gd.layout.xaxis;
+      Plotly.update(gd, {x: gd.data.map(t => Array.from(t.x, v => v * f))}, {
+        "xaxis.range": ax.range.map(v => v * f), "xaxis.dtick": ax.dtick * f,
+        "xaxis.title.text": `time (${unit})`});
+    });
+  }));
 
 // Panels: hide the figure of an unchecked chip.  A figure shown again is
 // resized, as the page may have changed width while it was hidden.
@@ -493,6 +569,10 @@ def write_html(path):
                    "</option>" for name in RUNS_B)
     chips = "".join(f'<label><input type="checkbox" checked>{escape(p[0])}'
                     "</label>" for p in panels())
+    tunits = "".join(
+        f'<label><input type="radio" name="tunit" value="{u}"'
+        f'{" checked" if u == DEFAULT_TUNIT else ""}>{u}</label>'
+        for u in TUNITS)
     charts = "\n".join(
         '<div class="panel">%s</div>' % fig.to_html(
             full_html=False, include_plotlyjs="cdn" if i == 0 else False,
@@ -503,9 +583,10 @@ def write_html(path):
                for name in RUNS_B}
     with open(path, "w") as out:
         out.write(PAGE % dict(
-            title=f"{RUN_A[1]} vs variants", css=STYLE, base=RUN_A[0],
-            options=opts, chips=chips, charts=charts,
-            visible=json.dumps(visible),
+            title=f"{RUN_A[0]} vs variants", css=STYLE, base=RUN_A[1],
+            options=opts, chips=chips, charts=charts, tunits=tunits,
+            visible=json.dumps(visible), tunit_per=json.dumps(TUNITS),
+            tunit=json.dumps(DEFAULT_TUNIT),
         ))
     return sum(len(fig.data) for fig in figs)
 
@@ -515,18 +596,24 @@ def build_app():
 
     titles = [p[0] for p in panels()]
     gone = absent()
-    app = Dash(__name__, title=f"{RUN_A[1]} vs variants")
+    app = Dash(__name__, title=f"{RUN_A[0]} vs variants")
     app.index_string = INDEX
 
     app.layout = html.Div([
         html.Header([
-            html.Div([html.B(RUN_A[1]),
-                      html.Span(f" {RUN_A[0]} — solid", className="note")]),
+            html.Div([html.B(RUN_A[0]),
+                      html.Span(f" {RUN_A[1]} — solid", className="note")]),
             html.Div([
                 html.B("Variants"),
                 dcc.Dropdown(id="variant", clearable=False, searchable=False,
                              options=list(RUNS_B), value=DEFAULT_B),
                 html.Span("— dotted", className="note"),
+            ], className="pick"),
+            html.Div([
+                html.B("Time"),
+                dcc.RadioItems(id="tunit", options=list(TUNITS),
+                               value=DEFAULT_TUNIT, inline=True,
+                               className="unit"),
             ], className="pick"),
             html.Button("Dark mode", id="theme-btn"),
         ]),
@@ -544,20 +631,16 @@ def build_app():
         dcc.Graph(id="chart", config={
             "displaylogo": False, "responsive": True,
             "toImageButtonOptions": {"format": "png", "scale": 2,
-                                     "filename": f"{RUN_A[1]}_vs_variant"},
+                                     "filename": f"{RUN_A[0]}_vs_variant"},
         }),
         html.Details([
             html.Summary("Signals dropped because at least one run does not "
                          "record them"),
-            html.P("A variant needs not share the whole chiller interface with "
-                   "the base model — HardCase1Compliance sets "
-                   "intChi.use_cpl = true — and the configuration options of "
-                   "the base model also decide which valves and sensors exist "
-                   "at all:"),
+            html.P("HardCase1 sets typDis_select1 = Variable1Only and "
+                   "typ = Reversible, so the secondary loop, the secondary "
+                   "pumps and the heat recovery chiller of the base model do "
+                   "not exist:"),
             html.P([html.Code(", ".join(gone) or "none")]),
-            html.P("The .mos script also plots one signal under a path that no "
-                   "longer resolves; it is read here under its current name:"),
-            html.P([html.Code(" → ".join(RENAMED[0]))]),
         ], id="absent"),
         dcc.Store(id="theme", data="light"),
         dcc.Store(id="fig"),
@@ -582,10 +665,11 @@ def build_app():
         Output("theme", "id"), Input("theme", "data"))
 
     @app.callback(Output("fig", "data"),
-                  Input("chips", "value"), Input("theme", "data"))
-    def _figure(selected, theme):
+                  Input("chips", "value"), Input("theme", "data"),
+                  Input("tunit", "value"))
+    def _figure(selected, theme, tunit):
         return make_figure(sorted(selected or []),
-                           LIGHT if theme == "light" else DARK)
+                           LIGHT if theme == "light" else DARK, tunit=tunit)
 
     # The browser already holds every variant, so switching one in only
     # flips the visibility flags instead of sending the traces again.  The
@@ -597,7 +681,7 @@ def build_app():
             if (!fig) return window.dash_clientside.no_update;
             return {...fig, data: fig.data.map(t => ({...t,
                 visible: t.meta === %s || t.meta === variant}))};
-        }""" % json.dumps(RUN_A[1]),
+        }""" % json.dumps(RUN_A[0]),
         Output("chart", "figure"), Input("fig", "data"),
         Input("variant", "value"))
 

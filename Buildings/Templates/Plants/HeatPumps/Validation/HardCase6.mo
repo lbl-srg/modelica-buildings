@@ -137,8 +137,7 @@ File assimulo/solvers/sundials.pyx:2147, in assimulo.solvers.sundials.CVode.inte
 CVodeError: 'The rootfinding function failed in an unrecoverable manner. At time 20151.735489.'
 
 
-"),
-    Icon(graphics={
+"), Icon(graphics={
         Polygon(lineColor = {0,0,255},
                 fillColor={244,125,35},
                 pattern = LinePattern.None,
