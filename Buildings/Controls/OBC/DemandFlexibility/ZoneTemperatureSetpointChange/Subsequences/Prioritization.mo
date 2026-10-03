@@ -100,7 +100,7 @@ setpoint if it is used for heating mode (<code>airConMod = Heating</code>), and 
 be cooling setpoint if it is used for cooling mode (<code>airConMod = Cooling</code>).
 </p>
 <p>
-The parameter <code>nSel</code> represents the number of zones to select for
+The input variable <code>nSel</code> represents the number of zones to select for
 prioritization.
 For <code>nSel</code> zones with the smallest (most negative) temperature
 difference, <code>(TZon - TZonSet)</code> for heating mode and
