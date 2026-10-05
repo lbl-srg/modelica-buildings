@@ -413,6 +413,7 @@
     translate: false
   optimica:
     comment: Failing due to the controller using a when-guard in an algebraic loop.
+    translate: false
 - model_name: Buildings.Templates.Plants.Controls.HeatPumps.Subsequences.Validation.SelectModeState
   openmodelica:
     comment: Translation fails with OMC 1.26.3 but succeeds with 1.27.0.
