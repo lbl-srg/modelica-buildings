@@ -61,7 +61,7 @@ block HeatingOrCooling
     "Sampling period for the setpoint change";
   parameter Integer nZon(min=1)
     "Number of zones in the building";
-  parameter Integer nSel(min=1)
+  parameter Integer nSel(min=1, max=nZon)
     "Number of zones to select for prioritization";
   parameter Buildings.Controls.OBC.DemandFlexibility.Types.AirConditioningMode airConMod
     "Air conditioning mode";
@@ -295,14 +295,14 @@ Buildings.Controls.OBC.DemandFlexibility.Types.ZoneControlVariant</a>
 for more information on these <i>4</i> variants.
 </p>
 <p>
-The demand flexibility mode input <code>demFleMod</code> can be:
-<i>0</i> (pre-cool or pre-heat mode), <i>1</i> (default mode), <i>2</i> (load-shed
-mode), and <i>3</i> (load-rebound mode).
+The demand flexibility mode input <code>demFleMod</code> can be: <i>0</i> (pre-cool
+or pre-heat mode), <i>1</i> (default mode), <i>2</i> (load-shed mode), and <i>3</i>
+(load-rebound mode).
 </p>
 <p>
 The input current setpoint <code>TCurZonSet</code> and the commanded setpoint
-<code>TComZonSet</code> must be heating setpoints if the sequence is used for heating mode
-and they must be cooling setpoints if it is used for cooling mode.
+<code>TComZonSet</code> must be heating setpoints if the sequence is used for
+heating mode and they must be cooling setpoints if it is used for cooling mode.
 </p>
 <p>
 The internal variable zone temperature difference <code>dTZon</code>, is defined as
@@ -319,39 +319,38 @@ for more detailed description.
 </p>
 <p>
 Note that if <code>zonConVar</code> has a value of Variant <i>3</i> or Variant
-<i>4</i>, the use-demand-control parameter <code>use_demCon</code> of the subsequence
-will be <code>true</code>. Otherwise, the <code>use_demCon</code>
+<i>4</i>, the use-demand-control parameter <code>use_demCon</code> of the zone
+enablement subsequence will be <code>true</code>. Otherwise, <code>use_demCon</code>
 will be <code>false</code>.
 </p>
 <h4>Zone Prioritization</h4>
 <p>
-This block prioritizes setpoint change for certain zones based on the difference
-between the current temperature <code>TCurZon</code> and the current
-temperature setpoint <code>TCurZonSet</code> in each zone. Refer to
+For all zones that are enabled for setpoint change, this block ranks the enabled
+zones based on the zone temperature difference <code>dTZon</code>, then prioritizes
+<code>nSel</code> enabled zones with the smallest <code>dTZon</code> to execute the
+setpoint change operation. Thus, the setpoint change operation will only be executed
+for zones that are both enabled and prioritized. Refer to
 <a href=\"modelica://Buildings.Controls.OBC.DemandFlexibility.ZoneTemperatureSetpointChange.Subsequences.Prioritization\">
 Buildings.Controls.OBC.DemandFlexibility.ZoneTemperatureSetpointChange.Subsequences.Prioritization</a>
 for more detailed description.
 </p>
 <p>
-If the number of zones <code>nZon</code> is equal to <i>1</i>, the subsequence will
-not be enabled. The single zone will be selected
-for the setpoint change operation by default, unless the output from the zone
-enablement subsequence indicates that the zone should be disabled for the setpoint change
-operation.
+If the number of zones <code>nZon</code> is equal to <i>1</i>, zone prioritization
+will not be necessary. The setpoint change operation will be executed for this
+single zone as long as this zone is enabled for such operation.
 </p>
 <h4>Zone Setpoint Adjustment</h4>
 <p>
-This block outputs new setpoints. Refer to
+This block executes setpoint change by outputting new setpoints. Refer to
 <a href=\"modelica://Buildings.Controls.OBC.DemandFlexibility.ZoneTemperatureSetpointChange.Subsequences.Adjustment\">
 Buildings.Controls.OBC.DemandFlexibility.ZoneTemperatureSetpointChange.Subsequences.Adjustment</a>
 for more detailed description.
 </p>
 <p>
-The setpoint change will only be executed for zones that are enabled
-and prioritized for such operation. Note that if <code>zonConVar</code> has a value
-of Variant <i>1</i>, the multiple-step setpoint change flag parameter
-<code>use_mulSteSetCha</code> within the subsequence will be <code>false</code>.
-Otherwise, the <code>use_mulSteSetCha</code> will be <code>true</code>.
+Note that if <code>zonConVar</code> has a value of Variant <i>1</i>, the
+multiple-step setpoint change flag parameter <code>use_mulSteSetCha</code> within
+the zone setpoint adjustment subsequence will be <code>false</code>. Otherwise, the
+<code>use_mulSteSetCha</code> will be <code>true</code>.
 </p>
 <h4>Aggregated Behaviors</h4>
 <p>
@@ -359,31 +358,25 @@ The parameter <code>setChaWaiTim</code> is the setpoint change wait time, which
 specifies the time interval on how often the setpoint change operation is executed.
 </p>
 <p>
-In the enablement subsequence, one condition to enable setpoint change is that the
-zone temperature setpoint has not reached a setpoint limit that is imposed by the
-respective demand flexibility mode.
-
-Based on the <code>Prioritization</code> sub-block and the
-<code>Adjustment</code> sub-block, only the <code>nSel</code> zones with the
-smallest <code>dTZon</code> will be selected for the setpoint change operation. Here,
+In the zone enablement subsequence, one condition to enable setpoint change is that
+the zone temperature setpoint has not reached a setpoint limit that is imposed by the
+respective demand flexibility mode. Since the setpoint change operation will only be
+executed for <code>nSel</code> enabled zones with the smallest <code>dTZon</code>,
 there is a chance that the zone temperature setpoint of a zone has reached a
-temperature setpoint limit, but this zone is still one of the <code>nSel</code>
-zones with the smallest <code>dTZon</code>.
-This zone enablement condition helps
-disable this zone immediately and lets other zones be selected as part of the
-<code>nSel</code> zones. Without this zone enablement condition, the
-<code>Prioritization</code> sub-block will get stuck by always selecting this
-zone for setpoint change without moving on to other zones, even though this zone can
-no longer change its setpoint past the setpoint limit.
+temperature setpoint limit, but this zone still has one of the smallest
+<code>dTZon</code> values. This zone enablement condition helps remove this zone
+from the list of enabled zones and let other zones become the <code>nSel</code>
+enabled zones. Without this zone enablement condition, this block will get stuck by
+always prioritizing this zone for setpoint change without moving on to other zones,
+even though this zone can no longer change its setpoint past the setpoint limit.
 </p>
 <p>
-Based on the <code>Prioritization</code> sub-block and the
-<code>Adjustment</code> sub-block, the <code>nSel</code> enabled zones with the
-smallest <code>dTZon</code> will be selected for the setpoint change operation. This
-in turn changes the value of <code>TComZonSet</code> and <code>TCurZonSet</code>,
-thus <code>dTZon</code> itself is changed. This has different implications during
-different demand flexibility modes (<code>demFleMod</code>). Below is a table that
-summarizes these different implications:
+Since the <code>nSel</code> enabled zones with the smallest <code>dTZon</code> will
+be selected for the setpoint change operation, it in turn changes the value of
+<code>TComZonSet</code> and <code>TCurZonSet</code>, thus <code>dTZon</code> itself
+is changed. This has different implications during different demand flexibility modes
+(<code>demFleMod</code>). Below is a table that summarizes these different
+implications:
 </p>
 <table summary=\"summary\" border=\"1\">
 <tr>
