@@ -23,6 +23,15 @@ have been added with system and component models for liquid-cooled data centers,
 such as CDUs and racks.
 </li>
 <li>
+An autosizing feature has been added to the package 
+<code>Buildings.ThermalZones.EnergyPlus_24_2_0</code>, where, during initialization, 
+the EnergyPlus sizing routine can be invoked, resulting in parameter values being 
+passed to Modelica thermal zone and HVAC system objects. These parameter values 
+include heating and cooling loads, zone set points, outdoor conditions, and 
+minimum outside air flow all at design conditions, and can be used throughout the 
+Modelica model to size HVAC equipment based on the EnergyPlus sizing results.
+</li>
+<li>
 The air-to-water heat pump plant template in <code>Buildings.Templates.Plants.HeatPumps</code>
 has been extended to support 4-pipe polyvalent heat pumps that can simultaneously provide
 heating and cooling. Associated control subsequences have been added to
