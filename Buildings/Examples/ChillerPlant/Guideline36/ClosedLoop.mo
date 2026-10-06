@@ -314,8 +314,8 @@ less than 0.1, it generates 0 request.
 <p>
 The chiller plant is controlled based on the ASHRAE Guideline 36, and implemented
 using the sequence
-<a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Controller\">
-Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Controller</a>.
+<a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36_2021.Plants.Chillers.Controller\">
+Buildings.Controls.OBC.ASHRAE.G36_2021.Plants.Chillers.Controller</a>.
 </p>
 </html>", revisions="<html>
 <ul>
