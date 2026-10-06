@@ -41,7 +41,7 @@ model MultipleZoneCoolingVariant1And2
     "Emulates an external zone temperature setpoint controller that has a small delay of setpoint change after a new setpoint is received; used for Variant 2 of zone control"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}}, rotation=0,
       origin={90,-110})));
-  Buildings.Controls.OBC.DemandFlexibility.ZoneTemperatureSetpointChange.HeatingOrCooling setChaConCooVar2(
+  Buildings.Controls.OBC.DemandFlexibility.ZoneTemperatureSetpointChange.Controller setChaConCooVar2(
     dTShe=0.5,
     dTReb=0.5,
     dTSheThr=0.5,
@@ -77,7 +77,7 @@ model MultipleZoneCoolingVariant1And2
   Buildings.Controls.OBC.CDL.Routing.RealScalarReplicator TDefCooSetRep(nout=nZon)
     "Replicate the default cooling temperature setpoint"
     annotation (Placement(transformation(extent={{-80,-140},{-60,-120}})));
-  Buildings.Controls.OBC.DemandFlexibility.ZoneTemperatureSetpointChange.HeatingOrCooling setChaConCooVar1(
+  Buildings.Controls.OBC.DemandFlexibility.ZoneTemperatureSetpointChange.Controller setChaConCooVar1(
     dTShe=0.5,
     dTReb=0.5,
     dTSheThr=0.5,
@@ -175,8 +175,8 @@ equation
   Documentation(info="<html>
 <p>
 This example validates
-<a href=\"modelica://Buildings.Controls.OBC.DemandFlexibility.ZoneTemperatureSetpointChange.HeatingOrCooling\">
-Buildings.Controls.OBC.DemandFlexibility.ZoneTemperatureSetpointChange.HeatingOrCooling</a>
+<a href=\"modelica://Buildings.Controls.OBC.DemandFlexibility.ZoneTemperatureSetpointChange.Controller\">
+Buildings.Controls.OBC.DemandFlexibility.ZoneTemperatureSetpointChange.Controller</a>
 for the cooling operation of a 5-zone building under Variant <i>1</i> and Variant
 <i>2</i> of zone temperature setpoint control.
 </p>

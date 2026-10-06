@@ -30,7 +30,7 @@ model SingleZoneHeatingVariant3And4
     setChaEnaUnoFla=true)
     "Block to generate zone setpoints and setpoint targets that vary with time"
     annotation (Placement(transformation(extent={{-120,-140},{-100,-120}})));
-  Buildings.Controls.OBC.DemandFlexibility.ZoneTemperatureSetpointChange.HeatingOrCooling setChaConHeaVar3(
+  Buildings.Controls.OBC.DemandFlexibility.ZoneTemperatureSetpointChange.Controller setChaConHeaVar3(
     dTShe=0.5,
     dTReb=0.5,
     dTSheThr=0.5,
@@ -58,7 +58,7 @@ model SingleZoneHeatingVariant3And4
     "Emulates an external zone temperature setpoint controller that has a small delay of setpoint change after a new setpoint is received; used for Variant 4 of zone control"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}}, rotation=0,
       origin={50,-70})));
-  Buildings.Controls.OBC.DemandFlexibility.ZoneTemperatureSetpointChange.HeatingOrCooling setChaConHeaVar4(
+  Buildings.Controls.OBC.DemandFlexibility.ZoneTemperatureSetpointChange.Controller setChaConHeaVar4(
     dTShe=0.5,
     dTReb=0.5,
     dTSheThr=0.5,
@@ -155,8 +155,8 @@ equation
   Documentation(info="<html>
 <p>
 This example validates
-<a href=\"modelica://Buildings.Controls.OBC.DemandFlexibility.ZoneTemperatureSetpointChange.HeatingOrCooling\">
-Buildings.Controls.OBC.DemandFlexibility.ZoneTemperatureSetpointChange.HeatingOrCooling</a>
+<a href=\"modelica://Buildings.Controls.OBC.DemandFlexibility.ZoneTemperatureSetpointChange.Controller\">
+Buildings.Controls.OBC.DemandFlexibility.ZoneTemperatureSetpointChange.Controller</a>
 for the heating operation of a single zone building under Variant <i>3</i> and
 Variant <i>4</i> of zone temperature setpoint control while responding to both a
 rogue zone flag signal and the electricity demand of the building.

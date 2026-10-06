@@ -1,6 +1,6 @@
 within Buildings.Controls.OBC.DemandFlexibility.ZoneTemperatureSetpointChange;
-block HeatingOrCooling
-  "Zone heating or cooling temperature setpoint change"
+block Controller
+  "Controller for zone heating or cooling temperature setpoint change"
 
   parameter Real dTShe(
     min=0,
@@ -251,7 +251,7 @@ equation
     annotation (Line(points={{2,110},{40,110},{40,96},{58,96}}, color={255,0,255}));
   connect(enaOneZon.u, zonEna.enaFla)
     annotation (Line(points={{58,130},{-58,130}}, color={255,0,255}));
-  annotation (defaultComponentName="heaOrCoo",
+  annotation (defaultComponentName="zonTemSetCon",
     Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-180},{100,180}},
     grid={2,2}), graphics={Rectangle(
       extent={{-100,-180},{100,180}},
@@ -406,4 +406,4 @@ demand of all zones flatter with fewer spikes.</td>
 </tr>
 </table>
 </html>"));
-end HeatingOrCooling;
+end Controller;
