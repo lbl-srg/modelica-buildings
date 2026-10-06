@@ -5,11 +5,12 @@ package Buildings "Library with models for building energy and control systems"
 
 annotation (
 preferredView="info",
-version="13.0.1",
+version="13.0.2",
 versionDate="2026-05-04",
 dateModified="2026-10-01",
 uses(Modelica(version="4.1.0")),
 conversion(
+  noneFromVersion="13.0.1",
   noneFromVersion="13.0.0",
   from(
     version={"12.0.0", "12.1.0", "12.1.1", "12.1.2"},
