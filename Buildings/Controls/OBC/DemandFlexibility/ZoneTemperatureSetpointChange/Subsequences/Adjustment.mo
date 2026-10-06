@@ -6,14 +6,14 @@ block Adjustment "Zone setpoint adjustment"
     start=1,
     unit="K",
     displayUnit="K")
-    "Temperature setpoint change delta for the load-shed mode (positive value)"
+    "Setpoint change delta for the load-shed mode (positive value)"
     annotation (Dialog(enable = use_mulSteSetCha));
   parameter Real dTReb(
     min=0,
     start=1,
     unit="K",
     displayUnit="K")
-    "Temperature setpoint change delta for the load-rebound mode (positive value)"
+    "Setpoint change delta for the load-rebound mode (positive value)"
     annotation (Dialog(enable = use_mulSteSetCha));
   parameter Boolean use_mulSteSetCha
     "If true, there are multiple smaller and incremental setpoint change steps for the load-shed mode and the load-rebound mode; if false, there is a single setpoint change step";
@@ -60,7 +60,7 @@ block Adjustment "Zone setpoint adjustment"
     final unit="K",
     displayUnit="degC",
     final quantity="ThermodynamicTemperature")
-    "Commanded zone temperature setpoint to the external setpoint controller to change the current temperature setpoint"
+    "Commanded zone temperature setpoint"
     annotation (Placement(transformation(extent={{200,-20},{240,20}}),
       iconTransformation(extent={{100,-20},{140,20}})));
 protected
@@ -74,11 +74,11 @@ protected
     annotation (Placement(transformation(extent={{-40,-180},{-20,-160}})));
   Buildings.Controls.OBC.CDL.Logical.Not notLesTPreTarSet
     if airConMod == Buildings.Controls.OBC.DemandFlexibility.Types.AirConditioningMode.Heating
-    "Check if the pre-heat target temperature setpoint is no less than the default temperature setpoint"
+    "Check if the pre-heat target temperature setpoint is not less than the default temperature setpoint"
     annotation (Placement(transformation(extent={{20,-140},{40,-120}})));
   Buildings.Controls.OBC.CDL.Logical.Not notGreTSheTarSet
     if airConMod == Buildings.Controls.OBC.DemandFlexibility.Types.AirConditioningMode.Heating
-    "Check if the load-shed target temperature setpoint is no greater than the default temperature setpoint"
+    "Check if the load-shed target temperature setpoint is not greater than the default temperature setpoint"
     annotation (Placement(transformation(extent={{20,-180},{40,-160}})));
   Buildings.Controls.OBC.CDL.Reals.Greater greTPreTarSet
     if airConMod == Buildings.Controls.OBC.DemandFlexibility.Types.AirConditioningMode.Cooling
@@ -94,7 +94,7 @@ protected
     annotation (Placement(transformation(extent={{20,-220},{40,-200}})));
   Buildings.Controls.OBC.CDL.Logical.Not notLesTSheTarSet
     if airConMod == Buildings.Controls.OBC.DemandFlexibility.Types.AirConditioningMode.Cooling
-    "Check if the load-shed target temperature setpoint is no less than the default temperature setpoint"
+    "Check if the load-shed target temperature setpoint is not less than the default temperature setpoint"
     annotation (Placement(transformation(extent={{20,-260},{40,-240}})));
   Buildings.Controls.OBC.CDL.Utilities.Assert assMesTPreTarHeaSet(
     message="Error: the pre-heat target temperature setpoint must be greater than or equal to the default temperature setpoint during the heating mode.")

@@ -40,37 +40,37 @@ block Enable "Decide the zones for setpoint change"
     "Air conditioning mode";
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TZon[nZon](
-    each final unit="K",
-    each displayUnit="degC",
-    each final quantity="ThermodynamicTemperature")
+    final unit=fill("K",nZon),
+    displayUnit=fill("degC",nZon),
+    final quantity=fill("ThermodynamicTemperature",nZon))
     "Zone temperature"
     annotation (Placement(transformation(extent={{-300,240},{-260,280}}),
       iconTransformation(extent={{-140,20},{-100,60}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TZonSet[nZon](
-    each final unit="K",
-    each displayUnit="degC",
-    each final quantity="ThermodynamicTemperature")
+    final unit=fill("K",nZon),
+    displayUnit=fill("degC",nZon),
+    final quantity=fill("ThermodynamicTemperature",nZon))
     "Zone temperature setpoint, can be either a heating setpoint or a cooling setpoint, depending on the air conditioning mode"
     annotation (Placement(transformation(extent={{-300,200},{-260,240}}),
       iconTransformation(extent={{-140,-20},{-100,20}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TPreTarSet[nZon](
-    each final unit="K",
-    each displayUnit="degC",
-    each final quantity="ThermodynamicTemperature")
+    final unit=fill("K",nZon),
+    displayUnit=fill("degC",nZon),
+    final quantity=fill("ThermodynamicTemperature",nZon))
     "Pre-cool or pre-heat target temperature setpoint"
     annotation (Placement(transformation(extent={{-300,-100},{-260,-60}}),
       iconTransformation(extent={{-140,-100},{-100,-60}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TSheTarSet[nZon](
-    each final unit="K",
-    each displayUnit="degC",
-    each final quantity="ThermodynamicTemperature")
+    final unit=fill("K",nZon),
+    displayUnit=fill("degC",nZon),
+    final quantity=fill("ThermodynamicTemperature",nZon))
     "Load-shed target temperature setpoint"
     annotation (Placement(transformation(extent={{-300,-180},{-260,-140}}),
       iconTransformation(extent={{-140,-140},{-100,-100}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TDefSet[nZon](
-    each final unit="K",
-    each displayUnit="degC",
-    each final quantity="ThermodynamicTemperature")
+    final unit=fill("K",nZon),
+    displayUnit=fill("degC",nZon),
+    final quantity=fill("ThermodynamicTemperature",nZon))
     "Default temperature setpoint"
     annotation (Placement(transformation(extent={{-300,-260},{-260,-220}}),
       iconTransformation(extent={{-140,-180},{-100,-140}})));
@@ -299,27 +299,23 @@ protected
     if airConMod == Buildings.Controls.OBC.DemandFlexibility.Types.AirConditioningMode.Cooling
     "Check if the load-shed target temperature setpoint is no less than the default temperature setpoint"
     annotation (Placement(transformation(extent={{-60,-380},{-40,-360}})));
-  Buildings.Controls.OBC.CDL.Utilities.Assert assMesTPreTarHeaSet[nZon](message=
-        fill("Error: the pre-heat target temperature setpoint must be greater than or equal to the default temperature setpoint during the heating mode.",
-        nZon))
+  Buildings.Controls.OBC.CDL.Utilities.Assert assMesTPreTarHeaSet[nZon](
+    message=fill("Error: the pre-heat target temperature setpoint must be greater than or equal to the default temperature setpoint during the heating mode.", nZon))
     if airConMod == Buildings.Controls.OBC.DemandFlexibility.Types.AirConditioningMode.Heating
     "Error message for the pre-heat target temperature setpoint during the heating mode"
     annotation (Placement(transformation(extent={{0,-260},{20,-240}})));
-  Buildings.Controls.OBC.CDL.Utilities.Assert assMesTSheTarHeaSet[nZon](message=
-        fill("Error: the load-shed target temperature setpoint must be less than or equal to the default temperature setpoint during the heating mode.",
-        nZon))
+  Buildings.Controls.OBC.CDL.Utilities.Assert assMesTSheTarHeaSet[nZon](
+    message=fill("Error: the load-shed target temperature setpoint must be less than or equal to the default temperature setpoint during the heating mode.", nZon))
     if airConMod == Buildings.Controls.OBC.DemandFlexibility.Types.AirConditioningMode.Heating
     "Error message for the load-shed target heating temperature setpoint during the heating mode"
     annotation (Placement(transformation(extent={{0,-300},{20,-280}})));
-  Buildings.Controls.OBC.CDL.Utilities.Assert assMesTPreTarCooSet[nZon](message=
-        fill("Error: the pre-cool target temperature setpoint must be less than or equal to the default temperature setpoint during the cooling mode.",
-        nZon))
+  Buildings.Controls.OBC.CDL.Utilities.Assert assMesTPreTarCooSet[nZon](
+    message=fill("Error: the pre-cool target temperature setpoint must be less than or equal to the default temperature setpoint during the cooling mode.", nZon))
     if airConMod == Buildings.Controls.OBC.DemandFlexibility.Types.AirConditioningMode.Cooling
     "Error message for the pre-cool target temperature setpoint during the cooling mode"
     annotation (Placement(transformation(extent={{0,-340},{20,-320}})));
-  Buildings.Controls.OBC.CDL.Utilities.Assert assMesTSheTarCooSet[nZon](message=
-        fill("Error: the load-shed target temperature setpoint must be greater than or equal to the default temperature setpoint during the cooling mode.",
-        nZon))
+  Buildings.Controls.OBC.CDL.Utilities.Assert assMesTSheTarCooSet[nZon](
+    message=fill("Error: the load-shed target temperature setpoint must be greater than or equal to the default temperature setpoint during the cooling mode.", nZon))
     if airConMod == Buildings.Controls.OBC.DemandFlexibility.Types.AirConditioningMode.Cooling
     "Error message for the load-shed target cooling temperature setpoint during the cooling mode"
     annotation (Placement(transformation(extent={{0,-380},{20,-360}})));

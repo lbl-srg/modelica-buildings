@@ -8,16 +8,16 @@ block Prioritization
     "Air conditioning mode";
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TZon[nZon](
-    each final unit="K",
-    each displayUnit="degC",
-    each final quantity="ThermodynamicTemperature")
+    final unit=fill("K",nZon),
+    displayUnit=fill("degC",nZon),
+    final quantity=fill("ThermodynamicTemperature",nZon))
     "Zone temperature"
     annotation (Placement(transformation(extent={{-160,0},{-120,40}}),
         iconTransformation(extent={{-140,0},{-100,40}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TZonSet[nZon](
-    each final unit="K",
-    each displayUnit="degC",
-    each final quantity="ThermodynamicTemperature")
+    final unit=fill("K",nZon),
+    displayUnit=fill("degC",nZon),
+    final quantity=fill("ThermodynamicTemperature",nZon))
     "Zone temperature setpoint, can be either a heating setpoint or a cooling setpoint, depending on the air conditioning mode"
     annotation (Placement(transformation(extent={{-160,-40},{-120,0}}),
         iconTransformation(extent={{-140,-40},{-100,0}})));
@@ -100,11 +100,11 @@ setpoint if it is used for heating mode (<code>airConMod = Heating</code>), and 
 be cooling setpoint if it is used for cooling mode (<code>airConMod = Cooling</code>).
 </p>
 <p>
-The input variable <code>nSel</code> represents the number of zones to select for
+The input <code>nSel</code> represents the number of zones to select for
 prioritization.
 For <code>nSel</code> zones with the smallest (most negative) temperature
 difference, <code>(TZon - TZonSet)</code> for heating mode and
-<code>(TZonSe - TZon)</code> for cooling mode, these zones will
+<code>(TZonSet - TZon)</code> for cooling mode, these zones will
 have their setpoint change flags <code>yEna = true</code>. The other zones will
 have their flags <code>yEna = false</code>.
 </p>

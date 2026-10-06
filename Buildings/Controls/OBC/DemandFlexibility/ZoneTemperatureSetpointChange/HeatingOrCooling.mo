@@ -69,37 +69,37 @@ block HeatingOrCooling
     "Zone control variant, from Variant 1 through Variant 4";
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TCurZon[nZon](
-    each final unit="K",
-    each displayUnit="degC",
-    each final quantity="ThermodynamicTemperature")
+    final unit=fill("K",nZon),
+    displayUnit=fill("degC",nZon),
+    final quantity=fill("ThermodynamicTemperature",nZon))
     "Current zone temperature"
     annotation (Placement(transformation(extent={{-260,20},{-220,60}}),
       iconTransformation(extent={{-140,20},{-100,60}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TCurZonSet[nZon](
-    each final unit="K",
-    each displayUnit="degC",
-    each final quantity="ThermodynamicTemperature")
+    final unit=fill("K",nZon),
+    displayUnit=fill("degC",nZon),
+    final quantity=fill("ThermodynamicTemperature",nZon))
     "Current zone temperature setpoint from the external setpoint controller"
     annotation (Placement(transformation(extent={{-260,-20},{-220,20}}),
         iconTransformation(extent={{-140,-20},{-100,20}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TPreTarSet[nZon](
-    each final unit="K",
-    each displayUnit="degC",
-    each final quantity="ThermodynamicTemperature")
+    final unit=fill("K",nZon),
+    displayUnit=fill("degC",nZon),
+    final quantity=fill("ThermodynamicTemperature",nZon))
     "Pre-cool or pre-heat target temperature setpoint"
     annotation (Placement(transformation(extent={{-260,-100},{-220,-60}}),
       iconTransformation(extent={{-140,-100},{-100,-60}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TSheTarSet[nZon](
-    each final unit="K",
-    each displayUnit="degC",
-    each final quantity="ThermodynamicTemperature")
+    final unit=fill("K",nZon),
+    displayUnit=fill("degC",nZon),
+    final quantity=fill("ThermodynamicTemperature",nZon))
     "Load-shed target temperature setpoint"
     annotation (Placement(transformation(extent={{-260,-140},{-220,-100}}),
       iconTransformation(extent={{-140,-140},{-100,-100}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TDefSet[nZon](
-    each final unit="K",
-    each displayUnit="degC",
-    each final quantity="ThermodynamicTemperature")
+    final unit=fill("K",nZon),
+    displayUnit=fill("degC",nZon),
+    final quantity=fill("ThermodynamicTemperature",nZon))
     "Default temperature setpoint"
     annotation (Placement(transformation(extent={{-260,-180},{-220,-140}}),
         iconTransformation(extent={{-140,-180},{-100,-140}})));
@@ -127,9 +127,9 @@ block HeatingOrCooling
     annotation (Placement(transformation(extent={{-260,-60},{-220,-20}}),
       iconTransformation(extent={{-140,-60},{-100,-20}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput TComZonSet[nZon](
-    each final unit="K",
-    each displayUnit="degC",
-    each final quantity="ThermodynamicTemperature")
+    final unit=fill("K",nZon),
+    displayUnit=fill("degC",nZon),
+    final quantity=fill("ThermodynamicTemperature",nZon))
     "Commanded zone temperature setpoint to the external setpoint controller to change the current temperature setpoint"
     annotation (Placement(transformation(extent={{220,-20},{260,20}}),
         iconTransformation(extent={{100,-20},{140,20}})));
@@ -187,8 +187,7 @@ protected
     annotation (Placement(transformation(extent={{-180,100},{-160,120}})));
 equation
   connect(zonPri.yEna, zonSetAdj.uEna) annotation (Line(points={{82,90},{100,90},
-          {100,-101.667},{118,-101.667}},
-                                  color={255,0,255}));
+          {100,-101.667},{118,-101.667}}, color={255,0,255}));
   connect(samSetCha.y, TComZonSet)
     annotation (Line(points={{202,0},{240,0}}, color={0,0,127}));
   connect(zonSetAdj.TComZonSet, samSetCha.u) annotation (Line(points={{142,-110},
@@ -224,8 +223,7 @@ equation
     annotation (Line(points={{-240,40},{-140,40},{-140,92},{58,92}},
       color={0,0,127}));
   connect(TCurZonSet, zonPri.TZonSet)
-    annotation (Line(points={{-240,0},{-130,0},{-130,88},{58,88}},
-                                                                 color={0,0,127}));
+    annotation (Line(points={{-240,0},{-130,0},{-130,88},{58,88}}, color={0,0,127}));
   connect(demFleMod, repDemFleMod.u)
     annotation (Line(points={{-240,-40},{-42,-40}},
       color={255,127,0}));
@@ -234,21 +232,18 @@ equation
   connect(TCurZonSet, zonSetAdj.TCurZonSet) annotation (Line(points={{-240,0},{-130,
           0},{-130,-108.5},{118,-108.5}},      color={0,0,127}));
   connect(TPreTarSet, zonSetAdj.TPreTarSet) annotation (Line(points={{-240,-80},
-          {-110,-80},{-110,-111.667},{118,-111.667}},
-                                              color={0,0,127}));
+          {-110,-80},{-110,-111.667},{118,-111.667}}, color={0,0,127}));
   connect(TSheTarSet, zonSetAdj.TSheTarSet) annotation (Line(points={{-240,-120},
           {-100,-120},{-100,-115},{118,-115}}, color={0,0,127}));
   connect(TDefSet, zonSetAdj.TDefSet) annotation (Line(points={{-240,-160},{-90,
-          -160},{-90,-118.333},{118,-118.333}},
-                                        color={0,0,127}));
+          -160},{-90,-118.333},{118,-118.333}}, color={0,0,127}));
   connect(conNSel.y, zonPri.nSel)
     annotation (Line(points={{22,50},{40,50},{40,84},{58,84}}, color={255,127,0}));
   connect(conPBuiThr.y,zonEna. PBuiThr)
     annotation (Line(points={{-158,110},{-150,110},{-150,138},{-82,138}},
       color={0,0,127}));
   connect(enaOneZon.y, zonSetAdj.uEna) annotation (Line(points={{82,130},{100,
-          130},{100,-101.667},{118,-101.667}},
-                                       color={255,0,255}));
+          130},{100,-101.667},{118,-101.667}}, color={255,0,255}));
   connect(zonEna.enaFla, notEna.u)
     annotation (Line(points={{-58,130},{-40,130},{-40,110},{-22,110}},
       color={255,0,255}));
