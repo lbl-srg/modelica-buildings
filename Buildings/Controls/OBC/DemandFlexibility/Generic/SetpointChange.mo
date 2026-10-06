@@ -41,7 +41,7 @@ protected
     annotation (Placement(transformation(extent={{120,-90},{140,-70}})));
   Buildings.Controls.OBC.CDL.Reals.Max uCurSetAllMax
     "Current setpoint should not be larger than the allowed maximum setpoint"
-    annotation (Placement(transformation(extent={{60,-112},{80,-92}})));
+    annotation (Placement(transformation(extent={{60,-110},{80,-90}})));
   Buildings.Controls.OBC.CDL.Conversions.BooleanToReal sigChaSetChaDel(
     final realTrue=setChaDel,
     final realFalse=-1*setChaDel)
@@ -65,7 +65,7 @@ equation
     annotation (Line(points={{-180,-60},{-120,-60},{-120,-74},{118,-74}},
       color={0,0,127}));
   connect(uCurSetAllMax.y,uCurSetAllMin. u2)
-    annotation (Line(points={{82,-102},{100,-102},{100,-86},{118,-86}},
+    annotation (Line(points={{82,-100},{100,-100},{100,-86},{118,-86}},
       color={0,0,127}));
   connect(uCurSetAllMin.y, y)
     annotation (Line(points={{142,-80},{180,-80}}, color={0,0,127}));
@@ -93,9 +93,9 @@ equation
     annotation (Line(points={{-180,40},{-62,40}},
       color={0,0,127}));
   connect(swiEna.y, uCurSetAllMax.u1)
-    annotation (Line(points={{22,-40},{40,-40},{40,-96},{58,-96}}, color={0,0,127}));
+    annotation (Line(points={{22,-40},{40,-40},{40,-94},{58,-94}}, color={0,0,127}));
   connect(uAllMinSet, uCurSetAllMax.u2)
-    annotation (Line(points={{-180,-120},{-100,-120},{-100,-108},{58,-108}},
+    annotation (Line(points={{-180,-120},{-100,-120},{-100,-106},{58,-106}},
       color={0,0,127}));
   annotation (defaultComponentName="setCha",
     Icon(coordinateSystem(preserveAspectRatio=false,
