@@ -192,9 +192,9 @@ This implementation is used to allow use of this model with active rear door hea
 As active rear-door heat exchangers also have a fan, in such a configuration there will
 be two fans in series. Prescribing the mass flow rate instead of the fan
 may give in this situation an overspecified system of equations.
-Thefore, rack model and rear-door heat exchangers use the fan model
-<a href=\"modelica://Buildings.Fluid.DataCenters.Racks.BaseClasses.ControlledFan\">
-Buildings.Fluid.DataCenters.Racks.BaseClasses.ControlledFan</a>.
+Therefore, rack model and rear-door heat exchangers use the fan model
+<a href=\"modelica://Buildings.Fluid.DataCenters.Racks.BaseClasses.Fan\">
+Buildings.Fluid.DataCenters.Racks.BaseClasses.Fan</a>.
 </p>
 </html>",
 revisions="<html>
