@@ -2,6 +2,7 @@
 #define Modelica_EnergyPlus_24_2_0_allocate_declared
 
 #include "Modelica_EnergyPlus_24_2_0_allocate.h"
+#include "ModelicaUtilities.h"
 #include <stdlib.h>
 
 /* *********************************************************

@@ -1,6 +1,7 @@
 #ifndef Modelica_EnergyPlus_24_2_0_allocate_h
 #define Modelica_EnergyPlus_24_2_0_allocate_h
 
+#include <stddef.h>
 #include "EnergyPlus_24_2_0_definitions.h"
 
 extern void* allocate_Spawn_EnergyPlus_24_2_0(
