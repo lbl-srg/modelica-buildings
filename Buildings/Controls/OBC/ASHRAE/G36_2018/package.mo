@@ -1,10 +1,10 @@
 within Buildings.Controls.OBC.ASHRAE;
-package G36_2018 "Package with control sequences from ASHRAE Guideline 36"
+package G36_2018 "Package with control sequences from ASHRAE Guideline 36-2018"
 
 annotation (Documentation(info="<html>
 <p>
 This package contains control sequences from
-ASHRAE Guideline 36 (G36).
+ASHRAE Guideline 36-2018 (G36_2018).
 All sequences are created using blocks from the
 <a href=\"modelica://Buildings.Controls.OBC.CDL\">
 Buildings.Controls.OBC.CDL</a> library, following the
