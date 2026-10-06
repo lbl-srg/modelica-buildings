@@ -79,9 +79,9 @@ env:
     - TEST_ARG="make test-dymola  PACKAGE=\"Buildings.DHC.Examples\""
     - TEST_ARG="make test-openmodelica PACKAGE=\"Buildings.DHC.Examples\" SINGLEPROC=\"true\""
     - TEST_ARG="make test-optimica  PACKAGE=\"Buildings.DHC.Examples\""
-    - TEST_ARG="make test-dymola    PACKAGE=\"Buildings.Fluid.{Actuators,BaseClasses,Boilers,Chillers,CHPs,DataCenterEquipment,Delays}\""
-    - TEST_ARG="make test-openmodelica PACKAGE=\"Buildings.Fluid.{Actuators,BaseClasses,Boilers,Chillers,CHPs,DataCenterEquipment,Delays}\""
-    - TEST_ARG="make test-optimica  PACKAGE=\"Buildings.Fluid.{Actuators,BaseClasses,Boilers,Chillers,CHPs,DataCenterEquipment,Delays}\""
+    - TEST_ARG="make test-dymola    PACKAGE=\"Buildings.Fluid.{Actuators,BaseClasses,Boilers,Chillers,CHPs,DataCenters,Delays}\""
+    - TEST_ARG="make test-openmodelica PACKAGE=\"Buildings.Fluid.{Actuators,BaseClasses,Boilers,Chillers,CHPs,DataCenters,Delays}\""
+    - TEST_ARG="make test-optimica  PACKAGE=\"Buildings.Fluid.{Actuators,BaseClasses,Boilers,Chillers,CHPs,DataCenters,Delays}\""
     - TEST_ARG="make test-dymola    PACKAGE=\"Buildings.Fluid.{Examples,FMI}\""
     - TEST_ARG="make test-openmodelica PACKAGE=\"Buildings.Fluid.{Examples,FMI}\""
     - TEST_ARG="make test-optimica  PACKAGE=\"Buildings.Fluid.{Examples,FMI}\""
@@ -116,7 +116,7 @@ env:
     - TEST_ARG="make test-openmodelica  PACKAGE=\"Buildings.Templates\""
     - TEST_ARG="make test-optimica  PACKAGE=\"Buildings.Templates\""
     - TEST_ARG="make test-templates-dymola PACKAGE=\"Buildings.Templates.AirHandlersFans\" COVER=0.5"
-    - TEST_ARG="make test-templates-dymola PACKAGE=\"Buildings.Templates.Plants.HeatPumps\" COVER=0.2"
+    - TEST_ARG="make test-templates-dymola PACKAGE=\"Buildings.Templates.Plants.HeatPumps\" COVER=0.3"
     - TEST_ARG="make test-templates-dymola PACKAGE=\"Buildings.Templates.ZoneEquipment\""
 
 before_install:
