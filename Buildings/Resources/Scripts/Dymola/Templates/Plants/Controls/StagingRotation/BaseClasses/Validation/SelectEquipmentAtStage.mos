@@ -1,0 +1,42 @@
+simulateModel("Buildings.Templates.Plants.Controls.StagingRotation.BaseClasses.Validation.SelectEquipmentAtStage",
+    method="cvode",
+    tolerance=1e-6,
+    stopTime=7.0,
+    resultFile="SelectEquipmentAtStage");
+createPlot(
+    id=1,
+    position={5, 5, 300, 400},
+    subPlot=1,
+    y={"idxSta.y[1]"},
+    autoscale=true,
+    grid=true
+);
+createPlot(
+    id=1,
+    subPlot=2,
+    y={"selEquSta.u1Ava[1]", "selEquSta.u1Ava[2]", "selEquSta.u1Ava[3]"},
+    autoscale=true,
+    grid=true
+);
+createPlot(
+    id=2,
+    position={315, 5, 300, 600},
+    subPlot=1,
+    y={"selEquSta.nTot", "selEquSta.nReq", "selEquSta.nAlt"},
+    autoscale=true,
+    grid=true
+);
+createPlot(
+    id=2,
+    subPlot=2,
+    y={"selEquSta.y1ReqAndAva[1]", "selEquSta.y1ReqAndAva[2]", "selEquSta.y1ReqAndAva[3]"},
+    autoscale=true,
+    grid=true
+);
+createPlot(
+    id=2,
+    subPlot=3,
+    y={"selEquSta.y1AltAndAva[1]", "selEquSta.y1AltAndAva[2]", "selEquSta.y1AltAndAva[3]"},
+    autoscale=true,
+    grid=true
+);

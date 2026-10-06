@@ -6,10 +6,32 @@
   optimica:
     comment: High solver tolerance required to avoid time out.
     rtol: 1.0e-08
+- model_name: Buildings.Applications.DataCenters.DXCooled.Examples.DXCooledAirsideEconomizer
+  openmodelica:
+    solver: cvode
+- model_name: Buildings.Applications.DataCenters.LiquidCooled.Examples.ChillerWSEDynamicPipes
+  optimica:
+    comment: Selective model extension is only a prototype in OMC version 1.66
+    translate: false
+- model_name: Buildings.Applications.DataCenters.LiquidCooled.Validation.ChillerWSEDesignConditionsGlycol
+  optimica:
+    comment: Selective model extension is only a prototype in OMC version 1.66
+    translate: false
+- model_name: Buildings.Applications.DataCenters.LiquidCooled.Validation.ChillerWSEDesignConditionsWater
+  optimica:
+    comment: Selective model extension is only a prototype in OMC version 1.66
+    translate: false
 - model_name: Buildings.Controls.DemandResponse.Examples.ClientLBNL90
   openmodelica:
     comment: 'TimeoutExpired: omc timed out after 300 seconds'
     time_out: 600
+- model_name: Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Validation.Controller
+  openmodelica:
+    comment: 'Non-linear equations within when-equations is not supported'
+    translate: false
+  optimica:
+    comment: A when-guard is involved in an algebraic loop
+    translate: false
 - model_name: Buildings.DHC.ETS.Combined.Examples.HeatRecoveryHeatPump
   openmodelica:
     comment: Internal error NFCeval.evalBinaryDiv failed to evaluate datHeaPum.QCooAct_flow_nominal / 5.0
@@ -105,13 +127,20 @@
   openmodelica:
     comment: simulation terminated by an assertion at initialization.
     simulate: false
+- model_name: Buildings.Examples.ChillerPlant.Guideline36.ClosedLoop
+  openmodelica:
+    comment: Internal error function createNonlinearResidualEquations failed.
+    translate: false
+  optimica:
+    comment: A when-guard is involved in an algebraic loop
+    translate: false
 - model_name: Buildings.Examples.DualFanDualDuct.ClosedLoop
   openmodelica:
     comment: Timeout after 300 seconds.
     simulate: false
   optimica:
-    comment: Slow computation with tolerance 1E-6
-    rtol: 1.0e-7
+    comment: Slow computation with tolerance 1E-6 and 1E-7
+    rtol: 1.0e-8
 - model_name: Buildings.Examples.FanCoils.FourPipe
   optimica:
     comment: Solves six times faster if tolerance is set to 1e-07
@@ -207,6 +236,14 @@
   openmodelica:
     comment: Timeout after 300 s
     time_out: 600
+- model_name: Buildings.Fluid.Geothermal.Borefields.TOUGH.BaseClasses.Validation.GroundResponse
+  optimica:
+    comment: Optimica uses Python 3.11, while the examples use Python 3.12
+    translate: false
+- model_name: Buildings.Fluid.Geothermal.Borefields.TOUGH.Examples.Borefield
+  optimica:
+    translate: false
+    comment: Optimica uses Python 3.11, while the examples use Python 3.12
 - model_name: Buildings.Fluid.Geothermal.ZonedBorefields.Examples.SeriesConnectedZones
   openmodelica:
     comment: 'TimeoutExpired: Command ''[''omc'', ''Buildings.Fluid.Geothermal.ZonedBorefields.Examples.SeriesConnectedZones_simulate.mos'']'' timed out after 300 seconds'
@@ -249,10 +286,22 @@
   openmodelica:
     comment: 'CalledProcessError: Command ''[''omc'', ''Buildings.Fluid.HeatPumps.ModularReversible.Examples.TableData2DLoadDep_translate.mos'']'' returned non-zero exit status 2.'
     translate: false
+- model_name: Buildings.Fluid.HeatPumps.ModularReversible.Examples.TableData2DLoadDepSHC1And2
+  optimica:
+    comment: Translation failed. Requires https://github.com/ibpsa/modelica-ibpsa/issues/2136
+    translate: false
+- model_name: Buildings.Fluid.HeatPumps.ModularReversible.Examples.TableData2DLoadDepSHC1Only
+  optimica:
+    comment: Translation failed. Requires https://github.com/ibpsa/modelica-ibpsa/issues/2136
+    translate: false
 - model_name: Buildings.Fluid.HeatPumps.ModularReversible.RefrigerantCycle.BaseClasses.Validation.TableData2DLoadDep
   openmodelica:
     comment: Internal error function createSimCode failed [Transformation from optimised DAE to simulation code structure failed].
     translate: false
+- model_name: Buildings.Fluid.HydronicConfigurations.ActiveNetworks.Examples.Decoupling
+  optimica:
+    comment: High solver tolerance required to avoid time out.
+    rtol: 1.0e-07
 - model_name: Buildings.Fluid.HydronicConfigurations.ActiveNetworks.Examples.DecouplingMixing
   openmodelica:
     comment: Timeout after 300 s. See also OpenModelica, issue 13341
@@ -331,7 +380,30 @@
   openmodelica:
     comment: Translation failed.
     translate: false
+- model_name: Buildings.Templates.Plants.Controls.HeatPumps.Subsequences.Validation.SelectModeState
+  openmodelica:
+    comment: Translation fails with OMC 1.26.3 but succeeds with 1.27.0.
+    translate: false
+- model_name: Buildings.Templates.Plants.Controls.HeatPumps.Validation.AirToWaterReversiblePolyvalent
+  openmodelica:
+    comment: Translation failed. The connectors in connect(ctl.sorRunTimHp.yIdx, ctl.selMod.uIdxSorHp) are not type compatible.
+    translate: false
+- model_name: Buildings.Templates.Plants.Controls.PolyvalentHeatPumps.Validation.ModeAlternation
+  openmodelica:
+    comment: Translation fails with OMC 1.26.3 but succeeds with 1.27.0.
+    translate: false
+- model_name: Buildings.Templates.Plants.Controls.StagingRotation.Validation.StageChangeCommandPolyvalent
+  openmodelica:
+    comment: Translation fails with OMC 1.26.3 but succeeds with 1.27.0.
+    translate: false
+  optimica:
+    comment: Translation fails with OCT 1.66 due to MemoryError (compilation process unexpectedly killed by the system).
+    translate: false
 - model_name: Buildings.Templates.Plants.HeatPumps.Components.Validation.HeatPumpGroupAirToWater
+  openmodelica:
+    comment: Translation failed.
+    translate: false
+- model_name: Buildings.Templates.Plants.HeatPumps.Components.Validation.HeatPumpGroupAirToWaterPolyvalent
   openmodelica:
     comment: Translation failed.
     translate: false
@@ -343,11 +415,27 @@
   openmodelica:
     comment: Translation failed.
     translate: false
+- model_name: Buildings.Templates.Plants.HeatPumps.Components.Validation.PumpsPrimaryDedicatedPolyvalent
+  openmodelica:
+    comment: Translation failed.
+    translate: false
 - model_name: Buildings.Templates.Plants.HeatPumps.Components.Validation.ValvesIsolation
   openmodelica:
     comment: Translation failed.
     translate: false
-- model_name: Buildings.Templates.Plants.HeatPumps.Validation.AirToWater
+- model_name: Buildings.Templates.Plants.HeatPumps.Components.Validation.ValvesIsolationPolyvalent
+  openmodelica:
+    comment: Translation failed.
+    translate: false
+- model_name: Buildings.Templates.Plants.HeatPumps.Validation.AirToWaterPolyvalent
+  openmodelica:
+    comment: Translation failed.
+    translate: false
+- model_name: Buildings.Templates.Plants.HeatPumps.Validation.AirToWaterReversibleHeatRecovery
+  openmodelica:
+    comment: Translation failed.
+    translate: false
+- model_name: Buildings.Templates.Plants.HeatPumps.Validation.AirToWaterReversiblePolyvalent
   openmodelica:
     comment: Translation failed.
     translate: false
@@ -357,7 +445,7 @@
     translate: false
 - model_name: Buildings.Templates.ZoneEquipment.Validation.VAVBoxReheat
   openmodelica:
-    comment: Time out after 300 s.
+    comment: Translation failed.
     translate: false
 - model_name: Buildings.ThermalZones.Detailed.FLEXLAB.Rooms.Examples.X3WithRadiantFloor
   openmodelica:
@@ -413,6 +501,14 @@
   openmodelica:
     comment: timed out after 300 seconds
     time_out: 600
+- model_name: Buildings.ThermalZones.EnergyPlus_24_2_0.Examples.SmallOffice.ASHRAE2006Summer_Autosizing
+  openmodelica:
+    comment: Translation fails with OMC 1.26.3, corrected in 1.27.1.
+    translate: false
+- model_name: Buildings.ThermalZones.EnergyPlus_24_2_0.Examples.SmallOffice.ASHRAE2006Winter_Autosizing
+  openmodelica:
+    comment: Translation fails with OMC 1.26.3, corrected in 1.27.1.
+    translate: false
 - model_name: Buildings.ThermalZones.EnergyPlus_24_2_0.Examples.SmallOffice.Guideline36Spring
   openmodelica:
     comment: timed out after 300 seconds
@@ -421,10 +517,18 @@
   openmodelica:
     comment: timed out after 600 seconds
     time_out: 900
+- model_name: Buildings.ThermalZones.EnergyPlus_24_2_0.Examples.SmallOffice.Guideline36Summer_Autosizing
+  openmodelica:
+    comment: Translation fails with OMC 1.26.3, corrected in 1.27.1.
+    translate: false
 - model_name: Buildings.ThermalZones.EnergyPlus_24_2_0.Examples.SmallOffice.Guideline36Winter
   openmodelica:
     comment: Timeout on travis after 600 seconds
     time_out: 900
+- model_name: Buildings.ThermalZones.EnergyPlus_24_2_0.Examples.SmallOffice.Guideline36Winter_Autosizing
+  openmodelica:
+    comment: Translation fails with OMC 1.26.3, corrected in 1.27.1.
+    translate: false
 - model_name: Buildings.ThermalZones.EnergyPlus_24_2_0.Examples.SmallOffice.IdealHeatingCoolingSpring
   optimica:
     rtol: 1.0e-08
@@ -434,14 +538,6 @@
 - model_name: Buildings.ThermalZones.EnergyPlus_24_2_0.Examples.SmallOffice.Unconditioned
   optimica:
     rtol: 1.0e-08
-- model_name: Buildings.ThermalZones.EnergyPlus_24_2_0.Validation.MultipleBuildings.TwoIdenticalOneZoneBuildings
-  openmodelica:
-    comment: error during shutdown, https://github.com/lbl-srg/modelica-buildings/issues/3345
-    simulate: false
-- model_name: Buildings.ThermalZones.EnergyPlus_24_2_0.Validation.MultipleBuildings.TwoIdenticalTwoZoneBuildings
-  openmodelica:
-    comment: error during shutdown, https://github.com/lbl-srg/modelica-buildings/issues/3345
-    simulate: false
 - model_name: Buildings.ThermalZones.ReducedOrder.Validation.VDI6007.TestCase11
   openmodelica:
     comment: Inputs differ by more than threShold. Check output 'satisfied' for when violation(s) happened. Segmentation fault (core dumped)

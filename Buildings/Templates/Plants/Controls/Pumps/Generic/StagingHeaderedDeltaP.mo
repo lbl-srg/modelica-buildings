@@ -83,11 +83,11 @@ block StagingHeaderedDeltaP
     p=- dVOffUp)
     "Calculate stage up flow point"
     annotation (Placement(transformation(extent={{-80,110},{-60,130}})));
-  Buildings.Templates.Plants.Controls.Utilities.TimerWithReset timHigV(final t=
+  Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Generic.TimerWithReset timHigV(final t=
         dtRun)
     "Return true if stage up condition is true for specified duration"
     annotation (Placement(transformation(extent={{10,50},{30,70}})));
-  Buildings.Templates.Plants.Controls.Utilities.TimerWithReset timLowV(final t=
+  Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Generic.TimerWithReset timLowV(final t=
         dtRun)
     "Return true if stage down condition is true for specified duration"
     annotation (Placement(transformation(extent={{10,10},{30,30}})));
@@ -115,7 +115,7 @@ block StagingHeaderedDeltaP
   Buildings.Controls.OBC.CDL.Reals.GreaterThreshold higY(final t=yUp)
     "True if pump speed command exceeds high limit"
     annotation (Placement(transformation(extent={{-110,-30},{-90,-10}})));
-  Utilities.TimerWithReset timHigY(final t=dtRunFaiSaf)
+  Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Generic.TimerWithReset timHigY(final t=dtRunFaiSaf)
                                                      "Timer"
     annotation (Placement(transformation(extent={{-70,-30},{-50,-10}})));
   Buildings.Controls.OBC.CDL.Reals.Subtract delDpSet[nSenDp]
@@ -125,7 +125,7 @@ block StagingHeaderedDeltaP
         dpOff)
     "True if dp < setpoint - dpOff"
     annotation (Placement(transformation(extent={{-110,-130},{-90,-110}})));
-  Utilities.TimerWithReset timLowDp[nSenDp](each final t=dtRunFaiSaf)
+  Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Generic.TimerWithReset timLowDp[nSenDp](each final t=dtRunFaiSaf)
                                                                  "Timer"
     annotation (Placement(transformation(extent={{-70,-130},{-50,-110}})));
   Buildings.Controls.OBC.CDL.Logical.And higYAndLowDp
@@ -137,10 +137,10 @@ block StagingHeaderedDeltaP
   Buildings.Controls.OBC.CDL.Reals.LessThreshold lowY(final t=yDow)
     "True if pump speed command is less than low limit"
     annotation (Placement(transformation(extent={{-110,-70},{-90,-50}})));
-  Utilities.TimerWithReset timLowY(final t=dtRunFaiSafLowY)
+  Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Generic.TimerWithReset timLowY(final t=dtRunFaiSafLowY)
                                                      "Timer"
     annotation (Placement(transformation(extent={{-70,-70},{-50,-50}})));
-  Utilities.TimerWithReset timHigDp[nSenDp](each final t=dtRunFaiSaf)
+  Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Generic.TimerWithReset timHigDp[nSenDp](each final t=dtRunFaiSaf)
                                                                  "Timer"
     annotation (Placement(transformation(extent={{-70,-170},{-50,-150}})));
   Buildings.Controls.OBC.CDL.Reals.GreaterThreshold higDp[nSenDp](each final t=
@@ -326,11 +326,11 @@ equation
       info="<html>
 <p>
 Pumps are staged as a function of the ratio <i>ratV_flow</i>
-of current volume flow rate <i>V_flow</i> to design volume 
+of current volume flow rate <i>V_flow</i> to design volume
 flow rate <i>V_flow_nominal</i>,
-the number of operating pumps <i>nPum_actual</i> 
+the number of operating pumps <i>nPum_actual</i>
 and the number of pumps that operate at design conditions
-<i>nPum</i>. 
+<i>nPum</i>.
 Pumps are assumed to be equally sized.
 <p>
 <i>FR = V_flow / V_flow_nominal</i>
@@ -350,10 +350,10 @@ for all hardwired differential pressure sensors.
 </ul>
 <p>The last lag pump is disabled whenever either:</p>
 <ul>
-<li>The lag pump was staged on based on the efficiency condition and 
+<li>The lag pump was staged on based on the efficiency condition and
 <i>FR &lt; (nPum_actual - 1) / nPum − dVOffDow</i> is true for <code>dtRun</code>; or
 </li>
-<li>The lag pump was staged on based on the failsafe condition, 
+<li>The lag pump was staged on based on the failsafe condition,
 pump speed command &lt; <code>yDow</code> for <code>dtRunFaiSafLowY</code>
 and loop ∆p &gt; setpoint – <code>dpOff</code> for <code>dtRunFaiSaf</code>
 for all hardwired differential pressure sensors.
@@ -369,8 +369,8 @@ The timers are reset to zero when the status of a pump changes.
 This is necessary to ensure the minimum pump runtime with rapidly changing loads.
 </p>
 <h4>Details</h4>
-<p>The staging logic based on the efficiency condition (excluding the failsafe condition) 
-is prescribed in ASHRAE, 2021 for:</p>
+<p>The staging logic based on the efficiency condition (excluding the failsafe condition)
+is prescribed in ASHRAE, 2024 for:</p>
 <ul>
 <li>
 headered variable speed primary pumps in primary-only chiller
@@ -383,7 +383,7 @@ control valves,
 </li>
 <li>
 variable speed secondary pumps in primary-secondary boiler
-plants with serving a secondary loop with a flow meter.
+plants serving a secondary loop with a flow meter.
 </li>
 </ul>
 <p>
@@ -395,7 +395,7 @@ staging event sequencing.
 <h4>References</h4>
 <ul>
 <li id=\"ASHRAE2021\">
-ASHRAE, 2021. Guideline 36-2021, High-Performance Sequences of Operation
+ASHRAE, 2024. Guideline 36-2024, High-Performance Sequences of Operation
 for HVAC Systems. Atlanta, GA.
 </li>
 </ul>

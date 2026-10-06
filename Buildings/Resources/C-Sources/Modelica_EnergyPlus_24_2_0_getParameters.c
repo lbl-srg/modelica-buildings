@@ -1,0 +1,227 @@
+#ifndef Modelica_EnergyPlus_24_2_0_getParameters_declared
+#define Modelica_EnergyPlus_24_2_0_getParameters_declared
+
+#include "Modelica_EnergyPlus_24_2_0_getParameters.h"
+#include "Modelica_EnergyPlus_24_2_0_Types.h"
+#include "ModelicaUtilities.h"
+#include <stdlib.h>
+#include <string.h>
+
+/* *********************************************************
+   Wrapper function that connects to the library which
+   generates and loads the EnergyPlus fmu.
+   *********************************************************
+*/
+
+void Modelica_EnergyPlus_24_2_0_getParameters(
+    void* object,
+    double isSynchronized,
+    double *parOut){
+      SpawnObject* ptrSpaObj = (SpawnObject*) object;
+      size_t i;
+      size_t j;
+      size_t k;
+
+      /* Get all parameter values for current spawn object*/
+      getParameters_Spawn_EnergyPlus_24_2_0(object, parOut);
+      /* Add infiltration to zone level sensible heating load*/
+      for (i = 0; i < ptrSpaObj->parameters->n; i++) {
+         if (ptrSpaObj->parameters->fmiNames[i] &&
+             strstr(ptrSpaObj->parameters->fmiNames[i], "QHea_flow") &&
+             !strstr(ptrSpaObj->parameters->fmiNames[i], "hvac_sizing_group")) {
+            double TSetHea = 0;
+            double TOutHea = 0;
+            double V = 0;
+            double m_inf_flow = 0;
+            /* Get relevant parameter values for zone spawn object*/
+            for (j = 0; j < ptrSpaObj->parameters->n; j++) {
+               if (ptrSpaObj->parameters->fmiNames[j]) {
+                  if (strstr(ptrSpaObj->parameters->fmiNames[j], "TSetHea")) TSetHea = parOut[j];
+                  if (strstr(ptrSpaObj->parameters->fmiNames[j], "TOutHea")) TOutHea = parOut[j];
+                  if (strstr(ptrSpaObj->parameters->fmiNames[j], "_V") && strstr(ptrSpaObj->parameters->fmiNames[j], ptrSpaObj->epName)) V = parOut[j];
+               }
+            }
+            /* Calculate infiltration load and add to zone parameter */
+            m_inf_flow = ptrSpaObj->airChaRatInf * (V*35.3147) * 60 / 2118.88 * ptrSpaObj->rhoAir;
+            parOut[i] +=  m_inf_flow * ptrSpaObj->cpAir * (TSetHea - TOutHea);
+         }
+      }
+      /* Add infiltration to zone level sensible cooling load*/
+      for (i = 0; i < ptrSpaObj->parameters->n; i++) {
+         if (ptrSpaObj->parameters->fmiNames[i] &&
+             strstr(ptrSpaObj->parameters->fmiNames[i], "QCooSen_flow") &&
+             !strstr(ptrSpaObj->parameters->fmiNames[i], "hvac_sizing_group")) {
+            double TSetCoo = 0;
+            double TOutCoo = 0;
+            double V = 0;
+            double m_inf_flow = 0;
+            /* Get relevant parameter values for zone spawn object*/
+            for (j = 0; j < ptrSpaObj->parameters->n; j++) {
+               if (ptrSpaObj->parameters->fmiNames[j]) {
+                  if (strstr(ptrSpaObj->parameters->fmiNames[j], "TSetCoo")) TSetCoo = parOut[j];
+                  if (strstr(ptrSpaObj->parameters->fmiNames[j], "TOutCoo")) TOutCoo = parOut[j];
+                  if (strstr(ptrSpaObj->parameters->fmiNames[j], "_V") && strstr(ptrSpaObj->parameters->fmiNames[j], ptrSpaObj->epName)) V = parOut[j];
+               }
+            }
+            /* Calculate infiltration load and add to zone parameter */
+            m_inf_flow = ptrSpaObj->airChaRatInf * (V*35.3147) * 60 / 2118.88 * ptrSpaObj->rhoAir;
+            parOut[i] += m_inf_flow * ptrSpaObj->cpAir * (TOutCoo - TSetCoo);
+         }
+      }
+      /* Add infiltration to zone level latent cooling load*/
+      for (i = 0; i < ptrSpaObj->parameters->n; i++) {
+         if (ptrSpaObj->parameters->fmiNames[i] &&
+             strstr(ptrSpaObj->parameters->fmiNames[i], "QCooLat_flow") &&
+             !strstr(ptrSpaObj->parameters->fmiNames[i], "hvac_sizing_group")) {
+            double XSetCoo = 0;
+            double XOutCoo = 0;
+            double V = 0;
+            double m_inf_flow = 0;
+            /* Get relevant parameter values for zone spawn object*/
+            for (j = 0; j < ptrSpaObj->parameters->n; j++) {
+               if (ptrSpaObj->parameters->fmiNames[j]) {
+                  if (strstr(ptrSpaObj->parameters->fmiNames[j], "XSetCoo")) XSetCoo = parOut[j];
+                  if (strstr(ptrSpaObj->parameters->fmiNames[j], "XOutCoo")) XOutCoo = parOut[j];
+                  if (strstr(ptrSpaObj->parameters->fmiNames[j], "_V") && strstr(ptrSpaObj->parameters->fmiNames[j], ptrSpaObj->epName)) V = parOut[j];
+               }
+            }
+            /* Calculate infiltration load and add to zone parameter */
+            m_inf_flow = ptrSpaObj->airChaRatInf * (V*35.3147) * 60 / 2118.88 * ptrSpaObj->rhoAir;
+            parOut[i] += m_inf_flow * ptrSpaObj->hfgWater * (XOutCoo - XSetCoo);
+         }
+      }
+      /* Add infiltration to system level sensible heating load*/
+      for (i = 0; i < ptrSpaObj->parameters->n; i++) {
+         if (ptrSpaObj->parameters->fmiNames[i] &&
+             strstr(ptrSpaObj->parameters->fmiNames[i], "QHea_flow") &&
+             strstr(ptrSpaObj->parameters->fmiNames[i], "hvac_sizing_group")) {
+            double TSetHea = 0;
+            double TOutHea = 0;
+            double V = 0;
+            double m_inf_flow = 0;
+            double sumInfiltration = 0;
+            FMUBuilding* bui = ptrSpaObj->bui;
+            double* zoneParOut = NULL;
+            /* Get relevant parameter values for system spawn object*/
+            for (j = 0; j < ptrSpaObj->parameters->n; j++) {
+               if (ptrSpaObj->parameters->fmiNames[j]) {
+                  if (strstr(ptrSpaObj->parameters->fmiNames[j], "TOutHea")) TOutHea = parOut[j];
+               }
+            }
+            /* Get relevant parameter values for each zone spawn object associated with the system,
+            which are different from the current system object and need to be retrieved explicitly*/
+            for (k = 0; k < bui->nExcObj; k++) {
+               SpawnObject* zone = (SpawnObject*)bui->exchange[k];
+               zoneParOut = (double*)malloc(zone->parameters->n * sizeof(double));
+               if (zoneParOut == NULL)
+                  ModelicaError("Failed to allocate memory for zoneParOut when computing system level sensible heating load in Modelica_EnergyPlus_24_2_0_getParameters.c.");
+               getParameters_Spawn_EnergyPlus_24_2_0(zone, zoneParOut);
+               if (zone->hvacZone && strstr(ptrSpaObj->epName, zone->hvacZone)) {
+                  for (j = 0; j < zone->parameters->n; j++) {
+                     if (zone->parameters->fmiNames[j]) {
+                        if (strstr(zone->parameters->fmiNames[j], "TSetHea")) TSetHea = zoneParOut[j];
+                        if (strstr(zone->parameters->fmiNames[j], "_V")) V = zoneParOut[j];
+                     }
+                  }
+                  /* Calculate infiltration load contributed from the zone and add it to the system sum */
+                  m_inf_flow = zone->airChaRatInf * (V*35.3147) * 60 / 2118.88 * zone->rhoAir;
+                  sumInfiltration += m_inf_flow * zone->cpAir * (TSetHea - TOutHea);
+               }
+               free(zoneParOut);
+               zoneParOut = NULL;
+            }
+            /* Add the system sum to the system parameter */
+            parOut[i] += sumInfiltration;
+         }
+      }
+      /* Add infiltration to system level sensible cooling load*/
+      for (i = 0; i < ptrSpaObj->parameters->n; i++) {
+         if (ptrSpaObj->parameters->fmiNames[i] &&
+             strstr(ptrSpaObj->parameters->fmiNames[i], "QCooSen_flow") &&
+             strstr(ptrSpaObj->parameters->fmiNames[i], "hvac_sizing_group")) {
+            double TSetCoo = 0;
+            double TOutCoo = 0;
+            double V = 0;
+            double m_inf_flow = 0;
+            double sumInfiltration = 0;
+            FMUBuilding* bui = ptrSpaObj->bui;
+            double* zoneParOut = NULL;
+            /* Get relevant parameter values for system spawn object*/
+            for (j = 0; j < ptrSpaObj->parameters->n; j++) {
+               if (ptrSpaObj->parameters->fmiNames[j]) {
+                  if (strstr(ptrSpaObj->parameters->fmiNames[j], "TOutCoo")) TOutCoo = parOut[j];
+               }
+            }
+            /* Get relevant parameter values for each zone spawn object associated with the system,
+            which are different from the current system object and need to be retrieved explicitly*/
+            for (k = 0; k < bui->nExcObj; k++) {
+               SpawnObject* zone = (SpawnObject*)bui->exchange[k];
+               zoneParOut = (double*)malloc(zone->parameters->n * sizeof(double));
+               if (zoneParOut == NULL)
+                  ModelicaError("Failed to allocate memory for zoneParOut when computing system level sensible cooling load in Modelica_EnergyPlus_24_2_0_getParameters.c.");
+               getParameters_Spawn_EnergyPlus_24_2_0(zone, zoneParOut);
+               if (zone->hvacZone && strstr(ptrSpaObj->epName, zone->hvacZone)) {
+                  for (j = 0; j < zone->parameters->n; j++) {
+                     if (zone->parameters->fmiNames[j]) {
+                        if (strstr(zone->parameters->fmiNames[j], "TSetCoo")) TSetCoo = zoneParOut[j];
+                        if (strstr(zone->parameters->fmiNames[j], "_V")) V = zoneParOut[j];
+                     }
+                  }
+                  /* Calculate infiltration load contributed from the zone and add it to the system sum */
+                  m_inf_flow = zone->airChaRatInf * (V*35.3147) * 60 / 2118.88 * zone->rhoAir;
+                  sumInfiltration += m_inf_flow * zone->cpAir * (TOutCoo - TSetCoo);
+               }
+               free(zoneParOut);
+               zoneParOut = NULL;
+            }
+            /* Add the system sum to the system parameter */
+            parOut[i] += sumInfiltration;
+         }
+      }
+      /* Add infiltration to system level latent cooling load*/
+      for (i = 0; i < ptrSpaObj->parameters->n; i++) {
+         if (ptrSpaObj->parameters->fmiNames[i] &&
+             strstr(ptrSpaObj->parameters->fmiNames[i], "QCooLat_flow") &&
+             strstr(ptrSpaObj->parameters->fmiNames[i], "hvac_sizing_group")) {
+            double XSetCoo = 0;
+            double XOutCoo = 0;
+            double V = 0;
+            double m_inf_flow = 0;
+            double sumInfiltration = 0;
+            FMUBuilding* bui = ptrSpaObj->bui;
+            double* zoneParOut = NULL;
+            /* Get relevant parameter values for system spawn object*/
+            for (j = 0; j < ptrSpaObj->parameters->n; j++) {
+               if (ptrSpaObj->parameters->fmiNames[j]) {
+                  if (strstr(ptrSpaObj->parameters->fmiNames[j], "XOutCoo")) XOutCoo = parOut[j];
+               }
+            }
+            /* Get relevant parameter values for each zone spawn object associated with the system,
+            which are different from the current system object and need to be retrieved explicitly*/
+            for (k = 0; k < bui->nExcObj; k++) {
+               SpawnObject* zone = (SpawnObject*)bui->exchange[k];
+               zoneParOut = (double*)malloc(zone->parameters->n * sizeof(double));
+               if (zoneParOut == NULL)
+                  ModelicaError("Failed to allocate memory for zoneParOut when computing system level latent cooling load in Modelica_EnergyPlus_24_2_0_getParameters.c.");
+               getParameters_Spawn_EnergyPlus_24_2_0(zone, zoneParOut);
+               if (zone->hvacZone && strstr(ptrSpaObj->epName, zone->hvacZone)) {
+                  for (j = 0; j < zone->parameters->n; j++) {
+                     if (zone->parameters->fmiNames[j]) {
+                        if (strstr(zone->parameters->fmiNames[j], "XSetCoo")) XSetCoo = zoneParOut[j];
+                        if (strstr(zone->parameters->fmiNames[j], "_V")) V = zoneParOut[j];
+                     }
+                  }
+                  /* Calculate infiltration load contributed from the zone and add it to the system sum */
+                  m_inf_flow = zone->airChaRatInf * (V*35.3147) * 60 / 2118.88 * zone->rhoAir;
+                  sumInfiltration += m_inf_flow * zone->hfgWater * (XOutCoo - XSetCoo);
+               }
+               free(zoneParOut);
+               zoneParOut = NULL;
+            }
+            /* Add the system sum to the system parameter */
+            parOut[i] += sumInfiltration;
+         }
+      }
+}
+
+#endif

@@ -60,7 +60,7 @@ model CoolingTowerGroup "Model of multiple identical cooling towers in parallel"
     "Cooling tower design load";
 
   parameter Fluid.HeatExchangers.CoolingTowers.Data.Merkel.Generic datCooTow(
-    PFan_Q_flow_nominal = -PFanUni_nominal/Q_flow_nominal,
+    PFan_Q_flow_nominal=PFanUni_nominal/Q_flow_nominal,
     Q_flow_nominal=Q_flow_nominal,
     ratCooAir_nominal=mConWatUni_flow_nominal/mAirUni_flow_nominal,
     TAirInWB_nominal=TWetBulEnt_nominal,

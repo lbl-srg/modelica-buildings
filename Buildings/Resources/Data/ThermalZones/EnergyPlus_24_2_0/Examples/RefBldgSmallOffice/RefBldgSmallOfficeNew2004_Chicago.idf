@@ -2529,7 +2529,7 @@
     NeutralSupplyAir,        !- Dedicated Outdoor Air System Control Strategy
     autosize,                !- Dedicated Outdoor Air Low Setpoint Temperature for Design {C}
     autosize,                !- Dedicated Outdoor Air High Setpoint Temperature for Design {C}
-    Sensible Load Only No Latent Load,  !- Zone Load Sizing Method
+    Sensible And Latent Load,  !- Zone Load Sizing Method
     HumidityRatioDifference, !- Zone Latent Cooling Design Supply Air Humidity Ratio Input Method
     ,                        !- Zone Dehumidification Design Supply Air Humidity Ratio {kgWater/kgDryAir}
     0.005,                   !- Zone Cooling Design Supply Air Humidity Ratio Difference {kgWater/kgDryAir}
@@ -2572,7 +2572,7 @@
     NeutralSupplyAir,        !- Dedicated Outdoor Air System Control Strategy
     autosize,                !- Dedicated Outdoor Air Low Setpoint Temperature for Design {C}
     autosize,                !- Dedicated Outdoor Air High Setpoint Temperature for Design {C}
-    Sensible Load Only No Latent Load,  !- Zone Load Sizing Method
+    Sensible And Latent Load,  !- Zone Load Sizing Method
     HumidityRatioDifference, !- Zone Latent Cooling Design Supply Air Humidity Ratio Input Method
     ,                        !- Zone Dehumidification Design Supply Air Humidity Ratio {kgWater/kgDryAir}
     0.005,                   !- Zone Cooling Design Supply Air Humidity Ratio Difference {kgWater/kgDryAir}
@@ -2615,7 +2615,7 @@
     NeutralSupplyAir,        !- Dedicated Outdoor Air System Control Strategy
     autosize,                !- Dedicated Outdoor Air Low Setpoint Temperature for Design {C}
     autosize,                !- Dedicated Outdoor Air High Setpoint Temperature for Design {C}
-    Sensible Load Only No Latent Load,  !- Zone Load Sizing Method
+    Sensible And Latent Load,  !- Zone Load Sizing Method
     HumidityRatioDifference, !- Zone Latent Cooling Design Supply Air Humidity Ratio Input Method
     ,                        !- Zone Dehumidification Design Supply Air Humidity Ratio {kgWater/kgDryAir}
     0.005,                   !- Zone Cooling Design Supply Air Humidity Ratio Difference {kgWater/kgDryAir}
@@ -2658,7 +2658,7 @@
     NeutralSupplyAir,        !- Dedicated Outdoor Air System Control Strategy
     autosize,                !- Dedicated Outdoor Air Low Setpoint Temperature for Design {C}
     autosize,                !- Dedicated Outdoor Air High Setpoint Temperature for Design {C}
-    Sensible Load Only No Latent Load,  !- Zone Load Sizing Method
+    Sensible And Latent Load,  !- Zone Load Sizing Method
     HumidityRatioDifference, !- Zone Latent Cooling Design Supply Air Humidity Ratio Input Method
     ,                        !- Zone Dehumidification Design Supply Air Humidity Ratio {kgWater/kgDryAir}
     0.005,                   !- Zone Cooling Design Supply Air Humidity Ratio Difference {kgWater/kgDryAir}
@@ -2701,7 +2701,7 @@
     NeutralSupplyAir,        !- Dedicated Outdoor Air System Control Strategy
     autosize,                !- Dedicated Outdoor Air Low Setpoint Temperature for Design {C}
     autosize,                !- Dedicated Outdoor Air High Setpoint Temperature for Design {C}
-    Sensible Load Only No Latent Load,  !- Zone Load Sizing Method
+    Sensible And Latent Load,  !- Zone Load Sizing Method
     HumidityRatioDifference, !- Zone Latent Cooling Design Supply Air Humidity Ratio Input Method
     ,                        !- Zone Dehumidification Design Supply Air Humidity Ratio {kgWater/kgDryAir}
     0.005,                   !- Zone Cooling Design Supply Air Humidity Ratio Difference {kgWater/kgDryAir}
@@ -4022,9 +4022,9 @@
     Temperature,             !- Schedule Type Limits Name
     Through: 12/31,          !- Field 1
     For: Weekdays SummerDesignDay, !- Field 2
-    Until: 06:00,80.0,       !- Field 3
-    Until: 22:00,80.0,       !- Field 5
-    Until: 24:00,80.0,       !- Field 7
+    Until: 06:00,24.0,       !- Field 3
+    Until: 22:00,24.0,       !- Field 5
+    Until: 24:00,24.0,       !- Field 7
     For: Saturday,           !- Field 9
     Until: 06:00,80.0,       !- Field 10
     Until: 18:00,80.0,       !- Field 12

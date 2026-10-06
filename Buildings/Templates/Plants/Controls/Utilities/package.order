@@ -1,7 +1,9 @@
+ConcatenateLogical
+ConcatenateParameterLogical
+ConcatenateSelectLogical
 CountTrue
 FirstTrueIndex
 HoldReal
-Initialization
 LastTrueIndex
 MultiMaxInteger
 MultiMinInteger
@@ -9,6 +11,5 @@ PlaceholderInteger
 PlaceholderLogical
 PlaceholderReal
 StageIndex
-TimerWithReset
 TrueArrayConditional
 Validation

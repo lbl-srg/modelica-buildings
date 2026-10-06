@@ -4,7 +4,8 @@ model DensityTwoPort "Ideal two port density sensor"
   extends Modelica.Icons.RoundSensor;
   Modelica.Blocks.Interfaces.RealOutput d(final quantity="Density",
                                           final unit="kg/m3",
-                                          min=0) "Density of the passing fluid"
+                                          min=0,
+                                          nominal=d_start) "Density of the passing fluid"
     annotation (Placement(transformation(
         origin={0,110},
         extent={{10,-10},{-10,10}},
@@ -89,6 +90,11 @@ Buildings.Fluid.Sensors.UsersGuide</a> for an explanation.
 </html>",
 revisions="<html>
 <ul>
+<li>
+June 25, 2026, by Michael Wetter:<br/>
+Added <code>nominal</code> attribute to state variable.<br/>
+This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/2132\">IBPSA, #2132</a>.
+</li>
 <li>
 February 25, 2020, by Michael Wetter:<br/>
 Changed icon to display its operating state.<br/>

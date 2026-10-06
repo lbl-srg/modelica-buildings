@@ -11,9 +11,7 @@ model DryCoilCounterFlow
   parameter Modelica.Units.SI.ThermalConductance UA_nominal(min=0)
     "Thermal conductance at nominal flow, used to compute heat capacity"
     annotation (Dialog(tab="General", group="Nominal condition"));
-  parameter Real r_nominal=2/3
-    "Ratio between air-side and water-side convective heat transfer coefficient"
-    annotation (Dialog(group="Nominal condition"));
+
   parameter Integer nEle(min=1) = 4
     "Number of pipe segments used for discretization"
     annotation (Dialog(group="Geometry"));
@@ -23,14 +21,18 @@ model DryCoilCounterFlow
     annotation(Evaluate=true, Dialog(tab = "Dynamics", group="Conservation equations"));
 
   parameter Modelica.Units.SI.Time tau1=10
-    "Time constant at nominal flow for medium 1" annotation (Dialog(group=
-          "Nominal condition", enable=not (energyDynamics == Modelica.Fluid.Types.Dynamics.SteadyState)));
+    "Time constant at nominal flow for medium 1" annotation (
+       Dialog(tab = "Dynamics", group="Conservation equations",
+         enable=not (energyDynamics == Modelica.Fluid.Types.Dynamics.SteadyState)));
   parameter Modelica.Units.SI.Time tau2=2
-    "Time constant at nominal flow for medium 2" annotation (Dialog(group=
-          "Nominal condition", enable=not (energyDynamics == Modelica.Fluid.Types.Dynamics.SteadyState)));
+    "Time constant at nominal flow for medium 2" annotation (
+      Dialog(tab = "Dynamics", group="Conservation equations",
+        enable=not (energyDynamics == Modelica.Fluid.Types.Dynamics.SteadyState)));
   parameter Modelica.Units.SI.Time tau_m=5
     "Time constant of metal at nominal UA value"
-    annotation (Dialog(group="Nominal condition"));
+    annotation (
+      Dialog(tab = "Dynamics", group="Conservation equations",
+        enable=not (energyDynamics == Modelica.Fluid.Types.Dynamics.SteadyState)));
 
   parameter Boolean waterSideFlowDependent=true
     "Set to false to make water-side hA independent of mass flow rate"
@@ -44,6 +46,15 @@ model DryCoilCounterFlow
   parameter Boolean airSideTemperatureDependent=false
     "Set to false to make air-side hA independent of temperature"
     annotation (Dialog(tab="Heat transfer"));
+  parameter Real n_w=0.85
+    "Water-side exponent for convective heat transfer coefficient, h~m_flow^n_w"
+    annotation(Dialog(tab="Heat transfer"));
+  parameter Real n_a=0.8
+    "Air-side exponent for convective heat transfer coefficient, h~m_flow^n_a"
+    annotation(Dialog(tab="Heat transfer"));
+  parameter Real r_nominal=2/3
+    "Ratio between air-side and water-side convective heat transfer coefficient"
+    annotation(Dialog(tab="Heat transfer", group="Nominal condition"));
 
   parameter Modelica.Units.SI.ThermalConductance GDif=1E-2*UA_nominal/max(1, (nEle - 1))
     "Thermal conductance to approximate diffusion (which improves model at near-zero flow rates)"
@@ -66,7 +77,9 @@ model DryCoilCounterFlow
     final waterSideFlowDependent=waterSideFlowDependent,
     final airSideTemperatureDependent=airSideTemperatureDependent,
     final airSideFlowDependent=airSideFlowDependent,
-    r_nominal=r_nominal) "Model for convective heat transfer coefficient"
+    final r_nominal=r_nominal,
+    final n_w=n_w,
+    final n_a=n_a) "Model for convective heat transfer coefficient"
     annotation (Placement(transformation(extent={{-60,70},{-40,90}})));
 protected
   final parameter Boolean use_temSen_1=
@@ -122,8 +135,10 @@ protected
     each allowFlowReversal2=allowFlowReversal2,
     each tau1=tau1/nEle,
     each m1_flow_nominal=m1_flow_nominal,
+    each n1=n1,
     each tau2=tau2,
     each m2_flow_nominal=m2_flow_nominal,
+    each n2=n2,
     each tau_m=tau_m/nEle,
     each UA_nominal=UA_nominal/nEle,
     each energyDynamics=energyDynamics,
@@ -313,6 +328,12 @@ rather may be considered as approximated by these heat conductors.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+June 22, 2026, by Michael Wetter:<br/>
+Updated Dialog annotations, and revised heat exchanger models to consistently expose parameters
+<code>r_nominal</code>, <code>n_w</code> and <code>n_a</code>.<br/>
+This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4620\">#4620</a>.
+</li>
 <li>
 October 19, 2018, by Kino:<br/>
 Changed model to use a replaceable model as this allows translation in OpenModelica.<br/>

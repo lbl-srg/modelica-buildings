@@ -229,16 +229,13 @@ def write_mos(outfilepath, tablename, data):
         any data recorded
     """
 
-    file = open(outfilepath,"w")
-
-    file.write("#1\n")
-    file.write("# Recorded trend: " + outfilepath + "\n")
-    file.write("# Columns: " + ', '.join(list(data.columns)) + "\n")
-    file.write("double " + tablename + str(data.shape) + "\n")
-    for inx, row in data.iterrows():
-        file.write(', '.join(list(row.astype(str))) + "\n")
-
-    file.close()
+    with open(outfilepath,"w") as file:
+        file.write("#1\n")
+        file.write("# Recorded trend: " + outfilepath + "\n")
+        file.write("# Columns: " + ', '.join(list(data.columns)) + "\n")
+        file.write("double " + tablename + str(data.shape) + "\n")
+        for inx, row in data.iterrows():
+            file.write(', '.join(list(row.astype(str))) + "\n")
 
     return "Wrote " + outfilepath + ".\n"
 

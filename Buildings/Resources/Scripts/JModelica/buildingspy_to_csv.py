@@ -29,9 +29,8 @@ def _read_reference_result(file_name):
     BuildingsPy.
 
     '''
-    f=open(file_name,'r')
-    lines = f.readlines()
-    f.close()
+    with open(file_name,'r') as f:
+        lines = f.readlines()
 
     # Compute the number of the first line that contains the results
     iSta=0

@@ -2,10 +2,7 @@
 // Plot commands
 simulateModel("Buildings.Electrical.AC.OnePhase.Sources.Examples.WindTurbine", tolerance=1e-6, stopTime = 172800, method="Radau", resultFile="WindTurbineAC");
 removePlots();
-Advanced.FilenameInLegend = false;
-Advanced.SequenceInLegend = true;
-Advanced.PlotLegendTooltip = true;
-Advanced.FullPlotTooltip = true;
+
 createPlot(id=1,
 position={0, 0, 1535, 702},
 y={"tur.P", "res.P"},

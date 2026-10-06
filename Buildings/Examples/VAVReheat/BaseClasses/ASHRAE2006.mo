@@ -24,7 +24,7 @@ model ASHRAE2006
     have_reset=true,
     have_frePro=true,
     VOut_flow_min=Vot_flow_nominal)
-           "Controller for economizer"
+    "Controller for economizer"
     annotation (Placement(transformation(extent={{-80,140},{-60,160}})));
   Controls.RoomTemperatureSetpoint TSetRoo(
     final THeaOn=THeaOn,
@@ -33,7 +33,7 @@ model ASHRAE2006
     final TCooOff=TCooOff)
     annotation (Placement(transformation(extent={{-300,-358},{-280,-338}})));
   Controls.DuctStaticPressureSetpoint pSetDuc(
-    nin=5,
+    nin=numZon,
     pMin=50) "Duct static pressure setpoint"
     annotation (Placement(transformation(extent={{160,-16},{180,4}})));
   Controls.RoomVAV conVAV[numZon](
@@ -110,13 +110,13 @@ equation
       color={255,204,51},
       thickness=0.5,
       smooth=Smooth.None), Text(
-      textString="%first",
+      string="%first",
       index=-1,
       extent={{-6,3},{-6,3}}));
   connect(TRooAve.y, controlBus.TRooAve) annotation (Line(
       points={{-319,240},{-240,240},{-240,-340}},
       color={0,0,127}),          Text(
-      textString="%second",
+      string="%second",
       index=1,
       extent={{6,3},{6,3}}));
   connect(TRet.T, conEco.TRet) annotation (Line(
@@ -150,19 +150,19 @@ equation
       points={{-299,-204},{-240,-204},{-240,-340}},
       color={0,0,127},
       smooth=Smooth.None), Text(
-      textString="%second",
+      string="%second",
       index=1,
       extent={{6,3},{6,3}}));
   connect(occSch.occupied, controlBus.occupied) annotation (Line(
       points={{-299,-216},{-240,-216},{-240,-340}},
       color={255,0,255},
       smooth=Smooth.None), Text(
-      textString="%second",
+      string="%second",
       index=1,
       extent={{6,3},{6,3}}));
   connect(TOut.y, controlBus.TOut) annotation (Line(points={{-279,180},{-240,180},
           {-240,-340}},                            color={0,0,127}), Text(
-      textString="%second",
+      string="%second",
       index=1,
       extent={{6,3},{6,3}}));
   connect(conEco.controlBus, controlBus) annotation (Line(
@@ -360,6 +360,13 @@ ASHRAE, Atlanta, GA, 2006.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+May 22, 2026, by Michael Wetter:<br/>
+Changed hardcoded value for number of inputs in <code>pSetDuc</code> to use
+parameter <code>numZon</code>.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4609\">issue #4609</a>.
+</li>
 <li>
 March 4, 2024, by Michael Wetter:<br/>
 Corrected wrong use of <code>displayUnit</code>.

@@ -55,6 +55,7 @@ protected
   HeaterCooler_u hex(
     redeclare final package Medium = Medium,
     final allowFlowReversal=allowFlowReversal,
+    final n=n,
     final m_flow_nominal=m_flow_nominal,
     final m_flow_small=m_flow_small,
     final show_T=false,

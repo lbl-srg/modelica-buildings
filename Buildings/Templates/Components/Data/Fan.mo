@@ -26,7 +26,7 @@ record Fan "Record for fan model"
     "Total pressure rise"
     annotation (
     Dialog(group="Nominal condition",
-    enable=typ <> Buildings.Templates.Components.Types.Fan.None));
+      enable=typ <> Buildings.Templates.Components.Types.Fan.None));
   replaceable parameter Buildings.Fluid.Movers.Data.Generic per(
     pressure(
       V_flow={0, 1, 2} * m_flow_nominal / 1.2 / max(1, nFan),

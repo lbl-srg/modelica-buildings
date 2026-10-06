@@ -19,7 +19,7 @@ void* jsonWriterInit(
   const char* fileName,
   const int dumpAtDestruction,
   const int numKeys,
-  char** varKeys);
+  const char** varKeys);
 
 void writeJson(void *ptrFileWriter,  const double* varVals, const int numVals);
 void cacheVals(void *ptrFileWriter, const double* varVals, const int numVals);

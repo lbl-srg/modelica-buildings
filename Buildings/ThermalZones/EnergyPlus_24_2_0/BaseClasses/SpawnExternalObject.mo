@@ -20,12 +20,22 @@ class SpawnExternalObject
       "Name of the IDF";
     input String epwName
       "Name of the weather file";
+    input String epName
+      "Name of the object in EnergyPlus";
+    input String hvacSystemName
+      "Name of the HVAC system to which the thermal zone belongs to, or n/a for other objects. Used for autosizing";
     input Buildings.ThermalZones.EnergyPlus_24_2_0.Data.RunPeriod runPeriod
       "EnergyPlus RunPeriod configuration";
     input Real relativeSurfaceTolerance
       "Relative tolerance of surface temperature calculations";
-    input String epName
-      "Name of the object in EnergyPlus";
+    input Real airChaRatInf
+      "Infiltration mass flow rate";
+    input Modelica.Units.SI.SpecificHeatCapacity cpAir
+      "Specific heat capacity of air";
+    input Modelica.Units.SI.SpecificEnergy h_fg
+      "Latent heat of water vapor";
+    input Modelica.Units.SI.Density rhoAir
+      "Density of air";
     input Boolean usePrecompiledFMU
       "Set to true to use precompiled FMU with name specified by input fmuName";
     input String fmuName
@@ -65,7 +75,7 @@ class SpawnExternalObject
     input Real derivatives_delta[nDer]
       "Increments for derivative calculation";
     output SpawnExternalObject adapter;
-  external "C" adapter=allocate_Modelica_EnergyPlus_24_2_0(
+  external "C" adapter=Modelica_EnergyPlus_24_2_0_allocate(
     objectType,
     startTime,
     modelicaNameBuilding,
@@ -74,6 +84,8 @@ class SpawnExternalObject
     idfVersion,
     idfName,
     epwName,
+    epName,
+    hvacSystemName,
     runPeriod.startDayOfYear,
     runPeriod.applyWeekEndHolidayRule,
     runPeriod.use_weatherFileDaylightSavingPeriod,
@@ -81,7 +93,10 @@ class SpawnExternalObject
     runPeriod.use_weatherFileRainIndicators,
     runPeriod.use_weatherFileSnowIndicators,
     relativeSurfaceTolerance,
-    epName,
+    airChaRatInf,
+    cpAir,
+    h_fg,
+    rhoAir,
     usePrecompiledFMU,
     fmuName,
     buildingsRootFileLocation,
@@ -107,21 +122,27 @@ class SpawnExternalObject
     derivatives_delta,
     nDer)
     annotation (
-      Include="#include <EnergyPlus_24_2_0_Wrapper.c>",
+      Include="#include <Modelica_EnergyPlus_24_2_0_allocate.c>",
       IncludeDirectory="modelica://Buildings/Resources/C-Sources",
       Library={"ModelicaBuildingsEnergyPlus_24_2_0","fmilib_shared"});
     annotation (
       Documentation(
         info="<html>
-  <p>
-  The function <code>constructor</code> is a C function that is called by a Modelica simulator
-  exactly once during the initialization.
-  The function returns the object <code>adapter</code> that
-  will be used to store the data structure needed to communicate with EnergyPlus.
-  </p>
-  </html>",
+<p>
+The function <code>constructor</code> is a C function that is called by a Modelica simulator
+exactly once during the initialization.
+The function returns the object <code>adapter</code> that
+will be used to store the data structure needed to communicate with EnergyPlus.
+</p>
+</html>",
         revisions="<html>
   <ul>
+  <li>
+  July 10, 2026, by Michael Wetter:<br/>
+  Corrected C function implementation to comply with Modelica Language Standard.<br/>
+  This change only affects the C function implementation and does not impact the Modelica function signature.<br/>
+  This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4658\">issue 4658</a>.
+  </li>
   <li>
   April 21, 2022, by Michael Wetter:<br/>
   Added support for EnergyPlus <code>RunPeriod</code> object.<br/>
@@ -148,9 +169,9 @@ class SpawnExternalObject
     "Release storage"
     extends Modelica.Icons.Function;
     input SpawnExternalObject adapter;
-  external "C" free_Modelica_EnergyPlus_24_2_0(adapter)
+  external "C" Modelica_EnergyPlus_24_2_0_free(adapter)
     annotation (
-      Include="#include <EnergyPlus_24_2_0_Wrapper.c>",
+      Include="#include <Modelica_EnergyPlus_24_2_0_free.c>",
       IncludeDirectory="modelica://Buildings/Resources/C-Sources",
       Library={"ModelicaBuildingsEnergyPlus_24_2_0","fmilib_shared"});
     annotation (
@@ -163,6 +184,12 @@ Destructor that frees the memory of the object.
         revisions="<html>
 <ul>
 <li>
+July 10, 2026, by Michael Wetter:<br/>
+Corrected C function implementation to comply with Modelica Language Standard.<br/>
+This change only affects the C function implementation and does not impact the Modelica function signature.<br/>
+This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4658\">issue 4658</a>.
+</li>
+ <li>
 February 18, 2021, by Michael Wetter:<br/>
 Refactor synchronization of constructors.<br/>
 This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2360\">#2360</a>.
@@ -178,7 +205,7 @@ First implementation.
     Documentation(
       info="<html>
 <p>
-Class derived from <code>ExternalObject</code> having two local external function definition,
+Class derived from <code>ExternalObject</code> having two local external function definitions,
 named <code>destructor</code> and <code>constructor</code> respectively.
 <p>
 These functions create and release an external object that allows the storage
@@ -187,6 +214,12 @@ of the data structure needed to communicate with the EnergyPlus FMU.
 </html>",
       revisions="<html>
 <ul>
+<li>
+July 10, 2026, by Michael Wetter:<br/>
+Corrected C function implementation to comply with Modelica Language Standard.<br/>
+This change only affects the C function implementation and does not impact the Modelica function signature.<br/>
+This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4658\">issue 4658</a>.
+</li>
 <li>
 December 11, 2021, by Michael Wetter:<br/>
 Declared function as <code>pure</code> for MSL 4.0.0.

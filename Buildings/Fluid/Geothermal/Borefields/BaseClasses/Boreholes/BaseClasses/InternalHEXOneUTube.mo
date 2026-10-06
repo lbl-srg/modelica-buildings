@@ -113,9 +113,9 @@ equation
           -12},{16,-12},{16,0},{10,0}}, color={191,0,0}));
   connect(intResUTub.port_wall, port_wall) annotation (Line(points={{0,0},{0,0},
           {0,6},{-28,6},{-28,86},{0,86},{0,100}},             color={191,0,0}));
-    annotation (Dialog(tab="Dynamics"),
-    Icon(coordinateSystem(preserveAspectRatio=false, initialScale=0.1),
-                    graphics={Rectangle(
+    annotation (
+    Icon(coordinateSystem(preserveAspectRatio=false),
+    graphics={Rectangle(
           extent={{88,54},{-88,64}},
           lineColor={0,0,255},
           pattern=LinePattern.None,
@@ -158,6 +158,12 @@ International Journal Of Energy Research, 35:312-320, 2011.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+June 17, 2026, by Michael Wetter:<br/>
+Removed stray annotation.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/2139\">IBPSA, #2139</a>.
+</li>
 <li>
 May 17, 2024, by Michael Wetter:<br/>
 Updated model due to removal of parameter <code>dynFil</code>.<br/>
@@ -210,7 +216,5 @@ January 23, 2014, by Damien Picard:<br/>
 First implementation.
 </li>
 </ul>
-</html>"),
-    Diagram(coordinateSystem(preserveAspectRatio=false, initialScale=0.1),
-    graphics));
+</html>"));
 end InternalHEXOneUTube;

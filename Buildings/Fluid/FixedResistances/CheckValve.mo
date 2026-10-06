@@ -6,7 +6,8 @@ model CheckValve "Check valve that avoids flow reversal"
     final m_flow_turbulent=deltaM*abs(m_flow_nominal),
     final from_dp=true,
     final linearized=false,
-    allowFlowReversal=true);
+    allowFlowReversal=true,
+    final n=2);
   extends Buildings.Fluid.Actuators.BaseClasses.ValveParameters(
     rhoStd=Medium.density_pTX(101325, 273.15 + 4, Medium.X_default));
 

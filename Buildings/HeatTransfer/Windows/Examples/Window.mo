@@ -61,7 +61,8 @@ model Window "Test model for the window"
   Buildings.BoundaryConditions.WeatherData.ReaderTMY3 weaDat(
     filNam=Modelica.Utilities.Files.loadResource("modelica://Buildings/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos"))
     annotation (Placement(transformation(extent={{-20,-20},{0,0}})));
-  Modelica.Blocks.Math.Gain HRoo(k=0.1) "Solar irradiation from room"
+  Modelica.Blocks.Math.Gain HRoo(
+    k(unit="1/m2")=0.1) "Solar irradiation from room"
     annotation (Placement(transformation(extent={{60,-60},{80,-40}})));
   Buildings.HeatTransfer.Windows.BaseClasses.WindowRadiation winRad(
     AWin=1,
@@ -193,7 +194,7 @@ equation
       color={255,204,51},
       thickness=0.5,
       smooth=Smooth.None), Text(
-      textString="%second",
+      string="%second",
       index=1,
       extent={{6,3},{6,3}}));
   connect(weaBus, HDirTil.weaBus) annotation (Line(
@@ -201,7 +202,7 @@ equation
       color={255,204,51},
       thickness=0.5,
       smooth=Smooth.None), Text(
-      textString="%first",
+      string="%first",
       index=-1,
       extent={{-6,3},{-6,3}}));
   connect(HDifTilIso.weaBus, weaBus) annotation (Line(
@@ -209,14 +210,14 @@ equation
       color={255,204,51},
       thickness=0.5,
       smooth=Smooth.None), Text(
-      textString="%second",
+      string="%second",
       index=1,
       extent={{6,3},{6,3}}));
   connect(TOuts.T, weaBus.TDryBul) annotation (Line(
-      points={{-22,50},{-30,50},{-30,20},{20,20},{20,-10}},
+      points={{-22,50},{-30,50},{-30,20},{20.05,20},{20.05,-9.95}},
       color={0,0,127},
       smooth=Smooth.None), Text(
-      textString="%second",
+      string="%second",
       index=1,
       extent={{6,3},{6,3}}));
   connect(uSha.y, winRad.uSha) annotation (Line(
@@ -224,24 +225,24 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   connect(weaBus.winSpe, extCon.vWin) annotation (Line(
-      points={{20,-10},{20,94},{39.2,94}},
+      points={{20.05,-9.95},{20.05,94},{39.2,94}},
       color={255,204,51},
       thickness=0.5,
       smooth=Smooth.None));
   connect(weaBus.TBlaSky, extCon.TBlaSky) annotation (Line(
-      points={{20,-10},{20,86},{39,86}},
+      points={{20.05,-9.95},{20.05,86},{39,86}},
       color={255,204,51},
       thickness=0.5,
       smooth=Smooth.None), Text(
-      textString="%first",
+      string="%first",
       index=-1,
       extent={{-6,3},{-6,3}}));
   connect(weaBus.TDryBul, extCon.TOut) annotation (Line(
-      points={{20,-10},{20,81.8},{39,81.8}},
+      points={{20.05,-9.95},{20.05,81.8},{39,81.8}},
       color={255,204,51},
       thickness=0.5,
       smooth=Smooth.None), Text(
-      textString="%first",
+      string="%first",
       index=-1,
       extent={{-6,3},{-6,3}}));
   connect(uSha.y, shaSig.u) annotation (Line(
@@ -332,6 +333,10 @@ __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/HeatTransf
         "Simulate and plot"),
     Documentation(revisions="<html>
 <ul>
+<li>
+September 27, 2026, by Michael Wetter:<br/>
+Added unit specification to avoid warning in Dymola 2025x.
+</li>
 <li>
 September 16, 2021, by Michael Wetter:<br/>
 Removed parameter <code>lat</code> because the latitude is now obtained from the weather data bus.<br/>

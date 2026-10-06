@@ -10,6 +10,8 @@ model OneUTube "Single U-tube borehole heat exchanger"
     each final from_dp2=from_dp,
     each final linearizeFlowResistance1=linearizeFlowResistance,
     each final linearizeFlowResistance2=linearizeFlowResistance,
+    each final n1=n,
+    each final n2=n,
     each final deltaM1=deltaM,
     each final deltaM2=deltaM,
     each final energyDynamics=energyDynamics,

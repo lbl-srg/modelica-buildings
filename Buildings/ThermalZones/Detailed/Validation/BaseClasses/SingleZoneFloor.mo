@@ -207,7 +207,7 @@ equation
       color={255,204,51},
       thickness=0.5,
       smooth=Smooth.None), Text(
-      textString="%second",
+      string="%second",
       index=1,
       extent={{6,3},{6,3}}));
   connect(out.ports[1], senRelPre.port_b) annotation (Line(
@@ -279,40 +279,6 @@ equation
                                color={0,127,255}));
   annotation (
   Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-200,-200},{200,200}})),
-  defaultComponentName="sinZonFlo",
-  Documentation(info="<html>
-  <p>
-  This model assumes a mid-floor of a building as a single zone with a homogeneous 
-  temperature; i.e., the air in the whole floor is assumed to be fully mixed.
-  </p>
-  <p>
-  The geometry, materials and constructions of the model are consistent with those of
-  <a href=\"modelica://Buildings.Examples.VAVReheat.BaseClasses.Floor\">
-  Buildings.Examples.VAVReheat.BaseClasses.Floor</a>, 
-  which models the same mid-floor as five zones: a core zone and 
-  four perimeter zones.
-  </p>
-  <p>
-  The internal partition walls in the five-zone floor model are considered as
-  thermal mass in this single-zone floor model. The doors in the five-zone floor 
-  model have been removed in the single-zone floor model.
-  </p>
-  </html>",
-  revisions="<html>
-<ul>
-<li>
-September 16, 2021, by Michael Wetter:<br/>
-Removed parameter <code>lat</code> as this is now obtained from the weather data reader.<br/>
-This is for
-<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1477\">IBPSA, #1477</a>.
-</li>
-<li>
-March 10, 2020, by Kun Zhang:<br/>
-First implementation. This is for issue
-<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1717\">1717</a>.
-</li>
-</ul>
-</html>"),
   Icon(coordinateSystem(preserveAspectRatio=true, extent={{-200,-200},{200,200}}),
         graphics={
         Rectangle(
@@ -378,6 +344,44 @@ First implementation. This is for issue
             extent={{-100,238},{100,184}},
             textColor={0,0,255},
           textString="%name")}),
-              Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
-        coordinateSystem(preserveAspectRatio=false)));
+  defaultComponentName="sinZonFlo",
+  Documentation(info="<html>
+  <p>
+  This model assumes a mid-floor of a building as a single zone with a homogeneous
+  temperature; i.e., the air in the whole floor is assumed to be fully mixed.
+  </p>
+  <p>
+  The geometry, materials and constructions of the model are consistent with those of
+  <a href=\"modelica://Buildings.Examples.VAVReheat.BaseClasses.Floor\">
+  Buildings.Examples.VAVReheat.BaseClasses.Floor</a>,
+  which models the same mid-floor as five zones: a core zone and
+  four perimeter zones.
+  </p>
+  <p>
+  The internal partition walls in the five-zone floor model are considered as
+  thermal mass in this single-zone floor model. The doors in the five-zone floor
+  model have been removed in the single-zone floor model.
+  </p>
+  </html>",
+  revisions="<html>
+<ul>
+<li>
+August 3, 2026, by Michael Wetter:<br/>
+Removed duplicate annotation.
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/2158\">IBPSA, issue 2158</a>.
+</li>
+<li>
+September 16, 2021, by Michael Wetter:<br/>
+Removed parameter <code>lat</code> as this is now obtained from the weather data reader.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1477\">IBPSA, #1477</a>.
+</li>
+<li>
+March 10, 2020, by Kun Zhang:<br/>
+First implementation. This is for issue
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1717\">1717</a>.
+</li>
+</ul>
+</html>"));
 end SingleZoneFloor;

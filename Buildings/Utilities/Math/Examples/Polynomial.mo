@@ -3,10 +3,10 @@ model Polynomial "Test model for ploynominal function "
   extends Modelica.Icons.Example;
   Modelica.Blocks.Sources.Ramp x1(duration=1)
     annotation (Placement(transformation(extent={{-60,-10},{-40,10}})));
-  Buildings.Utilities.Math.Polynomial polynominal(a={1,2})
+  Buildings.Utilities.Math.Polynomial polynomial(a={1,2})
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
 equation
-  connect(x1.y, polynominal.u) annotation (Line(
+  connect(x1.y, polynomial.u) annotation (Line(
       points={{-39,0},{-12,0}},
       color={0,0,127}));
   annotation (  experiment(Tolerance=1e-6, StopTime=1.0),

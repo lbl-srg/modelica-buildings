@@ -1,0 +1,14 @@
+compareVars :=
+  {
+    "endUp.uStaUp",
+    "endUp.uEnaChiWatIsoVal",
+    "endUp.uChiHeaCon[1]",
+    "endUp.uChiHeaCon[2]",
+    "endUp.uChi[1]",
+    "endUp.uChi[2]",
+    "endUp.yChi[1]",
+    "endUp.yChi[2]",
+    "endUp.yChiWatMinSet",
+    "triSam.u",
+    "triSam.y"
+  };

@@ -56,7 +56,7 @@ equation
       points={{-120,80},{-79,80}},
       color={255,204,51},
       thickness=0.5), Text(
-      textString="%second",
+      string="%second",
       index=1,
       extent={{6,3},{6,3}}));
   connect(hvac.supplyAir, zon.supplyAir) annotation (Line(points={{0.2,8},{10,8},

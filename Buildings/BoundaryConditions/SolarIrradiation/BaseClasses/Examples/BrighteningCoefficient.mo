@@ -41,28 +41,28 @@ equation
       points={{-70,70},{-50,70}},
       color={255,204,51},
       thickness=0.5), Text(
-      textString="%second",
+      string="%second",
       index=1,
       extent={{6,3},{6,3}}));
   connect(weaBus.HDifHor, skyCle.HDifHor) annotation (Line(
       points={{-50,70},{20,70},{20,30},{38,30}},
       color={255,204,51},
       thickness=0.5), Text(
-      textString="%first",
+      string="%first",
       index=-1,
       extent={{-6,3},{-6,3}}));
   connect(weaBus.HDifHor, skyBri.HDifHor) annotation (Line(
       points={{-50,70},{20,70},{20,-34},{38,-34}},
       color={255,204,51},
       thickness=0.5), Text(
-      textString="%first",
+      string="%first",
       index=-1,
       extent={{-6,3},{-6,3}}));
   connect(weaBus, zen.weaBus) annotation (Line(
       points={{-50,70},{-50,-10},{-42,-10}},
       color={255,204,51},
       thickness=0.5), Text(
-      textString="%first",
+      string="%first",
       index=-1,
       extent={{-6,3},{-6,3}}));
   connect(weaBus.solTim, skyBri.solTim) annotation (Line(

@@ -25,6 +25,8 @@ model ChillerDXHeatingEconomizer
   parameter Modelica.Units.SI.PressureDifference dp_nominal(displayUnit="Pa")=
        500 "Design pressure drop of flow leg with fan"
     annotation (Dialog(group="Air design"));
+  parameter Real n=2 "Flow exponent, n=1 for laminar, n=2 for turbulent"
+    annotation (Dialog(group="Air design"));
   final parameter Modelica.Units.SI.MassFlowRate mChiEva_flow_nominal=-
       QCoo_flow_nominal/Buildings.Utilities.Psychrometrics.Constants.cpWatLiq/4
     "Design chilled water supply flow";
@@ -132,6 +134,7 @@ model ChillerDXHeatingEconomizer
     redeclare package Medium = MediumA) "Supply fan"
     annotation (Placement(transformation(extent={{-30,30},{-10,50}})));
   Buildings.Fluid.FixedResistances.PressureDrop totalRes(
+    final n=n,
     final m_flow_nominal=mAir_flow_nominal,
     final dp_nominal=dp_nominal,
     final allowFlowReversal=false,
@@ -376,7 +379,7 @@ equation
       points={{-180,40},{-140,40},{-140,40.2}},
       color={255,204,51},
       thickness=0.5), Text(
-      textString="%first",
+      string="%first",
       index=-1,
       extent={{-6,3},{-6,3}}));
   connect(senTMixAir.port_b, fanSup.port_a)   annotation (Line(points={{-40,40},
@@ -400,7 +403,7 @@ equation
       points={{-180,40},{-180,-208},{160,-208},{160,-170},{150,-170}},
       color={255,204,51},
       thickness=0.5), Text(
-      textString="%first",
+      string="%first",
       index=-1,
       extent={{-6,3},{-6,3}}));
   connect(pumChiWat.P, PPum) annotation (Line(points={{111,-79},{111,-52},{180,
@@ -629,6 +632,13 @@ feedback control of damper positions. The cooling coil is a dry coil model.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+June 17, 2026, by Michael Wetter:<br/>
+Updated implementation to allow a flow coefficient <code>n</code> that is different from <code>2</code>.
+This allows use of the model for not fully turbulent flow.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4620\">Buildings, #4620</a>.
+</li>
 <li>
 March 27, 2024, by Michael Wetter:<br/>
 Corrected wrong assignment of <code>out.C</code>.

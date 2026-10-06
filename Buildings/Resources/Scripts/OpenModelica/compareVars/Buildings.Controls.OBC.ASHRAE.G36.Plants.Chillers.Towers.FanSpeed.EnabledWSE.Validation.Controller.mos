@@ -1,0 +1,10 @@
+compareVars :=
+  {
+    "wseOpe.uChiLoa",
+    "wseOpe.uChi[1]",
+    "wseOpe.uChi[2]",
+    "wseOpe.uWse",
+    "wseOpe.TChiWatSup",
+    "wseOpe.TChiWatSupSet",
+    "wseOpe.ySpeSet"
+  };

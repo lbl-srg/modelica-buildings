@@ -1,0 +1,12 @@
+compareVars :=
+  {
+    "plaRes.triRes.y",
+    "plaRes.yChiWatPlaRes",
+    "plaRes.chaPro",
+    "plaRes.TChiWatSupResReq",
+    "devRes.triRes.y",
+    "devRes.yChiWatPlaRes",
+    "devRes.TChiWatSupResReq",
+    "devRes.chaPro",
+    "devRes.triRes.uDevSta"
+  };

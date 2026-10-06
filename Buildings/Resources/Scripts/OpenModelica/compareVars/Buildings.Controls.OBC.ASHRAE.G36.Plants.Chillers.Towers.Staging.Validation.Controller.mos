@@ -1,0 +1,9 @@
+compareVars :=
+  {
+    "towSta.uChiSta",
+    "towSta.uChiStaSet",
+    "towSta.uTowStaCha",
+    "towSta.uWse",
+    "towSta.uTowSta[1]",
+    "towSta.uTowSta[2]"
+  };

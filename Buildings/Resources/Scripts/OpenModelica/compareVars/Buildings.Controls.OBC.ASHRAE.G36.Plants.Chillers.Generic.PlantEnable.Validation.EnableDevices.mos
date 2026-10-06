@@ -1,0 +1,14 @@
+compareVars :=
+  {
+    "enaDev.uPla",
+    "enaDev.uChiWatPum[1]",
+    "enaDev.uConWatPum[1]",
+    "enaDev.uIni",
+    "enaDev.uChiSta",
+    "enaDev.yEnaPlaPro",
+    "enaDev.yChiWatIsoVal",
+    "enaDev.yConWatIsoVal",
+    "enaDev.yLeaPriChiPum",
+    "enaDev.yLeaConPum",
+    "enaDev.yLeaChi"
+  };

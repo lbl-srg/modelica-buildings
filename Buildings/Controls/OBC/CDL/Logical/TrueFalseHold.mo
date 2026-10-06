@@ -11,7 +11,9 @@ block TrueFalseHold
     final unit="s")=trueHoldDuration
     "Duration of false hold"
     annotation (Evaluate=true);
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u(
+    final fixed=true,
+    final start=pre_u_start)
     "Input signal that is to be delayed"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}}),
       iconTransformation(extent={{-140,-20},{-100,20}})));
@@ -25,7 +27,9 @@ protected
  parameter Boolean pre_u_start=false
     "Value of pre(u) at initial time"
     annotation (Evaluate=true);
-  Boolean not_u = not u
+  Boolean not_u(
+    final fixed=true,
+    final start=not pre_u_start) = not u
     "Opposite of u";
   Boolean not_y = not y
     "Opposite of y";
@@ -40,8 +44,6 @@ protected
 initial equation
   pre(entryTimeTrue) = -Modelica.Constants.inf;
   pre(entryTimeFalse) = -Modelica.Constants.inf;
-  pre(u) = pre_u_start;
-  pre(not_u) = not pre_u_start;
   pre(y) = u;
   pre(not_y) = not u;
 equation
@@ -138,6 +140,12 @@ alt=\"Input and output of the block\"/>
 </html>",
       revisions="<html>
 <ul>
+<li>
+July 17, 2026, by Antoine Gautier:<br/>
+Replaced initial equation with start attribute on input.
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/2136\">IBPSA, #2136</a>.
+</li>
 <li>
 January 13, 2025, by Antoine Gautier:<br/>
 Merge <code>elsewhen</code> clauses.<br/>

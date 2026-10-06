@@ -1,5 +1,5 @@
 within Buildings.Utilities.Math;
-block Polynomial "Polynominal function"
+block Polynomial "Polynomial function"
   extends Modelica.Blocks.Interfaces.SISO;
  parameter Real a[:] "Coefficients";
 equation
@@ -23,5 +23,5 @@ First implementation.
 </html>"), Icon(graphics={   Text(
           extent={{-90,38},{90,-34}},
           textColor={160,160,164},
-          textString="polynominal()")}));
+          textString="polynomial()")}));
 end Polynomial;

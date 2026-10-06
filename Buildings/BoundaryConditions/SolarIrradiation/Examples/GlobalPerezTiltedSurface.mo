@@ -38,28 +38,28 @@ equation
       points={{-20,10},{11,10}},
       color={255,204,51},
       thickness=0.5), Text(
-      textString="%second",
+      string="%second",
       index=1,
       extent={{6,3},{6,3}}));
   connect(weaBus,HGloRoo. weaBus) annotation (Line(
       points={{11,10},{40,10}},
       color={255,204,51},
       thickness=0.5), Text(
-      textString="%first",
+      string="%first",
       index=-1,
       extent={{-6,3},{-6,3}}));
   connect(weaBus,HGloFlo. weaBus) annotation (Line(
       points={{11,10},{30,10},{30,-70},{40,-70}},
       color={255,204,51},
       thickness=0.5), Text(
-      textString="%first",
+      string="%first",
       index=-1,
       extent={{-6,3},{-6,3}}));
   connect(weaBus,HGloWal. weaBus) annotation (Line(
       points={{11,10},{30,10},{30,-30},{40,-30}},
       color={255,204,51},
       thickness=0.5), Text(
-      textString="%first",
+      string="%first",
       index=-1,
       extent={{-6,3},{-6,3}}));
   annotation (

@@ -1,0 +1,913 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   version="1.1"
+   id="svg178"
+   width="424.0087"
+   height="457"
+   viewBox="0 0 424.0087 457"
+   sodipodi:docname="chillerSchematics.svg"
+   inkscape:version="1.2.2 (b0a8486541, 2022-12-01)"
+   inkscape:export-filename="chillerSchematics.png"
+   inkscape:export-xdpi="150"
+   inkscape:export-ydpi="150"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <defs
+     id="defs182">
+    <inkscape:path-effect
+       effect="spiro"
+       id="path-effect3654"
+       is_visible="true"
+       lpeversion="1" />
+    <inkscape:path-effect
+       effect="spiro"
+       id="path-effect3650"
+       is_visible="true"
+       lpeversion="1" />
+    <rect
+       x="-140"
+       y="-175"
+       width="370"
+       height="105"
+       id="rect22054" />
+    <rect
+       x="-140"
+       y="-175"
+       width="370"
+       height="105"
+       id="rect22054-5" />
+    <rect
+       x="-140"
+       y="-175"
+       width="370"
+       height="105"
+       id="rect22054-5-0" />
+    <rect
+       x="-140"
+       y="-175"
+       width="370"
+       height="105"
+       id="rect22054-5-0-1" />
+    <rect
+       x="-140"
+       y="-175"
+       width="370"
+       height="105"
+       id="rect22054-5-6" />
+    <rect
+       x="-140"
+       y="-175"
+       width="370"
+       height="105"
+       id="rect22054-0" />
+    <rect
+       x="-140"
+       y="-175"
+       width="370"
+       height="105"
+       id="rect22054-0-6" />
+    <rect
+       x="-140"
+       y="-175"
+       width="370"
+       height="105"
+       id="rect22054-0-6-6" />
+    <rect
+       x="-140"
+       y="-175"
+       width="370"
+       height="105"
+       id="rect22054-0-6-6-8" />
+    <rect
+       x="-140"
+       y="-175"
+       width="370"
+       height="105"
+       id="rect22054-0-6-6-8-1" />
+    <rect
+       x="-140"
+       y="-175"
+       width="370"
+       height="105"
+       id="rect22054-0-6-6-8-1-3" />
+    <rect
+       x="-140"
+       y="-175"
+       width="370"
+       height="105"
+       id="rect22054-0-6-6-8-1-3-1" />
+    <rect
+       x="-140"
+       y="-175"
+       width="370"
+       height="105"
+       id="rect22054-0-6-6-8-1-3-1-0" />
+    <rect
+       x="-140"
+       y="-175"
+       width="370"
+       height="105"
+       id="rect22054-0-6-6-8-7" />
+    <rect
+       x="-140"
+       y="-175"
+       width="370"
+       height="105"
+       id="rect22054-0-6-6-8-7-6" />
+    <rect
+       x="-140"
+       y="-175"
+       width="370"
+       height="105"
+       id="rect22054-0-6-6-8-7-6-9" />
+    <rect
+       x="-140"
+       y="-175"
+       width="370"
+       height="105"
+       id="rect22054-0-6-5" />
+    <rect
+       x="-140"
+       y="-175"
+       width="370"
+       height="105"
+       id="rect22054-0-6-5-0" />
+    <rect
+       x="-140"
+       y="-175"
+       width="370"
+       height="105"
+       id="rect22054-0-6-5-0-4" />
+    <rect
+       x="-140"
+       y="-175"
+       width="370"
+       height="105"
+       id="rect22054-5-4" />
+    <inkscape:path-effect
+       effect="spiro"
+       id="path-effect3650-6"
+       is_visible="true"
+       lpeversion="1" />
+    <inkscape:path-effect
+       effect="spiro"
+       id="path-effect3654-4"
+       is_visible="true"
+       lpeversion="1" />
+    <rect
+       x="-140"
+       y="-175"
+       width="370"
+       height="105"
+       id="rect22054-4" />
+    <rect
+       x="-140"
+       y="-175"
+       width="370"
+       height="105"
+       id="rect22054-0-0" />
+    <rect
+       x="-140"
+       y="-175"
+       width="370"
+       height="105"
+       id="rect22054-4-1" />
+    <rect
+       x="-140"
+       y="-175"
+       width="370"
+       height="105"
+       id="rect22054-4-1-7" />
+    <rect
+       x="-140"
+       y="-175"
+       width="370"
+       height="105"
+       id="rect22054-0-0-1" />
+    <rect
+       x="-140"
+       y="-175"
+       width="370"
+       height="105"
+       id="rect22054-0-0-1-9" />
+    <rect
+       x="-140"
+       y="-175"
+       width="370"
+       height="105"
+       id="rect22054-0-0-1-9-7" />
+    <rect
+       x="-140"
+       y="-175"
+       width="370"
+       height="105"
+       id="rect22054-0-0-1-7" />
+    <rect
+       x="-140"
+       y="-175"
+       width="370"
+       height="105"
+       id="rect22054-0-0-1-9-6" />
+    <rect
+       x="-140"
+       y="-175"
+       width="370"
+       height="105"
+       id="rect22054-0-0-1-9-7-6" />
+    <rect
+       x="-140"
+       y="-175"
+       width="370"
+       height="105"
+       id="rect22054-0-0-1-9-7-6-4" />
+    <rect
+       x="-140"
+       y="-175"
+       width="370"
+       height="105"
+       id="rect22054-0-0-1-9-7-6-4-6" />
+    <rect
+       x="-140"
+       y="-175"
+       width="370"
+       height="105"
+       id="rect22054-0-0-1-9-7-6-4-6-3" />
+    <rect
+       x="-140"
+       y="-175"
+       width="370"
+       height="105"
+       id="rect22054-0-0-1-9-7-6-4-6-6" />
+  </defs>
+  <sodipodi:namedview
+     id="namedview180"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:showpageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#d1d1d1"
+     showgrid="false"
+     inkscape:zoom="1.6248926"
+     inkscape:cx="642.19628"
+     inkscape:cy="331.40651"
+     inkscape:window-width="3992"
+     inkscape:window-height="2275"
+     inkscape:window-x="0"
+     inkscape:window-y="0"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="g184">
+    <inkscape:grid
+       type="xygrid"
+       id="grid2465"
+       originx="499.04088"
+       originy="-14" />
+  </sodipodi:namedview>
+  <g
+     inkscape:groupmode="layer"
+     inkscape:label="Image"
+     id="g184"
+     transform="translate(499.04087,-14)">
+    <rect
+       style="opacity:0.75;fill:none;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:2;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+       id="rect4395-2"
+       width="83.5"
+       height="50"
+       x="-318.5"
+       y="420"
+       inkscape:export-filename="/home/jianjunhu/GitFolder/modelica-buildings/Buildings/Resources/Images/Examples/ChillerPlant/Guideline36/chillerSchematics.png"
+       inkscape:export-xdpi="150"
+       inkscape:export-ydpi="150" />
+    <g
+       id="g5284-3-4-1"
+       transform="rotate(-90,-94.325854,355.67414)"
+       inkscape:export-filename="/home/jianjunhu/GitFolder/modelica-buildings/Buildings/Resources/Images/Examples/ChillerPlant/Guideline36/chillerSchematics.png"
+       inkscape:export-xdpi="150"
+       inkscape:export-ydpi="150">
+      <path
+         style="fill:none;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+         d="m 145,200 v 15 h 5 v -15 z"
+         id="path5198-1-7-9" />
+      <path
+         style="fill:none;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+         d="m 147.34829,195 v 5"
+         id="path5200-9-8-4" />
+    </g>
+    <g
+       id="g5284-3-4-1-1"
+       transform="rotate(-90,78.674145,493.67414)"
+       inkscape:export-filename="/home/jianjunhu/GitFolder/modelica-buildings/Buildings/Resources/Images/Examples/ChillerPlant/Guideline36/chillerSchematics.png"
+       inkscape:export-xdpi="150"
+       inkscape:export-ydpi="150">
+      <path
+         style="fill:none;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+         d="m 145,200 v 15 h 5 v -15 z"
+         id="path5198-1-7-9-5" />
+      <path
+         style="fill:none;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+         d="m 147.34829,195 v 5"
+         id="path5200-9-8-4-9" />
+    </g>
+    <g
+       id="g5284-3-4-1-5"
+       transform="matrix(0,-1,-1,0,-110,407.34829)"
+       inkscape:export-filename="/home/jianjunhu/GitFolder/modelica-buildings/Buildings/Resources/Images/Examples/ChillerPlant/Guideline36/chillerSchematics.png"
+       inkscape:export-xdpi="150"
+       inkscape:export-ydpi="150">
+      <path
+         style="fill:none;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+         d="m 145,200 v 15 h 5 v -15 z"
+         id="path5198-1-7-9-2" />
+      <path
+         style="fill:none;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+         d="m 147.34829,195 v 5"
+         id="path5200-9-8-4-5" />
+    </g>
+    <g
+       id="g5284-3-4-1-5-8"
+       transform="matrix(0,-1,-1,0,-110,463)"
+       inkscape:export-filename="/home/jianjunhu/GitFolder/modelica-buildings/Buildings/Resources/Images/Examples/ChillerPlant/Guideline36/chillerSchematics.png"
+       inkscape:export-xdpi="150"
+       inkscape:export-ydpi="150">
+      <path
+         style="fill:none;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+         d="m 145,200 v 15 h 5 v -15 z"
+         id="path5198-1-7-9-2-6" />
+      <path
+         style="fill:none;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+         d="m 147.34829,195 v 5"
+         id="path5200-9-8-4-5-8" />
+    </g>
+    <g
+       id="g8060-2-0-6"
+       transform="translate(-564,25.000001)"
+       inkscape:export-filename="/home/jianjunhu/GitFolder/modelica-buildings/Buildings/Resources/Images/Examples/ChillerPlant/Guideline36/chillerSchematics.png"
+       inkscape:export-xdpi="150"
+       inkscape:export-ydpi="150"
+       style="stroke-width:1.00157;stroke-miterlimit:4;stroke-dasharray:none">
+      <path
+         style="fill:none;stroke:#000000;stroke-width:1.00157;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+         d="m 255,80 h 10 l -10,20 h 10 z"
+         id="path2901-6-6-1" />
+      <path
+         style="fill:none;stroke:#000000;stroke-width:1.00157;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+         d="m 260,90 h -8"
+         id="path4141-29-2" />
+      <rect
+         style="opacity:1;fill:none;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:1.00157;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+         id="rect4327-9-9"
+         width="12"
+         height="14"
+         x="240"
+         y="82.999992" />
+    </g>
+    <g
+       id="g8060-2-0-6-5"
+       transform="rotate(90,-90,-100)"
+       inkscape:export-filename="/home/jianjunhu/GitFolder/modelica-buildings/Buildings/Resources/Images/Examples/ChillerPlant/Guideline36/chillerSchematics.png"
+       inkscape:export-xdpi="150"
+       inkscape:export-ydpi="150"
+       style="stroke-width:1.00157;stroke-miterlimit:4;stroke-dasharray:none">
+      <path
+         style="fill:none;stroke:#000000;stroke-width:1.00157;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+         d="m 255,80 h 10 l -10,20 h 10 z"
+         id="path2901-6-6-1-6" />
+      <path
+         style="fill:none;stroke:#000000;stroke-width:1.00157;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+         d="m 260,90 h -8"
+         id="path4141-29-2-9" />
+      <rect
+         style="opacity:1;fill:none;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:1.00157;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+         id="rect4327-9-9-3"
+         width="12"
+         height="14"
+         x="240"
+         y="82.999992" />
+    </g>
+    <g
+       id="g8060-2-0-6-6"
+       transform="translate(-710,25)"
+       inkscape:export-filename="/home/jianjunhu/GitFolder/modelica-buildings/Buildings/Resources/Images/Examples/ChillerPlant/Guideline36/chillerSchematics.png"
+       inkscape:export-xdpi="150"
+       inkscape:export-ydpi="150"
+       style="stroke-width:1.00157;stroke-miterlimit:4;stroke-dasharray:none">
+      <path
+         style="fill:none;stroke:#000000;stroke-width:1.00157;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+         d="m 255,80 h 10 l -10,20 h 10 z"
+         id="path2901-6-6-1-1" />
+      <path
+         style="fill:none;stroke:#000000;stroke-width:1.00157;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+         d="m 260,90 h -8"
+         id="path4141-29-2-0" />
+      <rect
+         style="opacity:1;fill:none;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:1.00157;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+         id="rect4327-9-9-6"
+         width="12"
+         height="14"
+         x="240"
+         y="82.999992" />
+    </g>
+    <g
+       id="g8060-2-0-6-6-3"
+       transform="translate(-710,140)"
+       inkscape:export-filename="/home/jianjunhu/GitFolder/modelica-buildings/Buildings/Resources/Images/Examples/ChillerPlant/Guideline36/chillerSchematics.png"
+       inkscape:export-xdpi="150"
+       inkscape:export-ydpi="150"
+       style="stroke-width:1.00157;stroke-miterlimit:4;stroke-dasharray:none">
+      <path
+         style="fill:none;stroke:#000000;stroke-width:1.00157;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+         d="m 255,80 h 10 l -10,20 h 10 z"
+         id="path2901-6-6-1-1-14" />
+      <path
+         style="fill:none;stroke:#000000;stroke-width:1.00157;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+         d="m 260,90 h -8"
+         id="path4141-29-2-0-9" />
+      <rect
+         style="opacity:1;fill:none;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:1.00157;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+         id="rect4327-9-9-6-2"
+         width="12"
+         height="14"
+         x="240"
+         y="82.999992" />
+    </g>
+    <text
+       xml:space="preserve"
+       id="text22052-9"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:40px;line-height:1.25;font-family:Yrsa;-inkscape-font-specification:Yrsa;letter-spacing:0px;word-spacing:0px;white-space:pre;shape-inside:url(#rect22054-4);display:inline;fill:#000000;fill-opacity:1;stroke:none"
+       transform="matrix(0.43911007,0,0,0.43911007,-171.82907,93.348946)"
+       inkscape:export-filename="/home/jianjunhu/GitFolder/modelica-buildings/Buildings/Resources/Images/Examples/ChillerPlant/Guideline36/chillerSchematics.png"
+       inkscape:export-xdpi="150"
+       inkscape:export-ydpi="150"><tspan
+         x="-140"
+         y="-140.88"
+         id="tspan5879">Cooling tower</tspan></text>
+    <text
+       xml:space="preserve"
+       id="text22052-9-7"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:40px;line-height:1.25;font-family:Yrsa;-inkscape-font-specification:Yrsa;letter-spacing:0px;word-spacing:0px;white-space:pre;shape-inside:url(#rect22054-4-1);display:inline;fill:#000000;fill-opacity:1;stroke:none"
+       transform="matrix(0.43911007,0,0,0.43911007,-173.82907,235.34895)"
+       inkscape:export-filename="/home/jianjunhu/GitFolder/modelica-buildings/Buildings/Resources/Images/Examples/ChillerPlant/Guideline36/chillerSchematics.png"
+       inkscape:export-xdpi="150"
+       inkscape:export-ydpi="150"><tspan
+         x="-140"
+         y="-140.88"
+         id="tspan5881">Chiller
+</tspan></text>
+    <text
+       xml:space="preserve"
+       id="text22052-9-7-1"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:40px;line-height:1.25;font-family:Yrsa;-inkscape-font-specification:Yrsa;letter-spacing:0px;word-spacing:0px;white-space:pre;shape-inside:url(#rect22054-4-1-7);display:inline;fill:#000000;fill-opacity:1;stroke:none"
+       transform="matrix(0.43911007,0,0,0.43911007,-437.5479,232.51756)"
+       inkscape:export-filename="/home/jianjunhu/GitFolder/modelica-buildings/Buildings/Resources/Images/Examples/ChillerPlant/Guideline36/chillerSchematics.png"
+       inkscape:export-xdpi="150"
+       inkscape:export-ydpi="150"><tspan
+         x="-140"
+         y="-140.88"
+         id="tspan5883">WSE</tspan></text>
+    <text
+       xml:space="preserve"
+       id="text22052-8-9"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:40px;line-height:1.25;font-family:Yrsa;-inkscape-font-specification:Yrsa;letter-spacing:0px;word-spacing:0px;white-space:pre;shape-inside:url(#rect22054-0-0);display:inline;fill:#000000;fill-opacity:1;stroke:none"
+       transform="matrix(0.43911007,0,0,0.43911007,-172.37417,128.5925)"
+       inkscape:export-filename="/home/jianjunhu/GitFolder/modelica-buildings/Buildings/Resources/Images/Examples/ChillerPlant/Guideline36/chillerSchematics.png"
+       inkscape:export-xdpi="150"
+       inkscape:export-ydpi="150"><tspan
+         x="-140"
+         y="-140.88"
+         id="tspan5885">Condenser water pump</tspan></text>
+    <text
+       xml:space="preserve"
+       id="text22052-8-9-5"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:40px;line-height:1.25;font-family:Yrsa;-inkscape-font-specification:Yrsa;letter-spacing:0px;word-spacing:0px;white-space:pre;shape-inside:url(#rect22054-0-0-1);display:inline;fill:#000000;fill-opacity:1;stroke:none"
+       transform="matrix(0.43911007,0,0,0.43911007,-394.4967,408.84816)"
+       inkscape:export-filename="/home/jianjunhu/GitFolder/modelica-buildings/Buildings/Resources/Images/Examples/ChillerPlant/Guideline36/chillerSchematics.png"
+       inkscape:export-xdpi="150"
+       inkscape:export-ydpi="150"><tspan
+         x="-140"
+         y="-140.88"
+         id="tspan5887">Chilled water pump</tspan></text>
+    <text
+       xml:space="preserve"
+       id="text22052-8-9-5-3"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:40px;line-height:1.25;font-family:Yrsa;-inkscape-font-specification:Yrsa;letter-spacing:0px;word-spacing:0px;white-space:pre;shape-inside:url(#rect22054-0-0-1-7);display:inline;fill:#000000;fill-opacity:1;stroke:none"
+       transform="matrix(0.43911007,0,0,0.43911007,-170.05799,530.26346)"
+       inkscape:export-filename="/home/jianjunhu/GitFolder/modelica-buildings/Buildings/Resources/Images/Examples/ChillerPlant/Guideline36/chillerSchematics.png"
+       inkscape:export-xdpi="150"
+       inkscape:export-ydpi="150"><tspan
+         x="-140"
+         y="-140.88"
+         id="tspan5889">Data center room</tspan></text>
+    <text
+       xml:space="preserve"
+       id="text22052-8-9-5-7"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:40px;line-height:1.25;font-family:Yrsa;-inkscape-font-specification:Yrsa;letter-spacing:0px;word-spacing:0px;white-space:pre;shape-inside:url(#rect22054-0-0-1-9);display:inline;fill:#000000;fill-opacity:1;stroke:none"
+       transform="matrix(0.43911007,0,0,0.43911007,-185.83448,415.84895)"
+       inkscape:export-filename="/home/jianjunhu/GitFolder/modelica-buildings/Buildings/Resources/Images/Examples/ChillerPlant/Guideline36/chillerSchematics.png"
+       inkscape:export-xdpi="150"
+       inkscape:export-ydpi="150"><tspan
+         x="-140"
+         y="-140.88"
+         id="tspan5891">Cooling coil</tspan></text>
+    <text
+       xml:space="preserve"
+       id="text22052-8-9-5-7-5"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:40px;line-height:1.25;font-family:Yrsa;-inkscape-font-specification:Yrsa;letter-spacing:0px;word-spacing:0px;white-space:pre;shape-inside:url(#rect22054-0-0-1-9-6);display:inline;fill:#000000;fill-opacity:1;stroke:none"
+       transform="matrix(0.43911007,0,0,0.43911007,-187.72717,315.32982)"
+       inkscape:export-filename="/home/jianjunhu/GitFolder/modelica-buildings/Buildings/Resources/Images/Examples/ChillerPlant/Guideline36/chillerSchematics.png"
+       inkscape:export-xdpi="150"
+       inkscape:export-ydpi="150"><tspan
+         x="-140"
+         y="-140.88"
+         id="tspan5893">Bypass valve</tspan></text>
+    <text
+       xml:space="preserve"
+       id="text22052-8-9-5-7-6"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:40px;line-height:1.25;font-family:Yrsa;-inkscape-font-specification:Yrsa;letter-spacing:0px;word-spacing:0px;white-space:pre;shape-inside:url(#rect22054-0-0-1-9-7);display:inline;fill:#000000;fill-opacity:1;stroke:none"
+       transform="matrix(0.43911007,0,0,0.43911007,-142.67603,462.30028)"
+       inkscape:export-filename="/home/jianjunhu/GitFolder/modelica-buildings/Buildings/Resources/Images/Examples/ChillerPlant/Guideline36/chillerSchematics.png"
+       inkscape:export-xdpi="150"
+       inkscape:export-ydpi="150"><tspan
+         x="-140"
+         y="-140.88"
+         id="tspan5895">Fan</tspan></text>
+    <text
+       xml:space="preserve"
+       id="text22052-8-9-5-7-6-3-0"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:40px;line-height:1.25;font-family:Yrsa;-inkscape-font-specification:Yrsa;letter-spacing:0px;word-spacing:0px;white-space:pre;shape-inside:url(#rect22054-0-0-1-9-7-6-4);display:inline;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.620986"
+       transform="matrix(0.70711804,0,0,0.70711804,-272.32729,360.47663)"
+       inkscape:export-filename="/home/jianjunhu/GitFolder/modelica-buildings/Buildings/Resources/Images/Examples/ChillerPlant/Guideline36/chillerSchematics.png"
+       inkscape:export-xdpi="150"
+       inkscape:export-ydpi="150"><tspan
+         x="-140"
+         y="-140.88"
+         id="tspan5901"><tspan
+           style="font-style:italic;font-size:26px;-inkscape-font-specification:'Yrsa, Italic'"
+           id="tspan5897">T</tspan><tspan
+           style="font-size:65%;baseline-shift:sub"
+           id="tspan5899">chw,ent</tspan></tspan></text>
+    <text
+       xml:space="preserve"
+       id="text22052-8-9-5-7-6-3-0-9"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:40px;line-height:1.25;font-family:Yrsa;-inkscape-font-specification:Yrsa;letter-spacing:0px;word-spacing:0px;white-space:pre;shape-inside:url(#rect22054-0-0-1-9-7-6-4-6);display:inline;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.620986"
+       transform="matrix(0.70711804,0,0,0.70711804,-250.80884,421.43913)"
+       inkscape:export-filename="/home/jianjunhu/GitFolder/modelica-buildings/Buildings/Resources/Images/Examples/ChillerPlant/Guideline36/chillerSchematics.png"
+       inkscape:export-xdpi="150"
+       inkscape:export-ydpi="150"><tspan
+         x="-140"
+         y="-140.88"
+         id="tspan5907"><tspan
+           style="font-style:italic;font-size:26px;-inkscape-font-specification:'Yrsa, Italic'"
+           id="tspan5903">T</tspan><tspan
+           style="font-size:65%;baseline-shift:sub"
+           id="tspan5905">ws</tspan></tspan></text>
+    <text
+       xml:space="preserve"
+       id="text22052-8-9-5-7-6-3-0-9-6"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:40px;line-height:1.25;font-family:Yrsa;-inkscape-font-specification:Yrsa;letter-spacing:0px;word-spacing:0px;white-space:pre;shape-inside:url(#rect22054-0-0-1-9-7-6-4-6-6);display:inline;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.620986"
+       transform="matrix(0.70711804,0,0,0.70711804,-132.49626,217.87508)"
+       inkscape:export-filename="/home/jianjunhu/GitFolder/modelica-buildings/Buildings/Resources/Images/Examples/ChillerPlant/Guideline36/chillerSchematics.png"
+       inkscape:export-xdpi="150"
+       inkscape:export-ydpi="150"><tspan
+         x="-140"
+         y="-140.88"
+         id="tspan5913"><tspan
+           style="font-style:italic;font-size:26px;-inkscape-font-specification:'Yrsa, Italic'"
+           id="tspan5909">T</tspan><tspan
+           style="font-size:65%;baseline-shift:sub"
+           id="tspan5911">wc</tspan></tspan></text>
+    <text
+       xml:space="preserve"
+       id="text22052-8-9-5-7-6-3-0-9-3"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:40px;line-height:1.25;font-family:Yrsa;-inkscape-font-specification:Yrsa;letter-spacing:0px;word-spacing:0px;white-space:pre;shape-inside:url(#rect22054-0-0-1-9-7-6-4-6-3);display:inline;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.620986"
+       transform="matrix(0.70711804,0,0,0.70711804,-96.996258,529.79348)"
+       inkscape:export-filename="/home/jianjunhu/GitFolder/modelica-buildings/Buildings/Resources/Images/Examples/ChillerPlant/Guideline36/chillerSchematics.png"
+       inkscape:export-xdpi="150"
+       inkscape:export-ydpi="150"><tspan
+         x="-140"
+         y="-140.88"
+         id="tspan5919"><tspan
+           style="font-style:italic;font-size:26px;-inkscape-font-specification:'Yrsa, Italic'"
+           id="tspan5915">T</tspan><tspan
+           style="font-size:65%;baseline-shift:sub"
+           id="tspan5917">air,sup</tspan></tspan></text>
+    <rect
+       style="opacity:0.75;fill:none;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:2;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+       id="rect347-7"
+       width="70"
+       height="25"
+       x="-315"
+       y="15"
+       inkscape:export-filename="/home/jianjunhu/GitFolder/modelica-buildings/Buildings/Resources/Images/Examples/ChillerPlant/Guideline36/chillerSchematics.png"
+       inkscape:export-xdpi="150"
+       inkscape:export-ydpi="150" />
+    <ellipse
+       style="opacity:0.75;fill:none;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:1;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+       id="path1332-0"
+       cx="-295"
+       cy="27.5"
+       rx="15"
+       ry="7.5"
+       inkscape:export-filename="/home/jianjunhu/GitFolder/modelica-buildings/Buildings/Resources/Images/Examples/ChillerPlant/Guideline36/chillerSchematics.png"
+       inkscape:export-xdpi="150"
+       inkscape:export-ydpi="150" />
+    <ellipse
+       style="opacity:0.75;fill:none;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:1;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+       id="path1334-9"
+       cx="-265"
+       cy="27.5"
+       rx="15"
+       ry="7.5"
+       inkscape:export-filename="/home/jianjunhu/GitFolder/modelica-buildings/Buildings/Resources/Images/Examples/ChillerPlant/Guideline36/chillerSchematics.png"
+       inkscape:export-xdpi="150"
+       inkscape:export-ydpi="150" />
+    <path
+       style="fill:none;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="m -405,135 v 15"
+       id="path2349-2-9-8-2-3" />
+    <path
+       style="fill:none;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="M -404.50002,179.99999 V 270"
+       id="path2349-2-9-8-2-3-4" />
+    <path
+       style="fill:none;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="m -450,95 v 10"
+       id="path2349-2-9-8-2-3-3" />
+    <g
+       id="g8060-2-0-6-6-6"
+       transform="translate(-515,120)"
+       inkscape:export-filename="/home/jianjunhu/GitFolder/modelica-buildings/Buildings/Resources/Images/Examples/ChillerPlant/Guideline36/chillerSchematics.png"
+       inkscape:export-xdpi="150"
+       inkscape:export-ydpi="150"
+       style="stroke-width:1.00157;stroke-miterlimit:4;stroke-dasharray:none">
+      <path
+         style="fill:none;stroke:#000000;stroke-width:1.00157;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+         d="m 255,80 h 10 l -10,20 h 10 z"
+         id="path2901-6-6-1-1-1" />
+      <path
+         style="fill:none;stroke:#000000;stroke-width:1.00157;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+         d="m 260,90 h -8"
+         id="path4141-29-2-0-5" />
+      <rect
+         style="opacity:1;fill:none;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:1.00157;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+         id="rect4327-9-9-6-5"
+         width="12"
+         height="14"
+         x="240"
+         y="82.999992" />
+    </g>
+    <g
+       id="g8060-2-0-6-6-6-4"
+       transform="translate(-565,200)"
+       inkscape:export-filename="/home/jianjunhu/GitFolder/modelica-buildings/Buildings/Resources/Images/Examples/ChillerPlant/Guideline36/chillerSchematics.png"
+       inkscape:export-xdpi="150"
+       inkscape:export-ydpi="150"
+       style="stroke-width:1.00157;stroke-miterlimit:4;stroke-dasharray:none">
+      <path
+         style="fill:none;stroke:#000000;stroke-width:1.00157;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+         d="m 255,80 h 10 l -10,20 h 10 z"
+         id="path2901-6-6-1-1-1-4" />
+      <path
+         style="fill:none;stroke:#000000;stroke-width:1.00157;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+         d="m 260,90 h -8"
+         id="path4141-29-2-0-5-3" />
+      <rect
+         style="opacity:1;fill:none;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:1.00157;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+         id="rect4327-9-9-6-5-0"
+         width="12"
+         height="14"
+         x="240"
+         y="82.999992" />
+    </g>
+    <path
+       style="fill:none;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="m -255,190 v 10"
+       id="path2349-2-9-8-2-3-3-4" />
+    <path
+       style="fill:none;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="m -304.49999,189.99999 v 90"
+       id="path2349-2-9-8-2-3-3-4-6" />
+    <path
+       style="fill:none;stroke:#000000;stroke-width:0.999999px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="m -255,219.99999 v 140"
+       id="path2349-2-9-8-2-3-3-4-7" />
+    <path
+       style="fill:none;stroke:#000000;stroke-width:0.999997px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="m -450,95 h 145"
+       id="path2349-2-9-8-2-78" />
+    <path
+       style="fill:none;stroke:#000000;stroke-width:0.999998px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="m -300,135 h 45"
+       id="path2349-2-9-8-2-78-5" />
+    <path
+       style="fill:none;stroke:#000000;stroke-width:0.999997px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="M -304.5,249.99999 H -290"
+       id="path2349-2-9-8-2-78-5-7" />
+    <path
+       style="fill:none;stroke:#000000;stroke-width:0.999997px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="M -269.5,250.5 H -255"
+       id="path2349-2-9-8-2-78-5-7-4" />
+    <path
+       style="fill:none;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="M -405.00002,135.00001 H -310"
+       id="path2349-2-9-8-2-78-5-0" />
+    <path
+       style="fill:none;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="m -405.00002,270 h 100.00001"
+       id="path2349-2-9-8-2-78-5-0-7" />
+    <path
+       style="fill:none;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="M -245.00001,370 H -220"
+       id="path2349-2-9-8-2-78-5-0-7-87" />
+    <path
+       style="fill:none;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="m -335,370 h 23"
+       id="path2349-2-9-8-2-78-5-0-7-87-1" />
+    <path
+       style="fill:none;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="m -335,435 h 17"
+       id="path2349-2-9-8-2-78-5-0-7-87-1-7" />
+    <path
+       style="fill:none;stroke:#000000;stroke-width:0.999998px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="m -235,435 h 15"
+       id="path2349-2-9-8-2-78-5-0-7-87-1-7-0" />
+    <path
+       style="fill:none;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="m -450.00001,305.00001 h 145"
+       id="path2349-2-9-8-2-78-5-0-7-8" />
+    <path
+       style="fill:none;stroke:#000000;stroke-width:0.999997px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="M -255.5,55 V 40"
+       id="path2349-2-9-8-2-7" />
+    <path
+       style="fill:none;stroke:#000000;stroke-width:0.999997px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="M -254.99999,145 V 79.999992"
+       id="path2349-2-9-8-2-7-9" />
+    <path
+       style="fill:none;stroke:#000000;stroke-width:0.999997px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="M -304,145 V 125"
+       id="path2349-2-9-8-2-7-9-3" />
+    <path
+       style="fill:none;stroke:#000000;stroke-width:0.999998px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="M -305,322.5 V 300"
+       id="path2349-2-9-8-2-7-9-3-7" />
+    <path
+       style="fill:none;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="M -304.5,360 V 348"
+       id="path2349-2-9-8-2-7-9-3-7-2" />
+    <path
+       style="fill:none;stroke:#000000;stroke-width:0.999995px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="m -335.00001,435.00001 v -65"
+       id="path2349-2-9-8-2-7-9-3-0-7" />
+    <path
+       style="fill:none;stroke:#000000;stroke-width:0.999997px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="M -220,390 V 370"
+       id="path2349-2-9-8-2-7-9-3-0-7-1" />
+    <path
+       style="fill:none;stroke:#000000;stroke-width:0.999997px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="M -220,435 V 415"
+       id="path2349-2-9-8-2-7-9-3-0-7-1-6" />
+    <path
+       style="fill:none;stroke:#000000;stroke-width:0.999997px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="M -450,150 V 125"
+       id="path2349-2-9-8-2-7-9-3-2" />
+    <path
+       style="fill:none;stroke:#000000;stroke-width:0.999997px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="M -449.5,220 V 180"
+       id="path2349-2-9-8-2-7-9-3-2-4" />
+    <path
+       style="fill:none;stroke:#000000;stroke-width:0.999997px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="M -450,305 V 240"
+       id="path2349-2-9-8-2-7-9-3-2-4-0" />
+    <path
+       style="fill:none;stroke:#000000;stroke-width:0.999998px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="M -304.5,105 V 40"
+       id="path2349-2-9-8-2-7-5" />
+    <g
+       id="g2463"
+       transform="rotate(90,-230.69226,137.94635)">
+      <circle
+         style="opacity:0.75;fill:none;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:1;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+         id="path1931-7-3-3-0-0"
+         cx="-301.13861"
+         cy="162.75409"
+         r="12.5" />
+      <path
+         style="fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:0.377953;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+         d="m -300.9325,150.213 v 25 l 12,-13 z"
+         id="path8941-5-1-2" />
+    </g>
+    <g
+       id="g2463-6"
+       transform="matrix(0,-1,-1,0,-142.287,34.0675)">
+      <circle
+         style="opacity:0.75;fill:none;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:1;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+         id="path1931-7-3-3-0-0-8"
+         cx="-301.13861"
+         cy="162.75409"
+         r="12.5" />
+      <path
+         style="fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:0.377953;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+         d="m -300.9325,150.213 v 25 l 12,-13 z"
+         id="path8941-5-1-2-9" />
+    </g>
+    <g
+       id="g4462"
+       transform="translate(-94.958908,42.293884)">
+      <circle
+         style="opacity:0.75;fill:none;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:1;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+         id="path1931-7-3-3-0-0-8-2"
+         cx="360.20612"
+         cy="125.04109"
+         r="12.5"
+         transform="rotate(90)" />
+      <path
+         style="fill:none;fill-opacity:1;stroke:#000000;stroke-width:0.377953;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+         d="m -112.5,360.41222 h -25 l 13,12 z"
+         id="path8941-5-1-2-9-6" />
+    </g>
+    <g
+       id="g5461">
+      <rect
+         style="opacity:0.75;fill:none;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:2;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+         id="rect2535-2"
+         width="45.000011"
+         height="68.999992"
+         x="145"
+         y="245"
+         transform="rotate(90)" />
+      <ellipse
+         style="opacity:0.75;fill:none;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:1;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+         id="path2581-8"
+         cx="167.88231"
+         cy="278.81055"
+         rx="14.289129"
+         ry="24.130014"
+         transform="rotate(90)" />
+      <path
+         style="fill:none;stroke:#000000;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+         d="m -270.57052,154.40675 8.86818,23.29978"
+         id="path2780-9"
+         sodipodi:nodetypes="cc" />
+      <path
+         style="fill:none;stroke:#000000;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+         d="m -286.39428,154.54579 -6.89429,23.81522"
+         id="path2782-73" />
+    </g>
+    <g
+       id="g3659">
+      <rect
+         style="opacity:0.75;fill:none;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:1.49443;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+         id="rect4395-4"
+         width="67"
+         height="30"
+         x="-462"
+         y="150"
+         inkscape:export-filename="/home/jianjunhu/GitFolder/modelica-buildings/Buildings/Resources/Images/Examples/ChillerPlant/Guideline36/chillerSchematics.png"
+         inkscape:export-xdpi="150"
+         inkscape:export-ydpi="150" />
+      <path
+         style="fill:none;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+         d="m -462,180 67,-30"
+         id="path3648"
+         inkscape:path-effect="#path-effect3650"
+         inkscape:original-d="m -462,180 67,-30" />
+      <path
+         style="fill:none;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+         d="m -457,155 h 10"
+         id="path3652"
+         inkscape:path-effect="#path-effect3654"
+         inkscape:original-d="m -457,155 h 10" />
+    </g>
+    <g
+       id="g3659-9"
+       transform="translate(149.5,210)">
+      <rect
+         style="opacity:0.75;fill:none;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:1.49443;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+         id="rect4395-4-5"
+         width="67"
+         height="30"
+         x="-462"
+         y="150"
+         inkscape:export-filename="/home/jianjunhu/GitFolder/modelica-buildings/Buildings/Resources/Images/Examples/ChillerPlant/Guideline36/chillerSchematics.png"
+         inkscape:export-xdpi="150"
+         inkscape:export-ydpi="150" />
+      <path
+         style="fill:none;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+         d="m -462,180 67,-30"
+         id="path3648-0"
+         inkscape:path-effect="#path-effect3650-6"
+         inkscape:original-d="m -462,180 67,-30" />
+      <path
+         style="fill:none;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+         d="m -457,155 h 10"
+         id="path3652-4"
+         inkscape:path-effect="#path-effect3654-4"
+         inkscape:original-d="m -457,155 h 10" />
+    </g>
+  </g>
+</svg>

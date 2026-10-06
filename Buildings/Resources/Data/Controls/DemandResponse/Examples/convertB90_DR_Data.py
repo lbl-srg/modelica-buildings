@@ -27,8 +27,8 @@ def convertData():
                 pass
             i = i + 1
 
-    filOut = open('B90_DR_Data.mos', 'w')
-    filOut.write("""#1
+    with open('B90_DR_Data.mos', 'w') as filOut:
+        filOut.write("""#1
 # The rows in this file are as follows:
 #  - time in seconds
 #  - outdoor dry bulb temperature in Kelvin
@@ -36,8 +36,7 @@ def convertData():
 #  - demand response signal (0 no demand response, 1 demand response)
 double b90(%s, 4)
 """ % len(lines))
-    filOut.writelines(lines)
-    filOut.close()
+        filOut.writelines(lines)
 
 if __name__ == "__main__":
     convertData()

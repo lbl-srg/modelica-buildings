@@ -1,0 +1,13 @@
+compareVars :=
+  {
+    "idxSta.y[1]",
+    "selSorAva.u1Ava[1]",
+    "selSorAva.u1Ava[2]",
+    "selSorAva.u1Ava[3]",
+    "selSorAva.n",
+    "selSorAva.uIdxSor[1]",
+    "selSorAva.uIdxSor[2]",
+    "selSorAva.y1[1]",
+    "selSorAva.y1[2]",
+    "selSorAva.y1[3]"
+  };

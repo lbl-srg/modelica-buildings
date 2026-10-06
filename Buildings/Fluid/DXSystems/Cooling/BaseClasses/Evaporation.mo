@@ -52,16 +52,21 @@ model Evaporation
         origin={60,-120})));
 
   Modelica.Blocks.Interfaces.RealOutput mTotWat_flow(final quantity="MassFlowRate",
-                                                     final unit = "kg/s")
+                                                     final unit = "kg/s",
+                                                     nominal=0.01*nomVal.m_flow_nominal)
     "Total moisture mass flow rate into the air stream"
     annotation (Placement(transformation(extent={{100,-10},{120,10}})));
 
   Modelica.Units.SI.Mass m(
+    stateSelect=StateSelect.always,
     nominal=-5000*1400/2257E3,
     start=0,
+    min=0,
     fixed=true) "Mass of water that accumulated on the coil";
 
-  Modelica.Units.SI.MassFlowRate mEva_flow(start=0)
+  Modelica.Units.SI.MassFlowRate mEva_flow(
+    start=0,
+    nominal=0.01*nomVal.m_flow_nominal)
     "Moisture mass flow rate that evaporates into air stream";
   ////////////////////////////////////////////////////////////////////////////////
   // Protected parameters and variables
@@ -98,10 +103,14 @@ protected
   final parameter Real K2(min=0, fixed=false)
     "Coefficient used for convective mass transfer";
 
-  Modelica.Units.SI.MassFraction XEvaWetBulOut
+  Modelica.Units.SI.MassFraction XEvaWetBulOut(
+    nominal=0.01,
+    max=0.05)
     "Water vapor mass fraction at wet bulb conditions at air inlet";
 
-  Modelica.Units.SI.MassFraction XiSatRefOut
+  Modelica.Units.SI.MassFraction XiSatRefOut(
+    nominal=0.01,
+    max=0.05)
     "Water vapor mass fraction at saturation, referenced to outlet mass flow rate";
 
    // off = not on is required because Dymola 2013 fails during model
@@ -109,7 +118,7 @@ protected
   Boolean off=not on "Signal, true when component is off";
 
   Modelica.Units.SI.Temperature TEvaWetBulOut "Wet bulb temperature at coil";
-  Modelica.Units.SI.MassFraction dX(min=-1, max=0)
+  Modelica.Units.SI.MassFraction dX(min=-1, max=0, nominal=0.01)
     "Difference in water vapor concentration that drives mass transfer";
 
   constant Modelica.Units.SI.SpecificHeatCapacity cpAir_nominal=Buildings.Utilities.Psychrometrics.Constants.cpAir
@@ -277,6 +286,7 @@ equation
     m = 0;
     TEvaWetBulOut = 293.15;
     XEvaWetBulOut = 0;
+    XiSatRefOut = 0;
   end if;
 
   annotation (defaultComponentName="eva",
@@ -573,6 +583,13 @@ Florida Solar Energy Center, Technical Report FSEC-CR-1537-05, January 2006.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+September 4, 2026, by Michael Wetter:<br/>
+Added missing assignment for <code>XiSatRefOut</code> in branch
+that is used if the model does not compute evaporation.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4715\">#4715</a>.
+</li>
 <li>
 April 5, 2023, by Jianjun Hu:<br/>
 Corrected assertion for the condition <code>dX_nominal&lt;0</code> and the documentation.<br/>

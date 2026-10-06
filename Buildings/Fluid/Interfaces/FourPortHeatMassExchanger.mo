@@ -113,6 +113,7 @@ model FourPortHeatMassExchanger
 
   Buildings.Fluid.FixedResistances.PressureDrop preDro1(
     redeclare final package Medium = Medium1,
+    final n=n1,
     final m_flow_nominal=m1_flow_nominal,
     final deltaM=deltaM1,
     final allowFlowReversal=allowFlowReversal1,
@@ -125,6 +126,7 @@ model FourPortHeatMassExchanger
 
   Buildings.Fluid.FixedResistances.PressureDrop preDro2(
     redeclare final package Medium = Medium2,
+    final n=n2,
     final m_flow_nominal=m2_flow_nominal,
     final deltaM=deltaM2,
     final allowFlowReversal=allowFlowReversal2,
@@ -220,6 +222,14 @@ Modelica.Fluid.Examples.HeatExchanger.BaseClasses.BasicHX</a>.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+June 17, 2026, by Michael Wetter:<br/>
+Updated implementation to allow a flow coefficient <code>n</code> that is different from <code>2</code>.
+This allows use of the model for not fully turbulent flow.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4620\">Buildings, #4620</a>.
+</li>
+
 <li>
 March 3, 2022, by Michael Wetter:<br/>
 Removed <code>massDynamics</code>.<br/>

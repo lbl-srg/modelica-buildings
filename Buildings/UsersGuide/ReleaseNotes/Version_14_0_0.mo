@@ -1,0 +1,604 @@
+within Buildings.UsersGuide.ReleaseNotes;
+class Version_14_0_0 "Version 14.0.0"
+  extends Modelica.Icons.ReleaseNotes;
+    annotation (Documentation(info="<html>
+<div class=\"release-summary\">
+<p>
+Version 14.0.0 is a major release that adds various new packages and models.
+</p>
+<p>
+The library has been tested with
+Dymola 2026x,
+OpenModelica 1.26.3,
+OPTIMICA 1.66 and recent versions of Impact.
+</p>
+<p>
+The following major changes have been done compared to release 13.0.0:
+</p>
+<ul>
+<li>
+The packages <code>Buildings.Applications.DataCenters.LiquidCooled</code>
+and <code>Buildings.Fluid.DataCenters</code>
+have been added with system and component models for liquid-cooled data centers,
+such as CDUs and racks.
+</li>
+<li>
+An autosizing feature has been added to the package 
+<code>Buildings.ThermalZones.EnergyPlus_24_2_0</code>, where, during initialization, 
+the EnergyPlus sizing routine can be invoked, resulting in parameter values being 
+passed to Modelica thermal zone and HVAC system objects. These parameter values 
+include heating and cooling loads, zone set points, outdoor conditions, and 
+minimum outside air flow all at design conditions, and can be used throughout the 
+Modelica model to size HVAC equipment based on the EnergyPlus sizing results.
+</li>
+<li>
+The air-to-water heat pump plant template in <code>Buildings.Templates.Plants.HeatPumps</code>
+has been extended to support 4-pipe polyvalent heat pumps that can simultaneously provide
+heating and cooling. Associated control subsequences have been added to
+<code>Buildings.Templates.Plants.Controls</code>.
+</li>
+<li>
+The package <code>Buildings.Fluid.Geothermal.Borefields.TOUGH</code>
+has been added with models and a user guide for coupled simulation
+between Modelica and the TOUGH simulator that calculates the ground response.
+</li>
+<li>
+New functions for pressure drop calculations with flow exponents between 1 and 2
+have been added to <code>Buildings.Fluid.BaseClasses.FlowModels</code>,
+enabling modeling of partially turbulent flows such as in microchannel heat exchangers.
+The model <code>Buildings.Fluid.FixedResistances.PressureDrop</code> and
+several heat exchangers in <code>Buildings.Fluid.HeatExchangers</code>
+have been updated to expose these parameters.
+</li>
+</ul>
+<p>
+Also, many models have been updated to improve performance, to improve compliance with the Modelica Language Standard and to correct model errors.
+</p>
+</div>
+<!-- New libraries -->
+<p>
+The following <b style=\"color:blue\">new libraries</b> have been added:
+</p>
+<table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\">
+<tr><td valign=\"top\">Buildings.Applications.DataCenters.LiquidCooled
+    </td>
+    <td valign=\"top\">System models for liquid cooled data centers.
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Fluid.DataCenters
+    </td>
+    <td valign=\"top\">Component models for liquid cooled data centers,
+                       such as CDUs and racks that are air-cooled, liquid-cooled,
+                       or hybrid liquid- and air-cooled. The racks
+                       can also have an optional active or passive rear door heat exchanger.
+    </td>
+</tr>
+</table>
+<!-- New components for existing libraries -->
+<p>
+The following <b style=\"color:blue\">new components</b> have been added
+to <b style=\"color:blue\">existing</b> libraries:
+</p>
+<table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\" style=\"border-collapse:collapse;\">
+<tr><td colspan=\"2\"><b>Buildings.Fluid.Geothermal</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Fluid.Geothermal.Borefields.TOUGH
+    </td>
+    <td valign=\"top\">Created models and the user guide for coupled simulation between
+                       Modelica simulation and the TOUGH simulation that calculates
+                       the ground response.<br/>
+                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1495\">issue 1495</a>.
+    </td>
+</tr>
+<tr><td colspan=\"2\"><b>Buildings.Fluid.BaseClasses.FlowModels</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Fluid.BaseClasses.FlowModels.powerLaw_dp<br/>
+                       Buildings.Fluid.BaseClasses.FlowModels.powerLaw_m_flow<br/>
+                       Buildings.Fluid.BaseClasses.FlowModels.powerLaw_dp_der<br/>
+                       Buildings.Fluid.BaseClasses.FlowModels.powerLaw_m_flow_der<br/>
+                       Buildings.Fluid.BaseClasses.FlowModels.powerLaw_dp_der2<br/>
+                       Buildings.Fluid.BaseClasses.FlowModels.powerLaw_m_flow_der2<br/>
+                       Buildings.Fluid.BaseClasses.FlowModels.powerLawData
+    </td>
+    <td valign=\"top\">Added functions for pressure drop calculations with flow exponents between 1 and 2,
+                       enabling modeling of partially turbulent flows such as in microchannel heat exchangers.<br/>
+                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4620\">Buildings, #4620</a>.
+    </td>
+    </tr>
+<tr><td colspan=\"2\"><b>Buildings.ThermalZones.EnergyPlus_24_2_0</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.ThermalZones.EnergyPlus_24_2_0.Examples.SingleFamilyHouse.AirHeating_Autosizing<br/>
+                       Buildings.ThermalZones.EnergyPlus_24_2_0.Examples.SmallOffice.ASHRAE2006Summer_Autosizing<br/>
+                       Buildings.ThermalZones.EnergyPlus_24_2_0.Examples.SmallOffice.ASHRAE2006Winter_Autosizing<br/>
+                       Buildings.ThermalZones.EnergyPlus_24_2_0.Examples.SmallOffice.Guideline36Summer_Autosizing<br/>
+                       Buildings.ThermalZones.EnergyPlus_24_2_0.Examples.SmallOffice.Guideline36Winter_Autosizing<br/>
+                       Buildings.ThermalZones.EnergyPlus_24_2_0.Examples.SmallOffice.IdealHeatingCoolingSummer_Autosizing<br/>
+                       Buildings.ThermalZones.EnergyPlus_24_2_0.Examples.SmallOffice.IdealHeatingCoolingWinter_Autosizing<br/>
+                       Buildings.ThermalZones.EnergyPlus_24_2_0.Examples.SmallOffice.BaseClasses.Floor_Autosizing<br/>
+                       Buildings.ThermalZones.EnergyPlus_24_2_0.Examples.SmallOffice.BaseClasses.Floor_Autosizing_MultipleSystems
+    </td>
+    <td valign=\"top\">Added example models for autosizing using EnergyPlus.<br/>
+                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3866\">Buildings, #3866</a>.
+    </td>
+    </tr>
+<tr><td valign=\"top\">Buildings.ThermalZones.EnergyPlus_24_2_0.SystemSizing
+    </td>
+    <td valign=\"top\">Added system sizing object for autosizing using EnergyPlus.<br/>
+                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3866\">Buildings, #3866</a>.
+    </td>
+    </tr>
+<tr><td valign=\"top\">Buildings.ThermalZones.EnergyPlus_24_2_0.BaseClasses.Sizing
+    </td>
+    <td valign=\"top\">Added sizing record for autosizing using EnergyPlus.<br/>
+                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3866\">Buildings, #3866</a>.
+    </td>
+    </tr>
+<tr><td valign=\"top\">Buildings.ThermalZones.EnergyPlus_24_2_0.UsersGuide
+    </td>
+    <td valign=\"top\">Added documentation for autosizing using EnergyPlus.<br/>
+                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3866\">Buildings, #3866</a>.
+    </td>
+</tr>
+<tr><td colspan=\"2\"><b>Buildings.Templates.Plants.Controls</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Templates.Plants.Controls.PolyvalentHeatPumps
+    </td>
+    <td valign=\"top\">Added a package of subsequences specific to polyvalent heat pump controls
+                       (mode alternation, staging parameters and minimum runtime assertion).<br/>
+                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4512\">Buildings, #4512</a>.
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Templates.Plants.Controls.Utilities.ConcatenateLogical<br/>
+                       Buildings.Templates.Plants.Controls.Utilities.ConcatenateParameterLogical<br/>
+                       Buildings.Templates.Plants.Controls.Utilities.ConcatenateSelectLogical
+    </td>
+    <td valign=\"top\">Added blocks to concatenate Boolean arrays.<br/>
+                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4512\">Buildings, #4512</a>.
+    </td>
+</tr>
+<tr><td colspan=\"2\"><b>Buildings.Templates.Plants.Controls.HeatPumps</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Templates.Plants.Controls.HeatPumps.Subsequences.AssertMinimumRuntime<br/>
+                       Buildings.Templates.Plants.Controls.HeatPumps.Subsequences.EquipmentAvailability<br/>
+                       Buildings.Templates.Plants.Controls.HeatPumps.Subsequences.EventSequencingMultiple<br/>
+                       Buildings.Templates.Plants.Controls.HeatPumps.Subsequences.EventSequencingSingle<br/>
+                       Buildings.Templates.Plants.Controls.HeatPumps.Subsequences.RoutingPrimaryPumpStatus<br/>
+                       Buildings.Templates.Plants.Controls.HeatPumps.Subsequences.SelectModeState
+    </td>
+    <td valign=\"top\">Added control subsequences for heat pump staging, equipment availability,
+                       event sequencing for multiple heat pumps, and primary pump status
+                       routing, supporting both reversible and polyvalent heat pumps.<br/>
+                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4512\">Buildings, #4512</a>.
+    </td>
+</tr>
+<tr><td colspan=\"2\"><b>Buildings.Templates.Components</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Templates.Components.Types.HeatPumpCapability
+    </td>
+    <td valign=\"top\">Added enumeration to specify the operating mode capability of a heat pump:
+                       heating only, reversible (2-pipe), or polyvalent (4-pipe).<br/>
+                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4512\">Buildings, #4512</a>.
+    </td>
+</tr>
+</table>
+<!-- Backward compatible changes -->
+<p>
+The following <b style=\"color:blue\">existing components</b>
+have been <b style=\"color:blue\">improved</b> in a
+<b style=\"color:blue\">backward compatible</b> way:
+</p>
+<table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\" style=\"border-collapse:collapse;\">
+<tr><td colspan=\"2\"><b>Buildings.Air.Systems.SingleZone.VAV.Examples.OptimalStart</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Air.Systems.SingleZone.VAV.Examples.OptimalStart.BaseClasses.ZoneWithAHUConventional<br/>
+                       Buildings.Air.Systems.SingleZone.VAV.Examples.OptimalStart.BaseClasses.ZoneWithAHUG36
+    </td>
+    <td valign=\"top\">Changed the class type from block to model.<br/>
+                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4606\">Buildings, issue 4606</a>.
+    </td>
+</tr>
+<tr><td colspan=\"2\"><b>Buildings.Fluid.FixedResistances</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Fluid.FixedResistances.PressureDrop
+    </td>
+    <td valign=\"top\">Updated to allow a flow exponent between 1 and 2,
+                       enabling modeling of partially turbulent flows such as in microchannel heat exchangers.<br/>
+                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4620\">Buildings, #4620</a>.
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Fluid.FixedResistances.BaseClasses.PlugFlowTransportDelay
+    </td>
+    <td valign=\"top\">Added nominal attribute to state variable.<br/>
+                       This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/2132\">IBPSA, issue 2132</a>.
+    </td>
+</tr>
+<tr><td colspan=\"2\"><b>Buildings.Fluid.HeatExchangers</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Fluid.HeatExchangers.DryCoilCounterFlow<br/>
+                       Buildings.Fluid.HeatExchangers.DryCoilDiscretized<br/>
+                       Buildings.Fluid.HeatExchangers.DryCoilEffectivenessNTU<br/>
+                       Buildings.Fluid.HeatExchangers.PlateHeatExchangerEffectivenessNTU<br/>
+                       Buildings.Fluid.HeatExchangers.WetCoilCounterFlow<br/>
+                       Buildings.Fluid.HeatExchangers.WetCoilDiscretized<br/>
+                       Buildings.Fluid.HeatExchangers.WetCoilEffectivenessNTU
+    </td>
+    <td valign=\"top\">Updated parameters to consistently expose ratio of heat transfer coefficients and
+                       exponents for convective heat transfer coefficients.<br/>
+                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4620\">Buildings, #4620</a>.
+    </td>
+</tr>
+<tr><td colspan=\"2\"><b>Buildings.Fluid.Interfaces</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">
+                       Buildings.Fluid.Interfaces.ConservationEquation
+    </td>
+    <td valign=\"top\">Added nominal attribute to state variable.<br/>
+                       This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/2132\">IBPSA, issue 2132</a>.
+    </td>
+</tr>
+<tr><td colspan=\"2\"><b>Buildings.Fluid.Sensors</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Fluid.Sensors.DensityTwoPort<br/>
+                       Buildings.Fluid.Sensors.EnthalpyFlowRate<br/>
+                       Buildings.Fluid.Sensors.EntropyFlowRate<br/>
+                       Buildings.Fluid.Sensors.LatentEnthalpyFlowRate<br/>
+                       Buildings.Fluid.Sensors.MassFractionTwoPort<br/>
+                       Buildings.Fluid.Sensors.PPMTwoPort<br/>
+                       Buildings.Fluid.Sensors.RelativeHumidityTwoPort<br/>
+                       Buildings.Fluid.Sensors.SensibleEnthalpyFlowRate<br/>
+                       Buildings.Fluid.Sensors.SpecificEnthalpyTwoPort<br/>
+                       Buildings.Fluid.Sensors.SpecificEntropyTwoPort<br/>
+                       Buildings.Fluid.Sensors.TemperatureTwoPort<br/>
+                       Buildings.Fluid.Sensors.TemperatureWetBulbTwoPort<br/>
+                       Buildings.Fluid.Sensors.TraceSubstancesTwoPort<br/>
+                       Buildings.Fluid.Sensors.Velocity<br/>
+                       Buildings.Fluid.Sensors.VolumeFlowRate
+    </td>
+    <td valign=\"top\">Added nominal attribute to state variable.<br/>
+                       This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/2132\">IBPSA, issue 2132</a>.
+    </td>
+</tr>
+<tr><td colspan=\"2\"><b>Buildings.HeatTransfer.Windows</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.HeatTransfer.Windows.BaseClasses.Overhang
+    </td>
+    <td valign=\"top\">Changed the class type from block to model.<br/>
+                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4606\">Buildings, issue 4606</a>.
+    </td>
+</tr>
+<tr><td colspan=\"2\"><b>Buildings.BoundaryConditions</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.BoundaryConditions.SolarGeometry.IncidenceAngle<br/>
+                       Buildings.BoundaryConditions.SolarGeometry.ZenithAngle<br/>
+                       Buildings.BoundaryConditions.SolarIrradiation.DiffuseIsotropic<br/>
+                       Buildings.BoundaryConditions.SolarIrradiation.DiffusePerez<br/>
+                       Buildings.BoundaryConditions.SolarIrradiation.DirectTiltedSurface<br/>
+                       Buildings.BoundaryConditions.SolarIrradiation.GlobalPerezTiltedSurface<br/>
+    </td>
+    <td valign=\"top\">Changed the class type from block to model.<br/>
+                       This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/2122\">IBPSA, issue 2122</a>.
+    </td>
+</tr>
+<tr><td colspan=\"2\"><b>Buildings.Controls.OBC.CDL</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Controls.OBC.CDL.Integers.Change<br/>
+                       Buildings.Controls.OBC.CDL.Logical.Change
+    </td>
+    <td valign=\"top\">Replaced initial equation with start attribute on input.<br/>
+                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4581\">Buildings, issue 4581</a>.
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Controls.OBC.CDL.Logical.Edge<br/>
+                       Buildings.Controls.OBC.CDL.Logical.FallingEdge<br/>
+                       Buildings.Controls.OBC.CDL.Logical.Pre<br/>
+                       Buildings.Controls.OBC.CDL.Logical.TrueFalseHold
+    </td>
+    <td valign=\"top\">Replaced initial equation with start attribute on input.<br/>
+                       This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/2136\">IBPSA, #2136</a>.
+    </td>
+</tr>
+<tr><td colspan=\"2\"><b>Buildings.ThermalZones.Detailed</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.ThermalZones.Detailed.Examples.FFD
+    </td>
+    <td valign=\"top\">Improved C source codes and recompiled FFD library to allow the examples being simulated with OpenModelica.<br/>
+                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4015\">Buildings, #4015</a>.<br/>
+    </td>
+</tr>
+<tr><td colspan=\"2\"><b>Buildings.ThermalZones.EnergyPlus_24_2_0</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.ThermalZones.EnergyPlus_24_2_0.ThermalZone
+    </td>
+    <td valign=\"top\">Added parameters in record for autosizing with EnergyPlus.<br/>
+                       Added parameter, with default as zero, for considering infiltration flow during autosizing for EnergyPlus.<br/>
+                       Updated exchange with C-code to exchange variables for autosizing with EnergyPlus.<br/>
+                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3866\">Buildings, #3866</a>.
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.ThermalZones.EnergyPlus_24_2_0.Actuator<br/>
+                       Buildings.ThermalZones.EnergyPlus_24_2_0.OpaqueConstruction<br/>
+                       Buildings.ThermalZones.EnergyPlus_24_2_0.OutputVariable<br/>
+                       Buildings.ThermalZones.EnergyPlus_24_2_0.Schedule<br/>
+                       Buildings.ThermalZones.EnergyPlus_24_2_0.ThermalZone<br/>
+                       Buildings.ThermalZones.EnergyPlus_24_2_0.ZoneSurface<br/>
+    </td>
+    <td valign=\"top\">Updated exchange with C-code to exchange variables for autosizing with EnergyPlus.<br/>
+                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3866\">Buildings, #3866</a>.<br/>
+    </td>
+</tr>
+<tr><td colspan=\"2\"><b>Buildings.Fluid.Sources</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Fluid.Sources.BaseClasses.PartialSource<br/>
+                       Buildings.Fluid.Sources.BaseClasses.PartialAirSource
+    </td>
+    <td valign=\"top\">Removed deprecated <code>cardinality</code> function.<br/>
+                       Removed protected parameter <code>flowDirection</code> as it was set to <code>Bidirectional</code> and had no effect on the model.
+                       The annoation <code>mayOnlyConnectOnce</code> must not be used for these models as they are often used to set the
+                       reference presssure in closed system flow networks.<br/>
+                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4607\">Buildings, #4607</a>.
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Fluid.Sources.TraceSubstancesFlowSource
+    </td>
+    <td valign=\"top\">Removed deprecated <code>cardinality</code> function and replaced with <code>mayOnlyConnectOnce</code> annotation.<br/>
+                       Removed protected parameter <code>flowDirection</code> as it was set to <code>Bidirectional</code> and had no effect on the model.<br/>
+                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4607\">Buildings, #4607</a>.
+    </td>
+</tr>
+<tr><td colspan=\"2\"><b>Buildings.Templates</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Templates.Components.Fans.ArrayVariable<br/>
+                       Buildings.Templates.Components.Fans.SingleConstant<br/>
+                       Buildings.Templates.Components.Fans.SingleVariable<br/>
+                       Buildings.Templates.Components.Pumps.Multiple<br/>
+                       Buildings.Templates.Components.Pumps.Single
+    </td>
+    <td valign=\"top\">Refactored to use a compiler-friendly mover model.<br/>
+                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/pull/4653\">Buildings, #4653</a>.
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Templates.Plants.Controls.HeatPumps.AirToWater
+    </td>
+    <td valign=\"top\">Refactored with a single instance of <code>SortRuntime</code> for both modes.<br/>
+                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4624\">Buildings, #4624</a>.
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Templates.Plants.Controls.StagingRotation.EquipmentEnable
+    </td>
+    <td valign=\"top\">Added logic to remove unavailable equipment from staging order.
+                       Removed restriction on enable state updates.
+                       Modularized the implementation.<br/>
+                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4624\">Buildings, #4624</a>.
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Templates.Plants.Controls.StagingRotation.SortRuntime
+    </td>
+    <td valign=\"top\">Corrected runtime weighting for unavailable units.
+                       Updated handling and default value of runtime initialization.<br/>
+                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4624\">Buildings, #4624</a>.
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Templates.Plants.Controls.StagingRotation.StageCompletion
+    </td>
+    <td valign=\"top\">Use both enable command and returned status to handle multiple operating
+                       modes for polyvalent units.<br/>
+                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4512\">Buildings, #4512</a>.
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Templates.Plants.Controls.Utilities.TrueArrayConditional
+    </td>
+    <td valign=\"top\">Refactored using CDL Elementary Blocks.<br/>
+                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4624\">Buildings, #4624</a>.
+    </td>
+</tr>
+<tr><td colspan=\"2\"><b>Buildings.ThermalZones.Detailed</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.ThermalZones.Detailed.Examples.FFD
+    </td>
+    <td valign=\"top\">Improved C source codes and recompiled FFD library to allow the examples being simulated with OpenModelica.<br/>
+                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4015\">Buildings, #4015</a>.<br/>
+    </td>
+</tr>
+<tr><td colspan=\"2\"><b>Buildings.ThermalZones.EnergyPlus_24_2_0</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.ThermalZones.EnergyPlus_24_2_0.Validation.MultipleBuildings
+    </td>
+    <td valign=\"top\">Improved C source codes to allow the validation model being simulated with OpenModelica.<br/>
+                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3345\">Buildings, #3345</a>.<br/>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.ThermalZones.EnergyPlus_24_2_0.OpaqueConstruction
+    </td>
+    <td valign=\"top\">Removed deprecated <code>cardinality</code> function and replaced with <code>mustBeConnected</code> annotation.<br/>
+                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4607\">Buildings, #4607</a>.
+    </td>
+</tr>
+<tr><td colspan=\"2\"><b>Buildings.Utilities.IO.BCVTB</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Utilities.IO.BCVTB.BaseClasses.FluidInterface
+    </td>
+    <td valign=\"top\">Removed protected parameter <code>flowDirection</code> as it was set to <code>Bidirectional</code> and had no effect on the model.<br/>
+                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4607\">Buildings, #4607</a>.
+    </td>
+</tr>
+<tr><td colspan=\"2\"><b>Buildings.Utilities.Psychrometrics</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Utilities.Psychrometrics.TWetBul_TDryBulXi
+    </td>
+    <td valign=\"top\">Added nominal attribute for temperature.<br/>
+                       This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/2155\">IBPSA, #2155</a>.
+    </td>
+</tr>
+</table>
+<!-- Non-backward compatible changes to existing components -->
+<p>
+The following <b style=\"color:blue\">existing components</b>
+have been <b style=\"color:blue\">improved</b> in a
+<b style=\"color:blue\">non-backward compatible</b> way:
+</p>
+<table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\" style=\"border-collapse:collapse;\">
+<tr><td colspan=\"2\"><b>Buildings.Templates.Components</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Templates.Components.Data.HeatPump<br/>
+                       Buildings.Templates.Components.Interfaces.PartialHeatPump
+    </td>
+    <td valign=\"top\">Replaced the <code>is_rev</code> parameter with <code>typMod</code>,
+                       of the new type <code>Buildings.Templates.Components.Types.HeatPumpCapability</code>,
+                       to also support polyvalent heat pumps.<br/>
+                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4512\">Buildings, #4512</a>.
+    </td>
+</tr>
+<tr><td colspan=\"2\"><b>Buildings.Templates.Plants.Controls</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Templates.Plants.Controls.MinimumFlow.ControllerDualMode
+    </td>
+    <td valign=\"top\">Renamed to <code>Buildings.Templates.Plants.Controls.MinimumFlow.ControllerHeatPumps</code>
+                       and refactored to support plants with polyvalent heat pumps.<br/>
+                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4512\">Buildings, #4512</a>.
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Templates.Plants.Controls.Pumps.Primary.VariableSpeed
+    </td>
+    <td valign=\"top\">Renamed to <code>Buildings.Templates.Plants.Controls.Pumps.Primary.VariableSpeedWithHeatPumps</code>
+                       and refactored to support plants with polyvalent heat pumps.<br/>
+                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4512\">Buildings, #4512</a>.
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Templates.Plants.Controls.StagingRotation.EquipmentAvailability<br/>
+                       Buildings.Templates.Plants.Controls.StagingRotation.EventSequencing
+    </td>
+    <td valign=\"top\">Removed and replaced with
+                       <code>Buildings.Templates.Plants.Controls.HeatPumps.Subsequences.EquipmentAvailability</code>,
+                       <code>EventSequencingSingle</code>,
+                       which also support polyvalent heat pumps.<br/>
+                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4512\">Buildings, #4512</a>.
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Templates.Plants.Controls.Utilities.Initialization
+    </td>
+    <td valign=\"top\">Removed as it is no longer used.<br/>
+                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4512\">Buildings, #4512</a>.
+    </td>
+</tr>
+<tr><td colspan=\"2\"><b>Buildings.Templates.Plants.HeatPumps</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Templates.Plants.HeatPumps.AirToWater<br/>
+                       Buildings.Templates.Plants.HeatPumps.Components.Data.Controller<br/>
+                       Buildings.Templates.Plants.HeatPumps.Components.Data.HeatPumpGroup<br/>
+                       Buildings.Templates.Plants.HeatPumps.Components.Interfaces.PartialHeatPumpGroup<br/>
+                       Buildings.Templates.Plants.HeatPumps.Components.PumpsPrimaryDedicated<br/>
+                       Buildings.Templates.Plants.HeatPumps.Components.ValvesIsolation<br/>
+                       Buildings.Templates.Plants.HeatPumps.Configuration.HeatPumpPlant<br/>
+                       Buildings.Templates.Plants.HeatPumps.Data.HeatPumpPlant<br/>
+                       Buildings.Templates.Plants.HeatPumps.Interfaces.PartialHeatPumpPlant<br/>
+    </td>
+    <td valign=\"top\">Refactored the heat pump plant template and its components to support polyvalent
+                       heat pumps.
+                       This renamed existing parameters, and added multiple new required configuration and
+                       sizing parameters for polyvalent heat pumps.<br/>
+                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4512\">Buildings, #4512</a>.
+    </td>
+</tr>
+<tr><td colspan=\"2\"><b>Buildings.ThermalZones.EnergyPlus_24_2_0</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.ThermalZones.EnergyPlus_24_2_0.BaseClasses.SpawnExternalObject
+    </td>
+    <td valign=\"top\">Corrected C function implementation to comply with Modelica Language Standard.<br/>
+                       This change only affects the C function implementation and does not impact the Modelica function signature.<br/>
+                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4658\">issue 4658</a>.<br/>
+                       </br>
+                       Added inputs for autosizing with EnergyPlus.<br/>
+                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3866\">issue 3866</a>.<br/>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.ThermalZones.EnergyPlus_24_2_0.BaseClasses.ThermalZoneAdapter
+    </td>
+    <td valign=\"top\">Added parameters for autosizing with EnergyPlus.<br/>
+                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3866\">issue 3866</a>.<br/>
+    </td>
+</tr>
+</table>
+<!-- Errors that have been fixed -->
+<p>
+The following <b style=\"color:red\">critical errors</b> have been fixed (i.e., errors
+that can lead to wrong simulation results):
+</p>
+<table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\" style=\"border-collapse:collapse;\">
+<tr><td colspan=\"2\"><b>Buildings.Fluid.HeaExchangers</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Fluid.HeaExchangers.DryCooler
+    </td>
+    <td valign=\"top\">Corrected the initialization of the efficiency,
+                       which assumed counter flow rather than cross flow with both streams unmixed.<br/>
+                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4648\">Buildings, #4648</a>.
+
+    </td>
+</tr>
+</table>
+<!-- Uncritical errors -->
+<p>
+The following <b style=\"color:red\">uncritical errors</b> have been fixed (i.e., errors
+that do <b style=\"color:red\">not</b> lead to wrong simulation results, e.g.,
+units are wrong or errors in documentation):
+</p>
+<table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\" style=\"border-collapse:collapse;\">
+<tr><td colspan=\"2\"><b>Buildings.Fluid.DXSystems</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Fluid.DXSystems.Cooling.BaseClasses.Evaporation
+    </td>
+    <td valign=\"top\">Added missing variable assignment for ununsed variable in a branch that will not compute evaporation.<br/>
+                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4715\">Buildings, #4715</a>.
+    </td>
+</tr>
+<tr><td colspan=\"2\"><b>Buildings.Fluid.Geothermal.Borefields.BaseClasses.HeatTransfer.ThermalResponseFactors</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Fluid.Geothermal.Borefields.BaseClasses.HeatTransfer.ThermalResponseFactors.gFunction
+    </td>
+    <td valign=\"top\">Initialized local variables <code>A</code> and <code>B</code> to avoid use of uninitialized elements
+                       of a matrix. This update does not change the results.<br/>
+                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4707\">Buildings, #4707</a>.
+    </td>
+</tr>
+<tr><td colspan=\"2\"><b>Buildings.Fluid.HeatPumps.ModularReversible.BaseClasses</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Fluid.HeatPumps.ModularReversible.BaseClasses.PartialReversibleRefrigerantMachine
+    </td>
+    <td valign=\"top\">Corrected the flow reversal parameter in the condenser mass flow sensor
+                       (<code>allowFlowReversalEva</code> was used instead of <code>allowFlowReversalCon</code>).
+                       Also corrected the sensor description from evaporator to condenser.<br/>
+                       This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/2162\">IBPSA, #2162</a>.
+    </td>
+</tr>
+</table>
+</html>"));
+end Version_14_0_0;

@@ -20,7 +20,8 @@ model Velocity "Ideal sensor for flow velocity"
   Modelica.Units.SI.VolumeFlowRate V_flow
     "Volume flow rate from port_a to port_b";
   Modelica.Blocks.Interfaces.RealOutput v(final quantity="Velocity",
-                                          final unit="m/s")
+                                          final unit="m/s",
+                                          nominal=1)
     "Flow velocity from port_a to port_b"
     annotation (Placement(transformation(
         origin={0,110},
@@ -115,6 +116,11 @@ with <code>diameter = 0.1</code>.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+June 25, 2026, by Michael Wetter:<br/>
+Added <code>nominal</code> attribute to state variable.<br/>
+This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/2132\">IBPSA, #2132</a>.
+</li>
 <li>
 February 25, 2020, by Michael Wetter:<br/>
 Changed icon to display its operating state.<br/>

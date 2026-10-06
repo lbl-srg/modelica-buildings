@@ -28,9 +28,8 @@ def r1i1_r2(xR, xI):
 def s2_r1(xS):
     import os
     filNam = xS[0] + "." + xS[1]
-    f = open(filNam, 'r')
-    l = f.readline()
-    f.close()
+    with open(filNam, 'r') as f:
+        l = f.readline()
     os.remove(filNam)
     y = float(l)
     return y

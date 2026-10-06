@@ -1,0 +1,7 @@
+compareVars :=
+  {
+    "dp",
+    "dp_comp",
+    "der(dp)",
+    "der(dp_comp)"
+  };

@@ -21,21 +21,21 @@ equation
       points={{-20,30},{8,30}},
       color={255,204,51},
       thickness=0.5), Text(
-      textString="%second",
+      string="%second",
       index=1,
       extent={{6,3},{6,3}}));
   connect(weaBus.HDirNor, skyCle.HDirNor) annotation (Line(
       points={{8,30},{24,30},{24,16},{38,16}},
       color={255,204,51},
       thickness=0.5), Text(
-      textString="%first",
+      string="%first",
       index=-1,
       extent={{-6,3},{-6,3}}));
   connect(weaBus.HDifHor, skyCle.HDifHor) annotation (Line(
       points={{8,30},{24,30},{24,10},{38,10}},
       color={255,204,51},
       thickness=0.5), Text(
-      textString="%first",
+      string="%first",
       index=-1,
       extent={{-6,3},{-6,3}}));
 
@@ -43,7 +43,7 @@ equation
       points={{8,30},{8,12},{-54,12},{-54,-10},{-40,-10}},
       color={255,204,51},
       thickness=0.5), Text(
-      textString="%first",
+      string="%first",
       index=-1,
       extent={{-6,3},{-6,3}}));
   annotation (
