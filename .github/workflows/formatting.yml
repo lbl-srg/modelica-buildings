@@ -82,7 +82,7 @@ jobs:
         run:  |
               cd Resources/C-Sources
               find . -name '*.c' | while read -r ff; do
-                gcc -I ../src/C-SourcesAA "$ff" -c || exit 1
+                gcc -I ../src/C-Sources "$ff" -c || exit 1
               done
               rm *.o
 
