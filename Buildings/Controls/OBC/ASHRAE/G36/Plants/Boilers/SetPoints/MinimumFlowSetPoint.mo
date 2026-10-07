@@ -317,172 +317,106 @@ protected
 
 equation
   connect(uStaSet, cha.u)
-    annotation (Line(points={{-160,-90},{-128,-90},{-128,-70},{-122,-70}},
-                                                     color={255,127,0}));
-
+    annotation (Line(points={{-160,-90},{-128,-90},{-128,-70},{-122,-70}}, color={255,127,0}));
   connect(lat.u, and2.y)
-    annotation (Line(points={{-42,-30},{-58,-30}},
-                                               color={255,0,255}));
-
+    annotation (Line(points={{-42,-30},{-58,-30}}, color={255,0,255}));
   connect(uOnOff, and2.u1)
-    annotation (Line(points={{-160,-10},{-124,-10},{-124,-30},{-82,-30}},
-                                                color={255,0,255}));
-
+    annotation (Line(points={{-160,-10},{-124,-10},{-124,-30},{-82,-30}}, color={255,0,255}));
   connect(cha.up, and2.u2) annotation (Line(points={{-98,-64},{-90,-64},{-90,-38},
           {-82,-38}},color={255,0,255}));
-
   connect(uStaChaPro, lat.clr) annotation (Line(points={{-160,-50},{-50,-50},{-50,
-          -36},{-42,-36}},
-                         color={255,0,255}));
-
+          -36},{-42,-36}}, color={255,0,255}));
   connect(con.y, pro.u1) annotation (Line(points={{-98,-140},{-90,-140},{-90,-134},
           {-82,-134}},color={0,0,127}));
-
   connect(con2.y, pro.u2) annotation (Line(points={{-98,-220},{-90,-220},{-90,-146},
-          {-82,-146}},
-                     color={0,0,127}));
-
+          {-82,-146}}, color={0,0,127}));
   connect(con1.y, pro1.u1) annotation (Line(points={{-98,-180},{-92,-180},{-92,-174},
-          {-82,-174}},
-                    color={0,0,127}));
-
+          {-82,-174}}, color={0,0,127}));
   connect(con2.y, pro1.u2) annotation (Line(points={{-98,-220},{-90,-220},{-90,-186},
-          {-82,-186}},
-                    color={0,0,127}));
-
+          {-82,-186}}, color={0,0,127}));
   connect(pro.y, div.u1)
     annotation (Line(points={{-58,-140},{-40,-140},{-40,-144},{-22,-144}},
-                                                   color={0,0,127}));
-
+          color={0,0,127}));
   connect(pro1.y, addPar.u)
-    annotation (Line(points={{-58,-180},{-52,-180}},
-                                                 color={0,0,127}));
-
+    annotation (Line(points={{-58,-180},{-52,-180}}, color={0,0,127}));
   connect(addPar.y, div.u2) annotation (Line(points={{-28,-180},{-24,-180},{-24,
-          -156},{-22,-156}},
-                      color={0,0,127}));
-
+          -156},{-22,-156}}, color={0,0,127}));
   connect(con3.y, matGai.u)
-    annotation (Line(points={{-58,-220},{-42,-220}},
-                                                 color={0,0,127}));
-
+    annotation (Line(points={{-58,-220},{-42,-220}}, color={0,0,127}));
   connect(div.y, matMax.u)
-    annotation (Line(points={{2,-150},{18,-150}},
-                                                color={0,0,127}));
-
+    annotation (Line(points={{2,-150},{18,-150}}, color={0,0,127}));
   connect(matMax.y, extIndSig.u)
-    annotation (Line(points={{42,-150},{52,-150},{52,-50},{58,-50}},
-                                                 color={0,0,127}));
-
+    annotation (Line(points={{42,-150},{52,-150},{52,-50},{58,-50}}, color={0,0,127}));
   connect(uStaSet, extIndSig.index) annotation (Line(points={{-160,-90},{70,-90},
-          {70,-62}},                     color={255,127,0}));
-
+          {70,-62}}, color={255,127,0}));
   connect(matMax.y, extIndSig1.u) annotation (Line(points={{42,-150},{52,-150},{
-          52,80},{58,80}},
-                        color={0,0,127}));
-
+          52,80},{58,80}}, color={0,0,127}));
   connect(conInt.y,subInt. u2) annotation (Line(points={{-98,70},{-72,70},{-72,
-          74},{-62,74}},
-                   color={255,127,0}));
-
+          74},{-62,74}}, color={255,127,0}));
   connect(uStaSet,subInt. u1) annotation (Line(points={{-160,-90},{-128,-90},{
-          -128,100},{-72,100},{-72,86},{-62,86}},
-                                               color={255,127,0}));
-
+          -128,100},{-72,100},{-72,86},{-62,86}}, color={255,127,0}));
   connect(matGai.y, extIndSig2.u)
-    annotation (Line(points={{-18,-220},{-2,-220}},
-                                                color={0,0,127}));
-
+    annotation (Line(points={{-18,-220},{-2,-220}}, color={0,0,127}));
   connect(uStaSet, extIndSig2.index) annotation (Line(points={{-160,-90},{-128,-90},
           {-128,-240},{10,-240},{10,-232}}, color={255,127,0}));
-
   connect(con3.y, extIndSig3.u) annotation (Line(points={{-58,-220},{-54,-220},{
           -54,50},{-14,50}}, color={0,0,127}));
-
   connect(max.y, pro2.u1) annotation (Line(points={{122,100},{130,100},{130,76},
           {138,76}}, color={0,0,127}));
-
   connect(add2.y, pro2.u2) annotation (Line(points={{82,40},{130,40},{130,64},{138,
           64}}, color={0,0,127}));
-
   connect(pro3.y, swi.u3) annotation (Line(points={{114,-90},{120,-90},{120,2},{
           138,2}}, color={0,0,127}));
-
   connect(pro2.y, swi.u1) annotation (Line(points={{162,70},{170,70},{170,30},{130,
           30},{130,18},{138,18}}, color={0,0,127}));
-
   connect(extIndSig.y, pro3.u1) annotation (Line(points={{82,-50},{88,-50},{88,-84},
           {90,-84}}, color={0,0,127}));
-
   connect(extIndSig2.y, pro3.u2) annotation (Line(points={{22,-220},{46,-220},{46,
           -96},{90,-96}}, color={0,0,127}));
-
   connect(lat.y, swi.u2) annotation (Line(points={{-18,-30},{126,-30},{126,10},{
           138,10}}, color={255,0,255}));
-
   connect(swi1.y, VHotWatMinSet_flow)
     annotation (Line(points={{312,-70},{340,-70}}, color={0,0,127}));
-
   connect(cha.down, and1.u1) annotation (Line(points={{-98,-76},{-90,-76},{-90,-110},
           {-82,-110}}, color={255,0,255}));
-
   connect(and1.y, lat1.u)
     annotation (Line(points={{-58,-110},{-42,-110}}, color={255,0,255}));
-
   connect(uStaChaPro, lat1.clr) annotation (Line(points={{-160,-50},{-50,-50},{-50,
           -116},{-42,-116}}, color={255,0,255}));
-
   connect(cha.up, lat2.u) annotation (Line(points={{-98,-64},{-90,-64},{-90,-70},
           {-82,-70}}, color={255,0,255}));
-
   connect(cha.down, lat2.clr)
     annotation (Line(points={{-98,-76},{-82,-76}}, color={255,0,255}));
-
   connect(lat2.y, swi1.u2)
     annotation (Line(points={{-58,-70},{288,-70}}, color={255,0,255}));
-
   connect(lat1.y, swi2.u2) annotation (Line(points={{-18,-110},{126,-110},{126,-150},
           {138,-150}}, color={255,0,255}));
-
   connect(uOnOff, and1.u2) annotation (Line(points={{-160,-10},{-124,-10},{-124,
           -118},{-82,-118}}, color={255,0,255}));
-
   connect(pro3.y, swi2.u3) annotation (Line(points={{114,-90},{120,-90},{120,-158},
           {138,-158}}, color={0,0,127}));
-
   connect(extIndSig2.y, add2.u2) annotation (Line(points={{22,-220},{46,-220},{46,
           34},{58,34}}, color={0,0,127}));
-
   connect(extIndSig.y, max.u2) annotation (Line(points={{82,-50},{88,-50},{88,94},
           {98,94}}, color={0,0,127}));
-
   connect(conInt1.y, addInt1.u2) annotation (Line(points={{-108,-320},{-100,-320},
           {-100,-306},{-82,-306}}, color={255,127,0}));
-
   connect(uStaSet, addInt1.u1) annotation (Line(points={{-160,-90},{-128,-90},{-128,
           -294},{-82,-294}}, color={255,127,0}));
-
   connect(matMax.y, extIndSig4.u) annotation (Line(points={{42,-150},{52,-150},{
           52,-270},{58,-270}}, color={0,0,127}));
-
   connect(extIndSig.y, max1.u1) annotation (Line(points={{82,-50},{88,-50},{88,-244},
           {98,-244}}, color={0,0,127}));
-
   connect(con3.y, extIndSig5.u) annotation (Line(points={{-58,-220},{-54,-220},{
           -54,-260},{-42,-260}}, color={0,0,127}));
-
   connect(extIndSig2.y, add1.u1) annotation (Line(points={{22,-220},{46,-220},{46,
           -294},{98,-294}}, color={0,0,127}));
-
   connect(max1.y, pro4.u1) annotation (Line(points={{122,-250},{130,-250},{130,-264},
           {138,-264}}, color={0,0,127}));
-
   connect(add1.y, pro4.u2) annotation (Line(points={{122,-300},{130,-300},{130,-276},
           {138,-276}}, color={0,0,127}));
-
   connect(pro4.y, swi2.u1) annotation (Line(points={{162,-270},{166,-270},{166,-170},
           {132,-170},{132,-142},{138,-142}}, color={0,0,127}));
-
   connect(swi.y, lin.f2) annotation (Line(points={{162,10},{166,10},{166,-8},{258,
           -8}}, color={0,0,127}));
   connect(swi2.y, lin1.f2) annotation (Line(points={{162,-150},{254,-150},{254,-148},
@@ -509,7 +443,6 @@ equation
           0}}, color={255,0,255}));
   connect(or2.y, lat3.u) annotation (Line(points={{-18,0},{100,0},{100,-20},{192,
           -20},{192,-40},{198,-40}}, color={255,0,255}));
-
   connect(swi.y, swi3.u1) annotation (Line(points={{162,10},{166,10},{166,-8},{180,
           -8},{180,-192},{188,-192}}, color={0,0,127}));
   connect(swi2.y, swi3.u3) annotation (Line(points={{162,-150},{172,-150},{172,-208},
@@ -528,7 +461,6 @@ equation
           {184,-180},{184,-118},{198,-118}},       color={0,0,127}));
   connect(abs.y, lin.x2) annotation (Line(points={{302,-250},{310,-250},{310,-180},
           {184,-180},{184,-4},{258,-4}},       color={0,0,127}));
-
   connect(sub3.y, gai.u) annotation (Line(points={{252,-200},{260,-200},{260,-230},
           {200,-230},{200,-250},{208,-250}}, color={0,0,127}));
   connect(gai.y, addPar1.u)

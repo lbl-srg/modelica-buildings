@@ -716,7 +716,8 @@ Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Staging.Processes.Subsequences.
 </li>
 <li>
 Start the next hot water pump and/or open the hot water isolation valves using the
-block <code>enaHotWatIsoVal</code> using sequence implemented in <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Staging.Processes.Subsequences.HWIsoVal\">
+block <code>enaHotWatIsoVal</code> using sequence implemented in
+<a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Staging.Processes.Subsequences.HWIsoVal\">
 Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Staging.Processes.Subsequences.HWIsoVal</a>
 for the valves and initiating the pump change process with the pulse signal <code>yPumChaPro</code>. 
 Once the pumps have been reset, the controller receives a pulse signal on the

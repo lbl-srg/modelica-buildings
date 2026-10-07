@@ -34,9 +34,9 @@ package Staging "Boiler staging sequences"
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid,
           extent={{-80.0,0.0},{-20.0,60.0}})}),
-        Documentation(info="<html>
-        <p>
-        This package contains the boiler staging sequences.
-        </p>
-        </html>"));
+Documentation(info="<html>
+<p>
+This package contains the boiler staging sequences.
+</p>
+</html>"));
 end Staging;

@@ -16,9 +16,10 @@ package SetPoints "Package for boiler plant staging setpoint control sequences"
           extent={{-100,100},{100,-100}},
           textColor={0,0,0},
           textString="S")}),
-    Documentation(info="<html>
-    <p>
-    This package contains boiler stage setpoint control sequences. The implementation
-    is based on section 5.21.3 in ASHRAE Guideline 36, 2021. </p>
+Documentation(info="<html>
+<p>
+This package contains boiler stage setpoint control sequences. The implementation
+is based on section 5.21.3 in ASHRAE Guideline 36, 2021.
+</p>
 </html>"));
 end SetPoints;

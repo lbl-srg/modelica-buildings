@@ -48,15 +48,13 @@ equation
   connect(pumSta.y, hotPumSpe.uHotWatPum) annotation (Line(points={{-58,40},{-50,
           40},{-50,6},{-42,6}}, color={255,0,255}));
   connect(priFloSen.y, hotPumSpe.VHotWatPri_flow)
-    annotation (Line(points={{-58,0},{-50,0},{-50,2},{-42,2}},
-                                               color={0,0,127}));
+    annotation (Line(points={{-58,0},{-50,0},{-50,2},{-42,2}}, color={0,0,127}));
   connect(secFloSen.y, hotPumSpe.VHotWatSec_flow) annotation (Line(points={{-58,-40},
           {-50,-40},{-50,-2},{-42,-2}},      color={0,0,127}));
   connect(pumSta.y, hotPumSpe1.uHotWatPum) annotation (Line(points={{-58,40},{30,
           40},{30,6},{38,6}}, color={255,0,255}));
   connect(decFloSen.y, hotPumSpe1.VHotWatDec_flow)
-    annotation (Line(points={{22,-40},{30,-40},{30,-6},{38,-6}},
-                                                             color={0,0,127}));
+    annotation (Line(points={{22,-40},{30,-40},{30,-6},{38,-6}}, color={0,0,127}));
 
 annotation (
   experiment(StopTime=10.0, Tolerance=1e-06),

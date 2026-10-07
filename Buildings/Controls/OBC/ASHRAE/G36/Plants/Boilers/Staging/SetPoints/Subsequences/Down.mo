@@ -436,7 +436,7 @@ equation
           {-170,135},{-170,150},{-200,150}}, color={0,0,127}));
   connect(faiSafCon.TSup, THotWatSup)
     annotation (Line(points={{-162,130},{-170,130},{-170,120},{-200,120}},
-                                                     color={0,0,127}));
+          color={0,0,127}));
   connect(hys.u, div.y)
     annotation (Line(points={{-92,60},{-98,60}}, color={0,0,127}));
   connect(hys1.u, div1.y)
@@ -454,11 +454,9 @@ equation
   connect(uCur, extIndSig.index) annotation (Line(points={{-30,-220},{-30,-190},
           {-10,-190},{-10,-182}}, color={255,127,0}));
   connect(div.u1, uCapReq) annotation (Line(points={{-122,66},{-172,66},{-172,
-          60},{-200,60}},
-                      color={0,0,127}));
+          60},{-200,60}}, color={0,0,127}));
   connect(div1.u1, uCapReq) annotation (Line(points={{-122,-34},{-130,-34},{
-          -130,14},{-172,14},{-172,60},{-200,60}},
-                          color={0,0,127}));
+          -130,14},{-172,14},{-172,60},{-200,60}}, color={0,0,127}));
   connect(not2.u, hys.y)
     annotation (Line(points={{-54,60},{-68,60}}, color={255,0,255}));
   connect(hys1.y, not3.u)
@@ -466,25 +464,22 @@ equation
   connect(hys4.u, uBypValPos)
     annotation (Line(points={{-92,0},{-200,0}},  color={0,0,127}));
   connect(hys2.y, not4.u)
-    annotation (Line(points={{-124,-80},{-122,-80}},
-                                                   color={255,0,255}));
+    annotation (Line(points={{-124,-80},{-122,-80}}, color={255,0,255}));
   connect(extIndSig.y, reaToInt.u)
-    annotation (Line(points={{2,-170},{18,-170}},    color={0,0,127}));
+    annotation (Line(points={{2,-170},{18,-170}}, color={0,0,127}));
   connect(intGreThr.u, reaToInt.y)
-    annotation (Line(points={{58,-170},{42,-170}},   color={255,127,0}));
+    annotation (Line(points={{58,-170},{42,-170}}, color={255,127,0}));
   connect(intGreThr.y, logSwi.u2) annotation (Line(points={{82,-170},{94,-170},{
-          94,-40},{98,-40}},
-                          color={255,0,255}));
+          94,-40},{98,-40}}, color={255,0,255}));
   connect(intGreThr.y, or3.u2) annotation (Line(points={{82,-170},{94,-170},{94,
           -108},{138,-108}}, color={255,0,255}));
   connect(faiSafCon.yFaiCon, not1.u)
     annotation (Line(points={{-138,130},{-130,130},{-130,130},{-122,130}},
-                                                     color={255,0,255}));
+         color={255,0,255}));
   connect(not4.y, and2.u1) annotation (Line(points={{-98,-80},{-96,-80},{-96,-100},
           {-92,-100}}, color={255,0,255}));
   connect(hys3.y, and2.u2) annotation (Line(points={{-110,-180},{-98,-180},{-98,
-          -108},{-92,-108}},
-                       color={255,0,255}));
+          -108},{-92,-108}}, color={255,0,255}));
   connect(uStaChaProEnd, faiSafCon.uStaChaProEnd) annotation (Line(points={{-200,
           90},{-166,90},{-166,125},{-162,125}}, color={255,0,255}));
   connect(con2.y, extIndSig1.u)
@@ -494,19 +489,17 @@ equation
   connect(hys2.u,sub2. y)
     annotation (Line(points={{-148,-80},{-152,-80}}, color={0,0,127}));
   connect(uPumSpe,sub2. u1) annotation (Line(points={{-200,-60},{-176,-60},{
-          -176,-74}},       color={0,0,127}));
+          -176,-74}}, color={0,0,127}));
   connect(extIndSig1.y,sub2. u2) annotation (Line(points={{-118,-130},{-112,-130},
           {-112,-110},{-178,-110},{-178,-86},{-176,-86}}, color={0,0,127}));
   connect(tim3.u, and1.y)
-    annotation (Line(points={{8,50},{2,50}},     color={255,0,255}));
+    annotation (Line(points={{8,50},{2,50}}, color={255,0,255}));
   connect(and1.u1, not2.y)
-    annotation (Line(points={{-22,50},{-26,50},{-26,60},{-30,60}},
-                                                 color={255,0,255}));
+    annotation (Line(points={{-22,50},{-26,50},{-26,60},{-30,60}}, color={255,0,255}));
   connect(tim1.u, and4.y)
-    annotation (Line(points={{8,0},{2,0}},     color={255,0,255}));
+    annotation (Line(points={{8,0},{2,0}}, color={255,0,255}));
   connect(and5.y, tim.u)
-    annotation (Line(points={{2,-30},{38,-30},{38,-20},{48,-20}},
-                                                   color={255,0,255}));
+    annotation (Line(points={{2,-30},{38,-30},{38,-20},{48,-20}}, color={255,0,255}));
   connect(tim2.u, and6.y)
     annotation (Line(points={{-22,-100},{-28,-100}}, color={255,0,255}));
   connect(hys4.y, and4.u1)
@@ -521,12 +514,10 @@ equation
           {-22,-8}},color={255,0,255}));
   connect(not5.y, and6.u2) annotation (Line(points={{-98,90},{-60,90},{-60,-108},
           {-52,-108}}, color={255,0,255}));
-
   connect(tim3.passed, or2.u1) annotation (Line(points={{32,42},{40,42},{40,20},
           {58,20}},color={255,0,255}));
   connect(tim3.passed, or1.u1) annotation (Line(points={{32,42},{40,42},{40,
-          -100},{48,-100}},
-                     color={255,0,255}));
+          -100},{48,-100}}, color={255,0,255}));
   connect(tim1.passed, or2.u2) annotation (Line(points={{32,-8},{46,-8},{46,12},
           {58,12}},color={255,0,255}));
   connect(and5.y, tim4.u) annotation (Line(points={{2,-30},{38,-30},{38,-60},{
@@ -536,23 +527,21 @@ equation
   connect(tim4.passed, logSwi.u3) annotation (Line(points={{72,-68},{90,-68},{90,
           -48},{98,-48}}, color={255,0,255}));
   connect(tim2.passed, or1.u2) annotation (Line(points={{2,-108},{48,-108}},
-                      color={255,0,255}));
+          color={255,0,255}));
   connect(uCapMin, addParDivZer.u) annotation (Line(points={{-200,30},{-162,30}},
-                                color={0,0,127}));
+          color={0,0,127}));
   connect(addParDivZer.y, div.u2) annotation (Line(points={{-138,30},{-130,30},
-          {-130,54},{-122,54}},                    color={0,0,127}));
+          {-130,54},{-122,54}}, color={0,0,127}));
   connect(uCapDowDes, addParDivZer1.u) annotation (Line(points={{-200,-30},{
-          -176,-30},{-176,-50},{-162,-50}},
-                                       color={0,0,127}));
+          -176,-30},{-176,-50},{-162,-50}}, color={0,0,127}));
   connect(addParDivZer1.y, div1.u2) annotation (Line(points={{-138,-50},{-130,
-          -50},{-130,-46},{-122,-46}},                  color={0,0,127}));
+          -50},{-130,-46},{-122,-46}}, color={0,0,127}));
   connect(and7.y, yStaDow)
     annotation (Line(points={{202,0},{240,0}}, color={255,0,255}));
   connect(or3.y, and7.u2) annotation (Line(points={{162,-100},{170,-100},{170,
           -8},{178,-8}}, color={255,0,255}));
   connect(or2.y, and7.u2) annotation (Line(points={{82,20},{120,20},{120,-8},{
-          178,-8}},
-                color={255,0,255}));
+          178,-8}}, color={255,0,255}));
   connect(and3.y, and7.u1) annotation (Line(points={{162,50},{170,50},{170,0},{178,
           0}}, color={255,0,255}));
   connect(logSwi.y, and3.u2) annotation (Line(points={{122,-40},{130,-40},{130,42},

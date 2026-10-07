@@ -163,7 +163,7 @@ equation
   connect(uDesCap, cap.u) annotation (Line(points={{-220,180},{-120,180},{-120,150},
           {-102,150}}, color={0,0,127}));
   connect(uDesCap, dowCap.u) annotation (Line(points={{-220,180},{-140,180},{-140,
-          80},{-102,80}},                            color={0,0,127}));
+          80},{-102,80}}, color={0,0,127}));
   connect(uDesCap, upCap.u) annotation (Line(points={{-220,180},{-20,180},{-20,80},
           {-2,80}}, color={0,0,127}));
   connect(uLow, swi1.u2) annotation (Line(points={{-220,-60},{-140,-60},{-140,20},

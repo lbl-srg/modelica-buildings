@@ -9,23 +9,22 @@ package Boilers
     "Non-condensing boiler";
 
 annotation (defaultComponentName="boiTyp",
-  Documentation(info="<html>
-    <p>
-    This package provides constants that indicate the boiler type based on the
-    presence of flue gas heat recovery.
-    The boiler types are enumerated in an order that enables identification of stage
-    type as condensing or non-condensing.
-    </p>
-    </html>",
-    revisions="<html>
-    <ul>
-    <li>
-    May 21, 2020, by Karthik Devaprasad:<br/>
-    First implementation.
-    </li>
-    </ul>
-    </html>"),
-    Icon(graphics={
+Documentation(info="<html>
+<p>
+This package provides constants that indicate the boiler type based on the
+presence of flue gas heat recovery.
+The boiler types are enumerated in an order that enables identification of stage
+type as condensing or non-condensing.
+</p>
+</html>", revisions="<html>
+<ul>
+<li>
+May 21, 2020, by Karthik Devaprasad:<br/>
+First implementation.
+</li>
+</ul>
+</html>"),
+Icon(graphics={
          Rectangle(
            lineColor={200,200,200},
            fillColor={248,248,248},

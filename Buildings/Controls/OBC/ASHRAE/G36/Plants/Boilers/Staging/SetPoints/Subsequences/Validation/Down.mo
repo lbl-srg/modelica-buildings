@@ -317,14 +317,11 @@ equation
   connect(con2.y, staDow.uCapMin) annotation (Line(points={{-146,-20},{-142,-20},
           {-142,0},{-122,0}},color={0,0,127}));
   connect(pul3.y, staDow.uPumSpe) annotation (Line(points={{-148,-100},{-138,-100},
-          {-138,-9},{-122,-9}},
-                          color={0,0,127}));
+          {-138,-9},{-122,-9}}, color={0,0,127}));
   connect(pul2.y, staDow.TPriHotWatRet) annotation (Line(points={{-148,-140},{-134,
-          -140},{-134,-12},{-122,-12}},
-                                     color={0,0,127}));
+          -140},{-134,-12},{-122,-12}}, color={0,0,127}));
   connect(con1.y, staDow.TSecHotWatRet) annotation (Line(points={{-150,-180},{-128,
-          -180},{-128,-15},{-122,-15}},
-                                      color={0,0,127}));
+          -180},{-128,-15},{-122,-15}}, color={0,0,127}));
   connect(con5.y, staDow1.THotWatSupSet) annotation (Line(points={{-8,100},{8,100},
           {8,9},{18,9}},  color={0,0,127}));
   connect(pul4.y, staDow1.THotWatSup) annotation (Line(points={{-8,60},{4,60},{4,
@@ -332,17 +329,13 @@ equation
   connect(pul5.y, staDow1.uCapReq) annotation (Line(points={{-8,20},{0,20},{0,3},
           {18,3}},    color={0,0,127}));
   connect(con7.y, staDow1.uCapMin)
-    annotation (Line(points={{-10,-20},{0,-20},{0,0},{18,0}},
-                                                           color={0,0,127}));
+    annotation (Line(points={{-10,-20},{0,-20},{0,0},{18,0}}, color={0,0,127}));
   connect(pul7.y, staDow1.uPumSpe)
-    annotation (Line(points={{-8,-100},{8,-100},{8,-9},{18,-9}},
-                                                            color={0,0,127}));
+    annotation (Line(points={{-8,-100},{8,-100},{8,-9},{18,-9}}, color={0,0,127}));
   connect(pul6.y, staDow1.TPriHotWatRet) annotation (Line(points={{-8,-140},{12,
-          -140},{12,-12},{18,-12}},
-                           color={0,0,127}));
+          -140},{12,-12},{18,-12}}, color={0,0,127}));
   connect(con6.y, staDow1.TSecHotWatRet) annotation (Line(points={{-8,-180},{16,
-          -180},{16,-15},{18,-15}},
-                                  color={0,0,127}));
+          -180},{16,-15},{18,-15}}, color={0,0,127}));
   connect(con10.y, staDow2.THotWatSupSet) annotation (Line(points={{132,80},{144,
           80},{144,9},{158,9}},  color={0,0,127}));
   connect(pul8.y, staDow2.THotWatSup) annotation (Line(points={{132,40},{140,40},
@@ -350,34 +343,25 @@ equation
   connect(pul9.y, staDow2.uCapReq) annotation (Line(points={{132,-60},{140,-60},
           {140,3},{158,3}}, color={0,0,127}));
   connect(pul11.y, staDow2.uBypValPos) annotation (Line(points={{132,-180},{154,
-          -180},{154,-6},{158,-6}},
-                            color={0,0,127}));
+          -180},{154,-6},{158,-6}}, color={0,0,127}));
   connect(pul10.y, staDow.uCapDowDes) annotation (Line(points={{-146,-60},{-140,
-          -60},{-140,-3},{-122,-3}},
-                                color={0,0,127}));
+          -60},{-140,-3},{-122,-3}}, color={0,0,127}));
   connect(pul12.y, staDow1.uCapDowDes)
-    annotation (Line(points={{-8,-60},{4,-60},{4,-3},{18,-3}},
-                                                             color={0,0,127}));
+    annotation (Line(points={{-8,-60},{4,-60},{4,-3},{18,-3}}, color={0,0,127}));
   connect(pul13.y, staDow2.uCapDowDes) annotation (Line(points={{132,-140},{150,
-          -140},{150,-3},{158,-3}},
-                              color={0,0,127}));
+          -140},{150,-3},{158,-3}}, color={0,0,127}));
   connect(con13.y, staDow2.uCapMin) annotation (Line(points={{132,-100},{146,-100},
           {146,0},{158,0}},color={0,0,127}));
   connect(conInt1.y, staDow.uCur) annotation (Line(points={{-148,130},{-126,130},
-          {-126,12},{-122,12}},
-                             color={255,127,0}));
+          {-126,12},{-122,12}}, color={255,127,0}));
   connect(conInt2.y, staDow1.uTyp) annotation (Line(points={{-8,170},{14,170},{14,
-          14},{18,14},{18,15}},
-                     color={255,127,0}));
+          14},{18,14},{18,15}}, color={255,127,0}));
   connect(conInt3.y, staDow1.uCur) annotation (Line(points={{-8,130},{12,130},{12,
-          12},{18,12}},
-                     color={255,127,0}));
+          12},{18,12}}, color={255,127,0}));
   connect(conInt4.y, staDow2.uTyp) annotation (Line(points={{132,160},{152,160},
-          {152,14},{158,14},{158,15}},
-                            color={255,127,0}));
+          {152,14},{158,14},{158,15}}, color={255,127,0}));
   connect(conInt5.y, staDow2.uCur) annotation (Line(points={{132,120},{148,120},
-          {148,12},{158,12}},
-                            color={255,127,0}));
+          {148,12},{158,12}}, color={255,127,0}));
   connect(conInt.y, staDow.uTyp) annotation (Line(points={{-148,170},{-124,170},
           {-124,15},{-122,15}}, color={255,127,0}));
   connect(con3.y, staDow.uStaChaProEnd) annotation (Line(points={{-148,200},{-122,
@@ -391,11 +375,9 @@ equation
   connect(con12.y,staDow3. uCapMin) annotation (Line(points={{242,-100},{256,-100},
           {256,0},{268,0}},color={0,0,127}));
   connect(conInt6.y,staDow3. uTyp) annotation (Line(points={{242,160},{262,160},
-          {262,14},{268,14},{268,15}},
-                            color={255,127,0}));
+          {262,14},{268,14},{268,15}}, color={255,127,0}));
   connect(conInt7.y,staDow3. uCur) annotation (Line(points={{242,120},{258,120},
-          {258,12},{268,12}},
-                            color={255,127,0}));
+          {258,12},{268,12}}, color={255,127,0}));
   connect(booPul.y, edg.u)
     annotation (Line(points={{212,200},{218,200}}, color={255,0,255}));
   connect(edg.y, staDow3.uStaChaProEnd) annotation (Line(points={{242,200},{264,
@@ -415,20 +397,20 @@ annotation (
       Tolerance=1e-06),
   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/ASHRAE/G36/Plants/Boilers/Staging/SetPoints/Subsequences/Validation/Down.mos"
     "Simulate and plot"),
-  Documentation(info="<html>
-    <p>
-    This example validates
-    <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Staging.SetPoints.Subsequences.Down\">
-    Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Staging.SetPoints.Subsequences.Down</a>.
-    </p>
-    </html>", revisions="<html>
-    <ul>
-    <li>
-    May 28, 2020, by Karthik Devaprasad:<br/>
-    First implementation.
-    </li>
-    </ul>
-    </html>"),
+Documentation(info="<html>
+<p>
+This example validates
+<a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Staging.SetPoints.Subsequences.Down\">
+Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Staging.SetPoints.Subsequences.Down</a>.
+</p>
+</html>", revisions="<html>
+<ul>
+<li>
+May 28, 2020, by Karthik Devaprasad:<br/>
+First implementation.
+</li>
+</ul>
+</html>"),
   Icon(coordinateSystem(extent={{-100,-100},{100,100}}),
      graphics={
         Ellipse(lineColor = {75,138,73},

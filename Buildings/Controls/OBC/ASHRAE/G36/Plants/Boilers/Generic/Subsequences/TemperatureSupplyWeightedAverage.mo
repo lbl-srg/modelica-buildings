@@ -77,38 +77,27 @@ protected
 equation
 
   connect(uBoiSta, booToRea.u)
-    annotation (Line(points={{-140,60},{-112,60}},   color={255,0,255}));
-
+    annotation (Line(points={{-140,60},{-112,60}}, color={255,0,255}));
   connect(booToRea.y, pro1.u1) annotation (Line(points={{-88,60},{-82,60},{-82,46}},
-                           color={0,0,127}));
-
+          color={0,0,127}));
   connect(con.y, pro1.u2) annotation (Line(points={{-88,10},{-82,10},{-82,34}},
-                      color={0,0,127}));
-
+          color={0,0,127}));
   connect(reaRep.y, div.u2) annotation (Line(points={{32,-10},{36,-10},{36,34},{
-          38,34}},   color={0,0,127}));
-
+          38,34}}, color={0,0,127}));
   connect(pro1.y, div.u1) annotation (Line(points={{-58,40},{28,40},{28,46},{38,
-          46}},      color={0,0,127}));
-
+          46}}, color={0,0,127}));
   connect(div.y, pro.u1) annotation (Line(points={{62,40},{64,40},{64,48},{68,48}},
-                 color={0,0,127}));
-
+          color={0,0,127}));
   connect(THotWatBoiSup, pro.u2) annotation (Line(points={{-140,-60},{68,-60},{68,
-          36}},               color={0,0,127}));
-
+          36}}, color={0,0,127}));
   connect(mulSum1.u[1:nBoi], pro.y) annotation (Line(points={{84,0},{80,0},{80,28},
-          {102,28},{102,42},{92,42}},
-                          color={0,0,127}));
-
+          {102,28},{102,42},{92,42}}, color={0,0,127}));
   connect(mulSum.y, addPar.u)
     annotation (Line(points={{-28,-10},{-22,-10}}, color={0,0,127}));
   connect(reaRep.u, addPar.y)
     annotation (Line(points={{8,-10},{2,-10}},   color={0,0,127}));
   connect(pro1.y, mulSum.u[1:nBoi]) annotation (Line(points={{-58,40},{-54,40},{
-          -54,-10},{-52,-10}},
-                           color={0,0,127}));
-
+          -54,-10},{-52,-10}}, color={0,0,127}));
   connect(mulSum1.y, TSupAveWei)
     annotation (Line(points={{108,0},{140,0}}, color={0,0,127}));
 annotation (

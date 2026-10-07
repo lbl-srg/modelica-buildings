@@ -139,24 +139,19 @@ protected
 equation
   connect(zer.y, pumSpe.x1)
     annotation (Line(points={{-58,90},{40,90},{40,8},{58,8}}, color={0,0,127}));
-
   connect(pumSpe_min.y, pumSpe.f1)
-    annotation (Line(points={{-58,60},{30,60},{30,4},{58,4}},     color={0,0,127}));
-
+    annotation (Line(points={{-58,60},{30,60},{30,4},{58,4}}, color={0,0,127}));
   connect(one.y, pumSpe.x2)
     annotation (Line(points={{-58,30},{-24,30},{-24,112},{50,112},{50,-4},{58,
-          -4}},                                                   color={0,0,127}));
-
+          -4}}, color={0,0,127}));
   connect(pumSpe_max.y, pumSpe.f2)
     annotation (Line(points={{2,40},{20,40},{20,-8},{58,-8}}, color={0,0,127}));
-
   connect(uHotWatPum, mulOr.u[1:nPum]) annotation (Line(points={{-140,0},{-122,0},{
-          -122,0},{-102,0}},       color={255,0,255}));
+          -122,0},{-102,0}},  color={255,0,255}));
   connect(VHotWatPri_flow,sub2. u1) annotation (Line(points={{-140,-30},{-110,-30},
           {-110,-34},{-102,-34}}, color={0,0,127}));
   connect(VHotWatSec_flow,sub2. u2) annotation (Line(points={{-140,-60},{-106,-60},
           {-106,-46},{-102,-46}}, color={0,0,127}));
-
   connect(zer.y, conPID.u_s) annotation (Line(points={{-58,90},{-28,90},{-28,0},
           {-12,0}},color={0,0,127}));
   connect(mulOr.y, edg.u) annotation (Line(points={{-78,0},{-70,0},{-70,-20},{-62,
@@ -164,7 +159,7 @@ equation
   connect(edg.y, conPID.trigger)
     annotation (Line(points={{-38,-20},{-6,-20},{-6,-12}}, color={255,0,255}));
   connect(conPID.y, pumSpe.u)
-    annotation (Line(points={{12,0},{58,0}},                 color={0,0,127}));
+    annotation (Line(points={{12,0},{58,0}}, color={0,0,127}));
   connect(pumSpe.y, yHotWatPumSpe)
     annotation (Line(points={{82,0},{140,0}}, color={0,0,127}));
   connect(sub2.y, conPID.u_m)

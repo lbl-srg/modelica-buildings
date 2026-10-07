@@ -70,54 +70,42 @@ protected
     annotation (Placement(transformation(extent={{20,-50},{40,-30}})));
 
 equation
-
   connect(chaPro, and2.u2)
-    annotation (Line(points={{-180,-80},{-132,-80},{-132,-118},{-82,-118}},
-                                                      color={255,0,255}));
-
+    annotation (Line(points={{-180,-80},{-132,-80},{-132,-118},{-82,-118}}, color={255,0,255}));
   connect(not4.y, and4.u2)
-    annotation (Line(points={{-18,66},{-10,66},{-10,88},{-2,88}},
-      color={255,0,255}));
-
+    annotation (Line(points={{-18,66},{-10,66},{-10,88},{-2,88}}, color={255,0,255}));
   connect(not3.y, and4.u1)
     annotation (Line(points={{-18,96},{-2,96}},   color={255,0,255}));
-
   connect(and3.y, or2.u1)
     annotation (Line(points={{22,126},{38,126}}, color={255,0,255}));
-
   connect(and4.y, or2.u2)
-    annotation (Line(points={{22,96},{30,96},{30,118},{38,118}},
-      color={255,0,255}));
-
+    annotation (Line(points={{22,96},{30,96},{30,118},{38,118}}, color={255,0,255}));
   connect(and5.y,yDisHotWatIsoVal)
     annotation (Line(points={{122,46},{200,46}},   color={255,0,255}));
-
   connect(uUpsDevSta, and2.u1) annotation (Line(points={{-180,-40},{-100,-40},{-100,
-          -110},{-82,-110}},      color={255,0,255}));
-
+          -110},{-82,-110}}, color={255,0,255}));
   connect(or2.y, and5.u[1]) annotation (Line(points={{62,126},{98,126},{98,44.25}},
-                          color={255,0,255}));
+          color={255,0,255}));
   connect(uUpsDevSta, and5.u[2]) annotation (Line(points={{-180,-40},{-128,-40},
-          {-128,47.75},{98,47.75}},      color={255,0,255}));
+          {-128,47.75},{98,47.75}}, color={255,0,255}));
   connect(yHotWatIsoVal, pre.u) annotation (Line(points={{200,-40},{170,-40},{170,
-          0},{122,0}},     color={255,0,255}));
+          0},{122,0}}, color={255,0,255}));
   connect(pre.y, and3.u1) annotation (Line(points={{98,0},{-50,0},{-50,126},{-2,
-          126}},    color={255,0,255}));
+          126}}, color={255,0,255}));
   connect(pre.y, not3.u) annotation (Line(points={{98,0},{-50,0},{-50,96},{-42,96}},
-                     color={255,0,255}));
+          color={255,0,255}));
   connect(uHotWatIsoVal, and3.u2) annotation (Line(points={{-180,0},{-90,0},{-90,
-          118},{-2,118}},            color={255,0,255}));
+          118},{-2,118}}, color={255,0,255}));
   connect(uHotWatIsoVal, not4.u) annotation (Line(points={{-180,0},{-90,0},{-90,
-          66},{-42,66}},        color={255,0,255}));
+          66},{-42,66}}, color={255,0,255}));
   connect(and2.y, not1.u)
     annotation (Line(points={{-58,-110},{-42,-110}}, color={255,0,255}));
   connect(uHotWatIsoVal, and1.u1)
-    annotation (Line(points={{-180,0},{-82,0},{-82,-40},{18,-40}},
-                                                     color={255,0,255}));
+    annotation (Line(points={{-180,0},{-82,0},{-82,-40},{18,-40}}, color={255,0,255}));
   connect(not1.y, and1.u2) annotation (Line(points={{-18,-110},{10,-110},{10,-48},
-          {18,-48}},        color={255,0,255}));
+          {18,-48}}, color={255,0,255}));
   connect(and1.y, yHotWatIsoVal) annotation (Line(points={{42,-40},{200,-40}},
-                                color={255,0,255}));
+          color={255,0,255}));
 annotation (
   defaultComponentName="enaHotWatIsoVal",
   Diagram(
@@ -176,23 +164,24 @@ have been fully open")}),
         extent={{44,-54},{98,-66}},
         textColor={0,0,127},
         textString="yHotWatIsoVal")}),
-  Documentation(info="<html>
-  <p>
-  Block updates boiler hot water isolation valve command <code>yHotWatIsoVal</code>
-  when there is a plant disable command (<code>chaPro=true</code>). It will also
-  generate status <code>yDisHotWatIsoVal</code> to indicate if the valve status
-  change process has finished.
-  <br>
-  When there is a plant disable command (<code>chaPro=true</code>) and the boilers
-  being disabled have been shut off (<code>uUpsDevSta=true</code>),
-  the boiler's isolation valve will be fully closed.
-  </p>
-  </html>", revisions="<html>
-  <ul>
-  <li>
-  June 18, 2020, by Karthik Devaprasad:<br/>
-  First implementation.
-  </li>
-  </ul>
-  </html>"));
+Documentation(info="<html>
+<p>
+Block updates boiler hot water isolation valve command <code>yHotWatIsoVal</code>
+when there is a plant disable command (<code>chaPro=true</code>). It will also
+generate status <code>yDisHotWatIsoVal</code> to indicate if the valve status
+change process has finished.
+</p>
+<p>
+When there is a plant disable command (<code>chaPro=true</code>) and the boilers
+being disabled have been shut off (<code>uUpsDevSta=true</code>),
+the boiler's isolation valve will be fully closed.
+</p>
+</html>", revisions="<html>
+<ul>
+<li>
+June 18, 2020, by Karthik Devaprasad:<br/>
+First implementation.
+</li>
+</ul>
+</html>"));
 end HWIsoVal;

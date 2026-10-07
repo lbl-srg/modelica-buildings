@@ -53,13 +53,10 @@ protected
     annotation (Placement(transformation(extent={{40,-10},{60,10}})));
 
 equation
-
   connect(lim.y, gai.u)
     annotation (Line(points={{12,0},{38,0}}, color={0,0,127}));
-
   connect(gai.y, yRegSig)
     annotation (Line(points={{62,0},{120,0}}, color={0,0,127}));
-
   connect(THotWatRet, sub.u2) annotation (Line(points={{-120,0},{-80,0},{-80,-6},
           {-62,-6}}, color={0,0,127}));
   connect(con.y, sub.u1) annotation (Line(points={{-68,40},{-66,40},{-66,6},{-62,

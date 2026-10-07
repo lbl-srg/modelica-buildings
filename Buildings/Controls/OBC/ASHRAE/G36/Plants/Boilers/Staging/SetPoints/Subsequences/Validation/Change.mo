@@ -283,13 +283,11 @@ equation
   connect(zerOrdHol.y, reaToInt.u)
     annotation (Line(points={{82,190},{98,190}}, color={0,0,127}));
   connect(reaToInt.y, addInt.u2) annotation (Line(points={{122,190},{130,190},{
-          130,204},{138,204}},
-                           color={255,127,0}));
+          130,204},{138,204}}, color={255,127,0}));
   connect(reaToInt.y,subInt1. u1) annotation (Line(points={{122,190},{130,190},
           {130,176},{138,176}},color={255,127,0}));
   connect(step.y, addInt.u1) annotation (Line(points={{122,230},{130,230},{130,
-          216},{138,216}},
-                      color={255,127,0}));
+          216},{138,216}}, color={255,127,0}));
   connect(step.y,subInt1. u2) annotation (Line(points={{122,230},{126,230},{126,
           164},{138,164}}, color={255,127,0}));
   connect(addInt.y, cha.uAvaUp) annotation (Line(points={{162,210},{170,210},{170,
@@ -305,11 +303,9 @@ equation
   connect(reaToInt1.y,subInt3. u1) annotation (Line(points={{122,10},{130,10},{
           130,-4},{138,-4}},    color={255,127,0}));
   connect(step1.y, addInt2.u1) annotation (Line(points={{122,50},{130,50},{130,
-          36},{138,36}},
-                     color={255,127,0}));
+          36},{138,36}}, color={255,127,0}));
   connect(step1.y,subInt3. u2) annotation (Line(points={{122,50},{126,50},{126,
-          -16},{138,-16}},
-                      color={255,127,0}));
+          -16},{138,-16}}, color={255,127,0}));
   connect(addInt2.y, cha1.uAvaUp) annotation (Line(points={{162,30},{170,30},{170,
           70},{-50,70},{-50,12},{-42,12}}, color={255,127,0}));
   connect(timeTable2.y[1], greThr2.u)
@@ -321,17 +317,13 @@ equation
   connect(zerOrdHol2.y, reaToInt2.u)
     annotation (Line(points={{82,-170},{98,-170}}, color={0,0,127}));
   connect(reaToInt2.y, addInt4.u2) annotation (Line(points={{122,-170},{130,
-          -170},{130,-156},{138,-156}},
-                                  color={255,127,0}));
+          -170},{130,-156},{138,-156}}, color={255,127,0}));
   connect(reaToInt2.y,subInt5. u1) annotation (Line(points={{122,-170},{130,
-          -170},{130,-184},{138,-184}},
-                                  color={255,127,0}));
+          -170},{130,-184},{138,-184}}, color={255,127,0}));
   connect(step2.y, addInt4.u1) annotation (Line(points={{122,-130},{130,-130},{
-          130,-144},{138,-144}},
-                             color={255,127,0}));
+          130,-144},{138,-144}}, color={255,127,0}));
   connect(step2.y,subInt5. u2) annotation (Line(points={{122,-130},{126,-130},{
-          126,-196},{138,-196}},
-                             color={255,127,0}));
+          126,-196},{138,-196}}, color={255,127,0}));
   connect(addInt4.y, cha2.uAvaUp) annotation (Line(points={{162,-150},{170,-150},
           {170,-110},{-50,-110},{-50,-168},{-42,-168}}, color={255,127,0}));
   connect(noStaChaSig.y, cha.uDow) annotation (Line(points={{-178,110},{-170,110},
@@ -380,7 +372,6 @@ equation
           15},{-42,15}},    color={255,0,255}));
   connect(greThr1.y, cha2.uPla) annotation (Line(points={{-138,30},{-88,30},{-88,
           -165},{-42,-165}},     color={255,0,255}));
-
   connect(truFalHol2.y, truFalHol3.u)
     annotation (Line(points={{22,-230},{38,-230}}, color={255,0,255}));
   connect(truDel.u, truFalHol3.y)

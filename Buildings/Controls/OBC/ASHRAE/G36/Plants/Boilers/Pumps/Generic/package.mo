@@ -1,7 +1,6 @@
 within Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Pumps;
 package Generic "Generic sequences for both primary and secondary hot water pump control"
 
-
 annotation (
 preferredView="info", Documentation(info="<html>
 <p>

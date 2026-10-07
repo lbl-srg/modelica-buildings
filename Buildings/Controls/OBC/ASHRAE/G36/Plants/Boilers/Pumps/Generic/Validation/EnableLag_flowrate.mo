@@ -39,17 +39,13 @@ protected
 equation
   connect(con[1].y,enaLagPriPum. uHotWatPum[1]) annotation (Line(points={{-58,0},
           {-42,0},{-42,14.8667},{-22,14.8667}}, color={255,0,255}));
-
   connect(con[2].y,enaLagPriPum. uHotWatPum[2]) annotation (Line(points={{-58,0},
           {-42,0},{-42,16.2},{-22,16.2}}, color={255,0,255}));
-
   connect(con1.y,enaLagPriPum. uHotWatPum[3]) annotation (Line(points={{-58,-40},
           {-40,-40},{-40,17.5333},{-22,17.5333}}, color={255,0,255}));
-
   connect(sin.y,enaLagPriPum.VHotWat_flow)
     annotation (Line(points={{-58,40},{-40,40},{-40,24},{-22,24}},
       color={0,0,127}));
-
   connect(enaLagPriPum.yUp, nexLagPum.u) annotation (Line(points={{2,24},{16,24},
           {16,30},{28,30}}, color={255,0,255}));
   connect(enaLagPriPum.yDown, preLagPum.u) annotation (Line(points={{2,16},{16,16},

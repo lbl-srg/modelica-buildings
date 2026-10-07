@@ -171,36 +171,28 @@ equation
 
   connect(maxRemDP.y, locDpSet.u)
     annotation (Line(points={{62,-20},{98,-20}}, color={0,0,127}));
-
   connect(zer.y, locDpSet.x1)
     annotation (Line(points={{82,20},{90,20},{90,-12},{98,-12}}, color={0,0,127}));
-
   connect(locDp_min.y, locDpSet.f1)
     annotation (Line(points={{62,-60},{70,-60},{70,-16},{98,-16}},
       color={0,0,127}));
-
   connect(one.y, locDpSet.x2)
     annotation (Line(points={{-98,20},{40,20},{40,0},{80,0},{80,-24},{98,-24}},
       color={0,0,127}));
-
   connect(locDp_max.y, locDpSet.f2)
     annotation (Line(points={{62,-120},{80,-120},{80,-28},{98,-28}},
       color={0,0,127}));
-
   connect(dpHotWat_remote, div.u1)
     annotation (Line(points={{-160,-90},{-80,-90},{-80,-94},{-42,-94}},
       color={0,0,127}));
-
   connect(one.y, reaRep1.u)
     annotation (Line(points={{-98,20},{-90,20},{-90,0},{-82,0}}, color={0,0,127}));
-
   connect(hotPumSpe.yHotWatPumSpe, yHotWatPumSpe)
     annotation (Line(points={{82,90},{160,90}}, color={0,0,127}));
   connect(uHotWatPum, mulOr.u[1:nPum]) annotation (Line(points={{-160,-50},{
-          -102,-50}},                color={255,0,255}));
+          -102,-50}}, color={255,0,255}));
   connect(uHotWatPum, hotPumSpe.uHotWatPum) annotation (Line(points={{-160,-50},
           {-130,-50},{-130,98},{58,98}}, color={255,0,255}));
-
   connect(booRep.y, conPID.trigger)
     annotation (Line(points={{-18,-50},{4,-50},{4,-32}},color={255,0,255}));
   connect(div.y, conPID.u_m)
@@ -209,7 +201,6 @@ equation
           {-2,-20}}, color={0,0,127}));
   connect(conPID.y, maxRemDP.u[1:nSen]) annotation (Line(points={{22,-20},{30,-20},
           {30,-20},{38,-20}}, color={0,0,127}));
-
   connect(mulOr.y, booRep.u)
     annotation (Line(points={{-78,-50},{-42,-50}}, color={255,0,255}));
   connect(dpHotWatSet, div.u2) annotation (Line(points={{-160,-120},{-80,-120},{

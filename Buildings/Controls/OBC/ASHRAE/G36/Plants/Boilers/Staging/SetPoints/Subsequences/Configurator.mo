@@ -285,7 +285,6 @@ equation
   connect(pro2.y,yCapMin)
     annotation (Line(points={{-58,70},{80,70},{80,-20},{240,-20}},
       color={0,0,127}));
-
   connect(boiDesCaps.y,sub1. u2) annotation (Line(points={{-178,110},{-160,110},
           {-160,154},{-102,154}}, color={0,0,127}));
   connect(sort1.y,sub1. u1) annotation (Line(points={{-118,170},{-110,170},
@@ -311,56 +310,55 @@ equation
                      textString="%name")}),
     Diagram(coordinateSystem(preserveAspectRatio=false,
       extent={{-220,-200},{220,200}})),
-    Documentation(info="<html>
-      <p>
-      This subsequence is not directly specified in ASHRAE Guideline 36, 2021 
-      as it provides a side calculation pertaining to generalization of the staging 
-      sequences for any number of boilers and stages provided by the 
-      user.
-      </p>
-      <p>
-      Given the staging matrix input parameter <code>staMat</code> the staging
-      configurator calculates:
-      </p>
-      <ul>
-      <li>
-      Stage availability vector <code>yAva</code> from the boiler availability
-      <code>uBoiAva</code> input vector according to section 5.21.3.8.
-      </li>
-      <li>
-      Design stage capacity vector <code>yDesCap</code> from the design boiler
-      capacity vector input parameter <code>boiDesCap</code>.
-      </li>
-      <li>
-      Minimum stage capacity vector <code>yMinCap</code> from the boiler minimum
-      firing rate input parameter <code>boiMinCap</code> according to section
-      5.21.3.7.
-      </li>
-      <li>
-      Stage type vector <code>yTyp</code> from the boiler type vector input
-      parameter <code>boiTyp</code>. Boiler types are defined in
-      <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Types.Boilers\">
-      Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Types.Boilers</a>.<br/>
-      Stage type is based on the boiler types in that stage, and is classified
-      as:
-      <ol>
-      <li>
-      non-condensing, if any of the boilers in that stage are non-condensing boilers.
-      </li>
-      <li>
-      condensing, if all the boilers in that stage are condensing boilers.
-      </li>
-      </ol>
-      This stage type is used to determine the stage up and down conditions to apply.
-      </li>
-      </ul>
-      </html>",
-      revisions="<html>
-      <ul>
-      <li>
-      May 20, 2020, by Karthik Devaprasad:<br/>
-      First implementation.
-      </li>
-      </ul>
-      </html>"));
+Documentation(info="<html>
+<p>
+This subsequence is not directly specified in ASHRAE Guideline 36, 2021 
+as it provides a side calculation pertaining to generalization of the staging 
+sequences for any number of boilers and stages provided by the 
+user.
+</p>
+<p>
+Given the staging matrix input parameter <code>staMat</code> the staging
+configurator calculates:
+</p>
+<ul>
+<li>
+Stage availability vector <code>yAva</code> from the boiler availability
+<code>uBoiAva</code> input vector according to section 5.21.3.8.
+</li>
+<li>
+Design stage capacity vector <code>yDesCap</code> from the design boiler
+capacity vector input parameter <code>boiDesCap</code>.
+</li>
+<li>
+Minimum stage capacity vector <code>yMinCap</code> from the boiler minimum
+firing rate input parameter <code>boiMinCap</code> according to section
+5.21.3.7.
+</li>
+<li>
+Stage type vector <code>yTyp</code> from the boiler type vector input
+parameter <code>boiTyp</code>. Boiler types are defined in
+<a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Types.Boilers\">
+Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Types.Boilers</a>.<br/>
+Stage type is based on the boiler types in that stage, and is classified
+as:
+<ol>
+<li>
+non-condensing, if any of the boilers in that stage are non-condensing boilers.
+</li>
+<li>
+condensing, if all the boilers in that stage are condensing boilers.
+</li>
+</ol>
+This stage type is used to determine the stage up and down conditions to apply.
+</li>
+</ul>
+</html>", revisions="<html>
+<ul>
+<li>
+May 20, 2020, by Karthik Devaprasad:<br/>
+First implementation.
+</li>
+</ul>
+</html>"));
 end Configurator;

@@ -162,46 +162,32 @@ protected
 equation
   connect(VHotWat_flow,hotWatFloRat. u)
     annotation (Line(points={{-160,80},{-122,80}}, color={0,0,127}));
-
   connect(uHotWatPum,booToInt. u)
     annotation (Line(points={{-160,0},{-82,0}},  color={255,0,255}));
-
   connect(booToInt.y,numOpePum. u)
-    annotation (Line(points={{-58,0},{-42,0}},
-      color={255,127,0}));
-
+    annotation (Line(points={{-58,0},{-42,0}}, color={255,127,0}));
   connect(numOpePum.y,intToRea. u)
     annotation (Line(points={{-18,0},{-2,0}}, color={255,127,0}));
-
   connect(sub2.y,hys. u)
     annotation (Line(points={{-58,40},{-42,40}}, color={0,0,127}));
-
   connect(sub1.y,hys1. u)
     annotation (Line(points={{-58,-80},{-42,-80}}, color={0,0,127}));
-
   connect(addPar.y,sub2. u2)
     annotation (Line(points={{102,0},{120,0},{120,20},{-90,20},{-90,34},{-82,34}},
       color={0,0,127}));
-
   connect(intToRea.y, addPar1.u)
     annotation (Line(points={{22,0},{30,0},{30,-20},{-90,-20},{-90,-40},{-82,-40}},
       color={0,0,127}));
-
   connect(addPar2.y,sub1. u1)
     annotation (Line(points={{102,-40},{120,-40},{120,-60},{-90,-60},{-90,-74},{
-          -82,-74}},
-                  color={0,0,127}));
-
+          -82,-74}}, color={0,0,127}));
   connect(hotWatFloRat.y,sub2. u1)
     annotation (Line(points={{-98,80},{-90,80},{-90,46},{-82,46}}, color={0,0,127}));
-
   connect(hotWatFloRat.y,sub1. u2)
     annotation (Line(points={{-98,80},{-90,80},{-90,60},{-100,60},{-100,-86},
       {-82,-86}}, color={0,0,127}));
-
   connect(not3.y, yDown)
     annotation (Line(points={{122,-80},{160,-80}}, color={255,0,255}));
-
   connect(uHotWatPum, cha.u) annotation (Line(points={{-160,0},{-130,0},{-130,130},
           {-122,130}}, color={255,0,255}));
   connect(cha.y, mulOr.u[1:nPum]) annotation (Line(points={{-98,130},{-90,130},{-90,

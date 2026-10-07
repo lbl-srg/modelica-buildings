@@ -146,77 +146,52 @@ protected
 equation
   connect(intRep.u, uStaSet)
     annotation (Line(points={{-122,-80},{-180,-80}}, color={255,127,0}));
-
   connect(uStaTyp, intSwi.u1) annotation (Line(points={{-180,-20},{-150,-20},{
-          -150,-40},{-50,-40},{-50,-52},{-42,-52}},
-                           color={255,127,0}));
-
+          -150,-40},{-50,-40},{-50,-52},{-42,-52}}, color={255,127,0}));
   connect(conInt1.y, intSwi.u3) annotation (Line(points={{-58,-86},{-50,-86},{-50,
           -68},{-42,-68}}, color={255,127,0}));
-
   connect(intSwi.y, intToRea.u)
     annotation (Line(points={{-18,-60},{-12,-60}},color={255,127,0}));
-
   connect(uStaTyp, intToRea1.u)
     annotation (Line(points={{-180,-20},{-142,-20}}, color={255,127,0}));
-
   connect(intToRea1.y, extIndSig.u)
     annotation (Line(points={{-118,-20},{-102,-20}}, color={0,0,127}));
-
   connect(extIndSig.index, uStaSet) annotation (Line(points={{-90,-32},{-90,-34},
           {-130,-34},{-130,-80},{-180,-80}}, color={255,127,0}));
-
   connect(extIndSig.y, greThr1.u)
     annotation (Line(points={{-78,-20},{-62,-20}}, color={0,0,127}));
-
   connect(greThr1.y, and2.u1) annotation (Line(points={{-38,-20},{110,-20},{110,
           -30},{118,-30}}, color={255,0,255}));
-
   connect(logSwi.y, yHotWatSupTemRes)
     annotation (Line(points={{142,30},{180,30}}, color={255,0,255}));
-
   connect(truDel.u, uStaUp) annotation (Line(points={{-142,70},{-180,70},{-180,
           70}}, color={255,0,255}));
-
   connect(or2.u1, truDel.y) annotation (Line(points={{-102,50},{-110,50},{-110,
           70},{-118,70}}, color={255,0,255}));
-
   connect(and2.y, logSwi.u2) annotation (Line(points={{142,-30},{150,-30},{150,
           10},{110,10},{110,30},{118,30}}, color={255,0,255}));
-
   connect(uStaUp, logSwi.u3) annotation (Line(points={{-180,70},{-150,70},{-150,
           10},{100,10},{100,22},{118,22}}, color={255,0,255}));
-
   connect(hys.u, THotWatSup)
     annotation (Line(points={{-142,30},{-180,30}}, color={0,0,127}));
-
   connect(hys.y, or2.u2) annotation (Line(points={{-118,30},{-110,30},{-110,42},
           {-102,42}}, color={255,0,255}));
-
   connect(intRep.y, intLes.u2) annotation (Line(points={{-98,-80},{-90,-80},{-90,
           -68},{-82,-68}}, color={255,127,0}));
-
   connect(conInt.y, intLes.u1)
     annotation (Line(points={{-134,-60},{-82,-60}}, color={255,127,0}));
-
   connect(intLes.y, intSwi.u2)
     annotation (Line(points={{-58,-60},{-42,-60}}, color={255,0,255}));
-
   connect(intToRea.y, mulMax.u[1:nSta]) annotation (Line(points={{12,-60},{18,-60}},
-                                  color={0,0,127}));
-
+         color={0,0,127}));
   connect(intLesThr.y, and2.u2) annotation (Line(points={{102,-60},{110,-60},{110,
           -38},{118,-38}}, color={255,0,255}));
-
   connect(or2.y, and1.u1)
     annotation (Line(points={{-78,50},{-42,50}}, color={255,0,255}));
-
   connect(uStaUp, and1.u2) annotation (Line(points={{-180,70},{-150,70},{-150,
           10},{-50,10},{-50,42},{-42,42}}, color={255,0,255}));
-
   connect(and1.y, logSwi.u1) annotation (Line(points={{-18,50},{100,50},{100,38},
           {118,38}}, color={255,0,255}));
-
   connect(mulMax.y, reaToInt.u)
     annotation (Line(points={{42,-60},{48,-60}}, color={0,0,127}));
   connect(reaToInt.y, intLesThr.u)

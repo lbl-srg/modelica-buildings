@@ -353,8 +353,7 @@ equation
   connect(con12.y, hotWatSupTemRes4.uHotWatPumSta[2]) annotation (Line(points={{-38,-50},
           {-30,-50},{-30,-71.5},{-22,-71.5}},      color={255,0,255}));
   connect(ram2.y,reaToInt2. u)
-    annotation (Line(points={{-68,-80},{-62,-80}},
-                                                 color={0,0,127}));
+    annotation (Line(points={{-68,-80},{-62,-80}}, color={0,0,127}));
   connect(reaToInt2.y, hotWatSupTemRes4.nHotWatSupResReq) annotation (Line(
         points={{-38,-80},{-30,-80},{-30,-76},{-22,-76}}, color={255,127,0}));
   connect(con13.y, hotWatSupTemRes4.uStaCha) annotation (Line(points={{-38,-110},
@@ -387,18 +386,18 @@ equation
       Tolerance=1e-06),
     __Dymola_Commands(file="./Resources/Scripts/Dymola/Controls/OBC/ASHRAE/G36/Plants/Boilers/SetPoints/Validation/HotWaterSupplyTemperatureReset.mos"
         "Simulate and plot"),
-    Documentation(info="<html>
-      <p>
-      This example validates
-      <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.SetPoints.HotWaterSupplyTemperatureReset\">
-      Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.SetPoints.HotWaterSupplyTemperatureReset</a>.
-      </p>
-      </html>", revisions="<html>
-      <ul>
-      <li>
-      May 19, 2020, by Karthik Devaprasad:<br/>
-      First implementation.
-      </li>
-      </ul>
-      </html>"));
+Documentation(info="<html>
+<p>
+This example validates
+<a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.SetPoints.HotWaterSupplyTemperatureReset\">
+Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.SetPoints.HotWaterSupplyTemperatureReset</a>.
+</p>
+</html>", revisions="<html>
+<ul>
+<li>
+May 19, 2020, by Karthik Devaprasad:<br/>
+First implementation.
+</li>
+</ul>
+</html>"));
 end HotWaterSupplyTemperatureReset;

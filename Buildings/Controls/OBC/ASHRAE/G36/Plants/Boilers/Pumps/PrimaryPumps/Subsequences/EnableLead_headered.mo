@@ -6,7 +6,7 @@ block EnableLead_headered
   parameter Integer nBoi=3
     "Total number of hot water isolation valves (same as number of boilers)";
 
-  CDL.Interfaces.BooleanInput                     uHotWatIsoVal[nBoi]
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uHotWatIsoVal[nBoi]
     "Hot water isolation valve status"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
 
@@ -36,17 +36,13 @@ protected
 equation
   connect(con.y,leaPumSta. u1)
     annotation (Line(points={{-18,40},{30,40},{30,8},{38,8}},color={255,0,255}));
-
   connect(con1.y,leaPumSta. u3)
     annotation (Line(points={{-18,-40},{30,-40},{30,-8},{38,-8}},
       color={255,0,255}));
-
   connect(leaPumSta.y, yLea)
     annotation (Line(points={{62,0},{120,0}}, color={255,0,255}));
-
   connect(mulOr.y, leaPumSta.u2)
     annotation (Line(points={{-18,0},{38,0}}, color={255,0,255}));
-
   connect(uHotWatIsoVal, mulOr.u)
     annotation (Line(points={{-120,0},{-42,0}}, color={255,0,255}));
 annotation (

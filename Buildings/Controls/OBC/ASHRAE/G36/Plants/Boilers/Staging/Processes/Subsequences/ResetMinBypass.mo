@@ -104,67 +104,50 @@ protected
 equation
   connect(uUpsDevSta, and2.u1)
     annotation (Line(points={{-180,80},{-82,80}}, color={255,0,255}));
-
   connect(chaPro, and2.u2)
     annotation (Line(points={{-180,40},{-140,40},{-140,72},{-82,72}},
       color={255,0,255}));
-
   connect(and1.y,yMinBypRes)
     annotation (Line(points={{142,80},{180,80}}, color={255,0,255}));
-
   connect(chaPro, not1.u)
     annotation (Line(points={{-180,40},{-140,40},{-140,20},{-122,20}},
       color={255,0,255}));
-
   connect(VMinHotWatSet_flow, addPar.u)
     annotation (Line(points={{-180,-80},{-142,-80}}, color={0,0,127}));
-
   connect(div.y, hys.u)
     annotation (Line(points={{-78,-60},{-62,-60}}, color={0,0,127}));
-
   connect(not1.y, edg1.u)
     annotation (Line(points={{-98,20},{-82,20}}, color={255,0,255}));
-
   connect(edg1.y, lat.clr)
     annotation (Line(points={{-58,20},{70,20},{70,34},{78,34}},
       color={255,0,255}));
-
   connect(and3.y, tim.u)
     annotation (Line(points={{22,-20},{38,-20}},  color={255,0,255}));
-
   connect(addPar.y, div.u2)
     annotation (Line(points={{-118,-80},{-110,-80},{-110,-66},{-102,-66}},
       color={0,0,127}));
-
   connect(and3.y, edg2.u)
     annotation (Line(points={{22,-20},{30,-20},{30,40},{38,40}},
       color={255,0,255}));
-
   connect(edg2.y, lat.u)
     annotation (Line(points={{62,40},{78,40}}, color={255,0,255}));
-
   connect(and2.y, and3.u1)
     annotation (Line(points={{-58,80},{-10,80},{-10,-20},{-2,-20}},
       color={255,0,255}));
-
   connect(sub2.u1, VHotWat_flow) annotation (Line(points={{-150,-14},{-154,-14},
           {-154,-20},{-180,-20}}, color={0,0,127}));
-
   connect(sub2.u2, VMinHotWatSet_flow) annotation (Line(points={{-150,-26},{-154,
           -26},{-154,-80},{-180,-80}}, color={0,0,127}));
-
   connect(hys.y, and3.u2) annotation (Line(points={{-38,-60},{-10,-60},{-10,-28},
           {-2,-28}}, color={255,0,255}));
   connect(sub2.y, div.u1) annotation (Line(points={{-126,-20},{-110,-20},{-110,-54},
           {-102,-54}}, color={0,0,127}));
   connect(and2.y, and1.u[1]) annotation (Line(points={{-58,80},{32,80},{32,
-          77.6667},{118,77.6667}},
-                          color={255,0,255}));
+          77.6667},{118,77.6667}}, color={255,0,255}));
   connect(lat.y, and1.u[2]) annotation (Line(points={{102,40},{112,40},{112,80},
           {118,80}}, color={255,0,255}));
   connect(tim.passed, and1.u[3]) annotation (Line(points={{62,-28},{114,-28},{
-          114,72},{118,72},{118,82.3333}},
-                                       color={255,0,255}));
+          114,72},{118,72},{118,82.3333}}, color={255,0,255}));
 annotation (
   defaultComponentName="minBypRes",
   Icon(graphics={

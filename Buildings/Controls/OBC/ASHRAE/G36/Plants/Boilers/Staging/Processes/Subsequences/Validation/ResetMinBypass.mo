@@ -47,22 +47,16 @@ protected
 equation
   connect(booPul2.y, upStrDev.u)
     annotation (Line(points={{-58,60},{-42,60}}, color={255,0,255}));
-
   connect(booPul1.y, staUp.u)
     annotation (Line(points={{-58,20},{-42,20}}, color={255,0,255}));
-
   connect(upStrDev.y, minBypRes.uUpsDevSta)
     annotation (Line(points={{-18,60},{16,60},{16,8},{38,8}}, color={255,0,255}));
-
   connect(staUp.y, minBypRes.chaPro)
     annotation (Line(points={{-18,20},{12,20},{12,4},{38,4}}, color={255,0,255}));
-
   connect(meaFlo.y,minBypRes.VHotWat_flow)
-    annotation (Line(points={{-18,-20},{12,-20},{12,-4},{38,-4}},
-                                                                color={0,0,127}));
-
+    annotation (Line(points={{-18,-20},{12,-20},{12,-4},{38,-4}}, color={0,0,127}));
   connect(minFloSet.y, minBypRes.VMinHotWatSet_flow) annotation (Line(points={{-18,-60},
-          {16,-60},{16,-8},{38,-8}},          color={0,0,127}));
+          {16,-60},{16,-8},{38,-8}}, color={0,0,127}));
 
 annotation (
  experiment(StopTime=600, Tolerance=1e-06),

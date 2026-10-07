@@ -494,20 +494,20 @@ equation
     experiment(
       StopTime=7500,
       Tolerance=1e-06),
-      __Dymola_Commands(file="./Resources/Scripts/Dymola/Controls/OBC/ASHRAE/G36/Plants/Boilers/Validation/PrimaryController.mos"
+__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/ASHRAE/G36/Plants/Boilers/Validation/PrimaryController.mos"
         "Simulate and plot"),
-    Documentation(info="<html>
-      <p>
-      This example validates
-      <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.PrimaryController\">
-      Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.PrimaryController</a>.
-      </p>
-      </html>", revisions="<html>
-      <ul>
-      <li>
-      November 4, 2020, by Karthik Devaprasad:<br/>
-      First implementation.
-      </li>
-      </ul>
-      </html>"));
+Documentation(info="<html>
+<p>
+This example validates
+<a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.PrimaryController\">
+Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.PrimaryController</a>.
+</p>
+</html>", revisions="<html>
+<ul>
+<li>
+November 4, 2020, by Karthik Devaprasad:<br/>
+First implementation.
+</li>
+</ul>
+</html>"));
 end PrimaryController;

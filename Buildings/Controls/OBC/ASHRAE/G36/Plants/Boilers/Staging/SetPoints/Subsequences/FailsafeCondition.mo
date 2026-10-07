@@ -91,7 +91,6 @@ equation
           {-2,-8}}, color={255,0,255}));
   connect(and2.y, tim.u)
     annotation (Line(points={{22,0},{38,0}}, color={255,0,255}));
-
   connect(tim.passed, yFaiCon) annotation (Line(points={{62,-8},{70,-8},{70,0},{
           140,0}}, color={255,0,255}));
 annotation (defaultComponentName = "faiSafCon",
@@ -109,26 +108,25 @@ annotation (defaultComponentName = "faiSafCon",
   Diagram(coordinateSystem(
     preserveAspectRatio=false,
     extent={{-120,-120},{120,120}})),
-  Documentation(info="<html>
-    <p>
-    Failsafe condition used in staging up and down, implemented according to
-    the specification provided in section 5.21.3.9, subsections f.3, h.3, j.3
-    and k.3 in ASHRAE Guideline 36, 2021. Timer reset has been implemented
-    according to 5.21.3.9, item b.
-    </p>
-    <p align=\"center\">
-    <img alt=\"State-machine chart for FailsafeCondition\"
-    src=\"modelica://Buildings/Resources/Images/Controls/OBC/ASHRAE/G36/Plants/Boilers/Staging/SetPoints/Subsequences/FailsafeCondition_stateMachineChart.png\"/>
-    <br/>
-    State-machine chart for the sequence defined in Guideline 36
-    </p>
-    </html>",
-    revisions="<html>
-    <ul>
-    <li>
-    May 21, 2020, by Karthik Devaprasad:<br/>
-    First implementation.
-    </li>
-    </ul>
-    </html>"));
+Documentation(info="<html>
+<p>
+Failsafe condition used in staging up and down, implemented according to
+the specification provided in section 5.21.3.9, subsections f.3, h.3, j.3
+and k.3 in ASHRAE Guideline 36, 2021. Timer reset has been implemented
+according to 5.21.3.9, item b.
+</p>
+<p align=\"center\">
+<img alt=\"State-machine chart for FailsafeCondition\"
+src=\"modelica://Buildings/Resources/Images/Controls/OBC/ASHRAE/G36/Plants/Boilers/Staging/SetPoints/Subsequences/FailsafeCondition_stateMachineChart.png\"/>
+<br/>
+State-machine chart for the sequence defined in Guideline 36
+</p>
+</html>", revisions="<html>
+<ul>
+<li>
+May 21, 2020, by Karthik Devaprasad:<br/>
+First implementation.
+</li>
+</ul>
+</html>"));
 end FailsafeCondition;

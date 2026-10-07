@@ -125,37 +125,26 @@ protected
 equation
   connect(sin.y, conSet.THotWatRet) annotation (Line(points={{-58,80},{-50,80},{
           -50,56},{-42,56}}, color={0,0,127}));
-
   connect(sin2.y, conSet2.THotWatRet) annotation (Line(points={{-58,-20},{-50,-20},
           {-50,-44},{-42,-44}}, color={0,0,127}));
-
   connect(sin3.y, conSet3.THotWatRet) annotation (Line(points={{42,-20},{50,-20},
           {50,-44},{58,-44}}, color={0,0,127}));
-
   connect(conInt.y, conSet.uCurSta)
     annotation (Line(points={{-58,50},{-42,50}}, color={255,127,0}));
-
   connect(conInt1.y, conSet1.uCurSta)
     annotation (Line(points={{42,50},{58,50}}, color={255,127,0}));
-
   connect(conInt2.y, conSet2.uCurSta)
     annotation (Line(points={{-58,-50},{-42,-50}}, color={255,127,0}));
-
   connect(conInt3.y, conSet3.uCurSta)
     annotation (Line(points={{42,-50},{58,-50}}, color={255,127,0}));
-
   connect(conInt4.y, conSet.uStaTyp) annotation (Line(points={{-58,20},{-50,20},
           {-50,44},{-42,44}}, color={255,127,0}));
-
   connect(conInt5.y, conSet1.uStaTyp) annotation (Line(points={{42,20},{50,20},{
           50,44},{58,44}}, color={255,127,0}));
-
   connect(conInt6.y, conSet2.uStaTyp) annotation (Line(points={{-58,-80},{-50,-80},
           {-50,-56},{-42,-56}}, color={255,127,0}));
-
   connect(conInt7.y, conSet3.uStaTyp) annotation (Line(points={{42,-80},{50,-80},
           {50,-56},{58,-56}}, color={255,127,0}));
-
   connect(sin1.y, conSet1.THotWatRet) annotation (Line(points={{42,80},{50,80},
           {50,56},{58,56}}, color={0,0,127}));
 
@@ -178,20 +167,20 @@ equation
       StopTime=60,
       Interval=1,
       Tolerance=1e-06),
-      __Dymola_Commands(file="./Resources/Scripts/Dymola/Controls/OBC/ASHRAE/G36/Plants/Boilers/SetPoints/Validation/CondensationControl.mos"
+      __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/ASHRAE/G36/Plants/Boilers/SetPoints/Validation/CondensationControl.mos"
         "Simulate and plot"),
-    Documentation(info="<html>
-      <p>
-      This example validates
-      <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.SetPoints.CondensationControl\">
-      Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.SetPoints.CondensationControl</a>.
-      </p>
-      </html>", revisions="<html>
-      <ul>
-      <li>
-      May 7, 2020, by Karthik Devaprasad:<br/>
-      First implementation.
-      </li>
-      </ul>
-      </html>"));
+Documentation(info="<html>
+<p>
+This example validates
+<a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.SetPoints.CondensationControl\">
+Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.SetPoints.CondensationControl</a>.
+</p>
+</html>", revisions="<html>
+<ul>
+<li>
+May 7, 2020, by Karthik Devaprasad:<br/>
+First implementation.
+</li>
+</ul>
+</html>"));
 end CondensationControl;

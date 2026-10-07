@@ -168,117 +168,78 @@ protected
 equation
   connect(booRep.y,enaBoi. clr) annotation (Line(points={{-138,-160},{-130,-160},
           {-130,34},{-122,34}},   color={255,0,255}));
-
   connect(booRep.y,disBoi. clr) annotation (Line(points={{-138,-160},{-130,-160},
           {-130,-106},{-122,-106}}, color={255,0,255}));
-
   connect(enaBoi.y,anyEnaBoi. u) annotation (Line(points={{-98,40},{-90,40},{-90,
           -20},{-82,-20}},color={255,0,255}));
-
   connect(anyEnaBoi.y, enaDis.u1) annotation (Line(points={{-58,-20},{-22,-20}},
-                          color={255,0,255}));
-
+          color={255,0,255}));
   connect(disBoi.y,anyDisBoi. u) annotation (Line(points={{-98,-100},{-90,-100},
           {-90,-60},{-82,-60}},color={255,0,255}));
-
   connect(anyDisBoi.y, enaDis.u2) annotation (Line(points={{-58,-60},{-30,-60},{
           -30,-28},{-22,-28}}, color={255,0,255}));
-
   connect(enaDis.y, yOnOff) annotation (Line(points={{2,-20},{240,-20}},
                color={255,0,255}));
-
   connect(uStaSet, cha.u)
     annotation (Line(points={{-240,110},{-202,110}}, color={255,127,0}));
-
   connect(disBoi.y, booToInt1.u)
     annotation (Line(points={{-98,-100},{-82,-100}}, color={255,0,255}));
-
   connect(enaBoi.y, booToInt.u)
     annotation (Line(points={{-98,40},{-82,40}}, color={255,0,255}));
-
   connect(booToInt.y, proInt.u1) annotation (Line(points={{-58,40},{-40,40},{-40,
           46},{-22,46}}, color={255,127,0}));
-
   connect(booToInt1.y, proInt1.u2) annotation (Line(points={{-58,-100},{-40,-100},
           {-40,-106},{-22,-106}}, color={255,127,0}));
-
   connect(boiIndVec.y, proInt.u2) annotation (Line(points={{-98,0},{-40,0},{-40,
           34},{-22,34}}, color={255,127,0}));
-
   connect(proInt.y,enaBoiInd. u)
     annotation (Line(points={{2,40},{18,40}}, color={255,127,0}));
-
   connect(boiIndVec.y, proInt1.u1) annotation (Line(points={{-98,0},{-40,0},{-40,
           -94},{-22,-94}}, color={255,127,0}));
-
   connect(proInt1.y,disBoiInd. u)
     annotation (Line(points={{2,-100},{18,-100}}, color={255,127,0}));
-
   connect(enaDis.y, booToInt2.u) annotation (Line(points={{2,-20},{20,-20},{20,-60},
           {38,-60}}, color={255,0,255}));
-
   connect(upPro.y, booToInt3.u)
     annotation (Line(points={{-98,130},{-82,130}}, color={255,0,255}));
-
   connect(booToInt3.y, proInt2.u1) annotation (Line(points={{-58,130},{-20,130},
           {-20,166},{118,166}}, color={255,127,0}));
-
   connect(enaBoiInd.y, proInt2.u2) annotation (Line(points={{42,40},{80,40},{80,
           154},{118,154}}, color={255,127,0}));
-
   connect(proInt2.y,yNexEnaBoi)
     annotation (Line(points={{142,160},{240,160}}, color={255,127,0}));
-
   connect(booToInt3.y, proInt3.u1) annotation (Line(points={{-58,130},{-20,130},
           {-20,126},{118,126}},color={255,127,0}));
-
   connect(booToInt2.y, proInt3.u2) annotation (Line(points={{62,-60},{70,-60},{70,
           114},{118,114}},color={255,127,0}));
-
   connect(proInt3.y, proInt4.u1) annotation (Line(points={{142,120},{160,120},{160,
           116},{178,116}}, color={255,127,0}));
-
   connect(disBoiInd.y, proInt4.u2) annotation (Line(points={{42,-100},{90,-100},
           {90,104},{178,104}}, color={255,127,0}));
-
   connect(proInt4.y,yDisSmaBoi)
     annotation (Line(points={{202,110},{240,110}}, color={255,127,0}));
-
   connect(dowPro.y, booToInt4.u)
     annotation (Line(points={{-98,90},{-82,90}}, color={255,0,255}));
-
   connect(booToInt4.y, proInt5.u1) annotation (Line(points={{-58,90},{100,90},{
-          100,-94},{118,-94}},
-                           color={255,127,0}));
-
+          100,-94},{118,-94}}, color={255,127,0}));
   connect(disBoiInd.y, proInt5.u2) annotation (Line(points={{42,-100},{90,-100},
           {90,-106},{118,-106}}, color={255,127,0}));
-
   connect(proInt5.y,yLasDisBoi)
     annotation (Line(points={{142,-100},{240,-100}}, color={255,127,0}));
-
   connect(booToInt2.y, proInt6.u2) annotation (Line(points={{62,-60},{70,-60},{70,
           -146},{118,-146}}, color={255,127,0}));
-
   connect(booToInt4.y, proInt6.u1) annotation (Line(points={{-58,90},{100,90},{
-          100,-134},{118,-134}},
-                             color={255,127,0}));
-
+          100,-134},{118,-134}}, color={255,127,0}));
   connect(proInt6.y, proInt7.u1) annotation (Line(points={{142,-140},{160,-140},
           {160,-154},{178,-154}}, color={255,127,0}));
-
   connect(enaBoiInd.y, proInt7.u2) annotation (Line(points={{42,40},{80,40},{80,
           -166},{178,-166}}, color={255,127,0}));
-
   connect(proInt7.y,yEnaSmaBoi)
     annotation (Line(points={{202,-160},{240,-160}}, color={255,127,0}));
-
   connect(falEdg.u, uBoiSet) annotation (Line(points={{-202,-100},{-212,-100},{
           -212,0},{-240,0}}, color={255,0,255}));
-
   connect(edg.u, uBoiSet) annotation (Line(points={{-202,40},{-212,40},{-212,0},
           {-240,0}}, color={255,0,255}));
-
   connect(falEdg.y, disBoi.u)
     annotation (Line(points={{-178,-100},{-122,-100}}, color={255,0,255}));
   connect(edg.y, enaBoi.u)
@@ -287,7 +248,6 @@ equation
           130},{-122,130}}, color={255,0,255}));
   connect(cha.down, dowPro.u) annotation (Line(points={{-178,104},{-140,104},{
           -140,90},{-122,90}}, color={255,0,255}));
-
   connect(uStaChaPro, booRep.u)
     annotation (Line(points={{-240,-160},{-162,-160}}, color={255,0,255}));
   connect(uStaChaPro, upPro.clr) annotation (Line(points={{-240,-160},{-170,-160},
@@ -355,8 +315,7 @@ This block identifies index of next enabled boiler (<code>yNexEnaBoi</code> and
 This implementation assumes that the stage-up process (increased <code>uStaSet</code>)
 will enable only one more boiler (<code>yOnOff=false</code>), or enable a larger
 boiler and disable a smaller boiler (<code>yOnOff=true</code>);
- the stage-down
-process (decreased <code>uStaSet</code>) will disable only one existing boiler
+the stage-down process (decreased <code>uStaSet</code>) will disable only one existing boiler
 (<code>yOnOff=false</code>), or disable a larger boiler and enable a smaller
 boiler (<code>yOnOff=true</code>).
 </p>

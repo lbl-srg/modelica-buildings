@@ -194,55 +194,38 @@ equation
   connect(zer.y, swi.u3)
     annotation (Line(points={{-38,80},{-34,80},{-34,92},{78,92}},
       color={0,0,127}));
-
   connect(swi.y,yHotWatPumSpe)
     annotation (Line(points={{102,100},{140,100}}, color={0,0,127}));
-
   connect(uHotWatPum, mulOr.u[1:nPum]) annotation (Line(points={{-140,100},{-102,
-          100}},                   color={255,0,255}));
-
+          100}}, color={255,0,255}));
   connect(mulOr.y, swi.u2) annotation (Line(points={{-78,100},{78,100}},
-                 color={255,0,255}));
-
+          color={255,0,255}));
   connect(THotWatPri,sub2. u1) annotation (Line(points={{-140,50},{-114,50},{-114,
-          36},{-102,36}},   color={0,0,127}));
-
+          36},{-102,36}}, color={0,0,127}));
   connect(THotWatSec,sub2. u2) annotation (Line(points={{-140,0},{-110,0},{-110,
-          24},{-102,24}},   color={0,0,127}));
-
+          24},{-102,24}},  color={0,0,127}));
   connect(sub2.y, hys.u) annotation (Line(points={{-78,30},{-70,30},{-70,50},{-62,
           50}}, color={0,0,127}));
-
   connect(sub2.y, hys1.u) annotation (Line(points={{-78,30},{-70,30},{-70,10},{-62,
           10}}, color={0,0,127}));
-
   connect(hys1.y, intSwi.u2)
     annotation (Line(points={{-38,10},{8,10}},  color={255,0,255}));
-
   connect(conInt.y, intSwi.u1) annotation (Line(points={{-8,30},{-4,30},{-4,18},
-          {8,18}},      color={255,127,0}));
-
+          {8,18}}, color={255,127,0}));
   connect(conInt1.y, intSwi.u3) annotation (Line(points={{-8,-10},{-4,-10},{-4,2},
           {8,2}},  color={255,127,0}));
-
   connect(hys.y, intSwi1.u2)
     annotation (Line(points={{-38,50},{38,50}}, color={255,0,255}));
-
   connect(intSwi.y, intSwi1.u3) annotation (Line(points={{32,10},{36,10},{36,42},
           {38,42}}, color={255,127,0}));
-
   connect(conInt2.y, intSwi1.u1) annotation (Line(points={{-8,70},{36,70},{36,58},
           {38,58}}, color={255,127,0}));
-
   connect(intSwi1.y, triRes.numOfReq) annotation (Line(points={{62,50},{68,50},{
           68,42},{78,42}}, color={255,127,0}));
-
   connect(mulOr.y, triRes.uDevSta) annotation (Line(points={{-78,100},{68,100},{
           68,58},{78,58}}, color={255,0,255}));
-
   connect(triRes.y, swi.u1) annotation (Line(points={{102,50},{110,50},{110,80},
           {70,80},{70,108},{78,108}},color={0,0,127}));
-
   connect(THotWatBoiSupWeiAve, sub2.u1) annotation (Line(points={{-140,-60},{-114,
           -60},{-114,36},{-102,36}}, color={0,0,127}));
 annotation (

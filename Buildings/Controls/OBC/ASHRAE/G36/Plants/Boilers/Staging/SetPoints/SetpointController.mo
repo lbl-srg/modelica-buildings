@@ -420,18 +420,16 @@ protected
 
 equation
   connect(uPla, cha.uPla) annotation (Line(points={{-420,-100},{-280,-100},{-280,
-          -140},{-60,-140},{-60,-165},{-22,-165}},
-                                             color={255,0,255}));
+          -140},{-60,-140},{-60,-165},{-22,-165}}, color={255,0,255}));
   connect(cha.ySta, ySta) annotation (Line(points={{2,-164},{20,-164},{20,140},{
           140,140}}, color={255,127,0}));
   connect(boiInd.yBoi,yBoi)
     annotation (Line(points={{62,-200},{102,-200},{102,-60},{140,-60}},
-                                                     color={255,0,255}));
+          color={255,0,255}));
   connect(cha.ySta,boiInd. u) annotation (Line(points={{2,-164},{20,-164},{20,
           -200},{38,-200}},  color={255,127,0}));
   connect(capReq1.TSupSet, THotWatSupSet) annotation (Line(points={{-362,257},{
-          -380,257},{-380,290},{-420,290}},
-                                       color={0,0,127}));
+          -380,257},{-380,290},{-420,290}}, color={0,0,127}));
   connect(conf.uBoiAva,uBoiAva)  annotation (Line(points={{-382,-170},{-402,-170},
           {-402,-190},{-420,-190}}, color={255,0,255}));
   connect(sta.uAva, conf.yAva) annotation (Line(points={{-312,-216},{-332,-216},
@@ -443,8 +441,7 @@ equation
   connect(conf.yCapMin, cap.uMinCap) annotation (Line(points={{-358,-168},{-340,
           -168},{-340,-164},{-272,-164}}, color={0,0,127}));
   connect(cap.u, u) annotation (Line(points={{-272,-167},{-308,-167},{-308,-168},
-          {-328,-168},{-328,-130},{-420,-130}},
-                                              color={255,127,0}));
+          {-328,-168},{-328,-130},{-420,-130}}, color={255,127,0}));
   connect(sta.yAvaUp, cap.uUp) annotation (Line(points={{-288,-203},{-280,-203},
           {-280,-170},{-272,-170}}, color={255,127,0}));
   connect(sta.yAvaDow, cap.uDown) annotation (Line(points={{-288,-206},{-278,-206},
@@ -454,22 +451,17 @@ equation
   connect(sta.yLow, cap.uLow) annotation (Line(points={{-288,-214},{-274,-214},{
           -274,-179},{-272,-179}}, color={255,0,255}));
   connect(cap.yDes, staUp.uCapDes) annotation (Line(points={{-248,-162},{-210,
-          -162},{-210,-88},{-142,-88}},
-                                    color={0,0,127}));
+          -162},{-210,-88},{-142,-88}}, color={0,0,127}));
   connect(cap.yUpMin, staUp.uCapUpMin) annotation (Line(points={{-248,-178},{
-          -208,-178},{-208,-91},{-142,-91}},
-                                          color={0,0,127}));
+          -208,-178},{-208,-91},{-142,-91}}, color={0,0,127}));
   connect(conf.yTyp, staUp.uTyp) annotation (Line(points={{-358,-172},{-336,
-          -172},{-336,-226},{-206,-226},{-206,-100},{-142,-100}},
-                                                            color={255,127,0}));
+          -172},{-336,-226},{-206,-226},{-206,-100},{-142,-100}}, color={255,127,0}));
   connect(sta.yAvaCur, staUp.uAvaCur) annotation (Line(points={{-288,-217},{
-          -154,-217},{-154,-112},{-142,-112}},
-                                          color={255,0,255}));
+          -154,-217},{-154,-112},{-142,-112}}, color={255,0,255}));
   connect(THotWatSup, staUp.THotWatSup) annotation (Line(points={{-420,150},{-188,
           150},{-188,-109},{-142,-109}}, color={0,0,127}));
   connect(THotWatSupSet, staUp.THotWatSupSet) annotation (Line(points={{-420,
-          290},{-184,290},{-184,-106},{-142,-106}},
-                                               color={0,0,127}));
+          290},{-184,290},{-184,-106},{-142,-106}}, color={0,0,127}));
   connect(VHotWatPri_flow, staUp.VHotWat_flow) annotation (Line(points={{-420,210},
           {-194,210},{-194,-94},{-142,-94}}, color={0,0,127}));
   connect(staDow.THotWatSupSet, THotWatSupSet) annotation (Line(points={{-142,-231},
@@ -479,14 +471,13 @@ equation
   connect(staDow.uCapReq, capReq1.y) annotation (Line(points={{-142,-237},{-180,
           -237},{-180,250},{-338,250}}, color={0,0,127}));
   connect(extIndSig.y, staUp.VUpMinSet_flow) annotation (Line(points={{-218,
-          -110},{-216,-110},{-216,-97},{-142,-97}},
-                                                color={0,0,127}));
+          -110},{-216,-110},{-216,-97},{-142,-97}}, color={0,0,127}));
   connect(extIndSig.u, VMinSet_flow) annotation (Line(points={{-242,-110},{-250,
           -110},{-250,110},{-420,110}}, color={0,0,127}));
   connect(extIndSig.index, sta.yAvaUp) annotation (Line(points={{-230,-122},{-230,
           -154},{-280,-154},{-280,-203},{-288,-203}}, color={255,127,0}));
   connect(cap.yMin, staDow.uCapMin) annotation (Line(points={{-248,-174},{-190,-174},
-          {-190,-240},{-142,-240}},       color={0,0,127}));
+          {-190,-240},{-142,-240}}, color={0,0,127}));
   connect(cap.yDowDes, staDow.uCapDowDes) annotation (Line(points={{-248,-170},{
           -192,-170},{-192,-243},{-142,-243}},  color={0,0,127}));
   connect(staDow.uBypValPos, uBypValPos) annotation (Line(points={{-142,-246},{-172,
@@ -498,8 +489,7 @@ equation
   connect(capReq1.y, staUp.uCapReq) annotation (Line(points={{-338,250},{-180,
           250},{-180,-85},{-142,-85}},   color={0,0,127}));
   connect(sta.yAvaUp, staUp.uAvaUp) annotation (Line(points={{-288,-203},{-280,
-          -203},{-280,-154},{-202,-154},{-202,-103},{-142,-103}},
-                                                            color={255,127,0}));
+    -203},{-280,-154},{-202,-154},{-202,-103},{-142,-103}}, color={255,127,0}));
   connect(u, staDow.uCur) annotation (Line(points={{-420,-130},{-328,-130},{-328,
           -228},{-142,-228}},       color={255,127,0}));
   connect(cha.uAvaUp, sta.yAvaUp) annotation (Line(points={{-22,-168},{-60,-168},

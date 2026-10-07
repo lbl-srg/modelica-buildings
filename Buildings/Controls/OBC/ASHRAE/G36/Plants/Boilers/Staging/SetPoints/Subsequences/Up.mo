@@ -242,35 +242,34 @@ equation
            Line(points={{130,-48}}, color={0,0,127})}),
     Diagram(coordinateSystem(preserveAspectRatio=false,
       extent={{-100,-180},{100,140}})),
-    Documentation(info="<html>
-      <p>
-      Outputs a boolean stage up signal <code>yStaUp</code> based on the 
-      various plant operation conditions that get provided as input signals. 
-      Implemented according to ASHRAE Guideline 36, 2021, section 5.21.3.9.
-      and applies to all boiler plants defined in the guideline. Timer reset has been
-      implemented according to 5.21.3.9, item b.
-      </p>
-      <p>
-      The stage up signal <code>yStaUp</code> becomes <code>true</code> when:
-      </p>
-      <ul>
-      <li>
-      Current stage becomes unavailable, or
-      </li>
-      <li>
-      Efficiency condition is true, or
-      </li>
-      <li>
-      Failsafe condition is true.
-      </li>
-      </ul>
-      </html>",
-      revisions="<html>
-      <ul>
-      <li>
-      May 25, 2020, by Karthik Devaprasad:<br/>
-      First implementation.
-      </li>
-      </ul>
-      </html>"));
+Documentation(info="<html>
+<p>
+Outputs a boolean stage up signal <code>yStaUp</code> based on the 
+various plant operation conditions that get provided as input signals. 
+Implemented according to ASHRAE Guideline 36, 2021, section 5.21.3.9.
+and applies to all boiler plants defined in the guideline. Timer reset has been
+implemented according to 5.21.3.9, item b.
+</p>
+<p>
+The stage up signal <code>yStaUp</code> becomes <code>true</code> when:
+</p>
+<ul>
+<li>
+Current stage becomes unavailable, or
+</li>
+<li>
+Efficiency condition is true, or
+</li>
+<li>
+Failsafe condition is true.
+</li>
+</ul>
+</html>", revisions="<html>
+<ul>
+<li>
+May 25, 2020, by Karthik Devaprasad:<br/>
+First implementation.
+</li>
+</ul>
+</html>"));
 end Up;

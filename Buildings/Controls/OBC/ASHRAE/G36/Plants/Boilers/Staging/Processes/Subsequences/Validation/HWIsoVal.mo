@@ -87,28 +87,20 @@ protected
 equation
   connect(booPul.y, staCha.u)
     annotation (Line(points={{-178,-70},{-162,-70}}, color={255,0,255}));
-
   connect(booPul1.y, upsDevSta.u)
     annotation (Line(points={{-178,-30},{-162,-30}}, color={255,0,255}));
-
   connect(enaBoi.y, enaHotIsoVal.nexChaBoi) annotation (Line(points={{-138,80},
           {-120,80},{-120,18},{-102,18}}, color={255,127,0}));
-
   connect(upsDevSta.y, enaHotIsoVal.uUpsDevSta) annotation (Line(points={{-138,
           -30},{-120,-30},{-120,5},{-102,5}}, color={255,0,255}));
-
   connect(upsDevSta.y, disHotIsoVal.uUpsDevSta) annotation (Line(points={{-138,
           -30},{100,-30},{100,-5},{118,-5}}, color={255,0,255}));
-
   connect(staCha.y, enaHotIsoVal.chaPro) annotation (Line(points={{-138,-70},{
           -110,-70},{-110,2},{-102,2}}, color={255,0,255}));
-
   connect(staCha.y, disHotIsoVal.chaPro) annotation (Line(points={{-138,-70},{
           110,-70},{110,-8},{118,-8}}, color={255,0,255}));
-
   connect(disBoi.y, disHotIsoVal.nexChaBoi) annotation (Line(points={{82,80},{
           90,80},{90,8},{118,8}}, color={255,127,0}));
-
   connect(pre2.y, enaHotIsoVal.uHotWatIsoVal[2]) annotation (Line(points={{-8,0},
           {0,0},{0,28},{-122,28},{-122,15.5},{-102,15.5}}, color={255,0,255}));
   connect(valOne.y, enaHotIsoVal.uHotWatIsoVal[1]) annotation (Line(points={{-178,
@@ -129,24 +121,23 @@ equation
     annotation (Line(points={{142,-90},{148,-90}}, color={255,0,255}));
   connect(not2.y, pre1.u)
     annotation (Line(points={{172,-90},{178,-90}}, color={255,0,255}));
-annotation (
-  experiment(StopTime=3600, Tolerance=1e-06),
+annotation (experiment(StopTime=3600, Tolerance=1e-06),
   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/ASHRAE/G36/Plants/Boilers/Staging/Processes/Subsequences/Validation/HWIsoVal.mos"
     "Simulate and plot"),
-  Documentation(info="<html>
-  <p>
-  This example validates
-  <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Staging.Processes.Subsequences.HWIsoVal\">
-  Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Staging.Processes.Subsequences.HWIsoVal</a>.
-  </p>
-  </html>", revisions="<html>
-  <ul>
-  <li>
-  June 18, 2020 by Karthik Devaprasad:<br/>
-  First implementation.
-  </li>
-  </ul>
-  </html>"),
+Documentation(info="<html>
+<p>
+This example validates
+<a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Staging.Processes.Subsequences.HWIsoVal\">
+Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Staging.Processes.Subsequences.HWIsoVal</a>.
+</p>
+</html>", revisions="<html>
+<ul>
+<li>
+June 18, 2020 by Karthik Devaprasad:<br/>
+First implementation.
+</li>
+</ul>
+</html>"),
   Icon(coordinateSystem(extent={{-100,-100},{100,100}}),
     graphics={
       Ellipse(lineColor = {75,138,73},

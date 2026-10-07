@@ -140,47 +140,33 @@ protected
 equation
 
   connect(uRegSig, addPar2.u) annotation (Line(points={{-120,0},{-62,0}},
-                     color={0,0,127}));
-
+         color={0,0,127}));
   connect(addPar2.y, lim1.u)
     annotation (Line(points={{-38,0},{-32,0}},   color={0,0,127}));
-
   connect(lim1.y, gai1.u)
     annotation (Line(points={{-8,0},{-2,0}}, color={0,0,127}));
-
   connect(addPar3.y, yMaxSecPumSpe) annotation (Line(points={{82,0},{120,0}},
-                       color={0,0,127}));
-
+         color={0,0,127}));
   connect(addPar.y, yMaxSecPumSpe) annotation (Line(points={{82,-40},{90,-40},{90,
           0},{120,0}}, color={0,0,127}));
-
   connect(uRegSig, lim2.u) annotation (Line(points={{-120,0},{-90,0},{-90,-40},{
           -32,-40}}, color={0,0,127}));
-
   connect(uRegSig, lim.u) annotation (Line(points={{-120,0},{-90,0},{-90,30},{-62,
           30}}, color={0,0,127}));
-
   connect(lim.y, gai.u)
     annotation (Line(points={{-38,30},{-32,30}}, color={0,0,127}));
-
   connect(con2.y, extIndSig1.u)
     annotation (Line(points={{-68,80},{-62,80}}, color={0,0,127}));
-
   connect(add2.u2, pro.y) annotation (Line(points={{28,24},{26,24},{26,30},{22,30}},
         color={0,0,127}));
-
   connect(gai.y, pro.u2) annotation (Line(points={{-8,30},{-6,30},{-6,24},{-2,24}},
         color={0,0,127}));
-
   connect(uCurSta, extIndSig1.index)
     annotation (Line(points={{-120,50},{-50,50},{-50,68}}, color={255,127,0}));
-
   connect(add2.y, yMinPriPumSpe)
     annotation (Line(points={{52,30},{120,30}}, color={0,0,127}));
-
   connect(addPar1.y, pro.u1) annotation (Line(points={{42,80},{50,80},{50,66},{-6,
-          66},{-6,36},{-2,36}},
-                   color={0,0,127}));
+          66},{-6,36},{-2,36}}, color={0,0,127}));
   connect(extIndSig1.y, add2.u1) annotation (Line(points={{-38,80},{-36,80},{
           -36,60},{26,60},{26,36},{28,36}}, color={0,0,127}));
   connect(extIndSig1.y, gai2.u)

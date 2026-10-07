@@ -92,22 +92,21 @@ equation
   connect(matMax.y,boiInSta. u)
     annotation (Line(points={{122,0},{138,0}},    color={0,0,127}));
   connect(staIndMatr.y, intEqu1.u2) annotation (Line(points={{-118,-30},{-100,-30},
-          {-100,12},{-82,12}},         color={255,127,0}));
+          {-100,12},{-82,12}}, color={255,127,0}));
   connect(boiInSta.y, yBoi)
-    annotation (Line(points={{162,0},{220,0}},
-          color={255,0,255}));
+    annotation (Line(points={{162,0},{220,0}}, color={255,0,255}));
   connect(proInt.y, intToRea.u)
-    annotation (Line(points={{42,0},{58,0}},    color={255,127,0}));
+    annotation (Line(points={{42,0},{58,0}}, color={255,127,0}));
   connect(intToRea.y, matMax.u)
-    annotation (Line(points={{82,0},{98,0}},     color={0,0,127}));
+    annotation (Line(points={{82,0},{98,0}}, color={0,0,127}));
   connect(booToInt.y, proInt.u1) annotation (Line(points={{-18,20},{0,20},{0,6},
-          {18,6}},            color={255,127,0}));
+          {18,6}}, color={255,127,0}));
   connect(intEqu1.y, booToInt.u)
     annotation (Line(points={{-58,20},{-42,20}},   color={255,0,255}));
   connect(boiStaMatr.y, proInt.u2) annotation (Line(points={{-38,-30},{0,-30},{0,
-          -6},{18,-6}},         color={255,127,0}));
+          -6},{18,-6}}, color={255,127,0}));
   connect(u, intRep.u) annotation (Line(points={{-220,20},{-182,20}},
-                       color={255,127,0}));
+          color={255,127,0}));
 
   annotation (defaultComponentName = "boiInd",
         Icon(graphics={

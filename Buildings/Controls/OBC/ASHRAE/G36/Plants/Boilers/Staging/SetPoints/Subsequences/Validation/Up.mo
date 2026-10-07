@@ -224,13 +224,11 @@ equation
   connect(con2.y, staUp.THotWatSupSet) annotation (Line(points={{-158,-100},{-120,
           -100},{-120,-6},{-102,-6}}, color={0,0,127}));
   connect(con3.y, staUp.uCapReq) annotation (Line(points={{-158,180},{-110,180},
-          {-110,15},{-102,15}},
-                              color={0,0,127}));
+          {-110,15},{-102,15}}, color={0,0,127}));
   connect(con5.y, staUp.THotWatSup) annotation (Line(points={{-158,-140},{-114,-140},
           {-114,-9},{-102,-9}}, color={0,0,127}));
   connect(con6.y, staUp.uAvaCur) annotation (Line(points={{-158,-180},{-110,-180},
-          {-110,-12},{-102,-12}},
-                                color={255,0,255}));
+          {-110,-12},{-102,-12}}, color={255,0,255}));
   connect(staUp1.uCapDes, con8.y) annotation (Line(points={{28,12},{16,12},{16,140},
           {-28,140}}, color={0,0,127}));
   connect(con9.y, staUp1.uCapUpMin) annotation (Line(points={{-28,100},{10,100},
@@ -242,11 +240,9 @@ equation
   connect(conInt1.y, staUp1.uAvaUp) annotation (Line(points={{-28,-60},{4,-60},{
           4,-3},{28,-3}}, color={255,127,0}));
   connect(con12.y, staUp1.uCapReq) annotation (Line(points={{-28,180},{20,180},{
-          20,15},{28,15}},
-                         color={0,0,127}));
+          20,15},{28,15}}, color={0,0,127}));
   connect(con7.y, staUp1.uAvaCur) annotation (Line(points={{-28,-180},{20,-180},
-          {20,-12},{28,-12}},
-                            color={255,0,255}));
+          {20,-12},{28,-12}}, color={255,0,255}));
   connect(staUp2.uCapDes, con15.y) annotation (Line(points={{158,12},{146,12},{146,
           140},{102,140}}, color={0,0,127}));
   connect(con16.y, staUp2.uCapUpMin) annotation (Line(points={{102,100},{140,100},
@@ -260,8 +256,7 @@ equation
   connect(con18.y, staUp2.THotWatSupSet) annotation (Line(points={{102,-100},{140,
           -100},{140,-6},{158,-6}}, color={0,0,127}));
   connect(con19.y, staUp2.uCapReq) annotation (Line(points={{102,180},{150,180},
-          {150,15},{158,15}},
-                            color={0,0,127}));
+          {150,15},{158,15}}, color={0,0,127}));
   connect(con20.y, staUp2.THotWatSup) annotation (Line(points={{102,-140},{146,-140},
           {146,-9},{158,-9}}, color={0,0,127}));
   connect(con21.y, staUp1.VHotWat_flow)
@@ -273,8 +268,7 @@ equation
   connect(con11.y, staUp2.VHotWat_flow) annotation (Line(points={{102,60},{134,60},
           {134,6},{158,6}}, color={0,0,127}));
   connect(booPul.y, staUp2.uAvaCur) annotation (Line(points={{102,-180},{150,-180},
-          {150,-12},{158,-12}},
-                              color={255,0,255}));
+          {150,-12},{158,-12}}, color={255,0,255}));
   connect(con14.y, staUp.uStaChaProEnd) annotation (Line(points={{-158,-220},{-106,
           -220},{-106,-15},{-102,-15}}, color={255,0,255}));
   connect(con22.y, staUp1.uStaChaProEnd) annotation (Line(points={{-28,-220},{24,
@@ -289,20 +283,20 @@ annotation (
       Tolerance=1e-06),
   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/ASHRAE/G36/Plants/Boilers/Staging/SetPoints/Subsequences/Validation/Up.mos"
     "Simulate and plot"),
-  Documentation(info="<html>
-    <p>
-    This example validates
-    <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Staging.SetPoints.Subsequences.Up\">
-    Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Staging.SetPoints.Subsequences.Up</a>.
-    </p>
-    </html>", revisions="<html>
-    <ul>
-    <li>
-    May 26, 2020, by Karthik Devaprasad:<br/>
-    First implementation.
-    </li>
-    </ul>
-    </html>"),
+Documentation(info="<html>
+<p>
+This example validates
+<a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Staging.SetPoints.Subsequences.Up\">
+Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Staging.SetPoints.Subsequences.Up</a>.
+</p>
+</html>", revisions="<html>
+<ul>
+<li>
+May 26, 2020, by Karthik Devaprasad:<br/>
+First implementation.
+</li>
+</ul>
+</html>"),
   Icon(coordinateSystem(extent={{-100,-100},{100,100}}),
      graphics={
         Ellipse(lineColor = {75,138,73},

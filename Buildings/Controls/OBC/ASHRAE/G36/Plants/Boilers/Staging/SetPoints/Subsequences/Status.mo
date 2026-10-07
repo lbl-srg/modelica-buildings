@@ -168,7 +168,7 @@ protected
     "Logical switch"
     annotation (Placement(transformation(extent={{180,-80},{200,-60}})));
 
-  Buildings.Controls.OBC.CDL.Routing.BooleanExtractor                     extStaAva(
+  Buildings.Controls.OBC.CDL.Routing.BooleanExtractor extStaAva(
     final nin=nSta)
     "Extracts stage availability for the current stage"
     annotation (Placement(transformation(extent={{-200,-160},{-180,-140}})));
@@ -218,8 +218,7 @@ equation
   connect(staIndx.y, intGre.u1) annotation (Line(points={{-218,130},{-200,130},{
           -200,90},{-182,90}},  color={255,127,0}));
   connect(intRep.y, intGre.u2) annotation (Line(points={{-278,200},{-260,200},{
-          -260,82},{-182,82}},
-                 color={255,127,0}));
+          -260,82},{-182,82}}, color={255,127,0}));
   connect(intGre.y, and2.u1) annotation (Line(points={{-158,90},{-150,90},{-150,
           80},{-142,80}},color={255,0,255}));
   connect(uAva, and2.u2) annotation (Line(points={{-440,-80},{-220,-80},{-220,72},
@@ -268,11 +267,11 @@ equation
     annotation (Line(points={{-118,80},{-102,80}}, color={255,0,255}));
   connect(intGreThr.y, and4.u1)
     annotation (Line(points={{122,110},{140,110},{140,80},{218,80}},
-                                  color={255,0,255}));
+         color={255,0,255}));
   connect(and4.y, intSwi3.u2)
     annotation (Line(points={{242,80},{358,80}}, color={255,0,255}));
   connect(uAva, mulOr.u) annotation (Line(points={{-440,-80},{-380,-80},{-380,-40},
-          {-362,-40}},                          color={255,0,255}));
+          {-362,-40}}, color={255,0,255}));
   connect(mulOr.y, cheStaAva1.u)
     annotation (Line(points={{-338,-40},{-322,-40}},     color={255,0,255}));
   connect(and1.y, booToInt2.u)
@@ -338,61 +337,58 @@ equation
           textString="%name")}),
         Diagram(coordinateSystem(preserveAspectRatio=false,
           extent={{-420,-280},{440,280}})),
-  Documentation(info="<html>
-    <p>
-    This subsequence is not directly specified in ASHRAE Guideline 36 as it provides
-    a side calculation pertaining to generalization of the staging sequences for
-    any number of boilers and stages provided by the user.
-    </p>
-    <p>
-    Based on the current stage <code>u</code>
-    and stage availability vector <code>uAva</code>
-    the sequence outputs:
-    </p>
-    <ul>
-    <li>
-    Integer indices of: the current stage <code>y</code>,
-    first available higher stage <code>yUp</code>
-    and the first available lower stage <code>yDown</code>.
-    </li>
-    <li>
-    Boolean status outputs to show if the current operating stage 
-    <code>u</code> is:
-    </li>
-    <li>
-    <ul>
-    <li>
-    Available, <code>u</code>
-    </li>
-    <li>
-    The highest available stage, <code>yHig</code> 
-    </li>
-    <li>
-    The lowest available stage, <code>yLow</code>
-    </li>
-    </ul>
-    </li>
-    </ul>
-    <p>
-    The purpose of this sequence is to: 
-    </p>
-    <ul>
-    <li>
-    Provide inputs for the stage up and down conditionals such that staging into
-    unavailable stages is avoided.
-    </li>
-    <li>
-    G36.Plants.Boilers.Staging.SetPoints.Subsequences.Change the stage to the first available higher stage in an event that the
-    current stage becomes unavailable. 
-    </li>
-    </ul>
-    </html>",
-    revisions="<html>
-    <ul>
-    <li>
-    May 22, 2020, by Karthik Devaprasad:<br/>
-    First implementation.
-    </li>
-    </ul>
-    </html>"));
+Documentation(info="<html>
+<p>
+This subsequence is not directly specified in ASHRAE Guideline 36 as it provides
+a side calculation pertaining to generalization of the staging sequences for
+any number of boilers and stages provided by the user.
+</p>
+<p>
+Based on the current stage <code>u</code> and stage availability vector <code>uAva</code>
+the sequence outputs:
+</p>
+<ul>
+<li>
+Integer indices of: the current stage <code>y</code>,
+first available higher stage <code>yUp</code>
+and the first available lower stage <code>yDown</code>.
+</li>
+<li>
+Boolean status outputs to show if the current operating stage 
+<code>u</code> is:
+<ul>
+<li>
+Available, <code>u</code>
+</li>
+<li>
+The highest available stage, <code>yHig</code> 
+</li>
+<li>
+The lowest available stage, <code>yLow</code>
+</li>
+</ul>
+</li>
+</ul>
+<p>
+The purpose of this sequence is to: 
+</p>
+<ul>
+<li>
+Provide inputs for the stage up and down conditionals such that staging into
+unavailable stages is avoided.
+</li>
+<li>
+G36.Plants.Boilers.Staging.SetPoints.Subsequences.Change the stage to the first
+available higher stage in an event that the
+current stage becomes unavailable. 
+</li>
+</ul>
+</html>", revisions="<html>
+<ul>
+<li>
+May 22, 2020, by Karthik Devaprasad:<br/>
+First implementation.
+</li>
+</ul>
+</html>"));
 end Status;

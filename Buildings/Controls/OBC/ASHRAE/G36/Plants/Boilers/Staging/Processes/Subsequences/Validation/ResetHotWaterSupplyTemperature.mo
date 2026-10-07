@@ -65,37 +65,26 @@ protected
 equation
   connect(booPul.y, hotWatSupTemRes.uStaUp) annotation (Line(points={{-58,60},{-46,
           60},{-46,7},{-42,7}}, color={255,0,255}));
-
   connect(conInt.y, hotWatSupTemRes.uStaTyp) annotation (Line(points={{-58,-20},
           {-50,-20},{-50,-3},{-42,-3}}, color={255,127,0}));
-
   connect(sin.y, hotWatSupTemRes.THotWatSup) annotation (Line(points={{-58,20},{
           -50,20},{-50,3},{-42,3}}, color={0,0,127}));
-
   connect(conInt1.y, hotWatSupTemRes.uStaSet) annotation (Line(points={{-58,-60},
           {-46,-60},{-46,-7},{-42,-7}}, color={255,127,0}));
-
   connect(booPul.y, hotWatSupTemRes1.uStaUp) annotation (Line(points={{-58,60},{
           54,60},{54,7},{58,7}}, color={255,0,255}));
-
   connect(sin.y, hotWatSupTemRes1.THotWatSup) annotation (Line(points={{-58,20},
           {50,20},{50,3},{58,3}}, color={0,0,127}));
-
   connect(booPul.y, hotWatSupTemRes2.uStaUp) annotation (Line(points={{-58,60},{
           134,60},{134,7},{138,7}}, color={255,0,255}));
-
   connect(sin.y, hotWatSupTemRes2.THotWatSup) annotation (Line(points={{-58,20},
           {130,20},{130,3},{138,3}}, color={0,0,127}));
-
   connect(conInt3.y, hotWatSupTemRes2.uStaTyp) annotation (Line(points={{42,-20},
           {130,-20},{130,-3},{138,-3}}, color={255,127,0}));
-
   connect(conInt4.y, hotWatSupTemRes2.uStaSet) annotation (Line(points={{122,-60},
           {134,-60},{134,-7},{138,-7}}, color={255,127,0}));
-
   connect(conInt3.y, hotWatSupTemRes1.uStaTyp) annotation (Line(points={{42,-20},
           {50,-20},{50,-3},{58,-3}}, color={255,127,0}));
-
   connect(conInt1.y, hotWatSupTemRes1.uStaSet) annotation (Line(points={{-58,-60},
           {54,-60},{54,-7},{58,-7}}, color={255,127,0}));
 
