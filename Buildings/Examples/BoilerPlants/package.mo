@@ -2,7 +2,6 @@ within Buildings.Examples;
 package BoilerPlants "Package with closed-loop demonstration model for boiler plant
   sequences implemented as per ASHRAE G36"
 
-
 extends Modelica.Icons.ExamplesPackage;
 
 
