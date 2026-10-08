@@ -301,7 +301,7 @@ equation
   Diagram(
     coordinateSystem(preserveAspectRatio=false,
     extent={{-160,-140},{180,140}})),
-  Documentation(info="<html>
+Documentation(info="<html>
 <p>
 Block that controls boiler plant disable process according to ASHRAE Guideline 36,
 2021, section 5.21.2.5.

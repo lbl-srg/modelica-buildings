@@ -10,9 +10,11 @@ record PumpData
 defaultComponentPrefixes="parameter",
 defaultComponentName="per",
 Documentation(info="<html>
-<p>Pump curves generated using sizing parameters derived from EnergyPlus prototype
-model for large office building.</p>
-</html>",   revisions="<html>
+<p>
+Pump curves generated using sizing parameters derived from EnergyPlus prototype
+model for large office building.
+</p>
+</html>", revisions="<html>
 <ul>
 <li>
 October 12, 2021, by Karthik Devaprasad:

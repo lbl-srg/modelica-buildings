@@ -1,6 +1,6 @@
 within Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Staging.Processes.Subsequences.Validation;
 model ResetMinBypass
-    "Validate sequence of reseting minimum flow bypass"
+    "Validate sequence of resetting minimum flow bypass"
 
   Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Staging.Processes.Subsequences.ResetMinBypass
     minBypRes

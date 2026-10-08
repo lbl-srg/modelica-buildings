@@ -325,7 +325,6 @@ Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Pumps.SecondaryPumps.Controller
 </a>
 instances <code>secPumCon1</code> and <code>secPumCon2</code>, respectively.
 </p>
-
 <p>
 The reference loads for activating the system are calculated by simulating the DOE
 prototype large office building EnergyPlus model (ASHRAE 90.1-2019 version), and then summing
@@ -333,7 +332,6 @@ up the simulated flowrates through each of the heating coils in the building. Th
 return temperature to the hot water plant is also noted. The values are then used
 to apply loads on this model by simulating equivalent loads on the secondary loops.
 </p>
-
 <p>A few salient points about the default system sizing values.</p>
 <ul>
 <li>
@@ -368,7 +366,6 @@ user chooses to change either <code>dpRad_nominal</code> or <code>dpValve_nomina
 for either secondary loop.
 </li>
 </ul>
-
 <p>The validation plots are as follows.</p>
 <ol>
 <li>

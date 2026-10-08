@@ -8,7 +8,7 @@ block Configurator "Configures boiler staging"
     "Number of boilers";
 
   parameter Integer boiTyp[nBoi]
-    "Boiler type. Recommended staging order: 1. condensing boilers, 2. non-codensing boilers";
+    "Boiler type. Recommended staging order: 1. condensing boilers, 2. non-condensing boilers";
 
   parameter Integer staMat[nSta, nBoi]
     "Staging matrix with stage as row index and boiler as column index";
@@ -191,7 +191,7 @@ protected
     final rowMax=true,
     final nRow=nSta,
     final nCol=nBoi)
-    "Find highest BFirMin in each stage"
+    "Find highest boiFirMin in each stage"
     annotation (Placement(transformation(extent={{-120,60},{-100,80}})));
 
   Buildings.Controls.OBC.CDL.Reals.Multiply pro2[nSta]

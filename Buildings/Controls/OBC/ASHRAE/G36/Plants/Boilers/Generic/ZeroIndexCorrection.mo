@@ -35,7 +35,7 @@ protected
   Buildings.Controls.OBC.CDL.Conversions.BooleanToReal booToRea(
     final realTrue=0,
     final realFalse=1)
-    "Pass a zero multiplication signal to the capacity modfier"
+    "Pass a zero multiplication signal to the capacity modifier"
     annotation (Placement(transformation(extent={{0,10},{20,30}})));
 
   Buildings.Controls.OBC.CDL.Integers.Add addInt
@@ -87,7 +87,7 @@ equation
 Documentation(info="<html>
 <p>
 This block has been implemented to retain the original interpretation and
-implementation of the boilr plant sequences in
+implementation of the boiler plant sequences in
 <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers\">
 Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers</a> while accommodating changes
 to the real-value extractor block 
@@ -95,11 +95,11 @@ to the real-value extractor block
 Buildings.Controls.OBC.CDL.Routing.RealExtractor</a>.
 </p>
 <p>
-Some of the calculations in the the boiler plant sequence implementation rely on
+Some of the calculations in the boiler plant sequence implementation rely on
 the use of zero capacity and flowrate values corresponding to the zero plant stage
 representing plant disabled status. Since the <code>RealExtractor</code> block no
 longer allows the assignment of a specific value at index values lower than 1,
-this block has been implemented to assign the requiered zero value at zero index.
+this block has been implemented to assign the required zero value at zero index.
 </p>
 <p>
 The block accepts input signals <code>uInd</code> for the

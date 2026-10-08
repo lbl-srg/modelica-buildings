@@ -1,6 +1,6 @@
 within Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Staging.Processes.Subsequences.Validation;
 model ResetHotWaterSupplyTemperature
-    "Validate sequence of reseting hot water supply temperature"
+    "Validate sequence of resetting hot water supply temperature"
 
   Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Staging.Processes.Subsequences.ResetHotWaterSupplyTemperature
     hotWatSupTemRes(

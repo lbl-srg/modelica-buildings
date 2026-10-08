@@ -297,7 +297,7 @@ boiler (<code>nexChaBoi</code>) or its associated pump has been shut off
 </li>
 </ul>
 <p>
-This sequence will generate array <code>yHoyWatIsoVal</code> which indicates 
+This sequence will generate array <code>yHotWatIsoVal</code> which indicates 
 hot water isolation valve signal. <code>yEnaHotWatIsoVal</code> 
 will be true when all the enabled valves are fully open and all the disabled valves
 are fully closed. 

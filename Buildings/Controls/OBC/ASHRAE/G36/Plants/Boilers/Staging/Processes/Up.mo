@@ -297,7 +297,7 @@ protected
 
   Buildings.Controls.OBC.CDL.Logical.Or or2
     if not have_priOnl or not have_heaPriPum
-    "Check for pump change proces start signal"
+    "Check for pump change process start signal"
     annotation (Placement(transformation(extent={{210,-250},{230,-230}})));
 
   Buildings.Controls.OBC.CDL.Logical.Latch lat5 if not have_heaPriPum
@@ -389,7 +389,7 @@ protected
 
   Buildings.Controls.OBC.CDL.Logical.And and10
     "Signal stage change completion after boiler is enabled, if no boilers are
-    simulatenously enabled-disabled"
+    simultaneously enabled-disabled"
     annotation (Placement(transformation(extent={{250,-30},{270,-10}})));
 
   Buildings.Controls.OBC.CDL.Logical.Not not3
@@ -689,7 +689,7 @@ which specify the step-by-step control of devices during boiler staging up proce
 Identify the boiler(s) that should be enabled (and disabled). This is implemented in block <code>nexBoi</code>. See
 <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Staging.Processes.Subsequences.NextBoiler\">
 Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Staging.Processes.Subsequences.NextBoiler</a>
-for more decriptions.
+for more descriptions.
 </li>
 <li>
 Initiate the process to reset the minimum hot water flow setpoint for the minimum

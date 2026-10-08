@@ -161,7 +161,7 @@ protected
 
   Buildings.Controls.OBC.CDL.Reals.AddParameter addPar[nSta,nBoi](
     final p=fill(1e-8,nSta,nBoi))
-    "Prevent divison by zero"
+    "Prevent division by zero"
     annotation (Placement(transformation(extent={{-50,-190},{-30,-170}})));
 
   Buildings.Controls.OBC.CDL.Reals.MatrixMax matMax(
@@ -286,11 +286,11 @@ protected
     annotation (Placement(transformation(extent={{200,-50},{220,-30}})));
 
   Buildings.Controls.OBC.CDL.Reals.Line lin
-    "Change setpoint over a finite amnount of time during stage change"
+    "Change setpoint over a finite amount of time during stage change"
     annotation (Placement(transformation(extent={{260,-10},{280,10}})));
 
   Buildings.Controls.OBC.CDL.Reals.Line lin1
-    "Change setpoint over a finite amnount of time during stage change"
+    "Change setpoint over a finite amount of time during stage change"
     annotation (Placement(transformation(extent={{260,-150},{280,-130}})));
 
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant con4(

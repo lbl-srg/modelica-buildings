@@ -585,7 +585,7 @@ protected
 
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant conInt6[nSta](
     final k={1,2,2})
-    "Stage typer vector"
+    "Stage type vector"
     annotation (Placement(transformation(extent={{-120,260},{-100,280}})));
 
   Buildings.Controls.OBC.CDL.Logical.Sources.Pulse booPul1(
@@ -648,7 +648,7 @@ protected
 
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant conInt10[nSta](
     final k={1,2,2})
-    "Stage typer vector"
+    "Stage type vector"
     annotation (Placement(transformation(extent={{-340,-100},{-320,-80}})));
 
   Buildings.Controls.OBC.CDL.Logical.Sources.Pulse booPul2(
@@ -711,7 +711,7 @@ protected
 
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant conInt14[nSta](
     final k={1,2,2})
-    "Stage typer vector"
+    "Stage type vector"
     annotation (Placement(transformation(extent={{400,-80},{420,-60}})));
 
   Buildings.Controls.OBC.CDL.Logical.Sources.Pulse booPul3(
@@ -770,7 +770,7 @@ protected
 
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant conInt18[nSta](
     final k={1,1,1})
-    "Stage typer vector"
+    "Stage type vector"
     annotation (Placement(transformation(extent={{420,280},{440,300}})));
 
   Buildings.Controls.OBC.CDL.Logical.Sources.Pulse booPul4(

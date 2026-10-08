@@ -24,7 +24,7 @@ block FailsafeCondition
   Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Staging.SetPoints.Subsequences.FailsafeCondition
     faiSafCon3(
     final delEna=900)
-    "Testing scenario exhibitng lower limit of hysteresis loop in sequence being
+    "Testing scenario exhibiting lower limit of hysteresis loop in sequence being
     met"
     annotation (Placement(transformation(extent={{60,-60},{80,-40}})));
 

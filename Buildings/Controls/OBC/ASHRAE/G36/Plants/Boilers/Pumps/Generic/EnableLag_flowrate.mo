@@ -1,6 +1,6 @@
 within Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Pumps.Generic;
 block EnableLag_flowrate
-  "Sequences for enabling and disabling lag pumps using measured volue flow-rate"
+  "Sequences for enabling and disabling lag pumps using measured volume flow-rate"
 
   parameter Integer nPum = 2
     "Total number of pumps";

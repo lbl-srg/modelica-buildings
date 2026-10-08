@@ -9,7 +9,7 @@ block EfficiencyCondition
     "Boiler type";
 
   final parameter Boolean have_allNonCon=sum(boiTyp)==2*nBoi
-    "Autodefined flag indicating all the boilers in a plant are non-condensing boilers";
+    "Auto-defined flag indicating all the boilers in a plant are non-condensing boilers";
 
   parameter Integer nSta = 5
     "Number of stages in the boiler plant";
@@ -181,7 +181,7 @@ protected
     annotation (Placement(transformation(extent={{100,-40},{120,-20}})));
 
   Buildings.Controls.OBC.CDL.Reals.Subtract sub1 if not have_allNonCon
-    "Find difference between measurted flowrate and minimum flow setpoint for next higher stage"
+    "Find difference between measured flowrate and minimum flow setpoint for next higher stage"
     annotation (Placement(transformation(extent={{-80,-50},{-60,-30}})));
 
   Buildings.Controls.OBC.CDL.Logical.Timer tim(t=delCapReq)

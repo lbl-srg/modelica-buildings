@@ -118,7 +118,7 @@ Documentation(info="<html>
 <p>
 When there is no single temperature sensor in the primary loop and instead there
 are temperature sensors at each boiler supply outlet <code>THotWatBoiSup</code>,
-thios block calculates the primary loop temperature as the weighted average of
+this block calculates the primary loop temperature as the weighted average of
 <code>THotWatBoiSup</code>, weighted by the boiler design flowrates <code>boiDesFlo</code>
 of the enabled boilers <code>uBoiSta</code>.
 </p>

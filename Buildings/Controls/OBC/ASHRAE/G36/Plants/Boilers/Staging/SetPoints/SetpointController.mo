@@ -330,7 +330,7 @@ block SetpointController
 
   Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Staging.SetPoints.Subsequences.Capacities cap(
     final nSta=nSta)
-    "Stage capacity calculator to to find design and minimum capacities for staging calculations"
+    "Stage capacity calculator to find design and minimum capacities for staging calculations"
     annotation (Placement(transformation(extent={{-270,-180},{-250,-160}})));
 
 protected

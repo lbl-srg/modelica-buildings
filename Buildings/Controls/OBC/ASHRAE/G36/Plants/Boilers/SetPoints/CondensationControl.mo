@@ -1,6 +1,6 @@
 within Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.SetPoints;
 block CondensationControl
-    "Sequence to calculate setpoint limits for condensation control in non-condesing boilers"
+    "Sequence to calculate setpoint limits for condensation control in non-condensing boilers"
 
   parameter Boolean have_priOnl = false
     "True: Primary-only plant; False: Primary-secondary plant";

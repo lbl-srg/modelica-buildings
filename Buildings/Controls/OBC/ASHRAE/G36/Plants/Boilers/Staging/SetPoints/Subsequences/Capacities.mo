@@ -149,7 +149,7 @@ protected
 
   Buildings.Controls.OBC.CDL.Reals.MultiplyByParameter gai(
     final k=larGai)
-    "Ouputs a very large and unachievable staging up capacity when current is
+    "Outputs a very large and unachievable staging up capacity when current is
     the highest available stage"
     annotation (Placement(transformation(extent={{-60,110},{-40,130}})));
 

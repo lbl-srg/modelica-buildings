@@ -4,7 +4,7 @@ block PlantEnable
 
   parameter Integer nIgnReq(
     final min=0) = 0
-    "Number of hot-water requests to be ignored before enablng boiler plant loop";
+    "Number of hot-water requests to be ignored before enabling boiler plant loop";
 
   parameter Real TOutLoc(
     final unit="K",

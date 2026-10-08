@@ -9,7 +9,7 @@ block Up
     "Boiler type";
 
   final parameter Boolean have_allNonCon=sum(boiTyp)==2*nBoi
-    "Autodefined flag indicating all the boilers in a plant are non-condensing boilers";
+    "Auto-defined flag indicating all the boilers in a plant are non-condensing boilers";
 
   parameter Integer nSta = 5
     "Number of stages in the boiler plant";

@@ -137,7 +137,7 @@ protected
     final phase=0,
     final offset=273.15 + 22,
     final freqHz=1/43200)
-    "Hot water return temeprature"
+    "Hot water return temperature"
     annotation (Placement(transformation(extent={{-80,178},{-60,198}})));
 
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant boiAva[2](
@@ -213,7 +213,7 @@ protected
     final phase=0,
     final offset=273.15 + 22,
     final freqHz=1/21600)
-    "Hot water return temeprature"
+    "Hot water return temperature"
     annotation (Placement(transformation(extent={{-80,-62},{-60,-42}})));
 
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant boiAva1[2](
@@ -283,7 +283,7 @@ protected
     final phase=0,
     final offset=273.15 + 22,
     final freqHz=1/21600)
-    "Hot water return temeprature"
+    "Hot water return temperature"
     annotation (Placement(transformation(extent={{320,170},{340,190}})));
 
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant boiAva2[2](
