@@ -1,0 +1,11 @@
+compareVars :=
+  {
+    "per.Q_flow_nominal",
+    "datBoiTab.per.Q_flow_nominal",
+    "datBoiTabRed.per.Q_flow_nominal",
+    "datBoiTabLoc.per.Q_flow_nominal",
+    "per.effCur[4, 11]",
+    "datBoiTab.per.effCur[4, 11]",
+    "datBoiTabRed.per.effCur[4, 11]",
+    "datBoiTabLoc.per.effCur[4, 11]"
+  };

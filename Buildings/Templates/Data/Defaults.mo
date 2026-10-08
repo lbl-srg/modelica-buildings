@@ -42,8 +42,8 @@ package Defaults
     "CT entering air wetbulb temperature";
   constant Real ratPFanByMFloConWatTow(unit="W/(kg/s)") = 340
     "CT fan power divided by CW mass flow rate";
-  constant Real ratMFloConWatByMFloAirTow(unit="1") = 1.45
-    "CT CW mass flow rate divided by air mass flow rate";
+  constant Real ratMFloConWatByMFloAirTow(unit="1") = 1.08
+    "CT CW mass flow rate divided by air mass flow rate (based on ΔTConWat=ΔTWetBul)";
   constant Modelica.Units.SI.PressureDifference dpConWatFriTow = 1E4
     "CW flow-friction losses through open-circuit tower and piping only (without elevation head or valve)";
   constant Modelica.Units.SI.PressureDifference dpConWatStaTow = 3E4
@@ -82,14 +82,8 @@ package Defaults
     "CHW system gauge pressure at design conditions";
   constant Modelica.Units.SI.PressureDifference pHeaWat_rel_nominal = 2.5E5
     "HHW system gauge pressure at design conditions";
-  constant Modelica.Units.SI.PressureDifference dpHeaWatBoi = 5E3
+  constant Modelica.Units.SI.PressureDifference dpHeaWatBoi = 3E4
     "Boiler HW pressure drop";
-  constant Modelica.Units.SI.Temperature THeaWatSup = 80 + 273.15
-    "HW supply temperature";
-  constant Modelica.Units.SI.Temperature THeaWatConSup = 65 + 273.15
-    "HW supply temperature for condensing boilers";
-  constant Modelica.Units.SI.Temperature THeaWatRet = 55 + 273.15
-    "HW return temperature";
   constant Modelica.Units.SI.Temperature TOutHeaWatLck = 21 + 273.15
     "Outdoor air lockout temperature above which the HW system is prevented from operating";
   constant Modelica.Units.SI.PressureDifference dpHeaWatSet_min = 5 * 6894
@@ -97,9 +91,13 @@ package Defaults
   constant Modelica.Units.SI.PressureDifference dpHeaWatRemSet_max = 5E4
     "Maximum HW differential pressure setpoint remote from the HW plant";
   constant Modelica.Units.SI.PressureDifference dpHeaWatLocSet_max = 15E4
-    "Maximum HW differential pressure setpoint local to the CHW plant";
+    "Maximum HW differential pressure setpoint local to the HW plant";
   constant Modelica.Units.SI.PressureDifference dpHeaWatHp = 3E4
     "Heat pump HW pressure drop across condenser barrel";
+  constant Modelica.Units.SI.Temperature THeaWatSupNon = 80 + 273.15
+    "HW supply temperature - Non-condensing boilers";
+  constant Modelica.Units.SI.Temperature THeaWatRetNon = 60 + 273.15
+    "HW return temperature - Non-condensing boilers";
   constant Modelica.Units.SI.Temperature THeaWatSupHig = 60 + 273.15
     "HW supply temperature - High temperature level (AHRI 551/591)";
   constant Modelica.Units.SI.Temperature THeaWatRetHig = 50 + 273.15
@@ -127,9 +125,9 @@ package Defaults
   constant Real COPHpAwCoo(unit="1") = 2.84
     "Air-to-water heat pump cooling COP (ASHRAE 90.1 2022 at 7 °C CHWST, 35 °C OAT)";
   constant Real COPHpWwHea(unit="1") = 3.61
-    "Water(brine)-to-water heat pump heating COP (ASHRAE 90.1 2022 at 50 °C HWST, 7 °C source LWT)";
+    "Water(or brine)-to-water heat pump heating COP (ASHRAE 90.1 2022 at 50 °C HWST, 7 °C source LWT)";
   constant Real COPHpWwCoo(unit="1") = 5.07
-    "Water(brine)-to-water heat pump cooling COP (ASHRAE 90.1 2022 at 7 °C CHWST, 35 °C source LWT)";
+    "Water(or brine)-to-water heat pump cooling COP (ASHRAE 90.1 2022 at 7 °C CHWST, 35 °C source LWT)";
   constant Real ratVLiqByCap(unit="m3/W") = 1E-5
     "Ratio of total fluid volume in hydronic system by installed capacity (ranges from 5 to 30 L/kW)";
 annotation(Documentation(
