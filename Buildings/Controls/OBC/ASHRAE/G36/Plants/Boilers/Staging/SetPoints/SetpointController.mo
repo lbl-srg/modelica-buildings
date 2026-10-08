@@ -550,7 +550,7 @@ equation
         extent={{-400,-300},{120,300}})),
 Documentation(info="<html>
 <p>
-The sequence is a boiler stage status setpoint controller that outputs the 
+The sequence is a boiler stage status setpoint controller that outputs the
 boiler stage integer index <code>ySta</code>, boiler stage change trigger signals
 <code>yChaEdg</code>, <code>yChaUpEdg</code>, <code>yChaDowEdg</code>, and a boiler
 status vector for the current stage <code>yBoi</code>.
@@ -569,8 +569,8 @@ the capacity requirement.
 </li>
 <li>
 <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Staging.SetPoints.Subsequences.Configurator\">
-Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Staging.SetPoints.Subsequences.Configurator</a> to allow the user 
-to provide the boiler plant configuration parameters such as boiler design and minimal capacities and types. It 
+Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Staging.SetPoints.Subsequences.Configurator</a> to allow the user
+to provide the boiler plant configuration parameters such as boiler design and minimal capacities and types. It
 calculates the design and minimal stage capacities, stage type and stage availability.
 </li>
 <li>

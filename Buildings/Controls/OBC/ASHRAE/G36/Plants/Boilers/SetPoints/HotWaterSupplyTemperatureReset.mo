@@ -372,9 +372,9 @@ temperature setpoint <code>TPlaHotWatSupSet</code> according to the following pa
 </table>
 <ul>
 <li>
-When the plant stage change is initiated <code>uStaCha=true</code>, the 
-temperature reset shall be disabled and value fixed at its last value for 
-the longer of <code>holTimVal</code> and the time it takes for the plant 
+When the plant stage change is initiated <code>uStaCha=true</code>, the
+temperature reset shall be disabled and value fixed at its last value for
+the longer of <code>holTimVal</code> and the time it takes for the plant
 to successfully stage.
 </li>
 <li>

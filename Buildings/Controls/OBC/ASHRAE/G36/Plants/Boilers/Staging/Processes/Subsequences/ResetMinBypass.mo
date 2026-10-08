@@ -188,7 +188,7 @@ annotation (
           extent={{-160,-100},{160,100}})),
   Documentation(info="<html>
 <p>
-Block that generates minimum bypass flow reset status when there is 
+Block that generates minimum bypass flow reset status when there is
 stage-change command.
 This development is based on ASHRAE Guideline 36, 2021, sections 5.21.3.10,
 item a and 5.21.3.11, item a1.
@@ -196,9 +196,9 @@ item a and 5.21.3.11, item a1.
 <p>
 When a stage-change command is received (<code>chaPro</code> = true) and the upstream
 device has finished its adjustment process (<code>uUpsDevSta</code> = true),
-check if the minimum hot water flow rate <code>VHotWat_flow</code> has achieved 
-its new set point <code>VMinHotWat_setpoint</code>. 
-After new setpoint is achieved, wait for 1 minute (<code>byPasSetTim</code>) to 
+check if the minimum hot water flow rate <code>VHotWat_flow</code> has achieved
+its new set point <code>VMinHotWat_setpoint</code>.
+After new setpoint is achieved, wait for 1 minute (<code>byPasSetTim</code>) to
 allow loop to stabilize. It will then set <code>yMinBypRes</code> to true.
 </p>
 </html>",

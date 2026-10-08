@@ -216,7 +216,7 @@ annotation (
           extent={{-160,-100},{160,100}})),
   Documentation(info="<html>
 <p>
-Block that generates hot water supply temperature reset status when there is 
+Block that generates hot water supply temperature reset status when there is
 stage-change command.
 This development is based on ASHRAE Guideline 36, 2021, section 5.21.3.13, item a.
 </p>

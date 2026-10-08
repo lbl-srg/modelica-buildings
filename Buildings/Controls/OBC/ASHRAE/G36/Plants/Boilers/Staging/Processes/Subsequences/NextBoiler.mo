@@ -306,8 +306,8 @@ annotation (
           textString="yOnOff")}),
 Documentation(info="<html>
 <p>
-This block identifies index of next enabled boiler (<code>yNexEnaBoi</code> and 
-<code>yEnaSmaBoi</code>) or disabled boiler (<code>yDisSmaBoi</code> and 
+This block identifies index of next enabled boiler (<code>yNexEnaBoi</code> and
+<code>yEnaSmaBoi</code>) or disabled boiler (<code>yDisSmaBoi</code> and
 <code>yLasDisBoi</code>) based on current boiler stage setpoint
 <code>uStaSet</code> and the boiler status setpoint <code>uBoiSet</code>.
 </p>

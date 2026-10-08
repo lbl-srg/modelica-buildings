@@ -280,27 +280,27 @@ annotation (
         textString="yHotWatIsoVal")}),
 Documentation(info="<html>
 <p>
-Block updates boiler hot water isolation valve enabling-disabling status when 
-there is stage change command (<code>chaPro=true</code>). It will also generate 
+Block updates boiler hot water isolation valve enabling-disabling status when
+there is stage change command (<code>chaPro=true</code>). It will also generate
 status <code>yEnaHotWatIsoVal</code> to indicate if the valve status change process has finished.
 </p>
 <ul>
 <li>
-When there is stage up command (<code>chaPro=true</code>) and next boiler has 
+When there is stage up command (<code>chaPro=true</code>) and next boiler has
 been enabled (<code>uUpsDevSta=true</code>), the hot water isolation valve of
-next enabling boiler indicated by <code>nexChaBoi</code> will be enabled. 
+next enabling boiler indicated by <code>nexChaBoi</code> will be enabled.
 </li>
 <li>
 When there is stage down command (<code>chaPro=true</code>) and the disabling
-boiler (<code>nexChaBoi</code>) or its associated pump has been shut off 
+boiler (<code>nexChaBoi</code>) or its associated pump has been shut off
 (<code>uUpsDevSta=true</code>), the boiler's isolation valve will be disabled.
 </li>
 </ul>
 <p>
-This sequence will generate array <code>yHotWatIsoVal</code> which indicates 
-hot water isolation valve signal. <code>yEnaHotWatIsoVal</code> 
+This sequence will generate array <code>yHotWatIsoVal</code> which indicates
+hot water isolation valve signal. <code>yEnaHotWatIsoVal</code>
 will be true when all the enabled valves are fully open and all the disabled valves
-are fully closed. 
+are fully closed.
 </p>
 </html>", revisions="<html>
 <ul>

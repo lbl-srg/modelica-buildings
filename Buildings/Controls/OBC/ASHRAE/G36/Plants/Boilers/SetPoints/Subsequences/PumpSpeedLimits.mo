@@ -224,10 +224,10 @@ as follows:
 </p>
 <ol>
 <li>
-if the primary pumps are constant speed <code>have_varPriPum=false</code>, 
+if the primary pumps are constant speed <code>have_varPriPum=false</code>,
 <code>yMaxSecPumSpe</code> is reset from 100% pump speed at 0% of regulation
 signal <code>uRegSig</code> to minimum pump speed <code>minSecPumSpe</code>
-at 100% of <code>uRegSig</code>.    
+at 100% of <code>uRegSig</code>.
 </li>
 <li>
 if the primary pumps are variable speed <code>have_varPriPum=true</code>,

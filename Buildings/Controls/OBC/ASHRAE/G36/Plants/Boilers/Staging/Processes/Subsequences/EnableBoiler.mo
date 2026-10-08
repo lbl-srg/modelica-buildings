@@ -469,7 +469,7 @@ is enabled (<code>uOnOff=true</code>):
 </p>
 <ul>
 <li>
-Wait 5 minutes (<code>proOnTim</code>) for the newly enabled boiler to prove that it is 
+Wait 5 minutes (<code>proOnTim</code>) for the newly enabled boiler to prove that it is
 operating correctly, then shut off the smaller boiler.
 </li>
 </ul>

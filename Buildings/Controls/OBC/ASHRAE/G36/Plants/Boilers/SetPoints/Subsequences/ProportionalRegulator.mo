@@ -108,7 +108,7 @@ as follows:
 The measured hot-water return temperature <code>THotWatRet</code> is compared
 to the minimum hot water return temperature for optimal operation <code>TRetSet</code>,
 with the output <code>yProReg</code> varying linearly from 0% at
-<code>TRetSet</code> to 100% at <code>TRetMinAll</code>.    
+<code>TRetSet</code> to 100% at <code>TRetMinAll</code>.
 </li>
 </ul>
 </html>",

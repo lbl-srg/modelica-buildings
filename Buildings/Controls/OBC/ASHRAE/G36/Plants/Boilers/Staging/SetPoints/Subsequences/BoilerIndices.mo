@@ -124,8 +124,8 @@ equation
 Documentation(info="<html>
 <p>
 This subsequence is not directly specified in ASHRAE Guideline 36 as it provides
-a side calculation pertaining to generalization of the staging 
-sequences for any number of boilers and stages provided by the 
+a side calculation pertaining to generalization of the staging
+sequences for any number of boilers and stages provided by the
 user.
 </p>
 <p>

@@ -239,27 +239,27 @@ Block that enables and disables lag hot water pump according to ASHRAE Guideline
 36, section 5.21.6.4 and section 5.21.7.3.
 </p>
 <p>
-Hot water pump shall be staged as a function of hot water flow ratio (HWFR), 
+Hot water pump shall be staged as a function of hot water flow ratio (HWFR),
 i.e. the ratio of current hot water flow <code>VHotWat_flow</code> to design
 flow <code>VHotWat_flow_nominal</code>, and the number of pumps <code>num_nominal</code>
 that operate at design conditions. Pumps are assumed to be equally sized.
 </p>
 <pre>
                   VHotWat_flow
-      HWFR = ---------------------- 
+      HWFR = ----------------------
               VHotWat_flow_nominal
 </pre>
 <p>
-1. Start the next lag pump <code>yNexLagPum</code> whenever the following is 
+1. Start the next lag pump <code>yNexLagPum</code> whenever the following is
 true for time <code>timPer</code>:
 </p>
-<pre>        
-      HWFR &gt; Number_of_operating_pumps/num_nominal - 0.03                  
+<pre>
+      HWFR &gt; Number_of_operating_pumps/num_nominal - 0.03
 </pre>
 <p>
 2. Shut off the last lag pump whenever the following is true for <code>timPer</code>:
 </p>
-<pre>           
+<pre>
       HWFR &le; (Number_of_operating_pumps - 1)/num_nominal - 0.03
 </pre>
 </html>", revisions="<html>

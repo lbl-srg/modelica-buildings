@@ -244,8 +244,8 @@ equation
       extent={{-100,-180},{100,140}})),
 Documentation(info="<html>
 <p>
-Outputs a boolean stage up signal <code>yStaUp</code> based on the 
-various plant operation conditions that get provided as input signals. 
+Outputs a boolean stage up signal <code>yStaUp</code> based on the
+various plant operation conditions that get provided as input signals.
 Implemented according to ASHRAE Guideline 36, 2021, section 5.21.3.9.
 and applies to all boiler plants defined in the guideline. Timer reset has been
 implemented according to 5.21.3.9, item b.

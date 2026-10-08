@@ -354,14 +354,14 @@ first available higher stage <code>yUp</code>
 and the first available lower stage <code>yDown</code>.
 </li>
 <li>
-Boolean status outputs to show if the current operating stage 
+Boolean status outputs to show if the current operating stage
 <code>u</code> is:
 <ul>
 <li>
 Available, <code>u</code>
 </li>
 <li>
-The highest available stage, <code>yHig</code> 
+The highest available stage, <code>yHig</code>
 </li>
 <li>
 The lowest available stage, <code>yLow</code>
@@ -370,7 +370,7 @@ The lowest available stage, <code>yLow</code>
 </li>
 </ul>
 <p>
-The purpose of this sequence is to: 
+The purpose of this sequence is to:
 </p>
 <ul>
 <li>
@@ -380,7 +380,7 @@ unavailable stages is avoided.
 <li>
 G36.Plants.Boilers.Staging.SetPoints.Subsequences.Change the stage to the first
 available higher stage in an event that the
-current stage becomes unavailable. 
+current stage becomes unavailable.
 </li>
 </ul>
 </html>", revisions="<html>

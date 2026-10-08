@@ -251,7 +251,7 @@ annotation (
 <p>
 Block that controls speed of enabled hot water pumps for plants where
 the remote pressure differential (DP) sensor(s) is not hardwired to the plant controller,
-but a local DP sensor is hardwired to the plant controller, 
+but a local DP sensor is hardwired to the plant controller,
 according to ASHRAE Guideline 36, 2021, sections 5.21.6.7, 5.21.6.8, 5.21.6.9,
 5.21.7.7 , 5.21.7.8 and 5.21.7.9.
 </p>
@@ -260,15 +260,15 @@ according to ASHRAE Guideline 36, 2021, sections 5.21.6.7, 5.21.6.8, 5.21.6.9,
 Remote dP <code>dpHotWat_remote</code> shall be maintained at setpoint <code>dpHotWatSet</code>
 by a reverse acting PID loop running in the controller to which the remote sensor is wired.
 The loop output shall be a dP setpoint for the local dP sensor
-hardwired to the plant controller. Reset local dP from <code>minLocDp</code>, 
+hardwired to the plant controller. Reset local dP from <code>minLocDp</code>,
 e.g. 5 psi (34473.8 Pa), at 0% loop output to <code>maxLocDp</code> at 100%
 loop output.
 </li>
 <li>
 When any pump is proven on, pump speed shall be controlled by a reverse acting
 PID loop maintaining the local dP <code>dpHotWat_local</code> at the DP setpoint output
-from the remote sensor control loop. All pumps receive the same speed signal. 
-PID loop output shall be mapped from minimum pump speed (<code>minPumSpe</code>) 
+from the remote sensor control loop. All pumps receive the same speed signal.
+PID loop output shall be mapped from minimum pump speed (<code>minPumSpe</code>)
 at 0% to maximum pump speed at 100%.
 </li>
 <li>

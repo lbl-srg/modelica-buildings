@@ -250,7 +250,7 @@ and secondary loops, or in the secondary loop and at the boiler supply, accordin
 to ASHRAE Guideline 36, 2021, sections 5.21.6.14, 5.21.6.15 and 5.21.6.16.
 </p>
 <p>
-When any hot water pump is proven on, <code>uHotWatPum = true</code>, 
+When any hot water pump is proven on, <code>uHotWatPum = true</code>,
 pump speed will be controlled by a Trim-and-Respond logic controller. The number
 of requests to the controller is calculated as follows:
 </p>
@@ -262,7 +262,7 @@ and the secondary loop temperature <code>THotWatSec</code> is greater than
 is less than <code>twoReqLimLow</code>.
 </li>
 <li>
-When the difference between <code>THotWatPri</code> and <code>THotWatSec</code> 
+When the difference between <code>THotWatPri</code> and <code>THotWatSec</code>
 is greater than <code>oneReqLimHig</code>, 1 request is sent to the controller
 until the difference is less than <code>oneReqLimLow</code>.
 </li>

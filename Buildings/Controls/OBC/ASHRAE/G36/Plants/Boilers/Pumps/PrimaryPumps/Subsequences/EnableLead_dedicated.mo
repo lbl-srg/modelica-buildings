@@ -90,7 +90,7 @@ section 5.21.6.3.
 <p>
 The lead primary hot water pump status <code>yLea</code> should be enabled when
 boiler plant is enabled (<code>uPlaEna</code> = true). It should be disabled when
-the lead boiler is disabled and has been proven off (<code>uLeaBoiSta</code> 
+the lead boiler is disabled and has been proven off (<code>uLeaBoiSta</code>
 = false) for time <code>offTimThr</code>.
 </p>
 </html>", revisions="<html>

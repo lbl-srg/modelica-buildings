@@ -312,9 +312,9 @@ equation
       extent={{-220,-200},{220,200}})),
 Documentation(info="<html>
 <p>
-This subsequence is not directly specified in ASHRAE Guideline 36, 2021 
-as it provides a side calculation pertaining to generalization of the staging 
-sequences for any number of boilers and stages provided by the 
+This subsequence is not directly specified in ASHRAE Guideline 36, 2021
+as it provides a side calculation pertaining to generalization of the staging
+sequences for any number of boilers and stages provided by the
 user.
 </p>
 <p>

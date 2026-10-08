@@ -314,8 +314,8 @@ annotation (
   Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-160,-140},{160,140}})),
 Documentation(info="<html>
 <p>
-Block that changes the status of pumps. This sequence is not directly specified 
-in ASHRAE Guideline 36. It provides a side calculation pertaining to generalization of the staging 
+Block that changes the status of pumps. This sequence is not directly specified
+in ASHRAE Guideline 36. It provides a side calculation pertaining to generalization of the staging
 sequences for any number of pumps and stages provided by the user.
 </p>
 <ol>

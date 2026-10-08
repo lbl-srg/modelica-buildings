@@ -1100,15 +1100,15 @@ Primary hot water pump control sequence per ASHRAE Guideline 36, 2021, section
 </p>
 <ul>
 <li>
-Subsequences to enable lead pump, 
+Subsequences to enable lead pump,
 <ul>
 <li>
-for plants with dedicated pumps 
+for plants with dedicated pumps
 <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Pumps.PrimaryPumps.Subsequences.EnableLead_dedicated\">
 Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Pumps.PrimaryPumps.Subsequences.EnableLead_dedicated</a>.
 </li>
 <li>
-for plants with headered pumps 
+for plants with headered pumps
 <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Pumps.PrimaryPumps.Subsequences.EnableLead_headered\">
 Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Pumps.PrimaryPumps.Subsequences.EnableLead_headered</a>.
 </li>
@@ -1271,7 +1271,7 @@ The parameter values for valid pump configurations are as follows:
 <td>NA</td>
 </tr>
 </tbody>
-</table> 
+</table>
 </html>",
 revisions="<html>
 <ul>

@@ -237,8 +237,8 @@ annotation (defaultComponentName = "cap",
 Documentation(info="<html>
 <p>
 This subsequence is not directly specified in ASHRAE Guideline 36 as it provides
-a side calculation pertaining to generalization of the staging 
-sequences for any number of boilers and stages provided by the 
+a side calculation pertaining to generalization of the staging
+sequences for any number of boilers and stages provided by the
 user.
 </p>
 <p>
@@ -255,14 +255,14 @@ the next available higher boiler stage <code>uUp</code> index
 the next available lower boiler stage <code>uDown</code> index
 </li>
 <li>
-boolean inputs that determine if the current stage is 
-any of the following: the highest <code>uHigh</code> or the 
+boolean inputs that determine if the current stage is
+any of the following: the highest <code>uHigh</code> or the
 lowest <code>uLow</code> available boiler stage
 </li>
 </ul>
 <p>
 the subsequence selects from the design stage capacity <code>uDesCap</code>
-and the minimal stage capacity <code>uMinCap</code> vectors 
+and the minimal stage capacity <code>uMinCap</code> vectors
 the following variables and outputs them:
 </p>
 <ul>
@@ -271,7 +271,7 @@ the design capacities of the current <code>yDes</code>, first available higher
 <code>yUpDes</code> and first available lower stage <code>yDowDes</code>
 </li>
 <li>
-the minimal capacity of the current <code>yMin</code> and first available higher 
+the minimal capacity of the current <code>yMin</code> and first available higher
 stage <code>yUpMin</code>
 </li>
 </ul>
@@ -279,7 +279,7 @@ stage <code>yUpMin</code>
 for the purpose of calculations involved in staging the plant up and down.
 </p>
 <p>
-For numerical reasons and to ensure expected behavior in corner cases such as 
+For numerical reasons and to ensure expected behavior in corner cases such as
 when the plant operates at the highest or the lowest available stage, the
 sequence implements the following:
 </p>

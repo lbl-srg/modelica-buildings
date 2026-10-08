@@ -90,7 +90,7 @@ This block has been implemented to retain the original interpretation and
 implementation of the boiler plant sequences in
 <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers\">
 Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers</a> while accommodating changes
-to the real-value extractor block 
+to the real-value extractor block
 <a href=\"modelica://Buildings.Controls.OBC.CDL.Routing.RealExtractor\">
 Buildings.Controls.OBC.CDL.Routing.RealExtractor</a>.
 </p>
@@ -103,13 +103,13 @@ this block has been implemented to assign the required zero value at zero index.
 </p>
 <p>
 The block accepts input signals <code>uInd</code> for the
-current index value, and <code>uVal</code> for the current list value signal. 
-It outputs a modified index signal <code>yIndMod</code> and a modified 
+current index value, and <code>uVal</code> for the current list value signal.
+It outputs a modified index signal <code>yIndMod</code> and a modified
 value signal <code>yValMod</code>.
 </p>
 <ul>
 <li>
-<code>yIndMod</code> is set to 1 and <code>yValMod</code> is set to zero 
+<code>yIndMod</code> is set to 1 and <code>yValMod</code> is set to zero
 when <code>uInd</code> is zero.
 </li>
 <li>

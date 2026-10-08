@@ -153,7 +153,7 @@ Calculates heating capacity requirement based on the measured hot water return
 temperature, <code>TRet</code>, calculated hot water supply temperature
 setpoint <code>TSupSet</code>, and the measured hot water flow rate,
 <code>VHotWat_flow</code>.
-<br/> 
+<br/>
 The calculation is according to section 5.21.3.5 and 5.21.3.6. in ASHRAE
 Guideline 36, 2021.
 </p>

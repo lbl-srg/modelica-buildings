@@ -624,7 +624,7 @@ for a time period <code>delMinFir</code>, or
 Primary circuit pump speed <code>uPumSpe</code> is at the minimum
 allowed flow rate <code>boiMinPriPumSpeSta</code> and primary circuit hot
 water return temperature <code>TPriHotWatRet</code>
-exceeds the secondary circuit hot water return temperature <code>TSecHotWatRet</code> by 
+exceeds the secondary circuit hot water return temperature <code>TSecHotWatRet</code> by
 <code>dTCir</code> for a time period <code>delTRetDiff</code>.
 </li>
 </ul>

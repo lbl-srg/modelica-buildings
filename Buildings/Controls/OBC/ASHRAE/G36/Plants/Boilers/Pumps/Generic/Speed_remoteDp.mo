@@ -210,7 +210,7 @@ sections 5.21.6.5, 5.21.6.6, 5.21.7.5 and 5.21.7.6.
 </p>
 <ol>
 <li>
-When any hot water pump is proven on, <code>uHotWatPum = true</code>, 
+When any hot water pump is proven on, <code>uHotWatPum = true</code>,
 pump speed will be controlled by a reverse acting PID loop maintaining the
 differential pressure signal at a setpoint <code>dpHotWatSet</code>. All pumps
 receive the same speed signal. PID loop output shall be mapped from minimum

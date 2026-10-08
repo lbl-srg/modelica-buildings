@@ -184,13 +184,13 @@ Documentation(info="<html>
 <p>
 Block that outputs hot water pump speed setpoint for primary-secondary plants with
 variable-speed primary pumps with flow sensors present in the primary and secondary
-loops, or in the decoupler, according to ASHRAE Guideline 36, 2021, 
+loops, or in the decoupler, according to ASHRAE Guideline 36, 2021,
 sections 5.21.6.12 and 5.21.6.13.
 </p>
 <p>
-When any hot water pump is proven on, <code>uHotWatPum = true</code>, 
+When any hot water pump is proven on, <code>uHotWatPum = true</code>,
 pump speed<code>yHotWatPumSpe</code> will be controlled by a reverse acting PID
-loop maintaining the flowrate through the decoupler at zero. PID loop output 
+loop maintaining the flowrate through the decoupler at zero. PID loop output
 shall be mapped from minimum pump speed (<code>minPumSpe</code>) at 0% to maximum
 pump speed at 100%.
 </p>
@@ -203,7 +203,7 @@ loop <code>VHotWatPri_flow</code> and the measured flowrate in secondary loop
 (<code>VHotWatPri_flow - VHotWatSec_flow</code>) and generate the control signal.
 </li>
 <li>
-When the plant has a flowrate sensor in the decoupler, 
+When the plant has a flowrate sensor in the decoupler,
 <code>use_priSecSen = false</code>, the measured flowrate through the
 decoupler is used to calculate the control signal.
 </li>

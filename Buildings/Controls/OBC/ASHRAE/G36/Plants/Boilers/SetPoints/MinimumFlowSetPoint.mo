@@ -642,7 +642,7 @@ prior to starting the newly enabled boiler.
 </li>
 </ol>
 <p>
-Note that when there is a stage change requiring a change in <code>VHotWatMinSet_flow</code>, 
+Note that when there is a stage change requiring a change in <code>VHotWatMinSet_flow</code>,
 the change should be slowly made at a rate <code>bypSetRat</code>.
 </p>
 </html>", revisions="<html>
