@@ -1,0 +1,36 @@
+simulateModel("Buildings.Controls.OBC.RadiantSystems.CoolingAndHeating.Validation.ControlPlusLockout", startTime=0.0, stopTime=172800.0, method="cvode",  tolerance=1E-06, resultFile="ControlPlusLockout");
+createPlot(id=1, position={15, 10, 924, 583},
+ y={"conPluLoc.yHea","conPluLoc.yCoo"}, 
+ range={0.0, 172000.0, 0, 1},
+ autoscale = true,
+ autoerase = true,
+ autoreplot = true,
+ grid=true,
+ color=true);
+createPlot(id=1, position={15, 10, 924, 583},
+ y={"conPluLoc.allLoc.yHea", "conPluLoc.allLoc.yCoo"}, 
+ range={0.0, 172000.0, 0, 1},
+ autoscale = true,
+ autoerase = true,
+ autoreplot = true,
+ grid=true,
+ color=true,
+ subPlot=2);
+ createPlot(id=1, position={15, 10, 924, 583},
+ y={"conPluLoc.deaCon.uCoo", "conPluLoc.deaCon.uHea"},
+ range={0.0, 172000.0, 0, 1},
+ autoscale = true,
+ autoerase = true,
+ autoreplot = true,
+ grid=true,
+ color=true,
+ subPlot=3);
+ createPlot(id=2, position={15, 10, 924, 583},
+ y={"conPluLoc.err.slaTemErr","conPluLoc.deaCon.TDeaRel","conPluLoc.deaCon.TDeaNor"}, 
+ range={0.0, 172000.0, (-20), 20},
+ autoscale = true,
+ autoerase = true,
+ autoreplot = true,
+ grid=true,
+ color=true);
+ 

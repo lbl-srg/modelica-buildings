@@ -1,0 +1,10 @@
+simulateModel("Buildings.Controls.OBC.RadiantSystems.CoolingAndHeating.SlabTemperatureSignal.Validation.BaseClasses.Validation.ChicagoForecastHigh", stopTime=31536000, method="cvode",  tolerance=1E-06, resultFile="ChicagoForecastHigh");
+createPlot(id=1, position={55, 50, 1186, 817},
+ y={"forHiChi.TForHigChi", "weaDat2.weaBus.TDryBul"}, 
+ range={0.0, 31536000, 250, 320},
+ autoscale = true,
+ autoerase = true,
+ autoreplot = true,
+ grid=true,
+ color=true)
+ 
