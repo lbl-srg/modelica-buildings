@@ -421,6 +421,7 @@
     translate: false
   optimica:
     comment: Failing due to the controller using a when-guard in an algebraic loop.
+    translate: false
 - model_name: Buildings.Templates.Plants.Controls.HeatPumps.Subsequences.Validation.SelectModeState
   openmodelica:
     comment: Translation fails with OMC 1.26.3 but succeeds with 1.27.0.
@@ -542,6 +543,14 @@
   openmodelica:
     comment: timed out after 300 seconds
     time_out: 600
+- model_name: Buildings.ThermalZones.EnergyPlus_24_2_0.Examples.SmallOffice.ASHRAE2006Summer_Autosizing
+  openmodelica:
+    comment: Translation fails with OMC 1.26.3, corrected in 1.27.1.
+    translate: false
+- model_name: Buildings.ThermalZones.EnergyPlus_24_2_0.Examples.SmallOffice.ASHRAE2006Winter_Autosizing
+  openmodelica:
+    comment: Translation fails with OMC 1.26.3, corrected in 1.27.1.
+    translate: false
 - model_name: Buildings.ThermalZones.EnergyPlus_24_2_0.Examples.SmallOffice.Guideline36Spring
   openmodelica:
     comment: timed out after 300 seconds
@@ -550,10 +559,18 @@
   openmodelica:
     comment: timed out after 600 seconds
     time_out: 900
+- model_name: Buildings.ThermalZones.EnergyPlus_24_2_0.Examples.SmallOffice.Guideline36Summer_Autosizing
+  openmodelica:
+    comment: Translation fails with OMC 1.26.3, corrected in 1.27.1.
+    translate: false
 - model_name: Buildings.ThermalZones.EnergyPlus_24_2_0.Examples.SmallOffice.Guideline36Winter
   openmodelica:
     comment: Timeout on travis after 600 seconds
     time_out: 900
+- model_name: Buildings.ThermalZones.EnergyPlus_24_2_0.Examples.SmallOffice.Guideline36Winter_Autosizing
+  openmodelica:
+    comment: Translation fails with OMC 1.26.3, corrected in 1.27.1.
+    translate: false
 - model_name: Buildings.ThermalZones.EnergyPlus_24_2_0.Examples.SmallOffice.IdealHeatingCoolingSpring
   optimica:
     rtol: 1.0e-08

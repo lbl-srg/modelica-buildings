@@ -118,7 +118,7 @@ This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2600\
 </li>
 <li>
 November 25, 2019, by Milica Grahovac:<br/>
-Impementation of <a href=\"modelica://Buildings.Examples.VAVReheat.ASHRAE2006\">
+Implementation of <a href=\"modelica://Buildings.Examples.VAVReheat.ASHRAE2006\">
 Buildings.Examples.VAVReheat.ASHRAE2006</a> model with an EnergyPlus thermal zone instance.
 </li>
 </ul>

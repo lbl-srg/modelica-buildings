@@ -64,7 +64,7 @@ model RadiantHeatingCooling_TSurface
       displayUnit="degC")=293.15,
     y(final unit="K",
       displayUnit="degC"))
-    "Room temperture set point for heating"
+    "Room temperature set point for heating"
     annotation (Placement(transformation(extent={{-210,-154},{-190,-134}})));
   Buildings.Fluid.Movers.SpeedControlled_y pum(
     redeclare package Medium=MediumW,
@@ -120,7 +120,7 @@ model RadiantHeatingCooling_TSurface
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant TSetSurCooOn(k(
       final unit="K",
       displayUnit="degC") = 293.15, y(final unit="K", displayUnit="degC"))
-    "Surface temperture set point for cooling"
+    "Surface temperature set point for cooling"
     annotation (Placement(visible = true, transformation(extent = {{-214, 140}, {-194, 160}}, rotation = 0)));
   Buildings.Controls.OBC.CDL.Conversions.BooleanToReal booToRea(
     realTrue=mCoo_flow_nominal)
@@ -149,7 +149,7 @@ model RadiantHeatingCooling_TSurface
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant TSetSurOff(k(
       final unit="K",
       displayUnit="degC") = 303.15, y(final unit="K", displayUnit="degC"))
-    "Surface temperture set point to switch system off"
+    "Surface temperature set point to switch system off"
     annotation (Placement(visible = true, transformation(extent = {{-214, 100}, {-194, 120}}, rotation = 0)));
   Buildings.Controls.OBC.CDL.Reals.Greater enaCoo(h=1)
     "Switch to enable and disable cooling"
@@ -244,10 +244,9 @@ that has a radiant ceiling, used for cooling, and a radiant floor, used for heat
 The EnergyPlus model has one conditioned zone that is above ground. This conditioned zone
 has an unconditioned attic.
 The model is constructed by extending
-<a href=\"modelica://Buildings.ThermalZones.EnergyPlus_24_2_0.Examples.SingleFamilyHouse.HeatPumpRadiantHeatingGroundHeatTransfer\">
-Buildings.ThermalZones.EnergyPlus_24_2_0.Examples.SingleFamilyHouse.HeatPumpRadiantHeatingGroundHeatTransfer</a>
-and adding the radiant ceiling.
-For simplicity, this model provide heating with an idealized heater.
+<a href=\"modelica://Buildings.ThermalZones.EnergyPlus_24_2_0.Examples.SingleFamilyHouse.Unconditioned\">
+Buildings.ThermalZones.EnergyPlus_24_2_0.Examples.SingleFamilyHouse.Unconditioned</a>
+and adding a radiant ceiling for cooling and an idealized heater for heating.
 </p>
 <p>
 The next section explains how the radiant ceiling is configured.
@@ -275,8 +274,8 @@ back-facing surface, e.g., the ceiling of the living room.
 </p>
 <p>
 Cooling is enabled if the room temperature is a certain value above the heating set point temperature.
-(Note that for simplicity this model has no night set back. If night set back where enabled, one needs to
-guard against switchin on the cooling if the heating set point is reset.)
+(Note that for simplicity this model has no night set back. If night set back were enabled, one needs to
+guard against switching on the cooling if the heating set point is reset.)
 The mass flow rate of the slab is constant if the cooling is operating.
 A P controller computes the control signal to maintain a set point for the surface temperature.
 The controller uses a hysteresis to switch the mass flow rate on or off.
