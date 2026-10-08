@@ -78,6 +78,14 @@ jobs:
       - name: "Verify files for invalid strings"
         run: ${GITHUB_WORKSPACE}/bin/verifyFiles.py
 
+      - name: "Verify that all header files are included and .c can be compiled as individual units"
+        run:  |
+              cd Resources/C-Sources
+              find . -name '*.c' | while read -r ff; do
+                gcc -I ../src/C-Sources "$ff" -c || exit 1
+              done
+              rm *.o
+
       - name: "Verify that all OpenModelica scripts are up to date, and no old scripts exist"
         run : |
               rm Resources/Scripts/OpenModelica/compareVars/*.mos

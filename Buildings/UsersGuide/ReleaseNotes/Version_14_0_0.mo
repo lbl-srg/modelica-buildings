@@ -23,6 +23,15 @@ have been added with system and component models for liquid-cooled data centers,
 such as CDUs and racks.
 </li>
 <li>
+An autosizing feature has been added to the package 
+<code>Buildings.ThermalZones.EnergyPlus_24_2_0</code>, where, during initialization, 
+the EnergyPlus sizing routine can be invoked, resulting in parameter values being 
+passed to Modelica thermal zone and HVAC system objects. These parameter values 
+include heating and cooling loads, zone set points, outdoor conditions, and 
+minimum outside air flow all at design conditions, and can be used throughout the 
+Modelica model to size HVAC equipment based on the EnergyPlus sizing results.
+</li>
+<li>
 The air-to-water heat pump plant template in <code>Buildings.Templates.Plants.HeatPumps</code>
 has been extended to support 4-pipe polyvalent heat pumps that can simultaneously provide
 heating and cooling. Associated control subsequences have been added to
@@ -96,6 +105,41 @@ to <b style=\"color:blue\">existing</b> libraries:
     <td valign=\"top\">Added functions for pressure drop calculations with flow exponents between 1 and 2,
                        enabling modeling of partially turbulent flows such as in microchannel heat exchangers.<br/>
                        This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4620\">Buildings, #4620</a>.
+    </td>
+    </tr>
+<tr><td colspan=\"2\"><b>Buildings.ThermalZones.EnergyPlus_24_2_0</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.ThermalZones.EnergyPlus_24_2_0.Examples.SingleFamilyHouse.AirHeating_Autosizing<br/>
+                       Buildings.ThermalZones.EnergyPlus_24_2_0.Examples.SmallOffice.ASHRAE2006Summer_Autosizing<br/>
+                       Buildings.ThermalZones.EnergyPlus_24_2_0.Examples.SmallOffice.ASHRAE2006Winter_Autosizing<br/>
+                       Buildings.ThermalZones.EnergyPlus_24_2_0.Examples.SmallOffice.Guideline36Summer_Autosizing<br/>
+                       Buildings.ThermalZones.EnergyPlus_24_2_0.Examples.SmallOffice.Guideline36Winter_Autosizing<br/>
+                       Buildings.ThermalZones.EnergyPlus_24_2_0.Examples.SmallOffice.IdealHeatingCoolingSummer_Autosizing<br/>
+                       Buildings.ThermalZones.EnergyPlus_24_2_0.Examples.SmallOffice.IdealHeatingCoolingWinter_Autosizing<br/>
+                       Buildings.ThermalZones.EnergyPlus_24_2_0.Examples.SmallOffice.BaseClasses.Floor_Autosizing<br/>
+                       Buildings.ThermalZones.EnergyPlus_24_2_0.Examples.SmallOffice.BaseClasses.Floor_Autosizing_MultipleSystems
+    </td>
+    <td valign=\"top\">Added example models for autosizing using EnergyPlus.<br/>
+                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3866\">Buildings, #3866</a>.
+    </td>
+    </tr>
+<tr><td valign=\"top\">Buildings.ThermalZones.EnergyPlus_24_2_0.SystemSizing
+    </td>
+    <td valign=\"top\">Added system sizing object for autosizing using EnergyPlus.<br/>
+                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3866\">Buildings, #3866</a>.
+    </td>
+    </tr>
+<tr><td valign=\"top\">Buildings.ThermalZones.EnergyPlus_24_2_0.BaseClasses.Sizing
+    </td>
+    <td valign=\"top\">Added sizing record for autosizing using EnergyPlus.<br/>
+                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3866\">Buildings, #3866</a>.
+    </td>
+    </tr>
+<tr><td valign=\"top\">Buildings.ThermalZones.EnergyPlus_24_2_0.UsersGuide
+    </td>
+    <td valign=\"top\">Added documentation for autosizing using EnergyPlus.<br/>
+                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3866\">Buildings, #3866</a>.
     </td>
 </tr>
 <tr><td colspan=\"2\"><b>Buildings.Templates.Plants.Controls</b>
@@ -274,6 +318,28 @@ have been <b style=\"color:blue\">improved</b> in a
     </td>
     <td valign=\"top\">Improved C source codes and recompiled FFD library to allow the examples being simulated with OpenModelica.<br/>
                        This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4015\">Buildings, #4015</a>.<br/>
+    </td>
+</tr>
+<tr><td colspan=\"2\"><b>Buildings.ThermalZones.EnergyPlus_24_2_0</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.ThermalZones.EnergyPlus_24_2_0.ThermalZone
+    </td>
+    <td valign=\"top\">Added parameters in record for autosizing with EnergyPlus.<br/>
+                       Added parameter, with default as zero, for considering infiltration flow during autosizing for EnergyPlus.<br/>
+                       Updated exchange with C-code to exchange variables for autosizing with EnergyPlus.<br/>
+                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3866\">Buildings, #3866</a>.
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.ThermalZones.EnergyPlus_24_2_0.Actuator<br/>
+                       Buildings.ThermalZones.EnergyPlus_24_2_0.OpaqueConstruction<br/>
+                       Buildings.ThermalZones.EnergyPlus_24_2_0.OutputVariable<br/>
+                       Buildings.ThermalZones.EnergyPlus_24_2_0.Schedule<br/>
+                       Buildings.ThermalZones.EnergyPlus_24_2_0.ThermalZone<br/>
+                       Buildings.ThermalZones.EnergyPlus_24_2_0.ZoneSurface<br/>
+    </td>
+    <td valign=\"top\">Updated exchange with C-code to exchange variables for autosizing with EnergyPlus.<br/>
+                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3866\">Buildings, #3866</a>.<br/>
     </td>
 </tr>
 <tr><td colspan=\"2\"><b>Buildings.Fluid.Sources</b>
@@ -465,7 +531,16 @@ have been <b style=\"color:blue\">improved</b> in a
     </td>
     <td valign=\"top\">Corrected C function implementation to comply with Modelica Language Standard.<br/>
                        This change only affects the C function implementation and does not impact the Modelica function signature.<br/>
-                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4658\">issue 4658</a>.
+                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4658\">issue 4658</a>.<br/>
+                       </br>
+                       Added inputs for autosizing with EnergyPlus.<br/>
+                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3866\">issue 3866</a>.<br/>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.ThermalZones.EnergyPlus_24_2_0.BaseClasses.ThermalZoneAdapter
+    </td>
+    <td valign=\"top\">Added parameters for autosizing with EnergyPlus.<br/>
+                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3866\">issue 3866</a>.<br/>
     </td>
 </tr>
 </table>

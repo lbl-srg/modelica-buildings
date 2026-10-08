@@ -2,6 +2,7 @@
 #define Modelica_EnergyPlus_24_2_0_allocate_declared
 
 #include "Modelica_EnergyPlus_24_2_0_allocate.h"
+#include "ModelicaUtilities.h"
 #include <stdlib.h>
 
 /* *********************************************************
@@ -19,6 +20,8 @@ void* Modelica_EnergyPlus_24_2_0_allocate(
   const char* idfVersion,
   const char* idfName,
   const char* epwName,
+  const char* epName,
+  const char* hvacZone,
   int runPeriod_dayOfWeekForStartDay,
   int runPeriod_applyWeekEndHolidayRule,
   int runPeriod_use_weatherFileDaylightSavingPeriod,
@@ -26,7 +29,10 @@ void* Modelica_EnergyPlus_24_2_0_allocate(
   int runPeriod_use_weatherFileRainIndicators,
   int runPeriod_use_weatherFileSnowIndicators,
   double relativeSurfaceTolerance,
-  const char* epName,
+  double airChaRatInf,
+  double cpAir,
+  double hfgWater,
+  double rhoAir,
   int usePrecompiledFMU,
   const char* fmuName,
   const char* buildingsRootFileLocation,
@@ -69,9 +75,14 @@ void* Modelica_EnergyPlus_24_2_0_allocate(
       idfVersion,
       idfName,
       epwName,
+      epName,
+      hvacZone,
       &runPer,
       relativeSurfaceTolerance,
-      epName,
+      airChaRatInf,
+      cpAir,
+      hfgWater,
+      rhoAir,
       usePrecompiledFMU,
       fmuName,
       buildingsRootFileLocation,
