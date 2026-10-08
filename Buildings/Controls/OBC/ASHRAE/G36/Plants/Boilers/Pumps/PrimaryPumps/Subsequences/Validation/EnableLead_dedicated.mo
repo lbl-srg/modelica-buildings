@@ -17,7 +17,6 @@ protected
 equation
   connect(booPul.y,enaLeaPriPum. uPlaEna) annotation (Line(points={{-28,0},{20,0},
           {20,5},{38,5}}, color={255,0,255}));
-
   connect(booPul.y,enaLeaPriPum.uLeaBoiSta)
     annotation (Line(points={{-28,0},{20,0},{20,-5},{38,-5}}, color={255,0,255}));
 

@@ -1,8 +1,6 @@
 within Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Staging.Processes;
 package Subsequences "Package of subsequences for staging up and down devices"
 
-
-
 annotation (preferredView="info", Documentation(info="<html>
 <p>
 This package contains subsequences for controlling devices when there is stage-up

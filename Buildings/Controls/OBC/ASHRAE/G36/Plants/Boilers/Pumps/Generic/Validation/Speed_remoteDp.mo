@@ -42,18 +42,13 @@ equation
   connect(difPreSet.y,hotPumSpe.dpHotWatSet)
     annotation (Line(points={{-38,-80},{-20,-80},{-20,-8},{18,-8}},
       color={0,0,127}));
-
   connect(pumSta.y,hotPumSpe.uHotWatPum)
     annotation (Line(points={{-38,40},{-20,40},{-20,8},{18,8}},
       color={255,0,255}));
-
   connect(remPreSen1.y, hotPumSpe.dpHotWat[1]) annotation (Line(points={{-38,0},
-          {-10,0},{-10,-0.5},{18,-0.5}},
-                                     color={0,0,127}));
-
+          {-10,0},{-10,-0.5},{18,-0.5}}, color={0,0,127}));
   connect(remPreSen2.y, hotPumSpe.dpHotWat[2]) annotation (Line(points={{-38,-40},
-          {-28,-40},{-28,0.5},{18,0.5}},
-                                     color={0,0,127}));
+          {-28,-40},{-28,0.5},{18,0.5}}, color={0,0,127}));
 
 annotation (
   experiment(StopTime=10.0, Tolerance=1e-06),

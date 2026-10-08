@@ -28,10 +28,8 @@ protected
 equation
   connect(pul.y, reaToInt.u)
     annotation (Line(points={{-68,-20},{-52,-20}}, color={0,0,127}));
-
   connect(reaToInt.y, enaLeaSecPum.plaReq) annotation (Line(points={{-28,-20},{-10,
           -20},{-10,-4},{-2,-4}}, color={255,127,0}));
-
   connect(booPul.y, enaLeaSecPum.uPlaEna) annotation (Line(points={{-28,20},{
           -10,20},{-10,4},{-2,4}}, color={255,0,255}));
 
@@ -39,21 +37,21 @@ annotation (
   experiment(StopTime=30.0, Tolerance=1e-06),
   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/ASHRAE/G36/Plants/Boilers/Pumps/SecondaryPumps/Subsequences/Validation/EnableLead.mos"
     "Simulate and plot"),
-  Documentation(info="<html>
-    <p>
-    This example validates
-    <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Pumps.SecondaryPumps.Subsequences.EnableLead\">
-    Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Pumps.SecondaryPumps.Subsequences.EnableLead</a>.
-    </p>
-    </html>", revisions="<html>
-    <ul>
-    <li>
-    August 25, 2020, by Karthik Devaprasad:<br/>
-    First implementation.
-    </li>
-    </ul>
-    </html>"),
-  Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}}),
+Documentation(info="<html>
+<p>
+This example validates
+<a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Pumps.SecondaryPumps.Subsequences.EnableLead\">
+Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Pumps.SecondaryPumps.Subsequences.EnableLead</a>.
+</p>
+</html>", revisions="<html>
+<ul>
+<li>
+August 25, 2020, by Karthik Devaprasad:<br/>
+First implementation.
+</li>
+</ul>
+</html>"),
+Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}}),
     graphics={
       Ellipse(lineColor = {75,138,73},
               fillColor={255,255,255},

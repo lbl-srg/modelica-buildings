@@ -6,7 +6,7 @@ annotation (
 preferredView="info", Documentation(info="<html>
 <p>
 This package contains control sequences for primary and secondary hot water pumps.
-The implementations are based on sections 5.3.6 and 5.3.7 in ASHRAE RP-1711, 
+The implementations are based on sections 5.3.6 and 5.3.7 in ASHRAE RP-1711,
 March 2020 draft.
 </p>
 </html>"),

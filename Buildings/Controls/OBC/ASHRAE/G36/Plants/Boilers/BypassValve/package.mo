@@ -34,9 +34,9 @@ package BypassValve "Control sequences for minimum flow bypass valve"
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid,
           extent={{-80.0,0.0},{-20.0,60.0}})}),
-          Documentation(info="<html>
-             <p>
-             This package contains control sequences for the minimum flow bypass valve.
-             </p>
-             </html>"));
+Documentation(info="<html>
+<p>
+This package contains control sequences for the minimum flow bypass valve.
+</p>
+</html>"));
 end BypassValve;

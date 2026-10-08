@@ -1,8 +1,6 @@
 within Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Pumps.SecondaryPumps;
 package Subsequences "Hot water pump control sequences"
 
-
-
 annotation (
 preferredView="info", Documentation(info="<html>
 <p>

@@ -90,89 +90,60 @@ protected
 equation
   connect(booPul.y, staUp.u)
     annotation (Line(points={{-178,60},{-162,60}}, color={255,0,255}));
-
   connect(booPul1.y,boiIsoVal. u)
     annotation (Line(points={{-178,20},{-162,20}}, color={255,0,255}));
-
   connect(staUp.y,enaDisBoi. uStaUp)
     annotation (Line(points={{-138,60},{-120,60},{-120,86},{-82,86}},
       color={255,0,255}));
-
   connect(boiIsoVal.y,boiTwo. u2)
     annotation (Line(points={{-138,20},{-116,20},{-116,-40},{-42,-40}},
       color={255,0,255}));
-
   connect(boiOne.y,boiTwo. u3)
     annotation (Line(points={{-138,-20},{-112,-20},{-112,-48},{-42,-48}},
       color={255,0,255}));
-
   connect(onOff.y,enaDisBoi. uOnOff)
     annotation (Line(points={{-138,-60},{-100,-60},{-100,74},{-82,74}},
       color={255,0,255}));
-
   connect(staUp.y,enaOneBoi. uStaUp)
     annotation (Line(points={{-138,60},{40,60},{40,86},{98,86}},
       color={255,0,255}));
-
   connect(noOnOff.y,enaOneBoi. uOnOff)
     annotation (Line(points={{42,-60},{56,-60},{56,74},{98,74}},
       color={255,0,255}));
-
   connect(enaBoi.y, enaDisBoi.nexEnaBoi) annotation (Line(points={{-138,100},{-120,
           100},{-120,89},{-82,89}}, color={255,127,0}));
-
   connect(boiIsoVal.y, enaDisBoi.uUpsDevSta) annotation (Line(points={{-138,20},
           {-116,20},{-116,82},{-82,82}}, color={255,0,255}));
-
   connect(boiOne.y, enaDisBoi.uBoi[1]) annotation (Line(points={{-138,-20},{
-          -112,-20},{-112,76.6667},{-82,76.6667}},
-                                              color={255,0,255}));
-
+          -112,-20},{-112,76.6667},{-82,76.6667}}, color={255,0,255}));
   connect(boiTwo.y, enaDisBoi.uBoi[2]) annotation (Line(points={{-18,-40},{-10,-40},
           {-10,40},{-108,40},{-108,78},{-82,78}}, color={255,0,255}));
-
   connect(enaDisBoi.yBoi[2], boiStaRet[1].u) annotation (Line(points={{-58,88},{
           -56,88},{-56,80},{-42,80}}, color={255,0,255}));
-
   connect(boiStaRet[1].y, boiTwo.u1) annotation (Line(points={{-18,80},{0,80},{0,
           0},{-60,0},{-60,-32},{-42,-32}}, color={255,0,255}));
-
   connect(enaDisBoi.yBoi[3], boiStaRet[2].u) annotation (Line(points={{-58,
           89.3333},{-52,89.3333},{-52,80},{-42,80}}, color={255,0,255}));
-
   connect(boiStaRet[2].y, enaDisBoi.uBoi[3]) annotation (Line(points={{-18,80},
           {0,80},{0,66},{-104,66},{-104,79.3333},{-82,79.3333}},color={255,0,255}));
-
   connect(disBoi.y, enaDisBoi.nexDisBoi) annotation (Line(points={{-138,-100},{-90,
           -100},{-90,71},{-82,71}}, color={255,127,0}));
-
   connect(enaBoi.y, enaOneBoi.nexEnaBoi) annotation (Line(points={{-138,100},{80,
           100},{80,89},{98,89}}, color={255,127,0}));
-
   connect(enaOneBoi.yBoi[3], boiStaRet1.u) annotation (Line(points={{122,
-          89.3333},{130,89.3333},{130,80},{138,80}},
-                                            color={255,0,255}));
-
+          89.3333},{130,89.3333},{130,80},{138,80}}, color={255,0,255}));
   connect(boiOne.y, enaOneBoi.uBoi[1]) annotation (Line(points={{-138,-20},{50,
-          -20},{50,76.6667},{98,76.6667}},
-                                      color={255,0,255}));
-
+          -20},{50,76.6667},{98,76.6667}}, color={255,0,255}));
   connect(boiOne.y, enaOneBoi.uBoi[2]) annotation (Line(points={{-138,-20},{50,-20},
           {50,78},{98,78}}, color={255,0,255}));
-
   connect(boiStaRet1.y, enaOneBoi.uBoi[3]) annotation (Line(points={{162,80},{
-          180,80},{180,60},{80,60},{80,79.3333},{98,79.3333}},
-                                                           color={255,0,255}));
-
+          180,80},{180,60},{80,60},{80,79.3333},{98,79.3333}}, color={255,0,255}));
   connect(boiIsoVal.y, enaOneBoi.uUpsDevSta) annotation (Line(points={{-138,20},
           {46,20},{46,82},{98,82}}, color={255,0,255}));
-
   connect(disBoi1.y, enaOneBoi.nexDisBoi) annotation (Line(points={{42,-100},{60,
           -100},{60,71},{98,71}}, color={255,127,0}));
-
   connect(enaDisBoi.yBoiEnaPro, truFalHol.u) annotation (Line(points={{-58,72},
           {-50,72},{-50,120},{-42,120}}, color={255,0,255}));
-
   connect(enaOneBoi.yBoiEnaPro, truFalHol1.u) annotation (Line(points={{122,72},
           {132,72},{132,120},{138,120}}, color={255,0,255}));
 

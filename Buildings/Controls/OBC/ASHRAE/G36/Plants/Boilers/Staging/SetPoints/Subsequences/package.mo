@@ -35,9 +35,9 @@ package Subsequences "Boiler staging setpoint subsequences"
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid,
           extent={{-80.0,0.0},{-20.0,60.0}})}),
-        Documentation(info="<html>
-          <p>
-          This package contains subsequences used in boiler staging setpoint control.
-          </p>
-          </html>"));
+Documentation(info="<html>
+<p>
+This package contains subsequences used in boiler staging setpoint control.
+</p>
+</html>"));
 end Subsequences;

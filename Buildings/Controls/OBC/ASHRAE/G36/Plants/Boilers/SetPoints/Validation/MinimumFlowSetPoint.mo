@@ -139,62 +139,42 @@ protected
 equation
   connect(ram.y, reaToInt.u)
     annotation (Line(points={{-68,20},{-62,20}}, color={0,0,127}));
-
   connect(reaToInt.y, minBoiFloSet.uStaSet) annotation (Line(points={{-38,20},{64,
           20},{64,54},{68,54}},       color={255,127,0}));
-
   connect(con1.y, extIndSig.u)
     annotation (Line(points={{-68,100},{-62,100}}, color={0,0,127}));
-
   connect(reaToInt1.y, minBoiFloSet.uLasDisBoi) annotation (Line(points={{42,100},
           {66,100},{66,66},{68,66}}, color={255,127,0}));
-
   connect(greThr.y, minBoiFloSet.uOnOff) annotation (Line(points={{-8,70},{60,70},
           {60,62},{68,62}}, color={255,0,255}));
-
   connect(reaToInt.y, cha1.u) annotation (Line(points={{-38,20},{-36,20},{-36,40},
           {-32,40}}, color={255,127,0}));
-
   connect(cha1.y, truFalHol.u)
     annotation (Line(points={{-8,40},{-2,40}}, color={255,0,255}));
-
   connect(truFalHol.y, falEdg.u)
     annotation (Line(points={{22,40},{28,40}}, color={255,0,255}));
-
   connect(falEdg.y, minBoiFloSet.uStaChaPro) annotation (Line(points={{52,40},{60,
           40},{60,58},{68,58}}, color={255,0,255}));
-
   connect(ram1.y, reaToInt2.u)
     annotation (Line(points={{-68,-100},{-62,-100}}, color={0,0,127}));
-
   connect(reaToInt2.y, minBoiFloSet1.uStaSet) annotation (Line(points={{-38,-100},
           {64,-100},{64,-66},{68,-66}}, color={255,127,0}));
-
   connect(con2.y, extIndSig1.u)
-    annotation (Line(points={{-68,-140},{-62,-140}},
-                                                   color={0,0,127}));
-
+    annotation (Line(points={{-68,-140},{-62,-140}}, color={0,0,127}));
   connect(reaToInt3.y, minBoiFloSet1.uLasDisBoi) annotation (Line(points={{42,-140},
           {56,-140},{56,-54},{68,-54}},color={255,127,0}));
-
   connect(greThr1.y, minBoiFloSet1.uOnOff) annotation (Line(points={{42,-20},{60,
           -20},{60,-58},{68,-58}}, color={255,0,255}));
-
   connect(reaToInt2.y, cha2.u) annotation (Line(points={{-38,-100},{-36,-100},{-36,
           -80},{-32,-80}}, color={255,127,0}));
-
   connect(cha2.y, truFalHol1.u)
     annotation (Line(points={{-8,-80},{-2,-80}}, color={255,0,255}));
-
   connect(truFalHol1.y, falEdg1.u)
     annotation (Line(points={{22,-80},{28,-80}}, color={255,0,255}));
-
   connect(falEdg1.y, minBoiFloSet1.uStaChaPro) annotation (Line(points={{52,-80},
           {60,-80},{60,-62},{68,-62}}, color={255,0,255}));
-
   connect(con3.y, extIndSig2.u)
     annotation (Line(points={{-68,-20},{-32,-20}}, color={0,0,127}));
-
   connect(reaToInt.y, zerStaIndCor.uInd) annotation (Line(points={{-38,20},{64,20},
           {64,84},{-90,84},{-90,64},{-82,64}}, color={255,127,0}));
   connect(zerStaIndCor.yIndMod, extIndSig.index)
@@ -243,18 +223,18 @@ equation
       Tolerance=1e-06),
       __Dymola_Commands(file="./Resources/Scripts/Dymola/Controls/OBC/ASHRAE/G36/Plants/Boilers/SetPoints/Validation/MinimumFlowSetPoint.mos"
         "Simulate and plot"),
-    Documentation(info="<html>
-      <p>
-      This example validates
-      <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.SetPoints.MinimumFlowSetPoint\">
-      Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.SetPoints.MinimumFlowSetPoint</a>.
-      </p>
-      </html>", revisions="<html>
-      <ul>
-      <li>
-      September 9, 2020, by Karthik Devaprasad:<br/>
-      First implementation.
-      </li>
-      </ul>
-      </html>"));
+Documentation(info="<html>
+<p>
+This example validates
+<a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.SetPoints.MinimumFlowSetPoint\">
+Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.SetPoints.MinimumFlowSetPoint</a>.
+</p>
+</html>", revisions="<html>
+<ul>
+<li>
+September 9, 2020, by Karthik Devaprasad:<br/>
+First implementation.
+</li>
+</ul>
+</html>"));
 end MinimumFlowSetPoint;

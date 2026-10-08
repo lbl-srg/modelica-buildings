@@ -203,7 +203,7 @@ protected
   Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Staging.Processes.Subsequences.DisableBoiler disBoi(
     final nBoi=nBoi,
     final proOnTim=boiChaProOnTim)
-    "Diable boiler status in boiler status vector as per required stage change"
+    "Disable boiler status in boiler status vector as per required stage change"
     annotation (Placement(transformation(extent={{60,-10},{80,10}})));
 
   Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Staging.Processes.Subsequences.HWIsoVal disHotWatIsoVal1(
@@ -256,7 +256,7 @@ protected
 
   Buildings.Controls.OBC.CDL.Logical.Or or2
     if not have_priOnl or not have_heaPriPum
-    "Check for pump change proces start signal"
+    "Check for pump change process start signal"
     annotation (Placement(transformation(extent={{210,-250},{230,-230}})));
 
   Buildings.Controls.OBC.CDL.Logical.Latch lat5 if not have_heaPriPum
@@ -310,7 +310,7 @@ protected
     annotation (Placement(transformation(extent={{0,-120},{20,-100}})));
 
   Buildings.Controls.OBC.CDL.Logical.Or or3[nBoi] if have_heaPriPum
-    "Pass valve position signal before and after valve oepning process, if there
+    "Pass valve position signal before and after valve opening process, if there
     is simultaneous enable-disable of boilers"
     annotation (Placement(transformation(extent={{80,-120},{100,-100}})));
 
@@ -606,14 +606,14 @@ which specify the step-by-step control of devices during boiler staging down pro
 Identify the boiler(s) that should be disabled (and enabled). This is implemented in block <code>nexBoi</code>. See
 <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Staging.Processes.Subsequences.NextBoiler\">
 Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Staging.Processes.Subsequences.NextBoiler</a>
-for more decriptions.
+for more descriptions.
 </li>
 <li>
 If the stage change process involves disabling a larger boiler and enabling a smaller boiler,
 <ul>
 <li>
-Slowly change the minimum hot water flow 
-setpoint to the one that includes both boilers being enabled. After new setpoint is 
+Slowly change the minimum hot water flow
+setpoint to the one that includes both boilers being enabled. After new setpoint is
 achieved, wait <code>delEnaMinFloSet</code> to allow loop to stabilize.
 The minimum flow setpoint is reset in sequence
 (<a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.MinimumFlowBypass.FlowSetpoint\">
@@ -624,14 +624,15 @@ Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Staging.Processes.Subsequences.
 </li>
 <li>
 Start the next hot water pump and/or open the hot water isolation valves using the
-block <code>enaHotWatIsoVal</code> using sequence implemented in <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Staging.Processes.Subsequences.HWIsoVal\">
+block <code>enaHotWatIsoVal</code> using sequence implemented in
+<a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Staging.Processes.Subsequences.HWIsoVal\">
 Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Staging.Processes.Subsequences.HWIsoVal</a>
-for the valves and initiating the pump change process with the rising edge signal <code>yPumChaPro</code>. 
+for the valves and initiating the pump change process with the rising edge signal <code>yPumChaPro</code>.
 Once the pumps have been reset, the controller receives a rising edge signal on the
 input <code>uPumChaPro</code>.
 </li>
 <li>
-After waiting for time <code>delPreBoiEna</code>, the boiler status <code>yBoi</code> 
+After waiting for time <code>delPreBoiEna</code>, the boiler status <code>yBoi</code>
 is changed using the boiler status controller <code>disBoi</code> implemented in the sequence
 <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Staging.Processes.Subsequences.DisableBoiler\">
 Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Staging.Processes.Subsequences.DisableBoiler</a>.

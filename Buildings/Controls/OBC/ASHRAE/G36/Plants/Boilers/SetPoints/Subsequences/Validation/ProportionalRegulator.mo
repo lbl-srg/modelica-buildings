@@ -39,20 +39,20 @@ equation
       StopTime=60,
       Interval=1,
       Tolerance=1e-06),
-      __Dymola_Commands(file="./Resources/Scripts/Dymola/Controls/OBC/ASHRAE/G36/Plants/Boilers/SetPoints/Subsequences/Validation/ProportionalRegulator.mos"
+      __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/ASHRAE/G36/Plants/Boilers/SetPoints/Subsequences/Validation/ProportionalRegulator.mos"
         "Simulate and plot"),
-    Documentation(info="<html>
-      <p>
-      This example validates
-      <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.SetPoints.Subsequences.ProportionalRegulator\">
-      Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.SetPoints.Subsequences.ProportionalRegulator</a>.
-      </p>
-      </html>", revisions="<html>
-      <ul>
-      <li>
-      July 21, 2020, by Karthik Devaprasad:<br/>
-      First implementation.
-      </li>
-      </ul>
-      </html>"));
+Documentation(info="<html>
+<p>
+This example validates
+<a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.SetPoints.Subsequences.ProportionalRegulator\">
+Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.SetPoints.Subsequences.ProportionalRegulator</a>.
+</p>
+</html>", revisions="<html>
+<ul>
+<li>
+July 21, 2020, by Karthik Devaprasad:<br/>
+First implementation.
+</li>
+</ul>
+</html>"));
 end ProportionalRegulator;

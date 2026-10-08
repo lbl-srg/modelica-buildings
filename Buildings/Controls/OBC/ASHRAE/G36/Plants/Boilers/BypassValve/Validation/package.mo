@@ -1,9 +1,6 @@
 within Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.BypassValve;
 package Validation "Validation models for BypassValve sequences"
 
-
-
-
   annotation (Icon(graphics={
         Rectangle(
           lineColor={200,200,200},

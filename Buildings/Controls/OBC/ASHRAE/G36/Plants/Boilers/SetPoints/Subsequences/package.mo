@@ -1,9 +1,6 @@
 within Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.SetPoints;
 package Subsequences "Subsequences for setpoint calculations"
 
-
-
-
 annotation(Icon(graphics={
         Rectangle(
           lineColor={200,200,200},
@@ -38,9 +35,9 @@ annotation(Icon(graphics={
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid,
           extent={{-80.0,0.0},{-20.0,60.0}})}),
-        Documentation(info="<html>
-             <p>
-             This package contains control subsequences for setpoint calculations.
-             </p>
-             </html>"));
+Documentation(info="<html>
+<p>
+This package contains control subsequences for setpoint calculations.
+</p>
+</html>"));
 end Subsequences;

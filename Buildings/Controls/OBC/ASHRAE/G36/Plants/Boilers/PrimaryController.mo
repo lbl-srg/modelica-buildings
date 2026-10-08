@@ -1966,79 +1966,66 @@ Documentation(info="<html>
 Block that controls the primary loop of a boiler plant according to section 5.21
 in ASHRAE Guideline 36, 2021. It consists of the following components:
 </p>
-
 <ul>
 <li>
 Plant enable controller:
 <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Generic.PlantEnable\">
-  Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Generic.PlantEnable
-</a>.
+Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Generic.PlantEnable</a>.
 </li>
 <li>
 Staging setpoint calculator:
 <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Staging.SetPoints.SetpointController\">
-  Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Staging.SetPoints.SetpointController
-</a>.
+Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Staging.SetPoints.SetpointController</a>.
 </li>
 <li>
 Stage-up process controller:
 <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Staging.Processes.Up\">
-  Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Staging.Processes.Up
-</a>.
+Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Staging.Processes.Up</a>.
 </li>
 <li>
 Stage-down process controller:
 <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Staging.Processes.Down\">
-  Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Staging.Processes.Down
-</a>.
+Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Staging.Processes.Down</a>.
 </li>
 <li>
 Primary pump controller:
 <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Pumps.PrimaryPumps.Controller\">
-  Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Pumps.PrimaryPumps.Controller
-</a>.
+Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Pumps.PrimaryPumps.Controller</a>.
 </li>
 <li>
 Bypass valve controller:
 <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.BypassValve.BypassValvePosition\">
-  Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.BypassValve.BypassValvePosition
-</a>.
+Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.BypassValve.BypassValvePosition</a>.
 </li>
 <li>
 Minimum flow setpoint calculator:
 <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.SetPoints.MinimumFlowSetPoint\">
-  Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.SetPoints.MinimumFlowSetPoint
-</a>.
+Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.SetPoints.MinimumFlowSetPoint</a>.
 </li>
 <li>
 Hot water supply temperature setpoint calculator:
 <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.SetPoints.HotWaterSupplyTemperatureReset\">
-  Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.SetPoints.HotWaterSupplyTemperatureReset
-</a>.
+Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.SetPoints.HotWaterSupplyTemperatureReset</a>.
 </li>
 <li>
 Condensation control setpoint calculator:
 <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.SetPoints.CondensationControl\">
-  Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.SetPoints.CondensationControl
-</a>.
+Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.SetPoints.CondensationControl</a>.
 </li>
 <li>
 Plant disable process controller:
 <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Generic.PlantDisable\">
-  Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Generic.PlantDisable
-</a>.
+Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Generic.PlantDisable</a>.
 </li>
 </ul>
-
 <p>
 For correct usage of this block, refer to the example model
 <a href=\"modelica://Buildings.Examples.BoilerPlants.Guideline36\">
-Buildings.Examples.BoilerPlants.Guideline36
-</a>.
+Buildings.Examples.BoilerPlants.Guideline36</a>.
 </p>
-
-<p>The parameter values for valid boiler plant configurations are as follows:</p>
-
+<p>
+The parameter values for valid boiler plant configurations are as follows:
+</p>
 <table summary=\"allowedConfigurations\" border=\"1\">
 <thead>
   <tr>

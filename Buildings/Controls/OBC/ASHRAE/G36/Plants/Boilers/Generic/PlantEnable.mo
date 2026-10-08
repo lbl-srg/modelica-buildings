@@ -4,7 +4,7 @@ block PlantEnable
 
   parameter Integer nIgnReq(
     final min=0) = 0
-    "Number of hot-water requests to be ignored before enablng boiler plant loop";
+    "Number of hot-water requests to be ignored before enabling boiler plant loop";
 
   parameter Real TOutLoc(
     final unit="K",
@@ -217,71 +217,72 @@ equation
           coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}})),
   Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-160,-140},{160,140}})),
   Documentation(info="<html>
-    <p>
-    Block that generates boiler plant enable signal according to sections 5.21.2.1,
-    5.21.2.2, and 5.21.2.3 in ASHRAE Guideline 36, 2021.
-    </p>
-    <p>
-    The boiler plant should be enabled and disabled according to the following
-    conditions:
-    </p>
-    <ol>
-    <li>
-    An enabling schedule should be included to allow operators to lock out the
-    boiler plant during off-hour, e.g. to allow off-hour operation of HVAC systems
-    except the boiler plant. The default schedule shall be 24/7 and be adjustable.
-    </li>
-    <li>
-    The plant should be enabled when the plant has been continuously disabled
-    for at least <code>plaOffThrTim</code> and:
-    <ul>
-    <li>
-    Number of boiler plant requests <code>supResReq</code> is greater than
-    number of requests to be ignored <code>nIgnReq</code>, and,
-    </li>
-    <li>
-    Outdoor air temperature <code>TOut</code> is lower than boiler
-    lockout temperature <code>TOutLoc</code>, and,
-    </li>
-    <li>
-    The operator defined enabling schedule <code>schTab</code> is active.
-    </li>
-    </ul>
-    </li>
-    <li>
-    The plant should be disabled when it has been continuously enabled for at
-    least <code>plaOnThrTim</code> and:
-    <ul>
-    <li>
-    Number of boiler plant requests <code>supResReq</code> is less than number
-    of requests to be ignored <code>nIgnReq</code> for a time
-    <code>staOnReqTim</code>, or,
-    </li>
-    <li>
-    Outdoor air temperature <code>TOut</code> is greater than boiler lockout
-    temperature <code>TOutLoc</code> by <code>locDt</code> or more,ie,
-    <code>TOut</code> &gt; <code>TOutLoc</code> + <code>locDt</code>, or,
-    </li>
-    <li>
-    The operator defined enable schedule <code>schTab</code> is inactive.
-    </li>
-    </ul>
-    </li>
-    </ol>
-    <p align=\"center\">
-    <img alt=\"Validation plot for PlantEnable\"
-    src=\"modelica://Buildings/Resources/Images/Controls/OBC/ASHRAE/G36/Plants/Boilers/Generic/PlantEnable.png\"/>
-    <br/>
-    Validation plot generated from model <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Generic.Validation.PlantEnable\">
-    Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Generic.Validation.PlantEnable</a>.
-    </p>
-    </html>",
-    revisions="<html>
-    <ul>
-    <li>
-    May 7, 2020, by Karthik Devaprasad:<br/>
-    First implementation.
-    </li>
-    </ul>
-    </html>"));
+<p>
+Block that generates boiler plant enable signal according to sections 5.21.2.1,
+5.21.2.2, and 5.21.2.3 in ASHRAE Guideline 36, 2021.
+</p>
+<p>
+The boiler plant should be enabled and disabled according to the following
+conditions:
+</p>
+<ol>
+<li>
+An enabling schedule should be included to allow operators to lock out the
+boiler plant during off-hour, e.g. to allow off-hour operation of HVAC systems
+except the boiler plant. The default schedule shall be 24/7 and be adjustable.
+</li>
+<li>
+The plant should be enabled when the plant has been continuously disabled
+for at least <code>plaOffThrTim</code> and:
+<ul>
+<li>
+Number of boiler plant requests <code>supResReq</code> is greater than
+number of requests to be ignored <code>nIgnReq</code>, and,
+</li>
+<li>
+Outdoor air temperature <code>TOut</code> is lower than boiler
+lockout temperature <code>TOutLoc</code>, and,
+</li>
+<li>
+The operator defined enabling schedule <code>schTab</code> is active.
+</li>
+</ul>
+</li>
+<li>
+The plant should be disabled when it has been continuously enabled for at
+least <code>plaOnThrTim</code> and:
+<ul>
+<li>
+Number of boiler plant requests <code>supResReq</code> is less than number
+of requests to be ignored <code>nIgnReq</code> for a time
+<code>staOnReqTim</code>, or,
+</li>
+<li>
+Outdoor air temperature <code>TOut</code> is greater than boiler lockout
+temperature <code>TOutLoc</code> by <code>locDt</code> or more,ie,
+<code>TOut</code> &gt; <code>TOutLoc</code> + <code>locDt</code>, or,
+</li>
+<li>
+The operator defined enable schedule <code>schTab</code> is inactive.
+</li>
+</ul>
+</li>
+</ol>
+<p align=\"center\">
+<img alt=\"Validation plot for PlantEnable\"
+src=\"modelica://Buildings/Resources/Images/Controls/OBC/ASHRAE/G36/Plants/Boilers/Generic/PlantEnable.png\"/>
+</p>
+<p>
+Validation plot generated from model
+<a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Generic.Validation.PlantEnable\">
+Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Generic.Validation.PlantEnable</a>.
+</p>
+</html>", revisions="<html>
+<ul>
+<li>
+May 7, 2020, by Karthik Devaprasad:<br/>
+First implementation.
+</li>
+</ul>
+</html>"));
 end PlantEnable;

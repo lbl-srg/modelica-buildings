@@ -1,6 +1,6 @@
 within Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Pumps.Generic;
 block EnableLag_flowrate
-  "Sequences for enabling and disabling lag pumps using measured volue flow-rate"
+  "Sequences for enabling and disabling lag pumps using measured volume flow-rate"
 
   parameter Integer nPum = 2
     "Total number of pumps";
@@ -162,46 +162,32 @@ protected
 equation
   connect(VHotWat_flow,hotWatFloRat. u)
     annotation (Line(points={{-160,80},{-122,80}}, color={0,0,127}));
-
   connect(uHotWatPum,booToInt. u)
     annotation (Line(points={{-160,0},{-82,0}},  color={255,0,255}));
-
   connect(booToInt.y,numOpePum. u)
-    annotation (Line(points={{-58,0},{-42,0}},
-      color={255,127,0}));
-
+    annotation (Line(points={{-58,0},{-42,0}}, color={255,127,0}));
   connect(numOpePum.y,intToRea. u)
     annotation (Line(points={{-18,0},{-2,0}}, color={255,127,0}));
-
   connect(sub2.y,hys. u)
     annotation (Line(points={{-58,40},{-42,40}}, color={0,0,127}));
-
   connect(sub1.y,hys1. u)
     annotation (Line(points={{-58,-80},{-42,-80}}, color={0,0,127}));
-
   connect(addPar.y,sub2. u2)
     annotation (Line(points={{102,0},{120,0},{120,20},{-90,20},{-90,34},{-82,34}},
       color={0,0,127}));
-
   connect(intToRea.y, addPar1.u)
     annotation (Line(points={{22,0},{30,0},{30,-20},{-90,-20},{-90,-40},{-82,-40}},
       color={0,0,127}));
-
   connect(addPar2.y,sub1. u1)
     annotation (Line(points={{102,-40},{120,-40},{120,-60},{-90,-60},{-90,-74},{
-          -82,-74}},
-                  color={0,0,127}));
-
+          -82,-74}}, color={0,0,127}));
   connect(hotWatFloRat.y,sub2. u1)
     annotation (Line(points={{-98,80},{-90,80},{-90,46},{-82,46}}, color={0,0,127}));
-
   connect(hotWatFloRat.y,sub1. u2)
     annotation (Line(points={{-98,80},{-90,80},{-90,60},{-100,60},{-100,-86},
       {-82,-86}}, color={0,0,127}));
-
   connect(not3.y, yDown)
     annotation (Line(points={{122,-80},{160,-80}}, color={255,0,255}));
-
   connect(uHotWatPum, cha.u) annotation (Line(points={{-160,0},{-130,0},{-130,130},
           {-122,130}}, color={255,0,255}));
   connect(cha.y, mulOr.u[1:nPum]) annotation (Line(points={{-98,130},{-90,130},{-90,
@@ -253,27 +239,27 @@ Block that enables and disables lag hot water pump according to ASHRAE Guideline
 36, section 5.21.6.4 and section 5.21.7.3.
 </p>
 <p>
-Hot water pump shall be staged as a function of hot water flow ratio (HWFR), 
+Hot water pump shall be staged as a function of hot water flow ratio (HWFR),
 i.e. the ratio of current hot water flow <code>VHotWat_flow</code> to design
 flow <code>VHotWat_flow_nominal</code>, and the number of pumps <code>num_nominal</code>
 that operate at design conditions. Pumps are assumed to be equally sized.
 </p>
 <pre>
                   VHotWat_flow
-      HWFR = ---------------------- 
+      HWFR = ----------------------
               VHotWat_flow_nominal
 </pre>
 <p>
-1. Start the next lag pump <code>yNexLagPum</code> whenever the following is 
+1. Start the next lag pump <code>yNexLagPum</code> whenever the following is
 true for time <code>timPer</code>:
 </p>
-<pre>        
-      HWFR &gt; Number_of_operating_pumps/num_nominal - 0.03                  
+<pre>
+      HWFR &gt; Number_of_operating_pumps/num_nominal - 0.03
 </pre>
 <p>
 2. Shut off the last lag pump whenever the following is true for <code>timPer</code>:
 </p>
-<pre>           
+<pre>
       HWFR &le; (Number_of_operating_pumps - 1)/num_nominal - 0.03
 </pre>
 </html>", revisions="<html>

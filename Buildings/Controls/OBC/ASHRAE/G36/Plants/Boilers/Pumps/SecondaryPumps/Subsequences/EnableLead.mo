@@ -29,13 +29,10 @@ protected
 equation
   connect(plaReq, intGreThr.u)
     annotation (Line(points={{-120,-40},{-82,-40}}, color={255,127,0}));
-
   connect(intGreThr.y, and2.u2) annotation (Line(points={{-58,-40},{-40,-40},{-40,
           -8},{-22,-8}}, color={255,0,255}));
-
   connect(and2.y, yLea)
     annotation (Line(points={{2,0},{120,0}}, color={255,0,255}));
-
   connect(uPlaEna, and2.u1) annotation (Line(points={{-120,40},{-40,40},{-40,0},
           {-22,0}}, color={255,0,255}));
 
@@ -53,25 +50,25 @@ annotation (
           textString="%name")}),
   Diagram(coordinateSystem(preserveAspectRatio=false)),
   Documentation(info="<html>
-  <p>
-  Block that enables and disables lead secondary hot water pump, for plants
-  with variable-speed hot water pumps, according to ASHRAE Guideline 36, 2021, 
-  section 5.21.7.2.
-  </p>
-  <ul>
-  <li>
-  The lead secondary hot water pump shall be enabled <code>yLea = true</code> when
-  boiler plant is enabled <code>uPlaEna = true</code> and hot water plant requests
-  are being received from the loads, ie, <code>plaReq &gt; 0</code> and shall
-  be disabled otherwise.
-  </li>
-  </ul>
-  </html>", revisions="<html>
-  <ul>
-  <li>
-  August 25, 2020, by Karthik Devaprasad:<br/>
-  First implementation.
-  </li>
-  </ul>
-  </html>"));
+<p>
+Block that enables and disables lead secondary hot water pump, for plants
+with variable-speed hot water pumps, according to ASHRAE Guideline 36, 2021,
+section 5.21.7.2.
+</p>
+<ul>
+<li>
+The lead secondary hot water pump shall be enabled <code>yLea = true</code> when
+boiler plant is enabled <code>uPlaEna = true</code> and hot water plant requests
+are being received from the loads, ie, <code>plaReq &gt; 0</code> and shall
+be disabled otherwise.
+</li>
+</ul>
+</html>", revisions="<html>
+<ul>
+<li>
+August 25, 2020, by Karthik Devaprasad:<br/>
+First implementation.
+</li>
+</ul>
+</html>"));
 end EnableLead;

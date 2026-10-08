@@ -89,8 +89,7 @@ model SimplifiedSecondaryLoad
     dp_nominal=dpRad_nominal + dpValve_nominal)
     "Hot water secondary pump"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},
-      rotation=90,
-      origin={0,-60})));
+      rotation=90, origin={0,-60})));
 
   Buildings.Controls.OBC.CDL.Conversions.BooleanToInteger booToInt
     "Convert Boolean to required integer format"
@@ -102,7 +101,7 @@ model SimplifiedSecondaryLoad
 
   Buildings.Controls.OBC.CDL.Reals.Multiply mul
     "Operate pump at required speed only when enable signal is true"
-    annotation (Placement(transformation(extent={{-60,-70},{-40,-50}})));
+    annotation (Placement(transformation(extent={{-40,-70},{-20,-50}})));
 
   Buildings.Fluid.Sensors.RelativePressure senRelPre(
     redeclare final package Medium = MediumW)
@@ -126,7 +125,7 @@ model SimplifiedSecondaryLoad
     "Convert Boolean to required integer format"
     annotation (Placement(transformation(extent={{60,90},{80,110}})));
 
-  Templates.Components.Loads.LoadTwoWayValve
+  Buildings.Templates.Components.Loads.LoadTwoWayValve
     loa(
     redeclare package MediumLiq = MediumW,
     final typ=Buildings.Fluid.HydronicConfigurations.Types.Control.Heating,
@@ -138,39 +137,41 @@ model SimplifiedSecondaryLoad
     "Heating end load assembly including heating coil and supply air temperature-regulating valve"
     annotation (Placement(transformation(extent={{50,-30},{70,-10}})));
 
-  Controls.OBC.CDL.Logical.Sources.Constant enaEquZon(final k=true)
+  Buildings.Controls.OBC.CDL.Logical.Sources.Constant enaEquZon(
+    final k=true)
     "Zone equipment enable signal"
-    annotation (Placement(transformation(extent={{-50,-26},{-30,-6}})));
+    annotation (Placement(transformation(extent={{-40,-26},{-20,-6}})));
 
 protected
-  Controls.OBC.CDL.Reals.MultiplyByParameter           gai(final k=1/loa.Q_flow_nominal)
+  Buildings.Controls.OBC.CDL.Reals.MultiplyByParameter gai(
+    final k=1/loa.Q_flow_nominal)
     "Normalize load"
-    annotation (Placement(transformation(extent={{-68,50},{-48,70}})));
+    annotation (Placement(transformation(extent={{-80,50},{-60,70}})));
+
 equation
   connect(booToInt.y, nReqPla)
     annotation (Line(points={{82,60},{120,60}}, color={255,127,0}));
   connect(uPum, booToRea.u)
     annotation (Line(points={{-120,-40},{-92,-40}}, color={255,0,255}));
   connect(mul.y, pum.y)
-    annotation (Line(points={{-38,-60},{-12,-60}}, color={0,0,127}));
-  connect(booToRea.y, mul.u1) annotation (Line(points={{-68,-40},{-66,-40},{-66,
-          -54},{-62,-54}}, color={0,0,127}));
-  connect(uPumSpe, mul.u2) annotation (Line(points={{-120,-80},{-66,-80},{-66,
-          -66},{-62,-66}}, color={0,0,127}));
+    annotation (Line(points={{-18,-60},{-12,-60}}, color={0,0,127}));
+  connect(booToRea.y, mul.u1) annotation (Line(points={{-68,-40},{-60,-40},{-60,
+          -54},{-42,-54}}, color={0,0,127}));
+  connect(uPumSpe, mul.u2) annotation (Line(points={{-120,-80},{-60,-80},{-60,-66},
+          {-42,-66}}, color={0,0,127}));
   connect(senRelPre.port_a, pum.port_b) annotation (Line(points={{30,-50},{0,-50}},
-                                              color={0,127,255}));
+         color={0,127,255}));
   connect(senRelPre.p_rel, dPSec)
     annotation (Line(points={{40,-59},{40,-80},{120,-80}}, color={0,0,127}));
   connect(yPumEna, hys.y)
     annotation (Line(points={{120,20},{82,20}}, color={255,0,255}));
   connect(pum.y_actual, hys.u)
     annotation (Line(points={{-7,-49},{-7,-40},{40,-40},{40,20},{58,20}},
-                                                          color={0,0,127}));
+          color={0,0,127}));
   connect(port_a, pum.port_a)
     annotation (Line(points={{0,-100},{0,-70}},     color={0,127,255}));
   connect(pum.y_actual, yPumSpe) annotation (Line(points={{-7,-49},{-7,-40},{120,
-          -40}},                                                     color={0,0,
-          127}));
+          -40}}, color={0,0,127}));
   connect(booToInt1.y, nReqRes)
     annotation (Line(points={{82,100},{120,100}}, color={255,127,0}));
   connect(hys1.y, booToInt1.u)
@@ -180,21 +181,19 @@ equation
   connect(pum.port_b, loa.port_a)
     annotation (Line(points={{0,-50},{0,-20},{50,-20}},   color={0,127,255}));
   connect(loa.port_b, port_b) annotation (Line(points={{70,-20},{80,-20},{80,
-          -100}},                            color={0,127,255}));
+          -100}}, color={0,127,255}));
   connect(senRelPre.port_b, loa.port_b) annotation (Line(points={{50,-50},{80,
-          -50},{80,-20},{70,-20}},                          color={0,127,255}));
-  connect(loa.yVal_actual, hys1.u) annotation (Line(points={{72,-12},{86,-12},{
-          86,46},{8,46},{8,100},{18,100}},
-                             color={0,0,127}));
-  connect(loa.yVal_actual, hys2.u) annotation (Line(points={{72,-12},{86,-12},{
-          86,46},{8,46},{8,60},{18,60}},
-                           color={0,0,127}));
+          -50},{80,-20},{70,-20}}, color={0,127,255}));
+  connect(loa.yVal_actual, hys1.u) annotation (Line(points={{72,-12},{90,-12},{90,
+          46},{10,46},{10,100},{18,100}}, color={0,0,127}));
+  connect(loa.yVal_actual, hys2.u) annotation (Line(points={{72,-12},{90,-12},{90,
+          46},{10,46},{10,60},{18,60}}, color={0,0,127}));
   connect(enaEquZon.y, loa.u1)
-    annotation (Line(points={{-28,-16},{48,-16}}, color={255,0,255}));
+    annotation (Line(points={{-18,-16},{48,-16}}, color={255,0,255}));
   connect(QLoa_flow, gai.u)
-    annotation (Line(points={{-120,60},{-70,60}}, color={0,0,127}));
-  connect(gai.y, loa.u) annotation (Line(points={{-46,60},{0,60},{0,-12},{48,
-          -12}}, color={0,0,127}));
+    annotation (Line(points={{-120,60},{-82,60}}, color={0,0,127}));
+  connect(gai.y, loa.u) annotation (Line(points={{-58,60},{0,60},{0,-12},{48,-12}},
+          color={0,0,127}));
   annotation (defaultComponentName="secLoo",
     Icon(
       coordinateSystem(
@@ -213,36 +212,37 @@ equation
       coordinateSystem(
         preserveAspectRatio=false,
         extent={{-100,-100},{100,120}})),
-    Documentation(info="<html>
-      <p>
-      This is a simplified model for a boiler plant secondary loop load consisting of
-      a variable speed pump <code>pum</code> and a load assembly <code>loa</code>
-      (<a href=\"modelica://Buildings.Templates.Components.Loads.LoadTwoWayValve\">
-      Buildings.Templates.Components.Loads.LoadTwoWayValve</a>)
-      that mimics the operation of a hot-water heating coil.
-      </p>
-      <p>
-      A few key points when using this class are as follows:
-      <ul>
-      <li>
-        The parameter <code>dpValve_nominal</code> is set to be equal to
-        <code>val.dpFixed_nominal</code> by default to ensure
-        valve authority <code>&ge;50%</code>. The user is encouraged to increase the
-        value as required for stable control.
-      </li>
-      <li>
-        The hysteresis limits for plant request generation as well as reset request
-        generation are both defined per the default values in G36, 2024. The user
-        has the freedom to change those thresholds as required, though it is not
-        mandatory.
-      </li>
-    </ul>
-      </html>", revisions="<html>
-      <ul>
-      <li>
-      March 25, 2025, by Karthik Devaprasad:<br/>
-      First implementation.
-      </li>
-      </ul>
-      </html>"));
+Documentation(info="<html>
+<p>
+This is a simplified model for a boiler plant secondary loop load consisting of
+a variable speed pump <code>pum</code> and a load assembly <code>loa</code>
+(<a href=\"modelica://Buildings.Templates.Components.Loads.LoadTwoWayValve\">
+Buildings.Templates.Components.Loads.LoadTwoWayValve</a>)
+that mimics the operation of a hot-water heating coil.
+</p>
+<p>
+A few key points when using this class are as follows:
+</p>
+<ul>
+<li>
+The parameter <code>dpValve_nominal</code> is set to be equal to
+<code>val.dpFixed_nominal</code> by default to ensure
+valve authority <code>&ge;50%</code>. The user is encouraged to increase the
+value as required for stable control.
+</li>
+<li>
+The hysteresis limits for plant request generation as well as reset request
+generation are both defined per the default values in G36, 2024. The user
+has the freedom to change those thresholds as required, though it is not
+mandatory.
+</li>
+</ul>
+</html>", revisions="<html>
+<ul>
+<li>
+March 25, 2025, by Karthik Devaprasad:<br/>
+First implementation.
+</li>
+</ul>
+</html>"));
 end SimplifiedSecondaryLoad;

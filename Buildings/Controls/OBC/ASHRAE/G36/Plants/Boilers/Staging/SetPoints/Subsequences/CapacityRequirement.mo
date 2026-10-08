@@ -147,23 +147,22 @@ equation
           textString="Load")}),
     Diagram(coordinateSystem(preserveAspectRatio=false,
       extent={{-120,-100},{120,100}})),
-    Documentation(info="<html>
-      <p>
-      Calculates heating capacity requirement based on the measured hot water return
-      temperature, <code>TRet</code>, calculated hot water supply temperature
-      setpoint <code>TSupSet</code>, and the measured hot water flow rate,
-      <code>VHotWat_flow</code>.
-      <br/> 
-      The calculation is according to section 5.21.3.5 and 5.21.3.6. in ASHRAE
-      Guideline 36, 2021.
-      </p>
-      </html>",
-      revisions="<html>
-      <ul>
-      <li>
-      May 19, 2020, by Karthik Devaprasad:<br/>
-      First implementation.
-      </li>
-      </ul>
-      </html>"));
+Documentation(info="<html>
+<p>
+Calculates heating capacity requirement based on the measured hot water return
+temperature, <code>TRet</code>, calculated hot water supply temperature
+setpoint <code>TSupSet</code>, and the measured hot water flow rate,
+<code>VHotWat_flow</code>.
+<br/>
+The calculation is according to section 5.21.3.5 and 5.21.3.6. in ASHRAE
+Guideline 36, 2021.
+</p>
+</html>", revisions="<html>
+<ul>
+<li>
+May 19, 2020, by Karthik Devaprasad:<br/>
+First implementation.
+</li>
+</ul>
+</html>"));
 end CapacityRequirement;

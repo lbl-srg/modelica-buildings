@@ -261,21 +261,17 @@ protected
 
 equation
   connect(uHotWatPumSta, mulOr.u[1:nPum]) annotation (Line(points={{-160,90},{-122,
-          90}},                   color={255,0,255}));
+          90}}, color={255,0,255}));
   connect(mulOr.y, triRes.uDevSta)
-    annotation (Line(points={{-98,90},{-60,90},{-60,38},{-42,38}},
-                                                           color={255,0,255}));
+    annotation (Line(points={{-98,90},{-60,90},{-60,38},{-42,38}}, color={255,0,255}));
   connect(triRes.numOfReq, nHotWatSupResReq) annotation (Line(points={{-42,22},{
-          -130,22},{-130,-20},{-160,-20}},
-                                    color={255,127,0}));
+          -130,22},{-130,-20},{-160,-20}}, color={255,127,0}));
   connect(triRes.y, swi1.u1) annotation (Line(points={{-18,30},{50,30},{50,8},{58,
           8}},    color={0,0,127}));
   connect(triRes1.y, swi1.u3)
-    annotation (Line(points={{-18,-30},{50,-30},{50,-8},{58,-8}},
-                                                             color={0,0,127}));
+    annotation (Line(points={{-18,-30},{50,-30},{50,-8},{58,-8}}, color={0,0,127}));
   connect(triRes1.numOfReq, nHotWatSupResReq) annotation (Line(points={{-42,-38},
-          {-130,-38},{-130,-20},{-160,-20}},
-                                        color={255,127,0}));
+          {-130,-38},{-130,-20},{-160,-20}}, color={255,127,0}));
   connect(triRes1.uDevSta, mulOr.y) annotation (Line(points={{-42,-22},{-60,-22},
           {-60,90},{-98,90}},  color={255,0,255}));
   connect(uCurStaSet, extIndSig.index) annotation (Line(points={{-160,-120},{-70,
@@ -297,8 +293,7 @@ equation
   connect(add2.y, TBoiHotWatSupSet)
     annotation (Line(points={{122,-230},{160,-230}}, color={0,0,127}));
   connect(swi2.u2, greThr.y) annotation (Line(points={{-42,-190},{-50,-190},{-50,
-          -100},{-10,-100},{-10,-70},{-18,-70}},
-                           color={255,0,255}));
+          -100},{-10,-100},{-10,-70},{-18,-70}}, color={255,0,255}));
   connect(min.u1, con.y) annotation (Line(points={{-82,-164},{-90,-164},{-90,-150},
           {-98,-150}}, color={0,0,127}));
   connect(min.u2, addPar.y) annotation (Line(points={{-82,-176},{-90,-176},{-90,
@@ -319,7 +314,6 @@ equation
           -264},{58,-264}}, color={0,0,127}));
   connect(pro1.y, add2.u2) annotation (Line(points={{82,-270},{90,-270},{90,-236},
           {98,-236}}, color={0,0,127}));
-
   connect(uStaCha, triRes.uHol) annotation (Line(points={{-160,40},{-80,40},{-80,
           30},{-42,30}}, color={255,0,255}));
   connect(uStaCha, triRes1.uHol) annotation (Line(points={{-160,40},{-80,40},{-80,
@@ -378,9 +372,9 @@ temperature setpoint <code>TPlaHotWatSupSet</code> according to the following pa
 </table>
 <ul>
 <li>
-When the plant stage change is initiated <code>uStaCha=true</code>, the 
-temperature reset shall be disabled and value fixed at its last value for 
-the longer of <code>holTimVal</code> and the time it takes for the plant 
+When the plant stage change is initiated <code>uStaCha=true</code>, the
+temperature reset shall be disabled and value fixed at its last value for
+the longer of <code>holTimVal</code> and the time it takes for the plant
 to successfully stage.
 </li>
 <li>

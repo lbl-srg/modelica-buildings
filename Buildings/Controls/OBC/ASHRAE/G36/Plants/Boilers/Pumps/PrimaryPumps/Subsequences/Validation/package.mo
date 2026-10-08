@@ -1,7 +1,6 @@
 within Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Pumps.PrimaryPumps.Subsequences;
 package Validation "Collection of validation models"
 
-
 annotation (preferredView="info", Documentation(info="<html>
 <p>
 This package contains validation models for the classes in

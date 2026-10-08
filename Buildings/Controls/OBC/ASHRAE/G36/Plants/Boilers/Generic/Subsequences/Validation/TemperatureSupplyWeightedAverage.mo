@@ -39,14 +39,12 @@ protected
     annotation (Placement(transformation(extent={{-80,60},{-60,80}})));
 
 equation
-
   connect(TBoiSup1.y, TWeiAve.THotWatBoiSup[1]) annotation (Line(points={{-58,0},
           {-50,0},{-50,-18},{34,-18},{34,-6.5},{38,-6.5}}, color={0,0,127}));
   connect(TBoiSup2.y, TWeiAve.THotWatBoiSup[2])
     annotation (Line(points={{-58,-40},{38,-40},{38,-5.5}}, color={0,0,127}));
   connect(boiSta2.y, TWeiAve.uBoiSta[2]) annotation (Line(points={{-58,70},{30,70},
           {30,6.5},{38,6.5}}, color={255,0,255}));
-
   connect(boiSta1.y, TWeiAve.uBoiSta[1]) annotation (Line(points={{-58,40},{20,40},
           {20,5.5},{38,5.5}}, color={255,0,255}));
 annotation (

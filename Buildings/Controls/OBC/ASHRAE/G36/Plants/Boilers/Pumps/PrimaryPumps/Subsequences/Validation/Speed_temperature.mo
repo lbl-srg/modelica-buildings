@@ -61,11 +61,9 @@ equation
   connect(TPriSup.y, hotPumSpe.THotWatPri) annotation (Line(points={{-58,0},{-50,
           0},{-50,2},{-42,2}}, color={0,0,127}));
   connect(TSecSup.y, hotPumSpe.THotWatSec) annotation (Line(points={{-58,-40},{-46,
-          -40},{-46,-2},{-42,-2}},
-                                 color={0,0,127}));
+          -40},{-46,-2},{-42,-2}}, color={0,0,127}));
   connect(TSecSup.y, hotPumSpe1.THotWatSec) annotation (Line(points={{-58,-40},{
-          30,-40},{30,-2},{38,-2}},
-                                  color={0,0,127}));
+          30,-40},{30,-2},{38,-2}}, color={0,0,127}));
   connect(pumSta.y, hotPumSpe1.uHotWatPum) annotation (Line(points={{-58,40},{28,
           40},{28,6},{38,6}}, color={255,0,255}));
 

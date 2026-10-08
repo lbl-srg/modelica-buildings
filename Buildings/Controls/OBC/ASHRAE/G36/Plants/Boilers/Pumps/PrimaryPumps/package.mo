@@ -1,12 +1,11 @@
 within Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Pumps;
 package PrimaryPumps "Sequences for primary hot water pump control"
 
-
 annotation (
 preferredView="info", Documentation(info="<html>
 <p>
 This package contains control sequences for primary hot water pumps.
-The implementations are based on section 5.21.6, 
+The implementations are based on section 5.21.6,
 in ASHRAE Guideline 36, 2021.
 </p>
 </html>"),

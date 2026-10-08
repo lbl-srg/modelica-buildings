@@ -1,7 +1,6 @@
 within Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Staging.Processes.Subsequences;
 package Validation "Collection of validation models"
 
-
 annotation (preferredView="info", Documentation(info="<html>
 <p>
 This package contains validation models for the classes in

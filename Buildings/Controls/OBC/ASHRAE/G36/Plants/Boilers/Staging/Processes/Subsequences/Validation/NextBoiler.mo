@@ -238,139 +238,95 @@ protected
 equation
   connect(booPul.y, staUp.u)
     annotation (Line(points={{-238,160},{-222,160}}, color={255,0,255}));
-
   connect(staUp.y, swi.u2)
     annotation (Line(points={{-198,160},{-190,160},{-190,220},{-182,220}},
       color={255,0,255}));
-
   connect(dowSta.y, swi.u3)
     annotation (Line(points={{-238,200},{-220,200},{-220,212},{-182,212}},
       color={0,0,127}));
-
   connect(upSta.y, swi.u1)
     annotation (Line(points={{-238,240},{-220,240},{-220,228},{-182,228}},
       color={0,0,127}));
-
   connect(swi.y, staSet.u)
     annotation (Line(points={{-158,220},{-142,220}}, color={0,0,127}));
-
   connect(staUp.y, booRep.u) annotation (Line(points={{-198,160},{-190,160},{-190,
           100},{-182,100}}, color={255,0,255}));
-
   connect(booRep.y,boiSet. u2)
     annotation (Line(points={{-158,100},{-142,100}}, color={255,0,255}));
-
   connect(booPul1.y, staUp1.u)
     annotation (Line(points={{62,160},{78,160}}, color={255,0,255}));
-
   connect(staUp1.y, swi1.u2) annotation (Line(points={{102,160},{110,160},{110,220},
           {118,220}}, color={255,0,255}));
-
   connect(dowSta1.y, swi1.u3) annotation (Line(points={{62,200},{80,200},{80,212},
           {118,212}}, color={0,0,127}));
-
   connect(upSta1.y, swi1.u1) annotation (Line(points={{62,240},{80,240},{80,228},
           {118,228}}, color={0,0,127}));
-
   connect(swi1.y, staSet1.u)
     annotation (Line(points={{142,220},{158,220}}, color={0,0,127}));
-
   connect(staUp1.y, booRep1.u) annotation (Line(points={{102,160},{110,160},{110,
           100},{118,100}}, color={255,0,255}));
-
   connect(booRep1.y,boiSet1. u2)
     annotation (Line(points={{142,100},{158,100}}, color={255,0,255}));
-
   connect(booPul2.y, staDow.u)
     annotation (Line(points={{-238,-160},{-222,-160}}, color={255,0,255}));
-
   connect(staDow.y, swi2.u2) annotation (Line(points={{-198,-160},{-190,-160},{-190,
           -100},{-182,-100}}, color={255,0,255}));
-
   connect(swi2.y, staSet2.u)
     annotation (Line(points={{-158,-100},{-142,-100}}, color={0,0,127}));
-
   connect(staDow.y, booRep2.u) annotation (Line(points={{-198,-160},{-190,-160},
           {-190,-220},{-182,-220}}, color={255,0,255}));
-
   connect(staOneBoi2.y,boiSet2. u1) annotation (Line(points={{-238,-200},{-150,-200},
           {-150,-212},{-142,-212}}, color={255,0,255}));
-
   connect(booRep2.y,boiSet2. u2)
     annotation (Line(points={{-158,-220},{-142,-220}}, color={255,0,255}));
-
   connect(staTwoBoi2.y,boiSet2. u3) annotation (Line(points={{-238,-240},{-148,-240},
           {-148,-228},{-142,-228}}, color={255,0,255}));
-
   connect(dowSta2.y, swi2.u1) annotation (Line(points={{-238,-80},{-200,-80},{-200,
           -92},{-182,-92}}, color={0,0,127}));
-
   connect(upSta2.y, swi2.u3) annotation (Line(points={{-238,-120},{-200,-120},{-200,
           -108},{-182,-108}}, color={0,0,127}));
-
   connect(staTwoBoi.y,boiSet. u1) annotation (Line(points={{-238,120},{-150,120},
           {-150,108},{-142,108}}, color={255,0,255}));
-
   connect(staOneBoi.y,boiSet. u3) annotation (Line(points={{-238,80},{-150,80},{
           -150,92},{-142,92}}, color={255,0,255}));
-
   connect(staTwoBoi1.y,boiSet1. u1) annotation (Line(points={{62,120},{150,120},
           {150,108},{158,108}}, color={255,0,255}));
-
   connect(staOneBoi1.y,boiSet1. u3) annotation (Line(points={{62,80},{150,80},{150,
           92},{158,92}}, color={255,0,255}));
-
   connect(booPul3.y, staDow1.u)
     annotation (Line(points={{62,-160},{78,-160}}, color={255,0,255}));
-
   connect(staDow1.y, swi3.u2) annotation (Line(points={{102,-160},{110,-160},{110,
           -100},{118,-100}}, color={255,0,255}));
-
   connect(swi3.y, staSet3.u)
     annotation (Line(points={{142,-100},{158,-100}}, color={0,0,127}));
-
   connect(staDow1.y, booRep3.u) annotation (Line(points={{102,-160},{110,-160},{
           110,-220},{118,-220}}, color={255,0,255}));
-
   connect(staOneBoi3.y,boiSet3. u1) annotation (Line(points={{62,-200},{150,-200},
           {150,-212},{158,-212}}, color={255,0,255}));
-
   connect(booRep3.y,boiSet3. u2)
     annotation (Line(points={{142,-220},{158,-220}}, color={255,0,255}));
-
   connect(staTwoBoi3.y,boiSet3. u3) annotation (Line(points={{62,-240},{152,-240},
           {152,-228},{158,-228}}, color={255,0,255}));
-
   connect(dowSta3.y, swi3.u1) annotation (Line(points={{62,-80},{100,-80},{100,-92},
           {118,-92}}, color={0,0,127}));
-
   connect(upSta3.y, swi3.u3) annotation (Line(points={{62,-120},{100,-120},{100,
           -108},{118,-108}}, color={0,0,127}));
-
   connect(staSet.y, nexBoi.uStaSet) annotation (Line(points={{-118,220},{-80,220},
           {-80,186},{-62,186}}, color={255,127,0}));
-
   connect(boiSet.y, nexBoi.uBoiSet) annotation (Line(points={{-118,100},{-100,100},
           {-100,180},{-62,180}}, color={255,0,255}));
-
   connect(staSet1.y, nexBoi1.uStaSet) annotation (Line(points={{182,220},{220,220},
           {220,186},{238,186}}, color={255,127,0}));
-
   connect(boiSet1.y, nexBoi1.uBoiSet) annotation (Line(points={{182,100},{200,100},
           {200,180},{238,180}}, color={255,0,255}));
-
   connect(staSet2.y, nexBoi2.uStaSet) annotation (Line(points={{-118,-100},{-80,
           -100},{-80,-134},{-62,-134}}, color={255,127,0}));
-
   connect(boiSet2.y, nexBoi2.uBoiSet) annotation (Line(points={{-118,-220},{-100,
           -220},{-100,-140},{-62,-140}}, color={255,0,255}));
-
   connect(staSet3.y, nexBoi3.uStaSet) annotation (Line(points={{182,-100},{220,-100},
           {220,-134},{238,-134}}, color={255,127,0}));
-
   connect(boiSet3.y, nexBoi3.uBoiSet) annotation (Line(points={{182,-220},{200,-220},
           {200,-140},{238,-140}}, color={255,0,255}));
-
   connect(staUp.y, truDel.u) annotation (Line(points={{-198,160},{-190,160},{-190,
           50},{-182,50}}, color={255,0,255}));
   connect(truDel.y, nexBoi.uStaChaPro) annotation (Line(points={{-158,50},{-88,50},

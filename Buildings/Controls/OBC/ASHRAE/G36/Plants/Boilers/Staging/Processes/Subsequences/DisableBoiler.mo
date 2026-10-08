@@ -64,7 +64,7 @@ protected
     annotation (Placement(transformation(extent={{100,190},{120,210}})));
 
   Buildings.Controls.OBC.CDL.Logical.And and2
-    "Check for stage change sigal and upstream device status"
+    "Check for stage change signal and upstream device status"
     annotation (Placement(transformation(extent={{-160,130},{-140,150}})));
 
   Buildings.Controls.OBC.CDL.Routing.BooleanScalarReplicator booRep(
@@ -523,7 +523,7 @@ annotation (
               "Disable boiler when the down-process requires small boiler being enabled")}),
 Documentation(info="<html>
 <p>
-Block that controls boiler diabling process when there is stage down command 
+Block that controls boiler disabling process when there is stage down command
 <code>uStaDow=true</code>.
 This implementation is based on ASHRAE Guideline 36, 2021, sections 5.21.3.11,
 5.21.3.15, 5.21.3.16 and 5.3.3.17. These sections specify how to start the
@@ -542,7 +542,7 @@ Start the smaller boiler after the upstream device is proven functional(
 <code>uUpsDevSta</code> becomes true).
 </li>
 <li>
-Wait 5 minutes (<code>proOnTim</code>) for the newly enabled boiler to prove that 
+Wait 5 minutes (<code>proOnTim</code>) for the newly enabled boiler to prove that
 it is operating correctly, then shut off the larger boiler.
 </li>
 </ul>

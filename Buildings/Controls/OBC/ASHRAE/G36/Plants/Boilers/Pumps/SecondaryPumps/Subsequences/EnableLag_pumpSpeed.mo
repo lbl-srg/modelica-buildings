@@ -241,7 +241,7 @@ Icon(coordinateSystem(preserveAspectRatio=false,extent={{-100,-100},{100,100}}),
 Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-140,-160},{140,160}})),
 Documentation(info="<html>
 <p>
-Block that enables and disables lag secondary hot water pump, for plants with 
+Block that enables and disables lag secondary hot water pump, for plants with
 variable-speed secondary pumps and no flowrate sensor in secondary loop, according
 to ASHRAE Guideline 36, 2021, section 5.21.7.4.
 </p>

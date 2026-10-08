@@ -9,7 +9,7 @@ block EfficiencyCondition
     "Boiler type";
 
   final parameter Boolean have_allNonCon=sum(boiTyp)==2*nBoi
-    "Autodefined flag indicating all the boilers in a plant are non-condensing boilers";
+    "Auto-defined flag indicating all the boilers in a plant are non-condensing boilers";
 
   parameter Integer nSta = 5
     "Number of stages in the boiler plant";
@@ -181,7 +181,7 @@ protected
     annotation (Placement(transformation(extent={{100,-40},{120,-20}})));
 
   Buildings.Controls.OBC.CDL.Reals.Subtract sub1 if not have_allNonCon
-    "Find difference between measurted flowrate and minimum flow setpoint for next higher stage"
+    "Find difference between measured flowrate and minimum flow setpoint for next higher stage"
     annotation (Placement(transformation(extent={{-80,-50},{-60,-30}})));
 
   Buildings.Controls.OBC.CDL.Logical.Timer tim(t=delCapReq)
@@ -280,7 +280,6 @@ equation
           {-12,22}}, color={255,0,255}));
   connect(not1.y, and1.u2) annotation (Line(points={{-18,-180},{-16,-180},{-16,62},
           {-12,62}}, color={255,0,255}));
-
   connect(tim.passed, logSwi.u1) annotation (Line(points={{42,62},{80,62},{80,58},
           {98,58}}, color={255,0,255}));
   connect(tim1.passed, logSwi.u3) annotation (Line(points={{42,22},{80,22},{80,42},
@@ -318,32 +317,38 @@ annotation (
       extent={{-120,-200},{160,120}})),
   Documentation(
     info="<html>
-    <p>
-    Efficiency condition used in staging up and down for boiler plants with both
-    condensing and non-condensing boilers. Implemented according to the
-    specification provided in 5.21.3.9, items f.2, h.2, j.2 and l.2 in
-    ASHRAE Guideline 36, 2021. Timer reset has been implemented according to
-    5.21.3.9, item b.
-    </p>
-    <p align=\"center\">
-    <img alt=\"State-machine chart for EfficiencyCondition for condensing boilers\"
-    src=\"modelica://Buildings/Resources/Images/Controls/OBC/ASHRAE/G36/Plants/Boilers/Staging/SetPoints/Subsequences/EfficiencyCondition_stateMachineChart_v3_conBoi.png\"/>
-    <br/>
-    State-machine chart for the sequence for condensing boilers defined in ASHRAE Guideline 36
-    </p>
-    <p align=\"center\">
-    <img alt=\"State-machine chart for EfficiencyCondition for non-condensing boilers\"
-    src=\"modelica://Buildings/Resources/Images/Controls/OBC/ASHRAE/G36/Plants/Boilers/Staging/SetPoints/Subsequences/EfficiencyCondition_stateMachineChart_v3_nonConBoi.png\"/>
-    <br/>
-    State-machine chart for the sequence for non-condensing boilers defined in ASHRAE Guideline 36
-    </p>
-    </html>",
-    revisions="<html>
-    <ul>
-    <li>
-    May 21, 2020, by Karthik Devaprasad:<br/>
-    First implementation.
-    </li>
-    </ul>
-    </html>"));
+<p>
+Efficiency condition used in staging up and down for boiler plants with both
+condensing and non-condensing boilers. Implemented according to the
+specification provided in 5.21.3.9, items f.2, h.2, j.2 and l.2 in
+ASHRAE Guideline 36, 2021. Timer reset has been implemented according to
+5.21.3.9, item b.
+</p>
+<ul>
+<li>
+State-machine chart for the sequence for condensing boilers defined in ASHRAE Guideline 36
+</li>
+</ul>
+<p align=\"center\">
+<img alt=\"State-machine chart for EfficiencyCondition for condensing boilers\"
+src=\"modelica://Buildings/Resources/Images/Controls/OBC/ASHRAE/G36/Plants/Boilers/Staging/SetPoints/Subsequences/EfficiencyCondition_stateMachineChart_v3_conBoi.png\"/>
+</p>
+<ul>
+<li>
+State-machine chart for the sequence for non-condensing boilers defined in ASHRAE Guideline 36
+</li>
+</ul>
+<p align=\"center\">
+<img alt=\"State-machine chart for EfficiencyCondition for non-condensing boilers\"
+src=\"modelica://Buildings/Resources/Images/Controls/OBC/ASHRAE/G36/Plants/Boilers/Staging/SetPoints/Subsequences/EfficiencyCondition_stateMachineChart_v3_nonConBoi.png\"/>
+</p>
+</html>",
+revisions="<html>
+<ul>
+<li>
+May 21, 2020, by Karthik Devaprasad:<br/>
+First implementation.
+</li>
+</ul>
+</html>"));
 end EfficiencyCondition;

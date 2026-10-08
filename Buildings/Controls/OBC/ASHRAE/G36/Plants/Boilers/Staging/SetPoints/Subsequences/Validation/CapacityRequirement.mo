@@ -147,25 +147,22 @@ equation
                       pattern = LinePattern.None,
                       fillPattern = FillPattern.Solid,
                       points={{-36,60},{64,0},{-36,-60},{-36,60}})}),
-    Diagram(coordinateSystem(preserveAspectRatio=false)),
-    __Dymola_Commands(file="./Resources/Scripts/Dymola/Controls/OBC/ASHRAE/G36/Plants/Boilers/Staging/SetPoints/Subsequences/Validation/CapacityRequirement.mos"
+Diagram(coordinateSystem(preserveAspectRatio=false)),
+__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/ASHRAE/G36/Plants/Boilers/Staging/SetPoints/Subsequences/Validation/CapacityRequirement.mos"
         "Simulate and plot"),
-    experiment(
-      StopTime=7200,
-      Interval=1,
-      Tolerance=1e-6),
-    Documentation(info="<html>
-      <p>
-      This example validates
-      <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Staging.SetPoints.Subsequences.CapacityRequirement\">
-      Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Staging.SetPoints.Subsequences.CapacityRequirement</a>.
-      </p>
-      </html>", revisions="<html>
-      <ul>
-      <li>
-      May 19, 2020, by Karthik Devaprasad:<br/>
-      First implementation.
-      </li>
-      </ul>
-      </html>"));
+experiment(StopTime=7200, Interval=1, Tolerance=1e-6),
+Documentation(info="<html>
+<p>
+This example validates
+<a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Staging.SetPoints.Subsequences.CapacityRequirement\">
+Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Staging.SetPoints.Subsequences.CapacityRequirement</a>.
+</p>
+</html>", revisions="<html>
+<ul>
+<li>
+May 19, 2020, by Karthik Devaprasad:<br/>
+First implementation.
+</li>
+</ul>
+</html>"));
 end CapacityRequirement;

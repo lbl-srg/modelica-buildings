@@ -133,37 +133,28 @@ equation
 
   connect(zer.y, pumSpe.x1)
     annotation (Line(points={{2,80},{20,80},{20,68},{58,68}}, color={0,0,127}));
-
   connect(pumSpe_min.y, pumSpe.f1)
     annotation (Line(points={{-58,80},{-40,80},{-40,64},{58,64}}, color={0,0,127}));
-
   connect(one.y, pumSpe.x2)
     annotation (Line(points={{-58,40},{-40,40},{-40,56},{58,56}}, color={0,0,127}));
-
   connect(pumSpe_max.y, pumSpe.f2)
     annotation (Line(points={{2,40},{10,40},{10,52},{58,52}}, color={0,0,127}));
-
   connect(maxLoo.y, pumSpe.u)
     annotation (Line(points={{82,0},{100,0},{100,40},{40,40},{40,60},{58,60}},
       color={0,0,127}));
-
   connect(dpHotWat, div.u1)
     annotation (Line(points={{-140,-60},{-40,-60},{-40,-74},{-22,-74}},
       color={0,0,127}));
-
   connect(one.y, reaRep1.u)
     annotation (Line(points={{-58,40},{-40,40},{-40,0},{-22,0}},
       color={0,0,127}));
-
   connect(pumSpe.y, swi.u1)
     annotation (Line(points={{82,60},{100,60},{100,80},{60,80},{60,108},{78,108}},
       color={0,0,127}));
-
   connect(swi.y,yHotWatPumSpe)
     annotation (Line(points={{102,100},{140,100}}, color={0,0,127}));
-
   connect(uHotWatPum, mulOr.u[1:nPum]) annotation (Line(points={{-140,0},{-122,0},{
-          -122,0},{-102,0}},       color={255,0,255}));
+          -122,0},{-102,0}},  color={255,0,255}));
   connect(mulOr.y, swi.u2) annotation (Line(points={{-78,0},{-50,0},{-50,100},{78,
           100}}, color={255,0,255}));
   connect(booRep.y, conPID.trigger)
@@ -219,7 +210,7 @@ sections 5.21.6.5, 5.21.6.6, 5.21.7.5 and 5.21.7.6.
 </p>
 <ol>
 <li>
-When any hot water pump is proven on, <code>uHotWatPum = true</code>, 
+When any hot water pump is proven on, <code>uHotWatPum = true</code>,
 pump speed will be controlled by a reverse acting PID loop maintaining the
 differential pressure signal at a setpoint <code>dpHotWatSet</code>. All pumps
 receive the same speed signal. PID loop output shall be mapped from minimum

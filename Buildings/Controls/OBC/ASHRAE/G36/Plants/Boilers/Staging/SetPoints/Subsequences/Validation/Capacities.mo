@@ -5,25 +5,25 @@ model Capacities
   Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Staging.SetPoints.Subsequences.Capacities
     staCap0(
     final nSta=3)
-    "Outputs design capacitites at the current and stage one lower"
+    "Outputs design capacities at the current and stage one lower"
     annotation (Placement(transformation(extent={{-100,0},{-80,20}})));
 
   Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Staging.SetPoints.Subsequences.Capacities
     staCap1(
     final nSta=3)
-    "Outputs design capacitites at the current and stage one lower"
+    "Outputs design capacities at the current and stage one lower"
     annotation (Placement(transformation(extent={{-20,0},{0,20}})));
 
   Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Staging.SetPoints.Subsequences.Capacities
     staCap2(
     final nSta=3)
-    "Outputs design capacitites at the current and stage one lower"
+    "Outputs design capacities at the current and stage one lower"
     annotation (Placement(transformation(extent={{60,0},{80,20}})));
 
   Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Staging.SetPoints.Subsequences.Capacities
     staCap3(
     final nSta=3)
-    "Outputs design capacitites at the current and stage one lower"
+    "Outputs design capacities at the current and stage one lower"
     annotation (Placement(transformation(extent={{140,0},{160,20}})));
 
 protected

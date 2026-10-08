@@ -190,77 +190,47 @@ protected
 
 equation
   connect(nexLagPumSta.u2, intEqu2.y)
-    annotation (Line(points={{38,-20},{22,-20}},   color={255,0,255}));
-
+    annotation (Line(points={{38,-20},{22,-20}}, color={255,0,255}));
   connect(intEqu3.y, lasLagPumSta.u2)
-    annotation (Line(points={{22,-60},{38,-60}},   color={255,0,255}));
-
+    annotation (Line(points={{22,-60},{38,-60}}, color={255,0,255}));
   connect(intRep.y, intEqu2.u1)
     annotation (Line(points={{-18,-20},{-2,-20}},  color={255,127,0}));
-
   connect(intRep1.y, intEqu3.u1)
     annotation (Line(points={{-18,-60},{-2,-60}},  color={255,127,0}));
-
   connect(booRep2.y, lasLagPumSta.u1) annotation (Line(points={{102,60},{106,60},
-          {106,-40},{34,-40},{34,-52},{38,-52}},
-                                color={255,0,255}));
-
+          {106,-40},{34,-40},{34,-52},{38,-52}}, color={255,0,255}));
   connect(booRep1.y, nexLagPumSta.u1) annotation (Line(points={{82,120},{114,120},
-          {114,34},{34,34},{34,-12},{38,-12}},
-                                color={255,0,255}));
-
+          {114,34},{34,34},{34,-12},{38,-12}}, color={255,0,255}));
   connect(uHotWatPum, nexLagPumSta.u3) annotation (Line(points={{-180,20},{28,20},
-          {28,-28},{38,-28}},   color={255,0,255}));
-
+          {28,-28},{38,-28}}, color={255,0,255}));
   connect(uHotWatPum, lasLagPumSta.u3) annotation (Line(points={{-180,20},{28,20},
-          {28,-68},{38,-68}},   color={255,0,255}));
-
+          {28,-68},{38,-68}}, color={255,0,255}));
   connect(nexLagPumSta.y, enaPum.u1)
-    annotation (Line(points={{62,-20},{68,-20}},
-                                               color={255,0,255}));
-
+    annotation (Line(points={{62,-20},{68,-20}}, color={255,0,255}));
   connect(uHotWatPum, enaPum.u2) annotation (Line(points={{-180,20},{28,20},{28,
-          -36},{68,-36},{68,-28}},
-                    color={255,0,255}));
-
+          -36},{68,-36},{68,-28}}, color={255,0,255}));
   connect(uHotWatPum, remPum.u1) annotation (Line(points={{-180,20},{64,20},{64,
-          -32},{108,-32}},
-                     color={255,0,255}));
-
+          -32},{108,-32}}, color={255,0,255}));
   connect(enaPum.y, addPum.u1) annotation (Line(points={{92,-20},{100,-20},{100,
-          28},{118,28}},
-                     color={255,0,255}));
-
+          28},{118,28}}, color={255,0,255}));
   connect(lasLagPumSta.y, pumSta.u1)
     annotation (Line(points={{62,-60},{78,-60}},color={255,0,255}));
-
   connect(enaPum.y, pumSta.u2) annotation (Line(points={{92,-20},{100,-20},{100,
-          -44},{70,-44},{70,-68},{78,-68}},
-                                       color={255,0,255}));
-
+          -44},{70,-44},{70,-68},{78,-68}}, color={255,0,255}));
   connect(pumSta.y, remPum.u3) annotation (Line(points={{102,-60},{106,-60},{106,
-          -48},{108,-48}},
-                     color={255,0,255}));
-
+          -48},{108,-48}}, color={255,0,255}));
   connect(booRep2.y, remPum.u2) annotation (Line(points={{102,60},{106,60},{106,
           -40},{108,-40}},color={255,0,255}));
-
   connect(booRep1.y, addPum.u2) annotation (Line(points={{82,120},{114,120},{114,
           20},{118,20}},  color={255,0,255}));
-
   connect(remPum.y, addPum.u3) annotation (Line(points={{132,-40},{140,-40},{140,
-          -20},{110,-20},{110,12},{118,12}},
-                                       color={255,0,255}));
-
+          -20},{110,-20},{110,12},{118,12}}, color={255,0,255}));
   connect(addPum.y, yHotWatPum) annotation (Line(points={{142,20},{180,20}},
-                    color={255,0,255}));
-
+          color={255,0,255}));
   connect(conInt.y, intEqu2.u2) annotation (Line(points={{-58,-90},{-10,-90},{-10,
           -28},{-2,-28}},  color={255,127,0}));
-
   connect(conInt.y, intEqu3.u2) annotation (Line(points={{-58,-90},{-10,-90},{-10,
           -68},{-2,-68}},  color={255,127,0}));
-
   connect(uLasLagPumSta, falEdg.u)
     annotation (Line(points={{-180,60},{-142,60}},color={255,0,255}));
   connect(uNexLagPumSta, edg.u)
@@ -272,9 +242,9 @@ equation
   connect(not1.y, booRep2.u)
     annotation (Line(points={{72,60},{78,60}}, color={255,0,255}));
   connect(xor.y,not4. u)
-    annotation (Line(points={{2,-120},{18,-120}},      color={255,0,255}));
+    annotation (Line(points={{2,-120},{18,-120}}, color={255,0,255}));
   connect(not4.y,mulAnd. u[1:nPum]) annotation (Line(points={{42,-120},{48,-120}},
-                                    color={255,0,255}));
+          color={255,0,255}));
   connect(uHotWatPum, xor.u2) annotation (Line(points={{-180,20},{28,20},{28,-96},
           {-30,-96},{-30,-128},{-22,-128}}, color={255,0,255}));
   connect(addPum.y, xor.u1) annotation (Line(points={{142,20},{148,20},{148,-100},
@@ -344,8 +314,8 @@ annotation (
   Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-160,-140},{160,140}})),
 Documentation(info="<html>
 <p>
-Block that changes the status of pumps. This sequence is not directly specified 
-in ASHRAE Guideline 36. It provides a side calculation pertaining to generalization of the staging 
+Block that changes the status of pumps. This sequence is not directly specified
+in ASHRAE Guideline 36. It provides a side calculation pertaining to generalization of the staging
 sequences for any number of pumps and stages provided by the user.
 </p>
 <ol>

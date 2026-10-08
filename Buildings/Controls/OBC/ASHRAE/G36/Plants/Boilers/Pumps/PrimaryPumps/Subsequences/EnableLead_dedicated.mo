@@ -49,16 +49,11 @@ protected
 
 equation
   connect(uPlaEna, leaPumSta.u)
-    annotation (Line(points={{-120,50},{50,50},{50,0},{58,0}},
-                                                 color={255,0,255}));
-
+    annotation (Line(points={{-120,50},{50,50},{50,0},{58,0}}, color={255,0,255}));
   connect(leaPumSta.y, yLea)
     annotation (Line(points={{82,0},{120,0}},   color={255,0,255}));
-
   connect(uLeaBoiSta, not2.u)
-    annotation (Line(points={{-120,-50},{-82,-50}},
-                                                color={255,0,255}));
-
+    annotation (Line(points={{-120,-50},{-82,-50}}, color={255,0,255}));
   connect(tim.passed, leaPumSta.clr) annotation (Line(points={{22,-58},{50,-58},
           {50,-6},{58,-6}}, color={255,0,255}));
   connect(uPlaEna, falEdg.u) annotation (Line(points={{-120,50},{-90,50},{-90,
@@ -95,7 +90,7 @@ section 5.21.6.3.
 <p>
 The lead primary hot water pump status <code>yLea</code> should be enabled when
 boiler plant is enabled (<code>uPlaEna</code> = true). It should be disabled when
-the lead boiler is disabled and has been proven off (<code>uLeaBoiSta</code> 
+the lead boiler is disabled and has been proven off (<code>uLeaBoiSta</code>
 = false) for time <code>offTimThr</code>.
 </p>
 </html>", revisions="<html>

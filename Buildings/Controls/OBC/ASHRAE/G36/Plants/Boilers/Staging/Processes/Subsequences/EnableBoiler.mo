@@ -451,7 +451,7 @@ Documentation(info="<html>
 Block that controls boiler when there is staging up command <code>uStaUp=true</code>.
 This implementation is based on ASHRAE Guideline 36, 2021, sections 5.21.3.10,
 5.21.3.12, 5.21.3.13 and 5.21.3.14. These sections specify when the next boiler
-should be enabled and when the running smaller boiler should be diabled.
+should be enabled and when the running smaller boiler should be disabled.
 </p>
 <p>
 When the stage-up process does not requires a smaller boiler being staged off and
@@ -464,12 +464,12 @@ Start the next stage boiler after the upstream device is proved functional
 </li>
 </ul>
 <p>
-For any stage change during which a smaller boiler is diabled and a larger boiler
+For any stage change during which a smaller boiler is disabled and a larger boiler
 is enabled (<code>uOnOff=true</code>):
 </p>
 <ul>
 <li>
-Wait 5 minutes (<code>proOnTim</code>) for the newly enabled boiler to prove that it is 
+Wait 5 minutes (<code>proOnTim</code>) for the newly enabled boiler to prove that it is
 operating correctly, then shut off the smaller boiler.
 </li>
 </ul>

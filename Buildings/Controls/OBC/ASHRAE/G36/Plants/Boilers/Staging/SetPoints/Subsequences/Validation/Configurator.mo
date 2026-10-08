@@ -128,20 +128,20 @@ annotation (
   __Dymola_Commands(file=
           "modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/ASHRAE/G36/Plants/Boilers/Staging/SetPoints/Subsequences/Validation/Configurator.mos"
         "Simulate and plot"),
-  Documentation(info="<html>
-    <p>
-    This example validates
-    <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Staging.SetPoints.Subsequences.Configurator\">
-    Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Staging.SetPoints.Subsequences.Configurator</a>.
-    </p>
-    </html>", revisions="<html>
-    <ul>
-    <li>
-    May 21, 2020, by Karthik Devaprasad:<br/>
-    First implementation.
-    </li>
-    </ul>
-    </html>"),
+Documentation(info="<html>
+<p>
+This example validates
+<a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Staging.SetPoints.Subsequences.Configurator\">
+Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Staging.SetPoints.Subsequences.Configurator</a>.
+</p>
+</html>", revisions="<html>
+<ul>
+<li>
+May 21, 2020, by Karthik Devaprasad:<br/>
+First implementation.
+</li>
+</ul>
+</html>"),
   Icon(graphics={
        Ellipse(lineColor = {75,138,73},
                fillColor={255,255,255},

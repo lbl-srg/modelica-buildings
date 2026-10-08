@@ -1,6 +1,6 @@
 within Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.SetPoints;
 block CondensationControl
-    "Sequence to calculate setpoint limits for condensation control in non-condesing boilers"
+    "Sequence to calculate setpoint limits for condensation control in non-condensing boilers"
 
   parameter Boolean have_priOnl = false
     "True: Primary-only plant; False: Primary-secondary plant";
@@ -123,25 +123,15 @@ protected
 
 equation
   connect(THotWatRet, proReg.THotWatRet)
-    annotation (Line(points={{-120,70},{-92,70}},
-                                                color={0,0,127}));
-
+    annotation (Line(points={{-120,70},{-92,70}}, color={0,0,127}));
   connect(uStaTyp, intToRea.u)
-    annotation (Line(points={{-120,-70},{-92,-70}},
-                                                  color={255,127,0}));
-
+    annotation (Line(points={{-120,-70},{-92,-70}}, color={255,127,0}));
   connect(intToRea.y, extIndSig.u)
-    annotation (Line(points={{-68,-70},{-52,-70}},
-                                                 color={0,0,127}));
-
+    annotation (Line(points={{-68,-70},{-52,-70}}, color={0,0,127}));
   connect(uCurSta, extIndSig.index) annotation (Line(points={{-120,0},{-60,0},{-60,
-          -90},{-40,-90},{-40,-82}},
-                                  color={255,127,0}));
-
+          -90},{-40,-90},{-40,-82}}, color={255,127,0}));
   connect(extIndSig.y, greThr.u)
-    annotation (Line(points={{-28,-70},{-12,-70}},
-                                                 color={0,0,127}));
-
+    annotation (Line(points={{-28,-70},{-12,-70}},  color={0,0,127}));
   connect(proReg.yRegSig, swi.u1) annotation (Line(points={{-68,70},{-60,70},{-60,
           58},{-52,58}},       color={0,0,127}));
   connect(greThr.y, swi.u2) annotation (Line(points={{12,-70},{20,-70},{20,-50},
@@ -190,40 +180,39 @@ equation
   Diagram(
     coordinateSystem(preserveAspectRatio=false,
     extent={{-100,-100},{100,100}})),
-  Documentation(
-    info="<html>
-    <p>
-    Block that generates condensation control setpoints according to ASHRAE Guideline
-    36 2021, section 5.21.5.
-    </p>
-    <p>
-    The sequence calculates the condensation control setpoints for minimum bypass
-    valve position <code>yMinBypValPos</code>, minimum primary pump speed <code>yMinPriPumSpe</code>
-    and maximum secondary pump speed <code>yMaxSecPumSpe</code> using the following calculations:
-    <ol>
-    <li>
-    Block <code>proReg</code> implemented in the class
-    <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.SetPoints.Subsequences.ProportionalRegulator\">
-    Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.SetPoints.Subsequences.ProportionalRegulator</a>
-    uses the measured hot water return temperature <code>THotWatRet</code> to generate a regulation signal with P-only control loop.
-    </li>
-    <li>
-    The regulation signal is used as is for <code>yMinBypValPos</code>.
-    </li>
-    <li>
-    The regulation signal is used by block <code>pumSpeLim</code> implemented in the class
-    <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.SetPoints.Subsequences.PumpSpeedLimits\">
-    Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.SetPoints.Subsequences.PumpSpeedLimits</a>
-    to generate the pump speed limits <code>yMinPriPumSpe</code> and <code>yMaxSecPumSpe</code>.
-    </li>
-    </ol>
-    </html>",
-    revisions="<html>
-    <ul>
-    <li>
-    May 18, 2020, by Karthik Devaprasad:<br/>
-    First implementation.
-    </li>
-    </ul>
-    </html>"));
+Documentation(info="<html>
+<p>
+Block that generates condensation control setpoints according to ASHRAE Guideline
+36 2021, section 5.21.5.
+</p>
+<p>
+The sequence calculates the condensation control setpoints for minimum bypass
+valve position <code>yMinBypValPos</code>, minimum primary pump speed <code>yMinPriPumSpe</code>
+and maximum secondary pump speed <code>yMaxSecPumSpe</code> using the following calculations:
+</p>
+<ol>
+<li>
+Block <code>proReg</code> implemented in the class
+<a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.SetPoints.Subsequences.ProportionalRegulator\">
+Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.SetPoints.Subsequences.ProportionalRegulator</a>
+uses the measured hot water return temperature <code>THotWatRet</code> to generate a regulation signal with P-only control loop.
+</li>
+<li>
+The regulation signal is used as is for <code>yMinBypValPos</code>.
+</li>
+<li>
+The regulation signal is used by block <code>pumSpeLim</code> implemented in the class
+<a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.SetPoints.Subsequences.PumpSpeedLimits\">
+Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.SetPoints.Subsequences.PumpSpeedLimits</a>
+to generate the pump speed limits <code>yMinPriPumSpe</code> and <code>yMaxSecPumSpe</code>.
+</li>
+</ol>
+</html>", revisions="<html>
+<ul>
+<li>
+May 18, 2020, by Karthik Devaprasad:<br/>
+First implementation.
+</li>
+</ul>
+</html>"));
 end CondensationControl;

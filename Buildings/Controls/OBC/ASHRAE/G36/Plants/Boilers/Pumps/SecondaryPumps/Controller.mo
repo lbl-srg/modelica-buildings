@@ -853,7 +853,7 @@ section 5.21.7. It consists of:
 </p>
 <ul>
 <li>
-Subsequence to enable lead pump, 
+Subsequence to enable lead pump,
 <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Pumps.SecondaryPumps.Subsequences.EnableLead\">
 Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Pumps.SecondaryPumps.Subsequences.EnableLead</a>.
 </li>

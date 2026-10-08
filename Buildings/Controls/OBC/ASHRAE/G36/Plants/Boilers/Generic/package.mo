@@ -34,9 +34,9 @@ package Generic "Generic control sequences"
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid,
           extent={{-80.0,0.0},{-20.0,60.0}})}),
-          Documentation(info="<html>
-             <p>
-             This package contains generic boiler plant control sequences.
-             </p>
-             </html>"));
+Documentation(info="<html>
+<p>
+This package contains generic boiler plant control sequences.
+</p>
+</html>"));
 end Generic;

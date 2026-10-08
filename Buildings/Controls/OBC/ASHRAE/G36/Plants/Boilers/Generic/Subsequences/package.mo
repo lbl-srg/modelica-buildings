@@ -1,8 +1,6 @@
 within Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Generic;
 package Subsequences "Package of subsequences for generic boiler plant sequences"
 
-
-
 annotation (preferredView="info", Documentation(info="<html>
 <p>
 This package contains subsequences for controlling devices when there is stage-up

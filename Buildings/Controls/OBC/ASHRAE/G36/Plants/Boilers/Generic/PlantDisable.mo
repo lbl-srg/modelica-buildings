@@ -301,34 +301,32 @@ equation
   Diagram(
     coordinateSystem(preserveAspectRatio=false,
     extent={{-160,-140},{180,140}})),
-  Documentation(
-    info="<html>
-    <p>
-    Block that controls boiler plant disable process according to ASHRAE Guideline 36,
-    2021, section 5.21.2.5.
-    </p>
-    <p>
-    When the boiler plant is disabled by the plant enable controller
-    <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Generic.PlantEnable\">
-    Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Generic.PlantEnable</a>,
-    the controller performs the following actions:
-    </p>
-    <ol>
-    <li>
-    All the enabled boilers are disabled, ie, <code>yBoi[nBoi]=false</code>.
-    </li>
-    <li>
-    A time period <code>delBoiDis</code> after the boilers have been disabled,any
-    open hot water isolation valves are closed (if present) and any enabled pumps are disabled.
-    </li>
-    </ol>
-    </html>",
-    revisions="<html>
-    <ul>
-    <li>
-    September 30, 2020, by Karthik Devaprasad:<br/>
-    First implementation.
-    </li>
-    </ul>
-    </html>"));
+Documentation(info="<html>
+<p>
+Block that controls boiler plant disable process according to ASHRAE Guideline 36,
+2021, section 5.21.2.5.
+</p>
+<p>
+When the boiler plant is disabled by the plant enable controller
+<a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Generic.PlantEnable\">
+Buildings.Controls.OBC.ASHRAE.G36.Plants.Boilers.Generic.PlantEnable</a>,
+the controller performs the following actions:
+</p>
+<ol>
+<li>
+All the enabled boilers are disabled, ie, <code>yBoi[nBoi]=false</code>.
+</li>
+<li>
+A time period <code>delBoiDis</code> after the boilers have been disabled,any
+open hot water isolation valves are closed (if present) and any enabled pumps are disabled.
+</li>
+</ol>
+</html>", revisions="<html>
+<ul>
+<li>
+September 30, 2020, by Karthik Devaprasad:<br/>
+First implementation.
+</li>
+</ul>
+</html>"));
 end PlantDisable;

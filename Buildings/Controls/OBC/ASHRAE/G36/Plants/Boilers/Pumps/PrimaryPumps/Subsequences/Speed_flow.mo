@@ -139,24 +139,19 @@ protected
 equation
   connect(zer.y, pumSpe.x1)
     annotation (Line(points={{-58,90},{40,90},{40,8},{58,8}}, color={0,0,127}));
-
   connect(pumSpe_min.y, pumSpe.f1)
-    annotation (Line(points={{-58,60},{30,60},{30,4},{58,4}},     color={0,0,127}));
-
+    annotation (Line(points={{-58,60},{30,60},{30,4},{58,4}}, color={0,0,127}));
   connect(one.y, pumSpe.x2)
     annotation (Line(points={{-58,30},{-24,30},{-24,112},{50,112},{50,-4},{58,
-          -4}},                                                   color={0,0,127}));
-
+          -4}}, color={0,0,127}));
   connect(pumSpe_max.y, pumSpe.f2)
     annotation (Line(points={{2,40},{20,40},{20,-8},{58,-8}}, color={0,0,127}));
-
   connect(uHotWatPum, mulOr.u[1:nPum]) annotation (Line(points={{-140,0},{-122,0},{
-          -122,0},{-102,0}},       color={255,0,255}));
+          -122,0},{-102,0}},  color={255,0,255}));
   connect(VHotWatPri_flow,sub2. u1) annotation (Line(points={{-140,-30},{-110,-30},
           {-110,-34},{-102,-34}}, color={0,0,127}));
   connect(VHotWatSec_flow,sub2. u2) annotation (Line(points={{-140,-60},{-106,-60},
           {-106,-46},{-102,-46}}, color={0,0,127}));
-
   connect(zer.y, conPID.u_s) annotation (Line(points={{-58,90},{-28,90},{-28,0},
           {-12,0}},color={0,0,127}));
   connect(mulOr.y, edg.u) annotation (Line(points={{-78,0},{-70,0},{-70,-20},{-62,
@@ -164,7 +159,7 @@ equation
   connect(edg.y, conPID.trigger)
     annotation (Line(points={{-38,-20},{-6,-20},{-6,-12}}, color={255,0,255}));
   connect(conPID.y, pumSpe.u)
-    annotation (Line(points={{12,0},{58,0}},                 color={0,0,127}));
+    annotation (Line(points={{12,0},{58,0}}, color={0,0,127}));
   connect(pumSpe.y, yHotWatPumSpe)
     annotation (Line(points={{82,0},{140,0}}, color={0,0,127}));
   connect(sub2.y, conPID.u_m)
@@ -189,13 +184,13 @@ Documentation(info="<html>
 <p>
 Block that outputs hot water pump speed setpoint for primary-secondary plants with
 variable-speed primary pumps with flow sensors present in the primary and secondary
-loops, or in the decoupler, according to ASHRAE Guideline 36, 2021, 
+loops, or in the decoupler, according to ASHRAE Guideline 36, 2021,
 sections 5.21.6.12 and 5.21.6.13.
 </p>
 <p>
-When any hot water pump is proven on, <code>uHotWatPum = true</code>, 
+When any hot water pump is proven on, <code>uHotWatPum = true</code>,
 pump speed<code>yHotWatPumSpe</code> will be controlled by a reverse acting PID
-loop maintaining the flowrate through the decoupler at zero. PID loop output 
+loop maintaining the flowrate through the decoupler at zero. PID loop output
 shall be mapped from minimum pump speed (<code>minPumSpe</code>) at 0% to maximum
 pump speed at 100%.
 </p>
@@ -208,7 +203,7 @@ loop <code>VHotWatPri_flow</code> and the measured flowrate in secondary loop
 (<code>VHotWatPri_flow - VHotWatSec_flow</code>) and generate the control signal.
 </li>
 <li>
-When the plant has a flowrate sensor in the decoupler, 
+When the plant has a flowrate sensor in the decoupler,
 <code>use_priSecSen = false</code>, the measured flowrate through the
 decoupler is used to calculate the control signal.
 </li>
