@@ -2,12 +2,14 @@ within Buildings.Fluid.HeatExchangers;
 package ThermalWheels "Package with thermal wheel (both enthalpy and sensible heat recovery) models"
   extends Modelica.Icons.Package;
 
-annotation (preferredView="info", Documentation(info="<html>
+annotation(
+  preferredView="info",
+  Documentation(info="<html>
 <p>
 This package contains component models for thermal wheels.
 </p>
 </html>"),
-    Icon(graphics={
+  Icon(graphics={
         Rectangle(
           lineColor={128,128,128},
           extent={{-100,-100},{100,100}},

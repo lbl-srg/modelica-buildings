@@ -1,6 +1,5 @@
 within Buildings.Fluid.HeatExchangers.ThermalWheels.Latent.BaseClasses;
-model HeatExchangerWithInputEffectiveness
-  "Heat and moisture exchanger with varying effectiveness"
+model HeatExchangerWithInputEffectiveness "Heat and moisture exchanger with varying effectiveness"
   extends Buildings.Fluid.HeatExchangers.BaseClasses.PartialEffectiveness(
     redeclare replaceable package Medium1 =
         Modelica.Media.Interfaces.PartialCondensingGases,
@@ -17,11 +16,11 @@ model HeatExchangerWithInputEffectiveness
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput epsSen(unit="1")
     "Sensible heat exchanger effectiveness"
-    annotation (Placement(transformation(extent={{-140,10},{-100,50}}),
+    annotation(Placement(transformation(extent={{-140,10},{-100,50}}),
         iconTransformation(extent={{-140,10},{-100,50}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput epsLat(unit="1")
     "Latent heat exchanger effectiveness"
-    annotation (Placement(transformation(extent={{-140,-50},{-100,-10}}),
+    annotation(Placement(transformation(extent={{-140,-50},{-100,-10}}),
         iconTransformation(extent={{-140,-50},{-100,-10}})));
   Modelica.Units.SI.HeatFlowRate QLat_flow
     "Latent heat exchange from medium 2 to medium 1";
@@ -49,14 +48,14 @@ initial algorithm
                                             caseSensitive=false) then
       i1_w := i;
     end if;
-   end for;
+    end for;
   for i in 1:Medium2.nXi loop
       if Modelica.Utilities.Strings.isEqual(string1=Medium2.substanceNames[i],
                                             string2="Water",
                                             caseSensitive=false) then
       i2_w := i;
     end if;
-   end for;
+    end for;
     assert(i1_w > 0, "Substance 'water' is not present in Medium1 '"
          + Medium1.mediumName + "'.\n"
          + "Check medium model.");
@@ -91,7 +90,7 @@ equation
   // of the assignment of mWat1_flow and mWat2_flow.
   QLat_flow = mWat_flow * Medium1.enthalpyOfVaporization(Medium1.T_default);
 
-  annotation (
+  annotation(
         Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{100,100}}), graphics={
         Rectangle(
@@ -109,8 +108,8 @@ equation
           textColor={255,255,255},
           textString="epsL=%epsL")}),
           preferredView="info",
-defaultComponentName="hexInpEff",
-Documentation(info="<html>
+    defaultComponentName="hexInpEff",
+    Documentation(info="<html>
 <p>
 This block is identical to
 <a href=\"modelica://Buildings.Fluid.MassExchangers.ConstantEffectiveness\">

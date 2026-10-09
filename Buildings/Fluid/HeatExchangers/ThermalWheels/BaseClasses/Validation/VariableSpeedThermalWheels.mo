@@ -1,62 +1,62 @@
 within Buildings.Fluid.HeatExchangers.ThermalWheels.BaseClasses.Validation;
-model VariableSpeedThermalWheels
-  "Model that tests the variable-speed thermal wheels"
+model VariableSpeedThermalWheels "Model that tests the variable-speed thermal wheels"
   extends Modelica.Icons.Example;
+
   parameter Buildings.Fluid.HeatExchangers.ThermalWheels.Data.ASHRAE perSenWhe(
     mSup_flow_nominal=1,
     mExh_flow_nominal=1,
-    relMotEff(uSpe={0.1,0.6,0.8,1},
-    eta={0.3,0.8,0.85,1}),
+    relMotEff(uSpe={0.1, 0.6, 0.8, 1},
+    eta={0.3, 0.8, 0.85, 1}),
     have_latHEX=false,
     use_defaultMotorEfficiencyCurve=false)
     "Performance record for the sensible heat wheel"
-    annotation (Placement(transformation(extent={{-80,74},{-60,94}})));
+    annotation(Placement(transformation(extent={{-80,74},{-60,94}})));
   parameter Buildings.Fluid.HeatExchangers.ThermalWheels.Data.ASHRAE perLatWhe(
     mSup_flow_nominal=1,
     mExh_flow_nominal=1,
-    relMotEff(uSpe={0.1,0.6,0.8,1},
-    eta={0.3,0.8,0.85,1}),
+    relMotEff(uSpe={0.1, 0.6, 0.8, 1},
+    eta={0.3, 0.8, 0.85, 1}),
     have_latHEX=true,
     use_defaultMotorEfficiencyCurve=false)
     "Performance record for the enthalpy wheel"
-    annotation (Placement(transformation(extent={{-40,74},{-20,94}})));
+    annotation(Placement(transformation(extent={{-40,74},{-20,94}})));
   parameter Buildings.Fluid.HeatExchangers.ThermalWheels.Data.ASHRAE perLatWheDefMotCur(
     mSup_flow_nominal=1,
     mExh_flow_nominal=1,
     have_latHEX=true,
     use_defaultMotorEfficiencyCurve=true)
     "Performance record for the enthalpy wheel with default motor dataset"
-    annotation (Placement(transformation(extent={{0,74},{20,94}})));
+    annotation(Placement(transformation(extent={{0,74},{20,94}})));
   Buildings.Fluid.HeatExchangers.ThermalWheels.BaseClasses.SpeedCorrectionSensible
     senWhe(per=perSenWhe)
     "Sensible heat wheel"
-    annotation (Placement(transformation(extent={{-10,40},{10,60}})));
+    annotation(Placement(transformation(extent={{-10,40},{10,60}})));
   Modelica.Blocks.Sources.Ramp uSpe(
     duration=1,
     startTime=0,
     offset=0,
     height=1)
     "Speed ratio"
-    annotation (Placement(transformation(extent={{-60,-10},{-40,10}})));
+    annotation(Placement(transformation(extent={{-60,-10},{-40,10}})));
   Buildings.Fluid.HeatExchangers.ThermalWheels.BaseClasses.SpeedCorrectionLatent
     latWhe(
     per=perLatWhe)
     "Enthalpy wheel"
-    annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
+    annotation(Placement(transformation(extent={{-10,-10},{10,10}})));
   Buildings.Fluid.HeatExchangers.ThermalWheels.BaseClasses.SpeedCorrectionLatent
     latWheDefMotCur(
     per=perLatWheDefMotCur)
     "Enthalpy wheel with default motor curve"
-    annotation (Placement(transformation(extent={{-10,-60},{10,-40}})));
+    annotation(Placement(transformation(extent={{-10,-60},{10,-40}})));
 
 equation
   connect(uSpe.y, senWhe.uSpe)
-    annotation (Line(points={{-39,0},{-28,0},{-28,50},{-12,50}}, color={0,0,127}));
+    annotation(Line(points={{-39,0},{-28,0},{-28,50},{-12,50}}, color={0,0,127}));
   connect(latWhe.uSpe, uSpe.y)
-    annotation (Line(points={{-12,0},{-39,0}}, color={0,0,127}));
+    annotation(Line(points={{-12,0},{-39,0}}, color={0,0,127}));
   connect(latWheDefMotCur.uSpe, uSpe.y)
-    annotation (Line(points={{-12,-50},{-28,-50},{-28,0},{-39,0}}, color={0,0,127}));
-  annotation (
+    annotation(Line(points={{-12,-50},{-28,-50},{-28,0},{-39,0}}, color={0,0,127}));
+  annotation(
     __Dymola_Commands(file=
         "modelica://Buildings/Resources/Scripts/Dymola/Fluid/HeatExchangers/ThermalWheels/BaseClasses/Validation/VariableSpeedThermalWheels.mos"
         "Simulate and plot"),
