@@ -1,11 +1,11 @@
 within Buildings.Fluid.HeatExchangers.ThermalWheels.Latent.BaseClasses.Validation;
-model HeatExchangerWithInputEffectiveness
-  "Test model for the heat exchanger with input effectiveness"
+model HeatExchangerWithInputEffectiveness "Test model for the heat exchanger with input effectiveness"
   extends Modelica.Icons.Example;
+
   package Medium1 = Buildings.Media.Air
-     "Supply air";
+    "Supply air";
   package Medium2 = Buildings.Media.Air
-     "Exhaust air";
+    "Exhaust air";
 
   Buildings.Fluid.Sources.Boundary_pT sin_2(
     redeclare package Medium = Medium2,
@@ -102,15 +102,18 @@ equation
     annotation (Line(points={{-54,-80},{-62,-80}}, color={0,127,255}));
   connect(hex.port_a2, senExhTemIn.port_b)
     annotation (Line(points={{26,0},{34,0}}, color={0,127,255}));
-  connect(senExhRelHumIn.port_a, sou_2.ports[1]) annotation (Line(points={{70,0},
+  connect(senExhRelHumIn.port_a, sou_2.ports[1])
+    annotation (Line(points={{70,0},
           {76,0},{76,-40},{78,-40}}, color={0,127,255}));
   connect(senExhRelHumIn.port_b, senExhTemIn.port_a)
     annotation (Line(points={{50,0},{46,0}}, color={0,127,255}));
-  connect(hex.port_b2, senExhRelHumOut.port_a) annotation (Line(points={{6,0},{0,
+  connect(hex.port_b2, senExhRelHumOut.port_a)
+    annotation (Line(points={{6,0},{0,
           0},{0,-50},{-10,-50}}, color={0,127,255}));
-  connect(senExhTemOut.port_a, senExhRelHumOut.port_b) annotation (Line(points={
+  connect(senExhTemOut.port_a, senExhRelHumOut.port_b)
+    annotation (Line(points={
           {-42,-80},{-36,-80},{-36,-50},{-30,-50}}, color={0,127,255}));
-annotation(experiment(Tolerance=1e-6, StopTime=360),
+annotation (experiment(Tolerance=1e-6, StopTime=360),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/HeatExchangers/ThermalWheels/Latent/BaseClasses/Validation/HeatExchangerWithInputEffectiveness.mos"
         "Simulate and plot"),
 Documentation(info="<html>

@@ -1,7 +1,7 @@
 within Buildings.Fluid.HeatExchangers.ThermalWheels.Latent.BaseClasses;
-partial model PartialWheel
-  "Partial model for enthalpy recovery wheel"
+partial model PartialWheel "Partial model for enthalpy recovery wheel"
   extends Modelica.Blocks.Icons.Block;
+
   replaceable package Medium =
     Modelica.Media.Interfaces.PartialCondensingGases
     "Air";
@@ -13,10 +13,10 @@ partial model PartialWheel
 
   parameter Boolean allowFlowReversal1 = true
     "= false to simplify equations, assuming, but not enforcing, no flow reversal for medium 1"
-    annotation(Dialog(tab="Assumptions"), Evaluate=true);
+    annotation (Dialog(tab="Assumptions"), Evaluate=true);
   parameter Boolean allowFlowReversal2 = true
     "= false to simplify equations, assuming, but not enforcing, no flow reversal for medium 2"
-    annotation(Dialog(tab="Assumptions"), Evaluate=true);
+    annotation (Dialog(tab="Assumptions"), Evaluate=true);
 
 
   parameter Boolean from_dp1 = false
@@ -29,7 +29,7 @@ partial model PartialWheel
                 tab="Flow resistance", group="Medium 1"));
   parameter Boolean linearizeFlowResistance1 = false
     "= true, use linear relation between m_flow and dp for any flow rate"
-    annotation(Dialog(tab="Flow resistance", group="Medium 1"));
+    annotation (Dialog(tab="Flow resistance", group="Medium 1"));
 
   parameter Boolean from_dp2 = false
     "= true, use m_flow = f(dp) else dp = f(m_flow)"
@@ -41,7 +41,7 @@ partial model PartialWheel
                 tab="Flow resistance", group="Medium 2"));
   parameter Boolean linearizeFlowResistance2 = false
     "= true, use linear relation between m_flow and dp for any flow rate"
-    annotation(Dialog(tab="Flow resistance", group="Medium 2"));
+    annotation (Dialog(tab="Flow resistance", group="Medium 2"));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput P(
     final unit="W")
@@ -108,23 +108,29 @@ protected
     annotation (Placement(transformation(extent={{10,-10},{30,10}})));
 
 equation
-  connect(senSupMasFlo.m_flow, effCal.mSup_flow) annotation (Line(points={{49,60},
+  connect(senSupMasFlo.m_flow, effCal.mSup_flow)
+    annotation (Line(points={{49,60},
           {-110,60},{-110,6},{-102,6}},         color={0,0,127}));
-  connect(senExhMasFlo.m_flow, effCal.mExh_flow) annotation (Line(points={{-110,
+  connect(senExhMasFlo.m_flow, effCal.mExh_flow)
+    annotation (Line(points={{-110,
           -49},{-110,-6},{-102,-6}}, color={0,0,127}));
   connect(hex.port_b1, senSupMasFlo.port_a)
     annotation (Line(points={{30,6},{60,6},{60,50}},
                                              color={0,127,255}));
-  connect(senSupMasFlo.port_b, port_b1) annotation (Line(points={{60,70},{60,80},
+  connect(senSupMasFlo.port_b, port_b1)
+    annotation (Line(points={{60,70},{60,80},
           {100,80}},         color={0,127,255}));
-  connect(senExhMasFlo.port_a, hex.port_b2) annotation (Line(points={{-100,-60},
+  connect(senExhMasFlo.port_a, hex.port_b2)
+    annotation (Line(points={{-100,-60},
           {0,-60},{0,-6},{10,-6}},      color={0,127,255}));
-  connect(senExhMasFlo.port_b, port_b2) annotation (Line(points={{-120,-60},{
+  connect(senExhMasFlo.port_b, port_b2)
+    annotation (Line(points={{-120,-60},{
           -130,-60},{-130,-80},{-180,-80}}, color={0,127,255}));
-annotation (
-        defaultComponentName="whe",
-        Icon(coordinateSystem(extent={{-100,-100},{100,100}}),
-        graphics={
+
+  annotation (
+    defaultComponentName="whe",
+    Icon(coordinateSystem(extent={{-100,-100},{100,100}}),
+      graphics={
         Rectangle(
           extent={{24,-76},{94,-84}},
           lineColor={0,0,255},
@@ -182,9 +188,9 @@ annotation (
           extent={{68,-28},{98,-50}},
           textColor={0,0,127},
           textString="P")}),
-          Diagram(
-        coordinateSystem(preserveAspectRatio=true, extent={{-180,-100},{100,100}})),
-Documentation(info="<html>
+    Diagram(
+      coordinateSystem(preserveAspectRatio=true, extent={{-180,-100},{100,100}})),
+    Documentation(info="<html>
 <p>
 Partial model of an enthalpy recovery wheel.
 </p>

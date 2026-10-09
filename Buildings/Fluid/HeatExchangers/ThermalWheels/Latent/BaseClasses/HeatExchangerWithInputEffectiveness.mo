@@ -1,6 +1,5 @@
 within Buildings.Fluid.HeatExchangers.ThermalWheels.Latent.BaseClasses;
-model HeatExchangerWithInputEffectiveness
-  "Heat and moisture exchanger with varying effectiveness"
+model HeatExchangerWithInputEffectiveness "Heat and moisture exchanger with varying effectiveness"
   extends Buildings.Fluid.HeatExchangers.BaseClasses.PartialEffectiveness(
     redeclare replaceable package Medium1 =
         Modelica.Media.Interfaces.PartialCondensingGases,
@@ -49,14 +48,14 @@ initial algorithm
                                             caseSensitive=false) then
       i1_w := i;
     end if;
-   end for;
+    end for;
   for i in 1:Medium2.nXi loop
       if Modelica.Utilities.Strings.isEqual(string1=Medium2.substanceNames[i],
                                             string2="Water",
                                             caseSensitive=false) then
       i2_w := i;
     end if;
-   end for;
+    end for;
     assert(i1_w > 0, "Substance 'water' is not present in Medium1 '"
          + Medium1.mediumName + "'.\n"
          + "Check medium model.");
@@ -109,8 +108,8 @@ equation
           textColor={255,255,255},
           textString="epsL=%epsL")}),
           preferredView="info",
-defaultComponentName="hexInpEff",
-Documentation(info="<html>
+    defaultComponentName="hexInpEff",
+    Documentation(info="<html>
 <p>
 This block is identical to
 <a href=\"modelica://Buildings.Fluid.MassExchangers.ConstantEffectiveness\">

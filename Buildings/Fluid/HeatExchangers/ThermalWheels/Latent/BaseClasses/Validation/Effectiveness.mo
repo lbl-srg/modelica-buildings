@@ -2,6 +2,7 @@ within Buildings.Fluid.HeatExchangers.ThermalWheels.Latent.BaseClasses.Validatio
 model Effectiveness
   "Test model for calculating the input effectiveness of a sensible and latent heat exchanger"
   extends Modelica.Icons.Example;
+
   Buildings.Fluid.HeatExchangers.ThermalWheels.Latent.BaseClasses.Effectiveness
     epsCal(
     epsSen_nominal=0.8,
@@ -31,12 +32,13 @@ equation
   connect(VExh.y, epsCal.mExh_flow)
     annotation (Line(points={{-59,-30},{-28,-30},{-28,-6},{-14,-6}}, color={0,0,127}));
 
-annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
-        coordinateSystem(preserveAspectRatio=false)),
+  annotation (
+    Icon(coordinateSystem(preserveAspectRatio=false)),
+    Diagram(coordinateSystem(preserveAspectRatio=false)),
     experiment(Tolerance=1e-6, StopTime=120),
     __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/HeatExchangers/ThermalWheels/Latent/BaseClasses/Validation/Effectiveness.mos"
         "Simulate and plot"),
-Documentation(info="<html>
+    Documentation(info="<html>
 <p>
 Validation test for the block
 <a href=\"modelica://Buildings.Fluid.HeatExchangers.ThermalWheels.Latent.BaseClasses.Effectiveness\">

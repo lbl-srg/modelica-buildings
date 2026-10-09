@@ -1,11 +1,10 @@
 within Buildings.Fluid.HeatExchangers.ThermalWheels.Sensible.BaseClasses.Validation;
-model HeatExchangerWithInputEffectiveness
-  "Test model for the heat exchanger with input effectiveness"
+model HeatExchangerWithInputEffectiveness "Test model for the heat exchanger with input effectiveness"
   extends Modelica.Icons.Example;
   package Medium1 = Buildings.Media.Air
-     "Supply air";
+    "Supply air";
   package Medium2 = Buildings.Media.Air
-     "Exhaust air";
+    "Exhaust air";
 
   Buildings.Fluid.Sources.Boundary_pT sin_2(
     redeclare package Medium = Medium2,
@@ -81,18 +80,23 @@ equation
   connect(eps.y, hex.eps)
     annotation (Line(points={{-59,10},{-20,10},{-20,6},{4,6}}, color={0,0,127}));
 
-  connect(senExhTemOut.port_a, hex.port_b2) annotation (Line(points={{-26,-40},{
+  connect(senExhTemOut.port_a, hex.port_b2)
+    annotation (Line(points={{-26,-40},{
           -20,-40},{-20,0},{6,0}}, color={0,127,255}));
   connect(senExhTemOut.port_b, sin_2.ports[1])
     annotation (Line(points={{-38,-40},{-62,-40}}, color={0,127,255}));
   connect(hex.port_a2, senExhTemIn.port_b)
     annotation (Line(points={{26,0},{42,0}}, color={0,127,255}));
-  connect(senExhTemIn.port_a, sou_2.ports[1]) annotation (Line(points={{54,0},{60,
-          0},{60,-40},{40,-40}}, color={0,127,255}));
-annotation(experiment(Tolerance=1e-6, StopTime=360),
-__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/HeatExchangers/ThermalWheels/Sensible/BaseClasses/Validation/HeatExchangerWithInputEffectiveness.mos"
-        "Simulate and plot"),
-Documentation(info="<html>
+  connect(senExhTemIn.port_a, sou_2.ports[1])
+    annotation (Line(points={{54,0},{60,0},{60,-40},{40,-40}}, color={0,127,255}));
+
+annotation (
+  experiment(Tolerance=1e-6,
+    StopTime=360),
+  __Dymola_Commands(file=
+    "modelica://Buildings/Resources/Scripts/Dymola/Fluid/HeatExchangers/ThermalWheels/Sensible/BaseClasses/Validation/HeatExchangerWithInputEffectiveness.mos"
+    "Simulate and plot"),
+  Documentation(info="<html>
 <p>
 Validation test for the block
 <a href=\"modelica://Buildings.Fluid.HeatExchangers.ThermalWheels.Sensible.BaseClasses.HeatExchangerWithInputEffectiveness\">

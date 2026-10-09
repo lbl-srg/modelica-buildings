@@ -1,5 +1,4 @@
 within Buildings.Media.Antifreeze.Functions;
-
 package Validation "Collection of validation models"
   extends Modelica.Icons.ExamplesPackage;
 

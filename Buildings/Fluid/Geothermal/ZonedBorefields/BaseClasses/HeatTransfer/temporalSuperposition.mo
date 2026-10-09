@@ -1,27 +1,31 @@
 within Buildings.Fluid.Geothermal.ZonedBorefields.BaseClasses.HeatTransfer;
-function temporalSuperposition
-  "Performs temporal superposition for the load aggregation procedure"
+function temporalSuperposition "Performs temporal superposition for the load aggregation procedure"
+
   extends Modelica.Icons.Function;
 
-  input Integer i "Number of aggregation cells";
-  input Integer nSeg "Number of segments";
-  input Modelica.Units.SI.HeatFlowRate QAgg_flow[nSeg,i]
+  input Integer i
+    "Number of aggregation cells";
+  input Integer nSeg
+    "Number of segments";
+  input Modelica.Units.SI.HeatFlowRate QAgg_flow[nSeg, i]
     "Array of aggregated loads";
-  input Modelica.Units.SI.ThermalResistance kappa[nSeg,nSeg,i]
+  input Modelica.Units.SI.ThermalResistance kappa[nSeg, nSeg, i]
     "Weighting factors for each aggregation cell";
-  input Integer curCel "Current occupied aggregation cell";
+  input Integer curCel
+    "Current occupied aggregation cell";
 
-  output Modelica.Units.SI.TemperatureDifference deltaTb[nSeg] "Delta T at wall";
+  output Modelica.Units.SI.TemperatureDifference deltaTb[nSeg]
+    "Delta T at wall";
 
 algorithm
-  deltaTb := kappa[:,:,1] * QAgg_flow[:,1];
+  deltaTb := kappa[:, :, 1] * QAgg_flow[:, 1];
   for k in 2:curCel loop
-    deltaTb := deltaTb + kappa[:,:,k] * QAgg_flow[:,k];
+    deltaTb := deltaTb + kappa[:, :, k] * QAgg_flow[:, k];
   end for;
 
   annotation (
-Inline=true,
-Documentation(info="<html>
+    Inline = true,
+    Documentation(info="<html>
 <p>
 Performs the temporal and spatial superposition operations to obtain the
 temperature change at the wall of a borehole segment at the current time step.
@@ -38,7 +42,8 @@ This is a vectorized implementation of
 <a href=\"modelica://Buildings.Fluid.Geothermal.Borefields.BaseClasses.HeatTransfer.LoadAggregation.temporalSuperposition\">
 Buildings.Fluid.Geothermal.Borefields.BaseClasses.HeatTransfer.LoadAggregation.temporalSuperposition</a>.
 </p>
-</html>", revisions="<html>
+</html>",
+      revisions="<html>
 <ul>
 <li>
 February 2024, by Massimo Cimmino<br/>

@@ -6,7 +6,7 @@ model SpeedCorrectionSensible "Sensible heat wheels"
     then per.relMotEff_default.y else per.relMotEff.uSpe
     "x-axis support points of the power efficiency curve"
     annotation (Dialog(group="Efficiency"));
-  final parameter Real[size(xSpe,1)] yEta = if per.use_defaultMotorEfficiencyCurve
+  final parameter Real[size(xSpe, 1)] yEta = if per.use_defaultMotorEfficiencyCurve
     then per.relMotEff_default.eta else per.relMotEff.eta
     "y-axis support points of the power efficiency curve"
     annotation (Dialog(group="Efficiency"));
@@ -29,9 +29,9 @@ model SpeedCorrectionSensible "Sensible heat wheels"
         iconTransformation(extent={{100,-20},{140,20}})));
 
 protected
-  parameter Integer nSpe = size(yEta,1)
+  parameter Integer nSpe = size(yEta, 1)
     "Number of the points in the power efficiency curve";
-  parameter Real s = max(xSpe[i]/yEta[i] for i in 1:size(yEta,1)-1)
+  parameter Real s = max(xSpe[i]/yEta[i] for i in 1:size(yEta, 1)-1)
     "Maximum ratio of x-axis to y-axis in the power efficiency curve";
 
   parameter Real[nSpe] dP(each fixed=false, each final unit="W")
@@ -73,8 +73,8 @@ equation
                 yd=per.senEff.epsCor,
                 d=dEpsSenCor)
                 "Calculate the sensible heat exchanger effectiveness correction";
-   annotation (
-   defaultComponentName="speCor",
+  annotation (
+    defaultComponentName="speCor",
    Documentation(info="<html>
 <p>
 This model calculates the power consumption and the sensible heat exchanger

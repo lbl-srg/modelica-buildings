@@ -1,6 +1,6 @@
 within Buildings.Media.Antifreeze.Validation;
 package BaseClasses "Package with base classes for Buildings.Media.Antifreeze.Validation"
-extends Modelica.Icons.BasesPackage;
+  extends Modelica.Icons.BasesPackage;
 
 annotation (preferredView="info", Documentation(info="<html>
 <p>

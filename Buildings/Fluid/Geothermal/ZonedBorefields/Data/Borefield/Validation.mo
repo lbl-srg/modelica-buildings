@@ -1,17 +1,17 @@
 within Buildings.Fluid.Geothermal.ZonedBorefields.Data.Borefield;
 record Validation "Borefield data record for the validation models"
   extends Buildings.Fluid.Geothermal.ZonedBorefields.Data.Borefield.Template(
-    filDat=
+    filDat =
         Buildings.Fluid.Geothermal.ZonedBorefields.Data.Filling.Bentonite(),
-    soiDat=Buildings.Fluid.Geothermal.ZonedBorefields.Data.Soil.SandStone(),
-    conDat=
+    soiDat = Buildings.Fluid.Geothermal.ZonedBorefields.Data.Soil.SandStone(),
+    conDat =
         Buildings.Fluid.Geothermal.ZonedBorefields.Data.Configuration.Validation());
 
   annotation (
-defaultComponentPrefixes="parameter",
-defaultComponentName="borFieDat",
-Documentation(
-info="<html>
+    defaultComponentPrefixes = "parameter",
+    defaultComponentName = "borFieDat",
+    Documentation(
+      info = "<html>
 <p>
 This record presents an example on how to define borefield records
 using the template in

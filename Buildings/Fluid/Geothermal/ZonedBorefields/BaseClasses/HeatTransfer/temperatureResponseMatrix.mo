@@ -4,7 +4,7 @@ impure function temperatureResponseMatrix
   extends Modelica.Icons.Function;
 
   input Integer nBor "Number of boreholes";
-  input Modelica.Units.SI.Position cooBor[nBor,2] "Coordinates of boreholes";
+  input Modelica.Units.SI.Position cooBor[nBor, 2] "Coordinates of boreholes";
   input Modelica.Units.SI.Height hBor "Borehole length";
   input Modelica.Units.SI.Height dBor "Borehole buried depth";
   input Modelica.Units.SI.Radius rBor "Borehole radius";
@@ -21,19 +21,21 @@ impure function temperatureResponseMatrix
   input Real relTol = 0.02 "Relative tolerance on distance between boreholes";
   input String sha "SHA-1 encryption of the arguments of this function";
 
-  output Real kappa[nZon*nSeg,nZon*nSeg,nTim] "Thermal response factor matrix";
+  output Real kappa[nZon*nSeg, nZon*nSeg, nTim] "Thermal response factor matrix";
 
 protected
   String fileName[nZon*nSeg] = {
     "tmp/temperatureResponseMatrix/kappa_" + String(i) + "_" + sha + ".mat" for i in 1:nZon*nSeg}
-    "File name used to save the temperature response matrix";
+      "File name used to save the temperature response matrix";
   Modelica.Units.SI.Time ts=hBor^2/(9*aSoi) "Characteristic time";
   Integer n_max = max(nBorPerZon.*nBorPerZon);
-  Modelica.Units.SI.Distance dis[nZon,nZon,n_max] "Separation distance between boreholes";
+  Modelica.Units.SI.Distance dis[nZon, nZon, n_max]
+    "Separation distance between boreholes";
   Modelica.Units.SI.Distance dis_ij "Separation distance between boreholes";
-  Integer wDis[nZon,nZon,n_max] "Number of occurence of separation distances";
-  Integer n_dis[nZon,nZon];
-  Modelica.Units.SI.Radius rLin=0.0005*hBor
+  Integer wDis[nZon, nZon, n_max]
+    "Number of occurence of separation distances";
+  Integer n_dis[nZon, nZon];
+  Modelica.Units.SI.Radius rLin = 0.0005*hBor
     "Radius for evaluation of same-borehole line source solutions";
   Real hSegRea[nSeg] "Real part of the FLS solution";
   Real hSegMir[2*nSeg-1] "Mirror part of the FLS solution";
@@ -49,35 +51,35 @@ algorithm
     // ---------------------------------------------
     // Distances between borehole in different zones
     // ---------------------------------------------
-    n_dis := zeros(nZon,nZon);
-    wDis := zeros(nZon,nZon,n_max);
+    n_dis := zeros(nZon, nZon);
+    wDis := zeros(nZon, nZon, n_max);
     for i in 1:nBor loop
       for j in i:nBor loop
         // Distance between boreholes
         if i <> j then
-          dis_ij := sqrt((cooBor[i,1] - cooBor[j,1])^2 + (cooBor[i,2] - cooBor[j,2])^2);
+          dis_ij := sqrt((cooBor[i, 1] - cooBor[j, 1])^2 + (cooBor[i, 2] - cooBor[j, 2])^2);
         else
           dis_ij := rLin;
         end if;
         found := false;
         for n in 1:n_dis[iZon[i],iZon[j]] loop
-          if abs(dis_ij - dis[iZon[i],iZon[j],n]) / dis[iZon[i],iZon[j],n] < relTol then
-            wDis[iZon[i],iZon[j],n] := wDis[iZon[i],iZon[j],n] + 1;
+          if abs(dis_ij - dis[iZon[i], iZon[j], n]) / dis[iZon[i], iZon[j], n] < relTol then
+            wDis[iZon[i], iZon[j], n] := wDis[iZon[i], iZon[j], n] + 1;
             found := true;
             if i <> j then
-              wDis[iZon[j],iZon[i],n] := wDis[iZon[j],iZon[i],n] + 1;
+              wDis[iZon[j], iZon[i], n] := wDis[iZon[j], iZon[i], n] + 1;
             end if;
             break;
           end if;
         end for;
         if not found then
-          n_dis[iZon[i],iZon[j]] := n_dis[iZon[i],iZon[j]] + 1;
-          wDis[iZon[i],iZon[j],n_dis[iZon[i],iZon[j]]] := wDis[iZon[i],iZon[j],n_dis[iZon[i],iZon[j]]] + 1;
-          dis[iZon[i],iZon[j],n_dis[iZon[i],iZon[j]]] := dis_ij;
+          n_dis[iZon[i], iZon[j]] := n_dis[iZon[i], iZon[j]] + 1;
+          wDis[iZon[i], iZon[j], n_dis[iZon[i], iZon[j]]] := wDis[iZon[i], iZon[j], n_dis[iZon[i], iZon[j]]] + 1;
+          dis[iZon[i], iZon[j], n_dis[iZon[i], iZon[j]]] := dis_ij;
           if i <> j then
-            n_dis[iZon[j],iZon[i]] := n_dis[iZon[j],iZon[i]] + 1;
-            wDis[iZon[j],iZon[i],n_dis[iZon[j],iZon[i]]] := wDis[iZon[j],iZon[i],n_dis[iZon[j],iZon[i]]] + 1;
-            dis[iZon[j],iZon[i],n_dis[iZon[j],iZon[i]]] := dis_ij;
+            n_dis[iZon[j], iZon[i]] := n_dis[iZon[j], iZon[i]] + 1;
+            wDis[iZon[j], iZon[i], n_dis[iZon[j], iZon[i]]] := wDis[iZon[j], iZon[i], n_dis[iZon[j], iZon[i]]] + 1;
+            dis[iZon[j], iZon[i], n_dis[iZon[j], iZon[i]]] := dis_ij;
           end if;
         end if;
       end for;
@@ -97,14 +99,14 @@ algorithm
               Buildings.Fluid.Geothermal.Borefields.BaseClasses.HeatTransfer.ThermalResponseFactors.finiteLineSource_Equivalent(
                 nu[k],
                 aSoi,
-                dis[i,j,1:n_dis[i,j]],
-                wDis[i,j,1:n_dis[i,j]],
+                dis[i, j, 1:n_dis[i, j]],
+                wDis[i, j, 1:n_dis[i, j]],
                 hBor/nSeg,
                 dBor,
                 hBor/nSeg,
                 dBor + (m - 1)*hBor/nSeg,
                 nBorPerZon[i],
-                n_dis[i,j],
+                n_dis[i, j],
                 includeMirrorSource=false);
           end for;
           // Mirror part
@@ -113,21 +115,21 @@ algorithm
               Buildings.Fluid.Geothermal.Borefields.BaseClasses.HeatTransfer.ThermalResponseFactors.finiteLineSource_Equivalent(
                 nu[k],
                 aSoi,
-                dis[i,j,1:n_dis[i,j]],
-                wDis[i,j,1:n_dis[i,j]],
+                dis[i, j, 1:n_dis[i, j]],
+                wDis[i, j, 1:n_dis[i, j]],
                 hBor/nSeg,
                 dBor,
                 hBor/nSeg,
                 dBor + (m - 1)*hBor/nSeg,
                 nBorPerZon[i],
-                n_dis[i,j],
+                n_dis[i, j],
                 includeRealSource=false);
           end for;
           // Add thermal response factor to coefficient matrix A
           for u in 1:nSeg loop
             for v in 1:nSeg loop
-              kappa[(i-1)*nSeg+u,(j-1)*nSeg+v,k] := hSegRea[abs(u-v)+1] + hSegMir[u+v-1];
-              kappa[(j-1)*nSeg+v,(i-1)*nSeg+u,k] := (hSegRea[abs(u-v)+1] + hSegMir[u+v-1]) * nBorPerZon[i] / nBorPerZon[j];
+              kappa[(i-1)*nSeg+u, (j-1)*nSeg+v, k] := hSegRea[abs(u-v)+1] + hSegMir[u+v-1];
+              kappa[(j-1)*nSeg+v, (i-1)*nSeg+u, k] := (hSegRea[abs(u-v)+1] + hSegMir[u+v-1]) * nBorPerZon[i] / nBorPerZon[j];
             end for;
           end for;
         end for;
@@ -155,7 +157,7 @@ algorithm
       // on themselves)
       for i in 1:nZon loop
         for u in 1:nSeg loop
-          kappa[(i-1)*nSeg+u,(i-1)*nSeg+u,k] := kappa[(i-1)*nSeg+u,(i-1)*nSeg+u,k] + (CHS - ILS);
+          kappa[(i-1)*nSeg+u, (i-1)*nSeg+u, k] := kappa[(i-1)*nSeg+u, (i-1)*nSeg+u, k] + (CHS - ILS);
         end for;
       end for;
     end for;
@@ -164,9 +166,9 @@ algorithm
     // Incremental (dimensional) temperature response factor
     // -----------------------------------------------------
     for k in 1:nTim-1 loop
-      kappa[:,:,nTim-k+1] := (kappa[:,:,nTim-k+1] - kappa[:,:,nTim-k]) / (2*Modelica.Constants.pi*hBor/nSeg*kSoi);
+      kappa[:, :, nTim-k+1] := (kappa[:, :, nTim-k+1] - kappa[:, :, nTim-k]) / (2*Modelica.Constants.pi*hBor/nSeg*kSoi);
     end for;
-    kappa[:,:,1] := kappa[:,:,1] / (2*Modelica.Constants.pi*hBor/nSeg*kSoi);
+    kappa[:, :, 1] := kappa[:, :, 1] / (2*Modelica.Constants.pi*hBor/nSeg*kSoi);
 
     //creation of a temporary folder in the simulation folder
     Modelica.Utilities.Files.createDirectory("tmp");
@@ -183,7 +185,7 @@ algorithm
   end if;
 
   for i in 1:nZon*nSeg loop
-    kappa[i,:,:] := Modelica.Utilities.Streams.readRealMatrix(
+    kappa[i, :, :] := Modelica.Utilities.Streams.readRealMatrix(
       fileName=fileName[i],
       matrixName="kappa",
       nrow=nZon*nSeg,
@@ -191,8 +193,8 @@ algorithm
       verboseRead=false);
   end for;
 
-annotation (
-Documentation(info="<html>
+  annotation (
+    Documentation(info="<html>
 <p>
 This function evaluates the array of segment-to-segment thermal response factors
 using the analytical finite line source method of and Prieto and Cimmino (2021).
@@ -201,7 +203,7 @@ a segment of an equivalent borehole representing a group of boreholes (or in
 this model, a borefield zone) and the temperature variation at the wall of
 another segment of another (or the same) equivalent borehole representing
 another group of boreholes. The total temperature varition at a borehole segment
-is given by the temporal and spatial superpositions of the thermal reponse
+is given by the temporal and spatial superpositions of the thermal response
 factors:
 </p>
 <p align=\"center\">
@@ -230,7 +232,7 @@ and the infinite line source (ILS) solution (see
 Buildings.Fluid.Geothermal.Borefields.BaseClasses.HeatTransfer.ThermalResponseFactors.infiniteLineSource</a>).
 
 To obtain the thermal response factors of a bore field, the bore field is first
-divided into <code>nZon</code> zones of parallel-connected boreholes. Each sone
+divided into <code>nZon</code> zones of parallel-connected boreholes. Each zone
 is represented by a single <i>equivalent</i> borehole. Each equivalent borehole
 is then divided into a series of <code>nSeg</code> segments of equal length,
 each modeled as a line source of finite length. The finite line source solution
@@ -272,7 +274,8 @@ of Building Performance Simulation 14(4): 446-460.
 <a href=\"https://doi.org/10.1080/19401493.2021.1968953\">
 doi:10.1080/19401493.2021.1968953</a>.
 </p>
-</html>", revisions="<html>
+</html>",
+    revisions="<html>
 <ul>
 <li>
 March 20, 2026, by Michael Wetter:<br/>
@@ -287,4 +290,4 @@ First implementation.
 </li>
 </ul>
 </html>"));
-end temperatureResponseMatrix;
+  end temperatureResponseMatrix;

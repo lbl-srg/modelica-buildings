@@ -1,6 +1,5 @@
 within Buildings.Media.Antifreeze;
-package PropyleneGlycolWater
-  "Package with model for propylene glycol - water with constant properties"
+package PropyleneGlycolWater "Package with model for propylene glycol - water with constant properties"
   extends Modelica.Media.Interfaces.PartialSimpleMedium(
     mediumName="PropyleneGlycolWater(X_a = " + String(X_a) + ", property_T = "
          + String(property_T) + ")",
@@ -60,7 +59,7 @@ package PropyleneGlycolWater
       "Thermodynamic state record for optional functions";
     parameter Boolean preferredMediumStates=false
       "= true if StateSelect.prefer shall be used for the independent property variables of the medium"
-      annotation(Evaluate=true, Dialog(tab="Advanced"));
+      annotation (Evaluate=true, Dialog(tab="Advanced"));
     final parameter Boolean standardOrderComponents=true
       "If true, and reducedX = true, the last element of X will be computed from the other ones";
     Modelica.Units.NonSI.Temperature_degC T_degC=
@@ -98,7 +97,7 @@ as required from medium model \"" + mediumName + "\".");
     state.T = T;
     state.p = p;
 
-    annotation(Documentation(info="<html>
+    annotation (Documentation(info="<html>
     <p>
     This base properties model is identical to
     <a href=\"modelica://Modelica.Media.Water.ConstantPropertyLiquidWater\">
@@ -112,6 +111,7 @@ as required from medium model \"" + mediumName + "\".");
     </p>
 </html>"));
   end BaseProperties;
+
 protected
   constant Modelica.Units.SI.MassFraction X_a_min=0.
     "Minimum allowed mass fraction of propylene glycol in water";
@@ -127,7 +127,7 @@ protected
     each iupacName="1,2-Propylene glycol",
     each molarMass=0.07609);
 
-annotation(preferredView="info", Documentation(info="<html>
+annotation (preferredView="info", Documentation(info="<html>
 <p>
 This medium package models propylene glycol - water mixtures.
 </p>

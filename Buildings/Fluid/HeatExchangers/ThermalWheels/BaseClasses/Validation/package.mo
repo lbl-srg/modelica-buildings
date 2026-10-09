@@ -1,6 +1,6 @@
 within Buildings.Fluid.HeatExchangers.ThermalWheels.BaseClasses;
 package Validation "Collection of validation models"
-extends Modelica.Icons.ExamplesPackage;
+  extends Modelica.Icons.ExamplesPackage;
 
   annotation (Documentation(info="<html>
 <p>

@@ -3,12 +3,12 @@ record Generic "Generic data record for thermal wheels"
   extends Modelica.Icons.Record;
 
   parameter Boolean have_latHEX=true
-   "Set to true to compute latent heat exchange";
+    "Set to true to compute latent heat exchange";
   parameter Boolean use_defaultMotorEfficiencyCurve=true
-   "Set to true to use default motor efficiency curve"
+    "Set to true to use default motor efficiency curve"
     annotation (Dialog(enable=have_varSpe));
   parameter Boolean have_varSpe=true
-   "Set to true for the heat recovery wheel with a variable speed drive";
+    "Set to true for the heat recovery wheel with a variable speed drive";
   parameter Modelica.Units.SI.MassFlowRate mSup_flow_nominal
     "Nominal supply air mass flow rate"
     annotation (Dialog(group="Nominal condition"));

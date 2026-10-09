@@ -1,6 +1,6 @@
 within Buildings.Media.Antifreeze;
 package Validation "Validation cases for fluid property evaluations"
-extends Modelica.Icons.ExamplesPackage;
+  extends Modelica.Icons.ExamplesPackage;
 
 annotation (preferredView="info", Documentation(info="<html>
 <p>

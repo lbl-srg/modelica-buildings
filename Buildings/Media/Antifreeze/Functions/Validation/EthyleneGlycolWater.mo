@@ -61,12 +61,12 @@ equation
       Tolerance=1e-06),
     __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Media/Antifreeze/Functions/Validation/EthyleneGlycolWater.mos"
         "Simulate and plot"),
-     Documentation(info="<html>
+    Documentation(info="<html>
 <p>
 Validation model for the functions of
 <a href=\"modelica://Buildings.Media.Antifreeze.Functions.EthyleneGlycolWater\">
 Buildings.Media.Antifreeze.Functions.EthyleneGlycolWater</a>.
-The model plots the fluid properties for different volume and mass conctentrations.
+The model plots the fluid properties for different volume and mass concentrations.
 </p>
 </html>", revisions="<html>
 <ul>

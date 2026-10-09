@@ -1,6 +1,5 @@
 within Buildings.Fluid.HeatExchangers.ThermalWheels.Sensible.BaseClasses;
-model HeatExchangerWithInputEffectiveness
-  "Heat exchanger with varying effectiveness"
+model HeatExchangerWithInputEffectiveness "Heat exchanger with varying effectiveness"
   extends Buildings.Fluid.HeatExchangers.BaseClasses.PartialEffectiveness(
     sensibleOnly1 = true,
     sensibleOnly2 = true,
@@ -16,25 +15,25 @@ model HeatExchangerWithInputEffectiveness
     max=1,
     final unit="1")
     "Sensible heat exchanger effectiveness"
-    annotation (Placement(transformation(extent={{-140,-20},{-100,20}}),
-        iconTransformation(extent={{-140,-20},{-100,20}})));
+    annotation (Placement(transformation(extent={{-140, -20}, {-100, 20}}),
+      iconTransformation(extent={{-140, -20}, {-100, 20}})));
 
 annotation (
-        Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,
-            -100},{100,100}}), graphics={
-        Rectangle(
-          extent={{-70,80},{70,-80}},
-          lineColor={0,0,255},
-          pattern=LinePattern.None,
-          fillColor={0,62,0},
-          fillPattern=FillPattern.Solid),
-        Text(
-          extent={{-58,30},{52,-30}},
-          textColor={255,255,255},
-          textString="eps=%eps")}),
-          preferredView="info",
-defaultComponentName="hexInpEff",
-Documentation(info="<html>
+  Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100, -100}, {100, 100}}),
+    graphics={
+    Rectangle(
+      extent={{-70, 80}, {70, -80}},
+      lineColor={0, 0, 255},
+      pattern=LinePattern.None,
+      fillColor={0, 62, 0},
+      fillPattern=FillPattern.Solid),
+    Text(
+      extent={{-58, 30}, {52, -30}},
+      textColor={255, 255, 255},
+      textString="eps=%eps")}),
+  preferredView="info",
+  defaultComponentName="hexInpEff",
+  Documentation(info="<html>
 <p>
 This block is identical to
 <a href=\"modelica://Buildings.Fluid.HeatExchangers.ConstantEffectiveness\">

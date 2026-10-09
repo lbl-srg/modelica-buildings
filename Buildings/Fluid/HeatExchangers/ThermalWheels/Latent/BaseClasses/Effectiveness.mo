@@ -1,7 +1,7 @@
 within Buildings.Fluid.HeatExchangers.ThermalWheels.Latent.BaseClasses;
-model Effectiveness
-  "Model for calculating the heat exchange effectiveness"
+model Effectiveness "Model for calculating the heat exchange effectiveness"
   extends Modelica.Blocks.Icons.Block;
+
   parameter Modelica.Units.SI.Efficiency epsSen_nominal(final max=1)
     "Nominal sensible heat exchanger effectiveness";
   parameter Modelica.Units.SI.Efficiency epsLat_nominal(final max=1)
@@ -59,7 +59,7 @@ equation
           textString="eps")}), Diagram(
         coordinateSystem(preserveAspectRatio=false)),
     defaultComponentName="effCal",
-Documentation(info="<html>
+    Documentation(info="<html>
 <p>
 This block calculates the sensible and latent effectiveness of the heat exchanger
 under heating and cooling modes at different flow rates of the supply

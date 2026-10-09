@@ -2,11 +2,13 @@ within Buildings.Fluid.HeatExchangers.ThermalWheels;
 package Sensible "Package with sensible heat recovery devices"
   extends Modelica.Icons.Package;
 
-annotation (Documentation(info="<html>
+annotation (
+  Documentation(info="<html>
 <p>
 This package contains component models for sensible heat recovery wheels.
 </p>
-</html>"), Icon(graphics={
+</html>"),
+  Icon(graphics={
         Rectangle(
           extent={{-80,63},{88,56}},
           lineColor={0,0,255},

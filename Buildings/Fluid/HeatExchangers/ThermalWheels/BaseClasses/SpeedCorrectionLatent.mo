@@ -1,6 +1,7 @@
 within Buildings.Fluid.HeatExchangers.ThermalWheels.BaseClasses;
 model SpeedCorrectionLatent "Enthalpy wheels"
   extends Buildings.Fluid.HeatExchangers.ThermalWheels.BaseClasses.SpeedCorrectionSensible;
+
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput epsLatCor(
     final unit="1")
     "Latent heat exchanger effectiveness correction"
@@ -24,7 +25,7 @@ equation
                 "Calculate the latent heat exchanger effectiveness correction";
 
   annotation (
-  defaultComponentName="speCor",
+    defaultComponentName="speCor",
   Documentation(info="<html>
 <p>
 This model calculates the power consumption, the sensible
