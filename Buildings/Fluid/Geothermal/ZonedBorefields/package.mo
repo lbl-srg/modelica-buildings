@@ -3,7 +3,7 @@ package ZonedBorefields "Package with borefield models for thermal energy storag
 
   extends Modelica.Icons.VariantsPackage;
 
-  annotation (
+  annotation(
     preferredView = "info",
     Documentation(info = "<html>
 <p>

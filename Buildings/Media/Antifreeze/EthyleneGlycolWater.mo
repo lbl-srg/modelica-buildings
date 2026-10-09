@@ -60,7 +60,7 @@ package EthyleneGlycolWater "Package with model for ethylene glycol - water with
       "Thermodynamic state record for optional functions";
     parameter Boolean preferredMediumStates=false
       "= true if StateSelect.prefer shall be used for the independent property variables of the medium"
-      annotation (Evaluate=true, Dialog(tab="Advanced"));
+      annotation(Evaluate=true, Dialog(tab="Advanced"));
     final parameter Boolean standardOrderComponents=true
       "If true, and reducedX = true, the last element of X will be computed from the other ones";
     Modelica.Units.NonSI.Temperature_degC T_degC=
@@ -98,7 +98,7 @@ as required from medium model \"" + mediumName + "\".");
     state.T = T;
     state.p = p;
 
-    annotation (Documentation(info="<html>
+    annotation(Documentation(info="<html>
     <p>
     This base properties model is identical to
     <a href=\"modelica://Modelica.Media.Water.ConstantPropertyLiquidWater\">
@@ -128,7 +128,7 @@ protected
     each iupacName="Ethane-1,2-diol",
     each molarMass=0.062068);
 
-annotation (preferredView="info", Documentation(info="<html>
+annotation(preferredView="info", Documentation(info="<html>
 <p>
 This medium package models ethylene glycol - water mixtures.
 </p>

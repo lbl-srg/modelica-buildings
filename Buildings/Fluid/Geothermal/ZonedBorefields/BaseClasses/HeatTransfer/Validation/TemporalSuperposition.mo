@@ -20,7 +20,7 @@ model TemporalSuperposition "Validation of temporal superposition with truncated
 equation
   supPosErr = abs({2*0.4 + 3*0.2 + 0.15, 2*0.1 + 1} - supPos);
 
-  annotation (
+  annotation(
     experiment(Tolerance = 1e-6, StopTime = 1.0),
     __Dymola_Commands(
       file = "modelica://Buildings/Resources/Scripts/Dymola/Fluid/Geothermal/ZonedBorefields/BaseClasses/HeatTransfer/Validation/TemporalSuperposition.mos"

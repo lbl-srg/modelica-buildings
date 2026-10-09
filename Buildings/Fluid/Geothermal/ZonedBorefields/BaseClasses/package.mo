@@ -2,7 +2,7 @@ within Buildings.Fluid.Geothermal.ZonedBorefields;
 package BaseClasses "Base classes used in Buildings.Fluid.Geothermal.ZonedBorefields"
   extends Modelica.Icons.BasesPackage;
 
-  annotation (
+  annotation(
     Documentation(info = "<html>
 <p>
 This package contains base classes that are used to construct the models in

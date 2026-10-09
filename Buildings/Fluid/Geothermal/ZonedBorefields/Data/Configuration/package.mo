@@ -2,7 +2,7 @@ within Buildings.Fluid.Geothermal.ZonedBorefields.Data;
 package Configuration "Collection of records of configuration data of borefields"
   extends Modelica.Icons.MaterialPropertiesPackage;
 
-  annotation (
+  annotation(
     Documentation(info = "<html>
 <p>
 This package contains data records for use with ground heat exchanger models

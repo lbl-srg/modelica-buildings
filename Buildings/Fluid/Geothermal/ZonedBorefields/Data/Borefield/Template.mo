@@ -12,7 +12,7 @@ record Template
     Buildings.Fluid.Geothermal.ZonedBorefields.Data.Configuration.Template conDat
     "Configuration data";
 
-  annotation (
+  annotation(
     defaultComponentPrefixes = "parameter",
     defaultComponentName = "borFieDat",
     Documentation(

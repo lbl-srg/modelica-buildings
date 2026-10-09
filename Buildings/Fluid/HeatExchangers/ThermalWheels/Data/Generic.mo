@@ -6,67 +6,67 @@ record Generic "Generic data record for thermal wheels"
     "Set to true to compute latent heat exchange";
   parameter Boolean use_defaultMotorEfficiencyCurve=true
     "Set to true to use default motor efficiency curve"
-    annotation (Dialog(enable=have_varSpe));
+    annotation(Dialog(enable=have_varSpe));
   parameter Boolean have_varSpe=true
     "Set to true for the heat recovery wheel with a variable speed drive";
   parameter Modelica.Units.SI.MassFlowRate mSup_flow_nominal
     "Nominal supply air mass flow rate"
-    annotation (Dialog(group="Nominal condition"));
+    annotation(Dialog(group="Nominal condition"));
   parameter Modelica.Units.SI.MassFlowRate mExh_flow_nominal
     "Nominal exhaust air mass flow rate"
-    annotation (Dialog(group="Nominal condition"));
+    annotation(Dialog(group="Nominal condition"));
   parameter Modelica.Units.SI.PressureDifference dpSup_nominal(displayUnit="Pa")=500
     "Nominal supply air pressure drop across the heat exchanger"
-    annotation (Dialog(group="Nominal condition"));
+    annotation(Dialog(group="Nominal condition"));
   parameter Modelica.Units.SI.PressureDifference dpExh_nominal(displayUnit="Pa")=dpSup_nominal
     "Nominal exhaust air pressure drop across the heat exchanger"
-    annotation (Dialog(group="Nominal condition"));
+    annotation(Dialog(group="Nominal condition"));
   parameter Real P_nominal(final unit="W")=100
     "Power consumption at the design condition"
-    annotation (Dialog(group="Nominal condition"));
+    annotation(Dialog(group="Nominal condition"));
   parameter Modelica.Units.SI.Efficiency epsSen_nominal(
     final max=1)=0.8
     "Nominal sensible heat exchanger effectiveness"
-    annotation (Dialog(group="Nominal condition"));
+    annotation(Dialog(group="Nominal condition"));
   parameter Modelica.Units.SI.Efficiency epsSenPL(
     final max=1)=0.75
     "Part load (75% of the nominal supply flow rate) sensible heat exchanger effectiveness"
-    annotation (Dialog(group="Part load effectiveness"));
+    annotation(Dialog(group="Part load effectiveness"));
   parameter Modelica.Units.SI.Efficiency epsLat_nominal(
     final max=1)=0.8
     "Nominal latent heat exchanger effectiveness"
-    annotation (Dialog(group="Nominal condition",
+    annotation(Dialog(group="Nominal condition",
                        enable=have_latHEX));
   parameter Modelica.Units.SI.Efficiency epsLatPL(
     final max=1)=0.75
     "Part load (75% of the nominal supply mass flow rate) latent heat exchanger effectiveness"
-    annotation (Dialog(group="Part load effectiveness",
+    annotation(Dialog(group="Part load effectiveness",
                        enable=have_latHEX));
   parameter Buildings.Fluid.HeatExchangers.ThermalWheels.Data.Characteristics.HeatExchangerEffectiveness senEff(
     uSpe={0},
     epsCor={0.7})
     "Multiplication factor for sensible heat exchange effectiveness due to wheel speed ratio between 0 and 1"
-    annotation (Dialog(group="Heat exchange effectiveness computation",
+    annotation(Dialog(group="Heat exchange effectiveness computation",
                        enable=have_varSpe));
   parameter Buildings.Fluid.HeatExchangers.ThermalWheels.Data.Characteristics.HeatExchangerEffectiveness latEff(
     uSpe={0},
     epsCor={0.7})
     "Multiplication factor for latent heat exchange effectiveness due to wheel speed ratio between 0 and 1"
-    annotation (Dialog(group="Heat exchange effectiveness computation",
+    annotation(Dialog(group="Heat exchange effectiveness computation",
                        enable=have_latHEX and have_varSpe));
   parameter Buildings.Fluid.HeatExchangers.ThermalWheels.Data.Characteristics.MotorEfficiency relMotEff(
     uSpe={0},
     eta={0.7})
     "Ratio of the motor efficiency at give speed to the one when the speed is 1"
-    annotation (Dialog(group="Power computation", enable=have_varSpe));
+    annotation(Dialog(group="Power computation", enable=have_varSpe));
   final parameter Buildings.Fluid.Movers.BaseClasses.Characteristics.efficiencyParameters_yMot
     relMotEff_default=Buildings.Fluid.Movers.BaseClasses.Characteristics.motorEfficiencyCurve(
       P_nominal=P_nominal,
       eta_max=1)
     "Default relative motor efficiency"
-    annotation (Dialog(group="Power computation"));
+    annotation(Dialog(group="Power computation"));
 
-  annotation (
+  annotation(
   defaultComponentPrefixes = "parameter",
   defaultComponentName = "per",
   Documentation(revisions="<html>

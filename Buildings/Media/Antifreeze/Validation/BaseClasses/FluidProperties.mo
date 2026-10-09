@@ -42,7 +42,7 @@ equation
        else 0.;
   end for;
 
-  annotation (
+  annotation(
     Documentation(info="<html>
 <p>
 This example checks the implementation of functions that evaluate the

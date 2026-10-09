@@ -9,18 +9,18 @@ model SpeedControlled "Enthalpy recovery wheel with a variable speed drive"
     final unit="1",
     final max=1)
     "Wheel speed ratio"
-    annotation (Placement(transformation(extent={{-220, -20}, {-180, 20}}),
+    annotation(Placement(transformation(extent={{-220, -20}, {-180, 20}}),
       iconTransformation(extent={{-140, -20}, {-100, 20}})));
   Buildings.Fluid.HeatExchangers.ThermalWheels.BaseClasses.SpeedCorrectionLatent speCor(
     final per=per)
     "Correct the wheel performance based on the wheel speed"
-    annotation (Placement(transformation(extent={{-120, 110}, {-100, 130}})));
+    annotation(Placement(transformation(extent={{-120, 110}, {-100, 130}})));
   Buildings.Controls.OBC.CDL.Reals.Multiply mulSen
     "Correct the sensible heat exchanger effectiveness"
-    annotation (Placement(transformation(extent={{-40, 130}, {-20, 150}})));
+    annotation(Placement(transformation(extent={{-40, 130}, {-20, 150}})));
   Buildings.Controls.OBC.CDL.Reals.Multiply mulLat
     "Correct the latent heat exchanger effectiveness"
-    annotation (Placement(transformation(extent={{-40, 90}, {-20, 110}})));
+    annotation(Placement(transformation(extent={{-40, 90}, {-20, 110}})));
 
 initial equation
   assert(per.have_varSpe,
@@ -31,43 +31,43 @@ initial equation
 
 equation
   connect(hex.port_a2, port_a2)
-    annotation (Line(points={{30, -6}, {40, -6}, {40, -80}, {100, -80}},
+    annotation(Line(points={{30, -6}, {40, -6}, {40, -80}, {100, -80}},
       color={0, 127, 255}));
   connect(hex.port_a1, port_a1)
-    annotation (Line(points={{10, 6}, {0, 6}, {0, 80}, {-180, 80}},
+    annotation(Line(points={{10, 6}, {0, 6}, {0, 80}, {-180, 80}},
       color={0, 127, 255}));
   connect(speCor.epsSenCor, mulSen.u1)
-    annotation (Line(points={{-98, 120}, {-80, 120}, {-80, 146}, {-42, 146}},
+    annotation(Line(points={{-98, 120}, {-80, 120}, {-80, 146}, {-42, 146}},
       color={0, 0, 127}));
   connect(speCor.epsLatCor, mulLat.u1)
-    annotation (Line(points={{-98, 112}, {-80, 112}, {-80, 106}, {-42, 106}},
+    annotation(Line(points={{-98, 112}, {-80, 112}, {-80, 106}, {-42, 106}},
       color={0, 0, 127}));
   connect(effCal.epsSen, mulSen.u2)
-    annotation (Line(points={{-78, 5}, {-70, 5}, {-70, 134}, {-42, 134}},
+    annotation(Line(points={{-78, 5}, {-70, 5}, {-70, 134}, {-42, 134}},
       color={0, 0, 127}));
   connect(effCal.epsLat, mulLat.u2)
-    annotation (Line(points={{-78, -5}, {-60, -5}, {-60, 94}, {-42, 94}},
+    annotation(Line(points={{-78, -5}, {-60, -5}, {-60, 94}, {-42, 94}},
       color={0, 0, 127}));
   connect(mulSen.y, hex.epsSen)
-    annotation (Line(points={{-18, 140}, {-4, 140}, {-4, 3}, {8, 3}},
+    annotation(Line(points={{-18, 140}, {-4, 140}, {-4, 3}, {8, 3}},
       color={0, 0, 127}));
   connect(hex.epsLat, mulLat.y)
-    annotation (Line(points={{8, -3}, {-10, -3}, {-10, 100}, {-18, 100}},
+    annotation(Line(points={{8, -3}, {-10, -3}, {-10, 100}, {-18, 100}},
       color={0, 0, 127}));
   connect(mulSen.y, epsSen)
-    annotation (Line(points={{-18, 140}, {90, 140}, {90, 40}, {120, 40}},
+    annotation(Line(points={{-18, 140}, {90, 140}, {90, 40}, {120, 40}},
       color={0, 0, 127}));
   connect(mulLat.y, epsLat)
-    annotation (Line(points={{-18, 100}, {84, 100}, {84, 0}, {120, 0}},
+    annotation(Line(points={{-18, 100}, {84, 100}, {84, 0}, {120, 0}},
       color={0, 0, 127}));
   connect(speCor.P, P)
-    annotation (Line(points={{-98, 128}, {-54, 128}, {-54, -40}, {120, -40}},
+    annotation(Line(points={{-98, 128}, {-54, 128}, {-54, -40}, {120, -40}},
       color={0, 0, 127}));
   connect(speCor.uSpe, uSpe)
-    annotation (Line(points={{-122, 120}, {-168, 120}, {-168, 0}, {-200, 0}},
+    annotation(Line(points={{-122, 120}, {-168, 120}, {-168, 0}, {-200, 0}},
       color={0, 0, 127}));
 
-  annotation (
+  annotation(
     defaultComponentName="whe",
     Icon(coordinateSystem(extent={{-100, -100}, {100, 100}}),
       graphics={

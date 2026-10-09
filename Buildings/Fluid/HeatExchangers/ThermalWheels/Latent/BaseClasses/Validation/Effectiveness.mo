@@ -11,28 +11,28 @@ model Effectiveness
     epsLatPL=0.5,
     mSup_flow_nominal=1)
     "Effectiveness calculator"
-    annotation (Placement(transformation(extent={{-12,-10},{8,10}})));
+    annotation(Placement(transformation(extent={{-12,-10},{8,10}})));
   Modelica.Blocks.Sources.Ramp VSup(
     height=0.4,
     duration=120,
     offset=0.6,
     startTime=0)
     "Supply air flow rate"
-    annotation (Placement(transformation(extent={{-80,30},{-60,50}})));
+    annotation(Placement(transformation(extent={{-80,30},{-60,50}})));
   Modelica.Blocks.Sources.Ramp VExh(
     height=0.2,
     duration=120,
     offset=0.8,
     startTime=0)
     "Exhaust air flow rate"
-    annotation (Placement(transformation(extent={{-80,-40},{-60,-20}})));
+    annotation(Placement(transformation(extent={{-80,-40},{-60,-20}})));
 equation
   connect(VSup.y, epsCal.mSup_flow)
-    annotation (Line(points={{-59,40},{-28,40},{-28,6},{-14,6}}, color={0,0,127}));
+    annotation(Line(points={{-59,40},{-28,40},{-28,6},{-14,6}}, color={0,0,127}));
   connect(VExh.y, epsCal.mExh_flow)
-    annotation (Line(points={{-59,-30},{-28,-30},{-28,-6},{-14,-6}}, color={0,0,127}));
+    annotation(Line(points={{-59,-30},{-28,-30},{-28,-6},{-14,-6}}, color={0,0,127}));
 
-  annotation (
+  annotation(
     Icon(coordinateSystem(preserveAspectRatio=false)),
     Diagram(coordinateSystem(preserveAspectRatio=false)),
     experiment(Tolerance=1e-6, StopTime=120),

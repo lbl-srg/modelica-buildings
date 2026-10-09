@@ -9,20 +9,20 @@ model MassFlowRatePulse100 "Comparative model validation with FEFLOW for a pulse
   parameter ZonedBorefields.Data.Filling.Bentonite filDat(
     kFil = 1.0)
     "Borehole filling data"
-    annotation (Placement(transformation(extent = {{-36, -40}, {-16, -20}})));
+    annotation(Placement(transformation(extent = {{-36, -40}, {-16, -20}})));
   parameter ZonedBorefields.Data.Soil.SandStone soiDat(
     kSoi = 1.1,
     cSoi = 1.4E6/1800,
     dSoi = 1800)
     "Soil data"
-    annotation (Placement(transformation(extent = {{-14, -40}, {6, -20}})));
+    annotation(Placement(transformation(extent = {{-14, -40}, {6, -20}})));
 
   parameter Buildings.Fluid.Geothermal.ZonedBorefields.Data.Borefield.Template
     borFieDat(
       filDat=filDat,
       soiDat=soiDat,
       conDat=conDat) "Borefield data"
-    annotation (Placement(transformation(extent = {{-80, -40}, {-60, -20}})));
+    annotation(Placement(transformation(extent = {{-80, -40}, {-60, -20}})));
 
   parameter Data.Configuration.Template conDat(
     borCon = Buildings.Fluid.Geothermal.Borefields.Types.BoreholeConfiguration.DoubleUTubeParallel,
@@ -44,7 +44,7 @@ model MassFlowRatePulse100 "Comparative model validation with FEFLOW for a pulse
     kTub = 0.42,
     eTub = 0.0029,
     xC = (2*((0.04/2)^2))^(1/2)) "Construction data"
-    annotation (Placement(transformation(extent = {{-58, -40}, {-38, -20}})));
+    annotation(Placement(transformation(extent = {{-58, -40}, {-38, -20}})));
 
   final parameter Integer nZon(min = 1) = borFieDat.conDat.nZon
     "Total number of independent bore field zones";
@@ -53,7 +53,7 @@ model MassFlowRatePulse100 "Comparative model validation with FEFLOW for a pulse
     each k(final unit = "K", displayUnit = "degC") = 293.15)
     constrainedby Modelica.Blocks.Interfaces.SO
     "Inlet temperature into each zone"
-    annotation (Placement(transformation(extent = {{-80, -10}, {-60, 10}})));
+    annotation(Placement(transformation(extent = {{-80, -10}, {-60, 10}})));
 
   Modelica.Blocks.Sources.CombiTimeTable TOut(
     tableOnFile = true,
@@ -64,7 +64,7 @@ model MassFlowRatePulse100 "Comparative model validation with FEFLOW for a pulse
       "modelica://Buildings/Resources/Data/Fluid/Geothermal/ZonedBorefields/Validation/FEFLOW/Pulse.txt"),
     y(each unit = "K", each displayUnit = "degC"))
     "Reference results for the borehole fluid outlet temperature in each zone from FEFLOW"
-    annotation (Placement(transformation(extent = {{-80, 50}, {-60, 70}})));
+    annotation(Placement(transformation(extent = {{-80, 50}, {-60, 70}})));
 
   Modelica.Units.SI.TemperatureDifference dTOut[2] =
     {if m_flow[i].y > 1E-5 then TOut.y[i] - TBorFieOut[i].T else 0
@@ -82,25 +82,25 @@ model MassFlowRatePulse100 "Comparative model validation with FEFLOW for a pulse
     TExt0_start = T_start,
     borFieDat = borFieDat,
     dT_dz = 0) "Borefield"
-    annotation (Placement(transformation(extent = {{30, -10}, {50, 10}})));
+    annotation(Placement(transformation(extent = {{30, -10}, {50, 10}})));
   Sensors.TemperatureTwoPort TBorFieIn[nZon](
     redeclare each package Medium = Medium,
     each allowFlowReversal = false,
     each T_start = T_start,
     m_flow_nominal = borFieDat.conDat.mZon_flow_nominal,
     each tau = 0) "Inlet temperature of the borefield"
-    annotation (Placement(transformation(extent = {{0, -10}, {20, 10}})));
+    annotation(Placement(transformation(extent = {{0, -10}, {20, 10}})));
   Sensors.TemperatureTwoPort TBorFieOut[nZon](
     redeclare each package Medium = Medium,
     each allowFlowReversal = false,
     each T_start = T_start,
     m_flow_nominal = borFieDat.conDat.mZon_flow_nominal,
     each tau = 0) "Outlet temperature of the borefield"
-    annotation (Placement(transformation(extent = {{60, -10}, {80, 10}})));
+    annotation(Placement(transformation(extent = {{60, -10}, {80, 10}})));
   Sources.Boundary_ph sin[nZon](
     redeclare each package Medium = Medium,
     each nPorts = 1) "Sink"
-    annotation (Placement(transformation(extent = {{120, -10}, {100, 10}})));
+    annotation(Placement(transformation(extent = {{120, -10}, {100, 10}})));
   replaceable Modelica.Blocks.Sources.Pulse m_flow[nZon](
     amplitude = borFieDat.conDat.mZon_flow_nominal,
     each width = 50,
@@ -108,31 +108,31 @@ model MassFlowRatePulse100 "Comparative model validation with FEFLOW for a pulse
     each startTime = 0)
     constrainedby Modelica.Blocks.Interfaces.SO
     "Mass flow rate into each zone"
-    annotation (Placement(transformation(extent = {{-80, 22}, {-60, 42}})));
+    annotation(Placement(transformation(extent = {{-80, 22}, {-60, 42}})));
 
   Sources.MassFlowSource_T sou[nZon](
     redeclare each package Medium = Medium,
     each use_m_flow_in = true,
     each use_T_in = true,
     each nPorts = 1) "Mass flow source"
-    annotation (Placement(transformation(extent = {{-40, -10}, {-20, 10}})));
+    annotation(Placement(transformation(extent = {{-40, -10}, {-20, 10}})));
 
 equation
   connect(TBorFieIn.port_b, borFie.port_a)
-    annotation (Line(points = {{20, 0}, {30, 0}}, color = {0, 127, 255}));
+    annotation(Line(points = {{20, 0}, {30, 0}}, color = {0, 127, 255}));
   connect(borFie.port_b, TBorFieOut.port_a)
-    annotation (Line(points = {{50, 0}, {60, 0}}, color = {0, 127, 255}));
+    annotation(Line(points = {{50, 0}, {60, 0}}, color = {0, 127, 255}));
   connect(sin[:].ports[1], TBorFieOut[:].port_b)
-    annotation (Line(points = {{100, 0}, {80, 0}}, color = {0, 127, 255}));
+    annotation(Line(points = {{100, 0}, {80, 0}}, color = {0, 127, 255}));
   connect(sou.ports[1], TBorFieIn.port_a)
-    annotation (Line(points = {{-20, 0}, {0, 0}}, color = {0, 127, 255}));
+    annotation(Line(points = {{-20, 0}, {0, 0}}, color = {0, 127, 255}));
   connect(m_flow.y, sou.m_flow_in)
-    annotation (Line(points = {{-59, 32}, {-50, 32}, {-50, 8}, {-42, 8}},
+    annotation(Line(points = {{-59, 32}, {-50, 32}, {-50, 8}, {-42, 8}},
       color = {0, 0, 127}));
   connect(TIn.y, sou.T_in)
-    annotation (Line(points = {{-59, 0}, {-52, 0}, {-52, 4}, {-42, 4}},
+    annotation(Line(points = {{-59, 0}, {-52, 0}, {-52, 4}, {-42, 4}},
       color = {0, 0, 127}));
-  annotation (
+  annotation(
     Diagram(coordinateSystem(extent = {{-100, -60}, {140, 80}})),
     Icon(coordinateSystem(extent = {{-100, -100}, {100, 100}})),
     __Dymola_Commands(file = "modelica://Buildings/Resources/Scripts/Dymola/Fluid/Geothermal/ZonedBorefields/Validation/FEFLOW/MassFlowRatePulse100.mos"

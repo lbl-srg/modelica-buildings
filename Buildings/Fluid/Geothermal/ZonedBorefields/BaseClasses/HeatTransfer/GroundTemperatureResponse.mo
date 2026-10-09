@@ -10,18 +10,18 @@ model GroundTemperatureResponse "Model calculating discrete load aggregation"
     "Number of segments per borehole";
   parameter Buildings.Fluid.Geothermal.ZonedBorefields.Data.Borefield.Template borFieDat
     "Record containing all the parameters of the borefield model"
-    annotation (choicesAllMatching=true,
+    annotation(choicesAllMatching=true,
       Placement(transformation(extent={{-80, -80}, {-60, -60}})));
 
   Modelica.Blocks.Interfaces.RealInput[nZon, nSeg] QBor_flow(each final unit="W")
     "Heat flow from borehole segment (positive if heat from fluid into soil)"
-    annotation (Placement(transformation(extent={{-120, -10}, {-100, 10}}),
+    annotation(Placement(transformation(extent={{-120, -10}, {-100, 10}}),
       iconTransformation(extent={{-120, -10}, {-100, 10}})));
   Modelica.Blocks.Interfaces.RealOutput[nZon, nSeg] delTBor(
     each final unit="K",
     each displayUnit="degC")
     "Temperature difference current borehole wall temperature minus initial borehole wall temperature"
-    annotation (Placement(transformation(extent={{100, -14}, {126, 12}}),
+    annotation(Placement(transformation(extent={{100, -14}, {126, 12}}),
       iconTransformation(extent={{100, -10}, {120, 10}})));
 
 protected
@@ -179,7 +179,7 @@ equation
     derDelTBor0=(delTBor0 - delTBor_1d) / tLoaAgg;
   end when;
 
-  annotation (
+  annotation(
     Icon(coordinateSystem(preserveAspectRatio=false), graphics={
       Rectangle(
         extent={{-100, 100}, {100, -100}},

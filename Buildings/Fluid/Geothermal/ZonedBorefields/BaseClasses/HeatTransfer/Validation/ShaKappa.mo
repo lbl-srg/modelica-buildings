@@ -31,7 +31,7 @@ model ShaKappa "Verifies the SHA-1 encryption of a zoned borefield"
 equation
   cmp = Modelica.Utilities.Strings.isEqual(strIn, strEx, false);
 
-  annotation (
+  annotation(
     experiment(Tolerance = 1e-6, StopTime = 1.0),
     __Dymola_Commands(
       file = "modelica://Buildings/Resources/Scripts/Dymola/Fluid/Geothermal/ZonedBorefields/BaseClasses/HeatTransfer/Validation/ShaKappa.mos"

@@ -3,7 +3,7 @@ model OneUTube "Borefield model containing single U-tube boreholes"
   extends Buildings.Fluid.Geothermal.ZonedBorefields.BaseClasses.PartialStorage(
     redeclare Buildings.Fluid.Geothermal.Borefields.BaseClasses.Boreholes.OneUTube borHol[nZon]);
 
-  annotation (
+  annotation(
     defaultComponentName = "borFie",
     Documentation(info = "<html>
 <p>

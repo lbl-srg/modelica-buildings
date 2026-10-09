@@ -10,10 +10,10 @@ record Template
     "Density of the borehole filling material";
   parameter Boolean steadyState = (cFil < Modelica.Constants.eps or dFil < Modelica.Constants.eps)
     "Flag, if true, then material is computed using steady-state heat conduction"
-    annotation (Evaluate = true);
+    annotation(Evaluate = true);
   final parameter Modelica.Units.SI.ThermalDiffusivity aFil = kFil/(dFil*cFil)
     "Heat diffusion coefficient of the borehole filling material";
-  annotation (
+  annotation(
     defaultComponentPrefixes = "parameter",
     defaultComponentName = "filDat",
     Documentation(

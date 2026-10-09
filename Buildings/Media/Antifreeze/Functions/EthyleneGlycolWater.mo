@@ -19,7 +19,7 @@ package EthyleneGlycolWater "Package with model for ethylene glycol - water with
         T,
         proCoe.a_d);
 
-    annotation (
+    annotation(
     Documentation(info="<html>
   <p>
   Density of ethylene antifreeze-water mixture at specified mass fraction
@@ -59,7 +59,7 @@ package EthyleneGlycolWater "Package with model for ethylene glycol - water with
         T,
         proCoe.a_eta));
 
-  annotation (
+  annotation(
   Documentation(info="<html>
 <p>
 Dynamic viscosity of antifreeze-water mixture at specified mass fraction and
@@ -97,7 +97,7 @@ Buildings.Media.Antifreeze.EthyleneGlycolWater</a>.
         T,
         proCoe.a_Tf));
 
-  annotation (
+  annotation(
   Documentation(info="<html>
 <p>
 Fusion temperature of antifreeze-water mixture at specified mass fraction and
@@ -147,7 +147,7 @@ Buildings.Media.Antifreeze.EthyleneGlycolWater</a>.
         f := f + a[n]*dx^i*dy^j;
       end for;
     end for;
-  annotation (
+  annotation(
   Documentation(info="<html>
 <p>
 Evaluates a thermophysical property of a mixture, based on correlations proposed
@@ -197,7 +197,7 @@ Buildings.Media.Antifreeze</a>.
     Pr := dynamicViscosity_TX_a(T=T, X_a=X_a) * specificHeatCapacityCp_TX_a(T=T, X_a=X_a) /
       thermalConductivity_TX_a(T=T, X_a=X_a);
 
-  annotation (
+  annotation(
   Documentation(info="<html>
 <p>
 Prandtl number of antifreeze-water mixture at specified mass fraction and
@@ -232,7 +232,7 @@ First implementation.
         T,
         proCoe.a_cp);
 
-  annotation (
+  annotation(
   Documentation(info="<html>
 <p>
 Specific heat capacity of antifreeze-water mixture at specified mass fraction
@@ -270,7 +270,7 @@ Buildings.Media.Antifreeze.EthyleneGlycolWater</a>.
         T,
         proCoe.a_lambda);
 
-  annotation (
+  annotation(
   Documentation(info="<html>
 <p>
 Thermal conductivity of antifreeze-water mixture at specified mass fraction and
@@ -328,7 +328,7 @@ Buildings.Media.Antifreeze.EthyleneGlycolWater</a>.
 
     y := phiRhoGly / dMix;
 
-  annotation (
+  annotation(
   Documentation(info="<html>
 <p>
 Conversion from volume fraction to mass fraction of antifreeze-water mixture at specified temperature.
@@ -381,7 +381,7 @@ protected
         1.059e-7,-1.142e-10,1.747e-5,6.814e-8,-3.612e-9,2.365e-12,3.017e-8,-2.412e-9,
       4.004e-11,-1.322e-09,2.555e-11,2.678e-11} "Polynomial coefficients for thermal conductivity";
 
-    annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
+    annotation(Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
         coordinateSystem(preserveAspectRatio=false)),
     Documentation(info="<html>
 <p>
@@ -410,7 +410,7 @@ Added documentation.
 </html>"));
   end proCoe;
 
-annotation (preferredView="info", Documentation(info="<html>
+annotation(preferredView="info", Documentation(info="<html>
 <p>
 This medium package models ethylene glycol - water mixtures.
 </p>

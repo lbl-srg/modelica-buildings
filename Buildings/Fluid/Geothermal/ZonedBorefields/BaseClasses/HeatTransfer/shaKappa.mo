@@ -65,7 +65,7 @@ algorithm
     sha:=Buildings.Utilities.Cryptographics.sha(sha + String(nu[i], format=formatStrGen));
   end for;
 
-annotation (
+annotation(
   Inline=false,
   Documentation(info="<html>
 <p>

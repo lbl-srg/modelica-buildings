@@ -2,7 +2,7 @@ within Buildings.Fluid.Geothermal.ZonedBorefields.Interfaces;
 partial model PartialTwoNPorts "Partial component with vectors of ports"
   replaceable package Medium =
     Modelica.Media.Interfaces.PartialMedium "Medium in the component"
-    annotation (choices (
+    annotation(choices (
       choice(redeclare package Medium = Buildings.Media.Air "Moist air"),
       choice(redeclare package Medium = Buildings.Media.Water "Water"),
       choice(redeclare package Medium =
@@ -13,7 +13,7 @@ partial model PartialTwoNPorts "Partial component with vectors of ports"
 
   parameter Boolean allowFlowReversal = true
     "= false to simplify equations, assuming, but not enforcing, no flow reversal"
-    annotation (Dialog(tab = "Assumptions"), Evaluate = true);
+    annotation(Dialog(tab = "Assumptions"), Evaluate = true);
 
   parameter Integer nPorts(min = 1)
     "Number of fluid ports on each side";
@@ -24,16 +24,16 @@ partial model PartialTwoNPorts "Partial component with vectors of ports"
     each h_outflow(start = Medium.h_default, nominal = Medium.h_default),
     each p(start = Medium.p_default))
     "Fluid connector a (positive design flow direction is from port_a to port_b)"
-    annotation (Placement(transformation(extent = {{-110, -10}, {-90, 10}})));
+    annotation(Placement(transformation(extent = {{-110, -10}, {-90, 10}})));
   Modelica.Fluid.Interfaces.FluidPort_b port_b[nPorts](
     redeclare each final package Medium = Medium,
     each m_flow(max = if allowFlowReversal then +Modelica.Constants.inf else 0),
     each h_outflow(start = Medium.h_default, nominal = Medium.h_default),
     each p(start = Medium.p_default))
     "Fluid connector b (positive design flow direction is from port_a to port_b)"
-    annotation (Placement(transformation(extent = {{110, -10}, {90, 10}})));
+    annotation(Placement(transformation(extent = {{110, -10}, {90, 10}})));
 
-  annotation (
+  annotation(
     Documentation(info = "<html>
 <p>
 This partial model defines an interface for components with multiple pairs of

@@ -2,7 +2,7 @@ within Buildings.Fluid.Geothermal.ZonedBorefields.BaseClasses.HeatTransfer;
 package Validation "Validation models for the geothermal heat transfer models"
   extends Modelica.Icons.ExamplesPackage;
 
-  annotation (
+  annotation(
     preferredView = "info",
     Documentation(info = "<html>
 <p>

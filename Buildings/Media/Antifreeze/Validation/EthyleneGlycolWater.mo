@@ -8,7 +8,7 @@ model EthyleneGlycolWater "Model that tests the implementation of ethylene glyco
     T_min=223.15,
     T_max=373.15);
 
-  annotation (
+  annotation(
     experiment(Tolerance=1e-6, StopTime=1.0),
     __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Media/Antifreeze/Validation/EthyleneGlycolWater.mos"
         "Simulate and plot"),

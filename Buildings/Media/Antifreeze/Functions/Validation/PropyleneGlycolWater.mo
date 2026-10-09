@@ -55,7 +55,7 @@ equation
     T=T,
     X_a=X_a);
 
-  annotation (
+  annotation(
     experiment(
       StopTime=1,
       Tolerance=1e-06),

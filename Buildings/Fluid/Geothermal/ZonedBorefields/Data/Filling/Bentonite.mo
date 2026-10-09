@@ -7,7 +7,7 @@ record Bentonite
     dFil = 1600,
     cFil = 800);
 
-  annotation (
+  annotation(
     defaultComponentPrefixes = "parameter",
     defaultComponentName = "filDat",
     Documentation(

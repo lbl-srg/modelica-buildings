@@ -2,7 +2,7 @@ within Buildings.Fluid.HeatExchangers.ThermalWheels;
 package BaseClasses "Models of variable-speed thermal wheels"
   extends Modelica.Icons.BasesPackage;
 
-annotation (
+annotation(
   Documentation(info="<html>
 <p>
 This package contains models for capturing the impacts of

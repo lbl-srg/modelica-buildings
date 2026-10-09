@@ -23,7 +23,7 @@ algorithm
     deltaTb := deltaTb + kappa[:, :, k] * QAgg_flow[:, k];
   end for;
 
-  annotation (
+  annotation(
     Inline = true,
     Documentation(info="<html>
 <p>

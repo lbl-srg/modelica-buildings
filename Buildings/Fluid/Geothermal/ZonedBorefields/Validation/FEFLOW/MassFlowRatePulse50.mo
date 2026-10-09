@@ -11,7 +11,7 @@ model MassFlowRatePulse50
       fileName = Modelica.Utilities.Files.loadResource(
         "modelica://Buildings/Resources/Data/Fluid/Geothermal/ZonedBorefields/Validation/FEFLOW/MassFlowRatePulse.txt")));
 
-  annotation (
+  annotation(
     Diagram(coordinateSystem(extent = {{-100, -60}, {140, 80}})),
     Icon(coordinateSystem(extent = {{-100, -100}, {100, 100}})),
     __Dymola_Commands(file = "modelica://Buildings/Resources/Scripts/Dymola/Fluid/Geothermal/ZonedBorefields/Validation/FEFLOW/MassFlowRatePulse50.mos"

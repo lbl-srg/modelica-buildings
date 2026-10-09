@@ -7,7 +7,7 @@ record Validation "Borefield data record for the validation models"
     conDat =
         Buildings.Fluid.Geothermal.ZonedBorefields.Data.Configuration.Validation());
 
-  annotation (
+  annotation(
     defaultComponentPrefixes = "parameter",
     defaultComponentName = "borFieDat",
     Documentation(

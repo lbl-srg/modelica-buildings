@@ -193,7 +193,7 @@ algorithm
       verboseRead=false);
   end for;
 
-  annotation (
+  annotation(
     Documentation(info="<html>
 <p>
 This function evaluates the array of segment-to-segment thermal response factors

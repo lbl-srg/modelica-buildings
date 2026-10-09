@@ -2,7 +2,7 @@ within Buildings.Fluid.Geothermal.ZonedBorefields;
 model TwoUTubes "Borefield model containing double U-tube boreholes"
   extends Buildings.Fluid.Geothermal.ZonedBorefields.BaseClasses.PartialStorage(
     redeclare Buildings.Fluid.Geothermal.Borefields.BaseClasses.Boreholes.TwoUTube borHol[nZon]);
-  annotation (
+  annotation(
     defaultComponentName = "borFie",
     Documentation(info = "<html>
 <p>

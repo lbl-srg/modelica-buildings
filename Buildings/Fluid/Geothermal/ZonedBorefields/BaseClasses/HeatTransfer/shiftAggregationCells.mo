@@ -39,7 +39,7 @@ algorithm
 
   QAggShi_flow[:, 1]:=zeros(nSeg);
 
-  annotation (
+  annotation(
     Documentation(info="<html>
 <p>
 Performs the shifting operation which propagates the thermal load history

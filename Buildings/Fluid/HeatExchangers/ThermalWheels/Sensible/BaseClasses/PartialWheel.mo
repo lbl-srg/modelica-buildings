@@ -6,74 +6,74 @@ partial model PartialWheel "Partial model for sensible heat recovery wheel"
   parameter Buildings.Fluid.HeatExchangers.ThermalWheels.Data.Generic per(
     final have_latHEX=false)
     "Record with performance data"
-    annotation (Placement(transformation(extent={{-170, -60}, {-150, -40}})));
+    annotation(Placement(transformation(extent={{-170, -60}, {-150, -40}})));
 
   parameter Boolean allowFlowReversal1 = true
     "= false to simplify equations, assuming, but not enforcing, no flow reversal for medium 1"
-    annotation (Dialog(tab="Assumptions"), Evaluate=true);
+    annotation(Dialog(tab="Assumptions"), Evaluate=true);
   parameter Boolean allowFlowReversal2 = true
     "= false to simplify equations, assuming, but not enforcing, no flow reversal for medium 2"
-    annotation (Dialog(tab="Assumptions"), Evaluate=true);
+    annotation(Dialog(tab="Assumptions"), Evaluate=true);
 
 
   parameter Boolean from_dp1 = false
     "= true, use m_flow = f(dp) else dp = f(m_flow)"
-    annotation (Evaluate=true, Dialog(tab="Flow resistance", group="Medium 1"));
+    annotation(Evaluate=true, Dialog(tab="Flow resistance", group="Medium 1"));
   parameter Real n1(min=1, max=2) = 2
     "Flow exponent, n1=1 for laminar, n1=2 for turbulent"
-    annotation (Evaluate=true, Dialog(tab="Flow resistance", group="Medium 1"));
+    annotation(Evaluate=true, Dialog(tab="Flow resistance", group="Medium 1"));
   parameter Boolean linearizeFlowResistance1 = false
     "= true, use linear relation between m_flow and dp for any flow rate"
-    annotation (Dialog(tab="Flow resistance", group="Medium 1"));
+    annotation(Dialog(tab="Flow resistance", group="Medium 1"));
 
   parameter Boolean from_dp2 = false
     "= true, use m_flow = f(dp) else dp = f(m_flow)"
-    annotation (Evaluate=true, Dialog(tab="Flow resistance", group="Medium 2"));
+    annotation(Evaluate=true, Dialog(tab="Flow resistance", group="Medium 2"));
   parameter Real n2(min=1, max=2) = 2
     "Flow exponent, n2=1 for laminar, n2=2 for turbulent"
-    annotation (Evaluate=true, Dialog(tab="Flow resistance", group="Medium 2"));
+    annotation(Evaluate=true, Dialog(tab="Flow resistance", group="Medium 2"));
   parameter Boolean linearizeFlowResistance2 = false
     "= true, use linear relation between m_flow and dp for any flow rate"
-    annotation (Dialog(tab="Flow resistance", group="Medium 2"));
+    annotation(Dialog(tab="Flow resistance", group="Medium 2"));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput P(
     final unit="W") "Electric power consumption"
-    annotation (Placement(transformation(extent={{100, -60}, {140, -20}})));
+    annotation(Placement(transformation(extent={{100, -60}, {140, -20}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput eps(final unit="1")
     "Sensible heat exchanger effectiveness"
-    annotation (Placement(transformation(extent={{100, 20}, {140, 60}})));
+    annotation(Placement(transformation(extent={{100, 20}, {140, 60}})));
 
   Modelica.Fluid.Interfaces.FluidPort_a port_a1(
     redeclare final package Medium = Medium)
     "Fluid connector a1 of the supply air (positive design flow direction is from port_a1 to port_b1)"
-    annotation (Placement(transformation(extent={{-190, 70}, {-170, 90}}),
+    annotation(Placement(transformation(extent={{-190, 70}, {-170, 90}}),
       iconTransformation(extent={{-110, 70}, {-90, 90}})));
   Modelica.Fluid.Interfaces.FluidPort_b port_b2(
     redeclare final package Medium = Medium)
     "Fluid connector b2 of the exhaust air (positive design flow direction is from port_a2 to port_b2)"
-    annotation (Placement(transformation(extent={{-170, -90}, {-190, -70}}),
+    annotation(Placement(transformation(extent={{-170, -90}, {-190, -70}}),
       iconTransformation(extent={{-90, -88}, {-110, -68}})));
   Modelica.Fluid.Interfaces.FluidPort_b port_b1(
     redeclare final package Medium = Medium)
     "Fluid connector b1 of the supply air (positive design flow direction is from port_a1 to port_b1)"
-    annotation (Placement(transformation(extent={{110, 70}, {90, 90}}),
+    annotation(Placement(transformation(extent={{110, 70}, {90, 90}}),
       iconTransformation(extent={{110, 68}, {90, 88}})));
   Modelica.Fluid.Interfaces.FluidPort_a port_a2(
     redeclare final package Medium = Medium)
     "Fluid connector a2 of the exhaust air (positive design flow direction is from port_a2 to port_b2)"
-    annotation (Placement(transformation(extent={{90, -90}, {110, -70}}),
+    annotation(Placement(transformation(extent={{90, -90}, {110, -70}}),
       iconTransformation(extent={{90, -90}, {110, -70}})));
 
   Buildings.Fluid.Sensors.MassFlowRate senSupMasFlo(
     redeclare package Medium = Medium)
     "Supply air mass flow rate"
-    annotation (Placement(transformation(extent={{-10, -10}, {10, 10}},
+    annotation(Placement(transformation(extent={{-10, -10}, {10, 10}},
       rotation=90,
       origin={40, 40})));
   Buildings.Fluid.Sensors.MassFlowRate senExhMasFlo(
     redeclare package Medium = Medium)
     "Exhaust air mass flow rate"
-    annotation (Placement(transformation(extent={{-110, -70}, {-130, -50}})));
+    annotation(Placement(transformation(extent={{-110, -70}, {-130, -50}})));
 
 protected
   parameter Medium.ThermodynamicState sta_nominal=Medium.setState_pTX(
@@ -95,33 +95,33 @@ protected
     final linearizeFlowResistance1=linearizeFlowResistance1,
     final linearizeFlowResistance2=linearizeFlowResistance2)
     "Heat exchanger"
-    annotation (Placement(transformation(extent={{-10, -10}, {10, 10}})));
+    annotation(Placement(transformation(extent={{-10, -10}, {10, 10}})));
   Buildings.Fluid.HeatExchangers.ThermalWheels.Sensible.BaseClasses.Effectiveness effCal(
     final eps_nominal=per.epsSen_nominal,
     final epsPL=per.epsSenPL,
     final mSup_flow_nominal=per.mSup_flow_nominal)
     "Calculate the effectiveness of heat exchanger"
-    annotation (Placement(transformation(extent={{-100, -10}, {-80, 10}})));
+    annotation(Placement(transformation(extent={{-100, -10}, {-80, 10}})));
 
 equation
   connect(senExhMasFlo.port_b, port_b2)
-    annotation (Line(points={{-130,-60},{-140,-60},{-140,-80},{-180,-80}},
+    annotation(Line(points={{-130,-60},{-140,-60},{-140,-80},{-180,-80}},
     color={0,127,255}));
   connect(senExhMasFlo.port_a, hex.port_b2)
-    annotation (Line(points={{-110,-60},
+    annotation(Line(points={{-110,-60},
           {-20,-60},{-20,-6},{-10,-6}},
     color={0,127,255}));
   connect(hex.port_b1, senSupMasFlo.port_a)
-    annotation (Line(points={{10,6},{40,6},{40,30}},
+    annotation(Line(points={{10,6},{40,6},{40,30}},
     color={0,127,255}));
   connect(senSupMasFlo.port_b, port_b1)
-    annotation (Line(points={{40,50},{40,80},{100,80}}, color={0,127,255}));
+    annotation(Line(points={{40,50},{40,80},{100,80}}, color={0,127,255}));
   connect(senExhMasFlo.m_flow, effCal.mExh_flow)
-    annotation (Line(points={{-120,-49},{-120,-6},{-102,-6}}, color={0,0,127}));
+    annotation(Line(points={{-120,-49},{-120,-6},{-102,-6}}, color={0,0,127}));
   connect(senSupMasFlo.m_flow, effCal.mSup_flow)
-    annotation (Line(points={{29,40},{-120,40},{-120,6},{-102,6}}, color={0,0,127}));
+    annotation(Line(points={{29,40},{-120,40},{-120,6},{-102,6}}, color={0,0,127}));
 
-  annotation (
+  annotation(
     defaultComponentName="whe",
     Icon(coordinateSystem(extent={{-100,-100},{100,100}}),
       graphics={

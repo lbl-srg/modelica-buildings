@@ -6,7 +6,7 @@ record SandStone
     dSoi = 1800,
     cSoi = 1200);
 
-  annotation (
+  annotation(
     defaultComponentPrefixes = "parameter",
     defaultComponentName = "soiDat",
     Documentation(

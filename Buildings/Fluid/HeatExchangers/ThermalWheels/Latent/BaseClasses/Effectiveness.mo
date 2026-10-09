@@ -14,17 +14,17 @@ model Effectiveness "Model for calculating the heat exchange effectiveness"
     "Nominal supply air mass flow rate";
   Buildings.Controls.OBC.CDL.Interfaces.RealInput mSup_flow(final unit="kg/s")
     "Supply air mass flow rate"
-    annotation (Placement(transformation(extent={{-140,40},{-100,80}})));
+    annotation(Placement(transformation(extent={{-140,40},{-100,80}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput mExh_flow(final unit="kg/s")
     "Exhaust air mass flow rate"
-    annotation (Placement(transformation(extent={{-140,-80},{-100,-40}})));
+    annotation(Placement(transformation(extent={{-140,-80},{-100,-40}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput epsSen(final unit="1")
     "Sensible heat exchanger effectiveness"
-    annotation (Placement(transformation(extent={{100,30},{140,70}}),
+    annotation(Placement(transformation(extent={{100,30},{140,70}}),
         iconTransformation(extent={{100,30},{140,70}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput epsLat(final unit="1")
     "Latent heat exchanger effectiveness"
-    annotation (Placement(transformation(extent={{100,-70},{140,-30}}),
+    annotation(Placement(transformation(extent={{100,-70},{140,-30}}),
         iconTransformation(extent={{100,-70},{140,-30}})));
 
 protected
@@ -53,7 +53,7 @@ equation
     "In " + getInstanceName() + ": The latent heat exchange effectiveness epsLat = " + String(epsLat) + ". It should be in the range of [0, 1],
     Check if the part load (75% of the nominal supply flow rate) or nominal latent heat exchanger effectiveness is too high or too low.",
     level=AssertionLevel.error);
-  annotation (Icon(coordinateSystem(preserveAspectRatio=false), graphics={Text(
+  annotation(Icon(coordinateSystem(preserveAspectRatio=false), graphics={Text(
           extent={{-54,28},{50,-40}},
           textColor={28,108,200},
           textString="eps")}), Diagram(

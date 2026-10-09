@@ -4,14 +4,14 @@ partial model PartialTwoNPortsInterface
   extends Buildings.Fluid.Geothermal.ZonedBorefields.Interfaces.PartialTwoNPorts;
 
   parameter Modelica.Units.SI.MassFlowRate m_flow_nominal[nPorts]
-    "Nominal mass flow rate" annotation (Dialog(group = "Nominal condition"));
+    "Nominal mass flow rate" annotation(Dialog(group = "Nominal condition"));
   parameter Modelica.Units.SI.MassFlowRate m_flow_small[nPorts](each min = 0) = 1E-4*abs(
     m_flow_nominal) "Small mass flow rate for regularization of zero flow"
-    annotation (Dialog(tab = "Advanced"));
+    annotation(Dialog(tab = "Advanced"));
   // Diagnostics
   parameter Boolean show_T = false
     "= true, if actual temperature at port is computed"
-    annotation (
+    annotation(
       Dialog(tab = "Advanced", group = "Diagnostics"),
       HideResult = true);
 
@@ -56,7 +56,7 @@ protected
     displayUnit = "Pa") = 0
     "Start value for dp, used to avoid a warning if not set in dp, and to avoid dp.start in parameter window";
 
-  annotation (
+  annotation(
     preferredView = "info",
     Documentation(info = "<html>
 <p>

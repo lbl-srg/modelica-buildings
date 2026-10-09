@@ -8,7 +8,7 @@ record ASHRAE = Buildings.Fluid.HeatExchangers.ThermalWheels.Data.Generic(
     uSpe={0, 0.15, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1},
     epsCor={0, 0.26, 0.37, 0.58, 0.72, 0.81, 0.86, 0.90, 0.96, 1}))
       "ASHRAE data record for variable-speed thermal wheels"
-  annotation (
+  annotation(
     defaultComponentPrefixes="parameter",
     defaultComponentName="per",
   Documentation(revisions="<html>

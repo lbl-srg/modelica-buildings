@@ -11,7 +11,7 @@ record MotorEfficiency
     each final max=1)
     "Ratio of the wheel motor efficiency at the given speed to the one when the speed is 1";
 
-  annotation (
+  annotation(
     defaultComponentPrefixes="parameter",
     defaultComponentName="per",
   Documentation(info="<html>

@@ -2,7 +2,7 @@ within Buildings.Fluid.Geothermal.ZonedBorefields;
 package UsersGuide "User's Guide"
   extends Modelica.Icons.Information;
 
-  annotation (preferredView = "info",
+  annotation(preferredView = "info",
     Documentation(info = "<html>
 <p>
 This package contains borefield models for the simulation of zoned borehole

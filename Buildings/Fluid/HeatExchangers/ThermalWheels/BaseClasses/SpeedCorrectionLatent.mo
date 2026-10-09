@@ -5,7 +5,7 @@ model SpeedCorrectionLatent "Enthalpy wheels"
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput epsLatCor(
     final unit="1")
     "Latent heat exchanger effectiveness correction"
-    annotation (Placement(transformation(extent={{100,-100},{140,-60}}),
+    annotation(Placement(transformation(extent={{100,-100},{140,-60}}),
         iconTransformation(extent={{100,-100},{140,-60}})));
 protected
   parameter Real[size(per.latEff.uSpe, 1)] dEpsLatCor(each fixed=false, each final unit="1")
@@ -24,7 +24,7 @@ equation
                 d=dEpsLatCor)
                 "Calculate the latent heat exchanger effectiveness correction";
 
-  annotation (
+  annotation(
     defaultComponentName="speCor",
   Documentation(info="<html>
 <p>

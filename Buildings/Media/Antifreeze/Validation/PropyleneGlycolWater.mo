@@ -8,7 +8,7 @@ model PropyleneGlycolWater "Model that tests the implementation of propylene gly
     T_min=223.15,
     T_max=373.15);
 
-  annotation (
+  annotation(
     experiment(Tolerance=1e-6, StopTime=1.0),
     __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Media/Antifreeze/Validation/PropyleneGlycolWater.mos"
         "Simulate and plot"),

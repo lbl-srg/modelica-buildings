@@ -12,7 +12,7 @@ record HeatExchangerEffectiveness
     each final unit="1")
     "Correction of the heat exchange effectiveness for speed ratios between 0 and 1";
 
-  annotation (
+  annotation(
     defaultComponentPrefixes="parameter",
     defaultComponentName="per",
   Documentation(info="<html>

@@ -1,7 +1,7 @@
 within Buildings.UsersGuide.ReleaseNotes;
 class Version_14_1_0 "Version 14.1.0"
   extends Modelica.Icons.ReleaseNotes;
-    annotation (Documentation(info="<html>
+    annotation(Documentation(info="<html>
 <div class=\"release-summary\">
 <p>
 Version 14.1.0 is ... xxx

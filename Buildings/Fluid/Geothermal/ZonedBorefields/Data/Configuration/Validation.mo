@@ -64,7 +64,7 @@ record Validation "Configuration data record for validation models"
     kTub = 0.5,
     eTub = 0.002,
     xC = 0.05);
-  annotation (
+  annotation(
   defaultComponentPrefixes="parameter",
   defaultComponentName="conDat",
     Documentation(

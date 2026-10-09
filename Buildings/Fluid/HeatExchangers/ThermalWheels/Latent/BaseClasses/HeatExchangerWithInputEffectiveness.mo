@@ -16,11 +16,11 @@ model HeatExchangerWithInputEffectiveness "Heat and moisture exchanger with vary
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput epsSen(unit="1")
     "Sensible heat exchanger effectiveness"
-    annotation (Placement(transformation(extent={{-140,10},{-100,50}}),
+    annotation(Placement(transformation(extent={{-140,10},{-100,50}}),
         iconTransformation(extent={{-140,10},{-100,50}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput epsLat(unit="1")
     "Latent heat exchanger effectiveness"
-    annotation (Placement(transformation(extent={{-140,-50},{-100,-10}}),
+    annotation(Placement(transformation(extent={{-140,-50},{-100,-10}}),
         iconTransformation(extent={{-140,-50},{-100,-10}})));
   Modelica.Units.SI.HeatFlowRate QLat_flow
     "Latent heat exchange from medium 2 to medium 1";
@@ -90,7 +90,7 @@ equation
   // of the assignment of mWat1_flow and mWat2_flow.
   QLat_flow = mWat_flow * Medium1.enthalpyOfVaporization(Medium1.T_default);
 
-  annotation (
+  annotation(
         Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{100,100}}), graphics={
         Rectangle(

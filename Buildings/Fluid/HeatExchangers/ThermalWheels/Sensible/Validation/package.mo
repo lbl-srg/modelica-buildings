@@ -2,7 +2,7 @@ within Buildings.Fluid.HeatExchangers.ThermalWheels.Sensible;
 package Validation "Collection of validation models"
   extends Modelica.Icons.ExamplesPackage;
 
-  annotation (
+  annotation(
     preferredView="info",
     Documentation(info="<html>
 <p>

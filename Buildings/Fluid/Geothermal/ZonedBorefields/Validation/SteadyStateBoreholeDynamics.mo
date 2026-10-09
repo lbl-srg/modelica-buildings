@@ -7,7 +7,7 @@ model SteadyStateBoreholeDynamics "Validation of steady-state borehole dynamics"
     filDat(
       steadyState = true));
 
-  annotation (
+  annotation(
     Diagram(coordinateSystem(extent = {{-100, -60}, {140, 80}})),
     Icon(coordinateSystem(extent = {{-100, -100}, {100, 100}})),
     __Dymola_Commands(file = "modelica://Buildings/Resources/Scripts/Dymola/Fluid/Geothermal/ZonedBorefields/Validation/SteadyStateBoreholeDynamics.mos"

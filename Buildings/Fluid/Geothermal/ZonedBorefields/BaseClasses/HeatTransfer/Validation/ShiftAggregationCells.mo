@@ -21,7 +21,7 @@ equation
         curTim = time);
   end when;
 
-  annotation (
+  annotation(
     experiment(StartTime = 3.5, StopTime = 5.5, Tolerance = 1e-6),
     __Dymola_Commands(
       file = "modelica://Buildings/Resources/Scripts/Dymola/Fluid/Geothermal/ZonedBorefields/BaseClasses/HeatTransfer/Validation/ShiftAggregationCells.mos"

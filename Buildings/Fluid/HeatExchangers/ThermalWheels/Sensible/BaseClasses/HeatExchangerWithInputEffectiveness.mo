@@ -15,10 +15,10 @@ model HeatExchangerWithInputEffectiveness "Heat exchanger with varying effective
     max=1,
     final unit="1")
     "Sensible heat exchanger effectiveness"
-    annotation (Placement(transformation(extent={{-140, -20}, {-100, 20}}),
+    annotation(Placement(transformation(extent={{-140, -20}, {-100, 20}}),
       iconTransformation(extent={{-140, -20}, {-100, 20}})));
 
-annotation (
+annotation(
   Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100, -100}, {100, 100}}),
     graphics={
     Rectangle(

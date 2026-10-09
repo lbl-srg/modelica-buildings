@@ -20,7 +20,7 @@ model TemperatureResponseMatrix "Validation of the thermal response factor calcu
       sha = "TemperatureResponseMatrix_zonedBorefield_validation")
     "Resulting temperature response matrix";
 
-  annotation (
+  annotation(
     experiment(StopTime = 1, Tolerance = 1e-6),
     __Dymola_Commands(
       file = "modelica://Buildings/Resources/Scripts/Dymola/Fluid/Geothermal/ZonedBorefields/BaseClasses/HeatTransfer/Validation/TemperatureResponseMatrix.mos"

@@ -5,27 +5,27 @@ model SpeedCorrectionSensible "Sensible heat wheels"
   final parameter Real xSpe[:] = if per.use_defaultMotorEfficiencyCurve
     then per.relMotEff_default.y else per.relMotEff.uSpe
     "x-axis support points of the power efficiency curve"
-    annotation (Dialog(group="Efficiency"));
+    annotation(Dialog(group="Efficiency"));
   final parameter Real[size(xSpe, 1)] yEta = if per.use_defaultMotorEfficiencyCurve
     then per.relMotEff_default.eta else per.relMotEff.eta
     "y-axis support points of the power efficiency curve"
-    annotation (Dialog(group="Efficiency"));
+    annotation(Dialog(group="Efficiency"));
   parameter Buildings.Fluid.HeatExchangers.ThermalWheels.Data.Generic per
     "Record with performance data"
-    annotation (Placement(transformation(extent={{60,60},{80,80}})));
+    annotation(Placement(transformation(extent={{60,60},{80,80}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uSpe(
     final unit="1",
     final max=1)
     "Wheel speed ratio"
-    annotation (Placement(transformation(extent={{-140,-20},{-100,20}}),
+    annotation(Placement(transformation(extent={{-140,-20},{-100,20}}),
         iconTransformation(extent={{-140,-20},{-100,20}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput P(final unit="W")
     "Electric power consumption"
-    annotation (Placement(transformation(extent={{100,60},{140,100}}),
+    annotation(Placement(transformation(extent={{100,60},{140,100}}),
         iconTransformation(extent={{100,60},{140,100}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput epsSenCor(final unit="1")
     "Sensible heat exchanger effectiveness correction"
-    annotation (Placement(transformation(extent={{100,-20},{140,20}}),
+    annotation(Placement(transformation(extent={{100,-20},{140,20}}),
         iconTransformation(extent={{100,-20},{140,20}})));
 
 protected
@@ -73,7 +73,7 @@ equation
                 yd=per.senEff.epsCor,
                 d=dEpsSenCor)
                 "Calculate the sensible heat exchanger effectiveness correction";
-  annotation (
+  annotation(
     defaultComponentName="speCor",
    Documentation(info="<html>
 <p>
