@@ -51,7 +51,7 @@ equation
   lambda = Buildings.Media.Antifreeze.Functions.PropyleneGlycolWater.thermalConductivity_TX_a(
     T=T,
     X_a=X_a);
-  Pr = Buildings.Media.Antifreeze.Functions.EthyleneGlycolWater.prandtlNumber_TX_a(
+  Pr = Buildings.Media.Antifreeze.Functions.PropyleneGlycolWater.prandtlNumber_TX_a(
     T=T,
     X_a=X_a);
 
@@ -61,15 +61,23 @@ equation
       Tolerance=1e-06),
     __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Media/Antifreeze/Functions/Validation/PropyleneGlycolWater.mos"
         "Simulate and plot"),
-     Documentation(info="<html>
+    Documentation(info="<html>
 <p>
 Validation model for the functions of
 <a href=\"modelica://Buildings.Media.Antifreeze.Functions.PropyleneGlycolWater\">
 Buildings.Media.Antifreeze.Functions.PropyleneGlycolWater</a>.
-The model plots the fluid properties for different volume and mass conctentrations.
+The model plots the fluid properties for different volume and mass concentrations.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+October 9, 2026, by Michael Wetter:<br/>
+Corrected call from
+<code>EthyleneGlycolWater.prandtlNumber_TX_a</code> to
+<code>PropyleneGlycolWater.prandtlNumber_TX_a</code>.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/xxx\">#xxx</a>.
+</li>
 <li>
 April 16, 2026, by Michael Wetter:<br/>
 First implementation.<br/>

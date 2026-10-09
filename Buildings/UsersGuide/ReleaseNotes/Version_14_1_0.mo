@@ -79,12 +79,14 @@ The following <b style=\"color:red\">critical errors</b> have been fixed (i.e., 
 that can lead to wrong simulation results):
 </p>
 <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\" style=\"border-collapse:collapse;\">
-<tr><td colspan=\"2\"><b>xxx</b>
+<tr><td colspan=\"2\"><b>Buildings.Media.Antifreeze.Functions.Validation</b>
     </td>
 </tr>
-<tr><td valign=\"top\">xxx
+<tr><td valign=\"top\">Buildings.Media.Antifreeze.Functions.Validation.PropyleneGlycolWater
     </td>
-    <td valign=\"top\">xxx.
+    <td valign=\"top\">Corrected call from
+    <code>EthyleneGlycolWater.prandtlNumber_TX_a</code> to
+    <code>PropyleneGlycolWater.prandtlNumber_TX_a</code>.
     </td>
 </tr>
 </table>
