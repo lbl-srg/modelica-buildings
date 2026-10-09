@@ -76,13 +76,13 @@ Corrected call from
 <code>EthyleneGlycolWater.prandtlNumber_TX_a</code> to
 <code>PropyleneGlycolWater.prandtlNumber_TX_a</code>.<br/>
 This is for
-<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/xxx\">#xxx</a>.
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4772\">Buildings #4772</a>.
 </li>
 <li>
 April 16, 2026, by Michael Wetter:<br/>
 First implementation.<br/>
 This is for
-<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/2115\">#2115</a>.
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/2115\">Buildings #2115</a>.
 </li>
 </ul>
 </html>"));
