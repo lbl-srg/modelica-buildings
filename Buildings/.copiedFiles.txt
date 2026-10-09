@@ -2104,6 +2104,7 @@ Buildings/Fluid/MixingVolumes/Validation/CoupledVolumesSpecializedWaterTemperatu
 Buildings/Fluid/MixingVolumes/Validation/CoupledVolumesWater.mo
 Buildings/Fluid/MixingVolumes/Validation/MSLCombustionAir.mo
 Buildings/Fluid/MixingVolumes/Validation/MSLFlueGasSixComponents.mo
+Buildings/Fluid/MixingVolumes/Validation/MassAccumulation.mo
 Buildings/Fluid/MixingVolumes/Validation/MixingVolume.mo
 Buildings/Fluid/MixingVolumes/Validation/MixingVolumeAdiabaticCooling.mo
 Buildings/Fluid/MixingVolumes/Validation/MixingVolumeHeatReverseFlow.mo
@@ -2933,6 +2934,7 @@ Buildings/Resources/Images/Utilities/Math/Functions/SmoothExponentialXPower.png
 Buildings/Resources/Images/Utilities/Math/int.pdf
 Buildings/Resources/Images/Utilities/Math/int.png
 Buildings/Resources/Python-Sources/MakeORCFluidRecord.py
+Buildings/Resources/ReferenceResults/Dymola/Buildings_Fluid_MixingVolumes_Validation_MassAccumulation.txt
 Buildings/Resources/Scripts/Dymola/Airflow/Multizone/BaseClasses/Examples/PowerLaw.mos
 Buildings/Resources/Scripts/Dymola/Airflow/Multizone/BaseClasses/Examples/PowerLaw05.mos
 Buildings/Resources/Scripts/Dymola/Airflow/Multizone/BaseClasses/Examples/PowerLawFixedM.mos
@@ -3578,6 +3580,7 @@ Buildings/Resources/Scripts/Dymola/Fluid/MixingVolumes/Validation/CoupledVolumes
 Buildings/Resources/Scripts/Dymola/Fluid/MixingVolumes/Validation/CoupledVolumesWater.mos
 Buildings/Resources/Scripts/Dymola/Fluid/MixingVolumes/Validation/MSLCombustionAir.mos
 Buildings/Resources/Scripts/Dymola/Fluid/MixingVolumes/Validation/MSLFlueGasSixComponents.mos
+Buildings/Resources/Scripts/Dymola/Fluid/MixingVolumes/Validation/MassAccumulation.mos
 Buildings/Resources/Scripts/Dymola/Fluid/MixingVolumes/Validation/MixingVolume.mos
 Buildings/Resources/Scripts/Dymola/Fluid/MixingVolumes/Validation/MixingVolumeAdiabaticCooling.mos
 Buildings/Resources/Scripts/Dymola/Fluid/MixingVolumes/Validation/MixingVolumeHeatReverseFlow.mos
