@@ -182,7 +182,7 @@ protected
         rotation = 90,
         origin = {0, -10})));
 
-  Modelica.Thermal.HeatTransfer.Sources.PrescribedTemperature TemBorWal[nZon, nSeg]
+  Buildings.HeatTransfer.Sources.PrescribedTemperature TemBorWal[nZon, nSeg]
     "Borewall temperature at each segment"
     annotation(Placement(transformation(extent = {{50, 6}, {70, 26}})));
 

@@ -73,7 +73,7 @@ model SpaceCooling "Space cooling system"
     G=10000/30)
     "Thermal conductance with the ambient"
     annotation(Placement(transformation(extent={{40, 70}, {60, 90}})));
-  Modelica.Thermal.HeatTransfer.Sources.PrescribedTemperature TOut
+  Buildings.HeatTransfer.Sources.PrescribedTemperature TOut
     "Outside temperature"
     annotation(Placement(transformation(extent={{-20, 70}, {0, 90}})));
   Modelica.Thermal.HeatTransfer.Sources.FixedHeatFlow preHea(
