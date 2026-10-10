@@ -60,7 +60,7 @@ protected
 This component defines the interface for models with multiple pairs of
 inlet and outlet ports, here implemented as two vectors of ports.
 It is similar to
-<a href=\"Modelica://Modelica.Fluid.Interfaces.PartialTwoPortTransport\">
+<a href=\"modelica://Modelica.Fluid.Interfaces.PartialTwoPortTransport\">
 Modelica.Fluid.Interfaces.PartialTwoPortTransport</a>, but it does not
 include the species balance
 </p>

@@ -42,9 +42,11 @@ INVALID_IN_ALL=["fixme", "import \"",
                 "__Dymola_Text",
                 "modelica://AixLib",
                 "modelica://BuildingSystems",
-	        "modelica://IDEAS",
+                "modelica://IDEAS",
                 "modelica://https://",
                 r'href=\"Buildings.',
+                r'href=\"Modelica.',
+                r'href=\"Modelica://',
                 ">>>>>>",
                 "<<<<<<"]
 
@@ -63,7 +65,7 @@ INVALID_REGEXP_IN_MO=[r"StopTime\s*=\s*\d\s*[*]\s*\d+",
                       r"(Text\s*\([^\)]*)lineColor",
                       r"(Line\s*\([^\)]*)lineThickness"]
 # List of strings that are required in .mo files, except in Examples
-REQUIRED_IN_MO=["documentation"]
+REQUIRED_IN_MO=["Documentation"]
 
 #########################################################
 def reportError(message):
@@ -77,8 +79,8 @@ def getRelativeMoPath(absoluteFileName):
 
 #########################################################
 def report_empty_statements(fileName, start_line, next_line):
-    filObj=open(fileName, 'r')
-    filTex=filObj.readlines()
+    with open(fileName, 'r') as filObj:
+        filTex=filObj.readlines()
     found_loop = False
     iLin = 1
     for lin in filTex:
@@ -97,11 +99,11 @@ def report_empty_statements(fileName, start_line, next_line):
 
 #########################################################
 def reportErrorIfContains(fileName, listOfStrings):
-    filObj=open(fileName, 'r')
-    filTex=filObj.read()
+    with open(fileName, 'r') as filObj:
+        filTex=filObj.read()
     filTex=filTex.lower()
     for string in listOfStrings:
-        if (filTex.find(string.lower()) > -1):
+        if (filTex.find(string) > -1):
             reportError("File '"
                         + getRelativeMoPath(fileName)
                         + "' contains invalid string '"
@@ -110,8 +112,8 @@ def reportErrorIfContains(fileName, listOfStrings):
 #########################################################
 def reportErrorIfContainsRegExp(fileName, listOfStrings):
     import re
-    filObj=open(fileName, 'r')
-    filTex=filObj.read()
+    with open(fileName, 'r') as filObj:
+        filTex=filObj.read()
     for string in listOfStrings:
         match = re.search(string, filTex, re.I)
         if match is not None:
@@ -123,11 +125,10 @@ def reportErrorIfContainsRegExp(fileName, listOfStrings):
 
 #########################################################
 def reportErrorIfMissing(fileName, listOfStrings):
-    filObj=open(fileName, 'r')
-    filTex=filObj.read()
-    filTex=filTex.lower()
+    with open(fileName, 'r') as filObj:
+        filTex=filObj.read()
     for string in listOfStrings:
-        if (filTex.find(string.lower()) == -1):
+        if (filTex.find(string) == -1):
             reportError("File '"
                         + getRelativeMoPath(fileName)
                         + "' does not contain required string '"
