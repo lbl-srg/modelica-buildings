@@ -39,7 +39,7 @@ __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Obsolete/F
 <p>
 This model validates the preconfigured mover models.
 It is based on
-<a href=\"Modelica://Buildings.Obsolete.Fluid.Movers.Validation.ControlledFlowMachineDynamic\">
+<a href=\"modelica://Buildings.Obsolete.Fluid.Movers.Validation.ControlledFlowMachineDynamic\">
 Buildings.Obsolete.Fluid.Movers.Validation.ControlledFlowMachineDynamic</a>.
 </p>
 </html>", revisions="<html>
