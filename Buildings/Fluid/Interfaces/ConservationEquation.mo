@@ -319,7 +319,7 @@ equation
   if substanceDynamics == Modelica.Fluid.Types.Dynamics.SteadyState then
     zeros(Medium.nXi) = mbXi_flow + mWat_flow_internal * s;
   else
-    der(medium.Xi) = (mbXi_flow + mWat_flow_internal * s)/m;
+    der(medium.Xi) = (mbXi_flow + mWat_flow_internal * s - medium.Xi*der(m))/m;
   end if;
 
   if traceDynamics == Modelica.Fluid.Types.Dynamics.SteadyState then

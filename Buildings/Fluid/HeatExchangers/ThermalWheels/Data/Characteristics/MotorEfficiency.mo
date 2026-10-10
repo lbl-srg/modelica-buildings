@@ -10,9 +10,10 @@ record MotorEfficiency
   parameter Modelica.Units.SI.Efficiency eta[size(uSpe, 1)](
     each final max=1)
     "Ratio of the wheel motor efficiency at the given speed to the one when the speed is 1";
-  annotation (
-  defaultComponentPrefixes = "parameter",
-  defaultComponentName = "per",
+
+  annotation(
+    defaultComponentPrefixes="parameter",
+    defaultComponentName="per",
   Documentation(info="<html>
 <p>
 This model describes wheel speed ratio <code>uSpe</code> versus
