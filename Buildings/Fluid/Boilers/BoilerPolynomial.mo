@@ -43,7 +43,7 @@ initial equation
   annotation (Documentation(info="<html>
 <p>
 This is a model of a boiler whose efficiency is described by a polynomial.
-See <a href=\"Modelica://Buildings.Fluid.Boilers.UsersGuide\">
+See <a href=\"modelica://Buildings.Fluid.Boilers.UsersGuide\">
 Buildings.Fluid.Boilers.UsersGuide</a> for details.
 </p>
 <p>
@@ -112,10 +112,10 @@ This is for
 <li>
 October 13, 2021, by Hongxiang Fu:<br/>
 For the implementation of
-<a href=\"Modelica://Buildings.Fluid.Boilers.BoilerTable\">
+<a href=\"modelica://Buildings.Fluid.Boilers.BoilerTable\">
 <code>Buildings.Fluid.Boilers.BoilerTable</code></a>,
 moved most of the code to the base model
-<a href=\"Modelica://Buildings.Fluid.Boilers.BaseClasses.PartialBoiler\">
+<a href=\"modelica://Buildings.Fluid.Boilers.BaseClasses.PartialBoiler\">
 <code>Buildings.Fluid.Boilers.BaseClasses.PartialBoiler</code></a>.
 This is for
 <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2651\">#2651</a>.
