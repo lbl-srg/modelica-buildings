@@ -107,11 +107,11 @@ equation
     Documentation(info="<html>
 <p>
 This is a simple validation model for
-<a href=\"Modelica://Buildings.Fluid.Movers.BaseClasses.FlowMachineInterface\">
+<a href=\"modelica://Buildings.Fluid.Movers.BaseClasses.FlowMachineInterface\">
 Buildings.Fluid.Movers.BaseClasses.FlowMachineInterface</a>
 where its hydraulic efficiency <i>&eta;<sub>hyd</sub></i> is specified with
 different methods defined in
-<a href=\"Modelica://Buildings.Fluid.Movers.BaseClasses.Types.HydraulicEfficiencyMethod\">
+<a href=\"modelica://Buildings.Fluid.Movers.BaseClasses.Types.HydraulicEfficiencyMethod\">
 Buildings.Fluid.Movers.BaseClasses.Types.HydraulicEfficiencyMethod</a>.
 </p>
 </html>", revisions="<html>
