@@ -458,14 +458,14 @@ The user provides an array of <i>&eta;<sub>hyd</sub></i> vs. <i>V&#775;</i>.
 If the array has only one element, <i>&eta;<sub>hyd</sub></i> is considered
 constant. If the array has more than one element, the efficiency is interpolated
 or extrapolated using
-<a href=\"Modelica://Buildings.Fluid.Movers.BaseClasses.Characteristics.efficiency\">
+<a href=\"modelica://Buildings.Fluid.Movers.BaseClasses.Characteristics.efficiency\">
 Buildings.Fluid.Movers.BaseClasses.Characteristics.efficiency</a>.
 </li>
 <li>
 <code>Power_VolumeFlowRate</code> -
 The user provides an array of <i>W&#775;<sub>hyd</sub></i> vs. <i>V&#775;</i>.
 The power is interpolated or extrapolated using
-<a href=\"Modelica://Buildings.Fluid.Movers.BaseClasses.Characteristics.power\">
+<a href=\"modelica://Buildings.Fluid.Movers.BaseClasses.Characteristics.power\">
 Buildings.Fluid.Movers.BaseClasses.Characteristics.power</a>.
 <i>&eta;<sub>hyd</sub></i> is then computed from <i>W&#775;<sub>hyd</sub></i>.
 </li>
@@ -475,7 +475,7 @@ The model uses a triple <i>(&eta;<sub>hyd</sub>, V&#775;, &Delta;p)</i>
 corresponding to the operating point at which the peak efficiency is attained.
 It computes <i>&eta;<sub>hyd</sub></i> and <i>W&#775;<sub>hyd</sub></i>
 using the package
-<a href=\"Modelica://Buildings.Fluid.Movers.BaseClasses.Euler\">
+<a href=\"modelica://Buildings.Fluid.Movers.BaseClasses.Euler\">
 Buildings.Fluid.Movers.BaseClasses.Euler</a>.
 The model finds <i>&eta;<sub>hyd</sub></i> by evaluating the following correlation:
 <br/>
@@ -531,17 +531,17 @@ Because the Euler number method does not account for the efficiency
 degradation along any curve <i>&Delta;p=kV&#775;<sup>2</sup></i>,
 these two methods are equivalent.
 See the documentation of
-<a href=\"Modelica://Buildings.Fluid.Movers.BaseClasses.Euler.power\">
+<a href=\"modelica://Buildings.Fluid.Movers.BaseClasses.Euler.power\">
 Buildings.Fluid.Movers.BaseClasses.Euler.power</a>
 for more details.
 Also see
-<a href=\"Modelica://Buildings.Fluid.Movers.BaseClasses.Validation.EulerReducedSpeed\">
+<a href=\"modelica://Buildings.Fluid.Movers.BaseClasses.Validation.EulerReducedSpeed\">
 Buildings.Fluid.Movers.BaseClasses.Validation.EulerReducedSpeed</a>
 for demonstration.
 </p>
 <p>
 For more information on the Euler number method, see the documentation of
-<a href=\"Modelica://Buildings.Fluid.Movers.BaseClasses.Euler.correlation\">
+<a href=\"modelica://Buildings.Fluid.Movers.BaseClasses.Euler.correlation\">
 Buildings.Fluid.Movers.BaseClasses.Euler.correlation</a>,
 <a href=\"https://energyplus.net/assets/nrel_custom/pdfs/pdfs_v9.6.0/EngineeringReference.pdf\">
 EnergyPlus 9.6.0 Engineering Reference</a>
@@ -587,7 +587,7 @@ this implementation applies it also to <i>&eta;</i> and <i>P<sub>ele</sub></i>
 as an approximation. The basis is that <i>&eta;<sub>mot</sub></i> is mostly
 constant for motors larger than about 3.5 kW or 5 HP except when the motor
 part load drops below around 40%, (see the documentation of
-<a href=\"Modelica://Buildings.Fluid.Movers.BaseClasses.Characteristics.motorEfficiencyCurve\">
+<a href=\"modelica://Buildings.Fluid.Movers.BaseClasses.Characteristics.motorEfficiencyCurve\">
 Buildings.Fluid.Movers.BaseClasses.Characteristics.motorEfficiencyCurve</a>)
 which shows that <i>&eta;</i> and <i>&eta;<sub>hyd</sub></i> are roughly linear
 to each other for motors of this size.
@@ -608,10 +608,10 @@ is computed.
 The user provides an array of <i>&eta;<sub>mot</sub></i> vs. motor part load ratio
 <i>y<sub>mot</sub>=W<sub>hyd</sub> &frasl; P<sub>mot,nominal</sub></i>.
 The efficiency is interpolated or extrapolated using
-<a href=\"Modelica://Buildings.Fluid.Movers.BaseClasses.Characteristics.efficiency_yMot\">
+<a href=\"modelica://Buildings.Fluid.Movers.BaseClasses.Characteristics.efficiency_yMot\">
 Buildings.Fluid.Movers.BaseClasses.Characteristics.efficiency_yMot</a>.
 See
-<a href=\"Modelica://Buildings.Fluid.Movers.BaseClasses.Validation.MotorEfficiencyMethods\">
+<a href=\"modelica://Buildings.Fluid.Movers.BaseClasses.Validation.MotorEfficiencyMethods\">
 Buildings.Fluid.Movers.BaseClasses.Validation.MotorEfficiencyMethods</a>
 as an example.
 </li>
@@ -621,7 +621,7 @@ The user provides the rated motor power <i>P<sub>mot,nominal</sub></i>
 and maximum motor efficiency <i>&eta;<sub>mot,max</sub></i>.
 The model then uses a generic motor efficiency curve as a function of motor PLR
 generated using
-<a href=\"Modelica://Buildings.Fluid.Movers.BaseClasses.Characteristics.motorEfficiencyCurve\">
+<a href=\"modelica://Buildings.Fluid.Movers.BaseClasses.Characteristics.motorEfficiencyCurve\">
 Buildings.Fluid.Movers.BaseClasses.Characteristics.motorEfficiencyCurve</a>.
 The <i>&eta;<sub>mot,max</sub></i> is assumed to be 0.7 if not specified by user.
 If <i>P<sub>mot,nominal</sub></i> is unspecified, the model estimates it

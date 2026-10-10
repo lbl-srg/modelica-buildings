@@ -66,7 +66,7 @@ It first interpolates the input pressure curve to find a new pressure curve of
 11 points on 10% increments of max flow rate.
 It assumes that the last point on the input pressure curve corresponds to
 <i>&Delta;p = 0</i>, which is ensured when this function is called by
-<a href=\"Modelica://Buildings.Fluid.Movers.BaseClasses.FlowMachineInterface\">
+<a href=\"modelica://Buildings.Fluid.Movers.BaseClasses.FlowMachineInterface\">
 Buildings.Fluid.Movers.BaseClasses.FlowMachineInterface</a>.
 </li>
 <li>
