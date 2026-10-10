@@ -409,8 +409,8 @@ in ways that are shown in the table below.
     <th colspan=\"2\">Formulation</th>
   </tr>
   <tr>
-    <th><code><a href=\"Modelica://Buildings.Fluid.Chillers.ElectricEIR\">ElectricEIR</a></code></th>
-    <th><code><a href=\"Modelica://Buildings.Fluid.Chillers.ElectricReformulatedEIR\">ElectricReformulatedEIR</a></code></th>
+    <th><code><a href=\"modelica://Buildings.Fluid.Chillers.ElectricEIR\">ElectricEIR</a></code></th>
+    <th><code><a href=\"modelica://Buildings.Fluid.Chillers.ElectricReformulatedEIR\">ElectricReformulatedEIR</a></code></th>
   </tr>
 </thead>
 <tbody>
