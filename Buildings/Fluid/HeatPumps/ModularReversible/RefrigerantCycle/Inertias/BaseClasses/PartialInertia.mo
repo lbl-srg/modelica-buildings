@@ -8,7 +8,7 @@ partial model PartialInertia "Partial inertia model"
 <p>
   Partial model for inertia.
   This block is identical to
-  <a href=\"Modelica://Modelica.Blocks.Interfaces.SISO\">
+  <a href=\"modelica://Modelica.Blocks.Interfaces.SISO\">
   Modelica.Blocks.Interfaces.SISO</a>
   and is made to constrain the replaceable inertia module
   within other inertia models.
