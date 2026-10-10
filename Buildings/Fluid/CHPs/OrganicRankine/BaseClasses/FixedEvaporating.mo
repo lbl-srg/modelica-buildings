@@ -191,7 +191,7 @@ This model computes the pinch points and the energy exchange,
 and interfaces with the input and output variables.
 The evaporating temperature is fixed as a parameter.
 See the documentation of
-<a href=\"Modelica://Buildings.Fluid.CHPs.OrganicRankine.ConstantEvaporation\">
+<a href=\"modelica://Buildings.Fluid.CHPs.OrganicRankine.ConstantEvaporation\">
 Buildings.Fluid.CHPs.OrganicRankine.ConstantEvaporation</a>
 for more details.
 </html>", revisions="<html>

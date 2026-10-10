@@ -8,7 +8,7 @@ equation
 <p>
   Placeholder model for no inertia.
   This block is identical to
-  <a href=\"Modelica://Modelica.Blocks.Routing.RealPassThrough\">
+  <a href=\"modelica://Modelica.Blocks.Routing.RealPassThrough\">
   Modelica.Blocks.Routing.RealPassThrough</a>
   and is replaceable but constrained by other inertia modules.
 </p>
