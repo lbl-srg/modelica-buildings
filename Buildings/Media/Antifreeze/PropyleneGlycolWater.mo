@@ -1,6 +1,5 @@
 within Buildings.Media.Antifreeze;
-package PropyleneGlycolWater
-  "Package with model for propylene glycol - water with constant properties"
+package PropyleneGlycolWater "Package with model for propylene glycol - water with constant properties"
   extends Modelica.Media.Interfaces.PartialSimpleMedium(
     mediumName="PropyleneGlycolWater(X_a = " + String(X_a) + ", property_T = "
          + String(property_T) + ")",
@@ -112,6 +111,7 @@ as required from medium model \"" + mediumName + "\".");
     </p>
 </html>"));
   end BaseProperties;
+
 protected
   constant Modelica.Units.SI.MassFraction X_a_min=0.
     "Minimum allowed mass fraction of propylene glycol in water";
