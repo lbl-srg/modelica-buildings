@@ -161,10 +161,14 @@ equation
     dp_x1 = -dp_x2;
     dp_x2 = deltax*dp_min;
     // min function ensures that m_flow_y1 does not increase further for dp_x > dp_x1
-    m_flow_y1 = Buildings.Fluid.BaseClasses.FlowModels.basicFlowFunction_dp(
+    m_flow_y1 = if use_inv then Buildings.Fluid.BaseClasses.FlowModels.basicFlowFunction_dp(
                                   dp=min(dp, dp_min+dp_x1),
                                   k=kTotMax,
-                                  m_flow_turbulent=m_flow_turbulent);
+                                  m_flow_turbulent=m_flow_turbulent)
+      else Buildings.Fluid.BaseClasses.FlowModels.basicFlowFunction_dpNoInv(
+                                    dp=min(dp, dp_min+dp_x1),
+                                    k=kTotMax,
+                                    m_flow_turbulent=m_flow_turbulent);
     // max function ensures that m_flow_y2 does not decrease further for dp_x < dp_x2
     m_flow_y2 = m_flow_set + coeff1*max(dp_x,dp_x2);
 
