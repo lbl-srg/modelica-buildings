@@ -88,9 +88,15 @@ done
 # See also https://app.travis-ci.com/github/lbl-srg/modelica-buildings/builds/255798277
 chmod a+rwx "$cur_dir"
 
-# Below, inside the docker, we remove spawn-* as these files have the permission of the
+# Below, inside the docker, we remove spawn-* and tmp-tou-wor* (the working directories
+# of the TOUGH coupling, see Buildings.Fluid.Geothermal.Borefields.TOUGH)
+# as these files have the permission of the
 # docker user and hence the calling process cannot remove them, which
 # causes an error if BuildingsPy cleans up the temporary directories.
+# The clean-up is also done if omc fails (for example if the simulation crashes),
+# as otherwise these files are left behind and BuildingsPy fails with
+# "PermissionError: [Errno 13] Permission denied" when it deletes the temporary directory.
+# The exit code of omc is preserved.
 docker run \
   --user=developer \
   -i \
@@ -102,7 +108,8 @@ docker run \
   --workdir="/mnt/shared/${bas_nam}" \
   ${DOCKER_REPONAME}/${IMG_NAME} /bin/bash -c \
   "export MODELICAPATH=${DOCKER_MODELICAPATH} && \
-  omc ${arg_lis} && \
-  rm -rf spawn-* && \
-  rm -rf tmp"
+  omc ${arg_lis}; \
+  omc_exit_code=\$?; \
+  rm -rf spawn-* tmp-tou-wor* tmp; \
+  exit \$omc_exit_code"
 exit $?
