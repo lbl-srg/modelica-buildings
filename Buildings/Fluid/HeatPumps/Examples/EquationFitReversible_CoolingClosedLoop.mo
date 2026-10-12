@@ -50,7 +50,8 @@ model EquationFitReversible_CoolingClosedLoop
     period(displayUnit="s") = 200,
     offset=0)
     annotation (Placement(transformation(extent={{-90,70},{-70,90}})));
-  Modelica.Blocks.Math.Gain Q_flow(k=4200)
+  Modelica.Blocks.Math.Gain Q_flow(
+    k(unit="J/kg")=4200)
     "Heat input to volume"
     annotation (Placement(transformation(extent={{20,70},{40,90}})));
   Modelica.Blocks.Math.Gain m_flow(k=mLoa_flow_nominal)
@@ -174,6 +175,10 @@ to the heatpump where it is cooled to meet the corresponding set point water tem
 
 </html>", revisions="<html>
 <ul>
+<li>
+September 27, 2026, by Michael Wetter:<br/>
+Added unit specification to avoid warning in Dymola 2025x.
+</li>
 <li>
 October 19, 2020, by Michael Wetter:<br/>
 Removed <code>startTime=0</code> for pulse block.<br/>

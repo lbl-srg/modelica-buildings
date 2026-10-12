@@ -1,20 +1,26 @@
 #ifndef Modelica_EnergyPlus_24_2_0_allocate_h
 #define Modelica_EnergyPlus_24_2_0_allocate_h
 
+#include <stddef.h>
 #include "EnergyPlus_24_2_0_definitions.h"
 
 extern void* allocate_Spawn_EnergyPlus_24_2_0(
   const int objectType,
   double startTime,
   const char* modelicaNameBuilding,
-  const char* modelicaNameThermalZone,
+  const char* modelicaName,
   const char* spawnExe,
   const char* idfVersion,
   const char* idfName,
   const char* epwName,
+  const char* epName,
+  const char* hvacZone,
   const runPeriod* runPer,
   double relativeSurfaceTolerance,
-  const char* epName,
+  double airChaRatInf,
+  double cpAir,
+  double hfgWater,
+  double rhoAir,
   int usePrecompiledFMU,
   const char* fmuName,
   const char* buildingsRootFileLocation,

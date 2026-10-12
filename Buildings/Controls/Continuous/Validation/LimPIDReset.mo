@@ -110,7 +110,7 @@ First implementation.
 </ul>
 </html>", info="<html>
 <p>This model tests the implementation the
-<a href=\"Modelica://Buildings.Controls.Continuous.LimPID\">Buildings.Controls.Continuous.LimPID</a>
+<a href=\"modelica://Buildings.Controls.Continuous.LimPID\">Buildings.Controls.Continuous.LimPID</a>
 with integrator reset.
 </p>
 <p>

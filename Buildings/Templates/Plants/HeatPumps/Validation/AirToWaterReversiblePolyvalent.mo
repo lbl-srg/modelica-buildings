@@ -2,7 +2,8 @@ within Buildings.Templates.Plants.HeatPumps.Validation;
 model AirToWaterReversiblePolyvalent
   "Validation of AWHP plant template with reversible (2-pipe) and polyvalent (4-pipe) units"
   extends Buildings.Templates.Plants.HeatPumps.Validation.AirToWaterReversibleHeatRecovery(
-    redeclare Buildings.Templates.Plants.HeatPumps.Validation.UserProject.Data.AirToWaterReversiblePolyvalent datAll,
+    redeclare replaceable
+      Buildings.Templates.Plants.HeatPumps.Validation.UserProject.Data.AirToWaterReversiblePolyvalent datAll,
     pla(
       typ=Buildings.Templates.Plants.Controls.Types.PlantHeatPump.ReversiblePolyvalent,
       nHp_select=2,

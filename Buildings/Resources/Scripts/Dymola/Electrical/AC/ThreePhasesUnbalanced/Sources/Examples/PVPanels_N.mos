@@ -2,10 +2,7 @@
 // Plot commands
 simulateModel("Buildings.Electrical.AC.ThreePhasesUnbalanced.Sources.Examples.PVPanels_N", tolerance=1e-6, stopTime=172800, method="Radau", resultFile="PVPanels3phu_N");
 removePlots();
-Advanced.FilenameInLegend = false;
-Advanced.SequenceInLegend = true;
-Advanced.PlotLegendTooltip = true;
-Advanced.FullPlotTooltip = true;
+
 createPlot(id=1,
 position={18, 15, 929, 607},
 y={"grid.P[1].real", "grid.P[2].real", "grid.P[3].real"}, range={0.0, 50.0, -6000.0, 2000.0},

@@ -11,15 +11,15 @@ model ASHRAE2006Winter
     redeclare Buildings.Examples.VAVReheat.BaseClasses.ASHRAE2006 hvac,
     redeclare Buildings.ThermalZones.EnergyPlus_24_2_0.Examples.SmallOffice.BaseClasses.Floor flo);
 
-  parameter Real ACHCor(final unit="1/h")=4
+  parameter Real ACHCor(final unit="m3/(m3.h)")=4
     "Design air change per hour core";
-  parameter Real ACHSou(final unit="1/h")=4
+  parameter Real ACHSou(final unit="m3/(m3.h)")=4
     "Design air change per hour south";
-  parameter Real ACHEas(final unit="1/h")=6
+  parameter Real ACHEas(final unit="m3/(m3.h)")=6
     "Design air change per hour east";
-  parameter Real ACHNor(final unit="1/h")=4
+  parameter Real ACHNor(final unit="m3/(m3.h)")=4
     "Design air change per hour north";
-  parameter Real ACHWes(final unit="1/h")=6
+  parameter Real ACHWes(final unit="m3/(m3.h)")=6
     "Design air change per hour west";
 
   annotation (
@@ -97,6 +97,10 @@ ASHRAE, Atlanta, GA, 2006.
       revisions="<html>
 <ul>
 <li>
+September 27, 2026, by Michael Wetter:<br/>
+Added unit specification to avoid warning in Dymola 2025x.
+</li>
+<li>
 December 20, 2021, by Michael Wetter:<br/>
 Changed parameter declarations for
 <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2829\">issue #2829</a>.
@@ -114,7 +118,7 @@ This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2600\
 </li>
 <li>
 November 25, 2019, by Milica Grahovac:<br/>
-Impementation of <a href=\"modelica://Buildings.Examples.VAVReheat.ASHRAE2006\">
+Implementation of <a href=\"modelica://Buildings.Examples.VAVReheat.ASHRAE2006\">
 Buildings.Examples.VAVReheat.ASHRAE2006</a> model with an EnergyPlus thermal zone instance.
 </li>
 </ul>

@@ -28,7 +28,10 @@ model RoomLeakage "Room leakage model"
         extent={{10,10},{-10,-10}},
         rotation=180,
         origin={-10,0})));
-  Modelica.Blocks.Math.Gain ACHInf(k=1/VRoo/1.2*3600, y(unit="1/h"))
+  Modelica.Blocks.Math.Gain ACHInf(
+    k(unit="m3.s/(m3.kg.h)")=1/VRoo/1.2*3600,
+    y(unit="1/h"),
+    u(unit="kg/s"))
     "Air change per hour due to infiltration"
     annotation (Placement(transformation(extent={{12,30},{32,50}})));
   parameter Real s "Side ratio, s=length of this wall/length of adjacent wall";
@@ -82,6 +85,10 @@ equation
 Room leakage.
 </p></html>", revisions="<html>
 <ul>
+<li>
+September 27, 2026, by Michael Wetter:<br/>
+Added unit specification to avoid warning in Dymola 2025x.
+</li>
 <li>
 July 20, 2007 by Michael Wetter:<br/>
 First implementation.

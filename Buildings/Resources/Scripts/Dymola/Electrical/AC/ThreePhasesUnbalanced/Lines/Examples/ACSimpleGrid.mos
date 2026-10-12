@@ -2,10 +2,7 @@
 // Plot commands
 simulateModel("Buildings.Electrical.AC.ThreePhasesUnbalanced.Lines.Examples.ACSimpleGrid", method="Radau", tolerance=1e-6, stopTime=1.0, resultFile="ACSimpleGrid_3phu");
 removePlots();
-Advanced.FilenameInLegend = false;
-Advanced.SequenceInLegend = true;
-Advanced.PlotLegendTooltip = true;
-Advanced.FullPlotTooltip = true;
+
 createPlot(id=1,
 position={11, -43, 920, 509},
 y={"E.vPhase[1].S[1]", "E.vPhase[1].S[2]"},

@@ -18,7 +18,7 @@ model Unconditioned
   BoundaryConditions.WeatherData.Bus weaBus
     "Weather data bus"
     annotation (Placement(transformation(extent={{-50,40},{-30,60}})));
-  Buildings.ThermalZones.EnergyPlus_24_2_0.Examples.SmallOffice.BaseClasses.Floor flo(
+  replaceable Buildings.ThermalZones.EnergyPlus_24_2_0.Examples.SmallOffice.BaseClasses.Floor flo(
     redeclare package Medium=Medium,
     nor(
       T_start=275.15),
@@ -67,11 +67,12 @@ equation
   connect(weaDat.weaBus,weaBus)
     annotation (Line(points={{-60,50},{-40,50}},color={255,204,51},thickness=0.5));
   connect(weaBus,flo.weaBus)
-    annotation (Line(points={{-40,50},{66,50},{66,30.3077},{66.0435,30.3077}},color={255,204,51},thickness=0.5));
+    annotation (Line(points={{-40,50},{66,50},{66,32.6154},{66.0435,32.6154}},color={255,204,51},thickness=0.5));
   connect(out.ports[1],res.port_a)
     annotation (Line(points={{-8,-54},{6,-54}},color={0,127,255}));
   connect(res.port_b,flo.portsCor[1])
-    annotation (Line(points={{26,-54},{48,-54},{48,12},{51.7217,12},{51.7217,12.7692}},color={0,127,255}));
+    annotation (Line(points={{26,-54},{48,-54},{48,12},{52.3087,12},{52.3087,
+          13.6923}},                                                                   color={0,127,255}));
   connect(weaBus,out.weaBus)
     annotation (Line(points={{-40,50},{-40,-53.8},{-28,-53.8}},color={255,204,51},thickness=0.5));
   connect(bou[:].ports[1],res1[:].port_a)
@@ -85,13 +86,14 @@ equation
   connect(weaBus,bou[4].weaBus)
     annotation (Line(points={{-40,50},{-40,-20},{-28,-20},{-28,-19.8}},color={255,204,51},thickness=0.5));
   connect(res1[1].port_b,flo.portsSou[1])
-    annotation (Line(points={{24,-20},{51.7217,-20},{51.7217,4.46154}},color={0,127,255}));
+    annotation (Line(points={{24,-20},{52.3087,-20},{52.3087,4.46154}},color={0,127,255}));
   connect(res1[2].port_b,flo.portsEas[1])
-    annotation (Line(points={{24,-20},{78.487,-20},{78.487,12.7692}},color={0,127,255}));
+    annotation (Line(points={{24,-20},{79.0739,-20},{79.0739,13.6923}},
+                                                                     color={0,127,255}));
   connect(res1[3].port_b,flo.portsNor[1])
-    annotation (Line(points={{24,-20},{46,-20},{46,20.6154},{51.7217,20.6154}},color={0,127,255}));
+    annotation (Line(points={{24,-20},{46,-20},{46,21.5385},{52.3087,21.5385}},color={0,127,255}));
   connect(res1[4].port_b,flo.portsWes[1])
-    annotation (Line(points={{24,-20},{38,-20},{38,12.7692},{37.1652,12.7692}},color={0,127,255}));
+    annotation (Line(points={{24,-20},{38,-20},{38,13.6923},{37.7522,13.6923}},color={0,127,255}));
   annotation (
     __Dymola_Commands(
       file="modelica://Buildings/Resources/Scripts/Dymola/ThermalZones/EnergyPlus_24_2_0/Examples/SmallOffice/Unconditioned.mos" "Simulate and plot"),

@@ -50,7 +50,7 @@ record Acetone "Data record for acetone"
 Record containing properties of acetone.
 Its name in CoolProp is \"Acetone\".
 A figure in the documentation of
-<a href=\"Modelica://Buildings.Fluid.CHPs.OrganicRankine.ConstantEvaporation\">
+<a href=\"modelica://Buildings.Fluid.CHPs.OrganicRankine.ConstantEvaporation\">
 Buildings.Fluid.CHPs.OrganicRankine.ConstantEvaporation</a>
 shows which lines these arrays represent.
 </p>

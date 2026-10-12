@@ -31,7 +31,7 @@ services:
 env:
   global:
     - DOCKER_REPONAME=lbnlblum
-    - BUILDINGSPY_VERSION=BuildingsPy@v5.2.0
+    - BUILDINGSPY_VERSION=BuildingsPy@v5.2.2
     - OMC_VERSION=ubuntu-2404-omc:1.26.3-1
     - OPTIMICA_VERSION=travis-ubuntu-2404-optimica:1.66
     - DYMOLA_VERSION=travis_ubuntu-2404_dymola:2026x-x86_64
@@ -79,9 +79,9 @@ env:
     - TEST_ARG="make test-dymola  PACKAGE=\"Buildings.DHC.Examples\""
     - TEST_ARG="make test-openmodelica PACKAGE=\"Buildings.DHC.Examples\" SINGLEPROC=\"true\""
     - TEST_ARG="make test-optimica  PACKAGE=\"Buildings.DHC.Examples\""
-    - TEST_ARG="make test-dymola    PACKAGE=\"Buildings.Fluid.{Actuators,BaseClasses,Boilers,Chillers,CHPs,DataCenterEquipment,Delays}\""
-    - TEST_ARG="make test-openmodelica PACKAGE=\"Buildings.Fluid.{Actuators,BaseClasses,Boilers,Chillers,CHPs,DataCenterEquipment,Delays}\""
-    - TEST_ARG="make test-optimica  PACKAGE=\"Buildings.Fluid.{Actuators,BaseClasses,Boilers,Chillers,CHPs,DataCenterEquipment,Delays}\""
+    - TEST_ARG="make test-dymola    PACKAGE=\"Buildings.Fluid.{Actuators,BaseClasses,Boilers,Chillers,CHPs,DataCenters,Delays}\""
+    - TEST_ARG="make test-openmodelica PACKAGE=\"Buildings.Fluid.{Actuators,BaseClasses,Boilers,Chillers,CHPs,DataCenters,Delays}\""
+    - TEST_ARG="make test-optimica  PACKAGE=\"Buildings.Fluid.{Actuators,BaseClasses,Boilers,Chillers,CHPs,DataCenters,Delays}\""
     - TEST_ARG="make test-dymola    PACKAGE=\"Buildings.Fluid.{Examples,FMI}\""
     - TEST_ARG="make test-openmodelica PACKAGE=\"Buildings.Fluid.{Examples,FMI}\""
     - TEST_ARG="make test-optimica  PACKAGE=\"Buildings.Fluid.{Examples,FMI}\""

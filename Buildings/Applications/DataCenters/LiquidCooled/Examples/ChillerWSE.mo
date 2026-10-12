@@ -1,6 +1,6 @@
 within Buildings.Applications.DataCenters.LiquidCooled.Examples;
 model ChillerWSE
-  "Example model of a simple liquid cooled data center with chiller and water-side economizer"
+  "Example model of a simple liquid-cooled data center with chiller and water-side economizer"
   extends Modelica.Icons.Example;
 
   package MediumAir = Buildings.Media.Air(T_default=TDryBul_nominal) "Medium for air";
@@ -65,7 +65,7 @@ model ChillerWSE
   parameter Modelica.Units.SI.PressureDifference dPRac_nominal = 60000
     "Rack design pressure drop";
   parameter
-    Buildings.Fluid.DataCenterEquipment.Racks.LiquidCooledSinglePhase.Data.OCP_1kW_OAM_PG25
+    Buildings.Fluid.DataCenters.Racks.Liquid.Data.OCP_1kW_OAM_PG25
     datRac(PIT_nominal=PRac, m_flow_nominal=mRac_flow_nominal)
     "Performance data for IT rack"
     annotation (Placement(transformation(extent={{40,-80},{60,-60}})));
@@ -89,12 +89,12 @@ model ChillerWSE
   final parameter Modelica.Units.SI.MassFlowRate mWSEPla_flow_nominal(min=0)=-QWSE_flow_nominal/dTPla_nominal/cpChi_default
     "Nominal mass flow rate at WSE on chilled water side";
 
-  parameter Fluid.DataCenterEquipment.CDUs.LiquidToLiquid.Data.Generic_2MW datCDU(
+  parameter Fluid.DataCenters.CDUs.LiquidToLiquid.Data.Generic_2MW datCDU(
     TApp_nominal=TApp_nominal,
     TRacOut_nominal=TRacSup_nominal,
-    medPla=Buildings.Fluid.DataCenterEquipment.CDUs.Types.Media.Water,
+    medPla=Buildings.Fluid.DataCenters.CDUs.Types.Media.Water,
     phiGlyPla=0,
-    medRac=Buildings.Fluid.DataCenterEquipment.CDUs.Types.Media.PropyleneGlycol,
+    medRac=Buildings.Fluid.DataCenters.CDUs.Types.Media.PropyleneGlycol,
     phiGlyRac=0.25,
     Q_flow_nominal=-PRac,
     mPla_flow_nominal=mPla_flow_nominal,
@@ -117,7 +117,7 @@ model ChillerWSE
   Controls.OBC.CDL.Reals.Sources.Constant uti(k=0.6)
     "Utilization of hardware"
     annotation (Placement(transformation(extent={{-80,-80},{-60,-60}})));
-  Buildings.Fluid.DataCenterEquipment.Racks.LiquidCooledSinglePhase.ColdPlateR_P rac(
+  Buildings.Fluid.DataCenters.Racks.Liquid.ColdPlateR_P rac(
     redeclare package Medium = MediumRac,
     allowFlowReversal=false,
     dat=datRac,
@@ -136,7 +136,7 @@ model ChillerWSE
     tau=0) "Chilled water supply temperature"
     annotation (Placement(transformation(extent={{-50,110},{-30,130}})));
 
-  Buildings.Fluid.DataCenterEquipment.CDUs.LiquidToLiquid.CDU_epsNTU cdu(
+  Buildings.Fluid.DataCenters.CDUs.LiquidToLiquid.CDU_epsNTU cdu(
     redeclare package MediumPla = MediumChi,
     redeclare package MediumRac = MediumRac,
     show_T=true,
@@ -672,12 +672,12 @@ public
     redeclare package Medium = MediumChi,
     allowFlowReversal=false,
     m_flow_nominal=mPla_flow_nominal) "Pipe at CDU inlet"
-    annotation (Placement(transformation(extent={{-190,110},{-170,130}})));
+    annotation (Placement(transformation(extent={{-200,110},{-180,130}})));
   Pipe pipCDUOut(
     redeclare package Medium = MediumChi,
     allowFlowReversal=false,
     m_flow_nominal=mPla_flow_nominal) "Pipe at CDU outlet"
-    annotation (Placement(transformation(extent={{150,110},{170,130}})));
+    annotation (Placement(transformation(extent={{140,110},{160,130}})));
   Pipe pipRacIn(
     redeclare package Medium = MediumRac,
     allowFlowReversal=false,
@@ -687,7 +687,7 @@ public
     redeclare package Medium = MediumRac,
     allowFlowReversal=false,
     m_flow_nominal=mRac_flow_nominal) "Pipe at rack outlet"
-    annotation (Placement(transformation(extent={{138,-110},{158,-90}})));
+    annotation (Placement(transformation(extent={{142,-110},{162,-90}})));
 protected
   parameter Modelica.Units.SI.SpecificHeatCapacity cpAir_default=
       MediumAir.specificHeatCapacityCp(staAir_default)
@@ -916,21 +916,23 @@ equation
   connect(pipTowOut.port_b, jun1.port_1) annotation (Line(points={{140,620},{180,
           620},{180,540},{170,540}}, color={0,127,255}));
   connect(senTCDU_a.port_a, pipCDUIn.port_b)
-    annotation (Line(points={{-50,120},{-170,120}}, color={0,127,255}));
-  connect(pipCDUIn.port_a, jun5.port_2) annotation (Line(points={{-190,120},{-200,
-          120},{-200,220},{-190,220}}, color={0,127,255}));
+    annotation (Line(points={{-50,120},{-180,120}}, color={0,127,255}));
+  connect(pipCDUIn.port_a, jun5.port_2) annotation (Line(points={{-200,120},{
+          -208,120},{-208,220},{-190,220}},
+                                       color={0,127,255}));
   connect(senTCDU_b.port_b, pipCDUOut.port_a)
-    annotation (Line(points={{50,120},{150,120}}, color={0,127,255}));
-  connect(pipCDUOut.port_b, pumCDU.port_a) annotation (Line(points={{170,120},{220,
-          120},{220,160}}, color={0,127,255}));
+    annotation (Line(points={{50,120},{140,120}}, color={0,127,255}));
+  connect(pipCDUOut.port_b, pumCDU.port_a) annotation (Line(points={{160,120},{
+          220,120},{220,160}},
+                           color={0,127,255}));
   connect(cdu.port_bRac, pipRacIn.port_a) annotation (Line(points={{-10,34},{-210,
           34},{-210,-100},{-200,-100}}, color={0,127,255}));
   connect(pipRacIn.port_b, senTRac_a.port_a)
     annotation (Line(points={{-180,-100},{-162,-100}}, color={0,127,255}));
   connect(senTRac_b.port_b, pipRacOut.port_a)
-    annotation (Line(points={{100,-100},{138,-100}}, color={0,127,255}));
-  connect(pipRacOut.port_b, cdu.port_aRac) annotation (Line(points={{158,-100},{
-          220,-100},{220,34},{10,34}}, color={0,127,255}));
+    annotation (Line(points={{100,-100},{142,-100}}, color={0,127,255}));
+  connect(pipRacOut.port_b, cdu.port_aRac) annotation (Line(points={{162,-100},
+          {220,-100},{220,34},{10,34}},color={0,127,255}));
   annotation (Diagram(coordinateSystem(extent={{-580,-120},{540,780}})),
     Icon(
         coordinateSystem(extent={{-100,-100},{100,100}})),
@@ -960,18 +962,18 @@ to the IT rack.
 The chilled water is cooled by an economizer -- if the temperatures permit --
 and if the water temperature after the economizer is higher than a temperature set point,
 the chiller is enabled. The chiller tracks a leaving water set point temperature.
-Note that the control is quite simple, and multiple parallel equipment as is common in data centers
-is here simplified with one component only.
+Note that the control is quite simple, and multiple parallel units, as is common in data centers,
+are simplified here to one component.
 </p>
 <p>
 The model has a parameter <code>dTOffSet</code> which can be used to shift the design temperatures
-up or down. This allows to push the model into temperature regimes that need no chiller.
+up or down. This allows one to push the model into temperature regimes that need no chiller.
 For example, if <code>dTOffSet=0</code>, the chiller never operates, and all cooling is done
 through the economizer.
 </p>
 <p>
 For more detailed chilled water plant
-controls, see for example
+controls, see, for example,
 </p>
 <ul>
 <li>
