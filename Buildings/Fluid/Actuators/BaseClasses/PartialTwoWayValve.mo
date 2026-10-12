@@ -2,6 +2,7 @@ within Buildings.Fluid.Actuators.BaseClasses;
 partial model PartialTwoWayValve "Partial model for a two way valve"
 
   extends Buildings.Fluid.BaseClasses.PartialResistance(
+    from_dp=true,
     final dp_nominal=dpValve_nominal + dpFixed_nominal,
     dp(nominal=6000),
     final m_flow_turbulent = deltaM * abs(m_flow_nominal),
@@ -18,6 +19,9 @@ partial model PartialTwoWayValve "Partial model for a two way valve"
 
   parameter Real l(min=1e-10, max=1) = 0.0001
     "Valve leakage, l=Kv(y=0)/Kv(y=1)";
+  parameter Boolean use_inv = false
+    "Set to true to allow the use of the inverse of the flow function m_flow=f(dp)"
+    annotation(Evaluate=true, Dialog(tab="Advanced"));
   input Real phi
     "Ratio actual to nominal mass flow rate of valve, phi=Kv(y)/Kv(y=1)";
   parameter Real kFixed(unit="", min=0) = if dpFixed_nominal > Modelica.Constants.eps
