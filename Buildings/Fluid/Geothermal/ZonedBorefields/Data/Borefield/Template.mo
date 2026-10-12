@@ -2,6 +2,7 @@ within Buildings.Fluid.Geothermal.ZonedBorefields.Data.Borefield;
 record Template
   "Template for borefield data records"
   extends Modelica.Icons.Record;
+
   parameter
     Buildings.Fluid.Geothermal.ZonedBorefields.Data.Filling.Template filDat
     "Filling data";
@@ -11,11 +12,11 @@ record Template
     Buildings.Fluid.Geothermal.ZonedBorefields.Data.Configuration.Template conDat
     "Configuration data";
 
-  annotation (
-  defaultComponentPrefixes="parameter",
-  defaultComponentName="borFieDat",
-Documentation(
-info="<html>
+  annotation(
+    defaultComponentPrefixes = "parameter",
+    defaultComponentName = "borFieDat",
+    Documentation(
+      info = "<html>
 <p>
 This record is a template for the records in
 <a href=\"modelica://Buildings.Fluid.Geothermal.ZonedBorefields\">

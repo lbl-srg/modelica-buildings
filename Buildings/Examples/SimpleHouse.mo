@@ -307,7 +307,7 @@ in reference results. This is for
 </li>
 <li>
 September 15, 2023, by Jelger Jansen:<br/>
-Move the example model to <a href=\"modelica://Buildings.Examples\">Buildings.Examples</a>, 
+Move the example model to <a href=\"modelica://Buildings.Examples\">Buildings.Examples</a>,
 update the information section, and revise lay-out.<br/>
 This is for
 <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1791\">IBPSA, #1791</a>.
