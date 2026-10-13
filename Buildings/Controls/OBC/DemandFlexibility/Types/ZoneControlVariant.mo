@@ -39,18 +39,18 @@ Multiple-step temperature setpoint adjustment with a varying electricity demand 
 </td></tr>
 </table>
 <p>
-Each variant is described in-depth below:
+Each variant is described in depth below:
 </p>
 <ul>
 <li>
-Variant <i>1</i> is single setpoint adjustment, where a zone changes its setpoint
-towards a setpoint limit in a single step. However, the single-step setpoint change
+Variant <i>1</i> is single-step setpoint adjustment, where a zone changes its setpoint
+toward a setpoint limit in a single step. However, the single-step setpoint change
 can still be done a few zones at a time, rather than all zones changing setpoints at
 once. This variant does not take into account the electricity demand of the building.
 </li>
 <li>
 Variant <i>2</i> is ratcheted setpoint adjustment, where a zone changes its setpoint
-towards a setpoint limit in multiple small steps. This ratcheted multiple-step
+toward a setpoint limit in multiple small steps. This ratcheted multiple-step
 setpoint change can also be done a few zones at a time, rather than all zones
 changing setpoints at once. This provides an additional degree of freedom for the
 setpoint change. This variant does not take into account the electricity demand of

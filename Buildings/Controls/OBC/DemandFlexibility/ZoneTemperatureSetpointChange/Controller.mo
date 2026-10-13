@@ -291,7 +291,7 @@ for more information on these <i>4</i> variants.
 </p>
 <p>
 The demand flexibility mode input <code>demFleMod</code> can be: <i>0</i> (pre-cool
-or pre-heat mode), <i>1</i> (default mode), <i>2</i> (load-shed mode), and <i>3</i>
+or pre-heat mode), <i>1</i> (default mode), <i>2</i> (load-shed mode), or <i>3</i>
 (load-rebound mode).
 </p>
 <p>
@@ -300,10 +300,10 @@ The input current setpoint <code>TCurZonSet</code> and the commanded setpoint
 heating mode and they must be cooling setpoints if it is used for cooling mode.
 </p>
 <p>
-The internal variable zone temperature difference <code>dTZon</code>, is defined as
-the current temperature <code>TCurZon</code> minus the current temperature
-setpoint <code>TCurZonSet</code> if it is in the heating mode, and it is defined as
-<code>TCurZonSet</code> minus <code>TCurZon</code> if it is in the cooling mode. 
+The internal variable zone temperature difference <code>dTZon</code> is defined as
+the current zone temperature <code>TCurZon</code> minus the current zone temperature
+setpoint <code>TCurZonSet</code> in the heating mode, and as
+<code>TCurZonSet</code> minus <code>TCurZon</code> in the cooling mode.
 </p>
 <h4>Zone Enablement</h4>
 <p>
@@ -350,7 +350,7 @@ the zone setpoint adjustment subsequence will be <code>false</code>. Otherwise, 
 <h4>Aggregated Behaviors</h4>
 <p>
 The parameter <code>setChaWaiTim</code> is the setpoint change wait time, which
-specifies the time interval on how often the setpoint change operation is executed.
+specifies the time interval at which the setpoint change operation is executed.
 </p>
 <p>
 In the zone enablement subsequence, one condition to enable setpoint change is that
@@ -360,16 +360,16 @@ executed for <code>nSel</code> enabled zones with the smallest <code>dTZon</code
 there is a chance that the zone temperature setpoint of a zone has reached a
 temperature setpoint limit, but this zone still has one of the smallest
 <code>dTZon</code> values. This zone enablement condition helps remove this zone
-from the list of enabled zones and let other zones become the <code>nSel</code>
+from the list of enabled zones and lets other zones become the <code>nSel</code>
 enabled zones. Without this zone enablement condition, this block will get stuck by
 always prioritizing this zone for setpoint change without moving on to other zones,
 even though this zone can no longer change its setpoint past the setpoint limit.
 </p>
 <p>
-Since the <code>nSel</code> enabled zones with the smallest <code>dTZon</code> will
-be selected for the setpoint change operation, it in turn changes the value of
-<code>TComZonSet</code> and <code>TCurZonSet</code>, thus <code>dTZon</code> itself
-is changed. This has different implications during different demand flexibility modes
+Since the setpoint change operation is executed for the <code>nSel</code> enabled
+zones with the smallest <code>dTZon</code>, it changes the values of
+<code>TComZonSet</code> and <code>TCurZonSet</code>, and thus <code>dTZon</code>
+itself changes. This has different implications during different demand flexibility modes
 (<code>demFleMod</code>). Below is a table that summarizes these different
 implications:
 </p>
@@ -380,26 +380,26 @@ implications:
 </tr>
 <tr>
 <td>0</td>
-<td>Setpoint change will cause <code>dTZon</code> to be more negative, making a zone
-to continuously be selected for setpoint change until the zone setpoint has reached
-the pre-heat or pre-cool setpoint limit. This makes the zones with the largest
+<td>Setpoint change will cause <code>dTZon</code> to be more negative, so that a zone
+is continuously selected for setpoint change until the zone setpoint has reached
+the pre-heat or pre-cool setpoint limit. This causes the zones with the largest
 pre-heat or pre-cool energy consumption potential to be selected first, while zones
 with a smaller energy consumption potential will be selected later. This makes the
 total electricity demand of all zones flatter with fewer spikes.</td>
 </tr>
 <tr>
 <td>2</td>
-<td>Setpoint change will cause the <code>dTZon</code> to be more positive, making
-way for other zones to be selected for setpoint change. This will result in the
-<code>dTZon</code> across all zones to have similar, and hopefully positive, values.
-Thus, the maximum amount of the electricity demand of the building will be reduced.
+<td>Setpoint change will cause <code>dTZon</code> to be more positive, making
+way for other zones to be selected for setpoint change. This results in
+<code>dTZon</code> having similar, and hopefully positive, values across all zones.
+Thus, the peak electricity demand of the building will be reduced.
 </td>
 </tr>
 <tr>
 <td>3</td>
-<td>Setpoint change will cause <code>dTZon</code> to be more negative, making a zone
-to continuously be selected for setpoint change until the zone setpoint has reached
-the load-rebound setpoint limit. This makes the zones with the largest load-rebound
+<td>Setpoint change will cause <code>dTZon</code> to be more negative, so that a zone
+is continuously selected for setpoint change until the zone setpoint has reached
+the load-rebound setpoint limit. This causes the zones with the largest load-rebound
 energy consumption potential to be selected first, while zones with a smaller energy
 consumption potential will be selected later. This makes the total electricity
 demand of all zones flatter with fewer spikes.</td>

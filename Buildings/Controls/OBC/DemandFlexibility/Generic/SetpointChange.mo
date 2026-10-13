@@ -148,7 +148,7 @@ setpoint back to <code>uCurSet</code>, completing a full control loop.
 </html>",revisions="<html>
 <ul>
 <li>
-June 01, 2026, by Weiping Huang:<br/>
+June 1, 2026, by Weiping Huang:<br/>
 First implementation.
 </li>
 </ul>

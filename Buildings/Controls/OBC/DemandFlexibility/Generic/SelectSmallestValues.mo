@@ -134,21 +134,21 @@ equation
 <p>
 This block selects the <code>nSel</code> smallest values out of a total of
 <code>nVal</code> values from the input vector <code>u</code>. The output is a
-boolean vector <code>y</code>, where <code>true</code> means a value at the
+Boolean vector <code>y</code>, where <code>true</code> means that the value at the
 corresponding index is one of the smallest values, and <code>false</code> means
-otherwise.
+that it is not.
 </p>
 <p>
-If there are equal values from the input vector <code>u</code>, this block will
-prioritize values that appear first in the input vector <code>u</code> when
+If the input vector <code>u</code> contains equal values, this block will
+prioritize values that appear first in <code>u</code> when
 selecting the <code>nSel</code> smallest values.
 </p>
 <p>
-Setting the disabled flag vector <code>disFla=true</code> serves to exclude certain
+Setting the disabled flag vector <code>disFla = true</code> serves to exclude certain
 values in the input vector from the ranking of the smallest values. These values will
-have the boolean output <code>y=false</code>. If total number of values after the
-excluding is less than <code>nSel</code>, the remaining values will have the boolean
-output <code>y = true</code>.
+have the Boolean output <code>y = false</code>. If the total number of values after
+excluding is less than <code>nSel</code>, all non-excluded values will have the
+Boolean output <code>y = true</code>.
 </p>
 </html>", revisions="<html>
 <ul>

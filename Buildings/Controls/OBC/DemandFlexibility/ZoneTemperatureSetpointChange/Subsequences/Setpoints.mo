@@ -313,17 +313,16 @@ based on occupancy status.
 </p>
 <p>
 The occupied period is defined as the hours between <code>occHouSta</code>
-and <code>occHouEnd</code> and the occupied period repeats 24 hours. If
+and <code>occHouEnd</code>, and the occupied period repeats every 24 hours. If
 <code>occHouSta &lt;= occHouEnd</code>, the occupied period is assumed to be
 in the daytime. If <code>occHouSta &gt; occHouEnd</code>, the occupied period is
-assumed to be in nighttime and it includes the midnight point.
+assumed to be in the nighttime and includes midnight.
 </p>
 <p>
 All output variables of this block represent zone setpoints or setpoint
-targets, and their values are calculated based on the parameters of this
-block. The values of the output variables are calculated based on the
-following table. Note that the parameter <code>setChaEnaUnoFla</code>
-represents whether setpoint change is enabled during the unoccupied period:
+targets. Their values are calculated based on the parameters of this
+block and the following table. Note that the parameter
+<code>setChaEnaUnoFla</code> represents whether setpoint change is enabled during the unoccupied period:
 </p>
 <table summary=\"summary\" border=\"1\">
 <tr>
@@ -335,13 +334,13 @@ represents whether setpoint change is enabled during the unoccupied period:
 <tr>
 <td>TPreTarHeaSet</td>
 <td>TDefOccHeaSet + dTPreHeaSet</td>
-<td>TDefUncHeaSet + dTPreHeaSet</td>
+<td>TDefUnoHeaSet + dTPreHeaSet</td>
 <td>TDefUnoHeaSet</td>
 </tr>
 <tr>
 <td>TSheTarHeaSet</td>
 <td>TDefOccHeaSet - dTSheHeaSet</td>
-<td>TDefUncHeaSet - dTSheHeaSet</td>
+<td>TDefUnoHeaSet - dTSheHeaSet</td>
 <td>TDefUnoHeaSet</td>
 </tr>
 <tr>
@@ -353,13 +352,13 @@ represents whether setpoint change is enabled during the unoccupied period:
 <tr>
 <td>TPreTarCooSet</td>
 <td>TDefOccCooSet - dTPreCooSet</td>
-<td>TDefUncCooSet - dTPreCooSet</td>
+<td>TDefUnoCooSet - dTPreCooSet</td>
 <td>TDefUnoCooSet</td>
 </tr>
 <tr>
 <td>TSheTarCooSet</td>
 <td>TDefOccCooSet + dTSheCooSet</td>
-<td>TDefUncCooSet + dTSheCooSet</td>
+<td>TDefUnoCooSet + dTSheCooSet</td>
 <td>TDefUnoCooSet</td>
 </tr>
 <tr>

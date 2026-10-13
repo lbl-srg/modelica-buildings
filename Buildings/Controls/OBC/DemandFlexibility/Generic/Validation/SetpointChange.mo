@@ -85,7 +85,7 @@ Buildings.Controls.OBC.DemandFlexibility.Generic.SetpointChange</a>.
 This validation test uses two constant temperatures, the minimum temperature setpoint
 <code>TAllMinSet</code> and the maximum temperature setpoint <code>TAllMaxSet</code>,
 to set the inputs <code>uAllMinSet</code> and <code>uAllMaxSet</code>. It also uses
-a boolean pulse signal to set the input <code>uEna</code> to enable the setpoint
+a Boolean pulse signal to set the input <code>uEna</code> to enable the setpoint
 change.
 </p>
 <p>
@@ -96,19 +96,19 @@ temperature setpoint controller receives the setpoint <code>y</code> from the
 <a href=\"modelica://Buildings.Controls.OBC.DemandFlexibility.Generic.SetpointChange\">
 Buildings.Controls.OBC.DemandFlexibility.Generic.SetpointChange</a>, the
 temperature setpoint within the external zone temperature setpoint controller will
-be changed to <code>y</code> a small time delay later, set to <code>10</code>
+be changed to <code>y</code> after a small time delay of <code>10</code>
 seconds, and the new temperature setpoint value will be sent back to the
 <code>uCurSet</code> variable in the <code>SetpointChange</code> block, completing a
 full control loop.
 </p>
 <p>
-The setpoint change operation is executed every <code>300</code> seconds, which is 
+The setpoint change operation is executed every <code>300</code> seconds, which is
 represented by a <code>Sampler</code> block.
 </p>
 </html>",revisions="<html>
 <ul>
 <li>
-June 01, 2026, by Weiping Huang:<br/>
+June 1, 2026, by Weiping Huang:<br/>
 First implementation.
 </li>
 </ul>

@@ -55,7 +55,7 @@ This example validates
 <a href=\"modelica://Buildings.Controls.OBC.DemandFlexibility.ZoneTemperatureSetpointChange.Subsequences.Setpoints\">
 Buildings.Controls.OBC.DemandFlexibility.ZoneTemperatureSetpointChange.Subsequences.Setpoints</a>
 by comparing the zone setpoints and setpoint targets during daytime occupancy vs.
-nighttime occupancy,  as well as for enabled unoccupied period setpoint change and
+nighttime occupancy, as well as for enabled unoccupied period setpoint change and
 disabled unoccupied period setpoint change.
 </p>
 </html>", revisions="<html>

@@ -79,7 +79,7 @@ For any setpoint input <code>uSet</code>, the setpoint output <code>ySet</code> 
 the closest value to <code>uSet</code> that is equal to
 <code>refSet + n * resInt</code>, where <code>refSet</code> is the reference
 setpoint, <code>resInt</code> is the resolution interval, and <code>n</code> is an
-integer. 
+integer.
 </p>
 <p>
 The reference setpoint is set to <i>293.15 K</i> for temperature setpoints and zero

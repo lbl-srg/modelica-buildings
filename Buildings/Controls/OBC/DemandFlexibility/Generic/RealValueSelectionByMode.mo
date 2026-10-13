@@ -127,10 +127,9 @@ equation
     grid={2,2})),
     Documentation(info="<html>
 <p>
-This block serves to choose which of the input variables, including
-<code>uPre</code>, <code>uDef</code>, <code>uShe</code>, and <code>uReb</code>, to
-output as the output variable <code>y</code>, based on the demand flexibility mode
-<code>demFleMod</code>. 
+This block selects one of the input variables <code>uPre</code>,
+<code>uDef</code>, <code>uShe</code>, and <code>uReb</code> as the output variable
+<code>y</code>, based on the demand flexibility mode <code>demFleMod</code>.
 </p>
 <p>
 The demand flexibility mode includes the pre-cool or pre-heat mode

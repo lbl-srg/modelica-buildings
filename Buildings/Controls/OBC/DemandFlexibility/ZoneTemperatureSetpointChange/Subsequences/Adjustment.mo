@@ -290,7 +290,7 @@ change enabling signal input and the demand flexibility mode.
 <p>
 The input <code>TCurZonSet</code> represents the current value of the
 temperature setpoint and the output <code>TComZonSet</code> is the
-new temperature setpoint. 
+new temperature setpoint.
 If the sequence is used for the heating mode (<code>airConMod = Heating</code>), the
 <code>TCurZonSet</code> and <code>TComZonSet</code> must be the heating setpoints.
 If the sequence is used for the cooling mode (<code>airConMod = Cooling</code>), the
@@ -299,7 +299,7 @@ If the sequence is used for the cooling mode (<code>airConMod = Cooling</code>),
 <p>
 The demand flexibility mode input <code>demFleMod</code> can be: <i>0</i>
 (pre-cool or pre-heat mode), <i>1</i> (default mode), <i>2</i> (load-shed mode), or
-<i>3</i> (load-rebound mode). 
+<i>3</i> (load-rebound mode).
 </p>
 <p>
 This block conducts a setpoint change to output the commanded zone temperature
@@ -431,7 +431,7 @@ Note:
 <code>TPreTarSet &gt;= TDefSet &gt;= TSheTarSet</code> must hold if the air
 conditioning system is in the heating mode (<code>airConMod = Heating</code>), and
 <code>TPreTarSet &lt;= TDefSet &lt;= TSheTarSet</code> must hold if the air
-conditioning system is in the cooling mode (<code>airConMod = Cooling</code>). 
+conditioning system is in the cooling mode (<code>airConMod = Cooling</code>).
 </li>
 <li>
 The output <code>TComZonSet</code> is intended to be received by a
@@ -441,9 +441,9 @@ full control loop.
 </li>
 <li>
 Within each demand flexibility mode, the changes of both
-<code>TCurZonSet</code> and <code>TComZonSet</code> will have only one direction:
-either increasing or decreasing. The direction could only be changed after the
-demand flexibility mode is changed.
+<code>TCurZonSet</code> and <code>TComZonSet</code> will occur in only one direction:
+either increasing or decreasing. The direction can only change when the
+demand flexibility mode changes.
 </li>
 </ul>
 </html>", revisions="<html>

@@ -157,7 +157,7 @@ equation
 This example validates
 <a href=\"modelica://Buildings.Controls.OBC.DemandFlexibility.ZoneTemperatureSetpointChange.Controller\">
 Buildings.Controls.OBC.DemandFlexibility.ZoneTemperatureSetpointChange.Controller</a>
-for the heating operation of a single zone building under Variant <i>3</i> and
+for the heating operation of a single-zone building under Variant <i>3</i> and
 Variant <i>4</i> of zone temperature setpoint control while responding to both a
 rogue zone flag signal and the electricity demand of the building.
 </p>

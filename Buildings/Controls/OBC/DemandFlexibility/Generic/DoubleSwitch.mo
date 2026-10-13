@@ -69,7 +69,7 @@ First implementation.
 </ul>
 </html>", info="<html>
 <p>
-This block switches the values of the two real output variables based on a boolean
+This block switches the values of the two Real output variables based on a Boolean
 input variable.
 </p>
 <p>

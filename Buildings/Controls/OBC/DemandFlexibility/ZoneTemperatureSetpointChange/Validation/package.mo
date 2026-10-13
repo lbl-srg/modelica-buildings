@@ -4,8 +4,8 @@ package Validation "Collection of validation models"
   annotation (Documentation(info="<html>
 <p>
 This package contains validation models for the classes in
-<a href=\"modelica://Buildings.Controls.OBC.DemandFlexibility.Generic\">
-Buildings.Controls.OBC.DemandFlexibility.Generic</a>.
+<a href=\"modelica://Buildings.Controls.OBC.DemandFlexibility.ZoneTemperatureSetpointChange\">
+Buildings.Controls.OBC.DemandFlexibility.ZoneTemperatureSetpointChange</a>.
 </p>
 <p>
 Note that most validation models contain simple input data which may not be
