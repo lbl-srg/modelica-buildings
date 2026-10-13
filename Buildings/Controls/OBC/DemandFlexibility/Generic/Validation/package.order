@@ -1,7 +1,6 @@
 BooleanPassThrough
 DoubleSwitch
 RealValueSelectionByMode
-SelectLargestValues
 SelectSmallestValues
 SetpointChange
 SetpointResolution
