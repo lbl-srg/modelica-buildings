@@ -16,7 +16,9 @@ First implementation.
 </html>", info="<html>
 <p>
 This package provides constants for indicating different demand flexibility
-operation modes.
+operation modes. Constants are used instead of enumerations because integer input
+variables are needed to represent demand flexibility operation modes throughout
+the demand flexibility control sequences.
 </p>
 </html>"));
 end DemandFlexibilityModes;
