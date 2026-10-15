@@ -60,7 +60,7 @@ protected
 <p>
 This component defines the interface for models that
 transports a fluid between two ports. It is similar to
-<a href=\"Modelica://Modelica.Fluid.Interfaces.PartialTwoPortTransport\">
+<a href=\"modelica://Modelica.Fluid.Interfaces.PartialTwoPortTransport\">
 Modelica.Fluid.Interfaces.PartialTwoPortTransport</a>, but it does not
 include the species balance
 </p>

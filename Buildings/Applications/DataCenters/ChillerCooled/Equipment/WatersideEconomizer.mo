@@ -127,7 +127,7 @@ equation
   annotation (Documentation(info="<html>
 <p>
 This module impliments a waterside economizer model that consists of a
-<a href=\"Modelica://Buildings.Applications.DataCenters.ChillerCooled.Equipment.HeatExchanger_TSet\">heat exchanger</a> and a shutoff valve on each medium side.
+<a href=\"modelica://Buildings.Applications.DataCenters.ChillerCooled.Equipment.HeatExchanger_TSet\">heat exchanger</a> and a shutoff valve on each medium side.
 This waterside economizer model can be used in two different control scenarios:
 </p>
 <ol>
