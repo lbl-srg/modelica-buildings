@@ -52,18 +52,9 @@ def doStep(dblInp, worDir, state):
     if state is None:
         # Create the TOUGH working folder
         # The working folder will be removed at the end of simulation.
-        # Use an absolute path so that the state remains valid independent of
-        # the current working directory.
-        touWorDir = os.path.abspath(worDir)
+        touWorDir = os.path.join(worDir)
         os.mkdir(touWorDir)
         # Make the working folder accessible to all users.
-        # Some CI setups run the simulator as a different user (for example in a docker
-        # container) than the process that cleans up the temporary simulation directory.
-        # With the default umask, this other user could not remove the files in this
-        # folder, which then causes a "PermissionError: [Errno 13] Permission denied"
-        # when the temporary directory is deleted.
-        # Removing a file requires write permission on its parent folder, and this folder
-        # only contains files, hence it is sufficient to open up the folder.
         os.chmod(touWorDir, 0o777)
         # Copy the TOUGH input files to working directory
         copy_files(TOUGH_dir, touWorDir)
