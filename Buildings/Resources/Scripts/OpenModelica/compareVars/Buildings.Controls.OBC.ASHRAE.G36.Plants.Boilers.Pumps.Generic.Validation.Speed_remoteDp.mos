@@ -1,0 +1,10 @@
+compareVars :=
+  {
+    "hotPumSpe.maxLoo.u[1]",
+    "hotPumSpe.maxLoo.u[2]",
+    "hotPumSpe.maxLoo.y",
+    "hotPumSpe.pumSpe.y",
+    "hotPumSpe.pumSpe.f1",
+    "hotPumSpe.pumSpe.f2",
+    "hotPumSpe.yHotWatPumSpe"
+  };
