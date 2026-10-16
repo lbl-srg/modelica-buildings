@@ -54,6 +54,8 @@ def doStep(dblInp, worDir, state):
         # The working folder will be removed at the end of simulation.
         touWorDir = os.path.join(worDir)
         os.mkdir(touWorDir)
+        # Make the working folder accessible to all users.
+        os.chmod(touWorDir, 0o777)
         # Copy the TOUGH input files to working directory
         copy_files(TOUGH_dir, touWorDir)
         # Initialize the state
