@@ -1,5 +1,0 @@
-compareVars :=
-  {
-    "setRes.uSet",
-    "setRes.ySet"
-  };

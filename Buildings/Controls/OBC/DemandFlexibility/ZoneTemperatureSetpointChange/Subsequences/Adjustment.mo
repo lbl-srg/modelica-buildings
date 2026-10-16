@@ -1,6 +1,13 @@
 within Buildings.Controls.OBC.DemandFlexibility.ZoneTemperatureSetpointChange.Subsequences;
 block Adjustment "Zone setpoint adjustment"
 
+  parameter Real dTPre(
+    min=0,
+    start=1,
+    unit="K",
+    displayUnit="K")
+    "Setpoint change delta for the pre-cool or the pre-heat mode (positive value)"
+    annotation (Dialog(enable = use_mulSteSetCha));
   parameter Real dTShe(
     min=0,
     start=1,
@@ -16,7 +23,7 @@ block Adjustment "Zone setpoint adjustment"
     "Setpoint change delta for the load-rebound mode (positive value)"
     annotation (Dialog(enable = use_mulSteSetCha));
   parameter Boolean use_mulSteSetCha
-    "If true, there are multiple smaller and incremental setpoint change steps for the load-shed mode and the load-rebound mode; if false, there is a single setpoint change step";
+    "If true, there are multiple smaller and incremental setpoint change steps for the pre-cool/pre-heat mode, the load-shed mode, and the load-rebound mode; if false, there is a single setpoint change step";
   parameter Buildings.Controls.OBC.DemandFlexibility.Types.AirConditioningMode airConMod
     "Air conditioning mode";
 
@@ -117,8 +124,9 @@ protected
     "Error message for the load-shed target cooling temperature setpoint during the cooling mode"
     annotation (Placement(transformation(extent={{80,-260},{100,-240}})));
   Buildings.Controls.OBC.DemandFlexibility.Generic.SetpointChange setChaPre(
+    final setChaDel=dTPre,
     final ascSet=airConMod == Buildings.Controls.OBC.DemandFlexibility.Types.AirConditioningMode.Heating,
-    final use_mulSteSetCha=false)
+    final use_mulSteSetCha=use_mulSteSetCha)
     "Setpoint change logic for the pre-cool or the pre-heat mode"
     annotation (Placement(transformation(extent={{40,240},{60,260}})));
   Buildings.Controls.OBC.DemandFlexibility.Generic.SetpointChange setChaShe(
@@ -316,13 +324,13 @@ setpoint <code>TComZonSet</code> as follows if the multiple-step setpoint change
 <tr>
 <td>0</td>
 <td>Heating</td>
-<td>TPreTarSet</td>
+<td>min(TPreTarSet, max(TDefSet, TCurZonSet+dTPre))</td>
 <td>min(TPreTarSet, max(TDefSet, TCurZonSet))</td>
 </tr>
 <tr>
 <td>0</td>
 <td>Cooling</td>
-<td>TPreTarSet</td>
+<td>min(TDefSet, max(TPreTarSet, TCurZonSet-dTPre))</td>
 <td>min(TDefSet, max(TPreTarSet, TCurZonSet))</td>
 </tr>
 <tr>

@@ -2,30 +2,42 @@ within Buildings.Controls.OBC.DemandFlexibility.ZoneTemperatureSetpointChange;
 block Controller
   "Controller for zone heating or cooling temperature setpoint change"
 
+  parameter Real dTPre(
+    min=0,
+    start=1,
+    unit="K",
+    displayUnit="K")
+    "Setpoint change delta for the pre-cool or the pre-heat mode (positive value)"
+    annotation (Dialog(enable=zonConVar <> Buildings.Controls.OBC.DemandFlexibility.Types.ZoneControlVariant.Variant_1,
+      group="Temperature setpoint parameters"));
   parameter Real dTShe(
     min=0,
+    start=1,
     unit="K",
     displayUnit="K")
     "Temperature setpoint change delta for the load-shed mode (positive value)"
-    annotation (Dialog(group="Temperature setpoint parameters"));
+    annotation (Dialog(enable=zonConVar <> Buildings.Controls.OBC.DemandFlexibility.Types.ZoneControlVariant.Variant_1,
+      group="Temperature setpoint parameters"));
   parameter Real dTReb(
     min=0,
+    start=1,
     unit="K",
     displayUnit="K")
     "Temperature setpoint change delta for the load-rebound mode (positive value)"
-    annotation (Dialog(group="Temperature setpoint parameters"));
+    annotation (Dialog(enable=zonConVar <> Buildings.Controls.OBC.DemandFlexibility.Types.ZoneControlVariant.Variant_1,
+      group="Temperature setpoint parameters"));
+  parameter Real dT_small(
+    min=0,
+    unit="K",
+    displayUnit="K")=0.1
+    "A small temperature delta, used to reduce the effects of rounding errors when comparing the current zone temperature setpoint to the target setpoints"
+    annotation (Dialog(tab="Advanced", group="Temperature setpoint parameters"));
   parameter Real dTSheThr(
     min=0,
     unit="K",
     displayUnit="K")
     "Threshold of temperature difference to trigger setpoint change during the load-shed mode (positive value)"
     annotation (Dialog(group="Temperature setpoint parameters"));
-  parameter Real dTSheHys(
-    min=0,
-    unit="K",
-    displayUnit="K")
-    "Hysteresis for the temperature difference during the load-shed mode"
-    annotation (Dialog(tab="Advanced", group="Hysteresis"));
   parameter Real PBuiHys(
     min=0,
     start=1,
@@ -49,12 +61,6 @@ block Controller
     "Constant threshold for the electricity demand of the building"
     annotation (Dialog(enable = zonConVar == Buildings.Controls.OBC.DemandFlexibility.Types.ZoneControlVariant.Variant_3,
       group="Electricity demand parameters"));
-  parameter Real TResInt(
-    min=0,
-    unit="K",
-    displayUnit="K")
-    "Temperature resolution interval used by an external zone temperature controller"
-    annotation (Dialog(group="Temperature setpoint parameters"));
   parameter Real setChaWaiTim(
     min=0,
     unit="s")
@@ -143,10 +149,9 @@ protected
   Buildings.Controls.OBC.DemandFlexibility.ZoneTemperatureSetpointChange.Subsequences.Enable
     zonEna(
     final dTSheThr=dTSheThr,
-    final dTSheHys=dTSheHys,
-    PBuiHys=PBuiHys,
-    PBui_nominal=PBui_nominal,
-    final TResInt=TResInt,
+    final PBuiHys=PBuiHys,
+    final PBui_nominal=PBui_nominal,
+    final dT_small=dT_small,
     final airConMod=airConMod,
     final use_demCon=zonConVar == Buildings.Controls.OBC.DemandFlexibility.Types.ZoneControlVariant.Variant_3
          or zonConVar == Buildings.Controls.OBC.DemandFlexibility.Types.ZoneControlVariant.Variant_4,
@@ -161,6 +166,7 @@ protected
     annotation (Placement(transformation(extent={{60,80},{80,100}})));
   Buildings.Controls.OBC.DemandFlexibility.ZoneTemperatureSetpointChange.Subsequences.Adjustment
     zonSetAdj[nZon](
+    final dTPre=fill(dTPre, nZon),
     final dTShe=fill(dTShe, nZon),
     final dTReb=fill(dTReb, nZon),
     final airConMod=fill(airConMod, nZon),

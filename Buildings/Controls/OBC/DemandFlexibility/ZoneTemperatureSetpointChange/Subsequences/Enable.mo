@@ -7,12 +7,6 @@ block Enable "Decide the zones for setpoint change"
     displayUnit="K")
     "Threshold of temperature difference to trigger setpoint change during the load-shed mode (positive value)"
     annotation (Dialog(group="Temperature setpoint parameters"));
-  parameter Real dTSheHys(
-    min=0,
-    unit="K",
-    displayUnit="K")
-    "Hysteresis for the temperature difference during the load-shed mode"
-    annotation (Dialog(tab="Advanced", group="Hysteresis"));
   parameter Real PBuiHys(
     min=0,
     start=1,
@@ -25,12 +19,12 @@ block Enable "Decide the zones for setpoint change"
     unit="W")
     "Nominal electricity demand of the building"
     annotation (Dialog(enable = use_demCon, group="Electricity demand parameters"));
-  parameter Real TResInt(
+  parameter Real dT_small(
     min=0,
     unit="K",
-    displayUnit="K")
-    "Temperature resolution interval used by an external zone temperature controller"
-    annotation (Dialog(group="Temperature setpoint parameters"));
+    displayUnit="K")=0.1
+    "A small temperature delta, used to reduce the effects of rounding errors when comparing the current zone temperature setpoint to the target setpoints"
+    annotation (Dialog(tab="Advanced", group="Temperature setpoint parameters"));
   parameter Boolean use_demCon
     "True: use demand-based control"
     annotation (Dialog(group="Electricity demand parameters"));
@@ -131,8 +125,7 @@ protected
     "When logic for Condition 2 is disabled, output true in place of the Condition 2 logic"
     annotation (Placement(transformation(extent={{20,280},{40,300}})));
   Buildings.Controls.OBC.CDL.Reals.LessThreshold lesDTZon[nZon](
-    final t=fill(dTSheThr,nZon),
-    final h=fill(dTSheHys,nZon))
+    final t=fill(dTSheThr,nZon), final h=fill(dTSheThr*0.5, nZon))
     "The zone temperature difference is less than the load-shed mode zone temperature difference threshold"
     annotation (Placement(transformation(extent={{-100,240},{-80,260}})));
   Buildings.Controls.OBC.CDL.Logical.Not notLesDTZon[nZon]
@@ -145,64 +138,64 @@ protected
     final nout=nZon) "Repeat the boolean scalar for being in the load-shed mode"
     annotation (Placement(transformation(extent={{-40,120},{-20,140}})));
   Buildings.Controls.OBC.CDL.Reals.Greater greTSetPreHea[nZon](
-    final h=fill(0.5*TResInt,nZon))
+    final h=fill(0.5*dT_small,nZon))
     if airConMod == Buildings.Controls.OBC.DemandFlexibility.Types.AirConditioningMode.Heating
-    "The zone heating temperature setpoint is greater than the pre-heat target temperature setpoint, taking into account of the temperature resolution"
+    "The zone heating temperature setpoint is greater than the pre-heat target temperature setpoint, with a hysteresis equal to half of the small temperature delta value"
     annotation (Placement(transformation(extent={{-60,0},{-40,20}})));
   Buildings.Controls.OBC.CDL.Reals.Less lesTSetPreCoo[nZon](
-    final h=fill(0.5*TResInt,nZon))
+    final h=fill(0.5*dT_small,nZon))
     if airConMod == Buildings.Controls.OBC.DemandFlexibility.Types.AirConditioningMode.Cooling
-    "The zone cooling temperature setpoint is less than the pre-cool target temperature setpoint, taking into account of the temperature resolution"
+    "The zone cooling temperature setpoint is less than the pre-cool target temperature setpoint, with a hysteresis equal to half of the small temperature delta value"
     annotation (Placement(transformation(extent={{-60,-40},{-40,-20}})));
   Buildings.Controls.OBC.CDL.Reals.Less lesTSetSheHea[nZon](
-    final h=fill(0.5*TResInt,nZon))
+    final h=fill(0.5*dT_small,nZon))
     if airConMod == Buildings.Controls.OBC.DemandFlexibility.Types.AirConditioningMode.Heating
-    "The zone heating temperature setpoint is less than the load-shed heating target temperature setpoint, taking into account of the temperature resolution"
+    "The zone heating temperature setpoint is less than the load-shed heating target temperature setpoint, with a hysteresis equal to half of the small temperature delta value"
     annotation (Placement(transformation(extent={{-60,-80},{-40,-60}})));
   Buildings.Controls.OBC.CDL.Reals.Greater greTSetSheCoo[nZon](
-    final h=fill(0.5*TResInt,nZon))
+    final h=fill(0.5*dT_small,nZon))
     if airConMod == Buildings.Controls.OBC.DemandFlexibility.Types.AirConditioningMode.Cooling
-    "The zone cooling temperature setpoint is greater than the load-shed cooling target temperature setpoint, taking into account of the temperature resolution"
+    "The zone cooling temperature setpoint is greater than the load-shed cooling target temperature setpoint, with a hysteresis equal to half of the small temperature delta value"
     annotation (Placement(transformation(extent={{-60,-120},{-40,-100}})));
   Buildings.Controls.OBC.CDL.Reals.Greater greTSetRebHea[nZon](
-    final h=fill(0.5*TResInt,nZon))
+    final h=fill(0.5*dT_small,nZon))
     if airConMod == Buildings.Controls.OBC.DemandFlexibility.Types.AirConditioningMode.Heating
-    "The zone heating temperature setpoint is greater than the default heating temperature setpoint during the load-rebound mode, taking into account of the temperature resolution"
+    "The zone heating temperature setpoint is greater than the default heating temperature setpoint during the load-rebound mode, with a hysteresis equal to half of the small temperature delta value"
     annotation (Placement(transformation(extent={{-60,-160},{-40,-140}})));
   Buildings.Controls.OBC.CDL.Reals.Less lesTSetRebCoo[nZon](
-    final h=fill(0.5*TResInt,nZon))
+    final h=fill(0.5*dT_small,nZon))
     if airConMod == Buildings.Controls.OBC.DemandFlexibility.Types.AirConditioningMode.Cooling
-    "The zone cooling temperature setpoint is less than the default cooling temperature setpoint during the load-rebound mode, taking into account of the temperature resolution"
+    "The zone cooling temperature setpoint is less than the default cooling temperature setpoint during the load-rebound mode, with a hysteresis equal to half of the small temperature delta value"
     annotation (Placement(transformation(extent={{-60,-200},{-40,-180}})));
-  Buildings.Controls.OBC.CDL.Reals.AddParameter subTResIntPreHea[nZon](
-    final p=fill(-0.99*TResInt,nZon))
+  Buildings.Controls.OBC.CDL.Reals.AddParameter subDTPreHea[nZon](
+    final p=fill(-dT_small,nZon))
     if airConMod == Buildings.Controls.OBC.DemandFlexibility.Types.AirConditioningMode.Heating
-    "Subtract 0.99 times the temperature resolution interval during the pre-heat mode"
+    "Subtract a small temperature delta during the pre-heat mode"
     annotation (Placement(transformation(extent={{-140,-20},{-120,0}})));
-  Buildings.Controls.OBC.CDL.Reals.AddParameter addTResIntPreCoo[nZon](
-    final p=fill(0.99*TResInt,nZon))
+  Buildings.Controls.OBC.CDL.Reals.AddParameter addDTPreCoo[nZon](
+    final p=fill(dT_small,nZon))
     if airConMod == Buildings.Controls.OBC.DemandFlexibility.Types.AirConditioningMode.Cooling
-    "Add 0.99 times the temperature resolution interval during the pre-cool mode"
+    "Add a small temperature delta during the pre-cool mode"
     annotation (Placement(transformation(extent={{-140,-60},{-120,-40}})));
-  Buildings.Controls.OBC.CDL.Reals.AddParameter addTResIntSheHea[nZon](
-    final p=fill(0.99*TResInt,nZon))
+  Buildings.Controls.OBC.CDL.Reals.AddParameter addDTSheHea[nZon](
+    final p=fill(dT_small,nZon))
     if airConMod == Buildings.Controls.OBC.DemandFlexibility.Types.AirConditioningMode.Heating
-    "Add 0.99 times the temperature resolution interval during the heating load-shed mode"
+    "Add a small temperature delta during the heating load-shed mode"
     annotation (Placement(transformation(extent={{-140,-100},{-120,-80}})));
-  Buildings.Controls.OBC.CDL.Reals.AddParameter subTResIntSheCoo[nZon](
-    final p=fill(-0.99*TResInt,nZon))
+  Buildings.Controls.OBC.CDL.Reals.AddParameter subDTSheCoo[nZon](
+    final p=fill(-dT_small,nZon))
     if airConMod == Buildings.Controls.OBC.DemandFlexibility.Types.AirConditioningMode.Cooling
-    "Subtract 0.99 times the temperature resolution interval during the cooling load-shed mode"
+    "Subtract a small temperature delta during the cooling load-shed mode"
     annotation (Placement(transformation(extent={{-140,-140},{-120,-120}})));
-  Buildings.Controls.OBC.CDL.Reals.AddParameter subTResIntRebHea[nZon](
-    final p=fill(-0.99*TResInt,nZon))
+  Buildings.Controls.OBC.CDL.Reals.AddParameter subDTRebHea[nZon](
+    final p=fill(-dT_small,nZon))
     if airConMod == Buildings.Controls.OBC.DemandFlexibility.Types.AirConditioningMode.Heating
-    "Subtract 0.99 times the temperature resolution interval during the heating load-rebound mode"
+    "Subtract a small temperature delta during the heating load-rebound mode"
     annotation (Placement(transformation(extent={{-140,-180},{-120,-160}})));
-  Buildings.Controls.OBC.CDL.Reals.AddParameter addTResIntRebCoo[nZon](
-    final p=fill(0.99*TResInt,nZon))
+  Buildings.Controls.OBC.CDL.Reals.AddParameter addDTRebCoo[nZon](
+    final p=fill(dT_small,nZon))
     if airConMod == Buildings.Controls.OBC.DemandFlexibility.Types.AirConditioningMode.Cooling
-    "Add 0.99 times the temperature resolution interval during the cooling load-rebound mode"
+    "Add a small temperature delta during the cooling load-rebound mode"
     annotation (Placement(transformation(extent={{-140,-220},{-120,-200}})));
   Buildings.Controls.OBC.CDL.Logical.And reaTPreTarSet[nZon]
     "In the pre-cool or pre-heat mode, the zone temperature setpoint has reached the pre-cool or pre-heat target temperature setpoint"
@@ -398,40 +391,40 @@ equation
   connect(TZonSet, lesTSetRebCoo.u1)
     annotation (Line(points={{-280,220},{-200,220},{-200,-190},{-62,-190}},
       color={0,0,127}));
-  connect(TPreTarSet, subTResIntPreHea.u)
+  connect(TPreTarSet, subDTPreHea.u)
     annotation (Line(points={{-280,-80},{-180,-80},{-180,-10},{-142,-10}},
       color={0,0,127}));
-  connect(TPreTarSet, addTResIntPreCoo.u)
+  connect(TPreTarSet, addDTPreCoo.u)
     annotation (Line(points={{-280,-80},{-180,-80},{-180,-50},{-142,-50}},
       color={0,0,127}));
-  connect(TSheTarSet, addTResIntSheHea.u)
+  connect(TSheTarSet, addDTSheHea.u)
     annotation (Line(points={{-280,-160},{-180,-160},{-180,-90},{-142,-90}},
       color={0,0,127}));
-  connect(TSheTarSet, subTResIntSheCoo.u)
+  connect(TSheTarSet, subDTSheCoo.u)
     annotation (Line(points={{-280,-160},{-180,-160},{-180,-130},{-142,-130}},
       color={0,0,127}));
-  connect(TDefSet, subTResIntRebHea.u)
+  connect(TDefSet, subDTRebHea.u)
     annotation (Line(points={{-280,-240},{-180,-240},{-180,-170},{-142,-170}},
       color={0,0,127}));
-  connect(TDefSet, addTResIntRebCoo.u)
+  connect(TDefSet, addDTRebCoo.u)
     annotation (Line(points={{-280,-240},{-180,-240},{-180,-210},{-142,-210}},
       color={0,0,127}));
-  connect(subTResIntPreHea.y, greTSetPreHea.u2)
+  connect(subDTPreHea.y, greTSetPreHea.u2)
     annotation (Line(points={{-118,-10},{-100,-10},{-100,2},{-62,2}},
       color={0,0,127}));
-  connect(addTResIntPreCoo.y, lesTSetPreCoo.u2)
+  connect(addDTPreCoo.y, lesTSetPreCoo.u2)
     annotation (Line(points={{-118,-50},{-100,-50},{-100,-38},{-62,-38}},
       color={0,0,127}));
-  connect(addTResIntSheHea.y, lesTSetSheHea.u2)
+  connect(addDTSheHea.y, lesTSetSheHea.u2)
     annotation (Line(points={{-118,-90},{-100,-90},{-100,-78},{-62,-78}},
       color={0,0,127}));
-  connect(subTResIntSheCoo.y, greTSetSheCoo.u2)
+  connect(subDTSheCoo.y, greTSetSheCoo.u2)
     annotation (Line(points={{-118,-130},{-100,-130},{-100,-118},{-62,-118}},
       color={0,0,127}));
-  connect(subTResIntRebHea.y, greTSetRebHea.u2)
+  connect(subDTRebHea.y, greTSetRebHea.u2)
     annotation (Line(points={{-118,-170},{-100,-170},{-100,-158},{-62,-158}},
       color={0,0,127}));
-  connect(addTResIntRebCoo.y, lesTSetRebCoo.u2)
+  connect(addDTRebCoo.y, lesTSetRebCoo.u2)
     annotation (Line(points={{-118,-210},{-100,-210},{-100,-198},{-62,-198}},
       color={0,0,127}));
   connect(greTSetPreHea.y, reaTPreTarSet.u2)
@@ -632,16 +625,10 @@ or, <code>demFleMod = 2</code> and <code>dTZon &lt; dTSheThr</code>
 </ul>
 <h4>Condition 4</h4>
 <p>
-Because the external temperature setpoint controller has a temperature resolution,
-the setpoint <code>TZonSet</code> can only take a finite set of discrete values.
-Therefore, the temperature resolution interval <code>TResInt</code> is used in the
-following equations. <code>0.99 * TResInt</code> is used to prevent unexpected
-behavior from higher-level logic blocks under edge-case operations, while being less
-than <code>1 * TResInt</code> to achieve the same behavior as when
-<code>TResInt</code> is not used under non-edge-case operations. On the other hand,
-<code>0.5 * TResInt</code> is used as a hysteresis value.
 Condition <i>4</i> is met if the zone temperature setpoint <code>TZonSet</code>
-satisfies any of the following:
+satisfies any of the following, where <code>dT_small</code> is a small temperature
+delta that is used to reduce the effects of rounding errors when comparing
+<code>TZonSet</code> to the target setpoints:
 </p>
 <ul>
 <li>
@@ -649,27 +636,27 @@ satisfies any of the following:
 </li>
 <li>
 or: <code>airConMod = Heating</code>, and <code>demFleMod = 0</code>, and
-<code>TZonSet &lt; TPreTarSet - 0.99 * TResInt - 0.5 * TResInt</code>
+<code>TZonSet &lt; TPreTarSet - dT_small</code>
 </li>
 <li>
 or: <code>airConMod = Heating</code>, and <code>demFleMod = 2</code>, and
-<code>TZonSet &gt; TSheTarSet + 0.99 * TResInt + 0.5 * TResInt</code>
+<code>TZonSet &gt; TSheTarSet + dT_small</code>
 </li>
 <li>
 or: <code>airConMod = Heating</code>, and <code>demFleMod = 3</code>, and
-<code>TZonSet &lt; TDefSet - 0.99 * TResInt - 0.5 * TResInt</code>
+<code>TZonSet &lt; TDefSet - dT_small</code>
 </li>
 <li>
 or: <code>airConMod = Cooling</code>, and <code>demFleMod = 0</code>, and
-<code>TZonSet &gt; TPreTarSet + 0.99 * TResInt + 0.5 * TResInt</code>
+<code>TZonSet &gt; TPreTarSet + dT_small</code>
 </li>
 <li>
 or: <code>airConMod = Cooling</code>, and <code>demFleMod = 2</code>, and
-<code>TZonSet &lt; TSheTarSet - 0.99 * TResInt - 0.5 * TResInt</code>
+<code>TZonSet &lt; TSheTarSet - dT_small</code>
 </li>
 <li>
 or: <code>airConMod = Cooling</code>, and <code>demFleMod = 3</code>, and
-<code>TZonSet &gt; TDefSet + 0.99 * TResInt + 0.5 * TResInt</code>
+<code>TZonSet &gt; TDefSet + dT_small</code>
 </li>
 </ul>
 </html>"));

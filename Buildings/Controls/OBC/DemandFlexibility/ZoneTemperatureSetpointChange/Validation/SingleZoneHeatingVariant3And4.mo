@@ -31,13 +31,12 @@ model SingleZoneHeatingVariant3And4
     "Block to generate zone setpoints and setpoint targets that vary with time"
     annotation (Placement(transformation(extent={{-120,-140},{-100,-120}})));
   Buildings.Controls.OBC.DemandFlexibility.ZoneTemperatureSetpointChange.Controller setChaConHeaVar3(
+    dTPre=0.5,
     dTShe=0.5,
     dTReb=0.5,
     dTSheThr=0.5,
-    dTSheHys=0.5,
     PBui_nominal=2000,
     PBuiThrCon=1000,
-    TResInt=0.5,
     setChaWaiTim=300,
     airConMod=Buildings.Controls.OBC.DemandFlexibility.Types.AirConditioningMode.Heating,
     nZon=1,
@@ -59,12 +58,11 @@ model SingleZoneHeatingVariant3And4
     annotation (Placement(transformation(extent={{-10,-10},{10,10}}, rotation=0,
       origin={50,-70})));
   Buildings.Controls.OBC.DemandFlexibility.ZoneTemperatureSetpointChange.Controller setChaConHeaVar4(
+    dTPre=0.5,
     dTShe=0.5,
     dTReb=0.5,
     dTSheThr=0.5,
-    dTSheHys=0.5,
     PBui_nominal=2000,
-    TResInt=0.5,
     setChaWaiTim=300,
     airConMod=Buildings.Controls.OBC.DemandFlexibility.Types.AirConditioningMode.Heating,
     nZon=1,
@@ -72,14 +70,6 @@ model SingleZoneHeatingVariant3And4
     zonConVar=Buildings.Controls.OBC.DemandFlexibility.Types.ZoneControlVariant.Variant_4)
     "A zone temperature setpoint change controller for heating under Variant 4 of zone control"
     annotation (Placement(transformation(extent={{0,-88},{20,-52}})));
-  Buildings.Controls.OBC.DemandFlexibility.Generic.SetpointResolution setResVar3(
-    resInt=0.1,
-    refSet=293.15) "Add setpoint resolution for Variant 3 of zone control"
-    annotation (Placement(transformation(extent={{80,60},{100,80}})));
-  Buildings.Controls.OBC.DemandFlexibility.Generic.SetpointResolution setResVar4(
-    resInt=0.1,
-    refSet=293.15) "Add setpoint resolution for Variant 4 of zone control"
-    annotation (Placement(transformation(extent={{80,-80},{100,-60}})));
   Buildings.Controls.OBC.CDL.Reals.Sources.Sin PBui(
     amplitude=200,
     freqHz=1/86400,
@@ -131,16 +121,6 @@ equation
     annotation (Line(points={{22,70},{38,70}}, color={0,0,127}));
   connect(setChaConHeaVar4.TComZonSet[1],delTZonSetVar4. u)
     annotation (Line(points={{22,-70},{38,-70}}, color={0,0,127}));
-  connect(delTZonSetVar3.y,setResVar3. uSet)
-    annotation (Line(points={{62,70},{78,70}}, color={0,0,127}));
-  connect(setResVar3.ySet,setChaConHeaVar3. TCurZonSet[1])
-    annotation (Line(points={{102,70},{120,70},{120,40},{-10,40},{-10,70},{-2,70}},
-      color={0,0,127}));
-  connect(delTZonSetVar4.y,setResVar4. uSet)
-    annotation (Line(points={{62,-70},{78,-70}}, color={0,0,127}));
-  connect(setResVar4.ySet,setChaConHeaVar4. TCurZonSet[1])
-    annotation (Line(points={{102,-70},{120,-70},{120,-100},{-10,-100},{-10,-70},
-      {-2,-70}}, color={0,0,127}));
   connect(PBui.y, setChaConHeaVar3.PBui)
     annotation (Line(points={{-98,90},{-70,90},{-70,82},{-2,82}}, color={0,0,127}));
   connect(PBui.y, setChaConHeaVar4.PBui)
@@ -149,6 +129,12 @@ equation
   connect(PBuiThrVar.y, setChaConHeaVar4.PBuiThrVar)
     annotation (Line(points={{-98,-90},{-90,-90},{-90,-62},{-2,-62}},
       color={0,0,127}));
+  connect(delTZonSetVar3.y, setChaConHeaVar3.TCurZonSet[1]) annotation (Line(
+        points={{62,70},{100,70},{100,40},{-10,40},{-10,70},{-2,70}}, color={0,
+          0,127}));
+  connect(delTZonSetVar4.y, setChaConHeaVar4.TCurZonSet[1]) annotation (Line(
+        points={{62,-70},{100,-70},{100,-100},{-10,-100},{-10,-70},{-2,-70}},
+        color={0,0,127}));
   annotation (experiment(StopTime=172800, Interval=60, Tolerance=1e-06),
   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/DemandFlexibility/ZoneTemperatureSetpointChange/Validation/SingleZoneHeatingVariant3And4.mos"
     "Simulate and plot"),

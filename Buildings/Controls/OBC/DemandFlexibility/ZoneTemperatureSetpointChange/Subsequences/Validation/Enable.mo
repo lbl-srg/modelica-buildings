@@ -4,9 +4,7 @@ model Enable "Zone enablement"
   Buildings.Controls.OBC.DemandFlexibility.ZoneTemperatureSetpointChange.Subsequences.Enable
     zonEna(
     dTSheThr=0.5,
-    dTSheHys=0.5,
     PBui_nominal=1000,
-    TResInt=0.5,
     airConMod=Buildings.Controls.OBC.DemandFlexibility.Types.AirConditioningMode.Heating,
     use_demCon=true,
     nZon=5) "Zone enablement block"

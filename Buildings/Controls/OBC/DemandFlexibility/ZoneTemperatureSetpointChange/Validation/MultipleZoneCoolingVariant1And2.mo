@@ -42,11 +42,10 @@ model MultipleZoneCoolingVariant1And2
     annotation (Placement(transformation(extent={{-10,-10},{10,10}}, rotation=0,
       origin={90,-110})));
   Buildings.Controls.OBC.DemandFlexibility.ZoneTemperatureSetpointChange.Controller setChaConCooVar2(
+    dTPre=0.5,
     dTShe=0.5,
     dTReb=0.5,
     dTSheThr=0.5,
-    dTSheHys=0.5,
-    TResInt=0.5,
     setChaWaiTim=150,
     airConMod=Buildings.Controls.OBC.DemandFlexibility.Types.AirConditioningMode.Cooling,
     nZon=nZon,
@@ -54,11 +53,6 @@ model MultipleZoneCoolingVariant1And2
     zonConVar=Buildings.Controls.OBC.DemandFlexibility.Types.ZoneControlVariant.Variant_2)
     "A zone temperature setpoint change controller for cooling under Variant 2 of zone control"
     annotation (Placement(transformation(extent={{40,-128},{60,-92}})));
-  Buildings.Controls.OBC.DemandFlexibility.Generic.SetpointResolution setResVar2[nZon](
-    resInt=fill(0.1, nZon),
-    refSet=fill(293.15, nZon))
-    "Add setpoint resolution for Variant 2 of zone control"
-    annotation (Placement(transformation(extent={{120,-120},{140,-100}})));
   Buildings.Controls.OBC.CDL.Routing.BooleanScalarReplicator rouZonFlaRep(nout=nZon)
     "Replicate the rogue zone flag"
     annotation (Placement(transformation(extent={{-100,100},{-80,120}})));
@@ -78,11 +72,7 @@ model MultipleZoneCoolingVariant1And2
     "Replicate the default cooling temperature setpoint"
     annotation (Placement(transformation(extent={{-80,-140},{-60,-120}})));
   Buildings.Controls.OBC.DemandFlexibility.ZoneTemperatureSetpointChange.Controller setChaConCooVar1(
-    dTShe=0.5,
-    dTReb=0.5,
     dTSheThr=0.5,
-    dTSheHys=0.5,
-    TResInt=0.5,
     setChaWaiTim=600,
     airConMod=Buildings.Controls.OBC.DemandFlexibility.Types.AirConditioningMode.Cooling,
     nZon=nZon,
@@ -96,11 +86,6 @@ model MultipleZoneCoolingVariant1And2
     "Emulates an external zone temperature setpoint controller that has a small delay of setpoint change after a new setpoint is received; used for Variant 1 of zone control"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}}, rotation=0,
       origin={90,110})));
-  Buildings.Controls.OBC.DemandFlexibility.Generic.SetpointResolution setResVar1[nZon](
-    resInt=fill(0.1, nZon),
-    refSet=fill(293.15, nZon))
-    "Add setpoint resolution for Variant 1 of zone control"
-    annotation (Placement(transformation(extent={{120,100},{140,120}})));
 equation
   connect(rouZonFla.y, rouZonFlaRep.u)
     annotation (Line(points={{-118,110},{-102,110}}, color={255,0,255}));
@@ -111,8 +96,6 @@ equation
     annotation (Line(points={{-118,50},{-102,50}}, color={0,0,127}));
   connect(setChaConCooVar2.TComZonSet, delTZonSetVar2.u)
     annotation (Line(points={{62,-110},{78,-110}}, color={0,0,127}));
-  connect(delTZonSetVar2.y, setResVar2.uSet)
-    annotation (Line(points={{102,-110},{118,-110}}, color={0,0,127}));
   connect(TCurZonRep.y, TBia.u)
     annotation (Line(points={{-78,50},{-62,50}}, color={0,0,127}));
   connect(TBia.y, setChaConCooVar2.TCurZon)
@@ -139,20 +122,11 @@ equation
   connect(TDefCooSetRep.y, setChaConCooVar2.TDefSet)
     annotation (Line(points={{-58,-130},{20,-130},{20,-126},{38,-126}},
       color={0,0,127}));
-  connect(setResVar2.ySet, setChaConCooVar2.TCurZonSet)
-    annotation (Line(points={{142,-110},{150,-110},{150,-140},{30,-140},{30,-110},
-      {38,-110}}, color={0,0,127}));
   connect(rouZonFlaRep.y, setChaConCooVar1.rouZonFla)
     annotation (Line(points={{-78,110},{-30,110},{-30,126},{38,126}},
       color={255,0,255}));
   connect(setChaConCooVar1.TComZonSet, delTZonSetVar1.u)
     annotation (Line(points={{62,110},{78,110}}, color={0,0,127}));
-  connect(delTZonSetVar1.y, setResVar1.uSet)
-    annotation (Line(points={{102,110},{112,110},{112,110},{118,110}},
-      color={0,0,127}));
-  connect(setResVar1.ySet, setChaConCooVar1.TCurZonSet)
-    annotation (Line(points={{142,110},{150,110},{150,80},{30,80},{30,110},{38,110}},
-      color={0,0,127}));
   connect(tabDemFleMod.y[1], setChaConCooVar1.demFleMod)
     annotation (Line(points={{-118,-10},{-10,-10},{-10,106},{38,106}},
       color={255,127,0}));
@@ -166,6 +140,12 @@ equation
   connect(TDefCooSetRep.y, setChaConCooVar1.TDefSet)
     annotation (Line(points={{-58,-130},{20,-130},{20,94},{38,94}},
       color={0,0,127}));
+  connect(delTZonSetVar1.y, setChaConCooVar1.TCurZonSet) annotation (Line(
+        points={{102,110},{140,110},{140,80},{30,80},{30,110},{38,110}}, color={
+          0,0,127}));
+  connect(delTZonSetVar2.y, setChaConCooVar2.TCurZonSet) annotation (Line(
+        points={{102,-110},{140,-110},{140,-140},{30,-140},{30,-110},{38,-110}},
+        color={0,0,127}));
   annotation (experiment(
       StartTime=43200,
       StopTime=86400,

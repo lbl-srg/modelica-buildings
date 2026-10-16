@@ -31,11 +31,7 @@ model SingleZoneCoolingVariant1And2
     "Block to generate zone setpoints and setpoint targets that vary with time"
     annotation (Placement(transformation(extent={{-120,-140},{-100,-120}})));
   Buildings.Controls.OBC.DemandFlexibility.ZoneTemperatureSetpointChange.Controller setChaConCooVar1(
-    dTShe=0.5,
-    dTReb=0.5,
     dTSheThr=0.5,
-    dTSheHys=0.5,
-    TResInt=0.5,
     setChaWaiTim=300,
     airConMod=Buildings.Controls.OBC.DemandFlexibility.Types.AirConditioningMode.Cooling,
     nZon=1,
@@ -57,11 +53,10 @@ model SingleZoneCoolingVariant1And2
     annotation (Placement(transformation(extent={{-10,-10},{10,10}}, rotation=0,
       origin={50,-70})));
   Buildings.Controls.OBC.DemandFlexibility.ZoneTemperatureSetpointChange.Controller setChaConCooVar2(
+    dTPre=0.5,
     dTShe=0.5,
     dTReb=0.5,
     dTSheThr=0.5,
-    dTSheHys=0.5,
-    TResInt=0.5,
     setChaWaiTim=300,
     airConMod=Buildings.Controls.OBC.DemandFlexibility.Types.AirConditioningMode.Cooling,
     nZon=1,
@@ -69,25 +64,15 @@ model SingleZoneCoolingVariant1And2
     zonConVar=Buildings.Controls.OBC.DemandFlexibility.Types.ZoneControlVariant.Variant_2)
     "A zone temperature setpoint change controller for cooling under Variant 2 of zone control"
     annotation (Placement(transformation(extent={{0,-88},{20,-52}})));
-  Buildings.Controls.OBC.DemandFlexibility.Generic.SetpointResolution setResVar1(
-    resInt=0.1,
-    refSet=293.15)
-    "Add setpoint resolution for Variant 1 of zone control"
-    annotation (Placement(transformation(extent={{80,60},{100,80}})));
-  Buildings.Controls.OBC.DemandFlexibility.Generic.SetpointResolution setResVar2(
-    resInt=0.1,
-    refSet=293.15)
-    "Add setpoint resolution for Variant 2 of zone control"
-    annotation (Placement(transformation(extent={{80,-80},{100,-60}})));
 equation
   connect(zonSetGen.TPreTarCooSet, setChaConCooVar1.TPreTarSet[1])
     annotation (Line(points={{-98,-132},{-40,-132},{-40,62},{-2,62}},
       color={0,0,127}));
   connect(zonSetGen.TSheTarCooSet, setChaConCooVar1.TSheTarSet[1])
-    annotation (Line(points={{-98,-136},{-30,-136},{-30,58},{-2,58}},
+    annotation (Line(points={{-98,-135},{-30,-135},{-30,58},{-2,58}},
       color={0,0,127}));
   connect(zonSetGen.TDefCooSet, setChaConCooVar1.TDefSet[1])
-    annotation (Line(points={{-98,-140},{-20,-140},{-20,54},{-2,54}},
+    annotation (Line(points={{-98,-138},{-20,-138},{-20,54},{-2,54}},
       color={0,0,127}));
   connect(tabDemFleMod.y[1], setChaConCooVar1.demFleMod)
     annotation (Line(points={{-98,-10},{-60,-10},{-60,66},{-2,66}},
@@ -101,10 +86,10 @@ equation
     annotation (Line(points={{-98,-132},{-40,-132},{-40,-78},{-2,-78}},
       color={0,0,127}));
   connect(zonSetGen.TSheTarCooSet, setChaConCooVar2.TSheTarSet[1])
-    annotation (Line(points={{-98,-136},{-30,-136},{-30,-82},{-2,-82}},
+    annotation (Line(points={{-98,-135},{-30,-135},{-30,-82},{-2,-82}},
       color={0,0,127}));
   connect(zonSetGen.TDefCooSet, setChaConCooVar2.TDefSet[1])
-    annotation (Line(points={{-98,-140},{-20,-140},{-20,-86},{-2,-86}},
+    annotation (Line(points={{-98,-138},{-20,-138},{-20,-86},{-2,-86}},
       color={0,0,127}));
   connect(rouZonFla.y, setChaConCooVar2.rouZonFla[1])
     annotation (Line(points={{-98,110},{-50,110},{-50,-54},{-2,-54}},
@@ -119,16 +104,12 @@ equation
     annotation (Line(points={{22,70},{38,70}}, color={0,0,127}));
   connect(setChaConCooVar2.TComZonSet[1], delTZonSetVar2.u)
     annotation (Line(points={{22,-70},{38,-70}}, color={0,0,127}));
-  connect(delTZonSetVar1.y, setResVar1.uSet)
-    annotation (Line(points={{62,70},{78,70}}, color={0,0,127}));
-  connect(setResVar1.ySet, setChaConCooVar1.TCurZonSet[1])
-    annotation (Line(points={{102,70},{120,70},{120,40},{-10,40},{-10,70},{-2,70}},
-      color={0,0,127}));
-  connect(delTZonSetVar2.y, setResVar2.uSet)
-    annotation (Line(points={{62,-70},{78,-70}}, color={0,0,127}));
-  connect(setResVar2.ySet, setChaConCooVar2.TCurZonSet[1])
-    annotation (Line(points={{102,-70},{120,-70},{120,-100},{-10,-100},{-10,-70},
-      {-2,-70}}, color={0,0,127}));
+  connect(delTZonSetVar1.y, setChaConCooVar1.TCurZonSet[1]) annotation (Line(
+        points={{62,70},{100,70},{100,40},{-10,40},{-10,70},{-2,70}}, color={0,0,
+          127}));
+  connect(delTZonSetVar2.y, setChaConCooVar2.TCurZonSet[1]) annotation (Line(
+        points={{62,-70},{100,-70},{100,-100},{-10,-100},{-10,-70},{-2,-70}},
+        color={0,0,127}));
   annotation (experiment(StopTime=172800, Interval=60, Tolerance=1e-06),
   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/DemandFlexibility/ZoneTemperatureSetpointChange/Validation/SingleZoneCoolingVariant1And2.mos"
     "Simulate and plot"),
