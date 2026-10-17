@@ -89,6 +89,19 @@ that can lead to wrong simulation results):
     <code>PropyleneGlycolWater.prandtlNumber_TX_a</code>.
     </td>
 </tr>
+<tr><td colspan=\"2\"><b>Buildings.Fluid.DataCenters.CDUs.LiquidToLiquid.Data</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Fluid.DataCenters.CDUs.LiquidToLiquid.Data.Generic_2MW<br/>
+                       Buildings.Fluid.DataCenters.CDUs.LiquidToLiquid.Data.GoogleProjectDeschutes_2MW<br/>
+                       Buildings.Fluid.DataCenters.CDUs.LiquidToLiquid.Data.VertivLiebertXDU1350
+    </td>
+    <td valign=\"top\">Corrected sign of <code>Q_flow_nominal</code>, which must be negative.
+                       For <code>GoogleProjectDeschutes_2MW</code>, added the nominal mass flow rates
+                       listed in its documentation.<br/>
+                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4787\">Buildings, #4787</a>.
+    </td>
+</tr>
 </table>
 <!-- Uncritical errors -->
 <p>
