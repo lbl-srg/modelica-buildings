@@ -22,7 +22,8 @@ partial model PartialBoiler "Boiler base class with efficiency unspecified"
       Dialog(tab="Dynamics", enable=not (energyDynamics == Modelica.Fluid.Types.Dynamics.SteadyState)));
   parameter Modelica.Units.SI.Efficiency eta_nominal
     "Boiler efficiency at nominal condition, useful heat divided by fuel use";
-
+  parameter Modelica.Units.SI.Temperature TAmb_nominal(displayUnit="degC") = 288.15
+    "Ambient temperature, used only if heatPort is unconnected";
 
   final parameter Modelica.Units.SI.HeatFlowRate QFue_flow_nominal = Q_flow_nominal / eta_nominal
     "Fuel use at nominal conditions";
@@ -37,7 +38,7 @@ partial model PartialBoiler "Boiler base class with efficiency unspecified"
   Modelica.Units.SI.HeatFlowRate QExh_flow = -QFue_flow + QWat_flow
     "Heat exhausted by flu gas (negative)";
 
-  Modelica.Units.SI.Power QAmb_flow = UAOve.Q_flow
+  Modelica.Units.SI.Power QAmb_flow = UAOve.Q_flow + QHeaLosAmb.y
     "Heat loss to ambient (negative)";
 
   Modelica.Units.SI.Power QWat_flow=QUse_flow - QAmb_flow
@@ -63,7 +64,6 @@ partial model PartialBoiler "Boiler base class with efficiency unspecified"
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a heatPort
     "Heat port, can be used to connect to ambient"
     annotation (
-      mustBeConnected = "heatPort must be connected to account for heat loss.",
       Placement(transformation(extent={{-10,62}, {10,82}})));
   Modelica.Thermal.HeatTransfer.Components.HeatCapacitor heaCapDry(
     C=500*mDry,
@@ -87,20 +87,13 @@ partial model PartialBoiler "Boiler base class with efficiency unspecified"
     annotation (Placement(transformation(extent={{-48,10},{-28,30}})));
 
 protected
-  final parameter Boolean has_connectionToAmbient(fixed=false)
-    "True if heatPort is connected to ambient, false otherwise";
-
-  HeatTransfer.Sources.FixedTemperature bouTAmb(
-    T=TAmb_nominal)
-    if not has_connectionToAmbient
-    "Ambient temperature in boiler room (if heatPort is unconnected)"
-    annotation (Placement(transformation(extent={{-80,50},{-60,70}})));
-initial equation
-  if cardinality(heatPort) == 0 then
-    has_connectionToAmbient = false;
-  else
-    has_connectionToAmbient = true;
-  end if;
+  Modelica.Blocks.Sources.RealExpression QHeaLosAmb(
+    y(final unit="W")=if cardinality(heatPort) > 1 then 0 else UA*(TAmb_nominal - vol.heatPort.T))
+    "Heat loss to ambient (set to 0 if heatPort is connected)"
+    annotation (Placement(transformation(extent={{-80,-66},{-60,-46}})));
+  HeatTransfer.Sources.PrescribedHeatFlow preHeaFloAmb
+    "Prescribed heat flow for loss to ambient (set to 0 if heatPort is connected)"
+    annotation (Placement(transformation(extent={{-41,-66},{-21,-46}})));
 
 equation
   assert(eta > 0.001, "Efficiency curve is wrong.");
@@ -133,8 +126,10 @@ equation
       points={{-9,-10},{-16,-10},{-16,40},{0,40}},
       color={191,0,0},
       smooth=Smooth.None));
-  connect(bouTAmb.port, UAOve.port_a) annotation (Line(points={{-60,60},{-52,60},
-          {-52,20},{-48,20}}, color={191,0,0}));
+  connect(QHeaLosAmb.y, preHeaFloAmb.Q_flow)
+    annotation (Line(points={{-59,-56},{-41,-56}}, color={0,0,127}));
+  connect(preHeaFloAmb.port, vol.heatPort) annotation (Line(points={{-21,-56},{-14,
+          -56},{-14,-10},{-9,-10}}, color={191,0,0}));
   annotation ( Icon(graphics={
         Polygon(
           points={{0,-34},{-12,-52},{14,-52},{0,-34}},
@@ -174,7 +169,8 @@ October 11, 2026, by Michael Wetter:<br/>
 Corrected bug that led to heat loss of boiler to be accounted twice in the energy balance.
 This implmentation uses the <code>cardinality</code> function which is deprecated
 in later versions of Modelica.
-The Modelica Buildings Library version 15 will require connecting the heat port to the ambient.<br/>
+The Modelica Buildings Library version 15 will require connecting the heat port to the ambient,
+and no longer uses the <code>cardinality</code> function.<br/>
 This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4775\">
 #4775</a>.
 </li>
