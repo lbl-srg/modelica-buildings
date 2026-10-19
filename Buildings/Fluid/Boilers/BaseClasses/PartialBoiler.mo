@@ -34,13 +34,6 @@ partial model PartialBoiler "Boiler base class with efficiency unspecified"
 
   input Modelica.Units.SI.Efficiency eta "Boiler efficiency, useful heat divided by fuel use";
 
-  // The direction of UAOve.Q_flow is from the ambient to the boiler
-  //   and therefore it takes a plus sign here.
-  // eta and eta_nominal is the ratio of useful heat (enthalpy stream difference of
-  // working fluid between inlet and outlet).
-  // Hence, the term QFue_flow must add an additional heat flow to cover
-  // the conduction losses from the water through the boiler insulation into the ambient
-  // air
   Modelica.Units.SI.HeatFlowRate QFue_flow=y*QFue_flow_nominal
     "Heat released by fuel";
   Modelica.Units.SI.HeatFlowRate QUse_flow=eta*QFue_flow
