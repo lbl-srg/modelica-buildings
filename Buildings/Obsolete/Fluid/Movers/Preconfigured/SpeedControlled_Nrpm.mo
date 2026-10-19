@@ -34,7 +34,7 @@ obsolete = "Obsolete model - use Buildings.Fluid.Movers.Preconfigured.SpeedContr
 Documentation(info="<html>
 <p>
 This model is the preconfigured version for
-<a href=\"Modelica://Buildings.Obsolete.Fluid.Movers.SpeedControlled_Nrpm\">
+<a href=\"modelica://Buildings.Obsolete.Fluid.Movers.SpeedControlled_Nrpm\">
 Buildings.Obsolete.Fluid.Movers.SpeedControlled_Nrpm</a>.
 </html>", revisions="<html>
 <ul>
