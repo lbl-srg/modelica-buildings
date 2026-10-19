@@ -11,7 +11,12 @@ The main equations are computed in the base class
 Buildings.Fluid.Boilers.BaseClasses.PartialBoiler</a>
 and the efficiency is described in the extended models
 using different methods.
+For all methods, the Sankey diagram of the heat loss is as shown below.
 </p>
+<p align=\"center\">
+<img alt=\"image\" src=\"modelica://Buildings/Resources/Images/Fluid/Boilers/sankey.png\" width=\"50%\"/>
+</p>
+
 <p>
 The heat of combustion released by the fuel is computed as
 </p>
