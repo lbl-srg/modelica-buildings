@@ -13,9 +13,6 @@ partial model PartialBoiler "Boiler base class with efficiency unspecified"
   parameter Modelica.Units.SI.ThermalConductance UA=0.05*Q_flow_nominal/30
     "Overall UA value"
     annotation(Dialog(group="Heat loss to ambient"));
-//fixme  parameter Modelica.Units.SI.Temperature TAmb = 288.15
-//    "Ambient temperature used to compute heat loss if heatPort is unconnected"
-//    annotation(Dialog(group="Heat loss to ambient"));
 
   parameter Modelica.Units.SI.Volume VWat=1.5E-6*Q_flow_nominal
     "Water volume of boiler" annotation (Dialog(tab="Dynamics", enable=not (
@@ -29,8 +26,6 @@ partial model PartialBoiler "Boiler base class with efficiency unspecified"
 
   final parameter Modelica.Units.SI.HeatFlowRate QFue_flow_nominal = Q_flow_nominal / eta_nominal
     "Fuel use at nominal conditions";
-//  final parameter Modelica.Units.SI.HeatFlowRate QAmb_flow_nominal(max=0) = UA*(TAmb_nominal-TWat_nominal)
-//    "Heat loss to ambient at nominal conditions";
 
   input Modelica.Units.SI.Efficiency eta "Boiler efficiency, useful heat divided by fuel use";
 
@@ -42,7 +37,7 @@ partial model PartialBoiler "Boiler base class with efficiency unspecified"
   Modelica.Units.SI.HeatFlowRate QExh_flow = -QFue_flow + QWat_flow
     "Heat exhausted by flu gas (negative)";
 
-  Modelica.Units.SI.Power QAmb_flow = UAOve.Q_flow
+  Modelica.Units.SI.Power QAmb_flow = heatPort.Q_flow
     "Heat loss to ambient (negative)";
 
   Modelica.Units.SI.Power QWat_flow=QUse_flow - QAmb_flow
@@ -91,14 +86,6 @@ partial model PartialBoiler "Boiler base class with efficiency unspecified"
     "Overall thermal conductance (if heatPort is connected)"
     annotation (Placement(transformation(extent={{-48,10},{-28,30}})));
 
-protected
-//fixme  final parameter Boolean has_connectionToAmbient = xxx
-//    "True if heatPort is connected to ambient, false otherwise";
-//  HeatTransfer.Sources.FixedTemperature bouTAmb(
-//    T=TAmb)
-//    if not has_connectionToAmbient
-//#    "Ambient temperature in boiler room (if heatPort is unconnected)"
-//    annotation (Placement(transformation(extent={{-80,50},{-60,70}})));
 equation
   assert(eta > 0.001, "Efficiency curve is wrong.");
 
