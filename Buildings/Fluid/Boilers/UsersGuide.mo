@@ -37,6 +37,7 @@ The heat transferred to the working fluid (typically water or air) is
 where <i>&eta;</i> is the efficiency at the current operating point
 and <i>Q&#775;<sub>amb</sub> > 0</i> is the heat loss from the boiler
 to the ambient.
+</p>
 <p>
 <i>Q&#775;<sub>amb</sub></i> is considered only when the port <code>heatPort</code>
 is connected to a heat port outside of this model
