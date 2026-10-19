@@ -41,7 +41,7 @@ equation
 <p>
 This is a model of a boiler whose efficiency is described
 by a table with control signal and inlet temperature.
-See <a href=\"Modelica://Buildings.Fluid.Boilers.UsersGuide\">
+See <a href=\"modelica://Buildings.Fluid.Boilers.UsersGuide\">
 Buildings.Fluid.Boilers.UsersGuide</a> for details.
 </p>
 <p>
