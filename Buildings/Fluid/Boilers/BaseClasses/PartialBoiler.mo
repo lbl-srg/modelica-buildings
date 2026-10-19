@@ -9,9 +9,11 @@ partial model PartialBoiler "Boiler base class with efficiency unspecified"
    annotation (choicesAllMatching = true);
 
   // These parameters can be supplied via Data records
-  parameter Modelica.Units.SI.Power Q_flow_nominal "Nominal heating power";
+  parameter Modelica.Units.SI.HeatFlowRate Q_flow_nominal(min=0) "Nominal heating power (useful heat)";
   parameter Modelica.Units.SI.ThermalConductance UA=0.05*Q_flow_nominal/30
-    "Overall UA value";
+    "Overall UA value"
+    annotation(Dialog(group="Heat loss to ambient"));
+
   parameter Modelica.Units.SI.Volume VWat=1.5E-6*Q_flow_nominal
     "Water volume of boiler" annotation (Dialog(tab="Dynamics", enable=not (
           energyDynamics == Modelica.Fluid.Types.Dynamics.SteadyState)));
@@ -19,15 +21,30 @@ partial model PartialBoiler "Boiler base class with efficiency unspecified"
     "Mass of boiler that will be lumped to water heat capacity" annotation (
       Dialog(tab="Dynamics", enable=not (energyDynamics == Modelica.Fluid.Types.Dynamics.SteadyState)));
   parameter Modelica.Units.SI.Efficiency eta_nominal
-    "Boiler efficiency at nominal condition";
+    "Boiler efficiency at nominal condition, useful heat divided by fuel use";
+  parameter Modelica.Units.SI.Temperature TAmb_nominal(displayUnit="degC") = 288.15
+    "Ambient temperature, used only if heatPort is unconnected";
 
-  input Modelica.Units.SI.Efficiency eta "Boiler efficiency";
-  Modelica.Units.SI.Power QFue_flow=y*Q_flow_nominal/eta_nominal
+  final parameter Modelica.Units.SI.HeatFlowRate QFue_flow_nominal = Q_flow_nominal / eta_nominal
+    "Fuel use at nominal conditions";
+
+  input Modelica.Units.SI.Efficiency eta "Boiler efficiency, useful heat divided by fuel use";
+
+  Modelica.Units.SI.HeatFlowRate QFue_flow=y*QFue_flow_nominal
     "Heat released by fuel";
-  Modelica.Units.SI.Power QWat_flow=eta*QFue_flow + UAOve.Q_flow
-    "Heat transfer from gas into water";
-    // The direction of UAOve.Q_flow is from the ambient to the boiler
-    //   and therefore it takes a plus sign here.
+  Modelica.Units.SI.HeatFlowRate QUse_flow=eta*QFue_flow
+    "Useful heat for exchange with fluid ports";
+
+  Modelica.Units.SI.HeatFlowRate QExh_flow = -QFue_flow + QWat_flow
+    "Heat exhausted by flu gas (negative)";
+
+  Modelica.Units.SI.Power QAmb_flow = UAOve.Q_flow + QHeaLosAmb.y
+    "Heat loss to ambient (negative)";
+
+  Modelica.Units.SI.Power QWat_flow=QUse_flow - QAmb_flow
+    "Heat transfer from gas into water (from where some heat is lost to ambient)";
+
+
   Modelica.Units.SI.MassFlowRate mFue_flow=QFue_flow/fue.h
     "Fuel mass flow rate";
   Modelica.Units.SI.VolumeFlowRate VFue_flow=mFue_flow/fue.d
@@ -46,7 +63,8 @@ partial model PartialBoiler "Boiler base class with efficiency unspecified"
 
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a heatPort
     "Heat port, can be used to connect to ambient"
-    annotation (Placement(transformation(extent={{-10,62}, {10,82}})));
+    annotation (
+      Placement(transformation(extent={{-10,62}, {10,82}})));
   Modelica.Thermal.HeatTransfer.Components.HeatCapacitor heaCapDry(
     C=500*mDry,
     T(start=T_start))
@@ -65,8 +83,17 @@ partial model PartialBoiler "Boiler base class with efficiency unspecified"
     annotation (Placement(transformation(extent={{0,30},{20,50}})));
 
   Modelica.Thermal.HeatTransfer.Components.ThermalConductor UAOve(G=UA)
-    "Overall thermal conductance (if heatPort is connected)"
+    "Overall thermal conductance"
     annotation (Placement(transformation(extent={{-48,10},{-28,30}})));
+
+protected
+  Modelica.Blocks.Sources.RealExpression QHeaLosAmb(
+    y(final unit="W")=if cardinality(heatPort) > 1 then 0 else UA*(TAmb_nominal - vol.heatPort.T))
+    "Heat loss to ambient (set to 0 if heatPort is connected)"
+    annotation (Placement(transformation(extent={{-80,-66},{-60,-46}})));
+  HeatTransfer.Sources.PrescribedHeatFlow preHeaFloAmb
+    "Prescribed heat flow for loss to ambient (set to 0 if heatPort is connected)"
+    annotation (Placement(transformation(extent={{-41,-66},{-21,-46}})));
 
 equation
   assert(eta > 0.001, "Efficiency curve is wrong.");
@@ -99,6 +126,10 @@ equation
       points={{-9,-10},{-16,-10},{-16,40},{0,40}},
       color={191,0,0},
       smooth=Smooth.None));
+  connect(QHeaLosAmb.y, preHeaFloAmb.Q_flow)
+    annotation (Line(points={{-59,-56},{-41,-56}}, color={0,0,127}));
+  connect(preHeaFloAmb.port, vol.heatPort) annotation (Line(points={{-21,-56},{-14,
+          -56},{-14,-10},{-9,-10}}, color={191,0,0}));
   annotation ( Icon(graphics={
         Polygon(
           points={{0,-34},{-12,-52},{14,-52},{0,-34}},
@@ -133,6 +164,16 @@ Buildings.Fluid.Boilers.UsersGuide</a> for details.
 </html>",
 revisions="<html>
 <ul>
+<li>
+October 11, 2026, by Michael Wetter:<br/>
+Corrected bug that led to heat loss of boiler to be accounted twice in the energy balance.
+This implmentation uses the <code>cardinality</code> function which is deprecated
+in later versions of Modelica.
+The Modelica Buildings Library version 15 will require connecting the heat port to the ambient,
+and no longer uses the <code>cardinality</code> function.<br/>
+This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4775\">
+#4775</a>.
+</li>
 <li>
 November 10, 2021, by Hongxiang Fu:<br/>
 The heating power output of the boiler is now corrected
