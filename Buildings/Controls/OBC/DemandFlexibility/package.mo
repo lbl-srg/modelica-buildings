@@ -7,7 +7,6 @@ package DemandFlexibility "Demand flexibility control sequences"
 This package contains demand flexibility control sequences that use zone temperature
 setpoint control.
 </p>
-</html>",revisions="<html>
 </html>"),
     Icon(
       coordinateSystem(
