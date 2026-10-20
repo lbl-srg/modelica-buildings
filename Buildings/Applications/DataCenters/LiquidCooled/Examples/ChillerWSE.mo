@@ -672,12 +672,12 @@ public
     redeclare package Medium = MediumChi,
     allowFlowReversal=false,
     m_flow_nominal=mPla_flow_nominal) "Pipe at CDU inlet"
-    annotation (Placement(transformation(extent={{-190,110},{-170,130}})));
+    annotation (Placement(transformation(extent={{-200,110},{-180,130}})));
   Pipe pipCDUOut(
     redeclare package Medium = MediumChi,
     allowFlowReversal=false,
     m_flow_nominal=mPla_flow_nominal) "Pipe at CDU outlet"
-    annotation (Placement(transformation(extent={{150,110},{170,130}})));
+    annotation (Placement(transformation(extent={{140,110},{160,130}})));
   Pipe pipRacIn(
     redeclare package Medium = MediumRac,
     allowFlowReversal=false,
@@ -687,7 +687,7 @@ public
     redeclare package Medium = MediumRac,
     allowFlowReversal=false,
     m_flow_nominal=mRac_flow_nominal) "Pipe at rack outlet"
-    annotation (Placement(transformation(extent={{138,-110},{158,-90}})));
+    annotation (Placement(transformation(extent={{142,-110},{162,-90}})));
 protected
   parameter Modelica.Units.SI.SpecificHeatCapacity cpAir_default=
       MediumAir.specificHeatCapacityCp(staAir_default)
@@ -916,21 +916,23 @@ equation
   connect(pipTowOut.port_b, jun1.port_1) annotation (Line(points={{140,620},{180,
           620},{180,540},{170,540}}, color={0,127,255}));
   connect(senTCDU_a.port_a, pipCDUIn.port_b)
-    annotation (Line(points={{-50,120},{-170,120}}, color={0,127,255}));
-  connect(pipCDUIn.port_a, jun5.port_2) annotation (Line(points={{-190,120},{-200,
-          120},{-200,220},{-190,220}}, color={0,127,255}));
+    annotation (Line(points={{-50,120},{-180,120}}, color={0,127,255}));
+  connect(pipCDUIn.port_a, jun5.port_2) annotation (Line(points={{-200,120},{
+          -208,120},{-208,220},{-190,220}},
+                                       color={0,127,255}));
   connect(senTCDU_b.port_b, pipCDUOut.port_a)
-    annotation (Line(points={{50,120},{150,120}}, color={0,127,255}));
-  connect(pipCDUOut.port_b, pumCDU.port_a) annotation (Line(points={{170,120},{220,
-          120},{220,160}}, color={0,127,255}));
+    annotation (Line(points={{50,120},{140,120}}, color={0,127,255}));
+  connect(pipCDUOut.port_b, pumCDU.port_a) annotation (Line(points={{160,120},{
+          220,120},{220,160}},
+                           color={0,127,255}));
   connect(cdu.port_bRac, pipRacIn.port_a) annotation (Line(points={{-10,34},{-210,
           34},{-210,-100},{-200,-100}}, color={0,127,255}));
   connect(pipRacIn.port_b, senTRac_a.port_a)
     annotation (Line(points={{-180,-100},{-162,-100}}, color={0,127,255}));
   connect(senTRac_b.port_b, pipRacOut.port_a)
-    annotation (Line(points={{100,-100},{138,-100}}, color={0,127,255}));
-  connect(pipRacOut.port_b, cdu.port_aRac) annotation (Line(points={{158,-100},{
-          220,-100},{220,34},{10,34}}, color={0,127,255}));
+    annotation (Line(points={{100,-100},{142,-100}}, color={0,127,255}));
+  connect(pipRacOut.port_b, cdu.port_aRac) annotation (Line(points={{162,-100},
+          {220,-100},{220,34},{10,34}},color={0,127,255}));
   annotation (Diagram(coordinateSystem(extent={{-580,-120},{540,780}})),
     Icon(
         coordinateSystem(extent={{-100,-100},{100,100}})),

@@ -13,7 +13,7 @@ record RunPeriod "Record for EnergyPlus RunPeriod"
   parameter Boolean use_weatherFileRainIndicators = true
     "Set to true to use rain indicators from the weather file";
   parameter Boolean use_weatherFileSnowIndicators = true
-    "Set to true to use rain indicators from the weather file";
+    "Set to true to use snow indicators from the weather file";
 
   annotation (
   defaultComponentPrefixes = "parameter",

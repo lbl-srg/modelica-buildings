@@ -72,14 +72,14 @@ protected
 protected
   Modelica.Blocks.Math.Gain QCas_flow(final k=1/nColPla)
     "Gain to compute heat flow rate per case"
-    annotation (Placement(transformation(extent={{-40,40},{-20,60}})));
+    annotation (Placement(transformation(extent={{-40,20},{-20,40}})));
 equation
   connect(casTem.V_flow, VColPla_flow.y) annotation (Line(points={{19,86},{-28,86},
           {-28,88},{-39,88}}, color={0,0,127}));
   connect(casTem.TIn, TIn.y) annotation (Line(points={{19,80},{-28,80},{-28,74},
           {-39,74}}, color={0,0,127}));
-  connect(QCas_flow.y, casTem.Q_flow) annotation (Line(points={{-19,50},{-8,50},
-          {-8,74},{19,74}},  color={0,0,127}));
+  connect(QCas_flow.y, casTem.Q_flow) annotation (Line(points={{-19,30},{0,30},
+          {0,74},{19,74}},   color={0,0,127}));
   connect(preDro.port_b, vol.ports[1])
     annotation (Line(points={{-40,0},{30,0}}, color={0,127,255}));
   connect(preDro.port_a, port_a)
@@ -87,9 +87,10 @@ equation
   connect(vol.ports[2], port_b)
     annotation (Line(points={{30,0},{100,0}}, color={0,127,255}));
   connect(QCas_flow.u, P)
-    annotation (Line(points={{-42,50},{-120,50}}, color={0,0,127}));
-  connect(P, preHea.Q_flow) annotation (Line(points={{-120,50},{-60,50},{-60,20},
-          {-40,20}},color={0,0,127}));
+    annotation (Line(points={{-42,30},{-90,30},{-90,50},{-120,50}},
+                                                  color={0,0,127}));
+  connect(P, preHea.Q_flow) annotation (Line(points={{-120,50},{-60,50},{-60,50},
+          {-40,50}},color={0,0,127}));
 annotation (
   defaultComponentName="rac",
   Documentation(

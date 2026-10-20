@@ -292,3 +292,11 @@ latex_documents = [
 
 # If false, no module index is generated.
 #latex_use_modindex = True
+
+linkcheck_ignore = [
+    'https://dx.doi.org/10.3384/ecp09430077',
+    'https://dx.doi.org/10.3384/ecp09430078',
+    r'https://www\.inkscape\.org/?',
+    r'https://stackoverflow\.com/search\?q=modelica',
+    r'^https://github\.com/lbl-srg/modelica-buildings/blob',
+]

@@ -36,7 +36,7 @@ record Generic "Generic data record for boiler performance"
 <p>
 This record is used as a template for performance data
 for the boiler model
-<a href=\"Modelica://Buildings.Fluid.Boilers.BoilerTable\">
+<a href=\"modelica://Buildings.Fluid.Boilers.BoilerTable\">
 Buildings.Fluid.Boilers.BoilerTable</a>.
 </p>
 <p>

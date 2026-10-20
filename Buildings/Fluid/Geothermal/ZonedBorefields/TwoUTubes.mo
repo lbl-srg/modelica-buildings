@@ -2,9 +2,9 @@ within Buildings.Fluid.Geothermal.ZonedBorefields;
 model TwoUTubes "Borefield model containing double U-tube boreholes"
   extends Buildings.Fluid.Geothermal.ZonedBorefields.BaseClasses.PartialStorage(
     redeclare Buildings.Fluid.Geothermal.Borefields.BaseClasses.Boreholes.TwoUTube borHol[nZon]);
-  annotation (
-  defaultComponentName="borFie",
-  Documentation(info="<html>
+  annotation(
+    defaultComponentName = "borFie",
+    Documentation(info = "<html>
 <p>
 This model simulates a borehole thermal energy storage system with multiple
 zones of double U-tube boreholes. Boreholes within the same zone are connected
@@ -24,7 +24,7 @@ The ground thermal response at each borehole segment is evaluated using
 analytical thermal response factors. Spatial and temporal superposition are used
 to evaluate the total temperature change at each of the borehole segments.
 </p>
-</html>", revisions="<html>
+</html>", revisions = "<html>
 <ul>
 <li>
 February 2024, by Massimo Cimmino:<br/>

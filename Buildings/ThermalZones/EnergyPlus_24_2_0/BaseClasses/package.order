@@ -5,6 +5,7 @@ exchange
 getParameters
 getUnitAsString
 initialize
+Sizing
 Synchronize
 buildingsRootFileLocation
 Validation
