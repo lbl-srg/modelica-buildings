@@ -154,6 +154,11 @@ model System6
     Q_flow_nominal=Q_flow_nominal,
     fue=Buildings.Fluid.Data.Fuels.HeatingOilLowerHeatingValue()) "Boiler"
     annotation (Placement(transformation(extent={{20,-320},{0,-300}})));
+
+  Modelica.Thermal.HeatTransfer.Sources.FixedTemperature TBoiRoo(T=293.15)
+    "Boiler room temperature for boiler heat loss"
+    annotation (Placement(transformation(extent={{-20,-290},{0,-270}})));
+
 //----------------------------------------------------------------------------//
 
   Buildings.Fluid.Actuators.Valves.ThreeWayEqualPercentageLinear valRad(
@@ -514,6 +519,8 @@ equation
           30},{-50,30}}, color={0,0,127}));
   connect(conPIDRad.u_s,TSetSup. y) annotation (Line(points={{-182,-10},{-190,-10},
           {-190,-80},{-198,-80}}, color={0,0,127}));
+  connect(TBoiRoo.port, boi.heatPort) annotation (Line(points={{0,-280},{10,
+          -280},{10,-302.8}}, color={191,0,0}));
   annotation (Documentation(info="<html>
 <p>
 This part of the system model adds to the model that is implemented in
@@ -590,6 +597,12 @@ maintained at their set point.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+October 14, 2026, by Michael Wetter:<br/>
+Added prescribed temperature model for boiler heat loss.<br/>
+This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4775\">
+#4775</a>.
+</li>
 <li>
 April 9, 2024, by Hongxiang Fu:<br/>
 Specified <code>nominalValuesDefineDefaultPressureCurve=true</code>

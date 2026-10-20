@@ -4,7 +4,7 @@ package Buildings "Library with models for building energy and control systems"
 
 
 annotation (
-version="14.1.0",
+version="15.0.0",
 versionDate="2026-10-05",
 dateModified="2026-10-05",
 uses(Modelica(version="4.1.0")),
