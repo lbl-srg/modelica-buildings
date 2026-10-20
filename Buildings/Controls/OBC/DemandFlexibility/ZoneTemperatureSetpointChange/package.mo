@@ -4,8 +4,8 @@ package ZoneTemperatureSetpointChange
 
   annotation (Documentation(info="<html>
 <p>
-This package contains control sequences that change zone temperature setpoints in a
-building with multiple zones in order to achieve demand flexibility.
+This package contains control sequences that adjust zone temperature setpoints in
+single-zone or multi-zone buildings to provide demand flexibility.
 </p>
 </html>"),
     Icon(

@@ -69,14 +69,14 @@ First implementation.
 </ul>
 </html>", info="<html>
 <p>
-This block switches the values of the two Real output variables based on a Boolean
-input variable.
+This block routes the two Real inputs <code>u1</code> and <code>u3</code> to the two
+Real outputs <code>y1</code> and <code>y2</code> based on the Boolean input
+<code>u2</code>.
 </p>
 <p>
-If the input variable <code>u2</code> is <code>true</code>, the output variables
-will be <code>y1 = u1</code> and <code>y2 = u3</code>. If the input variable
-<code>u2</code> is <code>false</code>, the output variables will be
-<code>y1 = u3</code> and <code>y2 = u1</code>.
+If <code>u2</code> is <code>true</code>, <code>y1 = u1</code> and
+<code>y2 = u3</code>. If <code>u2</code> is <code>false</code>, <code>y1 = u3</code>
+and <code>y2 = u1</code>.
 </p>
 </html>"));
 end DoubleSwitch;

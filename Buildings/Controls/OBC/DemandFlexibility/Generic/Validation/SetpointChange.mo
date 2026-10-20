@@ -94,12 +94,11 @@ within an external zone temperature setpoint controller. When this external zone
 temperature setpoint controller receives the setpoint <code>y</code> from the
 <code>SetpointChange</code> block at
 <a href=\"modelica://Buildings.Controls.OBC.DemandFlexibility.Generic.SetpointChange\">
-Buildings.Controls.OBC.DemandFlexibility.Generic.SetpointChange</a>, the
-temperature setpoint within the external zone temperature setpoint controller will
-be changed to <code>y</code> after a small time delay of <code>10</code>
-seconds, and the new temperature setpoint value will be sent back to the
-<code>uCurSet</code> variable in the <code>SetpointChange</code> block, completing a
-full control loop.
+Buildings.Controls.OBC.DemandFlexibility.Generic.SetpointChange</a>, the temperature
+setpoint within the external zone temperature setpoint controller will become
+<code>y</code> after a small time delay of <code>10</code> seconds, and the 
+<code>uCurSet</code> variable in the <code>SetpointChange</code> block will receive
+this new temperature setpoint value, completing a full control loop.
 </p>
 <p>
 The setpoint change operation is executed every <code>300</code> seconds, which is

@@ -386,29 +386,25 @@ implications:
 </tr>
 <tr>
 <td>0</td>
-<td>Setpoint change will cause <code>dTZon</code> to be more negative, so that a zone
-is continuously selected for setpoint change until the zone setpoint has reached
-the pre-heat or pre-cool setpoint limit. This causes the zones with the largest
-pre-heat or pre-cool energy consumption potential to be selected first, while zones
-with a smaller energy consumption potential will be selected later. This makes the
-total electricity demand of all zones flatter with fewer spikes.</td>
+<td>Setpoint adjustment makes <code>dTZon</code> more negative, so the controller
+continues selecting the same zone until its setpoint reaches the pre-heat or pre-cool
+limit. This selects zones with the largest pre-heat or pre-cool energy consumption
+potential first and flattens the total electricity demand across zones.</td>
 </tr>
 <tr>
 <td>2</td>
-<td>Setpoint change will cause <code>dTZon</code> to be more positive, making
-way for other zones to be selected for setpoint change. This results in
-<code>dTZon</code> having similar, and hopefully positive, values across all zones.
-Thus, the peak electricity demand of the building will be reduced.
+<td>Setpoint adjustment makes <code>dTZon</code> more positive, so the controller
+selects other zones for setpoint change. This results in <code>dTZon</code> having
+similar, and hopefully positive, values across all zones. Thus, this reduces the
+peak electricity demand of the building.
 </td>
 </tr>
 <tr>
 <td>3</td>
-<td>Setpoint change will cause <code>dTZon</code> to be more negative, so that a zone
-is continuously selected for setpoint change until the zone setpoint has reached
-the load-rebound setpoint limit. This causes the zones with the largest load-rebound
-energy consumption potential to be selected first, while zones with a smaller energy
-consumption potential will be selected later. This makes the total electricity
-demand of all zones flatter with fewer spikes.</td>
+<td>Setpoint adjustment makes <code>dTZon</code> more negative, so the controller
+continues selecting the same zone until its setpoint reaches the load-rebound limit.
+This selects zones with the largest load-rebound energy consumption potential first
+and flattens the total electricity demand across zones.</td>
 </tr>
 </table>
 </html>"));

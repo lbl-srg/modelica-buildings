@@ -33,7 +33,8 @@ First implementation.
 </ul>
 </html>", info="<html>
 <p>
-Passes a Boolean signal through without modification.
+This block passes the Boolean input signal <code>u</code> directly to the Boolean
+output signal <code>y</code> without modification (<code>y = u</code>).
 </p>
 </html>"));
 end BooleanPassThrough;

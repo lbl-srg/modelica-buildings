@@ -127,22 +127,31 @@ equation
     grid={2,2})),
     Documentation(info="<html>
 <p>
-This block selects one of the input variables <code>uPre</code>,
-<code>uDef</code>, <code>uShe</code>, and <code>uReb</code> as the output variable
-<code>y</code>, based on the demand flexibility mode <code>demFleMod</code>.
+This block selects the Real output <code>y</code> from the Real inputs for the
+pre-cool or pre-heat mode (<code>uPre</code>), default mode (<code>uDef</code>),
+load-shed mode (<code>uShe</code>), and load-rebound mode (<code>uReb</code>), based
+on the integer demand flexibility mode input <code>demFleMod</code>:
 </p>
-<p>
-The demand flexibility mode includes the pre-cool or pre-heat mode
-(<i>demFleMod = 0</i>), the default mode (<i>demFleMod = 1</i>), the load-shed mode
-(<i>demFleMod = 2</i>), and the load-rebound mode (<i>demFleMod = 3</i>). These
-modes correspond to the input variables <code>uPre</code>, <code>uDef</code>,
-<code>uShe</code>, and <code>uReb</code>. If <code>demFleMod</code> is any other
-integer, the output variable <code>y</code> takes the value of <code>uDef</code>.
-</p>
-<p>
-The parameter <code>use_pre</code> specifies whether the pre-cool/pre-heat mode
-should be used.
-</p>
+<ul>
+<li>
+<code>demFleMod = 0</code> (pre-cool or pre-heat mode): <code>y = uPre</code> when
+the parameter <code>use_pre</code> (which enables the pre-cool or pre-heat mode
+input) is <code>true</code>, or <code>y = uDef</code> when <code>use_pre</code> is
+<code>false</code>.
+</li>
+<li>
+<code>demFleMod = 1</code> (default mode): <code>y = uDef</code>.
+</li>
+<li>
+<code>demFleMod = 2</code> (load-shed mode): <code>y = uShe</code>.
+</li>
+<li>
+<code>demFleMod = 3</code> (load-rebound mode): <code>y = uReb</code>.
+</li>
+<li>
+Any other integer value: <code>y = uDef</code>.
+</li>
+</ul>
 </html>", revisions="<html>
 <ul>
 <li>
