@@ -5,7 +5,6 @@ package DemandFlexibilityModes "Demand flexibility modes"
   constant Integer loadShed = 2 "Load-shed";
   constant Integer preCondition = 0 "Pre-condition, including pre-cool and pre-heat";
 
-
   annotation (Documentation(revisions="<html>
 <ul>
 <li>
@@ -15,10 +14,11 @@ First implementation.
 </ul>
 </html>", info="<html>
 <p>
-This package provides constants for indicating different demand flexibility
-operation modes. Constants are used instead of enumerations because integer input
-variables are needed to represent demand flexibility operation modes throughout
-the demand flexibility control sequences.
+This package defines integer constants that represent demand flexibility operation
+modes. Integer constants are used instead of enumerations because the demand
+flexibility control sequences involves changing the demand flexibility operation
+modes through time, which requires integer input variables to compare against the
+integer constants that represent the demand flexibility operation modes.
 </p>
 </html>"));
 end DemandFlexibilityModes;

@@ -14,59 +14,51 @@ First implementation.
 </ul>
 </html>", info="<html>
 <p>
-Enumeration to define control variants for the zone temperature setpoint change.
-Possible values are:
+This enumeration defines the control variants for changing zone temperature
+setpoints. Possible values are:
 </p>
 <table border=\"1\" summary=\"Explanation of the enumeration\">
 <tr>
 <th>Enumeration</th>
 <th>Description</th></tr>
-<tr><td><code>Variant_1</code></td>
+<tr><td>Variant <i>1</i></td>
 <td>
 Single-step temperature setpoint adjustment.
 </td></tr>
-<tr><td><code>Variant_2</code></td>
+<tr><td>Variant <i>2</i></td>
 <td>
 Multiple-step temperature setpoint adjustment without an electricity demand target.
 </td></tr>
-<tr><td><code>Variant_3</code></td>
+<tr><td>Variant <i>3</i></td>
 <td>
 Multiple-step temperature setpoint adjustment with a constant electricity demand target.
 </td></tr>
-<tr><td><code>Variant_4</code></td>
+<tr><td>Variant <i>4</i></td>
 <td>
 Multiple-step temperature setpoint adjustment with a varying electricity demand target.
 </td></tr>
 </table>
 <p>
-Each variant is described in depth below:
+Below are in-depth descriptions for each variant:
 </p>
 <ul>
 <li>
-Variant <i>1</i> is single-step setpoint adjustment, where a zone changes its setpoint
-toward a setpoint limit in a single step. However, the single-step setpoint change
-can still be done a few zones at a time, rather than all zones changing setpoints at
-once. This variant does not take into account the electricity demand of the building.
+In Variant <i>1</i> (single-step setpoint adjustment), each zone changes its setpoint
+to the target limit in a single step. The controller can either adjust setpoints for
+a few zones at a time, or for all zones at once. This variant does not consider
+building electricity demand.
 </li>
 <li>
-Variant <i>2</i> is ratcheted setpoint adjustment, where a zone changes its setpoint
-toward a setpoint limit in multiple small steps. This ratcheted multiple-step
-setpoint change can also be done a few zones at a time, rather than all zones
-changing setpoints at once. This provides an additional degree of freedom for the
-setpoint change. This variant does not take into account the electricity demand of
-the building.
+In Variant <i>2</i> (ratcheted setpoint adjustment), each zone changes its setpoint
+toward the target limit in multiple small steps. The controller can either adjust
+setpoints for a few zones at a time, or for all zones at once. This variant does not
+consider building electricity demand.
 </li>
 <li>
-Variant <i>3</i> is ratcheted setpoint adjustment with a constant electricity demand
-target. This is similar to Variant <i>2</i>, except that the electricity demand of
-the building needs to be higher than a constant electricity demand target in order
-to execute setpoint change during the load-shed demand flexibility mode.
-</li>
-<li>
-Variant <i>4</i> is ratcheted setpoint adjustment with a varying electricity demand
-target. This is similar to Variant <i>2</i>, except that the electricity demand of
-the building needs to be higher than a variable electricity demand target in order
-to execute setpoint change during the load-shed demand flexibility mode.
+In Variant <i>3</i> and Variant <i>4</i>, the controller operates as in Variant
+<i>2</i>, except that during the load-shed mode, it only adjusts setpoints when the
+building electricity demand exceeds a constant target (Variant <i>3</i>) or a
+varying target (Variant <i>4</i>).
 </li>
 </ul>
 </html>"));

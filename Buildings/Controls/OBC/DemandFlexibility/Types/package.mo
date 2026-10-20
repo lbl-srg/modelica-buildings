@@ -3,7 +3,7 @@ package Types "Package with type definitions for demand flexibility control sequ
 
   annotation (Documentation(info="<html>
 <p>
-This package provides type definitions used in demand flexibility control sequences.
+This package provides type definitions for demand flexibility control sequences.
 </p>
 </html>"), Icon(graphics={
         Rectangle(

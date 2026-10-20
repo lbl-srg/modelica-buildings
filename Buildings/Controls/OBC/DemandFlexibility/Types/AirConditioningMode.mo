@@ -11,9 +11,8 @@ First implementation.
 </ul>
 </html>", info="<html>
 <p>
-Enumeration to define whether the air conditioning system should be in the heating
-mode or in the cooling mode.
-Possible values are:
+This enumeration defines whether the air conditioning system operates in heating or
+cooling mode. Possible values are:
 </p>
 <table border=\"1\" summary=\"Explanation of the enumeration\">
 <tr>
