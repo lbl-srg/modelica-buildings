@@ -437,6 +437,13 @@ Buildings.Fluid.MixingVolumes.MixingVolume</a>.
 </html>", revisions="<html>
 <ul>
 <li>
+October 21, 2026, by Michael Wetter:<br/>
+Corrected the species mass balance by adding the term
+<code>-medium.Xi*der(m)</code> to account for the change in total fluid mass.
+For typical HVAC applications, the change in results is small.<br/>
+This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/2186\">IBPSA, #2186</a>.
+</li>
+<li>
 June 25, 2026, by Michael Wetter:<br/>
 Added <code>nominal</code> attribute to <code>m</code>.<br/>
 This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/2163\">IBPSA, #2163</a>.
@@ -565,7 +572,7 @@ This is required for a pedantic model check in Dymola 2016.
 It addresses
 <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/266\">
 issue 266</a>.
-This revison also renames the protected variable
+This revision also renames the protected variable
 <code>rho_nominal</code> to <code>rho_start</code>
 as it depends on the start values and not the nominal values.
 </li>
