@@ -23,8 +23,6 @@ class BaseAirToWater
       dp_nominal=fill(
         Buildings.Templates.Data.Defaults.dpHeaWatLocSet_max,
         max(pla.cfg.nPumHeaWatSec, 1))),
-    dpValCheChiWat_nominal=fill(
-        Buildings.Templates.Data.Defaults.dpValChe, pla.cfg.nPumChiWatPri),
     pumChiWatPri(
       dp_nominal=fill(1.5 * pla.hp.dpChiWatHp_nominal, max(pla.cfg.nPumChiWatPri, 1)) .+
         (if pla.cfg.typDis ==

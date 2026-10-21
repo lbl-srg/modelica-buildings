@@ -143,8 +143,9 @@ record HeatPumpPlant
       enable=cfg.typPumChiWatPriDedHp <>
         Buildings.Templates.Plants.HeatPumps.Types.PumpsPrimary.None
         or cfg.have_php));
-  parameter Modelica.Units.SI.PressureDifference dpValCheChiWat_nominal[cfg.nPumChiWatPri](
-    each start=Buildings.Templates.Data.Defaults.dpValChe)
+  parameter Modelica.Units.SI.PressureDifference dpValCheChiWat_nominal[max(cfg.nPumChiWatPri, 1)](
+    each start=0) = fill(
+    Buildings.Templates.Data.Defaults.dpValChe, max(cfg.nPumChiWatPri, 1))
     "Primary CHW pump check valve pressure drop at design flow rate (selection conditions) – Each unit"
     annotation(Dialog(group="Primary CHW loop",
       enable=cfg.typPumChiWatPri <>

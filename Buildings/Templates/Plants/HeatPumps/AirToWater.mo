@@ -35,7 +35,7 @@ model AirToWater
     "Set to true to automatically evaluate pump speed providing design flow"
     annotation(Evaluate=true);
   final parameter Modelica.Units.SI.PressureDifference dpValCheChiWatPri_nominal[nPumChiWatPri] =
-    dat.dpValCheChiWat_nominal
+    fill(Buildings.Templates.Data.Defaults.dpValChe, nPumChiWatPri)
     "Primary CHW pump check valve pressure drop at design flow rate – Each unit";
   // To size the HP balancing valves, we first need to scale the pump check valve
   // pressure drop for configurations with common dedicated CHW and HW pumps.
