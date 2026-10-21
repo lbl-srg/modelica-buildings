@@ -87,16 +87,23 @@ partial model PartialBoiler "Boiler base class with efficiency unspecified"
     annotation (Placement(transformation(extent={{-48,10},{-28,30}})));
 
 protected
-  Modelica.Blocks.Sources.RealExpression QHeaLosAmb(
-    y(final unit="W")=if cardinality(heatPort) > 1 then 0 else UA*(TAmb_nominal - vol.heatPort.T))
-    "Heat loss to ambient (set to 0 if heatPort is connected)"
-    annotation (Placement(transformation(extent={{-80,-66},{-60,-46}})));
   HeatTransfer.Sources.PrescribedHeatFlow preHeaFloAmb
     "Prescribed heat flow for loss to ambient (set to 0 if heatPort is connected)"
     annotation (Placement(transformation(extent={{-41,-66},{-21,-46}})));
+  Modelica.Blocks.Sources.RealExpression QHeaLosAmb(y=QHeaLosAmb_internal)
+    "Heat loss to ambient (set to 0 if heatPort is connected)"
+    annotation (Placement(transformation(extent={{-80,-66},{-60,-46}})));
+  Modelica.Units.SI.HeatFlowRate QHeaLosAmb_internal
+    "Heat loss to ambient (set to 0 if heatPort is connected)";
 
 equation
   assert(eta > 0.001, "Efficiency curve is wrong.");
+
+ if cardinality(heatPort) > 1 then
+   QHeaLosAmb_internal = 0;
+ else
+   QHeaLosAmb_internal = UA*(TAmb_nominal - vol.heatPort.T);
+ end if;
 
   connect(UAOve.port_b, vol.heatPort) annotation (Line(
       points={{-28,20},{-22,20},{-22,-10},{-9,-10}},
