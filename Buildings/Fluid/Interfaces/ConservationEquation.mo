@@ -35,7 +35,8 @@ model ConservationEquation "Lumped volume with mass and energy balance"
 
   // Outputs that are needed in models that use this model
   Modelica.Blocks.Interfaces.RealOutput hOut(unit="J/kg",
-                                             start=hStart)
+                                             start=hStart,
+                                             nominal=Medium.h_default)
     "Leaving specific enthalpy of the component"
      annotation (Placement(transformation(extent={{-10,-10},{10,10}},
         rotation=90,
@@ -70,7 +71,9 @@ model ConservationEquation "Lumped volume with mass and energy balance"
         origin={110,-60})));
 
   Modelica.Fluid.Vessels.BaseClasses.VesselFluidPorts_b ports[nPorts](
-      redeclare each final package Medium = Medium) "Fluid inlets and outlets"
+      redeclare each final package Medium = Medium,
+      each h_outflow(nominal=Medium.h_default),
+      each Xi_outflow(each nominal=0.01)) "Fluid inlets and outlets"
     annotation (Placement(transformation(extent={{-40,-10},{40,10}},
       origin={0,-100})));
 
@@ -93,9 +96,16 @@ model ConservationEquation "Lumped volume with mass and energy balance"
         X=X_start[1:Medium.nXi])) + (T_start - Medium.reference_T)*CSen,
       nominal=1E5) "Internal energy of fluid";
 
-  Modelica.Units.SI.Mass m(start=fluidVolume*rho_start, stateSelect=if
-        massDynamics == Modelica.Fluid.Types.Dynamics.SteadyState then
-        StateSelect.default else StateSelect.prefer) "Mass of fluid";
+  Modelica.Units.SI.Mass m(
+    start=fluidVolume*rho_start,
+    stateSelect=
+    if massDynamics == Modelica.Fluid.Types.Dynamics.SteadyState
+      then
+        StateSelect.default
+      else
+        StateSelect.prefer,
+    nominal=fluidVolume*rho_start)
+    "Mass of fluid";
 
   Modelica.Units.SI.Mass[Medium.nXi] mXi(
     each stateSelect=StateSelect.never,
@@ -309,7 +319,7 @@ equation
   if substanceDynamics == Modelica.Fluid.Types.Dynamics.SteadyState then
     zeros(Medium.nXi) = mbXi_flow + mWat_flow_internal * s;
   else
-    der(medium.Xi) = (mbXi_flow + mWat_flow_internal * s)/m;
+    der(medium.Xi) = (mbXi_flow + mWat_flow_internal * s - medium.Xi*der(m))/m;
   end if;
 
   if traceDynamics == Modelica.Fluid.Types.Dynamics.SteadyState then
@@ -426,6 +436,24 @@ Buildings.Fluid.MixingVolumes.MixingVolume</a>.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+October 21, 2026, by Michael Wetter:<br/>
+Corrected the species mass balance by adding the term
+<code>-medium.Xi*der(m)</code> to account for the change in total fluid mass.
+For typical HVAC applications, the change in results is small.<br/>
+This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/2186\">IBPSA, #2186</a>.
+</li>
+<li>
+June 25, 2026, by Michael Wetter:<br/>
+Added <code>nominal</code> attribute to <code>m</code>.<br/>
+This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/2163\">IBPSA, #2163</a>.
+</li>
+<li>
+June 18, 2024, by Michael Wetter:<br/>
+Added <code>start</code> and <code>nominal</code> attributes
+to avoid warnings in OpenModelica due to conflicting values.<br/>
+This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1890\">IBPSA, #1890</a>.
+</li>
 <li>
 October 24, 2022, by Michael Wetter:<br/>
 Conditionally removed assertion that checks for water content as this is
@@ -544,7 +572,7 @@ This is required for a pedantic model check in Dymola 2016.
 It addresses
 <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/266\">
 issue 266</a>.
-This revison also renames the protected variable
+This revision also renames the protected variable
 <code>rho_nominal</code> to <code>rho_start</code>
 as it depends on the start values and not the nominal values.
 </li>
