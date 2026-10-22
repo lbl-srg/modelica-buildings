@@ -104,6 +104,15 @@ an arbitrary number of polynomial coefficients can be specified.
 ", revisions="<html>
 <ul>
 <li>
+October 11, 2026, by Michael Wetter:<br/>
+Corrected bug that led to heat loss of boiler to be accounted twice in the energy balance.
+This implmentation uses the <code>cardinality</code> function which is deprecated
+in later versions of Modelica.
+The Modelica Buildings Library version 15 will require connecting the heat port to the ambient.<br/>
+This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4775\">
+#4775</a>.
+</li>
+<li>
 March 7, 2022, by Michael Wetter:<br/>
 Set <code>final massDynamics=energyDynamics</code>.<br/>
 This is for
