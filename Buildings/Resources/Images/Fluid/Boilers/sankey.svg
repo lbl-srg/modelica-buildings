@@ -1,0 +1,291 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="213.12582mm"
+   height="74.9561mm"
+   viewBox="0 0 213.12582 74.956098"
+   version="1.1"
+   id="svg1"
+   inkscape:version="1.4.3 (0d15f75042, 2025-12-25)"
+   sodipodi:docname="sankey.svg"
+   inkscape:export-filename="sankey.png"
+   inkscape:export-xdpi="300"
+   inkscape:export-ydpi="300"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <sodipodi:namedview
+     id="namedview1"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:showpageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#d1d1d1"
+     inkscape:document-units="mm"
+     showgrid="true"
+     inkscape:zoom="1.1830052"
+     inkscape:cx="-116.22941"
+     inkscape:cy="343.19376"
+     inkscape:window-width="3840"
+     inkscape:window-height="2067"
+     inkscape:window-x="0"
+     inkscape:window-y="28"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="layer1">
+    <inkscape:grid
+       id="grid1"
+       units="mm"
+       originx="-12.545005"
+       originy="-60.333024"
+       spacingx="0.26458333"
+       spacingy="0.26458334"
+       empcolor="#3f3fff"
+       empopacity="0.25098039"
+       color="#3f3fff"
+       opacity="0.1254902"
+       empspacing="5"
+       enabled="true"
+       visible="true" />
+  </sodipodi:namedview>
+  <defs
+     id="defs1">
+    <marker
+       style="overflow:visible"
+       id="DartArrow"
+       refX="0"
+       refY="0"
+       orient="auto-start-reverse"
+       inkscape:stockid="Dart arrow"
+       markerWidth="1"
+       markerHeight="1"
+       viewBox="0 0 1 1"
+       inkscape:isstock="true"
+       inkscape:collect="always"
+       preserveAspectRatio="xMidYMid">
+      <path
+         style="fill:context-stroke;fill-rule:evenodd;stroke:none"
+         d="M 0,0 5,-5 -12.5,0 5,5 Z"
+         transform="scale(-0.5)"
+         id="path15" />
+    </marker>
+    <marker
+       style="overflow:visible"
+       id="ConcaveTriangle"
+       refX="0"
+       refY="0"
+       orient="auto-start-reverse"
+       inkscape:stockid="Concave triangle arrow"
+       markerWidth="1"
+       markerHeight="1"
+       viewBox="0 0 1 1"
+       inkscape:isstock="true"
+       inkscape:collect="always"
+       preserveAspectRatio="xMidYMid">
+      <path
+         d="M -1.4,-2.8 6.3,0 -1.4,2.8 C 0,1.169 0,-1.162 -1.4,-2.8 Z"
+         style="fill:context-stroke;fill-rule:evenodd;stroke:none;stroke-width:0.7"
+         id="path14" />
+    </marker>
+    <marker
+       style="overflow:visible"
+       id="RoundedArrow"
+       refX="0"
+       refY="0"
+       orient="auto-start-reverse"
+       inkscape:stockid="Rounded arrow"
+       markerWidth="1"
+       markerHeight="1"
+       viewBox="0 0 1 1"
+       inkscape:isstock="true"
+       inkscape:collect="always"
+       preserveAspectRatio="xMidYMid">
+      <path
+         transform="scale(0.7)"
+         d="m -0.21114562,-4.1055728 6.42229122,3.21114561 a 1,1 90 0 1 0,1.78885438 L -0.21114562,4.1055728 A 1.236068,1.236068 31.717474 0 1 -2,3 v -6 a 1.236068,1.236068 148.28253 0 1 1.78885438,-1.1055728 z"
+         style="fill:context-stroke;fill-rule:evenodd;stroke:none"
+         id="path8" />
+    </marker>
+  </defs>
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1"
+     transform="translate(-12.545002,-60.333023)">
+    <text
+       xml:space="preserve"
+       style="font-size:5.64444px;line-height:1.25;font-family:'Helvetica Neue';-inkscape-font-specification:'Helvetica Neue, Normal';text-decoration-color:#000000;letter-spacing:0px;word-spacing:0px;fill:#000000;stroke-width:0.264583;-inkscape-stroke:none;stop-color:#000000"
+       x="26.335075"
+       y="96.673012"
+       id="text1"><tspan
+         sodipodi:role="line"
+         id="tspan1"
+         style="stroke-width:0.264583"
+         x="26.335075"
+         y="96.673012">Heat released by fuel</tspan><tspan
+         sodipodi:role="line"
+         style="stroke-width:0.264583"
+         x="26.335075"
+         y="103.72856"
+         id="tspan4">QFue_flow</tspan></text>
+    <path
+       sodipodi:type="spiral"
+       style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:0.264583"
+       id="path3"
+       sodipodi:cx="40.880989"
+       sodipodi:cy="97.260384"
+       sodipodi:expansion="1"
+       sodipodi:revolution="2.8783367"
+       sodipodi:radius="10.531329"
+       sodipodi:argument="-16.461742"
+       sodipodi:t0="0.91618609"
+       d="m 50.47385,98.296534 c -0.251958,5.321006 -4.884335,9.466656 -10.146384,9.480626"
+       transform="translate(50.334162,-21.270767)" />
+    <path
+       sodipodi:type="spiral"
+       style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:0.184285"
+       id="path4"
+       sodipodi:cx="40.880989"
+       sodipodi:cy="97.260384"
+       sodipodi:expansion="1"
+       sodipodi:revolution="2.8783367"
+       sodipodi:radius="10.531329"
+       sodipodi:argument="-16.461742"
+       sodipodi:t0="0.91618609"
+       d="m 50.47385,98.296534 c -0.251958,5.321006 -4.884335,9.466656 -10.146384,9.480626"
+       transform="matrix(1.4989163,0,0,1.375203,30.101437,-58.174995)" />
+    <path
+       style="fill:none;stroke:#000000;stroke-width:0.264583px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="M 90.855428,90.064693 H 184.62111"
+       id="path5" />
+    <path
+       sodipodi:type="spiral"
+       style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:0.264583"
+       id="path6"
+       sodipodi:cx="40.880989"
+       sodipodi:cy="97.260384"
+       sodipodi:expansion="1"
+       sodipodi:revolution="2.8783367"
+       sodipodi:radius="10.531329"
+       sodipodi:argument="-16.461742"
+       sodipodi:t0="0.91618609"
+       d="m 50.47385,98.296534 c -0.251958,5.321006 -4.884335,9.466656 -10.146384,9.480626"
+       transform="matrix(1,0,0,-1,114.17223,218.64073)" />
+    <path
+       sodipodi:type="spiral"
+       style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:0.203019"
+       id="path7"
+       sodipodi:cx="40.880989"
+       sodipodi:cy="97.260384"
+       sodipodi:expansion="1"
+       sodipodi:revolution="2.8783367"
+       sodipodi:radius="10.531329"
+       sodipodi:argument="-16.461742"
+       sodipodi:t0="0.91618609"
+       d="m 50.47385,98.296534 c -0.251958,5.321006 -4.884335,9.466656 -10.146384,9.480626"
+       transform="matrix(1.3586804,0,0,-1.2500683,99.215837,243.20937)" />
+    <path
+       style="fill:none;stroke:#000000;stroke-width:0.264583px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="M 184.48132,108.48882 H 141.77876"
+       id="path9" />
+    <path
+       style="fill:none;stroke:#000000;stroke-width:0.264583px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="m 184.48174,90.022484 9.76482,9.15213 -9.77022,9.371326"
+       id="path10"
+       sodipodi:nodetypes="ccc" />
+    <path
+       style="fill:none;stroke:#000000;stroke-width:0.264583px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="m 100.77629,77.037796 2.45531,-3.048417 2.5141,3.050108"
+       id="path11"
+       sodipodi:nodetypes="ccc" />
+    <path
+       style="fill:none;stroke:#000000;stroke-width:0.264583px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="m 164.64524,120.3151 1.58669,1.93975 1.62469,-1.94083"
+       id="path12"
+       sodipodi:nodetypes="ccc" />
+    <text
+       xml:space="preserve"
+       style="font-size:5.64444px;line-height:1.25;font-family:'Helvetica Neue';-inkscape-font-specification:'Helvetica Neue, Normal';text-decoration-color:#000000;letter-spacing:0px;word-spacing:0px;fill:#000000;stroke-width:0.264583;-inkscape-stroke:none;stop-color:#000000"
+       x="195.55209"
+       y="96.633476"
+       id="text2"><tspan
+         sodipodi:role="line"
+         id="tspan2"
+         style="stroke-width:0.264583"
+         x="195.55209"
+         y="96.633476">Useful heat</tspan><tspan
+         sodipodi:role="line"
+         style="stroke-width:0.264583"
+         x="195.55209"
+         y="103.68903"
+         id="tspan3">QUse_flow</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:5.64444px;line-height:1.25;font-family:'Helvetica Neue';-inkscape-font-specification:'Helvetica Neue, Normal';text-decoration-color:#000000;letter-spacing:0px;word-spacing:0px;fill:#000000;stroke-width:0.264583;-inkscape-stroke:none;stop-color:#000000"
+       x="84.955391"
+       y="64.651016"
+       id="text6"><tspan
+         sodipodi:role="line"
+         id="tspan5"
+         style="stroke-width:0.264583"
+         x="84.955391"
+         y="64.651016">Exhausted by flue gas</tspan><tspan
+         sodipodi:role="line"
+         style="stroke-width:0.264583"
+         x="84.955391"
+         y="71.706566"
+         id="tspan6">QExh_flow</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:5.64444px;line-height:1.25;font-family:'Helvetica Neue';-inkscape-font-specification:'Helvetica Neue, Normal';text-decoration-color:#000000;letter-spacing:0px;word-spacing:0px;fill:#000000;stroke-width:0.264583;-inkscape-stroke:none;stop-color:#000000"
+       x="143.66446"
+       y="127.27402"
+       id="text8"><tspan
+         sodipodi:role="line"
+         id="tspan7"
+         style="stroke-width:0.264583"
+         x="143.66446"
+         y="127.27402">Heat loss to ambient</tspan><tspan
+         sodipodi:role="line"
+         style="stroke-width:0.264583"
+         x="143.66446"
+         y="134.32957"
+         id="tspan8">QAmb_flow</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:5.64444px;line-height:1.25;font-family:'Helvetica Neue';-inkscape-font-specification:'Helvetica Neue, Normal';text-decoration-color:#000000;letter-spacing:0px;word-spacing:0px;fill:#000000;stroke-width:0.264583;-inkscape-stroke:none;stop-color:#000000"
+       x="108.83041"
+       y="96.633476"
+       id="text10"><tspan
+         sodipodi:role="line"
+         id="tspan9"
+         style="stroke-width:0.264583"
+         x="108.83041"
+         y="96.633476">Heat from gas into water</tspan><tspan
+         sodipodi:role="line"
+         style="stroke-width:0.264583"
+         x="108.83041"
+         y="103.68903"
+         id="tspan10">QWat_flow</tspan></text>
+    <path
+       style="fill:none;stroke:#000000;stroke-width:0.2;stroke-linecap:butt;stroke-linejoin:miter;stroke-dasharray:none;stroke-opacity:1;marker-start:url(#DartArrow);marker-mid:url(#RoundedArrow);marker-end:url(#ConcaveTriangle)"
+       d="M 107.63328,91.374939 V 109.52313"
+       id="path13" />
+    <path
+       style="fill:none;stroke:#000000;stroke-width:0.264583px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="M 12.643591,86.525994 25.554676,98.594862 12.63645,110.95278"
+       id="path2"
+       sodipodi:nodetypes="ccc" />
+    <path
+       style="fill:none;stroke:#000000;stroke-width:0.264583px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="M 154.51515,110.87873 H 12.559092"
+       id="path17" />
+    <path
+       style="fill:none;stroke:#000000;stroke-width:0.264583px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="m 90.720304,86.48658 h -78.1246"
+       id="path18" />
+  </g>
+</svg>
