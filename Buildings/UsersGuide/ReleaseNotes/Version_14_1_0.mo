@@ -48,12 +48,13 @@ have been <b style=\"color:blue\">improved</b> in a
     <td valign=\"top\">xxx.
     </td>
 </tr>
-<tr><td colspan=\"2\"><b>xxx</b>
+<tr><td colspan=\"2\"><b>Buildings.Fluid.Geothermal</b>
     </td>
 </tr>
-<tr><td valign=\"top\">xxx
+<tr><td valign=\"top\">Buildings.Fluid.Geothermal.Borefields.TOUGH.BaseClasses.GroundResponse
     </td>
-    <td valign=\"top\">xxx.
+    <td valign=\"top\">Improved the python interface code to avoid permission error.<br/>
+                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4783\">issue 4783</a>.
     </td>
 </tr>
 </table>
