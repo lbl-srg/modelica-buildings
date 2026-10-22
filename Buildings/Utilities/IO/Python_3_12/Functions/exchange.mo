@@ -47,12 +47,13 @@ algorithm
  // Update the PYTHONPATH variable
  (pytPatOld, havePytPat) :=Modelica.Utilities.System.getEnvironmentVariable("PYTHONPATH");
  if havePytPat then
-   if Modelica.Utilities.Strings.find(pytPatOld, pytPatBuildings) == 0 then
-     // The new python path is not yet in the environment variable, add it.
-     pytPat:=pytPatOld + ":" + pytPatBuildings;
-   else
+   // Note: The test is written as "> 0" rather than "== 0" to avoid the C compiler warning.
+   if Modelica.Utilities.Strings.find(pytPatOld, pytPatBuildings) > 0 then
      // The new python path is already in the variable.
      pytPat:=pytPatOld;
+   else
+     // The new python path is not yet in the environment variable, add it.
+     pytPat:=pytPatOld + ":" + pytPatBuildings;
    end if;
  else
    pytPat := pytPatBuildings;
