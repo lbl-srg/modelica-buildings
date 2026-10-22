@@ -38,7 +38,7 @@ algorithm
         if m_flow > 0 then C * m_flow^n else -C * abs_m^n;
 annotation (
   smoothOrder=2,
-  Inline=true,
+  Inline=false,
    derivative(
      order=1,
      zeroDerivative=k,
@@ -55,7 +55,7 @@ annotation (
      zeroDerivative=b5)=
        Buildings.Fluid.BaseClasses.FlowModels.powerLaw_m_flow_der,
    inverse(
-     m_flow=Buildings.Fluid.BaseClasses.FlowModels.powerLaw_dp(
+     m_flow=Buildings.Fluid.BaseClasses.FlowModels.powerLaw_m_flow_inv(
        dp=dp, k=k, n=n, m_flow_turbulent=m_flow_turbulent,
        dp_turbulent=dp_turbulent, m=m, a1=a1, a3=a3, a5=a5,
        C=C, b1=b1, b3=b3, b5=b5)),
@@ -97,20 +97,20 @@ This function takes as inputs not only the coefficients
 <code>C</code>, <code>b1</code>, <code>b3</code> and <code>b5</code>
 that are used in its own implementation,
 but also the coefficients <code>dp_turbulent</code>, <code>m</code>,
-<code>a1</code>, <code>a3</code> and <code>a5</code>
-that are used by its inverse function
-<a href=\"modelica://Buildings.Fluid.BaseClasses.FlowModels.powerLaw_dp\">
-Buildings.Fluid.BaseClasses.FlowModels.powerLaw_dp</a>.
-These additional arguments are needed so that the <code>inverse</code> annotation
-can pass the input arguments of this function directly to its inverse function.
-Therefore, this function and its inverse function
+<code>a1</code>, <code>a3</code> and <code>a5</code>.
+With them, this function, its inverse function
+<a href=\"modelica://Buildings.Fluid.BaseClasses.FlowModels.powerLaw_m_flow_inv\">
+Buildings.Fluid.BaseClasses.FlowModels.powerLaw_m_flow_inv</a>,
+and
 <a href=\"modelica://Buildings.Fluid.BaseClasses.FlowModels.powerLaw_dp\">
 Buildings.Fluid.BaseClasses.FlowModels.powerLaw_dp</a>
 have the same input arguments, except that this function takes the mass flow rate
-<code>m_flow</code> as the first argument while its inverse takes the pressure difference
-<code>dp</code> as the first argument.
-The coefficients <code>dp_turbulent</code>, <code>m</code>, <code>a1</code>,
-<code>a3</code> and <code>a5</code> are computed by the function
+<code>m_flow</code>
+as the first argument while the other two take the pressure difference
+<code>dp</code>.
+The <code>inverse</code> annotation passes the input arguments of this function
+directly to its inverse function.
+All coefficients are computed by the function
 <a href=\"modelica://Buildings.Fluid.BaseClasses.FlowModels.powerLawData\">
 Buildings.Fluid.BaseClasses.FlowModels.powerLawData</a>.
 </p>
@@ -123,6 +123,18 @@ has an infinite number of continuous derivatives in <i>n</i> and in <i>k</i>.
 </html>",
 revisions="<html>
 <ul>
+<li>
+October 22, 2026, by Martin Sj&ouml;lund:<br/>
+Changed the <code>inverse</code> annotation from
+<code>powerLaw_dp</code>, which differs from the inverse in the laminar region,
+to the exact inverse
+<a href=\"modelica://Buildings.Fluid.BaseClasses.FlowModels.powerLaw_m_flow_inv\">
+Buildings.Fluid.BaseClasses.FlowModels.powerLaw_m_flow_inv</a>.
+Set <code>Inline=false</code>, as with <code>Inline=true</code>, OpenModelica inlines the function
+before it uses the <code>inverse</code> annotation, and solves a nonlinear equation instead.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4798\">Buildings, #4798</a>.
+</li>
 <li>
 May 30, 2026, by Michael Wetter:<br/>
 First implementation.<br/>

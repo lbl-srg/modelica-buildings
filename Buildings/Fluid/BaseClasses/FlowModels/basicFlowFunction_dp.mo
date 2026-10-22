@@ -25,7 +25,7 @@ algorithm
            smoothOrder=2,
            derivative(order=1, zeroDerivative=k, zeroDerivative=m_flow_turbulent)=
              Buildings.Fluid.BaseClasses.FlowModels.basicFlowFunction_dp_der,
-           inverse(dp=Buildings.Fluid.BaseClasses.FlowModels.basicFlowFunction_m_flow(
+           inverse(dp=Buildings.Fluid.BaseClasses.FlowModels.basicFlowFunction_dp_inv(
              m_flow=m_flow, k=k, m_flow_turbulent=m_flow_turbulent)),
            Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},
             {100,100}}), graphics={Line(
@@ -52,8 +52,23 @@ Therefore, the flow coefficient is
 <p>
 The input <code>m_flow_turbulent</code> determines the location of the regularization.
 </p>
+<p>
+The inverse of this function is
+<a href=\"modelica://Buildings.Fluid.BaseClasses.FlowModels.basicFlowFunction_dp_inv\">
+Buildings.Fluid.BaseClasses.FlowModels.basicFlowFunction_dp_inv</a>.
+</p>
 </html>", revisions="<html>
 <ul>
+<li>
+October 22, 2026, by Martin Sj&ouml;lund:<br/>
+Changed the <code>inverse</code> annotation from
+<code>basicFlowFunction_m_flow</code>, which differs from the inverse in the laminar region,
+to the exact inverse
+<a href=\"modelica://Buildings.Fluid.BaseClasses.FlowModels.basicFlowFunction_dp_inv\">
+Buildings.Fluid.BaseClasses.FlowModels.basicFlowFunction_dp_inv</a>.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4798\">Buildings, #4798</a>.
+</li>
 <li>
 November 9, 2019, by Filip Jorissen:<br/>
 Added <code>smooth(2, . )</code> for avoiding

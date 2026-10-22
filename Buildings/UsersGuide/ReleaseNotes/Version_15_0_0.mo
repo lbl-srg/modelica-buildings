@@ -24,12 +24,17 @@ The following <b style=\"color:blue\">new components</b> have been added
 to <b style=\"color:blue\">existing</b> libraries:
 </p>
 <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\" style=\"border-collapse:collapse;\">
-<tr><td colspan=\"2\"><b>xxx</b>
+<tr><td colspan=\"2\"><b>Buildings.Fluid.BaseClasses.FlowModels</b>
     </td>
 </tr>
-<tr><td valign=\"top\">xxx
+<tr><td valign=\"top\">Buildings.Fluid.BaseClasses.FlowModels.basicFlowFunction_dp_inv<br/>
+                       Buildings.Fluid.BaseClasses.FlowModels.basicFlowFunction_m_flow_inv<br/>
+                       Buildings.Fluid.BaseClasses.FlowModels.powerLaw_dp_inv<br/>
+                       Buildings.Fluid.BaseClasses.FlowModels.powerLaw_m_flow_inv
     </td>
-    <td valign=\"top\">xxx.
+    <td valign=\"top\">Added exact inverses of the flow functions, together with their
+                       first and second order derivatives.<br/>
+                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4798\">issue #4798</a>.
     </td>
     </tr>
 </table>
@@ -40,12 +45,22 @@ have been <b style=\"color:blue\">improved</b> in a
 <b style=\"color:blue\">backward compatible</b> way:
 </p>
 <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\" style=\"border-collapse:collapse;\">
-<tr><td colspan=\"2\"><b>xxx</b>
+<tr><td colspan=\"2\"><b>Buildings.Fluid.BaseClasses.FlowModels</b>
     </td>
 </tr>
-<tr><td valign=\"top\">xxx
+<tr><td valign=\"top\">Buildings.Fluid.BaseClasses.FlowModels.basicFlowFunction_dp<br/>
+                       Buildings.Fluid.BaseClasses.FlowModels.basicFlowFunction_m_flow<br/>
+                       Buildings.Fluid.BaseClasses.FlowModels.powerLaw_dp<br/>
+                       Buildings.Fluid.BaseClasses.FlowModels.powerLaw_m_flow
     </td>
-    <td valign=\"top\">xxx.
+    <td valign=\"top\">Changed the <code>inverse</code> annotation to the new exact inverse functions.
+                       Previously, each function declared the other one as its inverse, although
+                       they differ in the laminar region. Therefore, the results depended on whether a tool
+                       used the <code>inverse</code> annotation. Results of models that use the
+                       <code>inverse</code> annotation change in the laminar region.
+                       The power law functions are no longer inlined, as otherwise OpenModelica
+                       does not use their <code>inverse</code> annotation.<br/>
+                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4798\">issue #4798</a>.
     </td>
 </tr>
 <tr><td colspan=\"2\"><b>xxx</b>
