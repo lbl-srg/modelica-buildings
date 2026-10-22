@@ -2,7 +2,9 @@ within Buildings.Fluid.DataCenters.CDUs.LiquidToLiquid.Data;
 record GoogleProjectDeschutes_2MW
   "Data record for a Google Project Deschutes CDU"
   extends Buildings.Fluid.DataCenters.CDUs.LiquidToLiquid.Data.Generic_epsNTU(
-    Q_flow_nominal=2E6,
+    Q_flow_nominal=-2E6,
+    mRac_flow_nominal=31.48,
+    mPla_flow_nominal=32.30,
     TApp_nominal=3,
     TRacOut_nominal=273.15 + 45,
     dpHexPla_nominal=80000,
@@ -84,6 +86,12 @@ OCP 2026. Open Compute Project meeting, CDU Information WP. March 24, 2026.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+October 17, 2026, by Nauman Rafique:<br/>
+Corrected sign of <code>Q_flow_nominal</code>.<br/>
+Added nominal mass flow rates from the specification table.<br/>
+This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4787\">Buildings, #4787</a>.
+</li>
 <li>
 April 13, 2026, by Michael Wetter:<br/>
 First implementation.
