@@ -34,9 +34,6 @@ model AirToWater
       Buildings.Templates.Plants.HeatPumps.Types.PumpsPrimary.Variable
     "Set to true to automatically evaluate pump speed providing design flow"
     annotation(Evaluate=true);
-  final parameter Modelica.Units.SI.PressureDifference dpValCheChiWatPri_nominal[nPumChiWatPri] =
-    fill(Buildings.Templates.Data.Defaults.dpValChe, nPumChiWatPri)
-    "Primary CHW pump check valve pressure drop at design flow rate – Each unit";
   // To size the HP balancing valves, we first need to scale the pump check valve
   // pressure drop for configurations with common dedicated CHW and HW pumps.
   final parameter Modelica.Units.SI.PressureDifference dpValCheHeaWatBalHp_nominal =
@@ -57,7 +54,7 @@ model AirToWater
         (hp.mChiWatHp_flow_nominal / dat.pumHeaWatPri.m_flow_nominal[1]) ^ 2
       elseif typArrPumPri ==
         Buildings.Templates.Components.Types.PumpArrangement.Dedicated
-      then (if nPumChiWatPri > 0 then dpValCheChiWatPri_nominal[1] else 0)
+      then dat.dpValCheChiWat_nominal[1]
       else dpValCheChiWatBalHdr_nominal)
     else 0
     "HP primary (CHW or common HW and CHW) pump check valve pressure drop at design CHW flow rate";
@@ -73,7 +70,7 @@ model AirToWater
     if have_php
     then (if typArrPumPri ==
       Buildings.Templates.Components.Types.PumpArrangement.Dedicated
-      then (if nPumChiWatPri > 0 then dpValCheChiWatPri_nominal[nPumChiWatPri] else 0)
+      then dat.dpValCheChiWat_nominal[nPumChiWatPri]
       else dpValCheChiWatBalHdr_nominal)
     else 0
     "Polyvalent HP primary CHW pump check valve pressure drop at design CHW flow rate";
@@ -121,7 +118,7 @@ model AirToWater
   final parameter Modelica.Units.SI.PressureDifference dpValCheChiWatBalHdr_nominal =
     if typPumChiWatPri ==
     Buildings.Templates.Plants.HeatPumps.Types.PumpsPrimary.None then 0
-    else max(dpValCheChiWatPri_nominal) *
+    else max(dat.dpValCheChiWat_nominal) *
       (VChiWatBalHdr_nominal * rhoChiWat_default / sum(
         dat.pumChiWatPri.m_flow_nominal)) ^ 2
     "Primary CHW pump check valve pressure drop at design CHW flow rate – Headered pumps";
@@ -382,8 +379,7 @@ model AirToWater
       then dat.dpValCheHeaWat_nominal else fill(0, 0),
     final dpValCheChiWat_nominal=if typArrPumPri ==
       Buildings.Templates.Components.Types.PumpArrangement.Dedicated
-      and nPumChiWatPri > 0
-      then dpValCheChiWatPri_nominal else fill(0, 0),
+      then dat.dpValCheChiWat_nominal else fill(0, 0),
     final energyDynamics=energyDynamics,
     final allowFlowReversal=allowFlowReversal)
     "Dedicated primary pumps"
@@ -427,7 +423,7 @@ model AirToWater
     final energyDynamics=energyDynamics,
     redeclare final package Medium=MediumChiWat,
     final dat=dat.pumChiWatPri,
-    final dpValChe_nominal=dpValCheChiWatPri_nominal,
+    final dpValChe_nominal=dat.dpValCheChiWat_nominal,
     final nPum=nPumChiWatPri,
     final have_var=typPumPri ==
       Buildings.Templates.Plants.HeatPumps.Types.PumpsPrimary.Variable,

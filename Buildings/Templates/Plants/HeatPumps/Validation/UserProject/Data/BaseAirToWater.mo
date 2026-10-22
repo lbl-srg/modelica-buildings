@@ -22,16 +22,16 @@ class BaseAirToWater
     pumHeaWatSec(
       dp_nominal=fill(
         Buildings.Templates.Data.Defaults.dpHeaWatLocSet_max,
-        max(pla.cfg.nPumHeaWatSec, 1))),
+        pla.cfg.nPumHeaWatSec)),
     pumChiWatPri(
-      dp_nominal=fill(1.5 * pla.hp.dpChiWatHp_nominal, max(pla.cfg.nPumChiWatPri, 1)) .+
+      dp_nominal=fill(1.5 * pla.hp.dpChiWatHp_nominal, pla.cfg.nPumChiWatPri) .+
         (if pla.cfg.typDis ==
           Buildings.Templates.Plants.HeatPumps.Types.Distribution.Variable1Only
           then Buildings.Templates.Data.Defaults.dpChiWatLocSet_max else 0)),
     pumChiWatSec(
       dp_nominal=fill(
         Buildings.Templates.Data.Defaults.dpChiWatLocSet_max,
-        max(pla.cfg.nPumChiWatSec, 1))),
+        pla.cfg.nPumChiWatSec)),
     ctl(
       THeaWatSupSet_min=298.15,
       VHeaWatSec_flow_nominal=(pla.cfg.nHp * pla.ctl.VHeaWatHp_flow_nominal +

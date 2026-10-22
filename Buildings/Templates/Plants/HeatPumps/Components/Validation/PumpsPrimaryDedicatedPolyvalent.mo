@@ -367,12 +367,8 @@ model PumpsPrimaryDedicatedPolyvalent
     have_pumPriComHp=true,
     have_pumHeaWatPriVar=false,
     have_pumChiWatPriVar=false,
-    datPumHeaWat(
-      m_flow_nominal=datPumPriCom.m_flow_nominal,
-      dp_nominal=datPumPriCom.dp_nominal),
-    final datPumChiWat(
-      m_flow_nominal=datPumChiWatPhp.m_flow_nominal,
-      dp_nominal=datPumChiWatPhp.dp_nominal),
+    datPumHeaWat=datPumPriCom,
+    final datPumChiWat=datPumChiWatPhp,
     final energyDynamics=energyDynamics)
     "Primary pumps – Heat pumps with common constant speed dedicated primary pumps"
     annotation(Placement(transformation(extent={{-240,160},{240,240}})));
@@ -422,9 +418,7 @@ model PumpsPrimaryDedicatedPolyvalent
     have_var=false,
     final energyDynamics=energyDynamics,
     nPum=nHp + nPhp,
-    dat(
-      m_flow_nominal=datPumHeaWatHdr.m_flow_nominal,
-      dp_nominal=datPumHeaWatHdr.dp_nominal))
+    dat=datPumHeaWatHdr)
     "Headered primary HW pumps"
     annotation(Placement(transformation(extent={{-110,-50},{-90,-30}})));
   Buildings.Templates.Plants.HeatPumps.Interfaces.Bus busPla
@@ -444,12 +438,8 @@ model PumpsPrimaryDedicatedPolyvalent
     have_pumPriComHp=false,
     have_pumHeaWatPriVar=false,
     have_pumChiWatPriVar=false,
-    datPumHeaWat(
-      m_flow_nominal=datPumHeaWat.m_flow_nominal,
-      dp_nominal=datPumHeaWat.dp_nominal),
-    final datPumChiWat(
-      m_flow_nominal=datPumChiWat.m_flow_nominal,
-      dp_nominal=datPumChiWat.dp_nominal),
+    datPumHeaWat=datPumHeaWat,
+    final datPumChiWat=datPumChiWat,
     final energyDynamics=energyDynamics)
     "Primary pumps – Heat pumps with separate constant speed dedicated CHW pumps"
     annotation(Placement(transformation(extent={{-240,-420},{240,-340}})));
@@ -575,9 +565,7 @@ model PumpsPrimaryDedicatedPolyvalent
     have_var=false,
     final energyDynamics=energyDynamics,
     nPum=nHp + nPhp,
-    dat(
-      m_flow_nominal=datPumChiWatHdr.m_flow_nominal,
-      dp_nominal=datPumChiWatHdr.dp_nominal))
+    dat=datPumChiWatHdr)
     "Headered primary CHW pumps"
     annotation(Placement(transformation(extent={{-40,-70},{-20,-50}})));
   Fluid.FixedResistances.PressureDrop phpConSep[nPhp](
