@@ -2,7 +2,7 @@ within Buildings.Fluid.DataCenters.CDUs.LiquidToLiquid.Data;
 record VertivLiebertXDU1350
   "Data record for a Vertiv Liebert XDU 1350 CDU"
   extends Buildings.Fluid.DataCenters.CDUs.LiquidToLiquid.Data.Generic_epsNTU(
-    Q_flow_nominal=1350E3,
+    Q_flow_nominal=-1350E3,
     mRac_flow_nominal=20.6,
     mPla_flow_nominal=20.6,
     TApp_nominal=4,
@@ -57,6 +57,11 @@ Vertiv, Liebert XDU 1350 data sheet, SL-70799 (R10/25)
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+October 17, 2026, by Nauman Rafique:<br/>
+Corrected sign of <code>Q_flow_nominal</code>.<br/>
+This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4787\">Buildings, #4787</a>.
+</li>
 <li>
 July 13, 2026, by Michael Wetter:<br/>
 First implementation.
