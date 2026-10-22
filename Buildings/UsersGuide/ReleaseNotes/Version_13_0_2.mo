@@ -64,6 +64,17 @@ The following <b style=\"color:red\">critical errors</b> have been fixed (i.e., 
 that can lead to wrong simulation results):
 </p>
 <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\" style=\"border-collapse:collapse;\">
+<tr><td colspan=\"2\"><b>Buildings.Fluid.Interfaces</b>
+     </td>
+ </tr>
+<tr><td valign=\"top\">Buildings.Fluid.Interfaces.ConservationEquation
+     </td>
+    <td valign=\"top\">Corrected the species mass balance by adding the term
+                       <code>-medium.Xi*der(m)</code> to account for the change in total fluid mass.
+                       For typical HVAC applications, the change in results is small.<br/>
+                       This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/2168\">IBPSA, #2168</a>.
+     </td>
+</tr>
 <tr><td colspan=\"2\"><b>Buildings.Media.Antifreeze.Functions.Validation</b>
     </td>
 </tr>
