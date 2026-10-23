@@ -123,7 +123,8 @@ model ChillerGroupWaterCooled
     each period=2000)
     "CW pump Start/Stop signal"
     annotation(Placement(transformation(extent={{-10,190},{-30,210}})));
-  protected
+
+protected
   Buildings.Templates.Components.Interfaces.Bus busValConWatChiIso[nChi]
     "Chiller CW isolation valve control bus"
     annotation(Placement(transformation(extent={{-80,260},{-40,300}}),

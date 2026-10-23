@@ -225,7 +225,8 @@ model ChillerGroupAirCooled
     each period=2000)
     "Primary CHW pump Start/Stop signal"
     annotation(Placement(transformation(extent={{-170,190},{-150,210}})));
-  protected
+
+protected
   Buildings.Templates.Components.Interfaces.Bus busValChiWatChiIso[nChi]
     "Chiller CHW isolation valve control bus"
     annotation(Placement(transformation(extent={{-140,260},{-100,300}}),
@@ -242,7 +243,6 @@ model ChillerGroupAirCooled
     "Plant control bus"
     annotation(Placement(transformation(extent={{-120,120},{-80,160}}),
       iconTransformation(extent={{-432,12},{-412,32}})));
-  protected
   Buildings.Templates.Components.Interfaces.Bus busPumChiWatPri
     "Primary CHW pumps control bus"
     annotation(Placement(transformation(extent={{-140,180},{-100,220}}),
