@@ -2104,6 +2104,7 @@ Buildings/Fluid/MixingVolumes/Validation/CoupledVolumesSpecializedWaterTemperatu
 Buildings/Fluid/MixingVolumes/Validation/CoupledVolumesWater.mo
 Buildings/Fluid/MixingVolumes/Validation/MSLCombustionAir.mo
 Buildings/Fluid/MixingVolumes/Validation/MSLFlueGasSixComponents.mo
+Buildings/Fluid/MixingVolumes/Validation/MassAccumulation.mo
 Buildings/Fluid/MixingVolumes/Validation/MixingVolume.mo
 Buildings/Fluid/MixingVolumes/Validation/MixingVolumeAdiabaticCooling.mo
 Buildings/Fluid/MixingVolumes/Validation/MixingVolumeHeatReverseFlow.mo
@@ -3578,6 +3579,7 @@ Buildings/Resources/Scripts/Dymola/Fluid/MixingVolumes/Validation/CoupledVolumes
 Buildings/Resources/Scripts/Dymola/Fluid/MixingVolumes/Validation/CoupledVolumesWater.mos
 Buildings/Resources/Scripts/Dymola/Fluid/MixingVolumes/Validation/MSLCombustionAir.mos
 Buildings/Resources/Scripts/Dymola/Fluid/MixingVolumes/Validation/MSLFlueGasSixComponents.mos
+Buildings/Resources/Scripts/Dymola/Fluid/MixingVolumes/Validation/MassAccumulation.mos
 Buildings/Resources/Scripts/Dymola/Fluid/MixingVolumes/Validation/MixingVolume.mos
 Buildings/Resources/Scripts/Dymola/Fluid/MixingVolumes/Validation/MixingVolumeAdiabaticCooling.mos
 Buildings/Resources/Scripts/Dymola/Fluid/MixingVolumes/Validation/MixingVolumeHeatReverseFlow.mos
