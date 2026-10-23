@@ -34,7 +34,7 @@ model MultipleToMultiple
     annotation(Evaluate=true, Dialog(tab = "Dynamics", group="Conservation equations"));
 
   parameter Boolean allowFlowReversal=true
-    "= true to allow flow reversal, false restricts to design direction (ports_a -> ports_b)"
+    "Set to true to allow flow reversal, false restricts to design direction (ports_a -> ports_b)"
     annotation (Dialog(tab="Assumptions"), Evaluate=true);
   // Diagnostics
   parameter Boolean show_T = false
@@ -42,13 +42,13 @@ model MultipleToMultiple
     annotation (
       Dialog(tab="Advanced", group="Diagnostics"), HideResult=true);
 
-  constant Integer icon_xinl = -100
+  parameter Integer icon_xinl = -100
     "Minimum x-coordinate of inlet connection lines";
-  constant Integer icon_xout = 100
+  parameter Integer icon_xout = 100
     "Maximum x-coordinate of outlet connection lines";
-  constant Integer icon_offset = 0
+  parameter Integer icon_offset = 0
     "Offset in y-direction between inlet and outlet in icon layer";
-  constant Integer icon_dy = 100
+  parameter Integer icon_dy = 100
     "Distance in y-direction between each branch in icon layer";
   constant Buildings.Templates.Components.Types.IntegrationPoint icon_pipe=
       Buildings.Templates.Components.Types.IntegrationPoint.Supply
@@ -58,7 +58,7 @@ model MultipleToMultiple
     redeclare each final package Medium = Medium,
     each m_flow(min=if allowFlowReversal then -Modelica.Constants.inf else 0),
     each h_outflow(start=Medium.h_default, nominal=Medium.h_default))
-    "Fluid connector a (positive design flow direction is from ports_a to ports_b)"
+    "Fluid connectors a (positive design flow direction is from ports_a to ports_b)"
     annotation (Placement(transformation(extent={{-110,-40},{-90,40}}),
         iconTransformation(extent={{-110,-40},{-90,40}})));
   Modelica.Fluid.Interfaces.FluidPorts_b ports_b[nPorts_b](
