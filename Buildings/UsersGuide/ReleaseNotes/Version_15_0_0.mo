@@ -28,15 +28,22 @@ to <b style=\"color:blue\">existing</b> libraries:
     </td>
 </tr>
 <tr><td valign=\"top\">Buildings.Fluid.BaseClasses.FlowModels.basicFlowFunction_dp_inv<br/>
+                       Buildings.Fluid.BaseClasses.FlowModels.basicFlowFunction_dp_inv_der<br/>
+                       Buildings.Fluid.BaseClasses.FlowModels.basicFlowFunction_dp_inv_der2<br/>
                        Buildings.Fluid.BaseClasses.FlowModels.basicFlowFunction_m_flow_inv<br/>
+                       Buildings.Fluid.BaseClasses.FlowModels.basicFlowFunction_m_flow_inv_der<br/>
+                       Buildings.Fluid.BaseClasses.FlowModels.basicFlowFunction_m_flow_inv_der2<br/>
                        Buildings.Fluid.BaseClasses.FlowModels.powerLaw_dp_inv<br/>
-                       Buildings.Fluid.BaseClasses.FlowModels.powerLaw_m_flow_inv
+                       Buildings.Fluid.BaseClasses.FlowModels.powerLaw_dp_inv_der<br/>
+                       Buildings.Fluid.BaseClasses.FlowModels.powerLaw_dp_inv_der2<br/>
+                       Buildings.Fluid.BaseClasses.FlowModels.powerLaw_m_flow_inv<br/>
+                       Buildings.Fluid.BaseClasses.FlowModels.powerLaw_m_flow_inv_der<br/>
+                       Buildings.Fluid.BaseClasses.FlowModels.powerLaw_m_flow_inv_der2
     </td>
-    <td valign=\"top\">Added exact inverses of the flow functions, together with their
-                       first and second order derivatives.<br/>
-                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4798\">issue #4798</a>.
+    <td valign=\"top\">Added exact inverse functions and their first and second order derivatives.<br/>
+                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4798\">Buildings, #4798</a>.
     </td>
-    </tr>
+</tr>
 </table>
 <!-- Backward compatible changes -->
 <p>
@@ -53,14 +60,10 @@ have been <b style=\"color:blue\">improved</b> in a
                        Buildings.Fluid.BaseClasses.FlowModels.powerLaw_dp<br/>
                        Buildings.Fluid.BaseClasses.FlowModels.powerLaw_m_flow
     </td>
-    <td valign=\"top\">Changed the <code>inverse</code> annotation to the new exact inverse functions.
-                       Previously, each function declared the other one as its inverse, although
-                       they differ in the laminar region. Therefore, the results depended on whether a tool
-                       used the <code>inverse</code> annotation. Results of models that use the
-                       <code>inverse</code> annotation change in the laminar region.
-                       The power law functions are no longer inlined, as otherwise OpenModelica
-                       does not use their <code>inverse</code> annotation.<br/>
-                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4798\">issue #4798</a>.
+    <td valign=\"top\">Updated the <code>inverse</code> annotation to use the exact inverse functions,
+                       and set <code>Inline=false</code> on the power law functions so that OpenModelica
+                       applies the <code>inverse</code> annotation.<br/>
+                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4798\">Buildings, #4798</a>.
     </td>
 </tr>
 <tr><td colspan=\"2\"><b>Buildings.Fluid.Geothermal</b>
