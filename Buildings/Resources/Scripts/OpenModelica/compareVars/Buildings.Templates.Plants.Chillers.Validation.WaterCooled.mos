@@ -1,9 +1,11 @@
 compareVars :=
   {
-    "pla.ctl.ctl.staSetCon.capReq.y",
-    "pla.cap_nominal",
     "pla.ctl.ctl.TOut",
     "pla.ctl.dat.TOutChiWatLck",
+    "pla.ctl.ctl.staSetCon.capReq.y",
+    "pla.cap_nominal",
+    "loa.u",
+    "loa.yLoa_actual",
     "pla.ctl.reqPlaChiWat.y",
     "pla.ctl.ctl.plaEna.yPla",
     "pla.ctl.ctl.staSetCon.ySta",

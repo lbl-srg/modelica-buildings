@@ -6,7 +6,7 @@ simulateModel("Buildings.Templates.Plants.Controls.Utilities.Validation.StageInd
 createPlot(
     id=1,
     subPlot=1,
-    position={5, 5, 400, 500},
+    position={5, 5, 400, 600},
     y={"ena.y"},
     autoscale=true,
     grid=true
@@ -26,9 +26,16 @@ createPlot(
     grid=true
 );
 createPlot(
+    id=1,
+    subPlot=4,
+    y={"staOppMod.y[1]"},
+    autoscale=true,
+    grid=true
+);
+createPlot(
     id=2,
     subPlot=1,
-    position={410, 5, 400, 500},
+    position={410, 5, 400, 600},
     y={"idxSta.y"},
     autoscale=true,
     grid=true
@@ -51,6 +58,13 @@ createPlot(
     id=2,
     subPlot=4,
     y={"idxStaRunUna.y"},
+    autoscale=true,
+    grid=true
+);
+createPlot(
+    id=2,
+    subPlot=5,
+    y={"idxStaRunTwoMod.y"},
     autoscale=true,
     grid=true
 );

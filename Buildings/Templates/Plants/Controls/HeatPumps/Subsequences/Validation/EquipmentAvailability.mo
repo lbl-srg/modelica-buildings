@@ -1,0 +1,91 @@
+within Buildings.Templates.Plants.Controls.HeatPumps.Subsequences.Validation;
+model EquipmentAvailability
+  "Validation model for the evaluation of equipment availability"
+  Buildings.Templates.Plants.Controls.HeatPumps.Subsequences.EquipmentAvailability avaHeaCoo(
+    have_heaWat=true,
+    have_chiWat=true)
+    "Evaluate equipment availability – Heating and cooling"
+    annotation(Placement(transformation(extent={{0,-10},{20,10}})));
+  Buildings.Controls.OBC.CDL.Logical.Sources.TimeTable u1Ava(
+    table=[0, 1; 8.1, 0; 9, 1],
+    timeScale=1000,
+    period=10000)
+    "Equipment available signal"
+    annotation(Placement(transformation(extent={{-80,-10},{-60,10}})));
+  Buildings.Controls.OBC.CDL.Logical.Sources.TimeTable u1Coo(
+    table=[0, 0; 5, 1; 8, 0; 9.7, 1],
+    timeScale=1000,
+    period=10000)
+    "Equipment enabled in cooling mode"
+    annotation(Placement(transformation(extent={{-80,-50},{-60,-30}})));
+  Buildings.Controls.OBC.CDL.Logical.Sources.TimeTable u1Hea(
+    table=[0, 1; 1, 0; 2.5, 1; 4.2, 0; 8.5, 1; 9.7, 0],
+    timeScale=1000,
+    period=10000)
+    "Equipment enabled in heating mode"
+    annotation(Placement(transformation(extent={{-80,30},{-60,50}})));
+  Buildings.Templates.Plants.Controls.HeatPumps.Subsequences.EquipmentAvailability avaHea(
+    have_heaWat=true,
+    have_chiWat=false)
+    "Evaluate equipment availability – Heating only"
+    annotation(Placement(transformation(extent={{0,30},{20,50}})));
+  Buildings.Templates.Plants.Controls.HeatPumps.Subsequences.EquipmentAvailability avaCoo(
+    have_heaWat=false,
+    have_chiWat=true)
+    "Evaluate equipment availability – Cooling only"
+    annotation(Placement(transformation(extent={{0,-50},{20,-30}})));
+equation
+  connect(u1Ava.y[1], avaHeaCoo.u1Ava)
+    annotation(Line(points={{-58,0},{-30,0},{-30,-8},{-2,-8}},
+      color={255,0,255}));
+  connect(u1Ava.y[1], avaHea.u1Ava)
+    annotation(Line(points={{-58,0},{-10,0},{-10,32},{-2,32}},
+      color={255,0,255}));
+  connect(u1Hea.y[1], avaHea.u1EnaHea)
+    annotation(Line(points={{-58,40},{-20,40},{-20,48},{-2,48}},
+      color={255,0,255}));
+  connect(u1Hea.y[1], avaHeaCoo.u1EnaHea)
+    annotation(Line(points={{-58,40},{-20,40},{-20,8},{-2,8}},
+      color={255,0,255}));
+  connect(u1Coo.y[1], avaHeaCoo.u1EnaCoo)
+    annotation(Line(points={{-58,-40},{-20,-40},{-20,4},{-2,4}},
+      color={255,0,255}));
+  connect(u1Ava.y[1], avaCoo.u1Ava)
+    annotation(Line(points={{-58,0},{-10,0},{-10,-48},{-2,-48}},
+      color={255,0,255}));
+  connect(u1Coo.y[1], avaCoo.u1EnaCoo)
+    annotation(Line(points={{-58,-40},{-20,-40},{-20,-36},{-2,-36}},
+      color={255,0,255}));
+annotation(__Dymola_Commands(
+  file="modelica://Buildings/Resources/Scripts/Dymola/Templates/Plants/Controls/HeatPumps/Subsequences/Validation/EquipmentAvailability.mos"
+    "Simulate and plot"),
+  experiment(StopTime=10000.0,
+    Tolerance=1e-06),
+  Icon(graphics={Ellipse(lineColor={75,138,73},
+    fillColor={255,255,255},
+    fillPattern=FillPattern.Solid,
+    extent={{-100,-100},{100,100}}),
+  Polygon(lineColor={0,0,255},
+    fillColor={75,138,73},
+    pattern=LinePattern.None,
+    fillPattern=FillPattern.Solid,
+    points={{-36,60},{64,0},{-36,-60},{-36,60}})}),
+  Documentation(
+    info="<html>
+<p>
+  This model validates
+  <a href=\"modelica://Buildings.Templates.Plants.Controls.HeatPumps.Subsequences.EquipmentAvailability\">
+    Buildings.Templates.Plants.Controls.HeatPumps.Subsequences.EquipmentAvailability</a>
+  for heating-only applications (component <code>avaHeaCoo</code>) and heating
+  and cooling applications (component <code>avaHea</code>).
+</p>
+</html>",
+    revisions="<html>
+<ul>
+  <li>
+    March 29, 2024, by Antoine Gautier:<br />
+    First implementation.
+  </li>
+</ul>
+</html>"));
+end EquipmentAvailability;

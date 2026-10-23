@@ -138,7 +138,7 @@ model SimpleHouse
   Modelica.Blocks.Sources.Constant con_dp(k=dpAir_nominal) "Pressure head"
     annotation (Placement(transformation(extent={{-50,90},{-30,110}})));
 
-  Modelica.Blocks.Math.Gain gaiWin(k=AWin*gWin)
+  Modelica.Blocks.Math.Gain gaiWin(k(unit="m2")=AWin*gWin)
     "Gain for window solar transmittance and area as HGloHor is in W/m2"
     annotation (Placement(transformation(extent={{20,-50},{40,-30}})));
   Modelica.Blocks.Math.BooleanToInteger booToInt "Boolean to integer"
@@ -295,6 +295,10 @@ equation
     experiment(Tolerance=1e-06, StopTime=3.1536e+07),
     Documentation(revisions="<html>
 <ul>
+<li>
+September 27, 2026, by Michael Wetter:<br/>
+Added unit specification to avoid warning in Dymola 2025x.
+</li>
 <li>
 August 5, 2024, by Hongxiang Fu:<br/>
 Added two-port temperature sensors to replace <code>sta_*.T</code>

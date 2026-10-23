@@ -17,13 +17,11 @@ block LoadAverage
     final unit="s")=300
     "Duration used to compute the moving average of required capacity";
   Buildings.Controls.OBC.CDL.Reals.Subtract delT(
-    y(
-      final unit="K"))
+    y(final unit="K"))
     "Compute ∆T"
     annotation (Placement(transformation(extent={{-70,-10},{-50,10}})));
   Buildings.Controls.OBC.CDL.Reals.MultiplyByParameter capFlo(
-    y(
-      final unit="W/K"),
+    y(final unit="W/K"),
     final k=rho_default * cp_default)
     "Compute capacity flow rate"
     annotation (Placement(transformation(extent={{-70,-50},{-50,-30}})));
@@ -97,8 +95,8 @@ equation
     Documentation(
       info="<html>
 <p>
-This block computes the load on a system based on the return temperature, 
-active supply temperature setpoint and measured flow through the associated 
+This block computes the load on a system based on the return temperature,
+active supply temperature setpoint and measured flow through the associated
 circuit flow meter, using the following equation.
 </p>
 <ul>
@@ -110,7 +108,7 @@ circuit flow meter, using the following equation.
 </li>
 <li>
 For all applications: <code>Q_flow</code> less than or equal to zero means
-that there is no actual load on the system. 
+that there is no actual load on the system.
 </li>
 </ul>
 <p>

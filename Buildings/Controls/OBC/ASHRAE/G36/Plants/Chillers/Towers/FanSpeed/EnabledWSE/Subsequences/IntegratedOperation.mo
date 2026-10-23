@@ -110,8 +110,6 @@ protected
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant maxTowSpe(final k=1)
     "Maximum tower fan speed"
     annotation (Placement(transformation(extent={{0,-70},{20,-50}})));
-  Buildings.Controls.OBC.CDL.Logical.Edge edg "Output true at the moment when input becomes true"
-    annotation (Placement(transformation(extent={{-80,-150},{-60,-130}})));
   Buildings.Controls.OBC.CDL.Logical.And froWseOnl
     "Check if it switches from WSE only mode to integrated operation mode"
     annotation (Placement(transformation(extent={{-40,-120},{-20,-100}})));
@@ -160,12 +158,8 @@ equation
           {30,-48},{58,-48}}, color={0,0,127}));
   connect(one.y, regFanSpe.x2) annotation (Line(points={{-18,-60},{-10,-60},{-10,
           -44},{58,-44}}, color={0,0,127}));
-  connect(chiOn.y, edg.u)
-    annotation (Line(points={{-98,30},{-90,30},{-90,-140},{-82,-140}}, color={255,0,255}));
   connect(uWse, froWseOnl.u1) annotation (Line(points={{-180,0},{-80,0},{-80,-110},
           {-42,-110}}, color={255,0,255}));
-  connect(edg.y, froWseOnl.u2) annotation (Line(points={{-58,-140},{-50,-140},{-50,
-          -118},{-42,-118}}, color={255,0,255}));
   connect(froWseOnl.y, lat.u)
     annotation (Line(points={{-18,-110},{18,-110}}, color={255,0,255}));
   connect(lat.y, intOpeTim.u)
@@ -205,6 +199,8 @@ equation
     annotation (Line(points={{42,-110},{78,-110}}, color={255,0,255}));
   connect(notSwi.y, and3.u2) annotation (Line(points={{102,-110},{120,-110},{120,
           -90},{-70,-90},{-70,22},{-62,22}}, color={255,0,255}));
+  connect(chiOn.y, froWseOnl.u2) annotation (Line(points={{-98,30},{-90,30},{
+          -90,-118},{-42,-118}}, color={255,0,255}));
 annotation (
   defaultComponentName="wseTowSpeIntOpe",
   Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},

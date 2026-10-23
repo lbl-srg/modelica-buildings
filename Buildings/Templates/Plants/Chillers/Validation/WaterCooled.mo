@@ -38,7 +38,6 @@ model WaterCooled
       final energyDynamics=energyDynamics,
       final dat=datAll.pla,
       show_T=true,
-      linearized=true,
       chi(have_senTChiWatChiSup_select=true, have_senTChiWatChiRet=true))
     "Chiller plant"
     annotation(Placement(transformation(extent={{-80,-100},{-40,-60}})));
@@ -239,16 +238,6 @@ annotation(__Dymola_Commands(
     pressure setpoint.
   </li>
 </ul>
-<h4>Details</h4>
-<h5>Actuators within the plant</h5>
-<p>
-  By default, all valves within the plant are modeled considering a linear
-  variation of pressure drop with flow rate
-  (<code>pla.linearized=true</code>), as opposed to the quadratic relationship
-  usually considered for a turbulent flow regime. By limiting the size of the
-  system of nonlinear equations, this setting reduces the risk of solver
-  failure and the time to solution for testing various plant configurations.
-</p>
 </html>",
     revisions="<html>
 <ul>

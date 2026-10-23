@@ -1,9 +1,11 @@
 compareVars :=
   {
-    "pla.ctl.ctl.staSetCon.capReq.y",
-    "pla.cap_nominal",
     "pla.ctl.ctl.TOut",
     "pla.ctl.dat.TOutChiWatLck",
+    "pla.ctl.ctl.staSetCon.capReq.y",
+    "pla.cap_nominal",
+    "loa.u",
+    "loa.yLoa_actual",
     "pla.ctl.reqPlaChiWat.y",
     "pla.ctl.ctl.plaEna.yPla",
     "pla.ctl.ctl.staSetCon.ySta",
@@ -21,7 +23,7 @@ compareVars :=
     "datAll.pla.ctl.VChiWatPri_flow_nominal",
     "pla.chi.chi[1].chi.PLR",
     "pla.chi.chi[2].chi.PLR",
-    "pla.bus.TChiWatSupSet[1]",
+    "pla.bus.chi[1].TChiWatSet",
     "pla.bus.TChiWatPriSup",
     "pla.bus.TChiWatPlaRet"
   };

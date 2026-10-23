@@ -28,6 +28,11 @@ CRED = '\033[91m'
 CGREEN = '\033[92m'
 CEND = '\033[0m'
 
+# Maximum number of lines kept from each auxiliary Dymola log (buildlog.txt, dslog.txt)
+# appended to the error log of a failed simulation. Only the tail is kept: that is where
+# the compiler and the solver report what went wrong.
+AUX_LOG_MAX_LINES = 200
+
 # Solver names accepted by buildingspy.simulate.Optimica.Simulator.setSolver(), keyed by
 # their lowercase spelling so mos/conf.yml/EXPERIMENT_MODIF values can be matched
 # case-insensitively and re-cased into the exact (case-sensitive) name Optimica expects.
@@ -285,6 +290,25 @@ def simulate_case(arg, simulator, experiment_attributes):
             shutil.rmtree(output_dir_path, ignore_errors=True)
             # We delete the log of successful simulations to limit memory usage.
             log = None
+        elif simulator == 'dymola':
+            # simulator.log only contains Dymola's command log, which reports a failure as a
+            # bare `Failed` followed by ` = false`. The diagnostics that explain the failure
+            # are written to buildlog.txt (compilation) and dslog.txt (integration), which are
+            # otherwise lost with the CI worker. We append their tail so that a failure can be
+            # diagnosed from the CI log alone.
+            for aux in ['buildlog.txt', 'dslog.txt']:
+                try:
+                    with open(os.path.join(output_dir_path, aux)) as fh:
+                        lines = fh.readlines()
+                except OSError:
+                    continue
+                excerpt = ''.join(lines[-AUX_LOG_MAX_LINES:])
+                if len(lines) > AUX_LOG_MAX_LINES:
+                    excerpt = (
+                        f'[First {len(lines) - AUX_LOG_MAX_LINES} lines omitted.]\n'
+                        + excerpt
+                    )
+                log = f'{log}\n\n*** Content of {aux}\n\n{excerpt}'
 
     return toreturn, log
 
@@ -483,6 +507,8 @@ def prune_modifications(
                     for list_modif_ex in exclude[arg[0]]
                 ):
                     indices_to_pop.append(i)
+        # Convert to set to avoid overhead in list comprehension below.
+        indices_to_pop = set(indices_to_pop)
         combinations = [
             el
             for idx, el in enumerate(combinations)
@@ -502,7 +528,7 @@ def prune_modifications(
                                 if re.search(pattern_to_remove, modif):
                                     indices_to_pop.append(j)
             # The tuple combinations[i] is immutable, but modifying inplace one of its elements is possible though.
-            remove_items_by_indices(combinations[i][1], indices_to_pop)
+            remove_items_by_indices(arg[1], indices_to_pop)
 
     # Remove elements with duplicated (model, modif) within combinations.
     df_model_modif = pd.DataFrame(
@@ -511,7 +537,10 @@ def prune_modifications(
             modif=[''.join(el[1]) for el in combinations],
         )
     )
-    indices_to_pop = df_model_modif[df_model_modif.duplicated()].index.tolist()
+    # Convert to set to avoid overhead in list comprehension below.
+    indices_to_pop = set(
+        df_model_modif[df_model_modif.duplicated()].index.tolist()
+    )
     combinations = [
         el for idx, el in enumerate(combinations) if idx not in indices_to_pop
     ]
@@ -588,7 +617,9 @@ def apply_experiment_modifications(
         if experiment_modif is not None and model in experiment_modif:
             modif_concat = ''.join(modif)
             for patterns, overrides in experiment_modif[model]:
-                if all(re.search(pattern, modif_concat) for pattern in patterns):
+                if all(
+                    re.search(pattern, modif_concat) for pattern in patterns
+                ):
                     for tool_attributes in attributes.values():
                         tool_attributes.update(overrides)
             # Normalize values once all matching overrides have been applied.
@@ -631,13 +662,13 @@ def report_clean(combinations, results, keep_going=False):
     # Log and exit if any simulations failed.
     if has_failure:
         with open('unitTestsTemplates.log', 'a') as FH:
-            for idx in df[df.errorcode != 0].index:
-                FH.write(
-                    f'*** Simulation failed for {df.iloc[idx].model} with the error code {df.iloc[idx].errorcode} '
-                    + 'and the following class modifications and error log.\n\n'
-                    + ',\n'.join(df.iloc[idx].modif)
-                    + f'\n\n{df.iloc[idx].errorlog}\n\n'
-                )
+            FH.writelines(
+                f'*** Simulation failed for {df.iloc[idx].model} with the error code {df.iloc[idx].errorcode} '
+                + 'and the following class modifications and error log.\n\n'
+                + ',\n'.join(df.iloc[idx].modif)
+                + f'\n\n{df.iloc[idx].errorlog}\n\n'
+                for idx in df[df.errorcode != 0].index
+            )
         number_failure = df.errorcode.apply(lambda x: 1 if x != 0 else 0).sum()
         print(
             CRED

@@ -1,3 +1,6 @@
+ConcatenateLogical
+ConcatenateParameterLogical
+ConcatenateSelectLogical
 CountTrue
 FirstTrueIndex
 HoldReal

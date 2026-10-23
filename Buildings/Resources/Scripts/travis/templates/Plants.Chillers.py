@@ -95,17 +95,6 @@ REMOVE_MODIF = {
 
 # See docstring of `apply_experiment_modifications` function for the structure of EXPERIMENT_MODIF.
 EXPERIMENT_MODIF = {
-    'Buildings.Templates.Plants.Chillers.Validation.WaterCooled': [
-        (
-            [
-                'Buildings.Templates.Plants.Chillers.Components.Economizers.HeatExchangerWithPump',
-                'have_senDpChiWatRemWir=false',
-            ],
-            {
-                'method': 'dassl',
-            },
-        ),
-    ],
 }
 
 if __name__ == '__main__':

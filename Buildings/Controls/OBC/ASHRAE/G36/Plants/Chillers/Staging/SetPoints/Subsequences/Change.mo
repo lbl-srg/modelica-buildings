@@ -243,8 +243,6 @@ equation
           color={0,0,127}));
   connect(triSam1.u,booToRea. y)
     annotation (Line(points={{178,10},{82,10}},  color={0,0,127}));
-  connect(edg.y,lat1. u) annotation (Line(points={{-358,170},{-340,170},{-340,
-          200},{98,200}}, color={255,0,255}));
   connect(switch2.y,reaToInt. u)
     annotation (Line(points={{182,200},{198,200}}, color={0,0,127}));
   connect(and3.y,lat1. clr) annotation (Line(points={{62,120},{80,120},{80,194},
@@ -377,6 +375,8 @@ equation
           -260},{-150,-260},{-150,-198},{-142,-198}}, color={255,0,255}));
   connect(staChaHol1.y, and2.u2) annotation (Line(points={{-58,-170},{-48,-170},
           {-48,-138},{-2,-138}}, color={255,0,255}));
+  connect(uPla, lat1.u) annotation (Line(points={{-460,170},{-420,170},{-420,
+          200},{98,200}}, color={255,0,255}));
   annotation (defaultComponentName = "cha",
         Icon(graphics={
         Rectangle(

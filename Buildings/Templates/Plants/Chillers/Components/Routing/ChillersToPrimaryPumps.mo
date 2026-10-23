@@ -75,8 +75,13 @@ model ChillersToPrimaryPumps
     final typ=Buildings.Templates.Components.Types.Valve.TwoWayTwoPosition,
     final m_flow_nominal=mChiWatPri_flow_nominal,
     dpValve_nominal=Buildings.Templates.Data.Defaults.dpValIso)
-    "Chiller CHW bypass valve parameters (identical for all valves in case of series chillers)"
+    "Chiller CHW bypass valve parameters"
     annotation(Dialog(enable=have_valChiWatChiBypPar));
+  parameter Boolean linearized(start=false) = false
+    "= true, use linear relation between m_flow and dp for all valves"
+    annotation(Evaluate=true,
+      Dialog(tab="Advanced",
+        enable=have_valChiWatChiBypPar));
   parameter Modelica.Units.SI.Time tau = 10
     "Time constant at nominal flow"
     annotation(Dialog(tab="Dynamics",
@@ -136,9 +141,12 @@ model ChillersToPrimaryPumps
     redeclare final package Medium=MediumChiWat,
     final typ=Buildings.Templates.Components.Types.Valve.TwoWayTwoPosition,
     final allowFlowReversal=allowFlowReversal,
-    final dat=datValChiWatChiByp)
+    final linearized=linearized,
+    chaTwo=Buildings.Templates.Components.Types.ValveCharacteristicTwoWay.Linear,
+    final dat=datValChiWatChiByp,
+    from_dp=true)
     if have_valChiWatChiBypPar
-    "Chiller CHW bypass valve - Parallel chillers with WSE and primary-only distribution)"
+    "Chiller CHW bypass valve - Parallel chillers with WSE and primary-only distribution"
     annotation(Placement(transformation(extent={{10,10},{-10,-10}},
       rotation=270)));
   Buildings.Templates.Components.Routing.MultipleToMultiple rouSupPar(

@@ -1,0 +1,27 @@
+simulateModel("Buildings.Templates.Plants.Controls.Utilities.Validation.ConcatenateParameterLogical",
+    method="cvode",
+    tolerance=1e-6,
+    stopTime=1.0,
+    resultFile="ConcatenateParameterLogical");
+createPlot(
+    id=1,
+    position={5, 5, 300, 600},
+    subPlot=1,
+    y={"cat0.y[1]", "cat0.y[2]"},
+    autoscale=true,
+    grid=true
+);
+createPlot(
+    id=1,
+    subPlot=2,
+    y={"catApp.y[1]", "catApp.y[2]", "catApp.y[3]"},
+    autoscale=true,
+    grid=true
+);
+createPlot(
+    id=1,
+    subPlot=3,
+    y={"catPre.y[1]", "catPre.y[2]", "catPre.y[3]", "catPre.y[4]"},
+    autoscale=true,
+    grid=true
+);

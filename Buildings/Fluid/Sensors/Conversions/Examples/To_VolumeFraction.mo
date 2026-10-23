@@ -57,7 +57,9 @@ model To_VolumeFraction "Example problem for conversion model"
   Modelica.Blocks.Math.Gain norMea(k=1/1000E-6)
     "Normalization for measured concentration (to scale control input)"
     annotation (Placement(transformation(extent={{-140,-60},{-120,-40}})));
-  Modelica.Blocks.Math.Gain conVolFlo(k=3600, y(unit="m3/h"))
+  Modelica.Blocks.Math.Gain conVolFlo(
+    k(unit="s/h")=3600,
+    y(unit="m3/h"))
     "Conversion from m3/s to m3/h"
     annotation (Placement(transformation(extent={{40,20},{60,40}})));
   Buildings.Fluid.Sensors.TraceSubstancesTwoPort senTraSubPeo(m_flow_nominal=0.1,
@@ -123,19 +125,19 @@ equation
       points={{5.55112e-16,70},{40,70}},
       color={0,127,255}));
   connect(senTraSubPeo.port_b, vol.ports[1]) annotation (Line(
-      points={{60,70},{82,70},{82,50},{97,50},{97,60}},
+      points={{60,70},{82,70},{82,50},{98.5,50},{98.5,60}},
       color={0,127,255}));
   connect(senVolFlo.port_b, senTraSubFre.port_a) annotation (Line(
       points={{40,-10},{60,-10}},
       color={0,127,255}));
   connect(senTraSubFre.port_b, vol.ports[2]) annotation (Line(
-      points={{80,-10},{99,-10},{99,60}},
+      points={{80,-10},{99.5,-10},{99.5,60}},
       color={0,127,255}));
   connect(vol.ports[3], senCO2.port) annotation (Line(
-      points={{101,60},{101,-10},{130,-10},{130,-5.55112e-16}},
+      points={{100.5,60},{100.5,-10},{130,-10},{130,0}},
       color={0,127,255}));
   connect(vol.ports[4], res.port_a) annotation (Line(
-      points={{103,60},{102,60},{102,38},{122,38},{122,40}},
+      points={{101.5,60},{102,60},{102,38},{122,38},{122,40}},
       color={0,127,255}));
   connect(sin.ports[1], res.port_b)
     annotation (Line(points={{160,40},{142,40}}, color={0,127,255}));
@@ -154,6 +156,10 @@ Note that for simplicity, we allow zero outside air flow rate if the CO<sub>2</s
 the setpoint, which does not comply with ASHRAE regulations.
 </html>", revisions="<html>
 <ul>
+<li>
+September 27, 2026, by Michael Wetter:<br/>
+Added unit specification to avoid warning in Dymola 2025x.
+</li>
 <li>
 March 26, 2024, by Michael Wetter:<br/>
 Configured the sensor parameter to suppress the warning about being a one-port connection.<br/>

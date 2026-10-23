@@ -5,7 +5,7 @@ model ChillerWSEDesignConditionsWater
     redeclare package MediumTow = Buildings.Media.Water,
     redeclare package MediumRac = Buildings.Media.Water,
     datCDU(
-      medRac=Buildings.Fluid.DataCenterEquipment.CDUs.Types.Media.Water,
+      medRac=Buildings.Fluid.DataCenters.CDUs.Types.Media.Water,
       phiGlyRac=0)
     );
 

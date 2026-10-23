@@ -286,6 +286,7 @@ equation
     m = 0;
     TEvaWetBulOut = 293.15;
     XEvaWetBulOut = 0;
+    XiSatRefOut = 0;
   end if;
 
   annotation (defaultComponentName="eva",
@@ -582,6 +583,13 @@ Florida Solar Energy Center, Technical Report FSEC-CR-1537-05, January 2006.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+September 4, 2026, by Michael Wetter:<br/>
+Added missing assignment for <code>XiSatRefOut</code> in branch
+that is used if the model does not compute evaporation.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4715\">#4715</a>.
+</li>
 <li>
 April 5, 2023, by Jianjun Hu:<br/>
 Corrected assertion for the condition <code>dX_nominal&lt;0</code> and the documentation.<br/>

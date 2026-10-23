@@ -239,9 +239,6 @@ protected
   Buildings.Controls.OBC.CDL.Logical.Latch lat5
     "Use the setpoint when the process requires chiller ON and OFF"
     annotation (Placement(transformation(extent={{180,-170},{200,-150}})));
-  Buildings.Controls.OBC.CDL.Logical.Latch lat
-    "Indicate if the stage require one chiller to be enabled while another is disabled"
-    annotation (Placement(transformation(extent={{-200,168},{-180,188}})));
   Buildings.Controls.OBC.CDL.Logical.TrueFalseHold chiStaHol[nChi](
     final trueHoldDuration=fill(delStaCha, nChi))
     "Hold the chiller commanded status after being changed"
@@ -423,11 +420,6 @@ equation
           250},{-116,32},{58,32}}, color={255,0,255}));
   connect(uStaUp, disHeaCon.uStaPro) annotation (Line(points={{-240,250},{-116,250},
           {-116,-10},{58,-10}}, color={255,0,255}));
-  connect(uOnOff, lat.u) annotation (Line(points={{-240,150},{-222,150},{-222,
-          178},{-202,178}},
-          color={255,0,255}));
-  connect(edg1.y, lat.clr) annotation (Line(points={{202,-260},{206,-260},{206,
-          -280},{-214,-280},{-214,172},{-202,172}}, color={255,0,255}));
   connect(edg1.y, lat3.clr) annotation (Line(points={{202,-260},{210,-260},{210,
           -280},{-30,-280},{-30,-46},{118,-46}}, color={255,0,255}));
   connect(uStaUp, and6.u2) annotation (Line(points={{-240,250},{-116,250},{-116,

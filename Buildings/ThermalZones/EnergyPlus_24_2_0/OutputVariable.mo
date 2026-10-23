@@ -10,7 +10,7 @@ model OutputVariable
   parameter Boolean isDirectDependent=false
     "Set to false for states or weather variables, or true for algebraic variables with direct dependency on input variables";
   Modelica.Blocks.Interfaces.RealInput directDependency if isDirectDependent
-    "Set to algebraic variable on which this output directly depends on"
+    "Set to algebraic variable on which this output directly depends"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
   discrete Modelica.Blocks.Interfaces.RealOutput y
     "Output received from EnergyPlus"
@@ -45,9 +45,14 @@ protected
     idfVersion=idfVersion,
     idfName=idfName,
     epwName=epwName,
+    epName=name,
+    hvacSystemName="n/a",
     runPeriod=runPeriod,
     relativeSurfaceTolerance=relativeSurfaceTolerance,
-    epName=name,
+    airChaRatInf=0.0,
+    cpAir=0.0,
+    h_fg=0.0,
+    rhoAir=0.0,
     usePrecompiledFMU=usePrecompiledFMU,
     fmuName=fmuName,
     buildingsRootFileLocation=Buildings.ThermalZones.EnergyPlus_24_2_0.BaseClasses.buildingsRootFileLocation,
@@ -122,7 +127,7 @@ Block that retrieves an output variable from EnergyPlus.
 </p>
 <p>
 This model reads at every EnergyPlus zone time step the output variable specified
-by the parameters <code>componentKey</code> and <code>variableName</code>.
+by the parameters <code>key</code> and <code>name</code>.
 These parameters are the values for the EnergyPlus variable key and name,
 which can be found in the EnergyPlus result dictionary file (<code>.rdd</code> file)
 or the EnergyPlus meter dictionary file (<code>.mdd</code> file).
@@ -220,7 +225,7 @@ Buildings.ThermalZones.EnergyPlus_24_2_0.Actuator</a>
 or
 <a href=\"modelica://Buildings.ThermalZones.EnergyPlus_24_2_0.Schedule\">
 Buildings.ThermalZones.EnergyPlus_24_2_0.Schedule</a>
-on which this output directly depends on.
+on which this output directly depends.
 See for example
 <a href=\"modelica://Buildings.ThermalZones.EnergyPlus_24_2_0.Validation.Schedule.EquipmentScheduleOutputVariable\">
 Buildings.ThermalZones.EnergyPlus_24_2_0.Validation.Schedule.EquipmentScheduleOutputVariable</a>.

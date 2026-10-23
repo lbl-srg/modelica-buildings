@@ -1,6 +1,6 @@
 within Buildings.ThermalZones.EnergyPlus_24_2_0.Examples.SingleFamilyHouse;
 model Radiator
-  "Example model with an radiator that conditions a thermal zone in EnergyPlus"
+  "Example model with a radiator that conditions a thermal zone in EnergyPlus"
   extends Modelica.Icons.Example;
   package MediumA=Buildings.Media.Air "Medium model for air";
   package MediumW=Buildings.Media.Water "Medium model for water";

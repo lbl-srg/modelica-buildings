@@ -1,5 +1,5 @@
 within Buildings.Templates.Plants.Controls.Utilities.Validation;
-model MultiMaxInteger
+model MultiMaxInteger "Validation model"
   Buildings.Templates.Plants.Controls.Utilities.MultiMaxInteger mulMax(nin=5)
     "Block that outputs the maximum element of the input vector"
     annotation (Placement(transformation(extent={{0,-10},{20,10}})));

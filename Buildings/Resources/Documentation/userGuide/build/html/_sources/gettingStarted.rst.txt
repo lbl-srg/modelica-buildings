@@ -72,7 +72,7 @@ Literature for Developers
 -------------------------
 
 It is essential that users who develop new thermo-fluid models to understand the concept of stream connectors.
-Stream connectors are explained in the Modelica language definition, available at https://modelica.org/language,
+Stream connectors are explained in the Modelica language definition, available at https://modelica.org/projects/language/,
 and in the paper Franke et al. [Fra2009a]_.
 The `Buildings` library uses similar modeling principles, and the same base classes, as the `Modelica.Fluid` library.
 Hence, we also recommend reading the paper about the standardization of thermo-fluid models in Modelica.Fluid [Fra2009b]_.
@@ -90,11 +90,11 @@ References
 .. [Fri2011] Peter Fritzson. *Introduction to Modeling and Simulation of Technical and Physical Systems with Modelica.* Wiley-IEEE Press, ISBN 978-1-1180-1068-6, 2011.
 
 .. [Fra2009a] R. Franke, F. Casella, M. Otter, M. Sielemann, H. Elmqvist, S. E. Mattsson, and H. Olsson.
-              `Stream connectors – an extension of modelica for device-oriented modeling of convective transport phenomena <http://dx.doi.org/10.3384/ecp09430078>`_.
+              `Stream connectors – an extension of modelica for device-oriented modeling of convective transport phenomena <https://dx.doi.org/10.3384/ecp09430078>`_.
               In F. Casella, editor, Proc. of the 7-th International Modelica Conference, Como, Italy, Sept. 2009.
 
 .. [Fra2009b] R. Franke, F. Casella, M. Otter, K. Proelss, M. Sielemann, and M. Wetter. `Standardization of thermo-fluid modeling in Modelica.Fluid
-              <http://dx.doi.org/10.3384/ecp09430077>`_.
+              <https://dx.doi.org/10.3384/ecp09430077>`_.
               In F. Casella, editor, Proc. of the 7-th International Modelica Conference, Como, Italy, Sept. 2009.
 
 .. [Til2001] Michael M. Tiller. *Introduction to Physical Modeling with Modelica.* Kluwer Academic Publisher, 2001.

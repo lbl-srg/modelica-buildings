@@ -4,7 +4,7 @@ model SimpleHouse2 "Building window model"
 
   parameter Modelica.Units.SI.Area AWin=2 "Window area";
 
-  Modelica.Blocks.Math.Gain gaiWin(k=AWin)
+  Modelica.Blocks.Math.Gain gaiWin(k(unit="m2")=AWin)
     "Gain for solar irradiance through the window"
     annotation (Placement(transformation(extent={{20,-50},{40,-30}})));
   Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow win
@@ -13,8 +13,9 @@ model SimpleHouse2 "Building window model"
 equation
   connect(gaiWin.y, win.Q_flow)
     annotation (Line(points={{41,-40},{60,-40}},   color={0,0,127}));
-  connect(gaiWin.u, weaBus.HDirNor) annotation (Line(points={{18,-40},{-130,-40},
-          {-130,0}},   color={0,0,127}), Text(
+  connect(gaiWin.u, weaBus.HDirNor) annotation (Line(points={{18,-40},{-129.95,-40},
+          {-129.95,0.05}},
+                       color={0,0,127}), Text(
       string="%second",
       index=1,
       extent={{-6,3},{-6,3}},
@@ -26,6 +27,10 @@ equation
     experiment(Tolerance=1e-6, StopTime=1e+06),
     Documentation(revisions="<html>
 <ul>
+<li>
+September 27, 2026, by Michael Wetter:<br/>
+Added unit specification to avoid warning in Dymola 2025x.
+</li>
 <li>
 September 4, 2023, by Jelger Jansen:<br/>
 First implementation.

@@ -93,9 +93,6 @@ protected
     final nout=nChi)
     "Replicate boolean input"
     annotation (Placement(transformation(extent={{-60,60},{-40,80}})));
-  Buildings.Controls.OBC.CDL.Logical.Edge edg
-    "Rising edge, output true at the moment when input turns from false to true"
-    annotation (Placement(transformation(extent={{-100,60},{-80,80}})));
   Buildings.Controls.OBC.CDL.Routing.BooleanScalarReplicator booRep2(final nout=nChi)
     "Replicate boolean input"
     annotation (Placement(transformation(extent={{-20,-10},{0,10}})));
@@ -116,9 +113,6 @@ protected
   Buildings.Controls.OBC.CDL.Routing.BooleanScalarReplicator booRep4(final nout=nChi)
     "Replicate boolean input"
     annotation (Placement(transformation(extent={{-160,-170},{-140,-150}})));
-  Buildings.Controls.OBC.CDL.Logical.Edge edg1
-    "Rising edge, output true at the moment when input turns from false to true"
-    annotation (Placement(transformation(extent={{-160,-250},{-140,-230}})));
   Buildings.Controls.OBC.CDL.Conversions.BooleanToReal booToRea1[nChi]
     "Convert boolean input to real output"
     annotation (Placement(transformation(extent={{-160,-220},{-140,-200}})));
@@ -186,13 +180,8 @@ equation
   connect(uChi, booToRea.u)
     annotation (Line(points={{-220,80},{-170,80},{-170,100},{-102,100}},
       color={255,0,255}));
-  connect(and2.y, edg.u)
-    annotation (Line(points={{-138,140},{-120,140},{-120,70},{-102,70}},
-      color={255,0,255}));
   connect(booToRea.y, triSam.u)
     annotation (Line(points={{-78,100},{-22,100}}, color={0,0,127}));
-  connect(edg.y, booRep1.u)
-    annotation (Line(points={{-78,70},{-62,70}}, color={255,0,255}));
   connect(booRep1.y, triSam.trigger)
     annotation (Line(points={{-38,70},{-10,70},{-10,88}},   color={255,0,255}));
   connect(triSam.y, greEquThr.u)
@@ -242,13 +231,8 @@ equation
   connect(uChi, booToRea1.u)
     annotation (Line(points={{-220,80},{-170,80},{-170,-210},{-162,-210}},
       color={255,0,255}));
-  connect(uStaDow, edg1.u)
-    annotation (Line(points={{-220,140},{-180,140},{-180,-240},{-162,-240}},
-      color={255,0,255}));
   connect(booToRea1.y, triSam1.u)
     annotation (Line(points={{-138,-210},{-82,-210}},color={0,0,127}));
-  connect(edg1.y, booRep5.u)
-    annotation (Line(points={{-138,-240},{-122,-240}}, color={255,0,255}));
   connect(triSam1.y, greEquThr1.u)
     annotation (Line(points={{-58,-210},{38,-210}}, color={0,0,127}));
   connect(booRep4.y, and4.u2)
@@ -310,6 +294,10 @@ equation
           0},{-22,0}}, color={255,0,255}));
   connect(tim.passed, logSwi7.u1) annotation (Line(points={{-78,-8},{-40,-8},{-40,
           -44},{158,-44}}, color={255,0,255}));
+  connect(and2.y, booRep1.u) annotation (Line(points={{-138,140},{-120,140},{-120,
+          70},{-62,70}}, color={255,0,255}));
+  connect(uStaDow, booRep5.u) annotation (Line(points={{-220,140},{-180,140},{-180,
+          -240},{-122,-240}}, color={255,0,255}));
 annotation (
   defaultComponentName="disChi",
   Icon(graphics={

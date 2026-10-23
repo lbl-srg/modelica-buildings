@@ -716,7 +716,7 @@ equation
                                                                 color={0,0,127}));
   connect(dpHwRem.p_rel, staPumHwSec.dp[1]) annotation (Line(points={{171,-240},
           {160,-240},{160,-134},{12,-134},{12,-106},{18,-106}}, color={0,0,127}));
-  connect(hp.y1HwValIsoPumPri, staPumHwPri.u1Pum) annotation (Line(points={{-174,
+  connect(hp.y1HwValIsoPumPri, staPumHwPri.u1PumPri) annotation (Line(points={{-174,
           -43},{-174,-38},{-138,-38},{-138,-108},{-62,-108}}, color={255,0,255}));
   connect(pumHwSec.ports_b, outPumHwSec.ports_a)
     annotation (Line(points={{80,-220},{80,-220}}, color={0,127,255}));
@@ -726,7 +726,7 @@ equation
     annotation (Line(points={{60,-20},{60,-20}}, color={0,127,255}));
   connect(pumChwSec.ports_b, outPumChwSec.ports_a)
     annotation (Line(points={{80,-20},{80,-20}}, color={0,127,255}));
-  connect(hp.y1ChwValIsoPumPri, staPumChwPri.u1Pum) annotation (Line(points={{-186,
+  connect(hp.y1ChwValIsoPumPri, staPumChwPri.u1PumPri) annotation (Line(points={{-186,
           -65},{-186,-64.8387},{-156,-64.8387},{-156,82},{-62,82}}, color={255,
           0,255}));
   connect(ctlPumChwSec.y, busPumChwPri1.y) annotation (Line(points={{42,50},{48,

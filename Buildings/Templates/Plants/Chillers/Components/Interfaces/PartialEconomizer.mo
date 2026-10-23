@@ -64,6 +64,12 @@ partial model PartialEconomizer
     final dp_nominal=dat.dpPumChiWat_nominal,
     final per=dat.perPumChiWat)
     "Heat exchanger CHW pump";
+  parameter Boolean linearized(start=false) = false
+    "= true, use linear relation between m_flow and dp for all valves"
+    annotation(Evaluate=true,
+      Dialog(tab="Advanced",
+        enable=typ ==
+          Buildings.Templates.Plants.Chillers.Types.Economizer.HeatExchangerWithValve));
   parameter Modelica.Units.SI.Time tau = 1
     "Time constant of fluid volume for nominal flow, used if energy or mass balance is dynamic"
     annotation(Dialog(tab="Dynamics",

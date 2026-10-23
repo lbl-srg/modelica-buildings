@@ -4,7 +4,7 @@
 # rm -rf build && mkdir build && cd build && cmake ../ && cmake --build . --target install && cd ..
 #
 ##################################################################
-cmake_policy(SET CMP0048 NEW)
+cmake_minimum_required(VERSION 3.28)
 
 set(ENERGYPLUS_VERSION "24_2_0")
 
@@ -12,8 +12,6 @@ project( Modelica-Buildings
   DESCRIPTION "Modelica Buildings Library"
   LANGUAGES C
 )
-
-cmake_minimum_required(VERSION 3.8)
 
 # Create position independent code
 set(CMAKE_POSITION_INDEPENDENT_CODE ON)

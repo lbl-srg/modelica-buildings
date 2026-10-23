@@ -78,7 +78,7 @@ package Defaults
     "WSE CHW pressure drop";
   constant Modelica.Units.SI.PressureDifference dpConWatEco = 3E4
     "WSE CW pressure drop";
-  constant Modelica.Units.SI.PressureDifference pChiWat_rel_nominal = 1.0E5
+  constant Modelica.Units.SI.PressureDifference pChiWat_rel_nominal = 2.5E5
     "CHW system gauge pressure at design conditions";
   constant Modelica.Units.SI.PressureDifference pHeaWat_rel_nominal = 2.5E5
     "HHW system gauge pressure at design conditions";

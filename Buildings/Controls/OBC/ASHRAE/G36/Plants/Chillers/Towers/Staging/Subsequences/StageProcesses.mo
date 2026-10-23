@@ -113,8 +113,6 @@ protected
     annotation (Placement(transformation(extent={{40,-410},{60,-390}})));
   Buildings.Controls.OBC.CDL.Logical.Latch lat[nTowCel] "Change cells status"
     annotation (Placement(transformation(extent={{-120,400},{-100,420}})));
-  Buildings.Controls.OBC.CDL.Logical.Edge havCha[nTowCel] "Edge"
-    annotation (Placement(transformation(extent={{-180,400},{-160,420}})));
   Buildings.Controls.OBC.CDL.Logical.And and4[nTowCel]
     "True: cells should be disabled"
     annotation (Placement(transformation(extent={{-80,-280},{-60,-260}})));
@@ -300,10 +298,6 @@ equation
           {-100,-408},{-82,-408}}, color={255,0,255}));
   connect(celChaSta.y, endStaPro.u) annotation (Line(points={{-58,-400},{38,-400}},
           color={255,0,255}));
-  connect(uChaCel, havCha.u) annotation (Line(points={{-220,410},{-182,410}},
-          color={255,0,255}));
-  connect(havCha.y, lat.u) annotation (Line(points={{-158,410},{-122,410}},
-          color={255,0,255}));
   connect(endStaPro.y, yEndSta)
     annotation (Line(points={{62,-400},{220,-400}},color={255,0,255}));
   connect(endStaPro.y, booRep4.u) annotation (Line(points={{62,-400},{80,-400},{
@@ -437,6 +431,8 @@ equation
           -170},{38,-170}}, color={255,0,255}));
   connect(con4.y, and4.u1) annotation (Line(points={{-118,-340},{-100,-340},{-100,
           -270},{-82,-270}}, color={255,0,255}));
+  connect(uChaCel, lat.u)
+    annotation (Line(points={{-220,410},{-122,410}}, color={255,0,255}));
 annotation (
   defaultComponentName="towCelStaPro",
   Diagram(coordinateSystem(preserveAspectRatio=false,

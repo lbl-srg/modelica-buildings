@@ -1,0 +1,55 @@
+simulateModel("Buildings.Templates.Plants.Controls.HeatPumps.Subsequences.Validation.EventSequencingMultiple",
+    method="cvode",
+    tolerance=1e-6,
+    stopTime=100.0,
+    resultFile="EventSequencingMultiple");
+createPlot(
+    id=1,
+    position={5, 5, 500, 700},
+    y={"u1HeaHpPhp.y[1]", "u1HeaHpPhp.y[2]"},
+    autoscale=true,
+    grid=true
+);
+createPlot(
+    id=1,
+    subPlot=2,
+    y={"u1CooHpPhp.y[1]", "u1CooHpPhp.y[2]", "u1ShcPhp.y[1]"},
+    autoscale=true,
+    grid=true
+);
+createPlot(
+    id=1,
+    subPlot=3,
+    y={"u1PumHeaWatPriDed.y[1]", "u1PumHeaWatPriDed.y[2]"},
+    autoscale=true,
+    grid=true
+);
+createPlot(
+    id=1,
+    subPlot=4,
+    y={"u1PumChiWatPriDed.y[1]"},
+    autoscale=true,
+    grid=true
+);
+createPlot(
+    id=2,
+    position={515, 5, 500, 600},
+    subPlot=1,
+    y={"seqEve.y1Hp[1]", "seqEve.y1HeaPhp[1]", "seqEve.y1CooPhp[1]"},
+    autoscale=true,
+    grid=true
+);
+createPlot(
+    id=2,
+    subPlot=2,
+    y={"seqEve.y1PumHeaWatPri[1]", "seqEve.y1PumHeaWatPri[2]"},
+    autoscale=true,
+    grid=true
+);
+createPlot(
+    id=2,
+    subPlot=3,
+    y={"seqEve.y1PumChiWatPri[1]", "seqEve.y1PumChiWatPri[2]"},
+    autoscale=true,
+    grid=true
+);

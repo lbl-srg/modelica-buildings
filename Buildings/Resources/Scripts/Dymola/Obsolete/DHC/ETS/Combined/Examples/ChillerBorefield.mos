@@ -4,7 +4,7 @@ simulateModel("Buildings.Obsolete.DHC.ETS.Combined.Examples.ChillerBorefield",
     startTime=6.5E6,
     stopTime=7E6,
     resultFile="ChillerBorefieldExamples");
-Advanced.FilenameInLegend = true;
+
 createPlot(
     id=1,
     position={4, 5, 546, 906},

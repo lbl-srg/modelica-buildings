@@ -1,25 +1,12 @@
 within Buildings.Templates.Plants.Controls.StagingRotation.Validation;
 model EquipmentEnable "Validation model for equipment enable logic"
-  Buildings.Controls.OBC.CDL.Logical.Sources.TimeTable u1AvaEqu(
-    table=[
-      0, 1, 1, 1;
-      6, 0, 0, 1;
-      8, 0, 1, 1;
-      10, 1, 0, 1;
-      15, 1, 1, 0;
-      18, 0, 1, 1;
-      22, 1, 1, 1],
+  Buildings.Controls.OBC.CDL.Logical.Sources.TimeTable u1Ava(
+    table=[0,1,1,1; 6,0,0,1; 8,0,1,1; 10,1,0,1; 15,1,1,0; 18,0,1,1; 22,1,1,1],
     timeScale=1,
-    period=25)
-    "Equipment available signal"
+    period=25) "Equipment available signal"
     annotation (Placement(transformation(extent={{-80,-50},{-60,-30}})));
-  Buildings.Templates.Plants.Controls.StagingRotation.EquipmentEnable equEnaOneTwo(
-    staEqu=[
-      1, 0, 0;
-      0, 1 / 2, 1 / 2;
-      1, 1 / 2, 1 / 2;
-      0, 1, 1;
-      1, 1, 1])
+  Buildings.Templates.Plants.Controls.StagingRotation.EquipmentEnable
+    equEnaOneTwo(staEqu=[1,0,0; 0,1/2,1/2; 1,1/2,1/2; 0,1,1; 1,1,1])
     "Compute array of enabled equipment – One small equipment, two large equally sized equipment"
     annotation (Placement(transformation(extent={{70,-50},{90,-30}})));
   Buildings.Controls.OBC.CDL.Integers.Sources.TimeTable uSta(
@@ -33,9 +20,9 @@ model EquipmentEnable "Validation model for equipment enable logic"
     period=25)
     "Stage index"
     annotation (Placement(transformation(extent={{-80,-90},{-60,-70}})));
-  Buildings.Templates.Plants.Controls.StagingRotation.EquipmentEnable equEnaEqu(
-    staEqu=[1/3,1/3,1/3; 2/3,2/3,2/3; 1,1,1])
-    "Compute array of enabled equipment – Equally sized units"
+  Buildings.Templates.Plants.Controls.StagingRotation.EquipmentEnable
+    equEnaEqu(staEqu=[1/3,1/3,1/3; 2/3,2/3,2/3; 1,1,1])
+            "Compute array of enabled equipment – Equally sized units"
     annotation (Placement(transformation(extent={{70,30},{90,50}})));
   Buildings.Controls.OBC.CDL.Integers.Sources.TimeTable uSta1(
     table=[
@@ -62,30 +49,30 @@ model EquipmentEnable "Validation model for equipment enable logic"
     "Equipment status"
     annotation (Placement(transformation(extent={{60,70},{40,90}})));
 equation
-  connect(u1AvaEqu.y, equEnaOneTwo.u1Ava)
-    annotation (Line(points={{-58,-40},{-40,-40},{-40,-46},{68,-46}},color={255,0,255}));
   connect(uSta.y[1], equEnaOneTwo.uSta)
     annotation (Line(points={{-58,-80},{40,-80},{40,-40},{68,-40}}, color={255,127,0}));
   connect(uSta1.y[1], equEnaEqu.uSta)
     annotation (Line(points={{-58,40},{68,40}},color={255,127,0}));
-  connect(u1AvaEqu.y, equEnaEqu.u1Ava)
-    annotation (Line(points={{-58,-40},{-40,-40},{-40,34},{68,34}},color={255,0,255}));
-  connect(u1AvaEqu.y[1:3], sorRunTim.u1Ava[1:3]) annotation (Line(points={{-58,-40},
+  connect(u1Ava.y[1:3], sorRunTim.u1Ava[1:3]) annotation (Line(points={{-58,-40},
           {-40,-40},{-40,-26},{-12,-26},{-12,-25.3333}}, color={255,0,255}));
-  connect(sorRunTim.yIdx, equEnaOneTwo.uIdxAltSor) annotation (Line(points={{12,-26},
-          {60,-26},{60,-34},{68,-34}}, color={255,127,0}));
-  connect(equEnaOneTwo.y1, sta.y1) annotation (Line(points={{92,-40},{96,-40},{
-          96,0},{62,0}}, color={255,0,255}));
   connect(sta.y1_actual, sorRunTim.u1Run) annotation (Line(points={{38,0},{-20,
           0},{-20,-14},{-12,-14}}, color={255,0,255}));
-  connect(u1AvaEqu.y[1:3], sorRunTim1.u1Ava[1:3]) annotation (Line(points={{-58,-40},
+  connect(u1Ava.y[1:3], sorRunTim1.u1Ava[1:3]) annotation (Line(points={{-58,-40},
           {-40,-40},{-40,54},{-12,54},{-12,54.6667}}, color={255,0,255}));
-  connect(equEnaEqu.y1, sta1.y1) annotation (Line(points={{92,40},{96,40},{96,
-          80},{62,80}}, color={255,0,255}));
   connect(sta1.y1_actual, sorRunTim1.u1Run[1:3]) annotation (Line(points={{38,80},
           {-20,80},{-20,66.6667},{-12,66.6667}}, color={255,0,255}));
+  connect(equEnaEqu.y1, sta1.y1) annotation (Line(points={{92,40},{96,40},{96,
+          80},{62,80}}, color={255,0,255}));
+  connect(equEnaOneTwo.y1, sta.y1) annotation (Line(points={{92,-40},{96,-40},{
+          96,0},{62,0}}, color={255,0,255}));
+  connect(u1Ava.y, equEnaOneTwo.u1Ava) annotation (Line(points={{-58,-40},{-40,
+          -40},{-40,-46},{68,-46}}, color={255,0,255}));
+  connect(u1Ava.y, equEnaEqu.u1Ava) annotation (Line(points={{-58,-40},{-40,-40},
+          {-40,34},{68,34}}, color={255,0,255}));
   connect(sorRunTim1.yIdx, equEnaEqu.uIdxAltSor) annotation (Line(points={{12,
           54},{60,54},{60,46},{68,46}}, color={255,127,0}));
+  connect(sorRunTim.yIdx, equEnaOneTwo.uIdxAltSor) annotation (Line(points={{12,
+          -26},{60,-26},{60,-34},{68,-34}}, color={255,127,0}));
   annotation (
     __Dymola_Commands(
       file="modelica://Buildings/Resources/Scripts/Dymola/Templates/Plants/Controls/StagingRotation/Validation/EquipmentEnable.mos"
