@@ -41,7 +41,7 @@ equation
 <p>
 This is a model of a boiler whose efficiency is described
 by a table with control signal and inlet temperature.
-See <a href=\"Modelica://Buildings.Fluid.Boilers.UsersGuide\">
+See <a href=\"modelica://Buildings.Fluid.Boilers.UsersGuide\">
 Buildings.Fluid.Boilers.UsersGuide</a> for details.
 </p>
 <p>
@@ -51,6 +51,15 @@ Buildings.Fluid.Boilers.Data</a>.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+October 11, 2026, by Michael Wetter:<br/>
+Corrected bug in base class that led to heat loss of boiler to be accounted twice in the energy balance.
+With this change, the <code>heatPort</code> must be connected, as otherwise, the heat loss
+is not properly calculated.
+The translation will stop with an error message if the <code>heatPort</code> is unconnected.<br/>
+This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4775\">
+#4775</a>.
+</li>
 <li>
 March 7, 2022, by Michael Wetter:<br/>
 Set <code>final massDynamics=energyDynamics</code>.<br/>

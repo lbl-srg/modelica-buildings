@@ -19,11 +19,11 @@ model BoilerPolynomialClosedLoop
     fue=Buildings.Fluid.Data.Fuels.HeatingOilLowerHeatingValue(),
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     T_start=293.15) "Boiler"
-    annotation (Placement(transformation(extent={{40,-110},{20,-90}})));
+    annotation (Placement(transformation(extent={{60,-150},{40,-130}})));
   Modelica.Blocks.Logical.OnOffController onOffController(bandwidth=20)
-    annotation (Placement(transformation(extent={{-130,-80},{-110,-60}})));
+    annotation (Placement(transformation(extent={{-80,-100},{-60,-80}})));
   Modelica.Blocks.Math.BooleanToReal booleanToReal
-    annotation (Placement(transformation(extent={{-92,-80},{-72,-60}})));
+    annotation (Placement(transformation(extent={{-40,-100},{-20,-80}})));
   Actuators.Valves.ThreeWayEqualPercentageLinear val(
     redeclare package Medium = Medium,
     l={0.01,0.01},
@@ -57,7 +57,7 @@ model BoilerPolynomialClosedLoop
     annotation (Placement(transformation(extent={{-80,-30},{-60,-10}})));
   Modelica.Blocks.Sources.Constant TSetBoi(k=273.15 + 70)
     "Temperature setpoint for boiler"
-    annotation (Placement(transformation(extent={{-170,-74},{-150,-54}})));
+    annotation (Placement(transformation(extent={{-120,-94},{-100,-74}})));
   Controls.Continuous.LimPID conPID(
     Td=1,
     k=0.5,
@@ -132,18 +132,21 @@ model BoilerPolynomialClosedLoop
   Modelica.Thermal.HeatTransfer.Sensors.TemperatureSensor TVol
     "Sensor for volume temperature"
     annotation (Placement(transformation(extent={{-60,120},{-80,140}})));
+  HeatTransfer.Sources.FixedTemperature           TAmb1(T=288.15)
+    "Ambient temperature in boiler room"
+    annotation (Placement(transformation(extent={{20,-120},{40,-100}})));
 equation
   connect(onOffController.y, booleanToReal.u) annotation (Line(
-      points={{-109,-70},{-94,-70}},
+      points={{-59,-90},{-42,-90}},
       color={255,0,255},
       smooth=Smooth.None));
   connect(boi.port_b, pumBoi.port_a)
                                    annotation (Line(
-      points={{20,-100},{-1.12703e-16,-100},{-1.12703e-16,-30}},
+      points={{40,-140},{0,-140},{0,-30}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(boi.T, onOffController.u) annotation (Line(
-      points={{19,-92},{-140,-92},{-140,-76},{-132,-76}},
+      points={{39,-132},{-88,-132},{-88,-96},{-82,-96}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(conPID.y, val.y) annotation (Line(
@@ -155,7 +158,7 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   connect(TSetBoi.y, onOffController.reference) annotation (Line(
-      points={{-149,-64},{-132,-64}},
+      points={{-99,-84},{-82,-84}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(val.port_2, spl.port_1) annotation (Line(
@@ -179,11 +182,11 @@ equation
       color={0,127,255},
       smooth=Smooth.None));
   connect(spl2.port_2, boi.port_a) annotation (Line(
-      points={{80,1.22125e-15},{80,-100},{40,-100}},
+      points={{80,0},{80,-140},{60,-140}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(boi.port_a, exp.port_a) annotation (Line(
-      points={{40,-100},{114,-100},{114,-80}},
+      points={{60,-140},{114,-140},{114,-80}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(spl3.port_2, spl4.port_1) annotation (Line(
@@ -199,7 +202,7 @@ equation
       color={0,127,255},
       smooth=Smooth.None));
   connect(booleanToReal.y, boi.y) annotation (Line(
-      points={{-71,-70},{56,-70},{56,-92},{42,-92}},
+      points={{-19,-90},{72,-90},{72,-132},{62,-132}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(m_flow_pum.y, pumBoi.m_flow_in) annotation (Line(
@@ -246,6 +249,8 @@ equation
       points={{10,10},{70,10}},
       color={0,127,255},
       smooth=Smooth.None));
+  connect(TAmb1.port, boi.heatPort) annotation (Line(points={{40,-110},{50,-110},
+          {50,-132.8}}, color={191,0,0}));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-200,-200},
             {200,200}})),
              __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Boilers/Examples/BoilerPolynomialClosedLoop.mos"

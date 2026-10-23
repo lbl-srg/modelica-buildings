@@ -1,7 +1,7 @@
 within Buildings.Fluid.HeatExchangers.ThermalWheels.Sensible.BaseClasses;
-model Effectiveness
-  "Model for calculating the heat exchange effectiveness"
+model Effectiveness "Model for calculating the heat exchange effectiveness"
   extends Modelica.Blocks.Icons.Block;
+
   parameter Modelica.Units.SI.Efficiency eps_nominal(final max=1)
     "Nominal sensible heat exchanger effectiveness";
   parameter Modelica.Units.SI.Efficiency epsPL(final max=1)
@@ -11,13 +11,13 @@ model Effectiveness
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput mSup_flow(final unit="kg/s")
     "Supply air mass flow rate"
-    annotation (Placement(transformation(extent={{-140,40},{-100,80}})));
+    annotation(Placement(transformation(extent={{-140,40},{-100,80}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput mExh_flow(final unit="kg/s")
     "Exhaust air mass flow rate"
-    annotation (Placement(transformation(extent={{-140,-80},{-100,-40}})));
+    annotation(Placement(transformation(extent={{-140,-80},{-100,-40}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput eps(final unit="1")
     "Sensible heat exchanger effectiveness"
-    annotation (Placement(transformation(extent={{100,-20},{140,20}}),
+    annotation(Placement(transformation(extent={{100,-20},{140,20}}),
         iconTransformation(extent={{100,-20},{140,20}})));
 
 protected
@@ -39,13 +39,15 @@ equation
     "In " + getInstanceName() + ": The sensible heat exchange effectiveness eps = " + String(eps) + ". It should be in the range of [0, 1].
     Check if the part load (75% of the nominal supply flow rate) or nominal sensible heat exchanger effectiveness is too high or too low.",
     level=AssertionLevel.error);
-  annotation (Icon(coordinateSystem(preserveAspectRatio=false), graphics={Text(
+
+  annotation(
+    Icon(coordinateSystem(preserveAspectRatio=false), graphics={Text(
           extent={{-54,28},{50,-40}},
           textColor={28,108,200},
-          textString="eps")}), Diagram(
-        coordinateSystem(preserveAspectRatio=false)),
+          textString="eps")}),
+    Diagram(coordinateSystem(preserveAspectRatio=false)),
     defaultComponentName="effCal",
-Documentation(info="<html>
+    Documentation(info="<html>
 <p>
 This block calculates the sensible effectiveness of the heat exchanger
 under heating and cooling modes at different flow rates of the supply

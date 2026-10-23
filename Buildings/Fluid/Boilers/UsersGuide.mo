@@ -7,11 +7,16 @@ annotation (preferredView="info",
 <p>
 This package contains models for boilers.
 The main equations are computed in the base class
-<a href=\"Modelica://Buildings.Fluid.Boilers.BaseClasses.PartialBoiler\">
+<a href=\"modelica://Buildings.Fluid.Boilers.BaseClasses.PartialBoiler\">
 Buildings.Fluid.Boilers.BaseClasses.PartialBoiler</a>
 and the efficiency is described in the extended models
 using different methods.
+For all methods, the Sankey diagram of the heat loss is as shown below.
 </p>
+<p align=\"center\">
+<img alt=\"image\" src=\"modelica://Buildings/Resources/Images/Fluid/Boilers/sankey.png\" width=\"50%\"/>
+</p>
+
 <p>
 The heat of combustion released by the fuel is computed as
 </p>
@@ -37,19 +42,7 @@ The heat transferred to the working fluid (typically water or air) is
 where <i>&eta;</i> is the efficiency at the current operating point
 and <i>Q&#775;<sub>amb</sub> > 0</i> is the heat loss from the boiler
 to the ambient.
-<p>
-<i>Q&#775;<sub>amb</sub></i> is considered only when the port <code>heatPort</code>
-is connected to a heat port outside of this model
-to impose a boundary condition in order to model heat losses to the ambient.
-When using this <code>heatPort</code>,
-make sure that the efficiency does not already account for this heat loss.
-Also note that in
-<a href=\"Modelica://Buildings.Fluid.Boilers.BaseClasses.PartialBoiler\">
-Buildings.Fluid.Boilers.BaseClasses.PartialBoiler</a>,
-the equation
-<code>QWat_flow = eta * QFue_flow + UAOve.Q_flow</code>
-uses a summation instead of a subtraction because the direction
-of <code>UAOve.Q_flow</code> is from the ambient to the boiler.
+Make sure that the efficiency does account for this heat loss.
 </p>
 <p>
 The fuel is specified in
@@ -76,24 +69,24 @@ There are two ways to specify the efficiency <i>&eta;</i>.
 </p>
 <ul>
 <li>
-In <a href=\"Modelica://Buildings.Fluid.Boilers.BoilerPolynomial\">
+In <a href=\"modelica://Buildings.Fluid.Boilers.BoilerPolynomial\">
 Buildings.Fluid.Boilers.BoilerPolynomial</a>,
 the efficiency is specified using a polynomial
 of the firing rate <i>y</i> and optionally the temperature of the fluid <i>T</i>.
 </li>
 <li>
-In <a href=\"Modelica://Buildings.Fluid.Boilers.BoilerTable\">
+In <a href=\"modelica://Buildings.Fluid.Boilers.BoilerTable\">
 Buildings.Fluid.Boilers.BoilerTable</a>,
 the efficiency is specified with curves
 of the firing rate <i>y</i> and the inlet temperature <i>T<sub>inlet</sub></i>.
 Example curves are implemented in
-<a href=\"Modelica://Buildings.Fluid.Boilers.Data.Lochinvar\">
+<a href=\"modelica://Buildings.Fluid.Boilers.Data.Lochinvar\">
 Buildings.Fluid.Boilers.Data.Lochinvar</a>.
 </li>
 </ul>
 <p>
 Specifying the performance using a table as implemtend in
-<a href=\"Modelica://Buildings.Fluid.Boilers.BoilerTable\">
+<a href=\"modelica://Buildings.Fluid.Boilers.BoilerTable\">
 Buildings.Fluid.Boilers.BoilerTable</a>
 is generally easier for representing condensing boilers because the change in
 efficiency near the condensation point can be described conveniently.
