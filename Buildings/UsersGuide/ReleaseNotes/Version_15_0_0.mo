@@ -66,6 +66,17 @@ have been <b style=\"color:blue\">improved</b> in a
                        This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4798\">Buildings, #4798</a>.
     </td>
 </tr>
+<tr><td colspan=\"2\"><b>Buildings.Fluid.Interfaces</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Fluid.Interfaces.ConservationEquation
+    </td>
+    <td valign=\"top\">Corrected the species mass balance by adding the term
+                       <code>-medium.Xi*der(m)</code> to account for the change in total fluid mass.
+                       For typical HVAC applications, the change in results is small.<br/>
+                       This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/2168\">IBPSA, #2168</a>.
+    </td>
+</tr>
 <tr><td colspan=\"2\"><b>Buildings.Fluid.Geothermal</b>
     </td>
 </tr>

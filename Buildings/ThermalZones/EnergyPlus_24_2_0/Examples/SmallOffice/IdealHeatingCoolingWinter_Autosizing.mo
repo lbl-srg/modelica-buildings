@@ -48,6 +48,10 @@ are used to specify the set points for the controllers.
       revisions="<html>
 <ul>
 <li>
+October 22, 2026, by Michael Wetter:<br/>
+Tightened tolerance to 1E-7 to reduce computation time in Optimica.
+</li>
+<li>
 July 22, 2026, by David Blum:<br/>
 First implementation.
 </li>
@@ -58,5 +62,5 @@ First implementation.
     experiment(
       StartTime=432000,
       StopTime=864000,
-      Tolerance=1e-06));
+      Tolerance=1e-07));
 end IdealHeatingCoolingWinter_Autosizing;
