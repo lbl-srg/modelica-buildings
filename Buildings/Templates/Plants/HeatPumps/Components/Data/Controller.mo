@@ -340,7 +340,7 @@ record Controller
   // HACK(AntoineGautier):
   // Using cfg.nSenDpHeaWatRem for size(dpHeaWatRemSet_max, 1) is not supported by Dymola which fails to "evaluate and check the size declaration".
   // So the size is kept unassigned.
-  // This requires explicitely providing a value with OCT, even if enable=false.
+  // This requires explicitly providing a value with OCT, even if enable=false.
   parameter Modelica.Units.SI.PressureDifference dpHeaWatRemSet_max[:](
     final min=fill(0, cfg.nSenDpHeaWatRem),
     start=fill(
@@ -453,7 +453,7 @@ record Controller
   // HACK(AntoineGautier):
   // Using cfg.nSenDpChiWatRem for size(dpChiWatRemSet_max, 1) is not supported by Dymola which fails to "evaluate and check the size declaration".
   // So the size is kept unassigned.
-  // This requires explicitely providing a value with OCT, even if enable=false.
+  // This requires explicitly providing a value with OCT, even if enable=false.
   parameter Modelica.Units.SI.PressureDifference dpChiWatRemSet_max[:](
     final min=fill(0, cfg.nSenDpChiWatRem),
     start=fill(

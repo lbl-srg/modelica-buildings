@@ -190,7 +190,7 @@ record HeatPumpPlant
       else Buildings.Templates.Components.Types.Chiller.None,
     TChiWatSup_nominal=ctl.TChiWatSup_nominal)
     "Chiller"
-    annotation (Dialog(group="Sidetream heat recovery chiller", enable=cfg.have_hrc));
+    annotation (Dialog(group="Sidestream heat recovery chiller", enable=cfg.have_hrc));
   parameter Buildings.Templates.Components.Data.PumpSingle pumChiWatHrc(
     final rho_default=cfg.rhoChiWat_default,
     final typ=if cfg.have_hrc
@@ -199,7 +199,7 @@ record HeatPumpPlant
     m_flow_nominal=hrc.mChiWat_flow_nominal,
     dp_nominal=hrc.dpChiWat_nominal)
     "HRC CHW pump"
-    annotation(Dialog(group="Sidetream heat recovery chiller",
+    annotation(Dialog(group="Sidestream heat recovery chiller",
       enable=cfg.have_hrc));
   parameter Buildings.Templates.Components.Data.PumpSingle pumHeaWatHrc(
     final rho_default=cfg.rhoHeaWat_default,
@@ -209,7 +209,7 @@ record HeatPumpPlant
     m_flow_nominal=hrc.mCon_flow_nominal,
     dp_nominal=hrc.dpCon_nominal)
     "HRC HW pump"
-    annotation(Dialog(group="Sidetream heat recovery chiller",
+    annotation(Dialog(group="Sidestream heat recovery chiller",
       enable=cfg.have_hrc));
 annotation(defaultComponentName="dat",
   Documentation(
