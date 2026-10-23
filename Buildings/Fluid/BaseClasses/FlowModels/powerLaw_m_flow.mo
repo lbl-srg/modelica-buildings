@@ -116,13 +116,18 @@ Buildings.Fluid.BaseClasses.FlowModels.powerLawData</a>.
 </p>
 <h4>Implementation</h4>
 <p>
-For <i>|m&#775;| < m&#775;<sub>t</sub></i>, the equation is regularized
-so that it is twice continuously differentiable in <i>m&#775;</i>, and that it
-has an infinite number of continuous derivatives in <i>n</i> and in <i>k</i>.
+For <i>|m&#775;| &lt; m&#775;<sub>t</sub></i>, the equation is regularized
+with a fifth-order polynomial so that it is twice continuously differentiable in <i>m&#775;</i>.
 </p>
 </html>",
 revisions="<html>
 <ul>
+<li>
+October 22, 2026, by Michael Wetter:<br/>
+Updated documentation.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4798\">Buildings, #4798</a>.
+</li>
 <li>
 October 22, 2026, by Martin Sj&ouml;lund:<br/>
 Changed the <code>inverse</code> annotation from

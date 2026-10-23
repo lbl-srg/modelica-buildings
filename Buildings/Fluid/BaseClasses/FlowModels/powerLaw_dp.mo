@@ -93,10 +93,11 @@ can be computed once as parameters rather than at each function evaluation.
 </p>
 <p>
 The model is used for the fluid flow models that are neither fully laminar nor fully turbulent.
-It is identical to
+It is similar to
 <a href=\"modelica://Buildings.Airflow.Multizone.BaseClasses.powerLawFixedM\">
 Buildings.Airflow.Multizone.BaseClasses.powerLawFixedM</a> except that it
-is formulated for mass flow rate rather than volume flow rate.
+is formulated for mass flow rate rather than volume flow rate and uses a fifth-order
+rather than a seventh-order polynomial for the regularization.
 </p>
 <h4>Note regarding arguments</h4>
 <p>
@@ -122,13 +123,18 @@ Buildings.Fluid.BaseClasses.FlowModels.powerLawData</a>.
 </p>
 <h4>Implementation</h4>
 <p>
-For <i>|&Delta;p| < &Delta;p<sub>t</sub></i>, the equation is regularized
-so that it is twice continuously differentiable in <i>&Delta;p</i>, and that it
-has an infinite number of continuous derivatives in <i>n</i> and in <i>k</i>.
+For <i>|&Delta;p| &lt; &Delta;p<sub>t</sub></i>, the equation is regularized
+with a fifth-order polynomial so that it is twice continuously differentiable in <i>&Delta;p</i>.
 </p>
 </html>",
 revisions="<html>
 <ul>
+<li>
+October 22, 2026, by Michael Wetter:<br/>
+Updated documentation.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4798\">Buildings, #4798</a>.
+</li>
 <li>
 October 22, 2026, by Martin Sj&ouml;lund:<br/>
 Changed the <code>inverse</code> annotation from
