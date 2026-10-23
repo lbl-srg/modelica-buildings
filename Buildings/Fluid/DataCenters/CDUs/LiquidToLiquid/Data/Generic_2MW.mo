@@ -2,7 +2,7 @@ within Buildings.Fluid.DataCenters.CDUs.LiquidToLiquid.Data;
 record Generic_2MW
   "Generic data record for a 2 MW CDU"
   extends Buildings.Fluid.DataCenters.CDUs.LiquidToLiquid.Data.Generic_epsNTU(
-    Q_flow_nominal=2E6,
+    Q_flow_nominal=-2E6,
     TRacOut_nominal=273.15 + 45,
     dpHexPla_nominal=80000,
     dpPumpExt_nominal=500000,
@@ -19,6 +19,11 @@ Generic record for a 2 MW CDU.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+October 17, 2026, by Nauman Rafique:<br/>
+Corrected sign of <code>Q_flow_nominal</code>.<br/>
+This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4787\">Buildings, #4787</a>.
+</li>
 <li>
 April 13, 2026, by Michael Wetter:<br/>
 First implementation.
