@@ -535,6 +535,9 @@
 - model_name: Buildings.ThermalZones.EnergyPlus_24_2_0.Examples.SmallOffice.IdealHeatingCoolingWinter
   optimica:
     rtol: 1.0e-08
+- model_name: Buildings.ThermalZones.EnergyPlus_24_2_0.Examples.SmallOffice.IdealHeatingCoolingWinter_Autosizing
+  optimica:
+    rtol: 1.0e-07
 - model_name: Buildings.ThermalZones.EnergyPlus_24_2_0.Examples.SmallOffice.Unconditioned
   optimica:
     rtol: 1.0e-08
