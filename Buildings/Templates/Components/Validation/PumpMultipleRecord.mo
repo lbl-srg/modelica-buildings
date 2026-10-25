@@ -82,13 +82,13 @@ The instance <code>datDef</code> illustrates the default pressure curve
 assignment based on the design parameters.
 </p>
 <p>
-The instance <code>datRed</code> illustrates the modification of the 
+The instance <code>datRed</code> illustrates the modification of the
 pressure curve by redeclaring the subrecord <code>per</code>.
 In this case, all elements <code>per[i]</code> are equal.
 </p>
 <p>
 The instances <code>datAss</code> and <code>datPre</code> illustrate
-the modification of the pressure curve by assigning either the whole 
+the modification of the pressure curve by assigning either the whole
 subrecord <code>per</code> or its component <code>per.pressure</code>.
 This allows assigning different pressure curves to the elements <code>per[i]</code>.
 </p>
