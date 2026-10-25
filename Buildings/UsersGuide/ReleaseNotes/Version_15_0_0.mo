@@ -32,6 +32,15 @@ to <b style=\"color:blue\">existing</b> libraries:
     <td valign=\"top\">xxx.
     </td>
     </tr>
+
+<tr><td colspan=\"2\"><b>Buildings.Templates</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Templates.Plants.Chillers
+    </td>
+    <td valign=\"top\">Added chiller plant templates.
+    </td>
+</tr>
 </table>
 <!-- Backward compatible changes -->
 <p>
