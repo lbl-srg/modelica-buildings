@@ -22,35 +22,33 @@ partial model PartialPumpParallel "Partial model for pump parallel"
   parameter Modelica.Units.SI.Time tau=1
     "Time constant at nominal flow (if energyDynamics <> SteadyState)"
     annotation (Dialog(tab="Dynamics", group="Pump"));
-  parameter Boolean use_riseTime=true
-    "Set to true to continuously change motor speed"
+  parameter Boolean use_inputFilter=true
+    "= true, if speed is filtered with a 2nd order CriticalDamping filter"
     annotation(Dialog(tab="Dynamics", group="Pump"));
-  parameter Boolean use_strokeTime=true
-    "Set to true to continuously change valve position"
-    annotation(Dialog(tab="Dynamics", group="Valve"));
-  parameter Modelica.Units.SI.Time riseTime=30
-    "Time needed to change motor speed" annotation (
+  parameter Modelica.Units.SI.Time riseTimePump=30
+    "Rise time of the filter (time to reach 99.6 % of the speed)" annotation (
       Dialog(
       tab="Dynamics",
       group="Pump",
-      enable=use_riseTime));
+      enable=use_inputFilter));
   parameter Modelica.Blocks.Types.Init init=Modelica.Blocks.Types.Init.InitialOutput
     "Type of initialization (no init/steady state/initial state/initial output)"
-    annotation(Dialog(tab="Dynamics", group="Pump",enable=use_riseTime));
+    annotation(Dialog(tab="Dynamics", group="Pump",enable=use_inputFilter));
   parameter Real[num] yPump_start=fill(0,num) "Initial value of pump signals"
-    annotation(Dialog(tab="Dynamics", group="Pump",enable=use_riseTime));
+    annotation(Dialog(tab="Dynamics", group="Pump",enable=use_inputFilter));
 
    // Valve parameters
   parameter Real l=0.0001 "Valve leakage, l=Kv(y=0)/Kv(y=1)"
     annotation(Dialog(group="Two-way valve"));
-  parameter Modelica.Units.SI.Time strokeTime=riseTime
-    "Time needed to open or close valve" annotation (Dialog(
+  parameter Modelica.Units.SI.Time riseTimeValve=riseTimePump
+    "Rise time of the filter (time to become 99.6 % open)" annotation (
+      Dialog(
       tab="Dynamics",
       group="Valve",
-      enable=use_strokeTime));
+      enable=use_inputFilter));
   parameter Real[num] yValve_start = fill(1,num)
     "Initial value of valve signals"
-    annotation(Dialog(tab="Dynamics", group="Valve",enable=use_strokeTime));
+    annotation(Dialog(tab="Dynamics", group="Valve",enable=use_inputFilter));
 
   // Dynamics
   parameter Modelica.Fluid.Types.Dynamics energyDynamics=Modelica.Fluid.Types.Dynamics.DynamicFreeInitial
@@ -75,7 +73,7 @@ partial model PartialPumpParallel "Partial model for pump parallel"
     final quantity=Medium.extraPropertiesNames) = fill(1E-2, Medium.nC)
     "Nominal value of trace substances. (Set to typical order of magnitude.)"
    annotation (Dialog(tab="Initialization", enable=Medium.nC > 0));
-  parameter Boolean from_dp = true
+  parameter Boolean from_dp = false
     "= true, use m_flow = f(dp) else dp = f(m_flow)"
     annotation (Evaluate=true, Dialog(tab="Flow resistance"));
   parameter Boolean linearizeFlowResistance = false
@@ -109,15 +107,16 @@ partial model PartialPumpParallel "Partial model for pump parallel"
     each final m_flow_small=m_flow_small,
     each final show_T=show_T,
     each final tau=tau,
-    each final use_riseTime=use_riseTime,
-    each final riseTime=riseTime,
+    each final use_inputFilter=use_inputFilter,
+    each final riseTime=riseTimePump,
     each final init=init,
     each final energyDynamics=energyDynamics,
     each final p_start=p_start,
     each final T_start=T_start,
     each final X_start=X_start,
     each final C_start=C_start,
-    each final C_nominal=C_nominal) "Pumps"
+    each final C_nominal=C_nominal)
+    "Pumps"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
   Buildings.Fluid.Actuators.Valves.TwoWayLinear val[num](
     redeclare each final replaceable package Medium = Medium,
@@ -127,8 +126,8 @@ partial model PartialPumpParallel "Partial model for pump parallel"
     each final allowFlowReversal=allowFlowReversal,
     each final show_T=show_T,
     each final rhoStd=rhoStd,
-    each final use_strokeTime=use_strokeTime,
-    each final strokeTime=strokeTime,
+    each final use_inputFilter=use_inputFilter,
+    each final riseTime=riseTimeValve,
     each final init=init,
     final y_start=yValve_start,
     each final dpValve_nominal=dpValve_nominal,
@@ -254,14 +253,6 @@ equation
           origin={-60,0},
           rotation=90)}),    Documentation(revisions="<html>
 <ul>
-<li>
-June 17, 2026, by Michael Wetter:<br/>
-Updated implementation to allow a flow coefficient <code>n</code> that is different from <code>2</code>.
-This allows use of the model for not fully turbulent flow.<br/>
-This is for
-<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4620\">Buildings, #4620</a>.
-</li>
-
 <li>
 March 1, 2023, by Michael Wetter:<br/>
 Changed constants from <code>0</code> to <code>0.0</code> and <code>1</code> to <code>1.0</code>.<br/>
