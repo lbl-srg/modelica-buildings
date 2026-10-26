@@ -56,6 +56,16 @@ partial model PartialDataCenter
   parameter Modelica.Units.SI.Pressure dpSetPoi=80000
     "Differential pressure setpoint";
 
+  parameter Fluid.HeatExchangers.CoolingTowers.Data.YorkCalc.Generic datCooTow(
+    TCooIn_nominal=294.71,
+    PFan_Q_flow_nominal = -18000/(0.785*m1_flow_chi_nominal*4200*6),
+    Q_flow_nominal = -0.785*m1_flow_chi_nominal*4200*6,
+    TCooOut_nominal=289.15,
+    TAirInWB_nominal=283.15,
+    dp_nominal=30000)
+    "Cooling tower performance data"
+    annotation (Placement(transformation(extent={{80,160},{100,180}})));
+
   replaceable
     Buildings.Applications.DataCenters.ChillerCooled.Equipment.BaseClasses.PartialChillerWSE
     chiWSE(
@@ -86,12 +96,8 @@ partial model PartialDataCenter
         origin={131,140.5})));
   Buildings.Fluid.HeatExchangers.CoolingTowers.YorkCalc cooTow[numChi](
     redeclare each replaceable package Medium = MediumW,
-    each TAirInWB_nominal(displayUnit="degC") = 283.15,
-    each TApp_nominal=6,
-    each energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyStateInitial,
-    each dp_nominal=30000,
-    each m_flow_nominal=0.785*m1_flow_chi_nominal,
-    each PFan_nominal=18000)
+    each dat=datCooTow,
+    each energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyStateInitial)
     "Cooling tower"
     annotation (Placement(transformation(extent={{10,-10},{-10,10}},
       origin={10,140})));
@@ -171,23 +177,21 @@ partial model PartialDataCenter
     annotation (Placement(transformation(extent={{10,-10},{-10,10}},
         rotation=90,
         origin={-50,-150})));
-  Buildings.Examples.ChillerPlant.BaseClasses.SimplifiedRoom roo(
+  Buildings.Examples.ChillerPlant.DataCenter.BaseClasses.SimplifiedRoom roo(
     redeclare replaceable package Medium = MediumA,
     rooLen=50,
     rooWid=30,
     rooHei=3,
     m_flow_nominal=mAir_flow_nominal,
     QRoo_flow=500000,
-    nPorts=2)
-    "Room model"
-    annotation (Placement(transformation(
-        extent={{10,-10},{-10,10}},
-        origin={4,-180})));
+    nPorts=2) "Room model" annotation (Placement(transformation(extent={{10,-10},
+            {-10,10}}, origin={4,-180})));
   Buildings.Fluid.Actuators.Valves.TwoWayLinear val[numChi](
     redeclare each package Medium = MediumW,
     each m_flow_nominal=m1_flow_chi_nominal,
     each dpValve_nominal=6000,
-    each use_strokeTime=false)
+    each use_strokeTime=false,
+    each from_dp=true)
     "Shutoff valves"
     annotation (Placement(transformation(extent={{70,130},{50,150}})));
 
@@ -226,8 +230,8 @@ partial model PartialDataCenter
     k=0.1)
     "Cooling tower speed control"
     annotation (Placement(transformation(extent={{-170,170},{-150,186}})));
-  Modelica.Blocks.Sources.RealExpression TCWSupSet(
-    y=min(29.44 + 273.15, max(273.15 + 15.56, cooTow[1].TAir + 3)))
+  Modelica.Blocks.Sources.RealExpression TCWSupSet(y=min(29.44 + 273.15, max(
+        273.15 + 15.56, cooTow[1].TWetBul + 3)))
     "Condenser water supply temperature setpoint"
     annotation (Placement(transformation(extent={{-260,176},{-240,196}})));
 
@@ -294,6 +298,7 @@ partial model PartialDataCenter
   Modelica.Blocks.MathBoolean.Or chiOnSta(nu=numChi)
     "Output true if at least one chiller is on"
     annotation (Placement(transformation(extent={{-102,122},{-90,134}})));
+
 equation
   connect(chiWSE.port_b2, TCHWSup.port_a)
     annotation (Line(
@@ -320,14 +325,28 @@ equation
             60},{110,140},{70,140}},
             color={0,127,255},
             thickness=0.5));
-  connect(weaBus.TWetBul, cooTow[i].TAir) annotation (Line(
-      points={{-327.95,-19.95},{-340,-19.95},{-340,200},{32,200},{32,144},{22,144}},
-      color={255,204,51},
-      thickness=0.5), Text(
-      string="%first",
-      index=-1,
-      extent={{6,3},{6,3}},
-      horizontalAlignment=TextAlignment.Left));
+    connect(weaBus.TWetBul, cooTow[i].TWetBul) annotation (Line(
+        points={{-327.95,-19.95},{-340,-19.95},{-340,200},{32,200},{32,144},{22,
+            144}},
+        color={255,204,51},
+        thickness=0.5), Text(
+        string="%first",
+        index=-1,
+        extent={{6,3},{6,3}},
+        horizontalAlignment=TextAlignment.Left));
+    connect(pumCW[i].port_b, chiWSE.port_a1)
+      annotation (Line(
+        points={{-50,90},{-50,64},{-12,64},{-12,36},{0,36}},
+        color={0,127,255},
+        thickness=0.5));
+    connect(chiOn[i].y, chiWSE.on[i])
+      annotation (Line(
+        points={{-109,140},{-80,140},{-80,37.6},{-1.6,37.6}},
+        color={255,0,255}));
+   connect(cooTowSpeCon.y, cooTowSpe[i].u1)
+     annotation (Line(
+       points={{-149,178.889},{-84,178.889},{-84,178.8},{-61.6,178.8}},
+       color={0,0,127}));
   end for;
   connect(senRelPre.port_b, ahu.port_b1)
     annotation (Line(points={{18,-96},{30,-96},{30,-114},{20,-114}},
@@ -347,36 +366,6 @@ equation
       color={0,127,255},
       thickness=0.5));
 
-  connect(chiWSE.port_b2, TCHWSup.port_a)
-    annotation (Line(
-      points={{0,24},{-8,24},{-8,0},{-16,0}},
-      color={0,127,255},
-      thickness=0.5));
-  connect(chiWSE.port_b1, TCWRet.port_a)
-    annotation (Line(
-      points={{20,36},{40,36},{40,60},{82,60}},
-      color={0,127,255},
-      thickness=0.5));
-   for i in 1:numChi loop
-    connect(TCWSup.port_a, cooTow[i].port_b)
-      annotation (Line(
-        points={{-22,140},{0,140}},
-        color={0,127,255},
-        thickness=0.5));
-    connect(pumCW[i].port_b, chiWSE.port_a1)
-      annotation (Line(
-        points={{-50,90},{-50,64},{-12,64},{-12,36},{0,36}},
-        color={0,127,255},
-        thickness=0.5));
-    connect(chiOn[i].y, chiWSE.on[i])
-      annotation (Line(
-        points={{-109,140},{-80,140},{-80,37.6},{-1.6,37.6}},
-        color={255,0,255}));
-   connect(cooTowSpeCon.y, cooTowSpe[i].u1)
-     annotation (Line(
-       points={{-149,178.889},{-84,178.889},{-84,178.8},{-61.6,178.8}},
-       color={0,0,127}));
-   end for;
   connect(chiStaCon.y, chiOn.u)
     annotation (Line(
       points={{-149,140},{-132,140}},
@@ -568,6 +557,19 @@ Taylor, S. T. (2014). How to design &amp; control waterside economizers. ASHRAE 
 </ul>
 </html>", revisions="<html>
 <ul>
+<li>
+October 23, 2026, by Michael Wetter:<br/>
+Set <code>val.from_dp=true</code> to avoid large gains when valve is closed,
+and removed duplicate <code>connect</code> statements.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4798\">Buildings, #4798</a>.
+</li>
+<li>
+April 27, 2026, by Michael Wetter:<br/>
+Refactored for new cooling tower implementation.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4567\">issue 4567</a>.
+</li>
 <li>
 September 3, 2024, by Jianjun Hu:<br/>
 Added plant on signal to control the pump speed.
