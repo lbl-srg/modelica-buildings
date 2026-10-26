@@ -1,4 +1,4 @@
-last-generated=2026-07-13
+last-generated=2026-10-23
 statistics-fmu-dependencies=
 {
   "Derivatives": {
@@ -41,6 +41,15 @@ statistics-fmu-dependencies=
       "inlet.m_flow",
       "inlet.p"
     ],
+    "res.C": [],
+    "res.a1": [],
+    "res.a3": [],
+    "res.a5": [],
+    "res.b1": [],
+    "res.b3": [],
+    "res.b5": [],
+    "res.dp_turbulent": [],
+    "res.m": [],
     "vol.dynBal.U": [],
     "vol.dynBal.medium.Xi[1]": []
   },
