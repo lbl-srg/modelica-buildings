@@ -77,7 +77,8 @@ model VAVReheatBox "Supply box of a VAV system with a hot water reheat coil"
     m_flow_nominal=mCooAir_flow_nominal,
     dpDamper_nominal=20,
     allowFlowReversal=allowFlowReversal,
-    dpFixed_nominal=130) "VAV box for room" annotation (Placement(
+    dpFixed_nominal=130,
+    from_dp=true) "VAV box for room" annotation (Placement(
         transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
@@ -126,7 +127,7 @@ model VAVReheatBox "Supply box of a VAV system with a hot water reheat coil"
     m_flow_nominal=mHeaWat_flow_nominal,
     from_dp=true,
     dpValve_nominal=3000,
-    use_inputFilter=false,
+    use_strokeTime=false,
     dpFixed_nominal=3000) "Valve for terminal heater"
     annotation (Placement(transformation(extent={{-70,-10},{-50,10}})));
   Modelica.Blocks.Interfaces.RealInput yHea
