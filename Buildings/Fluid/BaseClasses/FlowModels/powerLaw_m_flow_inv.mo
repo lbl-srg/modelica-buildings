@@ -30,9 +30,6 @@ function powerLaw_m_flow_inv
 protected
   Modelica.Units.SI.PressureDifference abs_dp = abs(dp)
     "Absolute value of pressure difference";
-  Modelica.Units.SI.PressureDifference dpLam=
-    m_flow_turbulent*(b1 + m_flow_turbulent^2*(b3 + m_flow_turbulent^2*b5))
-    "Pressure difference at m_flow_turbulent, where the laminar region ends";
   Real dpNorm "Normalized pressure difference";
   Real dpNormSq "Square of normalized pressure difference";
   Real s "Flow exponent minus one";
@@ -42,8 +39,8 @@ protected
   Real res_der2 "2nd derivative of res with respect to m_flow";
 
 algorithm
-  if abs_dp < dpLam then
-    dpNorm := dp/dpLam;
+  if abs_dp < dp_turbulent then
+    dpNorm := dp/dp_turbulent;
     dpNormSq := dpNorm^2;
     s := n - 1;
     m_flow := m_flow_turbulent*dpNorm
@@ -110,10 +107,7 @@ Buildings.Fluid.BaseClasses.FlowModels.powerLawData</a>.
 </p>
 <h4>Implementation</h4>
 <p>
-Let <i>&Delta;p<sub>l</sub></i> be the pressure difference that
-<code>powerLaw_m_flow</code> returns at <i>m&#775;<sub>t</sub></i>, where its
-laminar region ends.
-For <i>|&Delta;p| &ge; &Delta;p<sub>l</sub></i>, the function is
+For <i>|&Delta;p| &ge; &Delta;p<sub>t</sub></i>, the function is
 </p>
 <p align=\"center\" style=\"font-style:italic;\">
   m&#775; = k sign(&Delta;p) |&Delta;p|<sup>1/n</sup>,
@@ -122,7 +116,7 @@ For <i>|&Delta;p| &ge; &Delta;p<sub>l</sub></i>, the function is
 which is the exact inverse of the turbulent branch of
 <code>powerLaw_m_flow</code>.
 Otherwise, the normalized pressure difference
-<i>d = &Delta;p &frasl; &Delta;p<sub>l</sub></i>
+<i>d = &Delta;p &frasl; &Delta;p<sub>t</sub></i>
 and the normalized mass flow rate
 <i>x = m&#775; &frasl; m&#775;<sub>t</sub></i>
 are related by the polynomial

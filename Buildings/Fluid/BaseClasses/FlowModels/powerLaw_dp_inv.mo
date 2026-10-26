@@ -30,9 +30,6 @@ function powerLaw_dp_inv
 protected
   Modelica.Units.SI.MassFlowRate abs_m = abs(m_flow)
     "Absolute value of mass flow rate";
-  Modelica.Units.SI.MassFlowRate m_flowLam=
-    dp_turbulent*(a1 + dp_turbulent^2*(a3 + dp_turbulent^2*a5))
-    "Mass flow rate at dp_turbulent, where the laminar region ends";
   Real m_flowNorm "Normalized mass flow rate";
   Real m_flowNormSq "Square of normalized mass flow rate";
   Real dpSq "Square of pressure difference";
@@ -41,8 +38,8 @@ protected
   Real res_der2 "2nd derivative of res with respect to dp";
 
 algorithm
-  if abs_m < m_flowLam then
-    m_flowNorm := m_flow/m_flowLam;
+  if abs_m < m_flow_turbulent then
+    m_flowNorm := m_flow/m_flow_turbulent;
     m_flowNormSq := m_flowNorm^2;
     dp := dp_turbulent*m_flowNorm*(8 + 2*(7*m - m^2 - 4)*m_flowNormSq)
       /((m - 3)*(m - 5) + (22*m - 3*m^2 - 15)*m_flowNormSq);
@@ -106,10 +103,7 @@ Buildings.Fluid.BaseClasses.FlowModels.powerLawData</a>.
 </p>
 <h4>Implementation</h4>
 <p>
-Let <i>m&#775;<sub>l</sub></i> be the mass flow rate that
-<code>powerLaw_dp</code> returns at <i>&Delta;p<sub>t</sub></i>, where its
-laminar region ends.
-For <i>|m&#775;| &ge; m&#775;<sub>l</sub></i>, the function is
+For <i>|m&#775;| &ge; m&#775;<sub>t</sub></i>, the function is
 </p>
 <p align=\"center\" style=\"font-style:italic;\">
   &Delta;p = C sign(m&#775;) |m&#775;|<sup>n</sup>,
@@ -118,7 +112,7 @@ For <i>|m&#775;| &ge; m&#775;<sub>l</sub></i>, the function is
 which is the exact inverse of the turbulent branch of
 <code>powerLaw_dp</code>.
 Otherwise, the normalized mass flow rate
-<i>x = m&#775; &frasl; m&#775;<sub>l</sub></i>
+<i>x = m&#775; &frasl; m&#775;<sub>t</sub></i>
 and the normalized pressure difference
 <i>d = &Delta;p &frasl; &Delta;p<sub>t</sub></i>
 are related by the polynomial

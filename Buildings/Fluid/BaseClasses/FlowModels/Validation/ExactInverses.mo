@@ -96,6 +96,8 @@ equation
       assert(abs(errPow[i,j]) < tol, "Inverse of power law is not exact.");
     end for;
   end for;
+  assert(abs(m_flowPow[4] - m_flowBas) < tol, "Expected m_flowPow[4] == m_flowBas for n=2.");
+  assert(abs(dpPow[4] - dpBas) < tol, "Expected dpPow[4] == dpBas for n=2.");
 annotation (
 experiment(Tolerance=1e-06, StopTime=1),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/BaseClasses/FlowModels/Validation/ExactInverses.mos"

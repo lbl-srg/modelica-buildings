@@ -46,20 +46,33 @@ annotation (
 <p>
 This function computes the coefficients that are used by the functions
 <a href=\"modelica://Buildings.Fluid.BaseClasses.FlowModels.powerLaw_dp\">
-Buildings.Fluid.BaseClasses.FlowModels.powerLaw_dp</a>
-and
+Buildings.Fluid.BaseClasses.FlowModels.powerLaw_dp</a>,
 <a href=\"modelica://Buildings.Fluid.BaseClasses.FlowModels.powerLaw_m_flow\">
-Buildings.Fluid.BaseClasses.FlowModels.powerLaw_m_flow</a>.
+Buildings.Fluid.BaseClasses.FlowModels.powerLaw_m_flow</a>,
+their inverses
+<a href=\"modelica://Buildings.Fluid.BaseClasses.FlowModels.powerLaw_dp_inv\">
+Buildings.Fluid.BaseClasses.FlowModels.powerLaw_dp_inv</a>
+and
+<a href=\"modelica://Buildings.Fluid.BaseClasses.FlowModels.powerLaw_m_flow_inv\">
+Buildings.Fluid.BaseClasses.FlowModels.powerLaw_m_flow_inv</a>,
+and their derivative functions.
 </p>
 <p>
 The coefficients <code>dp_turbulent</code>, <code>m</code>, <code>a1</code>,
 <code>a3</code> and <code>a5</code> are used by
 <a href=\"modelica://Buildings.Fluid.BaseClasses.FlowModels.powerLaw_dp\">
-Buildings.Fluid.BaseClasses.FlowModels.powerLaw_dp</a>,
-while the coefficients <code>C</code>, <code>b1</code>, <code>b3</code> and
-<code>b5</code> are used by
+Buildings.Fluid.BaseClasses.FlowModels.powerLaw_dp</a>
+and
+<a href=\"modelica://Buildings.Fluid.BaseClasses.FlowModels.powerLaw_dp_inv\">
+Buildings.Fluid.BaseClasses.FlowModels.powerLaw_dp_inv</a>
+(which also uses <code>C</code> in the turbulent region),
+while the coefficients <code>dp_turbulent</code>, <code>m</code>, <code>C</code>,
+<code>b1</code>, <code>b3</code> and <code>b5</code> are used by
 <a href=\"modelica://Buildings.Fluid.BaseClasses.FlowModels.powerLaw_m_flow\">
-Buildings.Fluid.BaseClasses.FlowModels.powerLaw_m_flow</a>.
+Buildings.Fluid.BaseClasses.FlowModels.powerLaw_m_flow</a>
+and
+<a href=\"modelica://Buildings.Fluid.BaseClasses.FlowModels.powerLaw_m_flow_inv\">
+Buildings.Fluid.BaseClasses.FlowModels.powerLaw_m_flow_inv</a>.
 </p>
 <p>
 The coefficients only depend on the <code>k</code>, <code>n</code>

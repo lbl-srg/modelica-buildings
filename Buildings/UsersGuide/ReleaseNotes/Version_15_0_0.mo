@@ -114,12 +114,19 @@ The following <b style=\"color:red\">critical errors</b> have been fixed (i.e., 
 that can lead to wrong simulation results):
 </p>
 <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\" style=\"border-collapse:collapse;\">
-<tr><td colspan=\"2\"><b>xxx</b>
+<tr><td colspan=\"2\"><b>Buildings.Fluid.FixedResistances</b>
     </td>
 </tr>
-<tr><td valign=\"top\">xxx
+<tr><td valign=\"top\">Buildings.Fluid.FixedResistances.PressureDrop<br/>
+                       Buildings.Fluid.BaseClasses.FlowModels.powerLawData
     </td>
-    <td valign=\"top\">xxx.
+    <td valign=\"top\">Corrected the pressure difference where the flow becomes turbulent
+                       for flow exponents <code>1 &lt; n &lt; 2</code>.
+                       <code>powerLaw_dp</code>, which is used with <code>from_dp=true</code>
+                       and as the inverse of <code>powerLaw_m_flow</code>, applied the regularization for
+                       <code>abs(m_flow) &lt; k^(1-1/n)*m_flow_turbulent</code>
+                       rather than for <code>abs(m_flow) &lt; m_flow_turbulent</code>.<br/>
+                       This is for <a href=\"https://www.github.com/lbl-srg/modelica-buildings/issues/4800\">issue #4800</a>.
     </td>
 </tr>
 </table>
