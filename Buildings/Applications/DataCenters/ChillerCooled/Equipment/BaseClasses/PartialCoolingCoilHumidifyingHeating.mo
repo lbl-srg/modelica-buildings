@@ -38,20 +38,20 @@ partial model PartialCoolingCoilHumidifyingHeating "Partial AHU model "
     "Valve leakage, l=Kv(y=0)/Kv(y=1)"
     annotation(Dialog(group="Valve"));
 
-  parameter Boolean use_strokeTime=false
-    "Set to true to continuously open and close valve on the water-side"
+  parameter Boolean use_inputFilterValve=false
+    "= true, if opening is filtered with a 2nd order CriticalDamping filter for the water-side valve"
     annotation(Dialog(tab="Dynamics", group="Valve"));
-  parameter Modelica.Units.SI.Time strokeTime=120
-    "Time needed to open or close valve"
+  parameter Modelica.Units.SI.Time riseTimeValve=120
+    "Rise time of the filter for the water-side valve (time to reach 99.6 % of an opening step)"
     annotation (Dialog(
       tab="Dynamics",
       group="Valve",
-      enable=use_strokeTime));
+      enable=use_inputFilterValve));
   parameter Modelica.Blocks.Types.Init initValve=Modelica.Blocks.Types.Init.InitialOutput
     "Type of initialization (no init/steady state/initial state/initial output)"
-    annotation(Dialog(tab="Dynamics", group="Valve",enable=use_strokeTime));
+    annotation(Dialog(tab="Dynamics", group="Valve",enable=use_inputFilterValve));
   parameter Real yValve_start=1 "Initial value of output"
-    annotation(Dialog(tab="Dynamics", group="Valve",enable=use_strokeTime));
+    annotation(Dialog(tab="Dynamics", group="Valve",enable=use_inputFilterValve));
   // fan parameters
    parameter Buildings.Fluid.Types.InputType inputType = Buildings.Fluid.Types.InputType.Continuous
     "Control input type"
@@ -62,20 +62,20 @@ partial model PartialCoolingCoilHumidifyingHeating "Partial AHU model "
   parameter Modelica.Units.SI.Time tauFan=1
     "Time constant at nominal flow (if energyDynamics <> SteadyState)"
     annotation (Dialog(tab="Dynamics", group="Fan"));
-  parameter Boolean use_riseTime=true
-    "Set to true to continuously change motor speed"
+  parameter Boolean use_inputFilterFan=true
+    "= true, if speed is filtered with a 2nd order CriticalDamping filter"
     annotation(Dialog(tab="Dynamics", group="Fan"));
-  parameter Modelica.Units.SI.Time riseTime=30
-    "Time needed to change motor speed between zero and full speed" annotation (
+  parameter Modelica.Units.SI.Time riseTimeFan=30
+    "Rise time of the filter (time to reach 99.6 % of the speed)" annotation (
       Dialog(
       tab="Dynamics",
       group="Fan",
-      enable=use_riseTime));
+      enable=use_inputFilterFan));
   parameter Modelica.Blocks.Types.Init initFan=Modelica.Blocks.Types.Init.InitialOutput
     "Type of initialization (no init/steady state/initial state/initial output)"
-    annotation(Dialog(tab="Dynamics", group="Fan",enable=use_riseTime));
+    annotation(Dialog(tab="Dynamics", group="Fan",enable=use_inputFilterFan));
   parameter Real yFan_start(min=0, max=1, unit="1")=0 "Initial value of speed"
-    annotation(Dialog(tab="Dynamics", group="Fan",enable=use_riseTime));
+    annotation(Dialog(tab="Dynamics", group="Fan",enable=use_inputFilterFan));
   replaceable parameter Buildings.Fluid.Movers.Data.Generic perFan "Performance data for the fan"
     annotation (Placement(transformation(extent={{-80,80},{-60,100}})));
 
@@ -127,23 +127,24 @@ if not inputType == Buildings.Fluid.Types.InputType.Stages
     annotation (Placement(transformation(extent={{60,-64},{80,-44}})));
   replaceable Buildings.Fluid.Movers.BaseClasses.PartialFlowMachine fan
     constrainedby Buildings.Fluid.Movers.BaseClasses.PartialFlowMachine(
-    redeclare final package Medium = Medium2,
-    final per=perFan,
-    final allowFlowReversal=allowFlowReversal2,
-    final show_T=show_T,
-    final energyDynamics=energyDynamics,
-    final inputType=inputType,
-    final tau=tauFan,
-    final addPowerToMedium=addPowerToMedium,
-    final use_riseTime=use_riseTime,
-    final riseTime=riseTime,
-    final init=initFan,
-    final p_start=p_start,
-    final T_start=T_start,
-    final X_start=X_start,
-    final C_start=C_start,
-    final C_nominal=C_nominal,
-    final m_flow_small=m2_flow_small) "Fan"
+      redeclare final package Medium = Medium2,
+      final per=perFan,
+      final allowFlowReversal=allowFlowReversal2,
+      final show_T=show_T,
+      final energyDynamics=energyDynamics,
+      final inputType=inputType,
+      final tau=tauFan,
+      final addPowerToMedium=addPowerToMedium,
+      final use_inputFilter=use_inputFilterFan,
+      final riseTime=riseTimeFan,
+      final init=initFan,
+      final p_start=p_start,
+      final T_start=T_start,
+      final X_start=X_start,
+      final C_start=C_start,
+      final C_nominal=C_nominal,
+      final m_flow_small=m2_flow_small)
+    "Fan"
     annotation (Placement(transformation(extent={{-50,-70},{-70,-50}})));
   replaceable Buildings.Fluid.Actuators.BaseClasses.PartialTwoWayValveKv watVal
     constrainedby Buildings.Fluid.Actuators.BaseClasses.PartialTwoWayValveKv(
@@ -152,12 +153,12 @@ if not inputType == Buildings.Fluid.Types.InputType.Stages
       final show_T=show_T,
       final l=l,
       final CvData=Buildings.Fluid.Types.CvTypes.OpPoint,
-      from_dp=true,
+      final from_dp=from_dp1,
       final homotopyInitialization=homotopyInitialization,
       final linearized=linearizeFlowResistance1,
       final rhoStd=rhoStd,
-      final use_strokeTime=use_strokeTime,
-      final strokeTime=strokeTime,
+      final use_inputFilter=use_inputFilterValve,
+      final riseTime=riseTimeValve,
       final init=initValve,
       final y_start=yValve_start,
       final dpValve_nominal=dpValve_nominal,
@@ -214,12 +215,6 @@ The valve and fan are partial models, and should be redeclared when used in the 
 </p>
 </html>", revisions="<html>
 <ul>
-<li>
-October 23, 2026, by Michael Wetter:<br/>
-Set <code>watVal.from_dp=true</code> to avoid large gains when valve is closed.<br/>
-This is for
-<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4798\">Buildings, #4798</a>.
-</li>
 <li>
 June 30, 2021, by Antoine Gautier:<br/>
 Changed cooling coil model. This is for
