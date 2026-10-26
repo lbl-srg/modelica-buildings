@@ -1,0 +1,13 @@
+compareVars :=
+  {
+    "m_flowBas",
+    "m_flowPow[1]",
+    "m_flowPow[2]",
+    "m_flowPow[3]",
+    "m_flowPow[4]",
+    "dpBas",
+    "dpPow[1]",
+    "dpPow[2]",
+    "dpPow[3]",
+    "dpPow[4]"
+  };
