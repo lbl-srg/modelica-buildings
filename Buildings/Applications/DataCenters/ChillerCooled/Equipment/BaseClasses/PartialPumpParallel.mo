@@ -75,7 +75,7 @@ partial model PartialPumpParallel "Partial model for pump parallel"
     final quantity=Medium.extraPropertiesNames) = fill(1E-2, Medium.nC)
     "Nominal value of trace substances. (Set to typical order of magnitude.)"
    annotation (Dialog(tab="Initialization", enable=Medium.nC > 0));
-  parameter Boolean from_dp = false
+  parameter Boolean from_dp = true
     "= true, use m_flow = f(dp) else dp = f(m_flow)"
     annotation (Evaluate=true, Dialog(tab="Flow resistance"));
   parameter Boolean linearizeFlowResistance = false
