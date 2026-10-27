@@ -10,13 +10,4 @@ basicFlowFunction_m_flow_der2
 basicFlowFunction_m_flow_inv
 basicFlowFunction_m_flow_inv_der
 basicFlowFunction_m_flow_inv_der2
-powerLawData
-powerLaw_dp
-powerLaw_dp_inv
-powerLaw_dp_inv_der
-powerLaw_dp_inv_der2
-powerLaw_m_flow
-powerLaw_m_flow_inv
-powerLaw_m_flow_inv_der
-powerLaw_m_flow_inv_der2
 Validation
