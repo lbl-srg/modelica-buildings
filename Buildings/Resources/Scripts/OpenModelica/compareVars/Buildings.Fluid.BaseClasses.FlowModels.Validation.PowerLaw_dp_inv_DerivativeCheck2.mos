@@ -1,7 +1,0 @@
-compareVars :=
-  {
-    "dp",
-    "dp_comp",
-    "der_dp",
-    "der_dp_comp"
-  };
