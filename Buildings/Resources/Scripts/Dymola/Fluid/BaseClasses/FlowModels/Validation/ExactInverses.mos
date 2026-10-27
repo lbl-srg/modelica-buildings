@@ -1,9 +1,0 @@
-simulateModel("Buildings.Fluid.BaseClasses.FlowModels.Validation.ExactInverses", stopTime=1, method="CVode", resultFile="ExactInverses", tolerance=1e-06);
-createPlot(id=1, position={55, 50, 573, 663},
-y={"m_flowBas", "m_flowPow[1]", "m_flowPow[2]", "m_flowPow[3]", "m_flowPow[4]"},
-range={0.0, 1.0, -1.5, 1.5}, grid=true, filename="ExactInverses.mat",
-colors={{0,0,0}, {0,0,255}, {0,140,72}, {255,0,0}, {238,46,47}});
-createPlot(id=1, position={55, 50, 573, 330},
-y={"dpBas", "dpPow[1]", "dpPow[2]", "dpPow[3]", "dpPow[4]"},
-range={0.0, 1.0, -12.0, 12.0}, grid=true, subPlot=2,
-colors={{0,0,0}, {0,0,255}, {0,140,72}, {255,0,0}, {238,46,47}});
