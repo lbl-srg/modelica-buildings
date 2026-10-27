@@ -18,9 +18,6 @@ model IndirectDryTest "Indirect dry evaporative cooler"
     "Medium rejected to outdoor air"
     annotation (choices(
       choice(redeclare package Medium = Buildings.Media.Air "Moist air")));
-  parameter Real eps(
-    final unit = "1")=0.8
-    "Heat exchanger effectiveness";
   parameter Modelica.Units.SI.Pressure dp1_nominal
     "Nominal heat exchanger pressure drop of medium flow to be cooled";
   parameter Modelica.Units.SI.Pressure dp2_nominal
@@ -36,6 +33,14 @@ model IndirectDryTest "Indirect dry evaporative cooler"
     "Record with performance data for evaporative pads"
     annotation (choicesAllMatching=true,
       Placement(transformation(extent={{-40,-40},{-20,-20}})));
+  parameter HeatExchangers.CoolingTowers.Data.DryCooler.Generic
+    dat(
+    Q_flow_nominal=-m1_flow_nominal*4200*(35 - 30),
+    TCooIn_nominal=308.15,
+    TCooOut_nominal=303.15,
+    dp_nominal=dp1_nominal,
+    TAirIn_nominal=298.15) "Performance data for dry cooler"
+    annotation (Placement(transformation(extent={{120,80},{140,100}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput evaCooAct
     "True: the evaporative cooling is active"
@@ -47,61 +52,42 @@ model IndirectDryTest "Indirect dry evaporative cooler"
     "Water vapor mass flow rate difference between inlet and outlet of secondary air"
     annotation (Placement(transformation(origin={260,-30},
                                                          extent={{-20,-20},{20,20}}),
-      iconTransformation(origin={90,0}, extent={{-20,-20},{20,20}})));
+      iconTransformation(origin={90,-20},
+                                        extent={{-20,-20},{20,20}})));
   Modelica.Fluid.Interfaces.FluidPort_a port_a1(redeclare package Medium =
         Medium1) annotation (Placement(transformation(extent={{-110,50},{-90,70}}),
-        iconTransformation(extent={{-334,94},{-314,114}})));
+        iconTransformation(extent={{-110,50},{-90,70}})));
   Modelica.Fluid.Interfaces.FluidPort_a port_a2(redeclare package Medium =
         Medium2) annotation (Placement(transformation(extent={{-110,-90},{-90,
-            -70}}), iconTransformation(extent={{-334,94},{-314,114}})));
+            -70}}), iconTransformation(extent={{-110,-70},{-90,-50}})));
   Modelica.Fluid.Interfaces.FluidPort_b port_b1(redeclare package Medium =
         Medium1) annotation (Placement(transformation(extent={{230,50},{250,70}}),
-        iconTransformation(extent={{-308,-12},{-288,10}})));
+        iconTransformation(extent={{90,50},{110,70}})));
   Modelica.Fluid.Interfaces.FluidPort_b port_b2(redeclare package Medium =
         Medium2) annotation (Placement(transformation(extent={{230,-90},{250,
-            -68}}), iconTransformation(extent={{-308,-12},{-288,10}})));
+            -68}}), iconTransformation(extent={{90,-70},{110,-50}})));
   Sensors.TemperatureTwoPort                 senTem(redeclare package Medium =
-        Medium2)
+        Medium2, m_flow_nominal=m2_flow_nominal)
     annotation (Placement(transformation(extent={{60,-70},{80,-50}})));
   FixedResistances.PressureDrop                 preDro(
     redeclare final package Medium = Medium2,
-    final n=n,
-    final m_flow_nominal=m_flow_nominal,
-    final deltaM=deltaM,
-    final allowFlowReversal=allowFlowReversal,
-    final show_T=false,
-    final from_dp=from_dp,
-    final linearized=linearizeFlowResistance,
+    final m_flow_nominal=m2_flow_nominal,
     final homotopyInitialization=homotopyInitialization,
-    final dp_nominal=dp_nominal) "Flow resistance"
+    final dp_nominal=dp2_nominal)
+                                 "Flow resistance"
     annotation (Placement(transformation(extent={{98,-70},{118,-50}})));
               MixingVolumes.MixingVolume                 vol(
     redeclare final package Medium = Medium2,
     nPorts=2,
-    V=m_flow_nominal*tau/rho_default,
-    final allowFlowReversal=allowFlowReversal,
-    final mSenFac=1,
-    final m_flow_nominal=m_flow_nominal,
-    final energyDynamics=energyDynamics,
-    final massDynamics=energyDynamics,
-    final p_start=p_start,
-    final T_start=T_start,
-    final X_start=X_start,
-    final C_start=C_start) "Volume for fluid stream"
-     annotation (Placement(transformation(extent={{167,-60},{187,-80}})));
+    V=0.01,
+    final m_flow_nominal=m2_flow_nominal)
+                           "Volume for fluid stream"
+     annotation (Placement(transformation(extent={{171,-60},{191,-80}})));
   Sensors.MassFlowRate senMasFlo(redeclare package Medium = Medium2)
     annotation (Placement(transformation(extent={{20,-70},{40,-50}})));
   Controls.OBC.CDL.Interfaces.RealOutput           TLvg annotation (Placement(
-        transformation(extent={{240,-10},{280,30}}), iconTransformation(extent=
-            {{-2,-84},{38,-44}})));
-  parameter HeatExchangers.CoolingTowers.Data.DryCooler.Generic
-    dat(
-    Q_flow_nominal=-m_flow_nominal*4200*(35 - 30),
-    TCooIn_nominal=308.15,
-    TCooOut_nominal=303.15,
-    dp_nominal=6000,
-    TAirIn_nominal=298.15) "Performance data for dry cooler"
-    annotation (Placement(transformation(extent={{120,80},{140,100}})));
+        transformation(extent={{240,-10},{280,30}}), iconTransformation(extent={{70,0},{
+            110,40}})));
 protected
   Buildings.Fluid.Humidifiers.EvaporativeCoolers.Direct dirEvaCoo(
     redeclare final package Medium = Medium2,
@@ -137,13 +123,13 @@ equation
   connect(Q_flow.y,preHea. Q_flow) annotation (Line(points={{109,20},{128,20}},
                                color={0,0,127}));
   connect(preHea.port,vol. heatPort) annotation (Line(points={{148,20},{158,20},
-          {158,-70},{167,-70}},      color={191,0,0}));
+          {158,-70},{171,-70}},      color={191,0,0}));
   connect(senTem.port_b, preDro.port_a)
     annotation (Line(points={{80,-60},{98,-60}}, color={0,127,255}));
   connect(preDro.port_b, vol.ports[1])
-    annotation (Line(points={{118,-60},{176,-60}}, color={0,127,255}));
-  connect(vol.ports[2], port_b2) annotation (Line(points={{178,-60},{200,-60},{
-          200,-78},{240,-78},{240,-79}}, color={0,127,255}));
+    annotation (Line(points={{118,-60},{180,-60}}, color={0,127,255}));
+  connect(vol.ports[2], port_b2) annotation (Line(points={{182,-60},{200,-60},{200,
+          -78},{240,-78},{240,-79}},     color={0,127,255}));
   connect(senTem.T, dryCoil.TDryBul)
     annotation (Line(points={{70,-49},{70,64},{98,64}}, color={0,0,127}));
   connect(port_a1, dryCoil.port_a)
@@ -203,7 +189,7 @@ First implementation.
 </li>
 </ul>
 </html>"),
-Icon(coordinateSystem(extent={{-100,-100},{240,100}}),
+Icon(coordinateSystem(extent={{-100,-100},{100,100}}),
      graphics={Rectangle(lineColor = {0, 0, 255}, fillColor = {95, 95, 95}, pattern = LinePattern.None,
             fillPattern = FillPattern.Solid, extent={{-70,60},{70,-60}}),
   Rectangle(lineColor = {0, 0, 255}, pattern = LinePattern.None,
