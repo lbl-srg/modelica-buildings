@@ -26,13 +26,19 @@ inverse function for
 Buildings.Fluid.BaseClasses.FlowModels.basicFlowFunction_dp</a>.
 Specifically, this function declares in its <code>annotation</code> section
 that its inverse is provided by
-<a href=\"modelica://Buildings.Fluid.BaseClasses.FlowModels.basicFlowFunction_m_flow\">
-Buildings.Fluid.BaseClasses.FlowModels.basicFlowFunction_m_flow</a>.
+<a href=\"modelica://Buildings.Fluid.BaseClasses.FlowModels.basicFlowFunction_dp_inv\">
+Buildings.Fluid.BaseClasses.FlowModels.basicFlowFunction_dp_inv</a>.
 Translating this model should therefore give no nonlinear equations
 after the symbolic manipulation.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+October 22, 2026, by Martin Sj&ouml;lund:<br/>
+Updated documentation for the new inverse function.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4798\">Buildings, #4798</a>.
+</li>
 <li>
 January 25, 2019, by Michael Wetter:<br/>
 Added start value to avoid warning in JModelica.
