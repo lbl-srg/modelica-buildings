@@ -56,16 +56,6 @@ partial model PartialDataCenter
   parameter Modelica.Units.SI.Pressure dpSetPoi=80000
     "Differential pressure setpoint";
 
-  parameter Fluid.HeatExchangers.CoolingTowers.Data.YorkCalc.Generic datCooTow(
-    TCooIn_nominal=294.71,
-    PFan_Q_flow_nominal = -18000/(0.785*m1_flow_chi_nominal*4200*6),
-    Q_flow_nominal = -0.785*m1_flow_chi_nominal*4200*6,
-    TCooOut_nominal=289.15,
-    TAirInWB_nominal=283.15,
-    dp_nominal=30000)
-    "Cooling tower performance data"
-    annotation (Placement(transformation(extent={{80,160},{100,180}})));
-
   replaceable
     Buildings.Applications.DataCenters.ChillerCooled.Equipment.BaseClasses.PartialChillerWSE
     chiWSE(
@@ -96,8 +86,12 @@ partial model PartialDataCenter
         origin={131,140.5})));
   Buildings.Fluid.HeatExchangers.CoolingTowers.YorkCalc cooTow[numChi](
     redeclare each replaceable package Medium = MediumW,
-    each dat=datCooTow,
-    each energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyStateInitial)
+    each TAirInWB_nominal(displayUnit="degC") = 283.15,
+    each TApp_nominal=6,
+    each energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyStateInitial,
+    each dp_nominal=30000,
+    each m_flow_nominal=0.785*m1_flow_chi_nominal,
+    each PFan_nominal=18000)
     "Cooling tower"
     annotation (Placement(transformation(extent={{10,-10},{-10,10}},
       origin={10,140})));
@@ -230,8 +224,8 @@ partial model PartialDataCenter
     k=0.1)
     "Cooling tower speed control"
     annotation (Placement(transformation(extent={{-170,170},{-150,186}})));
-  Modelica.Blocks.Sources.RealExpression TCWSupSet(y=min(29.44 + 273.15, max(
-        273.15 + 15.56, cooTow[1].TWetBul + 3)))
+  Modelica.Blocks.Sources.RealExpression TCWSupSet(
+    y=min(29.44 + 273.15, max(273.15 + 15.56, cooTow[1].TAir + 3)))
     "Condenser water supply temperature setpoint"
     annotation (Placement(transformation(extent={{-260,176},{-240,196}})));
 
@@ -325,7 +319,7 @@ equation
             60},{110,140},{70,140}},
             color={0,127,255},
             thickness=0.5));
-    connect(weaBus.TWetBul, cooTow[i].TWetBul) annotation (Line(
+    connect(weaBus.TWetBul, cooTow[i].TAir) annotation (Line(
         points={{-327.95,-19.95},{-340,-19.95},{-340,200},{32,200},{32,144},{22,
             144}},
         color={255,204,51},
