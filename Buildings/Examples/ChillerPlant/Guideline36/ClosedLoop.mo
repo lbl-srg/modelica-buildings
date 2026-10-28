@@ -249,7 +249,7 @@ equation
           {40,120},{40,63.5},{85,63.5}}, color={255,127,0}));
 annotation (experiment(
       StartTime=15638400,
-      StopTime=15897600,
+      StopTime=15724800,
       Tolerance=1e-06),
   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Examples/ChillerPlant/Guideline36/ClosedLoop.mos"
     "Simulate and plot"),
