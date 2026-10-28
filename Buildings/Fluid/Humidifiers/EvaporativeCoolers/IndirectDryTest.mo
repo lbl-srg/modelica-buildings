@@ -106,11 +106,7 @@ protected
                                                        extent = {{-10, -10}, {10, 10}})));
   Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow preHea
     "Prescribed heat flow"
-    annotation (Placement(transformation(extent={{128,10},{148,30}})));
-  Modelica.Blocks.Sources.RealExpression Q_flow(y(
-      final quantity="Power",
-      final unit="W") = dryCoil.Q_flow*(-1))   "Heat transfer"
-    annotation (Placement(transformation(extent={{88,10},{108,30}})));
+    annotation (Placement(transformation(extent={{140,10},{160,30}})));
 equation
   connect(dirEvaCoo.dmWat_flow, dmWat_flow)
     annotation (Line(points={{-21,-56},{0,-56},{0,-30},{260,-30}},
@@ -120,10 +116,8 @@ equation
       color={255,0,255}));
   connect(port_a2, dirEvaCoo.port_a) annotation (Line(points={{-100,-80},{-56,
           -80},{-56,-60},{-40,-60}}, color={0,127,255}));
-  connect(Q_flow.y,preHea. Q_flow) annotation (Line(points={{109,20},{128,20}},
-                               color={0,0,127}));
-  connect(preHea.port,vol. heatPort) annotation (Line(points={{148,20},{158,20},
-          {158,-70},{171,-70}},      color={191,0,0}));
+  connect(preHea.port,vol. heatPort) annotation (Line(points={{160,20},{166,20},
+          {166,-70},{171,-70}},      color={191,0,0}));
   connect(senTem.port_b, preDro.port_a)
     annotation (Line(points={{80,-60},{98,-60}}, color={0,127,255}));
   connect(preDro.port_b, vol.ports[1])
@@ -144,6 +138,8 @@ equation
     annotation (Line(points={{30,-49},{30,68},{98,68}}, color={0,0,127}));
   connect(dryCoil.TLvg, TLvg) annotation (Line(points={{121,54},{220,54},{220,
           10},{260,10}}, color={0,0,127}));
+  connect(dryCoil.QCoi_flow, preHea.Q_flow) annotation (Line(points={{121,68},{
+          130,68},{130,20},{140,20}}, color={0,0,127}));
 annotation (defaultComponentName="indDryEva",
 Documentation(info="<html>
 <p>

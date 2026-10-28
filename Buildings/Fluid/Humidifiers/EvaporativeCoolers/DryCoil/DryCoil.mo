@@ -22,6 +22,11 @@ model DryCoil "Cooling tower model based on epsilon-NTU relation"
   Modelica.Blocks.Interfaces.RealInput mAir_flow "Fan air flow" annotation (
       Placement(transformation(extent={{-140,60},{-100,100}}),
         iconTransformation(extent={{-140,60},{-100,100}})));
+  Modelica.Blocks.Interfaces.RealOutput QCoi_flow annotation (Placement(
+        transformation(extent={{100,50},{120,70}}), iconTransformation(extent={
+            {100,70},{120,90}})));
+  Modelica.Blocks.Math.Gain gain(k=-1)
+    annotation (Placement(transformation(extent={{40,50},{60,70}})));
 protected
   Modelica.Blocks.Sources.RealExpression TCooIn(
     final y = Medium.temperature(
@@ -49,6 +54,10 @@ equation
     Line(points = {{-49, 45}, {-40, 45}, {-40, 46}, {-22, 46}}, color = {0, 0, 127}));
   connect(mAir_flow, per.mAir_flow) annotation (Line(points={{-120,80},{-80,80},
           {-80,58},{-22,58}}, color={0,0,127}));
+  connect(per.Q_flow, gain.u) annotation (Line(points={{1,50},{20,50},{20,60},{
+          38,60}}, color={0,0,127}));
+  connect(gain.y, QCoi_flow)
+    annotation (Line(points={{61,60},{110,60}}, color={0,0,127}));
   annotation(
     Icon(coordinateSystem(preserveAspectRatio = false),
       graphics = {
@@ -56,13 +65,14 @@ equation
           textString="mAir_flow"),
         Text(textColor = {0, 0, 127}, extent = {{-104, 70}, {-70, 32}}, textString = "TDryBul"),
         Rectangle(lineColor = {0, 0, 255}, fillColor = {0, 0, 127}, pattern = LinePattern.None, fillPattern = FillPattern.Solid, extent = {{-100, 81}, {-70, 78}}),
-        Text(origin = {-2, 0},textColor = {255, 255, 255}, extent = {{-54, 6}, {58, -114}}, textString = "DryCooler"),
-        Ellipse(lineColor = {255, 255, 255}, fillColor = {255, 255, 255}, fillPattern = FillPattern.Solid, extent = {{-54, 62}, {0, 50}}),
-        Ellipse(lineColor = {255, 255, 255}, fillColor = {255, 255, 255}, fillPattern = FillPattern.Solid, extent = {{0, 62}, {54, 50}}),
-        Rectangle(lineColor = {0, 0, 255}, fillColor = {0, 0, 127}, pattern = LinePattern.None, fillPattern = FillPattern.Solid, extent = {{78, 82}, {100, 78}}),
-        Rectangle(lineColor = {0, 0, 255}, fillColor = {0, 0, 127}, pattern = LinePattern.None, fillPattern = FillPattern.Solid, extent = {{70, 56}, {82, 52}}),
-        Rectangle(lineColor = {0, 0, 255}, fillColor = {0, 0, 127}, pattern = LinePattern.None, fillPattern = FillPattern.Solid, extent = {{78, 54}, {82, 80}}),
-        Text(textColor = {0, 0, 127}, extent = {{64, 114}, {98, 76}}, textString = "PFan")}),
+        Text(origin = {-2, 0},textColor={255,255,255},     extent = {{-54, 6}, {58, -114}},
+          textString="DryCoil"),
+        Rectangle(lineColor = {0, 0, 255}, fillColor = {0, 0, 127}, pattern = LinePattern.None, fillPattern = FillPattern.Solid, extent={{78,54},
+              {82,80}}),
+        Rectangle(lineColor = {0, 0, 255}, fillColor = {0, 0, 127}, pattern = LinePattern.None, fillPattern = FillPattern.Solid, extent={{70,58},
+              {82,54}}),
+        Rectangle(lineColor = {0, 0, 255}, fillColor = {0, 0, 127}, pattern = LinePattern.None, fillPattern = FillPattern.Solid, extent={{78,82},
+              {100,78}})}),
     Diagram(coordinateSystem(preserveAspectRatio = false)),
     Documentation(info="<html>
 <p>

@@ -109,25 +109,10 @@ equation
   connect(mAir_flow, hA.m2_flow) annotation (Line(points={{-120,80},{-80,80},{
           -80,-36},{-2,-36},{-2,-37},{-1,-37}}, color={0,0,127}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false), graphics={
-        Rectangle(
-          extent={{-66,78},{68,-38}},
-          lineColor={0,0,0},
-          fillColor={215,215,215},
-          fillPattern=FillPattern.Solid),
         Text(
           extent={{-54,-10},{58,-130}},
           textColor={0,0,0},
-          textString="DryCooler"),
-        Ellipse(
-          extent={{-54,62},{0,50}},
-          lineColor={255,255,255},
-          fillColor={0,0,0},
-          fillPattern=FillPattern.Solid),
-        Ellipse(
-          extent={{0,62},{54,50}},
-          lineColor={255,255,255},
-          fillColor={0,0,0},
-          fillPattern=FillPattern.Solid)}),
+          textString="DryCoil")}),
     Diagram(coordinateSystem(preserveAspectRatio=false)),
     Documentation(info="<html>
 <p>

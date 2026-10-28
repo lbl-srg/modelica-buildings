@@ -40,7 +40,7 @@ model IndirectDryTest
     TCooOut_nominal=303.15,
     dp_nominal=dp1_nominal,
     TAirIn_nominal=298.15) "Performance data for dry cooler"
-    annotation (Placement(transformation(extent={{160,-122},{180,-102}})));
+    annotation (Placement(transformation(extent={{0,20},{20,40}})));
   Movers.FlowControlled_m_flow                 pum(
     redeclare package Medium = MediumW,
     addPowerToMedium=false,
