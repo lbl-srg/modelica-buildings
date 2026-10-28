@@ -56,16 +56,6 @@ partial model PartialDataCenter
   parameter Modelica.Units.SI.Pressure dpSetPoi=80000
     "Differential pressure setpoint";
 
-  parameter Fluid.HeatExchangers.CoolingTowers.Data.YorkCalc.Generic datCooTow(
-    TCooIn_nominal=294.71,
-    PFan_Q_flow_nominal = -18000/(0.785*m1_flow_chi_nominal*4200*6),
-    Q_flow_nominal = -0.785*m1_flow_chi_nominal*4200*6,
-    TCooOut_nominal=289.15,
-    TAirInWB_nominal=283.15,
-    dp_nominal=30000)
-    "Cooling tower performance data"
-    annotation (Placement(transformation(extent={{80,160},{100,180}})));
-
   replaceable
     Buildings.Applications.DataCenters.ChillerCooled.Equipment.BaseClasses.PartialChillerWSE
     chiWSE(
@@ -83,7 +73,7 @@ partial model PartialDataCenter
     redeclare each
       Buildings.Fluid.Chillers.Data.ElectricEIR.ElectricEIRChiller_York_YT_1055kW_5_96COP_Vanes
       perChi,
-    use_strokeTime=false,
+    use_inputFilter=false,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     use_controller=false) "Chillers and waterside economizer"
     annotation (Placement(transformation(extent={{0,20},{20,40}})));
@@ -96,8 +86,12 @@ partial model PartialDataCenter
         origin={131,140.5})));
   Buildings.Fluid.HeatExchangers.CoolingTowers.YorkCalc cooTow[numChi](
     redeclare each replaceable package Medium = MediumW,
-    each dat=datCooTow,
-    each energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyStateInitial)
+    each TAirInWB_nominal(displayUnit="degC") = 283.15,
+    each TApp_nominal=6,
+    each energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyStateInitial,
+    each dp_nominal=30000,
+    each m_flow_nominal=0.785*m1_flow_chi_nominal,
+    each PFan_nominal=18000)
     "Cooling tower"
     annotation (Placement(transformation(extent={{10,-10},{-10,10}},
       origin={10,140})));
@@ -127,7 +121,7 @@ partial model PartialDataCenter
     each addPowerToMedium=false,
     per=perPumCW,
     each energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
-    each use_riseTime=false) "Condenser water pump" annotation (Placement(
+    each use_inputFilter=false) "Condenser water pump" annotation (Placement(
         transformation(
         extent={{-10,10},{10,-10}},
         rotation=-90,
@@ -177,7 +171,7 @@ partial model PartialDataCenter
     annotation (Placement(transformation(extent={{10,-10},{-10,10}},
         rotation=90,
         origin={-50,-150})));
-  Buildings.Examples.ChillerPlant.DataCenter.BaseClasses.SimplifiedRoom roo(
+  Buildings.Examples.ChillerPlant.BaseClasses.SimplifiedRoom roo(
     redeclare replaceable package Medium = MediumA,
     rooLen=50,
     rooWid=30,
@@ -190,7 +184,7 @@ partial model PartialDataCenter
     redeclare each package Medium = MediumW,
     each m_flow_nominal=m1_flow_chi_nominal,
     each dpValve_nominal=6000,
-    each use_strokeTime=false,
+    each use_inputFilter=false,
     each from_dp=true)
     "Shutoff valves"
     annotation (Placement(transformation(extent={{70,130},{50,150}})));
@@ -230,8 +224,8 @@ partial model PartialDataCenter
     k=0.1)
     "Cooling tower speed control"
     annotation (Placement(transformation(extent={{-170,170},{-150,186}})));
-  Modelica.Blocks.Sources.RealExpression TCWSupSet(y=min(29.44 + 273.15, max(
-        273.15 + 15.56, cooTow[1].TWetBul + 3)))
+  Modelica.Blocks.Sources.RealExpression TCWSupSet(
+    y=min(29.44 + 273.15, max(273.15 + 15.56, cooTow[1].TAir + 3)))
     "Condenser water supply temperature setpoint"
     annotation (Placement(transformation(extent={{-260,176},{-240,196}})));
 
@@ -325,7 +319,7 @@ equation
             60},{110,140},{70,140}},
             color={0,127,255},
             thickness=0.5));
-    connect(weaBus.TWetBul, cooTow[i].TWetBul) annotation (Line(
+    connect(weaBus.TWetBul, cooTow[i].TAir) annotation (Line(
         points={{-327.95,-19.95},{-340,-19.95},{-340,200},{32,200},{32,144},{22,
             144}},
         color={255,204,51},
@@ -540,8 +534,6 @@ equation
           {-126,226},{-126,248},{-122,248}},color={0,0,127}));
   connect(plaOn.y, varSpeCon.on) annotation (Line(points={{-138,240},{-136,240},
           {-136,210},{-190,210},{-190,4},{-170,4}}, color={255,0,255}));
-  connect(plaOn.y, CWPumCon.on) annotation (Line(points={{-138,240},{-136,240},
-          {-136,210},{-190,210},{-190,70},{-174,70}}, color={255,0,255}));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false,
     extent={{-360,-200},{160,260}})),
     Documentation(info="<html>
