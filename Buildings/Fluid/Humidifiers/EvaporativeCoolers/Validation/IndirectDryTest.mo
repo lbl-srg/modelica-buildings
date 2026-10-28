@@ -85,9 +85,9 @@ model IndirectDryTest
   Modelica.Thermal.HeatTransfer.Sensors.TemperatureSensor TVol
     "Water temperature"
     annotation (Placement(transformation(extent={{-160,160},{-140,180}})));
-  Movers.SpeedControlled_y mov(
+  Movers.SpeedControlled_y fan(
     redeclare package Medium = MediumA,
-    redeclare Buildings.Fluid.Movers.Data.Fans.Greenheck.BIDW12 per,
+    per=BIDW12,
     addPowerToMedium=false)
     annotation (Placement(transformation(extent={{60,-50},{80,-30}})));
   Sources.Outside sou(redeclare final package Medium = MediumA, final nPorts=1)
@@ -114,6 +114,8 @@ model IndirectDryTest
   BoundaryConditions.WeatherData.Bus           weaBus "Weather data bus"
     annotation (Placement(transformation(extent={{-130,-140},{-110,-120}}),
         iconTransformation(extent={{-124,-90},{-104,-70}})));
+  parameter Movers.Data.Fans.Greenheck.BIDW12 BIDW12
+    annotation (Placement(transformation(extent={{80,-100},{120,-60}})));
 equation
 
   connect(evaCooAct.y, indDryEvaCoo.evaCooAct) annotation (Line(points={{-58,-10},
@@ -148,15 +150,15 @@ equation
           -190,170},{-160,170}}, color={191,0,0}));
   connect(swi.y, pum.m_flow_in) annotation (Line(points={{-49,130},{-28,130},{
           -28,42},{-130,42}}, color={0,0,127}));
-  connect(indDryEvaCoo.port_b2, mov.port_a) annotation (Line(points={{8,-6},{40,
+  connect(indDryEvaCoo.port_b2,fan. port_a) annotation (Line(points={{8,-6},{40,
           -6},{40,-40},{60,-40}}, color={0,127,255}));
-  connect(mov.port_b, sin1.ports[1])
+  connect(fan.port_b, sin1.ports[1])
     annotation (Line(points={{80,-40},{120,-40}}, color={0,127,255}));
   connect(sou.ports[1], indDryEvaCoo.port_a2) annotation (Line(points={{-80,-70},
           {-20,-70},{-20,-6},{-12,-6}}, color={0,127,255}));
   connect(TSetLea.y, conFan.u_s)
     annotation (Line(points={{-19,-110},{20,-110}}, color={0,0,127}));
-  connect(conFan.y, mov.y) annotation (Line(points={{43,-110},{50,-110},{50,-28},
+  connect(conFan.y,fan. y) annotation (Line(points={{43,-110},{50,-110},{50,-28},
           {70,-28}}, color={0,0,127}));
   connect(indDryEvaCoo.TLvg, conFan.u_m) annotation (Line(points={{7,2},{10,2},
           {10,-122},{32,-122}}, color={0,0,127}));
