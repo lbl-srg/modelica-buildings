@@ -47,6 +47,7 @@ model ClosedLoop
     redeclare package Medium = MediumW,
     final m_flow_nominal=mWater_flow_nominal,
     final show_T=true,
+    final from_dp=true,
     final dpValve_nominal=20000,
     final dpFixed_nominal=60000) "Cooling coil valve"
     annotation (Placement(transformation(
