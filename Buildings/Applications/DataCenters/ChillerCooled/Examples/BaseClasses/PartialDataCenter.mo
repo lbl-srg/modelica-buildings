@@ -56,7 +56,9 @@ partial model PartialDataCenter
   parameter Modelica.Units.SI.Pressure dpSetPoi=80000
     "Differential pressure setpoint";
 
-  replaceable Buildings.Applications.DataCenters.ChillerCooled.Equipment.BaseClasses.PartialChillerWSE chiWSE(
+  replaceable
+    Buildings.Applications.DataCenters.ChillerCooled.Equipment.BaseClasses.PartialChillerWSE
+    chiWSE(
     redeclare replaceable package Medium1 = MediumW,
     redeclare replaceable package Medium2 = MediumW,
     numChi=numChi,
@@ -73,8 +75,7 @@ partial model PartialDataCenter
       perChi,
     use_inputFilter=false,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
-    use_controller=false)
-    "Chillers and waterside economizer"
+    use_controller=false) "Chillers and waterside economizer"
     annotation (Placement(transformation(extent={{0,20},{20,40}})));
   Buildings.Fluid.Sources.Boundary_pT expVesCW(
     redeclare replaceable package Medium = MediumW,
@@ -120,9 +121,8 @@ partial model PartialDataCenter
     each addPowerToMedium=false,
     per=perPumCW,
     each energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
-    each use_inputFilter=false)
-    "Condenser water pump"
-    annotation (Placement(transformation(
+    each use_inputFilter=false) "Condenser water pump" annotation (Placement(
+        transformation(
         extent={{-10,10},{10,-10}},
         rotation=-90,
         origin={-50,100})));
@@ -178,16 +178,14 @@ partial model PartialDataCenter
     rooHei=3,
     m_flow_nominal=mAir_flow_nominal,
     QRoo_flow=500000,
-    nPorts=2)
-    "Room model"
-    annotation (Placement(transformation(
-        extent={{10,-10},{-10,10}},
-        origin={4,-180})));
+    nPorts=2) "Room model" annotation (Placement(transformation(extent={{10,-10},
+            {-10,10}}, origin={4,-180})));
   Buildings.Fluid.Actuators.Valves.TwoWayLinear val[numChi](
     redeclare each package Medium = MediumW,
     each m_flow_nominal=m1_flow_chi_nominal,
     each dpValve_nominal=6000,
-    each use_inputFilter=false)
+    each use_inputFilter=false,
+    each from_dp=true)
     "Shutoff valves"
     annotation (Placement(transformation(extent={{70,130},{50,150}})));
 
@@ -294,6 +292,7 @@ partial model PartialDataCenter
   Modelica.Blocks.MathBoolean.Or chiOnSta(nu=numChi)
     "Output true if at least one chiller is on"
     annotation (Placement(transformation(extent={{-102,122},{-90,134}})));
+
 equation
   connect(chiWSE.port_b2, TCHWSup.port_a)
     annotation (Line(
@@ -320,14 +319,28 @@ equation
             60},{110,140},{70,140}},
             color={0,127,255},
             thickness=0.5));
-  connect(weaBus.TWetBul, cooTow[i].TAir) annotation (Line(
-      points={{-328,-20},{-340,-20},{-340,200},{32,200},{32,144},{22,144}},
-      color={255,204,51},
-      thickness=0.5), Text(
-      string="%first",
-      index=-1,
-      extent={{6,3},{6,3}},
-      horizontalAlignment=TextAlignment.Left));
+    connect(weaBus.TWetBul, cooTow[i].TAir) annotation (Line(
+        points={{-327.95,-19.95},{-340,-19.95},{-340,200},{32,200},{32,144},{22,
+            144}},
+        color={255,204,51},
+        thickness=0.5), Text(
+        string="%first",
+        index=-1,
+        extent={{6,3},{6,3}},
+        horizontalAlignment=TextAlignment.Left));
+    connect(pumCW[i].port_b, chiWSE.port_a1)
+      annotation (Line(
+        points={{-50,90},{-50,64},{-12,64},{-12,36},{0,36}},
+        color={0,127,255},
+        thickness=0.5));
+    connect(chiOn[i].y, chiWSE.on[i])
+      annotation (Line(
+        points={{-109,140},{-80,140},{-80,37.6},{-1.6,37.6}},
+        color={255,0,255}));
+   connect(cooTowSpeCon.y, cooTowSpe[i].u1)
+     annotation (Line(
+       points={{-149,178.889},{-84,178.889},{-84,178.8},{-61.6,178.8}},
+       color={0,0,127}));
   end for;
   connect(senRelPre.port_b, ahu.port_b1)
     annotation (Line(points={{18,-96},{30,-96},{30,-114},{20,-114}},
@@ -347,36 +360,6 @@ equation
       color={0,127,255},
       thickness=0.5));
 
-  connect(chiWSE.port_b2, TCHWSup.port_a)
-    annotation (Line(
-      points={{0,24},{-8,24},{-8,0},{-16,0}},
-      color={0,127,255},
-      thickness=0.5));
-  connect(chiWSE.port_b1, TCWRet.port_a)
-    annotation (Line(
-      points={{20,36},{40,36},{40,60},{82,60}},
-      color={0,127,255},
-      thickness=0.5));
-   for i in 1:numChi loop
-    connect(TCWSup.port_a, cooTow[i].port_b)
-      annotation (Line(
-        points={{-22,140},{0,140}},
-        color={0,127,255},
-        thickness=0.5));
-    connect(pumCW[i].port_b, chiWSE.port_a1)
-      annotation (Line(
-        points={{-50,90},{-50,64},{-12,64},{-12,36},{0,36}},
-        color={0,127,255},
-        thickness=0.5));
-    connect(chiOn[i].y, chiWSE.on[i])
-      annotation (Line(
-        points={{-109,140},{-80,140},{-80,37.6},{-1.6,37.6}},
-        color={255,0,255}));
-   connect(cooTowSpeCon.y, cooTowSpe[i].u1)
-     annotation (Line(
-       points={{-149,178.889},{-84,178.889},{-84,178.8},{-61.6,178.8}},
-       color={0,0,127}));
-   end for;
   connect(chiStaCon.y, chiOn.u)
     annotation (Line(
       points={{-149,140},{-132,140}},
@@ -480,17 +463,17 @@ equation
       thickness=0.5));
   connect(chiNumOn.y, CWPumCon.numOnChi)
     annotation (Line(
-      points={{-236.9,65},{-174,65}},
+      points={{-236.9,65},{-206,65},{-206,64},{-174,64}},
       color={255,127,0}));
   connect(ahu.port_a2, roo.airPorts[1])
     annotation (Line(
-      points={{20,-126},{32,-126},{32,-196},{1.525,-196},{1.525,-188.7}},
+      points={{20,-126},{32,-126},{32,-196},{4.5625,-196},{4.5625,-188.7}},
       color={0,127,255},
       thickness=0.5));
 
   connect(roo.airPorts[2], TAirSup.port_b)
     annotation (Line(
-      points={{5.575,-188.7},{5.575,-196},{-50,-196},{-50,-160}},
+      points={{2.5375,-188.7},{2.5375,-196},{-50,-196},{-50,-160}},
       color={0,127,255},
       thickness=0.5));
   connect(roo.TRooAir, ahuFanSpeCon.u_m)
@@ -566,6 +549,25 @@ Taylor, S. T. (2014). How to design &amp; control waterside economizers. ASHRAE 
 </ul>
 </html>", revisions="<html>
 <ul>
+<li>
+October 23, 2026, by Michael Wetter:<br/>
+Set <code>val.from_dp=true</code> to avoid large gains when valve is closed,
+and removed duplicate <code>connect</code> statements.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4798\">Buildings, #4798</a>.
+</li>
+<li>
+April 27, 2026, by Michael Wetter:<br/>
+Refactored for new cooling tower implementation.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4567\">issue 4567</a>.
+</li>
+<li>
+September 3, 2024, by Jianjun Hu:<br/>
+Added plant on signal to control the pump speed.
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3989\">issue 3989</a>.
+</li>
 <li>
 January 2, 2022, by Kathryn Hinkelman:<br/>
 Passed the <code>plaOn</code> signal to the chilled water pump control
