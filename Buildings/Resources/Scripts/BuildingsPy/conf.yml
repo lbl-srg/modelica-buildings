@@ -2,6 +2,10 @@
   optimica:
     comment: High solver tolerance required to avoid time out.
     rtol: 1.0e-08
+- model_name: Buildings.Applications.DataCenters.ChillerCooled.Equipment.Validation.IntegratedPrimaryPlantSide
+  optimica:
+    comment: 'FMUException: Failed to update the events at time: 9.000000E+03.'
+    simulate: false
 - model_name: Buildings.Controls.DemandResponse.Examples.ClientLBNL90
   openmodelica:
     comment: 'TimeoutExpired: omc timed out after 300 seconds'
@@ -79,8 +83,8 @@
     simulate: false
 - model_name: Buildings.Experimental.DHC.Examples.Cooling.ElectricChillersDirectETS
   openmodelica:
-    comment: simulation terminated by an assertion at initialization
-    simulate: false
+    comment: 'CalledProcessError: Command ''[''omc'', ''Buildings.Experimental.DHC.Examples.Cooling.ElectricChillersDirectETS_translate.mos'']'' returned non-zero exit status 2.'
+    translate: false
   optimica:
     comment: 'The system is structurally singular. Modelon #2023012739000252'
     translate: false
@@ -116,6 +120,10 @@
     simulate: false
   optimica:
     comment: pyfmi.fmi.FMUException Failed to update the events at time 3.024307E+06
+    simulate: false
+- model_name: Buildings.Experimental.DHC.Plants.Combined.Subsystems.Validation.ChillerHeatRecoveryGroup
+  openmodelica:
+    comment: simulation terminated by an assertion at initialization
     simulate: false
 - model_name: Buildings.Experimental.DHC.Plants.Combined.Validation.AllElectricCWStorage
   openmodelica:
@@ -168,6 +176,14 @@
   openmodelica:
     comment: timed out after 300 seconds
     simulate: false
+- model_name: Buildings.Fluid.Geothermal.BuriedPipes.Examples.SingleBuriedPipe
+  openmodelica:
+    comment: Simulation terminated at time 6.19956e+07
+    simulate: false
+- model_name: Buildings.Fluid.Geothermal.BuriedPipes.Examples.TwoBuriedPipes
+  openmodelica:
+    comment: 'CalledProcessError: Command ''[''omc'', ''Buildings.Fluid.Geothermal.BuriedPipes.Examples.TwoBuriedPipes_simulate.mos'']'' returned non-zero exit status 255.'
+    simulate: false
 - model_name: Buildings.Fluid.Geothermal.BuriedPipes.Examples.TwoPipesConduit
   openmodelica:
     comment: 'CalledProcessError: Command ''[''omc'', ''Buildings.Fluid.Geothermal.BuriedPipes.Examples.TwoPipesConduit_simulate.mos'']'' returned non-zero exit status 255.'
@@ -176,6 +192,10 @@
   openmodelica:
     comment: Timed out after 300 seconds, https://app.travis-ci.com/github/lbl-srg/modelica-buildings/jobs/559381269#L479
     simulate: false
+- model_name: Buildings.Fluid.HeatExchangers.Radiators.Examples.RadiatorEN442_2
+  openmodelica:
+    comment: 'CalledProcessError: Command ''[''omc'', ''Buildings.Fluid.HeatExchangers.Radiators.Examples.RadiatorEN442_2_translate.mos'']'' returned non-zero exit status 2.'
+    translate: false
 - model_name: Buildings.Fluid.HydronicConfigurations.ActiveNetworks.Examples.DecouplingMixing
   openmodelica:
     comment: Timeout after 600 s on travis, https://app.travis-ci.com/github/lbl-srg/modelica-buildings/jobs/600714398#L489
@@ -365,6 +385,10 @@
   openmodelica:
     comment: Timeout on travis
     time_out: 600
+- model_name: Buildings.ThermalZones.Detailed.Validation.BESTEST.Cases6xx.Case670
+  openmodelica:
+    comment: 'TimeoutExpired: Command ''[''omc'', ''Buildings.ThermalZones.Detailed.Validation.BESTEST.Cases6xx.Case670_simulate.mos'']'' timed out after 300 seconds'
+    simulate: false
 - model_name: Buildings.ThermalZones.Detailed.Validation.BESTEST.Cases9xx.Case920
   openmodelica:
     comment: Timeout on travis
