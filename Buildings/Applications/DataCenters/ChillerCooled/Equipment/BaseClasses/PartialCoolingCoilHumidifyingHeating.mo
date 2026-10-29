@@ -152,7 +152,7 @@ if not inputType == Buildings.Fluid.Types.InputType.Stages
       final show_T=show_T,
       final l=l,
       final CvData=Buildings.Fluid.Types.CvTypes.OpPoint,
-      final from_dp=from_dp1,
+      from_dp=true,
       final homotopyInitialization=homotopyInitialization,
       final linearized=linearizeFlowResistance1,
       final rhoStd=rhoStd,
@@ -214,6 +214,12 @@ The valve and fan are partial models, and should be redeclared when used in the 
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+October 23, 2026, by Michael Wetter:<br/>
+Set <code>watVal.from_dp=true</code> to avoid large gains when valve is closed.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4798\">Buildings, #4798</a>.
+</li>
 <li>
 June 30, 2021, by Antoine Gautier:<br/>
 Changed cooling coil model. This is for

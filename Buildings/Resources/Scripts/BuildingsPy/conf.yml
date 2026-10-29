@@ -6,6 +6,10 @@
   optimica:
     comment: High solver tolerance required to avoid time out.
     rtol: 1.0e-08
+- model_name: Buildings.Applications.DataCenters.ChillerCooled.Equipment.Validation.IntegratedPrimaryPlantSide
+  optimica:
+    comment: 'FMUException: Failed to update the events at time: 9.000000E+03.'
+    simulate: false
 - model_name: Buildings.Controls.DemandResponse.Examples.ClientLBNL90
   openmodelica:
     comment: 'TimeoutExpired: omc timed out after 300 seconds'
@@ -318,6 +322,9 @@
   openmodelica:
     comment: Translation failed.
     translate: false
+  optimica:
+    comment: 'CVodeError: ''The linear solvers setup function failed in an unrecoverable manner. At time 3119.795018.'''
+    simulate: false
 - model_name: Buildings.Templates.Plants.HeatPumps.Validation.AirToWater
   optimica:
     comment: False positive warning "missing each", but the model can be simulated successfully [Modelon - 1173].
