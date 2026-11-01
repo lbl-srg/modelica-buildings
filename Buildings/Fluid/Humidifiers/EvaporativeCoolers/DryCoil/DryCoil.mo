@@ -3,10 +3,13 @@ model DryCoil "Cooling tower model based on epsilon-NTU relation"
   extends Buildings.Fluid.HeatExchangers.CoolingTowers.BaseClasses.CoolingTower(
     final m_flow_nominal = dat.Q_flow_nominal / cp_default / (dat.TCooOut_nominal - dat.TCooIn_nominal),
     final dp_nominal = dat.dp_nominal);
-  parameter Buildings.Fluid.HeatExchangers.CoolingTowers.Data.DryCooler.Generic
+  parameter Data.Generic
     dat "Performance data record"
     annotation (Placement(transformation(extent={{-10,70},{10,90}})));
-
+  parameter Real yMin(min=0.01, max=1, final unit="1") = 0.3
+    "Minimum control signal until fan is switched off (used for smoothing
+    between forced and free convection regime)"
+    annotation (Dialog(group="Fan"));
   final parameter Modelica.Units.SI.ThermalConductance UA_nominal = per.UA_nominal
     "Thermal conductance at nominal flow, used to compute heat capacity";
   final parameter Real eps_nominal = per.eps_nominal

@@ -33,7 +33,7 @@ model IndirectDryTest "Indirect dry evaporative cooler"
     "Record with performance data for evaporative pads"
     annotation (choicesAllMatching=true,
       Placement(transformation(extent={{-40,-40},{-20,-20}})));
-  parameter HeatExchangers.CoolingTowers.Data.DryCooler.Generic
+  parameter Buildings.Fluid.Humidifiers.EvaporativeCoolers.DryCoil.Data.Generic
     dat(
     Q_flow_nominal=-m1_flow_nominal*4200*(35 - 30),
     TCooIn_nominal=308.15,
@@ -64,18 +64,18 @@ model IndirectDryTest "Indirect dry evaporative cooler"
         Medium1) annotation (Placement(transformation(extent={{230,50},{250,70}}),
         iconTransformation(extent={{90,50},{110,70}})));
   Modelica.Fluid.Interfaces.FluidPort_b port_b2(redeclare package Medium =
-        Medium2) annotation (Placement(transformation(extent={{230,-90},{250,
-            -68}}), iconTransformation(extent={{90,-70},{110,-50}})));
+        Medium2) annotation (Placement(transformation(extent={{230,-90},{250,-68}}),
+                    iconTransformation(extent={{90,-70},{110,-50}})));
   Sensors.TemperatureTwoPort                 senTem(redeclare package Medium =
         Medium2, m_flow_nominal=m2_flow_nominal)
     annotation (Placement(transformation(extent={{60,-70},{80,-50}})));
   FixedResistances.PressureDrop                 preDro(
     redeclare final package Medium = Medium2,
     final m_flow_nominal=m2_flow_nominal,
-    final homotopyInitialization=homotopyInitialization,
+    //final homotopyInitialization=homotopyInitialization,
     final dp_nominal=dp2_nominal)
                                  "Flow resistance"
-    annotation (Placement(transformation(extent={{98,-70},{118,-50}})));
+    annotation (Placement(transformation(extent={{100,-70},{120,-50}})));
               MixingVolumes.MixingVolume                 vol(
     redeclare final package Medium = Medium2,
     nPorts=2,
@@ -119,9 +119,9 @@ equation
   connect(preHea.port,vol. heatPort) annotation (Line(points={{160,20},{166,20},
           {166,-70},{171,-70}},      color={191,0,0}));
   connect(senTem.port_b, preDro.port_a)
-    annotation (Line(points={{80,-60},{98,-60}}, color={0,127,255}));
+    annotation (Line(points={{80,-60},{100,-60}},color={0,127,255}));
   connect(preDro.port_b, vol.ports[1])
-    annotation (Line(points={{118,-60},{180,-60}}, color={0,127,255}));
+    annotation (Line(points={{120,-60},{180,-60}}, color={0,127,255}));
   connect(vol.ports[2], port_b2) annotation (Line(points={{182,-60},{200,-60},{200,
           -78},{240,-78},{240,-79}},     color={0,127,255}));
   connect(senTem.T, dryCoil.TDryBul)

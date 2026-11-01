@@ -11,7 +11,7 @@ block DryCoil "Model for thermal performance of dry cooling tower"
               X_a=0.40)
               "Propylene glycol water, 40% mass fraction")));
 
-  parameter Buildings.Fluid.HeatExchangers.CoolingTowers.Data.DryCooler.Generic
+  parameter Buildings.Fluid.Humidifiers.EvaporativeCoolers.DryCoil.Data.Generic
     dat "Performance data record"
     annotation (Placement(transformation(extent={{60,60},{80,80}})));
 
@@ -72,7 +72,7 @@ protected
         mAir_flow_nominal) "Fan speed"
     annotation (Placement(transformation(extent={{-60,70},{-40,90}})));
 
-  Buildings.Fluid.HeatExchangers.CoolingTowers.BaseClasses.DryCoolerUA UA(
+  Buildings.Fluid.Humidifiers.EvaporativeCoolers.DryCoil.BaseClasses.DryCoilUA UA(
     redeclare final package Medium = Medium,
     final dat=dat,
     final m_flow_nominal=m_flow_nominal,

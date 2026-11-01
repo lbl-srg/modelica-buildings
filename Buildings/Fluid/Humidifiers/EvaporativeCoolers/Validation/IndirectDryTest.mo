@@ -33,7 +33,7 @@ model IndirectDryTest
     final k=true)
     "Boolean pulse signal for active evaporative cooling"
     annotation (Placement(transformation(extent={{-80,-20},{-60,0}})));
-  parameter HeatExchangers.CoolingTowers.Data.DryCooler.Generic
+  parameter DryCoil.Data.Generic
     dat(
     Q_flow_nominal=-m1_flow_nominal*4200*(35 - 30),
     TCooIn_nominal=308.15,
@@ -176,7 +176,12 @@ equation
 annotation (
   Diagram(coordinateSystem(extent={{-200,-180},{180,180}})),
   Icon(coordinateSystem(extent={{-100,-100},{100,100}})),
-  experiment(StartTime=350000, StopTime=604800, Interval=60, Tolerance=1e-6),
+  experiment(
+      StartTime=21600000,
+      StopTime=21686400,
+      Interval=60,
+      Tolerance=1e-06,
+      __Dymola_Algorithm="Dassl"),
   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Humidifiers/EvaporativeCoolers/Validation/IndirectDry.mos"
       "Simulate and plot"),
   Documentation(info="<html>
