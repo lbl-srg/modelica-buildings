@@ -92,7 +92,7 @@ block AHU "Outdoor airflow related calculations at the AHU level"
     "Current system ventilation efficiency"
     annotation (Placement(transformation(extent={{40,-50},{60,-30}})));
   Buildings.Controls.OBC.CDL.Reals.Max max1
-    "Avoid devide by zero"
+    "Avoid divide by zero"
     annotation (Placement(transformation(extent={{-80,-50},{-60,-30}})));
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant desOutAir(
     final k=VDesTotOutAir_flow)
@@ -120,7 +120,7 @@ block AHU "Outdoor airflow related calculations at the AHU level"
     "Near zero value"
     annotation (Placement(transformation(extent={{0,-80},{20,-60}})));
   Buildings.Controls.OBC.CDL.Reals.Max max2
-    "Avoid devide by zero"
+    "Avoid divide by zero"
     annotation (Placement(transformation(extent={{80,-50},{100,-30}})));
 
 equation

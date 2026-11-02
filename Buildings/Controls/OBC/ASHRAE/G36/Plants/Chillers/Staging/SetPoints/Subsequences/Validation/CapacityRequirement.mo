@@ -3,7 +3,7 @@ model CapacityRequirement
   "Validates the cooling capacity requirement calculation"
 
   Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Staging.SetPoints.Subsequences.CapacityRequirement
-    capReq "Capacity requirement when no stage chage occurs"
+    capReq "Capacity requirement when no stage change occurs"
     annotation (Placement(transformation(extent={{-80,0},{-60,20}})));
 
   Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Staging.SetPoints.Subsequences.CapacityRequirement
@@ -39,7 +39,7 @@ protected
   Buildings.Controls.OBC.CDL.Reals.Sources.Sin TChiWatRet(
     final amplitude=2,
     final freqHz=1/300,
-    final offset=aveTChiWatRet) "Chilled water return temeprature"
+    final offset=aveTChiWatRet) "Chilled water return temperature"
     annotation (Placement(transformation(extent={{-140,-30},{-120,-10}})));
 
   Buildings.Controls.OBC.CDL.Reals.Sources.Sin chiWatFlow(
@@ -59,7 +59,7 @@ protected
   Buildings.Controls.OBC.CDL.Reals.Sources.Sin TChiWatRet1(
     final amplitude=2,
     final freqHz=1/300,
-    final offset=aveTChiWatRet) "Chilled water return temeprature"
+    final offset=aveTChiWatRet) "Chilled water return temperature"
     annotation (Placement(transformation(extent={{-40,-30},{-20,-10}})));
 
   Buildings.Controls.OBC.CDL.Reals.Sources.Sin chiWatFlow1(
@@ -81,7 +81,7 @@ protected
   Buildings.Controls.OBC.CDL.Reals.Sources.Sin TChiWatRet2(
     final amplitude=2,
     final freqHz=1/300,
-    final offset=aveTChiWatRet) "Chilled water return temeprature"
+    final offset=aveTChiWatRet) "Chilled water return temperature"
     annotation (Placement(transformation(extent={{60,-30},{80,-10}})));
 
   Buildings.Controls.OBC.CDL.Reals.Sources.Sin chiWatFlow2(

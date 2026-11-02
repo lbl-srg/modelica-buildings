@@ -78,7 +78,7 @@ block Controller "Waterside economizer (WSE) enable/disable status"
 
   parameter Real dpDes(
     final unit="Pa",
-    final quantity="PresureDifference")=6000
+    final quantity="PressureDifference")=6000
     "Design pressure difference across the chilled water side economizer"
     annotation (Dialog(group="Valve or pump control", enable=have_byPasValCon));
   parameter CDL.Types.SimpleController valCon=Buildings.Controls.OBC.CDL.Types.SimpleController.PI
@@ -384,7 +384,7 @@ protected
     annotation (Placement(transformation(extent={{120,50},{140,70}})));
 
   Buildings.Controls.OBC.CDL.Logical.Pre pre2
-    "Break algebric loop"
+    "Break algebraic loop"
     annotation (Placement(transformation(extent={{60,50},{80,70}})));
 
   Buildings.Controls.OBC.CDL.Logical.And enaWSE
@@ -392,7 +392,7 @@ protected
     annotation (Placement(transformation(extent={{20,90},{40,110}})));
 
   Buildings.Controls.OBC.CDL.Logical.Pre pre1
-    "Break algebric loop"
+    "Break algebraic loop"
     annotation (Placement(transformation(extent={{60,90},{80,110}})));
 
   Buildings.Controls.OBC.CDL.Logical.MultiOr anyComOpe(

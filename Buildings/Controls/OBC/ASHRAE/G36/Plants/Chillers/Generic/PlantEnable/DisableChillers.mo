@@ -109,7 +109,7 @@ block DisableChillers
     annotation (Placement(transformation(extent={{200,60},{240,100}}),
         iconTransformation(extent={{100,10},{140,50}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yChiWatPum[nChiWatPum]
-    "Chilled water pump commanded status: true-comanded on"
+    "Chilled water pump commanded status: true-commanded on"
     annotation (Placement(transformation(extent={{200,20},{240,60}}),
         iconTransformation(extent={{100,-40},{140,0}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yChiWatPumSpe(
@@ -127,7 +127,7 @@ block DisableChillers
         iconTransformation(extent={{100,-100},{140,-60}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yConWatPum[nConWatPum]
     if not have_airCoo
-    "Condenser water pump commanded status: true-comanded on"
+    "Condenser water pump commanded status: true-commanded on"
     annotation (Placement(transformation(extent={{200,-230},{240,-190}}),
         iconTransformation(extent={{100,-120},{140,-80}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yTowCel if not

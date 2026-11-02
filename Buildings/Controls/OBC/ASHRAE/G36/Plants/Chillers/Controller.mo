@@ -534,7 +534,7 @@ block Controller "Chiller plant controller"
   parameter Real dpDif(
     unit="Pa",
     displayUnit="Pa")=2*6895
-    "Offset between the chilled water pump diferential static pressure and its setpoint"
+    "Offset between the chilled water pump differential static pressure and its setpoint"
     annotation (Dialog(tab="Staging", group="Value comparison"));
 
   parameter Real TDif(unit="K")=1
@@ -769,7 +769,7 @@ block Controller "Chiller plant controller"
     "True: tower cells have the outlet isolation valve"
     annotation (Dialog(tab="Cooling towers", group="Staging", enable=have_towInlIsoVal and not have_airCoo));
   parameter Boolean have_towIsoValEndSwi=false
-    "True: tower cells isolatiove valve have the end switch feedback"
+    "True: tower cells isolation valve have the end switch feedback"
     annotation (Dialog(tab="Cooling towers", group="Staging", enable=have_towInlIsoVal and not have_airCoo));
   parameter Real chaTowCelIsoTim(unit="s")=300
     "Time to slowly change isolation valve"
@@ -950,7 +950,7 @@ block Controller "Chiller plant controller"
     final unit=fill("1", nChi),
     min=fill(0, nChi),
     max=fill(1, nChi)) if have_modPosChiVal and chiIsoValTyp == Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Types.Actuator.Modulating
-    "Chilled water isolvation valve position feedback"
+    "Chilled water isolation valve position feedback"
     annotation (Placement(transformation(extent={{-940,-190},{-900,-150}}),
       iconTransformation(extent={{-140,-100},{-100,-60}})));
 
@@ -1534,7 +1534,7 @@ block Controller "Chiller plant controller"
     annotation (Placement(transformation(extent={{520,270},{540,290}})));
 
   Buildings.Controls.OBC.CDL.Integers.Switch conWatPumNum if not have_airCoo
-    "Total number of enablded condenser water pump"
+    "Total number of enabled condenser water pump"
     annotation (Placement(transformation(extent={{440,10},{460,30}})));
 
   Buildings.Controls.OBC.CDL.Logical.Switch chiIsoVal[nChi]
@@ -1741,7 +1741,7 @@ protected
     annotation (Placement(transformation(extent={{680,340},{700,360}})));
 
   Buildings.Controls.OBC.CDL.Routing.BooleanScalarReplicator plaSta(
-    final nout=nChi) "Plant staus"
+    final nout=nChi) "Plant status"
     annotation (Placement(transformation(extent={{620,630},{640,650}})));
 
   Buildings.Controls.OBC.CDL.Reals.Switch chiIsoValPos[nChi] if chiIsoValTyp ==
