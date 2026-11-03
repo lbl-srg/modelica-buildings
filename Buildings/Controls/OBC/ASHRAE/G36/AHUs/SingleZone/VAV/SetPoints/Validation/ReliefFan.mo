@@ -19,14 +19,14 @@ model ReliefFan "Validate model for controlling relief fan"
   Buildings.Controls.OBC.CDL.Reals.Sources.Ramp dpBui(
     final height=40,
     final offset=0,
-    final duration=1800) "Building static presure"
+    final duration=1800) "Building static pressure"
     annotation (Placement(transformation(extent={{-40,-20},{-20,0}})));
   Buildings.Controls.OBC.CDL.Reals.Sources.Ramp dpBui1(
     final height=-15,
     final offset=20,
     final duration=1800,
     startTime=1800)
-    "Building static presure"
+    "Building static pressure"
     annotation (Placement(transformation(extent={{-40,-80},{-20,-60}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant supFan1(
     final k=true)
@@ -36,7 +36,7 @@ model ReliefFan "Validate model for controlling relief fan"
     final height=3,
     final offset=11,
     final duration=1800)
-    "Building static presure"
+    "Building static pressure"
     annotation (Placement(transformation(extent={{-40,30},{-20,50}})));
 
 equation

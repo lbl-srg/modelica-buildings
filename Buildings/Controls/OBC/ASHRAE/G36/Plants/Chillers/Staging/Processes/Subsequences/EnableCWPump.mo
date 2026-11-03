@@ -37,7 +37,7 @@ protected
     annotation (Placement(transformation(extent={{-80,70},{-60,90}})));
   Buildings.Controls.OBC.CDL.Integers.Switch swi1 "Logical switch"
     annotation (Placement(transformation(extent={{-40,70},{-20,90}})));
-  Buildings.Controls.OBC.CDL.Logical.And and1 "Logicla and"
+  Buildings.Controls.OBC.CDL.Logical.And and1 "Logical and"
     annotation (Placement(transformation(extent={{-80,0},{-60,20}})));
   Buildings.Controls.OBC.CDL.Integers.Switch swi2 "Logical switch"
     annotation (Placement(transformation(extent={{-40,0},{-20,20}})));

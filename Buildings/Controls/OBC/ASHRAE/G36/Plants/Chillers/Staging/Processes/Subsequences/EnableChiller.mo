@@ -342,7 +342,7 @@ but the enabled chiller has not yet finished starting."),
 and another chiller on, and the enabled chiller has finished starting.")}),
 Documentation(info="<html>
 <p>
-Block that controlls chiller when there is a staging up command <code>uStaUp=true</code>.
+Block that controls chiller when there is a staging up command <code>uStaUp=true</code>.
 This implementation is based on ASHRAE Guideline 36-2021, section 5.20.4.16,
 item f and item g.1. These sections specify when the next chiller should be enabled
 and when the running smaller chiller should be disabled.
