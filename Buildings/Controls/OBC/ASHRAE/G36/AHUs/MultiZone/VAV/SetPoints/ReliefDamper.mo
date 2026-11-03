@@ -99,7 +99,7 @@ Relief dampers shall be enabled when the associated supply fan is proven on
 </li>
 <li>
 When enabled, use a P-only control loop to modulate relief dampers to maintain building
-static pressure <code>dpBui</code> at its setpoint, which is by defaul
+static pressure <code>dpBui</code> at its setpoint, which is by default
 <i>12</i> Pa (<i>0.05</i> inchWC).
 </li>
 <li>

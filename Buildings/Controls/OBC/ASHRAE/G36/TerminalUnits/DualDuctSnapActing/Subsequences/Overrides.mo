@@ -101,7 +101,7 @@ block Overrides "Software switches to override setpoints"
     annotation (Placement(transformation(extent={{62,190},{82,210}})));
   Buildings.Controls.OBC.CDL.Continuous.Switch swi "Airflow setpoint after considering override"
     annotation (Placement(transformation(extent={{100,30},{120,50}})));
-  Buildings.Controls.OBC.CDL.Logical.Or3 or3 "Check if the airflow setpoint should be overrided"
+  Buildings.Controls.OBC.CDL.Logical.Or3 or3 "Check if the airflow setpoint should be overridden"
     annotation (Placement(transformation(extent={{-20,50},{0,70}})));
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant conInt3(
     final k=1)
@@ -128,7 +128,7 @@ block Overrides "Software switches to override setpoints"
   Buildings.Controls.OBC.CDL.Continuous.Add add3 "Add up inputs"
     annotation (Placement(transformation(extent={{20,-50},{40,-30}})));
   Buildings.Controls.OBC.CDL.Logical.Or or2
-    "Check if the damper setpoint position should be overrided"
+    "Check if the damper setpoint position should be overridden"
     annotation (Placement(transformation(extent={{0,-90},{20,-70}})));
   Buildings.Controls.OBC.CDL.Continuous.Switch swi1
     "Damper setpoint position after considering override"
@@ -148,7 +148,7 @@ block Overrides "Software switches to override setpoints"
     "Add up two inputs"
     annotation (Placement(transformation(extent={{-6,110},{14,130}})));
   Buildings.Controls.OBC.CDL.Logical.Or or1
-    "Check if the airflow setpoint should be overrided"
+    "Check if the airflow setpoint should be overridden"
     annotation (Placement(transformation(extent={{40,30},{60,50}})));
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant conInt6(
     final k=1)
@@ -176,7 +176,7 @@ block Overrides "Software switches to override setpoints"
     "Add up inputs"
     annotation (Placement(transformation(extent={{20,-170},{40,-150}})));
   Buildings.Controls.OBC.CDL.Logical.Or or4
-    "Check if the damper setpoint position should be overrided"
+    "Check if the damper setpoint position should be overridden"
     annotation (Placement(transformation(extent={{0,-210},{20,-190}})));
   Buildings.Controls.OBC.CDL.Continuous.Switch swi2
     "Damper setpoint position after considering override"

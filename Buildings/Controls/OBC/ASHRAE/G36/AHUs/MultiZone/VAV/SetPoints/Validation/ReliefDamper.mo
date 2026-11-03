@@ -17,7 +17,7 @@ model ReliefDamper
   Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp dpBui(
     final height=40,
     final offset=0,
-    final duration=1800) "Building static presure"
+    final duration=1800) "Building static pressure"
     annotation (Placement(transformation(extent={{-80,10},{-60,30}})));
 
 equation

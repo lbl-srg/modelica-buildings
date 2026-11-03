@@ -671,7 +671,7 @@ annotation (defaultComponentName="ecoCon",
 <p>
 Multi zone VAV AHU economizer control sequence that calculates
 outdoor and return air damper positions based on ASHRAE
-Guidline 36, May 2020, Sections: 5.16.2.3,5.16.4, 5.16.5, 5.16.6, 5.16.7.
+Guideline 36, May 2020, Sections: 5.16.2.3,5.16.4, 5.16.5, 5.16.6, 5.16.7.
 </p>
 <p>
 The sequence consists of three sets of subsequences.
@@ -680,7 +680,7 @@ The sequence consists of three sets of subsequences.
 <li>
 First set of sequences compute the damper position limits to satisfy
 outdoor air requirements. Different sequence will be enabled depending on the
-designes minimum outdoor air and economizer function, which include
+designs minimum outdoor air and economizer function, which include
 <ol type=\"i\">
 <li>
 separate minimum outdoor air damper, with airflow measurement. 

@@ -106,10 +106,10 @@ block Dampers
     annotation (Placement(transformation(extent={{-120,180},{-100,200}})));
   Buildings.Controls.OBC.CDL.Continuous.Greater gre(
     final h=dTHys)
-    "Check if supplyair temperature from the air handler is greater than room temperature"
+    "Check if supply air temperature from the air handler is greater than room temperature"
     annotation (Placement(transformation(extent={{-160,250},{-140,270}})));
   Buildings.Controls.OBC.CDL.Continuous.Switch swi
-    "Select active airfow setpoint based on difference between supply and zone temperature"
+    "Select active airflow setpoint based on difference between supply and zone temperature"
     annotation (Placement(transformation(extent={{-60,250},{-40,270}})));
   Buildings.Controls.OBC.CDL.Continuous.Switch actFlo
     "Specify active flow setpoint based on the zone status"
@@ -185,7 +185,7 @@ block Dampers
     "Airflow setpoint after considering override"
     annotation (Placement(transformation(extent={{40,-90},{60,-70}})));
   Buildings.Controls.OBC.CDL.Logical.Or3 or3
-    "Check if the airflow setpoint should be overrided"
+    "Check if the airflow setpoint should be overridden"
     annotation (Placement(transformation(extent={{-80,-90},{-60,-70}})));
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant conInt4(
     final k=1)
@@ -212,7 +212,7 @@ block Dampers
     "Add up inputs"
     annotation (Placement(transformation(extent={{60,-250},{80,-230}})));
   Buildings.Controls.OBC.CDL.Logical.Or or2
-    "Check if the damper setpoint position should be overrided"
+    "Check if the damper setpoint position should be overridden"
     annotation (Placement(transformation(extent={{60,-290},{80,-270}})));
   Buildings.Controls.OBC.CDL.Continuous.Switch swi2
     "Damper setpoint position after considering override"

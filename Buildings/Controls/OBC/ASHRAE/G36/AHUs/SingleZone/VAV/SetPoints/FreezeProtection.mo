@@ -1030,7 +1030,7 @@ Freeze protection sequence for single zone AHU system. It is developed based on 
 If the supply air temperature <code>TAirSup</code> drops below 4 &deg;C (40 &deg;F)
 for 5 minutes, send two (or more, as required to ensure that heating plant is active,
 <code>minHotWatReq</code>) heating hot-water plant requests, override the outdoor
-air damper to the minimum position, and modulate the heating coil to maintain a suppy
+air damper to the minimum position, and modulate the heating coil to maintain a supply
 air temperature of at least 6 &deg;C (42 &deg;F).
 Disable this function when supply air temperature rises above 7 &deg;C (45 &deg;F) for
 5 minutes.

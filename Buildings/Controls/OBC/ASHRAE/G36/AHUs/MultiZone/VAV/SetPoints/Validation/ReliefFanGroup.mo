@@ -20,7 +20,7 @@ model ReliefFanGroup
   Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp dpBui(
     final height=40,
     final offset=0,
-    final duration=1800) "Building static presure"
+    final duration=1800) "Building static pressure"
     annotation (Placement(transformation(extent={{-120,30},{-100,50}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Pulse supFan2(
     final width=1,
@@ -70,7 +70,7 @@ model ReliefFanGroup
     final offset=20,
     final duration=1800,
     startTime=1800)
-    "Building static presure"
+    "Building static pressure"
     annotation (Placement(transformation(extent={{-120,-120},{-100,-100}})));
 
 equation

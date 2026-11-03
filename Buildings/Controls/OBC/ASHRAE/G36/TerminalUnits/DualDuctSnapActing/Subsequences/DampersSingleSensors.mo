@@ -588,7 +588,7 @@ When the zone state is cooling (<code>uCoo &gt; 0</code>), then the cooling loop
 <code>uCoo</code> shall reset the discharge airflow setpoint
 <code>VDis_flow_Set</code> from the minimum <code>VActMin_flow</code> to
 cooling maximum setpoint <code>VActCooMax_flow</code>. The cooling damper shall be
-modulated by a control loop to maintain the measured discharge aiflow
+modulated by a control loop to maintain the measured discharge airflow
 <code>VDis_flow</code> at setpoint. The heating damper shall be closed
 <code>yHeaDam=0</code>.
 </li>
@@ -607,7 +607,7 @@ When the zone state is heating (<code>uHea &gt; 0</code>), then the heating loop
 <code>uHea</code> shall reset the discharge airflow setpoint
 <code>VDis_flow_Set</code> from the minimum <code>VActMin_flow</code> to
 heating maximum setpoint <code>VActHeaMax_flow</code>. The heating damper shall be
-modulated by a control loop to maintain the measured discharge aiflow
+modulated by a control loop to maintain the measured discharge airflow
 <code>VDis_flow</code> at setpoint. The cooling damper shall be closed
 <code>yCooDam=0</code>.
 </li>

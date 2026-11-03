@@ -163,7 +163,7 @@ protected
     "Maximum cooling airflow setpoint"
     annotation (Placement(transformation(extent={{-280,-160},{-260,-140}})));
   Buildings.Controls.OBC.CDL.Continuous.Line popBreOutAir if have_CO2Sen
-    "Modified population componenet of the required breathing zone outdoor airflow"
+    "Modified population component of the required breathing zone outdoor airflow"
     annotation (Placement(transformation(extent={{-20,-190},{0,-170}})));
   Buildings.Controls.OBC.CDL.Integers.Equal inCooSta if have_CO2Sen and have_parFanPowUni
     "Check if it is in cooling state"
@@ -172,7 +172,7 @@ protected
     "Maximum airflow set point for CO2"
     annotation (Placement(transformation(extent={{-160,-230},{-140,-210}})));
   Buildings.Controls.OBC.CDL.Continuous.Subtract difCooMax if have_CO2Sen and have_parFanPowUni
-    "Maximum cooling airflw set point minus parallel fan airflow"
+    "Maximum cooling airflow set point minus parallel fan airflow"
     annotation (Placement(transformation(extent={{-220,-270},{-200,-250}})));
   Buildings.Controls.OBC.CDL.Logical.Or or2
     "Check if it is not in occupied mode or the window is open"
@@ -191,7 +191,7 @@ protected
     final k=0) "Constant zero"
     annotation (Placement(transformation(extent={{-20,270},{0,290}})));
   Buildings.Controls.OBC.CDL.Continuous.Switch modPopBreAir
-    "Modified popuplation component of the breathing zone airflow"
+    "Modified population component of the breathing zone airflow"
     annotation (Placement(transformation(extent={{180,280},{200,300}})));
   Buildings.Controls.OBC.CDL.Continuous.Switch modAreBreAir
     "Modified area component of the breathing zone airflow"
@@ -654,7 +654,7 @@ src=\"modelica://Buildings/Resources/Images/Controls/OBC/ASHRAE/G36/VentilationZ
 For parallel fan-powered terminal units:
 <ul>
 <li>
-Determin the maximum flow rate for control CO2 level: when the zone state is cooling,
+Determine the maximum flow rate for control CO2 level: when the zone state is cooling,
 the maximum flow rate is equal to the maximum cooling airflow setpoint
 <code>VCooMax_flow</code>; when the zone state is heating or deadband, the maximum
 flow rate is equal to <code>VCooMax_flow</code> minus the parallel fan airflow

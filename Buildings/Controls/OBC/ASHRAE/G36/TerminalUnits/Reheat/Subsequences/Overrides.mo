@@ -56,7 +56,7 @@ block Overrides "Software switches to override setpoints"
   Buildings.Controls.OBC.CDL.Continuous.Add add3 "Add up inputs"
     annotation (Placement(transformation(extent={{20,60},{40,80}})));
   Buildings.Controls.OBC.CDL.Logical.Or or2
-    "Check if the damper setpoint position should be overrided"
+    "Check if the damper setpoint position should be overridden"
     annotation (Placement(transformation(extent={{0,20},{20,40}})));
   Buildings.Controls.OBC.CDL.Continuous.Switch swi1
     "Damper setpoint position after considering override"

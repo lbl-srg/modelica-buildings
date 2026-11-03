@@ -82,7 +82,7 @@ annotation (
 This example validates
 <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36.TerminalUnits.ParallelFanCVF.Subsequences.Overrides\">
 Buildings.Controls.OBC.ASHRAE.G36.TerminalUnits.ParallelFanCVF.Subsequences.Overrides</a>
-for overrideing controls.
+for overriding controls.
 </p>
 </html>", revisions="<html>
 <ul>
