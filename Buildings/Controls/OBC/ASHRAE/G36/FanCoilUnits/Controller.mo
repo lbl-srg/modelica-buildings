@@ -157,7 +157,7 @@ block Controller
 
   parameter Real TdHeaCoi(
     final unit="s")=0.1
-    "Time constant of derivative block for heatinging coil control signal"
+    "Time constant of derivative block for heating coil control signal"
     annotation (Dialog(tab="PID parameters", group="Heating coil control",
       enable=(heaCoiConTyp == Buildings.Controls.OBC.CDL.Types.SimpleController.PD
               or heaCoiConTyp == Buildings.Controls.OBC.CDL.Types.SimpleController.PID)
