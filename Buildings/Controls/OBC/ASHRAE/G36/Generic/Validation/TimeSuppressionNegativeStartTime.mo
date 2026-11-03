@@ -1,6 +1,6 @@
 within Buildings.Controls.OBC.ASHRAE.G36.Generic.Validation;
 model TimeSuppressionNegativeStartTime
-  "Model validates the block for suppresing changes due to the setpoint change with a negative start time
+  "Model validates the block for suppressing changes due to the setpoint change with a negative start time
   "
 
   Buildings.Controls.OBC.ASHRAE.G36.Generic.TimeSuppression timSupCooReq
