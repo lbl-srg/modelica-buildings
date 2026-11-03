@@ -211,7 +211,7 @@ annotation (
           textString="%name")}),Documentation(info="<html>
 <p>
 Block that outputs the supply temperature control loop signal,
-and the coil valve postions for VAV system with multiple zones,
+and the coil valve positions for VAV system with multiple zones,
 implemented according to Section 5.16.2.3 of the ASHRAE Guideline G36, May 2020.
 </p>
 <p>

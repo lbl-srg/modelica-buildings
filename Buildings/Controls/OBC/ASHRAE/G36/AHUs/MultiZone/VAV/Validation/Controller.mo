@@ -105,7 +105,7 @@ model Controller "Validation controller model"
   Buildings.Controls.OBC.CDL.Reals.Sources.Ramp dpBui(
     final height=40,
     final offset=0,
-    final duration=1800) "Building static presure"
+    final duration=1800) "Building static pressure"
     annotation (Placement(transformation(extent={{-240,-220},{-220,-200}})));
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant heaCoi(
     final k=0)

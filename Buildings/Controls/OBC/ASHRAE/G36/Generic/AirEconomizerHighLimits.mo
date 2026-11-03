@@ -1,5 +1,5 @@
 within Buildings.Controls.OBC.ASHRAE.G36.Generic;
-block AirEconomizerHighLimits "Specify the economizer high liimits"
+block AirEconomizerHighLimits "Specify the economizer high limits"
 
   parameter Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard eneStd
     "Energy standard, ASHRAE 90.1 or Title 24";

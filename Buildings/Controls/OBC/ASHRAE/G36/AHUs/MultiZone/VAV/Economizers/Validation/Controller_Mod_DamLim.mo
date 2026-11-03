@@ -1,6 +1,6 @@
 within Buildings.Controls.OBC.ASHRAE.G36.AHUs.MultiZone.VAV.Economizers.Validation;
 model Controller_Mod_DamLim
-  "Validation model for multi zone VAV AHU economizer operation: damper modulation and minimum ooutdoor air requirement damper position limits"
+  "Validation model for multi zone VAV AHU economizer operation: damper modulation and minimum outdoor air requirement damper position limits"
 
   Buildings.Controls.OBC.ASHRAE.G36.AHUs.MultiZone.VAV.Economizers.Controller
     eco(
@@ -80,7 +80,7 @@ protected
   Buildings.Controls.OBC.CDL.Reals.Sources.Ramp dpDam2(
     final duration=1800,
     final offset=120,
-    final height=52)  "Pressure accross outdoor air damper"
+    final height=52)  "Pressure across outdoor air damper"
     annotation (Placement(transformation(extent={{-80,-70},{-60,-50}})));
 
 equation

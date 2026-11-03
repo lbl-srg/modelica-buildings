@@ -401,7 +401,7 @@ parameters as a starting point:
 <p>
 Supply fan speed is controlled with a PI controller to maintain duct static pressure at setpoint
 when the fan is proven on. The setpoint for the PI controller and the measured
-duct static pressure are normalized with the maximum design static presssure
+duct static pressure are normalized with the maximum design static pressure
 <code>maxSet</code>.
 Where the zone groups served by the system are small,
 provide multiple sets of gains that are used in the control loop as a function

@@ -1,5 +1,5 @@
 within Buildings.Controls.OBC.ASHRAE.G36.TerminalUnits.SeriesFanCVF.Subsequences;
-block Alarms "Generate alarms of parallerl fan-powered terminal unit with constant-volume fan"
+block Alarms "Generate alarms of parallel fan-powered terminal unit with constant-volume fan"
 
   parameter Boolean have_hotWatCoi
     "True: the unit has the hot water coil";
@@ -382,7 +382,7 @@ block Alarms "Generate alarms of parallerl fan-powered terminal unit with consta
     annotation (Placement(transformation(extent={{-200,-240},{-180,-220}})));
   Buildings.Controls.OBC.CDL.Reals.Greater gre2(
     final h=dTHys)
-    "Discharge temperature greate than AHU supply temperature by a threshold"
+    "Discharge temperature greater than AHU supply temperature by a threshold"
     annotation (Placement(transformation(extent={{-140,-220},{-120,-200}})));
   Buildings.Controls.OBC.CDL.Logical.And leaValAla
     "Check if generating leak valve alarms"
@@ -399,10 +399,10 @@ block Alarms "Generate alarms of parallerl fan-powered terminal unit with consta
     annotation (Placement(transformation(extent={{180,-230},{200,-210}})));
   Buildings.Controls.OBC.CDL.Logical.TrueDelay truDel7(
     final delayTime=comChaTim)
-    "Check if the terminal fan has been commond on for threshold time"
+    "Check if the terminal fan has been commanded on for threshold time"
     annotation (Placement(transformation(extent={{-160,50},{-140,70}})));
   Buildings.Controls.OBC.CDL.Logical.And and11
-    "Check if the fan has been commond on for threshold time and fan is still off"
+    "Check if the fan has been commanded on for threshold time and fan is still off"
     annotation (Placement(transformation(extent={{-40,80},{-20,100}})));
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant conInt4(
     final k=2)
@@ -416,10 +416,10 @@ block Alarms "Generate alarms of parallerl fan-powered terminal unit with consta
     annotation (Placement(transformation(extent={{-180,-20},{-160,0}})));
   Buildings.Controls.OBC.CDL.Logical.TrueDelay truDel8(
     final delayTime=comChaTim)
-    "Check if the terminal fan has been commond off for threshold time"
+    "Check if the terminal fan has been commanded off for threshold time"
     annotation (Placement(transformation(extent={{-120,-20},{-100,0}})));
   Buildings.Controls.OBC.CDL.Logical.And and10
-    "Check if the fan has been commond off for threshold time and fan is still on"
+    "Check if the fan has been commanded off for threshold time and fan is still on"
     annotation (Placement(transformation(extent={{-40,10},{-20,30}})));
   Buildings.Controls.OBC.CDL.Conversions.BooleanToInteger booToInt7(
     final integerTrue=4)
@@ -470,10 +470,10 @@ block Alarms "Generate alarms of parallerl fan-powered terminal unit with consta
     "Logical and"
     annotation (Placement(transformation(extent={{40,400},{60,420}})));
   Buildings.Controls.OBC.CDL.Logical.And and16
-    "Check if the fan has been commond on for threshold time and fan is still off"
+    "Check if the fan has been commanded on for threshold time and fan is still off"
     annotation (Placement(transformation(extent={{0,80},{20,100}})));
   Buildings.Controls.OBC.CDL.Logical.And and17
-    "Check if the fan has been commond off for threshold time and fan is still on"
+    "Check if the fan has been commanded off for threshold time and fan is still on"
     annotation (Placement(transformation(extent={{0,10},{20,30}})));
   Buildings.Controls.OBC.CDL.Logical.And leaDamAla1
     "Check if generating leak damper alarms"
@@ -868,18 +868,18 @@ suppressed for that zone.
 <li>
 If heating hot-water plant is proven on (<code>u1HotPla=true</code>), and the
 discharge temperature (<code>TDis</code>) is 8.3 &deg;C (15 &deg;F) less than the
-setpoint (<code>TDisSet</code>) for 10 minuts (<code>lowTemTim</code>), generate a
+setpoint (<code>TDisSet</code>) for 10 minutes (<code>lowTemTim</code>), generate a
 Level 3 alarm.
 </li>
 <li>
 If heating hot-water plant is proven on (<code>u1HotPla=true</code>), and the
 discharge temperature (<code>TDis</code>) is 17 &deg;C (30 &deg;F) less than the
-setpoint (<code>TDisSet</code>) for 10 minuts (<code>lowTemTim</code>), generate a
+setpoint (<code>TDisSet</code>) for 10 minutes (<code>lowTemTim</code>), generate a
 Level 2 alarm.
 </li>
 <li>
 If a zone has an importance multiplier (<code>hotWatRes</code>) of 0 for its
-hot-water reset Trim-Respond control loop, low discharing air temperature alarms
+hot-water reset Trim-Respond control loop, low discharge air temperature alarms
 shall be suppressed for that zone.
 </li>
 </ol>
@@ -916,9 +916,9 @@ fan serving the zone is proven on (<code>u1Fan=true</code>), generate a Level
 <h4>Leaking valve</h4>
 <p>
 If the valve position (<code>uVal</code>) is 0% for 15 minutes (<code>valCloTim</code>),
-discharing air temperature <code>TDis</code> is above AHU supply temperature
+discharge air temperature <code>TDis</code> is above AHU supply temperature
 <code>TSup</code> by 3 &deg;C (5 &deg;F), and the fan serving the zone is proven
-on (<code>u1Fan=true</code>), gemerate a Level 4 alarm.
+on (<code>u1Fan=true</code>), generate a Level 4 alarm.
 </p>
 </html>",revisions="<html>
 <ul>

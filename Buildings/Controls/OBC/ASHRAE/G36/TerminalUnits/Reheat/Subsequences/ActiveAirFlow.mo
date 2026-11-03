@@ -116,7 +116,7 @@ protected
     "Add up inputs"
     annotation (Placement(transformation(extent={{100,-30},{120,-10}})));
   Buildings.Controls.OBC.CDL.Reals.Add add1
-    "Active heating minimu flow setpoint"
+    "Active heating minimum flow setpoint"
     annotation (Placement(transformation(extent={{160,10},{180,30}})));
   Buildings.Controls.OBC.CDL.Reals.Multiply pro2
     "Product of inputs"

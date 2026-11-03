@@ -230,7 +230,7 @@ block DamperValves
     "Airflow setpoint when it is in heating state"
     annotation (Placement(transformation(extent={{-100,-360},{-80,-340}})));
   Buildings.Controls.OBC.CDL.Reals.Switch swi2
-    "Acitive heating airflow rate"
+    "Active heating airflow rate"
     annotation (Placement(transformation(extent={{20,-330},{40,-310}})));
   Buildings.Controls.OBC.CDL.Reals.Greater gre(
     final h=dTHys)
@@ -390,7 +390,7 @@ block DamperValves
     "Airflow setpoint after considering override"
     annotation (Placement(transformation(extent={{180,270},{200,290}})));
   Buildings.Controls.OBC.CDL.Logical.Or3 or3
-    "Check if the airflow setpoint should be overrided"
+    "Check if the airflow setpoint should be overridden"
     annotation (Placement(transformation(extent={{-60,290},{-40,310}})));
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant conInt5(
     final k=4)
@@ -407,7 +407,7 @@ block DamperValves
     "Add up two inputs"
     annotation (Placement(transformation(extent={{0,350},{20,370}})));
   Buildings.Controls.OBC.CDL.Logical.Or or1
-    "Check if the airflow setpoint should be overrided"
+    "Check if the airflow setpoint should be overridden"
     annotation (Placement(transformation(extent={{0,270},{20,290}})));
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant cooMax1(
     final k=VCooMax_flow)
@@ -948,7 +948,7 @@ This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3257\
 </li>
 <li>
 January 12, 2023, by Jianjun Hu:<br/>
-Removed the parameter <code>have_preIndDam</code> to exclude the option of using pressure independant damper.<br/>
+Removed the parameter <code>have_preIndDam</code> to exclude the option of using pressure independent damper.<br/>
 This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3139\">issue 3139</a>.
 </li>
 <li>

@@ -376,7 +376,7 @@ block DamperValves
     "Airflow setpoint after considering override"
     annotation (Placement(transformation(extent={{140,260},{160,280}})));
   Buildings.Controls.OBC.CDL.Logical.Or3 or1
-    "Check if the airflow setpoint should be overrided"
+    "Check if the airflow setpoint should be overridden"
     annotation (Placement(transformation(extent={{60,260},{80,280}})));
 
 equation
@@ -820,7 +820,7 @@ This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3257\
 </li>
 <li>
 January 12, 2023, by Jianjun Hu:<br/>
-Removed the parameter <code>have_preIndDam</code> to exclude the option of using pressure independant damper.<br/>
+Removed the parameter <code>have_preIndDam</code> to exclude the option of using pressure independent damper.<br/>
 This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3139\">issue 3139</a>.
 </li>
 <li>
