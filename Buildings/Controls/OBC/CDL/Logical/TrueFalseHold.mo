@@ -41,6 +41,10 @@ protected
     final quantity="Time",
     final unit="s")
     "Time instant when false hold started";
+  Boolean timeTrigger =
+    time >= pre(entryTimeFalse) + falseHoldDuration and
+    time >= pre(entryTimeTrue) + trueHoldDuration
+    "True if hold duration has elapsed";
 initial equation
   pre(entryTimeTrue) = -Modelica.Constants.inf;
   pre(entryTimeFalse) = -Modelica.Constants.inf;
@@ -53,11 +57,8 @@ equation
     entryTimeFalse = if not y then time else pre(entryTimeFalse);
   elsewhen {edge(u),
             edge(not_u),
-            time >= pre(entryTimeFalse) + falseHoldDuration and
-            time >= pre(entryTimeTrue) + trueHoldDuration} then
-    y=if time >= pre(entryTimeFalse) + falseHoldDuration and
-         time >= pre(entryTimeTrue) + trueHoldDuration then u
-      else pre(y);
+            timeTrigger} then
+    y = if timeTrigger then u else pre(y);
     entryTimeTrue = if edge(y) then time else pre(entryTimeTrue);
     entryTimeFalse = if edge(not_y) then time else pre(entryTimeFalse);
   end when;
@@ -140,6 +141,14 @@ alt=\"Input and output of the block\"/>
 </html>",
       revisions="<html>
 <ul>
+<li>
+November 2, 2026, by Michael Wetter:<br/>
+Introduced helper variable <code>timeTrigger</code> to avoid evaluating the same
+relational expression as event-generating in the <code>elsewhen</code> condition
+and as non-event-generating inside the <code>when</code> body.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4836\">Buildings, #4836</a>.
+</li>
 <li>
 July 17, 2026, by Antoine Gautier:<br/>
 Replaced initial equation with start attribute on input.

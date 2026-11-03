@@ -46,6 +46,18 @@ have been <b style=\"color:blue\">improved</b> in a
 <b style=\"color:blue\">backward compatible</b> way:
 </p>
 <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\" style=\"border-collapse:collapse;\">
+<tr><td colspan=\"2\"><b>Buildings.Controls.OBC.CDL.Logical</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Controls.OBC.CDL.Logical.TrueFalseHold
+    </td>
+    <td valign=\"top\">Refactored the relational expression in the <code>elsewhen</code> condition into a
+                       Boolean variable declared outside the <code>when</code> clause so that the event-generating
+                       condition and the <code>if</code> condition inside the <code>when</code> body are guaranteed
+                       to evaluate identically.<br/>
+                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4836\">Buildings, #4836</a>.
+    </td>
+</tr>
 <tr><td colspan=\"2\"><b>Buildings.Fluid.BaseClasses.FlowModels</b>
     </td>
 </tr>
@@ -56,6 +68,18 @@ have been <b style=\"color:blue\">improved</b> in a
                        and set <code>Inline=false</code> on the power law functions so that OpenModelica
                        applies the <code>inverse</code> annotation.<br/>
                        This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4798\">Buildings, #4798</a>.
+    </td>
+</tr>
+<tr><td colspan=\"2\"><b>Buildings.Fluid.HeatPumps.ModularReversible.RefrigerantCycle.BaseClasses</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Fluid.HeatPumps.ModularReversible.RefrigerantCycle.BaseClasses.TableData2DLoadDepSHC
+    </td>
+    <td valign=\"top\">Refactored the relational expression in the <code>when</code> condition into a
+                       Boolean variable declared outside the <code>when</code> clause so that the event-generating
+                       condition and the <code>if</code> condition inside the <code>when</code> body are guaranteed
+                       to evaluate identically.<br/>
+                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4836\">Buildings, #4836</a>.
     </td>
 </tr>
 </table>
