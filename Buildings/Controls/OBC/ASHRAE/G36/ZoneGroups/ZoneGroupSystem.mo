@@ -13,7 +13,7 @@ block ZoneGroupSystem
     "Convert integer to real"
     annotation (Placement(transformation(extent={{-60,-10},{-40,10}})));
   Buildings.Controls.OBC.CDL.Reals.MultiMin mulMin(nin=nGro)
-    "Find the highest priotity operating mode"
+    "Find the highest priority operating mode"
     annotation (Placement(transformation(extent={{-20,-10},{0,10}})));
   Buildings.Controls.OBC.CDL.Conversions.RealToInteger ahuMod
     "Air handling operating mode"

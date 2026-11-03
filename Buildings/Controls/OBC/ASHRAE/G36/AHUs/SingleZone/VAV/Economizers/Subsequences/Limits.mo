@@ -377,7 +377,7 @@ control loop"),
 This block implements the single zone VAV AHU minimum outdoor air control with a single
 common damper for minimum outdoor air and economizer functions based on outdoor airflow
 setpoint (<code>VOutMinSet_flow</code>) and supply fan speed (<code>uSupFanSpe_actual</code>),
-designed in line with Section 5.18.6 of ASHRAE Guidline 36, May 2020.
+designed in line with Section 5.18.6 of ASHRAE Guideline 36, May 2020.
 </p>
 <p>
 The controller is enabled when the supply fan is proven on (<code>u1SupFan=true</code>),

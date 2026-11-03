@@ -136,12 +136,12 @@ In Section 3.2.2.3, find the relief damper position setpoint limits:
 </p>
 <ul>
 <li>
-<code>relDam_min</code>: the relief damper position that maintainx a building pressure
+<code>relDam_min</code>: the relief damper position that maintains a building pressure
 of 12 Pa (0.05 in. of water) while the economizer is positioned to provide minimum
 outdoor airflow while the supply fan is at minimum speed.
 </li>
 <li>
-<code>relDam_max</code>: the relief damper position that maintainx a building pressure
+<code>relDam_max</code>: the relief damper position that maintains a building pressure
 of 12 Pa (0.05 in. of water) while the economizer damper is fully open and the fan
 speed is at cooling maximum.
 </li>
@@ -151,7 +151,7 @@ Relief damper shall be enabled when the associated supply fan is proven on and a
 outdoor air damper is open, and disabled and closed otherwise.
 </p>
 <p>
-Relief damper position shall be reset lineary from <code>relDam_min</code> to
+Relief damper position shall be reset linearly from <code>relDam_min</code> to
 <code>relDam_max</code> as the commanded economizer damper position goes from
 <code>uOutDam_min</code> to 100% open.
 </p>
