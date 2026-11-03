@@ -51,28 +51,28 @@ block ModeAndSetPoints
     "Heating setpoint when window is open"
     annotation (__cdl(ValueInReference=true),
                 Dialog(tab="Setpoints adjustment", group="Limits"));
-  parameter Real incTSetDem_1=0.5
-    "Cooling setpoint increase value (degC) when cooling demand limit level 1 is imposed"
+  parameter Real incTSetDem_1(unit="K")=0.5
+    "Cooling setpoint increase value (degK) when cooling demand limit level 1 is imposed"
     annotation (__cdl(ValueInReference=true),
                 Dialog(tab="Setpoints adjustment", group="Demand control adjustment", enable=not ignDemLim));
-  parameter Real incTSetDem_2=1
-    "Cooling setpoint increase value (degC) when cooling demand limit level 2 is imposed"
+  parameter Real incTSetDem_2(unit="K")=1
+    "Cooling setpoint increase value (degK) when cooling demand limit level 2 is imposed"
     annotation (__cdl(ValueInReference=true),
                 Dialog(tab="Setpoints adjustment", group="Demand control adjustment", enable=not ignDemLim));
-  parameter Real incTSetDem_3=2
-    "Cooling setpoint increase value (degC) when cooling demand limit level 3 is imposed"
+  parameter Real incTSetDem_3(unit="K")=2
+    "Cooling setpoint increase value (degK) when cooling demand limit level 3 is imposed"
     annotation (__cdl(ValueInReference=true),
                 Dialog(tab="Setpoints adjustment", group="Demand control adjustment", enable=not ignDemLim));
-  parameter Real decTSetDem_1=0.5
-    "Heating setpoint decrease value (degC) when heating demand limit level 1 is imposed"
+  parameter Real decTSetDem_1(unit="K")=0.5
+    "Heating setpoint decrease value (degK) when heating demand limit level 1 is imposed"
     annotation (__cdl(ValueInReference=true),
                 Dialog(tab="Setpoints adjustment", group="Demand control adjustment", enable=not ignDemLim));
-  parameter Real decTSetDem_2=1
-    "Heating setpoint decrease value (degC) when heating demand limit level 2 is imposed"
+  parameter Real decTSetDem_2(unit="K")=1
+    "Heating setpoint decrease value (degK) when heating demand limit level 2 is imposed"
     annotation (__cdl(ValueInReference=true),
                 Dialog(tab="Setpoints adjustment", group="Demand control adjustment", enable=not ignDemLim));
-  parameter Real decTSetDem_3=2
-    "Heating setpoint decrease value (degC) when heating demand limit level 3 is imposed"
+  parameter Real decTSetDem_3(unit="K")=2
+    "Heating setpoint decrease value (degK) when heating demand limit level 3 is imposed"
     annotation (__cdl(ValueInReference=true),
                 Dialog(tab="Setpoints adjustment", group="Demand control adjustment", enable=not ignDemLim));
   parameter Real bouLim=1
@@ -159,17 +159,23 @@ block ModeAndSetPoints
     final quantity="Time") "Time to next occupied period"
     annotation (Placement(transformation(extent={{-200,-50},{-160,-10}}),
       iconTransformation(extent={{-140,-60},{-100,-20}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput setAdj
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput setAdj(
+    final unit="K",
+    final quantity="TemperatureDifference")
     if have_locAdj and not sepAdj
     "Setpoint adjustment value"
     annotation (Placement(transformation(extent={{-200,-80},{-160,-40}}),
       iconTransformation(extent={{-140,-90},{-100,-50}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput cooSetAdj
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput cooSetAdj(
+    final unit="K",
+    final quantity="TemperatureDifference")
     if have_locAdj and sepAdj
     "Cooling setpoint adjustment value"
     annotation (Placement(transformation(extent={{-200,-110},{-160,-70}}),
       iconTransformation(extent={{-140,-110},{-100,-70}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput heaSetAdj
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput heaSetAdj(
+    final unit="K",
+    final quantity="TemperatureDifference")
     if have_locAdj and sepAdj "Heating setpoint adjustment value"
     annotation (Placement(transformation(extent={{-200,-140},{-160,-100}}),
       iconTransformation(extent={{-140,-130},{-100,-90}})));

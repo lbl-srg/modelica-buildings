@@ -79,7 +79,7 @@ block DamperValves
     "Hysteresis for checking airflow rate"
     annotation (__cdl(ValueInReference=false), Dialog(tab="Advanced"));
   parameter Real damPosHys(
-    final unit="m3/s") = 0.05
+    final unit="1") = 0.005
     "Hysteresis for checking damper position"
     annotation (__cdl(ValueInReference=false), Dialog(tab="Advanced"));
   parameter Real iniDam(unit="1")=0.01
