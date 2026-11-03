@@ -225,7 +225,7 @@ block Alarms
     "Logical not"
     annotation (Placement(transformation(extent={{100,-230},{120,-210}})));
   Buildings.Controls.OBC.CDL.Utilities.Assert assMes7(
-    final message="Warning: the cold-duct or hot-dcut damper is leaking.")
+    final message="Warning: the cold-duct or hot-duct damper is leaking.")
     "Level 4 leaking damper alarm"
     annotation (Placement(transformation(extent={{140,-230},{160,-210}})));
   Buildings.Controls.OBC.CDL.Conversions.BooleanToInteger booToInt7(

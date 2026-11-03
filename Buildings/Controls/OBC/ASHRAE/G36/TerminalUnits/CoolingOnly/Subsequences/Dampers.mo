@@ -112,7 +112,7 @@ protected
     annotation (Placement(transformation(extent={{-120,180},{-100,200}})));
   Buildings.Controls.OBC.CDL.Reals.Greater gre(
     final h=dTHys)
-    "Check if supplyair temperature from the air handler is greater than room temperature"
+    "Check if supply air temperature from the air handler is greater than room temperature"
     annotation (Placement(transformation(extent={{-160,250},{-140,270}})));
   Buildings.Controls.OBC.CDL.Reals.Switch swi
     "Select active airflow setpoint based on difference between supply and zone temperature"
