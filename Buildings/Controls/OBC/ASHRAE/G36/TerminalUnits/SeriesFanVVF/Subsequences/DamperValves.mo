@@ -962,7 +962,7 @@ proven on (<code>u1Fan=true</code>) for a fixed time delay (15 seconds), the dam
 override is released.
 </li>
 <li>
-When the zone stats is cooling (<code>uCoo &gt; 0</code>), the series fan airflow setpoint
+When the zone state is cooling (<code>uCoo &gt; 0</code>), the series fan airflow setpoint
 shall be the larger of <code>VOAMin_flow</code> and the <code>VPri_flow_Set</code>.
 If supply air temperature <code>TSup</code> from the AHU is greater than
 room temperature <code>TZon</code>, the series fan airflow setpoint shall be no higher

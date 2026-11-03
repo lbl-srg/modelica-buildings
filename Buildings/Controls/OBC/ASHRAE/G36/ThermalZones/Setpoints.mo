@@ -433,10 +433,10 @@ protected
     "Ensure heating setpoint being not higher than cooling setpoint minus 0.5 degC"
     annotation (Placement(transformation(extent={{280,-590},{300,-570}})));
   Buildings.Controls.OBC.CDL.Reals.Switch swi8
-    "Ensure unoccupied heating setppint being lower than occupied one"
+    "Ensure unoccupied heating setpoint being lower than occupied one"
     annotation (Placement(transformation(extent={{100,-610},{120,-590}})));
   Buildings.Controls.OBC.CDL.Reals.Switch swi9
-    "Ensure unoccupied cooling setppint being higher than occupied one"
+    "Ensure unoccupied cooling setpoint being higher than occupied one"
     annotation (Placement(transformation(extent={{100,-550},{120,-530}})));
   Buildings.Controls.OBC.CDL.Reals.Switch swi10
     "Switch between occupied and unoccupied cooling setpoint"
@@ -1371,7 +1371,7 @@ shall prevail in order from highest to lowest priority.
 <ol type=\"i\">
 <li>Setpoint overlap restriction</li>
 <li>Absolute limits on local setpoint adjustment</li>
-<li>Window swtiches</li>
+<li>Window switches</li>
 <li>Demand limit (a. Occupancy sensors; b. Local setpoint adjustment)</li>
 <li>Scheduled setpoints based on zone group mode</li>
 </ol>
