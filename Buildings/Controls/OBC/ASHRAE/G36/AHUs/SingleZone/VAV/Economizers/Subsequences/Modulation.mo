@@ -111,7 +111,7 @@ block Modulation "Outdoor and return air damper position modulation sequence for
     final Td=Td,
     final yMax=1,
     final yMin=0)
-    "Contoller that outputs a signal based on the error between the measured SAT and SAT heating setpoint"
+    "Controller that outputs a signal based on the error between the measured SAT and SAT heating setpoint"
     annotation (Placement(transformation(extent={{-100,70},{-80,90}})));
 
 protected
@@ -278,7 +278,7 @@ the outdoor and return air damper positions based on the single zone VAV AHU
 supply air temperature control loop signal. Economizer dampers are modulated
 based on the calculated heating supply air temperature setpoint.
 The implementation is in line with Section 5.18.5.1 and 5.18.5.2 of ASHRAE
-Guidline 36, May 2020. 
+Guideline 36, May 2020.
 Damper positions are linearly mapped to
 the supply air control loop signal. This is a final sequence in the
 composite single zone VAV AHU economizer control sequence. Damper position
