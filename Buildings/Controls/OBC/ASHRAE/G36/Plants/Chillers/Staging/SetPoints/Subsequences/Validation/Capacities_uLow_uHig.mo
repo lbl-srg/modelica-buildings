@@ -4,17 +4,17 @@ model Capacities_uLow_uHig
 
   Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Staging.SetPoints.Subsequences.Capacities
     staCap0(final nSta=3)
-    "Nominal capacitites at the current and stage one lower"
+    "Nominal capacities at the current and stage one lower"
     annotation (Placement(transformation(extent={{-60,0},{-40,20}})));
 
   Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Staging.SetPoints.Subsequences.Capacities
     staCap1(final nSta=3)
-    "Nominal capacitites at the current and stage one lower"
+    "Nominal capacities at the current and stage one lower"
     annotation (Placement(transformation(extent={{20,0},{40,20}})));
 
   Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Staging.SetPoints.Subsequences.Capacities
     staCap2(final nSta=3)
-    "Nominal capacitites at the current and stage one lower"
+    "Nominal capacities at the current and stage one lower"
     annotation (Placement(transformation(extent={{100,0},{120,20}})));
 
 protected

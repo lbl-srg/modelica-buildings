@@ -93,7 +93,7 @@ block FailsafeCondition
   Buildings.Controls.OBC.CDL.Reals.Hysteresis hysdpSup(
     final uLow=dpDif - dpDifHys,
     final uHigh=dpDif) if (not have_serChi) and not have_senDpChiWatRemWir
-    "Checks how closely the chilled water pump differential pressure aproaches its setpoint from below"
+    "Checks how closely the chilled water pump differential pressure approaches its setpoint from below"
     annotation (Placement(transformation(extent={{-60,-10},{-40,10}})));
 
   Buildings.Controls.OBC.CDL.Reals.Hysteresis hysTSup(
@@ -106,7 +106,7 @@ block FailsafeCondition
     final uLow=fill(dpDif - dpDifHys, nRemSen),
     final uHigh=fill(dpDif, nRemSen))
     if (not have_serChi) and (have_senDpChiWatRemWir)
-    "Checks how closely the chilled water pump differential pressure aproaches its setpoint from below"
+    "Checks how closely the chilled water pump differential pressure approaches its setpoint from below"
     annotation (Placement(transformation(extent={{-60,-90},{-40,-70}})));
 
 protected

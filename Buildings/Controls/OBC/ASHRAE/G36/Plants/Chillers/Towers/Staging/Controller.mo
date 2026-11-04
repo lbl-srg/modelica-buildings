@@ -18,7 +18,7 @@ block Controller "Sequence of staging cooling tower cells"
     "True: tower cells have the outlet isolation valve"
     annotation (Dialog(group="Isolation valves", enable=have_inlIsoVal));
   parameter Boolean have_endSwi=false
-    "True: tower cells isolatiove valve have the end switch feedback"
+    "True: tower cells isolation valve have the end switch feedback"
     annotation (Dialog(group="Isolation valves", enable=have_inlIsoVal));
   parameter Real chaTowCelIsoTim=90
     "Nominal time needed for open isolation valve of the tower cells"

@@ -64,7 +64,7 @@ protected
     final table=[0,0; 600,0; 600,1; 1200,1; 1200,0; 2500,0; 2500,1; 3700,1; 3700,0; 4300,
         0; 4300,1; 4500,1; 4500,0; 6000,0; 6000,1; 9200,1; 9200,0; 12000,0;
         12000,1; 14000,1; 14000,0])
-    "Stage up signal for the first exampe and stage down signal for the second example from the top"
+    "Stage up signal for the first example and stage down signal for the second example from the top"
     annotation (Placement(transformation(extent={{-160,220},{-140,240}})));
 
   Buildings.Controls.OBC.CDL.Reals.GreaterThreshold greThr(
@@ -105,7 +105,7 @@ protected
   Buildings.Controls.OBC.CDL.Integers.Add addInt2 "Adder"
     annotation (Placement(transformation(extent={{140,20},{160,40}})));
 
-  Buildings.Controls.OBC.CDL.Integers.Subtract addInt3 "Addder"
+  Buildings.Controls.OBC.CDL.Integers.Subtract addInt3 "Adder"
     annotation (Placement(transformation(extent={{140,-20},{160,0}})));
 
   Buildings.Controls.OBC.CDL.Reals.Sources.TimeTable timeTable2(

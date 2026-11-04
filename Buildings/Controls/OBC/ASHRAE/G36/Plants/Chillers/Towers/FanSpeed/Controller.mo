@@ -20,7 +20,7 @@ block Controller "Tower fan speed control"
   parameter Real fanSpeMin=0.1 "Minimum tower fan speed";
   parameter Real chiMinCap[nChi](
     final unit=fill("W", nChi))={1e4,1e4}
-    "Minimum cyclining load below which chiller will begin cycling"
+    "Minimum cycling load below which chiller will begin cycling"
     annotation (Dialog(tab="WSE Enabled", group="Integrated", enable=have_WSE));
   parameter Buildings.Controls.OBC.CDL.Types.SimpleController intOpeCon=
     Buildings.Controls.OBC.CDL.Types.SimpleController.PI

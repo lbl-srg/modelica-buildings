@@ -7,7 +7,7 @@ block Controller "Tower fan speed control when waterside economizer is enabled"
   parameter Real chiMinCap[nChi](
     each final unit="W",
     final quantity=fill("HeatFlowRate", nChi))={1e4,1e4}
-    "Minimum cyclining load below which chiller will begin cycling"
+    "Minimum cycling load below which chiller will begin cycling"
     annotation (Dialog(tab="Integrated operation"));
   parameter Buildings.Controls.OBC.CDL.Types.SimpleController intOpeCon=Buildings.Controls.OBC.CDL.Types.SimpleController.PI
     "Type of controller"

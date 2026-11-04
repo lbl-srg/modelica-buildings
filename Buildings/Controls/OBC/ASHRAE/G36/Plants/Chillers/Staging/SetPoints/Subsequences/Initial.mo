@@ -33,7 +33,7 @@ block Initial "Outputs the initial stage"
     final unit="m3/s",
     final quantity="VolumeFlowRate",
     displayUnit="m3/s")=0.01
-      "Desing heat exchanger chilled water flow rate"
+      "Design heat exchanger chilled water flow rate"
     annotation (Dialog(group="Waterside economizer", enable=have_WSE));
 
   Buildings.Controls.OBC.CDL.Interfaces.IntegerInput uUp

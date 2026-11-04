@@ -314,7 +314,7 @@ WSE stage occurs when:
 WSE is enabled, and
 </li>
 <li>
-The predicted WSE return temperature <code>TWsePre</code> is sufficently under the
+The predicted WSE return temperature <code>TWsePre</code> is sufficiently under the
 chilled water supply temperature setpoint <code>TChiWatSupSet</code> for defined periods of time, and
 </li>
 <li>
