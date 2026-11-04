@@ -24,7 +24,7 @@ block Qualification "Qualification"
     each final unit="K",
     each displayUnit="degC",
     each final quantity="ThermodynamicTemperature")
-    "Zzone temperature hysteresis";
+    "Zone temperature hysteresis";
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput fanSpe[nAHU](
     each final unit="1")
