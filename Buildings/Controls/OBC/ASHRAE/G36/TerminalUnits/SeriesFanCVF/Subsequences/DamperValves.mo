@@ -376,7 +376,7 @@ block DamperValves
     "Airflow setpoint after considering override"
     annotation (Placement(transformation(extent={{140,260},{160,280}})));
   Buildings.Controls.OBC.CDL.Logical.Or3 or1
-    "Check if the airflow setpoint should be overrided"
+    "Check if the airflow setpoint should be overridden"
     annotation (Placement(transformation(extent={{60,260},{80,280}})));
 equation
   connect(uCoo, lin.u)

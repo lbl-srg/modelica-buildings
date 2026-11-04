@@ -127,10 +127,10 @@ block AHU "AHU level setpoint calculation"
     "Near zero value"
     annotation (Placement(transformation(extent={{-80,-2},{-60,18}})));
   Buildings.Controls.OBC.CDL.Continuous.Max max2
-    "Avoid devide by zero"
+    "Avoid divide by zero"
     annotation (Placement(transformation(extent={{-30,104},{-10,124}})));
   Buildings.Controls.OBC.CDL.Continuous.Max max1
-    "Avoid devide by zero"
+    "Avoid divide by zero"
     annotation (Placement(transformation(extent={{-30,4},{-10,24}})));
 equation
   connect(absOutAir.y, min1.u1) annotation (Line(points={{-58,180},{-40,180},{-40,
@@ -253,7 +253,7 @@ Documentation(info="<html>
 <p>
 This sequence outputs AHU level effective outdoor air absolute minimum and design
 minimum setpoints <code>VEffAbsOutAir_flow</code>, <code>VEffDesOutAir_flow</code> and
-the nomalized minimum setpoint <code>effOutAir_normalized</code>
+the normalized minimum setpoint <code>effOutAir_normalized</code>
 when complying with California Title 24 ventilation requirements.
 It is implemented according to Section 5.16.3.2 of ASHRAE
 Guideline G36, May 2020.

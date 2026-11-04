@@ -95,7 +95,7 @@ model GroupStatus
     annotation (Placement(transformation(extent={{-10,-10},{10,10}}, origin={-130,-120})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant higUnoCoo[3](
     final k=fill(false, 3))
-    "HIgher than unoccupied cooling setpoint"
+    "Higher than unoccupied cooling setpoint"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}}, origin={-90,-140})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant cooSetOff[3](
     final k={303.15,304.15,305.15})

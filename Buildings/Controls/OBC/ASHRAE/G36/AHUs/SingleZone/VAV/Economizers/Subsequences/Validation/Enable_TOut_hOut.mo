@@ -24,7 +24,7 @@ model Enable_TOut_hOut
     final rising=1000,
     final falling=800,
     final amplitude=4,
-    final offset=TOutCutoff - 2) "Outoor air temperature"
+    final offset=TOutCutoff - 2) "Outdoor air temperature"
     annotation (Placement(transformation(extent={{-160,80},{-140,100}})));
   Buildings.Controls.OBC.CDL.Logical.TriggeredTrapezoid hOut(
     final amplitude=4000,

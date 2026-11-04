@@ -60,7 +60,7 @@ protected
     "Instants when input becomes true"
     annotation (Placement(transformation(extent={{-40,-130},{-20,-110}})));
   Buildings.Controls.OBC.CDL.Logical.Latch lat
-    "Output true when there is setpoint change and maintain the true output until the suppresiong time has passed"
+    "Output true when there is setpoint change and maintain the true output until the suppression time has passed"
     annotation (Placement(transformation(extent={{-80,-160},{-60,-140}})));
   Buildings.Controls.OBC.CDL.Logical.Latch lat1
     "Output true when the suppression time has passed"

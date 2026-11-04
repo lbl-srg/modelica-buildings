@@ -29,7 +29,7 @@ model Controller
     final duration=43200,
     final offset=273.15 + 15,
     final startTime=28800)
-    "Discharge airflow temperture"
+    "Discharge airflow temperature"
     annotation (Placement(transformation(extent={{-120,30},{-100,50}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Pulse winSta(
     final width=0.05,

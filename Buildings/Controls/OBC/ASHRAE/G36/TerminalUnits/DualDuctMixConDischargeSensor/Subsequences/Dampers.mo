@@ -660,7 +660,7 @@ calculation is done following the steps below.
 When the zone state is cooling (<code>uCoo &gt; 0</code>), then the cooling loop output
 <code>uCoo</code> shall reset the supply airflow setpoint from the minimum <code>VActMin_flow</code> to
 cooling maximum setpoint <code>VActCooMax_flow</code>. The cooling damper shall be
-modulated by a control loop to maintain the measured aiflow
+modulated by a control loop to maintain the measured airflow
 <code>VDis_flow</code> at setpoint. The heating damper shall be closed
 <code>yHeaDam=0</code>.
 <ul>
@@ -690,7 +690,7 @@ is less than room temperature <code>TZon</code>, the heating damper shall be clo
 <li>
 Maximum heating airflow shall be limited by a reverse-acting P-only loop whose setpoint
 is the heating maximum <code>VActHeaMax_flow</code> and whose output is maximum heating
-damper position rangingfrom 0% to 100%.
+damper position ranging from 0% to 100%.
 </li>
 </ul>
 </li>
