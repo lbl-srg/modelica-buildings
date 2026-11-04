@@ -22,7 +22,7 @@ block PredictedOutletTemperature
     final unit="m3/s",
     final quantity="VolumeFlowRate",
     displayUnit="m3/s")=0.01
-      "Desing heat exchanger chilled water flow rate";
+      "Design heat exchanger chilled water flow rate";
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uTunPar(
     final min=-0.2,

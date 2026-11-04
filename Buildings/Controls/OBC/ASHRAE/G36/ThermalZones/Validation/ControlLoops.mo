@@ -1,6 +1,6 @@
 within Buildings.Controls.OBC.ASHRAE.G36.ThermalZones.Validation;
 model ControlLoops
-  "Validation models of determining heating and coooling loop signal"
+  "Validation models of determining heating and cooling loop signal"
   Buildings.Controls.OBC.ASHRAE.G36.ThermalZones.ControlLoops conLoo
     "Heating and cooling loop"
     annotation (Placement(transformation(extent={{40,-10},{60,10}})));
