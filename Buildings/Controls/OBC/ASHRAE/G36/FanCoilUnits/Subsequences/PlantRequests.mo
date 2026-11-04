@@ -522,7 +522,7 @@ send 3 requests.
 </li>
 <li>
 If the supply air temperature <code>TAirSup</code> exceeds <code>TSupSet</code>
-by by 2.78 &deg;C (5 &deg;F) for 5 minutes, send 2 requests.
+by 2.78 &deg;C (5 &deg;F) for 5 minutes, send 2 requests.
 </li>
 <li>
 Else if the chilled water valve position <code>uCooCoi_actual</code> is greater
