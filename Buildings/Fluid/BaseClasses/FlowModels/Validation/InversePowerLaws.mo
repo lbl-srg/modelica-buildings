@@ -70,18 +70,30 @@ for three values of the flow exponent: <i>n=1</i> (laminar flow),
 </p>
 <p>
 The pressure difference <code>dp</code> and <code>dpCalc</code> need to
-be equal up to the solver tolerance, except for a small neighborhood
-around the origin. In this neighborhood around the origin, the functions
+be equal up to the solver tolerance in the turbulent region.
+However, for small absolute pressure drops, the results differ slightly
+because the functions
 <a href=\"modelica://Buildings.Fluid.BaseClasses.FlowModels.powerLaw_dp\">
 Buildings.Fluid.BaseClasses.FlowModels.powerLaw_dp</a>
 and
 <a href=\"modelica://Buildings.Fluid.BaseClasses.FlowModels.powerLaw_m_flow\">
 Buildings.Fluid.BaseClasses.FlowModels.powerLaw_m_flow</a>
-do not have an analytic expression for their inverse function and hence
-the implementation of the inverse function slightly differs.
+are not exact inverses.
+The exact inverses are
+<a href=\"modelica://Buildings.Fluid.BaseClasses.FlowModels.powerLaw_dp_inv\">
+Buildings.Fluid.BaseClasses.FlowModels.powerLaw_dp_inv</a>
+and
+<a href=\"modelica://Buildings.Fluid.BaseClasses.FlowModels.powerLaw_m_flow_inv\">
+Buildings.Fluid.BaseClasses.FlowModels.powerLaw_m_flow_inv</a>.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+October 25, 2026, by Michael Wetter:<br/>
+Updated documentation.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4798\">Buildings, #4798</a>.
+</li>
 <li>
 May 30, 2026, by Michael Wetter:<br/>
 First implementation.<br/>

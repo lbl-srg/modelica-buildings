@@ -232,7 +232,7 @@ block Down
 
 protected
   Buildings.Controls.OBC.CDL.Integers.Change cha
-    "Check if stage setpoint dicreases"
+    "Check if stage setpoint decreases"
     annotation (Placement(transformation(extent={{-240,350},{-220,370}})));
   Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Staging.Processes.Subsequences.NextChiller
     nexChi(final nChi=nChi) "Identify next enabling chiller"
@@ -323,7 +323,7 @@ protected
     "Replicate boolean input"
     annotation (Placement(transformation(extent={{40,100},{60,120}})));
   Buildings.Controls.OBC.CDL.Logical.Switch logSwi1[nChi]
-    "Chilled water isolvation valve position"
+    "Chilled water isolation valve position"
     annotation (Placement(transformation(extent={{140,90},{160,110}})));
   Buildings.Controls.OBC.CDL.Conversions.BooleanToReal booToRea2[nChi]
     if not have_airCoo

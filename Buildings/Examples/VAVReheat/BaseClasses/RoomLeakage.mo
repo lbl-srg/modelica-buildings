@@ -10,7 +10,8 @@ model RoomLeakage "Room leakage model"
   Buildings.Fluid.FixedResistances.PressureDrop res(
     redeclare package Medium = Medium,
     dp_nominal=50,
-    m_flow_nominal=VRoo*1.2/3600) "Resistance model"
+    m_flow_nominal=VRoo*1.2/3600,
+    from_dp=true) "Resistance model"
     annotation (Placement(transformation(extent={{20,-10},{40,10}})));
   Modelica.Fluid.Interfaces.FluidPort_b port_b(redeclare package Medium =
         Medium) annotation (Placement(transformation(extent={{90,-10},{110,10}})));
@@ -85,6 +86,12 @@ equation
 Room leakage.
 </p></html>", revisions="<html>
 <ul>
+<li>
+October 23, 2026, by Michael Wetter:<br/>
+Set <code>res.from_dp=true</code>.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4798\">Buildings, #4798</a>.
+</li>
 <li>
 September 27, 2026, by Michael Wetter:<br/>
 Added unit specification to avoid warning in Dymola 2025x.

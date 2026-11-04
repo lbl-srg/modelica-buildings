@@ -6,7 +6,7 @@ block IntegratedOperation
   parameter Real chiMinCap[nChi](
     each final unit="W",
     final quantity=fill("HeatFlowRate", nChi))={1e4, 1e4}
-    "Minimum cyclining load below which chiller will begin cycling";
+    "Minimum cycling load below which chiller will begin cycling";
   parameter Real fanSpeMin = 0.1 "Minimum cooling tower fan speed";
   parameter Buildings.Controls.OBC.CDL.Types.SimpleController conTyp=
     Buildings.Controls.OBC.CDL.Types.SimpleController.PI

@@ -28,7 +28,7 @@ function powerLawData
 algorithm
   // Coefficients used by powerLaw_dp
   m := 1 / n;
-  dp_turbulent := (m_flow_turbulent^n) / k;
+  dp_turbulent := (m_flow_turbulent / k)^n;
   a1 := (k * (m - 3) * (m - 5) / 8) * (dp_turbulent^(m - 1));
   a3 := (k * (m - 1) * (5 - m) / 4) * (dp_turbulent^(m - 3));
   a5 := (k * (m - 1) * (m - 3) / 8) * (dp_turbulent^(m - 5));
@@ -46,20 +46,33 @@ annotation (
 <p>
 This function computes the coefficients that are used by the functions
 <a href=\"modelica://Buildings.Fluid.BaseClasses.FlowModels.powerLaw_dp\">
-Buildings.Fluid.BaseClasses.FlowModels.powerLaw_dp</a>
-and
+Buildings.Fluid.BaseClasses.FlowModels.powerLaw_dp</a>,
 <a href=\"modelica://Buildings.Fluid.BaseClasses.FlowModels.powerLaw_m_flow\">
-Buildings.Fluid.BaseClasses.FlowModels.powerLaw_m_flow</a>.
+Buildings.Fluid.BaseClasses.FlowModels.powerLaw_m_flow</a>,
+their inverses
+<a href=\"modelica://Buildings.Fluid.BaseClasses.FlowModels.powerLaw_dp_inv\">
+Buildings.Fluid.BaseClasses.FlowModels.powerLaw_dp_inv</a>
+and
+<a href=\"modelica://Buildings.Fluid.BaseClasses.FlowModels.powerLaw_m_flow_inv\">
+Buildings.Fluid.BaseClasses.FlowModels.powerLaw_m_flow_inv</a>,
+and their derivative functions.
 </p>
 <p>
 The coefficients <code>dp_turbulent</code>, <code>m</code>, <code>a1</code>,
 <code>a3</code> and <code>a5</code> are used by
 <a href=\"modelica://Buildings.Fluid.BaseClasses.FlowModels.powerLaw_dp\">
-Buildings.Fluid.BaseClasses.FlowModels.powerLaw_dp</a>,
-while the coefficients <code>C</code>, <code>b1</code>, <code>b3</code> and
-<code>b5</code> are used by
+Buildings.Fluid.BaseClasses.FlowModels.powerLaw_dp</a>
+and
+<a href=\"modelica://Buildings.Fluid.BaseClasses.FlowModels.powerLaw_dp_inv\">
+Buildings.Fluid.BaseClasses.FlowModels.powerLaw_dp_inv</a>
+(which also uses <code>C</code> in the turbulent region),
+while the coefficients <code>dp_turbulent</code>, <code>m</code>, <code>C</code>,
+<code>b1</code>, <code>b3</code> and <code>b5</code> are used by
 <a href=\"modelica://Buildings.Fluid.BaseClasses.FlowModels.powerLaw_m_flow\">
-Buildings.Fluid.BaseClasses.FlowModels.powerLaw_m_flow</a>.
+Buildings.Fluid.BaseClasses.FlowModels.powerLaw_m_flow</a>
+and
+<a href=\"modelica://Buildings.Fluid.BaseClasses.FlowModels.powerLaw_m_flow_inv\">
+Buildings.Fluid.BaseClasses.FlowModels.powerLaw_m_flow_inv</a>.
 </p>
 <p>
 The coefficients only depend on the <code>k</code>, <code>n</code>
@@ -71,6 +84,16 @@ which avoids recomputing them during the time step simulation.
 </html>",
 revisions="<html>
 <ul>
+<li>
+October 22, 2026, by Martin Sj&ouml;lund:<br/>
+Corrected <code>dp_turbulent</code>, which is the pressure difference at
+<code>m_flow_turbulent</code>, to <code>(m_flow_turbulent/k)^n</code>.
+Previously, <code>powerLaw_dp</code> left the laminar region at
+<code>m_flow = k^(1-1/n)*m_flow_turbulent</code> rather than at
+<code>m_flow_turbulent</code>.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4800\">Buildings, #4800</a>.
+</li>
 <li>
 May 30, 2026, by Michael Wetter:<br/>
 First implementation.<br/>

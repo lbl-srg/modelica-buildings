@@ -167,8 +167,8 @@
     time_out: 600
 - model_name: Buildings.Examples.VAVReheat.Validation.TraceSubstance
   openmodelica:
-    comment: CVode is around 10 times faster than dassl
-    solver: cvode
+    comment: This model works with OpenModelica 1.27.1, but not with 1.26
+    simulate: false
 - model_name: Buildings.Fluid.Chillers.ModularReversible.Validation.TableData2DLoadDep
   openmodelica:
     comment: 'CalledProcessError: Command ''[''omc'', ''Buildings.Fluid.Chillers.ModularReversible.Validation.TableData2DLoadDep_translate.mos'']'' returned non-zero exit status 2.'

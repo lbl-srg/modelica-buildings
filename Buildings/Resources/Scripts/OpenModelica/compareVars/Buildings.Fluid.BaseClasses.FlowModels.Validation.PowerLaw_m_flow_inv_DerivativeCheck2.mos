@@ -1,0 +1,7 @@
+compareVars :=
+  {
+    "m_flow",
+    "m_flow_comp",
+    "der_m_flow",
+    "der_m_flow_comp"
+  };

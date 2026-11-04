@@ -192,7 +192,7 @@ section 5.20.9 Condenser water pumps, part 5.20.9.5, and 5.20.9.6.
 </p>
 <p>
 If the plant has the fixed speed condenser water pump (<code>fixSpe=true</code>) and
-does not have the wateside economizer (<code>have_WSE=false</code>):
+does not have the waterside economizer (<code>have_WSE=false</code>):
 </p>
 <ul>
 <li>

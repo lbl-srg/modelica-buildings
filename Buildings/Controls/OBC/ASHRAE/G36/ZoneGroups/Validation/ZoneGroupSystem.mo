@@ -39,7 +39,7 @@ annotation (
 This example validates
 <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36.ZoneGroups.ZoneGroupSystem\">
 Buildings.Controls.OBC.ASHRAE.G36.ZoneGroups.ZoneGroupSystem</a>
-for specifing the AHU operating mode when the system serves multiple zone groups.
+for specifying the AHU operating mode when the system serves multiple zone groups.
 </p>
 </html>", revisions="<html>
 <ul>

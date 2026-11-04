@@ -47,6 +47,7 @@ model ClosedLoop
     redeclare package Medium = MediumW,
     final m_flow_nominal=mWater_flow_nominal,
     final show_T=true,
+    final from_dp=true,
     final dpValve_nominal=20000,
     final dpFixed_nominal=60000) "Cooling coil valve"
     annotation (Placement(transformation(
@@ -249,7 +250,7 @@ equation
           {40,120},{40,63.5},{85,63.5}}, color={255,127,0}));
 annotation (experiment(
       StartTime=15638400,
-      StopTime=15897600,
+      StopTime=15724800,
       Tolerance=1e-06),
   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Examples/ChillerPlant/Guideline36/ClosedLoop.mos"
     "Simulate and plot"),
