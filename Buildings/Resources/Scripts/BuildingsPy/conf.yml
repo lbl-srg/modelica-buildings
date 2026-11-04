@@ -14,18 +14,6 @@
   openmodelica:
     comment: 'TimeoutExpired: omc timed out after 300 seconds'
     time_out: 600
-- model_name: Buildings.DHC.ETS.Combined.Examples.ChillerBorefield
-  openmodelica:
-    comment: Simulation fails on travis.
-    simulate: false
-- model_name: Buildings.DHC.ETS.Combined.Subsystems.Validation.Borefield
-  openmodelica:
-    comment: Simulation fails on travis, exit status 255
-    simulate: false
-- model_name: Buildings.DHC.ETS.Combined.Validation.ChillerBorefield
-  openmodelica:
-    comment: Timeout on travis after 900 seconds, https://app.travis-ci.com/github/lbl-srg/modelica-buildings/jobs/615261271
-    simulate: false
 - model_name: Buildings.DHC.Examples.Combined.SeriesConstantFlow
   openmodelica:
     comment: simulation terminated by an assertion at initialization
@@ -43,15 +31,11 @@
     simulate: false
 - model_name: Buildings.DHC.Examples.Cooling.ElectricChillersDirectETS
   openmodelica:
-    comment: translation failed on travis
-    translate: false
+    comment: 'TimeoutExpired: Command ''[''omc'', ''Buildings.DHC.Examples.Cooling.ElectricChillersDirectETS_simulate.mos'']'' timed out after 300 seconds'
+    simulate: false
   optimica:
     comment: 'FMUException: Failed to update the events at time: 1.578082E+07.'
     simulate: false
-- model_name: Buildings.DHC.Networks.Examples.Distribution2PipeExample
-  openmodelica:
-    comment: translation fails
-    translate: false
 - model_name: Buildings.DHC.Plants.Combined.Examples.AllElectricCWStorage
   dymola:
     time_out: 600
@@ -291,6 +275,10 @@
 - model_name: Buildings.Obsolete.ThermalZones.EnergyPlus_9_6_0.Examples.SmallOffice.Unconditioned
   optimica:
     rtol: 1.0e-08
+- model_name: Buildings.Obsolete.ThermalZones.EnergyPlus_9_6_0.Validation.MultipleBuildings.TwoIdenticalOneZoneBuildings
+  openmodelica:
+    comment: 'CalledProcessError: Command ''[''omc'', ''Buildings.Obsolete.ThermalZones.EnergyPlus_9_6_0.Validation.MultipleBuildings.TwoIdenticalOneZoneBuildings_simulate.mos'']'' returned non-zero exit status 134.'
+    simulate: false
 - model_name: Buildings.Obsolete.ThermalZones.EnergyPlus_9_6_0.Validation.MultipleBuildings.TwoIdenticalTwoZoneBuildings
   openmodelica:
     comment: returned non-zero exit status 139.
