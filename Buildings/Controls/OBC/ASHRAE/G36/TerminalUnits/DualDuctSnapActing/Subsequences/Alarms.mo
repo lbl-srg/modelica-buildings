@@ -372,7 +372,7 @@ block Alarms "Generate alarms of snap-acting controlled dual-duct terminal unit"
     "Logical not"
     annotation (Placement(transformation(extent={{120,-20},{140,0}})));
   Buildings.Controls.OBC.CDL.Utilities.Assert assMes7(
-    final message="Warning: the cold-duct or hot-dcut damper is leaking.")
+    final message="Warning: the cold-duct or hot-duct damper is leaking.")
     if not have_duaSen
     "Level 4 leaking damper alarm"
     annotation (Placement(transformation(extent={{160,-20},{180,0}})));

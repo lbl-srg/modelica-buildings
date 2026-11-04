@@ -605,7 +605,7 @@ than 10% per minute.
 <ol>
 <li>
 Minimum speed <code>minSpe</code>, maximum cooling speed <code>maxCooSpe</code>, and 
-maximum heatng speed <code>maxHeaSpe</code> shall be given per Section 3.2.2.1 of
+maximum heating speed <code>maxHeaSpe</code> shall be given per Section 3.2.2.1 of
 ASHRAE Guideline 36.
 </li>
 <li>

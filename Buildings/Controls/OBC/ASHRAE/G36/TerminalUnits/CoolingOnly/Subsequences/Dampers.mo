@@ -112,10 +112,10 @@ protected
     annotation (Placement(transformation(extent={{-120,180},{-100,200}})));
   Buildings.Controls.OBC.CDL.Reals.Greater gre(
     final h=dTHys)
-    "Check if supplyair temperature from the air handler is greater than room temperature"
+    "Check if supply air temperature from the air handler is greater than room temperature"
     annotation (Placement(transformation(extent={{-160,250},{-140,270}})));
   Buildings.Controls.OBC.CDL.Reals.Switch swi
-    "Select active airfow setpoint based on difference between supply and zone temperature"
+    "Select active airflow setpoint based on difference between supply and zone temperature"
     annotation (Placement(transformation(extent={{-60,250},{-40,270}})));
   Buildings.Controls.OBC.CDL.Reals.Switch actFlo
     "Specify active flow setpoint based on the zone status"
@@ -188,7 +188,7 @@ protected
     "Airflow setpoint after considering override"
     annotation (Placement(transformation(extent={{40,-90},{60,-70}})));
   Buildings.Controls.OBC.CDL.Logical.Or or3
-    "Check if the airflow setpoint should be overrided"
+    "Check if the airflow setpoint should be overridden"
     annotation (Placement(transformation(extent={{-120,-110},{-100,-90}})));
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant conInt4(
     final k=1)
@@ -215,13 +215,13 @@ protected
     "Add up inputs"
     annotation (Placement(transformation(extent={{60,-250},{80,-230}})));
   Buildings.Controls.OBC.CDL.Logical.Or or2
-    "Check if the damper setpoint position should be overrided"
+    "Check if the damper setpoint position should be overridden"
     annotation (Placement(transformation(extent={{60,-290},{80,-270}})));
   Buildings.Controls.OBC.CDL.Reals.Switch swi2
     "Damper setpoint position after considering override"
     annotation (Placement(transformation(extent={{220,-270},{240,-250}})));
   Buildings.Controls.OBC.CDL.Logical.Or or1
-    "Check if the airflow setpoint should be overrided"
+    "Check if the airflow setpoint should be overridden"
     annotation (Placement(transformation(extent={{-40,-90},{-20,-70}})));
 
 equation
@@ -499,7 +499,7 @@ This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3257\
 </li>
 <li>
 January 12, 2023, by Jianjun Hu:<br/>
-Removed the parameter <code>have_preIndDam</code> to exclude the option of using pressure independant damper.<br/>
+Removed the parameter <code>have_preIndDam</code> to exclude the option of using pressure independent damper.<br/>
 This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3139\">issue 3139</a>.
 </li>
 <li>
