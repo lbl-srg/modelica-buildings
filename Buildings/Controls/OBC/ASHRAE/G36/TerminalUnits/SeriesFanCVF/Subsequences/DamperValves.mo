@@ -2,27 +2,37 @@ within Buildings.Controls.OBC.ASHRAE.G36.TerminalUnits.SeriesFanCVF.Subsequences
 block DamperValves
   "Output signals for controlling constant-volume series fan-powered terminal unit"
 
-  parameter Real dTDisZonSetMax(unit="K")=11
+  parameter Real dTDisZonSetMax(
+    final unit="K",
+    final quantity="TemperatureDifference")=11
     "Zone maximum discharge air temperature above heating setpoint"
     annotation (__cdl(ValueInReference=true));
-  parameter Real VMin_flow(unit="m3/s")
+  parameter Real VMin_flow(
+    final quantity="VolumeFlowRate",
+    final unit="m3/s")
     "Design zone minimum airflow setpoint";
-  parameter Real VCooMax_flow(unit="m3/s")
+  parameter Real VCooMax_flow(
+    final quantity="VolumeFlowRate",
+    final unit="m3/s")
     "Design zone cooling maximum airflow rate";
   parameter Buildings.Controls.OBC.CDL.Types.SimpleController controllerTypeVal=
     Buildings.Controls.OBC.CDL.Types.SimpleController.PI
     "Type of controller"
     annotation (__cdl(ValueInReference=false), Dialog(group="Valve"));
-  parameter Real kVal(unit="1/K")=0.5
+  parameter Real kVal(final unit="1/K")=0.5
     "Gain of controller for valve control"
     annotation (__cdl(ValueInReference=false),Dialog(group="Valve"));
-  parameter Real TiVal(unit="s")=300
+  parameter Real TiVal(
+    final unit="s",
+    final quantity="Time")=300
     "Time constant of integrator block for valve control"
     annotation (__cdl(ValueInReference=false),
                 Dialog(group="Valve",
     enable=controllerTypeVal == Buildings.Controls.OBC.CDL.Types.SimpleController.PI
         or controllerTypeVal == Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
-  parameter Real TdVal(unit="s")=0.1
+  parameter Real TdVal(
+    final unit="s",
+    final quantity="Time")=0.1
     "Time constant of derivative block for valve control"
     annotation (__cdl(ValueInReference=false),
                 Dialog(group="Valve",
@@ -32,31 +42,40 @@ block DamperValves
     Buildings.Controls.OBC.CDL.Types.SimpleController.PI
     "Type of controller"
     annotation (__cdl(ValueInReference=false), Dialog(group="Damper"));
-  parameter Real kDam(unit="1")=0.5
+  parameter Real kDam(final unit="1")=0.5
     "Gain of controller for damper control"
     annotation (__cdl(ValueInReference=false), Dialog(group="Damper"));
-  parameter Real TiDam(unit="s")=300
+  parameter Real TiDam(
+    final unit="s",
+    final quantity="Time")=300
     "Time constant of integrator block for damper control"
     annotation (__cdl(ValueInReference=false),
                 Dialog(group="Damper",
     enable=(controllerTypeDam == Buildings.Controls.OBC.CDL.Types.SimpleController.PI
          or controllerTypeDam == Buildings.Controls.OBC.CDL.Types.SimpleController.PID)));
-  parameter Real TdDam(unit="s")=0.1
+  parameter Real TdDam(
+    final unit="s",
+    final quantity="Time")=0.1
     "Time constant of derivative block for damper control"
     annotation (__cdl(ValueInReference=false),
                 Dialog(group="Damper",
       enable=(controllerTypeDam == Buildings.Controls.OBC.CDL.Types.SimpleController.PD
            or controllerTypeDam == Buildings.Controls.OBC.CDL.Types.SimpleController.PID)));
-  parameter Real dTHys(unit="K")=0.25
+  parameter Real dTHys(
+    final unit="K",
+    final quantity="TemperatureDifference")=0.25
     "Temperature difference hysteresis below which the temperature difference will be seen as zero"
     annotation (__cdl(ValueInReference=false), Dialog(tab="Advanced"));
-  parameter Real looHys(unit="1")=0.05
+  parameter Real looHys(
+    final unit="1") = 0.05
     "Loop output hysteresis below which the output will be seen as zero"
     annotation (__cdl(ValueInReference=false), Dialog(tab="Advanced"));
-  parameter Real floHys(unit="m3/s")=0.01
+  parameter Real floHys(
+    final unit="m3/s") = 0.01
     "Hysteresis for checking airflow rate"
     annotation (__cdl(ValueInReference=false), Dialog(tab="Advanced"));
-  parameter Real damPosHys(unit="1")=0.005
+  parameter Real damPosHys(
+    final unit="1") = 0.05
     "Hysteresis for checking damper position"
     annotation (__cdl(ValueInReference=false), Dialog(tab="Advanced"));
   parameter Real iniDam(unit="1")=0.01
