@@ -469,6 +469,11 @@ This version is for a single zone only to be used in the Single Zone VAV sequenc
 </html>", revisions="<html>
 <ul>
 <li>
+November 3, 2026, by Jianjun Hu:<br/>
+Added missing attributes.<br/>
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4835\">issue 4835</a>.
+</li>
+<li>
 August 1, 2020, by Jianjun Hu:<br/>
 Upgraded according to G36 official release.
 </li>

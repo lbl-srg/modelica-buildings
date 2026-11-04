@@ -823,6 +823,11 @@ when <code>oveFloSet</code> equals to 3, force the zone airflow setpoint
 </html>", revisions="<html>
 <ul>
 <li>
+November 3, 2026, by Jianjun Hu:<br/>
+Corrected wrong attributes.<br/>
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4834\">issue 4834</a>.
+</li>
+<li>
 August 24, 2023, by Jianjun Hu:<br/>
 Added AHU supply fan status for damper position reset.<br/>
 This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3257\">issue 3257</a>.

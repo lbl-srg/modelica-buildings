@@ -1607,6 +1607,11 @@ for more detailed description.
 revisions="<html>
 <ul>
 <li>
+November 3, 2026, by Jianjun Hu:<br/>
+Added missing attributes.<br/>
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4835\">issue 4835</a>.
+</li>
+<li>
 September 26, 2025, by Jianjun Hu:<br/>
 Renamed the parameter <code>Thys</code> to <code>THys</code>.<br/>
 This is for
