@@ -1,6 +1,6 @@
 within Buildings.Controls.OBC.ASHRAE.G36.Generic.Validation;
 model TimeSuppression
-  "Model validates the block for suppresing changes due to the setpoint change"
+  "Model validates the block for suppressing changes due to the setpoint change"
 
   Buildings.Controls.OBC.ASHRAE.G36.Generic.TimeSuppression timSupCooReq
     "Time suppression for generating cooling request"

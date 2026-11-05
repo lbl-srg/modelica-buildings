@@ -809,7 +809,7 @@ If the heating loop is greater than 15%, send 1 request until the heating loop i
 less than 1%.
 </li>
 <li>
-Else if the heatling loop is less than 15%, send 0 requests.
+Else if the heating loop is less than 15%, send 0 requests.
 </li>
 </ol>
 </html>", revisions="<html>

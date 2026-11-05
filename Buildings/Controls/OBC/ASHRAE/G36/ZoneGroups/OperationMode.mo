@@ -101,7 +101,7 @@ protected
   Buildings.Controls.OBC.CDL.Reals.Switch corWarUpTim "Corrected warm-up period"
     annotation (Placement(transformation(extent={{-200,140},{-180,160}})));
   Buildings.Controls.OBC.CDL.Integers.GreaterThreshold intGreThr(
-    final t=4) "Check if the number of cold zones is not less than than 5"
+    final t=4) "Check if the number of cold zones is not less than 5"
     annotation (Placement(transformation(extent={{-280,20},{-260,40}})));
   Buildings.Controls.OBC.CDL.Logical.Latch lat
     "If all zone temperature are higher than unoccupied heating setpoint by a given limit, then the setback mode should be off"
@@ -159,7 +159,7 @@ protected
     "Allowed maximum warm-up or cool-down time"
     annotation (Placement(transformation(extent={{-340,190},{-320,210}})));
   Buildings.Controls.OBC.CDL.Integers.GreaterThreshold intGreThr2(
-    final t=4) "Check if the number of hot zones is not less than than 5"
+    final t=4) "Check if the number of hot zones is not less than 5"
     annotation (Placement(transformation(extent={{-280,-200},{-260,-180}})));
   Buildings.Controls.OBC.CDL.Integers.Add addInt "Sum of two integer inputs"
     annotation (Placement(transformation(extent={{240,280},{260,300}})));
@@ -799,7 +799,7 @@ mode when any of the following is true:
 The time of day is between the zone group's scheduled occupied start and stop times.
 </li>
 <li>
-The schedules have been overriden by the occupant override system.
+The schedules have been overridden by the occupant override system.
 </li>
 <li>
 Any zone local override timer is nonzero.

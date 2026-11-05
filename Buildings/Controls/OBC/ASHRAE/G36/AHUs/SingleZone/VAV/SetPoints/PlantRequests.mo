@@ -417,7 +417,7 @@ send 0 request.
 </li>
 </ol>
 <h4>If there is a hot-water coil and heating hot-water plant, heating hot-water
-plant reqeusts <code>yHotWatPlaReq</code></h4>
+plant requests <code>yHotWatPlaReq</code></h4>
 <p>
 Send the heating hot-water plant that serves the air handling unit a heating hot-water
 plant request as follows:

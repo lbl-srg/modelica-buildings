@@ -330,7 +330,7 @@ block DamperValves
     annotation (Placement(transformation(extent={{20,-340},{40,-320}})));
 
   Buildings.Controls.OBC.CDL.Reals.Switch swi4
-    "Fan setpoint when it is in cooling state and the supply air temperture is high"
+    "Fan setpoint when it is in cooling state and the supply air temperature is high"
     annotation (Placement(transformation(extent={{40,-90},{60,-70}})));
   Buildings.Controls.OBC.CDL.Reals.Max max1
     "Larger of minimum outdoor airflow setpoint and primary discharge airflow setpoint"
@@ -428,7 +428,7 @@ block DamperValves
   Buildings.Controls.OBC.CDL.Reals.Add add1 "Add up inputs"
     annotation (Placement(transformation(extent={{60,450},{80,470}})));
   Buildings.Controls.OBC.CDL.Logical.Or3 or1
-    "Check if the airflow setpoint should be overrided"
+    "Check if the airflow setpoint should be overridden"
     annotation (Placement(transformation(extent={{40,360},{60,380}})));
   Buildings.Controls.OBC.CDL.Reals.Switch swi9
     "Airflow setpoint after considering override"
@@ -951,7 +951,7 @@ proven on (<code>u1Fan=true</code>) for a fixed time delay (15 seconds), the dam
 override is released.
 </li>
 <li>
-When the zone stats is cooling (<code>uCoo &gt; 0</code>), the series fan airflow setpoint
+When the zone state is cooling (<code>uCoo &gt; 0</code>), the series fan airflow setpoint
 shall be the larger of <code>VOAMin_flow</code> and the <code>VPri_flow_Set</code>.
 If supply air temperature <code>TSup</code> from the AHU is greater than
 room temperature <code>TZon</code>, the series fan airflow setpoint shall be no higher
@@ -1005,7 +1005,7 @@ This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3257\
 </li>
 <li>
 January 12, 2023, by Jianjun Hu:<br/>
-Removed the parameter <code>have_preIndDam</code> to exclude the option of using pressure independant damper.<br/>
+Removed the parameter <code>have_preIndDam</code> to exclude the option of using pressure independent damper.<br/>
 This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3139\">issue 3139</a>.
 </li>
 <li>
