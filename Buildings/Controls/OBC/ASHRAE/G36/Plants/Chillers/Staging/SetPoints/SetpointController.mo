@@ -133,7 +133,7 @@ block SetpointController
   parameter Real dpDif(
     unit="Pa",
     displayUnit="Pa")=2*6895
-      "Offset between the chilled water pump diferential static pressure and its setpoint"
+      "Offset between the chilled water pump differential static pressure and its setpoint"
     annotation (Dialog(tab="Conditionals", group="Value comparison parameters"));
 
   parameter Real TDif(
@@ -395,7 +395,7 @@ protected
     "Convert chiller type to integer";
 
   Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Staging.SetPoints.Subsequences.Initial iniSta(
-    final have_WSE=have_WSE) "Initia stage"
+    final have_WSE=have_WSE) "Initial stage"
     annotation (Placement(transformation(extent={{-80,100},{-60,120}})));
 
   Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Staging.SetPoints.Subsequences.Configurator conf(

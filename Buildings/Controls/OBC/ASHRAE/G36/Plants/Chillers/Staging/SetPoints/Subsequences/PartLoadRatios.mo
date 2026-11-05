@@ -306,7 +306,7 @@ protected
 
   Buildings.Controls.OBC.CDL.Utilities.Assert cheStaTyp(
     final message="Recommended staging order got violated or an unlisted chiller type got provided when staging up")
-    "Chiller type outside of recommenation when staging up"
+    "Chiller type outside of recommendation when staging up"
     annotation (Placement(transformation(extent={{300,280},{320,300}})));
 
   Buildings.Controls.OBC.CDL.Reals.GreaterThreshold greThr(
@@ -365,7 +365,7 @@ protected
 
   Buildings.Controls.OBC.CDL.Utilities.Assert cheStaTyp1(
     final message="Recommended staging order got violated or an unlisted chiller type got provided when staging down")
-    "Chiller type outside of recommenation when staging down"
+    "Chiller type outside of recommendation when staging down"
     annotation (Placement(transformation(extent={{260,-20},{280,0}})));
 
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant conSpeCenTypMult1(

@@ -32,7 +32,7 @@ block UpEnd "Sequence for ending stage-up process"
     "Maximum chilled water flow through each chiller"
     annotation (Dialog(group="Reset CHW minimum flow setpoint"));
   parameter Real aftByPasSetTim(unit="s")=60
-    "Time after minimum bypass flow being resetted to new setpoint"
+    "Time after minimum bypass flow being reset to new setpoint"
     annotation (Dialog(group="Reset bypass"));
 
   Buildings.Controls.OBC.CDL.Interfaces.IntegerInput nexEnaChi

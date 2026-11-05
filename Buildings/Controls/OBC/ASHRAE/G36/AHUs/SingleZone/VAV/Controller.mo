@@ -1612,7 +1612,7 @@ for more detailed description.
 <h4>Freeze protection</h4>
 <p>
 Based on the Section 5.18.11, the sequence enables freeze protection if the
-measured supply air temperature belows certain thresholds. There are three
+measured supply air temperature below certain thresholds. There are three
 protection stages. See
 <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36.AHUs.SingleZone.VAV.SetPoints.FreezeProtection\">
 Buildings.Controls.OBC.ASHRAE.G36.AHUs.SingleZone.VAV.SetPoints.FreezeProtection</a>
@@ -1622,7 +1622,7 @@ for more detailed description.
 <p>
 By selecting different building pressure control designs, which includes using actuated
 relief dampers without fans, using actuated relief dampers with relief fan, using
-return fans. See belows sequences for more detailed description:
+return fans. See below sequences for more detailed description:
 </p>
 <ul>
 <li>

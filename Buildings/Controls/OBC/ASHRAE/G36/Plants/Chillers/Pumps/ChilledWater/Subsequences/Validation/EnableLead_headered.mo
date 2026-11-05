@@ -14,13 +14,13 @@ model EnableLead_headered
   Buildings.Controls.OBC.CDL.Logical.Sources.Pulse isoVal1(
     width=0.3,
     period=3600,
-    shift=300) "Valve 1 commanded posiiton"
+    shift=300) "Valve 1 commanded position"
     annotation (Placement(transformation(extent={{-40,10},{-20,30}})));
 
   Buildings.Controls.OBC.CDL.Logical.Sources.Pulse isoVal2(
     width=0.4,
     period=3600,
-    shift=500) "Valve 2 commanded posiiton"
+    shift=500) "Valve 2 commanded position"
     annotation (Placement(transformation(extent={{-40,-30},{-20,-10}})));
 
 equation
