@@ -325,13 +325,14 @@ equation
     Documentation(
       info="<html>
 <p>
-Pumps are staged as a function of the ratio <i>ratV_flow</i>
+Pumps are staged as a function of the flow ratio <i>FR</i>
 of current volume flow rate <i>V_flow</i> to design volume
 flow rate <i>V_flow_nominal</i>,
 the number of operating pumps <i>nPum_actual</i>
 and the number of pumps that operate at design conditions
 <i>nPum</i>.
 Pumps are assumed to be equally sized.
+</p>
 <p>
 <i>FR = V_flow / V_flow_nominal</i>
 </p>

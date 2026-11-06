@@ -328,7 +328,7 @@ model HeatPumpGroupAirToWaterPolyvalent
     "Active return temperature"
     annotation(Placement(transformation(extent={{-240,-90},{-220,-70}})));
   Buildings.Controls.OBC.CDL.Reals.Switch pInl_rel
-    "Active inlet gaupe pressure"
+    "Active inlet gauge pressure"
     annotation(Placement(transformation(extent={{-240,-10},{-220,10}})));
   Buildings.Templates.Plants.HeatPumps.Interfaces.Bus busPla
     "Plant controller"
