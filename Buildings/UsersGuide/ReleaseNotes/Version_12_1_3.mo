@@ -52,7 +52,7 @@ have been <b style=\"color:blue\">improved</b> in a
 <tr><td valign=\"top\">Buildings.DHC.ETS.Combined.Subsystems.BaseClasses.PartialHeatPump
     </td>
     <td valign=\"top\">Corrected medium specification in the condenser water pump.<br/>
-                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4845\">Buildings. #4845</a>.
+                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4845\">Buildings #4845</a>.
     </td>
 </tr>
 <tr><td colspan=\"2\"><b>Buildings.Controls.OBC.CDL.Logical</b>
