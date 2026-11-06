@@ -4,8 +4,8 @@ package UsersGuide "User's Guide"
 annotation (preferredView="info",
 Documentation(info="<html>
 <p>
-The <code>DemandFlexibility</code> sequence package follows the folder structure
-below:
+The <code>DemandFlexibility</code> sequence package should follow the folder
+structure below:
 </p>
 <pre>
 DemandFlexibility
@@ -52,7 +52,7 @@ This folder structure has the following properties:
 </p>
 <ul>
 <li>
-The <code>DemandFlexibility</code> sequence package can contain multiple demand
+The <code>DemandFlexibility</code> sequence package contains multiple demand
 flexibility strategies.
 </li>
 <li>
@@ -66,8 +66,10 @@ overarching logic block for that demand flexibility strategy.
 <li>
 The <code>Subsequences</code> folder contains lower-level logic blocks that are
 used by the main <code>Controller.mo</code> block. These lower-level logic blocks
-can include <code>Adjustment.mo</code>, <code>LowerUpperBound.mo</code>,
-<code>Prioritization.mo</code>, and <code>Qualification.mo</code>.
+should include <code>Adjustment.mo</code>, <code>LowerUpperBound.mo</code>,
+<code>Prioritization.mo</code>, and <code>Qualification.mo</code>. A demand
+flexibility strategy is allowed to include additional lower-level logic blocks. It
+is also allowed to not include the <code>Prioritization.mo</code> block.
 </li>
 <li>
 The <code>Qualification.mo</code> block specifies whether a zone or a piece of
@@ -95,6 +97,5 @@ The <code>Types</code> folder contains enumerations of modes that are used by
 multiple demand flexibility strategies.
 </li>
 </ul>
-</html>
-"));
+</html>"));
 end UsersGuide;
