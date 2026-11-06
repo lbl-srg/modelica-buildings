@@ -107,7 +107,7 @@ model PartialHeatPump
   Buildings.DHC.ETS.BaseClasses.Pump_m_flow
                                      pumCon(
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
-    redeclare package Medium = Medium2,
+    redeclare package Medium = Medium1,
     m_flow_nominal=mCon_flow_nominal,
     riseTime=10,
     dp_nominal=dp1_nominal)
@@ -315,6 +315,11 @@ the district supply and return flows.
 </ul>
 </html>", revisions="<html>
 <ul>
+<li>
+November 3, 2026, by Jianjun Hu:<br/>
+Corrected medium specification in the condenser water pump.<br/>
+This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4845\">issue 4845</a>.
+</li>
 <li>
 February 15, 2024, by Ettore Zanetti:<br/>
 Made heat pump model dynamic and added junction.
