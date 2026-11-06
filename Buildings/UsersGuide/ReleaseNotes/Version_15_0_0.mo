@@ -52,6 +52,15 @@ have been <b style=\"color:blue\">improved</b> in a
 <b style=\"color:blue\">backward compatible</b> way:
 </p>
 <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\" style=\"border-collapse:collapse;\">
+<tr><td colspan=\"2\"><b>Buildings.Examples.VAVReheat</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Examples.VAVReheat.BaseClasses.ASHRAE2006
+    </td>
+    <td valign=\"top\">Corrected wrong value assignment of <code>ratVMinVAV_flow</code>.<br/>
+                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4863\">Buildings, #4863</a>.
+    </td>
+</tr>
 <tr><td colspan=\"2\"><b>Buildings.DHC.ETS</b>
     </td>
 </tr>
