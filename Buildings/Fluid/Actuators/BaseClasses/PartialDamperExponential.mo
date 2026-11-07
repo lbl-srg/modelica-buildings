@@ -2,6 +2,7 @@ within Buildings.Fluid.Actuators.BaseClasses;
 partial model PartialDamperExponential
   "Partial model for air dampers with exponential opening characteristics"
   extends Buildings.Fluid.BaseClasses.PartialResistance(
+    from_dp=true,
     final dp_nominal=dpDamper_nominal+dpFixed_nominal,
     final m_flow_turbulent=if use_deltaM then deltaM * m_flow_nominal else
       eta_default*ReC*sqrt(A)*facRouDuc);
@@ -47,6 +48,9 @@ partial model PartialDamperExponential
   parameter Boolean use_constant_density=true
     "Set to true to use constant density for flow friction"
     annotation (Evaluate=true, Dialog(tab="Advanced"));
+  parameter Boolean use_inv = false
+    "Set to true to allow the use of the inverse of the flow function m_flow=f(dp)"
+    annotation(Evaluate=true, Dialog(tab="Advanced"));
   Medium.Density rho "Medium density";
   final parameter Real kFixed = if dpFixed_nominal > Modelica.Constants.eps then
     m_flow_nominal / sqrt(dpFixed_nominal) else Modelica.Constants.inf
