@@ -76,7 +76,7 @@ protected
     annotation (Placement(transformation(extent={{0,-10},{20,10}})));
   Buildings.Controls.OBC.CDL.Logical.Not notCooLim[nChi]
     "Qualify the chiller if its cooling load is not at its limit"
-    annotation (Placement(transformation(extent={{50,-10},{70,10}})));
+    annotation (Placement(transformation(extent={{40,-10},{60,10}})));
 
 equation
   connect(uCooCoi, greUCooCoiMax.u)
@@ -94,9 +94,9 @@ equation
   connect(greDTSupMax.y, andAll.u2)
     annotation (Line(points={{-58,-60},{-10,-60},{-10,-8},{-2,-8}}, color={255,0,255}));
   connect(andAll.y, notCooLim.u)
-    annotation (Line(points={{22,0},{48,0}}, color={255,0,255}));
+    annotation (Line(points={{22,0},{38,0}}, color={255,0,255}));
   connect(notCooLim.y, yQua)
-    annotation (Line(points={{72,0},{120,0}}, color={255,0,255}));
+    annotation (Line(points={{62,0},{120,0}}, color={255,0,255}));
 
   annotation (defaultComponentName="qua",
     Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}},
