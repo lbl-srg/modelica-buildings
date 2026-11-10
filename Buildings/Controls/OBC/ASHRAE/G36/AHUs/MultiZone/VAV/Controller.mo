@@ -283,7 +283,7 @@ block Controller "Multizone VAV air handling unit controller"
                 Dialog(tab="Economizer", group="Limits, separated with DP",
       enable=(minOADes == Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorAirSection.DedicatedDampersPressure
            and venStd == Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.California_Title_24)));
-  parameter Real dpAbsMinOutDam=5
+  parameter Real dpAbsMinOutDam(unit="Pa")=5
     "Absolute minimum pressure difference across the minimum outdoor air damper. It provides the absolute minimum outdoor airflow"
     annotation (__cdl(ValueInReference=false),
                 Dialog(tab="Economizer", group="Limits, separated with DP",
@@ -519,7 +519,7 @@ block Controller "Multizone VAV air handling unit controller"
       enable=buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReliefFan and have_ahuRelFan));
 
   // ----------- Advanced parameters -----------
-  parameter Real Thys=0.25 "Hysteresis for checking temperature difference"
+  parameter Real Thys(unit="K")=0.25 "Hysteresis for checking temperature difference"
     annotation (__cdl(ValueInReference=false),
                 Dialog(tab="Advanced"));
   parameter Real posHys=0.01
@@ -1582,6 +1582,11 @@ for more detailed description.
 </html>",
 revisions="<html>
 <ul>
+<li>
+November 3, 2026, by Jianjun Hu:<br/>
+Added missing attributes.<br/>
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4835\">issue 4835</a>.
+</li>
 <li>
 March 1, 2023, by Michael Wetter:<br/>
 Changed constants from <code>0</code> to <code>0.0</code> and <code>1</code> to <code>1.0</code>.<br/>

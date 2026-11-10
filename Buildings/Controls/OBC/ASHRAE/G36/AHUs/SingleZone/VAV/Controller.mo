@@ -108,27 +108,27 @@ block Controller
     annotation (__cdl(ValueInReference=true),
                 Dialog(tab="Setpoints adjustment", group="Limits"));
   parameter Real incTSetDem_1(unit="K")=0.5
-    "Cooling setpoint increase value (degC) when cooling demand limit level 1 is imposed"
+    "Cooling setpoint increase value (degK) when cooling demand limit level 1 is imposed"
     annotation (__cdl(ValueInReference=true),
                 Dialog(tab="Setpoints adjustment", group="Demand control adjustment", enable=not ignDemLim));
   parameter Real incTSetDem_2(unit="K")=1
-    "Cooling setpoint increase value (degC) when cooling demand limit level 2 is imposed"
+    "Cooling setpoint increase value (degK) when cooling demand limit level 2 is imposed"
     annotation (__cdl(ValueInReference=true),
                 Dialog(tab="Setpoints adjustment", group="Demand control adjustment", enable=not ignDemLim));
   parameter Real incTSetDem_3(unit="K")=2
-    "Cooling setpoint increase value (degC) when cooling demand limit level 3 is imposed"
+    "Cooling setpoint increase value (degK) when cooling demand limit level 3 is imposed"
     annotation (__cdl(ValueInReference=true),
                 Dialog(tab="Setpoints adjustment", group="Demand control adjustment", enable=not ignDemLim));
   parameter Real decTSetDem_1(unit="K")=0.5
-    "Heating setpoint decrease value (degC) when heating demand limit level 1 is imposed"
+    "Heating setpoint decrease value (degK) when heating demand limit level 1 is imposed"
     annotation (__cdl(ValueInReference=true),
                 Dialog(tab="Setpoints adjustment", group="Demand control adjustment", enable=not ignDemLim));
   parameter Real decTSetDem_2(unit="K")=1
-    "Heating setpoint decrease value (degC) when heating demand limit level 2 is imposed"
+    "Heating setpoint decrease value (degK) when heating demand limit level 2 is imposed"
     annotation (__cdl(ValueInReference=true),
                 Dialog(tab="Setpoints adjustment", group="Demand control adjustment", enable=not ignDemLim));
   parameter Real decTSetDem_3(unit="K")=2
-    "Heating setpoint decrease value (degC) when heating demand limit level 3 is imposed"
+    "Heating setpoint decrease value (degK) when heating demand limit level 3 is imposed"
     annotation (__cdl(ValueInReference=true),
                 Dialog(tab="Setpoints adjustment", group="Demand control adjustment", enable=not ignDemLim));
   parameter Real preWarCooTim(unit="s")=10800
@@ -301,17 +301,17 @@ block Controller
     annotation (__cdl(ValueInReference=true),
                 Dialog(tab="Outdoor airflow", group="ASHRAE62.1",
                        enable=venStd == Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.ASHRAE62_1));
-  parameter Real VOccMin_flow=0
+  parameter Real VOccMin_flow(unit="m3/s")=0
     "Zone minimum outdoor airflow for occupants"
     annotation (__cdl(ValueInReference=false),
                 Dialog(tab="Outdoor airflow", group="Title 24",
                        enable=venStd == Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.California_Title_24));
-  parameter Real VAreMin_flow=0
+  parameter Real VAreMin_flow(unit="m3/s")=0
     "Zone minimum outdoor airflow for building area"
     annotation (__cdl(ValueInReference=false),
                 Dialog(tab="Outdoor airflow", group="Title 24",
                        enable=venStd == Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.California_Title_24));
-  parameter Real VZonMin_flow=0
+  parameter Real VZonMin_flow(unit="m3/s")=0
     "Design zone minimum airflow setpoint"
     annotation (__cdl(ValueInReference=false),
                 Dialog(tab="Outdoor airflow", group="Title 24",
@@ -570,17 +570,23 @@ block Controller
     "Zone unoccupied cooling setpoint temperatures"
     annotation (Placement(transformation(extent={{-300,240},{-260,280}}),
         iconTransformation(extent={{-240,160},{-200,200}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput setAdj
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput setAdj(
+    final unit="K",
+    final quantity="TemperatureDifference")
     if have_locAdj and not sepAdj
     "Setpoint adjustment value"
     annotation (Placement(transformation(extent={{-300,210},{-260,250}}),
       iconTransformation(extent={{-240,140},{-200,180}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput cooSetAdj
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput cooSetAdj(
+    final unit="K",
+    final quantity="TemperatureDifference")
     if have_locAdj and sepAdj
     "Cooling setpoint adjustment value"
     annotation (Placement(transformation(extent={{-300,180},{-260,220}}),
         iconTransformation(extent={{-240,120},{-200,160}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput heaSetAdj
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput heaSetAdj(
+    final unit="K",
+    final quantity="TemperatureDifference")
     if have_locAdj and sepAdj
     "Heating setpoint adjustment value"
     annotation (Placement(transformation(extent={{-300,150},{-260,190}}),
@@ -1646,6 +1652,11 @@ for more detailed description.
 </html>",
 revisions="<html>
 <ul>
+<li>
+November 3, 2026, by Jianjun Hu:<br/>
+Added missing attributes.<br/>
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4835\">issue 4835</a>.
+</li>
 <li>
 March 1, 2023, by Michael Wetter:<br/>
 Changed constants from <code>0</code> to <code>0.0</code> and <code>1</code> to <code>1.0</code>.<br/>

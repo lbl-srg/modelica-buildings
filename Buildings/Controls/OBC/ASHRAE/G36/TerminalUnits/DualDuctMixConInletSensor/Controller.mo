@@ -525,8 +525,6 @@ equation
   connect(TCooSet, sysReq.TCooSet) annotation (Line(points={{-260,270},{-226,
           270},{-226,-124},{138,-124}},
                                   color={0,0,127}));
-  connect(TDis, sysReq.TZon) annotation (Line(points={{-260,40},{-188,40},{-188,
-          -127},{138,-127}},color={0,0,127}));
   connect(conLoo.yCoo, sysReq.uCoo) annotation (Line(points={{-178,216},{-28,
           216},{-28,-130},{138,-130}},
                                  color={0,0,127}));
@@ -605,6 +603,8 @@ equation
           -96},{112,-238},{138,-238}}, color={0,0,127}));
   connect(uOpeMod, ala.uOpeMod) annotation (Line(points={{-260,130},{-200,130},
           {-200,-229},{138,-229}}, color={255,127,0}));
+  connect(TZon, sysReq.TZon) annotation (Line(points={{-260,300},{-220,300},{-220,
+          -127},{138,-127}}, color={0,0,127}));
 annotation (defaultComponentName="duaDucCon",
   Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-200},{100,200}}), graphics={
         Rectangle(
@@ -834,6 +834,11 @@ Buildings.Controls.OBC.ASHRAE.G36.TerminalUnits.DualDuctMixConInletSensor.Subseq
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+November 3, 2026, by Jianjun Hu:<br/>
+Corrected zone temperature input to the system request instance.<br/>
+This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4833\">issue 4833</a>.
+</li>
 <li>
 January 12, 2023, by Jianjun Hu:<br/>
 Removed the parameter <code>have_preIndDam</code> to exclude the option of using pressure independent damper.<br/>
