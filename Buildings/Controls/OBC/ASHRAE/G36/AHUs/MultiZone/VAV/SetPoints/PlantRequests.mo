@@ -7,7 +7,7 @@ block PlantRequests "Output plant requests for multizone air handling unit"
   parameter Buildings.Controls.OBC.ASHRAE.G36.Types.CoolingCoil cooCoi=Buildings.Controls.OBC.ASHRAE.G36.Types.CoolingCoil.WaterBased
     "Cooling coil type"
     annotation (__cdl(ValueInReference=false));
-  parameter Real Thys = 0.1
+  parameter Real Thys(unit="K") = 0.1
     "Hysteresis for checking temperature difference"
     annotation(__cdl(ValueInReference=false),
                 Dialog(tab="Advanced"));
