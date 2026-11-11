@@ -130,7 +130,7 @@
     solver: gbode
 - model_name: Buildings.Examples.VAVReheat.Guideline36
   openmodelica:
-    comment: Timeout during translation; solver gbode reduces simulation time by a factor of 3.3 compared to dassl
+    comment: Timeout during translation; solver gbode reduces simulation time by a factor of 3.4 compared to dassl
     solver: gbode
     time_out: 600
 - model_name: Buildings.Examples.VAVReheat.Validation.Guideline36SteadyState
@@ -140,7 +140,7 @@
     time_out: 600
 - model_name: Buildings.Examples.VAVReheat.Validation.TraceSubstance
   openmodelica:
-    comment: Solver gbode reduces simulation time by a factor of 3.9 compared to dassl
+    comment: Solver gbode reduces simulation time by a factor of 3.8 compared to dassl
     solver: gbode
 - model_name: Buildings.Fluid.Chillers.ModularReversible.Validation.TableData2DLoadDep
   openmodelica:
