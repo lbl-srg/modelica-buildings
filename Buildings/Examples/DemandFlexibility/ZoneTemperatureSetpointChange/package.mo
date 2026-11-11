@@ -1,5 +1,5 @@
 within Buildings.Examples.DemandFlexibility;
-package ZoneTemperatureSetpointChange "ZoneTemperatureSetpointChange"
+package ZoneTemperatureSetpointChange "closed-loop implementation of zone temperature setpoint change control sequences"
   extends Modelica.Icons.ExamplesPackage;
   annotation (Documentation(info="<html>
 <p>
