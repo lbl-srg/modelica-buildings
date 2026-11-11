@@ -205,6 +205,15 @@ that can lead to wrong simulation results):
                        This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4787\">Buildings, #4787</a>.
     </td>
 </tr>
+<tr><td valign=\"top\">Buildings.Fluid.DataCenters.CDUs.LiquidToLiquid.Data.VertivLiebertXDU1350
+    </td>
+    <td valign=\"top\">Corrected the nominal mass flow rates (<code>mRac_flow_nominal</code> and <code>mPla_flow_nominal</code>),
+                       the nominal external pump head and pump head curve (<code>dpPumpExt_nominal</code> and <code>pumpExtHead</code>),
+                       and the rack-side filter design pressure drop (<code>dpFilRac_nominal</code>)
+                       to match the manufacturer data sheet.<br/>
+                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4872\">Buildings, #4872</a>.
+    </td>
+</tr>
 </table>
 <!-- Uncritical errors -->
 <p>
