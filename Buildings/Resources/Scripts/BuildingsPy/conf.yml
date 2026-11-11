@@ -154,11 +154,12 @@
     simulate: false
 - model_name: Buildings.Examples.VAVReheat.ASHRAE2006
   openmodelica:
-    comment: 'TimeoutExpired: Command ''[''omc'', ''Buildings.Examples.VAVReheat.ASHRAE2006_simulate.mos'']'' timed out after 300 seconds'
-    time_out: 600
+    comment: Solver gbode reduces simulation time by a factor of 4.7 compared to dassl
+    solver: gbode
 - model_name: Buildings.Examples.VAVReheat.Guideline36
   openmodelica:
-    comment: Timeout during translation
+    comment: Timeout during translation; solver gbode reduces simulation time by a factor of 3.3 compared to dassl
+    solver: gbode
     time_out: 600
 - model_name: Buildings.Examples.VAVReheat.Validation.Guideline36SteadyState
   openmodelica:
@@ -167,8 +168,8 @@
     time_out: 600
 - model_name: Buildings.Examples.VAVReheat.Validation.TraceSubstance
   openmodelica:
-    comment: This model works with OpenModelica 1.27.1, but not with 1.26
-    simulate: false
+    comment: Solver gbode reduces simulation time by a factor of 3.9 compared to dassl
+    solver: gbode
 - model_name: Buildings.Fluid.Chillers.ModularReversible.Validation.TableData2DLoadDep
   openmodelica:
     comment: 'CalledProcessError: Command ''[''omc'', ''Buildings.Fluid.Chillers.ModularReversible.Validation.TableData2DLoadDep_translate.mos'']'' returned non-zero exit status 2.'
