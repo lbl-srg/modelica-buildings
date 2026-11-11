@@ -101,14 +101,14 @@ block Up "Generates a stage up signal"
   Buildings.Controls.OBC.CDL.Interfaces.RealInput dpChiWatSet_local(
     final unit="Pa",
     final quantity="PressureDifference") if (not have_serChi) and not have_senDpChiWatRemWir
-    "Chilled water local diferential static pressure setpoint"
+    "Chilled water local differential static pressure setpoint"
     annotation (Placement(transformation(extent={{-200,120},{-160,160}}),
         iconTransformation(extent={{-140,10},{-100,50}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput dpChiWat_local(
     final unit="Pa",
     final quantity="PressureDifference") if (not have_serChi) and not have_senDpChiWatRemWir
-    "Chilled water diferential static pressure from local sensor"
+    "Chilled water differential static pressure from local sensor"
     annotation (Placement(transformation(extent={{-200,90},{-160,130}}),
         iconTransformation(extent={{-140,-10},{-100,30}})));
 
@@ -357,7 +357,7 @@ Failsafe condition is true.
 </ul>
 <p>
 If <code>have_WSE</code> boolean flag is true, staging up from WSE only to the first
-available stage occurs when the chilled water supply temperature is sufficienctly
+available stage occurs when the chilled water supply temperature is sufficiently
 above its setpoint for either a shorter or a longer time period
 </p>
 <p>

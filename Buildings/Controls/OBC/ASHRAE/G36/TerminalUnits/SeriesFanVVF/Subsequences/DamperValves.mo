@@ -79,7 +79,7 @@ block DamperValves
     "Hysteresis for checking airflow rate"
     annotation (__cdl(ValueInReference=false), Dialog(tab="Advanced"));
   parameter Real damPosHys(
-    final unit="m3/s") = 0.05
+    final unit="1") = 0.005
     "Hysteresis for checking damper position"
     annotation (__cdl(ValueInReference=false), Dialog(tab="Advanced"));
   parameter Real iniDam(unit="1")=0.01
@@ -330,7 +330,7 @@ protected
     "Output true if the operation mode is unoccupied"
     annotation (Placement(transformation(extent={{20,-340},{40,-320}})));
   Buildings.Controls.OBC.CDL.Reals.Switch swi4
-    "Fan setpoint when it is in cooling state and the supply air temperture is high"
+    "Fan setpoint when it is in cooling state and the supply air temperature is high"
     annotation (Placement(transformation(extent={{40,-90},{60,-70}})));
   Buildings.Controls.OBC.CDL.Reals.Max max1
     "Larger of minimum outdoor airflow setpoint and primary discharge airflow setpoint"
@@ -428,7 +428,7 @@ protected
   Buildings.Controls.OBC.CDL.Reals.Add add1 "Add up inputs"
     annotation (Placement(transformation(extent={{60,450},{80,470}})));
   Buildings.Controls.OBC.CDL.Logical.Or or1
-    "Check if the airflow setpoint should be overrided"
+    "Check if the airflow setpoint should be overridden"
     annotation (Placement(transformation(extent={{-80,340},{-60,360}})));
   Buildings.Controls.OBC.CDL.Reals.Switch swi9
     "Airflow setpoint after considering override"
@@ -437,7 +437,7 @@ protected
     "Constant 3"
     annotation (Placement(transformation(extent={{-200,370},{-180,390}})));
   Buildings.Controls.OBC.CDL.Logical.Or or2
-    "Check if the airflow setpoint should be overrided"
+    "Check if the airflow setpoint should be overridden"
     annotation (Placement(transformation(extent={{60,360},{80,380}})));
   Buildings.Controls.OBC.CDL.Logical.Or or4
     "Check if it is in heating, cooling state, or it is in occupied mode"
@@ -1010,13 +1010,18 @@ when <code>oveFloSet</code> equals to 3, force the zone airflow setpoint
 </html>", revisions="<html>
 <ul>
 <li>
+November 3, 2026, by Jianjun Hu:<br/>
+Corrected wrong attributes.<br/>
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4834\">issue 4834</a>.
+</li>
+<li>
 August 24, 2023, by Jianjun Hu:<br/>
 Added AHU supply fan status for damper position reset.<br/>
 This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3257\">issue 3257</a>.
 </li>
 <li>
 January 12, 2023, by Jianjun Hu:<br/>
-Removed the parameter <code>have_preIndDam</code> to exclude the option of using pressure independant damper.<br/>
+Removed the parameter <code>have_preIndDam</code> to exclude the option of using pressure independent damper.<br/>
 This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3139\">issue 3139</a>.
 </li>
 <li>

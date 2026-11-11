@@ -124,7 +124,7 @@ protected
     annotation (Placement(transformation(extent={{60,150},{80,170}})));
   Buildings.Controls.OBC.CDL.Logical.MultiOr mulOr1(
     final nin=nTowCel)
-    "True when any tower fan is enaled"
+    "True when any tower fan is enabled"
     annotation (Placement(transformation(extent={{-240,-130},{-220,-110}})));
   Buildings.Controls.OBC.CDL.Logical.Not not3 "No enabled tower fan"
     annotation (Placement(transformation(extent={{-160,-130},{-140,-110}})));

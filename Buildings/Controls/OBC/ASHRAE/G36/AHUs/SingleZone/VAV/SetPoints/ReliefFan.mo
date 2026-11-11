@@ -233,7 +233,7 @@ annotation (defaultComponentName="relFanCon",
           extent={{-240,-220},{220,220}})),
 Documentation(info="<html>
 <p>
-Sequence for controling relief fan that is part of AHU. It is developed based on
+Sequence for controlling relief fan that is part of AHU. It is developed based on
 Section 5.16.9 of ASHRAE Guideline 36, May 2020, with the modification to accommodate
 the single relief fan control.
 </p>
