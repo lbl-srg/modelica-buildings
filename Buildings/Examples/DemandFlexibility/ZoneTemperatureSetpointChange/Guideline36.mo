@@ -8,7 +8,7 @@ model Guideline36
     mEas_flow_nominal=ACHEas*VRooEas*conv,
     mNor_flow_nominal=ACHNor*VRooNor*conv,
     mWes_flow_nominal=ACHWes*VRooWes*conv,
-    redeclare Buildings.Examples.VAVReheat.BaseClasses.Guideline36 hvac,
+    redeclare BaseClasses.Guideline36                              hvac,
     redeclare Buildings.Examples.VAVReheat.BaseClasses.Floor flo(sampleModel=
           true));
 
