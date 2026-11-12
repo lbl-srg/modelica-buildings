@@ -256,7 +256,7 @@ equation
         annotation (Line(points={{10.5,200},{136,200}},color={0,0,0}));
     end for;
   end for;
-  // Transitio to/from stage 0 – All units disabled.
+  // Transition to/from stage 0 – All units disabled.
   connect(sta.outPort[nSta + 1], staToSta0.inPort)
     annotation (Line(points={{10.5,200},{20,200},{20,220},{56,220}},color={0,0,0}));
   connect(sta0ToSta.outPort, sta.inPort[nSta + 1])
