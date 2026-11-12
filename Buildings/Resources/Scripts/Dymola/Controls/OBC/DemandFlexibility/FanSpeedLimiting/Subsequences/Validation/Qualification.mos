@@ -1,0 +1,6 @@
+simulateModel("Buildings.Controls.OBC.DemandFlexibility.FanSpeedLimiting.Subsequences.Validation.Qualification", method="Cvode", tolerance=1e-06, stopTime=86400, resultFile="Qualification");
+createPlot(id=1, position={441, -19, 336, 382}, y={"qua.yQua[1]", "qua.yQua[2]", "qua.yQua[3]", "qua.yQua[4]", "qua.yQua[5]"}, range={0.0, 24.0, -0.1, 1.1}, grid=true, colors={{28,108,200}, {28,108,200}, {28,108,200}, {28,108,200}, {28,108,200}}, timeUnit="h");
+createPlot(id=2, position={-6, -17, 440, 379}, y={"qua.V_flow[1]", "qua.VMin_flow[1]"}, range={0.0, 26.0, 0.1, 0.30000000000000004}, grid=true, subPlot=101, colors={{28,108,200}, {238,46,47}}, timeUnit="h");
+createPlot(id=2, position={-6, -17, 440, 379}, y={"qua.fanSpe[5]", "qua.fanSpeMin[5]"}, range={0.0, 26.0, 0.2, 0.6000000000000001}, grid=true, subPlot=102, colors={{28,108,200}, {238,46,47}}, timeUnit="h", displayUnits={"1", "1"});
+createPlot(id=2, position={-6, -17, 440, 379}, y={"qua.TZon[4]", "qua.TZonMax[4]"}, range={0.0, 26.0, 27.5, 29.5}, grid=true, subPlot=103, colors={{28,108,200}, {238,46,47}}, timeUnit="h", displayUnits={"degC", "degC"});
+
