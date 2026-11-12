@@ -1,5 +1,5 @@
 within Buildings.Controls.OBC.DemandFlexibility.ZoneTemperatureSetpointChange.Subsequences;
-block Enable "Decide the zones for setpoint change"
+block LowerUpperBound "Decide the zones for setpoint change"
 
   parameter Real dTSheThr(
     min=0,
@@ -660,4 +660,4 @@ or: <code>airConMod = Cooling</code>, and <code>demFleMod = 3</code>, and
 </li>
 </ul>
 </html>"));
-end Enable;
+end LowerUpperBound;

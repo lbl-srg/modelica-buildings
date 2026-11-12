@@ -146,7 +146,7 @@ block Controller
     "Zones are not enabled to participate in zone temperature comparison and zone prioritization"
     annotation (Placement(transformation(extent={{-20,100},{0,120}})));
 protected
-  Buildings.Controls.OBC.DemandFlexibility.ZoneTemperatureSetpointChange.Subsequences.Enable
+  Buildings.Controls.OBC.DemandFlexibility.ZoneTemperatureSetpointChange.Subsequences.LowerUpperBound
     zonEna(
     final dTSheThr=dTSheThr,
     final PBuiHys=PBuiHys,
@@ -314,8 +314,8 @@ setpoint <code>TCurZonSet</code> in the heating mode, and as
 <h4>Zone Enablement</h4>
 <p>
 This block checks whether each zone is enabled for setpoint change. Refer to
-<a href=\"modelica://Buildings.Controls.OBC.DemandFlexibility.ZoneTemperatureSetpointChange.Subsequences.Enable\">
-Buildings.Controls.OBC.DemandFlexibility.ZoneTemperatureSetpointChange.Subsequences.Enable</a>
+<a href=\"modelica://Buildings.Controls.OBC.DemandFlexibility.ZoneTemperatureSetpointChange.Subsequences.LowerUpperBound\">
+Buildings.Controls.OBC.DemandFlexibility.ZoneTemperatureSetpointChange.Subsequences.LowerUpperBound</a>
 for more detailed description.
 </p>
 <p>

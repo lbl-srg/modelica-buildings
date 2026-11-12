@@ -1,7 +1,7 @@
 within Buildings.Controls.OBC.DemandFlexibility.ZoneTemperatureSetpointChange.Subsequences.Validation;
-model Enable "Zone enablement"
+model LowerUpperBound "Zone enablement"
 
-  Buildings.Controls.OBC.DemandFlexibility.ZoneTemperatureSetpointChange.Subsequences.Enable
+  Buildings.Controls.OBC.DemandFlexibility.ZoneTemperatureSetpointChange.Subsequences.LowerUpperBound
     zonEna(
     dTSheThr=0.5,
     PBui_nominal=1000,
@@ -79,13 +79,13 @@ equation
     annotation (Line(points={{-58,-50},{-20,-50},{-20,-4},{58,-4}},
       color={255,127,0}));
 annotation (experiment(StopTime=172800, Interval=1, Tolerance=1e-06),
-  __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/DemandFlexibility/ZoneTemperatureSetpointChange/Subsequences/Validation/Enable.mos"
+  __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/DemandFlexibility/ZoneTemperatureSetpointChange/Subsequences/Validation/LowerUpperBound.mos"
     "Simulate and plot"),
   Documentation(info="<html>
 <p>
 This example validates
-<a href=\"modelica://Buildings.Controls.OBC.DemandFlexibility.ZoneTemperatureSetpointChange.Subsequences.Enable\">
-Buildings.Controls.OBC.DemandFlexibility.ZoneTemperatureSetpointChange.Subsequences.Enable</a>
+<a href=\"modelica://Buildings.Controls.OBC.DemandFlexibility.ZoneTemperatureSetpointChange.Subsequences.LowerUpperBound\">
+Buildings.Controls.OBC.DemandFlexibility.ZoneTemperatureSetpointChange.Subsequences.LowerUpperBound</a>
 for a 5-zone building under the heating operation.
 </p>
 <p>
@@ -115,4 +115,4 @@ First implementation.
                 points = {{-36,60},{64,0},{-36,-60},{-36,60}})}),
     Diagram(coordinateSystem(preserveAspectRatio=false,
       extent={{-100,-220},{100,220}})));
-end Enable;
+end LowerUpperBound;
