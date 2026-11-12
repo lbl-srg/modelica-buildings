@@ -98,13 +98,51 @@ equation
     Documentation(revisions="<html>
 <ul>
 <li>
-October 21, 2026, by Weiping Huang:<br/>
+October 21, 2026, by Weiping Huang and Liam Cochrane:<br/>
 First implementation.
 </li>
 </ul>
 </html>", info="<html>
 <p>
-Passes a Boolean signal through without modification.
+This block checks whether each air handling unit is qualified
+for fan speed limiting during demand flexibility operation.
+The check is performed separately for each of the
+<code>nAHU</code> air handling units.
+</p>
+<p>
+Air handling unit <code>i</code> is qualified, i.e.,
+<code>yQua[i] = true</code>, if all of the following
+conditions are true:
+</p>
+<ul>
+<li>
+the volumetric air flow <code>V_flow[i]</code> of the
+variable air volume served by the air handling unit is
+greater than the minimum volumetric air flow
+<code>VMin_flow[i]</code>,
+</li>
+<li>
+the fan speed <code>fanSpe[i]</code> is greater than the
+minimum fan speed <code>fanSpeMin[i]</code>, and
+</li>
+<li>
+the zone temperature <code>TZon[i]</code> of the zone served
+by the air handling unit is less than the maximum zone
+temperature <code>TZonMax[i]</code>.
+</li>
+</ul>
+<p>
+Otherwise, <code>yQua[i] = false</code>.
+</p>
+<p>
+Each comparison uses a hysteresis to avoid rapid switching of
+the output. The hysteresis widths <code>VHys_flow</code>,
+<code>fanSpeHys</code>, and <code>TZonHys</code> are the same
+for all air handling units. For example, the fan speed
+condition becomes true when <code>fanSpe[i]</code> rises above
+<code>fanSpeMin[i] + fanSpeHys/2</code>, and becomes false
+when <code>fanSpe[i]</code> falls below
+<code>fanSpeMin[i] - fanSpeHys/2</code>.
 </p>
 </html>"));
 end Qualification;

@@ -1,19 +1,19 @@
 within Buildings.Controls.OBC.DemandFlexibility.ChillerSetpointReset.Subsequences;
 block Qualification "Chiller plant qualification check"
 
-  parameter Integer nAHU(min=1)
-    "Number of air handling units";
-  parameter Real uCooCoiMax[nAHU](
+  parameter Integer nChi(final min=1)
+    "Number of chillers";
+  parameter Real uCooCoiMax[nChi](
     each final unit="1",
     each final min=0,
     each final max=1)
     "Cooling coil control signal threshold, set slightly below full signal (e.g., 0.95) so a fully open coil is detected";
-  parameter Real fanSpeMax[nAHU](
+  parameter Real fanSpeMax[nChi](
     each final unit="1",
     each final min=0,
     each final max=1)
     "Fan speed threshold, set slightly below maximum speed (e.g., 0.95) so a fan at full speed is detected";
-  parameter Real dTSupMax[nAHU](
+  parameter Real dTSupMax[nChi](
     each final unit="K",
     each final quantity="TemperatureDifference")
     "Threshold for the supply air temperature deviation above its setpoint";
@@ -31,56 +31,52 @@ block Qualification "Chiller plant qualification check"
     final min=0)
     "Supply air temperature deviation hysteresis";
 
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput uCooCoi[nAHU](
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput uCooCoi[nChi](
     each final unit="1")
-    "Cooling coil control signal of the air handling unit"
+    "Cooling coil control signal, one per chiller"
     annotation (Placement(transformation(extent={{-140,40},{-100,80}}),
         iconTransformation(extent={{-140,40},{-100,80}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput fanSpe[nAHU](
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput fanSpe[nChi](
     each final unit="1")
-    "Fan speed of the air handling unit"
+    "Supply fan speed, one per chiller"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}}),
         iconTransformation(extent={{-140,-20},{-100,20}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput dTSup[nAHU](
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput dTSup[nChi](
     each final unit="K",
     each final quantity="TemperatureDifference")
-    "Supply air temperature minus its setpoint for the air handling unit, positive when supply air is warmer than setpoint"
+    "Supply air temperature minus its setpoint, one per chiller, positive when supply air is warmer than setpoint"
     annotation (Placement(transformation(extent={{-140,-80},{-100,-40}}),
         iconTransformation(extent={{-140,-80},{-100,-40}})));
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yQua
-    "True if the chiller plant is qualified for chilled water setpoint reset"
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yQua[nChi]
+    "True if the chiller is qualified for chilled water setpoint reset"
     annotation (Placement(transformation(extent={{100,-20},{140,20}}),
         iconTransformation(extent={{100,-20},{140,20}})));
 
 protected
-  Buildings.Controls.OBC.CDL.Reals.GreaterThreshold greUCooCoiMax[nAHU](
+  Buildings.Controls.OBC.CDL.Reals.GreaterThreshold greUCooCoiMax[nChi](
     final t=uCooCoiMax,
-    final h=fill(uCooCoiHys, nAHU))
+    final h=fill(uCooCoiHys, nChi))
     "Check if the cooling coil signal is greater than its threshold"
     annotation (Placement(transformation(extent={{-80,50},{-60,70}})));
-  Buildings.Controls.OBC.CDL.Reals.GreaterThreshold greFanSpeMax[nAHU](
+  Buildings.Controls.OBC.CDL.Reals.GreaterThreshold greFanSpeMax[nChi](
     final t=fanSpeMax,
-    final h=fill(fanSpeHys, nAHU))
+    final h=fill(fanSpeHys, nChi))
     "Check if the fan speed is greater than its threshold"
     annotation (Placement(transformation(extent={{-80,-10},{-60,10}})));
-  Buildings.Controls.OBC.CDL.Reals.GreaterThreshold greDTSupMax[nAHU](
+  Buildings.Controls.OBC.CDL.Reals.GreaterThreshold greDTSupMax[nChi](
     final t=dTSupMax,
-    final h=fill(dTSupHys, nAHU))
+    final h=fill(dTSupHys, nChi))
     "Check if the supply air temperature deviation is greater than its threshold"
     annotation (Placement(transformation(extent={{-80,-70},{-60,-50}})));
-  Buildings.Controls.OBC.CDL.Logical.And andCooCoiFanSpe[nAHU]
+  Buildings.Controls.OBC.CDL.Logical.And andCooCoiFanSpe[nChi]
     "Check if both conditions for the cooling coil signal and the fan speed are met"
     annotation (Placement(transformation(extent={{-40,20},{-20,40}})));
-  Buildings.Controls.OBC.CDL.Logical.And andAll[nAHU]
-    "Check if all 3 conditions are met, meaning the air handling unit is at its cooling limit"
+  Buildings.Controls.OBC.CDL.Logical.And andAll[nChi]
+    "Check if all 3 conditions are met, meaning the cooling load served by the chiller is at its limit"
     annotation (Placement(transformation(extent={{0,-10},{20,10}})));
-  Buildings.Controls.OBC.CDL.Logical.MultiOr anyAHU(
-    final nin=nAHU)
-    "Check if any air handling unit is at its cooling limit"
+  Buildings.Controls.OBC.CDL.Logical.Not notCooLim[nChi]
+    "Qualify the chiller if its cooling load is not at its limit"
     annotation (Placement(transformation(extent={{40,-10},{60,10}})));
-  Buildings.Controls.OBC.CDL.Logical.Not notAnyAHU
-    "Qualify the chiller plant if no air handling unit is at its cooling limit"
-    annotation (Placement(transformation(extent={{70,-10},{90,10}})));
 
 equation
   connect(uCooCoi, greUCooCoiMax.u)
@@ -97,12 +93,10 @@ equation
     annotation (Line(points={{-18,30},{-10,30},{-10,0},{-2,0}}, color={255,0,255}));
   connect(greDTSupMax.y, andAll.u2)
     annotation (Line(points={{-58,-60},{-10,-60},{-10,-8},{-2,-8}}, color={255,0,255}));
-  connect(andAll.y, anyAHU.u)
+  connect(andAll.y, notCooLim.u)
     annotation (Line(points={{22,0},{38,0}}, color={255,0,255}));
-  connect(anyAHU.y, notAnyAHU.u)
-    annotation (Line(points={{62,0},{68,0}}, color={255,0,255}));
-  connect(notAnyAHU.y, yQua)
-    annotation (Line(points={{92,0},{120,0}}, color={255,0,255}));
+  connect(notCooLim.y, yQua)
+    annotation (Line(points={{62,0},{120,0}}, color={255,0,255}));
 
   annotation (defaultComponentName="qua",
     Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}},
@@ -118,40 +112,51 @@ equation
     Documentation(revisions="<html>
 <ul>
 <li>
-October 22, 2026, by Liam Cochrane:<br/>
+October 22, 2026, by Weiping Huang and Liam Cochrane:<br/>
 First implementation.
 </li>
 </ul>
 </html>", info="<html>
 <p>
-Chiller plant load check for the chilled water temperature setpoint reset
-demand flexibility strategy.
+Chiller load check for the chilled water temperature setpoint
+reset demand flexibility strategy.
 </p>
 <p>
-An air handling unit is considered to be at its cooling limit if all of the
+The check is performed separately for each of the
+<code>nChi</code> chillers. The cooling load served by chiller
+<code>i</code> is considered to be at its limit if all of the
 following conditions are true:
 </p>
 <ul>
-<li>the cooling coil control signal <code>uCooCoi</code> is greater than
-<code>uCooCoiMax</code>,</li>
-<li>the supply air temperature deviation <code>dTSup</code> (supply air
-temperature minus its setpoint) is greater than <code>dTSupMax</code>, and</li>
-<li>the fan speed <code>fanSpe</code> is greater than <code>fanSpeMax</code>.</li>
+<li>
+the cooling coil control signal <code>uCooCoi[i]</code> is
+greater than <code>uCooCoiMax[i]</code>,
+</li>
+<li>
+the supply air temperature deviation <code>dTSup[i]</code>
+(supply air temperature minus its setpoint) is greater than
+<code>dTSupMax[i]</code>, and
+</li>
+<li>
+the fan speed <code>fanSpe[i]</code> is greater than
+<code>fanSpeMax[i]</code>.
+</li>
 </ul>
 <p>
-If any air handling unit is at its cooling limit, the chiller plant is
-disqualified and <code>yQua = false</code>. Otherwise, the chiller plant is
-qualified and <code>yQua = true</code>.
+If so, chiller <code>i</code> is disqualified and
+<code>yQua[i] = false</code>. Otherwise, it is qualified and
+<code>yQua[i] = true</code>.
 </p>
 <p>
-The sequence specifies the fan speed condition as greater than or equal to
-the maximum. Because the comparison is strictly greater than, the thresholds
-<code>fanSpeMax</code> and <code>uCooCoiMax</code> should be set slightly below
-full output so that a fan or coil operating at 100% is detected.
+The sequence specifies the fan speed condition as greater than
+or equal to the maximum. Because the comparison is strictly
+greater than, the thresholds <code>fanSpeMax</code> and
+<code>uCooCoiMax</code> should be set slightly below full output
+so that a fan or coil operating at 100% is detected.
 </p>
 <p>
-The zone temperature and chilled water temperature conditions of the
-sequence are not yet implemented.
+The zone temperature and chilled water temperature conditions
+of the sequence are not yet implemented.
 </p>
 </html>"));
 end Qualification;

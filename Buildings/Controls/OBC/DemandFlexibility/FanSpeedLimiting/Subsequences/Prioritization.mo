@@ -62,14 +62,48 @@ equation
     Documentation(revisions="<html>
 <ul>
 <li>
-October 21, 2026, by Weiping Huang:<br/>
+October 21, 2026, by Weiping Huang and Liam Cochrane:<br/>
 First implementation.
 </li>
 </ul>
 </html>", info="<html>
 <p>
-Passes a Boolean signal through without modification.
+This block selects the air handling units whose supply fans
+are enabled for fan speed limiting during demand flexibility
+operation. The selection is made among the <code>nAHU</code>
+air handling units.
+</p>
+<p>
+The prioritization criterion is set by the parameter
+<code>priCri</code>:
+</p>
+<ul>
+<li>
+<code>FanSize</code>: air handling units with larger fans
+are prioritized. The fan sizes are set by the parameter
+<code>fanSiz</code>, which can be in any unit as long as a
+larger value represents a larger fan.
+</li>
+<li>
+<code>CurrentFanSpeed</code>: air handling units with higher
+current fan speeds, given by the input <code>fanSpe</code>,
+are prioritized. The input <code>fanSpe</code> is only
+present when this criterion is used.
+</li>
+</ul>
+<p>
+Air handling units with <code>disFla[i] = true</code> are
+disqualified and are not selected. Among the remaining units,
+the <code>nSel</code> units with the largest values of the
+chosen criterion are enabled for fan speed limiting, i.e.,
+<code>yEna[i] = true</code>. For all other units,
+<code>yEna[i] = false</code>.
+</p>
+<p>
+The selection is performed by the block
+<a href=\"modelica://Buildings.Controls.OBC.DemandFlexibility.Generic.SelectLargestValues\">
+Generic.SelectLargestValues</a>. Refer to that block for more
+details on the selection logic.
 </p>
 </html>"));
-
 end Prioritization;
