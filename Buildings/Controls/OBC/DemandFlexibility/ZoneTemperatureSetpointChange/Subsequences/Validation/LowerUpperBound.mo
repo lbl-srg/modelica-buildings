@@ -9,27 +9,6 @@ model LowerUpperBound "Zone enablement"
     use_demCon=true,
     nZon=5) "Zone enablement block"
     annotation (Placement(transformation(extent={{60,-18},{80,18}})));
-  Buildings.Controls.OBC.CDL.Logical.Sources.Constant rouZonFla1234[4](
-    k=fill(false, 4))
-    "Rogue zone flags for Zone 1 through 4"
-    annotation (Placement(transformation(extent={{-80,180},{-60,200}})));
-  Buildings.Controls.OBC.CDL.Logical.Sources.Pulse rouZonFla5(
-    period=172800)
-    "Rogue zone flag for Zone 5"
-    annotation (Placement(transformation(extent={{-80,140},{-60,160}})));
-  Buildings.Controls.OBC.CDL.Reals.Sources.Constant PBuiThrVal(
-    k=500)
-    "Threshold value for the electricity demand of the building"
-    annotation (Placement(transformation(extent={{-80,60},{-60,80}})));
-  Buildings.Controls.OBC.CDL.Reals.Sources.Sin PBuiVal(
-    amplitude=100,
-    freqHz=1/86400,
-    offset=500) "Value for the electricity demand of the building"
-    annotation (Placement(transformation(extent={{-80,100},{-60,120}})));
-  Buildings.Controls.OBC.CDL.Reals.Sources.Constant TZonVal[5](
-    k={273.15 + 17,273.15 + 23,273.15 + 15,273.15 + 12,273.15 + 13})
-    "Zone temperature values for Zone 1 through 5"
-    annotation (Placement(transformation(extent={{-80,20},{-60,40}})));
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant TZonSetVal[5](
     k=fill(273.15 + 20, 5))
     "Zone temperature setpoint values for Zone 1 through 5"
@@ -53,18 +32,6 @@ model LowerUpperBound "Zone enablement"
     "A table of demand flexibility modes that repeat every day"
     annotation (Placement(transformation(extent={{-80,-60},{-60,-40}})));
 equation
-  connect(rouZonFla1234.y,zonEna. rouZonFla[1:4])
-    annotation (Line(points={{-58,190},{40,190},{40,16.4},{58,16.4}},
-      color={255,0,255}));
-  connect(rouZonFla5.y,zonEna. rouZonFla[5])
-    annotation (Line(points={{-58,150},{40,150},{40,16.8},{58,16.8}},
-      color={255,0,255}));
-  connect(PBuiThrVal.y,zonEna. PBuiThr)
-    annotation (Line(points={{-58,70},{0,70},{0,8},{58,8}}, color={0,0,127}));
-  connect(PBuiVal.y,zonEna. PBui)
-    annotation (Line(points={{-58,110},{20,110},{20,12},{58,12}}, color={0,0,127}));
-  connect(TZonVal.y,zonEna. TZon)
-    annotation (Line(points={{-58,30},{-20,30},{-20,4},{58,4}}, color={0,0,127}));
   connect(TZonSetVal.y,zonEna. TZonSet)
     annotation (Line(points={{-58,-10},{-40,-10},{-40,0},{58,0}}, color={0,0,127}));
   connect(TPreTarSetVal.y,zonEna. TPreTarSet)

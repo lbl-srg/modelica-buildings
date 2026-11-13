@@ -33,13 +33,6 @@ block LowerUpperBound "Decide the zones for setpoint change"
   parameter Buildings.Controls.OBC.DemandFlexibility.Types.AirConditioningMode airConMod
     "Air conditioning mode";
 
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput TZon[nZon](
-    final unit=fill("K",nZon),
-    displayUnit=fill("degC",nZon),
-    final quantity=fill("ThermodynamicTemperature",nZon))
-    "Zone temperature"
-    annotation (Placement(transformation(extent={{-300,240},{-260,280}}),
-      iconTransformation(extent={{-140,20},{-100,60}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TZonSet[nZon](
     final unit=fill("K",nZon),
     displayUnit=fill("degC",nZon),
@@ -68,72 +61,15 @@ block LowerUpperBound "Decide the zones for setpoint change"
     "Default temperature setpoint"
     annotation (Placement(transformation(extent={{-300,-260},{-260,-220}}),
       iconTransformation(extent={{-140,-180},{-100,-140}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput PBuiThr(
-    final unit="W",
-    final quantity="Power")
-    if use_demCon
-    "Threshold for the electricity demand of the building"
-    annotation (Placement(transformation(extent={{-300,280},{-260,320}}),
-      iconTransformation(extent={{-140,60},{-100,100}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput PBui(
-    final unit="W",
-    final quantity="Power")
-    if use_demCon
-    "Electricity demand of the building"
-    annotation (Placement(transformation(extent={{-300,320},{-260,360}}),
-      iconTransformation(extent={{-140,100},{-100,140}})));
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput rouZonFla[nZon]
-    "Flags for rogue zones; true if the corresponding zone is a rogue zone"
-    annotation (Placement(transformation(extent={{-300,360},{-260,400}}),
-      iconTransformation(extent={{-140,140},{-100,180}})));
   Buildings.Controls.OBC.CDL.Interfaces.IntegerInput demFleMod
     "Demand flexibility mode; 0 = pre-cool or pre-heat, 1 = default, 2 = load-shed, 3 = load-rebound"
     annotation (Placement(transformation(extent={{-300,100},{-260,140}}),
       iconTransformation(extent={{-140,-60},{-100,-20}})));
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput enaFla[nZon]
-    "Flags to enable certain zones for the setpoint change operation; true to enable a zone"
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput reach_lowUppBou[nZon]
+    "True: the zone setpoint lower or upper bound is reached"
     annotation (Placement(transformation(extent={{260,10},{300,50}}),
       iconTransformation(extent={{100,-20},{140,20}})));
 protected
-  Buildings.Controls.OBC.CDL.Logical.And andCon12[nZon] "Both Condition 1 and Condition 2 are met"
-    annotation (Placement(transformation(extent={{60,360},{80,380}})));
-  Buildings.Controls.OBC.CDL.Logical.And andCon123[nZon]
-    "All Condition 1, Condition 2, and Condition 3 are met"
-    annotation (Placement(transformation(extent={{120,240},{140,260}})));
-  Buildings.Controls.OBC.CDL.Logical.And andCon1234[nZon]
-    "All Condition 1, Condition 2, Condition 3, or Condition 4 are met"
-    annotation (Placement(transformation(extent={{220,20},{240,40}})));
-  Buildings.Controls.OBC.CDL.Reals.Greater grePBui(
-    final h=PBuiHys)
-    if use_demCon
-    "Check whether the building electricity demand is greater than the building electricity demand threshold"
-    annotation (Placement(transformation(extent={{-220,320},{-200,340}})));
-  Buildings.Controls.OBC.CDL.Logical.Not notGrePBui if use_demCon
-    "Check whether the building electricity demand is no greater than the building electricity demand threshold"
-    annotation (Placement(transformation(extent={{-160,320},{-140,340}})));
-  Buildings.Controls.OBC.CDL.Logical.And andPBuiLoaShe if use_demCon
-    "Building electricity demand is less than a threshold and the system is in the load-shed mode"
-    annotation (Placement(transformation(extent={{-60,320},{-40,340}})));
-  Buildings.Controls.OBC.CDL.Routing.BooleanScalarReplicator booScaRepCon2(
-    final nout=nZon)
-    if use_demCon
-    "Scaling a boolean scalar that indicates Condition 2 is met"
-    annotation (Placement(transformation(extent={{20,320},{40,340}})));
-  Buildings.Controls.OBC.CDL.Logical.Sources.Constant conDisCon2[nZon](
-    final k=fill(true, nZon))
-    if not use_demCon
-    "When logic for Condition 2 is disabled, output true in place of the Condition 2 logic"
-    annotation (Placement(transformation(extent={{20,280},{40,300}})));
-  Buildings.Controls.OBC.CDL.Reals.LessThreshold lesDTZon[nZon](
-    final t=fill(dTSheThr,nZon), final h=fill(dTSheThr*0.5, nZon))
-    "The zone temperature difference is less than the load-shed mode zone temperature difference threshold"
-    annotation (Placement(transformation(extent={{-100,240},{-80,260}})));
-  Buildings.Controls.OBC.CDL.Logical.Not notLesDTZon[nZon]
-    "The zone temperature difference is no less than the load-shed mode zone temperature difference threshold"
-    annotation (Placement(transformation(extent={{-40,240},{-20,260}})));
-  Buildings.Controls.OBC.CDL.Logical.And andDTZonLoaShe[nZon]
-    "The zone temperature difference is equal or greater than the load-shed mode zone temperature difference threshold, and the system is in the load-shed mode"
-    annotation (Placement(transformation(extent={{20,240},{40,260}})));
   Buildings.Controls.OBC.CDL.Routing.BooleanScalarReplicator booScaRepShe(
     final nout=nZon) "Repeat the boolean scalar for being in the load-shed mode"
     annotation (Placement(transformation(extent={{-40,120},{-20,140}})));
@@ -237,29 +173,12 @@ protected
   Buildings.Controls.OBC.CDL.Integers.Equal intEquReb
     "Check whether it is the load-rebound mode"
     annotation (Placement(transformation(extent={{-100,80},{-80,100}})));
-  Buildings.Controls.OBC.CDL.Logical.Not notRouZon[nZon]
-    "True if the corresponding zone is not a rogue zone, indicating that Condition 1 is met"
-    annotation (Placement(transformation(extent={{-160,370},{-140,390}})));
-  Buildings.Controls.OBC.CDL.Logical.Not notAndPBuiLoaShe if use_demCon
-    "Building electricity demand is more than a threshold, or the system is not in the load-shed mode"
-    annotation (Placement(transformation(extent={{-20,320},{0,340}})));
-  Buildings.Controls.OBC.CDL.Logical.Not notAndDTZonLoaShe[nZon]
-    "The zone temperature difference is less than the load-shed mode zone temperature difference threshold, or the system is not in the load-shed mode, indicating that Condition 3 is met"
-    annotation (Placement(transformation(extent={{60,240},{80,260}})));
   Buildings.Controls.OBC.CDL.Logical.Or orReaLimSheDefPre[nZon]
     "The zone temperature setpoint has reached a setpoint limit during the load-shed mode, the load-rebound mode, or the pre-heat or pre-cool mode."
     annotation (Placement(transformation(extent={{140,-40},{160,-20}})));
   Buildings.Controls.OBC.CDL.Logical.Not con4[nZon]
     "The zone temperature setpoint has not reached a setpoint limit, or the system is at the default demand flexibility mode, indicating that Condition 4 is met"
     annotation (Placement(transformation(extent={{180,-20},{200,0}})));
-  Buildings.Controls.OBC.CDL.Reals.Subtract dTZonHea[nZon]
-    if airConMod == Buildings.Controls.OBC.DemandFlexibility.Types.AirConditioningMode.Heating
-    "Zone temperature difference during the heating mode"
-    annotation (Placement(transformation(extent={{-180,260},{-160,280}})));
-  Buildings.Controls.OBC.CDL.Reals.Subtract dTZonCoo[nZon]
-    if airConMod == Buildings.Controls.OBC.DemandFlexibility.Types.AirConditioningMode.Cooling
-    "Zone temperature difference during the cooling mode"
-    annotation (Placement(transformation(extent={{-180,220},{-160,240}})));
   Buildings.Controls.OBC.CDL.Reals.Less lesTPreTarSet[nZon]
     if airConMod == Buildings.Controls.OBC.DemandFlexibility.Types.AirConditioningMode.Heating
     "Check if the pre-heat target temperature setpoint is less than the default temperature setpoint"
@@ -313,54 +232,14 @@ protected
     "Error message for the load-shed target cooling temperature setpoint during the cooling mode"
     annotation (Placement(transformation(extent={{0,-380},{20,-360}})));
 equation
-  connect(andCon12.y, andCon123.u1)
-    annotation (Line(points={{82,370},{100,370},{100,250},{118,250}},
-      color={255,0,255}));
-  connect(andCon123.y, andCon1234.u1)
-    annotation (Line(points={{142,250},{200,250},{200,30},{218,30}},
-      color={255,0,255}));
-  connect(andCon1234.y, enaFla)
-    annotation (Line(points={{242,30},{280,30}}, color={255,0,255}));
-  connect(PBui, grePBui.u1)
-    annotation (Line(points={{-280,340},{-240,340},{-240,330},{-222,330}},
-      color={0,0,127}));
-  connect(PBuiThr, grePBui.u2)
-    annotation (Line(points={{-280,300},{-240,300},{-240,322},{-222,322}},
-      color={0,0,127}));
-  connect(grePBui.y, notGrePBui.u)
-    annotation (Line(points={{-198,330},{-162,330}}, color={255,0,255}));
-  connect(notGrePBui.y, andPBuiLoaShe.u1)
-    annotation (Line(points={{-138,330},{-62,330}},color={255,0,255}));
-  connect(intEquShe.y, andPBuiLoaShe.u2)
-    annotation (Line(points={{-78,130},{-70,130},{-70,322},{-62,322}},
-      color={255,0,255}));
-  connect(booScaRepCon2.y, andCon12.u2)
-    annotation (Line(points={{42,330},{50,330},{50,362},{58,362}},
-      color={255,0,255}));
-  connect(conDisCon2.y, andCon12.u2)
-    annotation (Line(points={{42,290},{50,290},{50,362},{58,362}},
-      color={255,0,255}));
   connect(demFleMod, intEquShe.u1)
     annotation (Line(points={{-280,120},{-180,120},{-180,130},{-102,130}},
       color={255,127,0}));
   connect(conIntShe.y, intEquShe.u2)
     annotation (Line(points={{-138,110},{-120,110},{-120,122},{-102,122}},
       color={255,127,0}));
-  connect(TZon, dTZonHea.u1)
-    annotation (Line(points={{-280,260},{-240,260},{-240,276},{-182,276}},
-      color={0,0,127}));
-  connect(TZonSet, dTZonHea.u2)
-    annotation (Line(points={{-280,220},{-200,220},{-200,264},{-182,264}},
-      color={0,0,127}));
-  connect(lesDTZon.y, notLesDTZon.u)
-    annotation (Line(points={{-78,250},{-42,250}}, color={255,0,255}));
   connect(intEquShe.y, booScaRepShe.u)
     annotation (Line(points={{-78,130},{-42,130}}, color={255,0,255}));
-  connect(notLesDTZon.y, andDTZonLoaShe.u1)
-    annotation (Line(points={{-18,250},{18,250}}, color={255,0,255}));
-  connect(booScaRepShe.y, andDTZonLoaShe.u2)
-    annotation (Line(points={{-18,130},{0,130},{0,242},{18,242}},
-      color={255,0,255}));
   connect(conIntPre.y, intEquPre.u2)
     annotation (Line(points={{-138,150},{-120,150},{-120,162},{-102,162}},
       color={255,127,0}));
@@ -464,44 +343,15 @@ equation
   connect(reaTSheTarSet.y, orReaLimSheReb.u1)
     annotation (Line(points={{62,-90},{80,-90},{80,-110},{98,-110}},
       color={255,0,255}));
-  connect(rouZonFla, notRouZon.u)
-    annotation (Line(points={{-280,380},{-162,380}}, color={255,0,255}));
-  connect(andPBuiLoaShe.y, notAndPBuiLoaShe.u)
-    annotation (Line(points={{-38,330},{-22,330}}, color={255,0,255}));
-  connect(notAndPBuiLoaShe.y, booScaRepCon2.u)
-    annotation (Line(points={{2,330},{18,330}}, color={255,0,255}));
-  connect(andDTZonLoaShe.y, notAndDTZonLoaShe.u)
-    annotation (Line(points={{42,250},{58,250}}, color={255,0,255}));
-  connect(notAndDTZonLoaShe.y, andCon123.u2)
-    annotation (Line(points={{82,250},{90,250},{90,242},{118,242}},
-      color={255,0,255}));
   connect(reaTPreTarSet.y, orReaLimSheDefPre.u1)
     annotation (Line(points={{82,-10},{120,-10},{120,-30},{138,-30}},
       color={255,0,255}));
   connect(orReaLimSheReb.y, orReaLimSheDefPre.u2)
     annotation (Line(points={{122,-110},{130,-110},{130,-38},{138,-38}},
       color={255,0,255}));
-  connect(con4.y, andCon1234.u2)
-    annotation (Line(points={{202,-10},{210,-10},{210,22},{218,22}},
-      color={255,0,255}));
   connect(orReaLimSheDefPre.y, con4.u)
     annotation (Line(points={{162,-30},{170,-30},{170,-10},{178,-10}},
       color={255,0,255}));
-  connect(notRouZon.y, andCon12.u1)
-    annotation (Line(points={{-138,380},{-40,380},{-40,370},{58,370}},
-      color={255,0,255}));
-  connect(TZonSet, dTZonCoo.u1)
-    annotation (Line(points={{-280,220},{-200,220},{-200,236},{-182,236}},
-      color={0,0,127}));
-  connect(TZon, dTZonCoo.u2)
-    annotation (Line(points={{-280,260},{-240,260},{-240,224},{-182,224}},
-      color={0,0,127}));
-  connect(dTZonHea.y, lesDTZon.u)
-    annotation (Line(points={{-158,270},{-120,270},{-120,250},{-102,250}},
-      color={0,0,127}));
-  connect(dTZonCoo.y, lesDTZon.u)
-    annotation (Line(points={{-158,230},{-120,230},{-120,250},{-102,250}},
-      color={0,0,127}));
   connect(lesTPreTarSet.y,notLesTPreTarSet. u)
     annotation (Line(points={{-98,-250},{-62,-250}},color={255,0,255}));
   connect(greTSheTarSet.y,notGreTSheTarSet. u)
@@ -542,7 +392,9 @@ equation
   connect(TSheTarSet, lesTSheTarSet.u1)
     annotation (Line(points={{-280,-160},{-220,-160},{-220,-370},{-122,-370}},
       color={0,0,127}));
-  annotation (defaultComponentName="zonEna",
+  connect(con4.y, reach_lowUppBou) annotation (Line(points={{202,-10},{240,-10},{240,30},
+          {280,30}}, color={255,0,255}));
+  annotation (defaultComponentName="lowUppBou",
     Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-180},{100,180}},
     grid={2,2}), graphics={Rectangle(
       extent={{-100,-180},{100,180}},
@@ -583,7 +435,7 @@ TSheTarSet</code> must hold if it is in the cooling mode
 </p>
 <p>
 The following <i>4</i> conditions are used to determine if a zone should be enabled
-to participate in the setpoint change operation. The enabled flag <code>enaFla</code>
+to participate in the setpoint change operation. The enabled flag <code>reach_lowUppBou</code>
 for a zone is set to <code>true</code> only if all applicable conditions are met for
 that zone. If the parameter <code>use_demCon</code> is <code>false</code>,
 Condition <i>2</i> is not used. Otherwise, Condition <i>2</i> is used.
@@ -591,38 +443,6 @@ Condition <i>2</i> is not used. Otherwise, Condition <i>2</i> is used.
 <p>
 Below is a detailed discussion of each of the <i>4</i> conditions:
 </p>
-<h4>Condition 1</h4>
-<p>
-The zone is not a rogue zone (<code>rouZonFla=false</code>).
-</p>
-<h4>Condition 2</h4>
-<p>
-Condition <i>2</i> is met if any of the following holds, where <code>PBui</code>
-is the electricity demand of the building and <code>PBuiThr</code> is the
-electricity demand threshold:
-</p>
-<ul>
-<li>
-<code>demFleMod ≠ 2</code>,
-</li>
-<li>
-or, <code>demFleMod = 2</code>, and <code>PBui &gt; PBuiThr</code>
-</li>
-</ul>
-<h4>Condition 3</h4>
-<p>
-Condition <i>3</i> is met if any of the following holds, where <code>dTZon</code>
-is the zone temperature difference (<code>dTZon = TZon - TZonSet</code> in the
-heating mode and <code>dTZon = TZonSet - TZon</code> in the cooling mode):
-</p>
-<ul>
-<li>
-<code>demFleMod ≠ 2</code>
-</li>
-<li>
-or, <code>demFleMod = 2</code> and <code>dTZon &lt; dTSheThr</code>
-</li>
-</ul>
 <h4>Condition 4</h4>
 <p>
 Condition <i>4</i> is met if the zone temperature setpoint <code>TZonSet</code>
