@@ -366,7 +366,6 @@ Corrected wrong value assignment of <code>ratVMinVAV_flow</code>.<br/>
 This is for
 <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4863\">issue #4863</a>.
 </li>
-
 <li>
 May 22, 2026, by Michael Wetter:<br/>
 Changed hardcoded value for number of inputs in <code>pSetDuc</code> to use
