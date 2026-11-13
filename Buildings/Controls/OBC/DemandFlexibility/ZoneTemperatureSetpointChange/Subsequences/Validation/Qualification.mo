@@ -5,8 +5,9 @@ model Qualification
   Buildings.Controls.OBC.DemandFlexibility.ZoneTemperatureSetpointChange.Subsequences.Qualification
     qua(
     final nZon=2,
-    final TZonMax={273.15 + 24,273.15 + 24},
-    final TZonHys=0.5)
+    final TZonMax={297.15,297.15},
+    final TZonHys=0.5,
+    airConMod=Buildings.Controls.OBC.DemandFlexibility.Types.AirConditioningMode.Cooling)
     "Zone qualification check"
     annotation (Placement(transformation(extent={{40,-20},{80,20}})));
   Buildings.Controls.OBC.CDL.Reals.Sources.Sin TZon[2](

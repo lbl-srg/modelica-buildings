@@ -86,6 +86,8 @@ model MultipleZoneCoolingVariant1And2
     "Emulates an external zone temperature setpoint controller that has a small delay of setpoint change after a new setpoint is received; used for Variant 1 of zone control"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}}, rotation=0,
       origin={90,110})));
+  Subsequences.Qualification qua(nZon=nZon)
+    annotation (Placement(transformation(extent={{-80,140},{-60,160}})));
 equation
   connect(rouZonFla.y, rouZonFlaRep.u)
     annotation (Line(points={{-118,110},{-102,110}}, color={255,0,255}));

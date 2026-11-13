@@ -4,15 +4,26 @@ block Qualification "Zone qualification check"
   parameter Integer nZon(final min=1)
     "Number of zones";
   parameter Real TZonMax[nZon](
+    each final start=273.15,
     each final unit="K",
     each displayUnit="degC",
     each final quantity="ThermodynamicTemperature")
-    "Maximum zone temperature";
+    "Maximum zone temperature"
+    annotation (Dialog(enable=airConMod == Buildings.Controls.OBC.DemandFlexibility.Types.AirConditioningMode.Cooling));
+  parameter Real TZonMin[nZon](
+    each final start=273.15,
+    each final unit="K",
+    each displayUnit="degC",
+    each final quantity="ThermodynamicTemperature")
+    "Minimum zone temperature"
+    annotation (Dialog(enable=airConMod == Buildings.Controls.OBC.DemandFlexibility.Types.AirConditioningMode.Heating));
   parameter Real TZonHys(
     final unit="K",
     final quantity="TemperatureDifference",
     final min=0)
     "Zone temperature hysteresis";
+  parameter Buildings.Controls.OBC.DemandFlexibility.Types.AirConditioningMode airConMod
+    "Air conditioning mode";
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TZon[nZon](
     each final unit="K",
@@ -38,8 +49,9 @@ protected
   Buildings.Controls.OBC.CDL.Reals.LessThreshold lesTZonMax[nZon](
     final t=TZonMax,
     final h=fill(TZonHys, nZon))
+    if airConMod == Buildings.Controls.OBC.DemandFlexibility.Types.AirConditioningMode.Cooling
     "Check if the zone temperature is less than the maximum zone temperature threshold"
-    annotation (Placement(transformation(extent={{-80,50},{-60,70}})));
+    annotation (Placement(transformation(extent={{-80,60},{-60,80}})));
   Buildings.Controls.OBC.CDL.Logical.Not notStaZon[nZon]
     "Check if the zone is not starved"
     annotation (Placement(transformation(extent={{-80,-10},{-60,10}})));
@@ -52,16 +64,23 @@ protected
   Buildings.Controls.OBC.CDL.Logical.And andAll[nZon]
     "Check if all 3 conditions are met"
     annotation (Placement(transformation(extent={{40,-10},{60,10}})));
+  Buildings.Controls.OBC.CDL.Reals.GreaterThreshold greTZonMin[nZon](
+    final t=TZonMin,
+    final h=fill(TZonHys, nZon))
+    if airConMod == Buildings.Controls.OBC.DemandFlexibility.Types.AirConditioningMode.Heating
+    "Check if the zone temperature is less than the maximum zone temperature threshold"
+    annotation (Placement(transformation(extent={{-80,20},{-60,40}})));
 
 equation
   connect(TZon, lesTZonMax.u)
-    annotation (Line(points={{-120,60},{-82,60}}, color={0,0,127}));
+    annotation (Line(points={{-120,60},{-90,60},{-90,70},{-82,70}},
+                                                  color={0,0,127}));
   connect(uStaZon, notStaZon.u)
     annotation (Line(points={{-120,0},{-82,0}}, color={255,0,255}));
   connect(uRogZon, notRogZon.u)
     annotation (Line(points={{-120,-60},{-82,-60}}, color={255,0,255}));
   connect(lesTZonMax.y, andTZonStaZon.u1)
-    annotation (Line(points={{-58,60},{-40,60},{-40,30},{-22,30}}, color={255,0,255}));
+    annotation (Line(points={{-58,70},{-40,70},{-40,30},{-22,30}}, color={255,0,255}));
   connect(notStaZon.y, andTZonStaZon.u2)
     annotation (Line(points={{-58,0},{-40,0},{-40,22},{-22,22}}, color={255,0,255}));
   connect(andTZonStaZon.y, andAll.u1)
@@ -71,6 +90,10 @@ equation
   connect(andAll.y, yQua)
     annotation (Line(points={{62,0},{120,0}}, color={255,0,255}));
 
+  connect(TZon, greTZonMin.u) annotation (Line(points={{-120,60},{-90,60},{-90,30},
+          {-82,30}}, color={0,0,127}));
+  connect(greTZonMin.y, andTZonStaZon.u1)
+    annotation (Line(points={{-58,30},{-22,30}}, color={255,0,255}));
   annotation (defaultComponentName="qua",
     Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}},
       grid={2,2}), graphics={Rectangle(
