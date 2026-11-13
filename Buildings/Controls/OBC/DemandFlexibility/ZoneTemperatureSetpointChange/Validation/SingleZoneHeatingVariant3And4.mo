@@ -9,7 +9,7 @@ model SingleZoneHeatingVariant3And4
     annotation (Placement(transformation(extent={{-10,-10},{10,10}}, rotation=0,
       origin={50,70})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Pulse rouZonFla(period=172800) "Rogue zone flag"
-    annotation (Placement(transformation(extent={{-120,120},{-100,140}})));
+    annotation (Placement(transformation(extent={{-180,120},{-160,140}})));
   Buildings.Controls.OBC.CDL.Integers.Sources.TimeTable tabDemFleMod(
     table=[0,1; 2,0; 4,2; 9,3; 11,1; 24,1],
     timeScale=3600,
@@ -35,8 +35,9 @@ model SingleZoneHeatingVariant3And4
     dTShe=0.5,
     dTReb=0.5,
     dTSheThr=0.5,
-    PBui_nominal=2000,
-    PBuiThrCon=1000,
+    PBuiRedDifMin=100,
+    PBuiRed_nominal=5000,
+    PBuiRedTarCon=1000,
     setChaWaiTim=300,
     airConMod=Buildings.Controls.OBC.DemandFlexibility.Types.AirConditioningMode.Heating,
     nZon=1,
@@ -62,7 +63,8 @@ model SingleZoneHeatingVariant3And4
     dTShe=0.5,
     dTReb=0.5,
     dTSheThr=0.5,
-    PBui_nominal=2000,
+    PBuiRedDifMin=100,
+    PBuiRed_nominal=5000,
     setChaWaiTim=300,
     airConMod=Buildings.Controls.OBC.DemandFlexibility.Types.AirConditioningMode.Heating,
     nZon=1,
@@ -70,17 +72,25 @@ model SingleZoneHeatingVariant3And4
     zonConVar=Buildings.Controls.OBC.DemandFlexibility.Types.ZoneControlVariant.Variant_4)
     "A zone temperature setpoint change controller for heating under Variant 4 of zone control"
     annotation (Placement(transformation(extent={{0,-88},{20,-52}})));
-  Buildings.Controls.OBC.CDL.Reals.Sources.Sin PBui(
-    amplitude=200,
+  Buildings.Controls.OBC.CDL.Reals.Sources.Sin PBuiRed(
+    amplitude=500,
     freqHz=1/86400,
-    offset=1000) "Electricity demand of the building"
-    annotation (Placement(transformation(extent={{-120,80},{-100,100}})));
-  Buildings.Controls.OBC.CDL.Reals.Sources.Sin PBuiThrVar(
+    offset=900) "Actual electricity demand reduction of the building"
+    annotation (Placement(transformation(extent={{-160,80},{-140,100}})));
+  Buildings.Controls.OBC.CDL.Reals.Sources.Sin PBuiRedTarVar(
     amplitude=305,
     freqHz=1/86400,
-    offset=1000)
-    "Variable threshold for the electricity demand of the building"
+    offset=1000) "Variable target electricity demand reduction of the building"
     annotation (Placement(transformation(extent={{-120,-100},{-100,-80}})));
+  CDL.Logical.Sources.Constant staZonFla(k=false) "starved zone flag"
+    annotation (Placement(transformation(extent={{-180,160},{-160,180}})));
+  Subsequences.Qualification qua(
+    nZon=1,
+    TZonMax(each displayUnit="K") = fill(301.15, 1),
+    TZonHys=1,
+    airConMod=Buildings.Controls.OBC.DemandFlexibility.Types.AirConditioningMode.Cooling)
+    "The zone qualification block"
+    annotation (Placement(transformation(extent={{-80,120},{-60,140}})));
 equation
   connect(zonSetGen.TPreTarHeaSet,setChaConHeaVar3. TPreTarSet[1])
     annotation (Line(points={{-98,-122},{-40,-122},{-40,62},{-2,62}},
@@ -94,9 +104,6 @@ equation
   connect(tabDemFleMod.y[1],setChaConHeaVar3. demFleMod)
     annotation (Line(points={{-98,-10},{-60,-10},{-60,66},{-2,66}},
       color={255,127,0}));
-  connect(rouZonFla.y,setChaConHeaVar3. rouZonFla[1])
-    annotation (Line(points={{-98,130},{-50,130},{-50,86},{-2,86}},
-      color={255,0,255}));
   connect(tabTCurZon.y[1],setChaConHeaVar3. TCurZon[1])
     annotation (Line(points={{-98,50},{-80,50},{-80,74},{-2,74}}, color={0,0,127}));
   connect(zonSetGen.TPreTarHeaSet,setChaConHeaVar4. TPreTarSet[1])
@@ -108,9 +115,6 @@ equation
   connect(zonSetGen.TDefHeaSet,setChaConHeaVar4. TDefSet[1])
     annotation (Line(points={{-98,-128},{-20,-128},{-20,-86},{-2,-86}},
       color={0,0,127}));
-  connect(rouZonFla.y,setChaConHeaVar4. rouZonFla[1])
-    annotation (Line(points={{-98,130},{-50,130},{-50,-54},{-2,-54}},
-      color={255,0,255}));
   connect(tabTCurZon.y[1],setChaConHeaVar4. TCurZon[1])
     annotation (Line(points={{-98,50},{-80,50},{-80,-66},{-2,-66}},
       color={0,0,127}));
@@ -121,13 +125,13 @@ equation
     annotation (Line(points={{22,70},{38,70}}, color={0,0,127}));
   connect(setChaConHeaVar4.TComZonSet[1],delTZonSetVar4. u)
     annotation (Line(points={{22,-70},{38,-70}}, color={0,0,127}));
-  connect(PBui.y, setChaConHeaVar3.PBui)
-    annotation (Line(points={{-98,90},{-70,90},{-70,82},{-2,82}}, color={0,0,127}));
-  connect(PBui.y, setChaConHeaVar4.PBui)
-    annotation (Line(points={{-98,90},{-70,90},{-70,-58},{-2,-58}},
+  connect(PBuiRed.y, setChaConHeaVar3.PBuiRed)
+    annotation (Line(points={{-138,90},{-70,90},{-70,78},{-2,78}},color={0,0,127}));
+  connect(PBuiRed.y, setChaConHeaVar4.PBuiRed)
+    annotation (Line(points={{-138,90},{-70,90},{-70,-62},{-2,-62}},
       color={0,0,127}));
-  connect(PBuiThrVar.y, setChaConHeaVar4.PBuiThrVar)
-    annotation (Line(points={{-98,-90},{-90,-90},{-90,-62},{-2,-62}},
+  connect(PBuiRedTarVar.y, setChaConHeaVar4.PBuiRedTarVar)
+    annotation (Line(points={{-98,-90},{-90,-90},{-90,-58},{-2,-58}},
       color={0,0,127}));
   connect(delTZonSetVar3.y, setChaConHeaVar3.TCurZonSet[1]) annotation (Line(
         points={{62,70},{100,70},{100,40},{-10,40},{-10,70},{-2,70}}, color={0,
@@ -135,6 +139,16 @@ equation
   connect(delTZonSetVar4.y, setChaConHeaVar4.TCurZonSet[1]) annotation (Line(
         points={{62,-70},{100,-70},{100,-100},{-10,-100},{-10,-70},{-2,-70}},
         color={0,0,127}));
+  connect(qua.yQua, setChaConHeaVar3.uQua) annotation (Line(points={{-58,130},{-50,
+          130},{-50,86},{-2,86}}, color={255,0,255}));
+  connect(qua.yQua, setChaConHeaVar4.uQua) annotation (Line(points={{-58,130},{-50,
+          130},{-50,-54},{-2,-54}}, color={255,0,255}));
+  connect(rouZonFla.y, qua.uRogZon[1]) annotation (Line(points={{-158,130},{-120,
+          130},{-120,124},{-82,124}}, color={255,0,255}));
+  connect(staZonFla.y, qua.uStaZon[1]) annotation (Line(points={{-158,170},{-100,
+          170},{-100,130},{-82,130}}, color={255,0,255}));
+  connect(tabTCurZon.y[1], qua.TZon[1]) annotation (Line(points={{-98,50},{-90,50},
+          {-90,136},{-82,136}}, color={0,0,127}));
   annotation (experiment(StopTime=172800, Interval=60, Tolerance=1e-06),
   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/DemandFlexibility/ZoneTemperatureSetpointChange/Validation/SingleZoneHeatingVariant3And4.mos"
     "Simulate and plot"),

@@ -9,7 +9,7 @@ model SingleZoneCoolingVariant1And2
     annotation (Placement(transformation(extent={{-10,-10},{10,10}}, rotation=0,
       origin={50,70})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Pulse rouZonFla(period=172800) "Rogue zone flag"
-    annotation (Placement(transformation(extent={{-120,100},{-100,120}})));
+    annotation (Placement(transformation(extent={{-160,100},{-140,120}})));
   Buildings.Controls.OBC.CDL.Integers.Sources.TimeTable tabDemFleMod(
     table=[0,1; 14,0; 16,2; 21,3; 23,1; 24,1],
     timeScale=3600,
@@ -64,6 +64,15 @@ model SingleZoneCoolingVariant1And2
     zonConVar=Buildings.Controls.OBC.DemandFlexibility.Types.ZoneControlVariant.Variant_2)
     "A zone temperature setpoint change controller for cooling under Variant 2 of zone control"
     annotation (Placement(transformation(extent={{0,-88},{20,-52}})));
+  Subsequences.Qualification qua(
+    nZon=1,
+    TZonMax(each displayUnit="K") = fill(301.15, 1),
+    TZonHys=1,
+    airConMod=Buildings.Controls.OBC.DemandFlexibility.Types.AirConditioningMode.Cooling)
+    "The zone qualification block"
+    annotation (Placement(transformation(extent={{-80,120},{-60,140}})));
+  CDL.Logical.Sources.Constant staZonFla(k=false) "starved zone flag"
+    annotation (Placement(transformation(extent={{-160,140},{-140,160}})));
 equation
   connect(zonSetGen.TPreTarCooSet, setChaConCooVar1.TPreTarSet[1])
     annotation (Line(points={{-98,-132},{-40,-132},{-40,62},{-2,62}},
@@ -77,9 +86,6 @@ equation
   connect(tabDemFleMod.y[1], setChaConCooVar1.demFleMod)
     annotation (Line(points={{-98,-10},{-60,-10},{-60,66},{-2,66}},
       color={255,127,0}));
-  connect(rouZonFla.y, setChaConCooVar1.rouZonFla[1])
-    annotation (Line(points={{-98,110},{-50,110},{-50,86},{-2,86}},
-      color={255,0,255}));
   connect(tabTCurZon.y[1], setChaConCooVar1.TCurZon[1])
     annotation (Line(points={{-98,50},{-80,50},{-80,74},{-2,74}}, color={0,0,127}));
   connect(zonSetGen.TPreTarCooSet, setChaConCooVar2.TPreTarSet[1])
@@ -91,9 +97,6 @@ equation
   connect(zonSetGen.TDefCooSet, setChaConCooVar2.TDefSet[1])
     annotation (Line(points={{-98,-138},{-20,-138},{-20,-86},{-2,-86}},
       color={0,0,127}));
-  connect(rouZonFla.y, setChaConCooVar2.rouZonFla[1])
-    annotation (Line(points={{-98,110},{-50,110},{-50,-54},{-2,-54}},
-      color={255,0,255}));
   connect(tabTCurZon.y[1], setChaConCooVar2.TCurZon[1])
     annotation (Line(points={{-98,50},{-80,50},{-80,-66},{-2,-66}},
       color={0,0,127}));
@@ -110,6 +113,16 @@ equation
   connect(delTZonSetVar2.y, setChaConCooVar2.TCurZonSet[1]) annotation (Line(
         points={{62,-70},{100,-70},{100,-100},{-10,-100},{-10,-70},{-2,-70}},
         color={0,0,127}));
+  connect(qua.yQua, setChaConCooVar1.uQua) annotation (Line(points={{-58,130},{
+          -50,130},{-50,86},{-2,86}}, color={255,0,255}));
+  connect(qua.yQua, setChaConCooVar2.uQua) annotation (Line(points={{-58,130},{
+          -50,130},{-50,-54},{-2,-54}}, color={255,0,255}));
+  connect(rouZonFla.y, qua.uRogZon[1]) annotation (Line(points={{-138,110},{
+          -110,110},{-110,124},{-82,124}}, color={255,0,255}));
+  connect(staZonFla.y, qua.uStaZon[1]) annotation (Line(points={{-138,150},{
+          -110,150},{-110,130},{-82,130}}, color={255,0,255}));
+  connect(tabTCurZon.y[1], qua.TZon[1]) annotation (Line(points={{-98,50},{-90,
+          50},{-90,136},{-82,136}}, color={0,0,127}));
   annotation (experiment(StopTime=172800, Interval=60, Tolerance=1e-06),
   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/DemandFlexibility/ZoneTemperatureSetpointChange/Validation/SingleZoneCoolingVariant1And2.mos"
     "Simulate and plot"),

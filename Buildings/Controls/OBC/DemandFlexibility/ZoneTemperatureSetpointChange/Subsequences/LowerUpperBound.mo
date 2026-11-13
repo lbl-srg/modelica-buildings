@@ -7,18 +7,6 @@ block LowerUpperBound "Decide the zones for setpoint change"
     displayUnit="K")
     "Threshold of temperature difference to trigger setpoint change during the load-shed mode (positive value)"
     annotation (Dialog(group="Temperature setpoint parameters"));
-  parameter Real PBuiHys(
-    min=0,
-    start=1,
-    unit="W")=0.05*PBui_nominal
-    "Hysteresis for the electricity demand of the building"
-    annotation (Dialog(enable = use_demCon, tab="Advanced", group="Hysteresis"));
-  parameter Real PBui_nominal(
-    min=0,
-    start=1,
-    unit="W")
-    "Nominal electricity demand of the building"
-    annotation (Dialog(enable = use_demCon, group="Electricity demand parameters"));
   parameter Real dT_small(
     min=0,
     unit="K",
@@ -176,9 +164,6 @@ protected
   Buildings.Controls.OBC.CDL.Logical.Or orReaLimSheDefPre[nZon]
     "The zone temperature setpoint has reached a setpoint limit during the load-shed mode, the load-rebound mode, or the pre-heat or pre-cool mode."
     annotation (Placement(transformation(extent={{140,-40},{160,-20}})));
-  Buildings.Controls.OBC.CDL.Logical.Not con4[nZon]
-    "The zone temperature setpoint has not reached a setpoint limit, or the system is at the default demand flexibility mode, indicating that Condition 4 is met"
-    annotation (Placement(transformation(extent={{180,-20},{200,0}})));
   Buildings.Controls.OBC.CDL.Reals.Less lesTPreTarSet[nZon]
     if airConMod == Buildings.Controls.OBC.DemandFlexibility.Types.AirConditioningMode.Heating
     "Check if the pre-heat target temperature setpoint is less than the default temperature setpoint"
@@ -349,9 +334,6 @@ equation
   connect(orReaLimSheReb.y, orReaLimSheDefPre.u2)
     annotation (Line(points={{122,-110},{130,-110},{130,-38},{138,-38}},
       color={255,0,255}));
-  connect(orReaLimSheDefPre.y, con4.u)
-    annotation (Line(points={{162,-30},{170,-30},{170,-10},{178,-10}},
-      color={255,0,255}));
   connect(lesTPreTarSet.y,notLesTPreTarSet. u)
     annotation (Line(points={{-98,-250},{-62,-250}},color={255,0,255}));
   connect(greTSheTarSet.y,notGreTSheTarSet. u)
@@ -392,8 +374,8 @@ equation
   connect(TSheTarSet, lesTSheTarSet.u1)
     annotation (Line(points={{-280,-160},{-220,-160},{-220,-370},{-122,-370}},
       color={0,0,127}));
-  connect(con4.y, reach_lowUppBou) annotation (Line(points={{202,-10},{240,-10},{240,30},
-          {280,30}}, color={255,0,255}));
+  connect(orReaLimSheDefPre.y, reach_lowUppBou) annotation (Line(points={{162,
+          -30},{220,-30},{220,30},{280,30}}, color={255,0,255}));
   annotation (defaultComponentName="lowUppBou",
     Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-180},{100,180}},
     grid={2,2}), graphics={Rectangle(

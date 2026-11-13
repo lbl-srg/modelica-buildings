@@ -64,6 +64,12 @@ block Controller
     annotation (Dialog(enable = zonConVar == Buildings.Controls.OBC.DemandFlexibility.Types.ZoneControlVariant.Variant_3
       or zonConVar == Buildings.Controls.OBC.DemandFlexibility.Types.ZoneControlVariant.Variant_4,
       group="Electricity demand parameters"));
+  parameter Real PBuiRedHys(
+    final unit="W",
+    final quantity="Power",
+    final min=0)=0.05*PBuiRed_nominal
+    "Hysteresis for the electricity demand reduction of the building"
+    annotation (Dialog(tab="Advanced", group="Hysteresis"));
   parameter Real setChaWaiTim(
     min=0,
     unit="s")
@@ -130,6 +136,8 @@ block Controller
     PBuiRedDifMin=PBuiRedDifMin,
     PBuiRed_nominal=PBuiRed_nominal,
     PBuiRedHys=PBuiRedHys)
+    if zonConVar == Buildings.Controls.OBC.DemandFlexibility.Types.ZoneControlVariant.Variant_3
+      or zonConVar == Buildings.Controls.OBC.DemandFlexibility.Types.ZoneControlVariant.Variant_4
     annotation (Placement(transformation(extent={{-200,140},{-180,160}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput PBuiRedTarVar(
     final unit="W",
@@ -158,14 +166,12 @@ block Controller
     annotation (Placement(transformation(extent={{-22,310},{-2,330}})));
   CDL.Logical.Or or1[nZon]
     annotation (Placement(transformation(extent={{4,256},{24,276}})));
-  CDL.Logical.Or and3[nZon]
+  CDL.Logical.Or or3[nZon]
     annotation (Placement(transformation(extent={{68,216},{88,236}})));
 protected
   Buildings.Controls.OBC.DemandFlexibility.ZoneTemperatureSetpointChange.Subsequences.LowerUpperBound
     lowUppBou(
     final dTSheThr=dTSheThr,
-    final PBuiHys=PBuiHys,
-    final PBui_nominal=PBui_nominal,
     final dT_small=dT_small,
     final airConMod=airConMod,
     final use_demCon=zonConVar == Buildings.Controls.OBC.DemandFlexibility.Types.ZoneControlVariant.Variant_3
@@ -339,13 +345,13 @@ equation
           266}}, color={255,0,255}));
   connect(not3.y, or1.u2) annotation (Line(points={{-58,186},{-28,186},{-28,258},
           {2,258}}, color={255,0,255}));
-  connect(or1.y, and3.u1) annotation (Line(points={{26,266},{46,266},{46,226},{
+  connect(or1.y, or3.u1) annotation (Line(points={{26,266},{46,266},{46,226},{
           66,226}}, color={255,0,255}));
-  connect(lowUppBou.reach_lowUppBou, and3.u2) annotation (Line(points={{-58,130},
+  connect(lowUppBou.reach_lowUppBou, or3.u2) annotation (Line(points={{-58,130},
           {6,130},{6,218},{66,218}}, color={255,0,255}));
-  connect(and3.y, zonPri.disFla) annotation (Line(points={{90,226},{74,226},{74,
+  connect(or3.y, zonPri.disFla) annotation (Line(points={{90,226},{74,226},{74,
           96},{58,96}}, color={255,0,255}));
-  connect(and3.y, not1.u) annotation (Line(points={{90,226},{90,148},{44,148},{
+  connect(or3.y, not1.u) annotation (Line(points={{90,226},{90,148},{44,148},{
           44,132},{58,132},{58,130}}, color={255,0,255}));
   annotation (defaultComponentName="zonTemSetCon",
     Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-180},{100,180}},

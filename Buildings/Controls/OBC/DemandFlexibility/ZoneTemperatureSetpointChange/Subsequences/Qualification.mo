@@ -123,11 +123,13 @@ setpoint change if all of the following conditions are true:
 </p>
 <ul>
 <li>
-the zone temperature <code>TZon</code> is less than
-<code>TZonMax</code>,
+if <code>airConMod = Cooling</code>, the zone temperature
+<code>TZon</code> is less than <code>TZonMax</code>; if
+<code>airConMod = Heating</code>, the zone temperature is
+greater than <code>TZonMin</code>,
 </li>
 <li>
-the zone is not starved
+the zone is not starved,
 </li>
 <li>
 the zone is not rogue.
@@ -141,14 +143,16 @@ setpoint change and <code>yQua[i] = true</code>. Otherwise, the
 zone is not qualified and <code>yQua[i] = false</code>.
 </p>
 <p>
-The zone temperature comparison includes a hysteresis to avoid
-chattering of the output when the signal is close to its
-threshold. The zone temperature is compared using the
-hysteresis <code>TZonHys</code>: its condition switches to
-<code>false</code> when the temperature rises above
-<code>TZonMax</code> and switches back to <code>true</code>
-when the temperature falls to <code>TZonMax</code> minus the
-hysteresis.
+The zone temperature comparison includes the hysteresis
+<code>TZonHys</code> to avoid chattering of the output when the
+temperature is close to its threshold. In cooling mode, the
+temperature condition switches to <code>true</code> when
+<code>TZon &lt; TZonMax</code> and switches to
+<code>false</code> when
+<code>TZon &ge; TZonMax + TZonHys</code>. In heating mode, it
+switches to <code>true</code> when <code>TZon &gt; TZonMin</code>
+and switches to <code>false</code> when
+<code>TZon &le; TZonMin - TZonHys</code>.
 </p>
 </html>"));
 end Qualification;

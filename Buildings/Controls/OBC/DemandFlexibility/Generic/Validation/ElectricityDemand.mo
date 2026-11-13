@@ -8,14 +8,13 @@ model ElectricityDemand
     annotation (Placement(transformation(extent={{40,-20},{80,20}})));
 
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant PBuiRedTar(final k=1000)
-    "Target electricity demand reduction"
+    "Target electricity demand reduction of the building"
     annotation (Placement(transformation(extent={{-60,30},{-40,50}})));
 
   Buildings.Controls.OBC.CDL.Reals.Sources.Sin PBuiRed(
     final amplitude=500,
     final freqHz=1/3600,
-    final offset=900)
-    "Actual electricity demand reduction"
+    final offset=900) "Actual electricity demand reduction of the building"
     annotation (Placement(transformation(extent={{-60,-50},{-40,-30}})));
 
 equation

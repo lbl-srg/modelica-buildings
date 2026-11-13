@@ -48,16 +48,18 @@ equation
 This example validates the block
 <a href=\"modelica://Buildings.Controls.OBC.DemandFlexibility.ZoneTemperatureSetpointChange.Subsequences.Qualification\">
 Buildings.Controls.OBC.DemandFlexibility.ZoneTemperatureSetpointChange.Subsequences.Qualification</a>
-for two zones.
+for two zones in cooling mode.
 </p>
 <p>
 The zone temperatures of the two zones vary sinusoidally around
 the maximum zone temperature threshold <code>TZonMax</code> in
 opposite phases over a 24 h period, while the starved zone and
-rogue zone signals pulse with periods of 12 h and 6 h. Each zone
-is qualified (<code>qua.yQua[i] = true</code>) only when its
-temperature condition (with hysteresis <code>TZonHys</code>) is
-satisfied and neither the starved nor the rogue signal is active.
+rogue zone signals have 50% duty cycles and pulse with periods of
+12 h and 6 h, respectively. Each zone is qualified
+(<code>qua.yQua[i] = true</code>) only when its temperature
+satisfies the maximum-temperature condition (with hysteresis
+<code>TZonHys</code>) and neither the starved nor the rogue signal
+is active.
 </p>
 </html>", revisions="<html>
 <ul>
