@@ -178,7 +178,7 @@ model HeatPumps
     "Active return temperature"
     annotation(Placement(transformation(extent={{-70,90},{-50,110}})));
   Buildings.Controls.OBC.CDL.Reals.Switch pInl_rel
-    "Active inlet gaupe pressure"
+    "Active inlet gauge pressure"
     annotation(Placement(transformation(extent={{-70,10},{-50,30}})));
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant pHeaWatInl(
     k=sup.p + hpAw.dpHeaWat_nominal)
@@ -297,7 +297,7 @@ model HeatPumps
     "Active source fluid supply temperature"
     annotation(Placement(transformation(extent={{-70,-50},{-50,-30}})));
   Buildings.Controls.OBC.CDL.Reals.Switch pInl_rel1
-    "Active inlet gaupe pressure"
+    "Active inlet gauge pressure"
     annotation(Placement(transformation(extent={{-70,-110},{-50,-90}})));
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant pSouInlHea(
     k=retSou.p + hpWw.dpSouHea_nominal)

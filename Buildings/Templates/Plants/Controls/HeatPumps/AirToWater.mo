@@ -119,7 +119,7 @@ block AirToWater
     "Set to true for plants with primary CHW/HW flow sensor"
     annotation(Evaluate=true);
   // Primary supply temperature sensor required for both primary-only plants
-  // and primary-secondary plants ( ailsafe staging condition)
+  // and primary-secondary plants (failsafe staging condition)
   final parameter Boolean have_senTPriSup = true
     "Set to true for plants with primary CHW/HW supply temperature sensor"
     annotation(Evaluate=true);
