@@ -165,16 +165,15 @@
     simulate: false
 - model_name: Buildings.Fluid.FixedResistances.BuriedPipes.Examples.SingleBuriedPipe
   openmodelica:
-    comment: 'CalledProcessError: Command ''[''omc'', ''Buildings.Fluid.FixedResistances.BuriedPipes.Examples.SingleBuriedPipe_simulate.mos'']'' returned non-zero exit status 255.'
-    simulate: false
+    rtol: 1.0e-07
+    solver: cvode
 - model_name: Buildings.Fluid.FixedResistances.BuriedPipes.Examples.TwoBuriedPipes
   openmodelica:
     comment: 'CalledProcessError: Command ''[''omc'', ''Buildings.Fluid.FixedResistances.BuriedPipes.Examples.TwoBuriedPipes_simulate.mos'']'' returned non-zero exit status 255.'
     simulate: false
 - model_name: Buildings.Fluid.FixedResistances.BuriedPipes.Examples.TwoPipesConduit
   openmodelica:
-    comment: Assertion due to what looks like wrong results, see https://github.com/lbl-srg/modelica-buildings/issues/3687
-    simulate: false
+    solver: gbode
 - model_name: Buildings.Fluid.FixedResistances.BuriedPipes.Validation.GroundCouplingAIT
   openmodelica:
     comment: Timed out after 300 seconds, https://app.travis-ci.com/github/lbl-srg/modelica-buildings/jobs/559381269#L479
@@ -470,8 +469,7 @@
     time_out: 900
 - model_name: Buildings.ThermalZones.EnergyPlus_24_2_0.Examples.SmallOffice.Guideline36Summer_Autosizing
   openmodelica:
-    comment: 'TimeoutExpired: Command ''[''omc'', ''Buildings.ThermalZones.EnergyPlus_24_2_0.Examples.SmallOffice.Guideline36Summer_Autosizing_simulate.mos'']'' timed out after 300 seconds'
-    simulate: false
+    solver: cvode
 - model_name: Buildings.ThermalZones.EnergyPlus_24_2_0.Examples.SmallOffice.Guideline36Winter
   openmodelica:
     comment: Timeout on travis after 600 seconds
