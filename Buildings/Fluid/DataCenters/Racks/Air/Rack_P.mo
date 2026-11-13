@@ -1,5 +1,5 @@
 within Buildings.Fluid.DataCenters.Racks.Air;
-model Rack_P "Model of an air-cooled rack, and utilization is input"
+model Rack_P "Model of an air-cooled rack with electrical power as input"
   extends Buildings.Fluid.DataCenters.Racks.BaseClasses.PartialRack(
     redeclare replaceable Buildings.Fluid.DataCenters.Racks.Air.Data.Generic dat
     constrainedby Buildings.Fluid.DataCenters.Racks.Air.Data.Generic,
@@ -12,7 +12,7 @@ model Rack_P "Model of an air-cooled rack, and utilization is input"
       group = "Fan controller"));
 
   parameter Real fanSpeed[:,:]=[0.0,0.0; 1.0,1.0]
-    "Load and fan speed matrix (1st column normalized IT load, 2nd fan speed), e.g., fanSpeed=[0, 0; 0.5, 0.7; 1, 1])"
+    "Load and fan speed matrix (1st column normalized IT load, 2nd fan speed), e.g., fanSpeed=[0, 0; 0.5, 0.7; 1, 1]"
     annotation(Dialog(
       enable=(fanControl == Buildings.Fluid.DataCenters.Racks.FanControllers.Types.Strategy.Load),
       group = "Fan controller"));
@@ -143,16 +143,16 @@ Model of an air-cooled IT rack.
 </p>
 <h4>Electrical and fluid characterization</h4>
 <p>
-The model takes as a parameter the thermal design power (TDB) <code>P_nominal</code>
-and as an input the utilization <code>u</code>.
-The heat added to the coolant fluid is then calculated as
+The model takes as a parameter the thermal design power (TDP) <code>dat.PIT_nominal</code>
+and as an input the electrical power consumption <code>P</code>.
+The heat added to the air stream by the IT equipment is
 </p>
 <p align=\"center\" style=\"font-style:italic;\">
-Q_flow = u P_nominal.
+Q_flow = P.
 </p>
 <p>
-The fluid outlet temperature is computed using a first order delay to mimic
-the transient effect. This first order delay is characterized by the user-configurable
+The fluid outlet temperature is computed using a first-order delay to mimic
+the transient effect. This first-order delay is characterized by the user-configurable
 time constant <code>tau</code>, set by default to <code>tau=2</code> seconds.
 For exact transient response, this value should be identified based on measurements.
 </p>
@@ -173,7 +173,7 @@ where
 <code>m</code> is a parameter for the flow exponent.
 </p>
 <p>
-Because the pressure drop of the rack is typically no a known design quantity,
+Because the pressure drop of the rack is typically not a known design quantity,
 the model computes it internally based on the fan power consumption and
 the fan efficiency.
 </p>
@@ -181,18 +181,19 @@ the fan efficiency.
 <p>
 The model has a built-in fan which uses a constant total efficiency, specified through the
 parameter <code>dat.eta_nominal</code>.
-The fan has a PI controller that maintains a temperature difference across
-the rack equal to the parameter <code>dTSet</code>.
+Depending on the parameter <code>fanControl</code>, the fan speed is controlled either based on
+the IT load (<code>Load</code>) or using a PI controller that tracks the rack outlet air temperature
+set point <code>TAirOut_set</code> (<code>OutletTemperature</code>).
 </p>
 <h4>Implementation</h4>
 <p>
 The implementation uses a fan model with prescribed speed, and, as explained above,
 it computes a flow resistance which is then used in the simulations.
 This implementation is used to allow use of this model with active rear door heat exchangers.
-As active rear-door heat exchangers also have a fan, in such a configuration there will
-be two fans in series. Prescribing the mass flow rate instead of the fan
-may give in this situation an overspecified system of equations.
-Therefore, rack model and rear-door heat exchangers use the fan model
+As active rear door heat exchangers also have a fan, in such a configuration there will
+be two fans in series. Prescribing the mass flow rate instead of the fan speed
+may, in this situation, give an overspecified system of equations.
+Therefore, the rack model and rear door heat exchangers use the fan model
 <a href=\"modelica://Buildings.Fluid.DataCenters.Racks.BaseClasses.Fan\">
 Buildings.Fluid.DataCenters.Racks.BaseClasses.Fan</a>.
 </p>

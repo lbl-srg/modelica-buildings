@@ -1,5 +1,5 @@
 within Buildings.Fluid.DataCenters.Racks.Liquid.Data;
-record OCP_1kW_OAM_PG25 "OpenCompute example for 1 kW OAM with PG25 as working fluid"
+record OCP_1kW_OAM_PG25 "Open Compute example for 1 kW OAM with PG25 as working fluid"
   extends Buildings.Fluid.DataCenters.Racks.Liquid.Data.Generic(
     theRes(
       V_flow={0.4,0.5,0.6,0.7,0.8,0.9,1.0,1.2,1.4,

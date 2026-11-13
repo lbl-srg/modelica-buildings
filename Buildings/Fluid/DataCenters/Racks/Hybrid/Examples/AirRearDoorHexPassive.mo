@@ -112,7 +112,7 @@ model AirRearDoorHexPassive
   Sources.Boundary_pT sinReaDoo(
     redeclare package Medium = MediumReaDooHex,
     p=MediumReaDooHex.p_default,
-    nPorts=1) "Sink rear door heat exchanger coolant"
+    nPorts=1) "Sink for rear door heat exchanger coolant"
     annotation (Placement(transformation(extent={{182,-10},{162,10}})));
 
   Sensors.TemperatureTwoPort senTReaDooLvg(
@@ -159,7 +159,7 @@ heat exchanger.
 </p>
 <p>
 The room inlet air temperature is set to <i>30</i>&deg;C.
-The air-cooled rack raises the air temperature around <i>11.7</i> K, so the air
+The air-cooled rack raises the air temperature by around <i>11.7</i> K, so the air
 entering the rear door heat exchanger is at approximately <i>41.7</i>&deg;C.
 The rear door heat exchanger is passive, i.e., it does not have fans.
 Due to its air-side flow resistance, the air flow rate through the rack is

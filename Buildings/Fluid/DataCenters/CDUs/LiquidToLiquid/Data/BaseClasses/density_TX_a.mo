@@ -6,7 +6,7 @@ function density_TX_a "Return density"
   input Modelica.Units.SI.MassFraction X_a "Glycol mass fraction";
   input Modelica.Units.SI.Temperature T "Temperature at which properties are evaluated";
   output Modelica.Units.SI.Density d
-    "Prandtl number";
+    "Mass density";
 
 algorithm
   d :=

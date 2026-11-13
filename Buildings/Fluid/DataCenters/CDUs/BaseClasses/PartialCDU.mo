@@ -57,7 +57,7 @@ model PartialCDU "Partial model for a CDU"
     "Time constant of fluid volume for nominal flow, used if energy or mass balance is dynamic"
     annotation (Dialog(tab="Dynamics", group="Pump"));
   parameter Boolean use_riseTime=true
-    "Set to true to continuously change motor speed using risetime from instance dat"
+    "Set to true to continuously change motor speed using riseTime from instance dat"
     annotation (Dialog(tab="Dynamics", group="Pump"));
   parameter Real yPum_start=0 "Initial value of speed"
     annotation (Dialog(tab="Dynamics", group="Pump"));
@@ -166,7 +166,7 @@ model PartialCDU "Partial model for a CDU"
         origin={-50,60})));
 
   // Use sqrt for efficiency because input is the total efficiency, but this is split up into a
-  // motor and a hyraulic efficiency which are then multiplied with each other.
+  // motor and a hydraulic efficiency which are then multiplied with each other.
   Fluid.Movers.SpeedControlled_y pum(
     redeclare final package Medium = MediumRac,
     energyDynamics=energyDynamics,
@@ -234,13 +234,13 @@ model PartialCDU "Partial model for a CDU"
 
 protected
   final parameter Integer nPumpDat = size(dat.pumpHead.dp, 1)
-    "Number of support point for pump data";
+    "Number of support points for pump data";
 
   final parameter Boolean pumpDP_isMonotonicDecreasing = (dat.pumpHead.dp[1] > dat.pumpHead.dp[end]) and
     Buildings.Utilities.Math.Functions.isMonotonic(
       x=dat.pumpHead.dp,
       strict=false)
-    "Flag, true if the pump pressure drop is monotonic";
+    "Flag, true if the pump pressure rise is monotonically decreasing";
 initial equation
   if checkMedia then
     // Assert that the media are consistent with the medium types declared in the parameter record
@@ -268,11 +268,11 @@ initial equation
       + "\nSet the parameter checkMedia=false to avoid this check.");
   end if;
   assert(pumpDP_isMonotonicDecreasing,
-    "In " + getInstanceName() + ": Parameter dat.pumpHead is not monotonic decreasing.
-This is usually if dat.dpHexRac_nominal + dat.dpFilRac_nominal are too large compared to the decrease in dat.pumpExtHead.
+    "In " + getInstanceName() + ": Parameter dat.pumpHead is not monotonically decreasing.
+This usually occurs if dat.dpHexRac_nominal + dat.dpFilRac_nominal is too large compared to the decrease in dat.pumpExtHead.
 The model will use pumpHeadMonotone instead of dat.pumpHead. Please check your data to avoid this warning.
 Model has the following parameters:
-  dat.dpHexRac_nominal + dpFilRac_nominal = " + String(dat.dpHexRac_nominal) + " + " + String(dat.dpFilRac_nominal) + " = " + String(dat.dpHexRac_nominal + dat.dpFilRac_nominal) + " Pa
+  dat.dpHexRac_nominal + dat.dpFilRac_nominal = " + String(dat.dpHexRac_nominal) + " + " + String(dat.dpFilRac_nominal) + " = " + String(dat.dpHexRac_nominal + dat.dpFilRac_nominal) + " Pa
   dat.pumpExtHead.dp[1] - dat.pumpExtHead.dp[end] =          " + String(dat.pumpExtHead.dp[1] - dat.pumpExtHead.dp[end]) + " Pa.",
     level=AssertionLevel.warning);
 equation
@@ -452,7 +452,7 @@ equation
   Documentation(
     info="<html>
 <p>
-Model of a coolant distribution unit (CDU) with built in two-way valve on the chilled
+Model of a coolant distribution unit (CDU) with built-in two-way valve on the chilled
 water side and pump on the IT side as shown in the figure below.
 </p>
 <p align=\"center\">
@@ -465,10 +465,10 @@ The two fluid streams are separated by a heat exchanger.
 </p>
 <p>
 On the chilled water side is a two-way valve that controls the mass flow rate
-to track to set point for the leaving fluid temperature that goes to the IT racks.
-By default, the controller is configured as a PI-controller.
+to track the set point for the leaving fluid temperature that goes to the IT racks.
+By default, the controller is configured as a PI controller.
 The valve has an equal-percentage
-opening characteristics. By default, the valve pressure drop is set to the same value
+opening characteristic. By default, the valve pressure drop is set to the same value
 as the heat exchanger pressure drop, achieving a valve authority of <i>0.5</i>.
 The valve is modeled using an instance of
 <a href=\"modelica://Buildings.Fluid.Actuators.Valves.TwoWayEqualPercentage\">
@@ -479,19 +479,19 @@ On the IT side is a circulation pump that is controlled to track a set point for
 the head between the two fluid ports.
 Note that this head is not the pump head, but rather the head between the fluid ports
 of the CDU, and hence it takes into account the flow resistance of the heat exchanger.
-The controller for the pump is configured by default as a PI-controller.
+The controller for the pump is configured by default as a PI controller.
 </p>
 <p>
-Note that the head, specified through the parameter <code>dpPum_nominal</code>,
-is the head of the CDU.
-To properly size the pump, set <code>dpPum_nominal</code> to the flow resistance that is
-external to the CDU, plus the flow resistance of the heat exchanger <code>dpHex_nominal</code>
-and the filter.
+Note that the head, specified through the parameter <code>dat.dpPumpExt_nominal</code>,
+is the external head available at the fluid ports of the CDU.
+To compute the pump head <code>dat.pumpHead</code>, the data record adds the flow resistance
+of the heat exchanger <code>dat.dpHexRac_nominal</code> and the filter
+<code>dat.dpFilRac_nominal</code> to the external head curve <code>dat.pumpExtHead</code>.
 </p>
 <p>
 The pump is modeled using an instance of
-<a href=\"modelica://Buildings.Fluid.Movers.Preconfigured.SpeedControlled_y\">
-Buildings.Fluid.Movers.Preconfigured.SpeedControlled_y</a>.
+<a href=\"modelica://Buildings.Fluid.Movers.SpeedControlled_y\">
+Buildings.Fluid.Movers.SpeedControlled_y</a>.
 </p>
 <p>
 On the IT side, there is also an expansion vessel, modeled using an instance of
@@ -500,7 +500,7 @@ Buildings.Fluid.Storage.ExpansionVessel</a>.
 This component sets a reference static pressure, and if the medium model computes
 density as a function of temperature during the simulation, it provides a volume for the
 medium's thermal expansion.
-Note however that to improve computing performance, the medium
+Note, however, that to improve computing performance, the medium
 <a href=\"modelica://Buildings.Media.Antifreeze.PropyleneGlycolWater\">
 Buildings.Media.Antifreeze.PropyleneGlycolWater</a>
 assumes density as constant during the simulation.

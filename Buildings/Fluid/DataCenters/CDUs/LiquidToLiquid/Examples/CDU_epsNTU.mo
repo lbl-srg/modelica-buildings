@@ -19,7 +19,7 @@ model CDU_epsNTU "Example model of a CDU with varying load on the IT side"
   parameter Modelica.Units.SI.Temperature TChi_a = 273.15+36
     "Supply chilled water temperature to CDU at design conditions";
   parameter Modelica.Units.SI.Temperature TChi_b = 273.15+41
-    "Return chilled temperature from CDU at design conditions";
+    "Return chilled water temperature from CDU at design conditions";
 
   parameter Modelica.Units.SI.MassFlowRate mRac_flow_nominal =
     PRac/(TRac_b-TRac_a)/MediumRac.cp_const
@@ -94,7 +94,7 @@ model CDU_epsNTU "Example model of a CDU with varying load on the IT side"
     allowFlowReversalRac=false,
     final dat=datCDU,
     allowFlowReversalPla=false,
-    yPum_start=1) "CDU, modelled for simplicity as one large CDU"
+    yPum_start=1) "CDU, modeled for simplicity as one large CDU"
     annotation (Placement(transformation(extent={{-10,16},{10,36}})));
   Fluid.Sources.Boundary_pT sou(redeclare package Medium = MediumChi,
     p=300000 + 2*dpHexChi_nominal,
@@ -134,7 +134,7 @@ model CDU_epsNTU "Example model of a CDU with varying load on the IT side"
       min=0) = datRac.PIT_nominal,
     u(final unit="1"),
     y(final unit="W"))
-    "Power consumption by the air-cooled IT equipment"
+    "Power consumption by the liquid-cooled IT equipment"
     annotation (Placement(transformation(extent={{-40,-40},{-20,-20}})));
 equation
   connect(sou.ports[1], senTCDU_a.port_a)
@@ -177,7 +177,7 @@ equation
        file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/DataCenters/CDUs/LiquidToLiquid/Examples/CDU_epsNTU.mos" "Simulate and plot"),
     Documentation(info="<html>
 <p>
-Example model of a CDU that serves liquid cooled racks.
+Example model of a CDU that serves liquid-cooled racks.
 </p>
 <p>
 The IT load is specified using a periodic pulse input.

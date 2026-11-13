@@ -25,7 +25,7 @@ No additional fan is required.
 Buildings.Fluid.DataCenters.Racks.RearDoorHeatExchangers.Active</a>:
 an integrated fan drives the air through the heat exchanger, allowing independent
 control of the air flow rate. A PI controller regulates the fan speed to maintain
-a target air outlet temperature.
+zero back pressure.
 </li>
 </ul>
 </html>",

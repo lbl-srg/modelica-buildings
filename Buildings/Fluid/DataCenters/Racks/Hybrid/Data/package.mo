@@ -5,7 +5,7 @@ package Data "Package with performance data for hybrid racks"
 annotation (Documentation(info="<html>
 <p>
 This package contains data records for hybrid IT racks that combine
-liquid cooling and air cooling technologies, with and without rear door heat exchanger.
+liquid cooling and air cooling technologies, with and without rear door heat exchangers.
 </p>
 </html>", revisions="<html>
 <ul>

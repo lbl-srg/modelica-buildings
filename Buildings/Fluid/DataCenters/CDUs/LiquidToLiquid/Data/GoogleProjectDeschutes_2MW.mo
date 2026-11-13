@@ -21,7 +21,7 @@ record GoogleProjectDeschutes_2MW
   defaultComponentPrefixes="parameter",
   Documentation(info="<html>
 <p>
-This data record is for the 5th generation CDU unit of Google, named
+This data record is for the 5th-generation CDU of Google, named
 <em>Project Deschutes</em>. This unit is specified for the following data (OCP, 2026):
 </p>
 <table summary=\"Google Project Deschutes CDU specifications\">

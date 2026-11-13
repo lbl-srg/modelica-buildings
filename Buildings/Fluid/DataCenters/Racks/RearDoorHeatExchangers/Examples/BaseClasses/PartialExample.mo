@@ -108,8 +108,7 @@ equation
 Partial example model for a rear door heat exchanger.
 This model declares the medium packages, nominal parameters,
 fluid boundary conditions, temperature sensors, and their connections.
-Extending models must declare the heat exchanger instance <code>hex</code>,
-provide the value of <code>mAir_flow_nominal</code>,
+Extending models must declare the heat exchanger instance <code>hex</code>
 and add the four connections involving <code>hex</code>.
 </p>
 </html>",

@@ -34,8 +34,8 @@ annotation (
 Model of a hybrid IT rack that combines liquid-cooled and air-cooled components
 with an active rear door heat exchanger.
 This model extends
-<a href=\"modelica://Buildings.Fluid.DataCenters.Racks.Hybrid.BaseClasses.AirLiquid\">
-Buildings.Fluid.DataCenters.Racks.Hybrid.BaseClasses.AirLiquid</a>
+<a href=\"modelica://Buildings.Fluid.DataCenters.Racks.Hybrid.BaseClasses.PartialAirLiquidRearDoorHex\">
+Buildings.Fluid.DataCenters.Racks.Hybrid.BaseClasses.PartialAirLiquidRearDoorHex</a>
 and adds an active rear door heat exchanger using
 <a href=\"modelica://Buildings.Fluid.DataCenters.Racks.RearDoorHeatExchangers.Active\">
 Buildings.Fluid.DataCenters.Racks.RearDoorHeatExchangers.Active</a>.
@@ -66,7 +66,7 @@ then the temperature between the rack and the rear door heat exchanger is used a
 the measurement signal; otherwise, the IT load is used as an input for the fan controller.
 The fan of the rear door heat exchanger is controlled to have zero back pressure.
 Therefore, if the CPU fan speed increases, it will build up back pressure, and
-the rear door heat exchanger then increases its speed as well.
+the rear door heat exchanger fan then increases its speed as well.
 </p>
 </html>",
     revisions="<html>

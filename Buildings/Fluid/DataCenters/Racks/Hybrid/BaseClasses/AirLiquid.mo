@@ -23,7 +23,7 @@ partial model AirLiquid
       Dialog(group="Performance data"),
       Placement(transformation(extent={{60,52},{80,72}})));
 
-  // AirLiquid-cooled parameters
+  // Liquid-cooled parameters
   parameter Modelica.Fluid.Types.Dynamics energyDynamicsLiq=Modelica.Fluid.Types.Dynamics.DynamicFreeInitial
     "Type of energy balance for liquid-cooled component: dynamic (3 initialization options) or steady state"
     annotation(Evaluate=true, Dialog(tab = "Dynamics", group="Liquid cooling"));
@@ -72,7 +72,7 @@ partial model AirLiquid
       group = "Fan controller"));
 
   parameter Real fanSpeed[:,:]=[0.0,0.0; 1.0,1.0]
-    "Load and fan speed matrix (1st column normalized IT load, 2nd fan speed), e.g., fanSpeed=[0, 0; 0.5, 0.7; 1, 1])"
+    "Load and fan speed matrix (1st column normalized IT load, 2nd fan speed), e.g., fanSpeed=[0, 0; 0.5, 0.7; 1, 1]"
     annotation(Dialog(
       enable=(fanControl == Buildings.Fluid.DataCenters.Racks.FanControllers.Types.Strategy.Load),
       group = "Fan controller"));
@@ -129,7 +129,7 @@ partial model AirLiquid
 
   // Control inputs on the left
   Modelica.Blocks.Interfaces.RealInput PLiq(final unit="W", min=0)
-    "Power consumed by for liquid-cooled IT"
+    "Power consumed by liquid-cooled IT"
     annotation (Placement(transformation(extent={{-140,52},{-100,92}}),
       iconTransformation(extent={{-120,72},{-100,92}})));
 
@@ -145,7 +145,7 @@ partial model AirLiquid
             {120,90}})));
 
   Modelica.Blocks.Interfaces.RealOutput PAirTot(final unit="W")
-    "Electric power consumed by air-cooled IT, including fan energy"
+    "Electric power consumed by air-cooled IT, including fan power"
     annotation (Placement(transformation(extent={{100,-80},{120,-60}}),
         iconTransformation(extent={{100,-90},{120,-70}})));
 
@@ -227,7 +227,7 @@ Note that <code>PAir</code> does not include the power to operate the fan, as th
 <p>
 The model provides three power consumption outputs on the right side.
 The output <code>PLiqTot</code> is the electric power consumed by liquid-cooled IT.
-The output <code>PAirTot</code> is the total electric power consumed by air-cooled IT, including fan energy.
+The output <code>PAirTot</code> is the total electric power consumed by air-cooled IT, including fan power.
 The output <code>PAirFan</code> is the electric power consumed by the fan for air-cooled IT.
 </p>
 <p>

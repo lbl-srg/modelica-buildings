@@ -1,5 +1,5 @@
 within Buildings.Fluid.DataCenters.Racks.Air.Examples;
-model Rack_P "Example model for air cooled rack"
+model Rack_P "Example model for air-cooled rack"
   extends Modelica.Icons.Example;
   package Medium = Buildings.Media.Air
     "Air medium";
@@ -74,7 +74,7 @@ equation
        file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/DataCenters/Racks/Air/Examples/Rack_P.mos" "Simulate and plot"),
     Documentation(info="<html>
 <p>
-Example model of an air-cooled rack different GPU utilization.
+Example model of an air-cooled rack with varying GPU utilization.
 </p>
 </html>", revisions="<html>
 <ul>

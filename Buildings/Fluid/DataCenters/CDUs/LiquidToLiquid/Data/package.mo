@@ -1,5 +1,5 @@
 within Buildings.Fluid.DataCenters.CDUs.LiquidToLiquid;
-package Data "Package with data records for racks"
+package Data "Package with data records for CDUs"
   extends Modelica.Icons.MaterialPropertiesPackage;
   annotation (Documentation(info="<html>
 <p>

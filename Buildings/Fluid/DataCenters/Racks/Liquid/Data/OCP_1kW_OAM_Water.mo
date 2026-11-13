@@ -1,6 +1,6 @@
 within Buildings.Fluid.DataCenters.Racks.Liquid.Data;
 record OCP_1kW_OAM_Water
-  "OpenCompute example for 1 kW OAM with DI water as working fluid"
+  "Open Compute example for 1 kW OAM with DI water as working fluid"
   extends Buildings.Fluid.DataCenters.Racks.Liquid.Data.Generic(
     theRes(
       V_flow={2.0,3.0,4.0,5.0}/60/1000,

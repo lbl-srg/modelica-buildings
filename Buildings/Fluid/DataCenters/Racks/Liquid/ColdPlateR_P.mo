@@ -1,6 +1,6 @@
 within Buildings.Fluid.DataCenters.Racks.Liquid;
 model ColdPlateR_P
-  "Model of a cold plate in which heat transfer is characterized by R for different flow rates, and utilization is input"
+  "Model of a cold plate in which heat transfer is characterized by R for different flow rates, with electrical power as input"
   extends Buildings.Fluid.DataCenters.Racks.BaseClasses.PartialRack(
     redeclare replaceable Buildings.Fluid.DataCenters.Racks.Liquid.Data.Generic dat
     constrainedby Buildings.Fluid.DataCenters.Racks.Liquid.Data.Generic,
@@ -8,7 +8,7 @@ model ColdPlateR_P
 
   final parameter Modelica.Units.SI.TemperatureDifference dT_nominal=dat.PIT_nominal/
     (dat.m_flow_nominal*cp_default)
-    "Design temperature differences, used to compute cold plate temperature"
+    "Design temperature difference, used to compute cold plate temperature"
     annotation (Dialog(group="Case temperature"));
 
 
@@ -16,7 +16,7 @@ model ColdPlateR_P
       /size(dat.theRes.V_flow, 1)
     "Design flow rate of one cold plate, used to compute the case temperature"
     annotation (Dialog(group="Case temperature"));
-  // For number of rack, we use a Real to simplify solving optimizations that involves this parameter
+  // For the number of cold plates, we use a Real to simplify solving optimizations that involve this parameter
   parameter Real nColPla=dat.PIT_nominal/
     (VColPla_flow_nominal*d_default*cp_default*dT_nominal)
     "Number of cold plates, used to compute the case temperature"
@@ -46,7 +46,7 @@ protected
     "Specific heat capacity";
   parameter Modelica.Units.SI.Density d_default=
     Medium.density(state=state_default)
-    "Specific heat capacity";
+    "Mass density";
 
   Modelica.Blocks.Sources.RealExpression VColPla_flow(y(final unit="m3/s") =
       port_a.m_flow/d_default/nColPla) "Volume flow rate per cold plate"
@@ -102,14 +102,14 @@ of the Open Compute Project.
 <h4>Electrical and fluid characterization</h4>
 <p>
 The model takes as an input the electrical power consumption <code>P</code>
-and adds it as heat added to the coolant fluid
+and adds it as heat to the coolant fluid:
 </p>
 <p align=\"center\" style=\"font-style:italic;\">
 Q_flow = P.
 </p>
 <p>
-The fluid outlet temperature is computed using a first order delay to mimic
-the transient effect. This first order delay is characterized by the user-configurable
+The fluid outlet temperature is computed using a first-order delay to mimic
+the transient effect. This first-order delay is characterized by the user-configurable
 time constant <code>tau</code>, set by default to <code>tau=2</code> seconds.
 For exact transient response, this value should be identified based on measurements.
 </p>
@@ -120,18 +120,18 @@ Buildings.Fluid.FixedResistances.PressureDrop</a>.
 Therefore, the mass flow rate and pressure drop are related as
 </p>
 <p align=\"center\" style=\"font-style:italic;\">
-m_flow &frasl; m_flow_nominal = (dp &frasl; dp_nominal)<sup>m</sup>,
+m_flow &frasl; m_flow_nominal = (dp &frasl; dp_nominal)<sup>1/n</sup>,
 </p>
 <p>
 where 
 <code>m_flow_nominal</code> is a parameter for the design flow rate,
 <code>dp</code> is the pressure difference between inlet and outlet,
 <code>dp_nominal</code> is a parameter for the design pressure difference, and
-<code>m</code> is a parameter for the flow exponent.
-Based on a data fit using the data in Chen et al. (2023), the default value is <code>m=1.85</code>.
+<code>n</code> is a parameter for the flow exponent.
+Based on a data fit using the data in Chen et al. (2023), the default value is <code>n=1.85</code>.
 The model assumes a default pressure drop <code>dp_nominal</code> of
-<code>dp_nominal=50</code> kPa, which is the pressure drop of the OCP specified
-cold plate with a 8x1 loop at <i>10</i> l/min flow rate with 25% PGW.
+<code>dp_nominal=50</code> kPa, which is the pressure drop of the OCP-specified
+cold plate with an 8x1 loop at <i>10</i> l/min flow rate with 25% PGW.
 </p>
 <h4>Case temperature</h4>
 <p>
@@ -166,7 +166,7 @@ n_col = PIT_nominal / (VColPla_flow_nominal * rho * c_p * dT_nominal),
 <p>
 where
 <code>VColPla_flow_nominal</code> is the design flow rate of a cold plate, approximated by default as the average
-value of the data record's volume flow rate, <code>VColPla_flow_nominal = average(datRes.V_flow)</code>,
+value of the data record's volume flow rate, <code>VColPla_flow_nominal = average(dat.theRes.V_flow)</code>,
 <code>rho</code> is the fluid density,
 <code>c_p</code> is the fluid specific heat capacity, and
 <code>dT_nominal</code> is the design temperature difference.
@@ -174,7 +174,7 @@ value of the data record's volume flow rate, <code>VColPla_flow_nominal = averag
 <p>
 This thermal resistance is computed using the data from the data record
 <a href=\"modelica://Buildings.Fluid.DataCenters.Racks.Liquid.Data.BaseClasses.Generic_R_m_flow\">
-Buildings.Fluid.DataCenters.Racks.Liquid.Data.Generic_R_m_flow</a>.
+Buildings.Fluid.DataCenters.Racks.Liquid.Data.BaseClasses.Generic_R_m_flow</a>.
 The computation is done in the block <code>casTem</code>,
 which does a data fit for <i>R</i>. The relative error of this data fit
 is shown in <code>casTem.relErrR</code>.
@@ -182,7 +182,7 @@ is shown in <code>casTem.relErrR</code>.
 <h4>References</h4>
 <p>
 Cheng Chen, Dennis Trieu, Tejas Shah, Allen Guo, Jaylen Cheng, Christopher Chapman, Sukhvinder Kang,
-Eran Dagan, Assaf Dinstag,Jane Yao.
+Eran Dagan, Assaf Dinstag, Jane Yao.
 <a href=\"https://www.opencompute.org/documents/oai-system-liquid-cooling-guidelines-in-ocp-template-mar-3-2023-update-pdf\">
 OCP OAI SYSTEM LIQUID COOLING GUIDELINES</a>.
 2023.

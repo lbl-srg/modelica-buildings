@@ -7,7 +7,7 @@ record Generic_epsNTU
     "Nominal heat flow rate (negative as it is for cooling)"
     annotation (Dialog(group="Nominal thermal performance"));
   parameter Modelica.Units.SI.TemperatureDifference TApp_nominal(min=0)
-    "Approach temperature on IT loop size (to cooling minus from rack)"
+    "Approach temperature on IT loop side (outlet to rack minus inlet from cooling plant)"
     annotation (Dialog(group="Nominal thermal performance"));
   parameter Modelica.Units.SI.Temperature TRacOut_nominal
     "Outlet temperature to IT rack loop"
@@ -43,7 +43,7 @@ record Generic_epsNTU
   parameter Modelica.Units.SI.PressureDifference dpFilRac_nominal(
     min=0,
     displayUnit="Pa")=65000
-    "Clean filter design pressure drop at rack-side"
+    "Clean filter design pressure drop at rack side"
     annotation (Dialog(group="Nominal condition"));
 
 
@@ -57,7 +57,7 @@ record Generic_epsNTU
     annotation (Evaluate=true, Dialog(
                 tab="Flow resistance", group="Medium 2"));
   parameter Real nFilRac(min=1, max=2) = 1.76
-    "Flow exponent for filter on rack-side, n=1 for laminar, n=2 for turbulent"
+    "Flow exponent for filter on rack side, n=1 for laminar, n=2 for turbulent"
     annotation (Evaluate=true, Dialog(
                 tab="Flow resistance", group="Medium 2"));
 
@@ -67,7 +67,7 @@ record Generic_epsNTU
 
   // Volume fractions
   parameter Buildings.Fluid.DataCenters.CDUs.Types.Media medPla=Buildings.Fluid.DataCenters.CDUs.Types.Media.Water
-    "Media for which performance data are specified"
+    "Medium for which performance data are specified"
     annotation (Dialog(group="Plant-side medium for performance data"));
   parameter Real phiGlyPla = 0
     "Glycol volume fraction for which performance data are specified"
@@ -89,7 +89,7 @@ record Generic_epsNTU
     annotation(Dialog(group="Plant-side medium for performance data"));
 
   parameter Buildings.Fluid.DataCenters.CDUs.Types.Media medRac
-    "Media for which performance data are specified"
+    "Medium for which performance data are specified"
     annotation (Dialog(group="Rack-side medium for performance data"));
   parameter Real phiGlyRac(
     min=0,
@@ -176,10 +176,10 @@ record Generic_epsNTU
   parameter Modelica.Units.SI.PressureDifference dpPumpExt_nominal(
     displayUnit="Pa",
     min=0)
-    "Pump head available for flow network that is connected to the CDU on the rack-side at m_flow_nominal"
+    "Pump head available for flow network that is connected to the CDU on the rack side at mRac_flow_nominal"
     annotation(Dialog(group="Pump"));
   parameter Buildings.Fluid.Movers.BaseClasses.Characteristics.flowParameters pumpExtHead
-    "Pump head available for flow network that is connected to the CDU on the rack-side"
+    "Pump head available for flow network that is connected to the CDU on the rack side"
     annotation(Dialog(group="Pump"));
 
 
@@ -236,7 +236,7 @@ record Generic_epsNTU
 Generic record for a CDU that models the heat transfer using the epsilon-NTU method.
 </p>
 <p>
-This is the base record that is used to characterize the performance data of CDU.
+This is the base record that is used to characterize the performance data of a CDU.
 The data record is structured as follows.
 </p>
     <h4>Required Parameters</h4>
@@ -257,7 +257,7 @@ The data record is structured as follows.
             </tr>
             <tr>
                 <td><code>TApp_nominal</code></td>
-                <td>Approach temperature on IT loop size (to cooling minus from rack).</td>
+                <td>Approach temperature on IT loop side (outlet to rack minus inlet from cooling plant).</td>
                 <td><code>[K]</code></td>
             </tr>
             <tr>
@@ -282,7 +282,7 @@ The data record is structured as follows.
             </tr>
             <tr>
                 <td><code>medRac</code></td>
-                <td>Media for which performance data are specified.</td>
+                <td>Medium for which performance data are specified.</td>
                 <td><code>Types.Media</code></td>
             </tr>
             <tr>
@@ -293,12 +293,12 @@ The data record is structured as follows.
             </tr>
             <tr>
                 <td><code>dpPumpExt_nominal</code></td>
-                <td>Pump head available for flow network that is connected to the CDU on the rack-side at m_flow_nominal.</td>
+                <td>Pump head available for flow network that is connected to the CDU on the rack side at mRac_flow_nominal.</td>
                 <td><code>[Pa]</code></td>
             </tr>
             <tr>
                 <td><code>pumpExtHead</code></td>
-                <td>Pump head available for flow network that is connected to the CDU on the rack-side.</td>
+                <td>Pump head available for flow network that is connected to the CDU on the rack side.</td>
                 <td><code>flowParameters</code></td>
             </tr>
         </tbody>
@@ -331,7 +331,7 @@ The data record is structured as follows.
             </tr>
             <tr>
                 <td><code>dpFilRac_nominal</code></td>
-                <td>Clean filter design pressure drop at rack-side.</td>
+                <td>Clean filter design pressure drop at rack side.</td>
                 <td><code>[Pa]</code></td>
                 <td><code>65000</code></td>
             </tr>
@@ -349,7 +349,7 @@ The data record is structured as follows.
             </tr>
             <tr>
                 <td><code>nFilRac</code></td>
-                <td>Flow exponent for filter on rack-side, n=1 for laminar, n=2 for turbulent.</td>
+                <td>Flow exponent for filter on rack side, n=1 for laminar, n=2 for turbulent.</td>
                 <td><code>[1]</code></td>
                 <td><code>1.76</code></td>
             </tr>
@@ -361,7 +361,7 @@ The data record is structured as follows.
             </tr>
             <tr>
                 <td><code>medPla</code></td>
-                <td>Media for which performance data are specified (plant side).</td>
+                <td>Medium for which performance data are specified (plant side).</td>
                 <td><code>Types.Media</code></td>
                 <td><code>Water</code></td>
             </tr>
@@ -429,11 +429,11 @@ The data record is structured as follows.
         </tbody>
     </table>
 <p>
-The filter pressure drop and flow exponent is obtained from a data fit using catalogue data
+The filter pressure drop and flow exponent are obtained from a data fit using catalog data
 from Vertiv Liebert XDU 1350.
 </p>
 <p>
-For the parameter <code>pumpExtHead</code>, it is recommended to use a array such as of the form
+For the parameter <code>pumpExtHead</code>, it is recommended to use an array of the form
 </p>
 <pre>
 pumpExtHead(
@@ -443,8 +443,8 @@ pumpExtHead(
 <p>
 With this setting, at design flow rate (the last element of <code>V_flow</code>, which is set to <code>1</code>),
 the pressure available to the flow network connected to the CDU is equal to <code>dpPumpExt_nominal</code>,
-and at lower volume flow rates, the available pressure will increase, as it is customary for pumps.
-The increase is steeper than is typical for a pump because the CDU-internal resistance for the heat exchanger
+and at lower volume flow rates, the available pressure will increase, as is customary for pumps.
+The increase is steeper than is typical for a pump because the CDU-internal resistances for the heat exchanger
 and filter decrease as the volume flow rate decreases, and hence, the resulting curve for the pump head
 that is available for pressure drops that are outside the CDU is steep.
 </p>

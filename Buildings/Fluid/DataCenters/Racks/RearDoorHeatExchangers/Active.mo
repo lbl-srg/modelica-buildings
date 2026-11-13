@@ -1,6 +1,6 @@
 within Buildings.Fluid.DataCenters.Racks.RearDoorHeatExchangers;
 model Active
-  "Active rear door heat exchanger with integrated temperature controlled fan"
+  "Active rear door heat exchanger with integrated back-pressure-controlled fan"
   extends Buildings.Fluid.DataCenters.Racks.RearDoorHeatExchangers.BaseClasses.PartialRearDoorHeatExchanger(
     redeclare replaceable parameter Buildings.Fluid.DataCenters.Racks.RearDoorHeatExchangers.Data.Active.Generic dat
     constrainedby Buildings.Fluid.DataCenters.Racks.RearDoorHeatExchangers.Data.Active.Generic);
@@ -107,7 +107,7 @@ The fan power is reported through the output <code>PFan</code>.
 <p>
 The liquid coolant enters through <code>portCoo_a</code> and exits through
 <code>portCoo_b</code>. The air enters through <code>portAir_a</code> (warm server
-exhaust), passes through the fan and then through the heat exchanger, and exits through
+exhaust), passes through the heat exchanger and then through the fan, and exits through
 <code>portAir_b</code> (cooled air leaving the rack).
 </p>
 <p>
@@ -125,10 +125,6 @@ First implementation.
 </ul>
 </html>"),
     Icon(graphics={
-        Text(
-          extent={{-86,18},{-56,-18}},
-          textColor={0,0,127},
-          textString="TSet"),
         Text(
           extent={{64,18},{94,-18}},
           textColor={0,0,127},

@@ -41,14 +41,14 @@ block CaseTemperature "Block to compute the case temperature"
   Modelica.Units.SI.ThermalResistance R
     "Case-to-inlet thermal resistance";
   final parameter Real relErrR[:]={RFit[i]/dat.R[i] for i in 1:nSup}
-    "Relative error of resistance based on data fit at each support point datRes.V_flow";
+    "Ratio of fitted to tabulated resistance at each support point dat.V_flow";
 protected
   final parameter Integer nSup=size(dat.V_flow, 1)
     "Number of support points";
   parameter Modelica.Units.SI.VolumeFlowRate V_flow_small = delta * V_flow_nominal
-    "Nominal volume flow rate for one cold plate" annotation (Dialog(group="Nominal condition"));
+    "Small volume flow rate for regularization of zero flow" annotation (Dialog(group="Nominal condition"));
   parameter Real RV[nSup](each min=0) = {dat.R[i]*dat.V_flow[i]
-    for i in 1:nSup} "Resistance multipled by volume flow rate";
+    for i in 1:nSup} "Resistance multiplied by volume flow rate";
   final parameter Real p[:]=Modelica.Math.Polynomials.fitting(
       u=dat.V_flow,
       y=RV,

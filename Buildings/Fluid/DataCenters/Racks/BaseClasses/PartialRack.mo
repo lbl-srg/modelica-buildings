@@ -1,5 +1,5 @@
 within Buildings.Fluid.DataCenters.Racks.BaseClasses;
-partial model PartialRack "Partial model of an IT rack, with utilization as input"
+partial model PartialRack "Partial model of an IT rack, with electrical power as input"
   extends Buildings.Fluid.Interfaces.PartialTwoPort;
   replaceable package Medium = Modelica.Media.Interfaces.PartialMedium
     "Medium in the component"
@@ -69,14 +69,14 @@ Partial model of an IT rack.
 <p>
 The model takes as an input the electrical power consumption,
 and assumes all is converted to the heat that needs to be rejected
-through the fluid ports, e.g.,
+through the fluid ports, i.e.,
 </p>
 <p align=\"center\" style=\"font-style:italic;\">
 Q_flow = P.
 </p>
 <p>
-The fluid outlet temperature is computed using a first order delay to mimic
-the transient effect. This first order delay is characterized by the user-configurable
+The fluid outlet temperature is computed using a first-order delay to mimic
+the transient effect. This first-order delay is characterized by the user-configurable
 time constant <code>tau</code>, set by default to <code>tau=2</code> seconds.
 For exact transient response, this value should be identified based on measurements.
 </p>

@@ -73,7 +73,7 @@ protected
 Preconfigured fan model.
 </p>
 <p>
-The fan is modelled using
+The fan is modeled using
 <a href=\"modelica://Buildings.Fluid.Movers.SpeedControlled_y\">
 Buildings.Fluid.Movers.SpeedControlled_y</a>.
 The fan pressure rise at the nominal volumetric flow rate is
@@ -82,7 +82,7 @@ The fan pressure rise at the nominal volumetric flow rate is
 dp<sub>0</sub> = P<sub>fan,0</sub> &eta;<sub>0</sub> &frasl; V&#775;<sub>0</sub>.
 </p>
 <p>
-The fan uses a constant total efficiency, which is set by the parameters <code>eta_nominal</code>.
+The fan uses a constant total efficiency, which is set by the parameter <code>eta_nominal</code>.
 </p>
 </html>",
       revisions="<html>
