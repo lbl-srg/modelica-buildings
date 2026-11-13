@@ -1,5 +1,5 @@
 within Buildings.Templates.Components.Routing;
-model MultipleToSingle "Multiple inlet port, single outlet ports"
+model MultipleToSingle "Multiple inlet ports, single outlet port"
   replaceable package Medium =
     Modelica.Media.Interfaces.PartialMedium "Medium in the component"
       annotation (choices(
@@ -35,9 +35,9 @@ model MultipleToSingle "Multiple inlet port, single outlet ports"
       Dialog(tab="Advanced", group="Diagnostics"),
       HideResult=true);
 
-  constant Integer icon_offset = 0
+  parameter Integer icon_offset = 0
     "Offset in y-direction between inlet and outlet in icon layer";
-  constant Integer icon_dy = 100
+  parameter Integer icon_dy = 100
     "Distance in y-direction between each branch in icon layer";
   constant Buildings.Templates.Components.Types.IntegrationPoint icon_pipe=
       Buildings.Templates.Components.Types.IntegrationPoint.None "Pipe symbol";
@@ -46,14 +46,14 @@ model MultipleToSingle "Multiple inlet port, single outlet ports"
     redeclare each final package Medium = Medium,
     each m_flow(min=if allowFlowReversal then -Modelica.Constants.inf else 0),
     each h_outflow(start=Medium.h_default, nominal=Medium.h_default))
-    "Fluid connector a (positive design flow direction is from ports_a to port_b)"
+    "Fluid connectors a (positive design flow direction is from ports_a to port_b)"
     annotation (Placement(transformation(extent={{-110,-40},{-90,40}}),
         iconTransformation(extent={{-110,-40},{-90,40}})));
   Modelica.Fluid.Interfaces.FluidPort_b port_b(
     redeclare final package Medium = Medium,
     m_flow(max=if allowFlowReversal then +Modelica.Constants.inf else 0),
     h_outflow(start=Medium.h_default, nominal=Medium.h_default))
-    "Fluid connectors b (positive design flow direction is from ports_a to port_b)"
+    "Fluid connector b (positive design flow direction is from ports_a to port_b)"
     annotation (Placement(transformation(extent={{90,-10},{110,10}})));
 
   Fluid.Delays.DelayFirstOrder del(
