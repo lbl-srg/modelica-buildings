@@ -25,10 +25,6 @@ model IndirectDryTest
     dat=dat)
     "Indirect dry evaporative cooler"
     annotation (Placement(transformation(origin={-2,0}, extent={{-10,-10},{10,10}})));
-  Buildings.Fluid.Sources.Boundary_pT sin1(
-    redeclare final package Medium = MediumA,
-    final nPorts=1) "Sink for secondary airflow"
-    annotation (Placement(transformation(origin={130,-40}, extent={{10,-10},{-10,10}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant evaCooAct(
     final k=true)
     "Boolean pulse signal for active evaporative cooling"
@@ -85,16 +81,6 @@ model IndirectDryTest
   Modelica.Thermal.HeatTransfer.Sensors.TemperatureSensor TVol
     "Water temperature"
     annotation (Placement(transformation(extent={{-160,160},{-140,180}})));
-  Movers.SpeedControlled_y fan(
-    redeclare package Medium = MediumA,
-    per=BIDW12,
-    addPowerToMedium=false)
-    annotation (Placement(transformation(extent={{60,-50},{80,-30}})));
-  Sources.Outside sou(redeclare final package Medium = MediumA, final nPorts=1)
-    "Source for secondary airflow" annotation (Placement(transformation(
-        origin={-90,-70},
-        extent={{10,-10},{-10,10}},
-        rotation=180)));
   Modelica.Blocks.Sources.Constant TSetLea(k=273.15 + 18)
     "Setpoint for leaving temperature"
     annotation (Placement(transformation(extent={{-40,-120},{-20,-100}})));
@@ -111,22 +97,17 @@ model IndirectDryTest
         Modelica.Utilities.Files.loadResource(
         "modelica://Buildings/Resources/weatherdata/USA_CA_San.Francisco.Intl.AP.724940_TMY3.mos"))
     annotation (Placement(transformation(extent={{-160,-140},{-140,-120}})));
-  BoundaryConditions.WeatherData.Bus           weaBus "Weather data bus"
-    annotation (Placement(transformation(extent={{-130,-140},{-110,-120}}),
-        iconTransformation(extent={{-124,-90},{-104,-70}})));
-  parameter Movers.Data.Fans.Greenheck.BIDW12 BIDW12
-    annotation (Placement(transformation(extent={{80,-100},{120,-60}})));
 equation
 
   connect(evaCooAct.y, indDryEvaCoo.evaCooAct) annotation (Line(points={{-58,-10},
           {-40,-10},{-40,0},{-11,0}}, color={255,0,255}));
   connect(pum.port_b, TEnt.port_a)
     annotation (Line(points={{-120,30},{-100,30}}, color={0,127,255}));
-  connect(TEnt.port_b, indDryEvaCoo.port_a1) annotation (Line(points={{-80,30},
-          {-46,30},{-46,6},{-12,6}}, color={0,127,255}));
-  connect(indDryEvaCoo.port_b1, vol.ports[1]) annotation (Line(points={{8,6},{
-          50,6},{50,60},{49,60}}, color={0,127,255}));
-  connect(exp.ports[1], indDryEvaCoo.port_b1) annotation (Line(points={{120,10},
+  connect(TEnt.port_b, indDryEvaCoo.port_a) annotation (Line(points={{-80,30},{
+          -46,30},{-46,6},{-12,6}}, color={0,127,255}));
+  connect(indDryEvaCoo.port_b, vol.ports[1]) annotation (Line(points={{8,6},{50,
+          6},{50,60},{49,60}}, color={0,127,255}));
+  connect(exp.ports[1], indDryEvaCoo.port_b) annotation (Line(points={{120,10},
           {62,10},{62,6},{8,6}}, color={0,127,255}));
   connect(vol.ports[2], pum.port_a) annotation (Line(points={{51,60},{-160,60},
           {-160,30},{-140,30}}, color={0,127,255}));
@@ -150,29 +131,16 @@ equation
           -190,170},{-160,170}}, color={191,0,0}));
   connect(swi.y, pum.m_flow_in) annotation (Line(points={{-49,130},{-28,130},{
           -28,42},{-130,42}}, color={0,0,127}));
-  connect(indDryEvaCoo.port_b2,fan. port_a) annotation (Line(points={{8,-6},{40,
-          -6},{40,-40},{60,-40}}, color={0,127,255}));
-  connect(fan.port_b, sin1.ports[1])
-    annotation (Line(points={{80,-40},{120,-40}}, color={0,127,255}));
-  connect(sou.ports[1], indDryEvaCoo.port_a2) annotation (Line(points={{-80,-70},
-          {-20,-70},{-20,-6},{-12,-6}}, color={0,127,255}));
   connect(TSetLea.y, conFan.u_s)
     annotation (Line(points={{-19,-110},{20,-110}}, color={0,0,127}));
-  connect(conFan.y,fan. y) annotation (Line(points={{43,-110},{50,-110},{50,-28},
-          {70,-28}}, color={0,0,127}));
   connect(indDryEvaCoo.TLvg, conFan.u_m) annotation (Line(points={{7,2},{10,2},
           {10,-122},{32,-122}}, color={0,0,127}));
-  connect(weaDat.weaBus,weaBus)
-   annotation (Line(points={{-140,-130},{-120,-130}},
-                                               color={255,204,51}));
-  connect(weaBus, sou.weaBus) annotation (Line(
-      points={{-120,-130},{-110,-130},{-110,-70.2},{-100,-70.2}},
+  connect(weaDat.weaBus, indDryEvaCoo.weaBus) annotation (Line(
+      points={{-140,-130},{-50,-130},{-50,-6},{-13,-6}},
       color={255,204,51},
-      thickness=0.5), Text(
-      string="%first",
-      index=-1,
-      extent={{-6,3},{-6,3}},
-      horizontalAlignment=TextAlignment.Right));
+      thickness=0.5));
+  connect(conFan.y, indDryEvaCoo.uFan) annotation (Line(points={{43,-110},{50,
+          -110},{50,-10},{4,-10}}, color={0,0,127}));
 annotation (
   Diagram(coordinateSystem(extent={{-200,-180},{180,180}})),
   Icon(coordinateSystem(extent={{-100,-100},{100,100}})),

@@ -1,6 +1,6 @@
 within Buildings.Fluid.Humidifiers.EvaporativeCoolers.DryCoil;
-model DryCoil "Cooling tower model based on epsilon-NTU relation"
-  extends Buildings.Fluid.HeatExchangers.CoolingTowers.BaseClasses.CoolingTower(
+model DryCoil "Dry coil model based on epsilon-NTU relation"
+  extends Buildings.Fluid.Humidifiers.EvaporativeCoolers.DryCoil.BaseClasses.CoolingTower(
     final m_flow_nominal = dat.Q_flow_nominal / cp_default / (dat.TCooOut_nominal - dat.TCooIn_nominal),
     final dp_nominal = dat.dp_nominal);
   parameter Data.Generic

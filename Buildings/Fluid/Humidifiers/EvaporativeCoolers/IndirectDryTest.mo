@@ -54,18 +54,12 @@ model IndirectDryTest "Indirect dry evaporative cooler"
                                                          extent={{-20,-20},{20,20}}),
       iconTransformation(origin={90,-20},
                                         extent={{-20,-20},{20,20}})));
-  Modelica.Fluid.Interfaces.FluidPort_a port_a1(redeclare package Medium =
+  Modelica.Fluid.Interfaces.FluidPort_a port_a(redeclare package Medium =
         Medium1) annotation (Placement(transformation(extent={{-110,50},{-90,70}}),
         iconTransformation(extent={{-110,50},{-90,70}})));
-  Modelica.Fluid.Interfaces.FluidPort_a port_a2(redeclare package Medium =
-        Medium2) annotation (Placement(transformation(extent={{-110,-90},{-90,
-            -70}}), iconTransformation(extent={{-110,-70},{-90,-50}})));
-  Modelica.Fluid.Interfaces.FluidPort_b port_b1(redeclare package Medium =
+  Modelica.Fluid.Interfaces.FluidPort_b port_b(redeclare package Medium =
         Medium1) annotation (Placement(transformation(extent={{230,50},{250,70}}),
         iconTransformation(extent={{90,50},{110,70}})));
-  Modelica.Fluid.Interfaces.FluidPort_b port_b2(redeclare package Medium =
-        Medium2) annotation (Placement(transformation(extent={{230,-90},{250,-68}}),
-                    iconTransformation(extent={{90,-70},{110,-50}})));
   Sensors.TemperatureTwoPort                 senTem(redeclare package Medium =
         Medium2, m_flow_nominal=m2_flow_nominal)
     annotation (Placement(transformation(extent={{60,-70},{80,-50}})));
@@ -88,6 +82,34 @@ model IndirectDryTest "Indirect dry evaporative cooler"
   Controls.OBC.CDL.Interfaces.RealOutput           TLvg annotation (Placement(
         transformation(extent={{240,-10},{280,30}}), iconTransformation(extent={{70,0},{
             110,40}})));
+  Controls.OBC.CDL.Interfaces.RealInput uFan annotation (Placement(
+        transformation(
+        extent={{-20,-20},{20,20}},
+        rotation=90,
+        origin={180,-120}), iconTransformation(
+        extent={{-20,-20},{20,20}},
+        rotation=90,
+        origin={60,-100})));
+  Sources.Outside sou(redeclare final package Medium = Medium2, final nPorts=1)
+    "Source for secondary airflow" annotation (Placement(transformation(
+        origin={-90,-60},
+        extent={{10,-10},{-10,10}},
+        rotation=180)));
+  Sources.Outside sin(redeclare final package Medium = Medium2, final nPorts=1)
+    "Sink for secondary airflow" annotation (Placement(transformation(
+        origin={290,-60},
+        extent={{10,-10},{-10,10}},
+        rotation=0)));
+  BoundaryConditions.WeatherData.Bus weaBus annotation (Placement(
+        transformation(extent={{-170,-80},{-130,-40}}), iconTransformation(
+          extent={{-120,-70},{-100,-50}})));
+  Movers.SpeedControlled_y fan(
+    redeclare package Medium = Medium2,
+    per=BIDW12,
+    addPowerToMedium=false)
+    annotation (Placement(transformation(extent={{220,-70},{240,-50}})));
+  parameter Movers.Data.Fans.Greenheck.BIDW12 BIDW12
+    annotation (Placement(transformation(extent={{240,-120},{280,-80}})));
 protected
   Buildings.Fluid.Humidifiers.EvaporativeCoolers.Direct dirEvaCoo(
     redeclare final package Medium = Medium2,
@@ -114,21 +136,17 @@ equation
   connect(evaCooAct, dirEvaCoo.evaCooAct)
     annotation (Line(points={{-120,0},{-60,0},{-60,-64},{-39,-64}},
       color={255,0,255}));
-  connect(port_a2, dirEvaCoo.port_a) annotation (Line(points={{-100,-80},{-56,
-          -80},{-56,-60},{-40,-60}}, color={0,127,255}));
   connect(preHea.port,vol. heatPort) annotation (Line(points={{160,20},{166,20},
           {166,-70},{171,-70}},      color={191,0,0}));
   connect(senTem.port_b, preDro.port_a)
     annotation (Line(points={{80,-60},{100,-60}},color={0,127,255}));
   connect(preDro.port_b, vol.ports[1])
     annotation (Line(points={{120,-60},{180,-60}}, color={0,127,255}));
-  connect(vol.ports[2], port_b2) annotation (Line(points={{182,-60},{200,-60},{200,
-          -78},{240,-78},{240,-79}},     color={0,127,255}));
   connect(senTem.T, dryCoil.TDryBul)
     annotation (Line(points={{70,-49},{70,64},{98,64}}, color={0,0,127}));
-  connect(port_a1, dryCoil.port_a)
+  connect(port_a, dryCoil.port_a)
     annotation (Line(points={{-100,60},{100,60}}, color={0,127,255}));
-  connect(dryCoil.port_b, port_b1)
+  connect(dryCoil.port_b, port_b)
     annotation (Line(points={{120,60},{240,60}}, color={0,127,255}));
   connect(dirEvaCoo.port_b, senMasFlo.port_a)
     annotation (Line(points={{-20,-60},{20,-60}}, color={0,127,255}));
@@ -140,6 +158,22 @@ equation
           10},{260,10}}, color={0,0,127}));
   connect(dryCoil.QCoi_flow, preHea.Q_flow) annotation (Line(points={{121,68},{
           130,68},{130,20},{140,20}}, color={0,0,127}));
+  connect(sou.ports[1], dirEvaCoo.port_a)
+    annotation (Line(points={{-80,-60},{-40,-60}}, color={0,127,255}));
+  connect(weaBus, sin.weaBus) annotation (Line(
+      points={{-150,-60},{-120,-60},{-120,-140},{310,-140},{310,-60},{300,-60}},
+      color={255,204,51},
+      thickness=0.5));
+  connect(weaBus, sou.weaBus) annotation (Line(
+      points={{-150,-60},{-125,-60},{-125,-60},{-100,-60}},
+      color={255,204,51},
+      thickness=0.5));
+  connect(vol.ports[2], fan.port_a)
+    annotation (Line(points={{182,-60},{220,-60}}, color={0,127,255}));
+  connect(fan.port_b, sin.ports[1])
+    annotation (Line(points={{240,-60},{280,-60}}, color={0,127,255}));
+  connect(uFan, fan.y) annotation (Line(points={{180,-120},{212,-120},{212,-48},
+          {230,-48}}, color={0,0,127}));
 annotation (defaultComponentName="indDryEva",
 Documentation(info="<html>
 <p>
