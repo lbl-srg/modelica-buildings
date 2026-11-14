@@ -1,0 +1,6 @@
+compareVars :=
+  {
+    "enaLeaPriPum.uHotWatIsoVal[1]",
+    "enaLeaPriPum.uHotWatIsoVal[2]",
+    "enaLeaPriPum.yLea"
+  };
