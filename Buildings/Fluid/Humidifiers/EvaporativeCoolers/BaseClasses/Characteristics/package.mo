@@ -1,12 +1,12 @@
 within Buildings.Fluid.Humidifiers.EvaporativeCoolers.BaseClasses;
-package Characteristics "Performance curves for evaporative pad characteristics"
+package Characteristics "Performance curves for rigid media pad characteristics"
   annotation (Documentation(info="<html>
 <p>
-This package implements performance curves for evaporative pads, and records for
+This package implements performance curves for rigid media pads, and records for
 parameters that can be used with these performance curves.
 </p>
 <p>
-A performance curve for evaporative pads computes saturation efficiency as a
+A performance curve for rigid media pads computes saturation efficiency as a
 function of the air velocity through cubic hermite splines. The following
 performance curve is implemented:
 </p>

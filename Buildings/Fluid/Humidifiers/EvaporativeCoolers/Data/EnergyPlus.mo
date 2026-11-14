@@ -1,6 +1,6 @@
 within Buildings.Fluid.Humidifiers.EvaporativeCoolers.Data;
 record EnergyPlus
-  "Data for an evaporative pad from the EnergyPlus engineering reference with varying pad depth"
+  "Data for a rigid media pad from the EnergyPlus engineering reference with varying pad depth"
   extends Buildings.Fluid.Humidifiers.EvaporativeCoolers.Data.Generic (
     final efficiency(
       v={0,0.5,1,1.5,2,2.5,3,3.5,4,4.5,5},
@@ -19,19 +19,19 @@ record EnergyPlus
     final v_nominal=3.5,
     final n=1.9259);
   parameter Modelica.Units.SI.Length d = 0.1524
-    "Depth of the rigid media evaporative pad";
+    "Depth of the rigid media pad";
   annotation (
 defaultComponentPrefixes="parameter",
 defaultComponentName="per",
 Documentation(info="<html>
 <p>
-This data record contains evaporative pad performance data from the EnergyPlus 23.1 
+This data record contains rigid media pad performance data from the EnergyPlus 23.1 
 Engineering Reference.
 </p>
 <p>
 From the <i>Curve Fitting Evaporative Media</i> section of the EnergyPlus 23.1
 Engineering Reference, the curve fitting equation that relates the saturation
-efficiency of an evaporative pad <i>&eta;</i> to the pad depth <i>d</i> and air
+efficiency of a rigid media pad <i>&eta;</i> to the pad depth <i>d</i> and air
 velocity <i>v</i> through the pad is as follows:
 </p>
 <p align=\"center\">
@@ -48,7 +48,7 @@ modify. Data point pairs include air velocity values between <i>0 - 5 m/s</i>.
 </p>
 <p>
 The EnergyPlus 23.1 engineering reference does not specify the pressure drop through
-evaporative pads as a function of air velocity <i>v</i> and pad depth <i>d</i>.
+rigid media pads as a function of air velocity <i>v</i> and pad depth <i>d</i>.
 However, an equation of the following form is used:
 </p>
 <p align=\"center\">
@@ -57,10 +57,10 @@ However, an equation of the following form is used:
 <p>
 By setting <i>a = 95.545 Pa m<sup>-1</sup> (m/s)<sup>-n</sup></i> and
 <i>n = 1.9259</i>, the pressure drop <i>dp</i> aligns with the values from the
-evaporative pad with a 150mm depth in the Munters CELdek 7090-15 Evaporative Pad
+rigid media pad with a 150mm depth in the Munters CELdek 7090-15 Evaporative Pad
 Specification Sheet. With nominal air velocity <i>v_nominal = 3.5 m/s</i>, the
 nominal pressure drop <i>dp_nominal</i> can be calculated with the above pressure
-drop equation if the depth of the evaporative pad <i>d</i> is known.
+drop equation if the depth of the rigid media pad <i>d</i> is known.
 </p>
 <h4>References</h4>
 <p>

@@ -1,9 +1,9 @@
 within Buildings.Fluid.Humidifiers.EvaporativeCoolers;
-package Data "Package containing data for real evaporative pads"
+package Data "Package containing data for real rigid media pads"
 
   annotation (Documentation(info="<html>
 <p>
-This package contains data for evaporative pads.
+This package contains data for rigid media pads.
 </p>
 </html>"),
   Icon(graphics={

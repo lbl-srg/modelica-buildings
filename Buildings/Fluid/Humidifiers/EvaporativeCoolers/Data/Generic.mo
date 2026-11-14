@@ -1,5 +1,5 @@
 within Buildings.Fluid.Humidifiers.EvaporativeCoolers.Data;
-record Generic "Generic data record for an evaporative pad"
+record Generic "Generic data record for a rigid media pad"
   extends Modelica.Icons.Record;
 
   parameter
@@ -24,11 +24,11 @@ First implementation.
 </ul>
 </html>", info="<html>
 <p>
-Record containing parameters for evaporative pads.
+Record containing parameters for rigid media pads.
 </p>
 <h4>Typical use</h4>
 <p>
-This record may be used to assign evaporative pad performance data using declaration
+This record may be used to assign rigid media pad performance data using declaration
 such as:
 </p>
 <pre>
@@ -42,11 +42,11 @@ such as:
 </pre>
 <p>
 This record provides performance data for both the saturation efficiency and the
-pressure drop of an evaporative pad. 
+pressure drop of a rigid media pad. 
 </p>
 <p>
 For saturation efficiency, a discrete list of data points of the air velocity
-flowing through the evaporative pad <i>v</i> (independent variable), as well as a
+flowing through the rigid media pad <i>v</i> (independent variable), as well as a
 discrete list of corresponding data points of the saturation efficiency <i>eta</i>
 (dependent variable), are provided. 
 </p>

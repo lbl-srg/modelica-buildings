@@ -35,7 +35,7 @@ algorithm
 annotation(smoothOrder=1,
   Documentation(info="<html>
 <p>
-This function computes the saturation efficiency through an evaporative pad for a
+This function computes the saturation efficiency through a rigid media pad for a
 given air velocity in the form
 </p>
 <p align=\"center\" style=\"font-style:italic;\">
@@ -43,7 +43,7 @@ given air velocity in the form
 </p>
 <p>
 where <i>&eta;</i> is the saturation efficiency, <i>v</i> is the air velocity, and
-<i>d</i> are performance data for an evaporative pad with a specified pad depth.
+<i>d</i> are performance data for a rigid media pad with a specified pad depth.
 </p>
 <h4>Implementation</h4>
 <p>

@@ -1,9 +1,9 @@
 within Buildings.Fluid.Humidifiers.EvaporativeCoolers.BaseClasses.Validation;
-model EvaporativePadCalculation "Validation of the evaporative pad calculation"
+model RigidMediaPadCalculation "Validation of the rigid media pad calculation"
   extends Modelica.Icons.Example;
 
   parameter Modelica.Units.SI.Area padAre = 0.6
-    "Area of the rigid media evaporative pad";
+    "Area of the rigid media pad";
   parameter Modelica.Units.SI.Length pAtm = 101325
     "Atmospheric pressure";
   parameter Modelica.Units.SI.ThermodynamicTemperature TDryBulSup_nominal = 296.15
@@ -13,27 +13,27 @@ model EvaporativePadCalculation "Validation of the evaporative pad calculation"
   parameter Modelica.Units.SI.MassFlowRate m_flow_nominal = 1000
     "Nominal supply mass flowrate";
 
-  Buildings.Fluid.Humidifiers.EvaporativeCoolers.BaseClasses.EvaporativePadCalculation
-    evaPadCal1(
+  Buildings.Fluid.Humidifiers.EvaporativeCoolers.BaseClasses.RigidMediaPadCalculation
+    rigMedPadCal1(
     redeclare package Medium = Buildings.Media.Air,
     final padAre=padAre,
     redeclare Buildings.Fluid.Humidifiers.EvaporativeCoolers.Data.Generic per)
-    "Instance with time-varying volume flowrate signal"
-    annotation (Placement(transformation(origin={30,50}, extent={{-10,-10},{10,10}})));
-  Buildings.Fluid.Humidifiers.EvaporativeCoolers.BaseClasses.EvaporativePadCalculation
-    evaPadCal2(
+    "Instance with time-varying volume flowrate signal" annotation (Placement(
+        transformation(origin={30,50}, extent={{-10,-10},{10,10}})));
+  Buildings.Fluid.Humidifiers.EvaporativeCoolers.BaseClasses.RigidMediaPadCalculation
+    rigMedPadCal2(
     redeclare package Medium = Buildings.Media.Air,
     final padAre=padAre,
     redeclare Buildings.Fluid.Humidifiers.EvaporativeCoolers.Data.Generic per)
-    "Instance with time-varying wetbulb temperature signal"
-    annotation (Placement(transformation(origin={30,0}, extent={{-10,-10},{10,10}})));
-  Buildings.Fluid.Humidifiers.EvaporativeCoolers.BaseClasses.EvaporativePadCalculation
-    evaPadCal3(
+    "Instance with time-varying wetbulb temperature signal" annotation (
+      Placement(transformation(origin={30,0}, extent={{-10,-10},{10,10}})));
+  Buildings.Fluid.Humidifiers.EvaporativeCoolers.BaseClasses.RigidMediaPadCalculation
+    rigMedPadCal3(
     redeclare package Medium = Buildings.Media.Air,
     final padAre=padAre,
     redeclare Buildings.Fluid.Humidifiers.EvaporativeCoolers.Data.Generic per)
-    "Instance with time-varying drybulb temperature signal"
-    annotation (Placement(transformation(origin={30,-50}, extent={{-10,-10},{10,10}})));
+    "Instance with time-varying drybulb temperature signal" annotation (
+      Placement(transformation(origin={30,-50}, extent={{-10,-10},{10,10}})));
 protected
   Modelica.Blocks.Sources.Constant TWetBulSupCon(
     final k=TWetBulSup_nominal,
@@ -76,38 +76,38 @@ protected
     "Constant pressure signal"
     annotation (Placement(transformation(origin={-80,-80}, extent={{-10,-10},{10,10}})));
 equation
-  connect(TWetBulSupCon.y, evaPadCal1.TWetBulIn) annotation (Line(points={{-69,80},
-          {-40,80},{-40,56},{18,56}}, color={0,0,127}));
-  connect(TDryBulSupCon.y, evaPadCal1.TDryBulIn) annotation (Line(points={{-69,30},
-          {-30,30},{-30,52},{18,52}}, color={0,0,127}));
-  connect(masflowRam.y, evaPadCal1.m_flow) annotation (Line(points={{1,80},{10,80},
-          {10,48},{18,48}}, color={0,0,127}));
-  connect(TWetBulSupRam.y, evaPadCal2.TWetBulIn)
+  connect(TWetBulSupCon.y, rigMedPadCal1.TWetBulIn) annotation (Line(points={{-69,
+          80},{-40,80},{-40,56},{18,56}}, color={0,0,127}));
+  connect(TDryBulSupCon.y, rigMedPadCal1.TDryBulIn) annotation (Line(points={{-69,
+          30},{-30,30},{-30,52},{18,52}}, color={0,0,127}));
+  connect(masflowRam.y, rigMedPadCal1.m_flow) annotation (Line(points={{1,80},{
+          10,80},{10,48},{18,48}}, color={0,0,127}));
+  connect(TWetBulSupRam.y, rigMedPadCal2.TWetBulIn)
     annotation (Line(points={{1,20},{10,20},{10,6},{18,6}}, color={0,0,127}));
-  connect(masfloCon.y,evaPadCal2.m_flow)  annotation (Line(points={{-69,-30},{-60,
-          -30},{-60,-2},{18,-2}}, color={0,0,127}));
-  connect(pCon.y, evaPadCal1.p) annotation (Line(points={{-69,-80},{-50,-80},{-50,
-          44},{18,44}}, color={0,0,127}));
-  connect(TDryBulSupRam.y, evaPadCal3.TDryBulIn) annotation (Line(points={{1,-26},
-          {10,-26},{10,-48},{18,-48}}, color={0,0,127}));
-  connect(TWetBulSupCon.y, evaPadCal3.TWetBulIn) annotation (Line(points={{-69,80},
-          {-40,80},{-40,-44},{18,-44}}, color={0,0,127}));
-  connect(TDryBulSupCon.y, evaPadCal2.TDryBulIn) annotation (Line(points={{-69,30},
-          {-30,30},{-30,2},{18,2}}, color={0,0,127}));
-  connect(masfloCon.y,evaPadCal3.m_flow)  annotation (Line(points={{-69,-30},{-60,
-          -30},{-60,-52},{18,-52}}, color={0,0,127}));
-  connect(pCon.y, evaPadCal2.p) annotation (Line(points={{-69,-80},{-50,-80},{-50,
-          -6},{18,-6}}, color={0,0,127}));
-  connect(pCon.y, evaPadCal3.p) annotation (Line(points={{-69,-80},{-50,-80},{-50,
-          -56},{18,-56}}, color={0,0,127}));
+  connect(masfloCon.y, rigMedPadCal2.m_flow) annotation (Line(points={{-69,-30},
+          {-60,-30},{-60,-2},{18,-2}}, color={0,0,127}));
+  connect(pCon.y, rigMedPadCal1.p) annotation (Line(points={{-69,-80},{-50,-80},
+          {-50,44},{18,44}}, color={0,0,127}));
+  connect(TDryBulSupRam.y, rigMedPadCal3.TDryBulIn) annotation (Line(points={{1,
+          -26},{10,-26},{10,-48},{18,-48}}, color={0,0,127}));
+  connect(TWetBulSupCon.y, rigMedPadCal3.TWetBulIn) annotation (Line(points={{-69,
+          80},{-40,80},{-40,-44},{18,-44}}, color={0,0,127}));
+  connect(TDryBulSupCon.y, rigMedPadCal2.TDryBulIn) annotation (Line(points={{-69,
+          30},{-30,30},{-30,2},{18,2}}, color={0,0,127}));
+  connect(masfloCon.y, rigMedPadCal3.m_flow) annotation (Line(points={{-69,-30},
+          {-60,-30},{-60,-52},{18,-52}}, color={0,0,127}));
+  connect(pCon.y, rigMedPadCal2.p) annotation (Line(points={{-69,-80},{-50,-80},
+          {-50,-6},{18,-6}}, color={0,0,127}));
+  connect(pCon.y, rigMedPadCal3.p) annotation (Line(points={{-69,-80},{-50,-80},
+          {-50,-56},{18,-56}}, color={0,0,127}));
 
 annotation (Documentation(info="<html>
 <p>
 This model implements a validation of the block
-<a href=\"modelica://Buildings.Fluid.Humidifiers.EvaporativeCoolers.BaseClasses.EvaporativePadCalculation\">
-Buildings.Fluid.Humidifiers.EvaporativeCoolers.BaseClasses.EvaporativePadCalculation</a>
+<a href=\"modelica://Buildings.Fluid.Humidifiers.EvaporativeCoolers.BaseClasses.RigidMediaPadCalculation\">
+Buildings.Fluid.Humidifiers.EvaporativeCoolers.BaseClasses.RigidMediaPadCalculation</a>
 that applies the peformance curve to calculate the water mass flow rate from an
-evaporative pad to the air stream.
+rigid media pad to the air stream.
 </p>
 <p>
 This model considers three validation instances with:
@@ -167,6 +167,6 @@ experiment(
     Interval=1,
       Tolerance=1e-6),
     __Dymola_Commands(file=
-          "modelica://Buildings/Resources/Scripts/Dymola/Fluid/Humidifiers/EvaporativeCoolers/BaseClasses/Validation/EvaporativePadCalculation.mos"
+          "modelica://Buildings/Resources/Scripts/Dymola/Fluid/Humidifiers/EvaporativeCoolers/BaseClasses/Validation/RigidMediaPadCalculation.mos"
         "Simulate and plot"));
-end EvaporativePadCalculation;
+end RigidMediaPadCalculation;

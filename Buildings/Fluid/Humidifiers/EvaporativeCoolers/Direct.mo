@@ -9,10 +9,10 @@ model Direct
     final n=per.n);
 
   parameter Modelica.Units.SI.Area padAre
-    "Area of the rigid media evaporative pad";
+    "Area of the rigid media pad";
   replaceable parameter Buildings.Fluid.Humidifiers.EvaporativeCoolers.Data.Generic per
     constrainedby Buildings.Fluid.Humidifiers.EvaporativeCoolers.Data.Generic
-    "Record with performance data for evaporative pads"
+    "Record with performance data for rigid media pads"
     annotation (choicesAllMatching=true,
       Placement(transformation(extent={{60,60},{80,80}})));
 
@@ -27,15 +27,15 @@ model Direct
     annotation (Placement(transformation(origin={120,80}, extent={{-20,-20},{20,20}}),
       iconTransformation(origin={90,40}, extent={{-20,-20},{20,20}})));
 protected
-  Buildings.Fluid.Humidifiers.EvaporativeCoolers.BaseClasses.EvaporativePadCalculation
-    evaPadCal(
+  Buildings.Fluid.Humidifiers.EvaporativeCoolers.BaseClasses.RigidMediaPadCalculation
+    rigMedPadCal(
     redeclare final package Medium = Medium,
     final padAre=padAre,
     per(
       final efficiency=per.efficiency,
       final v_nominal=per.v_nominal,
       final dp_nominal=per.dp_nominal,
-      final n=per.n)) "Evaporative pad calculation" annotation (Placement(
+      final n=per.n)) "Rigid media pad calculation" annotation (Placement(
         transformation(origin={30,50}, extent={{-10,-10},{10,10}})));
   Medium.ThermodynamicState staInl=Medium.setState_phX(
     p=port_a.p, h=inStream(port_a.h_outflow), X=inStream(port_a.Xi_outflow))
@@ -66,23 +66,23 @@ protected
     "Zero water flow"
     annotation (Placement(transformation(extent={{0,-60},{20,-40}})));
 equation
-  connect(TDryBul.y, evaPadCal.TDryBulIn) annotation (Line(points={{-39,90},{-30,
-          90},{-30,52},{18,52}}, color={0,0,127}));
+  connect(TDryBul.y, rigMedPadCal.TDryBulIn) annotation (Line(points={{-39,90},
+          {-30,90},{-30,52},{18,52}}, color={0,0,127}));
   connect(TDryBul.y, wetBul.TDryBul)
     annotation (Line(points={{-39,90},{-30,90},{-30,88},{-21,88}}, color={0,0,127}));
-  connect(wetBul.TWetBul, evaPadCal.TWetBulIn) annotation (Line(points={{1,80},
-          {10,80},{10,56},{18,56}}, color={0,0,127}));
+  connect(wetBul.TWetBul, rigMedPadCal.TWetBulIn) annotation (Line(points={{1,
+          80},{10,80},{10,56},{18,56}}, color={0,0,127}));
   connect(XInl.y, wetBul.Xi)
     annotation (Line(points={{-79,80},{-21,80}}, color={0,0,127}));
-  connect(pInl.y, evaPadCal.p) annotation (Line(points={{-79,60},{-60,60},{-60,
+  connect(pInl.y, rigMedPadCal.p) annotation (Line(points={{-79,60},{-60,60},{-60,
           44},{18,44}}, color={0,0,127}));
-  connect(masflo.y,evaPadCal.m_flow)  annotation (Line(points={{-79,30},{0,30},
-          {0,48},{18,48}}, color={0,0,127}));
+  connect(masflo.y, rigMedPadCal.m_flow) annotation (Line(points={{-79,30},{0,
+          30},{0,48},{18,48}}, color={0,0,127}));
   connect(evaCooAct, swiEvaCoo.u2)
     annotation (Line(points={{-120,-80},{-40,-80},{-40,-30},{58,-30}},
       color={255,0,255}));
-  connect(evaPadCal.dmWat_flow, swiEvaCoo.u1) annotation (Line(points={{42,45},
-          {50,45},{50,-22},{58,-22}}, color={0,0,127}));
+  connect(rigMedPadCal.dmWat_flow, swiEvaCoo.u1) annotation (Line(points={{42,
+          45},{50,45},{50,-22},{58,-22}}, color={0,0,127}));
   connect(swiEvaCoo.y, dmWat_flow)
     annotation (Line(points={{82,-30},{90,-30},{90,80},{120,80}}, color={0,0,127}));
   connect(swiEvaCoo.y, vol.mWat_flow)
@@ -149,24 +149,24 @@ info="<html>
 Model for a direct evaporative cooler.
 </p>
 <p>
-This direct evaporative cooler contains an evaporative pad, which cools down the
+This direct evaporative cooler contains a rigid media pad, which cools down the
 airstream by adiabatically increasing the humidity mass fraction of the air. The
 mass of water vapor added to the air is reported by the output signal
 <code>dmWat_flow</code>.
 </p>
 <p>
 The input variable <code>evaCooAct</code> determines whether evaporative cooling is
-active (such that the evaporative pad is wet). When evaporative cooling is not
-active (the evaporative pad is dry), no water vapor is added to the air, and thus
-<code>dmWat_flow = 0</code>. The pressure drop through the evaporative pad is less
-than <i>10%</i> lower when the evaporative pad is dry compared to when the
-evaporative pad is wet (see the Munters CELdek 7090-15 Evaporative Pad Specification
+active (such that the rigid media pad is wet). When evaporative cooling is not
+active (the rigid media pad is dry), no water vapor is added to the air, and thus
+<code>dmWat_flow = 0</code>. The pressure drop through the rigid media pad is less
+than <i>10%</i> lower when the rigid media pad is dry compared to when the
+rigid media pad is wet (see the Munters CELdek 7090-15 Evaporative Pad Specification
 Sheet in the <i>References</i> section below). Thus, this model assumes that the
 pressure drop is the same regardless of whether evaporative cooling is active or not.
 </p>
 <p>
 This model uses a data record <code>per</code> to provide data on the saturation
-efficiency and the pressure drop of an evaporative pad within the evaporative cooler.
+efficiency and the pressure drop of a rigid media pad within the evaporative cooler.
 This data record is an instance of
 <a href=\"modelica://Buildings.Fluid.Humidifiers.EvaporativeCoolers.Data.Generic\">
 Buildings.Fluid.Humidifiers.EvaporativeCoolers.Data.Generic</a>.

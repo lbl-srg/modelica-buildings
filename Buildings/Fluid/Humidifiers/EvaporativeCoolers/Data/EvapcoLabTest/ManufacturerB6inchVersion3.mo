@@ -1,6 +1,6 @@
 within Buildings.Fluid.Humidifiers.EvaporativeCoolers.Data.EvapcoLabTest;
 record ManufacturerB6inchVersion3
-  "Evapco test data for a 6-inch Version 3 evaporative pad from Manufacturer B"
+  "Evapco test data for a 6-inch Version 3 rigid media pad from Manufacturer B"
   extends Buildings.Fluid.Humidifiers.EvaporativeCoolers.Data.Generic (
     final efficiency(
       v={0,1.27,1.524,1.778,2.032,2.286,2.54,2.794,3.048,3.302,3.556,5,10},
@@ -15,11 +15,11 @@ defaultComponentPrefixes="parameter",
 defaultComponentName="per",
 Documentation(info="<html>
 <p>
-This data record contains performance data for a 6-inch Version 3 evaporative pad
+This data record contains performance data for a 6-inch Version 3 rigid media pad
 from Manufacturer B in the Evapco Lab Test. 
 </p>
 <p>
-For more information of the Evapco Lab Test and the evaporative pad naming
+For more information of the Evapco Lab Test and the rigid media pad naming
 conventions, refer to the documentation at
 <a href=\"modelica://Buildings.Fluid.Humidifiers.EvaporativeCoolers.Data.EvapcoLabTest\">
 Buildings.Fluid.Humidifiers.EvaporativeCoolers.Data.EvapcoLabTest</a>.

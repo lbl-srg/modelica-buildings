@@ -27,10 +27,10 @@ model IndirectDryTest "Indirect dry evaporative cooler"
   final parameter Modelica.Units.SI.MassFlowRate m2_flow_nominal=per.v_nominal*padAre*Medium2.dStp
     "Nominal heat exchanger mass flow rate of medium rejected to outdoor air";
   parameter Modelica.Units.SI.Area padAre
-    "Area of the rigid media evaporative pad";
+    "Area of the rigid media pad";
   replaceable parameter Buildings.Fluid.Humidifiers.EvaporativeCoolers.Data.Generic per
     constrainedby Buildings.Fluid.Humidifiers.EvaporativeCoolers.Data.Generic
-    "Record with performance data for evaporative pads"
+    "Record with performance data for rigid media pads"
     annotation (choicesAllMatching=true,
       Placement(transformation(extent={{-40,-40},{-20,-20}})));
   parameter Buildings.Fluid.Humidifiers.EvaporativeCoolers.DryCoil.Data.Generic
@@ -158,7 +158,7 @@ exchanger where it cools the primary fluid flowing through the heat exchanger tu
 <p>
 The input variable <code>evaCooAct</code> determines whether evaporative cooling is
 active for the direct evaporative cooler. When evaporative cooling is not active
-(the evaporative pad is dry), no water vapor is added to the air.
+(the rigid media pad is dry), no water vapor is added to the air.
 </p>
 <p>
 <b>Note:</b> The model works correctly only when the ports a1 and a2 are used as

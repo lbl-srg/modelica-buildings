@@ -1,14 +1,14 @@
 within Buildings.Fluid.Humidifiers.EvaporativeCoolers.BaseClasses;
-block EvaporativePadCalculation
-  "Calculates the saturation efficiency and the water vapor mass flow rate of an evaporative pad"
+block RigidMediaPadCalculation
+  "Calculates the saturation efficiency and the water vapor mass flow rate of a rigid media pad"
 
   replaceable package Medium = Modelica.Media.Interfaces.PartialMedium
     "Medium";
   parameter Modelica.Units.SI.Area padAre
-    "Area of the rigid media evaporative pad";
+    "Area of the rigid media pad";
   replaceable parameter Buildings.Fluid.Humidifiers.EvaporativeCoolers.Data.Generic per
     constrainedby Buildings.Fluid.Humidifiers.EvaporativeCoolers.Data.Generic
-    "Record with performance data for evaporative pads"
+    "Record with performance data for rigid media pads"
     annotation (choicesAllMatching=true,
       Placement(transformation(extent={{60,60},{80,80}})));
   final parameter Real etaDer[size(per.efficiency.v,1)]=
@@ -91,7 +91,7 @@ equation
   TDryBulOut = XWOut.TDryBul;
   dmWat_flow = (XWOut.X_w - XWIn.X_w)*m_flow;
 
-annotation (defaultComponentName="evaPadCal",
+annotation (defaultComponentName="rigMedPadCal",
   Icon(graphics={
   Text(extent={{-152,144},{148,104}}, textString="%name", textColor={0,0,255}),
   Rectangle(extent={{-100,100},{100,-100}}, lineColor={0,0,0},
@@ -165,11 +165,11 @@ annotation (defaultComponentName="evaPadCal",
 
     Documentation(info="<html>
 <p>
-This block calculates the saturation efficiency of an evaporative pad, as well as
-the water vapor mass flow rate addition into the air stream from the evaporative pad.
+This block calculates the saturation efficiency of a rigid media pad, as well as
+the water vapor mass flow rate addition into the air stream from the rigid media pad.
 </p>
 <p>
-The saturation efficiency of an evaporative pad <code>eta</code> is calculated using 
+The saturation efficiency of a rigid media pad <code>eta</code> is calculated using 
 a data record <code>per</code>, which is an instance of
 <a href=\"modelica://Buildings.Fluid.Humidifiers.EvaporativeCoolers.Data.Generic\">
 Buildings.Fluid.Humidifiers.EvaporativeCoolers.Data.Generic</a>. This data record
@@ -178,7 +178,7 @@ a function of the velocity of the air stream <code>v</code>.
 </p>
 <p>
 The velocity <code>v</code> is calculated from the mass flow rate <code>m_flow</code>,
-evaporative pad cross-sectional area <code>padAre</code>, and air density <code>rho</code>
+rigid media pad cross-sectional area <code>padAre</code>, and air density <code>rho</code>
 using:
 </p>
 <p align=\"center\" style=\"font-style:italic;\">
@@ -217,4 +217,4 @@ First implementation.
 </li>
 </ul>
 </html>"));
-end EvaporativePadCalculation;
+end RigidMediaPadCalculation;
