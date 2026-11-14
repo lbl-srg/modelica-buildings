@@ -100,6 +100,20 @@ that can lead to wrong simulation results):
                        This is for <a href=\"https://www.github.com/lbl-srg/modelica-buildings/issues/4475\">issue #4475</a>.
     </td>
 </tr>
+<tr><td colspan=\"2\"><b>Buildings.ThermalZones.Detailed.BaseClasses</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.ThermalZones.Detailed.BaseClasses.SolarRadiationExchange
+    </td>
+    <td valign=\"top\">Corrected the sign of the room-side solar radiation
+                       (<code>JOutConExtWin</code> and <code>HOutConExtWin</code>)
+                       sent to the window model so that the window absorbs room-side
+                       solar radiation rather than losing heat. The impact on heating and cooling
+                       demand is small as this only affects the solar radiation that is reflected by the room
+                       back to the window.<br/>
+                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4871\">Buildings, #4871</a>.
+    </td>
+</tr>
 </table>
 <!-- Uncritical errors -->
 <p>
