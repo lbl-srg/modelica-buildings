@@ -1,8 +1,16 @@
 within Buildings.Fluid.Humidifiers.EvaporativeCoolers.DryCoil;
 model DryCoil "Dry coil model based on epsilon-NTU relation"
-  extends Buildings.Fluid.Humidifiers.EvaporativeCoolers.DryCoil.BaseClasses.CoolingTower(
+  extends Buildings.Fluid.Interfaces.TwoPortHeatMassExchanger(
+    redeclare final Buildings.Fluid.MixingVolumes.MixingVolume vol,
     final m_flow_nominal = dat.Q_flow_nominal / cp_default / (dat.TCooOut_nominal - dat.TCooIn_nominal),
     final dp_nominal = dat.dp_nominal);
+  Modelica.Blocks.Interfaces.RealOutput TLvg(
+    final unit="K",
+    displayUnit="degC") "Leaving water temperature"
+    annotation (Placement(transformation(extent={{100,-70},{120,-50}})));
+  Modelica.Units.SI.HeatFlowRate Q_flow=preHea.Q_flow
+    "Heat input into water circuit";
+
   parameter Data.Generic
     dat "Performance data record"
     annotation (Placement(transformation(extent={{-10,70},{10,90}})));
@@ -31,6 +39,15 @@ model DryCoil "Dry coil model based on epsilon-NTU relation"
   Modelica.Blocks.Math.Gain gain(k=-1)
     annotation (Placement(transformation(extent={{40,50},{60,70}})));
 protected
+  parameter Modelica.Units.SI.SpecificHeatCapacity cp_default=
+    Medium.specificHeatCapacityCp(sta_default)
+    "Specific heat capacity";
+  Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow preHea
+    "Prescribed heat flow"
+    annotation (Placement(transformation(extent={{-40,-70},{-20,-50}})));
+  Modelica.Thermal.HeatTransfer.Sensors.TemperatureSensor TVol
+    "Water temperature in volume, leaving at port_b"
+    annotation (Placement(transformation(extent={{20,-70},{40,-50}})));
   Modelica.Blocks.Sources.RealExpression TCooIn(
     final y = Medium.temperature(
       Medium.setState_phX(
@@ -47,6 +64,18 @@ protected
     final yMin=yMin) "Model for thermal performance"
     annotation (Placement(transformation(extent={{-20,40},{0,60}})));
 equation
+  connect(preHea.port, vol.heatPort) annotation (Line(
+      points={{-20,-60},{-16,-60},{-16,-10},{-9,-10}},
+      color={191,0,0},
+      smooth=Smooth.None));
+  connect(TVol.port, vol.heatPort) annotation (Line(
+      points={{20,-60},{-16,-60},{-16,-10},{-9,-10}},
+      color={191,0,0},
+      smooth=Smooth.None));
+  connect(TVol.T, TLvg) annotation (Line(
+      points={{41,-60},{110,-60}},
+      color={0,0,127},
+      smooth=Smooth.None));
   connect(per.TDryBul, TDryBul) annotation (Line(points={{-22,54},{-80,54},{-80,
           40},{-120,40}}, color={0,0,127}));
   connect(per.Q_flow, preHea.Q_flow) annotation(
