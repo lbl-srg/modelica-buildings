@@ -60,25 +60,6 @@ model IndirectDryTest "Indirect dry evaporative cooler"
   Modelica.Fluid.Interfaces.FluidPort_b port_b(redeclare package Medium =
         Medium1) annotation (Placement(transformation(extent={{230,50},{250,70}}),
         iconTransformation(extent={{90,50},{110,70}})));
-  Sensors.TemperatureTwoPort                 senTem(redeclare package Medium =
-        Medium2, m_flow_nominal=m2_flow_nominal)
-    annotation (Placement(transformation(extent={{60,-70},{80,-50}})));
-  FixedResistances.PressureDrop                 preDro(
-    redeclare final package Medium = Medium2,
-    final m_flow_nominal=m2_flow_nominal,
-    //final homotopyInitialization=homotopyInitialization,
-    final dp_nominal=dp2_nominal)
-                                 "Flow resistance"
-    annotation (Placement(transformation(extent={{100,-70},{120,-50}})));
-              MixingVolumes.MixingVolume                 vol(
-    redeclare final package Medium = Medium2,
-    nPorts=2,
-    V=0.01,
-    final m_flow_nominal=m2_flow_nominal)
-                           "Volume for fluid stream"
-     annotation (Placement(transformation(extent={{171,-60},{191,-80}})));
-  Sensors.MassFlowRate senMasFlo(redeclare package Medium = Medium2)
-    annotation (Placement(transformation(extent={{20,-70},{40,-50}})));
   Controls.OBC.CDL.Interfaces.RealOutput           TLvg annotation (Placement(
         transformation(extent={{240,-10},{280,30}}), iconTransformation(extent={{70,0},{
             110,40}})));
@@ -121,14 +102,13 @@ protected
     "Direct evaporative cooler for representing the cooling effect on the secondary air"
     annotation (Placement(transformation(origin={-30,-60},
                                                          extent={{-10,-10},{10,10}})));
-  DryCoil.DryCoil                                      dryCoil(redeclare
-      package Medium = Medium1, dat=dat)
+  DryCoil.DryCoil                                      dryCoil(
+    redeclare package Medium1 = Medium1,
+    redeclare package Medium2 = Medium2,
+                                dat=dat)
     "Heat exchanger for heat transfer between primary and secondary air"
     annotation (Placement(transformation(origin={110,60},
                                                        extent = {{-10, -10}, {10, 10}})));
-  Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow preHea
-    "Prescribed heat flow"
-    annotation (Placement(transformation(extent={{140,10},{160,30}})));
 equation
   connect(dirEvaCoo.dmWat_flow, dmWat_flow)
     annotation (Line(points={{-21,-56},{0,-56},{0,-30},{260,-30}},
@@ -136,44 +116,31 @@ equation
   connect(evaCooAct, dirEvaCoo.evaCooAct)
     annotation (Line(points={{-120,0},{-60,0},{-60,-64},{-39,-64}},
       color={255,0,255}));
-  connect(preHea.port,vol. heatPort) annotation (Line(points={{160,20},{166,20},
-          {166,-70},{171,-70}},      color={191,0,0}));
-  connect(senTem.port_b, preDro.port_a)
-    annotation (Line(points={{80,-60},{100,-60}},color={0,127,255}));
-  connect(preDro.port_b, vol.ports[1])
-    annotation (Line(points={{120,-60},{180,-60}}, color={0,127,255}));
-  connect(senTem.T, dryCoil.TDryBul)
-    annotation (Line(points={{70,-49},{70,64},{98,64}}, color={0,0,127}));
-  connect(port_a, dryCoil.port_a)
-    annotation (Line(points={{-100,60},{100,60}}, color={0,127,255}));
-  connect(dryCoil.port_b, port_b)
-    annotation (Line(points={{120,60},{240,60}}, color={0,127,255}));
-  connect(dirEvaCoo.port_b, senMasFlo.port_a)
-    annotation (Line(points={{-20,-60},{20,-60}}, color={0,127,255}));
-  connect(senMasFlo.port_b, senTem.port_a)
-    annotation (Line(points={{40,-60},{60,-60}}, color={0,127,255}));
-  connect(senMasFlo.m_flow, dryCoil.mAir_flow)
-    annotation (Line(points={{30,-49},{30,68},{98,68}}, color={0,0,127}));
-  connect(dryCoil.TLvg, TLvg) annotation (Line(points={{121,54},{220,54},{220,
+  connect(dryCoil.TLvg, TLvg) annotation (Line(points={{118,60},{140,60},{140,
           10},{260,10}}, color={0,0,127}));
-  connect(dryCoil.QCoi_flow, preHea.Q_flow) annotation (Line(points={{121,68},{
-          130,68},{130,20},{140,20}}, color={0,0,127}));
   connect(sou.ports[1], dirEvaCoo.port_a)
     annotation (Line(points={{-80,-60},{-40,-60}}, color={0,127,255}));
   connect(weaBus, sin.weaBus) annotation (Line(
-      points={{-150,-60},{-120,-60},{-120,-140},{310,-140},{310,-60},{300,-60}},
+      points={{-150,-60},{-120,-60},{-120,-140},{310,-140},{310,-59.8},{300,
+          -59.8}},
       color={255,204,51},
       thickness=0.5));
   connect(weaBus, sou.weaBus) annotation (Line(
-      points={{-150,-60},{-125,-60},{-125,-60},{-100,-60}},
+      points={{-150,-60},{-125,-60},{-125,-60.2},{-100,-60.2}},
       color={255,204,51},
       thickness=0.5));
-  connect(vol.ports[2], fan.port_a)
-    annotation (Line(points={{182,-60},{220,-60}}, color={0,127,255}));
   connect(fan.port_b, sin.ports[1])
     annotation (Line(points={{240,-60},{280,-60}}, color={0,127,255}));
   connect(uFan, fan.y) annotation (Line(points={{180,-120},{212,-120},{212,-48},
           {230,-48}}, color={0,0,127}));
+  connect(port_a, dryCoil.port_a1) annotation (Line(points={{-100,60},{0,60},{0,
+          66},{100,66}}, color={0,127,255}));
+  connect(dryCoil.port_b1, port_b) annotation (Line(points={{120,66},{220,66},{
+          220,60},{240,60}}, color={0,127,255}));
+  connect(dirEvaCoo.port_b, dryCoil.port_a2) annotation (Line(points={{-20,-60},
+          {130,-60},{130,54},{120,54}}, color={0,127,255}));
+  connect(dryCoil.port_b2, fan.port_a) annotation (Line(points={{100,54},{80,54},
+          {80,-80},{180,-80},{180,-60},{220,-60}}, color={0,127,255}));
 annotation (defaultComponentName="indDryEva",
 Documentation(info="<html>
 <p>

@@ -2,6 +2,7 @@ within Buildings.Fluid.Humidifiers.EvaporativeCoolers.DryCoil;
 model DryCoil "Dry coil model based on epsilon-NTU relation"
   extends Buildings.Fluid.Interfaces.FourPortHeatMassExchanger(
     redeclare final Buildings.Fluid.MixingVolumes.MixingVolume vol1,
+    redeclare final Buildings.Fluid.MixingVolumes.MixingVolume vol2,
     final m1_flow_nominal = dat.Q_flow_nominal / cp_default / (dat.TCooOut_nominal - dat.TCooIn_nominal),
     final m2_flow_nominal = m1_flow_nominal / dat.ratCooAir_nominal,
     final dp1_nominal = dat.dp_nominal,
