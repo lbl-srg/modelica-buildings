@@ -6,6 +6,10 @@ model DryCoil "Validation for the dry coil model"
     "Medium water"
     annotation (choicesAllMatching=true);
 
+  replaceable package MediumA = Buildings.Media.Air
+    "Medium air"
+    annotation (choicesAllMatching=true);
+
   parameter Modelica.Units.SI.MassFlowRate m_flow_nominal=0.5
     "Nominal water mass flow rate"
     annotation (Dialog(group="Nominal condition"));
@@ -25,10 +29,27 @@ model DryCoil "Validation for the dry coil model"
     annotation (Placement(transformation(extent={{0,20},{20,40}})));
 
   Buildings.Fluid.Humidifiers.EvaporativeCoolers.DryCoil.DryCoil dryCoi(
-    redeclare final package Medium = MediumW,
+    redeclare final package Medium1 = MediumW,
+    redeclare final package Medium2 = MediumA,
     final dat=dat)
     "Dry coil"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
+
+  Buildings.Fluid.Movers.FlowControlled_m_flow fan(
+    redeclare package Medium = MediumA,
+    m_flow_nominal=m_flow_nominal/dat.ratCooAir_nominal,
+    nominalValuesDefineDefaultPressureCurve=true)
+    "Fan for air loop"
+    annotation (Placement(transformation(
+      origin={70,-10},
+      extent={{10,-10},{-10,10}},
+      rotation=180)));
+
+  Buildings.Fluid.Sources.Outside ambAir(
+    redeclare package Medium = MediumA,
+    nPorts=2)
+    "Ambient air source and sink"
+    annotation (Placement(transformation(extent={{140,-50},{120,-30}})));
 
   Buildings.Fluid.Movers.FlowControlled_m_flow pum(
     redeclare package Medium = MediumW,
@@ -126,12 +147,19 @@ model DryCoil "Validation for the dry coil model"
 equation
   connect(pum.port_b, TEnt.port_a)
     annotation (Line(points={{-120,30},{-100,30}}, color={0,127,255}));
-  connect(TEnt.port_b, dryCoi.port_a)
-    annotation (Line(points={{-80,30},{-45,30},{-45,0},{-10,0}}, color={0,127,255}));
-  connect(dryCoi.port_b, vol.ports[1])
-    annotation (Line(points={{10,0},{49,0},{49,60}}, color={0,127,255}));
-  connect(exp.ports[1], dryCoi.port_b)
-    annotation (Line(points={{120,10},{60,10},{60,0},{10,0}}, color={0,127,255}));
+  connect(TEnt.port_b, dryCoi.port_a1)
+    annotation (Line(points={{-80,30},{-45,30},{-45,6},{-10,6}}, color={0,127,255}));
+  connect(dryCoi.port_b1, vol.ports[1])
+    annotation (Line(points={{10,6},{49,6},{49,60}}, color={0,127,255}));
+  connect(exp.ports[1], dryCoi.port_b1)
+    annotation (Line(points={{120,10},{60,10},{60,6},{10,6}}, color={0,127,255}));
+  connect(ambAir.ports[1], fan.port_a)
+    annotation (Line(points={{120,-41},{100,-41},{100,-10},{60,-10}},
+                                                                    color={0,127,255}));
+  connect(fan.port_b, dryCoi.port_a2)
+    annotation (Line(points={{80,-10},{40,-10},{40,-6},{10,-6}}, color={0,127,255}));
+  connect(dryCoi.port_b2, ambAir.ports[2])
+    annotation (Line(points={{-10,-6},{-20,-6},{-20,-39},{120,-39}}, color={0,127,255}));
   connect(vol.ports[2], pum.port_a)
     annotation (Line(points={{51,60},{-160,60},{-160,30},{-140,30}},
       color={0,127,255}));
@@ -160,19 +188,18 @@ equation
   connect(TSetLea.y, conFan.u_s)
     annotation (Line(points={{-139,-70},{-112,-70}}, color={0,0,127}));
   connect(dryCoi.TLvg, conFan.u_m)
-    annotation (Line(points={{11,-6},{20,-6},{20,-100},{-100,-100},{-100,-82}},
+    annotation (Line(points={{8,0},{20,0},{20,-100},{-100,-100},{-100,-82}},
       color={0,0,127}));
   connect(conFan.y, gaiMAir_flow.u)
     annotation (Line(points={{-89,-70},{-62,-70}}, color={0,0,127}));
-  connect(gaiMAir_flow.y, dryCoi.mAir_flow)
-    annotation (Line(points={{-39,-70},{-30,-70},{-30,8},{-12,8}},
-      color={0,0,127}));
+  connect(gaiMAir_flow.y, fan.m_flow_in)
+    annotation (Line(points={{-39,-70},{70,-70},{70,-22}}, color={0,0,127}));
   connect(weaDat.weaBus, weaBus) annotation (Line(
       points={{-140,-130},{-90,-130}},
       color={255,204,51},
       thickness=0.5));
-  connect(weaBus.TDryBul, dryCoi.TDryBul) annotation (Line(
-      points={{-89.9,-129.9},{-20,-129.9},{-20,4},{-12,4}},
+  connect(ambAir.weaBus, weaBus) annotation (Line(
+      points={{140,-40},{160,-40},{160,-130},{-90,-130}},
       color={255,204,51},
       thickness=0.5));
   annotation (
@@ -204,14 +231,14 @@ deadband of <code>onOffCon.bandwidth</code>.
 </p>
 <p>
 A PID controller <code>conFan</code> tracks the leaving water temperature
-setpoint <code>TSetLea.k</code> by modulating the fan air mass flow rate
-<code>dryCoi.mAir_flow</code> through the gain block
-<code>gaiMAir_flow</code>. As the fan control signal varies across the
-minimum threshold <code>dryCoi.yMin</code>, the dry coil transitions between
-the free-convection and forced-convection heat transfer regimes while
-responding to variations in entering air dry-bulb temperature
-<code>dryCoi.TDryBul</code> and cooling fluid inlet temperature
-<code>TEnt.T</code>.
+setpoint <code>TSetLea.k</code> by modulating the air mass flow rate through
+the gain block <code>gaiMAir_flow</code> and the fan <code>fan</code>.
+As the fan control signal varies across the minimum threshold
+<code>dryCoi.yMin</code>, the dry coil transitions between the free-convection
+and forced-convection heat transfer regimes. The ambient air boundary
+<code>ambAir</code> supplies air with dry-bulb temperature from the weather
+file, while the coil measures its entering air temperature at
+<code>dryCoi.port_a2</code>.
 </p>
 </html>",
       revisions="<html>

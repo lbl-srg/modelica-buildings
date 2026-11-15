@@ -1,19 +1,22 @@
 within Buildings.Fluid.Humidifiers.EvaporativeCoolers.DryCoil;
 model DryCoil "Dry coil model based on epsilon-NTU relation"
-  extends Buildings.Fluid.Interfaces.TwoPortHeatMassExchanger(
-    redeclare final Buildings.Fluid.MixingVolumes.MixingVolume vol,
-    final m_flow_nominal = dat.Q_flow_nominal / cp_default / (dat.TCooOut_nominal - dat.TCooIn_nominal),
-    final dp_nominal = dat.dp_nominal);
+  extends Buildings.Fluid.Interfaces.FourPortHeatMassExchanger(
+    redeclare final Buildings.Fluid.MixingVolumes.MixingVolume vol1,
+    final m1_flow_nominal = dat.Q_flow_nominal / cp_default / (dat.TCooOut_nominal - dat.TCooIn_nominal),
+    final m2_flow_nominal = m1_flow_nominal / dat.ratCooAir_nominal,
+    final dp1_nominal = dat.dp_nominal,
+    final dp2_nominal = 0);
   Modelica.Blocks.Interfaces.RealOutput TLvg(
     final unit="K",
     displayUnit="degC") "Leaving water temperature"
-    annotation (Placement(transformation(extent={{100,-70},{120,-50}})));
+    annotation (Placement(transformation(extent={{100,-10},{120,10}}),
+        iconTransformation(extent={{70,-10},{90,10}})));
   Modelica.Units.SI.HeatFlowRate Q_flow=preHea.Q_flow
     "Heat input into water circuit";
 
   parameter Data.Generic
     dat "Performance data record"
-    annotation (Placement(transformation(extent={{-10,70},{10,90}})));
+    annotation (Placement(transformation(extent={{60,80},{80,100}})));
   parameter Real yMin(min=0.01, max=1, final unit="1") = 0.3
     "Minimum control signal until fan is switched off (used for smoothing
     between forced and free convection regime)"
@@ -24,92 +27,93 @@ model DryCoil "Dry coil model based on epsilon-NTU relation"
     "Nominal heat transfer effectiveness";
   final parameter Real NTU_nominal(min = 0) = per.NTU_nominal "Nominal number of transfer units";
 
-  Modelica.Blocks.Interfaces.RealInput TDryBul(
-    final min=0,
-    final unit="K",
-    displayUnit="degC") "Entering air dry bulb temperature"
-    annotation (Placement(transformation(extent={{-140,20},{-100,60}})));
-
-  Modelica.Blocks.Interfaces.RealInput mAir_flow "Fan air flow" annotation (
-      Placement(transformation(extent={{-140,60},{-100,100}}),
-        iconTransformation(extent={{-140,60},{-100,100}})));
-  Modelica.Blocks.Interfaces.RealOutput QCoi_flow annotation (Placement(
-        transformation(extent={{100,50},{120,70}}), iconTransformation(extent={
-            {100,70},{120,90}})));
-  Modelica.Blocks.Math.Gain gain(k=-1)
-    annotation (Placement(transformation(extent={{40,50},{60,70}})));
+  Buildings.Fluid.Sensors.Temperature senTemAir(
+    redeclare final package Medium = Medium2)
+    "Entering air dry bulb temperature sensor"
+    annotation (Placement(transformation(extent={{40,-40},{60,-20}})));
 protected
   parameter Modelica.Units.SI.SpecificHeatCapacity cp_default=
-    Medium.specificHeatCapacityCp(sta_default)
+    Medium1.specificHeatCapacityCp(sta1_nominal)
     "Specific heat capacity";
+  Modelica.Blocks.Sources.RealExpression QCoi_flow(final y = -per.Q_flow)
+    "Coil heat flow rate"
+    annotation (Placement(transformation(extent={{-80,-100},{-60,-80}})));
   Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow preHea
-    "Prescribed heat flow"
-    annotation (Placement(transformation(extent={{-40,-70},{-20,-50}})));
+    "Prescribed heat flow to water"
+    annotation (Placement(transformation(extent={{-10,-10},{10,10}},
+        rotation=180,
+        origin={10,-30})));
+  Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow preHeaAir
+    "Prescribed heat flow to air"
+    annotation (Placement(transformation(extent={{-40,-100},{-20,-80}})));
   Modelica.Thermal.HeatTransfer.Sensors.TemperatureSensor TVol
-    "Water temperature in volume, leaving at port_b"
-    annotation (Placement(transformation(extent={{20,-70},{40,-50}})));
+    "Water temperature in volume, leaving at port_b1"
+    annotation (Placement(transformation(extent={{20,30},{40,50}})));
   Modelica.Blocks.Sources.RealExpression TCooIn(
-    final y = Medium.temperature(
-      Medium.setState_phX(
-        p = port_a.p,
-        h = inStream(port_a.h_outflow),
-        X = inStream(port_a.Xi_outflow)))) "Cooling loop fluid inlet temperature" annotation(
-    Placement(transformation(extent = {{-70, 36}, {-50, 54}})));
-  Modelica.Blocks.Sources.RealExpression mCoo_flow(final y = port_a.m_flow) "Cooling fluid mass flow rate" annotation(
-    Placement(transformation(extent = {{-70, 20}, {-50, 38}})));
+    final y = Medium1.temperature(
+      Medium1.setState_phX(
+        p = port_a1.p,
+        h = inStream(port_a1.h_outflow),
+        X = inStream(port_a1.Xi_outflow)))) "Cooling loop fluid inlet temperature" annotation(
+    Placement(transformation(extent={{-100,-20},{-80,0}})));
+  Modelica.Blocks.Sources.RealExpression mCoo_flow(final y = port_a1.m_flow) "Cooling fluid mass flow rate" annotation(
+    Placement(transformation(extent={{-100,-40},{-80,-20}})));
+  Modelica.Blocks.Sources.RealExpression mAir_flow(final y = port_a2.m_flow)
+    "Air mass flow rate"
+    annotation (Placement(transformation(extent={{-100,0},{-80,20}})));
   BaseClasses.DryCoil per(
-    redeclare final package Medium = Medium,
+    redeclare final package Medium = Medium1,
     final dat=dat,
-    final m_flow_nominal=m_flow_nominal,
+    final m_flow_nominal=m1_flow_nominal,
     final yMin=yMin) "Model for thermal performance"
-    annotation (Placement(transformation(extent={{-20,40},{0,60}})));
+    annotation (Placement(transformation(extent={{-40,-20},{-20,0}})));
 equation
-  connect(preHea.port, vol.heatPort) annotation (Line(
-      points={{-20,-60},{-16,-60},{-16,-10},{-9,-10}},
+  connect(port_a2, senTemAir.port) annotation (Line(
+      points={{100,-60},{50,-60},{50,-40}},
+      color={0,127,255}));
+  connect(preHea.port, vol1.heatPort) annotation (Line(
+      points={{0,-30},{-16,-30},{-16,60},{-10,60}},
       color={191,0,0},
       smooth=Smooth.None));
-  connect(TVol.port, vol.heatPort) annotation (Line(
-      points={{20,-60},{-16,-60},{-16,-10},{-9,-10}},
+  connect(TVol.port, vol1.heatPort) annotation (Line(
+      points={{20,40},{-16,40},{-16,60},{-10,60}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(TVol.T, TLvg) annotation (Line(
-      points={{41,-60},{110,-60}},
+      points={{41,40},{80,40},{80,0},{110,0}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(per.TDryBul, TDryBul) annotation (Line(points={{-22,54},{-80,54},{-80,
-          40},{-120,40}}, color={0,0,127}));
+  connect(senTemAir.T, per.TDryBul) annotation (Line(
+      points={{57,-30},{70,-30},{70,20},{-60,20},{-60,-6},{-42,-6}},
+      color={0,0,127}));
   connect(per.Q_flow, preHea.Q_flow) annotation(
-    Line(points = {{1, 50}, {12, 50}, {12, 12}, {-80, 12}, {-80, -60}, {-40, -60}}, color = {0, 0, 127}));
+    Line(points={{-19,-10},{30,-10},{30,-30},{20,-30}},                             color = {0, 0, 127}));
+  connect(QCoi_flow.y, preHeaAir.Q_flow) annotation (Line(
+      points={{-59,-90},{-40,-90}},
+      color={0,0,127}));
+  connect(preHeaAir.port, vol2.heatPort) annotation (Line(
+      points={{-20,-90},{40,-90},{40,-60},{12,-60}},
+      color={191,0,0}));
   connect(per.m_flow, mCoo_flow.y) annotation(
-    Line(points = {{-22, 42}, {-34, 42}, {-34, 29}, {-49, 29}}, color = {0, 0, 127}));
+    Line(points={{-42,-18},{-70,-18},{-70,-30},{-79,-30}},      color = {0, 0, 127}));
   connect(TCooIn.y, per.TCooIn) annotation(
-    Line(points = {{-49, 45}, {-40, 45}, {-40, 46}, {-22, 46}}, color = {0, 0, 127}));
-  connect(mAir_flow, per.mAir_flow) annotation (Line(points={{-120,80},{-80,80},
-          {-80,58},{-22,58}}, color={0,0,127}));
-  connect(per.Q_flow, gain.u) annotation (Line(points={{1,50},{20,50},{20,60},{
-          38,60}}, color={0,0,127}));
-  connect(gain.y, QCoi_flow)
-    annotation (Line(points={{61,60},{110,60}}, color={0,0,127}));
+    Line(points={{-79,-10},{-70,-10},{-70,-14},{-42,-14}},      color = {0, 0, 127}));
+  connect(mAir_flow.y, per.mAir_flow) annotation (Line(
+      points={{-79,10},{-70,10},{-70,-2},{-42,-2}},
+      color={0,0,127}));
   annotation(
     Icon(coordinateSystem(preserveAspectRatio = false),
       graphics = {
-        Text(textColor={0,0,127},     extent={{-106,106},{-72,88}},
-          textString="mAir_flow"),
-        Text(textColor = {0, 0, 127}, extent = {{-104, 70}, {-70, 32}}, textString = "TDryBul"),
-        Rectangle(lineColor = {0, 0, 255}, fillColor = {0, 0, 127}, pattern = LinePattern.None, fillPattern = FillPattern.Solid, extent = {{-100, 81}, {-70, 78}}),
-        Text(origin = {-2, 0},textColor={255,255,255},     extent = {{-54, 6}, {58, -114}},
-          textString="DryCoil"),
-        Rectangle(lineColor = {0, 0, 255}, fillColor = {0, 0, 127}, pattern = LinePattern.None, fillPattern = FillPattern.Solid, extent={{78,54},
-              {82,80}}),
-        Rectangle(lineColor = {0, 0, 255}, fillColor = {0, 0, 127}, pattern = LinePattern.None, fillPattern = FillPattern.Solid, extent={{70,58},
-              {82,54}}),
-        Rectangle(lineColor = {0, 0, 255}, fillColor = {0, 0, 127}, pattern = LinePattern.None, fillPattern = FillPattern.Solid, extent={{78,82},
-              {100,78}})}),
+        Text(origin = {-2, 0},textColor={255,255,255}, extent = {{-54, 6}, {58, -114}},
+          textString="DryCoil")}),
     Diagram(coordinateSystem(preserveAspectRatio = false)),
     Documentation(info="<html>
 <p>
 Model for a steady-state or dynamic dry cooling tower with a variable speed fan
-using epsilon-NTU method for heat transfer.
+using epsilon-NTU method for heat transfer. The entering air temperature and
+mass flow rate are obtained from <code>port_a2</code>. The air-side nominal
+mass flow rate is derived from <code>dat.ratCooAir_nominal</code>, and the
+air-side nominal pressure drop is zero.
 </p>
 <h4>Thermal performance</h4>
 <p>
