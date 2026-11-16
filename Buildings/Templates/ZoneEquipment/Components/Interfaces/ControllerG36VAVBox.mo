@@ -11,7 +11,7 @@ block ControllerG36VAVBox "Guideline 36 controller for VAV terminal unit"
     "Set to true if the zone has a relative humidity sensor"
     annotation (Evaluate=true, Dialog(group="Configuration"));
 
-  parameter Boolean have_reqNeeCoo=false
+  parameter Boolean have_reqNeeCoo=true
     "Set to true if the controller generates a 'Need Cool' request"
     annotation (Evaluate=true, Dialog(group="Configuration"));
 
