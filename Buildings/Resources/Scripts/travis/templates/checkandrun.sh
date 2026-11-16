@@ -93,6 +93,8 @@ declare -A checksum_dirs=(
   ["Buildings.Templates.ZoneEquipment"]="Templates/ZoneEquipment
                      Controls/OBC/ASHRAE/G36/TerminalUnits/CoolingOnly
                      Controls/OBC/ASHRAE/G36/TerminalUnits/Reheat"
+  ["Buildings.Templates.Plants.Chillers"]="Templates/Plants/Chillers
+                        Controls/OBC/ASHRAE/G36/Plants/Chillers"
   ["Buildings.Templates.Plants.HeatPumps"]="Templates/Plants/HeatPumps
                         Templates/Plants/Controls"
 )
@@ -102,6 +104,7 @@ declare -A checksum_dirs=(
 declare -A test_script=(
   ["Buildings.Templates.AirHandlersFans"]="./Resources/Scripts/travis/templates/VAVMultiZone.py"
   ["Buildings.Templates.ZoneEquipment"]="./Resources/Scripts/travis/templates/VAVBox.py"
+  ["Buildings.Templates.Plants.Chillers"]="./Resources/Scripts/travis/templates/Plants.Chillers.py"
   ["Buildings.Templates.Plants.HeatPumps"]="./Resources/Scripts/travis/templates/Plants.HeatPumps.py"
 )
 

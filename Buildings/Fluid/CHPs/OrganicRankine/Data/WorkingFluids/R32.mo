@@ -50,7 +50,7 @@ record R32 "Data record for R32"
 Record containing properties of R32.
 Its name in CoolProp is \"R32\".
 A figure in the documentation of
-<a href=\"Modelica://Buildings.Fluid.CHPs.OrganicRankine.ConstantEvaporation\">
+<a href=\"modelica://Buildings.Fluid.CHPs.OrganicRankine.ConstantEvaporation\">
 Buildings.Fluid.CHPs.OrganicRankine.ConstantEvaporation</a>
 shows which lines these arrays represent.
 </p>

@@ -65,7 +65,7 @@ model RadiantHeatingCooling_TRoom
       displayUnit="degC")=293.15,
     y(final unit="K",
       displayUnit="degC"))
-    "Room temperture set point for heating"
+    "Room temperature set point for heating"
     annotation (Placement(transformation(extent={{-180,-154},{-160,-134}})));
   Buildings.Fluid.Movers.SpeedControlled_y pum(
     redeclare package Medium=MediumW,
@@ -122,7 +122,7 @@ model RadiantHeatingCooling_TRoom
     k(final unit="K",
       displayUnit="degC")=299.15,
     y(final unit="K",
-      displayUnit="degC")) "Room temperture set point for cooling"
+      displayUnit="degC")) "Room temperature set point for cooling"
     annotation (Placement(transformation(extent={{-180,106},{-160,126}})));
   Buildings.Controls.OBC.CDL.Conversions.BooleanToReal booToRea(
     realTrue=mCoo_flow_nominal)
@@ -213,9 +213,9 @@ that has a radiant ceiling, used for cooling, and a radiant floor, used for heat
 The EnergyPlus model has one conditioned zone that is above ground. This conditioned zone
 has an unconditioned attic.
 The model is constructed by extending
-<a href=\"modelica://Buildings.ThermalZones.EnergyPlus_24_2_0.Examples.SingleFamilyHouse.HeatPumpRadiantHeatingGroundHeatTransfer\">
-Buildings.ThermalZones.EnergyPlus_24_2_0.Examples.SingleFamilyHouse.HeatPumpRadiantHeatingGroundHeatTransfer</a>
-and adding the radiant ceiling. For simplicity, this model provide heating with an idealized heater.
+<a href=\"modelica://Buildings.ThermalZones.EnergyPlus_24_2_0.Examples.SingleFamilyHouse.Unconditioned\">
+Buildings.ThermalZones.EnergyPlus_24_2_0.Examples.SingleFamilyHouse.Unconditioned</a>
+and adding a radiant ceiling for cooling and an idealized heater for heating.
 </p>
 <p>
 The next section explains how the radiant ceiling is configured.

@@ -11,7 +11,10 @@ model ZoneHVAC "Thermal zone for HVAC based on 5R1C network"
   Modelica.Blocks.Interfaces.RealInput intLatGai(final unit="W") "Internal latent heat gains"
     annotation (Placement(transformation(extent={{-180,30},{-140,70}}),
         iconTransformation(extent={{-180,20},{-140,60}})));
-  Modelica.Blocks.Math.Gain mWat_flow(final k=1/h_fg) "Water flow rate due to latent heat gain"
+  Modelica.Blocks.Math.Gain mWat_flow(
+    u(final unit="W"),
+    y(final unit="kg/s"),
+    final k(final unit="kg/J")=1/h_fg) "Water flow rate due to latent heat gain"
     annotation (Placement(transformation(extent={{-100,40},{-80,60}})));
   Fluid.MixingVolumes.MixingVolumeMoistAir vol(
     redeclare final package Medium = Medium,
@@ -55,6 +58,10 @@ also considered.
 </html>",
 revisions="<html>
 <ul>
+<li>
+September 27, 2026, by Michael Wetter:<br/>
+Added unit specification to avoid warning in Dymola 2025x.
+</li>
 <li>
 Mar 16, 2022, by Alessandro Maccarini:<br/>
 First implementation.

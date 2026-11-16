@@ -600,7 +600,7 @@ annotation (
   Documentation(info="<html>
 <p>
 This sequence outputs the system reset requests for parallel fan-powered terminal
-unit with constant-voume fan. The implementation is according to the Section 5.7.8
+unit with constant-volume fan. The implementation is according to the Section 5.7.8
 of ASHRAE Guideline 36, May 2020. 
 </p>
 <h4>Cooling SAT reset requests <code>yZonTemResReq</code></h4>
@@ -669,7 +669,7 @@ Else if the hot water valve position <code>uVal</code> is less than 95%, send 0 
 </li>
 </ol>
 <h4>If there is a hot-water coil and heating hot-water plant, heating hot-water
-plant reqeusts. Send the heating hot-water plant that serves the zone a heating
+plant requests. Send the heating hot-water plant that serves the zone a heating
 hot-water plant request as follows:</h4>
 <ol>
 <li>

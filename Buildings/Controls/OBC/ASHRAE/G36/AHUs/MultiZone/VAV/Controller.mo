@@ -78,49 +78,49 @@ block Controller "Multizone VAV air handling unit controller"
     displayUnit="Pa")=120
     "Initial pressure setpoint for fan speed control"
     annotation (__cdl(ValueInReference=true),
-                Dialog(tab="Fan speed", group="Trim and respond for reseting duct static pressure setpoint"));
+                Dialog(tab="Fan speed", group="Trim and respond for resetting duct static pressure setpoint"));
   parameter Real pMinSet(
     unit="Pa",
     displayUnit="Pa")=25
     "Minimum pressure setpoint for fan speed control"
     annotation (__cdl(ValueInReference=true),
-                Dialog(tab="Fan speed", group="Trim and respond for reseting duct static pressure setpoint"));
+                Dialog(tab="Fan speed", group="Trim and respond for resetting duct static pressure setpoint"));
   parameter Real pMaxSet(
     unit="Pa",
     displayUnit="Pa")=1000
     "Duct design maximum static pressure. It is the Max_DSP shown in Section 3.2.1.1 of Guideline 36"
     annotation (__cdl(ValueInReference=false),
-                Dialog(tab="Fan speed", group="Trim and respond for reseting duct static pressure setpoint"));
+                Dialog(tab="Fan speed", group="Trim and respond for resetting duct static pressure setpoint"));
   parameter Real pDelTim(unit="s")=600
     "Delay time after which trim and respond is activated"
     annotation (__cdl(ValueInReference=true),
-                Dialog(tab="Fan speed", group="Trim and respond for reseting duct static pressure setpoint"));
+                Dialog(tab="Fan speed", group="Trim and respond for resetting duct static pressure setpoint"));
   parameter Real pSamplePeriod(unit="s")=120
     "Sample period"
     annotation (__cdl(ValueInReference=true),
-                Dialog(tab="Fan speed",group="Trim and respond for reseting duct static pressure setpoint"));
+                Dialog(tab="Fan speed",group="Trim and respond for resetting duct static pressure setpoint"));
   parameter Integer pNumIgnReq=2
     "Number of ignored requests"
     annotation (__cdl(ValueInReference=true),
-                Dialog(tab="Fan speed", group="Trim and respond for reseting duct static pressure setpoint"));
+                Dialog(tab="Fan speed", group="Trim and respond for resetting duct static pressure setpoint"));
   parameter Real pTriAmo(
     unit="Pa",
     displayUnit="Pa")=-12.0
     "Trim amount"
     annotation (__cdl(ValueInReference=true),
-                Dialog(tab="Fan speed", group="Trim and respond for reseting duct static pressure setpoint"));
+                Dialog(tab="Fan speed", group="Trim and respond for resetting duct static pressure setpoint"));
   parameter Real pResAmo(
     unit="Pa",
     displayUnit="Pa")=15
     "Respond amount (must be opposite in to trim amount)"
     annotation (__cdl(ValueInReference=true),
-                Dialog(tab="Fan speed", group="Trim and respond for reseting duct static pressure setpoint"));
+                Dialog(tab="Fan speed", group="Trim and respond for resetting duct static pressure setpoint"));
   parameter Real pMaxRes(
     unit="Pa",
     displayUnit="Pa")=32
     "Maximum response per time interval (same sign as respond amount)"
     annotation (__cdl(ValueInReference=true),
-                Dialog(tab="Fan speed", group="Trim and respond for reseting duct static pressure setpoint"));
+                Dialog(tab="Fan speed", group="Trim and respond for resetting duct static pressure setpoint"));
   parameter Buildings.Controls.OBC.CDL.Types.SimpleController fanSpeCon=Buildings.Controls.OBC.CDL.Types.SimpleController.PI
     "Supply fan speed PID controller"
     annotation (__cdl(ValueInReference=false),
@@ -189,33 +189,33 @@ block Controller "Multizone VAV air handling unit controller"
   parameter Real delTimSupTem(unit="s")=600
     "Delay timer"
     annotation (__cdl(ValueInReference=true),
-                Dialog(tab="Supply air temperature", group="Trim and respond for reseting supply air temperature setpoint"));
+                Dialog(tab="Supply air temperature", group="Trim and respond for resetting supply air temperature setpoint"));
   parameter Real samPerSupTem(unit="s")=120
     "Sample period of component"
     annotation (__cdl(ValueInReference=true),
-                Dialog(tab="Supply air temperature", group="Trim and respond for reseting supply air temperature setpoint"));
+                Dialog(tab="Supply air temperature", group="Trim and respond for resetting supply air temperature setpoint"));
   parameter Integer ignReqSupTem=2
     "Number of ignorable requests for TrimResponse logic"
     annotation (__cdl(ValueInReference=true),
-                Dialog(tab="Supply air temperature", group="Trim and respond for reseting supply air temperature setpoint"));
+                Dialog(tab="Supply air temperature", group="Trim and respond for resetting supply air temperature setpoint"));
   parameter Real triAmoSupTem(
     unit="K",
     displayUnit="K")=0.1
     "Trim amount"
     annotation (__cdl(ValueInReference=true),
-                Dialog(tab="Supply air temperature", group="Trim and respond for reseting supply air temperature setpoint"));
+                Dialog(tab="Supply air temperature", group="Trim and respond for resetting supply air temperature setpoint"));
   parameter Real resAmoSupTem(
     unit="K",
     displayUnit="K")=-0.2
     "Response amount"
     annotation (__cdl(ValueInReference=true),
-                Dialog(tab="Supply air temperature", group="Trim and respond for reseting supply air temperature setpoint"));
+                Dialog(tab="Supply air temperature", group="Trim and respond for resetting supply air temperature setpoint"));
   parameter Real maxResSupTem(
     unit="K",
     displayUnit="K")=-0.6
     "Maximum response per time interval"
     annotation (__cdl(ValueInReference=true),
-                Dialog(tab="Supply air temperature", group="Trim and respond for reseting supply air temperature setpoint"));
+                Dialog(tab="Supply air temperature", group="Trim and respond for resetting supply air temperature setpoint"));
 
   // ----------- parameters for heating and cooling coil control  -----------
   parameter Buildings.Controls.OBC.CDL.Types.SimpleController valCon=Buildings.Controls.OBC.CDL.Types.SimpleController.PI
@@ -284,7 +284,7 @@ block Controller "Multizone VAV air handling unit controller"
                 Dialog(tab="Economizer", group="Limits, separated with DP",
       enable=(minOADes == Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorAirSection.DedicatedDampersPressure
            and venStd == Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.California_Title_24)));
-  parameter Real dpAbsMinOutDam=5
+  parameter Real dpAbsMinOutDam(unit="Pa")=5
     "Absolute minimum pressure difference across the minimum outdoor air damper. It provides the absolute minimum outdoor airflow"
     annotation (__cdl(ValueInReference=false),
                 Dialog(tab="Economizer", group="Limits, separated with DP",
@@ -522,7 +522,7 @@ block Controller "Multizone VAV air handling unit controller"
            and have_ahuRelFan));
 
   // ----------- Advanced parameters -----------
-  parameter Real THys=0.25 "Hysteresis for checking temperature difference"
+  parameter Real THys(unit="K")=0.25 "Hysteresis for checking temperature difference"
     annotation (__cdl(ValueInReference=false),
                 Dialog(tab="Advanced"));
   parameter Real posHys=0.01
@@ -1517,7 +1517,7 @@ for more detailed description.
 </p>
 <h4>Minimum outdoor airflow setting</h4>
 <p>
-According to current occupany, supply operation status <code>ySupFan</code>,
+According to current occupancy, supply operation status <code>ySupFan</code>,
 zone temperatures and the discharge air temperature, the sequence computes the
 minimum outdoor airflow rate setpoint, which is used as input for the economizer control.
 More detailed information can be found in
@@ -1560,7 +1560,7 @@ for more detailed description.
 <h4>Freeze protection</h4>
 <p>
 Based on the Section 5.16.12, the sequence enables freeze protection if the
-measured supply air temperature belows certain thresholds. There are three
+measured supply air temperature below certain thresholds. There are three
 protection stages. See
 <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36.AHUs.MultiZone.VAV.SetPoints.FreezeProtection\">
 Buildings.Controls.OBC.ASHRAE.G36.AHUs.MultiZone.VAV.SetPoints.FreezeProtection</a>
@@ -1572,7 +1572,7 @@ By selecting different building pressure control designs, which includes using a
 relief damper without fan, using actuated relief dampers with relief fan, using
 return fan with direct building pressure control, or using return fan with airflow
 tracking control, the sequences controls relief fans, relief dampers and return fans.
-See belows sequences for more detailed description:
+See below sequences for more detailed description:
 </p>
 <ul>
 <li>
@@ -1606,6 +1606,11 @@ for more detailed description.
 </html>",
 revisions="<html>
 <ul>
+<li>
+November 3, 2026, by Jianjun Hu:<br/>
+Added missing attributes.<br/>
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4835\">issue 4835</a>.
+</li>
 <li>
 September 26, 2025, by Jianjun Hu:<br/>
 Renamed the parameter <code>Thys</code> to <code>THys</code>.<br/>

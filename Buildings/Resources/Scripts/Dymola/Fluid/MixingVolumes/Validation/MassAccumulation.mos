@@ -1,0 +1,6 @@
+simulateModel("Buildings.Fluid.MixingVolumes.Validation.MassAccumulation", stopTime=120, method="Cvode", tolerance=1e-06, resultFile="MassAccumulation");
+createPlot(id=1, position={35, 35, 1006, 825}, y={"vol.Xi[1]"}, range={0.0, 120.0, 0.008, 0.012}, grid=true, subPlot=101, colors={{28,108,200}}, timeUnit="s", displayUnits={"1"});
+createPlot(id=1, position={35, 35, 1006, 825}, y={"mWat", "mWatExp"}, range={0.0, 120.0, 0.01, 0.03}, grid=true, subPlot=102, colors={{28,108,200}, {238,46,47}}, timeUnit="s", displayUnits={"kg", "kg"});
+createPlot(id=1, position={35, 35, 1006, 825}, y={"mAir"}, range={0.0, 120.0, 1.0, 3.0}, grid=true, subPlot=103, colors={{28,108,200}}, timeUnit="s", displayUnits={"kg"});
+createPlot(id=1, position={35, 35, 1006, 825}, y={"vol.C[1]"}, range={0.0, 120.0, 0.0008, 0.0012}, grid=true, subPlot=104, colors={{28,108,200}}, timeUnit="s", displayUnits={"1"});
+createPlot(id=1, position={35, 35, 1006, 825}, y={"vol.p"}, range={0.0, 120.0, 0.0, 4.0}, grid=true, subPlot=105, colors={{28,108,200}}, timeUnit="s", displayUnits={"bar"});

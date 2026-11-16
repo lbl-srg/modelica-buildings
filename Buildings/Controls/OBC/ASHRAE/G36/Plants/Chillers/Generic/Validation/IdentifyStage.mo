@@ -2,12 +2,12 @@ within Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Generic.Validation;
 model IdentifyStage "Validation identifying stage index"
 
   Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Generic.IdentifyStage ideSta
-    "Idendify stage index"
+    "Identify stage index"
     annotation (Placement(transformation(extent={{60,30},{80,50}})));
   Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Generic.IdentifyStage ideSta1(
     nChi=3,
     staMat={{1,0,0},{1,1,0},{1,1,1}})
-    "Idendify stage index"
+    "Identify stage index"
     annotation (Placement(transformation(extent={{60,-40},{80,-20}})));
   Buildings.Controls.OBC.CDL.Logical.Not not1 "Logical not"
     annotation (Placement(transformation(extent={{0,-80},{20,-60}})));

@@ -6,6 +6,7 @@ CoupledVolumesSpecializedWaterTemperatureDependentDensity
 CoupledVolumesWater
 MSLCombustionAir
 MSLFlueGasSixComponents
+MassAccumulation
 MixingVolume
 MixingVolumeAdiabaticCooling
 MixingVolumeHeatReverseFlow

@@ -2,8 +2,8 @@ within Buildings.Fluid.Geothermal.ZonedBorefields;
 package UsersGuide "User's Guide"
   extends Modelica.Icons.Information;
 
-  annotation (preferredView="info",
-  Documentation(info="<html>
+  annotation(preferredView = "info",
+    Documentation(info = "<html>
 <p>
 This package contains borefield models for the simulation of zoned borehole
 thermal energy storage systems. These models can simulate any arbitrary

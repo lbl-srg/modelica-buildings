@@ -104,7 +104,7 @@ protected
     "Chiller stage index to identify total number of enabling cells"
     annotation (Placement(transformation(extent={{-120,90},{-100,110}})));
   Buildings.Controls.OBC.CDL.Logical.Pre pre1[nPlaSta]
-    "Break algebric loop"
+    "Break algebraic loop"
     annotation (Placement(transformation(extent={{80,-50},{100,-30}})));
   Buildings.Controls.OBC.CDL.Integers.Switch intSwi
     "Ensure extraction index is within the range"

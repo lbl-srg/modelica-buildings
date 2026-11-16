@@ -1,6 +1,5 @@
 within Buildings.Media.Antifreeze.Functions;
-package PropyleneGlycolWater
-  "Package with model for propylene glycol - water with constant properties"
+package PropyleneGlycolWater "Package with model for propylene glycol - water with constant properties"
   extends Modelica.Icons.Package;
 
   constant Modelica.Units.SI.MassFraction X_a_min=0.
@@ -8,20 +7,19 @@ package PropyleneGlycolWater
   constant Modelica.Units.SI.MassFraction X_a_max=0.6
     "Maximum allowed mass fraction of propylene glycol in water";
 
-  function density_TX_a
-    "Evaluate density of antifreeze-water mixture"
+  function density_TX_a "Evaluate density of antifreeze-water mixture"
     extends Modelica.Icons.Function;
     input Modelica.Units.SI.Temperature T
       "Temperature of antifreeze-water mixture";
     input Modelica.Units.SI.MassFraction X_a "Mass fraction of antifreeze";
     output Modelica.Units.SI.Density d "Density of antifreeze-water mixture";
   algorithm
-    d :=polynomialProperty(
+    d := polynomialProperty(
         X_a,
         T,
         proCoe.a_d);
 
-    annotation (
+    annotation(
     Documentation(info="<html>
   <p>
   Density of propylene antifreeze-water mixture at specified mass fraction
@@ -48,21 +46,20 @@ package PropyleneGlycolWater
 
   end density_TX_a;
 
-  function dynamicViscosity_TX_a
-    "Evaluate dynamic viscosity of antifreeze-water mixture"
-      extends Modelica.Icons.Function;
+  function dynamicViscosity_TX_a "Evaluate dynamic viscosity of antifreeze-water mixture"
+    extends Modelica.Icons.Function;
     input Modelica.Units.SI.Temperature T
       "Temperature of antifreeze-water mixture";
     input Modelica.Units.SI.MassFraction X_a "Mass fraction of antifreeze";
     output Modelica.Units.SI.DynamicViscosity eta
       "Dynamic Viscosity of antifreeze-water mixture";
   algorithm
-    eta :=1e-3*exp(polynomialProperty(
+    eta := 1e-3*exp(polynomialProperty(
         X_a,
         T,
         proCoe.a_eta));
 
-  annotation (
+  annotation(
   Documentation(info="<html>
 <p>
 Dynamic viscosity of antifreeze-water mixture at specified mass fraction and
@@ -74,7 +71,7 @@ Melinder, &#197;ke. 2010. Properties of Secondary Working Fluids (Secondary
 Refrigerants or Coolants, Heat Transfer Fluids) for Indirect Systems. Paris:
 IIR/IIF.
 </p>
-</html>",   revisions="<html>
+</html>", revisions="<html>
 <ul>
 <li>
 May 2, 2018 by Massimo Cimmino:<br/>
@@ -87,21 +84,20 @@ Buildings.Media.Antifreeze.PropyleneGlycolWater</a>.
 </html>"));
   end dynamicViscosity_TX_a;
 
-  function fusionTemperature_TX_a
-    "Evaluate temperature of fusion of antifreeze-water mixture"
-      extends Modelica.Icons.Function;
+  function fusionTemperature_TX_a "Evaluate temperature of fusion of antifreeze-water mixture"
+    extends Modelica.Icons.Function;
     input Modelica.Units.SI.Temperature T
       "Temperature of antifreeze-water mixture";
     input Modelica.Units.SI.MassFraction X_a "Mass fraction of antifreeze";
     output Modelica.Units.SI.Temperature Tf
       "Temperature of fusion of antifreeze-water mixture";
   algorithm
-    Tf :=Modelica.Units.Conversions.from_degC(polynomialProperty(
+    Tf := Modelica.Units.Conversions.from_degC(polynomialProperty(
         X_a,
         T,
         proCoe.a_Tf));
 
-  annotation (
+  annotation(
   Documentation(info="<html>
 <p>
 Fusion temperature of antifreeze-water mixture at specified mass fraction and
@@ -113,7 +109,7 @@ Melinder, &#197;ke. 2010. Properties of Secondary Working Fluids (Secondary
 Refrigerants or Coolants, Heat Transfer Fluids) for Indirect Systems. Paris:
 IIR/IIF.
 </p>
-</html>",   revisions="<html>
+</html>", revisions="<html>
 <ul>
 <li>
 May 2, 2018 by Massimo Cimmino:<br/>
@@ -126,8 +122,7 @@ Buildings.Media.Antifreeze.PropyleneGlycolWater</a>.
 </html>"));
   end fusionTemperature_TX_a;
 
-  function polynomialProperty
-    "Evaluates thermophysical property from 2-variable polynomial"
+  function polynomialProperty "Evaluates thermophysical property from 2-variable polynomial"
     extends Modelica.Icons.Function;
 
     input Real x "First independent variable";
@@ -152,7 +147,7 @@ Buildings.Media.Antifreeze.PropyleneGlycolWater</a>.
         f := f + a[n]*dx^i*dy^j;
       end for;
     end for;
-  annotation (
+  annotation(
   Documentation(info="<html>
 <p>
 Evaluates a thermophysical property of a mixture, based on correlations proposed
@@ -178,7 +173,7 @@ Melinder, &#197;ke. 2010. Properties of Secondary Working Fluids (Secondary
 Refrigerants or Coolants, Heat Transfer Fluids) for Indirect Systems. Paris:
 IIR/IIF.
 </p>
-</html>",   revisions="<html>
+</html>", revisions="<html>
 <ul>
 <li>
 March 16, 2018 by Massimo Cimmino:<br/>
@@ -191,9 +186,8 @@ Buildings.Media.Antifreeze</a>.
 </html>"));
   end polynomialProperty;
 
-  function prandtlNumber_TX_a
-    "Evaluate Prandtl number of antifreeze-water mixture"
-      extends Modelica.Icons.Function;
+  function prandtlNumber_TX_a "Evaluate Prandtl number of antifreeze-water mixture"
+    extends Modelica.Icons.Function;
     input Modelica.Units.SI.Temperature T
       "Temperature of antifreeze-water mixture";
     input Modelica.Units.SI.MassFraction X_a "Mass fraction of antifreeze";
@@ -203,7 +197,7 @@ Buildings.Media.Antifreeze</a>.
     Pr := dynamicViscosity_TX_a(T=T, X_a=X_a) * specificHeatCapacityCp_TX_a(T=T, X_a=X_a) /
       thermalConductivity_TX_a(T=T, X_a=X_a);
 
-  annotation (
+  annotation(
   Documentation(info="<html>
 <p>
 Prandtl number of antifreeze-water mixture at specified mass fraction and
@@ -215,7 +209,7 @@ Melinder, &#197;ke. 2010. Properties of Secondary Working Fluids (Secondary
 Refrigerants or Coolants, Heat Transfer Fluids) for Indirect Systems. Paris:
 IIR/IIF.
 </p>
-</html>",   revisions="<html>
+</html>", revisions="<html>
 <ul>
 <li>
 April 17, 2026 by Michael Wetter:<br/>
@@ -225,21 +219,20 @@ First implementation.
 </html>"));
   end prandtlNumber_TX_a;
 
-  function specificHeatCapacityCp_TX_a
-    "Evaluate specific heat capacity of antifreeze-water mixture"
-      extends Modelica.Icons.Function;
+  function specificHeatCapacityCp_TX_a "Evaluate specific heat capacity of antifreeze-water mixture"
+    extends Modelica.Icons.Function;
     input Modelica.Units.SI.Temperature T
       "Temperature of antifreeze-water mixture";
     input Modelica.Units.SI.MassFraction X_a "Mass fraction of antifreeze";
     output Modelica.Units.SI.SpecificHeatCapacity cp
       "Specific heat capacity of antifreeze-water mixture";
   algorithm
-    cp :=polynomialProperty(
+    cp := polynomialProperty(
         X_a,
         T,
         proCoe.a_cp);
 
-  annotation (
+  annotation(
   Documentation(info="<html>
 <p>
 Specific heat capacity of antifreeze-water mixture at specified mass fraction
@@ -251,7 +244,7 @@ Melinder, &#197;ke. 2010. Properties of Secondary Working Fluids (Secondary
 Refrigerants or Coolants, Heat Transfer Fluids) for Indirect Systems. Paris:
 IIR/IIF.
 </p>
-</html>",   revisions="<html>
+</html>", revisions="<html>
 <ul>
 <li>
 March 16, 2018 by Massimo Cimmino:<br/>
@@ -264,21 +257,20 @@ Buildings.Media.Antifreeze.PropyleneGlycolWater</a>.
 </html>"));
   end specificHeatCapacityCp_TX_a;
 
-  function thermalConductivity_TX_a
-    "Evaluate thermal conductivity of antifreeze-water mixture"
-      extends Modelica.Icons.Function;
+  function thermalConductivity_TX_a "Evaluate thermal conductivity of antifreeze-water mixture"
+    extends Modelica.Icons.Function;
     input Modelica.Units.SI.Temperature T
       "Temperature of antifreeze-water mixture";
     input Modelica.Units.SI.MassFraction X_a "Mass fraction of antifreeze";
     output Modelica.Units.SI.ThermalConductivity lambda
       "Thermal conductivity of antifreeze-water mixture";
   algorithm
-    lambda :=polynomialProperty(
+    lambda := polynomialProperty(
         X_a,
         T,
         proCoe.a_lambda);
 
-  annotation (
+  annotation(
   Documentation(info="<html>
 <p>
 Thermal conductivity of antifreeze-water mixture at specified mass fraction and
@@ -290,7 +282,7 @@ Melinder, &#197;ke. 2010. Properties of Secondary Working Fluids (Secondary
 Refrigerants or Coolants, Heat Transfer Fluids) for Indirect Systems. Paris:
 IIR/IIF.
 </p>
-</html>",   revisions="<html>
+</html>", revisions="<html>
 <ul>
 <li>
 March 16, 2018 by Massimo Cimmino:<br/>
@@ -303,8 +295,7 @@ Buildings.Media.Antifreeze.PropyleneGlycolWater</a>.
 </html>"));
   end thermalConductivity_TX_a;
 
-  function volumeToMassFraction
-    "Returns the mass fraction of the mixture for a given volume fraction"
+  function volumeToMassFraction "Returns the mass fraction of the mixture for a given volume fraction"
     extends Modelica.Icons.Function;
 
     input Real phi(
@@ -337,7 +328,7 @@ Buildings.Media.Antifreeze.PropyleneGlycolWater</a>.
 
     y := phiRhoGly / dMix;
 
-  annotation (
+  annotation(
   Documentation(info="<html>
 <p>
 Conversion from volume fraction to mass fraction of antifreeze-water mixture at specified temperature.
@@ -348,7 +339,7 @@ The density function is only valid for mass fractions up to <code>X_a_max</code>
 Therefore, linear extrapolation, using the slope of the density function at <code>X_a_max</code>,
 is used to get the density of glycol at <code>X_a=1</code>.
 </p>
-</html>",   revisions="<html>
+</html>", revisions="<html>
 <ul>
 <li>
 April 16, 2026 by Michael Wetter:<br/>
@@ -359,8 +350,7 @@ First implementation.
   end volumeToMassFraction;
 
 protected
-  record proCoe
-    "Polynomial coefficients to evaluate fluid properties"
+  record proCoe "Polynomial coefficients to evaluate fluid properties"
     extends Modelica.Icons.Record;
 
     constant Modelica.Units.SI.MassFraction X_a_ref=0.307031 "Reference mass fraction";
@@ -388,7 +378,7 @@ protected
         1.493e-10,2.076e-5,1.563e-7,-4.615e-9,9.897e-12,-9.083e-8,-2.518e-9,
         6.543e-11,-5.952e-10,-3.605e-11,2.104e-11} "Polynomial coefficients for thermal conductivity";
 
-  annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
+  annotation(Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
         coordinateSystem(preserveAspectRatio=false)),
     Documentation(info="<html>
 <p>

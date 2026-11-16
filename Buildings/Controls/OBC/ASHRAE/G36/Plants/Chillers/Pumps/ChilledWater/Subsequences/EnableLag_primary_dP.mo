@@ -56,11 +56,11 @@ block EnableLag_primary_dP
     annotation (Placement(transformation(extent={{-200,70},{-180,90}})));
   Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Generic.TimerWithReset tim(
     final t=timPer)
-    "Check if it has passed the threhold time"
+    "Check if it has passed the threshold time"
     annotation (Placement(transformation(extent={{80,110},{100,130}})));
   Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Generic.TimerWithReset tim1(
     final t=timPer)
-    "Check if it has passed the threhold time"
+    "Check if it has passed the threshold time"
     annotation (Placement(transformation(extent={{80,-180},{100,-160}})));
 
 protected

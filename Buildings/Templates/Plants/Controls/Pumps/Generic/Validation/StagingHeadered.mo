@@ -96,9 +96,9 @@ equation
           0},{-40,-82},{-2,-82}}, color={0,0,127}));
   connect(u1.y, staPumPriNoDp.u1ValInlIso) annotation (Line(points={{-88,40},{-30,
           40},{-30,6},{-2,6}}, color={255,0,255}));
-  connect(u1.y, staPumPriNoDp.u1Pum) annotation (Line(points={{-88,40},{-30,40},
+  connect(u1.y, staPumPriNoDp.u1PumPri) annotation (Line(points={{-88,40},{-30,40},
           {-30,2},{-2,2}},   color={255,0,255}));
-  connect(u1.y, staPumPriDed.u1Pum) annotation (Line(points={{-88,40},{-30,40},{
+  connect(u1.y, staPumPriDed.u1PumPri) annotation (Line(points={{-88,40},{-30,40},{
           -30,42},{-2,42}}, color={255,0,255}));
   connect(yPum.y, staPumPriDp.y) annotation (Line(points={{-88,-80},{-60,-80},{-60,
           -48},{-2,-48}}, color={0,0,127}));

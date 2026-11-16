@@ -284,7 +284,7 @@ protected
     final k=1/desCap) "Plant partial load ratio"
     annotation (Placement(transformation(extent={{-120,90},{-100,110}})));
   Buildings.Controls.OBC.CDL.Reals.Line plrTowMaxSpe
-    "Tower maximum speed resetted by partial load ratio"
+    "Tower maximum speed reset by partial load ratio"
     annotation (Placement(transformation(extent={{-20,90},{0,110}})));
   Buildings.Controls.OBC.CDL.Reals.Switch swi
     "Switch the speed when the fan is enabled or disabled "

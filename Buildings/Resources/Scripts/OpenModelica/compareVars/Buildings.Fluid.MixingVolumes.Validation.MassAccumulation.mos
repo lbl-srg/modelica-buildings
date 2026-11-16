@@ -1,0 +1,9 @@
+compareVars :=
+  {
+    "vol.Xi[1]",
+    "mWat",
+    "mWatExp",
+    "mAir",
+    "vol.C[1]",
+    "vol.p"
+  };

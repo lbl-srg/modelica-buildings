@@ -290,7 +290,7 @@ to track the duct static pressure at a point downstream while the damper
 (representing a VAV box) moves from fully closed to fully open.
 The system was described in Englander and Norford (1992).
 The fan data are implemented in
-<a href=\"Modelica://Buildings.Fluid.Movers.Examples.Data.EnglanderNorford1992\">
+<a href=\"modelica://Buildings.Fluid.Movers.Examples.Data.EnglanderNorford1992\">
 Buildings.Fluid.Movers.Examples.Data.EnglanderNorford1992</a>.
 </p>
 <ul>

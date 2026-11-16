@@ -3,7 +3,7 @@ model MixingVolumeHeatReverseFlow
   "Validation model for mixing volume with heat input and flow reversal"
   extends
     Buildings.Fluid.MixingVolumes.Validation.BaseClasses.MixingVolumeReverseFlow(
-      gain(k=10));
+      gain(k(unit="J/kg")=10));
 
   Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow preHeaDyn
     "Prescribed heat flow rate"
@@ -33,6 +33,10 @@ The mass flow rate starts positive and reverses its direction at <i>t=5</i> seco
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+September 27, 2026, by Michael Wetter:<br/>
+Added unit specification to avoid warning in Dymola 2025x.
+</li>
 <li>
 March 9, 2016, by Michael Wetter:<br/>
 First implementation.

@@ -307,7 +307,7 @@ Icon(coordinateSystem(extent={{-100,-100},{100,100}}),
         Text(
           extent={{-138,194},{-4,174}},
           textColor={0,0,127},
-          textString="enable head pressure control of the chiler being enabled."),
+          textString="enable head pressure control of the chiller being enabled."),
         Text(
           extent={{-140,202},{-52,186}},
           textColor={0,0,127},
@@ -351,5 +351,5 @@ Icon(coordinateSystem(extent={{-100,-100},{100,100}}),
         Text(
           extent={{44,-26},{174,-44}},
           textColor={0,0,127},
-          textString="enable head pressure control of the chiler being enabled.")}));
+          textString="enable head pressure control of the chiller being enabled.")}));
 end HeadControl;

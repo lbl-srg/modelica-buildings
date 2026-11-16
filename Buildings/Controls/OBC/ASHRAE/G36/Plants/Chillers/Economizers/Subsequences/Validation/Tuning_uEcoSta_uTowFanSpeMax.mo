@@ -7,7 +7,7 @@ model Tuning_uEcoSta_uTowFanSpeMax
     annotation (Placement(transformation(extent={{-40,160},{-20,180}})));
 
   Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Economizers.Subsequences.Tuning wseTun1
-    "Tests tuning parameter remains constant inspite of a dip in tower fan speed due to the prolonged WSE on status"
+    "Tests tuning parameter remains constant in spite of a dip in tower fan speed due to the prolonged WSE on status"
     annotation (Placement(transformation(extent={{100,160},{120,180}})));
 
   Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Economizers.Subsequences.Tuning wseTun2

@@ -970,7 +970,7 @@ have been <b style=\"color:blue\">improved</b> in a
 <tr><td valign=\"top\">Buildings.Fluid.Movers.BaseClasses.Validation.NegativePressureOrFlow
     </td>
     <td valign=\"top\">Remade this model with
-                       <a href=\"Modelica://Buildings.Fluid.Movers.BaseClasses.FlowMachineInterface\">
+                       <a href=\"modelica://Buildings.Fluid.Movers.BaseClasses.FlowMachineInterface\">
                        Buildings.Fluid.Movers.BaseClasses.FlowMachineInterface</a>
                        instead of using a full mover model so that forcing a flow
                        rate and a pressure rise is more straightforward.

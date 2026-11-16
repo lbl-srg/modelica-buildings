@@ -325,13 +325,14 @@ equation
     Documentation(
       info="<html>
 <p>
-Pumps are staged as a function of the ratio <i>ratV_flow</i>
-of current volume flow rate <i>V_flow</i> to design volume 
+Pumps are staged as a function of the flow ratio <i>FR</i>
+of current volume flow rate <i>V_flow</i> to design volume
 flow rate <i>V_flow_nominal</i>,
-the number of operating pumps <i>nPum_actual</i> 
+the number of operating pumps <i>nPum_actual</i>
 and the number of pumps that operate at design conditions
-<i>nPum</i>. 
+<i>nPum</i>.
 Pumps are assumed to be equally sized.
+</p>
 <p>
 <i>FR = V_flow / V_flow_nominal</i>
 </p>
@@ -350,10 +351,10 @@ for all hardwired differential pressure sensors.
 </ul>
 <p>The last lag pump is disabled whenever either:</p>
 <ul>
-<li>The lag pump was staged on based on the efficiency condition and 
+<li>The lag pump was staged on based on the efficiency condition and
 <i>FR &lt; (nPum_actual - 1) / nPum − dVOffDow</i> is true for <code>dtRun</code>; or
 </li>
-<li>The lag pump was staged on based on the failsafe condition, 
+<li>The lag pump was staged on based on the failsafe condition,
 pump speed command &lt; <code>yDow</code> for <code>dtRunFaiSafLowY</code>
 and loop ∆p &gt; setpoint – <code>dpOff</code> for <code>dtRunFaiSaf</code>
 for all hardwired differential pressure sensors.
@@ -369,8 +370,8 @@ The timers are reset to zero when the status of a pump changes.
 This is necessary to ensure the minimum pump runtime with rapidly changing loads.
 </p>
 <h4>Details</h4>
-<p>The staging logic based on the efficiency condition (excluding the failsafe condition) 
-is prescribed in ASHRAE, 2021 for:</p>
+<p>The staging logic based on the efficiency condition (excluding the failsafe condition)
+is prescribed in ASHRAE, 2024 for:</p>
 <ul>
 <li>
 headered variable speed primary pumps in primary-only chiller
@@ -383,7 +384,7 @@ control valves,
 </li>
 <li>
 variable speed secondary pumps in primary-secondary boiler
-plants with serving a secondary loop with a flow meter.
+plants serving a secondary loop with a flow meter.
 </li>
 </ul>
 <p>
@@ -395,7 +396,7 @@ staging event sequencing.
 <h4>References</h4>
 <ul>
 <li id=\"ASHRAE2021\">
-ASHRAE, 2021. Guideline 36-2021, High-Performance Sequences of Operation
+ASHRAE, 2024. Guideline 36-2024, High-Performance Sequences of Operation
 for HVAC Systems. Atlanta, GA.
 </li>
 </ul>

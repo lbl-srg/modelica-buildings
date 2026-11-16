@@ -19,7 +19,7 @@ model ASHRAE2006Summer
 This is the same model as
 <a href=\"modelica://Buildings.ThermalZones.EnergyPlus_24_2_0.Examples.SmallOffice.ASHRAE2006Winter\">
 Buildings.ThermalZones.EnergyPlus_24_2_0.Examples.SmallOffice.ASHRAE2006Winter</a>
-but configured for simulation of a few days in spring.
+but configured for simulation of a few days in summer.
 </p>
 </html>",
       revisions="<html>

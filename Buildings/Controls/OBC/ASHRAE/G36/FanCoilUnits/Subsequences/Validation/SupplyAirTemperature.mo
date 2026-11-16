@@ -124,7 +124,7 @@ block SupplyAirTemperature
 
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant con10(
     k=true)
-    "Boolean fale signal"
+    "Boolean false signal"
     annotation (Placement(transformation(extent={{-120,-20},{-100,0}})));
 
 equation

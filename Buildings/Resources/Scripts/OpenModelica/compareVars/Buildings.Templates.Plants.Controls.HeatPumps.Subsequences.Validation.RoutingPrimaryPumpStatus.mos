@@ -1,0 +1,15 @@
+compareVars :=
+  {
+    "u1PumHdr.y[1]",
+    "u1PumHdr.y[2]",
+    "rouPumHdr.y1[1]",
+    "rouPumHdr.y1[2]",
+    "u1PumDedHp.y[1]",
+    "u1PumDedHp.y[2]",
+    "rouPumDedHp.y1[1]",
+    "rouPumDedHp.y1[2]",
+    "u1PumDedHpMix.y[1]",
+    "u1PumDedPhpMix.y[1]",
+    "rouPumDedHpPhp.y1[1]",
+    "rouPumDedHpPhp.y1[2]"
+  };

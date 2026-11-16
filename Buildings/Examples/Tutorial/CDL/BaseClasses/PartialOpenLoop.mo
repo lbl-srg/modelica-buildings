@@ -153,6 +153,10 @@ partial model PartialOpenLoop "Partial model with open loop system"
     fue=Buildings.Fluid.Data.Fuels.HeatingOilLowerHeatingValue()) "Boiler"
     annotation (Placement(transformation(extent={{20,-320},{0,-300}})));
 
+  Modelica.Thermal.HeatTransfer.Sources.FixedTemperature TBoiRoo(T=293.15)
+    "Boiler room temperature for boiler heat loss"
+    annotation (Placement(transformation(extent={{-20,-290},{0,-270}})));
+
   Buildings.Fluid.Actuators.Valves.ThreeWayEqualPercentageLinear valRad(
     redeclare package Medium = MediumW,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
@@ -344,6 +348,8 @@ equation
       points={{-240,70},{-220,70},{-220,50},{-340,50},{-340,30},{-318,30}},
       color={191,0,0},
       smooth=Smooth.None));
+  connect(TBoiRoo.port, boi.heatPort) annotation (Line(points={{0,-280},{10,
+          -280},{10,-302.8}}, color={191,0,0}));
   annotation (Documentation(info="<html>
 <p>
 This partial model implements the HVAC system model and a simple room, which is here modeled
@@ -361,6 +367,12 @@ Buildings.Examples.Tutorial.Boiler</a>
 </html>",
 revisions="<html>
 <ul>
+<li>
+October 14, 2026, by Michael Wetter:<br/>
+Added prescribed temperature model for boiler heat loss.<br/>
+This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4775\">
+#4775</a>.
+</li>
 <li>
 February 18, 2020, by Michael Wetter:<br/>
 First implementation.

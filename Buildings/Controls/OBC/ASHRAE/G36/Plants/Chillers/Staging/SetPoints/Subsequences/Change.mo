@@ -123,7 +123,7 @@ protected
     annotation (Placement(transformation(extent={{180,0},{200,20}})));
 
   Buildings.Controls.OBC.CDL.Conversions.BooleanToReal booToRea
-    "Type conveter"
+    "Type converter"
     annotation (Placement(transformation(extent={{60,0},{80,20}})));
 
   Buildings.Controls.OBC.CDL.Reals.GreaterThreshold greThr1(
@@ -403,7 +403,7 @@ chiller status setpoint indices <code>y</code>
 for the <code>ySta</code> stage.
 </p>
 <p>
-The inputs to the subsequece are:
+The inputs to the subsequence are:
 </p>
 <ul>
 <li>
@@ -446,7 +446,7 @@ If stage down or stage up signal is held for a time longer than <code>delStaCha<
 multiple consecutive stage change signals are issued.
 </p>
 <p>
-At plant enable the intial stage <code>uIni</code> is held for at least <code>delStaCha</code>
+At plant enable the initial stage <code>uIni</code> is held for at least <code>delStaCha</code>
 and until any stage up or down signal is generated.
 </p>
 <p>

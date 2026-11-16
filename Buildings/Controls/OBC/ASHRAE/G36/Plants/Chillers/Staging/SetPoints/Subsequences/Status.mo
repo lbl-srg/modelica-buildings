@@ -1,6 +1,6 @@
 within Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Staging.SetPoints.Subsequences;
 block Status
-  "Outputs current stage chiller index vector, current, next available lower and higher stage index and whether curent stage is the lowest and/or the highest available stage"
+  "Outputs current stage chiller index vector, current, next available lower and higher stage index and whether current stage is the lowest and/or the highest available stage"
 
   parameter Integer nSta = 3
     "Number of chiller stages, does not include zero stage";

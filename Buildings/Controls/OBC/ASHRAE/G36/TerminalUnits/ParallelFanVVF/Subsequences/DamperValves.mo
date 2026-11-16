@@ -186,7 +186,7 @@ block DamperValves
     final min=0,
     final unit="m3/s",
     final quantity="VolumeFlowRate")
-    "Paralle fan flow rate setpoint"
+    "Parallel fan flow rate setpoint"
     annotation (Placement(transformation(extent={{360,-260},{400,-220}}),
         iconTransformation(extent={{100,-182},{140,-142}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput y1Fan
@@ -423,10 +423,10 @@ protected
     "Airflow setpoint after considering override"
     annotation (Placement(transformation(extent={{100,380},{120,400}})));
   Buildings.Controls.OBC.CDL.Logical.Or or3
-    "Check if the airflow setpoint should be overrided"
+    "Check if the airflow setpoint should be overridden"
     annotation (Placement(transformation(extent={{-80,360},{-60,380}})));
   Buildings.Controls.OBC.CDL.Logical.Or or2
-    "Check if the airflow setpoint should be overrided"
+    "Check if the airflow setpoint should be overridden"
     annotation (Placement(transformation(extent={{40,380},{60,400}})));
 
 equation
@@ -930,7 +930,7 @@ When the zone stats is cooling (<code>uCoo &gt; 0</code>), in occupied mode only
 parallel fan starts when primary airflow (<code>VPri_flow</code>) drops below the
 the minimum outdoor airflow setpoint <code>VOAMin_flow</code> 
 (if using California Title 24, it should be the zone absolute minimum outdoor airflow rate)
-minus half of the minium fan
+minus half of the minimum fan
 rate <code>minRat</code> and shuts off when primary airflow rises above the
 <code>VOAMin_flow</code> (or the zone absolute minimum outdoor airflow rate). Fan airflow rate
 set point is equal to the minimum outdoor airflow rate
@@ -988,7 +988,7 @@ This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3257\
 </li>
 <li>
 January 12, 2023, by Jianjun Hu:<br/>
-Removed the parameter <code>have_preIndDam</code> to exclude the option of using pressure independant damper.<br/>
+Removed the parameter <code>have_preIndDam</code> to exclude the option of using pressure independent damper.<br/>
 This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3139\">issue 3139</a>.
 </li>
 <li>

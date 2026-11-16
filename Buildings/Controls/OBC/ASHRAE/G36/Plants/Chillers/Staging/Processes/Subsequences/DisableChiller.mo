@@ -395,7 +395,7 @@ annotation (
           textString="Disable chiller when the down-process requires small chiller being enabled")}),
 Documentation(info="<html>
 <p>
-Block that controlls chiller when there is a staging down command <code>uStaDow=true</code>.
+Block that controls chiller when there is a staging down command <code>uStaDow=true</code>.
 This implementation is based on ASHRAE Guideline 36-2021, section 5.20.4.17,
 items a.5 and a.6. These two sections specify how to start the smaller chiller and shut
 off larger chiller when the stage change requires large chiller off and small chiller on.

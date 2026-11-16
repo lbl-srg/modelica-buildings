@@ -1,7 +1,6 @@
 within Buildings.Templates.Plants.Controls.Utilities;
 block MultiMinInteger "Output the minimum element of the input vector"
-  parameter Integer nin(
-    min=0)=0
+  parameter Integer nin=nin
     "Size of input array"
     annotation (Evaluate=true,
     Dialog(connectorSizing=true),HideResult=true);
@@ -11,11 +10,24 @@ block MultiMinInteger "Output the minimum element of the input vector"
   Buildings.Controls.OBC.CDL.Interfaces.IntegerOutput y
     "Integer output signal"
     annotation (Placement(transformation(extent={{100,-20},{140,20}})));
+  Buildings.Controls.OBC.CDL.Conversions.IntegerToReal intToRea[nin]
+    "Cast to real type"
+    annotation (Placement(transformation(extent={{-80,-10},{-60,10}})));
+  Buildings.Controls.OBC.CDL.Reals.MultiMin mulMin(nin=nin) "Return min value"
+    annotation (Placement(transformation(extent={{-40,-10},{-20,10}})));
+  Buildings.Controls.OBC.CDL.Conversions.RealToInteger reaToInt
+    "Cast back to integer type"
+    annotation (Placement(transformation(extent={{0,-10},{20,10}})));
 equation
-  y=min(u);
+  connect(u, intToRea.u)
+    annotation (Line(points={{-120,0},{-82,0}}, color={255,127,0}));
+  connect(intToRea.y, mulMin.u)
+    annotation (Line(points={{-58,0},{-42,0}}, color={0,0,127}));
+  connect(reaToInt.y, y)
+    annotation (Line(points={{22,0},{120,0}}, color={255,127,0}));
+  connect(mulMin.y, reaToInt.u)
+    annotation (Line(points={{-18,0},{-2,0}}, color={0,0,127}));
   annotation (
-    __cdl(
-      extensionBlock=true),
     defaultComponentName="mulMin",
     Icon(
       coordinateSystem(
@@ -48,6 +60,10 @@ Outputs the minimum element of the input vector.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+July 10, 2026, by Antoine Gautier:<br/>
+Refactored using CDL Elementary Blocks.
+</li>
 <li>
 March 29, 2024, by Antoine Gautier:<br/>
 First implementation.

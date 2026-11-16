@@ -199,7 +199,7 @@ protected
     annotation (Placement(transformation(extent={{-220,-220},{-200,-200}})));
   Buildings.Controls.OBC.CDL.Reals.Subtract difCooMax
     if have_CO2Sen and have_parFanPowUni
-    "Maximum cooling airflw set point minus parallel fan airflow"
+    "Maximum cooling airflow set point minus parallel fan airflow"
     annotation (Placement(transformation(extent={{-220,-260},{-200,-240}})));
   Buildings.Controls.OBC.CDL.Reals.Switch maxFloCO2
     if have_CO2Sen and have_parFanPowUni
@@ -595,14 +595,14 @@ src=\"modelica://Buildings/Resources/Images/Controls/OBC/ASHRAE/G36/VentilationZ
 For parallel fan-powered terminal units:
 <ul>
 <li>
-Determin the maximum flow rate for control CO2 level: when the zone state is cooling,
+Determine the maximum flow rate for control CO2 level: when the zone state is cooling,
 the maximum flow rate is equal to the maximum cooling airflow setpoint
 <code>VCooMax_flow</code>; when the zone state is heating or deadband, the maximum
 flow rate is equal to <code>VCooMax_flow</code> minus the parallel fan airflow
 <code>VParFan_flow</code>.
 </li>
 <li>
-The CO2 control loop ouput shall reset the occupied minimum airflow setpoint from the
+The CO2 control loop output shall reset the occupied minimum airflow setpoint from the
 zone minimum airflow setpoint <code>VMin_flow</code> at 0% loop output up to maximum
 cooling airflow setpoint for CO2 control at 50% loop output. The loop output from 50%
 to 100% will be used at the system level to reset outdoor air minimum.
@@ -619,7 +619,7 @@ src=\"modelica://Buildings/Resources/Images/Controls/OBC/ASHRAE/G36/VentilationZ
 <h4>Minimum outdoor airflow for single zone VAV air handler unit</h4>
 <p>
 The minimum outdoor air setpoint shall be reset
-based on the zone CO2 control-llop signal from <code>VZonAbsMin_flow</code> at 0% signal
+based on the zone CO2 control-loop signal from <code>VZonAbsMin_flow</code> at 0% signal
 to <code>VZonDesMin_flow</code> at 100% signal.
 </p>
 <p align=\"center\">

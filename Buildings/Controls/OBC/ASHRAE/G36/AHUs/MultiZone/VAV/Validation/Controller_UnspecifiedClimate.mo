@@ -1,6 +1,6 @@
 within Buildings.Controls.OBC.ASHRAE.G36.AHUs.MultiZone.VAV.Validation;
 model Controller_UnspecifiedClimate
-  "Validation controller model for generating warnng when the climate zone is not specified"
+  "Validation controller model for generating warning when the climate zone is not specified"
 
   Buildings.Controls.OBC.ASHRAE.G36.AHUs.MultiZone.VAV.Controller conAHU(
     final eneStd=Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard.ASHRAE90_1,
@@ -112,7 +112,7 @@ model Controller_UnspecifiedClimate
   Buildings.Controls.OBC.CDL.Reals.Sources.Ramp dpBui(
     final height=40,
     final offset=0,
-    final duration=1800) "Building static presure"
+    final duration=1800) "Building static pressure"
     annotation (Placement(transformation(extent={{-240,-220},{-220,-200}})));
   Buildings.Controls.OBC.CDL.Logical.Not not1
     "Logical not"

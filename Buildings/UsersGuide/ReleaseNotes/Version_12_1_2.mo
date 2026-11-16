@@ -1,0 +1,100 @@
+within Buildings.UsersGuide.ReleaseNotes;
+class Version_12_1_2 "Version 12.1.2"
+  extends Modelica.Icons.ReleaseNotes;
+    annotation (Documentation(info="<html>
+<div class=\"release-summary\">
+<p>
+Version 12.1.2 is backward compatible with 12.1.1 and 12.1.0.
+</p>
+<p>
+The library has been tested with
+Dymola 2025x,
+OpenModelica 1.26.3,
+OPTIMICA 1.66 and recent versions of Impact.
+</p>
+<p>
+This backward compatible version contains various model improvements.
+</p>
+</div>
+<!-- New libraries -->
+<!-- New components for existing libraries -->
+<!-- Backward compatible changes -->
+<p>
+The following <b style=\"color:blue\">existing components</b>
+have been <b style=\"color:blue\">improved</b> in a
+<b style=\"color:blue\">backward compatible</b> way:
+</p>
+<table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\" style=\"border-collapse:collapse;\">
+<tr><td colspan=\"2\"><b>Buildings.Controls.OBC.CDL.Logical</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Controls.OBC.CDL.Logical.Edge<br/>
+                       Buildings.Controls.OBC.CDL.Logical.FallingEdge<br/>
+                       Buildings.Controls.OBC.CDL.Logical.Pre<br/>
+                       Buildings.Controls.OBC.CDL.Logical.TrueFalseHold
+    </td>
+    <td valign=\"top\">Replaced initial equation with start attribute on input.<br/>
+                       This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/2136\">IBPSA, #2136</a>.
+    </td>
+</tr>
+<tr><td colspan=\"2\"><b>Buildings.Utilities.Psychrometrics</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Utilities.Psychrometrics.TWetBul_TDryBulXi
+    </td>
+    <td valign=\"top\">Added nominal attribute for temperature.<br/>
+                       This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/2155\">IBPSA, #2155</a>.
+    </td>
+</tr>
+</table>
+<!-- Non-backward compatible changes to existing components -->
+<!-- Errors that have been fixed -->
+<!-- Uncritical errors -->
+<p>
+The following <b style=\"color:red\">uncritical errors</b> have been fixed (i.e., errors
+that do <b style=\"color:red\">not</b> lead to wrong simulation results, e.g.,
+units are wrong or errors in documentation):
+</p>
+<table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\" style=\"border-collapse:collapse;\">
+<tr><td colspan=\"2\"><b>Buildings.Fluid.DXSystems</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Fluid.DXSystems.Cooling.BaseClasses.Evaporation
+    </td>
+    <td valign=\"top\">Added missing variable assignment for unused variable in a branch that will not compute evaporation.<br/>
+                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4715\">Buildings, #4715</a>.
+    </td>
+</tr>
+<tr><td colspan=\"2\"><b>Buildings.Fluid.Geothermal.Borefields.BaseClasses.HeatTransfer.ThermalResponseFactors</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Fluid.Geothermal.Borefields.BaseClasses.HeatTransfer.ThermalResponseFactors.gFunction
+    </td>
+    <td valign=\"top\">Initialized local variables <code>A</code> and <code>B</code> to avoid use of uninitialized elements
+                       of a matrix. This update does not change the results.<br/>
+                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4707\">Buildings, #4707</a>.
+    </td>
+</tr>
+<tr><td colspan=\"2\"><b>Buildings.Fluid.HeatPumps.ModularReversible.BaseClasses</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Fluid.HeatPumps.ModularReversible.BaseClasses.PartialReversibleRefrigerantMachine
+    </td>
+    <td valign=\"top\">Corrected the flow reversal parameter in the condenser mass flow sensor
+                       (<code>allowFlowReversalEva</code> was used instead of <code>allowFlowReversalCon</code>).
+                       Also corrected the sensor description from evaporator to condenser.<br/>
+                       This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/2162\">IBPSA, #2162</a>.
+    </td>
+</tr>
+</table>
+<p>
+Note:
+</p>
+<ul>
+<li>
+Unit declarations was added to various models to avoid
+a translation warning in Dymola 2025x.
+</li>
+</ul>
+</html>"));
+end Version_12_1_2;

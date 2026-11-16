@@ -88,7 +88,7 @@ protected
   Buildings.Controls.OBC.CDL.Logical.Sources.Pulse isoVal1[2](
     width={0.3,0.4},
     period=fill(3600, 2),
-    shift={300,500}) "Isolation valves commanded posiiton"
+    shift={300,500}) "Isolation valves commanded position"
     annotation (Placement(transformation(extent={{-60,110},{-40,130}})));
 equation
   connect(conInt.y, heaNoLoc.uPumLeaLag)

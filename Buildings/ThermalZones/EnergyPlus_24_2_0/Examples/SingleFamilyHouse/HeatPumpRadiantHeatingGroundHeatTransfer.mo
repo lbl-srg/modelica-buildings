@@ -64,7 +64,7 @@ model HeatPumpRadiantHeatingGroundHeatTransfer
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant TSetRooHea(k(
       final unit="K",
       displayUnit="degC") = 293.15, y(final unit="K", displayUnit="degC"))
-    "Room temperture set point for heating"
+    "Room temperature set point for heating"
     annotation (Placement(transformation(extent={{-320,-150},{-300,-130}})));
   Buildings.Fluid.Movers.SpeedControlled_y pum(
     redeclare package Medium=MediumW,
@@ -372,7 +372,7 @@ Buildings.Fluid.HeatExchangers.RadiantSlabs.UsersGuide</a>
 for how to configure a radiant slab.)
 In this example, the surface <code>slaFlo.surf_a</code> is connected to the instance
 <code>flo</code>.
-This connection is made by measuring the surface temperture, sending this as an input to
+This connection is made by measuring the surface temperature, sending this as an input to
 <code>livFlo</code>, and setting the heat flow rate at the surface from the instance <code>livFlo</code>
 to the surface <code>slaFlo.surf_a</code>.
 </p>

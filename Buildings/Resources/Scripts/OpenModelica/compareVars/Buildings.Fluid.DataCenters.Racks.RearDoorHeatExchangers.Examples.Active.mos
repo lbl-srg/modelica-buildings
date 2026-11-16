@@ -1,0 +1,10 @@
+compareVars :=
+  {
+    "senTAirIn.T",
+    "senTAirOut.T",
+    "senTCooIn.T",
+    "senTCooOut.T",
+    "hex.PFan",
+    "hex.dat.PFan_nominal",
+    "hex.reaDooHex.Q2_flow"
+  };

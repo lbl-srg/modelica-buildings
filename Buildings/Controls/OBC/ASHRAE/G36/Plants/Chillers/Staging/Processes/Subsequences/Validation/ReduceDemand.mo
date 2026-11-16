@@ -5,12 +5,12 @@ model ReduceDemand
   Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Staging.Processes.Subsequences.ReduceDemand
     chiDemRed(
     final nChi=2)
-    "Reduce operaing chiller load as the first step of stage up process"
+    "Reduce operating chiller load as the first step of stage up process"
     annotation (Placement(transformation(extent={{-100,100},{-80,120}})));
   Buildings.Controls.OBC.ASHRAE.G36.Plants.Chillers.Staging.Processes.Subsequences.ReduceDemand
     chiDemRed1(
     final nChi=2)
-    "Reduce operaing chiller load as the first step of stage down process when it requires another chiller on"
+    "Reduce operating chiller load as the first step of stage down process when it requires another chiller on"
     annotation (Placement(transformation(extent={{200,50},{220,70}})));
 
 protected

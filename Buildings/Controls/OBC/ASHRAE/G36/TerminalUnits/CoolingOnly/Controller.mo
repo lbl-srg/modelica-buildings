@@ -105,13 +105,13 @@ block Controller "Controller for cooling only VAV box"
   // ---------------- Parameters for time-based suppression ----------------
   parameter Real samplePeriod(unit="s")=120
     "Sample period of component, set to the same value as the trim and respond that process static pressure reset"
-    annotation (__cdl(ValueInReference=false), Dialog(tab="Time-based suppresion"));
+    annotation (__cdl(ValueInReference=false), Dialog(tab="Time-based suppression"));
   parameter Real chaRat(final unit="s/K")=540
     "Gain factor to calculate suppression time based on the change of the setpoint, seconds per Kelvin"
-    annotation (__cdl(ValueInReference=true), Dialog(tab="Time-based suppresion"));
+    annotation (__cdl(ValueInReference=true), Dialog(tab="Time-based suppression"));
   parameter Real maxSupTim(unit="s")=1800
     "Maximum suppression time"
-    annotation (__cdl(ValueInReference=true), Dialog(tab="Time-based suppresion"));
+    annotation (__cdl(ValueInReference=true), Dialog(tab="Time-based suppression"));
   // ---------------- Advanced parameters ----------------
   parameter Real dTHys(unit="K")=0.25
     "Near zero temperature difference, below which the difference will be seen as zero"
@@ -327,7 +327,7 @@ block Controller "Controller for cooling only VAV box"
     final chaRat=chaRat,
     final maxTim=maxSupTim,
     final dTHys=dTHys)
-    "Specify suppresion time due to the setpoint change and check if it has passed the suppresion period"
+    "Specify suppression time due to the setpoint change and check if it has passed the suppression period"
     annotation (Placement(transformation(extent={{-100,210},{-80,230}})));
   Buildings.Controls.OBC.ASHRAE.G36.VentilationZones.ASHRAE62_1.Setpoints setPoi(
     final have_winSen=have_winSen,
@@ -630,7 +630,7 @@ airflow sensor calibration alarm <code>yFloSenAla</code>.
 <p>The sequence consists of six subsequences.</p>
 <h4>a. Heating and cooling control loop</h4>
 <p>
-The subsequence is implementd according to Section 5.3.4. The measured zone
+The subsequence is implemented according to Section 5.3.4. The measured zone
 temperature <code>TZon</code>, zone setpoints temperatures <code>TZonHeaSet</code> and
 <code>TZonCooSet</code> are inputs to the instance of class 
 <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36.ThermalZones.ZoneStates\">
@@ -672,7 +672,7 @@ Buildings.Controls.OBC.ASHRAE.G36.TerminalUnits.CoolingOnly.Subsequences.Alarms<
 </p>
 <h4>f. Testing and commissioning overrides</h4>
 <p>
-According to Section 5.5.7, this sequence allows the override the aiflow setpoints,
+According to Section 5.5.7, this sequence allows the override the airflow setpoints,
 damper position setpoints.
 See <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36.TerminalUnits.CoolingOnly.Subsequences.Dampers\">
 Buildings.Controls.OBC.ASHRAE.G36.TerminalUnits.CoolingOnly.Subsequences.Dampers</a>.
@@ -681,7 +681,7 @@ Buildings.Controls.OBC.ASHRAE.G36.TerminalUnits.CoolingOnly.Subsequences.Dampers
 <ul>
 <li>
 January 12, 2023, by Jianjun Hu:<br/>
-Removed the parameter <code>have_preIndDam</code> to exclude the option of using pressure independant damper.<br/>
+Removed the parameter <code>have_preIndDam</code> to exclude the option of using pressure independent damper.<br/>
 This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3139\">issue 3139</a>.
 </li>
 <li>

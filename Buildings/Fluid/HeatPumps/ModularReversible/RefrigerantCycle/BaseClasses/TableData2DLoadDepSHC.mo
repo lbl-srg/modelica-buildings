@@ -429,6 +429,8 @@ protected
     "Number of modules required to meet cooling load based on SHC capacity";
   discrete Real entryTime(final quantity="Time", final unit="s")
     "Time instant when stage started";
+  Boolean timeTrigger = time >= pre(entryTime) + dtRun
+    "True if minimum stage runtime has elapsed";
   Integer nUniHeaRaw(start=0, fixed=true)
     "Number of modules in heating mode - Without runtime requirement";
   Integer nUniCooRaw(start=0, fixed=true)
@@ -475,8 +477,8 @@ equation
   // - maximum number of modules in bank
   // - priority order: SHC > heating > cooling
   when {initial(), change(pre_nUniShcRaw), change(pre_nUniHeaRaw), change(pre_nUniCooRaw),
-    time >= pre(entryTime) + dtRun} then
-    if time >= pre(entryTime) + dtRun then
+    timeTrigger} then
+    if timeTrigger then
       nUniShc = pre(nUniShc) + (
         if nUniShcRaw > pre(nUniShc) and pre(nUniShc) < nUni then 1
         elseif pre(nUniShc) > 0 and nUniShcRaw < pre(nUniShc) then -1
@@ -1015,6 +1017,14 @@ YORK.
 </html>",
 revisions="<html>
 <ul>
+<li>
+November 2, 2026, by Michael Wetter:<br/>
+Introduced helper variable <code>timeTrigger</code> to avoid evaluating the same
+relational expression as event-generating in the <code>when</code> condition
+and as non-event-generating inside the <code>when</code> body.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4836\">#4836</a>.
+</li>
 <li>
 March 23, 2026, by Antoine Gautier:<br/>
 Refactored with two separate connectors 

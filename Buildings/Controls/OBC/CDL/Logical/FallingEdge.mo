@@ -11,11 +11,10 @@ block FallingEdge
     annotation (Placement(transformation(extent={{100,-20},{140,20}})));
 
 protected
-  Boolean not_u=not u
+  Boolean not_u(
+    final fixed=true,
+    final start=not pre_u_start)=not u
     "Boolean not of the input";
-
-initial equation
-  pre(not_u)=not pre_u_start;
 
 equation
   y=edge(not_u);
@@ -63,6 +62,18 @@ Otherwise the output is <code>false</code>.
 </html>",
       revisions="<html>
 <ul>
+<li>
+September 10, 2026, by Antoine Gautier:<br/>
+Removed redundant start attribute on input.
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/2170\">IBPSA, #2170</a>.
+</li>
+<li>
+July 17, 2026, by Antoine Gautier:<br/>
+Replaced initial equation with start attribute on input.
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/2136\">IBPSA, #2136</a>.
+</li>
 <li>
 January 3, 2017, by Michael Wetter:<br/>
 First implementation, based on the implementation of the

@@ -4,7 +4,7 @@ model ASHRAE2006
   extends Buildings.Examples.VAVReheat.BaseClasses.PartialHVAC(amb(nPorts=3));
 
   parameter Real ratVMinVAV_flow[numZon](each final unit="1") = {max(1.5*
-    VZonOA_flow_nominal[i]/mCooVAV_flow_nominal[i]/1.2, 0.15) for i in 1:numZon}
+    VZonOA_flow_nominal[i]/(mCooVAV_flow_nominal[i]/1.2), 0.15) for i in 1:numZon}
     "Minimum discharge air flow rate ratio";
 
   Controls.FanVFD conFanSup(
@@ -360,6 +360,13 @@ ASHRAE, Atlanta, GA, 2006.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+November 5, 2026, by Jianjun Hu:<br/>
+Corrected wrong value assignment of <code>ratVMinVAV_flow</code>.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4863\">issue #4863</a>.
+</li>
+
 <li>
 May 22, 2026, by Michael Wetter:<br/>
 Changed hardcoded value for number of inputs in <code>pSetDuc</code> to use

@@ -5,6 +5,19 @@ model FMUZoneAdapterZones3
 
   parameter Modelica.Units.SI.HeatCapacity CZon=6*6*2.7*1.2*1006
     "Heat capacity of zone air";
+  parameter Real airChaRatInf(
+    final unit="1/s",
+    displayUnit="1/h") = 6/3600
+    "Infiltration air change rate for auto-sizing";
+  parameter Modelica.Units.SI.SpecificHeatCapacity cpAir=
+    Buildings.Utilities.Psychrometrics.Constants.cpAir
+    "Specific heat capacity of air";
+  parameter Modelica.Units.SI.SpecificEnergy h_fg=
+    Buildings.Utilities.Psychrometrics.Constants.h_fg
+    "Latent heat of water vapor";
+  parameter Modelica.Units.SI.Density rhoAir(displayUnit="kg/m3")=
+    Buildings.Media.Air.dStp
+    "Density of air";
   inner Building building(
     idfName=Modelica.Utilities.Files.loadResource(
       "modelica://Buildings/Resources/Data/ThermalZones/EnergyPlus_24_2_0/Examples/RefBldgSmallOffice/RefBldgSmallOfficeNew2004_Chicago.idf"),
@@ -22,11 +35,16 @@ model FMUZoneAdapterZones3
     final idfVersion=building.idfVersion,
     final idfName=building.idfName,
     final epwName=building.epwName,
+    hvacSystemName="hvac1",
     final relativeSurfaceTolerance=building.relativeSurfaceTolerance,
     final zoneName="Core_ZN",
+    airChaRatInf=airChaRatInf,
+    cpAir=cpAir,
+    h_fg=h_fg,
+    rhoAir=rhoAir,
     usePrecompiledFMU=true,
     final fmuName=Modelica.Utilities.Files.loadResource(
-      "modelica://Buildings/Resources/src/ThermalZones/EnergyPlus/FMUs/Zones3.fmu"),
+      "modelica://Buildings/Resources/src/ThermalZones/EnergyPlus_24_2_0/FMUs/Zones3.fmu"),
     logLevel=building.logLevel,
     setInitialRadiativeHeatGainToZero=true,
     final nFluPor=2)
@@ -53,7 +71,7 @@ model FMUZoneAdapterZones3
     "Radiative heat gain for the zone"
     annotation (Placement(transformation(extent={{-88,-46},{-68,-26}})));
   Modelica.Blocks.Continuous.Integrator TZonCor(
-    k=1/CZon,
+    k(unit="K/J")=1/CZon,
     initType=Modelica.Blocks.Types.Init.InitialState,
     y_start=294.15,
     y(final unit="K",
@@ -66,18 +84,23 @@ model FMUZoneAdapterZones3
     final idfVersion=building.idfVersion,
     final idfName=building.idfName,
     final epwName=building.epwName,
+    hvacSystemName="hvac1",
     final relativeSurfaceTolerance=building.relativeSurfaceTolerance,
     final zoneName="South_ZN",
+    airChaRatInf=airChaRatInf,
+    cpAir=cpAir,
+    h_fg=h_fg,
+    rhoAir=rhoAir,
     usePrecompiledFMU=true,
     final fmuName=Modelica.Utilities.Files.loadResource(
-      "modelica://Buildings/Resources/src/ThermalZones/EnergyPlus/FMUs/Zones3.fmu"),
+      "modelica://Buildings/Resources/src/ThermalZones/EnergyPlus_24_2_0/FMUs/Zones3.fmu"),
     logLevel=building.logLevel,
     setInitialRadiativeHeatGainToZero=true,
     final nFluPor=2)
     "Adapter to EnergyPlus"
     annotation (Placement(transformation(extent={{20,-20},{40,0}})));
   Modelica.Blocks.Continuous.Integrator TZonSou(
-    k=1/CZon,
+    k(unit="K/J")=1/CZon,
     initType=Modelica.Blocks.Types.Init.InitialState,
     y_start=294.15,
     y(final unit="K",
@@ -90,18 +113,23 @@ model FMUZoneAdapterZones3
     final idfVersion=building.idfVersion,
     final idfName=building.idfName,
     final epwName=building.epwName,
+    hvacSystemName="hvac1",
     final relativeSurfaceTolerance=building.relativeSurfaceTolerance,
     final zoneName="North_ZN",
+    airChaRatInf=airChaRatInf,
+    cpAir=cpAir,
+    h_fg=h_fg,
+    rhoAir=rhoAir,
     usePrecompiledFMU=true,
     final fmuName=Modelica.Utilities.Files.loadResource(
-      "modelica://Buildings/Resources/src/ThermalZones/EnergyPlus/FMUs/Zones3.fmu"),
+      "modelica://Buildings/Resources/src/ThermalZones/EnergyPlus_24_2_0/FMUs/Zones3.fmu"),
     logLevel=building.logLevel,
     setInitialRadiativeHeatGainToZero=true,
     final nFluPor=2)
     "Adapter to EnergyPlus"
     annotation (Placement(transformation(extent={{20,-60},{40,-40}})));
   Modelica.Blocks.Continuous.Integrator TZonNor(
-    k=1/CZon,
+    k(unit="K/J")=1/CZon,
     initType=Modelica.Blocks.Types.Init.InitialState,
     y_start=294.15,
     y(final unit="K",
@@ -185,6 +213,10 @@ for Linux 64 bit by JModelica.
 </html>",
       revisions="<html>
 <ul>
+<li>
+September 27, 2026, by Michael Wetter:<br/>
+Added unit specification to avoid warning in Dymola 2025x.
+</li>
 <li>
 March 23, 2022, by Michael Wetter:<br/>
 Changed model to use the instance name of the <code>building</code> instance as is done for the other Spawn models.

@@ -371,7 +371,7 @@ equation
         Documentation(info="<html>
 <p>
 The modelled system is described in the documentation of
-<a href=\"Modelica://Buildings.DHC.Plants.Cooling.StoragePlant\">
+<a href=\"modelica://Buildings.DHC.Plants.Cooling.StoragePlant\">
 Buildings.DHC.Plants.Cooling.StoragePlant</a>.
 </p>
 <p>
@@ -417,7 +417,7 @@ This stops once the tank is charged again.
 <h4>Implementation</h4>
 <p>
 The chiller is implemented as an ideal temperature source using
-<a href=\"Modelica://Buildings.Fluid.Sources.PropertySource_T\">
+<a href=\"modelica://Buildings.Fluid.Sources.PropertySource_T\">
 Buildings.Fluid.Sources.PropertySource_T</a>.
 Its outlet temperature is always at the prescribed value.
 </p>

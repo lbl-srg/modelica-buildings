@@ -35,7 +35,7 @@ block PlantRequests "Output plant requests for multizone air handling unit"
     final min=0,
     final max=1)
     if cooCoi == Buildings.Controls.OBC.ASHRAE.G36.Types.CoolingCoil.WaterBased
-    "Commanded ooling coil valve position"
+    "Commanded cooling coil valve position"
     annotation (Placement(transformation(extent={{-240,80},{-200,120}}),
         iconTransformation(extent={{-140,-50},{-100,-10}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uHeaCoiSet(
@@ -433,7 +433,7 @@ send 0 request.
 </li>
 </ol>
 <h4>If there is a hot-water coil and heating hot-water plant, heating hot-water
-plant reqeusts <code>yHotWatPlaReq</code></h4>
+plant requests <code>yHotWatPlaReq</code></h4>
 <p>
 Send the heating hot-water plant that serves the air handling unit a heating hot-water
 plant request as follows:

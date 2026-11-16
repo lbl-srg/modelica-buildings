@@ -3,7 +3,7 @@ model CollectorPump
   "Controller which activates a circulation pump when solar radiation is above a critical level"
   extends Modelica.Blocks.Icons.Block;
 
-  parameter Modelica.Units.SI.HeatFlowRate delQ_flow(min=1)=10
+  parameter Modelica.Units.SI.HeatFlux delQ_flow(min=1)=10
     "Required estimated heat gain per unit area of collector to switch system on";
   parameter Modelica.Units.SI.Angle azi(displayUnit="deg")
     "Surface azimuth (0 for south-facing; -90 degree for east-facing; +90 degree for west facing";
@@ -131,6 +131,13 @@ John Wiley &amp; Sons, Inc.<br/>
 revisions="<html>
 <ul>
 <li>
+September 13, 2026, by Michael Wetter:<br/>
+Corrected unit declaration for parameter <code>delQ_flow</code> and
+removed wrong annotation.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/2173\">IBPSA, #2173</a>.
+</li>
+<li>
 February 15, 2024, by Jelger Jansen:<br/>
 Refactor model.<br/>
 This is for
@@ -152,12 +159,5 @@ January 15, 2013 by Peter Grant:<br/>
 First implementation.
 </li>
 </ul>
-</html>"),
-    Icon(graphics={
-      Text(
-        extent={{226,60},{106,10}},
-        textColor={0,0,0},
-        textString=DynamicSelect("",String(y,
-          leftJustified=false,
-          significantDigits=3)))}));
+</html>"));
 end CollectorPump;

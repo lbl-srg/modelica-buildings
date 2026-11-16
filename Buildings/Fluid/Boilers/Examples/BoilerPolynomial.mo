@@ -38,7 +38,7 @@ model BoilerPolynomial
     from_dp=true,
     T_start=293.15) "Boiler"
     annotation (Placement(transformation(extent={{-10,-2},{10,18}})));
-  Buildings.HeatTransfer.Sources.FixedTemperature TAmb1(      T=288.15)
+  Buildings.HeatTransfer.Sources.FixedTemperature TAmb1(T=288.15)
     "Ambient temperature in boiler room"
     annotation (Placement(transformation(extent={{-30,28},{-10,48}})));
   Buildings.Fluid.Boilers.BoilerPolynomial boi2(

@@ -1,6 +1,6 @@
 within Buildings.Controls.OBC.ASHRAE.G36.AHUs.MultiZone.VAV.SetPoints.Validation;
 model SupplySignals
-  "Validate model for controlling coil valve postion of multi zone VAV AHU"
+  "Validate model for controlling coil valve position of multi zone VAV AHU"
 
   Buildings.Controls.OBC.ASHRAE.G36.AHUs.MultiZone.VAV.SetPoints.SupplySignals supSig
     "Output valve position and supply air temperature control loop signal"

@@ -47,7 +47,7 @@ block Alarms "Zone level alarms"
     annotation (Placement(transformation(extent={{-240,86},{-200,126}}),
         iconTransformation(extent={{-140,10},{-100,50}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1ResSet
-    "True: zone setpoint temperature is being resetted"
+    "True: zone setpoint temperature is being reset"
     annotation (Placement(transformation(extent={{-240,0},{-200,40}}),
         iconTransformation(extent={{-140,-40},{-100,0}})));
   Buildings.Controls.OBC.CDL.Interfaces.IntegerInput uOpeMod

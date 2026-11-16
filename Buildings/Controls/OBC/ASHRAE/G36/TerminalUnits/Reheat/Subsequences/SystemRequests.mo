@@ -659,7 +659,7 @@ Else if the hot water valve position <code>uVal</code> is less than 95%, send 0 
 </li>
 </ol>
 <h4>If there is a hot-water coil and heating hot-water plant, heating hot-water
-plant reqeusts. Send the heating hot-water plant that serves the zone a heating
+plant requests. Send the heating hot-water plant that serves the zone a heating
 hot-water plant request as follows:</h4>
 <ol>
 <li>

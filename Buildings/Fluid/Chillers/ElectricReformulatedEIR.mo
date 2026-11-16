@@ -137,8 +137,8 @@ This model uses three functions to predict capacity and power consumption:</p>
     <th colspan=\"2\">Formulation</th>
   </tr>
   <tr>
-  <th><code><a href=\"Modelica://Buildings.Fluid.Chillers.ElectricEIR\">ElectricEIR</a></code> (this model)</th>
-  <th><code><a href=\"Modelica://Buildings.Fluid.Chillers.ElectricReformulatedEIR\">ElectricReformulatedEIR</a></code> (this model)</th>
+  <th><code><a href=\"modelica://Buildings.Fluid.Chillers.ElectricEIR\">ElectricEIR</a></code> (this model)</th>
+  <th><code><a href=\"modelica://Buildings.Fluid.Chillers.ElectricReformulatedEIR\">ElectricReformulatedEIR</a></code> (this model)</th>
   </tr>
 </thead>
 <tbody>

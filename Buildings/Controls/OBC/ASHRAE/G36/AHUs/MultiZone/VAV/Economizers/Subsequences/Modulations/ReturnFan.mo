@@ -64,7 +64,7 @@ protected
     annotation (Placement(transformation(extent={{-100,-30},{-80,-10}})));
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant damMaxLimSig(
     final k=uMax)
-    "Maximal control loop signal for the return and exhast air damper"
+    "Maximal control loop signal for the return and exhaust air damper"
     annotation (Placement(transformation(extent={{-40,-30},{-20,-10}})));
   Buildings.Controls.OBC.CDL.Reals.Line retDamPos(
     final limitBelow=true,
@@ -178,7 +178,7 @@ using the sample time <code>samplePeriod</code>.
 This prevents a quick opening of the outdoor air damper, for example when the
 outdoor airflow setpoint has a step change.
 Slowing down the opening of the outdoor air damper allows the freeze protection
-to componensate with its dynamics that is faster than the opening of the outdoor air damper.
+to compensate with its dynamics that is faster than the opening of the outdoor air damper.
 To avoid that all dampers are closed, the return air damper has the same
 time rate of change limitation.
 </p>

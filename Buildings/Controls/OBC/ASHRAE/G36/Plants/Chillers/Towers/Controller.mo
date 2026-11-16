@@ -26,7 +26,7 @@ block Controller "Cooling tower controller"
 
   // Fan speed control: when WSE is enabled
   parameter Real chiMinCap[nChi](unit=fill("W", nChi))={1e4,1e4}
-    "Minimum cyclining load below which chiller will begin cycling"
+    "Minimum cycling load below which chiller will begin cycling"
     annotation (Dialog(tab="Fan speed", group="WSE enabled",
                        enable=have_WSE));
   parameter Buildings.Controls.OBC.CDL.Types.SimpleController intOpeCon=
@@ -171,7 +171,7 @@ block Controller "Cooling tower controller"
     "True: tower cells have the outlet isolation valve"
     annotation (Dialog(tab="Tower staging", group="Isolation valves", enable=have_inlIsoVal));
   parameter Boolean have_endSwi=false
-    "True: tower cells isolatiove valve have the end switch feedback"
+    "True: tower cells isolation valve have the end switch feedback"
     annotation (Dialog(tab="Tower staging", group="Isolation valves", enable=have_inlIsoVal));
   parameter Real chaTowCelIsoTim=90
     "Nominal time needed for open isolation valve of the tower cells"

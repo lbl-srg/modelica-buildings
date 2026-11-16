@@ -3,15 +3,15 @@ model IdealHeatingCoolingWinter
   "Building with constant fresh air and ideal heating/cooling that exactly meets set point"
   extends Buildings.ThermalZones.EnergyPlus_24_2_0.Examples.SmallOffice.Unconditioned;
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant THeaSet[5](
-    each k(
-      final unit="K",
-      displayUnit="degC")=293.15)
+    k(
+      each final unit="K",
+      each displayUnit="degC")=fill(293.15, 5))
     "Set point temperature for heating"
     annotation (Placement(transformation(extent={{-120,70},{-100,90}})));
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant THeaCoo[5](
-    each k(
-      final unit="K",
-      displayUnit="degC")=299.15)
+    k(
+      each final unit="K",
+      each displayUnit="degC")=fill(299.15, 5))
     "Set point temperature for cooling"
     annotation (Placement(transformation(extent={{-120,130},{-100,150}})));
   BaseClasses.IdealHeaterCooler[5] hea(
@@ -91,8 +91,15 @@ but an ideal heating/cooling device that exactly meets the load.
       revisions="<html>
 <ul>
 <li>
+September 30, 2026, by Michael Wetter:<br/>
+Removed incorrect <code>each</code> keyword on scalar attributes <code>unit</code> and <code>displayUnit</code>
+inside the <code>k</code> modifier of <code>THeaSet</code> and <code>THeaCoo</code>.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3866\">#3866</a>.
+</li>
+<li>
 November 25, 2024, by Jianjun Hu:<br/>
-Changed tolerance to 1e-07.
+Changed tolerance to 1e-07.<br/>
 This is for
 <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4063\">issue #4063</a>.
 </li>

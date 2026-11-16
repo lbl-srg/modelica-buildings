@@ -54,7 +54,7 @@ protected
     annotation (Placement(transformation(extent={{-100,50},{-80,70}})));
   Buildings.Controls.OBC.CDL.Reals.GreaterThreshold greThr(
     final t=thrTimEnb)
-    "Check if it has been threhold time after condenser water pump achieves its new setpoint"
+    "Check if it has been threshold time after condenser water pump achieves its new setpoint"
     annotation (Placement(transformation(extent={{0,50},{20,70}})));
   Buildings.Controls.OBC.CDL.Discrete.TriggeredSampler triSam[nChi]
     "Record the old chiller head pressure control status"
@@ -128,7 +128,7 @@ protected
     "Replicate boolean input"
     annotation (Placement(transformation(extent={{40,-160},{60,-140}})));
   Buildings.Controls.OBC.CDL.Logical.Or or1
-    "Plant just enabeld or it is in the chiller staging process"
+    "Plant just enabled or it is in the chiller staging process"
     annotation (Placement(transformation(extent={{-140,150},{-120,170}})));
 
 equation

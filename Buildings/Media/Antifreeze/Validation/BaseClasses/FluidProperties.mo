@@ -31,19 +31,19 @@ protected
 
 equation
   T = T_min + convT*time;
-  T_degC =Modelica.Units.Conversions.to_degC(T);
+  T_degC = Modelica.Units.Conversions.to_degC(T);
   for i in 1:nX_a loop
-    Tf[i] =Medium.fusionTemperature_TX_a(T=T, X_a=X_a[i]);
-    d[i] =if T >= Tf[i] then Medium.density_TX_a(T=T, X_a=X_a[i]) else 0.;
-    cp[i] =if T >= Tf[i] then Medium.specificHeatCapacityCp_TX_a(T=T, X_a=X_a[i])
+    Tf[i] = Medium.fusionTemperature_TX_a(T=T, X_a=X_a[i]);
+    d[i] = if T >= Tf[i] then Medium.density_TX_a(T=T, X_a=X_a[i]) else 0.;
+    cp[i] = if T >= Tf[i] then Medium.specificHeatCapacityCp_TX_a(T=T, X_a=X_a[i])
        else 0.;
-    lambda[i] =if T >= Tf[i] then Medium.thermalConductivity_TX_a(T=T, X_a=X_a[i]) else 0.;
-    eta[i] =if T >= Tf[i] then Medium.dynamicViscosity_TX_a(T=T, X_a=X_a[i])
+    lambda[i] = if T >= Tf[i] then Medium.thermalConductivity_TX_a(T=T, X_a=X_a[i]) else 0.;
+    eta[i] = if T >= Tf[i] then Medium.dynamicViscosity_TX_a(T=T, X_a=X_a[i])
        else 0.;
   end for;
 
-   annotation (
-Documentation(info="<html>
+  annotation(
+    Documentation(info="<html>
 <p>
 This example checks the implementation of functions that evaluate the
 temperature- and concentration-dependent thermophysical properties of the
@@ -54,8 +54,7 @@ Thermophysical properties (density, specific heat capacity, thermal conductivity
 and dynamic viscosity) are shown as 0 if the temperature is below the fusion
 temperature.
 </p>
-</html>",
-revisions="<html>
+</html>", revisions="<html>
 <ul>
 <li>
 April 16, 2026, by Michael Wetter:<br/>

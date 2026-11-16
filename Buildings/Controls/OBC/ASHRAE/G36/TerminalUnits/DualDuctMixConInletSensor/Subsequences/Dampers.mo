@@ -638,7 +638,7 @@ When the zone state is cooling (<code>uCoo &gt; 0</code>), then the cooling loop
 <code>uCoo</code> shall reset the cooling supply airflow setpoint
 <code>VColDucDis_flow_Set</code> from the minimum <code>VActMin_flow</code> to
 cooling maximum setpoint <code>VActCooMax_flow</code>. The cooling damper shall be
-modulated by a control loop to maintain the measured cooling aiflow
+modulated by a control loop to maintain the measured cooling airflow
 <code>VColDucDis_flow</code> at setpoint. The heating damper shall be closed
 <code>yHeaDam=0</code>.
 <ul>
@@ -660,7 +660,7 @@ When the zone state is heating (<code>uHea &gt; 0</code>), then the heating loop
 <code>uHea</code> shall reset the heating supply airflow setpoint
 <code>VHotDucDis_flow_Set</code> from zero to
 heating maximum setpoint <code>VActHeaMax_flow</code>. The heating damper shall be
-modulated by a control loop to maintain the measured heating aiflow
+modulated by a control loop to maintain the measured heating airflow
 <code>VHotDucDis_flow</code> at setpoint. 
 The cooling damper shall be controlled to maintain the sum of the measured inlet
 airflows at the minimum airflow set point <code>VActMin_flow</code>.
@@ -696,7 +696,7 @@ src=\"modelica://Buildings/Resources/Images/Controls/OBC/ASHRAE/G36/TerminalUnit
 <ul>
 <li>
 January 12, 2023, by Jianjun Hu:<br/>
-Removed the parameter <code>have_preIndDam</code> to exclude the option of using pressure independant damper.<br/>
+Removed the parameter <code>have_preIndDam</code> to exclude the option of using pressure independent damper.<br/>
 This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3139\">issue 3139</a>.
 </li>
 <li>

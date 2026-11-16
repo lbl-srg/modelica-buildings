@@ -9,7 +9,7 @@ block StageProcesses "Sequence for process of staging cells"
     "True: tower cells have the outlet isolation valve"
     annotation (Dialog(enable=have_inlIsoVal));
   parameter Boolean have_endSwi=false
-    "True: tower cells isolatiove valve have the end switch feedback"
+    "True: tower cells isolation valve have the end switch feedback"
     annotation (Dialog(enable=have_inlIsoVal));
   parameter Real chaTowCelIsoTim(unit="s")=90
     "Nominal time needed for open or close isolation valve"

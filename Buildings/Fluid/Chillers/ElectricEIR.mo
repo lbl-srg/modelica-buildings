@@ -148,8 +148,8 @@ the EnergyPlus chiller model <code>Chiller:Electric:EIR</code>.
     <th colspan=\"2\">Formulation</th>
   </tr>
   <tr>
-  <th><code><a href=\"Modelica://Buildings.Fluid.Chillers.ElectricEIR\">ElectricEIR</a></code> (this model)</th>
-    <th><code><a href=\"Modelica://Buildings.Fluid.Chillers.ElectricReformulatedEIR\">ElectricReformulatedEIR</a></code></th>
+  <th><code><a href=\"modelica://Buildings.Fluid.Chillers.ElectricEIR\">ElectricEIR</a></code> (this model)</th>
+    <th><code><a href=\"modelica://Buildings.Fluid.Chillers.ElectricReformulatedEIR\">ElectricReformulatedEIR</a></code></th>
   </tr>
 </thead>
 <tbody>

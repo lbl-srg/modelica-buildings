@@ -1,0 +1,48 @@
+simulateModel("Buildings.Templates.Plants.Controls.HeatPumps.Subsequences.Validation.SelectModeState",
+    method="cvode",
+    tolerance=1e-6,
+    stopTime=100.0,
+    resultFile="SelectModeState");
+createPlot(
+    id=1,
+    position={5, 5, 500, 600},
+    y={"uStaHea.y[1]", "uStaCoo.y[1]"},
+    autoscale=true,
+    grid=true
+);
+createPlot(
+    id=1,
+    subPlot=2,
+    y={"selMod.y1HeaHp[1]", "selMod.y1HeaHp[2]"},
+    autoscale=true,
+    grid=true
+);
+createPlot(
+    id=1,
+    subPlot=3,
+    y={"selMod.y1CooHp[1]", "selMod.y1CooHp[2]"},
+    autoscale=true,
+    grid=true
+);
+createPlot(
+    id=2,
+    position={515, 5, 500, 600},
+    subPlot=1,
+    y={"selMod.y1HeaPhp[1]", "selMod.y1HeaPhp[2]"},
+    autoscale=true,
+    grid=true
+);
+createPlot(
+    id=2,
+    subPlot=2,
+    y={"selMod.y1CooPhp[1]", "selMod.y1CooPhp[2]"},
+    autoscale=true,
+    grid=true
+);
+createPlot(
+    id=2,
+    subPlot=3,
+    y={"selMod.y1ShcPhp[1]", "selMod.y1ShcPhp[2]"},
+    autoscale=true,
+    grid=true
+);

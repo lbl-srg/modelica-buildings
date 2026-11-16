@@ -61,7 +61,7 @@ the measured quantity,
 Note that the units of <i>k</i> are the inverse of the units of the control error,
 while the units of <i>T<sub>i</sub></i> and <i>T<sub>d</sub></i> are seconds.
 As the units of flow rates and pressure can vary between orders of magnitude,
-for example depening on whether <i>cfm</i>, <i>m<sup>3</sup>&frasl;s</i> or
+for example depending on whether <i>cfm</i>, <i>m<sup>3</sup>&frasl;s</i> or
 <i>m<sup>3</sup>&frasl;h</i> are used for flow measurements, the control
 error is normalized as follows:
 <ul>

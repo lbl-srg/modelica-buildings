@@ -2,10 +2,7 @@
 // Plot commands
 simulateModel("Buildings.Electrical.AC.ThreePhasesUnbalanced.Lines.Examples.ACLine_RLC", method="Radau", tolerance=1e-6, stopTime=1.0, resultFile="ACLine_RLC3phu");
 removePlots();
-Advanced.FilenameInLegend = false;
-Advanced.SequenceInLegend = true;
-Advanced.PlotLegendTooltip = true;
-Advanced.FullPlotTooltip = true;
+
 createPlot(id=1,
 position={0, 0, 920, 323},
 y={"RLCLine_1.terminal_n.phase[1].i[1]", "RLCLine_1.terminal_n.phase[1].i[2]", "RLCLine_sc.terminal_n.phase[1].i[1]","RLCLine_sc.terminal_n.phase[1].i[2]"},

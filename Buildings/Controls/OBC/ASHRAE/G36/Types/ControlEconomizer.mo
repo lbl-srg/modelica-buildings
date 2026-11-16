@@ -14,7 +14,7 @@ type ControlEconomizer = enumeration(
 annotation (
  Evaluate=true, Documentation(info="<html>
 <p>
-Enumeration to define economizer divice type for enable and disable it. Possible values are:
+Enumeration to define economizer device type for enable and disable it. Possible values are:
 </p>
 <table border=\"1\" summary=\"Explanation of the enumeration\">
 <tr>

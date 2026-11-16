@@ -32,7 +32,7 @@ protected
     annotation (Placement(transformation(extent={{0,-10},{20,10}})));
   Buildings.Controls.OBC.CDL.Logical.Timer tim(
     final t=t)
-    "Measuring time and check if bolean input has been true more than threshold time"
+    "Measuring time and check if Boolean input has been true more than threshold time"
     annotation (Placement(transformation(extent={{40,-10},{60,10}})));
 
 equation

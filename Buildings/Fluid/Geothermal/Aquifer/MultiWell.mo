@@ -469,7 +469,7 @@ The pressure losses in the aquifer are calculated using the Darcy's law
 </p>
 <p>
 where <i>&#7745;</i> is the water mass flow rate, <i>g</i> is the gravitational acceleration,
-<i>K</i> is the hydraulic conductivity, <i>h</i> is the thickness of the aquifer, 
+<i>K</i> is the hydraulic conductivity, <i>h</i> is the thickness of the aquifer,
 <i>rMax</i> is the domain radius and <i>rWB</i> is the well radius.
 The pressure losses in the wells are calculated using
 <a href=\"modelica://Modelica.Fluid.Pipes.BaseClasses.WallFriction.Detailed.pressureLoss_m_flow\">
@@ -511,7 +511,7 @@ To avoid thermal interferences, make sure that the aquifer domain radius
 Circulation pumps are included in the model and they can be controlled by acting on the input connector.
 The input must vary between <i>[1, -1]</i>.
 A positive value will circulate water
-clockwise (from <code>port_Hot</code> to <code>port_Col</code>, thus 
+clockwise (from <code>port_Hot</code> to <code>port_Col</code>, thus
 extraction from the cold well and injection into the warm well).
 A negative value will circulate water anticlockwise.
 </p>

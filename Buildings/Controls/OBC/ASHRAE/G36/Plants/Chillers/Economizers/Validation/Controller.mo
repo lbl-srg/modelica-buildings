@@ -40,13 +40,13 @@ protected
     final unit="K",
     final quantity="ThermodynamicTemperature",
     displayUnit="degC")=293.15
-    "Chilled water retun temperature upstream of the WSE";
+    "Chilled water return temperature upstream of the WSE";
 
   parameter Real TWseOut(
     final unit="K",
     final quantity="ThermodynamicTemperature",
     displayUnit="degC")=290.15
-    "Chilled water retun temperature downstream of the WSE";
+    "Chilled water return temperature downstream of the WSE";
 
   parameter Real VChiWat_flow(
     final unit="m3/s",

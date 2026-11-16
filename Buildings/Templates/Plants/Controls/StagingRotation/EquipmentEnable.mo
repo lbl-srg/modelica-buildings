@@ -1,6 +1,5 @@
 within Buildings.Templates.Plants.Controls.StagingRotation;
-block EquipmentEnable
-  "Return array of equipment to be enabled at given stage"
+block EquipmentEnable "Return array of equipment to be enabled at given stage"
   parameter Real staEqu[:,:](
     each unit="1",
     each min=0,

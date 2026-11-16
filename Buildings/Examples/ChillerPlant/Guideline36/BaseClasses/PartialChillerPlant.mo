@@ -54,6 +54,7 @@ partial model PartialChillerPlant "Partial model of the chiller plant for the cl
     redeclare package Medium = MediumW,
     final m_flow_nominal=mCon_flow_nominal,
     final show_T=true,
+    final from_dp=true,
     final dpValve_nominal=15000,
     final dpFixed_nominal=0)
     "Condenser water isolation valve"
@@ -62,6 +63,7 @@ partial model PartialChillerPlant "Partial model of the chiller plant for the cl
     redeclare package Medium = MediumW,
     final m_flow_nominal=mCon_flow_nominal,
     final show_T=true,
+    final from_dp=true,
     final dpValve_nominal=15000,
     final dpFixed_nominal=0)
     "Condenser water isolation valve"
@@ -70,6 +72,7 @@ partial model PartialChillerPlant "Partial model of the chiller plant for the cl
     redeclare package Medium = MediumW,
     final m_flow_nominal=mChi_flow_nominal,
     final show_T=true,
+    final from_dp=true,
     final dpValve_nominal=15000,
     final dpFixed_nominal=80000)
     "Chilled water isolation valve"
@@ -78,6 +81,7 @@ partial model PartialChillerPlant "Partial model of the chiller plant for the cl
     redeclare package Medium = MediumW,
     final m_flow_nominal=mChi_flow_nominal,
     final show_T=true,
+    final from_dp=true,
     final dpValve_nominal=15000,
     final dpFixed_nominal=80000)
     "Chilled water isolation valve"
@@ -121,6 +125,7 @@ partial model PartialChillerPlant "Partial model of the chiller plant for the cl
     redeclare package Medium = MediumW,
     final m_flow_nominal=mCon_flow_nominal,
     final show_T=true,
+    final from_dp=true,
     final dpValve_nominal=15000,
     final dpFixed_nominal=50000)
     "Cooling tower isolation valve"
@@ -129,6 +134,7 @@ partial model PartialChillerPlant "Partial model of the chiller plant for the cl
     redeclare package Medium = MediumW,
     final m_flow_nominal=mCon_flow_nominal,
     final show_T=true,
+    final from_dp=true,
     final dpValve_nominal=15000,
     final dpFixed_nominal=50000)
     "Cooling tower isolation valve"
@@ -195,6 +201,7 @@ partial model PartialChillerPlant "Partial model of the chiller plant for the cl
     redeclare package Medium = MediumW,
     final m_flow_nominal=mChi_flow_nominal,
     final show_T=true,
+    final from_dp=true,
     final dpValve_nominal=15000,
     final dpFixed_nominal=8000)
     "Bypass valve for chiller"
@@ -517,6 +524,10 @@ Buildings.Examples.ChillerPlant.Guideline36.ClosedLoop</a>.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+October 28, 2026, by Jianjun Hu:<br/>
+Set <code>from_dp=true</code> for all the valves.
+</li>
 <li>
 March 12, 2024, by Jianjun Hu:<br/>
 First implementation.

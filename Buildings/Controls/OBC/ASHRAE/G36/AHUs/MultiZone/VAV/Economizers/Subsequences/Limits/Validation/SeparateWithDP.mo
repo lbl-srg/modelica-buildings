@@ -103,17 +103,17 @@ protected
   Buildings.Controls.OBC.CDL.Reals.Sources.Ramp dpDam(
     final duration=1800,
     final offset=250,
-    final height=100) "Pressure accross outdoor air damper"
+    final height=100) "Pressure across outdoor air damper"
     annotation (Placement(transformation(extent={{-220,90},{-200,110}})));
   Buildings.Controls.OBC.CDL.Reals.Sources.Ramp dpDam1(
     final duration=1800,
     final offset=250,
-    final height=100) "Pressure accross outdoor air damper"
+    final height=100) "Pressure across outdoor air damper"
     annotation (Placement(transformation(extent={{-60,90},{-40,110}})));
   Buildings.Controls.OBC.CDL.Reals.Sources.Ramp dpDam2(
     final duration=1800,
     final offset=120,
-    final height=52)  "Pressure accross outdoor air damper"
+    final height=52)  "Pressure across outdoor air damper"
     annotation (Placement(transformation(extent={{120,90},{140,110}})));
 equation
   connect(VOutMinSet_flow.y,minCon. VOutMinSet_flow_normalized) annotation (

@@ -70,7 +70,7 @@ sequence is shown in the figure below.
 <p>
 A similar model but with a different control sequence can be found in
 <a href=\"modelica://Buildings.ThermalZones.EnergyPlus_24_2_0.Examples.SmallOffice.ASHRAE2006Winter\">
-Buildings.ThermalZones.EnergyPlus_24_2_0.Examples.SmallOffice.ASHRAE2006Winter</a>..
+Buildings.ThermalZones.EnergyPlus_24_2_0.Examples.SmallOffice.ASHRAE2006Winter</a>.
 Note that this model, because of the frequent time sampling,
 has longer computing time than
 <a href=\"modelica://Buildings.Examples.VAVReheat.ASHRAE2006\">
@@ -101,7 +101,7 @@ This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2600\
 </li>
 <li>
 November 25, 2019, by Milica Grahovac:<br/>
-Impementation of <a href=\"modelica://Buildings.Examples.VAVReheat.Guideline36\">
+Implementation of <a href=\"modelica://Buildings.Examples.VAVReheat.Guideline36\">
 Buildings.Examples.VAVReheat.Guideline36</a> model with an EnergyPlus thermal zone instance.
 </li>
 </ul>

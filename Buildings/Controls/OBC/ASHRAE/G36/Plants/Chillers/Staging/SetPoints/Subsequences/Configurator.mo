@@ -32,7 +32,7 @@ block Configurator "Configures chiller staging"
     "Staging matrix with stage as row index and chiller as column index";
 
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uChiAva[nChi]
-    "Chiller availability status vector. Chiller may be deemend unavailable due to unavailability of a dedicated chilled or condenser water pump"
+    "Chiller availability status vector. Chiller may be deemed unavailable due to unavailability of a dedicated chilled or condenser water pump"
     annotation (Placement(transformation(extent={{-260,-60},{-220,-20}}),
         iconTransformation(extent={{-140,-20},{-100,20}})));
 

@@ -159,6 +159,10 @@ model System3
     Q_flow_nominal=Q_flow_nominal,
     fue=Buildings.Fluid.Data.Fuels.HeatingOilLowerHeatingValue()) "Boiler"
     annotation (Placement(transformation(extent={{20,-320},{0,-300}})));
+
+  Modelica.Thermal.HeatTransfer.Sources.FixedTemperature TBoiRoo(T=293.15)
+    "Boiler room temperature for boiler heat loss"
+    annotation (Placement(transformation(extent={{-20,-290},{0,-270}})));
 //----------------------------------------------------------------------------//
 
 //--------------------------Step 3: Three-way Valve---------------------------//
@@ -210,7 +214,7 @@ model System3
     annotation (Placement(transformation(extent={{-100,-290},{-80,-270}})));
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant const1(k=0.5)
     "Constant control signal for valves"
-    annotation (Placement(transformation(extent={{0,-290},{20,-270}})));
+    annotation (Placement(transformation(extent={{60,-350},{40,-330}})));
   Buildings.Controls.OBC.CDL.Reals.Hysteresis hysPum(
     uLow=273.15 + 19,
     uHigh=273.15 + 21)
@@ -221,6 +225,7 @@ model System3
     annotation (Placement(transformation(extent={{-140,-80},{-120,-60}})));
   Buildings.Controls.OBC.CDL.Logical.Not not1 "Negate output of hysteresis"
     annotation (Placement(transformation(extent={{-180,-80},{-160,-60}})));
+
 equation
   connect(TOut.port, theCon.port_a) annotation (Line(
       points={{5.55112e-16,50},{20,50}},
@@ -352,7 +357,7 @@ equation
       smooth=Smooth.None));
 
   connect(const1.y, boi.y) annotation (Line(
-      points={{22,-280},{32,-280},{32,-302},{22,-302}},
+      points={{38,-340},{32,-340},{32,-302},{22,-302}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(temRoo.T,hysPum. u) annotation (Line(
@@ -371,6 +376,8 @@ equation
       points={{-118,-70},{-90.5,-70},{-90.5,-70},{-62,-70}},
       color={0,0,127},
       smooth=Smooth.None));
+  connect(TBoiRoo.port, boi.heatPort) annotation (Line(points={{0,-280},{10,-280},
+          {10,-302.8}}, color={191,0,0}));
   annotation (Documentation(info="<html>
 <p>
 This part of the system model adds the boiler loop with
@@ -411,7 +418,10 @@ to model the three-way valves, and
 an instance of
 <a href=\"modelica://Buildings.Fluid.Boilers.BoilerPolynomial\">
 Buildings.Fluid.Boilers.BoilerPolynomial</a>
-to model the boiler.
+to model the boiler, and we made an instance of
+<a href=\"modelica://Modelica.Thermal.HeatTransfer.Sources.FixedTemperature\">
+Modelica.Thermal.HeatTransfer.Sources.FixedTemperature</a>
+to model the heat loss of the boiler to the ambient.
 </p>
 <p>
 Note that we also made an instance of
@@ -577,6 +587,12 @@ this indicates that the model is correct.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+October 14, 2026, by Michael Wetter:<br/>
+Added prescribed temperature model for boiler heat loss.<br/>
+This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4775\">
+#4775</a>.
+</li>
 <li>
 April 9, 2024, by Hongxiang Fu:<br/>
 Specified <code>nominalValuesDefineDefaultPressureCurve=true</code>

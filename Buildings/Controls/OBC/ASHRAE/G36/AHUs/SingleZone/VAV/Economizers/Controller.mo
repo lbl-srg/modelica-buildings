@@ -384,7 +384,7 @@ Documentation(info="<html>
 <p>
 Single zone VAV AHU economizer control sequence that calculates
 outdoor and return air damper positions based on Section 5.18.5, 5.18.6, 5.18.7, 5.1.17
-of ASHRAE Guidline 36, May 2020.
+of ASHRAE Guideline 36, May 2020.
 </p>
 <p>
 The sequence consists of three subsequences.

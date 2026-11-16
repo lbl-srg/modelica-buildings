@@ -323,7 +323,7 @@ Documentation
 
     To create new figures, put the source file for the figure,
     preferably in ``svg`` format, in the same directory as the ``png``
-    file. ``svg`` files can be created with https://inkscape.org/, which
+    file. ``svg`` files can be created with https://www.inkscape.org, which
     works on any operating system. See for example the file in
     ``Resources/Images/Examples/Tutorial/SpaceCooling/schematics.svg``.
 4.  Add author information to the ``revision`` section.

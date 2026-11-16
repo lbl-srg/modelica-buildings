@@ -17,7 +17,7 @@ model Controller
     final valPosHys=0.01,
     final VOccMin_flow=0,
     final VAreMin_flow=0)
-    "Paralle-fan powered unit controller"
+    "Parallel-fan powered unit controller"
     annotation (Placement(transformation(extent={{100,70},{120,110}})));
   Buildings.Controls.OBC.CDL.Reals.Sources.Sin TZon(
     final freqHz=1/86400,
@@ -30,7 +30,7 @@ model Controller
     final duration=43200,
     final offset=273.15 + 15,
     final startTime=28800)
-    "Discharge airflow temperture"
+    "Discharge airflow temperature"
     annotation (Placement(transformation(extent={{-80,30},{-60,50}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Pulse winSta(
     final width=0.05,

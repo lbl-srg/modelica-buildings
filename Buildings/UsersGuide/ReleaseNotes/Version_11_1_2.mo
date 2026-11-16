@@ -1,0 +1,60 @@
+within Buildings.UsersGuide.ReleaseNotes;
+class Version_11_1_2 "Version 11_1_2"
+  extends Modelica.Icons.ReleaseNotes;
+    annotation (Documentation(info="<html>
+<div class=\"release-summary\">
+<p>
+Version 11.1.2 is backward compatible with 11.1.1 and 11.1.0.
+</p>
+<p>
+The library has been tested with
+Dymola 2024x Refresh 1,
+OpenModelica 1.26.3,
+OPTIMICA 1.66 and recent versions of Impact.
+</p>
+<p>
+This backward compatible version contains various model improvements.
+</p>
+</div>
+<!-- New libraries -->
+<!-- New components for existing libraries -->
+<!-- Backward compatible changes -->
+<!-- Non-backward compatible changes to existing components -->
+<!-- Errors that have been fixed -->
+<!-- Uncritical errors -->
+<p>
+The following <b style=\"color:red\">uncritical errors</b> have been fixed (i.e., errors
+that do <b style=\"color:red\">not</b> lead to wrong simulation results, e.g.,
+units are wrong or errors in documentation):
+</p>
+<table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\" style=\"border-collapse:collapse;\">
+<tr><td colspan=\"2\"><b>Buildings.Fluid.DXSystems</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Fluid.DXSystems.Cooling.BaseClasses.Evaporation
+    </td>
+    <td valign=\"top\">Added missing variable assignment for unused variable in a branch that will not compute evaporation.<br/>
+                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4715\">Buildings, #4715</a>.
+    </td>
+</tr>
+<tr><td colspan=\"2\"><b>Buildings.Fluid.Geothermal.Borefields.BaseClasses.HeatTransfer.ThermalResponseFactors</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Fluid.Geothermal.Borefields.BaseClasses.HeatTransfer.ThermalResponseFactors.gFunction
+    </td>
+    <td valign=\"top\">Initialized local variables <code>A</code> and <code>B</code> to avoid use of uninitialized elements
+                       of a matrix. This update does not change the results.<br/>
+                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4707\">Buildings, #4707</a>.
+    </td>
+</tr>
+</table>
+<p>
+Note:
+</p>
+<ul>
+<li>
+Added unit specification to various models to avoid a warning in Dymola 2025x.
+</li>
+</ul>
+</html>"));
+end Version_11_1_2;

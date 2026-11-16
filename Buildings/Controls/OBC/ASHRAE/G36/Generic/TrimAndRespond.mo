@@ -1,5 +1,5 @@
 within Buildings.Controls.OBC.ASHRAE.G36.Generic;
-block TrimAndRespond "Block to inplement trim and respond logic"
+block TrimAndRespond "Block to implement trim and respond logic"
   parameter Boolean have_hol=false
     "Set to true to allow holding the reset, false to continuously reset when enabled"
     annotation(Evaluate=true);
@@ -68,7 +68,7 @@ block TrimAndRespond "Block to inplement trim and respond logic"
     "Output the input signal with a unit delay"
     annotation (Placement(transformation(extent={{-90,136},{-70,156}})));
   Buildings.Controls.OBC.CDL.Reals.Switch swi
-    "Switch between initial setpoint and reseted setpoint"
+    "Switch between initial setpoint and reset setpoint"
     annotation (Placement(transformation(extent={{160,220},{180,200}})));
   Buildings.Controls.OBC.CDL.Reals.Switch swi1
     "Before instant (device ON + delTim + samplePeriod), the setpoint should not be trimmed"

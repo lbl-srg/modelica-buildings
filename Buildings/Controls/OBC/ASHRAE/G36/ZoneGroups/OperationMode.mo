@@ -805,7 +805,7 @@ mode when any of the following is true:
 The time of day is between the zone group's scheduled occupied start and stop times.
 </li>
 <li>
-The schedules have been overriden by the occupant override system.
+The schedules have been overridden by the occupant override system.
 </li>
 <li>
 Any zone local override timer is nonzero.

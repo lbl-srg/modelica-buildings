@@ -142,7 +142,7 @@ model Controller
 
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant demLim(
     k=0)
-    "Cooling and heating demand imit level"
+    "Cooling and heating demand limit level"
     annotation (Placement(transformation(extent={{-180,-110},{-160,-90}})));
 
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant cooWarTim(

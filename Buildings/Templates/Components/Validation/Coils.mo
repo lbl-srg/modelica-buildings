@@ -149,7 +149,7 @@ model Coils "Validation model for coil components"
         1].nomVal.TEvaIn_nominal) "Entering air temperature"
     annotation (Placement(transformation(extent={{-130,10},{-110,30}})));
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant phiAirEnt(k=coiEva.dat.datCoi.sta[
-        1].nomVal.phiIn_nominal) "Enetring air relative humidity"
+        1].nomVal.phiIn_nominal) "Entering air relative humidity"
     annotation (Placement(transformation(extent={{-130,-30},{-110,-10}})));
   Buildings.Templates.Components.Coils.EvaporatorMultiStage coiMul(
     redeclare final package MediumAir = MediumAir,
@@ -176,7 +176,7 @@ model Coils "Validation model for coil components"
     final dp_nominal=coiCoo.dat.dpAir_nominal) "Flow resistance"
     annotation (Placement(transformation(extent={{-30,170},{-10,190}})));
   Buildings.Templates.Components.Coils.None non(
-    redeclare final package MediumAir =MediumAir) "No coilamper"
+    redeclare final package MediumAir =MediumAir) "No coil"
     annotation (Placement(transformation(extent={{10,170},{30,190}})));
 equation
   connect(bouAirEntCoo.ports[1], coiCoo.port_a) annotation (Line(points={{-70,119},

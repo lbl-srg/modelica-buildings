@@ -115,10 +115,10 @@ block Controller "Controller for snap-acting controlled dual-duct terminal unit"
   // ---------------- Parameters for time-based suppression ----------------
   parameter Real chaRat(final unit="s/K")=540
     "Gain factor to calculate suppression time based on the change of the setpoint, seconds per Kelvin"
-    annotation (__cdl(ValueInReference=true), Dialog(tab="Time-based suppresion"));
+    annotation (__cdl(ValueInReference=true), Dialog(tab="Time-based suppression"));
   parameter Real maxSupTim(unit="s")=1800
     "Maximum suppression time"
-    annotation (__cdl(ValueInReference=true), Dialog(tab="Time-based suppresion"));
+    annotation (__cdl(ValueInReference=true), Dialog(tab="Time-based suppression"));
   // ---------------- Advanced parameters ----------------
   parameter Real dTHys(unit="K")=0.25
     "Near zero temperature difference, below which the difference will be seen as zero"
@@ -163,7 +163,7 @@ block Controller "Controller for snap-acting controlled dual-duct terminal unit"
   parameter Real samplePeriod(unit="s")=120
     "Sample period of component, set to the same value as the trim and respond that process static pressure reset"
     annotation (__cdl(ValueInReference=false),
-                Dialog(tab="Advanced", group="Time-based suppresion"));
+                Dialog(tab="Advanced", group="Time-based suppression"));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TZon(
     final quantity="ThermodynamicTemperature",
@@ -423,7 +423,7 @@ block Controller "Controller for snap-acting controlled dual-duct terminal unit"
     final chaRat=chaRat,
     final maxTim=maxSupTim,
     final dTHys=dTHys)
-    "Specify suppresion time due to the zone cooling setpoint change and check if it has passed the suppresion period"
+    "Specify suppression time due to the zone cooling setpoint change and check if it has passed the suppression period"
     annotation (Placement(transformation(extent={{-200,280},{-180,300}})));
   Buildings.Controls.OBC.ASHRAE.G36.VentilationZones.ASHRAE62_1.Setpoints setPoi(
     final have_winSen=have_winSen,
@@ -472,7 +472,7 @@ block Controller "Controller for snap-acting controlled dual-duct terminal unit"
     final chaRat=chaRat,
     final maxTim=maxSupTim,
     final dTHys=dTHys)
-    "Specify suppresion time due to the zone heating setpoint change and check if it has passed the suppresion period"
+    "Specify suppression time due to the zone heating setpoint change and check if it has passed the suppression period"
     annotation (Placement(transformation(extent={{-200,240},{-180,260}})));
   Buildings.Controls.OBC.ASHRAE.G36.VentilationZones.Title24.Setpoints minFlo(
     final have_winSen=have_winSen,
@@ -915,7 +915,7 @@ leaking dampers, and airflow sensor(s) calibration alarm.
 <p>The sequence consists of six subsequences.</p>
 <h4>a. Heating and cooling control loop</h4>
 <p>
-The subsequence is implementd according to Section 5.3.4. The measured zone
+The subsequence is implemented according to Section 5.3.4. The measured zone
 temperature <code>TZon</code>, zone setpoints temperatures <code>THeaSet</code> and
 <code>TCooSet</code> are inputs to the instance of class 
 <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36.ThermalZones.ZoneStates\">
@@ -970,7 +970,7 @@ Buildings.Controls.OBC.ASHRAE.G36.TerminalUnits.DualDuctSnapActing.Subsequences.
 </p>
 <h4>f. Testing and commissioning overrides</h4>
 <p>
-According to Section 5.11.7, this sequence allows the override the aiflow and dampers position setpoints.
+According to Section 5.11.7, this sequence allows the override the airflow and dampers position setpoints.
 See <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36.TerminalUnits.DualDuctSnapActing.Subsequences.Overrides\">
 Buildings.Controls.OBC.ASHRAE.G36.TerminalUnits.DualDuctSnapActing.Subsequences.Overrides</a>.
 </p>
@@ -978,7 +978,7 @@ Buildings.Controls.OBC.ASHRAE.G36.TerminalUnits.DualDuctSnapActing.Subsequences.
 <ul>
 <li>
 January 12, 2023, by Jianjun Hu:<br/>
-Removed the parameter <code>have_preIndDam</code> to exclude the option of using pressure independant damper.<br/>
+Removed the parameter <code>have_preIndDam</code> to exclude the option of using pressure independent damper.<br/>
 This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3139\">issue 3139</a>.
 </li>
 <li>

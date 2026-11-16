@@ -127,7 +127,7 @@ block SumZone "Calculate the sum of zone level setpoints"
   Buildings.Controls.OBC.CDL.Integers.Equal intEqu1[nGro]
     "Check if operation mode is occupied"
     annotation (Placement(transformation(extent={{-100,170},{-80,190}})));
-  Buildings.Controls.OBC.CDL.Reals.Max max2[nZon] "Avoid devide by zero"
+  Buildings.Controls.OBC.CDL.Reals.Max max2[nZon] "Avoid divide by zero"
     annotation (Placement(transformation(extent={{-100,-150},{-80,-130}})));
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant neaZer[nZon](
     final k=fill(1E-4, nZon))

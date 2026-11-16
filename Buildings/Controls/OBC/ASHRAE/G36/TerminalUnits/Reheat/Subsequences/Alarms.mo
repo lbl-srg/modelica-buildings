@@ -368,7 +368,7 @@ block Alarms "Generate alarms of terminal unit with reheat"
     annotation (Placement(transformation(extent={{-200,-170},{-180,-150}})));
   Buildings.Controls.OBC.CDL.Reals.Greater gre2(
     final h=dTHys)
-    "Discharge temperature greate than AHU supply temperature by a threshold"
+    "Discharge temperature greater than AHU supply temperature by a threshold"
     annotation (Placement(transformation(extent={{-140,-150},{-120,-130}})));
   Buildings.Controls.OBC.CDL.Logical.And leaValAla
     "Check if generating leak valve alarms"
@@ -755,19 +755,19 @@ suppressed for that zone.
 If the zone is in occupied mode
 and if heating hot-water plant is proven on (<code>u1HotPla=true</code>), and the
 discharge temperature (<code>TDis</code>) is 8 &deg;C (15 &deg;F) less than the
-setpoint (<code>TDisSet</code>) for 10 minuts (<code>lowTemTim</code>), generate a
+setpoint (<code>TDisSet</code>) for 10 minutes (<code>lowTemTim</code>), generate a
 Level 3 alarm.
 </li>
 <li>
 If the zone is in occupied mode
 and if heating hot-water plant is proven on (<code>u1HotPla=true</code>), and the
 discharge temperature (<code>TDis</code>) is 17 &deg;C (30 &deg;F) less than the
-setpoint (<code>TDisSet</code>) for 10 minuts (<code>lowTemTim</code>), generate a
+setpoint (<code>TDisSet</code>) for 10 minutes (<code>lowTemTim</code>), generate a
 Level 2 alarm.
 </li>
 <li>
 If a zone has an importance multiplier (<code>hotWatRes</code>) of 0 for its
-hot-water reset Trim-Respond control loop, low discharing air temperature alarms
+hot-water reset Trim-Respond control loop, low discharging air temperature alarms
 shall be suppressed for that zone.
 </li>
 </ol>
@@ -789,9 +789,9 @@ fan serving the zone is proven on (<code>u1Fan=true</code>), generate a Level
 <h4>Leaking valve</h4>
 <p>
 If the valve position (<code>uVal</code>) is 0% for 15 minutes (<code>valCloTim</code>),
-discharing air temperature <code>TDis</code> is above AHU supply temperature
+discharging air temperature <code>TDis</code> is above AHU supply temperature
 <code>TSup</code> by 3 &deg;C (5 &deg;F), and the fan serving the zone is proven
-on (<code>u1Fan=true</code>), gemerate a Level 4 alarm.
+on (<code>u1Fan=true</code>), generate a Level 4 alarm.
 </p>
 </html>",revisions="<html>
 <ul>

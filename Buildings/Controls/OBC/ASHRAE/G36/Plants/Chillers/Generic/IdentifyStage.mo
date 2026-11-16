@@ -26,7 +26,7 @@ protected
   Buildings.Controls.OBC.CDL.Routing.BooleanVectorReplicator booVecRep(
     final nin=nChi,
     final nout=nSta)
-    "Replicate boolean vector to be a matric with total stages as row size and total chillers as column size"
+    "Replicate boolean vector to be a matrix with total stages as row size and total chillers as column size"
     annotation (Placement(transformation(extent={{-80,20},{-60,40}})));
   Buildings.Controls.OBC.CDL.Conversions.BooleanToInteger booToInt[nSta,nChi]
     "Convert boolean to integer"

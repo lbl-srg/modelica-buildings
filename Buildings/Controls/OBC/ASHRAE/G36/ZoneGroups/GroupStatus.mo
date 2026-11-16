@@ -272,7 +272,7 @@ protected
   Buildings.Controls.OBC.CDL.Conversions.BooleanToReal booToRea(
     final realTrue=0,
     final realFalse=1)
-    "When any zone becomes occpuied, output zero"
+    "When any zone becomes occupied, output zero"
     annotation (Placement(transformation(extent={{20,230},{40,250}})));
   Buildings.Controls.OBC.CDL.Reals.Multiply pro
     "When it is occupied, output zero"
@@ -636,7 +636,7 @@ This sequence sums up the zone level status calculation to find the outputs that
 needed to define the zone group operation mode.
 </p>
 <p>
-It requires following inputs from zone lelvel calculation:
+It requires following inputs from zone level calculation:
 </p>
 <ul>
 <li>
