@@ -10,6 +10,7 @@ model BoreholeSegment
     matFil=bento,
     m_flow_nominal=0.2,
     dp_nominal=5,
+    X_a=0,
     rTub=0.02,
     eTub=0.002,
     rBor=0.1,

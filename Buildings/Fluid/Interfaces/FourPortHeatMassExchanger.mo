@@ -111,7 +111,7 @@ model FourPortHeatMassExchanger
         extent={{-10,10},{10,-10}},
         rotation=180)));
 
-  Buildings.Fluid.FixedResistances.PressureDrop preDro1(
+  replaceable Buildings.Fluid.FixedResistances.PressureDrop preDro1(
     redeclare final package Medium = Medium1,
     final n=n1,
     final m_flow_nominal=m1_flow_nominal,
@@ -121,10 +121,17 @@ model FourPortHeatMassExchanger
     final from_dp=from_dp1,
     final linearized=linearizeFlowResistance1,
     final homotopyInitialization=homotopyInitialization,
-    final dp_nominal=dp1_nominal) "Flow resistance of fluid 1"
-    annotation (Placement(transformation(extent={{-80,70},{-60,90}})));
+    final dp_nominal=dp1_nominal)
+    constrainedby Buildings.Fluid.Interfaces.PartialTwoPortInterface(
+      redeclare package Medium = Medium1,
+      final m_flow_nominal=m1_flow_nominal,
+      final allowFlowReversal=allowFlowReversal1)
+    "Flow resistance of fluid 1"
+    annotation (
+      Placement(transformation(extent={{-80,70},{-60,90}})),
+      choicesAllMatching=true);
 
-  Buildings.Fluid.FixedResistances.PressureDrop preDro2(
+  replaceable Buildings.Fluid.FixedResistances.PressureDrop preDro2(
     redeclare final package Medium = Medium2,
     final n=n2,
     final m_flow_nominal=m2_flow_nominal,
@@ -134,8 +141,15 @@ model FourPortHeatMassExchanger
     final from_dp=from_dp2,
     final linearized=linearizeFlowResistance2,
     final homotopyInitialization=homotopyInitialization,
-    final dp_nominal=dp2_nominal) "Flow resistance of fluid 2"
-    annotation (Placement(transformation(extent={{80,-90},{60,-70}})));
+    final dp_nominal=dp2_nominal)
+    constrainedby Buildings.Fluid.Interfaces.PartialTwoPortInterface(
+      redeclare package Medium = Medium2,
+      final m_flow_nominal=m2_flow_nominal,
+      final allowFlowReversal=allowFlowReversal2)
+    "Flow resistance of fluid 2"
+    annotation (
+      Placement(transformation(extent={{80,-90},{60,-70}})),
+      choicesAllMatching=true);
 
 protected
   parameter Medium1.ThermodynamicState sta1_nominal=Medium1.setState_pTX(

@@ -6,7 +6,9 @@ Pipe
 PlugFlowPipe
 PlugFlowPipeDiscretized
 PressureDrop
+PressureDropPipe
 BuriedPipes
+Functions
 Examples
 Validation
 BaseClasses

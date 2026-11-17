@@ -71,6 +71,32 @@ model PlugFlowPipeDiscretized
     "Initial value of mass flow rate through pipe"
     annotation (Dialog(tab="Initialization", enable=initDelay));
 
+  parameter Boolean use_detailedHeatTransfer = false
+    "Set to true to compute heat-transfer resistance from pipe geometry"
+    annotation (
+      Evaluate=true,
+      Dialog(group="Heat transfer"));
+  parameter Boolean use_TDepRConv = false
+    "Set to true to evaluate fluid properties from local fluid temperature for internal convection resistance"
+    annotation (
+      Evaluate=true,
+      Dialog(
+        group="Heat transfer",
+        enable=use_detailedHeatTransfer));
+  parameter Boolean includePipeWallResistance = true
+    "Set to true to include pipe wall conduction resistance"
+    annotation (
+      Evaluate=true,
+      Dialog(
+        group="Heat transfer",
+        enable=use_detailedHeatTransfer));
+  parameter Modelica.Units.SI.ThermalConductivity kPip = 0.4
+    "Thermal conductivity of pipe wall material"
+    annotation (Dialog(
+      group="Material",
+      enable=use_detailedHeatTransfer and includePipeWallResistance));
+
+
   parameter Real fac=1
     "Factor to take into account flow resistance of bends etc., fac=dp_nominal/dpStraightPipe_nominal";
 
@@ -84,6 +110,74 @@ model PlugFlowPipeDiscretized
     "=false to disable computation of flow resistance"
     annotation (Dialog(tab="Advanced"));
 
+    parameter Boolean use_detailedPressureDrop = true
+    "Set to true to compute pressure drop from pipe geometry using Darcy-Weisbach equation"
+    annotation (
+      Evaluate=true,
+      Dialog(
+        group="Pressure drop",
+        enable=not disableComputeFlowResistance));
+
+  parameter Modelica.Units.SI.PressureDifference dp_nominal(displayUnit="Pa") = 0
+    "Pressure drop at nominal mass flow rate"
+    annotation (Dialog(
+      group="Nominal pressure drop",
+      enable=not disableComputeFlowResistance and not use_detailedPressureDrop));
+
+  parameter Real deltaM(min=1E-6) = 0.3
+    "Fraction of nominal mass flow rate where transition to turbulent occurs"
+    annotation (
+      Evaluate=true,
+      Dialog(
+        tab="Advanced",
+        group="Nominal pressure drop",
+        enable=not disableComputeFlowResistance and not use_detailedPressureDrop and
+               abs(dp_nominal) > Modelica.Constants.eps and not linearized));
+
+  parameter Real kMinor(unit="1", min=0) = 0
+    "Total minor-loss coefficient"
+    annotation (Dialog(
+      group="Pressure drop",
+      enable=not disableComputeFlowResistance and use_detailedPressureDrop));
+
+  parameter Buildings.Fluid.Types.FluidProperties fluidProperties =
+    Buildings.Fluid.Types.FluidProperties.DefaultTemperature
+    "Fluid-property evaluation for the detailed pressure drop calculation"
+    annotation (
+      Evaluate=true,
+      Dialog(
+        group="Fluid properties",
+        enable=not disableComputeFlowResistance and use_detailedPressureDrop));
+
+  parameter Modelica.Units.SI.Temperature T_ref = Medium.T_default
+    "Reference temperature for fluid-property evaluation"
+    annotation (Dialog(
+      group="Fluid properties",
+      enable=not disableComputeFlowResistance and use_detailedPressureDrop and
+             fluidProperties == Buildings.Fluid.Types.FluidProperties.DefaultTemperature));
+
+  parameter Modelica.Units.SI.Density rhoMed =
+    Medium.density(Medium.setState_pTX(
+      Medium.p_default,
+      T_ref,
+      Medium.X_default))
+    "Constant fluid density used for detailed pressure drop calculation"
+    annotation (Dialog(
+      group="Fluid properties",
+      enable=not disableComputeFlowResistance and use_detailedPressureDrop and
+             fluidProperties == Buildings.Fluid.Types.FluidProperties.Constant));
+
+  parameter Modelica.Units.SI.DynamicViscosity muMed =
+    Medium.dynamicViscosity(Medium.setState_pTX(
+      Medium.p_default,
+      T_ref,
+      Medium.X_default))
+    "Constant fluid dynamic viscosity used for detailed pressure drop calculation"
+    annotation (Dialog(
+      group="Fluid properties",
+      enable=not disableComputeFlowResistance and use_detailedPressureDrop and
+             fluidProperties == Buildings.Fluid.Types.FluidProperties.Constant));
+
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a heatPorts[nSeg]
     "Heat transfer to or from surrounding for each pipe segment (positive if pipe is colder than surrounding)"
     annotation (Placement(transformation(extent={{-10,90},{10,110}})));
@@ -93,6 +187,30 @@ model PlugFlowPipeDiscretized
 
   Modelica.Units.SI.PressureDifference dp(displayUnit="Pa") = res.dp
     "Pressure difference between port_a and port_b";
+  
+  Modelica.Units.SI.PressureDifference dpMajor = res.dpMajor
+    "Major Darcy-Weisbach pressure drop";
+
+  Modelica.Units.SI.PressureDifference dpMinor = res.dpMinor
+    "Minor pressure drop";
+
+  Modelica.Units.SI.ReynoldsNumber Re = res.Re
+    "Reynolds number";
+  
+  Real RConv[nSeg](each unit="(m.K)/W") = pipSeg.RConv
+    "Internal convection resistance per unit pipe length in each segment";
+
+  Real RPip[nSeg](each unit="(m.K)/W") = pipSeg.RPip
+    "Pipe wall conduction resistance per unit pipe length in each segment";
+
+  Real RIns[nSeg](each unit="(m.K)/W") = pipSeg.RIns
+    "Insulation conduction resistance per unit pipe length in each segment";
+
+  Real RTot[nSeg](each unit="(m.K)/W") = pipSeg.RTot
+    "Total thermal resistance per unit length in each segment";
+
+  Real ReRConv[nSeg](each unit="1") = pipSeg.ReRConv
+    "Reynolds number used for internal convection resistance in each segment";
 
   Modelica.Units.SI.MassFlowRate m_flow=port_a.m_flow
     "Mass flow rate from port_a to port_b (m_flow > 0 is design flow direction)";
@@ -102,23 +220,34 @@ model PlugFlowPipeDiscretized
 
   Modelica.Units.SI.Velocity v=pipSeg[1].v "Flow velocity of medium in pipe";
 
-  FixedResistances.HydraulicDiameter res(
+  FixedResistances.PressureDropPipe res(
     redeclare final package Medium = Medium,
     final m_flow_nominal=m_flow_nominal,
-    final dh=dh,
-    final from_dp=from_dp,
-    final n=n,
-    final length=totLen,
-    final roughness=roughness,
-    final fac=fac,
-    final ReC=ReC,
-    final v_nominal=v_nominal,
     final allowFlowReversal=allowFlowReversal,
     final show_T=false,
-    final disableComputeFlowResistance=disableComputeFlowResistance,
-    final homotopyInitialization=homotopyInitialization,
+    final computePressureDrop=not disableComputeFlowResistance,
+    final use_detailedPressureDrop=use_detailedPressureDrop,
+    final dp_nominal=dp_nominal,
+    final n=n,
+    final from_dp=from_dp,
     final linearized=linearized,
-    dp(nominal= if rho_default > 500 then totLen * fac * 200 else totLen * fac * 2))
+    final deltaM=deltaM,
+    final length=totLen,
+    final dh=dh,
+    final roughness=roughness,
+    final kMinor=kMinor,
+    final fluidProperties=fluidProperties,
+    final T_ref=T_ref,
+    final rhoMed=rhoMed,
+    final muMed=muMed,
+    dp(nominal=
+      if not disableComputeFlowResistance and use_detailedPressureDrop then
+        if rho_default > 500 then
+          totLen*200
+        else
+          totLen*2
+      else
+        max(abs(dp_nominal), 1)))
     "Pressure drop calculation for this pipe"
     annotation (Placement(transformation(extent={{60,-10},{80,10}})));
 
@@ -136,7 +265,6 @@ protected
 
   Buildings.Fluid.FixedResistances.BaseClasses.PlugFlowPipe pipSeg[nSeg](
     redeclare each final package Medium = Medium,
-    redeclare each final FixedResistances.LosslessPipe res,
     final length=segLen,
     final T_start_in=T_start_in,
     final T_start_out=T_start_out,
@@ -150,9 +278,21 @@ protected
     each final m_flow_nominal=m_flow_nominal,
     each final thickness=thickness,
     each final m_flow_small=m_flow_small,
+    each final use_detailedHeatTransfer=use_detailedHeatTransfer,
+    each final use_TDepRConv=use_TDepRConv,
+    each final includePipeWallResistance=includePipeWallResistance,
+    each final kPip=kPip,
     each final initDelay=initDelay,
     each final have_pipCap=have_pipCap,
-    each final have_symmetry=have_symmetry)
+    each final have_symmetry=have_symmetry,
+    each final computePressureDrop=false,
+    each final use_detailedPressureDrop=false,
+    each final dp_nominal=0,
+    each final kMinor=0,
+    each final fluidProperties=fluidProperties,
+    each final T_ref=T_ref,
+    each final rhoMed=rhoMed,
+    each final muMed=muMed)
     "Pipe segments"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
 
@@ -259,13 +399,23 @@ equation
     Documentation(revisions="<html>
 <ul>
 <li>
+August 7, 2026, by Lone Meertens:<br/>
+Replaced the aggregate pressure drop component by
+<a href=\"modelica://Buildings.Fluid.FixedResistances.PressureDropPipe\">
+Buildings.Fluid.FixedResistances.PressureDropPipe</a>
+to allow selecting between lossless, nominal and detailed Darcy-Weisbach
+pressure drop calculations while keeping the thermal plug-flow segments
+internally lossless.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4687\">Buildings, #4687</a>.
+</li>
+<li>
 June 17, 2026, by Michael Wetter:<br/>
 Updated implementation to allow a flow coefficient <code>n</code> that is different from <code>2</code>.
 This allows use of the model for not fully turbulent flow.<br/>
 This is for
 <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4620\">Buildings, #4620</a>.
 </li>
-
 <li>
 January 5, 2026, by Michael Wetter:<br/>
 In <a href=\"modelica://Buildings.Fluid.FixedResistances.BaseClasses.PlugFlowPipe\">
@@ -296,11 +446,20 @@ pipe might have different boundary conditions. This would be the case,
 for instance, for sufficiently long stretches of buried pipes.
 </p>
 <p>
-To reduce coupled nonlinear equations, the pipe flow resistance
-is aggregated to a single instance of
-<a href=\"modelica://Buildings.Fluid.FixedResistances.HydraulicDiameter\">
-Buildings.Fluid.FixedResistances.HydraulicDiameter</a> rather than being
-instantiated separately for each segment.
+To reduce coupled nonlinear equations, the pipe flow resistance is aggregated
+to a single instance of
+<a href=\"modelica://Buildings.Fluid.FixedResistances.PressureDropPipe\">
+Buildings.Fluid.FixedResistances.PressureDropPipe</a>
+rather than being instantiated separately for each segment.
+The thermal plug-flow segments are internally configured as lossless pipes.
+</p>
+<p>
+The pressure drop wrapper allows selecting between lossless, nominal and
+detailed Darcy-Weisbach pressure drop calculations. If
+<code>use_detailedPressureDrop=false</code>, the model uses the nominal pressure
+drop formulation or becomes lossless if <code>dp_nominal=0</code>. If
+<code>use_detailedPressureDrop=true</code>, the pressure drop is computed from
+the total pipe length, hydraulic diameter and fluid properties.
 </p>
 </html>"));
 end PlugFlowPipeDiscretized;

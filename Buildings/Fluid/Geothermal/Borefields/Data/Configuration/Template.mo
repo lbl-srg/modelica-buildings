@@ -21,6 +21,7 @@ record Template
     "Pressure losses for the entire borefield"
     annotation (Dialog(group="Nominal condition"));
 
+
   //------------------------- Geometrical parameters ---------------------------
   parameter Modelica.Units.SI.Height hBor "Total height of the borehole"
     annotation (Dialog(group="Borehole"));
@@ -40,12 +41,20 @@ record Template
     annotation (Dialog(group="Tubes"));
   parameter Modelica.Units.SI.ThermalConductivity kTub
     "Thermal conductivity of the tube" annotation (Dialog(group="Tubes"));
-
   parameter Modelica.Units.SI.Length eTub "Thickness of a tube"
     annotation (Dialog(group="Tubes"));
-
+  final parameter Modelica.Units.SI.Volume VTubBorFie=
+    nBor*
+    (if borCon == Buildings.Fluid.Geothermal.Borefields.Types.BoreholeConfiguration.SingleUTube
+       then 2 else 4)*
+    hBor*Modelica.Constants.pi*(rTub - eTub)^2
+    "Total fluid volume in the vertical pipes of the borefield"
+    annotation (Dialog(tab="Advanced", group="Derived quantities", enable=false));
   parameter Modelica.Units.SI.Length xC
     "Shank spacing, defined as the distance between the center of a pipe and the center of the borehole"
+    annotation (Dialog(group="Tubes"));
+  parameter Modelica.Units.SI.Length roughness = 0.001e-3
+    "Absolute pipe wall roughness, default for smooth HDPE pipe"
     annotation (Dialog(group="Tubes"));
 
   //------------------------- Advanced parameters ------------------------------
@@ -68,6 +77,12 @@ Buildings.Fluid.Geothermal.Borefields.Data.Configuration</a>.
 </html>",
 revisions="<html>
 <ul>
+<li>
+July 18, 2026, by L. Meertens:<br/>
+Added pipe roughness parameter.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4656\">Buildings, #4656</a>.
+</li>
 <li>
 July 15, 2018, by Michael Wetter:<br/>
 Revised implementation, added <code>defaultComponentPrefixes</code> and

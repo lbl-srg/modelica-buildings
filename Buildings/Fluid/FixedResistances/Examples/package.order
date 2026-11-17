@@ -4,4 +4,9 @@ HydraulicDiameter
 Pipe
 PlugFlowPipe
 PlugFlowPipeDiscretized
+PlugFlowPipeDiscretizedPressureDrop
+PlugFlowPipePressureDrop
 PressureDrop
+PressureDropPipe
+PlugFlowPipeHeatTransfer
+PlugFlowPipeDiscretizedHeatTransfer

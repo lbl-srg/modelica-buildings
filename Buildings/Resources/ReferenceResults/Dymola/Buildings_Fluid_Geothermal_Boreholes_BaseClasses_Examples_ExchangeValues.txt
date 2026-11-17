@@ -1,4 +1,9 @@
-last-generated=2015-05-08
-statistics-simulation={'numerical Jacobians': '0', 'nonlinear': ' ', 'linear': ' '}
-y=[3., 3.]
-time=[0., 1.]
+last-generated=2026-08-06
+statistics-simulation=
+{
+  "linear": " ",
+  "nonlinear": " ",
+  "numerical Jacobians": "0"
+}
+time=[0e+00, 1e+00]
+y=[3e+00, 3e+00]

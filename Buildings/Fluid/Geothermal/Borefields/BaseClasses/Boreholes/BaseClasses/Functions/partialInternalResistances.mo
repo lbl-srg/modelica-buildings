@@ -41,7 +41,7 @@ protected
   Real rTub_in = rTub-eTub "Inner radius of tube";
 
   Real RConv(unit="(m.K)/W")=
-    Buildings.Fluid.Geothermal.Borefields.BaseClasses.Boreholes.BaseClasses.Functions.convectionResistanceCircularPipe(
+    Buildings.Fluid.Geothermal.Borefields.BaseClasses.Boreholes.BaseClasses.Functions.convectionResistancePipe(
       hSeg=hSeg,
       rTub=rTub,
       eTub=eTub,

@@ -72,6 +72,8 @@ model UTube "Single U-tube borehole heat exchanger"
     annotation(Dialog(group="Borehole"));
   parameter Real B1=-0.605 "Shape coefficient for grout resistance"
     annotation(Dialog(group="Borehole"));
+  parameter Real X_a(unit="1", min=0, max=1) = 0
+    "Mass fraction of propylene glycol in water";
 
   Buildings.Fluid.Geothermal.Boreholes.BaseClasses.BoreholeSegment borHol[nVer](
     redeclare each final package Medium = Medium,
@@ -86,6 +88,7 @@ model UTube "Single U-tube borehole heat exchanger"
     each final eTub=eTub,
     each final kTub=kTub,
     each final nSta=nHor,
+    each final X_a=X_a,
     each final m_flow_nominal=m_flow_nominal,
     each final m_flow_small=m_flow_small,
     final dp_nominal={if i == 1 then dp_nominal else 0 for i in 1:nVer},

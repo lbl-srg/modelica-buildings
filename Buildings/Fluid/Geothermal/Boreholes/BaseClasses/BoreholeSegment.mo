@@ -55,6 +55,8 @@ model BoreholeSegment "Vertical segment of a borehole"
   parameter Modelica.Units.SI.Height hSeg "Height of the element";
   parameter Modelica.Units.SI.Length xC=0.05
     "Shank spacing, defined as the distance between the center of a pipe and the center of the borehole";
+  parameter Real X_a(unit="1", min=0, max=1) = 0
+    "Mass fraction of propylene glycol in water";
 
  parameter Boolean allowFlowReversal = true
     "= true to allow flow reversal, false restricts to design direction (port_a -> port_b)"
@@ -70,6 +72,7 @@ model BoreholeSegment "Vertical segment of a borehole"
     final kTub=kTub,
     final kSoi=matSoi.k,
     final xC=xC,
+    final X_a=X_a,
     final rBor=rBor,
     final TFil_start=TFil_start,
     final m1_flow_nominal=m_flow_nominal,

@@ -8,14 +8,32 @@ model PlugFlowHeatLoss
 
   parameter Real C(unit="J/(K.m)")
     "Thermal capacity per unit length of pipe";
+
+  parameter Boolean use_R_in=false
+    "Set to true to use input signal for thermal resistance"
+    annotation (Evaluate=true, HideResult=true);
+
   parameter Real R(unit="(m.K)/W")
     "Thermal resistance per unit length from fluid to boundary temperature";
 
   parameter Modelica.Units.SI.MassFlowRate m_flow_nominal
     "Nominal mass flow rate";
-  parameter Modelica.Units.SI.Temperature T_start "Initial output temperature";
 
-  final parameter Modelica.Units.SI.Time tau_char=R*C
+  parameter Modelica.Units.SI.Temperature T_start
+    "Initial output temperature";
+
+  Modelica.Blocks.Interfaces.RealInput R_in(unit="(m.K)/W")
+    if use_R_in
+    "Thermal resistance per unit length from fluid to boundary temperature"
+    annotation (Placement(transformation(
+      extent={{-20,-20},{20,20}},
+      rotation=270,
+      origin={60,100})));
+
+  Real R_eff(unit="(m.K)/W")
+    "Effective thermal resistance per unit length";
+
+  Modelica.Units.SI.Time tau_char=R_eff*C
     "Characteristic delay time";
 
   Modelica.Blocks.Interfaces.RealInput tau(unit="s") "Time delay at pipe level"
@@ -43,6 +61,17 @@ protected
     "Heat capacity of medium";
 
 equation
+  if use_R_in then
+    R_eff = R_in;
+  else
+    R_eff = R;
+  end if;
+
+  assert(
+    noEvent(R_eff > Modelica.Constants.eps),
+    "In " + getInstanceName() +
+    ": The effective thermal resistance R_eff must be positive.");
+
   dp = 0;
 
   port_a.h_outflow = inStream(port_b.h_outflow);

@@ -1,0 +1,6 @@
+simulateModel("Buildings.Fluid.FixedResistances.Examples.PressureDropPipe", method="Cvode", tolerance=1e-6, stopTime=1.0, resultFile="PressureDropPipe");
+
+createPlot(id=1, position={35, 30, 1533, 1376}, y={"resLos.m_flow", "resNom.m_flow", "resDet.m_flow"}, range={0.0, 1.0, -0.25, 0.25}, grid=true, colors={{28,108,200}, {238,46,47}, {0,140,72}});
+createPlot(id=1, position={35, 30, 1533, 341}, y={"resLos.dp", "resNom.dp", "resDet.dp"}, range={0.0, 1.0, -100.0, 100.0}, grid=true, subPlot=2, colors={{28,108,200}, {238,46,47}, {0,140,72}});
+createPlot(id=1, position={35, 30, 1533, 340}, y={"resLos.dpMajor", "resLos.dpMinor", "resNom.dpMajor", "resNom.dpMinor", "resDet.dpMajor", "resDet.dpMinor"}, range={0.0, 1.0, -2500.0, 2500.0}, grid=true, subPlot=3, colors={{28,108,200}, {238,46,47}, {0,140,72}, {217,67,180}, {162,29,33}, {244,125,35}});
+createPlot(id=1, position={35, 30, 1533, 340}, y={"resLos.Re", "resNom.Re", "resDet.Re"}, range={0.0, 1.0, -20000.0, 20000.0}, grid=true, subPlot=4, colors={{28,108,200}, {238,46,47}, {0,140,72}});
