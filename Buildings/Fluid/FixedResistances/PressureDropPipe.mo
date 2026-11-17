@@ -141,12 +141,14 @@ protected
     annotation (Evaluate=true);
 
   final parameter Boolean use_nominalPressureDrop_internal =
-    computePressureDrop and not use_detailedPressureDrop
+    computePressureDrop and not use_detailedPressureDrop and
+    abs(dp_nominal) > Modelica.Constants.eps
     "Set to true to use nominal pressure drop model"
     annotation (Evaluate=true);
 
   final parameter Boolean use_losslessPipe_internal =
-    not computePressureDrop
+    not computePressureDrop or
+    (not use_detailedPressureDrop and abs(dp_nominal) <= Modelica.Constants.eps)
     "Set to true to use lossless pipe model"
     annotation (Evaluate=true);
 
