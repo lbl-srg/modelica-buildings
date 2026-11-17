@@ -3,10 +3,12 @@ model RigidMediaPad "Rigid media pad"
   extends Buildings.Fluid.Interfaces.TwoPortHeatMassExchanger(
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
     redeclare Buildings.Fluid.MixingVolumes.MixingVolumeMoistAir vol,
-    final m_flow_nominal=per.v_nominal*padAre*Medium.dStp,
+    final m_flow_nominal=m_flow_nominal,
     final dp_nominal=per.dp_nominal,
     final n=per.n);
 
+  final parameter Modelica.Units.SI.MassFlowRate m_flow_nominal=per.v_nominal*padAre*Medium.dStp
+    "Mass flow nominal";
   parameter Modelica.Units.SI.Area padAre
     "Area of the rigid media pad";
   replaceable parameter Buildings.Fluid.Humidifiers.EvaporativeCoolers.Data.Generic per
@@ -25,8 +27,6 @@ model RigidMediaPad "Rigid media pad"
     "Water vapor mass flow rate difference between inlet and outlet"
     annotation (Placement(transformation(origin={120,80}, extent={{-20,-20},{20,20}}),
       iconTransformation(origin={90,40}, extent={{-20,-20},{20,20}})));
-  MixingVolumes.MixingVolume vol1
-    annotation (Placement(transformation(extent={{-44,-122},{-24,-102}})));
 protected
   Buildings.Fluid.Humidifiers.EvaporativeCoolers.BaseClasses.RigidMediaPadCalculation
     rigMedPadCal(
