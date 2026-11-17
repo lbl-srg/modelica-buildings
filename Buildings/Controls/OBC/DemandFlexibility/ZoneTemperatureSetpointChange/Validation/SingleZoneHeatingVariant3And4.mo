@@ -39,6 +39,7 @@ model SingleZoneHeatingVariant3And4
     PBuiRed_nominal=5000,
     PBuiRedTarCon=1000,
     setChaWaiTim=300,
+    occStaInt=true,
     airConMod=Buildings.Controls.OBC.DemandFlexibility.Types.AirConditioningMode.Heating,
     nZon=1,
     nSel=1,
@@ -66,6 +67,7 @@ model SingleZoneHeatingVariant3And4
     PBuiRedDifMin=100,
     PBuiRed_nominal=5000,
     setChaWaiTim=300,
+    occStaInt=true,
     airConMod=Buildings.Controls.OBC.DemandFlexibility.Types.AirConditioningMode.Heating,
     nZon=1,
     nSel=1,
@@ -91,64 +93,72 @@ model SingleZoneHeatingVariant3And4
     airConMod=Buildings.Controls.OBC.DemandFlexibility.Types.AirConditioningMode.Cooling)
     "The zone qualification block"
     annotation (Placement(transformation(extent={{-80,120},{-60,140}})));
+  CDL.Logical.Sources.Constant occSta(k=true) "Occupancy status"
+    annotation (Placement(transformation(extent={{-120,-60},{-100,-40}})));
 equation
   connect(zonSetGen.TPreTarHeaSet,setChaConHeaVar3. TPreTarSet[1])
-    annotation (Line(points={{-98,-122},{-40,-122},{-40,62},{-2,62}},
+    annotation (Line(points={{-98,-122},{-40,-122},{-40,60},{-2,60}},
       color={0,0,127}));
   connect(zonSetGen.TSheTarHeaSet,setChaConHeaVar3. TSheTarSet[1])
-    annotation (Line(points={{-98,-125},{-30,-125},{-30,58},{-2,58}},
+    annotation (Line(points={{-98,-125},{-30,-125},{-30,56},{-2,56}},
       color={0,0,127}));
   connect(zonSetGen.TDefHeaSet,setChaConHeaVar3. TDefSet[1])
-    annotation (Line(points={{-98,-128},{-20,-128},{-20,54},{-2,54}},
+    annotation (Line(points={{-98,-128},{-20,-128},{-20,52},{-2,52}},
       color={0,0,127}));
   connect(tabDemFleMod.y[1],setChaConHeaVar3. demFleMod)
-    annotation (Line(points={{-98,-10},{-60,-10},{-60,66},{-2,66}},
+    annotation (Line(points={{-98,-10},{-60,-10},{-60,64},{-2,64}},
       color={255,127,0}));
   connect(tabTCurZon.y[1],setChaConHeaVar3. TCurZon[1])
-    annotation (Line(points={{-98,50},{-80,50},{-80,74},{-2,74}}, color={0,0,127}));
+    annotation (Line(points={{-98,50},{-80,50},{-80,72},{-2,72}}, color={0,0,127}));
   connect(zonSetGen.TPreTarHeaSet,setChaConHeaVar4. TPreTarSet[1])
-    annotation (Line(points={{-98,-122},{-40,-122},{-40,-78},{-2,-78}},
+    annotation (Line(points={{-98,-122},{-40,-122},{-40,-80},{-2,-80}},
       color={0,0,127}));
   connect(zonSetGen.TSheTarHeaSet,setChaConHeaVar4. TSheTarSet[1])
-    annotation (Line(points={{-98,-125},{-30,-125},{-30,-82},{-2,-82}},
+    annotation (Line(points={{-98,-125},{-30,-125},{-30,-84},{-2,-84}},
       color={0,0,127}));
   connect(zonSetGen.TDefHeaSet,setChaConHeaVar4. TDefSet[1])
-    annotation (Line(points={{-98,-128},{-20,-128},{-20,-86},{-2,-86}},
+    annotation (Line(points={{-98,-128},{-20,-128},{-20,-88},{-2,-88}},
       color={0,0,127}));
   connect(tabTCurZon.y[1],setChaConHeaVar4. TCurZon[1])
-    annotation (Line(points={{-98,50},{-80,50},{-80,-66},{-2,-66}},
+    annotation (Line(points={{-98,50},{-80,50},{-80,-68},{-2,-68}},
       color={0,0,127}));
   connect(tabDemFleMod.y[1],setChaConHeaVar4. demFleMod)
-    annotation (Line(points={{-98,-10},{-60,-10},{-60,-74},{-2,-74}},
+    annotation (Line(points={{-98,-10},{-60,-10},{-60,-76},{-2,-76}},
       color={255,127,0}));
   connect(setChaConHeaVar3.TComZonSet[1],delTZonSetVar3. u)
     annotation (Line(points={{22,70},{38,70}}, color={0,0,127}));
   connect(setChaConHeaVar4.TComZonSet[1],delTZonSetVar4. u)
     annotation (Line(points={{22,-70},{38,-70}}, color={0,0,127}));
   connect(PBuiRed.y, setChaConHeaVar3.PBuiRed)
-    annotation (Line(points={{-138,90},{-70,90},{-70,78},{-2,78}},color={0,0,127}));
+    annotation (Line(points={{-138,90},{-70,90},{-70,76},{-2,76}},color={0,0,127}));
   connect(PBuiRed.y, setChaConHeaVar4.PBuiRed)
-    annotation (Line(points={{-138,90},{-70,90},{-70,-62},{-2,-62}},
+    annotation (Line(points={{-138,90},{-70,90},{-70,-64},{-2,-64}},
       color={0,0,127}));
   connect(PBuiRedTarVar.y, setChaConHeaVar4.PBuiRedTarVar)
-    annotation (Line(points={{-98,-90},{-90,-90},{-90,-58},{-2,-58}},
+    annotation (Line(points={{-98,-90},{-90,-90},{-90,-60},{-2,-60}},
       color={0,0,127}));
   connect(delTZonSetVar3.y, setChaConHeaVar3.TCurZonSet[1]) annotation (Line(
-        points={{62,70},{100,70},{100,40},{-10,40},{-10,70},{-2,70}}, color={0,
+        points={{62,70},{100,70},{100,40},{-10,40},{-10,68},{-2,68}}, color={0,
           0,127}));
   connect(delTZonSetVar4.y, setChaConHeaVar4.TCurZonSet[1]) annotation (Line(
-        points={{62,-70},{100,-70},{100,-100},{-10,-100},{-10,-70},{-2,-70}},
+        points={{62,-70},{100,-70},{100,-100},{-10,-100},{-10,-72},{-2,-72}},
         color={0,0,127}));
-  connect(qua.yQua, setChaConHeaVar3.uQua) annotation (Line(points={{-58,130},{-50,
-          130},{-50,86},{-2,86}}, color={255,0,255}));
-  connect(qua.yQua, setChaConHeaVar4.uQua) annotation (Line(points={{-58,130},{-50,
-          130},{-50,-54},{-2,-54}}, color={255,0,255}));
+  connect(qua.yQua, setChaConHeaVar3.uQua) annotation (Line(points={{-58,130},{
+          -50,130},{-50,84},{-2,84}},
+                                  color={255,0,255}));
+  connect(qua.yQua, setChaConHeaVar4.uQua) annotation (Line(points={{-58,130},{
+          -50,130},{-50,-56},{-2,-56}},
+                                    color={255,0,255}));
   connect(rouZonFla.y, qua.uRogZon[1]) annotation (Line(points={{-158,130},{-120,
           130},{-120,124},{-82,124}}, color={255,0,255}));
   connect(staZonFla.y, qua.uStaZon[1]) annotation (Line(points={{-158,170},{-100,
           170},{-100,130},{-82,130}}, color={255,0,255}));
   connect(tabTCurZon.y[1], qua.TZon[1]) annotation (Line(points={{-98,50},{-90,50},
           {-90,136},{-82,136}}, color={0,0,127}));
+  connect(occSta.y, setChaConHeaVar4.occSta) annotation (Line(points={{-98,-50},
+          {-10,-50},{-10,-52},{-2,-52}}, color={255,0,255}));
+  connect(occSta.y, setChaConHeaVar3.occSta) annotation (Line(points={{-98,-50},
+          {-14,-50},{-14,88},{-2,88}}, color={255,0,255}));
   annotation (experiment(StopTime=172800, Interval=60, Tolerance=1e-06),
   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/DemandFlexibility/ZoneTemperatureSetpointChange/Validation/SingleZoneHeatingVariant3And4.mos"
     "Simulate and plot"),

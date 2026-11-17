@@ -419,8 +419,7 @@ TSheTarSet</code> must hold if it is in the cooling mode
 The following <i>4</i> conditions are used to determine if a zone should be enabled
 to participate in the setpoint change operation. The enabled flag <code>reach_lowUppBou</code>
 for a zone is set to <code>true</code> only if all applicable conditions are met for
-that zone. If the parameter <code>use_demCon</code> is <code>false</code>,
-Condition <i>2</i> is not used. Otherwise, Condition <i>2</i> is used.
+that zone.
 </p>
 <p>
 Below is a detailed discussion of each of the <i>4</i> conditions:

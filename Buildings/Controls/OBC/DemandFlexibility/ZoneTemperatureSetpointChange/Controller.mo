@@ -74,6 +74,8 @@ block Controller
     min=0,
     unit="s")
     "Sampling period for the setpoint change";
+  parameter Boolean occStaInt
+    "Intended occupancy status; true to indicate that this block is used to control the occupied setpoints; false to control the unoccupied setpoints";
   parameter Integer nZon(min=1)
     "Number of zones in the building";
   parameter Integer nSel(min=1, max=nZon)
@@ -89,39 +91,39 @@ block Controller
     final quantity=fill("ThermodynamicTemperature",nZon))
     "Current zone temperature"
     annotation (Placement(transformation(extent={{-260,20},{-220,60}}),
-      iconTransformation(extent={{-140,20},{-100,60}})));
+      iconTransformation(extent={{-140,0},{-100,40}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TCurZonSet[nZon](
     final unit=fill("K",nZon),
     displayUnit=fill("degC",nZon),
     final quantity=fill("ThermodynamicTemperature",nZon))
     "Current zone temperature setpoint from the external setpoint controller"
     annotation (Placement(transformation(extent={{-260,-20},{-220,20}}),
-        iconTransformation(extent={{-140,-20},{-100,20}})));
+        iconTransformation(extent={{-140,-40},{-100,0}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TPreTarSet[nZon](
     final unit=fill("K",nZon),
     displayUnit=fill("degC",nZon),
     final quantity=fill("ThermodynamicTemperature",nZon))
     "Pre-cool or pre-heat target temperature setpoint"
     annotation (Placement(transformation(extent={{-260,-100},{-220,-60}}),
-      iconTransformation(extent={{-140,-100},{-100,-60}})));
+      iconTransformation(extent={{-140,-120},{-100,-80}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TSheTarSet[nZon](
     final unit=fill("K",nZon),
     displayUnit=fill("degC",nZon),
     final quantity=fill("ThermodynamicTemperature",nZon))
     "Load-shed target temperature setpoint"
     annotation (Placement(transformation(extent={{-260,-140},{-220,-100}}),
-      iconTransformation(extent={{-140,-140},{-100,-100}})));
+      iconTransformation(extent={{-140,-160},{-100,-120}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TDefSet[nZon](
     final unit=fill("K",nZon),
     displayUnit=fill("degC",nZon),
     final quantity=fill("ThermodynamicTemperature",nZon))
     "Default temperature setpoint"
     annotation (Placement(transformation(extent={{-260,-180},{-220,-140}}),
-        iconTransformation(extent={{-140,-180},{-100,-140}})));
+        iconTransformation(extent={{-140,-200},{-100,-160}})));
   Buildings.Controls.OBC.CDL.Interfaces.IntegerInput demFleMod
     "Demand flexibility mode; 0 = pre-cool or pre-heat, 1 = default, 2 = load-shed, 3 = load-rebound"
     annotation (Placement(transformation(extent={{-260,-60},{-220,-20}}),
-      iconTransformation(extent={{-140,-60},{-100,-20}})));
+      iconTransformation(extent={{-140,-80},{-100,-40}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput TComZonSet[nZon](
     final unit=fill("K",nZon),
     displayUnit=fill("degC",nZon),
@@ -145,7 +147,7 @@ block Controller
     if zonConVar == Buildings.Controls.OBC.DemandFlexibility.Types.ZoneControlVariant.Variant_4
     "Variable target electricity demand reduction of the building"
     annotation (Placement(transformation(extent={{-306,178},{-266,218}}),
-        iconTransformation(extent={{-140,100},{-100,140}})));
+        iconTransformation(extent={{-140,80},{-100,120}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput PBuiRed(
     final unit="W",
     final quantity="Power")
@@ -153,21 +155,32 @@ block Controller
       or zonConVar == Buildings.Controls.OBC.DemandFlexibility.Types.ZoneControlVariant.Variant_4
     "Electricity demand reduction of the building (baseline demand minus actual demand)"
     annotation (Placement(transformation(extent={{-308,128},{-268,168}}),
-        iconTransformation(extent={{-140,60},{-100,100}})));
+        iconTransformation(extent={{-140,40},{-100,80}})));
   CDL.Interfaces.BooleanInput                        uQua[nZon]
     "True if the zone is qualified for zone temperature setpoint change"
-    annotation (Placement(transformation(extent={{-184,318},{-144,358}}),
-        iconTransformation(extent={{-140,140},{-100,180}})));
+    annotation (Placement(transformation(extent={{-248,318},{-208,358}}),
+        iconTransformation(extent={{-140,120},{-100,160}})));
   CDL.Logical.Not not2[nZon]
-    annotation (Placement(transformation(extent={{-98,330},{-78,350}})));
+    annotation (Placement(transformation(extent={{-162,330},{-142,350}})));
   CDL.Logical.Not not3[nZon]
     annotation (Placement(transformation(extent={{-80,176},{-60,196}})));
   CDL.Logical.Or or2[nZon]
     annotation (Placement(transformation(extent={{-22,310},{-2,330}})));
-  CDL.Logical.Or or1[nZon]
-    annotation (Placement(transformation(extent={{4,256},{24,276}})));
   CDL.Logical.Or or3[nZon]
+    annotation (Placement(transformation(extent={{4,256},{24,276}})));
+  CDL.Logical.Or or4[nZon]
     annotation (Placement(transformation(extent={{68,216},{88,236}})));
+  CDL.Interfaces.BooleanInput occSta
+    "Occupancy status; true: occupied; false: unoccupied" annotation (Placement(
+        transformation(extent={{-400,390},{-360,430}}), iconTransformation(
+          extent={{-140,160},{-100,200}})));
+  CDL.Logical.Or or1[nZon]
+    annotation (Placement(transformation(extent={{-100,360},{-80,380}})));
+  CDL.Logical.Xor xor
+    annotation (Placement(transformation(extent={{-300,400},{-280,420}})));
+  CDL.Logical.Sources.Constant conOccStaInt(k=occStaInt)
+    "Boolean constant for the intended occupancy status"
+    annotation (Placement(transformation(extent={{-360,360},{-340,380}})));
 protected
   Buildings.Controls.OBC.DemandFlexibility.ZoneTemperatureSetpointChange.Subsequences.LowerUpperBound
     lowUppBou(
@@ -239,7 +252,7 @@ protected
     annotation (Placement(transformation(extent={{-138,242},{-118,262}})));
 protected
   CDL.Routing.BooleanScalarReplicator                        booScaRepShe(final
-      nout=nZon)     "Repeat the boolean scalar for being in the load-shed mode"
+      nout=nZon) "Repeat the boolean scalar for being in the load-shed mode"
     annotation (Placement(transformation(extent={{-104,242},{-84,262}})));
   CDL.Logical.Sources.Constant                        conNotEleDem[nZon](final k=
         fill(true, nZon))
@@ -253,6 +266,10 @@ protected
       or zonConVar == Buildings.Controls.OBC.DemandFlexibility.Types.ZoneControlVariant.Variant_4
     "Repeat the flag of needing electricity demand shed as a vector"
     annotation (Placement(transformation(extent={{-130,150},{-110,170}})));
+protected
+  CDL.Routing.BooleanScalarReplicator booScaRep(final nout=nZon)
+    "Repeat the boolean scalar"
+    annotation (Placement(transformation(extent={{-144,386},{-124,406}})));
 equation
   connect(zonPri.yEna, zonSetAdj.uEna) annotation (Line(points={{82,90},{100,90},
           {100,-101.667},{118,-101.667}}, color={255,0,255}));
@@ -331,36 +348,46 @@ equation
   connect(eleDem.need_PBuiShe,repPBuiShe. u)
     annotation (Line(points={{-178,150},{-158,150},{-158,160},{-132,160}},
                                                  color={255,0,255}));
-  connect(uQua, not2.u) annotation (Line(points={{-164,338},{-134,338},{-134,
-          340},{-100,340}}, color={255,0,255}));
+  connect(uQua, not2.u) annotation (Line(points={{-228,338},{-198,338},{-198,340},
+          {-164,340}},      color={255,0,255}));
   connect(repPBuiShe.y, not3.u) annotation (Line(points={{-108,160},{-96,160},{
           -96,186},{-82,186}}, color={255,0,255}));
   connect(conNotEleDem.y, not3.u) annotation (Line(points={{-148,200},{-116,200},
           {-116,186},{-82,186}}, color={255,0,255}));
-  connect(not2.y, or2.u1) annotation (Line(points={{-76,340},{-52,340},{-52,320},
-          {-24,320}}, color={255,0,255}));
   connect(andDTZonLoaShe.y, or2.u2) annotation (Line(points={{-56,296},{-40,296},
           {-40,312},{-24,312}}, color={255,0,255}));
-  connect(or2.y, or1.u1) annotation (Line(points={{0,320},{2,320},{2,266},{2,
+  connect(or2.y,or3. u1) annotation (Line(points={{0,320},{2,320},{2,266},{2,
           266}}, color={255,0,255}));
-  connect(not3.y, or1.u2) annotation (Line(points={{-58,186},{-28,186},{-28,258},
+  connect(not3.y,or3. u2) annotation (Line(points={{-58,186},{-28,186},{-28,258},
           {2,258}}, color={255,0,255}));
-  connect(or1.y, or3.u1) annotation (Line(points={{26,266},{46,266},{46,226},{
+  connect(or3.y,or4. u1) annotation (Line(points={{26,266},{46,266},{46,226},{
           66,226}}, color={255,0,255}));
-  connect(lowUppBou.reach_lowUppBou, or3.u2) annotation (Line(points={{-58,130},
+  connect(lowUppBou.reach_lowUppBou,or4. u2) annotation (Line(points={{-58,130},
           {6,130},{6,218},{66,218}}, color={255,0,255}));
-  connect(or3.y, zonPri.disFla) annotation (Line(points={{90,226},{74,226},{74,
+  connect(or4.y, zonPri.disFla) annotation (Line(points={{90,226},{74,226},{74,
           96},{58,96}}, color={255,0,255}));
-  connect(or3.y, not1.u) annotation (Line(points={{90,226},{90,148},{44,148},{
+  connect(or4.y, not1.u) annotation (Line(points={{90,226},{90,148},{44,148},{
           44,132},{58,132},{58,130}}, color={255,0,255}));
+  connect(booScaRep.y, or1.u1) annotation (Line(points={{-122,396},{-122,383},{-102,
+          383},{-102,370}}, color={255,0,255}));
+  connect(not2.y, or1.u2) annotation (Line(points={{-140,340},{-120,340},{-120,362},
+          {-102,362}}, color={255,0,255}));
+  connect(or1.y, or2.u1) annotation (Line(points={{-78,370},{-50,370},{-50,320},
+          {-24,320}}, color={255,0,255}));
+  connect(xor.u1, occSta)
+    annotation (Line(points={{-302,410},{-380,410}}, color={255,0,255}));
+  connect(conOccStaInt.y, xor.u2) annotation (Line(points={{-338,370},{-320,370},
+          {-320,402},{-302,402}}, color={255,0,255}));
+  connect(xor.y, booScaRep.u) annotation (Line(points={{-278,410},{-212,410},{
+          -212,396},{-146,396}}, color={255,0,255}));
   annotation (defaultComponentName="zonTemSetCon",
     Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-180},{100,180}},
     grid={2,2}), graphics={Rectangle(
-      extent={{-100,-180},{100,180}},
+      extent={{-100,-200},{100,200}},
       lineColor={0,0,0},
       fillColor={255,255,255},
       fillPattern=FillPattern.Solid), Text(
-      extent={{-100,222},{100,182}},
+      extent={{-100,240},{100,200}},
       textColor={0,0,255},
           textString="%name")}), Diagram(
     coordinateSystem(preserveAspectRatio=false, extent={{-220,-180},{220,180}},
@@ -409,17 +436,37 @@ setpoint <code>TCurZonSet</code> in the heating mode, and as
 </p>
 <h4>Zone Enablement</h4>
 <p>
-This block checks whether each zone is enabled for setpoint change. Refer to
+Several conditions are used to determine whether a zone is enabled for zone prioritization
+and zone setpoint adjustment:
+</p>
+<ol>
+<li>
+The actual occupancy status <code>occSta</code> is the same as the intended occupancy status
+<code>occStaInt</code>.
+</li>
+<li>
+The specific zone is qualified for the setpoint change operation, indicated by having
+<code>uQua = true</code>.
+</li>
+<li>
+<code>demFleMod ≠ 2</code>, or, <code>demFleMod = 2</code> and <code>dTZon &lt; dTSheThr</code>,
+where <code>dTZon</code> is the zone temperature difference (<code>dTZon = TZon - TZonSet</code>
+in the heating mode and <code>dTZon = TZonSet - TZon</code> in the cooling mode).
+</li>
+<li>
+If <code>zonConVar</code> has a value of Variant <i>3</i> or Variant <i>4</i>, the electricity
+demand reduction of the building, where the zone is located, has not met a demand reduction target.
+Refer to <a href=\"Buildings.Controls.OBC.DemandFlexibility.Generic.ElectricityDemand\">
+Buildings.Controls.OBC.DemandFlexibility.Generic.ElectricityDemand</a>
+for more detailed description.
+</li>
+<li>
+The zone temperature setpoint of a zone has not reached a lower or an upper bound. Refer to
 <a href=\"modelica://Buildings.Controls.OBC.DemandFlexibility.ZoneTemperatureSetpointChange.Subsequences.LowerUpperBound\">
 Buildings.Controls.OBC.DemandFlexibility.ZoneTemperatureSetpointChange.Subsequences.LowerUpperBound</a>
 for more detailed description.
-</p>
-<p>
-Note that if <code>zonConVar</code> has a value of Variant <i>3</i> or Variant
-<i>4</i>, the use-demand-control parameter <code>use_demCon</code> of the zone
-enablement subsequence will be <code>true</code>. Otherwise, <code>use_demCon</code>
-will be <code>false</code>.
-</p>
+</li>
+</ol>
 <h4>Zone Prioritization</h4>
 <p>
 For all zones that are enabled for setpoint change, this block ranks the enabled
@@ -503,22 +550,5 @@ This selects zones with the largest load-rebound energy consumption potential fi
 and flattens the total electricity demand across zones.</td>
 </tr>
 </table>
-<p>
-Unprocessed
-</p>
-<h4>Condition 3</h4>
-<p>
-Condition <i>3</i> is met if any of the following holds, where <code>dTZon</code>
-is the zone temperature difference (<code>dTZon = TZon - TZonSet</code> in the
-heating mode and <code>dTZon = TZonSet - TZon</code> in the cooling mode):
-</p>
-<ul>
-<li>
-<code>demFleMod ≠ 2</code>
-</li>
-<li>
-or, <code>demFleMod = 2</code> and <code>dTZon &lt; dTSheThr</code>
-</li>
-</ul>
 </html>"));
 end Controller;
