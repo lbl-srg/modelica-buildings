@@ -113,7 +113,7 @@ model IndirectDryTest "Indirect dry evaporative cooler"
     dp_nominal=dpPle_nominal)    "Plenum"
     annotation (Placement(transformation(extent={{60,-70},{80,-50}})));
 protected
-  Buildings.Fluid.Humidifiers.EvaporativeCoolers.Direct dirEvaCoo(
+  BaseClasses.PadAndSink                                padAndSin(
     redeclare final package Medium = Medium2,
     final padAre=padAre,
     per(final efficiency=per.efficiency,
@@ -131,10 +131,10 @@ protected
     annotation (Placement(transformation(origin={70,60},
                                                        extent = {{-10, -10}, {10, 10}})));
 equation
-  connect(dirEvaCoo.dmWat_flow, dmWat_flow)
+  connect(padAndSin.dmWat_flow, dmWat_flow)
     annotation (Line(points={{-1,-56},{10,-56},{10,-30},{260,-30}},
                                                                  color={0,0,127}));
-  connect(evaCooAct, dirEvaCoo.evaCooAct)
+  connect(evaCooAct,padAndSin. evaCooAct)
     annotation (Line(points={{-120,0},{-30,0},{-30,-64},{-19,-64}},
       color={255,0,255}));
   connect(dryCoil.TLvg, TLvg) annotation (Line(points={{78,60},{140,60},{140,10},
@@ -159,9 +159,9 @@ equation
           {50,-80},{120,-80}},                     color={0,127,255}));
   connect(sou.ports[1], inlFil.port_a)
     annotation (Line(points={{-80,-60},{-60,-60}}, color={0,127,255}));
-  connect(inlFil.port_b, dirEvaCoo.port_a)
+  connect(inlFil.port_b,padAndSin. port_a)
     annotation (Line(points={{-40,-60},{-20,-60}}, color={0,127,255}));
-  connect(dirEvaCoo.port_b, moiEli.port_a)
+  connect(padAndSin.port_b, moiEli.port_a)
     annotation (Line(points={{0,-60},{20,-60}}, color={0,127,255}));
   connect(moiEli.port_b, ple.port_a)
     annotation (Line(points={{40,-60},{60,-60}}, color={0,127,255}));

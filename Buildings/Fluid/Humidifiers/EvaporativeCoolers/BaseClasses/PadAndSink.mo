@@ -9,7 +9,7 @@ block PadAndSink "Rigid media pad and sink for blowdown"
   parameter Real cycCon=4
     "Cycle of concentration for blowdown";
 
-  CCC_test.EvaporativeCooler.OpenTank.OpenTank tank(
+  Modelica.Fluid.Vessels.OpenTank              tank(
     redeclare final package Medium = Medium,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     massDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
