@@ -16,8 +16,10 @@ model IndirectDryTest
                                                              indDryEvaCoo(
     redeclare final package Medium1 = MediumW,
     redeclare final package Medium2 = MediumA,
-    final dp1_nominal=200,
-    final dp2_nominal=200,
+    final dp1_nominal(displayUnit="Pa") = 200,
+    dpInlFil_nominal(displayUnit="Pa") = 20,
+    dpMoiEli_nominal(displayUnit="Pa") = 25,
+    dpPle_nominal(displayUnit="Pa") = 10,
     final m1_flow_nominal=m1_flow_nominal,
     final padAre=0.6,
     redeclare Buildings.Fluid.Humidifiers.EvaporativeCoolers.Data.EnergyPlus per(d
