@@ -89,6 +89,16 @@ that can lead to wrong simulation results):
     <code>PropyleneGlycolWater.prandtlNumber_TX_a</code>.
     </td>
 </tr>
+<tr><td colspan=\"2\"><b>Buildings.Templates</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Templates.Plants.Chillers.Components.ChillerGroups.Compression
+    </td>
+    <td valign=\"top\">Fixed CHW isolation valve type for series chillers.<br/>
+    This is for
+    <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4902\">#4902</a>.
+    </td>
+</tr>
 </table>
 <!-- Uncritical errors -->
 <p>

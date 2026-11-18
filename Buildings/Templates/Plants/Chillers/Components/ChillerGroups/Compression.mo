@@ -53,7 +53,7 @@ model Compression
     annotation(Placement(transformation(extent={{160,110},{180,130}})));
   Buildings.Templates.Components.Actuators.Valve valChiWatChiIsoSer[nChi](
     redeclare each final package Medium=MediumChiWat,
-    each final typ=typValChiWatChiIsoSer,
+    each final typ=typValChiWatChiIso,
     each final allowFlowReversal=allowFlowReversal,
     each final dat=datValChiWatChiIso,
     each chaTwo=Buildings.Templates.Components.Types.ValveCharacteristicTwoWay.Linear,
@@ -207,6 +207,12 @@ annotation(defaultComponentName="chi",
 </html>",
     revisions="<html>
 <ul>
+  <li>
+    November 18, 2026, by Antoine Gautier:<br />
+    Fixed CHW isolation valve type for series chillers.<br />
+    This is for
+    <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4902\">#4902</a>.
+  </li>
   <li>
     September 1, 2026, by Antoine Gautier:<br />
     First implementation.
