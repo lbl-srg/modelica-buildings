@@ -129,11 +129,12 @@
     simulate: false
 - model_name: Buildings.Examples.VAVReheat.ASHRAE2006
   openmodelica:
-    comment: 'TimeoutExpired: Command ''[''omc'', ''Buildings.Examples.VAVReheat.ASHRAE2006_simulate.mos'']'' timed out after 300 seconds'
-    time_out: 600
+    comment: Solver gbode reduces simulation time by a factor of 4.7 compared to dassl
+    solver: gbode
 - model_name: Buildings.Examples.VAVReheat.Guideline36
   openmodelica:
-    comment: Timeout during translation
+    comment: Timeout during translation; solver gbode reduces simulation time by a factor of 3.4 compared to dassl
+    solver: gbode
     time_out: 600
 - model_name: Buildings.Examples.VAVReheat.Validation.Guideline36SteadyState
   openmodelica:
