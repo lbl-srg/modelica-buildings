@@ -260,7 +260,7 @@ equation
   end if;
   // Windows
   for j in 1:NWin loop
-    Q_flow[j+NOpa] = JOutConExtWin[j];
+    JOutConExtWin[j] = -Q_flow[j+NOpa];
     HOutConExtWin[j] = if (AConExtWinGla[j] > 1E-10) then JOutConExtWin[j] / AConExtWinGla[j] else 0;
   end for;
 
@@ -415,6 +415,13 @@ which it is diffusely distributed to the other surfaces.
 </html>",
         revisions="<html>
 <ul>
+<li>
+November 11, 2026, by Michael Wetter:<br/>
+Corrected sign of <code>JOutConExtWin</code> so that the room-side solar irradiation
+<code>HOutConExtWin</code> sent to the window model is non-negative.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4871\">Buildings, #4871</a>.
+</li>
 <li>
 February 11, 2022, by Michael Wetter:<br/>
 Change parameter <code>isFloor</code> to <code>is_floor</code>,
