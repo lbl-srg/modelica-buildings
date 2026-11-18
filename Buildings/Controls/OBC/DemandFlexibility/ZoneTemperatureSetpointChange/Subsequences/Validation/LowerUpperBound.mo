@@ -4,27 +4,17 @@ model LowerUpperBound "Zone enablement"
   Buildings.Controls.OBC.DemandFlexibility.ZoneTemperatureSetpointChange.Subsequences.LowerUpperBound
     zonEna(
     dTSheThr=0.5,
-    PBui_nominal=1000,
     airConMod=Buildings.Controls.OBC.DemandFlexibility.Types.AirConditioningMode.Heating,
-    use_demCon=true,
-    nZon=5) "Zone enablement block"
+    nZon=5,
+    TPreTarSet=fill(567.8, 5),
+    TSheTarSet=fill(562.3, 5),
+    TDefSet=fill(566.3, 5))
+            "Zone enablement block"
     annotation (Placement(transformation(extent={{60,-18},{80,18}})));
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant TZonSetVal[5](
     k=fill(273.15 + 20, 5))
     "Zone temperature setpoint values for Zone 1 through 5"
     annotation (Placement(transformation(extent={{-80,-20},{-60,0}})));
-  Buildings.Controls.OBC.CDL.Reals.Sources.Constant TPreTarSetVal[5](
-    k=fill(273.15 + 21.5, 5))
-    "Pre-heat target temperature setpoint value"
-    annotation (Placement(transformation(extent={{-80,-100},{-60,-80}})));
-  Buildings.Controls.OBC.CDL.Reals.Sources.Constant TSheTarSetVal[5](
-    k=fill(273.15 + 16, 5))
-    "Load-shed target temperature setpoint value"
-    annotation (Placement(transformation(extent={{-80,-140},{-60,-120}})));
-  Buildings.Controls.OBC.CDL.Reals.Sources.Constant TDefSetVal[5](
-    k=fill(273.15 + 20, 5))
-    "Default temperature setpoint value"
-    annotation (Placement(transformation(extent={{-80,-180},{-60,-160}})));
   Buildings.Controls.OBC.CDL.Integers.Sources.TimeTable tabDemFleMod(
     table=[0,1; 14,0; 16,2; 21,3; 23,1; 24,1],
     timeScale=3600,
@@ -34,14 +24,6 @@ model LowerUpperBound "Zone enablement"
 equation
   connect(TZonSetVal.y,zonEna. TZonSet)
     annotation (Line(points={{-58,-10},{-40,-10},{-40,0},{58,0}}, color={0,0,127}));
-  connect(TPreTarSetVal.y,zonEna. TPreTarSet)
-    annotation (Line(points={{-58,-90},{0,-90},{0,-8},{58,-8}}, color={0,0,127}));
-  connect(TSheTarSetVal.y,zonEna. TSheTarSet)
-    annotation (Line(points={{-58,-130},{20,-130},{20,-12},{58,-12}},
-      color={0,0,127}));
-  connect(TDefSetVal.y,zonEna. TDefSet)
-    annotation (Line(points={{-58,-170},{40,-170},{40,-16},{58,-16}},
-      color={0,0,127}));
   connect(tabDemFleMod.y[1],zonEna. demFleMod)
     annotation (Line(points={{-58,-50},{-20,-50},{-20,-4},{58,-4}},
       color={255,127,0}));

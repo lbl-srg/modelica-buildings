@@ -12,7 +12,11 @@ model Adjustment "Zone setpoint adjustment"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}}, rotation=0,
       origin={70,50})));
   Buildings.Controls.OBC.DemandFlexibility.ZoneTemperatureSetpointChange.Subsequences.Adjustment
-    zonSetAdjSinSte(airConMod=Buildings.Controls.OBC.DemandFlexibility.Types.AirConditioningMode.Cooling,
+    zonSetAdjSinSte(
+    TPreTarSet=295.65,
+    TDefSet=297.15,
+    TSheTarSet=301.15,
+                    airConMod=Buildings.Controls.OBC.DemandFlexibility.Types.AirConditioningMode.Cooling,
       use_mulSteSetCha=false)
     "Zone setpoint adjustment block for single-step cooling setpoint change"
     annotation (Placement(transformation(extent={{-20,40},{0,60}})));
@@ -20,20 +24,6 @@ model Adjustment "Zone setpoint adjustment"
     period=172800)
     "Boolean variable to enable setpoint change when true"
     annotation (Placement(transformation(extent={{-140,60},{-120,80}})));
-  Buildings.Controls.OBC.DemandFlexibility.ZoneTemperatureSetpointChange.Subsequences.Setpoints zonSetGen(
-    TDefOccHeaSet=273.15 + 20,
-    TDefUnoHeaSet=273.15 + 12,
-    TDefOccCooSet=273.15 + 24,
-    TDefUnoCooSet=273.15 + 32,
-    dTSheHeaSet=4,
-    dTSheCooSet=4,
-    dTPreHeaSet=1.5,
-    dTPreCooSet=1.5,
-    occHouSta=7,
-    occHouEnd=19,
-    setChaEnaUnoFla=true)
-    "Block to generate zone setpoints and setpoint targets that vary with time"
-    annotation (Placement(transformation(extent={{-140,-80},{-120,-60}})));
   Buildings.Controls.OBC.CDL.Integers.Sources.TimeTable tabDemFleMod(
     table=[0,1; 14,0; 16,2; 21,3; 23,1; 24,1],
     timeScale=3600,
@@ -45,6 +35,9 @@ model Adjustment "Zone setpoint adjustment"
     dTPre=0.5,
     dTShe=0.5,
     dTReb=0.5,
+    TPreTarSet=295.65,
+    TDefSet=297.15,
+    TSheTarSet=301.15,
     airConMod=Buildings.Controls.OBC.DemandFlexibility.Types.AirConditioningMode.Cooling,
     use_mulSteSetCha=true)
     "Zone setpoint adjustment block for incremental, multiple-step cooling setpoint change"
@@ -67,14 +60,6 @@ equation
     annotation (Line(points={{2,50},{18,50}}, color={0,0,127}));
   connect(samSinSte.y, delTZonSetSinSte.u)
     annotation (Line(points={{42,50},{58,50}}, color={0,0,127}));
-  connect(zonSetGen.TPreTarCooSet, zonSetAdjSinSte.TPreTarSet) annotation (Line(
-        points={{-118,-72},{-60,-72},{-60,48.3333},{-22,48.3333}},
-                                                         color={0,0,127}));
-  connect(zonSetGen.TSheTarCooSet, zonSetAdjSinSte.TSheTarSet) annotation (Line(
-        points={{-118,-75},{-50,-75},{-50,45},{-22,45}}, color={0,0,127}));
-  connect(zonSetGen.TDefCooSet, zonSetAdjSinSte.TDefSet) annotation (Line(
-        points={{-118,-78},{-40,-78},{-40,41.6667},{-22,41.6667}},
-                                                         color={0,0,127}));
   connect(tabDemFleMod.y[1], zonSetAdjSinSte.demFleMod) annotation (Line(points={{-118,10},
           {-80,10},{-80,55},{-22,55}},           color={255,127,0}));
   connect(zonSetAdjMulSte.TComZonSet, samMulSte.u)
@@ -86,14 +71,6 @@ equation
   connect(uEnaVar.y, zonSetAdjMulSte.uEna) annotation (Line(points={{-118,70},{
           -100,70},{-100,-41.6667},{-22,-41.6667}},
                                           color={255,0,255}));
-  connect(zonSetGen.TPreTarCooSet, zonSetAdjMulSte.TPreTarSet) annotation (Line(
-        points={{-118,-72},{-60,-72},{-60,-51.6667},{-22,-51.6667}},
-                                                           color={0,0,127}));
-  connect(zonSetGen.TSheTarCooSet, zonSetAdjMulSte.TSheTarSet) annotation (Line(
-        points={{-118,-75},{-50,-75},{-50,-55},{-22,-55}}, color={0,0,127}));
-  connect(zonSetGen.TDefCooSet, zonSetAdjMulSte.TDefSet) annotation (Line(
-        points={{-118,-78},{-40,-78},{-40,-58.3333},{-22,-58.3333}},
-                                                           color={0,0,127}));
   connect(delTZonSetSinSte.y, zonSetAdjSinSte.TCurZonSet) annotation (Line(
         points={{82,50},{120,50},{120,20},{-30,20},{-30,51.5},{-22,51.5}},
         color={0,0,127}));

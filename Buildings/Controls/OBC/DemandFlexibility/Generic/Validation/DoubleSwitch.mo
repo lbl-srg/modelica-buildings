@@ -1,32 +1,17 @@
 within Buildings.Controls.OBC.DemandFlexibility.Generic.Validation;
 model DoubleSwitch "Double switch"
 
-  Buildings.Controls.OBC.DemandFlexibility.Generic.DoubleSwitch douSwi
+  Buildings.Controls.OBC.DemandFlexibility.Generic.DoubleSwitch douSwi(u1=5, u2=
+        -5)
     "Double switch"
     annotation (Placement(transformation(extent={{20,0},{40,20}})));
-  Buildings.Controls.OBC.CDL.Reals.Sources.Sin sin1(
-    amplitude=1,
-    freqHz=1/30,
-    offset=5)
-    "Sine wave for input variable 1"
-    annotation (Placement(transformation(extent={{-60,40},{-40,60}})));
-  Buildings.Controls.OBC.CDL.Reals.Sources.Sin sin3(
-    amplitude=2,
-    freqHz=1/15,
-    offset=-5)
-    "Sine wave for input variable 3"
-    annotation (Placement(transformation(extent={{-60,-40},{-40,-20}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Pulse pul2(
     period=60)
     "A pulse signal for input variable 2"
     annotation (Placement(transformation(extent={{-60,0},{-40,20}})));
 equation
-  connect(pul2.y, douSwi.u2)
+  connect(pul2.y, douSwi.u)
     annotation (Line(points={{-38,10},{18,10}}, color={255,0,255}));
-  connect(sin1.y, douSwi.u1)
-    annotation (Line(points={{-38,50},{0,50},{0,16},{18,16}}, color={0,0,127}));
-  connect(sin3.y, douSwi.u3)
-    annotation (Line(points={{-38,-30},{0,-30},{0,4},{18,4}}, color={0,0,127}));
 annotation (experiment(StopTime=60, Interval=1, Tolerance=1e-06),
   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/DemandFlexibility/Generic/Validation/DoubleSwitch.mos"
     "Simulate and plot"),

@@ -14,20 +14,6 @@ model MultipleZoneCoolingVariant1And2
     period=86400)
     "A table of demand flexibility modes that repeat every day"
     annotation (Placement(transformation(extent={{-140,-20},{-120,0}})));
-  Buildings.Controls.OBC.DemandFlexibility.ZoneTemperatureSetpointChange.Subsequences.Setpoints zonSetGen(
-    TDefOccHeaSet=273.15 + 20,
-    TDefUnoHeaSet=273.15 + 12,
-    TDefOccCooSet=273.15 + 24,
-    TDefUnoCooSet=273.15 + 32,
-    dTSheHeaSet=4,
-    dTSheCooSet=4,
-    dTPreHeaSet=1.5,
-    dTPreCooSet=1.5,
-    occHouSta=7,
-    occHouEnd=23.5,
-    setChaEnaUnoFla=true)
-    "Block to generate zone setpoints and setpoint targets that vary with time"
-    annotation (Placement(transformation(extent={{-140,-140},{-120,-120}})));
   Buildings.Controls.OBC.CDL.Reals.Sources.TimeTable tabTCurZon(
     table=[0,273.15 + 18; 4,273.15 + 14; 5,273.15 + 14; 11,273.15 + 20;
       16,273.15 + 22; 18,273.15 + 28.5; 19,273.15 + 28; 19.25,273.15 + 33.5;
@@ -47,6 +33,9 @@ model MultipleZoneCoolingVariant1And2
     dTReb=0.5,
     dTSheThr=0.5,
     setChaWaiTim=150,
+    TPreTarSet=fill(295.65, nZon),
+    TSheTarSet=fill(301.15, nZon),
+    TDefSet=fill(297.15, nZon),
     occStaInt=true,
     airConMod=Buildings.Controls.OBC.DemandFlexibility.Types.AirConditioningMode.Cooling,
     nZon=nZon,
@@ -63,18 +52,12 @@ model MultipleZoneCoolingVariant1And2
   Buildings.Controls.OBC.CDL.Reals.AddParameter TBia[nZon](p={1,0.5,0,-0.5,-1})
     "Use different temperature bias values to make zone temperature different for different zones"
     annotation (Placement(transformation(extent={{-80,40},{-60,60}})));
-  Buildings.Controls.OBC.CDL.Routing.RealScalarReplicator TPreTarCooSetRep(nout=nZon)
-    "Replicate the pre-cool target cooling temperature setpoint"
-    annotation (Placement(transformation(extent={{-80,-60},{-60,-40}})));
-  Buildings.Controls.OBC.CDL.Routing.RealScalarReplicator TSheTarCooSetRep(nout=nZon)
-    "Replicate the load-shed target cooling temperature setpoint"
-    annotation (Placement(transformation(extent={{-80,-100},{-60,-80}})));
-  Buildings.Controls.OBC.CDL.Routing.RealScalarReplicator TDefCooSetRep(nout=nZon)
-    "Replicate the default cooling temperature setpoint"
-    annotation (Placement(transformation(extent={{-80,-140},{-60,-120}})));
   Buildings.Controls.OBC.DemandFlexibility.ZoneTemperatureSetpointChange.Controller setChaConCooVar1(
     dTSheThr=0.5,
     setChaWaiTim=600,
+    TPreTarSet=fill(295.65, nZon),
+    TSheTarSet=fill(301.15, nZon),
+    TDefSet=fill(297.15, nZon),
     occStaInt=true,
     airConMod=Buildings.Controls.OBC.DemandFlexibility.Types.AirConditioningMode.Cooling,
     nZon=nZon,
@@ -99,7 +82,10 @@ model MultipleZoneCoolingVariant1And2
     annotation (Placement(transformation(extent={{-160,162},{-140,182}})));
   CDL.Logical.Sources.Constant staZonFla(k=false) "starved zone flag"
     annotation (Placement(transformation(extent={{-200,162},{-180,182}})));
-  CDL.Logical.Sources.Constant occSta(k=true) "Occupancy status"
+  CDL.Logical.Sources.TimeTable occSta(
+    table=[0,0; 7,1; 19,0; 24,0],
+    timeScale=3600,
+    period=86400) "Occupancy status"
     annotation (Placement(transformation(extent={{-100,80},{-80,100}})));
 equation
   connect(rouZonFla.y, rouZonFlaRep.u)
@@ -116,24 +102,6 @@ equation
   connect(tabDemFleMod.y[1], setChaConCooVar2.demFleMod)
     annotation (Line(points={{-118,-10},{-10,-10},{-10,-116},{38,-116}},
       color={255,127,0}));
-  connect(zonSetGen.TPreTarCooSet, TPreTarCooSetRep.u)
-    annotation (Line(points={{-118,-132},{-110,-132},{-110,-50},{-82,-50}},
-      color={0,0,127}));
-  connect(zonSetGen.TSheTarCooSet, TSheTarCooSetRep.u)
-    annotation (Line(points={{-118,-135},{-100,-135},{-100,-90},{-82,-90}},
-      color={0,0,127}));
-  connect(zonSetGen.TDefCooSet, TDefCooSetRep.u)
-    annotation (Line(points={{-118,-138},{-90,-138},{-90,-130},{-82,-130}},
-      color={0,0,127}));
-  connect(TPreTarCooSetRep.y, setChaConCooVar2.TPreTarSet)
-    annotation (Line(points={{-58,-50},{0,-50},{0,-120},{38,-120}},
-      color={0,0,127}));
-  connect(TSheTarCooSetRep.y, setChaConCooVar2.TSheTarSet)
-    annotation (Line(points={{-58,-90},{10,-90},{10,-124},{38,-124}},
-      color={0,0,127}));
-  connect(TDefCooSetRep.y, setChaConCooVar2.TDefSet)
-    annotation (Line(points={{-58,-130},{20,-130},{20,-128},{38,-128}},
-      color={0,0,127}));
   connect(setChaConCooVar1.TComZonSet, delTZonSetVar1.u)
     annotation (Line(points={{62,110},{78,110}}, color={0,0,127}));
   connect(tabDemFleMod.y[1], setChaConCooVar1.demFleMod)
@@ -141,13 +109,6 @@ equation
       color={255,127,0}));
   connect(TBia.y, setChaConCooVar1.TCurZon)
     annotation (Line(points={{-58,50},{-20,50},{-20,112},{38,112}},
-      color={0,0,127}));
-  connect(TPreTarCooSetRep.y, setChaConCooVar1.TPreTarSet)
-    annotation (Line(points={{-58,-50},{0,-50},{0,100},{38,100}}, color={0,0,127}));
-  connect(TSheTarCooSetRep.y, setChaConCooVar1.TSheTarSet)
-    annotation (Line(points={{-58,-90},{10,-90},{10,96},{38,96}}, color={0,0,127}));
-  connect(TDefCooSetRep.y, setChaConCooVar1.TDefSet)
-    annotation (Line(points={{-58,-130},{20,-130},{20,92},{38,92}},
       color={0,0,127}));
   connect(delTZonSetVar1.y, setChaConCooVar1.TCurZonSet) annotation (Line(
         points={{102,110},{140,110},{140,80},{30,80},{30,108},{38,108}}, color={
@@ -167,10 +128,10 @@ equation
           -30,150},{-30,124},{38,124}}, color={255,0,255}));
   connect(qua.yQua, setChaConCooVar2.uQua) annotation (Line(points={{-58,150},{
           -30,150},{-30,-96},{38,-96}}, color={255,0,255}));
-  connect(occSta.y, setChaConCooVar1.occSta) annotation (Line(points={{-78,90},
-          {-40,90},{-40,128},{38,128}}, color={255,0,255}));
-  connect(occSta.y, setChaConCooVar2.occSta) annotation (Line(points={{-78,90},
-          {-40,90},{-40,-92},{38,-92}}, color={255,0,255}));
+  connect(occSta.y[1], setChaConCooVar1.occSta) annotation (Line(points={{-78,
+          90},{-40,90},{-40,128},{38,128}}, color={255,0,255}));
+  connect(occSta.y[1], setChaConCooVar2.occSta) annotation (Line(points={{-78,
+          90},{-40,90},{-40,-92},{38,-92}}, color={255,0,255}));
   annotation (experiment(
       StartTime=43200,
       StopTime=86400,

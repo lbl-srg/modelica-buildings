@@ -16,23 +16,12 @@ model SingleZoneCoolingVariant1And2
     period=86400)
     "A table of demand flexibility modes that repeat every day"
     annotation (Placement(transformation(extent={{-120,-20},{-100,0}})));
-  Buildings.Controls.OBC.DemandFlexibility.ZoneTemperatureSetpointChange.Subsequences.Setpoints zonSetGen(
-    TDefOccHeaSet=273.15 + 20,
-    TDefUnoHeaSet=273.15 + 12,
-    TDefOccCooSet=273.15 + 24,
-    TDefUnoCooSet=273.15 + 32,
-    dTSheHeaSet=4,
-    dTSheCooSet=4,
-    dTPreHeaSet=1.5,
-    dTPreCooSet=1.5,
-    occHouSta=7,
-    occHouEnd=19,
-    setChaEnaUnoFla=true)
-    "Block to generate zone setpoints and setpoint targets that vary with time"
-    annotation (Placement(transformation(extent={{-120,-140},{-100,-120}})));
   Buildings.Controls.OBC.DemandFlexibility.ZoneTemperatureSetpointChange.Controller setChaConCooVar1(
     dTSheThr=0.5,
     setChaWaiTim=300,
+    TPreTarSet(each displayUnit="K") = fill(295.65, 1),
+    TSheTarSet(each displayUnit="K") = fill(301.15, 1),
+    TDefSet(each displayUnit="K") = fill(297.15, 1),
     occStaInt=true,
     airConMod=Buildings.Controls.OBC.DemandFlexibility.Types.AirConditioningMode.Cooling,
     nZon=1,
@@ -59,6 +48,9 @@ model SingleZoneCoolingVariant1And2
     dTReb=0.5,
     dTSheThr=0.5,
     setChaWaiTim=300,
+    TPreTarSet(each displayUnit="K") = fill(295.65, 1),
+    TSheTarSet(each displayUnit="K") = fill(301.15, 1),
+    TDefSet(each displayUnit="K") = fill(297.15, 1),
     occStaInt=true,
     airConMod=Buildings.Controls.OBC.DemandFlexibility.Types.AirConditioningMode.Cooling,
     nZon=1,
@@ -75,32 +67,17 @@ model SingleZoneCoolingVariant1And2
     annotation (Placement(transformation(extent={{-80,120},{-60,140}})));
   CDL.Logical.Sources.Constant staZonFla(k=false) "starved zone flag"
     annotation (Placement(transformation(extent={{-160,140},{-140,160}})));
-  CDL.Logical.Sources.Constant occSta(k=true) "Occupancy status"
+  CDL.Logical.Sources.TimeTable occSta(
+    table=[0,0; 7,1; 19,0; 24,0],
+    timeScale=3600,
+    period=86400) "Occupancy status"
     annotation (Placement(transformation(extent={{-120,80},{-100,100}})));
 equation
-  connect(zonSetGen.TPreTarCooSet, setChaConCooVar1.TPreTarSet[1])
-    annotation (Line(points={{-98,-132},{-40,-132},{-40,60},{-2,60}},
-      color={0,0,127}));
-  connect(zonSetGen.TSheTarCooSet, setChaConCooVar1.TSheTarSet[1])
-    annotation (Line(points={{-98,-135},{-30,-135},{-30,56},{-2,56}},
-      color={0,0,127}));
-  connect(zonSetGen.TDefCooSet, setChaConCooVar1.TDefSet[1])
-    annotation (Line(points={{-98,-138},{-20,-138},{-20,52},{-2,52}},
-      color={0,0,127}));
   connect(tabDemFleMod.y[1], setChaConCooVar1.demFleMod)
     annotation (Line(points={{-98,-10},{-60,-10},{-60,64},{-2,64}},
       color={255,127,0}));
   connect(tabTCurZon.y[1], setChaConCooVar1.TCurZon[1])
     annotation (Line(points={{-98,50},{-80,50},{-80,72},{-2,72}}, color={0,0,127}));
-  connect(zonSetGen.TPreTarCooSet, setChaConCooVar2.TPreTarSet[1])
-    annotation (Line(points={{-98,-132},{-40,-132},{-40,-80},{-2,-80}},
-      color={0,0,127}));
-  connect(zonSetGen.TSheTarCooSet, setChaConCooVar2.TSheTarSet[1])
-    annotation (Line(points={{-98,-135},{-30,-135},{-30,-84},{-2,-84}},
-      color={0,0,127}));
-  connect(zonSetGen.TDefCooSet, setChaConCooVar2.TDefSet[1])
-    annotation (Line(points={{-98,-138},{-20,-138},{-20,-88},{-2,-88}},
-      color={0,0,127}));
   connect(tabTCurZon.y[1], setChaConCooVar2.TCurZon[1])
     annotation (Line(points={{-98,50},{-80,50},{-80,-68},{-2,-68}},
       color={0,0,127}));
@@ -127,10 +104,10 @@ equation
           -110,150},{-110,130},{-82,130}}, color={255,0,255}));
   connect(tabTCurZon.y[1], qua.TZon[1]) annotation (Line(points={{-98,50},{-90,
           50},{-90,136},{-82,136}}, color={0,0,127}));
-  connect(occSta.y, setChaConCooVar1.occSta) annotation (Line(points={{-98,90},
-          {-70,90},{-70,88},{-2,88}}, color={255,0,255}));
-  connect(occSta.y, setChaConCooVar2.occSta) annotation (Line(points={{-98,90},
-          {-70,90},{-70,-52},{-2,-52}}, color={255,0,255}));
+  connect(occSta.y[1], setChaConCooVar1.occSta) annotation (Line(points={{-98,
+          90},{-40,90},{-40,88},{-2,88}}, color={255,0,255}));
+  connect(occSta.y[1], setChaConCooVar2.occSta) annotation (Line(points={{-98,
+          90},{-40,90},{-40,-52},{-2,-52}}, color={255,0,255}));
   annotation (experiment(StopTime=172800, Interval=60, Tolerance=1e-06),
   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/DemandFlexibility/ZoneTemperatureSetpointChange/Validation/SingleZoneCoolingVariant1And2.mos"
     "Simulate and plot"),

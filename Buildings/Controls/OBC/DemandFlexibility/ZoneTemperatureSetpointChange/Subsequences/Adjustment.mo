@@ -22,39 +22,37 @@ block Adjustment "Zone setpoint adjustment"
     displayUnit="K")
     "Setpoint change delta for the load-rebound mode (positive value)"
     annotation (Dialog(enable = use_mulSteSetCha));
+  parameter Real TPreTarSet(
+    final unit="K",
+    displayUnit="degC",
+    final quantity="ThermodynamicTemperature")
+    "Pre-cool or pre-heat target temperature setpoint";
+  parameter Real TDefSet(
+    final unit="K",
+    displayUnit="degC",
+    final quantity="ThermodynamicTemperature")
+    "Default temperature setpoint";
+  parameter Real TSheTarSet(
+    final unit="K",
+    displayUnit="degC",
+    final quantity="ThermodynamicTemperature")
+    "Load-shed target temperature setpoint";
   parameter Boolean use_mulSteSetCha
     "If true, there are multiple smaller and incremental setpoint change steps for the pre-cool/pre-heat mode, the load-shed mode, and the load-rebound mode; if false, there is a single setpoint change step";
   parameter Buildings.Controls.OBC.DemandFlexibility.Types.AirConditioningMode airConMod
     "Air conditioning mode";
 
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput TPreTarSet(
-    final unit="K",
-    displayUnit="degC",
-    final quantity="ThermodynamicTemperature")
-    "Pre-cool or pre-heat target temperature setpoint"
-    annotation (Placement(transformation(extent={{-240,-60},{-200,-20}}),
-      iconTransformation(extent={{-140,-40},{-100,0}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput TDefSet(
-    final unit="K",
-    displayUnit="degC",
-    final quantity="ThermodynamicTemperature")
-    "Default temperature setpoint"
-    annotation (Placement(transformation(extent={{-240,-120},{-200,-80}}),
-      iconTransformation(extent={{-140,-120},{-100,-80}})));
+  CDL.Reals.Sources.Constant conTDefSet(k=TDefSet)
+    "Constant for the default temperature setpoint" annotation (Placement(
+        transformation(extent={{-180,70},{-160,90}}), iconTransformation(extent
+          ={{-140,-120},{-100,-80}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TCurZonSet(
     final unit="K",
     displayUnit="degC",
     final quantity="ThermodynamicTemperature")
     "Current zone temperature setpoint from the external setpoint controller"
     annotation (Placement(transformation(extent={{-240,20},{-200,60}}),
-      iconTransformation(extent={{-140,-2},{-100,38}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput TSheTarSet(
-    final unit="K",
-    displayUnit="degC",
-    final quantity="ThermodynamicTemperature")
-    "Load-shed target temperature setpoint"
-    annotation (Placement(transformation(extent={{-240,-180},{-200,-140}}),
-      iconTransformation(extent={{-140,-80},{-100,-40}})));
+        iconTransformation(extent={{-140,-2},{-100,38}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uEna
     "True: enable setpoint change"
     annotation (Placement(transformation(extent={{-240,140},{-200,180}}),
@@ -70,39 +68,23 @@ block Adjustment "Zone setpoint adjustment"
     "Commanded zone temperature setpoint"
     annotation (Placement(transformation(extent={{200,-20},{240,20}}),
       iconTransformation(extent={{100,-20},{140,20}})));
+  CDL.Logical.Sources.Constant con(k=TPreTarSet >= TDefSet) if airConMod ==
+    Buildings.Controls.OBC.DemandFlexibility.Types.AirConditioningMode.Heating
+    "Check whether the pre-heat target temperature setpoint is greater than or equal to the default tempearture setpoint"
+    annotation (Placement(transformation(extent={{40,-140},{60,-120}})));
+  CDL.Logical.Sources.Constant con1(k=TSheTarSet <= TDefSet) if airConMod ==
+    Buildings.Controls.OBC.DemandFlexibility.Types.AirConditioningMode.Heating
+    "Check whether the load-shed target temperature setpoint is less than or equal to the default tempearture setpoint"
+    annotation (Placement(transformation(extent={{40,-180},{60,-160}})));
+  CDL.Logical.Sources.Constant con2(k=TPreTarSet <= TDefSet) if airConMod ==
+    Buildings.Controls.OBC.DemandFlexibility.Types.AirConditioningMode.Cooling
+    "Check whether the pre-cool target temperature setpoint is less than or equal to the default tempearture setpoint"
+    annotation (Placement(transformation(extent={{40,-220},{60,-200}})));
+  CDL.Logical.Sources.Constant con3(k=TSheTarSet >= TDefSet) if airConMod ==
+    Buildings.Controls.OBC.DemandFlexibility.Types.AirConditioningMode.Cooling
+    "Check whether the load-shed target temperature setpoint is greater than or equal to the default tempearture setpoint"
+    annotation (Placement(transformation(extent={{40,-260},{60,-240}})));
 protected
-  Buildings.Controls.OBC.CDL.Reals.Less lesTPreTarSet
-    if airConMod == Buildings.Controls.OBC.DemandFlexibility.Types.AirConditioningMode.Heating
-    "Check if the pre-heat target temperature setpoint is less than the default temperature setpoint"
-    annotation (Placement(transformation(extent={{-40,-140},{-20,-120}})));
-  Buildings.Controls.OBC.CDL.Reals.Greater greTSheTarSet
-    if airConMod == Buildings.Controls.OBC.DemandFlexibility.Types.AirConditioningMode.Heating
-    "Check if the load-shed target temperature setpoint is greater than the default temperature setpoint"
-    annotation (Placement(transformation(extent={{-40,-180},{-20,-160}})));
-  Buildings.Controls.OBC.CDL.Logical.Not notLesTPreTarSet
-    if airConMod == Buildings.Controls.OBC.DemandFlexibility.Types.AirConditioningMode.Heating
-    "Check if the pre-heat target temperature setpoint is not less than the default temperature setpoint"
-    annotation (Placement(transformation(extent={{20,-140},{40,-120}})));
-  Buildings.Controls.OBC.CDL.Logical.Not notGreTSheTarSet
-    if airConMod == Buildings.Controls.OBC.DemandFlexibility.Types.AirConditioningMode.Heating
-    "Check if the load-shed target temperature setpoint is not greater than the default temperature setpoint"
-    annotation (Placement(transformation(extent={{20,-180},{40,-160}})));
-  Buildings.Controls.OBC.CDL.Reals.Greater greTPreTarSet
-    if airConMod == Buildings.Controls.OBC.DemandFlexibility.Types.AirConditioningMode.Cooling
-    "Check if the pre-cool target temperature setpoint is greater than the default temperature setpoint"
-    annotation (Placement(transformation(extent={{-40,-220},{-20,-200}})));
-  Buildings.Controls.OBC.CDL.Reals.Less lesTSheTarSet
-    if airConMod == Buildings.Controls.OBC.DemandFlexibility.Types.AirConditioningMode.Cooling
-    "Check if the load-shed target temperature setpoint is less than the default temperature setpoint"
-    annotation (Placement(transformation(extent={{-40,-260},{-20,-240}})));
-  Buildings.Controls.OBC.CDL.Logical.Not notGreTPreTarSet
-    if airConMod == Buildings.Controls.OBC.DemandFlexibility.Types.AirConditioningMode.Cooling
-    "Check if the pre-cool target temperature setpoint is no greater than the default temperature setpoint"
-    annotation (Placement(transformation(extent={{20,-220},{40,-200}})));
-  Buildings.Controls.OBC.CDL.Logical.Not notLesTSheTarSet
-    if airConMod == Buildings.Controls.OBC.DemandFlexibility.Types.AirConditioningMode.Cooling
-    "Check if the load-shed target temperature setpoint is not less than the default temperature setpoint"
-    annotation (Placement(transformation(extent={{20,-260},{40,-240}})));
   Buildings.Controls.OBC.CDL.Utilities.Assert assMesTPreTarHeaSet(
     message="Error: the pre-heat target temperature setpoint must be greater than or equal to the default temperature setpoint during the heating mode.")
     if airConMod == Buildings.Controls.OBC.DemandFlexibility.Types.AirConditioningMode.Heating
@@ -145,13 +127,16 @@ protected
     final use_pre=true)
     "Output the corresponding commanded zone temperature setpoint value based on the demand flexibility mode"
     annotation (Placement(transformation(extent={{140,70},{160,90}})));
-  Buildings.Controls.OBC.DemandFlexibility.Generic.DoubleSwitch TSetBouSwiPre
+  Buildings.Controls.OBC.DemandFlexibility.Generic.DoubleSwitch TSetBouSwiPre(u1=
+        TPreTarSet, u2=TDefSet)
     "Switch the maximum and minimum temperature setpoint bounds based on the air conditioning mode during pre-cool or pre-heat"
     annotation (Placement(transformation(extent={{-20,200},{0,220}})));
-  Buildings.Controls.OBC.DemandFlexibility.Generic.DoubleSwitch TSetBouSwiShe
+  Buildings.Controls.OBC.DemandFlexibility.Generic.DoubleSwitch TSetBouSwiShe(u1=
+        TDefSet, u2=TSheTarSet)
     "Switch the maximum and minimum temperature setpoint bounds based on the air conditioning mode during load-shed"
     annotation (Placement(transformation(extent={{-20,0},{0,20}})));
-  Buildings.Controls.OBC.DemandFlexibility.Generic.DoubleSwitch TSetBouSwiReb
+  Buildings.Controls.OBC.DemandFlexibility.Generic.DoubleSwitch TSetBouSwiReb(u1=
+        TDefSet, u2=TSheTarSet)
     "Switch the maximum and minimum temperature setpoint bounds based on the air conditioning mode during load-rebound"
     annotation (Placement(transformation(extent={{-20,-100},{0,-80}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant conAirConMod(
@@ -168,15 +153,12 @@ equation
   connect(uEna, setChaReb.uEna)
     annotation (Line(points={{-220,160},{-120,160},{-120,-44},{38,-44}},
       color={255,0,255}));
-  connect(TCurZonSet, setChaPre.uCurSet)
-    annotation (Line(points={{-220,40},{-100,40},{-100,252},{38,252}},
-      color={0,0,127}));
-  connect(TCurZonSet, setChaShe.uCurSet)
-    annotation (Line(points={{-220,40},{-140,40},{-140,52},{38,52}},
-      color={0,0,127}));
-  connect(TCurZonSet, setChaReb.uCurSet)
-    annotation (Line(points={{-220,40},{-140,40},{-140,-48},{38,-48}},
-      color={0,0,127}));
+  connect(TCurZonSet, setChaPre.uCurSet) annotation (Line(points={{-220,40},{-100,
+          40},{-100,252},{38,252}}, color={0,0,127}));
+  connect(TCurZonSet, setChaShe.uCurSet) annotation (Line(points={{-220,40},{-140,
+          40},{-140,52},{38,52}}, color={0,0,127}));
+  connect(TCurZonSet, setChaReb.uCurSet) annotation (Line(points={{-220,40},{-140,
+          40},{-140,-48},{38,-48}}, color={0,0,127}));
   connect(zonSetSelByMod.y, TComZonSet)
     annotation (Line(points={{162,80},{192,80},{192,0},{220,0}}, color={0,0,127}));
   connect(demFleMod,zonSetSelByMod. demFleMod)
@@ -189,18 +171,12 @@ equation
   connect(setChaReb.y,zonSetSelByMod. uReb)
     annotation (Line(points={{62,-50},{120,-50},{120,72},{138,72}},
       color={0,0,127}));
-  connect(TDefSet,zonSetSelByMod. uDef)
-    annotation (Line(points={{-220,-100},{-160,-100},{-160,80},{138,80}},
-      color={0,0,127}));
-  connect(conAirConMod.y, TSetBouSwiPre.u2)
-    annotation (Line(points={{-58,150},{-40,150},{-40,210},{-22,210}},
-      color={255,0,255}));
-  connect(conAirConMod.y, TSetBouSwiShe.u2)
-    annotation (Line(points={{-58,150},{-40,150},{-40,10},{-22,10}},
-      color={255,0,255}));
-  connect(conAirConMod.y, TSetBouSwiReb.u2)
-    annotation (Line(points={{-58,150},{-40,150},{-40,-90},{-22,-90}},
-      color={255,0,255}));
+  connect(conAirConMod.y, TSetBouSwiPre.u) annotation (Line(points={{-58,150},{
+          -40,150},{-40,210},{-22,210}}, color={255,0,255}));
+  connect(conAirConMod.y, TSetBouSwiShe.u) annotation (Line(points={{-58,150},{
+          -40,150},{-40,10},{-22,10}}, color={255,0,255}));
+  connect(conAirConMod.y, TSetBouSwiReb.u) annotation (Line(points={{-58,150},{
+          -40,150},{-40,-90},{-22,-90}}, color={255,0,255}));
   connect(TSetBouSwiPre.y1, setChaPre.uAllMaxSet)
     annotation (Line(points={{2,215},{20,215},{20,248.2},{38,248.2}},
       color={0,0,127}));
@@ -217,64 +193,16 @@ equation
   connect(TSetBouSwiReb.y2, setChaReb.uAllMinSet)
     annotation (Line(points={{2,-95},{30,-95},{30,-56},{38,-56}},
       color={0,0,127}));
-  connect(TPreTarSet, TSetBouSwiPre.u1)
-    annotation (Line(points={{-220,-40},{-180,-40},{-180,216},{-22,216}},
-      color={0,0,127}));
-  connect(TDefSet, TSetBouSwiPre.u3)
-    annotation (Line(points={{-220,-100},{-160,-100},{-160,204},{-22,204}},
-      color={0,0,127}));
-  connect(TDefSet, TSetBouSwiShe.u1)
-    annotation (Line(points={{-220,-100},{-160,-100},{-160,16},{-22,16}},
-      color={0,0,127}));
-  connect(TSheTarSet, TSetBouSwiShe.u3)
-    annotation (Line(points={{-220,-160},{-80,-160},{-80,4},{-22,4}},
-      color={0,0,127}));
-  connect(TDefSet, TSetBouSwiReb.u1)
-    annotation (Line(points={{-220,-100},{-160,-100},{-160,-84},{-22,-84}},
-      color={0,0,127}));
-  connect(TSheTarSet, TSetBouSwiReb.u3)
-    annotation (Line(points={{-220,-160},{-80,-160},{-80,-96},{-22,-96}},
-      color={0,0,127}));
-  connect(TPreTarSet, lesTPreTarSet.u1)
-    annotation (Line(points={{-220,-40},{-180,-40},{-180,-130},{-42,-130}},
-      color={0,0,127}));
-  connect(TDefSet, lesTPreTarSet.u2)
-    annotation (Line(points={{-220,-100},{-160,-100},{-160,-138},{-42,-138}},
-      color={0,0,127}));
-  connect(lesTPreTarSet.y, notLesTPreTarSet.u)
-    annotation (Line(points={{-18,-130},{18,-130}}, color={255,0,255}));
-  connect(greTSheTarSet.y, notGreTSheTarSet.u)
-    annotation (Line(points={{-18,-170},{18,-170}}, color={255,0,255}));
-  connect(lesTSheTarSet.y, notLesTSheTarSet.u)
-    annotation (Line(points={{-18,-250},{18,-250}}, color={255,0,255}));
-  connect(TPreTarSet, greTPreTarSet.u1)
-    annotation (Line(points={{-220,-40},{-180,-40},{-180,-210},{-42,-210}},
-      color={0,0,127}));
-  connect(TDefSet, greTPreTarSet.u2)
-    annotation (Line(points={{-220,-100},{-160,-100},{-160,-218},{-42,-218}},
-      color={0,0,127}));
-  connect(greTPreTarSet.y, notGreTPreTarSet.u)
-    annotation (Line(points={{-18,-210},{18,-210}}, color={255,0,255}));
-  connect(notLesTPreTarSet.y, assMesTPreTarHeaSet.u)
-    annotation (Line(points={{42,-130},{78,-130}}, color={255,0,255}));
-  connect(notGreTSheTarSet.y, assMesTSheTarHeaSet.u)
-    annotation (Line(points={{42,-170},{78,-170}}, color={255,0,255}));
-  connect(notGreTPreTarSet.y, assMesTPreTarCooSet.u)
-    annotation (Line(points={{42,-210},{78,-210}}, color={255,0,255}));
-  connect(notLesTSheTarSet.y, assMesTSheTarCooSet.u)
-    annotation (Line(points={{42,-250},{78,-250}}, color={255,0,255}));
-  connect(TDefSet, greTSheTarSet.u2)
-    annotation (Line(points={{-220,-100},{-160,-100},{-160,-178},{-42,-178}},
-      color={0,0,127}));
-  connect(TDefSet, lesTSheTarSet.u2)
-    annotation (Line(points={{-220,-100},{-160,-100},{-160,-258},{-42,-258}},
-      color={0,0,127}));
-  connect(TSheTarSet, greTSheTarSet.u1)
-    annotation (Line(points={{-220,-160},{-80,-160},{-80,-170},{-42,-170}},
-      color={0,0,127}));
-  connect(TSheTarSet, lesTSheTarSet.u1)
-    annotation (Line(points={{-220,-160},{-80,-160},{-80,-250},{-42,-250}},
-      color={0,0,127}));
+  connect(con.y, assMesTPreTarHeaSet.u)
+    annotation (Line(points={{62,-130},{78,-130}}, color={255,0,255}));
+  connect(con1.y, assMesTSheTarHeaSet.u)
+    annotation (Line(points={{62,-170},{78,-170}}, color={255,0,255}));
+  connect(con2.y, assMesTPreTarCooSet.u) annotation (Line(points={{62,-210},{72,
+          -210},{72,-210},{78,-210}}, color={255,0,255}));
+  connect(con3.y, assMesTSheTarCooSet.u)
+    annotation (Line(points={{62,-250},{78,-250}}, color={255,0,255}));
+  connect(conTDefSet.y, zonSetSelByMod.uDef)
+    annotation (Line(points={{-158,80},{138,80}}, color={0,0,127}));
   annotation (defaultComponentName="zonSetAdj",
     Icon(coordinateSystem(preserveAspectRatio=false,
         extent={{-100,-120},{100,120}},

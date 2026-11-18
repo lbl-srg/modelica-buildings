@@ -74,6 +74,21 @@ block Controller
     min=0,
     unit="s")
     "Sampling period for the setpoint change";
+  parameter Real TPreTarSet[nZon](
+    final unit=fill("K", nZon),
+    displayUnit=fill("degC", nZon),
+    final quantity=fill("ThermodynamicTemperature", nZon))
+    "Pre-cool or pre-heat target temperature setpoint";
+  parameter Real TSheTarSet[nZon](
+    final unit=fill("K", nZon),
+    displayUnit=fill("degC", nZon),
+    final quantity=fill("ThermodynamicTemperature", nZon))
+    "Load-shed target temperature setpoint";
+  parameter Real TDefSet[nZon](
+    final unit=fill("K", nZon),
+    displayUnit=fill("degC", nZon),
+    final quantity=fill("ThermodynamicTemperature", nZon))
+    "Default temperature setpoint";
   parameter Boolean occStaInt
     "Intended occupancy status; true to indicate that this block is used to control the occupied setpoints; false to control the unoccupied setpoints";
   parameter Integer nZon(min=1)
@@ -99,27 +114,6 @@ block Controller
     "Current zone temperature setpoint from the external setpoint controller"
     annotation (Placement(transformation(extent={{-260,-20},{-220,20}}),
         iconTransformation(extent={{-140,-40},{-100,0}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput TPreTarSet[nZon](
-    final unit=fill("K",nZon),
-    displayUnit=fill("degC",nZon),
-    final quantity=fill("ThermodynamicTemperature",nZon))
-    "Pre-cool or pre-heat target temperature setpoint"
-    annotation (Placement(transformation(extent={{-260,-100},{-220,-60}}),
-      iconTransformation(extent={{-140,-120},{-100,-80}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput TSheTarSet[nZon](
-    final unit=fill("K",nZon),
-    displayUnit=fill("degC",nZon),
-    final quantity=fill("ThermodynamicTemperature",nZon))
-    "Load-shed target temperature setpoint"
-    annotation (Placement(transformation(extent={{-260,-140},{-220,-100}}),
-      iconTransformation(extent={{-140,-160},{-100,-120}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput TDefSet[nZon](
-    final unit=fill("K",nZon),
-    displayUnit=fill("degC",nZon),
-    final quantity=fill("ThermodynamicTemperature",nZon))
-    "Default temperature setpoint"
-    annotation (Placement(transformation(extent={{-260,-180},{-220,-140}}),
-        iconTransformation(extent={{-140,-200},{-100,-160}})));
   Buildings.Controls.OBC.CDL.Interfaces.IntegerInput demFleMod
     "Demand flexibility mode; 0 = pre-cool or pre-heat, 1 = default, 2 = load-shed, 3 = load-rebound"
     annotation (Placement(transformation(extent={{-260,-60},{-220,-20}}),
@@ -187,9 +181,10 @@ protected
     final dTSheThr=dTSheThr,
     final dT_small=dT_small,
     final airConMod=airConMod,
-    final use_demCon=zonConVar == Buildings.Controls.OBC.DemandFlexibility.Types.ZoneControlVariant.Variant_3
-         or zonConVar == Buildings.Controls.OBC.DemandFlexibility.Types.ZoneControlVariant.Variant_4,
-    final nZon=nZon) "Zone setpoint lower and upper bound"
+    final nZon=nZon,
+    TPreTarSet=TPreTarSet,
+    TSheTarSet=TSheTarSet,
+    TDefSet=TDefSet) "Zone setpoint lower and upper bound"
     annotation (Placement(transformation(extent={{-80,112},{-60,148}})));
   Buildings.Controls.OBC.DemandFlexibility.ZoneTemperatureSetpointChange.Subsequences.Prioritization
     zonPri(
@@ -203,6 +198,9 @@ protected
     final dTPre=fill(dTPre, nZon),
     final dTShe=fill(dTShe, nZon),
     final dTReb=fill(dTReb, nZon),
+    TPreTarSet={TPreTarSet[i] for i in 1:nZon},
+    TDefSet={TDefSet[i] for i in 1:nZon},
+    TSheTarSet={TSheTarSet[i] for i in 1:nZon},
     final airConMod=fill(airConMod, nZon),
     final use_mulSteSetCha=fill(zonConVar <> Buildings.Controls.OBC.DemandFlexibility.Types.ZoneControlVariant.Variant_1,
         nZon)) "The zone setpoint adjustment logic block"
@@ -281,12 +279,6 @@ equation
           0},{-130,130},{-82,130}}, color={0,0,127}));
   connect(demFleMod, lowUppBou.demFleMod) annotation (Line(points={{-240,-40},{-120,
           -40},{-120,126},{-82,126}}, color={255,127,0}));
-  connect(TPreTarSet, lowUppBou.TPreTarSet) annotation (Line(points={{-240,-80},
-          {-110,-80},{-110,122},{-82,122}}, color={0,0,127}));
-  connect(TSheTarSet, lowUppBou.TSheTarSet) annotation (Line(points={{-240,-120},
-          {-100,-120},{-100,118},{-82,118}}, color={0,0,127}));
-  connect(TDefSet, lowUppBou.TDefSet) annotation (Line(points={{-240,-160},{-90,
-          -160},{-90,114},{-82,114}}, color={0,0,127}));
   connect(TCurZon, zonPri.TZon)
     annotation (Line(points={{-240,40},{-140,40},{-140,92},{58,92}},
       color={0,0,127}));
@@ -298,13 +290,7 @@ equation
   connect(repDemFleMod.y, zonSetAdj.demFleMod) annotation (Line(points={{-18,-40},
           {80,-40},{80,-105},{118,-105}}, color={255,127,0}));
   connect(TCurZonSet, zonSetAdj.TCurZonSet) annotation (Line(points={{-240,0},{-130,
-          0},{-130,-108.5},{118,-108.5}},      color={0,0,127}));
-  connect(TPreTarSet, zonSetAdj.TPreTarSet) annotation (Line(points={{-240,-80},
-          {-110,-80},{-110,-111.667},{118,-111.667}}, color={0,0,127}));
-  connect(TSheTarSet, zonSetAdj.TSheTarSet) annotation (Line(points={{-240,-120},
-          {-100,-120},{-100,-115},{118,-115}}, color={0,0,127}));
-  connect(TDefSet, zonSetAdj.TDefSet) annotation (Line(points={{-240,-160},{-90,
-          -160},{-90,-118.333},{118,-118.333}}, color={0,0,127}));
+          0},{-130,-108.5},{118,-108.5}}, color={0,0,127}));
   connect(conNSel.y, zonPri.nSel)
     annotation (Line(points={{22,50},{40,50},{40,84},{58,84}}, color={255,127,0}));
   connect(not1.y, zonSetAdj.uEna) annotation (Line(points={{82,130},{100,130},{
@@ -378,8 +364,8 @@ equation
     annotation (Line(points={{-302,410},{-380,410}}, color={255,0,255}));
   connect(conOccStaInt.y, xor.u2) annotation (Line(points={{-338,370},{-320,370},
           {-320,402},{-302,402}}, color={255,0,255}));
-  connect(xor.y, booScaRep.u) annotation (Line(points={{-278,410},{-212,410},{
-          -212,396},{-146,396}}, color={255,0,255}));
+  connect(xor.y, booScaRep.u) annotation (Line(points={{-278,410},{-212,410},{-212,
+          396},{-146,396}}, color={255,0,255}));
   annotation (defaultComponentName="zonTemSetCon",
     Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-180},{100,180}},
     grid={2,2}), graphics={Rectangle(
