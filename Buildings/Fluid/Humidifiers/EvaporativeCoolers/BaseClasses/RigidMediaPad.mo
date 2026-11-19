@@ -3,12 +3,12 @@ model RigidMediaPad "Rigid media pad"
   extends Buildings.Fluid.Interfaces.TwoPortHeatMassExchanger(
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
     redeclare Buildings.Fluid.MixingVolumes.MixingVolumeMoistAir vol,
-    final m_flow_nominal=m_flow_nominal,
+    final m_flow_nominal=per.v_nominal*padAre*Medium.dStp,
     final dp_nominal=per.dp_nominal,
     final n=per.n);
 
-  final parameter Modelica.Units.SI.MassFlowRate m_flow_nominal=per.v_nominal*padAre*Medium.dStp
-    "Mass flow nominal";
+  //final parameter Modelica.Units.SI.MassFlowRate m_flow_nominal=per.v_nominal*padAre*Medium.dStp
+  //  "Mass flow nominal";
   parameter Modelica.Units.SI.Area padAre
     "Area of the rigid media pad";
   replaceable parameter Buildings.Fluid.Humidifiers.EvaporativeCoolers.Data.Generic per
@@ -93,7 +93,7 @@ equation
     annotation (Line(points={{22,-50},{40,-50},{40,-38},{58,-38}}, color={0,0,127}));
   connect(pInl.y, wetBul.p)
     annotation (Line(points={{-79,60},{-60,60},{-60,72},{-21,72}}, color={0,0,127}));
-annotation (defaultComponentName="dirEvaCoo", Icon(graphics={
+annotation (defaultComponentName="rigMedPad", Icon(graphics={
   Rectangle(lineColor={0,0,255}, fillColor={95,95,95}, pattern=LinePattern.None,
             fillPattern=FillPattern.Solid, extent={{-70,60},{70,-60}}),
   Rectangle(lineColor={0,0,255}, fillColor={0,0,255}, pattern = LinePattern.None,

@@ -71,7 +71,7 @@ model IndirectDryTest "Indirect dry evaporative cooler"
         transformation(
         extent={{-20,-20},{20,20}},
         rotation=90,
-        origin={-20,-120}), iconTransformation(
+        origin={-80,-120}), iconTransformation(
         extent={{-20,-20},{20,20}},
         rotation=90,
         origin={60,-100})));
@@ -112,8 +112,14 @@ model IndirectDryTest "Indirect dry evaporative cooler"
     n=1.7,
     dp_nominal=dpPle_nominal)    "Plenum"
     annotation (Placement(transformation(extent={{60,-70},{80,-50}})));
+  BaseClasses.WaterBasin watBas(redeclare
+      Buildings.Fluid.Movers.Data.Pumps.Wilo.Stratos30slash1to8 per)
+    annotation (Placement(transformation(extent={{20,-100},{40,-80}})));
+  Controls.OBC.CDL.Reals.Sources.Constant mRecPum_flow(k=2)
+    "Mass flow setpoint of the recirculation pump"
+    annotation (Placement(transformation(extent={{-20,-110},{0,-90}})));
 protected
-  BaseClasses.PadAndSink                                padAndSin(
+  BaseClasses.RigidMediaPad                             rigMedPad(
     redeclare final package Medium = Medium2,
     final padAre=padAre,
     per(final efficiency=per.efficiency,
@@ -131,10 +137,10 @@ protected
     annotation (Placement(transformation(origin={70,60},
                                                        extent = {{-10, -10}, {10, 10}})));
 equation
-  connect(padAndSin.dmWat_flow, dmWat_flow)
+  connect(rigMedPad.dmWat_flow, dmWat_flow)
     annotation (Line(points={{-1,-56},{10,-56},{10,-30},{260,-30}},
                                                                  color={0,0,127}));
-  connect(evaCooAct,padAndSin. evaCooAct)
+  connect(evaCooAct,rigMedPad. evaCooAct)
     annotation (Line(points={{-120,0},{-30,0},{-30,-64},{-19,-64}},
       color={255,0,255}));
   connect(dryCoil.TLvg, TLvg) annotation (Line(points={{78,60},{140,60},{140,10},
@@ -149,7 +155,7 @@ equation
       thickness=0.5));
   connect(fan.port_b, sin.ports[1])
     annotation (Line(points={{140,-80},{160,-80}}, color={0,127,255}));
-  connect(uFan, fan.y) annotation (Line(points={{-20,-120},{110,-120},{110,-68},
+  connect(uFan, fan.y) annotation (Line(points={{-80,-120},{110,-120},{110,-68},
           {130,-68}}, color={0,0,127}));
   connect(port_a, dryCoil.port_a1) annotation (Line(points={{-100,60},{0,60},{0,
           66},{60,66}},  color={0,127,255}));
@@ -159,14 +165,18 @@ equation
           {50,-80},{120,-80}},                     color={0,127,255}));
   connect(sou.ports[1], inlFil.port_a)
     annotation (Line(points={{-80,-60},{-60,-60}}, color={0,127,255}));
-  connect(inlFil.port_b,padAndSin. port_a)
+  connect(inlFil.port_b,rigMedPad. port_a)
     annotation (Line(points={{-40,-60},{-20,-60}}, color={0,127,255}));
-  connect(padAndSin.port_b, moiEli.port_a)
+  connect(rigMedPad.port_b, moiEli.port_a)
     annotation (Line(points={{0,-60},{20,-60}}, color={0,127,255}));
   connect(moiEli.port_b, ple.port_a)
     annotation (Line(points={{40,-60},{60,-60}}, color={0,127,255}));
   connect(ple.port_b, dryCoil.port_a2) annotation (Line(points={{80,-60},{100,-60},
           {100,54},{80,54}}, color={0,127,255}));
+  connect(rigMedPad.dmWat_flow, watBas.mEva_flow) annotation (Line(points={{-1,
+          -56},{10,-56},{10,-84},{18,-84}}, color={0,0,127}));
+  connect(mRecPum_flow.y, watBas.mRecPum_flow) annotation (Line(points={{2,-100},
+          {10,-100},{10,-96},{18,-96}}, color={0,0,127}));
 annotation (defaultComponentName="indDryEva",
 Documentation(info="<html>
 <p>

@@ -6,7 +6,8 @@ block WaterBasin "Water basin"
   parameter Modelica.Units.SI.Height level_target(min=0, max=height)=0.15 "Target water level in the tank";
   parameter Modelica.Units.SI.MassFlowRate mMakUp_flow_nominal=0.5
     "Make up water mass flow nominal";
-  parameter Modelica.Units.SI.MassFlowRate mRec_flow_nominal=2
+  final parameter Modelica.Units.SI.MassFlowRate mRec_flow_nominal=
+    if per.havePressureCurve then per.V_flow_max*rho_default else 2
     "Recirculation water mass flow nominal";
   parameter Real cycCon=4
     "Cycle of concentration for blowdown";
@@ -36,12 +37,16 @@ block WaterBasin "Water basin"
   Movers.FlowControlled_m_flow             mov(
     redeclare package Medium = Medium,
     per=per,
-    addPowerToMedium=true)  annotation (Placement(transformation(
+    addPowerToMedium=true,
+    m_flow_nominal=mRec_flow_nominal)
+                            annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={-70,-20})));
-  parameter Movers.Data.Generic per
-    annotation (Placement(transformation(extent={{-120,-40},{-100,-20}})));
+  replaceable parameter Buildings.Fluid.Movers.Data.Generic per
+    constrainedby Buildings.Fluid.Movers.Data.Generic
+    annotation (choicesAllMatching=true,
+                Placement(transformation(extent={{-120,-40},{-100,-20}})));
   FixedResistances.PressureDrop                 preDro1(
     redeclare package Medium = Medium,
     m_flow_nominal=mRec_flow_nominal,
@@ -113,6 +118,12 @@ block WaterBasin "Water basin"
   Controls.OBC.CDL.Interfaces.RealOutput mMakUp_flow "Makeup water flow"
     annotation (Placement(transformation(extent={{120,-20},{160,20}}),
         iconTransformation(extent={{100,-20},{140,20}})));
+protected
+  parameter Medium.Density rho_default=Medium.density(sta_default)
+    "Density, used to compute fluid volume";
+  parameter Medium.ThermodynamicState sta_default=
+     Medium.setState_pTX(T=Medium.T_default, p=Medium.p_default, X=Medium.X_default)
+    "Default medium state";
 equation
   connect(tank.ports[1],mov. port_a) annotation (Line(points={{-21.3333,-50},{
           -21.3333,-60},{-70,-60},{-70,-30}},
@@ -175,15 +186,5 @@ First implementation.
 </li>
 </ul>
 </html>", info="<html>
-<p>
-This block routes the two Real inputs <code>u1</code> and <code>u3</code> to the two
-Real outputs <code>y1</code> and <code>y2</code> based on the Boolean input
-<code>u2</code>.
-</p>
-<p>
-If <code>u2</code> is <code>true</code>, <code>y1 = u1</code> and
-<code>y2 = u3</code>. If <code>u2</code> is <code>false</code>, <code>y1 = u3</code>
-and <code>y2 = u1</code>.
-</p>
 </html>"));
 end WaterBasin;

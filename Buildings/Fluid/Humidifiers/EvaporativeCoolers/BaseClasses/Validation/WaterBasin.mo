@@ -1,7 +1,8 @@
 within Buildings.Fluid.Humidifiers.EvaporativeCoolers.BaseClasses.Validation;
 model WaterBasin "Water basin"
   extends Modelica.Icons.Example;
-  Buildings.Fluid.Humidifiers.EvaporativeCoolers.BaseClasses.WaterBasin watBas
+  Buildings.Fluid.Humidifiers.EvaporativeCoolers.BaseClasses.WaterBasin watBas(
+      redeclare Buildings.Fluid.Movers.Data.Pumps.Wilo.Stratos30slash1to8 per)
     annotation (Placement(transformation(extent={{60,0},{80,20}})));
   Controls.OBC.CDL.Reals.Sources.Sin mEva_flow(
     amplitude=0.01,
