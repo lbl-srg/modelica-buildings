@@ -56,9 +56,14 @@
   optimica:
     comment: Fails with 'The rootfinding function failed in an unrecoverable manner.' Since oct-r26446
     simulate: false
+- model_name: Buildings.Examples.VAVReheat.ASHRAE2006
+  openmodelica:
+    comment: Solver gbode reduces simulation time by a factor of 4.7 compared to dassl
+    solver: gbode
 - model_name: Buildings.Examples.VAVReheat.Guideline36
   openmodelica:
-    comment: Timeout during translation
+    comment: Timeout during translation; solver gbode reduces simulation time by a factor of 3.4 compared to dassl
+    solver: gbode
     time_out: 600
 - model_name: Buildings.Examples.VAVReheat.Validation.Guideline36SteadyState
   openmodelica:
@@ -66,6 +71,9 @@
     simulate: false
     time_out: 600
 - model_name: Buildings.Examples.VAVReheat.Validation.TraceSubstance
+  openmodelica:
+    comment: Solver gbode reduces simulation time by a factor of 3.8 compared to dassl
+    solver: gbode
   optimica:
     comment: Process timeout after 300 s
     time_out: 600
