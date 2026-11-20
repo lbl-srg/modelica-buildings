@@ -1,5 +1,5 @@
-within Buildings.Fluid.Humidifiers.EvaporativeCoolers.Validation;
-model IndirectWet "Validation model for indirect wet evaporative cooler"
+within Buildings.Fluid.Humidifiers.EvaporativeCoolers.WetCoil.Validation;
+model WetCoilAirToAir "Validation model for indirect wet evaporative cooler"
   extends Modelica.Icons.Example;
 
   replaceable package MediumA = Buildings.Media.Air
@@ -11,7 +11,7 @@ model IndirectWet "Validation model for indirect wet evaporative cooler"
   parameter Modelica.Units.SI.MassFlowRate m2_flow_nominal=1*1.225
     "Secondary nominal mass flow rate";
 
-  Buildings.Fluid.Humidifiers.EvaporativeCoolers.IndirectWet indWetEvaCoo(
+  Buildings.Fluid.Humidifiers.EvaporativeCoolers.WetCoil.WetCoilAirToAir indWetEvaCoo(
     redeclare final package Medium1 = MediumA,
     redeclare final package Medium2 = MediumA,
     final dp1_nominal=200,
@@ -159,12 +159,12 @@ annotation (
   Diagram(coordinateSystem(extent = {{-200, -180}, {180, 180}})),
   Icon(coordinateSystem(extent = {{-100, -100}, {100, 100}})),
   experiment(StartTime=350000, StopTime = 604800, Interval = 60, Tolerance = 1e-6),
-  __Dymola_Commands(file = "modelica://Buildings/Resources/Scripts/Dymola/Fluid/Humidifiers/EvaporativeCoolers/Validation/IndirectWet.mos" "Simulate and plot"),
+  __Dymola_Commands(file = "modelica://Buildings/Resources/Scripts/Dymola/Fluid/Humidifiers/EvaporativeCoolers/WetCoil/Validation/WetCoilAirToAir.mos" "Simulate and plot"),
   Documentation(info = "<html>
 <p>
 This model validates the indirect wet evaporative cooler model
-<a href=\"modelica://Buildings.Fluid.Humidifiers.EvaporativeCoolers.IndirectWet\">
-Buildings.Fluid.Humidifiers.EvaporativeCoolers.IndirectWet</a>.
+<a href=\"modelica://Buildings.Fluid.Humidifiers.EvaporativeCoolers.WetCoil.WetCoilAirToAir\">
+Buildings.Fluid.Humidifiers.EvaporativeCoolers.WetCoil.WetCoilAirToAir</a>.
 </p>
 <p>
 The EnergyPlus results were generated using the example file <code>IndirectWet.idf</code>
@@ -217,4 +217,4 @@ First implementation.
 </li>
 </ul>
 </html>"));
-end IndirectWet;
+end WetCoilAirToAir;

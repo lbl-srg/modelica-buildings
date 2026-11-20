@@ -1,5 +1,5 @@
-within Buildings.Fluid.Humidifiers.EvaporativeCoolers.BaseClasses.Validation;
-model IndirectWet "Validation of the IndirectWet block"
+within Buildings.Fluid.Humidifiers.EvaporativeCoolers.WetCoil.BaseClasses.Validation;
+model WetCoilAirToAir "Validation of the WetCoilAirToAir block"
   extends Modelica.Icons.Example;
 
   parameter Real maxEff(
@@ -19,25 +19,25 @@ model IndirectWet "Validation of the IndirectWet block"
   parameter Modelica.Units.SI.VolumeFlowRate V_flow_nominal = 1
     "Nominal supply air volume flowrate";
 
-  Buildings.Fluid.Humidifiers.EvaporativeCoolers.BaseClasses.IndirectWet indWetCal(final
+  Buildings.Fluid.Humidifiers.EvaporativeCoolers.WetCoil.BaseClasses.WetCoilAirToAir indWetCal(final
       maxEff=maxEff, final floRat=floRat)
     "Calculation instance with time-varying primary air volume flowrate"
     annotation (Placement(transformation(origin={50,50}, extent={{-12,-12},{12,
             12}})));
 
-  Buildings.Fluid.Humidifiers.EvaporativeCoolers.BaseClasses.IndirectWet indWetCal1(final
+  Buildings.Fluid.Humidifiers.EvaporativeCoolers.WetCoil.BaseClasses.WetCoilAirToAir indWetCal1(final
       maxEff=maxEff, final floRat=floRat)
     "Calculation instance with time-varying secondary air volume flowrate"
     annotation (Placement(transformation(origin={50,0}, extent={{-12,-12},{12,
             12}})));
 
-  Buildings.Fluid.Humidifiers.EvaporativeCoolers.BaseClasses.IndirectWet indWetCal2(final
+  Buildings.Fluid.Humidifiers.EvaporativeCoolers.WetCoil.BaseClasses.WetCoilAirToAir indWetCal2(final
       maxEff=maxEff, final floRat=floRat)
     "Calculation instance with time-varying secondary air drybulb temperature"
     annotation (Placement(transformation(origin={50,-50}, extent={{-12,-12},{12,
             12}})));
 
-  Buildings.Fluid.Humidifiers.EvaporativeCoolers.BaseClasses.IndirectWet indWetCal3(final
+  Buildings.Fluid.Humidifiers.EvaporativeCoolers.WetCoil.BaseClasses.WetCoilAirToAir indWetCal3(final
       maxEff=maxEff, final floRat=floRat)
     "Calculation instance with time-varying secondary air wetbulb temperature"
     annotation (Placement(transformation(origin={50,-90}, extent={{-12,-12},{12,
@@ -125,7 +125,7 @@ equation
 annotation (Documentation(info="<html>
 <p>
 This model implements a validation of the block
-<a href=\"modelica://Buildings.Fluid.Humidifiers.EvaporativeCoolers.BaseClasses.IndirectWet\">
+<a href=\"modelica://Buildings.Fluid.Humidifiers.EvaporativeCoolers.WetCoil.BaseClasses.WetCoilAirToAir\">
 Buildings.Fluid.Humidifiers.EvaporativeCoolers.Baseclasses.IndirectWet</a>
 that calculates the outlet drybulb temoerature using measurements from the fluid
 streams and empirically determined perfromace coefficients.
@@ -190,4 +190,4 @@ experiment(
         "Simulate and plot"),
     Diagram(coordinateSystem(extent={{-100,-120},{100,120}})),
     Icon(coordinateSystem(extent={{-100,-100},{100,100}})));
-end IndirectWet;
+end WetCoilAirToAir;

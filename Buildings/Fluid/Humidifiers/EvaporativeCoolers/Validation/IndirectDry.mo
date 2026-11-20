@@ -4,154 +4,159 @@ model IndirectDry
 
   extends Modelica.Icons.Example;
   replaceable package MediumA = Buildings.Media.Air
-    "Medium";
-  parameter Modelica.Units.SI.MassFlowRate m1_flow_nominal= 2
-    "Primary air nominal mass flow rate";
+    "Medium Air";
+  replaceable package MediumW = Buildings.Media.Water
+    "Medium Water";
+  parameter Modelica.Units.SI.MassFlowRate m1_flow_nominal= 0.5
+    "Primary water nominal mass flow rate";
+  parameter Modelica.Units.SI.Pressure dp1_nominal=6000
+    "Nominal heat exchanger pressure drop of medium flow to be cooled";
 
   Buildings.Fluid.Humidifiers.EvaporativeCoolers.IndirectDry indDryEvaCoo(
-    redeclare final package Medium1 = MediumA,
+    redeclare final package Medium1 = MediumW,
     redeclare final package Medium2 = MediumA,
-    final dp1_nominal=200,
-    final dp2_nominal=200,
+    final dp1_nominal(displayUnit="Pa") = 200,
+    dpInlFil_nominal(displayUnit="Pa") = 20,
+    dpMoiEli_nominal(displayUnit="Pa") = 25,
+    dpPle_nominal(displayUnit="Pa") = 10,
     final m1_flow_nominal=m1_flow_nominal,
-    final eps=0.67,
     final padAre=0.6,
     redeclare Buildings.Fluid.Humidifiers.EvaporativeCoolers.Data.EnergyPlus per(d
-        =0.2))
+        =0.2),
+    dat=dat)
     "Indirect dry evaporative cooler"
     annotation (Placement(transformation(origin={-2,0}, extent={{-10,-10},{10,10}})));
-  Buildings.Fluid.Sources.Boundary_pT sin(
-    redeclare final package Medium = MediumA,
-    final nPorts=1)
-    "Sink for primary airflow"
-    annotation (Placement(transformation(origin={130,0}, extent={{10,-10},{-10,10}})));
-  Buildings.Fluid.Sources.Boundary_pT sin1(
-    redeclare final package Medium = MediumA,
-    final nPorts=1)
-    "Sink for secondary airflow"
-    annotation (Placement(transformation(origin={130,-40}, extent={{10,-10},{-10,10}})));
-  Buildings.Fluid.Sources.MassFlowSource_T souPri(
-    redeclare final package Medium = MediumA,
-    final use_T_in=true,
-    final use_Xi_in=true,
-    final use_m_flow_in=true,
-    final nPorts=1)
-    "Source for primary flow"
-    annotation (Placement(transformation(origin={-50,30}, extent={{-10,-10},{10,10}})));
-  Modelica.Blocks.Sources.CombiTimeTable combiTimeTable(
-    final columns=2:12,
-    final fileName=ModelicaServices.ExternalReferences.loadResource("modelica://Buildings/Resources/Data/Fluid/Humidifiers/EvaporativeCoolers/IndirectDry/IndirectDry.dat"),
-    final tableName = "EnergyPlus",
-    final tableOnFile = true,
-    final timeScale = 1)
-    "Table input from EnergyPlus"
-    annotation (Placement(transformation(origin={-170,90}, extent={{-10,-10},{10,10}})));
-  Buildings.Fluid.Sensors.TemperatureTwoPort senTem(
-    redeclare final package Medium = MediumA,
-    final m_flow_nominal=m1_flow_nominal)
-    "Outlet air drybulb temperature sensor"
-    annotation (Placement(transformation(origin={30,20}, extent={{-10,-10},{10,10}})));
-  Modelica.Blocks.Math.UnitConversions.From_degC from_degCPriIn
-    "Primary air inlet temperature to Kelvin"
-    annotation (Placement(transformation(origin={-110,50}, extent={{-10,-10},{10,10}})));
-  Buildings.Fluid.Sensors.MassFractionTwoPort senMasFra(
-    redeclare final package Medium = MediumA,
-    final m_flow_nominal=m1_flow_nominal)
-    "Measured primary outlet air mass fraction"
-    annotation (Placement(transformation(origin={60,20}, extent={{-10,-10},{10,10}})));
-  Modelica.Blocks.Math.Mean TOut_mean(
-    final f=1/600)
-    "Measured outlet air drybulb temperature mean"
-    annotation (Placement(transformation(origin={90,90}, extent={{-10,-10},{10,10}})));
-  Modelica.Blocks.Math.Mean XOut_mean(
-    final f=1/600)
-    "Measured primary outlet air mass fraction mean"
-    annotation (Placement(transformation(origin={90,60}, extent={{-10,-10},{10,10}})));
-  Buildings.Fluid.Sources.MassFlowSource_T souSec(
-    redeclare final package Medium = MediumA,
-    final use_T_in=true,
-    final use_Xi_in=true,
-    final use_m_flow_in=true,
-    final nPorts=1)
-    "Secondary air source"
-    annotation (Placement(transformation(origin={-50,-60}, extent={{-10,-10},{10,10}})));
-  Modelica.Blocks.Math.UnitConversions.From_degC from_degCSecIn
-    "Secondary air inlet temperature to Kelvin"
-    annotation (Placement(transformation(origin={-110,-80}, extent={{-10,-10},{10,10}})));
-  Buildings.Utilities.Psychrometrics.ToTotalAir toTotAirPriIn
-    "Primary inlet air mass fraction"
-    annotation (Placement(transformation(extent={{-120,0},{-100,20}})));
-  Buildings.Utilities.Psychrometrics.ToTotalAir toTotAirSecIn
-    "Secondary inlet air mass fraction"
-    annotation (Placement(transformation(extent={{-120,-130},{-100,-110}})));
-  Buildings.Utilities.Psychrometrics.ToTotalAir toTotAirPriOut
-    "Primary outlet air mass fraction"
-    annotation (Placement(transformation(extent={{-60,80},{-40,100}})));
-  Modelica.Blocks.Math.UnitConversions.To_degC to_degC
-    "Measured outlet air temperature to degree C"
-    annotation (Placement(transformation(extent={{40,80},{60,100}})));
-  Buildings.Controls.OBC.CDL.Reals.Sources.Constant con(
-    final k=2)
-    "Mass flowrate for air rejected to outdoor air"
-    annotation (Placement(transformation(extent={{-120,-40},{-100,-20}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant evaCooAct(
     final k=true)
     "Boolean pulse signal for active evaporative cooling"
     annotation (Placement(transformation(extent={{-80,-20},{-60,0}})));
+  parameter DryCoil.Data.Generic
+    dat(
+    Q_flow_nominal=-m1_flow_nominal*4200*(35 - 30),
+    TCooIn_nominal=308.15,
+    TCooOut_nominal=303.15,
+    dp_nominal=dp1_nominal,
+    TAirIn_nominal=298.15) "Performance data for dry cooler"
+    annotation (Placement(transformation(extent={{0,20},{20,40}})));
+  Movers.FlowControlled_m_flow                 pum(
+    redeclare package Medium = MediumW,
+    addPowerToMedium=false,
+    m_flow_nominal=m1_flow_nominal,
+    nominalValuesDefineDefaultPressureCurve=true)
+    "Pump for condenser water loop"
+    annotation (Placement(transformation(extent={{-140,20},{-120,40}})));
+  Sensors.TemperatureTwoPort                 TEnt(redeclare package Medium =
+        MediumW, m_flow_nominal=m1_flow_nominal)
+    "Water entering temperature"
+    annotation (Placement(transformation(extent={{-100,20},{-80,40}})));
+  Modelica.Thermal.HeatTransfer.Sources.FixedHeatFlow fixHeaFlo(Q_flow=0.5*
+        m1_flow_nominal*4200*5)       "Fixed heat flow rate"
+    annotation (Placement(transformation(extent={{0,100},{20,120}})));
+  MixingVolumes.MixingVolume                 vol(
+    nPorts=2,
+    redeclare package Medium = MediumW,
+    m_flow_nominal=m1_flow_nominal,
+    V=0.5,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
+    annotation (Placement(transformation(extent={{40,60},{60,80}})));
+  Sources.Boundary_pT                 exp(redeclare package Medium = MediumW,
+      nPorts=1)
+              "Expansion vessel"
+    annotation (Placement(transformation(extent={{140,0},{120,20}})));
+  Modelica.Blocks.Logical.OnOffController onOffCon(
+    bandwidth=2,
+    reference(unit="K", displayUnit="degC"),
+    u(unit="K", displayUnit="degC"))
+    "On/off controller"
+    annotation (Placement(transformation(extent={{-110,120},{-90,140}})));
+  Modelica.Blocks.Logical.Switch swi "Control switch for chilled water pump"
+    annotation (Placement(transformation(extent={{-70,120},{-50,140}})));
+  Modelica.Blocks.Sources.Constant TSwi(k=273.15 + 22)
+    "Switch temperature for switching tower pump on"
+    annotation (Placement(transformation(extent={{-170,114},{-150,134}})));
+  Modelica.Blocks.Sources.Constant zer(k=0) "Zero flow rate"
+    annotation (Placement(transformation(extent={{-110,90},{-90,110}})));
+  Modelica.Blocks.Sources.Constant m_flow(k=m1_flow_nominal)
+    "Water flow rate"
+    annotation (Placement(transformation(extent={{-110,152},{-90,172}})));
+  Modelica.Thermal.HeatTransfer.Sensors.TemperatureSensor TVol
+    "Water temperature"
+    annotation (Placement(transformation(extent={{-160,160},{-140,180}})));
+  Modelica.Blocks.Sources.Constant TSetLea(k=273.15 + 18)
+    "Setpoint for leaving temperature"
+    annotation (Placement(transformation(extent={{-40,-120},{-20,-100}})));
+  Controls.Continuous.LimPID conFan(
+    k=1,
+    Ti=60,
+    Td=10,
+    reverseActing=false,
+    initType=Modelica.Blocks.Types.Init.InitialState)
+    "Controller for tower fan"
+    annotation (Placement(transformation(extent={{22,-120},{42,-100}})));
+  BoundaryConditions.WeatherData.ReaderTMY3           weaDat(final
+      computeWetBulbTemperature=false, filNam=
+        Modelica.Utilities.Files.loadResource(
+        "modelica://Buildings/Resources/weatherdata/USA_CA_San.Francisco.Intl.AP.724940_TMY3.mos"))
+    annotation (Placement(transformation(extent={{-160,-140},{-140,-120}})));
 equation
-  connect(combiTimeTable.y[5], from_degCPriIn.u) annotation (Line(points={{-159,90},
-          {-140,90},{-140,50},{-122,50}}, color={0,0,127}));
-  connect(from_degCPriIn.y, souPri.T_in) annotation (Line(points={{-99,50},{-90,
-          50},{-90,34},{-62,34}},  color={0,0,127}));
-  connect(senMasFra.X, XOut_mean.u)
-    annotation (Line(points={{60,31},{60,60},{78,60}}, color={0,0,127}));
-  connect(from_degCSecIn.y, souSec.T_in) annotation (Line(points={{-99,-80},{
-          -90,-80},{-90,-56},{-62,-56}}, color={0,0,127}));
-  connect(indDryEvaCoo.port_b1, senTem.port_a) annotation (Line(points={{8,6},{
-          12,6},{12,20},{20,20}}, color={0,127,255}));
-  connect(combiTimeTable.y[6], toTotAirPriIn.XiDry) annotation (Line(points={{-159,90},
-          {-150,90},{-150,10},{-121,10}}, color={0,0,127}));
-  connect(toTotAirPriIn.XiTotalAir, souPri.Xi_in[1]) annotation (Line(points={{-99,10},
-          {-80,10},{-80,26},{-62,26}}, color={0,0,127}));
-  connect(toTotAirSecIn.XiTotalAir, souSec.Xi_in[1]) annotation (Line(points={{-99,
-          -120},{-80,-120},{-80,-64},{-62,-64}}, color={0,0,127}));
-  connect(senTem.port_b, senMasFra.port_a)
-    annotation (Line(points={{40,20},{50,20}}, color={0,127,255}));
-  connect(combiTimeTable.y[8], toTotAirPriOut.XiDry)
-    annotation (Line(points={{-159,90},{-61,90}}, color={0,0,127}));
-  connect(combiTimeTable.y[9], souPri.m_flow_in) annotation (Line(points={{-159,90},
-          {-80,90},{-80,38},{-62,38}},       color={0,0,127}));
-  connect(senMasFra.port_b, sin.ports[1]) annotation (Line(points={{70,20},{100,
-          20},{100,0},{120,0}},   color={0,127,255}));
-  connect(to_degC.y, TOut_mean.u) annotation (Line(points={{61,90},{78,90}},
-          color={0,0,127}));
-  connect(to_degC.u, senTem.T)
-    annotation (Line(points={{38,90},{30,90},{30,31}}, color={0,0,127}));
-  connect(con.y, souSec.m_flow_in) annotation (Line(points={{-98,-30},{-90,-30},
-          {-90,-52},{-62,-52}}, color={0,0,127}));
-  connect(combiTimeTable.y[1], from_degCSecIn.u) annotation (Line(points={{-159,90},
-          {-140,90},{-140,-80},{-122,-80}}, color={0,0,127}));
-  connect(combiTimeTable.y[11], toTotAirSecIn.XiDry) annotation (Line(points={{-159,90},
-          {-150,90},{-150,-120},{-121,-120}}, color={0,0,127}));
-  connect(indDryEvaCoo.port_b2, sin1.ports[1]) annotation (Line(points={{8,-6},{
-          40,-6},{40,-40},{120,-40}},  color={0,127,255}));
-  connect(souPri.ports[1], indDryEvaCoo.port_a1) annotation (Line(points={{-40,30},
-          {-20,30},{-20,6},{-12,6}}, color={0,127,255}));
-  connect(souSec.ports[1], indDryEvaCoo.port_a2) annotation (Line(points={{-40,-60},
-          {-20,-60},{-20,-6},{-12,-6}}, color={0,127,255}));
 
   connect(evaCooAct.y, indDryEvaCoo.evaCooAct) annotation (Line(points={{-58,-10},
           {-40,-10},{-40,0},{-11,0}}, color={255,0,255}));
+  connect(pum.port_b, TEnt.port_a)
+    annotation (Line(points={{-120,30},{-100,30}}, color={0,127,255}));
+  connect(TEnt.port_b, indDryEvaCoo.port_a) annotation (Line(points={{-80,30},{
+          -46,30},{-46,6},{-12,6}}, color={0,127,255}));
+  connect(indDryEvaCoo.port_b, vol.ports[1]) annotation (Line(points={{8,6},{50,
+          6},{50,60},{49,60}}, color={0,127,255}));
+  connect(exp.ports[1], indDryEvaCoo.port_b) annotation (Line(points={{120,10},
+          {62,10},{62,6},{8,6}}, color={0,127,255}));
+  connect(vol.ports[2], pum.port_a) annotation (Line(points={{51,60},{-160,60},
+          {-160,30},{-140,30}}, color={0,127,255}));
+  connect(fixHeaFlo.port, vol.heatPort) annotation (Line(points={{20,110},{20,
+          91},{40,91},{40,70}}, color={191,0,0}));
+  connect(onOffCon.y,swi. u2)
+   annotation (Line(points={{-89,130},{-72,130}},
+                                                color={255,0,255}));
+  connect(zer.y,swi. u3)
+   annotation (Line(points={{-89,100},{-82,100},{-82,122},{-72,122}},
+     color={0,0,127}));
+  connect(m_flow.y,swi. u1)
+   annotation (Line(points={{-89,162},{-82,162},{-82,138},{-72,138}},
+     color={0,0,127}));
+  connect(onOffCon.u,TSwi. y)
+   annotation (Line(points={{-112,124},{-149,124}},color={0,0,127}));
+  connect(TVol.T,onOffCon. reference)
+   annotation (Line(points={{-139,170},{-130,170},{-130,136},{-112,136}},
+      color={0,0,127}));
+  connect(vol.heatPort, TVol.port) annotation (Line(points={{40,70},{-190,70},{
+          -190,170},{-160,170}}, color={191,0,0}));
+  connect(swi.y, pum.m_flow_in) annotation (Line(points={{-49,130},{-28,130},{
+          -28,42},{-130,42}}, color={0,0,127}));
+  connect(TSetLea.y, conFan.u_s)
+    annotation (Line(points={{-19,-110},{20,-110}}, color={0,0,127}));
+  connect(indDryEvaCoo.TLvg, conFan.u_m) annotation (Line(points={{7,2},{10,2},
+          {10,-122},{32,-122}}, color={0,0,127}));
+  connect(weaDat.weaBus, indDryEvaCoo.weaBus) annotation (Line(
+      points={{-140,-130},{-50,-130},{-50,-6},{-13,-6}},
+      color={255,204,51},
+      thickness=0.5));
+  connect(conFan.y, indDryEvaCoo.uFan) annotation (Line(points={{43,-110},{50,
+          -110},{50,-10},{4,-10}}, color={0,0,127}));
 annotation (
   Diagram(coordinateSystem(extent={{-200,-180},{180,180}})),
   Icon(coordinateSystem(extent={{-100,-100},{100,100}})),
-  experiment(StartTime=350000, StopTime=604800, Interval=60, Tolerance=1e-6),
+  experiment(
+      StartTime=21600000,
+      StopTime=21686400,
+      Interval=60,
+      Tolerance=1e-06,
+      __Dymola_Algorithm="Dassl"),
   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Humidifiers/EvaporativeCoolers/Validation/IndirectDry.mos"
       "Simulate and plot"),
   Documentation(info="<html>
 <p>
 This model validates the indirect dry evaporative cooler model
-<a href=\"modelica://Buildings.Fluid.Humidifiers.EvaporativeCoolers.IndirectDry\">
+<a href=\"modelica://CCC_test.EvaporativeCooler.archived_20261119.IndirectDry\">
 Buildings.Fluid.Humidifiers.EvaporativeCoolers.IndirectDry</a>.
 </p>
 <p>

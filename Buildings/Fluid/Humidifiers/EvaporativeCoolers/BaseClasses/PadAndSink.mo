@@ -144,7 +144,7 @@ equation
     annotation (Line(points={{30,-140},{30,-160}}, color={0,127,255}));
   connect(junEva.port_2, preDro1.port_a)
     annotation (Line(points={{30,-180},{30,-220}}, color={0,127,255}));
-  annotation (defaultComponentName="selLarVal",
+  annotation (defaultComponentName="padAndSin",
     Icon(coordinateSystem(preserveAspectRatio=false,
     extent={{-100,-100},{100,100}},
     grid={2,2}), graphics={Rectangle(

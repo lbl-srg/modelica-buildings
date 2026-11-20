@@ -1,7 +1,6 @@
 within Buildings.Fluid.Humidifiers.EvaporativeCoolers;
-model IndirectDry
-  "Indirect dry evaporative cooler"
-  extends Buildings.Fluid.Interfaces.PartialFourPortParallel;
+model IndirectDry "Indirect dry evaporative cooler"
+  //extends Buildings.Fluid.Interfaces.PartialFourPortParallel;
 
   replaceable package Medium1 =
     Modelica.Media.Interfaces.PartialMedium
@@ -19,13 +18,14 @@ model IndirectDry
     "Medium rejected to outdoor air"
     annotation (choices(
       choice(redeclare package Medium = Buildings.Media.Air "Moist air")));
-  parameter Real eps(
-    final unit = "1")=0.8
-    "Heat exchanger effectiveness";
   parameter Modelica.Units.SI.Pressure dp1_nominal
     "Nominal heat exchanger pressure drop of medium flow to be cooled";
-  parameter Modelica.Units.SI.Pressure dp2_nominal
-    "Nominal heat exchanger pressure drop of medium rejected to outdoor air";
+  parameter Modelica.Units.SI.Pressure dpInlFil_nominal
+    "Nominal  pressure drop of the inlet filter";
+  parameter Modelica.Units.SI.Pressure dpMoiEli_nominal
+    "Nominal  pressure drop of the moisture eliminator";
+  parameter Modelica.Units.SI.Pressure dpPle_nominal
+    "Nominal  pressure drop of the plenum due to the air flow turn";
   parameter Modelica.Units.SI.MassFlowRate m1_flow_nominal
     "Nominal heat exchanger mass flow rate of medium to be cooled";
   final parameter Modelica.Units.SI.MassFlowRate m2_flow_nominal=per.v_nominal*padAre*Medium2.dStp
@@ -36,7 +36,15 @@ model IndirectDry
     constrainedby Buildings.Fluid.Humidifiers.EvaporativeCoolers.Data.Generic
     "Record with performance data for rigid media pads"
     annotation (choicesAllMatching=true,
-      Placement(transformation(extent={{-80,20},{-60,40}})));
+      Placement(transformation(extent={{-20,-40},{0,-20}})));
+  parameter Buildings.Fluid.Humidifiers.EvaporativeCoolers.DryCoil.Data.Generic
+    dat(
+    Q_flow_nominal=-m1_flow_nominal*4200*(35 - 30),
+    TCooIn_nominal=308.15,
+    TCooOut_nominal=303.15,
+    dp_nominal=dp1_nominal,
+    TAirIn_nominal=298.15) "Performance data for dry cooler"
+    annotation (Placement(transformation(extent={{80,80},{100,100}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput evaCooAct
     "True: the evaporative cooling is active"
@@ -46,10 +54,66 @@ model IndirectDry
     final unit="kg/s",
     final quantity="MassFlowRate")
     "Water vapor mass flow rate difference between inlet and outlet of secondary air"
-    annotation (Placement(transformation(origin={120,90},extent={{-20,-20},{20,20}}),
-      iconTransformation(origin={90,0}, extent={{-20,-20},{20,20}})));
+    annotation (Placement(transformation(origin={260,-30},
+                                                         extent={{-20,-20},{20,20}}),
+      iconTransformation(origin={90,-20},
+                                        extent={{-20,-20},{20,20}})));
+  Modelica.Fluid.Interfaces.FluidPort_a port_a(redeclare package Medium =
+        Medium1) annotation (Placement(transformation(extent={{-110,50},{-90,70}}),
+        iconTransformation(extent={{-110,50},{-90,70}})));
+  Modelica.Fluid.Interfaces.FluidPort_b port_b(redeclare package Medium =
+        Medium1) annotation (Placement(transformation(extent={{230,50},{250,70}}),
+        iconTransformation(extent={{90,50},{110,70}})));
+  Controls.OBC.CDL.Interfaces.RealOutput           TLvg annotation (Placement(
+        transformation(extent={{240,-10},{280,30}}), iconTransformation(extent={{70,0},{
+            110,40}})));
+  Controls.OBC.CDL.Interfaces.RealInput uFan annotation (Placement(
+        transformation(
+        extent={{-20,-20},{20,20}},
+        rotation=90,
+        origin={-80,-120}), iconTransformation(
+        extent={{-20,-20},{20,20}},
+        rotation=90,
+        origin={60,-100})));
+  Sources.Outside sou(redeclare final package Medium = Medium2, final nPorts=1)
+    "Source for secondary airflow" annotation (Placement(transformation(
+        origin={-90,-60},
+        extent={{10,-10},{-10,10}},
+        rotation=180)));
+  Sources.Outside sin(redeclare final package Medium = Medium2, final nPorts=1)
+    "Sink for secondary airflow" annotation (Placement(transformation(
+        origin={170,-80},
+        extent={{10,-10},{-10,10}},
+        rotation=0)));
+  BoundaryConditions.WeatherData.Bus weaBus annotation (Placement(
+        transformation(extent={{-170,-80},{-130,-40}}), iconTransformation(
+          extent={{-120,-70},{-100,-50}})));
+  Movers.SpeedControlled_y fan(
+    redeclare package Medium = Medium2,
+    per=BIDW12,
+    addPowerToMedium=false)
+    annotation (Placement(transformation(extent={{120,-90},{140,-70}})));
+  parameter Movers.Data.Fans.Greenheck.BIDW12 BIDW12
+    annotation (Placement(transformation(extent={{120,-140},{160,-100}})));
+  FixedResistances.PressureDrop inlFil(redeclare package Medium = Medium2,
+      m_flow_nominal=m2_flow_nominal,
+    n=1.8,
+    dp_nominal=dpInlFil_nominal) "Inlet filter"
+    annotation (Placement(transformation(extent={{-60,-70},{-40,-50}})));
+  FixedResistances.PressureDrop moiEli(
+    redeclare package Medium = Medium2,
+    m_flow_nominal=m2_flow_nominal,
+    n=1.8,
+    dp_nominal=dpMoiEli_nominal) "Moisture eliminator"
+    annotation (Placement(transformation(extent={{20,-70},{40,-50}})));
+  FixedResistances.PressureDrop ple(
+    redeclare package Medium = Medium2,
+    m_flow_nominal=m2_flow_nominal,
+    n=1.7,
+    dp_nominal=dpPle_nominal)    "Plenum"
+    annotation (Placement(transformation(extent={{60,-70},{80,-50}})));
 protected
-  Buildings.Fluid.Humidifiers.EvaporativeCoolers.Direct dirEvaCoo(
+  BaseClasses.PadAndSink                                padAndSin(
     redeclare final package Medium = Medium2,
     final padAre=padAre,
     per(final efficiency=per.efficiency,
@@ -57,35 +121,52 @@ protected
       final dp_nominal=per.dp_nominal,
       final n=per.n))
     "Direct evaporative cooler for representing the cooling effect on the secondary air"
-    annotation (Placement(transformation(origin={0,-60}, extent={{-10,-10},{10,10}})));
-  Buildings.Fluid.HeatExchangers.ConstantEffectiveness hex(
-    redeclare final package Medium1 = Medium1,
-    redeclare final package Medium2 = Medium2,
-    final dp1_nominal=dp1_nominal,
-    final dp2_nominal=dp2_nominal,
-    final eps = eps,
-    final m1_flow_nominal = m1_flow_nominal,
-    final m2_flow_nominal = m2_flow_nominal)
+    annotation (Placement(transformation(origin={-10,-60},
+                                                         extent={{-10,-10},{10,10}})));
+  DryCoil.DryCoil                                      dryCoil(
+    redeclare package Medium1 = Medium1,
+    redeclare package Medium2 = Medium2,
+                                dat=dat)
     "Heat exchanger for heat transfer between primary and secondary air"
-    annotation (Placement(transformation(origin={0,10},extent = {{-10, -10}, {10, 10}})));
+    annotation (Placement(transformation(origin={70,60},
+                                                       extent = {{-10, -10}, {10, 10}})));
 equation
-  connect(port_a2,dirEvaCoo. port_a)
-    annotation (Line(points={{-100,-60},{-10,-60}}));
-  connect(hex.port_b2, port_b2)
-    annotation (Line(points={{-10,4},{-20,4},{-20,-20},{80,-20},{80,-60},{100,-60}},
-      color = {0, 127, 255}));
-  connect(port_a1, hex.port_a1)
-    annotation (Line(points={{-100,60},{-20,60},{-20,16},{-10,16}}));
-  connect(hex.port_b1, port_b1)
-    annotation (Line(points={{10,16},{20,16},{20,60},{100,60}},
-      color = {0, 127, 255}));
-  connect(dirEvaCoo.dmWat_flow, dmWat_flow)
-    annotation (Line(points={{9,-56},{60,-56},{60,90},{120,90}}, color={0,0,127}));
-  connect(dirEvaCoo.port_b, hex.port_a2)
-    annotation (Line(points={{10,-60},{20,-60},{20,4},{10,4}}, color={0,127,255}));
-  connect(evaCooAct, dirEvaCoo.evaCooAct)
-    annotation (Line(points={{-120,0},{-60,0},{-60,-64},{-9,-64}},
+  connect(padAndSin.dmWat_flow, dmWat_flow)
+    annotation (Line(points={{-1,-56},{10,-56},{10,-30},{260,-30}},
+                                                                 color={0,0,127}));
+  connect(evaCooAct,padAndSin. evaCooAct)
+    annotation (Line(points={{-120,0},{-30,0},{-30,-64},{-19,-64}},
       color={255,0,255}));
+  connect(dryCoil.TLvg, TLvg) annotation (Line(points={{78,60},{140,60},{140,10},
+          {260,10}},     color={0,0,127}));
+  connect(weaBus, sin.weaBus) annotation (Line(
+      points={{-150,-60},{-120,-60},{-120,-160},{200,-160},{200,-79.8},{180,-79.8}},
+      color={255,204,51},
+      thickness=0.5));
+  connect(weaBus, sou.weaBus) annotation (Line(
+      points={{-150,-60},{-125,-60},{-125,-60.2},{-100,-60.2}},
+      color={255,204,51},
+      thickness=0.5));
+  connect(fan.port_b, sin.ports[1])
+    annotation (Line(points={{140,-80},{160,-80}}, color={0,127,255}));
+  connect(uFan, fan.y) annotation (Line(points={{-80,-120},{110,-120},{110,-68},
+          {130,-68}}, color={0,0,127}));
+  connect(port_a, dryCoil.port_a1) annotation (Line(points={{-100,60},{0,60},{0,
+          66},{60,66}},  color={0,127,255}));
+  connect(dryCoil.port_b1, port_b) annotation (Line(points={{80,66},{220,66},{220,
+          60},{240,60}},     color={0,127,255}));
+  connect(dryCoil.port_b2, fan.port_a) annotation (Line(points={{60,54},{50,54},
+          {50,-80},{120,-80}},                     color={0,127,255}));
+  connect(sou.ports[1], inlFil.port_a)
+    annotation (Line(points={{-80,-60},{-60,-60}}, color={0,127,255}));
+  connect(inlFil.port_b,padAndSin. port_a)
+    annotation (Line(points={{-40,-60},{-20,-60}}, color={0,127,255}));
+  connect(padAndSin.port_b, moiEli.port_a)
+    annotation (Line(points={{0,-60},{20,-60}}, color={0,127,255}));
+  connect(moiEli.port_b, ple.port_a)
+    annotation (Line(points={{40,-60},{60,-60}}, color={0,127,255}));
+  connect(ple.port_b, dryCoil.port_a2) annotation (Line(points={{80,-60},{100,-60},
+          {100,54},{80,54}}, color={0,127,255}));
 annotation (defaultComponentName="indDryEva",
 Documentation(info="<html>
 <p>
@@ -131,7 +212,8 @@ First implementation.
 </li>
 </ul>
 </html>"),
-Icon(graphics={Rectangle(lineColor = {0, 0, 255}, fillColor = {95, 95, 95}, pattern = LinePattern.None,
+Icon(coordinateSystem(extent={{-100,-100},{100,100}}),
+     graphics={Rectangle(lineColor = {0, 0, 255}, fillColor = {95, 95, 95}, pattern = LinePattern.None,
             fillPattern = FillPattern.Solid, extent={{-70,60},{70,-60}}),
   Rectangle(lineColor = {0, 0, 255}, pattern = LinePattern.None,
             fillPattern = FillPattern.Solid, extent={{-102,65},{98,56}}),
@@ -195,5 +277,6 @@ Icon(graphics={Rectangle(lineColor = {0, 0, 255}, fillColor = {95, 95, 95}, patt
   Rectangle(lineColor={255, 255, 255}, fillColor={255,236,32},
             fillPattern=FillPattern.Solid, extent={{-20,-56},{-60,-52}}),
   Rectangle(lineColor={255, 255, 255}, fillColor={255,236,32},
-            fillPattern=FillPattern.Solid, extent={{-20,-52},{-24,52}})}));
+            fillPattern=FillPattern.Solid, extent={{-20,-52},{-24,52}})}),
+    Diagram(coordinateSystem(extent={{-100,-100},{240,100}})));
 end IndirectDry;

@@ -1,5 +1,5 @@
-within Buildings.Fluid.Humidifiers.EvaporativeCoolers;
-model IndirectWet "Indirect wet evaporative cooler"
+within Buildings.Fluid.Humidifiers.EvaporativeCoolers.WetCoil;
+model WetCoilAirToAir "Indirect wet evaporative cooler"
   extends Buildings.Fluid.Interfaces.PartialFourPortParallel;
 
   replaceable package Medium1 = Modelica.Media.Interfaces.PartialMedium
@@ -77,7 +77,7 @@ protected
     nPorts=2)
     "Mixing volume for primary fluid"
     annotation (Placement(transformation(origin={70,40}, extent={{-10,-10},{10,10}})));
-  Buildings.Fluid.Humidifiers.EvaporativeCoolers.BaseClasses.IndirectWet indWetCal(final
+  Buildings.Fluid.Humidifiers.EvaporativeCoolers.WetCoil.BaseClasses.WetCoilAirToAir indWetCal(final
       maxEff=maxEff, final floRat=floRat)
     "Indirect wet evaporative cooling calculations"
     annotation (Placement(transformation(extent={{20,70},{40,90}})));
@@ -181,7 +181,7 @@ inlet.
 <li>
 Indirect wet evaporative cooling calculations for calculating primary outlet drybulb 
 temperature
-(<a href=\"modelica://Buildings.Fluid.Humidifiers.EvaporativeCoolers.BaseClasses.IndirectWet\">
+(<a href=\"modelica://Buildings.Fluid.Humidifiers.EvaporativeCoolers.WetCoil.BaseClasses.WetCoilAirToAir\">
 Buildings.Fluid.Humidifiers.EvaporativeCoolers.Baseclasses.IndirectWet</a>).
 </li>
 <li>
@@ -204,7 +204,7 @@ connecting any downstream components to it.
 A diagram for this model is shown below:
 </p>
 <p align=\"center\">
-<img alt=\"image\" src=\"modelica://Buildings/Resources/Images/Fluid/Humidifiers/EvaporativeCoolers/IndirectWetEvaporativeCooler.png\"/>
+<img alt=\"image\" src=\"modelica://Buildings/Resources/Images/Fluid/Humidifiers/EvaporativeCoolers/WetCoil/WetCoilAirToAirEvaporativeCooler.png\"/>
 </p>
 </html>", revisions="<html>
 <ul>
@@ -310,4 +310,4 @@ Icon(graphics={
           fillColor={0,255,255},
           fillPattern=FillPattern.Solid,
           smooth=Smooth.Bezier)}));
-end IndirectWet;
+end WetCoilAirToAir;

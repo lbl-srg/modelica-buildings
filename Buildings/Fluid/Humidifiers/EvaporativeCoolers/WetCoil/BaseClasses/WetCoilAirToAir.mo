@@ -1,5 +1,5 @@
-within Buildings.Fluid.Humidifiers.EvaporativeCoolers.BaseClasses;
-block IndirectWet
+within Buildings.Fluid.Humidifiers.EvaporativeCoolers.WetCoil.BaseClasses;
+block WetCoilAirToAir
   "Calculates the heat transfer in an indirect wet evaporative cooler"
 
   parameter Real maxEff(
@@ -187,4 +187,4 @@ First implementation.
     textColor={0,0,127},
     textString="TDryBulPriOut")}),
     Diagram(coordinateSystem(extent={{-100,-120},{100,120}})));
-end IndirectWet;
+end WetCoilAirToAir;

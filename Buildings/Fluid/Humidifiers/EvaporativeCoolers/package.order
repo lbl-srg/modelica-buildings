@@ -1,8 +1,8 @@
 Direct
 IndirectDry
-IndirectDryTest
-IndirectWet
-Data
 DryCoil
+RigidMediaPad
+WetCoil
+Data
 Validation
 BaseClasses

@@ -199,7 +199,7 @@ equation
       color={255,204,51},
       thickness=0.5));
   connect(ambAir.weaBus, weaBus) annotation (Line(
-      points={{140,-40},{160,-40},{160,-130},{-90,-130}},
+      points={{140,-39.8},{160,-39.8},{160,-130},{-90,-130}},
       color={255,204,51},
       thickness=0.5));
   annotation (
