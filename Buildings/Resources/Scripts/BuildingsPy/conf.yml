@@ -117,8 +117,8 @@
     time_out: 600
 - model_name: Buildings.Examples.VAVReheat.Validation.TraceSubstance
   openmodelica:
-    comment: Solver cvode reduces simulation time by a factor of 8.7 compared to dassl
-    solver: cvode
+    comment: Solver gbode reduces simulation time by a factor of 5.2 compared to dassl
+    solver: gbode
   optimica:
     comment: Process timeout after 300 s
     time_out: 600
