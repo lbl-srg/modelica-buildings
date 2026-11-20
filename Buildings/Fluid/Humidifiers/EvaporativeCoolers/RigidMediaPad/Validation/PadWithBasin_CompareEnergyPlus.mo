@@ -1,5 +1,5 @@
-within Buildings.Fluid.Humidifiers.EvaporativeCoolers.Validation;
-model Direct_CompareEnergyPlus
+within Buildings.Fluid.Humidifiers.EvaporativeCoolers.RigidMediaPad.Validation;
+model PadWithBasin_CompareEnergyPlus
   "Validation model for a direct evaporative cooler against EnergyPlus results"
   extends Modelica.Icons.Example;
 
@@ -8,11 +8,9 @@ model Direct_CompareEnergyPlus
   parameter Modelica.Units.SI.MassFlowRate m_flow_nominal = 2
     "Nominal supply air volume flowrate";
 
-  Buildings.Fluid.Humidifiers.EvaporativeCoolers.Direct dirEvaCoo(
+  Buildings.Fluid.Humidifiers.EvaporativeCoolers.RigidMediaPad.PadWithBasin                            padWitBas(
     redeclare final package Medium = MediumA,
-    final padAre=0.6,
-    redeclare Buildings.Fluid.Humidifiers.EvaporativeCoolers.Data.EnergyPlus per(d
-        =0.2))
+    final padAre=0.6)
     "Direct evaporative cooler"    annotation (Placement(
         transformation(origin={10,0},extent={{-10,-10},{10,10}})));
   Buildings.Fluid.Sources.Boundary_pT sin(
@@ -76,9 +74,12 @@ model Direct_CompareEnergyPlus
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant evaCooAct(
     final k=true)
     "Boolean pulse signal for active evaporative cooling"
-    annotation (Placement(transformation(extent={{-40,-80},{-20,-60}})));
+    annotation (Placement(transformation(extent={{-40,40},{-20,60}})));
+  Controls.OBC.CDL.Reals.Sources.Constant mRecPum_flow(k=2)
+    "Mass flow setpoint of the recirculation pump"
+    annotation (Placement(transformation(extent={{-40,-60},{-20,-40}})));
 equation
-  connect(dirEvaCoo.port_b, senTem.port_a)
+  connect(padWitBas.port_b, senTem.port_a)
     annotation (Line(points={{20,0},{30,0}}, color={0,127,255}));
   connect(senTem.T, mea.u)
     annotation (Line(points={{40,11},{40,60},{58,60}}, color={0,0,127}));
@@ -100,12 +101,14 @@ equation
     annotation (Line(points={{60,0},{50,0}}, color={0,127,255}));
   connect(senMasFra.port_b, sin.ports[1])
     annotation (Line(points={{80,0},{100,0}},color={0,127,255}));
-  connect(sou.ports[1],dirEvaCoo. port_a)
+  connect(sou.ports[1],padWitBas. port_a)
     annotation (Line(points={{-20,0},{0,0}},   color={0,127,255}));
-  connect(evaCooAct.y,dirEvaCoo. evaCooAct) annotation (Line(points={{-18,-70},{
-          -10,-70},{-10,-4},{1,-4}}, color={255,0,255}));
+  connect(evaCooAct.y,padWitBas. evaCooAct) annotation (Line(points={{-18,50},{
+          -10,50},{-10,6},{-2,6}},   color={255,0,255}));
   connect(combiTimeTable.y[9], sou.m_flow_in) annotation (Line(points={{-109,40},
           {-100,40},{-100,8},{-42,8}}, color={0,0,127}));
+  connect(mRecPum_flow.y, padWitBas.mRecPum_flow) annotation (Line(points={{-18,
+          -50},{-10,-50},{-10,-6},{-2,-6}}, color={0,0,127}));
 annotation (
   Diagram(coordinateSystem(extent={{-140,-100},{140,100}})),
   experiment(StartTime=350000, StopTime=604800, Interval=60, Tolerance=1e-6),
@@ -168,6 +171,6 @@ First implementation.
 </ul>
 </html>"),
     Icon(coordinateSystem(extent={{-100,-100},{100,100}})),
-    __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Humidifiers/EvaporativeCoolers/Validation/Direct_CompareEnergyPlus.mos"
+    __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Humidifiers/EvaporativeCoolers/RigidMediaPad/Validation/PadWithBasin_CompareEnergyPlus.mos"
         "Simulate and plot"));
-end Direct_CompareEnergyPlus;
+end PadWithBasin_CompareEnergyPlus;

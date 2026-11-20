@@ -1,7 +1,7 @@
-within Buildings.Fluid.Humidifiers.EvaporativeCoolers.Data;
+within Buildings.Fluid.Humidifiers.EvaporativeCoolers.RigidMediaPad.Data;
 record EnergyPlus
   "Data for a rigid media pad from the EnergyPlus engineering reference with varying pad depth"
-  extends Buildings.Fluid.Humidifiers.EvaporativeCoolers.Data.Generic (
+  extends Buildings.Fluid.Humidifiers.EvaporativeCoolers.RigidMediaPad.Data.Generic (
     final efficiency(
       v={0,0.5,1,1.5,2,2.5,3,3.5,4,4.5,5},
       eta={1 - (1 - 0.9133)^(d / 0.15),

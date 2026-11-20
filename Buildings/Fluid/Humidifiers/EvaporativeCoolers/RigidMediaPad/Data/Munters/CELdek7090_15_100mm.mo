@@ -1,6 +1,6 @@
-within Buildings.Fluid.Humidifiers.EvaporativeCoolers.Data.Munters;
+within Buildings.Fluid.Humidifiers.EvaporativeCoolers.RigidMediaPad.Data.Munters;
 record CELdek7090_15_100mm "Data for CELdek 7090-15/100mm rigid media pad"
-  extends Buildings.Fluid.Humidifiers.EvaporativeCoolers.Data.Generic (
+  extends Buildings.Fluid.Humidifiers.EvaporativeCoolers.RigidMediaPad.Data.Generic (
     final efficiency(
       v={0,0.5,1,1.5,2,2.5,3,3.5,4,5,10},
       eta={0.836,0.815,0.768,0.73,0.699,0.672,0.649,0.628,0.61,0.551,0.364}),

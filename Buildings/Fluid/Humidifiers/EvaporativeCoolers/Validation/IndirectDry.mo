@@ -21,11 +21,13 @@ model IndirectDry
     dpPle_nominal(displayUnit="Pa") = 10,
     final m1_flow_nominal=m1_flow_nominal,
     final padAre=0.6,
-    redeclare Buildings.Fluid.Humidifiers.EvaporativeCoolers.Data.EnergyPlus per(d
-        =0.2),
-    dat=dat)
-    "Indirect dry evaporative cooler"
-    annotation (Placement(transformation(origin={-2,0}, extent={{-10,-10},{10,10}})));
+    redeclare
+      Buildings.Fluid.Humidifiers.EvaporativeCoolers.RigidMediaPad.Data.EnergyPlus
+      perPad(d=0.2),
+    dat=dat,
+    redeclare Buildings.Fluid.Movers.Data.Pumps.Wilo.Stratos30slash1to8
+      perRecPum) "Indirect dry evaporative cooler" annotation (Placement(
+        transformation(origin={-2,0}, extent={{-10,-10},{10,10}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant evaCooAct(
     final k=true)
     "Boolean pulse signal for active evaporative cooling"

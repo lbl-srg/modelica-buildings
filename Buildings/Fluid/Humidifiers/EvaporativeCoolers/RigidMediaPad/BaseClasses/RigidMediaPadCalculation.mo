@@ -1,4 +1,4 @@
-within Buildings.Fluid.Humidifiers.EvaporativeCoolers.BaseClasses;
+within Buildings.Fluid.Humidifiers.EvaporativeCoolers.RigidMediaPad.BaseClasses;
 block RigidMediaPadCalculation
   "Calculates the saturation efficiency and the water vapor mass flow rate of a rigid media pad"
 
@@ -6,8 +6,8 @@ block RigidMediaPadCalculation
     "Medium";
   parameter Modelica.Units.SI.Area padAre
     "Area of the rigid media pad";
-  replaceable parameter Buildings.Fluid.Humidifiers.EvaporativeCoolers.Data.Generic per
-    constrainedby Buildings.Fluid.Humidifiers.EvaporativeCoolers.Data.Generic
+  replaceable parameter Buildings.Fluid.Humidifiers.EvaporativeCoolers.RigidMediaPad.Data.Generic per
+    constrainedby Buildings.Fluid.Humidifiers.EvaporativeCoolers.RigidMediaPad.Data.Generic
     "Record with performance data for rigid media pads"
     annotation (choicesAllMatching=true,
       Placement(transformation(extent={{60,60},{80,80}})));
@@ -78,7 +78,7 @@ protected
 equation
   v =(abs(m_flow)/rho_default)/padAre;
   eta = min(1, max(0,
-    Buildings.Fluid.Humidifiers.EvaporativeCoolers.BaseClasses.Characteristics.saturationEfficiency(
+    Buildings.Fluid.Humidifiers.EvaporativeCoolers.RigidMediaPad.BaseClasses.Characteristics.saturationEfficiency(
       per=per.efficiency,
       v=v,
       d=etaDer)));
@@ -171,8 +171,8 @@ the water vapor mass flow rate addition into the air stream from the rigid media
 <p>
 The saturation efficiency of a rigid media pad <code>eta</code> is calculated using 
 a data record <code>per</code>, which is an instance of
-<a href=\"modelica://Buildings.Fluid.Humidifiers.EvaporativeCoolers.Data.Generic\">
-Buildings.Fluid.Humidifiers.EvaporativeCoolers.Data.Generic</a>. This data record
+<a href=\"modelica://Buildings.Fluid.Humidifiers.EvaporativeCoolers.RigidMediaPad.Data.Generic\">
+Buildings.Fluid.Humidifiers.EvaporativeCoolers.RigidMediaPad.Data.Generic</a>. This data record
 provides a performance map of discrete data points on how <code>eta</code> varies as
 a function of the velocity of the air stream <code>v</code>.
 </p>

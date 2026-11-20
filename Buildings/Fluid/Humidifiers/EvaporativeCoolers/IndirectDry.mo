@@ -28,15 +28,17 @@ model IndirectDry "Indirect dry evaporative cooler"
     "Nominal  pressure drop of the plenum due to the air flow turn";
   parameter Modelica.Units.SI.MassFlowRate m1_flow_nominal
     "Nominal heat exchanger mass flow rate of medium to be cooled";
-  final parameter Modelica.Units.SI.MassFlowRate m2_flow_nominal=per.v_nominal*padAre*Medium2.dStp
+  final parameter Modelica.Units.SI.MassFlowRate m2_flow_nominal=perPad.v_nominal
+      *padAre*Medium2.dStp
     "Nominal heat exchanger mass flow rate of medium rejected to outdoor air";
   parameter Modelica.Units.SI.Area padAre
     "Area of the rigid media pad";
-  replaceable parameter Buildings.Fluid.Humidifiers.EvaporativeCoolers.Data.Generic per
-    constrainedby Buildings.Fluid.Humidifiers.EvaporativeCoolers.Data.Generic
-    "Record with performance data for rigid media pads"
-    annotation (choicesAllMatching=true,
-      Placement(transformation(extent={{-20,-40},{0,-20}})));
+  replaceable parameter
+    Buildings.Fluid.Humidifiers.EvaporativeCoolers.RigidMediaPad.Data.Generic perPad
+    constrainedby
+    Buildings.Fluid.Humidifiers.EvaporativeCoolers.RigidMediaPad.Data.Generic
+    "Record with performance data for rigid media pads" annotation (
+      choicesAllMatching=true, Placement(transformation(extent={{-20,-40},{0,-20}})));
   parameter Buildings.Fluid.Humidifiers.EvaporativeCoolers.DryCoil.Data.Generic
     dat(
     Q_flow_nominal=-m1_flow_nominal*4200*(35 - 30),
@@ -112,17 +114,28 @@ model IndirectDry "Indirect dry evaporative cooler"
     n=1.7,
     dp_nominal=dpPle_nominal)    "Plenum"
     annotation (Placement(transformation(extent={{60,-70},{80,-50}})));
+  Controls.OBC.CDL.Reals.Sources.Constant mRecPum_flow(k=2)
+    "Mass flow setpoint of the recirculation pump"
+    annotation (Placement(transformation(extent={{-60,-100},{-40,-80}})));
+  replaceable parameter Buildings.Fluid.Movers.Data.Generic perRecPum
+  constrainedby
+    Buildings.Fluid.Movers.Data.Generic
+    "Performance record for the recirculation pump"
+    annotation (choicesAllMatching=true,
+      Placement(transformation(extent={{-20,0},{0,20}})));
 protected
-  BaseClasses.PadAndSink                                padAndSin(
+  RigidMediaPad.PadWithBasin padWitBas(
     redeclare final package Medium = Medium2,
     final padAre=padAre,
-    per(final efficiency=per.efficiency,
-      final v_nominal=per.v_nominal,
-      final dp_nominal=per.dp_nominal,
-      final n=per.n))
+    perPad(
+      final efficiency=perPad.efficiency,
+      final dp_nominal=perPad.dp_nominal,
+      final v_nominal=perPad.v_nominal,
+      final n=perPad.n),
+    perRecPum=perRecPum)
     "Direct evaporative cooler for representing the cooling effect on the secondary air"
-    annotation (Placement(transformation(origin={-10,-60},
-                                                         extent={{-10,-10},{10,10}})));
+    annotation (Placement(transformation(origin={-10,-60}, extent={{-10,-10},{10,
+            10}})));
   DryCoil.DryCoil                                      dryCoil(
     redeclare package Medium1 = Medium1,
     redeclare package Medium2 = Medium2,
@@ -131,11 +144,11 @@ protected
     annotation (Placement(transformation(origin={70,60},
                                                        extent = {{-10, -10}, {10, 10}})));
 equation
-  connect(padAndSin.dmWat_flow, dmWat_flow)
-    annotation (Line(points={{-1,-56},{10,-56},{10,-30},{260,-30}},
+  connect(padWitBas.dmWat_flow, dmWat_flow)
+    annotation (Line(points={{2,-54},{10,-54},{10,-30},{260,-30}},
                                                                  color={0,0,127}));
-  connect(evaCooAct,padAndSin. evaCooAct)
-    annotation (Line(points={{-120,0},{-30,0},{-30,-64},{-19,-64}},
+  connect(evaCooAct,padWitBas. evaCooAct)
+    annotation (Line(points={{-120,0},{-30,0},{-30,-54},{-22,-54}},
       color={255,0,255}));
   connect(dryCoil.TLvg, TLvg) annotation (Line(points={{78,60},{140,60},{140,10},
           {260,10}},     color={0,0,127}));
@@ -159,14 +172,16 @@ equation
           {50,-80},{120,-80}},                     color={0,127,255}));
   connect(sou.ports[1], inlFil.port_a)
     annotation (Line(points={{-80,-60},{-60,-60}}, color={0,127,255}));
-  connect(inlFil.port_b,padAndSin. port_a)
-    annotation (Line(points={{-40,-60},{-20,-60}}, color={0,127,255}));
-  connect(padAndSin.port_b, moiEli.port_a)
-    annotation (Line(points={{0,-60},{20,-60}}, color={0,127,255}));
   connect(moiEli.port_b, ple.port_a)
     annotation (Line(points={{40,-60},{60,-60}}, color={0,127,255}));
   connect(ple.port_b, dryCoil.port_a2) annotation (Line(points={{80,-60},{100,-60},
           {100,54},{80,54}}, color={0,127,255}));
+  connect(mRecPum_flow.y,padWitBas. mRecPum_flow) annotation (Line(points={{-38,
+          -90},{-30,-90},{-30,-66},{-22,-66}}, color={0,0,127}));
+  connect(inlFil.port_b, padWitBas.port_a)
+    annotation (Line(points={{-40,-60},{-20,-60}}, color={0,127,255}));
+  connect(padWitBas.port_b, moiEli.port_a)
+    annotation (Line(points={{0,-60},{20,-60}}, color={0,127,255}));
 annotation (defaultComponentName="indDryEva",
 Documentation(info="<html>
 <p>

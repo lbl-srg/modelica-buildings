@@ -1,4 +1,4 @@
-within Buildings.Fluid.Humidifiers.EvaporativeCoolers.Data;
+within Buildings.Fluid.Humidifiers.EvaporativeCoolers.RigidMediaPad.Data;
 package EvapcoLabTest
   "Package of rigid media pad performance data from the Evapco Lab Test"
   annotation (Documentation(info="<html>

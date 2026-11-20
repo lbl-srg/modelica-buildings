@@ -1,28 +1,28 @@
-within Buildings.Fluid.Humidifiers.EvaporativeCoolers.Data.EvapcoLabTest;
-record ManufacturerA6inchVersion1
-  "Evapco test data for a 6-inch Version 1 rigid media pad from Manufacturer A"
-  extends Buildings.Fluid.Humidifiers.EvaporativeCoolers.Data.Generic (
+within Buildings.Fluid.Humidifiers.EvaporativeCoolers.RigidMediaPad.Data.EvapcoLabTest;
+record ManufacturerB6inchVersion3
+  "Evapco test data for a 6-inch Version 3 rigid media pad from Manufacturer B"
+  extends Buildings.Fluid.Humidifiers.EvaporativeCoolers.RigidMediaPad.Data.Generic (
     final efficiency(
-      v={0,1.27,1.524,1.778,2.032,2.2352,2.5146,2.7686,3.0226,3.302,3.556,5,10},
-      eta={0.819,0.744,0.731,0.714,0.695,0.681,0.664,0.66,0.647,0.634,0.623,0.553,
-        0.373}),
-    final dp_nominal=48.5238,
+      v={0,1.27,1.524,1.778,2.032,2.286,2.54,2.794,3.048,3.302,3.556,5,10},
+      eta={0.831,0.753,0.737,0.719,0.701,0.687,0.681,0.661,0.649,0.636,0.627,0.555,
+        0.370}),
+    final dp_nominal=74.652,
     final v_nominal=3.556,
-    final n=1.7360);
+    final n=1.8610);
 
   annotation (
 defaultComponentPrefixes="parameter",
 defaultComponentName="per",
 Documentation(info="<html>
 <p>
-This data record contains performance data for a 6-inch Version 1 rigid media pad
-from Manufacturer A in the Evapco Lab Test. 
+This data record contains performance data for a 6-inch Version 3 rigid media pad
+from Manufacturer B in the Evapco Lab Test. 
 </p>
 <p>
 For more information of the Evapco Lab Test and the rigid media pad naming
 conventions, refer to the documentation at
-<a href=\"modelica://Buildings.Fluid.Humidifiers.EvaporativeCoolers.Data.EvapcoLabTest\">
-Buildings.Fluid.Humidifiers.EvaporativeCoolers.Data.EvapcoLabTest</a>.
+<a href=\"modelica://Buildings.Fluid.Humidifiers.EvaporativeCoolers.RigidMediaPad.Data.EvapcoLabTest\">
+Buildings.Fluid.Humidifiers.EvaporativeCoolers.RigidMediaPad.Data.EvapcoLabTest</a>.
 </p>
 <p>
 The data points are digitized from the Adiabatic Pad Saturation White Paper. Data
@@ -34,9 +34,9 @@ pressure drop data points:
 <i>dp = a v<sup>n</sup></i>
 </p>
 <p>
-We found <i>a = 5.2676</i> and <i>n = 1.7360</i>. By setting the nominal air
+We found <i>a = 6.9674</i> and <i>n = 1.8610</i>. By setting the nominal air
 velocity <i>v_nominal = 3.556 m/s</i> and plug this into the fitted equation, the
-nominal pressure drop <i>dp_nominal = 48.5238 Pa</i>. Only <i>dp_nominal</i>,
+nominal pressure drop <i>dp_nominal = 74.652 Pa</i>. Only <i>dp_nominal</i>,
 <i>v_nominal</i>, and the flow exponent for pressure drop <i>n</i> are included in
 this data record.
 </p>
@@ -49,7 +49,7 @@ fitted into the saturation efficiency data points:
 <i>&eta; = e<sup>-b (v - c)</sup></i>
 </p>
 <p>
-We found <i>b = 0.07878901</i> and <i>c = -2.52851027</i>. This fitted equation was
+We found <i>b = 0.08093234</i> and <i>c = -2.28149984</i>. This fitted equation was
 used to calculate the saturation efficiency for air velocities at <i>0 m/s</i>,
 <i>5 m/s</i>, and <i>10 m/s</i>. These additional saturation efficiency values were
 then added to the original set of saturation efficiency data points in this data
@@ -68,4 +68,4 @@ First implementation.
 </li>
 </ul>
 </html>"));
-end ManufacturerA6inchVersion1;
+end ManufacturerB6inchVersion3;

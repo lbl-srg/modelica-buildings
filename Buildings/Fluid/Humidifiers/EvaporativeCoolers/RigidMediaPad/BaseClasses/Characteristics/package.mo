@@ -1,4 +1,4 @@
-within Buildings.Fluid.Humidifiers.EvaporativeCoolers.BaseClasses;
+within Buildings.Fluid.Humidifiers.EvaporativeCoolers.RigidMediaPad.BaseClasses;
 package Characteristics "Performance curves for rigid media pad characteristics"
   annotation (Documentation(info="<html>
 <p>
@@ -20,9 +20,9 @@ performance curve is implemented:
 <tr>
 <td>Air velocity</td>
 <td>Saturation efficiency</td>
-<td><a href=\"modelica://Buildings.Fluid.Humidifiers.EvaporativeCoolers.BaseClasses.Characteristics.saturationEfficiencyParameters\">
+<td><a href=\"modelica://Buildings.Fluid.Humidifiers.EvaporativeCoolers.RigidMediaPad.BaseClasses.Characteristics.saturationEfficiencyParameters\">
 saturationEfficiencyParameters</a></td>
-<td><a href=\"modelica://Buildings.Fluid.Humidifiers.EvaporativeCoolers.BaseClasses.Characteristics.saturationEfficiency\">
+<td><a href=\"modelica://Buildings.Fluid.Humidifiers.EvaporativeCoolers.RigidMediaPad.BaseClasses.Characteristics.saturationEfficiency\">
 saturationEfficiency</a></td>
 </tr>
 </table>

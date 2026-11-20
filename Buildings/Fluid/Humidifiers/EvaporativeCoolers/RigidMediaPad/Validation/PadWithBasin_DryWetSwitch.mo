@@ -1,5 +1,5 @@
-within Buildings.Fluid.Humidifiers.EvaporativeCoolers.Validation;
-model Direct_DryWetSwitch
+within Buildings.Fluid.Humidifiers.EvaporativeCoolers.RigidMediaPad.Validation;
+model PadWithBasin_DryWetSwitch
   "Validation model for a direct evaporative cooler for both dry and wet modes"
   extends Modelica.Icons.Example;
 
@@ -8,20 +8,14 @@ model Direct_DryWetSwitch
   parameter Modelica.Units.SI.MassFlowRate m_flow_nominal = 2
     "Nominal supply air volume flowrate";
 
-  Buildings.Fluid.Humidifiers.EvaporativeCoolers.Direct dirEvaCoo1(
-    redeclare final package Medium = MediumA,
-    final padAre=0.6,
-    redeclare Buildings.Fluid.Humidifiers.EvaporativeCoolers.Data.Generic per)
-    "Direct evaporative cooler"
-    annotation (Placement(transformation(origin={-50,0},
-      extent={{-10,-10},{10,10}})));
-  Buildings.Fluid.Humidifiers.EvaporativeCoolers.Direct dirEvaCoo2(
-    redeclare final package Medium = MediumA,
-    final padAre=0.6,
-    redeclare Buildings.Fluid.Humidifiers.EvaporativeCoolers.Data.Generic per)
-    "Direct evaporative cooler"
-    annotation (Placement(transformation(origin={70,0},
-      extent={{-10,-10},{10,10}})));
+  Buildings.Fluid.Humidifiers.EvaporativeCoolers.RigidMediaPad.PadWithBasin padWitBas1(redeclare
+      final                                                                                            package Medium =
+        MediumA, final padAre=0.6) "Direct evaporative cooler" annotation (
+      Placement(transformation(origin={-50,0}, extent={{-10,-10},{10,10}})));
+  Buildings.Fluid.Humidifiers.EvaporativeCoolers.RigidMediaPad.PadWithBasin padWitBas2(redeclare
+      final                                                                                            package Medium =
+        MediumA, final padAre=0.6) "Direct evaporative cooler" annotation (
+      Placement(transformation(origin={70,0}, extent={{-10,-10},{10,10}})));
   Buildings.Fluid.Sources.Boundary_pT sin(
     redeclare final package Medium = MediumA,
     final nPorts=1)
@@ -42,7 +36,7 @@ model Direct_DryWetSwitch
     period=86400,
     shift=0)
     "Boolean pulse signal for active evaporative cooling"
-    annotation (Placement(transformation(extent={{-180,-80},{-160,-60}})));
+    annotation (Placement(transformation(extent={{-180,40},{-160,60}})));
   Buildings.BoundaryConditions.WeatherData.ReaderTMY3 weaDat(
     filNam=ModelicaServices.ExternalReferences.loadResource("modelica://Buildings/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos"))
     "Weather data"
@@ -89,34 +83,39 @@ model Direct_DryWetSwitch
     "Outlet air water mass fraction sensor"
     annotation (Placement(transformation(origin={150,0},
       extent={{-10,-10},{10,10}})));
+  Controls.OBC.CDL.Reals.Sources.Constant mRecPum_flow(k=2)
+    "Mass flow setpoint of the recirculation pump"
+    annotation (Placement(transformation(extent={{-180,-80},{-160,-60}})));
 equation
-  connect(dirEvaCoo2.port_b, senTemOut.port_a)
+  connect(padWitBas2.port_b, senTemOut.port_a)
     annotation (Line(points={{80,0},{100,0}}, color={0,127,255}));
   connect(senMasFraOut.port_a, senTemOut.port_b)
     annotation (Line(points={{140,0},{120,0}}, color={0,127,255}));
   connect(senMasFraOut.port_b, sin.ports[1])
     annotation (Line(points={{160,0},{180,0}}, color={0,127,255}));
-  connect(evaCooAct.y,dirEvaCoo2. evaCooAct)
-    annotation (Line(points={{-158,-70},{50,-70},{50,-4},{61,-4}},
-      color={255,0,255}));
+  connect(evaCooAct.y, padWitBas2.evaCooAct) annotation (Line(points={{-158,50},
+          {50,50},{50,6},{58,6}}, color={255,0,255}));
   connect(sou.ports[1], senTemIn.port_a)
     annotation (Line(points={{-160,0},{-140,0}}, color={0,127,255}));
   connect(senTemIn.port_b, senMasFraIn.port_a)
     annotation (Line(points={{-120,0},{-100,0}}, color={0,127,255}));
-  connect(senMasFraIn.port_b,dirEvaCoo1. port_a)
+  connect(senMasFraIn.port_b, padWitBas1.port_a)
     annotation (Line(points={{-80,0},{-60,0}}, color={0,127,255}));
-  connect(senTemMid.port_a,dirEvaCoo1. port_b)
+  connect(senTemMid.port_a, padWitBas1.port_b)
     annotation (Line(points={{-20,0},{-40,0}}, color={0,127,255}));
   connect(senTemMid.port_b, senMasFraMid.port_a)
     annotation (Line(points={{0,0},{20,0}}, color={0,127,255}));
-  connect(dirEvaCoo2.port_a, senMasFraMid.port_b)
+  connect(padWitBas2.port_a, senMasFraMid.port_b)
     annotation (Line(points={{60,0},{40,0}}, color={0,127,255}));
-  connect(evaCooAct.y,dirEvaCoo1. evaCooAct)
-    annotation (Line(points={{-158,-70},{-70,-70},{-70,-4},{-59,-4}},
-      color={255,0,255}));
+  connect(evaCooAct.y, padWitBas1.evaCooAct) annotation (Line(points={{-158,50},
+          {-70,50},{-70,6},{-62,6}}, color={255,0,255}));
   connect(weaDat.weaBus, sou.weaBus)
     annotation (Line(points={{-200,0},{-190,0},{-190,0.2},{-180,0.2}},
       color={255,204,51}, thickness=0.5));
+  connect(mRecPum_flow.y, padWitBas1.mRecPum_flow) annotation (Line(points={{
+          -158,-70},{-70,-70},{-70,-6},{-62,-6}}, color={0,0,127}));
+  connect(mRecPum_flow.y, padWitBas2.mRecPum_flow) annotation (Line(points={{
+          -158,-70},{50,-70},{50,-6},{58,-6}}, color={0,0,127}));
 annotation (
   Diagram(coordinateSystem(extent={{-220,-100},{220,100}})),
   experiment(
@@ -173,6 +172,6 @@ First implementation.
 </ul>
 </html>"),
     Icon(coordinateSystem(extent={{-100,-100},{100,100}})),
-    __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Humidifiers/EvaporativeCoolers/Validation/Direct_DryWetSwitch.mos"
+    __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Humidifiers/EvaporativeCoolers/RigidMediaPad/Validation/PadWithBasin_DryWetSwitch.mos"
         "Simulate and plot"));
-end Direct_DryWetSwitch;
+end PadWithBasin_DryWetSwitch;

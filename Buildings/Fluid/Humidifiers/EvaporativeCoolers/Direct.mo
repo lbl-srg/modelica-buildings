@@ -10,8 +10,8 @@ model Direct
 
   parameter Modelica.Units.SI.Area padAre
     "Area of the rigid media pad";
-  replaceable parameter Buildings.Fluid.Humidifiers.EvaporativeCoolers.Data.Generic per
-    constrainedby Buildings.Fluid.Humidifiers.EvaporativeCoolers.Data.Generic
+  replaceable parameter Buildings.Fluid.Humidifiers.EvaporativeCoolers.RigidMediaPad.Data.Generic per
+    constrainedby Buildings.Fluid.Humidifiers.EvaporativeCoolers.RigidMediaPad.Data.Generic
     "Record with performance data for rigid media pads"
     annotation (choicesAllMatching=true,
       Placement(transformation(extent={{60,60},{80,80}})));
@@ -27,7 +27,7 @@ model Direct
     annotation (Placement(transformation(origin={120,80}, extent={{-20,-20},{20,20}}),
       iconTransformation(origin={90,40}, extent={{-20,-20},{20,20}})));
 protected
-  Buildings.Fluid.Humidifiers.EvaporativeCoolers.BaseClasses.RigidMediaPadCalculation
+  Buildings.Fluid.Humidifiers.EvaporativeCoolers.RigidMediaPad.RigidMediaPadCalculation
     rigMedPadCal(
     redeclare final package Medium = Medium,
     final padAre=padAre,
@@ -168,8 +168,8 @@ pressure drop is the same regardless of whether evaporative cooling is active or
 This model uses a data record <code>per</code> to provide data on the saturation
 efficiency and the pressure drop of a rigid media pad within the evaporative cooler.
 This data record is an instance of
-<a href=\"modelica://Buildings.Fluid.Humidifiers.EvaporativeCoolers.Data.Generic\">
-Buildings.Fluid.Humidifiers.EvaporativeCoolers.Data.Generic</a>.
+<a href=\"modelica://Buildings.Fluid.Humidifiers.EvaporativeCoolers.RigidMediaPad.Data.Generic\">
+Buildings.Fluid.Humidifiers.EvaporativeCoolers.RigidMediaPad.Data.Generic</a>.
 </p>
 <p>
 The elemental block <code>dirEvaCooCal</code> calculates the saturation efficiency

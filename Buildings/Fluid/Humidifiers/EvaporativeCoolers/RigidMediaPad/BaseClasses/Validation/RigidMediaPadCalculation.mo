@@ -1,4 +1,4 @@
-within Buildings.Fluid.Humidifiers.EvaporativeCoolers.BaseClasses.Validation;
+within Buildings.Fluid.Humidifiers.EvaporativeCoolers.RigidMediaPad.BaseClasses.Validation;
 model RigidMediaPadCalculation "Validation of the rigid media pad calculation"
   extends Modelica.Icons.Example;
 
@@ -13,25 +13,25 @@ model RigidMediaPadCalculation "Validation of the rigid media pad calculation"
   parameter Modelica.Units.SI.MassFlowRate m_flow_nominal = 1000
     "Nominal supply mass flowrate";
 
-  Buildings.Fluid.Humidifiers.EvaporativeCoolers.BaseClasses.RigidMediaPadCalculation
+  Buildings.Fluid.Humidifiers.EvaporativeCoolers.RigidMediaPad.RigidMediaPadCalculation
     rigMedPadCal1(
     redeclare package Medium = Buildings.Media.Air,
     final padAre=padAre,
-    redeclare Buildings.Fluid.Humidifiers.EvaporativeCoolers.Data.Generic per)
+    redeclare Buildings.Fluid.Humidifiers.EvaporativeCoolers.RigidMediaPad.Data.Generic per)
     "Instance with time-varying volume flowrate signal" annotation (Placement(
         transformation(origin={30,50}, extent={{-10,-10},{10,10}})));
-  Buildings.Fluid.Humidifiers.EvaporativeCoolers.BaseClasses.RigidMediaPadCalculation
+  Buildings.Fluid.Humidifiers.EvaporativeCoolers.RigidMediaPad.RigidMediaPadCalculation
     rigMedPadCal2(
     redeclare package Medium = Buildings.Media.Air,
     final padAre=padAre,
-    redeclare Buildings.Fluid.Humidifiers.EvaporativeCoolers.Data.Generic per)
+    redeclare Buildings.Fluid.Humidifiers.EvaporativeCoolers.RigidMediaPad.Data.Generic per)
     "Instance with time-varying wetbulb temperature signal" annotation (
       Placement(transformation(origin={30,0}, extent={{-10,-10},{10,10}})));
-  Buildings.Fluid.Humidifiers.EvaporativeCoolers.BaseClasses.RigidMediaPadCalculation
+  Buildings.Fluid.Humidifiers.EvaporativeCoolers.RigidMediaPad.RigidMediaPadCalculation
     rigMedPadCal3(
     redeclare package Medium = Buildings.Media.Air,
     final padAre=padAre,
-    redeclare Buildings.Fluid.Humidifiers.EvaporativeCoolers.Data.Generic per)
+    redeclare Buildings.Fluid.Humidifiers.EvaporativeCoolers.RigidMediaPad.Data.Generic per)
     "Instance with time-varying drybulb temperature signal" annotation (
       Placement(transformation(origin={30,-50}, extent={{-10,-10},{10,10}})));
 protected
@@ -104,8 +104,8 @@ equation
 annotation (Documentation(info="<html>
 <p>
 This model implements a validation of the block
-<a href=\"modelica://Buildings.Fluid.Humidifiers.EvaporativeCoolers.BaseClasses.RigidMediaPadCalculation\">
-Buildings.Fluid.Humidifiers.EvaporativeCoolers.BaseClasses.RigidMediaPadCalculation</a>
+<a href=\"modelica://Buildings.Fluid.Humidifiers.EvaporativeCoolers.RigidMediaPad.RigidMediaPadCalculation\">
+Buildings.Fluid.Humidifiers.EvaporativeCoolers.RigidMediaPad.RigidMediaPadCalculation</a>
 that applies the peformance curve to calculate the water mass flow rate from an
 rigid media pad to the air stream.
 </p>
@@ -167,6 +167,6 @@ experiment(
     Interval=1,
       Tolerance=1e-6),
     __Dymola_Commands(file=
-          "modelica://Buildings/Resources/Scripts/Dymola/Fluid/Humidifiers/EvaporativeCoolers/BaseClasses/Validation/RigidMediaPadCalculation.mos"
+          "modelica://Buildings/Resources/Scripts/Dymola/Fluid/Humidifiers/EvaporativeCoolers/RigidMediaPad/BaseClasses/Validation/RigidMediaPadCalculation.mos"
         "Simulate and plot"));
 end RigidMediaPadCalculation;

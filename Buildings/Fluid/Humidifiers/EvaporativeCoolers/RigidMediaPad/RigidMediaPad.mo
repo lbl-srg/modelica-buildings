@@ -1,42 +1,33 @@
-within Buildings.Fluid.Humidifiers.EvaporativeCoolers.BaseClasses;
-model RigidMediaPad "Rigid media pad"
+within Buildings.Fluid.Humidifiers.EvaporativeCoolers.RigidMediaPad;
+partial model RigidMediaPad
+                    "Rigid media pad"
   extends Buildings.Fluid.Interfaces.TwoPortHeatMassExchanger(
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
     redeclare Buildings.Fluid.MixingVolumes.MixingVolumeMoistAir vol,
-    final m_flow_nominal=per.v_nominal*padAre*Medium.dStp,
-    final dp_nominal=per.dp_nominal,
-    final n=per.n);
+    final m_flow_nominal=perPad.v_nominal*padAre*Medium.dStp,
+    final dp_nominal=perPad.dp_nominal,
+    final n=perPad.n);
 
   //final parameter Modelica.Units.SI.MassFlowRate m_flow_nominal=per.v_nominal*padAre*Medium.dStp
   //  "Mass flow nominal";
   parameter Modelica.Units.SI.Area padAre
     "Area of the rigid media pad";
-  replaceable parameter Buildings.Fluid.Humidifiers.EvaporativeCoolers.Data.Generic per
-    constrainedby Buildings.Fluid.Humidifiers.EvaporativeCoolers.Data.Generic
-    "Record with performance data for rigid media pads"
-    annotation (choicesAllMatching=true,
-      Placement(transformation(extent={{60,60},{80,80}})));
+  replaceable parameter
+    Buildings.Fluid.Humidifiers.EvaporativeCoolers.RigidMediaPad.Data.Generic perPad
+    constrainedby
+    Buildings.Fluid.Humidifiers.EvaporativeCoolers.RigidMediaPad.Data.Generic
+    "Record with performance data for rigid media pads" annotation (
+      choicesAllMatching=true, Placement(transformation(extent={{60,60},{80,80}})));
 
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput evaCooAct
-    "True: the evaporative cooling is active"
-    annotation (Placement(transformation(extent={{-140,-100},{-100,-60}}),
-      iconTransformation(extent={{-110,-60},{-70,-20}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealOutput dmWat_flow(
-    final unit="kg/s",
-    final quantity="MassFlowRate")
-    "Water vapor mass flow rate difference between inlet and outlet"
-    annotation (Placement(transformation(origin={120,80}, extent={{-20,-20},{20,20}}),
-      iconTransformation(origin={90,40}, extent={{-20,-20},{20,20}})));
 protected
-  Buildings.Fluid.Humidifiers.EvaporativeCoolers.BaseClasses.RigidMediaPadCalculation
-    rigMedPadCal(
+  BaseClasses.RigidMediaPadCalculation rigMedPadCal(
     redeclare final package Medium = Medium,
     final padAre=padAre,
     per(
-      final efficiency=per.efficiency,
-      final v_nominal=per.v_nominal,
-      final dp_nominal=per.dp_nominal,
-      final n=per.n)) "Rigid media pad calculation" annotation (Placement(
+      final efficiency=perPad.efficiency,
+      final v_nominal=perPad.v_nominal,
+      final dp_nominal=perPad.dp_nominal,
+      final n=perPad.n)) "Rigid media pad calculation" annotation (Placement(
         transformation(origin={30,50}, extent={{-10,-10},{10,10}})));
   Medium.ThermodynamicState staInl=Medium.setState_phX(
     p=port_a.p, h=inStream(port_a.h_outflow), X=inStream(port_a.Xi_outflow))
@@ -79,13 +70,8 @@ equation
           44},{18,44}}, color={0,0,127}));
   connect(masflo.y, rigMedPadCal.m_flow) annotation (Line(points={{-79,30},{0,
           30},{0,48},{18,48}}, color={0,0,127}));
-  connect(evaCooAct, swiEvaCoo.u2)
-    annotation (Line(points={{-120,-80},{-40,-80},{-40,-30},{58,-30}},
-      color={255,0,255}));
   connect(rigMedPadCal.dmWat_flow, swiEvaCoo.u1) annotation (Line(points={{42,
           45},{50,45},{50,-22},{58,-22}}, color={0,0,127}));
-  connect(swiEvaCoo.y, dmWat_flow)
-    annotation (Line(points={{82,-30},{90,-30},{90,80},{120,80}}, color={0,0,127}));
   connect(swiEvaCoo.y, vol.mWat_flow)
     annotation (Line(points={{82,-30},{90,-30},{90,-80},{-20,-80},{-20,-18},
       {-11,-18}}, color={0,0,127}));
@@ -169,8 +155,8 @@ pressure drop is the same regardless of whether evaporative cooling is active or
 This model uses a data record <code>per</code> to provide data on the saturation
 efficiency and the pressure drop of a rigid media pad within the evaporative cooler.
 This data record is an instance of
-<a href=\"modelica://Buildings.Fluid.Humidifiers.EvaporativeCoolers.Data.Generic\">
-Buildings.Fluid.Humidifiers.EvaporativeCoolers.Data.Generic</a>.
+<a href=\"modelica://Buildings.Fluid.Humidifiers.EvaporativeCoolers.RigidMediaPad.Data.Generic\">
+Buildings.Fluid.Humidifiers.EvaporativeCoolers.RigidMediaPad.Data.Generic</a>.
 </p>
 <p>
 The elemental block <code>dirEvaCooCal</code> calculates the saturation efficiency

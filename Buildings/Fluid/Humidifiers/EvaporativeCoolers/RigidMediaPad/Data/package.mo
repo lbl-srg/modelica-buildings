@@ -1,4 +1,4 @@
-within Buildings.Fluid.Humidifiers.EvaporativeCoolers;
+within Buildings.Fluid.Humidifiers.EvaporativeCoolers.RigidMediaPad;
 package Data "Package containing data for real rigid media pads"
 
   annotation (Documentation(info="<html>

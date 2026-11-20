@@ -1,4 +1,4 @@
-within Buildings.Fluid.Humidifiers.EvaporativeCoolers.Data;
+within Buildings.Fluid.Humidifiers.EvaporativeCoolers.RigidMediaPad.Data;
 package Munters
   "Package of rigid media pad performance data from the manufacturer Munters"
   extends Modelica.Icons.Package;

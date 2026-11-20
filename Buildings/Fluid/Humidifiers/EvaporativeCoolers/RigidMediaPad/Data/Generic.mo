@@ -1,9 +1,9 @@
-within Buildings.Fluid.Humidifiers.EvaporativeCoolers.Data;
+within Buildings.Fluid.Humidifiers.EvaporativeCoolers.RigidMediaPad.Data;
 record Generic "Generic data record for a rigid media pad"
   extends Modelica.Icons.Record;
 
   parameter
-    Buildings.Fluid.Humidifiers.EvaporativeCoolers.BaseClasses.Characteristics.saturationEfficiencyParameters
+    Buildings.Fluid.Humidifiers.EvaporativeCoolers.RigidMediaPad.BaseClasses.Characteristics.saturationEfficiencyParameters
     efficiency(v={0,2.5,5}, eta={0.89,0.8,0.72}) "Saturation efficiency vs. air velocity";
   parameter Modelica.Units.SI.PressureDifference dp_nominal(displayUnit="Pa")=200
     "Pressure drop at nominal mass flow rate";

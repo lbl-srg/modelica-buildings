@@ -1,8 +1,8 @@
-within Buildings.Fluid.Humidifiers.EvaporativeCoolers.BaseClasses.Characteristics;
+within Buildings.Fluid.Humidifiers.EvaporativeCoolers.RigidMediaPad.BaseClasses.Characteristics;
 function saturationEfficiency "Saturation efficiency vs. air velocity"
   extends Modelica.Icons.Function;
   input
-    Buildings.Fluid.Humidifiers.EvaporativeCoolers.BaseClasses.Characteristics.saturationEfficiencyParameters
+    Buildings.Fluid.Humidifiers.EvaporativeCoolers.RigidMediaPad.BaseClasses.Characteristics.saturationEfficiencyParameters
     per "Efficiency performance data";
   input Real v "Air velocity";
   input Real d[:] "Derivatives at support points for spline interpolation";
