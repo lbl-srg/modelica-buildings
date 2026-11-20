@@ -1,0 +1,13 @@
+compareVars :=
+  {
+    "senTemIn.T",
+    "senTemMid.T",
+    "senTemOut.T",
+    "senMasFraIn.X",
+    "senMasFraMid.X",
+    "senMasFraOut.X",
+    "evaCooAct.y",
+    "dirEvaCoo1.port_a.p",
+    "dirEvaCoo2.port_a.p",
+    "dirEvaCoo2.port_b.p"
+  };
