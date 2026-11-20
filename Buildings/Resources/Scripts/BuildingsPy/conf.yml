@@ -1,6 +1,31 @@
+- model_name: Buildings.Air.Systems.SingleZone.VAV.Examples.Guideline36
+  openmodelica:
+    comment: Solver gbode reduces simulation time by a factor of 1.7 compared to dassl
+    solver: gbode
+- model_name: Buildings.Air.Systems.SingleZone.VAV.Examples.OptimalStart.ConventionalSpring
+  openmodelica:
+    comment: Solver gbode reduces simulation time by a factor of 2.3 compared to dassl
+    solver: gbode
+- model_name: Buildings.Air.Systems.SingleZone.VAV.Examples.OptimalStart.ConventionalSummer
+  openmodelica:
+    comment: Solver gbode reduces simulation time by a factor of 2.3 compared to dassl
+    solver: gbode
+- model_name: Buildings.Air.Systems.SingleZone.VAV.Examples.OptimalStart.ConventionalWinter
+  openmodelica:
+    comment: Solver gbode reduces simulation time by a factor of 2.2 compared to dassl
+    solver: gbode
+- model_name: Buildings.Air.Systems.SingleZone.VAV.Examples.OptimalStart.Guideline36Spring
+  openmodelica:
+    comment: Solver gbode reduces simulation time by a factor of 2.0 compared to dassl
+    solver: gbode
+- model_name: Buildings.Air.Systems.SingleZone.VAV.Examples.OptimalStart.Guideline36Summer
+  openmodelica:
+    comment: Solver gbode reduces simulation time by a factor of 2.3 compared to dassl
+    solver: gbode
 - model_name: Buildings.Air.Systems.SingleZone.VAV.Examples.OptimalStart.Guideline36Winter
   openmodelica:
-    comment: 'TimeoutExpired: omc timed out after 300 seconds'
+    comment: 'TimeoutExpired: omc timed out after 300 seconds; solver gbode reduces simulation time by a factor of 2.0 compared to dassl'
+    solver: gbode
     time_out: 600
 - model_name: Buildings.Airflow.Multizone.Examples.PressurizationData
   optimica:
@@ -109,6 +134,10 @@
   openmodelica:
     comment: simulation terminated by an assertion at initialization.
     simulate: false
+- model_name: Buildings.Examples.ChillerPlant.DataCenterDiscreteTimeControl
+  openmodelica:
+    comment: Solver gbode reduces simulation time by a factor of 2.2 compared to dassl
+    solver: gbode
 - model_name: Buildings.Examples.DualFanDualDuct.ClosedLoop
   openmodelica:
     comment: Timeout after 300 seconds.
@@ -117,9 +146,24 @@
     comment: 'RuntimeError: Process timeout after 300 seconds'
     simulate: false
 - model_name: Buildings.Examples.FanCoils.FourPipe
+  openmodelica:
+    comment: Solver cvode reduces simulation time by a factor of 6.8 compared to dassl
+    solver: cvode
   optimica:
     comment: Solves six times faster if tolerance is set to 1e-07
     rtol: 1.0e-07
+- model_name: Buildings.Examples.HydronicHeating.TwoRoomsWithStorage
+  openmodelica:
+    comment: Solver cvode reduces simulation time by a factor of 1.4 compared to dassl
+    solver: cvode
+- model_name: Buildings.Examples.ScalableBenchmarks.BuildingVAV.Examples.OneFloor_OneZone
+  openmodelica:
+    comment: Solver gbode reduces simulation time by a factor of 1.2 compared to dassl
+    solver: gbode
+- model_name: Buildings.Examples.ScalableBenchmarks.BuildingVAV.Examples.TwoFloor_TwoZone
+  openmodelica:
+    comment: Solver gbode reduces simulation time by a factor of 1.3 compared to dassl
+    solver: gbode
 - model_name: Buildings.Examples.VAVCO2.VAVSystemCTControl
   openmodelica:
     comment: Times out after 900 seconds.
@@ -129,11 +173,11 @@
     simulate: false
 - model_name: Buildings.Examples.VAVReheat.ASHRAE2006
   openmodelica:
-    comment: Solver gbode reduces simulation time by a factor of 4.7 compared to dassl
+    comment: Solver gbode reduces simulation time by a factor of 4.9 compared to dassl
     solver: gbode
 - model_name: Buildings.Examples.VAVReheat.Guideline36
   openmodelica:
-    comment: Timeout during translation; solver gbode reduces simulation time by a factor of 3.4 compared to dassl
+    comment: Timeout during translation; solver gbode reduces simulation time by a factor of 3.1 compared to dassl
     solver: gbode
     time_out: 600
 - model_name: Buildings.Examples.VAVReheat.Validation.Guideline36SteadyState
@@ -143,7 +187,7 @@
     time_out: 600
 - model_name: Buildings.Examples.VAVReheat.Validation.TraceSubstance
   openmodelica:
-    comment: CVode is around 10 times faster than dassl
+    comment: Solver cvode reduces simulation time by a factor of 6.9 compared to dassl
     solver: cvode
 - model_name: Buildings.Fluid.Chillers.ModularReversible.Validation.TableData2DLoadDep
   openmodelica:
