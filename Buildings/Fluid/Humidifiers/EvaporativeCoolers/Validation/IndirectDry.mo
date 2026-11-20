@@ -25,6 +25,7 @@ model IndirectDry
       Buildings.Fluid.Humidifiers.EvaporativeCoolers.RigidMediaPad.Data.EnergyPlus
       perPad(d=0.2),
     dat=dat,
+    redeclare Buildings.Fluid.Movers.Data.Fans.Greenheck.BIDW12 perFan,
     redeclare Buildings.Fluid.Movers.Data.Pumps.Wilo.Stratos30slash1to8
       perRecPum) "Indirect dry evaporative cooler" annotation (Placement(
         transformation(origin={-2,0}, extent={{-10,-10},{10,10}})));
@@ -158,7 +159,7 @@ annotation (
   Documentation(info="<html>
 <p>
 This model validates the indirect dry evaporative cooler model
-<a href=\"modelica://CCC_test.EvaporativeCooler.archived_20261119.IndirectDry\">
+<a href=\"modelica://Buildings.Fluid.Humidifiers.EvaporativeCoolers.IndirectDry\">
 Buildings.Fluid.Humidifiers.EvaporativeCoolers.IndirectDry</a>.
 </p>
 <p>

@@ -1,6 +1,6 @@
 within Buildings.Fluid.Humidifiers.EvaporativeCoolers.DryCoil.Data;
 record Generic "Performance data record for a dry cooler"
-  extends Buildings.Fluid.Humidifiers.EvaporativeCoolers.DryCoil.Data.BaseClasses.BaseCoolingTower(
+  extends Buildings.Fluid.Humidifiers.EvaporativeCoolers.DryCoil.Data.BaseClasses.BaseCoil        (
     ratCooAir_nominal =
       Buildings.Utilities.Psychrometrics.Constants.cpAir /
       Buildings.Utilities.Psychrometrics.Constants.cpWatLiq);

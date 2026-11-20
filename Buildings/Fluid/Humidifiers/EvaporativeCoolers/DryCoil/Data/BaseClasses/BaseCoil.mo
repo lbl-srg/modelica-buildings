@@ -1,6 +1,5 @@
 within Buildings.Fluid.Humidifiers.EvaporativeCoolers.DryCoil.Data.BaseClasses;
-record BaseCoolingTower
-  "Performance data record for dry and wet cooling towers"
+record BaseCoil "Performance data record for dry and wet cooling towers"
   extends Modelica.Icons.Record;
 
   parameter Modelica.Units.SI.HeatFlowRate Q_flow_nominal(max=0)
@@ -58,4 +57,4 @@ First implementation.
 </li>
 </ul>
 </html>"));
-end BaseCoolingTower;
+end BaseCoil;

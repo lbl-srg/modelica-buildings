@@ -92,11 +92,13 @@ model IndirectDry "Indirect dry evaporative cooler"
           extent={{-120,-70},{-100,-50}})));
   Movers.SpeedControlled_y fan(
     redeclare package Medium = Medium2,
-    per=BIDW12,
+    per=perFan,
     addPowerToMedium=false)
     annotation (Placement(transformation(extent={{120,-90},{140,-70}})));
-  parameter Movers.Data.Fans.Greenheck.BIDW12 BIDW12
-    annotation (Placement(transformation(extent={{120,-140},{160,-100}})));
+  replaceable parameter Buildings.Fluid.Movers.Data.Generic perFan
+    constrainedby Buildings.Fluid.Movers.Data.Generic
+    annotation (choicesAllMatching=true,
+      Placement(transformation(extent={{120,-60},{140,-40}})));
   FixedResistances.PressureDrop inlFil(redeclare package Medium = Medium2,
       m_flow_nominal=m2_flow_nominal,
     n=1.8,
