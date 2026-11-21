@@ -91,6 +91,17 @@ have been <b style=\"color:blue\">improved</b> in a
                        This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4798\">Buildings, #4798</a>.
     </td>
 </tr>
+<tr><td colspan=\"2\"><b>Buildings.Fluid.Geothermal.Aquifer</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Fluid.Geothermal.Aquifer.MultiWell<br/>
+                       Buildings.Fluid.Geothermal.Aquifer.Data.Rock<br/>
+                       Buildings.Fluid.Geothermal.Aquifer.Data.Template
+    </td>
+    <td valign=\"top\">Improved documentation of pressure drop calculation.<br/>
+                       This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/2179\">IBPSA, issue 2179</a>.
+    </td>
+</tr>
 </table>
 <!-- Non-backward compatible changes to existing components -->
 <!-- Errors that have been fixed -->
@@ -121,6 +132,28 @@ that can lead to wrong simulation results):
                        demand is small as this only affects the solar radiation that is reflected by the room
                        back to the window.<br/>
                        This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4871\">Buildings, #4871</a>.
+    </td>
+</tr>
+<tr><td colspan=\"2\"><b>Buildings.ThermalZones.ReducedOrder.Validation.VDI6007</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.ThermalZones.ReducedOrder.Validation.VDI6007.TestCase9
+    </td>
+    <td valign=\"top\">Corrected the time of the second point of the long-wave sky radiation table
+                       from <code>0.36</code> s to <code>3600</code> s, so that the first hour
+                       has a constant value as all other hours.<br/>
+                       This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/2181\">IBPSA, issue 2181</a>.
+    </td>
+</tr>
+<tr><td colspan=\"2\"><b>Buildings.Utilities.Clustering</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Utilities.Clustering.KMeans
+    </td>
+    <td valign=\"top\">Corrected computation of distance to use <code>new_centroids</code> instead of <code>centroids</code>
+                       which is not yet initialized when used.
+                       Added absolute tolerance and fixed initial selection of centroids to avoid repeated centroids.<br/>
+                       This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/2175\">IBPSA, issue 2175</a>.
     </td>
 </tr>
 </table>

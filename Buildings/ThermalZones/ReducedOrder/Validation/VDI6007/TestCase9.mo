@@ -221,7 +221,7 @@ model TestCase9 "VDI 6007 Test Case 9 model"
   Modelica.Blocks.Sources.CombiTimeTable HSky(
     extrapolation=Modelica.Blocks.Types.Extrapolation.Periodic,
     columns={2},
-    table=[0,362.5; 0.36,362.5; 3600,364; 7200,364; 7200,364.5; 10800,364.5;
+    table=[0,362.5; 3600,362.5; 3600,364; 7200,364; 7200,364.5; 10800,364.5;
         10800,364; 14400,364; 14400,380.5; 18000,380.5; 18000,390.5; 21600,
         390.5; 21600,400.5; 25200,400.5; 25200,414; 28800,414; 28800,427.5;
         32400,427.5; 32400,439; 36000,439; 36000,448.5; 39600,448.5; 39600,457;
@@ -385,6 +385,14 @@ equation
   solar radiation and long-wave radiation on exterior walls.</p>
   </html>", revisions="<html>
   <ul>
+  <li>
+  October 1, 2026, by Christoph Deil:<br/>
+  Corrected the time of the second point of the long-wave sky radiation table
+  from <code>0.36</code> s to <code>3600</code> s, so that the first hour
+  has a constant value as all other hours.<br/>
+  This is for
+  <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/2181\">IBPSA, #2181</a>.
+  </li>
   <li>
   July 11, 2019, by Katharina Brinkmann:<br/>
   Renamed <code>alphaWall</code> to <code>hConWall</code>
