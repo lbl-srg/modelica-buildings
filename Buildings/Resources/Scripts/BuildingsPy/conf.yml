@@ -1,6 +1,31 @@
+- model_name: Buildings.Air.Systems.SingleZone.VAV.Examples.Guideline36
+  openmodelica:
+    comment: Solver gbode reduces simulation time by a factor of 1.7 compared to dassl
+    solver: gbode
+- model_name: Buildings.Air.Systems.SingleZone.VAV.Examples.OptimalStart.ConventionalSpring
+  openmodelica:
+    comment: Solver gbode reduces simulation time by a factor of 2.2 compared to dassl
+    solver: gbode
+- model_name: Buildings.Air.Systems.SingleZone.VAV.Examples.OptimalStart.ConventionalSummer
+  openmodelica:
+    comment: Solver gbode reduces simulation time by a factor of 2.2 compared to dassl
+    solver: gbode
+- model_name: Buildings.Air.Systems.SingleZone.VAV.Examples.OptimalStart.ConventionalWinter
+  openmodelica:
+    comment: Solver gbode reduces simulation time by a factor of 2.2 compared to dassl
+    solver: gbode
+- model_name: Buildings.Air.Systems.SingleZone.VAV.Examples.OptimalStart.Guideline36Spring
+  openmodelica:
+    comment: Solver gbode reduces simulation time by a factor of 2.0 compared to dassl
+    solver: gbode
+- model_name: Buildings.Air.Systems.SingleZone.VAV.Examples.OptimalStart.Guideline36Summer
+  openmodelica:
+    comment: Solver gbode reduces simulation time by a factor of 2.3 compared to dassl
+    solver: gbode
 - model_name: Buildings.Air.Systems.SingleZone.VAV.Examples.OptimalStart.Guideline36Winter
   openmodelica:
-    comment: 'TimeoutExpired: omc timed out after 300 seconds'
+    comment: 'TimeoutExpired: omc timed out after 300 seconds; solver gbode reduces simulation time by a factor of 2.0 compared to dassl'
+    solver: gbode
     time_out: 600
 - model_name: Buildings.Airflow.Multizone.Examples.PressurizationData
   optimica:
@@ -99,6 +124,10 @@
   openmodelica:
     comment: simulation terminated by an assertion at initialization.
     simulate: false
+- model_name: Buildings.Examples.ChillerPlant.DataCenter.DiscreteTimeControl
+  openmodelica:
+    comment: Solver gbode reduces simulation time by a factor of 2.3 compared to dassl
+    solver: gbode
 - model_name: Buildings.Examples.ChillerPlant.Guideline36.ClosedLoop
   openmodelica:
     comment: Internal error function createNonlinearResidualEquations failed.
@@ -114,9 +143,24 @@
     comment: Slow computation with tolerance 1E-6 and 1E-7
     rtol: 1.0e-08
 - model_name: Buildings.Examples.FanCoils.FourPipe
+  openmodelica:
+    comment: Solver cvode reduces simulation time by a factor of 3.0 compared to dassl
+    solver: cvode
   optimica:
     comment: Solves six times faster if tolerance is set to 1e-07
     rtol: 1.0e-07
+- model_name: Buildings.Examples.HydronicHeating.TwoRoomsWithStorage
+  openmodelica:
+    comment: Solver cvode reduces simulation time by a factor of 1.5 compared to dassl
+    solver: cvode
+- model_name: Buildings.Examples.ScalableBenchmarks.BuildingVAV.Examples.OneFloor_OneZone
+  openmodelica:
+    comment: Solver gbode reduces simulation time by a factor of 1.1 compared to dassl
+    solver: gbode
+- model_name: Buildings.Examples.ScalableBenchmarks.BuildingVAV.Examples.TwoFloor_TwoZone
+  openmodelica:
+    comment: Solver gbode reduces simulation time by a factor of 1.3 compared to dassl
+    solver: gbode
 - model_name: Buildings.Examples.VAVCO2.VAVSystemCTControl
   openmodelica:
     comment: Times out after 900 seconds.
@@ -130,7 +174,7 @@
     solver: gbode
 - model_name: Buildings.Examples.VAVReheat.Guideline36
   openmodelica:
-    comment: Timeout during translation; solver gbode reduces simulation time by a factor of 3.4 compared to dassl
+    comment: Timeout during translation; solver gbode reduces simulation time by a factor of 3.0 compared to dassl
     solver: gbode
     time_out: 600
 - model_name: Buildings.Examples.VAVReheat.Validation.Guideline36SteadyState
