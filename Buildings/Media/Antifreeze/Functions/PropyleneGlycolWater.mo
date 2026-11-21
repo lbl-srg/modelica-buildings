@@ -191,7 +191,7 @@ Buildings.Media.Antifreeze</a>.
     input Modelica.Units.SI.Temperature T
       "Temperature of antifreeze-water mixture";
     input Modelica.Units.SI.MassFraction X_a "Mass fraction of antifreeze";
-    output Modelica.Units.SI.ThermalConductivity Pr
+    output Modelica.Units.SI.PrandtlNumber Pr
       "Prandtl number of antifreeze-water mixture";
   algorithm
     Pr := dynamicViscosity_TX_a(T=T, X_a=X_a) * specificHeatCapacityCp_TX_a(T=T, X_a=X_a) /
@@ -304,7 +304,7 @@ Buildings.Media.Antifreeze.PropyleneGlycolWater</a>.
       final unit="1") "Volume fraction of the mixture";
     input Modelica.Units.SI.Temperature T
       "Temperature of antifreeze-water mixture";
-    output Modelica.Units.SI.SpecificVolume y(
+    output Modelica.Units.SI.MassFraction y(
       min=X_a_min,
       max=X_a_max) "Mass fraction of the mixture";
 
