@@ -96,7 +96,7 @@ algorithm
     // Evaluate inertia
     new_inertia := 0;
     for i in 1:n_samples loop
-      dis := Modelica.Math.Vectors.norm(data[i,:]-centroids[new_labels[i],:], p=2)^2;
+      dis := Modelica.Math.Vectors.norm(data[i,:]-new_centroids[new_labels[i],:], p=2)^2;
       new_inertia := new_inertia + dis;
     end for;
 
@@ -132,6 +132,13 @@ modifying the constant <code>seed</code>.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+September 15, 2026, by Michael Wetter:<br/>
+Corrected computation of distance to use <code>new_centroids</code> instead of <code>centroids</code>
+which is not yet initialized when used.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/2175\">IBPSA, #2175</a>.
+</li>
 <li>
 March 18, 2025 by Massimo Cimmino<br/>
 Added absolute tolerance. The algorithm stops when any of the relative and

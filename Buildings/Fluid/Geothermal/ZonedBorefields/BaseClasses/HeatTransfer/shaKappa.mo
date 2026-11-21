@@ -85,7 +85,7 @@ The SHA1 encryption is computed using
 <a href=\"modelica://Buildings.Utilities.Cryptographics.sha\">Buildings.Utilities.Cryptographics.sha</a>.
 </p>
 </html>",
-    revisionss="<html>
+    revisions="<html>
 <ul>
 <li>
 May 30, 2024, by Michael Wetter:<br/>

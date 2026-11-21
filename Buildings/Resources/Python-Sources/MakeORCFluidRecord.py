@@ -49,7 +49,7 @@ def WriteOneFile(fluid, dTRef = 30):
        nCP = fluid["coolprop"]
        nMO = fluid["modelica"]
        nDS = fluid["description"]
-       
+
        TCri = CP.PropsSI(nCP, 'Tcrit')
 
        TMax = TCri -10
@@ -58,7 +58,7 @@ def WriteOneFile(fluid, dTRef = 30):
        T = np.linspace(TMin,TMax,10)
        p = CP.PropsSI('P','T',T,'Q',1,nCP)
        rhoLiq = CP.PropsSI('D','T',T,'Q',0,nCP)
-       
+
        sSatLiq = CP.PropsSI('S','T',T,'Q',0,nCP) # Entropy of saturated liquid
        sSatVap = CP.PropsSI('S','T',T,'Q',1,nCP) # Entropy of saturated vapour
        sSupVap = CP.PropsSI('S','T',T+dTRef,'P',p,nCP) # Entropy of superheated vapour
@@ -83,7 +83,7 @@ def WriteOneFile(fluid, dTRef = 30):
            f.write(' '*4 + f'hSatLiq = {ModelicaArray(hSatLiq)},\n')
            f.write(' '*4 + f'hSatVap = {ModelicaArray(hSatVap)},\n')
            f.write(' '*4 + f'hRef = {ModelicaArray(hSupVap)});\n')
-              
+
            # annotation
            f.write(' '*2 + 'annotation (\n')
            f.write(' '*2 + 'defaultComponentPrefixes = "parameter",\n')
@@ -93,12 +93,12 @@ def WriteOneFile(fluid, dTRef = 30):
            f.write(f'Record containing properties of {nDS}.\n')
            f.write(f'Its name in CoolProp is \\"{nCP}\\".\n')
            f.write('A figure in the documentation of\n')
-           f.write(f'<a href=\\"Modelica://{WITHIN}Fluid.CHPs.OrganicRankine.ConstantEvaporation\\">\n')
+           f.write(f'<a href=\\"modelica://{WITHIN}Fluid.CHPs.OrganicRankine.ConstantEvaporation\\">\n')
            f.write(f'{WITHIN}Fluid.CHPs.OrganicRankine.ConstantEvaporation</a>\n')
            f.write('shows which lines these arrays represent.\n')
            f.write('</p>\n')
            f.write('</html>"));\n')
-           
+
            # end
            f.write(f'end {nMO};')
        print(f'File written: {nMO}.mo')
