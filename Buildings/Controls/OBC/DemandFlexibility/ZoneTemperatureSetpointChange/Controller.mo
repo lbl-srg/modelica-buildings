@@ -106,18 +106,18 @@ block Controller
     final quantity=fill("ThermodynamicTemperature",nZon))
     "Current zone temperature"
     annotation (Placement(transformation(extent={{-260,20},{-220,60}}),
-      iconTransformation(extent={{-140,0},{-100,40}})));
+      iconTransformation(extent={{-140,-60},{-100,-20}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TCurZonSet[nZon](
     final unit=fill("K",nZon),
     displayUnit=fill("degC",nZon),
     final quantity=fill("ThermodynamicTemperature",nZon))
     "Current zone temperature setpoint from the external setpoint controller"
     annotation (Placement(transformation(extent={{-260,-20},{-220,20}}),
-        iconTransformation(extent={{-140,-40},{-100,0}})));
+        iconTransformation(extent={{-140,-100},{-100,-60}})));
   Buildings.Controls.OBC.CDL.Interfaces.IntegerInput demFleMod
     "Demand flexibility mode; 0 = pre-cool or pre-heat, 1 = default, 2 = load-shed, 3 = load-rebound"
     annotation (Placement(transformation(extent={{-260,-60},{-220,-20}}),
-      iconTransformation(extent={{-140,-80},{-100,-40}})));
+      iconTransformation(extent={{-140,-140},{-100,-100}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput TComZonSet[nZon](
     final unit=fill("K",nZon),
     displayUnit=fill("degC",nZon),
@@ -141,7 +141,7 @@ block Controller
     if zonConVar == Buildings.Controls.OBC.DemandFlexibility.Types.ZoneControlVariant.Variant_4
     "Variable target electricity demand reduction of the building"
     annotation (Placement(transformation(extent={{-306,178},{-266,218}}),
-        iconTransformation(extent={{-140,80},{-100,120}})));
+        iconTransformation(extent={{-140,20},{-100,60}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput PBuiRed(
     final unit="W",
     final quantity="Power")
@@ -149,11 +149,11 @@ block Controller
       or zonConVar == Buildings.Controls.OBC.DemandFlexibility.Types.ZoneControlVariant.Variant_4
     "Electricity demand reduction of the building (baseline demand minus actual demand)"
     annotation (Placement(transformation(extent={{-308,128},{-268,168}}),
-        iconTransformation(extent={{-140,40},{-100,80}})));
+        iconTransformation(extent={{-140,-20},{-100,20}})));
   CDL.Interfaces.BooleanInput                        uQua[nZon]
     "True if the zone is qualified for zone temperature setpoint change"
     annotation (Placement(transformation(extent={{-248,318},{-208,358}}),
-        iconTransformation(extent={{-140,120},{-100,160}})));
+        iconTransformation(extent={{-140,60},{-100,100}})));
   CDL.Logical.Not not2[nZon]
     annotation (Placement(transformation(extent={{-162,330},{-142,350}})));
   CDL.Logical.Not not3[nZon]
@@ -167,7 +167,7 @@ block Controller
   CDL.Interfaces.BooleanInput occSta
     "Occupancy status; true: occupied; false: unoccupied" annotation (Placement(
         transformation(extent={{-400,390},{-360,430}}), iconTransformation(
-          extent={{-140,160},{-100,200}})));
+          extent={{-140,100},{-100,140}})));
   CDL.Logical.Or or1[nZon]
     annotation (Placement(transformation(extent={{-100,360},{-80,380}})));
   CDL.Logical.Xor xor
@@ -270,15 +270,17 @@ protected
     annotation (Placement(transformation(extent={{-144,386},{-124,406}})));
 equation
   connect(zonPri.yEna, zonSetAdj.uEna) annotation (Line(points={{82,90},{100,90},
-          {100,-101.667},{118,-101.667}}, color={255,0,255}));
+          {100,-104},{118,-104}},         color={255,0,255}));
   connect(samSetCha.y, TComZonSet)
     annotation (Line(points={{202,0},{240,0}}, color={0,0,127}));
   connect(zonSetAdj.TComZonSet, samSetCha.u) annotation (Line(points={{142,-110},
           {160,-110},{160,0},{178,0}}, color={0,0,127}));
   connect(TCurZonSet, lowUppBou.TZonSet) annotation (Line(points={{-240,0},{-130,
-          0},{-130,130},{-82,130}}, color={0,0,127}));
+          0},{-130,119.2},{-82,119.2}},
+                                    color={0,0,127}));
   connect(demFleMod, lowUppBou.demFleMod) annotation (Line(points={{-240,-40},{-120,
-          -40},{-120,126},{-82,126}}, color={255,127,0}));
+          -40},{-120,140.8},{-82,140.8}},
+                                      color={255,127,0}));
   connect(TCurZon, zonPri.TZon)
     annotation (Line(points={{-240,40},{-140,40},{-140,92},{58,92}},
       color={0,0,127}));
@@ -288,14 +290,13 @@ equation
     annotation (Line(points={{-240,-40},{-42,-40}},
       color={255,127,0}));
   connect(repDemFleMod.y, zonSetAdj.demFleMod) annotation (Line(points={{-18,-40},
-          {80,-40},{80,-105},{118,-105}}, color={255,127,0}));
+          {80,-40},{80,-110},{118,-110}}, color={255,127,0}));
   connect(TCurZonSet, zonSetAdj.TCurZonSet) annotation (Line(points={{-240,0},{-130,
-          0},{-130,-108.5},{118,-108.5}}, color={0,0,127}));
+          0},{-130,-116},{118,-116}},     color={0,0,127}));
   connect(conNSel.y, zonPri.nSel)
     annotation (Line(points={{22,50},{40,50},{40,84},{58,84}}, color={255,127,0}));
-  connect(not1.y, zonSetAdj.uEna) annotation (Line(points={{82,130},{100,130},{
-          100,-101.667},{118,-101.667}},
-                                     color={255,0,255}));
+  connect(not1.y, zonSetAdj.uEna) annotation (Line(points={{82,130},{100,130},{100,
+          -104},{118,-104}},         color={255,0,255}));
   connect(dTZonHea.y,lesDTZon. u)
     annotation (Line(points={{-298,316},{-260,316},{-260,296},{-242,296}},
       color={0,0,127}));
@@ -367,13 +368,13 @@ equation
   connect(xor.y, booScaRep.u) annotation (Line(points={{-278,410},{-212,410},{-212,
           396},{-146,396}}, color={255,0,255}));
   annotation (defaultComponentName="zonTemSetCon",
-    Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-180},{100,180}},
+    Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-140},{100,140}},
     grid={2,2}), graphics={Rectangle(
-      extent={{-100,-200},{100,200}},
+      extent={{-100,-140},{100,140}},
       lineColor={0,0,0},
       fillColor={255,255,255},
       fillPattern=FillPattern.Solid), Text(
-      extent={{-100,240},{100,200}},
+      extent={{-100,180},{100,140}},
       textColor={0,0,255},
           textString="%name")}), Diagram(
     coordinateSystem(preserveAspectRatio=false, extent={{-220,-180},{220,180}},
@@ -432,7 +433,9 @@ The actual occupancy status <code>occSta</code> is the same as the intended occu
 </li>
 <li>
 The specific zone is qualified for the setpoint change operation, indicated by having
-<code>uQua = true</code>.
+<code>uQua = true</code>. Value of <code>uQua</code> can be supplied externally by
+<a href=\"Buildings.Controls.OBC.DemandFlexibility.ZoneTemperatureSetpointChange.Subsequences.Qualification\">
+Buildings.Controls.OBC.DemandFlexibility.ZoneTemperatureSetpointChange.Subsequences.Qualification</a>.
 </li>
 <li>
 <code>demFleMod ≠ 2</code>, or, <code>demFleMod = 2</code> and <code>dTZon &lt; dTSheThr</code>,

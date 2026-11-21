@@ -14,18 +14,19 @@ model LowerUpperBound "Zone enablement"
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant TZonSetVal[5](
     k=fill(273.15 + 20, 5))
     "Zone temperature setpoint values for Zone 1 through 5"
-    annotation (Placement(transformation(extent={{-80,-20},{-60,0}})));
+    annotation (Placement(transformation(extent={{-80,-40},{-60,-20}})));
   Buildings.Controls.OBC.CDL.Integers.Sources.TimeTable tabDemFleMod(
     table=[0,1; 14,0; 16,2; 21,3; 23,1; 24,1],
     timeScale=3600,
     period=86400)
     "A table of demand flexibility modes that repeat every day"
-    annotation (Placement(transformation(extent={{-80,-60},{-60,-40}})));
+    annotation (Placement(transformation(extent={{-80,20},{-60,40}})));
 equation
   connect(TZonSetVal.y,zonEna. TZonSet)
-    annotation (Line(points={{-58,-10},{-40,-10},{-40,0},{58,0}}, color={0,0,127}));
+    annotation (Line(points={{-58,-30},{-20,-30},{-20,-10.8},{58,-10.8}},
+                                                                  color={0,0,127}));
   connect(tabDemFleMod.y[1],zonEna. demFleMod)
-    annotation (Line(points={{-58,-50},{-20,-50},{-20,-4},{58,-4}},
+    annotation (Line(points={{-58,30},{-20,30},{-20,10.8},{58,10.8}},
       color={255,127,0}));
 annotation (experiment(StopTime=172800, Interval=1, Tolerance=1e-06),
   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/DemandFlexibility/ZoneTemperatureSetpointChange/Subsequences/Validation/LowerUpperBound.mos"
@@ -51,7 +52,8 @@ First implementation.
 </li>
 </ul>
 </html>"),
-    Icon(coordinateSystem(preserveAspectRatio=false,extent={{-100,-100},{100,100}}),
+    Icon(coordinateSystem(preserveAspectRatio=false,extent={{-100,-100},{100,100}},
+        grid={2,2}),
         graphics={
         Ellipse(lineColor = {75,138,73},
                 fillColor={255,255,255},
@@ -62,6 +64,5 @@ First implementation.
                 pattern = LinePattern.None,
                 fillPattern = FillPattern.Solid,
                 points = {{-36,60},{64,0},{-36,-60},{-36,60}})}),
-    Diagram(coordinateSystem(preserveAspectRatio=false,
-      extent={{-100,-220},{100,220}})));
+    Diagram(coordinateSystem(preserveAspectRatio=false, grid={2,2})));
 end LowerUpperBound;

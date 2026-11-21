@@ -54,28 +54,26 @@ model Adjustment "Zone setpoint adjustment"
       origin={70,-50})));
 equation
   connect(uEnaVar.y, zonSetAdjSinSte.uEna) annotation (Line(points={{-118,70},{
-          -100,70},{-100,58.3333},{-22,58.3333}},
-                                        color={255,0,255}));
+          -100,70},{-100,56},{-22,56}}, color={255,0,255}));
   connect(zonSetAdjSinSte.TComZonSet, samSinSte.u)
     annotation (Line(points={{2,50},{18,50}}, color={0,0,127}));
   connect(samSinSte.y, delTZonSetSinSte.u)
     annotation (Line(points={{42,50},{58,50}}, color={0,0,127}));
   connect(tabDemFleMod.y[1], zonSetAdjSinSte.demFleMod) annotation (Line(points={{-118,10},
-          {-80,10},{-80,55},{-22,55}},           color={255,127,0}));
+          {-80,10},{-80,50},{-22,50}},           color={255,127,0}));
   connect(zonSetAdjMulSte.TComZonSet, samMulSte.u)
     annotation (Line(points={{2,-50},{18,-50}}, color={0,0,127}));
   connect(samMulSte.y, delTZonSetMulSte.u)
     annotation (Line(points={{42,-50},{58,-50}}, color={0,0,127}));
   connect(tabDemFleMod.y[1], zonSetAdjMulSte.demFleMod) annotation (Line(points={{-118,10},
-          {-80,10},{-80,-45},{-22,-45}},           color={255,127,0}));
+          {-80,10},{-80,-50},{-22,-50}},           color={255,127,0}));
   connect(uEnaVar.y, zonSetAdjMulSte.uEna) annotation (Line(points={{-118,70},{
-          -100,70},{-100,-41.6667},{-22,-41.6667}},
-                                          color={255,0,255}));
+          -100,70},{-100,-44},{-22,-44}}, color={255,0,255}));
   connect(delTZonSetSinSte.y, zonSetAdjSinSte.TCurZonSet) annotation (Line(
-        points={{82,50},{120,50},{120,20},{-30,20},{-30,51.5},{-22,51.5}},
+        points={{82,50},{120,50},{120,20},{-30,20},{-30,44},{-22,44}},
         color={0,0,127}));
   connect(delTZonSetMulSte.y, zonSetAdjMulSte.TCurZonSet) annotation (Line(
-        points={{82,-50},{120,-50},{120,-80},{-30,-80},{-30,-48.5},{-22,-48.5}},
+        points={{82,-50},{120,-50},{120,-80},{-30,-80},{-30,-56},{-22,-56}},
         color={0,0,127}));
   annotation (experiment(StopTime=172800, Interval=60, Tolerance=1e-06),
   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/DemandFlexibility/ZoneTemperatureSetpointChange/Subsequences/Validation/Adjustment.mos"

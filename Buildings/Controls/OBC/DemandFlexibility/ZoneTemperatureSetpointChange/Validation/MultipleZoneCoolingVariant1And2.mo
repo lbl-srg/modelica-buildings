@@ -7,26 +7,25 @@ model MultipleZoneCoolingVariant1And2
 
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant rouZonFla(k=false)
     "Rogue zone flag"
-    annotation (Placement(transformation(extent={{-200,120},{-180,140}})));
+    annotation (Placement(transformation(extent={{-140,60},{-120,80}})));
   Buildings.Controls.OBC.CDL.Integers.Sources.TimeTable tabDemFleMod(
     table=[0,1; 14,0; 16,2; 21,3; 23,1; 24,1],
     timeScale=3600,
     period=86400)
     "A table of demand flexibility modes that repeat every day"
-    annotation (Placement(transformation(extent={{-140,-20},{-120,0}})));
-  Buildings.Controls.OBC.CDL.Reals.Sources.TimeTable tabTCurZon(
-    table=[0,273.15 + 18; 4,273.15 + 14; 5,273.15 + 14; 11,273.15 + 20;
-      16,273.15 + 22; 18,273.15 + 28.5; 19,273.15 + 28; 19.25,273.15 + 33.5;
-      20,273.15 + 34; 21,273.15 + 31; 22,273.15 + 22; 24,273.15 + 18],
+    annotation (Placement(transformation(extent={{-80,-60},{-60,-40}})));
+  Buildings.Controls.OBC.CDL.Reals.Sources.TimeTable tabTCurZon(table=[0,273.15 +
+        18; 4,273.15 + 14; 5,273.15 + 14; 11,273.15 + 20; 16,273.15 + 22; 18,273.15
+         + 28.5; 19,273.15 + 29; 21,273.15 + 28; 22,273.15 + 22; 24,273.15 + 18],
     timeScale=3600)
     "A table of a current zone temperature profile that repeats every day"
-    annotation (Placement(transformation(extent={{-160,40},{-140,60}})));
+    annotation (Placement(transformation(extent={{-140,-20},{-120,0}})));
   Buildings.Controls.OBC.CDL.Discrete.UnitDelay delTZonSetVar2[nZon](
       samplePeriod=fill(10, nZon),
      y_start=fill(273.15 + 20, nZon))
     "Emulates an external zone temperature setpoint controller that has a small delay of setpoint change after a new setpoint is received; used for Variant 2 of zone control"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}}, rotation=0,
-      origin={90,-110})));
+      origin={90,-70})));
   Buildings.Controls.OBC.DemandFlexibility.ZoneTemperatureSetpointChange.Controller setChaConCooVar2(
     dTPre=0.5,
     dTShe=0.5,
@@ -42,16 +41,16 @@ model MultipleZoneCoolingVariant1And2
     nSel=1,
     zonConVar=Buildings.Controls.OBC.DemandFlexibility.Types.ZoneControlVariant.Variant_2)
     "A zone temperature setpoint change controller for cooling under Variant 2 of zone control"
-    annotation (Placement(transformation(extent={{40,-128},{60,-92}})));
+    annotation (Placement(transformation(extent={{40,-88},{60,-52}})));
   Buildings.Controls.OBC.CDL.Routing.BooleanScalarReplicator rouZonFlaRep(nout=nZon)
     "Replicate the rogue zone flag"
-    annotation (Placement(transformation(extent={{-160,120},{-140,140}})));
+    annotation (Placement(transformation(extent={{-98,60},{-78,80}})));
   Buildings.Controls.OBC.CDL.Routing.RealScalarReplicator TCurZonRep(nout=nZon)
     "Replicate the current zone temperature"
-    annotation (Placement(transformation(extent={{-120,40},{-100,60}})));
+    annotation (Placement(transformation(extent={{-100,-20},{-80,0}})));
   Buildings.Controls.OBC.CDL.Reals.AddParameter TBia[nZon](p={1,0.5,0,-0.5,-1})
     "Use different temperature bias values to make zone temperature different for different zones"
-    annotation (Placement(transformation(extent={{-80,40},{-60,60}})));
+    annotation (Placement(transformation(extent={{-60,-20},{-40,0}})));
   Buildings.Controls.OBC.DemandFlexibility.ZoneTemperatureSetpointChange.Controller setChaConCooVar1(
     dTSheThr=0.5,
     setChaWaiTim=600,
@@ -64,74 +63,83 @@ model MultipleZoneCoolingVariant1And2
     nSel=1,
     zonConVar=Buildings.Controls.OBC.DemandFlexibility.Types.ZoneControlVariant.Variant_1)
     "A zone temperature setpoint change controller for cooling under Variant 1 of zone control"
-    annotation (Placement(transformation(extent={{40,92},{60,128}})));
+    annotation (Placement(transformation(extent={{40,32},{60,68}})));
   Buildings.Controls.OBC.CDL.Discrete.UnitDelay delTZonSetVar1[nZon](
     samplePeriod=fill(10, nZon),
     y_start=fill(273.15 + 20, nZon))
     "Emulates an external zone temperature setpoint controller that has a small delay of setpoint change after a new setpoint is received; used for Variant 1 of zone control"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}}, rotation=0,
-      origin={90,110})));
+      origin={90,50})));
   Subsequences.Qualification qua(nZon=nZon,
     TZonMax=fill(301.15, nZon),
     TZonHys=1,
     airConMod=Buildings.Controls.OBC.DemandFlexibility.Types.AirConditioningMode.Cooling)
     "The zone qualification block"
-    annotation (Placement(transformation(extent={{-80,140},{-60,160}})));
+    annotation (Placement(transformation(extent={{-40,80},{-20,100}})));
   CDL.Routing.BooleanScalarReplicator staZonFlaRep(nout=nZon)
     "Replicate the starved zone flag"
-    annotation (Placement(transformation(extent={{-160,162},{-140,182}})));
-  CDL.Logical.Sources.Constant staZonFla(k=false) "starved zone flag"
-    annotation (Placement(transformation(extent={{-200,162},{-180,182}})));
+    annotation (Placement(transformation(extent={{-100,100},{-80,120}})));
+  CDL.Logical.Sources.Constant staZonFla(k=false) "Starved zone flag"
+    annotation (Placement(transformation(extent={{-140,100},{-120,120}})));
   CDL.Logical.Sources.TimeTable occSta(
-    table=[0,0; 7,1; 19,0; 24,0],
+    table=[0,0; 7,1; 23,0; 24,0],
     timeScale=3600,
     period=86400) "Occupancy status"
-    annotation (Placement(transformation(extent={{-100,80},{-80,100}})));
+    annotation (Placement(transformation(extent={{-60,20},{-40,40}})));
 equation
   connect(rouZonFla.y, rouZonFlaRep.u)
-    annotation (Line(points={{-178,130},{-162,130}}, color={255,0,255}));
+    annotation (Line(points={{-118,70},{-100,70}},   color={255,0,255}));
   connect(tabTCurZon.y[1], TCurZonRep.u)
-    annotation (Line(points={{-138,50},{-122,50}}, color={0,0,127}));
+    annotation (Line(points={{-118,-10},{-102,-10}},
+                                                   color={0,0,127}));
   connect(setChaConCooVar2.TComZonSet, delTZonSetVar2.u)
-    annotation (Line(points={{62,-110},{78,-110}}, color={0,0,127}));
+    annotation (Line(points={{62,-70},{78,-70}},   color={0,0,127}));
   connect(TCurZonRep.y, TBia.u)
-    annotation (Line(points={{-98,50},{-82,50}}, color={0,0,127}));
+    annotation (Line(points={{-78,-10},{-62,-10}},
+                                                 color={0,0,127}));
   connect(TBia.y, setChaConCooVar2.TCurZon)
-    annotation (Line(points={{-58,50},{-20,50},{-20,-108},{38,-108}},
+    annotation (Line(points={{-38,-10},{0,-10},{0,-75.1429},{38,-75.1429}},
       color={0,0,127}));
   connect(tabDemFleMod.y[1], setChaConCooVar2.demFleMod)
-    annotation (Line(points={{-118,-10},{-10,-10},{-10,-116},{38,-116}},
+    annotation (Line(points={{-58,-50},{10,-50},{10,-85.4286},{38,-85.4286}},
       color={255,127,0}));
   connect(setChaConCooVar1.TComZonSet, delTZonSetVar1.u)
-    annotation (Line(points={{62,110},{78,110}}, color={0,0,127}));
+    annotation (Line(points={{62,50},{78,50}},   color={0,0,127}));
   connect(tabDemFleMod.y[1], setChaConCooVar1.demFleMod)
-    annotation (Line(points={{-118,-10},{-10,-10},{-10,104},{38,104}},
+    annotation (Line(points={{-58,-50},{10,-50},{10,34.5714},{38,34.5714}},
       color={255,127,0}));
   connect(TBia.y, setChaConCooVar1.TCurZon)
-    annotation (Line(points={{-58,50},{-20,50},{-20,112},{38,112}},
+    annotation (Line(points={{-38,-10},{0,-10},{0,44.8571},{38,44.8571}},
       color={0,0,127}));
   connect(delTZonSetVar1.y, setChaConCooVar1.TCurZonSet) annotation (Line(
-        points={{102,110},{140,110},{140,80},{30,80},{30,108},{38,108}}, color={
+        points={{102,50},{140,50},{140,20},{30,20},{30,39.7143},{38,39.7143}},
+                                                                         color={
           0,0,127}));
   connect(delTZonSetVar2.y, setChaConCooVar2.TCurZonSet) annotation (Line(
-        points={{102,-110},{140,-110},{140,-140},{30,-140},{30,-112},{38,-112}},
+        points={{102,-70},{140,-70},{140,-100},{30,-100},{30,-80.2857},{38,
+          -80.2857}},
         color={0,0,127}));
   connect(staZonFla.y, staZonFlaRep.u)
-    annotation (Line(points={{-178,172},{-162,172}}, color={255,0,255}));
-  connect(staZonFlaRep.y, qua.uStaZon) annotation (Line(points={{-138,172},{
-          -110,172},{-110,150},{-82,150}}, color={255,0,255}));
-  connect(rouZonFlaRep.y, qua.uRogZon) annotation (Line(points={{-138,130},{
-          -110,130},{-110,144},{-82,144}}, color={255,0,255}));
-  connect(TBia.y, qua.TZon) annotation (Line(points={{-58,50},{-20,50},{-20,162},
-          {-82,162},{-82,156}}, color={0,0,127}));
-  connect(qua.yQua, setChaConCooVar1.uQua) annotation (Line(points={{-58,150},{
-          -30,150},{-30,124},{38,124}}, color={255,0,255}));
-  connect(qua.yQua, setChaConCooVar2.uQua) annotation (Line(points={{-58,150},{
-          -30,150},{-30,-96},{38,-96}}, color={255,0,255}));
-  connect(occSta.y[1], setChaConCooVar1.occSta) annotation (Line(points={{-78,
-          90},{-40,90},{-40,128},{38,128}}, color={255,0,255}));
-  connect(occSta.y[1], setChaConCooVar2.occSta) annotation (Line(points={{-78,
-          90},{-40,90},{-40,-92},{38,-92}}, color={255,0,255}));
+    annotation (Line(points={{-118,110},{-102,110}}, color={255,0,255}));
+  connect(staZonFlaRep.y, qua.uStaZon) annotation (Line(points={{-78,110},{-70,110},
+          {-70,90},{-42,90}},              color={255,0,255}));
+  connect(rouZonFlaRep.y, qua.uRogZon) annotation (Line(points={{-76,70},{-70,70},
+          {-70,84},{-42,84}},              color={255,0,255}));
+  connect(TBia.y, qua.TZon) annotation (Line(points={{-38,-10},{20,-10},{20,120},
+          {-60,120},{-60,96},{-42,96}},
+                                color={0,0,127}));
+  connect(qua.yQua, setChaConCooVar1.uQua) annotation (Line(points={{-18,90},{
+          -10,90},{-10,60.2857},{38,60.2857}},
+                                        color={255,0,255}));
+  connect(qua.yQua, setChaConCooVar2.uQua) annotation (Line(points={{-18,90},{
+          -10,90},{-10,-59.7143},{38,-59.7143}},
+                                        color={255,0,255}));
+  connect(occSta.y[1], setChaConCooVar1.occSta) annotation (Line(points={{-38,30},
+          {-20,30},{-20,65.4286},{38,65.4286}},
+                                            color={255,0,255}));
+  connect(occSta.y[1], setChaConCooVar2.occSta) annotation (Line(points={{-38,30},
+          {-20,30},{-20,-54.5714},{38,-54.5714}},
+                                            color={255,0,255}));
   annotation (experiment(
       StartTime=43200,
       StopTime=86400,
@@ -145,6 +153,12 @@ This example validates
 Buildings.Controls.OBC.DemandFlexibility.ZoneTemperatureSetpointChange.Controller</a>
 for the cooling operation of a 5-zone building under Variant <i>1</i> and Variant
 <i>2</i> of zone temperature setpoint control.
+</p>
+<p>
+A
+<a href=\"Buildings.Controls.OBC.DemandFlexibility.ZoneTemperatureSetpointChange.Subsequences.Qualification\">
+Buildings.Controls.OBC.DemandFlexibility.ZoneTemperatureSetpointChange.Subsequences.Qualification</a>
+block is used to indicate whether a zone is qualified for the setpoint change operation.
 </p>
 </html>",revisions="<html>
 <ul>
@@ -165,6 +179,6 @@ First implementation.
                 pattern = LinePattern.None,
                 fillPattern = FillPattern.Solid,
                 points = {{-36,60},{64,0},{-36,-60},{-36,60}})}),
-    Diagram(coordinateSystem(preserveAspectRatio=false,extent={{-160,-160},{160,
-            160}})));
+    Diagram(coordinateSystem(preserveAspectRatio=false,extent={{-160,-140},{160,
+            140}})));
 end MultipleZoneCoolingVariant1And2;
