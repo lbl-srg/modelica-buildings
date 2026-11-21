@@ -35,8 +35,8 @@ protected
   Real s "Flow exponent minus one";
   Real m_flowSq "Square of mass flow rate";
   Real res "Residual of the laminar branch of powerLaw_m_flow";
-  Real res_der "1st derivative of res with respect to m_flow";
-  Real res_der2 "2nd derivative of res with respect to m_flow";
+  Real dRes "1st derivative of res with respect to m_flow";
+  Real d2Res "2nd derivative of res with respect to m_flow";
 
 algorithm
   if abs_dp < dp_turbulent then
@@ -50,9 +50,9 @@ algorithm
     for i in 1:2 loop
       m_flowSq := m_flow^2;
       res := m_flow*(b1 + m_flowSq*(b3 + m_flowSq*b5)) - dp;
-      res_der := b1 + m_flowSq*(3*b3 + 5*b5*m_flowSq);
-      res_der2 := m_flow*(6*b3 + 20*b5*m_flowSq);
-      m_flow := m_flow - 2*res*res_der/(2*res_der^2 - res*res_der2);
+      dRes := b1 + m_flowSq*(3*b3 + 5*b5*m_flowSq);
+      d2Res := m_flow*(6*b3 + 20*b5*m_flowSq);
+      m_flow := m_flow - 2*res*dRes/(2*dRes^2 - res*d2Res);
     end for;
   else
     m_flow := if dp > 0 then k*dp^m else -k*abs_dp^m;

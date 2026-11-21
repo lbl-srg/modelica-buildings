@@ -23,9 +23,9 @@ protected
     "Square of normalised pressure difference";
   Real res
     "Residual of the normalised laminar branch of basicFlowFunction_dp";
-  Real res_der
+  Real dRes
     "1st derivative of res with respect to dpNorm";
-  Real res_der2
+  Real d2Res
     "2nd derivative of res with respect to dpNorm";
 algorithm
   if noEvent(abs(m_flow)>m_flow_turbulent) then
@@ -37,9 +37,9 @@ algorithm
       + m_flowNormSq*(-0.21989355643179428))));
     dpNormSq := dpNorm^2;
     res := (1.40625 + (0.15625*dpNormSq - 0.5625)*dpNormSq)*dpNorm - m_flowNorm;
-    res_der := 1.40625 + (0.78125*dpNormSq - 1.6875)*dpNormSq;
-    res_der2 := (-3.375 + 3.125*dpNormSq)*dpNorm;
-    dp := (dpNorm - 2*res*res_der/(2*res_der^2 - res*res_der2))*dp_turbulent;
+    dRes := 1.40625 + (0.78125*dpNormSq - 1.6875)*dpNormSq;
+    d2Res := (-3.375 + 3.125*dpNormSq)*dpNorm;
+    dp := (dpNorm - 2*res*dRes/(2*dRes^2 - res*d2Res))*dp_turbulent;
   end if;
 
   annotation (Inline=false,
