@@ -12,11 +12,17 @@ record Rock "Soil data record of rock heat transfer properties"
 Documentation(
 info="<html>
 <p>
-This data record contains the heat transfer properties of rock.
+This data record contains the heat transfer and fluid flow properties of rock.
 </p>
 </html>",
 revisions="<html>
 <ul>
+<li>
+September 17, 2026, by Michael Wetter:<br/>
+Improved documentation of pressure drop calculation.<br/>
+For
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/2179\">IBPSA, #2179</a>.
+</li>
 <li>
 May 2023, Alessandro Maccarini:<br/>
 First implementation.
