@@ -286,6 +286,17 @@ have been <b style=\"color:blue\">improved</b> in a
                        This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/2071\">IBPSA, #2071</a>.
     </td>
 </tr>
+<tr><td colspan=\"2\"><b>Buildings.Fluid.Geothermal.Aquifer</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Fluid.Geothermal.Aquifer.MultiWell<br/>
+                       Buildings.Fluid.Geothermal.Aquifer.Data.Rock<br/>
+                       Buildings.Fluid.Geothermal.Aquifer.Data.Template
+    </td>
+    <td valign=\"top\">Improved documentation of pressure drop calculation.<br/>
+                       This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/2179\">IBPSA, issue 2179</a>.
+    </td>
+</tr>
 <tr><td colspan=\"2\"><b>Buildings.Fluid.Geothermal.Borefields</b>
     </td>
 </tr>
@@ -303,17 +314,6 @@ have been <b style=\"color:blue\">improved</b> in a
     <td valign=\"top\">Reformulated model to avoid warning about binding equation not being a parameter expression.<br/>
                        This is for
                        <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4215\">#4215</a>.
-    </td>
-</tr>
-<tr><td colspan=\"2\"><b>Buildings.Fluid.Geothermal.Aquifer</b>
-    </td>
-</tr>
-<tr><td valign=\"top\">Buildings.Fluid.Geothermal.Aquifer.MultiWell<br/>
-                       Buildings.Fluid.Geothermal.Aquifer.Data.Rock<br/>
-                       Buildings.Fluid.Geothermal.Aquifer.Data.Template
-    </td>
-    <td valign=\"top\">Improved documentation of pressure drop calculation.<br/>
-                       This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/2179\">IBPSA, issue 2179</a>.
     </td>
 </tr>
 </table>
