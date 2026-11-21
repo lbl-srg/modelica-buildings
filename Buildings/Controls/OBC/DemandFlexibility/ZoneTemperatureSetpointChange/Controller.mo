@@ -127,20 +127,20 @@ block Controller
         iconTransformation(extent={{100,-20},{140,20}})));
   CDL.Logical.Not not1[nZon] if nZon == 1
     "When there is only one zone in a building, skip zone prioritization"
-    annotation (Placement(transformation(extent={{60,120},{80,140}})));
+    annotation (Placement(transformation(extent={{40,140},{60,160}})));
   Generic.ElectricityDemand eleDem(
     PBuiRedDifMin=PBuiRedDifMin,
     PBuiRed_nominal=PBuiRed_nominal,
     PBuiRedHys=PBuiRedHys)
     if zonConVar == Buildings.Controls.OBC.DemandFlexibility.Types.ZoneControlVariant.Variant_3
       or zonConVar == Buildings.Controls.OBC.DemandFlexibility.Types.ZoneControlVariant.Variant_4
-    annotation (Placement(transformation(extent={{-200,140},{-180,160}})));
+    annotation (Placement(transformation(extent={{-140,150},{-100,190}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput PBuiRedTarVar(
     final unit="W",
     final quantity="Power")
     if zonConVar == Buildings.Controls.OBC.DemandFlexibility.Types.ZoneControlVariant.Variant_4
     "Variable target electricity demand reduction of the building"
-    annotation (Placement(transformation(extent={{-306,178},{-266,218}}),
+    annotation (Placement(transformation(extent={{-260,180},{-220,220}}),
         iconTransformation(extent={{-140,20},{-100,60}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput PBuiRed(
     final unit="W",
@@ -148,16 +148,14 @@ block Controller
     if zonConVar == Buildings.Controls.OBC.DemandFlexibility.Types.ZoneControlVariant.Variant_3
       or zonConVar == Buildings.Controls.OBC.DemandFlexibility.Types.ZoneControlVariant.Variant_4
     "Electricity demand reduction of the building (baseline demand minus actual demand)"
-    annotation (Placement(transformation(extent={{-308,128},{-268,168}}),
+    annotation (Placement(transformation(extent={{-260,120},{-220,160}}),
         iconTransformation(extent={{-140,-20},{-100,20}})));
   CDL.Interfaces.BooleanInput                        uQua[nZon]
     "True if the zone is qualified for zone temperature setpoint change"
-    annotation (Placement(transformation(extent={{-248,318},{-208,358}}),
+    annotation (Placement(transformation(extent={{-260,320},{-220,360}}),
         iconTransformation(extent={{-140,60},{-100,100}})));
   CDL.Logical.Not not2[nZon]
     annotation (Placement(transformation(extent={{-162,330},{-142,350}})));
-  CDL.Logical.Not not3[nZon]
-    annotation (Placement(transformation(extent={{-80,176},{-60,196}})));
   CDL.Logical.Or or2[nZon]
     annotation (Placement(transformation(extent={{-22,310},{-2,330}})));
   CDL.Logical.Or or3[nZon]
@@ -166,16 +164,64 @@ block Controller
     annotation (Placement(transformation(extent={{68,216},{88,236}})));
   CDL.Interfaces.BooleanInput occSta
     "Occupancy status; true: occupied; false: unoccupied" annotation (Placement(
-        transformation(extent={{-400,390},{-360,430}}), iconTransformation(
+        transformation(extent={{-260,400},{-220,440}}), iconTransformation(
           extent={{-140,100},{-100,140}})));
   CDL.Logical.Or or1[nZon]
-    annotation (Placement(transformation(extent={{-100,360},{-80,380}})));
+    annotation (Placement(transformation(extent={{-160,380},{-140,400}})));
   CDL.Logical.Xor xor
     annotation (Placement(transformation(extent={{-300,400},{-280,420}})));
   CDL.Logical.Sources.Constant conOccStaInt(k=occStaInt)
     "Boolean constant for the intended occupancy status"
     annotation (Placement(transformation(extent={{-360,360},{-340,380}})));
 protected
+  CDL.Reals.Subtract dTZonHea[nZon]
+    if airConMod == Buildings.Controls.OBC.DemandFlexibility.Types.AirConditioningMode.Heating
+    "Zone temperature difference during the heating mode"
+    annotation (Placement(transformation(extent={{-320,300},{-300,320}})));
+  CDL.Reals.Subtract dTZonCoo[nZon]
+    if airConMod == Buildings.Controls.OBC.DemandFlexibility.Types.AirConditioningMode.Cooling
+    "Zone temperature difference during the cooling mode"
+    annotation (Placement(transformation(extent={{-320,260},{-300,280}})));
+  CDL.Reals.LessThreshold lesDTZon[nZon](final t=fill(
+        dTSheThr, nZon), final h=fill(dTSheThr*0.5, nZon))
+    "The zone temperature difference is less than the load-shed mode zone temperature difference threshold"
+    annotation (Placement(transformation(extent={{-120,270},{-100,290}})));
+  CDL.Logical.Not notLesDTZon[nZon]
+    "The zone temperature difference is no less than the load-shed mode zone temperature difference threshold"
+    annotation (Placement(transformation(extent={{-80,270},{-60,290}})));
+  CDL.Integers.Sources.Constant conIntShe(final k=
+        Buildings.Controls.OBC.DemandFlexibility.Types.DemandFlexibilityModes.loadShed)
+    "Integer constant for the load-shed mode"
+    annotation (Placement(transformation(extent={{-160,250},{-140,270}})));
+  CDL.Integers.Equal intEquShe
+    "Check whether it is the load-shed mode"
+    annotation (Placement(transformation(extent={{-120,230},{-100,250}})));
+  CDL.Routing.BooleanScalarReplicator booScaRepShe(final
+      nout=nZon) "Repeat the boolean scalar for being in the load-shed mode"
+    annotation (Placement(transformation(extent={{-80,230},{-60,250}})));
+  CDL.Logical.And andDTZonLoaShe[nZon]
+    "The zone temperature difference is equal or greater than the load-shed mode zone temperature difference threshold, and the system is in the load-shed mode"
+    annotation (Placement(transformation(extent={{-40,260},{-20,280}})));
+  CDL.Reals.Sources.Constant conPBuiRedTar(final k=
+        PBuiRedTarCon)
+    if zonConVar == Buildings.Controls.OBC.DemandFlexibility.Types.ZoneControlVariant.Variant_3
+    "A constant for the target electricity demand reduction of the building"
+    annotation (Placement(transformation(extent={{-180,200},{-160,220}})));
+  CDL.Routing.BooleanScalarReplicator repPBuiShe(final
+      nout=nZon)
+    if zonConVar == Buildings.Controls.OBC.DemandFlexibility.Types.ZoneControlVariant.Variant_3
+      or zonConVar == Buildings.Controls.OBC.DemandFlexibility.Types.ZoneControlVariant.Variant_4
+    "Repeat the flag of needing electricity demand shed as a vector"
+    annotation (Placement(transformation(extent={{-40,150},{-20,170}})));
+  CDL.Logical.Sources.Constant conNotEleDem[nZon](final k=
+        fill(true, nZon))
+    if zonConVar <> Buildings.Controls.OBC.DemandFlexibility.Types.ZoneControlVariant.Variant_3
+      and zonConVar <> Buildings.Controls.OBC.DemandFlexibility.Types.ZoneControlVariant.Variant_4
+    "When the electricity demand check is disabled, output true in place of the electricity demand check logic"
+    annotation (Placement(transformation(extent={{-80,80},{-60,100}})));
+  CDL.Logical.Not not3[nZon]
+    "True if no electricity demand reduction is needed"
+    annotation (Placement(transformation(extent={{-40,60},{-20,80}})));
   Buildings.Controls.OBC.DemandFlexibility.ZoneTemperatureSetpointChange.Subsequences.LowerUpperBound
     lowUppBou(
     final dTSheThr=dTSheThr,
@@ -212,161 +258,104 @@ protected
   Buildings.Controls.OBC.CDL.Routing.IntegerScalarReplicator repDemFleMod(
     final nout=nZon)
     "Repeat the demand flexibility mode as a vector"
-    annotation (Placement(transformation(extent={{-40,-50},{-20,-30}})));
+    annotation (Placement(transformation(extent={{-160,-50},{-140,-30}})));
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant conNSel(
     final k=nSel)
     if nZon>1
     "A constant for the number of zones to select for prioritization"
     annotation (Placement(transformation(extent={{0,40},{20,60}})));
-  CDL.Reals.LessThreshold                        lesDTZon[nZon](final t=fill(
-        dTSheThr, nZon), final h=fill(dTSheThr*0.5, nZon))
-    "The zone temperature difference is less than the load-shed mode zone temperature difference threshold"
-    annotation (Placement(transformation(extent={{-240,286},{-220,306}})));
-  CDL.Reals.Subtract                        dTZonHea[nZon]
-    if airConMod == Buildings.Controls.OBC.DemandFlexibility.Types.AirConditioningMode.Heating
-    "Zone temperature difference during the heating mode"
-    annotation (Placement(transformation(extent={{-320,306},{-300,326}})));
-  CDL.Reals.Subtract                        dTZonCoo[nZon]
-    if airConMod == Buildings.Controls.OBC.DemandFlexibility.Types.AirConditioningMode.Cooling
-    "Zone temperature difference during the cooling mode"
-    annotation (Placement(transformation(extent={{-320,266},{-300,286}})));
-  CDL.Logical.Not                        notLesDTZon[nZon]
-    "The zone temperature difference is no less than the load-shed mode zone temperature difference threshold"
-    annotation (Placement(transformation(extent={{-180,286},{-160,306}})));
-  CDL.Logical.And                        andDTZonLoaShe[nZon]
-    "The zone temperature difference is equal or greater than the load-shed mode zone temperature difference threshold, and the system is in the load-shed mode"
-    annotation (Placement(transformation(extent={{-78,286},{-58,306}})));
-  CDL.Reals.Sources.Constant                        conPBuiRedTar(final k=
-        PBuiRedTarCon)
-    if zonConVar == Buildings.Controls.OBC.DemandFlexibility.Types.ZoneControlVariant.Variant_3
-    "A constant for the target electricity demand reduction of the building"
-    annotation (Placement(transformation(extent={{-240,200},{-220,220}})));
-  CDL.Integers.Sources.Constant                        conIntShe(final k=
-        Buildings.Controls.OBC.DemandFlexibility.Types.DemandFlexibilityModes.loadShed)
-    "Integer constant for the load-shed mode"
-    annotation (Placement(transformation(extent={{-190,234},{-170,254}})));
-  CDL.Integers.Equal                        intEquShe
-    "Check whether it is the load-shed mode"
-    annotation (Placement(transformation(extent={{-138,242},{-118,262}})));
-protected
-  CDL.Routing.BooleanScalarReplicator                        booScaRepShe(final
-      nout=nZon) "Repeat the boolean scalar for being in the load-shed mode"
-    annotation (Placement(transformation(extent={{-104,242},{-84,262}})));
-  CDL.Logical.Sources.Constant                        conNotEleDem[nZon](final k=
-        fill(true, nZon))
-    if zonConVar <> Buildings.Controls.OBC.DemandFlexibility.Types.ZoneControlVariant.Variant_3
-      and zonConVar <> Buildings.Controls.OBC.DemandFlexibility.Types.ZoneControlVariant.Variant_4
-    "When the electricity demand check is disabled, output true in place of the electricity demand check logic"
-    annotation (Placement(transformation(extent={{-170,190},{-150,210}})));
-  CDL.Routing.BooleanScalarReplicator                        repPBuiShe(final
-      nout=nZon)
-    if zonConVar == Buildings.Controls.OBC.DemandFlexibility.Types.ZoneControlVariant.Variant_3
-      or zonConVar == Buildings.Controls.OBC.DemandFlexibility.Types.ZoneControlVariant.Variant_4
-    "Repeat the flag of needing electricity demand shed as a vector"
-    annotation (Placement(transformation(extent={{-130,150},{-110,170}})));
-protected
   CDL.Routing.BooleanScalarReplicator booScaRep(final nout=nZon)
     "Repeat the boolean scalar"
-    annotation (Placement(transformation(extent={{-144,386},{-124,406}})));
+    annotation (Placement(transformation(extent={{-160,420},{-140,440}})));
 equation
-  connect(zonPri.yEna, zonSetAdj.uEna) annotation (Line(points={{82,90},{100,90},
-          {100,-104},{118,-104}},         color={255,0,255}));
+  connect(TCurZon, dTZonHea.u1) annotation (Line(points={{-240,40},{-350,40},{
+          -350,316},{-322,316}}, color={0,0,127}));
+  connect(TCurZon, dTZonCoo.u2) annotation (Line(points={{-240,40},{-344,40},{
+          -344,264},{-322,264}}, color={0,0,127}));
+  connect(TCurZonSet, dTZonHea.u2) annotation (Line(points={{-240,0},{-356,0},{
+          -356,304},{-322,304}}, color={0,0,127}));
+  connect(TCurZonSet, dTZonCoo.u1) annotation (Line(points={{-240,0},{-352,0},{
+          -352,276},{-322,276}}, color={0,0,127}));
+  connect(dTZonHea.y, lesDTZon.u) annotation (Line(points={{-298,310},{-260,310},
+          {-260,280},{-122,280}}, color={0,0,127}));
+  connect(dTZonCoo.y, lesDTZon.u) annotation (Line(points={{-298,270},{-260,270},
+          {-260,280},{-122,280}}, color={0,0,127}));
+  connect(lesDTZon.y, notLesDTZon.u)
+    annotation (Line(points={{-98,280},{-82,280}}, color={255,0,255}));
+  connect(notLesDTZon.y, andDTZonLoaShe.u1) annotation (Line(points={{-58,280},
+          {-42,280},{-42,270}}, color={255,0,255}));
+  connect(demFleMod, intEquShe.u1) annotation (Line(points={{-240,-40},{-240,-60},
+          {-90,-60},{-90,240},{-122,240}}, color={255,127,0}));
+  connect(demFleMod, repDemFleMod.u)
+    annotation (Line(points={{-240,-40},{-162,-40}}, color={255,127,0}));
+  connect(demFleMod, lowUppBou.demFleMod) annotation (Line(points={{-240,-40},{
+          -186,-40},{-186,140.8},{-82,140.8}}, color={255,127,0}));
+  connect(conIntShe.y, intEquShe.u2) annotation (Line(points={{-138,260},{-130,
+          260},{-130,232},{-122,232}}, color={255,127,0}));
+  connect(intEquShe.y, booScaRepShe.u)
+    annotation (Line(points={{-98,240},{-82,240}}, color={255,0,255}));
+  connect(booScaRepShe.y, andDTZonLoaShe.u2) annotation (Line(points={{-58,240},
+          {-50,240},{-50,262},{-42,262}}, color={255,0,255}));
+  connect(TCurZon, zonPri.TZon) annotation (Line(points={{-240,40},{-140,40},{
+          -140,92},{56,92}}, color={0,0,127}));
+  connect(TCurZonSet, zonPri.TZonSet) annotation (Line(points={{-240,0},{-130,0},
+          {-130,88},{56,88}}, color={0,0,127}));
+  connect(TCurZonSet, lowUppBou.TZonSet) annotation (Line(points={{-240,0},{-130,
+          0},{-130,119.2},{-82,119.2}}, color={0,0,127}));
+  connect(TCurZonSet, zonSetAdj.TCurZonSet) annotation (Line(points={{-240,0},{
+          -130,0},{-130,-116},{108,-116}}, color={0,0,127}));
+  connect(repDemFleMod.y, zonSetAdj.demFleMod) annotation (Line(points={{-138,-40},
+          {80,-40},{80,-110},{108,-110}}, color={255,127,0}));
+  connect(conNSel.y, zonPri.nSel) annotation (Line(points={{22,50},{40,50},{40,
+          84},{56,84}}, color={255,127,0}));
+  connect(PBuiRedTarVar, eleDem.PBuiRedTar) annotation (Line(points={{-240,200},
+          {-190,200},{-190,182},{-144,182}}, color={0,0,127}));
+  connect(PBuiRed, eleDem.PBuiRed) annotation (Line(points={{-240,140},{-190,140},
+          {-190,158},{-144,158}}, color={0,0,127}));
+  connect(conPBuiRedTar.y, eleDem.PBuiRedTar) annotation (Line(points={{-158,210},
+          {-144,210},{-144,182}}, color={0,0,127}));
+  connect(eleDem.need_PBuiShe, repPBuiShe.u) annotation (Line(points={{-96,170},
+          {-70,170},{-70,160},{-42,160}}, color={255,0,255}));
+  connect(repPBuiShe.y, not3.u) annotation (Line(points={{-18,160},{-14,160},{
+          -14,50},{-54,50},{-54,70},{-42,70}}, color={255,0,255}));
+  connect(conNotEleDem.y, not3.u) annotation (Line(points={{-58,90},{-50,90},{
+          -50,70},{-42,70}}, color={255,0,255}));
+  connect(andDTZonLoaShe.y, or2.u2) annotation (Line(points={{-18,270},{-18,300},
+          {-24,300},{-24,312}}, color={255,0,255}));
+  connect(or2.y, or3.u1)
+    annotation (Line(points={{0,320},{0,266},{2,266}}, color={255,0,255}));
+  connect(not3.y, or3.u2) annotation (Line(points={{-18,70},{8,70},{8,246},{2,
+          246},{2,258}}, color={255,0,255}));
+  connect(or3.y, or4.u1) annotation (Line(points={{26,266},{46,266},{46,226},{
+          66,226}}, color={255,0,255}));
+  connect(lowUppBou.reach_lowUppBou, or4.u2) annotation (Line(points={{-58,130},
+          {6,130},{6,218},{66,218}}, color={255,0,255}));
+  connect(or4.y, zonPri.disFla) annotation (Line(points={{90,226},{90,110},{50,
+          110},{50,96},{56,96}}, color={255,0,255}));
+  connect(or4.y, not1.u) annotation (Line(points={{90,226},{90,130},{30,130},{
+          30,150},{38,150}}, color={255,0,255}));
+  connect(not1.y, zonSetAdj.uEna) annotation (Line(points={{62,150},{100,150},{
+          100,-104},{108,-104}}, color={255,0,255}));
+  connect(zonPri.yEna, zonSetAdj.uEna) annotation (Line(points={{84,90},{100,90},
+          {100,-104},{108,-104}}, color={255,0,255}));
+  connect(zonSetAdj.TComZonSet, samSetCha.u) annotation (Line(points={{152,-120},
+          {160,-120},{160,0},{178,0}}, color={0,0,127}));
   connect(samSetCha.y, TComZonSet)
     annotation (Line(points={{202,0},{240,0}}, color={0,0,127}));
-  connect(zonSetAdj.TComZonSet, samSetCha.u) annotation (Line(points={{142,-110},
-          {160,-110},{160,0},{178,0}}, color={0,0,127}));
-  connect(TCurZonSet, lowUppBou.TZonSet) annotation (Line(points={{-240,0},{-130,
-          0},{-130,119.2},{-82,119.2}},
-                                    color={0,0,127}));
-  connect(demFleMod, lowUppBou.demFleMod) annotation (Line(points={{-240,-40},{-120,
-          -40},{-120,140.8},{-82,140.8}},
-                                      color={255,127,0}));
-  connect(TCurZon, zonPri.TZon)
-    annotation (Line(points={{-240,40},{-140,40},{-140,92},{58,92}},
-      color={0,0,127}));
-  connect(TCurZonSet, zonPri.TZonSet)
-    annotation (Line(points={{-240,0},{-130,0},{-130,88},{58,88}}, color={0,0,127}));
-  connect(demFleMod, repDemFleMod.u)
-    annotation (Line(points={{-240,-40},{-42,-40}},
-      color={255,127,0}));
-  connect(repDemFleMod.y, zonSetAdj.demFleMod) annotation (Line(points={{-18,-40},
-          {80,-40},{80,-110},{118,-110}}, color={255,127,0}));
-  connect(TCurZonSet, zonSetAdj.TCurZonSet) annotation (Line(points={{-240,0},{-130,
-          0},{-130,-116},{118,-116}},     color={0,0,127}));
-  connect(conNSel.y, zonPri.nSel)
-    annotation (Line(points={{22,50},{40,50},{40,84},{58,84}}, color={255,127,0}));
-  connect(not1.y, zonSetAdj.uEna) annotation (Line(points={{82,130},{100,130},{100,
-          -104},{118,-104}},         color={255,0,255}));
-  connect(dTZonHea.y,lesDTZon. u)
-    annotation (Line(points={{-298,316},{-260,316},{-260,296},{-242,296}},
-      color={0,0,127}));
-  connect(dTZonCoo.y,lesDTZon. u)
-    annotation (Line(points={{-298,276},{-260,276},{-260,296},{-242,296}},
-      color={0,0,127}));
-  connect(lesDTZon.y,notLesDTZon. u)
-    annotation (Line(points={{-218,296},{-182,296}},
-                                                   color={255,0,255}));
-  connect(notLesDTZon.y,andDTZonLoaShe. u1)
-    annotation (Line(points={{-158,296},{-80,296}},
-                                                  color={255,0,255}));
-  connect(PBuiRedTarVar, eleDem.PBuiRedTar) annotation (Line(points={{-286,198},
-          {-246,198},{-246,156},{-202,156}}, color={0,0,127}));
-  connect(PBuiRed, eleDem.PBuiRed) annotation (Line(points={{-288,148},{-248,148},
-          {-248,144},{-202,144}}, color={0,0,127}));
-  connect(TCurZon, dTZonHea.u1) annotation (Line(points={{-240,40},{-356,40},{-356,
-          48},{-460,48},{-460,322},{-322,322}}, color={0,0,127}));
-  connect(TCurZon, dTZonCoo.u2) annotation (Line(points={{-240,40},{-350,40},{-350,
-          8},{-452,8},{-452,270},{-322,270}}, color={0,0,127}));
-  connect(TCurZonSet, dTZonHea.u2) annotation (Line(points={{-240,0},{-402,0},{-402,
-          310},{-322,310}}, color={0,0,127}));
-  connect(TCurZonSet, dTZonCoo.u1) annotation (Line(points={{-240,0},{-388,0},{-388,
-          282},{-322,282}}, color={0,0,127}));
-  connect(conPBuiRedTar.y, eleDem.PBuiRedTar) annotation (Line(points={{-218,210},
-          {-218,156},{-202,156}},          color={0,0,127}));
-  connect(conIntShe.y,intEquShe. u2)
-    annotation (Line(points={{-168,244},{-140,244}},
-      color={255,127,0}));
-  connect(intEquShe.y, booScaRepShe.u)
-    annotation (Line(points={{-116,252},{-106,252}}, color={255,0,255}));
-  connect(booScaRepShe.y, andDTZonLoaShe.u2) annotation (Line(points={{-82,252},
-          {-84,252},{-84,288},{-80,288}}, color={255,0,255}));
-  connect(demFleMod, intEquShe.u1) annotation (Line(points={{-240,-40},{-240,107},
-          {-140,107},{-140,252}}, color={255,127,0}));
-  connect(eleDem.need_PBuiShe,repPBuiShe. u)
-    annotation (Line(points={{-178,150},{-158,150},{-158,160},{-132,160}},
-                                                 color={255,0,255}));
-  connect(uQua, not2.u) annotation (Line(points={{-228,338},{-198,338},{-198,340},
-          {-164,340}},      color={255,0,255}));
-  connect(repPBuiShe.y, not3.u) annotation (Line(points={{-108,160},{-96,160},{
-          -96,186},{-82,186}}, color={255,0,255}));
-  connect(conNotEleDem.y, not3.u) annotation (Line(points={{-148,200},{-116,200},
-          {-116,186},{-82,186}}, color={255,0,255}));
-  connect(andDTZonLoaShe.y, or2.u2) annotation (Line(points={{-56,296},{-40,296},
-          {-40,312},{-24,312}}, color={255,0,255}));
-  connect(or2.y,or3. u1) annotation (Line(points={{0,320},{2,320},{2,266},{2,
-          266}}, color={255,0,255}));
-  connect(not3.y,or3. u2) annotation (Line(points={{-58,186},{-28,186},{-28,258},
-          {2,258}}, color={255,0,255}));
-  connect(or3.y,or4. u1) annotation (Line(points={{26,266},{46,266},{46,226},{
-          66,226}}, color={255,0,255}));
-  connect(lowUppBou.reach_lowUppBou,or4. u2) annotation (Line(points={{-58,130},
-          {6,130},{6,218},{66,218}}, color={255,0,255}));
-  connect(or4.y, zonPri.disFla) annotation (Line(points={{90,226},{74,226},{74,
-          96},{58,96}}, color={255,0,255}));
-  connect(or4.y, not1.u) annotation (Line(points={{90,226},{90,148},{44,148},{
-          44,132},{58,132},{58,130}}, color={255,0,255}));
-  connect(booScaRep.y, or1.u1) annotation (Line(points={{-122,396},{-122,383},{-102,
-          383},{-102,370}}, color={255,0,255}));
-  connect(not2.y, or1.u2) annotation (Line(points={{-140,340},{-120,340},{-120,362},
-          {-102,362}}, color={255,0,255}));
-  connect(or1.y, or2.u1) annotation (Line(points={{-78,370},{-50,370},{-50,320},
-          {-24,320}}, color={255,0,255}));
-  connect(xor.u1, occSta)
-    annotation (Line(points={{-302,410},{-380,410}}, color={255,0,255}));
+  connect(occSta, xor.u1) annotation (Line(points={{-240,420},{-302,420},{-302,
+          410}}, color={255,0,255}));
   connect(conOccStaInt.y, xor.u2) annotation (Line(points={{-338,370},{-320,370},
           {-320,402},{-302,402}}, color={255,0,255}));
-  connect(xor.y, booScaRep.u) annotation (Line(points={{-278,410},{-212,410},{-212,
-          396},{-146,396}}, color={255,0,255}));
+  connect(xor.y, booScaRep.u) annotation (Line(points={{-278,410},{-278,396},{
+          -210,396},{-210,430},{-162,430}}, color={255,0,255}));
+  connect(booScaRep.y, or1.u1) annotation (Line(points={{-138,430},{-138,450},{
+          -180,450},{-180,390},{-162,390}}, color={255,0,255}));
+  connect(uQua, not2.u)
+    annotation (Line(points={{-240,340},{-164,340}}, color={255,0,255}));
+  connect(not2.y, or1.u2) annotation (Line(points={{-140,340},{-140,322},{-170,
+          322},{-170,382},{-162,382}}, color={255,0,255}));
+  connect(or1.y, or2.u1) annotation (Line(points={{-138,390},{-50,390},{-50,320},
+          {-24,320}}, color={255,0,255}));
   annotation (defaultComponentName="zonTemSetCon",
     Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-140},{100,140}},
     grid={2,2}), graphics={Rectangle(
@@ -377,10 +366,17 @@ equation
       extent={{-100,180},{100,140}},
       textColor={0,0,255},
           textString="%name")}), Diagram(
-    coordinateSystem(preserveAspectRatio=false, extent={{-220,-180},{220,180}},
+    coordinateSystem(preserveAspectRatio=false, extent={{-400,-180},{300,460}},
     grid={2,2})),
     Documentation(revisions="<html>
 <ul>
+<li>
+November 20, 2026, by Cline:<br/>
+Reorganized the graphical layout of the diagram layer: aligned all blocks on
+the diagram grid and redrew the connection lines with orthogonal routing.
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings\">modelica-buildings</a>.
+</li>
 <li>
 July 17, 2026, by Weiping Huang:<br/>
 First implementation.
