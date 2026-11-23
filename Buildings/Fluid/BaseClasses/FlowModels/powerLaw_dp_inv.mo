@@ -34,8 +34,8 @@ protected
   Real m_flowNormSq "Square of normalized mass flow rate";
   Real dpSq "Square of pressure difference";
   Real res "Residual of the laminar branch of powerLaw_dp";
-  Real res_der "1st derivative of res with respect to dp";
-  Real res_der2 "2nd derivative of res with respect to dp";
+  Real dRes "1st derivative of res with respect to dp";
+  Real d2Res "2nd derivative of res with respect to dp";
 
 algorithm
   if abs_m < m_flow_turbulent then
@@ -46,9 +46,9 @@ algorithm
     for i in 1:2 loop
       dpSq := dp^2;
       res := dp*(a1 + dpSq*(a3 + dpSq*a5)) - m_flow;
-      res_der := a1 + dpSq*(3*a3 + 5*a5*dpSq);
-      res_der2 := dp*(6*a3 + 20*a5*dpSq);
-      dp := dp - 2*res*res_der/(2*res_der^2 - res*res_der2);
+      dRes := a1 + dpSq*(3*a3 + 5*a5*dpSq);
+      d2Res := dp*(6*a3 + 20*a5*dpSq);
+      dp := dp - 2*res*dRes/(2*dRes^2 - res*d2Res);
     end for;
   else
     dp := if m_flow > 0 then C*m_flow^n else -C*abs_m^n;

@@ -82,7 +82,7 @@ This is for
 April 16, 2026, by Michael Wetter:<br/>
 First implementation.<br/>
 This is for
-<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/2115\">Buildings #2115</a>.
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/2115\">#2115</a>.
 </li>
 </ul>
 </html>"));

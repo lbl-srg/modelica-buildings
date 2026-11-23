@@ -120,6 +120,17 @@ have been <b style=\"color:blue\">improved</b> in a
                        This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4783\">issue 4783</a>.
     </td>
 </tr>
+<tr><td colspan=\"2\"><b>Buildings.Fluid.Geothermal.Aquifer</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Fluid.Geothermal.Aquifer.Data.Rock<br/>
+                       Buildings.Fluid.Geothermal.Aquifer.Data.Template<br/>
+                       Buildings.Fluid.Geothermal.Aquifer.MultiWell
+    </td>
+    <td valign=\"top\">Improved documentation of pressure drop calculation.<br/>
+                       This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/2179\">IBPSA, issue 2179</a>.
+    </td>
+</tr>
 <tr><td colspan=\"2\"><b>Buildings.Fluid.HeatPumps.ModularReversible.RefrigerantCycle.BaseClasses</b>
     </td>
 </tr>
@@ -130,6 +141,40 @@ have been <b style=\"color:blue\">improved</b> in a
                        condition and the <code>if</code> condition inside the <code>when</code> body are guaranteed
                        to evaluate identically.<br/>
                        This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4836\">Buildings, #4836</a>.
+    </td>
+</tr>
+<tr><td colspan=\"2\"><b>Buildings.Media.Antifreeze</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Media.Antifreeze.PropyleneGlycolWater
+    </td>
+    <td valign=\"top\">Bound constants <code>X_a_min</code> and <code>X_a_max</code> to their values in the package
+                       <code>Buildings.Media.Antifreeze.Functions.PropyleneGlycolWater</code> to avoid code duplication.<br/>
+                       This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/2192\">IBPSA, issue 2192</a>.
+    </td>
+</tr>
+<tr><td colspan=\"2\"><b>Buildings.Media.Antifreeze.Functions</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Media.Antifreeze.Functions.EthyleneGlycolWater.prandtlNumber_TX_a<br/>
+                       Buildings.Media.Antifreeze.Functions.EthyleneGlycolWater.volumeToMassFraction<br/>
+                       Buildings.Media.Antifreeze.Functions.PropyleneGlycolWater.prandtlNumber_TX_a<br/>
+                       Buildings.Media.Antifreeze.Functions.PropyleneGlycolWater.volumeToMassFraction
+    </td>
+    <td valign=\"top\">Corrected output types of <code>prandtlNumber_TX_a</code> (from <code>ThermalConductivity</code> to
+                       <code>PrandtlNumber</code>) and <code>volumeToMassFraction</code> (from <code>SpecificVolume</code>
+                       to <code>MassFraction</code>).
+    </td>
+</tr>
+<tr><td colspan=\"2\"><b>Buildings.ThermalZones.ReducedOrder.Validation.VDI6007</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.ThermalZones.ReducedOrder.Validation.VDI6007.TestCase9
+    </td>
+    <td valign=\"top\">Corrected the time of the second point of the long-wave sky radiation table
+                       from <code>0.36</code> s to <code>3600</code> s, so that the first hour
+                       has a constant value as all other hours.<br/>
+                       This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/2181\">IBPSA, issue 2181</a>.
     </td>
 </tr>
 </table>
@@ -235,6 +280,16 @@ that can lead to wrong simulation results):
                        demand is small as this only affects the solar radiation that is reflected by the room
                        back to the window.<br/>
                        This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4871\">Buildings, #4871</a>.
+    </td>
+</tr>
+<tr><td colspan=\"2\"><b>Buildings.Utilities.Clustering</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Utilities.Clustering.KMeans
+    </td>
+    <td valign=\"top\">Corrected computation of distance to use <code>new_centroids</code> instead of <code>centroids</code>,
+                       which is not yet initialized when used.<br/>
+                       This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/2175\">IBPSA, issue 2175</a>.
     </td>
 </tr>
 </table>

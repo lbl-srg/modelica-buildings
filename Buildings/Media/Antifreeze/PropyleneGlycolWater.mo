@@ -113,9 +113,9 @@ as required from medium model \"" + mediumName + "\".");
   end BaseProperties;
 
 protected
-  constant Modelica.Units.SI.MassFraction X_a_min=0.
+  constant Modelica.Units.SI.MassFraction X_a_min=Functions.PropyleneGlycolWater.X_a_min
     "Minimum allowed mass fraction of propylene glycol in water";
-  constant Modelica.Units.SI.MassFraction X_a_max=0.6
+  constant Modelica.Units.SI.MassFraction X_a_max=Functions.PropyleneGlycolWater.X_a_max
     "Maximum allowed mass fraction of propylene glycol in water";
 
   // Fluid constants based on pure Propylene Glycol
@@ -157,7 +157,7 @@ alt=\"Relative variation of specific heat capacity with temperature\"/>
 <p>
 The figure below shows the relative error of the the four properties over a
 <i>20</i> &deg;C range around the temperature used to evaluate the constant
-proepties. The maximum errors are <i>1.6</i> % for mass density, <i>3.0</i> %
+properties. The maximum errors are <i>1.6</i> % for mass density, <i>3.0</i> %
 for specific heat capacity, <i>6.2</i> % for thermal conductivity and <i>950</i>
 % for dynamic viscosity.
 </p>
@@ -190,6 +190,13 @@ a temperature of <i>20</i> &deg;C and a mass fraction of <i>0.40</i>):
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+October 21, 2026, by Michael Wetter:<br/>
+Bound constants <code>X_a_min</code> and <code>X_a_max</code> to their values in the package
+<code>Buildings.Media.Antifreeze.Functions.PropyleneGlycolWater</code> to avoid code duplication.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/pull/2192\">IBPSA, #2192</a>.
+</li>
 <li>
 April 15, 2026, by Michael Wetter:<br/>
 Refactored implementation to use media properties from function calls in the package
