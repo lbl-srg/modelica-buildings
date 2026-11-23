@@ -36,7 +36,14 @@ model YD
       terminal_p(i(start={-477, 327})),
       V1(start={7000, -400})))
     annotation (Placement(transformation(extent={{-26,0},{-6,20}})));
+  Buildings.Electrical.AC.ThreePhasesUnbalanced.Sources.GroundingTransformer groTra
+    "Grounding transformer for delta secondary"
+    annotation (Placement(transformation(extent={{-10,-32},{10,-12}})));
 equation
+  connect(groTra.terminal, transformer.terminal_p) annotation (Line(
+      points={{0,-12},{0,10},{-6,10}},
+      color={0,120,120},
+      smooth=Smooth.None));
   connect(load.y, loadRL.Pow1) annotation (Line(
       points={{75,72},{90,72},{90,18},{76,18}},
       color={0,0,127},
@@ -79,6 +86,14 @@ equation
         "Simulate and plot"),
  Documentation(revisions="<html>
 <ul>
+<li>
+November 22, 2026, by Michael Wetter:<br/>
+Added secondary grounding transformer.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/2217\">IBPSA, #2217</a>
+and
+<a href=\"https://github.com/OpenModelica/OpenModelica/issues/10968\">OpenModelica, #10968</a>.
+</li>
 <li>
 December 22, 2016, by Michael Wetter:<br/>
 Set start values for Dymola 2017FD01.
