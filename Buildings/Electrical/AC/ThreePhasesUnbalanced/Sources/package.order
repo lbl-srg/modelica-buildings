@@ -2,6 +2,7 @@ FixedVoltage
 FixedVoltage_N
 Grid
 Grid_N
+GroundingTransformer
 PVsimple
 PVsimpleOriented
 PVsimpleOriented_N
@@ -9,4 +10,5 @@ PVsimple_N
 WindTurbine
 WindTurbine_N
 Examples
+Validation
 BaseClasses
