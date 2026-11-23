@@ -5,11 +5,9 @@ model ACDCConverter "AC DC converter"
     redeclare package PhaseSystem_n = PhaseSystems.OnePhase,
     redeclare replaceable Interfaces.Terminal_n terminal_n
       constrainedby Interfaces.Terminal_n(
-        i(start = zeros(PhaseSystem_n.n),
-        each stateSelect = StateSelect.prefer)),
+        i(start = zeros(PhaseSystem_n.n))),
     redeclare DC.Interfaces.Terminal_p terminal_p(
-        i(start = zeros(PhaseSystem_p.n),
-        each stateSelect = StateSelect.prefer)));
+        i(start = zeros(PhaseSystem_p.n))));
   parameter Real conversionFactor(min = Modelica.Constants.eps)
     "Ratio of DC voltage / AC RMS voltage";
   parameter Real eta(min=0, max=1)
@@ -149,6 +147,14 @@ Modelica.Electrical.QuasiStatic.SinglePhase.Utilities.IdealACDCConverter</a>.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+November 23, 2026, by Michael Wetter:<br/>
+Removed <code>stateSelect</code> attribute on algebraic terminal currents.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/2217\">IBPSA, #2217</a>
+and
+<a href=\"https://github.com/OpenModelica/OpenModelica/issues/10968\">OpenModelica, #10968</a>.
+</li>
 <li>
 January 30, 2019, by Michael Wetter:<br/>
 Added missing <code>replaceable</code> for the terminal.

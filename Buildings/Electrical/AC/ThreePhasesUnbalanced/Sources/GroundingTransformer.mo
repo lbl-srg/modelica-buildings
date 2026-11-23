@@ -1,13 +1,31 @@
 within Buildings.Electrical.AC.ThreePhasesUnbalanced.Sources;
+model GroundingTransformer
+  "Three-phase zig-zag grounding transformer with optional neutral resistance"
+  parameter Modelica.Units.SI.Resistance R(min=0) = 0
+    "Neutral-to-ground resistance";
 
-model GroundingTransformer "Three-phase zig-zag grounding transformer with optional neutral resistance"
-  parameter Modelica.Units.SI.Resistance R(min = 0) = 0 "Neutral-to-ground resistance";
-  Buildings.Electrical.AC.ThreePhasesUnbalanced.Interfaces.Terminal_n terminal "Three-phase electrical connector" annotation(
-    Placement(transformation(extent = {{-10, -10}, {10, 10}}, rotation = 90, origin = {0, 100}), iconTransformation(extent = {{-10, -10}, {10, 10}}, rotation = 90, origin = {0, 100})));
-  Modelica.Units.SI.Voltage vNeu[2] "Derived neutral-to-ground voltage phasor";
-  Modelica.Units.SI.Current i0[2] "Zero-sequence current phasor entering each phase";
-  Modelica.Units.SI.Current iNeu[2] "Neutral current phasor flowing to ground";
-  Modelica.Units.SI.ActivePower P "Active power dissipated in the neutral grounding resistance";
+  Buildings.Electrical.AC.ThreePhasesUnbalanced.Interfaces.Terminal_n terminal
+    "Three-phase electrical connector"
+    annotation(
+      Placement(
+        transformation(
+          extent={{-10,-10},{10,10}},
+          rotation=90,
+          origin={0,100}),
+        iconTransformation(
+          extent={{-10,-10},{10,10}},
+          rotation=90,
+          origin={0,100})));
+
+  Modelica.Units.SI.Voltage vNeu[2]
+    "Derived neutral-to-ground voltage phasor";
+  Modelica.Units.SI.Current i0[2]
+    "Zero-sequence current phasor entering each phase";
+  Modelica.Units.SI.Current iNeu[2]
+    "Neutral current phasor flowing to ground";
+  Modelica.Units.SI.ActivePower P
+    "Active power dissipated in the neutral grounding resistance";
+
 equation
   for k in 1:3 loop
     terminal.phase[k].i = i0;
@@ -16,11 +34,61 @@ equation
   3*vNeu = terminal.phase[1].v + terminal.phase[2].v + terminal.phase[3].v;
   vNeu = R*iNeu;
   P = Buildings.Electrical.PhaseSystems.OnePhase.activePower(vNeu, iNeu);
+
   annotation(
-    Diagram(coordinateSystem(preserveAspectRatio = false, extent = {{-100, -100}, {100, 100}})),
-    Icon(coordinateSystem(preserveAspectRatio = false, extent = {{-100, -100}, {100, 100}}), graphics = {Ellipse(extent = {{-50, 60}, {50, -40}}, lineColor = {0, 120, 120}, fillColor = {255, 255, 255}, fillPattern = FillPattern.Solid), Line(points = {{0, 90}, {0, 60}}, color = {0, 120, 120}, smooth = Smooth.None), Line(points = {{0, 10}, {0, 32}, {12, 38}}, color = {0, 120, 120}, smooth = Smooth.None), Line(points = {{0, 10}, {-18, -2}, {-18, -16}}, color = {0, 120, 120}, smooth = Smooth.None), Line(points = {{0, 10}, {18, -2}, {6, -14}}, color = {0, 120, 120}, smooth = Smooth.None), Line(points = {{0, -40}, {0, -60}}, color = {0, 120, 120}, smooth = Smooth.None), Line(points = {{-40, -60}, {40, -60}}, color = {0, 120, 120}, smooth = Smooth.None), Line(points = {{-28, -74}, {28, -74}}, color = {0, 120, 120}, smooth = Smooth.None), Line(points = {{-16, -88}, {16, -88}}, color = {0, 120, 120}, smooth = Smooth.None), Text(extent = {{-120, -92}, {120, -132}}, textColor = {0, 0, 255}, textString = "%name")}),
-    defaultComponentName = "groTra",
-    Documentation(info = "<html>
+    Diagram(
+      coordinateSystem(
+        preserveAspectRatio=false,
+        extent={{-100,-100},{100,100}})),
+    Icon(
+      coordinateSystem(
+        preserveAspectRatio=false,
+        extent={{-100,-100},{100,100}}),
+      graphics={
+        Ellipse(
+          extent={{-50,60},{50,-40}},
+          lineColor={0,120,120},
+          fillColor={255,255,255},
+          fillPattern=FillPattern.Solid),
+        Line(
+          points={{0,90},{0,60}},
+          color={0,120,120},
+          smooth=Smooth.None),
+        Line(
+          points={{0,10},{0,32},{12,38}},
+          color={0,120,120},
+          smooth=Smooth.None),
+        Line(
+          points={{0,10},{-18,-2},{-18,-16}},
+          color={0,120,120},
+          smooth=Smooth.None),
+        Line(
+          points={{0,10},{18,-2},{6,-14}},
+          color={0,120,120},
+          smooth=Smooth.None),
+        Line(
+          points={{0,-40},{0,-60}},
+          color={0,120,120},
+          smooth=Smooth.None),
+        Line(
+          points={{-40,-60},{40,-60}},
+          color={0,120,120},
+          smooth=Smooth.None),
+        Line(
+          points={{-28,-74},{28,-74}},
+          color={0,120,120},
+          smooth=Smooth.None),
+        Line(
+          points={{-16,-88},{16,-88}},
+          color={0,120,120},
+          smooth=Smooth.None),
+        Text(
+          extent={{-120,-92},{120,-132}},
+          textColor={0,0,255},
+          textString="%name")}),
+    defaultComponentName="groTra",
+    Documentation(
+      info="<html>
 <p>
 This model represents an ideal three-phase zig-zag grounding transformer
 that establishes a derived neutral reference to earth ground for three-wire
@@ -67,7 +135,8 @@ leakage impedance is neglected, at most one solidly grounded instance with
 <code>R = 0</code> should be connected directly to a given bus unless separated
 by line or transformer impedance.
 </p>
-</html>", revisions = "<html>
+</html>",
+      revisions="<html>
 <ul>
 <li>
 November 22, 2026, by Michael Wetter:<br/>
@@ -78,4 +147,5 @@ and
 <a href=\"https://github.com/OpenModelica/OpenModelica/issues/10968\">OpenModelica, #10968</a>.
 </li>
 </ul>
-</html>"));end GroundingTransformer;
+</html>"));
+end GroundingTransformer;
