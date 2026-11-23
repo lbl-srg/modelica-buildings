@@ -1,13 +1,12 @@
-last-generated=2026-11-22
+last-generated=2026-11-23
 statistics-initialization=
 {
-  "linear": "12, 12",
   "nonlinear": "12, 12",
   "numerical Jacobians": "0"
 }
 statistics-simulation=
 {
-  "linear": "12, 12",
+  "linear": " ",
   "nonlinear": "12, 12",
   "numerical Jacobians": "0"
 }
