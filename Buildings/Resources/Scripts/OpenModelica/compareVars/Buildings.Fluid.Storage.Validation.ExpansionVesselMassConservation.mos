@@ -1,0 +1,12 @@
+compareVars :=
+  {
+    "vol.T",
+    "expVes1.T",
+    "expVes2.T",
+    "expVes1.port_a.p",
+    "expVes2.port_a.p",
+    "vol.p",
+    "expVes1.m",
+    "expVes2.m",
+    "dmTot"
+  };
