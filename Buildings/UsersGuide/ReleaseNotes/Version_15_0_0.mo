@@ -24,6 +24,16 @@ The following <b style=\"color:blue\">new components</b> have been added
 to <b style=\"color:blue\">existing</b> libraries:
 </p>
 <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\" style=\"border-collapse:collapse;\">
+<tr><td colspan=\"2\"><b>Buildings.Electrical.AC.ThreePhasesUnbalanced.Sources</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Electrical.AC.ThreePhasesUnbalanced.Sources.GroundingTransformer
+    </td>
+    <td valign=\"top\">Added a three-phase zig-zag grounding transformer model
+                       with optional neutral-to-ground resistance.<br/>
+                       This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/2217\">IBPSA, issue 2217</a>.
+    </td>
+</tr>
 <tr><td colspan=\"2\"><b>Buildings.Templates</b>
     </td>
 </tr>
@@ -103,6 +113,34 @@ have been <b style=\"color:blue\">improved</b> in a
                        condition and the <code>if</code> condition inside the <code>when</code> body are guaranteed
                        to evaluate identically.<br/>
                        This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4836\">Buildings, #4836</a>.
+    </td>
+</tr>
+<tr><td colspan=\"2\"><b>Buildings.Electrical.AC.ThreePhasesUnbalanced.Loads.BaseClasses</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Electrical.AC.ThreePhasesUnbalanced.Loads.BaseClasses.BaseLoadCtrl
+    </td>
+    <td valign=\"top\">Set balanced three-phase start values for the load voltages
+                       <code>load1.v</code>, <code>load2.v</code>, and <code>load3.v</code>
+                       for wye and delta connections to improve nonlinear initialization.<br/>
+                       This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/2217\">IBPSA, issue 2217</a>.
+    </td>
+</tr>
+<tr><td colspan=\"2\"><b>Buildings.Electrical.AC.ThreePhasesUnbalanced.Validation.IEEETests.Test4NodesFeeder</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Electrical.AC.ThreePhasesUnbalanced.Validation.IEEETests.Test4NodesFeeder.BalancedStepDown.DD<br/>
+                       Buildings.Electrical.AC.ThreePhasesUnbalanced.Validation.IEEETests.Test4NodesFeeder.BalancedStepDown.YD<br/>
+                       Buildings.Electrical.AC.ThreePhasesUnbalanced.Validation.IEEETests.Test4NodesFeeder.BalancedStepUp.DD<br/>
+                       Buildings.Electrical.AC.ThreePhasesUnbalanced.Validation.IEEETests.Test4NodesFeeder.BalancedStepUp.YD<br/>
+                       Buildings.Electrical.AC.ThreePhasesUnbalanced.Validation.IEEETests.Test4NodesFeeder.UnbalancedStepDown.DD<br/>
+                       Buildings.Electrical.AC.ThreePhasesUnbalanced.Validation.IEEETests.Test4NodesFeeder.UnbalancedStepDown.YD<br/>
+                       Buildings.Electrical.AC.ThreePhasesUnbalanced.Validation.IEEETests.Test4NodesFeeder.UnbalancedStepUp.DD<br/>
+                       Buildings.Electrical.AC.ThreePhasesUnbalanced.Validation.IEEETests.Test4NodesFeeder.UnbalancedStepUp.YD
+    </td>
+    <td valign=\"top\">Added a secondary grounding transformer to establish a ground reference
+                       on the delta-connected transformer secondary.<br/>
+                       This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/2217\">IBPSA, issue 2217</a>.
     </td>
 </tr>
 <tr><td colspan=\"2\"><b>Buildings.Fluid.BaseClasses.FlowModels</b>
