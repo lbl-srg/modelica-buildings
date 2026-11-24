@@ -2,12 +2,12 @@ within Buildings.Fluid.DataCenters.Racks.Liquid.Data;
 record OCP_1kW_OAM_Water
   "Open Compute example for 1 kW OAM with DI water as working fluid"
   extends Buildings.Fluid.DataCenters.Racks.Liquid.Data.Generic(
+    PColPla_nominal=1000,
     theRes(
-      V_flow={2.0,3.0,4.0,5.0}/60/1000,
-      R={0.0172,0.0160,0.0154,0.0151})
-    );
+      V_flow={2.0, 3.0, 4.0, 5.0}/60/1000,
+      R={0.0172, 0.0160, 0.0154, 0.0151}));
   annotation (
-  defaultComponentName="datTheRes",
+  defaultComponentName="dat",
   defaultComponentPrefixes="parameter",
   Documentation(info="<html>
 <p>
@@ -29,6 +29,11 @@ OCP OAI SYSTEM LIQUID COOLING GUIDELINES</a>.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+November 13, 2026, by Michael Wetter:<br/>
+Set <code>PColPla_nominal=1000</code> for the 1 kW module and aligned
+<code>defaultComponentName</code> with <code>Generic</code>.
+</li>
 <li>
 December 16, 2025, by Michael Wetter:<br/>
 First implementation.

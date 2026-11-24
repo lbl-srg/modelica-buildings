@@ -11,9 +11,7 @@ model Passive
       mCoo_flow_nominal=mCoo_flow_nominal,
       Q_flow_nominal=Q_flow_nominal,
       TAirIn_nominal=TAirIn_nominal,
-      TCooIn_nominal=TCooIn_nominal,
-      cpAir_nominal=cpAir_default,
-      cpCoo_nominal=cpCoo_default))
+      TCooIn_nominal=TCooIn_nominal))
     "Passive rear door heat exchanger"
     annotation (Placement(transformation(extent={{-30,-10},{-10,10}})));
 
@@ -58,6 +56,11 @@ The model uses a constant air and water mass flow rate.
 </html>",
       revisions="<html>
 <ul>
+<li>
+November 13, 2026, by Michael Wetter:<br/>
+Removed assignments to deleted parameters <code>cpAir_nominal</code> and
+<code>cpCoo_nominal</code>.
+</li>
 <li>
 September 20, 2026, by Michael Wetter:<br/>
 Refactored to extend

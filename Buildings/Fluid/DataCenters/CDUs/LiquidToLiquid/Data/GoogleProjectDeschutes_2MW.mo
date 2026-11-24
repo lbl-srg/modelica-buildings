@@ -6,15 +6,17 @@ record GoogleProjectDeschutes_2MW
     mRac_flow_nominal=31.48,
     mPla_flow_nominal=32.30,
     TApp_nominal=3,
-    TRacOut_nominal=273.15 + 45,
+    TRacOut_nominal=273.15 + 29.8,
     dpHexPla_nominal=80000,
     medPla=Buildings.Fluid.DataCenters.CDUs.Types.Media.Water,
     medRac=Buildings.Fluid.DataCenters.CDUs.Types.Media.PropyleneGlycol,
     phiGlyRac=0.25,
-    dpPumpExt_nominal=827000,
+    dpPumpExt_nominal=586000,
     pumpExtHead(
       V_flow=mRac_flow_nominal/rhoRac_default*{0.000, 0.250, 0.500, 0.750, 1.000},
-      dp=dpPumpExt_nominal*({11.90, 11.61, 9.810, 6.202, 1.0})));
+      dp=(dpPumpExt_nominal + dpHexRac_nominal + dpFilRac_nominal)*{1.35, 1.32, 1.25, 1.15, 1.00}
+        - {r^nRac*dpHexRac_nominal + r^nFilRac*dpFilRac_nominal
+           for r in {0.000, 0.250, 0.500, 0.750, 1.000}}));
 
   annotation (
   defaultComponentName="datCDU",
@@ -45,13 +47,13 @@ This data record is for the 5th-generation CDU of Google, named
     </tr>
     <tr>
       <td style=\"text-align: left;\">IT Loop dP available</td>
-      <td style=\"text-align: right;\">80-90<br>551,581 - 620,528</td>
-      <td style=\"text-align: left;\">psi<br>Pa</td>
+      <td style=\"text-align: right;\">80-90<br/>551,581 - 620,528</td>
+      <td style=\"text-align: left;\">psi<br/>Pa</td>
     </tr>
     <tr>
       <td style=\"text-align: left;\">Facility Loop dP</td>
-      <td style=\"text-align: right;\">15-27<br>103,421 - 186,159</td>
-      <td style=\"text-align: left;\">psid<br>Pa</td>
+      <td style=\"text-align: right;\">15-27<br/>103,421 - 186,159</td>
+      <td style=\"text-align: left;\">psid<br/>Pa</td>
     </tr>
     <tr>
       <td style=\"text-align: left;\">Thermal load</td>
@@ -86,6 +88,12 @@ OCP 2026. Open Compute Project meeting, CDU Information WP. March 24, 2026.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+November 13, 2026, by Michael Wetter:<br/>
+Aligned <code>TRacOut_nominal</code> and <code>dpPumpExt_nominal</code> with the
+specification table, and updated <code>pumpExtHead</code> to avoid an unphysical
+shutoff head.
+</li>
 <li>
 October 17, 2026, by Nauman Rafique:<br/>
 Corrected sign of <code>Q_flow_nominal</code>.<br/>

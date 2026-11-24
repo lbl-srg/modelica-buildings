@@ -29,6 +29,14 @@ model Rack_P "Model of an air-cooled rack with electrical power as input"
     annotation(Dialog(
       enable=(fanControl == Buildings.Fluid.DataCenters.Racks.FanControllers.Types.Strategy.OutletTemperature),
       group = "Fan controller"));
+  parameter Real yMin(
+    min=0,
+    max=1,
+    final unit="1") = 0.05
+    "Minimum fan speed"
+    annotation(Dialog(
+      enable=(fanControl == Buildings.Fluid.DataCenters.Racks.FanControllers.Types.Strategy.OutletTemperature),
+      group = "Fan controller"));
 
   Modelica.Blocks.Interfaces.RealOutput PTot(final unit="W")
     "Electrical power consumed by IT and fan"
@@ -42,7 +50,8 @@ model Rack_P "Model of an air-cooled rack with electrical power as input"
 
   Buildings.Fluid.DataCenters.Racks.FanControllers.OutletTemperature conFanTem(
     final k=k,
-    final Ti=Ti)
+    final Ti=Ti,
+    final yMin=yMin)
     if fanControl == Buildings.Fluid.DataCenters.Racks.FanControllers.Types.Strategy.OutletTemperature
     "Controlled fans to cool IT equipment"
     annotation (Placement(transformation(extent={{-60,-40},{-40,-20}})));
@@ -179,8 +188,9 @@ the fan efficiency.
 </p>
 <h4>Fan</h4>
 <p>
-The model has a built-in fan which uses a constant total efficiency, specified through the
-parameter <code>dat.eta_nominal</code>.
+The model has a built-in fan whose peak combined fan and motor efficiency at nominal
+conditions is specified through the parameter <code>dat.eta_nominal</code>, with off-design
+hydraulic efficiency computed from the Euler number correlation.
 Depending on the parameter <code>fanControl</code>, the fan speed is controlled either based on
 the IT load (<code>Load</code>) or using a PI controller that tracks the rack outlet air temperature
 set point <code>TAirOut_set</code> (<code>OutletTemperature</code>).
@@ -200,6 +210,11 @@ Buildings.Fluid.DataCenters.Racks.BaseClasses.Fan</a>.
 </html>",
 revisions="<html>
 <ul>
+<li>
+November 13, 2026, by Michael Wetter:<br/>
+Added minimum fan speed parameter <code>yMin</code> for outlet temperature control
+and updated documentation for fan efficiency.
+</li>
 <li>
 June 26, 2026, by Michael Wetter:<br/>
 First implementation.

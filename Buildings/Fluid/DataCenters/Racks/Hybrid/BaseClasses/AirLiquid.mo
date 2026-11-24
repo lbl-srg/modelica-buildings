@@ -41,9 +41,11 @@ partial model AirLiquid
     "Design flow rate of one cold plate for liquid cooling"
     annotation (Dialog(group="Liquid cooling"));
 
-  parameter Real nColPla(min=0)=dat.liq.PIT_nominal/
-    (VColPla_flow_nominal*1000*4200*(dat.liq.PIT_nominal/
-    (dat.liq.m_flow_nominal*4200)))
+  parameter Real nColPla(min=0)=
+    if dat.liq.PColPla_nominal > Modelica.Constants.eps then
+      dat.liq.PIT_nominal/dat.liq.PColPla_nominal
+    else
+      dat.liq.m_flow_nominal/(VColPla_flow_nominal*dLiq_default)
     "Number of cold plates for liquid cooling"
     annotation (Dialog(group="Liquid cooling"));
 
@@ -86,6 +88,14 @@ partial model AirLiquid
       group = "Fan controller"));
   parameter Modelica.Units.SI.Time Ti=60
     "Integrator time constant of fan PI controller"
+    annotation(Dialog(
+      enable=(fanControl == Buildings.Fluid.DataCenters.Racks.FanControllers.Types.Strategy.OutletTemperature),
+      group = "Fan controller"));
+  parameter Real yMin(
+    min=0,
+    max=1,
+    final unit="1") = 0.05
+    "Minimum fan speed"
     annotation(Dialog(
       enable=(fanControl == Buildings.Fluid.DataCenters.Racks.FanControllers.Types.Strategy.OutletTemperature),
       group = "Fan controller"));
@@ -179,9 +189,20 @@ partial model AirLiquid
     final fanSpeed=fanSpeed,
     final TAirOut_set=TAirOut_set,
     final k=k,
-    final Ti=Ti)
+    final Ti=Ti,
+    final yMin=yMin)
     "Air-cooled rack component"
     annotation (Placement(transformation(extent={{-10,-50},{10,-30}})));
+
+protected
+  parameter MediumLiq.ThermodynamicState stateLiq_default = MediumLiq.setState_pTX(
+    T=MediumLiq.T_default,
+    p=MediumLiq.p_default,
+    X=MediumLiq.X_default[1:MediumLiq.nXi]) "Liquid medium state at default values";
+
+  parameter Modelica.Units.SI.Density dLiq_default=
+    MediumLiq.density(state=stateLiq_default)
+    "Mass density of liquid coolant";
 
 equation
   connect(portLiq_a, liq.port_a)
@@ -238,6 +259,12 @@ This connection must be made by the model that extends this partial model.
 </html>",
 revisions="<html>
 <ul>
+<li>
+November 13, 2026, by Michael Wetter:<br/>
+Computed <code>nColPla</code> using <code>dat.liq.PColPla_nominal</code> when positive
+and <code>MediumLiq</code> density instead of hardcoded water density, and exposed
+minimum fan speed parameter <code>yMin</code>.
+</li>
 <li>
 August 22, 2026, by Michael Wetter:<br/>
 First implementation.

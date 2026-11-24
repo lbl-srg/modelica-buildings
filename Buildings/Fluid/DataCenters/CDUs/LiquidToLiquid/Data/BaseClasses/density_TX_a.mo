@@ -10,7 +10,10 @@ function density_TX_a "Return density"
 
 algorithm
   d :=
-    if medium == Buildings.Fluid.DataCenters.CDUs.Types.Media.EthyleneGlycol
+    if medium == Buildings.Fluid.DataCenters.CDUs.Types.Media.Water
+    then
+      Buildings.Media.Antifreeze.Functions.PropyleneGlycolWater.density_TX_a(X_a=0, T=T)
+    elseif medium == Buildings.Fluid.DataCenters.CDUs.Types.Media.EthyleneGlycol
     then
       Buildings.Media.Antifreeze.Functions.EthyleneGlycolWater.density_TX_a(X_a=X_a, T=T)
     else
@@ -29,6 +32,11 @@ For glycol, set it to the mass fraction of glycol.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+November 13, 2026, by Michael Wetter:<br/>
+Handled <code>medium == Buildings.Fluid.DataCenters.CDUs.Types.Media.Water</code>
+explicitly so that <code>X_a</code> is ignored for water.
+</li>
 <li>
 July 8, 2026, by Michael Wetter:<br/>
 First implementation.

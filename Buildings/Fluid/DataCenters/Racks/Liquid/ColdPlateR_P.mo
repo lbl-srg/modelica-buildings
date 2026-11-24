@@ -17,8 +17,11 @@ model ColdPlateR_P
     "Design flow rate of one cold plate, used to compute the case temperature"
     annotation (Dialog(group="Case temperature"));
   // For the number of cold plates, we use a Real to simplify solving optimizations that involve this parameter
-  parameter Real nColPla=dat.PIT_nominal/
-    (VColPla_flow_nominal*d_default*cp_default*dT_nominal)
+  parameter Real nColPla=
+    if dat.PColPla_nominal > Modelica.Constants.eps then
+      dat.PIT_nominal/dat.PColPla_nominal
+    else
+      dat.PIT_nominal/(VColPla_flow_nominal*d_default*cp_default*dT_nominal)
     "Number of cold plates, used to compute the case temperature"
     annotation (Dialog(group="Case temperature"));
 
@@ -66,6 +69,8 @@ protected
     final allowFlowReversal=allowFlowReversal,
     final m_flow_nominal=dat.m_flow_nominal,
     final dp_nominal=dat.dp_nominal,
+    final linearized=linearized,
+    final deltaM=dat.deltaM,
     final n=dat.n) "Flow resistance"
     annotation (Placement(transformation(extent={{-60,-10},{-40,10}})));
 
@@ -158,7 +163,9 @@ where
 <code>Q_flow</code> is the heat emitted by the cold plate.
 Use of this equation requires knowledge of the heat flow rate of one cold plate <code>Q_flow</code>,
 but the component model takes as a parameter the total design heat flow rate <code>PIT_nominal</code>.
-The model approximates the number of cold plates using
+If <code>dat.PColPla_nominal &gt; 0</code>, the number of cold plates is computed as
+<code>PIT_nominal / dat.PColPla_nominal</code>.
+Otherwise, the model approximates the number of cold plates using
 </p>
 <p align=\"center\" style=\"font-style:italic;\">
 n_col = PIT_nominal / (VColPla_flow_nominal * rho * c_p * dT_nominal),
@@ -190,6 +197,11 @@ OCP OAI SYSTEM LIQUID COOLING GUIDELINES</a>.
 </html>",
 revisions="<html>
 <ul>
+<li>
+November 13, 2026, by Michael Wetter:<br/>
+Propagated <code>linearized</code> and <code>dat.deltaM</code> to <code>preDro</code>,
+and used <code>dat.PColPla_nominal</code> when positive to compute <code>nColPla</code>.
+</li>
 <li>
 December 16, 2025, by Michael Wetter:<br/>
 First implementation.

@@ -40,8 +40,8 @@ block CaseTemperature "Block to compute the case temperature"
 
   Modelica.Units.SI.ThermalResistance R
     "Case-to-inlet thermal resistance";
-  final parameter Real relErrR[:]={RFit[i]/dat.R[i] for i in 1:nSup}
-    "Ratio of fitted to tabulated resistance at each support point dat.V_flow";
+  final parameter Real relErrR[:]={(RFit[i] - dat.R[i])/dat.R[i] for i in 1:nSup}
+    "Relative error of fitted resistance at each support point dat.V_flow";
 protected
   final parameter Integer nSup=size(dat.V_flow, 1)
     "Number of support points";
@@ -61,18 +61,18 @@ protected
       u=dat.V_flow[i])/Buildings.Utilities.Math.Functions.smoothMax(
       x1=dat.V_flow[i],
       x2=V_flow_small,
-      deltaX=delta/4) for i in 1:nSup}
+      deltaX=V_flow_small/4) for i in 1:nSup}
     "Resistance based on data fit (used to show error)";
 
 equation
-  R =Modelica.Math.Polynomials.evaluateWithRange(
+  R = Modelica.Math.Polynomials.evaluateWithRange(
     p=p,
     uMin=dat.V_flow[1],
     uMax=dat.V_flow[end],
     u=V_flow)/Buildings.Utilities.Math.Functions.smoothMax(
     x1=V_flow,
     x2=V_flow_small,
-    deltaX=delta/4);
+    deltaX=V_flow_small/4);
   dT = R * Q_flow;
   TCas = TIn + dT;
 
@@ -88,5 +88,15 @@ Buildings.Fluid.DataCenters.Racks.Liquid.ColdPlateR_P</a>.
 The relative error of the data fit of the thermal resistance <i>R</i>
 can be seen in the parameter <code>relErrR</code>.
 </p>
+</html>", revisions="<html>
+<ul>
+<li>
+November 13, 2026, by Michael Wetter:<br/>
+Scaled <code>deltaX</code> in <code>smoothMax</code> by <code>V_flow_small</code>
+instead of <code>delta</code> to avoid distorting <code>R</code> at operating flow
+rates and to avoid a division-by-zero singularity near zero flow.<br/>
+Changed <code>relErrR</code> to compute the relative error instead of the ratio.
+</li>
+</ul>
 </html>"));
 end CaseTemperature;

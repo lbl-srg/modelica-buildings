@@ -4,7 +4,7 @@ model CaseTemperature "Example model for case temperature"
 
   parameter Integer nPar = 4 "Number of parallel cold plates";
   Buildings.Fluid.DataCenters.Racks.Liquid.BaseClasses.CaseTemperature
-    casTem(dat=ocpOAM3, V_flow_nominal=2.5/60/1000) "Case temperature"
+    casTem(dat=ocpOAM3, V_flow_nominal=nPar*2.5/60/1000) "Case temperature"
     annotation (Placement(transformation(extent={{10,-10},{30,10}})));
   Controls.OBC.CDL.Reals.Sources.Ramp V_flow(
    y(final unit="m3/s"),
@@ -59,6 +59,10 @@ OCP OAI SYSTEM LIQUID COOLING GUIDELINES</a>.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+November 13, 2026, by Michael Wetter:<br/>
+Scaled <code>casTem.V_flow_nominal</code> by <code>nPar</code>.
+</li>
 <li>
 December 22, 2025, by Michael Wetter:<br/>
 First implementation.

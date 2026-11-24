@@ -13,31 +13,21 @@ model PartialCDU "Partial model for a CDU"
     annotation(Dialog(tab="Advanced", group="Diagnostics"));
 
   // Flow resistance parameters
-  parameter Boolean computeFlowResistancePla=true
-    "=true, compute flow resistance. Set to false to assume no friction"
-    annotation (Evaluate=true, Dialog(tab="Flow resistance", group="Medium 1"));
   parameter Boolean from_dpPla=false
     "= true, use m_flow = f(dp) else dp = f(m_flow)"
-    annotation (Evaluate=true, Dialog(enable=computeFlowResistancePla,
-                tab="Flow resistance", group="Medium 1"));
+    annotation (Evaluate=true, Dialog(tab="Flow resistance", group="Medium 1"));
 
   parameter Boolean linearizeFlowResistancePla=false
     "= true, use linear relation between m_flow and dp for any flow rate"
-    annotation(Dialog(enable=computeFlowResistancePla,
-               tab="Flow resistance", group="Medium 1"));
-  parameter Boolean computeFlowResistanceRac=true
-    "=true, compute flow resistance. Set to false to assume no friction"
-    annotation (Evaluate=true, Dialog(tab="Flow resistance", group="Medium 2"));
+    annotation (Dialog(tab="Flow resistance", group="Medium 1"));
 
   parameter Boolean from_dpRac=false
     "= true, use m_flow = f(dp) else dp = f(m_flow)"
-    annotation (Evaluate=true, Dialog(enable=computeFlowResistanceRac,
-                tab="Flow resistance", group="Medium 2"));
+    annotation (Evaluate=true, Dialog(tab="Flow resistance", group="Medium 2"));
 
   parameter Boolean linearizeFlowResistanceRac=false
     "= true, use linear relation between m_flow and dp for any flow rate"
-    annotation(Dialog(enable=computeFlowResistanceRac,
-      tab="Flow resistance", group="Medium 2"));
+    annotation (Dialog(tab="Flow resistance", group="Medium 2"));
 
   // Valve
   parameter Boolean use_strokeTime=true
@@ -122,7 +112,7 @@ model PartialCDU "Partial model for a CDU"
     final Td=TdVal,
     final reverseActing=false,
     r=10,
-    xi_start=1)
+    xi_start=yVal_start)
     "Controller for valve"
     annotation (Placement(transformation(extent={{-80,90},{-60,110}})));
   Controls.OBC.CDL.Reals.PID conPum(
@@ -134,7 +124,7 @@ model PartialCDU "Partial model for a CDU"
     final Td=TdPum,
     final reverseActing=true,
     r=dat.dpPumpExt_nominal,
-    xi_start=1)
+    xi_start=yPum_start)
     "Controller for pump"
     annotation (Placement(transformation(extent={{-10,-110},{10,-90}})));
   replaceable Buildings.Fluid.Interfaces.PartialFourPortInterface hex
@@ -145,6 +135,8 @@ model PartialCDU "Partial model for a CDU"
       final allowFlowReversal2=allowFlowReversalRac,
       final m1_flow_nominal=mPla_flow_nominal,
       final m2_flow_nominal=mRac_flow_nominal,
+      final m1_flow_small=mPla_flow_small,
+      final m2_flow_small=mRac_flow_small,
       final show_T=show_T) "Heat exchanger"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
 
@@ -200,6 +192,9 @@ model PartialCDU "Partial model for a CDU"
     final allowFlowReversal=allowFlowReversalRac,
     final m_flow_nominal=mRac_flow_nominal,
     final dp_nominal=dat.dpFilRac_nominal,
+    final from_dp=from_dpRac,
+    final linearized=linearizeFlowResistanceRac,
+    final deltaM=dat.deltaMRac,
     final n=dat.nFilRac)
     "Filter"
     annotation (Placement(transformation(
@@ -219,7 +214,8 @@ model PartialCDU "Partial model for a CDU"
   Fluid.Sensors.TemperatureTwoPort senTemRacSup(
     redeclare final package Medium = MediumRac,
     final allowFlowReversal=allowFlowReversalRac,
-    final m_flow_nominal=mRac_flow_nominal)
+    final m_flow_nominal=mRac_flow_nominal,
+    final tau=0)
     "Temperature sensor for medium leaving towards IT racks"
     annotation (Placement(transformation(extent={{-60,-70},{-80,-50}})));
 
@@ -239,7 +235,7 @@ protected
   final parameter Boolean pumpDP_isMonotonicDecreasing = (dat.pumpHead.dp[1] > dat.pumpHead.dp[end]) and
     Buildings.Utilities.Math.Functions.isMonotonic(
       x=dat.pumpHead.dp,
-      strict=false)
+      strict=true)
     "Flag, true if the pump pressure rise is monotonically decreasing";
 initial equation
   if checkMedia then
@@ -507,6 +503,17 @@ assumes density as constant during the simulation.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+November 13, 2026, by Michael Wetter:<br/>
+Removed unused parameters <code>computeFlowResistancePla</code> and
+<code>computeFlowResistanceRac</code>. This change is not backward compatible.<br/>
+Propagated <code>mPla_flow_small</code> and <code>mRac_flow_small</code> to <code>hex</code>,
+and <code>from_dpRac</code>, <code>linearizeFlowResistanceRac</code>, and
+<code>dat.deltaMRac</code> to <code>fil</code>.<br/>
+Aligned controller integrator initial values with <code>yVal_start</code> and
+<code>yPum_start</code>, set <code>senTemRacSup.tau=0</code>, and enforced strict
+monotonicity in <code>pumpDP_isMonotonicDecreasing</code>.
+</li>
 <li>
 December 23, 2025, by Michael Wetter:<br/>
 First implementation.

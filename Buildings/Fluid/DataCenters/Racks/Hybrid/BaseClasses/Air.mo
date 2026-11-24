@@ -51,6 +51,14 @@ partial model Air
     annotation(Dialog(
       enable=(fanControl == Buildings.Fluid.DataCenters.Racks.FanControllers.Types.Strategy.OutletTemperature),
       group = "Fan controller"));
+  parameter Real yMin(
+    min=0,
+    max=1,
+    final unit="1") = 0.05
+    "Minimum fan speed"
+    annotation(Dialog(
+      enable=(fanControl == Buildings.Fluid.DataCenters.Racks.FanControllers.Types.Strategy.OutletTemperature),
+      group = "Fan controller"));
 
   parameter Boolean allowFlowReversal = true
     "= false to simplify equations, assuming, but not enforcing, no flow reversal"
@@ -100,7 +108,8 @@ partial model Air
     final fanSpeed=fanSpeed,
     final TAirOut_set=TAirOut_set,
     final k=k,
-    final Ti=Ti)
+    final Ti=Ti,
+    final yMin=yMin)
     "Air-cooled rack component"
     annotation (Placement(transformation(extent={{-10,-50},{10,-30}})));
 
@@ -143,6 +152,10 @@ This connection must be made by the model that extends this partial model.
 </html>",
 revisions="<html>
 <ul>
+<li>
+November 13, 2026, by Michael Wetter:<br/>
+Exposed minimum fan speed parameter <code>yMin</code> for outlet temperature control.
+</li>
 <li>
 September 29, 2026, by Michael Wetter:<br/>
 First implementation.

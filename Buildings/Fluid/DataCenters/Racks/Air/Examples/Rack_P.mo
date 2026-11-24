@@ -26,6 +26,7 @@ model Rack_P "Example model for air-cooled rack"
     annotation (Placement(transformation(extent={{0,-10},{20,10}})));
   Buildings.Fluid.Sources.Boundary_pT sou(
     redeclare package Medium = Medium,
+    T=dat.TIn_nominal,
     nPorts=2) "Pressure boundary condition"
     annotation (Placement(transformation(extent={{10,-10},{-10,10}},
         rotation=270,
@@ -78,6 +79,10 @@ Example model of an air-cooled rack with varying GPU utilization.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+November 13, 2026, by Michael Wetter:<br/>
+Set boundary air temperature <code>sou.T</code> to <code>dat.TIn_nominal</code>.
+</li>
 <li>
 June 26, 2026, by Michael Wetter:<br/>
 First implementation.

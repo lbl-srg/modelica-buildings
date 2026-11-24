@@ -2,12 +2,13 @@ within Buildings.Fluid.DataCenters.CDUs.LiquidToLiquid.Data;
 record VertivLiebertXDU1350
   "Data record for a Vertiv Liebert XDU 1350 CDU"
   extends Buildings.Fluid.DataCenters.CDUs.LiquidToLiquid.Data.Generic_epsNTU(
-    Q_flow_nominal=-1350E3,
+    Q_flow_nominal=-1368E3,
     mRac_flow_nominal=20.4,
     mPla_flow_nominal=20.4,
     TApp_nominal=4,
     TRacOut_nominal=273.15 + 32,
     dpHexPla_nominal=0.84E5,
+    dpHexRac_nominal=0.50E5,
     medPla=Buildings.Fluid.DataCenters.CDUs.Types.Media.Water,
     medRac=Buildings.Fluid.DataCenters.CDUs.Types.Media.PropyleneGlycol,
     phiGlyRac=0.2,
@@ -54,6 +55,8 @@ This unit is specified for the following data:
 </table>
 <p>
 The rack-side pump specification assumes 3 pumps operating and the unit having a filter.
+The secondary-side heat exchanger nominal pressure drop <code>dpHexRac_nominal</code> is set to
+<i>50</i> kPa so that the total pump head decreases monotonically with flow rate.
 </p>
 <h4>References</h4>
 <p>
@@ -62,6 +65,11 @@ MKA4L0UKXDUDS1350 - Rev. 1- (R01/23)
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+November 13, 2026, by Michael Wetter:<br/>
+Aligned <code>Q_flow_nominal</code> with the specification table and set
+<code>dpHexRac_nominal</code> so that the total pump head curve decreases monotonically.
+</li>
 <li>
 November 10, 2026, by Michael Wetter:<br/>
 Corrected pump and filter pressure, and mass flow rate.<br/>
