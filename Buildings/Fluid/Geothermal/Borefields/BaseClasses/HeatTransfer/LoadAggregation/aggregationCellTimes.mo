@@ -27,8 +27,13 @@ algorithm
   end for;
 
   if nu[i]>timFin then
-    nu[i] := timFin;
-    rCel[i] := (nu[i]-nu[i-1])/tLoaAgg;
+    if i == 1 then
+      nu[1] := max(timFin, tLoaAgg);
+      rCel[1] := nu[1]/tLoaAgg;
+    else
+      nu[i] := max(timFin, nu[max(1, i-1)] + tLoaAgg);
+      rCel[i] := (nu[i] - nu[max(1, i-1)])/tLoaAgg;
+    end if;
   end if;
 
   annotation (Documentation(info="<html>
@@ -39,6 +44,10 @@ aggregation <code>tLoaAgg</code>.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+November 15, 2026, by Michael Wetter:<br/>
+Prevented out-of-bounds indexing <code>nu[0]</code> when <code>i == 1</code> and avoided fractional truncated cell widths <code>rCel[i] &lt; 1</code> that destabilize <a href=\"modelica://Buildings.Fluid.Geothermal.Borefields.BaseClasses.HeatTransfer.LoadAggregation.shiftAggregationCells\">shiftAggregationCells</a>.
+</li>
 <li>
 July 15, 2018, by Michael Wetter:<br/>
 Added <code>min=Modelica.Constants.small</code> to <code>tLoaAgg</code>

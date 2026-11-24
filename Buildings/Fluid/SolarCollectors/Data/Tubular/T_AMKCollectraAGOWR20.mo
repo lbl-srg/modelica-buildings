@@ -8,8 +8,8 @@ record T_AMKCollectraAGOWR20 =
     final V=3.5/1000,
     final dp_nominal=100,
     final mperA_flow_nominal=0.0201,
-    final incAngDat=Modelica.Units.Conversions.from_deg({0,10,20,30,40,50,60,70,80,90}),
-    final incAngModDat={1.0,1.0088,1.0367,1.0884,1.1743,1.3164,1.567,2.0816,3.6052,0.0},
+    final incAngDat=Modelica.Units.Conversions.from_deg({0,10,20,30,40,50,60,90}),
+    final incAngModDat={1.0,1.0088,1.0367,1.0884,1.1743,1.3164,1.567,0.0},
     final y_intercept=0.446,
     final slope=-1.432) "T - AMG Collectra AG, OWR 20"
     annotation (
@@ -26,4 +26,12 @@ SRCC# = 2012018A.
 The ratings provided for <code>dp_nominal</code> were suspicious
 so 100 Pa is used instead.<br/>
 </p>
+</html>",
+revisions="<html>
+<ul>
+<li>
+November 15, 2026, by Michael Wetter:<br/>
+Replaced unphysical extrapolated high-angle incidence angle modifier entries in <code>IAMDat</code> so optical efficiency satisfies the First Law of Thermodynamics.
+</li>
+</ul>
 </html>"));

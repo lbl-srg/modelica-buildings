@@ -9,7 +9,7 @@ model OperationalEnvelope
         rotation=0,
         origin={-70,0})));
 equation
-    if use_TEvaOutHea then
+  if use_TConOutHea then
     connect(bouMapHea.TUseSid, sigBus.TEvaOutMea) annotation (Line(points={{-81.4,
             54},{-104,54},{-104,-61},{-119,-61}},                       color={0,
             0,127}));
@@ -27,7 +27,7 @@ equation
             -34},{-104,-34},{-104,-61},{-119,-61}},
                                                 color={0,0,127}));
   end if;
-  if use_TConOutHea then
+  if use_TEvaOutHea then
     connect(bouMapHea.TAmbSid, sigBus.TConOutMea) annotation (Line(points={{-81.6,
             46},{-104,46},{-104,-60},{-106,-60},{-106,-61},{-119,-61}},
                                                 color={0,0,127}));
@@ -56,6 +56,10 @@ equation
       horizontalAlignment=TextAlignment.Right));
   annotation (Diagram(coordinateSystem(extent={{-120,-120},{120,120}})),
     Documentation(revisions="<html><ul>
+<li>
+November 15, 2026, by Michael Wetter:<br/>
+Swapped boolean flags <code>use_TEvaOutHea</code> and <code>use_TConOutHea</code> in the heating-mode envelope check so that each flag controls its corresponding physical heat exchanger.
+</li>
   <li>
     <i>November 26, 2018</i> by Fabian Wuellhorst:<br/>
     First implementation (see issue <a href=

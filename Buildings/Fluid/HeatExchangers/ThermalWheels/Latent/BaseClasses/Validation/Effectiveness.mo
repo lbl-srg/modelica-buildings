@@ -5,10 +5,10 @@ model Effectiveness
 
   Buildings.Fluid.HeatExchangers.ThermalWheels.Latent.BaseClasses.Effectiveness
     epsCal(
-    epsSen_nominal=0.8,
-    epsSenPL=0.75,
-    epsLat_nominal=0.6,
-    epsLatPL=0.5,
+    epsSen_nominal=0.75,
+    epsSenPL=0.8,
+    epsLat_nominal=0.5,
+    epsLatPL=0.6,
     mSup_flow_nominal=1)
     "Effectiveness calculator"
     annotation(Placement(transformation(extent={{-12,-10},{8,10}})));
@@ -65,6 +65,10 @@ increases in the whole simulation period.
 </ul>
 </html>", revisions="<html>
 <ul>
+<li>
+November 15, 2026, by Michael Wetter:<br/>
+Updated nominal and part-load effectiveness test values so part-load effectiveness exceeds nominal effectiveness in accordance with effectiveness-NTU physics.
+</li>
 <li>
 September 29, 2022, by Sen Huang:<br/>
 First implementation.

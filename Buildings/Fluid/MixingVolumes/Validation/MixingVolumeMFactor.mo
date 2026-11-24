@@ -12,7 +12,8 @@ model MixingVolumeMFactor
     V=1,
     nPorts=2,
     m_flow_nominal=m_flow_nominal,
-    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
+    massDynamics=Modelica.Fluid.Types.Dynamics.DynamicFreeInitial)
     "Mixing volume using mSenFac = 10"
     annotation (Placement(transformation(extent={{-10,-40},{10,-20}})));
   Buildings.Fluid.MixingVolumes.MixingVolume vol1(
@@ -20,7 +21,8 @@ model MixingVolumeMFactor
     V=10,
     nPorts=2,
     m_flow_nominal=m_flow_nominal,
-    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
+    massDynamics=Modelica.Fluid.Types.Dynamics.DynamicFreeInitial)
     "MixingVolume with V = 10 instead of mSenFac = 10"
     annotation (Placement(transformation(extent={{-10,-80},{10,-60}})));
   Buildings.Fluid.Sources.MassFlowSource_T boundaryMFactor(
@@ -69,6 +71,10 @@ for the rational of the selected initial conditions for the volumes.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+November 15, 2026, by Michael Wetter:<br/>
+Set <code>massDynamics = Modelica.Fluid.Types.Dynamics.DynamicFreeInitial</code> on <code>vol</code>, <code>volMFactor</code>, and <code>vol1</code> to avoid overspecifying initial pressure against <a href=\"modelica://Buildings.Fluid.Sources.Boundary_pT\">Boundary_pT</a>.
+</li>
 <li>
 March 27, 2015 by Michael Wetter:<br/>
 Set the mass dynamics of the volume to

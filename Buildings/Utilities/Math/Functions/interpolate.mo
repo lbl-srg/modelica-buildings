@@ -14,21 +14,25 @@ protected
   Integer i "Integer to select data interval";
 
 algorithm
-  i := 1;
-  for j in 1:size(xd, 1) - 1 loop
-    if u > xd[j] then
-      i := j;
-    end if;
-  end for;
+  if size(xd, 1) == 1 then
+    z := yd[1];
+  else
+    i := 1;
+    for j in 1:size(xd, 1) - 1 loop
+      if u > xd[j] then
+        i := j;
+      end if;
+    end for;
 
-  z :=Buildings.Utilities.Math.Functions.cubicHermiteLinearExtrapolation(
-      x=u,
-      x1=xd[i],
-      x2=xd[i + 1],
-      y1=yd[i],
-      y2=yd[i + 1],
-      y1d=d[i],
-      y2d=d[i + 1]);
+    z :=Buildings.Utilities.Math.Functions.cubicHermiteLinearExtrapolation(
+        x=u,
+        x1=xd[i],
+        x2=xd[i + 1],
+        y1=yd[i],
+        y2=yd[i + 1],
+        y1d=d[i],
+        y2d=d[i + 1]);
+  end if;
 
   annotation (smoothOrder = 1,
     Documentation(info="<html>
@@ -63,6 +67,14 @@ National Institute of Standards and Technology, NIST TN 1887, Sep. 2015. doi:
 </ul>
 </html>", revisions="<html>
 <ul>
+<li>
+November 20, 2026, by Michael Wetter:<br/>
+Added a special case for a single support point (<code>size(xd, 1) = 1</code>)
+to return <code>yd[1]</code> directly, avoiding an out-of-bounds access
+on <code>xd[i + 1]</code>.
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/2208\">IBPSA, #2208</a>.
+</li>
 <li>
 February 29, 2024, by Hongxiang Fu:<br/>
 Moved to

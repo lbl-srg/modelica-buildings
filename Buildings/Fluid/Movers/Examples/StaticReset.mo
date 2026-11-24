@@ -42,7 +42,7 @@ model StaticReset
   // Define the system curve
   parameter Modelica.Units.SI.VolumeFlowRate V_flow_nominal=21.8
     "Nominal volumetric flow rate of the system";
-  parameter Modelica.Units.SI.MassFlowRate m_flow_nominal=V_flow_nominal/1.2
+  parameter Modelica.Units.SI.MassFlowRate m_flow_nominal=V_flow_nominal*1.2
     "Nominal mass flow rate of the system";
   parameter Modelica.Units.SI.PressureDifference dp_nominal=1244.2
     "Nominal pressure rise of the system";
@@ -319,6 +319,10 @@ Englander, S. L., and L. K. Norford.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+November 15, 2026, by Michael Wetter:<br/>
+Multiplied volumetric flow rate <code>V_flow_nominal</code> by air density instead of dividing when computing nominal mass flow rate.
+</li>
 <li>
 January 24, 2022, by Hongxiang Fu and David Blum:<br/>
 First implementation. This is for

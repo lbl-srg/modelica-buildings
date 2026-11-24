@@ -5,7 +5,7 @@ model Example1v2 "Example 1 model with mixing volume"
 
   Fluid.Delays.DelayFirstOrder[nRes.k] vol(
     redeclare each package Medium = Medium,
-    each m_flow_nominal=m_flow_nominal,
+    each m_flow_nominal=m_flow_nominal/nRes.k,
     each allowFlowReversal=allowFlowReversal.k,
     each nPorts=2,
     each tau=tau,
@@ -63,6 +63,10 @@ Submitted: 11th Modelica Conference. Paris, France. Sep. 2015.
 </ul>
 </html>", revisions="<html>
 <ul>
+<li>
+November 15, 2026, by Michael Wetter:<br/>
+Scaled the nominal mass flow rate of parallel <a href=\"modelica://Buildings.Fluid.Delays.DelayFirstOrder\">DelayFirstOrder</a> instances <code>vol</code> by <code>m_flow_nominal/nRes.k</code> to match the per-branch flow rate.
+</li>
 <li>
 August 31, 2015, by Michael Wetter:<br/>
 Added missing <code>each</code> in declaration of the energy balance

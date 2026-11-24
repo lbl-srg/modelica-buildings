@@ -113,15 +113,15 @@ equation
   // EnergyPlus 23.2.0 Engineering Reference Eq 18.298
   iamBea = SolarCollectors.BaseClasses.IAM(incAng, incAngDat, incAngModDat, dMonotone);
   // EnergyPlus 23.2.0 Engineering Reference Eq 18.299
-  iam = (HDirTil*iamBea + HSkyDifTil*iamSky + HGroDifTil*iamGro)/
+  iam = (HDirTil*(1.0 - shaCoe_internal)*iamBea + HSkyDifTil*iamSky + HGroDifTil*iamGro)/
       Buildings.Utilities.Math.Functions.smoothMax((
-        HDirTil + HSkyDifTil + HGroDifTil), HTotMin, HMinDel);
+        HDirTil*(1.0 - shaCoe_internal) + HSkyDifTil + HGroDifTil), HTotMin, HMinDel);
   // Modified from EnergyPlus 23.2.0 Engineering Reference Eq 18.302
   // by applying shade effect for direct solar radiation
   // Only solar heat gain is considered here
   for i in 1 : nSeg loop
-    QSol_flow[i] = A_c/nSeg*(y_intercept*iam*
-      (HDirTil*(1.0 - shaCoe_internal) + HSkyDifTil + HGroDifTil))*
+    QSol_flow[i] = A_c/nSeg*(y_intercept*
+      (HDirTil*(1.0 - shaCoe_internal)*iamBea + HSkyDifTil*iamSky + HGroDifTil*iamGro))*
       smooth(1, if TFlu[i] < TMedMax2
         then 1
         else Buildings.Utilities.Math.Functions.smoothHeaviside(TMedMax-TFlu[i], dTMax));
@@ -239,6 +239,10 @@ EnergyPlus 23.2.0 Engineering Reference</a>.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+November 15, 2026, by Michael Wetter:<br/>
+Weighted the net incidence angle modifier using shaded beam irradiance <code>(1 - shaCoe)*HDirTil</code> instead of unshaded <code>HDirTil</code>.
+</li>
 <li>
 February 28, 2024, by Jelger Jansen:<br/>
 Refactor model.<br/>

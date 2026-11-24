@@ -26,7 +26,7 @@ model Convector
       mAir_flow_nominal=0.0792,
       mWat_flow_nominal=0.094,
       dT_nominal=-10,
-      Q_flow_nominal=1092,
+      Q_flow_nominal=-1092,
       dpWat_nominal=10000,
       dpAir_nominal=100)) "Convector model"
     annotation (Placement(transformation(extent={{0,-10},{20,10}})));
@@ -57,6 +57,10 @@ The room air temperature and the water mass flow rate are constant while the air
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+November 15, 2026, by Michael Wetter:<br/>
+Corrected the sign of <code>per.Q_flow_nominal</code> in cooling mode to <code>-1092</code> W to match <code>dT_nominal = -10</code> K.
+</li>
 <li>
 May 15, 2019, by Jianjun Hu:<br/>
 Replaced fluid source. This is for 

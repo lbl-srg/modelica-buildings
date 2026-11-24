@@ -2,7 +2,7 @@ within Buildings.Fluid.HeatPumps.ModularReversible.Data.TableData2D.EN14511;
 record SingleSplitRXM20R "Daikin_FTXM20R_RXM20R heating mode"
   extends
     Buildings.Fluid.HeatPumps.ModularReversible.Data.TableData2D.GenericHeatPump(
-    use_TConOutForOpeEnv=true,
+    use_TConOutForOpeEnv=false,
     use_TEvaOutForOpeEnv=false,
     dpEva_nominal=0,
     dpCon_nominal=0,
@@ -47,6 +47,10 @@ https://www.heizman24.de/media/pdf/fa/50/2c/Daikin-RXM-R-Produktdatenbuch.pdf</a
 
 </html>", revisions="<html>
 <ul>
+<li>
+November 15, 2026, by Michael Wetter:<br/>
+Set <code>use_TConOutForOpeEnv = false</code> so indoor room return air temperature rather than supply discharge air temperature is compared against the <code>30</code> &deg;C indoor limit.
+</li>
   <li>
     <i>November 26, 2018</i> by Fabian Wuellhorst:<br/>
     First implementation (see issue <a href=

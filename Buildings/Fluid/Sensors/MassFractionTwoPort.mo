@@ -3,10 +3,11 @@ model MassFractionTwoPort "Ideal two port mass fraction sensor"
   extends Buildings.Fluid.Sensors.BaseClasses.PartialDynamicFlowSensor(
     redeclare replaceable package Medium =
         Modelica.Media.Interfaces.PartialCondensingGases);
-  extends Buildings.Fluid.BaseClasses.IndexMassFraction(substanceName = "water");
   extends Modelica.Icons.RoundSensor;
 
-  parameter Medium.MassFraction X_start=Medium.X_default[i_x]
+  parameter String substanceName = "water" "Name of species substance";
+
+  parameter Medium.MassFraction X_start=Medium.X_default[max(1, i_x)]
     "Initial or guess value of output (= state)"
     annotation (Dialog(group="Initialization"));
 
@@ -14,7 +15,7 @@ model MassFractionTwoPort "Ideal two port mass fraction sensor"
                                           max=1.001,
                                           start=X_start,
                                           final unit="kg/kg",
-                                          nominal=Medium.X_default[i_x])
+                                          nominal=if Medium.X_default[max(1, i_x)] > 1E-6 then Medium.X_default[max(1, i_x)] else 1E-6)
     "Mass fraction of the passing fluid"
     annotation (Placement(transformation(
         origin={0,110},
@@ -22,12 +23,24 @@ model MassFractionTwoPort "Ideal two port mass fraction sensor"
         rotation=270)));
 
 protected
+  parameter Integer i_x = sum(
+    if Modelica.Utilities.Strings.isEqual(string1=Medium.substanceNames[i],
+                                          string2=substanceName,
+                                          caseSensitive=false) then i else 0
+                                          for i in 1:Medium.nX) "Index of substance"
+                                          annotation(Evaluate=true);
+  parameter Real s[Medium.nXi](each final unit="1") = {
+    if i == i_x then 1 else 0 for i in 1:Medium.nXi}
+    "Vector with zero everywhere except where species is";
   Medium.MassFraction XMed(start=X_start)
     "Mass fraction to which the sensor is exposed";
   Medium.MassFraction XiVec[Medium.nXi](
     final quantity=Medium.substanceNames[1:Medium.nXi])
     "Mass fraction vector, needed because indexed argument for the operator inStream is not supported";
 initial equation
+  assert(i_x > 0, "Substance '" + substanceName + "' is not present in medium '"
+                  + Medium.mediumName + "'.\n"
+                  + "Change medium model to one that has '" + substanceName + "' as a substance.");
   // Assign initial conditions
   if dynamic then
     if initType == Modelica.Blocks.Types.Init.SteadyState then
@@ -47,7 +60,7 @@ equation
   else
     XiVec = port_b.Xi_outflow;
   end if;
-  XMed = if i_x > Medium.nXi then (1-sum(XiVec)) else XiVec[i_x];
+  XMed = if i_x > Medium.nXi then (1-sum(XiVec)) else s*XiVec;
   // Output signal of sensor
   if dynamic then
     der(X)  = (XMed-X)*k*tauInv;
@@ -81,6 +94,10 @@ Buildings.Fluid.Sensors.UsersGuide</a> for an explanation.
 </html>",
 revisions="<html>
 <ul>
+<li>
+November 15, 2026, by Michael Wetter:<br/>
+Extended species lookup across <code>1:Medium.nX</code> so dependent substances such as dry air can be measured when <code>Medium.reducedX</code> is true.
+</li>
 <li>
 June 25, 2026, by Michael Wetter:<br/>
 Added <code>nominal</code> attribute to state variable.<br/>

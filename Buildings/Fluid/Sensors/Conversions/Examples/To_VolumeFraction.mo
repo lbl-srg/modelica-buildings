@@ -62,7 +62,8 @@ model To_VolumeFraction "Example problem for conversion model"
     y(unit="m3/h"))
     "Conversion from m3/s to m3/h"
     annotation (Placement(transformation(extent={{40,20},{60,40}})));
-  Buildings.Fluid.Sensors.TraceSubstancesTwoPort senTraSubPeo(m_flow_nominal=0.1,
+  Buildings.Fluid.Sensors.TraceSubstancesTwoPort senTraSubPeo(
+    m_flow_nominal=15/1000/3600*1.977,
     redeclare package Medium = Medium,
     C_start=0,
     initType=Modelica.Blocks.Types.Init.InitialState)
@@ -156,6 +157,10 @@ Note that for simplicity, we allow zero outside air flow rate if the CO<sub>2</s
 the setpoint, which does not comply with ASHRAE regulations.
 </html>", revisions="<html>
 <ul>
+<li>
+November 15, 2026, by Michael Wetter:<br/>
+Reduced <code>senTraSubPeo.m_flow_nominal</code> to match the mass flow rate of the <code>souCO2</code> injection branch so the sensor operates above its zero-flow regularization threshold.
+</li>
 <li>
 September 27, 2026, by Michael Wetter:<br/>
 Added unit specification to avoid warning in Dymola 2025x.

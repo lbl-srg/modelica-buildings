@@ -12,8 +12,8 @@ model CarnotWithLosses
           iceFacCal,
         etaCarnot_nominal=etaCarnot_nominal,
         use_constAppTem=true,
-        TAppCon_nominal=TAppCon_nominal,
-        TAppEva_nominal=TAppEva_nominal),
+        TAppCon_nominal=TAppEva_nominal,
+        TAppEva_nominal=TAppCon_nominal),
     redeclare model RefrigerantCycleChillerCooling =
         Buildings.Fluid.Chillers.ModularReversible.RefrigerantCycle.ConstantCarnotEffectiveness
         (
@@ -28,9 +28,9 @@ model CarnotWithLosses
     redeclare model RefrigerantCycleInertia =
         Buildings.Fluid.HeatPumps.ModularReversible.RefrigerantCycle.Inertias.VariableOrder
         (
-        final refIneFreConst=1/refIneTimCon,
-        final nthOrd=1,
-        initType=Modelica.Blocks.Types.Init.InitialOutput));
+        final refIneFreConst=1/(2*Modelica.Constants.pi*refIneTimCon),
+        final nthOrd=nthOrd,
+        initType=initType));
 
   parameter Real etaCarnot_nominal=0.3 "Constant Carnot effectiveness";
   parameter Modelica.Units.SI.TemperatureDifference TAppCon_nominal=if
@@ -44,12 +44,23 @@ model CarnotWithLosses
   parameter Modelica.Units.SI.Time refIneTimCon = 300
     "Refrigerant cycle inertia time constant for first order delay"
     annotation(Dialog(group="Refrigerant cycle inertia"));
-  parameter Integer nthOrd=1 "Order of refrigerant cycle interia"
+  parameter Integer nthOrd(min=1)=1 "Order of refrigerant cycle interia"
     annotation(Dialog(group="Refrigerant cycle inertia"));
 
 
   annotation (Documentation(revisions="<html>
 <ul>
+<li>
+November 15, 2026, by Michael Wetter:<br/>
+<ul>
+<li>
+Swapped nominal approach temperatures <code>TAppCon_nominal</code> and <code>TAppEva_nominal</code> in <code>RefrigerantCycleChillerHeating</code> for reversed heating-mode operation.
+</li>
+<li>
+Corrected the refrigerant cycle inertia cutoff frequency <code>refIneFreConst</code> to include the <code>1/(2*Modelica.Constants.pi)</code> factor, and propagated <code>nthOrd</code> and <code>initType</code> to <a href=\"modelica://Buildings.Fluid.HeatPumps.ModularReversible.RefrigerantCycle.Inertias.VariableOrder\">VariableOrder</a>.
+</li>
+</ul>
+</li>
 <li>
   <i>October 2, 2022</i> by Fabian Wuellhorst:<br/>
   First implementation (see issue <a href=

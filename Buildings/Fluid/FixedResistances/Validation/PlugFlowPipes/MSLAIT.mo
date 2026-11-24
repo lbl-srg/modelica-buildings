@@ -87,15 +87,17 @@ model MSLAIT
         origin={124,-8})));
   inner Modelica.Fluid.System system
     annotation (Placement(transformation(extent={{-140,140},{-120,160}})));
-  parameter Modelica.Units.SI.ThermalResistance R=1/(2*kIns*Modelica.Constants.pi)
-      *log(0.18/0.0899) + 1/(2*2.4*Modelica.Constants.pi)*log(2/0.18)
-    "Thermal resistance of main pipes";
-  parameter Modelica.Units.SI.ThermalResistance R80=1/(2*0.024*Modelica.Constants.pi)
-      *log(0.07/0.0337) + 1/(2*2.4*Modelica.Constants.pi)*log(2/0.07)
-    "Thermal resistance of service pipes";
+  parameter Modelica.Units.SI.ThermalConductivity kGro=2.4
+    "Heat conductivity of surrounding ground";
+  parameter Real R(unit="(m.K)/W")=1/(2*kIns*Modelica.Constants.pi)
+      *log(0.18/0.0899) + 1/(2*kGro*Modelica.Constants.pi)*log(2/0.18)
+    "Thermal resistance per unit length of main pipes";
+  parameter Real R80(unit="(m.K)/W")=1/(2*kIns*Modelica.Constants.pi)
+      *log(0.07/0.0337) + 1/(2*kGro*Modelica.Constants.pi)*log(2/0.07)
+    "Thermal resistance per unit length of service pipes";
 
   Modelica.Thermal.HeatTransfer.Components.ThermalResistor res0[pip0.nNodes](each R=
-        R) "Thermal resistances for pipe 0"
+        pip0.nNodes*R/pip0.length) "Thermal resistances for pipe 0"
            annotation (Placement(transformation(extent={{142,-18},{162,2}})));
   Modelica.Thermal.HeatTransfer.Components.ThermalCollector col0(m=pip0.nNodes)
     "Combine heat flows to one"
@@ -128,7 +130,7 @@ model MSLAIT
         rotation=90,
         origin={102,46})));
   Modelica.Thermal.HeatTransfer.Components.ThermalResistor res1[pip1.nNodes](each R=
-        R) "Thermal resistances for pipe 1"
+        pip1.nNodes*R/pip1.length) "Thermal resistances for pipe 1"
            annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
@@ -158,7 +160,7 @@ model MSLAIT
         rotation=180,
         origin={-66,64})));
   Modelica.Thermal.HeatTransfer.Components.ThermalResistor res2[pip2.nNodes](each R=
-        R80) "Thermal resistances for pipe 2"
+        pip2.nNodes*R80/pip2.length) "Thermal resistances for pipe 2"
              annotation (Placement(transformation(extent={{-92,30},{-72,50}})));
   Modelica.Fluid.Pipes.DynamicPipe pip3(
     nParallel=1,
@@ -185,7 +187,7 @@ model MSLAIT
         rotation=90,
         origin={28,-48})));
   Modelica.Thermal.HeatTransfer.Components.ThermalResistor res3[pip3.nNodes](each R=
-        R80) "Thermal resistances for pipe 3"
+        pip3.nNodes*R80/pip3.length) "Thermal resistances for pipe 3"
              annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=0,
@@ -215,7 +217,7 @@ model MSLAIT
         rotation=180,
         origin={16,96})));
   Modelica.Thermal.HeatTransfer.Components.ThermalResistor res4[pip4.nNodes](each R=
-        R80) "Thermal resistances for pipe 4"
+        pip4.nNodes*R80/pip4.length) "Thermal resistances for pipe 4"
              annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
@@ -245,7 +247,7 @@ model MSLAIT
         rotation=180,
         origin={-22,96})));
   Modelica.Thermal.HeatTransfer.Components.ThermalResistor res5[pip5.nNodes](each R=
-        R) "Thermal resistances for pipe 5"
+        pip5.nNodes*R/pip5.length) "Thermal resistances for pipe 5"
            annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
@@ -505,6 +507,10 @@ Where the thermal conductivity of the ground <code>lambda_g</code> = 2.4 W/(m K)
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+November 15, 2026, by Michael Wetter:<br/>
+Corrected the units and nodal segment-length scaling of pipe thermal resistances <code>R</code> and <code>R80</code> across <code>res0</code> through <code>res5</code>.
+</li>
 <li>
 April 29, 2026, by Michael Wetter:<br/>
 Changed configuration of table to cause the parameters to be evaluated, as this leads to more efficient code.<br/>

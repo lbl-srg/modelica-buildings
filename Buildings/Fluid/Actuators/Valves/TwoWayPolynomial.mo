@@ -17,7 +17,7 @@ initial equation
   // We compute the analytic derivative of the polynomial for y=(1/points),
   // where the derivative of y^j = j*y^(j-1).
   if size(c, 1)>=2 then
-    for i in 0:nP/2 loop
+    for i in 0:nP loop
       assert(sum({c[j+1]*j*(i/nP)^(j-1) for j in 1:size(c, 1) - 1})>=0,
       "The provided valve polynomial coefficients 
       do not lead to a strictly increasing characteristic for y=" + String(i/nP)+ ". This is not allowed.");
@@ -50,6 +50,10 @@ as the regularization near the origin.
 </html>",
 revisions="<html>
 <ul>
+<li>
+November 15, 2026, by Michael Wetter:<br/>
+Corrected the monotonicity assertion loop bound so that the valve stroke <code>y</code> is checked over the full interval <code>[0, 1]</code> rather than only <code>[0, 0.5]</code>.
+</li>
 <li>
 June 10, 2021, by Michael Wetter:<br/>
 Changed implementation of the filter and changed the parameter <code>order</code> to a constant

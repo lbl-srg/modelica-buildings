@@ -15,7 +15,7 @@ record Vitocal251A08 "A2W Vitocal 251 by Viessmann"
       280.15, 1735, 1902, 1842, 1765, 1607, 1348, 1056;
       291.15, 1493, 1707, 1764, 1860, 1725, 1259, 1037],
     mEva_flow_nominal=5600/5/4184,
-    mCon_flow_nominal=2125/3600/1.204,
+    mCon_flow_nominal=2125/3600*1.204,
     use_TConOutForTab=false,
     use_TEvaOutForTab=true,
     devIde="Vitocal251A08");
@@ -42,5 +42,13 @@ Viessmann, Planungshandbuch.
 https://www.haustechnik-handrich.de/media/pdf/54/c4/14/vie-pa-z022164.pdf</a>.
 </p>
 
+</html>",
+revisions="<html>
+<ul>
+<li>
+November 15, 2026, by Michael Wetter:<br/>
+Corrected the nominal condenser air mass flow rate <code>mCon_flow_nominal</code> to multiply volumetric air flow rate by air density rather than dividing by it.
+</li>
+</ul>
 </html>"));
 end Vitocal251A08;

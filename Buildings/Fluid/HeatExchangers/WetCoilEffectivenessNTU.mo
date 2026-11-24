@@ -119,6 +119,8 @@ protected
   Real Qfac = fac1*fac2;
 
   Buildings.Fluid.HeatExchangers.BaseClasses.WetCoilUARated UAFroRated(
+    redeclare final package MediumW=Medium1,
+    redeclare final package MediumA=Medium2,
     final use_Q_flow_nominal=use_Q_flow_nominal,
     final QTot_flow=Q_flow_nominal,
     final UA=UA_nominal,
@@ -132,7 +134,13 @@ protected
 
   Buildings.Fluid.HeatExchangers.HeaterCooler_u heaCoo(
     redeclare final package Medium = Medium1,
+    final allowFlowReversal = allowFlowReversal1,
+    final m_flow_small = m1_flow_small,
+    final from_dp = from_dp1,
+    final n = n1,
     final dp_nominal = dp1_nominal,
+    final linearizeFlowResistance = linearizeFlowResistance1,
+    final deltaM = deltaM1,
     final m_flow_nominal = m1_flow_nominal,
     final energyDynamics = energyDynamics,
     final Q_flow_nominal=-1)
@@ -141,8 +149,14 @@ protected
 
   Buildings.Fluid.Humidifiers.Humidifier_u heaCooHum_u(
     redeclare final package Medium = Medium2,
+    final allowFlowReversal = allowFlowReversal2,
+    final m_flow_small = m2_flow_small,
+    final from_dp = from_dp2,
+    final n = n2,
     final mWat_flow_nominal = 1,
     final dp_nominal = dp2_nominal,
+    final linearizeFlowResistance = linearizeFlowResistance2,
+    final deltaM = deltaM2,
     final m_flow_nominal = m2_flow_nominal,
     final energyDynamics = energyDynamics)
     "Heat and moisture exchange with air stream"
@@ -344,13 +358,13 @@ equation
   // mass flow rates
   if use_dynamicFlowRegime then
     if (configuration == Buildings.Fluid.Types.HeatExchangerConfiguration.ParallelFlow) then
-      flowRegime = if (C1_flow*C2_flow >= 0)
+      flowRegime = if (m1_flow*m2_flow >= 0)
         then
           Buildings.Fluid.Types.HeatExchangerFlowRegime.ParallelFlow
         else
           Buildings.Fluid.Types.HeatExchangerFlowRegime.CounterFlow;
     elseif (configuration == Buildings.Fluid.Types.HeatExchangerConfiguration.CounterFlow) then
-      flowRegime = if (C1_flow*C2_flow >= 0)
+      flowRegime = if (m1_flow*m2_flow >= 0)
         then
           Buildings.Fluid.Types.HeatExchangerFlowRegime.CounterFlow
         else
@@ -669,6 +683,20 @@ Fuzzy identification of systems and its applications to modeling and control.
 &nbsp;IEEE transactions on systems, man, and cybernetics, (1), pp.116-132.</p>
 </html>",                    revisions="<html>
 <ul>
+<li>
+November 15, 2026, by Michael Wetter:<br/>
+<ul>
+<li>
+Tested signed mass flow rates <code>m1_flow*m2_flow &gt;= 0</code> instead of <code>C1_flow*C2_flow &gt;= 0</code> when switching between counter-flow and parallel-flow regimes.
+</li>
+<li>
+Propagated hydraulic resistance parameters (<code>n1</code>, <code>n2</code>, <code>linearizeFlowResistance1</code>, <code>linearizeFlowResistance2</code>, <code>deltaM1</code>, <code>deltaM2</code>, <code>from_dp1</code>, <code>from_dp2</code>, <code>allowFlowReversal1</code>, <code>allowFlowReversal2</code>, <code>m1_flow_small</code>, and <code>m2_flow_small</code>) to <code>heaCoo</code> and <code>heaCooHum_u</code>.
+</li>
+<li>
+Redeclared <code>MediumW = Medium1</code> and <code>MediumA = Medium2</code> on <code>UAFroRated</code> (<a href=\"modelica://Buildings.Fluid.HeatExchangers.BaseClasses.WetCoilUARated\">WetCoilUARated</a>) and computed nominal <code>UA_nominal</code> consistently with <code>configuration</code>.
+</li>
+</ul>
+</li>
 <li>
 June 22, 2026, by Michael Wetter:<br/>
 Updated Dialog annotations, and revised heat exchanger models to consistently expose parameters

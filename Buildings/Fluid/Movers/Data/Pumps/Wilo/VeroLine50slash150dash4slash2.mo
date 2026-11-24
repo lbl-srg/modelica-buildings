@@ -12,7 +12,7 @@ record VeroLine50slash150dash4slash2
                      0.01388888, 0.01666666},
                  dp={    255400,     253000,     250600,     248200,     232010,
                          199640,     156470}),
-    motorCooledByFluid=true);
+    motorCooledByFluid=false);
   annotation (
 defaultComponentPrefixes="parameter",
 defaultComponentName="per",
@@ -21,6 +21,10 @@ Documentation(info="<html>
 <p>See <a href=\"modelica://Buildings.Fluid.Movers.Data.Pumps.Wilo.Stratos25slash1to6\">Buildings.Fluid.Movers.Data.Pumps.Wilo.Stratos25slash1to6</a>for more information about how the data is derived.</p>
 </html>",   revisions="<html>
 <ul>
+<li>
+November 15, 2026, by Michael Wetter:<br/>
+Set <code>motorCooledByFluid = false</code> for this external air-cooled dry-rotor inline pump.
+</li>
 <li>
 March 29, 2023, by Hongxiang Fu:<br/>
 Deleted angular speed parameters with the unit rpm.

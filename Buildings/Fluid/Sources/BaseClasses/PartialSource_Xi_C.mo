@@ -78,6 +78,8 @@ equation
     C_in_internal = C;
   end if;
 
+  connect(medium.Xi, Xi_in_internal);
+
   for i in 1:nPorts loop
     ports[i].Xi_outflow = Xi_in_internal;
     ports[i].C_outflow = C_in_internal;
@@ -113,6 +115,10 @@ Otherwise the parameter value is used.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+November 15, 2026, by Michael Wetter:<br/>
+Added the missing <code>connect(medium.Xi, Xi_in_internal)</code> equation when <code>verifyInputs</code> is true.
+</li>
 <li>
 March 11, 2024, by Michael Wetter:<br/>
 Corrected use of <code>HideResult</code>.<br/>

@@ -33,7 +33,10 @@ model LargeScaleWaterToWater "Large scale water to water chiller"
         Buildings.Fluid.Chillers.ModularReversible.RefrigerantCycle.TableData2D (
         redeclare
           Buildings.Fluid.HeatPumps.ModularReversible.RefrigerantCycle.Frosting.NoFrosting
-          iceFacCal, datTab=datTab),
+          iceFacCal,
+        final mCon_flow_nominal=mCon_flow_nominal,
+        final mEva_flow_nominal=mEva_flow_nominal,
+        datTab=datTab),
     final use_rev=false,
     final QHea_flow_nominal=0,
     final mCon_flow_nominal=autCalMasCon_flow,
@@ -91,6 +94,10 @@ model LargeScaleWaterToWater "Large scale water to water chiller"
 </li>
 </ul>
 </html>", revisions="<html><ul>
+<li>
+November 15, 2026, by Michael Wetter:<br/>
+Propagated <code>mCon_flow_nominal</code> and <code>mEva_flow_nominal</code> to <a href=\"modelica://Buildings.Fluid.Chillers.ModularReversible.RefrigerantCycle.TableData2D\">TableData2D</a>.
+</li>
   <li>
     <i>Novemeber 11, 2022</i> by Fabian Wuellhorst:<br/>
     Implemented <a href=

@@ -85,8 +85,8 @@ equation
     y1d = dspline[pre(k)],
     y2d = dspline[pre(k)+1]);
   // Update interpolation parameters, when needed
-  when time >= pre(t2) then
-    k = min(pre(k) + 1, nTimTot);
+  when time >= pre(t2) and pre(k) < nTimTot - 1 then
+    k = min(pre(k) + 1, nTimTot - 1);
     t1 = tGFun[k];
     t2 = tGFun[k+1];
     gFun1 = gFun[k];
@@ -104,6 +104,10 @@ g-function of a borefield of <i>100</i> boreholes in a <i>1</i> configuration.
 </html>",
 revisions="<html>
 <ul>
+<li>
+November 15, 2026, by Michael Wetter:<br/>
+Corrected upper index clamp on <code>k</code> from <code>nTimTot</code> to <code>nTimTot - 1</code> to prevent out-of-bounds access to <code>tGFun[k + 1]</code>, <code>gFun[k + 1]</code>, and <code>dspline[k + 1]</code>.
+</li>
 <li>
 June 9, 2022, by Massimo Cimmino:<br/>
 Added parameters to define the number of clusters for the method of Prieto and

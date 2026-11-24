@@ -10,11 +10,13 @@ block MixingVolume "Declaration of an FMU that exports a control volume"
 protected
   Buildings.Fluid.FMI.Adaptors.Inlet bouIn(
     redeclare final package Medium=Medium,
-    final allowFlowReversal=allowFlowReversal) "Boundary model for inlet"
+    final allowFlowReversal=allowFlowReversal,
+    final use_p_in=use_p_in) "Boundary model for inlet"
     annotation (Placement(transformation(extent={{-80,-10},{-60,10}})));
   Buildings.Fluid.FMI.Adaptors.Outlet bouOut(
     redeclare final package Medium=Medium,
-    final allowFlowReversal=allowFlowReversal) "Boundary component for outlet"
+    final allowFlowReversal=allowFlowReversal,
+    final use_p_in=use_p_in) "Boundary component for outlet"
     annotation (Placement(transformation(extent={{60,-10},{80,10}})));
 
   Buildings.Fluid.MixingVolumes.MixingVolume vol(
@@ -66,6 +68,10 @@ for the rationale.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+November 15, 2026, by Michael Wetter:<br/>
+Propagated <code>final use_p_in=use_p_in</code> to boundary instances <code>bouIn</code> and <code>bouOut</code>.
+</li>
 <li>
 November 21, 2014 by Michael Wetter:<br/>
 First implementation.

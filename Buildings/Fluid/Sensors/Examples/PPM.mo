@@ -5,7 +5,7 @@ model PPM "Test model for the extra property sensor outputting PPM"
     "Medium model";
 
   parameter Modelica.Units.SI.MassFlowRate m_flow_nominal=
-    volDyn.V*senPPMTwoPort.tau*3*rho_default
+    volDyn.V/senPPMTwoPort.tau*3*rho_default
     "Mass flow rate into and out of the volume";
 
   Buildings.Fluid.MixingVolumes.MixingVolume volDyn(
@@ -155,6 +155,10 @@ and with or without dynamics are tested.
 </html>",
 revisions="<html>
 <ul>
+<li>
+November 15, 2026, by Michael Wetter:<br/>
+Divided volume mass by <code>senPPMTwoPort.tau</code> instead of multiplying when computing <code>m_flow_nominal</code>.
+</li>
 <li>
 February 1, 2024, by Michael Wetter:<br/>
 Added pressure drop to avoid redundant initial conditions for pressure of control volume.<br/>

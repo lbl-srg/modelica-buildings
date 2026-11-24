@@ -38,17 +38,17 @@ protected
 
   final parameter Integer n=size(incAngSurNor, 1)
     "Number of data points provided by user";
-  final parameter Modelica.Units.SI.Angle incAngExt[n + 3](each displayUnit=
+  final parameter Modelica.Units.SI.Angle incAngExt[n + 4](each displayUnit=
         "deg") = cat(
     1,
-    {incAngSurNor[n - 1] - (2*Modelica.Constants.pi)},
+    {incAngSurNor[n - 1], incAngSurNor[n]} .- (2*Modelica.Constants.pi),
     incAngSurNor,
     2*Modelica.Constants.pi .+ {incAngSurNor[1],incAngSurNor[2]})
     "Extended number of incidence angles";
-  final parameter Real CpExt[n+3]=cat(1, {Cp[n-1]}, Cp, {Cp[1], Cp[2]})
+  final parameter Real CpExt[n+4]=cat(1, {Cp[n-1], Cp[n]}, Cp, {Cp[1], Cp[2]})
     "Extended number of Cp values";
 
-  final parameter Real[n+3] deri=
+  final parameter Real[n+4] deri=
       Buildings.Utilities.Math.Functions.splineDerivatives(
       x=incAngExt,
       y=CpExt,
@@ -70,6 +70,10 @@ protected
     "Air density";
 
 initial equation
+  assert(n >= 2, "In " + getInstanceName() +
+    ": At least 2 data points are required in incAngSurNor, received size(incAngSurNor, 1) = " +
+    String(n) + ".");
+
   assert(size(incAngSurNor, 1) == size(Cp, 1), "In " + getInstanceName() +
     ": Size of parameters are size(CpincAng, 1) = " + String(size(incAngSurNor,
     1)) + " and size(Cp, 1) = " + String(size(Cp, 1)) + ". They must be equal.");
@@ -176,6 +180,10 @@ and for buildings with non-rectangular shapes.
 </html>",
 revisions="<html>
 <ul>
+<li>
+November 15, 2026, by Michael Wetter:<br/>
+Included the final data point at index <code>n</code> in <code>incAngExt</code> and <code>CpExt</code> when constructing the periodic cubic spline.
+</li>
 <li>
 February 2, 2022, by Michael Wetter:<br/>
 Revised implementation.<br/>

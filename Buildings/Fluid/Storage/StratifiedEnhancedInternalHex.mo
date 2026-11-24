@@ -72,8 +72,8 @@ model StratifiedEnhancedInternalHex
     "Formulation of energy balance for heat exchanger solid mass"
     annotation(Evaluate=true, Dialog(tab = "Dynamics heat exchanger", group="Conservation equations"));
 
-  parameter Modelica.Units.SI.Length lHex=rTan*abs(segHex_a - segHex_b)*
-      Modelica.Constants.pi "Approximate length of the heat exchanger"
+  parameter Modelica.Units.SI.Length lHex=Modelica.Constants.pi*rTan*
+      max(1, dHHex/(2*dExtHex)) "Approximate length of the heat exchanger"
     annotation (Dialog(tab="Dynamics heat exchanger", group="Conservation equations"));
 
   parameter Modelica.Units.SI.Area ACroHex=(dExtHex^2 - (0.8*dExtHex)^2)*
@@ -138,11 +138,11 @@ model StratifiedEnhancedInternalHex
   Modelica.Units.SI.HeatFlowRate QHex_flow=-sum(indTanHex.port.Q_flow)
     "Heat transferred from the heat exchanger to the tank";
 protected
-  final parameter Integer segHex_a = nSeg-integer(hHex_a/segHeight)
+  final parameter Integer segHex_a = max(1, min(nSeg, nSeg - integer(hHex_a/segHeight)))
     "Tank segment in which port a1 of the heat exchanger is located in"
     annotation(Evaluate=true, Dialog(group="Heat exchanger"));
 
-  final parameter Integer segHex_b = nSeg-integer(hHex_b/segHeight)
+  final parameter Integer segHex_b = max(1, min(nSeg, nSeg - integer(hHex_b/segHeight)))
     "Tank segment in which port b1 of the heat exchanger is located in"
     annotation(Evaluate=true, Dialog(group="Heat exchanger"));
 
@@ -159,7 +159,11 @@ protected
     if segHex_a > segHex_b then segHex_a-segHex_b + 1 else segHex_b-segHex_a + 1
     "Number of tank segments the heat exchanger resides in";
 
-  final parameter Integer nSegHex = nSegHexTan*hexSegMult
+  final parameter Integer hexSegMult_internal =
+    if nSegHexTan == 1 then max(2, hexSegMult) else hexSegMult
+    "Multiplier for heat exchanger segments ensuring at least 2 segments";
+
+  final parameter Integer nSegHex = nSegHexTan*hexSegMult_internal
     "Number of heat exchanger segments";
 
 initial equation
@@ -173,8 +177,8 @@ initial equation
     "The parameters hHex_a and hHex_b must not be equal.");
 equation
   for j in 0:nSegHexTan-1 loop
-    for i in 1:hexSegMult loop
-      connect(indTanHex.port[j*hexSegMult+i], heaPorVol[segHex_a + (if hHex_a > hHex_b then j else -j)])
+    for i in 1:hexSegMult_internal loop
+      connect(indTanHex.port[j*hexSegMult_internal+i], heaPorVol[segHex_a + (if hHex_a > hHex_b then j else -j)])
         annotation (Line(
        points={{-120,-10.2},{-120,0},{0,0}},
        color={191,0,0},
@@ -245,6 +249,10 @@ The model requires at least 4 fluid segments. Hence, set <code>nSeg</code> to 4 
 </html>",
 revisions="<html>
 <ul>
+<li>
+November 15, 2026, by Michael Wetter:<br/>
+Clamped <code>segHex_a</code> and <code>segHex_b</code> to <code>[1, nSeg]</code> when <code>hHex_a == hTan</code> or <code>hHex_b == hTan</code>, computed coil length <code>lHex</code> from physical port height difference <code>dHHex</code> rather than mesh count <code>nSeg</code>, and ensured at least two heat-exchanger segments when <code>nSegHexTan == 1</code>.
+</li>
 <li>
 June 17, 2026, by Michael Wetter:<br/>
 Updated implementation to allow a flow coefficient <code>n</code> that is different from <code>2</code>.

@@ -48,8 +48,8 @@ model Modular
        final TCon_nominal=TEvaHea_nominal,
        final TEva_nominal=TConHea_nominal,
        final QHea_flow_nominal=QHea_flow_nominal,
-       final cpCon=cpCon,
-       final cpEva=cpEva)
+       final cpCon=cpEva,
+       final cpEva=cpCon)
   "Refrigerant cycle module for the heating mode"
     annotation (Dialog(enable=use_rev),choicesAllMatching=true);
   parameter Modelica.Units.SI.Temperature TEvaCoo_nominal
@@ -133,6 +133,10 @@ equation
     Diagram(coordinateSystem(extent={{-140,-160},{140,160}})),
     Documentation(revisions="<html>
   <ul>
+<li>
+November 15, 2026, by Michael Wetter:<br/>
+Swapped specific heat capacities <code>cpCon</code> and <code>cpEva</code> in <code>RefrigerantCycleChillerHeating</code> to match the reversed fluid streams during heating mode.
+</li>
   <li>
   May 23, 2025, by Michael Wetter:<br/>
   Added assertion against wrong parameterization.<br/>

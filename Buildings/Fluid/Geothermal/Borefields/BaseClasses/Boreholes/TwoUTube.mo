@@ -7,11 +7,11 @@ model TwoUTube "Double U-tube borehole heat exchanger"
     redeclare each final package Medium = Medium,
     each final borFieDat=borFieDat,
     each final hSeg=borFieDat.conDat.hBor/nSeg,
-    final dp1_nominal={if i == 1 and borFieDat.conDat.borCon == Buildings.Fluid.Geothermal.Borefields.Types.BoreholeConfiguration.DoubleUTubeParallel
-         then dp_nominal elseif i == 1 and borFieDat.conDat.borCon == Buildings.Fluid.Geothermal.Borefields.Types.BoreholeConfiguration.DoubleUTubeSeries
+    final dp1_nominal={if i == 1 and computeFlowResistance and borFieDat.conDat.borCon == Buildings.Fluid.Geothermal.Borefields.Types.BoreholeConfiguration.DoubleUTubeParallel
+         then dp_nominal elseif i == 1 and computeFlowResistance and borFieDat.conDat.borCon == Buildings.Fluid.Geothermal.Borefields.Types.BoreholeConfiguration.DoubleUTubeSeries
          then dp_nominal/2 else 0 for i in 1:nSeg},
-    final dp3_nominal={if i == 1 and borFieDat.conDat.borCon == Buildings.Fluid.Geothermal.Borefields.Types.BoreholeConfiguration.DoubleUTubeParallel
-         then dp_nominal elseif i == 1 and borFieDat.conDat.borCon == Buildings.Fluid.Geothermal.Borefields.Types.BoreholeConfiguration.DoubleUTubeSeries
+    final dp3_nominal={if i == 1 and computeFlowResistance and borFieDat.conDat.borCon == Buildings.Fluid.Geothermal.Borefields.Types.BoreholeConfiguration.DoubleUTubeParallel
+         then dp_nominal elseif i == 1 and computeFlowResistance and borFieDat.conDat.borCon == Buildings.Fluid.Geothermal.Borefields.Types.BoreholeConfiguration.DoubleUTubeSeries
          then dp_nominal/2 else 0 for i in 1:nSeg},
     each final dp2_nominal=0,
     each final dp4_nominal=0,
@@ -194,6 +194,10 @@ into account. The vertical heat flow is assumed to be zero.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+November 15, 2026, by Michael Wetter:<br/>
+Guarded nominal pressure drop with <code>computeFlowResistance</code> so that setting <code>computeFlowResistance = false</code> disables hydraulic friction.
+</li>
 <li>
 May 17, 2024, by Michael Wetter:<br/>
 Updated model due to removal of parameter <code>dynFil</code>.<br/>

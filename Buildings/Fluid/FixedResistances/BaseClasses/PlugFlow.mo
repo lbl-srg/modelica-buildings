@@ -87,7 +87,7 @@ equation
     x/length,
     v >= 0,
     {0.0, 1.0},
-    {0.01, 0.01});
+    {Medium.X_default[i], Medium.X_default[i]});
   end for;
 
   for i in 1:Medium.nC loop
@@ -126,6 +126,10 @@ equation
           fillColor={175,175,175})}),
     Documentation(revisions="<html>
 <ul>
+<li>
+November 15, 2026, by Michael Wetter:<br/>
+Initialized <code>spatialDistribution</code> for <code>Xi</code> with <code>Medium.X_default[i]</code> instead of hardcoded <code>0.01</code>.
+</li>
 <li>
 October 20, 2017, by Michael Wetter:<br/>
 Deleted various parameters and variables that were not used.

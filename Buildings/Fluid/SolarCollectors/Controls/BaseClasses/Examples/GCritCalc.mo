@@ -8,12 +8,12 @@ model GCritCalc "Example showing the use of GCritCalc"
   Modelica.Blocks.Sources.Sine TEnv(
     amplitude=10,
     f=0.1,
-    offset=10)
+    offset=273.15 + 10)
     annotation (Placement(transformation(extent={{-80,20},{-60,40}})));
   Modelica.Blocks.Sources.Sine TIn(
     amplitude=10,
     f=0.01,
-    offset=30)
+    offset=273.15 + 30)
     annotation (Placement(transformation(extent={{-80,-40},{-60,-20}})));
 equation
   connect(TEnv.y, criSol.TEnv)    annotation (Line(
@@ -34,6 +34,10 @@ Buildings.Fluid.SolarCollectors.Controls.BaseClasses.GCritCalc</a> model.<br/>
 </html>",
 revisions="<html>
 <ul>
+<li>
+November 15, 2026, by Michael Wetter:<br/>
+Added <code>273.15</code> K to the <code>offset</code> parameters of sine temperature sources <code>TEnv</code> and <code>TIn</code>.
+</li>
 <li>
   Mar 27, 2013 by Peter Grant:<br/>
   First implementation

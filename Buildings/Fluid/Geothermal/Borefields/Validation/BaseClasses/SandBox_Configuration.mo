@@ -7,7 +7,7 @@ record SandBox_Configuration
       use_Rb=true,
       Rb=0.165,
       cooBor={{0,0}},
-      mBor_flow_nominal=0.197/998*1000,
+      mBor_flow_nominal=0.197/1000*998,
       dp_nominal=5e4,
       hBor=18.3,
       rBor=0.063,
@@ -34,6 +34,10 @@ analysis</i>. Geothermics 40: 79-85.
 </html>",
 revisions="<html>
 <ul>
+<li>
+November 15, 2026, by Michael Wetter:<br/>
+Corrected the density and liter-to-cubic-meter conversion factors in the nominal borehole mass flow rate <code>mBor_flow_nominal</code>.
+</li>
 <li>
 July 15, 2018, by Michael Wetter:<br/>
 Revised implementation, added <code>defaultComponentPrefixes</code> and

@@ -13,7 +13,7 @@ record SmallScale_Configuration
       dBor=0.019*375,
       rTub=0.125*0.0254/2*375,
       kTub=401.0,
-      eTub=0.06*0.0254*375,
+      eTub=0.06*0.0254/2*375,
       xC=0.0050/2*375);
 
 annotation (
@@ -35,6 +35,10 @@ g-functions of a small-scale geothermal borehole</i>. Geothermics 56: 60-71.
 </html>",
 revisions="<html>
 <ul>
+<li>
+November 15, 2026, by Michael Wetter:<br/>
+Included the missing factor of <code>1/2</code> when computing U-tube wall thickness <code>eTub</code> from inner and outer diameters.
+</li>
 <li>
 July 15, 2018, by Michael Wetter:<br/>
 Revised implementation, added <code>defaultComponentPrefixes</code> and

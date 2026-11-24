@@ -8,7 +8,7 @@ record FP_VerificationModel =
     final dp_nominal = 100,
     final mperA_flow_nominal=0.0241,
     final eta0=0.720,
-    final IAMDiff=0.133,
+    final IAMDiff=0.867,
     final a1=2.8312,
     final a2=0.00119,
     final incAngDat=Modelica.Units.Conversions.from_deg({0,10,20,30,40,50,60,70,80,90}),
@@ -26,4 +26,12 @@ of the necessary information for modeling.
 This data record was created to allow verification of EN12975 base classes
 despite the limitations in available data.
 </p>
+</html>",
+revisions="<html>
+<ul>
+<li>
+November 15, 2026, by Michael Wetter:<br/>
+Corrected diffuse incidence angle modifier <code>IAMDiff</code> from <code>0.133</code> (<code>1 - K_d</code>) to <code>0.867</code> (<code>K_d</code>).
+</li>
+</ul>
 </html>"));

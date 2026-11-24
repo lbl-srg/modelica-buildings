@@ -12,16 +12,33 @@ function cylindricalHeatSource
 
 protected
   Real Fo = aSoi*t/rBor^2 "Fourier number";
-  Real p = dis/rBor "Fourier number";
+  Real p = dis/rBor "Ratio of radial distance to borehole radius";
+  Real b "Upper bound of integration";
 
 algorithm
-  G := Modelica.Math.Nonlinear.quadratureLobatto(
-      function Buildings.Fluid.Geothermal.Borefields.BaseClasses.HeatTransfer.ThermalResponseFactors.cylindricalHeatSource_Integrand(
-      Fo=Fo,
-      p=p),
-    a = 1e-12,
-    b = 100,
-    tolerance = 1e-6);
+  if Fo <= 0 or (p > 1 and (p - 1)^2 > 64*Fo) then
+    G := 0;
+  elseif abs(p - 1) <= 1e-12 then
+    b := 100.0;
+    G := Modelica.Math.Nonlinear.quadratureLobatto(
+        function Buildings.Fluid.Geothermal.Borefields.BaseClasses.HeatTransfer.ThermalResponseFactors.cylindricalHeatSource_Integrand(
+          Fo=Fo,
+          p=p),
+        a = 1e-12,
+        b = b,
+        tolerance = 1e-6)
+      + ((1.0 - exp(-b^2*Fo))/b + sqrt(Modelica.Constants.pi*Fo)*Modelica.Math.Special.erfc(b*sqrt(Fo)))
+        / Modelica.Constants.pi^2;
+  else
+    b := if p > 1 then min(10000.0, max(100.0, 300.0/sqrt(p - 1))) else 100.0;
+    G := Modelica.Math.Nonlinear.quadratureLobatto(
+        function Buildings.Fluid.Geothermal.Borefields.BaseClasses.HeatTransfer.ThermalResponseFactors.cylindricalHeatSource_Integrand(
+          Fo=Fo,
+          p=p),
+        a = 1e-12,
+        b = b,
+        tolerance = 1e-6);
+  end if;
 
 annotation (
 Inline=true,
@@ -57,6 +74,10 @@ Buildings.Fluid.Geothermal.Borefields.BaseClasses.HeatTransfer.ThermalResponseFa
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+November 15, 2026, by Michael Wetter:<br/>
+Replaced the fixed upper integration cutoff <code>b = 100</code> with a transformed full-range quadrature and asymptotic tail correction to eliminate short-time truncation error and negative <code>G</code> values.
+</li>
 <li>
 March 22, 2018 by Massimo Cimmino:<br/>
 First implementation.

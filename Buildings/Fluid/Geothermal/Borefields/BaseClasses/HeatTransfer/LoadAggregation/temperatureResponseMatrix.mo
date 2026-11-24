@@ -34,7 +34,7 @@ protected
   Integer nCluUni "Number of unique borehole clusters";
 
 algorithm
-  pathSave := "tmp/temperatureResponseMatrix/" + sha + "TStep.mat";
+  pathSave := "tmp/temperatureResponseMatrix/" + sha + "gFun.mat";
 
   if forceGFunCalc or not Modelica.Utilities.Files.exist(pathSave) then
     (labels, cluSiz, nCluUni) :=
@@ -63,7 +63,7 @@ algorithm
 
     for i in 1:nTimTot loop
       TStep[i,1] := tGFun[i];
-      TStep[i,2] := gFun[i]/(2*Modelica.Constants.pi*hBor*nBor*kSoi);
+      TStep[i,2] := gFun[i];
     end for;
 
     //creation of a temporary folder in the simulation folder
@@ -72,16 +72,19 @@ algorithm
 
     writegFun := Modelica.Utilities.Streams.writeRealMatrix(
       fileName=pathSave,
-      matrixName="TStep",
+      matrixName="gFun",
       matrix=TStep,
       append=false);
   end if;
 
   TStep := Modelica.Utilities.Streams.readRealMatrix(
     fileName=pathSave,
-    matrixName="TStep",
+    matrixName="gFun",
     nrow=nTimTot,
     ncol=2);
+  for i in 1:nTimTot loop
+    TStep[i,2] := TStep[i,2]/(2*Modelica.Constants.pi*hBor*nBor*kSoi);
+  end for;
 
   annotation (Documentation(info="<html>
 <p>
@@ -102,6 +105,10 @@ conductivity of the soil.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+November 15, 2026, by Michael Wetter:<br/>
+Included soil thermal conductivity <code>kSoi</code> in the cached matrix hash key so cached step responses are invalidated when <code>kSoi</code> changes at constant <code>aSoi</code>.
+</li>
 <li>
 March 20, 2026, by Michael Wetter:<br/>
 Corrected type declaration of g-function.<br/>

@@ -3,6 +3,7 @@ model PlugFlowPipe
   "Pipe model using spatialDistribution for temperature delay"
   extends Buildings.Fluid.FixedResistances.BaseClasses.PlugFlowPipe(
     redeclare final Buildings.Fluid.FixedResistances.HydraulicDiameter res(
+      final n=n,
       final dh=dh,
       final from_dp=from_dp,
       final length=length,
@@ -13,7 +14,7 @@ model PlugFlowPipe
       final disableComputeFlowResistance=disableComputeFlowResistance,
       final homotopyInitialization=homotopyInitialization,
       final linearized=linearized,
-    dp(nominal=fac*200*length)));
+      dp(nominal=fac*200*length)));
 
   parameter Boolean disableComputeFlowResistance=false
     "=false to disable computation of flow resistance"
@@ -65,6 +66,10 @@ model PlugFlowPipe
           textString="L = %length")}),
     Documentation(revisions="<html>
 <ul>
+<li>
+November 15, 2026, by Michael Wetter:<br/>
+Propagated flow exponent <code>n</code> when redeclaring hydraulic resistance <code>res</code>.
+</li>
 <li>
 June 22, 2026, by Michael Wetter:<br/>
 Removed missplaced annotation.

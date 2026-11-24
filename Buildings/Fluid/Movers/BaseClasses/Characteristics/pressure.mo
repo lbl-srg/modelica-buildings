@@ -29,19 +29,12 @@ algorithm
   // This is done using a cubic spline in a region 0.75*delta < r_N < 1.25*r_N
   // We call this restricted value r_R
   if r_N > delta then
-    r_R :=r_N;
-  elseif r_N < 0 then
-    r_R := delta2;
+    r_R := r_N;
+  elseif r_N < -delta then
+    r_R := -r_N;
   else
-    // Restrict r_N using a spline
-    r_R :=Modelica.Fluid.Utilities.cubicHermite(
-      x=r_N,
-      x1=0,
-      x2=delta,
-      y1=delta2,
-      y2=delta,
-      y1d=0,
-      y2d=1);
+    // Restrict r_N using an even C1 polynomial on [-delta, delta]
+    r_R := delta2 + r_N^2/(2*delta);
   end if;
 
   i :=1;
@@ -65,7 +58,7 @@ algorithm
               y1d=d[i],
               y2d=d[i+1]);
   else
-    dp:=-r_N^2*(dpMax-dpMax/V_flow_max*V_flow);
+    dp:=-r_N^2*(dpMax + dpMax/V_flow_max*rat);
   end if;
 annotation(smoothOrder=1,
 Documentation(info="<html>
@@ -95,6 +88,10 @@ The function allows <i>r<sub>N</sub></i> to be zero.
 </html>",
   revisions="<html>
 <ul>
+<li>
+November 15, 2026, by Michael Wetter:<br/>
+Corrected the sign on <code>V_flow</code> and speed scaling in the <code>r_N &lt; 0</code> branch so hydraulic impedance remains passive.
+</li>
 <li>
 September 8, 2016, by Michael Wetter and Filip Jorissen:<br/>
 Changed implementation to allow <code>r_N = 0</code>.<br/>

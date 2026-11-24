@@ -66,7 +66,7 @@ model FlatPlateWithTank
       extent={{-20,-20},{20,20}},
       origin={100,-20})));
   Buildings.Fluid.SolarCollectors.Controls.CollectorPump pumCon(
-    per=Buildings.Fluid.SolarCollectors.Data.GlazedFlatPlate.FP_ThermaLiteHS20(),
+    per=solCol.per,
     final azi=azi,
     final til=til,
     final rho=rho)
@@ -241,6 +241,10 @@ provides a boundary condition for the outlet of the draw.
 </html>",
 revisions="<html>
 <ul>
+<li>
+November 15, 2026, by Michael Wetter:<br/>
+Aligned pump controller <code>pumCon</code> collector data with <code>solCol</code> (<a href=\"modelica://Buildings.Fluid.SolarCollectors.Data.GlazedFlatPlate.FP_SolahartKf\">FP_SolahartKf</a>).
+</li>
 <li>
 February 15, 2024, by Jelger Jansen:<br/>
 Refactor model.<br/>

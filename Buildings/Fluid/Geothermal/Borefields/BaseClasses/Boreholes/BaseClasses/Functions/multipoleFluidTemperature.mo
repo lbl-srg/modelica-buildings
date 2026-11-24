@@ -40,10 +40,8 @@ protected
   Real rbm "Intermediate coefficient";
   Modelica.Units.SI.Distance dz "Pipe to pipe distance";
   Real coeff[nPip,J] "Coefficient for multiplication with matrix F_mk";
-  Real diff "Difference in subsequent multipole evaluations";
   Real diff_max "Maximum difference in subsequent multipole evaluations";
-  Real diff_min "Minimum difference in subsequent multipole evaluations";
-  Real diff0 "Difference in subsequent multipole evaluations";
+  Real diff0=0 "Initial maximum difference in multipole evaluations";
   Integer it "Iteration counter";
   Real eps_max "Convergence variable";
 
@@ -100,20 +98,17 @@ algorithm
         end for;
       end for;
       diff_max := 0;
-      diff_min := 1e99;
       for m in 1:nPip loop
         for k in 1:J loop
           P_nj := Complex(PRea[m, k], PIma[m, k]);
           P_nj_new := Complex(PRea_new[m, k], PIma_new[m, k]);
-          diff_max :=max(diff_max, Modelica.ComplexMath.abs(P_nj_new - P_nj));
-          diff_min :=min(diff_min, Modelica.ComplexMath.abs(P_nj_new - P_nj));
+          diff_max := max(diff_max, Modelica.ComplexMath.abs(P_nj_new - P_nj));
         end for;
       end for;
-      diff := diff_max - diff_min;
       if it == 1 then
-        diff0 :=diff;
+        diff0 := diff_max;
       end if;
-      eps_max := diff/diff0;
+      eps_max := if diff0 > Modelica.Constants.small then diff_max/diff0 else 0;
       PRea := PRea_new;
       PIma := PIma_new;
     end while;
@@ -154,6 +149,10 @@ HVAC&amp;R Research,
 17(6): 895-911, 2011.</p>
 </html>", revisions="<html>
 <ul>
+<li>
+November 15, 2026, by Michael Wetter:<br/>
+Corrected the multipole iteration convergence error norm to use absolute differences and guarded against division by zero when <code>diff0 == 0</code>.
+</li>
 <li>
 February 12, 2018, by Massimo Cimmino:<br/>
 First implementation.

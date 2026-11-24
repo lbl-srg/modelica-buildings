@@ -54,20 +54,24 @@ algorithm
       u_max=1e6);
   elseif (flowRegime == Integer(Buildings.Fluid.Types.HeatExchangerFlowRegime.CrossFlowCMinUnmixedCMaxMixed)) then
     // cross flow, (single pass), CMax mixed, CMin unmixed. (Coil with one row.)
-   a := smooth(1, if Z > 0.03 then Z else
-      Buildings.Utilities.Math.Functions.smoothMin(
-      x1=0.02,
-      x2=Z,
+    a := smooth(1, if Z > 0.03 then Z else
+      Buildings.Utilities.Math.Functions.smoothMax(
+      x1=Z,
+      x2=0.02,
       deltaX=0.01));
+    assert(eps < (1 - Modelica.Math.exp(-a))/a,
+      "Invalid input data. eps >= (1-exp(-Z))/Z is physically not possible for cross flow (CMin unmixed, CMax mixed).");
     NTU := -Modelica.Math.log(1+(Modelica.Math.log(1-eps*a)/a));
   elseif (flowRegime == Integer(Buildings.Fluid.Types.HeatExchangerFlowRegime.CrossFlowCMinMixedCMaxUnmixed)) then
     // cross flow, (single pass), CMin mixed, CMax unmixed.
-   a := smooth(1, if Z > 0.03 then Z else
-      Buildings.Utilities.Math.Functions.smoothMin(
-      x1=0.02,
-      x2=Z,
+    a := smooth(1, if Z > 0.03 then Z else
+      Buildings.Utilities.Math.Functions.smoothMax(
+      x1=Z,
+      x2=0.02,
       deltaX=0.01));
-    NTU := -Modelica.Math.log(1+Z*Modelica.Math.log(1-eps))/Z;
+    assert(eps < 1 - Modelica.Math.exp(-1/a),
+      "Invalid input data. eps >= 1-exp(-1/Z) is physically not possible for cross flow (CMin mixed, CMax unmixed).");
+    NTU := -Modelica.Math.log(1+a*Modelica.Math.log(1-eps))/a;
   elseif (flowRegime == Integer(Buildings.Fluid.Types.HeatExchangerFlowRegime.ConstantTemperaturePhaseChange)) then
     // one side is experiencing constant temperature phase change
     // Z is unused
@@ -100,6 +104,10 @@ This is handled internally and not exposed to the global solver.
 </html>",
 revisions="<html>
 <ul>
+<li>
+November 15, 2026, by Michael Wetter:<br/>
+Replaced <a href=\"modelica://Buildings.Utilities.Math.Functions.smoothMin\">smoothMin</a> with <a href=\"modelica://Buildings.Utilities.Math.Functions.smoothMax\">smoothMax</a> when regularizing <code>Z</code> near zero in cross-flow inverse NTU relations and used regularized <code>a</code> consistently.
+</li>
 <li>
 February 7, 2025, by Jelger Jansen:<br/>
 Removed <code>import</code> statement.

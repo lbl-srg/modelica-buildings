@@ -4,7 +4,7 @@ block FlowSplitter_u "Declaration of an FMU that exports a flow splitter"
      redeclare replaceable package Medium = Buildings.Media.Air,
         nout=2,
         m_flow_nominal={0.1, 0.2},
-        allowFlowReversal(start=false));
+        allowFlowReversal=false);
 
   annotation (  Documentation(info="<html>
 <p>
@@ -15,6 +15,10 @@ Buildings.Fluid.FMI.FlowSplitter_u</a>.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+November 15, 2026, by Michael Wetter:<br/>
+Changed <code>allowFlowReversal(start=false)</code> to <code>allowFlowReversal=false</code> so the parameter value is properly overridden.
+</li>
 <li>
 November 20, 2014 by Michael Wetter:<br/>
 First implementation.

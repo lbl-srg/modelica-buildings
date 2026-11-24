@@ -37,7 +37,6 @@ model HeatExchangerLocation
     final Q_flow_nominal=QHex_flow_nominal,
     final TTan_nominal=293.15,
     final THex_nominal=273.15+60,
-    final computeFlowResistance=false,
     final energyDynamicsHex=Modelica.Fluid.Types.Dynamics.FixedInitial)
     "Tank";
 
@@ -113,6 +112,14 @@ extends from element <i>9</i> to element <i>11</i>.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+November 20, 2026, by Michael Wetter:<br/>
+Removed <code>computeFlowResistance=false</code>
+because two parallel zero-resistance heat exchanger paths
+connected to a shared source and sink make the flow split indeterminate.
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/2208\">IBPSA, #2208</a>.
+</li>
 <li>
 June 7, 2018 by Filip Jorissen:<br/>
 Copied model from Buildings and update the model accordingly.

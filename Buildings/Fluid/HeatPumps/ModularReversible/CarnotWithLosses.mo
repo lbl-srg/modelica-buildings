@@ -12,8 +12,8 @@ model CarnotWithLosses
           iceFacCal,
         etaCarnot_nominal=etaCarnot_nominal,
         use_constAppTem=true,
-        TAppCon_nominal=TAppCon_nominal,
-        TAppEva_nominal=TAppEva_nominal),
+        TAppCon_nominal=TAppEva_nominal,
+        TAppEva_nominal=TAppCon_nominal),
     redeclare model RefrigerantCycleHeatPumpHeating =
         Buildings.Fluid.HeatPumps.ModularReversible.RefrigerantCycle.ConstantCarnotEffectiveness
         (
@@ -30,9 +30,9 @@ model CarnotWithLosses
     redeclare model RefrigerantCycleInertia =
         Buildings.Fluid.HeatPumps.ModularReversible.RefrigerantCycle.Inertias.VariableOrder
         (
-        final refIneFreConst=1/refIneTimCon,
+        final refIneFreConst=1/(2*Modelica.Constants.pi*refIneTimCon),
         final nthOrd=nthOrd,
-        initType=Modelica.Blocks.Types.Init.InitialOutput));
+        initType=initType));
 
   parameter Real etaCarnot_nominal=0.3 "Constant Carnot effectiveness";
   parameter Modelica.Units.SI.TemperatureDifference TAppCon_nominal=
@@ -90,6 +90,17 @@ initial algorithm
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+November 15, 2026, by Michael Wetter:<br/>
+<ul>
+<li>
+Included the <code>1/(2*Modelica.Constants.pi)</code> factor in cutoff frequency <code>refIneFreConst</code>.
+</li>
+<li>
+Swapped nominal approach temperatures <code>TAppCon_nominal</code> and <code>TAppEva_nominal</code> in <code>RefrigerantCycleHeatPumpCooling</code> for reversed cooling-mode operation.
+</li>
+</ul>
+</li>
 <li>
   May 2, 2024, by Michael Wetter:<br/>
   Refactored check for device identifiers.<br/>

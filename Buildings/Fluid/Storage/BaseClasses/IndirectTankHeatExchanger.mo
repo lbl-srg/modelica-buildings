@@ -64,14 +64,15 @@ model IndirectTankHeatExchanger
 
   Buildings.Fluid.FixedResistances.PressureDrop res(
     redeclare final package Medium = MediumHex,
-    final dp_nominal=dp_nominal,
+    final dp_nominal=if computeFlowResistance then dp_nominal else 0,
     final m_flow_nominal=m_flow_nominal,
     final n=n,
     final allowFlowReversal=allowFlowReversal,
     final homotopyInitialization=homotopyInitialization,
     final show_T=show_T,
     final from_dp=from_dp,
-    final linearized=linearizeFlowResistance)
+    final linearized=linearizeFlowResistance,
+    final deltaM=deltaM)
     "Calculates the flow resistance and pressure drop through the heat exchanger"
     annotation (Placement(transformation(extent={{46,-60},{66,-40}})));
 
@@ -135,11 +136,11 @@ protected
     "Computation of convection coefficients inside the coil" annotation (
       Placement(transformation(extent={{-10,-10},{10,10}}, origin={20,-80})));
   Buildings.Fluid.HeatExchangers.BaseClasses.HANaturalCylinder hANatCyl[nSeg](
-    redeclare each final package Medium = Medium,
+    redeclare each final package Medium = MediumTan,
     each final ChaLen=dExtHex,
     each final hA_nominal=UA_nominal/nSeg*(1 + r_nominal),
     each final TFlu_nominal=TTan_nominal,
-    each final TSur_nominal=TTan_nominal - (r_nominal/(1 + r_nominal))*(
+    each final TSur_nominal=TTan_nominal - (1/(1 + r_nominal))*(
         TTan_nominal - THex_nominal))
     "Calculates an hA value for each side of the heat exchanger" annotation (
       Placement(transformation(extent={{-10,-10},{10,10}}, origin={10,110})));
@@ -298,6 +299,20 @@ equation
           </html>",
           revisions="<html>
 <ul>
+<li>
+November 15, 2026, by Michael Wetter:<br/>
+<ul>
+<li>
+Parameterized tank-side natural convection model <code>hANatCyl</code> (<a href=\"modelica://Buildings.Fluid.HeatExchangers.BaseClasses.HANaturalCylinder\">HANaturalCylinder</a>) with <code>MediumTan</code> instead of <code>MediumHex</code>.
+</li>
+<li>
+Applied <code>computeFlowResistance</code> and <code>deltaM</code> to <code>res</code> (<a href=\"modelica://Buildings.Fluid.FixedResistances.PressureDrop\">PressureDrop</a>).
+</li>
+<li>
+Corrected the nominal conductance ratio factor in <code>TSur_nominal</code> from <code>r_nominal/(1 + r_nominal)</code> to <code>1/(1 + r_nominal)</code>.
+</li>
+</ul>
+</li>
 <li>
 June 17, 2026, by Michael Wetter:<br/>
 Updated implementation to allow a flow coefficient <code>n</code> that is different from <code>2</code>.

@@ -17,9 +17,10 @@ model LatentEnthalpyFlowRate
         rotation=90)));
   parameter Modelica.Units.SI.SpecificEnthalpy h_out_start=
       Medium.specificEnthalpy_pTX(
-      p=Medium.p_default,
-      T=Medium.T_default,
-      X=Medium.X_default) - Medium.enthalpyOfNonCondensingGas(T=Medium.T_default)
+        p=Medium.p_default,
+        T=Medium.T_default,
+        X=Medium.X_default)
+      - (1 - Medium.X_default[i_x])*Medium.enthalpyOfNonCondensingGas(T=Medium.T_default)
     "Initial or guess value of measured specific latent enthalpy"
     annotation (Dialog(group="Initialization"));
 
@@ -147,6 +148,10 @@ The sensor can only be used with medium models that implement the function
 </html>",
 revisions="<html>
 <ul>
+<li>
+November 15, 2026, by Michael Wetter:<br/>
+Included the dry-air mass fraction factor <code>1 - Medium.X_default[i_x]</code> in <code>h_out_start</code>.
+</li>
 <li>
 June 25, 2026, by Michael Wetter:<br/>
 Added <code>nominal</code> attribute to state variable.<br/>

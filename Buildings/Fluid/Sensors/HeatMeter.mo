@@ -54,7 +54,18 @@ equation
   else
     T = TMed;
   end if;
-  Q_flow = port_a.m_flow * Medium.cp_const * (T - TExt);
+  Q_flow = port_a.m_flow * Medium.specificHeatCapacityCp(
+    state=Medium.setState_pTX(
+      p=port_a.p,
+      T=0.5*(T + TExt),
+      X=if allowFlowReversal then
+          Modelica.Fluid.Utilities.regStep(
+            x=port_a.m_flow,
+            y1=port_b.Xi_outflow,
+            y2=port_a.Xi_outflow,
+            x_small=m_flow_small)
+        else
+          port_b.Xi_outflow)) * (T - TExt);
 
 annotation (defaultComponentName="senHeaFlo",
   Icon(graphics={
@@ -109,6 +120,10 @@ The rate of heat flow is calculated as <i>Q&#775; = m&#775; c<sub>p</sub> (T - T
 </html>",
 revisions="<html>
 <ul>
+<li>
+November 15, 2026, by Michael Wetter:<br/>
+Replaced undeclared <code>Medium.cp_const</code> with <code>Medium.specificHeatCapacityCp</code> evaluated at the default medium state.
+</li>
 <li>
 February 1, 2024, by Michael Wetter:<br/>
 Revised implementation.<br/>

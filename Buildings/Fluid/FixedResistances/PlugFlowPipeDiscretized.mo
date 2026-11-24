@@ -94,7 +94,7 @@ model PlugFlowPipeDiscretized
   Modelica.Units.SI.PressureDifference dp(displayUnit="Pa") = res.dp
     "Pressure difference between port_a and port_b";
 
-  Modelica.Units.SI.MassFlowRate m_flow=port_a.m_flow
+  Modelica.Units.SI.MassFlowRate m_flow(start=m_flow_start)=port_a.m_flow
     "Mass flow rate from port_a to port_b (m_flow > 0 is design flow direction)";
 
   final parameter Modelica.Units.SI.Velocity v_nominal=m_flow_nominal/(APip*
@@ -151,6 +151,7 @@ protected
     each final thickness=thickness,
     each final m_flow_small=m_flow_small,
     each final initDelay=initDelay,
+    each final m_flow_start=m_flow_start,
     each final have_pipCap=have_pipCap,
     each final have_symmetry=have_symmetry)
     "Pipe segments"
@@ -258,6 +259,10 @@ equation
           thickness=0.5)}),
     Documentation(revisions="<html>
 <ul>
+<li>
+November 15, 2026, by Michael Wetter:<br/>
+Propagated <code>m_flow_start</code> to pipe segments <code>pipSeg</code>.
+</li>
 <li>
 June 17, 2026, by Michael Wetter:<br/>
 Updated implementation to allow a flow coefficient <code>n</code> that is different from <code>2</code>.

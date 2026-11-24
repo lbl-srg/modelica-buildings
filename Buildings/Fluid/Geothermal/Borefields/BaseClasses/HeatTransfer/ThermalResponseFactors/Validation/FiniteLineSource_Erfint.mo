@@ -16,7 +16,7 @@ equation
   erfint = Buildings.Fluid.Geothermal.Borefields.BaseClasses.HeatTransfer.ThermalResponseFactors.finiteLineSource_Erfint(u=u);
   der(erfint_num) = Modelica.Math.Special.erf(u);
   err = erfint - erfint_num;
-  assert(err < 1E-3, "Error exceeded tolerance.");
+  assert(abs(err) < 1E-3, "Error exceeded tolerance.");
 
   annotation (
     __Dymola_Commands(file=
@@ -30,6 +30,10 @@ integral of the error function.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+November 15, 2026, by Michael Wetter:<br/>
+Checked <code>abs(err) &lt; 1E-3</code> instead of signed <code>err &lt; 1E-3</code>.
+</li>
 <li>
 July 17, 2025, by Hongxiang Fu:<br/>
 Added an assert-statement for <code>err</code>

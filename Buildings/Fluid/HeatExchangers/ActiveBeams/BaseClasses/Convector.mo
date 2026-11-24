@@ -79,19 +79,33 @@ protected
     final per=per) "Performance modification for part load"
     annotation (Placement(transformation(extent={{-10,50},{10,70}})));
 
-  Modelica.Blocks.Sources.RealExpression senTem(final y=Medium.temperature(port_a_inflow))
+  Modelica.Blocks.Sources.RealExpression senTem(
+    final y=if allowFlowReversal then
+      Buildings.Utilities.Math.Functions.regStep(
+        port_a.m_flow,
+        Medium.temperature(port_a_inflow),
+        Medium.temperature(port_b_inflow),
+        m_flow_small)
+      else Medium.temperature(port_a_inflow))
     "Actual water temperature entering the beam"
     annotation (Placement(transformation(extent={{-60,18},{-40,38}})));
 
   Medium.ThermodynamicState port_a_inflow=
     Medium.setState_phX(port_a.p, inStream(port_a.h_outflow), inStream(port_a.Xi_outflow))
     "state for medium inflowing through port_a";
+  Medium.ThermodynamicState port_b_inflow=
+    Medium.setState_phX(port_b.p, inStream(port_b.h_outflow), inStream(port_b.Xi_outflow))
+    "state for medium inflowing through port_b";
 
   Sensors.MassFlowRate senFloWatCoo(
     redeclare final package Medium = Medium) "Mass flow rate sensor"
     annotation (Placement(transformation(extent={{-80,-10},{-60,10}})));
 
 initial equation
+  assert(abs(per.dT_nominal) > Modelica.Constants.eps,
+    "In " + getInstanceName() + ": per.dT_nominal must be non-zero.");
+  assert(per.dT_nominal * per.Q_flow_nominal >= 0,
+    "In " + getInstanceName() + ": per.dT_nominal and per.Q_flow_nominal must have the same sign (both negative for cooling, both positive for heating).");
   assert(homotopyInitialization, "In " + getInstanceName() +
     ": The constant homotopyInitialization has been modified from its default value. This constant will be removed in future releases.",
     level = AssertionLevel.warning);
@@ -150,6 +164,10 @@ In heating mode, the heat is removed from the water stream.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+November 15, 2026, by Michael Wetter:<br/>
+Updated entering water temperature sensor <code>senTem</code> to account for reverse water flow and added a sign-consistency assertion between <code>per.dT_nominal</code> and <code>per.Q_flow_nominal</code>.
+</li>
 <li>
 March 3, 2022, by Michael Wetter:<br/>
 Removed <code>massDynamics</code>.<br/>

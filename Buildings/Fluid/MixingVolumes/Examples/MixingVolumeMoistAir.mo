@@ -33,13 +33,14 @@ model MixingVolumeMoistAir "Test model for mixing volume with moist air input"
             {32,-100}})));
   Modelica.Thermal.HeatTransfer.Sensors.HeatFlowSensor heatFlowSensor
     annotation (Placement(transformation(extent={{64,120},{84,140}})));
-  Modelica.Blocks.Continuous.Integrator QSen "Sensible heat transfer"
+  Modelica.Blocks.Continuous.Integrator QSen "Total (sensible plus latent) heat transfer"
     annotation (Placement(transformation(extent={{140,100},{160,120}})));
-  Modelica.Blocks.Continuous.Integrator QLat "Enthalpy of extracted water"
+  Modelica.Blocks.Continuous.Integrator QLat "Net latent enthalpy change across fluid ports"
     annotation (Placement(transformation(extent={{140,60},{160,80}})));
   Buildings.Fluid.Sources.MassFlowSource_T sou(
     redeclare package Medium = Medium,
     nPorts=1,
+    m_flow=m_flow_nominal,
     T=293.15)    annotation (Placement(transformation(extent={{-82,-10},{-62,10}})));
   Buildings.Fluid.Sources.Boundary_pT sin(        redeclare package Medium =
         Medium,
@@ -94,7 +95,7 @@ model MixingVolumeMoistAir "Test model for mixing volume with moist air input"
     tau=0,
     initType=Modelica.Blocks.Types.Init.SteadyState) "Latent enthalpy outflow"
     annotation (Placement(transformation(extent={{50,-10},{70,10}})));
-  Modelica.Blocks.Math.Add add
+  Modelica.Blocks.Math.Add add(k1=-1)
     annotation (Placement(transformation(extent={{100,60},{120,80}})));
 equation
   connect(preHeaFlo.port, heatFlowSensor.port_a)
@@ -173,6 +174,10 @@ stabilizes.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+November 15, 2026, by Michael Wetter:<br/>
+Corrected the sign on <code>add</code> to subtract outlet from inlet latent enthalpy flow rate, set <code>m_flow = m_flow_nominal</code> on <code>sou</code>, and updated the description of <code>QSen</code>.
+</li>
 <li>
 January 11, 2019 by Michael Wetter:<br/>
 Removed <code>each</code> statement.<br/>

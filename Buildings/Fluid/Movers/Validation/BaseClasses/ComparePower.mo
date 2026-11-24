@@ -9,11 +9,16 @@ model ComparePower
     "Performance records"
     annotation (Placement(transformation(extent={{60,60},{80,80}})));
 
+  final parameter Buildings.Fluid.Movers.BaseClasses.Euler.peak _peak =
+    Buildings.Fluid.Movers.BaseClasses.Euler.getPeak(
+      pressure=per.pressure,
+      power=per.power)
+    "Peak operating point";
   parameter Modelica.Units.SI.MassFlowRate m_flow_nominal =
-    per.peak.V_flow * rho_default
+    _peak.V_flow * rho_default
     "Nominal mass flow rate";
   parameter Modelica.Units.SI.PressureDifference dp_nominal =
-    per.peak.dp
+    _peak.dp
     "Nominal pressure drop";
   final parameter Modelica.Units.SI.Density rho_default=
     Medium.density_pTX(
@@ -115,6 +120,10 @@ power computation of different mover model configurations.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+November 15, 2026, by Michael Wetter:<br/>
+Computed the nominal system-curve operating point via <a href=\"modelica://Buildings.Fluid.Movers.BaseClasses.Euler.getPeak\">getPeak</a> instead of using the fallback midpoint <code>per.peak</code>.
+</li>
 <li>
 May 15, 2024, by Hongxiang Fu:<br/>
 First implementation. This is for

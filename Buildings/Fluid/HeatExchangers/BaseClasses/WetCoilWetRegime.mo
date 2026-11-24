@@ -147,7 +147,7 @@ equation
   QTot_flow = mAir_flow*(hAirIn- hAirOut);
   TWatOut=TWatIn+QTot_flow/(mWatNonZer_flow*cpWat);
 
-  NTUAirSta = UAAir/(mAir_flow*cpAir);
+  NTUAirSta = UAAir/(mAirNonZer_flow*cpAir);
 
   hSatSurEff = Buildings.Utilities.Math.Functions.smoothMax(
     x1 = hSatSurEffMinM.hSat,
@@ -171,6 +171,10 @@ annotation (Icon(graphics={
         fillColor={170,213,255},
         fillPattern=FillPattern.Solid)}), Documentation(revisions="<html>
 <ul>
+<li>
+November 15, 2026, by Michael Wetter:<br/>
+Used regularized air mass flow rate <code>mAirNonZer_flow</code> instead of unguarded <code>mAir_flow</code> in <code>NTUAirSta</code> to prevent division by zero at zero air flow.
+</li>
 <li>
 April 18, 2023, by Michael Wetter:<br/>
 Set start value for <code>NTUAirSta</code>.<br/>

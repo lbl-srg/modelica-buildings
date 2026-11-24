@@ -4,7 +4,7 @@ model TemporalSuperposition "This validation case applies temporal superposition
 
   parameter Modelica.Units.SI.TemperatureDifference supPos=
       Buildings.Fluid.Geothermal.Borefields.BaseClasses.HeatTransfer.LoadAggregation.temporalSuperposition(
-      i=6,
+      i=5,
       QAgg_flow={2,1e6,3,1e6,1e6},
       kappa={0.4,0,0.2,1,0},
       curCel=3) "Temporal superposition";
@@ -25,6 +25,10 @@ the large load in the <code>QAgg_flow</code> vector mustn't affect the final res
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+November 15, 2026, by Michael Wetter:<br/>
+Changed index argument <code>i</code> passed to <a href=\"modelica://Buildings.Fluid.Geothermal.Borefields.BaseClasses.HeatTransfer.LoadAggregation.temporalSuperposition\">temporalSuperposition</a> from <code>6</code> to <code>5</code> to match the size of <code>QAgg_flow</code> and <code>kappa</code>.
+</li>
 <li>
 July 18, 2018, by Alex Laferri&egrave;re:<br/>
 First implementation.

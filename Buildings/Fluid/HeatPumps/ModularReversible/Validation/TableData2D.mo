@@ -26,7 +26,7 @@ model TableData2D
               use_TEvaOutForTab=false,
               use_TConOutForTab=true,
               tabQCon_flow=[0,273.15,283.15; 308.15,6100,8400; 328.15,5700,7600],
-              tabUppBou=[-40,70; 40,70]))));
+              tabUppBou=[233.15,343.15; 313.15,343.15]))));
 
   parameter Modelica.Units.SI.MassFlowRate mCon_flow_nominal=0.404317
     "Condenser nominal mass flow rate";
@@ -49,6 +49,10 @@ model TableData2D
   https://doi.org/10.3384/ecp21181561</a>
 </p>
 </html>", revisions="<html><ul>
+<li>
+November 15, 2026, by Michael Wetter:<br/>
+Converted operational envelope table <code>tabUppBou</code> from degrees Celsius to Kelvin.
+</li>
   <li>
     <i>October 2, 2022</i> by Fabian Wuellhorst:<br/>
     First implementation (see issue <a href=

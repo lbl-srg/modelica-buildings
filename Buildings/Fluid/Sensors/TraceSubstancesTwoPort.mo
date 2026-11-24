@@ -2,9 +2,10 @@ within Buildings.Fluid.Sensors;
 model TraceSubstancesTwoPort "Ideal two port sensor for trace substance"
   extends Buildings.Fluid.Sensors.BaseClasses.PartialDynamicFlowSensor;
   extends Modelica.Icons.RoundSensor;
-  Modelica.Blocks.Interfaces.RealOutput C(min=0,
-                                          start=C_start,
-                                          nominal=m_flow_nominal * (if C_start > 1E-8 then C_start else 1))
+  Modelica.Blocks.Interfaces.RealOutput C(
+    min=0,
+    start=C_start,
+    nominal=if C_start > 1E-8 then C_start else (if sumC_nominal > Modelica.Constants.eps then sumC_nominal else 1))
     "Trace substance of the passing fluid"
     annotation (Placement(transformation(
         origin={0,110},
@@ -82,6 +83,10 @@ Buildings.Fluid.Sensors.UsersGuide</a> for an explanation.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+November 15, 2026, by Michael Wetter:<br/>
+Removed the extraneous <code>m_flow_nominal</code> factor from <code>C.nominal</code> so its scaling matches intensive trace-substance concentration.
+</li>
 <li>
 June 25, 2026, by Michael Wetter:<br/>
 Added <code>nominal</code> attribute to state variable.<br/>

@@ -18,7 +18,12 @@ protected
   Real phiMed(final unit="1", min=0, start=phi_start)
     "Relative humidity to which the sensor is exposed to";
 
-protected
+  parameter Real s[Medium.nXi](each final unit="1") = {
+    if Modelica.Utilities.Strings.isEqual(string1=Medium.substanceNames[i],
+                                          string2="water",
+                                          caseSensitive=false)
+    then 1 else 0 for i in 1:Medium.nXi}
+    "Vector with zero everywhere except where water is";
   Modelica.Units.SI.Temperature T_a
     "Temperature of the medium flowing from port_a to port_b";
   Medium.MassFraction Xi_a[Medium.nXi](
@@ -35,6 +40,9 @@ protected
     "Relative humidity of the medium flowing from port_b to port_a";
 
 initial equation
+  assert(max(s) > 0.9, "Substance 'water' is not present in medium '"
+         + Medium.mediumName + "'.\n"
+         + "Change medium model to one that has 'water' as a substance.");
   if dynamic then
     if initType == Modelica.Blocks.Types.Init.SteadyState then
       der(phi) = 0;
@@ -49,25 +57,25 @@ equation
   // port_b.Xi_outflow = inStream(port_a.Xi_outflow).
   Xi_a = port_b.Xi_outflow;
 
-  T_a=Medium.temperature_phX(
+  T_a = Medium.temperature(state=Medium.setState_phX(
       p=port_a.p,
       h=port_b.h_outflow,
-      X=Xi_a);
+      X=Xi_a));
 
   phi_a = Buildings.Utilities.Psychrometrics.Functions.phi_pTX(
     p=port_a.p,
     T=T_a,
-    X_w=Xi_a[1]);
+    X_w=s*Xi_a);
 
   if allowFlowReversal then
     phi_b = Buildings.Utilities.Psychrometrics.Functions.phi_pTX(
       p=port_b.p,
       T=T_b,
-      X_w=Xi_b[1]);
-    T_b=Medium.temperature_phX(
+      X_w=s*Xi_b);
+    T_b = Medium.temperature(state=Medium.setState_phX(
       p=port_b.p,
       h=port_a.h_outflow,
-      X=Xi_b);
+      X=Xi_b));
     Xi_b = port_a.Xi_outflow;
     phiMed = Modelica.Fluid.Utilities.regStep(
                x=port_a.m_flow,
@@ -119,6 +127,10 @@ Buildings.Fluid.Sensors.UsersGuide</a> for an explanation.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+November 15, 2026, by Michael Wetter:<br/>
+Constructed the full composition vector <code>X</code> from <code>Xi</code> when <code>Medium.reducedX</code> is true before calling <code>Medium.temperature_phX</code>.
+</li>
 <li>
 June 25, 2026, by Michael Wetter:<br/>
 Added <code>nominal</code> attribute to state variable.<br/>

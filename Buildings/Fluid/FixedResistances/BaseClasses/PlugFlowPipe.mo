@@ -225,7 +225,7 @@ protected
     final m_flow_nominal=m_flow_nominal,
     final V=if rho_default > 500 then VEqu else VEqu/1000,
     final nPorts=2,
-    final T_start=T_start_out,
+    final T_start=T_start_in,
     final energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     final mSenFac=if rho_default > 500 then 1 else 10) if have_pipCap_a
     "Control volume connected to port_a.
@@ -350,6 +350,10 @@ equation
           textString="L = %length")}),
     Documentation(revisions="<html>
 <ul>
+<li>
+November 15, 2026, by Michael Wetter:<br/>
+Initialized inlet mixing volume <code>vol_a</code> to <code>T_start_in</code> instead of <code>T_start_out</code>.
+</li>
 <li>
 June 17, 2026, by Michael Wetter:<br/>
 Updated implementation to allow a flow coefficient <code>n</code> that is different from <code>2</code>.

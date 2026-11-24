@@ -11,7 +11,7 @@ model SpecificEnthalpyTwoPort "Ideal two port sensor for the specific enthalpy"
   Modelica.Blocks.Interfaces.RealOutput h_out(final quantity="SpecificEnergy",
                                               final unit="J/kg",
                                               start=h_out_start,
-                                              nominal=h_out_start*m_flow_nominal)
+                                              nominal=if abs(h_out_start) > 1 then abs(h_out_start) else 1E5)
     "Specific enthalpy of the passing fluid"
     annotation (Placement(transformation(
         origin={0,110},
@@ -72,6 +72,10 @@ Buildings.Fluid.Sensors.UsersGuide</a> for an explanation.
 </html>",
 revisions="<html>
 <ul>
+<li>
+November 15, 2026, by Michael Wetter:<br/>
+Removed the extraneous <code>m_flow_nominal</code> factor from <code>h_out.nominal</code> so its scaling matches specific enthalpy in J/kg.
+</li>
 <li>
 June 25, 2026, by Michael Wetter:<br/>
 Added <code>nominal</code> attribute to state variable.<br/>

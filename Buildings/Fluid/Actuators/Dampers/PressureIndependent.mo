@@ -5,7 +5,7 @@ model PressureIndependent
     final linearized=false,
     final casePreInd=true,
     from_dp=true);
-  input Real phi = l + y_internal*(1 - l)
+  input Real phi = max(0.1*l, l + y_internal*(1 - l))
     "Ratio actual to nominal mass flow rate of damper, phi=kDam(y)/kDam(y=1)";
   parameter Real l2(unit="1", min=1e-10) = 0.01
     "Gain for mass flow increase if pressure is above nominal pressure"
@@ -110,8 +110,8 @@ function exponentialDamper_inv
   parameter Integer sizeSupSpl = size(kSupSpl, 1) "Number of spline support points";
   Integer i "Integer to select data interval";
 algorithm
-  i := 1;
-  for j in 2:sizeSupSpl loop
+  i := sizeSupSpl;
+  for j in 2:sizeSupSpl - 1 loop
     if kTheta <= kSupSpl[j] then
       i := j;
       break;
@@ -330,6 +330,17 @@ variations.
 </html>",
 revisions="<html>
 <ul>
+<li>
+November 15, 2026, by Michael Wetter:<br/>
+<ul>
+<li>
+Prevented out-of-bounds array access <code>kSupSpl[0]</code> in protected function <code>exponentialDamper_inv</code> when the loss coefficient satisfies <code>kTheta &gt; kSupSpl[sizeSupSpl]</code>.
+</li>
+<li>
+Clamped <code>phi = l + y_internal*(1 - l)</code> to remain non-negative when <code>y &lt; -l/(1 - l)</code> so that Hermite regularization bounds stay ordered and passive.
+</li>
+</ul>
+</li>
 <li>
 July 30, 2026, by Michael Wetter:<br/>
 Corrected argument for computing spline derivatives.

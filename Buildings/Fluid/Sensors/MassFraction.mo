@@ -3,21 +3,35 @@ model MassFraction "Ideal one port mass fraction sensor"
   extends Buildings.Fluid.Sensors.BaseClasses.PartialAbsoluteSensor(
     redeclare replaceable package Medium =
         Modelica.Media.Interfaces.PartialCondensingGases);
-  extends Buildings.Fluid.BaseClasses.IndexMassFraction(substanceName = "water");
   extends Modelica.Icons.RoundSensor;
+
+  parameter String substanceName = "water" "Name of species substance";
 
   Modelica.Blocks.Interfaces.RealOutput X(min=-1e-3,
                                           max=1.001,
                                           final unit="kg/kg") "Mass fraction in port"
     annotation (Placement(transformation(extent={{100,-10},{120,10}})));
 protected
+  parameter Integer i_x = sum(
+    if Modelica.Utilities.Strings.isEqual(string1=Medium.substanceNames[i],
+                                          string2=substanceName,
+                                          caseSensitive=false) then i else 0
+                                          for i in 1:Medium.nX) "Index of substance"
+                                          annotation(Evaluate=true);
+  parameter Real s[Medium.nXi](each final unit="1") = {
+    if i == i_x then 1 else 0 for i in 1:Medium.nXi}
+    "Vector with zero everywhere except where species is";
   Medium.MassFraction XiVec[Medium.nXi](
     final quantity=Medium.substanceNames[1:Medium.nXi])
     "Mass fraction vector, needed because indexed argument for the operator inStream is not supported";
 
+initial equation
+  assert(i_x > 0, "Substance '" + substanceName + "' is not present in medium '"
+                  + Medium.mediumName + "'.\n"
+                  + "Change medium model to one that has '" + substanceName + "' as a substance.");
 equation
   XiVec = inStream(port.Xi_outflow);
-  X = if i_x > Medium.nXi then (1-sum(XiVec)) else XiVec[i_x];
+  X = if i_x > Medium.nXi then (1-sum(XiVec)) else s*XiVec;
 annotation (defaultComponentName="senMasFra",
   Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}}),
         graphics={
@@ -52,6 +66,10 @@ in a system model.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+November 15, 2026, by Michael Wetter:<br/>
+Extended species lookup across <code>1:Medium.nX</code> so dependent substances such as dry air can be measured when <code>Medium.reducedX</code> is true.
+</li>
 <li>
 September 21, 2020, by Michael Wetter:<br/>
 Introduced parameter <code>warnAboutOnePortConnection</code> and updated documentation.<br/>

@@ -1,6 +1,6 @@
 within Buildings.Fluid.FMI.ExportContainers.Examples.FMUs;
 block Heater_T
-  "Declaration of an FMU that exports an ideal heater or cooler with prescribed outlet temperature"
+  "Declaration of an FMU that exports an ideal heater with prescribed outlet temperature"
    extends Buildings.Fluid.FMI.ExportContainers.ReplaceableTwoPort(
      redeclare replaceable package Medium = Buildings.Media.Air,
      redeclare final Buildings.Fluid.HeatExchangers.Heater_T com(
@@ -11,8 +11,6 @@ block Heater_T
 
   parameter Modelica.Units.SI.HeatFlowRate QMax_flow=Modelica.Constants.inf
     "Maximum heat flow rate for heating (positive)";
-  parameter Modelica.Units.SI.HeatFlowRate QMin_flow=-Modelica.Constants.inf
-    "Maximum heat flow rate for cooling (negative)";
   parameter Modelica.Units.SI.MassFlowRate m_flow_nominal=0.01
     "Nominal mass flow rate";
   parameter Modelica.Units.SI.PressureDifference dp_nominal(displayUnit="Pa")
@@ -45,6 +43,10 @@ Buildings.Fluid.HeatExchangers.PrescribedOutlet</a>.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+November 15, 2026, by Michael Wetter:<br/>
+Replaced <code>com</code> (<a href=\"modelica://Buildings.Fluid.HeatExchangers.Heater_T\">Heater_T</a>) with <a href=\"modelica://Buildings.Fluid.HeatExchangers.PrescribedOutlet\">PrescribedOutlet</a> and propagated <code>QMin_flow</code> so cooling capacity limits take effect.
+</li>
 <li>
 May 8, 2017, by Michael Wetter:<br/>
 Updated heater model.<br/>

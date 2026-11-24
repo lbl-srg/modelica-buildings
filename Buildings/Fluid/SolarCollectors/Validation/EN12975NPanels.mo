@@ -47,6 +47,7 @@ model EN12975NPanels
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     rho=0.2,
     nColType=Buildings.Fluid.SolarCollectors.Types.NumberSelection.Number,
+    sysConfig=Buildings.Fluid.SolarCollectors.Types.SystemConfiguration.Parallel,
     nSeg=30,
     til=0.78539816339745,
     nPanels=nPanels)
@@ -125,6 +126,10 @@ The output of these blocks should be zero, except for rounding errors.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+November 15, 2026, by Michael Wetter:<br/>
+Set <code>sysConfig = Buildings.Fluid.SolarCollectors.Types.SystemConfiguration.Parallel</code> on <code>solCol1</code> to match the parallel-bank mass flow rate.
+</li>
 <li>
 September 16, 2021, by Michael Wetter:<br/>
 Removed parameter assignment for <code>lat</code>.<br/>

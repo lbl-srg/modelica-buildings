@@ -48,7 +48,7 @@ algorithm
       kSoi,
       RFluPip);
     for n in 1:nPip loop
-      R[n, m] := TFlu[n];
+      R[n, m] := TFlu[n] - TBor;
     end for;
   end for;
   K := -Modelica.Math.Matrices.inv(R);
@@ -77,6 +77,10 @@ HVAC&amp;R Research,
 17(6): 895-911, 2011.</p>
 </html>", revisions="<html>
 <ul>
+<li>
+November 15, 2026, by Michael Wetter:<br/>
+Subtracted borehole wall temperature <code>TBor</code> in <code>R[n, m] := TFlu[n] - TBor</code> so thermal resistances remain invariant for non-zero <code>TBor</code>.
+</li>
 <li>
 February 12, 2018, by Massimo Cimmino:<br/>
 First implementation.

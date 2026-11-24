@@ -211,7 +211,7 @@ equation
   dryFra= w_FD;
 
   QLat_flow=QTot_flow-QSen_flow;
-  mCon_flow=QLat_flow/Buildings.Utilities.Psychrometrics.Constants.h_fg*Qfac;
+  mCon_flow=QLat_flow/Buildings.Utilities.Psychrometrics.Constants.h_fg;
   annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-140,-120},
             {140,120}}), graphics={
         Rectangle(
@@ -369,6 +369,10 @@ equation
         coordinateSystem(preserveAspectRatio=false, extent={{-140,-120},{140,120}})),
     Documentation(revisions="<html>
 <ul>
+<li>
+November 15, 2026, by Michael Wetter:<br/>
+Removed the duplicate <code>Qfac</code> factor in <code>mCon_flow</code> so condensation scales linearly with <code>Qfac</code>.
+</li>
 <li>
 Jan 21, 2021, by Donghun Kim:<br/>First implementation.
 </li>

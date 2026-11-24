@@ -3,7 +3,7 @@ record Vitocal251A08 "A2W Vitocal 251 by Viessmann"
   extends GenericAirToWater(
     dpEva_nominal=0,
     dpCon_nominal=0,
-    tabUppBou=[253.15,333.15; 263.15,363.15; 313.15,363.15],
+    tabUppBou=[253.15,333.15; 263.15,343.15; 313.15,343.15],
     use_TConOutForOpeEnv=true,
     use_TEvaOutForOpeEnv=false,
     tabQCon_flow=[
@@ -20,7 +20,7 @@ record Vitocal251A08 "A2W Vitocal 251 by Viessmann"
       328.15, 2305, 2631, 2899, 2493, 2669, 2915, 2556, 2164, 2081;
       338.15, 0, 2032, 2478, 2760, 3095, 3375, 3085, 2521, 2511;
       343.15, 0, 0, 2201, 2699, 3193, 3398, 3330, 2822, 2817],
-    mEva_flow_nominal=2125/3600/1.204,
+    mEva_flow_nominal=2125/3600*1.204,
     mCon_flow_nominal=5600/5/4184,
     use_TConOutForTab=true,
     use_TEvaOutForTab=false,
@@ -48,5 +48,20 @@ Viessmann, Planungshandbuch.
 https://www.haustechnik-handrich.de/media/pdf/54/c4/14/vie-pa-z022164.pdf</a>.
 </p>
 
+</html>",
+revisions="<html>
+<ul>
+<li>
+November 15, 2026, by Michael Wetter:<br/>
+<ul>
+<li>
+Corrected nominal evaporator air mass flow rate <code>mEva_flow_nominal</code> to multiply volumetric flow rate by air density rather than dividing by it.
+</li>
+<li>
+Corrected the maximum supply temperature in <code>tabUppBou</code> from <code>363.15</code> K to <code>343.15</code> K.
+</li>
+</ul>
+</li>
+</ul>
 </html>"));
 end Vitocal251A08;

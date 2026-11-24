@@ -113,8 +113,8 @@ partial model PartialBorefield
     annotation (Placement(transformation(extent={{-10,-50},{10,-30}})));
 
 protected
-  parameter Modelica.Units.SI.Height z[nSeg]={borFieDat.conDat.hBor/nSeg*(i -
-      0.5) for i in 1:nSeg}
+  parameter Modelica.Units.SI.Height z[nSeg]={borFieDat.conDat.dBor +
+      borFieDat.conDat.hBor/nSeg*(i - 0.5) for i in 1:nSeg}
     "Distance from the surface to the considered segment";
 
   Buildings.Fluid.BaseClasses.MassFlowRateMultiplier masFloDiv(
@@ -300,6 +300,10 @@ temperature after calculating and/or read (from a previous calculation) the bore
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+November 15, 2026, by Michael Wetter:<br/>
+Added borehole buried depth <code>borFieDat.conDat.dBor</code> to segment depth <code>z</code>.
+</li>
 <li>
 April 9, 2021, by Michael Wetter:<br/>
 Corrected placement of <code>each</code> keyword.<br/>

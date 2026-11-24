@@ -118,6 +118,7 @@ model EightPortHeatMassExchanger
     nPorts = 2,
     V=m1_flow_nominal*tau1/rho1_nominal,
     final m_flow_nominal=m1_flow_nominal,
+    allowFlowReversal=allowFlowReversal1,
     energyDynamics=if tau1 > Modelica.Constants.eps
                          then energyDynamics else
                          Modelica.Fluid.Types.Dynamics.SteadyState,
@@ -135,6 +136,7 @@ model EightPortHeatMassExchanger
   Buildings.Fluid.MixingVolumes.MixingVolume vol2(
     redeclare final package Medium = Medium2,
     nPorts=2,
+    allowFlowReversal=allowFlowReversal2,
     energyDynamics=if tau2 > Modelica.Constants.eps
                          then energyDynamics else
                          Modelica.Fluid.Types.Dynamics.SteadyState,
@@ -153,6 +155,7 @@ model EightPortHeatMassExchanger
 
   Buildings.Fluid.MixingVolumes.MixingVolume vol3(
     redeclare final package Medium = Medium3,
+    allowFlowReversal=allowFlowReversal3,
     energyDynamics=if tau3 > Modelica.Constants.eps
                          then energyDynamics else
                          Modelica.Fluid.Types.Dynamics.SteadyState,
@@ -174,6 +177,7 @@ model EightPortHeatMassExchanger
   Buildings.Fluid.MixingVolumes.MixingVolume vol4(
     redeclare final package Medium = Medium4,
     nPorts=2,
+    allowFlowReversal=allowFlowReversal4,
     energyDynamics=if tau4 > Modelica.Constants.eps
                          then energyDynamics else
                          Modelica.Fluid.Types.Dynamics.SteadyState,
@@ -353,12 +357,12 @@ equation
       points={{100,-30},{90,-30},{90,-66},{62,-66},{62,-76},{1,-76},{1,-70}},
       color={0,127,255},
       smooth=Smooth.None));
-  connect(port_b2, vol2.ports[1]) annotation (Line(
-      points={{-100,30},{59,30},{59,10}},
+  connect(port_b2, vol2.ports[2]) annotation (Line(
+      points={{-100,30},{61,30},{61,10}},
       color={0,127,255},
       smooth=Smooth.None));
-  connect(preDro2.port_b, vol2.ports[2]) annotation (Line(
-      points={{70,30},{61,30},{61,10}},
+  connect(preDro2.port_b, vol2.ports[1]) annotation (Line(
+      points={{70,30},{59,30},{59,10}},
       color={0,127,255},
       smooth=Smooth.None));
   annotation (
@@ -369,6 +373,10 @@ equation
 <p>The variable names follow the conventions used in <a href=\"modelica://Modelica.Fluid.Examples.HeatExchanger.BaseClasses.BasicHX\">Modelica.Fluid.Examples.HeatExchanger.BaseClasses.BasicHX</a>. </p>
 </html>", revisions="<html>
 <ul>
+<li>
+November 15, 2026, by Michael Wetter:<br/>
+Corrected the reversed port connections on <code>vol2</code> and propagated <code>allowFlowReversal1</code> through <code>allowFlowReversal4</code> to <code>vol1</code> through <code>vol4</code>.
+</li>
 <li>
 June 17, 2026, by Michael Wetter:<br/>
 Updated implementation to allow a flow coefficient <code>n</code> that is different from <code>2</code>.

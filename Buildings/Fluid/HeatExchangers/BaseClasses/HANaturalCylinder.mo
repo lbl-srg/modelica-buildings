@@ -74,7 +74,7 @@ function nusselt
   Real num "Numerator";
   Real den "Denominator";
 algorithm
-  num := (0.387*Buildings.Utilities.Math.Functions.smoothMax(Ra,1,0.1)^(1/6));
+  num := 0.387*Buildings.Utilities.Math.Functions.smoothMax(abs(Ra),1,0.1)^(1/6);
   den := ((1+(0.559/Pr)^(9/16))^(8/27));
   Nu := (0.6+num/den)^2;
   annotation(smoothOrder=1);
@@ -170,6 +170,10 @@ equation
             </p>
             </html>", revisions="<html>
             <ul>
+<li>
+November 15, 2026, by Michael Wetter:<br/>
+Used <code>abs(Ra)</code> so downward natural convection (<code>TSur &lt; TFlu</code>) is handled correctly.
+</li>
 <li>
 August 29, 2014 by Michael Wetter:<br/>
 Refactored function calls for medium properties.

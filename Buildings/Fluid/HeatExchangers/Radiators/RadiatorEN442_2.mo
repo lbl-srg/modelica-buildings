@@ -179,7 +179,6 @@ protected
     final allowFlowReversal=allowFlowReversal,
     final m_flow_nominal=m_flow_nominal,
     final from_dp=from_dp,
-    final n=n,
     final dp_nominal=dp_nominal,
     final homotopyInitialization=homotopyInitialization,
     final linearized=linearized,
@@ -215,11 +214,11 @@ initial equation
     // Use difference, TWat_nominal[i] - TRad/Air_nominal, to avoid larger system of equations
     QEle_flow_nominal[i] = k * UAEle * (fraRad *
       Buildings.Utilities.Math.Functions.powerLinearized(
-        x=k*TWat_nominal[i] - TRad_nominal,
+        x=k*(TWat_nominal[i] - TRad_nominal),
         n=n,
         x0=0.1*k*(T_b_nominal-TRad_nominal)) + (1-fraRad) *
       Buildings.Utilities.Math.Functions.powerLinearized(
-        x=k*TWat_nominal[i] - TAir_nominal,
+        x=k*(TWat_nominal[i] - TAir_nominal),
         n=n,
         x0=0.1*k*(T_b_nominal-TAir_nominal)));
    end for;
@@ -373,6 +372,17 @@ with one plate of water carying fluid, and a height of 0.42 meters.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+November 15, 2026, by Michael Wetter:<br/>
+<ul>
+<li>
+Added parentheses in <code>k*(TWat_nominal[i] - TRad_nominal)</code> and <code>k*(TWat_nominal[i] - TAir_nominal)</code> so <code>UAEle</code> remains positive in cooling mode (<code>k = -1</code>).
+</li>
+<li>
+Removed the binding of radiator thermal exponent <code>n</code> to hydraulic resistance exponent <code>res.n</code>.
+</li>
+</ul>
+</li>
 <li>
 June 17, 2026, by Michael Wetter:<br/>
 Updated implementation to allow a flow coefficient <code>n</code> that is different from <code>2</code>.

@@ -153,8 +153,9 @@ model InterpolateStates "Interpolate states of a working fluid"
       y1 = hExpOutDry,
       y2 = hSatVapCon,
       x_small = h_small)
-    "Specific enthalpy at expander inlet";
-  Modelica.Units.SI.TemperatureDifference dTSup = max(0, dTSupWet)
+    "Specific enthalpy at expander outlet";
+  Modelica.Units.SI.TemperatureDifference dTSup(displayUnit = "K") =
+    max(0, (hExpInl - hSatVapEva) * pro.dTRef / (hRefEva - hSatVapEva))
     "Superheating temperature differential";
 
   // Energy transfer
@@ -194,21 +195,12 @@ protected
   // 2. Wet cycle
   //      expander inlet = superheated vapor at evaporating pressure (solved),
   //      expander outlet = saturated vapor at condensing pressure (known).
-  Modelica.Units.SI.SpecificEntropy sExpInlWetIse = sSatVapCon
-    "Specific entropy at isentropic expander inlet, assuming wet cycle";
-  Modelica.Units.SI.SpecificEnthalpy hExpInlWetIse(
-    displayUnit = "kJ/kg") =
-    (hRefEva - hSatVapEva) * (sExpInlWetIse - sSatVapEva)
-    / (sRefEva - sSatVapEva) + hSatVapEva
-    "Specific enthalpy at expander inlet, assuming wet cycle";
   Modelica.Units.SI.SpecificEnthalpy hExpInlWet(
     displayUnit = "kJ/kg") =
-    (hExpInlWetIse - hSatVapCon) * etaExp + hSatVapCon
+    hSatVapEva + (hSatVapCon - hExpOutDry) / (
+      1 - etaExp * (1 - ((hSatVapCon - hPumInl) / (sSatVapCon - sPumInl))
+                      / ((hRefEva - hSatVapEva) / (sRefEva - sSatVapEva))))
     "Specific enthalpy at expander inlet, assuming wet cycle";
-  Modelica.Units.SI.TemperatureDifference dTSupWet(
-    displayUnit = "K") =
-    (hExpInlWet - hSatVapEva) * pro.dTRef / (hRefEva - hSatVapEva)
-    "Superheating temperature differential, assuming wet cycle";
 
   // Derivatives
   final parameter Real pDer_T[pro.n]=
@@ -312,6 +304,10 @@ Buildings.Fluid.CHPs.OrganicRankine.ConstantEvaporation</a>
 for more details.
 </html>", revisions="<html>
 <ul>
+<li>
+November 15, 2026, by Michael Wetter:<br/>
+Corrected the wet-cycle expander inlet enthalpy calculation to use the expander isentropic efficiency definition, eliminating the discontinuity at <code>h_reg = 0</code> and spurious <code>dTSup</code> in dry cycles.
+</li>
 <li>
 June 13, 2023, by Hongxiang Fu:<br/>
 First implementation. This is for

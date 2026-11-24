@@ -34,6 +34,7 @@ protected
     redeclare final package Medium=Medium1,
     final sensibleOnly = sensibleOnly1,
     final prescribedHeatFlowRate=prescribedHeatFlowRate1,
+    final n = n1,
     final m_flow_nominal = m1_flow_nominal,
     final dp_nominal = dp1_nominal,
     final allowFlowReversal = allowFlowReversal1,
@@ -49,6 +50,7 @@ protected
     redeclare final package Medium=Medium2,
     final sensibleOnly = sensibleOnly2,
     final prescribedHeatFlowRate=prescribedHeatFlowRate2,
+    final n = n2,
     final m_flow_nominal = m2_flow_nominal,
     final dp_nominal = dp2_nominal,
     final allowFlowReversal = allowFlowReversal2,
@@ -120,6 +122,10 @@ or instantiates this model sets <code>mWat<i>N</i>_flow = 0</code>.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+November 15, 2026, by Michael Wetter:<br/>
+Propagated flow exponents <code>n1</code> and <code>n2</code> to <code>bal1</code> and <code>bal2</code>.
+</li>
 <li>
 April 14, 2020, by Michael Wetter:<br/>
 Changed <code>homotopyInitialization</code> to a constant.<br/>

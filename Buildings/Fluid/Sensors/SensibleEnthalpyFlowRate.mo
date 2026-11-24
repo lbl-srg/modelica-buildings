@@ -16,7 +16,7 @@ model SensibleEnthalpyFlowRate
         extent={{-10,-10},{10,10}},
         rotation=90)));
   parameter Modelica.Units.SI.SpecificEnthalpy h_out_start=
-      Medium.enthalpyOfNonCondensingGas(T=Medium.T_default)
+      (1 - Medium.X_default[i_x])*Medium.enthalpyOfNonCondensingGas(T=Medium.T_default)
     "Initial or guess value of measured specific sensible enthalpy"
     annotation (Dialog(group="Initialization"));
 protected
@@ -141,6 +141,10 @@ The sensor can only be used with medium models that implement the function
 </html>",
 revisions="<html>
 <ul>
+<li>
+November 15, 2026, by Michael Wetter:<br/>
+Included the dry-air mass fraction factor <code>1 - Medium.X_default[i_x]</code> in <code>h_out_start</code>.
+</li>
 <li>
 June 25, 2026, by Michael Wetter:<br/>
 Added <code>nominal</code> attribute to state variable.<br/>

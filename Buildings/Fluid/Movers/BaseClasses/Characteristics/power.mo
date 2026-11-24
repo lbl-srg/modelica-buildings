@@ -14,9 +14,13 @@ protected
 
   Modelica.Units.SI.VolumeFlowRate rat "Ratio of V_flow/r_N";
    Integer i "Integer to select data interval";
+  Modelica.Units.SI.Power P_rN1 "Interpolated nominal power at r_N = 1";
+  Modelica.Units.SI.Power deltaP "Small value for non-negative power regularization";
 
 algorithm
-  if n == 1 then
+  if r_N <= 0 then
+    P := 0;
+  elseif n == 1 then
     P := r_N^3*per.P[1];
   else
     i :=1;
@@ -32,8 +36,9 @@ algorithm
          i := j;
        end if;
     end for;
-    // Extrapolate or interpolate the data
-    P:=r_N^3*Buildings.Utilities.Math.Functions.cubicHermiteLinearExtrapolation(
+    // Extrapolate or interpolate the data with C1 non-negative lower bound
+    deltaP := max(1E-6, 1E-4*max(per.P));
+    P_rN1 := Buildings.Utilities.Math.Functions.cubicHermiteLinearExtrapolation(
                 x=rat,
                 x1=per.V_flow[i],
                 x2=per.V_flow[i + 1],
@@ -41,6 +46,9 @@ algorithm
                 y2=per.P[i + 1],
                 y1d=d[i],
                 y2d=d[i+1]);
+    P := r_N^3 * (if P_rN1 >= deltaP then P_rN1
+                  elseif P_rN1 <= -deltaP then 0
+                  else (P_rN1 + deltaP)^2 / (4*deltaP));
   end if;
   annotation(smoothOrder=1,
               Documentation(info="<html>
@@ -67,6 +75,10 @@ If the data <i>d</i> define a monotone decreasing sequence, then
 </html>",
         revisions="<html>
 <ul>
+<li>
+November 15, 2026, by Michael Wetter:<br/>
+Used non-negative speed scaling and clamped extrapolated power so mover shaft/electrical power <code>P</code> cannot become negative.
+</li>
 <li>
 February 26, 2014, by Filip Jorissen:<br/>
 Changed polynomial to be evaluated at <code>V_flow/r_N</code>

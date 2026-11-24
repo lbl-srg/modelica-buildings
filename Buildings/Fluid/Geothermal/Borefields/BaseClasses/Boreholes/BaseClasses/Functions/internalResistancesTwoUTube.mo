@@ -43,11 +43,11 @@ algorithm
   Rb_internal := if use_Rb then Rb else Rb_multipole;
   // The short-circuit resistance in weigthed by the ratio between the used
   // value of Rb and the theoretical value
-  Ra := (R[1,1] + R[3,3] - 2*R[1,3])*Rb_internal/Rb_multipole;
+  Ra := 0.25*(R[1,1] + R[2,2] + R[3,3] + R[4,4] - 2*R[1,2] - 2*R[3,4])*Rb_internal/Rb_multipole;
 
   // ------ Calculation according to Bauer et al. (2010)
   Rg := (4*Rb_internal - RCondPipe - RConv)/hSeg;
-  Rar1 := ((2 + sqrt(2))*Rg*hSeg*(Ra - RCondPipe)/(Rg*hSeg + Ra - RCondPipe))/hSeg;
+  Rar1 := ((2 + sqrt(2))*Rg*hSeg*(Ra - RCondPipe - RConv)/(Rg*hSeg + Ra - RCondPipe - RConv))/hSeg;
   Rar2 := sqrt(2)*Rar1;
 
   // If any of the internal delta-circuit resistances is negative, then
@@ -129,6 +129,17 @@ HVAC&amp;R Research,
 International Journal of Energy Research, 35:312&ndash;320, 2011.</p>
 </html>", revisions="<html>
 <ul>
+<li>
+November 15, 2026, by Michael Wetter:<br/>
+<ul>
+<li>
+Corrected double U-tube internal thermal resistance <code>Ra</code> to use opposite-pipe resistance <code>R[1, 2]</code> and include the symmetry factor <code>1/2</code>.
+</li>
+<li>
+Subtracted convective pipe resistance <code>RConv</code> when computing <code>Rar1</code> from <code>Ra</code> so pipe convection is not double-counted.
+</li>
+</ul>
+</li>
 <li>
 July 9, 2025, by Jianjun Hu:<br/>
 Added missing value assignment.<br/>

@@ -102,6 +102,7 @@ partial model PartialWaterToWater
     final m_flow_small=m1_flow_small,
     m_flow(start=m1_flow_nominal),
     final from_dp=from_dp1,
+    final n=n1,
     final dp_nominal=dp1_nominal,
     final linearizeFlowResistance=linearizeFlowResistance1,
     final deltaM=deltaM1,
@@ -119,6 +120,7 @@ partial model PartialWaterToWater
     final m_flow_small=m2_flow_small,
     m_flow(start=m2_flow_nominal),
     final from_dp=from_dp2,
+    final n=n2,
     final dp_nominal=dp2_nominal,
     final linearizeFlowResistance=linearizeFlowResistance2,
     final deltaM=deltaM2,
@@ -320,6 +322,10 @@ PhD Thesis. Oklahoma State University. Stillwater, Oklahoma, USA. 2002.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+November 15, 2026, by Michael Wetter:<br/>
+Propagated flow exponents <code>n1</code> and <code>n2</code> to condenser <code>con</code> and evaporator <code>eva</code>.
+</li>
 <li>
 April 14, 2020, by Michael Wetter:<br/>
 Changed <code>homotopyInitialization</code> to a constant.<br/>

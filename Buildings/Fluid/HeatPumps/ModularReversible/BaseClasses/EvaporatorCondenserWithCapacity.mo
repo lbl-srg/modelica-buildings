@@ -28,28 +28,35 @@ model EvaporatorCondenserWithCapacity
   Modelica.Blocks.Interfaces.RealOutput GInn
     "Interior heat transfer coefficient"
       annotation (Dialog(group="Heat losses", enable=use_cap));
-  Modelica.Thermal.HeatTransfer.Components.Convection conIns if use_cap
+  Modelica.Thermal.HeatTransfer.Components.Convection conIns if has_cap
     "Convection between the wall and the working fluid" annotation (Placement(transformation(
         extent={{-12,-12},{12,12}},
         rotation=90,
         origin={-10,30})));
-  Modelica.Thermal.HeatTransfer.Components.Convection conOut if use_cap
+  Modelica.Thermal.HeatTransfer.Components.Convection conOut if has_cap
     "Convection and conduction between the wall and ambient air" annotation (
       Placement(transformation(
         extent={{12,12},{-12,-12}},
         rotation=270,
-        origin={-10,70})));
+        origin={-10,74})));
+  Modelica.Thermal.HeatTransfer.Components.Convection conNoCap
+    if use_cap and not has_cap
+    "Series thermal conductance between working fluid and ambient when dry mass is neglected"
+    annotation (Placement(transformation(
+        extent={{12,12},{-12,-12}},
+        rotation=270,
+        origin={80,50})));
   Modelica.Thermal.HeatTransfer.Components.HeatCapacitor heaCap(
     final C=C,
     final T(final fixed=(energyDynamics == Modelica.Fluid.Types.Dynamics.FixedInitial),
         final start=TCap_start),
     final der_T(final fixed=(energyDynamics == Modelica.Fluid.Types.Dynamics.SteadyStateInitial),
-        start=0)) if use_cap "Heat Capacity" annotation (Placement(
+        start=0)) if has_cap "Heat Capacity" annotation (Placement(
         transformation(
-        extent={{-10,-10},{10,10}},
+        extent={{-10,10},{10,-10}},
         rotation=270,
-        origin={30,50})));
-  Modelica.Blocks.Sources.RealExpression heaLosInt(final y=GInn) if use_cap
+        origin={-50,50})));
+  Modelica.Blocks.Sources.RealExpression heaLosInt(final y=GInn) if has_cap
     "Nominal heat loss coefficient to the interior" annotation (Placement(
         transformation(
         extent={{-20,-10},{20,10}},
@@ -59,12 +66,20 @@ model EvaporatorCondenserWithCapacity
     "Temperature and heat flow to the ambient"
     annotation (Placement(transformation(extent={{-5,105},{5,95}}),
         iconTransformation(extent={{-5,105},{5,95}})));
-  Modelica.Blocks.Sources.RealExpression heaLosExt(final y=GOut) if use_cap
+  Modelica.Blocks.Sources.RealExpression heaLosExt(final y=GOut) if has_cap
     "Nominal heat loss coefficient to the exterior" annotation (Placement(
         transformation(
         extent={{-20,-10},{20,10}},
         rotation=0,
-        origin={-60,70})));
+        origin={-60,74})));
+  Modelica.Blocks.Sources.RealExpression heaLosNoCap(
+    final y=noEvent(if GInn > G_small and GOut > G_small then GInn*GOut/(GInn + GOut) else 0))
+    if use_cap and not has_cap
+    "Equivalent series heat loss conductance when dry mass is neglected"
+    annotation (Placement(transformation(
+        extent={{-20,-10},{20,10}},
+        rotation=0,
+        origin={34,50})));
 
   Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow preHea(final alpha=0,
       final T_ref=293.15) "Heat flow rate of the condenser" annotation (
@@ -90,13 +105,21 @@ model EvaporatorCondenserWithCapacity
     "Temperature of the condenser volume" annotation (Placement(
         transformation(extent={{100,-62},{124,-38}}), iconTransformation(extent=
            {{100,-62},{124,-38}})));
+protected
+  constant Modelica.Units.SI.HeatCapacity C_small=Modelica.Constants.eps
+    "Small heat capacity threshold";
+  constant Modelica.Units.SI.ThermalConductance G_small=Modelica.Constants.eps
+    "Small thermal conductance threshold";
+  final parameter Boolean has_cap=
+    use_cap and C > C_small and energyDynamics <> Modelica.Fluid.Types.Dynamics.SteadyState
+    "= true if dry mass heat capacitor is active";
 equation
   connect(conIns.fluid, heaCap.port) annotation (Line(
-      points={{-10,42},{-10,50},{20,50}},
+      points={{-10,42},{-10,46},{-30,46},{-30,50},{-40,50}},
       color={191,0,0},
       pattern=LinePattern.Dash));
   connect(heaCap.port, conOut.solid) annotation (Line(
-      points={{20,50},{-10,50},{-10,58}},
+      points={{-40,50},{-30,50},{-30,56},{-10,56},{-10,62}},
       color={191,0,0},
       pattern=LinePattern.Dash));
   connect(conIns.Gc, heaLosInt.y) annotation (Line(
@@ -104,16 +127,28 @@ equation
       color={0,0,127},
       pattern=LinePattern.Dash));
   connect(conOut.fluid, port_out)
-    annotation (Line(points={{-10,82},{-10,90},{0,90},{0,100}},
+    annotation (Line(points={{-10,86},{-10,90},{0,90},{0,100}},
                                                   color={191,0,0},
       pattern=LinePattern.Dash));
   connect(conOut.Gc, heaLosExt.y) annotation (Line(
-      points={{-22,70},{-38,70}},
+      points={{-22,74},{-38,74}},
       color={0,0,127},
       pattern=LinePattern.Dash));
   connect(vol.heatPort, conIns.solid) annotation (Line(
       points={{-9,-10},{-14,-10},{-14,12},{-10,12},{-10,18}},
       color={191,0,0},
+      pattern=LinePattern.Dash));
+  connect(vol.heatPort, conNoCap.solid) annotation (Line(
+      points={{-9,-10},{-14,-10},{-14,8},{44,8},{44,38},{80,38}},
+      color={191,0,0},
+      pattern=LinePattern.Dash));
+  connect(conNoCap.fluid, port_out) annotation (Line(
+      points={{80,62},{80,92},{0,92},{0,100}},
+      color={191,0,0},
+      pattern=LinePattern.Dash));
+  connect(conNoCap.Gc, heaLosNoCap.y) annotation (Line(
+      points={{68,50},{56,50}},
+      color={0,0,127},
       pattern=LinePattern.Dash));
   connect(vol.heatPort, preHea.port) annotation (Line(points={{-9,-10},{-14,-10},
           {-14,-34},{0,-34},{0,-60},{1.77636e-15,-60}},   color={191,0,0}));
@@ -248,6 +283,10 @@ equation
           extent={{-100,-100},{100,-60}},
           textColor={28,108,200},
           textString="Q_flow")}),Documentation(revisions="<html><ul>
+<li>
+November 15, 2026, by Michael Wetter:<br/>
+Conditionally disabled <a href=\"modelica://Modelica.Thermal.HeatTransfer.Components.HeatCapacitor\">HeatCapacitor</a> <code>heaCap</code> when <code>C &lt;= C_small</code> or in steady-state mode and replaced it with equivalent series conductance <code>conNoCap</code>.
+</li>
   <li>
     <i>November 26, 2018,</i> by Fabian Wuellhorst:<br/>
     First implementation (see issue <a href=

@@ -70,6 +70,13 @@ model Example4 "Example 4 model of simple condensing heat exchanger"
     m_flow_nominal=1,
     tau=0) "Temperature sensor"
            annotation (Placement(transformation(extent={{-16,10},{-4,22}})));
+  Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow QLat(final alpha=0)
+    "Latent and sensible enthalpy removed with condensed water vapor"
+    annotation (Placement(transformation(extent={{-22,-20},{-10,-8}})));
+  Modelica.Blocks.Sources.RealExpression QCond_flow(
+    y=m_condens*Medium.enthalpyOfCondensingGas(senTem.T))
+    "Heat flow rate removed from moist air due to condensation"
+    annotation (Placement(transformation(extent={{-54,-20},{-34,-8}})));
 equation
   connect(phiSat.y, xSat.phi) annotation (Line(
       points={{-11.2,48},{28,48}},
@@ -77,6 +84,12 @@ equation
   connect(mCond.y, vol.mWat_flow) annotation (Line(
       points={{-19,30},{-16,30},{-16,34},{-2,34}},
       color={0,0,127}));
+  connect(QCond_flow.y, QLat.Q_flow) annotation (Line(
+      points={{-33,-14},{-22,-14}},
+      color={0,0,127}));
+  connect(QLat.port, vol.heatPort) annotation (Line(
+      points={{-10,-14},{-2,-14},{-2,26},{0,26}},
+      color={191,0,0}));
   connect(Tin.y, bou.T_in) annotation (Line(
       points={{-73,40},{-80,40},{-80,10},{-72,10}},
       color={0,0,127}));
@@ -107,6 +120,10 @@ equation
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-80,-20},
             {80,60}}),         graphics),    Documentation(revisions="<html>
 <ul>
+<li>
+November 15, 2026, by Michael Wetter:<br/>
+Added the enthalpy flow rate of condensed liquid water at <code>vol.heatPort</code> when <code>m_condens &lt; 0</code> to conserve total energy during dehumidification.
+</li>
 <li>
 April 12, 2017, by Michael Wetter:<br/>
 Removed connection that is no longer needed.<br/>

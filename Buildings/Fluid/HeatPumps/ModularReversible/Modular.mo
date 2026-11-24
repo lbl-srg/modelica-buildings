@@ -43,8 +43,8 @@ model Modular
       constrainedby
     Buildings.Fluid.Chillers.ModularReversible.RefrigerantCycle.BaseClasses.PartialChillerCycle(
        final useInChi=false,
-       final cpCon=cpCon,
-       final cpEva=cpEva,
+       final cpCon=cpEva,
+       final cpEva=cpCon,
        final TCon_nominal=TEvaCoo_nominal,
        final TEva_nominal=TConCoo_nominal,
        QCoo_flow_nominal=QCoo_flow_nominal)
@@ -126,6 +126,10 @@ equation
     Diagram(coordinateSystem(extent={{-140,-160},{140,160}})),
     Documentation(revisions="<html>
   <ul>
+<li>
+November 15, 2026, by Michael Wetter:<br/>
+Swapped specific heat capacities <code>cpCon</code> and <code>cpEva</code> in <code>RefrigerantCycleHeatPumpCooling</code> to match the reversed fluid streams during cooling mode.
+</li>
   <li>
   May 23, 2025, by Michael Wetter:<br/>
   Added assertion against wrong parameterization.<br/>

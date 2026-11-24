@@ -233,6 +233,7 @@ partial model PartialReversibleRefrigerantMachine
     final use_cap=use_conCap,
     final X_start=XCon_start,
     final from_dp=from_dp,
+    final linearizeFlowResistance=linearized,
     final n=nCon,
     final energyDynamics=energyDynamics,
     final isCon=true,
@@ -255,6 +256,7 @@ partial model PartialReversibleRefrigerantMachine
     final p_start=pEva_start,
     final X_start=XEva_start,
     final from_dp=from_dp,
+    final linearizeFlowResistance=linearized,
     final n=nEva,
     final energyDynamics=energyDynamics,
     final isCon=false,
@@ -690,6 +692,10 @@ equation
           fillPattern=FillPattern.Solid)}),
        Diagram(coordinateSystem(extent={{-140,-160},{140,160}})),
     Documentation(revisions="<html><ul>
+<li>
+November 15, 2026, by Michael Wetter:<br/>
+Propagated parameter <code>linearized</code> to <code>con.linearizeFlowResistance</code> and <code>eva.linearizeFlowResistance</code>.
+</li>
 <li>
 June 17, 2026, by Michael Wetter:<br/>
 Updated implementation to allow a flow coefficient <code>n</code> that is different from <code>2</code>.

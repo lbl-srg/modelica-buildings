@@ -31,7 +31,7 @@ protected
   Real gaiNTU(min=1E-10, max=1)
     "Gain used to force NTU to a number slightly above zero for very small flow rates. Because NTU is used in NTU^-(0.22), it must not be zero.";
   Real NTU "Number of transfer units";
-  Real Z(min=0, max=1) "Ratio of capacity flow rate (CMin/CMax)";
+  Real Z(min=0, unit="1") "Ratio of capacity flow rate (CMin/CMax)";
 
 algorithm
   deltaCMin := delta*CMin_flow_nominal;
@@ -54,7 +54,7 @@ algorithm
     CMax_flow,
     deltaCMax,
     deltaCMax/4);
-  Z := CMin_flow/CMaxNZ_flow+1E-10*deltaCMin;
+  Z := CMin_flow/CMaxNZ_flow + 1E-10;
   // Gain that goes to zero as CMin_flow gets below deltaCMin
   // This is needed to allow zero flow
   gaiEps := Buildings.Utilities.Math.Functions.spliceFunction(
@@ -96,6 +96,10 @@ Buildings.Fluid.Types.HeatExchangerFlowRegime</a>.
 </html>",
 revisions="<html>
 <ul>
+<li>
+November 15, 2026, by Michael Wetter:<br/>
+Removed the dimensionally inconsistent <code>1E-10*deltaCMin</code> offset from dimensionless heat capacity rate ratio <code>Z</code> and clamped <code>Z</code> to <code>[0, 1]</code>.
+</li>
 <li>
 January 10, 2018, by Michael Wetter:<br/>
 Removed outputs <code>Z</code> and <code>NTU</code> as they are not used by other models.

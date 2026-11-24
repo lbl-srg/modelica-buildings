@@ -57,7 +57,7 @@ equation
   port_b.h_outflow  = Medium.specificEnthalpy_pTX(
                         p = p_in_internal,
                         T = inlet.forward.T,
-                        X = if Medium.nXi == 1 then cat(1, {X_w_in_internal}, {1-X_w_in_internal}) else zeros(Medium.nX));
+                        X = if Medium.nXi == 1 then cat(1, {X_w_in_internal}, {1-X_w_in_internal}) else Medium.X_default);
 
   port_b.C_outflow  = inlet.forward.C;
 
@@ -167,6 +167,10 @@ for how to use this model.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+November 15, 2026, by Michael Wetter:<br/>
+Passed <code>Medium.X_default</code> instead of <code>zeros(Medium.nX)</code> to <code>Medium.specificEnthalpy_pTX</code> when <code>Medium.nXi == 0</code>.
+</li>
 <li>
 March 18, 2024, by Michael Wetter:<br/>
 Added causality.<br/>

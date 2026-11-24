@@ -10,7 +10,7 @@ model TemperatureProtection
     final unit="K",
     min=Modelica.Constants.small) = 5
     "Hysteresis interval width";
-  parameter Boolean pre_y_start=false "Value of pre(y) of hysteresis at initial time";
+  parameter Boolean pre_y_start=true "Value of pre(y) of hysteresis at initial time";
 
   Modelica.Blocks.Interfaces.RealInput u "Compressor control signal"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
@@ -137,6 +137,10 @@ equation
           {1,-30}}, color={255,0,255}));
   annotation (    Documentation(revisions="<html>
 <ul>
+<li>
+November 15, 2026, by Michael Wetter:<br/>
+Set <code>pre_y_start = true</code> on the protection hysteresis blocks so valid startup temperatures within the hysteresis band <code>dTHys</code> do not lock out the compressor.
+</li>
 <li>
 May 30, 2017, by Filip Jorissen:<br/>
 First implementation.

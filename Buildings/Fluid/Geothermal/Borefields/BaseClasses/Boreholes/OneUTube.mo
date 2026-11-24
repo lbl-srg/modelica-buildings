@@ -16,7 +16,7 @@ model OneUTube "Single U-tube borehole heat exchanger"
     each final deltaM2=deltaM,
     each final energyDynamics=energyDynamics,
     each final mSenFac=mSenFac,
-    final dp1_nominal={if i == 1 then dp_nominal else 0 for i in 1:nSeg},
+    final dp1_nominal={if i == 1 and computeFlowResistance then dp_nominal else 0 for i in 1:nSeg},
     each final dp2_nominal=0,
     each final m1_flow_nominal=m_flow_nominal,
     each final m2_flow_nominal=m_flow_nominal,
@@ -109,6 +109,10 @@ into account. The vertical heat flow is assumed to be zero.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+November 15, 2026, by Michael Wetter:<br/>
+Guarded nominal pressure drop with <code>computeFlowResistance</code> so that setting <code>computeFlowResistance = false</code> disables hydraulic friction.
+</li>
 <li>
 May 17, 2024, by Michael Wetter:<br/>
 Updated model due to removal of parameter <code>dynFil</code>.<br/>

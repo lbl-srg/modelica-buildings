@@ -24,8 +24,9 @@ model MixingVolumeAdiabaticCooling
   Modelica.Blocks.Sources.Constant mWatFlo(k=0.001) "Water mass flow rate "
     annotation (Placement(transformation(extent={{-60,70},{-40,90}})));
   Modelica.Blocks.Sources.RealExpression relErr(
-    y=(volSim.heatPort.T - 20)
-      /(if abs(volExa.heatPort.T - 20) < 1E-5 then 1 else (volExa.heatPort.T - 20)))
+    y=if abs(volExa.heatPort.T - volExa.T_start) < 1E-5 then 0
+      else ((volSim.heatPort.T - volSim.T_start) - (volExa.heatPort.T - volExa.T_start))
+        /(volExa.heatPort.T - volExa.T_start))
     "Relative error in the temperature difference"
     annotation (Placement(transformation(extent={{-60,-70},{-40,-50}})));
   Buildings.Fluid.Sources.Boundary_pT bou(redeclare package Medium = Medium, nPorts=2)
@@ -45,17 +46,21 @@ annotation (Documentation(
         info="<html>
 <p>
 This model validates the use of the mixing volume with adiabatic cooling.
-Water in liquid form at room temperature is added to the volume,
+Water in liquid form at <i>0</i>&deg;C is added to the volume,
 which decreases its temperature.
 The instance <code>volSim</code> uses a simplified implementation of the
 mass balance that ignores the mass of the water added to the volume,
 whereas the instance <code>volExa</code> uses the exact formulation.
 The output of the instance <code>relErr</code>
 shows that the relative error on the temperature difference between these
-two options is less than <i>0.1%</i>.
+two options is less than <i>0.4%</i>.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+November 15, 2026, by Michael Wetter:<br/>
+Subtracted <code>293.15</code> K instead of <code>20</code> in <code>relErr</code> and computed the true relative temperature-difference error.
+</li>
 <li>
 May 2, 2019, by Jianjun Hu:<br/>
 Replaced fluid source. This is for 

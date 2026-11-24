@@ -292,6 +292,8 @@ protected
       final motorEfficiency =      per.motorEfficiency,
       final motorEfficiency_yMot = per.motorEfficiency_yMot,
       final motorCooledByFluid =   per.motorCooledByFluid,
+      final WMot_nominal =         per.WMot_nominal,
+      final etaMot_max =           per.etaMot_max,
       final speed_nominal =        0,
       final constantSpeed =        0,
       final speeds =               {0},
@@ -643,6 +645,10 @@ See discussions in
 </html>",
 revisions="<html>
 <ul>
+<li>
+November 15, 2026, by Michael Wetter:<br/>
+Propagated <code>WMot_nominal</code> and <code>etaMot_max</code> to <code>eff.per</code> and normalized the start value of dimensionless <code>eff.r_V</code>.
+</li>
 <li>
 July 17, 2026, by Antoine Gautier:<br/>
 Added an assertion that <code>per.pressure.V_flow</code> and

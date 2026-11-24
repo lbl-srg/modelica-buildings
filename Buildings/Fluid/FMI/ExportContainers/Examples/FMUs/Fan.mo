@@ -5,13 +5,14 @@ block Fan "Declaration of an FMU that exports a fan"
      redeclare final Movers.FlowControlled_dp com(
       nominalValuesDefineDefaultPressureCurve=true,
       final m_flow_nominal=m_flow_nominal,
+      final dp_nominal=dp_nominal,
       energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
       final use_riseTime=false));
 
   parameter Modelica.Units.SI.MassFlowRate m_flow_nominal=0.01
     "Nominal mass flow rate";
   parameter Modelica.Units.SI.PressureDifference dp_nominal(displayUnit="Pa")
-     = 500 "Pressure drop at nominal mass flow rate";
+     = 500 "Pressure rise at nominal mass flow rate";
 
   Modelica.Blocks.Interfaces.RealInput dp_in(min=0, final unit="Pa")
     "Prescribed pressure rise"
@@ -43,6 +44,10 @@ Buildings.Fluid.Movers.FlowControlled_m_flow</a>.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+November 15, 2026, by Michael Wetter:<br/>
+Propagated top-level parameter <code>dp_nominal</code> to <code>com</code> (<a href=\"modelica://Buildings.Fluid.Movers.FlowControlled_dp\">FlowControlled_dp</a>).
+</li>
 <li>
 April 9, 2024, by Hongxiang Fu:<br/>
 Specified <code>nominalValuesDefineDefaultPressureCurve=true</code>

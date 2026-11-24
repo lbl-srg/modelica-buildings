@@ -2,6 +2,8 @@ within Buildings.Fluid.Humidifiers;
 model SteamHumidifier_X
   "Steam humidifier with leaving water mass fraction as input"
   extends Buildings.Fluid.HeatExchangers.BaseClasses.PartialPrescribedOutlet(
+    redeclare replaceable package Medium =
+        Modelica.Media.Interfaces.PartialCondensingGases,
     outCon(
       final T_start=293.15,
       final X_start=X_start,
@@ -45,9 +47,10 @@ protected
     "Approximation of leaving enthalpy, based on dh/dx=h_fg";
 
   Modelica.Blocks.Sources.RealExpression TLea(y=
-    Medium.temperature_phX(p = port_b.p,
-                           h = hLea,
-                           X = port_b.Xi_outflow)) "Leaving air temperature"
+    Medium.temperature(Medium.setState_phX(
+      p = port_b.p,
+      h = hLea,
+      X = port_b.Xi_outflow))) "Leaving air temperature"
     annotation (Placement(transformation(extent={{-10,10},{10,30}})));
 equation
   connect(X_w, outCon.X_wSet)
@@ -224,7 +227,7 @@ The time constant of the component is equal to the parameter <code>tau</code>.
 This time constant is adjusted based on the mass flow rate using
 </p>
 <p align=\"center\" style=\"font-style:italic;\">
-&tau;<sub>eff</sub> = &tau; |m&#775;| &frasl; m&#775;<sub>nom</sub>
+&tau;<sub>eff</sub> = &tau; |m&#775;<sub>nom</sub>| &frasl; |m&#775;|
 </p>
 <p>
 where
@@ -255,6 +258,10 @@ The water vapor of the reverse flow is not affected by this model.
 </html>",
 revisions="<html>
 <ul>
+<li>
+November 15, 2026, by Michael Wetter:<br/>
+Constrained <code>Medium</code> to <a href=\"modelica://Modelica.Media.Interfaces.PartialCondensingGases\">PartialCondensingGases</a>, used <code>Medium.setState_phX</code> in <code>TLea</code>, and corrected the formula for <code>tau_eff</code> in the documentation.
+</li>
 <li>
 March 8, 2022, by Michael Wetter:<br/>
 Renamed parameter <code>massDynamics</code> to <code>energyDynamics</code> for consistency with other models.

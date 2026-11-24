@@ -169,8 +169,8 @@ equation
   end if;
   connect(X_wSet, X_wSet_internal);
 
-  if ((use_TSet or use_X_wSet) and energyDynamics == Modelica.Fluid.Types.Dynamics.SteadyState) then
-    mNor_flow = port_a.m_flow/m_flow_nominal;
+  if (((use_TSet) or use_X_wSet) and energyDynamics <> Modelica.Fluid.Types.Dynamics.SteadyState) then
+    mNor_flow = port_a.m_flow/abs(m_flow_nominal);
     k = Modelica.Fluid.Utilities.regStep(x=port_a.m_flow,
                                          y1= mNor_flow,
                                          y2=-mNor_flow,
@@ -426,7 +426,7 @@ The time constant of the component is equal to the parameter <code>tau</code>.
 This time constant is adjusted based on the mass flow rate using
 </p>
 <p align=\"center\" style=\"font-style:italic;\">
-&tau;<sub>eff</sub> = &tau; |m&#775;| &frasl; m&#775;<sub>nom</sub>
+&tau;<sub>eff</sub> = &tau; |m&#775;<sub>nom</sub>| &frasl; |m&#775;|
 </p>
 <p>
 where
@@ -450,6 +450,16 @@ properties as the fluid that enters <code>port_b</code>.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+November 20, 2026, by Michael Wetter:<br/>
+Removed parameter <code>use_TDynamics</code>.
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/2208\">IBPSA, #2208</a>.
+</li>
+<li>
+November 15, 2026, by Michael Wetter:<br/>
+Changed <code>energyDynamics == Modelica.Fluid.Types.Dynamics.SteadyState</code> to <code>energyDynamics &lt;&gt; Modelica.Fluid.Types.Dynamics.SteadyState</code> when computing dynamic flow-scaling gain <code>k</code>, added parameter <code>use_TDynamics</code>, and corrected the formula for <code>tau_eff</code> in the documentation.
+</li>
 <li>
 March 3, 2022, by Michael Wetter:<br/>
 Removed <code>massDynamics</code>.<br/>

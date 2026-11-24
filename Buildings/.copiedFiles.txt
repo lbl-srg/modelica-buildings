@@ -1676,6 +1676,7 @@ Buildings/Fluid/Geothermal/Borefields/BaseClasses/HeatTransfer/Validation/BaseCl
 Buildings/Fluid/Geothermal/Borefields/BaseClasses/HeatTransfer/Validation/BaseClasses/package.mo
 Buildings/Fluid/Geothermal/Borefields/BaseClasses/HeatTransfer/Validation/BaseClasses/package.order
 Buildings/Fluid/Geothermal/Borefields/BaseClasses/HeatTransfer/Validation/Cylindrical.mo
+Buildings/Fluid/Geothermal/Borefields/BaseClasses/HeatTransfer/Validation/CylindricalSteadyState.mo
 Buildings/Fluid/Geothermal/Borefields/BaseClasses/HeatTransfer/Validation/FiniteDifference_1Week.mo
 Buildings/Fluid/Geothermal/Borefields/BaseClasses/HeatTransfer/Validation/Measured_SmallScale.mo
 Buildings/Fluid/Geothermal/Borefields/BaseClasses/HeatTransfer/Validation/package.mo
@@ -3099,6 +3100,7 @@ Buildings/Resources/Images/Utilities/Math/Functions/SmoothExponentialXPower.png
 Buildings/Resources/Images/Utilities/Math/int.pdf
 Buildings/Resources/Images/Utilities/Math/int.png
 Buildings/Resources/Python-Sources/MakeORCFluidRecord.py
+Buildings/Resources/ReferenceResults/Dymola/Buildings_Fluid_Geothermal_Borefields_BaseClasses_HeatTransfer_Validation_CylindricalSteadyState.txt
 Buildings/Resources/Scripts/Dymola/Airflow/Multizone/BaseClasses/Examples/PowerLaw.mos
 Buildings/Resources/Scripts/Dymola/Airflow/Multizone/BaseClasses/Examples/PowerLaw05.mos
 Buildings/Resources/Scripts/Dymola/Airflow/Multizone/BaseClasses/Examples/PowerLawFixedM.mos
@@ -3653,6 +3655,7 @@ Buildings/Resources/Scripts/Dymola/Fluid/Geothermal/Borefields/BaseClasses/HeatT
 Buildings/Resources/Scripts/Dymola/Fluid/Geothermal/Borefields/BaseClasses/HeatTransfer/ThermalResponseFactors/Validation/TimeGeometric.mos
 Buildings/Resources/Scripts/Dymola/Fluid/Geothermal/Borefields/BaseClasses/HeatTransfer/Validation/Analytic_20Years.mos
 Buildings/Resources/Scripts/Dymola/Fluid/Geothermal/Borefields/BaseClasses/HeatTransfer/Validation/Cylindrical.mos
+Buildings/Resources/Scripts/Dymola/Fluid/Geothermal/Borefields/BaseClasses/HeatTransfer/Validation/CylindricalSteadyState.mos
 Buildings/Resources/Scripts/Dymola/Fluid/Geothermal/Borefields/BaseClasses/HeatTransfer/Validation/FiniteDifference_1Week.mos
 Buildings/Resources/Scripts/Dymola/Fluid/Geothermal/Borefields/BaseClasses/HeatTransfer/Validation/Measured_SmallScale.mos
 Buildings/Resources/Scripts/Dymola/Fluid/Geothermal/Borefields/Examples/Borefields.mos

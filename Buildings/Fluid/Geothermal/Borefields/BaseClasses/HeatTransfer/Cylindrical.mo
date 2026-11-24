@@ -9,16 +9,23 @@ model Cylindrical
   parameter Modelica.Units.SI.Radius r_b "External radius";
   parameter Integer nSta(min=1) = 10 "Number of state variables";
   parameter Modelica.Units.SI.Temperature TInt_start
-    "Initial temperature at port_a, used if steadyStateInitial = false"
-    annotation (Dialog(group="Initialization", enable=not steadyStateInitial));
+    "Initial temperature at port_a, used if steadyStateInitial = false and the material stores energy"
+    annotation (Dialog(group="Initialization", enable=not steadyStateInitial and
+        not soiDat.steadyState));
   parameter Modelica.Units.SI.Temperature TExt_start
-    "Initial temperature at port_b, used if steadyStateInitial = false"
-    annotation (Dialog(group="Initialization", enable=not steadyStateInitial));
+    "Initial temperature at port_b, used if steadyStateInitial = false and the material stores energy"
+    annotation (Dialog(group="Initialization", enable=not steadyStateInitial and
+        not soiDat.steadyState));
   parameter Boolean steadyStateInitial=false
     "true initializes dT(0)/dt=0, false initializes T(0) at fixed temperature using T_a_start and T_b_start"
-    annotation (Dialog(group="Initialization"), Evaluate=true);
+    annotation (Dialog(group="Initialization", enable=not soiDat.steadyState),
+    Evaluate=true);
 
   parameter Real gridFac(min=1) = 2 "Grid factor for spacing";
+
+  parameter Modelica.Units.SI.Time tMinEsk(min=0) = 60
+    "Shortest time for which the grid resolves the depth of thermal penetration"
+    annotation (Evaluate=true, Dialog(tab="Advanced", group="Radial grid"));
 
   parameter Modelica.Units.SI.Radius r[nSta + 1](each fixed=false)
     "Radius to the boundary of the i-th domain";
@@ -59,41 +66,77 @@ protected
   parameter Real gridFac_sum(fixed=false);
   parameter Real gridFac_sum_old(fixed=false);
 
+  final parameter Modelica.Units.SI.Length dREsk(fixed=false)
+    "Thickness of each of the three cells that are adjacent to the inner surface";
+
 initial algorithm
-  for i in 0:nSta - 3 - 1 loop
-    if i == 0 then
-      gridFac_sum := gridFac^i;
-      gridFac_sum_old := gridFac_sum;
-    else
-      gridFac_sum := gridFac_sum_old + gridFac^i;
-      gridFac_sum_old := gridFac_sum;
-    end if;
+  gridFac_sum := 0;
+  gridFac_sum_old := 0;
+  for i in 0:(if nSta >= 4 then nSta - 4 else nSta - 1) loop
+    gridFac_sum := gridFac_sum_old + gridFac^i;
+    gridFac_sum_old := gridFac_sum;
   end for;
 
 initial equation
-  assert(r_a < r_b, "Error: Model requires r_a < r_b.");
   assert(0 < r_a, "Error: Model requires 0 < r_a.");
+  assert(r_a < r_b, "Error: Model requires r_a < r_b.");
+  assert(0 < k, "Error: Model requires 0 < k, but k=" + String(k) + ".");
+  assert(0 < h, "Error: Model requires 0 < h, but h=" + String(h) + ".");
+
+  // Thickness of the three cells that are adjacent to the inner surface. As
+  // advised by Eskilson (1987), these cells have a thickness equal to the
+  // depth of thermal penetration sqrt(a*tMinEsk), where a = k/(c*d) is the
+  // thermal diffusivity and tMinEsk is the shortest time for which the grid
+  // is designed to resolve the temperature profile. If the domain
+  // r_b - r_a is too thin to accommodate these three cells, then their
+  // thickness is reduced to (r_b - r_a)/nSta. This cap is also active if the
+  // material does not store energy, since then the thermal diffusivity is
+  // unbounded. Note that in steady state, the heat flow rate at the ports is
+  // independent of the grid, as asserted below.
+  dREsk = if c*d > Modelica.Constants.eps then
+            min(sqrt(tMinEsk*k/(c*d)), (r_b - r_a)/nSta)
+          else
+            (r_b - r_a)/nSta;
+  assert(0 < dREsk,
+    "Error: The thickness of the cells that are adjacent to the inner surface is zero. Check tMinEsk, and note that the model requires r_a < r_b.");
 
   // ****************** Comments *********************:
-  // The layer is divided into nSta segments. The radius of each segment increase exponentially with base 'griFac':
-  // r_b - r_a = sum( a * griFac^k - a , k=2..nSta) => from this we find a = (r_b - r_a)/(griFac^(n+1) - griFac)
-  // Using this a, we can now find the r[i]:
-  // r[1] := r_a
-  // r[i] = r[i-1] + a * griFac^i = r[i-1] + griFac^i * (r_b - r_a) / (griFac^(n+1) - griFac)
+  // The domain r_b - r_a is divided into nSta segments. Following Eskilson,
+  // the three segments that are adjacent to r_a have the thickness dREsk,
+  // whereas the thickness of the remaining segments grows geometrically with
+  // base gridFac >= 1, namely
+  //   r[i] = r[i-1] + (r_b - r[4]) * gridFac^(i-5) / gridFac_sum,
+  //   gridFac_sum = sum(gridFac^k, k=0..nSta-4),
+  // which is equivalent to
+  //   r[i] = r[i-1] + (r_b - r[4]) * (1-gridFac)/(1-gridFac^(nSta-3)) * gridFac^(i-5).
+  // Since gridFac >= 1 and r_b > r_a, all increments are positive, and since
+  // they sum to r_b - r[4], the last boundary is r[nSta+1] = r_b.
   //
-  // This can also be writing as:
-  // r[i]= r[i-1] + ( r_b - r_a)  * (1-griFac)/(1-griFac^(nSta)) * griFac^(i-2);
-
+  // If nSta < 4, then there are not enough segments to also allocate the three
+  // segments of thickness dREsk. In this case, a purely geometric grid is used:
+  //   r[1] = r_a,
+  //   r[i] = r[i-1] + (r_b - r_a) * gridFac^(i-2) / gridFac_sum,
+  //   gridFac_sum = sum(gridFac^k, k=0..nSta-1),
+  // which is equivalent to
+  //   r[i] = r[i-1] + (r_b - r_a) * (1-gridFac)/(1-gridFac^nSta) * gridFac^(i-2).
   r[1] = r_a;
-  r[2] = r_a + sqrt(k/c/d*60) "eskilson minimum length";
-  r[3] = r_a + 2*sqrt(k/c/d*60);
-  r[4] = r_a + 3*sqrt(k/c/d*60);
-
-  for i in 5:nSta + 1 loop
-    r[i] = r[i - 1] + (r_b - r[4])/gridFac_sum*gridFac^(i - 5);
-  end for;
-  assert(abs(r[nSta + 1] - r_b) < 1E-3,
+  if nSta < 4 then
+    for i in 2:nSta + 1 loop
+      r[i] = r[i - 1] + (r_b - r_a)/gridFac_sum*gridFac^(i - 2);
+    end for;
+  else
+    for i in 2:4 loop
+      r[i] = r_a + (i - 1)*dREsk;
+    end for;
+    for i in 5:nSta + 1 loop
+      r[i] = r[i - 1] + (r_b - r[4])/gridFac_sum*gridFac^(i - 5);
+    end for;
+  end if;
+  assert(abs(r[nSta + 1] - r_b) < 1E-6*(r_b - r_a),
     "Error: Wrong computation of radius. r[nSta+1]=" + String(r[nSta + 1]));
+  assert(min(r[2:nSta + 1] - r[1:nSta]) > 0,
+    "Error: The radial grid is not strictly increasing, and the smallest increment is "
+      + String(min(r[2:nSta + 1] - r[1:nSta])));
 
   // Radii at middle of resistance
   for i in 1:nSta loop
@@ -106,6 +149,15 @@ initial equation
   for i in 2:nSta loop
     G[i] = 2*Modelica.Constants.pi*k*h/Modelica.Math.log(rC[i]/rC[i - 1]);
   end for;
+  // The thermal resistances of the segments are in series. Hence, for any
+  // strictly increasing grid, they telescope to the analytical steady-state
+  // resistance log(r_b/r_a)/(2*pi*k*h). Assert this identity, which also
+  // ensures that the heat flow rate at the ports is independent of nSta,
+  // gridFac and tMinEsk in steady state.
+  assert(abs(2*Modelica.Constants.pi*k*h/Modelica.Math.log(r_b/r_a)
+      - 1/sum({1/G[i] for i in 1:nSta + 1}))
+      < 1E-6*2*Modelica.Constants.pi*k*h/Modelica.Math.log(r_b/r_a),
+    "Error: The thermal resistances of the discretization do not sum to the analytical steady-state resistance of the cylinder.");
 
   // Heat capacity of each segment
   for i in 1:nSta loop
@@ -227,14 +279,18 @@ temperature and heat flow rate of the heat ports.
 If the heat capacity of the material is set to zero, then steady-state heat flow is computed using
 </p>
 <p align=\"center\" style=\"font-style:italic;\">
-   Q = 2 &pi; k (T<sub>a</sub>-T<sub>b</sub>)&frasl; ln(r<sub>a</sub> &frasl; r<sub>b</sub>),
+   Q = 2 &pi; k h (T<sub>a</sub>-T<sub>b</sub>)&frasl; ln(r<sub>b</sub> &frasl; r<sub>a</sub>),
 </p>
 <p>
 where
 <i>r<sub>a</sub></i> is the internal radius,
 <i>r<sub>b</sub></i> is the external radius,
+<i>h</i> is the height of the cylinder,
 <i>T<sub>a</sub></i> is the temperature at port a and
 <i>T<sub>b</sub></i> is the temperature at port b.
+In this case, the parameters <code>TInt_start</code>, <code>TExt_start</code> and
+<code>steadyStateInitial</code> have no effect, as the temperature profile is
+determined by the temperatures at the ports.
 </p>
 <h4>Implementation</h4>
 <p>
@@ -246,8 +302,49 @@ between the surfaces and the outermost state variables. Thus, to obtain
 the surface temperature, use <code>port_a.T</code> (or <code>port_b.T</code>)
 and not the variable <code>T[1]</code>.
 </p>
+<h4>Radial grid</h4>
+<p>
+The radial grid is as proposed by Eskilson (1987): The three cells that are adjacent
+to the inner surface have the thickness
+</p>
+<p align=\"center\" style=\"font-style:italic;\">
+   &Delta;r = &radic;(a t<sub>Min</sub>),
+</p>
+<p>
+where <i>a = k/(&rho;c)</i> is the thermal diffusivity and
+<i>t</i><sub>Min</sub> = <code>tMinEsk</code> is the shortest time for which the grid
+resolves the temperature profile. The thickness of the remaining cells grows
+geometrically with the factor <code>gridFac &ge; 1</code>, such that the last cell
+boundary is at <code>r_b</code>.
+</p>
+<p>
+If <code>r_b - r_a</code> is too small to accommodate the three cells of thickness
+<code>dREsk</code>, then their thickness is capped at
+<code>(r_b - r_a)/nSta</code>. This cap is also active if the heat capacity of the
+material is zero, since in this case the thermal diffusivity is unbounded.
+For <code>nSta &lt; 4</code>, there are not enough cells to also allocate the three
+inner cells, in which case a purely geometric grid is used.
+In any of these cases, the grid is strictly increasing, and the sum of the thermal
+resistances of the cells equals the analytical steady-state resistance
+<span style=\"font-style:italic;\">ln(r<sub>b</sub>/r<sub>a</sub>)/(2&pi;kh)</span>.
+The latter is asserted, which ensures that in steady state, the heat flow rate at the
+ports does not depend on <code>nSta</code>, <code>gridFac</code> or
+<code>tMinEsk</code>.
+</p>
 </html>", revisions="<html>
 <ul>
+<li>
+November 20, 2026, by Michael Wetter:<br/>
+Revised the radial discretization so that the grid proposed by Eskilson is used irrespective of the
+heat capacity of the material, which removes the previously separate grid for
+<code>soiDat.steadyState = true</code>. Furthermore, added the parameter <code>tMinEsk</code>, and
+assertions on the positivity of <code>k</code> and <code>h</code>, on the monotonicity of the grid,
+and on the sum of the thermal resistances being equal to the analytical steady-state resistance.
+</li>
+<li>
+November 15, 2026, by Michael Wetter:<br/>
+Guarded the radial grid calculation for steady-state conduction (<code>c == 0</code>), small domain thickness <code>r_b - r_a</code>, and <code>nSta &lt; 4</code>.
+</li>
 <li>
 January, 2014, by Damien Picard:<br/>
 Modify the discretization of the cilindrical layer so that the first three layers have an equal thickness the following an exponentionally growing thickness.

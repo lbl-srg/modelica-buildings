@@ -129,19 +129,19 @@ protected
 
 equation
 
-  assert(not (TWorCon > TWorEva - 1 and ena),
+  assert(not (TWorCon > TWorEva - 1 and on_actual),
 "*** In " + getInstanceName() +
 ": Working fluid condensing temperature is too high and close to evaporating temperature.
 This is likely caused by the flow rate of cold fluid in the condenser being too low
 when the ORC is on.");
 
-  assert(not (pCon < 101325 - 1 and ena and useLowCondenserPressureWarning),
+  assert(not (pCon < 101325 - 1 and on_actual and useLowCondenserPressureWarning),
 "*** In " + getInstanceName() +
 ": Working fluid condensing pressure is lower than 101325 Pa.
 If this is intended, set useLowCondenserPressureWarning = false to turn off this warning.",
 level=AssertionLevel.warning);
 
-  if ena then
+  if on_actual then
     // Evaporator
     QEva_flow = mHot_flow * cpHot * (THotOut - THotIn);
     QEva_flow = mWor_flow * (hPumOut - hExpInl);
@@ -196,6 +196,10 @@ Buildings.Fluid.CHPs.OrganicRankine.ConstantEvaporation</a>
 for more details.
 </html>", revisions="<html>
 <ul>
+<li>
+November 15, 2026, by Michael Wetter:<br/>
+Changed the conditional branch guard from <code>ena</code> to <code>on_actual</code> to avoid singular zero-flow temperature equations when <code>ena = true</code> and mass flow rate is zero.
+</li>
 <li>
 January 29, 2024, by Hongxiang Fu:<br/>
 First implementation. This is for

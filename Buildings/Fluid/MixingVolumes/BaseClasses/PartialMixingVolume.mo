@@ -44,7 +44,7 @@ model PartialMixingVolume
     "Temperature of the fluid";
   Modelica.Blocks.Interfaces.RealOutput U(unit="J")
     "Internal energy of the component";
-  Modelica.Units.SI.Pressure p=if nPorts > 0 then ports[1].p else p_start
+  Modelica.Units.SI.Pressure p=if nPorts > 0 then ports[1].p else p_internal
     "Pressure of the fluid";
   Modelica.Blocks.Interfaces.RealOutput m(unit="kg") "Mass of the component";
   Modelica.Units.SI.MassFraction Xi[Medium.nXi]=XiOut_internal
@@ -121,6 +121,8 @@ protected
     "Internal connector for leaving species concentration of the component";
   Modelica.Blocks.Interfaces.RealOutput COut_internal[Medium.nC](each unit="1")
     "Internal connector for leaving trace substances of the component";
+  Modelica.Blocks.Interfaces.RealOutput p_internal(unit="Pa", nominal=1E5)
+    "Internal connector for pressure of the component when nPorts=0";
 
   Buildings.HeatTransfer.Sources.PrescribedTemperature preTem(
     port(T(start=T_start)))
@@ -136,7 +138,7 @@ protected
 equation
   ///////////////////////////////////////////////////////////////////////////
   // asserts
-  if not allowFlowReversal then
+  if (not allowFlowReversal) and (nPorts == 2) then
     assert(ports[1].m_flow > -m_flow_small,
   "In " + getInstanceName() + ": Model has flow reversal,
   but the parameter allowFlowReversal is set to false.
@@ -161,11 +163,12 @@ equation
     mXi=zeros(Medium.nXi);
     m=0;
     mC=zeros(Medium.nC);
+    p_internal = ports[1].p;
     connect(hOut_internal,  steBal.hOut);
     connect(XiOut_internal, steBal.XiOut);
     connect(COut_internal,  steBal.COut);
   else
-      connect(dynBal.ports, ports) annotation (Line(
+    connect(dynBal.ports, ports) annotation (Line(
       points={{70,0},{70,-80},{62,-80},{2.22045e-15,-80},{2.22045e-15,-90},{2.22045e-15,
             -100}},
       color={0,127,255}));
@@ -173,6 +176,7 @@ equation
     connect(mXi,dynBal.mXiOut);
     connect(m,dynBal.mOut);
     connect(mC,dynBal.mCOut);
+    connect(p_internal,     dynBal.pOut);
     connect(hOut_internal,  dynBal.hOut);
     connect(XiOut_internal, dynBal.XiOut);
     connect(COut_internal,  dynBal.COut);
@@ -310,6 +314,17 @@ Buildings.Fluid.MixingVolumes</a>.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+November 15, 2026, by Michael Wetter:<br/>
+<ul>
+<li>
+Connected closed-volume (<code>nPorts == 0</code>) fluid pressure <code>p</code> to <code>dynBal.pOut</code> (<a href=\"modelica://Buildings.Fluid.Interfaces.ConservationEquation\">ConservationEquation</a>) instead of hardcoding <code>p_start</code>.
+</li>
+<li>
+Restricted the flow-reversal assertion on <code>ports[1].m_flow</code> to two-port volumes (<code>nPorts == 2</code>).
+</li>
+</ul>
+</li>
 <li>
 June 18, 2024, by Michael Wetter:<br/>
 Added <code>start</code> and <code>nominal</code> attributes

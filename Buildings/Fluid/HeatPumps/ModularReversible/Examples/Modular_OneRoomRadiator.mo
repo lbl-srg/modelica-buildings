@@ -47,8 +47,8 @@ model Modular_OneRoomRadiator
         redeclare
           Buildings.Fluid.HeatPumps.ModularReversible.RefrigerantCycle.Frosting.NoFrosting
           iceFacCal,
-        mCon_flow_nominal=heaPum.mCon_flow_nominal,
-        mEva_flow_nominal=heaPum.mEva_flow_nominal,
+        mCon_flow_nominal=heaPum.mEva_flow_nominal,
+        mEva_flow_nominal=heaPum.mCon_flow_nominal,
         datTab=Buildings.Fluid.Chillers.ModularReversible.Data.TableData2D.EN14511.Vitocal251A08()),
     redeclare Buildings.Fluid.HeatPumps.ModularReversible.Controls.Safety.Data.Wuellhorst2021 safCtrPar(
       use_TConOutHea=true,
@@ -107,6 +107,10 @@ equation
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+November 15, 2026, by Michael Wetter:<br/>
+Swapped nominal mass flow rates <code>mCon_flow_nominal</code> and <code>mEva_flow_nominal</code> passed to <code>RefrigerantCycleHeatPumpCooling</code> (<a href=\"modelica://Buildings.Fluid.Chillers.ModularReversible.RefrigerantCycle.TableData2D\">TableData2D</a>) to match reversed cooling-mode operation.
+</li>
 <li>
 May 23, 2025, by Michael Wetter:<br/>
 Changed nominal temperature during reverse mode so that heat pump has a positive lift.<br/>

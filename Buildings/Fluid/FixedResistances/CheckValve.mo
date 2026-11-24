@@ -35,11 +35,17 @@ protected
   parameter Real k_max=if dpFixed_nominal > Modelica.Constants.eps then
     sqrt(1 / (1 / kFixed ^ 2 + 1 / Kv_SI ^ 2)) else Kv_SI
     "Maximum flow coefficient (valve fully open)";
+  parameter Modelica.Units.SI.PressureDifference dp_closing=
+    if dpFixed_nominal > Modelica.Constants.eps and k_max > Modelica.Constants.eps then
+      dpValve_closing * (Kv_SI / k_max) ^ 2
+    else
+      dpValve_closing
+    "Total pressure drop across valve and series resistance when check valve starts to close";
   parameter Modelica.Units.SI.MassFlowRate m1_flow = 0
     "Flow rate through closed valve with zero pressure drop";
   parameter Modelica.Units.SI.MassFlowRate m2_flow =
     Buildings.Fluid.BaseClasses.FlowModels.basicFlowFunction_dp(
-      dp=dpValve_closing,
+      dp=dp_closing,
       k=k_max,
       m_flow_turbulent=m_flow_turbulent)
     "Flow rate through fully open valve exposed to dpValve_closing";
@@ -52,11 +58,11 @@ protected
     "Derivative of closed valve flow function at dp=0";
   parameter Real dm2_flow_dp =
     Buildings.Fluid.BaseClasses.FlowModels.basicFlowFunction_dp_der(
-      dp=dpValve_closing,
+      dp=dp_closing,
       k=k_max,
       m_flow_turbulent=m_flow_turbulent,
       dp_der=1)
-    "Derivative of open valve flow function at dp=dpValve_closing";
+    "Derivative of open valve flow function at dp=dp_closing";
   parameter Real d2m1_flow_dp =
     Buildings.Fluid.BaseClasses.FlowModels.basicFlowFunction_dp_der2(
       dp=0,
@@ -67,12 +73,12 @@ protected
     "Second derivative of closed valve flow function at dp=0";
   parameter Real d2m2_flow_dp =
     Buildings.Fluid.BaseClasses.FlowModels.basicFlowFunction_dp_der2(
-      dp=dpValve_closing,
+      dp=dp_closing,
       k=k_max,
       m_flow_turbulent=m_flow_turbulent,
       dp_der=1,
       dp_der2=0)
-    "Second derivative of open valve flow function at dp=dpValve_closing";
+    "Second derivative of open valve flow function at dp=dp_closing";
   Modelica.Units.SI.MassFlowRate m_flow_smooth
     "Smooth interpolation result between two flow regimes";
 initial equation
@@ -87,14 +93,14 @@ equation
       dp=dp,
       k=k_min,
       m_flow_turbulent=m_flow_turbulent)
-    elseif dp >= dpValve_closing then Buildings.Fluid.BaseClasses.FlowModels.basicFlowFunction_dp(
+    elseif dp >= dp_closing then Buildings.Fluid.BaseClasses.FlowModels.basicFlowFunction_dp(
       dp=dp,
       k=k_max,
       m_flow_turbulent=m_flow_turbulent)
     else Buildings.Utilities.Math.Functions.quinticHermite(
       x=dp,
       x1=0,
-      x2=dpValve_closing,
+      x2=dp_closing,
       y1=0,
       y2=m2_flow,
       y1d=dm1_flow_dp,
@@ -189,6 +195,10 @@ by default.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+November 15, 2026, by Michael Wetter:<br/>
+Subtracted the fixed series pressure drop from <code>dp</code> before comparing against <code>dpValve_closing</code> when <code>dpFixed_nominal &gt; 0</code>.
+</li>
 <li>
 October 14, 2024, by Antoine Gautier:<br/>
 Refactored using a spline interpolation. This is for

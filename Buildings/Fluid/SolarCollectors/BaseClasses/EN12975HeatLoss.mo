@@ -1,7 +1,7 @@
 within Buildings.Fluid.SolarCollectors.BaseClasses;
 block EN12975HeatLoss "Calculate the heat loss of a solar collector per EN12975"
   extends Buildings.Fluid.SolarCollectors.BaseClasses.PartialHeatLoss(
-    QLos_internal = A_c/nSeg * {dT[i] * (a1 - a2 * dT[i]) for i in 1:nSeg});
+    QLos_internal = A_c/nSeg * {smooth(1, dT[i] * (a1 + a2 * noEvent(abs(dT[i])))) for i in 1:nSeg});
 
   parameter Modelica.Units.SI.CoefficientOfHeatTransfer a1(final min=0)
     "a1 from ratings data";
@@ -25,8 +25,8 @@ where <i>n<sub>seg</sub></i> is the number of segments, as
 </p>
 <p align=\"center\" style=\"font-style:italic;\">
 Q<sub>los,i</sub> = A<sub>c</sub> &frasl; n<sub>seg</sub>
-(T<sub>env</sub>-T<sub>flu,i</sub>) (a<sub>1</sub> - a<sub>2</sub>
-  (T<sub>env</sub>-T<sub>flu,i</sub>))
+(T<sub>env</sub>-T<sub>flu,i</sub>) (a<sub>1</sub> + a<sub>2</sub>
+  |T<sub>env</sub>-T<sub>flu,i</sub>|)
 </p>
 <p>
 where
@@ -66,6 +66,10 @@ CEN 2006, European Standard 12975-1:2006, European Committee for Standardization
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+November 15, 2026, by Michael Wetter:<br/>
+Used <code>abs(TFlu[i] - TEnv)</code> in the quadratic heat-loss term so thermal conductance remains positive when <code>TEnv &gt; TFlu[i]</code>.
+</li>
 <li>
 February 15, 2024, by Jelger Jansen:<br/>
 Refactor model.<br/>

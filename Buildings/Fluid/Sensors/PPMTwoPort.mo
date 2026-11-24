@@ -13,14 +13,15 @@ model PPMTwoPort
   extends Modelica.Icons.RoundSensor;
 
   parameter String substanceName = "CO2" "Name of trace substance";
-  parameter Real C_start(min=0) = 0
-    "Initial or guess value of output (= state)"
+  parameter Real C_start(min=0, max=1) = 0
+    "Initial or guess value of trace substance mass fraction (= state)"
     annotation (Dialog(group="Initialization"));
   parameter Modelica.Units.SI.MolarMass MM=Modelica.Media.IdealGases.Common.SingleGasesData.CO2.MM
     "Molar mass of the trace substance";
   Modelica.Blocks.Interfaces.RealOutput ppm(
     min=0,
-    nominal=if C_start > 1E-8 then C_start else 1)
+    start=C_start*coeff,
+    nominal=coeff*(if C_start > 1E-8 then C_start else 1E-3))
     "Trace substance in port medium in ppm"
     annotation (Placement(transformation(extent={{100,-10},{120,10}}),
         iconTransformation(
@@ -48,7 +49,12 @@ protected
   final parameter Real coeff = MMFraction*1e6
     "Conversion from mass fraction to ppm";
 
-  Real CMed(min=0, start=C_start, nominal=sum(Medium.C_nominal))=
+  constant Real sumC_nominal = sum(Medium.C_nominal) "Sum of Medium.C_nominal";
+
+  Real CMed(
+    min=0,
+    start=C_start,
+    nominal=if sumC_nominal > Modelica.Constants.eps then sumC_nominal else 1E-3)=
     if allowFlowReversal then
               Modelica.Fluid.Utilities.regStep(
                 x=port_a.m_flow,
@@ -58,7 +64,10 @@ protected
               else
                 s*port_b.C_outflow
     "Trace substance concentration to which the sensor is exposed";
-  Real C(min=0,start=C_start)
+  Real C(
+    min=0,
+    start=C_start,
+    nominal=if C_start > 1E-8 then C_start else 1E-3)
     "Trace substance concentration of the passing fluid"
     annotation (Placement(transformation(
         origin={0,110},
@@ -114,6 +123,10 @@ Buildings.Fluid.Sensors.UsersGuide</a> for an explanation.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+November 15, 2026, by Michael Wetter:<br/>
+Converted cleanly between trace-substance mass fraction <code>C</code> and volume concentration <code>ppm</code> in initialization and <code>nominal</code> attributes, and ensured positive <code>CMed.nominal</code>.
+</li>
 <li>
 June 25, 2026, by Michael Wetter:<br/>
 Added <code>nominal</code> attribute to state variable.<br/>

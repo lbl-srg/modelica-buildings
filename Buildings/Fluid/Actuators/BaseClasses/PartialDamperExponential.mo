@@ -4,7 +4,8 @@ partial model PartialDamperExponential
   extends Buildings.Fluid.BaseClasses.PartialResistance(
     final dp_nominal=dpDamper_nominal+dpFixed_nominal,
     final m_flow_turbulent=if use_deltaM then deltaM * m_flow_nominal else
-      eta_default*ReC*sqrt(A)*facRouDuc);
+      eta_default*ReC*sqrt(A)*facRouDuc,
+    final n=2);
   extends Buildings.Fluid.Actuators.BaseClasses.ActuatorSignal;
   parameter Modelica.Units.SI.PressureDifference dpDamper_nominal(displayUnit=
         "Pa") "Pressure drop of fully open damper at nominal mass flow rate"
@@ -203,6 +204,10 @@ ASHRAE Final Report 825-RP, Atlanta, GA.
 </html>",
 revisions="<html>
 <ul>
+<li>
+November 15, 2026, by Michael Wetter:<br/>
+Set <code>final n=2</code> on the inherited flow exponent <code>n</code> so that non-quadratic exponents cannot be specified and silently ignored by the damper equations.
+</li>
 <li>
 September 21, 2021, by Michael Wetter:<br/>
 Corrected typo in comments.<br/>

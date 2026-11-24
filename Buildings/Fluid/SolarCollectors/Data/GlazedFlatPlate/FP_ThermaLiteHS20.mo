@@ -7,7 +7,7 @@ record FP_ThermaLiteHS20 =
     final mDry=26,
     final V=2.8/1000,
     final dp_nominal=242.65,
-    final mperA_flow_nominal=0.1777,
+    final mperA_flow_nominal=0.01777,
     final incAngDat=Modelica.Units.Conversions.from_deg({0,10,20,30,40,50,60,70,80,90}),
     final incAngModDat={1.0,0.9989,0.9946,0.9836,0.9567,0.8882,0.6935,0.0,0.0,0.0},
     final y_intercept=0.762,
@@ -21,4 +21,12 @@ Documentation(info = "<html>
 Ratings data taken from the <a href=\"http://www.solar-rating.org\">
 Solar Rating and Certification Corporation website</a>. SRCC# = 2012047A.
 </p>
+</html>",
+revisions="<html>
+<ul>
+<li>
+November 15, 2026, by Michael Wetter:<br/>
+Corrected <code>mperA_flow_nominal</code> from <code>0.35/1.97</code> to <code>0.035/1.97</code>.
+</li>
+</ul>
 </html>"));

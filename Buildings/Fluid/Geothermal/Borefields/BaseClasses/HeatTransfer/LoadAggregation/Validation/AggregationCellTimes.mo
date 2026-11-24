@@ -8,11 +8,11 @@ model AggregationCellTimes
     "Time resolution of load aggregation";
   final parameter Modelica.Units.SI.Time[i] nu(each fixed=false)
     "Time vector for load aggregation";
-  final parameter Modelica.Units.SI.Time[i] rCel(each fixed=false)
+  final parameter Real[i] rCel(each unit="1", each fixed=false)
     "Cell widths";
 
   Modelica.Units.SI.Time nu_error;
-  Modelica.Units.SI.Time rCel_error "Error on chosen values";
+  Real rCel_error(unit="1") "Error on chosen values";
 
 initial equation
   (nu,rCel) = Buildings.Fluid.Geothermal.Borefields.BaseClasses.HeatTransfer.LoadAggregation.aggregationCellTimes(
@@ -38,6 +38,10 @@ time of the 6th cell, and the 6th cell must therefore be truncated from a size o
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+November 15, 2026, by Michael Wetter:<br/>
+Changed the type of dimensionless normalized cell widths <code>rCel</code> and <code>rCel_error</code> from <a href=\"modelica://Modelica.Units.SI.Time\">Time</a> to <code>Real(unit=\"1\")</code>.
+</li>
 <li>
 July 18, 2018, by Alex Laferri&egrave;re:<br/>
 First implementation.

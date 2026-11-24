@@ -30,22 +30,23 @@ model ThermalZone
           extent={{90,-90},{110,-70}}), iconTransformation(extent={{90,-90},{110,-70}})));
 
 protected
-  x_i_toX_w x_i_toX(
-    redeclare final package Medium = Medium)
- if Medium.nXi > 0 "Conversion from x_i to X_w"
+  x_i_toX_w x_i_toX[nPorts](
+    redeclare each final package Medium = Medium)
+    if Medium.nXi > 0 "Conversion from x_i to X_w"
     annotation (Placement(transformation(extent={{-20,-30},{-40,-10}})));
 
-  RealVectorExpression XiSup(
-    final n=Medium.nXi,
-    final y=inStream(ports[1].Xi_outflow))
+  RealVectorExpression XiZon[nPorts](
+    each final n=Medium.nXi,
+    final y={inStream(ports[i].Xi_outflow) for i in 1:nPorts})
     if Medium.nXi > 0
-      "Water vapor concentration of supply air"
+    "Water vapor concentration of inflowing zone air at ports"
     annotation (Placement(transformation(extent={{20,-30},{0,-10}})));
 
-  RealVectorExpression CSup(
-    final n=Medium.nC,
-    final y=inStream(ports[1].C_outflow))
- if Medium.nC > 0 "Trace substance concentration of supply air"
+  RealVectorExpression CZon[nPorts](
+    each final n=Medium.nC,
+    final y={inStream(ports[i].C_outflow) for i in 1:nPorts})
+    if Medium.nC > 0
+    "Trace substance concentration of inflowing zone air at ports"
     annotation (Placement(transformation(extent={{20,-70},{0,-50}})));
 
   Sources.MassFlowSource_T bou[nPorts](
@@ -119,6 +120,10 @@ easy definition of vector-valued Real expressions in a block diagram.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+November 15, 2026, by Michael Wetter:<br/>
+Indexed <code>ports[i]</code> instead of hardcoding <code>ports[1]</code> in <code>XiSup</code> and <code>CSup</code> so each port receives its own supply species and trace-substance concentrations.
+</li>
 <li>
 April 27, 2016, by Thierry S. Nouidui:<br/>
 First implementation.
@@ -212,8 +217,6 @@ equation
           {0,40},{0,40}},                   color={0,0,127}));
   connect(heaPorAir, senTemAir.port) annotation (Line(points={{100,-80},{80,-80},
           {72,-80}},          color={191,0,0}));
-  connect(XiSup.y, x_i_toX.Xi)
-    annotation (Line(points={{-1,-20},{-18,-20}}, color={0,0,127}));
   connect(con.T, bou.T_in) annotation (Line(points={{-58,64},{-58,64},{-44,64},{
           -44,74},{-12,74},{-12,52},{0,52}},color={0,0,127}));
   connect(con[1:nPorts].m_flow, multiSum.u[1:nPorts]) annotation (Line(points={{-58,68},{-54,68},
@@ -223,15 +226,17 @@ equation
   connect(const.y, assEqu.u1) annotation (Line(points={{51,78},{60,78},{60,72},{
           68,72}}, color={0,0,127}));
   for i in 1:nPorts loop
-  connect(senTemAir.T, con[i].TAirZon) annotation (Line(points={{52,-80},{40,-80},
+    connect(senTemAir.T, con[i].TAirZon) annotation (Line(points={{52,-80},{40,-80},
             {40,20},{-76,20},{-76,48}},
                                       color={0,0,127}));
-  if Medium.nXi > 0 then
-    connect(x_i_toX.X_w, con[i].X_wZon) annotation (Line(points={{-42,-20},{-42,-20},
-            {-70,-20},{-70,48}}, color={0,0,127}));
-  end if;
-  connect(CSup.y, con[i].CZon)
-    annotation (Line(points={{-1,-60},{-64,-60},{-64,48}}, color={0,0,127}));
+    connect(XiZon[i].y, x_i_toX[i].Xi)
+      annotation (Line(points={{-1,-20},{-18,-20}}, color={0,0,127}));
+    if Medium.nXi > 0 then
+      connect(x_i_toX[i].X_w, con[i].X_wZon) annotation (Line(points={{-42,-20},{-42,-20},
+              {-70,-20},{-70,48}}, color={0,0,127}));
+    end if;
+    connect(CZon[i].y, con[i].CZon)
+      annotation (Line(points={{-1,-60},{-64,-60},{-64,48}}, color={0,0,127}));
   end for;
   connect(bou.m_flow_in, con.m_flow) annotation (Line(points={{0,56},{-8,56},{
           -8,78},{-50,78},{-50,68},{-58,68}},

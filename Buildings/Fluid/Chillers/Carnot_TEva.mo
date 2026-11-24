@@ -7,6 +7,7 @@ model Carnot_TEva
    PEle(y=-QEva_flow/COP),
    redeclare HeatExchangers.HeaterCooler_u con(
     final from_dp=from_dp1,
+    final n=n1,
     final dp_nominal=dp1_nominal,
     final linearizeFlowResistance=linearizeFlowResistance1,
     final deltaM=deltaM1,
@@ -17,6 +18,7 @@ model Carnot_TEva
     final Q_flow_nominal=QCon_flow_nominal),
    redeclare HeatExchangers.SensibleCooler_T eva(
     final from_dp=from_dp2,
+    final n=n2,
     final dp_nominal=dp2_nominal,
     final linearizeFlowResistance=linearizeFlowResistance2,
     final deltaM=deltaM2,
@@ -154,6 +156,10 @@ Buildings.Fluid.HeatPumps.Examples.Carnot_TCon</a>.
 </html>",
 revisions="<html>
 <ul>
+<li>
+November 15, 2026, by Michael Wetter:<br/>
+Propagated condenser and evaporator flow exponents <code>n1</code> and <code>n2</code> to <code>con</code> and <code>eva</code>.
+</li>
 <li>
 February 3, 2023, by Michael Wetter:<br/>
 Changed in base class the parameter binding

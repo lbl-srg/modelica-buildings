@@ -22,7 +22,8 @@ model VariableOrder
     final n=nthOrd,
     final f=refIneFreConst,
     initType=initType,
-    final x_start=x_start) "Variable order damping model"
+    final x_start=x_start,
+    final y_start=yRefIne_start) "Variable order damping model"
     annotation (Placement(transformation(extent={{-16,-16},{16,16}})));
 
 equation
@@ -48,6 +49,10 @@ Following the associated publication by Wuellhorst et al. (2021),
   <a href=\"https://doi.org/10.3384/ecp21181561\">
   https://doi.org/10.3384/ecp21181561 </a></p>
 </html>", revisions="<html><ul>
+<li>
+November 15, 2026, by Michael Wetter:<br/>
+Propagated parameter <code>yRefIne_start</code> to <code>criDam.y_start</code>.
+</li>
   <li>
     <i>October 2, 2022</i> by Fabian Wuellhorst:<br/>
     First implementation (see issue <a href=

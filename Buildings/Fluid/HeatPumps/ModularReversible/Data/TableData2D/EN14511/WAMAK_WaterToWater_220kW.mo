@@ -8,7 +8,8 @@ record WAMAK_WaterToWater_220kW "220 kW water to water with R513A"
         268.15, 328.15;
         273.15, 333.15;
         283.15, 343.15;
-        293.15, 353.15],
+        293.15, 353.15;
+        318.15, 353.15],
     mEva_flow_nominal=27.35/3600*997,
     mCon_flow_nominal=29.07/3600*997,
     tabPEle=[0, 268.15, 269.15, 270.15, 271.15, 272.15, 273.15, 274.15, 275.15,
@@ -81,7 +82,11 @@ WAMAK, Produktblatt ver. 2023/24.
 WAMAK Product Sheets Application</a>.
 </p>
 </html>", revisions="<html>
-<ul><li>
+<ul>
+<li>
+November 15, 2026, by Michael Wetter:<br/>
+Added the <code>[318.15, 353.15]</code> endpoint to <code>tabUppBou</code> so the evaporator inlet envelope extends to <code>45</code> &deg;C.
+</li><li>
 <i>November 10, 2023</i> by Fabian Wuellhorst:<br/>
   First implementation (see issue <a href=
   \"https://github.com/ibpsa/modelica-ibpsa/issues/1576\">#1576</a>)

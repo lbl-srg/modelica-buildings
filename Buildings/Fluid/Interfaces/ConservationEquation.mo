@@ -69,6 +69,10 @@ model ConservationEquation "Lumped volume with mass and energy balance"
     "Trace substance mass of the component"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},
         origin={110,-60})));
+  Modelica.Blocks.Interfaces.RealOutput pOut(unit="Pa", nominal=1E5)
+    "Pressure of the component"
+    annotation (Placement(transformation(extent={{-10,-10},{10,10}},
+        origin={110,100})));
 
   Modelica.Fluid.Vessels.BaseClasses.VesselFluidPorts_b ports[nPorts](
       redeclare each final package Medium = Medium,
@@ -209,12 +213,12 @@ initial equation
   end if;
 
   if massDynamics == Modelica.Fluid.Types.Dynamics.FixedInitial then
-    if initialize_p then
+    if initialize_p and not (nPorts == 0 and Medium.singleState) then
       medium.p = p_start;
     end if;
   else
     if massDynamics == Modelica.Fluid.Types.Dynamics.SteadyStateInitial then
-      if initialize_p then
+      if initialize_p and not (nPorts == 0 and Medium.singleState) then
         der(medium.p) = 0;
       end if;
     end if;
@@ -310,10 +314,12 @@ equation
     der(U) = Hb_flow + Q_flow;
   end if;
 
-  if massDynamics == Modelica.Fluid.Types.Dynamics.SteadyState then
-    0 = mb_flow + (if simplify_mWat_flow then 0 else mWat_flow_internal);
+  if nPorts == 0 and (Medium.singleState or massDynamics == Modelica.Fluid.Types.Dynamics.SteadyState) then
+    medium.p = p_start;
+  elseif massDynamics == Modelica.Fluid.Types.Dynamics.SteadyState then
+    0 = mb_flow + (if _simplify_mWat_flow then 0 else mWat_flow_internal);
   else
-    der(m) = mb_flow + (if simplify_mWat_flow then 0 else mWat_flow_internal);
+    der(m) = mb_flow + (if _simplify_mWat_flow then 0 else mWat_flow_internal);
   end if;
 
   if substanceDynamics == Modelica.Fluid.Types.Dynamics.SteadyState then
@@ -339,6 +345,7 @@ equation
   mXiOut=mXi;
   mOut=m;
   mCOut=mC;
+  pOut=medium.p;
   annotation (
     Documentation(info="<html>
 <p>
@@ -436,6 +443,17 @@ Buildings.Fluid.MixingVolumes.MixingVolume</a>.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+November 15, 2026, by Michael Wetter:<br/>
+<ul>
+<li>
+Used <code>_simplify_mWat_flow</code> instead of <code>simplify_mWat_flow</code> in the total mass balance so moisture mass addition is conserved when <code>Medium.nX == 1</code> and <code>use_mWat_flow = true</code>.
+</li>
+<li>
+Added pressure output <code>pOut</code> and set <code>medium.p = p_start</code> when <code>nPorts == 0</code> and either <code>Medium.singleState</code> is true or <code>massDynamics == Modelica.Fluid.Types.Dynamics.SteadyState</code>.
+</li>
+</ul>
+</li>
 <li>
 October 21, 2026, by Michael Wetter:<br/>
 Corrected the species mass balance by adding the term

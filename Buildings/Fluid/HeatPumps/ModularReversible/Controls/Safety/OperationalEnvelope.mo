@@ -12,7 +12,7 @@ equation
             54},{-104,54},{-104,-61},{-119,-61}},                       color={0,
             0,127}));
   end if;
-  if use_TEvaOutCoo then
+  if use_TConOutCoo then
     connect(bouMapCoo.TAmbSid, sigBus.TEvaOutMea) annotation (Line(points={{-81.6,
             -34},{-104,-34},{-104,-61},{-119,-61}},
                                                 color={0,0,127}));
@@ -30,7 +30,7 @@ equation
             46},{-104,46},{-104,-60},{-110,-60},{-110,-61},{-119,-61}},
                                                 color={0,0,127}));
   end if;
-  if use_TConOutCoo then
+  if use_TEvaOutCoo then
     connect(bouMapCoo.TUseSid, sigBus.TConOutMea) annotation (Line(points={{-81.4,
             -26},{-104,-26},{-104,-60},{-112,-60},{-112,-61},{-119,-61}},
                                                       color={0,0,127}));
@@ -48,6 +48,10 @@ equation
       horizontalAlignment=TextAlignment.Right));
   annotation (Diagram(coordinateSystem(extent={{-120,-120},{120,120}})),
     Documentation(revisions="<html><ul>
+<li>
+November 15, 2026, by Michael Wetter:<br/>
+Connected <code>bouMapCoo.TAmbSid</code> to <code>sigBus.TConOutMea</code>/<code>sigBus.TConInMea</code> and <code>bouMapCoo.TUseSid</code> to <code>sigBus.TEvaOutMea</code>/<code>sigBus.TEvaInMea</code> to match the reversed heat exchangers in cooling mode.
+</li>
   <li>
     <i>May 27, 2025</i> by Fabian Wuellhorst:<br/>
     Make safety checks parallel (see issue <a href=

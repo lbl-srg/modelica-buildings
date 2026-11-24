@@ -65,7 +65,7 @@ model ConstantEvaporation "Organic Rankine cycle as a bottoming cycle"
     "Lower bound of working fluid flow rate"
     annotation(Dialog(group="Cycle"));
   parameter Modelica.Units.SI.MassFlowRate mWor_flow_hysteresis
-    = mWor_flow_min + (mWor_flow_max - mWor_flow_min) * 0.1
+    = (mWor_flow_max - mWor_flow_min) * 0.1
     "Hysteresis for turning off the cycle when flow too low"
     annotation(Dialog(group="Cycle"));
   parameter Modelica.Units.SI.Efficiency etaExp
@@ -494,6 +494,10 @@ Pure and pseudo-pure fluid thermophysical property evaluation and the open-sourc
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+November 15, 2026, by Michael Wetter:<br/>
+Removed the duplicate <code>mWor_flow_min</code> offset from the default binding of <code>mWor_flow_hysteresis</code>, as <code>mWor_flow_min</code> is already added in <a href=\"modelica://Buildings.Fluid.CHPs.OrganicRankine.BaseClasses.FixedEvaporating\">FixedEvaporating</a>.
+</li>
 <li>
 January 29, 2024, by Hongxiang Fu:<br/>
 First implementation. This is for

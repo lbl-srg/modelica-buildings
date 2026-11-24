@@ -69,12 +69,19 @@ model ResistanceVolumeFlowReversal
     annotation (Placement(transformation(extent={{10,-10},{-10,10}},
         rotation=0,
         origin={20,-70})));
+  Modelica.Blocks.Sources.Pulse pulseT(
+    period=1000,
+    offset=293.15,
+    amplitude=20,
+    y(unit="K", displayUnit="degC"))
+    "Pulse input for heater outlet temperature set point"
+    annotation (Placement(transformation(extent={{-80,10},{-60,30}})));
 equation
   connect(bou.ports[1],hea. port_a) annotation (Line(
       points={{-60,-20},{-40,-20}},
       color={0,127,255}));
-  connect(pulse.y,hea. TSet) annotation (Line(
-      points={{-59,50},{-50,50},{-50,-12},{-42,-12}},
+  connect(pulseT.y, hea.TSet) annotation (Line(
+      points={{-59,20},{-50,20},{-50,-12},{-42,-12}},
       color={0,0,127}));
   connect(pump.m_flow_in, gain.y) annotation (Line(
       points={{30,-8},{30,50},{-19,50}},
@@ -165,6 +172,10 @@ Sizes after manipulation of the nonlinear systems: {1, 9, <b>1</b>}
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+November 15, 2026, by Michael Wetter:<br/>
+Added a dedicated Kelvin temperature pulse source <code>pulseT</code> for <code>hea.TSet</code> on <a href=\"modelica://Buildings.Fluid.HeatExchangers.Heater_T\">Heater_T</a> instead of connecting the dimensionless <code>[0, 1]</code> pump flow signal <code>pulse.y</code>.
+</li>
 <li>
 March 31, 2026, by Michael Wetter:<br/>
 Corrected unit propagation error that causes Dymola 2026x to not show certain units.<br/>

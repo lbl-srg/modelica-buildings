@@ -9,9 +9,9 @@ function efficiency
   input Modelica.Units.SI.VolumeFlowRate V_flow
     "Volumetric flow rate";
   input Real V_flow_dp_small(
-    final unit="m3.Pa/s",
+    final unit="m6.Pa/s2",
     min = Modelica.Constants.eps)
-    "Small number for regularisation";
+    "Small number for regularisation of dp * V_flow^2";
   output Modelica.Units.SI.Efficiency eta
     "Efficiency";
 
@@ -40,6 +40,10 @@ the efficiency <i>&eta;</i>.
 </html>",
 revisions="<html>
 <ul>
+<li>
+November 15, 2026, by Michael Wetter:<br/>
+Corrected the dimensional scaling and <code>unit=\"m6.Pa/s2\"</code> attribute of regularization threshold <code>V_flow_dp_small</code>.
+</li>
 <li>
 December 12, 2022, by Hongxiang Fu:<br/>
 First implementation. This is for

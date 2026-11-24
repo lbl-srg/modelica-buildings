@@ -8,6 +8,7 @@ partial model PartialCarnot_y
                               else -P_nominal * (COP_nominal-1),
     redeclare HeatExchangers.HeaterCooler_u con(
       final from_dp=from_dp1,
+      final n=n1,
       final dp_nominal=dp1_nominal,
       final linearizeFlowResistance=linearizeFlowResistance1,
       final deltaM=deltaM1,
@@ -18,6 +19,7 @@ partial model PartialCarnot_y
       final Q_flow_nominal=QCon_flow_nominal),
       redeclare HeatExchangers.HeaterCooler_u eva(
       final from_dp=from_dp2,
+      final n=n2,
       final dp_nominal=dp2_nominal,
       final linearizeFlowResistance=linearizeFlowResistance2,
       final deltaM=deltaM2,
@@ -161,6 +163,10 @@ that uses the leaving fluid temperature as the control signal.
 </html>",
 revisions="<html>
 <ul>
+<li>
+November 15, 2026, by Michael Wetter:<br/>
+Propagated condenser and evaporator flow exponents <code>n1</code> and <code>n2</code> to <code>con</code> and <code>eva</code>.
+</li>
 <li>
 June 15, 2017, by Michael Wetter:<br/>
 Added <code>min</code> attribute to parameter <code>P_nominal</code>.

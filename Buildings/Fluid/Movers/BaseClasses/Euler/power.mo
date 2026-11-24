@@ -14,7 +14,7 @@ protected
   Modelica.Units.SI.PressureDifference dp[11]
     "Pressure rise";
   Real V_flow_dp_small(
-    final unit="m3.Pa/s",
+    final unit="m6.Pa/s2",
     min = Modelica.Constants.eps) "Small value for regularisation";
 
 algorithm
@@ -32,7 +32,8 @@ algorithm
   // Compute the power and derivative on non-boundary points
   //   using efficiency estimated by Euler number method
   power.V_flow:=V_flow;
-  V_flow_dp_small :=1E-4*max(pressure.V_flow)*max(pressure.dp);
+  V_flow_dp_small :=max(2*Modelica.Constants.eps,
+                        1E-4*max(pressure.V_flow)^2*max(pressure.dp));
 
   for i in 2:10 loop
     power.P[i]:=V_flow[i] * dp[i]
@@ -99,6 +100,10 @@ in the equation
 </html>",
 revisions="<html>
 <ul>
+<li>
+November 15, 2026, by Michael Wetter:<br/>
+Included the missing <code>max(pressure.V_flow)</code> factor and <code>unit=\"m6.Pa/s2\"</code> attribute in regularization threshold <code>V_flow_dp_small</code>.
+</li>
 <li>
 December 13, 2022, by Hongxiang Fu:<br/>
 First implementation. This is for

@@ -43,9 +43,10 @@ protected
     "Approximation of leaving enthalpy, based on dh/dx=h_fg";
 
   Modelica.Blocks.Sources.RealExpression TLea(y=
-    Medium.temperature_phX(p = port_b.p,
-                           h = hLea,
-                           X = port_b.Xi_outflow)) "Leaving air temperature"
+    Medium.temperature(Medium.setState_phX(
+      p = port_b.p,
+      h = hLea,
+      X = port_b.Xi_outflow))) "Leaving air temperature"
     annotation (Placement(transformation(extent={{-10,10},{10,30}})));
 equation
   connect(X_w, outCon.X_wSet)
@@ -148,7 +149,7 @@ The time constant of the component is equal to the parameter <code>tau</code>.
 This time constant is adjusted based on the mass flow rate using
 </p>
 <p align=\"center\" style=\"font-style:italic;\">
-&tau;<sub>eff</sub> = &tau; |m&#775;| &frasl; m&#775;<sub>nom</sub>
+&tau;<sub>eff</sub> = &tau; |m&#775;<sub>nom</sub>| &frasl; |m&#775;|
 </p>
 <p>
 where
@@ -177,13 +178,26 @@ This model only adds water vapor for the flow from
 The water vapor of the reverse flow is not affected by this model.
 </p>
 <p>
-This model does not affect the enthalpy of the air. Therefore,
-if water is added, the temperature will decrease, e.g., the humidification
-is adiabatic.
+This model increases the specific enthalpy of the air only by the specific enthalpy
+of the injected liquid water. Therefore, if water is added, the dry-bulb temperature
+will decrease (adiabatic evaporative cooling).
 </p>
 </html>",
 revisions="<html>
 <ul>
+<li>
+November 20, 2026, by Michael Wetter:<br/>
+Removed <code>use_TDynamics = false</code> binding
+as the parameter was removed from
+<a href=\"modelica://Buildings.Fluid.Interfaces.PrescribedOutlet\">
+Buildings.Fluid.Interfaces.PrescribedOutlet</a>.
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/2208\">IBPSA, #2208</a>.
+</li>
+<li>
+November 15, 2026, by Michael Wetter:<br/>
+Used <code>Medium.setState_phX</code> in <code>TLea</code>, and corrected the formula for <code>tau_eff</code> in the documentation.
+</li>
 <li>
 March 8, 2022, by Michael Wetter:<br/>
 Renamed parameter <code>massDynamics</code> to <code>energyDynamics</code> for consistency with other models.

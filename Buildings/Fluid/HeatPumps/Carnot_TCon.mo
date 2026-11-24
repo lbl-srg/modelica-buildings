@@ -7,6 +7,7 @@ model Carnot_TCon
    PEle(y=QCon_flow/COP),
    redeclare HeatExchangers.Heater_T con(
     final from_dp=from_dp1,
+    final n=n1,
     final dp_nominal=dp1_nominal,
     final linearizeFlowResistance=linearizeFlowResistance1,
     final deltaM=deltaM1,
@@ -17,6 +18,7 @@ model Carnot_TCon
     final homotopyInitialization=homotopyInitialization),
    redeclare HeatExchangers.HeaterCooler_u eva(
     final from_dp=from_dp2,
+    final n=n2,
     final dp_nominal=dp2_nominal,
     final linearizeFlowResistance=linearizeFlowResistance2,
     final deltaM=deltaM2,
@@ -159,6 +161,10 @@ Buildings.Fluid.Chillers.Examples.Carnot_TEva</a>.
 </html>",
 revisions="<html>
 <ul>
+<li>
+November 15, 2026, by Michael Wetter:<br/>
+Propagated flow exponents <code>n1</code> and <code>n2</code> to condenser <code>con</code> and evaporator <code>eva</code>.
+</li>
 <li>
 February 3, 2023, by Michael Wetter:<br/>
 Changed in base class the parameter binding

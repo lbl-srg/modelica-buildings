@@ -93,9 +93,9 @@ model InternalHEXTwoUTube
       kMed=kMed,
       muMed=muMed,
       cpMed=cpMed,
-      m_flow=m1_flow,
+      m_flow=m4_flow,
       m_flow_nominal=m4_flow_nominal))
-    "Convective and thermal resistance at fluid 1"
+    "Convective and thermal resistance at fluid 4"
     annotation (Placement(transformation(extent={{-68,12},{-54,28}})));
   Buildings.Fluid.Geothermal.Borefields.BaseClasses.Boreholes.BaseClasses.InternalResistancesTwoUTube intRes2UTub(
     hSeg=hSeg,
@@ -137,6 +137,8 @@ protected
   parameter Real Rgg2_val(fixed=false);
 
 initial equation
+  assert(borFieDat.conDat.xC > sqrt(2)*borFieDat.conDat.rTub,
+    "The borehole geometry is not physical: in a double U-tube borehole, adjacent pipes overlap unless xC > sqrt(2)*rTub.");
   (x,Rgb_val,Rgg1_val,Rgg2_val,RCondGro_val) =
     Buildings.Fluid.Geothermal.Borefields.BaseClasses.Boreholes.BaseClasses.Functions.internalResistancesTwoUTube(
       hSeg=hSeg,
@@ -252,6 +254,17 @@ International Journal Of Energy Research, 35:312-320, 2011.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+November 15, 2026, by Michael Wetter:<br/>
+<ul>
+<li>
+Evaluated pipe 4 convective thermal resistance <code>RVol4</code> using <code>m4_flow</code> instead of <code>m1_flow</code>.
+</li>
+<li>
+Strengthened the double U-tube shank-spacing assertion to enforce the non-overlap condition <code>xC &gt; sqrt(2)*rTub</code>.
+</li>
+</ul>
+</li>
 <li>
 August 3, 2026, by Michael Wetter:<br/>
 Removed duplicate empty <code>Diagram</code> annotation.

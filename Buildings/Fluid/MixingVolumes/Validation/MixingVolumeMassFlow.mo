@@ -30,7 +30,8 @@ model MixingVolumeMassFlow "Test model for mass flow into and out of volume"
     nPorts=2,
     allowFlowReversal=false,
     m_flow_nominal=m_flow_nominal,
-    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
+    massDynamics=Modelica.Fluid.Types.Dynamics.DynamicFreeInitial)
               annotation (Placement(transformation(extent={{-10,0},{10,20}})));
 
 equation
@@ -57,6 +58,10 @@ initial value problem for the pressure of the medium.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+November 15, 2026, by Michael Wetter:<br/>
+Set <code>massDynamics = Modelica.Fluid.Types.Dynamics.DynamicFreeInitial</code> on <code>vol</code> to avoid overspecifying initial pressure against <a href=\"modelica://Buildings.Fluid.Sources.Boundary_pT\">Boundary_pT</a>.
+</li>
 <li>
 January 22, 2016, by Michael Wetter:<br/>
 Corrected type declaration of pressure difference.

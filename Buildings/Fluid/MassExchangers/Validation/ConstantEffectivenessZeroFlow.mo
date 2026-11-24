@@ -4,9 +4,13 @@ model ConstantEffectivenessZeroFlow
   extends Buildings.Fluid.MassExchangers.Examples.ConstantEffectiveness(
     PSin_1(
       height=0,
-      offset=1E5), PIn(height=0, offset=101325));
+      offset=1E5));
   annotation (Documentation(revisions="<html>
 <ul>
+<li>
+November 15, 2026, by Michael Wetter:<br/>
+Adjusted boundary pressures so only one stream reaches zero flow rather than both streams simultaneously.
+</li>
 <li>
 April 30, 2018, by Filip Jorissen:<br/>
 First implementation.

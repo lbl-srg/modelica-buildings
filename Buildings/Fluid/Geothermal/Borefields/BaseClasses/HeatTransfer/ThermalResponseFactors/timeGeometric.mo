@@ -4,16 +4,18 @@ function timeGeometric "Geometric expansion of time steps"
 
   input Modelica.Units.SI.Duration dt "Minimum time step";
   input Modelica.Units.SI.Time t_max "Maximum value of time";
-  input Integer nTim "Number of time values";
+  input Integer nTim(min=1) "Number of time values";
 
-  output Real t[nTim] "Time vector";
+  output Modelica.Units.SI.Time t[nTim] "Time vector";
 
 protected
   Real r(min=1.) "Expansion rate of time values";
   Real dr "Error on expansion rate evaluation";
 
 algorithm
-  if t_max > nTim*dt then
+  if nTim == 1 then
+    t[1] := max(dt, t_max);
+  elseif t_max > nTim*dt then
     // Determine expansion rate (r)
     dr := 1e99;
     r := 2;
@@ -58,6 +60,10 @@ If <code>t_max &lt; nTim*dt</code>, then a linearly expanding vector is built as
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+November 15, 2026, by Michael Wetter:<br/>
+Handled the single-point case <code>nTim == 1</code> directly to prevent divergence of the geometric ratio iteration.
+</li>
 <li>
 June 28, 2018 by Massimo Cimmino:<br/>
 First implementation.

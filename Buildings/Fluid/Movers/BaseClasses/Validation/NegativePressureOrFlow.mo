@@ -14,7 +14,7 @@ model NegativePressureOrFlow
 
   Buildings.Fluid.Movers.BaseClasses.FlowMachineInterface eff(
     per(pressure(V_flow=m_flow_nominal/rho_default*{0,2},
-                 dp=dp_nominal*{2,0}),
+                 dp=dp_nominal*{4,0}),
         etaHydMet=Buildings.Fluid.Movers.BaseClasses.Types.HydraulicEfficiencyMethod.NotProvided,
         etaMotMet=Buildings.Fluid.Movers.BaseClasses.Types.MotorEfficiencyMethod.NotProvided),
     preVar=Buildings.Fluid.Movers.BaseClasses.Types.PrescribedVariable.PressureDifference,
@@ -61,6 +61,10 @@ as shown below.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+November 24, 2026, by Jianjun Hu:<br/>
+Increased the pressure rise at zero flow rate of the pressure curve.
+</li>
 <li>
 October 5, 2022, by Hongxiang Fu:<br/>
 <ul>

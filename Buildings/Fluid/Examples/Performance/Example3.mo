@@ -32,8 +32,8 @@ model Example3
     each m_flow_nominal=m_flow_nominal,
     each from_dp=from_dp.k,
     each allowFlowReversal=false,
-    dp_nominal={dp_nominal*(1 + mod(i, 3)) + (if mergeDp.k then 0 else
-        dp_nominal) for i in 1:nRes.k}) "First pressure drop component"
+    dp_nominal={dp_nominal*(1 + mod(i, 3)) + (if mergeDp.k then dp_nominal else
+        0) for i in 1:nRes.k}) "First pressure drop component"
     annotation (Placement(transformation(extent={{-20,-10},{0,10}})));
   Modelica.Blocks.Sources.BooleanConstant mergeDp(k=true)
     "Block for easily changing parameter mergeDp.k"
@@ -75,6 +75,10 @@ equation
     experiment(Tolerance=1e-6, StopTime=20),
     Documentation(revisions="<html>
 <ul>
+<li>
+November 15, 2026, by Michael Wetter:<br/>
+Corrected the <code>mergeDp.k</code> condition in <code>res.dp_nominal</code> so that the lumped series pressure drop is included when <code>mergeDp.k = true</code> rather than when <code>mergeDp.k = false</code>.
+</li>
 <li>
 January 22, 2016, by Michael Wetter:<br/>
 Corrected type declaration of pressure difference.

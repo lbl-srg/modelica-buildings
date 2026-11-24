@@ -33,9 +33,7 @@ protected
 
   final parameter Real MMFraction(
     min=0,
-    max=1,
-    final unit="1",
-    final quantity="MassFraction")=MMBul/MM
+    final unit="1")=MMBul/MM
     "Molar mass of the medium divided by the molar mass of the trace substance";
 
   final parameter Real coeff = MMFraction*1e6
@@ -101,6 +99,10 @@ wrong.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+November 15, 2026, by Michael Wetter:<br/>
+Removed <code>max = 1</code> and <code>quantity = \"MassFraction\"</code> from molar mass ratio <code>MMBul/MM</code> so trace gases lighter than air are supported.
+</li>
 <li>
 September 21, 2020, by Michael Wetter:<br/>
 Introduced parameter <code>warnAboutOnePortConnection</code> and updated documentation.<br/>

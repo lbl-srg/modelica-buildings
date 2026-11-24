@@ -46,7 +46,7 @@ equation
   connect(weaBus.TDryBul, T_in_internal);
 
   // Connections to compute species concentration
-  connect(p_in_internal, x_pTphi.p_in);
+  connect(weaBus.pAtm, x_pTphi.p_in);
   connect(T_in_internal, x_pTphi.T);
   connect(weaBus.relHum, x_pTphi.phi);
 
@@ -126,6 +126,10 @@ with exception of boundary pressure, do not have an effect.
 </html>",
 revisions="<html>
 <ul>
+<li>
+November 15, 2026, by Michael Wetter:<br/>
+Connected <code>x_pTphi.p_in</code> to atmospheric pressure <code>weaBus.pAtm</code> instead of wind-modified facade pressure <code>p_in_internal</code>.
+</li>
 <li>
 March 11, 2024, by Michael Wetter:<br/>
 Corrected use of <code>HideResult</code>.<br/>

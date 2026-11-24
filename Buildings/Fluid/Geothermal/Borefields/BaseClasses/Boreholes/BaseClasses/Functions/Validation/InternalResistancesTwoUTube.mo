@@ -9,7 +9,7 @@ model InternalResistancesTwoUTube
   parameter Modelica.Units.SI.Height hSeg=1.0 "Height of the element";
   parameter Modelica.Units.SI.Radius rBor=0.07 "Radius of the borehole";
   // Geometry of the pipe
-  parameter Modelica.Units.SI.Radius rTub=0.02 "Radius of the tube";
+  parameter Modelica.Units.SI.Radius rTub=0.012 "Radius of the tube";
   parameter Modelica.Units.SI.Length eTub=0.002 "Thickness of the tubes";
   parameter Modelica.Units.SI.Length sha=0.025
     "Shank spacing, defined as the distance between the center of a pipe and the center of the borehole";
@@ -76,6 +76,10 @@ borehole.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+November 15, 2026, by Michael Wetter:<br/>
+Increased half-shank spacing <code>sha</code> so that pipes do not geometrically overlap (<code>sqrt(2)*sha &gt; 2*rTub</code>).
+</li>
 <li>
 November 22, 2023, by Michael Wetter:<br/>
 Corrected use of <code>getInstanceName()</code> which was called inside a function which
