@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """Fit the starting values of the inverse flow functions in
-Buildings.Fluid.BaseClasses.FlowModels and report their accuracy.
+IBPSA.Fluid.BaseClasses.FlowModels and report their accuracy.
 
 In normalised variables, the laminar branches of the flow functions are odd
 polynomials x -> y = x*(A + B*x^2 + C*x^4) on [-1, 1]. Their inverses start
