@@ -35,7 +35,8 @@ For glycol, set it to the mass fraction of glycol.
 <li>
 November 13, 2026, by Michael Wetter:<br/>
 Handled <code>medium == Buildings.Fluid.DataCenters.CDUs.Types.Media.Water</code>
-explicitly so that <code>X_a</code> is ignored for water.
+explicitly so that <code>X_a</code> is ignored for water.<br/>
+This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4926\">Buildings, #4926</a>.
 </li>
 <li>
 April 30, 2026, by Michael Wetter:<br/>

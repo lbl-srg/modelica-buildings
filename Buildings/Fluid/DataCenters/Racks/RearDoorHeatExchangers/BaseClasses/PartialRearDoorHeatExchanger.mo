@@ -163,7 +163,8 @@ model connects the ports directly.
 <li>
 November 13, 2026, by Michael Wetter:<br/>
 Set <code>senTAirReaDooHexIn.tau=0</code> and added mass flow rate bounds on
-fluid ports when flow reversal is disabled.
+fluid ports when flow reversal is disabled.<br/>
+This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4926\">Buildings, #4926</a>.
 </li>
 <li>
 September 18, 2026, by Michael Wetter:<br/>

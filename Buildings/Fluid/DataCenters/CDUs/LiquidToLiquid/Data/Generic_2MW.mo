@@ -32,7 +32,8 @@ November 13, 2026, by Michael Wetter:<br/>
 Added default values for <code>TApp_nominal</code>, <code>mPla_flow_nominal</code>,
 <code>mRac_flow_nominal</code>, <code>medPla</code>, <code>medRac</code>, and
 <code>phiGlyRac</code>, and updated <code>pumpExtHead</code> so that the total
-pump head curve decreases monotonically with flow rate.
+pump head curve decreases monotonically with flow rate.<br/>
+This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4926\">Buildings, #4926</a>.
 </li>
 <li>
 October 17, 2026, by Nauman Rafique:<br/>

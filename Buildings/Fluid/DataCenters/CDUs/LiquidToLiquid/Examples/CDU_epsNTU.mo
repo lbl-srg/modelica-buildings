@@ -198,7 +198,8 @@ to the IT rack.
 November 13, 2026, by Michael Wetter:<br/>
 Aligned <code>dpSet</code> with <code>dpRac_nominal</code>, updated <code>MediumRac</code>
 reference temperatures, and used <code>datCDU.rhoRac_default</code> and a realistic
-pump head curve in <code>datCDU</code>.
+pump head curve in <code>datCDU</code>.<br/>
+This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4926\">Buildings, #4926</a>.
 </li>
 <li>
 December 23, 2025, by Michael Wetter:<br/>

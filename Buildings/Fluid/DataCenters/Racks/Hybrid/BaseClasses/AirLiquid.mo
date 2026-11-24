@@ -263,7 +263,8 @@ revisions="<html>
 November 13, 2026, by Michael Wetter:<br/>
 Computed <code>nColPla</code> using <code>dat.liq.PColPla_nominal</code> when positive
 and <code>MediumLiq</code> density instead of hardcoded water density, and exposed
-minimum fan speed parameter <code>yMin</code>.
+minimum fan speed parameter <code>yMin</code>.<br/>
+This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4926\">Buildings, #4926</a>.
 </li>
 <li>
 August 22, 2026, by Michael Wetter:<br/>

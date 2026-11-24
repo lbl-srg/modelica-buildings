@@ -93,7 +93,8 @@ is computed from the Euler number correlation.
 November 13, 2026, by Michael Wetter:<br/>
 Set <code>per.peak.eta=eta_nominal</code> so that <code>eta_nominal</code> is
 used for the peak total efficiency instead of the default value of <i>0.7</i>,
-removed unused <code>etaMot_max</code>, and updated documentation.
+removed unused <code>etaMot_max</code>, and updated documentation.<br/>
+This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4926\">Buildings, #4926</a>.
 </li>
 <li>
 September 21, 2026, by Michael Wetter:<br/>

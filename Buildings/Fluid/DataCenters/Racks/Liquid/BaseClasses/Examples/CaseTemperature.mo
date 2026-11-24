@@ -61,7 +61,8 @@ OCP OAI SYSTEM LIQUID COOLING GUIDELINES</a>.
 <ul>
 <li>
 November 13, 2026, by Michael Wetter:<br/>
-Scaled <code>casTem.V_flow_nominal</code> by <code>nPar</code>.
+Scaled <code>casTem.V_flow_nominal</code> by <code>nPar</code>.<br/>
+This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4926\">Buildings, #4926</a>.
 </li>
 <li>
 December 22, 2025, by Michael Wetter:<br/>

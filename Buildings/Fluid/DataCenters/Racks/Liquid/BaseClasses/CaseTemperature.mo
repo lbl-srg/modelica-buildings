@@ -95,7 +95,8 @@ November 13, 2026, by Michael Wetter:<br/>
 Scaled <code>deltaX</code> in <code>smoothMax</code> by <code>V_flow_small</code>
 instead of <code>delta</code> to avoid distorting <code>R</code> at operating flow
 rates and to avoid a division-by-zero singularity near zero flow.<br/>
-Changed <code>relErrR</code> to compute the relative error instead of the ratio.
+Changed <code>relErrR</code> to compute the relative error instead of the ratio.<br/>
+This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4926\">Buildings, #4926</a>.
 </li>
 </ul>
 </html>"));

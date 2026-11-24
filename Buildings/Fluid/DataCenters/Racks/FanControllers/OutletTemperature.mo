@@ -133,7 +133,8 @@ PI controller to regulate the fan to track a rack outlet temperature.
 <ul>
 <li>
 November 13, 2026, by Michael Wetter:<br/>
-Exposed parameters <code>yMin</code> and <code>xi_start</code> for the PI controller.
+Exposed parameters <code>yMin</code> and <code>xi_start</code> for the PI controller.<br/>
+This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4926\">Buildings, #4926</a>.
 </li>
 <li>
 September 15, 2026, by Michael Wetter:<br/>

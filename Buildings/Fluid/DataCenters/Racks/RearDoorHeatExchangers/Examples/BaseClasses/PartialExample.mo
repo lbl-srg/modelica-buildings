@@ -124,7 +124,8 @@ and add the four connections involving <code>hex</code>.
 <ul>
 <li>
 November 13, 2026, by Michael Wetter:<br/>
-Set <code>tau=0</code> and <code>allowFlowReversal=false</code> on temperature sensors.
+Set <code>tau=0</code> and <code>allowFlowReversal=false</code> on temperature sensors.<br/>
+This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4926\">Buildings, #4926</a>.
 </li>
 <li>
 September 20, 2026, by Michael Wetter:<br/>

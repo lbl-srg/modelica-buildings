@@ -200,7 +200,8 @@ revisions="<html>
 <li>
 November 13, 2026, by Michael Wetter:<br/>
 Propagated <code>linearized</code> and <code>dat.deltaM</code> to <code>preDro</code>,
-and used <code>dat.PColPla_nominal</code> when positive to compute <code>nColPla</code>.
+and used <code>dat.PColPla_nominal</code> when positive to compute <code>nColPla</code>.<br/>
+This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4926\">Buildings, #4926</a>.
 </li>
 <li>
 December 16, 2025, by Michael Wetter:<br/>

@@ -81,7 +81,8 @@ Example model of an air-cooled rack with varying GPU utilization.
 <ul>
 <li>
 November 13, 2026, by Michael Wetter:<br/>
-Set boundary air temperature <code>sou.T</code> to <code>dat.TIn_nominal</code>.
+Set boundary air temperature <code>sou.T</code> to <code>dat.TIn_nominal</code>.<br/>
+This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4926\">Buildings, #4926</a>.
 </li>
 <li>
 June 26, 2026, by Michael Wetter:<br/>

@@ -52,7 +52,8 @@ the design heat duty, the inlet temperatures, and the minimum capacity flow rate
 <li>
 November 13, 2026, by Michael Wetter:<br/>
 Removed unused parameters <code>cpCoo_nominal</code> and <code>cpAir_nominal</code>.
-This change is not backward compatible.
+This change is not backward compatible.<br/>
+This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4926\">Buildings, #4926</a>.
 </li>
 <li>
 September 12, 2026, by Michael Wetter:<br/>

@@ -213,7 +213,8 @@ revisions="<html>
 <li>
 November 13, 2026, by Michael Wetter:<br/>
 Added minimum fan speed parameter <code>yMin</code> for outlet temperature control
-and updated documentation for fan efficiency.
+and updated documentation for fan efficiency.<br/>
+This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4926\">Buildings, #4926</a>.
 </li>
 <li>
 June 26, 2026, by Michael Wetter:<br/>

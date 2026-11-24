@@ -92,7 +92,8 @@ OCP 2026. Open Compute Project meeting, CDU Information WP. March 24, 2026.
 November 13, 2026, by Michael Wetter:<br/>
 Aligned <code>TRacOut_nominal</code> and <code>dpPumpExt_nominal</code> with the
 specification table, and updated <code>pumpExtHead</code> to avoid an unphysical
-shutoff head.
+shutoff head.<br/>
+This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4926\">Buildings, #4926</a>.
 </li>
 <li>
 October 17, 2026, by Nauman Rafique:<br/>

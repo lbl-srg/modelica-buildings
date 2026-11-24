@@ -122,7 +122,8 @@ Buildings.Fluid.DataCenters.Racks.RearDoorHeatExchangers.Data.Active.Generic</a>
 <li>
 November 13, 2026, by Michael Wetter:<br/>
 Set <code>senTAirReaDooHexOut.tau=0</code> to avoid an unintended dynamic state
-in steady-state mode.
+in steady-state mode.<br/>
+This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4926\">Buildings, #4926</a>.
 </li>
 <li>
 September 18, 2026, by Michael Wetter:<br/>

@@ -68,7 +68,8 @@ MKA4L0UKXDUDS1350 - Rev. 1- (R01/23)
 <li>
 November 13, 2026, by Michael Wetter:<br/>
 Aligned <code>Q_flow_nominal</code> with the specification table and set
-<code>dpHexRac_nominal</code> so that the total pump head curve decreases monotonically.
+<code>dpHexRac_nominal</code> so that the total pump head curve decreases monotonically.<br/>
+This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4926\">Buildings, #4926</a>.
 </li>
 <li>
 November 10, 2026, by Michael Wetter:<br/>

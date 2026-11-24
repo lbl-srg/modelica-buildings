@@ -566,7 +566,8 @@ Buildings.Fluid.DataCenters.CDUs.LiquidToLiquid.Data.GoogleProjectDeschutes_2MW<
 <li>
 November 13, 2026, by Michael Wetter:<br/>
 Evaluated plant-side fluid properties at <code>TPlaIn_nominal</code> instead of
-<code>TRacOut_nominal</code>, and updated documentation for <code>pumpExtHead</code>.
+<code>TRacOut_nominal</code>, and updated documentation for <code>pumpExtHead</code>.<br/>
+This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4926\">Buildings, #4926</a>.
 </li>
 <li>
 April 13, 2026, by Michael Wetter:<br/>

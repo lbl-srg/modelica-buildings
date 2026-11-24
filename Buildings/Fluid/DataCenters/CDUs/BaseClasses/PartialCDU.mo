@@ -512,7 +512,8 @@ and <code>from_dpRac</code>, <code>linearizeFlowResistanceRac</code>, and
 <code>dat.deltaMRac</code> to <code>fil</code>.<br/>
 Aligned controller integrator initial values with <code>yVal_start</code> and
 <code>yPum_start</code>, set <code>senTemRacSup.tau=0</code>, and enforced strict
-monotonicity in <code>pumpDP_isMonotonicDecreasing</code>.
+monotonicity in <code>pumpDP_isMonotonicDecreasing</code>.<br/>
+This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4926\">Buildings, #4926</a>.
 </li>
 <li>
 December 23, 2025, by Michael Wetter:<br/>

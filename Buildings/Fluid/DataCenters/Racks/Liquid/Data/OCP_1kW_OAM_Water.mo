@@ -32,7 +32,8 @@ OCP OAI SYSTEM LIQUID COOLING GUIDELINES</a>.
 <li>
 November 13, 2026, by Michael Wetter:<br/>
 Set <code>PColPla_nominal=1000</code> for the 1 kW module and aligned
-<code>defaultComponentName</code> with <code>Generic</code>.
+<code>defaultComponentName</code> with <code>Generic</code>.<br/>
+This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4926\">Buildings, #4926</a>.
 </li>
 <li>
 December 16, 2025, by Michael Wetter:<br/>

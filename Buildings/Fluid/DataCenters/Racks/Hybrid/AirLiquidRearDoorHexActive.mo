@@ -84,7 +84,8 @@ the rear door heat exchanger fan then increases its speed as well.
 November 13, 2026, by Michael Wetter:<br/>
 Propagated <code>dat.reaDooHex.PFan_nominal</code> and
 <code>dat.reaDooHex.eta_nominal</code> to <code>reaDooHex</code>, and exposed
-<code>energyDynamicsReaDooHex</code>.
+<code>energyDynamicsReaDooHex</code>.<br/>
+This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4926\">Buildings, #4926</a>.
 </li>
 <li>
 September 17, 2026, by Michael Wetter:<br/>
