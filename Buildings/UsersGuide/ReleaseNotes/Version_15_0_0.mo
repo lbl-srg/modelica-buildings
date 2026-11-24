@@ -151,6 +151,19 @@ have been <b style=\"color:blue\">improved</b> in a
                        This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4836\">Buildings, #4836</a>.
     </td>
 </tr>
+<tr><td colspan=\"2\"><b>Buildings.Fluid.Storage</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Fluid.Storage.ExpansionVessel
+    </td>
+    <td valign=\"top\">Computed vessel pressure from the isothermal ideal gas law to allow
+                       multiple vessels per loop. Added parameters <code>VTot</code> and
+                       <code>pMax</code> and outputs <code>VLiq</code>, <code>m</code>, and
+                       <code>T</code>. Fixed enthalpy initialization and trace substance
+                       balance.<br/>
+                       This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/2220\">IBPSA, issue 2220</a>.
+    </td>
+</tr>
 </table>
 <!-- Non-backward compatible changes to existing components -->
 <p>

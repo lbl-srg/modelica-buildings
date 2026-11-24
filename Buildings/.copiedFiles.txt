@@ -2566,6 +2566,7 @@ Buildings/Fluid/Storage/BaseClasses/Buoyancy.mo
 Buildings/Fluid/Storage/BaseClasses/Examples/IndirectTankHeatExchanger.mo
 Buildings/Fluid/Storage/BaseClasses/Examples/package.mo
 Buildings/Fluid/Storage/BaseClasses/Examples/package.order
+Buildings/Fluid/Storage/BaseClasses/ExpansionVesselVolume.mo
 Buildings/Fluid/Storage/BaseClasses/IndirectTankHeatExchanger.mo
 Buildings/Fluid/Storage/BaseClasses/PartialStratified.mo
 Buildings/Fluid/Storage/BaseClasses/PartialTwoPortInterface.mo
@@ -2583,6 +2584,7 @@ Buildings/Fluid/Storage/Stratified.mo
 Buildings/Fluid/Storage/StratifiedEnhanced.mo
 Buildings/Fluid/Storage/StratifiedEnhancedInternalHex.mo
 Buildings/Fluid/Storage/UsersGuide.mo
+Buildings/Fluid/Storage/Validation/ExpansionVesselMassConservation.mo
 Buildings/Fluid/Storage/Validation/HeatExchangerDynamics.mo
 Buildings/Fluid/Storage/Validation/HeatExchangerLocation.mo
 Buildings/Fluid/Storage/Validation/StratifiedLoadingUnloading.mo
@@ -2593,7 +2595,6 @@ Buildings/Fluid/Storage/package.mo
 Buildings/Fluid/Storage/package.order
 Buildings/Fluid/Types.mo
 Buildings/Fluid/package.order
-Buildings/IBPSA.html
 Buildings/Media/Air.mo
 Buildings/Media/Antifreeze/EthyleneGlycolWater.mo
 Buildings/Media/Antifreeze/Functions/EthyleneGlycolWater.mo
@@ -3877,6 +3878,7 @@ Buildings/Resources/Scripts/Dymola/Fluid/Storage/Examples/ExpansionVessel.mos
 Buildings/Resources/Scripts/Dymola/Fluid/Storage/Examples/Stratified.mos
 Buildings/Resources/Scripts/Dymola/Fluid/Storage/Examples/StratifiedEnhancedInternalHex.mos
 Buildings/Resources/Scripts/Dymola/Fluid/Storage/Examples/StratifiedUnloadAtMinimumTemperature.mos
+Buildings/Resources/Scripts/Dymola/Fluid/Storage/Validation/ExpansionVesselMassConservation.mos
 Buildings/Resources/Scripts/Dymola/Fluid/Storage/Validation/HeatExchangerDynamics.mos
 Buildings/Resources/Scripts/Dymola/Fluid/Storage/Validation/HeatExchangerLocation.mos
 Buildings/Resources/Scripts/Dymola/Fluid/Storage/Validation/StratifiedLoadingUnloading.mos
