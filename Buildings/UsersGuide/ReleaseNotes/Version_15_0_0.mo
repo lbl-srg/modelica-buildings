@@ -299,11 +299,11 @@ that can lead to wrong simulation results):
                        Buildings.Fluid.DataCenters.CDUs.LiquidToLiquid.Data.VertivLiebertXDU1350
     </td>
     <td valign=\"top\">Evaluated plant-side fluid properties at <code>TPlaIn_nominal</code> instead of
-                       <code>TRacOut_nominal</code> in <code>Generic_epsNTU</code>, aligned nominal temperatures,
-                       heat flow rates, and external pump heads with specification tables in
-                       <code>GoogleProjectDeschutes_2MW</code> and <code>VertivLiebertXDU1350</code>, and updated
-                       pump head parameters so that the total pump head decreases monotonically without unphysical
-                       shutoff heads.
+                       <code>TRacOut_nominal</code> in <code>Generic_epsNTU</code>, and updated nominal temperatures,
+                       mass flow rates, primary and secondary heat exchanger and filter pressure drops,
+                       external pump head curves, and pump efficiencies in <code>GoogleProjectDeschutes_2MW</code>
+                       and <code>VertivLiebertXDU1350</code> to match the published specifications.<br/>
+                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4926\">Buildings, #4926</a>.
     </td>
 </tr>
 <tr><td colspan=\"2\"><b>Buildings.Fluid.DataCenters.CDUs.LiquidToLiquid.Data.BaseClasses</b>
