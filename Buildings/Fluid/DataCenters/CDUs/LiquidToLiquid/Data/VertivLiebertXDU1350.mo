@@ -17,7 +17,7 @@ record VertivLiebertXDU1350
     dpPumpExt_nominal=353200,
     pumpExtHead(
       V_flow=mRac_flow_nominal/rhoRac_default*{0.000, 0.250, 0.500, 0.750, 1.000, 1.250, 1.500},
-      dp={497600, 481700, 456400, 417100, 353200, 256800, 129900}),
+      dp={497600, 481700, 456400, 417100, 353200, 256800, 198000}),
     pumpEfficiency(
       V_flow=mRac_flow_nominal/rhoRac_default*{1},
       eta={0.413}),
