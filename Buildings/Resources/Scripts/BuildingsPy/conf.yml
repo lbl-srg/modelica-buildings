@@ -92,38 +92,6 @@
   openmodelica:
     comment: simulation terminated by an assertion at initialization.
     simulate: false
-- model_name: Buildings.Electrical.AC.ThreePhasesUnbalanced.Validation.IEEETests.Test4NodesFeeder.BalancedStepDown.DD
-  openmodelica:
-    comment: simulation terminated by an assertion at initialization.
-    simulate: false
-- model_name: Buildings.Electrical.AC.ThreePhasesUnbalanced.Validation.IEEETests.Test4NodesFeeder.BalancedStepDown.YD
-  openmodelica:
-    comment: simulation terminated by an assertion at initialization.
-    simulate: false
-- model_name: Buildings.Electrical.AC.ThreePhasesUnbalanced.Validation.IEEETests.Test4NodesFeeder.BalancedStepUp.DD
-  openmodelica:
-    comment: simulation terminated by an assertion at initialization.
-    simulate: false
-- model_name: Buildings.Electrical.AC.ThreePhasesUnbalanced.Validation.IEEETests.Test4NodesFeeder.BalancedStepUp.YD
-  openmodelica:
-    comment: simulation terminated by an assertion at initialization.
-    simulate: false
-- model_name: Buildings.Electrical.AC.ThreePhasesUnbalanced.Validation.IEEETests.Test4NodesFeeder.UnbalancedStepDown.DD
-  openmodelica:
-    comment: simulation terminated by an assertion at initialization.
-    simulate: false
-- model_name: Buildings.Electrical.AC.ThreePhasesUnbalanced.Validation.IEEETests.Test4NodesFeeder.UnbalancedStepDown.YD
-  openmodelica:
-    comment: simulation terminated by an assertion at initialization.
-    simulate: false
-- model_name: Buildings.Electrical.AC.ThreePhasesUnbalanced.Validation.IEEETests.Test4NodesFeeder.UnbalancedStepUp.DD
-  openmodelica:
-    comment: simulation terminated by an assertion at initialization.
-    simulate: false
-- model_name: Buildings.Electrical.AC.ThreePhasesUnbalanced.Validation.IEEETests.Test4NodesFeeder.UnbalancedStepUp.YD
-  openmodelica:
-    comment: simulation terminated by an assertion at initialization.
-    simulate: false
 - model_name: Buildings.Examples.ChillerPlant.DataCenter.DiscreteTimeControl
   openmodelica:
     comment: Solver gbode reduces simulation time by a factor of 2.3 compared to dassl
