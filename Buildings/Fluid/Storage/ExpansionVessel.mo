@@ -1,56 +1,80 @@
 within Buildings.Fluid.Storage;
-model ExpansionVessel "Expansion vessel with fixed pressure"
- extends Buildings.Fluid.Interfaces.LumpedVolumeDeclarations(
-   final energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
-   final massDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
-   final mSenFac=1);
+model ExpansionVessel "Pressure expansion vessel with fixed gas cushion"
+  extends Buildings.Fluid.Interfaces.LumpedVolumeDeclarations(
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
+    final massDynamics=energyDynamics,
+    final mSenFac=1);
+
   parameter Modelica.Units.SI.Volume V_start(start=1)
     "Volume of liquid stored in the vessel at the start of the simulation";
+  parameter Modelica.Units.SI.Volume VTot(min=V_start) = 2*V_start
+    "Total volume of vessel (liquid and gas side)";
+  parameter Modelica.Units.SI.Pressure pMax = p_start + 3E5
+    "Maximum pressure before simulation stops with an error";
+
+  Modelica.Blocks.Interfaces.RealOutput VLiq(
+    final quantity="Volume",
+    final unit="m3",
+    start=V_start,
+    min=0)
+    "Volume of liquid in the vessel";
+
+  Modelica.Blocks.Interfaces.RealOutput m(
+    final quantity="Mass",
+    final unit="kg",
+    min=0)
+    "Mass of liquid in the vessel";
+
+  Modelica.Blocks.Interfaces.RealOutput T(
+    final quantity="ThermodynamicTemperature",
+    final unit="K",
+    displayUnit="degC",
+    start=T_start)
+    "Temperature of liquid in the vessel";
 
   Modelica.Fluid.Interfaces.FluidPort_a port_a(
-    redeclare package Medium = Medium) "Fluid port"
+    redeclare package Medium = Medium,
+    p(start=p_start),
+    h_outflow(start=h_start, nominal=Medium.h_default),
+    Xi_outflow(start=X_start[1:Medium.nXi], each nominal=0.01),
+    C_outflow(start=C_start, nominal=C_nominal))
+    "Fluid port"
     annotation (Placement(transformation(extent={{-10,-110},{10,-90}})));
-  Modelica.Units.SI.Mass m "Mass of liquid in the vessel";
 
 protected
-  final parameter Medium.ThermodynamicState state_start = Medium.setState_pTX(
+  final parameter Medium.SpecificEnthalpy h_start = Medium.specificEnthalpy(
+    Medium.setState_pTX(
       T=T_start,
       p=p_start,
-      X=X_start[1:Medium.nXi]) "Medium state at start values";
-  final parameter Modelica.Units.SI.Density rho_start=Medium.density(state=
-      state_start) "Density, used to compute start and guess values";
+      X=X_start[1:Medium.nXi]))
+    "Specific enthalpy at start values";
 
-  Modelica.Units.SI.Energy H "Internal energy of fluid";
-  Modelica.Units.SI.Mass[Medium.nXi] mXi
-    "Masses of independent components in the fluid";
-  Modelica.Units.SI.Mass[Medium.nC] mC
-    "Masses of trace substances in the fluid";
-  Medium.ExtraProperty C[Medium.nC](nominal=C_nominal)
-    "Trace substance mixture content";
+  Buildings.Fluid.Storage.BaseClasses.ExpansionVesselVolume vol(
+    redeclare final package Medium = Medium,
+    final energyDynamics=energyDynamics,
+    final p_start=p_start,
+    final T_start=T_start,
+    final X_start=X_start,
+    final C_start=C_start,
+    final C_nominal=C_nominal,
+    final V_start=V_start,
+    final VTot=VTot,
+    final pMax=pMax)
+    "Model for mass and energy balance of fluid in expansion vessel"
+    annotation (Placement(transformation(extent={{-10,-20},{10,0}})));
 
-initial equation
-  m = V_start * rho_start;
-  H = m*Medium.specificInternalEnergy(
-          Medium.setState_pTX(p=p_start, T=T_start, X= X_start[1:Medium.nXi]));
-  mXi = m*X_start[1:Medium.nXi];
-  mC = m*C_start[1:Medium.nC];
 equation
-  assert(m > 1.0E-8,
-    "Expansion vessel is undersized. You need to increase the value of the parameter V_start.");
-  // Conservation equations
-  der(m)   = port_a.m_flow;
-  der(H)   = port_a.m_flow * actualStream(port_a.h_outflow);
-  der(mXi) = port_a.m_flow * actualStream(port_a.Xi_outflow);
-  der(mC)  = port_a.m_flow * actualStream(port_a.C_outflow);
-  // Properties of outgoing flow.
-  // The port pressure is set to a constant value.
-  port_a.p          = p_start;
-  m*port_a.h_outflow  = H;
-  m*port_a.Xi_outflow = mXi;
-  m*port_a.C_outflow  = mC;
+  connect(port_a, vol.port_a)
+    annotation (Line(points={{0,-100},{0,-20}}, color={0,127,255}));
+  connect(VLiq, vol.VLiqOut);
+  connect(m, vol.mOut);
+  connect(T, vol.TOut);
 
-   annotation (Icon(coordinateSystem(preserveAspectRatio=false,extent={{-100,
-            -100},{100,100}}), graphics={
+  annotation (
+    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}})),
+    Icon(
+      coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}}),
+      graphics={
         Text(
           extent={{-148,98},{152,138}},
           textString="%name",
@@ -66,8 +90,8 @@ equation
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid),
         Polygon(
-          points={{-68,18},{-68,18},{-54,32},{-28,16},{0,30},{26,16},{46,32},{
-              70,18},{70,18},{70,-70},{70,-70},{-68,-70},{-68,-70},{-68,18}},
+          points={{-68,18},{-68,18},{-54,32},{-28,16},{0,30},{26,16},{46,32},{70,18},
+            {70,18},{70,-70},{70,-70},{-68,-70},{-68,-70},{-68,18}},
           lineColor={0,0,255},
           smooth=Smooth.Bezier,
           fillColor={0,0,255},
@@ -78,36 +102,74 @@ equation
           pattern=LinePattern.None,
           fillColor={0,0,127},
           fillPattern=FillPattern.Solid)}),
-defaultComponentName="exp",
-Documentation(info="<html>
+    defaultComponentName="exp",
+    Documentation(
+      info="<html>
 <p>
-This is a model of a pressure expansion vessel. The vessel has a constant pressure
-that is equal to the value of the parameter <code>p_start</code>.
-The model takes into account the energy and mass balance of the medium.
-It has no heat exchange with the ambient.
+This is a model of a pressure expansion vessel with a fixed gas cushion.
+The vessel has a constant total volume <code>VTot</code>.
+A fraction of this volume is occupied by a fixed mass of gas, and the remaining
+fraction <code>VLiq</code> is occupied by the liquid that enters or leaves through
+<code>port_a</code>.
 </p>
 <p>
-The expansion vessel needs to be used in closed loops that contain
-water to set a reference pressure and, for liquids where the
-density is modeled as a function of temperature, to allow for
-the thermal expansion of the liquid.
+Assuming constant gas temperature, the ideal gas law determines the port pressure
+</p>
+<pre>
+  port_a.p = p_start * (VTot - V_start) / (VTot - VLiq)
+</pre>
+<p>
+where <code>VTot</code> is the total volume of the vessel,
+<code>VLiq</code> is the volume of liquid in the vessel,
+<code>V_start</code> is the initial volume of liquid at <code>p_start</code>, and
+<code>VTot - V_start</code> is the initial volume occupied by the gas at <code>p_start</code>.
 </p>
 <p>
-Note that alternatively, the model
+The model accounts for the dynamic mass, enthalpy, species, and trace substance balances
+of the liquid in the vessel using
+<a href=\"modelica://Buildings.Fluid.Storage.BaseClasses.ExpansionVesselVolume\">
+Buildings.Fluid.Storage.BaseClasses.ExpansionVesselVolume</a>.
+It assumes no heat exchange between the liquid, the gas, and the ambient.
+</p>
+<p>
+The expansion vessel can be used in closed liquid loops to establish a reference
+pressure and, for liquids whose density depends on temperature, to accommodate
+thermal expansion. Because the vessel pressure depends on the stored liquid volume,
+multiple instances of this model can be connected to the same fluid loop.
+</p>
+<p>
+Alternatively, the model
 <a href=\"modelica://Buildings.Fluid.Sources.Boundary_pT\">
-Buildings.Fluid.Sources.Boundary_pT</a> may be used to set
-a reference pressure. The main difference between these two models
-is that in this model, there is an energy and mass balance for the volume.
-In contrast, for
-<a href=\"modelica://Buildings.Fluid.Sources.Boundary_pT\">
-Buildings.Fluid.Sources.Boundary_pT</a>,
-any mass flow rate that flows out of the model will be at a user-specified temperature.
-Therefore, <a href=\"modelica://Buildings.Fluid.Sources.Boundary_pT\">
-Buildings.Fluid.Sources.Boundary_pT</a> leads to smaller systems
-of equations, which may result in faster simulation.
+Buildings.Fluid.Sources.Boundary_pT</a> may be used to impose a fixed reference pressure.
+Unlike <a href=\"modelica://Buildings.Fluid.Sources.Boundary_pT\">
+Buildings.Fluid.Sources.Boundary_pT</a>, where any outflow leaves at a prescribed
+temperature and mass can enter or leave without changing pressure, this model
+conserves mass and energy in the stored liquid volume.
 </p>
-</html>", revisions="<html>
+</html>",
+      revisions="<html>
 <ul>
+<li>
+November 23, 2026, by Michael Wetter:<br/>
+Refactored model to use
+<a href=\"modelica://Buildings.Fluid.Storage.BaseClasses.ExpansionVesselVolume\">
+Buildings.Fluid.Storage.BaseClasses.ExpansionVesselVolume</a>
+and compute the vessel pressure from the isothermal ideal gas law of the gas
+cushion so that multiple expansion vessels can be used in the same fluid loop.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/2220\">IBPSA, #2220</a>.
+</li>
+<li>
+November 15, 2026, by Michael Wetter:<br/>
+<ul>
+<li>
+Initialized total fluid enthalpy <code>H</code> using <code>Medium.specificEnthalpy</code> instead of <code>Medium.specificInternalEnergy</code>.
+</li>
+<li>
+Added the trace-substance conservation equation for <code>C</code> so models with <code>Medium.nC &gt; 0</code> are well-posed.
+</li>
+</ul>
+</li>
 <li>
 May 11, 2022, by Michael Wetter:<br/>
 Removed nonused parameter <code>p</code>.<br/>

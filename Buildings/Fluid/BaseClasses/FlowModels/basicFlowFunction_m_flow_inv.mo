@@ -23,9 +23,9 @@ protected
     "Square of normalised mass flow rate";
   Real res
     "Residual of the normalised laminar branch of basicFlowFunction_m_flow";
-  Real res_der
+  Real dRes
     "1st derivative of res with respect to m_flowNorm";
-  Real res_der2
+  Real d2Res
     "2nd derivative of res with respect to m_flowNorm";
 algorithm
   if noEvent(abs(dp)>dp_turbulent) then
@@ -37,9 +37,9 @@ algorithm
       + dpNormSq*(6465.671199681627 + dpNormSq*3653.035867847419))));
     m_flowNormSq := m_flowNorm^2;
     res := m_flowNorm*(0.375 + (0.75 - 0.125*m_flowNormSq)*m_flowNormSq) - dpNorm;
-    res_der := 0.375 + (2.25 - 0.625*m_flowNormSq)*m_flowNormSq;
-    res_der2 := (4.5 - 2.5*m_flowNormSq)*m_flowNorm;
-    m_flow := (m_flowNorm - 2*res*res_der/(2*res_der^2 - res*res_der2))*m_flow_turbulent;
+    dRes := 0.375 + (2.25 - 0.625*m_flowNormSq)*m_flowNormSq;
+    d2Res := (4.5 - 2.5*m_flowNormSq)*m_flowNorm;
+    m_flow := (m_flowNorm - 2*res*dRes/(2*dRes^2 - res*d2Res))*m_flow_turbulent;
   end if;
 
   annotation (Inline=false,
