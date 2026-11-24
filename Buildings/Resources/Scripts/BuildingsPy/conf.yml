@@ -28,6 +28,9 @@
     solver: gbode
     time_out: 600
 - model_name: Buildings.Airflow.Multizone.Examples.PressurizationData
+  openmodelica:
+    comment: Solver gbode avoids convergence failure.
+    solver: gbode
   optimica:
     comment: High solver tolerance required to avoid time out.
     rtol: 1.0e-08
