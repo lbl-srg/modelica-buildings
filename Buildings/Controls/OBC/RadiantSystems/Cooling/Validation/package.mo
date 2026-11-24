@@ -1,4 +1,8 @@
+<<<<<<< HEAD:Buildings/Fluid/FixedResistances/BaseClasses/Validation/package.mo
+within Buildings.Fluid.FixedResistances.BaseClasses;
+=======
 within Buildings.Controls.OBC.RadiantSystems.Cooling;
+>>>>>>> origin:Buildings/Controls/OBC/RadiantSystems/Cooling/Validation/package.mo
 package Validation "Collection of validation models"
   extends Modelica.Icons.ExamplesPackage;
 
