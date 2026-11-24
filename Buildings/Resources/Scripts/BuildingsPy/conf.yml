@@ -148,6 +148,9 @@
     comment: Timeout during translation; solver gbode reduces simulation time by a factor of 3.0 compared to dassl
     solver: gbode
     time_out: 600
+  optimica:
+    comment: Timeout after 300 s on travis
+    time_out: 600
 - model_name: Buildings.Examples.VAVReheat.Validation.Guideline36SteadyState
   openmodelica:
     comment: simulation terminated by an assertion at initialization
@@ -510,6 +513,9 @@
   openmodelica:
     comment: 'TimeoutExpired: Command ''[''omc'', ''Buildings.ThermalZones.EnergyPlus_24_2_0.Examples.SmallOffice.Guideline36Winter_Autosizing_simulate.mos'']'' timed out after 300 seconds'
     simulate: false
+  optimica:
+    comment: Timeout after 300 s on travis
+    time_out: 600
 - model_name: Buildings.ThermalZones.EnergyPlus_24_2_0.Examples.SmallOffice.IdealHeatingCoolingSpring
   optimica:
     rtol: 1.0e-08
