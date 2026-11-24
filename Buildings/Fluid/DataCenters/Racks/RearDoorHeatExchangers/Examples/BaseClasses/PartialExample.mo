@@ -69,25 +69,33 @@ partial model PartialExample
 
   Buildings.Fluid.Sensors.TemperatureTwoPort senTAirIn(
     redeclare package Medium = MediumAir,
-    m_flow_nominal=mAir_flow_nominal)
+    allowFlowReversal=false,
+    m_flow_nominal=mAir_flow_nominal,
+    tau=0)
     "Air inlet temperature sensor"
     annotation (Placement(transformation(extent={{30,-50},{10,-30}})));
 
   Buildings.Fluid.Sensors.TemperatureTwoPort senTAirOut(
     redeclare package Medium = MediumAir,
-    m_flow_nominal=mAir_flow_nominal)
+    allowFlowReversal=false,
+    m_flow_nominal=mAir_flow_nominal,
+    tau=0)
     "Air outlet temperature sensor"
     annotation (Placement(transformation(extent={{-40,-50},{-60,-30}})));
 
   Buildings.Fluid.Sensors.TemperatureTwoPort senTCooIn(
     redeclare package Medium = MediumCoo,
-    m_flow_nominal=mCoo_flow_nominal)
+    allowFlowReversal=false,
+    m_flow_nominal=mCoo_flow_nominal,
+    tau=0)
     "Coolant inlet temperature sensor"
     annotation (Placement(transformation(extent={{-60,30},{-40,50}})));
 
   Buildings.Fluid.Sensors.TemperatureTwoPort senTCooOut(
     redeclare package Medium = MediumCoo,
-    m_flow_nominal=mCoo_flow_nominal)
+    allowFlowReversal=false,
+    m_flow_nominal=mCoo_flow_nominal,
+    tau=0)
     "Coolant outlet temperature sensor"
     annotation (Placement(transformation(extent={{10,30},{30,50}})));
 
@@ -108,13 +116,17 @@ equation
 Partial example model for a rear door heat exchanger.
 This model declares the medium packages, nominal parameters,
 fluid boundary conditions, temperature sensors, and their connections.
-Extending models must declare the heat exchanger instance <code>hex</code>,
-provide the value of <code>mAir_flow_nominal</code>,
+Extending models must declare the heat exchanger instance <code>hex</code>
 and add the four connections involving <code>hex</code>.
 </p>
 </html>",
       revisions="<html>
 <ul>
+<li>
+November 13, 2026, by Michael Wetter:<br/>
+Set <code>tau=0</code> and <code>allowFlowReversal=false</code> on temperature sensors.<br/>
+This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4926\">Buildings, #4926</a>.
+</li>
 <li>
 September 20, 2026, by Michael Wetter:<br/>
 First implementation.

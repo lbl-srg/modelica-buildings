@@ -1,5 +1,5 @@
 within Buildings.Fluid.DataCenters.Racks.Air.Data;
-record Generic "Generic data record for air cooled rack"
+record Generic "Generic data record for air-cooled rack"
   extends Buildings.Fluid.DataCenters.Racks.BaseClasses.Data.Generic(
       m_flow_nominal=(PIT_nominal + PFan_nominal)/((TOut_nominal - TIn_nominal)*cpAir_nominal));
 
@@ -27,20 +27,16 @@ annotation (
   defaultComponentPrefixes="parameter",
   Documentation(info="<html>
 <p>
-Generic data record for air-cooled IT rack.
+Generic data record for an air-cooled IT rack.
 </p>
 <p>
 The fan power consumption at full IT utilization is by default set to <i>4%</i> of the IT load.
 This setting can be changed through the parameter <code>PFan_nominal</code>.
 </p>
 <p>
-The parameter <code>fanRelPow</code> describes the normalized fan power consumption based
-on the normalized fan volume flow rate. By default, this is set to a cubic curve.
-</p>
-<p>
-The parameters <code>TAirIn_nominal</code> and <code>TAirOut_nominal</code> are used,
+The parameters <code>TIn_nominal</code> and <code>TOut_nominal</code> are used,
 together with <code>PFan_nominal</code>, to size the fan.
-The outlet temperature is also used as the set point for the air temperature raise across the rack,
+The outlet temperature <code>TOut_nominal</code> is also used as the default set point for the outlet air temperature
 if this control option is selected for the rack.
 </p>
 </html>", revisions="<html>

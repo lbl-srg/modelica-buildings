@@ -10,7 +10,10 @@ function specificHeatCapacityCp_TX_a "Return specific heat capacity at constant 
 
 algorithm
   cp_default :=
-    if medium == Buildings.Fluid.DataCenters.CDUs.Types.Media.EthyleneGlycol
+    if medium == Buildings.Fluid.DataCenters.CDUs.Types.Media.Water
+    then
+      Buildings.Media.Antifreeze.Functions.PropyleneGlycolWater.specificHeatCapacityCp_TX_a(X_a=0, T=T)
+    elseif medium == Buildings.Fluid.DataCenters.CDUs.Types.Media.EthyleneGlycol
     then
       Buildings.Media.Antifreeze.Functions.EthyleneGlycolWater.specificHeatCapacityCp_TX_a(X_a=X_a, T=T)
     else
@@ -29,6 +32,12 @@ For glycol, set it to the mass fraction of glycol.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+November 13, 2026, by Michael Wetter:<br/>
+Handled <code>medium == Buildings.Fluid.DataCenters.CDUs.Types.Media.Water</code>
+explicitly so that <code>X_a</code> is ignored for water.<br/>
+This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4926\">Buildings, #4926</a>.
+</li>
 <li>
 April 30, 2026, by Michael Wetter:<br/>
 First implementation.

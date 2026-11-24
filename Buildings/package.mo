@@ -4,12 +4,14 @@ package Buildings "Library with models for building energy and control systems"
 
 
 annotation (
-version="14.1.0",
+version="15.0.0",
 versionDate="2026-10-05",
 dateModified="2026-10-05",
 uses(Modelica(version="4.1.0")),
 conversion(
-  noneFromVersion="14.0.0",
+  from(
+    version={"14.0.0", "14.1.0"},
+    script="modelica://Buildings/Resources/Scripts/Conversion/ConvertBuildings_from_14_to_15.0.0.mos"),
   from(
     version={"13.0.0", "13.0.1"},
     script="modelica://Buildings/Resources/Scripts/Conversion/ConvertBuildings_from_13_to_14.0.0.mos"),

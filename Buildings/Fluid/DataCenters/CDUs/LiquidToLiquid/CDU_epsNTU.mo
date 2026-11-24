@@ -27,7 +27,7 @@ model CDU_epsNTU "CDU using epsilon-NTU for heat transfer"
   Documentation(
     info="<html>
 <p>
-Model of a coolant distribution unit (CDU) with with a steady-state,
+Model of a coolant distribution unit (CDU) with a steady-state,
 counter-flow heat exchanger that uses the epsilon-NTU correlations.
 </p>
 <p>

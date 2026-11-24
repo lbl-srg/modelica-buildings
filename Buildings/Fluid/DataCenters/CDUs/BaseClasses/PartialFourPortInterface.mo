@@ -94,7 +94,7 @@ and two fluid streams.
 It is similar to
 <a href=\"modelica://Buildings.Fluid.Interfaces.PartialFourPortInterface\">
 Buildings.Fluid.Interfaces.PartialFourPortInterface</a>,
-but it has four ports instead of two, and the ports are renamed for CDUs.
+except that the ports and variables are renamed for CDUs.
 </p>
 </html>", revisions="<html>
 <ul>

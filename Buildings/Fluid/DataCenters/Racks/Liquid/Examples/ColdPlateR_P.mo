@@ -94,11 +94,11 @@ equation
        file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/DataCenters/Racks/Liquid/Examples/ColdPlateR_P.mos" "Simulate and plot"),
     Documentation(info="<html>
 <p>
-Example model of a cold plate with different GPU utilization.
+Example model of a cold plate with varying GPU utilization.
 </p>
 <p>
 The GPU utilization is modeled as a pulse that is parameterized based on the data of Patel et al. (2024),
-Figure 6(b) which is for the Llama2-50B LLM, neglecting the very high frequency and approximating
+Figure 6(b), which is for the Llama2-50B LLM, neglecting the very high-frequency fluctuations and approximating
 the change in utilization with a periodic pulse input.
 The cold plate operates at a constant flow rate at the start of the simulation.
 The flow rate then ramps down to half the design value to show the change in case temperature.

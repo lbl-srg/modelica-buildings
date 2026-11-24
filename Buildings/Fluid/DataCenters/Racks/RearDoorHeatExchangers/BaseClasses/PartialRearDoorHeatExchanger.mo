@@ -34,25 +34,29 @@ partial model PartialRearDoorHeatExchanger
       Dialog(group="Nominal condition"));
 
   Modelica.Fluid.Interfaces.FluidPort_a portCoo_a(
-    redeclare final package Medium = MediumCoo)
+    redeclare final package Medium = MediumCoo,
+    m_flow(min=if allowFlowReversalCoo then -Modelica.Constants.inf else 0))
     "Coolant inlet port"
     annotation (Placement(transformation(extent={{-110,50},{-90,70}}),
       iconTransformation(extent={{-110,50},{-90,70}})));
 
   Modelica.Fluid.Interfaces.FluidPort_b portCoo_b(
-    redeclare final package Medium = MediumCoo)
+    redeclare final package Medium = MediumCoo,
+    m_flow(max=if allowFlowReversalCoo then +Modelica.Constants.inf else 0))
     "Coolant outlet port"
     annotation (Placement(transformation(extent={{90,50},{110,70}}),
       iconTransformation(extent={{90,50},{110,70}})));
 
   Modelica.Fluid.Interfaces.FluidPort_a portAir_a(
-    redeclare final package Medium = MediumAir)
+    redeclare final package Medium = MediumAir,
+    m_flow(min=if allowFlowReversalAir then -Modelica.Constants.inf else 0))
     "Air inlet port"
     annotation (Placement(transformation(extent={{90,-70},{110,-50}}),
       iconTransformation(extent={{90,-70},{110,-50}})));
 
   Modelica.Fluid.Interfaces.FluidPort_b portAir_b(
-    redeclare final package Medium = MediumAir)
+    redeclare final package Medium = MediumAir,
+    m_flow(max=if allowFlowReversalAir then +Modelica.Constants.inf else 0))
     "Air outlet port"
     annotation (Placement(transformation(extent={{-110,-70},{-90,-50}}),
       iconTransformation(extent={{-110,-70},{-90,-50}})));
@@ -78,7 +82,8 @@ partial model PartialRearDoorHeatExchanger
   Sensors.TemperatureTwoPort senTAirReaDooHexIn(
     redeclare package Medium = MediumAir,
     final allowFlowReversal=allowFlowReversalAir,
-    m_flow_nominal=dat.mAir_flow_nominal)
+    m_flow_nominal=dat.mAir_flow_nominal,
+    final tau=0)
     "Air temperature entering rear door heat exchanger" annotation (Placement(
         transformation(
         extent={{10,-10},{-10,10}},
@@ -155,6 +160,12 @@ model connects the ports directly.
 </html>",
     revisions="<html>
 <ul>
+<li>
+November 13, 2026, by Michael Wetter:<br/>
+Set <code>senTAirReaDooHexIn.tau=0</code> and added mass flow rate bounds on
+fluid ports when flow reversal is disabled.<br/>
+This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4926\">Buildings, #4926</a>.
+</li>
 <li>
 September 18, 2026, by Michael Wetter:<br/>
 First implementation.

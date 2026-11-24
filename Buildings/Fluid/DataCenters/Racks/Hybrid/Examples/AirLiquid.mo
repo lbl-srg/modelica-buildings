@@ -95,7 +95,7 @@ model AirLiquid
     dat=dat,
     energyDynamicsLiq=Modelica.Fluid.Types.Dynamics.FixedInitial,
     energyDynamicsAir=Modelica.Fluid.Types.Dynamics.FixedInitial)
-    "Liquid and air-cooled rack"
+    "Liquid- and air-cooled rack"
     annotation (Placement(transformation(extent={{40,-10},{60,10}})));
 
   final parameter Modelica.Units.SI.SpecificHeatCapacity cpAir_default=
@@ -309,7 +309,7 @@ The air cooling loop uses simple pressure boundary conditions that allow
 free circulation of air through the rack component.
 The air inlet temperature is <i>30</i>&deg;C
 and the fan is sized to have a temperature difference across the
-rack of <i>10</i> K, leading a <i>40</i>&deg;C outlet air temperature.
+rack of <i>10</i> K, leading to a <i>40</i>&deg;C outlet air temperature.
 </p>
 </html>", revisions="<html>
 <ul>

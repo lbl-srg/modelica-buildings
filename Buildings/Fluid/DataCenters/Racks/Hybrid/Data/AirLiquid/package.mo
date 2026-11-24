@@ -1,5 +1,5 @@
 within Buildings.Fluid.DataCenters.Racks.Hybrid.Data;
-package AirLiquid "Package with performance data for hybrid liquid-cooled single-phase racks without an active rear door heat exchanger"
+package AirLiquid "Package with performance data for hybrid liquid-cooled single-phase racks without a rear door heat exchanger"
   extends Modelica.Icons.MaterialPropertiesPackage;
 annotation (preferredView="info", Documentation(info="<html>
 <p>

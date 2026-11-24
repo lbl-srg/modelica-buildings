@@ -4,8 +4,17 @@ model AirRearDoorHexActive
   extends Buildings.Fluid.DataCenters.Racks.Hybrid.BaseClasses.PartialAirRearDoorHex(
     redeclare parameter Buildings.Fluid.DataCenters.Racks.Hybrid.Data.AirRearDoorHexActive.Generic dat,
     redeclare final Buildings.Fluid.DataCenters.Racks.RearDoorHeatExchangers.Active reaDooHex(
+      final energyDynamics=energyDynamicsReaDooHex,
       final k=kReaDooHex,
-      final Ti=TiReaDooHex));
+      final Ti=TiReaDooHex,
+      dat(
+        PFan_nominal=dat.reaDooHex.PFan_nominal,
+        eta_nominal=dat.reaDooHex.eta_nominal)));
+
+  parameter Modelica.Fluid.Types.Dynamics energyDynamicsReaDooHex=
+    Modelica.Fluid.Types.Dynamics.SteadyState
+    "Type of energy balance for rear door heat exchanger fan"
+    annotation(Evaluate=true, Dialog(tab="Dynamics", group="Rear door heat exchanger"));
 
   parameter Real kReaDooHex=1 "Gain of PI controller"
     annotation(
@@ -66,11 +75,18 @@ then the temperature between the rack and the rear door heat exchanger is used a
 the measurement signal; otherwise, the IT load is used as an input for the fan controller.
 The fan of the rear door heat exchanger is controlled to have zero back pressure.
 Therefore, if the CPU fan speed increases, it will build up back pressure, and
-the rear door heat exchanger then increases its speed as well.
+the rear door heat exchanger fan then increases its speed as well.
 </p>
 </html>",
     revisions="<html>
 <ul>
+<li>
+November 13, 2026, by Michael Wetter:<br/>
+Propagated <code>dat.reaDooHex.PFan_nominal</code> and
+<code>dat.reaDooHex.eta_nominal</code> to <code>reaDooHex</code>, and exposed
+<code>energyDynamicsReaDooHex</code>.<br/>
+This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4926\">Buildings, #4926</a>.
+</li>
 <li>
 September 29, 2026, by Michael Wetter:<br/>
 First implementation.

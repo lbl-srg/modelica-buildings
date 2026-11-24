@@ -67,6 +67,7 @@ This model is identical to
 <a href=\"modelica://Buildings.Fluid.Interfaces.PartialFourPort\">
 Buildings.Fluid.Interfaces.PartialFourPort</a>, except that instances
 have been renamed for use with CDUs.
+</p>
 </html>", revisions="<html>
 <ul>
 <li>

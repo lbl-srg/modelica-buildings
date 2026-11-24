@@ -6,7 +6,7 @@ annotation (preferredView="info", Documentation(info="<html>
 This package contains equipment models that are specific to data centers.
 Models that are also used in conventional HVAC systems,
 such as sensors, heat exchangers, chillers,
-or cooling towers
+or cooling towers,
 can be found in other packages within
 <a href=\"modelica://Buildings.Fluid\">Buildings.Fluid</a>.
 </p>
