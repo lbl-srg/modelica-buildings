@@ -69,6 +69,15 @@ have been <b style=\"color:blue\">improved</b> in a
 <b style=\"color:blue\">backward compatible</b> way:
 </p>
 <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\" style=\"border-collapse:collapse;\">
+<tr><td colspan=\"2\"><b>Buildings.Airflow.Multizone</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Airflow.Multizone.Examples.PressurizationData
+    </td>
+    <td valign=\"top\">Corrected mass flow rate calculation.<br/>
+                       This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/2212\">IBPSA, #2212</a>.
+    </td>
+</tr>
 <tr><td colspan=\"2\"><b>Buildings.Examples.VAVReheat</b>
     </td>
 </tr>
@@ -169,6 +178,19 @@ have been <b style=\"color:blue\">improved</b> in a
                        condition and the <code>if</code> condition inside the <code>when</code> body are guaranteed
                        to evaluate identically.<br/>
                        This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4836\">Buildings, #4836</a>.
+    </td>
+</tr>
+<tr><td colspan=\"2\"><b>Buildings.Fluid.Storage</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Fluid.Storage.ExpansionVessel
+    </td>
+    <td valign=\"top\">Computed vessel pressure from the isothermal ideal gas law to allow
+                       multiple vessels per loop. Added parameters <code>VTot</code> and
+                       <code>pMax</code> and outputs <code>VLiq</code>, <code>m</code>, and
+                       <code>T</code>. Fixed enthalpy initialization and trace substance
+                       balance.<br/>
+                       This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/2220\">IBPSA, issue 2220</a>.
     </td>
 </tr>
 </table>

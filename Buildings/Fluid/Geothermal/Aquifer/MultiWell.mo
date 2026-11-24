@@ -441,7 +441,11 @@ This model simulates aquifer thermal energy storage, using one or multiple pairs
 </p>
 <p>
 To calculate aquifer temperature at different locations over time, the model applies
-physical principles of water flow and heat transfer phenomena. The model is based on
+physical principles of water flow and heat transfer phenomena.
+</p>
+<h4>Energy balance</h4>
+<p>
+The model is based on
 the partial differential equation (PDE) for 1D conductive-convective transient
 radial heat transport in porous media
 </p>
@@ -462,16 +466,52 @@ is the temperature at location <i>r</i> and time <i>t</i>,
 The first term on the right hand side of the equation describes the effect of conduction, while
 the second term describes the fluid flow.
 </p>
+<h4>Pressure loss</h4>
 <p>
 The pressure losses in the aquifer are calculated using the Darcy's law
 <p align=\"center\" style=\"font-style:italic;\">
-&#916;p = &#7745; g &frasl; (2 &#960; K h ln(rMax &frasl; rWB)),
+V&#x0307; = 2 &#960; K h &#916;H/ ln(rMax &frasl; rWB)),
 </p>
 <p>
-where <i>&#7745;</i> is the water mass flow rate, <i>g</i> is the gravitational acceleration,
-<i>K</i> is the hydraulic conductivity, <i>h</i> is the thickness of the aquifer,
+where
+<i>V&#x0307;</i> is the volume flow rate,
+<i>K</i> is the hydraulic conductivity,
+<i>h</i> is the thickness of the aquifer,
+<i>&#916;H</i> is the head that drives the flow, and
 <i>rMax</i> is the domain radius and <i>rWB</i> is the well radius.
-The pressure losses in the wells are calculated using
+</p>
+<p>
+The hydraulic conductivity <i>K</i>, with units of <i>m/s</i>, dictates how easily fluid moves through
+interconnected void spaces of the porous soil or fractured rock.
+It is the ratio
+<p align=\"center\" style=\"font-style:italic;\">
+  K = v<sub>s</sub> n / i = v<sub>d</sub>/i,
+</p>
+<p>
+where
+<i>v<sub>s</sub></i> is the seepage velocity (the actual velocity through the pores),
+<i>n</i> is the porosity (around 0.25 to 0.45 for soils),
+<i>i</i> is the hydraulic gradient (the change in head per unit distance), and
+<i>v<sub>d</sub></i> is the discharge velocity.
+</p>
+<p>
+Using
+</p>
+<p align=\"center\" style=\"font-style:italic;\">
+&#916;p = &#916;H &rho; g,
+</p>
+<p>
+where
+<i>g</i> is the gravitational acceleration,
+we can write for the pressure difference due to flow friction
+<p align=\"center\" style=\"font-style:italic;\">
+&#916;p = m&#x0307; g &frasl; (2 &#960; K h ln(rMax &frasl; rWB)),
+</p>
+<p>
+where <i>m&#x0307; = V&#x0307; &rho;</i> is the water mass flow rate.
+</p>
+<p>
+The pressure losses in the wells as a function of the mass flow rate are calculated using
 <a href=\"modelica://Modelica.Fluid.Pipes.BaseClasses.WallFriction.Detailed.pressureLoss_m_flow\">
 Modelica.Fluid.Pipes.BaseClasses.WallFriction.Detailed.pressureLoss_m_flow</a>.
 </p>
@@ -531,6 +571,12 @@ sign reversed.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+September 17, 2026, by Michael Wetter:<br/>
+Improved documentation of pressure drop calculation.<br/>
+For
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/2179\">IBPSA, #2179</a>.
+</li>
 <li>
 September 22 2023, by Alessandro Maccarini and Michael Wetter:<br/>
 First Implementation.
