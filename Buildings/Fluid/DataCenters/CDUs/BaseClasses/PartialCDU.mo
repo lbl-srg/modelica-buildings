@@ -29,6 +29,14 @@ model PartialCDU "Partial model for a CDU"
     "= true, use linear relation between m_flow and dp for any flow rate"
     annotation (Dialog(tab="Flow resistance", group="Medium 2"));
 
+  parameter Boolean computeFlowResistancePla=true
+    "=true, compute flow resistance. Set to false to assume no friction"
+    annotation (Evaluate=true, Dialog(tab="Flow resistance", group="Medium 1"));
+
+  parameter Boolean computeFlowResistanceRac=true
+    "=true, compute flow resistance. Set to false to assume no friction"
+    annotation (Evaluate=true, Dialog(tab="Flow resistance", group="Medium 2"));
+
   // Valve
   parameter Boolean use_strokeTime=true
     "Set to true to continuously open and close valve using strokeTime from instance dat"
@@ -501,12 +509,15 @@ Note, however, that to improve computing performance, the medium
 Buildings.Media.Antifreeze.PropyleneGlycolWater</a>
 assumes density as constant during the simulation.
 </p>
+<p><b>Notes</b></p>
+<p>
+The parameters <code>computeFlowResistancePla</code> and <code>computeFlowResistanceRac</code>
+have no effect on the model and will be removed in Buildings version 15.0.0.
+</p>
 </html>", revisions="<html>
 <ul>
 <li>
 November 13, 2026, by Michael Wetter:<br/>
-Removed unused parameters <code>computeFlowResistancePla</code> and
-<code>computeFlowResistanceRac</code>. This change is not backward compatible.<br/>
 Propagated <code>mPla_flow_small</code> and <code>mRac_flow_small</code> to <code>hex</code>,
 and <code>from_dpRac</code>, <code>linearizeFlowResistanceRac</code>, and
 <code>dat.deltaMRac</code> to <code>fil</code>.<br/>

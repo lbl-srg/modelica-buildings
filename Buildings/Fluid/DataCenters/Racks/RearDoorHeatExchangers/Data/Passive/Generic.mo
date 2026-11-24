@@ -34,6 +34,14 @@ record Generic "Data record for passive rear door heat exchanger"
     "Air-side pressure drop at nominal flow rate"
     annotation (Dialog(group="Nominal condition"));
 
+  parameter Modelica.Units.SI.SpecificHeatCapacity cpCoo_nominal=
+    Buildings.Media.Water.cp_const
+    "Specific heat capacity of rear door heat exchanger coolant fluid";
+
+  parameter Modelica.Units.SI.SpecificHeatCapacity cpAir_nominal=
+    Buildings.Utilities.Psychrometrics.Constants.cpAir
+    "Specific heat capacity of air";
+
 annotation (
   defaultComponentName="reaDooHex",
   defaultComponentPrefixes="parameter",
@@ -47,14 +55,13 @@ It removes heat from the warm exhaust air using a liquid coolant.
 The heat exchanger effectiveness <code>eps_nominal</code> is computed from
 the design heat duty, the inlet temperatures, and the minimum capacity flow rate.
 </p>
+<p><b>Notes</b></p>
+<p>
+The parameters <code>cpCoo_nominal</code> and <code>cpAir_nominal</code>
+have no effect on the model and will be removed in Buildings version 15.0.0.
+</p>
 </html>", revisions="<html>
 <ul>
-<li>
-November 13, 2026, by Michael Wetter:<br/>
-Removed unused parameters <code>cpCoo_nominal</code> and <code>cpAir_nominal</code>.
-This change is not backward compatible.<br/>
-This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4926\">Buildings, #4926</a>.
-</li>
 <li>
 September 12, 2026, by Michael Wetter:<br/>
 First implementation.
