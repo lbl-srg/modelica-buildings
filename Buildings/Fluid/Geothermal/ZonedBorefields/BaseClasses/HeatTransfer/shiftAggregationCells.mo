@@ -54,7 +54,7 @@ Buildings.Fluid.Geothermal.Borefields.BaseClasses.HeatTransfer.LoadAggregation.s
 which applies load aggregation on a vector of aggregated load histories.
 </p>
 </html>",
-      revisionss="<html>
+      revisions="<html>
 <ul>
 <li>
 February 2024, by Massimo Cimmino:<br/>
