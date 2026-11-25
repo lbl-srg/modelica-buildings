@@ -114,6 +114,9 @@ The following people have directly contributed to the implementation of the Buil
 </li>
 <li>Kaustubh Phalak, Lawrence Berkeley National Laboratory, USA
 </li>
+<li>
+Nauman Rafique, Visum AI, California, USA
+</li>
 <li>Thomas Sevilla, University of Miami, Florida, USA
 </li>
 <li>Chengnan Shi, University of Colorado Boulder, Colorado, USA
