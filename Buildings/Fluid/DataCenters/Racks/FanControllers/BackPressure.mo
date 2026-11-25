@@ -107,7 +107,7 @@ equation
     Documentation(
       info="<html>
 <p>
-PI-controller to regulate a fan to attain zero back pressure.
+PI controller to regulate a fan to attain zero back pressure.
 </p>
 </html>",
       revisions="<html>

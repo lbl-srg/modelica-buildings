@@ -1,6 +1,6 @@
 within Buildings.Fluid.DataCenters.Racks.RearDoorHeatExchangers;
 model Active
-  "Active rear door heat exchanger with integrated temperature controlled fan"
+  "Active rear door heat exchanger with integrated back-pressure-controlled fan"
   extends Buildings.Fluid.DataCenters.Racks.RearDoorHeatExchangers.BaseClasses.PartialRearDoorHeatExchanger(
     redeclare replaceable parameter Buildings.Fluid.DataCenters.Racks.RearDoorHeatExchangers.Data.Active.Generic dat
     constrainedby Buildings.Fluid.DataCenters.Racks.RearDoorHeatExchangers.Data.Active.Generic);
@@ -57,7 +57,8 @@ model Active
   Sensors.TemperatureTwoPort senTAirReaDooHexOut(
     redeclare package Medium = MediumAir,
     final allowFlowReversal=allowFlowReversalAir,
-    m_flow_nominal=dat.mAir_flow_nominal)
+    m_flow_nominal=dat.mAir_flow_nominal,
+    final tau=0)
     "Air temperature exiting rear door heat exchanger"  annotation (Placement(
         transformation(
         extent={{10,-10},{-10,10}},
@@ -107,7 +108,7 @@ The fan power is reported through the output <code>PFan</code>.
 <p>
 The liquid coolant enters through <code>portCoo_a</code> and exits through
 <code>portCoo_b</code>. The air enters through <code>portAir_a</code> (warm server
-exhaust), passes through the fan and then through the heat exchanger, and exits through
+exhaust), passes through the heat exchanger and then through the fan, and exits through
 <code>portAir_b</code> (cooled air leaving the rack).
 </p>
 <p>
@@ -119,16 +120,18 @@ Buildings.Fluid.DataCenters.Racks.RearDoorHeatExchangers.Data.Active.Generic</a>
     revisions="<html>
 <ul>
 <li>
+November 13, 2026, by Michael Wetter:<br/>
+Set <code>senTAirReaDooHexOut.tau=0</code> to avoid an unintended dynamic state
+in steady-state mode.<br/>
+This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4926\">Buildings, #4926</a>.
+</li>
+<li>
 September 18, 2026, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>
 </html>"),
     Icon(graphics={
-        Text(
-          extent={{-86,18},{-56,-18}},
-          textColor={0,0,127},
-          textString="TSet"),
         Text(
           extent={{64,18},{94,-18}},
           textColor={0,0,127},

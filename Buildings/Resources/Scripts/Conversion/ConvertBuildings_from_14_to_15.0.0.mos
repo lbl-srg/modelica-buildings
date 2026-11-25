@@ -1,0 +1,15 @@
+//  Conversion script for Buildings library
+//  from: Version 14
+//  to:   Version 15.0.0
+
+// Remove unused flow resistance toggle parameters from CDU models
+convertModifiers("Buildings.Fluid.DataCenters.CDUs.BaseClasses.PartialCDU",
+                 {"computeFlowResistancePla", "computeFlowResistanceRac"}, fill("", 0), true);
+convertModifiers("Buildings.Fluid.DataCenters.CDUs.LiquidToLiquid.CDU_epsNTU",
+                 {"computeFlowResistancePla", "computeFlowResistanceRac"}, fill("", 0), true);
+
+// Remove unused specific heat capacity parameters from rear door heat exchanger data records
+convertModifiers("Buildings.Fluid.DataCenters.Racks.RearDoorHeatExchangers.Data.Passive.Generic",
+                 {"cpCoo_nominal", "cpAir_nominal"}, fill("", 0), true);
+convertModifiers("Buildings.Fluid.DataCenters.Racks.RearDoorHeatExchangers.Data.Active.Generic",
+                 {"cpCoo_nominal", "cpAir_nominal"}, fill("", 0), true);

@@ -145,7 +145,10 @@ equation
 <p>
 Validation model for
 <a href=\"modelica://Buildings.Fluid.DataCenters.Racks.FanControllers.OutletTemperature\">
-Buildings.Fluid.DataCenters.Racks.BaseClasses.ControlledFan</a>.
+Buildings.Fluid.DataCenters.Racks.FanControllers.OutletTemperature</a>
+and
+<a href=\"modelica://Buildings.Fluid.DataCenters.Racks.BaseClasses.Fan\">
+Buildings.Fluid.DataCenters.Racks.BaseClasses.Fan</a>.
 </p>
 <p>
 Air at <i>20&deg;</i>C is driven by the fan through a pressure drop element and a mixing volume.
@@ -157,9 +160,9 @@ corresponding to a face velocity of <i>0.2</i> m/s across a 2 m<sup>2</sup> surf
 <p>
 When the heat input reaches its maximum value,
 the fan runs at full speed (<code>y = 1</code>)
-and consume <code>PFan_nominal</code> of electrical power.
+and consumes <code>PFan_nominal</code> of electrical power.
 Note that the leaving fluid temperature is slightly above its set point because
-the heat of the fan is added to the air flow rate, and hence the
+the heat of the fan is added to the air stream, and hence an inlet air temperature of
 <i>20&deg;</i>C is not quite sufficient to provide the cooling required to meet the set point
 temperature.
 </p>

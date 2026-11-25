@@ -34,7 +34,7 @@ partial model Air
       group = "Fan controller"));
 
   parameter Real fanSpeed[:,:]=[0.0,0.0; 1.0,1.0]
-    "Load and fan speed matrix (1st column normalized IT load, 2nd fan speed), e.g., fanSpeed=[0, 0; 0.5, 0.7; 1, 1])"
+    "Load and fan speed matrix (1st column normalized IT load, 2nd fan speed), e.g., fanSpeed=[0, 0; 0.5, 0.7; 1, 1]"
     annotation(Dialog(
       enable=(fanControl == Buildings.Fluid.DataCenters.Racks.FanControllers.Types.Strategy.Load),
       group = "Fan controller"));
@@ -48,6 +48,14 @@ partial model Air
       group = "Fan controller"));
   parameter Modelica.Units.SI.Time Ti=60
     "Integrator time constant of fan PI controller"
+    annotation(Dialog(
+      enable=(fanControl == Buildings.Fluid.DataCenters.Racks.FanControllers.Types.Strategy.OutletTemperature),
+      group = "Fan controller"));
+  parameter Real yMin(
+    min=0,
+    max=1,
+    final unit="1") = 0.05
+    "Minimum fan speed"
     annotation(Dialog(
       enable=(fanControl == Buildings.Fluid.DataCenters.Racks.FanControllers.Types.Strategy.OutletTemperature),
       group = "Fan controller"));
@@ -79,7 +87,7 @@ partial model Air
 
   // Power outputs on the right
   Modelica.Blocks.Interfaces.RealOutput PAirTot(final unit="W", min=0)
-    "Electric power consumed by air-cooled IT, including fan energy"
+    "Electric power consumed by air-cooled IT, including fan power"
     annotation (Placement(transformation(extent={{100,-80},{120,-60}}),
         iconTransformation(extent={{100,-90},{120,-70}})));
 
@@ -100,7 +108,8 @@ partial model Air
     final fanSpeed=fanSpeed,
     final TAirOut_set=TAirOut_set,
     final k=k,
-    final Ti=Ti)
+    final Ti=Ti,
+    final yMin=yMin)
     "Air-cooled rack component"
     annotation (Placement(transformation(extent={{-10,-50},{10,-30}})));
 
@@ -132,7 +141,7 @@ Note that <code>PAir</code> does not include the power to operate the fan, as th
 </p>
 <p>
 The model provides two power consumption outputs.
-The output <code>PAirTot</code> is the total electric power consumed by air-cooled IT, including fan energy.
+The output <code>PAirTot</code> is the total electric power consumed by air-cooled IT, including fan power.
 The output <code>PAirFan</code> is the electric power consumed by the fan for air-cooled IT.
 </p>
 <p>
@@ -143,6 +152,11 @@ This connection must be made by the model that extends this partial model.
 </html>",
 revisions="<html>
 <ul>
+<li>
+November 13, 2026, by Michael Wetter:<br/>
+Exposed minimum fan speed parameter <code>yMin</code> for outlet temperature control.<br/>
+This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4926\">Buildings, #4926</a>.
+</li>
 <li>
 September 29, 2026, by Michael Wetter:<br/>
 First implementation.
