@@ -46,15 +46,15 @@ protected
 
 equation
   connect(THeaSet, greTHeaSet.u)
-    annotation (Line(points={{-138,60},{-92,60}}, color={0,0,127}));
+    annotation (Line(points={{-160,60},{-92,60}}, color={0,0,127}));
   connect(uExc, notExc.u)
-    annotation (Line(points={{-138,-40},{-92,-40}}, color={255,0,255}));
+    annotation (Line(points={{-160,-40},{-92,-40}}, color={255,0,255}));
   connect(greTHeaSet.y, andHeaSet.u1) annotation (Line(points={{-48,60},{-24,
           60},{-24,20},{-2,20}}, color={255,0,255}));
   connect(notExc.y, andHeaSet.u2) annotation (Line(points={{-48,-40},{-24,-40},
           {-24,8},{-2,8}}, color={255,0,255}));
-  connect(andHeaSet.y, yHigHeaSet) annotation (Line(points={{42,20},{90,20},{
-          90,0},{138,0}}, color={255,0,255}));
+  connect(andHeaSet.y, yHigHeaSet) annotation (Line(points={{42,20},{90,20},{90,
+          0},{160,0}},    color={255,0,255}));
   annotation (defaultComponentName="heaSetHig",
     Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
             100}}), graphics={Rectangle(

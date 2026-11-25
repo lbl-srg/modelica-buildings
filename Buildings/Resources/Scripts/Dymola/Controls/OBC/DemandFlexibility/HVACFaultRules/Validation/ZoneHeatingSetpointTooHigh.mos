@@ -1,0 +1,3 @@
+simulateModel("Buildings.Controls.OBC.DemandFlexibility.HVACFaultRules.Validation.ZoneHeatingSetpointTooHigh", stopTime=86400, method="Cvode", tolerance=1e-06, resultFile="ZoneHeatingSetpointTooHigh");
+createPlot(id=1, position={15, 15, 742, 472}, y={"heaSetHig.THeaSet[1]", "heaSetHig.THeaSet[2]"}, range={0.0, 86400.0, 292.0, 298.0}, grid=true, subPlot=1, colors={{28,108,200}, {238,46,47}});
+createPlot(id=1, position={15, 15, 742, 472}, y={"heaSetHig.uExc[1]", "heaSetHig.uExc[2]", "heaSetHig.yHigHeaSet[1]", "heaSetHig.yHigHeaSet[2]"}, range={0.0, 86400.0, -0.1, 1.1}, grid=true, subPlot=2, colors={{28,108,200}, {238,46,47}, {0,140,0}, {255,0,255}});

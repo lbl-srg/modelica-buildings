@@ -73,21 +73,21 @@ protected
 
 equation
   connect(TSupAir, reaScaRep.u)
-    annotation (Line(points={{-178,30},{-162,30}}, color={0,0,127}));
-  connect(TDisAir, dT.u1) annotation (Line(points={{-178,110},{-140,110},{-140,
+    annotation (Line(points={{-200,30},{-162,30}}, color={0,0,127}));
+  connect(TDisAir, dT.u1) annotation (Line(points={{-200,110},{-140,110},{-140,
           120},{-112,120}}, color={0,0,127}));
   connect(reaScaRep.y, dT.u2) annotation (Line(points={{-118,30},{-130,30},{
           -130,100},{-112,100}}, color={0,0,127}));
   connect(dT.y, greDT.u)
     annotation (Line(points={{-68,110},{-42,110}}, color={0,0,127}));
-  connect(yVal, lesValClo.u) annotation (Line(points={{-178,-90},{-60,-90},{
-          -60,-90},{-42,-90}}, color={0,0,127}));
-  connect(greDT.y, andLea.u1) annotation (Line(points={{2,110},{30,110},{30,30},
-          {58,30}}, color={255,0,255}));
-  connect(lesValClo.y, andLea.u2) annotation (Line(points={{2,-90},{30,-90},{
-          30,10},{58,10}}, color={255,0,255}));
+  connect(yVal, lesValClo.u) annotation (Line(points={{-200,-90},{-60,-90},{-60,
+          -90},{-42,-90}},     color={0,0,127}));
+  connect(greDT.y, andLea.u1) annotation (Line(points={{2,110},{30,110},{30,20},
+          {56,20}}, color={255,0,255}));
+  connect(lesValClo.y, andLea.u2) annotation (Line(points={{2,-90},{30,-90},{30,
+          4},{56,4}},      color={255,0,255}));
   connect(andLea.y, yLeaVal) annotation (Line(points={{102,20},{140,20},{140,0},
-          {178,0}}, color={255,0,255}));
+          {200,0}}, color={255,0,255}));
   annotation (defaultComponentName="leaReaVal",
     Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
             100}}), graphics={Rectangle(

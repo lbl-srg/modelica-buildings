@@ -1,0 +1,3 @@
+simulateModel("Buildings.Controls.OBC.DemandFlexibility.HVACFaultRules.Validation.SupplyAirflowDeviation", stopTime=86400, method="Cvode", tolerance=1e-06, resultFile="SupplyAirflowDeviation");
+createPlot(id=1, position={15, 15, 742, 472}, y={"supAirFloDev.VDis_flow[1]", "supAirFloDev.VDis_flow[2]", "supAirFloDev.VDisSet_flow[1]"}, range={0.0, 86400.0, 0.35, 0.65}, grid=true, subPlot=1, colors={{28,108,200}, {238,46,47}, {0,0,0}});
+createPlot(id=1, position={15, 15, 742, 472}, y={"supAirFloDev.yAirFloDev[1]", "supAirFloDev.yAirFloDev[2]"}, range={0.0, 86400.0, -0.1, 1.1}, grid=true, subPlot=2, colors={{28,108,200}, {238,46,47}});
