@@ -32,6 +32,15 @@ to <b style=\"color:blue\">existing</b> libraries:
     <td valign=\"top\">Added chiller plant templates.
     </td>
 </tr>
+<tr><td colspan=\"2\"><b>Buildings.Fluid.DataCenters</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Fluid.DataCenters.CDUs.LiquidToLiquid.Examples.CDU_epsNTU_externalControl
+    </td>
+    <td valign=\"top\">Added an example of a CDU for which the pump speed and the valve position are provided by an external controller.<br/>
+                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4905\">Buildings, #4905</a>.
+    </td>
+</tr>
 <tr><td colspan=\"2\"><b>Buildings.Fluid.BaseClasses.FlowModels</b>
     </td>
 </tr>
@@ -100,6 +109,17 @@ have been <b style=\"color:blue\">improved</b> in a
     </td>
     <td valign=\"top\">Corrected medium specification in the condenser water pump.<br/>
                        This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4845\">Buildings. #4845</a>.
+    </td>
+</tr>
+<tr><td colspan=\"2\"><b>Buildings.Fluid.DataCenters</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Fluid.DataCenters.CDUs.BaseClasses.PartialCDU
+    </td>
+    <td valign=\"top\">Added the options <code>use_yPum_in</code> and <code>use_yVal_in</code> to drive the
+                       pump speed and the valve position from an input instead of the internal controllers.
+                       The default values keep the existing behavior.<br/>
+                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4905\">Buildings, #4905</a>.
     </td>
 </tr>
 <tr><td colspan=\"2\"><b>Buildings.Controls.OBC.CDL.Logical</b>
