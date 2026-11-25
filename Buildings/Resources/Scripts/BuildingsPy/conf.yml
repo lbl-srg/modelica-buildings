@@ -31,6 +31,9 @@
   optimica:
     comment: High solver tolerance required to avoid time out.
     rtol: 1.0e-08
+  openmodelica:
+    comment: Solver gbode avoids convergence failure.
+    solver: gbode
 - model_name: Buildings.Applications.DataCenters.DXCooled.Examples.DXCooledAirsideEconomizer
   openmodelica:
     solver: cvode
