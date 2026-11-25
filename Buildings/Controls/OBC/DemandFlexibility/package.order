@@ -1,5 +1,6 @@
 ChillerSetpointReset
 FanSpeedLimiting
 Generic
+HVACFaultRules
 ZoneTemperatureSetpointChange
 Types
