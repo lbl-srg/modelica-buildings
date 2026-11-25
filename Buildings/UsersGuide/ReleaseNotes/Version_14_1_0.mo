@@ -98,6 +98,43 @@ have been <b style=\"color:blue\">improved</b> in a
                        This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4845\">Buildings, #4845</a>.
     </td>
 </tr>
+<tr><td colspan=\"2\"><b>Buildings.Electrical.AC.OnePhase.Conversion</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Electrical.AC.OnePhase.Conversion.ACACConverter<br/>
+                       Buildings.Electrical.AC.OnePhase.Conversion.ACACTransformer<br/>
+                       Buildings.Electrical.AC.OnePhase.Conversion.ACACTransformerFull
+    </td>
+    <td valign=\"top\">Moved the conditional icon graphics for the grounding symbol from
+                       <code>Buildings.Electrical.Icons.RefAngleConversion</code> to these models
+                       to ensure the icon is correctly displayed.
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Electrical.AC.OnePhase.Conversion.ACACConverter<br/>
+                       Buildings.Electrical.AC.OnePhase.Conversion.ACACTransformer<br/>
+                       Buildings.Electrical.AC.OnePhase.Conversion.ACACTransformerFull<br/>
+                       Buildings.Electrical.AC.OnePhase.Conversion.ACDCConverter
+    </td>
+    <td valign=\"top\">Removed <code>stateSelect</code> attribute on algebraic terminal currents
+                       to improve compatibility with OpenModelica.<br/>
+                       This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/2217\">IBPSA, issue 2217</a>
+                       and <a href=\"https://github.com/OpenModelica/OpenModelica/issues/10968\">OpenModelica, #10968</a>.
+    </td>
+</tr>
+<tr><td colspan=\"2\"><b>Buildings.Electrical.AC.ThreePhasesUnbalanced.Lines</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Electrical.AC.ThreePhasesUnbalanced.Lines.TwoPortMatrixRL<br/>
+                       Buildings.Electrical.AC.ThreePhasesUnbalanced.Lines.TwoPortMatrixRLC<br/>
+                       Buildings.Electrical.AC.ThreePhasesUnbalanced.Lines.TwoPortMatrixRLC_N<br/>
+                       Buildings.Electrical.AC.ThreePhasesUnbalanced.Lines.TwoPortMatrixRL_N
+    </td>
+    <td valign=\"top\">Removed <code>stateSelect</code> attribute on algebraic line currents and voltages
+                       to improve compatibility with OpenModelica.<br/>
+                       This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/2217\">IBPSA, issue 2217</a>
+                       and <a href=\"https://github.com/OpenModelica/OpenModelica/issues/10968\">OpenModelica, #10968</a>.
+    </td>
+</tr>
 <tr><td colspan=\"2\"><b>Buildings.Electrical.AC.ThreePhasesUnbalanced.Loads.BaseClasses</b>
     </td>
 </tr>
@@ -124,6 +161,15 @@ have been <b style=\"color:blue\">improved</b> in a
     <td valign=\"top\">Added a secondary grounding transformer to establish a ground reference
                        on the delta-connected transformer secondary.<br/>
                        This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/2217\">IBPSA, issue 2217</a>.
+    </td>
+</tr>
+<tr><td colspan=\"2\"><b>Buildings.Electrical.Icons</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Electrical.Icons.RefAngleConversion
+    </td>
+    <td valign=\"top\">Removed the conditional icon graphics for the grounding symbol,
+                       which have been moved to the models that extend this class.
     </td>
 </tr>
 <tr><td colspan=\"2\"><b>Buildings.Examples.VAVReheat</b>
