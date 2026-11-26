@@ -438,6 +438,21 @@ that can lead to wrong simulation results):
                        <code>MediumLiq</code> density instead of a hardcoded water density.
     </td>
 </tr>
+<tr><td colspan=\"2\"><b>Buildings.Fluid.DataCenters.Racks.Hybrid.Data.AirRearDoorHexActive</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Fluid.DataCenters.Racks.Hybrid.Data.AirRearDoorHexActive.Generic
+    </td>
+    <td valign=\"top\">Corrected <code>constrainedby</code> clause for <code>reaDooHex</code>
+                       from <code>Data.Passive.Generic</code> to <code>Data.Active.Generic</code>
+                       so that access to <code>PFan_nominal</code> and <code>eta_nominal</code>
+                       is covered by the constraining type.
+                       Models that redeclared <code>reaDooHex</code> with a type extending only
+                       <code>Passive.Generic</code> need to update the redeclaration.
+                       This is for
+                       <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4926\">Buildings, #4926</a>.
+    </td>
+</tr>
 <tr><td colspan=\"2\"><b>Buildings.Fluid.DataCenters.Racks.Liquid</b>
     </td>
 </tr>
