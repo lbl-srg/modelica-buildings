@@ -240,6 +240,30 @@ have been <b style=\"color:blue\">improved</b> in a
     <td valign=\"top\">Exposed minimum fan speed parameter <code>yMin</code> for outlet temperature control.
     </td>
 </tr>
+<tr><td colspan=\"2\"><b>Buildings.Fluid.DataCenters.Racks.Hybrid</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Fluid.DataCenters.Racks.Hybrid.AirRearDoorHexActive
+    </td>
+    <td valign=\"top\">Changed access of <code>PFan_nominal</code> and <code>eta_nominal</code>
+                       from <code>dat.reaDooHex.*</code> to <code>dat.*</code> to avoid accessing
+                       parameters that are not part of the constraining type of <code>reaDooHex</code>.
+                       This is for
+                       <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4926\">Buildings, #4926</a>.
+    </td>
+</tr>
+<tr><td colspan=\"2\"><b>Buildings.Fluid.DataCenters.Racks.Hybrid.Data.AirRearDoorHexActive</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Fluid.DataCenters.Racks.Hybrid.Data.AirRearDoorHexActive.Generic
+    </td>
+    <td valign=\"top\">Added <code>PFan_nominal</code> and <code>eta_nominal</code> as final parameters
+                       so that they can be accessed without going through the constraining type of
+                       <code>reaDooHex</code>.
+                       This is for
+                       <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4926\">Buildings, #4926</a>.
+    </td>
+</tr>
 <tr><td colspan=\"2\"><b>Buildings.Fluid.DataCenters.Racks.Liquid.Data</b>
     </td>
 </tr>
