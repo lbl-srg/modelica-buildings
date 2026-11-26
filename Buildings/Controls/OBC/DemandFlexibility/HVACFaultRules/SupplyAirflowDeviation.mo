@@ -27,88 +27,91 @@ block SupplyAirflowDeviation
     each final unit="m3/s",
     each final quantity="VolumeFlowRate")
     "Measured VAV box discharge airflow"
-    annotation (Placement(transformation(extent={{-220,80},{-180,120}}),
+    annotation (Placement(transformation(extent={{-180,50},{-140,90}}),
         iconTransformation(extent={{-140,40},{-100,80}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput VDisSet_flow[nZon](
     each final unit="m3/s",
     each final quantity="VolumeFlowRate")
     "VAV box discharge airflow setpoint"
-    annotation (Placement(transformation(extent={{-220,10},{-180,50}}),
+    annotation (Placement(transformation(extent={{-180,-20},{-140,20}}),
         iconTransformation(extent={{-140,-20},{-100,20}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yAirFloDev[nZon]
     "True: the supply airflow does not meet the supply airflow setpoint"
-    annotation (Placement(transformation(extent={{180,-20},{220,20}}),
+    annotation (Placement(transformation(extent={{140,-20},{180,20}}),
         iconTransformation(extent={{100,-20},{140,20}})));
 
 protected
   Buildings.Controls.OBC.CDL.Reals.MultiplyByParameter mulVSetMax[nZon](
     final k=fill(rSetMax, nZon))
     "Upper limit of the measured supply airflow, 1.1 times the supply airflow setpoint"
-    annotation (Placement(transformation(extent={{-150,90},{-110,130}})));
+    annotation (Placement(transformation(extent={{-100,90},{-80,110}})));
   Buildings.Controls.OBC.CDL.Reals.MultiplyByParameter mulVSetMin[nZon](
     final k=fill(rSetMin, nZon))
     "Lower limit of the measured supply airflow, 0.9 times the supply airflow setpoint"
-    annotation (Placement(transformation(extent={{-150,10},{-110,50}})));
+    annotation (Placement(transformation(extent={{-80,-50},{-60,-30}})));
   Buildings.Controls.OBC.CDL.Reals.Greater greVDis[nZon](
     final h=fill(V_flowHys, nZon))
     "Check if the measured supply airflow is greater than 1.1 times the supply airflow setpoint"
-    annotation (Placement(transformation(extent={{-70,90},{-30,130}})));
+    annotation (Placement(transformation(extent={{-40,70},{-20,90}})));
   Buildings.Controls.OBC.CDL.Reals.Less lesVDis[nZon](
     final h=fill(V_flowHys, nZon))
     "Check if the measured supply airflow is less than 0.9 times the supply airflow setpoint"
-    annotation (Placement(transformation(extent={{-70,10},{-30,50}})));
+    annotation (Placement(transformation(extent={{-20,-30},{0,-10}})));
   Buildings.Controls.OBC.CDL.Logical.Or orVDis[nZon]
     "Check if the measured supply airflow is either too high or too low"
-    annotation (Placement(transformation(extent={{20,50},{60,90}})));
+    annotation (Placement(transformation(extent={{40,30},{60,50}})));
   Buildings.Controls.OBC.CDL.Reals.Subtract dVDis[nZon]
     "Measured supply airflow minus the supply airflow setpoint"
-    annotation (Placement(transformation(extent={{-150,-110},{-110,-70}})));
+    annotation (Placement(transformation(extent={{-80,-90},{-60,-70}})));
   Buildings.Controls.OBC.CDL.Reals.Abs absDVDis[nZon]
     "Absolute difference between the measured supply airflow and the supply airflow setpoint"
-    annotation (Placement(transformation(extent={{-80,-110},{-40,-70}})));
+    annotation (Placement(transformation(extent={{-40,-90},{-20,-70}})));
   Buildings.Controls.OBC.CDL.Reals.GreaterThreshold greDVDis[nZon](
     final t=fill(V_flowMin, nZon),
     final h=fill(V_flowHys, nZon))
     "Check if the absolute airflow difference is greater than the minimum threshold"
-    annotation (Placement(transformation(extent={{-10,-110},{30,-70}})));
+    annotation (Placement(transformation(extent={{0,-90},{20,-70}})));
   Buildings.Controls.OBC.CDL.Logical.And andVDis[nZon]
     "Check if both conditions for the supply airflow deviation are met"
-    annotation (Placement(transformation(extent={{100,10},{140,50}})));
+    annotation (Placement(transformation(extent={{100,-10},{120,10}})));
 
 equation
-  connect(VDis_flow, lesVDis.u1) annotation (Line(points={{-178,100},{-120,100},
-          {-120,40},{-72,40}}, color={0,0,127}));
-  connect(VDis_flow, greVDis.u1) annotation (Line(points={{-178,100},{-120,100},
-          {-120,120},{-72,120}}, color={0,0,127}));
-  connect(VDis_flow, dVDis.u1) annotation (Line(points={{-178,100},{-160,100},
-          {-160,-80},{-152,-80}}, color={0,0,127}));
+  connect(VDis_flow, lesVDis.u1) annotation (Line(points={{-160,70},{-80,70},{-80,
+          -20},{-22,-20}},     color={0,0,127}));
+  connect(VDis_flow, greVDis.u1) annotation (Line(points={{-160,70},{-80,70},{-80,
+          80},{-42,80}},         color={0,0,127}));
+  connect(VDis_flow, dVDis.u1) annotation (Line(points={{-160,70},{-100,70},{-100,
+          -74},{-82,-74}},        color={0,0,127}));
   connect(VDisSet_flow, mulVSetMin.u)
-    annotation (Line(points={{-178,30},{-152,30}}, color={0,0,127}));
-  connect(VDisSet_flow, mulVSetMax.u) annotation (Line(points={{-178,30},{
-          -160,30},{-160,110},{-152,110}}, color={0,0,127}));
-  connect(VDisSet_flow, dVDis.u2) annotation (Line(points={{-178,30},{-170,30},
-          {-170,-100},{-152,-100}}, color={0,0,127}));
+    annotation (Line(points={{-160,0},{-120,0},{-120,-40},{-82,-40}},
+                                                   color={0,0,127}));
+  connect(VDisSet_flow, mulVSetMax.u) annotation (Line(points={{-160,0},{-120,0},
+          {-120,100},{-102,100}},          color={0,0,127}));
+  connect(VDisSet_flow, dVDis.u2) annotation (Line(points={{-160,0},{-120,0},{-120,
+          -86},{-82,-86}},          color={0,0,127}));
   connect(mulVSetMax.y, greVDis.u2)
-    annotation (Line(points={{-108,110},{-72,110}}, color={0,0,127}));
+    annotation (Line(points={{-78,100},{-60,100},{-60,72},{-42,72}},
+                                                    color={0,0,127}));
   connect(mulVSetMin.y, lesVDis.u2)
-    annotation (Line(points={{-108,30},{-72,30}}, color={0,0,127}));
-  connect(greVDis.y, orVDis.u1) annotation (Line(points={{-28,110},{-10,110},
-          {-10,70},{18,70}}, color={255,0,255}));
-  connect(lesVDis.y, orVDis.u2) annotation (Line(points={{-28,30},{-10,30},{
-          -10,50},{18,50}}, color={255,0,255}));
+    annotation (Line(points={{-58,-40},{-40,-40},{-40,-28},{-22,-28}},
+                                                  color={0,0,127}));
+  connect(greVDis.y, orVDis.u1) annotation (Line(points={{-18,80},{20,80},{20,40},
+          {38,40}},          color={255,0,255}));
+  connect(lesVDis.y, orVDis.u2) annotation (Line(points={{2,-20},{20,-20},{20,32},
+          {38,32}},         color={255,0,255}));
   connect(dVDis.y, absDVDis.u)
-    annotation (Line(points={{-108,-90},{-82,-90}}, color={0,0,127}));
+    annotation (Line(points={{-58,-80},{-42,-80}},  color={0,0,127}));
   connect(absDVDis.y, greDVDis.u)
-    annotation (Line(points={{-38,-90},{-12,-90}}, color={0,0,127}));
-  connect(greDVDis.y, andVDis.u2) annotation (Line(points={{32,-90},{70,-90},
-          {70,20},{98,20}}, color={255,0,255}));
-  connect(orVDis.y, andVDis.u1) annotation (Line(points={{62,70},{80,70},{80,
-          40},{98,40}}, color={255,0,255}));
-  connect(andVDis.y, yAirFloDev) annotation (Line(points={{142,30},{170,30},{
-          170,0},{198,0}}, color={255,0,255}));
+    annotation (Line(points={{-18,-80},{-2,-80}},  color={0,0,127}));
+  connect(greDVDis.y, andVDis.u2) annotation (Line(points={{22,-80},{40,-80},{40,
+          -8},{98,-8}},     color={255,0,255}));
+  connect(orVDis.y, andVDis.u1) annotation (Line(points={{62,40},{80,40},{80,0},
+          {98,0}},      color={255,0,255}));
+  connect(andVDis.y, yAirFloDev) annotation (Line(points={{122,0},{160,0}},
+                           color={255,0,255}));
   annotation (defaultComponentName="supAirFloDev",
-    Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
-            100}}), graphics={Rectangle(
+    Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,100},{100,-100}}),
+                    graphics={Rectangle(
           extent={{-100,100},{100,-100}},
           lineColor={0,0,0},
           fillColor={255,255,255},
@@ -116,8 +119,8 @@ equation
           extent={{-100,140},{100,100}},
           textColor={0,0,255},
           textString="%name")}),
-    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-220,-160},{
-            220,160}})),
+    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-140,-120},{140,
+            120}})),
     Documentation(revisions="<html>
 <ul>
 <li>

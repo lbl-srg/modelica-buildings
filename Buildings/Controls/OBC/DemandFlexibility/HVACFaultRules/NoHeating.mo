@@ -29,73 +29,73 @@ block NoHeating "Detection of no heating output of a VAV box"
     each displayUnit="degC",
     each final quantity="ThermodynamicTemperature")
     "VAV box discharge air temperature"
-    annotation (Placement(transformation(extent={{-220,90},{-180,130}}),
+    annotation (Placement(transformation(extent={{-160,68},{-120,108}}),
         iconTransformation(extent={{-140,40},{-100,80}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TSupAir(
     final unit="K",
     displayUnit="degC",
     final quantity="ThermodynamicTemperature")
     "AHU supply air temperature"
-    annotation (Placement(transformation(extent={{-220,10},{-180,50}}),
+    annotation (Placement(transformation(extent={{-160,-20},{-120,20}}),
         iconTransformation(extent={{-140,-20},{-100,20}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput yVal[nZon](
     each final min=0,
     each final max=1,
     each final unit="1")
     "Reheat valve position"
-    annotation (Placement(transformation(extent={{-220,-110},{-180,-70}}),
+    annotation (Placement(transformation(extent={{-160,-110},{-120,-70}}),
         iconTransformation(extent={{-140,-80},{-100,-40}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yNoHea[nZon]
     "True: no heating output although the reheat valve is open"
-    annotation (Placement(transformation(extent={{180,-20},{220,20}}),
+    annotation (Placement(transformation(extent={{140,-20},{180,20}}),
         iconTransformation(extent={{100,-20},{140,20}})));
 
 protected
   Buildings.Controls.OBC.CDL.Routing.RealScalarReplicator reaScaRep(final nout=
         nZon) "Replicate the AHU supply air temperature for all zones"
-    annotation (Placement(transformation(extent={{-160,10},{-120,50}})));
+    annotation (Placement(transformation(extent={{-100,-10},{-80,10}})));
   Buildings.Controls.OBC.CDL.Reals.Subtract dT[nZon]
     "VAV box discharge air temperature minus the AHU supply air temperature"
-    annotation (Placement(transformation(extent={{-140,90},{-100,130}})));
+    annotation (Placement(transformation(extent={{-40,78},{-20,98}})));
   Buildings.Controls.OBC.CDL.Reals.Abs absDT[nZon]
     "Absolute difference between the discharge air temperature and the AHU supply air temperature"
-    annotation (Placement(transformation(extent={{-70,90},{-30,130}})));
+    annotation (Placement(transformation(extent={{0,78},{20,98}})));
   Buildings.Controls.OBC.CDL.Reals.LessThreshold lesDTApp[nZon](
     final t=fill(dTApp, nZon),
     final h=fill(dTHys, nZon))
     "Check if the discharge air temperature is approximately equal to the AHU supply air temperature"
-    annotation (Placement(transformation(extent={{0,90},{40,130}})));
+    annotation (Placement(transformation(extent={{40,78},{60,98}})));
   Buildings.Controls.OBC.CDL.Reals.GreaterThreshold greValOpe[nZon](
     final t=fill(yValOpe, nZon),
     final h=fill(yValHys, nZon))
     "Check if the reheat valve is open at 90% or more"
-    annotation (Placement(transformation(extent={{0,-110},{40,-70}})));
+    annotation (Placement(transformation(extent={{-20,-100},{0,-80}})));
   Buildings.Controls.OBC.CDL.Logical.And andNoHea[nZon]
     "Check if both conditions for no heating are met"
-    annotation (Placement(transformation(extent={{100,0},{140,40}})));
+    annotation (Placement(transformation(extent={{100,-10},{120,10}})));
 
 equation
   connect(TSupAir, reaScaRep.u)
-    annotation (Line(points={{-178,30},{-162,30}}, color={0,0,127}));
-  connect(TDisAir, dT.u1) annotation (Line(points={{-178,110},{-160,110},{
-          -160,120},{-142,120}}, color={0,0,127}));
-  connect(reaScaRep.y, dT.u2) annotation (Line(points={{-118,30},{-160,30},{
-          -160,100},{-142,100}}, color={0,0,127}));
+    annotation (Line(points={{-140,0},{-102,0}},   color={0,0,127}));
+  connect(TDisAir, dT.u1) annotation (Line(points={{-140,88},{-100,88},{-100,94},
+          {-42,94}},             color={0,0,127}));
+  connect(reaScaRep.y, dT.u2) annotation (Line(points={{-78,0},{-60,0},{-60,82},
+          {-42,82}},             color={0,0,127}));
   connect(dT.y, absDT.u)
-    annotation (Line(points={{-98,110},{-72,110}}, color={0,0,127}));
+    annotation (Line(points={{-18,88},{-2,88}},    color={0,0,127}));
   connect(absDT.y, lesDTApp.u)
-    annotation (Line(points={{-28,110},{-2,110}}, color={0,0,127}));
-  connect(yVal, greValOpe.u) annotation (Line(points={{-178,-90},{-2,-90}},
+    annotation (Line(points={{22,88},{38,88}},    color={0,0,127}));
+  connect(yVal, greValOpe.u) annotation (Line(points={{-140,-90},{-22,-90}},
         color={0,0,127}));
-  connect(lesDTApp.y, andNoHea.u1) annotation (Line(points={{42,110},{70,110},
-          {70,30},{98,30}}, color={255,0,255}));
-  connect(greValOpe.y, andNoHea.u2) annotation (Line(points={{42,-90},{70,-90},
-          {70,10},{98,10}}, color={255,0,255}));
-  connect(andNoHea.y, yNoHea) annotation (Line(points={{142,20},{160,20},{160,
-          0},{178,0}}, color={255,0,255}));
+  connect(lesDTApp.y, andNoHea.u1) annotation (Line(points={{62,88},{80,88},{80,
+          0},{98,0}},       color={255,0,255}));
+  connect(greValOpe.y, andNoHea.u2) annotation (Line(points={{2,-90},{80,-90},{80,
+          -8},{98,-8}},     color={255,0,255}));
+  connect(andNoHea.y, yNoHea) annotation (Line(points={{122,0},{160,0}},
+                       color={255,0,255}));
   annotation (defaultComponentName="noHea",
-    Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
-            100}}), graphics={Rectangle(
+    Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,100},{100,-100}},
+        grid={2,2}),graphics={Rectangle(
           extent={{-100,100},{100,-100}},
           lineColor={0,0,0},
           fillColor={255,255,255},
@@ -103,8 +103,9 @@ equation
           extent={{-100,140},{100,100}},
           textColor={0,0,255},
           textString="%name")}),
-    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-220,-140},{
-            220,140}})),
+    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-120,-120},{140,
+            120}},
+        grid={2,2})),
     Documentation(revisions="<html>
 <ul>
 <li>
