@@ -6,12 +6,10 @@ model ACACTransformerFull "AC AC transformer with detailed equivalent circuit"
     redeclare package PhaseSystem_n = PhaseSystems.OnePhase,
     redeclare replaceable Interfaces.Terminal_n terminal_n
       constrainedby Interfaces.Terminal_n(
-      i(start = zeros(PhaseSystem_n.n),
-      each stateSelect = StateSelect.prefer)),
+      i(start = zeros(PhaseSystem_n.n))),
     redeclare replaceable Interfaces.Terminal_p terminal_p
       constrainedby Interfaces.Terminal_p(
-      i(start = zeros(PhaseSystem_p.n),
-      each stateSelect = StateSelect.prefer)));
+      i(start = zeros(PhaseSystem_p.n))));
   parameter Modelica.Units.SI.Voltage VHigh
     "RMS voltage on side 1 of the transformer (primary side)";
   parameter Modelica.Units.SI.Voltage VLow
@@ -348,7 +346,41 @@ defaultComponentName="traACAC",
         Text(
           extent={{-70,-8},{-54,-20}},
           textColor={0,120,120},
-          textString="Lm")}),
+          textString="Lm"),
+        Line(
+          visible=ground_1 == true,
+          points={{-80,-40},{-120,-40}},
+          color={0,120,120},
+          smooth=Smooth.None,
+          thickness=0.5),
+        Line(
+          visible=ground_1 == true,
+          points={{-80,-40},{-106,-14}},
+          color={0,120,120},
+          smooth=Smooth.None,
+          thickness=0.5),
+        Line(
+          visible=ground_1 == true,
+          points={{-102,-16},{-114,-24},{-118,-42}},
+          color={0,120,120},
+          smooth=Smooth.Bezier),
+        Line(
+          visible=ground_2 == true,
+          points={{80,-40},{120,-40}},
+          color={0,120,120},
+          smooth=Smooth.None,
+          thickness=0.5),
+        Line(
+          visible=ground_2 == true,
+          points={{80,-40},{106,-14}},
+          color={0,120,120},
+          smooth=Smooth.None,
+          thickness=0.5),
+        Line(
+          visible=ground_2 == true,
+          points={{102,-16},{114,-24},{118,-42}},
+          color={0,120,120},
+          smooth=Smooth.Bezier)}),
     Documentation(info="<html>
 <p>
 This is a detailed transformer model that takes into account the winding Joule losses
@@ -382,6 +414,14 @@ The magnetization losses can be enabled or disabled using the boolean flag <code
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+November 23, 2026, by Michael Wetter:<br/>
+Removed <code>stateSelect</code> attribute on algebraic terminal currents.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/2217\">IBPSA, #2217</a>
+and
+<a href=\"https://github.com/OpenModelica/OpenModelica/issues/10968\">OpenModelica, #10968</a>.
+</li>
 <li>
 January 30, 2019, by Michael Wetter:<br/>
 Added missing <code>replaceable</code> for the terminal.

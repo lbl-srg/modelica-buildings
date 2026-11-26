@@ -24,6 +24,16 @@ The following <b style=\"color:blue\">new components</b> have been added
 to <b style=\"color:blue\">existing</b> libraries:
 </p>
 <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\" style=\"border-collapse:collapse;\">
+<tr><td colspan=\"2\"><b>Buildings.Electrical.AC.ThreePhasesUnbalanced.Sources</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Electrical.AC.ThreePhasesUnbalanced.Sources.GroundingTransformer
+    </td>
+    <td valign=\"top\">Added a three-phase zig-zag grounding transformer model
+                       with optional neutral-to-ground resistance.<br/>
+                       This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/2217\">IBPSA, issue 2217</a>.
+    </td>
+</tr>
 <tr><td colspan=\"2\"><b>Buildings.Fluid.BaseClasses.FlowModels</b>
     </td>
 </tr>
@@ -61,13 +71,13 @@ have been <b style=\"color:blue\">improved</b> in a
 <b style=\"color:blue\">backward compatible</b> way:
 </p>
 <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\" style=\"border-collapse:collapse;\">
-<tr><td colspan=\"2\"><b>Buildings.Examples.VAVReheat</b>
+<tr><td colspan=\"2\"><b>Buildings.Airflow.Multizone</b>
     </td>
 </tr>
-<tr><td valign=\"top\">Buildings.Examples.VAVReheat.BaseClasses.ASHRAE2006
+<tr><td valign=\"top\">Buildings.Airflow.Multizone.Examples.PressurizationData
     </td>
-    <td valign=\"top\">Corrected wrong value assignment of <code>ratVMinVAV_flow</code>.<br/>
-                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4863\">Buildings, #4863</a>.
+    <td valign=\"top\">Corrected mass flow rate calculation.<br/>
+                       This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/2212\">IBPSA, #2212</a>.
     </td>
 </tr>
 <tr><td colspan=\"2\"><b>Buildings.Controls.OBC.ASHRAE.G36</b>
@@ -85,15 +95,6 @@ have been <b style=\"color:blue\">improved</b> in a
                        This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4844\">Buildings, #4844</a>.
     </td>
 </tr>
-<tr><td colspan=\"2\"><b>Buildings.DHC.ETS</b>
-    </td>
-</tr>
-<tr><td valign=\"top\">Buildings.DHC.ETS.Combined.Subsystems.BaseClasses.PartialHeatPump
-    </td>
-    <td valign=\"top\">Corrected medium specification in the condenser water pump.<br/>
-                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4845\">Buildings, #4845</a>.
-    </td>
-</tr>
 <tr><td colspan=\"2\"><b>Buildings.Controls.OBC.CDL.Logical</b>
     </td>
 </tr>
@@ -104,6 +105,98 @@ have been <b style=\"color:blue\">improved</b> in a
                        condition and the <code>if</code> condition inside the <code>when</code> body are guaranteed
                        to evaluate identically.<br/>
                        This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4836\">Buildings, #4836</a>.
+    </td>
+</tr>
+<tr><td colspan=\"2\"><b>Buildings.DHC.ETS</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.DHC.ETS.Combined.Subsystems.BaseClasses.PartialHeatPump
+    </td>
+    <td valign=\"top\">Corrected medium specification in the condenser water pump.<br/>
+                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4845\">Buildings, #4845</a>.
+    </td>
+</tr>
+<tr><td colspan=\"2\"><b>Buildings.Electrical.AC.OnePhase.Conversion</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Electrical.AC.OnePhase.Conversion.ACACConverter<br/>
+                       Buildings.Electrical.AC.OnePhase.Conversion.ACACTransformer<br/>
+                       Buildings.Electrical.AC.OnePhase.Conversion.ACACTransformerFull
+    </td>
+    <td valign=\"top\">Moved the conditional icon graphics for the grounding symbol from
+                       <code>Buildings.Electrical.Icons.RefAngleConversion</code> to these models
+                       to ensure the icon is correctly displayed.
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Electrical.AC.OnePhase.Conversion.ACACConverter<br/>
+                       Buildings.Electrical.AC.OnePhase.Conversion.ACACTransformer<br/>
+                       Buildings.Electrical.AC.OnePhase.Conversion.ACACTransformerFull<br/>
+                       Buildings.Electrical.AC.OnePhase.Conversion.ACDCConverter
+    </td>
+    <td valign=\"top\">Removed <code>stateSelect</code> attribute on algebraic terminal currents
+                       to improve compatibility with OpenModelica.<br/>
+                       This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/2217\">IBPSA, issue 2217</a>
+                       and <a href=\"https://github.com/OpenModelica/OpenModelica/issues/10968\">OpenModelica, #10968</a>.
+    </td>
+</tr>
+<tr><td colspan=\"2\"><b>Buildings.Electrical.AC.ThreePhasesUnbalanced.Lines</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Electrical.AC.ThreePhasesUnbalanced.Lines.TwoPortMatrixRL<br/>
+                       Buildings.Electrical.AC.ThreePhasesUnbalanced.Lines.TwoPortMatrixRLC<br/>
+                       Buildings.Electrical.AC.ThreePhasesUnbalanced.Lines.TwoPortMatrixRLC_N<br/>
+                       Buildings.Electrical.AC.ThreePhasesUnbalanced.Lines.TwoPortMatrixRL_N
+    </td>
+    <td valign=\"top\">Removed <code>stateSelect</code> attribute on algebraic line currents and voltages
+                       to improve compatibility with OpenModelica.<br/>
+                       This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/2217\">IBPSA, issue 2217</a>
+                       and <a href=\"https://github.com/OpenModelica/OpenModelica/issues/10968\">OpenModelica, #10968</a>.
+    </td>
+</tr>
+<tr><td colspan=\"2\"><b>Buildings.Electrical.AC.ThreePhasesUnbalanced.Loads.BaseClasses</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Electrical.AC.ThreePhasesUnbalanced.Loads.BaseClasses.BaseLoadCtrl
+    </td>
+    <td valign=\"top\">Set balanced three-phase start values for the load voltages
+                       <code>load1.v</code>, <code>load2.v</code>, and <code>load3.v</code>
+                       for wye and delta connections to improve nonlinear initialization.<br/>
+                       This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/2217\">IBPSA, issue 2217</a>.
+    </td>
+</tr>
+<tr><td colspan=\"2\"><b>Buildings.Electrical.AC.ThreePhasesUnbalanced.Validation.IEEETests.Test4NodesFeeder</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Electrical.AC.ThreePhasesUnbalanced.Validation.IEEETests.Test4NodesFeeder.BalancedStepDown.DD<br/>
+                       Buildings.Electrical.AC.ThreePhasesUnbalanced.Validation.IEEETests.Test4NodesFeeder.BalancedStepDown.YD<br/>
+                       Buildings.Electrical.AC.ThreePhasesUnbalanced.Validation.IEEETests.Test4NodesFeeder.BalancedStepUp.DD<br/>
+                       Buildings.Electrical.AC.ThreePhasesUnbalanced.Validation.IEEETests.Test4NodesFeeder.BalancedStepUp.YD<br/>
+                       Buildings.Electrical.AC.ThreePhasesUnbalanced.Validation.IEEETests.Test4NodesFeeder.UnbalancedStepDown.DD<br/>
+                       Buildings.Electrical.AC.ThreePhasesUnbalanced.Validation.IEEETests.Test4NodesFeeder.UnbalancedStepDown.YD<br/>
+                       Buildings.Electrical.AC.ThreePhasesUnbalanced.Validation.IEEETests.Test4NodesFeeder.UnbalancedStepUp.DD<br/>
+                       Buildings.Electrical.AC.ThreePhasesUnbalanced.Validation.IEEETests.Test4NodesFeeder.UnbalancedStepUp.YD
+    </td>
+    <td valign=\"top\">Added a secondary grounding transformer to establish a ground reference
+                       on the delta-connected transformer secondary.<br/>
+                       This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/2217\">IBPSA, issue 2217</a>.
+    </td>
+</tr>
+<tr><td colspan=\"2\"><b>Buildings.Electrical.Icons</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Electrical.Icons.RefAngleConversion
+    </td>
+    <td valign=\"top\">Removed the conditional icon graphics for the grounding symbol,
+                       which have been moved to the models that extend this class.
+    </td>
+</tr>
+<tr><td colspan=\"2\"><b>Buildings.Examples.VAVReheat</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Examples.VAVReheat.BaseClasses.ASHRAE2006
+    </td>
+    <td valign=\"top\">Corrected wrong value assignment of <code>ratVMinVAV_flow</code>.<br/>
+                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4863\">Buildings, #4863</a>.
     </td>
 </tr>
 <tr><td colspan=\"2\"><b>Buildings.Fluid.BaseClasses.FlowModels</b>
@@ -243,6 +336,28 @@ that can lead to wrong simulation results):
                        This is for <a href=\"https://www.github.com/lbl-srg/modelica-buildings/issues/4475\">issue #4475</a>.
     </td>
 </tr>
+<tr><td colspan=\"2\"><b>Buildings.Fluid.DataCenters.CDUs.LiquidToLiquid.Data</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Fluid.DataCenters.CDUs.LiquidToLiquid.Data.Generic_2MW<br/>
+                       Buildings.Fluid.DataCenters.CDUs.LiquidToLiquid.Data.GoogleProjectDeschutes_2MW<br/>
+                       Buildings.Fluid.DataCenters.CDUs.LiquidToLiquid.Data.VertivLiebertXDU1350
+    </td>
+    <td valign=\"top\">Corrected sign of <code>Q_flow_nominal</code>, which must be negative.
+                       For <code>GoogleProjectDeschutes_2MW</code>, added the nominal mass flow rates
+                       listed in its documentation.<br/>
+                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4787\">Buildings, #4787</a>.
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Fluid.DataCenters.CDUs.LiquidToLiquid.Data.VertivLiebertXDU1350
+    </td>
+    <td valign=\"top\">Corrected the nominal mass flow rates (<code>mRac_flow_nominal</code> and <code>mPla_flow_nominal</code>),
+                       the nominal external pump head and pump head curve (<code>dpPumpExt_nominal</code> and <code>pumpExtHead</code>),
+                       and the rack-side filter design pressure drop (<code>dpFilRac_nominal</code>)
+                       to match the manufacturer data sheet.<br/>
+                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4872\">Buildings, #4872</a>.
+    </td>
+</tr>
 <tr><td colspan=\"2\"><b>Buildings.Fluid.FixedResistances</b>
     </td>
 </tr>
@@ -277,28 +392,6 @@ that can lead to wrong simulation results):
     <td valign=\"top\">Corrected call from
     <code>EthyleneGlycolWater.prandtlNumber_TX_a</code> to
     <code>PropyleneGlycolWater.prandtlNumber_TX_a</code>.
-    </td>
-</tr>
-<tr><td colspan=\"2\"><b>Buildings.Fluid.DataCenters.CDUs.LiquidToLiquid.Data</b>
-    </td>
-</tr>
-<tr><td valign=\"top\">Buildings.Fluid.DataCenters.CDUs.LiquidToLiquid.Data.Generic_2MW<br/>
-                       Buildings.Fluid.DataCenters.CDUs.LiquidToLiquid.Data.GoogleProjectDeschutes_2MW<br/>
-                       Buildings.Fluid.DataCenters.CDUs.LiquidToLiquid.Data.VertivLiebertXDU1350
-    </td>
-    <td valign=\"top\">Corrected sign of <code>Q_flow_nominal</code>, which must be negative.
-                       For <code>GoogleProjectDeschutes_2MW</code>, added the nominal mass flow rates
-                       listed in its documentation.<br/>
-                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4787\">Buildings, #4787</a>.
-    </td>
-</tr>
-<tr><td valign=\"top\">Buildings.Fluid.DataCenters.CDUs.LiquidToLiquid.Data.VertivLiebertXDU1350
-    </td>
-    <td valign=\"top\">Corrected the nominal mass flow rates (<code>mRac_flow_nominal</code> and <code>mPla_flow_nominal</code>),
-                       the nominal external pump head and pump head curve (<code>dpPumpExt_nominal</code> and <code>pumpExtHead</code>),
-                       and the rack-side filter design pressure drop (<code>dpFilRac_nominal</code>)
-                       to match the manufacturer data sheet.<br/>
-                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4872\">Buildings, #4872</a>.
     </td>
 </tr>
 <tr><td colspan=\"2\"><b>Buildings.ThermalZones.Detailed.BaseClasses</b>
