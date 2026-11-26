@@ -38,7 +38,15 @@ partial model BaseLoadCtrl
     final mode=mode,
     final P_nominal = P_nominal,
     final V_nominal=V_nominal/sqrt(3),
-    final initMode=initMode)
+    final initMode=initMode,
+    v(start=if loadConn == Buildings.Electrical.Types.LoadConnection.wye_to_delta then
+        Buildings.Electrical.PhaseSystems.OnePhase.phaseVoltages(
+          V_nominal,
+          phi=Modelica.Constants.pi/6)
+      else
+        Buildings.Electrical.PhaseSystems.OnePhase.phaseVoltages(
+          V_nominal/sqrt(3),
+          phi=0)))
     if plugPhase1 "Load 1"
     annotation (Placement(transformation(extent={{-10,40},{10,60}})));
   replaceable Buildings.Electrical.Interfaces.Load load2(
@@ -48,7 +56,15 @@ partial model BaseLoadCtrl
     final mode=mode,
     final P_nominal = P_nominal,
     final V_nominal=V_nominal/sqrt(3),
-    final initMode=initMode)
+    final initMode=initMode,
+    v(start=if loadConn == Buildings.Electrical.Types.LoadConnection.wye_to_delta then
+        Buildings.Electrical.PhaseSystems.OnePhase.phaseVoltages(
+          V_nominal,
+          phi=-Modelica.Constants.pi/2)
+      else
+        Buildings.Electrical.PhaseSystems.OnePhase.phaseVoltages(
+          V_nominal/sqrt(3),
+          phi=-2*Modelica.Constants.pi/3)))
     if plugPhase2 "Load 2"
     annotation (Placement(transformation(extent={{-10,-30},{10,-10}})));
   replaceable Buildings.Electrical.Interfaces.Load load3(
@@ -58,7 +74,15 @@ partial model BaseLoadCtrl
     final mode=mode,
     final P_nominal = P_nominal,
     final V_nominal=V_nominal/sqrt(3),
-    final initMode=initMode)
+    final initMode=initMode,
+    v(start=if loadConn == Buildings.Electrical.Types.LoadConnection.wye_to_delta then
+        Buildings.Electrical.PhaseSystems.OnePhase.phaseVoltages(
+          V_nominal,
+          phi=5*Modelica.Constants.pi/6)
+      else
+        Buildings.Electrical.PhaseSystems.OnePhase.phaseVoltages(
+          V_nominal/sqrt(3),
+          phi=2*Modelica.Constants.pi/3)))
     if plugPhase3 "Load 3"
     annotation (Placement(transformation(extent={{-10,-98},{10,-78}})));
   Modelica.Blocks.Interfaces.RealInput y1  if plugPhase1 and
@@ -362,8 +386,36 @@ time if the voltage exceeds a given threshold. Mode information about the
 voltage controller can be found
 <a href=\"modelica://Buildings.Electrical.Utilities.VoltageControl\">here</a>.
 </p>
+<h4>Initialization</h4>
+<p>
+When a load operates at prescribed active and reactive power with
+<code>linearized = false</code>, the algebraic relation between terminal voltage
+and current is nonlinear and admits multiple power-flow solutions. In addition
+to the normal high-voltage operating point, spurious low-voltage solutions with
+high current exist. To guide the nonlinear initialization solver toward the
+normal operating point, the start values of the phase-load voltages
+<code>load1.v</code>, <code>load2.v</code>, and <code>load3.v</code> are set to a
+balanced positive-sequence three-phase system shifted by 120 degrees. For a
+grounded-wye connection
+(<code>loadConn = Buildings.Electrical.Types.LoadConnection.wye_to_wyeg</code>), the
+voltage magnitude is <code>V_nominal/sqrt(3)</code> with phase angles of
+<code>0</code>, <code>-2*pi/3</code>, and <code>2*pi/3</code> rad. For a delta
+connection
+(<code>loadConn = Buildings.Electrical.Types.LoadConnection.wye_to_delta</code>), the
+line-to-line voltage magnitude is <code>V_nominal</code> with phase angles of
+<code>pi/6</code>, <code>-pi/2</code>, and <code>5*pi/6</code> rad.
+</p>
 </html>", revisions="<html>
 <ul>
+<li>
+November 22, 2026, by Michael Wetter:<br/>
+Set three-phase voltage start values on <code>load1</code>, <code>load2</code>,
+and <code>load3</code> for wye and delta connections.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/2217\">IBPSA, #2217</a>
+and
+<a href=\"https://github.com/OpenModelica/OpenModelica/issues/10968\">OpenModelica, #10968</a>.
+</li>
 <li>
 September 17, 2016, by Michael Wetter:<br/>
 Corrected wrong annotation to avoid an error in the pedantic model check

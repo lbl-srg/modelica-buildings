@@ -44,7 +44,14 @@ model DD
     annotation (Placement(transformation(extent={{16,-50},{36,-30}})));
   Modelica.Blocks.Sources.Constant pf3(k=0.95)
     annotation (Placement(transformation(extent={{38,-70},{58,-50}})));
+  Buildings.Electrical.AC.ThreePhasesUnbalanced.Sources.GroundingTransformer groTra
+    "Grounding transformer for delta secondary"
+    annotation (Placement(transformation(extent={{-32,-32},{-12,-12}})));
 equation
+  connect(groTra.terminal, transformer.terminal_p) annotation (Line(
+      points={{-22,-12},{-22,-4},{0,-4},{0,10},{-6,10}},
+      color={0,120,120},
+      smooth=Smooth.None));
   connect(line1.terminal_p, transformer.terminal_n) annotation (Line(
       points={{-48,10},{-26,10}},
       color={0,120,120},
@@ -98,6 +105,14 @@ equation
           "modelica://Buildings/Resources/Scripts/Dymola/Electrical/AC/ThreePhasesUnbalanced/Validation/IEEETests/Test4NodesFeeder/UnbalancedStepUp/DD.mos"
         "Simulate and plot"),
  Documentation(revisions="<html><ul>
+<li>
+November 22, 2026, by Michael Wetter:<br/>
+Added secondary grounding transformer.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/2217\">IBPSA, #2217</a>
+and
+<a href=\"https://github.com/OpenModelica/OpenModelica/issues/10968\">OpenModelica, #10968</a>.
+</li>
 <li>
 October 9, 2014, by Marco Bonvini:<br/>
 Added documentation.

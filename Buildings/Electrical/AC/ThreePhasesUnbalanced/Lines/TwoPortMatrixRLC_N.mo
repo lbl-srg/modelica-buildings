@@ -76,51 +76,43 @@ model TwoPortMatrixRLC_N
 
   Modelica.Units.SI.Voltage v1_n[2](
     start=Buildings.Electrical.PhaseSystems.OnePhase.phaseVoltages(V_nominal/
-        sqrt(3), phi=0),
-    each stateSelect=StateSelect.never) = terminal_n.phase[1].v
+        sqrt(3), phi=0)) = terminal_n.phase[1].v
     "Voltage in line 1 at connector N";
   Modelica.Units.SI.Voltage v2_n[2](
     start=Buildings.Electrical.PhaseSystems.OnePhase.phaseVoltages(V_nominal/
-        sqrt(3), phi=-2*Modelica.Constants.pi/3),
-    each stateSelect=StateSelect.never) = terminal_n.phase[2].v
+        sqrt(3), phi=-2*Modelica.Constants.pi/3)) = terminal_n.phase[2].v
     "Voltage in line 2 at connector N";
   Modelica.Units.SI.Voltage v3_n[2](
     start=Buildings.Electrical.PhaseSystems.OnePhase.phaseVoltages(V_nominal/
-        sqrt(3), phi=2*Modelica.Constants.pi/3),
-    each stateSelect=StateSelect.never) = terminal_n.phase[3].v
+        sqrt(3), phi=2*Modelica.Constants.pi/3)) = terminal_n.phase[3].v
     "Voltage in line 3 at connector N";
   Modelica.Units.SI.Voltage v4_n[2](
-    start=Buildings.Electrical.PhaseSystems.OnePhase.phaseVoltages(0),
-    each stateSelect=StateSelect.never) = terminal_n.phase[4].v
+    start=Buildings.Electrical.PhaseSystems.OnePhase.phaseVoltages(0)) = terminal_n.phase[4].v
     "Voltage in line 4 (neutral) at connector N";
   Modelica.Units.SI.Voltage v1_p[2](
     start=Buildings.Electrical.PhaseSystems.OnePhase.phaseVoltages(V_nominal/
-        sqrt(3), phi=0),
-    each stateSelect=StateSelect.never) = terminal_p.phase[1].v
+        sqrt(3), phi=0)) = terminal_p.phase[1].v
     "Voltage in line 1 at connector P";
   Modelica.Units.SI.Voltage v2_p[2](
     start=Buildings.Electrical.PhaseSystems.OnePhase.phaseVoltages(V_nominal/
-        sqrt(3), phi=-2*Modelica.Constants.pi/3),
-    each stateSelect=StateSelect.never) = terminal_p.phase[2].v
+        sqrt(3), phi=-2*Modelica.Constants.pi/3)) = terminal_p.phase[2].v
     "Voltage in line 2 at connector P";
   Modelica.Units.SI.Voltage v3_p[2](
     start=Buildings.Electrical.PhaseSystems.OnePhase.phaseVoltages(V_nominal/
-        sqrt(3), phi=2*Modelica.Constants.pi/3),
-    each stateSelect=StateSelect.never) = terminal_p.phase[3].v
+        sqrt(3), phi=2*Modelica.Constants.pi/3)) = terminal_p.phase[3].v
     "Voltage in line 3 at connector P";
   Modelica.Units.SI.Voltage v4_p[2](
-    start=Buildings.Electrical.PhaseSystems.OnePhase.phaseVoltages(0),
-    each stateSelect=StateSelect.never) = terminal_p.phase[4].v
+    start=Buildings.Electrical.PhaseSystems.OnePhase.phaseVoltages(0)) = terminal_p.phase[4].v
     "Voltage in line 4 (neutral) at connector P";
 
 protected
   function productAC1p = Buildings.Electrical.PhaseSystems.OnePhase.product
     "Product between complex quantities";
-  Modelica.Units.SI.Current Isr[4,2](each stateSelect=StateSelect.prefer)
+  Modelica.Units.SI.Current Isr[4,2]
     "Currents that pass through the lines";
-  Modelica.Units.SI.Current Ish_p[4,2](each stateSelect=StateSelect.prefer)
+  Modelica.Units.SI.Current Ish_p[4,2]
     "Shunt current on side p";
-  Modelica.Units.SI.Current Ish_n[4,2](each stateSelect=StateSelect.prefer)
+  Modelica.Units.SI.Current Ish_n[4,2]
     "Shunt current on side n";
 
 equation
@@ -223,6 +215,14 @@ equation
           textString="C 4x4")}),
     Documentation(revisions="<html>
 <ul>
+<li>
+November 23, 2026, by Michael Wetter:<br/>
+Removed <code>stateSelect</code> attribute on algebraic line currents and voltages.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/2217\">IBPSA, #2217</a>
+and
+<a href=\"https://github.com/OpenModelica/OpenModelica/issues/10968\">OpenModelica, #10968</a>.
+</li>
 <li>
 April 5, 2023, by Michael Wetter:<br/>
 Set nominal attribute for voltage at terminal.
