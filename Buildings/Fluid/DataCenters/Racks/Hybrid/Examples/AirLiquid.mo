@@ -89,7 +89,7 @@ model AirLiquid
     annotation (Placement(transformation(extent={{-180,-32},{-160,-12}})));
 
   replaceable Buildings.Fluid.DataCenters.Racks.Hybrid.AirLiquid rac
-    constrainedby Buildings.Fluid.DataCenters.Racks.Hybrid.AirLiquid(
+    constrainedby Buildings.Fluid.DataCenters.Racks.Hybrid.BaseClasses.AirLiquid(
     redeclare package MediumLiq = MediumLiq,
     redeclare package MediumAir = MediumAir,
     dat=dat,
@@ -313,6 +313,12 @@ rack of <i>10</i> K, leading to a <i>40</i>&deg;C outlet air temperature.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+November 26, 2026, by Michael Wetter:<br/>
+Changed constraining type of <code>rac</code> to
+<code>Buildings.Fluid.DataCenters.Racks.Hybrid.BaseClasses.AirLiquid</code>.<br/>
+This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4926\">Buildings, #4926</a>.
+</li>
 <li>
 July 14, 2026, by Michael Wetter:<br/>
 First implementation.

@@ -58,7 +58,7 @@ The model uses a constant air and water mass flow rate.
 <ul>
 <li>
 November 13, 2026, by Michael Wetter:<br/>
-Removed assignments to deleted parameters <code>cpAir_nominal</code> and
+Removed assignments to unused parameters <code>cpAir_nominal</code> and
 <code>cpCoo_nominal</code>.<br/>
 This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4926\">Buildings, #4926</a>.
 </li>

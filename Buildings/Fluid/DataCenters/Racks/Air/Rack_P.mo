@@ -1,7 +1,7 @@
 within Buildings.Fluid.DataCenters.Racks.Air;
 model Rack_P "Model of an air-cooled rack with electrical power as input"
   extends Buildings.Fluid.DataCenters.Racks.BaseClasses.PartialRack(
-    redeclare replaceable Buildings.Fluid.DataCenters.Racks.Air.Data.Generic dat
+    redeclare replaceable parameter Buildings.Fluid.DataCenters.Racks.Air.Data.Generic dat
     constrainedby Buildings.Fluid.DataCenters.Racks.Air.Data.Generic,
     vol(nPorts=2));
 

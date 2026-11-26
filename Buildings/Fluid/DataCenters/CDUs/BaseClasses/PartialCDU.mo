@@ -13,13 +13,19 @@ model PartialCDU "Partial model for a CDU"
     annotation(Dialog(tab="Advanced", group="Diagnostics"));
 
   // Flow resistance parameters
+  parameter Boolean computeFlowResistancePla=true
+    "=true, compute flow resistance. Set to false to assume no friction"
+    annotation (Evaluate=true, Dialog(tab="Flow resistance", group="Medium 1"));
   parameter Boolean from_dpPla=false
     "= true, use m_flow = f(dp) else dp = f(m_flow)"
     annotation (Evaluate=true, Dialog(tab="Flow resistance", group="Medium 1"));
 
   parameter Boolean linearizeFlowResistancePla=false
     "= true, use linear relation between m_flow and dp for any flow rate"
-    annotation (Dialog(tab="Flow resistance", group="Medium 1"));
+    annotation(Dialog(tab="Flow resistance", group="Medium 1"));
+  parameter Boolean computeFlowResistanceRac=true
+    "=true, compute flow resistance. Set to false to assume no friction"
+    annotation (Evaluate=true, Dialog(tab="Flow resistance", group="Medium 2"));
 
   parameter Boolean from_dpRac=false
     "= true, use m_flow = f(dp) else dp = f(m_flow)"
@@ -27,15 +33,7 @@ model PartialCDU "Partial model for a CDU"
 
   parameter Boolean linearizeFlowResistanceRac=false
     "= true, use linear relation between m_flow and dp for any flow rate"
-    annotation (Dialog(tab="Flow resistance", group="Medium 2"));
-
-  parameter Boolean computeFlowResistancePla=true
-    "=true, compute flow resistance. Set to false to assume no friction"
-    annotation (Evaluate=true, Dialog(tab="Flow resistance", group="Medium 1"));
-
-  parameter Boolean computeFlowResistanceRac=true
-    "=true, compute flow resistance. Set to false to assume no friction"
-    annotation (Evaluate=true, Dialog(tab="Flow resistance", group="Medium 2"));
+    annotation(Dialog(tab="Flow resistance", group="Medium 2"));
 
   // Valve
   parameter Boolean use_strokeTime=true

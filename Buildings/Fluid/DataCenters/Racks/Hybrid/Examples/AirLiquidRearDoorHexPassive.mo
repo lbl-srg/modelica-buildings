@@ -2,13 +2,22 @@ within Buildings.Fluid.DataCenters.Racks.Hybrid.Examples;
 model AirLiquidRearDoorHexPassive
   "Example model for hybrid liquid-cooled and air-cooled rack with rear door heat exchanger"
   extends Buildings.Fluid.DataCenters.Racks.Hybrid.Examples.AirLiquid(
-      redeclare replaceable
+      redeclare replaceable parameter
       Buildings.Fluid.DataCenters.Racks.Hybrid.Data.AirLiquidRearDoorHexPassive.Generic
       dat constrainedby
       Buildings.Fluid.DataCenters.Racks.Hybrid.Data.AirLiquidRearDoorHexPassive.Generic(
       liq=datLiq,
       air=datAir,
-      reaDooHex=datReaDooHex), redeclare replaceable
+      reaDooHex(
+        mAir_flow_nominal=datReaDooHex.mAir_flow_nominal,
+        mCoo_flow_nominal=datReaDooHex.mCoo_flow_nominal,
+        Q_flow_nominal=datReaDooHex.Q_flow_nominal,
+        TAirIn_nominal=datReaDooHex.TAirIn_nominal,
+        TCooIn_nominal=datReaDooHex.TCooIn_nominal,
+        dpCoo_nominal=datReaDooHex.dpCoo_nominal,
+        dpAir_nominal=datReaDooHex.dpAir_nominal,
+        cpCoo_nominal=datReaDooHex.cpCoo_nominal,
+        cpAir_nominal=datReaDooHex.cpAir_nominal)), redeclare replaceable
       Buildings.Fluid.DataCenters.Racks.Hybrid.AirLiquidRearDoorHexPassive rac
       constrainedby
       Buildings.Fluid.DataCenters.Racks.Hybrid.BaseClasses.PartialAirLiquidRearDoorHex(
@@ -113,6 +122,12 @@ base example.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+November 26, 2026, by Michael Wetter:<br/>
+Added <code>parameter</code> prefix to redeclaration of <code>dat</code> and
+propagated fields of <code>datReaDooHex</code> through its constraining type.<br/>
+This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4926\">Buildings, #4926</a>.
+</li>
 <li>
 September 13, 2026, by Michael Wetter:<br/>
 First implementation.

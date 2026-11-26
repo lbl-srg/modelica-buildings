@@ -3,10 +3,6 @@ record Generic
   "Generic data record for liquid-cooled single-phase rack"
   extends Buildings.Fluid.DataCenters.Racks.BaseClasses.Data.Generic;
 
-  parameter Modelica.Units.SI.Power PColPla_nominal(min=0) = 0
-    "Nominal heat flow rate of one cold plate (if 0, nColPla is computed from VColPla_flow_nominal)"
-    annotation (Dialog(group="Nominal condition"));
-
   // Flow resistance
   parameter Modelica.Units.SI.PressureDifference dp_nominal(displayUnit="Pa") = 50000
     "Pressure drop at nominal mass flow rate"
@@ -22,6 +18,10 @@ record Generic
 
   parameter BaseClasses.Generic_R_m_flow theRes "Thermal resistance data"
     annotation (Placement(transformation(extent={{60,60},{80,80}})));
+
+  parameter Modelica.Units.SI.Power PColPla_nominal(min=0) = 0
+    "Nominal heat flow rate of one cold plate (if 0, nColPla is computed from VColPla_flow_nominal)"
+    annotation (Dialog(group="Nominal condition"));
 annotation (
   defaultComponentName="dat",
   defaultComponentPrefixes="parameter",

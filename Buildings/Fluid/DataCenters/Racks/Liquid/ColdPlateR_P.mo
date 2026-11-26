@@ -2,7 +2,7 @@ within Buildings.Fluid.DataCenters.Racks.Liquid;
 model ColdPlateR_P
   "Model of a cold plate in which heat transfer is characterized by R for different flow rates, with electrical power as input"
   extends Buildings.Fluid.DataCenters.Racks.BaseClasses.PartialRack(
-    redeclare replaceable Buildings.Fluid.DataCenters.Racks.Liquid.Data.Generic dat
+    redeclare replaceable parameter Buildings.Fluid.DataCenters.Racks.Liquid.Data.Generic dat
     constrainedby Buildings.Fluid.DataCenters.Racks.Liquid.Data.Generic,
     vol(nPorts=2));
 

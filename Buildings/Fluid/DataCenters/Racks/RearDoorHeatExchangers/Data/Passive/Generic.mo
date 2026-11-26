@@ -10,6 +10,15 @@ record Generic "Data record for passive rear door heat exchanger"
     "Design coolant flow rate for heat exchanger parameterization"
     annotation (Dialog(group="Nominal condition"));
 
+  parameter Modelica.Units.SI.SpecificHeatCapacity cpCoo_nominal=
+    Buildings.Media.Water.cp_const
+    "Specific heat capacity of rear door heat exchanger coolant fluid";
+
+  parameter Modelica.Units.SI.SpecificHeatCapacity cpAir_nominal =
+    Buildings.Utilities.Psychrometrics.Constants.cpAir
+    "Specific heat capacity of air";
+
+
   parameter Modelica.Units.SI.HeatFlowRate Q_flow_nominal(max=0)
     "Cooling capacity at design condition (negative number)"
     annotation (Dialog(group="Nominal condition"));
@@ -33,14 +42,6 @@ record Generic "Data record for passive rear door heat exchanger"
     displayUnit="Pa") = 200
     "Air-side pressure drop at nominal flow rate"
     annotation (Dialog(group="Nominal condition"));
-
-  parameter Modelica.Units.SI.SpecificHeatCapacity cpCoo_nominal=
-    Buildings.Media.Water.cp_const
-    "Specific heat capacity of rear door heat exchanger coolant fluid";
-
-  parameter Modelica.Units.SI.SpecificHeatCapacity cpAir_nominal=
-    Buildings.Utilities.Psychrometrics.Constants.cpAir
-    "Specific heat capacity of air";
 
 annotation (
   defaultComponentName="reaDooHex",

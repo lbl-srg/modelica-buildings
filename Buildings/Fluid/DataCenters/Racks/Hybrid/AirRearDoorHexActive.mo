@@ -8,8 +8,8 @@ model AirRearDoorHexActive
       final k=kReaDooHex,
       final Ti=TiReaDooHex,
       dat(
-        PFan_nominal=dat.reaDooHex.PFan_nominal,
-        eta_nominal=dat.reaDooHex.eta_nominal)));
+        PFan_nominal=dat.PFan_nominal,
+        eta_nominal=dat.eta_nominal)));
 
   parameter Modelica.Fluid.Types.Dynamics energyDynamicsReaDooHex=
     Modelica.Fluid.Types.Dynamics.SteadyState
@@ -81,10 +81,9 @@ the rear door heat exchanger fan then increases its speed as well.
     revisions="<html>
 <ul>
 <li>
-November 13, 2026, by Michael Wetter:<br/>
-Propagated <code>dat.reaDooHex.PFan_nominal</code> and
-<code>dat.reaDooHex.eta_nominal</code> to <code>reaDooHex</code>, and exposed
-<code>energyDynamicsReaDooHex</code>.<br/>
+November 26, 2026, by Michael Wetter:<br/>
+Propagated <code>dat.PFan_nominal</code> and <code>dat.eta_nominal</code> to
+<code>reaDooHex</code>, and exposed <code>energyDynamicsReaDooHex</code>.<br/>
 This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4926\">Buildings, #4926</a>.
 </li>
 <li>

@@ -4,24 +4,22 @@ model CDU_epsNTU "Example model of a CDU with varying load on the IT side"
 
   package MediumChi = Buildings.Media.Water "Medium for chilled water loop";
   package MediumRac = Buildings.Media.Antifreeze.PropyleneGlycolWater(
-    T_default=TRac_a,
-    property_T=TRac_a,
+    T_default=273.15 + 42,
+    property_T=273.15 + 42,
     X_a=Buildings.Media.Antifreeze.Functions.PropyleneGlycolWater.volumeToMassFraction(
-      phi=0.25,
-      T=TRac_a))
+        phi=0.25,
+        T=273.15 + 42))
     "Medium for rack";
-
-  constant Modelica.Units.SI.Temperature TRac_a = 273.15 + 42
-    "Supply coolant temperature to rack at design conditions";
-  constant Modelica.Units.SI.Temperature TRac_b = 273.15 + 47
-    "Return coolant temperature from rack at design conditions";
-  constant Modelica.Units.SI.Temperature TChi_a = 273.15 + 36
-    "Supply chilled water temperature to CDU at design conditions";
-  constant Modelica.Units.SI.Temperature TChi_b = 273.15 + 41
-    "Return chilled water temperature from CDU at design conditions";
-
   parameter Modelica.Units.SI.Power PRac = 48*132000
     "Total rack design power";
+  parameter Modelica.Units.SI.Temperature TRac_a = 273.15+42
+    "Supply coolant temperature to rack at design conditions";
+  parameter Modelica.Units.SI.Temperature TRac_b = 273.15+47
+    "Return coolant temperature from rack at design conditions";
+  parameter Modelica.Units.SI.Temperature TChi_a = 273.15+36
+    "Supply chilled water temperature to CDU at design conditions";
+  parameter Modelica.Units.SI.Temperature TChi_b = 273.15+41
+    "Return chilled water temperature from CDU at design conditions";
 
   parameter Modelica.Units.SI.MassFlowRate mRac_flow_nominal =
     PRac/(TRac_b-TRac_a)/MediumRac.cp_const
