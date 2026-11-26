@@ -4,7 +4,7 @@ record Generic
   extends Buildings.Fluid.DataCenters.Racks.Hybrid.Data.AirRearDoorHexPassive.Generic(
     redeclare replaceable parameter
       Buildings.Fluid.DataCenters.Racks.RearDoorHeatExchangers.Data.Active.Generic reaDooHex
-      constrainedby Buildings.Fluid.DataCenters.Racks.RearDoorHeatExchangers.Data.Passive.Generic);
+      constrainedby Buildings.Fluid.DataCenters.Racks.RearDoorHeatExchangers.Data.Active.Generic);
 
 annotation (
   defaultComponentName="dat",
@@ -31,6 +31,15 @@ Buildings.Fluid.DataCenters.Racks.RearDoorHeatExchangers.Data.Active.Generic</a>
 </html>",
     revisions="<html>
 <ul>
+<li>
+November 26, 2026, by Michael Wetter:<br/>
+Corrected <code>constrainedby</code> clause for <code>reaDooHex</code>
+from <code>Data.Passive.Generic</code> to <code>Data.Active.Generic</code>
+so that access to <code>PFan_nominal</code> and <code>eta_nominal</code>
+is covered by the constraining type.
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4926\">Buildings, #4926</a>.
+</li>
 <li>
 September 29, 2026, by Michael Wetter:<br/>
 First implementation.
