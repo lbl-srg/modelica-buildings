@@ -901,6 +901,11 @@ Buildings/Electrical/AC/ThreePhasesUnbalanced/Sources/FixedVoltage.mo
 Buildings/Electrical/AC/ThreePhasesUnbalanced/Sources/FixedVoltage_N.mo
 Buildings/Electrical/AC/ThreePhasesUnbalanced/Sources/Grid.mo
 Buildings/Electrical/AC/ThreePhasesUnbalanced/Sources/Grid_N.mo
+Buildings/Electrical/AC/ThreePhasesUnbalanced/Sources/GroundingTransformer.mo
+Buildings/Electrical/AC/ThreePhasesUnbalanced/Sources/Validation/GroundingTransformer.mo
+Buildings/Electrical/AC/ThreePhasesUnbalanced/Sources/Validation/GroundingTransformerFault.mo
+Buildings/Electrical/AC/ThreePhasesUnbalanced/Sources/Validation/package.mo
+Buildings/Electrical/AC/ThreePhasesUnbalanced/Sources/Validation/package.order
 Buildings/Electrical/AC/ThreePhasesUnbalanced/Sources/WindTurbine.mo
 Buildings/Electrical/AC/ThreePhasesUnbalanced/Sources/WindTurbine_N.mo
 Buildings/Electrical/AC/ThreePhasesUnbalanced/Sources/package.mo
@@ -3414,6 +3419,8 @@ Buildings/Resources/Scripts/Dymola/Electrical/AC/ThreePhasesUnbalanced/Sensors/E
 Buildings/Resources/Scripts/Dymola/Electrical/AC/ThreePhasesUnbalanced/Sources/Examples/FixedVoltageSource.mos
 Buildings/Resources/Scripts/Dymola/Electrical/AC/ThreePhasesUnbalanced/Sources/Examples/WindTurbine.mos
 Buildings/Resources/Scripts/Dymola/Electrical/AC/ThreePhasesUnbalanced/Sources/Examples/WindTurbine_N.mos
+Buildings/Resources/Scripts/Dymola/Electrical/AC/ThreePhasesUnbalanced/Sources/Validation/GroundingTransformer.mos
+Buildings/Resources/Scripts/Dymola/Electrical/AC/ThreePhasesUnbalanced/Sources/Validation/GroundingTransformerFault.mos
 Buildings/Resources/Scripts/Dymola/Electrical/AC/ThreePhasesUnbalanced/Validation/IEEETests/Test4NodesFeeder/BalancedStepDown/DD.mos
 Buildings/Resources/Scripts/Dymola/Electrical/AC/ThreePhasesUnbalanced/Validation/IEEETests/Test4NodesFeeder/BalancedStepDown/DY.mos
 Buildings/Resources/Scripts/Dymola/Electrical/AC/ThreePhasesUnbalanced/Validation/IEEETests/Test4NodesFeeder/BalancedStepDown/YD.mos

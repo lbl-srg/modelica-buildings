@@ -1,0 +1,16 @@
+compareVars :=
+  {
+    "senSol.V[1]",
+    "senSol.V[2]",
+    "senSol.V[3]",
+    "senRes.V[1]",
+    "senRes.V[2]",
+    "senRes.V[3]",
+    "groTraSol.iNeu[1]",
+    "groTraSol.iNeu[2]",
+    "groTraRes.iNeu[1]",
+    "groTraRes.iNeu[2]",
+    "dV[1]",
+    "dV[2]",
+    "dV[3]"
+  };

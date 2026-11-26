@@ -46,7 +46,14 @@ model YD
     annotation (Placement(transformation(extent={{22,-52},{42,-32}})));
   Modelica.Blocks.Sources.Constant pf3(k=0.95)
     annotation (Placement(transformation(extent={{44,-72},{64,-52}})));
+  Buildings.Electrical.AC.ThreePhasesUnbalanced.Sources.GroundingTransformer groTra
+    "Grounding transformer for delta secondary"
+    annotation (Placement(transformation(extent={{-22,-32},{-2,-12}})));
 equation
+  connect(groTra.terminal, transformer.terminal_p) annotation (Line(
+      points={{-12,-12},{-12,-4},{0,-4},{0,10},{-6,10}},
+      color={0,120,120},
+      smooth=Smooth.None));
   connect(line1.terminal_p, transformer.terminal_n) annotation (Line(
       points={{-48,10},{-26,10}},
       color={0,120,120},
@@ -101,6 +108,14 @@ equation
         "Simulate and plot"),
  Documentation(revisions="<html>
 <ul>
+<li>
+November 22, 2026, by Michael Wetter:<br/>
+Added secondary grounding transformer.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/2217\">IBPSA, #2217</a>
+and
+<a href=\"https://github.com/OpenModelica/OpenModelica/issues/10968\">OpenModelica, #10968</a>.
+</li>
 <li>
 November 28, 2016, by Michael Wetter:<br/>
 Set start values.<br/>
