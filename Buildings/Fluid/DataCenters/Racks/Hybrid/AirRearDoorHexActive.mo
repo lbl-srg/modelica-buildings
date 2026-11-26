@@ -8,8 +8,8 @@ model AirRearDoorHexActive
       final k=kReaDooHex,
       final Ti=TiReaDooHex,
       dat(
-        PFan_nominal=dat.PFan_nominal,
-        eta_nominal=dat.eta_nominal)));
+        PFan_nominal=dat.reaDooHex.PFan_nominal,
+        eta_nominal=dat.reaDooHex.eta_nominal)));
 
   parameter Modelica.Fluid.Types.Dynamics energyDynamicsReaDooHex=
     Modelica.Fluid.Types.Dynamics.SteadyState
@@ -80,14 +80,6 @@ the rear door heat exchanger fan then increases its speed as well.
 </html>",
     revisions="<html>
 <ul>
-<li>
-November 26, 2026, by Michael Wetter:<br/>
-Changed access of <code>PFan_nominal</code> and <code>eta_nominal</code>
-from <code>dat.reaDooHex.*</code> to <code>dat.*</code> to avoid accessing
-parameters that are not part of the constraining type of <code>reaDooHex</code>.
-This is for
-<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4926\">Buildings, #4926</a>.
-</li>
 <li>
 November 13, 2026, by Michael Wetter:<br/>
 Propagated <code>dat.reaDooHex.PFan_nominal</code> and
