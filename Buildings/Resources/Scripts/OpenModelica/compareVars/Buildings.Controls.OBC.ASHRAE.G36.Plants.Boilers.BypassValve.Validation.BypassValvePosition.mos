@@ -1,0 +1,9 @@
+compareVars :=
+  {
+    "bypValPos.uPumSta[1]",
+    "bypValPos.uPumSta[2]",
+    "bypValPos.VHotWat_flow",
+    "bypValPos.VHotWatMinSet_flow",
+    "bypValPos.yBypValPos",
+    "bypValPos.uMinBypValPos"
+  };
