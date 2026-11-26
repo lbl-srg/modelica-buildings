@@ -1,0 +1,17 @@
+compareVars :=
+  {
+    "uti.y",
+    "conVal.y",
+    "cdu.val.y_actual",
+    "yPum.y",
+    "senTCDU_a.T",
+    "senTCDU_b.T",
+    "senTRac_a.T",
+    "senTRac_b.T",
+    "rac.casTem.TCas",
+    "cdu.hex.Q1_flow",
+    "rac.vol.heatPort.Q_flow",
+    "cdu.pum.P",
+    "cdu.pum.m_flow",
+    "cdu.pum.dp"
+  };

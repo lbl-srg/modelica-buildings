@@ -64,46 +64,64 @@ model PartialCDU "Partial model for a CDU"
   parameter Boolean addPowerToMedium=true
     "Set to false to avoid any power from the pump (=heat and flow work) being added to medium (may give simpler equations)";
 
+  parameter Boolean use_yPum_in=false
+    "Set to true to enable an input connector for the pump speed, which replaces the internal pump controller"
+    annotation(Evaluate=true, Dialog(group="Pump controller"));
+  parameter Boolean use_yVal_in=false
+    "Set to true to enable an input connector for the valve position, which replaces the internal valve controller"
+    annotation(Evaluate=true, Dialog(group="Valve controller"));
+
   // Valve controller parameters
   parameter Controls.OBC.CDL.Types.SimpleController controllerTypeVal=Buildings.Controls.OBC.CDL.Types.SimpleController.PI
     "Type of controller for valve"
-    annotation(Dialog(group="Valve controller"));
+    annotation(Dialog(group="Valve controller", enable=not use_yVal_in));
   parameter Real kVal=1 "Gain of controller for valve"
-    annotation(Dialog(group="Valve controller"));
+    annotation(Dialog(group="Valve controller", enable=not use_yVal_in));
   parameter Real TiVal=120
     "Time constant of integrator block of valve controller"
     annotation(Dialog(group="Valve controller",
-      enable=controllerTypeVal<>Buildings.Controls.OBC.CDL.Types.SimpleController.P));
+      enable=not use_yVal_in and controllerTypeVal<>Buildings.Controls.OBC.CDL.Types.SimpleController.P));
   parameter Real TdVal=0.1
     "Time constant of derivative block for valve controller"
     annotation(Dialog(group="Valve controller",
-      enable=controllerTypeVal==Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
+      enable=not use_yVal_in and controllerTypeVal==Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
 
   // Pump controller parameters
   parameter Controls.OBC.CDL.Types.SimpleController controllerTypePum=Buildings.Controls.OBC.CDL.Types.SimpleController.PI
     "Type of controller for pump"
-    annotation(Dialog(group="Pump controller"));
+    annotation(Dialog(group="Pump controller", enable=not use_yPum_in));
   parameter Real kPum=1 "Gain of controller for pump"
-    annotation(Dialog(group="Pump controller"));
+    annotation(Dialog(group="Pump controller", enable=not use_yPum_in));
   parameter Real TiPum=120
     "Time constant of integrator block of pump controller"
     annotation(Dialog(group="Pump controller",
-      enable=controllerTypePum<>Buildings.Controls.OBC.CDL.Types.SimpleController.P));
+      enable=not use_yPum_in and controllerTypePum<>Buildings.Controls.OBC.CDL.Types.SimpleController.P));
   parameter Real TdPum=0.1
     "Time constant of derivative block for pump controller"
     annotation(Dialog(group="Pump controller",
-      enable=controllerTypePum==Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
+      enable=not use_yPum_in and controllerTypePum==Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
 
   // Connectors
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TSet(
     final unit="K",
-    displayUnit="degC")
-    "Set point temperature for water leaving to the IT rack"
+    displayUnit="degC") if not use_yVal_in
+    "Set point temperature for water leaving to the IT rack (removed if use_yVal_in = true)"
    annotation (Placement(transformation(
-      extent={{-140,80},{-100,120}}),
+      extent={{-140,100},{-100,140}}),
      iconTransformation(extent={{-140,0},{-100,40}})));
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput yVal_in(
+    min=0, max=1, final unit="1") if use_yVal_in
+    "Valve position command (enabled if use_yVal_in = true)"
+    annotation (Placement(transformation(extent={{-140,60},{-100,100}}),
+      iconTransformation(extent={{-140,20},{-100,60}})));
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput yPum_in(
+    min=0, max=1, final unit="1") if use_yPum_in
+    "Pump speed command (enabled if use_yPum_in = true)"
+    annotation (Placement(transformation(extent={{-140,-160},{-100,-120}}),
+      iconTransformation(extent={{-140,-60},{-100,-20}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput dpSet(min=0, final unit="Pa")
-    "Set point for static pressure provided by CDU" annotation (Placement(
+    if not use_yPum_in
+    "Set point for static pressure provided by CDU (removed if use_yPum_in = true)" annotation (Placement(
         transformation(extent={{-140,-120},{-100,-80}}), iconTransformation(
           extent={{-140,-40},{-100,0}})));
   Modelica.Blocks.Interfaces.RealOutput P(
@@ -122,9 +140,9 @@ model PartialCDU "Partial model for a CDU"
     final Td=TdVal,
     final reverseActing=false,
     r=10,
-    xi_start=1)
+    xi_start=1) if not use_yVal_in
     "Controller for valve"
-    annotation (Placement(transformation(extent={{-80,90},{-60,110}})));
+    annotation (Placement(transformation(extent={{-80,110},{-60,130}})));
   Controls.OBC.CDL.Reals.PID conPum(
     u_s(final unit="Pa"),
     u_m(final unit="Pa"),
@@ -134,7 +152,7 @@ model PartialCDU "Partial model for a CDU"
     final Td=TdPum,
     final reverseActing=true,
     r=dat.dpPumpExt_nominal,
-    xi_start=1)
+    xi_start=1) if not use_yPum_in
     "Controller for pump"
     annotation (Placement(transformation(extent={{-10,-110},{10,-90}})));
   replaceable Buildings.Fluid.Interfaces.PartialFourPortInterface hex
@@ -299,11 +317,13 @@ equation
   connect(senRelPre.p_rel, conPum.u_m) annotation (Line(points={{0,-131},{0,-112}},
                                   color={0,0,127}));
   connect(TSet, conVal.u_s)
-    annotation (Line(points={{-120,100},{-82,100}}, color={0,0,127}));
+    annotation (Line(points={{-120,120},{-82,120}}, color={0,0,127}));
   connect(senTemRacSup.T, conVal.u_m)
-    annotation (Line(points={{-70,-49},{-70,88}}, color={0,0,127}));
+    annotation (Line(points={{-70,-49},{-70,108}},color={0,0,127}));
+  connect(yVal_in, val.y);
+  connect(yPum_in, pum.y);
   connect(conVal.y, val.y)
-    annotation (Line(points={{-58,100},{-50,100},{-50,72}}, color={0,0,127}));
+    annotation (Line(points={{-58,120},{-50,120},{-50,72}}, color={0,0,127}));
   connect(conPum.y, pum.y) annotation (Line(points={{12,-100},{20,-100},{20,-40},
           {-8,-40}}, color={0,0,127}));
   connect(senTemRacSup.port_b, port_bRac)
@@ -342,16 +362,16 @@ equation
           fillColor={0,0,0},
           fillPattern=FillPattern.Solid),
         Line(
-          points={{-14,0},{0,0}},
+          points={{-10,0},{0,0}},
           color={0,0,0},
           thickness=0.5,
-          origin={-60,46},
+          origin={-60,50},
           rotation=270),
         Rectangle(
           extent={{-10,10},{10,-10}},
           lineColor={0,0,0},
           lineThickness=0.5,
-          origin={-60,36},
+          origin={-60,40},
           rotation=90),
         Polygon(
           points={{-20,10},{-20,-10},{0,0},{20,-10},{20,10},{0,0},{-20,10}},
@@ -390,7 +410,7 @@ equation
           origin={-26,47},
           rotation=90),
         Ellipse(
-          extent={{-80,-40},{-40,-80}},
+          extent={{-76,-46},{-40,-80}},
           lineColor={0,0,0},
           lineThickness=0.5,
           fillColor={255,255,255},
@@ -398,7 +418,7 @@ equation
           startAngle=0,
           endAngle=360),
         Polygon(
-          points={{-80,-60},{-60,-40},{-60,-80},{-80,-60}},
+          points={{-76,-62},{-56,-46},{-56,-80},{-76,-62}},
           fillColor={0,0,0},
           fillPattern=FillPattern.Solid,
           pattern=LinePattern.None),
@@ -425,28 +445,53 @@ equation
           fillColor={0,0,0},
           fillPattern=FillPattern.Solid),
         Line(
+          visible=not use_yVal_in,
           points={{-40,0},{0,0}},
           color={0,0,0},
           thickness=0.5,
           origin={-60,20},
           rotation=360),
         Line(
-          points={{-40,0},{0,0}},
+          visible=not use_yPum_in,
+          points={{-44,0},{0,0}},
           color={0,0,0},
           thickness=0.5,
-          origin={-60,-20},
+          origin={-56,-20},
           rotation=360),
         Line(
-          points={{-20,0},{0,0}},
+          visible=not use_yPum_in,
+          points={{-26,0},{0,0}},
           color={0,0,0},
           thickness=0.5,
-          origin={-60,-40},
+          origin={-56,-46},
           rotation=270),
         Line(
+          visible=not use_yVal_in,
+          points={{-10,0},{0,0}},
+          color={0,0,0},
+          thickness=0.5,
+          origin={-60,20},
+          rotation=270),
+        Line(
+          visible=use_yVal_in,
+          points={{-30,0},{0,0}},
+          color={0,0,0},
+          thickness=0.5,
+          origin={-70,40},
+          rotation=360),
+        Line(
+          visible=use_yPum_in,
+          points={{-44,0},{0,0}},
+          color={0,0,0},
+          thickness=0.5,
+          origin={-56,-40},
+          rotation=360),
+        Line(
+          visible=use_yPum_in,
           points={{-6,0},{0,0}},
           color={0,0,0},
           thickness=0.5,
-          origin={-60,20},
+          origin={-56,-46},
           rotation=270)}),
   defaultComponentName="cdu",
   Documentation(
@@ -482,6 +527,16 @@ of the CDU, and hence it takes into account the flow resistance of the heat exch
 The controller for the pump is configured by default as a PI-controller.
 </p>
 <p>
+If <code>use_yVal_in = true</code>, the valve controller is removed, the input
+<code>yVal_in</code> sets the valve position and the input <code>TSet</code> is removed.
+If <code>use_yPum_in = true</code>, the pump controller is removed, the input
+<code>yPum_in</code> sets the pump speed and the input <code>dpSet</code> is removed.
+This allows, for example, the valve or the pump of several CDUs to be controlled
+by a common controller.
+The parameters of a removed controller have no effect.
+By default, both parameters are <code>false</code> and the CDU uses its own controllers.
+</p>
+<p>
 Note that the head, specified through the parameter <code>dpPum_nominal</code>,
 is the head of the CDU.
 To properly size the pump, set <code>dpPum_nominal</code> to the flow resistance that is
@@ -507,6 +562,13 @@ assumes density as constant during the simulation.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+November 18, 2026, by Nauman Rafique:<br/>
+Added the parameters <code>use_yPum_in</code> and <code>use_yVal_in</code> and the
+corresponding inputs <code>yPum_in</code> and <code>yVal_in</code> to drive the
+pump speed and the valve position from an input instead of the internal controllers.
+This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4905\">Buildings, #4905</a>.
+</li>
 <li>
 December 23, 2025, by Michael Wetter:<br/>
 First implementation.
