@@ -76,12 +76,12 @@ model MultipleZoneCoolingVariant1And2
     airConMod=Buildings.Controls.OBC.DemandFlexibility.Types.AirConditioningMode.Cooling)
     "The zone qualification block"
     annotation (Placement(transformation(extent={{-40,80},{-20,100}})));
-  CDL.Routing.BooleanScalarReplicator staZonFlaRep(nout=nZon)
+  Buildings.Controls.OBC.CDL.Routing.BooleanScalarReplicator staZonFlaRep(nout=nZon)
     "Replicate the starved zone flag"
     annotation (Placement(transformation(extent={{-100,100},{-80,120}})));
-  CDL.Logical.Sources.Constant staZonFla(k=false) "Starved zone flag"
+  Buildings.Controls.OBC.CDL.Logical.Sources.Constant staZonFla(k=false) "Starved zone flag"
     annotation (Placement(transformation(extent={{-140,100},{-120,120}})));
-  CDL.Logical.Sources.TimeTable occSta(
+  Buildings.Controls.OBC.CDL.Logical.Sources.TimeTable occSta(
     table=[0,0; 7,1; 23,0; 24,0],
     timeScale=3600,
     period=86400) "Occupancy status"

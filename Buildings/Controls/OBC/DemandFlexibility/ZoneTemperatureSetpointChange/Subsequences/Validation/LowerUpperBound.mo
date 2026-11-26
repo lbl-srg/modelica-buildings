@@ -1,15 +1,14 @@
 within Buildings.Controls.OBC.DemandFlexibility.ZoneTemperatureSetpointChange.Subsequences.Validation;
-model LowerUpperBound "Zone enablement"
+model LowerUpperBound "Zone setpoint lower or upper bound"
 
   Buildings.Controls.OBC.DemandFlexibility.ZoneTemperatureSetpointChange.Subsequences.LowerUpperBound
-    zonEna(
+    lowUppBou(
     dTSheThr=0.5,
     airConMod=Buildings.Controls.OBC.DemandFlexibility.Types.AirConditioningMode.Heating,
     nZon=5,
     TPreTarSet=fill(567.8, 5),
     TSheTarSet=fill(562.3, 5),
-    TDefSet=fill(566.3, 5))
-            "Zone enablement block"
+    TDefSet=fill(566.3, 5)) "Lower and upper bound block"
     annotation (Placement(transformation(extent={{60,-18},{80,18}})));
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant TZonSetVal[5](
     k=fill(273.15 + 20, 5))
@@ -22,12 +21,10 @@ model LowerUpperBound "Zone enablement"
     "A table of demand flexibility modes that repeat every day"
     annotation (Placement(transformation(extent={{-80,20},{-60,40}})));
 equation
-  connect(TZonSetVal.y,zonEna. TZonSet)
-    annotation (Line(points={{-58,-30},{-20,-30},{-20,-10.8},{58,-10.8}},
-                                                                  color={0,0,127}));
-  connect(tabDemFleMod.y[1],zonEna. demFleMod)
-    annotation (Line(points={{-58,30},{-20,30},{-20,10.8},{58,10.8}},
-      color={255,127,0}));
+  connect(TZonSetVal.y, lowUppBou.TZonSet) annotation (Line(points={{-58,-30},{
+          -20,-30},{-20,-10.8},{58,-10.8}}, color={0,0,127}));
+  connect(tabDemFleMod.y[1], lowUppBou.demFleMod) annotation (Line(points={{-58,
+          30},{-20,30},{-20,10.8},{58,10.8}}, color={255,127,0}));
 annotation (experiment(StopTime=172800, Interval=1, Tolerance=1e-06),
   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/DemandFlexibility/ZoneTemperatureSetpointChange/Subsequences/Validation/LowerUpperBound.mos"
     "Simulate and plot"),
@@ -37,12 +34,6 @@ This example validates
 <a href=\"modelica://Buildings.Controls.OBC.DemandFlexibility.ZoneTemperatureSetpointChange.Subsequences.LowerUpperBound\">
 Buildings.Controls.OBC.DemandFlexibility.ZoneTemperatureSetpointChange.Subsequences.LowerUpperBound</a>
 for a 5-zone building under the heating operation.
-</p>
-<p>
-This validation example shows how the <code>Enable</code> block decides whether
-a zone should be enabled for zone temperature comparison based on two out of the
-four zone enabling conditions: whether a zone is a rogue zone or not, and whether
-the building electricity demand rises above the electricity demand threshold.
 </p>
 </html>", revisions="<html>
 <ul>

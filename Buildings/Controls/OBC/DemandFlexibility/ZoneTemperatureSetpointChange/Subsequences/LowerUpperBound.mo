@@ -1,5 +1,6 @@
 within Buildings.Controls.OBC.DemandFlexibility.ZoneTemperatureSetpointChange.Subsequences;
-block LowerUpperBound "Decide the zones for setpoint change"
+block LowerUpperBound
+  "Check whether the zone temperature setpoints have reached lower or upper bounds"
 
   parameter Real dTSheThr(
     min=0,
@@ -48,57 +49,57 @@ block LowerUpperBound "Decide the zones for setpoint change"
     "True: the zone setpoint lower or upper bound is reached"
     annotation (Placement(transformation(extent={{260,10},{300,50}}),
       iconTransformation(extent={{100,-20},{140,20}})));
-  CDL.Logical.Sources.Constant con[nZon](k={TPreTarSet[i] >= TDefSet[i] for i in 1:
+protected
+  Buildings.Controls.OBC.CDL.Logical.Sources.Constant con[nZon](k={TPreTarSet[i] >= TDefSet[i] for i in 1:
         nZon}) if airConMod == Buildings.Controls.OBC.DemandFlexibility.Types.AirConditioningMode.Heating
     "Check whether the pre-heat target temperature setpoint is greater than or equal to the default tempearture setpoint"
     annotation (Placement(transformation(extent={{102,140},{122,160}})));
-  CDL.Logical.Sources.Constant con1[nZon](k={TSheTarSet[i] <= TDefSet[i] for i in 1:
+  Buildings.Controls.OBC.CDL.Logical.Sources.Constant con1[nZon](k={TSheTarSet[i] <= TDefSet[i] for i in 1:
         nZon}) if airConMod == Buildings.Controls.OBC.DemandFlexibility.Types.AirConditioningMode.Heating
     "Check whether the load-shed target temperature setpoint is less than or equal to the default tempearture setpoint"
     annotation (Placement(transformation(extent={{102,100},{122,120}})));
-  CDL.Logical.Sources.Constant con2[nZon](k={TPreTarSet[i] <= TDefSet[i] for i in 1:
+  Buildings.Controls.OBC.CDL.Logical.Sources.Constant con2[nZon](k={TPreTarSet[i] <= TDefSet[i] for i in 1:
         nZon}) if airConMod == Buildings.Controls.OBC.DemandFlexibility.Types.AirConditioningMode.Cooling
     "Check whether the pre-cool target temperature setpoint is less than or equal to the default tempearture setpoint"
     annotation (Placement(transformation(extent={{102,60},{122,80}})));
-  CDL.Logical.Sources.Constant con3[nZon](k={TSheTarSet[i] >= TDefSet[i] for i in 1:
+  Buildings.Controls.OBC.CDL.Logical.Sources.Constant con3[nZon](k={TSheTarSet[i] >= TDefSet[i] for i in 1:
         nZon}) if airConMod == Buildings.Controls.OBC.DemandFlexibility.Types.AirConditioningMode.Cooling
     "Check whether the load-shed target temperature setpoint is greater than or equal to the default tempearture setpoint"
     annotation (Placement(transformation(extent={{102,20},{122,40}})));
-protected
   Buildings.Controls.OBC.CDL.Routing.BooleanScalarReplicator booScaRepShe(
     final nout=nZon) "Repeat the boolean scalar for being in the load-shed mode"
     annotation (Placement(transformation(extent={{-40,120},{-20,140}})));
-  CDL.Reals.GreaterThreshold               greTSetPreHea[nZon](t=TPreTarSet +
+  Buildings.Controls.OBC.CDL.Reals.GreaterThreshold               greTSetPreHea[nZon](t=TPreTarSet +
         fill(-dT_small, nZon),
     final h=fill(0.5*dT_small,nZon))
     if airConMod == Buildings.Controls.OBC.DemandFlexibility.Types.AirConditioningMode.Heating
     "The zone heating temperature setpoint is greater than the pre-heat target temperature setpoint, with a hysteresis equal to half of the small temperature delta value"
     annotation (Placement(transformation(extent={{-60,0},{-40,20}})));
-  CDL.Reals.LessThreshold               lesTSetPreCoo[nZon](t=TPreTarSet + fill(
+  Buildings.Controls.OBC.CDL.Reals.LessThreshold               lesTSetPreCoo[nZon](t=TPreTarSet + fill(
          dT_small, nZon),
     final h=fill(0.5*dT_small,nZon))
     if airConMod == Buildings.Controls.OBC.DemandFlexibility.Types.AirConditioningMode.Cooling
     "The zone cooling temperature setpoint is less than the pre-cool target temperature setpoint, with a hysteresis equal to half of the small temperature delta value"
     annotation (Placement(transformation(extent={{-60,-40},{-40,-20}})));
-  CDL.Reals.LessThreshold               lesTSetSheHea[nZon](t=TSheTarSet + fill(
+  Buildings.Controls.OBC.CDL.Reals.LessThreshold               lesTSetSheHea[nZon](t=TSheTarSet + fill(
          dT_small, nZon),
     final h=fill(0.5*dT_small,nZon))
     if airConMod == Buildings.Controls.OBC.DemandFlexibility.Types.AirConditioningMode.Heating
     "The zone heating temperature setpoint is less than the load-shed heating target temperature setpoint, with a hysteresis equal to half of the small temperature delta value"
     annotation (Placement(transformation(extent={{-60,-80},{-40,-60}})));
-  CDL.Reals.GreaterThreshold               greTSetSheCoo[nZon](t=TSheTarSet +
+  Buildings.Controls.OBC.CDL.Reals.GreaterThreshold               greTSetSheCoo[nZon](t=TSheTarSet +
         fill(-dT_small, nZon),
     final h=fill(0.5*dT_small,nZon))
     if airConMod == Buildings.Controls.OBC.DemandFlexibility.Types.AirConditioningMode.Cooling
     "The zone cooling temperature setpoint is greater than the load-shed cooling target temperature setpoint, with a hysteresis equal to half of the small temperature delta value"
     annotation (Placement(transformation(extent={{-60,-120},{-40,-100}})));
-  CDL.Reals.GreaterThreshold               greTSetRebHea[nZon](t=TDefSet + fill(
+  Buildings.Controls.OBC.CDL.Reals.GreaterThreshold               greTSetRebHea[nZon](t=TDefSet + fill(
          -dT_small, nZon),
     final h=fill(0.5*dT_small,nZon))
     if airConMod == Buildings.Controls.OBC.DemandFlexibility.Types.AirConditioningMode.Heating
     "The zone heating temperature setpoint is greater than the default heating temperature setpoint during the load-rebound mode, with a hysteresis equal to half of the small temperature delta value"
     annotation (Placement(transformation(extent={{-60,-160},{-40,-140}})));
-  CDL.Reals.LessThreshold               lesTSetRebCoo[nZon](t=TDefSet + fill(
+  Buildings.Controls.OBC.CDL.Reals.LessThreshold               lesTSetRebCoo[nZon](t=TDefSet + fill(
         dT_small, nZon),
     final h=fill(0.5*dT_small,nZon))
     if airConMod == Buildings.Controls.OBC.DemandFlexibility.Types.AirConditioningMode.Cooling
@@ -268,14 +269,19 @@ equation
     Documentation(revisions="<html>
 <ul>
 <li>
+November 25, 2026, by Weiping Huang:<br/>
+Updated the documentation to describe the current implementation of the block.
+</li>
+<li>
 July 16, 2026, by Weiping Huang:<br/>
 First implementation.
 </li>
 </ul>
 </html>", info="<html>
 <p>
-This block serves to determine whether a zone is enabled to participate in the
-setpoint change operation. It can be used for either the heating mode
+This block checks, for each zone, whether the zone temperature setpoint
+<code>TZonSet</code> has reached a lower bound or an upper bound that is imposed
+by the current demand flexibility mode. It can be used for either the heating mode
 (<code>airConMod = Heating</code>) or the cooling mode (<code>airConMod = Cooling</code>).
 </p>
 <p>
@@ -284,58 +290,67 @@ pre-heat mode), <i>1</i> (default mode), <i>2</i> (load-shed mode), or <i>3</i>
 (load-rebound mode).
 </p>
 <p>
-The zone temperature setpoint input <code>TZonSet</code> must be a
-heating setpoint when <code>airConMod = Heating</code>, and it must be a cooling
-setpoint when <code>airConMod = Cooling</code>. <code>TPreTarSet &gt;= TDefSet &gt;=
-TSheTarSet</code> must hold if it is in the heating mode
-(<code>airConMod = Heating</code>), and <code>TPreTarSet &lt;= TDefSet &lt;=
-TSheTarSet</code> must hold if it is in the cooling mode
-(<code>airConMod = Cooling</code>).
+The zone temperature setpoint input <code>TZonSet</code> must be a heating setpoint
+when <code>airConMod = Heating</code>, and it must be a cooling setpoint when
+<code>airConMod = Cooling</code>. <code>TPreTarSet &gt;= TDefSet &gt;= TSheTarSet</code>
+must hold if it is in the heating mode (<code>airConMod = Heating</code>), and
+<code>TPreTarSet &lt;= TDefSet &lt;= TSheTarSet</code> must hold if it is in the
+cooling mode (<code>airConMod = Cooling</code>). If any of these conditions is
+violated, this block will generate an error message during the simulation.
 </p>
 <p>
-The following <i>4</i> conditions are used to determine if a zone should be enabled
-to participate in the setpoint change operation. The enabled flag <code>reach_lowUppBou</code>
-for a zone is set to <code>true</code> only if all applicable conditions are met for
-that zone.
+Parameter <code>dT_small</code> is a small temperature delta that is used to reduce
+the effects of rounding errors when comparing <code>TZonSet</code> to the target
+setpoints. Each comparison also uses a hysteresis of <code>0.5*dT_small</code> to
+avoid chattering of the output.
 </p>
 <p>
-Below is a detailed discussion of each of the <i>4</i> conditions:
-</p>
-<h4>Condition 4</h4>
-<p>
-Condition <i>4</i> is met if the zone temperature setpoint <code>TZonSet</code>
-satisfies any of the following, where <code>dT_small</code> is a small temperature
-delta that is used to reduce the effects of rounding errors when comparing
-<code>TZonSet</code> to the target setpoints:
+The output <code>reach_lowUppBou</code> for a zone is <code>true</code> if
+<code>TZonSet</code> of this zone satisfies any of the following conditions, and
+it is <code>false</code> otherwise. In the default mode (<code>demFleMod = 1</code>),
+no setpoint limit applies and thus <code>reach_lowUppBou</code> is always
+<code>false</code>.
 </p>
 <ul>
 <li>
-<code>demFleMod = 1</code>
+<code>demFleMod = 0</code>, <code>airConMod = Heating</code>, and
+<code>TZonSet &gt; TPreTarSet - dT_small</code>
 </li>
 <li>
-or: <code>airConMod = Heating</code>, and <code>demFleMod = 0</code>, and
-<code>TZonSet &lt; TPreTarSet - dT_small</code>
+or: <code>demFleMod = 0</code>, <code>airConMod = Cooling</code>, and
+<code>TZonSet &lt; TPreTarSet + dT_small</code>
 </li>
 <li>
-or: <code>airConMod = Heating</code>, and <code>demFleMod = 2</code>, and
-<code>TZonSet &gt; TSheTarSet + dT_small</code>
+or: <code>demFleMod = 2</code>, <code>airConMod = Heating</code>, and
+<code>TZonSet &lt; TSheTarSet + dT_small</code>
 </li>
 <li>
-or: <code>airConMod = Heating</code>, and <code>demFleMod = 3</code>, and
-<code>TZonSet &lt; TDefSet - dT_small</code>
+or: <code>demFleMod = 2</code>, <code>airConMod = Cooling</code>, and
+<code>TZonSet &gt; TSheTarSet - dT_small</code>
 </li>
 <li>
-or: <code>airConMod = Cooling</code>, and <code>demFleMod = 0</code>, and
-<code>TZonSet &gt; TPreTarSet + dT_small</code>
+or: <code>demFleMod = 3</code>, <code>airConMod = Heating</code>, and
+<code>TZonSet &gt; TDefSet - dT_small</code>
 </li>
 <li>
-or: <code>airConMod = Cooling</code>, and <code>demFleMod = 2</code>, and
-<code>TZonSet &lt; TSheTarSet - dT_small</code>
-</li>
-<li>
-or: <code>airConMod = Cooling</code>, and <code>demFleMod = 3</code>, and
-<code>TZonSet &gt; TDefSet + dT_small</code>
+or: <code>demFleMod = 3</code>, <code>airConMod = Cooling</code>, and
+<code>TZonSet &lt; TDefSet + dT_small</code>
 </li>
 </ul>
+<p>
+When <code>reach_lowUppBou</code> of a zone is <code>true</code>, the setpoint of
+this zone has reached the applicable setpoint limit, and this zone should be
+disabled from further setpoint change. Refer to
+<a href=\"modelica://Buildings.Controls.OBC.DemandFlexibility.ZoneTemperatureSetpointChange.Controller\">
+Buildings.Controls.OBC.DemandFlexibility.ZoneTemperatureSetpointChange.Controller</a>
+for more detailed description of how this output is used to enable zones for
+setpoint change.
+</p>
+<p>
+Note that the parameter <code>dTSheThr</code> is not used in this block. It is
+retained in the parameter interface for consistency with the parent controller,
+which uses <code>dTSheThr</code> as the temperature difference threshold for
+triggering the setpoint change during the load-shed mode.
+</p>
 </html>"));
 end LowerUpperBound;

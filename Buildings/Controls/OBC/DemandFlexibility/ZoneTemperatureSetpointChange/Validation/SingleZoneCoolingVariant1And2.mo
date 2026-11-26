@@ -65,9 +65,9 @@ model SingleZoneCoolingVariant1And2
     airConMod=Buildings.Controls.OBC.DemandFlexibility.Types.AirConditioningMode.Cooling)
     "The zone qualification block"
     annotation (Placement(transformation(extent={{-40,100},{-20,120}})));
-  CDL.Logical.Sources.Constant staZonFla(k=false) "Starved zone flag"
+  Buildings.Controls.OBC.CDL.Logical.Sources.Constant staZonFla(k=false) "Starved zone flag"
     annotation (Placement(transformation(extent={{-120,120},{-100,140}})));
-  CDL.Logical.Sources.TimeTable occSta(
+  Buildings.Controls.OBC.CDL.Logical.Sources.TimeTable occSta(
     table=[0,0; 7,1; 23,0; 24,0],
     timeScale=3600,
     period=86400) "Occupancy status"

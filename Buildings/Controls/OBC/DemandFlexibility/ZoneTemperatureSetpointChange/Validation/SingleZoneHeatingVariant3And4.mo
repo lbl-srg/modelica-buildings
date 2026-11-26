@@ -76,7 +76,7 @@ model SingleZoneHeatingVariant3And4
     freqHz=1/86400,
     offset=1000) "Variable target electricity demand reduction of the building"
     annotation (Placement(transformation(extent={{-80,-140},{-60,-120}})));
-  CDL.Logical.Sources.Constant staZonFla(k=false) "Starved zone flag"
+  Buildings.Controls.OBC.CDL.Logical.Sources.Constant staZonFla(k=false) "Starved zone flag"
     annotation (Placement(transformation(extent={{-120,120},{-100,140}})));
   Subsequences.Qualification qua(
     nZon=1,
@@ -85,7 +85,7 @@ model SingleZoneHeatingVariant3And4
     airConMod=Buildings.Controls.OBC.DemandFlexibility.Types.AirConditioningMode.Cooling)
     "The zone qualification block"
     annotation (Placement(transformation(extent={{-40,80},{-20,100}})));
-  CDL.Logical.Sources.TimeTable occSta(
+  Buildings.Controls.OBC.CDL.Logical.Sources.TimeTable occSta(
     table=[0,1; 7,1; 19,0; 24,1],
     timeScale=3600,
     period=86400) "Occupancy status"

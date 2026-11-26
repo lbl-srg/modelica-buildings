@@ -44,7 +44,6 @@ block Qualification "Zone qualification check"
     "The zone is qualified for temperature setpoint change"
     annotation (Placement(transformation(extent={{100,-20},{140,20}}),
         iconTransformation(extent={{100,-20},{140,20}})));
-
 protected
   Buildings.Controls.OBC.CDL.Reals.LessThreshold lesTZonMax[nZon](
     final t=TZonMax,

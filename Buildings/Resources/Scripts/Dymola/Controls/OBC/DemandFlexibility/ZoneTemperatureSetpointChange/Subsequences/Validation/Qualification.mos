@@ -1,0 +1,4 @@
+simulateModel("Buildings.Controls.OBC.DemandFlexibility.ZoneTemperatureSetpointChange.Subsequences.Validation.Qualification", method="Cvode", tolerance=1e-06, stopTime=86400, resultFile="Qualification");
+createPlot(id=1, position={15, 1, 620, 700}, y={"qua.yQua[1]", "qua.yQua[2]"}, range={0.0, 24.0, -0.5, 1.5}, grid=true, subPlot=101, colors={{28,108,200}, {238,46,47}}, timeUnit="h");
+createPlot(id=1, position={15, 1, 620, 700}, y={"uStaZon[1].y", "uStaZon[2].y", "uRogZon[1].y", "uRogZon[2].y"}, range={0.0, 24.0, -0.5, 1.5}, grid=true, subPlot=102, colors={{28,108,200}, {238,46,47}, {0,140,72}, {217,67,180}}, timeUnit="h");
+createPlot(id=1, position={15, 1, 620, 700}, y={"TZon[1].y", "TZon[2].y"}, range={0.0, 24.0, 15.0, 30.0}, grid=true, subPlot=103, colors={{28,108,200}, {238,46,47}}, timeUnit="h", displayUnits={"degC", "degC"});

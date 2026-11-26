@@ -16,10 +16,10 @@ block DoubleSwitch "Double switch"
     annotation (Placement(transformation(extent={{100,-70},{140,-30}}),
       iconTransformation(extent={{100,-70},{140,-30}})));
 protected
-  CDL.Conversions.BooleanToReal           booToRea1(realTrue=u2, realFalse=u1)
+  Buildings.Controls.OBC.CDL.Conversions.BooleanToReal booToRea1(realTrue=u2, realFalse=u1)
     "When input variable 2 is true, output the input variable 3, otherwise output the input variable 1"
     annotation (Placement(transformation(extent={{20,-40},{40,-20}})));
-  CDL.Conversions.BooleanToReal           booToRea(realTrue=u1, realFalse=u2)
+  Buildings.Controls.OBC.CDL.Conversions.BooleanToReal booToRea(realTrue=u1, realFalse=u2)
     "When input variable 2 is true, output the input variable 1, otherwise output the input variable 3"
     annotation (Placement(transformation(extent={{20,20},{40,40}})));
 equation

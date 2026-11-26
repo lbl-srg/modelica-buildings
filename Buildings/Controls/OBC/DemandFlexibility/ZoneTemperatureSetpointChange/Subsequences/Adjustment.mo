@@ -42,7 +42,7 @@ block Adjustment "Zone setpoint adjustment"
   parameter Buildings.Controls.OBC.DemandFlexibility.Types.AirConditioningMode airConMod
     "Air conditioning mode";
 
-  CDL.Reals.Sources.Constant conTDefSet(k=TDefSet)
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant conTDefSet(k=TDefSet)
     "Constant for the default temperature setpoint" annotation (Placement(
         transformation(extent={{-180,-30},{-160,-10}}),
                                                       iconTransformation(extent
@@ -69,19 +69,19 @@ block Adjustment "Zone setpoint adjustment"
     "Commanded zone temperature setpoint"
     annotation (Placement(transformation(extent={{200,-120},{240,-80}}),
       iconTransformation(extent={{100,-20},{140,20}})));
-  CDL.Logical.Sources.Constant con(k=TPreTarSet >= TDefSet) if airConMod ==
+  Buildings.Controls.OBC.CDL.Logical.Sources.Constant con(k=TPreTarSet >= TDefSet) if airConMod ==
     Buildings.Controls.OBC.DemandFlexibility.Types.AirConditioningMode.Heating
     "Check whether the pre-heat target temperature setpoint is greater than or equal to the default tempearture setpoint"
     annotation (Placement(transformation(extent={{120,140},{140,160}})));
-  CDL.Logical.Sources.Constant con1(k=TSheTarSet <= TDefSet) if airConMod ==
+  Buildings.Controls.OBC.CDL.Logical.Sources.Constant con1(k=TSheTarSet <= TDefSet) if airConMod ==
     Buildings.Controls.OBC.DemandFlexibility.Types.AirConditioningMode.Heating
     "Check whether the load-shed target temperature setpoint is less than or equal to the default tempearture setpoint"
     annotation (Placement(transformation(extent={{120,100},{140,120}})));
-  CDL.Logical.Sources.Constant con2(k=TPreTarSet <= TDefSet) if airConMod ==
+  Buildings.Controls.OBC.CDL.Logical.Sources.Constant con2(k=TPreTarSet <= TDefSet) if airConMod ==
     Buildings.Controls.OBC.DemandFlexibility.Types.AirConditioningMode.Cooling
     "Check whether the pre-cool target temperature setpoint is less than or equal to the default tempearture setpoint"
     annotation (Placement(transformation(extent={{120,60},{140,80}})));
-  CDL.Logical.Sources.Constant con3(k=TSheTarSet >= TDefSet) if airConMod ==
+  Buildings.Controls.OBC.CDL.Logical.Sources.Constant con3(k=TSheTarSet >= TDefSet) if airConMod ==
     Buildings.Controls.OBC.DemandFlexibility.Types.AirConditioningMode.Cooling
     "Check whether the load-shed target temperature setpoint is greater than or equal to the default tempearture setpoint"
     annotation (Placement(transformation(extent={{120,20},{140,40}})));
