@@ -95,38 +95,6 @@
   openmodelica:
     comment: simulation terminated by an assertion at initialization.
     simulate: false
-- model_name: Buildings.Electrical.AC.ThreePhasesUnbalanced.Validation.IEEETests.Test4NodesFeeder.BalancedStepDown.DD
-  openmodelica:
-    comment: simulation terminated by an assertion at initialization.
-    simulate: false
-- model_name: Buildings.Electrical.AC.ThreePhasesUnbalanced.Validation.IEEETests.Test4NodesFeeder.BalancedStepDown.YD
-  openmodelica:
-    comment: simulation terminated by an assertion at initialization.
-    simulate: false
-- model_name: Buildings.Electrical.AC.ThreePhasesUnbalanced.Validation.IEEETests.Test4NodesFeeder.BalancedStepUp.DD
-  openmodelica:
-    comment: simulation terminated by an assertion at initialization.
-    simulate: false
-- model_name: Buildings.Electrical.AC.ThreePhasesUnbalanced.Validation.IEEETests.Test4NodesFeeder.BalancedStepUp.YD
-  openmodelica:
-    comment: simulation terminated by an assertion at initialization.
-    simulate: false
-- model_name: Buildings.Electrical.AC.ThreePhasesUnbalanced.Validation.IEEETests.Test4NodesFeeder.UnbalancedStepDown.DD
-  openmodelica:
-    comment: simulation terminated by an assertion at initialization.
-    simulate: false
-- model_name: Buildings.Electrical.AC.ThreePhasesUnbalanced.Validation.IEEETests.Test4NodesFeeder.UnbalancedStepDown.YD
-  openmodelica:
-    comment: simulation terminated by an assertion at initialization.
-    simulate: false
-- model_name: Buildings.Electrical.AC.ThreePhasesUnbalanced.Validation.IEEETests.Test4NodesFeeder.UnbalancedStepUp.DD
-  openmodelica:
-    comment: simulation terminated by an assertion at initialization.
-    simulate: false
-- model_name: Buildings.Electrical.AC.ThreePhasesUnbalanced.Validation.IEEETests.Test4NodesFeeder.UnbalancedStepUp.YD
-  openmodelica:
-    comment: simulation terminated by an assertion at initialization.
-    simulate: false
 - model_name: Buildings.Examples.ChillerPlant.DataCenter.DiscreteTimeControl
   openmodelica:
     comment: Solver gbode reduces simulation time by a factor of 2.3 compared to dassl
@@ -179,6 +147,9 @@
   openmodelica:
     comment: Timeout during translation; solver gbode reduces simulation time by a factor of 3.0 compared to dassl
     solver: gbode
+    time_out: 600
+  optimica:
+    comment: Timeout after 300 s on travis
     time_out: 600
 - model_name: Buildings.Examples.VAVReheat.Validation.Guideline36SteadyState
   openmodelica:
@@ -542,6 +513,9 @@
   openmodelica:
     comment: 'TimeoutExpired: Command ''[''omc'', ''Buildings.ThermalZones.EnergyPlus_24_2_0.Examples.SmallOffice.Guideline36Winter_Autosizing_simulate.mos'']'' timed out after 300 seconds'
     simulate: false
+  optimica:
+    comment: Timeout after 300 s on travis
+    time_out: 600
 - model_name: Buildings.ThermalZones.EnergyPlus_24_2_0.Examples.SmallOffice.IdealHeatingCoolingSpring
   optimica:
     rtol: 1.0e-08

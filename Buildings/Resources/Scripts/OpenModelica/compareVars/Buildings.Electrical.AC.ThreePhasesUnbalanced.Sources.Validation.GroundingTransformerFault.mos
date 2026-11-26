@@ -1,0 +1,13 @@
+compareVars :=
+  {
+    "VPh[1]",
+    "VPh[2]",
+    "VPh[3]",
+    "VNeuRMS",
+    "senDel.V[1]",
+    "INeuRMS",
+    "IFauRMS",
+    "groTra.i0[1]",
+    "groTra.i0[2]",
+    "groTra.P"
+  };

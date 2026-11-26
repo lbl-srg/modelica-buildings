@@ -24,12 +24,14 @@ The following <b style=\"color:blue\">new components</b> have been added
 to <b style=\"color:blue\">existing</b> libraries:
 </p>
 <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\" style=\"border-collapse:collapse;\">
-<tr><td colspan=\"2\"><b>Buildings.Templates</b>
+<tr><td colspan=\"2\"><b>Buildings.Electrical.AC.ThreePhasesUnbalanced.Sources</b>
     </td>
 </tr>
-<tr><td valign=\"top\">Buildings.Templates.Plants.Chillers
+<tr><td valign=\"top\">Buildings.Electrical.AC.ThreePhasesUnbalanced.Sources.GroundingTransformer
     </td>
-    <td valign=\"top\">Added chiller plant templates.
+    <td valign=\"top\">Added a three-phase zig-zag grounding transformer model
+                       with optional neutral-to-ground resistance.<br/>
+                       This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/2217\">IBPSA, issue 2217</a>.
     </td>
 </tr>
 <tr><td colspan=\"2\"><b>Buildings.Fluid.DataCenters</b>
@@ -61,6 +63,14 @@ to <b style=\"color:blue\">existing</b> libraries:
                        This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4798\">Buildings, #4798</a>.
     </td>
 </tr>
+<tr><td colspan=\"2\"><b>Buildings.Templates</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Templates.Plants.Chillers
+    </td>
+    <td valign=\"top\">Added chiller plant templates.
+    </td>
+</tr>
 </table>
 <!-- Backward compatible changes -->
 <p>
@@ -78,15 +88,6 @@ have been <b style=\"color:blue\">improved</b> in a
                        This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/2212\">IBPSA, #2212</a>.
     </td>
 </tr>
-<tr><td colspan=\"2\"><b>Buildings.Examples.VAVReheat</b>
-    </td>
-</tr>
-<tr><td valign=\"top\">Buildings.Examples.VAVReheat.BaseClasses.ASHRAE2006
-    </td>
-    <td valign=\"top\">Corrected wrong value assignment of <code>ratVMinVAV_flow</code>.<br/>
-                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4863\">Buildings, #4863</a>.
-    </td>
-</tr>
 <tr><td colspan=\"2\"><b>Buildings.Controls.OBC.ASHRAE.G36</b>
     </td>
 </tr>
@@ -102,26 +103,6 @@ have been <b style=\"color:blue\">improved</b> in a
                        This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4844\">Buildings, #4844</a>.
     </td>
 </tr>
-<tr><td colspan=\"2\"><b>Buildings.DHC.ETS</b>
-    </td>
-</tr>
-<tr><td valign=\"top\">Buildings.DHC.ETS.Combined.Subsystems.BaseClasses.PartialHeatPump
-    </td>
-    <td valign=\"top\">Corrected medium specification in the condenser water pump.<br/>
-                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4845\">Buildings. #4845</a>.
-    </td>
-</tr>
-<tr><td colspan=\"2\"><b>Buildings.Fluid.DataCenters</b>
-    </td>
-</tr>
-<tr><td valign=\"top\">Buildings.Fluid.DataCenters.CDUs.BaseClasses.PartialCDU
-    </td>
-    <td valign=\"top\">Added the options <code>use_yPum_in</code> and <code>use_yVal_in</code> to drive the
-                       pump speed and the valve position from an input instead of the internal controllers.
-                       The default values keep the existing behavior.<br/>
-                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4905\">Buildings, #4905</a>.
-    </td>
-</tr>
 <tr><td colspan=\"2\"><b>Buildings.Controls.OBC.CDL.Logical</b>
     </td>
 </tr>
@@ -132,6 +113,52 @@ have been <b style=\"color:blue\">improved</b> in a
                        condition and the <code>if</code> condition inside the <code>when</code> body are guaranteed
                        to evaluate identically.<br/>
                        This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4836\">Buildings, #4836</a>.
+    </td>
+</tr>
+<tr><td colspan=\"2\"><b>Buildings.DHC.ETS</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.DHC.ETS.Combined.Subsystems.BaseClasses.PartialHeatPump
+    </td>
+    <td valign=\"top\">Corrected medium specification in the condenser water pump.<br/>
+                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4845\">Buildings. #4845</a>.
+    </td>
+</tr>
+<tr><td colspan=\"2\"><b>Buildings.Electrical.AC.ThreePhasesUnbalanced.Loads.BaseClasses</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Electrical.AC.ThreePhasesUnbalanced.Loads.BaseClasses.BaseLoadCtrl
+    </td>
+    <td valign=\"top\">Set balanced three-phase start values for the load voltages
+                       <code>load1.v</code>, <code>load2.v</code>, and <code>load3.v</code>
+                       for wye and delta connections to improve nonlinear initialization.<br/>
+                       This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/2217\">IBPSA, issue 2217</a>.
+    </td>
+</tr>
+<tr><td colspan=\"2\"><b>Buildings.Electrical.AC.ThreePhasesUnbalanced.Validation.IEEETests.Test4NodesFeeder</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Electrical.AC.ThreePhasesUnbalanced.Validation.IEEETests.Test4NodesFeeder.BalancedStepDown.DD<br/>
+                       Buildings.Electrical.AC.ThreePhasesUnbalanced.Validation.IEEETests.Test4NodesFeeder.BalancedStepDown.YD<br/>
+                       Buildings.Electrical.AC.ThreePhasesUnbalanced.Validation.IEEETests.Test4NodesFeeder.BalancedStepUp.DD<br/>
+                       Buildings.Electrical.AC.ThreePhasesUnbalanced.Validation.IEEETests.Test4NodesFeeder.BalancedStepUp.YD<br/>
+                       Buildings.Electrical.AC.ThreePhasesUnbalanced.Validation.IEEETests.Test4NodesFeeder.UnbalancedStepDown.DD<br/>
+                       Buildings.Electrical.AC.ThreePhasesUnbalanced.Validation.IEEETests.Test4NodesFeeder.UnbalancedStepDown.YD<br/>
+                       Buildings.Electrical.AC.ThreePhasesUnbalanced.Validation.IEEETests.Test4NodesFeeder.UnbalancedStepUp.DD<br/>
+                       Buildings.Electrical.AC.ThreePhasesUnbalanced.Validation.IEEETests.Test4NodesFeeder.UnbalancedStepUp.YD
+    </td>
+    <td valign=\"top\">Added a secondary grounding transformer to establish a ground reference
+                       on the delta-connected transformer secondary.<br/>
+                       This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/2217\">IBPSA, issue 2217</a>.
+    </td>
+</tr>
+<tr><td colspan=\"2\"><b>Buildings.Examples.VAVReheat</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Examples.VAVReheat.BaseClasses.ASHRAE2006
+    </td>
+    <td valign=\"top\">Corrected wrong value assignment of <code>ratVMinVAV_flow</code>.<br/>
+                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4863\">Buildings, #4863</a>.
     </td>
 </tr>
 <tr><td colspan=\"2\"><b>Buildings.Fluid.BaseClasses.FlowModels</b>
@@ -148,15 +175,15 @@ have been <b style=\"color:blue\">improved</b> in a
                        This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4798\">Buildings, #4798</a>.
     </td>
 </tr>
-<tr><td colspan=\"2\"><b>Buildings.Fluid.Interfaces</b>
+<tr><td colspan=\"2\"><b>Buildings.Fluid.DataCenters</b>
     </td>
 </tr>
-<tr><td valign=\"top\">Buildings.Fluid.Interfaces.ConservationEquation
+<tr><td valign=\"top\">Buildings.Fluid.DataCenters.CDUs.BaseClasses.PartialCDU
     </td>
-    <td valign=\"top\">Corrected the species mass balance by adding the term
-                       <code>-medium.Xi*der(m)</code> to account for the change in total fluid mass.
-                       For typical HVAC applications, the change in results is small.<br/>
-                       This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/2168\">IBPSA, #2168</a>.
+    <td valign=\"top\">Added the options <code>use_yPum_in</code> and <code>use_yVal_in</code> to drive the
+                       pump speed and the valve position from an input instead of the internal controllers.
+                       The default values keep the existing behavior.<br/>
+                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4905\">Buildings, #4905</a>.
     </td>
 </tr>
 <tr><td colspan=\"2\"><b>Buildings.Fluid.Geothermal</b>
@@ -178,6 +205,17 @@ have been <b style=\"color:blue\">improved</b> in a
                        condition and the <code>if</code> condition inside the <code>when</code> body are guaranteed
                        to evaluate identically.<br/>
                        This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4836\">Buildings, #4836</a>.
+    </td>
+</tr>
+<tr><td colspan=\"2\"><b>Buildings.Fluid.Interfaces</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Fluid.Interfaces.ConservationEquation
+    </td>
+    <td valign=\"top\">Corrected the species mass balance by adding the term
+                       <code>-medium.Xi*der(m)</code> to account for the change in total fluid mass.
+                       For typical HVAC applications, the change in results is small.<br/>
+                       This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/2168\">IBPSA, #2168</a>.
     </td>
 </tr>
 <tr><td colspan=\"2\"><b>Buildings.Fluid.Storage</b>
