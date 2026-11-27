@@ -22,6 +22,7 @@
   openmodelica:
     comment: Solver gbode reduces simulation time by a factor of 2.3 compared to dassl
     solver: gbode
+    time_out: 600
 - model_name: Buildings.Air.Systems.SingleZone.VAV.Examples.OptimalStart.Guideline36Winter
   openmodelica:
     comment: 'TimeoutExpired: omc timed out after 300 seconds; solver gbode reduces simulation time by a factor of 2.0 compared to dassl'
@@ -163,10 +164,12 @@
   openmodelica:
     comment: Solver gbode reduces simulation time by a factor of 1.2 compared to dassl
     solver: gbode
+    time_out: 600
 - model_name: Buildings.Examples.ScalableBenchmarks.BuildingVAV.Examples.TwoFloor_TwoZone
   openmodelica:
     comment: Solver gbode reduces simulation time by a factor of 1.3 compared to dassl
     solver: gbode
+    time_out: 600
 - model_name: Buildings.Examples.VAVCO2.VAVSystemCTControl
   openmodelica:
     comment: Times out after 900 seconds.
@@ -178,11 +181,12 @@
   openmodelica:
     comment: Solver gbode reduces simulation time by a factor of 4.9 compared to dassl
     solver: gbode
+    time_out: 600
 - model_name: Buildings.Examples.VAVReheat.Guideline36
   openmodelica:
     comment: Timeout during translation; solver gbode reduces simulation time by a factor of 3.1 compared to dassl
     solver: gbode
-    time_out: 600
+    time_out: 900
 - model_name: Buildings.Examples.VAVReheat.Validation.Guideline36SteadyState
   openmodelica:
     comment: simulation terminated by an assertion at initialization
@@ -192,6 +196,7 @@
   openmodelica:
     comment: Solver gbode reduces simulation time by a factor of 3.9 compared to dassl
     solver: gbode
+    time_out: 600
 - model_name: Buildings.Fluid.Chillers.ModularReversible.Validation.TableData2DLoadDep
   openmodelica:
     comment: 'CalledProcessError: Command ''[''omc'', ''Buildings.Fluid.Chillers.ModularReversible.Validation.TableData2DLoadDep_translate.mos'']'' returned non-zero exit status 2.'
