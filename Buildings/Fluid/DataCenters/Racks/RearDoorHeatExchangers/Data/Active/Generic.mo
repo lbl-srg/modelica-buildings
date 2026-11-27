@@ -21,7 +21,12 @@ Data record for an active rear door heat exchanger used in IT rack models.
 This record extends
 <a href=\"modelica://Buildings.Fluid.DataCenters.Racks.RearDoorHeatExchangers.Data.Passive.Generic\">
 Buildings.Fluid.DataCenters.Racks.RearDoorHeatExchangers.Data.Passive.Generic</a>
-and adds performance data for the fans.
+and adds performance data for the fan.
+</p>
+<p><b>Notes</b></p>
+<p>
+The parameters <code>cpCoo_nominal</code> and <code>cpAir_nominal</code>
+have no effect on the model and will be removed in Buildings version 15.0.0.
 </p>
 </html>", revisions="<html>
 <ul>

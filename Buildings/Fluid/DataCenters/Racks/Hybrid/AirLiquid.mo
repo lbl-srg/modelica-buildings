@@ -31,7 +31,7 @@ Note that <code>PAir</code> does not include the power to operate the fan, as th
 <p>
 The model provides three power consumption outputs on the right side.
 The output <code>PLiqTot</code> is the electric power consumed by liquid-cooled IT.
-The output <code>PAirTot</code> is the total electric power consumed by air-cooled IT, including fan energy.
+The output <code>PAirTot</code> is the total electric power consumed by air-cooled IT, including fan power.
 The output <code>PAirFan</code> is the electric power consumed by the fan for air-cooled IT.
 </p>
 </html>",

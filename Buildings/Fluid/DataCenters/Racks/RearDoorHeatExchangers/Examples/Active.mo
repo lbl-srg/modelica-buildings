@@ -11,9 +11,7 @@ model Active
       mCoo_flow_nominal=mCoo_flow_nominal,
       Q_flow_nominal=-PIT_nominal,
       TAirIn_nominal=TAirIn_nominal,
-      TCooIn_nominal=TCooIn_nominal,
-      cpAir_nominal=cpAir_default,
-      cpCoo_nominal=cpCoo_default)
+      TCooIn_nominal=TCooIn_nominal)
     "Performance data"
     annotation (Placement(transformation(extent={{60,60},{80,80}})));
 
@@ -77,6 +75,12 @@ the air mass flow rate is also constant after the initial transient.
 </html>",
       revisions="<html>
 <ul>
+<li>
+November 13, 2026, by Michael Wetter:<br/>
+Removed assignments to unused parameters <code>cpAir_nominal</code> and
+<code>cpCoo_nominal</code>.<br/>
+This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4926\">Buildings, #4926</a>.
+</li>
 <li>
 September 20, 2026, by Michael Wetter:<br/>
 Refactored to extend

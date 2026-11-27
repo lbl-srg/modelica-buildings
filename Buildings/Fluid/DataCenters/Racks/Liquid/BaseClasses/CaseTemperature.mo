@@ -40,15 +40,15 @@ block CaseTemperature "Block to compute the case temperature"
 
   Modelica.Units.SI.ThermalResistance R
     "Case-to-inlet thermal resistance";
-  final parameter Real relErrR[:]={RFit[i]/dat.R[i] for i in 1:nSup}
-    "Relative error of resistance based on data fit at each support point datRes.V_flow";
+  final parameter Real relErrR[:]={(RFit[i] - dat.R[i])/dat.R[i] for i in 1:nSup}
+    "Relative error of fitted resistance at each support point dat.V_flow";
 protected
   final parameter Integer nSup=size(dat.V_flow, 1)
     "Number of support points";
   parameter Modelica.Units.SI.VolumeFlowRate V_flow_small = delta * V_flow_nominal
-    "Nominal volume flow rate for one cold plate" annotation (Dialog(group="Nominal condition"));
+    "Small volume flow rate for regularization of zero flow" annotation (Dialog(group="Nominal condition"));
   parameter Real RV[nSup](each min=0) = {dat.R[i]*dat.V_flow[i]
-    for i in 1:nSup} "Resistance multipled by volume flow rate";
+    for i in 1:nSup} "Resistance multiplied by volume flow rate";
   final parameter Real p[:]=Modelica.Math.Polynomials.fitting(
       u=dat.V_flow,
       y=RV,
@@ -61,18 +61,18 @@ protected
       u=dat.V_flow[i])/Buildings.Utilities.Math.Functions.smoothMax(
       x1=dat.V_flow[i],
       x2=V_flow_small,
-      deltaX=delta/4) for i in 1:nSup}
+      deltaX=V_flow_small/4) for i in 1:nSup}
     "Resistance based on data fit (used to show error)";
 
 equation
-  R =Modelica.Math.Polynomials.evaluateWithRange(
+  R = Modelica.Math.Polynomials.evaluateWithRange(
     p=p,
     uMin=dat.V_flow[1],
     uMax=dat.V_flow[end],
     u=V_flow)/Buildings.Utilities.Math.Functions.smoothMax(
     x1=V_flow,
     x2=V_flow_small,
-    deltaX=delta/4);
+    deltaX=V_flow_small/4);
   dT = R * Q_flow;
   TCas = TIn + dT;
 
@@ -88,5 +88,16 @@ Buildings.Fluid.DataCenters.Racks.Liquid.ColdPlateR_P</a>.
 The relative error of the data fit of the thermal resistance <i>R</i>
 can be seen in the parameter <code>relErrR</code>.
 </p>
+</html>", revisions="<html>
+<ul>
+<li>
+November 13, 2026, by Michael Wetter:<br/>
+Scaled <code>deltaX</code> in <code>smoothMax</code> by <code>V_flow_small</code>
+instead of <code>delta</code> to avoid distorting <code>R</code> at operating flow
+rates and to avoid a division-by-zero singularity near zero flow.<br/>
+Changed <code>relErrR</code> to compute the relative error instead of the ratio.<br/>
+This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4926\">Buildings, #4926</a>.
+</li>
+</ul>
 </html>"));
 end CaseTemperature;

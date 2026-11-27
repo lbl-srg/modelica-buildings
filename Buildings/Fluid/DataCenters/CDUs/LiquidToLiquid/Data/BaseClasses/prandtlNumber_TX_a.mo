@@ -10,7 +10,10 @@ function prandtlNumber_TX_a "Return Prandtl number"
 
 algorithm
   Pr_default :=
-    if medium == Buildings.Fluid.DataCenters.CDUs.Types.Media.EthyleneGlycol
+    if medium == Buildings.Fluid.DataCenters.CDUs.Types.Media.Water
+    then
+      Buildings.Media.Antifreeze.Functions.PropyleneGlycolWater.prandtlNumber_TX_a(X_a=0, T=T)
+    elseif medium == Buildings.Fluid.DataCenters.CDUs.Types.Media.EthyleneGlycol
     then
       Buildings.Media.Antifreeze.Functions.EthyleneGlycolWater.prandtlNumber_TX_a(X_a=X_a, T=T)
     else
@@ -29,6 +32,12 @@ For glycol, set it to the mass fraction of glycol.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+November 13, 2026, by Michael Wetter:<br/>
+Handled <code>medium == Buildings.Fluid.DataCenters.CDUs.Types.Media.Water</code>
+explicitly so that <code>X_a</code> is ignored for water.<br/>
+This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4926\">Buildings, #4926</a>.
+</li>
 <li>
 April 21, 2026, by Michael Wetter:<br/>
 First implementation.

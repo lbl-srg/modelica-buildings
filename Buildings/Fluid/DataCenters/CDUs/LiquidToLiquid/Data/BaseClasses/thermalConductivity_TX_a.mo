@@ -10,11 +10,14 @@ function thermalConductivity_TX_a "Return thermal conductivity"
 
 algorithm
   k_default :=
-  if medium == Buildings.Fluid.DataCenters.CDUs.Types.Media.EthyleneGlycol
-  then
-    Buildings.Media.Antifreeze.Functions.EthyleneGlycolWater.thermalConductivity_TX_a(X_a=X_a, T=T)
-  else
-    Buildings.Media.Antifreeze.Functions.PropyleneGlycolWater.thermalConductivity_TX_a(X_a=X_a, T=T);
+    if medium == Buildings.Fluid.DataCenters.CDUs.Types.Media.Water
+    then
+      Buildings.Media.Antifreeze.Functions.PropyleneGlycolWater.thermalConductivity_TX_a(X_a=0, T=T)
+    elseif medium == Buildings.Fluid.DataCenters.CDUs.Types.Media.EthyleneGlycol
+    then
+      Buildings.Media.Antifreeze.Functions.EthyleneGlycolWater.thermalConductivity_TX_a(X_a=X_a, T=T)
+    else
+      Buildings.Media.Antifreeze.Functions.PropyleneGlycolWater.thermalConductivity_TX_a(X_a=X_a, T=T);
 
   annotation (Documentation(info="<html>
 <p>
@@ -29,6 +32,12 @@ For glycol, set it to the mass fraction of glycol.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+November 13, 2026, by Michael Wetter:<br/>
+Handled <code>medium == Buildings.Fluid.DataCenters.CDUs.Types.Media.Water</code>
+explicitly so that <code>X_a</code> is ignored for water.<br/>
+This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4926\">Buildings, #4926</a>.
+</li>
 <li>
 April 21, 2026, by Michael Wetter:<br/>
 First implementation.

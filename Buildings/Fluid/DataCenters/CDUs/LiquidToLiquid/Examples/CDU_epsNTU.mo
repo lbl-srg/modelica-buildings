@@ -4,11 +4,11 @@ model CDU_epsNTU "Example model of a CDU with varying load on the IT side"
 
   package MediumChi = Buildings.Media.Water "Medium for chilled water loop";
   package MediumRac = Buildings.Media.Antifreeze.PropyleneGlycolWater(
-    T_default=303.15,
-    property_T=303.15,
+    T_default=273.15 + 42,
+    property_T=273.15 + 42,
     X_a=Buildings.Media.Antifreeze.Functions.PropyleneGlycolWater.volumeToMassFraction(
         phi=0.25,
-        T=293.15))
+        T=273.15 + 42))
     "Medium for rack";
   parameter Modelica.Units.SI.Power PRac = 48*132000
     "Total rack design power";
@@ -19,7 +19,7 @@ model CDU_epsNTU "Example model of a CDU with varying load on the IT side"
   parameter Modelica.Units.SI.Temperature TChi_a = 273.15+36
     "Supply chilled water temperature to CDU at design conditions";
   parameter Modelica.Units.SI.Temperature TChi_b = 273.15+41
-    "Return chilled temperature from CDU at design conditions";
+    "Return chilled water temperature from CDU at design conditions";
 
   parameter Modelica.Units.SI.MassFlowRate mRac_flow_nominal =
     PRac/(TRac_b-TRac_a)/MediumRac.cp_const
@@ -47,8 +47,10 @@ model CDU_epsNTU "Example model of a CDU with varying load on the IT side"
     TApp_nominal=6,
     dpPumpExt_nominal(displayUnit="Pa") = dpRac_nominal,
     pumpExtHead(
-      V_flow=mRac_flow_nominal/1010*{0.000, 0.250, 0.500, 0.750, 1.000},
-      dp=dpRac_nominal*({11.90, 11.61, 9.810, 6.202, 1.0})))
+      V_flow=mRac_flow_nominal/datCDU.rhoRac_default*{0.000, 0.250, 0.500, 0.750, 1.000},
+      dp=(dpRac_nominal + datCDU.dpHexRac_nominal + datCDU.dpFilRac_nominal)*{1.35, 1.32, 1.25, 1.15, 1.00}
+        - {r^datCDU.nRac*datCDU.dpHexRac_nominal + r^datCDU.nFilRac*datCDU.dpFilRac_nominal
+           for r in {0.000, 0.250, 0.500, 0.750, 1.000}}))
     "Data performance record for CDU"
     annotation (Placement(transformation(extent={{80,60},{100,80}})));
   parameter
@@ -94,7 +96,7 @@ model CDU_epsNTU "Example model of a CDU with varying load on the IT side"
     allowFlowReversalRac=false,
     final dat=datCDU,
     allowFlowReversalPla=false,
-    yPum_start=1) "CDU, modelled for simplicity as one large CDU"
+    yPum_start=1) "CDU, modeled for simplicity as one large CDU"
     annotation (Placement(transformation(extent={{-10,16},{10,36}})));
   Fluid.Sources.Boundary_pT sou(redeclare package Medium = MediumChi,
     p=300000 + 2*dpHexChi_nominal,
@@ -122,7 +124,7 @@ model CDU_epsNTU "Example model of a CDU with varying load on the IT side"
     m_flow_nominal=mRac_flow_nominal,
     tau=0) "Rack outlet temperature"
     annotation (Placement(transformation(extent={{80,10},{60,30}})));
-  Controls.OBC.CDL.Reals.Sources.Constant dpSet(k=50000) "Set point for head"
+  Controls.OBC.CDL.Reals.Sources.Constant dpSet(k=dpRac_nominal) "Set point for head"
     annotation (Placement(transformation(extent={{-60,30},{-40,50}})));
   Controls.OBC.CDL.Reals.Sources.Constant TSetRacIn(k=TRac_a)
     "Set point for rack inlet temperature"
@@ -134,7 +136,7 @@ model CDU_epsNTU "Example model of a CDU with varying load on the IT side"
       min=0) = datRac.PIT_nominal,
     u(final unit="1"),
     y(final unit="W"))
-    "Power consumption by the air-cooled IT equipment"
+    "Power consumption by the liquid-cooled IT equipment"
     annotation (Placement(transformation(extent={{-40,-40},{-20,-20}})));
 equation
   connect(sou.ports[1], senTCDU_a.port_a)
@@ -177,7 +179,7 @@ equation
        file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/DataCenters/CDUs/LiquidToLiquid/Examples/CDU_epsNTU.mos" "Simulate and plot"),
     Documentation(info="<html>
 <p>
-Example model of a CDU that serves liquid cooled racks.
+Example model of a CDU that serves liquid-cooled racks.
 </p>
 <p>
 The IT load is specified using a periodic pulse input.
@@ -190,6 +192,13 @@ to the IT rack.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+November 13, 2026, by Michael Wetter:<br/>
+Aligned <code>dpSet</code> with <code>dpRac_nominal</code>, updated <code>MediumRac</code>
+reference temperatures, and used <code>datCDU.rhoRac_default</code> and a realistic
+pump head curve in <code>datCDU</code>.<br/>
+This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4926\">Buildings, #4926</a>.
+</li>
 <li>
 December 23, 2025, by Michael Wetter:<br/>
 First implementation.

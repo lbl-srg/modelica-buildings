@@ -4,7 +4,7 @@ model CaseTemperature "Example model for case temperature"
 
   parameter Integer nPar = 4 "Number of parallel cold plates";
   Buildings.Fluid.DataCenters.Racks.Liquid.BaseClasses.CaseTemperature
-    casTem(dat=ocpOAM3, V_flow_nominal=2.5/60/1000) "Case temperature"
+    casTem(dat=ocpOAM3, V_flow_nominal=nPar*2.5/60/1000) "Case temperature"
     annotation (Placement(transformation(extent={{10,-10},{30,10}})));
   Controls.OBC.CDL.Reals.Sources.Ramp V_flow(
    y(final unit="m3/s"),
@@ -52,13 +52,18 @@ The data is based on Figure 13 from Chen et al. (2023).
 <h4>References</h4>
 <p>
 Cheng Chen, Dennis Trieu, Tejas Shah, Allen Guo, Jaylen Cheng, Christopher Chapman, Sukhvinder Kang,
-Eran Dagan, Assaf Dinstag,Jane Yao.
+Eran Dagan, Assaf Dinstag, Jane Yao.
 <a href=\"https://www.opencompute.org/documents/oai-system-liquid-cooling-guidelines-in-ocp-template-mar-3-2023-update-pdf\">
 OCP OAI SYSTEM LIQUID COOLING GUIDELINES</a>.
 2023.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+November 13, 2026, by Michael Wetter:<br/>
+Scaled <code>casTem.V_flow_nominal</code> by <code>nPar</code>.<br/>
+This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4926\">Buildings, #4926</a>.
+</li>
 <li>
 December 22, 2025, by Michael Wetter:<br/>
 First implementation.

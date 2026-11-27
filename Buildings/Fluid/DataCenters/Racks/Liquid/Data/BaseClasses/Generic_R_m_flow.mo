@@ -1,6 +1,6 @@
 within Buildings.Fluid.DataCenters.Racks.Liquid.Data.BaseClasses;
 record Generic_R_m_flow
-  "Generic data record for thermal resistance that is used to compute the case temperature as a function of mass flow rate"
+  "Generic data record for thermal resistance that is used to compute the case temperature as a function of volume flow rate"
   extends Modelica.Icons.Record;
   parameter Modelica.Units.SI.VolumeFlowRate V_flow[:](each min=0)
     "Volume flow rate at user-selected points";
@@ -19,9 +19,7 @@ which is the convention used in the Open Compute Project report by
 Chen et al. (2023). Thus, it is defined as
 </p>
 <p align=\"center\" style=\"font-style:italic;\">
-</p>
-<p>
-R = (T<sub>case</sub> - T<sub>inlet</sub>) &frasl; Q&#775;
+R = (T<sub>case</sub> - T<sub>inlet</sub>) &frasl; Q&#775;,
 </p>
 <p>
 where
@@ -45,7 +43,7 @@ which is by default set to <code>n=1</code>.
 <h4>References</h4>
 <p>
 Cheng Chen, Dennis Trieu, Tejas Shah, Allen Guo, Jaylen Cheng, Christopher Chapman, Sukhvinder Kang,
-Eran Dagan, Assaf Dinstag,Jane Yao.
+Eran Dagan, Assaf Dinstag, Jane Yao.
 <a href=\"https://www.opencompute.org/documents/oai-system-liquid-cooling-guidelines-in-ocp-template-mar-3-2023-update-pdf\">
 OCP OAI SYSTEM LIQUID COOLING GUIDELINES</a>.
 2023.

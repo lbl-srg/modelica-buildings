@@ -27,7 +27,7 @@ model CDU_epsNTU "CDU using epsilon-NTU for heat transfer"
   Documentation(
     info="<html>
 <p>
-Model of a coolant distribution unit (CDU) with with a steady-state,
+Model of a coolant distribution unit (CDU) with a steady-state,
 counter-flow heat exchanger that uses the epsilon-NTU correlations.
 </p>
 <p>
@@ -45,6 +45,11 @@ See
 <a href=\"modelica://Buildings.Fluid.DataCenters.CDUs.BaseClasses.PartialCDU\">
 Buildings.Fluid.DataCenters.CDUs.BaseClasses.PartialCDU</a>
 for a description of the CDU model.
+</p>
+<p><b>Notes</b></p>
+<p>
+The parameters <code>computeFlowResistancePla</code> and <code>computeFlowResistanceRac</code>
+have no effect on the model and will be removed in Buildings version 15.0.0.
 </p>
 </html>", revisions="<html>
 <ul>

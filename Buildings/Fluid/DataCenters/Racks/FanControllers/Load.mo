@@ -95,11 +95,13 @@ equation
       info="<html>
 <p>
 Controller that outputs fan speed based on IT load.
+</p>
 <p>
-The controller computes the normalized IT load based on <code>PIT_nominal</code>,
+The controller computes the normalized IT load based on <code>P_nominal</code>,
 and then does a table look-up to compute the speed.
-If the normalized fan speed signal is outside <i>0...1</i>, the controller will saturate
-the signal, e.g., there is no table extrapolation.
+If the normalized IT load is outside the table bounds, the controller holds
+the first or last point, i.e., there is no table extrapolation.
+</p>
 </html>",
       revisions="<html>
 <ul>

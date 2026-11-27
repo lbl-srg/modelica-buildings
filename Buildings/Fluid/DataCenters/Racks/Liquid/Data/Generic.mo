@@ -18,6 +18,10 @@ record Generic
 
   parameter BaseClasses.Generic_R_m_flow theRes "Thermal resistance data"
     annotation (Placement(transformation(extent={{60,60},{80,80}})));
+
+  parameter Modelica.Units.SI.Power PColPla_nominal(min=0) = 0
+    "Nominal heat flow rate of one cold plate (if 0, nColPla is computed from VColPla_flow_nominal)"
+    annotation (Dialog(group="Nominal condition"));
 annotation (
   defaultComponentName="dat",
   defaultComponentPrefixes="parameter",
@@ -27,6 +31,12 @@ Generic data record for a liquid-cooled single-phase IT rack.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+November 13, 2026, by Michael Wetter:<br/>
+Added optional parameter <code>PColPla_nominal</code> to specify the nominal
+heat flow rate of one cold plate.<br/>
+This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4926\">Buildings, #4926</a>.
+</li>
 <li>
 June 26, 2026, by Michael Wetter:<br/>
 First implementation.

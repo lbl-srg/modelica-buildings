@@ -55,7 +55,16 @@ model AirRearDoorHexPassive
   replaceable parameter Buildings.Fluid.DataCenters.Racks.Hybrid.Data.AirRearDoorHexPassive.Generic dat
     constrainedby Buildings.Fluid.DataCenters.Racks.Hybrid.Data.AirRearDoorHexPassive.Generic(
       air=datAir,
-      reaDooHex=datReaDooHex) "Hybrid rack performance data"
+      reaDooHex(
+        mAir_flow_nominal=datReaDooHex.mAir_flow_nominal,
+        mCoo_flow_nominal=datReaDooHex.mCoo_flow_nominal,
+        Q_flow_nominal=datReaDooHex.Q_flow_nominal,
+        TAirIn_nominal=datReaDooHex.TAirIn_nominal,
+        TCooIn_nominal=datReaDooHex.TCooIn_nominal,
+        dpCoo_nominal=datReaDooHex.dpCoo_nominal,
+        dpAir_nominal=datReaDooHex.dpAir_nominal,
+        cpCoo_nominal=datReaDooHex.cpCoo_nominal,
+        cpAir_nominal=datReaDooHex.cpAir_nominal)) "Hybrid rack performance data"
     annotation (Placement(transformation(extent={{160,140},{180,160}})));
 
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant utiAir(k=1)
@@ -112,7 +121,7 @@ model AirRearDoorHexPassive
   Sources.Boundary_pT sinReaDoo(
     redeclare package Medium = MediumReaDooHex,
     p=MediumReaDooHex.p_default,
-    nPorts=1) "Sink rear door heat exchanger coolant"
+    nPorts=1) "Sink for rear door heat exchanger coolant"
     annotation (Placement(transformation(extent={{182,-10},{162,10}})));
 
   Sensors.TemperatureTwoPort senTReaDooLvg(
@@ -159,7 +168,7 @@ heat exchanger.
 </p>
 <p>
 The room inlet air temperature is set to <i>30</i>&deg;C.
-The air-cooled rack raises the air temperature around <i>11.7</i> K, so the air
+The air-cooled rack raises the air temperature by around <i>11.7</i> K, so the air
 entering the rear door heat exchanger is at approximately <i>41.7</i>&deg;C.
 The rear door heat exchanger is passive, i.e., it does not have fans.
 Due to its air-side flow resistance, the air flow rate through the rack is
@@ -180,6 +189,11 @@ throughout the simulation.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+November 26, 2026, by Michael Wetter:<br/>
+Propagated fields of <code>datReaDooHex</code> through its constraining type.<br/>
+This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4926\">Buildings, #4926</a>.
+</li>
 <li>
 September 29, 2026, by Michael Wetter:<br/>
 First implementation.

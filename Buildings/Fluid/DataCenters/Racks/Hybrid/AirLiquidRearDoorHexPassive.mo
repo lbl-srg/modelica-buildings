@@ -14,8 +14,8 @@ with a rear door heat exchanger.
 </p>
 <p>
 This model extends
-<a href=\"modelica://Buildings.Fluid.DataCenters.Racks.Hybrid.BaseClasses.AirLiquid\">
-Buildings.Fluid.DataCenters.Racks.Hybrid.BaseClasses.AirLiquid</a>
+<a href=\"modelica://Buildings.Fluid.DataCenters.Racks.Hybrid.BaseClasses.PartialAirLiquidRearDoorHex\">
+Buildings.Fluid.DataCenters.Racks.Hybrid.BaseClasses.PartialAirLiquidRearDoorHex</a>
 and adds a rear door heat exchanger using
 <a href=\"modelica://Buildings.Fluid.DataCenters.Racks.RearDoorHeatExchangers.Passive\">
 Buildings.Fluid.DataCenters.Racks.RearDoorHeatExchangers.Passive</a>.
@@ -42,7 +42,7 @@ serve as the inlet and outlet ports.
 <p>
 If the fan of the air-cooled IT is controlled based on the rack outlet temperature,
 then the temperature between the rack and the rear door heat exchanger is used as
-the measurement signal; otherwise, the IT load is used as an input for the fan controller
+the measurement signal; otherwise, the IT load is used as an input for the fan controller.
 </p>
 </html>",
     revisions="<html>

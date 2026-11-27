@@ -18,26 +18,22 @@ model PartialCDU "Partial model for a CDU"
     annotation (Evaluate=true, Dialog(tab="Flow resistance", group="Medium 1"));
   parameter Boolean from_dpPla=false
     "= true, use m_flow = f(dp) else dp = f(m_flow)"
-    annotation (Evaluate=true, Dialog(enable=computeFlowResistancePla,
-                tab="Flow resistance", group="Medium 1"));
+    annotation (Evaluate=true, Dialog(tab="Flow resistance", group="Medium 1"));
 
   parameter Boolean linearizeFlowResistancePla=false
     "= true, use linear relation between m_flow and dp for any flow rate"
-    annotation(Dialog(enable=computeFlowResistancePla,
-               tab="Flow resistance", group="Medium 1"));
+    annotation(Dialog(tab="Flow resistance", group="Medium 1"));
   parameter Boolean computeFlowResistanceRac=true
     "=true, compute flow resistance. Set to false to assume no friction"
     annotation (Evaluate=true, Dialog(tab="Flow resistance", group="Medium 2"));
 
   parameter Boolean from_dpRac=false
     "= true, use m_flow = f(dp) else dp = f(m_flow)"
-    annotation (Evaluate=true, Dialog(enable=computeFlowResistanceRac,
-                tab="Flow resistance", group="Medium 2"));
+    annotation (Evaluate=true, Dialog(tab="Flow resistance", group="Medium 2"));
 
   parameter Boolean linearizeFlowResistanceRac=false
     "= true, use linear relation between m_flow and dp for any flow rate"
-    annotation(Dialog(enable=computeFlowResistanceRac,
-      tab="Flow resistance", group="Medium 2"));
+    annotation(Dialog(tab="Flow resistance", group="Medium 2"));
 
   // Valve
   parameter Boolean use_strokeTime=true
@@ -57,7 +53,7 @@ model PartialCDU "Partial model for a CDU"
     "Time constant of fluid volume for nominal flow, used if energy or mass balance is dynamic"
     annotation (Dialog(tab="Dynamics", group="Pump"));
   parameter Boolean use_riseTime=true
-    "Set to true to continuously change motor speed using risetime from instance dat"
+    "Set to true to continuously change motor speed using riseTime from instance dat"
     annotation (Dialog(tab="Dynamics", group="Pump"));
   parameter Real yPum_start=0 "Initial value of speed"
     annotation (Dialog(tab="Dynamics", group="Pump"));
@@ -122,7 +118,7 @@ model PartialCDU "Partial model for a CDU"
     final Td=TdVal,
     final reverseActing=false,
     r=10,
-    xi_start=1)
+    xi_start=yVal_start)
     "Controller for valve"
     annotation (Placement(transformation(extent={{-80,90},{-60,110}})));
   Controls.OBC.CDL.Reals.PID conPum(
@@ -134,7 +130,7 @@ model PartialCDU "Partial model for a CDU"
     final Td=TdPum,
     final reverseActing=true,
     r=dat.dpPumpExt_nominal,
-    xi_start=1)
+    xi_start=yPum_start)
     "Controller for pump"
     annotation (Placement(transformation(extent={{-10,-110},{10,-90}})));
   replaceable Buildings.Fluid.Interfaces.PartialFourPortInterface hex
@@ -145,6 +141,8 @@ model PartialCDU "Partial model for a CDU"
       final allowFlowReversal2=allowFlowReversalRac,
       final m1_flow_nominal=mPla_flow_nominal,
       final m2_flow_nominal=mRac_flow_nominal,
+      final m1_flow_small=mPla_flow_small,
+      final m2_flow_small=mRac_flow_small,
       final show_T=show_T) "Heat exchanger"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
 
@@ -166,7 +164,7 @@ model PartialCDU "Partial model for a CDU"
         origin={-50,60})));
 
   // Use sqrt for efficiency because input is the total efficiency, but this is split up into a
-  // motor and a hyraulic efficiency which are then multiplied with each other.
+  // motor and a hydraulic efficiency which are then multiplied with each other.
   Fluid.Movers.SpeedControlled_y pum(
     redeclare final package Medium = MediumRac,
     energyDynamics=energyDynamics,
@@ -200,6 +198,9 @@ model PartialCDU "Partial model for a CDU"
     final allowFlowReversal=allowFlowReversalRac,
     final m_flow_nominal=mRac_flow_nominal,
     final dp_nominal=dat.dpFilRac_nominal,
+    final from_dp=from_dpRac,
+    final linearized=linearizeFlowResistanceRac,
+    final deltaM=dat.deltaMRac,
     final n=dat.nFilRac)
     "Filter"
     annotation (Placement(transformation(
@@ -219,7 +220,8 @@ model PartialCDU "Partial model for a CDU"
   Fluid.Sensors.TemperatureTwoPort senTemRacSup(
     redeclare final package Medium = MediumRac,
     final allowFlowReversal=allowFlowReversalRac,
-    final m_flow_nominal=mRac_flow_nominal)
+    final m_flow_nominal=mRac_flow_nominal,
+    final tau=0)
     "Temperature sensor for medium leaving towards IT racks"
     annotation (Placement(transformation(extent={{-60,-70},{-80,-50}})));
 
@@ -234,13 +236,13 @@ model PartialCDU "Partial model for a CDU"
 
 protected
   final parameter Integer nPumpDat = size(dat.pumpHead.dp, 1)
-    "Number of support point for pump data";
+    "Number of support points for pump data";
 
   final parameter Boolean pumpDP_isMonotonicDecreasing = (dat.pumpHead.dp[1] > dat.pumpHead.dp[end]) and
     Buildings.Utilities.Math.Functions.isMonotonic(
       x=dat.pumpHead.dp,
-      strict=false)
-    "Flag, true if the pump pressure drop is monotonic";
+      strict=true)
+    "Flag, true if the pump pressure rise is monotonically decreasing";
 initial equation
   if checkMedia then
     // Assert that the media are consistent with the medium types declared in the parameter record
@@ -268,11 +270,11 @@ initial equation
       + "\nSet the parameter checkMedia=false to avoid this check.");
   end if;
   assert(pumpDP_isMonotonicDecreasing,
-    "In " + getInstanceName() + ": Parameter dat.pumpHead is not monotonic decreasing.
-This is usually if dat.dpHexRac_nominal + dat.dpFilRac_nominal are too large compared to the decrease in dat.pumpExtHead.
+    "In " + getInstanceName() + ": Parameter dat.pumpHead is not monotonically decreasing.
+This usually occurs if dat.dpHexRac_nominal + dat.dpFilRac_nominal is too large compared to the decrease in dat.pumpExtHead.
 The model will use pumpHeadMonotone instead of dat.pumpHead. Please check your data to avoid this warning.
 Model has the following parameters:
-  dat.dpHexRac_nominal + dpFilRac_nominal = " + String(dat.dpHexRac_nominal) + " + " + String(dat.dpFilRac_nominal) + " = " + String(dat.dpHexRac_nominal + dat.dpFilRac_nominal) + " Pa
+  dat.dpHexRac_nominal + dat.dpFilRac_nominal = " + String(dat.dpHexRac_nominal) + " + " + String(dat.dpFilRac_nominal) + " = " + String(dat.dpHexRac_nominal + dat.dpFilRac_nominal) + " Pa
   dat.pumpExtHead.dp[1] - dat.pumpExtHead.dp[end] =          " + String(dat.pumpExtHead.dp[1] - dat.pumpExtHead.dp[end]) + " Pa.",
     level=AssertionLevel.warning);
 equation
@@ -452,7 +454,7 @@ equation
   Documentation(
     info="<html>
 <p>
-Model of a coolant distribution unit (CDU) with built in two-way valve on the chilled
+Model of a coolant distribution unit (CDU) with built-in two-way valve on the chilled
 water side and pump on the IT side as shown in the figure below.
 </p>
 <p align=\"center\">
@@ -465,10 +467,10 @@ The two fluid streams are separated by a heat exchanger.
 </p>
 <p>
 On the chilled water side is a two-way valve that controls the mass flow rate
-to track to set point for the leaving fluid temperature that goes to the IT racks.
-By default, the controller is configured as a PI-controller.
+to track the set point for the leaving fluid temperature that goes to the IT racks.
+By default, the controller is configured as a PI controller.
 The valve has an equal-percentage
-opening characteristics. By default, the valve pressure drop is set to the same value
+opening characteristic. By default, the valve pressure drop is set to the same value
 as the heat exchanger pressure drop, achieving a valve authority of <i>0.5</i>.
 The valve is modeled using an instance of
 <a href=\"modelica://Buildings.Fluid.Actuators.Valves.TwoWayEqualPercentage\">
@@ -479,19 +481,19 @@ On the IT side is a circulation pump that is controlled to track a set point for
 the head between the two fluid ports.
 Note that this head is not the pump head, but rather the head between the fluid ports
 of the CDU, and hence it takes into account the flow resistance of the heat exchanger.
-The controller for the pump is configured by default as a PI-controller.
+The controller for the pump is configured by default as a PI controller.
 </p>
 <p>
-Note that the head, specified through the parameter <code>dpPum_nominal</code>,
-is the head of the CDU.
-To properly size the pump, set <code>dpPum_nominal</code> to the flow resistance that is
-external to the CDU, plus the flow resistance of the heat exchanger <code>dpHex_nominal</code>
-and the filter.
+Note that the head, specified through the parameter <code>dat.dpPumpExt_nominal</code>,
+is the external head available at the fluid ports of the CDU.
+To compute the pump head <code>dat.pumpHead</code>, the data record adds the flow resistance
+of the heat exchanger <code>dat.dpHexRac_nominal</code> and the filter
+<code>dat.dpFilRac_nominal</code> to the external head curve <code>dat.pumpExtHead</code>.
 </p>
 <p>
 The pump is modeled using an instance of
-<a href=\"modelica://Buildings.Fluid.Movers.Preconfigured.SpeedControlled_y\">
-Buildings.Fluid.Movers.Preconfigured.SpeedControlled_y</a>.
+<a href=\"modelica://Buildings.Fluid.Movers.SpeedControlled_y\">
+Buildings.Fluid.Movers.SpeedControlled_y</a>.
 </p>
 <p>
 On the IT side, there is also an expansion vessel, modeled using an instance of
@@ -500,13 +502,28 @@ Buildings.Fluid.Storage.ExpansionVessel</a>.
 This component sets a reference static pressure, and if the medium model computes
 density as a function of temperature during the simulation, it provides a volume for the
 medium's thermal expansion.
-Note however that to improve computing performance, the medium
+Note, however, that to improve computing performance, the medium
 <a href=\"modelica://Buildings.Media.Antifreeze.PropyleneGlycolWater\">
 Buildings.Media.Antifreeze.PropyleneGlycolWater</a>
 assumes density as constant during the simulation.
 </p>
+<p><b>Notes</b></p>
+<p>
+The parameters <code>computeFlowResistancePla</code> and <code>computeFlowResistanceRac</code>
+have no effect on the model and will be removed in Buildings version 15.0.0.
+</p>
 </html>", revisions="<html>
 <ul>
+<li>
+November 13, 2026, by Michael Wetter:<br/>
+Propagated <code>mPla_flow_small</code> and <code>mRac_flow_small</code> to <code>hex</code>,
+and <code>from_dpRac</code>, <code>linearizeFlowResistanceRac</code>, and
+<code>dat.deltaMRac</code> to <code>fil</code>.<br/>
+Aligned controller integrator initial values with <code>yVal_start</code> and
+<code>yPum_start</code>, set <code>senTemRacSup.tau=0</code>, and enforced strict
+monotonicity in <code>pumpDP_isMonotonicDecreasing</code>.<br/>
+This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4926\">Buildings, #4926</a>.
+</li>
 <li>
 December 23, 2025, by Michael Wetter:<br/>
 First implementation.

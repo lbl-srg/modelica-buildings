@@ -2,13 +2,22 @@ within Buildings.Fluid.DataCenters.Racks.Hybrid.Examples;
 model AirLiquidRearDoorHexPassive
   "Example model for hybrid liquid-cooled and air-cooled rack with rear door heat exchanger"
   extends Buildings.Fluid.DataCenters.Racks.Hybrid.Examples.AirLiquid(
-      redeclare replaceable
+      redeclare replaceable parameter
       Buildings.Fluid.DataCenters.Racks.Hybrid.Data.AirLiquidRearDoorHexPassive.Generic
       dat constrainedby
       Buildings.Fluid.DataCenters.Racks.Hybrid.Data.AirLiquidRearDoorHexPassive.Generic(
       liq=datLiq,
       air=datAir,
-      reaDooHex=datReaDooHex), redeclare replaceable
+      reaDooHex(
+        mAir_flow_nominal=datReaDooHex.mAir_flow_nominal,
+        mCoo_flow_nominal=datReaDooHex.mCoo_flow_nominal,
+        Q_flow_nominal=datReaDooHex.Q_flow_nominal,
+        TAirIn_nominal=datReaDooHex.TAirIn_nominal,
+        TCooIn_nominal=datReaDooHex.TCooIn_nominal,
+        dpCoo_nominal=datReaDooHex.dpCoo_nominal,
+        dpAir_nominal=datReaDooHex.dpAir_nominal,
+        cpCoo_nominal=datReaDooHex.cpCoo_nominal,
+        cpAir_nominal=datReaDooHex.cpAir_nominal)), redeclare replaceable
       Buildings.Fluid.DataCenters.Racks.Hybrid.AirLiquidRearDoorHexPassive rac
       constrainedby
       Buildings.Fluid.DataCenters.Racks.Hybrid.BaseClasses.PartialAirLiquidRearDoorHex(
@@ -55,7 +64,7 @@ model AirLiquidRearDoorHexPassive
   Sources.Boundary_pT sinReaDoo(
     redeclare package Medium = MediumReaDooHex,
     p=MediumReaDooHex.p_default,
-    nPorts=1) "Sink rear door heat exchanger coolant"
+    nPorts=1) "Sink for rear door heat exchanger coolant"
     annotation (Placement(transformation(extent={{182,-10},{162,10}})));
 
   Sensors.TemperatureTwoPort senTReaDooLvg(
@@ -89,7 +98,7 @@ and replaces the rack with a rack that has a passive rear door heat exchanger.
 </p>
 <p>
 The room inlet air temperature is set to <i>30</i> &deg;C.
-The air-cooled rack raises the air temperature around <i>11.7</i> K, so the air
+The air-cooled rack raises the air temperature by around <i>11.7</i> K, so the air
 entering the rear door heat exchanger is at approximately <i>41.7</i> &deg;C.
 Note that these values are slightly higher than the ones in
 <a href=\"modelica://Buildings.Fluid.DataCenters.Racks.Hybrid.Examples.AirLiquid\">
@@ -113,6 +122,12 @@ base example.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+November 26, 2026, by Michael Wetter:<br/>
+Added <code>parameter</code> prefix to redeclaration of <code>dat</code> and
+propagated fields of <code>datReaDooHex</code> through its constraining type.<br/>
+This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4926\">Buildings, #4926</a>.
+</li>
 <li>
 September 13, 2026, by Michael Wetter:<br/>
 First implementation.

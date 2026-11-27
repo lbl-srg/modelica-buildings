@@ -204,6 +204,70 @@ have been <b style=\"color:blue\">improved</b> in a
                        This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4798\">Buildings, #4798</a>.
     </td>
 </tr>
+<tr><td colspan=\"2\"><b>Buildings.Fluid.DataCenters.CDUs.LiquidToLiquid.Data</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Fluid.DataCenters.CDUs.LiquidToLiquid.Data.Generic_2MW
+    </td>
+    <td valign=\"top\">Added default values for <code>TApp_nominal</code>, <code>mPla_flow_nominal</code>,
+                       <code>mRac_flow_nominal</code>, <code>medPla</code>, <code>medRac</code>, and
+                       <code>phiGlyRac</code>, and updated <code>pumpExtHead</code> so that the total pump
+                       head decreases monotonically with flow rate.<br/>
+                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4926\">Buildings, #4926</a>.
+    </td>
+</tr>
+<tr><td colspan=\"2\"><b>Buildings.Fluid.DataCenters.Racks.Air</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Fluid.DataCenters.Racks.Air.Rack_P
+    </td>
+    <td valign=\"top\">Added minimum fan speed parameter <code>yMin</code> for outlet temperature control.<br/>
+                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4926\">Buildings, #4926</a>.
+    </td>
+</tr>
+<tr><td colspan=\"2\"><b>Buildings.Fluid.DataCenters.Racks.FanControllers</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Fluid.DataCenters.Racks.FanControllers.OutletTemperature
+    </td>
+    <td valign=\"top\">Exposed parameters <code>yMin</code> and <code>xi_start</code> for the PI controller.<br/>
+                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4926\">Buildings, #4926</a>.
+    </td>
+</tr>
+<tr><td colspan=\"2\"><b>Buildings.Fluid.DataCenters.Racks.Hybrid.BaseClasses</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Fluid.DataCenters.Racks.Hybrid.BaseClasses.Air<br/>
+                       Buildings.Fluid.DataCenters.Racks.Hybrid.BaseClasses.AirLiquid
+    </td>
+    <td valign=\"top\">Exposed minimum fan speed parameter <code>yMin</code> for outlet temperature control.<br/>
+                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4926\">Buildings, #4926</a>.
+    </td>
+</tr>
+<tr><td colspan=\"2\"><b>Buildings.Fluid.DataCenters.Racks.Hybrid.Data.AirRearDoorHexActive</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Fluid.DataCenters.Racks.Hybrid.Data.AirRearDoorHexActive.Generic
+    </td>
+    <td valign=\"top\">Added optional parameters <code>PFan_nominal</code> and <code>eta_nominal</code>
+                       so that the rear door heat exchanger fan power and efficiency can be configured
+                       without accessing parameters outside the constraining type of <code>reaDooHex</code>.<br/>
+                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4926\">Buildings, #4926</a>.
+    </td>
+</tr>
+<tr><td colspan=\"2\"><b>Buildings.Fluid.DataCenters.Racks.Liquid.Data</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Fluid.DataCenters.Racks.Liquid.Data.Generic<br/>
+                       Buildings.Fluid.DataCenters.Racks.Liquid.Data.OCP_1kW_OAM_PG25<br/>
+                       Buildings.Fluid.DataCenters.Racks.Liquid.Data.OCP_1kW_OAM_Water
+    </td>
+    <td valign=\"top\">Added optional parameter <code>PColPla_nominal</code> to specify the nominal heat
+                       flow rate of a single cold plate, and set <code>PColPla_nominal=1000</code> in the
+                       1 kW Open Accelerator Module data records.<br/>
+                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4926\">Buildings, #4926</a>.
+    </td>
+</tr>
 <tr><td colspan=\"2\"><b>Buildings.Fluid.Geothermal</b>
     </td>
 </tr>
@@ -316,6 +380,20 @@ that can lead to wrong simulation results):
                        This is for <a href=\"https://www.github.com/lbl-srg/modelica-buildings/issues/4475\">issue #4475</a>.
     </td>
 </tr>
+<tr><td colspan=\"2\"><b>Buildings.Fluid.DataCenters.CDUs.BaseClasses</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Fluid.DataCenters.CDUs.BaseClasses.PartialCDU
+    </td>
+    <td valign=\"top\">Propagated <code>mPla_flow_small</code> and <code>mRac_flow_small</code> to <code>hex</code>,
+                       and propagated <code>from_dpRac</code>, <code>linearizeFlowResistanceRac</code>, and
+                       <code>dat.deltaMRac</code> to <code>fil</code>.
+                       Set controller integrator initial values to <code>yVal_start</code> and <code>yPum_start</code>,
+                       set <code>senTemRacSup.tau=0</code> to avoid an unintended dynamic state in steady-state mode,
+                       and enforced strict monotonicity in <code>pumpDP_isMonotonicDecreasing</code>.<br/>
+                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4926\">Buildings, #4926</a>.
+    </td>
+</tr>
 <tr><td colspan=\"2\"><b>Buildings.Fluid.DataCenters.CDUs.LiquidToLiquid.Data</b>
     </td>
 </tr>
@@ -329,6 +407,18 @@ that can lead to wrong simulation results):
                        This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4787\">Buildings, #4787</a>.
     </td>
 </tr>
+<tr><td valign=\"top\">Buildings.Fluid.DataCenters.CDUs.LiquidToLiquid.Data.Generic_epsNTU<br/>
+                       Buildings.Fluid.DataCenters.CDUs.LiquidToLiquid.Data.GoogleProjectDeschutes_2MW<br/>
+                       Buildings.Fluid.DataCenters.CDUs.LiquidToLiquid.Data.VertivLiebertXDU1350
+    </td>
+    <td valign=\"top\">Evaluated plant-side fluid properties at <code>TPlaIn_nominal</code> instead of
+                       <code>TRacOut_nominal</code> in <code>Generic_epsNTU</code>, and updated nominal temperatures,
+                       mass flow rates, primary and secondary heat exchanger and filter pressure drops,
+                       external pump head curves, and pump efficiencies in <code>GoogleProjectDeschutes_2MW</code>
+                       and <code>VertivLiebertXDU1350</code> to match the published specifications.<br/>
+                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4926\">Buildings, #4926</a>.
+    </td>
+</tr>
 <tr><td valign=\"top\">Buildings.Fluid.DataCenters.CDUs.LiquidToLiquid.Data.VertivLiebertXDU1350
     </td>
     <td valign=\"top\">Corrected the nominal mass flow rates (<code>mRac_flow_nominal</code> and <code>mPla_flow_nominal</code>),
@@ -336,6 +426,95 @@ that can lead to wrong simulation results):
                        and the rack-side filter design pressure drop (<code>dpFilRac_nominal</code>)
                        to match the manufacturer data sheet.<br/>
                        This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4872\">Buildings, #4872</a>.
+    </td>
+</tr>
+<tr><td colspan=\"2\"><b>Buildings.Fluid.DataCenters.CDUs.LiquidToLiquid.Data.BaseClasses</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Fluid.DataCenters.CDUs.LiquidToLiquid.Data.BaseClasses.density_TX_a<br/>
+                       Buildings.Fluid.DataCenters.CDUs.LiquidToLiquid.Data.BaseClasses.dynamicViscosity_TX_a<br/>
+                       Buildings.Fluid.DataCenters.CDUs.LiquidToLiquid.Data.BaseClasses.prandtlNumber_TX_a<br/>
+                       Buildings.Fluid.DataCenters.CDUs.LiquidToLiquid.Data.BaseClasses.specificHeatCapacityCp_TX_a<br/>
+                       Buildings.Fluid.DataCenters.CDUs.LiquidToLiquid.Data.BaseClasses.thermalConductivity_TX_a
+    </td>
+    <td valign=\"top\">Ignored the glycol mass fraction <code>X_a</code> when <code>medium</code> is set to water.<br/>
+                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4926\">Buildings, #4926</a>.
+    </td>
+</tr>
+<tr><td colspan=\"2\"><b>Buildings.Fluid.DataCenters.Racks.BaseClasses</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Fluid.DataCenters.Racks.BaseClasses.Fan
+    </td>
+    <td valign=\"top\">Set <code>per.peak.eta=eta_nominal</code> so that <code>eta_nominal</code> sets the peak
+                       combined fan and motor efficiency instead of defaulting to <i>0.7</i>.<br/>
+                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4926\">Buildings, #4926</a>.
+    </td>
+</tr>
+<tr><td colspan=\"2\"><b>Buildings.Fluid.DataCenters.Racks.Hybrid</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Fluid.DataCenters.Racks.Hybrid.AirLiquidRearDoorHexActive<br/>
+                       Buildings.Fluid.DataCenters.Racks.Hybrid.AirRearDoorHexActive
+    </td>
+    <td valign=\"top\">Propagated <code>dat.reaDooHex.PFan_nominal</code> and <code>dat.reaDooHex.eta_nominal</code>
+                       in <code>AirLiquidRearDoorHexActive</code>, and <code>dat.PFan_nominal</code> and
+                       <code>dat.eta_nominal</code> in <code>AirRearDoorHexActive</code>, to <code>reaDooHex</code>,
+                       and exposed <code>energyDynamicsReaDooHex</code>.<br/>
+                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4926\">Buildings, #4926</a>.
+    </td>
+</tr>
+<tr><td colspan=\"2\"><b>Buildings.Fluid.DataCenters.Racks.Hybrid.BaseClasses</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Fluid.DataCenters.Racks.Hybrid.BaseClasses.AirLiquid
+    </td>
+    <td valign=\"top\">Computed <code>nColPla</code> using <code>dat.liq.PColPla_nominal</code> when positive and
+                       <code>MediumLiq</code> density instead of a hardcoded water density.<br/>
+                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4926\">Buildings, #4926</a>.
+    </td>
+</tr>
+<tr><td colspan=\"2\"><b>Buildings.Fluid.DataCenters.Racks.Liquid</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Fluid.DataCenters.Racks.Liquid.ColdPlateR_P
+    </td>
+    <td valign=\"top\">Propagated <code>linearized</code> and <code>dat.deltaM</code> to <code>preDro</code>,
+                       and computed <code>nColPla</code> from <code>dat.PColPla_nominal</code> when positive.<br/>
+                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4926\">Buildings, #4926</a>.
+    </td>
+</tr>
+<tr><td colspan=\"2\"><b>Buildings.Fluid.DataCenters.Racks.Liquid.BaseClasses</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Fluid.DataCenters.Racks.Liquid.BaseClasses.CaseTemperature
+    </td>
+    <td valign=\"top\">Scaled <code>deltaX</code> in <code>smoothMax</code> by <code>V_flow_small</code> instead of
+                       <code>delta</code> to avoid distorting the thermal resistance <code>R</code> at operating flow
+                       rates and to avoid a division-by-zero singularity near zero flow, and corrected
+                       <code>relErrR</code> to compute the relative error instead of the ratio.<br/>
+                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4926\">Buildings, #4926</a>.
+    </td>
+</tr>
+<tr><td colspan=\"2\"><b>Buildings.Fluid.DataCenters.Racks.RearDoorHeatExchangers</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Fluid.DataCenters.Racks.RearDoorHeatExchangers.Active
+    </td>
+    <td valign=\"top\">Set <code>senTAirReaDooHexOut.tau=0</code> to avoid an unintended dynamic state in
+                       steady-state mode.<br/>
+                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4926\">Buildings, #4926</a>.
+    </td>
+</tr>
+<tr><td colspan=\"2\"><b>Buildings.Fluid.DataCenters.Racks.RearDoorHeatExchangers.BaseClasses</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Fluid.DataCenters.Racks.RearDoorHeatExchangers.BaseClasses.PartialRearDoorHeatExchanger
+    </td>
+    <td valign=\"top\">Set <code>senTAirReaDooHexIn.tau=0</code> to avoid an unintended dynamic state in
+                       steady-state mode, and added mass flow rate bounds on the fluid ports when flow reversal
+                       is disabled.<br/>
+                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4926\">Buildings, #4926</a>.
     </td>
 </tr>
 <tr><td colspan=\"2\"><b>Buildings.Fluid.FixedResistances</b>
@@ -406,12 +585,150 @@ that do <b style=\"color:red\">not</b> lead to wrong simulation results, e.g.,
 units are wrong or errors in documentation):
 </p>
 <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\" style=\"border-collapse:collapse;\">
-<tr><td colspan=\"2\"><b>xxx</b>
+<tr><td colspan=\"2\"><b>Buildings.Fluid.DataCenters</b>
     </td>
 </tr>
-<tr><td valign=\"top\">xxx
+<tr><td valign=\"top\">Buildings.Fluid.DataCenters
     </td>
-    <td valign=\"top\">xxx.
+    <td valign=\"top\">Fixed typos and grammatical errors in documentation and parameter descriptions.<br/>
+                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4926\">Buildings, #4926</a>.
+    </td>
+</tr>
+<tr><td colspan=\"2\"><b>Buildings.Fluid.DataCenters.CDUs.BaseClasses</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Fluid.DataCenters.CDUs.BaseClasses.PartialCDU
+    </td>
+    <td valign=\"top\">Removed <code>enable=computeFlowResistancePla</code> and
+                       <code>enable=computeFlowResistanceRac</code> from parameter <code>Dialog</code> annotations,
+                       and documented that the unused parameters <code>computeFlowResistancePla</code> and
+                       <code>computeFlowResistanceRac</code> have no effect on the model and will be removed in
+                       Buildings version 15.0.0.<br/>
+                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4926\">Buildings, #4926</a>.
+    </td>
+</tr>
+<tr><td colspan=\"2\"><b>Buildings.Fluid.DataCenters.CDUs.LiquidToLiquid</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Fluid.DataCenters.CDUs.LiquidToLiquid.CDU_epsNTU
+    </td>
+    <td valign=\"top\">Documented that the inherited unused parameters <code>computeFlowResistancePla</code> and
+                       <code>computeFlowResistanceRac</code> have no effect on the model and will be removed in
+                       Buildings version 15.0.0.<br/>
+                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4926\">Buildings, #4926</a>.
+    </td>
+</tr>
+<tr><td colspan=\"2\"><b>Buildings.Fluid.DataCenters.CDUs.LiquidToLiquid.Examples</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Fluid.DataCenters.CDUs.LiquidToLiquid.Examples.CDU_epsNTU
+    </td>
+    <td valign=\"top\">Aligned <code>dpSet</code> with <code>dpRac_nominal</code>, updated <code>MediumRac</code>
+                       reference temperatures, and updated <code>datCDU.pumpExtHead</code>.<br/>
+                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4926\">Buildings, #4926</a>.
+    </td>
+</tr>
+<tr><td colspan=\"2\"><b>Buildings.Fluid.DataCenters.Racks.Air</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Fluid.DataCenters.Racks.Air.Rack_P
+    </td>
+    <td valign=\"top\">Added <code>parameter</code> prefix to the redeclaration of <code>dat</code>.<br/>
+                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4926\">Buildings, #4926</a>.
+    </td>
+</tr>
+<tr><td colspan=\"2\"><b>Buildings.Fluid.DataCenters.Racks.Air.Examples</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Fluid.DataCenters.Racks.Air.Examples.Rack_P
+    </td>
+    <td valign=\"top\">Set boundary air temperature <code>sou.T</code> to <code>dat.TIn_nominal</code>.<br/>
+                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4926\">Buildings, #4926</a>.
+    </td>
+</tr>
+<tr><td colspan=\"2\"><b>Buildings.Fluid.DataCenters.Racks.Hybrid.Examples</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Fluid.DataCenters.Racks.Hybrid.Examples.AirLiquid<br/>
+                       Buildings.Fluid.DataCenters.Racks.Hybrid.Examples.AirLiquidRearDoorHexActive<br/>
+                       Buildings.Fluid.DataCenters.Racks.Hybrid.Examples.AirLiquidRearDoorHexPassive<br/>
+                       Buildings.Fluid.DataCenters.Racks.Hybrid.Examples.AirRearDoorHexActive<br/>
+                       Buildings.Fluid.DataCenters.Racks.Hybrid.Examples.AirRearDoorHexPassive
+    </td>
+    <td valign=\"top\">Changed the constraining type of <code>rac</code> in <code>AirLiquid</code> to
+                       <code>BaseClasses.AirLiquid</code>, added the <code>parameter</code> prefix to redeclarations
+                       of <code>dat</code>, and propagated the fields of <code>datReaDooHex</code> through its
+                       constraining type.<br/>
+                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4926\">Buildings, #4926</a>.
+    </td>
+</tr>
+<tr><td colspan=\"2\"><b>Buildings.Fluid.DataCenters.Racks.Liquid</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Fluid.DataCenters.Racks.Liquid.ColdPlateR_P
+    </td>
+    <td valign=\"top\">Added <code>parameter</code> prefix to the redeclaration of <code>dat</code>.<br/>
+                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4926\">Buildings, #4926</a>.
+    </td>
+</tr>
+<tr><td colspan=\"2\"><b>Buildings.Fluid.DataCenters.Racks.Liquid.BaseClasses.Examples</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Fluid.DataCenters.Racks.Liquid.BaseClasses.Examples.CaseTemperature
+    </td>
+    <td valign=\"top\">Scaled <code>casTem.V_flow_nominal</code> by <code>nPar</code>.<br/>
+                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4926\">Buildings, #4926</a>.
+    </td>
+</tr>
+<tr><td colspan=\"2\"><b>Buildings.Fluid.DataCenters.Racks.Liquid.Data</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Fluid.DataCenters.Racks.Liquid.Data.OCP_1kW_OAM_Water
+    </td>
+    <td valign=\"top\">Corrected <code>defaultComponentName</code> from <code>datTheRes</code> to <code>dat</code>.<br/>
+                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4926\">Buildings, #4926</a>.
+    </td>
+</tr>
+<tr><td colspan=\"2\"><b>Buildings.Fluid.DataCenters.Racks.RearDoorHeatExchangers.Data.Active</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Fluid.DataCenters.Racks.RearDoorHeatExchangers.Data.Active.Generic
+    </td>
+    <td valign=\"top\">Documented that the inherited unused parameters <code>cpCoo_nominal</code> and
+                       <code>cpAir_nominal</code> have no effect on the model and will be removed in
+                       Buildings version 15.0.0.<br/>
+                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4926\">Buildings, #4926</a>.
+    </td>
+</tr>
+<tr><td colspan=\"2\"><b>Buildings.Fluid.DataCenters.Racks.RearDoorHeatExchangers.Data.Passive</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Fluid.DataCenters.Racks.RearDoorHeatExchangers.Data.Passive.Generic
+    </td>
+    <td valign=\"top\">Documented that the unused parameters <code>cpCoo_nominal</code> and
+                       <code>cpAir_nominal</code> have no effect on the model and will be removed in
+                       Buildings version 15.0.0.<br/>
+                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4926\">Buildings, #4926</a>.
+    </td>
+</tr>
+<tr><td colspan=\"2\"><b>Buildings.Fluid.DataCenters.Racks.RearDoorHeatExchangers.Examples</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Fluid.DataCenters.Racks.RearDoorHeatExchangers.Examples.Active<br/>
+                       Buildings.Fluid.DataCenters.Racks.RearDoorHeatExchangers.Examples.Passive
+    </td>
+    <td valign=\"top\">Removed assignments to the unused parameters <code>cpAir_nominal</code> and
+                       <code>cpCoo_nominal</code>.<br/>
+                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4926\">Buildings, #4926</a>.
+    </td>
+</tr>
+<tr><td colspan=\"2\"><b>Buildings.Fluid.DataCenters.Racks.RearDoorHeatExchangers.Examples.BaseClasses</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Fluid.DataCenters.Racks.RearDoorHeatExchangers.Examples.BaseClasses.PartialExample
+    </td>
+    <td valign=\"top\">Set <code>tau=0</code> and <code>allowFlowReversal=false</code> on the temperature sensors.<br/>
+                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4926\">Buildings, #4926</a>.
     </td>
 </tr>
 </table>
