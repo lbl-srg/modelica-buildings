@@ -112,17 +112,26 @@ model WaterBasin "Water basin"
   inner Modelica.Fluid.System system(p_ambient=101325, T_ambient=293.15)
     "System-wide properties"
     annotation (Placement(transformation(extent={{-100,40},{-80,60}})));
-  Controls.OBC.CDL.Interfaces.RealInput           mRecPum_flow
-    "Mass flow setpoint of the recirculation pump" annotation (Placement(
-        transformation(extent={{-140,-40},{-100,0}}),   iconTransformation(
-          extent={{-140,-80},{-100,-40}})));
   Controls.OBC.CDL.Interfaces.RealOutput mMakUp_flow "Makeup water flow"
     annotation (Placement(transformation(extent={{100,-30},{140,10}}),
         iconTransformation(extent={{100,-20},{140,20}})));
   Controls.OBC.CDL.Interfaces.RealInput mWatEva_flow
     "Mass flow of water evaporation that leaves the water recirculation loop"
-    annotation (Placement(transformation(extent={{-140,80},{-100,120}}),
+    annotation (Placement(transformation(extent={{-180,80},{-140,120}}),
         iconTransformation(extent={{-140,40},{-100,80}})));
+  Controls.OBC.CDL.Interfaces.BooleanInput wetMod
+    "True: the basin is operating on the wet mode; false: the basin is operating on the dry mode"
+    annotation (Placement(transformation(extent={{-180,-40},{-140,0}}),
+        iconTransformation(extent={{-140,-80},{-100,-40}})));
+  Controls.OBC.CDL.Conversions.BooleanToReal booToRea1(realTrue=
+        mRec_flow_nominal)
+    "The recirculation pump is operating at the nominal water flow during the wet mode and at zero flow during the dry mode"
+    annotation (Placement(transformation(extent={{-120,-30},{-100,-10}})));
+  Controls.OBC.CDL.Reals.Switch swi
+    annotation (Placement(transformation(extent={{-60,120},{-40,140}})));
+  Controls.OBC.CDL.Reals.Sources.Constant con(k=0)
+    "Zero mass flow of water evaporation during the dry mode"
+    annotation (Placement(transformation(extent={{-100,100},{-80,120}})));
 protected
   parameter MediumRecWat.Density rhoRecWat_default=MediumRecWat.density(staRecWat_default)
     "Density, used to compute fluid volume";
@@ -163,12 +172,20 @@ equation
     annotation (Line(points={{-10,60},{-10,40}},   color={0,127,255}));
   connect(junEva.port_2, preDro.port_a)
     annotation (Line(points={{-10,20},{-10,-20}}, color={0,127,255}));
-  connect(mRecPum_flow, mov.m_flow_in)
-    annotation (Line(points={{-120,-20},{-82,-20}},   color={0,0,127}));
   connect(gai.y, mMakUp_flow) annotation (Line(points={{62,-90},{90,-90},{90,-10},
           {120,-10}},  color={0,0,127}));
-  connect(mWatEva_flow, gai2.u) annotation (Line(points={{-120,100},{-80,100},{-80,
-          110},{58,110}},        color={0,0,127}));
+  connect(wetMod, booToRea1.u)
+    annotation (Line(points={{-160,-20},{-122,-20}}, color={255,0,255}));
+  connect(booToRea1.y, mov.m_flow_in)
+    annotation (Line(points={{-98,-20},{-82,-20}}, color={0,0,127}));
+  connect(mWatEva_flow, swi.u1) annotation (Line(points={{-160,100},{-120,100},{
+          -120,138},{-62,138}}, color={0,0,127}));
+  connect(con.y, swi.u3) annotation (Line(points={{-78,110},{-70,110},{-70,122},
+          {-62,122}}, color={0,0,127}));
+  connect(swi.y, gai2.u) annotation (Line(points={{-38,130},{40,130},{40,110},{58,
+          110}}, color={0,0,127}));
+  connect(wetMod, swi.u2) annotation (Line(points={{-160,-20},{-130,-20},{-130,130},
+          {-62,130}}, color={255,0,255}));
   annotation (defaultComponentName="watBas",
     Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}},
     grid={2,2}), graphics={Rectangle(
@@ -181,9 +198,13 @@ equation
           textString="%name")}), Diagram(
     coordinateSystem(preserveAspectRatio=false,
     grid={2,2},
-        extent={{-100,-120},{100,120}})),
+        extent={{-140,-120},{100,140}})),
     Documentation(revisions="<html>
 <ul>
+<li>
+November 27, 2026, by Weiping Huang:<br/>
+Revised the documentation.
+</li>
 <li>
 November 20, 2026, by Weiping Huang:<br/>
 First implementation.
@@ -194,15 +215,21 @@ First implementation.
 This is a model of a water basin for evaporative coolers.
 The water basin is represented by an open tank and consists of
 a recirculation loop and a make-up water control loop.
+This model is used in the rigid media pad with basin model
+<a href=\"modelica://Buildings.Fluid.Humidifiers.EvaporativeCoolers.RigidMediaPad.PadWithBasin\">
+Buildings.Fluid.Humidifiers.EvaporativeCoolers.RigidMediaPad.PadWithBasin</a>.
 </p>
 <h4>Water recirculation loop</h4>
 <p>
 Water is drawn from the bottom of the tank by a recirculation pump
 <code>mov</code>, which is parameterized by the performance data
-<code>perRecPum</code>. The pump prescribes its mass flow rate to the
-value of the input <code>mRecPum_flow</code>, which in an evaporative
-cooler model should be set to the flow needed for water distribution
-over the wetted media. The water flows back to the tank through
+<code>perRecPum</code>. The boolean input <code>wetMod</code> switches
+between the wet and the dry mode: In the wet mode
+(<code>wetMod = true</code>), the pump circulates water at the nominal
+recirculation mass flow rate <code>mRec_flow_nominal</code>, which should
+be set to the flow needed for water distribution over the wetted media.
+In the dry mode (<code>wetMod = false</code>), the pump is off.
+The water flows back to the tank through
 a pressure drop element that models the pressure loss of the water
 distribution network. The nominal recirculation mass flow rate
 <code>mRec_flow_nominal</code> is computed from the maximum volume
@@ -212,7 +239,8 @@ default water density of <code>MediumRecWat</code>.
 <h4>Evaporation and blowdown</h4>
 <p>
 The input <code>mWatEva_flow</code> is the mass flow rate of water
-that evaporates and leaves the recirculation loop. To avoid the
+that evaporates and leaves the recirculation loop. In the dry mode,
+this mass flow rate is forced to zero. To avoid the
 accumulation of dissolved solids in the recirculating water, a
 blowdown flow is removed from the loop. The blowdown mass flow rate
 is computed as

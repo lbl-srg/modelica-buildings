@@ -1,6 +1,6 @@
 within Buildings.Fluid.Humidifiers.EvaporativeCoolers.RigidMediaPad.Validation;
 model PadWithBasin_DryWetSwitch
-  "Validation model for a direct evaporative cooler for both dry and wet modes"
+  "Validation model for the rigid media pad with basin for both dry and wet modes"
   extends Modelica.Icons.Example;
 
   replaceable package MediumA = Buildings.Media.Air
@@ -73,9 +73,6 @@ model PadWithBasin_DryWetSwitch
     "Outlet air water mass fraction sensor"
     annotation (Placement(transformation(origin={100,0},
       extent={{-10,-10},{10,10}})));
-  Controls.OBC.CDL.Reals.Sources.Constant mRecPum_flow(k=2)
-    "Mass flow setpoint of the recirculation pump"
-    annotation (Placement(transformation(extent={{-110,-80},{-90,-60}})));
 equation
   connect(senMasFraOut.port_a, senTemOut.port_b)
     annotation (Line(points={{90,0},{70,0}},   color={0,127,255}));
@@ -92,8 +89,6 @@ equation
   connect(weaDat.weaBus, sou.weaBus)
     annotation (Line(points={{-130,0},{-120,0},{-120,0.2},{-110,0.2}},
       color={255,204,51}, thickness=0.5));
-  connect(mRecPum_flow.y, padWitBas.mRecPum_flow) annotation (Line(points={{-88,
-          -70},{0,-70},{0,-6},{8,-6}}, color={0,0,127}));
   connect(padWitBas.port_b, senTemOut.port_a)
     annotation (Line(points={{30,0},{50,0}}, color={0,127,255}));
 annotation (
@@ -107,44 +102,55 @@ annotation (
 <p>
 This model validates the rigid media pad with basin model
 <a href=\"modelica://Buildings.Fluid.Humidifiers.EvaporativeCoolers.RigidMediaPad.PadWithBasin\">
-Buildings.Fluid.Humidifiers.EvaporativeCoolers.RigidMediaPad.PadWithBasint</a> by switching between the
+Buildings.Fluid.Humidifiers.EvaporativeCoolers.RigidMediaPad.PadWithBasin</a> by switching between the
 dry and wet modes.
 </p>
 <p>
-This validation model connects 2 evaporative coolers in series. It uses a Chicago
-weather file to represent outside air conditions in the month of August, and it
+The validation model consists of a single rigid media pad with basin model.
+It uses a Chicago weather file to represent outside air conditions, and it
 simulates how the dry bulb temperature and the water vapor mass fraction of the air
-change when air passes through the 2 evaporative coolers, for both the active
-evaporative cooling mode and the inactive mode.
+change when air passes through the rigid media pad, for both the wet mode and
+the dry mode. The boolean input <code>wetMod</code> is a pulse signal with a
+period of one day and a width of <i>0.5</i>, so the model operates in the wet
+mode during the first half of each day and in the dry mode during the second half.
 </p>
 <p>
-The validation results demonstrate that the dry bulb temperature of the air
-decreases when air passes through both the first and the second evaporative coolers.
-However, the dry bulb temperature reduction is smaller for the second evaporative
-cooler compared to the first evaporative cooler due to the dry bulb temperature of
-the air being closer to the wet bulb temperature of the air after leaving the first
-evaporative cooler, creating a diminishing return.
+The validation generates four subplots.
 </p>
-<p>
-A similar behavior is observed for the water vapor mass fraction of the air, where
-the water vapor mass fraction increases for both the first and the second
-evaporative coolers. However, the water vapor mass fraction rise is smaller for the
-second evaporative cooler compared to the first evaporative cooler due to the air being
-more humid after leaving the first evaporative cooler.
-</p>
-<p>
-On the other hand, for the active evaporative cooling mode, the dry bulb temperature
-of the air decreases, and the water vapor mass fraction of the air increases. When
-evaporative cooling is inactive, the dry bulb temperature and the water vapor mass
-fraction of the air do not change.
-</p>
-<p>
-There is pressure drop when air passes through the 2 evaporative coolers. The
-validation results also show the assumption that the pressure drop does not change
-when switching between active and inactive evaporative cooling.
-</p>
+<ul>
+<li>
+Subplot 1 compares the inlet air dry bulb temperature
+(<code>senTemIn.T</code>) and the outlet air dry bulb temperature
+(<code>senTemOut.T</code>). During the wet mode, the dry bulb temperature of the
+air decreases as it passes through the rigid media pad, approaching the wet bulb
+temperature of the air. During the dry mode, the dry bulb temperature of the air
+does not change.
+</li>
+<li>
+Subplot 2 compares the inlet air water vapor mass fraction
+(<code>senMasFraIn.X</code>) and the outlet air water vapor mass fraction
+(<code>senMasFraOut.X</code>). During the wet mode, the water vapor mass fraction
+increases as water evaporates into the air. During the dry mode, the water vapor
+mass fraction of the air does not change.
+</li>
+<li>
+Subplot 3 shows the wet mode signal <code>wetMod.y</code>.
+</li>
+<li>
+Subplot 4 compares the air pressure at the inlet
+(<code>padWitBas.port_a.p</code>) and at the outlet
+(<code>padWitBas.port_b.p</code>) of the rigid media pad. The pressure drop
+across the rigid media pad is the same in the wet and in the dry mode, which
+follows the assumption that the pressure drop does not change when switching
+between the dry and wet modes.
+</li>
+</ul>
 </html>", revisions="<html>
 <ul>
+<li>
+November 27, 2026, by Weiping Huang:<br/>
+Revised the documentation.
+</li>
 <li>
 June 18, 2026, by Weiping Huang:<br/>
 First implementation.

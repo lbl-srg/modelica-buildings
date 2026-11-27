@@ -1,6 +1,6 @@
 within Buildings.Fluid.Humidifiers.EvaporativeCoolers.RigidMediaPad.Validation;
 model PadWithBasin_CompareEnergyPlus
-  "Validation model for a direct evaporative cooler against EnergyPlus results"
+  "Validation model for the rigid media pad with basin against EnergyPlus results"
   extends Modelica.Icons.Example;
 
   replaceable package MediumA = Buildings.Media.Air
@@ -84,9 +84,6 @@ model PadWithBasin_CompareEnergyPlus
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant wetMod(final k=true)
     "True: the rigid media pad and its basin are operating on the wet mode; false: they are operating on the dry mode"
     annotation (Placement(transformation(extent={{-40,40},{-20,60}})));
-  Controls.OBC.CDL.Reals.Sources.Constant mRecPum_flow(k=2)
-    "Mass flow setpoint of the recirculation pump"
-    annotation (Placement(transformation(extent={{-40,-60},{-20,-40}})));
 equation
   connect(padWitBas.port_b, senTem.port_a)
     annotation (Line(points={{20,0},{26,0},{26,0},{30,0}},
@@ -118,8 +115,6 @@ equation
           {-10,6},{-2,6}}, color={255,0,255}));
   connect(combiTimeTable.y[9], sou.m_flow_in) annotation (Line(points={{-109,40},
           {-100,40},{-100,8},{-42,8}}, color={0,0,127}));
-  connect(mRecPum_flow.y, padWitBas.mRecPum_flow) annotation (Line(points={{-18,-50},
-          {-10,-50},{-10,-6},{-2,-6}},      color={0,0,127}));
 annotation (
   Diagram(coordinateSystem(extent={{-140,-100},{140,100}})),
   experiment(StartTime=350000, StopTime=604800, Interval=60, Tolerance=1e-6),
@@ -147,8 +142,8 @@ The validation generates three subplots.
 <ul>
 <li>
 Subplot 1 shows the inlet air mass flowrate measured from the EnergyPlus model
-used to activate the component model, as well as the the evaporative cooling on and
-off status.
+used to activate the component model, as well as the wet mode signal
+<code>wetMod.y</code>, which is <code>true</code> throughout this validation.
 </li>
 <li>
 Subplot 2 compares the outlet air dry bulb temperature measurements from the Modelica
@@ -164,16 +159,19 @@ measurements with continuous operation of the component.
 </li>
 </ul>
 <p>
-The validation results demostrate that, with time-varying air flow rate, the
+The validation results demonstrate that, with time-varying air flow rate, the
 Modelica model can effectively capture the dynamics of outlet air humidity ratio
 and dry bulb temperature.
 </p>
 </html>", revisions="<html>
 <ul>
 <li>
+November 27, 2026, by Weiping Huang:<br/>
+Revised the documentation.
+</li>
+<li>
 June 18, 2026, by Weiping Huang:<br/>
-Added an evaporative cooling on-and-off boolean flag for the direct evaporative
-cooler model.
+Added the wet and dry mode switch signal for the rigid media pad with basin model.
 </li>
 <li>
 September 14, 2023 by Cerrina Mouchref, Karthikeya Devaprasad, Lingzhe Wang:<br/>

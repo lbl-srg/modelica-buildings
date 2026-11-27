@@ -132,33 +132,43 @@ annotation (defaultComponentName="rigMedPad", Icon(graphics={
 Documentation(
 info="<html>
 <p>
-Model for a direct evaporative cooler.
+Model for a rigid media pad of an evaporative cooler.
 </p>
 <p>
-This direct evaporative cooler contains a rigid media pad, which cools down the
+This model describes a rigid media pad, which cools down the
 airstream by adiabatically increasing the humidity mass fraction of the air. The
 mass of water vapor added to the air is reported by the output signal
 <code>dmWat_flow</code>.
 </p>
 <p>
-The input variable <code>evaCooAct</code> determines whether evaporative cooling is
-active (such that the rigid media pad is wet). When evaporative cooling is not
-active (the rigid media pad is dry), no water vapor is added to the air, and thus
-<code>dmWat_flow = 0</code>. The pressure drop through the rigid media pad is less
+This model can operate in a wet and a dry mode. In the wet mode, water is
+distributed over the rigid media pad and a part of it evaporates into the
+airstream. In the dry mode, no water is distributed over the rigid media pad,
+no water vapor is added to the air, and thus <code>dmWat_flow = 0</code>.
+The switch between the wet and the dry mode is provided by the models that
+extend this partial model. For example,
+<a href=\"modelica://Buildings.Fluid.Humidifiers.EvaporativeCoolers.RigidMediaPad.PadWithBasin\">
+Buildings.Fluid.Humidifiers.EvaporativeCoolers.RigidMediaPad.PadWithBasin</a>
+operates in the wet mode when its boolean input <code>wetMod</code> is
+<code>true</code>, and in the dry mode when it is <code>false</code>.
+</p>
+<p>
+The pressure drop through the rigid media pad is less
 than <i>10%</i> lower when the rigid media pad is dry compared to when the
 rigid media pad is wet (see the Munters CELdek 7090-15 Evaporative Pad Specification
 Sheet in the <i>References</i> section below). Thus, this model assumes that the
-pressure drop is the same regardless of whether evaporative cooling is active or not.
+pressure drop is the same regardless of whether the rigid media pad operates
+in the wet or the dry mode.
 </p>
 <p>
-This model uses a data record <code>per</code> to provide data on the saturation
-efficiency and the pressure drop of a rigid media pad within the evaporative cooler.
+This model uses a data record <code>perPad</code> to provide data on the saturation
+efficiency and the pressure drop of a rigid media pad.
 This data record is an instance of
 <a href=\"modelica://Buildings.Fluid.Humidifiers.EvaporativeCoolers.RigidMediaPad.Data.Generic\">
 Buildings.Fluid.Humidifiers.EvaporativeCoolers.RigidMediaPad.Data.Generic</a>.
 </p>
 <p>
-The elemental block <code>dirEvaCooCal</code> calculates the saturation efficiency
+The elemental block <code>rigMedPadCal</code> calculates the saturation efficiency
 by referencing a cubic hermite spline of discrete data points on the saturation
 efficiency <code>eta</code> and the air velocity <code>v</code> from this data
 record. The elemental block <code>preDro</code> calculates the pressure drop by
@@ -177,6 +187,10 @@ Evaporative Pad Specification Sheet</a>, July 26, 2026.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+November 27, 2026, by Weiping Huang:<br/>
+Revised the documentation.
+</li>
 <li>
 June 26, 2026, by Weiping Huang:<br/>
 Added a Modelica data record to calculate saturation efficiency and pressure drop.

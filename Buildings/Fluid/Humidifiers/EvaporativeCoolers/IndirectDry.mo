@@ -124,9 +124,6 @@ model IndirectDry "Indirect dry evaporative cooler"
     n=1.7,
     dp_nominal=dpPle_nominal)    "Plenum"
     annotation (Placement(transformation(extent={{60,-70},{80,-50}})));
-  Controls.OBC.CDL.Reals.Sources.Constant mRecPum_flow(k=2)
-    "Mass flow setpoint of the recirculation pump"
-    annotation (Placement(transformation(extent={{-60,-100},{-40,-80}})));
   replaceable parameter Buildings.Fluid.Movers.Data.Generic perRecPum
   constrainedby
     Buildings.Fluid.Movers.Data.Generic
@@ -191,8 +188,6 @@ equation
     annotation (Line(points={{40,-60},{60,-60}}, color={0,127,255}));
   connect(ple.port_b, dryCoil.port_a2) annotation (Line(points={{80,-60},{100,-60},
           {100,54},{80,54}}, color={0,127,255}));
-  connect(mRecPum_flow.y,padWitBas. mRecPum_flow) annotation (Line(points={{-38,
-          -90},{-30,-90},{-30,-66},{-22,-66}}, color={0,0,127}));
   connect(inlFil.port_b, padWitBas.port_a)
     annotation (Line(points={{-40,-60},{-20,-60}}, color={0,127,255}));
   connect(padWitBas.port_b, moiEli.port_a)
