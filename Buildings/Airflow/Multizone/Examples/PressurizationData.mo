@@ -34,14 +34,14 @@ model PressurizationData
     dpMea_nominal(displayUnit="Pa") = 50,
     redeclare package Medium = Medium,
     m=0.66,
-    mMea_flow_nominal=0.5*(room.V*n50*1.2))
+    mMea_flow_nominal=0.5*(room.V*n50*1.2)/3600)
     "Crack in envelope representing 50% of the leakage area"
     annotation (Placement(transformation(extent={{-30,0},{-10,20}})));
   Buildings.Airflow.Multizone.Point_m_flow pow_1dat1(
     dpMea_nominal(displayUnit="Pa") = 50,
     redeclare package Medium = Medium,
     m=0.66,
-    mMea_flow_nominal=0.5*(room.V*n50*1.2))
+    mMea_flow_nominal=0.5*(room.V*n50*1.2)/3600)
     "Crack in envelope representing 50% of the leakage area"
     annotation (Placement(transformation(extent={{30,0},{50,20}})));
 equation
@@ -84,6 +84,12 @@ In this example, the two models each represent 50% of the surface where airflow 
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+November 19, 2026, by Jianjun Hu:<br/>
+Corrected mass flow rate calculation.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/2212\">IBPSA, #2212</a>.
+</li>
 <li>
 April 8, 2022, by Michael Wetter:<br/>
 Changed tolerance from <i>1E-8</i> to <i>1E-6</i>.<br/>
