@@ -12,6 +12,20 @@ model OutletTemperature
     "Integrator time constant of PI controller"
     annotation(Dialog(group="Controller"));
 
+  parameter Real yMin(
+    min=0,
+    max=1,
+    final unit="1") = 0
+    "Minimum fan speed"
+    annotation(Dialog(group="Controller"));
+
+  parameter Real xi_start(
+    min=0,
+    max=1,
+    final unit="1") = yMin
+    "Initial value of integrator state"
+    annotation(Dialog(group="Controller"));
+
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TMea(
     final unit="K",
     displayUnit="degC") "Measured air temperature at rack outlet"
@@ -38,6 +52,8 @@ model OutletTemperature
     controllerType=Buildings.Controls.OBC.CDL.Types.SimpleController.PI,
     final k=k,
     final Ti=Ti,
+    final yMin=yMin,
+    final xi_start=xi_start,
     r(final unit="K")=1,
     final reverseActing=false,
     u_s(final unit="K", displayUnit="degC"),
@@ -115,6 +131,11 @@ PI controller to regulate the fan to track a rack outlet temperature.
 </html>",
       revisions="<html>
 <ul>
+<li>
+November 13, 2026, by Michael Wetter:<br/>
+Exposed parameters <code>yMin</code> and <code>xi_start</code> for the PI controller.<br/>
+This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4926\">Buildings, #4926</a>.
+</li>
 <li>
 September 15, 2026, by Michael Wetter:<br/>
 First implementation.

@@ -13,10 +13,10 @@ model Fan "Preconfigured server fan"
         dp={
           2*dp_nominal,
           0}),
+      peak(eta=eta_nominal),
       etaHydMet=Buildings.Fluid.Movers.BaseClasses.Types.HydraulicEfficiencyMethod.EulerNumber,
       etaMotMet=Buildings.Fluid.Movers.BaseClasses.Types.MotorEfficiencyMethod.Efficiency_VolumeFlowRate,
       motorEfficiency(V_flow={0}, eta={sqrt(eta_nominal)}),
-      etaMot_max=sqrt(eta_nominal),
       powerOrEfficiencyIsHydraulic=false));
 
   parameter Real eta_nominal(
@@ -73,7 +73,7 @@ protected
 Preconfigured fan model.
 </p>
 <p>
-The fan is modelled using
+The fan is modeled using
 <a href=\"modelica://Buildings.Fluid.Movers.SpeedControlled_y\">
 Buildings.Fluid.Movers.SpeedControlled_y</a>.
 The fan pressure rise at the nominal volumetric flow rate is
@@ -82,11 +82,20 @@ The fan pressure rise at the nominal volumetric flow rate is
 dp<sub>0</sub> = P<sub>fan,0</sub> &eta;<sub>0</sub> &frasl; V&#775;<sub>0</sub>.
 </p>
 <p>
-The fan uses a constant total efficiency, which is set by the parameters <code>eta_nominal</code>.
+The peak combined fan and motor efficiency at nominal conditions is set by
+the parameter <code>eta_nominal</code>, and the off-design hydraulic efficiency
+is computed from the Euler number correlation.
 </p>
 </html>",
       revisions="<html>
 <ul>
+<li>
+November 13, 2026, by Michael Wetter:<br/>
+Set <code>per.peak.eta=eta_nominal</code> so that <code>eta_nominal</code> is
+used for the peak total efficiency instead of the default value of <i>0.7</i>,
+removed unused <code>etaMot_max</code>, and updated documentation.<br/>
+This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4926\">Buildings, #4926</a>.
+</li>
 <li>
 September 21, 2026, by Michael Wetter:<br/>
 First implementation.

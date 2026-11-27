@@ -1,5 +1,5 @@
 within Buildings.Fluid.DataCenters.Racks.Air.Examples;
-model Rack_P "Example model for air cooled rack"
+model Rack_P "Example model for air-cooled rack"
   extends Modelica.Icons.Example;
   package Medium = Buildings.Media.Air
     "Air medium";
@@ -26,6 +26,7 @@ model Rack_P "Example model for air cooled rack"
     annotation (Placement(transformation(extent={{0,-10},{20,10}})));
   Buildings.Fluid.Sources.Boundary_pT sou(
     redeclare package Medium = Medium,
+    T=dat.TIn_nominal,
     nPorts=2) "Pressure boundary condition"
     annotation (Placement(transformation(extent={{10,-10},{-10,10}},
         rotation=270,
@@ -74,10 +75,15 @@ equation
        file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/DataCenters/Racks/Air/Examples/Rack_P.mos" "Simulate and plot"),
     Documentation(info="<html>
 <p>
-Example model of an air-cooled rack different GPU utilization.
+Example model of an air-cooled rack with varying GPU utilization.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+November 13, 2026, by Michael Wetter:<br/>
+Set boundary air temperature <code>sou.T</code> to <code>dat.TIn_nominal</code>.<br/>
+This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4926\">Buildings, #4926</a>.
+</li>
 <li>
 June 26, 2026, by Michael Wetter:<br/>
 First implementation.

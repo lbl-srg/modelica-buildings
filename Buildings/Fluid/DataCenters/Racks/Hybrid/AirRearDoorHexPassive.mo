@@ -32,13 +32,14 @@ The medium for the rear door heat exchanger coolant is <code>MediumReaDooHex</co
 </p>
 <p>
 The model has separate fluid ports for each cooling loop.
+For air cooling, <code>portAir_a</code> and <code>portAir_b</code> serve as the inlet and outlet ports.
 For the rear door heat exchanger coolant, <code>portReaDooHex_a</code> and <code>portReaDooHex_b</code>
 serve as the inlet and outlet ports.
 </p>
 <p>
 If the fan of the air-cooled IT is controlled based on the rack outlet temperature,
 then the temperature between the rack and the rear door heat exchanger is used as
-the measurement signal; otherwise, the IT load is used as an input for the fan controller
+the measurement signal; otherwise, the IT load is used as an input for the fan controller.
 </p>
 </html>",
     revisions="<html>

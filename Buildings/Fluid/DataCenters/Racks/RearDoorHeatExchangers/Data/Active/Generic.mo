@@ -21,7 +21,7 @@ Data record for an active rear door heat exchanger used in IT rack models.
 This record extends
 <a href=\"modelica://Buildings.Fluid.DataCenters.Racks.RearDoorHeatExchangers.Data.Passive.Generic\">
 Buildings.Fluid.DataCenters.Racks.RearDoorHeatExchangers.Data.Passive.Generic</a>
-and adds performance data for the fans.
+and adds performance data for the fan.
 </p>
 </html>", revisions="<html>
 <ul>
