@@ -1,0 +1,492 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   width="900"
+   height="660"
+   viewBox="0 0 900 660"
+   version="1.1"
+   id="svg-root"
+   sodipodi:docname="v-shaped-adiabatic-air-cooler-rigid-media-pads.svg"
+   inkscape:version="1.4.2 (f4327f4, 2025-05-13)"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <sodipodi:namedview
+     id="namedview31"
+     pagecolor="#ffffff"
+     bordercolor="#000000"
+     borderopacity="0.25"
+     inkscape:showpageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#d1d1d1"
+     showgrid="false"
+     inkscape:zoom="1.169697"
+     inkscape:cx="450.11658"
+     inkscape:cy="330"
+     inkscape:window-width="1920"
+     inkscape:window-height="1076"
+     inkscape:window-x="-12"
+     inkscape:window-y="-12"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="layer-diagram" />
+  <title
+     id="title">V-type adiabatic air cooler with rigid media pads</title>
+  <defs
+     id="defs">
+    <marker
+       id="arrow"
+       viewBox="0 0 10 10"
+       refX="9"
+       refY="5"
+       markerWidth="7"
+       markerHeight="7"
+       orient="auto-start-reverse">
+      <path
+         d="M 0 0 L 10 5 L 0 10 z"
+         fill="black"
+         id="arrowhead" />
+    </marker>
+  </defs>
+  <g
+     id="layer-diagram"
+     inkscape:groupmode="layer"
+     inkscape:label="Diagram"
+     stroke="black"
+     fill="none"
+     font-family="sans-serif">
+    <!-- Unit casing -->
+    <rect
+       id="casing"
+       x="190"
+       y="170"
+       width="520"
+       height="400"
+       stroke-width="3" />
+    <!-- Rigid media pads (one per side, vertical rectangles) -->
+    <g
+       id="pads"
+       stroke-width="3">
+      <rect
+         id="pad-left"
+         x="158"
+         y="210"
+         width="32"
+         height="320" />
+      <rect
+         id="pad-right"
+         x="710"
+         y="210"
+         width="32"
+         height="320" />
+      <g
+         id="pad-texture"
+         stroke-width="1"
+         stroke-dasharray="3 3">
+        <line
+           x1="167"
+           y1="216"
+           x2="167"
+           y2="524"
+           id="line1" />
+        <line
+           x1="174"
+           y1="216"
+           x2="174"
+           y2="524"
+           id="line2" />
+        <line
+           x1="181"
+           y1="216"
+           x2="181"
+           y2="524"
+           id="line3" />
+        <line
+           x1="719"
+           y1="216"
+           x2="719"
+           y2="524"
+           id="line4" />
+        <line
+           x1="726"
+           y1="216"
+           x2="726"
+           y2="524"
+           id="line5" />
+        <line
+           x1="733"
+           y1="216"
+           x2="733"
+           y2="524"
+           id="line6" />
+      </g>
+    </g>
+    <!-- Inlet filters and moisture eliminators (order outside -> inside: filter, pad, eliminator) -->
+    <g id="filters-eliminators" stroke-width="2.5">
+      <rect id="inlet-filter-left" x="148" y="210" width="10" height="320" />
+      <rect id="moisture-eliminator-left" x="190" y="210" width="10" height="320" />
+      <rect id="moisture-eliminator-right" x="700" y="210" width="10" height="320" />
+      <rect id="inlet-filter-right" x="742" y="210" width="10" height="320" />
+    </g>
+
+    <!-- V-shaped coil -->
+    <g
+       id="coil"
+       stroke-width="7"
+       stroke-dasharray="14 9">
+      <line
+         id="coil-left-leg"
+         x1="270"
+         y1="210"
+         x2="450"
+         y2="500" />
+      <line
+         id="coil-right-leg"
+         x1="630"
+         y1="210"
+         x2="450"
+         y2="500" />
+    </g>
+    <!-- Fans on top -->
+    <g
+       id="fans"
+       stroke-width="3">
+      <g
+         id="fan-left">
+        <circle
+           cx="350"
+           cy="118"
+           r="50"
+           id="circle6" />
+        <g
+           id="fan-left-blades"
+           stroke-width="3">
+          <line
+             x1="350"
+             y1="106"
+             x2="350"
+             y2="72"
+             id="line7" />
+          <line
+             x1="339.6"
+             y1="124"
+             x2="308.4"
+             y2="142"
+             id="line8" />
+          <line
+             x1="360.4"
+             y1="124"
+             x2="391.6"
+             y2="142"
+             id="line9" />
+        </g>
+        <circle
+           cx="350"
+           cy="118"
+           r="10"
+           fill="white"
+           id="circle9" />
+      </g>
+      <g
+         id="fan-right">
+        <circle
+           cx="550"
+           cy="118"
+           r="50"
+           id="circle10" />
+        <g
+           id="fan-right-blades"
+           stroke-width="3">
+          <line
+             x1="550"
+             y1="106"
+             x2="550"
+             y2="72"
+             id="line10" />
+          <line
+             x1="539.6"
+             y1="124"
+             x2="508.4"
+             y2="142"
+             id="line11" />
+          <line
+             x1="560.4"
+             y1="124"
+             x2="591.6"
+             y2="142"
+             id="line12" />
+        </g>
+        <circle
+           cx="550"
+           cy="118"
+           r="10"
+           fill="white"
+           id="circle12" />
+      </g>
+    </g>
+    <!-- Air flow: ambient air entering through the pads -->
+    <g
+       id="air-in"
+       stroke-width="2.5"
+       marker-end="url(#arrow)">
+      <line
+         x1="60"
+         y1="250"
+         x2="148"
+         y2="250"
+         id="line13" />
+      <line
+         x1="60"
+         y1="370"
+         x2="148"
+         y2="370"
+         id="line14" />
+      <line
+         x1="60"
+         y1="490"
+         x2="148"
+         y2="490"
+         id="line15" />
+      <line
+         x1="840"
+         y1="250"
+         x2="752"
+         y2="250"
+         id="line16" />
+      <line
+         x1="840"
+         y1="370"
+         x2="752"
+         y2="370"
+         id="line17" />
+      <line
+         x1="840"
+         y1="490"
+         x2="752"
+         y2="490"
+         id="line18" />
+    </g>
+    <!-- Air flow: from pads toward the coil -->
+    <g
+       id="air-to-coil"
+       stroke-width="2.5"
+       marker-end="url(#arrow)">
+      <line
+         x1="204"
+         y1="270"
+         x2="310"
+         y2="330"
+         id="line19" />
+      <line
+         x1="204"
+         y1="430"
+         x2="310"
+         y2="370"
+         id="line20" />
+      <line
+         x1="696"
+         y1="270"
+         x2="590"
+         y2="330"
+         id="line21" />
+      <line
+         x1="696"
+         y1="430"
+         x2="590"
+         y2="370"
+         id="line22" />
+    </g>
+    <!-- Air flow: up through the V-shaped coil -->
+    <g
+       id="air-up"
+       stroke-width="2.5"
+       marker-end="url(#arrow)">
+      <line
+         x1="420"
+         y1="400"
+         x2="420"
+         y2="255"
+         id="line23" />
+      <line
+         x1="480"
+         y1="400"
+         x2="480"
+         y2="255"
+         id="line24" />
+    </g>
+    <!-- Air flow: from coil opening to fan inlets -->
+    <g
+       id="air-to-fans"
+       stroke-width="2.5"
+       marker-end="url(#arrow)">
+      <line
+         x1="420"
+         y1="246"
+         x2="372"
+         y2="182"
+         id="line25" />
+      <line
+         x1="480"
+         y1="246"
+         x2="528"
+         y2="182"
+         id="line26" />
+    </g>
+    <!-- Air flow: fan discharge -->
+    <g
+       id="air-out"
+       stroke-width="2.5"
+       marker-end="url(#arrow)">
+      <line
+         x1="350"
+         y1="64"
+         x2="350"
+         y2="20"
+         id="line27" />
+      <line
+         x1="550"
+         y1="64"
+         x2="550"
+         y2="20"
+         id="line28" />
+    </g>
+    <!-- Fluid circuit -->
+    <g
+       id="fluid"
+       stroke-width="3"
+       marker-end="url(#arrow)"
+       style="stroke-dasharray:24,3;stroke-dashoffset:0">
+      <polyline
+         id="hot-fluid-in"
+         points="60,80 270,80 270,198"
+         style="stroke-dasharray:24,3;stroke-dashoffset:0" />
+      <line
+         id="cooled-fluid-out"
+         x1="450"
+         y1="506"
+         x2="450"
+         y2="624"
+         style="stroke-dasharray:24,3;stroke-dashoffset:0" />
+    </g>
+    <!-- Labels -->
+    <g
+       id="labels"
+       fill="black"
+       stroke="none"
+       font-size="18">
+      <text
+         id="label-hot-in"
+         x="60"
+         y="64">hot fluid in</text>
+      <text
+         id="label-cooled-out"
+         x="468"
+         y="618">cooled fluid out</text>
+      <text
+         id="label-pad-left"
+         x="160"
+         y="562"
+         text-anchor="middle">rigid media pad</text>
+      <text
+         id="label-pad-right"
+         x="726"
+         y="562"
+         text-anchor="middle">rigid media pad</text>
+      <text
+         id="label-coil"
+         x="310"
+         y="560"
+         text-anchor="middle">V-shaped coil</text>
+      <text
+         id="label-fan-left"
+         x="330"
+         y="196"
+         text-anchor="middle">fan</text>
+      <text
+         id="label-fan-right"
+         x="570"
+         y="196"
+         text-anchor="middle">fan</text>
+      <text
+         id="label-air-left"
+         x="40"
+         y="238">air</text>
+      <text
+         id="label-air-right"
+         x="860"
+         y="238"
+         text-anchor="end">air</text>
+      <g
+         id="component-labels"
+         font-size="16">
+        <text
+           id="label-inlet-filter-left"
+           x="85"
+           y="300"
+           text-anchor="middle">inlet filter</text>
+        <text
+           id="label-eliminator-left"
+           x="100"
+           y="440"
+           text-anchor="middle">moisture eliminator</text>
+        <text
+           id="label-inlet-filter-right"
+           x="815"
+           y="300"
+           text-anchor="middle">inlet filter</text>
+        <text
+           id="label-eliminator-right"
+           x="800"
+           y="440"
+           text-anchor="middle">moisture eliminator</text>
+      </g>
+    </g>
+    <!-- Leader lines -->
+    <g
+       id="leaders"
+       stroke-width="1.5">
+      <line
+         x1="160"
+         y1="546"
+         x2="160"
+         y2="536"
+         id="line29" />
+      <line
+         x1="726"
+         y1="546"
+         x2="726"
+         y2="536"
+         id="line30" />
+      <line
+         x1="360"
+         y1="550"
+         x2="438"
+         y2="490"
+         id="line31" />
+      <line
+         x1="133"
+         y1="296"
+         x2="146"
+         y2="296"
+         id="line32" />
+      <line
+         x1="183"
+         y1="436"
+         x2="189"
+         y2="436"
+         id="line33" />
+      <line
+         x1="767"
+         y1="296"
+         x2="754"
+         y2="296"
+         id="line34" />
+      <line
+         x1="717"
+         y1="436"
+         x2="711"
+         y2="436"
+         id="line35" />
+    </g>
+  </g>
+</svg>

@@ -1,0 +1,163 @@
+within Buildings.Fluid.Humidifiers.EvaporativeCoolers.RigidMediaPad.Validation;
+model PadWithBasin_DryWetSwitch
+  "Validation model for the rigid media pad with basin for both dry and wet modes"
+  extends Modelica.Icons.Example;
+
+  replaceable package MediumA = Buildings.Media.Air
+    "Medium";
+  parameter Modelica.Units.SI.MassFlowRate m_flow_nominal = 2
+    "Nominal supply air volume flowrate";
+
+  Buildings.Fluid.Humidifiers.EvaporativeCoolers.RigidMediaPad.PadWithBasin padWitBas(
+    redeclare final package Medium = MediumA,
+    final padAre=0.6,
+    height=0.5,
+    crossArea=2,
+    level_target=0.15,
+    mMakUp_flow_nominal=0.5,
+    cycCon=4,
+    redeclare Buildings.Fluid.Movers.Data.Pumps.Wilo.Stratos30slash1to8
+      perRecPum) "Rigid media pad with basin model"
+                                             annotation (Placement(
+        transformation(origin={20,0}, extent={{-10,-10},{10,10}})));
+  Buildings.Fluid.Sources.Boundary_pT sin(
+    redeclare final package Medium = MediumA,
+    final nPorts=1)
+    "Mass flow sink"
+    annotation (Placement(transformation(origin={140,0},
+      extent={{10,-10},{-10,10}})));
+  Buildings.Fluid.Sources.MassFlowSource_WeatherData sou(
+    redeclare final package Medium = MediumA,
+    final m_flow=m_flow_nominal,
+    final use_C_in=false,
+    final use_m_flow_in=false,
+    nPorts=1)
+    "Mass flow rate source"
+    annotation (Placement(transformation(origin={-100,0},
+      extent={{-10,-10},{10,10}})));
+  Buildings.Controls.OBC.CDL.Logical.Sources.Pulse wetMod(
+    width=0.5,
+    period=86400,
+    shift=0)
+    "True: the rigid media pad and its basin are operating on the wet mode; false: they are operating on the dry mode"
+    annotation (Placement(transformation(extent={{-110,40},{-90,60}})));
+  Buildings.BoundaryConditions.WeatherData.ReaderTMY3 weaDat(
+    filNam=ModelicaServices.ExternalReferences.loadResource("modelica://Buildings/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos"))
+    "Weather data"
+    annotation (Placement(transformation(extent={{-150,-10},{-130,10}})));
+  Buildings.Fluid.Sensors.TemperatureTwoPort senTemIn(
+    redeclare final package Medium = MediumA,
+    final initType=Modelica.Blocks.Types.Init.InitialOutput,
+    final m_flow_nominal=m_flow_nominal,
+    final T_start=293.15)
+    "Inlet air temperature sensor"
+    annotation (Placement(transformation(origin={-60,0},
+      extent={{-10,-10},{10,10}})));
+  Buildings.Fluid.Sensors.TemperatureTwoPort senTemOut(
+    redeclare final package Medium = MediumA,
+    final initType=Modelica.Blocks.Types.Init.InitialOutput,
+    final m_flow_nominal=m_flow_nominal,
+    final T_start=293.15)
+    "Outlet air temperature sensor"
+    annotation (Placement(transformation(
+      extent={{50,-10},{70,10}})));
+  Buildings.Fluid.Sensors.MassFractionTwoPort senMasFraIn(
+    redeclare final package Medium = MediumA,
+    final m_flow_nominal=m_flow_nominal)
+    "Inlet air water mass fraction sensor"
+    annotation (Placement(transformation(
+      extent={{-30,-10},{-10,10}})));
+  Buildings.Fluid.Sensors.MassFractionTwoPort senMasFraOut(
+    redeclare final package Medium = MediumA,
+    final m_flow_nominal=m_flow_nominal)
+    "Outlet air water mass fraction sensor"
+    annotation (Placement(transformation(origin={100,0},
+      extent={{-10,-10},{10,10}})));
+equation
+  connect(senMasFraOut.port_a, senTemOut.port_b)
+    annotation (Line(points={{90,0},{70,0}},   color={0,127,255}));
+  connect(senMasFraOut.port_b, sin.ports[1])
+    annotation (Line(points={{110,0},{130,0}}, color={0,127,255}));
+  connect(sou.ports[1], senTemIn.port_a)
+    annotation (Line(points={{-90,0},{-70,0}},   color={0,127,255}));
+  connect(senTemIn.port_b, senMasFraIn.port_a)
+    annotation (Line(points={{-50,0},{-30,0}},   color={0,127,255}));
+  connect(senMasFraIn.port_b, padWitBas.port_a)
+    annotation (Line(points={{-10,0},{10,0}}, color={0,127,255}));
+  connect(wetMod.y, padWitBas.wetMod)
+    annotation (Line(points={{-88,50},{0,50},{0,6},{8,6}}, color={255,0,255}));
+  connect(weaDat.weaBus, sou.weaBus)
+    annotation (Line(points={{-130,0},{-120,0},{-120,0.2},{-110,0.2}},
+      color={255,204,51}, thickness=0.5));
+  connect(padWitBas.port_b, senTemOut.port_a)
+    annotation (Line(points={{30,0},{50,0}}, color={0,127,255}));
+annotation (
+  Diagram(coordinateSystem(extent={{-160,-100},{160,100}})),
+  experiment(
+      StartTime=18144000,
+      StopTime=18230400,
+      Interval=60,
+      Tolerance=1e-06),
+  Documentation(info="<html>
+<p>
+This model validates the rigid media pad with basin model
+<a href=\"modelica://Buildings.Fluid.Humidifiers.EvaporativeCoolers.RigidMediaPad.PadWithBasin\">
+Buildings.Fluid.Humidifiers.EvaporativeCoolers.RigidMediaPad.PadWithBasin</a> by switching between the
+dry and wet modes.
+</p>
+<p>
+The validation model consists of a single rigid media pad with basin model.
+It uses a Chicago weather file to represent outside air conditions, and it
+simulates how the dry bulb temperature and the water vapor mass fraction of the air
+change when air passes through the rigid media pad, for both the wet mode and
+the dry mode. The boolean input <code>wetMod</code> is a pulse signal with a
+period of one day and a width of <i>0.5</i>, so the model operates in the wet
+mode during the first half of each day and in the dry mode during the second half.
+</p>
+<p>
+The validation generates four subplots.
+</p>
+<ul>
+<li>
+Subplot 1 compares the inlet air dry bulb temperature
+(<code>senTemIn.T</code>) and the outlet air dry bulb temperature
+(<code>senTemOut.T</code>). During the wet mode, the dry bulb temperature of the
+air decreases as it passes through the rigid media pad, approaching the wet bulb
+temperature of the air. During the dry mode, the dry bulb temperature of the air
+does not change.
+</li>
+<li>
+Subplot 2 compares the inlet air water vapor mass fraction
+(<code>senMasFraIn.X</code>) and the outlet air water vapor mass fraction
+(<code>senMasFraOut.X</code>). During the wet mode, the water vapor mass fraction
+increases as water evaporates into the air. During the dry mode, the water vapor
+mass fraction of the air does not change.
+</li>
+<li>
+Subplot 3 shows the wet mode signal <code>wetMod.y</code>.
+</li>
+<li>
+Subplot 4 compares the air pressure at the inlet
+(<code>padWitBas.port_a.p</code>) and at the outlet
+(<code>padWitBas.port_b.p</code>) of the rigid media pad. The pressure drop
+across the rigid media pad is the same in the wet and in the dry mode, which
+follows the assumption that the pressure drop does not change when switching
+between the dry and wet modes.
+</li>
+</ul>
+</html>", revisions="<html>
+<ul>
+<li>
+November 27, 2026, by Weiping Huang:<br/>
+Revised the documentation.
+</li>
+<li>
+June 18, 2026, by Weiping Huang:<br/>
+First implementation.
+</li>
+</ul>
+</html>"),
+    Icon(coordinateSystem(extent={{-100,-100},{100,100}})),
+    __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Humidifiers/EvaporativeCoolers/RigidMediaPad/Validation/PadWithBasin_DryWetSwitch.mos"
+        "Simulate and plot"));
+end PadWithBasin_DryWetSwitch;

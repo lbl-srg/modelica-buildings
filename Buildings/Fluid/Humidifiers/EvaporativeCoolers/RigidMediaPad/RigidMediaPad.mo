@@ -1,0 +1,210 @@
+within Buildings.Fluid.Humidifiers.EvaporativeCoolers.RigidMediaPad;
+partial model RigidMediaPad
+                    "Rigid media pad"
+  extends Buildings.Fluid.Interfaces.TwoPortHeatMassExchanger(
+    energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
+    redeclare Buildings.Fluid.MixingVolumes.MixingVolumeMoistAir vol,
+    final m_flow_nominal=perPad.v_nominal*padAre*Medium.dStp,
+    final dp_nominal=perPad.dp_nominal,
+    final n=perPad.n);
+
+  //final parameter Modelica.Units.SI.MassFlowRate m_flow_nominal=per.v_nominal*padAre*Medium.dStp
+  //  "Mass flow nominal";
+  parameter Modelica.Units.SI.Area padAre
+    "Area of the rigid media pad";
+  replaceable parameter
+    Buildings.Fluid.Humidifiers.EvaporativeCoolers.RigidMediaPad.Data.Generic perPad
+    constrainedby
+    Buildings.Fluid.Humidifiers.EvaporativeCoolers.RigidMediaPad.Data.Generic
+    "Record with performance data for rigid media pads" annotation (
+      choicesAllMatching=true, Placement(transformation(extent={{60,60},{80,80}})));
+
+protected
+  BaseClasses.RigidMediaPadCalculation rigMedPadCal(
+    redeclare final package Medium = Medium,
+    final padAre=padAre,
+    per(
+      final efficiency=perPad.efficiency,
+      final v_nominal=perPad.v_nominal,
+      final dp_nominal=perPad.dp_nominal,
+      final n=perPad.n)) "Rigid media pad calculation" annotation (Placement(
+        transformation(origin={30,50}, extent={{-10,-10},{10,10}})));
+  Medium.ThermodynamicState staInl=Medium.setState_phX(
+    p=port_a.p, h=inStream(port_a.h_outflow), X=inStream(port_a.Xi_outflow))
+    "State of inlet medium";
+  Modelica.Blocks.Sources.RealExpression TDryBul(
+    y=Medium.temperature(state=staInl))
+    "Inlet air drybulb temperature"
+    annotation (Placement(transformation(extent={{-60,80},{-40,100}})));
+  Modelica.Blocks.Sources.RealExpression XInl[Medium.nXi](
+    y=inStream(port_a.Xi_outflow))
+    "Inlet air humidity ratio"
+    annotation (Placement(transformation(extent={{-100,70},{-80,90}})));
+  Modelica.Blocks.Sources.RealExpression pInl(
+    y=port_a.p)
+    "Inlet air pressure"
+    annotation (Placement(transformation(extent={{-100,50},{-80,70}})));
+  Modelica.Blocks.Sources.RealExpression masflo(y=port_a.m_flow)
+    "Inlet air mass flow rate"
+    annotation (Placement(transformation(extent={{-100,20},{-80,40}})));
+  Buildings.Utilities.Psychrometrics.TWetBul_TDryBulXi wetBul(
+    redeclare package Medium = Medium)
+    "Calculate wet bulb temperature from inlet medium state"
+    annotation (Placement(transformation(extent={{-20,70},{0,90}})));
+  Buildings.Controls.OBC.CDL.Reals.Switch swiDryWetMod
+    "Switch between the dry and wet modes"
+    annotation (Placement(transformation(extent={{60,-40},{80,-20}})));
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant zerWatFlo(k=0)
+    "Zero water flow"
+    annotation (Placement(transformation(extent={{0,-60},{20,-40}})));
+equation
+  connect(TDryBul.y, rigMedPadCal.TDryBulIn) annotation (Line(points={{-39,90},
+          {-30,90},{-30,52},{18,52}}, color={0,0,127}));
+  connect(TDryBul.y, wetBul.TDryBul)
+    annotation (Line(points={{-39,90},{-30,90},{-30,88},{-21,88}}, color={0,0,127}));
+  connect(wetBul.TWetBul, rigMedPadCal.TWetBulIn) annotation (Line(points={{1,
+          80},{10,80},{10,56},{18,56}}, color={0,0,127}));
+  connect(XInl.y, wetBul.Xi)
+    annotation (Line(points={{-79,80},{-21,80}}, color={0,0,127}));
+  connect(pInl.y, rigMedPadCal.p) annotation (Line(points={{-79,60},{-60,60},{-60,
+          44},{18,44}}, color={0,0,127}));
+  connect(masflo.y, rigMedPadCal.m_flow) annotation (Line(points={{-79,30},{0,
+          30},{0,48},{18,48}}, color={0,0,127}));
+  connect(rigMedPadCal.dmWat_flow, swiDryWetMod.u1) annotation (Line(points={{
+          42,45},{50,45},{50,-22},{58,-22}}, color={0,0,127}));
+  connect(swiDryWetMod.y, vol.mWat_flow) annotation (Line(points={{82,-30},{90,
+          -30},{90,-80},{-20,-80},{-20,-18},{-11,-18}}, color={0,0,127}));
+  connect(zerWatFlo.y, swiDryWetMod.u3) annotation (Line(points={{22,-50},{40,-50},
+          {40,-38},{58,-38}}, color={0,0,127}));
+  connect(pInl.y, wetBul.p)
+    annotation (Line(points={{-79,60},{-60,60},{-60,72},{-21,72}}, color={0,0,127}));
+annotation (defaultComponentName="rigMedPad", Icon(graphics={
+  Rectangle(lineColor={0,0,255}, fillColor={95,95,95}, pattern=LinePattern.None,
+            fillPattern=FillPattern.Solid, extent={{-70,60},{70,-60}}),
+  Rectangle(lineColor={0,0,255}, fillColor={0,0,255}, pattern = LinePattern.None,
+            fillPattern=FillPattern.Solid, extent={{-101,5},{100,-4}}),
+  Rectangle(lineColor={0,0,255}, fillColor={255,0,0}, pattern=LinePattern.None,
+            fillPattern=FillPattern.Solid, extent={{0, -4},{100, 5}}),
+  Rectangle(lineColor={0,0,255}, pattern=LinePattern.None,
+            fillPattern=FillPattern.Solid, extent={{-100, 5}, {101, -5}}),
+  Rectangle(lineColor={0,0,255}, fillColor={0,62,0}, pattern=LinePattern.None,
+            fillPattern=FillPattern.Solid, extent={{-70, 60}, {70, -60}}),
+  Rectangle(lineColor={255, 255, 255}, fillColor={255,236,32},
+            fillPattern=FillPattern.Solid, extent={{-26,-52},{-30,52}}),
+  Rectangle(lineColor={255, 255, 255}, fillColor={255,236,32},
+            fillPattern=FillPattern.Solid, extent={{30,-52},{26,52}}),
+  Rectangle(lineColor={255, 255, 255}, fillColor={255,236,32},
+            fillPattern=FillPattern.Solid, extent={{30,52},{-30,56}}),
+  Rectangle(lineColor={255, 255, 255}, fillColor={255,236,32},
+            fillPattern=FillPattern.Solid, extent={{30,-56},{-30,-52}}),
+  Polygon(points={{-18,38},{-20,28},{-14,24},{-6,28},{-8,38},{-14,50},{-18,38}},
+          lineColor={0,255,255},
+          fillColor={0,255,255},
+          fillPattern=FillPattern.Solid,
+          smooth=Smooth.Bezier),
+  Polygon(points={{-18,2},{-20,-8},{-14,-12},{-6,-8},{-8,2},{-14,14},{-18,2}},
+          lineColor={0,255,255},
+          fillColor={0,255,255},
+          fillPattern=FillPattern.Solid,
+          smooth=Smooth.Bezier),
+  Polygon(points={{-18,-32},{-20,-42},{-14,-46},{-6,-42},{-8,-32},{-14,-20},{
+              -18,-32}},
+          lineColor={0,255,255},
+          fillColor={0,255,255},
+          fillPattern=FillPattern.Solid,
+          smooth=Smooth.Bezier),
+  Polygon(points={{6,38},{4,28},{10,24},{18,28},{16,38},{10,50},{6,38}},
+          lineColor={0,255,255},
+          fillColor={0,255,255},
+          fillPattern=FillPattern.Solid,
+          smooth=Smooth.Bezier),
+  Polygon(points={{6,2},{4,-8},{10,-12},{18,-8},{16,2},{10,14},{6,2}},
+          lineColor={0,255,255},
+          fillColor={0,255,255},
+          fillPattern=FillPattern.Solid,
+          smooth=Smooth.Bezier),
+  Polygon(points={{6,-32},{4,-42},{10,-46},{18,-42},{16,-32},{10,-20},{6,-32}},
+          lineColor={0,255,255},
+          fillColor={0,255,255},
+          fillPattern=FillPattern.Solid,
+          smooth=Smooth.Bezier)},
+  coordinateSystem(grid={2,2})),
+Documentation(
+info="<html>
+<p>
+Model for a rigid media pad of an evaporative cooler.
+</p>
+<p>
+This model describes a rigid media pad, which cools down the
+airstream by adiabatically increasing the humidity mass fraction of the air. The
+mass of water vapor added to the air is reported by the output signal
+<code>dmWat_flow</code>.
+</p>
+<p>
+This model can operate in a wet and a dry mode. In the wet mode, water is
+distributed over the rigid media pad and a part of it evaporates into the
+airstream. In the dry mode, no water is distributed over the rigid media pad,
+no water vapor is added to the air, and thus <code>dmWat_flow = 0</code>.
+The switch between the wet and the dry mode is provided by the models that
+extend this partial model. For example,
+<a href=\"modelica://Buildings.Fluid.Humidifiers.EvaporativeCoolers.RigidMediaPad.PadWithBasin\">
+Buildings.Fluid.Humidifiers.EvaporativeCoolers.RigidMediaPad.PadWithBasin</a>
+operates in the wet mode when its boolean input <code>wetMod</code> is
+<code>true</code>, and in the dry mode when it is <code>false</code>.
+</p>
+<p>
+The pressure drop through the rigid media pad is less
+than <i>10%</i> lower when the rigid media pad is dry compared to when the
+rigid media pad is wet (see the Munters CELdek 7090-15 Evaporative Pad Specification
+Sheet in the <i>References</i> section below). Thus, this model assumes that the
+pressure drop is the same regardless of whether the rigid media pad operates
+in the wet or the dry mode.
+</p>
+<p>
+This model uses a data record <code>perPad</code> to provide data on the saturation
+efficiency and the pressure drop of a rigid media pad.
+This data record is an instance of
+<a href=\"modelica://Buildings.Fluid.Humidifiers.EvaporativeCoolers.RigidMediaPad.Data.Generic\">
+Buildings.Fluid.Humidifiers.EvaporativeCoolers.RigidMediaPad.Data.Generic</a>.
+</p>
+<p>
+The elemental block <code>rigMedPadCal</code> calculates the saturation efficiency
+by referencing a cubic hermite spline of discrete data points on the saturation
+efficiency <code>eta</code> and the air velocity <code>v</code> from this data
+record. The elemental block <code>preDro</code> calculates the pressure drop by
+reference the nominal pressure drop <code>dp_nominal</code>, the nominal air
+velocity <code>v_nominal</code>, and the flow exponent for pressure drop
+<code>n</code> from this data record.
+</p>
+<p>
+Note that this model works correctly only when the air flows from
+<code>port_a</code> to <code>port_b</code>.
+</p>
+<h4>References</h4>
+<p>
+<a href=\"https://munters.sies.si/images/pdf/celdek7090.pdf\">Munters CELdek 7090-15
+Evaporative Pad Specification Sheet</a>, July 26, 2026.
+</p>
+</html>", revisions="<html>
+<ul>
+<li>
+November 27, 2026, by Weiping Huang:<br/>
+Revised the documentation.
+</li>
+<li>
+June 26, 2026, by Weiping Huang:<br/>
+Added a Modelica data record to calculate saturation efficiency and pressure drop.
+</li>
+<li>
+June 18, 2026, by Weiping Huang:<br/>
+Added an evaporative cooling on-and-off boolean flag.
+</li>
+<li>
+September 14, 2023 by Cerrina Mouchref, Karthikeya Devaprasad, Lingzhe Wang:<br/>
+First implementation.
+</li>
+</ul>
+</html>"),
+  Diagram(coordinateSystem(grid={2,2}),
+          graphics={Line(origin={28, 62}, points={{0, 0}})}));
+end RigidMediaPad;
