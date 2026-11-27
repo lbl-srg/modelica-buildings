@@ -25,5 +25,11 @@ First implementation.
 Model for a direct evaporative cooler. It contains a rigid media pad with a
 basin, as well as a fan.
 </p>
+<p>
+A diagram for this model is shown below:
+</p>
+<p align=\"center\">
+<img alt=\"image\" src=\"modelica://Buildings/Resources/Images/Fluid/Humidifiers/EvaporativeCoolers/DirectEvaporativeCooler.png\"/>
+</p>
 </html>"));
 end Direct;

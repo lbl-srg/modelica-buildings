@@ -1,5 +1,5 @@
 within Buildings.Fluid.Humidifiers.EvaporativeCoolers.RigidMediaPad;
-package Validation "Validation"
+package Validation "Collection of validation models"
   extends Modelica.Icons.ExamplesPackage;
   annotation (Documentation(info="<html>
 <p>

@@ -25,5 +25,11 @@ First implementation.
 Model for an indirect wet evaporative cooler for air to air heat exchange.
 It contains a wet coil with a basin, as well as a fan.
 </p>
+<p>
+A diagram for this model is shown below:
+</p>
+<p align=\"center\">
+<img alt=\"image\" src=\"modelica://Buildings/Resources/Images/Fluid/Humidifiers/EvaporativeCoolers/IndirectWetAirToAirEvaporativeCooler.png\"/>
+</p>
 </html>"));
 end IndirectWetAirToAir;

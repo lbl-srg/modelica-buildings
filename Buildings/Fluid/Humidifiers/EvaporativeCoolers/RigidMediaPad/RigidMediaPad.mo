@@ -51,8 +51,8 @@ protected
     redeclare package Medium = Medium)
     "Calculate wet bulb temperature from inlet medium state"
     annotation (Placement(transformation(extent={{-20,70},{0,90}})));
-  Buildings.Controls.OBC.CDL.Reals.Switch swiEvaCoo
-    "Switch to turn evaporative cooling on and off"
+  Buildings.Controls.OBC.CDL.Reals.Switch swiDryWetMod
+    "Switch between the dry and wet modes"
     annotation (Placement(transformation(extent={{60,-40},{80,-20}})));
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant zerWatFlo(k=0)
     "Zero water flow"
@@ -70,13 +70,12 @@ equation
           44},{18,44}}, color={0,0,127}));
   connect(masflo.y, rigMedPadCal.m_flow) annotation (Line(points={{-79,30},{0,
           30},{0,48},{18,48}}, color={0,0,127}));
-  connect(rigMedPadCal.dmWat_flow, swiEvaCoo.u1) annotation (Line(points={{42,
-          45},{50,45},{50,-22},{58,-22}}, color={0,0,127}));
-  connect(swiEvaCoo.y, vol.mWat_flow)
-    annotation (Line(points={{82,-30},{90,-30},{90,-80},{-20,-80},{-20,-18},
-      {-11,-18}}, color={0,0,127}));
-  connect(zerWatFlo.y, swiEvaCoo.u3)
-    annotation (Line(points={{22,-50},{40,-50},{40,-38},{58,-38}}, color={0,0,127}));
+  connect(rigMedPadCal.dmWat_flow, swiDryWetMod.u1) annotation (Line(points={{
+          42,45},{50,45},{50,-22},{58,-22}}, color={0,0,127}));
+  connect(swiDryWetMod.y, vol.mWat_flow) annotation (Line(points={{82,-30},{90,
+          -30},{90,-80},{-20,-80},{-20,-18},{-11,-18}}, color={0,0,127}));
+  connect(zerWatFlo.y, swiDryWetMod.u3) annotation (Line(points={{22,-50},{40,-50},
+          {40,-38},{58,-38}}, color={0,0,127}));
   connect(pInl.y, wetBul.p)
     annotation (Line(points={{-79,60},{-60,60},{-60,72},{-21,72}}, color={0,0,127}));
 annotation (defaultComponentName="rigMedPad", Icon(graphics={
@@ -170,12 +169,6 @@ velocity <code>v_nominal</code>, and the flow exponent for pressure drop
 <p>
 Note that this model works correctly only when the air flows from
 <code>port_a</code> to <code>port_b</code>.
-</p>
-<p>
-A diagram for this model is shown below:
-</p>
-<p align=\"center\">
-<img alt=\"image\" src=\"modelica://Buildings/Resources/Images/Fluid/Humidifiers/EvaporativeCoolers/DirectEvaporativeCooler.png\"/>
 </p>
 <h4>References</h4>
 <p>

@@ -1,12 +1,20 @@
 within Buildings.Fluid.Humidifiers.EvaporativeCoolers.RigidMediaPad;
 model PadWithBasin "Rigid media pad and sink for blowdown"
   extends Buildings.Fluid.Humidifiers.EvaporativeCoolers.RigidMediaPad.RigidMediaPad;
-  extends Buildings.Fluid.Humidifiers.EvaporativeCoolers.BaseClasses.WaterBasin;
 
-  Controls.OBC.CDL.Interfaces.BooleanInput           evaCooAct
-    "True: the evaporative cooling is active"
+  parameter Modelica.Units.SI.Height height "Height of the tank";
+  parameter Modelica.Units.SI.Area crossArea "Cross-sectional area of the tank";
+  parameter Modelica.Units.SI.Height level_target(min=0, max=height) "Target water level in the tank";
+  parameter Modelica.Units.SI.MassFlowRate mMakUp_flow_nominal
+    "Make up water mass flow nominal";
+  parameter Real cycCon
+    "Cycle of concentration for blowdown";
+  replaceable package MediumRecWat =
+    Buildings.Media.Water "Recirculation water medium";
+  Controls.OBC.CDL.Interfaces.BooleanInput wetMod
+    "True: the rigid media pad and its basin are operating on the wet mode; false: they are operating on the dry mode"
     annotation (Placement(transformation(extent={{-140,-80},{-100,-40}}),
-      iconTransformation(extent={{-140,40},{-100,80}})));
+        iconTransformation(extent={{-140,40},{-100,80}})));
   Controls.OBC.CDL.Interfaces.RealOutput           dmWat_flow(final unit="kg/s",
       final quantity="MassFlowRate")
     "Water vapor mass flow rate difference between inlet and outlet"
@@ -14,40 +22,48 @@ model PadWithBasin "Rigid media pad and sink for blowdown"
       iconTransformation(origin={120,60},extent={{-20,-20},{20,20}})));
   Controls.OBC.CDL.Interfaces.RealInput           mRecPum_flow
     "Mass flow setpoint of the recirculation pump" annotation (Placement(
-        transformation(extent={{-140,-280},{-100,-240}}),
-                                                        iconTransformation(
+        transformation(extent={{-140,-120},{-100,-80}}),iconTransformation(
           extent={{-140,-80},{-100,-40}})));
   Controls.OBC.CDL.Interfaces.RealOutput mMakUp_flow "Makeup water flow"
-    annotation (Placement(transformation(extent={{100,-270},{140,-230}}),
-        iconTransformation(extent={{100,-80},{140,-40}})));
-  inner Modelica.Fluid.System system(p_ambient=101325, T_ambient=293.15)
-    "System-wide properties"
-    annotation (Placement(transformation(extent={{-100,-120},{-80,-100}})));
+    annotation (Placement(transformation(extent={{100,-120},{140,-80}}),
+      iconTransformation(extent={{100,-80},{140,-40}})));
+  replaceable parameter Buildings.Fluid.Movers.Data.Generic perRecPum
+    constrainedby Buildings.Fluid.Movers.Data.Generic
+    "Performance record for the recirculation pump" annotation (
+      choicesAllMatching=true, Placement(transformation(extent={{-60,-100},{-40,
+            -80}})));
+  Buildings.Fluid.Humidifiers.EvaporativeCoolers.BaseClasses.WaterBasin watBas(
+    height=height,
+    crossArea=crossArea,
+    level_target=level_target,
+    mMakUp_flow_nominal=mMakUp_flow_nominal,
+    cycCon=cycCon,
+    redeclare package MediumRecWat = MediumRecWat,
+    perRecPum=perRecPum)
+    annotation (Placement(transformation(extent={{0,-120},{20,-100}})));
 equation
-  connect(evaCooAct, swiEvaCoo.u2) annotation (Line(points={{-120,-60},{-40,-60},
-          {-40,-30},{58,-30}}, color={255,0,255}));
-  connect(dmWat_flow, swiEvaCoo.y) annotation (Line(points={{120,70},{90,70},{90,
-          -30},{82,-30}}, color={0,0,127}));
-  connect(swiEvaCoo.y, gai2.u) annotation (Line(points={{82,-30},{90,-30},{90,-80},
-          {40,-80},{40,-110},{58,-110}}, color={0,0,127}));
-  connect(mov.m_flow_in, mRecPum_flow) annotation (Line(points={{-82,-240},{-90,
-          -240},{-90,-260},{-120,-260}}, color={0,0,127}));
-  connect(gai.y, mMakUp_flow) annotation (Line(points={{62,-310},{90,-310},{90,-250},
-          {120,-250}}, color={0,0,127}));
+  connect(dmWat_flow, swiDryWetMod.y) annotation (Line(points={{120,70},{90,70},
+          {90,-30},{82,-30}}, color={0,0,127}));
+  connect(mRecPum_flow, watBas.mRecPum_flow) annotation (Line(points={{-120,-100},
+          {-80,-100},{-80,-116},{-2,-116}}, color={0,0,127}));
+  connect(watBas.mMakUp_flow, mMakUp_flow) annotation (Line(points={{22,-110},{80,
+          -110},{80,-100},{120,-100}}, color={0,0,127}));
+  connect(swiDryWetMod.y, watBas.mWatEva_flow) annotation (Line(points={{82,-30},
+          {90,-30},{90,-80},{-20,-80},{-20,-104},{-2,-104}}, color={0,0,127}));
+  connect(wetMod, swiDryWetMod.u2) annotation (Line(points={{-120,-60},{-60,-60},
+          {-60,-30},{58,-30}}, color={255,0,255}));
   annotation (defaultComponentName="padWitBas",
     Icon(coordinateSystem(preserveAspectRatio=false,
-    extent={{-100,-100},{100,100}},
+      extent={{-100,-100},{100,100}},
     grid={2,2}), graphics={Rectangle(
       extent={{-100,-100},{100,100}},
       lineColor={0,0,0},
       fillColor={255,255,255},
-      fillPattern=FillPattern.Solid), Text(
-      extent={{-100,140},{100,100}},
-      textColor={0,0,255},
-          textString="%name")}), Diagram(
+      fillPattern=FillPattern.Solid)}),
+                                 Diagram(
     coordinateSystem(preserveAspectRatio=false,
     grid={2,2},
-        extent={{-100,-340},{100,100}})),
+        extent={{-100,-140},{100,100}})),
     Documentation(info="<html>
 <p>
 This block selects the <code>nSel</code> largest values out of a total of
@@ -71,7 +87,7 @@ Boolean output <code>y = true</code>.
 </html>", revisions="<html>
 <ul>
 <li>
-June 11, 2026, by Weiping Huang:<br/>
+November 27, 2026, by Weiping Huang:<br/>
 First implementation.
 </li>
 </ul>

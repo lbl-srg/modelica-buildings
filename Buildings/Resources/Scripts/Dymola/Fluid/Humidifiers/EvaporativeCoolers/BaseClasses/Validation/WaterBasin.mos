@@ -1,0 +1,4 @@
+simulateModel("Buildings.Fluid.Humidifiers.EvaporativeCoolers.BaseClasses.Validation.WaterBasin", stopTime=86400, tolerance=1e-06, method="Cvode", resultFile="WaterBasin");
+createPlot(id = 1, position = {10, 10, 560, 500}, y = {"watBas.tan.level"}, range = {0.0, 86400.0, 0.25, 0.0}, grid = true, subPlot=101, colors = {{28,108,200}}, timeUnit="h");
+createPlot(id = 1, position = {10, 10, 560, 500}, y = {"watBas.mWatEva_flow", "watBas.mMakUp_flow"}, range = {0.0, 86400.0, 0.6, -0.1}, grid = true, subPlot=102, colors={{28,108,200}, {238,46,47}}, timeUnit="h");
+createPlot(id = 1, position = {10, 10, 560, 500}, y = {"watBas.mRecPum_flow", "watBas.tan.ports[1].m_flow"}, range = {0.0, 86400.0, 2.5, 0.0}, grid = true, subPlot=103, colors={{28,108,200}, {238,46,47}}, timeUnit="h");

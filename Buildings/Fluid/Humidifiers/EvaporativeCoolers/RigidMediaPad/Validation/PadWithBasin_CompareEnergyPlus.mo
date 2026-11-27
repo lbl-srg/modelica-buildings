@@ -8,10 +8,20 @@ model PadWithBasin_CompareEnergyPlus
   parameter Modelica.Units.SI.MassFlowRate m_flow_nominal = 2
     "Nominal supply air volume flowrate";
 
-  Buildings.Fluid.Humidifiers.EvaporativeCoolers.RigidMediaPad.PadWithBasin                            padWitBas(
+  Buildings.Fluid.Humidifiers.EvaporativeCoolers.RigidMediaPad.PadWithBasin padWitBas(
     redeclare final package Medium = MediumA,
-    final padAre=0.6)
-    "Direct evaporative cooler"    annotation (Placement(
+    final padAre=0.6,
+    redeclare
+      Buildings.Fluid.Humidifiers.EvaporativeCoolers.RigidMediaPad.Data.EnergyPlus
+      perPad(d=0.2),
+    height=0.5,
+    crossArea=2,
+    level_target=0.15,
+    mMakUp_flow_nominal=0.5,
+    cycCon=4,
+    redeclare Buildings.Fluid.Movers.Data.Pumps.Wilo.Stratos30slash1to8
+      perRecPum) "Rigid media pad with basin model"
+                                   annotation (Placement(
         transformation(origin={10,0},extent={{-10,-10},{10,10}})));
   Buildings.Fluid.Sources.Boundary_pT sin(
     redeclare final package Medium = MediumA,
@@ -71,16 +81,16 @@ model PadWithBasin_CompareEnergyPlus
   Modelica.Blocks.Math.UnitConversions.To_degC to_degCOut
     "Convert outlet temperature from Kelvin to deg C"
     annotation (Placement(transformation(extent={{100,50},{120,70}})));
-  Buildings.Controls.OBC.CDL.Logical.Sources.Constant evaCooAct(
-    final k=true)
-    "Boolean pulse signal for active evaporative cooling"
+  Buildings.Controls.OBC.CDL.Logical.Sources.Constant wetMod(final k=true)
+    "True: the rigid media pad and its basin are operating on the wet mode; false: they are operating on the dry mode"
     annotation (Placement(transformation(extent={{-40,40},{-20,60}})));
   Controls.OBC.CDL.Reals.Sources.Constant mRecPum_flow(k=2)
     "Mass flow setpoint of the recirculation pump"
     annotation (Placement(transformation(extent={{-40,-60},{-20,-40}})));
 equation
   connect(padWitBas.port_b, senTem.port_a)
-    annotation (Line(points={{20,0},{30,0}}, color={0,127,255}));
+    annotation (Line(points={{20,0},{26,0},{26,0},{30,0}},
+                                             color={0,127,255}));
   connect(senTem.T, mea.u)
     annotation (Line(points={{40,11},{40,60},{58,60}}, color={0,0,127}));
   connect(senMasFra.X, mea1.u)
@@ -102,21 +112,22 @@ equation
   connect(senMasFra.port_b, sin.ports[1])
     annotation (Line(points={{80,0},{100,0}},color={0,127,255}));
   connect(sou.ports[1],padWitBas. port_a)
-    annotation (Line(points={{-20,0},{0,0}},   color={0,127,255}));
-  connect(evaCooAct.y,padWitBas. evaCooAct) annotation (Line(points={{-18,50},{
-          -10,50},{-10,6},{-2,6}},   color={255,0,255}));
+    annotation (Line(points={{-20,0},{-10,0},{-10,0},{0,0}},
+                                               color={0,127,255}));
+  connect(wetMod.y, padWitBas.wetMod) annotation (Line(points={{-18,50},{-10,50},
+          {-10,6},{-2,6}}, color={255,0,255}));
   connect(combiTimeTable.y[9], sou.m_flow_in) annotation (Line(points={{-109,40},
           {-100,40},{-100,8},{-42,8}}, color={0,0,127}));
-  connect(mRecPum_flow.y, padWitBas.mRecPum_flow) annotation (Line(points={{-18,
-          -50},{-10,-50},{-10,-6},{-2,-6}}, color={0,0,127}));
+  connect(mRecPum_flow.y, padWitBas.mRecPum_flow) annotation (Line(points={{-18,-50},
+          {-10,-50},{-10,-6},{-2,-6}},      color={0,0,127}));
 annotation (
   Diagram(coordinateSystem(extent={{-140,-100},{140,100}})),
   experiment(StartTime=350000, StopTime=604800, Interval=60, Tolerance=1e-6),
   Documentation(info="<html>
 <p>
-This model validates the direct evaporative cooler model
-<a href=\"modelica://Buildings.Fluid.Humidifiers.EvaporativeCoolers.Direct\">
-Buildings.Fluid.Humidifiers.EvaporativeCoolers.Direct</a> against EnergyPlus results.
+This model validates the rigid media pad with basin model
+<a href=\"modelica://Buildings.Fluid.Humidifiers.EvaporativeCoolers.RigidMediaPad.PadWithBasin\">
+Buildings.Fluid.Humidifiers.EvaporativeCoolers.RigidMediaPad.PadWithBasin</a> against EnergyPlus results.
 </p>
 <p>
 The EnergyPlus results were generated using the example file <code>Direct.idf</code>

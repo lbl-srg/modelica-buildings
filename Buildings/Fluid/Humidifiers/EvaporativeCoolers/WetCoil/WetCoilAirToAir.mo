@@ -200,12 +200,6 @@ respectively. Also, the secondary air outlet conditions are not validated,
 and it is recommended that it be vented to an object acting as a sink without
 connecting any downstream components to it.
 </p>
-<p>
-A diagram for this model is shown below:
-</p>
-<p align=\"center\">
-<img alt=\"image\" src=\"modelica://Buildings/Resources/Images/Fluid/Humidifiers/EvaporativeCoolers/WetCoil/WetCoilAirToAirEvaporativeCooler.png\"/>
-</p>
 </html>", revisions="<html>
 <ul>
 <li>

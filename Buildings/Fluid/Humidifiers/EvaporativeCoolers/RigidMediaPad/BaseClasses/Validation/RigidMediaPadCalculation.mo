@@ -13,21 +13,21 @@ model RigidMediaPadCalculation "Validation of the rigid media pad calculation"
   parameter Modelica.Units.SI.MassFlowRate m_flow_nominal = 1000
     "Nominal supply mass flowrate";
 
-  Buildings.Fluid.Humidifiers.EvaporativeCoolers.RigidMediaPad.RigidMediaPadCalculation
+  Buildings.Fluid.Humidifiers.EvaporativeCoolers.RigidMediaPad.BaseClasses.RigidMediaPadCalculation
     rigMedPadCal1(
     redeclare package Medium = Buildings.Media.Air,
     final padAre=padAre,
     redeclare Buildings.Fluid.Humidifiers.EvaporativeCoolers.RigidMediaPad.Data.Generic per)
     "Instance with time-varying volume flowrate signal" annotation (Placement(
         transformation(origin={30,50}, extent={{-10,-10},{10,10}})));
-  Buildings.Fluid.Humidifiers.EvaporativeCoolers.RigidMediaPad.RigidMediaPadCalculation
+  Buildings.Fluid.Humidifiers.EvaporativeCoolers.RigidMediaPad.BaseClasses.RigidMediaPadCalculation
     rigMedPadCal2(
     redeclare package Medium = Buildings.Media.Air,
     final padAre=padAre,
     redeclare Buildings.Fluid.Humidifiers.EvaporativeCoolers.RigidMediaPad.Data.Generic per)
     "Instance with time-varying wetbulb temperature signal" annotation (
       Placement(transformation(origin={30,0}, extent={{-10,-10},{10,10}})));
-  Buildings.Fluid.Humidifiers.EvaporativeCoolers.RigidMediaPad.RigidMediaPadCalculation
+  Buildings.Fluid.Humidifiers.EvaporativeCoolers.RigidMediaPad.BaseClasses.RigidMediaPadCalculation
     rigMedPadCal3(
     redeclare package Medium = Buildings.Media.Air,
     final padAre=padAre,

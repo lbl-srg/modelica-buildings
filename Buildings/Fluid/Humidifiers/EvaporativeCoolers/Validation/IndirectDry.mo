@@ -25,13 +25,17 @@ model IndirectDry
       Buildings.Fluid.Humidifiers.EvaporativeCoolers.RigidMediaPad.Data.EnergyPlus
       perPad(d=0.2),
     dat=dat,
+    height=0.5,
+    crossArea=2,
+    level_target=0.15,
+    mMakUp_flow_nominal=0.5,
+    cycCon=4,
     redeclare Buildings.Fluid.Movers.Data.Fans.Greenheck.BIDW12 perFan,
     redeclare Buildings.Fluid.Movers.Data.Pumps.Wilo.Stratos30slash1to8
       perRecPum) "Indirect dry evaporative cooler" annotation (Placement(
         transformation(origin={-2,0}, extent={{-10,-10},{10,10}})));
-  Buildings.Controls.OBC.CDL.Logical.Sources.Constant evaCooAct(
-    final k=true)
-    "Boolean pulse signal for active evaporative cooling"
+  Buildings.Controls.OBC.CDL.Logical.Sources.Constant wetMod(final k=true)
+    "True: the rigid media pad and its basin are operating on the wet mode; false: they are operating on the dry mode"
     annotation (Placement(transformation(extent={{-80,-20},{-60,0}})));
   parameter DryCoil.Data.Generic
     dat(
@@ -103,8 +107,8 @@ model IndirectDry
     annotation (Placement(transformation(extent={{-160,-140},{-140,-120}})));
 equation
 
-  connect(evaCooAct.y, indDryEvaCoo.evaCooAct) annotation (Line(points={{-58,-10},
-          {-40,-10},{-40,0},{-11,0}}, color={255,0,255}));
+  connect(wetMod.y, indDryEvaCoo.wetMod) annotation (Line(points={{-58,-10},{-40,
+          -10},{-40,0},{-11,0}}, color={255,0,255}));
   connect(pum.port_b, TEnt.port_a)
     annotation (Line(points={{-120,30},{-100,30}}, color={0,127,255}));
   connect(TEnt.port_b, indDryEvaCoo.port_a) annotation (Line(points={{-80,30},{

@@ -47,11 +47,19 @@ model IndirectDry "Indirect dry evaporative cooler"
     dp_nominal=dp1_nominal,
     TAirIn_nominal=298.15) "Performance data for dry cooler"
     annotation (Placement(transformation(extent={{80,80},{100,100}})));
-
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput evaCooAct
-    "True: the evaporative cooling is active"
+  parameter Modelica.Units.SI.Height height "Height of the tank";
+  parameter Modelica.Units.SI.Area crossArea "Cross-sectional area of the tank";
+  parameter Modelica.Units.SI.Height level_target(min=0, max=height) "Target water level in the tank";
+  parameter Modelica.Units.SI.MassFlowRate mMakUp_flow_nominal
+    "Make up water mass flow nominal";
+  parameter Real cycCon
+    "Cycle of concentration for blowdown";
+  replaceable package MediumRecWat =
+    Buildings.Media.Water "Recirculation water medium";
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput wetMod
+    "True: the rigid media pad and its basin are operating on the wet mode; false: they are operating on the dry mode"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}}),
-      iconTransformation(extent={{-110,-20},{-70,20}})));
+        iconTransformation(extent={{-110,-20},{-70,20}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput dmWat_flow(
     final unit="kg/s",
     final quantity="MassFlowRate")
@@ -134,6 +142,12 @@ protected
       final dp_nominal=perPad.dp_nominal,
       final v_nominal=perPad.v_nominal,
       final n=perPad.n),
+    height=height,
+    crossArea=crossArea,
+    level_target=level_target,
+    mMakUp_flow_nominal=mMakUp_flow_nominal,
+    cycCon=cycCon,
+    redeclare package MediumRecWat = MediumRecWat,
     perRecPum=perRecPum)
     "Direct evaporative cooler for representing the cooling effect on the secondary air"
     annotation (Placement(transformation(origin={-10,-60}, extent={{-10,-10},{10,
@@ -149,9 +163,8 @@ equation
   connect(padWitBas.dmWat_flow, dmWat_flow)
     annotation (Line(points={{2,-54},{10,-54},{10,-30},{260,-30}},
                                                                  color={0,0,127}));
-  connect(evaCooAct,padWitBas. evaCooAct)
-    annotation (Line(points={{-120,0},{-30,0},{-30,-54},{-22,-54}},
-      color={255,0,255}));
+  connect(wetMod, padWitBas.wetMod) annotation (Line(points={{-120,0},{-30,0},{-30,
+          -54},{-22,-54}}, color={255,0,255}));
   connect(dryCoil.TLvg, TLvg) annotation (Line(points={{78,60},{140,60},{140,10},
           {260,10}},     color={0,0,127}));
   connect(weaBus, sin.weaBus) annotation (Line(
@@ -200,9 +213,9 @@ The secondary air travels through the evaporative cooler and enters the heat
 exchanger where it cools the primary fluid flowing through the heat exchanger tubes.
 </p>
 <p>
-The input variable <code>evaCooAct</code> determines whether evaporative cooling is
-active for the direct evaporative cooler. When evaporative cooling is not active
-(the rigid media pad is dry), no water vapor is added to the air.
+The input variable <code>wetMod</code> determines whether evaporative cooling is
+active. When evaporative cooling is not active (the rigid media pad is dry), no water
+vapor is added to the air.
 </p>
 <p>
 <b>Note:</b> The model works correctly only when the ports a1 and a2 are used as
